@@ -1,0 +1,3345 @@
+{
+  "scope": "86 fresh process full14phase/twoschema applications;20balancedpairs/2warmups for lifecycle groups[1]; fullgroups1/2/4 contract remains visible, no same-process largerworld/statistical verdict/#28 baseline change",
+  "python": "/usr/bin/python3.11",
+  "outputRoot": "/tmp/bendvy63-timing-paired-scale1-v1",
+  "stageRoot": "/tmp/bendvy63-ordinary-delivery-stage-v1",
+  "stagePins": {
+    "stage.json": "09ee150cbe36b049ad582e4b06829a1685ebd84140a9775b6069b6665c419bf5",
+    "experiments/public-simulation/bend-v1/spawn.bend": "27a22c89de8c295e41af5eb6441a59c60cb4ad77283d73bee054e735d0595002",
+    "experiments/public-simulation/bend-v1/store-view.bend": "888604561efc43f9966a5adf979da720e6fa9de3a8a29c9145c6a1d0c7155b83",
+    "experiments/public-simulation/bend-v1/application.bend": "b6ce4149f3ec2ba165fcf6b9b07786951c2900afb2ad685595c7590fbb080175",
+    "experiments/public-simulation/bend-v1/runtime-install.bend": "a816d435276cb528890ce60d43dc0a20cbfa6f4fc2eca05376c8f6ac0c19b325",
+    "experiments/public-simulation/bend-v1/spawn-system.bend": "51279b0229604a429d4be05e47e99973bade6086e6293e598c145090e998aba4",
+    "experiments/public-simulation/bend-v1/consumer-start.bend": "43c6d123999324f968ef5978b5bfab4773e354085ca3d18f8d403c40434a98cb",
+    "experiments/public-simulation/bend-v1/fixture-setup.bend": "6ea5ba3949e1fd44226f26a0e34dc4b21e6d8044f00d077319185c4f61b4089f",
+    "experiments/public-simulation/bend-v1/owner-view.bend": "77ec73be5360d214f49d5242981ad9135878c0736e9c69e284f86fe227261b73",
+    "experiments/public-simulation/bend-v1/storage.bend": "50a133bcc9ca0f0918a392bb6289d9bd649759b1550bc09a5f0d4ed942c695a8",
+    "experiments/public-simulation/bend-v1/systems.bend": "a254601927fc37c56c69455b518835b806af2abfade6d724bf38e6727ac5e40b",
+    "experiments/public-simulation/bend-v1/consumer-spawn.bend": "293dad20df23415e187159528e43bd57be9253f72d3316550044617324071018",
+    "experiments/public-simulation/bend-v1/world-view.bend": "d35b92be86c68fd33e898b4d69baba45cc1e03e51e60394708781c36e3004e99",
+    "experiments/public-simulation/bend-v1/cleanup.bend": "40f6e43d64b6d7db64b75414127eba883f0810536a894490b2ae40467e89267b",
+    "experiments/public-simulation/bend-v1/schema.bend": "bf8540ca974d9d1d82227ad694240ba777204af88063a7c83097de98bb3914a8",
+    "experiments/public-simulation/bend-v1/runtime-register-spawn.bend": "1616e79c53eaf0fa4bc0825b6dd6af0c59260145f7813aa0da23c34d6401457f",
+    "experiments/public-simulation/bend-v1/scenario.bend": "7b02ab82fd9dfdc9eae8673c3cb2f816b8e0a99f9fd2c7c41e4706cfffbb0994",
+    "experiments/public-simulation/bend-v1/damage.bend": "79a3e19c3ed17c06163c841201277a8bdb915b20ac7ab7e9a6a28ba76b0a5e6d",
+    "experiments/public-simulation/bend-v1/runtime-start.bend": "46f3ebe4e778cb1d201b0bbb18a71020ba4d0b32badefb4341cf0b84bf30d0cb",
+    "experiments/public-simulation/bend-v1/main.bend": "295d9ca7b5fcb27eaacbc648d81c6f75906e3476f6d21212f9694195b412b788",
+    "experiments/public-simulation/bend-v1/movement-transaction.bend": "1b13b34e25ad866c8b35199945632a0be3109385ed3ed2c7317a72a5ee433fe1",
+    "experiments/public-simulation/bend-v1/consumer-barrier.bend": "9a1113d3232908bc08f6c1c3e5ec55d7948159dae6a27ea35b5cf4823a8a2752",
+    "experiments/public-simulation/bend-v1/gameplay.bend": "a0ae9aa570d6e8bed797caceeb4aa929edcfc7dc887cbb7fe262b0ca9ba2b7c8",
+    "experiments/public-simulation/bend-v1/consumer-state.bend": "1c3169b55fb52de076e149884c0d0b571b8ef86a852fb9a8c3f538bd8e95a33b",
+    "experiments/public-simulation/bend-v1/movement.bend": "1e80488e8d5aa11a3a16187a9a9c523938509f45b058e73dba5fed01f419bcf6",
+    "experiments/public-simulation/bend-v1/scenario-actions.bend": "cc207c9e1d512a9cfcae9ebf791f4faa18f6723dfddbfc10c5105d31d12b622c",
+    "experiments/public-simulation/bend-v1/runtime-gameplay.bend": "c00373371c1768489803b1f1f8d5b760f667fc74472743f88c5fa76d503500b9",
+    "experiments/public-simulation/bend-v1/runtime-spawn.bend": "f1701c067dab11dc8985543bc2215261afb402e7c7a93ccbd0a3bb6ed32b6521",
+    "experiments/public-simulation/bend-v1/gameplay-checkpoint.bend": "8bcf4ee150e984f6170ef6a2f44fa23bd40d93b189393c2d031a6fb6cdc96cb0",
+    "experiments/public-simulation/bend-v1/consumer-gameplay.bend": "2c3ef2956685567d218ad61ca6604491164071f7fd9418655714625eb9473d78",
+    "experiments/public-simulation/bend-v1/damage-body.bend": "19e94b15313723d0fec9f1d316672b269c6a1a0d42100d42aed48a88f9bf8f3c",
+    "experiments/public-simulation/bend-v1/geometry.bend": "fdfac549322d458d0ca0eeb8fa1c12f99800443c7b2ca5c8212bacc1aa4d0c97",
+    "experiments/public-simulation/bend-v1/step.bend": "554c0de229a2be8ced732f7b9096b6934482642413ff9f92aa9130a27c64f786",
+    "experiments/public-simulation/bend-v1/events.bend": "a0054945b4028cf83616bdda5d07c1f3b36d51e5f887bd07ee4754889452bd73",
+    "experiments/public-simulation/bend-v1/runtime-checkpoint.bend": "cbc65cdd7a7851368bad3afdd4775e3345285fdf208f87eee71cb836231a051b",
+    "experiments/public-simulation/bend-v1/checkpoint.bend": "3c477cde3b6ead2ea87a05f4025f8b3f83dec873792b34433c614b08deef9f2a",
+    "experiments/public-simulation/bend-v1/gameplay-run.bend": "18d2428176d2259719c0111686c6c631e432db8cb20ceb6db48eff3793d00afe",
+    "experiments/public-simulation/readers-v1/pair.bend": "85f8daa0adf05f41428061c5258d4f59bb996907806b63d5d58c1a3be435baaa",
+    "experiments/public-simulation/readers-v1/readers.bend": "ae4ba08f5ecc129dd0eea33da423a1ed234cbc5ce3bfcc013ae74aa24796847d",
+    "src/ecs/world-io.bend": "4cb99615ad5177439b60cb659be2d5bc95ff02dc9cf55c162c2470e6d0f19a2a",
+    "src/ecs/relation-types.bend": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+    "src/ecs/machine.bend": "6a2e806c583dfa0bfd8f169bb18deabce673470a2b8b11e9564ffd572de4eb13",
+    "src/ecs/machine-conditions.bend": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+    "src/ecs/relation-query.bend": "c6b7e02e103b5208245975cda2891e55cd9bffeb9726d11038cc5cb40c258760",
+    "src/ecs/inspector-declaration.bend": "3d54afa64349a94b51910e64b49ce1c41a4d6fa2770364511e28709acb1b9f6e",
+    "src/ecs/world.bend": "bcdf3710dc359cd66496c890574cd87dad51ccd2f6d5c62fd273880477239d7b",
+    "src/ecs/bundle-requests.bend": "ba9b129f366fb4dd8cfa108270ab705c7bc9eeadc868ced25f3ed277948233d7",
+    "src/ecs/provider.bend": "1ef6203001f74477f07b2eb7e2a74ff9b3e1af275b18a2044eb08c809e08b53d",
+    "src/ecs/machine-stream.bend": "8391e4d90cf00ace02ca371f8156c04d829d98cdf5654cdb41ee3ff1fdde9a5d",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "src/ecs/relation-reorder.bend": "863c894df36ca5ee89bc3e88765077f6dac20c51bc4153b0a6faa3e81115e5fe",
+    "src/ecs/bundle-insert-adapter.bend": "a82439a661180adb8888f909967473ce52a738476e730e9a627e950217c8b84e",
+    "src/ecs/bundle-construction.bend": "c5ebb6254c0be3a0973cb58feadf7671f5e200d579cdf47952620dc8f3dece40",
+    "src/ecs/compose.bend": "ca34079800861ff25071e7beaba8a9fbf0f7c78b5c40bed08c68a281b1158ba1",
+    "src/ecs/machine-handlers.bend": "431617d707521501c071a84116fd13a35b47eccf6cf4e3300b543088ac89d24e",
+    "src/ecs/component.bend": "6e38590e98e6c4d22cf9888fb66fcec10e82f7f09e5f0862ff612f7e57fc0cf6",
+    "src/ecs/relation-providers.bend": "c038530f9c2c63fa68e5fd8ef130f41cb46367220e5ccb872b7b0590877fa9cd",
+    "src/ecs/machine-handler-bundle.bend": "4b88a91999da90327bfe1b8f25033b9187b17cea0046cd67d83ee9d2e6e4fc77",
+    "src/ecs/check.bend": "852d6b31fc882fd1bc1b217afa12b7e94b182dce17fdd97f2121bf80eb2db543",
+    "src/ecs/inspector-definition.bend": "a2b9943164a159bd90aa7bcac81815b88358b0bb45f1d11be8dcb00f2b85b592",
+    "src/ecs/optimized-compose.bend": "05ea8ce8e74759c59ac8ce78fc9c5390384208917bd05f4de6fbeccd27a43f67",
+    "src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+    "src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+    "src/ecs/indexed-lifecycle.bend": "1e7fe2f5bd934bd4fd627d91df5e96ca70afc16ba80c2296f73489903c418012",
+    "src/ecs/relation-reorder-core.bend": "22171f3a512096cb58d0be910dfd316d2e94dc4613318dd27c4c5076e0d154f3",
+    "src/ecs/owned-optimized-compose.bend": "7d9d3d521ae2107b76b67f818b26dfdf396107a4af3c953118b815cb411136fb",
+    "src/ecs/relation-commands.bend": "6a30d78086d933bfd8340cf0e021c372bc2054729f2215cdf72d1e0de39e29af",
+    "src/ecs/feature-provision.bend": "430b9a1a382c4b78e4eaeb11a838b3f1cd01b5c3042ec83a72364815886a2b9d",
+    "src/ecs/relation-cleanup.bend": "e222a869f8c815af9bb9cc9f176f7041b6f135f11cd5d801d5311a91a4f0f595",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/bundle-provider.bend": "ae4f70f8e94da11d9933dcfd6c00d747339bdbdc5ff3edf99c7eb74e94baa8b7",
+    "src/ecs/reader-domains.bend": "d518030c03f5c6458f72ceb6dedd4f279db0d68864ef2ba149a537b286321550",
+    "src/ecs/inspector-query.bend": "ffacf241faf84a0e317965056dde51cc5577ee6e87b18c7bf5e90b4bf3e79b10",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/bundle-delivery.bend": "df0feca87b9c7dc9f3529c8c7fcdf066004ad3df08aab441d9d2ada3186f7cc1",
+    "src/ecs/bundle-pack.bend": "a900386d18d9e741ec9001dee0c8203366e6feac706b15db9db755a95e96f8f0",
+    "src/ecs/query.bend": "af4ed4f0c540faf96058456b7959c5ef93466d1e0331a1379040cff96b7f7b7a",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/captured-column.bend": "9f21c3e3883a33e26bffb1970a033bcec73d7bb0291c730de7099a909af001b6",
+    "src/ecs/bundle-install.bend": "3262cbc95fbc3b2c30d6124327018ded6a587e6b8e76add037f1607d290f67b6",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/bundle-component-install.bend": "c9e6407fb0a33ffa3ca39ca51df9249035b56c75d90ad5024f43b1744e06d052",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/owned-family.bend": "97e664e7e64115bee881d4a03a9516a0e37bf47f90935706f9273c3c2c0c2f86",
+    "src/ecs/bundle-batch.bend": "11b0ca46d9cfb97857c5d1aaefe229cf0712277d26080b4a4414cdcfb4adb59e",
+    "src/ecs/inspector-query-projection.bend": "b82cf8dda32b7b387024f320cba05bef35cda5b563b4ecbd54958564c5cb0f0d",
+    "src/ecs/inspector.bend": "bdc060ca314e15c0ead63fd516a0bbc49c029e940bbc3415030e3bc19b62cfe1",
+    "src/ecs/owned-compose.bend": "77215b2facf362a993ad65bf58a0f0d30d24759c26164b350a5d1f120e57c022",
+    "src/ecs/column.bend": "96dd046c721b62c73edeb345d5ae26c64309ec592387a5eb1cd9e43051bd5f74",
+    "src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+    "src/ecs/query-contract.bend": "b30eb74064fcbfd8cec533d5c56f2b5fb946f51da686fb8be4d64d166c52a1c3",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "src/ecs/feature.bend": "be03fb80093190ed1bc963a7f6516195c189921a56694b998ec3325e35c9091d",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/row-column.bend": "275caca218635a96c92a6967686023c1f50c26210b6d13a9f01cf6bd78c7e694",
+    "src/ecs/capabilities.bend": "2edb2855c79209a630c466ca595e620d39e32e9f2a436328cddbf4ac55925604",
+    "src/ecs/machine-world.bend": "c142e4c215b026cbc09bedec26bb2aa5924d5a0958355b45bb246c9f6e0d6d40",
+    "src/ecs/restored-row.bend": "e91cecd76df27f37979f83a24934f4112436e1a0643f0dc13712c90c6edff81d",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/inspector-metadata.bend": "f89d004b3cc83adbde5e4a546a37a1b68a9a8ae16af084fa1954facc7d678407",
+    "src/ecs/schedule-provision.bend": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/relation-graph.bend": "11dd6be2471a8266f69305dae2b530e89926e340d5e5349c37e72ded6a295cbe",
+    "src/ecs/schema-fragments.bend": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+    "src/ecs/state.bend": "adb12dfe553e2b5297e1b40328011d58dad625d46b94e4a62b6982a77da99100"
+  },
+  "pins": {
+    "/workspace/formal-proofs/bendvy/scripts/owned-tool-pins.py": "b46b0a25bccf5e1496b86bbdc921d60ea5d5f5108bb62ee8ebf20f939db6f9fd",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/spawn.bend": "27a22c89de8c295e41af5eb6441a59c60cb4ad77283d73bee054e735d0595002",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/application.bend": "b6ce4149f3ec2ba165fcf6b9b07786951c2900afb2ad685595c7590fbb080175",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/controls-v1/finite-controls-v1/evidence.tar.gz": "2cec35d2a7ee6f0d604ec1f6d8cb9f0f41ce43d2a7a5e0de76d0f9accac42eb5",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/runtime-start.bend": "37b54e9bc5f8579c99dfe1bde0e6a924f955101923a22d2e8cbf59f584f3b00c",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/world-view.bend": "d35b92be86c68fd33e898b4d69baba45cc1e03e51e60394708781c36e3004e99",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/development-evidence.tar.gz": "53fc06fa1bfc9c54a77467f7eb7be464c1576037e57fb0c8bb9fea0c717013cf",
+    "/workspace/formal-proofs/bendvy/src/ecs/check.bend": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f",
+    "/etc/ld.so.conf": "d4b198c463418b493208485def26a6f4c57279467b9dfa491b70433cedb602e8",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/feature-provision.bend": "430b9a1a382c4b78e4eaeb11a838b3f1cd01b5c3042ec83a72364815886a2b9d",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/brand.ts": "7b888113edd48ea9777880fa85fc159428b78ac82587ca43eda8f1bbec4cc1b0",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-insert-adapter.bend": "a7ed3cc40a904e516cdf8c63dc2afa066598c47ba6760b558e0646dc3958ad67",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/machine-handler-bundle.bend": "4b88a91999da90327bfe1b8f25033b9187b17cea0046cd67d83ee9d2e6e4fc77",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-cleanup.bend": "e222a869f8c815af9bb9cc9f176f7041b6f135f11cd5d801d5311a91a4f0f595",
+    "/workspace/formal-proofs/bendvy/.references/sources.json": "5d4d89ca984a2eb21e21715344219bb9caa022b6bebca0c9f8959584cceb8b8f",
+    "/workspace/formal-proofs/bendvy/src/ecs/restored-row.bend": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/capabilities.bend": "2edb2855c79209a630c466ca595e620d39e32e9f2a436328cddbf4ac55925604",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/row-column.bend": "275caca218635a96c92a6967686023c1f50c26210b6d13a9f01cf6bd78c7e694",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-graph.bend": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+    "/usr/bin/taskset": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend": "fe11471686751792c2939bea532f26138492f097d61c9b6200dc58a4580ef614",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/gameplay-run.bend": "18d2428176d2259719c0111686c6c631e432db8cb20ceb6db48eff3793d00afe",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/state.bend": "adb12dfe553e2b5297e1b40328011d58dad625d46b94e4a62b6982a77da99100",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+    "/workspace/formal-proofs/bendvy/src/ecs/owned-family.bend": "1fe504b1130eed24fb0c1dfc9bf7c6de0ab0f855d4adf30694a1f6b3c634f7e1",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/damage-body.bend": "19e94b15313723d0fec9f1d316672b269c6a1a0d42100d42aed48a88f9bf8f3c",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-construction.bend": "c5ebb6254c0be3a0973cb58feadf7671f5e200d579cdf47952620dc8f3dece40",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/schema-fragments.bend": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+    "/etc/ld.so.conf.d/libc.conf": "90d4c7e43e7661cd116010eb9f50ad5817e43162df344bd1ad10898851b15d41",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/consumer-spawn.bend": "f9bf98abb56d0eca4d8579e76cd30a06673cffd18ab845276f4faaf3a2bea713",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/definition.ts": "543dee934661802fb57cb75a8faec653112433a566ce31231fca33ffa8d36f92",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-commands.bend": "6a30d78086d933bfd8340cf0e021c372bc2054729f2215cdf72d1e0de39e29af",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/events.bend": "a0054945b4028cf83616bdda5d07c1f3b36d51e5f887bd07ee4754889452bd73",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/provider.bend": "1ef6203001f74477f07b2eb7e2a74ff9b3e1af275b18a2044eb08c809e08b53d",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-install.bend": "3262cbc95fbc3b2c30d6124327018ded6a587e6b8e76add037f1607d290f67b6",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/gameplay.bend": "a0ae9aa570d6e8bed797caceeb4aa929edcfc7dc887cbb7fe262b0ca9ba2b7c8",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/geometry.bend": "fdfac549322d458d0ca0eeb8fa1c12f99800443c7b2ca5c8212bacc1aa4d0c97",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/world.bend": "bcdf3710dc359cd66496c890574cd87dad51ccd2f6d5c62fd273880477239d7b",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/package.json": "ff20948e9c79ec1362eddf348aeb707216b7b2645fdfe09fbe9f1318e7c4a770",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/readers-v1/readers.bend": "2f98132fd68953fa33f76ab9b78502fdc0b59b1edc015c0f3eca2c21324f051d",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/optimized-compose.bend": "05ea8ce8e74759c59ac8ce78fc9c5390384208917bd05f4de6fbeccd27a43f67",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend": "77ec73be5360d214f49d5242981ad9135878c0736e9c69e284f86fe227261b73",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/fixture-setup.bend": "e04af38b45097bbba12e86455eee200be0ddec1feb87ff4cd6ad9086dc72b44e",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/main.bend": "295d9ca7b5fcb27eaacbc648d81c6f75906e3476f6d21212f9694195b412b788",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/check-control-reuse.py": "37d6ad91ea0e5f81d891ad73d669c7fe24f7dfe850a16dce3dc8558676067178",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/machine-stream.bend": "8391e4d90cf00ace02ca371f8156c04d829d98cdf5654cdb41ee3ff1fdde9a5d",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/inspector-metadata.bend": "f89d004b3cc83adbde5e4a546a37a1b68a9a8ae16af084fa1954facc7d678407",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/scenario.bend": "f44e075517ae5361aa4eac6e9de907849430b4db4e252445192e3c2cf087091c",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/runtime-register-spawn.bend": "88167ee657479a86ab80c8cc34d6765f6f8d4894f205cea430e9525c1692a599",
+    "/workspace/formal-proofs/bendvy/src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-reorder.bend": "2d58a3d76aaa955044b39f6cafcfdbbda6a4b20415bea8b4041193072a35d9dd",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/cleanup.bend": "543f4df77368d5df3a7380caa05ab112e2f8e09d7c15d3403e48e1fb2bcc0996",
+    "/workspace/formal-proofs/bendvy/src/ecs/feature.bend": "be03fb80093190ed1bc963a7f6516195c189921a56694b998ec3325e35c9091d",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/movement.bend": "8e12b03c71ad136d387312720e261f6e91404d1364a49b8b8b8b8593222a9184",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/stage.json": "09ee150cbe36b049ad582e4b06829a1685ebd84140a9775b6069b6665c419bf5",
+    "/workspace/formal-proofs/bendvy/src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/queries.ts": "382ce3b334df1bb7f4d0c4c19c17827b2343cae8a68ba7f562e9e732b6a5a4ab",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector-declaration.bend": "835bedcfac18d3a567b06fc5ee4e4cfdfcb804d0701ca86e6e155b2760189997",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/machine.bend": "6a2e806c583dfa0bfd8f169bb18deabce673470a2b8b11e9564ffd572de4eb13",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/machine-handlers.bend": "431617d707521501c071a84116fd13a35b47eccf6cf4e3300b543088ac89d24e",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/runtime-spawn.bend": "f1701c067dab11dc8985543bc2215261afb402e7c7a93ccbd0a3bb6ed32b6521",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/consumer-barrier.bend": "a88f3afeba46a3690023bfc103ffcb4e701ade190f299edd662f620116bf53bb",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/movement-transaction.bend": "754f4b90f226e61aa83f6caeda63e0f89cfdfa1324d4036f44f300ddcbc68570",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-component-install.bend": "c9e6407fb0a33ffa3ca39ca51df9249035b56c75d90ad5024f43b1744e06d052",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Descriptor.ts": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/checkpoint.bend": "3c477cde3b6ead2ea87a05f4025f8b3f83dec873792b34433c614b08deef9f2a",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/store-view.bend": "1b066e403614285a81dd8f81f224f8f9b11fd0d7cc82cbfb67433f4c55c9b8a3",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/runtime-checkpoint.bend": "cbc65cdd7a7851368bad3afdd4775e3345285fdf208f87eee71cb836231a051b",
+    "/usr/bin/env": "67a8c7fac47281a5ee335366bcd12f31aa7eeca008cef6eccad38304753ddee9",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-reorder-core.bend": "be833923be7481a6bf002723b857d69ebfae6861394021947138d2bb01166f6a",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/consumer-gameplay.bend": "2c3ef2956685567d218ad61ca6604491164071f7fd9418655714625eb9473d78",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/test-delivery-transport.py": "b19085f8217a5b7406bb02b00c472470fbeafbb56b0a4a98120924cc3dadbcaa",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/package.json": "3f0b043057510024d301b5354ecf4d20ef350fe82d982da58c4f79224a2a5df5",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/owned-compose.bend": "77215b2facf362a993ad65bf58a0f0d30d24759c26164b350a5d1f120e57c022",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/runtime-install.bend": "a816d435276cb528890ce60d43dc0a20cbfa6f4fc2eca05376c8f6ac0c19b325",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/reference-v1/inputs.json": "3358b460a844d02a6f8a0dd4c10dc4814ef330bed05cb756b3e2cfbef51d3a14",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/events.bend": "a0054945b4028cf83616bdda5d07c1f3b36d51e5f887bd07ee4754889452bd73",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/step.bend": "94df8b03b49b7d5f3071c481bbc3d85a7a771a7abb1c95e65b8cd93ff3ea5bce",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Inspector.ts": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3",
+    "/workspace/formal-proofs/bendvy/src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/fixture-setup.bend": "6ea5ba3949e1fd44226f26a0e34dc4b21e6d8044f00d077319185c4f61b4089f",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/reference-v1/expected.stdout": "9aea2ef9b3157f12f7c6da92513a3887cdf4b152b39324a005bfb4374fee6fd3",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/compare-ts.py": "10bcc08e226831550f88d57e31dcaab0b344adb29f7759693660c84ec5229234",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "/workspace/formal-proofs/bendvy/src/ecs/feature-provision.bend": "430b9a1a382c4b78e4eaeb11a838b3f1cd01b5c3042ec83a72364815886a2b9d",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/scenario.bend": "7b02ab82fd9dfdc9eae8673c3cb2f816b8e0a99f9fd2c7c41e4706cfffbb0994",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/owned-optimized-compose.bend": "7d9d3d521ae2107b76b67f818b26dfdf396107a4af3c953118b815cb411136fb",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/runtime-register-spawn.bend": "1616e79c53eaf0fa4bc0825b6dd6af0c59260145f7813aa0da23c34d6401457f",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-handler-bundle.bend": "04003a6575f7d478111062d83af0839bd402bfe1d2118c56fab0a609cd8173a8",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/inspector.bend": "bdc060ca314e15c0ead63fd516a0bbc49c029e940bbc3415030e3bc19b62cfe1",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/damage.bend": "e144acd258d0ed81b98e981eae5b0fee8b32dc08456921a50a5f58bd2bfa4d70",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Condition.ts": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/captured-column.bend": "9f21c3e3883a33e26bffb1970a033bcec73d7bb0291c730de7099a909af001b6",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-cleanup.bend": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "/workspace/formal-proofs/bendvy/src/ecs/row-column.bend": "f3846a5378958c522d4053f13f7af4898a8a60c76f7534b060f020adca631f72",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/gameplay-checkpoint.bend": "8bcf4ee150e984f6170ef6a2f44fa23bd40d93b189393c2d031a6fb6cdc96cb0",
+    "/workspace/formal-proofs/bendvy/src/ecs/state.bend": "301fc0aea3ecfd95b1253fe48f51b3a11e23345bfc0bb449b3287ddbc997f694",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Debug.ts": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Schedule.ts": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/reference-v1/expected.json": "07db59855e3647c6f85c7fb8cc1b217a3ea93550acabd4084d329a908521bf20",
+    "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-requests.bend": "ba9b129f366fb4dd8cfa108270ab705c7bc9eeadc868ced25f3ed277948233d7",
+    "/workspace/formal-proofs/bendvy/src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "/etc/ld.so.cache": "cce00a2673d1ead97c15cb4d69accaac7a1a866cdf997a0ac858825bdee1b8ea",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Machine.ts": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/prepare.py": "9ec7de6e1c811e275639a2873999891e892dcff96c053550835fc720d7fa9531",
+    "/workspace/formal-proofs/bendvy/src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "/workspace/formal-proofs/bendvy/src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/check.bend": "852d6b31fc882fd1bc1b217afa12b7e94b182dce17fdd97f2121bf80eb2db543",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-install.bend": "69845857ee62856ffdd72a876fa5c259034ee512a0d1d430c26169b5ffb6061e",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/storage.bend": "50a133bcc9ca0f0918a392bb6289d9bd649759b1550bc09a5f0d4ed942c695a8",
+    "/workspace/formal-proofs/bendvy/src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/game.ts": "b1584dbe4c579783e4b2fae802a25e6af95384972e15ffccd2b868d6ba879773",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/step.bend": "554c0de229a2be8ced732f7b9096b6934482642413ff9f92aa9130a27c64f786",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector-metadata.bend": "a2c715edcfefff6f3f5abcd84e5293c7ebf29521708f2298fe90bff36b96ad4a",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/reference-v1/reference.mjs": "ab10e9c0ee4913b3a42c71e6f34c1f142110014fd92e6dd69236e65e770c7fd5",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/owned-family.bend": "97e664e7e64115bee881d4a03a9516a0e37bf47f90935706f9273c3c2c0c2f86",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-world.bend": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/fragments.ts": "4220e09fcc78e50cecd05ec373f57a278a5c33fbd51c53cbb2f7d57c6593ba68",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/consumer-start.bend": "34a302a1bb25c3ca3348957bd27a0d3dfa599f35ca2507349564a6ac1007dd10",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/test-delivery-admission.py": "2cc96579e360bb3ac1d4a79ba858c284029bbb936286c1a2c2a5fb4f572a558c",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/runtime-gameplay.bend": "7327fe4ff9a616e2c0fa1f663ea1c94f50a92fd742e3796872bae9836dc5ff22",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Definition.ts": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/parse-report.py": "b9366c499da4cb11360464d068bce653972c3a50b6c6042e92f54f3a6e487110",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-handlers.bend": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/damage.bend": "79a3e19c3ed17c06163c841201277a8bdb915b20ac7ab7e9a6a28ba76b0a5e6d",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/spawn.bend": "fe569ece07bbfb1e4f6b34562e035b2a2034bff203adf1abfa907a150dcf770e",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/component.bend": "6e38590e98e6c4d22cf9888fb66fcec10e82f7f09e5f0862ff612f7e57fc0cf6",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector-definition.bend": "d4f269a5da1f98203e2466744b31d581c3ed7b7d9dbdbce7a08ea70232133d5c",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-query.bend": "e9c129a5404ab2eabc0d39f57364036cfc3f3c8c68e520cb679419b39bd98800",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-component-install.bend": "cc5f6bccf5c012c7ffc5f104fa174e5f36194aba7a644d409f4caaf929fce938",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/development-evidence-index.json": "d77b022622d1a13ea744014d8876f8ede68103634bc22818f317952df6336551",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/column.bend": "96dd046c721b62c73edeb345d5ae26c64309ec592387a5eb1cd9e43051bd5f74",
+    "/tmp/bendvy-clang19-diagnostic/clang19": "3e171a978d6c1decae4e6645e9bfb771cf5af21ff699ea119fdb058936b0af2d",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-provider.bend": "3aa34afa2cd7c3f1ac3e1c9a66df5be1518d3c763e76e26e61cd24c95e1d39fc",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/reader-domains.bend": "d518030c03f5c6458f72ceb6dedd4f279db0d68864ef2ba149a537b286321550",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/scenario-actions.bend": "cc207c9e1d512a9cfcae9ebf791f4faa18f6723dfddbfc10c5105d31d12b622c",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/runtime-start.bend": "46f3ebe4e778cb1d201b0bbb18a71020ba4d0b32badefb4341cf0b84bf30d0cb",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/result.ts": "87570330858b0b41bed22be9661bd9e3b04f67e7004998082e6a83cbb1ce1c89",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/readers-v1/readers.bend": "ae4ba08f5ecc129dd0eea33da423a1ed234cbc5ce3bfcc013ae74aa24796847d",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Requirement.ts": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/damage-body.bend": "c4dc53c5563b0921918a06ab79c9867b0a90c388d1fc73995accd3d1666cd2b9",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/compose.bend": "ca34079800861ff25071e7beaba8a9fbf0f7c78b5c40bed08c68a281b1158ba1",
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-pack.bend": "a900386d18d9e741ec9001dee0c8203366e6feac706b15db9db755a95e96f8f0",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Relation.ts": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector.bend": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+    "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/gameplay.bend": "936e7be58c3a4c102b4dfa62ffcae04bc1dfaf332763d9c237fa1841aa786d3a",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/geometry.bend": "fdfac549322d458d0ca0eeb8fa1c12f99800443c7b2ca5c8212bacc1aa4d0c97",
+    "/home/node/.bend/bin/bend-2.0.35": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/world-io.bend": "4cb99615ad5177439b60cb659be2d5bc95ff02dc9cf55c162c2470e6d0f19a2a",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/consumer-spawn.bend": "293dad20df23415e187159528e43bd57be9253f72d3316550044617324071018",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-conditions.bend": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Fx.ts": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/main.bend": "46729cfd57a6a77622edbf47a2e02957758882ce8c051478fe728fd62060abf8",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-requests.bend": "7fbf0265e2b48af86f62ba936f24964b1f6b20b6ed92029433ea02c0a77c353c",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/debug.ts": "944a9858586dcf8ad58e66efd92b05c437c0be23afe517fabe00642d7bf4e338",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-providers.bend": "c038530f9c2c63fa68e5fd8ef130f41cb46367220e5ccb872b7b0590877fa9cd",
+    "/usr/bin/aarch64-linux-gnu-ld.bfd": "6d5b4ab9086f723980eb4feceeb4ba6399729c0f61aaf6cf6c4edf9339c98b19",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/query.bend": "af4ed4f0c540faf96058456b7959c5ef93466d1e0331a1379040cff96b7f7b7a",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/prepare-delivery.py": "2e98b62b437056c32fd8ea4eba268101f06d86af1dcd4ebfcfb8648ac93753ee",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/owner-view.bend": "77ec73be5360d214f49d5242981ad9135878c0736e9c69e284f86fe227261b73",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/runtime-spawn.bend": "e07514bad097689e6fef034ab52cbc4d0917f8b60559badfc31e1ce6b7e31bf1",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/scenario-actions.bend": "cc207c9e1d512a9cfcae9ebf791f4faa18f6723dfddbfc10c5105d31d12b622c",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/readers-v1/pair.bend": "0935b80e3b3391d0c80eed504e8d04f0828720ffb724f154c78a818feaa57850",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/reference-v1/evidence/corrected-oracle-v1/receipt.json": "11815950d7289758b6017b2f6c2dc19b2aae4f62424118c5b85329e91df24f1a",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/EntityScope.ts": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/cleanup.bend": "40f6e43d64b6d7db64b75414127eba883f0810536a894490b2ae40467e89267b",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/movement.bend": "1e80488e8d5aa11a3a16187a9a9c523938509f45b058e73dba5fed01f419bcf6",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-batch.bend": "11b0ca46d9cfb97857c5d1aaefe229cf0712277d26080b4a4414cdcfb4adb59e",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/checkpoint.bend": "6322002c5fad188330858f784528597e696fc1ad121b54cb995274cac2166179",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/inspector-query.bend": "ffacf241faf84a0e317965056dde51cc5577ee6e87b18c7bf5e90b4bf3e79b10",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/runtime-checkpoint.bend": "5ae188bfce0d6c43a6a4134729ae89f06973237b17808322b6dbf067df0d7acd",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-types.bend": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend": "659fbf766f2d4d3768a0342ab30925c52b83fd28e79facc9868b5382a5048a59",
+    "/workspace/formal-proofs/bendvy/src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/query-contract.bend": "b30eb74064fcbfd8cec533d5c56f2b5fb946f51da686fb8be4d64d166c52a1c3",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/schedule-provision.bend": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/run-delivery.py": "92af8deb2d2ab98ca457ff7aa668bfe99098b085773af6e2536586f1a8cb64f0",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/consumer-barrier.bend": "9a1113d3232908bc08f6c1c3e5ec55d7948159dae6a27ea35b5cf4823a8a2752",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/consumer-gameplay.bend": "8adb9fe2327e2e57be4a6d17f6fbfbb77f5a74a7742e1ad992344ca283a955fc",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/readers-v1/pair.bend": "85f8daa0adf05f41428061c5258d4f59bb996907806b63d5d58c1a3be435baaa",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/movement-transaction.bend": "1b13b34e25ad866c8b35199945632a0be3109385ed3ed2c7317a72a5ee433fe1",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Schema.ts": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/candidate-source-correction.json": "ca4e7d1ce8fd4e3ff42c170892898a77b9b0f08b4e2a17ce5b3cd4783975bf00",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/source_evidence.py": "a81ed6e9b41414759e3d2d347752d926bbc14cf0210ba891062034d507e9098a",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/runtime-install.bend": "9819a39aa7d84150a6a78135da2a98d143a7891f2ed0e2d22784a8be064306a2",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/consumer-state.bend": "c460d1f715eb1fc86dfe7836a705f6c542a6c3af6e10fcd2f5be27987b861332",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/store-view.bend": "888604561efc43f9966a5adf979da720e6fa9de3a8a29c9145c6a1d0c7155b83",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+    "/usr/bin/bash": "f5918390c5b15392ad8835e8368a79c1ee9937fbb19f2349cccf5d4524183299",
+    "/etc/ld.so.conf.d/aarch64-linux-gnu.conf": "0a4000ec63eff65b2a41d8cab5688b6bd81efab5fbcabd72036ece1d227bf08a",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/systems.bend": "eedb3686a0c18fc8153a0de83a394f6b680c39fc4d294da28eb12a82bf0c61e0",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-insert-adapter.bend": "a82439a661180adb8888f909967473ce52a738476e730e9a627e950217c8b84e",
+    "/workspace/formal-proofs/bendvy/src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/restored-row.bend": "e91cecd76df27f37979f83a24934f4112436e1a0643f0dc13712c90c6edff81d",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-graph.bend": "11dd6be2471a8266f69305dae2b530e89926e340d5e5349c37e72ded6a295cbe",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/CONTROL-REUSE.json": "4525702778d861b1ff904e9fa6090082b73d6a60e416a974a61c351b4a804338",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/inspector-query-projection.bend": "b82cf8dda32b7b387024f320cba05bef35cda5b563b4ecbd54958564c5cb0f0d",
+    "/workspace/formal-proofs/bendvy/src/ecs/reader-domains.bend": "1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-delivery.bend": "df0feca87b9c7dc9f3529c8c7fcdf066004ad3df08aab441d9d2ada3186f7cc1",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/machine-world.bend": "c142e4c215b026cbc09bedec26bb2aa5924d5a0958355b45bb246c9f6e0d6d40",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/schema.bend": "a6fd6773a44c96e40dc22c3b899eeb064f37058350c4852bd14068d4ecd379f6",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/prepare-metadata.py": "658df30add9dcdb7ee3769c20e1e1350bdf440b975ad41263225c4a7f904ec89",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/controls-v1/finite-controls-v1/README.md": "76d05a49472dbcf563bbff5ad2aa86fe1259149169e0a749172c6af29b76829f",
+    "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+    "/workspace/formal-proofs/bendvy/scripts/receipt-logs.py": "fdb39388e409f2fe39d5785345739c681982f3aa98c9d5cc03e5544c8d5ec891",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/controls-v1/finite-controls-v1/selection.json": "f561b859ff1c7042e77c82ce5c7d36f27ebb899e088c47fe90bf5e75798a6412",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/spawn-system.bend": "9bf460f5a21ed75330c87d1daa8b108aaeaf07fe281a4469680c5565bc3eaa02",
+    "/workspace/formal-proofs/bendvy/src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-pack.bend": "a900386d18d9e741ec9001dee0c8203366e6feac706b15db9db755a95e96f8f0",
+    "/workspace/formal-proofs/bendvy/src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Feature.ts": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine.bend": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-query.bend": "c6b7e02e103b5208245975cda2891e55cd9bffeb9726d11038cc5cb40c258760",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/inspector-definition.bend": "a2b9943164a159bd90aa7bcac81815b88358b0bb45f1d11be8dcb00f2b85b592",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Entity.ts": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/application.bend": "4ef0ab42a99bc7c9741fc7077f5da455e2bdaf2f24ba5f4070670135b46b022f",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Decode.ts": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/gameplay-checkpoint.bend": "8bcf4ee150e984f6170ef6a2f44fa23bd40d93b189393c2d031a6fb6cdc96cb0",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-provider.bend": "ae4f70f8e94da11d9933dcfd6c00d747339bdbdc5ff3edf99c7eb74e94baa8b7",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Snapshot.ts": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/world-view.bend": "177c797aeed2c6a6e7ace033f80597bd5a5ca9def7fbdfc6567ac35407eeb4ab",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/compare.py": "1f37d696bebd2992573ff1b626dce7ac4ff28b2d055511df40371cc9daa5592c",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Brand.ts": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/controls-v1/finite-controls-v1/verify.py": "36a61352135f28de208cf32f3797cf53c3608da023dae43272b5c8ec298f3eb9",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/storage.bend": "cf82b7b3d0e8dd11896c54275f6c4a1e3036c007934a971b39d220e047e6bb07",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend": "4cb99615ad5177439b60cb659be2d5bc95ff02dc9cf55c162c2470e6d0f19a2a",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/consumer-state.bend": "1c3169b55fb52de076e149884c0d0b571b8ef86a852fb9a8c3f538bd8e95a33b",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/cells.ts": "adbf5e99cb1d40e284aee9ce3b1ddeefdcb10e0e1420be5bda91f58a96afe41e",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "/workspace/formal-proofs/bendvy/src/ecs/owned-compose.bend": "1115ffe6db7a1940b53889f53df09cff7fd43a3d244e07b843ea9094f62d31c7",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-reorder.bend": "863c894df36ca5ee89bc3e88765077f6dac20c51bc4153b0a6faa3e81115e5fe",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/feature.bend": "be03fb80093190ed1bc963a7f6516195c189921a56694b998ec3325e35c9091d",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/gameplay-run.bend": "e00b6bb6bdf08521dcc4049542a9dc8dc96d4b0758699bcf79c9b55198031409",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-providers.bend": "6a69de7d29d0a150446689228878f19df5b6d2fdefdfcb2eb1ce1048246ac594",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/systems.bend": "a254601927fc37c56c69455b518835b806af2abfade6d724bf38e6727ac5e40b",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/inspector-declaration.bend": "3d54afa64349a94b51910e64b49ce1c41a4d6fa2770364511e28709acb1b9f6e",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/indexed-lifecycle.bend": "1e7fe2f5bd934bd4fd627d91df5e96ca70afc16ba80c2296f73489903c418012",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/independent-expected.json": "f821c68264eb25c33a674841d0f2abcf466a9d6372e888cfc40b7ae691ae071a",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+    "/usr/bin/dash": "15fc4c72f49c86639a383121eec6fbdbcd32ec9d03db915cb3096928295e1a17",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+    "/workspace/formal-proofs/bendvy/src/ecs/owned-optimized-compose.bend": "3e651cc49f4d6cfb37ea5af07a4b4668a8983911a7547a03aec193f9ca305fff",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/schema.bend": "bf8540ca974d9d1d82227ad694240ba777204af88063a7c83097de98bb3914a8",
+    "/workspace/formal-proofs/bendvy/src/ecs/captured-column.bend": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/consumer-start.bend": "43c6d123999324f968ef5978b5bfab4773e354085ca3d18f8d403c40434a98cb",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-reorder-core.bend": "22171f3a512096cb58d0be910dfd316d2e94dc4613318dd27c4c5076e0d154f3",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-batch.bend": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/runtime-gameplay.bend": "c00373371c1768489803b1f1f8d5b760f667fc74472743f88c5fa76d503500b9",
+    "/usr/bin/ldd": "78470111ee47ef9204a0e40983016816003e21d9a8a82fd75ab91980be3dcbd2",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/spawn-system.bend": "51279b0229604a429d4be05e47e99973bade6086e6293e598c145090e998aba4",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/machine-conditions.bend": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend": "c6b0f092e6271f3ee8c8ec3552f159ee65821440ef0561d4b63d16544991ea00",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Result.ts": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/controls-v1/finite-controls-v1/index.json": "e9ce712de09cf737036fffd7dc368f1dfc3e8576a92738a6655d89631e7caa12",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+    "/usr/bin/python3.11": "9a070c8a36e16c152dae21b66aeb707f4d21b506c875e9b15edf4387fca7dcf8",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/control-hoisted.c": "d0586c1298cd008520ddcf13f3cef97127cdc1055ba726728f7993ba743d2d87",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/validate-controls.py": "5adb5cbe5b0b0b64076cfb09bf5e66a36dfc7aeb7bd6c980a59294b79e791571",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/controls.mjs": "95b046822f7674ded67da520f476ae5c0a90da9e5d26dbdcd3de5f7358eafe39",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/README.md": "545bc6f63e75dc2e4273f384a4c57cc593a807ab28593e217bd1c9afce9436fd",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/prepare-controls.py": "35ebb587fa7ea4a8c39c54ebfcbd381475fbc5618c24704332a958d727e9a6af",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/control-included.c": "04638a71b352838633051cb1f2f1a5195aac34c4ed4494ed2003c9fd01834912",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/test-controls.py": "ce97293d8dd9704eb5b4f385c60fcb019c56f3455091c97100e9f849c43f2205",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/control-positive.c": "13369bcf7106b40258410fea0f1642d4c162cd8565f294519e129abad196c417",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/build-controls.py": "1d2ad6729a600400bc96327dfa55ff6283a465a67b96dc391a4e24f84147a23a",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/instrument.py": "f448b7147b6fbede9953c14505e039e47aa825c16d09e6fae8e890d4bcef296e",
+    "/tmp/bendvy63-ordinary-delivery-plan-v6.json": "89b02105f70aecdc82cdabff3be0b492f4e8d565018b7037957b6b8494af0635",
+    "/tmp/bendvy63-ordinary-delivery-v6/receipt.json": "cd5253477a26eb998545368dfc345475441862f8863a3709da91b2017d8262f8",
+    "/tmp/bendvy63-ordinary-delivery-v6/simulation.js": "16e1e0eb9b9ff6a5fdb10e3c4281c12dbc178ad8b7a7ac729809626bfbf7d5ab",
+    "/tmp/bendvy63-ordinary-delivery-v6/simulation.c": "f1ff60827ab14d5e57899e93b5fa9df73b6727642c157063ee1610ce0b04a4bc",
+    "/tmp/bendvy63-timing-application-input-v1/simulation.js": "77581aa251e1ce394652c6892110c9e272bd93bcb16d52075acd7b3003a0ec50",
+    "/tmp/bendvy63-timing-application-input-v1/simulation.c": "bcab47bf236d17d21fd2075b2abcd740566c6ff5f6f044a24f07456b230370b8",
+    "/tmp/bendvy63-timing-application-input-v1/reference.mjs": "368355bb3affd49bfd08657cc953fb5d57e7d2e013b54e26926b498f066140d8",
+    "/tmp/bendvy63-timing-application-input-v1/inputs.json": "3358b460a844d02a6f8a0dd4c10dc4814ef330bed05cb756b3e2cfbef51d3a14",
+    "/tmp/bendvy63-timing-application-input-v1/expected.json": "07db59855e3647c6f85c7fb8cc1b217a3ea93550acabd4084d329a908521bf20",
+    "/tmp/bendvy63-timing-application-input-v1/TRANSFORMATIONS.json": "2f41f7ce1c3b1d1396127388c9b9070b55daf01f155f2f3c6d3a751142bdfe26",
+    "/tmp/bendvy63-ordinary-delivery-v6/TS.stdout": "9aea2ef9b3157f12f7c6da92513a3887cdf4b152b39324a005bfb4374fee6fd3",
+    "/tmp/bendvy63-ordinary-delivery-v6/JS-run.stdout": "4473bc5dbab2005bc4ae7d9cdce86ead92f498f488cfc728840e6f7e786af1ca",
+    "/tmp/bendvy63-ordinary-delivery-v6/Native-run.stdout": "4473bc5dbab2005bc4ae7d9cdce86ead92f498f488cfc728840e6f7e786af1ca",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/prepare-application.py": "9e5e068178e56743e5358a95a23378ea0c827b56b65eaa0b02df26b0af1c01c9",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/validate-application.py": "299ca6153d973d8deec4a8c2bd05f7dbdaedaf75294fc7703a6b33671f60e5c3",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/TIMING-READINESS.md": "1bd1d8fa2b3dc794d7bda4db944ddc2d82ed091ccfa92b6aa163e0bf86d35b91",
+    "/tmp/bendvy63-timing-sequence-controls-plan-v4.json": "93026e2b56be34d49ee145da19b2b64be26e5ab20e93122ed1f41e0b4b6c0889",
+    "/tmp/bendvy63-timing-sequence-controls-v1/receipt.json": "71b0ac5de225ca093625c095a49a3073999c0f9d851526e57358603c4933258a",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/evidence-controls-v4/MANIFEST.json": "5b8d4010f415e1f2b6475a8902459a369e63125095ff31e5068231eefa04839f",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/evidence-controls-v4/verify.py": "6b2dc3d621b9f1ac965fb5c23ba3d6e363bc703a14788b2603fe04d7b29c01be",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/test-application.py": "f1a2f8535eb923f374ca0973e57e7c39a6765815e1a65701f9639dc5c9872c00",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/APPLICATION-QUALIFICATION.md": "ed9116f21a2260d6419d3704c9853108994dd574a0406cff7b2cbe0436d59441",
+    "/tmp/bendvy63-timing-application-plan-v1.json": "f6544dc88f59e8a633d8938988c050418a8710b646555c2f936e264f6a6f5ab6",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/sampling.py": "d8b029539115cb9c19f162c1a20299a040a561c32432f46f0c5c0f5d9c2a19fe",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/test-sampling.py": "d84b7192b8bc3bb8f2c94621da657b902c24c60ca607ab49888ff5002272d3fe",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/prepare-sampling.py": "c78276647023d2b7758f028ca05850234b4aff47c9ffa60ff86bfae98a2e3cfe",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/SAMPLING-READINESS.md": "9d2f87f0c66c8bac08d6add38c6cd13918327958cabf277c74005cab64c0873a",
+    "/tmp/bendvy63-cpu5-quiet-context-v1.json": "384f9bee0100b764d4bb61cbcd8fec483b3686e3285c797b95d63674c204b37e",
+    "/workspace/formal-proofs/bendvy/benchmarks/contract.json": "c0e13575f6e4d25ca8ca669936eef39c93a66b57ac1e4bfa42186f6f2d58bb6a",
+    "/tmp/bendvy63-timing-application-plan-v2.json": "d0bfccde74693866af1e74e7cfce3ce9dd743a1407c71aa6de2db0eca024baea",
+    "/tmp/bendvy63-timing-application-qualification-v1/receipt.json": "a32dcfb33010994108169e45c5752f34b046584069f314b2d9d805ac704b074c",
+    "/tmp/bendvy63-timing-application-qualification-v1/simulation.native": "c0c81c4f10d51786c262108413e6c287698f3441d033499944387359b9b87c80",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/evidence-application-v2/MANIFEST.json": "9530279fc12d8819b0da1f7e5adf8fb52aaf17e45f79ea9f92d28b5492962952",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/evidence-application-v2/verify.py": "a77192fdd4dba85bde6ebfb47b1ac117e84d86372b442cf9bff5a014b6021e9c"
+  },
+  "smallInputPaths": [
+    "/etc/ld.so.cache",
+    "/etc/ld.so.conf",
+    "/etc/ld.so.conf.d/aarch64-linux-gnu.conf",
+    "/etc/ld.so.conf.d/libc.conf",
+    "/tmp/bendvy63-cpu5-quiet-context-v1.json",
+    "/tmp/bendvy63-ordinary-delivery-plan-v6.json",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/application.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/checkpoint.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/cleanup.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/consumer-barrier.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/consumer-gameplay.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/consumer-spawn.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/consumer-start.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/consumer-state.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/damage-body.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/damage.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/events.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/fixture-setup.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/gameplay-checkpoint.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/gameplay-run.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/gameplay.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/geometry.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/main.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/movement-transaction.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/movement.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/owner-view.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/runtime-checkpoint.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/runtime-gameplay.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/runtime-install.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/runtime-register-spawn.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/runtime-spawn.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/runtime-start.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/scenario-actions.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/scenario.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/schema.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/spawn-system.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/spawn.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/step.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/storage.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/store-view.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/systems.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/world-view.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/readers-v1/pair.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/readers-v1/readers.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-batch.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-component-install.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-construction.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-delivery.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-insert-adapter.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-install.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-pack.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-provider.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/bundle-requests.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/capabilities.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/captured-column.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/check.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/column.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/commands.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/component.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/compose.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/event-runtime.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/events.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/feature-provision.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/feature.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/indexed-lifecycle.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/inspector-declaration.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/inspector-definition.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/inspector-metadata.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/inspector-query-projection.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/inspector-query.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/inspector.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/lifecycle.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/local.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/machine-conditions.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/machine-handler-bundle.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/machine-handlers.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/machine-stream.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/machine-world.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/machine.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/optimized-compose.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/owned-compose.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/owned-family.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/owned-optimized-compose.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/owner-handoff.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/provider.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/query-contract.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/query.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/reader-domains.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/registration.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-cleanup.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-commands.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-graph.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-providers.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-query.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-reorder-core.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-reorder.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/relation-types.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/removals.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/resource.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/restored-row.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/row-column.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/schedule-provision.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/schedule.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/schema-fragments.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/state.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/string-equality.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/structural.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/system.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/transaction.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/world-io.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/world-namespace.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/src/ecs/world.bend",
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/stage.json",
+    "/tmp/bendvy63-ordinary-delivery-v6/JS-run.stdout",
+    "/tmp/bendvy63-ordinary-delivery-v6/Native-run.stdout",
+    "/tmp/bendvy63-ordinary-delivery-v6/TS.stdout",
+    "/tmp/bendvy63-ordinary-delivery-v6/receipt.json",
+    "/tmp/bendvy63-ordinary-delivery-v6/simulation.c",
+    "/tmp/bendvy63-ordinary-delivery-v6/simulation.js",
+    "/tmp/bendvy63-timing-application-input-v1/TRANSFORMATIONS.json",
+    "/tmp/bendvy63-timing-application-input-v1/expected.json",
+    "/tmp/bendvy63-timing-application-input-v1/inputs.json",
+    "/tmp/bendvy63-timing-application-input-v1/reference.mjs",
+    "/tmp/bendvy63-timing-application-input-v1/simulation.c",
+    "/tmp/bendvy63-timing-application-input-v1/simulation.js",
+    "/tmp/bendvy63-timing-application-plan-v1.json",
+    "/tmp/bendvy63-timing-application-plan-v2.json",
+    "/tmp/bendvy63-timing-application-qualification-v1/receipt.json",
+    "/tmp/bendvy63-timing-sequence-controls-plan-v4.json",
+    "/tmp/bendvy63-timing-sequence-controls-v1/receipt.json",
+    "/usr/bin/python3.11",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/CONTROL-REUSE.json",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/TIMING-READINESS.md",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/check-control-reuse.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/prepare-delivery.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/run-delivery.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/test-delivery-admission.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/test-delivery-transport.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/APPLICATION-QUALIFICATION.md",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/README.md",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/SAMPLING-READINESS.md",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/build-controls.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/control-hoisted.c",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/control-included.c",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/control-positive.c",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/controls.mjs",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/evidence-application-v2/MANIFEST.json",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/evidence-application-v2/verify.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/evidence-controls-v4/MANIFEST.json",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/evidence-controls-v4/verify.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/instrument.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/prepare-application.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/prepare-controls.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/prepare-sampling.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/sampling.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/test-application.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/test-controls.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/test-sampling.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/validate-application.py",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/validate-controls.py",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/package.json",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/package.json",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Brand.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Command.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Condition.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Debug.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Decode.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Definition.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Descriptor.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Entity.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/EntityScope.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Feature.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Fx.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Inspector.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Machine.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Query.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Relation.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Requirement.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Result.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Schedule.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Schema.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Snapshot.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/System.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/brand.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/cells.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/debug.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/definition.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/fragments.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/game.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/queries.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/result.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/streams.ts",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/world.ts",
+    "/workspace/formal-proofs/bendvy/.references/sources.json",
+    "/workspace/formal-proofs/bendvy/benchmarks/contract.json",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/application.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/candidate-source-correction.json",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/checkpoint.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/cleanup.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/compare-ts.py",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/consumer-barrier.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/consumer-gameplay.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/consumer-spawn.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/consumer-start.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/consumer-state.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/damage-body.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/damage.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/development-evidence-index.json",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/development-evidence.tar.gz",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/events.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/fixture-setup.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/gameplay-checkpoint.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/gameplay-run.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/gameplay.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/geometry.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/independent-expected.json",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/main.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/movement-transaction.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/movement.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/parse-report.py",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/runtime-checkpoint.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/runtime-gameplay.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/runtime-install.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/runtime-register-spawn.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/runtime-spawn.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/runtime-start.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/scenario-actions.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/scenario.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/schema.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/source_evidence.py",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/spawn-system.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/spawn.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/step.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/storage.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/store-view.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/systems.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/world-view.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/controls-v1/finite-controls-v1/README.md",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/controls-v1/finite-controls-v1/evidence.tar.gz",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/controls-v1/finite-controls-v1/index.json",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/controls-v1/finite-controls-v1/selection.json",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/controls-v1/finite-controls-v1/verify.py",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/compare.py",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/prepare-metadata.py",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/prepare.py",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/readers-v1/pair.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/readers-v1/readers.bend",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/reference-v1/evidence/corrected-oracle-v1/receipt.json",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/reference-v1/expected.json",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/reference-v1/expected.stdout",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/reference-v1/inputs.json",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/reference-v1/reference.mjs",
+    "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py",
+    "/workspace/formal-proofs/bendvy/scripts/owned-tool-pins.py",
+    "/workspace/formal-proofs/bendvy/scripts/receipt-logs.py",
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-batch.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-component-install.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-insert-adapter.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-install.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-pack.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-provider.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/bundle-requests.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/captured-column.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/check.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/compose.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/events.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/feature-provision.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/feature.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector-declaration.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector-definition.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector-metadata.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/inspector.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/local.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-conditions.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-handler-bundle.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-handlers.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-world.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/optimized-compose.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/owned-compose.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/owned-family.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/owned-optimized-compose.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/provider.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/query-contract.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/query.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/reader-domains.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-cleanup.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-graph.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-providers.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-query.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-reorder-core.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-reorder.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/removals.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/resource.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/restored-row.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/row-column.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/state.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/structural.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.bend",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+  ],
+  "helpers": {
+    "runner": "/workspace/formal-proofs/bendvy/scripts/task_runner.py",
+    "tools": "/workspace/formal-proofs/bendvy/scripts/owned-tool-pins.py",
+    "logs": "/workspace/formal-proofs/bendvy/scripts/receipt-logs.py",
+    "boundary": "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py",
+    "metadata": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/prepare-metadata.py",
+    "prepare": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/prepare.py",
+    "source_evidence": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/source_evidence.py"
+  },
+  "comparator": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/compare.py",
+  "parser": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/parse-report.py",
+  "tsJoiner": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/compare-ts.py",
+  "constructorJoins": {
+    "False": "Base::False",
+    "None": "Base::None",
+    "Some": "Base::Some",
+    "checkpoint.Snapshot": "checkpoint.bend::Snapshot",
+    "consumer-gameplay.GameplayRan": "consumer-gameplay.bend::GameplayRan",
+    "consumer-state.Observation": "consumer-state.bend::Observation",
+    "consumer-state.ReaderResults": "consumer-state.bend::ReaderResults",
+    "../../../src/ecs/event-runtime.Batch": "event-runtime.bend::Batch",
+    "../../../src/ecs/event-runtime.Position": "event-runtime.bend::Position",
+    "../../../src/ecs/event-runtime.Reading": "event-runtime.bend::Reading",
+    "events.SimulationDeath": "events.bend::SimulationDeath",
+    "events.SimulationHit": "events.bend::SimulationHit",
+    "geometry.Cell": "geometry.bend::Cell",
+    "TwoSchemaReport": "main.bend::TwoSchemaReport",
+    "owner-view.FullCell": "owner-view.bend::FullCell",
+    "../readers-v1/pair.Failed": "pair.bend::Failed",
+    "../readers-v1/pair.Skipped": "pair.bend::Skipped",
+    "../readers-v1/pair.Succeeded": "pair.bend::Succeeded",
+    "../readers-v1/readers.ReaderFailed": "readers.bend::ReaderFailed",
+    "runtime-checkpoint.Snapshot": "runtime-checkpoint.bend::Snapshot",
+    "runtime-gameplay.FrameOutput": "runtime-gameplay.bend::FrameOutput",
+    "runtime-spawn.SpawnSucceeded": "runtime-spawn.bend::SpawnSucceeded",
+    "scenario-actions.BarrierResult": "scenario-actions.bend::BarrierResult",
+    "scenario-actions.GameplayResult": "scenario-actions.bend::GameplayResult",
+    "scenario-actions.ReadersResult": "scenario-actions.bend::ReadersResult",
+    "scenario-actions.SpawnResult": "scenario-actions.bend::SpawnResult",
+    "scenario.Phase": "scenario.bend::Phase",
+    "store-view.EntityCells": "store-view.bend::EntityCells",
+    "../../../src/ecs/transaction.Success": "transaction.bend::Success",
+    "world-view.Allocation": "world-view.bend::Allocation",
+    "../../../src/ecs/world.Handle": "world.bend::Handle",
+    "../../../src/ecs/world.Reserved": "world.bend::Reserved"
+  },
+  "oracleSHA256": "f821c68264eb25c33a674841d0f2abcf466a9d6372e888cfc40b7ae691ae071a",
+  "tsExpected": "/workspace/formal-proofs/bendvy/experiments/public-simulation/reference-v1/expected.stdout",
+  "commands": [
+    {
+      "label": "scale1-TS-warmup0-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-TS-warmup1-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-warmup0-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-warmup1-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-Native-warmup0-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-warmup1-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-JS-pair0-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair0-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair1-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair1-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair2-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair2-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair3-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair3-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair4-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair4-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair5-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair5-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair6-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair6-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair7-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair7-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair8-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair8-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair9-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair9-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair10-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair10-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair11-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair11-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair12-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair12-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair13-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair13-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair14-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair14-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair15-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair15-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair16-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair16-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair17-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair17-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair18-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-JS-pair18-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair19-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-JS-pair19-JS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "JS"
+    },
+    {
+      "label": "scale1-Native-pair0-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair0-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair1-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair1-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair2-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair2-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair3-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair3-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair4-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair4-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair5-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair5-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair6-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair6-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair7-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair7-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair8-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair8-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair9-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair9-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair10-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair10-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair11-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair11-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair12-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair12-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair13-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair13-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair14-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair14-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair15-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair15-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair16-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair16-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair17-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair17-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair18-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair18-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    },
+    {
+      "label": "scale1-Native-pair19-TS-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy63-timing-application-input-v1/reference.mjs"
+      ],
+      "capSeconds": 5,
+      "control": "TS"
+    },
+    {
+      "label": "scale1-Native-pair19-Native-life0",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy63-timing-application-qualification-v1/simulation.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "control": "Native"
+    }
+  ],
+  "toolConfiguration": {
+    "tools": {
+      "bend": "/home/node/.bend/bin/bend-2.0.35",
+      "node": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+      "taskset": "/usr/bin/taskset",
+      "shell": "/usr/bin/dash",
+      "bash": "/usr/bin/bash",
+      "env": "/usr/bin/env",
+      "clang": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang",
+      "clangWrapper": "/tmp/bendvy-clang19-diagnostic/clang19",
+      "linker": "/usr/bin/aarch64-linux-gnu-ld.bfd",
+      "ldd": "/usr/bin/ldd",
+      "qualifiedSimulationNative": "/tmp/bendvy63-timing-application-qualification-v1/simulation.native"
+    },
+    "resource_roots": [
+      "/home/node/.bend/bend2",
+      "/tmp/bendvy-clang19-diagnostic/root",
+      "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu"
+    ],
+    "ldd": "/usr/bin/ldd",
+    "taskset": "/usr/bin/taskset",
+    "cpu": 5,
+    "env": {
+      "HOME": "/home/node",
+      "PATH": "/usr/bin:/bin",
+      "LANG": "C",
+      "LC_ALL": "C",
+      "TZ": "UTC",
+      "BEND_NO_TELEMETRY": "1",
+      "BENDVY_CLANG19_ROOT": "/tmp/bendvy-clang19-diagnostic/root",
+      "LD_LIBRARY_PATH": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu"
+    },
+    "skip_ldd": [
+      "clangWrapper",
+      "ldd"
+    ],
+    "capture_mode": "split"
+  },
+  "namespaceLiterals": [
+    "/home/node/.bend/bin/bend-2.0.35",
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+    "/usr/bin/taskset",
+    "/bin/sh",
+    "/bin/bash",
+    "/usr/bin/env",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang",
+    "/tmp/bendvy-clang19-diagnostic/clang19",
+    "/usr/bin/ld",
+    "/usr/bin/ldd",
+    "/lib/aarch64-linux-gnu/Scrt1.o",
+    "/lib/aarch64-linux-gnu/crti.o",
+    "/lib/aarch64-linux-gnu/crtn.o",
+    "/usr/lib/gcc/aarch64-linux-gnu/12/crtbeginS.o",
+    "/usr/lib/gcc/aarch64-linux-gnu/12/crtendS.o",
+    "/usr/lib/gcc/aarch64-linux-gnu/12/libgcc.a",
+    "/usr/lib/gcc/aarch64-linux-gnu/12/libgcc_s.so",
+    "/usr/lib/aarch64-linux-gnu/libgcc_s.so.1",
+    "/usr/lib/aarch64-linux-gnu/libm.so",
+    "/usr/lib/aarch64-linux-gnu/libpthread.a",
+    "/usr/lib/aarch64-linux-gnu/libc.so",
+    "/usr/lib/aarch64-linux-gnu/libc.so.6",
+    "/usr/lib/aarch64-linux-gnu/libc_nonshared.a",
+    "/lib/ld-linux-aarch64.so.1"
+  ],
+  "namespace": {
+    "configFiles": [
+      "/etc/ld.so.conf",
+      "/etc/ld.so.conf.d/aarch64-linux-gnu.conf",
+      "/etc/ld.so.conf.d/libc.conf"
+    ],
+    "configIncludes": {
+      "/etc/ld.so.conf.d/*.conf": [
+        "/etc/ld.so.conf.d/aarch64-linux-gnu.conf",
+        "/etc/ld.so.conf.d/libc.conf"
+      ]
+    },
+    "configPresence": {
+      "/etc/ld.so.cache": true,
+      "/etc/ld.so.preload": false
+    },
+    "aliases": {
+      "/bin/bash": {
+        "resolved": "/usr/bin/bash",
+        "present": true,
+        "links": [
+          {
+            "path": "/bin",
+            "target": "usr/bin"
+          }
+        ]
+      },
+      "/bin/sh": {
+        "resolved": "/usr/bin/dash",
+        "present": true,
+        "links": [
+          {
+            "path": "/bin",
+            "target": "usr/bin"
+          },
+          {
+            "path": "/usr/bin/sh",
+            "target": "dash"
+          }
+        ]
+      },
+      "/etc/ld.so.cache": {
+        "resolved": "/etc/ld.so.cache",
+        "present": true,
+        "links": []
+      },
+      "/etc/ld.so.conf": {
+        "resolved": "/etc/ld.so.conf",
+        "present": true,
+        "links": []
+      },
+      "/etc/ld.so.conf.d/aarch64-linux-gnu.conf": {
+        "resolved": "/etc/ld.so.conf.d/aarch64-linux-gnu.conf",
+        "present": true,
+        "links": []
+      },
+      "/etc/ld.so.conf.d/libc.conf": {
+        "resolved": "/etc/ld.so.conf.d/libc.conf",
+        "present": true,
+        "links": []
+      },
+      "/etc/ld.so.preload": {
+        "resolved": "/etc/ld.so.preload",
+        "present": false,
+        "links": []
+      },
+      "/home/node/.bend/bin/bend-2.0.35": {
+        "resolved": "/home/node/.bend/bin/bend-2.0.35",
+        "present": true,
+        "links": []
+      },
+      "/home/node/.local/share/mise/installs/node/24.20.0/bin/node": {
+        "resolved": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "present": true,
+        "links": []
+      },
+      "/lib/aarch64-linux-gnu/Scrt1.o": {
+        "resolved": "/usr/lib/aarch64-linux-gnu/Scrt1.o",
+        "present": true,
+        "links": [
+          {
+            "path": "/lib",
+            "target": "usr/lib"
+          }
+        ]
+      },
+      "/lib/aarch64-linux-gnu/crti.o": {
+        "resolved": "/usr/lib/aarch64-linux-gnu/crti.o",
+        "present": true,
+        "links": [
+          {
+            "path": "/lib",
+            "target": "usr/lib"
+          }
+        ]
+      },
+      "/lib/aarch64-linux-gnu/crtn.o": {
+        "resolved": "/usr/lib/aarch64-linux-gnu/crtn.o",
+        "present": true,
+        "links": [
+          {
+            "path": "/lib",
+            "target": "usr/lib"
+          }
+        ]
+      },
+      "/lib/ld-linux-aarch64.so.1": {
+        "resolved": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1",
+        "present": true,
+        "links": [
+          {
+            "path": "/lib",
+            "target": "usr/lib"
+          },
+          {
+            "path": "/usr/lib/ld-linux-aarch64.so.1",
+            "target": "aarch64-linux-gnu/ld-linux-aarch64.so.1"
+          }
+        ]
+      },
+      "/tmp/bendvy-clang19-diagnostic/clang19": {
+        "resolved": "/tmp/bendvy-clang19-diagnostic/clang19",
+        "present": true,
+        "links": []
+      },
+      "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang": {
+        "resolved": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang",
+        "present": true,
+        "links": []
+      },
+      "/usr/bin/env": {
+        "resolved": "/usr/bin/env",
+        "present": true,
+        "links": []
+      },
+      "/usr/bin/ld": {
+        "resolved": "/usr/bin/aarch64-linux-gnu-ld.bfd",
+        "present": true,
+        "links": [
+          {
+            "path": "/usr/bin/ld",
+            "target": "aarch64-linux-gnu-ld"
+          },
+          {
+            "path": "/usr/bin/aarch64-linux-gnu-ld",
+            "target": "aarch64-linux-gnu-ld.bfd"
+          }
+        ]
+      },
+      "/usr/bin/ldd": {
+        "resolved": "/usr/bin/ldd",
+        "present": true,
+        "links": []
+      },
+      "/usr/bin/taskset": {
+        "resolved": "/usr/bin/taskset",
+        "present": true,
+        "links": []
+      },
+      "/usr/lib/aarch64-linux-gnu/libc.so": {
+        "resolved": "/usr/lib/aarch64-linux-gnu/libc.so",
+        "present": true,
+        "links": []
+      },
+      "/usr/lib/aarch64-linux-gnu/libc.so.6": {
+        "resolved": "/usr/lib/aarch64-linux-gnu/libc.so.6",
+        "present": true,
+        "links": []
+      },
+      "/usr/lib/aarch64-linux-gnu/libc_nonshared.a": {
+        "resolved": "/usr/lib/aarch64-linux-gnu/libc_nonshared.a",
+        "present": true,
+        "links": []
+      },
+      "/usr/lib/aarch64-linux-gnu/libgcc_s.so.1": {
+        "resolved": "/usr/lib/aarch64-linux-gnu/libgcc_s.so.1",
+        "present": true,
+        "links": []
+      },
+      "/usr/lib/aarch64-linux-gnu/libm.so": {
+        "resolved": "/usr/lib/aarch64-linux-gnu/libm.so.6",
+        "present": true,
+        "links": [
+          {
+            "path": "/usr/lib/aarch64-linux-gnu/libm.so",
+            "target": "/lib/aarch64-linux-gnu/libm.so.6"
+          },
+          {
+            "path": "/lib",
+            "target": "usr/lib"
+          }
+        ]
+      },
+      "/usr/lib/aarch64-linux-gnu/libpthread.a": {
+        "resolved": "/usr/lib/aarch64-linux-gnu/libpthread.a",
+        "present": true,
+        "links": []
+      },
+      "/usr/lib/gcc/aarch64-linux-gnu/12/crtbeginS.o": {
+        "resolved": "/usr/lib/gcc/aarch64-linux-gnu/12/crtbeginS.o",
+        "present": true,
+        "links": []
+      },
+      "/usr/lib/gcc/aarch64-linux-gnu/12/crtendS.o": {
+        "resolved": "/usr/lib/gcc/aarch64-linux-gnu/12/crtendS.o",
+        "present": true,
+        "links": []
+      },
+      "/usr/lib/gcc/aarch64-linux-gnu/12/libgcc.a": {
+        "resolved": "/usr/lib/gcc/aarch64-linux-gnu/12/libgcc.a",
+        "present": true,
+        "links": []
+      },
+      "/usr/lib/gcc/aarch64-linux-gnu/12/libgcc_s.so": {
+        "resolved": "/usr/lib/gcc/aarch64-linux-gnu/12/libgcc_s.so",
+        "present": true,
+        "links": []
+      }
+    }
+  },
+  "configPresence": {
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/bend.json": null,
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/bend.config.json": null,
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/bunfig.toml": null,
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/package.json": null,
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/.clang": null,
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang.cfg": null,
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/bend.json": null,
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/bend.config.json": null,
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/bunfig.toml": null,
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/package.json": null,
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/.clang": null,
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/clang.cfg": null,
+    "/tmp/bendvy-clang19-diagnostic/bend.json": null,
+    "/tmp/bendvy-clang19-diagnostic/bend.config.json": null,
+    "/tmp/bendvy-clang19-diagnostic/bunfig.toml": null,
+    "/tmp/bendvy-clang19-diagnostic/package.json": null,
+    "/tmp/bendvy-clang19-diagnostic/.clang": null,
+    "/tmp/bendvy-clang19-diagnostic/clang.cfg": null,
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/bend.json": null,
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/bend.config.json": null,
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/bunfig.toml": null,
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/package.json": null,
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/.clang": null,
+    "/tmp/bendvy63-ordinary-delivery-stage-v1/experiments/public-simulation/bend-v1/clang.cfg": null,
+    "/workspace/formal-proofs/bendvy/bend.json": null,
+    "/workspace/formal-proofs/bendvy/bend.config.json": null,
+    "/workspace/formal-proofs/bendvy/bunfig.toml": null,
+    "/workspace/formal-proofs/bendvy/package.json": null,
+    "/workspace/formal-proofs/bendvy/.clang": null,
+    "/workspace/formal-proofs/bendvy/clang.cfg": null,
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/bend.json": null,
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/bend.config.json": null,
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/bunfig.toml": null,
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/package.json": null,
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/.clang": null,
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/clang.cfg": null
+  },
+  "lock": "/tmp/bendvy-parity-heavy.lock",
+  "maximumProbeCommands": 1566,
+  "controls": {
+    "selection": "/workspace/formal-proofs/bendvy/experiments/public-simulation/controls-v1/finite-controls-v1/selection.json",
+    "sourceCurrentJoin": {
+      "retainedArchivePASS": true,
+      "recordCount": 536,
+      "sourceCurrentExact": [
+        "experiments/public-simulation/bend-v1/main.bend",
+        "src/ecs/world.bend",
+        "src/ecs/string-equality.bend",
+        "experiments/public-simulation/bend-v1/scenario.bend",
+        "experiments/public-simulation/bend-v1/consumer-state.bend",
+        "experiments/public-simulation/readers-v1/pair.bend",
+        "src/ecs/event-runtime.bend",
+        "src/ecs/system.bend",
+        "src/ecs/registration.bend",
+        "experiments/public-simulation/readers-v1/readers.bend",
+        "experiments/public-simulation/bend-v1/storage.bend",
+        "src/ecs/column.bend",
+        "src/ecs/lifecycle.bend",
+        "src/ecs/owner-handoff.bend",
+        "src/ecs/indexed-lifecycle.bend",
+        "experiments/public-simulation/bend-v1/events.bend",
+        "experiments/public-simulation/bend-v1/spawn-system.bend",
+        "experiments/public-simulation/bend-v1/step.bend",
+        "src/ecs/transaction.bend",
+        "src/ecs/resource.bend",
+        "experiments/public-simulation/bend-v1/spawn.bend",
+        "src/ecs/component.bend",
+        "src/ecs/commands.bend",
+        "experiments/public-simulation/bend-v1/schema.bend",
+        "experiments/public-simulation/bend-v1/systems.bend",
+        "src/ecs/compose.bend",
+        "src/ecs/capabilities.bend",
+        "experiments/public-simulation/bend-v1/movement.bend",
+        "experiments/public-simulation/bend-v1/movement-transaction.bend",
+        "experiments/public-simulation/bend-v1/damage.bend",
+        "experiments/public-simulation/bend-v1/cleanup.bend",
+        "experiments/public-simulation/bend-v1/damage-body.bend",
+        "experiments/public-simulation/bend-v1/runtime-gameplay.bend",
+        "experiments/public-simulation/bend-v1/gameplay-run.bend",
+        "experiments/public-simulation/bend-v1/gameplay.bend",
+        "experiments/public-simulation/bend-v1/runtime-checkpoint.bend",
+        "experiments/public-simulation/bend-v1/checkpoint.bend",
+        "experiments/public-simulation/bend-v1/owner-view.bend",
+        "experiments/public-simulation/bend-v1/store-view.bend",
+        "experiments/public-simulation/bend-v1/world-view.bend",
+        "experiments/public-simulation/bend-v1/consumer-start.bend",
+        "experiments/public-simulation/bend-v1/runtime-start.bend",
+        "experiments/public-simulation/bend-v1/application.bend",
+        "experiments/public-simulation/bend-v1/consumer-barrier.bend",
+        "experiments/public-simulation/bend-v1/runtime-spawn.bend",
+        "experiments/public-simulation/bend-v1/scenario-actions.bend",
+        "experiments/public-simulation/bend-v1/consumer-spawn.bend",
+        "experiments/public-simulation/bend-v1/runtime-register-spawn.bend",
+        "experiments/public-simulation/bend-v1/consumer-gameplay.bend",
+        "experiments/public-simulation/bend-v1/runtime-install.bend"
+      ],
+      "approvedRecordedEOFCorrection": [
+        "experiments/public-simulation/bend-v1/geometry.bend"
+      ],
+      "verifierStdout": "PASS selected development controls: source positive, four intended negatives (affine v1 inconclusive retained), two full-oracle JS mutation kills; old geometry bound; not full #63 delivery\n",
+      "scope": "Current source API and retained selected finite type/mutation controls; old geometry bytes plus exact recorded EOF correction, not fresh relocated control executions",
+      "newChildren": 0
+    },
+    "scope": "Retained selected finite controls unchanged API bytes; recorded geometry EOF correction only; no fresh relocated control execution claim"
+  },
+  "timing": "Requires integrator quiet-window context and exact independent plan admission; process startup/build excluded; transport retained separately",
+  "closedResolverQualified": false,
+  "qualificationValidator": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/validate-application.py",
+  "samplingRows": [
+    {
+      "label": "scale1-TS-warmup0-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": null,
+      "backend": null,
+      "order": null
+    },
+    {
+      "label": "scale1-TS-warmup1-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": null,
+      "backend": null,
+      "order": null
+    },
+    {
+      "label": "scale1-JS-warmup0-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": null,
+      "backend": null,
+      "order": null
+    },
+    {
+      "label": "scale1-JS-warmup1-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": null,
+      "backend": null,
+      "order": null
+    },
+    {
+      "label": "scale1-Native-warmup0-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": null,
+      "backend": null,
+      "order": null
+    },
+    {
+      "label": "scale1-Native-warmup1-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": null,
+      "backend": null,
+      "order": null
+    },
+    {
+      "label": "scale1-JS-pair0-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 0,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair0-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 0,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair1-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 1,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair1-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 1,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair2-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 2,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair2-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 2,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair3-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 3,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair3-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 3,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair4-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 4,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair4-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 4,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair5-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 5,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair5-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 5,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair6-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 6,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair6-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 6,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair7-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 7,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair7-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 7,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair8-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 8,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair8-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 8,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair9-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 9,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair9-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 9,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair10-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 10,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair10-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 10,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair11-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 11,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair11-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 11,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair12-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 12,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair12-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 12,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair13-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 13,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair13-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 13,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair14-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 14,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair14-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 14,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair15-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 15,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair15-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 15,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair16-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 16,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair16-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 16,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair17-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 17,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair17-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 17,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair18-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 18,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair18-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 18,
+      "backend": "JS",
+      "order": [
+        "JS",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair19-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 19,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-JS-pair19-JS-life0",
+      "role": "JS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 19,
+      "backend": "JS",
+      "order": [
+        "TS",
+        "JS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair0-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 0,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair0-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 0,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair1-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 1,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair1-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 1,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair2-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 2,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair2-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 2,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair3-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 3,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair3-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 3,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair4-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 4,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair4-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 4,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair5-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 5,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair5-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 5,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair6-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 6,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair6-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 6,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair7-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 7,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair7-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 7,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair8-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 8,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair8-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 8,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair9-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 9,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair9-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 9,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair10-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 10,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair10-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 10,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair11-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 11,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair11-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 11,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair12-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 12,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair12-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 12,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair13-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 13,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair13-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 13,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair14-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 14,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair14-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 14,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair15-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 15,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair15-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 15,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair16-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 16,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair16-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 16,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair17-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 17,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair17-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 17,
+      "backend": "Native",
+      "order": [
+        "Native",
+        "TS"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair18-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 18,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair18-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 18,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair19-TS-life0",
+      "role": "TS",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 19,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    },
+    {
+      "label": "scale1-Native-pair19-Native-life0",
+      "role": "Native",
+      "lifecycles": 1,
+      "lifecycle": 0,
+      "pair": 19,
+      "backend": "Native",
+      "order": [
+        "TS",
+        "Native"
+      ]
+    }
+  ],
+  "samplingHelper": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/timing-v1/sampling.py",
+  "quietWindowContext": "Current CPU5 one-second read-only context: +1user,+1system,+100idle; frequency2GHz stable; loadavg1.86. Idle-dominated observed onset only; review all command telemetry, no numeric noise cutoff."
+}

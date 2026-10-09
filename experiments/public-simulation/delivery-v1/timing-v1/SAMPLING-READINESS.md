@@ -1,0 +1,11 @@
+# Staged complete simulation observations
+
+First scope is scale1 only:20 balanced TS/JS pairs and20 balanced TS/Native pairs, two warmups per backend, seed20261007,86 fresh full14phase×2schema processes. Each actual internal region excludes startup, source emission/build and ordinary verification; each original whole stdout/clock protocol is validated. Transport retained separately. Qualified Native binary reused with ordinary tool/dependency verification. Existing collector adds existing CPU5/load/frequency/pressure telemetry around each command and descriptive existing median paired ratios; no new threshold/statistical verdict or #28 baseline change.
+
+Whole contract retains lifecycle groups1/2/4: groups2/4 sum separately reset fullprocess application regions, not same-process worlds and not cached reports. They remain pending; only continue if scale1 results justify them. If JS slowdown is confirmed, prioritize conditional before CPU/allocation profiles and source bottleneck analysis before further groups. Do not claim full performance gate from scale1.
+
+Current read-only CPU5 context retained in `/tmp/bendvy63-cpu5-quiet-context-v1.json`: one-second counters +1user/+1system/+100idle, frequency2GHz at both endpoints, loadavg1.86. This observed window is idle-dominated; it does not promise future quiet or impose a numeric noise cutoff. Integrator reviews per-command telemetry and exact admission; old overnight contention is not treated as current fact. Sampling refuses NOT_ESTABLISHED context before imports.
+
+Before profile plan is conditional, separately admitted only after repeated evidence warrants it. Node CPU and sampled allocation profiles run exact original uninstrumented JS whole application once each under CPU5/cap5/sharedlock, unchanged full semantic output. CPU profile includes process startup/JIT/printer; heap sampling is allocation sampling, not RSS/physical memory or exact total allocation. This is a before diagnostic; no candidate/after comparison, numerical improvement or automatic next run. Artifact hashes/shape/raw/ordinary guards and unconditional receipts remain required.
+
+No performance child launched during preparation; single complete qualification observations stay separate. Reuse of #41 timers has been coordinated: its IO main must use reached begin/capture/end IO effects, never the pure-main boundary.
