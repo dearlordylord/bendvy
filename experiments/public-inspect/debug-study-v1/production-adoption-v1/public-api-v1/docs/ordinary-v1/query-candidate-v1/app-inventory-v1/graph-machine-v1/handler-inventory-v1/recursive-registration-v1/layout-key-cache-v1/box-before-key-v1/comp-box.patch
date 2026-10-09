@@ -1,0 +1,30 @@
+--- baseline/lay_of
++++ optimized/lay_of
+@@ -1,14 +1,19 @@
+ function lay_of(book: Bend.Book, A: HTerm | null): Lay {
+   diagnostic_watch("lay_of");
+   const t = ty_adt(book, A);
+-  return t === null ? BOX : WORDS[t.k] ?? memo(LAYS,
+-    Bend.term_key(Bend.term_lower(t)), (key) => {
+-    const tld = book.tlds[t.k];
+-    if (t.k === "Array" || t.k === "IO.OP" || tld?.$ !== "ADT"
+-      || tld.c.some((c) => ctr_doms(book, c).some((F) => ty_holds(book, F,
+-        (u) => u?.$ !== "ADT" || WORDS[u.k] ? false : u.k === t.k || null)))) {
+-      return BOX;
+-    }
++  if (t === null) return BOX;
++  const word = WORDS[t.k];
++  if (word !== undefined) return word;
++  const tld = book.tlds[t.k];
++  // Same parameter-independent predicate as the original memo callback.
++  // Recompute, without nominal/HTerm identity caching or skipped replay.
++  if (t.k === "Array" || t.k === "IO.OP" || tld?.$ !== "ADT"
++    || tld.c.some((c) => ctr_doms(book, c).some((F) => ty_holds(book, F,
++      (u) => u?.$ !== "ADT" || WORDS[u.k] ? false : u.k === t.k || null)))) {
++    return BOX;
++  }
++  return memo(LAYS, Bend.term_key(Bend.term_lower(t)), (key) => {
++    // Parameter-sensitive and hidden reentrant layouts keep the original sentinel.
+     LAYS.set(key, BOX);
+     const lay = lay_pack(tld.c.map((c) =>
+       [c.k, ctr_doms(book, c, t.x).map((A) => lay_of(book, A))]));
