@@ -1,0 +1,305 @@
+{
+  "originalStage": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/full-consumer-v1/stage",
+  "canonicalStage": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/stage",
+  "replacedKernels": {
+    "selection.bend": "inspector-query-projection.bend",
+    "query.bend": "inspector-query.bend",
+    "families.bend": "inspector-query-families.bend",
+    "traversal.bend": "inspector-query-world.bend",
+    "ordinary-selections.bend": "ordinary-query-selections.bend",
+    "ordinary-binding.bend": "ordinary-component-binding.bend"
+  },
+  "omittedModules": [
+    "families.bend",
+    "ordinary-selections.bend",
+    "query.bend",
+    "selection.bend",
+    "traversal.bend"
+  ],
+  "members": [
+    {
+      "file": "check-execution.bend",
+      "originalSha256": "1ab6636173f9f02edc8b3b08c042d7382adbbc54cdf6d5f4669c0d978c12a48f",
+      "migratedSha256": "bac897368b960f53a656e4a076685bb5a8e357ae16374ab46a95198dde1ac022",
+      "renames": {
+        "Q": {
+          "Row": "ProjectedRow",
+          "ReadQuery": "ComposedReadQuery",
+          "handles_field": "composed_handles_field",
+          "valid_field": "composed_valid_field",
+          "each_field": "composed_each_field",
+          "get_field": "composed_get_field",
+          "each": "each_composed",
+          "get": "get_composed",
+          "single": "single_composed",
+          "single_optional": "single_optional_composed",
+          "grant": "grant_composed"
+        }
+      }
+    },
+    {
+      "file": "consumer-witness.bend",
+      "originalSha256": "1651de7eaf8db190554d5f304212c913ccf41dfecde568ad45c754be25c424b8",
+      "migratedSha256": "6738f05b83571b694df709b44fd9fc79f5bcf57b952dbb6f53d307b2664dfca4",
+      "renames": {
+        "Selection": {
+          "Selection": "DeclaredSelection"
+        },
+        "Q": {
+          "Row": "ProjectedRow",
+          "ReadQuery": "ComposedReadQuery",
+          "handles_field": "composed_handles_field",
+          "valid_field": "composed_valid_field",
+          "each_field": "composed_each_field",
+          "get_field": "composed_get_field",
+          "each": "each_composed",
+          "get": "get_composed",
+          "single": "single_composed",
+          "single_optional": "single_optional_composed",
+          "grant": "grant_composed"
+        }
+      }
+    },
+    {
+      "file": "execution.bend",
+      "originalSha256": "b0237efb3a76b4798b08f08a9bd23ec3d192ed327df58dc5fe6f875cefd68dd4",
+      "migratedSha256": "c60f6a8a2a7919c3d39e50aa7876fa153e6d6684445224a8a82975e67a65c567",
+      "renames": {
+        "Q": {
+          "Row": "ProjectedRow",
+          "ReadQuery": "ComposedReadQuery",
+          "handles_field": "composed_handles_field",
+          "valid_field": "composed_valid_field",
+          "each_field": "composed_each_field",
+          "get_field": "composed_get_field",
+          "each": "each_composed",
+          "get": "get_composed",
+          "single": "single_composed",
+          "single_optional": "single_optional_composed",
+          "grant": "grant_composed"
+        }
+      }
+    },
+    {
+      "file": "family-witness.bend",
+      "originalSha256": "cd55a7b7b42be3047c9fdff87ed5c16f059ddd7b5c8ba70f384d51fcf6930c1a",
+      "migratedSha256": "bf8560044b0e34dcf141808892da8fc4e78976d57adb2ec6c4bb91228cdaf7c2",
+      "renames": {
+        "Q": {
+          "Selection": "DeclaredSelection"
+        },
+        "Queries": {
+          "Row": "ProjectedRow",
+          "ReadQuery": "ComposedReadQuery",
+          "handles_field": "composed_handles_field",
+          "valid_field": "composed_valid_field",
+          "each_field": "composed_each_field",
+          "get_field": "composed_get_field",
+          "each": "each_composed",
+          "get": "get_composed",
+          "single": "single_composed",
+          "single_optional": "single_optional_composed",
+          "grant": "grant_composed"
+        }
+      }
+    },
+    {
+      "file": "five-phase-driver.bend",
+      "originalSha256": "3d9b1c64ab8b688649d5ab4d91616a2c6c19cd0aea99ea26fb6132bbdb6f92f6",
+      "migratedSha256": "3d9b1c64ab8b688649d5ab4d91616a2c6c19cd0aea99ea26fb6132bbdb6f92f6",
+      "renames": {}
+    },
+    {
+      "file": "fixture.bend",
+      "originalSha256": "945c2aef1cf5c46fde498fac6c07b93d68b3076f1d34ccf53d8b2673e0be29e7",
+      "migratedSha256": "945c2aef1cf5c46fde498fac6c07b93d68b3076f1d34ccf53d8b2673e0be29e7",
+      "renames": {}
+    },
+    {
+      "file": "format.bend",
+      "originalSha256": "bbbcff904012b385e02897d66d47cdebe1755700fff966da6bfae1708d968654",
+      "migratedSha256": "5ba50c4d97b3859917c1fe1308fcd43ebf433cbe6002a46be9f1006d9e357c84",
+      "renames": {
+        "Q": {
+          "Row": "ProjectedRow",
+          "ReadQuery": "ComposedReadQuery",
+          "handles_field": "composed_handles_field",
+          "valid_field": "composed_valid_field",
+          "each_field": "composed_each_field",
+          "get_field": "composed_get_field",
+          "each": "each_composed",
+          "get": "get_composed",
+          "single": "single_composed",
+          "single_optional": "single_optional_composed",
+          "grant": "grant_composed"
+        }
+      }
+    },
+    {
+      "file": "full-consumer.bend",
+      "originalSha256": "45b77a6825eb9c49904cfa767e068f536e352b597988b066d7d0a6cba08c43f8",
+      "migratedSha256": "a81a52c6f84dfb33ffddc0d49fe44e776ee117aa700b09161e1a5ea05eaeb24b",
+      "renames": {
+        "Q": {
+          "Row": "ProjectedRow",
+          "ReadQuery": "ComposedReadQuery",
+          "handles_field": "composed_handles_field",
+          "valid_field": "composed_valid_field",
+          "each_field": "composed_each_field",
+          "get_field": "composed_get_field",
+          "each": "each_composed",
+          "get": "get_composed",
+          "single": "single_composed",
+          "single_optional": "single_optional_composed",
+          "grant": "grant_composed"
+        }
+      }
+    },
+    {
+      "file": "gate-instrumentation.bend",
+      "originalSha256": "caad3a07e1d6ab8cb4b760f441507e8875176a4e64c8b42aa5c48f8a27d0a25a",
+      "migratedSha256": "caad3a07e1d6ab8cb4b760f441507e8875176a4e64c8b42aa5c48f8a27d0a25a",
+      "renames": {}
+    },
+    {
+      "file": "gate-phase.bend",
+      "originalSha256": "c42234d2ab5be485e85f67ff4e704dc85b9815330ae69ca4eaf7feae9d096233",
+      "migratedSha256": "c42234d2ab5be485e85f67ff4e704dc85b9815330ae69ca4eaf7feae9d096233",
+      "renames": {}
+    },
+    {
+      "file": "gates.bend",
+      "originalSha256": "3221a4f53352769595452d20402d97aa1b5778f1b00fd5f8ff0985955052bddc",
+      "migratedSha256": "3221a4f53352769595452d20402d97aa1b5778f1b00fd5f8ff0985955052bddc",
+      "renames": {}
+    },
+    {
+      "file": "mutations.bend",
+      "originalSha256": "a6fcbf2089f382411b236faeef347a632e60349d46021ab374cdf1910b5115a4",
+      "migratedSha256": "a6fcbf2089f382411b236faeef347a632e60349d46021ab374cdf1910b5115a4",
+      "renames": {}
+    },
+    {
+      "file": "output-adapter.bend",
+      "originalSha256": "1bfc2ec53cab108eb013458fb5ee010599ff73de7a7c6fa3b75885a990aaeb16",
+      "migratedSha256": "1bfc2ec53cab108eb013458fb5ee010599ff73de7a7c6fa3b75885a990aaeb16",
+      "renames": {}
+    },
+    {
+      "file": "output-io-main.bend",
+      "originalSha256": "ef3b61223649d1e886da59b4ab98888643e4a037f0a46f592415f293a2ce772b",
+      "migratedSha256": "ef3b61223649d1e886da59b4ab98888643e4a037f0a46f592415f293a2ce772b",
+      "renames": {}
+    },
+    {
+      "file": "owner-carrier.bend",
+      "originalSha256": "dc9f303e101c4fe5117215960c4a19964f80f3117b586c4138ee6a4af821f795",
+      "migratedSha256": "3b67a0896a3f0ffa95d8c3d8ee118836a9a44cde96e14b41f7cfd151ac1ebc7e",
+      "renames": {
+        "Q": {
+          "Row": "ProjectedRow",
+          "ReadQuery": "ComposedReadQuery",
+          "handles_field": "composed_handles_field",
+          "valid_field": "composed_valid_field",
+          "each_field": "composed_each_field",
+          "get_field": "composed_get_field",
+          "each": "each_composed",
+          "get": "get_composed",
+          "single": "single_composed",
+          "single_optional": "single_optional_composed",
+          "grant": "grant_composed"
+        },
+        "D": {
+          "Selection": "DeclaredSelection"
+        }
+      }
+    },
+    {
+      "file": "owner-observer.bend",
+      "originalSha256": "cdca29b8b99fc061013c2875babb0002f1e3d0a5323d3b0dec01ff061ed2dce7",
+      "migratedSha256": "cdca29b8b99fc061013c2875babb0002f1e3d0a5323d3b0dec01ff061ed2dce7",
+      "renames": {}
+    },
+    {
+      "file": "phase-driver.bend",
+      "originalSha256": "5e7e57875627b130944234b6d42293cf1f4eeecc1016ce45ca7c4a847f076ff1",
+      "migratedSha256": "5e7e57875627b130944234b6d42293cf1f4eeecc1016ce45ca7c4a847f076ff1",
+      "renames": {}
+    },
+    {
+      "file": "retry-driver.bend",
+      "originalSha256": "2cf438e2af96089f87198452ff5436225dc37f52d7e451f2046b333ccb0fb2b1",
+      "migratedSha256": "2cf438e2af96089f87198452ff5436225dc37f52d7e451f2046b333ccb0fb2b1",
+      "renames": {}
+    },
+    {
+      "file": "runtime-declarations.bend",
+      "originalSha256": "7747dd6c71bc25fa076064c944bbb9f59dd570ea0505916a706a9388242af600",
+      "migratedSha256": "541e4945fbfe562328ce777f2c7d8b03d1f214e81545f29a0ba55694c2825dc1",
+      "renames": {
+        "Q": {
+          "Selection": "DeclaredSelection"
+        },
+        "Queries": {
+          "Row": "ProjectedRow",
+          "ReadQuery": "ComposedReadQuery",
+          "handles_field": "composed_handles_field",
+          "valid_field": "composed_valid_field",
+          "each_field": "composed_each_field",
+          "get_field": "composed_get_field",
+          "each": "each_composed",
+          "get": "get_composed",
+          "single": "single_composed",
+          "single_optional": "single_optional_composed",
+          "grant": "grant_composed"
+        }
+      }
+    },
+    {
+      "file": "runtime-named-declarations.bend",
+      "originalSha256": "0d1bfb46a7dff25458f3193a062fbc0ff1b15f00e39cbc782916ff53e48a845c",
+      "migratedSha256": "d1e387aa28eeb6bc42b8488d7482bec535dc43fa832b6caade786cba0a237f36",
+      "renames": {
+        "Q": {
+          "Selection": "DeclaredSelection"
+        },
+        "Queries": {
+          "Row": "ProjectedRow",
+          "ReadQuery": "ComposedReadQuery",
+          "handles_field": "composed_handles_field",
+          "valid_field": "composed_valid_field",
+          "each_field": "composed_each_field",
+          "get_field": "composed_get_field",
+          "each": "each_composed",
+          "get": "get_composed",
+          "single": "single_composed",
+          "single_optional": "single_optional_composed",
+          "grant": "grant_composed"
+        }
+      }
+    },
+    {
+      "file": "runtime-owners.bend",
+      "originalSha256": "59763f9b511b6e2d9df6249494fa317be8cbe76381bfba107e01d036d8b38929",
+      "migratedSha256": "59763f9b511b6e2d9df6249494fa317be8cbe76381bfba107e01d036d8b38929",
+      "renames": {}
+    },
+    {
+      "file": "schema-families.bend",
+      "originalSha256": "32b71ac5b06997d77a36c9967b5616398e6b39e62240a474d46b7764f133a814",
+      "migratedSha256": "b7eb5e83ee7527da8acc3f2cecb4fa0fc0e61dd03d94bc5a8e275c560abb90ec",
+      "renames": {}
+    },
+    {
+      "file": "world-observer.bend",
+      "originalSha256": "e0f3dda0449a45257d95bf3c08714ae3176b59510714765a3d2aa50abbc904e6",
+      "migratedSha256": "e0f3dda0449a45257d95bf3c08714ae3176b59510714765a3d2aa50abbc904e6",
+      "renames": {}
+    }
+  ],
+  "negativeMapping": {
+    "historical D.Read": "canonical Q.ComposedReadQuery (historical nonexistent symbol is not credited)",
+    "Q.ReadQuery": "Q.ComposedReadQuery",
+    "private selection/traversal/query imports": "canonical projection/world/query"
+  }
+}

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: bad
+5 | 
+6>| def bad(~S:Data,~Store:Type,~R:Type,~E:Data,owner:Carrier.InspectOwner<S,Store,R,E>) -> Carrier.InspectOwner<S,Store,R,E> & Carrier.InspectOwner<S,Store,R,E>:
+  |                                             ^^^^^
+7 |   (owner,owner)
+bend 2.0.36 is available: run bend update
