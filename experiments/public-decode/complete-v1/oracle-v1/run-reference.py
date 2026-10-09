@@ -36,13 +36,11 @@ def main():
     except BaseException as error:
         receipt['status']='INCOMPLETE';receipt['error']=repr(error);raise
     finally:
-        receipt['logs']=dict(logs.hashes) if logs is not None else {}
-        try:
-            if logs is not None:logs.guard()
-            guard()
+        try:guard()
         except BaseException as error:receipt['status']='INCOMPLETE';receipt['guardFailure']=repr(error)
-        with (out/'receipt.json').open('x') as stream:stream.write(json.dumps(receipt,indent=2)+'\n')
+        (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
     print(receipt['status'])
+
 def strict_equal(a,b,path='$'):
     assert type(a) is type(b), ('Type mismatch',path,type(a),type(b))
     if isinstance(a,dict):
