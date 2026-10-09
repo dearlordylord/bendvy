@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: body
+6 | def consume(~H:Type,owner:H) -> U32: 0
+7>| def body(~H:Type,~read:Cap.Request<H,C.Query,C.Projection>,owner:H,args:C.Args) -> H & U32:
+  |                                                            ^^^^^
+8 |   (owner,consume(~H,owner))

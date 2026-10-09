@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : ../../../../../../../../bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.Declaration<Other, P.Payload, ../../../../../../../../bendvy/src/ecs/capabilities.Request<P.Payload, P.Query, P.Projection>>
+- observed : ../../../../../../../../bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.Declaration<C.Schema, P.Payload, ../../../../../../../../bendvy/src/ecs/capabilities.Request<P.Payload, P.Query, P.Projection>>
+Location: reached
+7 | def reached(owner:P.Payload,args:P.Args) -> P.Payload & P.Observation:
+8>|   Decl.provide(~Other,~P.Payload,~P.Query,~P.Projection,~P.Args,~P.Observation,~C.reader(),~P.reader,owner,args)
+  |                                                                                 ^^^^^^^^
+9 | 
