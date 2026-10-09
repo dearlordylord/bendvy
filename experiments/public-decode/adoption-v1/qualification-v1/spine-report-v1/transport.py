@@ -7,7 +7,7 @@ BASE=importlib.util.module_from_spec(spec);exec(compile(Path(spec.origin).read_b
 
 def spine_helper(entry,role=None):
  parent=Path(entry).resolve().parent
- if role=="native-consuming":
+ if role in ("native-consuming","application32"):
   path=parent/"transport-inventory.py"
   spec=importlib.util.spec_from_file_location("native_consuming_inventory",path)
   module=importlib.util.module_from_spec(spec);exec(compile(path.read_bytes(),str(path),"exec"),module.__dict__)
@@ -20,6 +20,9 @@ def spine_helper(entry,role=None):
 def inventory(entry,assembly=False,role="normal"):
  role="generic-spine" if role=="completion-omission" else role
  entry=Path(entry).resolve()
+ if role=="application32":
+  assert assembly and entry.name=="main.bend" and entry.parent.name=="application32-v1"
+  return spine_helper(entry,role).inventory(entry,BASE,role)
  if role=="native-consuming":
   assert assembly and entry.name in ("main.bend","mutant-main.bend","complete-spine.bend","mutant-spine.bend","sequential-spine.bend","mutant-sequential-spine.bend")
   return spine_helper(entry,role).inventory(entry,BASE,role)
@@ -80,6 +83,14 @@ def assembly_inventory(entry):
 
 def whole(value,role="normal"):
  role="generic-spine" if role=="completion-omission" else role
+ if role=="application32":
+  assert type(value)is list and len(value)==32
+  index=0
+  for schema,operation in (("Workshop","insert"),("Workshop","spawn"),("Workshop","resource"),("Garden","insert")):
+   for case in ("array3","array128","array256","lateInvalid","struct64","nullableNull","nestedValid","nestedMissing"):
+    item=value[index];index+=1
+    assert type(item)is dict and set(item)=={"$","operation","name","value"} and item["$"]==schema and item["operation"]==operation and item["name"]==case
+  return value
  if role=="native-consuming":
   assert type(value)is dict and set(value)=={"$","first","second","firstResource","secondResource"} and value["$"]=="Candidate"
   return value
@@ -111,7 +122,7 @@ def render(expected,entry,assembly=False,role="normal"):
  types,name=inventory(entry,assembly,role)
  subject=spine_helper(entry,role).pack(expected,role) if role in ('generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine') else expected
  if role=='native-consuming' and Path(entry).name in ('complete-spine.bend','mutant-spine.bend','sequential-spine.bend','mutant-sequential-spine.bend'):subject=spine_helper(entry,role).pack(expected)
- return (BASE.parser().render(BASE.codec(subject,types['Report'] if role in ('generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine') else types['Report'] if role=='native-consuming' and Path(entry).name in ('complete-spine.bend','mutant-spine.bend','sequential-spine.bend','mutant-sequential-spine.bend') else 'Report',types,name,True))+'\n').encode()
+ return (BASE.parser().render(BASE.codec(subject,types['Report'] if role in ('application32','generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine') else types['Report'] if role=='native-consuming' and Path(entry).name in ('complete-spine.bend','mutant-spine.bend','sequential-spine.bend','mutant-sequential-spine.bend') else 'Report',types,name,True))+'\n').encode()
 
 def parse(raw,entry,assembly=False,role="normal"):
  role="generic-spine" if role=="completion-omission" else role
@@ -119,7 +130,7 @@ def parse(raw,entry,assembly=False,role="normal"):
  p=BASE.parser();term=p.parse(raw.decode())
  assert (p.render(term)+'\n').encode()==raw,'noncanonical complete output'
  types,name=inventory(entry,assembly,role)
- value=BASE.codec(term,types['Report'] if role in ('generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine') else types['Report'] if role=='native-consuming' and Path(entry).name in ('complete-spine.bend','mutant-spine.bend','sequential-spine.bend','mutant-sequential-spine.bend') else 'Report',types,name,False)
+ value=BASE.codec(term,types['Report'] if role in ('application32','generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine') else types['Report'] if role=='native-consuming' and Path(entry).name in ('complete-spine.bend','mutant-spine.bend','sequential-spine.bend','mutant-sequential-spine.bend') else 'Report',types,name,False)
  if role in ('generic-spine','deferred-spine','construction-spine','custom-spine','completion-spine','input-codec-spine'):value=spine_helper(entry,role).unpack(value,role)
  if role=='native-consuming' and Path(entry).name in ('complete-spine.bend','mutant-spine.bend','sequential-spine.bend','mutant-sequential-spine.bend'):value=spine_helper(entry,role).unpack(value)
  whole(value,role)
