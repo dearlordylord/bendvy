@@ -1,0 +1,55 @@
+{
+  "preparedPlanSha256": "08d82cfb5b083fbad40fdca1e08d68d332341d4ad542510cee061db01211de40",
+  "status": "DEVELOPMENT_NATIVE_PASS",
+  "scope": "Complete list-spine Native build/runtime from exact previously emitted C; no re-emission/delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-build",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/deferred-cEmit/generated/complete.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/deferred-native/generated/complete.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/deferred-native/generated/complete.native",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/deferred-native/generated/complete.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    }
+  ],
+  "generated": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/deferred-native/generated/complete.native": "e07442137429be95b27a06efd9240bef4a921d7a02dabfd639b4c2783ab8e3c2"
+  },
+  "logs": {
+    "complete-build.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-build.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-run.stdout": "d9fd42ff0e5c624cb89fea6a36bd6fc6038f4411009204072f44974118410683",
+    "complete-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

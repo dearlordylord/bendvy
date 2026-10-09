@@ -1,0 +1,55 @@
+{
+  "preparedPlanSha256": "6edb672bbd352da2b78344c8b7080ce21c308e8032a8fab44850a7f4cc45020b",
+  "status": "DEVELOPMENT_NATIVE_PASS",
+  "scope": "Complete list-spine Native build/runtime from exact previously emitted C; no re-emission/delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-build",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/generic-cEmit/generated/complete.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/generic-native/generated/complete.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/generic-native/generated/complete.native",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/generic-native/generated/complete.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    }
+  ],
+  "generated": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/generic-native/generated/complete.native": "2861b3890dcf849b780e861b507914323789dd1bd5f7099a00abccece2f0c5ab"
+  },
+  "logs": {
+    "complete-build.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-build.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-run.stdout": "5d23c765c3b487d7dd229820a077b951d9c5f7d4020f947c63aac512a3464ad2",
+    "complete-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
