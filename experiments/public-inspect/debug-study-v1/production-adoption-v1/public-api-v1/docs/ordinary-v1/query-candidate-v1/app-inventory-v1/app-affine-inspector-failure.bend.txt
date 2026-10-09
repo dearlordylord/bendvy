@@ -1,0 +1,67 @@
+import Base
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-schema.bend as Normal
+import ./retained-schema.bend as Schema
+import /workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend as Fragment
+import ../declaration.bend as Query
+import ../system.bend as System
+import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T
+import /workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend as SP
+import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch
+
+type Debug is Data:
+  Enabled{}
+  Disabled{}
+type Entry<S:Data> is Data:
+  Entry{id:U32,name:String,access:List<&2,String>,slot:String,clauses:List<&2,Query.Clause<S>>}
+type Owners<-S:Data,-C:Type,-R:Type,-H:Type> is Type:
+  Owners{schema:Normal.Schema<S,C,R>,debug:Debug,namespace:U32,catalog:List<&2,U32>,inspect:H -> H & List<&2,Entry<S>>,owners:H,valid:Bool}
+type Application<-S:Data,C:Type,R:Type,E:Data,H:Type> is Type:
+  Application{schema:Normal.Schema<S,C,R>,debug:Debug,inspect:H -> H & List<&2,Entry<S>>,schedule:SP.Provisioned<S,C,R,E,H>}
+type Built<-S:Data,C:Type,R:Type,E:Data,H:Type> is Type:
+  Built{app:Application<S,C,R,E,H>}
+  Invalid{owners:H}
+type Description<S:Data> is Data:
+  Description{schema:List<&2,Fragment.Entry<S>>,namespace:U32,name:String,steps:List<&2,Sch.Step>,systems:List<&2,Entry<S>>}
+def empty_inspect(~S:Data,owner:Unit) -> Unit & List<&2,Entry<S>>:
+  (owner,[])
+def empty(~S:Data,~C:Type,~R:Type,namespace:U32,debug:Debug,schema:Normal.Schema<S,C,R>) -> Owners<S,C,R,Unit>:
+  Owners{schema,debug,namespace,[],empty_inspect(~S),Unit{},True{}}
+def observe_owner(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:Query.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~H:Type,owner:System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>) -> System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body)>> & Entry<S>:
+  match owner:
+    case System.Owner{Sys.Registry{+actual,+id,+name,+access,+cursor},+slot,+clauses}:(System.Owner{Sys.Registry{actual,id,name,access,cursor},slot,clauses},Entry{id,name,access,slot,clauses})
+def observed_right(~S:Data,~H:Type,~O:Type,left:H,entries:List<&2,Entry<S>>,got:O & Entry<S>) -> (H & O) & List<&2,Entry<S>>:
+  match got:
+    case (right,entry):((left,right),List.append(&2,Entry<S>,entries,[entry]))
+def observed_left(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:Query.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~H:Type,right:System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>,got:H & List<&2,Entry<S>>) -> (H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>) & List<&2,Entry<S>>:
+  match got:
+    case (left,entries):observed_right(~S,~H,~System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>,left,entries,observe_owner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body,~H,right))
+def inspect_added(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:Query.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~H:Type,inspect:H -> H & List<&2,Entry<S>>,pair:H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>) -> (H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>) & List<&2,Entry<S>>:
+  match pair:
+    case (left,right):observed_left(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body,~H,right,inspect(left))
+def add(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:Query.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~H:Type,collected:Owners<S,C,R,H>,owner:System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>) -> Owners<S,C,R,H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>>:
+  match collected owner:
+    case Owners{schema,+debug,+namespace,catalog,inspect,owners,valid} System.Owner{Sys.Registry{+actual,+id,+name,+access,+cursor},+slot,+clauses}:
+      Owners{schema,debug,namespace,List.append(&2,U32,catalog,[id]),(pair => inspect_added(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body,~H,inspect,pair)),(owners,System.Owner{Sys.Registry{actual,id,name,access,cursor},slot,clauses}),Bool.and(valid,U32.is_eq(namespace,actual))}
+
+def built(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,schema:Normal.Schema<S,C,R>,debug:Debug,inspect:H -> H & List<&2,Entry<S>>,result:SP.Build<S,C,R,E,H>) -> Built<S,C,R,E,H>:
+  match result:
+    case SP.Invalid{owners}:Invalid{owners}
+    case SP.Built{schedule}:Built{Application{schema,debug,inspect,schedule}}
+def build(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,name:String,plan:SP.Plan<S>,collected:Owners<S,C,R,H>) -> Built<S,C,R,E,H>:
+  match collected:
+    case Owners{schema,debug,namespace,catalog,inspect,owners,False{}}:Invalid{owners}
+    case Owners{schema,debug,namespace,catalog,inspect,owners,True{}}:built(~S,~C,~R,~E,~H,schema,debug,inspect,SP.build(~S,~C,~R,~E,~H,namespace,name,plan,catalog,owners))
+def described(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,+schema:Normal.Schema<S,C,R>,inspect:H -> H & List<&2,Entry<S>>,+namespace:U32,+name:String,+steps:List<&2,Sch.Step>,requirements:List<&2,SP.Requirement<S>>,got:H & List<&2,Entry<S>>) -> Application<S,C,R,E,H> & Maybe<&2,Description<S>>:
+  match got:
+    case (owners,entries):(Application{schema,Enabled{},inspect,SP.Provisioned{Sch.Schedule{namespace,name,steps,owners},requirements}},Some{Description{Schema.entries(~S,~C,~R,schema),namespace,name,steps,entries}})
+def describe(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,app:Application<S,C,R,E,H>) -> Application<S,C,R,E,H> & Maybe<&2,Description<S>>:
+  match app:
+    case Application{schema,Disabled{},inspect,schedule}:(Application{schema,Disabled{},inspect,schedule},None{})
+    case Application{schema,Enabled{},+inspect,SP.Provisioned{Sch.Schedule{namespace,name,steps,owners},requirements}}:
+      described(~S,~C,~R,~E,~H,schema,inspect,namespace,name,steps,requirements,inspect(owners))
+def run(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,~dispatch:H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~provision:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,SP.Requirement<S>>,app:Application<S,C,R,E,H>,world:W.World<S,C,R,E>) -> SP.ProvisionResult<S,C,R,E,H,Error> & (Normal.Schema<S,C,R> & (Debug & (H -> H & List<&2,Entry<S>>))):
+  match app:
+    case Application{schema,debug,inspect,schedule}:(SP.run(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,~provision,schedule,world),(schema,(debug,inspect)))

@@ -1,0 +1,49 @@
+import Base
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-schema.bend as Ordinary
+import ../scenario-schema.bend as S
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend as Identity
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-leaf.bend as Leaf
+import /workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend as Fragment
+# Capture from the ordinary slot's nominal identity; no debug label/lens argument.
+def component(~P:Type,~identity:Identity.Declaration<S.Schema,P>) -> Fragment.Entry<S.Schema>:
+  +key=Identity.key(~S.Schema,~P,identity)
+  Fragment.Entry{Fragment.Component{},key,key}
+def plain_slot(~key:String,owner:S.PlainSlot<key>) -> S.PlainSlot<key> & Fragment.Entry<S.Schema>:
+  (owner,component(~Array<U32>,~S.identity(key)))
+def transient_slot(~identity:Identity.Declaration<S.Schema,Array<U32>>,owner:Leaf.TransientComponent<S.Schema,Array<U32>,identity>) -> Leaf.TransientComponent<S.Schema,Array<U32>,identity> & Fragment.Entry<S.Schema>:
+  (owner,component(~Array<U32>,~identity))
+def constructed_slot(~identity:Identity.Declaration<S.Schema,Array<U32>>,owner:Leaf.Component<S.Schema,Array<U32>,identity,S.save>) -> Leaf.Component<S.Schema,Array<U32>,identity,S.save> & Fragment.Entry<S.Schema>:
+  (owner,component(~Array<U32>,~identity))
+def gathered_h(~P:Type,~V:Type,~H:Type,p:P,pe:Fragment.Entry<S.Schema>,v:V,ve:Fragment.Entry<S.Schema>,got:H & Fragment.Entry<S.Schema>) -> S.Store<P,V,H> & Ordinary.Schema<S.Schema,S.Store<P,V,H>,Unit>:
+  match got:
+    case (h,he):(S.Store{p,v,h},Ordinary.Schema{[pe,ve,he]})
+def gathered_v(~P:Type,~V:Type,~H:Type,p:P,pe:Fragment.Entry<S.Schema>,got:V & Fragment.Entry<S.Schema>,h:H & Fragment.Entry<S.Schema>) -> S.Store<P,V,H> & Ordinary.Schema<S.Schema,S.Store<P,V,H>,Unit>:
+  match got:
+    case (v,ve):gathered_h(~P,~V,~H,p,pe,v,ve,h)
+def gathered(~P:Type,~V:Type,~H:Type,got:P & Fragment.Entry<S.Schema>,v:V & Fragment.Entry<S.Schema>,h:H & Fragment.Entry<S.Schema>) -> S.Store<P,V,H> & Ordinary.Schema<S.Schema,S.Store<P,V,H>,Unit>:
+  match got:
+    case (p,pe):gathered_v(~P,~V,~H,p,pe,v,h)
+def plain(store:S.plain_store()) -> S.plain_store() & Ordinary.Schema<S.Schema,S.plain_store(),Unit>:
+  match store:
+    case S.Store{p,v,h}:gathered(~S.plain_position(),~S.plain_velocity(),~S.plain_health(),plain_slot(~"Position",p),plain_slot(~"Velocity",v),plain_slot(~"Health",h))
+def transient(store:S.transient_store()) -> S.transient_store() & Ordinary.Schema<S.Schema,S.transient_store(),Unit>:
+  match store:
+    case S.Store{p,v,h}:gathered(~S.transient_position(),~S.transient_velocity(),~S.transient_health(),transient_slot(~S.identity("Position"),p),transient_slot(~S.identity("Velocity"),v),transient_slot(~S.identity("Health"),h))
+def constructed(store:S.constructed_store()) -> S.constructed_store() & Ordinary.Schema<S.Schema,S.constructed_store(),Unit>:
+  match store:
+    case S.Store{p,v,h}:gathered(~S.constructed_position(),~S.constructed_velocity(),~S.constructed_health(),constructed_slot(~S.identity("Position"),p),constructed_slot(~S.identity("Velocity"),v),constructed_slot(~S.identity("Health"),h))
+def entries(~S:Data,~C:Type,~R:Type,catalog:Ordinary.Schema<S,C,R>) -> List<&2,Fragment.Entry<S>>:
+  match catalog:
+    case Ordinary.Schema{entries}:entries
+# Normal resource registration consumes the existing ordinary Resource declaration.
+# Its payload index becomes the same Application/World resource type.
+def resource(~S:Data,~C:Type,~P:Type,catalog:Ordinary.Schema<S,C,Unit>,declaration:Ordinary.Resource<S,P>) -> Ordinary.Schema<S,C,P>:
+  match catalog:
+    case Ordinary.Schema{entries}:
+      +key=Ordinary.resource_key(~S,~P,declaration)
+      Ordinary.Schema{List.append(&2,Fragment.Entry<S>,entries,[Fragment.Entry{Fragment.Resource{},key,key}])}
+def empty(~S:Data) -> Ordinary.Schema<S,Unit,Unit>:
+  Ordinary.Schema{[]}
+# General generated-product route retains the already ordinary schema object itself.
+def retain(~S:Data,~C:Type,~R:Type,declaration:Ordinary.Schema<S,C,R>) -> Ordinary.Schema<S,C,R>:
+  declaration

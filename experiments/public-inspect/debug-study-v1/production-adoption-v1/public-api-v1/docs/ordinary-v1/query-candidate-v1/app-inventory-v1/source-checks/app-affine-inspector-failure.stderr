@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Data
+- observed : Type
+Context:
+- schema : Normal.Schema<describe~S, describe~C, describe~R>
+Location: describe
+61 |   match app:
+62>|     case Application{schema,Disabled{},inspect,schedule}:(Application{schema,Disabled{},inspect,schedule},None{})
+   |                                        ^^^^^^^
+63 |     case Application{schema,Enabled{},+inspect,SP.Provisioned{Sch.Schedule{namespace,name,steps,owners},requirements}}:
+Note: +inspect can be used many times, so its type must be Data.
+bend 2.0.36 is available: run bend update

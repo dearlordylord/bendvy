@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : bindings
+- observed : bindings (consumed more than once)
+Context:
+- name      : String
+- plan      : SP.Plan<build~S>
+- schema    : Normal.Schema<build~S, build~C, build~R>
+- debug     : Debug
+- namespace : U32
+Location: build
+51 |   match collected:
+52>|     case Owners{schema,debug,namespace,bindings,owners,False{}}:Invalid{owners}
+   |                                        ^^^^^^^^
+53 |     case Owners{schema,debug,namespace,bindings,owners,True{}}:built(~S,~C,~R,~E,~H,schema,debug,bindings,SP.build(~S,~C,~R,~E,~H,namespace,name,plan,ids(~S,bindings),owners))
+bend 2.0.36 is available: run bend update

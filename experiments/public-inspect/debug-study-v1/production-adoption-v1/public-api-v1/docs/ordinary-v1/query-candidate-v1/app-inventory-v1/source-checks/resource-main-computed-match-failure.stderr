@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+55 | def main() -> Outcome:
+56>|   match Control.main():
+   |         ^^^^^^^^^^^^
+57 |     case Control.Delivered{factory,world,app,description}:before_seen(factory,app,description,snapshot(world))
+bend 2.0.36 is available: run bend update

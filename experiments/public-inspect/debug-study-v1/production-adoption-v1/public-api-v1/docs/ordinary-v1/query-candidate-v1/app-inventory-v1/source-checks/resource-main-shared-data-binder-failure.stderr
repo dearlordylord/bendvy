@@ -1,0 +1,24 @@
+SOME PROOFS FAIL
+Error:
+- expected : clock
+- observed : clock (consumed more than once)
+Context:
+- resourceView  : View.FullCell
+- pendingCount  : U32
+- namespace     : U32
+- nextId        : U32
+- highWater     : U32
+- capacity      : U32
+- depth         : Nat
+- store         : Unit
+- resource      : Array<U32>
+- events        : List<&2, Unit>
+- pending       : List<&1, @_:W.World<Control.ResourceSchema, Unit, Array<U32>, Unit> -> W.World<Control.ResourceSchema, Unit, Array<U32>, Unit>>
+- registrations : List<&2, W.RegistrationMeta>
+- nextSystemId  : U32
+Location: bits_seen
+16 |   CreateRejected{factoryNext:U32,resource:View.FullCell}
+17>| def bits_seen(resourceView:View.FullCell,pendingCount:U32,namespace:U32,nextId:U32,highWater:U32,capacity:U32,depth:Nat,store:Unit,resource:Array<U32>,events:List<&2,Unit>,pending:List<(W.World<Control.ResourceSchema,Unit,Array<U32>,Unit> -> W.World<Control.ResourceSchema,Unit,Array<U32>,Unit>)>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32,got:Array<Bool> & List<&2,Bool>) -> W.World<Control.ResourceSchema,Unit,Array<U32>,Unit> & Snapshot:
+   |                                                                                                                                                                                                                                                                                                                                                                     ^^^^^
+18 |   match got:
+bend 2.0.36 is available: run bend update

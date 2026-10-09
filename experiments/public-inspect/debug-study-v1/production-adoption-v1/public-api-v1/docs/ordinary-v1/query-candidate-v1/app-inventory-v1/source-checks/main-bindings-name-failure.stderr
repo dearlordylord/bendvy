@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : a defined name
+- observed : bindings
+Context:
+- debug    : App.Debug
+- schema   : Normal.Schema<S.Schema, S.Store<S.PlainSlot<"Position">, S.PlainSlot<"Velocity">, S.PlainSlot<"Health">>, Unit>
+- _        : App.Debug
+- entries  : List<&2, App.Binding<S.Schema>>
+- schedule : SP.Provisioned<S.Schema, S.Store<S.PlainSlot<"Position">, S.PlainSlot<"Velocity">, S.PlainSlot<"Health">>, Unit, Unit, Dispatch.Plain>
+Location: plain_debug
+39 |   match app:
+40>|     case App.Application{schema,_,entries,schedule}:App.Application{schema,debug,bindings,schedule}
+   |                                                                                  ^^^^^^^^
+41 | def plain_finished(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.plain_store(),Unit,Unit>>,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,app:App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>) -> Outcome:
+bend 2.0.36 is available: run bend update

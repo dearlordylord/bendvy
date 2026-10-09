@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : Schema.Catalog<First, Unit, Unit>
+- observed : Schema.Catalog<Other, Unit, Unit>
+Location: wrong
+ 8 | def wrong() -> App.Owners<First,Unit,Unit,Unit>:
+ 9>|   App.empty(~First,~Unit,~Unit,1,App.Enabled{},Schema.empty(~Other))
+   |                                                ^^^^^^^^^^^^^^^^^^^^
+10 | 
+bend 2.0.36 is available: run bend update
