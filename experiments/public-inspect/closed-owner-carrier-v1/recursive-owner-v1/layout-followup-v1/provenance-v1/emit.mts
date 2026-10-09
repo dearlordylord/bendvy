@@ -5,7 +5,7 @@ import * as Comp from './profile-comp.ts';
 import { withProfile } from '/workspace/formal-proofs/bendvy/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/cpu-profile-v1/profile-helper.mjs';
 import { armBudget, checkBudget } from '/workspace/formal-proofs/bendvy/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/cpu-profile-v1/profile-budget.mjs';
 import * as Provenance from './layout-provenance.mjs';
-import { joined } from './book-provenance.mjs';
+import { joined, templateInstances } from './book-provenance.mjs';
 import { publish } from './publish-provenance.mjs';
 import { createHash } from 'node:crypto';
 const declarations: Array<any> = [];
@@ -53,7 +53,7 @@ await withProfile(async () => {
  try {
   const observed = Provenance.snapshot();
   const mapping = [...new Set([...observed.definitionCounts.map(([definition]) => definition), ...observed.rows.map(row => row.definition)])].map(def => joined(def, book, seen, declarations));
-  publish(provenancePath, {observed,mapping,loaded:[...seen],bookDefinitions:Object.entries(book.tlds).map(([key,value]) => ({key,tag:value.$,namespace:value.m ?? null}))});
+  publish(provenancePath, {observed,mapping,loaded:[...seen],templateInstances:templateInstances(book),bookDefinitions:Object.entries(book.tlds).map(([key,value]) => ({key,tag:value.$,namespace:value.m ?? null}))});
  } catch (error) {
   console.error('REFERENCE_PROVENANCE_PUBLICATION_ERROR ' + String(error));
   if (!primaryFailed) throw error;

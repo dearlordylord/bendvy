@@ -44,7 +44,7 @@ def validate_provenance(data,plan):
     def natural(value):
         if type(value) is not int or value<0:raise ValueError('invalid provenance counter')
         return value
-    if not isinstance(data,dict) or set(data)!={'observed','mapping','loaded','bookDefinitions'}:raise ValueError('provenance top-level fields')
+    if not isinstance(data,dict) or set(data)!={'observed','mapping','loaded','bookDefinitions','templateInstances'}:raise ValueError('provenance top-level fields')
     observed=data['observed']
     if set(observed)!={'scope','calls','omitted','errors','unknownCalls','definitionCounts','rows'}:raise ValueError('observed fields')
     for key in ('calls','omitted','errors','unknownCalls'):natural(observed[key])
@@ -53,6 +53,11 @@ def validate_provenance(data,plan):
         if set(row)!={'key','tag','namespace'} or not isinstance(row['key'],str) or row['key'] in definitions:raise ValueError('Book identity rows')
         if not isinstance(row['tag'],str) or not (row['namespace'] is None or isinstance(row['namespace'],str)):raise ValueError('Book metadata')
         definitions[row['key']]=row
+    templates={}
+    for row in data['templateInstances']:
+        if set(row)!={'template','instances'} or not isinstance(row['template'],str) or row['template'] in templates or not isinstance(row['instances'],list):raise ValueError('template registry fields')
+        if any(not isinstance(key,str) for key in row['instances']) or len(set(row['instances']))!=len(row['instances']):raise ValueError('template registry instance identity')
+        templates[row['template']]=row['instances']
     counts={}
     for key,count in observed['definitionCounts']:
         if not isinstance(key,str) or key in counts or key not in definitions or natural(count)==0:raise ValueError('definition count membership')
@@ -95,31 +100,31 @@ def validate_provenance(data,plan):
         tld=definitions.get(key)
         expected={'definition':key,'status':'not-declared'}
         if tld and tld['tag']=='Def':
-            ns=tld['namespace']
-            if not isinstance(ns,str):expected={'definition':key,'status':'missing-namespace'}
-            elif ns and not key.startswith(ns+':'):expected={'definition':key,'status':'namespace-mismatch','namespace':ns}
+            origin={};source_key=key
+            if not isinstance(tld['namespace'],str):
+                origins=[template for template,instances in templates.items() if key in instances]
+                if len(origins)>1:
+                    expected={'definition':key,'status':'ambiguous-template','originTemplates':origins}
+                    if row!=expected:raise ValueError('exact ambiguous template mapping differs')
+                    continue
+                if origins:
+                    source_key=origins[0];origin={'originTemplate':source_key};tld=definitions.get(source_key)
+            if not tld or tld['tag']!='Def':expected={'definition':key,'status':'missing-template-definition',**origin}
             else:
-                local=key if ns=='' else key[len(ns)+1:]
-                sources=[source for source,namespace in loaded.items() if namespace==ns]
-                declarations=[]
-                for source in sources:
-                    declarations.extend((source,index) for name,index in lexical[source] if name==local)
-                if len(declarations)!=1:expected={'definition':key,'status':'ambiguous-source' if declarations else 'no-lexical-source','namespace':ns,'files':sources}
+                ns=tld['namespace']
+                if not isinstance(ns,str):expected={'definition':key,'status':'missing-namespace',**origin}
+                elif ns and not source_key.startswith(ns+':'):expected={'definition':key,'status':'namespace-mismatch','namespace':ns,**origin}
                 else:
-                    source,index=declarations[0]
-                    expected={'definition':key,'status':'mapped','namespace':ns,'localName':local,'source':source,'line':index,'sourceSHA256':plan['pins'][source]}
+                    local=source_key if ns=='' else source_key[len(ns)+1:]
+                    sources=[source for source,namespace in loaded.items() if namespace==ns]
+                    declarations=[]
+                    for source in sources:
+                        declarations.extend((source,index) for name,index in lexical[source] if name==local)
+                    if len(declarations)!=1:expected={'definition':key,'status':'ambiguous-source' if declarations else 'no-lexical-source','namespace':ns,'files':sources,**origin}
+                    else:
+                        source,index=declarations[0]
+                        expected={'definition':key,'status':'mapped','namespace':ns,'localName':local,'source':source,'line':index,'sourceSHA256':plan['pins'][source],**origin}
         if row!=expected:raise ValueError('exact Book/source mapping differs')
-        if row['status']=='mapped':
-            if not tld or tld['tag']!='Def' or tld['namespace']!=row['namespace']:raise ValueError('mapped Book metadata')
-            namespace=row['namespace'];local=key if namespace=='' else key.removeprefix(namespace+':')
-            if namespace and not key.startswith(namespace+':'):raise ValueError('mapping key prefix')
-            if local!=row['localName'] or loaded.get(row['source'])!=namespace or row['sourceSHA256']!=plan['pins'][row['source']]:raise ValueError('mapping source join')
-            lines=Path(row['source']).read_text().splitlines();line=natural(row['line'])
-            import re
-            match=re.match(r'^def ([A-Za-z_][A-Za-z_0-9]*)',lines[line-1]) if 0<line<=len(lines) else None
-            if not match or match.group(1)!=local:raise ValueError('mapping lexical declaration')
-        elif row['status'] not in ('not-declared','missing-namespace','namespace-mismatch','ambiguous-source','no-lexical-source'):raise ValueError('unknown mapping status')
-        elif row['status']=='not-declared' and tld and tld['tag']=='Def':raise ValueError('false absent definition')
     if mapped!=needed:raise ValueError('missing mappings')
     return {'calls':observed['calls'],'definitions':len(counts),'unknownCalls':observed['unknownCalls'],'omitted':observed['omitted'],'errors':observed['errors'],'mapped':sum(row['status']=='mapped'for row in data['mapping']),'unmapped':sum(row['status']!='mapped'for row in data['mapping'])}
 

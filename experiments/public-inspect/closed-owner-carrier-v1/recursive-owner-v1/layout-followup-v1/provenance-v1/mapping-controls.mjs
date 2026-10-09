@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {joined} from './book-provenance.mjs';
+import {joined,templateInstances} from './book-provenance.mjs';
 const book={tlds:{'left:read':{$:'Def',m:'left'},'right:read':{$:'Def',m:'right'}}};
 const seen=new Map([['/a.bend','left'],['/b.bend','right']]);
 const rows=[{source:'/a.bend',definition:'read',line:10,sourceSHA256:'A'},{source:'/b.bend',definition:'read',line:20,sourceSHA256:'B'}];
@@ -9,3 +9,15 @@ assert.equal(joined('generated',book,seen,rows).status,'not-declared');
 assert.equal(joined('left:read',book,seen,[...rows,rows[0]]).status,'ambiguous-source');
 assert.equal(joined('left:read',book,seen,[]).status,'no-lexical-source');
 console.log('PASS exact internal Book keys/seen namespace/source lines and ambiguity/generated refusals');
+
+book.tlds['left:read~14']={$:'Def'};
+book.tmps={'left:read':new Map([['exact closed argument','left:read~14']])};
+assert.deepEqual(joined('left:read~14',book,seen,rows),{definition:'left:read~14',status:'mapped',namespace:'left',localName:'read',source:'/a.bend',line:10,sourceSHA256:'A',originTemplate:'left:read'});
+assert.deepEqual(templateInstances(book),[{template:'left:read',instances:['left:read~14']}]);
+book.tlds['left:read~15']={$:'Def'};
+assert.equal(joined('left:read~15',book,seen,rows).status,'missing-namespace');
+book.tmps['right:read']=new Map([['other exact argument','left:read~14']]);
+assert.deepEqual(joined('left:read~14',book,seen,rows),{definition:'left:read~14',status:'ambiguous-template',originTemplates:['left:read','right:read']});
+book.tmps={'missing:template':new Map([['argument','left:read~14']])};
+assert.equal(joined('left:read~14',book,seen,rows).status,'missing-template-definition');
+console.log('PASS exact actual Map reverse lookup, original/generated keys, no suffix inference and ambiguous origins');
