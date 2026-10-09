@@ -1,0 +1,79 @@
+[
+  {
+    "subject": "construction-spine",
+    "backend": "js",
+    "exit": 0,
+    "stdout": "{\"receipt\": \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-js/receipt.json\", \"status\": \"DEVELOPMENT_JS_PASS\"}\n",
+    "stderr": ""
+  },
+  {
+    "subject": "construction-spine",
+    "backend": "cEmit",
+    "exit": 0,
+    "stdout": "{\"receipt\": \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-cEmit/receipt.json\", \"status\": \"DEVELOPMENT_C_EMIT_PASS\"}\n",
+    "stderr": ""
+  },
+  {
+    "subject": "custom-spine",
+    "backend": "js",
+    "exit": 0,
+    "stdout": "{\"receipt\": \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-js/receipt.json\", \"status\": \"DEVELOPMENT_JS_PASS\"}\n",
+    "stderr": ""
+  },
+  {
+    "subject": "custom-spine",
+    "backend": "cEmit",
+    "exit": 0,
+    "stdout": "{\"receipt\": \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-cEmit/receipt.json\", \"status\": \"DEVELOPMENT_C_EMIT_PASS\"}\n",
+    "stderr": ""
+  },
+  {
+    "subject": "completion-spine",
+    "backend": "js",
+    "exit": 0,
+    "stdout": "{\"receipt\": \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-js/receipt.json\", \"status\": \"DEVELOPMENT_JS_PASS\"}\n",
+    "stderr": ""
+  },
+  {
+    "subject": "completion-spine",
+    "backend": "cEmit",
+    "exit": 0,
+    "stdout": "{\"receipt\": \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-cEmit/receipt.json\", \"status\": \"DEVELOPMENT_C_EMIT_PASS\"}\n",
+    "stderr": ""
+  },
+  {
+    "subject": "input-codec-spine",
+    "backend": "js",
+    "exit": 0,
+    "stdout": "{\"receipt\": \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-js/receipt.json\", \"status\": \"DEVELOPMENT_JS_PASS\"}\n",
+    "stderr": ""
+  },
+  {
+    "subject": "input-codec-spine",
+    "backend": "cEmit",
+    "exit": 0,
+    "stdout": "{\"receipt\": \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-cEmit/receipt.json\", \"status\": \"DEVELOPMENT_C_EMIT_PASS\"}\n",
+    "stderr": ""
+  },
+  {
+    "subject": "skip-validation",
+    "backend": "js",
+    "exit": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py\", line 300, in <module>\n    main(args.output.resolve(),args.native,args.execute,args.plan_sha256,args.role,args.assembly_binding.absolute() if args.assembly_binding else None,args.assembly_binding_sha256)\n  File \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py\", line 281, in main\n    assert parsed==expected, 'full typed output differs from pre-run oracle'\n           ^^^^^^^^^^^^^^^^\nAssertionError: full typed output differs from pre-run oracle\n"
+  },
+  {
+    "subject": "partial-write",
+    "backend": "js",
+    "exit": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py\", line 300, in <module>\n    main(args.output.resolve(),args.native,args.execute,args.plan_sha256,args.role,args.assembly_binding.absolute() if args.assembly_binding else None,args.assembly_binding_sha256)\n  File \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py\", line 281, in main\n    assert parsed==expected, 'full typed output differs from pre-run oracle'\n           ^^^^^^^^^^^^^^^^\nAssertionError: full typed output differs from pre-run oracle\n"
+  },
+  {
+    "subject": "skip-input-validation",
+    "backend": "js",
+    "exit": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py\", line 300, in <module>\n    main(args.output.resolve(),args.native,args.execute,args.plan_sha256,args.role,args.assembly_binding.absolute() if args.assembly_binding else None,args.assembly_binding_sha256)\n  File \"/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py\", line 281, in main\n    assert parsed==expected, 'full typed output differs from pre-run oracle'\n           ^^^^^^^^^^^^^^^^\nAssertionError: full typed output differs from pre-run oracle\n"
+  }
+]

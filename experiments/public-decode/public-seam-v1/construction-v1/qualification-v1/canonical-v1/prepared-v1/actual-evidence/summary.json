@@ -1,0 +1,823 @@
+{
+  "scope": "canonical full92 JS and C emissions plus exact complete44/12 reached mutations; no Native runtime/performance claim",
+  "results": {
+    "construction-spine-js": {
+      "status": "DEVELOPMENT_JS_PASS",
+      "preparedPlanSha256": "666ded9b5a4563f4a37aa3d6dfba2ee05d62aa737d67847e1bdc37b5e860a4f7",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/qualification-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-js/generated/complete.js",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-js/generated/complete.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-js/generated/complete.js": {
+          "sha256": "e31031b3995d5e54ac04886148dec9fbe6d235d17cc684496704899d8ff12be0",
+          "bytes": 840774,
+          "capture": "actual-evidence/construction-spine-js/complete.js.gz",
+          "captureSha256": "d2e7362ca10444022348249500590f3ef729d175922df8f45bc289902daccb4b"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-js/raw/complete-run.stdout": {
+          "sha256": "84371431035104b46323da1b20100750e18d6e294e6e8e1da46755720394a255",
+          "bytes": 111953,
+          "capture": "actual-evidence/construction-spine-js/complete-run.stdout.gz",
+          "captureSha256": "4be5b656b4f299ced154d9bd891df41d7255e385af25506d56c187755a613882"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-js/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/construction-spine-js/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-js/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/construction-spine-js/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-js/raw/complete-run.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/construction-spine-js/complete-run.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    },
+    "construction-spine-cEmit": {
+      "status": "DEVELOPMENT_C_EMIT_PASS",
+      "preparedPlanSha256": "3cb330e1d848dd2322bda4c899516872c3a4890929aab57cb09f204ee359db84",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/qualification-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-cEmit/generated/complete.c",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-cEmit/generated/complete.c": {
+          "sha256": "b6f28c83fd0dad9f872fa3f68e1a06ae5692ba4c67545f5a29fd3a9e41f50791",
+          "bytes": 5912274,
+          "capture": "actual-evidence/construction-spine-cEmit/complete.c.gz",
+          "captureSha256": "ea078668a56d8dbc764ea92cd99703a7b6d3d4b19dbbaf6bf03c18a6372f3b98"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-cEmit/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/construction-spine-cEmit/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-cEmit/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/construction-spine-cEmit/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    },
+    "custom-spine-js": {
+      "status": "DEVELOPMENT_JS_PASS",
+      "preparedPlanSha256": "783b0d5db4bd79bf0af3419b7b6f9fcf0ed3cc1e530d033e2e3c12171dbe74e9",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/fallible-composition-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-js/generated/complete.js",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-js/generated/complete.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-js/generated/complete.js": {
+          "sha256": "4826837521d0aaf14bebef02742d52b7842835c680ccdf24762496ebb36a4ad9",
+          "bytes": 768249,
+          "capture": "actual-evidence/custom-spine-js/complete.js.gz",
+          "captureSha256": "6f06ad429610809b13a6056028e21c333c2b478436149875af44f02cedf74ffe"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-js/raw/complete-run.stdout": {
+          "sha256": "ff12c2123dcd16b403616623394cf0eec6a951d34cfbe190b5cc192a2277c0ab",
+          "bytes": 28019,
+          "capture": "actual-evidence/custom-spine-js/complete-run.stdout.gz",
+          "captureSha256": "d797243ac2c1914048132056036ee0abdb5507a2e69f1e827d9fd7d2672d708a"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-js/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/custom-spine-js/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-js/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/custom-spine-js/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-js/raw/complete-run.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/custom-spine-js/complete-run.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    },
+    "custom-spine-cEmit": {
+      "status": "DEVELOPMENT_C_EMIT_PASS",
+      "preparedPlanSha256": "bf133d78009852c4850a12e5ecdd5dfb9a51b785957b4885029a4f4fc6213969",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/fallible-composition-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-cEmit/generated/complete.c",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-cEmit/generated/complete.c": {
+          "sha256": "2e8c6963cf03cfa7d952d43c33972ae49068d6344d08026109554572039765f7",
+          "bytes": 4921547,
+          "capture": "actual-evidence/custom-spine-cEmit/complete.c.gz",
+          "captureSha256": "d0ccf490cd7d381d03a8ce2bfcc4878832947ff2eeec2fceb60fc1298a99f864"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-cEmit/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/custom-spine-cEmit/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-cEmit/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/custom-spine-cEmit/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    },
+    "completion-spine-js": {
+      "status": "DEVELOPMENT_JS_PASS",
+      "preparedPlanSha256": "3fca8147e52d7d5f538e0efbc324b1e2298ddf04224aa0815826972766bded5e",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/completion-addon-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-js/generated/complete.js",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-js/generated/complete.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-js/generated/complete.js": {
+          "sha256": "2c8c0d7c106c9542b11900bdddb483757a98c729b3083cf4853ba4b3af3ee4a4",
+          "bytes": 702625,
+          "capture": "actual-evidence/completion-spine-js/complete.js.gz",
+          "captureSha256": "0706f32db71dd6be48ac91b85b57ae5eb8954b2af98c3e28bdae1e1211b74eb1"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-js/raw/complete-run.stdout": {
+          "sha256": "c275f485bfa23a1356c6da6597e326f721eec9b70ca8a5d6cd26f72fb50821e2",
+          "bytes": 50047,
+          "capture": "actual-evidence/completion-spine-js/complete-run.stdout.gz",
+          "captureSha256": "da67f6c77055e2643a0c4d22408e5cb2c4a871e073e832e8ad57c62c6af1de70"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-js/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/completion-spine-js/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-js/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/completion-spine-js/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-js/raw/complete-run.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/completion-spine-js/complete-run.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    },
+    "completion-spine-cEmit": {
+      "status": "DEVELOPMENT_C_EMIT_PASS",
+      "preparedPlanSha256": "a114e9442b40b4485dd32e760cec9f0677bdfd196e55ead0cb0b9f9935a9c0ca",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/completion-addon-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-cEmit/generated/complete.c",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-cEmit/generated/complete.c": {
+          "sha256": "2ccbf90e2809890b898e0908867a1ad792ca1c53931e7886707b4d6da3b67ac6",
+          "bytes": 4351606,
+          "capture": "actual-evidence/completion-spine-cEmit/complete.c.gz",
+          "captureSha256": "2bb2b0264b3491711ffd143480f93bd8ed6f27292d813d5546756aa97585c30e"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-cEmit/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/completion-spine-cEmit/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-cEmit/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/completion-spine-cEmit/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    },
+    "input-codec-spine-js": {
+      "status": "DEVELOPMENT_JS_PASS",
+      "preparedPlanSha256": "f7d0a6d5b09546d2e023f1c51510b3b664955415b3506b94d73ac4ef7b1505ef",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/input-codec-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-js/generated/complete.js",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-js/generated/complete.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-js/generated/complete.js": {
+          "sha256": "6d2dbe58e084f8a061e0cde5d1877b6adc023eab6b2443a8c4e04b1ed7b527af",
+          "bytes": 611044,
+          "capture": "actual-evidence/input-codec-spine-js/complete.js.gz",
+          "captureSha256": "658635d6b42698ac8acca4d58345a8e61cb27f96b7ab07ebf0cbc38bf8b701f1"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-js/raw/complete-run.stdout": {
+          "sha256": "656261967d9e9b94fb63b78b2e35a7a5cdfd6691cd395041aac37f79ebcf4beb",
+          "bytes": 82029,
+          "capture": "actual-evidence/input-codec-spine-js/complete-run.stdout.gz",
+          "captureSha256": "9e8e5038ba08fbf7b9a4e5fb3a934ee36ebae82bf480a12ea062bbe0bf6c597f"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-js/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/input-codec-spine-js/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-js/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/input-codec-spine-js/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-js/raw/complete-run.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/input-codec-spine-js/complete-run.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    },
+    "input-codec-spine-cEmit": {
+      "status": "DEVELOPMENT_C_EMIT_PASS",
+      "preparedPlanSha256": "0a09ba505a94ab38d90d55afb2c13f625e8897da583aa8a39b7f9a0a96df1759",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/input-codec-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-cEmit/generated/complete.c",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-cEmit/generated/complete.c": {
+          "sha256": "767c0abccd6f1b684c9f07260522ec3dbacd334ca2aeeb1b31ac9d8bbabaf4b9",
+          "bytes": 3612343,
+          "capture": "actual-evidence/input-codec-spine-cEmit/complete.c.gz",
+          "captureSha256": "b47d105cd3df5eb5f0c48100d434c2a23aa33ad7390b379148169385318bceac"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-cEmit/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/input-codec-spine-cEmit/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-cEmit/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/input-codec-spine-cEmit/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    },
+    "skip-validation-js": {
+      "status": "INCOMPLETE",
+      "preparedPlanSha256": "2432d4f85cfd0c5504900669e184f555c71ddcd7097d505abae6564b2f8013c8",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/skip-validation/source/qualification-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-validation-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-validation-js/generated/complete.js",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-validation-js/generated/complete.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-validation-js/generated/complete.js": {
+          "sha256": "8e6f1f54a0bb1b2b00692a1bde77dcd62016f81e0dc5e1f11278bec2a52ed098",
+          "bytes": 862301,
+          "capture": "actual-evidence/skip-validation-js/complete.js.gz",
+          "captureSha256": "b1b58364d2bf59c15284885d1c2ad3a05bc2c6a3bda84a9afda8bbac5599f463"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-validation-js/raw/complete-run.stdout": {
+          "sha256": "cb917b5ab6a616e850d9a3818ee8e92e629c2bb976ed9abcef9005f9fe0641c8",
+          "bytes": 119555,
+          "capture": "actual-evidence/skip-validation-js/complete-run.stdout.gz",
+          "captureSha256": "408b20071644f49dda225a237d26718e31ac25c970ba3295af09ae382ed8a1cc"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-validation-js/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/skip-validation-js/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-validation-js/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/skip-validation-js/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-validation-js/raw/complete-run.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/skip-validation-js/complete-run.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    },
+    "partial-write-js": {
+      "status": "INCOMPLETE",
+      "preparedPlanSha256": "f9308aec5272f33c6baf685d1018c46bdd250120ae2d02742d25701128f1dd96",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/partial-write/source/qualification-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/partial-write-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/partial-write-js/generated/complete.js",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/partial-write-js/generated/complete.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/partial-write-js/generated/complete.js": {
+          "sha256": "2c7451853751376d05e1be51e3df4f987c3eb8e3fd7d390558d49d5eb1c41866",
+          "bytes": 868914,
+          "capture": "actual-evidence/partial-write-js/complete.js.gz",
+          "captureSha256": "3ee266974a612984e3324058750bb25dafa844d534240d64f93061a1436079af"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/partial-write-js/raw/complete-run.stdout": {
+          "sha256": "a79c884827e0eee2724139ba0e444f3a4bddaf00b95eab287d0d7987a233d9ba",
+          "bytes": 118921,
+          "capture": "actual-evidence/partial-write-js/complete-run.stdout.gz",
+          "captureSha256": "05fed96069c4abcfc6dfecff7ff8a9745946287266821f3aeee341f45bf1f7dc"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/partial-write-js/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/partial-write-js/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/partial-write-js/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/partial-write-js/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/partial-write-js/raw/complete-run.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/partial-write-js/complete-run.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    },
+    "skip-input-validation-js": {
+      "status": "INCOMPLETE",
+      "preparedPlanSha256": "a3f3ffbca248e13160b1d72ff5e36b148ca93a778057f39629bdb75d636e5e91",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/skip-input-validation/source/input-codec-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-input-validation-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-input-validation-js/generated/complete.js",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-input-validation-js/generated/complete.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-input-validation-js/generated/complete.js": {
+          "sha256": "10a3fcd33008ade61a5e66181a83ae4f9912477d1263cf481511a98fa1c3a4e7",
+          "bytes": 632775,
+          "capture": "actual-evidence/skip-input-validation-js/complete.js.gz",
+          "captureSha256": "2ba3f851d493a8b652f99f1e66f3376f50be81b5b640f9e8810a3f625bf11dac"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-input-validation-js/raw/complete-run.stdout": {
+          "sha256": "816d97f28f4878000fefc981d2f4f24175790ca32a083e13d865e3a670d364a2",
+          "bytes": 88695,
+          "capture": "actual-evidence/skip-input-validation-js/complete-run.stdout.gz",
+          "captureSha256": "402dcd1f2852b32e8caad1f1fcf3a4bf523cb8934c4403864eef2cc6ec46f0c2"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-input-validation-js/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/skip-input-validation-js/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-input-validation-js/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/skip-input-validation-js/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-input-validation-js/raw/complete-run.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/skip-input-validation-js/complete-run.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    }
+  },
+  "executedHelpers": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py": {
+      "sha256": "0e7672b1f8fba116a5960edeb636a58337d399b7b3e7422f4cb8b60962b85a58",
+      "capture": "actual-evidence/executed-helper-sources/0e7672b1f8fba116a5960edeb636a58337d399b7b3e7422f4cb8b60962b85a58/development-run.py.gz",
+      "captureSha256": "53ba02b258f2ed9ce6d5559236e249a8527953e7d746813240c37e39760b54a4"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/receipt-logs.py": {
+      "sha256": "fdb39388e409f2fe39d5785345739c681982f3aa98c9d5cc03e5544c8d5ec891",
+      "capture": "actual-evidence/executed-helper-sources/fdb39388e409f2fe39d5785345739c681982f3aa98c9d5cc03e5544c8d5ec891/receipt-logs.py.gz",
+      "captureSha256": "dc1b8399f54eb4e6abb0ab50e8e2faed04a29ffb1725ecf87758b4e69cb5159f"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-construction-oracle/experiments/public-decode/public-seam-v1/construction-v1/oracle-v1/test-models.py": {
+      "sha256": "fe50e81edd41516237a2bd121c2c1f7177993a0576e8e0b40958cc056c800f27",
+      "capture": "actual-evidence/executed-helper-sources/fe50e81edd41516237a2bd121c2c1f7177993a0576e8e0b40958cc056c800f27/test-models.py.gz",
+      "captureSha256": "97335265d15931c6d9ed7249e90ef79fa5f4a4045f4247b4163342b6a862e995"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/parse-report.py": {
+      "sha256": "b9366c499da4cb11360464d068bce653972c3a50b6c6042e92f54f3a6e487110",
+      "capture": "actual-evidence/executed-helper-sources/b9366c499da4cb11360464d068bce653972c3a50b6c6042e92f54f3a6e487110/parse-report.py.gz",
+      "captureSha256": "ddd125fca9918063ec34855dac0281f8a9ada717e064cbcc45e38580b898f6cb"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/transport.py": {
+      "sha256": "5daa72c73de09d6188b710284a85a049c403c8a12a1ba6092421f616e2e41fca",
+      "capture": "actual-evidence/executed-helper-sources/5daa72c73de09d6188b710284a85a049c403c8a12a1ba6092421f616e2e41fca/transport.py.gz",
+      "captureSha256": "a92237b0d1a41073e5c821f8515d4638858a1be070a759f323eb40c04c5eacde"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py": {
+      "sha256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "capture": "actual-evidence/executed-helper-sources/ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714/task_runner.py.gz",
+      "captureSha256": "52bf1388cbc71ca709084d8f20811c829366ee8530c018fcf957d184bdf59bad"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py": {
+      "sha256": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122",
+      "capture": "actual-evidence/executed-helper-sources/f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122/evidence_boundary.py.gz",
+      "captureSha256": "a938021849ef1d90919aa35120e20aaed9733b26f670f6a7a4e109ee2fe37fc0"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py": {
+      "sha256": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+      "capture": "actual-evidence/executed-helper-sources/fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347/installed-config.py.gz",
+      "captureSha256": "ae68aafc7f9d28da09dfca89ec8e07e2a2d4cd365a0794d9e1764dd8f9c54986"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/qualification-v1/transport-inventory.py": {
+      "sha256": "17c06ffd4bf072d327bd0ea7db7699a381cff4c80a2462f4455d23acaae906a4",
+      "capture": "actual-evidence/executed-helper-sources/17c06ffd4bf072d327bd0ea7db7699a381cff4c80a2462f4455d23acaae906a4/transport-inventory.py.gz",
+      "captureSha256": "e6082367adb6c0857d65e1a8bb01b9bb30348f94edacdb4659834ebd217b9593"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/transport.py": {
+      "sha256": "6cc543a3247c9dff2314166dc83f83dde5395aa6ae1f90da3f9b0a139af190c9",
+      "capture": "actual-evidence/executed-helper-sources/6cc543a3247c9dff2314166dc83f83dde5395aa6ae1f90da3f9b0a139af190c9/transport.py.gz",
+      "captureSha256": "faa8aeaecd4454e9757234680bae537aafd5f12e883b44f7fa3debc593012be4"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-construction-oracle/experiments/public-decode/public-seam-v1/construction-v1/oracle-v1/expected.py": {
+      "sha256": "2a90763c3992305b17de21b807442a4794539a3cd74b1152c5b99349eaa21715",
+      "capture": "actual-evidence/executed-helper-sources/2a90763c3992305b17de21b807442a4794539a3cd74b1152c5b99349eaa21715/expected.py.gz",
+      "captureSha256": "d3575c78a0bb6520e6bf78a711150d1607da5be854ae8de83f7a39e346ffc69e"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-construction-oracle/experiments/public-decode/public-seam-v1/construction-v1/oracle-v1/fallible-composition-v1/test-model.py": {
+      "sha256": "61cde8b0ca10cd4790d9ce0a5c7e35bad4e5dfe0eb79676ccc5abd9886a234a3",
+      "capture": "actual-evidence/executed-helper-sources/61cde8b0ca10cd4790d9ce0a5c7e35bad4e5dfe0eb79676ccc5abd9886a234a3/test-model.py.gz",
+      "captureSha256": "c445a1d7f39534148cec046fe8512cf17d5534832fe54fb28263b06d3b0c8324"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-construction-oracle/experiments/public-decode/public-seam-v1/construction-v1/oracle-v1/fallible-composition-v1/expected.py": {
+      "sha256": "95fcaa807f6641ddd59cb135ff04b70ba77f2d7ab41e05ef1d59d011572d7034",
+      "capture": "actual-evidence/executed-helper-sources/95fcaa807f6641ddd59cb135ff04b70ba77f2d7ab41e05ef1d59d011572d7034/expected.py.gz",
+      "captureSha256": "104cf8a104315a77675b082462faec87b05db789fad63623915c8cbb9b7322e7"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-construction-oracle/experiments/public-decode/public-seam-v1/construction-v1/oracle-v1/completion-addon-v1/expected.py": {
+      "sha256": "8cd815e140c7e80eb17472229bff082f068c057dac75a2a20f94e3b49c893ce4",
+      "capture": "actual-evidence/executed-helper-sources/8cd815e140c7e80eb17472229bff082f068c057dac75a2a20f94e3b49c893ce4/expected.py.gz",
+      "captureSha256": "843c6e8fef012ea39ebd2894343f8ae5a5e2037899b59a6fc276fd8d0e1faa89"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-construction-oracle/experiments/public-decode/public-seam-v1/construction-v1/oracle-v1/completion-addon-v1/test-model.py": {
+      "sha256": "fd4e1ca3b02faf3898a92edd686530fb332745cc13096686bec0593bf23a2bf4",
+      "capture": "actual-evidence/executed-helper-sources/fd4e1ca3b02faf3898a92edd686530fb332745cc13096686bec0593bf23a2bf4/test-model.py.gz",
+      "captureSha256": "02beac14889a10677982d8e95904eec5309fe544a2f75295c528d1174e5d6fa5"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/public-seam-v1/construction-v1/oracle-v1/input-codec-v1/expected.py": {
+      "sha256": "2ce732843bacae6fc3652f71af096a0767462c19f6c7c52b4c991b33648b4908",
+      "capture": "actual-evidence/executed-helper-sources/2ce732843bacae6fc3652f71af096a0767462c19f6c7c52b4c991b33648b4908/expected.py.gz",
+      "captureSha256": "2e75e2deb500023fb1bbcf070d9351f171104a4fbbbd6a1abf63bf7c79d803a3"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/public-seam-v1/construction-v1/oracle-v1/input-codec-v1/test-model.py": {
+      "sha256": "588e8bca5c627f43b3dfeb785652d164929b6389b66b1887d88fc16bbd476d3a",
+      "capture": "actual-evidence/executed-helper-sources/588e8bca5c627f43b3dfeb785652d164929b6389b66b1887d88fc16bbd476d3a/test-model.py.gz",
+      "captureSha256": "90003fdfc94b94d48bb52a5692e99ed084883dc04167f60967aee04aa8c0a514"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/skip-validation/source/qualification-v1/transport-inventory.py": {
+      "sha256": "17c06ffd4bf072d327bd0ea7db7699a381cff4c80a2462f4455d23acaae906a4",
+      "capture": "actual-evidence/executed-helper-sources/17c06ffd4bf072d327bd0ea7db7699a381cff4c80a2462f4455d23acaae906a4/transport-inventory.py.gz",
+      "captureSha256": "e6082367adb6c0857d65e1a8bb01b9bb30348f94edacdb4659834ebd217b9593"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/partial-write/source/qualification-v1/transport-inventory.py": {
+      "sha256": "17c06ffd4bf072d327bd0ea7db7699a381cff4c80a2462f4455d23acaae906a4",
+      "capture": "actual-evidence/executed-helper-sources/17c06ffd4bf072d327bd0ea7db7699a381cff4c80a2462f4455d23acaae906a4/transport-inventory.py.gz",
+      "captureSha256": "e6082367adb6c0857d65e1a8bb01b9bb30348f94edacdb4659834ebd217b9593"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/skip-input-validation/source/qualification-v1/transport-inventory.py": {
+      "sha256": "17c06ffd4bf072d327bd0ea7db7699a381cff4c80a2462f4455d23acaae906a4",
+      "capture": "actual-evidence/executed-helper-sources/17c06ffd4bf072d327bd0ea7db7699a381cff4c80a2462f4455d23acaae906a4/transport-inventory.py.gz",
+      "captureSha256": "e6082367adb6c0857d65e1a8bb01b9bb30348f94edacdb4659834ebd217b9593"
+    }
+  },
+  "exactWitnesses": {
+    "scope": "actual exact complete44/12 witnesses; positive collector INCOMPLETE retained",
+    "results": [
+      {
+        "kind": "skip-validation",
+        "status": "REACHED_COMPLETE_MUTANT_KILLED",
+        "collectorStatus": "INCOMPLETE",
+        "preparedPlanSha256": "2432d4f85cfd0c5504900669e184f555c71ddcd7097d505abae6564b2f8013c8",
+        "rawSHA256": "cb917b5ab6a616e850d9a3818ee8e92e629c2bb976ed9abcef9005f9fe0641c8",
+        "witnessSHA256": "b37dd29f0ebf1b017821b6d00ec833de851d59bce1b707e505d8b119a4bdfab3",
+        "strictRoundtrip": true
+      },
+      {
+        "kind": "partial-write",
+        "status": "REACHED_COMPLETE_MUTANT_KILLED",
+        "collectorStatus": "INCOMPLETE",
+        "preparedPlanSha256": "f9308aec5272f33c6baf685d1018c46bdd250120ae2d02742d25701128f1dd96",
+        "rawSHA256": "a79c884827e0eee2724139ba0e444f3a4bddaf00b95eab287d0d7987a233d9ba",
+        "witnessSHA256": "b37dd29f0ebf1b017821b6d00ec833de851d59bce1b707e505d8b119a4bdfab3",
+        "strictRoundtrip": true
+      },
+      {
+        "kind": "skip-input-validation",
+        "status": "REACHED_COMPLETE_MUTANT_KILLED",
+        "collectorStatus": "INCOMPLETE",
+        "preparedPlanSha256": "a3f3ffbca248e13160b1d72ff5e36b148ca93a778057f39629bdb75d636e5e91",
+        "rawSHA256": "816d97f28f4878000fefc981d2f4f24175790ca32a083e13d865e3a670d364a2",
+        "witnessSHA256": "b37dd29f0ebf1b017821b6d00ec833de851d59bce1b707e505d8b119a4bdfab3",
+        "strictRoundtrip": true
+      }
+    ]
+  }
+}
