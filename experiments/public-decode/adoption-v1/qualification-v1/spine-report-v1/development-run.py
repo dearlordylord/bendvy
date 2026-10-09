@@ -121,6 +121,17 @@ def repository_helpers():
     return runner,boundary.ReceiptBoundary,boundary.GuardBoundary
 
 
+def run_recorded(row,runner,command):
+    try:
+        result=runner.run(command['label'],command['argv'],command['capSeconds'])
+    except BaseException as error:
+        row['error']=f'{type(error).__name__}: {error}'
+        failed=getattr(error,'result',None)
+        if isinstance(failed,dict):row.update({k:v for k,v in failed.items() if not isinstance(v,bytes)})
+        raise
+    row.update({k:v for k,v in result.items() if not isinstance(v,bytes)})
+
+
 def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_path=None,binding_digest=None):
     binding=assembly_binding(binding_path,binding_digest)
     assembly=binding is not None
@@ -224,10 +235,11 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
     logs = LOGS.CommandLogs(raw,[c['label'] for c in commands])
     record = {'preparedPlanSha256':plan_digest,'status':'INCOMPLETE','scope':__doc__,'commands':[],'generated':{},'logs':{}}
     def guard():
+        # Preserve every completed raw join even when a later guard fails.
+        record['logs'] = dict(logs.hashes)
         assert admitted_plan(plan_path,plan_digest) == admitted, 'admitted plan changed'
         frozen.guard()
         logs.guard()
-        record['logs'] = dict(logs.hashes)
         assert {str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in generated.iterdir() if p.is_file()} == record['generated']
         assert not any(p.is_symlink() or not p.is_file() for p in generated.iterdir())
     with ReceiptBoundary(record,out/'receipt.json',[('source/tools/environment/raw/generated',guard)]):
@@ -247,14 +259,7 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
                     current = task_runner.Inputs(files=(*inputs,plan_path,*record['generated']),directories=resource_roots)
                     assert current.expected == {**frozen.expected,**record['generated']}
                     runner = task_runner.Runner(logs,inputs=current,env=env,cwd=HERE)
-                    try:
-                        result = runner.run(command['label'],command['argv'],command['capSeconds'])
-                    except BaseException as error:
-                        row['error'] = f'{type(error).__name__}: {error}'
-                        failed = getattr(error,'result',None)
-                        if isinstance(failed,dict):row.update({k:v for k,v in failed.items() if not isinstance(v,bytes)})
-                        raise
-                    row.update({k:v for k,v in result.items() if not isinstance(v,bytes)})
+                    run_recorded(row,runner,command)
         if native:
             assert (generated/'complete.c').is_file(), 'C emission must produce its retained regular artifact'
             record['status']='DEVELOPMENT_C_EMIT_PASS'

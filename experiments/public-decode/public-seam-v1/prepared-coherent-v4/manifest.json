@@ -1,0 +1,127 @@
+{
+  "scope": "whole15 generic and whole8 deferred consuming models; no performance or closure",
+  "sharedRunner": {
+    "commit": "d729ffe2",
+    "sha256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+  },
+  "supersededV1V2V3": {
+    "status": "BLOCKED_UNLAUNCHED",
+    "reason": "Preserved unused plans superseded by complete partial-publication failure receipts"
+  },
+  "plans": {
+    "generic-js": {
+      "planSha256": "784db9a56bb48e4c24ddb254137882f80f4b177ac7adf0a963dd9b84a9e30cfb",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/complete.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "oracleCommit": "152dc70d9eb5cb715146dfdf9a4fbdf8d2441813",
+      "oracleSha256": "a0b2037dba1943acb7deb49f58007a72ff5d62821559744a8d1f9823c0a3e349",
+      "assemblyBindingSha256": "3b102fdcfb863df9be8e93bd81d11318d5f89cb3bc65cfc38867790e02f3d49d"
+    },
+    "generic-cEmit": {
+      "planSha256": "fc4583adf6e0a63073b6751dfa382b035cc174b5dceede816c467973ba86bb15",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/complete.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/generic-cEmit/generated/complete.c"
+        }
+      ],
+      "oracleCommit": "152dc70d9eb5cb715146dfdf9a4fbdf8d2441813",
+      "oracleSha256": "a0b2037dba1943acb7deb49f58007a72ff5d62821559744a8d1f9823c0a3e349",
+      "assemblyBindingSha256": "3b102fdcfb863df9be8e93bd81d11318d5f89cb3bc65cfc38867790e02f3d49d"
+    },
+    "deferred-js": {
+      "planSha256": "e26b90ada513847f35957a4b160e7189c236e83091bdfb693f794f0ca6ad19f9",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/deferred-assembly-v1/fixture.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "oracleCommit": "dfdd7d0a7c518fc23acb4ed27d1b2fa4c117f920",
+      "oracleSha256": "8095a1eb678fcf3f9cf985ce33d9e779108f6041fbecdd7ac67cf8f94a2bac42",
+      "assemblyBindingSha256": "d5dec5da74192520b8dd441826adffc665aefafed7ed046fc9f6c09db63494fb"
+    },
+    "deferred-cEmit": {
+      "planSha256": "cebacfda24e48c6617f58ea05bc9cdcb4e0b839878ebf806144d735887113ecf",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/deferred-assembly-v1/fixture.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/prepared-coherent-v4/deferred-cEmit/generated/complete.c"
+        }
+      ],
+      "oracleCommit": "dfdd7d0a7c518fc23acb4ed27d1b2fa4c117f920",
+      "oracleSha256": "8095a1eb678fcf3f9cf985ce33d9e779108f6041fbecdd7ac67cf8f94a2bac42",
+      "assemblyBindingSha256": "d5dec5da74192520b8dd441826adffc665aefafed7ed046fc9f6c09db63494fb"
+    }
+  }
+}
