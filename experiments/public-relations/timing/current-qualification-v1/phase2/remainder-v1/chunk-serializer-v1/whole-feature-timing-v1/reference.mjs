@@ -19,7 +19,7 @@ export function prepareWorld(root,input) {
  const payload=id=>id===1?{tag:100,cells:[10]}:id===2?{tag:200,cells:[20,21]}:id===3?{tag:300,cells:[30,31,32,33]}:id===4?{tag:400,cells:[40,41,42,43,44,45,46,47]}:id===5?null:{tag:(payloadSeed+1000+id)>>>0,cells:[0,1,2,3].map(j=>(payloadSeed+10*id+j)>>>0)};
  tick(G.System('spawn',{},({commands})=>{for(let id=1;id<=population;id++){const value=payload(id);ids.push(commands.spawn(value===null?G.Command.spawn():G.Command.spawn([Payload,value])));}}),G.Schedule.applyDeferred());
  tick(G.System('seed',{},({commands})=>{commands.relate(ids[2],Link,ids[0]);commands.relate(ids[1],Link,ids[0]);commands.relate(ids[4],Link,ids[0]);commands.relate(ids[0],OtherLink,ids[3]);commands.relate(ids[3],OtherLink,ids[1]);}),G.Schedule.applyDeferred());
- return {metadata:freeze({root,worldCreates:1,registeredSystems:2,spawnCommands:population,payloadOwners:population-1,seedRelations:5,barriers:2}),run(){
+ return {metadata:{root,worldCreates:1,registeredSystems:2,spawnCommands:population,payloadOwners:population-1,seedRelations:5,barriers:2},run(){
  let phase='';let systemResult=null;let retained;const records=[];const notices=[];
  const componentWrite=G.Query({selection:{payload:G.Query.write(Payload)}});
  const observer=()=>G.System('query-'+phase,{queries,relationFailures:{link:G.System.readRelationFailures(Link),other:G.System.readRelationFailures(OtherLink),parent:G.System.readRelationFailures(Parent)},removed:{payload:G.System.readRemoved(Payload)},despawned:{entities:G.System.readDespawned()}},({queries:q,lookup,relationFailures,removed,despawned})=>{
@@ -40,7 +40,7 @@ export function prepareWorld(root,input) {
  writers[5]=G.System('relation-write-5',{queries:{write:componentWrite}},({commands,queries:q})=>{for(const row of q.write.each())if(row.entity.id.value===3)row.data.payload.set({tag:9000,cells:[230,231,232,233]});commands.relate(ids[4],OtherLink,ids[0]);return Fx.fail(903);});
  writers[6]=G.System('relation-write-6',{},({commands})=>{const future=commands.spawn(G.Command.spawn());ids.push(future);commands.relate(ids[4],Link,future);});
  for(const i of [0,1,2,5,6,3,4]){phase='queued-'+i;systemResult=null;if(i===5){const result=runtime.tick(G.Schedule(writers[i]));if(result.ok)throw Error('Expected actual system failure');systemResult=result.error;tick(observer());}else tick(writers[i],observer());phase='applied-'+i;systemResult=null;tick(G.Schedule.applyDeferred(),observer());}
- return freeze({root,records});
+ return {root,records};
  }};
 }
 export function parseInput(args){
@@ -69,7 +69,7 @@ const input=parseInput(process.argv.slice(2));
 console.error(JSON.stringify({boundary:'begin'}));
 const started=process.hrtime.bigint();
 const worlds=['Workshop','Other'].map(root=>prepareWorld(root,input));
-const trace=freeze({input,setup:worlds.map(world=>world.metadata),roots:worlds.map(world=>world.run())});
+const trace={input,setup:worlds.map(world=>world.metadata),roots:worlds.map(world=>world.run())};
 const summary=forcePublicTrace(trace);
 const elapsedNs=(process.hrtime.bigint()-started).toString();
 console.error(JSON.stringify({boundary:'complete-trace-forced',...summary,region:'whole-feature-setup-operations-full-trace',elapsedNs}));

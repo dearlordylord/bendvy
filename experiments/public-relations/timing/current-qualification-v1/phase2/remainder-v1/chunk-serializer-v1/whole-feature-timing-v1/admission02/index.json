@@ -1,0 +1,32 @@
+{
+  "status": "PREPARED_ONLY_NO_CHILD_ADMITTED",
+  "plans": {
+    "source5-plan.json": {
+      "actualPath": "/tmp/bendvy-relations42-timing-admission02/source5-plan.json",
+      "sha256": "eb5f5372702407b76ecaff69326f4bb11fff9c5ebcf2077a001a724620a834e4",
+      "retainedGzipSha256": "86b8bc2a815a0533d34c4eaefde8c9b704a96b3f47d6398fc9aec8726d955253"
+    },
+    "ts-semantics-proposal.json": {
+      "actualPath": "/tmp/bendvy-relations42-timing-admission02/ts-semantics-proposal.json",
+      "sha256": "16e40fde305b20a8347c0e000532cb04d40ba7303dd92f23cfa237984630e9f8",
+      "retainedGzipSha256": "9fa463f7435892853aaa653d66c1f7a2826d8799c150eb90d999a607dbfb18fa"
+    },
+    "js-semantics-proposal.json": {
+      "actualPath": "/tmp/bendvy-relations42-timing-admission02/js-semantics-proposal.json",
+      "sha256": "7b0fbf5a668e15a049a89d0d0c6f7564eed6105c67e0f7722ec4d4b4340f4f10",
+      "retainedGzipSha256": "6ac09d17f32c9ba9c504854ef11e648f3d3c0ac7139af3d29d1dfae021fd81b4"
+    },
+    "native-semantics-proposal.json": {
+      "actualPath": "/tmp/bendvy-relations42-timing-admission02/native-semantics-proposal.json",
+      "sha256": "3e9fd44a31742388d6655fb731ee20384994e6c3cb66d3a2152cb055c54af92e",
+      "retainedGzipSha256": "d31b7694bd27672c77ec8444280645e8f399becfef3c859152ed2bd718c586ec"
+    }
+  },
+  "oldAdmission01": "Retained /tmp unexecuted history superseded after timed freeze repair",
+  "limitations": [
+    "No exact new emitted JS/C yet: old emitted code cannot prove new boundary",
+    "Source check may report unimplemented IO declarations; preserve actual diagnostic and distinguish from full source proof",
+    "Semantics proposals preserve nine full cases but population1024 known timeout is blocked, no unchanged retry authorized",
+    "No measured comparison under contention; no gate changes"
+  ]
+}
