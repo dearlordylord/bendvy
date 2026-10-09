@@ -1,0 +1,11 @@
+# C arity refusal and sequential output candidate
+
+Two original bounded C attempts failed with `an arity over247`, preserving receipts and empty generated directories. Neither was a timeout; no unchanged retry or compiler change.
+
+Pinned Bend primary source a950fd683c0d76f09794078e6174fe98a1492876, bend2/comp.ts:136 sets WIDE247. Lines2823–25 reject any compiled entry with params.length>247 OR constructor/function encoded arity>255 (`n>247 ?240+log2(n):n`). This is not simply a source record-field limit. Lines1181–94 compute live domains and flattened layouts, boxing multiword function arguments when wide. The error provides no entry/site name, so the exact offending continuation is not established.
+
+The original Candidate output binds all22 operations in one expression. The second candidate uses a flat List literal but still includes22 operation evaluations in one expression. Successful prior canonical44 uses explicit step_i(previous)→done_i(previous,item)→step_next(item<>previous), finishing List.reverse: only the accumulated List and current Item are explicit step arguments.
+
+Current candidate sequential-spine uses that already-qualified recipe verbatim for the22 existing expressions, preserving once/order and entire independent models. Component observer leaf definitions (Report/Snapshot/Mail/Local) are unchanged from the qualified canonical materialization fixture; resources reuse the same qualified Input.resource function. Thus the candidate does not widen those source observation leaves. This comparison supports eliminating the simultaneous outer evaluation environment as a bounded repair hypothesis; it does not identify the failing emitted closure, prove the encoded-arity branch absent, or guarantee C success. No claim of compiler/runtime defect or optimization is made.
+
+Exact source controls compare all22 step expressions against the frozen flat-list source in index order, then full model pack/render/parse/unpack; omissions/order/schema/type corruptions remain refused. Source5 passes both sequential entries before any further emitter plan. Original observer source, oracle84e0, both prior failed C attempts and successful JS observations remain immutable. Fresh exact plans require independent admission; no cap raise, compiler probing or Native launch.

@@ -22,7 +22,7 @@ def inventory(entry, base, role):
     types['HandleCases'] = (actual, {'Cases': fields(**{k:'MaterialReport' for k in ('spawn','insert','failure','failedInsert','invalid','invalidSpawn','lateMissing','skip')})})
     types['Resources'] = (str(entry), {'Resources': fields(valid='ResourceReport',invalid='ResourceReport',rollback='ResourceReport')})
     types['Report'] = (str(entry), {'Candidate': fields(first='HandleCases',second='HandleCases',firstResource='Resources',secondResource='Resources')})
-    if entry.name in ('complete-spine.bend','mutant-spine.bend'):
+    if entry.name in ('complete-spine.bend','mutant-spine.bend','sequential-spine.bend','mutant-sequential-spine.bend'):
         types['Item'] = (str(entry), {**{tag:fields(label='String',value='MaterialReport') for tag in ('ComponentFirst','ComponentSecond')}, **{tag:fields(label='String',value='ResourceReport') for tag in ('ResourceFirst','ResourceSecond')}})
         types['Report'] = ['Item']
     def nominal(module, tag):

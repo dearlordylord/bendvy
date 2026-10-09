@@ -65,3 +65,15 @@ for filename, entry in [('expected.json','complete-spine.bend'),('mutant-expecte
         else:
             raise AssertionError('spine omission/order/nominal corruption accepted')
 print('PASS: same complete22 List spine bijection; omissions/order/schema corruption rejected')
+import re
+for old_entry,new_entry,model_file in [('complete-spine.bend','sequential-spine.bend','expected.json'),('mutant-spine.bend','mutant-sequential-spine.bend','mutant-expected.json')]:
+    old_source=(HERE/old_entry).read_text()
+    new_source=(HERE/new_entry).read_text()
+    original_items=[line.strip().rstrip(',') for line in old_source.split('def main()')[1].splitlines() if line.strip().startswith(('Component','Resource'))]
+    stepped={int(index):value for index,value in re.findall(r'def step_(\d+)\(previous:List<&2,Item>\) -> List<&2,Item>:done_\d+\(previous,(.*)\)',new_source)}
+    assert [stepped[index] for index in range(22)]==original_items
+    model=json.loads((ORACLE/model_file).read_text())
+    raw=current.render(model,HERE/new_entry,True,'native-consuming')
+    assert current.parse(raw,HERE/new_entry,True,'native-consuming')==model
+    assert len(current.spine_helper(HERE/new_entry,'native-consuming').pack(model))==22
+print('PASS: sequential step/done preserves exact22 operation expressions/order and complete typed model')
