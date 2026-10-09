@@ -9,6 +9,7 @@ if git diff --cached --quiet -- '*.py' scripts benchmarks .githooks .github; the
 else
   status=$?
   [ "$status" -eq 1 ] || exit "$status"
+  python3 scripts/run-admission-controls.py
   python3 scripts/test-task-runner.py
   python3 scripts/test-evidence-boundary.py
   python3 scripts/test-receipt-logs.py

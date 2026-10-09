@@ -2,6 +2,7 @@
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -49,6 +50,7 @@ class Selection(unittest.TestCase):
                 calls = self.check_paths([name])
                 self.assertEqual(calls[0], 'scripts/check-python-source.py --staged')
                 self.assertIn('scripts/test-task-runner.py', calls)
+                self.assertIn('scripts/run-admission-controls.py', calls)
                 self.assertIn('benchmarks/test-statistics.py', calls)
                 self.assertEqual(calls[-1], 'scripts/test-pre-commit.py')
 
@@ -72,6 +74,61 @@ class Selection(unittest.TestCase):
                 calls = self.check_paths(['docs/only.md'])
             self.assertEqual(calls, ['scripts/check-python-source.py --staged'])
             self.assertEqual(index.read_bytes(), before)
+
+    def admission_fixture(self, unstaged=False, unstaged_helper=False):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            env = {key: value for key, value in os.environ.items()
+                   if not key.startswith('GIT_')}
+            env.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
+            subprocess.run(['git', 'init', '-q', str(root)], env=env, check=True)
+            script = root / 'scripts/run-admission-controls.py'
+            script.parent.mkdir()
+            script.write_bytes(HOOK.parent.parent.joinpath(
+                'scripts/run-admission-controls.py').read_bytes())
+            collector = root / ('experiments/public-relation-readers/'
+                'current-adoption-v1/ts-reference-v1/fullcapacity-v1/run.py')
+            collector.parent.mkdir(parents=True)
+            collector.write_text('# frozen collector\n')
+            control = collector.with_name('test-admission.py')
+            control.write_text("from pathlib import Path\n"
+                               "Path('control-ran').write_text('yes')\n"
+                               "raise SystemExit(23)\n")
+            for name in ['scripts/task_runner.py', 'scripts/evidence_boundary.py',
+                         'scripts/receipt-logs.py',
+                         'experiments/public-restore/reference-v1/run.py']:
+                dependency = root / name
+                dependency.parent.mkdir(parents=True, exist_ok=True)
+                if name == 'scripts/task_runner.py':
+                    dependency.write_bytes(HOOK.parent.parent.joinpath(name).read_bytes())
+                else:
+                    dependency.write_text('# frozen dependency\n')
+            subprocess.run(['git', 'add', '.'], cwd=root, env=env, check=True)
+            if unstaged:
+                collector.write_text('# different working-tree collector\n')
+            if unstaged_helper:
+                helper = root / 'scripts/task_runner.py'
+                helper.write_bytes(helper.read_bytes() + b'\n# unstaged helper drift\n')
+            result = subprocess.run([sys.executable, str(script)], cwd=root,
+                env=env, capture_output=True)
+            return result.returncode, (root / 'control-ran').exists(), result.stderr
+
+    def test_admission_failure_stops_commit(self):
+        exitcode, ran, stderr = self.admission_fixture(unstaged=False)
+        self.assertNotEqual(exitcode, 0)
+        self.assertTrue(ran)
+
+    def test_unstaged_collector_cannot_qualify_staged_bytes(self):
+        exitcode, ran, stderr = self.admission_fixture(unstaged=True)
+        self.assertNotEqual(exitcode, 0)
+        self.assertFalse(ran)
+
+    def test_unstaged_transitive_helper_is_refused_before_control(self):
+        exitcode, ran, stderr = self.admission_fixture(unstaged_helper=True)
+        self.assertNotEqual(exitcode, 0)
+        self.assertFalse(ran)
+        self.assertIn(b'Stage the complete admission-control change: scripts/task_runner.py',
+                      stderr)
 
 
 if __name__ == '__main__':

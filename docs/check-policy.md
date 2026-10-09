@@ -67,6 +67,8 @@ Start from the guard composition in the [constructor runner](../experiments/publ
 
 At execution entry, verify that the running interpreter resolves to the interpreter pinned in the admitted plan (for Python, resolve `sys.executable`). Hashing a prepared interpreter path does not establish which interpreter is executing the wrapper. Reuse the existing declaration-reader runner check when adapting another Python collector.
 
+Portable admission controls registered in [the hook selector](../scripts/run-admission-controls.py) run when their collector or helper changes. Use isolated temporary fixtures for these controls; frozen execution plans remain historical evidence. The selector checks all declared dependency bytes against the index before running controls.
+
 Use `owned-tool-pins.py` snapshot/verify for the ordinary path. Historical binary hashes alone do not establish current resource membership, resolver or configuration state. Preserve the original failed or unadmitted plan when preparing its replacement. Reuse retained positive evidence when sources and its scope still match; concentrate new commands on changed behavior and missing controls.
 
 ## Portable evidence verification
