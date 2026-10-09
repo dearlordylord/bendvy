@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term (the keyword 'is' cannot head one)
+- observed : 'is'
+Location:
+45 |   match value:
+46>|     case G.Graph{es,is}:"|edges=" ++ edges(~S,es) ++ "|inverseRows=" ++ inverses(~S,is)
+   |                     ^^
+47 | def column_done(~S:Data,result:Col.Column<S,O.Payload> & String,+size:U32,+entries:List<&2,L.Entry>) -> Col.Column<S,O.Payload> & String:
+bend 2.0.36 is available: run bend update

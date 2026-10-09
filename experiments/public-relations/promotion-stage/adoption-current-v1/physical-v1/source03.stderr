@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:U32 -> Sigma<&1, &1, U32, _ => U32>
+- observed : @+value:U32 -> Sigma<&1, &1, U32, _ => U32>
+Context:
+- tx     : X.Tx<W.World<rollback_queued~S, A.Store<rollback_queued~S, O.Components<rollback_queued~S>>, U32, A.Notice<rollback_queued~S, U32>>, A.Notice<rollback_queued~S, U32>>
+- queued : A.QueueStatus
+- second : W.World<rollback_queued~S, A.Store<rollback_queued~S, O.Components<rollback_queued~S>>, U32, A.Notice<rollback_queued~S, U32>>
+Location: rollback_queued
+75 |   (tx,queued)=result
+76>|   "rollback-command=" ++ status(queued) ++ "\n" ++ rollback_changed(~S,Res.tx_get(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,~U32,~project_resource,Res.tx_replace(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,X.emit(~W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,~A.Notice<S,U32>,tx,A.Original{91}),999)),second)
+   |                                                                                                                                              ^^^^^^^^^^^^^^^^
+77 | def rollback_start(~S:Data,worlds:Worlds<S>) -> String:
+bend 2.0.36 is available: run bend update

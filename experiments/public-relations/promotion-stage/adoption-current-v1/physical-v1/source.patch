@@ -1,0 +1,109 @@
+--- bounded/foreign-provider.bend
++++ physical/foreign-provider.bend
+@@ -1,19 +1,25 @@
+ import Base
+-import ../../../../src/ecs/relation-providers.bend as P
+-import ../../../../src/ecs/capabilities.bend as Cap
+-import ../../../../src/ecs/relation-types.bend as G
+-import ../../../../src/ecs/relation-commands.bend as A
+-import ../owned-world.bend as O
+-import ../../../../src/ecs/relation-reorder.bend as R
+-import ../cleanup-owned.bend as C
+-import ../../../../src/ecs/world.bend as W
+-import ../../../../src/ecs/transaction.bend as X
++import ../../../../../src/ecs/resource.bend as Res
++import physical-observer.bend as Obs
++import ../../../../../src/ecs/commands.bend as Cmd
++import ../../../../../src/ecs/relation-providers.bend as P
++import ../../../../../src/ecs/capabilities.bend as Cap
++import ../../../../../src/ecs/relation-types.bend as G
++import ../../../../../src/ecs/relation-commands.bend as A
++import ../../owned-world.bend as O
++import ../../../../../src/ecs/relation-reorder.bend as R
++import ../../cleanup-owned.bend as C
++import ../../../../../src/ecs/world.bend as W
++import ../../../../../src/ecs/transaction.bend as X
+ 
+ type Worlds<S:Data> is Type:
+   Worlds{first:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,second:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>}
++def registered_seed(~S:Data,result:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>> & W.Registration,+handle:W.Handle<S>) -> W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>> & W.Handle<S>:
++  (world,_) = result
++  (O.spawn(~S,3n,world),handle)
+ def seeded_join(~S:Data,result:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>> & W.Status,+handle:W.Handle<S>) -> W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>> & W.Handle<S>:
+   (world,_) = result
+-  (O.spawn(~S,3n,world),handle)
++  registered_seed(~S,W.register(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,world,"foreign-provider",["relation:Link:write"]),handle)
+ def seeded(~S:Data,result:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>> & W.Reservation<S>) -> W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>> & W.Handle<S>:
+   match result:
+     case (world,W.Reserved{+handle}): seeded_join(~S,W.activate(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,world,handle),handle)
+@@ -29,10 +35,10 @@
+   (Worlds{first,second},firstValue ++ "\nsecond|" ++ secondValue)
+ def first_observed(~S:Data,result:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>> & String,second:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>) -> Worlds<S> & String:
+   (first,firstValue) = result
+-  second_observed(~S,O.observe_complete(~S,second),first,firstValue)
++  second_observed(~S,Obs.observe(~S,second),first,firstValue)
+ def observe(~S:Data,worlds:Worlds<S>) -> Worlds<S> & String:
+   match worlds:
+-    case Worlds{first,second}: first_observed(~S,O.observe_complete(~S,first),second)
++    case Worlds{first,second}: first_observed(~S,Obs.observe(~S,first),second)
+ def recorded(~S:Data,result:Worlds<S> & String,prefix:String,next:Worlds<S> -> String) -> String:
+   (worlds,value) = result
+   prefix ++ value ++ "\n" ++ next(worlds)
+@@ -43,11 +49,6 @@
+ def accepted_status(~S:Data,result:X.Tx<W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,A.Notice<S,U32>> & A.QueueStatus,next:X.Tx<W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,A.Notice<S,U32>> -> String) -> String:
+   (tx,queueStatus) = result
+   status(queueStatus) ++ "\n" ++ next(tx)
+-def after(~S:Data,worlds:Worlds<S>) -> String:
+-  match worlds:
+-    case Worlds{first,second}: final(~S,observe(~S,Worlds{W.barrier(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,first),second}),"after|")
+-def committed(~S:Data,tx:X.Tx<W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,A.Notice<S,U32>>,second:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>) -> String:
+-  recorded(~S,observe(~S,Worlds{O.commit(~S,tx,X.Success{}),second}),"queued|",after(~S))
+ # Gameplay sees only its opaque affine owner and descriptor-bound capabilities.
+ def relate_body(~S:Data,-H:Type,caps:P.Writable<H,S>,args:P.Targets<S>,owner:H) -> H & A.QueueStatus:
+   P.relate_live(H,S,caps,owner,args)
+@@ -58,6 +59,30 @@
+   P.invoke_write(~S,~O.Components<S>,~U32,~U32,~G.Descriptor{1,"Link","LinkedBy",G.Ordinary{}},~A.QueueStatus,~relate_body(~S),P.Targets{source,target},tx)
+ def unrelate(~S:Data,tx:X.Tx<W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,A.Notice<S,U32>>,source:W.Handle<S>,target:W.Handle<S>) -> X.Tx<W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,A.Notice<S,U32>> & A.QueueStatus:
+   P.invoke_write(~S,~O.Components<S>,~U32,~U32,~G.Descriptor{1,"Link","LinkedBy",G.Ordinary{}},~A.QueueStatus,~unrelate_body(~S),P.Targets{source,target},tx)
++def rollback_barrier(~S:Data,worlds:Worlds<S>) -> String:
++  match worlds:
++    case Worlds{first,second}:final(~S,observe(~S,Worlds{W.barrier(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,first),second}),"rollback-barrier|")
++def rollback_returned(~S:Data,returned:X.Returned<W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,U32>,second:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>) -> String:
++  match returned:
++    case X.Returned{first,X.Failure{error}}:"rollback-outcome=Failure:" ++ U32.show(error) ++ "\n" ++ recorded(~S,observe(~S,Worlds{first,second}),"rollback|",rollback_barrier(~S))
++    case X.Returned{first,X.Success{}}:"rollback-outcome=UNEXPECTED_SUCCESS\n" ++ recorded(~S,observe(~S,Worlds{first,second}),"rollback|",rollback_barrier(~S))
++def project_resource(value:U32) -> U32 & U32:
++  match value:
++    case +copy:(copy,copy)
++def rollback_changed(~S:Data,result:X.Tx<W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,A.Notice<S,U32>> & U32,second:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>) -> String:
++  (tx,value)=result
++  "rollback-resource-before=" ++ U32.show(value) ++ "\n" ++ rollback_returned(~S,Cmd.tx_finish(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,~U32,tx,X.Failure{99}),second)
++def rollback_queued(~S:Data,result:X.Tx<W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,A.Notice<S,U32>> & A.QueueStatus,second:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>) -> String:
++  (tx,queued)=result
++  "rollback-command=" ++ status(queued) ++ "\n" ++ rollback_changed(~S,Res.tx_get(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,~U32,~project_resource,Res.tx_replace(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,X.emit(~W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,~A.Notice<S,U32>,tx,A.Original{91}),999)),second)
++def rollback_start(~S:Data,worlds:Worlds<S>) -> String:
++  match worlds:
++    case Worlds{first,second}:rollback_queued(~S,relate(~S,X.begin(~W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,~A.Notice<S,U32>,first),W.Handle{1,4},W.Handle{1,2}),second)
++def after(~S:Data,worlds:Worlds<S>) -> String:
++  match worlds:
++    case Worlds{first,second}:recorded(~S,observe(~S,Worlds{W.barrier(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,first),second}),"after|",rollback_start(~S))
++def committed(~S:Data,tx:X.Tx<W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,A.Notice<S,U32>>,second:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>) -> String:
++  recorded(~S,observe(~S,Worlds{O.commit(~S,tx,X.Success{}),second}),"queued|",after(~S))
+ def foreign_ops(~S:Data,tx:X.Tx<W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,A.Notice<S,U32>>,second:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,+local:W.Handle<S>,+foreign:W.Handle<S>) -> String:
+   "relate-source=" ++ accepted_status(~S,relate(~S,tx,foreign,local),tx => "relate-target=" ++ accepted_status(~S,relate(~S,tx,local,foreign),tx => "unrelate=" ++ accepted_status(~S,unrelate(~S,tx,foreign,local),tx => "reorder-parent=" ++ accepted_status(~S,R.queue(~S,~O.Components<S>,~U32,~U32,~G.HierarchyDescriptor{2,"Parent","Children"},tx,R.Args{foreign,[]}),tx => "reorder-child=" ++ accepted_status(~S,R.queue(~S,~O.Components<S>,~U32,~U32,~G.HierarchyDescriptor{2,"Parent","Children"},tx,R.Args{local,[foreign]}),tx => "cleanup=" ++ accepted_status(~S,C.queue(~S,~[G.Descriptor{1,"Link","LinkedBy",G.Ordinary{}},G.Descriptor{2,"Parent","Children",G.Hierarchy{}}],tx,foreign),tx => committed(~S,tx,second)))))))
+ def start(~S:Data,worlds:Worlds<S>,local:W.Handle<S>,foreign:W.Handle<S>) -> String:
+@@ -72,12 +97,12 @@
+     case _: "SECOND_REJECTED"
+ def first_seeded(~S:Data,result:W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>> & W.Handle<S>,factory:W.Factory) -> String:
+   (first,local) = result
+-  second_created(~S,W.create(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,~O.empty(~S),factory,88),first,local)
++  second_created(~S,W.create(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,~Obs.empty(~S),factory,88),first,local)
+ def first_created(~S:Data,result:W.Creation<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>) -> String:
+   match result:
+     case W.Created{factory,first}: first_seeded(~S,create_seed(~S,first),factory)
+     case _: "FIRST_REJECTED"
+ def run(~S:Data) -> String:
+-  first_created(~S,W.create(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,~O.empty(~S),W.factory(),77))
++  first_created(~S,W.create(~S,~A.Store<S,O.Components<S>>,~U32,~A.Notice<S,U32>,~Obs.empty(~S),W.factory(),77))
+ def main() -> IO(Unit):
+   IO.print("Workshop\n" ++ run(~O.Workshop) ++ "\nOther\n" ++ run(~O.Other))
