@@ -1,0 +1,8 @@
+{
+  "scope": "source control harness attempt; not a checker verdict or backend qualification",
+  "entry": "constructor.bend",
+  "argvPrefix": ["flock", "/tmp/bendvy-parity-heavy.lock", "taskset", "-c", "5", "timeout", "--signal=KILL", "5s"],
+  "outerRunnerSeconds": 8,
+  "result": "TimeoutExpired before a terminal checker diagnostic was captured",
+  "change": "Acquire shared lock in harness before starting bounded checker; checker timeout remains five seconds. No backend retry."
+}
