@@ -1,0 +1,89 @@
+// actual generated source lines 8220–8224
+function $$$$047$$$047$$$047src$047ecs$047compose$058read_join$1260$(_handle_0, _error_0, _cursor_0, _observed_0) {
+  const _tx_0 = _observed_0["fst"];
+  const _value_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../../src/ecs/compose.Frame", "tx": _tx_0, "handle": _handle_0, "error": _error_0, "cursor": _cursor_0}, "snd": _value_0};
+}
+
+// actual generated source lines 8226–8232
+function $$$$047$$$047$$$047src$047ecs$047component$058tx_get$1260$(_family_0, _tx_0, _handle_0) {
+  const _world_0 = _tx_0["world"];
+  const _undo_0 = _tx_0["undo"];
+  const _commands_0 = _tx_0["commands"];
+  const _events_0 = _tx_0["events"];
+  return $$$$047$$$047$$$047src$047ecs$047component$058tx_get_join$1260$(_undo_0, _commands_0, _events_0, ($$$$047$$$047$$$047src$047ecs$047component$058get$1260$(_family_0, _world_0, _handle_0)));
+}
+
+// actual generated source lines 8636–8640
+function $$$$047$$$047$$$047src$047ecs$047component$058tx_get_join$1260$(_undo_0, _commands_0, _events_0, _observed_0) {
+  const _world_0 = _observed_0["fst"];
+  const _value_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../../src/ecs/transaction.Tx", "world": _world_0, "undo": _undo_0, "commands": _commands_0, "events": _events_0}, "snd": _value_0};
+}
+
+// actual generated source lines 8642–8659
+function $$$$047$$$047$$$047src$047ecs$047component$058get$1260$(_family_0, _world_0, _handle_0) {
+  const _namespace_0 = _world_0["namespace"];
+  const _nextId_0 = _world_0["nextId"];
+  const _highWater_0 = _world_0["highWater"];
+  const _live_0 = _world_0["live"];
+  const _capacity_0 = _world_0["capacity"];
+  const _depth_0 = _world_0["depth"];
+  const _store_0 = _world_0["store"];
+  const _resource_0 = _world_0["resource"];
+  const _events_0 = _world_0["events"];
+  const _pending_0 = _world_0["pending"];
+  const _registrations_0 = _world_0["registrations"];
+  const _nextSystemId_0 = _world_0["nextSystemId"];
+  const _clock_0 = _world_0["clock"];
+  const _ns_0 = _handle_0["namespace"];
+  const _id_0 = _handle_0["id"];
+  return $$$$047$$$047$$$047src$047ecs$047component$058get_live_owned$1260$(_id_0, ($$$$047$$$047$$$047src$047ecs$047component$058get_live_read$(($Bool$and$((_namespace_0 === _ns_0), ($Bool$and$((0 < _id_0), (_id_0 < _nextId_0))))), _id_0, _live_0)), _namespace_0, _nextId_0, _highWater_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0);
+}
+
+// actual generated source lines 9096–9104
+function $$$$047$$$047$$$047src$047ecs$047component$058get_live_owned$1260$(_id_0, _observed_0, _namespace_0, _nextId_0, _highWater_0, _capacity_0, _depth_0, _store_0, _resource_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0) {
+  const _live_0 = _observed_0["fst"];
+  const _t_0 = _observed_0["snd"];
+  if (!_t_0) {
+    return {$: "Tuple", "fst": {$: "../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": _nextId_0, "highWater": _highWater_0, "live": _live_0, "capacity": _capacity_0, "depth": _depth_0, "store": _store_0, "resource": _resource_0, "events": _events_0, "pending": _pending_0, "registrations": _registrations_0, "nextSystemId": _nextSystemId_0, "clock": _clock_0}, "snd": {$: "../../../src/ecs/component.MissingEntity"}};
+  } else {
+    return $$$$047$$$047$$$047src$047ecs$047world$058with_store_finish$1262$(($$$$047$$$047$$$047src$047ecs$047component$058get_store$1260$(_id_0, ($storage$058take_position$1260$(_store_0)))), _namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _resource_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0);
+  }
+}
+
+// actual generated source lines 9486–9490
+function $$$$047$$$047$$$047src$047ecs$047component$058get_store$1260$(_id_0, _split_0) {
+  const _rest_0 = _split_0["fst"];
+  const _column_0 = _split_0["snd"];
+  return $$$$047$$$047$$$047src$047ecs$047component$058get_projected$1260$(_rest_0, ($$$$047$$$047$$$047src$047ecs$047column$058view$1261$(_column_0, _id_0)));
+}
+
+// actual generated source lines 9938–9942
+function $$$$047$$$047$$$047src$047ecs$047component$058get_projected$1260$(_rest_0, _observed_0) {
+  const _column_0 = _observed_0["fst"];
+  const _value_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": ($storage$058put_position$1260$(_rest_0, _column_0)), "snd": ($$$$047$$$047$$$047src$047ecs$047component$058access$1260$(_value_0))};
+}
+
+// actual generated source lines 9480–9484
+function $$$$047$$$047$$$047src$047ecs$047world$058with_store_finish$1262$(_observed_0, _namespace_0, _nextId_0, _highWater_0, _live_0, _capacity_0, _depth_0, _resource_0, _events_0, _pending_0, _registrations_0, _nextSystemId_0, _clock_0) {
+  const _store_0 = _observed_0["fst"];
+  const _value_0 = _observed_0["snd"];
+  return {$: "Tuple", "fst": {$: "../../../src/ecs/world.World", "namespace": _namespace_0, "nextId": _nextId_0, "highWater": _highWater_0, "live": _live_0, "capacity": _capacity_0, "depth": _depth_0, "store": _store_0, "resource": _resource_0, "events": _events_0, "pending": _pending_0, "registrations": _registrations_0, "nextSystemId": _nextSystemId_0, "clock": _clock_0}, "snd": _value_0};
+}
+
+// actual generated source lines 9492–9497
+function $storage$058take_position$1260$(_store_0) {
+  const _position_0 = _store_0["position"];
+  const _velocity_0 = _store_0["velocity"];
+  const _health_0 = _store_0["health"];
+  return {$: "Tuple", "fst": {$: "storage.PositionRest", "velocity": _velocity_0, "health": _health_0}, "snd": _position_0};
+}
+
+// actual generated source lines 10419–10423
+function $storage$058put_position$1260$(_rest_0, _position_0) {
+  const _velocity_0 = _rest_0["velocity"];
+  const _health_0 = _rest_0["health"];
+  return {$: "storage.Store", "position": _position_0, "velocity": _velocity_0, "health": _health_0};
+}
