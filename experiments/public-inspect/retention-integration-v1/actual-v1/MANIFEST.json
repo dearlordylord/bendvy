@@ -1,0 +1,725 @@
+{
+  "index": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/bendvy54-retention-backend02-INDEX.json",
+  "plans": [
+    {
+      "name": "normal",
+      "native": false,
+      "plan": "/tmp/bendvy54-retention-backend02/normal-js/plan.json",
+      "planSha256": "6997605cfc5f522cae75b5f8d8cfe4211238f8ddae5b2a68acde838193094d39",
+      "binding": "/tmp/bendvy54-retention-backend02/normal-binding.json",
+      "bindingSha256": "f79002f5c49bc01db8475cc4843cab6950f531f5f14f43dc863bf3e8252a6e09",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/main.bend",
+            "-o",
+            "/tmp/bendvy54-retention-backend02/normal-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/tmp/bendvy54-retention-backend02/normal-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy54-retention-backend02/normal-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "name": "normal",
+      "native": true,
+      "plan": "/tmp/bendvy54-retention-backend02/normal-native/plan.json",
+      "planSha256": "51ab8518c21e58d2a437db23696a0690332f911dad0e4dd771f88abf54826f75",
+      "binding": "/tmp/bendvy54-retention-backend02/normal-binding.json",
+      "bindingSha256": "f79002f5c49bc01db8475cc4843cab6950f531f5f14f43dc863bf3e8252a6e09",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/main.bend",
+            "-o",
+            "/tmp/bendvy54-retention-backend02/normal-native/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/tmp/bendvy54-retention-backend02/normal-native/generated/complete.c"
+        },
+        {
+          "label": "complete-build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy54-retention-backend02/normal-native/generated/complete.c",
+            "-o",
+            "/tmp/bendvy54-retention-backend02/normal-native/generated/complete.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "artifact": "/tmp/bendvy54-retention-backend02/normal-native/generated/complete.native"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy54-retention-backend02/normal-native/generated/complete.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "name": "retainer",
+      "native": false,
+      "plan": "/tmp/bendvy54-retention-backend02/retainer-js/plan.json",
+      "planSha256": "d677e28083df1d27f4364bc5a45cff32039c735dcc77daefad1efb7d48029174",
+      "binding": "/tmp/bendvy54-retention-backend02/retainer-binding.json",
+      "bindingSha256": "9f8031b017410929fa729946c838c77a28940f6dd384bd910f177d7f2ff36d65",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/mutant-retainer/main.bend",
+            "-o",
+            "/tmp/bendvy54-retention-backend02/retainer-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/tmp/bendvy54-retention-backend02/retainer-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy54-retention-backend02/retainer-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "name": "retainer",
+      "native": true,
+      "plan": "/tmp/bendvy54-retention-backend02/retainer-native/plan.json",
+      "planSha256": "e118809de802c046900420f880d44112df16cfa34a7270e9cbb4604da34d6d9d",
+      "binding": "/tmp/bendvy54-retention-backend02/retainer-binding.json",
+      "bindingSha256": "9f8031b017410929fa729946c838c77a28940f6dd384bd910f177d7f2ff36d65",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/mutant-retainer/main.bend",
+            "-o",
+            "/tmp/bendvy54-retention-backend02/retainer-native/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/tmp/bendvy54-retention-backend02/retainer-native/generated/complete.c"
+        },
+        {
+          "label": "complete-build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy54-retention-backend02/retainer-native/generated/complete.c",
+            "-o",
+            "/tmp/bendvy54-retention-backend02/retainer-native/generated/complete.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "artifact": "/tmp/bendvy54-retention-backend02/retainer-native/generated/complete.native"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy54-retention-backend02/retainer-native/generated/complete.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    }
+  ],
+  "members": [
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/bendvy54-retention-backend02-INDEX.json",
+      "archive": "objects/18760b2b2c417aa8fa1de4701786799fa41030f9810a1640df620c67806e5f79.gz",
+      "sha256": "18760b2b2c417aa8fa1de4701786799fa41030f9810a1640df620c67806e5f79",
+      "bytes": 6900,
+      "gzipSHA256": "1d50e5742b10b3bf85893ee6b2b53cfe662b3ef7af35e60e776212568d350c7b"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-js/plan.json",
+      "archive": "objects/6997605cfc5f522cae75b5f8d8cfe4211238f8ddae5b2a68acde838193094d39.gz",
+      "sha256": "6997605cfc5f522cae75b5f8d8cfe4211238f8ddae5b2a68acde838193094d39",
+      "bytes": 13545,
+      "gzipSHA256": "120e66adb3ab01cee3f4ec6f933b42d82c0aa2a0e9030e02e00eb2e7b7f77b6b"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-js/receipt.json",
+      "archive": "objects/a61bbd3a4729675a517da3211c5034da3ca43fb25a116e0fa889859fd5556a0b.gz",
+      "sha256": "a61bbd3a4729675a517da3211c5034da3ca43fb25a116e0fa889859fd5556a0b",
+      "bytes": 1935,
+      "gzipSHA256": "fe1230d1d547d41ad7173130c11b6b528e1175bb6b78daf03e35829b0cd50e9b"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-binding.json",
+      "archive": "objects/f79002f5c49bc01db8475cc4843cab6950f531f5f14f43dc863bf3e8252a6e09.gz",
+      "sha256": "f79002f5c49bc01db8475cc4843cab6950f531f5f14f43dc863bf3e8252a6e09",
+      "bytes": 5226,
+      "gzipSHA256": "ed2f40fdfbdb8667571df2fd43709808b3fb26aa1f948d84b8f86aa31f760a7e"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-js/raw/complete-emit.stdout",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-js/raw/complete-emit.stderr",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-js/raw/complete-run.stdout",
+      "archive": "objects/16da57f4524c2268d1e3fb9f5d169bcca7c0a432d3d885e8a91b2396cbd61886.gz",
+      "sha256": "16da57f4524c2268d1e3fb9f5d169bcca7c0a432d3d885e8a91b2396cbd61886",
+      "bytes": 6130,
+      "gzipSHA256": "2285f0ba44ececdd567149cb556196350efe145c74c8592d0f63bdabd582af62"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-js/raw/complete-run.stderr",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-js/generated/complete.js",
+      "archive": "objects/19b5f341aba6de1b1d2d922b04fdbb2de421b6c09b4b2b574820240d1b27df52.gz",
+      "sha256": "19b5f341aba6de1b1d2d922b04fdbb2de421b6c09b4b2b574820240d1b27df52",
+      "bytes": 111185,
+      "gzipSHA256": "2345740a8f8e75656e86dbc56ebc71d9adee9e0a018300b056984e8b3bcc4f2e"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/main.bend",
+      "archive": "objects/277c741ff1807cbbe1d57a6feb6e7d3a705a4f3ee1a001a2038bca19f7ac4e45.gz",
+      "sha256": "277c741ff1807cbbe1d57a6feb6e7d3a705a4f3ee1a001a2038bca19f7ac4e45",
+      "bytes": 12013,
+      "gzipSHA256": "949947ce5260f13c6b7cf403bc4ef5eeeaf7822624f22620090e5f0881450a33"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py",
+      "archive": "objects/fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347.gz",
+      "sha256": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+      "bytes": 5567,
+      "gzipSHA256": "ae68aafc7f9d28da09dfca89ec8e07e2a2d4cd365a0794d9e1764dd8f9c54986"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/leaf.bend",
+      "archive": "objects/6ff53dbfa665ab1c0197c8191e38e58e1e9a2ea6dda8f22fc9cb858432c380e9.gz",
+      "sha256": "6ff53dbfa665ab1c0197c8191e38e58e1e9a2ea6dda8f22fc9cb858432c380e9",
+      "bytes": 884,
+      "gzipSHA256": "83f986ebfa2c545a0bd5b92e95e13ce9bb50e5b5194532443d621f9b6baba323"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+      "archive": "objects/bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe.gz",
+      "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "bytes": 4096,
+      "gzipSHA256": "aa4070eaadc1d66dc8b9f6703639fafc2343f09b4015e2d273c74c5db141ad9f"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/scripts/task_runner.py",
+      "archive": "objects/ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714.gz",
+      "sha256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "bytes": 12358,
+      "gzipSHA256": "52bf1388cbc71ca709084d8f20811c829366ee8530c018fcf957d184bdf59bad"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/experiments/public-inspect/bend-candidate/consumer.bend",
+      "archive": "objects/b0d4dee9627fde8d034de7c2aa8e5d7fe4eb4c8802657fe6716b353aa5459616.gz",
+      "sha256": "b0d4dee9627fde8d034de7c2aa8e5d7fe4eb4c8802657fe6716b353aa5459616",
+      "bytes": 7536,
+      "gzipSHA256": "ef227e990142b3e815398f65f9f4ffa1036a9302f566a2e7b49f6be2e9a0383d"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/reader-domains.bend",
+      "archive": "objects/1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314.gz",
+      "sha256": "1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314",
+      "bytes": 7009,
+      "gzipSHA256": "c680cfd1fdd1720d338069a7e283345a61cc8cec72c3c9eb8a4c704f927ed729"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "archive": "objects/0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c.gz",
+      "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "bytes": 31351,
+      "gzipSHA256": "39ba4bed5f8dfd619a0265fe5d5bc8b5cce9ea6a0add1a951c078e55409ea4db"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+      "archive": "objects/a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b.gz",
+      "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "bytes": 2199,
+      "gzipSHA256": "fe5fee23dd275867a1eaf47e9d9d2723672f1db481727c177d37af3684d8803e"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/experiments/public-inspect/bend-candidate/inspect.bend",
+      "archive": "objects/dfc9d87b73b3ba758b04bfdcaad0cbf80f439e84a51a528c727886f1a5df60b8.gz",
+      "sha256": "dfc9d87b73b3ba758b04bfdcaad0cbf80f439e84a51a528c727886f1a5df60b8",
+      "bytes": 6096,
+      "gzipSHA256": "c13d8d3f36e732194646fd5d83ec7917b959fdf5779bcd978b8c3510847468a4"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+      "archive": "objects/e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113.gz",
+      "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "bytes": 12147,
+      "gzipSHA256": "98976d4dbf2e0770254d05611594f0087e1368a670ef7e42f28634887cbb23a9"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/scripts/receipt-logs.py",
+      "archive": "objects/fdb39388e409f2fe39d5785345739c681982f3aa98c9d5cc03e5544c8d5ec891.gz",
+      "sha256": "fdb39388e409f2fe39d5785345739c681982f3aa98c9d5cc03e5544c8d5ec891",
+      "bytes": 1733,
+      "gzipSHA256": "dc1b8399f54eb4e6abb0ab50e8e2faed04a29ffb1725ecf87758b4e69cb5159f"
+    },
+    {
+      "original": "/home/node/.bend/bend2/base.bend",
+      "archive": "objects/c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661.gz",
+      "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+      "bytes": 71530,
+      "gzipSHA256": "e578472f66488fa5962fa0ac8418a3d79836d968870142b75f171ea9875ee07b"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/experiments/public-owned-events/declaration-read-v1/development-run.py",
+      "archive": "objects/953cade4408b9ab28fcab8aaeb4ec04e22613c3b98d7ea8b81166bcd091165c2.gz",
+      "sha256": "953cade4408b9ab28fcab8aaeb4ec04e22613c3b98d7ea8b81166bcd091165c2",
+      "bytes": 13975,
+      "gzipSHA256": "f7402fec9e44163c405c4e7fb6fbd717f7bc734faa3ea26406fdf936288302a9"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend",
+      "archive": "objects/91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec.gz",
+      "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "bytes": 6475,
+      "gzipSHA256": "e954e3988a33717dbad434222c9feba71a7f7a6116c3e39ac65c80ff70cc7492"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py",
+      "archive": "objects/f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122.gz",
+      "sha256": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122",
+      "bytes": 3014,
+      "gzipSHA256": "a938021849ef1d90919aa35120e20aaed9733b26f670f6a7a4e109ee2fe37fc0"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/bridge.bend",
+      "archive": "objects/955552895ee820a0ff247fd8a72649ce57ff3737d2dbbd8bd43e6fe9bdc3bcff.gz",
+      "sha256": "955552895ee820a0ff247fd8a72649ce57ff3737d2dbbd8bd43e6fe9bdc3bcff",
+      "bytes": 1515,
+      "gzipSHA256": "556c4b583fe28ba750e00ad8487b2b5230ab2b7520734ebfd29fb886110db5e6"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "archive": "objects/f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310.gz",
+      "sha256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "bytes": 22404,
+      "gzipSHA256": "0395f6adb6962e8efcea733fcd11a3ad19f20ff136f03231400e153148ac73a8"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "archive": "objects/3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a.gz",
+      "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "bytes": 45638,
+      "gzipSHA256": "f3b858b2440dd8eb9a5b50a5c3970969f33f141b0b449765c49e1e57ebea444f"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/experiments/public-owned-events/registered-read-v1/transport.py",
+      "archive": "objects/1f3bc6acce1d305729a763ecfeb78751d83a32a37d622417c303fb33deed4510.gz",
+      "sha256": "1f3bc6acce1d305729a763ecfeb78751d83a32a37d622417c303fb33deed4510",
+      "bytes": 6154,
+      "gzipSHA256": "201a6954281c2fbef781225865425afa13d7409a5bd9767fd0edd4f9d6ad9216"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend",
+      "archive": "objects/2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557.gz",
+      "sha256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "bytes": 25508,
+      "gzipSHA256": "9877e460091fa7517603b57388ae8388256496a97e0783bbab1fb051f87131aa"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/experiments/public-inspect/bend-candidate/event-consumer.bend",
+      "archive": "objects/793021ac391e8bf1880f2ff464bb6f5b88a27c76e7aa3256e4baa7543e1a38ff.gz",
+      "sha256": "793021ac391e8bf1880f2ff464bb6f5b88a27c76e7aa3256e4baa7543e1a38ff",
+      "bytes": 3968,
+      "gzipSHA256": "ee0e5847ba9d4c356746f05292a73d464254f5b97e4b2f3be758db89e0e41c55"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/transport.py",
+      "archive": "objects/ec899042fab01f3ee7e09ef1cf1efdd444b00c7533c6a9b20c535ec376c40897.gz",
+      "sha256": "ec899042fab01f3ee7e09ef1cf1efdd444b00c7533c6a9b20c535ec376c40897",
+      "bytes": 3187,
+      "gzipSHA256": "92b082ac995600beea8271ac8f42aa8938d2e4cd457060bb2419b601792b938f"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend",
+      "archive": "objects/6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0.gz",
+      "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "bytes": 1591,
+      "gzipSHA256": "0f45fd80a988efa7e319e2eaad1a6cfc8339fcfd1e3f814f744e596000b02ee9"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/experiments/public-owned-events/declaration-read-v1/transport.py",
+      "archive": "objects/dc45dc910c548a2f9249b76b7e09a8644d0620f3490b96c22b285431d3bdb339.gz",
+      "sha256": "dc45dc910c548a2f9249b76b7e09a8644d0620f3490b96c22b285431d3bdb339",
+      "bytes": 1786,
+      "gzipSHA256": "1a10f860039d9e707deb27d40107afe36183fae7c73450f2bcd988ff7e9dfbe2"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/registration.bend",
+      "archive": "objects/34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5.gz",
+      "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "bytes": 1768,
+      "gzipSHA256": "2748f4f04d624bb979e6cf12fa5622cb936527d5da321a70cec1f226f579ce13"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend",
+      "archive": "objects/e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5.gz",
+      "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "bytes": 3862,
+      "gzipSHA256": "48ed8ffefd9e69aa4aac0f3ab9e62e042a2cca0ac7b28788cadbacc0dcd89291"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+      "archive": "objects/2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723.gz",
+      "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "bytes": 897,
+      "gzipSHA256": "e759e1eca4cad2f3c7018ccec00c9ba2120d9ddda401be22bd131f140bb6df8c"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy/experiments/public-inspect/bend-candidate/events.bend",
+      "archive": "objects/b9eefd9288ddb443ec9a36912e0122e6f1b3bc989087e4a416a0f326700824f8.gz",
+      "sha256": "b9eefd9288ddb443ec9a36912e0122e6f1b3bc989087e4a416a0f326700824f8",
+      "bytes": 5003,
+      "gzipSHA256": "be90e3ae9368cef948c6ce55960a77b0aebc768edd9ae7fed75e7682ffcaf972"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/expected.stdout",
+      "archive": "objects/16da57f4524c2268d1e3fb9f5d169bcca7c0a432d3d885e8a91b2396cbd61886.gz",
+      "sha256": "16da57f4524c2268d1e3fb9f5d169bcca7c0a432d3d885e8a91b2396cbd61886",
+      "bytes": 6130,
+      "gzipSHA256": "2285f0ba44ececdd567149cb556196350efe145c74c8592d0f63bdabd582af62"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/expected.json",
+      "archive": "objects/d0216f1445e8d17736fb1f3f13b2bb763af8cb0017dc52ade47f325d548801a3.gz",
+      "sha256": "d0216f1445e8d17736fb1f3f13b2bb763af8cb0017dc52ade47f325d548801a3",
+      "bytes": 16522,
+      "gzipSHA256": "656fd891c9cc399a1f31d3be51e22bf517c78ed62e3bba26c6d82a340b6e98f0"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-native/plan.json",
+      "archive": "objects/51ab8518c21e58d2a437db23696a0690332f911dad0e4dd771f88abf54826f75.gz",
+      "sha256": "51ab8518c21e58d2a437db23696a0690332f911dad0e4dd771f88abf54826f75",
+      "bytes": 50645,
+      "gzipSHA256": "be3b80899a989e827f7c5b85e334c22914a6724297204d9c389f611ad1c88c9c"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-native/receipt.json",
+      "archive": "objects/9ba904dfbf73e9462dbaf76adb223b857c343ae8a2b0a1d4142c992b4922cd84.gz",
+      "sha256": "9ba904dfbf73e9462dbaf76adb223b857c343ae8a2b0a1d4142c992b4922cd84",
+      "bytes": 2969,
+      "gzipSHA256": "7723ddfb47390b5543835ee753409fe23e1828d118b3376d031daad6d37205f1"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-native/raw/complete-emit.stdout",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-native/raw/complete-emit.stderr",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-native/raw/complete-build.stdout",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-native/raw/complete-build.stderr",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-native/raw/complete-run.stdout",
+      "archive": "objects/16da57f4524c2268d1e3fb9f5d169bcca7c0a432d3d885e8a91b2396cbd61886.gz",
+      "sha256": "16da57f4524c2268d1e3fb9f5d169bcca7c0a432d3d885e8a91b2396cbd61886",
+      "bytes": 6130,
+      "gzipSHA256": "2285f0ba44ececdd567149cb556196350efe145c74c8592d0f63bdabd582af62"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-native/raw/complete-run.stderr",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-native/generated/complete.c",
+      "archive": "objects/a17fa02f33b3b1c2e6c48085f3cd99c3a5712902d2ca90b93473565f8f0cdaca.gz",
+      "sha256": "a17fa02f33b3b1c2e6c48085f3cd99c3a5712902d2ca90b93473565f8f0cdaca",
+      "bytes": 887198,
+      "gzipSHA256": "aeea21614f59b9cfd13fc12b8c44f7f120bf762e11b855d82f3ca7e642eb011a"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/normal-native/generated/complete.native",
+      "archive": "objects/c913ed578bd7570820649849f7ddf51112d3f3b4985fc867d661d7e92e4c6930.gz",
+      "sha256": "c913ed578bd7570820649849f7ddf51112d3f3b4985fc867d661d7e92e4c6930",
+      "bytes": 215184,
+      "gzipSHA256": "ebbe6ee47ae57cdc900ac44165da589739948cfb7e4afbd2ce5eeb93b73e1237"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-js/plan.json",
+      "archive": "objects/d677e28083df1d27f4364bc5a45cff32039c735dcc77daefad1efb7d48029174.gz",
+      "sha256": "d677e28083df1d27f4364bc5a45cff32039c735dcc77daefad1efb7d48029174",
+      "bytes": 13840,
+      "gzipSHA256": "b89050d17138a8a52d6f5a690d19651a46b59ca8cef8d9719103a77fcaafd4a5"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-js/receipt.json",
+      "archive": "objects/b9ccffa0cb90ed186ed368e73fdcf5ce953dce3eb5300ad3fb951f6a7903c84c.gz",
+      "sha256": "b9ccffa0cb90ed186ed368e73fdcf5ce953dce3eb5300ad3fb951f6a7903c84c",
+      "bytes": 1959,
+      "gzipSHA256": "ade272c4e5975328a98b8755c1d42cdb351f15d0a6eeabc16c63c25a144b709b"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-binding.json",
+      "archive": "objects/9f8031b017410929fa729946c838c77a28940f6dd384bd910f177d7f2ff36d65.gz",
+      "sha256": "9f8031b017410929fa729946c838c77a28940f6dd384bd910f177d7f2ff36d65",
+      "bytes": 5301,
+      "gzipSHA256": "a37b105ee82b31afa513d56b70dee51a8f34ccc906b1461ad2466fb871a78ac9"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-js/raw/complete-emit.stdout",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-js/raw/complete-emit.stderr",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-js/raw/complete-run.stdout",
+      "archive": "objects/e7f24c907d7055e006f20d2bf9d6358fa7d217201b800fc54290638d1b99701f.gz",
+      "sha256": "e7f24c907d7055e006f20d2bf9d6358fa7d217201b800fc54290638d1b99701f",
+      "bytes": 7213,
+      "gzipSHA256": "e77e842307a47c29a012680fb4414d45502cc9d17ffc11baf3c156014238f32e"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-js/raw/complete-run.stderr",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-js/generated/complete.js",
+      "archive": "objects/e661bbb265da75caf3d2fd63a08afd3618baec663f51cad1147b20d2b7cc3154.gz",
+      "sha256": "e661bbb265da75caf3d2fd63a08afd3618baec663f51cad1147b20d2b7cc3154",
+      "bytes": 114094,
+      "gzipSHA256": "5ad0092c3486f62cec4c86ad8ba8b6a89e05e3a6aa1e912857b5f01ebc259d3e"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/mutant-retainer/main.bend",
+      "archive": "objects/091c848c1d6da6e94f6284eb447032157737b1c2609d2f87347d625c5361da5e.gz",
+      "sha256": "091c848c1d6da6e94f6284eb447032157737b1c2609d2f87347d625c5361da5e",
+      "bytes": 12016,
+      "gzipSHA256": "525c4429696bb1192fa8814cfe6ad4d56c303dcca71645328d8f3a90ae8e263c"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/expected-retainer.stdout",
+      "archive": "objects/e7f24c907d7055e006f20d2bf9d6358fa7d217201b800fc54290638d1b99701f.gz",
+      "sha256": "e7f24c907d7055e006f20d2bf9d6358fa7d217201b800fc54290638d1b99701f",
+      "bytes": 7213,
+      "gzipSHA256": "e77e842307a47c29a012680fb4414d45502cc9d17ffc11baf3c156014238f32e"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/mutant-retainer/bridge.bend",
+      "archive": "objects/f63627087ff98ad3c7d347b7e179271c31c8b000a4dd3a40ab8abb0ab602ad83.gz",
+      "sha256": "f63627087ff98ad3c7d347b7e179271c31c8b000a4dd3a40ab8abb0ab602ad83",
+      "bytes": 1877,
+      "gzipSHA256": "ae93fa0daa98efbe4ac619b052663b68e1e16b17c27a1afb86b1e7d4e72f64fb"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/expected-retainer.json",
+      "archive": "objects/3b89e9fe8f966731de2ff65d0b75e08439f74b6ecbcf29c10b36272f9bfe86b1.gz",
+      "sha256": "3b89e9fe8f966731de2ff65d0b75e08439f74b6ecbcf29c10b36272f9bfe86b1",
+      "bytes": 18222,
+      "gzipSHA256": "973be9b72152e76c45b856b9992e4c5108c3d91eaa45cb2e17bac8c5f739b70d"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/transport-retainer.py",
+      "archive": "objects/fefbae491f36955ccf45136b8ff1aa43c39c79cceacca03661ed50c843d1f853.gz",
+      "sha256": "fefbae491f36955ccf45136b8ff1aa43c39c79cceacca03661ed50c843d1f853",
+      "bytes": 653,
+      "gzipSHA256": "427a2048afd792a2416b871f6b34f287eaa6a70baf9dc75429c17229060cb024"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-native/plan.json",
+      "archive": "objects/e118809de802c046900420f880d44112df16cfa34a7270e9cbb4604da34d6d9d.gz",
+      "sha256": "e118809de802c046900420f880d44112df16cfa34a7270e9cbb4604da34d6d9d",
+      "bytes": 50946,
+      "gzipSHA256": "48af1e2460fc1ca7fe2ad81c61c81731c33508e6e647cfdfb713288daabb1c84"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-native/receipt.json",
+      "archive": "objects/5abd2c25d304ee4587b224bae703bb5e1629426aa5cdf882f3b7bea35cafb08d.gz",
+      "sha256": "5abd2c25d304ee4587b224bae703bb5e1629426aa5cdf882f3b7bea35cafb08d",
+      "bytes": 3001,
+      "gzipSHA256": "c654c12ad96f889c87819f8529214bf036822cfb286dba9bf99397f9a888bd57"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-native/raw/complete-emit.stdout",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-native/raw/complete-emit.stderr",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-native/raw/complete-build.stdout",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-native/raw/complete-build.stderr",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-native/raw/complete-run.stdout",
+      "archive": "objects/e7f24c907d7055e006f20d2bf9d6358fa7d217201b800fc54290638d1b99701f.gz",
+      "sha256": "e7f24c907d7055e006f20d2bf9d6358fa7d217201b800fc54290638d1b99701f",
+      "bytes": 7213,
+      "gzipSHA256": "e77e842307a47c29a012680fb4414d45502cc9d17ffc11baf3c156014238f32e"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-native/raw/complete-run.stderr",
+      "archive": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "gzipSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-native/generated/complete.c",
+      "archive": "objects/11c291e76e7dbd69df13a254118e0ebeb9199a922d27e9c3ab60af3c1ec9ff0b.gz",
+      "sha256": "11c291e76e7dbd69df13a254118e0ebeb9199a922d27e9c3ab60af3c1ec9ff0b",
+      "bytes": 889064,
+      "gzipSHA256": "3237869d8f364a2eed736232ac67f03bd98bff14e8dedbe16bb51a63914fe3b5"
+    },
+    {
+      "original": "/tmp/bendvy54-retention-backend02/retainer-native/generated/complete.native",
+      "archive": "objects/69146941597deaaa4172f0fe76df10ac485c970c32b3331acaaad88cbb234991.gz",
+      "sha256": "69146941597deaaa4172f0fe76df10ac485c970c32b3331acaaad88cbb234991",
+      "bytes": 215552,
+      "gzipSHA256": "6e7d4ab61e38c86fe2dcabc5f3c017911a692fc15bc5a93d0727852d1549e3bc"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/expected.py",
+      "archive": "objects/684a86633430b87011e0b33081af2c849e69ce4f27015cc4dbe90bf32d0bb688.gz",
+      "sha256": "684a86633430b87011e0b33081af2c849e69ce4f27015cc4dbe90bf32d0bb688",
+      "bytes": 2466,
+      "gzipSHA256": "714930f8b382333fefe92fdc76099edc9cd8a44c86d3dcc8f7653b436ab8d588"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/SOURCE-BASIS.json",
+      "archive": "objects/fb3143e87190de80e5bf421fd190873c9f3c92d0fdaceae64255dc601716e067.gz",
+      "sha256": "fb3143e87190de80e5bf421fd190873c9f3c92d0fdaceae64255dc601716e067",
+      "bytes": 7343,
+      "gzipSHA256": "fca3eef0b6db3fc6f830edd361c3ee2cc28b6ebbf14e0eec88e0c8138012f457"
+    }
+  ],
+  "externalIdentityOnly": {
+    "/usr/bin/python3.11": "9a070c8a36e16c152dae21b66aeb707f4d21b506c875e9b15edf4387fca7dcf8",
+    "/home/node/.bend/bin/bend-2.0.35": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "/usr/bin/taskset": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5",
+    "/tmp/bendvy54-retention-backend02/normal-js/private-environment.json": "76c82cbf4e4318b9edaf45419339511bfa45ec4099f81020046bc4b856d201d3",
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477",
+    "/tmp/bendvy54-retention-backend02/normal-native/private-environment.json": "76c82cbf4e4318b9edaf45419339511bfa45ec4099f81020046bc4b856d201d3",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+    "/tmp/bendvy-clang19-diagnostic/clang19": "3e171a978d6c1decae4e6645e9bfb771cf5af21ff699ea119fdb058936b0af2d",
+    "/tmp/bendvy54-retention-backend02/retainer-js/private-environment.json": "76c82cbf4e4318b9edaf45419339511bfa45ec4099f81020046bc4b856d201d3",
+    "/tmp/bendvy54-retention-backend02/retainer-native/private-environment.json": "76c82cbf4e4318b9edaf45419339511bfa45ec4099f81020046bc4b856d201d3"
+  },
+  "scope": "Lossless current13normal+counter observations. Tool/environment/resource bytes remain current-host guards; no portable whole-tool qualification."
+}
