@@ -1,0 +1,146 @@
+{
+  "status": "REFERENCE_CPU_PROFILE_CAPTURED",
+  "originalSession": 51267,
+  "childExit": 1,
+  "childFailure": null,
+  "originalError": "DiagnosticAbort: cooperative profiling cutoff",
+  "samples": 18708,
+  "phases": [
+    {
+      "event": "book_load.begin",
+      "elapsedMs": 16
+    },
+    {
+      "event": "book_load.end",
+      "elapsedMs": 409
+    },
+    {
+      "event": "book_valid.begin",
+      "elapsedMs": 409
+    },
+    {
+      "event": "book_valid.end",
+      "elapsedMs": 1610
+    },
+    {
+      "event": "compile_book.begin",
+      "elapsedMs": 1610
+    },
+    {
+      "event": "file_book.begin",
+      "elapsedMs": 1660
+    },
+    {
+      "event": "file_book.end",
+      "elapsedMs": 4360,
+      "counters": {
+        "lay_of": 14536,
+        "type_adts": 3416435,
+        "fun_of": 22121
+      }
+    },
+    {
+      "event": "emit_iteration.begin",
+      "elapsedMs": 4360,
+      "facts": 0,
+      "counters": {
+        "lay_of": 14536,
+        "type_adts": 3416435,
+        "fun_of": 22121
+      }
+    },
+    {
+      "event": "emit_iteration.end",
+      "elapsedMs": 17534,
+      "facts": 6250,
+      "counters": {
+        "lay_of": 219017,
+        "type_adts": 3416435,
+        "fun_of": 226128,
+        "emit_body": 105670,
+        "val_to": 660195,
+        "lay_eq": 664014,
+        "emit_fuse": 10573
+      }
+    },
+    {
+      "event": "emit_iteration.begin",
+      "elapsedMs": 17535,
+      "facts": 6250,
+      "counters": {
+        "lay_of": 219017,
+        "type_adts": 3416435,
+        "fun_of": 226128,
+        "emit_body": 105670,
+        "val_to": 660195,
+        "lay_eq": 664014,
+        "emit_fuse": 10573
+      }
+    }
+  ],
+  "topSampledFunctions": [
+    {
+      "function": "term_key",
+      "samples": 3178,
+      "summedSampleSeconds": 3.68543
+    },
+    {
+      "function": "",
+      "samples": 2853,
+      "summedSampleSeconds": 3.27455
+    },
+    {
+      "function": "lay_eq",
+      "samples": 1812,
+      "summedSampleSeconds": 2.132325
+    },
+    {
+      "function": "(garbage collector)",
+      "samples": 1582,
+      "summedSampleSeconds": 5.614783
+    },
+    {
+      "function": "memo",
+      "samples": 1269,
+      "summedSampleSeconds": 1.508354
+    },
+    {
+      "function": "term_higher",
+      "samples": 722,
+      "summedSampleSeconds": 0.851176
+    },
+    {
+      "function": "facts_hot",
+      "samples": 643,
+      "summedSampleSeconds": 0.741113
+    },
+    {
+      "function": "term_wnf",
+      "samples": 633,
+      "summedSampleSeconds": 0.740578
+    },
+    {
+      "function": "graph_close",
+      "samples": 586,
+      "summedSampleSeconds": 0.627981
+    },
+    {
+      "function": "emit_body",
+      "samples": 486,
+      "summedSampleSeconds": 0.222022
+    },
+    {
+      "function": "term_lower",
+      "samples": 423,
+      "summedSampleSeconds": 0.420435
+    },
+    {
+      "function": "type_adts",
+      "samples": 314,
+      "summedSampleSeconds": 0.366711
+    }
+  ],
+  "generatedC": false,
+  "qualifiesInstalledCompiler": false,
+  "interpretation": "Copied pipeline passed load and validation; first emit iteration produced6250facts, second emit iteration reached cooperativecutoff. Sampled term_key/layout/memo/GC dominate; no specific source continuation identified yet. Profiling capture is diagnostic positive, compiler emitted result is absent."
+}
