@@ -26,33 +26,30 @@ misuse and writes through read.
 
 ## Evidence runner development
 
-Use the development checks above for application work and the
-[focused runner recipe](check-policy.md#preparing-a-focused-runner) for frozen
-delivery. Complete source, tool, environment, output and oracle inventories
-before execution review.
+Use the checks above for application development and the
+[runner recipe](check-policy.md#preparing-a-focused-runner) for frozen delivery.
+Inventory source, tools, environment, outputs and oracle before execution review.
 
-For new collectors, lock compiler/runtime/performance children and resource-heavy
-oracle materialization; prepare lightweight immutable metadata outside the lock. Use the existing
-[immutable dependency stage](check-policy.md#immutable-dependency-stages)
-helper with a reviewed resolver inventory: discover outside the lock, then
-statically check and revalidate the launch boundary after acquisition.
-Retain full pre/post validation and unconditional failure receipts.
+For new collectors, lock compiler/runtime/performance children and heavy oracle
+materialization; prepare lightweight immutable metadata outside. Use the
+[immutable dependency helper](check-policy.md#immutable-dependency-stages)
+with a reviewed resolver inventory: discover outside the lock; statically check
+and revalidate the launch boundary after acquisition. Keep full pre/post
+validation and unconditional failure receipts.
 
-Review collector routing, execution code and all stages before launch.
-Guard generated artifacts in the output ledger before consumption; continue
-without intermediate handoffs. Re-review code, input-recipe or gate-scope
-changes; preserve frozen attempts and in-flight runs. The coordinator may
-admit artifact-only stages by checking exact plans against the reviewed
-recipe and guarded output ledger.
+Review routing, execution code and all stages before launch. Guard generated
+artifacts in the output ledger before consumption; continue without intermediate
+handoffs. Re-review code, input-recipe or gate-scope changes; preserve frozen
+attempts and in-flight runs. Coordinators may admit artifact-only stages whose
+exact plans match the reviewed recipe and guarded ledger.
 
 ## Parallel review routing
 
-The coordinator assigns ready launch reviews to independent available agents.
-Record oracle authorship, launch admission and actual-output review for each
-frozen cohort. Reviewers own evidence reports; implementation authors repair
-runners. Resume completed implementation agents with `followup_task` when
-their exact plans are admitted. Reviews may overlap; compiler/runtime/performance
-children retain the shared heavy-work lock and existing caps.
+Coordinators assign ready launch reviews to independent available agents.
+Record each frozen cohort's oracle authorship, launch admission and actual-output
+review. Reviewers own reports; implementers repair runners. Resume completed
+implementers with `followup_task` upon exact-plan admission. Reviews may overlap;
+compiler/runtime/performance children retain the shared lock and existing caps.
 
 ## Approval requirements
 
