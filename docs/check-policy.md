@@ -157,3 +157,13 @@ Search declarations preserve `..` components: traversal after a directory alias
 uses the resolved directory, matching filesystem semantics. Coverage checks use
 resolved paths, while the traversed aliases remain pinned. A search-root alias
 cannot declare its own directory target implicitly; declare that target separately.
+
+## Parity compiler identity
+
+The installed `bend` alias may advance independently of this repository.
+Parity runners use the preserved regular `bend-2.0.35` executable selected in
+[installed configuration](../experiments/public-simulation/delivery-v1/installed-config.py),
+whose SHA-256 is `f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a`.
+Keep its existing Base/resource inventory. Preserve old frozen plans and receipts;
+prepare new plans with the explicit executable path rather than rebinding an alias.
+This restores the same compiler bytes and does not qualify the newer installed release.

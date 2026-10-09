@@ -7,7 +7,8 @@ CLANG_ROOT = '/tmp/bendvy-clang19-diagnostic/root'
 Z3_ROOT = '/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu'
 RESOURCE_ROOTS = ('/home/node/.bend/bend2', CLANG_ROOT, Z3_ROOT)
 TOOL_PATHS = {
-    'bend': '/home/node/.bend/bin/bend',
+    # Preserve the measured compiler when the installed alias is upgraded.
+    'bend': '/home/node/.bend/bin/bend-2.0.35',
     'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node',
     'taskset': '/usr/bin/taskset',
     'shell': '/bin/sh',
