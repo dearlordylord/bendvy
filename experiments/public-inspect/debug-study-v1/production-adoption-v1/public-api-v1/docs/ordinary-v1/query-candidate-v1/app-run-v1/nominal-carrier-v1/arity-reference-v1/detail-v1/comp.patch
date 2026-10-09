@@ -1,0 +1,29 @@
+--- admitted-copy/comp.ts
++++ detail-copy/comp.ts
+@@ -10,7 +10,7 @@
+ 
+ import * as fs from "node:fs";
+ 
+-import * as Bend from "./bend.ts";
++import * as Bend from "../bend.ts";
+ 
+ // Types
+ // =====
+@@ -2576,6 +2576,17 @@
+     const ret = fun_of(fl, c.k!).ret;
+     const rest = [...hold, chain[i]];
+     const rs = val_new(ret.ks.map(() => name_local(fl, o.ps[i].k)), ret);
++    const heldWords = held.reduce((n, [, b]) => n + b.val.ws.length, 0);
++    if (heldWords + rs.ws.length > WIDE) {
++      console.error("REFERENCE_CONTINUATION_LAYOUT " + JSON.stringify({
++        continuation: kn, enclosingDef: fl.def, callee: c.k,
++        heldWords, resultWords: rs.ws.length, total: heldWords + rs.ws.length,
++        resultBinder: o.ps[i].k, resultKinds: ret.ks,
++        held: held.map(([p, b]) => ({variable: p.k, words: b.val.ws.length, kinds: b.val.lay.ks})),
++        source: x.s ? {namespace: x.s.file.ns, beg: x.s.beg, end: x.s.end,
++          excerpt: x.s.file.str.slice(x.s.beg, x.s.end)} : null
++      }));
++    }
+     fl = seg_open(fl, kn, fl.seg.ret, { pop: last ? depth : 0, at }, held, rs,
+       rest);
+     bind_uses(fl, o.ps[i], rs, rest, ty_ann(x.v[i])!);

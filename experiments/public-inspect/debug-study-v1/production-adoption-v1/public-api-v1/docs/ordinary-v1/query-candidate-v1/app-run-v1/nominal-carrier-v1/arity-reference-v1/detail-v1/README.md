@@ -1,0 +1,5 @@
+# Richer continuation layout diagnostic (prepared only)
+
+The first admitted reference run found scenario:plain$k5955 width296 >247 and no oversized nodes. This additive copied comp.ts diagnostic records exactly the oversized emit_fork continuation at creation: enclosing definition, callee, each held variable and word/kind count, result binder/layout count, and original source span/excerpt when available. Parent reference copy and its first terminal evidence remain immutable. Algorithm and original refusal are preserved; only imports point to the same parent copied Bend/base.
+
+Existing diagnostic-run.py reused unchanged, exact Plain source unchanged, existing Node CPU5/sharedlock/cap30/public sanitized environment. Full parent input/tool/helper/copy pins retained plus the three additive detail files. No new dependency, cap, source policy, acceptance criterion, or compiler child. Plan SHA 3ceb5b822d6b135c3aa879650c104276bc005d25a2bbc9293b5f500d90bc875c. Root review before execution. Output remains reference-only and cannot establish installed ELF internals.
