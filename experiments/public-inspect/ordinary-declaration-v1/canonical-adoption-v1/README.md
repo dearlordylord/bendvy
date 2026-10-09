@@ -1,0 +1,9 @@
+# Canonical leaf adoption consumer
+
+`main.bend` calls the existing canonical ordinary caller for both nominal schemas and returns the complete affine `Delivery` in a typed Report. The compiler's pure-value printer observes every actual constructor field: factory, Frame/World, component column and Array-backed payload, affine Array resource, detached rows/derived clauses, ordinary read result, previous payload, transaction undo/commands/events. Owners remain in the result until output teardown; no field projection, persistence requirement or Data restriction is added. All refusal variants remain in the returned type.
+
+`mutant-main.bend` invokes the existing reached clause-omission caller. Its ordinary operations and operational Inspector grant remain the same; only the library-derived Read clause list is empty. Its nominal constructor namespace differs, so independent full expected terms must bind each source closure separately rather than compare raw namespace strings as semantic mutation evidence.
+
+Both entries passed pinned Bend 2.0.35 source5/CPU5 with complete precheck source snapshots and postcheck guards. The first wrapper preparation failed before a checker launched because the snapshot parent directory was absent; that incomplete attempt is retained separately. `check-source.py` changes only the qualified parent wrapper's directory depth and source-selection paths, preserving its byte-capture/finally semantics.
+
+Independent full normal/countermodel ownership is `snapshot58_retained_codecs` in `oracle-v1`. No backend output was consulted to prepare this source. Runtime qualification will reuse the existing ordinary collector under emit30/build120/run5 and the shared lock. This canonical leaf gate complements the full23 normal JS evidence; it does not replace the full23 Native obligation or select foreign/held, capture/finalizer or other new contracts.

@@ -1,0 +1,12 @@
+import Base
+import ./caller.bend as Caller
+import ../../../src/ecs/ordinary-component-binding.bend as B
+import ../../../src/ecs/ordinary-inspector-declaration.bend as D
+import ../../../src/ecs/inspector.bend as I
+import ../../../src/ecs/inspector-query.bend as Q
+import ../../../src/ecs/column.bend as Col
+import ../../../src/ecs/capabilities.bend as Cap
+def wrong() -> D.Declaration<Caller.A,I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,U32>:
+  D.read(~Caller.A,~Col.Column<Caller.A,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~Caller.A),~Caller.put(~Caller.A),~Caller.view,~Array<U32>,~U32,~Caller.binding(~Caller.Other))
+def main() -> Unit:
+  Unit{}
