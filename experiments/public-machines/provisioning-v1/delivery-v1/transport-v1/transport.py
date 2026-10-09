@@ -1,6 +1,31 @@
 """Complete literal machine observations; no field projection."""
 from pathlib import Path
 import hashlib,re
+def decode_string(text):
+ if type(text) is not str or not text.startswith('"') or not text.endswith('"\n'):
+  raise ValueError('Exactly one printed Bend String with final LF required')
+ body=text[1:-2];result=[];at=0
+ escapes={'n':'\n','t':'\t','r':'\r','0':'\0','\\':'\\','"':'"'}
+ while at<len(body):
+  char=body[at];at+=1
+  if char=='\\':
+   if at==len(body):raise ValueError('Incomplete String escape')
+   char=body[at];at+=1
+   if char in escapes:result.append(escapes[char]);continue
+   if char!='u' or at==len(body) or body[at]!='{':raise ValueError('Unknown String escape')
+   end=body.find('}',at+1)
+   if end<0:raise ValueError('Incomplete codepoint escape')
+   digits=body[at+1:end]
+   if not digits or any(c not in '0123456789abcdef' for c in digits):raise ValueError('Malformed codepoint escape')
+   value=int(digits,16)
+   if value>0x10ffff:raise ValueError('Codepoint outside fixture String domain')
+   if digits!=format(value,'x') or not (value<32 or value==127 or 0xd800<=value<=0xdfff) or value in (0,9,10,13):raise ValueError('Noncanonical printer escape')
+   result.append(chr(value));at=end+1
+  else:
+   if char=='"' or ord(char)<32 or ord(char)==127 or 0xd800<=ord(char)<=0xdfff:raise ValueError('Unescaped String character')
+   result.append(char)
+ return ''.join(result)
+
 class TERM:
  @staticmethod
  def strict_equal(actual,expected):
@@ -17,7 +42,7 @@ class Transport:
   visit(self.entry)
   return {'entrypoint':str(self.entry),'sourceSHA256':seen}
  def normalize(self,text):
-  if type(text) is not str:raise ValueError('String output required')
+  text=decode_string(text)
   observed={};schema=None
   for line in text.splitlines():
    if line.startswith('SCHEMA='):

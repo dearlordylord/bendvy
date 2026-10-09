@@ -16,13 +16,19 @@ class Complete(unittest.TestCase):
     m.validate_output(plan,parser,raw,record)
     self.assertEqual(record['wholeOracleSHA256'],selected['expectedSHA256'])
     if case=='main-mutant':self.assertEqual(record['normalBaselineRejectedSHA256'],selected['baselineSHA256'])
-    lines=raw.splitlines(keepends=True)
-    altered=bytearray(raw);altered[-2]=ord('9') if raw[-2]!=ord('9') else ord('8')
-    parts=lines[1].split(b';');reordered=list(lines);reordered[1]=b';'.join(parts[:1]+parts[2:3]+parts[1:2]+parts[3:])
-    controls=[b''.join(reordered),raw[:-1],raw+b'EXTRA\n',raw.replace(b'\n',b'\r\n'),b''.join(lines[:-1]),b''.join(lines[:2]+lines[3:]),bytes(altered)]
+    wire=module(Path(selected['directory'])/'wire.py')
+    logical=parser.decode_string(raw.decode());lines=logical.splitlines(keepends=True)
+    parts=lines[1].split(';');reordered=list(lines);reordered[1]=';'.join(parts[:1]+parts[2:3]+parts[1:2]+parts[3:])
+    altered=logical[:-1]+('9' if logical[-1]!='9' else '8')
+    controls=[raw[:-1],raw+b'EXTRA\n',raw.replace(b'\n',b'\r\n'),wire.pure_string(''.join(reordered)),wire.pure_string(''.join(lines[:-1])),wire.pure_string(''.join(lines[:2]+lines[3:])),wire.pure_string(altered),wire.pure_string(logical+'\n')]
     for number,bad in enumerate(controls):
      with self.subTest(collector=collector,case=case,control=number):
       with self.assertRaises(ValueError):m.validate_output(plan,parser,bad,{})
     if case=='main-mutant':
-     with self.assertRaises(ValueError):m.validate_output(plan,parser,Path(selected['baselineJSON']).with_suffix('.stdout').read_bytes(),{})
+     with self.assertRaises(ValueError):m.validate_output(plan,parser,Path(selected['baselineStdout']).read_bytes(),{})
+ def test_printed_string_root_and_escapes(self):
+  parser=module(HERE/'transport-v1/transport.py')
+  self.assertEqual(parser.decode_string('"a\\n\\t\\r\\0\\\\\\"\\u{1}"\n'),'a\n\t\r\0\\"\x01')
+  for bad in ['plain\n','"a"','"a"\n\n','"a"suffix\n','"a\nb"\n','"\\q"\n','"\\u{a}"\n','"\\u{01}"\n']:
+   with self.subTest(bad=bad),self.assertRaises(ValueError):parser.decode_string(bad)
 if __name__=='__main__':unittest.main()
