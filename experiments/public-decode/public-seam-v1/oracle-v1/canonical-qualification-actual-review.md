@@ -1,0 +1,9 @@
+# Canonical qualification actual independent review
+
+Reviewed b6ee13a9 at canonical bb3fa556 against five exact plans admitted in de47e8d5. Safe integration of the actual experimental evidence; no Native runtime/public/performance closure claim.
+
+Independently verified all21 lossless raw/generated captures against compressed and uncompressed hashes and original live artifacts, exact five archived/live receipts and admitted plan digests/argv/caps, plus14 executed Python source aliases. All eight actual commands exit0 with null runner failure. Both canonical JS subjects pass full strict nominal parsing and complete unchanged15+8 models, byte-identical their preoutput expected terms: generic41379 bytes, deferred32627 bytes. Both complete canonical C emissions succeed and retain full artifacts; no Native build/run occurred in these cohorts.
+
+The38294-byte omission actual strictly roundtrips, differs from the whole positive model and independently satisfies the intended two recovered owners becoming empty with unchanged World before/after, result/error, args and Pending. It is a reached completion-adapter loss witness, not a general arbitrary mismatch acceptance. Production canonical source remains unchanged.
+
+The executed collector uses source/tool/environment/resource/raw/generated guards before/acquired/post/final through existing Inputs and receipt boundaries; these receipts retain final generated/raw hash ledgers rather than separate serialized named guard inventories. Review does not invent a guard-file count. Exact executed helper archives preserve the actual recipes and nominal transports. Original experimental and flat-C failure history remain separate; new namespace bytes are not mislabeled historical raw identity. No backend replay or sourcechecker ran during review.
