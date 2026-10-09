@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Decl.Constructed<Baseline.Schema, Input.Owner, ../../../../../../bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.Declaration{"decoded-resource"}, Input.project>
+- observed : Decl.Plain<Baseline.Schema, Input.Owner, ../../../../../../bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.Declaration{"decoded-resource"}>
+Context:
+- owner : Input.Owner
+Location: wrong
+ 9 | def wrong(owner:Input.Owner) -> D.Receipt<Input.Owner>:
+10>|   Select.load(~Baseline.Schema,~Input.Owner,~App.resource_identity(~Baseline.Schema),~Input.project,Decl.plain(~Baseline.Schema,~Input.Owner,~App.resource_identity(~Baseline.Schema)),None{},owner)
+   |                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+11 | 
