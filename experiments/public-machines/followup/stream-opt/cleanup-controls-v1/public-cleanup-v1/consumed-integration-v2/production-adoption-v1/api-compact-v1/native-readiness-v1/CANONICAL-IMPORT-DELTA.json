@@ -1,0 +1,1603 @@
+{
+  "scope": "Import-only routing of existing full scenes to actual canonical core; no operation/schema/callback/model changes; mutants explicitly route local Managed to clock-mutated Cleanup, detailed MUTANT-REACH.json",
+  "changes": [
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/application.bend",
+      "oldSHA256": "aa7bdb1644ed31b5d8fa1716682baf7ba2dabadd97a4178176c40f7010db28bc",
+      "newSHA256": "d9c5ad6da1ededf2024d5cdd57bd3918649179b19d2bb4de61f63a4285438dea",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        },
+        {
+          "old": "../../src/ecs/schedule.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend"
+        }
+      ],
+      "finalSHA256": "d9c5ad6da1ededf2024d5cdd57bd3918649179b19d2bb4de61f63a4285438dea"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/catalog.bend",
+      "oldSHA256": "8764e2499a0888903a2f7fa49f7a87d5120d35223439fd249c6e98325c7e2172",
+      "newSHA256": "53afe380d75bd6db779110a60b03366b581b7dd92855cdf4c5cbf82b2c00bf22",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "53afe380d75bd6db779110a60b03366b581b7dd92855cdf4c5cbf82b2c00bf22"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/world.bend",
+      "oldSHA256": "af8fd70580c93ddad6336fe4d750d4b32a641e43958585600889875c6fad6c48",
+      "newSHA256": "0d44fc39916bab3be427408163f2d24acf25ee79384426767c059539c078c77b",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "0d44fc39916bab3be427408163f2d24acf25ee79384426767c059539c078c77b"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/provider.bend",
+      "oldSHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6",
+      "newSHA256": "2189118ab87a7a9e2a10292fa763fd1ef7707353d946c13bde408f5c083805d0",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "../../src/ecs/column.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/column.bend"
+        },
+        {
+          "old": "../../src/ecs/component.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/component.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        }
+      ],
+      "finalSHA256": "2189118ab87a7a9e2a10292fa763fd1ef7707353d946c13bde408f5c083805d0"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/observe.bend",
+      "oldSHA256": "8410090149b24e71fb8a054256d59ef8756d243cc81f43c1f22aa03a2d8bfe20",
+      "newSHA256": "c777cf8a33c3e185b8904e3c6a1cb5503fca4376496d902724ccb1b110119e63",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "../../src/ecs/column.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/column.bend"
+        },
+        {
+          "old": "../../src/ecs/lifecycle.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend"
+        }
+      ],
+      "finalSHA256": "c777cf8a33c3e185b8904e3c6a1cb5503fca4376496d902724ccb1b110119e63"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/hooks.bend",
+      "oldSHA256": "9920a129d889a07df8eb7bb7935c18134f3f894398d59ae5c3293865c5f1d649",
+      "newSHA256": "cfaa20d2975038e4a98a9216201910c7ceda10ea5a38ec1dcb174ae76f398d31",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "cfaa20d2975038e4a98a9216201910c7ceda10ea5a38ec1dcb174ae76f398d31"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/context.bend",
+      "oldSHA256": "af30a0dc3d8720302db3bd03c70d543304d3f1ff38ff78f48dcb7681a30b99b9",
+      "newSHA256": "99949b9264f495b9bf2c882d9ab3a2a6f5e9f4518f474700acad4610e38d06bb",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        },
+        {
+          "old": "../../src/ecs/capabilities.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        },
+        {
+          "old": "../../src/ecs/component.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/component.bend"
+        },
+        {
+          "old": "../../src/ecs/commands.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "99949b9264f495b9bf2c882d9ab3a2a6f5e9f4518f474700acad4610e38d06bb"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/reader-cleanup-ports.bend",
+      "oldSHA256": "06a6c7bd5dc2ca8789fdc29c9364531f245c2eb0df3ede64547fca2c8e5db27d",
+      "newSHA256": "d6f1b9f0189bcc56baf2841806bcd9760336e6aa12c42c41dad0de9b6636cf3c",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "d6f1b9f0189bcc56baf2841806bcd9760336e6aa12c42c41dad0de9b6636cf3c"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/gameplay.bend",
+      "oldSHA256": "980a155825ea1f2a4499cbefe48bdb3d6687fd4c8aea7cc4f711fc9e34edc2f4",
+      "newSHA256": "a9e9ca78208f9b930b0cfe599c8062955ad1eb2bc9aa47c5e5b45b688d6175f2",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "../../src/ecs/capabilities.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        }
+      ],
+      "finalSHA256": "a9e9ca78208f9b930b0cfe599c8062955ad1eb2bc9aa47c5e5b45b688d6175f2"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/reader-factory.bend",
+      "oldSHA256": "6669a2fdeb1ba5134d2249541f408401d595b90d23be648961a7e2ccb6917ba2",
+      "newSHA256": "b8527242355fc664a814d259733e8b0eeee7997c4c8d8f515f1f2fac03284820",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-instance.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system-instance.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-cleanup.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system-cleanup.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "b8527242355fc664a814d259733e8b0eeee7997c4c8d8f515f1f2fac03284820"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/readers.bend",
+      "oldSHA256": "86c01aea86e2353d07727d6010f16568b43385a73afe876ea0cf91d0a97ab984",
+      "newSHA256": "0b265dc3b4d509359e84291a2bf5941813d880d0e68955819b6b7f27c476cc7b",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        },
+        {
+          "old": "../../src/ecs/capabilities.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend"
+        }
+      ],
+      "finalSHA256": "0b265dc3b4d509359e84291a2bf5941813d880d0e68955819b6b7f27c476cc7b"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/marker.bend",
+      "oldSHA256": "d2dd1e2a15ff94c3715753b36a9666da418ae7da5ec5ae39f2427224d570e282",
+      "newSHA256": "5d2d9454964f8b20355e769dff14d4d2b19e1c04d7d18b6535e06f48a5589eb7",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "5d2d9454964f8b20355e769dff14d4d2b19e1c04d7d18b6535e06f48a5589eb7"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/followup/observations.bend",
+      "oldSHA256": "65559f1c33689527fece7c8658a01cd196a78edbf2ffddd02c84c986bacbc13a",
+      "newSHA256": "c0ea48de67365d70082f684e50c6386dfaba3393eb7d862fbe878fc2e6fdf198",
+      "imports": [
+        {
+          "old": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "c0ea48de67365d70082f684e50c6386dfaba3393eb7d862fbe878fc2e6fdf198"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller.bend",
+      "oldSHA256": "0ef0a3d9e7bee3d375c6c8468e68c1926f1e64414727ea73644ff570c28d8b8d",
+      "newSHA256": "f03fc462d0bbaebf16f56f0a1b33348e8f7ad2e1acddf30490fcc4b627db754a",
+      "imports": [
+        {
+          "old": "../../../../../src/ecs/world-io.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend"
+        }
+      ],
+      "finalSHA256": "f03fc462d0bbaebf16f56f0a1b33348e8f7ad2e1acddf30490fcc4b627db754a"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "oldSHA256": "17cf93e43206481b5be7d20484c8196d523b656b5c0de4698592e556b9844015",
+      "newSHA256": "730dcc1c5ea1492b127b7e1f9e59aa2ed14f4c12f5f533fda87f90eca5307f03",
+      "imports": [
+        {
+          "old": "public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "730dcc1c5ea1492b127b7e1f9e59aa2ed14f4c12f5f533fda87f90eca5307f03"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend",
+      "oldSHA256": "fec532ea6de5601ec0297936e05d9f2f5e4084786e1033b37f24b2e5cc740b4f",
+      "newSHA256": "116b5e7a5500e2603dbddcccb4a7cbe2b90e0d6733ee180f153b2ebec9f1c99d",
+      "imports": [
+        {
+          "old": "current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "116b5e7a5500e2603dbddcccb4a7cbe2b90e0d6733ee180f153b2ebec9f1c99d"
+    },
+    {
+      "case": "post-consumption",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend",
+      "oldSHA256": "4af24d9a4502fe2fa118b2691c90fe5b6edc4a4df200288bb10e7e0952ec4d49",
+      "newSHA256": "7904c220bd5e6b961279abb3ebf8dcf2dbc26a3af71151144acf0b67e872c298",
+      "imports": [
+        {
+          "old": "current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        }
+      ],
+      "finalSHA256": "7904c220bd5e6b961279abb3ebf8dcf2dbc26a3af71151144acf0b67e872c298"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/application.bend",
+      "oldSHA256": "aa7bdb1644ed31b5d8fa1716682baf7ba2dabadd97a4178176c40f7010db28bc",
+      "newSHA256": "d9c5ad6da1ededf2024d5cdd57bd3918649179b19d2bb4de61f63a4285438dea",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        },
+        {
+          "old": "../../src/ecs/schedule.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend"
+        }
+      ],
+      "finalSHA256": "d9c5ad6da1ededf2024d5cdd57bd3918649179b19d2bb4de61f63a4285438dea"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/catalog.bend",
+      "oldSHA256": "8764e2499a0888903a2f7fa49f7a87d5120d35223439fd249c6e98325c7e2172",
+      "newSHA256": "53afe380d75bd6db779110a60b03366b581b7dd92855cdf4c5cbf82b2c00bf22",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "53afe380d75bd6db779110a60b03366b581b7dd92855cdf4c5cbf82b2c00bf22"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/world.bend",
+      "oldSHA256": "af8fd70580c93ddad6336fe4d750d4b32a641e43958585600889875c6fad6c48",
+      "newSHA256": "0d44fc39916bab3be427408163f2d24acf25ee79384426767c059539c078c77b",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "0d44fc39916bab3be427408163f2d24acf25ee79384426767c059539c078c77b"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/provider.bend",
+      "oldSHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6",
+      "newSHA256": "2189118ab87a7a9e2a10292fa763fd1ef7707353d946c13bde408f5c083805d0",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "../../src/ecs/column.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/column.bend"
+        },
+        {
+          "old": "../../src/ecs/component.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/component.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        }
+      ],
+      "finalSHA256": "2189118ab87a7a9e2a10292fa763fd1ef7707353d946c13bde408f5c083805d0"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/observe.bend",
+      "oldSHA256": "8410090149b24e71fb8a054256d59ef8756d243cc81f43c1f22aa03a2d8bfe20",
+      "newSHA256": "c777cf8a33c3e185b8904e3c6a1cb5503fca4376496d902724ccb1b110119e63",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "../../src/ecs/column.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/column.bend"
+        },
+        {
+          "old": "../../src/ecs/lifecycle.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend"
+        }
+      ],
+      "finalSHA256": "c777cf8a33c3e185b8904e3c6a1cb5503fca4376496d902724ccb1b110119e63"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/hooks.bend",
+      "oldSHA256": "9920a129d889a07df8eb7bb7935c18134f3f894398d59ae5c3293865c5f1d649",
+      "newSHA256": "cfaa20d2975038e4a98a9216201910c7ceda10ea5a38ec1dcb174ae76f398d31",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "cfaa20d2975038e4a98a9216201910c7ceda10ea5a38ec1dcb174ae76f398d31"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/context.bend",
+      "oldSHA256": "af30a0dc3d8720302db3bd03c70d543304d3f1ff38ff78f48dcb7681a30b99b9",
+      "newSHA256": "99949b9264f495b9bf2c882d9ab3a2a6f5e9f4518f474700acad4610e38d06bb",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        },
+        {
+          "old": "../../src/ecs/capabilities.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        },
+        {
+          "old": "../../src/ecs/component.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/component.bend"
+        },
+        {
+          "old": "../../src/ecs/commands.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "99949b9264f495b9bf2c882d9ab3a2a6f5e9f4518f474700acad4610e38d06bb"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/reader-cleanup-ports.bend",
+      "oldSHA256": "06a6c7bd5dc2ca8789fdc29c9364531f245c2eb0df3ede64547fca2c8e5db27d",
+      "newSHA256": "d6f1b9f0189bcc56baf2841806bcd9760336e6aa12c42c41dad0de9b6636cf3c",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "d6f1b9f0189bcc56baf2841806bcd9760336e6aa12c42c41dad0de9b6636cf3c"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/gameplay.bend",
+      "oldSHA256": "980a155825ea1f2a4499cbefe48bdb3d6687fd4c8aea7cc4f711fc9e34edc2f4",
+      "newSHA256": "a9e9ca78208f9b930b0cfe599c8062955ad1eb2bc9aa47c5e5b45b688d6175f2",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "../../src/ecs/capabilities.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        }
+      ],
+      "finalSHA256": "a9e9ca78208f9b930b0cfe599c8062955ad1eb2bc9aa47c5e5b45b688d6175f2"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/reader-factory.bend",
+      "oldSHA256": "6669a2fdeb1ba5134d2249541f408401d595b90d23be648961a7e2ccb6917ba2",
+      "newSHA256": "b8527242355fc664a814d259733e8b0eeee7997c4c8d8f515f1f2fac03284820",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-instance.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system-instance.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-cleanup.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system-cleanup.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "b8527242355fc664a814d259733e8b0eeee7997c4c8d8f515f1f2fac03284820"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/readers.bend",
+      "oldSHA256": "86c01aea86e2353d07727d6010f16568b43385a73afe876ea0cf91d0a97ab984",
+      "newSHA256": "0b265dc3b4d509359e84291a2bf5941813d880d0e68955819b6b7f27c476cc7b",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        },
+        {
+          "old": "../../src/ecs/capabilities.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend"
+        }
+      ],
+      "finalSHA256": "0b265dc3b4d509359e84291a2bf5941813d880d0e68955819b6b7f27c476cc7b"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/marker.bend",
+      "oldSHA256": "d2dd1e2a15ff94c3715753b36a9666da418ae7da5ec5ae39f2427224d570e282",
+      "newSHA256": "5d2d9454964f8b20355e769dff14d4d2b19e1c04d7d18b6535e06f48a5589eb7",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "5d2d9454964f8b20355e769dff14d4d2b19e1c04d7d18b6535e06f48a5589eb7"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/followup/observations.bend",
+      "oldSHA256": "65559f1c33689527fece7c8658a01cd196a78edbf2ffddd02c84c986bacbc13a",
+      "newSHA256": "c0ea48de67365d70082f684e50c6386dfaba3393eb7d862fbe878fc2e6fdf198",
+      "imports": [
+        {
+          "old": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "c0ea48de67365d70082f684e50c6386dfaba3393eb7d862fbe878fc2e6fdf198"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "oldSHA256": "17cf93e43206481b5be7d20484c8196d523b656b5c0de4698592e556b9844015",
+      "newSHA256": "730dcc1c5ea1492b127b7e1f9e59aa2ed14f4c12f5f533fda87f90eca5307f03",
+      "imports": [
+        {
+          "old": "public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "730dcc1c5ea1492b127b7e1f9e59aa2ed14f4c12f5f533fda87f90eca5307f03"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend",
+      "oldSHA256": "fec532ea6de5601ec0297936e05d9f2f5e4084786e1033b37f24b2e5cc740b4f",
+      "newSHA256": "116b5e7a5500e2603dbddcccb4a7cbe2b90e0d6733ee180f153b2ebec9f1c99d",
+      "imports": [
+        {
+          "old": "current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "116b5e7a5500e2603dbddcccb4a7cbe2b90e0d6733ee180f153b2ebec9f1c99d"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend",
+      "oldSHA256": "4af24d9a4502fe2fa118b2691c90fe5b6edc4a4df200288bb10e7e0952ec4d49",
+      "newSHA256": "7904c220bd5e6b961279abb3ebf8dcf2dbc26a3af71151144acf0b67e872c298",
+      "imports": [
+        {
+          "old": "current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        }
+      ],
+      "finalSHA256": "7904c220bd5e6b961279abb3ebf8dcf2dbc26a3af71151144acf0b67e872c298"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller.bend",
+      "oldSHA256": "30bfbb636666c8f32a8b5c6c32056c2a9168a3c0c1f827832e5e7e4467cc192d",
+      "newSHA256": "7233d8969a90d5526466e319835f3b792cd76d75215d0bcb051d9f0fd89d9347",
+      "imports": [
+        {
+          "old": "../../../../../../src/ecs/world-io.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend"
+        }
+      ],
+      "finalSHA256": "7233d8969a90d5526466e319835f3b792cd76d75215d0bcb051d9f0fd89d9347"
+    },
+    {
+      "case": "failed-batch",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend",
+      "oldSHA256": "d2b764a30bd82d2ea0b331a0906e4f11e16fcf7a3ea82874f2d218ec6db81a43",
+      "newSHA256": "9d7c28b36187b45c5d9e35c246ec476967e2d55d50306221bfc494b3a3f217c4",
+      "imports": [
+        {
+          "old": "../public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "9d7c28b36187b45c5d9e35c246ec476967e2d55d50306221bfc494b3a3f217c4"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/application.bend",
+      "oldSHA256": "aa7bdb1644ed31b5d8fa1716682baf7ba2dabadd97a4178176c40f7010db28bc",
+      "newSHA256": "d9c5ad6da1ededf2024d5cdd57bd3918649179b19d2bb4de61f63a4285438dea",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        },
+        {
+          "old": "../../src/ecs/schedule.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend"
+        }
+      ],
+      "finalSHA256": "d9c5ad6da1ededf2024d5cdd57bd3918649179b19d2bb4de61f63a4285438dea"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/catalog.bend",
+      "oldSHA256": "8764e2499a0888903a2f7fa49f7a87d5120d35223439fd249c6e98325c7e2172",
+      "newSHA256": "53afe380d75bd6db779110a60b03366b581b7dd92855cdf4c5cbf82b2c00bf22",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "53afe380d75bd6db779110a60b03366b581b7dd92855cdf4c5cbf82b2c00bf22"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/world.bend",
+      "oldSHA256": "af8fd70580c93ddad6336fe4d750d4b32a641e43958585600889875c6fad6c48",
+      "newSHA256": "0d44fc39916bab3be427408163f2d24acf25ee79384426767c059539c078c77b",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "0d44fc39916bab3be427408163f2d24acf25ee79384426767c059539c078c77b"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/provider.bend",
+      "oldSHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6",
+      "newSHA256": "2189118ab87a7a9e2a10292fa763fd1ef7707353d946c13bde408f5c083805d0",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "../../src/ecs/column.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/column.bend"
+        },
+        {
+          "old": "../../src/ecs/component.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/component.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        }
+      ],
+      "finalSHA256": "2189118ab87a7a9e2a10292fa763fd1ef7707353d946c13bde408f5c083805d0"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/observe.bend",
+      "oldSHA256": "8410090149b24e71fb8a054256d59ef8756d243cc81f43c1f22aa03a2d8bfe20",
+      "newSHA256": "c777cf8a33c3e185b8904e3c6a1cb5503fca4376496d902724ccb1b110119e63",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "../../src/ecs/column.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/column.bend"
+        },
+        {
+          "old": "../../src/ecs/lifecycle.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend"
+        }
+      ],
+      "finalSHA256": "c777cf8a33c3e185b8904e3c6a1cb5503fca4376496d902724ccb1b110119e63"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/hooks.bend",
+      "oldSHA256": "9920a129d889a07df8eb7bb7935c18134f3f894398d59ae5c3293865c5f1d649",
+      "newSHA256": "cfaa20d2975038e4a98a9216201910c7ceda10ea5a38ec1dcb174ae76f398d31",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "cfaa20d2975038e4a98a9216201910c7ceda10ea5a38ec1dcb174ae76f398d31"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/context.bend",
+      "oldSHA256": "af30a0dc3d8720302db3bd03c70d543304d3f1ff38ff78f48dcb7681a30b99b9",
+      "newSHA256": "99949b9264f495b9bf2c882d9ab3a2a6f5e9f4518f474700acad4610e38d06bb",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        },
+        {
+          "old": "../../src/ecs/capabilities.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        },
+        {
+          "old": "../../src/ecs/component.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/component.bend"
+        },
+        {
+          "old": "../../src/ecs/commands.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "99949b9264f495b9bf2c882d9ab3a2a6f5e9f4518f474700acad4610e38d06bb"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/reader-cleanup-ports.bend",
+      "oldSHA256": "06a6c7bd5dc2ca8789fdc29c9364531f245c2eb0df3ede64547fca2c8e5db27d",
+      "newSHA256": "d6f1b9f0189bcc56baf2841806bcd9760336e6aa12c42c41dad0de9b6636cf3c",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "d6f1b9f0189bcc56baf2841806bcd9760336e6aa12c42c41dad0de9b6636cf3c"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/gameplay.bend",
+      "oldSHA256": "980a155825ea1f2a4499cbefe48bdb3d6687fd4c8aea7cc4f711fc9e34edc2f4",
+      "newSHA256": "a9e9ca78208f9b930b0cfe599c8062955ad1eb2bc9aa47c5e5b45b688d6175f2",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "../../src/ecs/capabilities.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        }
+      ],
+      "finalSHA256": "a9e9ca78208f9b930b0cfe599c8062955ad1eb2bc9aa47c5e5b45b688d6175f2"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/reader-factory.bend",
+      "oldSHA256": "6669a2fdeb1ba5134d2249541f408401d595b90d23be648961a7e2ccb6917ba2",
+      "newSHA256": "b8527242355fc664a814d259733e8b0eeee7997c4c8d8f515f1f2fac03284820",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-instance.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system-instance.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-cleanup.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system-cleanup.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "9462c9060a6b5f75eb136a172a19230f5055069b47b6ca76ef9e96f92293c0be"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/readers.bend",
+      "oldSHA256": "86c01aea86e2353d07727d6010f16568b43385a73afe876ea0cf91d0a97ab984",
+      "newSHA256": "0b265dc3b4d509359e84291a2bf5941813d880d0e68955819b6b7f27c476cc7b",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        },
+        {
+          "old": "../../src/ecs/capabilities.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend"
+        }
+      ],
+      "finalSHA256": "0b265dc3b4d509359e84291a2bf5941813d880d0e68955819b6b7f27c476cc7b"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/marker.bend",
+      "oldSHA256": "d2dd1e2a15ff94c3715753b36a9666da418ae7da5ec5ae39f2427224d570e282",
+      "newSHA256": "5d2d9454964f8b20355e769dff14d4d2b19e1c04d7d18b6535e06f48a5589eb7",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "5d2d9454964f8b20355e769dff14d4d2b19e1c04d7d18b6535e06f48a5589eb7"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/followup/observations.bend",
+      "oldSHA256": "65559f1c33689527fece7c8658a01cd196a78edbf2ffddd02c84c986bacbc13a",
+      "newSHA256": "c0ea48de67365d70082f684e50c6386dfaba3393eb7d862fbe878fc2e6fdf198",
+      "imports": [
+        {
+          "old": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "c0ea48de67365d70082f684e50c6386dfaba3393eb7d862fbe878fc2e6fdf198"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller.bend",
+      "oldSHA256": "0ef0a3d9e7bee3d375c6c8468e68c1926f1e64414727ea73644ff570c28d8b8d",
+      "newSHA256": "f03fc462d0bbaebf16f56f0a1b33348e8f7ad2e1acddf30490fcc4b627db754a",
+      "imports": [
+        {
+          "old": "../../../../../src/ecs/world-io.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend"
+        }
+      ],
+      "finalSHA256": "f03fc462d0bbaebf16f56f0a1b33348e8f7ad2e1acddf30490fcc4b627db754a"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "oldSHA256": "17cf93e43206481b5be7d20484c8196d523b656b5c0de4698592e556b9844015",
+      "newSHA256": "730dcc1c5ea1492b127b7e1f9e59aa2ed14f4c12f5f533fda87f90eca5307f03",
+      "imports": [
+        {
+          "old": "public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "730dcc1c5ea1492b127b7e1f9e59aa2ed14f4c12f5f533fda87f90eca5307f03"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend",
+      "oldSHA256": "fec532ea6de5601ec0297936e05d9f2f5e4084786e1033b37f24b2e5cc740b4f",
+      "newSHA256": "116b5e7a5500e2603dbddcccb4a7cbe2b90e0d6733ee180f153b2ebec9f1c99d",
+      "imports": [
+        {
+          "old": "current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "116b5e7a5500e2603dbddcccb4a7cbe2b90e0d6733ee180f153b2ebec9f1c99d"
+    },
+    {
+      "case": "post-consumption-mutant",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend",
+      "oldSHA256": "4af24d9a4502fe2fa118b2691c90fe5b6edc4a4df200288bb10e7e0952ec4d49",
+      "newSHA256": "7904c220bd5e6b961279abb3ebf8dcf2dbc26a3af71151144acf0b67e872c298",
+      "imports": [
+        {
+          "old": "current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        }
+      ],
+      "finalSHA256": "7904c220bd5e6b961279abb3ebf8dcf2dbc26a3af71151144acf0b67e872c298"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/application.bend",
+      "oldSHA256": "aa7bdb1644ed31b5d8fa1716682baf7ba2dabadd97a4178176c40f7010db28bc",
+      "newSHA256": "d9c5ad6da1ededf2024d5cdd57bd3918649179b19d2bb4de61f63a4285438dea",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        },
+        {
+          "old": "../../src/ecs/schedule.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend"
+        }
+      ],
+      "finalSHA256": "d9c5ad6da1ededf2024d5cdd57bd3918649179b19d2bb4de61f63a4285438dea"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/catalog.bend",
+      "oldSHA256": "8764e2499a0888903a2f7fa49f7a87d5120d35223439fd249c6e98325c7e2172",
+      "newSHA256": "53afe380d75bd6db779110a60b03366b581b7dd92855cdf4c5cbf82b2c00bf22",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "53afe380d75bd6db779110a60b03366b581b7dd92855cdf4c5cbf82b2c00bf22"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/world.bend",
+      "oldSHA256": "af8fd70580c93ddad6336fe4d750d4b32a641e43958585600889875c6fad6c48",
+      "newSHA256": "0d44fc39916bab3be427408163f2d24acf25ee79384426767c059539c078c77b",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "0d44fc39916bab3be427408163f2d24acf25ee79384426767c059539c078c77b"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/provider.bend",
+      "oldSHA256": "0c008a47d386e9ad2942d6b37c65f1a78fdf1b2b120caaa8019f51c2d14f5dd6",
+      "newSHA256": "2189118ab87a7a9e2a10292fa763fd1ef7707353d946c13bde408f5c083805d0",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "../../src/ecs/column.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/column.bend"
+        },
+        {
+          "old": "../../src/ecs/component.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/component.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        }
+      ],
+      "finalSHA256": "2189118ab87a7a9e2a10292fa763fd1ef7707353d946c13bde408f5c083805d0"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/observe.bend",
+      "oldSHA256": "8410090149b24e71fb8a054256d59ef8756d243cc81f43c1f22aa03a2d8bfe20",
+      "newSHA256": "c777cf8a33c3e185b8904e3c6a1cb5503fca4376496d902724ccb1b110119e63",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "../../src/ecs/column.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/column.bend"
+        },
+        {
+          "old": "../../src/ecs/lifecycle.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend"
+        }
+      ],
+      "finalSHA256": "c777cf8a33c3e185b8904e3c6a1cb5503fca4376496d902724ccb1b110119e63"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/hooks.bend",
+      "oldSHA256": "9920a129d889a07df8eb7bb7935c18134f3f894398d59ae5c3293865c5f1d649",
+      "newSHA256": "cfaa20d2975038e4a98a9216201910c7ceda10ea5a38ec1dcb174ae76f398d31",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "cfaa20d2975038e4a98a9216201910c7ceda10ea5a38ec1dcb174ae76f398d31"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/context.bend",
+      "oldSHA256": "af30a0dc3d8720302db3bd03c70d543304d3f1ff38ff78f48dcb7681a30b99b9",
+      "newSHA256": "99949b9264f495b9bf2c882d9ab3a2a6f5e9f4518f474700acad4610e38d06bb",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        },
+        {
+          "old": "../../src/ecs/capabilities.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        },
+        {
+          "old": "../../src/ecs/component.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/component.bend"
+        },
+        {
+          "old": "../../src/ecs/commands.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "99949b9264f495b9bf2c882d9ab3a2a6f5e9f4518f474700acad4610e38d06bb"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/reader-cleanup-ports.bend",
+      "oldSHA256": "06a6c7bd5dc2ca8789fdc29c9364531f245c2eb0df3ede64547fca2c8e5db27d",
+      "newSHA256": "d6f1b9f0189bcc56baf2841806bcd9760336e6aa12c42c41dad0de9b6636cf3c",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "d6f1b9f0189bcc56baf2841806bcd9760336e6aa12c42c41dad0de9b6636cf3c"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/gameplay.bend",
+      "oldSHA256": "980a155825ea1f2a4499cbefe48bdb3d6687fd4c8aea7cc4f711fc9e34edc2f4",
+      "newSHA256": "a9e9ca78208f9b930b0cfe599c8062955ad1eb2bc9aa47c5e5b45b688d6175f2",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "../../src/ecs/capabilities.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        }
+      ],
+      "finalSHA256": "a9e9ca78208f9b930b0cfe599c8062955ad1eb2bc9aa47c5e5b45b688d6175f2"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/reader-factory.bend",
+      "oldSHA256": "6669a2fdeb1ba5134d2249541f408401d595b90d23be648961a7e2ccb6917ba2",
+      "newSHA256": "b8527242355fc664a814d259733e8b0eeee7997c4c8d8f515f1f2fac03284820",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-instance.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system-instance.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system-cleanup.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system-cleanup.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "f99f0060803087be8a7a4ac4af2cc97612a25973ba4dfc51a8dc303aed3f0caa"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/readers.bend",
+      "oldSHA256": "86c01aea86e2353d07727d6010f16568b43385a73afe876ea0cf91d0a97ab984",
+      "newSHA256": "0b265dc3b4d509359e84291a2bf5941813d880d0e68955819b6b7f27c476cc7b",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        },
+        {
+          "old": "../../src/ecs/capabilities.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/transaction.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/event-runtime.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend"
+        }
+      ],
+      "finalSHA256": "0b265dc3b4d509359e84291a2bf5941813d880d0e68955819b6b7f27c476cc7b"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/marker.bend",
+      "oldSHA256": "d2dd1e2a15ff94c3715753b36a9666da418ae7da5ec5ae39f2427224d570e282",
+      "newSHA256": "5d2d9454964f8b20355e769dff14d4d2b19e1c04d7d18b6535e06f48a5589eb7",
+      "imports": [
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "5d2d9454964f8b20355e769dff14d4d2b19e1c04d7d18b6535e06f48a5589eb7"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/followup/observations.bend",
+      "oldSHA256": "65559f1c33689527fece7c8658a01cd196a78edbf2ffddd02c84c986bacbc13a",
+      "newSHA256": "c0ea48de67365d70082f684e50c6386dfaba3393eb7d862fbe878fc2e6fdf198",
+      "imports": [
+        {
+          "old": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "stream-opt/cleanup-controls-v1/public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "c0ea48de67365d70082f684e50c6386dfaba3393eb7d862fbe878fc2e6fdf198"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/caller-core.bend",
+      "oldSHA256": "17cf93e43206481b5be7d20484c8196d523b656b5c0de4698592e556b9844015",
+      "newSHA256": "730dcc1c5ea1492b127b7e1f9e59aa2ed14f4c12f5f533fda87f90eca5307f03",
+      "imports": [
+        {
+          "old": "public-cleanup-v1/current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        },
+        {
+          "old": "public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "public-cleanup-v1/current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "730dcc1c5ea1492b127b7e1f9e59aa2ed14f4c12f5f533fda87f90eca5307f03"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/adapter.bend",
+      "oldSHA256": "fec532ea6de5601ec0297936e05d9f2f5e4084786e1033b37f24b2e5cc740b4f",
+      "newSHA256": "116b5e7a5500e2603dbddcccb4a7cbe2b90e0d6733ee180f153b2ebec9f1c99d",
+      "imports": [
+        {
+          "old": "current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "old": "current-core/ecs/system.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+        }
+      ],
+      "finalSHA256": "116b5e7a5500e2603dbddcccb4a7cbe2b90e0d6733ee180f153b2ebec9f1c99d"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/ports.bend",
+      "oldSHA256": "4af24d9a4502fe2fa118b2691c90fe5b6edc4a4df200288bb10e7e0952ec4d49",
+      "newSHA256": "7904c220bd5e6b961279abb3ebf8dcf2dbc26a3af71151144acf0b67e872c298",
+      "imports": [
+        {
+          "old": "current-core/ecs/machine-stream.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+        }
+      ],
+      "finalSHA256": "7904c220bd5e6b961279abb3ebf8dcf2dbc26a3af71151144acf0b67e872c298"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller.bend",
+      "oldSHA256": "30bfbb636666c8f32a8b5c6c32056c2a9168a3c0c1f827832e5e7e4467cc192d",
+      "newSHA256": "7233d8969a90d5526466e319835f3b792cd76d75215d0bcb051d9f0fd89d9347",
+      "imports": [
+        {
+          "old": "../../../../../../src/ecs/world-io.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend"
+        }
+      ],
+      "finalSHA256": "7233d8969a90d5526466e319835f3b792cd76d75215d0bcb051d9f0fd89d9347"
+    },
+    {
+      "case": "failed-batch-mutant",
+      "path": "experiments/public-machines/followup/stream-opt/cleanup-controls-v1/failed-batch-v1/caller-core.bend",
+      "oldSHA256": "d2b764a30bd82d2ea0b331a0906e4f11e16fcf7a3ea82874f2d218ec6db81a43",
+      "newSHA256": "9d7c28b36187b45c5d9e35c246ec476967e2d55d50306221bfc494b3a3f217c4",
+      "imports": [
+        {
+          "old": "../public-cleanup-v1/current-core/ecs/world.bend",
+          "canonical": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        }
+      ],
+      "finalSHA256": "9d7c28b36187b45c5d9e35c246ec476967e2d55d50306221bfc494b3a3f217c4"
+    }
+  ]
+}

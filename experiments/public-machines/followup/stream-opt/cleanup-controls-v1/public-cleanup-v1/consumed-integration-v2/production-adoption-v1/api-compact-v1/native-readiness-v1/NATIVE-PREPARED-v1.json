@@ -1,0 +1,32 @@
+{
+  "scope": "Four complete existing scene boundaries, canonical core imports; semantic only no full48/performance claim",
+  "plans": {
+    "post-consumption": {
+      "path": "/tmp/bendvy48-canonical-post-consumption-v1/plan.json",
+      "sha256": "c4d3520fde3a077c4f8b7051450ceff0438b1fed087ba05b81c5e491601299bb"
+    },
+    "failed-batch": {
+      "path": "/tmp/bendvy48-canonical-failed-batch-v1/plan.json",
+      "sha256": "6bc16cd19914ea761759ab37c7f117d9d99b8b6c46e06a9773fb6a5f9fc0c5b4"
+    },
+    "post-consumption-mutant": {
+      "path": "/tmp/bendvy48-canonical-post-consumption-mutant-v1/plan.json",
+      "sha256": "d77bd565cd2ec708c7aead673a43edc5e617db43d1ba34307ffe33408f7a1b3b"
+    },
+    "failed-batch-mutant": {
+      "path": "/tmp/bendvy48-canonical-failed-batch-mutant-v1/plan.json",
+      "sha256": "4eb5ced43a30e98feb2cfc602657d9905b4c1b810f5bbfa9531b9d4255fb0969"
+    }
+  },
+  "sourceChecks": {
+    "post-consumption": {
+      "exit": 1,
+      "diagnostic": "five unsafe/foreign IO defs only, not proof"
+    },
+    "failed-batch": {
+      "exit": 1,
+      "diagnostic": "see full retained raw; not proof"
+    }
+  },
+  "controls": "3 preimport +2 publication +2 whole model suites pass; includes full4 scenes and six counterleaves, omissions/lastfield"
+}
