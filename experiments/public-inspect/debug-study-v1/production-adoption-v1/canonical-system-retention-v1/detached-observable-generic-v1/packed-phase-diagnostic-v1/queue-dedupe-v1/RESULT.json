@@ -1,0 +1,305 @@
+{
+  "preparationCommit": "de649cbedb7183a1b210e288ccb637a1dd1b138a",
+  "scope": "Private first-occurrence compiler queue algorithm diagnostic only",
+  "attempts": {
+    "normal33": {
+      "originalSession": 82101,
+      "status": "PACKED_COMPILER_DIAGNOSTIC_PASS",
+      "guardCount": 8,
+      "profileSHA256": "73a595dfa773de62de488df7b662e25b64bb6c1a67f4efe10ab926494828409b",
+      "profileBytes": 9289624,
+      "phases": [
+        {
+          "event": "startup",
+          "phase": "startup",
+          "calls": 0,
+          "elapsedMs": 0.13283500000000004,
+          "deadlineMs": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 72.55330099999998,
+          "name": "book_load",
+          "pass": 0,
+          "queueContext": null
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 3401.794329,
+          "name": "book_load",
+          "pass": 0,
+          "queueContext": null
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 3403.72347,
+          "name": "book_valid",
+          "pass": 0,
+          "queueContext": null
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 5978.060164,
+          "name": "book_valid",
+          "pass": 0,
+          "queueContext": null
+        },
+        {
+          "event": "phase-enter",
+          "phase": "compile_book",
+          "calls": 0,
+          "elapsedMs": 6011.334103,
+          "name": "compile_book",
+          "pass": 0,
+          "queueContext": null
+        },
+        {
+          "event": "phase-enter",
+          "phase": "file_book",
+          "calls": 0,
+          "elapsedMs": 6011.937108,
+          "name": "file_book",
+          "pass": 0,
+          "queueContext": null
+        },
+        {
+          "event": "phase-exit",
+          "phase": "file_book",
+          "calls": 547,
+          "elapsedMs": 11187.4293,
+          "name": "file_book",
+          "pass": 0,
+          "queueContext": {
+            "upcoming": null,
+            "current": null,
+            "lastCompleted": {
+              "key": "../../../../../src/ecs/column:indexed_view_restored~1",
+              "completionSubstage": "runtime-after-body-scan",
+              "queueBefore": 547,
+              "queueAfterTypes": 547,
+              "queueAfterBody": 547,
+              "uniqueVisited": 547
+            },
+            "substage": "completed-runtime",
+            "queueLength": 547,
+            "uniqueVisited": 547,
+            "queueBeforeCurrent": 547,
+            "queueAfterTypes": 547
+          }
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 547,
+          "elapsedMs": 11187.594843,
+          "name": "emit-pass",
+          "pass": 1,
+          "queueContext": null
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 10279,
+          "elapsedMs": 16198.181854,
+          "name": "emit-pass",
+          "pass": 1,
+          "queueContext": null
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 10279,
+          "elapsedMs": 16198.219355,
+          "name": "emit-pass",
+          "pass": 2,
+          "queueContext": null
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 20011,
+          "elapsedMs": 20240.937669,
+          "name": "emit-pass",
+          "pass": 2,
+          "queueContext": null
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 20011,
+          "elapsedMs": 20241.843426,
+          "name": "emit-pass",
+          "pass": 3,
+          "queueContext": null
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 29743,
+          "elapsedMs": 24004.594494999998,
+          "name": "emit-pass",
+          "pass": 3,
+          "queueContext": null
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 29743,
+          "elapsedMs": 24004.69212,
+          "name": "emit-pass",
+          "pass": 4,
+          "queueContext": null
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 39475,
+          "elapsedMs": 25823.929106,
+          "name": "emit-pass",
+          "pass": 4,
+          "queueContext": null
+        },
+        {
+          "event": "phase-enter",
+          "phase": "C-assembly",
+          "calls": 39475,
+          "elapsedMs": 26393.466049,
+          "name": "C-assembly",
+          "pass": 4,
+          "queueContext": null
+        },
+        {
+          "event": "phase-exit",
+          "phase": "C-assembly",
+          "calls": 39475,
+          "elapsedMs": 26412.663539999998,
+          "name": "C-assembly",
+          "pass": 4,
+          "queueContext": null
+        },
+        {
+          "event": "phase-exit",
+          "phase": "compile_book",
+          "calls": 39475,
+          "elapsedMs": 26412.706331999998,
+          "name": "compile_book",
+          "pass": 4,
+          "queueContext": null
+        }
+      ],
+      "ownerContextAudit": "PASS: actual normal exit/full partial memo_gc cutoff; retained top-level before/types fields denote last iteration",
+      "CEquality": true
+    },
+    "full80": {
+      "originalSession": 81638,
+      "status": "PACKED_COMPILER_DIAGNOSTIC_PASS",
+      "guardCount": 8,
+      "profileSHA256": "24aa021178fbc8248921bdb4d1d9ff8efba412ace1575615c039f905bb9b38f5",
+      "profileBytes": 8374685,
+      "phases": [
+        {
+          "event": "startup",
+          "phase": "startup",
+          "calls": 0,
+          "elapsedMs": 0.036875000000009095,
+          "deadlineMs": 20000
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 0.6956309999999917,
+          "name": "book_load",
+          "pass": 0,
+          "queueContext": null
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 6550.6146739999995,
+          "name": "book_load",
+          "pass": 0,
+          "queueContext": null
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 6550.758551,
+          "name": "book_valid",
+          "pass": 0,
+          "queueContext": null
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 16608.591539999998,
+          "name": "book_valid",
+          "pass": 0,
+          "queueContext": null
+        },
+        {
+          "event": "phase-enter",
+          "phase": "compile_book",
+          "calls": 0,
+          "elapsedMs": 16620.096467,
+          "name": "compile_book",
+          "pass": 0,
+          "queueContext": null
+        },
+        {
+          "event": "phase-enter",
+          "phase": "file_book",
+          "calls": 0,
+          "elapsedMs": 16776.894414,
+          "name": "file_book",
+          "pass": 0,
+          "queueContext": null
+        },
+        {
+          "event": "deadline",
+          "phase": "file_book",
+          "calls": 704,
+          "elapsedMs": 20016.602877999998,
+          "hook": "memo_gc",
+          "definition": null,
+          "limitMs": 20000,
+          "exit": 75,
+          "queueContext": {
+            "upcoming": "../../../../../../../../../../src/ecs/schedule-provision:requirements~1",
+            "current": null,
+            "lastCompleted": {
+              "key": "../../../../../../../../../../src/ecs/schedule-provision:unique~1",
+              "completionSubstage": "runtime-after-body-scan",
+              "queueBefore": 804,
+              "queueAfterTypes": 804,
+              "queueAfterBody": 805,
+              "uniqueVisited": 703
+            },
+            "substage": "checkpoint-before-definition",
+            "queueLength": 805,
+            "uniqueVisited": 703,
+            "queueBeforeCurrent": 804,
+            "queueAfterTypes": 804
+          }
+        }
+      ],
+      "ownerContextAudit": "PASS: actual normal exit/full partial memo_gc cutoff; retained top-level before/types fields denote last iteration",
+      "CEquality": false
+    }
+  },
+  "sourceGate": "UNMET",
+  "verdictProofStockNativeAcceptance": false,
+  "retries": 0,
+  "interpretation": "Structural queue counts only; no performance or causal attribution. Queue filtering changes private compiler algorithm; no production/compiler acceptance. Type-adts evaluation and emitter unchanged."
+}
