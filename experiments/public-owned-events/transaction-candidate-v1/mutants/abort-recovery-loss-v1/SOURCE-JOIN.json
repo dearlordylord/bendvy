@@ -1,0 +1,26 @@
+{
+  "scope": "source-only pre-run whole mutation expectations; no backend",
+  "entry": "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/mutants/abort-recovery-loss-v1/main.bend",
+  "delta": {
+    "file": "adapter.bend",
+    "before": "case Stage.Aborted{owners}: Returned{world,T.Failure{error},owners}",
+    "after": "case Stage.Aborted{owners}: Returned{world,T.Failure{error},List.tail(&1,Payload,owners)}"
+  },
+  "files": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/mutants/abort-recovery-loss-v1/prepare.py": "401667a7bc44ec0dda1df9ec66f2910e77589c0ef026447b93faa01ff94891c5",
+    "/workspace/formal-proofs/bendvy/experiments/public-owned-events/transaction-candidate-v1/oracle-v1/expected-v2.json": "88a831432428c592da2d3e2029233c22ba31a12b56e5dbb25722868103431faf",
+    "/workspace/formal-proofs/bendvy/experiments/public-owned-events/transaction-candidate-v1/oracle-v1/expected-raw.py": "d88f4b9669614f128077aba5ee147435792458cc7480d4716dddfc78b61c4560",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/adapter.bend": "eb9e88bab2dc9a22b876cee3faa8517f517db949a708a573e6fa6d221678cd26",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/controls.bend": "b5f4559b58036b7a0700bde7b77d33ba2e01393f358c22d17eed10658cb2a4f0",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/observation.bend": "00546dcd574bb8f622520e14a55a3ccd187c0c5f06ac21c5bddd99ce89cbda9b",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/main.bend": "3b16218943a48200cdeaee3736edd3ae199ccfd4cbb2dd5ed759e414e1be4beb",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/mutants/abort-recovery-loss-v1/adapter.bend": "56f93c8453a1d7d2b339181b35028d708d93204c87632a985de82512c7051970",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/mutants/abort-recovery-loss-v1/controls.bend": "b5f4559b58036b7a0700bde7b77d33ba2e01393f358c22d17eed10658cb2a4f0",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/mutants/abort-recovery-loss-v1/observation.bend": "00546dcd574bb8f622520e14a55a3ccd187c0c5f06ac21c5bddd99ce89cbda9b",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/mutants/abort-recovery-loss-v1/main.bend": "3b16218943a48200cdeaee3736edd3ae199ccfd4cbb2dd5ed759e414e1be4beb",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/mutants/abort-recovery-loss-v1/baseline.json": "88a831432428c592da2d3e2029233c22ba31a12b56e5dbb25722868103431faf",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/mutants/abort-recovery-loss-v1/counterfactual.json": "625ba6a90591ea7a90cfd1e6b78cea9b76cc6fbd6eeaaa249fc80fcc54191fac",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/mutants/abort-recovery-loss-v1/baseline.stdout": "6c734fc4679e0806a758ae623834ef855022d8010637697d5cba718afecda7e0",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/mutants/abort-recovery-loss-v1/counterfactual.stdout": "e9e37cd0482a56ee943724eb70183caeda8260b3cf25009277eaf39b18c8e3e3"
+  }
+}
