@@ -1,0 +1,82 @@
+{
+  "originalSession": 30970,
+  "status": "DEVELOPMENT_NATIVE_PASS",
+  "planSHA256": "5782e2a2eb5bc53d4d2d7fe6a304955e81918955bbe80ee03aca3236a570811b",
+  "commands": [
+    {
+      "label": "complete-build",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-cEmit/generated/complete.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/positive-native/generated/complete.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/positive-native/generated/complete.native",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/positive-native/generated/complete.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    }
+  ],
+  "members": [
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/positive-native/raw/complete-build.stderr",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/actual-evidence/positive-native/complete-build.stderr.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/positive-native/raw/complete-build.stdout",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/actual-evidence/positive-native/complete-build.stdout.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/positive-native/raw/complete-run.stderr",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/actual-evidence/positive-native/complete-run.stderr.gz",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/positive-native/raw/complete-run.stdout",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/actual-evidence/positive-native/complete-run.stdout.gz",
+      "bytes": 1056756,
+      "sha256": "aef13533dce452169a8d67d4d20b25148a8b77a9d6dcd01d2ed2cfbb8f301eb9"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/positive-native/generated/complete.native",
+      "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-native-v1/actual-evidence/positive-native/complete.native.gz",
+      "bytes": 3101744,
+      "sha256": "9017c7f41cafbcc267ad33cf774dffa82dc416ff60fc89a380b0e83a9d39500c"
+    }
+  ],
+  "whole32RawBytes": 1056756,
+  "whole32RawSHA256": "aef13533dce452169a8d67d4d20b25148a8b77a9d6dcd01d2ed2cfbb8f301eb9",
+  "JSNativeIndependentOracleExactEquality": true,
+  "scope": "Complete32 semantic application observations only. No performance/issue closure; prior C reused without re-emission."
+}
