@@ -11,7 +11,7 @@ type RowView is Data: RowView{key:U32,payload:PayloadView}
 type LogView is Data: LogView{seen:List<&2,U32>,rows:List<&2,RowView>}
 type ReaderView is Data: ReaderView{namespace:U32,id:U32,registryId:U32,registryNamespace:U32,actualRegistryId:U32,name:String,access:List<&2,String>,cursor:U32}
 type RuntimeView is Data: RuntimeView{namespace:U32,statuses:List<&2,Ev.ReaderStatus>,world:F.WorldMeta,batches:List<&2,Ev.Batch<U32>>,positions:List<&2,Ev.Position>,nextReader:U32,tick:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,droppedThrough:Nat,log:LogView}
-type Snapshot is Data: Snapshot{label:String,runtime:RuntimeView,fast:ReaderView,slow:ReaderView,reads:List<&2,F.View>,retired:List<&2,RowView>,refused:List<&2,RowView>,errors:List<&2,Log.Refusal>,ok:Bool}
+type Snapshot is Data: Snapshot{label:String,runtime:RuntimeView,fast:ReaderView,slow:ReaderView,reads:List<&2,F.ReadCompletion>,retired:List<&2,RowView>,refused:List<&2,RowView>,errors:List<&2,Log.Refusal>,ok:Bool}
 def array_join(left:Array<U32> & List<&2,U32>,right:Array<U32> & List<&2,U32>) -> Array<U32> & List<&2,U32>:
   match left right:
     case (left,a), (right,b): (ANode{left,right},List.append(&2,U32,a,b))
@@ -59,7 +59,7 @@ def runtime_view(owner:Ev.Runtime<F.Schema,Unit,Log.Log<P.Payload>,U32>) -> Ev.R
 def reader(reader:Ev.Reader<F.Schema>,registry:Sy.Registry<F.Schema,Unit,Log.Log<P.Payload>,U32,Ev.Input<U32,F.Request>,F.ReadError,F.View,F.read_runner>) -> (Ev.Reader<F.Schema> & Sy.Registry<F.Schema,Unit,Log.Log<P.Payload>,U32,Ev.Input<U32,F.Request>,F.ReadError,F.View,F.read_runner>) & ReaderView:
   match reader registry:
     case Ev.Reader{+namespace,+id,+expected}, Sy.Registry{+actual,+registryId,+name,+access,+cursor}: ((Ev.Reader{namespace,id,expected},Sy.Registry{actual,registryId,name,access,cursor}),ReaderView{namespace,id,expected,actual,registryId,name,access,cursor})
-def assembled(label:String,rt:Ev.Runtime<F.Schema,Unit,Log.Log<P.Payload>,U32> & RuntimeView,fast:(Ev.Reader<F.Schema> & Sy.Registry<F.Schema,Unit,Log.Log<P.Payload>,U32,Ev.Input<U32,F.Request>,F.ReadError,F.View,F.read_runner>) & ReaderView,slow:(Ev.Reader<F.Schema> & Sy.Registry<F.Schema,Unit,Log.Log<P.Payload>,U32,Ev.Input<U32,F.Request>,F.ReadError,F.View,F.read_runner>) & ReaderView,+reads:List<&2,F.View>,retired:List<Log.Row<P.Payload>> & List<&2,RowView>,refused:List<Log.Row<P.Payload>> & List<&2,RowView>,+errors:List<&2,Log.Refusal>,+ok:Bool) -> F.Host & Snapshot:
+def assembled(label:String,rt:Ev.Runtime<F.Schema,Unit,Log.Log<P.Payload>,U32> & RuntimeView,fast:(Ev.Reader<F.Schema> & Sy.Registry<F.Schema,Unit,Log.Log<P.Payload>,U32,Ev.Input<U32,F.Request>,F.ReadError,F.View,F.read_runner>) & ReaderView,slow:(Ev.Reader<F.Schema> & Sy.Registry<F.Schema,Unit,Log.Log<P.Payload>,U32,Ev.Input<U32,F.Request>,F.ReadError,F.View,F.read_runner>) & ReaderView,+reads:List<&2,F.ReadCompletion>,retired:List<Log.Row<P.Payload>> & List<&2,RowView>,refused:List<Log.Row<P.Payload>> & List<&2,RowView>,+errors:List<&2,Log.Refusal>,+ok:Bool) -> F.Host & Snapshot:
   match rt fast slow retired refused:
     case (runtime,a), ((fast,fastReg),b), ((slow,slowReg),c), (retired,d), (refused,e): (F.Host{runtime,fast,fastReg,slow,slowReg,reads,retired,refused,errors,ok},Snapshot{label,a,b,c,reads,d,e,errors,ok})
 def snapshot(label:String,owner:F.Host) -> F.Host & Snapshot:

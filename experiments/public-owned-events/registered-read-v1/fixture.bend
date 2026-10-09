@@ -10,6 +10,10 @@ type PacketView is Data: PacketView{key:U32,cells:List<&2,U32>}
 type Request is Data: Request{name:String,fail:Bool}
 type View is Data: View{name:String,keys:List<&2,U32>,packets:List<&2,PacketView>,lagged:Bool,errors:List<&2,Log.Refusal>}
 type ReadError is Data: ReadFailed{view:View}
+type ReadCompletion is Data:
+  ReadSucceeded{view:View}
+  ReadBodyFailed{error:ReadError}
+  ReadRejected{request:Request}
 type WorldMeta is Data: WorldMeta{namespace:U32,nextId:U32,highWater:U32,capacity:U32,depth:Nat,events:List<&2,U32>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32}
 type Visited is Type: Visited{log:Log.Log<Payload.Payload>,packets:List<&2,PacketView>,errors:List<&2,Log.Refusal>}
 def prepend_packet(key:U32,head:Maybe<&1,List<&2,U32>>,errors:List<&2,Log.Refusal>,tail:Visited) -> Visited:
@@ -41,24 +45,24 @@ def read_runner(world:W.World<Schema,Unit,Log.Log<Payload.Payload>,U32>,input:Ev
     case Ev.Input{keys,lagged,request}: read_input(world,keys,lagged,request)
 
 type Host is Type:
-  Host{runtime:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32>,fast:Ev.Reader<Schema>,fastReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,slow:Ev.Reader<Schema>,slowReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,View>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>,ok:Bool}
-def host_read(which:Bool,runtime:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32>,reader:Ev.Reader<Schema>,registry:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,other:Ev.Reader<Schema>,otherReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,View>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>,ok:Bool) -> Host:
+  Host{runtime:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32>,fast:Ev.Reader<Schema>,fastReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,slow:Ev.Reader<Schema>,slowReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,ReadCompletion>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>,ok:Bool}
+def host_read(which:Bool,runtime:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32>,reader:Ev.Reader<Schema>,registry:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,other:Ev.Reader<Schema>,otherReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,ReadCompletion>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>,ok:Bool) -> Host:
   match which:
     case True{}: Host{runtime,reader,registry,other,otherReg,reads,retired,refused,errors,ok}
     case False{}: Host{runtime,other,otherReg,reader,registry,reads,retired,refused,errors,ok}
-def read_finished(which:Bool,runtime:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32>,reader:Ev.Reader<Schema>,registry:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,other:Ev.Reader<Schema>,otherReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,View>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>,completion:Ev.Completion<ReadError,View,Request>) -> Host:
+def read_finished(which:Bool,runtime:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32>,reader:Ev.Reader<Schema>,registry:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,other:Ev.Reader<Schema>,otherReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,ReadCompletion>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>,completion:Ev.Completion<ReadError,View,Request>) -> Host:
   match completion:
-    case Ev.Succeeded{view}: host_read(which,runtime,reader,registry,other,otherReg,List.append(&2,View,reads,[view]),retired,refused,errors,True{})
-    case Ev.Failed{ReadFailed{view}}: host_read(which,runtime,reader,registry,other,otherReg,List.append(&2,View,reads,[view]),retired,refused,errors,False{})
-    case Ev.Rejected{_}: host_read(which,runtime,reader,registry,other,otherReg,reads,retired,refused,errors,False{})
-def read_completed(which:Bool,result:Ev.RunResult<Schema,Unit,Log.Log<Payload.Payload>,U32,Request,ReadError,View,read_runner>,other:Ev.Reader<Schema>,otherReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,View>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>) -> Host:
+    case Ev.Succeeded{view}: host_read(which,runtime,reader,registry,other,otherReg,List.append(&2,ReadCompletion,reads,[ReadSucceeded{view}]),retired,refused,errors,True{})
+    case Ev.Failed{ReadFailed{view}}: host_read(which,runtime,reader,registry,other,otherReg,List.append(&2,ReadCompletion,reads,[ReadBodyFailed{ReadFailed{view}}]),retired,refused,errors,False{})
+    case Ev.Rejected{args}: host_read(which,runtime,reader,registry,other,otherReg,List.append(&2,ReadCompletion,reads,[ReadRejected{args}]),retired,refused,errors,False{})
+def read_completed(which:Bool,result:Ev.RunResult<Schema,Unit,Log.Log<Payload.Payload>,U32,Request,ReadError,View,read_runner>,other:Ev.Reader<Schema>,otherReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,ReadCompletion>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>) -> Host:
   match result:
     case Ev.Ran{runtime,reader,registry,completion}: read_finished(which,runtime,reader,registry,other,otherReg,reads,retired,refused,errors,completion)
 def read(host:Host,which:Bool,fail:Bool) -> Host:
   match host which:
     case Host{runtime,fast,fastReg,slow,slowReg,reads,retired,refused,errors,_}, True{}: read_completed(True{},Ev.run(~Schema,~Unit,~Log.Log<Payload.Payload>,~U32,~Request,~ReadError,~View,~read_runner,runtime,fast,fastReg,Request{"fast",fail}),slow,slowReg,reads,retired,refused,errors)
     case Host{runtime,fast,fastReg,slow,slowReg,reads,retired,refused,errors,_}, False{}: read_completed(False{},Ev.run(~Schema,~Unit,~Log.Log<Payload.Payload>,~U32,~Request,~ReadError,~View,~read_runner,runtime,slow,slowReg,Request{"slow",fail}),fast,fastReg,reads,retired,refused,errors)
-def skipped(joined:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32> & Ev.Reader<Schema>,fastReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,slow:Ev.Reader<Schema>,slowReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,View>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>,ok:Bool) -> Host:
+def skipped(joined:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32> & Ev.Reader<Schema>,fastReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,slow:Ev.Reader<Schema>,slowReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,ReadCompletion>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>,ok:Bool) -> Host:
   match joined:
     case (runtime,fast): Host{runtime,fast,fastReg,slow,slowReg,reads,retired,refused,errors,ok}
 def skip(host:Host) -> Host:
@@ -87,7 +91,7 @@ def publication_ok(errors:List<&2,Log.Refusal>) -> Bool:
   match errors:
     case []: True{}
     case _: False{}
-def published(joined:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32> & Publication,fast:Ev.Reader<Schema>,fastReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,slow:Ev.Reader<Schema>,slowReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,View>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>) -> Host:
+def published(joined:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32> & Publication,fast:Ev.Reader<Schema>,fastReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,slow:Ev.Reader<Schema>,slowReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,ReadCompletion>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>) -> Host:
   match joined:
     case (runtime,Publication{incoming,+failures}): Host{runtime,fast,fastReg,slow,slowReg,reads,retired,List.append(&1,Log.Row<Payload.Payload>,refused,incoming),List.append(&2,Log.Refusal,errors,failures),publication_ok(failures)}
 def publish(host:Host,rows:List<Log.Row<Payload.Payload>>) -> Host:
@@ -105,7 +109,7 @@ def runtime_reconciled(result:W.World<Schema,Unit,Log.Log<Payload.Payload>,U32> 
 def reconcile_runtime(runtime:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32>) -> Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32> & List<Log.Row<Payload.Payload>>:
   match runtime:
     case Ev.Runtime{world,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped}: runtime_reconciled(reconcile(world),namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
-def framed(result:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32> & List<Log.Row<Payload.Payload>>,fast:Ev.Reader<Schema>,fastReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,slow:Ev.Reader<Schema>,slowReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,View>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>,ok:Bool) -> Host:
+def framed(result:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32> & List<Log.Row<Payload.Payload>>,fast:Ev.Reader<Schema>,fastReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,slow:Ev.Reader<Schema>,slowReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,ReadCompletion>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>,ok:Bool) -> Host:
   match result:
     case (runtime,owners): Host{runtime,fast,fastReg,slow,slowReg,reads,List.append(&1,Log.Row<Payload.Payload>,retired,owners),refused,errors,ok}
 def frame(host:Host) -> Host:

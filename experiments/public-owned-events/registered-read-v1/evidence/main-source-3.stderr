@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : Data
+- observed : Type
+Context:
+- runtime : Ev.Runtime<Schema, Unit, Log.Log<Payload.Payload>, U32>
+- fast    : Ev.Reader<Schema>
+- fastReg : Sy.Registry<Schema, Unit, Log.Log<Payload.Payload>, U32, Ev.Input<U32, Request>, ReadError, View, read_runner>
+- slow    : Ev.Reader<Schema>
+- slowReg : Sy.Registry<Schema, Unit, Log.Log<Payload.Payload>, U32, Ev.Input<U32, Request>, ReadError, View, read_runner>
+Location: Host
+43 | type Host is Type:
+44>|   Host{runtime:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32>,fast:Ev.Reader<Schema>,fastReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,slow:Ev.Reader<Schema>,slowReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,Ev.Completion<ReadError,View,Request>>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>,ok:Bool}
+   |                                                                                                                                                                                                                                                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^
+45 | def host_read(which:Bool,runtime:Ev.Runtime<Schema,Unit,Log.Log<Payload.Payload>,U32>,reader:Ev.Reader<Schema>,registry:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,other:Ev.Reader<Schema>,otherReg:Sy.Registry<Schema,Unit,Log.Log<Payload.Payload>,U32,Ev.Input<U32,Request>,ReadError,View,read_runner>,reads:List<&2,Ev.Completion<ReadError,View,Request>>,retired:List<Log.Row<Payload.Payload>>,refused:List<Log.Row<Payload.Payload>>,errors:List<&2,Log.Refusal>,ok:Bool) -> Host:
