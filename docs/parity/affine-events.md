@@ -107,3 +107,27 @@ The trusted read lens must preserve ownership and read-only behavior: Request
 alone does not prove either. This is threaded scoped access, not simultaneous
 Rust borrowing. Public World log admission, cursor/retention/fan-out integration,
 transactional ownership and delivery/performance acceptance remain outstanding.
+
+## Canonical transaction implementation preparation
+
+[transaction-candidate-v1](../../experiments/public-owned-events/transaction-candidate-v1/README.md)
+threads the detached Stage through actual canonical `T.finish`. On success,
+owned payloads enter the schema-owned log; on failure, component inverse closures
+restore their original owners and the separately created staged payloads return
+in FIFO order. Staged commands and existing Data events retain canonical commit/
+abort behavior. This is a trusted terminal adapter, not a public event-emission
+or reader API.
+
+Complete five-branch observations execute identically in JS and Native (6,139
+bytes): seeded state, foreign seed refusal, success, rollback and foreign command
+refusal. They include every physical component slot, lifecycle entry, live bit,
+World metadata field, previous/refused/recovered Array, log, Data event and actual
+command flush effect. Independent review and retained source/oracle/raw joins
+pass. The original failed JS oracle is preserved: its physical Column slots used
+logical IDs instead of canonical `id - 1` indices. Independently corrected source-
+derived expectations match retained JS output without replay; Native passed on
+its first execution.
+
+No payload needed for ECS rollback is exposed in the recovery receipt. Public
+reader/retention contracts, a reached transaction mutation, independently authored
+public consumers and delivery/performance qualification remain outstanding.
