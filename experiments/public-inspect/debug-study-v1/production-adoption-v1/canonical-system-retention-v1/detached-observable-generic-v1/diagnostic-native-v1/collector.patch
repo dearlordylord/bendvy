@@ -1,0 +1,77 @@
+--- reviewed-diagnostic-js.py
++++ development-diagnostic-native.py
+@@ -54 +54 @@
+-    if kind not in ('normal', 'mutant', 'handler-drop'):
++    if kind != 'normal':
+@@ -70,0 +71,5 @@
++    config = ROOT / 'experiments/public-simulation/delivery-v1/installed-config.py'
++    configuration = load('native_configuration', config)
++    preparation_runner = load('native_preparation_runner', ROOT / 'scripts/task_runner.py')
++    resources = preparation_runner.Inputs(directories=configuration.RESOURCE_ROOTS).expected
++    installed = configuration.candidate()
+@@ -71,0 +77 @@
++    tools.update({'clangWrapper': str(Path(configuration.TOOL_PATHS['clangWrapper']).resolve(strict=True)), 'clangBinary': str(Path(configuration.TOOL_PATHS['clang']).resolve(strict=True))})
+@@ -102,0 +109,8 @@
++    extra.extend([migration / 'diagnostic-native-v1/PREPARATION.json', migration / 'diagnostic-native-v1/collector.patch', migration / 'diagnostic-native-v1/parent-js-development.py.source', config, HERE / 'test-diagnostic-native-boundary.py', HERE / 'NATIVE-BOUNDARY-CONTROLS.json', HERE / 'native-boundary.stdout', HERE / 'native-boundary.stderr'])
++    extra.extend(Path(path) for path in installed['inputFiles'])
++    js_actual = migration / 'diagnostic-js-v1/actual-js-v1'
++    extra.extend([js_actual / 'manifest.json', js_actual / 'verification-result.json'])
++    extra.extend(sorted((js_actual / 'objects').glob('*.gz')))
++    actual_js = json.loads((js_actual / 'verification-result.json').read_text())
++    if actual_js['cohorts']['normal']['status'] != 'DIAGNOSTIC_JS_PASS' or actual_js['cohorts']['normal']['wholeOracleSHA256'] != expected_sha:
++        raise ValueError('Actual whole normal JS prerequisite differs')
+@@ -109,4 +123,4 @@
+-    env = {'HOME': '/home/node', 'PATH': '/usr/bin:/bin', 'LANG': 'C', 'LC_ALL': 'C', 'TZ': 'UTC'}
+-    env['BEND_NO_TELEMETRY'] = '1'
+-    generated = out / 'scenario.js'
+-    plan = {'scope': 'DIAGNOSTIC ONLY actual complete detached Inspector behavior; source5 cli_verdict/book_promises remains UNMET; no acceptance/#56 closure/performance claim',
++    env = configuration.environment()
++    generated = out / 'scenario.c'
++    native = out / 'scenario.native'
++    plan = {'scope': 'DIAGNOSTIC ONLY Native actual complete detached Inspector behavior; source5 cli_verdict/book_promises remains UNMET; no acceptance/#56 closure/performance claim',
+@@ -114 +128 @@
+-            'sourceValidation': 'Stock JS emit runs book_read/book_load/book_valid; does not replace extra --check-only cli_verdict/book_promises',
++            'sourceValidation': 'Stock -o emission runs book_read/book_load/book_valid; does not replace extra --check-only cli_verdict/book_promises',
+@@ -117 +131,2 @@
+-            'join': str(oracle / join_name), 'generated': str(generated),
++            'join': str(oracle / join_name), 'generated': str(generated), 'native': str(native),
++            'resourceRoots': resources, 'actualJSPrerequisite': actual_js['cohorts']['normal'],
+@@ -120 +135,2 @@
+-                {'label': 'consumer', 'argv': [tools['taskset'], '-c', '11', tools['node'], str(generated)], 'capSeconds': 5}],
++                {'label': 'build', 'argv': [tools['taskset'], '-c', '11', tools['clangWrapper'], '-O3', str(generated), '-o', str(native), '-pthread', '-lm'], 'capSeconds': 120},
++                {'label': 'consumer', 'argv': [tools['taskset'], '-c', '11', str(native), '--threads', '1', '--gpu', 'off'], 'capSeconds': 5}],
+@@ -148,0 +165 @@
++    native = Path(plan['native'])
+@@ -152,2 +169,3 @@
+-        if str(generated) in pins and (generated.is_symlink() or not generated.is_file()):
+-            raise ValueError('Generated artifact must be a regular non-symlink file')
++        for artifact in (generated, native):
++            if str(artifact) in pins and (artifact.is_symlink() or not artifact.is_file()):
++                raise ValueError('Generated artifact must be a regular non-symlink file')
+@@ -155 +173 @@
+-        unchanged = actual == pins and parser.build_identities(plan['entrypoint']) == inventory
++        unchanged = actual == pins and parser.build_identities(plan['entrypoint']) == inventory and runner.Inputs(directories=plan['resourceRoots']).expected == plan['resourceRoots']
+@@ -172 +190,2 @@
+-                        if label == 'emit' and (generated.exists() or generated.is_symlink()):
++                        artifact = generated if label == 'emit' else native
++                        if label in ('emit', 'build') and (artifact.exists() or artifact.is_symlink()):
+@@ -187 +206,2 @@
+-                if label == 'emit' and (generated.exists() or generated.is_symlink()):
++                artifact = generated if label == 'emit' else native
++                if label in ('emit', 'build') and (artifact.exists() or artifact.is_symlink()):
+@@ -189,2 +209,2 @@
+-                    pins[str(generated)] = sha(generated)
+-                    record['generatedSHA256'] = pins[str(generated)]
++                    pins[str(artifact)] = sha(artifact)
++                    record['generatedSHA256' if label == 'emit' else 'nativeSHA256'] = pins[str(artifact)]
+@@ -193,2 +213,2 @@
+-                if label == 'emit':
+-                    if str(generated) not in pins:
++                if label in ('emit', 'build'):
++                    if str(artifact) not in pins:
+@@ -212 +232 @@
+-        record['status'] = 'DIAGNOSTIC_JS_PASS'
++        record['status'] = 'DIAGNOSTIC_NATIVE_PASS'
+@@ -221 +241 @@
+-    preparation.add_argument('kind', choices=('normal', 'mutant', 'handler-drop'))
++    preparation.add_argument('kind', choices=('normal',))
