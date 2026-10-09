@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : P.DeclaredSelection<wrong~H, Caller.A, C.Access<U32>>
+- observed : IQ.ComposedReadQuery<wrong~H, Caller.A, C.Access<U32>>
+Context:
+- cap : IQ.ComposedReadQuery<wrong~H, Caller.A, C.Access<U32>>
+Location: wrong
+15 | def wrong(~H:Type,cap:IQ.ComposedReadQuery<H,Caller.A,C.Access<U32>>) -> P.DeclaredSelection<H,Caller.A,C.Access<U32>>:
+16>|   cap
+   |   ^^^
+17 | def main() -> Unit:
+bend 2.0.36 is available: run bend update

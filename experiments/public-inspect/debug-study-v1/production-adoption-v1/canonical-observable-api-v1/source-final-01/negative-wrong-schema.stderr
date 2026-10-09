@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : IQ.ComposedReadQuery<I.Frame<Caller.A, Col.Column<Caller.A, Caller.Payload>, Array<U32>, U32>, Caller.A, C.Access<U32>>
+- observed : IQ.ComposedReadQuery<I.Frame<Caller.Other, Col.Column<Caller.Other, Caller.Payload>, Array<U32>, U32>, Caller.Other, C.Access<U32>>
+Location: wrong
+15 | def wrong() -> IQ.ComposedReadQuery<I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,Caller.A,C.Access<U32>>:
+16>|   Good.inspect(~Caller.Other)
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+17 | def main() -> Unit:
+bend 2.0.36 is available: run bend update

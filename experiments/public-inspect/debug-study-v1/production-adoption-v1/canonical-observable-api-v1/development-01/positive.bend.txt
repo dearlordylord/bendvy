@@ -1,0 +1,35 @@
+import Base
+import ../../../ordinary-declaration-v1/caller.bend as Caller
+import ../../../../../src/ecs/ordinary-query-observable.bend as O
+import ../../../../../src/ecs/inspector.bend as I
+import ../../../../../src/ecs/compose.bend as Q
+import ../../../../../src/ecs/inspector-query.bend as IQ
+import ../../../../../src/ecs/component.bend as C
+import ../../../../../src/ecs/column.bend as Col
+import ../../../../../src/ecs/capabilities.bend as Cap
+import ../../../../../src/ecs/inspector-query-projection.bend as P
+import ../../../../../src/ecs/ordinary-query-declaration.bend as N
+import ../../../../../src/ecs/ordinary-system.bend as S
+import ../../../../../src/ecs/world.bend as W
+def read(~S:Data) -> O.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Cap.Read<Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,U32>,I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,C.Access<U32>>:
+  O.read(~S,~Col.Column<S,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,~Array<U32>,~U32,~Caller.binding(~S))
+def write(~S:Data) -> O.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Cap.Write<Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Caller.Payload,U32>,I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,C.Access<U32>>:
+  O.write(~S,~Col.Column<S,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,~Array<U32>,~U32,~Caller.binding(~S))
+def optional(~S:Data) -> O.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Cap.Read<Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,U32>,I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,C.Access<U32>>:
+  O.optional(~S,~Col.Column<S,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,~Array<U32>,~U32,~Caller.binding(~S))
+def with_component(~S:Data) -> O.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit,I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit>:
+  O.with_component(~S,~Col.Column<S,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,~Array<U32>,~U32,~Caller.binding(~S))
+def without_component(~S:Data) -> O.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit,I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit>:
+  O.without_component(~S,~Col.Column<S,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,~Array<U32>,~U32,~Caller.binding(~S))
+def added(~S:Data) -> O.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit,I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit>:
+  O.added(~S,~Col.Column<S,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,~Array<U32>,~U32,~Caller.binding(~S))
+def changed(~S:Data) -> O.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit,I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit>:
+  O.changed(~S,~Col.Column<S,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,~Array<U32>,~U32,~Caller.binding(~S))
+def pair(~S:Data) -> O.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Cap.Read<Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,U32> & Unit,I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,P.Product<C.Access<U32>,Unit>>:
+  O.pair(~S,~Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,~Cap.Read<Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,U32>,~Unit,~I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,~C.Access<U32>,~Unit,~read(~S),~changed(~S))
+def inspect(~S:Data) -> IQ.ComposedReadQuery<I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,S,C.Access<U32>>:
+  O.inspect_query(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,~Cap.Read<Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,U32>,~C.Access<U32>,~read(~S))
+def both() -> List<&2,N.Clause<Caller.A>> & List<&2,N.Clause<Caller.Other>>:
+  (O.clauses(~Caller.A,~Q.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,~Cap.Read<Q.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,U32>,~I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,~C.Access<U32>,read(~Caller.A)),O.clauses(~Caller.Other,~Q.Frame<Caller.Other,Col.Column<Caller.Other,Caller.Payload>,Array<U32>,U32>,~Cap.Read<Q.Frame<Caller.Other,Col.Column<Caller.Other,Caller.Payload>,Array<U32>,U32>,U32>,~I.Frame<Caller.Other,Col.Column<Caller.Other,Caller.Payload>,Array<U32>,U32>,~C.Access<U32>,read(~Caller.Other)))
+def main() -> Unit:
+  Unit{}

@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : I.Frame<Caller.A, Col.Column<Caller.A, Caller.Payload>, Array<U32>, U32>
+- observed : wrong~H
+Context:
+- owner : wrong~H
+Location: wrong
+15 | def wrong(~H:Type,~cap:IQ.ComposedReadQuery<H,Caller.A,C.Access<U32>>,owner:H) -> I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>:
+16>|   owner
+   |   ^^^^^
+17 | def main() -> Unit:
+bend 2.0.36 is available: run bend update
