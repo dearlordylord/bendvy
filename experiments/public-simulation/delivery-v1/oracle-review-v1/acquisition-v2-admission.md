@@ -1,0 +1,13 @@
+# Acquisition v2 independent admission
+
+Reviewed author commits 0658a060 and cb6ade1f, exact unused `/tmp/bendvy63-resolver-acquisition-plan-v2.json` SHA256 `18957d17d6fbb48efd1210ed3c16472bbdc8cf553d24445614fd300d7d84132a`.
+
+**Admit this exact standalone acquisition attempt once.** No acquisition, large hash sweep, resource byte sweep or ldd probe ran in review. All source pins independently match; outputRoot is absent. The embedded declaration equals the reviewed DECLARATION-v2 byte-derived model completely: 893 explicit inputs, 64 shallow roots, all 425 cache literal paths/targets, configuration and three resource roots. Resource metadata retains 70/272/7 files; actual resource bytes are deliberately acquired inside the bounded worker, not claimed validated by this review.
+
+Stdlib bootstrap verifies exact plan, actual Python identity and every source/transitive-source pin before compiled-byte helper execution. The worker repeats it, checks namespace/alias state and resource membership/size, then verifies historical tool bytes before constructing existing PinnedTools. Its initial resolver/resource hashes, eight exact planned split-stream discoveries and initial post-discovery check all occur within the outer taskset CPU5 child deadline of five seconds. Existing runner descendant cleanup handles nested discovery workers; this is a five-second child deadline plus existing bounded cleanup, not a claim of five-second total wall time. Parent pre/acquired/post/final guards rehash the small frozen source set and retain hashes of whatever regular inner artifacts exist.
+
+Returned discovery results are serialized with complete rawHex stdout/stderr and exit/failure before separate stream publication. The outer runner preserves completed results on publication/postguard failure; its adapter attaches them to the unconditional receipt. Exclusive no-follow publication and regular-descriptor reads reject aliases/overwrites. Timeout can leave only partial inner artifacts, and must remain INCOMPLETE; acquisition success requires the complete eight-command acquired record. No later workload admission is implied.
+
+Five portable no-child tests passed independently: wrong interpreter, wrong plan digest, stale pyc avoidance, exact result preservation on second-stream publication failure and regular/no-follow/no-overwrite boundaries. They establish the tested boundaries, not successful expensive acquisition.
+
+Scope remains one existing-helper metadata acquisition. This does not close cache applicability/search policy, compiler/header/linker/generated runtime namespaces or performance qualification. Preserve original unused v1 and declaration history; do not reduce aliases/archives to obtain a pass or raise the cap.
