@@ -1,0 +1,63 @@
+--- qualified-observable-operational/development-js.py
++++ detached-observable/development-js.py
+@@ -54 +54 @@
+-    if kind not in ('normal', 'mutant'):
++    if kind not in ('normal', 'mutant', 'handler-drop'):
+@@ -56,3 +56,4 @@
+-    entry_name = 'main.bend' if kind == 'normal' else 'main-drop-handlers.bend'
+-    inventory_name = 'main-identities.json' if kind == 'normal' else 'drop-handlers-identities.json'
+-    oracle_name = 'expected.json' if kind == 'normal' else 'drop-handlers-expected.json'
++    entry_name = {'normal': 'main.bend', 'mutant': 'main-inspector-filter.bend', 'handler-drop': 'main-drop-handlers.bend'}[kind]
++    inventory_name = {'normal': 'main-identities.json', 'mutant': 'inspector-filter-identities.json', 'handler-drop': 'drop-handlers-identities.json'}[kind]
++    role = {'normal': 'normal', 'mutant': 'inspector-filter', 'handler-drop': 'handler-drop'}[kind]
++    oracle_name = role + '-expected.json'
+@@ -60,2 +61,2 @@
+-    synthetic_name = 'normal-synthetic.stdout' if kind == 'normal' else 'mutant-synthetic.stdout'
+-    expected_sha = {'normal':'1f54b6bfa19f6db9a3d08fe030e2debf903ede484c45dd3efbf9d23f1ffe3036','mutant':'f4eb43fd7e1c07e0468f70f2f1cdd787148960107838ec13449b31a39652f14a'}[kind]
++    synthetic_name = role + '-synthetic.stdout'
++    expected_sha = json.loads((Path(oracle) / 'source-basis.json').read_text())[{'normal': 'normalExpectedSHA256', 'mutant': 'mutantExpectedSHA256', 'handler-drop': 'handlerDropExpectedSHA256'}[kind]]
+@@ -68 +69 @@
+-    if sha(oracle / oracle_name) != expected_sha or json.loads((oracle / 'source-basis.json').read_text())['normalExpectedSHA256' if kind == 'normal' else 'mutantExpectedSHA256'] != expected_sha:
++    if sha(oracle / oracle_name) != expected_sha or json.loads((oracle / 'source-basis.json').read_text())[{'normal': 'normalExpectedSHA256', 'mutant': 'mutantExpectedSHA256', 'handler-drop': 'handlerDropExpectedSHA256'}[kind]] != expected_sha:
+@@ -70,0 +72 @@
++    migration = HERE.parents[3]
+@@ -76,14 +78,13 @@
+-             Path('/home/node/.bend/bend2/base.bend'), oracle / 'expected.json', oracle / 'drop-handlers-expected.json', oracle / join_name,
+-             oracle / synthetic_name, oracle / 'source-basis.json', oracle / 'expected.py', oracle / 'synthetic.py',
+-             oracle.parent / 'synthetic.py', oracle.parent / 'CONSTRUCTOR-JOIN.json', oracle.parent / 'expected.json',
+-             oracle.parent.parent / 'synthetic-raw.py', oracle.parent.parent / 'CONSTRUCTOR-JOIN.json',
+-             oracle.parent.parent / 'expected-v2.json', oracle.parent.parent / 'resource-expected-v2.json',
+-             HERE / 'TRANSPORT-PREPARED.json', HERE / 'test-transport.py', HERE / 'transport-controls.stdout', HERE / 'test-js-boundary.py', HERE / 'JS-BOUNDARY-CONTROLS.json', *map(Path, tools.values())]
+-    # Retain relocated parser prerequisites and exact canonical migration source checks.
+-    migration = HERE.parents[3]
+-    extra.extend([HERE / 'js-boundary.stdout', HERE / 'js-boundary.stderr',
+-                  migration / 'MIGRATION.json', migration / 'ORACLE-BINDING.json',
+-                  HERE.parents[2] / 'scenario-main.bend',
+-                  HERE.parents[2] / 'app-run-v1/nominal-carrier-v1/accumulated-v1/main.bend'])
+-    for role in ('normal', 'mutant'):
+-        attempt = migration / 'source-attempts' / ('02-' + role)
++             Path('/home/node/.bend/bend2/base.bend'),
++             migration / 'MIGRATION.json', migration / 'ORACLE-BINDING.json',
++             oracle / join_name, oracle / 'source-basis.json', oracle / 'expected.py', oracle / 'synthetic.py',
++             oracle / 'MODEL-CHECKS.json', oracle / 'TRANSPORT-CHECKS.json',
++             oracle / 'historical-expected.json', oracle / 'historical-drop-handlers-expected.json',
++             oracle / 'historical-inventory-expected.json',
++             HERE / 'test-js-boundary.py', HERE / 'JS-BOUNDARY-CONTROLS.json',
++             HERE / 'js-boundary.stdout', HERE / 'js-boundary.stderr', *map(Path, tools.values())]
++    for selected in ('normal', 'inspector-filter', 'handler-drop'):
++        extra.extend(oracle / (selected + suffix) for suffix in
++                     ('-expected.json', '-identities.json', '-synthetic.stdout'))
++    for selected in ('05-normal', '06-normal', '06-mutant'):
++        attempt = migration / 'source-attempts' / selected
+@@ -107 +108 @@
+-            'postConsumer': 'Strict full unchanged previous graph/App/resource report and actual machine handler declarations/owners/status/marker/barrier with complete actualworld/owner/state/event/pending controls; mutant additionally rejects entire unchanged baseline; no public56/performance claim'}
++            'postConsumer': 'Strict entire preserved historical graph/App/resource/handler report plus independent same-ordinary-declaration detached Inspector rows and repeated/disabled owner preservation; both reached controls additionally reject the entire normal oracle; fixture cursor0 is independent of registered cursors; no full56/Native/performance claim'}
+@@ -186 +187 @@
+-                    if plan['kind'] == 'mutant':
++                    if plan['kind'] in ('mutant', 'handler-drop'):
+@@ -188 +189 @@
+-                            parser.BASE.strict_equal(actual, json.loads((Path(plan['oracle']).parent / 'expected.json').read_text()))
++                            parser.BASE.strict_equal(actual, json.loads((Path(plan['oracle']).parent / 'normal-expected.json').read_text()))
+@@ -203 +204 @@
+-    preparation.add_argument('kind', choices=('normal', 'mutant'))
++    preparation.add_argument('kind', choices=('normal', 'mutant', 'handler-drop'))

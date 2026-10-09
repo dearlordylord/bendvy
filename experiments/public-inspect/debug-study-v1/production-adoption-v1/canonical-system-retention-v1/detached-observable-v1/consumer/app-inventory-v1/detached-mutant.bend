@@ -1,0 +1,101 @@
+import Base
+import ../scenario-schema.bend as S
+import ../scenario-queries.bend as Queries
+import ../scenario-body.bend as Body
+import ./app.bend as App
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-query-observable.bend as O
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector.bend as I
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector-query.bend as IQ
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/compose.bend as Q
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/world.bend as W
+
+# Independent detached fixture cursor. It is not borrowed from a registration.
+type Observation is Data:
+  Observation{cursor:U32,base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,changed:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,without:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,withHealth:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>}
+
+def constructed_world(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,changed:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,without:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,withHealth:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,frame:I.Frame<S.Schema,S.constructed_store(),Unit,Unit>) -> W.World<S.Schema,S.constructed_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match frame:
+    case I.Frame{world,cursor}:(world,Some{Observation{cursor,base,added,changed,without,withHealth}})
+
+def constructed_withHealth(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,changed:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,without:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,got:I.Frame<S.Schema,S.constructed_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>) -> W.World<S.Schema,S.constructed_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,withHealth):constructed_world(base,added,changed,without,withHealth,frame)
+
+def constructed_without(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,changed:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,got:I.Frame<S.Schema,S.constructed_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>) -> W.World<S.Schema,S.constructed_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,without):constructed_withHealth(base,added,changed,without,IQ.each_composed(~I.Frame<S.Schema,S.constructed_store(),Unit,Unit>,~S.Schema,~Queries.filtered_view(),~O.inspect_query(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.constructed_store(),Unit,Unit>,~Body.FilterOps(Q.Frame<S.Schema,S.constructed_store(),Unit,Unit>),~Queries.filtered_view(),~Queries.constructed_base_with_component()),frame))
+
+def constructed_changed(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,got:I.Frame<S.Schema,S.constructed_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>) -> W.World<S.Schema,S.constructed_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,changed):constructed_without(base,added,changed,IQ.each_composed(~I.Frame<S.Schema,S.constructed_store(),Unit,Unit>,~S.Schema,~Queries.filtered_view(),~O.inspect_query(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.constructed_store(),Unit,Unit>,~Body.FilterOps(Q.Frame<S.Schema,S.constructed_store(),Unit,Unit>),~Queries.filtered_view(),~Queries.constructed_base_without_component()),frame))
+
+def constructed_added(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,got:I.Frame<S.Schema,S.constructed_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>) -> W.World<S.Schema,S.constructed_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,added):constructed_changed(base,added,IQ.each_composed(~I.Frame<S.Schema,S.constructed_store(),Unit,Unit>,~S.Schema,~Queries.filtered_view(),~O.inspect_query(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.constructed_store(),Unit,Unit>,~Body.FilterOps(Q.Frame<S.Schema,S.constructed_store(),Unit,Unit>),~Queries.filtered_view(),~Queries.constructed_base_changed()),frame))
+
+def constructed_base(got:I.Frame<S.Schema,S.constructed_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>) -> W.World<S.Schema,S.constructed_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,base):constructed_added(base,IQ.each_composed(~I.Frame<S.Schema,S.constructed_store(),Unit,Unit>,~S.Schema,~Queries.filtered_view(),~O.inspect_query(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.constructed_store(),Unit,Unit>,~Body.FilterOps(Q.Frame<S.Schema,S.constructed_store(),Unit,Unit>),~Queries.filtered_view(),~Queries.constructed_base_added()),frame))
+
+def constructed(debug:App.Debug,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>) -> W.World<S.Schema,S.constructed_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match debug:
+    case App.Disabled{}:(world,None{})
+    case App.Enabled{}:constructed_base(IQ.each_composed(~I.Frame<S.Schema,S.constructed_store(),Unit,Unit>,~S.Schema,~Queries.base_view(),~O.inspect_query(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.constructed_store(),Unit,Unit>,~Body.Ops(Q.Frame<S.Schema,S.constructed_store(),Unit,Unit>),~Queries.base_view(),~Queries.constructed_base()),I.Frame{world,0}))
+
+def transient_world(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,changed:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,without:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,withHealth:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,frame:I.Frame<S.Schema,S.transient_store(),Unit,Unit>) -> W.World<S.Schema,S.transient_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match frame:
+    case I.Frame{world,cursor}:(world,Some{Observation{cursor,base,added,changed,without,withHealth}})
+
+def transient_withHealth(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,changed:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,without:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,got:I.Frame<S.Schema,S.transient_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>) -> W.World<S.Schema,S.transient_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,withHealth):transient_world(base,added,changed,without,withHealth,frame)
+
+def transient_without(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,changed:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,got:I.Frame<S.Schema,S.transient_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>) -> W.World<S.Schema,S.transient_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,without):transient_withHealth(base,added,changed,without,IQ.each_composed(~I.Frame<S.Schema,S.transient_store(),Unit,Unit>,~S.Schema,~Queries.filtered_view(),~O.inspect_query(~S.Schema,~S.transient_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.transient_store(),Unit,Unit>,~Body.FilterOps(Q.Frame<S.Schema,S.transient_store(),Unit,Unit>),~Queries.filtered_view(),~Queries.transient_base_with_component()),frame))
+
+def transient_changed(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,got:I.Frame<S.Schema,S.transient_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>) -> W.World<S.Schema,S.transient_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,changed):transient_without(base,added,changed,IQ.each_composed(~I.Frame<S.Schema,S.transient_store(),Unit,Unit>,~S.Schema,~Queries.filtered_view(),~O.inspect_query(~S.Schema,~S.transient_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.transient_store(),Unit,Unit>,~Body.FilterOps(Q.Frame<S.Schema,S.transient_store(),Unit,Unit>),~Queries.filtered_view(),~Queries.transient_base_without_component()),frame))
+
+def transient_added(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,got:I.Frame<S.Schema,S.transient_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>) -> W.World<S.Schema,S.transient_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,added):transient_changed(base,added,IQ.each_composed(~I.Frame<S.Schema,S.transient_store(),Unit,Unit>,~S.Schema,~Queries.filtered_view(),~O.inspect_query(~S.Schema,~S.transient_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.transient_store(),Unit,Unit>,~Body.FilterOps(Q.Frame<S.Schema,S.transient_store(),Unit,Unit>),~Queries.filtered_view(),~Queries.transient_base_changed()),frame))
+
+def transient_base(got:I.Frame<S.Schema,S.transient_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>) -> W.World<S.Schema,S.transient_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,base):transient_added(base,IQ.each_composed(~I.Frame<S.Schema,S.transient_store(),Unit,Unit>,~S.Schema,~Queries.filtered_view(),~O.inspect_query(~S.Schema,~S.transient_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.transient_store(),Unit,Unit>,~Body.FilterOps(Q.Frame<S.Schema,S.transient_store(),Unit,Unit>),~Queries.filtered_view(),~Queries.transient_base_added()),frame))
+
+def transient(debug:App.Debug,world:W.World<S.Schema,S.transient_store(),Unit,Unit>) -> W.World<S.Schema,S.transient_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match debug:
+    case App.Disabled{}:(world,None{})
+    case App.Enabled{}:transient_base(IQ.each_composed(~I.Frame<S.Schema,S.transient_store(),Unit,Unit>,~S.Schema,~Queries.base_view(),~O.inspect_query(~S.Schema,~S.transient_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.transient_store(),Unit,Unit>,~Body.Ops(Q.Frame<S.Schema,S.transient_store(),Unit,Unit>),~Queries.base_view(),~Queries.transient_base()),I.Frame{world,0}))
+
+def plain_world(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,changed:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,without:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,withHealth:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,frame:I.Frame<S.Schema,S.plain_store(),Unit,Unit>) -> W.World<S.Schema,S.plain_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match frame:
+    case I.Frame{world,cursor}:(world,Some{Observation{cursor,base,added,changed,without,withHealth}})
+
+def plain_withHealth(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,changed:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,without:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,got:I.Frame<S.Schema,S.plain_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>) -> W.World<S.Schema,S.plain_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,withHealth):plain_world(base,added,changed,without,withHealth,frame)
+
+def plain_without(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,changed:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,got:I.Frame<S.Schema,S.plain_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>) -> W.World<S.Schema,S.plain_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,without):plain_withHealth(base,added,changed,without,IQ.each_composed(~I.Frame<S.Schema,S.plain_store(),Unit,Unit>,~S.Schema,~Queries.filtered_view(),~O.inspect_query(~S.Schema,~S.plain_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.plain_store(),Unit,Unit>,~Body.FilterOps(Q.Frame<S.Schema,S.plain_store(),Unit,Unit>),~Queries.filtered_view(),~Queries.plain_base_with_component()),frame))
+
+def plain_changed(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,added:List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>,got:I.Frame<S.Schema,S.plain_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>) -> W.World<S.Schema,S.plain_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,changed):plain_without(base,added,changed,IQ.each_composed(~I.Frame<S.Schema,S.plain_store(),Unit,Unit>,~S.Schema,~Queries.filtered_view(),~O.inspect_query(~S.Schema,~S.plain_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.plain_store(),Unit,Unit>,~Body.FilterOps(Q.Frame<S.Schema,S.plain_store(),Unit,Unit>),~Queries.filtered_view(),~Queries.plain_base_with_component()),frame))
+
+def plain_added(base:List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>,got:I.Frame<S.Schema,S.plain_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.filtered_view()>>) -> W.World<S.Schema,S.plain_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,added):plain_changed(base,added,IQ.each_composed(~I.Frame<S.Schema,S.plain_store(),Unit,Unit>,~S.Schema,~Queries.filtered_view(),~O.inspect_query(~S.Schema,~S.plain_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.plain_store(),Unit,Unit>,~Body.FilterOps(Q.Frame<S.Schema,S.plain_store(),Unit,Unit>),~Queries.filtered_view(),~Queries.plain_base_changed()),frame))
+
+def plain_base(got:I.Frame<S.Schema,S.plain_store(),Unit,Unit> & List<&2,IQ.ProjectedRow<S.Schema,Queries.base_view()>>) -> W.World<S.Schema,S.plain_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match got:
+    case (frame,base):plain_added(base,IQ.each_composed(~I.Frame<S.Schema,S.plain_store(),Unit,Unit>,~S.Schema,~Queries.filtered_view(),~O.inspect_query(~S.Schema,~S.plain_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.plain_store(),Unit,Unit>,~Body.FilterOps(Q.Frame<S.Schema,S.plain_store(),Unit,Unit>),~Queries.filtered_view(),~Queries.plain_base_added()),frame))
+
+def plain(debug:App.Debug,world:W.World<S.Schema,S.plain_store(),Unit,Unit>) -> W.World<S.Schema,S.plain_store(),Unit,Unit> & Maybe<&2,Observation>:
+  match debug:
+    case App.Disabled{}:(world,None{})
+    case App.Enabled{}:plain_base(IQ.each_composed(~I.Frame<S.Schema,S.plain_store(),Unit,Unit>,~S.Schema,~Queries.base_view(),~O.inspect_query(~S.Schema,~S.plain_store(),~Unit,~Unit,~Q.Frame<S.Schema,S.plain_store(),Unit,Unit>,~Body.Ops(Q.Frame<S.Schema,S.plain_store(),Unit,Unit>),~Queries.base_view(),~Queries.plain_base()),I.Frame{world,0}))
