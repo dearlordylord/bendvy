@@ -1,0 +1,437 @@
+{
+  "status": "SOURCE_CURRENT_SEARCH_SPECIFICATION_NOT_CLOSED_ADMISSION",
+  "actualPlanSHA256": "27830e5ea5d1b81fa6d02a65e1e0ce2f1c3d19241a9354714f9694d931c2824f",
+  "elfRoles": {
+    "bend": {
+      "elf": "/home/node/.bend/bin/bend-2.0.35",
+      "needed": [
+        "libc.so.6",
+        "ld-linux-aarch64.so.1",
+        "libpthread.so.0",
+        "libdl.so.2",
+        "libm.so.6"
+      ],
+      "interpreter": [
+        "/lib/ld-linux-aarch64.so.1"
+      ],
+      "rawPaths": [],
+      "expandedPaths": []
+    },
+    "node": {
+      "elf": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+      "needed": [
+        "libdl.so.2",
+        "libstdc++.so.6",
+        "libm.so.6",
+        "libgcc_s.so.1",
+        "libpthread.so.0",
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [
+        "/lib/ld-linux-aarch64.so.1"
+      ],
+      "rawPaths": [],
+      "expandedPaths": []
+    },
+    "clang": {
+      "elf": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang",
+      "needed": [
+        "libclang-cpp.so.19.1",
+        "libLLVM.so.19.1",
+        "libstdc++.so.6",
+        "libm.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [
+        "/lib/ld-linux-aarch64.so.1"
+      ],
+      "rawPaths": [
+        [
+          "RUNPATH",
+          "$ORIGIN/../lib"
+        ]
+      ],
+      "expandedPaths": [
+        {
+          "kind": "RUNPATH",
+          "path": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib"
+        }
+      ]
+    },
+    "shell": {
+      "elf": "/usr/bin/dash",
+      "needed": [
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [
+        "/lib/ld-linux-aarch64.so.1"
+      ],
+      "rawPaths": [],
+      "expandedPaths": []
+    },
+    "bash": {
+      "elf": "/usr/bin/bash",
+      "needed": [
+        "libtinfo.so.6",
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [
+        "/lib/ld-linux-aarch64.so.1"
+      ],
+      "rawPaths": [],
+      "expandedPaths": []
+    },
+    "env": {
+      "elf": "/usr/bin/env",
+      "needed": [
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [
+        "/lib/ld-linux-aarch64.so.1"
+      ],
+      "rawPaths": [],
+      "expandedPaths": []
+    },
+    "taskset": {
+      "elf": "/usr/bin/taskset",
+      "needed": [
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [
+        "/lib/ld-linux-aarch64.so.1"
+      ],
+      "rawPaths": [],
+      "expandedPaths": []
+    },
+    "linker": {
+      "elf": "/usr/bin/aarch64-linux-gnu-ld.bfd",
+      "needed": [
+        "libbfd-2.40-system.so",
+        "libctf.so.0",
+        "libjansson.so.4",
+        "libc.so.6"
+      ],
+      "interpreter": [
+        "/lib/ld-linux-aarch64.so.1"
+      ],
+      "rawPaths": [],
+      "expandedPaths": []
+    },
+    "loader": {
+      "elf": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1",
+      "needed": [],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": []
+    }
+  },
+  "environmentLibraryRoots": [
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu"
+  ],
+  "defaultRoots": [
+    "/lib/aarch64-linux-gnu",
+    "/usr/lib/aarch64-linux-gnu",
+    "/lib",
+    "/usr/lib"
+  ],
+  "objectRunpathRoots": [
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib"
+  ],
+  "expectedLegacySuffixes": [
+    "tls/aarch64/atomics",
+    "tls/aarch64",
+    "tls/atomics",
+    "tls",
+    "aarch64/atomics",
+    "aarch64",
+    "atomics",
+    ""
+  ],
+  "suffixEvidence": "Actualhelp enables aarch64/tls/atomics; retained prior source-backed combination order, not separately observed directory traversal",
+  "builtinGlibcHwcaps": [],
+  "loader_search_directories": [
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/tls/aarch64/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/tls/aarch64",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/tls/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/tls",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/aarch64/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/aarch64",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/tls/aarch64/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/tls/aarch64",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/tls/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/tls",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/aarch64/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/aarch64",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/tls/aarch64/atomics",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/tls/aarch64",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/tls/atomics",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/tls",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/aarch64/atomics",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/aarch64",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/atomics",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu",
+    "/lib/aarch64-linux-gnu/tls/aarch64/atomics",
+    "/lib/aarch64-linux-gnu/tls/aarch64",
+    "/lib/aarch64-linux-gnu/tls/atomics",
+    "/lib/aarch64-linux-gnu/tls",
+    "/lib/aarch64-linux-gnu/aarch64/atomics",
+    "/lib/aarch64-linux-gnu/aarch64",
+    "/lib/aarch64-linux-gnu/atomics",
+    "/lib/aarch64-linux-gnu",
+    "/usr/lib/aarch64-linux-gnu/tls/aarch64/atomics",
+    "/usr/lib/aarch64-linux-gnu/tls/aarch64",
+    "/usr/lib/aarch64-linux-gnu/tls/atomics",
+    "/usr/lib/aarch64-linux-gnu/tls",
+    "/usr/lib/aarch64-linux-gnu/aarch64/atomics",
+    "/usr/lib/aarch64-linux-gnu/aarch64",
+    "/usr/lib/aarch64-linux-gnu/atomics",
+    "/usr/lib/aarch64-linux-gnu",
+    "/lib/tls/aarch64/atomics",
+    "/lib/tls/aarch64",
+    "/lib/tls/atomics",
+    "/lib/tls",
+    "/lib/aarch64/atomics",
+    "/lib/aarch64",
+    "/lib/atomics",
+    "/lib",
+    "/usr/lib/tls/aarch64/atomics",
+    "/usr/lib/tls/aarch64",
+    "/usr/lib/tls/atomics",
+    "/usr/lib/tls",
+    "/usr/lib/aarch64/atomics",
+    "/usr/lib/aarch64",
+    "/usr/lib/atomics",
+    "/usr/lib"
+  ],
+  "cacheConfiguredDirectories": [
+    "/usr/local/lib/aarch64-linux-gnu",
+    "/lib/aarch64-linux-gnu",
+    "/usr/lib/aarch64-linux-gnu",
+    "/usr/local/lib"
+  ],
+  "configIncludes": {
+    "/etc/ld.so.conf.d/*.conf": [
+      "/etc/ld.so.conf.d/aarch64-linux-gnu.conf",
+      "/etc/ld.so.conf.d/libc.conf"
+    ]
+  },
+  "configPresence": {
+    "/etc/ld.so.cache": true,
+    "/etc/ld.so.preload": false
+  },
+  "recursiveResolverInputs": [
+    "/etc/ld.so.cache",
+    "/etc/ld.so.conf",
+    "/etc/ld.so.conf.d",
+    "/etc/ld.so.conf.d/aarch64-linux-gnu.conf",
+    "/etc/ld.so.conf.d/libc.conf",
+    "/etc/ld.so.preload",
+    "/home/node/.bend/bin/bend-2.0.35",
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang",
+    "/usr/bin/aarch64-linux-gnu-ld.bfd",
+    "/usr/bin/bash",
+    "/usr/bin/dash",
+    "/usr/bin/env",
+    "/usr/bin/taskset",
+    "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1"
+  ],
+  "exactExistingAliases": {
+    "/bin/bash": {
+      "resolved": "/usr/bin/bash",
+      "present": true,
+      "links": [
+        {
+          "path": "/bin",
+          "target": "usr/bin"
+        }
+      ]
+    },
+    "/bin/sh": {
+      "resolved": "/usr/bin/dash",
+      "present": true,
+      "links": [
+        {
+          "path": "/bin",
+          "target": "usr/bin"
+        },
+        {
+          "path": "/usr/bin/sh",
+          "target": "dash"
+        }
+      ]
+    },
+    "/etc/ld.so.cache": {
+      "resolved": "/etc/ld.so.cache",
+      "present": true,
+      "links": []
+    },
+    "/etc/ld.so.conf": {
+      "resolved": "/etc/ld.so.conf",
+      "present": true,
+      "links": []
+    },
+    "/etc/ld.so.conf.d/aarch64-linux-gnu.conf": {
+      "resolved": "/etc/ld.so.conf.d/aarch64-linux-gnu.conf",
+      "present": true,
+      "links": []
+    },
+    "/etc/ld.so.conf.d/libc.conf": {
+      "resolved": "/etc/ld.so.conf.d/libc.conf",
+      "present": true,
+      "links": []
+    },
+    "/etc/ld.so.preload": {
+      "resolved": "/etc/ld.so.preload",
+      "present": false,
+      "links": []
+    },
+    "/home/node/.bend/bin/bend-2.0.35": {
+      "resolved": "/home/node/.bend/bin/bend-2.0.35",
+      "present": true,
+      "links": []
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node": {
+      "resolved": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+      "present": true,
+      "links": []
+    },
+    "/lib/ld-linux-aarch64.so.1": {
+      "resolved": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1",
+      "present": true,
+      "links": [
+        {
+          "path": "/lib",
+          "target": "usr/lib"
+        },
+        {
+          "path": "/usr/lib/ld-linux-aarch64.so.1",
+          "target": "aarch64-linux-gnu/ld-linux-aarch64.so.1"
+        }
+      ]
+    },
+    "/tmp/bendvy-clang19-diagnostic/clang19": {
+      "resolved": "/tmp/bendvy-clang19-diagnostic/clang19",
+      "present": true,
+      "links": []
+    },
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang": {
+      "resolved": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang",
+      "present": true,
+      "links": []
+    },
+    "/usr/bin/env": {
+      "resolved": "/usr/bin/env",
+      "present": true,
+      "links": []
+    },
+    "/usr/bin/ld": {
+      "resolved": "/usr/bin/aarch64-linux-gnu-ld.bfd",
+      "present": true,
+      "links": [
+        {
+          "path": "/usr/bin/ld",
+          "target": "aarch64-linux-gnu-ld"
+        },
+        {
+          "path": "/usr/bin/aarch64-linux-gnu-ld",
+          "target": "aarch64-linux-gnu-ld.bfd"
+        }
+      ]
+    },
+    "/usr/bin/ldd": {
+      "resolved": "/usr/bin/ldd",
+      "present": true,
+      "links": []
+    },
+    "/usr/bin/python3.11": {
+      "resolved": "/usr/bin/python3.11",
+      "present": true,
+      "links": []
+    },
+    "/usr/bin/readelf": {
+      "resolved": "/usr/bin/aarch64-linux-gnu-readelf",
+      "present": true,
+      "links": [
+        {
+          "path": "/usr/bin/readelf",
+          "target": "aarch64-linux-gnu-readelf"
+        }
+      ]
+    },
+    "/usr/bin/taskset": {
+      "resolved": "/usr/bin/taskset",
+      "present": true,
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/collect-metadata.py": {
+      "resolved": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/collect-metadata.py",
+      "present": true,
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py": {
+      "resolved": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py",
+      "present": true,
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/prepare-metadata.py": {
+      "resolved": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/prepare-metadata.py",
+      "present": true,
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/resolver-candidate-input.json": {
+      "resolved": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/resolver-candidate-input.json",
+      "present": true,
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/test-metadata-collector.py": {
+      "resolved": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/test-metadata-collector.py",
+      "present": true,
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/test-resolver-plan.py": {
+      "resolved": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/test-resolver-plan.py",
+      "present": true,
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py": {
+      "resolved": "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py",
+      "present": true,
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy/scripts/owned-tool-pins.py": {
+      "resolved": "/workspace/formal-proofs/bendvy/scripts/owned-tool-pins.py",
+      "present": true,
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py": {
+      "resolved": "/workspace/formal-proofs/bendvy/scripts/task_runner.py",
+      "present": true,
+      "links": []
+    }
+  },
+  "closednessGaps": [
+    "Current cache target paths/aliases and transitive loaded-library RPATH/RUNPATH remain unobserved",
+    "Shallow all-name/all-candidate-byte inventories, absent search paths and complete alias coverage still required",
+    "Actual auxiliary-vector/legacy suffix use and no additional dynamic library search source still require binding"
+  ],
+  "separateLaterStages": [
+    "Native header/GCC/linker script/search compiler inputs",
+    "Generated executable ELF/runtime closure"
+  ],
+  "newChildren": 0,
+  "qualifiesClosedResolver": false
+}
