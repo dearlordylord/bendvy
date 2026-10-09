@@ -6,63 +6,53 @@ Read only the branches triggered by the task. The governing issue and linked spe
 
 Follow the bend-ldd skill.
 
-During source development, use `scripts/bend-check source.bend` to find parser,
-type and affine-binder errors before preparing a complete receipt cohort. This
-five-second development check grants no proof or delivery acceptance. Once the
-source is ready, freeze and run the governing task's unchanged evidence gates.
-Retain the raw development output. Repair ordinary parser/type/binder errors
-with this direct check; prepare a frozen delivery cohort when the actual
-consuming application and its complete oracle are ready. Intermediate template
-checks do not require a new delivery wrapper or portable capsule.
+Fix parser/type/affine-binder errors with the five-second
+`scripts/bend-check source.bend`; retain raw output, including failures.
+This development check grants no proof or delivery acceptance; intermediate
+templates need no delivery wrapper or portable capsule.
 
-Within assigned files and agreed contracts, carry local implementation through
-the complete consuming fixture; report helper/source milestones as progress while
-continuing. Request a handoff at an unresolved contract, shared-file boundary or
-the separately reviewed backend launch, rather than before each local adapter.
-Freeze the consuming source and complete oracle together when that boundary is
-ready.
+Within assigned files and agreed contracts, continue through the complete
+consuming fixture, reporting intermediate milestones as progress. Hand off at
+unresolved contracts, shared-file boundaries or separately reviewed backend
+launches. When ready, freeze consuming source and complete oracle together;
+run the task's unchanged source, negative, mutation and backend delivery gates.
 
-For application fixtures, run the existing Node adapter and runnable Bend seam
-against their complete observation oracle before broad installed-tool discovery.
-Retain failed development attempts. These checks locate adapter/oracle errors;
-the frozen source, negative, mutation and backend delivery gates still apply.
+Before broad installed-tool discovery, check the existing Node adapter and
+runnable Bend seam against the complete observation oracle; resolve
+behavior/oracle errors first.
 
-For API changes, require negative controls for undeclared access, cross-schema misuse and writes through read.
+API changes require negative controls for undeclared access, cross-schema
+misuse and writes through read.
 
 ## Evidence runner development
 
-Classify the next run first: application development follows the direct fixture
-checks above; frozen delivery uses the collector recipe below. Resolve behavior
-and oracle errors before preparing full installed-tool qualification.
+Use the development checks above for application work and the
+[focused runner recipe](check-policy.md#preparing-a-focused-runner) for frozen
+delivery. Complete source, tool, environment, output and oracle inventories
+before execution review.
 
-Start new collectors from the [focused runner recipe](check-policy.md#preparing-a-focused-runner).
-Before execution review, complete its source, tool, environment, output and
-oracle inventories. For child-only locking, select the existing
-[immutable dependency stage](check-policy.md#immutable-dependency-stages) helper
-with a reviewed resolver inventory: discovery runs outside the lock and its
-static check runs at the launch boundary after acquisition.
+For new collectors, lock only the compiler/runtime/performance child; prepare
+immutable inputs and metadata-only probes outside the lock. Use the existing
+[immutable dependency stage](check-policy.md#immutable-dependency-stages)
+helper with a reviewed resolver inventory: discover outside the lock, then
+statically check and revalidate the launch boundary after acquisition.
+Retain full pre/post validation and unconditional failure receipts.
 
-For new collectors, hold the shared heavy-work lock around the actual compiler,
-runtime or performance child. Prepare immutable inputs and metadata-only
-verification probes outside that lock; keep the full pre/post validation and
-unconditional failure receipt. Revalidate the launch boundary after acquiring the lock. Review this
-routing as a collector change before execution; keep frozen in-flight runs intact.
-
-Before launch, review execution code and all stages; guard generated artifacts
-in the output ledger before consumption and proceed without intermediate handoffs.
-Re-review code, input recipes or gate-scope changes; preserve frozen attempts.
-The coordinator may admit artifact-only stages by checking their exact plans
-against the reviewed recipe and guarded output ledger.
+Review collector routing, execution code and all stages before launch.
+Guard generated artifacts in the output ledger before consumption; continue
+without intermediate handoffs. Re-review code, input-recipe or gate-scope
+changes; preserve frozen attempts and in-flight runs. The coordinator may
+admit artifact-only stages by checking exact plans against the reviewed
+recipe and guarded output ledger.
 
 ## Parallel review routing
 
-The coordinator assigns ready launch reviews to an independent available agent;
-one oracle author need not review every task. Keep oracle authorship, launch
-admission and actual-output review explicit for each frozen cohort. Reviewers
-own evidence reports; implementation authors repair their own runners. Resume a
-completed implementation agent with `followup_task` when its exact plan is admitted. Independent
-reviews may overlap; compiler, runtime and performance children retain the
-shared heavy-work lock and existing caps.
+The coordinator assigns ready launch reviews to independent available agents.
+Record oracle authorship, launch admission and actual-output review for each
+frozen cohort. Reviewers own evidence reports; implementation authors repair
+runners. Resume completed implementation agents with `followup_task` when
+their exact plans are admitted. Reviews may overlap; compiler/runtime/performance
+children retain the shared heavy-work lock and existing caps.
 
 ## Approval requirements
 
