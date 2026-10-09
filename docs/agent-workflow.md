@@ -50,7 +50,9 @@ routing as a collector change before execution; keep frozen in-flight runs intac
 
 Before launch, review execution code and all stages; guard generated artifacts
 in the output ledger before consumption and proceed without intermediate handoffs.
-Re-review code, input or gate-scope changes; preserve frozen attempts.
+Re-review code, input recipes or gate-scope changes; preserve frozen attempts.
+The coordinator may admit artifact-only stages by checking their exact plans
+against the reviewed recipe and guarded output ledger.
 
 ## Parallel review routing
 
@@ -58,7 +60,7 @@ The coordinator assigns ready launch reviews to an independent available agent;
 one oracle author need not review every task. Keep oracle authorship, launch
 admission and actual-output review explicit for each frozen cohort. Reviewers
 own evidence reports; implementation authors repair their own runners. Resume a
-completed implementation agent when its exact plan is admitted. Independent
+completed implementation agent with `followup_task` when its exact plan is admitted. Independent
 reviews may overlap; compiler, runtime and performance children retain the
 shared heavy-work lock and existing caps.
 
