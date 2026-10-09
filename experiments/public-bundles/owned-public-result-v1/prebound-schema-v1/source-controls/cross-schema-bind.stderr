@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : SF.Fragment<M.First, ../../../../../../../bendvy/src/ecs/world.World<M.First, Unit, Array<U32>, Unit>>
+- observed : SF.Fragment<M.Second, ../../../../../../../bendvy/src/ecs/world.World<M.First, Unit, Array<U32>, Unit>>
+Context:
+- fragment : SF.Fragment<M.Second, ../../../../../../../bendvy/src/ecs/world.World<M.First, Unit, Array<U32>, Unit>>
+Location: bad
+7 | def bad(fragment:SF.Fragment<M.Second,M.World(~M.First)>) -> SF.Bound<M.First,M.World(~M.First),Sy.RegistrationResult<M.First,Unit,Array<U32>,Unit,Unit,Unit,U32,M.runner(~M.First)>>:
+8>|   Bind.bind(~M.First,~Unit,~Array<U32>,~Unit,~Unit,~Unit,~U32,~M.runner(~M.First),~M.initialize(~M.First),fragment,[M.entry(~M.First)])
+  |                                                                                                           ^^^^^^^^
+9 | 
+bend 2.0.36 is available: run bend update

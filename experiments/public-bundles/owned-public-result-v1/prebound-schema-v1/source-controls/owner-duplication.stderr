@@ -2,9 +2,9 @@ SOME PROOFS FAIL
 Error:
 - expected : world
 - observed : world (consumed more than once)
-Location: bad
-3 | 
-4>| def bad(world:M.World(~M.First)) -> M.World(~M.First) & M.World(~M.First):(world,world)
-  |         ^^^^^
-5 | 
+Location: duplicate
+ 8 |   match value:
+ 9>|     case SF.Built{Sy.Registered{world,_}}:(world,world)
+   |                                 ^^^^^
+10 |     case SF.Built{Sy.RegistrationFailed{world}}:(world,world)
 bend 2.0.36 is available: run bend update

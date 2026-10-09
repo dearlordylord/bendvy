@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Sy.Registry<M.First, Unit, Array<U32>, Unit, Unit, Unit, U32, M.runner(M.First)>
+- observed : Sy.Registry<M.Second, Unit, Array<U32>, Unit, Unit, Unit, U32, M.runner(M.Second)>
+Context:
+- registry : Sy.Registry<M.Second, Unit, Array<U32>, Unit, Unit, Unit, U32, M.runner(M.Second)>
+- world    : ../../../../../../../bendvy/src/ecs/world.World<M.First, Unit, Array<U32>, Unit>
+Location: bad
+5 | def bad(registry:Sy.Registry<M.Second,Unit,Array<U32>,Unit,Unit,Unit,U32,M.runner(~M.Second)>,world:M.World(~M.First)) -> Sy.RunResult<M.First,Unit,Array<U32>,Unit,Unit,Unit,U32,M.runner(~M.First)>:
+6>|   Sy.run(~M.First,~Unit,~Array<U32>,~Unit,~Unit,~Unit,~U32,~M.runner(~M.First),registry,world,Unit{})
+  |                                                                                ^^^^^^^^
+7 | 
+bend 2.0.36 is available: run bend update

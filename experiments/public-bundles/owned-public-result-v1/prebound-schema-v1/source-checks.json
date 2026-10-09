@@ -1,21 +1,33 @@
 {
   "scope": "source-only; no runtime or performance acceptance",
   "sourceClosure": {
-    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/main.bend": "8e5608f8b86b759a21b32c0b9228d48d2fe4fe4179bd00e6dd7bf9ab53a210c3",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/main.bend": "a66315fa51d4d6ced769e43af21f7ebd59e288225781235eca8ea28e7c6f12c4",
     "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
     "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/registration.bend": "7f29f74fb702ae46734d673e0241842b0b335416cc5b095933c25eb5f34c9b2c",
     "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
     "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
     "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
     "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
-    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5"
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/negatives/cross-schema-bind.bend": "2c905932ea6ba8f9ee2c1f28d89dbb99810d573cd3e01e8bf32bf2b65e2eeace",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/negatives/cross-schema.bend": "cbab3cf0667a239ebc9cb2db603591d15f3b6526bc520d17b3860cab1763ada4",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/negatives/owner-duplication.bend": "adddd53868dfae5e1dc9773e16b121c873a7c86207b704bd5eaefde6beb48b52",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/negatives/read-only.bend": "a9477b66a88ccf9d9db54ab60b1b9b3add1b33677f716c35f024a09d6480ab97",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/negatives/undeclared-request.bend": "a21488ac5b2de60c93d52613d1e703ddd19da5491d70af5cd3b469434067d12e"
   },
   "compilerSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
   "checks": [
     {
       "label": "main",
       "source": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/main.bend",
-      "sourceSHA256": "8e5608f8b86b759a21b32c0b9228d48d2fe4fe4179bd00e6dd7bf9ab53a210c3",
+      "sourceSHA256": "a66315fa51d4d6ced769e43af21f7ebd59e288225781235eca8ea28e7c6f12c4",
       "argv": [
         "flock",
         "/tmp/bendvy-parity-heavy.lock",
@@ -33,6 +45,28 @@
       "expected": "typecheck",
       "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
       "stderrSHA256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+    },
+    {
+      "label": "cross-schema-bind",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/negatives/cross-schema-bind.bend",
+      "sourceSHA256": "2c905932ea6ba8f9ee2c1f28d89dbb99810d573cd3e01e8bf32bf2b65e2eeace",
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/negatives/cross-schema-bind.bend",
+        "--check-only"
+      ],
+      "exitCode": 1,
+      "expected": "intended type/affine refusal",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "dbb50dca539344be2dad031ff6f1dffd8822765a8d370bbf728767cc42d14bfc"
     },
     {
       "label": "cross-schema",
@@ -59,7 +93,7 @@
     {
       "label": "owner-duplication",
       "source": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/negatives/owner-duplication.bend",
-      "sourceSHA256": "35a15d447ab52319011c60a7b6aa92be0c931c63b293b7bdacfb17e30a7bea36",
+      "sourceSHA256": "adddd53868dfae5e1dc9773e16b121c873a7c86207b704bd5eaefde6beb48b52",
       "argv": [
         "flock",
         "/tmp/bendvy-parity-heavy.lock",
@@ -76,12 +110,12 @@
       "exitCode": 1,
       "expected": "intended type/affine refusal",
       "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stderrSHA256": "8feca52340fbc5d0d18812efea930411c6adbd0c0008030132f7bb96f9c26756"
+      "stderrSHA256": "f9e30161de013fa8a75d4cbddb420c264dfce392c99750d0bbe8ede55c38cca6"
     },
     {
       "label": "read-only",
       "source": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/negatives/read-only.bend",
-      "sourceSHA256": "9fe03b45fa582d5edfb202d46590498751ba6633edb8f0185b692966462370cb",
+      "sourceSHA256": "a9477b66a88ccf9d9db54ab60b1b9b3add1b33677f716c35f024a09d6480ab97",
       "argv": [
         "flock",
         "/tmp/bendvy-parity-heavy.lock",
@@ -98,12 +132,12 @@
       "exitCode": 1,
       "expected": "intended type/affine refusal",
       "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stderrSHA256": "fdea03e5eb29912f05c0e3008a69814df3de474bc55bbe5b2d540226184eb1e2"
+      "stderrSHA256": "9e0db63f04296ef21403c0df4226f94e005416d6d6a3607482f38c44acd27f66"
     },
     {
       "label": "undeclared-request",
       "source": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/negatives/undeclared-request.bend",
-      "sourceSHA256": "5cdfc7c1b3f90da3086acefcf128ea213c945e43d5d1f6690b8e6192898fb867",
+      "sourceSHA256": "a21488ac5b2de60c93d52613d1e703ddd19da5491d70af5cd3b469434067d12e",
       "argv": [
         "flock",
         "/tmp/bendvy-parity-heavy.lock",
@@ -120,7 +154,7 @@
       "exitCode": 1,
       "expected": "intended type/affine refusal",
       "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stderrSHA256": "727003da7069d4683a5167c08955b5425d04b8e69eeb73c01570b807fd11b128"
+      "stderrSHA256": "04308d9ff7a9f0cd44083471f1ca6df77b6d3879001377275501d074486c1dee"
     }
   ]
 }

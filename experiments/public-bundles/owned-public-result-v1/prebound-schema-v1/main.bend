@@ -1,5 +1,6 @@
 import Base
 import ./registration.bend as Bind
+import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap
 import /workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend as SF
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
 import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sy
@@ -12,8 +13,12 @@ def project(owner:Array<U32>) -> Array<U32> & U32:Array.get(U32,owner,0)
 def observed(~S:Data,value:World(~S) & U32) -> Sy.Outcome<World(~S),Unit,U32>:
   match value:
     case (world,value):Sy.Succeeded{world,value}
+def get(~S:Data,world:World(~S)) -> World(~S) & U32:
+  W.observe_resource(~S,~Unit,~Array<U32>,~Unit,~U32,~project,world)
+def body(~H:Type,~cap:Cap.ValueRead<H,U32>,args:Unit,owner:H) -> H & U32:
+  Cap.value_read(~H,~U32,~cap,owner)
 def runner(~S:Data,world:World(~S),args:Unit) -> Sy.Outcome<World(~S),Unit,U32>:
-  observed(~S,W.observe_resource(~S,~Unit,~Array<U32>,~Unit,~U32,~project,world))
+  observed(~S,Cap.invoke(~(H => Cap.ValueRead<H,U32>),~Unit,~U32,~body,~World(~S),~Cap.ValueRead{get(~S)},args,world))
 def initialize(~S:Data,world:World(~S)) -> Sy.RegistrationResult<S,Unit,Array<U32>,Unit,Unit,Unit,U32,runner(~S)>:
   Sy.register(~S,~Unit,~Array<U32>,~Unit,~Unit,~Unit,~U32,~runner(~S),world,"read-array",["array"])
 def entry(~S:Data) -> SF.Entry<S>:SF.Entry{SF.Resource{},"array","array"}

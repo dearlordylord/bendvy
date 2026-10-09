@@ -6,7 +6,9 @@ keys/names every time. Bundle schema-a/schema-b call this from `invoke`; their
 `Args.declared` is dynamic. The profile's six String.cmp samples / 2.542 ms do
 not establish causal dominance or a speedup opportunity by themselves.
 
-The candidate binds immutable entries/requirements once while constructing the
+This is a registration recipe, not a proposed additional core API: existing
+SF.bind_declared already accepts the real registration initializer. The candidate
+binds immutable entries/requirements once while constructing the
 **actual existing System registration**, then repeats ordinary `Sy.run`. It adds
 no Ready/Bool permit, new registry, cached validation constructor or captured
 owner-sharing policy. The generic bind returns existing SF.Bound: declaration
@@ -24,6 +26,8 @@ permission to execute a body.
 
 `main.bend` consumes arbitrary affine Array resource owners in two schema types,
 registers once and performs two actual registered reads per accepted schema.
+Its actual registered runner invokes the same opaque-H read capability route;
+raw World access is restricted to the trusted framework initializer/provider.
 The same consuming source preserves missing-requirement and duplicate-key
 rejection World owners. Every body still reaches unchanged System namespace and
 registration checks; actual requests retain their existing foreign/liveness/
@@ -31,9 +35,10 @@ read/write/transaction validation. Dynamic providers must retain the existing
 per-invocation bind route. In particular, current Args.declared=False refusals
 cannot be moved to registration or silently skipped.
 
-Source5 checks: full consumer passes; cross-schema System registry, duplicate
-World owner, read-only write and undeclared owned-request grant controls fail at
-the intended operation/type boundary. Raw results and earlier constructor-name
+Source5 checks: full consumer passes; cross-schema bind and System registry, duplicate
+returned World owner, read-only write and undeclared owned-request grant controls
+fail at the intended operation/type boundary. The last three consuming negatives
+start from Bind.bind and its registered runner; they are not unrelated imports. Raw results and earlier constructor-name
 failure are retained. These are source controls, not runtime semantic evidence
 or universal proofs. No law or new ownership/finalizer contract is introduced.
 
