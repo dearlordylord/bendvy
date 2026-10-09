@@ -1,0 +1,26 @@
+--- baseline/owner-carrier.bend
++++ recursive/owner-carrier.bend
+@@ -10,9 +10,11 @@
+ 
+ type InspectOwner<S:Data> is Type:
+   InspectOwner{frame:I.Frame<S,Families.Store<S>,Owners.Resource<S>,U32>}
++  InspectOwnerLink{next:InspectOwner<S>}
+ def inspect_unpack(~S:Data,owner:InspectOwner<S>) -> I.Frame<S,Families.Store<S>,Owners.Resource<S>,U32>:
+   match owner:
+     case InspectOwner{frame}:frame
++    case InspectOwnerLink{next}:inspect_unpack(~S,next)
+ def inspect_packed(~S:Data,~V:Data,observed:I.Frame<S,Families.Store<S>,Owners.Resource<S>,U32> & V) -> InspectOwner<S> & V:
+   (frame,value)=observed
+   (InspectOwner{frame},value)
+@@ -38,9 +40,11 @@
+ 
+ type CheckOwner<S:Data> is Type:
+   CheckOwner{frame:K.Frame<S,Families.Store<S>,Owners.Resource<S>,U32>}
++  CheckOwnerLink{next:CheckOwner<S>}
+ def check_unpack(~S:Data,owner:CheckOwner<S>) -> K.Frame<S,Families.Store<S>,Owners.Resource<S>,U32>:
+   match owner:
+     case CheckOwner{frame}:frame
++    case CheckOwnerLink{next}:check_unpack(~S,next)
+ def check_packed(~S:Data,~V:Data,observed:K.Frame<S,Families.Store<S>,Owners.Resource<S>,U32> & V) -> CheckOwner<S> & V:
+   (frame,value)=observed
+   (CheckOwner{frame},value)
