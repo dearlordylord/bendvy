@@ -1,0 +1,9 @@
+# Serializer next-state candidate (unqualified)
+
+`serialize-next-state.bend` changes only the private token-step transport: callback application becomes `StepNext{pending,chunks}` consumed by direct `walk` recursion. It preserves Visit token expansion with the same List.append, TraceEmit ordering, reverse-chunk assembly, input budget and exact fuel decrement. Empty pending completes even with zero fuel; nonempty zero fuel remains incomplete. Public EncodeResult and encode signature remain identical.
+
+Basis: retained population1024-evidence-v1/index.json records runtime5 deadline **after complete forcing**, empty stdout. PROFILE-REPORT.md identifies serializer CPS frames and per-token allocation in the matched population256 diagnostic. These observations justify investigating callback transport; they do not establish a population1024 hotspot or speedup. The replacement still allocates a Data step carrier, so emitted lowering and before/after CPU/allocation evidence must determine whether it helps.
+
+Required next checks: source5 on a complete consuming closure with this serializer; focused empty/nonempty fuel boundaries; all nine unchanged complete logical output oracles, including population1024; explicit before/after profile if execution completes. No baseline replay, cap change or comparison under CPU contention. All previously reached boundary mutants remain required. No child has run for this candidate.
+
+Moved-walk Native gap remains independent: retained partial C SHA77a80c05549e0045b9ae60ac1da7fe9dc8646fbdf9882ef9ac08325c227c9c15 is 5,323,905 bytes and ends with runtime main/#endif; source-corresponding zero and final Complete continuations are present. Textual appearance does not repair the original emit deadline or missing named post guard. It is not an admitted complete emission or runtime subject.
