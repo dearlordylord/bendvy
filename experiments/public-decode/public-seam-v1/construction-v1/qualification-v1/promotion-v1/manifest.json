@@ -1,0 +1,262 @@
+{
+  "scope": "six import-only pure library modules, no shared core edits/backend replay/new contracts",
+  "sourceQualified": "full44+20+16 JS/Native archived9c62218b/8deb8104",
+  "hostBoundary": "explicit host conversion, no generated ECS callback interop",
+  "modules": [
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/constructor.bend",
+      "originSHA256": "292a353b0609b8eac3eb01670d54cef9ae659112608da3295dfbbbde91ac0193",
+      "candidate": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/promotion-v1/library/decode-construction.bend",
+      "candidateSHA256": "bfb24d86cd429a10602aeadb01deb412ce3f973ce9484456731c667622d576e7",
+      "intendedPublicPath": "src/ecs/decode-construction.bend",
+      "importMapping": [
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Identity",
+          "candidate": "import ordinary-declaration.bend as Identity",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Decl",
+          "candidate": "import persistence-declaration.bend as Decl",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D",
+          "candidate": "import decode-data.bend as D",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/decode-data.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/decode.bend as Decode",
+          "candidate": "import decode.bend as Decode",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/decode.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend as Build",
+          "candidate": "import bundle-construction.bend as Build",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap",
+          "candidate": "import capabilities.bend as Cap",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        }
+      ],
+      "exactInverseRestoresOrigin": true
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/request.bend",
+      "originSHA256": "8874f945c3c5ebce04fd62c65a4ab74fc7160b848a16695102f3de79d4d252ce",
+      "candidate": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/promotion-v1/library/decode-constructed-requests.bend",
+      "candidateSHA256": "585287688a889db9a50cbdd99151ed160b9819b3ffab4f32ed602d6533fe1c11",
+      "intendedPublicPath": "src/ecs/decode-constructed-requests.bend",
+      "importMapping": [
+        {
+          "original": "import ./constructor.bend as Constructor",
+          "candidate": "import decode-construction.bend as Constructor",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/constructor.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Identity",
+          "candidate": "import ordinary-declaration.bend as Identity",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D",
+          "candidate": "import decode-data.bend as D",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/decode-data.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend as Build",
+          "candidate": "import bundle-construction.bend as Build",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/decode-requests.bend as Request",
+          "candidate": "import decode-requests.bend as Request",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/decode-requests.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/bundle-requests.bend as Commands",
+          "candidate": "import bundle-requests.bend as Commands",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-requests.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W",
+          "candidate": "import world.bend as W",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap",
+          "candidate": "import capabilities.bend as Cap",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        }
+      ],
+      "exactInverseRestoresOrigin": true
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/resource.bend",
+      "originSHA256": "5429a260f329e05104d345a16b400db640577265124f754ba54a4f8f2a1a2873",
+      "candidate": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/promotion-v1/library/decode-validated-resource.bend",
+      "candidateSHA256": "ec058ddae2ddfcec148e77940c93356935d5eb6826cdf4efad35091365a33a84",
+      "intendedPublicPath": "src/ecs/decode-validated-resource.bend",
+      "importMapping": [
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/decode-frame.bend as F",
+          "candidate": "import decode-frame.bend as F",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/decode-frame.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Identity",
+          "candidate": "import ordinary-declaration.bend as Identity",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Decl",
+          "candidate": "import persistence-declaration.bend as Decl",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D",
+          "candidate": "import decode-data.bend as D",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/decode-data.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap",
+          "candidate": "import capabilities.bend as Cap",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        }
+      ],
+      "exactInverseRestoresOrigin": true
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/constructed-resource.bend",
+      "originSHA256": "1112eb1ba30e7026a1e34e45c699f7600a54353c04590d46b344d0b9b45a3215",
+      "candidate": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/promotion-v1/library/decode-constructed-resource.bend",
+      "candidateSHA256": "1ff45eb2357c26f005a9c617f13f89ac1d8d4e44ed4ba8973d37d410b216678b",
+      "intendedPublicPath": "src/ecs/decode-constructed-resource.bend",
+      "importMapping": [
+        {
+          "original": "import ./constructor.bend as Constructor",
+          "candidate": "import decode-construction.bend as Constructor",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/constructor.bend"
+        },
+        {
+          "original": "import ./resource.bend as Resource",
+          "candidate": "import decode-validated-resource.bend as Resource",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/resource.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Identity",
+          "candidate": "import ordinary-declaration.bend as Identity",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D",
+          "candidate": "import decode-data.bend as D",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/decode-data.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend as Build",
+          "candidate": "import bundle-construction.bend as Build",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap",
+          "candidate": "import capabilities.bend as Cap",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        }
+      ],
+      "exactInverseRestoresOrigin": true
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/request.bend",
+      "originSHA256": "a055d636d379061d86e41d9bb05e6e855f484dd1ee85a3365577475e169c21ba",
+      "candidate": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/promotion-v1/library/decode-fallible-constructed-requests.bend",
+      "candidateSHA256": "aff15cc664ae86d1f0879977a9a75e7d14cc5831f865eac96a275ba18ef0ba05",
+      "intendedPublicPath": "src/ecs/decode-fallible-constructed-requests.bend",
+      "importMapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "candidate": "import decode-construction.bend as Constructor",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/constructor.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Identity",
+          "candidate": "import ordinary-declaration.bend as Identity",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D",
+          "candidate": "import decode-data.bend as D",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/decode-data.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend as Build",
+          "candidate": "import bundle-construction.bend as Build",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/decode-requests.bend as Request",
+          "candidate": "import decode-requests.bend as Request",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/decode-requests.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/bundle-requests.bend as Commands",
+          "candidate": "import bundle-requests.bend as Commands",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-requests.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W",
+          "candidate": "import world.bend as W",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap",
+          "candidate": "import capabilities.bend as Cap",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        }
+      ],
+      "exactInverseRestoresOrigin": true
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/resource.bend",
+      "originSHA256": "fd711f26804be15f4ea08d84b870c20819307e444d8a7867e825dceaee867ca0",
+      "candidate": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/promotion-v1/library/decode-fallible-constructed-resource.bend",
+      "candidateSHA256": "d1e12ab848877a63e2645b1d770def8b63effa7f2d98272c6d5709a8e7592dbd",
+      "intendedPublicPath": "src/ecs/decode-fallible-constructed-resource.bend",
+      "importMapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "candidate": "import decode-construction.bend as Constructor",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/constructor.bend"
+        },
+        {
+          "original": "import ../resource.bend as Resource",
+          "candidate": "import decode-validated-resource.bend as Resource",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/resource.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Identity",
+          "candidate": "import ordinary-declaration.bend as Identity",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D",
+          "candidate": "import decode-data.bend as D",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/decode-data.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend as Build",
+          "candidate": "import bundle-construction.bend as Build",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend"
+        },
+        {
+          "original": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap",
+          "candidate": "import capabilities.bend as Cap",
+          "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
+        }
+      ],
+      "exactInverseRestoresOrigin": true
+    }
+  ]
+}
