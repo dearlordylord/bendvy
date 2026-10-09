@@ -1,0 +1,265 @@
+{
+  "scope": "bounded leafPC diagnostic only; no wholeoracle/performance/compileradoption",
+  "originalSession": 81265,
+  "collectorExit": 0,
+  "planSHA256": "4b2b767a55a8da829660d678068a1f48a524fb7d56e669249b783ed3e680c2a9",
+  "receipt": {
+    "scope": "Bounded PC diagnostic of exact existing O0 Inspector; no semantic/performance/adoption claim",
+    "planSHA256": "4b2b767a55a8da829660d678068a1f48a524fb7d56e669249b783ed3e680c2a9",
+    "commands": [
+      {
+        "label": "symbols",
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "5",
+          "/usr/bin/aarch64-linux-gnu-nm",
+          "-n",
+          "-S",
+          "--defined-only",
+          "/tmp/bendvy-inspect54-outline-native-o001/inspector.native"
+        ],
+        "capSeconds": 5,
+        "actualArgv": [
+          "/usr/bin/taskset",
+          "-c",
+          "5",
+          "/usr/bin/aarch64-linux-gnu-nm",
+          "-n",
+          "-S",
+          "--defined-only",
+          "/tmp/bendvy-inspect54-outline-native-o001/inspector.native"
+        ],
+        "exit": 0,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+        "childAccounting": {
+          "scope": "collector reaped children delta around execute_result; not runtime performance",
+          "wallNs": 40121931,
+          "userSeconds": 0.012523,
+          "systemSeconds": 0.015101999999999997,
+          "before": {
+            "userSeconds": 0.0,
+            "systemSeconds": 0.002408
+          },
+          "after": {
+            "userSeconds": 0.012523,
+            "systemSeconds": 0.017509999999999998
+          }
+        },
+        "stdout": {
+          "path": "/tmp/bendvy-inspect54-outline-profile01/symbols.stdout",
+          "sha256": "f9fe2a865516c44c2959cee8034e97ea57305154a8abcc28f0eecc4ecf5eb29b",
+          "bytes": 1132611,
+          "published": true
+        },
+        "stderr": {
+          "path": "/tmp/bendvy-inspect54-outline-profile01/symbols.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "published": true
+        }
+      },
+      {
+        "label": "profile",
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "5",
+          "/usr/bin/python3.11",
+          "/workspace/formal-proofs/bendvy-worktrees/parity-46-timing-alignment/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/compiler-research-v1/outline-once-v1/native-profile-v1/sampler.py",
+          "/tmp/bendvy-inspect54-outline-profile01/plan.json"
+        ],
+        "capSeconds": 10,
+        "actualArgv": [
+          "/usr/bin/taskset",
+          "-c",
+          "5",
+          "/usr/bin/python3.11",
+          "/workspace/formal-proofs/bendvy-worktrees/parity-46-timing-alignment/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/compiler-research-v1/outline-once-v1/native-profile-v1/sampler.py",
+          "/tmp/bendvy-inspect54-outline-profile01/plan.json",
+          "4b2b767a55a8da829660d678068a1f48a524fb7d56e669249b783ed3e680c2a9"
+        ],
+        "exit": 0,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+        "childAccounting": {
+          "scope": "collector reaped children delta around execute_result; not runtime performance",
+          "wallNs": 5832421754,
+          "userSeconds": 5.072885,
+          "systemSeconds": 0.530265,
+          "before": {
+            "userSeconds": 0.012523,
+            "systemSeconds": 0.017509999999999998
+          },
+          "after": {
+            "userSeconds": 5.085408,
+            "systemSeconds": 0.547775
+          }
+        },
+        "stdout": {
+          "path": "/tmp/bendvy-inspect54-outline-profile01/profile.stdout",
+          "sha256": "328573c21e23799ef720b98171d0b864fe71ffe476d33abf9c81520d5c45e1a7",
+          "bytes": 657,
+          "published": true
+        },
+        "stderr": {
+          "path": "/tmp/bendvy-inspect54-outline-profile01/profile.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "published": true
+        },
+        "diagnosticArtifacts": {
+          "samples.json": {
+            "path": "/tmp/bendvy-inspect54-outline-profile01/samples.json",
+            "sha256": "d93b04935b5f2045bac9e6a9d04f2b334bdae24118105d3a1e906105eb44aa16",
+            "bytes": 2307128
+          },
+          "target.stdout": {
+            "path": "/tmp/bendvy-inspect54-outline-profile01/target.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "target.stderr": {
+            "path": "/tmp/bendvy-inspect54-outline-profile01/target.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          }
+        }
+      }
+    ],
+    "guards": [
+      {
+        "path": "/tmp/bendvy-inspect54-outline-profile01/symbols-pre.guard.json",
+        "sha256": "41fb8930fe837079a71ad9fe7647908395e70fcee651efab521578e5db9e0e5a"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-profile01/symbols-acquired.guard.json",
+        "sha256": "8abc9b29dca0e12b33d388fb1d04eb3b0c251288b7a8a23516824918428454db"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-profile01/symbols-post.guard.json",
+        "sha256": "88803fa3ebbd41a4e0ea2180f10397e985bb78a74b3f4e7946532032e3743104"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-profile01/profile-pre.guard.json",
+        "sha256": "a85204d6848d96968dfdd98612f0ab298ffb67fa8e2c24053d796fa916f2c56a"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-profile01/profile-acquired.guard.json",
+        "sha256": "61183ee712aae16f717deadc1140e4a114a68b54c70fd180902d16fd95161d03"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-profile01/profile-post.guard.json",
+        "sha256": "04c4ca8bb528aa1917b67886dbe7e5ed6a25648e7ed95fa9e17831936e273f0f"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-profile01/final.guard.json",
+        "sha256": "625a3faedefec3d3e5703342844baad9b8f76650e5ec6f68997a290f9590afcc"
+      }
+    ],
+    "status": "BOUNDED_PC_DIAGNOSTIC_CAPTURED_NOT_SEMANTIC_ACCEPTANCE",
+    "diagnosticSummary": {
+      "status": "DIAGNOSTIC_CAPTURED",
+      "artifacts": {
+        "samples.json": {
+          "path": "/tmp/bendvy-inspect54-outline-profile01/samples.json",
+          "sha256": "d93b04935b5f2045bac9e6a9d04f2b334bdae24118105d3a1e906105eb44aa16",
+          "bytes": 2307128
+        },
+        "target.stdout": {
+          "path": "/tmp/bendvy-inspect54-outline-profile01/target.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "target.stderr": {
+          "path": "/tmp/bendvy-inspect54-outline-profile01/target.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        }
+      },
+      "sampleCount": 346,
+      "deadline": true,
+      "error": null,
+      "publicationRecovery": null
+    },
+    "semanticAcceptance": false
+  },
+  "sampleCount": 346,
+  "observedTIDs": [
+    {
+      "tid": 2292733,
+      "firstSeenNs": 1425136
+    }
+  ],
+  "mapsImages": 1,
+  "unmappedPCs": 1,
+  "overlappingSymbolPCs": 0,
+  "errors": [],
+  "cleanup": "all owned target descendants killed/reaped",
+  "targetDeadlineReached": true,
+  "targetElapsedNs": 5009305092,
+  "stopOverheadNs": 468364007,
+  "exactSymbolCounts": {
+    "unmapped": 1,
+    "WL_FID_STRING_APPEND": 94,
+    "WL_FID_CORE_V1_SRC_ECS_COLUMN_VIEW_5": 1,
+    "WL_FID_STRING_APPEND_K20304": 97,
+    "spin_529": 1,
+    "WL_FID_OWNER_OBSERVER_ENTRY_K19559": 1,
+    "heap_free": 12,
+    "term_loc": 4,
+    "WL_FID_U32_SHOW_FIN": 2,
+    "WL_FID_OWNER_OBSERVER_LEAF_0": 3,
+    "spin_81": 2,
+    "rfc_view": 11,
+    "term_rfc": 9,
+    "ctr_take": 18,
+    "spin_74": 1,
+    "rfc_wrap": 5,
+    "spin_810": 1,
+    "WL_FID_OWNER_OBSERVER_RESOURCE_EXTRA_0_K19831": 1,
+    "WL_FID_SELECTION_MATCHED_RIGHT_25_K7296": 1,
+    "span_fade": 1,
+    "rfc_seal": 8,
+    "WL_FID_SELECTION_PREDICATE_RIGHT_46": 1,
+    "cls_fit": 10,
+    "WL_FID_SELECTION_PREDICATE_RIGHT_56_K4616": 1,
+    "term_tag": 7,
+    "spin_76": 1,
+    "WL_FID_SELECTION_CONSTRAINED_TARGET_35_K8445": 1,
+    "WL_FID_SELECTION_CONSTRAINED_TARGET_4_C3047": 1,
+    "spin_619": 1,
+    "heap_alloc": 13,
+    "WL_FID_OWNER_OBSERVER_LEAF_5": 1,
+    "WL_FID_FAMILIES_CHECK_SLOT_13_C25": 1,
+    "WL_FID_OWNER_OBSERVER_U32_VALUE": 1,
+    "WL_FID_QUERY_SINGLE_ROWS_7": 1,
+    "WL_FID_FULL_CONSUMER_FETCH_TARGET_6_K7431": 1,
+    "WL_FID_OWNER_OBSERVER_STORE_3_0_K19580": 1,
+    "WL_FID_OWNER_OBSERVER_ARRAY_1": 1,
+    "WL_FID_OWNER_OBSERVER_NODE_JOIN_1": 1,
+    "spin_79": 1,
+    "heap_alloc_miss": 1,
+    "term_triv": 2,
+    "WL_FID_OWNER_OBSERVER_U32_ARRAY": 1,
+    "WL_FID_FORMAT_TAIL_0": 1,
+    "spin_1397": 1,
+    "WL_FID_CLO_APPLY": 2,
+    "spin_926": 1,
+    "term_aux": 3,
+    "blk_loc": 1,
+    "spin_1398": 1,
+    "spin_471": 1,
+    "term_drop": 2,
+    "WL_FID_OWNER_OBSERVER_U32_DATA": 1,
+    "spin_187": 1,
+    "WL_FID_OWNER_OBSERVER_NODE_JOIN_5_K19712": 1,
+    "spare_free": 5,
+    "a32_load_acq": 2
+  },
+  "archiveMembers": 216,
+  "checks": "current212pins,7guards,allraw stream lengths/hashes,allcompressed objects verified without child"
+}
