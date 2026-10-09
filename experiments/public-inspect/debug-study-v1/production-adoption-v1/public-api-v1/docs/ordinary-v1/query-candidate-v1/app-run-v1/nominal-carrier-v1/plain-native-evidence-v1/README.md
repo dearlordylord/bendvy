@@ -1,0 +1,3 @@
+# Nominal actual-App Plain Native emit failure
+
+One admitted execution, runner session27107 terminal exit1. Exact plan84f94acef7c2ea4f83426b3df14965f3ec926e4371b9fe9dfe3b9cf6a96f2a53. Emit exits1 with stderr `Error: an arity over 247` (25 bytes), empty stdout; no generated C exists. All four retained guards unchanged. This is a compiler-reported failure, not a deadline. Clang/runtime were never launched. Transient and Constructed plans remain unexecuted; no aggregate or Native semantic qualification. Raw plan/guards/receipt/streams preserved losslessly with uncompressed-byte manifest. No retry, cap change, source repair, or expected normalization occurred. Cause/location not yet established.
