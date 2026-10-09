@@ -1,0 +1,15 @@
+# Copied-reference experiment: prepared, not launched
+
+Only candidate comp.ts differs. Materialize two private complete copies of pinned bend2; replace comp.ts in candidate copy. Resolve ./bend.ts and runtime assets from the respective private tree. Do not change the reference, installed compiler, Bend source, layouts or ABI. All execution must use existing shared task_runner/resource guards/lock, CPU5 and pinned Node; no second runner.
+
+Batch proposal: portable controls first; each of five manifest fixtures emits C once with baseline and candidate, cap30 each. Compare entire generated C byte-for-byte when BOTH complete; any timeout/failure is retained, not retried. These controls qualify emitted affine/fork paths, not execution of binaries. Existing fixture expectations remain independent evidence, not newly executed runtime acceptance.
+
+Then emit the exact unchanged staged full Inspector subject with candidate only, cap30. Existing baseline120 is already incomplete: do not launch a third unchanged baseline or claim full-subject byte equality. Exact Inspector closure/argv/tool/helper/resource/environment/output bindings must be supplied by the subject owner and frozen into the admitted plan before any child. No numerical performance criterion changes. Current file is a proposed recipe, not executable admission.
+
+## Completed-layout invariant
+
+The pinned Lay fields are created at W32/BOX/W64, lay_pack and lay_node. Source search finds no postpublication assignment to Lay.ks or Lay.arms and only one ks.push: lay_node's padding loop before memo's callback returns. memo inserts the callback result only after completion (1830–1835). lay_pack fills fresh ks before returning; lay_of's recursion sentinel is immutable BOX, later replaced in the map, not mutated (940–951). No cached JSON is obtained during these constructors. Therefore caching completed identities preserves current JSON-string equality for actual compiler layouts. This is NOT a cache for arbitrary mutable caller objects.
+
+WeakMap resets at entry to file_book; it can safely persist through ownership/hot/static fixed-point passes because those do not mutate completed layouts. show_main runs before file_book and does not call lay_eq. The reset also separates subsequent books and C/JS compilation. Identity equality remains first and short-circuited. Distinct-object constructor/field insertion order retains exact JSON behavior; no canonicalization or width shortcut is added.
+
+The full candidate has only three intended deltas: WeakMap declaration, lay_text plus lay_eq string-cache use, and per-file_book reset. No diagnostic counters are in production candidate. Portable control counts JSON invocations in an isolated function context; source candidates themselves have no observation side effects.
