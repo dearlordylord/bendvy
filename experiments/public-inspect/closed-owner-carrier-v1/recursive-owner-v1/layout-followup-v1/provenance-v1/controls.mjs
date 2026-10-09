@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
-import {observe,snapshot} from './layout-provenance.mjs';
+import {observe,snapshot,loadedBook} from './layout-provenance.mjs';
 const field={ks:['box'],arms:null};
 const a={ks:['w32','box'],arms:{First:[field],Second:[]}};
 const before=JSON.stringify(a);
+loadedBook({tlds:{'fixture:observe':{},'late:hot':{}}});
 observe('fixture:observe',a,field);observe('fixture:observe',a,field);
 assert.equal(JSON.stringify(a),before);
 let s=snapshot();assert.equal(s.calls,2);assert.equal(s.rows[0].calls,2);
@@ -14,5 +15,8 @@ assert.equal(snapshot().rows.length,2); // Ordered arms remain distinguishable.
 a.ks.push('box');observe('fixture:observe',a,field);assert.equal(snapshot().rows[2].from.width,3);
 for(let i=0;i<300;i++)observe('module:def'+i,field,field);
 s=snapshot();assert.equal(s.rows.length,256);assert.equal(s.calls,304);assert.equal(s.omitted,47);
+for(let i=0;i<20;i++)observe('late:hot',field,field);
+assert.equal(snapshot().definitionCounts.find(([k])=>k==='late:hot')[1],20);
+assert.equal(snapshot().unknownCalls,300);
 observe('invalid:fixture',null,field);assert.equal(snapshot().errors,1);
 console.log('PASS source-name, ordered-arms, live-padding, noninterference, snapshot isolation and bounded-censor controls');

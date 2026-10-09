@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """One admitted reference emit diagnostic; no installed/backend qualification."""
-import fcntl,hashlib,importlib.util,json,os,stat,sys
+import fcntl,hashlib,json,os,stat,sys,types
 from pathlib import Path
 ROOT=Path('/workspace/formal-proofs/bendvy')
 HERE=Path(__file__).resolve().parent
@@ -13,8 +13,12 @@ def sha(path):
         if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode): raise ValueError('regular descriptor required')
         return hashlib.sha256(stream.read()).hexdigest()
 
+VERIFIED_SOURCES={}
 def load(name,path):
-    spec=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+    path=Path(path).resolve(strict=True)
+    raw=VERIFIED_SOURCES[str(path)] if VERIFIED_SOURCES else path.read_bytes()
+    m=types.ModuleType(name);m.__file__=str(path);m.__dict__['VERIFIED_SOURCES']=VERIFIED_SOURCES
+    exec(compile(raw,str(path),'exec'),m.__dict__);return m
 
 def capture(path,raw):
     if path.exists() or path.is_symlink(): raise ValueError('raw starts absent')
@@ -40,7 +44,12 @@ def run(plan_path,admitted):
     plan_path=Path(plan_path).resolve(strict=True)
     if sha(plan_path)!=admitted: raise ValueError('plan admission mismatch')
     plan=json.loads(plan_path.read_text());pins=dict(plan['pins']);pins[str(plan_path)]=admitted
+    actual=Path(sys.executable).resolve(strict=True)
+    if str(actual)!=plan['pythonInterpreter'] or sha(actual)!=pins[str(actual)]:raise ValueError('actual interpreter differs before helpers')
     if {path:sha(path) for path in pins}!=pins: raise ValueError('inputs changed')
+    global VERIFIED_SOURCES
+    VERIFIED_SOURCES={name:Path(name).read_bytes() for name in pins if name.endswith('.py')}
+    if any(hashlib.sha256(raw).hexdigest()!=pins[name] for name,raw in VERIFIED_SOURCES.items()):raise ValueError('captured source drift')
     runner=load('reference_runner',ROOT/'scripts/task_runner.py');boundary=load('reference_boundary',ROOT/'scripts/evidence_boundary.py')
     out=plan_path.parent;artifact=Path(plan['output']);profile=Path(plan['profile']);record={'scope':plan['scope'],'planSHA256':admitted,'commands':[],'guards':[]}
     def guard(label):

@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {joined} from './book-provenance.mjs';
+const book={tlds:{'left:read':{$:'Def',m:'left'},'right:read':{$:'Def',m:'right'}}};
+const seen=new Map([['/a.bend','left'],['/b.bend','right']]);
+const rows=[{source:'/a.bend',definition:'read',line:10,sourceSHA256:'A'},{source:'/b.bend',definition:'read',line:20,sourceSHA256:'B'}];
+assert.deepEqual(joined('left:read',book,seen,rows),{definition:'left:read',status:'mapped',namespace:'left',localName:'read',source:'/a.bend',line:10,sourceSHA256:'A'});
+assert.equal(joined('right:read',book,seen,rows).source,'/b.bend');
+assert.equal(joined('generated',book,seen,rows).status,'not-declared');
+assert.equal(joined('left:read',book,seen,[...rows,rows[0]]).status,'ambiguous-source');
+assert.equal(joined('left:read',book,seen,[]).status,'no-lexical-source');
+console.log('PASS exact internal Book keys/seen namespace/source lines and ambiguity/generated refusals');

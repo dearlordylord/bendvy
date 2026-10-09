@@ -1,0 +1,28 @@
+--- profile-comp.ts
++++ profile-comp.ts
+@@ -1,3 +1,4 @@
++import * as LayoutProvenance from "./layout-provenance.mjs";
+ // NOTE: Bend's runtime was designed by humans, but this file was mostly written
+ // by AI's, as it includes a ton of optimizations. It works and tests pass, yet,
+ // bugs ARE expected. It will take some time for the compiler to be stable.
+@@ -9,9 +10,9 @@
+ // the device, or to JS. The C and JS runtimes close the file.
+ 
+ import * as fs from "node:fs";
+-import { checkBudget } from "./profile-budget.mjs";
+-
+-import * as Bend from "../../schema-partition-v1/garden-reference-diagnostic-v1/bend.ts";
++import { checkBudget } from "/workspace/formal-proofs/bendvy/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/cpu-profile-v1/profile-budget.mjs";
++
++import * as Bend from "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/schema-partition-v1/garden-reference-diagnostic-v1/bend.ts";
+ 
+ // Types
+ // =====
+@@ -1668,6 +1669,7 @@
+ }
+ 
+ function val_to(fl: File, v: Val, lay: Lay): Val {
++  LayoutProvenance.observe(fl.def, v.lay, lay);
+   diagnostic_watch("val_to");
+   return lay_eq(v.lay, lay) ? v : lay_box(lay) ? val_new([val_box(fl, v)], BOX)
+     : lay_box(v.lay) ? val_unbox(fl, v, lay)
