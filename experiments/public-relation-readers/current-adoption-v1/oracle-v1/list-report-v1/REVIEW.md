@@ -1,0 +1,5 @@
+# Complete ordinary List report wrapper
+
+Candidate `2bfd9dda` invokes the same full retry, foreign, lifecycle and mixed applications for each of Alpha and Beta. Their arguments, shared adopted runtime, nominal schemas and complete Report fields are unchanged. `held` returns an ordinary singleton List containing the actual complete report; `completed` pattern-matches both lists and returns Some of the actual complete Output only for exact singletons. Any malformed list returns None without fabricating a report. No owner/world or report field is dropped or replaced.
+
+The independent expectation requires Candidate.result.Some.value to equal every field of the preserved entire `12ac` oracle. None cannot qualify. This is an explicit transport wrapper, so future raw bytes have a new shape and must be captured and typed-checked honestly; neither raw byte identity to the old 71461-byte Array entry nor installed runtime success is inferred. Source-bound transport must enforce exact Candidate/Maybe/Output constructors and all inherited fields before backend execution. No public contract or law changes.
