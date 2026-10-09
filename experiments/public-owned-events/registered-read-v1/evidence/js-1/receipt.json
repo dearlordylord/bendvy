@@ -1,0 +1,49 @@
+{
+  "preparedPlanSha256": "5d7501d142f499c4576352c63a1a148928d84d8416397b9c872795c983ac0134",
+  "status": "DEVELOPMENT_PASS",
+  "scope": "Direct registered owned-reader development checks; no delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/registered-read-v1/main.bend",
+        "-o",
+        "/tmp/bendvy-owned-reader-plan-v2-js/generated/complete.js"
+      ],
+      "capSeconds": 30,
+      "artifact": "/tmp/bendvy-owned-reader-plan-v2-js/generated/complete.js",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-owned-reader-plan-v2-js/generated/complete.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "generated": {
+    "/tmp/bendvy-owned-reader-plan-v2-js/generated/complete.js": "79bb3f781ec40ee15555f22dd6e2124dd9de406f10aa1e24fecd0ff774eb1698"
+  },
+  "logs": {
+    "complete-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-run.stdout": "c718208ce87fb64e844f8ae0687e1d7cbd82fbc4cf9b2e47228635f8811f03a4",
+    "complete-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

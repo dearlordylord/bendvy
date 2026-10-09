@@ -1,0 +1,76 @@
+{
+  "preparedPlanSha256": "1ca94ffc2ae6013195c9a28d05af335b8055efd25e7afd245d69738cf0327a86",
+  "status": "DEVELOPMENT_PASS",
+  "scope": "Direct registered owned-reader development checks; no delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/registered-read-v1/main.bend",
+        "-o",
+        "/tmp/bendvy-owned-reader-plan-v2-native/generated/complete.c"
+      ],
+      "capSeconds": 30,
+      "artifact": "/tmp/bendvy-owned-reader-plan-v2-native/generated/complete.c",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "complete-build",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-owned-reader-plan-v2-native/generated/complete.c",
+        "-o",
+        "/tmp/bendvy-owned-reader-plan-v2-native/generated/complete.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "artifact": "/tmp/bendvy-owned-reader-plan-v2-native/generated/complete.native",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-owned-reader-plan-v2-native/generated/complete.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "generated": {
+    "/tmp/bendvy-owned-reader-plan-v2-native/generated/complete.c": "89ae93b4df5c2cf9d9588230de3de7b38400464a08950639d0bf40d132bcadb3",
+    "/tmp/bendvy-owned-reader-plan-v2-native/generated/complete.native": "7c8f756bcb58044ac6d8d1774463a8f457a52e1ace6f837394adb57ddbb9107e"
+  },
+  "logs": {
+    "complete-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-build.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-build.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-run.stdout": "c718208ce87fb64e844f8ae0687e1d7cbd82fbc4cf9b2e47228635f8811f03a4",
+    "complete-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
