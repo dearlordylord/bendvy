@@ -1,0 +1,9 @@
+# Copied reference compiler arity diagnostic (prepared only)
+
+Original reference files remain read-only. Copied bend.ts/comp.ts/base.bend and exact source diff are retained, with original and copy hashes in REFERENCE-COPY.json. The only compiler change emits named lowered segment/function + flattened parameter count and named constructor + encoded/raw arity at the two existing refusal conditions; it leaves the refusal and compiler algorithm intact.
+
+emit.mts reproduces main.ts book_read/load/check + compile_book/write using exported modules under existing Node, avoiding Bun-only CLI and telemetry. Reference version2.0.35 is not bound to the installed ELF. The nominal Plain full20phase source remains unchanged, loaded Base is the copied reference Base and pinned explicitly. Actual loaded paths are printed before compile. A parser/type/tool/deadline refusal is a legitimate diagnostic outcome, not delivery evidence.
+
+Exact prepared-plan.json SHA f7eee1730976b82e41135487f94fe0f70c773bf724de68293e13be4e5e342fba. Command is taskset CPU5 + existing Node24.20.0 + emit.mts + unchanged nominal Plain entry + absent scenario.c. Cap30, shared child lock, sanitized public environment, no new dependency. Known complete source/copy/tool/helper pins checked before helper load and pre/acquired/post/final; raw captures regular fd guards, unconditional receipt. No-child regular capture/hash, overwrite/symlink controls PASS. No compiler child has been launched; root admission required. No retry, cap change, installed compiler cause claim, Native qualification, or expected repair.
+
+Copied bend.ts is tracked losslessly as bend.ts.gz because its exact reference bytes contain pre-existing trailing whitespace; the live extracted bend.ts is pinned by uncompressed SHA in the prepared plan. No source whitespace normalization was applied.

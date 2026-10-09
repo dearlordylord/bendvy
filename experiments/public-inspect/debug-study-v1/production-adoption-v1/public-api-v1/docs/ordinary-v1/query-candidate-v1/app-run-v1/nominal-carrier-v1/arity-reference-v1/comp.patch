@@ -1,0 +1,17 @@
+--- reference/comp.ts
++++ copy/comp.ts
+@@ -2821,7 +2821,13 @@
+     .map((s) => s.fid)), [...fl.segs, { fid: seg_fid(CLO_APPLY),
+     refs: fl.clos }].flatMap((s) => [...s.refs].map((r) => [r, s.fid])));
+   const ars = [...cids.values()].map((n) => n > WIDE ? 240 + Math.log2(n) : n);
+-  if (entries.some((s) => s.params.length > WIDE) || ars.some((n) => n > 255)) {
++  const badEntries = entries.filter((s) => s.params.length > WIDE).map((s) =>
++    ({ fid: s.fid, def: s.def, flattenedArity: s.params.length, limit: WIDE }));
++  const badNodes = [...cids.entries()].filter(([, n]) =>
++    (n > WIDE ? 240 + Math.log2(n) : n) > 255).map(([name, n]) =>
++    ({ name, flattenedArity: n, encodedArity: n > WIDE ? 240 + Math.log2(n) : n, limit: 255 }));
++  if (badEntries.length || badNodes.length) {
++    console.error("REFERENCE_ARITY_DIAGNOSTIC " + JSON.stringify({badEntries,badNodes}));
+     die("an arity over " + WIDE);
+   }
+   const defs = [[...cids.keys()].map(cid_mac),
