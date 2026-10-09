@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : slowClauses
+- observed : slowClauses (consumed more than once)
+Context:
+- fastSlot    : String
+- fastClauses : List<&2, Query.Clause<F.Schema>>
+- slowSlot    : String
+Location: observed
+ 9 | type Snapshot is Data: Snapshot{fastOwner:OwnerMeta,slowOwner:OwnerMeta,state:O.Snapshot}
+10>| def observed(fastSlot:String,fastClauses:List<&2,Query.Clause<F.Schema>>,slowSlot:String,slowClauses:List<&2,Query.Clause<F.Schema>>,result:F.Host & O.Snapshot) -> C.Host & Snapshot:
+   |                                                                                          ^^^^^^^^^^^
+11 |   match result:
