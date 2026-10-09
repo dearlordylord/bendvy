@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : a constructor of ../../../../../../bendvy/src/ecs/capabilities.ValueRead (missing, or already matched)
+- observed : \{Cap.OwnedRequest: (run => input => ctx => run(ctx, input))}
+Context:
+- H : Type
+Location: body
+21 |   match cap:
+22>|     case Cap.OwnedRequest{run}:run(ctx,input)
+   |          ^^^^^^^^^^^^^^^^^^^^^
+23 | # Abort fixture never applies queued deliveries. Keep an explicit refusal adapter
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: duplicate
+63 | 
+64>| def duplicate(owner:Local.Instance<Schema,App.Store(~Schema),Input.Owner,Unit,History<Schema>,Deferred.Input<Schema,Input.Owner>,String,Unit,runner(~Schema)>) -> Local.Instance<Schema,App.Store(~Schema),Input.Owner,Unit,History<Schema>,Deferred.Input<Schema,Input.Owner>,String,Unit,runner(~Schema)> & Local.Instance<Schema,App.Store(~Schema),Input.Owner,Unit,History<Schema>,Deferred.Input<Schema,Input.Owner>,String,Unit,runner(~Schema)>:
+   |               ^^^^^
+65 |   (owner,owner)
+bend 2.0.36 is available: run bend update

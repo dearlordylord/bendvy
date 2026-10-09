@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : Deferred.Input<body~S, Input.Owner>
+- observed : Deferred.Input<OtherSchema, Input.Owner>
+Context:
+- H     : Type
+- run   : @_:H -> @_:Deferred.Input<body~S, Input.Owner> -> Sigma<&1, &1, H, _ => Deferred.Output<body~S, Input.Owner>>
+- input : Deferred.Input<OtherSchema, Input.Owner>
+- ctx   : H
+Location: body
+21 |   match cap:
+22>|     case Cap.OwnedRequest{run}:run(ctx,input)
+   |                                        ^^^^^
+23 | # Abort fixture never applies queued deliveries. Keep an explicit refusal adapter
+bend 2.0.36 is available: run bend update
