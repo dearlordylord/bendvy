@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """Focused direct development: prepare only, then a separately admitted guarded run.
 
-No relocated imports, installed resolver discovery, or performance work.
-Native compiles the unchanged complete main/resource entries, not category slices.
+No relocated imports, installed resolver discovery, Native, or performance work.
 This does not establish complete installed-tool/resolver qualification.
 """
 import argparse
@@ -52,55 +51,43 @@ def load(name, path):
 
 
 def prepare(out, oracle, kind):
-    if kind not in ('main', 'resource'):
+    if kind not in ('normal', 'mutant'):
         raise ValueError('Known complete consuming entry required')
-    entry_name = 'main.bend' if kind == 'main' else 'resource-main.bend'
-    inventory_name = 'main-identities.json' if kind == 'main' else 'resource-identities.json'
-    oracle_name = 'expected-v2.json' if kind == 'main' else 'resource-expected-v2.json'
+    entry_name = 'main.bend' if kind == 'normal' else 'mutants/drop-relations/main.bend'
+    inventory_name = 'main-identities.json' if kind == 'normal' else 'drop-relations-identities.json'
+    oracle_name = 'expected.json' if kind == 'normal' else 'drop-relations-expected.json'
     join_name = 'CONSTRUCTOR-JOIN.json'
-    synthetic_name = 'main-synthetic.stdout' if kind == 'main' else 'resource-synthetic.stdout'
-    expected_sha = {'main': '5bba9880ca4236a4440c0773ebc53b9242385b34b2d16cc87165c8f16e50546f', 'resource': 'ff6ae8abf5f41b292bb83531a23961eb610b4f23d5b561da3490d84ac7315294'}[kind]
+    synthetic_name = 'normal-synthetic.stdout' if kind == 'normal' else 'mutant-synthetic.stdout'
+    expected_sha = {'normal':'5bf8430e31c0893be536061067cd048d869e5c20b072c105450b4178679e7acb','mutant':'43d75a00918d86e908d71a1aac5338b5c07a7b7967e7537bb71f1b2870336058'}[kind]
     out = Path(out).resolve()
     oracle = Path(oracle).resolve()
-    parser = load('scenario_parser', HERE / 'parse-inventory.py')
+    parser = load('scenario_parser', HERE / 'parse-graph-machine.py')
     identities = json.loads((HERE / inventory_name).read_text())
     if parser.build_identities(HERE / entry_name) != identities:
         raise ValueError('Frozen original source/constructor inventory changed')
-    review = json.loads((oracle / 'PARSER-REVIEW.json').read_text())
-    role_key = 'expectedV2SHA256' if kind == 'main' else 'resourceExpectedV2SHA256'
-    if sha(oracle / oracle_name) != expected_sha or review[role_key] != expected_sha:
+    if sha(oracle / oracle_name) != expected_sha or json.loads((oracle / 'source-basis.json').read_text())['oracles'][oracle_name] != expected_sha:
         raise ValueError('Independent whole oracle changed')
-    if review['joinSHA256'] != sha(oracle / join_name) or review['parserSHA256'] != sha(HERE / 'parse-inventory.py'):
-        raise ValueError('Independent typed transport review changed')
-    tools = {'bend': '/home/node/.bend/bin/bend', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
-    tools['clangWrapper'] = '/tmp/bendvy-clang19-diagnostic/clang19'
-    tools['clangBinary'] = '/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'
-    config = ROOT / 'experiments/public-simulation/delivery-v1/installed-config.py'
-    extra = [config, HERE.parent / 'parse-scenario.py', HERE.parent / 'app-run-v1/nominal-carrier-v1/accumulated-v1/parse-app.py',
-             Path(__file__), HERE / 'parse-inventory.py', HERE / inventory_name,
+    tools = {'bend': '/home/node/.bend/bin/bend', 'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
+    extra = [HERE.parent.parent / 'parse-scenario.py', HERE.parent.parent / 'app-run-v1/nominal-carrier-v1/accumulated-v1/parse-app.py',
+             HERE.parent / 'parse-inventory.py', Path(__file__), HERE / 'parse-graph-machine.py', HERE / inventory_name,
              ROOT / 'scripts/task_runner.py', ROOT / 'scripts/evidence_boundary.py',
-             Path('/home/node/.bend/bend2/base.bend'), oracle / oracle_name, oracle / join_name,
-             oracle / synthetic_name, oracle / 'source-basis.json', oracle / 'expected.py',
-             oracle / 'expected-v2.py', oracle / 'PARSER-REVIEW.json', oracle / 'SYNTHETIC-CHECKS.json',
-             oracle / 'test-synthetic.py', oracle / 'synthetic-raw.py',
-             HERE / 'NATIVE-TRANSPORT-PREPARED.json', HERE / 'test-native-boundary.py', HERE / 'test-js-boundary.py', HERE / 'TRANSPORT-PREPARED.json', *map(Path, tools.values())]
+             Path('/home/node/.bend/bend2/base.bend'), oracle / 'expected.json', oracle / 'drop-relations-expected.json', oracle / join_name,
+             oracle / synthetic_name, oracle / 'source-basis.json', oracle / 'expected.py', oracle / 'synthetic.py',
+             oracle.parent / 'synthetic-raw.py', oracle.parent / 'CONSTRUCTOR-JOIN.json', oracle.parent / 'expected-v2.json', oracle.parent / 'resource-expected-v2.json',
+             HERE / 'TRANSPORT-PREPARED.json', HERE / 'test-transport.py', HERE / 'test-js-boundary.py', *map(Path, tools.values())]
     pins = dict(identities['sourceSHA256'])
     pins.update({str(path.resolve(strict=True)): sha(path) for path in extra})
-    configuration = load('installed_configuration', config)
-    env = configuration.environment()
-    resources = load('task_runner', ROOT / 'scripts/task_runner.py').Inputs(directories=configuration.RESOURCE_ROOTS)
-    generated = out / 'scenario.c'
-    native = out / 'scenario.native'
+    env = {'HOME': '/home/node', 'PATH': '/usr/bin:/bin', 'LANG': 'C', 'LC_ALL': 'C', 'TZ': 'UTC'}
+    env['BEND_NO_TELEMETRY'] = '1'
+    generated = out / 'scenario.js'
     plan = {'scope': 'direct development only; no complete resolver qualification or #56 completion',
             'kind': kind, 'expectedSHA256': expected_sha, 'entrypoint': identities['entrypoint'], 'constructorInventory': str(HERE / inventory_name),
-            'resourceRoots': [str(root) for root in resources.directories], 'resourceInventory': resources.expected,
             'pins': pins, 'environment': env, 'cwd': str(HERE), 'oracle': str(oracle / oracle_name),
-            'join': str(oracle / join_name), 'generated': str(generated), 'native': str(native),
+            'join': str(oracle / join_name), 'generated': str(generated),
             'tools': tools, 'commands': [
                 {'label': 'emit', 'argv': [tools['taskset'], '-c', '5', tools['bend'], identities['entrypoint'], '-o', str(generated)], 'capSeconds': 30},
-                {'label': 'build', 'argv': [tools['taskset'], '-c', '5', tools['clangWrapper'], '-O3', str(generated), '-o', str(native), '-pthread', '-lm'], 'capSeconds': 120},
-                {'label': 'consumer', 'argv': [tools['taskset'], '-c', '5', str(native), '--threads', '1', '--gpu', 'off'], 'capSeconds': 5}],
-            'postConsumer': 'Strict entire ordinary App schema/system/access/schedule inventory, unchanged full60baseline and nine complete noninterference snapshots OR standalone full affine resource/world control against independent frozen expected; no public56/performance claim'}
+                {'label': 'consumer', 'argv': [tools['taskset'], '-c', '5', tools['node'], str(generated)], 'capSeconds': 5}],
+            'postConsumer': 'Strict full previous App inventory/resource and added graph/machine declarations with complete actualworld/owner/state/event/pending controls; mutant additionally rejects entire unchanged baseline; no public56/performance claim'}
     out.mkdir(parents=True, exist_ok=False)
     (out / 'plan.json').write_text(json.dumps(plan, indent=2) + '\n')
     print(sha(out / 'plan.json'))
@@ -117,25 +104,21 @@ def run(plan_path, expected_sha):
     if {path: sha(path) for path in plan['pins']} != plan['pins']:
         raise ValueError('Frozen boundary changed before helper import')
     out = plan_path.parent
-    parser = load('scenario_parser', HERE / 'parse-inventory.py')
+    parser = load('scenario_parser', HERE / 'parse-graph-machine.py')
     runner = load('task_runner', ROOT / 'scripts/task_runner.py')
     boundary = load('evidence_boundary', ROOT / 'scripts/evidence_boundary.py')
     inventory = json.loads(Path(plan['constructorInventory']).read_text())
-    resources = runner.Inputs(directories=plan['resourceRoots'])
     pins = dict(plan['pins'])
     pins[str(plan_path)] = expected_sha
     generated = Path(plan['generated'])
-    native = Path(plan['native'])
     record = {'scope': plan['scope'], 'planSHA256': expected_sha, 'commands': [], 'guards': []}
 
     def guard(label):
-        for artifact in (generated, native):
-            if str(artifact) in pins and (artifact.is_symlink() or not artifact.is_file()):
-                raise ValueError('Generated artifact must be a regular non-symlink file')
+        if str(generated) in pins and (generated.is_symlink() or not generated.is_file()):
+            raise ValueError('Generated artifact must be a regular non-symlink file')
         actual = {path: sha(path) for path in pins}
-        resource_actual = resources.snapshot()
-        unchanged = actual == pins and parser.build_identities(plan['entrypoint']) == inventory and resource_actual == plan['resourceInventory']
-        receipt = {'label': label, 'actualPins': actual, 'actualResources': resource_actual, 'unchanged': unchanged}
+        unchanged = actual == pins and parser.build_identities(plan['entrypoint']) == inventory
+        receipt = {'label': label, 'actualPins': actual, 'unchanged': unchanged}
         target = out / (label + '.guard.json')
         target.write_text(json.dumps(receipt, indent=2) + '\n')
         record['guards'].append({'path': str(target), 'sha256': sha(target)})
@@ -151,8 +134,7 @@ def run(plan_path, expected_sha):
                     fcntl.flock(lock, fcntl.LOCK_EX)
                     try:
                         guard(label + '-acquired')
-                        artifact = generated if label == 'emit' else native
-                        if label in ('emit', 'build') and (artifact.exists() or artifact.is_symlink()):
+                        if label == 'emit' and (generated.exists() or generated.is_symlink()):
                             raise ValueError('Generated output must start absent')
                         result = runner.execute_result(command['argv'], command['capSeconds'], plan['environment'], plan['cwd'], 'split')
                     finally:
@@ -167,15 +149,14 @@ def run(plan_path, expected_sha):
                     else:
                         row[key] = value
                 record['commands'].append(row)
-                artifact = generated if label == 'emit' else native
-                if label in ('emit', 'build') and (artifact.exists() or artifact.is_symlink()):
-                    # Bind partial C/native output before interpreting child failure.
-                    pins[str(artifact)] = sha(artifact)
-                    record['generatedSHA256' if label == 'emit' else 'nativeSHA256'] = pins[str(artifact)]
+                if label == 'emit' and (generated.exists() or generated.is_symlink()):
+                    # Bind partial output before interpreting child failure.
+                    pins[str(generated)] = sha(generated)
+                    record['generatedSHA256'] = pins[str(generated)]
                 if result['exit'] != 0 or result['failure'] is not None:
                     raise ValueError('Owned child failed: ' + label)
-                if label in ('emit', 'build'):
-                    if str(artifact) not in pins:
+                if label == 'emit':
+                    if str(generated) not in pins:
                         raise ValueError('Emit did not produce a regular non-symlink artifact')
                 else:
                     if result['stderr']:
@@ -185,6 +166,13 @@ def run(plan_path, expected_sha):
                     if hashlib.sha256(expected_bytes).hexdigest() != plan['expectedSHA256']:
                         raise ValueError('Whole oracle changed')
                     parser.BASE.strict_equal(actual, json.loads(expected_bytes))
+                    if plan['kind'] == 'mutant':
+                        try:
+                            parser.BASE.strict_equal(actual, json.loads((Path(plan['oracle']).parent / 'expected.json').read_text()))
+                        except ValueError:
+                            record['unchangedBaselineRejected'] = True
+                        else:
+                            raise ValueError('Reached mutant did not reject unchanged whole baseline')
                     record['wholeOracleSHA256'] = plan['expectedSHA256']
         record['status'] = 'DEVELOPMENT_PASS'
 
@@ -195,7 +183,7 @@ def main():
     preparation = sub.add_parser('prepare')
     preparation.add_argument('output')
     preparation.add_argument('oracle_directory')
-    preparation.add_argument('kind', choices=('main', 'resource'))
+    preparation.add_argument('kind', choices=('normal', 'mutant'))
     execution = sub.add_parser('run')
     execution.add_argument('plan')
     execution.add_argument('admitted_sha256')

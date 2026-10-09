@@ -18,13 +18,23 @@ class Boundary(unittest.TestCase):
     target=Path(p['generated'] if label=='emit' else p['native']);target.write_bytes(b'partial '+label.encode())
     return {'exit':1 if label==failed else 0,'failure':'controlled' if label==failed else None,'stdout':b'raw stdout','stderr':b'raw stderr'}
    real=N.load
-   def load(name,path):return SimpleNamespace(execute_result=execute) if name=='task_runner' else real(name,path)
+   def load(name,path):return SimpleNamespace(execute_result=execute,Inputs=real(name,path).Inputs) if name=='task_runner' else real(name,path)
    with patch.object(N,'load',load):
     with self.assertRaisesRegex(ValueError,'Owned child failed: '+failed):N.run(plan,N.sha(plan))
    receipt=json.loads((out/'receipt.json').read_text());self.assertEqual(calls,['emit'] if failed=='emit' else ['emit','build']);self.assertEqual(receipt['commands'][-1]['failure'],'controlled');self.assertNotEqual(receipt.get('status'),'DEVELOPMENT_PASS')
    artifact=Path(p['generated'] if failed=='emit' else p['native'])
    for label in (failed+'-post','final'):
     guard=json.loads((out/(label+'.guard.json')).read_text());self.assertTrue(guard['unchanged']);self.assertEqual(guard['actualPins'][str(artifact)],N.sha(artifact))
+ def test_membership_drift_refused_before_child_with_final_receipt(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   out=Path(tmp)/'cohort';N.prepare(out,ORACLE,'resource');plan=out/'plan.json';p=json.loads(plan.read_text());root=Path(tmp)/'resources';root.mkdir();(root/'seed').write_bytes(b'seed')
+   runner=N.load('task_runner',N.ROOT/'scripts/task_runner.py');p['resourceRoots']=[str(root)];p['resourceInventory']=runner.Inputs(directories=[root]).expected;plan.write_text(json.dumps(p));(root/'unexpected').write_bytes(b'new member');calls=[]
+   def execute(*args):calls.append(args);raise AssertionError('Child must not run')
+   real=N.load
+   def load(name,path):return SimpleNamespace(execute_result=execute,Inputs=runner.Inputs) if name=='task_runner' else real(name,path)
+   with patch.object(N,'load',load):
+    with self.assertRaises(Exception):N.run(plan,N.sha(plan))
+   self.assertEqual(calls,[]);receipt=json.loads((out/'receipt.json').read_text());self.assertNotEqual(receipt.get('status'),'DEVELOPMENT_PASS');final=json.loads((out/'final.guard.json').read_text());self.assertFalse(final['unchanged']);self.assertNotEqual(final['actualResources'],p['resourceInventory'])
  def test_failed_emit_partial_c_guarded(self):self.partial('emit')
  def test_failed_build_partial_native_guarded(self):self.partial('build')
 # Reuse the existing regular/raw/interpreter controls against this exact helper.
