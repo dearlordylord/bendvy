@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/bendvy.svg" alt="Bendvy logo" width="120">
+</p>
+
 # Bendvy
 
 A Bevy-style ECS built for [Bend 2](https://github.com/bendlang/bend), including its type system, affine ownership and JS/native runtimes. Still a work in progress; the API is evolving.
