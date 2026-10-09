@@ -1,0 +1,186 @@
+{
+  "success": {
+    "Success": {
+      "world": {
+        "namespace": 2,
+        "nextId": 1,
+        "highWater": 0,
+        "live": [
+          false
+        ],
+        "capacity": 1,
+        "depth": {
+          "nat": 0
+        },
+        "store": [
+          31,
+          32
+        ],
+        "resources": [
+          true,
+          false
+        ],
+        "events": [],
+        "pending": {
+          "nat": 0
+        },
+        "registrations": [
+          {
+            "id": 1,
+            "name": "second",
+            "access": [
+              "second-events"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 0
+      },
+      "events": {
+        "namespace": 2,
+        "batches": [],
+        "positions": [
+          {
+            "id": 1,
+            "cursor": {
+              "nat": 1
+            },
+            "registeredAt": {
+              "nat": 0
+            }
+          }
+        ],
+        "nextReader": 2,
+        "tick": {
+          "nat": 1
+        },
+        "frameStart": {
+          "nat": 0
+        },
+        "boundary": {
+          "nat": 0
+        },
+        "capacity": {
+          "nat": 8
+        },
+        "dropped": {
+          "nat": 0
+        },
+        "values": []
+      },
+      "owner": {
+        "slot": "second-slot",
+        "clauses": [
+          {
+            "name": "second-events",
+            "mode": {
+              "Read": {}
+            }
+          }
+        ],
+        "readerNamespace": 2,
+        "readerId": 1,
+        "expectedRegistry": 1,
+        "registryNamespace": 2,
+        "registryId": 1,
+        "name": "second",
+        "access": [
+          "second-events"
+        ],
+        "cursor": 0
+      },
+      "outputs": [
+        [
+          71,
+          72
+        ]
+      ]
+    }
+  },
+  "refused": {
+    "Refused": {
+      "world": {
+        "namespace": 2,
+        "nextId": 1,
+        "highWater": 0,
+        "live": [
+          false
+        ],
+        "capacity": 1,
+        "depth": {
+          "nat": 0
+        },
+        "store": [
+          31,
+          32
+        ],
+        "resources": [
+          true,
+          false
+        ],
+        "events": [],
+        "pending": {
+          "nat": 0
+        },
+        "registrations": [
+          {
+            "id": 1,
+            "name": "second",
+            "access": [
+              "second-events"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 0
+      },
+      "events": {
+        "namespace": 2,
+        "batches": [],
+        "positions": [],
+        "nextReader": 2,
+        "tick": {
+          "nat": 0
+        },
+        "frameStart": {
+          "nat": 0
+        },
+        "boundary": {
+          "nat": 0
+        },
+        "capacity": {
+          "nat": 8
+        },
+        "dropped": {
+          "nat": 0
+        },
+        "values": []
+      },
+      "owner": {
+        "slot": "second-slot",
+        "clauses": [
+          {
+            "name": "second-events",
+            "mode": {
+              "Read": {}
+            }
+          }
+        ],
+        "readerNamespace": 999,
+        "readerId": 1,
+        "expectedRegistry": 1,
+        "registryNamespace": 2,
+        "registryId": 1,
+        "name": "second",
+        "access": [
+          "second-events"
+        ],
+        "cursor": 0
+      },
+      "args": [
+        71,
+        72
+      ]
+    }
+  }
+}
