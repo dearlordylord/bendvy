@@ -1,0 +1,955 @@
+--- /dev/null
++++ b/src/ecs/ordinary-query-declaration.bend
+@@ -0,0 +1,95 @@
++import Base
++import ./column.bend as Col
++import ./component.bend as Cmp
++import ./persistence-declaration.bend as Recipe
++import ./ordinary-declaration.bend as Identity
++import ./declared-family.bend as Family
++import ./snapshot-leaf.bend as Leaf
++import ./decode-data.bend as D
++import ./compose.bend as Q
++import ./capabilities.bend as Cap
++import ./world.bend as W
++
++# One constructor owns both operational grant/matcher and detached syntax.
++# Metadata is library-produced; the application supplies no metadata argument.
++type Mode is Data:
++  Read{}
++  Write{}
++  Optional{}
++  With{}
++  Without{}
++  Added{}
++  Changed{}
++type Clause<S:Data> is Data:
++  Clause{name:String,mode:Mode}
++type Declaration<-S:Data,H:Type,G:Type> is Type:
++  Declaration{grant:G,select:H -> H & Bool,clauses:List<&2,Clause<S>>}
++def observe(~S:Data,~H:Type,~G:Type,declaration:Declaration<S,H,G>) -> Declaration<S,H,G> & List<&2,Clause<S>>:
++  match declaration:
++    case Declaration{grant,select,+clauses}:(Declaration{grant,select,clauses},clauses)
++def grant(~S:Data,~H:Type,~G:Type,declaration:Declaration<S,H,G>) -> G:
++  match declaration:
++    case Declaration{grant,_,_}:grant
++
++def constructed_read(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Leaf.Component<S,P,identity,save>,~put:Rest -> Leaf.Component<S,P,identity,save> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Cap.Read<Q.Frame<S,Store,R,E>,V>>:
++  Declaration{Q.read_family(~S,~Store,~R,~E,~(Rest & Recipe.Constructed<S,P,identity,save>),~P,~V,~Token,~Family.take_column(~S,~P,~Store,~Rest,~identity,~save,~take),~Family.put_column(~S,~P,~Store,~Rest,~identity,~save,~put),~view,~Family.family(~S,~P,~Store,~Rest,~V,~Token,~identity,~save,~view,~take,~put)),Q.family_match(~S,~Store,~R,~E,~(Rest & Recipe.Constructed<S,P,identity,save>),~P,~V,~Token,~Family.take_column(~S,~P,~Store,~Rest,~identity,~save,~take),~Family.put_column(~S,~P,~Store,~Rest,~identity,~save,~put),~view,~Family.family(~S,~P,~Store,~Rest,~V,~Token,~identity,~save,~view,~take,~put),~Q.Required{}),[Clause{Identity.key(~S,~P,identity),Read{}}]}
++
++def constructed_write(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Leaf.Component<S,P,identity,save>,~put:Rest -> Leaf.Component<S,P,identity,save> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Cap.Write<Q.Frame<S,Store,R,E>,P,V>>:
++  Declaration{Q.write_family(~S,~Store,~R,~E,~(Rest & Recipe.Constructed<S,P,identity,save>),~P,~V,~Token,~Family.take_column(~S,~P,~Store,~Rest,~identity,~save,~take),~Family.put_column(~S,~P,~Store,~Rest,~identity,~save,~put),~view,~Family.family(~S,~P,~Store,~Rest,~V,~Token,~identity,~save,~view,~take,~put)),Q.family_match(~S,~Store,~R,~E,~(Rest & Recipe.Constructed<S,P,identity,save>),~P,~V,~Token,~Family.take_column(~S,~P,~Store,~Rest,~identity,~save,~take),~Family.put_column(~S,~P,~Store,~Rest,~identity,~save,~put),~view,~Family.family(~S,~P,~Store,~Rest,~V,~Token,~identity,~save,~view,~take,~put),~Q.Required{}),[Clause{Identity.key(~S,~P,identity),Write{}}]}
++
++def constructed_optional(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Leaf.Component<S,P,identity,save>,~put:Rest -> Leaf.Component<S,P,identity,save> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Cap.Read<Q.Frame<S,Store,R,E>,V>>:
++  Declaration{Q.read_family(~S,~Store,~R,~E,~(Rest & Recipe.Constructed<S,P,identity,save>),~P,~V,~Token,~Family.take_column(~S,~P,~Store,~Rest,~identity,~save,~take),~Family.put_column(~S,~P,~Store,~Rest,~identity,~save,~put),~view,~Family.family(~S,~P,~Store,~Rest,~V,~Token,~identity,~save,~view,~take,~put)),Q.family_match(~S,~Store,~R,~E,~(Rest & Recipe.Constructed<S,P,identity,save>),~P,~V,~Token,~Family.take_column(~S,~P,~Store,~Rest,~identity,~save,~take),~Family.put_column(~S,~P,~Store,~Rest,~identity,~save,~put),~view,~Family.family(~S,~P,~Store,~Rest,~V,~Token,~identity,~save,~view,~take,~put),~Q.Optional{}),[Clause{Identity.key(~S,~P,identity),Optional{}}]}
++
++def constructed_with_component(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Leaf.Component<S,P,identity,save>,~put:Rest -> Leaf.Component<S,P,identity,save> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Unit>:
++  Declaration{Unit{},Q.family_match(~S,~Store,~R,~E,~(Rest & Recipe.Constructed<S,P,identity,save>),~P,~V,~Token,~Family.take_column(~S,~P,~Store,~Rest,~identity,~save,~take),~Family.put_column(~S,~P,~Store,~Rest,~identity,~save,~put),~view,~Family.family(~S,~P,~Store,~Rest,~V,~Token,~identity,~save,~view,~take,~put),~Q.Required{}),[Clause{Identity.key(~S,~P,identity),With{}}]}
++
++def constructed_without_component(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Leaf.Component<S,P,identity,save>,~put:Rest -> Leaf.Component<S,P,identity,save> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Unit>:
++  Declaration{Unit{},Q.family_match(~S,~Store,~R,~E,~(Rest & Recipe.Constructed<S,P,identity,save>),~P,~V,~Token,~Family.take_column(~S,~P,~Store,~Rest,~identity,~save,~take),~Family.put_column(~S,~P,~Store,~Rest,~identity,~save,~put),~view,~Family.family(~S,~P,~Store,~Rest,~V,~Token,~identity,~save,~view,~take,~put),~Q.Absent{}),[Clause{Identity.key(~S,~P,identity),Without{}}]}
++
++def constructed_added(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Leaf.Component<S,P,identity,save>,~put:Rest -> Leaf.Component<S,P,identity,save> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Unit>:
++  Declaration{Unit{},Q.lifecycle_match(~S,~Store,~R,~E,~(Rest & Recipe.Constructed<S,P,identity,save>),~P,~V,~Token,~Family.take_column(~S,~P,~Store,~Rest,~identity,~save,~take),~Family.put_column(~S,~P,~Store,~Rest,~identity,~save,~put),~view,~Family.family(~S,~P,~Store,~Rest,~V,~Token,~identity,~save,~view,~take,~put),~Q.Added{}),[Clause{Identity.key(~S,~P,identity),Added{}}]}
++
++def constructed_changed(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Leaf.Component<S,P,identity,save>,~put:Rest -> Leaf.Component<S,P,identity,save> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Unit>:
++  Declaration{Unit{},Q.lifecycle_match(~S,~Store,~R,~E,~(Rest & Recipe.Constructed<S,P,identity,save>),~P,~V,~Token,~Family.take_column(~S,~P,~Store,~Rest,~identity,~save,~take),~Family.put_column(~S,~P,~Store,~Rest,~identity,~save,~put),~view,~Family.family(~S,~P,~Store,~Rest,~V,~Token,~identity,~save,~view,~take,~put),~Q.Changed{}),[Clause{Identity.key(~S,~P,identity),Changed{}}]}
++
++def execute_read(~S:Data,~H:Type,~V:Data,~declaration:Declaration<S,H,Cap.Read<H,V>>,owner:H) -> H & Cmp.Access<V>:
++  Cap.read(~H,~V,~grant(~S,~H,~Cap.Read<H,V>,declaration),owner)
++
++def selector(~S:Data,~H:Type,~G:Type,declaration:Declaration<S,H,G>) -> H -> H & Bool:
++  match declaration:
++    case Declaration{_,select,_}:select
++def clauses(~S:Data,~H:Type,~G:Type,declaration:Declaration<S,H,G>) -> List<&2,Clause<S>>:
++  match declaration:
++    case Declaration{_,_,clauses}:clauses
++def selected_right(~H:Type,selected:Bool,observed:H & Bool) -> H & Bool:
++  match observed:
++    case (owner,right):(owner,Bool.and(selected,right))
++def selected_left(~H:Type,~right:H -> H & Bool,observed:H & Bool) -> H & Bool:
++  match observed:
++    case (owner,False{}):(owner,False{})
++    case (owner,True{}):right(owner)
++def both(~H:Type,~left:H -> H & Bool,~right:H -> H & Bool,owner:H) -> H & Bool:
++  selected_left(~H,~right,left(owner))
++def pair(~S:Data,~H:Type,~L:Type,~R:Type,~left:Declaration<S,H,L>,~right:Declaration<S,H,R>) -> Declaration<S,H,L & R>:
++  Declaration{(grant(~S,~H,~L,left),grant(~S,~H,~R,right)),both(~H,~selector(~S,~H,~L,left),~selector(~S,~H,~R,right)),List.append(&2,Clause<S>,clauses(~S,~H,~L,left),clauses(~S,~H,~R,right))}
++
++def read(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Cap.Read<Q.Frame<S,Store,R,E>,V>>:
++  Declaration{Q.read_family(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)}),Q.family_match(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)},~Q.Required{}),[Clause{Identity.key(~S,~P,identity),Read{}}]}
++
++def write(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Cap.Write<Q.Frame<S,Store,R,E>,P,V>>:
++  Declaration{Q.write_family(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)}),Q.family_match(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)},~Q.Required{}),[Clause{Identity.key(~S,~P,identity),Write{}}]}
++
++def optional(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Cap.Read<Q.Frame<S,Store,R,E>,V>>:
++  Declaration{Q.read_family(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)}),Q.family_match(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)},~Q.Optional{}),[Clause{Identity.key(~S,~P,identity),Optional{}}]}
++
++def with_component(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Unit>:
++  Declaration{Unit{},Q.family_match(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)},~Q.Present{}),[Clause{Identity.key(~S,~P,identity),With{}}]}
++
++def without_component(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Unit>:
++  Declaration{Unit{},Q.family_match(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)},~Q.Absent{}),[Clause{Identity.key(~S,~P,identity),Without{}}]}
++
++def added(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Unit>:
++  Declaration{Unit{},Q.lifecycle_match(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)},~Q.Added{}),[Clause{Identity.key(~S,~P,identity),Added{}}]}
++
++def changed(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Unit>:
++  Declaration{Unit{},Q.lifecycle_match(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)},~Q.Changed{}),[Clause{Identity.key(~S,~P,identity),Changed{}}]}
+--- /dev/null
++++ b/src/ecs/declared-family.bend
+@@ -0,0 +1,24 @@
++import Base
++import ./ordinary-declaration.bend as Identity
++import ./persistence-declaration.bend as Decl
++import ./snapshot-leaf.bend as Leaf
++import ./decode-data.bend as D
++import ./component.bend as Cmp
++import ./column.bend as Col
++import ./schema-fragments.bend as SF
++
++# Closed trusted schema lenses, as in existing component.Family. The retained
++# recipe becomes part of Family's Rest and survives ordinary column operations.
++def split(~S:Data,~P:Type,~Rest:Type,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,observed:Rest & Leaf.Component<S,P,identity,save>) -> (Rest & Decl.Constructed<S,P,identity,save>) & Col.Column<S,P>:
++  match observed:
++    case (rest,Leaf.Component{column,declaration}):((rest,declaration),column)
++def take_column(~S:Data,~P:Type,~Store:Type,~Rest:Type,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~take:Store -> Rest & Leaf.Component<S,P,identity,save>,owner:Store) -> (Rest & Decl.Constructed<S,P,identity,save>) & Col.Column<S,P>:
++  split(~S,~P,~Rest,~identity,~save,take(owner))
++def put_column(~S:Data,~P:Type,~Store:Type,~Rest:Type,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~put:Rest -> Leaf.Component<S,P,identity,save> -> Store,rest:Rest & Decl.Constructed<S,P,identity,save>,column:Col.Column<S,P>) -> Store:
++  match rest:
++    case (rest,declaration):put(rest,Leaf.Component{column,declaration})
++def family(~S:Data,~P:Type,~Store:Type,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~save:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Leaf.Component<S,P,identity,save>,~put:Rest -> Leaf.Component<S,P,identity,save> -> Store) -> Cmp.Family<S,Store,Rest & Decl.Constructed<S,P,identity,save>,P,V,Token,take_column(~S,~P,~Store,~Rest,~identity,~save,~take),put_column(~S,~P,~Store,~Rest,~identity,~save,~put),view>:
++  Cmp.Family{Identity.key(~S,~P,identity)}
++def descriptor(~S:Data,~P:Type,~Token:Data,~identity:Identity.Declaration<S,P>) -> SF.Descriptor<S,Token,P>:
++  +key=Identity.key(~S,~P,identity)
++  SF.Descriptor{SF.Component{},key,key}
+--- /dev/null
++++ b/src/ecs/decode-capabilities.bend
+@@ -0,0 +1,22 @@
++import Base
++import ./decode-data.bend as D
++import ./capabilities.bend as Cap
++import ./schema-fragments.bend as SF
++# Generic admission provider. Only the trusted schema author closes decoder,
++# owner lens and admitted/refused transition; gameplay is universal in H.
++# No callback truthfulness or universal Raw->Output inverse is asserted.
++def apply(-H:Type,-Raw:Type,-Observation:Data,cap:Cap.Request<H,Raw,Observation>,raw:Raw,ctx:H) -> H & Observation:
++  match cap:
++    case Cap.Request{run}: run(ctx,raw)
++def provide(~Raw:Type,~Owners:Type,~Observation:Data,~request:Owners -> Raw -> Owners & Observation,~body:@-H:Type -> Cap.Request<H,Raw,Observation> -> Raw -> H -> H & Observation,ctx:Owners,raw:Raw) -> Owners & Observation:
++  body(Owners,Cap.Request{request},raw,ctx)
++def decoded(~Raw:Type,~Owners:Type,~Observation:Data,~admit:Owners -> D.Receipt<Raw> -> Owners & Observation,value:Owners & D.Receipt<Raw>) -> Owners & Observation:
++  match value:
++    case (owners,receipt): admit(owners,receipt)
++def request(~Raw:Type,~Owners:Type,~Observation:Data,~decode:Owners -> Raw -> Owners & D.Receipt<Raw>,~admit:Owners -> D.Receipt<Raw> -> Owners & Observation,owners:Owners,raw:Raw) -> Owners & Observation:
++  decoded(~Raw,~Owners,~Observation,~admit,decode(owners,raw))
++def constructed(~Raw:Type,~Owners:Type,~Observation:Data,~decode:Owners -> Raw -> Owners & D.Receipt<Raw>,~admit:Owners -> D.Receipt<Raw> -> Owners & Observation,~body:@-H:Type -> Cap.Request<H,Raw,Observation> -> Raw -> H -> H & Observation,owners:Owners,raw:Raw) -> Owners & Observation:
++  provide(~Raw,~Owners,~Observation,~request(~Raw,~Owners,~Observation,~decode,~admit),~body,owners,raw)
++# Complete availability is checked before registering or running any callback.
++def provision_declared(~S:Data,~Owners:Type,~Output:Type,~launch:Owners -> Output,fragment:SF.Fragment<S,Owners>,required:List<&2,SF.Entry<S>>) -> SF.Bound<S,Owners,Output>:
++  SF.bind_declared(~S,~Owners,~Output,~launch,fragment,required)
+--- /dev/null
++++ b/src/ecs/decode-data.bend
+@@ -0,0 +1,212 @@
++import Base
++import ./decode-utf16.bend as Utf16
++# Raw is a typed Data description. Arbitrary affine payload ownership is a
++# separate explicit receipt; this validator never invents an inverse Raw -> C.
++type Raw is Data:
++  Missing{}
++  Null{}
++  Number{value:U32}
++  SignedInteger{negative:Bool,magnitude:Nat}
++  Float{value:F32}
++  Binary64{high:U32,low:U32}
++  Text{value:String}
++  Utf16Text{units:List<&2,U32>}
++  Boolean{value:Bool}
++  Handle{namespace:U32,id:U32}
++  Array{items:List<&2,Raw>}
++  Object{fields:List<&2,Field>}
++type Field is Data:
++  Field{name:String,value:Raw}
++type Codec is Data:
++  FiniteNumber{}
++  Integer{}
++  StringValue{}
++  BoolValue{}
++  Literal{value:Raw}
++  LiteralValues{values:List<&2,Raw>}
++  LiteralRendered{values:List<&2,Raw>,expected:String}
++  Nullable{inner:Codec}
++  ArrayValue{inner:Codec}
++  Struct{fields:List<&2,NamedCodec>}
++  HandleValue{namespace:U32}
++type NamedCodec is Data:
++  NamedCodec{name:String,codec:Codec}
++type Error is Data:
++  Invalid{path:String,expected:String,actual:Raw}
++  FuelExhausted{path:String}
++type Checked is Data:
++  Accepted{value:Raw}
++  Rejected{error:Error}
++type Owned<Owner:Type> is Type:
++  Owned{owner:Owner,description:Raw}
++type Receipt<Owner:Type> is Type:
++  Receipt{owner:Owner,checked:Checked}
++def field_choose(equal:Bool,value:Raw,next:Unit -> Raw) -> Raw:
++  match equal:
++    case True{}: value
++    case False{}: next(Unit{})
++def field(+name:String,fields:List<&2,Field>) -> Raw:
++  match fields:
++    case []: Missing{}
++    case Field{key,value} <> rest: field_choose(String.eq(name,key),value,_ => field(name,rest))
++type Work is Data:
++  Work{codec:Codec,raw:Raw,path:String}
++type Step is Data:
++  Continue{work:List<&2,Work>}
++  Stop{error:Error}
++# Exact SameValueZero numeric equality uses a 53-bit mantissa pair, avoiding
++# impossible runtime Nat immediates above Bend's 2^48-1 emitter limit.
++type Numeric is Data:
++  Finite{negative:Bool,high:U32,low:U32,exponent:U32}
++  Infinity{negative:Bool}
++  NotNumber{}
++  NaN{}
++def normalize_checked(fuel:Nat,+negative:Bool,+high:U32,+low:U32,+exponent:U32,zero:Bool,even:Bool) -> Numeric:
++  match fuel zero even:
++    case _ True{} _: Finite{False{},0,0,0}
++    case _ False{} False{}: Finite{negative,high,low,exponent}
++    case 0n False{} True{}: Finite{negative,high,low,exponent}
++    case 1n+more False{} True{}: normalize_checked(more,negative,U32.div(high,2),U32.add(U32.div(low,2),U32.mul(U32.mod(high,2),2147483648)),U32.add(exponent,1),False{},U32.is_eq(U32.mod(U32.div(low,2),2),0))
++def normalize(fuel:Nat,+negative:Bool,+high:U32,+low:U32,+exponent:U32) -> Numeric:
++  normalize_checked(fuel,negative,high,low,exponent,U32.is_eq(high,0) && U32.is_eq(low,0),U32.is_eq(U32.mod(low,2),0))
++def numeric_special(negative:Bool,infinite:Bool) -> Numeric:
++  match infinite:
++    case True{}: Infinity{negative}
++    case False{}: NaN{}
++def float_parts(+bits:U32,+exponent:U32,+fraction:U32,special:Bool,zero:Bool) -> Numeric:
++  match special zero:
++    case True{} _: numeric_special(U32.is_ge(bits,2147483648),U32.is_eq(fraction,0))
++    case False{} True{}: normalize(64n,U32.is_ge(bits,2147483648),0,fraction,925)
++    case False{} False{}: normalize(64n,U32.is_ge(bits,2147483648),0,U32.add(fraction,8388608),U32.add(exponent,924))
++def float_numeric(+bits:U32) -> Numeric:
++  float_parts(bits,U32.mod(U32.div(bits,8388608),256),U32.mod(bits,8388608),U32.is_eq(U32.mod(U32.div(bits,8388608),256),255),U32.is_eq(U32.mod(U32.div(bits,8388608),256),0))
++def binary_parts(+negative:Bool,+exponent:U32,+high:U32,+low:U32,special:Bool,zero:Bool) -> Numeric:
++  match special zero:
++    case True{} _: numeric_special(negative,U32.is_eq(high,0) && U32.is_eq(low,0))
++    case False{} True{}: normalize(64n,negative,high,low,0)
++    case False{} False{}: normalize(64n,negative,U32.add(high,1048576),low,U32.sub(exponent,1))
++def binary_numeric(+high:U32,+low:U32) -> Numeric:
++  binary_parts(U32.is_ge(high,2147483648),U32.mod(U32.div(high,1048576),2048),U32.mod(high,1048576),low,U32.is_eq(U32.mod(U32.div(high,1048576),2048),2047),U32.is_eq(U32.mod(U32.div(high,1048576),2048),0))
++def numeric(raw:Raw) -> Numeric:
++  match raw:
++    case Number{value}: normalize(64n,False{},0,value,1074)
++    case SignedInteger{negative,+value}: normalize(64n,negative,U32.from_nat(Nat.div(value,Nat.mul(65536n,65536n))),U32.from_nat(Nat.mod(value,Nat.mul(65536n,65536n))),1074)
++    case Float{value}: float_numeric(F32.bits(value))
++    case Binary64{high,low}: binary_numeric(high,low)
++    case _: NotNumber{}
++def same_bool(a:Bool,b:Bool) -> Bool:
++  match a b:
++    case True{} True{}: True{}
++    case False{} False{}: True{}
++    case _ _: False{}
++def same_numeric(a:Numeric,b:Numeric) -> Bool:
++  match a b:
++    case Finite{an,ah,al,ae} Finite{bn,bh,bl,be}: same_bool(an,bn) && U32.is_eq(ah,bh) && U32.is_eq(al,bl) && U32.is_eq(ae,be)
++    case Infinity{a} Infinity{b}: same_bool(a,b)
++    case NaN{} NaN{}: True{}
++    case _ _: False{}
++def equal(+a:Raw,+b:Raw) -> Bool:
++  match a b:
++    case Null{} Null{}: True{}
++    case Text{a} Text{b}: String.eq(a,b)
++    case Utf16Text{a} Utf16Text{b}: Utf16.checked(a,b)
++    case Utf16Text{a} Text{b}: Utf16.checked(a,Utf16.text(b))
++    case Text{a} Utf16Text{b}: Utf16.checked(Utf16.text(a),b)
++    case Boolean{a} Boolean{b}: same_bool(a,b)
++    case _ _: same_numeric(numeric(a),numeric(b))
++def alternatives(values:List<&2,Raw>,+raw:Raw) -> Bool:
++  match values:
++    case []: False{}
++    case value <> tail: equal(value,raw) || alternatives(tail,raw)
++def choose_checked(valid:Bool,+path:String,+expected:String,raw:Raw,rest:List<&2,Work>) -> Step:
++  match valid:
++    case True{}: Continue{rest}
++    case False{}: Stop{Invalid{path,expected,raw}}
++def array_work(+codec:Codec,items:List<&2,Raw>,+path:String,+index:U32,rest:List<&2,Work>) -> List<&2,Work>:
++  match items:
++    case []: rest
++    case value <> tail: Work{codec,value,path ++ "[" ++ U32.show(index) ++ "]"} <> array_work(codec,tail,path,U32.add(index,1),rest)
++def struct_work(fields:List<&2,NamedCodec>,+values:List<&2,Field>,+path:String,rest:List<&2,Work>) -> List<&2,Work>:
++  match fields:
++    case []: rest
++    case NamedCodec{+name,codec} <> tail: Work{codec,field(name,values),path ++ "." ++ name} <> struct_work(tail,values,path,rest)
++def binary64_exponent(high:U32) -> U32:
++  U32.mod(U32.div(high,1048576),2048)
++def binary_integer_normal(result:Numeric) -> Bool:
++  match result:
++    case Finite{_,high,low,+exponent}: (U32.is_eq(high,0) && U32.is_eq(low,0)) || (U32.is_ge(exponent,1074) && U32.is_le(exponent,1126))
++    case _: False{}
++def binary_integer_checked(result:Numeric,small:Bool) -> Bool:
++  small && binary_integer_normal(result)
++def binary_integer(+high:U32,+low:U32) -> Bool:
++  binary_integer_checked(binary_numeric(high,low),U32.is_lt(binary64_exponent(high),1076))
++def expand(codec:Codec,+raw:Raw,+path:String,rest:List<&2,Work>) -> Step:
++  match codec raw:
++    case Integer{} Number{_}: Continue{rest}
++    case Integer{} SignedInteger{_,magnitude}: choose_checked(Nat.is_lt(Nat.div(magnitude,Nat.mul(65536n,65536n)),2097152n),path,"integer",raw,rest)
++    case Integer{} Float{+value}: choose_checked(F32.is_eq(F32.floor(value),value) && F32.is_lt(F32.abs(value),9007199254740992.0),path,"integer",raw,rest)
++    case Integer{} Binary64{high,low}: choose_checked(binary_integer(high,low),path,"integer",raw,rest)
++    case FiniteNumber{} Number{_}: Continue{rest}
++    case FiniteNumber{} SignedInteger{_,_}: Continue{rest}
++    case FiniteNumber{} Float{value}: choose_checked(F32.is_le(F32.abs(value),3.4028234e38),path,"finite number",raw,rest)
++    case FiniteNumber{} Binary64{high,_}: choose_checked(U32.is_lt(binary64_exponent(high),2047),path,"finite number",raw,rest)
++    case StringValue{} Text{_}: Continue{rest}
++    case StringValue{} Utf16Text{units}: choose_checked(Utf16.valid(units),path,"string",raw,rest)
++    case BoolValue{} Boolean{_}: Continue{rest}
++    case Literal{value} _: choose_checked(equal(value,raw),path,"literal",raw,rest)
++    case LiteralValues{values} _: choose_checked(alternatives(values,raw),path,"literal",raw,rest)
++    case LiteralRendered{values,expected} _: choose_checked(alternatives(values,raw),path,expected,raw,rest)
++    case Nullable{_} Null{}: Continue{rest}
++    case Nullable{inner} _: Continue{Work{inner,raw,path} <> rest}
++    case ArrayValue{inner} Array{items}: Continue{array_work(inner,items,path,0,rest)}
++    case Struct{fields} Object{values}: Continue{struct_work(fields,values,path,rest)}
++    case HandleValue{ns} Handle{actual,id}: choose_checked(U32.is_eq(ns,actual) && U32.is_gt(id,0),path,"same-world handle",raw,rest)
++    case Integer{} _: Stop{Invalid{path,"integer",raw}}
++    case FiniteNumber{} _: Stop{Invalid{path,"finite number",raw}}
++    case StringValue{} _: Stop{Invalid{path,"string",raw}}
++    case BoolValue{} _: Stop{Invalid{path,"boolean",raw}}
++    case ArrayValue{_} _: Stop{Invalid{path,"array",raw}}
++    case Struct{_} _: Stop{Invalid{path,"object",raw}}
++    case HandleValue{_} _: Stop{Invalid{path,"same-world handle",raw}}
++def validate(fuel:Nat,step:Step,+original:Raw) -> Checked:
++  match fuel step:
++    case _ Stop{error}: Rejected{error}
++    case _ Continue{[]}: Accepted{original}
++    case 0n Continue{Work{_,_,path} <> _}: Rejected{FuelExhausted{path}}
++    case 1n+more Continue{Work{codec,raw,path} <> rest}: validate(more,expand(codec,raw,path,rest),original)
++def owned(~Owner:Type,fuel:Nat,codec:Codec,input:Owned<Owner>) -> Receipt<Owner>:
++  match input:
++    case Owned{owner,+description}: Receipt{owner,validate(fuel,Continue{[Work{codec,description,"$"}]},description)}
++
++def associated(~Owner:Type,fuel:Nat,codec:Codec,observed:Owner & Raw) -> Receipt<Owner>:
++  match observed:
++    case (owner,description): owned(~Owner,fuel,codec,Owned{owner,description})
++# The closed schema projection must inspect the actual owner. It returns that
++# owner rather than caller-supplied unrelated metadata. Its semantics are trusted.
++def validate_owner(~Owner:Type,~project:Owner -> Owner & Raw,fuel:Nat,codec:Codec,owner:Owner) -> Receipt<Owner>:
++  associated(~Owner,fuel,codec,project(owner))
++
++def canonical_array_join(head:Raw,tail:Raw) -> Raw:
++  match tail:
++    case Array{values}: Array{head <> values}
++    case other: other
++def canonical_struct_join(name:String,head:Raw,tail:Raw) -> Raw:
++  match tail:
++    case Object{fields}: Object{Field{name,head} <> fields}
++    case other: other
++def canonical(fuel:Nat,codec:Codec,raw:Raw) -> Raw:
++  match fuel codec raw:
++    case 0n _ raw: raw
++    case 1n+more Nullable{inner} Null{}: Null{}
++    case 1n+more Nullable{inner} raw: canonical(more,inner,raw)
++    case 1n+more ArrayValue{_} Array{[]}: Array{[]}
++    case 1n++more ArrayValue{+inner} Array{head <> tail}: canonical_array_join(canonical(more,inner,head),canonical(more,ArrayValue{inner},Array{tail}))
++    case 1n+more Struct{[]} Object{_}: Object{[]}
++    case 1n++more Struct{NamedCodec{+name,codec} <> rest} Object{+values}: canonical_struct_join(name,canonical(more,codec,field(name,values)),canonical(more,Struct{rest},Object{values}))
++    case _ _ raw: raw
++def normalized(~Owner:Type,+fuel:Nat,+codec:Codec,result:Receipt<Owner>) -> Receipt<Owner>:
++  match result:
++    case Receipt{owner,Accepted{value}}: Receipt{owner,Accepted{canonical(fuel,codec,value)}}
++    case Receipt{owner,Rejected{error}}: Receipt{owner,Rejected{error}}
++def decode_owner(~Owner:Type,~project:Owner -> Owner & Raw,+fuel:Nat,+codec:Codec,owner:Owner) -> Receipt<Owner>:
++  normalized(~Owner,fuel,codec,validate_owner(~Owner,~project,fuel,codec,owner))
+--- /dev/null
++++ b/src/ecs/decode-size.bend
+@@ -0,0 +1,21 @@
++import Base
++import ./decode-data.bend as D
++
++def codec_size(codec:D.Codec) -> Nat:
++  match codec:
++    case D.Nullable{inner}: Nat.add(1n,codec_size(inner))
++    case D.ArrayValue{inner}: Nat.add(1n,codec_size(inner))
++    case D.Struct{[]}: 1n
++    case D.Struct{D.NamedCodec{_,child} <> rest}: Nat.add(1n,Nat.add(codec_size(child),codec_size(D.Struct{rest})))
++    case _: 1n
++
++def raw_size(raw:D.Raw) -> Nat:
++  match raw:
++    case D.Array{[]}: 1n
++    case D.Array{head <> rest}: Nat.add(raw_size(head),raw_size(D.Array{rest}))
++    case D.Object{[]}: 1n
++    case D.Object{D.Field{_,child} <> rest}: Nat.add(raw_size(child),raw_size(D.Object{rest}))
++    case _: 1n
++
++def budget(codec:D.Codec,raw:D.Raw) -> Nat:
++  Nat.mul(4n,Nat.mul(codec_size(codec),Nat.add(raw_size(raw),1n)))
+--- /dev/null
++++ b/src/ecs/decode-utf16.bend
+@@ -0,0 +1,31 @@
++import Base
++# JS strings are UTF-16 code-unit sequences, including lone surrogates.
++# Bend String is Unicode-scalar text; no invalid Chr is constructed here.
++def valid(units:List<&2,U32>) -> Bool:
++  match units:
++    case []: True{}
++    case unit <> tail: U32.is_le(unit,65535) && valid(tail)
++def empty(units:List<&2,U32>) -> Bool:
++  match units:
++    case []: True{}
++    case _ <> _: False{}
++def compared(+head:U32,other:List<&2,U32>,next:List<&2,U32> -> Bool) -> Bool:
++  match other:
++    case []: False{}
++    case value <> tail: U32.is_eq(head,value) && next(tail)
++def equal(left:List<&2,U32>,right:List<&2,U32>) -> Bool:
++  match left:
++    case []: empty(right)
++    case head <> tail: compared(head,right,rest => equal(tail,rest))
++def scalar(+code:U32,rest:List<&2,U32>,bmp:Bool) -> List<&2,U32>:
++  match bmp:
++    case True{}: code <> rest
++    case False{}: U32.add(55296,U32.div(U32.sub(code,65536),1024)) <> U32.add(56320,U32.mod(U32.sub(code,65536),1024)) <> rest
++def text(value:String) -> List<&2,U32>:
++  match value:
++    case SNil{}: []
++    case SCon{Chr{+code},tail}: scalar(code,text(tail),U32.is_lt(code,65536))
++def checked(+left:List<&2,U32>,+right:List<&2,U32>) -> Bool:
++  valid(left) && valid(right) && equal(left,right)
++def show(units:List<&2,U32>) -> String:
++  List.show(&2,U32,U32.show,units)
+--- /dev/null
++++ b/src/ecs/decode.bend
+@@ -0,0 +1,14 @@
++import Base
++import ./decode-data.bend as D
++import ./decode-size.bend as Size
++
++# decode_owner uses the one Raw returned by the closed actual-owner projection.
++# decode_budget is a trusted low-level helper taking separate Raw, fuel and owner.
++# decode_owner derives structural fuel and does not invent a Raw-to-Owner inverse.
++def decode_budget(~Owner:Type,+codec:D.Codec,raw:D.Raw,+fuel:Nat,owner:Owner) -> D.Receipt<Owner>:
++  D.normalized(~Owner,fuel,codec,D.owned(~Owner,fuel,codec,D.Owned{owner,raw}))
++def decode_projected(~Owner:Type,+codec:D.Codec,observed:Owner & D.Raw) -> D.Receipt<Owner>:
++  match observed:
++    case (owner,+raw): decode_budget(~Owner,codec,raw,Size.budget(codec,raw),owner)
++def decode_owner(~Owner:Type,~project:Owner -> Owner & D.Raw,codec:D.Codec,owner:Owner) -> D.Receipt<Owner>:
++  decode_projected(~Owner,codec,project(owner))
+--- /dev/null
++++ b/src/ecs/ordinary-declaration.bend
+@@ -0,0 +1,10 @@
++import Base
++# One nominal ordinary schema declaration shared by component grants and gates.
++# No storage/runtime imports and no user debug metadata adapter.
++type Declaration<-S:Data,-P:Type> is Data:
++  Declaration{key:String}
++def component(~S:Data,~P:Type,key:String) -> Declaration<S,P>:
++  Declaration{key}
++def key(~S:Data,~P:Type,declaration:Declaration<S,P>) -> String:
++  match declaration:
++    case Declaration{key}:key
+--- /dev/null
++++ b/src/ecs/persistence-declaration.bend
+@@ -0,0 +1,43 @@
++import Base
++import ./decode-data.bend as D
++import ./decode-capabilities.bend as Public
++import ./decode.bend as Complete
++import ./ordinary-declaration.bend as Canonical
++
++# Extensions of ONE ordinary nominal identity, shared with ordinary query paths.
++# Schema authoring is trusted; no language-wide constructor secrecy is asserted.
++type Plain<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>> is Data:
++  Plain{}
++type Transient<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>> is Data:
++  Transient{}
++type Constructed<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>,-project:P -> P & D.Raw> is Data:
++  Constructed{codec:D.Codec}
++def plain(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>) -> Plain<S,P,identity>:
++  Plain{}
++def transient(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>) -> Transient<S,P,identity>:
++  Transient{}
++def constructed(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,codec:D.Codec) -> Constructed<S,P,identity,project>:
++  Constructed{codec}
++def codec(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Constructed<S,P,identity,project>) -> D.Codec:
++  match declaration:
++    case Constructed{codec}:codec
++
++# The SAME retained declaration supplies complete #46 validation and save codec.
++# Projects once; no caller fuel/depth and no automatic Raw -> arbitrary P inverse.
++def validate(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Constructed<S,P,identity,project>,owner:P) -> D.Receipt<P>:
++  Complete.decode_owner(~P,~project,codec(~S,~P,~identity,~project,declaration),owner)
++def prepare(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,+declaration:Constructed<S,P,identity,project>,owner:P) -> Constructed<S,P,identity,project> & D.Receipt<P>:
++  (declaration,validate(~S,~P,~identity,~project,declaration,owner))
++
++# Actual generic public admission callback retains every incoming affine owner.
++# The retained list is a transport context, never the live ECS Store.
++type Context<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>,-project:P -> P & D.Raw> is Type:
++  Context{declaration:Constructed<S,P,identity,project>,retained:List<P>}
++def decode(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,context:Context<S,P,identity,project>,owner:P) -> Context<S,P,identity,project> & D.Receipt<P>:
++  match context:
++    case Context{+declaration,retained}:(Context{declaration,retained},validate(~S,~P,~identity,~project,declaration,owner))
++def admit(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,context:Context<S,P,identity,project>,receipt:D.Receipt<P>) -> Context<S,P,identity,project> & D.Checked:
++  match context receipt:
++    case Context{declaration,retained} D.Receipt{owner,checked}:(Context{declaration,owner <> retained},checked)
++def request(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,context:Context<S,P,identity,project>,owner:P) -> Context<S,P,identity,project> & D.Checked:
++  Public.request(~P,~Context<S,P,identity,project>,~D.Checked,~decode(~S,~P,~identity,~project),~admit(~S,~P,~identity,~project),context,owner)
+--- /dev/null
++++ b/src/ecs/snapshot-gate.bend
+@@ -0,0 +1,26 @@
++import Base
++import ./ordinary-declaration.bend as C
++import ./decode-data.bend as D
++
++# Trusted schema-author witness, not an unforgeable public constructor.
++# Decoder describes untrusted DATA validation; no implicit Raw -> P inverse.
++type Gate<-S:Data,-P:Type,-declaration:C.Declaration<S,P>> is Type:
++  Transient{}
++  Persisted{codec:D.Codec,project:P -> P & D.Raw}
++type Field is Data:
++  Omitted{name:String}
++  Saved{name:String,value:D.Raw}
++def transient(~S:Data,~P:Type,~declaration:C.Declaration<S,P>) -> Gate<S,P,declaration>:
++  Transient{}
++def persisted(~S:Data,~P:Type,~declaration:C.Declaration<S,P>,codec:D.Codec,project:P -> P & D.Raw) -> Gate<S,P,declaration>:
++  Persisted{codec,project}
++def projected(~P:Type,name:String,observed:P & D.Raw) -> P & Field:
++  match observed:
++    case (owner,value):(owner,Saved{name,value})
++# Static eligibility mirrors TS Gate: export itself does not run its decoder.
++# This low-level operation consumes Gate; snapshot-leaf reconstructs it from
++# the retained ordinary declaration for repeated owner-preserving saves.
++def export_owner(~S:Data,~P:Type,~declaration:C.Declaration<S,P>,gate:Gate<S,P,declaration>,owner:P) -> P & Field:
++  match gate:
++    case Transient{}:(owner,Omitted{C.key(~S,~P,declaration)})
++    case Persisted{_,project}:projected(~P,C.key(~S,~P,declaration),project(owner))
+--- /dev/null
++++ b/src/ecs/snapshot-leaf.bend
+@@ -0,0 +1,46 @@
++import Base
++import ./persistence-declaration.bend as Decl
++import ./snapshot-gate.bend as Gate
++import ./decode-data.bend as D
++import ./column.bend as Col
++import ./ordinary-declaration.bend as Canonical
++
++# Ordinary leaf stores retain the recipe used for admission and export together.
++type Component<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>,-project:P -> P & D.Raw> is Type:
++  Component{column:Col.Column<S,P>,declaration:Decl.Constructed<S,P,identity,project>}
++type TransientComponent<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>> is Type:
++  TransientComponent{column:Col.Column<S,P>,declaration:Decl.Transient<S,P,identity>}
++type Resource<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>,-project:P -> P & D.Raw> is Type:
++  Resource{owner:P,declaration:Decl.Constructed<S,P,identity,project>}
++type TransientResource<-S:Data,-P:Type,-identity:Canonical.Declaration<S,P>> is Type:
++  TransientResource{owner:P,declaration:Decl.Transient<S,P,identity>}
++def factory(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Decl.Constructed<S,P,identity,project>) -> Gate.Gate<S,P,identity>:
++  Gate.persisted(~S,~P,~identity,Decl.codec(~S,~P,~identity,~project,declaration),project)
++def fields(field:Gate.Field) -> List<&2,D.Field>:
++  match field:
++    case Gate.Omitted{_}:[]
++    case Gate.Saved{name,value}:[D.Field{name,value}]
++def component_restored(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Decl.Constructed<S,P,identity,project>,observed:Col.Column<S,P> & Maybe<&2,Gate.Field>) -> Component<S,P,identity,project> & List<&2,D.Field>:
++  match observed:
++    case (column,None{}):(Component{column,declaration},[])
++    case (column,Some{field}):(Component{column,declaration},fields(field))
++def component_taken(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,+id:U32,+declaration:Decl.Constructed<S,P,identity,project>,outcome:Col.SwapOutcome<S,P>) -> Component<S,P,identity,project> & List<&2,D.Field>:
++  match outcome:
++    case Col.Rejected{column,_}:(Component{column,declaration},[])
++    case Col.Accepted{column,None{}}:(Component{column,declaration},[])
++    case Col.Accepted{column,Some{owner}}:component_restored(~S,~P,~identity,~project,declaration,Col.viewed(~S,~P,~Gate.Field,Gate.export_owner(~S,~P,~identity,factory(~S,~P,~identity,~project,declaration),owner),column,id))
++def component_fields_owned(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,+id:U32,value:Component<S,P,identity,project>) -> Component<S,P,identity,project> & List<&2,D.Field>:
++  match value:
++    case Component{column,declaration}:component_taken(~S,~P,~identity,~project,id,declaration,Col.swap(~S,~P,column,id,None{}))
++def component_fields(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,id:U32,value:Component<S,P,identity,project>) -> Component<S,P,identity,project> & List<&2,D.Field>:
++  component_fields_owned(~S,~P,~identity,~project,id,value)
++def transient_component_fields(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,id:U32,value:TransientComponent<S,P,identity>) -> TransientComponent<S,P,identity> & List<&2,D.Field>:
++  (value,[])
++def resource_restored(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Decl.Constructed<S,P,identity,project>,observed:P & Gate.Field) -> Resource<S,P,identity,project> & List<&2,D.Field>:
++  match observed:
++    case (owner,field):(Resource{owner,declaration},fields(field))
++def resource_fields(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,~project:P -> P & D.Raw,value:Resource<S,P,identity,project>) -> Resource<S,P,identity,project> & List<&2,D.Field>:
++  match value:
++    case Resource{owner,+declaration}:resource_restored(~S,~P,~identity,~project,declaration,Gate.export_owner(~S,~P,~identity,factory(~S,~P,~identity,~project,declaration),owner))
++def transient_resource_fields(~S:Data,~P:Type,~identity:Canonical.Declaration<S,P>,value:TransientResource<S,P,identity>) -> TransientResource<S,P,identity> & List<&2,D.Field>:
++  (value,[])
+--- /dev/null
++++ b/src/ecs/decode-declaration.bend
+@@ -0,0 +1,45 @@
++import Base
++import ./decode-frame.bend as F
++import ./decode-owned-component.bend as OwnedWrite
++import ./decode-requests.bend as Request
++import ./world.bend as W
++import ./column.bend as Col
++import ./component.bend as Cmp
++import ./compose.bend as Query
++import ./capabilities.bend as Cap
++import ./bundle-install.bend as Install
++import ./ordinary-declaration.bend as Identity
++import ./decode-data.bend as D
++import ./ordinary-query-declaration.bend as Clause
++
++type Ops<S:Data,P:Type,R:Type,V:Data,-H:Type> is Type:
++  Ops{read:Cap.Read<H,V>,write:Cap.OwnedRequest<H,Query.Insert<S,P>,OwnedWrite.Output<P>>,spawn:Cap.OwnedRequest<H,P,Request.Output<S,P>>,decode:Cap.OwnedRequest<H,Request.Input<S,P>,Request.Output<S,P>>,resource:Cap.OwnedRequest<H,R,Unit>}
++# One ordinary query write clause supplies nominal identity, read provider,
++# membership and metadata. The owned setter uses the identical family/lenses.
++def query(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~Rest:Type,~Token:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~install:W.World<S,Store,R,E> -> W.Handle<S> -> Request.Packet<P> -> Install.Attempt<W.World<S,Store,R,E>,Request.Packet<P>,Q>) -> Clause.Declaration<S,Query.Frame<S,Store,R,E>,Cap.Write<Query.Frame<S,Store,R,E>,P,V>>:
++  Clause.write(~S,~P,~Store,~R,~E,~Rest,~V,~Token,~identity,~view,~take,~put)
++
++def read_grant(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~Rest:Type,~Token:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~install:W.World<S,Store,R,E> -> W.Handle<S> -> Request.Packet<P> -> Install.Attempt<W.World<S,Store,R,E>,Request.Packet<P>,Q>) -> Cap.Read<Query.Frame<S,Store,R,E>,V>:
++  Cap.Read{Cap.write_read_field(~Query.Frame<S,Store,R,E>,~P,~V,Clause.grant(~S,~Query.Frame<S,Store,R,E>,~Cap.Write<Query.Frame<S,Store,R,E>,P,V>,query(~S,~Store,~R,~E,~P,~Q,~V,~Rest,~Token,~identity,~project,~view,~take,~put,~install)))}
++
++def grants(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~Rest:Type,~Token:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~install:W.World<S,Store,R,E> -> W.Handle<S> -> Request.Packet<P> -> Install.Attempt<W.World<S,Store,R,E>,Request.Packet<P>,Q>) -> Ops<S,P,R,V,F.Frame<S,Store,R,E,P,Q,identity,project>>:
++  Ops{F.read_grant(~S,~Store,~R,~E,~P,~Q,~V,~identity,~project,~read_grant(~S,~Store,~R,~E,~P,~Q,~V,~Rest,~Token,~identity,~project,~view,~take,~put,~install)),OwnedWrite.grant(~S,~Store,~R,~E,~P,~Q,~identity,~project,~Rest,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)}),F.spawn_grant(~S,~Store,~R,~E,~P,~Q,~identity,~project,~install),F.request_grant(~S,~Store,~R,~E,~P,~Q,~identity,~project),F.resource_grant(~S,~Store,~R,~E,~P,~Q,~identity,~project)}
++
++def invoke(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~Rest:Type,~Token:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~install:W.World<S,Store,R,E> -> W.Handle<S> -> Request.Packet<P> -> Install.Attempt<W.World<S,Store,R,E>,Request.Packet<P>,Q>,~A:Type,~U:Type,~body:@-H:Type -> @-ops:Ops<S,P,R,V,H> -> A -> H -> H & U,frame:F.Frame<S,Store,R,E,P,Q,identity,project>,args:A) -> F.Frame<S,Store,R,E,P,Q,identity,project> & U:
++  Cap.invoke_owned(~(H => Ops<S,P,R,V,H>),~A,~U,~body,~F.Frame<S,Store,R,E,P,Q,identity,project>,~grants(~S,~Store,~R,~E,~P,~Q,~V,~Rest,~Token,~identity,~project,~view,~take,~put,~install),args,frame)
++
++def access_clauses(~S:Data,values:List<&2,Clause.Clause<S>>) -> List<&2,String>:
++  match values:
++    case []:[]
++    case Clause.Clause{name,_} <> rest:name <> access_clauses(~S,rest)
++
++def access(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~Rest:Type,~Token:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~install:W.World<S,Store,R,E> -> W.Handle<S> -> Request.Packet<P> -> Install.Attempt<W.World<S,Store,R,E>,Request.Packet<P>,Q>,~resource:Identity.Declaration<S,R>) -> List<&2,String>:
++  List.append(&2,String,access_clauses(~S,Clause.clauses(~S,~Query.Frame<S,Store,R,E>,~Cap.Write<Query.Frame<S,Store,R,E>,P,V>,query(~S,~Store,~R,~E,~P,~Q,~V,~Rest,~Token,~identity,~project,~view,~take,~put,~install))),[Identity.key(~S,~R,resource)])
++
++# Read-only assembly grants no owned writer/spawn/resource capability.
++def readonly_query(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~Rest:Type,~Token:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~install:W.World<S,Store,R,E> -> W.Handle<S> -> Request.Packet<P> -> Install.Attempt<W.World<S,Store,R,E>,Request.Packet<P>,Q>) -> Clause.Declaration<S,Query.Frame<S,Store,R,E>,Cap.Read<Query.Frame<S,Store,R,E>,V>>:
++  Clause.read(~S,~P,~Store,~R,~E,~Rest,~V,~Token,~identity,~view,~take,~put)
++def readonly_grant(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~Rest:Type,~Token:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~install:W.World<S,Store,R,E> -> W.Handle<S> -> Request.Packet<P> -> Install.Attempt<W.World<S,Store,R,E>,Request.Packet<P>,Q>) -> Cap.Read<F.Frame<S,Store,R,E,P,Q,identity,project>,V>:
++  F.read_grant(~S,~Store,~R,~E,~P,~Q,~V,~identity,~project,~Clause.grant(~S,~Query.Frame<S,Store,R,E>,~Cap.Read<Query.Frame<S,Store,R,E>,V>,readonly_query(~S,~Store,~R,~E,~P,~Q,~V,~Rest,~Token,~identity,~project,~view,~take,~put,~install)))
++def invoke_readonly(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~Rest:Type,~Token:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~install:W.World<S,Store,R,E> -> W.Handle<S> -> Request.Packet<P> -> Install.Attempt<W.World<S,Store,R,E>,Request.Packet<P>,Q>,~A:Type,~U:Type,~body:@-H:Type -> @-cap:Cap.Read<H,V> -> A -> H -> H & U,frame:F.Frame<S,Store,R,E,P,Q,identity,project>,args:A) -> F.Frame<S,Store,R,E,P,Q,identity,project> & U:
++  Cap.invoke_owned(~(H => Cap.Read<H,V>),~A,~U,~body,~F.Frame<S,Store,R,E,P,Q,identity,project>,~readonly_grant(~S,~Store,~R,~E,~P,~Q,~V,~Rest,~Token,~identity,~project,~view,~take,~put,~install),args,frame)
+--- /dev/null
++++ b/src/ecs/decode-frame.bend
+@@ -0,0 +1,98 @@
++import Base
++import ./decode-requests.bend as Request
++import ./decode-owned-journal.bend as Journal
++import ./decode-immediate.bend as Immediate
++import ./bundle-install.bend as Install
++import ./decode-data.bend as D
++import ./compose.bend as Query
++import ./bundle-batch.bend as Batch
++import ./world.bend as World
++import ./capabilities.bend as Cap
++import ./component.bend as Component
++import ./transaction.bend as T
++import ./resource.bend as Resource
++import ./ordinary-declaration.bend as Identity
++import ./persistence-declaration.bend as Declaration
++
++# Trusted provisioning frame. Gameplay receives only universal H and its grants.
++# Query and decode operate on the same Tx; prepared owners stay in this frame.
++type Frame<S:Data,C:Type,R:Type,E:Data,P:Type,Q:Type,-identity:Identity.Declaration<S,P>,-project:P -> P & D.Raw> is Type:
++  Frame{owner:Request.Owner<S,C,R,E,P,identity,project>,handle:World.Handle<S>,error:Maybe<&2,World.WorldError>,cursor:U32,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>}
++
++def read_join(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Declaration.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Request.Packet<P>>>,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,observed:Query.Frame<S,C,R,E> & Component.Access<V>) -> Frame<S,C,R,E,P,Q,identity,project> & Component.Access<V>:
++  match observed:
++    case (Query.Frame{tx,handle,error,cursor},value):(Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending},value)
++
++def read(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~get:Query.Frame<S,C,R,E> -> Query.Frame<S,C,R,E> & Component.Access<V>,frame:Frame<S,C,R,E,P,Q,identity,project>) -> Frame<S,C,R,E,P,Q,identity,project> & Component.Access<V>:
++  match frame:
++    case Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending}:read_join(~S,~C,~R,~E,~P,~Q,~V,~identity,~project,declaration,prepared,receipts,pending,get(Query.Frame{tx,handle,error,cursor}))
++
++def read_grant(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~grant:Cap.Read<Query.Frame<S,C,R,E>,V>) -> Cap.Read<Frame<S,C,R,E,P,Q,identity,project>,V>:
++  Cap.Read{read(~S,~C,~R,~E,~P,~Q,~V,~identity,~project,~Cap.read_field(~Query.Frame<S,C,R,E>,~V,grant))}
++
++def request_join(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,handle:World.Handle<S>,error:Maybe<&2,World.WorldError>,cursor:U32,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,result:Request.Owner<S,C,R,E,P,identity,project> & Request.Output<S,P>) -> Frame<S,C,R,E,P,Q,identity,project> & Request.Output<S,P>:
++  match result:
++    case (owner,output):(Frame{owner,handle,error,cursor,receipts,pending},output)
++
++def request(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,frame:Frame<S,C,R,E,P,Q,identity,project>,input:Request.Input<S,P>) -> Frame<S,C,R,E,P,Q,identity,project> & Request.Output<S,P>:
++  match frame:
++    case Frame{owner,handle,error,cursor,receipts,pending}:request_join(~S,~C,~R,~E,~P,~Q,~identity,~project,handle,error,cursor,receipts,pending,Request.request(~S,~C,~R,~E,~P,~identity,~project,owner,input))
++
++def request_grant(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw) -> Cap.OwnedRequest<Frame<S,C,R,E,P,Q,identity,project>,Request.Input<S,P>,Request.Output<S,P>>:
++  Cap.OwnedRequest{frame => input => request(~S,~C,~R,~E,~P,~Q,~identity,~project,frame,input)}
++
++def selected_join(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Declaration.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Request.Packet<P>>>,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,observed:Query.Frame<S,C,R,E> & Bool) -> Frame<S,C,R,E,P,Q,identity,project> & Bool:
++  match observed:
++    case (Query.Frame{tx,handle,error,cursor},selected):(Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending},selected)
++
++# Membership is evaluated on the current transaction for every row, never on a
++# separate pre-scan world. The closed selector comes from the query declaration.
++def select(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~selector:Query.Frame<S,C,R,E> -> Query.Frame<S,C,R,E> & Bool,frame:Frame<S,C,R,E,P,Q,identity,project>) -> Frame<S,C,R,E,P,Q,identity,project> & Bool:
++  match frame:
++    case Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending}:selected_join(~S,~C,~R,~E,~P,~Q,~identity,~project,declaration,prepared,receipts,pending,selector(Query.Frame{tx,handle,error,cursor}))
++
++def receipt_added(~W:Type,~P:Type,~Q:Type,receipts:List<Journal.Receipt<W,P,Q>>,receipt:Maybe<&1,Journal.Receipt<W,P,Q>>) -> List<Journal.Receipt<W,P,Q>>:
++  match receipt:
++    case None{}:receipts
++    case Some{receipt}:receipt <> receipts
++
++def pending_added(~Q:Type,pending:List<Journal.Pending<Q>>,next:Maybe<&1,Journal.Pending<Q>>) -> List<Journal.Pending<Q>>:
++  match next:
++    case None{}:pending
++    case Some{next}:next <> pending
++
++def spawn_output(~S:Data,~P:Type,canonical:D.Raw,result:Result<&2,&2,World.WorldError,World.Handle<S>>,packet:Maybe<&1,Request.Packet<P>>) -> Request.Output<S,P>:
++  match result packet:
++    case Done{target} _:Request.Accepted{target,True{},canonical}
++    case Fail{error} None{}:Request.Refused{None{},Request.Entity{error}}
++    case Fail{error} Some{Request.Packet{owner,_,_}}:Request.Refused{owner,Request.Entity{error}}
++
++def spawned(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Declaration.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Request.Packet<P>>>,handle:World.Handle<S>,error:Maybe<&2,World.WorldError>,cursor:U32,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,canonical:D.Raw,result:T.Tx<World.World<S,C,R,E>,E> & (Result<&2,&2,World.WorldError,World.Handle<S>> & (Maybe<&1,Request.Packet<P>> & (Maybe<&1,Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>> & Maybe<&1,Journal.Pending<Q>>)))) -> Frame<S,C,R,E,P,Q,identity,project> & Request.Output<S,P>:
++  match result:
++    case (tx,(result,(packet,(receipt,next)))):(Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipt_added(~World.World<S,C,R,E>,~Request.Packet<P>,~Q,receipts,receipt),pending_added(~Q,pending,next)},spawn_output(~S,~P,canonical,result,packet))
++
++def spawn_projected(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~install:World.World<S,C,R,E> -> World.Handle<S> -> Request.Packet<P> -> Install.Attempt<World.World<S,C,R,E>,Request.Packet<P>,Q>,frame:Frame<S,C,R,E,P,Q,identity,project>,+canonical:D.Raw,result:P & D.Raw) -> Frame<S,C,R,E,P,Q,identity,project> & Request.Output<S,P>:
++  match frame result:
++    case Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending}, (owner,original):spawned(~S,~C,~R,~E,~P,~Q,~identity,~project,declaration,prepared,handle,error,cursor,receipts,pending,canonical,Immediate.spawn(~S,~C,~R,~E,~P,~Q,~install,tx,Request.Packet{Some{owner},original,canonical}))
++
++def spawn_validated(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~install:World.World<S,C,R,E> -> World.Handle<S> -> Request.Packet<P> -> Install.Attempt<World.World<S,C,R,E>,Request.Packet<P>,Q>,frame:Frame<S,C,R,E,P,Q,identity,project>,receipt:D.Receipt<P>) -> Frame<S,C,R,E,P,Q,identity,project> & Request.Output<S,P>:
++  match receipt:
++    case D.Receipt{owner,D.Rejected{error}}:(frame,Request.Refused{Some{owner},Request.Validation{error}})
++    case D.Receipt{owner,D.Accepted{canonical}}:spawn_projected(~S,~C,~R,~E,~P,~Q,~identity,~project,~install,frame,canonical,project(owner))
++
++def spawn(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~install:World.World<S,C,R,E> -> World.Handle<S> -> Request.Packet<P> -> Install.Attempt<World.World<S,C,R,E>,Request.Packet<P>,Q>,frame:Frame<S,C,R,E,P,Q,identity,project>,owner:P) -> Frame<S,C,R,E,P,Q,identity,project> & Request.Output<S,P>:
++  match frame:
++    case Frame{Request.Owner{batch,+declaration},handle,error,cursor,receipts,pending}:spawn_validated(~S,~C,~R,~E,~P,~Q,~identity,~project,~install,Frame{Request.Owner{batch,declaration},handle,error,cursor,receipts,pending},Declaration.validate(~S,~P,~identity,~project,declaration,owner))
++
++def spawn_grant(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~install:World.World<S,C,R,E> -> World.Handle<S> -> Request.Packet<P> -> Install.Attempt<World.World<S,C,R,E>,Request.Packet<P>,Q>) -> Cap.OwnedRequest<Frame<S,C,R,E,P,Q,identity,project>,P,Request.Output<S,P>>:
++  Cap.OwnedRequest{frame => owner => spawn(~S,~C,~R,~E,~P,~Q,~identity,~project,~install,frame,owner)}
++
++def resource_join(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Declaration.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Request.Packet<P>>>,handle:World.Handle<S>,error:Maybe<&2,World.WorldError>,cursor:U32,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,tx:T.Tx<World.World<S,C,R,E>,E>) -> Frame<S,C,R,E,P,Q,identity,project> & Unit:
++  (Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending},Unit{})
++
++def resource_set(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,frame:Frame<S,C,R,E,P,Q,identity,project>,replacement:R) -> Frame<S,C,R,E,P,Q,identity,project> & Unit:
++  match frame:
++    case Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending}:resource_join(~S,~C,~R,~E,~P,~Q,~identity,~project,declaration,prepared,handle,error,cursor,receipts,pending,Resource.tx_replace(~S,~C,~R,~E,tx,replacement))
++
++def resource_grant(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw) -> Cap.OwnedRequest<Frame<S,C,R,E,P,Q,identity,project>,R,Unit>:
++  Cap.OwnedRequest{frame => replacement => resource_set(~S,~C,~R,~E,~P,~Q,~identity,~project,frame,replacement)}
+--- /dev/null
++++ b/src/ecs/decode-immediate.bend
+@@ -0,0 +1,42 @@
++import Base
++import ./decode-owned-journal.bend as Journal
++import ./decode-requests.bend as Request
++import ./world.bend as W
++import ./transaction.bend as T
++import ./bundle-install.bend as Install
++import ./bundle-batch.bend as Batch
++
++# Trusted immediate structural kernel. Reversible receipts and refused owners
++# leave the world journal; the provisioning frame retains them for Local.
++def deactivated(~S:Data,~C:Type,~R:Type,~E:Data,result:W.World<S,C,R,E> & W.Status) -> W.World<S,C,R,E>:
++  match result:
++    case (world,_):world
++
++def restored(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,target:W.Handle<S>,result:Install.Restore<W.World<S,C,R,E>,Request.Packet<P>,Q>) -> Install.Restore<W.World<S,C,R,E>,Request.Packet<P>,Q>:
++  match result:
++    case Install.Restored{world,payload}:Install.Restored{deactivated(~S,~C,~R,~E,W.deactivate(~S,~C,~R,~E,world,target)),payload}
++    case Install.Pending{world,recovery,error}:Install.Pending{world,recovery,error}
++
++def receipt(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,+target:W.Handle<S>,world:W.World<S,C,R,E>,inverse:W.World<S,C,R,E> -> Install.Restore<W.World<S,C,R,E>,Request.Packet<P>,Q>,commands:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,events:List<&2,E>,result:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)> & Nat) -> T.Tx<W.World<S,C,R,E>,E> & (Result<&2,&2,W.WorldError,W.Handle<S>> & (Maybe<&1,Request.Packet<P>> & (Maybe<&1,Journal.Receipt<W.World<S,C,R,E>,Request.Packet<P>,Q>> & Maybe<&1,Journal.Pending<Q>>))):
++  match result:
++    case (undo,position):(T.Tx{world,undo,commands,events},(Done{target},(None{},(Some{Journal.Receipt{position,(world => restored(~S,~C,~R,~E,~P,~Q,target,inverse(world)))}},None{}))))
++
++def installed(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,+target:W.Handle<S>,undo:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,commands:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,events:List<&2,E>,result:Install.Attempt<W.World<S,C,R,E>,Request.Packet<P>,Q>) -> T.Tx<W.World<S,C,R,E>,E> & (Result<&2,&2,W.WorldError,W.Handle<S>> & (Maybe<&1,Request.Packet<P>> & (Maybe<&1,Journal.Receipt<W.World<S,C,R,E>,Request.Packet<P>,Q>> & Maybe<&1,Journal.Pending<Q>>))):
++  match result:
++    case Install.Installed{world,inverse}:receipt(~S,~C,~R,~E,~P,~Q,target,world,inverse,commands,events,Batch.count_commands(~W.World<S,C,R,E>,undo))
++    case Install.Refused{world,payload,error}:(T.Tx{deactivated(~S,~C,~R,~E,W.deactivate(~S,~C,~R,~E,world,target)),undo,commands,events},(Fail{error},(Some{payload},(None{},None{}))))
++    case Install.Quarantined{world,recovery,+error}:(T.Tx{world,undo,commands,events},(Fail{error},(None{},(None{},Some{Journal.Pending{recovery,error}}))))
++
++def activated(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~install:W.World<S,C,R,E> -> W.Handle<S> -> Request.Packet<P> -> Install.Attempt<W.World<S,C,R,E>,Request.Packet<P>,Q>,+target:W.Handle<S>,payload:Request.Packet<P>,undo:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,commands:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,events:List<&2,E>,result:W.World<S,C,R,E> & W.Status) -> T.Tx<W.World<S,C,R,E>,E> & (Result<&2,&2,W.WorldError,W.Handle<S>> & (Maybe<&1,Request.Packet<P>> & (Maybe<&1,Journal.Receipt<W.World<S,C,R,E>,Request.Packet<P>,Q>> & Maybe<&1,Journal.Pending<Q>>))):
++  match result:
++    case (world,W.Accepted{}):installed(~S,~C,~R,~E,~P,~Q,target,undo,commands,events,install(world,target,payload))
++    case (world,W.Rejected{error}):(T.Tx{world,undo,commands,events},(Fail{error},(Some{payload},(None{},None{}))))
++
++def reserved(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~install:W.World<S,C,R,E> -> W.Handle<S> -> Request.Packet<P> -> Install.Attempt<W.World<S,C,R,E>,Request.Packet<P>,Q>,payload:Request.Packet<P>,undo:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,commands:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,events:List<&2,E>,result:W.World<S,C,R,E> & W.Reservation<S>) -> T.Tx<W.World<S,C,R,E>,E> & (Result<&2,&2,W.WorldError,W.Handle<S>> & (Maybe<&1,Request.Packet<P>> & (Maybe<&1,Journal.Receipt<W.World<S,C,R,E>,Request.Packet<P>,Q>> & Maybe<&1,Journal.Pending<Q>>))):
++  match result:
++    case (world,W.Reserved{+target}):activated(~S,~C,~R,~E,~P,~Q,~install,target,payload,undo,commands,events,W.activate(~S,~C,~R,~E,world,target))
++    case (world,W.ReservationRejected{error}):(T.Tx{world,undo,commands,events},(Fail{error},(Some{payload},(None{},None{}))))
++
++def spawn(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~install:W.World<S,C,R,E> -> W.Handle<S> -> Request.Packet<P> -> Install.Attempt<W.World<S,C,R,E>,Request.Packet<P>,Q>,tx:T.Tx<W.World<S,C,R,E>,E>,payload:Request.Packet<P>) -> T.Tx<W.World<S,C,R,E>,E> & (Result<&2,&2,W.WorldError,W.Handle<S>> & (Maybe<&1,Request.Packet<P>> & (Maybe<&1,Journal.Receipt<W.World<S,C,R,E>,Request.Packet<P>,Q>> & Maybe<&1,Journal.Pending<Q>>))):
++  match tx:
++    case T.Tx{world,undo,commands,events}:reserved(~S,~C,~R,~E,~P,~Q,~install,payload,undo,commands,events,W.reserve_id(~S,~C,~R,~E,world))
+--- /dev/null
++++ b/src/ecs/decode-owned-component.bend
+@@ -0,0 +1,28 @@
++import Base
++import ./decode-frame.bend as F
++import ./decode-owned-journal.bend as Journal
++import ./decode-requests.bend as Request
++import ./component.bend as Cmp
++import ./column.bend as Col
++import ./compose.bend as Query
++import ./capabilities.bend as Cap
++import ./world.bend as W
++import ./transaction.bend as T
++import ./bundle-batch.bend as Batch
++import ./decode-data.bend as D
++import ./ordinary-declaration.bend as Identity
++import ./persistence-declaration.bend as Declaration
++
++type Output<P:Type> is Type:Written{} Refused{owner:Maybe<&1,P>,error:W.WorldError}
++def written(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Declaration.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Request.Packet<P>>>,handle:W.Handle<S>,error:Maybe<&2,W.WorldError>,cursor:U32,receipts:List<Journal.Receipt<W.World<S,Store,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,result:Cmp.SetResult<T.Tx<W.World<S,Store,R,E>,E>,P>) -> F.Frame<S,Store,R,E,P,Q,identity,project> & Output<P>:
++  match result:
++    case Cmp.Written{tx}:(F.Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending},Written{})
++    case Cmp.WriteRejected{tx,owner,+reason}:(F.Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,Query.first_error(error,reason),cursor,receipts,pending},Refused{Some{owner},reason})
++    case Cmp.WriteFailure{tx,+reason}:(F.Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,Query.first_error(error,reason),cursor,receipts,pending},Refused{None{},reason})
++
++def set(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~Rest:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,~family:Cmp.Family<S,Store,Rest,P,V,Token,take,put,view>,frame:F.Frame<S,Store,R,E,P,Q,identity,project>,input:Query.Insert<S,P>) -> F.Frame<S,Store,R,E,P,Q,identity,project> & Output<P>:
++  match frame input:
++    case F.Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending} Query.Insert{target,owner}:written(~S,~Store,~R,~E,~P,~Q,~identity,~project,declaration,prepared,handle,error,cursor,receipts,pending,Cmp.tx_set(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,family,tx,target,owner))
++
++def grant(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~Rest:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,~family:Cmp.Family<S,Store,Rest,P,V,Token,take,put,view>) -> Cap.OwnedRequest<F.Frame<S,Store,R,E,P,Q,identity,project>,Query.Insert<S,P>,Output<P>>:
++  Cap.OwnedRequest{frame => input => set(~S,~Store,~R,~E,~P,~Q,~identity,~project,~Rest,~V,~Token,~take,~put,~view,~family,frame,input)}
+--- /dev/null
++++ b/src/ecs/decode-owned-journal.bend
+@@ -0,0 +1,43 @@
++import Base
++import ./transaction.bend as T
++import ./bundle-install.bend as Install
++import ./world.bend as W
++import ./bundle-batch.bend as Batch
++
++# Explicit app-owned reversible receipts live outside the World journal.
++# Their generated position preserves ordering with ordinary resource/component
++# inverses. Recovered affine owners are returned to the Local adapter, never
++# placed into a resource that a subsequent inverse could overwrite.
++type Receipt<World:Type,P:Type,Q:Type> is Type:
++  Receipt{position:Nat,inverse:World -> Install.Restore<World,P,Q>}
++type Pending<Q:Type> is Type:Pending{owner:Q,error:W.WorldError}
++type Returned<World:Type,P:Type,Q:Type> is Type:
++  Returned{world:World,owners:List<P>,pending:List<Pending<Q>>}
++
++def stepped(~World:Type,count:Nat,world:World,undo:List<(World -> World)>) -> World & List<(World -> World)>:
++  match count undo:
++    case 0n _:(world,undo)
++    case 1n+rest Nil{}:(world,[])
++    case 1n+rest Con{inverse,tail}:stepped(~World,rest,inverse(world),tail)
++
++def restored(~World:Type,~P:Type,~Q:Type,next:World -> List<P> -> List<Pending<Q>> -> Returned<World,P,Q>,owners:List<P>,pending:List<Pending<Q>>,result:Install.Restore<World,P,Q>) -> Returned<World,P,Q>:
++  match result:
++    case Install.Restored{world,owner}:next(world,owner <> owners,pending)
++    case Install.Pending{world,owner,error}:next(world,owners,Pending{owner,error} <> pending)
++
++def unwound(~World:Type,~P:Type,~Q:Type,inverse:World -> Install.Restore<World,P,Q>,next:List<(World -> World)> -> World -> List<P> -> List<Pending<Q>> -> Returned<World,P,Q>,owners:List<P>,pending:List<Pending<Q>>,result:World & List<(World -> World)>) -> Returned<World,P,Q>:
++  match result:
++    case (world,undo):restored(~World,~P,~Q,(world => owners => pending => next(undo,world,owners,pending)),owners,pending,inverse(world))
++
++def rollback(~World:Type,~P:Type,~Q:Type,receipts:List<Receipt<World,P,Q>>,undo:List<(World -> World)>,count:Nat,world:World,owners:List<P>,pending:List<Pending<Q>>) -> Returned<World,P,Q>:
++  match receipts:
++    case []:Returned{T.rollback(~World,undo,world),List.reverse(&1,P,owners),List.reverse(&1,Pending<Q>,pending)}
++    case Receipt{+position,inverse} <> rest:unwound(~World,~P,~Q,inverse,(undo => world => owners => pending => rollback(~World,~P,~Q,rest,undo,position,world,owners,pending)),owners,pending,stepped(~World,Nat.sub(count,position),world,undo))
++
++def counted(~World:Type,~P:Type,~Q:Type,receipts:List<Receipt<World,P,Q>>,world:World,result:List<(World -> World)> & Nat) -> Returned<World,P,Q>:
++  match result:
++    case (undo,count):rollback(~World,~P,~Q,receipts,undo,count,world,[],[])
++
++def abort(~World:Type,~E:Data,~P:Type,~Q:Type,receipts:List<Receipt<World,P,Q>>,tx:T.Tx<World,E>) -> Returned<World,P,Q>:
++  match tx:
++    case T.Tx{world,undo,_,_}:counted(~World,~P,~Q,receipts,world,Batch.count_commands(~World,undo))
+--- /dev/null
++++ b/src/ecs/decode-requests.bend
+@@ -0,0 +1,66 @@
++import Base
++import ./resource.bend as Resource
++import ./bundle-batch.bend as Batch
++import ./bundle-delivery.bend as Delivery
++import ./bundle-requests.bend as Commands
++import ./world.bend as W
++import ./transaction.bend as T
++import ./capabilities.bend as Cap
++import ./decode-data.bend as D
++import ./persistence-declaration.bend as Decl
++import ./ordinary-declaration.bend as Identity
++
++# The packet owns original P plus detached canonical input. Typed schema delivery
++# constructs its actual component; no generic Raw -> arbitrary Type inverse.
++type Packet<P:Type> is Type:
++  Packet{owner:Maybe<&1,P>,original:D.Raw,canonical:D.Raw}
++type Input<S:Data,P:Type> is Type:
++  Input{operation:Commands.Operation<S>,owner:P}
++type Error is Data:
++  Validation{error:D.Error}
++  Entity{error:W.WorldError}
++type Output<S:Data,P:Type> is Type:
++  Accepted{target:W.Handle<S>,spawned:Bool,canonical:D.Raw}
++  Refused{owner:Maybe<&1,P>,error:Error}
++type Owner<S:Data,C:Type,R:Type,E:Data,P:Type,-identity:Identity.Declaration<S,P>,-project:P -> P & D.Raw> is Type:
++  Owner{batch:Batch.Batch<S,C,R,E,Packet<P>>,declaration:Decl.Constructed<S,P,identity,project>}
++
++def inserted(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Decl.Constructed<S,P,identity,project>,target:W.Handle<S>,canonical:D.Raw,result:Batch.Inserted<S,C,R,E,Packet<P>>) -> Owner<S,C,R,E,P,identity,project> & Output<S,P>:
++  match result:
++    case Batch.Inserted{batch}:(Owner{batch,declaration},Accepted{target,False{},canonical})
++    case Batch.Refused{batch,Packet{owner,_,_},error}:(Owner{batch,declaration},Refused{owner,Entity{error}})
++def spawned(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Decl.Constructed<S,P,identity,project>,canonical:D.Raw,result:Batch.Spawned<S,C,R,E,Packet<P>>) -> Owner<S,C,R,E,P,identity,project> & Output<S,P>:
++  match result:
++    case Batch.Spawned{batch,target}:(Owner{batch,declaration},Accepted{target,True{},canonical})
++    case Batch.SpawnRefused{batch,Packet{owner,_,_},error}:(Owner{batch,declaration},Refused{owner,Entity{error}})
++def enqueue_packet(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Decl.Constructed<S,P,identity,project>,batch:Batch.Batch<S,C,R,E,Packet<P>>,operation:Commands.Operation<S>,owner:P,original:D.Raw,+canonical:D.Raw) -> Owner<S,C,R,E,P,identity,project> & Output<S,P>:
++  match operation:
++    case Commands.Insert{+target}:inserted(~S,~C,~R,~E,~P,~identity,~project,declaration,target,canonical,Batch.insert(~S,~C,~R,~E,~Packet<P>,batch,target,Packet{Some{owner},original,canonical}))
++    case Commands.Spawn{}:spawned(~S,~C,~R,~E,~P,~identity,~project,declaration,canonical,Batch.spawn(~S,~C,~R,~E,~Packet<P>,batch,Packet{Some{owner},original,canonical}))
++def enqueue(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Decl.Constructed<S,P,identity,project>,batch:Batch.Batch<S,C,R,E,Packet<P>>,operation:Commands.Operation<S>,canonical:D.Raw,projected:P & D.Raw) -> Owner<S,C,R,E,P,identity,project> & Output<S,P>:
++  match projected:
++    case (owner,original):enqueue_packet(~S,~C,~R,~E,~P,~identity,~project,declaration,batch,operation,owner,original,canonical)
++def validated(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Decl.Constructed<S,P,identity,project>,batch:Batch.Batch<S,C,R,E,Packet<P>>,operation:Commands.Operation<S>,receipt:D.Receipt<P>) -> Owner<S,C,R,E,P,identity,project> & Output<S,P>:
++  match receipt:
++    case D.Receipt{owner,D.Rejected{error}}:(Owner{batch,declaration},Refused{Some{owner},Validation{error}})
++    case D.Receipt{owner,D.Accepted{canonical}}:enqueue(~S,~C,~R,~E,~P,~identity,~project,declaration,batch,operation,canonical,project(owner))
++def request(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,frame:Owner<S,C,R,E,P,identity,project>,input:Input<S,P>) -> Owner<S,C,R,E,P,identity,project> & Output<S,P>:
++  match frame input:
++    case Owner{batch,+declaration} Input{operation,owner}:validated(~S,~C,~R,~E,~P,~identity,~project,declaration,batch,operation,Decl.validate(~S,~P,~identity,~project,declaration,owner))
++def grant(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw) -> Cap.OwnedRequest<Owner<S,C,R,E,P,identity,project>,Input<S,P>,Output<S,P>>:
++  Cap.OwnedRequest{frame => input => request(~S,~C,~R,~E,~P,~identity,~project,frame,input)}
++def invoke(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~A:Type,~U:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~body:@-H:Type -> @-cap:Cap.OwnedRequest<H,Input<S,P>,Output<S,P>> -> A -> H -> H & U,owner:Owner<S,C,R,E,P,identity,project>,args:A) -> Owner<S,C,R,E,P,identity,project> & U:
++  Cap.invoke_owned(~(H => Cap.OwnedRequest<H,Input<S,P>,Output<S,P>>),~A,~U,~body,~Owner<S,C,R,E,P,identity,project>,~grant(~S,~C,~R,~E,~P,~identity,~project),args,owner)
++def finish(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Error:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~attempt:W.World<S,C,R,E> -> W.Handle<S> -> Packet<P> -> Delivery.Delivery<W.World<S,C,R,E>,Packet<P>>,~recover:W.World<S,C,R,E> -> Packet<P> -> W.WorldError -> W.World<S,C,R,E>,owner:Owner<S,C,R,E,P,identity,project>,outcome:T.Outcome<Error>) -> Batch.Finished<S,C,R,E,Packet<P>,Error>:
++  match owner:
++    case Owner{batch,_}:Batch.finish(~S,~C,~R,~E,~Packet<P>,~Error,~attempt,~recover,batch,outcome)
++
++# Additive trusted resource provider over the SAME transaction; gameplay can use
++# it only when provisioning explicitly includes this owned grant in its Ops.
++def resource_replaced(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Decl.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Packet<P>>>,tx:T.Tx<W.World<S,C,R,E>,E>) -> Owner<S,C,R,E,P,identity,project> & Unit:
++  (Owner{Batch.Batch{tx,prepared},declaration},Unit{})
++def replace_resource(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,owner:Owner<S,C,R,E,P,identity,project>,replacement:R) -> Owner<S,C,R,E,P,identity,project> & Unit:
++  match owner:
++    case Owner{Batch.Batch{tx,prepared},declaration}:resource_replaced(~S,~C,~R,~E,~P,~identity,~project,declaration,prepared,Resource.tx_replace(~S,~C,~R,~E,tx,replacement))
++def resource_grant(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw) -> Cap.OwnedRequest<Owner<S,C,R,E,P,identity,project>,R,Unit>:
++  Cap.OwnedRequest{owner => replacement => replace_resource(~S,~C,~R,~E,~P,~identity,~project,owner,replacement)}
+--- /dev/null
++++ b/src/ecs/decode-traversal.bend
+@@ -0,0 +1,35 @@
++import Base
++import ./decode-frame.bend as F
++import ./decode-requests.bend as Request
++import ./compose.bend as Query
++import ./world.bend as World
++import ./transaction.bend as T
++import ./capabilities.bend as Cap
++import ./decode-data.bend as D
++import ./ordinary-declaration.bend as Identity
++
++# Trusted traversal kernel. A is an explicit application-owned state threaded
++# once across selected rows; the Local adapter retains it on system failure.
++# Data row observations stay commit-only. This is not a new captures policy.
++def completed(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~A:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,next:F.Frame<S,C,R,E,P,Q,identity,project> -> A -> List<&2,Out> -> F.Frame<S,C,R,E,P,Q,identity,project> & (A & (T.Outcome<Query.Error<U>> & List<&2,Out>)),frame:F.Frame<S,C,R,E,P,Q,identity,project>,state:A,values:List<&2,Out>,result:T.Outcome<Query.Error<U>>) -> F.Frame<S,C,R,E,P,Q,identity,project> & (A & (T.Outcome<Query.Error<U>> & List<&2,Out>)):
++  match result:
++    case T.Failure{error}:(frame,(state,(T.Failure{error},[])))
++    case T.Success{}:next(frame,state,values)
++
++def returned(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~A:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,next:F.Frame<S,C,R,E,P,Q,identity,project> -> A -> List<&2,Out> -> F.Frame<S,C,R,E,P,Q,identity,project> & (A & (T.Outcome<Query.Error<U>> & List<&2,Out>)),values:List<&2,Out>,observed:F.Frame<S,C,R,E,P,Q,identity,project> & (A & (T.Outcome<U> & Out))) -> F.Frame<S,C,R,E,P,Q,identity,project> & (A & (T.Outcome<Query.Error<U>> & List<&2,Out>)):
++  match observed:
++    case (F.Frame{owner,handle,+error,cursor,receipts,pending},(state,(outcome,value))):completed(~S,~C,~R,~E,~P,~Q,~A,~U,~Out,~Ops,~identity,~project,next,F.Frame{owner,handle,error,cursor,receipts,pending},state,value <> values,Query.outcome(~U,error,outcome))
++
++def selected(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~A:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~grants:Ops(F.Frame<S,C,R,E,P,Q,identity,project>),~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (A & (T.Outcome<U> & Out)),next:F.Frame<S,C,R,E,P,Q,identity,project> -> A -> List<&2,Out> -> F.Frame<S,C,R,E,P,Q,identity,project> & (A & (T.Outcome<Query.Error<U>> & List<&2,Out>)),state:A,values:List<&2,Out>,observed:F.Frame<S,C,R,E,P,Q,identity,project> & Bool) -> F.Frame<S,C,R,E,P,Q,identity,project> & (A & (T.Outcome<Query.Error<U>> & List<&2,Out>)):
++  match observed:
++    case (frame,False{}):next(frame,state,values)
++    case (frame,True{}):returned(~S,~C,~R,~E,~P,~Q,~A,~U,~Out,~Ops,~identity,~project,next,values,Cap.invoke_owned(~Ops,~A,~(A & (T.Outcome<U> & Out)),~body,~F.Frame<S,C,R,E,P,Q,identity,project>,~grants,state,frame))
++
++def at_handle(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,frame:F.Frame<S,C,R,E,P,Q,identity,project>,handle:World.Handle<S>,cursor:U32) -> F.Frame<S,C,R,E,P,Q,identity,project>:
++  match frame:
++    case F.Frame{owner,_,_,_,receipts,pending}:F.Frame{owner,handle,None{},cursor,receipts,pending}
++
++def run_rows(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~A:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~selector:F.Frame<S,C,R,E,P,Q,identity,project> -> F.Frame<S,C,R,E,P,Q,identity,project> & Bool,~grants:Ops(F.Frame<S,C,R,E,P,Q,identity,project>),~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (A & (T.Outcome<U> & Out)),handles:List<&2,World.Handle<S>>,+cursor:U32,frame:F.Frame<S,C,R,E,P,Q,identity,project>,state:A,values:List<&2,Out>) -> F.Frame<S,C,R,E,P,Q,identity,project> & (A & (T.Outcome<Query.Error<U>> & List<&2,Out>)):
++  match handles:
++    case []:(frame,(state,(T.Success{},List.reverse(&2,Out,values))))
++    case handle <> rest:selected(~S,~C,~R,~E,~P,~Q,~A,~U,~Out,~Ops,~identity,~project,~grants,~body,(frame => state => values => run_rows(~S,~C,~R,~E,~P,~Q,~A,~U,~Out,~Ops,~identity,~project,~selector,~grants,~body,rest,cursor,frame,state,values)),state,values,selector(at_handle(~S,~C,~R,~E,~P,~Q,~identity,~project,frame,handle,cursor)))
