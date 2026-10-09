@@ -1,0 +1,35 @@
+{
+  "status": "COLLECTOR_SOURCE_READY_NOT_LAUNCH_ADMISSION",
+  "parentRecipe": "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/registered-lifecycle-v1",
+  "normalExpectedSHA256": "56d0de7ab8d614c5eccd395d3c7cc349fd7ad20d783d302bea6b4ba98a8956c3",
+  "independentConfirmationPending": true,
+  "changes": [
+    "Owned main entry and exact current import inventory",
+    "Explicit immutable inherited oracle path instead of oracle-parent path inference"
+  ],
+  "collectors": {
+    "development-js.py": {
+      "parentSHA256": "98768d01286c86dcaa8929449f36378394020447f3b208e59a5a3603cfa479dd",
+      "candidateSHA256": "797fc3dcf30681a6bdc37362c85c38394251847e672e03d2195abd01c6d1c08e"
+    },
+    "development-native.py": {
+      "parentSHA256": "a608c8d62ba2587705693be06f95b1dd069a74b0979243f293ce3f852a456aef",
+      "candidateSHA256": "b7b4ebce16e55f26cad47dea39bf54ebc9c3cf2df05f752d973895451e6ae160"
+    }
+  },
+  "portableControls": {
+    "test-admission.py": {
+      "tests": 3,
+      "exit": 0
+    },
+    "test-publication.py": {
+      "tests": 2,
+      "exit": 0
+    }
+  },
+  "remaining": [
+    "Independent full normal and reached wrong-binding oracle freeze",
+    "Normal/mutant exact plans and model controls",
+    "Independent source/oracle/plan review before children"
+  ]
+}
