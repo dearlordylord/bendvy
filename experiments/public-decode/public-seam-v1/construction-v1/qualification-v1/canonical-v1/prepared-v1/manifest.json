@@ -1,0 +1,235 @@
+{
+  "scope": "canonical full92 JS runtime and C emission plans plus three complete reached JS mutations; no execution",
+  "nativeContinuation": "artifact-only unchanged native-from-c.py Clang19 build120/run5 after actual successful canonical C/receipt guards; exact plans require generated artifact hashes and separate admission, no re-emission",
+  "plans": [
+    {
+      "subject": "construction-spine",
+      "role": "construction-spine",
+      "backend": "js",
+      "argv": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py",
+        "--role",
+        "construction-spine",
+        "--assembly-binding",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/bindings-v1/construction-spine-binding.json",
+        "--assembly-binding-sha256",
+        "46fa1c22f59195319895f3f2c5c40adb7e1686977bd8a745bfddfa077dc68364",
+        "--output",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-js"
+      ],
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-js/plan.json",
+      "sha256": "666ded9b5a4563f4a37aa3d6dfba2ee05d62aa737d67847e1bdc37b5e860a4f7",
+      "expectedGate": "PASS"
+    },
+    {
+      "subject": "construction-spine",
+      "role": "construction-spine",
+      "backend": "cEmit",
+      "argv": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py",
+        "--role",
+        "construction-spine",
+        "--assembly-binding",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/bindings-v1/construction-spine-binding.json",
+        "--assembly-binding-sha256",
+        "46fa1c22f59195319895f3f2c5c40adb7e1686977bd8a745bfddfa077dc68364",
+        "--output",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-cEmit",
+        "--native"
+      ],
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/construction-spine-cEmit/plan.json",
+      "sha256": "3cb330e1d848dd2322bda4c899516872c3a4890929aab57cb09f204ee359db84",
+      "expectedGate": "PASS"
+    },
+    {
+      "subject": "custom-spine",
+      "role": "custom-spine",
+      "backend": "js",
+      "argv": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py",
+        "--role",
+        "custom-spine",
+        "--assembly-binding",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/bindings-v1/custom-spine-binding.json",
+        "--assembly-binding-sha256",
+        "489bd902e00e8c51c036345a7d42815cbd62823d0edfbb73407f6f874d373d39",
+        "--output",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-js"
+      ],
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-js/plan.json",
+      "sha256": "783b0d5db4bd79bf0af3419b7b6f9fcf0ed3cc1e530d033e2e3c12171dbe74e9",
+      "expectedGate": "PASS"
+    },
+    {
+      "subject": "custom-spine",
+      "role": "custom-spine",
+      "backend": "cEmit",
+      "argv": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py",
+        "--role",
+        "custom-spine",
+        "--assembly-binding",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/bindings-v1/custom-spine-binding.json",
+        "--assembly-binding-sha256",
+        "489bd902e00e8c51c036345a7d42815cbd62823d0edfbb73407f6f874d373d39",
+        "--output",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-cEmit",
+        "--native"
+      ],
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/custom-spine-cEmit/plan.json",
+      "sha256": "bf133d78009852c4850a12e5ecdd5dfb9a51b785957b4885029a4f4fc6213969",
+      "expectedGate": "PASS"
+    },
+    {
+      "subject": "completion-spine",
+      "role": "completion-spine",
+      "backend": "js",
+      "argv": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py",
+        "--role",
+        "completion-spine",
+        "--assembly-binding",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/bindings-v1/completion-spine-binding.json",
+        "--assembly-binding-sha256",
+        "7aadee7bc217e0d14cfc1bf53bce506b914c65486b8c122d165df2b76981a47e",
+        "--output",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-js"
+      ],
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-js/plan.json",
+      "sha256": "3fca8147e52d7d5f538e0efbc324b1e2298ddf04224aa0815826972766bded5e",
+      "expectedGate": "PASS"
+    },
+    {
+      "subject": "completion-spine",
+      "role": "completion-spine",
+      "backend": "cEmit",
+      "argv": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py",
+        "--role",
+        "completion-spine",
+        "--assembly-binding",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/bindings-v1/completion-spine-binding.json",
+        "--assembly-binding-sha256",
+        "7aadee7bc217e0d14cfc1bf53bce506b914c65486b8c122d165df2b76981a47e",
+        "--output",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-cEmit",
+        "--native"
+      ],
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/completion-spine-cEmit/plan.json",
+      "sha256": "a114e9442b40b4485dd32e760cec9f0677bdfd196e55ead0cb0b9f9935a9c0ca",
+      "expectedGate": "PASS"
+    },
+    {
+      "subject": "input-codec-spine",
+      "role": "input-codec-spine",
+      "backend": "js",
+      "argv": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py",
+        "--role",
+        "input-codec-spine",
+        "--assembly-binding",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/bindings-v1/input-codec-spine-binding.json",
+        "--assembly-binding-sha256",
+        "8fc24ef917da9b991fbc19d3ed0518b30c1b2963b26831259965c0dd544cd4e2",
+        "--output",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-js"
+      ],
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-js/plan.json",
+      "sha256": "f7d0a6d5b09546d2e023f1c51510b3b664955415b3506b94d73ac4ef7b1505ef",
+      "expectedGate": "PASS"
+    },
+    {
+      "subject": "input-codec-spine",
+      "role": "input-codec-spine",
+      "backend": "cEmit",
+      "argv": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py",
+        "--role",
+        "input-codec-spine",
+        "--assembly-binding",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/bindings-v1/input-codec-spine-binding.json",
+        "--assembly-binding-sha256",
+        "8fc24ef917da9b991fbc19d3ed0518b30c1b2963b26831259965c0dd544cd4e2",
+        "--output",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-cEmit",
+        "--native"
+      ],
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/input-codec-spine-cEmit/plan.json",
+      "sha256": "0a09ba505a94ab38d90d55afb2c13f625e8897da583aa8a39b7f9a0a96df1759",
+      "expectedGate": "PASS"
+    },
+    {
+      "subject": "skip-validation",
+      "role": "construction-spine",
+      "backend": "js",
+      "argv": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py",
+        "--role",
+        "construction-spine",
+        "--assembly-binding",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/skip-validation/binding.json",
+        "--assembly-binding-sha256",
+        "9e710de3382a2e3ff44c93c8e33cce7ee824adb96497af0795767bd2126b6a8b",
+        "--output",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-validation-js"
+      ],
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-validation-js/plan.json",
+      "sha256": "2432d4f85cfd0c5504900669e184f555c71ddcd7097d505abae6564b2f8013c8",
+      "expectedGate": "INCOMPLETE model mismatch followed by exact complete source-derived witness"
+    },
+    {
+      "subject": "partial-write",
+      "role": "construction-spine",
+      "backend": "js",
+      "argv": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py",
+        "--role",
+        "construction-spine",
+        "--assembly-binding",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/partial-write/binding.json",
+        "--assembly-binding-sha256",
+        "3285d885c5ba6541693f9ac525abb4fe56ddc370e80b02a036b672360d610267",
+        "--output",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/partial-write-js"
+      ],
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/partial-write-js/plan.json",
+      "sha256": "f9308aec5272f33c6baf685d1018c46bdd250120ae2d02742d25701128f1dd96",
+      "expectedGate": "INCOMPLETE model mismatch followed by exact complete source-derived witness"
+    },
+    {
+      "subject": "skip-input-validation",
+      "role": "input-codec-spine",
+      "backend": "js",
+      "argv": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py",
+        "--role",
+        "input-codec-spine",
+        "--assembly-binding",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/skip-input-validation/binding.json",
+        "--assembly-binding-sha256",
+        "9553e05e0a630abb7c573fc8503409504dee01d8e5ffac8e676cde3417253132",
+        "--output",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-input-validation-js"
+      ],
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/prepared-v1/skip-input-validation-js/plan.json",
+      "sha256": "a3f3ffbca248e13160b1d72ff5e36b148ca93a778057f39629bdb75d636e5e91",
+      "expectedGate": "INCOMPLETE model mismatch followed by exact complete source-derived witness"
+    }
+  ],
+  "mutationWitness": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/verify-witness.py",
+    "sha256": "b37dd29f0ebf1b017821b6d00ec833de851d59bce1b707e505d8b119a4bdfab3",
+    "scope": "strict complete44 for default-validation/partial-write; complete12 for separate-input-validation; no arbitrary model mismatch accepted"
+  }
+}

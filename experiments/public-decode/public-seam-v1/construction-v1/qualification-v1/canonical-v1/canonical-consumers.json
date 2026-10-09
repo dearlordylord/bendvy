@@ -1,0 +1,505 @@
+{
+  "scope": "exact import-only old80 and new12 consumer rebinding; twelve List calls once/order; no shared core edits",
+  "canonicalRoot": "/workspace/formal-proofs/bendvy/src/ecs",
+  "rootHead": "c90be09e",
+  "canonicalModules": {
+    "decode-constructed-resource.bend": "1ff45eb2357c26f005a9c617f13f89ac1d8d4e44ed4ba8973d37d410b216678b",
+    "decode-fallible-constructed-requests.bend": "aff15cc664ae86d1f0879977a9a75e7d14cc5831f865eac96a275ba18ef0ba05",
+    "decode-validated-resource.bend": "ec058ddae2ddfcec148e77940c93356935d5eb6826cdf4efad35091365a33a84",
+    "decode-construction.bend": "39518ef0d17aa1b55ef09ee87b12b485eb63c0900064d52206ca4ebabb0d335b",
+    "decode-fallible-constructed-resource.bend": "d1e12ab848877a63e2645b1d770def8b63effa7f2d98272c6d5709a8e7592dbd",
+    "decode-constructed-requests.bend": "585287688a889db9a50cbdd99151ed160b9819b3ffab4f32ed602d6533fe1c11"
+  },
+  "consumerMappings": [
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/completion-addon-v1/bad-business.bend",
+      "originSHA256": "69c1df07dac354a05be843d4905f1fd922302d65740e8dd64775d839295f7275",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/completion-addon-v1/bad-business.bend",
+      "sha256": "69c1df07dac354a05be843d4905f1fd922302d65740e8dd64775d839295f7275",
+      "importOnly": true,
+      "mapping": []
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/completion-addon-v1/complete-spine.bend",
+      "originSHA256": "d6fe73ee24e33abb84e7f39977beedbc474ef38ff7b552bc2b6765b8d6a4a395",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/completion-addon-v1/complete-spine.bend",
+      "sha256": "d6fe73ee24e33abb84e7f39977beedbc474ef38ff7b552bc2b6765b8d6a4a395",
+      "importOnly": true,
+      "mapping": []
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/completion-addon-v1/materialization-fixture.bend",
+      "originSHA256": "f4d72a793bd2c940aefd6f808716ea69ec7ffef9df2a8c58282c1e54563ed1d7",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/completion-addon-v1/materialization-fixture.bend",
+      "sha256": "9e64e3c683263ad1cce74d81ec9cf0fb103da1d4945ee36c4a4da0020cec7ee2",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        },
+        {
+          "original": "import ../fallible-composition-v1/request.bend as Constructed",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-fallible-constructed-requests.bend as Constructed"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/completion-addon-v1/resource-admission-fixture.bend",
+      "originSHA256": "76a6ca04ec6f973474ffb3cdf87680b94ec6b6509961c01f274629969128f509",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/completion-addon-v1/resource-admission-fixture.bend",
+      "sha256": "113db51609cb175a77a28a741fbcf9d09656e094963669d315bc651c0dfcc823",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        },
+        {
+          "original": "import ../resource.bend as Resource",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-validated-resource.bend as Resource"
+        },
+        {
+          "original": "import ../fallible-composition-v1/resource.bend as Constructed",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-fallible-constructed-resource.bend as Constructed"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/custom-fixture.bend",
+      "originSHA256": "0310d318973aa0106e77f3995d718078c28364f4a75f11d0fc291d846f96a1f1",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/custom-fixture.bend",
+      "sha256": "95edf26a645bb0dee1b065ba316886a6c8b7ba5d1fc4ad9e6ba09a4f18df2883",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ./constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/business.bend",
+      "originSHA256": "562a19c8b8248d1be7643b44b6da7f70421631a1d41cd85c48228854a1457b15",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/fallible-composition-v1/business.bend",
+      "sha256": "562a19c8b8248d1be7643b44b6da7f70421631a1d41cd85c48228854a1457b15",
+      "importOnly": true,
+      "mapping": []
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/complete-spine.bend",
+      "originSHA256": "00a6b122aa9318d85189abe0336d5e2d768a8fbc5727d1cce51f29021c882930",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/fallible-composition-v1/complete-spine.bend",
+      "sha256": "00a6b122aa9318d85189abe0336d5e2d768a8fbc5727d1cce51f29021c882930",
+      "importOnly": true,
+      "mapping": []
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/local-refusal-fixture.bend",
+      "originSHA256": "81b35f8863f8ec840a572059a531e45602b5e4eee8b3ee8ffd64caa5632c5df3",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/fallible-composition-v1/local-refusal-fixture.bend",
+      "sha256": "81b35f8863f8ec840a572059a531e45602b5e4eee8b3ee8ffd64caa5632c5df3",
+      "importOnly": true,
+      "mapping": []
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/negative-affine.bend",
+      "originSHA256": "464b733ec2245e19a926f7f13bddfc3d09299dc0c4b56f46220c144f4a193949",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/fallible-composition-v1/negative-affine.bend",
+      "sha256": "017f45d1f5be06dcdf5900377177d858660a9f6bdfdb7b48536736d63989bae8",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ./request.bend as Request",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-fallible-constructed-requests.bend as Request"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/negative-readonly.bend",
+      "originSHA256": "8948c1c2a1ab7bd4a55179987a0f61da51a37c1a773db131ec0371cf8d638cfb",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/fallible-composition-v1/negative-readonly.bend",
+      "sha256": "ddc1bb22e774c98502dd6dd5eb16d2f51139435553b2c6de72fecf1b19ec5438",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ./resource.bend as Resource",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-fallible-constructed-resource.bend as Resource"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/request-fixture.bend",
+      "originSHA256": "7ce052564e402f9c9e5f3be64b9162cd235c831439f892e4d3ef8435ac1ce60d",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/fallible-composition-v1/request-fixture.bend",
+      "sha256": "1e572ec16bc4ffbd88fdfdbcb55e5f9a5b584d51f9eda24a7e399e8650dbb663",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        },
+        {
+          "original": "import ./request.bend as Constructed",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-fallible-constructed-requests.bend as Constructed"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fallible-composition-v1/resource-fixture.bend",
+      "originSHA256": "6c5331c726138187f7f0059ab16b63156e07826b869eedbda81766ebde95b0b4",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/fallible-composition-v1/resource-fixture.bend",
+      "sha256": "b88f29479d1f370f093775815ef0c412dc4583840c235e7adcde5f2346439348",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        },
+        {
+          "original": "import ../resource.bend as Resource",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-validated-resource.bend as Resource"
+        },
+        {
+          "original": "import ./resource.bend as Constructed",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-fallible-constructed-resource.bend as Constructed"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/fixture.bend",
+      "originSHA256": "fe6eed4299e03d6749099a30672267a1473f031e29c8b74431357ca4755023c1",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/fixture.bend",
+      "sha256": "076c296adf11b199a4784ed42102232d5b55d5b384d10123ab8601de9eb4fec1",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ./constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        },
+        {
+          "original": "import ./resource.bend as Resource",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-validated-resource.bend as Resource"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/input-codec-v1/business.bend",
+      "originSHA256": "1ac3a1a24307fa0a3a48b4a65310aa93796a0acb685e4058320f4ee9b9eb787e",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/input-codec-v1/business.bend",
+      "sha256": "1ac3a1a24307fa0a3a48b4a65310aa93796a0acb685e4058320f4ee9b9eb787e",
+      "importOnly": true,
+      "mapping": []
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/input-codec-v1/materialization-fixture.bend",
+      "originSHA256": "d436dc2599f39263ff591f9783e5e2f95f78cc2335e1c8d0fce0f081dc81c7df",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/input-codec-v1/materialization-fixture.bend",
+      "sha256": "6cbd8bdf4a785e3e999b2fe3a872b35aebe642bedb8e17bb0ee0c59debbb2237",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ./constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        },
+        {
+          "original": "import ./fallible-request.bend as Constructed",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-fallible-constructed-requests.bend as Constructed"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/input-codec-v1/negatives/affine-owner.bend",
+      "originSHA256": "181e18fea1084c515b14ec645999f48c9e4992e671bdd1bd71c060ae6944604f",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/input-codec-v1/negatives/affine-owner.bend",
+      "sha256": "2421a50ec26c9b7de5fcb37d424190377c26feba7e7efaa4bc726b5bb9c1d4ba",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/input-codec-v1/negatives/cross-schema.bend",
+      "originSHA256": "b955e79fa0d072f91da7f5ddcf97e238dedd71ff5e35c7a684353d7f8db44fcd",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/input-codec-v1/negatives/cross-schema.bend",
+      "sha256": "3f2886909fda6ba2b0c7e76958f2e0afc21d2d91a582addf5d23a50761f4ba2b",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/input-codec-v1/negatives/materialized-affine.bend",
+      "originSHA256": "6fa890632d6972cd765bd01edd2f2e3df7274b388df12a81c26b9027391b2ef3",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/input-codec-v1/negatives/materialized-affine.bend",
+      "sha256": "6f7e53429a5fa65815fcae578d51c1e13fa51ea34c5a664ea17a38f6d769617d",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../fallible-request.bend as Constructed",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-fallible-constructed-requests.bend as Constructed"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/input-codec-v1/negatives/materialized-read-only.bend",
+      "originSHA256": "8d8bdb9426ef82b89a53e8485be0cec9c79d0f6e63ad5372c428a34f34acb9f2",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/input-codec-v1/negatives/materialized-read-only.bend",
+      "sha256": "067b42ddad8e9ae71d3337c376b1cffa0bc2a9a1468d1c1adfb912a5b2bbc825",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../fallible-request.bend as Constructed",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-fallible-constructed-requests.bend as Constructed"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/input-codec-v1/negatives/read-only.bend",
+      "originSHA256": "edbeb4d8bbddfdfb0da5c8f50ca38be2b23d34a065fc78cc449f035a9baf8c04",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/input-codec-v1/negatives/read-only.bend",
+      "sha256": "0407bd0a5394b080f3f4075194b9c428eb6615d6633c8ffdf77c6f98be6bb009",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../../resource.bend as Resource",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-validated-resource.bend as Resource"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/input-codec-v1/negatives/undeclared.bend",
+      "originSHA256": "347c21ef929a172a14caa6fa77e4757aff23620caba9ccc756c434c4d48bec9d",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/input-codec-v1/negatives/undeclared.bend",
+      "sha256": "60ca12538d2952a5f46523312b69adaa07c59f1dc28a4f533c5c9c0112aa5654",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/materialization-v1/fixture.bend",
+      "originSHA256": "93d5985aa578b36eb28db4fa7bb05a8fbd0f6e5557f0e737705928966eb72c7f",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/materialization-v1/fixture.bend",
+      "sha256": "16842a913cc92a3f59a16b307608bee7f3efb7d6a2148c23008f94c370617efd",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        },
+        {
+          "original": "import ../request.bend as Constructed",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-constructed-requests.bend as Constructed"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/materialization-v1/mail.bend",
+      "originSHA256": "b979003975d9c016de15e5a7f1bf271c9efc294b7f00e3df5548919760d236d4",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/materialization-v1/mail.bend",
+      "sha256": "b979003975d9c016de15e5a7f1bf271c9efc294b7f00e3df5548919760d236d4",
+      "importOnly": true,
+      "mapping": []
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/negatives/affine-owner.bend",
+      "originSHA256": "7f6c9f4a9feda54336178d8119fd30325ca8997438882b1892a6cb43bd60e7ad",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/negatives/affine-owner.bend",
+      "sha256": "b7167c8d441b9f9182f463839d5b23899478d09d2b9420f3525127d6e5974aee",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/negatives/cross-schema.bend",
+      "originSHA256": "226bda19f28beafa9bfd595e7860da3914995dc162bddd64aa038376774be56e",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/negatives/cross-schema.bend",
+      "sha256": "7059c7a13e3bf424889b2c5218fb543680b97941b577d2c2ef87d2dbc28bcd08",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/negatives/materialization-affine.bend",
+      "originSHA256": "cce43b19142dab85fbd41408170dae897edae0fafef3e73e3aab6ecaf243add4",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/negatives/materialization-affine.bend",
+      "sha256": "2bc71161b849c1f8fb39c37498d2132b6d827430921f9e6da38cc6acb4594265",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../request.bend as Constructed",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-constructed-requests.bend as Constructed"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/negatives/raw-resource-readonly.bend",
+      "originSHA256": "7fa15cc53ab6561eb7957f035a70b6a351ba9333a918d5c705352c1b26cc4174",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/negatives/raw-resource-readonly.bend",
+      "sha256": "b56b0e4a57ecac119c6858c265f1d58495e0da83fb4975da3a53d24891d07b9c",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../constructed-resource.bend as Constructed",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-constructed-resource.bend as Constructed"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/negatives/read-only.bend",
+      "originSHA256": "153fb094e5495bb186325870e652e58b97fe1b853039ac30836c02061382c38f",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/negatives/read-only.bend",
+      "sha256": "385873a25ee8bb2c534fb7ab17d44ec6bda902e302e851865baa15bc5cee5f90",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../resource.bend as Resource",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-validated-resource.bend as Resource"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/negatives/undeclared.bend",
+      "originSHA256": "17cebb4b374955c74a7d3c4bb80fc6247f1d87295a15dda200b9910cef72e453",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/negatives/undeclared.bend",
+      "sha256": "08006f60451a859c1f28c688fc5ff9a7459bbb196bb94eaf371a6b464a2df5a1",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ../constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/complete-spine.bend",
+      "originSHA256": "9d2d61bcd47fe300663f795aada7b8566ce400a16e92af49aded20fd89ac5170",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/qualification-v1/complete-spine.bend",
+      "sha256": "9d2d61bcd47fe300663f795aada7b8566ce400a16e92af49aded20fd89ac5170",
+      "importOnly": true,
+      "mapping": []
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/raw-resource-fixture.bend",
+      "originSHA256": "50ab6c581dddb381bfc57e1b164c77affd9074118507cb4173036b89d68f4263",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/raw-resource-fixture.bend",
+      "sha256": "a77a3c7264cba52632d3bec1f66bb49dbeda6ec02aba8043f455bed07488b406",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ./constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        },
+        {
+          "original": "import ./resource.bend as Resource",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-validated-resource.bend as Resource"
+        },
+        {
+          "original": "import ./constructed-resource.bend as Constructed",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-constructed-resource.bend as Constructed"
+        }
+      ]
+    },
+    {
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/request-fixture.bend",
+      "originSHA256": "27481d9103588efae54bbfeaa32d47808c22c1f88e20f427f89be8627a00dd15",
+      "canonicalConsumer": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/request-fixture.bend",
+      "sha256": "b97c1c2d7b217e37aa3288803ea1789f393c7942bf1214e83409bdd055ab1530",
+      "importOnly": true,
+      "mapping": [
+        {
+          "original": "import ./constructor.bend as Constructor",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor"
+        },
+        {
+          "original": "import ./request.bend as Constructed",
+          "canonical": "import /workspace/formal-proofs/bendvy/src/ecs/decode-constructed-requests.bend as Constructed"
+        }
+      ]
+    }
+  ],
+  "new12ListEntry": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/source/input-codec-v1/complete-spine.bend",
+    "sha256": "59581d7436c4861885cca6cbbfcb3fe5468e55041abd06ceddaaa40a11d2a490"
+  },
+  "twelveOperations": [
+    [
+      "First",
+      "success",
+      "Spawn"
+    ],
+    [
+      "First",
+      "parseRefusal",
+      "ParseRejected"
+    ],
+    [
+      "First",
+      "wrongKind",
+      "WrongKind"
+    ],
+    [
+      "First",
+      "downstreamRefusal",
+      "BadOutput"
+    ],
+    [
+      "First",
+      "failure",
+      "Failure"
+    ],
+    [
+      "First",
+      "skip",
+      "Skip"
+    ],
+    [
+      "Second",
+      "success",
+      "Spawn"
+    ],
+    [
+      "Second",
+      "parseRefusal",
+      "ParseRejected"
+    ],
+    [
+      "Second",
+      "wrongKind",
+      "WrongKind"
+    ],
+    [
+      "Second",
+      "downstreamRefusal",
+      "BadOutput"
+    ],
+    [
+      "Second",
+      "failure",
+      "Failure"
+    ],
+    [
+      "Second",
+      "skip",
+      "Skip"
+    ]
+  ]
+}

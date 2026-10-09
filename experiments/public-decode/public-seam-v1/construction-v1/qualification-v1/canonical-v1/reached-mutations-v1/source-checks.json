@@ -1,0 +1,56 @@
+{
+  "scope": "source-only complete mutation consumer checks, no backend claim",
+  "checks": [
+    {
+      "kind": "skip-validation",
+      "argv": [
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/skip-validation/source/qualification-v1/complete-spine.bend",
+        "--check-only"
+      ],
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": "bend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "kind": "partial-write",
+      "argv": [
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/partial-write/source/qualification-v1/complete-spine.bend",
+        "--check-only"
+      ],
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": "bend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "kind": "skip-input-validation",
+      "argv": [
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/reached-mutations-v1/skip-input-validation/source/input-codec-v1/complete-spine.bend",
+        "--check-only"
+      ],
+      "exit": 0,
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+      "stderr": "bend 2.0.36 is available: run bend update\n"
+    }
+  ]
+}
