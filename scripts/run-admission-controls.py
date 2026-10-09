@@ -17,8 +17,29 @@ DEPENDENCIES = {
 }
 
 
+SIMULATION = 'experiments/public-simulation/delivery-v1/'
+OPTIMIZATION = SIMULATION + 'optimization-v1/'
+SHARED = {'scripts/run-admission-controls.py', 'scripts/task_runner.py',
+          'scripts/evidence_boundary.py', 'scripts/receipt-logs.py'}
+CONTROL_SETS = (
+    (CONTROL, DEPENDENCIES),
+    (OPTIMIZATION + 'test-sampling-receipt.py', SHARED | {
+        OPTIMIZATION + 'test-sampling-receipt.py',
+        OPTIMIZATION + 'prepare-sampling.py'}),
+    (OPTIMIZATION + 'test-timing.py', SHARED | {
+        OPTIMIZATION + 'test-timing.py', OPTIMIZATION + 'validate-timing.py',
+        OPTIMIZATION + 'prepare-timing.py', SIMULATION + 'run-delivery.py',
+        SIMULATION + 'timing-v1/instrument.py'}),
+    (OPTIMIZATION + 'test-after-profile.py', SHARED | {
+        OPTIMIZATION + 'test-after-profile.py',
+        OPTIMIZATION + 'validate-after-profile.py',
+        OPTIMIZATION + 'prepare-after-profile.py', SIMULATION + 'run-delivery.py'}),
+)
+
+
 def selected(paths):
-    return [CONTROL] if DEPENDENCIES.intersection(paths) else []
+    return [control for control, dependencies in CONTROL_SETS
+            if dependencies.intersection(paths)]
 
 
 def main():
@@ -29,7 +50,8 @@ def main():
     if not controls:
         return
     # Controls run working-tree source; qualify the bytes actually being committed.
-    checked = DEPENDENCIES
+    checked = set().union(*(dependencies for control, dependencies in CONTROL_SETS
+                          if control in controls))
     for name in checked:
         staged = run(['git', 'show', ':' + name], cwd=ROOT,
                      timeout=5, capture_output=True, check=True).stdout

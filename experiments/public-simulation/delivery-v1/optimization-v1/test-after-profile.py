@@ -1,20 +1,37 @@
-"""No-child actual-profile-path refusal controls, not actual profile evidence."""
-import json,runpy,sys,types,unittest
+"""Portable current-profile and stale-path refusal controls; no tools."""
+import hashlib,json,runpy,sys,tempfile,types,unittest
 from pathlib import Path
 from unittest.mock import patch
 H=Path(__file__).resolve().parent
+
 class Profile(unittest.TestCase):
- def test_current_paths(self):
-  original=Path('/tmp/bendvy63-named-loop-qualification-v1/JS-run.stdout').read_bytes();validate=runpy.run_path(str(H/'validate-after-profile.py'))['validate'];seen=[]
-  comparator=types.SimpleNamespace(stage_joins=lambda p:seen.append(str(p)),validate_report=lambda *a:None)
-  def read(path):
-   seen.append(str(path))
-   if str(path)=='/tmp/bendvy63-named-loop-qualification-v1/JS-run.stdout':return original
-   if str(path)=='/tmp/bendvy63-named-loop-after-profile-v1/simulation.cpuprofile':return json.dumps(dict(nodes=[{'id':1}],samples=[1],timeDeltas=[100])).encode()
-   if str(path)=='/tmp/bendvy63-named-loop-after-profile-v1/simulation.heapprofile':return json.dumps(dict(head={},samples=[])).encode()
-   raise AssertionError('unexpected/stale profile path '+str(path))
-  with patch.dict(sys.modules,simulation_delivery_compare=comparator),patch.object(Path,'read_bytes',read):
-   validate('CPU',original,b'');validate('allocation',original,b'')
-   with self.assertRaises(ValueError):validate('CPU',original[:-1],b'')
-  self.assertIn('/tmp/bendvy63-named-loop-after-profile-v1/simulation.cpuprofile',seen);self.assertIn('/tmp/bendvy63-named-loop-after-profile-v1/simulation.heapprofile',seen);self.assertIn('/tmp/bendvy63-named-loop-stage-v1',seen)
+    def test_plan_paths(self):
+        validate=runpy.run_path(str(H/'validate-after-profile.py'))['validate']
+        for label in ['first-checkout','relocated-checkout']:
+            with tempfile.TemporaryDirectory(prefix=label) as temporary:
+                root=Path(temporary);current=root/'current';current.mkdir();old=root/'old';old.mkdir()
+                expected=root/'expected.stdout';raw=b'complete application\n';expected.write_bytes(raw)
+                stage=root/'stage';stage.mkdir();seen=[]
+                shapes={'CPU':{'nodes':[{'id':1}],'samples':[1],'timeDeltas':[100]},'allocation':{'head':{},'samples':[]}}
+                names={'CPU':'current.cpuprofile','allocation':'current.heapprofile'}
+                for role,name in names.items():
+                    (current/name).write_text(json.dumps(shapes[role]));(old/name).write_text(json.dumps(shapes[role]))
+                plan={'outputRoot':str(current),'stageRoot':str(stage),'pins':{str(expected):hashlib.sha256(raw).hexdigest()},
+                      'validationInputs':{'expectedOutputs':{'JS':str(expected)}},
+                      'commands':[{'control':role,'emits':name} for role,name in names.items()]}
+                comparator=types.SimpleNamespace(stage_joins=lambda p:seen.append(p),validate_report=lambda *a:None)
+                with patch.dict(sys.modules,simulation_delivery_compare=comparator):
+                    for role,name in names.items():
+                        validate(role,raw,b'',plan=plan)
+                        with self.assertRaises(ValueError):validate(role,raw[:-1],b'',plan=plan)
+                        (current/name).write_text('{}')
+                        # Valid old profiles cannot rescue the active invalid artifact.
+                        with self.assertRaises(ValueError):validate(role,raw,b'',plan=plan)
+                        (current/name).unlink();(current/name).symlink_to(old/name)
+                        with self.assertRaises(ValueError):validate(role,raw,b'',plan=plan)
+                        (current/name).unlink();(current/name).write_text(json.dumps(shapes[role]))
+                    expected.write_bytes(b'drift\n')
+                    with self.assertRaises(ValueError):validate('CPU',b'drift\n',b'',plan=plan)
+                    self.assertTrue(seen);self.assertTrue(all(p==stage for p in seen))
+
 if __name__=='__main__':unittest.main()

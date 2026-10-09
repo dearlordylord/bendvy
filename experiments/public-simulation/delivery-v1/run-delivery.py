@@ -43,6 +43,12 @@ def admitted(path, digest):
     if str(Path(__file__).resolve()) not in pins: raise ValueError('collector must be pinned')
     return plan, pins
 
+def validate_control(validator, role, stdout, stderr, plan):
+    if getattr(validator, 'PLAN_BOUND', False):
+        return validator.validate(role, stdout, stderr, plan=plan)
+    return validator.validate(role, stdout, stderr)
+
+
 def run(path, digest):
     plan, pins = admitted(path, digest)
     if plan.get('samplingHelper') and (not plan.get('quietWindowContext') or plan['quietWindowContext'] == 'NOT_ESTABLISHED'): raise ValueError('Integrator quiet-window context required before sampling imports')
@@ -161,7 +167,7 @@ def run(path, digest):
                         for stream in ['stdout', 'stderr']: row[stream] = {'rawHex': result[stream].hex(), 'sha256': sha(result[stream]), 'bytes': len(result[stream])}
                         if qualification is not None:
                             if command.get('control'):
-                                qualification.validate(command['control'], result['stdout'], result['stderr'])
+                                validate_control(qualification, command['control'], result['stdout'], result['stderr'], plan)
                                 record['cases'][label] = {'reachedControlMatch': True}
                             elif result['stderr']: raise ValueError('control build stderr: ' + label)
                         elif result['stderr']: raise ValueError('delivery command stderr: ' + label)

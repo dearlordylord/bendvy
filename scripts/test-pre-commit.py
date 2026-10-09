@@ -1,5 +1,6 @@
 """Exercise hook selection against real staged paths in disposable repositories."""
 import os
+import runpy
 from pathlib import Path
 import subprocess
 import sys
@@ -9,6 +10,7 @@ from unittest.mock import patch
 
 
 HOOK = Path(__file__).resolve().parents[1] / '.githooks/pre-commit'
+REGISTRY = runpy.run_path(str(HOOK.parent.parent / 'scripts/run-admission-controls.py'))
 
 
 class Selection(unittest.TestCase):
@@ -75,7 +77,18 @@ class Selection(unittest.TestCase):
             self.assertEqual(calls, ['scripts/check-python-source.py --staged'])
             self.assertEqual(index.read_bytes(), before)
 
-    def admission_fixture(self, unstaged=False, unstaged_helper=False):
+    def test_registered_simulation_controls(self):
+        selected = REGISTRY['selected']
+        prefix = 'experiments/public-simulation/delivery-v1/optimization-v1/'
+        for changed, control in [('prepare-sampling.py','test-sampling-receipt.py'),
+                                 ('validate-timing.py','test-timing.py'),
+                                 ('validate-after-profile.py','test-after-profile.py')]:
+            self.assertEqual(selected({prefix + changed}), [prefix + control])
+        self.assertEqual(selected({'docs/notes.md'}), [])
+        self.assertEqual(len(selected({'scripts/task_runner.py'})), 4)
+
+
+    def admission_fixture(self, unstaged=False, unstaged_helper=False, sampling=None):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             env = {key: value for key, value in os.environ.items()
@@ -94,15 +107,25 @@ class Selection(unittest.TestCase):
             control.write_text("from pathlib import Path\n"
                                "Path('control-ran').write_text('yes')\n"
                                "raise SystemExit(23)\n")
-            for name in ['scripts/task_runner.py', 'scripts/evidence_boundary.py',
-                         'scripts/receipt-logs.py',
-                         'experiments/public-restore/reference-v1/run.py']:
+            for name in sorted(set().union(*(dependencies for _, dependencies in REGISTRY['CONTROL_SETS'])) - {
+                    'scripts/run-admission-controls.py', str(collector.relative_to(root)), str(control.relative_to(root))}):
                 dependency = root / name
                 dependency.parent.mkdir(parents=True, exist_ok=True)
                 if name == 'scripts/task_runner.py':
                     dependency.write_bytes(HOOK.parent.parent.joinpath(name).read_bytes())
                 else:
                     dependency.write_text('# frozen dependency\n')
+            if sampling is not None:
+                control.write_text("from pathlib import Path\nPath('control-ran').write_text('yes')\n")
+                prefix = 'experiments/public-simulation/delivery-v1/optimization-v1/'
+                receipt_control = root / (prefix + 'test-sampling-receipt.py')
+                receipt_control.write_bytes((HOOK.parent.parent / (prefix + 'test-sampling-receipt.py')).read_bytes())
+                source = (HOOK.parent.parent / (prefix + 'prepare-sampling.py')).read_text()
+                if sampling == 'mutant':
+                    token = " or receipt.get('guardFailures')"
+                    self.assertEqual(source.count(token), 1)
+                    source = source.replace(token, '')
+                (root / (prefix + 'prepare-sampling.py')).write_text(source)
             subprocess.run(['git', 'add', '.'], cwd=root, env=env, check=True)
             if unstaged:
                 collector.write_text('# different working-tree collector\n')
@@ -112,6 +135,15 @@ class Selection(unittest.TestCase):
             result = subprocess.run([sys.executable, str(script)], cwd=root,
                 env=env, capture_output=True)
             return result.returncode, (root / 'control-ran').exists(), result.stderr
+
+    def test_registered_sampling_control_blocks_real_guard_mutant(self):
+        exitcode, ran, stderr = self.admission_fixture(sampling='positive')
+        self.assertEqual(exitcode, 0, stderr.decode())
+        self.assertTrue(ran)
+        exitcode, ran, stderr = self.admission_fixture(sampling='mutant')
+        self.assertNotEqual(exitcode, 0)
+        self.assertTrue(ran)
+        self.assertIn(b'ValueError not raised', stderr)
 
     def test_admission_failure_stops_commit(self):
         exitcode, ran, stderr = self.admission_fixture(unstaged=False)
