@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Hold.Owner<Unit>
+- observed : Hold.Owner<Array<U32>>
+Context:
+- value : Array<U32>
+Location: wrong
+3 | def wrong(value:Array<U32>) -> Hold.Owner<Unit>:
+4>|   Hold.hold(~Array<U32>,value)
+  |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+5 | def main() -> Unit:
+bend 2.0.36 is available: run bend update
