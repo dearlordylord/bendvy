@@ -1,0 +1,257 @@
+{
+  "status": "PREPARED_REQUIRES_INDEPENDENT_LAUNCH_REVIEW",
+  "plans": {
+    "prepared-source04": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/plan.json",
+      "sha256": "9f0d427491d0a941b3bc24b41aaa746e298637d443008fd0d80a5c51d9a74ca6",
+      "commands": [
+        {
+          "label": "source-normal",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/stage/output-io-main.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "expectedExit": 0,
+          "stderrContains": []
+        },
+        {
+          "label": "source-cross-schema-grant",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/negatives/cross-schema-grant.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "expectedExit": 1,
+          "stderrContains": [
+            "SOME PROOFS FAIL",
+            "- expected : D.DeclaredSelection<Carrier.InspectOwner<F.Garden",
+            "- observed : D.DeclaredSelection<Carrier.InspectOwner<F.Workshop"
+          ]
+        },
+        {
+          "label": "source-opaque-owner-escape",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/negatives/opaque-owner-escape.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "expectedExit": 1,
+          "stderrContains": [
+            "SOME PROOFS FAIL",
+            "- expected : Carrier.InspectOwner<F.Workshop",
+            "- observed : bad~H"
+          ]
+        },
+        {
+          "label": "source-owner-duplication",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/negatives/owner-duplication.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "expectedExit": 1,
+          "stderrContains": [
+            "SOME PROOFS FAIL",
+            "owner (consumed more than once)"
+          ]
+        },
+        {
+          "label": "source-undeclared-selection",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/negatives/undeclared-selection.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "expectedExit": 1,
+          "stderrContains": [
+            "SOME PROOFS FAIL",
+            "- expected : D.DeclaredSelection<bad~H",
+            "- observed : Q.ComposedReadQuery<bad~H"
+          ]
+        },
+        {
+          "label": "source-write-through-read",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/negatives/write-through-read.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "expectedExit": 1,
+          "stderrContains": [
+            "SOME PROOFS FAIL",
+            "- expected : W.World<F.Workshop",
+            "- observed : bad~H"
+          ]
+        }
+      ],
+      "sourceFiles": 52
+    },
+    "prepared-reader-js04": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/plan.json",
+      "sha256": "ef9a2a86036dd3366f2a29e74912fec4a18f142983669a8de2d5ebc174eb16c3",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/mutant-reader/output-io-main.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "sourceFiles": 47
+    },
+    "prepared-native04": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-native04/plan.json",
+      "sha256": "c1fec8459674557ec359f3142338f2ddcf16b18c4f1f7ec6ec36421743cbd49d",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/stage/output-io-main.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-native04/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-native04/scenario.c",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-native04/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-native04/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "sourceFiles": 47
+    },
+    "prepared-reader-native04": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-native04/plan.json",
+      "sha256": "db75377d23fd5fd6d10738bba2212850470fa71f55adadc8c92d353eac796115",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/mutant-reader/output-io-main.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-native04/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-native04/scenario.c",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-native04/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-native04/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "sourceFiles": 47
+    }
+  },
+  "sequence": [
+    "prepared-source04",
+    "prepared-reader-js04",
+    "prepared-native04",
+    "prepared-reader-native04 only when normal Native succeeds"
+  ],
+  "superseded": [
+    "01 and 02 source/native/reader plans preserved unlaunched; collector status label and six-command scope repaired before review",
+    "03 preserved unlaunched: inherited copied owner-handoff blank EOF line required whitespace correction"
+  ],
+  "normalJS": "Existing a5dc1850/745c1716 normal JS evidence retained; no replay"
+}
