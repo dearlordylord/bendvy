@@ -1,0 +1,7 @@
+# Native runtime failure investigation
+
+Actual emit/build succeed, and original27662 prints117 malformed bytes before the runtime memory-fault handler. A term prefix means evaluation reached the printer; it does not establish whether the bad value arose from computation, Array extraction, Output packing, or display metadata. The runtime message includes a speculative stack-overflow hint, not a diagnosed cause. No existing gdb executable was found; no dependency installation is proposed.
+
+The generated C allocates a512-word Output node for450 flattened fields. SHOW_DESC marks Output boxed and Report225 flat; Array extraction uses inline blk_read/blk_keep followed by blk_free. The printer selects constructors and field offsets from SHOW_DESC; invalid values can run its constructor search past the descriptor. These source observations identify useful diagnostic seams without proving which is wrong.
+
+This exact generated-C copy adds only printer begin/end breadcrumbs and up to128 show_val entry records (descriptor id/kind, existing first word, pointer and chain). Evaluation, packing, traversal and fault handling remain intact. The source patch and hashes bind original executable/C/plan. No child has run. A new separately admitted build120/run5 CPU5 diagnostic would be required; original failed program must not be replayed unchanged. This is diagnosis, not a weakened full-oracle gate or qualification.

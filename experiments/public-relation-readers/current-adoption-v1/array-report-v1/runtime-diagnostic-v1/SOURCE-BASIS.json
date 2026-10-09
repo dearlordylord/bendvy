@@ -1,0 +1,58 @@
+{
+  "originalExecution": "27662",
+  "sourceCandidate": "6041d15c",
+  "actualPlanSHA256": "2bb87390aa1e09ecaa5dcdf83648a71f1d9b7015daaac1f050898bb88d2384a6",
+  "originalCSHA256": "1d6da610a8d59c169305230b763c5548f0064b38fe6ee954aba945937da48e93",
+  "originalExecutableSHA256": "d54c899c129527d2b1c1032c48ce0818affd37a772b070de54778c0a87c413af",
+  "diagnosticCSHA256": "9501b80aa6bf4aa4aafd43bbff3b9a587109d23d5e7efd0635ba3e3a7235b06a",
+  "exactChange": "Bounded128show entry trace and printerbegin/end breadcrumbs only; original evaluate/printer/packing/fault handling unchanged",
+  "compiler": {
+    "bend": "/home/node/.bend/bin/bend-2.0.35",
+    "node": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+    "python": "/usr/bin/python3.11",
+    "taskset": "/usr/bin/taskset",
+    "clangWrapper": "/tmp/bendvy-clang19-diagnostic/clang19",
+    "clangBinary": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+  },
+  "environment": {
+    "HOME": "/home/node",
+    "PATH": "/usr/bin:/bin",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "TZ": "UTC",
+    "BEND_NO_TELEMETRY": "1",
+    "BENDVY_CLANG19_ROOT": "/tmp/bendvy-clang19-diagnostic/root",
+    "LD_LIBRARY_PATH": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu"
+  },
+  "buildCommand": {
+    "label": "build",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "5",
+      "/tmp/bendvy-clang19-diagnostic/clang19",
+      "-O3",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/experiments/public-relation-readers/current-adoption-v1/array-report-v1/development-native-v2/scenario.c",
+      "-o",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/experiments/public-relation-readers/current-adoption-v1/array-report-v1/development-native-v2/scenario.native",
+      "-pthread",
+      "-lm"
+    ],
+    "capSeconds": 120
+  },
+  "runtimeCommand": {
+    "label": "consumer",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "5",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/experiments/public-relation-readers/current-adoption-v1/array-report-v1/development-native-v2/scenario.native",
+      "--threads",
+      "1",
+      "--gpu",
+      "off"
+    ],
+    "capSeconds": 5
+  },
+  "scope": "Preparationonly; sourcegrounds printer-phase hypothesis, no runtime replay/causal claim"
+}

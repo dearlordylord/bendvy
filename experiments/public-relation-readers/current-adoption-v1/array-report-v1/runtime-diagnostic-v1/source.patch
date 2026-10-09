@@ -1,0 +1,25 @@
+--- actual/scenario.c
++++ diagnostic/scenario.c
+@@ -234977,6 +234977,12 @@
+   Term one;
+   char zs[4];
+   u32  zn = 0;
++  static unsigned diagnostic_count = 0;
++  if (diagnostic_count < 128) {
++    fprintf(stderr, "SHOW_DIAGNOSTIC %u d=%u kind=%u w=%p word=%016llx chain=%d\n",
++      diagnostic_count++, d, D[d], (const void*)w,
++      (unsigned long long)w[0], (int)chain);
++  }
+   for (bool tail = true; tail;) switch (tail = false, D[d]) {
+     case 0:
+       printf("%u", (u32)w[0]);
+@@ -235110,7 +235116,9 @@
+   Term m = corpus_eval(H, term_tsk(MAIN_FID, task_node(e, MAIN_FID,
+     TERM_HOLE, 0, 0)));
+ #if MAIN_PURE
++  fprintf(stderr, "SHOW_DIAGNOSTIC_BEGIN root=%016llx\n", (unsigned long long)H[H_ROOT_WORD]);
+   show_val(e, 0, H + H_ROOT_WORD, 0);
++  fputs("SHOW_DIAGNOSTIC_END\n", stderr);
+   putchar('\n');
+   return;
+ #endif
