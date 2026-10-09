@@ -1,0 +1,23 @@
+[
+  {
+    "control": "test-publication.py",
+    "exit": 0,
+    "stdout": "{\"staleTimestampSizeNegativeReproduced\": true, \"returnedRowAndPartialStreamPreserved\": true, \"artifactHashFailurePreserved\": true, \"namedPostAndUnconditionalReceipt\": true, \"compilerChildren\": 0}\n",
+    "stderr": "",
+    "compilerChildren": 0
+  },
+  {
+    "control": "test-transport-source.py",
+    "exit": 0,
+    "stdout": "TRANSITIVE_COMPILED_PARSER_CACHE_AND_DRIFT_PASS; no compiler/backend child\n",
+    "stderr": "",
+    "compilerChildren": 0
+  },
+  {
+    "control": "test-whole.py",
+    "exit": 0,
+    "stdout": "{\n  \"compilerChildren\": 0,\n  \"retainedWholeTransport\": [\n    {\n      \"kind\": \"normal\",\n      \"bytes\": 556484,\n      \"rawSHA256\": \"f33bb61eae22986e3a32b4d398884df7f0f18f58965446d78771f2ea27360827\",\n      \"wholeOracleSHA256\": \"1f54b6bfa19f6db9a3d08fe030e2debf903ede484c45dd3efbf9d23f1ffe3036\",\n      \"positiveRejected\": false\n    },\n    {\n      \"kind\": \"mutant\",\n      \"bytes\": 554566,\n      \"rawSHA256\": \"e97d485d2d913bcb705180d2a44714f1255b208e3fc1e1159c8378ca6bbeede6\",\n      \"wholeOracleSHA256\": \"f4eb43fd7e1c07e0468f70f2f1cdd787148960107838ec13449b31a39652f14a\",\n      \"positiveRejected\": true\n    }\n  ]\n}\n",
+    "stderr": "",
+    "compilerChildren": 0
+  }
+]

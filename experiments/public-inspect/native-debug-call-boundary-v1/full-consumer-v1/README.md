@@ -1,0 +1,11 @@
+# Full declaration debug copied-compiler diagnostic
+
+Unchanged normal 71-source ordinary-declaration-derived debug consumer plus the existing reached drop-handlers omission. The complete independent normal1f54 and mutantf4eb models are mandatory; no category slices, hand metadata adapters or installed compiler edits. Historical unchanged failures are not replayed.
+
+Candidate comp.ts is byte-identical to the successful controls10 instrumented copied candidate, with only the independently reviewed single-site once-tail fusion disable and retained diagnostic events. Five source-specific boundary controls and ten whole Native controls passed in controls10; that does not establish full consumer delivery or installed compiler acceptance.
+
+The six staged commands are candidate normal emit30/build120/runtime5 followed by candidate omission emit30/build120/runtime5, all CPU5 under the existing shared child lock; Native uses threads1/GPUoff and approved Clang19. Stop on first failure, capture partial C/native/witness before checking failure, record returned process before publishing raw data, run named post/final guards unconditionally. A hard kill may prevent witness publication; retain that absence as INCOMPLETE. No known-failed baseline child or increased limits.
+
+The complete transport is the existing recursive-registration transport. Six adapters alter only spec.loader.exec_module call sites into an injected pinned-source compiler; original __file__ and every non-loader byte remain unchanged. Runtime checks exact inverse, regular source hashes and transitive current pins before source execution. Original semantic model/constructor/scenario parsing stays intact. Portable controls demonstrate equal-mtime/size poisoned pyc ignored, transitive drift refused, partial capture/process rows preserved, and post/final receipts retained. Retained full556484B normal/554566B mutant JS outputs pass the complete transport; omission must match its whole countermodel and reject the unchanged positive.
+
+Full consumer success here is copied-source compiler development evidence. Installed-tool/resolver qualification, complete #56 acceptance and performance remain separate open obligations. No speed claim under external contention.
