@@ -1,0 +1,2241 @@
+{
+  "scope": "six semantic development cohorts; no public preframe/init policy or performance qualification; tool/resource bytes not duplicated",
+  "prepared": {
+    "scope": "semantic development only; no public preframe/initialization policy approval; unused/unadmitted v1 preserved; no execution",
+    "oracleCommit": "4f3ab2d9",
+    "wireCommit": "2a5aa7cc",
+    "plans": {
+      "main-js": {
+        "path": "/tmp/bendvy48-provision-main-js-v2/plan.json",
+        "sha256": "41f6adb7c8a436321c5eb1ec804430737d5a650fca6f128561d1d7a6e2b71a99",
+        "pins": 176,
+        "commands": [
+          {
+            "label": "emit",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/home/node/.bend/bin/bend-2.0.35",
+              "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/main.bend",
+              "-o",
+              "/tmp/bendvy48-provision-main-js-v2/scenario.js"
+            ],
+            "capSeconds": 30
+          },
+          {
+            "label": "consumer",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+              "/tmp/bendvy48-provision-main-js-v2/scenario.js"
+            ],
+            "capSeconds": 5
+          }
+        ]
+      },
+      "main-mutant-js": {
+        "path": "/tmp/bendvy48-provision-main-mutant-js-v2/plan.json",
+        "sha256": "359153c7ba173d7a0da0b4edbf55f8c2207ac621b69f92e5c954ac48a63ba732",
+        "pins": 176,
+        "commands": [
+          {
+            "label": "emit",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/home/node/.bend/bin/bend-2.0.35",
+              "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/main-mutant.bend",
+              "-o",
+              "/tmp/bendvy48-provision-main-mutant-js-v2/scenario.js"
+            ],
+            "capSeconds": 30
+          },
+          {
+            "label": "consumer",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+              "/tmp/bendvy48-provision-main-mutant-js-v2/scenario.js"
+            ],
+            "capSeconds": 5
+          }
+        ]
+      },
+      "flow-only-js": {
+        "path": "/tmp/bendvy48-provision-flow-only-js-v2/plan.json",
+        "sha256": "0cdf824bf3095c50c70ff92ea3bc277558191975ca152f71e26165ac05aa0436",
+        "pins": 176,
+        "commands": [
+          {
+            "label": "emit",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/home/node/.bend/bin/bend-2.0.35",
+              "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/flow-only.bend",
+              "-o",
+              "/tmp/bendvy48-provision-flow-only-js-v2/scenario.js"
+            ],
+            "capSeconds": 30
+          },
+          {
+            "label": "consumer",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+              "/tmp/bendvy48-provision-flow-only-js-v2/scenario.js"
+            ],
+            "capSeconds": 5
+          }
+        ]
+      },
+      "main-native": {
+        "path": "/tmp/bendvy48-provision-main-native-v2/plan.json",
+        "sha256": "dd5e8f474e0396291c1226b847ddef942c1408acf790c8ed98dd1597835b65a0",
+        "pins": 178,
+        "commands": [
+          {
+            "label": "emit",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/home/node/.bend/bin/bend-2.0.35",
+              "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/main.bend",
+              "-o",
+              "/tmp/bendvy48-provision-main-native-v2/scenario.c"
+            ],
+            "capSeconds": 30
+          },
+          {
+            "label": "build",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy48-provision-main-native-v2/scenario.c",
+              "-o",
+              "/tmp/bendvy48-provision-main-native-v2/scenario.native",
+              "-pthread",
+              "-lm"
+            ],
+            "capSeconds": 120
+          },
+          {
+            "label": "consumer",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/tmp/bendvy48-provision-main-native-v2/scenario.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "capSeconds": 5
+          }
+        ]
+      },
+      "main-mutant-native": {
+        "path": "/tmp/bendvy48-provision-main-mutant-native-v2/plan.json",
+        "sha256": "fac61c7af4275968522f9ae1018bac130c2949dbde7d9450662e9cb2edac1f88",
+        "pins": 178,
+        "commands": [
+          {
+            "label": "emit",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/home/node/.bend/bin/bend-2.0.35",
+              "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/main-mutant.bend",
+              "-o",
+              "/tmp/bendvy48-provision-main-mutant-native-v2/scenario.c"
+            ],
+            "capSeconds": 30
+          },
+          {
+            "label": "build",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy48-provision-main-mutant-native-v2/scenario.c",
+              "-o",
+              "/tmp/bendvy48-provision-main-mutant-native-v2/scenario.native",
+              "-pthread",
+              "-lm"
+            ],
+            "capSeconds": 120
+          },
+          {
+            "label": "consumer",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/tmp/bendvy48-provision-main-mutant-native-v2/scenario.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "capSeconds": 5
+          }
+        ]
+      },
+      "flow-only-native": {
+        "path": "/tmp/bendvy48-provision-flow-only-native-v2/plan.json",
+        "sha256": "369fa42adcd51f7a7ae9be9ec737e4ac7b0bcb9049b1159fa117b3c4247a4707",
+        "pins": 178,
+        "commands": [
+          {
+            "label": "emit",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/home/node/.bend/bin/bend-2.0.35",
+              "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/flow-only.bend",
+              "-o",
+              "/tmp/bendvy48-provision-flow-only-native-v2/scenario.c"
+            ],
+            "capSeconds": 30
+          },
+          {
+            "label": "build",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/tmp/bendvy-clang19-diagnostic/clang19",
+              "-O3",
+              "/tmp/bendvy48-provision-flow-only-native-v2/scenario.c",
+              "-o",
+              "/tmp/bendvy48-provision-flow-only-native-v2/scenario.native",
+              "-pthread",
+              "-lm"
+            ],
+            "capSeconds": 120
+          },
+          {
+            "label": "consumer",
+            "argv": [
+              "/usr/bin/taskset",
+              "-c",
+              "5",
+              "/tmp/bendvy48-provision-flow-only-native-v2/scenario.native",
+              "--threads",
+              "1",
+              "--gpu",
+              "off"
+            ],
+            "capSeconds": 5
+          }
+        ]
+      }
+    }
+  },
+  "cohorts": {
+    "main-js": {
+      "files": {
+        "consumer-acquired.guard.json": "0000-consumer-acquired.guard.json.gz",
+        "consumer-post.guard.json": "0001-consumer-post.guard.json.gz",
+        "consumer-pre.guard.json": "0002-consumer-pre.guard.json.gz",
+        "consumer.stderr": "0003-consumer.stderr.gz",
+        "consumer.stdout": "0004-consumer.stdout.gz",
+        "emit-acquired.guard.json": "0005-emit-acquired.guard.json.gz",
+        "emit-post.guard.json": "0006-emit-post.guard.json.gz",
+        "emit-pre.guard.json": "0007-emit-pre.guard.json.gz",
+        "emit.stderr": "0008-emit.stderr.gz",
+        "emit.stdout": "0009-emit.stdout.gz",
+        "final.guard.json": "0010-final.guard.json.gz",
+        "plan.json": "0011-plan.json.gz",
+        "receipt.json": "0012-receipt.json.gz",
+        "scenario.js": "0013-scenario.js.gz"
+      },
+      "planSHA256": "41f6adb7c8a436321c5eb1ec804430737d5a650fca6f128561d1d7a6e2b71a99",
+      "originalDirectory": "/tmp/bendvy48-provision-main-js-v2"
+    },
+    "main-mutant-js": {
+      "files": {
+        "consumer-acquired.guard.json": "0186-consumer-acquired.guard.json.gz",
+        "consumer-post.guard.json": "0187-consumer-post.guard.json.gz",
+        "consumer-pre.guard.json": "0188-consumer-pre.guard.json.gz",
+        "consumer.stderr": "0189-consumer.stderr.gz",
+        "consumer.stdout": "0190-consumer.stdout.gz",
+        "emit-acquired.guard.json": "0191-emit-acquired.guard.json.gz",
+        "emit-post.guard.json": "0192-emit-post.guard.json.gz",
+        "emit-pre.guard.json": "0193-emit-pre.guard.json.gz",
+        "emit.stderr": "0194-emit.stderr.gz",
+        "emit.stdout": "0195-emit.stdout.gz",
+        "final.guard.json": "0196-final.guard.json.gz",
+        "plan.json": "0197-plan.json.gz",
+        "receipt.json": "0198-receipt.json.gz",
+        "scenario.js": "0199-scenario.js.gz"
+      },
+      "planSHA256": "359153c7ba173d7a0da0b4edbf55f8c2207ac621b69f92e5c954ac48a63ba732",
+      "originalDirectory": "/tmp/bendvy48-provision-main-mutant-js-v2"
+    },
+    "flow-only-js": {
+      "files": {
+        "consumer-acquired.guard.json": "0201-consumer-acquired.guard.json.gz",
+        "consumer-post.guard.json": "0202-consumer-post.guard.json.gz",
+        "consumer-pre.guard.json": "0203-consumer-pre.guard.json.gz",
+        "consumer.stderr": "0204-consumer.stderr.gz",
+        "consumer.stdout": "0205-consumer.stdout.gz",
+        "emit-acquired.guard.json": "0206-emit-acquired.guard.json.gz",
+        "emit-post.guard.json": "0207-emit-post.guard.json.gz",
+        "emit-pre.guard.json": "0208-emit-pre.guard.json.gz",
+        "emit.stderr": "0209-emit.stderr.gz",
+        "emit.stdout": "0210-emit.stdout.gz",
+        "final.guard.json": "0211-final.guard.json.gz",
+        "plan.json": "0212-plan.json.gz",
+        "receipt.json": "0213-receipt.json.gz",
+        "scenario.js": "0214-scenario.js.gz"
+      },
+      "planSHA256": "0cdf824bf3095c50c70ff92ea3bc277558191975ca152f71e26165ac05aa0436",
+      "originalDirectory": "/tmp/bendvy48-provision-flow-only-js-v2"
+    },
+    "main-native": {
+      "files": {
+        "build-acquired.guard.json": "0216-build-acquired.guard.json.gz",
+        "build-post.guard.json": "0217-build-post.guard.json.gz",
+        "build-pre.guard.json": "0218-build-pre.guard.json.gz",
+        "build.stderr": "0219-build.stderr.gz",
+        "build.stdout": "0220-build.stdout.gz",
+        "consumer-acquired.guard.json": "0221-consumer-acquired.guard.json.gz",
+        "consumer-post.guard.json": "0222-consumer-post.guard.json.gz",
+        "consumer-pre.guard.json": "0223-consumer-pre.guard.json.gz",
+        "consumer.stderr": "0224-consumer.stderr.gz",
+        "consumer.stdout": "0225-consumer.stdout.gz",
+        "emit-acquired.guard.json": "0226-emit-acquired.guard.json.gz",
+        "emit-post.guard.json": "0227-emit-post.guard.json.gz",
+        "emit-pre.guard.json": "0228-emit-pre.guard.json.gz",
+        "emit.stderr": "0229-emit.stderr.gz",
+        "emit.stdout": "0230-emit.stdout.gz",
+        "final.guard.json": "0231-final.guard.json.gz",
+        "plan.json": "0232-plan.json.gz",
+        "receipt.json": "0233-receipt.json.gz",
+        "scenario.c": "0234-scenario.c.gz",
+        "scenario.native": "0235-scenario.native.gz"
+      },
+      "planSHA256": "dd5e8f474e0396291c1226b847ddef942c1408acf790c8ed98dd1597835b65a0",
+      "originalDirectory": "/tmp/bendvy48-provision-main-native-v2"
+    },
+    "main-mutant-native": {
+      "files": {
+        "build-acquired.guard.json": "0238-build-acquired.guard.json.gz",
+        "build-post.guard.json": "0239-build-post.guard.json.gz",
+        "build-pre.guard.json": "0240-build-pre.guard.json.gz",
+        "build.stderr": "0241-build.stderr.gz",
+        "build.stdout": "0242-build.stdout.gz",
+        "consumer-acquired.guard.json": "0243-consumer-acquired.guard.json.gz",
+        "consumer-post.guard.json": "0244-consumer-post.guard.json.gz",
+        "consumer-pre.guard.json": "0245-consumer-pre.guard.json.gz",
+        "consumer.stderr": "0246-consumer.stderr.gz",
+        "consumer.stdout": "0247-consumer.stdout.gz",
+        "emit-acquired.guard.json": "0248-emit-acquired.guard.json.gz",
+        "emit-post.guard.json": "0249-emit-post.guard.json.gz",
+        "emit-pre.guard.json": "0250-emit-pre.guard.json.gz",
+        "emit.stderr": "0251-emit.stderr.gz",
+        "emit.stdout": "0252-emit.stdout.gz",
+        "final.guard.json": "0253-final.guard.json.gz",
+        "plan.json": "0254-plan.json.gz",
+        "receipt.json": "0255-receipt.json.gz",
+        "scenario.c": "0256-scenario.c.gz",
+        "scenario.native": "0257-scenario.native.gz"
+      },
+      "planSHA256": "fac61c7af4275968522f9ae1018bac130c2949dbde7d9450662e9cb2edac1f88",
+      "originalDirectory": "/tmp/bendvy48-provision-main-mutant-native-v2"
+    },
+    "flow-only-native": {
+      "files": {
+        "build-acquired.guard.json": "0258-build-acquired.guard.json.gz",
+        "build-post.guard.json": "0259-build-post.guard.json.gz",
+        "build-pre.guard.json": "0260-build-pre.guard.json.gz",
+        "build.stderr": "0261-build.stderr.gz",
+        "build.stdout": "0262-build.stdout.gz",
+        "consumer-acquired.guard.json": "0263-consumer-acquired.guard.json.gz",
+        "consumer-post.guard.json": "0264-consumer-post.guard.json.gz",
+        "consumer-pre.guard.json": "0265-consumer-pre.guard.json.gz",
+        "consumer.stderr": "0266-consumer.stderr.gz",
+        "consumer.stdout": "0267-consumer.stdout.gz",
+        "emit-acquired.guard.json": "0268-emit-acquired.guard.json.gz",
+        "emit-post.guard.json": "0269-emit-post.guard.json.gz",
+        "emit-pre.guard.json": "0270-emit-pre.guard.json.gz",
+        "emit.stderr": "0271-emit.stderr.gz",
+        "emit.stdout": "0272-emit.stdout.gz",
+        "final.guard.json": "0273-final.guard.json.gz",
+        "plan.json": "0274-plan.json.gz",
+        "receipt.json": "0275-receipt.json.gz",
+        "scenario.c": "0276-scenario.c.gz",
+        "scenario.native": "0277-scenario.native.gz"
+      },
+      "planSHA256": "369fa42adcd51f7a7ae9be9ec737e4ac7b0bcb9049b1159fa117b3c4247a4707",
+      "originalDirectory": "/tmp/bendvy48-provision-flow-only-native-v2"
+    }
+  },
+  "sourceObjects": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/main.bend": "0014-main.bend.gz",
+    "/home/node/.bend/bend2/base.bend": "0015-base.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/initial.bend": "0016-initial.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine.bend": "0017-machine.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "0018-transaction.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/declared.bend": "0019-declared.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/requirements.bend": "0020-requirements.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/provider.bend": "0021-provider.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/stream.bend": "0022-stream.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": "0023-event-runtime.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "0024-world.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "0025-string-equality.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "0026-system.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "0027-registration.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-world.bend": "0028-machine-world.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "0029-column.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "0030-lifecycle.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "0031-owner-handoff.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "0032-indexed-lifecycle.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0033-component.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/conditions.bend": "0034-conditions.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/application.bend": "0035-application.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/gameplay.bend": "0036-gameplay.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "0037-capabilities.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/context.bend": "0038-context.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/commands.bend": "0039-commands.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/hooks.bend": "0040-hooks.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/marker.bend": "0041-marker.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/readers.bend": "0042-readers.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/catalog.bend": "0043-catalog.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/slots.bend": "0044-slots.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/observe.bend": "0045-observe.bend.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend": "0046-schedule.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/observer.bend": "0047-observer.bend.gz",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py": "0048-installed-config.py.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/development-js.py": "0049-development-js.py.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/transport-v1/transport.py": "0050-transport.py.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/transport-v1/main-inventory.json": "0051-main-inventory.json.gz",
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py": "0052-task_runner.py.gz",
+    "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py": "0053-evidence_boundary.py.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/ORACLE-SELECTION.json": "0054-ORACLE-SELECTION.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/RECIPE-REUSE.json": "0055-RECIPE-REUSE.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/test-transport.py": "0056-test-transport.py.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/test-publication.py": "0057-test-publication.py.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/test-admission.py": "0058-test-admission.py.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.c": "0059-world-namespace.c.gz",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.js": "0060-world-namespace.js.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/expected.json": "0061-expected.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/expected-wire.stdout": "0062-expected-wire.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/expected.stdout": "0063-expected.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/flow-only-expected.json": "0064-flow-only-expected.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/flow-only-expected.stdout": "0065-flow-only-expected.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/source-basis.json": "0066-source-basis.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/mutant-expected.json": "0067-mutant-expected.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/wire.py": "0068-wire.py.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/expected.py": "0069-expected.py.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/WIRE-REVIEW.md": "0070-WIRE-REVIEW.md.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/test-model.py": "0071-test-model.py.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/flow-only-expected-wire.stdout": "0072-flow-only-expected-wire.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/mutant-expected-wire.stdout": "0073-mutant-expected-wire.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/REVIEW.md": "0074-REVIEW.md.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/mutant-expected.stdout": "0075-mutant-expected.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/test-wire.py": "0076-test-wire.py.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/WIRE-BASIS.json": "0077-WIRE-BASIS.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/negative-schema.bend": "0078-negative-schema.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/main-mutant.bend": "0079-main-mutant.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/negative-read.bend": "0080-negative-read.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/generic-type.bend": "0081-generic-type.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/negative-token.bend": "0082-negative-token.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/negative-owner.bend": "0083-negative-owner.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/SCENE-IMPORT-JOIN.json": "0084-SCENE-IMPORT-JOIN.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/check-source-joins.py": "0085-check-source-joins.py.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/declared-missing-mutant.bend": "0086-declared-missing-mutant.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/README.md": "0087-README.md.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/SOURCE-FREEZE.json": "0088-SOURCE-FREEZE.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/negative-registered-owner.bend": "0089-negative-registered-owner.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/flow-only.bend": "0090-flow-only.bend.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/HANDOFF.md": "0091-HANDOFF.md.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/REFERENCE-BASIS.md": "0092-REFERENCE-BASIS.md.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/mutation-source-v1/main-mutant.stdout": "0093-main-mutant.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/mutation-source-v1/main-mutant.json": "0094-main-mutant.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/mutation-source-v1/main-mutant.stderr": "0095-main-mutant.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/flow-only-source-v1/flow-only.stdout": "0096-flow-only.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/flow-only-source-v1/flow-only.json": "0097-flow-only.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/flow-only-source-v1/flow-only.stderr": "0098-flow-only.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v3/main.json": "0099-main.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v3/main.stdout": "0100-main.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v3/main.stderr": "0101-main.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v4/main.json": "0102-main.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v4/main.stdout": "0103-main.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v4/main.stderr": "0104-main.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/rust-optional-source-v1/declared.stderr": "0105-declared.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/rust-optional-source-v1/main.json": "0106-main.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/rust-optional-source-v1/declared.stdout": "0107-declared.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/rust-optional-source-v1/main.stdout": "0108-main.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/rust-optional-source-v1/declared.json": "0109-declared.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/rust-optional-source-v1/main.stderr": "0110-main.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/requirements.json": "0111-requirements.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/declared.stderr": "0112-declared.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/initial.stderr": "0113-initial.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/main.json": "0114-main.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/initial.stdout": "0115-initial.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/declared.stdout": "0116-declared.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/main.stdout": "0117-main.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/requirements.stderr": "0118-requirements.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/declared.json": "0119-declared.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/requirements.stdout": "0120-requirements.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/initial.json": "0121-initial.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/main.stderr": "0122-main.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-schema.stdout": "0123-negative-schema.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/generic-type.stdout": "0124-generic-type.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-token.stderr": "0125-negative-token.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-read.stdout": "0126-negative-read.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-read.stderr": "0127-negative-read.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-token.stdout": "0128-negative-token.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/generic-type.stderr": "0129-generic-type.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-schema.stderr": "0130-negative-schema.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-owner.json": "0131-negative-owner.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-owner.stderr": "0132-negative-owner.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-owner.stdout": "0133-negative-owner.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-read.json": "0134-negative-read.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-schema.json": "0135-negative-schema.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-token.json": "0136-negative-token.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/generic-type.json": "0137-generic-type.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-schema.stdout": "0138-negative-schema.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-registered-owner.stderr": "0139-negative-registered-owner.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/requirements.json": "0140-requirements.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/generic-type.stdout": "0141-generic-type.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/declared.stderr": "0142-declared.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-token.stderr": "0143-negative-token.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/initial.stderr": "0144-initial.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-read.stdout": "0145-negative-read.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-read.stderr": "0146-negative-read.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-token.stdout": "0147-negative-token.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/main.json": "0148-main.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/initial.stdout": "0149-initial.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/generic-type.stderr": "0150-generic-type.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/declared.stdout": "0151-declared.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-registered-owner.json": "0152-negative-registered-owner.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-registered-owner.stdout": "0153-negative-registered-owner.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-schema.stderr": "0154-negative-schema.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/main-mutant.stdout": "0155-main-mutant.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/main.stdout": "0156-main.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-owner.json": "0157-negative-owner.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/requirements.stderr": "0158-requirements.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-owner.stderr": "0159-negative-owner.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-owner.stdout": "0160-negative-owner.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/declared.json": "0161-declared.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/requirements.stdout": "0162-requirements.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/main-mutant.json": "0163-main-mutant.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-read.json": "0164-negative-read.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/initial.json": "0165-initial.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-schema.json": "0166-negative-schema.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-token.json": "0167-negative-token.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/main.stderr": "0168-main.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/generic-type.json": "0169-generic-type.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/main-mutant.stderr": "0170-main-mutant.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/requirements.json": "0171-requirements.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/declared.stderr": "0172-declared.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/initial.stderr": "0173-initial.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/main.json": "0174-main.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/initial.stdout": "0175-initial.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/declared.stdout": "0176-declared.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/main.stdout": "0177-main.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/requirements.stderr": "0178-requirements.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/declared.json": "0179-declared.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/requirements.stdout": "0180-requirements.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/initial.json": "0181-initial.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/main.stderr": "0182-main.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v2/negative-registered-owner.stderr": "0183-negative-registered-owner.stderr.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v2/negative-registered-owner.json": "0184-negative-registered-owner.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v2/negative-registered-owner.stdout": "0185-negative-registered-owner.stdout.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/transport-v1/main-mutant-inventory.json": "0200-main-mutant-inventory.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/transport-v1/flow-only-inventory.json": "0215-flow-only-inventory.json.gz",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/development-native.py": "0236-development-native.py.gz",
+    "/tmp/bendvy-clang19-diagnostic/clang19": "0237-clang19.gz"
+  },
+  "members": {
+    "0000-consumer-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/consumer-acquired.guard.json",
+      "sha256": "22bf37f48e5fd45f661f98392dae3703e6fa1cf07e2b734132d97e2144bc9994",
+      "bytes": 79455,
+      "bucket": "main-js"
+    },
+    "0001-consumer-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/consumer-post.guard.json",
+      "sha256": "3205de38e015245662cf55face24a83c716bdc59586898eae5692418453ab982",
+      "bytes": 79703,
+      "bucket": "main-js"
+    },
+    "0002-consumer-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/consumer-pre.guard.json",
+      "sha256": "4f8dca8f483b8981f501ea2e0b226311a51c73ff0b08512766884966991e7b06",
+      "bytes": 79450,
+      "bucket": "main-js"
+    },
+    "0003-consumer.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/consumer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-js"
+    },
+    "0004-consumer.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/consumer.stdout",
+      "sha256": "246cb1738c230477c3687e35b53a80d7734f7ccc7e44596374688f2c7ea9f0ff",
+      "bytes": 52125,
+      "bucket": "main-js"
+    },
+    "0005-emit-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/emit-acquired.guard.json",
+      "sha256": "cd6a7dcbd90f005a2dc44e2906b13f5036c83437b8b67468c9c1c02fb2278221",
+      "bytes": 79085,
+      "bucket": "main-js"
+    },
+    "0006-emit-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/emit-post.guard.json",
+      "sha256": "239e9477a1b70360f4236e7bb63ceb05a69bcfd5848679784d2aff57579f8f4a",
+      "bytes": 79447,
+      "bucket": "main-js"
+    },
+    "0007-emit-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/emit-pre.guard.json",
+      "sha256": "94040334fe051c589469e01a67ce09cef8485c08c1654c60429b7fac021918d6",
+      "bytes": 79080,
+      "bucket": "main-js"
+    },
+    "0008-emit.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/emit.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-js"
+    },
+    "0009-emit.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/emit.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-js"
+    },
+    "0010-final.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/final.guard.json",
+      "sha256": "9899b07801d146ec9b28de637f5cae4346442b4cd18bc4eb8a7dac3a2fa87346",
+      "bytes": 79695,
+      "bucket": "main-js"
+    },
+    "0011-plan.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/plan.json",
+      "sha256": "41f6adb7c8a436321c5eb1ec804430737d5a650fca6f128561d1d7a6e2b71a99",
+      "bytes": 81806,
+      "bucket": "main-js"
+    },
+    "0012-receipt.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/receipt.json",
+      "sha256": "a74433941d3357594d179feae4dc8d62db787a230134a022358df991e245346a",
+      "bytes": 3399,
+      "bucket": "main-js"
+    },
+    "0013-scenario.js.gz": {
+      "original": "/tmp/bendvy48-provision-main-js-v2/scenario.js",
+      "sha256": "2f857ae3aa27dbdf20cc36161562ea8d297e5f9adc2ba363a1386a748bd9c442",
+      "bytes": 717667,
+      "bucket": "main-js"
+    },
+    "0014-main.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/main.bend",
+      "sha256": "80071426dbd49182fb370c716661d03e35486492341efb818b242633266e6017",
+      "bytes": 7989,
+      "bucket": "executed-input"
+    },
+    "0015-base.bend.gz": {
+      "original": "/home/node/.bend/bend2/base.bend",
+      "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+      "bytes": 71530,
+      "bucket": "executed-input"
+    },
+    "0016-initial.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/initial.bend",
+      "sha256": "931142932fbfd087c1f0c76535c2edfc73d9a07ac048c3534fb1a122757ee38d",
+      "bytes": 1103,
+      "bucket": "executed-input"
+    },
+    "0017-machine.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend",
+      "sha256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+      "bytes": 9883,
+      "bucket": "executed-input"
+    },
+    "0018-transaction.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+      "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "bytes": 2199,
+      "bucket": "executed-input"
+    },
+    "0019-declared.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/declared.bend",
+      "sha256": "8e0a92727f4378595f2f6992371d47b01c51290588978a21ea3b9a2b9f79c670",
+      "bytes": 4653,
+      "bucket": "executed-input"
+    },
+    "0020-requirements.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/requirements.bend",
+      "sha256": "dd1ede86a6e366688fde14fa5a2116e2b9bdd22612af6df8d8adda31f04ef18d",
+      "bytes": 2396,
+      "bucket": "executed-input"
+    },
+    "0021-provider.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/provider.bend",
+      "sha256": "54f0a0fec369c409b5e1b876c708abb58df3fc6395736fcd75c9a76021c6fc26",
+      "bytes": 12385,
+      "bucket": "executed-input"
+    },
+    "0022-stream.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/stream.bend",
+      "sha256": "570ff4bca3668e18c1e66e5db257e802b8ee90d87d4d26c681e86cd56b444928",
+      "bytes": 4462,
+      "bucket": "executed-input"
+    },
+    "0023-event-runtime.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend",
+      "sha256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "bytes": 25508,
+      "bucket": "executed-input"
+    },
+    "0024-world.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "sha256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "bytes": 22404,
+      "bucket": "executed-input"
+    },
+    "0025-string-equality.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+      "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "bytes": 897,
+      "bucket": "executed-input"
+    },
+    "0026-system.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+      "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "bytes": 12147,
+      "bucket": "executed-input"
+    },
+    "0027-registration.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/registration.bend",
+      "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "bytes": 1768,
+      "bucket": "executed-input"
+    },
+    "0028-machine-world.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/machine-world.bend",
+      "sha256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+      "bytes": 1887,
+      "bucket": "executed-input"
+    },
+    "0029-column.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "bytes": 45638,
+      "bucket": "executed-input"
+    },
+    "0030-lifecycle.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend",
+      "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "bytes": 1591,
+      "bucket": "executed-input"
+    },
+    "0031-owner-handoff.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend",
+      "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "bytes": 6475,
+      "bucket": "executed-input"
+    },
+    "0032-indexed-lifecycle.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend",
+      "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "bytes": 3862,
+      "bucket": "executed-input"
+    },
+    "0033-component.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "bytes": 31351,
+      "bucket": "executed-input"
+    },
+    "0034-conditions.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/conditions.bend",
+      "sha256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+      "bytes": 1487,
+      "bucket": "executed-input"
+    },
+    "0035-application.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/application.bend",
+      "sha256": "c3aa567e2b21f3d37b6bedeb6915c117ca29c0b0ff7cf5b7e996433258e3b21b",
+      "bytes": 18566,
+      "bucket": "executed-input"
+    },
+    "0036-gameplay.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/gameplay.bend",
+      "sha256": "1e12a16e1ea7fd21d5500f70c21f48e6d6b1f2bc62369b6da8c394e119220cc6",
+      "bytes": 7714,
+      "bucket": "executed-input"
+    },
+    "0037-capabilities.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+      "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "bytes": 4096,
+      "bucket": "executed-input"
+    },
+    "0038-context.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/context.bend",
+      "sha256": "2b8733e5a8181e79e6b3de3b229fb619d8a7a6e71bb3c18524d1815a90f0c026",
+      "bytes": 9167,
+      "bucket": "executed-input"
+    },
+    "0039-commands.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+      "sha256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "bytes": 9870,
+      "bucket": "executed-input"
+    },
+    "0040-hooks.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/hooks.bend",
+      "sha256": "83f28a6294c5b08d0bb84870cce0891cf2c623264b0dc6a2fc9650699acc1e15",
+      "bytes": 8640,
+      "bucket": "executed-input"
+    },
+    "0041-marker.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/marker.bend",
+      "sha256": "bb3329aa18e9f645e614be35d40cb83a2c227844d8bb97e932d05213f75560f8",
+      "bytes": 6880,
+      "bucket": "executed-input"
+    },
+    "0042-readers.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/readers.bend",
+      "sha256": "9880177a9602da979bfa6362ec8dd169c772b9798efa60e08fb1b995bb2cd06d",
+      "bytes": 11252,
+      "bucket": "executed-input"
+    },
+    "0043-catalog.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/catalog.bend",
+      "sha256": "0433a5e206fb81c9c503f243fa5559d39e8fc02c890e7e22bcea8309b342e5f3",
+      "bytes": 4954,
+      "bucket": "executed-input"
+    },
+    "0044-slots.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/slots.bend",
+      "sha256": "cd1f1acbc0e012b85347085642a6ced6f2b90962115648390e76364e86706f86",
+      "bytes": 936,
+      "bucket": "executed-input"
+    },
+    "0045-observe.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/scene/observe.bend",
+      "sha256": "368a4f52b0376a9f1c787376260443be5f6eb126a8d761d6e4e27b7c48f36fa7",
+      "bytes": 8073,
+      "bucket": "executed-input"
+    },
+    "0046-schedule.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend",
+      "sha256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "bytes": 12704,
+      "bucket": "executed-input"
+    },
+    "0047-observer.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/observer.bend",
+      "sha256": "befa79d8d6f9c899a5f2d9f8ebb3c8f3f6e9fa797d3e8db4e069a1e160ff32e9",
+      "bytes": 7440,
+      "bucket": "executed-input"
+    },
+    "0048-installed-config.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py",
+      "sha256": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+      "bytes": 5567,
+      "bucket": "executed-input"
+    },
+    "0049-development-js.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/development-js.py",
+      "sha256": "99dbcd5726c6ac38d2a9c640a207e44b7922acf63c7b7cedbc6b54ff1ffec809",
+      "bytes": 13519,
+      "bucket": "executed-input"
+    },
+    "0050-transport.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/transport-v1/transport.py",
+      "sha256": "c58ac56976d3cccf3693eb922344001ede761815fd5b3d928dc4589df9d85687",
+      "bytes": 3192,
+      "bucket": "executed-input"
+    },
+    "0051-main-inventory.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/transport-v1/main-inventory.json",
+      "sha256": "27f046e87a1a2eb8198a78159cb9254b66ce3ae5abbe334f989f89e3799823ba",
+      "bytes": 5855,
+      "bucket": "executed-input"
+    },
+    "0052-task_runner.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy/scripts/task_runner.py",
+      "sha256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "bytes": 12358,
+      "bucket": "executed-input"
+    },
+    "0053-evidence_boundary.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py",
+      "sha256": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122",
+      "bytes": 3014,
+      "bucket": "executed-input"
+    },
+    "0054-ORACLE-SELECTION.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/ORACLE-SELECTION.json",
+      "sha256": "b918358a96c018a6aa6e728b6157e545a35b7858a6214d4c26d0f4fb24cbecbf",
+      "bytes": 3558,
+      "bucket": "executed-input"
+    },
+    "0055-RECIPE-REUSE.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/RECIPE-REUSE.json",
+      "sha256": "bcce747c52e00055dc1407a77f750f032a97f424239d04732a842094fa9e53fe",
+      "bytes": 1321,
+      "bucket": "executed-input"
+    },
+    "0056-test-transport.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/test-transport.py",
+      "sha256": "ac4e1376cc5962de95c08732ed3f76fa19f12b9748eb8b88fa21aa7b905640d6",
+      "bytes": 2628,
+      "bucket": "executed-input"
+    },
+    "0057-test-publication.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/test-publication.py",
+      "sha256": "d77a4ce49e90978d9d73dacae89d975f7529b802098117b082d2c667ae7f539c",
+      "bytes": 2006,
+      "bucket": "executed-input"
+    },
+    "0058-test-admission.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/test-admission.py",
+      "sha256": "9bec029cc65ddb2e7cfa88769c45e3a8a4d653ba79cbd002db3bfb2732bfe349",
+      "bytes": 1896,
+      "bucket": "executed-input"
+    },
+    "0059-world-namespace.c.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.c",
+      "sha256": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+      "bytes": 648,
+      "bucket": "executed-input"
+    },
+    "0060-world-namespace.js.gz": {
+      "original": "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.js",
+      "sha256": "2731ad76f78bcdfe51714a1562fe487d5808b9300394ec0aebd89e24b00163f3",
+      "bytes": 279,
+      "bucket": "executed-input"
+    },
+    "0061-expected.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/expected.json",
+      "sha256": "ddc77c00dde61c462f16f58d2aacd30ea20c4abb8f133224c090c738e650b1d1",
+      "bytes": 67501,
+      "bucket": "executed-input"
+    },
+    "0062-expected-wire.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/expected-wire.stdout",
+      "sha256": "246cb1738c230477c3687e35b53a80d7734f7ccc7e44596374688f2c7ea9f0ff",
+      "bytes": 52125,
+      "bucket": "executed-input"
+    },
+    "0063-expected.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/expected.stdout",
+      "sha256": "9aed98e6a947ee5018e1307ae6bdc4242585426dc3166f4a1473c23dc5238b98",
+      "bytes": 52088,
+      "bucket": "executed-input"
+    },
+    "0064-flow-only-expected.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/flow-only-expected.json",
+      "sha256": "9d69b14e235e4b0af3dcda5aecaa09a983644095fbc09caaee8bddd0ff819653",
+      "bytes": 8215,
+      "bucket": "executed-input"
+    },
+    "0065-flow-only-expected.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/flow-only-expected.stdout",
+      "sha256": "450a5773ef8294b26e5d2e0688293508f7b30f9114f56fd896cc2706aaa07b2a",
+      "bytes": 4514,
+      "bucket": "executed-input"
+    },
+    "0066-source-basis.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/source-basis.json",
+      "sha256": "a5c35104df2c7b6405dc253a49e0c4c493005f493f5ad38f4959629ba11f0c53",
+      "bytes": 11173,
+      "bucket": "executed-input"
+    },
+    "0067-mutant-expected.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/mutant-expected.json",
+      "sha256": "47c1911f893c9bb267ff8eb753b724c8a21dff449c62c495c0839cbf8782b62d",
+      "bytes": 70391,
+      "bucket": "executed-input"
+    },
+    "0068-wire.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/wire.py",
+      "sha256": "c2c318f20391d770150537a04ddb4612a98684abd5b789a2f5710635cedd6658",
+      "bytes": 1780,
+      "bucket": "executed-input"
+    },
+    "0069-expected.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/expected.py",
+      "sha256": "84bc3a595ee2311610e037d1f141700859e73219c6228ef6af3bc5986124c865",
+      "bytes": 7021,
+      "bucket": "executed-input"
+    },
+    "0070-WIRE-REVIEW.md.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/WIRE-REVIEW.md",
+      "sha256": "d775f00da562f5cd269859545f8408c1b94c901089ef280e3ebb001493ba025d",
+      "bytes": 1728,
+      "bucket": "executed-input"
+    },
+    "0071-test-model.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/test-model.py",
+      "sha256": "5b4eb13948c82bb4c446a24721b56f527e869e3e914420478f3fa554ba877c26",
+      "bytes": 2568,
+      "bucket": "executed-input"
+    },
+    "0072-flow-only-expected-wire.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/flow-only-expected-wire.stdout",
+      "sha256": "57f5584f8240d3f4b6c4d521cded0d20242aa6877b167f1dda79dc083d43e34d",
+      "bytes": 4527,
+      "bucket": "executed-input"
+    },
+    "0073-mutant-expected-wire.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/mutant-expected-wire.stdout",
+      "sha256": "b1e67e2bdd33b42869ec995217a5d2a0d1f528ec8b2ff0cd3148e0ba4a046c63",
+      "bytes": 55015,
+      "bucket": "executed-input"
+    },
+    "0074-REVIEW.md.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/REVIEW.md",
+      "sha256": "670eb48a6a67b7e0d3215474c37b532d61250a66845a0710ff5fcd5bf3115aaf",
+      "bytes": 4292,
+      "bucket": "executed-input"
+    },
+    "0075-mutant-expected.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/mutant-expected.stdout",
+      "sha256": "ec89b50d6d0ea3e442fd4de7635e797508fb843ec03682ceb035fc94fc5311ac",
+      "bytes": 54978,
+      "bucket": "executed-input"
+    },
+    "0076-test-wire.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/test-wire.py",
+      "sha256": "cf3f482e6700f4910f96cba152690c61cf098a41933d22089775eb8995462c0c",
+      "bytes": 677,
+      "bucket": "executed-input"
+    },
+    "0077-WIRE-BASIS.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-machines/provisioning-v1/oracle-v1/WIRE-BASIS.json",
+      "sha256": "c437b8cb76e55078214651b9175763858518960248f8d67b3e950a1a25977ee0",
+      "bytes": 1295,
+      "bucket": "executed-input"
+    },
+    "0078-negative-schema.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/negative-schema.bend",
+      "sha256": "80a2b2fe0837a375f175571db2e49dd9fc04d0782e001a481d91d8a2dbb7e749",
+      "bytes": 393,
+      "bucket": "executed-input"
+    },
+    "0079-main-mutant.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/main-mutant.bend",
+      "sha256": "573e32b1ec48139a9de8618427d475e7d5734ab33ecac0c712b883e2ed4c6e84",
+      "bytes": 8004,
+      "bucket": "executed-input"
+    },
+    "0080-negative-read.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/negative-read.bend",
+      "sha256": "ae5e1ab0ae035ee7d19928a79b7df4f07d4ca608c0b50b3b6f0a57868ba4df8f",
+      "bytes": 740,
+      "bucket": "executed-input"
+    },
+    "0081-generic-type.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/generic-type.bend",
+      "sha256": "0caed3e05eed73619ed920bccea8bafeb29c6d2bfb0ab80c8c73c235e8dbfd79",
+      "bytes": 748,
+      "bucket": "executed-input"
+    },
+    "0082-negative-token.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/negative-token.bend",
+      "sha256": "49297134472f12ebc9ee6242ac82fef165565563bdd9b1a89de432d177f7d1c9",
+      "bytes": 264,
+      "bucket": "executed-input"
+    },
+    "0083-negative-owner.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/negative-owner.bend",
+      "sha256": "6889ab2ad7c79d6157e772cb0c65f421e67e7e02b26f5515aebaa0637670a458",
+      "bytes": 461,
+      "bucket": "executed-input"
+    },
+    "0084-SCENE-IMPORT-JOIN.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/SCENE-IMPORT-JOIN.json",
+      "sha256": "2777a010c77bc53891f1d1d4c9d1b0105811f63b01b0309df75213c99d1d1856",
+      "bytes": 3597,
+      "bucket": "executed-input"
+    },
+    "0085-check-source-joins.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/check-source-joins.py",
+      "sha256": "94d392aaf6ea77d21842de381fcc66d4e9ac67fbc0885cad35f66e457e13b760",
+      "bytes": 4215,
+      "bucket": "executed-input"
+    },
+    "0086-declared-missing-mutant.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/declared-missing-mutant.bend",
+      "sha256": "92dbbbef25b645bbc4830d343cb6ba8a5dd63c8f2561e3fbb337d6b038df7b1b",
+      "bytes": 4682,
+      "bucket": "executed-input"
+    },
+    "0087-README.md.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/README.md",
+      "sha256": "3d55b78f88493a68b2c69ef0d759ae7da3a018bab07eb591afea5c96ae3539f3",
+      "bytes": 6583,
+      "bucket": "executed-input"
+    },
+    "0088-SOURCE-FREEZE.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/SOURCE-FREEZE.json",
+      "sha256": "be42587407f8a32a06e0bdbae47d21ab80fa63bb29d40f36de9203e5ae6a3271",
+      "bytes": 18732,
+      "bucket": "executed-input"
+    },
+    "0089-negative-registered-owner.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/negative-registered-owner.bend",
+      "sha256": "0ae98552bd82c2f5f84fe432aca01e78f90da8619bc83362f1b6ca59c10e6918",
+      "bytes": 536,
+      "bucket": "executed-input"
+    },
+    "0090-flow-only.bend.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/flow-only.bend",
+      "sha256": "957faf3b10e486a78bd78a9fb6c0a5a61ba1690d26e0feb1e877dec7b80d662d",
+      "bytes": 9031,
+      "bucket": "executed-input"
+    },
+    "0091-HANDOFF.md.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/HANDOFF.md",
+      "sha256": "a07581fbd1d430408950ea2363835cb21ef0f2959da38092624e172de68aa8ec",
+      "bytes": 1477,
+      "bucket": "executed-input"
+    },
+    "0092-REFERENCE-BASIS.md.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/REFERENCE-BASIS.md",
+      "sha256": "e9fd5bb179deed460524d4a2b142975e3dc4d0d0f1c8c8f72ccd37b497235ade",
+      "bytes": 2963,
+      "bucket": "executed-input"
+    },
+    "0093-main-mutant.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/mutation-source-v1/main-mutant.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0094-main-mutant.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/mutation-source-v1/main-mutant.json",
+      "sha256": "19c6e151d8066f49da390b91b42109391b0bd2f721902499e3acbe44bd2cbb9f",
+      "bytes": 6670,
+      "bucket": "executed-input"
+    },
+    "0095-main-mutant.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/mutation-source-v1/main-mutant.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0096-flow-only.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/flow-only-source-v1/flow-only.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0097-flow-only.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/flow-only-source-v1/flow-only.json",
+      "sha256": "efe96a69c7dc3043c9dd5d50c61e97302876c1d1018dff1874fe669233a290d2",
+      "bytes": 6450,
+      "bucket": "executed-input"
+    },
+    "0098-flow-only.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/flow-only-source-v1/flow-only.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0099-main.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v3/main.json",
+      "sha256": "b61fff685895051016efbd07d867aabdf2818ba7d5b6789da3e271055a911d07",
+      "bytes": 6643,
+      "bucket": "executed-input"
+    },
+    "0100-main.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v3/main.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0101-main.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v3/main.stderr",
+      "sha256": "ac081adb83a44a61cb6163d72dcdcd6e1f84f1356c941c64bf6f0a059206c47e",
+      "bytes": 1651,
+      "bucket": "executed-input"
+    },
+    "0102-main.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v4/main.json",
+      "sha256": "d38a83c90f61ce3254cadcda8d04268fb803bd1dcf43d72c96cae0c73f0c3347",
+      "bytes": 6641,
+      "bucket": "executed-input"
+    },
+    "0103-main.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v4/main.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0104-main.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v4/main.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0105-declared.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/rust-optional-source-v1/declared.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0106-main.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/rust-optional-source-v1/main.json",
+      "sha256": "81c7dc3fc374bf8cc1d6064b19cb539c5134541f2f81d9b632dcb81dac6b3f4b",
+      "bytes": 6641,
+      "bucket": "executed-input"
+    },
+    "0107-declared.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/rust-optional-source-v1/declared.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0108-main.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/rust-optional-source-v1/main.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0109-declared.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/rust-optional-source-v1/declared.json",
+      "sha256": "8fd5f59a3d03c06bdbd48eb78316ef5615400b970bb8634b0e5c083e26a96953",
+      "bytes": 6047,
+      "bucket": "executed-input"
+    },
+    "0110-main.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/rust-optional-source-v1/main.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0111-requirements.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/requirements.json",
+      "sha256": "4d3fa6346d75e616ce1f4167453498be6e25ed435fd13d784a6021595542a908",
+      "bytes": 1275,
+      "bucket": "executed-input"
+    },
+    "0112-declared.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/declared.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0113-initial.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/initial.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0114-main.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/main.json",
+      "sha256": "9bd16de4a7a7b17c77b312c7a9ace1e7d3c2431a1f213269097a12f78a6b3f5c",
+      "bytes": 6643,
+      "bucket": "executed-input"
+    },
+    "0115-initial.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/initial.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0116-declared.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/declared.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0117-main.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/main.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0118-requirements.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/requirements.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0119-declared.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/declared.json",
+      "sha256": "aeee44e81b0064d265a5cc3824657c15e3bc6445d58ef84e363c07214ff8a0fb",
+      "bytes": 6047,
+      "bucket": "executed-input"
+    },
+    "0120-requirements.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/requirements.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0121-initial.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/initial.json",
+      "sha256": "362627d5ca8e4117cb6aa15e8641b198d44879a64195b416a4c071386a886eac",
+      "bytes": 1525,
+      "bucket": "executed-input"
+    },
+    "0122-main.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v2/main.stderr",
+      "sha256": "ba8e9edc2761bc7b24adf789ef0f63ba4997ad320c243661d00c0aa84d817dc4",
+      "bytes": 1634,
+      "bucket": "executed-input"
+    },
+    "0123-negative-schema.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-schema.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0124-generic-type.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/generic-type.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0125-negative-token.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-token.stderr",
+      "sha256": "27f58d71de997862afe4a8f3c94e11f1ecc818b9e3ef5be280d3c9d4d5e9a54a",
+      "bytes": 261,
+      "bucket": "executed-input"
+    },
+    "0126-negative-read.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-read.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0127-negative-read.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-read.stderr",
+      "sha256": "6a9e92670634ca3a025455b079c82065238d406e94917edeb62d53ae25a5b115",
+      "bytes": 1510,
+      "bucket": "executed-input"
+    },
+    "0128-negative-token.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-token.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0129-generic-type.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/generic-type.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0130-negative-schema.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-schema.stderr",
+      "sha256": "a9eacc6dc9520b23b243a0936e81cfe45dda0a17cc7e0e7b2036de41c7e5f24b",
+      "bytes": 531,
+      "bucket": "executed-input"
+    },
+    "0131-negative-owner.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-owner.json",
+      "sha256": "7665f91485e0f6956a8b0a1c1280045d2596ea8db3102eee6199a329192cf03b",
+      "bytes": 6261,
+      "bucket": "executed-input"
+    },
+    "0132-negative-owner.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-owner.stderr",
+      "sha256": "396ad0172d7e2986af7e3786fc5abb7d5ac873ccf3740331bc94c0b75bb4db6b",
+      "bytes": 478,
+      "bucket": "executed-input"
+    },
+    "0133-negative-owner.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-owner.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0134-negative-read.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-read.json",
+      "sha256": "756c71253ec044d43e1ce590f1080285b3a27781d6539fa4abc9b59cc0da2df5",
+      "bytes": 3942,
+      "bucket": "executed-input"
+    },
+    "0135-negative-schema.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-schema.json",
+      "sha256": "6a283808cfac055de1e451031a1bb23782e64c17248df6e171ef1b6059be5098",
+      "bytes": 6263,
+      "bucket": "executed-input"
+    },
+    "0136-negative-token.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/negative-token.json",
+      "sha256": "01f3b78dc9181b41fa4c67504c89ab944ab5bfd5a6f031f2399ae316105c5e92",
+      "bytes": 6261,
+      "bucket": "executed-input"
+    },
+    "0137-generic-type.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v1/generic-type.json",
+      "sha256": "47a8f12471ad9dd0df08966fda0fad8cd13fc5e5c566e383e85ca338a928aceb",
+      "bytes": 1997,
+      "bucket": "executed-input"
+    },
+    "0138-negative-schema.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-schema.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0139-negative-registered-owner.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-registered-owner.stderr",
+      "sha256": "776abbf0bd76e905dd991218bf16268d6a2747d8a76a06d4a467778f4cb03bd7",
+      "bytes": 488,
+      "bucket": "executed-input"
+    },
+    "0140-requirements.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/requirements.json",
+      "sha256": "4d3fa6346d75e616ce1f4167453498be6e25ed435fd13d784a6021595542a908",
+      "bytes": 1275,
+      "bucket": "executed-input"
+    },
+    "0141-generic-type.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/generic-type.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0142-declared.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/declared.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0143-negative-token.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-token.stderr",
+      "sha256": "27f58d71de997862afe4a8f3c94e11f1ecc818b9e3ef5be280d3c9d4d5e9a54a",
+      "bytes": 261,
+      "bucket": "executed-input"
+    },
+    "0144-initial.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/initial.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0145-negative-read.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-read.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0146-negative-read.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-read.stderr",
+      "sha256": "6a9e92670634ca3a025455b079c82065238d406e94917edeb62d53ae25a5b115",
+      "bytes": 1510,
+      "bucket": "executed-input"
+    },
+    "0147-negative-token.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-token.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0148-main.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/main.json",
+      "sha256": "81c7dc3fc374bf8cc1d6064b19cb539c5134541f2f81d9b632dcb81dac6b3f4b",
+      "bytes": 6641,
+      "bucket": "executed-input"
+    },
+    "0149-initial.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/initial.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0150-generic-type.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/generic-type.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0151-declared.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/declared.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0152-negative-registered-owner.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-registered-owner.json",
+      "sha256": "fb3ebbaf30b8a2cf8d7c04f9bc924c8ac0095c39c0009fa65cdaaa1a69052d48",
+      "bytes": 6283,
+      "bucket": "executed-input"
+    },
+    "0153-negative-registered-owner.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-registered-owner.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0154-negative-schema.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-schema.stderr",
+      "sha256": "a9eacc6dc9520b23b243a0936e81cfe45dda0a17cc7e0e7b2036de41c7e5f24b",
+      "bytes": 531,
+      "bucket": "executed-input"
+    },
+    "0155-main-mutant.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/main-mutant.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0156-main.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/main.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0157-negative-owner.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-owner.json",
+      "sha256": "56bc2a393482f578a33621f1840c1706ae8bc76dfdc6b7949909641502f3b6f0",
+      "bytes": 6261,
+      "bucket": "executed-input"
+    },
+    "0158-requirements.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/requirements.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0159-negative-owner.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-owner.stderr",
+      "sha256": "396ad0172d7e2986af7e3786fc5abb7d5ac873ccf3740331bc94c0b75bb4db6b",
+      "bytes": 478,
+      "bucket": "executed-input"
+    },
+    "0160-negative-owner.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-owner.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0161-declared.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/declared.json",
+      "sha256": "8fd5f59a3d03c06bdbd48eb78316ef5615400b970bb8634b0e5c083e26a96953",
+      "bytes": 6047,
+      "bucket": "executed-input"
+    },
+    "0162-requirements.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/requirements.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0163-main-mutant.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/main-mutant.json",
+      "sha256": "6b92b886d41426c616bdb4b0446c2df175a43e91a26f8a554e0849848422396b",
+      "bytes": 6670,
+      "bucket": "executed-input"
+    },
+    "0164-negative-read.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-read.json",
+      "sha256": "2928fb3f02f062da7dd69d8c1fcbc9bc3de68453459402bd049a4263ad9ea778",
+      "bytes": 3942,
+      "bucket": "executed-input"
+    },
+    "0165-initial.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/initial.json",
+      "sha256": "362627d5ca8e4117cb6aa15e8641b198d44879a64195b416a4c071386a886eac",
+      "bytes": 1525,
+      "bucket": "executed-input"
+    },
+    "0166-negative-schema.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-schema.json",
+      "sha256": "de13cc6619e06428fb9f24e0cebc321dab92aa5b2fc4d52b38ff33cf1c7d74a0",
+      "bytes": 6263,
+      "bucket": "executed-input"
+    },
+    "0167-negative-token.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/negative-token.json",
+      "sha256": "03d5003d2ebdb3755e7e938fc4a6d9412704e7bb23f40fb72a7a7460141b707a",
+      "bytes": 6261,
+      "bucket": "executed-input"
+    },
+    "0168-main.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/main.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0169-generic-type.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/generic-type.json",
+      "sha256": "47a8f12471ad9dd0df08966fda0fad8cd13fc5e5c566e383e85ca338a928aceb",
+      "bytes": 1997,
+      "bucket": "executed-input"
+    },
+    "0170-main-mutant.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/final-source-v1/main-mutant.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0171-requirements.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/requirements.json",
+      "sha256": "94996ea224d9a6b9003a94e5932a32ddbfe2d94a9757758978bcc02728df9fc5",
+      "bytes": 418,
+      "bucket": "executed-input"
+    },
+    "0172-declared.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/declared.stderr",
+      "sha256": "a755563231f6fca55c2e930c744e7c8b958e885461b3ebf3daa6e8923868dcb2",
+      "bytes": 836,
+      "bucket": "executed-input"
+    },
+    "0173-initial.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/initial.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0174-main.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/main.json",
+      "sha256": "7d02baa39047be78df860891e938be9553490beec5e02b79af39da17ea7a7e68",
+      "bytes": 410,
+      "bucket": "executed-input"
+    },
+    "0175-initial.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/initial.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0176-declared.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/declared.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0177-main.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/main.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0178-requirements.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/requirements.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0179-declared.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/declared.json",
+      "sha256": "c5b3c32212f2081cf3aeafe05e17c6c73084866f31e083e9a76b4c683d1236ef",
+      "bytes": 414,
+      "bucket": "executed-input"
+    },
+    "0180-requirements.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/requirements.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "bucket": "executed-input"
+    },
+    "0181-initial.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/initial.json",
+      "sha256": "5bda963d19351bae689d111a09e4507ccf15ffdd77208cca3544db1eacf71b82",
+      "bytes": 413,
+      "bucket": "executed-input"
+    },
+    "0182-main.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/source-checks-v1/main.stderr",
+      "sha256": "a755563231f6fca55c2e930c744e7c8b958e885461b3ebf3daa6e8923868dcb2",
+      "bytes": 836,
+      "bucket": "executed-input"
+    },
+    "0183-negative-registered-owner.stderr.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v2/negative-registered-owner.stderr",
+      "sha256": "776abbf0bd76e905dd991218bf16268d6a2747d8a76a06d4a467778f4cb03bd7",
+      "bytes": 488,
+      "bucket": "executed-input"
+    },
+    "0184-negative-registered-owner.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v2/negative-registered-owner.json",
+      "sha256": "bd211c84db4abd321f950a044fe6ac876b8a36439c18cbdef35359dfd8c1ae86",
+      "bytes": 6283,
+      "bucket": "executed-input"
+    },
+    "0185-negative-registered-owner.stdout.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/authority-source-v2/negative-registered-owner.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "executed-input"
+    },
+    "0186-consumer-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/consumer-acquired.guard.json",
+      "sha256": "c4d51eb8b87f4f0167a6f22fc9e339c32fe748f3549ed4a2e67205e800cd7596",
+      "bytes": 79490,
+      "bucket": "main-mutant-js"
+    },
+    "0187-consumer-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/consumer-post.guard.json",
+      "sha256": "937929f9b9908a5b65c6064f117c9330ddd414e2f5240ccab11ac1b148d47dfc",
+      "bytes": 79752,
+      "bucket": "main-mutant-js"
+    },
+    "0188-consumer-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/consumer-pre.guard.json",
+      "sha256": "8984235f756d7e272e5ef2c6c528100863ccdb5611a7fdef6a5b7a94aa001dce",
+      "bytes": 79485,
+      "bucket": "main-mutant-js"
+    },
+    "0189-consumer.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/consumer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-mutant-js"
+    },
+    "0190-consumer.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/consumer.stdout",
+      "sha256": "b1e67e2bdd33b42869ec995217a5d2a0d1f528ec8b2ff0cd3148e0ba4a046c63",
+      "bytes": 55015,
+      "bucket": "main-mutant-js"
+    },
+    "0191-emit-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/emit-acquired.guard.json",
+      "sha256": "c5c90659048fa1ece28d5ddbe82740dc2b1fac503c0536d74490f1c1d5d9ed49",
+      "bytes": 79099,
+      "bucket": "main-mutant-js"
+    },
+    "0192-emit-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/emit-post.guard.json",
+      "sha256": "521742e22fb2eb969026e29333f7fc25778bbac7fdd15c533c0c6f358d4dd04c",
+      "bytes": 79482,
+      "bucket": "main-mutant-js"
+    },
+    "0193-emit-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/emit-pre.guard.json",
+      "sha256": "c087a35921c056d91ac471a9d6d997a0ce684d78572dbfdc44b34d17045f28a5",
+      "bytes": 79094,
+      "bucket": "main-mutant-js"
+    },
+    "0194-emit.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/emit.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-mutant-js"
+    },
+    "0195-emit.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/emit.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-mutant-js"
+    },
+    "0196-final.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/final.guard.json",
+      "sha256": "270c8b93d99a4cc73e05083e3b69a7f06420473d3a848b2ff974e9c01e09e0ec",
+      "bytes": 79744,
+      "bucket": "main-mutant-js"
+    },
+    "0197-plan.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/plan.json",
+      "sha256": "359153c7ba173d7a0da0b4edbf55f8c2207ac621b69f92e5c954ac48a63ba732",
+      "bytes": 82273,
+      "bucket": "main-mutant-js"
+    },
+    "0198-receipt.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/receipt.json",
+      "sha256": "20e51fdb1aa793829a47cc0c2f7002af47b927e913f6f841dc489fe71b984292",
+      "bytes": 3599,
+      "bucket": "main-mutant-js"
+    },
+    "0199-scenario.js.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-js-v2/scenario.js",
+      "sha256": "34fa09490b6568ea815724802f4bbb530bcf96670eca74e13331d79e6c466e64",
+      "bytes": 719625,
+      "bucket": "main-mutant-js"
+    },
+    "0200-main-mutant-inventory.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/transport-v1/main-mutant-inventory.json",
+      "sha256": "031d17fe376104038b9b0169c448c1a6acc7c59d3ca692e41a4c2a6b4479994f",
+      "bytes": 5884,
+      "bucket": "executed-input"
+    },
+    "0201-consumer-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/consumer-acquired.guard.json",
+      "sha256": "b1cd1114b3c777d5b29862964feeb7b7e5db3300a3eb0e436c61e3dd98829671",
+      "bytes": 79480,
+      "bucket": "flow-only-js"
+    },
+    "0202-consumer-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/consumer-post.guard.json",
+      "sha256": "c4df5ad25d9225dc6e0c5110d0140f2dc4dbae911524872329c0e02d10e9bfba",
+      "bytes": 79738,
+      "bucket": "flow-only-js"
+    },
+    "0203-consumer-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/consumer-pre.guard.json",
+      "sha256": "f92699d1c7fc13265ee347eed49c811f9611ac72794f6a3cc1ad7bf71a1b8587",
+      "bytes": 79475,
+      "bucket": "flow-only-js"
+    },
+    "0204-consumer.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/consumer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "flow-only-js"
+    },
+    "0205-consumer.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/consumer.stdout",
+      "sha256": "57f5584f8240d3f4b6c4d521cded0d20242aa6877b167f1dda79dc083d43e34d",
+      "bytes": 4527,
+      "bucket": "flow-only-js"
+    },
+    "0206-emit-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/emit-acquired.guard.json",
+      "sha256": "bd03201f2bb57b366d96875320e7713768db3a09422e0cae100d7b868208a906",
+      "bytes": 79095,
+      "bucket": "flow-only-js"
+    },
+    "0207-emit-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/emit-post.guard.json",
+      "sha256": "442138c53ddee19a44f39a69b9283c2a941afd77e95227709a12f7260361c0ed",
+      "bytes": 79472,
+      "bucket": "flow-only-js"
+    },
+    "0208-emit-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/emit-pre.guard.json",
+      "sha256": "d1f4248de76639b22d4c34c89a90d8939de54b2ed1d20cbfd1e35814c6563a2a",
+      "bytes": 79090,
+      "bucket": "flow-only-js"
+    },
+    "0209-emit.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/emit.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "flow-only-js"
+    },
+    "0210-emit.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/emit.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "flow-only-js"
+    },
+    "0211-final.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/final.guard.json",
+      "sha256": "a897713019bb75b6e5ecb8caa390fc166d97dcc6698835d749960c49646b4592",
+      "bytes": 79730,
+      "bucket": "flow-only-js"
+    },
+    "0212-plan.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/plan.json",
+      "sha256": "0cdf824bf3095c50c70ff92ea3bc277558191975ca152f71e26165ac05aa0436",
+      "bytes": 81866,
+      "bucket": "flow-only-js"
+    },
+    "0213-receipt.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/receipt.json",
+      "sha256": "1c747f323d715afae5b12bcf1e0bed47f74c5cd2b66d10ec68080a9980b3ec8a",
+      "bytes": 3468,
+      "bucket": "flow-only-js"
+    },
+    "0214-scenario.js.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-js-v2/scenario.js",
+      "sha256": "9b6d78bd829681a007d4a80a093ea3b8083b399f3be61d655b043e985bfc3078",
+      "bytes": 124076,
+      "bucket": "flow-only-js"
+    },
+    "0215-flow-only-inventory.json.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/transport-v1/flow-only-inventory.json",
+      "sha256": "a92112306cbc49e09de072c9b1038f5cef5c4cc00af72616578e20a1f83a51b1",
+      "bytes": 5664,
+      "bucket": "executed-input"
+    },
+    "0216-build-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/build-acquired.guard.json",
+      "sha256": "06283bd20be67160de72f7f921293f60fb7e01206a7fe2e2c34b57d95761a4c6",
+      "bytes": 79722,
+      "bucket": "main-native"
+    },
+    "0217-build-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/build-post.guard.json",
+      "sha256": "1ea5a40e1b2b6344abdfab4ea41c17b46211f5c1228bb2ee326ac5b6452b2344",
+      "bytes": 80102,
+      "bucket": "main-native"
+    },
+    "0218-build-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/build-pre.guard.json",
+      "sha256": "6e4c1d9f12c45e7fc033ec2357d1aa32983d13c46157b49ab86205989ac79c27",
+      "bytes": 79717,
+      "bucket": "main-native"
+    },
+    "0219-build.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/build.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-native"
+    },
+    "0220-build.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/build.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-native"
+    },
+    "0221-consumer-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/consumer-acquired.guard.json",
+      "sha256": "554f51996fa87dd10edd00f6e9f76db45709d4934624a31a00378be63b4ce03f",
+      "bytes": 80109,
+      "bucket": "main-native"
+    },
+    "0222-consumer-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/consumer-post.guard.json",
+      "sha256": "2cdf1628a1f8c7b5709d57faa58b3311b68cee9931e95ad87a9de99631f3f215",
+      "bytes": 80365,
+      "bucket": "main-native"
+    },
+    "0223-consumer-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/consumer-pre.guard.json",
+      "sha256": "91f8bb4bb3313ea2581388ebd7da5b93e788293a27e126bf58c906e87b1d8c7b",
+      "bytes": 80104,
+      "bucket": "main-native"
+    },
+    "0224-consumer.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/consumer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-native"
+    },
+    "0225-consumer.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/consumer.stdout",
+      "sha256": "246cb1738c230477c3687e35b53a80d7734f7ccc7e44596374688f2c7ea9f0ff",
+      "bytes": 52125,
+      "bucket": "main-native"
+    },
+    "0226-emit-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/emit-acquired.guard.json",
+      "sha256": "8dbcb639486145ae2fa80e8545ba6de05cc92432f2e40c648370971a8afac8af",
+      "bytes": 79344,
+      "bucket": "main-native"
+    },
+    "0227-emit-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/emit-post.guard.json",
+      "sha256": "bf4bb885344031f036d3bdbf3f4347da8790017c08afcbf7f1f7a90e83f8320a",
+      "bytes": 79717,
+      "bucket": "main-native"
+    },
+    "0228-emit-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/emit-pre.guard.json",
+      "sha256": "c61b730936e3c8544afb5e4c71c96292fe3582291c171f7f58cc237f8a903895",
+      "bytes": 79339,
+      "bucket": "main-native"
+    },
+    "0229-emit.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/emit.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-native"
+    },
+    "0230-emit.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/emit.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-native"
+    },
+    "0231-final.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/final.guard.json",
+      "sha256": "7b8c0827d8297c1b84d96915bf553c58b96d9712a19e77c33e734bb68bb1f197",
+      "bytes": 80357,
+      "bucket": "main-native"
+    },
+    "0232-plan.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/plan.json",
+      "sha256": "dd5e8f474e0396291c1226b847ddef942c1408acf790c8ed98dd1597835b65a0",
+      "bytes": 82601,
+      "bucket": "main-native"
+    },
+    "0233-receipt.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/receipt.json",
+      "sha256": "70ecec5da31d22d5551676998e69833f7186dc6ce2b3c953f2e8da59d9fd8b61",
+      "bytes": 5010,
+      "bucket": "main-native"
+    },
+    "0234-scenario.c.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/scenario.c",
+      "sha256": "9c4eb2e111e0a2aca45daa4624d1497c151c620bfb3f93b9880a1de884828605",
+      "bytes": 8671061,
+      "bucket": "main-native"
+    },
+    "0235-scenario.native.gz": {
+      "original": "/tmp/bendvy48-provision-main-native-v2/scenario.native",
+      "sha256": "56838e7157424a12933b9ce9c5e17c19ad821a5d8646573f22a9e7e15f706b80",
+      "bytes": 2210232,
+      "bucket": "main-native"
+    },
+    "0236-development-native.py.gz": {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/parity-48-typed-provision/experiments/public-machines/provisioning-v1/delivery-v1/development-native.py",
+      "sha256": "be7ed52d437897c6b4dc171bf69a62ddeb9409048eace745bda08b806e54502a",
+      "bytes": 13866,
+      "bucket": "executed-input"
+    },
+    "0237-clang19.gz": {
+      "original": "/tmp/bendvy-clang19-diagnostic/clang19",
+      "sha256": "3e171a978d6c1decae4e6645e9bfb771cf5af21ff699ea119fdb058936b0af2d",
+      "bytes": 530,
+      "bucket": "executed-input"
+    },
+    "0238-build-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/build-acquired.guard.json",
+      "sha256": "1775aa5881fe47feee65194edd355ff3b43eb6851a12522f360ba7d8a6f6d69c",
+      "bytes": 79757,
+      "bucket": "main-mutant-native"
+    },
+    "0239-build-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/build-post.guard.json",
+      "sha256": "927e391aa66a2d05c73e398709a46307affdd3b6507a52e45d4e7cf6c139c15f",
+      "bytes": 80158,
+      "bucket": "main-mutant-native"
+    },
+    "0240-build-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/build-pre.guard.json",
+      "sha256": "173ecf40e0e035c652c31ee99e7089fa1bf6e459158980aaa6ddfed426edeaa3",
+      "bytes": 79752,
+      "bucket": "main-mutant-native"
+    },
+    "0241-build.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/build.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-mutant-native"
+    },
+    "0242-build.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/build.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-mutant-native"
+    },
+    "0243-consumer-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/consumer-acquired.guard.json",
+      "sha256": "3694a4cf2f9a116a8f403dc1ab7fa5c8f7fb0a37e66baa7c98da0ac6a2914026",
+      "bytes": 80165,
+      "bucket": "main-mutant-native"
+    },
+    "0244-consumer-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/consumer-post.guard.json",
+      "sha256": "b73ca0176bf5bba02558290354588065049c72c5797f88aba004094b6af9ec9b",
+      "bytes": 80435,
+      "bucket": "main-mutant-native"
+    },
+    "0245-consumer-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/consumer-pre.guard.json",
+      "sha256": "766920166997e8fc03e880607185087ba6de0ef7664a61cb1160c9d42638c3be",
+      "bytes": 80160,
+      "bucket": "main-mutant-native"
+    },
+    "0246-consumer.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/consumer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-mutant-native"
+    },
+    "0247-consumer.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/consumer.stdout",
+      "sha256": "b1e67e2bdd33b42869ec995217a5d2a0d1f528ec8b2ff0cd3148e0ba4a046c63",
+      "bytes": 55015,
+      "bucket": "main-mutant-native"
+    },
+    "0248-emit-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/emit-acquired.guard.json",
+      "sha256": "09acad0312b96b4294fc231e8676f39b2c3fedc7b06c04285ced501a39d96935",
+      "bytes": 79358,
+      "bucket": "main-mutant-native"
+    },
+    "0249-emit-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/emit-post.guard.json",
+      "sha256": "7d52d964b125f813eb6c778b736e6e57ae88706d55e1784922ccd03a90eed351",
+      "bytes": 79752,
+      "bucket": "main-mutant-native"
+    },
+    "0250-emit-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/emit-pre.guard.json",
+      "sha256": "ee948425669fe0a48770ebffdb94a902d56b3047a276fc73ba85c4af353e6164",
+      "bytes": 79353,
+      "bucket": "main-mutant-native"
+    },
+    "0251-emit.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/emit.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-mutant-native"
+    },
+    "0252-emit.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/emit.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "main-mutant-native"
+    },
+    "0253-final.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/final.guard.json",
+      "sha256": "28f4e73c96b1783efc6828acf518bdaa6e1e7dec5f8942098a12040a2529623d",
+      "bytes": 80427,
+      "bucket": "main-mutant-native"
+    },
+    "0254-plan.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/plan.json",
+      "sha256": "fac61c7af4275968522f9ae1018bac130c2949dbde7d9450662e9cb2edac1f88",
+      "bytes": 83082,
+      "bucket": "main-mutant-native"
+    },
+    "0255-receipt.json.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/receipt.json",
+      "sha256": "6e17c1f3d65cdee9de11ee1805264e42e98f49ae3a859f022e5d13ec33e48157",
+      "bytes": 5259,
+      "bucket": "main-mutant-native"
+    },
+    "0256-scenario.c.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/scenario.c",
+      "sha256": "afc64c264fbf6ce9e968cb7405f2126570379ac91ea95af52e1cac76ce5fde77",
+      "bytes": 8700129,
+      "bucket": "main-mutant-native"
+    },
+    "0257-scenario.native.gz": {
+      "original": "/tmp/bendvy48-provision-main-mutant-native-v2/scenario.native",
+      "sha256": "8af397cf1190ff89310a7ef06a359c5a36851d769a8f93977ee80a0a7714db04",
+      "bytes": 2210936,
+      "bucket": "main-mutant-native"
+    },
+    "0258-build-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/build-acquired.guard.json",
+      "sha256": "1bbdb0780547998ec259c2543cc927d0d367935017632e98ef981aed30c85221",
+      "bytes": 79747,
+      "bucket": "flow-only-native"
+    },
+    "0259-build-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/build-post.guard.json",
+      "sha256": "1e3f4cade32bc9dd961fca7489d5b353dca2c60bc9a9351a61c59ecc988eaac9",
+      "bytes": 80142,
+      "bucket": "flow-only-native"
+    },
+    "0260-build-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/build-pre.guard.json",
+      "sha256": "2b8ed72aac67cda1c94880336e9564ac69c01287f733e6711318c3ccb0da1b08",
+      "bytes": 79742,
+      "bucket": "flow-only-native"
+    },
+    "0261-build.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/build.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "flow-only-native"
+    },
+    "0262-build.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/build.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "flow-only-native"
+    },
+    "0263-consumer-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/consumer-acquired.guard.json",
+      "sha256": "ba47375c5818c932c2a0c7afdc56fbdff4a658b0e15ac75cb13ef1ef7b13292d",
+      "bytes": 80149,
+      "bucket": "flow-only-native"
+    },
+    "0264-consumer-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/consumer-post.guard.json",
+      "sha256": "60198bfac3aa9d4c9e8a92325995569393becb2ab049f8fdf60fc7c76e4d9464",
+      "bytes": 80415,
+      "bucket": "flow-only-native"
+    },
+    "0265-consumer-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/consumer-pre.guard.json",
+      "sha256": "6fb8671f898c807febd2bfa35dcea28284293d7c8e191950ee8c6762cd86018e",
+      "bytes": 80144,
+      "bucket": "flow-only-native"
+    },
+    "0266-consumer.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/consumer.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "flow-only-native"
+    },
+    "0267-consumer.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/consumer.stdout",
+      "sha256": "57f5584f8240d3f4b6c4d521cded0d20242aa6877b167f1dda79dc083d43e34d",
+      "bytes": 4527,
+      "bucket": "flow-only-native"
+    },
+    "0268-emit-acquired.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/emit-acquired.guard.json",
+      "sha256": "13b73759868168622a4c9cf32ff1250dc2221b3b3ecb2d67679d1691bda9892e",
+      "bytes": 79354,
+      "bucket": "flow-only-native"
+    },
+    "0269-emit-post.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/emit-post.guard.json",
+      "sha256": "d6e0abab039a3596d157a164cd422282913075a2c956aece0b1d5fcf249744fa",
+      "bytes": 79742,
+      "bucket": "flow-only-native"
+    },
+    "0270-emit-pre.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/emit-pre.guard.json",
+      "sha256": "ce8c88056a8f4d08a6127aa9f7f78996f298bca963c2846cb45d07ab96403f54",
+      "bytes": 79349,
+      "bucket": "flow-only-native"
+    },
+    "0271-emit.stderr.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/emit.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "flow-only-native"
+    },
+    "0272-emit.stdout.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/emit.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "bucket": "flow-only-native"
+    },
+    "0273-final.guard.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/final.guard.json",
+      "sha256": "df4bfbfc0cfd0bce404085dd468ab5f66d16b4568062fc9837735a24c36f05ec",
+      "bytes": 80407,
+      "bucket": "flow-only-native"
+    },
+    "0274-plan.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/plan.json",
+      "sha256": "369fa42adcd51f7a7ae9be9ec737e4ac7b0bcb9049b1159fa117b3c4247a4707",
+      "bytes": 82671,
+      "bucket": "flow-only-native"
+    },
+    "0275-receipt.json.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/receipt.json",
+      "sha256": "c28776fc37452237d1e76910f8d98decab964fcc771cf20f729baa337a0981e6",
+      "bytes": 5114,
+      "bucket": "flow-only-native"
+    },
+    "0276-scenario.c.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/scenario.c",
+      "sha256": "d0ad79ca639f178ec76cfde44126dbf37554952e98b204b6aa0476cd18c858c3",
+      "bytes": 1899626,
+      "bucket": "flow-only-native"
+    },
+    "0277-scenario.native.gz": {
+      "original": "/tmp/bendvy48-provision-flow-only-native-v2/scenario.native",
+      "sha256": "e5e5260dff217ab089693dd468c3b15a0ff7655167f6238662ae47392c170a45",
+      "bytes": 429024,
+      "bucket": "flow-only-native"
+    }
+  }
+}
