@@ -1,5 +1,12 @@
 # Coordinator review of the independent reader countermodel
 
+> **Superseded by runtime failure.** The review below incorrectly assumed that
+> non-query observations stay unchanged. Original reader JS disproved that
+> prediction; its INCOMPLETE receipt remains preserved in [actual-v1](actual-v1/REPORT.md).
+> [Source audit](reader-oracle-v1/successor-v2/SOURCE-ROOT-CAUSE.md) identifies
+> Inspector → diagnostic resource → schedule condition coupling. This historical
+> review grants no current model or reader acceptance.
+
 Scoped PASS for model `3f15bf71`, source `118923c8`, before runtime execution.
 All source and consuming-closure pins in SOURCE-BASIS.json match current bytes.
 
