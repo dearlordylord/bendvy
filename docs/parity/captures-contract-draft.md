@@ -38,8 +38,8 @@ for reuse, with simplicity and elegance taking precedence over elaborate policy
 machinery. See [the owning requirements](affine-events.md#business-requirements-and-current-direction).
 
 A failed operation must not deliver any staged notification. Ordinary one-shot
-notifications can be recreated on retry; expensive prepared data or reusable
-buffers should remain recoverable. Distinguish these needs in the application,
+notifications can be recreated on retry; recovery of expensive prepared data or
+reusable buffers follows the soft preference in the owning requirements. Distinguish these needs in the application,
 without requiring runtime event classes or separate publication frameworks.
 
 **Current candidate:** one log owner; scoped abstract read capabilities; explicit
