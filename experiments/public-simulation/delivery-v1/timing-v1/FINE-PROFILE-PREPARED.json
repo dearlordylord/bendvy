@@ -1,0 +1,46 @@
+{
+  "node": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+  "sha256": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477",
+  "evidence": "Exact installed ELF contains both option spellings; this is static support evidence, not successful parser invocation. Actual guarded commands will refuse unsupported flags.",
+  "flags": {
+    "--cpu-prof-interval": true,
+    "--heap-prof-interval": true
+  },
+  "commands": [
+    {
+      "label": "before-CPU",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "--cpu-prof",
+        "--cpu-prof-dir=/tmp/bendvy63-simulation-js-fine-profile-v1",
+        "--cpu-prof-name=simulation.cpuprofile",
+        "--cpu-prof-interval=100",
+        "/tmp/bendvy63-ordinary-delivery-v6/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "CPU",
+      "emits": "simulation.cpuprofile"
+    },
+    {
+      "label": "before-allocation",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "--heap-prof",
+        "--heap-prof-dir=/tmp/bendvy63-simulation-js-fine-profile-v1",
+        "--heap-prof-name=simulation.heapprofile",
+        "--heap-prof-interval=8192",
+        "/tmp/bendvy63-ordinary-delivery-v6/simulation.js"
+      ],
+      "capSeconds": 5,
+      "control": "allocation",
+      "emits": "simulation.heapprofile"
+    }
+  ],
+  "planSHA256": "bac63b05425bf5389b85f6369cbbc292394d8c288d573362c252c5c583af2009"
+}
