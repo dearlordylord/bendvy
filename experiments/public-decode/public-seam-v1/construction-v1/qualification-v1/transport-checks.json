@@ -1,0 +1,22 @@
+{
+  "scope": "actual source/type only; no backend/model/proof claim",
+  "checks": [
+    {
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/check-transport.py",
+      "sha256": "a4a53ad55605a94633f4dad9718911930480a8bf4e9dd31dc0ec2d55b42c2f5f",
+      "argv": [
+        "taskset",
+        "-c",
+        "5",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/usr/bin/python3",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/check-transport.py"
+      ],
+      "exit": 0,
+      "stdout": "{\"scope\": \"full model synthetic transport only; no application execution\", \"checks\": [{\"role\": \"construction-spine\", \"reports\": 44, \"rawBytes\": 101097, \"rawSHA256\": \"cb90be0e48698bb444b743d06021ab6cd02e043ade19b063e54e5f9edcab8964\", \"fullRoundtrip\": true, \"corruptions\": 9}, {\"role\": \"custom-spine\", \"reports\": 20, \"rawBytes\": 25101, \"rawSHA256\": \"230eddfb0e28a650768bc42a25b3ea3c93a09c71f68ab8e2ba7527d5c4b10a30\", \"fullRoundtrip\": true, \"corruptions\": 9}, {\"role\": \"completion-spine\", \"reports\": 16, \"rawBytes\": 46233, \"rawSHA256\": \"19e5cd31b5672c290efd8a24bec5e0670a668ad7d9fc0362ff1f934e3a958b79\", \"fullRoundtrip\": true, \"corruptions\": 9}, {\"role\": \"historical-default-normal\", \"oracleSHA256\": \"26e965901c73e89804b69c1d3d13d10e512478955cb0541f6ccbe8e49693766d\", \"rawBytes\": 747754, \"rawSHA256\": \"b57508f0c89b34308e82d0828cb766488a12f8dd495d3f9b53202098254af668\", \"fullRoundtrip\": true, \"defaultBinding\": null}]}\n",
+      "stderr": ""
+    }
+  ]
+}
