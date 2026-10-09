@@ -1,0 +1,7 @@
+# Declaration adoption pre-backend oracle review
+
+Source ececb5ff retains actual graph Descriptor Data and derives numeric domain keys and name:read access from it. All four registration callsites use the same descriptors as graph mutation: fast/slow key1; lifecycle alpha key1, beta key2, both key1+key2; mixed relation key1. No second registry or changed runtime/refusal policy is introduced. Descriptor constructors and registration remain trusted; diagnostic access strings do not enforce capability authority.
+
+The complete mandatory Candidate.Some oracle preserves the prior eight applications, both schemas and all owner, queue front/back, lifecycle, error, cursor, graph and allocator observations. Exactly twenty access arrays change: eight lifecycle registry arrays and two mixed relation registry views per schema. Ordinary/event registry accesses stay unchanged. expected-delta.json is the full delta, not an acceptance projection. Model deep-copies historical input; no runtime output was consulted.
+
+Four source controls reject wrong declared relation grant, read-as-write, cross-schema grant and opaque owner duplication. They test existing closed gameplay boundaries; they do not prove hostile descriptor-constructor confinement. Whole39-source/110-constructor consuming source is accepted, but backend/typed transport/full-count and public promotion gates remain open. Source-only experimental integration is safe.
