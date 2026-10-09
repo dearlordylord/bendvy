@@ -182,7 +182,7 @@ class Transport:
         import hashlib
         return {'entrypoint': str(self.entry), 'sourceSHA256': {str(path): hashlib.sha256(text.encode()).hexdigest() for path, text in sorted(self.sources.items())},
                 'sourceImports': {str(path): {alias: str(child) for alias, child in sorted(items.items())} for path, items in sorted(self.imports.items())},
-                'constructors': {token: {'source': str(kind[0]), 'datatype': kind[1], 'name': name, 'fields': fields} for token, (kind, name, fields) in sorted(self.constructors.items())},
+                'constructors': {token: {'source': str(kind[0]), 'datatype': kind[1], 'name': name, 'fields': [list(field) for field in fields]} for token, (kind, name, fields) in sorted(self.constructors.items())},
                 'termParser': {'path': str(TERM_PATH), 'sha256': hashlib.sha256(TERM_PATH.read_bytes()).hexdigest()},
                 'scope': 'Exact nominal constructor identities/typed source fields, complete queue front/back; no runtime evidence'}
 
