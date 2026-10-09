@@ -94,3 +94,5 @@ Performance targets: JS at least as fast as bevy-ts, native at least 2× faster 
 
 - [Rust Bevy](https://github.com/bevyengine/bevy) for ECS architecture and semantics; [bevy-ts](https://github.com/SandroMaglione/bevy-ts) for inspiration on feature scope and porting ECS to another language; Bend's source/compiler for types and runtime.
 - Autoresearch performance loops guided by JS CPU/allocation profiles, native measurements and regression benchmarks.
+
+Optional TS tooling research is preserved in the [TS extension archive index](docs/archive/ts-extension-index.md), with recovery commits and reuse boundaries.
