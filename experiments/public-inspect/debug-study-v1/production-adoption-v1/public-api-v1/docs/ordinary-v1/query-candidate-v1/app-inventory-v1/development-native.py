@@ -72,7 +72,7 @@ def prepare(out, oracle, kind):
         raise ValueError('Independent whole oracle changed')
     if review['joinSHA256'] != sha(oracle / join_name) or review['parserSHA256'] != sha(HERE / 'parse-inventory.py'):
         raise ValueError('Independent typed transport review changed')
-    tools = {'bend': '/home/node/.bend/bin/bend', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
+    tools = {'bend': '/home/node/.bend/bin/bend-2.0.35', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
     tools['clangWrapper'] = '/tmp/bendvy-clang19-diagnostic/clang19'
     tools['clangBinary'] = '/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'
     config = ROOT / 'experiments/public-simulation/delivery-v1/installed-config.py'

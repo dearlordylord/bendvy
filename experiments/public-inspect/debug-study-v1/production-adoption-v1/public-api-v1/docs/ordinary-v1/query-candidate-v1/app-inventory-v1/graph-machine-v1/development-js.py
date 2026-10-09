@@ -67,7 +67,7 @@ def prepare(out, oracle, kind):
         raise ValueError('Frozen original source/constructor inventory changed')
     if sha(oracle / oracle_name) != expected_sha or json.loads((oracle / 'source-basis.json').read_text())['oracles'][oracle_name] != expected_sha:
         raise ValueError('Independent whole oracle changed')
-    tools = {'bend': '/home/node/.bend/bin/bend', 'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
+    tools = {'bend': '/home/node/.bend/bin/bend-2.0.35', 'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
     extra = [HERE.parent.parent / 'parse-scenario.py', HERE.parent.parent / 'app-run-v1/nominal-carrier-v1/accumulated-v1/parse-app.py',
              HERE.parent / 'parse-inventory.py', Path(__file__), HERE / 'parse-graph-machine.py', HERE / inventory_name,
              ROOT / 'scripts/task_runner.py', ROOT / 'scripts/evidence_boundary.py',
