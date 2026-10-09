@@ -1,0 +1,18 @@
+{
+  "scope": "combined observed stdout/stderr from source/type import check; no mathematical proof or runtime claim",
+  "sourceSHA256": "a96a0381af3ebc1471f8fab3ac76680be4617ed1aafe97da8576d1e3e371825d",
+  "argv": [
+    "flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "taskset",
+    "-c",
+    "5",
+    "timeout",
+    "--signal=KILL",
+    "5s",
+    "/home/node/.bend/bin/bend-2.0.35",
+    "/tmp/bendvy-master-canonical-adoption-source.bend",
+    "--check-only"
+  ],
+  "exit": 0
+}
