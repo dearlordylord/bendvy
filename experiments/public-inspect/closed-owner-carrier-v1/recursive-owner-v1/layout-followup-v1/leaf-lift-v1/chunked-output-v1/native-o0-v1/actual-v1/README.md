@@ -1,0 +1,5 @@
+Original85509 terminalexit0: artifact-only Clang19-O0 build120 and complete Native runtime5 both succeeded. Entire5,077,477-byte stdout is byte-identical to unchanged independent oracle810259f7; build/consumer stderr empty. Seven exact guards are retained. C is the samef34a985b artifact emitted by the earlier copied outlined1f139 compiler; no re-emission occurred.
+
+`python3 verify.py` checks192 lossless members, exact9461187e plan, retained prior successful emission lineage, source/tool/resource identities, C/native binaries, raw streams, all guards and complete oracle. External tool/resource byte identities are not a portable tool distribution. Earlier O3 deadline remains immutable in the preceding actual packet.
+
+This is finite whole-consumer semantic feasibility under O0, not timing, stock Bend C acceptance, complete public API adoption or full#54 closure. No changed ECS operation/owner/refusal/schema contract, repeatedO3 build, budget increase or additional stage was run. Native mutation coverage remains limited to prior source and reached JS assembly controls.
