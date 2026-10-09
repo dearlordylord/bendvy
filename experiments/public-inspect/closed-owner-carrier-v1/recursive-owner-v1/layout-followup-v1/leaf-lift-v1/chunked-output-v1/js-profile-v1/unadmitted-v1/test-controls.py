@@ -18,23 +18,9 @@ HEAP={'head':{'id':1,'callFrame':{},'children':[],'selfSize':8192},'samples':[{'
 ORACLE=Path('/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/layout-followup-v1/leaf-lift-v1/complete-expected.txt.gz')
 
 class Controls(unittest.TestCase):
-    def test_existing_qualified_signed_delta_contract(self):
-        path=Path('/workspace/formal-proofs/bendvy/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/cpu-profile-v1/diagnostic-run.py')
-        reference=types.ModuleType('qualified_signed_delta');reference.__file__=str(path)
-        exec(compile(path.read_bytes(),str(path),'exec'),reference.__dict__)
-        valid=dict(CPU,timeDeltas=[-1],startTime=0,endTime=100)
-        original=json.dumps(valid,sort_keys=True)
-        reference.validate_profile(valid);module.validate_profile('CPU',valid)
-        self.assertEqual(json.dumps(valid,sort_keys=True),original)
-        for delta in (True,1.5,'-1'):
-            candidate=dict(valid,timeDeltas=[delta])
-            with self.assertRaises(ValueError):reference.validate_profile(candidate)
-            with self.assertRaises(ValueError):module.validate_profile('CPU',candidate)
-
     def test_profile_positive_and_typed_identity_refusals(self):
         module.validate_profile('CPU',CPU);module.validate_profile('allocation',HEAP)
-        module.validate_profile('CPU',dict(CPU,timeDeltas=[-1]))
-        for kind,profile in [('CPU',dict(CPU,samples=[True])),('CPU',dict(CPU,timeDeltas=[False])),('CPU',dict(CPU,timeDeltas=[1.5])),('CPU',dict(CPU,timeDeltas=['-1'])),('allocation',dict(HEAP,samples=[{'nodeId':True,'size':8192}])),('allocation',dict(HEAP,samples=[{'nodeId':1,'size':False}]))]:
+        for kind,profile in [('CPU',dict(CPU,samples=[True])),('CPU',dict(CPU,timeDeltas=[False])),('allocation',dict(HEAP,samples=[{'nodeId':True,'size':8192}])),('allocation',dict(HEAP,samples=[{'nodeId':1,'size':False}]))]:
             with self.assertRaises(ValueError):module.validate_profile(kind,profile)
 
     def actual_run(self,mode):
@@ -55,7 +41,7 @@ class Controls(unittest.TestCase):
                 if mode=='timeout':
                     profile.write_bytes(b'{"partial":')
                     return {'exit':None,'failure':'child deadline','stdout':b'partial report','stderr':b''}
-                profile.write_text(json.dumps(dict(CPU,timeDeltas=[-1])))
+                profile.write_text(json.dumps(CPU))
                 raw=gzip.decompress(ORACLE.read_bytes())
                 if mode=='tail-corruption':raw=raw[:-2]+b'X\n'
                 return {'exit':0,'failure':None,'stdout':raw,'stderr':b''}

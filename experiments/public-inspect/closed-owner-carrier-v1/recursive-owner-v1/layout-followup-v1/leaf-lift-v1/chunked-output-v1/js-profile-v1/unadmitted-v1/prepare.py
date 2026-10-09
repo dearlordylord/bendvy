@@ -39,8 +39,6 @@ def main():
         pins[old['oracle']]=sha(old['oracle'])
         for path in (ROOT/'scripts/task_runner.py',ROOT/'scripts/evidence_boundary.py'):
             pins[str(path)]=sha(path)
-        reference=ROOT/'experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/cpu-profile-v1/diagnostic-run.py'
-        pins[str(reference)]=sha(reference)
         for path in HERE.iterdir():
             if path.is_file() and path.name not in ('INDEX.json','SUBJECTS.json'):
                 pins[str(path)]=sha(path)
@@ -49,7 +47,7 @@ def main():
                          'artifact':str(artifact),'artifactSHA256':sha(artifact),'sourceInventory':old['sourceInventory'],
                          'originalScope':'Historical stock emit + exact whole Node output; emitter not executed by profile'}
         for kind,flag,extension,interval in [('CPU','--cpu-prof','cpuprofile',100),('allocation','--heap-prof','heapprofile',8192)]:
-            output=Path('/tmp/bendvy-inspect54-chunk-js-profile02')/(name+'-'+kind)
+            output=Path('/tmp/bendvy-inspect54-chunk-js-profile01')/(name+'-'+kind)
             output.mkdir(parents=True)
             assert list(output.iterdir())==[]
             profile=output/('scenario.'+extension)

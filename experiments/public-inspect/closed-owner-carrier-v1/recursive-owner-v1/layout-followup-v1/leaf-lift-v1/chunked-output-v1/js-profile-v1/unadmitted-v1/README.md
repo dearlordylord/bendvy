@@ -33,9 +33,3 @@ mock executors only, including last-byte corruption, timeout partial captures,
 existing/symlink refusal and Bool-versus-integer profile identities.
 
 No profiler child is permitted before exact-plan admission and queue release.
-
-The first unused plans are preserved in `unadmitted-v1` and the original
-profile01 directories. Their validator incorrectly required nonnegative CPU
-timeDeltas. Successor profile02 plans use the existing qualified exact-signed-int
-contract; raw negative deltas remain unchanged. Controls compare both validators,
-reject Bool/nonintegers, and reach a negative delta through the actual collector.

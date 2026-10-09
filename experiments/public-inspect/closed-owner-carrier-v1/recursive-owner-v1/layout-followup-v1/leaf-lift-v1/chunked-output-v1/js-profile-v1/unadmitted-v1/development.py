@@ -112,8 +112,7 @@ def validate_profile(kind, profile):
             if type(node) is not dict or type(node.get('id')) is not int or node['id'] in ids or type(node.get('callFrame')) is not dict:
                 raise ValueError('CPU node identity/frame invalid')
             ids.add(node['id'])
-        # V8 raw CPU deltas are signed integers; retain negatives exactly.
-        if any(type(value) is not int or value not in ids for value in samples) or any(type(value) is not int for value in deltas):
+        if any(type(value) is not int or value not in ids for value in samples) or any(type(value) is not int or value < 0 for value in deltas):
             raise ValueError('CPU sample identity/duration invalid')
         if any(type(child) is not int or child not in ids for node in nodes for child in node.get('children', [])):
             raise ValueError('CPU child identity invalid')
