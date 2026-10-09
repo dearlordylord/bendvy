@@ -50,7 +50,7 @@ def capture_artifact(record,artifact,pins):
   except Exception as error:
    ledger['captureError']=str(error);raise
 
-def prepare(out,arity_diagnostic=False,held=False):
+def prepare(out,arity_diagnostic=False,held=False,clang_diagnostic=False):
  out=Path(out).resolve();out.mkdir(exist_ok=False);stage=out/'stage';stage.mkdir()
  parent=HERE.parent
  compiler=HERE/'arity-diagnostic-v1/compiler-diagnostic.ts.gz' if arity_diagnostic or held else parent/'candidate.comp.ts.gz'
@@ -93,6 +93,18 @@ def prepare(out,arity_diagnostic=False,held=False):
     commands.append({'label':kind+'-'+backend+'-runtime','stage':'runtime','argv':runtime,'capSeconds':5})
     held_cohorts.append({**cohort,'backend':backend,'entrypoint':str(entry),'inventory':str(identity),'originalInventory':cohort['inventory'],'heldIdentity':True,'commands':commands})
   cohorts=held_cohorts
+ if clang_diagnostic:
+  previous=Path('/tmp/bendvy-debug56-held-continuation01');retained=previous/'normal.c';old_plan=previous/'plan.json';old_receipt=previous/'receipt.json'
+  receipt=json.loads(old_receipt.read_text());emission=next(c for c in receipt['commands']if c['label']=='normal-native-emit')
+  if receipt['planSHA256']!=sha(old_plan)or emission['exit']!=0 or emission['failure']is not None:raise ValueError('retained C emission provenance failed')
+  ledger=next(r for r in receipt['artifactLedger']if r['path']==str(retained))
+  if ledger['sha256']!=sha(retained):raise ValueError('retained complete C drift')
+  for path in [retained,old_plan,old_receipt]:pins[str(path)]=sha(path)
+  positive=next(c for c in cohorts if c['kind']=='normal'and c['backend']=='native');binary=out/'normal-O0.native'
+  commands=[{'label':'normal-frontend-syntax','stage':'syntax','argv':[tools['taskset'],'-c','5',tools['clangWrapper'],'-O0','-fsyntax-only','-ftime-report',str(retained),'-pthread'],'capSeconds':120},
+   {'label':'normal-O0-build','stage':'build','argv':[tools['taskset'],'-c','5',tools['clangWrapper'],'-O0','-ftime-report',str(retained),'-o',str(binary),'-pthread','-lm'],'capSeconds':120,'artifact':str(binary)},
+   {'label':'normal-O0-runtime','stage':'runtime','argv':[tools['taskset'],'-c','5',str(binary),'--threads','1','--gpu','off'],'capSeconds':5}]
+  cohorts=[{**positive,'commands':commands,'backend':'native-O0-diagnostic'}]
  # Retain historical baseline and copied-control joins as provenance, never replay them.
  ref=ROOT/'.references/bend2/bend2'
  adapters=json.loads((HERE/'PARSER-ADAPTERS.json').read_text())
@@ -102,7 +114,7 @@ def prepare(out,arity_diagnostic=False,held=False):
    if path.resolve()==HERE/'arity-diagnostic-v1/PREPARED.json':continue # historical preparation pointer, not execution input
    resolved=path.resolve(strict=True);pins[str(resolved)]=sha(resolved)
    if path.is_symlink():bindings[str(path)]=str(resolved)
- p={'scope':'Copied candidate compiler complete source-current normal71 + reached handler omission whole controls; private Held source only when heldContinuation; no installed resolver/performance/task closure','pins':pins,'fileBindings':bindings,'resourceRoots':runner.Inputs(directories=configuration.RESOURCE_ROOTS).snapshot(),'environment':configuration.environment(),'tools':tools,'cwd':str(ROOT),'cohorts':cohorts,'compilerProvenance':str(parent/'SOURCE.json'),'successfulControls':str(parent/'controls-v1/evidence-v1/controls10/MANIFEST.json'),'arityDiagnosticOnly':arity_diagnostic,'heldContinuation':held}
+ p={'scope':('Retained exact full normal71 C: Clang syntax/O0 cost diagnostic and unchanged whole positive model; no emission, O3 delivery, Native omission, installed resolver or performance qualification' if clang_diagnostic else 'Copied candidate compiler complete source-current normal71 + reached handler omission whole controls; private Held source only when heldContinuation; no installed resolver/performance/task closure'),'pins':pins,'fileBindings':bindings,'resourceRoots':runner.Inputs(directories=configuration.RESOURCE_ROOTS).snapshot(),'environment':configuration.environment(),'tools':tools,'cwd':str(ROOT),'cohorts':cohorts,'compilerProvenance':str(parent/'SOURCE.json'),'successfulControls':str(parent/'controls-v1/evidence-v1/controls10/MANIFEST.json'),'arityDiagnosticOnly':arity_diagnostic,'heldContinuation':held,'clangCostDiagnosticOnly':clang_diagnostic}
  capture(out/'plan.json',(json.dumps(p,indent=2)+'\n').encode());print(sha(out/'plan.json'))
 
 def run(planpath,admitted):
@@ -157,7 +169,7 @@ def run(planpath,admitted):
      gate.check(p,cohort,Path(row['stdout']['path']).read_bytes(),pins)
      row['wholeOracleGate']=True
      if cohort['kind']=='mutant':row['wholePositiveRejected']=True
-  record['status']='DIAGNOSTIC_EMISSION_COMPLETED' if p.get('arityDiagnosticOnly')else 'COPIED_FULL_CONSUMER_PASS';record['qualifiesNative56']=False
+  record['status']='CLANG_COST_DIAGNOSTIC_COMPLETED'if p.get('clangCostDiagnosticOnly')else 'DIAGNOSTIC_EMISSION_COMPLETED' if p.get('arityDiagnosticOnly')else 'COPIED_FULL_CONSUMER_PASS';record['qualifiesNative56']=False
 if __name__=='__main__':
- if sys.argv[1]in ['prepare','prepare-arity','prepare-held']:prepare(sys.argv[2],sys.argv[1]=='prepare-arity',sys.argv[1]=='prepare-held')
+ if sys.argv[1]in ['prepare','prepare-arity','prepare-held','prepare-clang']:prepare(sys.argv[2],sys.argv[1]=='prepare-arity',sys.argv[1]in ['prepare-held','prepare-clang'],sys.argv[1]=='prepare-clang')
  else:run(sys.argv[2],sys.argv[3])
