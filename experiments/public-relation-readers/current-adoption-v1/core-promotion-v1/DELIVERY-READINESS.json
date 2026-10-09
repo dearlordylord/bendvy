@@ -1,0 +1,222 @@
+{
+  "scope": "Concrete root-integrator promotion readiness; no public-delivery/performance acceptance",
+  "observedRootHEAD": "d729ffe27bcc6674e234bf316721927c61bddd85",
+  "qualifiedIntegrationCommit": "35e60a4c",
+  "corePatch": "promotion.patch",
+  "coreModules": [
+    {
+      "path": "src/ecs/internal/relation-failures/queue.bend",
+      "SHA256": "ca7363dac7df55b46fc06e42b123a874fbeae3181abe0c8da37d99ae9da524df",
+      "rootCurrentlyPresent": false
+    },
+    {
+      "path": "src/ecs/internal/relation-failures/domains.bend",
+      "SHA256": "38821350d2565c576067bb4f9e2ba03cbe1b65da47258555c0c2b213eaafd379",
+      "rootCurrentlyPresent": false
+    },
+    {
+      "path": "src/ecs/internal/relation-failures/readings.bend",
+      "SHA256": "09bcc21e95fbedef0c3f48025e93bc3088e7a89edfd2011d33d96884bc3d4a0e",
+      "rootCurrentlyPresent": false
+    },
+    {
+      "path": "src/ecs/internal/relation-failures/routing.bend",
+      "SHA256": "928a41657992d49110836caa4d7dd0349e14b003f8cf9112c413206c9b9df693",
+      "rootCurrentlyPresent": false
+    },
+    {
+      "path": "src/ecs/internal/relation-failures/barrier.bend",
+      "SHA256": "78f61ec8cd251f8362f738f264c313ec3ed15246c5227d8a90c43fbada967752",
+      "rootCurrentlyPresent": false
+    },
+    {
+      "path": "src/ecs/relation-failure-runtime.bend",
+      "SHA256": "11df4128184ea27bd9f87993235ef9459342c17c5165858814fea1f62c460ac9",
+      "rootCurrentlyPresent": false
+    },
+    {
+      "path": "src/ecs/relation-failure-reader.bend",
+      "SHA256": "6c355ea7f29297ee96172c39364b97cbf0f8223b7cce7f46d85636919a36c75e",
+      "rootCurrentlyPresent": false
+    },
+    {
+      "path": "src/ecs/relation-failure-disposal.bend",
+      "SHA256": "fd5e8b07537605f12159d1d3ae3d6675a567c17e247453f4605d4a1fbcc0d1d5",
+      "rootCurrentlyPresent": false
+    }
+  ],
+  "existingCoreDependencies": [
+    {
+      "path": "src/ecs/column.bend",
+      "rootSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "integrationSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/commands.bend",
+      "rootSHA256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "integrationSHA256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/component.bend",
+      "rootSHA256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "integrationSHA256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/event-runtime.bend",
+      "rootSHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "integrationSHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/indexed-lifecycle.bend",
+      "rootSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "integrationSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/lifecycle.bend",
+      "rootSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "integrationSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/owner-handoff.bend",
+      "rootSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "integrationSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/reader-domains.bend",
+      "rootSHA256": "1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314",
+      "integrationSHA256": "1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/registration.bend",
+      "rootSHA256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "integrationSHA256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/relation-commands.bend",
+      "rootSHA256": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+      "integrationSHA256": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/relation-graph.bend",
+      "rootSHA256": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+      "integrationSHA256": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/relation-types.bend",
+      "rootSHA256": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+      "integrationSHA256": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/removals.bend",
+      "rootSHA256": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+      "integrationSHA256": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/schedule.bend",
+      "rootSHA256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "integrationSHA256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/string-equality.bend",
+      "rootSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "integrationSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/system.bend",
+      "rootSHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "integrationSHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/transaction.bend",
+      "rootSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "integrationSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/world.bend",
+      "rootSHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "integrationSHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "identical": true
+    }
+  ],
+  "noAdditionalCoreChangeRequiredByCurrentSemantics": true,
+  "actualProvider": "consumer-v1/provider.bend remains trusted application adapter using existing core Cap.ValueRead; no phantom registry/provider purity contract promoted",
+  "completeSourceCurrentEvidence": {
+    "finite": "d0654a540501983c2d68f39989982db39ee3bfb5",
+    "fullcapacity": "e8c92478",
+    "rootIntegrationThrough": "a09c0bfd",
+    "fullcapacityRawBytes": 244722906,
+    "fullcapacitySHA256": "aab843ba201e4514a51737be82f960d38feb912bc37bfda099cd63eafc14fcc9",
+    "wholeFiniteModel": "1cf4ba67ea13928f6772a42e41c00d5e610cf3e890b1b36906e62b8b0e033e99",
+    "wholeCapacityModel": "bda9cbe63bc0fa00c9c418d2fe21207f23e6683b883b2bbfaf8129931c2ba942"
+  },
+  "referencePins": {
+    "bevy-ts": {
+      "url": "https://github.com/SandroMaglione/bevy-ts",
+      "commit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+      "branch": "main",
+      "commit_date": "2026-10-01T02:43:31-07:00",
+      "shallow": true
+    },
+    "bevy": {
+      "url": "https://github.com/bevyengine/bevy",
+      "commit": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+      "branch": "main",
+      "commit_date": "2026-10-03T00:50:35+00:00",
+      "shallow": true
+    },
+    "bend2": {
+      "url": "https://github.com/bendlang/bend",
+      "commit": "a950fd683c0d76f09794078e6174fe98a1492876",
+      "branch": "main",
+      "commit_date": "2026-10-03T18:48:23+02:00",
+      "shallow": true
+    }
+  },
+  "remainingGates": [
+    {
+      "owner": 43,
+      "gate": "Master import/nominal migration and source-current public delivery binding; historical integration-path receipts stay immutable"
+    },
+    {
+      "owner": 43,
+      "gate": "Installed recursive JS full-output printer still unqualified; copied iterative-printer results do not transfer qualification"
+    },
+    {
+      "owner": 28,
+      "gate": "Unchanged default paired Workshop regression on complete integrated root; no changed baseline/workload/tolerance"
+    },
+    {
+      "owners": [
+        21,
+        23,
+        24
+      ],
+      "gate": "Equivalent complete feature TS/JS/Native timing/scaling, stable host; finite/count semantic receipts are not timings"
+    },
+    {
+      "owner": 43,
+      "gate": "Independent Spec/Standards final delivery review, verified master push and English completion report"
+    },
+    {
+      "owner": 61,
+      "gate": "Public acceptance inventory after actual delivery; stage-vs-master and capability boundaries explicit"
+    }
+  ]
+}
