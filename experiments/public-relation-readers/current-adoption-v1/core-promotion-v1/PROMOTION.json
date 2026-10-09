@@ -1,0 +1,301 @@
+{
+  "rootHEAD": "4823fb32e697c456c4040658babc81c90560df59",
+  "governingIssue": 43,
+  "scope": "Reviewable import-only promotion candidate; root integrator sole src writer; not executed or accepted public core",
+  "modules": [
+    {
+      "source": "experiments/public-relation-readers/current-adoption-v1/declaration-adoption-v1/library/public-relation-readers/keyed-candidate/queue.bend",
+      "sourceSHA256": "ca7363dac7df55b46fc06e42b123a874fbeae3181abe0c8da37d99ae9da524df",
+      "target": "src/ecs/internal/relation-failures/queue.bend",
+      "candidateSHA256": "ca7363dac7df55b46fc06e42b123a874fbeae3181abe0c8da37d99ae9da524df",
+      "bodyUnchanged": true,
+      "imports": []
+    },
+    {
+      "source": "experiments/public-relation-readers/current-adoption-v1/declaration-adoption-v1/library/public-relation-readers/keyed-candidate/domains.bend",
+      "sourceSHA256": "bf143fb7b0f8b82b37c11a3a122a62da58927d424f2fe578aa9604010f90b5fe",
+      "target": "src/ecs/internal/relation-failures/domains.bend",
+      "candidateSHA256": "38821350d2565c576067bb4f9e2ba03cbe1b65da47258555c0c2b213eaafd379",
+      "bodyUnchanged": true,
+      "imports": [
+        {
+          "before": "import queue.bend as Q",
+          "after": "import queue.bend as Q"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/event-runtime.bend as Ev",
+          "after": "import ../../event-runtime.bend as Ev"
+        }
+      ]
+    },
+    {
+      "source": "experiments/public-relation-readers/current-adoption-v1/declaration-adoption-v1/library/public-relation-readers/keyed-candidate/readings.bend",
+      "sourceSHA256": "83a60db48ef794b3dd9d7301e6b0c40f18fd9f8cd44e0235ac32248750c1da22",
+      "target": "src/ecs/internal/relation-failures/readings.bend",
+      "candidateSHA256": "09bcc21e95fbedef0c3f48025e93bc3088e7a89edfd2011d33d96884bc3d4a0e",
+      "bodyUnchanged": true,
+      "imports": [
+        {
+          "before": "import queue.bend as Q",
+          "after": "import queue.bend as Q"
+        },
+        {
+          "before": "import domains.bend as D",
+          "after": "import domains.bend as D"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/event-runtime.bend as Ev",
+          "after": "import ../../event-runtime.bend as Ev"
+        }
+      ]
+    },
+    {
+      "source": "experiments/public-relation-readers/current-adoption-v1/declaration-adoption-v1/library/public-relation-readers/keyed-candidate/routing.bend",
+      "sourceSHA256": "f46b02a1f13b381479de4b3892513991598beefb69ae9381cc1105f637cbd817",
+      "target": "src/ecs/internal/relation-failures/routing.bend",
+      "candidateSHA256": "928a41657992d49110836caa4d7dd0349e14b003f8cf9112c413206c9b9df693",
+      "bodyUnchanged": true,
+      "imports": [
+        {
+          "before": "import queue.bend as Q",
+          "after": "import queue.bend as Q"
+        },
+        {
+          "before": "import domains.bend as D",
+          "after": "import domains.bend as D"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/world.bend as W",
+          "after": "import ../../world.bend as W"
+        }
+      ]
+    },
+    {
+      "source": "experiments/public-relation-readers/current-adoption-v1/declaration-adoption-v1/library/public-relation-readers/keyed-candidate/wider/barrier.bend",
+      "sourceSHA256": "75e6de58d29945197b8d289315288dc9c5a9ee4048f5ea22cecf4f7253ae123b",
+      "target": "src/ecs/internal/relation-failures/barrier.bend",
+      "candidateSHA256": "78f61ec8cd251f8362f738f264c313ec3ed15246c5227d8a90c43fbada967752",
+      "bodyUnchanged": true,
+      "imports": [
+        {
+          "before": "import ../domains.bend as D",
+          "after": "import domains.bend as D"
+        },
+        {
+          "before": "import ../routing.bend as Route",
+          "after": "import routing.bend as Route"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/world.bend as W",
+          "after": "import ../../world.bend as W"
+        }
+      ]
+    },
+    {
+      "source": "experiments/public-relation-readers/current-adoption-v1/declaration-adoption-v1/library/public-relation-readers/keyed-candidate/wider/runtime-v14.bend",
+      "sourceSHA256": "d2b4ee228bc639aeb27bb805125dc55dc03cd7772cbeb7050595686afaa61b82",
+      "target": "src/ecs/relation-failure-runtime.bend",
+      "candidateSHA256": "11df4128184ea27bd9f87993235ef9459342c17c5165858814fea1f62c460ac9",
+      "bodyUnchanged": true,
+      "imports": [
+        {
+          "before": "import ../domains.bend as D",
+          "after": "import internal/relation-failures/domains.bend as D"
+        },
+        {
+          "before": "import ../readings.bend as Read",
+          "after": "import internal/relation-failures/readings.bend as Read"
+        },
+        {
+          "before": "import ../routing.bend as Route",
+          "after": "import internal/relation-failures/routing.bend as Route"
+        },
+        {
+          "before": "import barrier.bend as B",
+          "after": "import internal/relation-failures/barrier.bend as B"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/world.bend as W",
+          "after": "import world.bend as W"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/system.bend as Sy",
+          "after": "import system.bend as Sy"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/event-runtime.bend as Ev",
+          "after": "import event-runtime.bend as Ev"
+        }
+      ]
+    },
+    {
+      "source": "experiments/public-relation-readers/current-adoption-v1/declaration-adoption-v1/library/public-relation-readers/keyed-candidate/reader-declaration.bend",
+      "sourceSHA256": "271f8b649f5b3fb0f49fe17a9806f940c4cad85ab8f95a5075f8e4390b278c50",
+      "target": "src/ecs/relation-failure-reader.bend",
+      "candidateSHA256": "6c355ea7f29297ee96172c39364b97cbf0f8223b7cce7f46d85636919a36c75e",
+      "bodyUnchanged": true,
+      "imports": [
+        {
+          "before": "import domains.bend as D",
+          "after": "import internal/relation-failures/domains.bend as D"
+        },
+        {
+          "before": "import wider/runtime-v14.bend as K",
+          "after": "import relation-failure-runtime.bend as K"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/world.bend as W",
+          "after": "import world.bend as W"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/system.bend as Sy",
+          "after": "import system.bend as Sy"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/relation-types.bend as G",
+          "after": "import relation-types.bend as G"
+        }
+      ]
+    },
+    {
+      "source": "experiments/public-relation-readers/current-adoption-v1/declaration-adoption-v1/library/public-relation-readers/keyed-candidate/wider/disposal-v14.bend",
+      "sourceSHA256": "ead425b1cce5e5bc52e3db45276b4bb159d659a7eab5d78be6d8f454664c66e7",
+      "target": "src/ecs/relation-failure-disposal.bend",
+      "candidateSHA256": "fd5e8b07537605f12159d1d3ae3d6675a567c17e247453f4605d4a1fbcc0d1d5",
+      "bodyUnchanged": true,
+      "imports": [
+        {
+          "before": "import runtime-v14.bend as K",
+          "after": "import relation-failure-runtime.bend as K"
+        },
+        {
+          "before": "import ../domains.bend as D",
+          "after": "import internal/relation-failures/domains.bend as D"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/world.bend as W",
+          "after": "import world.bend as W"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/system.bend as Sy",
+          "after": "import system.bend as Sy"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/src/ecs/event-runtime.bend as Ev",
+          "after": "import event-runtime.bend as Ev"
+        }
+      ]
+    }
+  ],
+  "currentCoreDependencies": [
+    {
+      "path": "src/ecs/column.bend",
+      "qualifiedSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "currentRootSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/commands.bend",
+      "qualifiedSHA256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "currentRootSHA256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/component.bend",
+      "qualifiedSHA256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "currentRootSHA256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/event-runtime.bend",
+      "qualifiedSHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "currentRootSHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/indexed-lifecycle.bend",
+      "qualifiedSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "currentRootSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/lifecycle.bend",
+      "qualifiedSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "currentRootSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/owner-handoff.bend",
+      "qualifiedSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "currentRootSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/reader-domains.bend",
+      "qualifiedSHA256": "1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314",
+      "currentRootSHA256": "1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/registration.bend",
+      "qualifiedSHA256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "currentRootSHA256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/relation-commands.bend",
+      "qualifiedSHA256": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+      "currentRootSHA256": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/relation-graph.bend",
+      "qualifiedSHA256": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+      "currentRootSHA256": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/relation-types.bend",
+      "qualifiedSHA256": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+      "currentRootSHA256": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/removals.bend",
+      "qualifiedSHA256": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+      "currentRootSHA256": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/schedule.bend",
+      "qualifiedSHA256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "currentRootSHA256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/string-equality.bend",
+      "qualifiedSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "currentRootSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/system.bend",
+      "qualifiedSHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "currentRootSHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/transaction.bend",
+      "qualifiedSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "currentRootSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "identical": true
+    },
+    {
+      "path": "src/ecs/world.bend",
+      "qualifiedSHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "currentRootSHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "identical": true
+    }
+  ],
+  "excluded": "Fixture schemas/providers/access marker types/application DTO/observers/renderers/collectors/oracles/historical runtime and per-command-clock barrier"
+}
