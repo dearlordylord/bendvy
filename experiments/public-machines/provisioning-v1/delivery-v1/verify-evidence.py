@@ -22,7 +22,10 @@ for key,subject in index['cohorts'].items():
  assert len(receipt['commands'])==len(plan['commands'])
  for path,member in index['sourceObjects'].items():
   if path in plan['pins']:assert sha(read(member))==plan['pins'][path]
- parserpath=str(HERE/'transport-v1/transport.py');parser=types.ModuleType('frozen_parser');parser.__file__=parserpath
+ parserpath=str(Path(plan['constructorInventory']).parent/'transport.py')
+ assert parserpath in plan['pins'] and parserpath in index['sourceObjects']
+ assert sha(source(parserpath))==plan['pins'][parserpath]
+ parser=types.ModuleType('frozen_parser');parser.__file__=parserpath
  exec(compile(source(parserpath),parserpath,'exec'),parser.__dict__)
  pins=dict(plan['pins']);pins[str(original/'plan.json')]=subject['planSHA256'];expectedlabels=[]
  def guard(label):
