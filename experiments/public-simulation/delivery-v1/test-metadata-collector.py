@@ -38,6 +38,24 @@ class Controls(unittest.TestCase):
             with patch.object(collector,'load',side_effect=loaded):
                 with self.assertRaises(RuntimeError):collector.run(path,digest)
             out=Path(d['outputRoot']);receipt=json.loads((out/'receipt.json').read_text());self.assertEqual(receipt['status'],'INCOMPLETE');self.assertEqual((out/'probe.stdout').read_bytes(),b'partial metadata');self.assertEqual(len(receipt['guards']),4);self.assertEqual(receipt['commands'][0]['exit'],7)
+    def test_second_stream_capture_failure_retains_process_and_first_raw(self):
+        with tempfile.TemporaryDirectory()as directory:
+            path,digest,d=self.plan(directory);real_load=collector.load;real_capture=collector.capture
+            def loaded(name,path):
+                if name=='simulation_metadata_runner':return SimpleNamespace(execute_result=lambda *args:{'stdout':b'completed stdout','stderr':b'refused','exit':7,'failure':None})
+                return real_load(name,path)
+            def captured(path,raw):
+                if Path(path).name=='probe.stderr':raise OSError('test-only publication refusal')
+                return real_capture(path,raw)
+            with patch.object(collector,'load',side_effect=loaded),patch.object(collector,'capture',side_effect=captured):
+                with self.assertRaises(OSError):collector.run(path,digest)
+            out=Path(d['outputRoot']);receipt=json.loads((out/'receipt.json').read_text());row=receipt['commands'][0]
+            self.assertEqual(receipt['status'],'INCOMPLETE');self.assertEqual(row['exit'],7);self.assertIsNone(row['failure'])
+            self.assertEqual(row['stdout']['sha256'],hashlib.sha256(b'completed stdout').hexdigest());self.assertEqual(row['stdout']['publication'],'PUBLISHED')
+            self.assertEqual((out/'probe.stdout').read_bytes(),b'completed stdout');self.assertFalse((out/'probe.stderr').exists())
+            self.assertEqual(row['stderr']['publication'],'FAILED_ABSENT');self.assertEqual(row['captureFailure'],{'stream':'stderr','type':'OSError'})
+            self.assertEqual(len(receipt['guards']),4);self.assertEqual(receipt['guardFailures'],[])
+            guard=json.loads((out/'final.guard.json').read_text());self.assertEqual(guard['actualPins'][str(out/'probe.stdout')],row['stdout']['sha256'])
     def test_alias_target_chain_and_dotdot(self):
         with tempfile.TemporaryDirectory()as directory:
             root=Path(directory);(root/'real').mkdir();(root/'real/sub').mkdir();(root/'real/target').write_text('x');(root/'first').symlink_to('second');(root/'second').symlink_to('real/sub');view=metadata.aliases(root/'first/../target')

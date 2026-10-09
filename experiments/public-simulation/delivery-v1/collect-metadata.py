@@ -66,10 +66,25 @@ def run(plan_path,digest):
                         result=runner.execute_result(command['argv'],command['capSeconds'],plan['environment'],str(HERE),'split')
                         row={k:v for k,v in result.items()if not isinstance(v,bytes)}
                         row.update(label=label,argv=command['argv'],capSeconds=command['capSeconds'])
-                        for stream in ['stdout','stderr']:
-                            target=Path(command[stream]);capture(target,result[stream]);pins[str(target)]=sha(target)
-                            row[stream]={'path':str(target),'bytes':len(result[stream]),'sha256':pins[str(target)]}
+                        # Retain returned process evidence before any publication can fail.
                         record['commands'].append(row)
+                        for stream in ['stdout','stderr']:
+                            target=Path(command[stream]);raw=result[stream]
+                            row[stream]={'path':str(target),'returnedBytes':len(raw),
+                              'returnedSHA256':hashlib.sha256(raw).hexdigest(),
+                              'publication':'PENDING'}
+                            try:
+                                capture(target,raw)
+                            except BaseException as error:
+                                row[stream]['publication']='FAILED_ABSENT'
+                                row['captureFailure']={'stream':stream,'type':type(error).__name__}
+                                if target.exists() or target.is_symlink():
+                                    actual=regular_bytes(target);pins[str(target)]=sha(target)
+                                    row[stream].update(publication='FAILED_PARTIAL',
+                                      bytes=len(actual),sha256=pins[str(target)])
+                                raise
+                            pins[str(target)]=sha(target)
+                            row[stream].update(publication='PUBLISHED',bytes=len(raw),sha256=pins[str(target)])
                         if result['failure']is not None or result['exit']!=0:raise RuntimeError('metadata command refused: '+label)
                     finally:fcntl.flock(lock,fcntl.LOCK_UN)
         record['status']='METADATA_CAPTURED_NOT_RESOLVER_ADMISSION'
