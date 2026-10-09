@@ -1,0 +1,1 @@
+First helper-only control run exited1: expected omitted48, actual47. The test incorrectly counted the repeated identical observation as a distinct bucket. Corrected expectation47; helper behavior unchanged. Original diagnostic remains in the tool transcript, not a retained byte-exact raw file. No compiler consumer or backend was run.

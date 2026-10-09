@@ -1,0 +1,15 @@
+--- comp.ts
++++ comp.ts
+@@ -1,3 +1,4 @@
++import * as LayoutProvenance from "./layout-provenance.mjs";
+ // NOTE: Bend's runtime was designed by humans, but this file was mostly written
+ // by AI's, as it includes a ton of optimizations. It works and tests pass, yet,
+ // bugs ARE expected. It will take some time for the compiler to be stable.
+@@ -1642,6 +1643,7 @@
+ }
+ 
+ function val_to(fl: File, v: Val, lay: Lay): Val {
++  LayoutProvenance.observe(fl.def, v.lay, lay);
+   return lay_eq(v.lay, lay) ? v : lay_box(lay) ? val_new([val_box(fl, v)], BOX)
+     : lay_box(v.lay) ? val_unbox(fl, v, lay)
+     : val_arms(fl, lay, v.ws[0], (k) => val_arm(v, k));

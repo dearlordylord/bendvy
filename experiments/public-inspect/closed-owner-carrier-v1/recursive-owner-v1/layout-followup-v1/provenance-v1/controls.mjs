@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import {observe,snapshot} from './layout-provenance.mjs';
+const field={ks:['box'],arms:null};
+const a={ks:['w32','box'],arms:{First:[field],Second:[]}};
+const before=JSON.stringify(a);
+observe('fixture:observe',a,field);observe('fixture:observe',a,field);
+assert.equal(JSON.stringify(a),before);
+let s=snapshot();assert.equal(s.calls,2);assert.equal(s.rows[0].calls,2);
+assert.equal(s.rows[0].definition,'fixture:observe');assert.equal(s.rows[0].displayedDefinition,'fixture.observe');
+assert.deepEqual(s.rows[0].from.arms,[{name:'First',fields:[1]},{name:'Second',fields:[]}]);
+s.rows[0].from.kinds[0]='corrupt';assert.equal(snapshot().rows[0].from.kinds[0],'w32');
+const reordered={ks:a.ks,arms:{Second:[],First:[field]}};observe('fixture:observe',reordered,field);
+assert.equal(snapshot().rows.length,2); // Ordered arms remain distinguishable.
+a.ks.push('box');observe('fixture:observe',a,field);assert.equal(snapshot().rows[2].from.width,3);
+for(let i=0;i<300;i++)observe('module:def'+i,field,field);
+s=snapshot();assert.equal(s.rows.length,256);assert.equal(s.calls,304);assert.equal(s.omitted,47);
+observe('invalid:fixture',null,field);assert.equal(snapshot().errors,1);
+console.log('PASS source-name, ordered-arms, live-padding, noninterference, snapshot isolation and bounded-censor controls');
