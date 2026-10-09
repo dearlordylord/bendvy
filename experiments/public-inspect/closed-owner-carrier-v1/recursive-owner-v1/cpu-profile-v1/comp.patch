@@ -1,0 +1,127 @@
+--- pinned/comp.ts
++++ profile-copy/comp.ts
+@@ -9,8 +9,9 @@
+ // the device, or to JS. The C and JS runtimes close the file.
+ 
+ import * as fs from "node:fs";
+-
+-import * as Bend from "./bend.ts";
++import { checkBudget } from "./profile-budget.mjs";
++
++import * as Bend from "../../schema-partition-v1/garden-reference-diagnostic-v1/bend.ts";
+ 
+ // Types
+ // =====
+@@ -905,7 +906,29 @@
+     : !["Typ", "Qua", "Min", "Eql"].includes(t?.$ ?? ""));
+ }
+ 
++
++// Sparse observational counters; do not alter compiler structures or results.
++const DIAG_START = Date.now();
++const DIAG_COUNTS: Record<string, number> = Object.create(null);
++let DIAG_CHECKPOINT = 0;
++let DIAG_OWNER = "";
++function diagnostic_phase(event: string, detail: object = {}): void {
++  console.error("REFERENCE_PHASE " + JSON.stringify({event, elapsedMs: Date.now() - DIAG_START, ...detail}));
++}
++function diagnostic_watch(event: string): void {
++  const calls = DIAG_COUNTS[event] = (DIAG_COUNTS[event] ?? 0) + 1;
++  const power = calls <= 16777216 && (calls & (calls - 1)) === 0;
++  if (power || calls % 1024 === 0) {
++    checkBudget();
++    const now = Date.now();
++    if (power || now >= DIAG_CHECKPOINT) {
++      DIAG_CHECKPOINT = now + 2000;
++      console.error("REFERENCE_CHECKPOINT " + JSON.stringify({event, calls, elapsedMs: now - DIAG_START, owner: DIAG_OWNER, counters: DIAG_COUNTS}));
++    }
++  }
++}
+ function type_adts(fl: File, T: HTerm): Name[] {
++  diagnostic_watch("type_adts");
+   const t = ty_wnf(fl.book, T);
+   switch (t?.$) {
+     case "All": {
+@@ -936,6 +959,7 @@
+ // only for that check.
+ 
+ function lay_of(book: Bend.Book, A: HTerm | null): Lay {
++  diagnostic_watch("lay_of");
+   const t = ty_adt(book, A);
+   return t === null ? BOX : WORDS[t.k] ?? memo(LAYS,
+     Bend.term_key(Bend.term_lower(t)), (key) => {
+@@ -990,6 +1014,7 @@
+ }
+ 
+ function lay_eq(a: Lay, b: Lay): boolean {
++  diagnostic_watch("lay_eq");
+   return a === b || JSON.stringify(a) === JSON.stringify(b);
+ }
+ 
+@@ -1172,6 +1197,7 @@
+ // loop_of gives a def's tail cycle (Tarjan over its tail callees).
+ 
+ function fun_of(fl: File, k: Name): Fun {
++  diagnostic_watch("fun_of");
+   return memo(FUNS, k, () => {
+     const tld = fl.book.tlds[k];
+     if (tld?.$ !== "Def") {
+@@ -1642,6 +1668,7 @@
+ }
+ 
+ function val_to(fl: File, v: Val, lay: Lay): Val {
++  diagnostic_watch("val_to");
+   return lay_eq(v.lay, lay) ? v : lay_box(lay) ? val_new([val_box(fl, v)], BOX)
+     : lay_box(v.lay) ? val_unbox(fl, v, lay)
+     : val_arms(fl, lay, v.ws[0], (k) => val_arm(v, k));
+@@ -2124,6 +2151,7 @@
+ }
+ 
+ function emit_fuse(fl: File, ck: Spine, dst: Val | null, tail = false): void {
++  diagnostic_watch("emit_fuse");
+   const k = ck.k!;
+   const T = fl.book.tlds[k].T;
+   const doms = tele_unbind(fl.book, T).doms;
+@@ -2449,6 +2477,7 @@
+ 
+ function emit_body(fl: File, tm: HTerm, ty0: HTerm | null,
+   ers: HTerm[], args: Val[], dst: Val | null): void {
++  diagnostic_watch("emit_body");
+   const [x, ty] = ty_peel(tm, ty0);
+   if (args.length === 0 && fun_live(fl.book, x, ty)) {
+     return emit_put(fl, dst, emit_clo(fl, x, ty));
+@@ -2753,11 +2782,16 @@
+   const show = show_main(book);
+   const fams = (show ?? []).flatMap((c) =>
+     typeof c === "string" ? [Bend.book_fam(book, c)] : []);
++  checkBudget();
++  diagnostic_phase("file_book.begin");
+   const fl = file_book(book, ["main", ...RUNTIME_ADTS, ...fams], false);
++  diagnostic_phase("file_book.end", {counters: DIAG_COUNTS});
+   const facts = () => fl.own.size + fl.hot.size + fl.stat.size;
+   let was: number;
+   let reqs: string;
+   do {
++    checkBudget();
++    diagnostic_phase("emit_iteration.begin", {facts: facts(), counters: DIAG_COUNTS});
+     was = facts();
+     [fl.lend, fl.spun, fl.clos, fl.tabs, fl.lits, fl.consts, BRWS]
+       .forEach((m) => m.clear());
+@@ -2765,6 +2799,7 @@
+     fl.spins = [];
+     fl.img = [];
+     for (const [k, tld] of done_defs(fl).reverse()) {
++      DIAG_OWNER = k;
+       memo_gc();
+       const [dl, vals] = emit_open({ ...fl, fresh: new Map(),
+         brwl: new Map(), rest: [] }, k);
+@@ -2789,7 +2824,9 @@
+         fl.own.add(k + "~" + i);
+       }
+     }));
++    diagnostic_phase("emit_iteration.end", {facts: facts(), counters: DIAG_COUNTS});
+   } while (was !== facts());
++  diagnostic_phase("emission_fixpoint.end", {counters: DIAG_COUNTS});
+   const edges = [...fl.segs, ...fl.spins].flatMap((s) =>
+     [...s.refs].map((r) => [s.fid, r]));
+   const reach = (from: string[]) => graph_close(new Set(from), edges);
