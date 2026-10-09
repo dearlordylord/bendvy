@@ -1,0 +1,8 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'prior' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+31 |   let capacity = Capacity.observed(~S,Wide.application(~S,65537n))
+32>|   match prior:
+   |         ^^^^^
+33 |     case Finite{retry,foreign,lifecycle,mixed} <> []:
