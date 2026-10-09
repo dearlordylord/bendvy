@@ -1,0 +1,11 @@
+# Full03 copied diagnostic independent admission
+
+Reviewed11f51d61 and exact `/tmp/bendvy-debug56-call-boundary-full03/plan.json` SHA256 df2de786d7dc5a8e143b4d60189b6aa588bee77c5d914dd7bfc70a606d7da3ba. Admit the exact six-stage diagnostic sequence once, conditional on each prior stage's success.
+
+All501 current pins independently match; complete approved resource inventories70/272/7 match; normal/mutant C, witness and Native outputs are absent. Both inventories retain71 sources and full unchanged independent models1f54/f4eb. Copied candidate compiler is the qualified controls10 subject; this is not an installed-ELF change or inference of full-subject success from small controls.
+
+Exact verified-byte parser adaptations replace only loader.exec_module sites with source execution callbacks. Original/adapted source hashes, replacement counts and inverse bytes are checked recursively before compile. Nominal fields, sums, owner/cursor/World data and existing strict whole equality remain unchanged. Independent no-child source-cache/drift, publication/partial-artifact boundary and retained complete transport controls passed for both subjects; entire mutant model equality plus unchanged positive-model rejection remain mandatory.
+
+Execution stdlib bootstrap checks admitted plan, all file pins, literal bindings and actual Python before helper imports. Each emit30/build120/runtime5 stage uses CPU5/shared lock; Native threads1/GPUoff. Results enter the ledger before stream publication. Finally captures both C/binary and witness where present, preserves primary failure and records secondary capture errors; named post and unconditional final receipt remain required. Emit helper logs actual load/valid/compile boundaries and attempts witness capture even on compiler exception. A killed child can leave only partial artifacts and must remain INCOMPLETE; successful children must produce all required artifacts before next stage. Runtime full typed model and empty stderr are required, not partial output.
+
+No backend/sourcechecker ran in review. Scope is copied-compiler full consuming diagnostic only; no installed compiler/resolver qualification, timing claim or public/full56 closure. Prior failures remain historical and no cap is raised.
