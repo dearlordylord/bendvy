@@ -12,7 +12,7 @@ Exact direct CPU52657 /Heap67227 both terminalPASS full4,329,743B oracle63b50/30
 |---|---:|---|---|
 | Anonymous continuations |2,152,031,344|Mixed source continuations, inspect actual callframes|Operations/forcing mixed|
 | List.append |471,871,776|Generated1763|Mixed token expansion|
-| trace-value.tokens |148,906,536|current-qualification-v1/trace-value.bend47|Token construction shared with forcing/serialization|
+| trace-value.tokens |148,906,536|current-qualification-v1/trace-value.bend47|Serialization after Complete (force.bend does not call J.tokens)|
 | serialize-direct.walk |99,617,088|serialize-direct.bend16 /generated1382|Serialization after Complete|
 | column.plain_view_taken#1 |88,089,640|src/ecs/column.bend371 /generated9944|Component observation before Complete|
 
