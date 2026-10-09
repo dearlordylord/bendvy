@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : args
+- observed : args (consumed more than once)
+Context:
+- owner : body~H
+Location: body
+5 | 
+6>| def body(~H:Type,~read:Cap.Request<H,C.Query,C.Projection>,owner:H,args:C.Args) -> H & (C.Args & C.Args):
+  |                                                                    ^^^^
+7 |   (owner,(args,args))

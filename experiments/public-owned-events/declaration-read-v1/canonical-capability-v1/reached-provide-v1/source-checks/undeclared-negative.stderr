@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : Query.Declaration<C.Schema, P.Payload, ../../../../../../../../../bendvy/src/ecs/capabilities.Request<P.Payload, P.Query, P.Projection>>
+- observed : Query.Declaration<C.Schema, P.Payload, Unit>
+Location: reached
+ 9 | def reached(owner:P.Payload,args:P.Args) -> P.Payload & P.Observation:
+10>|   Decl.provide(~C.Schema,~P.Payload,~P.Query,~P.Projection,~P.Args,~P.Observation,~undeclared(),~P.reader,owner,args)
+   |                                                                                    ^^^^^^^^^^
+11 | 
