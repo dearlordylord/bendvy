@@ -1,0 +1,11 @@
+# Canonical scoped-reader v4 launch review
+
+Scoped PASS by coordinator, independent of source/runner author. Reviewed56f56ce1 adapter,4e0b4a85 parameterization and e761efc2 reached source-byte loading fix. Previous v3 cached-loader rejection remains evidence; v3 is not admitted.
+
+Admit original author-path plans in PREPARED.json: genericJS14293136fa19acaf1989142df38b70e8b929b8821349e719c57ab0ff3295861c; genericNativef25bf9f840f79ed4e6f0042696e70ecdca3034b0dc4f22cd775ee72253f2e66e; registeredJSf9f8b9b3514faa148b993138fcdae0b2ba803935db87c268e7b1b4136378f19a; registeredNativecbed5baafaa729e1f3827f059bd96b4ae3e95495f494c3199531f2f21628f357. Execute each Native role only after its complete JS gate succeeds.
+
+Actual root checks: all58/62/61/65 current file and complete resource inventories match; plan hashes, pinned Bend2.0.35, CPU5 emit30/build120/run5, absent receipts/artifacts verified. Existing interpreter/full-input admission precedes helper loading; captured .py bytes are rehashed against admitted pins and propagated through all reached loaders, avoiding timestamp-valid pyc substitution. Acquired/post/final guards, generated-result capture, shared child lock and unconditional receipts remain. Complete typed/raw output and empty runtime stderr are required.
+
+Five preparation controls pass in the frozen author worktree, including cached-bytecode sentinel and actual main helper drift before imports. Coordinator independently parses/rerenders the entire generic832B and registered37318B pre-output raw oracles through captured admitted transport source into unchanged neutral models. Sixteen-source comparison and three positive/six negative controls retain authority/affine boundaries. No source/proof or backend pass is inferred from them.
+
+Relocation limitation: the root copied test suite has two failures because raw constructor namespaces and helper/collector admission use original worktree paths. These plans qualify only their frozen original paths; relocation needs its own rebinding/plan, never receipt rewriting. The original path tests pass. No backend child launched by reviewer; no System runtime admission, new ownership/finalizer/retirement policy, performance or full #53 acceptance claim.
