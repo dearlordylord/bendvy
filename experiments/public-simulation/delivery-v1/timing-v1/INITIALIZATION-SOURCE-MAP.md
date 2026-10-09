@@ -1,0 +1,13 @@
+# Initialization attribution
+
+Source-only investigation of actual fine CPU profile; no new children or core changes.
+
+`created$1260` has 5,107µs weighted self, but 4,513µs comes from ONE sample interval107; the remaining four intervals are145–154µs. Interval107 follows a sample in `component.get$1263`, then records Workshop `consumer-start.created → initialize → scenario.run → main`. The interval cannot separate scheduler delay, lazy compilation, or actual execution. Do not treat5.107ms as established registration-loop cost.
+
+The original generated program has1,338 functions/740,378 characters. `created` is533chars/12lines/1argument, `pair.register`221chars/4lines/1argument, `readers.register`293chars/4lines/2arguments. Both schema specializations have matching sizes. `consumer-start.registered` is1,535chars/25lines/2arguments, with every refusal owner retained. No growing argument carrier appears at this caller.
+
+Actual call sequence (consumer-start.bend:24; readers-v1/pair.bend:register): create runtime → registerA → runA → if succeeded registerB → runB → package pair/statuses. Registration is not empty setup: the initial actual reader runs and refusal/error owners must remain. `readers.register` calls event-runtime.register; event-runtime.bend:174–184 splits nine retained runtime fields across registered_result and registered_identity (10/11 generated arguments), then restores them. Sy.identity introduces a returned Registry/id Tuple. Subsequent initial_a/initial_completed/initial_continue preserve the actual reader outcome; no artificial success substitution is valid.
+
+One bounded composition option: inline identity unpack/repack into event-runtime.registered_result's success branch, preserving the original Sy.Registry namespace/id/name/access/cursor and constructing Reader from its exact id. This removes registered_identity continuation and its Tuple handoff, while keeping Sy.register invocation, registration order, full runtime state, initial reader runs, typed failures and all arbitrary Type owners. It needs shared-core owner approval and source/type evidence; no projection changes or metadata omission. However the profile does NOT show registered_identity as a material self hotspot, so this is a mechanically bounded option rather than a justified major optimization.
+
+Conclusion: no source evidence currently supports a representation rewrite aimed specifically at the large created sample. The dominant interval ambiguity is real; avoid cold-path boxing/packing churn based on it. If root elects the small composition option, measure unchanged full fresh-lifecycle workload/full14×2 report with the existing recipe; no speedup is established by this map.
