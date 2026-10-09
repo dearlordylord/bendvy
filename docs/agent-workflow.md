@@ -56,7 +56,7 @@ children retain the shared heavy-work lock and existing caps.
 
 ## Approval requirements
 
-Read [SPEC](SPEC.md) for approval requirements on specific laws, numerical performance thresholds and new dependencies. Record the exact outstanding request and why it is needed in the task report.
+Follow [SPEC](SPEC.md) approval requirements for specific laws, numerical performance thresholds and new dependencies. Report each exact outstanding request and its reason.
 
 ## Query or storage extension
 
@@ -72,7 +72,7 @@ Run the paired regression gate in [benchmarks/README.md](../benchmarks/README.md
 
 ## Reference inspection or execution
 
-Read-only checkouts are `/workspace/formal-proofs/bendvy/.references/bevy-ts`, `/workspace/formal-proofs/bendvy/.references/bevy` and `/workspace/formal-proofs/bendvy/.references/bend2`. Check commits against the tracked [manifest](../.references/sources.json). They are excluded from Git; use these absolute locations in isolated worktrees or document unavailable references.
+Read-only, Git-excluded checkouts `bevy-ts`, `bevy` and `bend2` live under `/workspace/formal-proofs/bendvy/.references/`. Verify commits against the [manifest](../.references/sources.json). Use absolute paths in isolated worktrees; document unavailable references.
 
 For TS execution, check the existing Node runtime first and try a Node-only adapter against the pinned `.ts` entrypoint. Core has no external runtime dependencies. New packages still require SPEC approval when concretely necessary. Source-derived traces become observed evidence only after their actual checkpoints run.
 
