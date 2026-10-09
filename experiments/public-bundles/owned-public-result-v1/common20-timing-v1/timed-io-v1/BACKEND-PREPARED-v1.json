@@ -1,0 +1,206 @@
+{
+  "scope": "IO timer semantic/protocol qualification preparation only; no children launched, no comparative speed credit",
+  "plans": [
+    {
+      "label": "positiveJS",
+      "helper": "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/development-js.py",
+      "plan": "/tmp/bendvy-bundle41-io-timed-js01/plan.json",
+      "snapshot": "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/positiveJS-prepared-plan-v1.json",
+      "sha256": "a0ca53334c28f450f760f6dd1fba13e5b644d3c3fe2a6c3e1ab2a67ffe8dfd8f",
+      "pins": 83,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/main.bend",
+            "-o",
+            "/tmp/bendvy-bundle41-io-timed-js01/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy-bundle41-io-timed-js01/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "label": "positiveNative",
+      "helper": "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/development-native.py",
+      "plan": "/tmp/bendvy-bundle41-io-timed-native01/plan.json",
+      "snapshot": "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/positiveNative-prepared-plan-v1.json",
+      "sha256": "a6351bd2d4c6b28de9b049bfebd9678d6adb6299fe55e70840a00adeb876ff03",
+      "pins": 86,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/main.bend",
+            "-o",
+            "/tmp/bendvy-bundle41-io-timed-native01/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy-bundle41-io-timed-native01/scenario.c",
+            "-o",
+            "/tmp/bendvy-bundle41-io-timed-native01/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-bundle41-io-timed-native01/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "label": "positiveTS",
+      "helper": "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/development-ts.py",
+      "plan": "/tmp/bendvy-bundle41-io-timed-ts01/plan.json",
+      "snapshot": "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/positiveTS-prepared-plan-v1.json",
+      "sha256": "ea4657f796708c000bd09a91660f48840a3a5dd7cb4760d47488c1e99aea1b6f",
+      "pins": 98,
+      "commands": [
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/reference.mjs"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "label": "earlyEndJS",
+      "helper": "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/mutants/early-end-v1/development-js.py",
+      "plan": "/tmp/bendvy-bundle41-io-early-end-js01/plan.json",
+      "snapshot": "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/earlyEndJS-prepared-plan-v1.json",
+      "sha256": "8d96e969f9d1217ac4cae2e85734f830553ee45e50190d5061e9a280a8683c25",
+      "pins": 81,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/mutants/early-end-v1/main.bend",
+            "-o",
+            "/tmp/bendvy-bundle41-io-early-end-js01/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy-bundle41-io-early-end-js01/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "label": "earlyEndNative",
+      "helper": "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/mutants/early-end-v1/development-native.py",
+      "plan": "/tmp/bendvy-bundle41-io-early-end-native01/plan.json",
+      "snapshot": "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/earlyEndNative-prepared-plan-v1.json",
+      "sha256": "0f2463062df2739ecb154eeb2f10a0a7dc57b2328f9453dafbe854c1adb55308",
+      "pins": 84,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/mutants/early-end-v1/main.bend",
+            "-o",
+            "/tmp/bendvy-bundle41-io-early-end-native01/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy-bundle41-io-early-end-native01/scenario.c",
+            "-o",
+            "/tmp/bendvy-bundle41-io-early-end-native01/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-bundle41-io-early-end-native01/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    }
+  ],
+  "requiresLaunchReview": true,
+  "wholeBendBytes": 16012,
+  "wholeTSBytes": 4606,
+  "postWholeGates": "Both whole Bend literals and whole TS literal must pass before existing shared-public-join.py compares all twenty observations; join source frozen in positive plan pins",
+  "control": "Exact nine-line prefix then actual late capture refusal; complete positive output rejected",
+  "clockScope": "All actual ten registered lifecycles, owner inverses, observations and capture materialization inside interval; flush after end. Backend-specific observation work remains included."
+}

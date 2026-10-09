@@ -1,0 +1,1 @@
+Reached early-end control: same complete ten lifecycles; timer stops before tenth and late capture must refuse. Full positive literal remains mandatory baseline. No timing or public contract acceptance.
