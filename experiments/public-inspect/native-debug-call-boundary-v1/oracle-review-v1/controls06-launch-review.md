@@ -1,0 +1,7 @@
+# Controls06 launch review
+
+Author4124beba: PASS for exact plan c82aed9bd9a60ac77deec2666c92ab3359c411fa710ce4d558cf44b17cb52283, five baseline/candidate controls and21 stages only. Independently verified all175 current file pins, three resource inventories and absent report/C/native/receipt outputs. Copied compiler semantics remain the reviewed sole nonflat single-site tail-fusion predicate change; added diagnostics are symmetric metadata instrumentation.
+
+Three former blockers are repaired. Direct execution and check-whole→transport-source→term parser use compiled exact pinned source bytes, ignoring stale timestamp/size pyc and cached modules. Returned process row/raw metadata is recorded before publication; failed partial streams and artifact hashes preserve original result and primary error through named post/final receipt paths. Witnesses are bound to authored main→target eligibility/fusion/jump, countdown→countdown recursion, target two Array.size child tasks, and generic main→target layout cut, rather than unrelated Base emissions. Synthetic witness refusals demonstrate the narrower scope; consuming evidence is still required from actual emitter logs.
+
+Independent Python-only preimport, stale-cache/transitive-drift, partial publication/artifact failure and full five-model transport controls passed. Limits remain Node30/build120/run5 CPU5/shared lock, one thread/GPU off. No backend child was launched by reviewer. This admits controls only, without full71/installed Native56/public contract/cause/performance qualification.
