@@ -1,0 +1,5 @@
+# Source-current TS relation reader reference preparation
+
+One entry imports three complete existing public applications: fast/slow failure/retry and publication; independent relation keys, condition skip, lag/window and lifecycle; mixed event/removal/relation/query cursors. Each retains its full original world/streams/observations/owner adapter output and assertions. Import paths bind the pinned core; only final console serialization is replaced by module export before one complete outer JSON report. No Node child has run.
+
+This is preparation, not full issue acceptance. A complete independent expected report and immutable copied-source Node plan are required before execution. TS mutable Array identity/mailbox observations are an explicit adapter, not affine ownership proof. Independent world-scoped foreign handles and explicit system disposal have no matching pinned public TS API and remain recorded Bend contract controls. Canonical World clock and physical Queue front/back are Bend-only fields, compared to its own independent oracle rather than erased for TS equality.
