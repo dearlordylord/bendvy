@@ -1,0 +1,5 @@
+The four admitted Native v3 cohorts completed once: original sessions 43383 (post-consumption), 71463 (its reached mutant), 43127 (failed batch), and 31814 (its reached mutant). Every emission, build and runtime exited zero. Normal scenes retain the complete 36-world/22-instance and 32-world/16-instance observations; mutants match the independently frozen six-clock-difference models.
+
+`evidence-v3` retains all 752 lossless members, including executed plans, full raw outputs, generated C and ELF, all 40 guards, independent models and consumed source/helper snapshots. `python3 verify-evidence.py` checks exact progressive pin sets, resource inventories, command arguments/caps, raw and artifact hashes, and complete parsed model equality for all four scenes. It passed without rerunning a backend.
+
+This qualifies the selected complete scenes on canonical normal module imports and reached copied mutation imports. It does not establish universal callback ownership, a performance result, complete resolver qualification, or #48 delivery. Fresh canonical JS scene qualification and the default regression gate remain required.
