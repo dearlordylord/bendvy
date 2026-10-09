@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : "schema|Workshop\n" <> chunks(workshop, "retry|Workshop\n" <> chunks(workshopRetry, "schema|Garden\n" <> chunks(garden, "retry|Garden\n" <> gardenRetry)))
+Context:
+- workshop      : List<&2, String>
+- workshopRetry : List<&2, String>
+- garden        : List<&2, String>
+- gardenRetry   : List<&2, String>
+Location: assembled
+91 | def assembled(workshop:List<&2,String>,workshopRetry:List<&2,String>,garden:List<&2,String>,gardenRetry:List<&2,String>) -> String:
+92>|   all = "schema|Workshop\n" <> chunks(workshop,"retry|Workshop\n" <> chunks(workshopRetry,"schema|Garden\n" <> chunks(garden,"retry|Garden\n" <> gardenRetry)))
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+93 |   String.concat(all)

@@ -1,0 +1,102 @@
+import Base
+import five-phase-driver.bend as Driver
+import retry-driver.bend as Retry
+import fixture.bend as Fixture
+import phase-driver.bend as Phase
+import gate-phase.bend as GatePhase
+import gates.bend as Gates
+import owner-observer.bend as Owners
+import world-observer.bend as Dump
+import schema-families.bend as D
+import core-v1/src/ecs/inspector.bend as I
+import core-v1/src/ecs/world.bend as W
+import runtime-owners.bend as RuntimeOwners
+import core-v1/src/ecs/schedule.bend as Sch
+
+# Complete diagnostic serialization. Type owners are disposed only at this closed
+# driver endpoint after their final owner-returning observations, never in callbacks.
+def lines(+prefix:String,values:List<&2,String>, tail:List<&2,String>) -> List<&2,String>:
+  match values:
+    case []:tail
+    case value <> rest:prefix <> value <> "\n" <> lines(prefix,rest, tail)
+def boundary(value:Phase.Boundary, tail:List<&2,String>) -> List<&2,String>:
+  match value:
+    case Phase.Boundary{before,after,instanceBefore,instanceAfter}:"queryWorldBefore|" <> before <> "\nqueryWorldAfter|" <> after <> "\ninstanceBefore|" <> instanceBefore <> "\ninstanceAfter|" <> instanceAfter <> "\n" <> tail
+def boundaries(values:List<&2,Phase.Boundary>, tail:List<&2,String>) -> List<&2,String>:
+  match values:
+    case []:tail
+    case value <> rest:boundary(value, boundaries(rest, tail))
+def observation(value:Sch.Observation) -> String:
+  match value:
+    case Sch.Entered{name}:"Entered:" ++ name
+    case Sch.Ran{id}:"Ran:" ++ U32.show(id)
+    case Sch.Skipped{id}:"Skipped:" ++ U32.show(id)
+    case Sch.Applied{}:"Applied"
+def gate(~S:Data,value:GatePhase.Observation<S>, tail:List<&2,String>) -> List<&2,String>:
+  match value:
+    case GatePhase.Observation{observations,before,after,diagnostic}:"observations|" <> List.show(&2,Sch.Observation,observation,observations) <> "\nargsBefore|" <> before <> "\nargsAfter|" <> after <> "\ndiagnostic|" <> Owners.diagnostic(~S,diagnostic) <> "\n" <> tail
+def gates(~S:Data,values:List<&2,GatePhase.Observation<S>>, tail:List<&2,String>) -> List<&2,String>:
+  match values:
+    case []:tail
+    case value <> rest:gate(~S,value, gates(~S,rest, tail))
+def record(~S:Data,value:Driver.Record<S>, tail:List<&2,String>) -> List<&2,String>:
+  match value:
+    case Driver.Record{name,queries,bs,gs,before,after,registriesBefore,registriesAfter}:
+      ra = lines("registryAfter|",registriesAfter,tail)
+      rb = lines("registryBefore|",registriesBefore,ra)
+      gsOut = gates(~S,gs,"phaseWorldBefore|" <> before <> "\nphaseWorldAfter|" <> after <> "\n" <> rb)
+      bsOut = boundaries(bs,gsOut)
+      qsOut = lines("query|",queries,bsOut)
+      "phase|" <> name <> "\n" <> qsOut
+def records(~S:Data,values:List<&2,Driver.Record<S>>, tail:List<&2,String>) -> List<&2,String>:
+  match values:
+    case []:tail
+    case value <> rest:record(~S,value, records(~S,rest, tail))
+def final_world(~World:Type,value:World & String, tail:List<&2,String>) -> List<&2,String>:
+  (_,text)=value
+  "finalWorld|" <> text <> "\n" <> tail
+def final_instance(~S:Data,value:I.Instance<S> & String, tail:List<&2,String>) -> List<&2,String>:
+  (_,text)=value
+  "finalInstance|" <> text <> "\n" <> tail
+def final_instances(~S:Data,values:List<I.Instance<S>>, tail:List<&2,String>) -> List<&2,String>:
+  match values:
+    case []:tail
+    case value <> rest:final_instance(~S,Dump.instance(~S,value), final_instances(~S,rest, tail))
+def final_holders(~S:Data,value:List<Gates.Holder<S>> & List<&2,String>, tail:List<&2,String>) -> List<&2,String>:
+  (_,values)=value
+  lines("finalRegistry|",values, tail)
+def driver(~S:Data,value:Driver.Built<S>, tail:List<&2,String>) -> List<&2,String>:
+  match value:
+    case Driver.Refused{_,_}:"UNEXPECTED_WORLD_CREATION_REFUSAL\n" <> tail
+    case Driver.Built{Driver.Driver{GatePhase.State{Phase.State{world,_,instances,_,_,error},holders,_,errors},rs}}:records(~S,rs, final_world(~W.World<S,D.Store<S>,RuntimeOwners.Resource<S>,U32>,Dump.world(~S,world), final_instances(~S,instances, final_holders(~S,Driver.holders(~S,holders), "errors|" <> error <> errors <> "\n" <> tail))))
+def retry_boundary(value:Retry.Boundary, tail:List<&2,String>) -> List<&2,String>:
+  match value:
+    case Retry.Boundary{before,after,instanceBefore,instanceAfter,record,failed}:"retryWorldBefore|" <> before <> "\nretryWorldAfter|" <> after <> "\nretryInstanceBefore|" <> instanceBefore <> "\nretryInstanceAfter|" <> instanceAfter <> "\nretryQuery|" <> record <> "\nretryFailed|" <> Bool.show(failed) <> "\n" <> tail
+def retry_boundaries(values:List<&2,Retry.Boundary>, tail:List<&2,String>) -> List<&2,String>:
+  match values:
+    case []:tail
+    case value <> rest:retry_boundary(value, retry_boundaries(rest, tail))
+def retry_finished(~S:Data,value:Retry.Retry<S>, tail:List<&2,String>) -> List<&2,String>:
+  match value:
+    case Retry.Retry{world,instance,_,rs}:retry_boundaries(rs, final_world(~W.World<S,D.Store<S>,RuntimeOwners.Resource<S>,U32>,Dump.world(~S,world), final_instance(~S,Dump.instance(~S,instance), tail)))
+def retry(~S:Data,value:Fixture.Built<S>, tail:List<&2,String>) -> List<&2,String>:
+  match value:
+    case Fixture.BuildRefused{_,_}:"UNEXPECTED_RETRY_WORLD_REFUSAL\n" <> tail
+    case Fixture.Built{Fixture.Fixture{world,targets,error}}:retry_finished(~S,Retry.run(~S,world,targets), "retryErrors|" <> error <> "\n" <> tail)
+# Copy only the small chunk-list spine; never reconstruct leaf Strings here.
+def chunks(values:List<&2,String>,tail:List<&2,String>) -> List<&2,String>:
+  match values:
+    case []:tail
+    case value <> rest:value <> chunks(rest,tail)
+def assembled(workshop:List<&2,String>,workshopRetry:List<&2,String>,garden:List<&2,String>,gardenRetry:List<&2,String>) -> List<&2,String>:
+  "schema|Workshop\n" <> chunks(workshop,"retry|Workshop\n" <> chunks(workshopRetry,"schema|Garden\n" <> chunks(garden,"retry|Garden\n" <> gardenRetry)))
+def corrupt(values:List<&2,String>) -> List<&2,String>:
+  match values:
+    case []:[]
+    case _ <> rest:rest
+def main() -> String:
+  workshop = driver(~D.Workshop,Driver.workshop(),[])
+  workshopRetry = retry(~D.Workshop,Fixture.workshop(),[])
+  garden = driver(~D.Garden,Driver.garden(),[])
+  gardenRetry = retry(~D.Garden,Fixture.garden(),[])
+  String.concat(corrupt(assembled(workshop,workshopRetry,garden,gardenRetry)))

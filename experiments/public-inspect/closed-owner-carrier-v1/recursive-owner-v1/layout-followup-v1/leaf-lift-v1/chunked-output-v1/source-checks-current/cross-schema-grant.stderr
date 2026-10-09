@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : D.Selection<Carrier.InspectOwner<F.Garden, Unit>, F.Garden, N.ValueEmpty>
+- observed : D.Selection<Carrier.InspectOwner<F.Workshop, Unit>, F.Workshop, N.ValueEmpty>
+Location: bad
+10 | def bad() -> Q.ReadQuery<I.Frame<F.Garden,F.Store<F.Garden>,Unit,U32>,F.Garden,N.ValueEmpty>:
+11>|   Carrier.inspect_grant(~F.Garden,~Unit,~N.ValueEmpty,~N.inspect_empty(~F.Workshop,~Unit),~T.inspect_world(~F.Garden,~F.Store<F.Garden>,~Unit,~U32))
+   |                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+12 | 
