@@ -1,0 +1,53 @@
+{
+  "scope": "ONE copied pinned-reference compiler continuation/final-arity metadata on exact complete46 source; no installed ELF causality, backend replay or performance qualification",
+  "planSHA256": "d72b6eea600f2f4d0a2f85dfe43acf8b233e4d83fcce535280ccc8e2e1023f89",
+  "commands": [
+    {
+      "label": "reference-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-decode46-arity-reference01/emit.mts",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/main.bend",
+        "/tmp/bendvy-decode46-arity-reference01/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": 1,
+      "failure": null,
+      "stdout": {
+        "path": "/tmp/bendvy-decode46-arity-reference01/emit.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-decode46-arity-reference01/emit.stderr",
+        "bytes": 238803,
+        "sha256": "0b6326602e129512328202db2a6db7a49088c24d204d1411c59ee352bbe392c0"
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-decode46-arity-reference01/emit-pre.guard.json",
+      "sha256": "96e6b7b6544951e5ac2029f1c84871fd43ddd9e6f52c68d6b68ad46bbfa92d60"
+    },
+    {
+      "path": "/tmp/bendvy-decode46-arity-reference01/emit-acquired.guard.json",
+      "sha256": "50cb0f5f814f1c3cd21d7879cefbf15f60e6cc309e6a3b5390b25a65119d200d"
+    },
+    {
+      "path": "/tmp/bendvy-decode46-arity-reference01/emit-post.guard.json",
+      "sha256": "ecdb94c3413a0ed6462a07c71d96ec638c8ac850730056f92e794e364b9ba57a"
+    },
+    {
+      "path": "/tmp/bendvy-decode46-arity-reference01/final.guard.json",
+      "sha256": "ebc0061184e2db7623576d850f6e9a8ec837750bc0c97007003cf2006973cc99"
+    }
+  ],
+  "status": "REFERENCE_DIAGNOSTIC_TERMINAL",
+  "qualifiesInstalledCompiler": false
+}
