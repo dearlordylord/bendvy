@@ -23,3 +23,13 @@ No active Inspector implementation worker was assigned at this audit. Isolated b
 Pinned compiler `comp.ts` SHA `32fb66e09f608ce9e4b173384bcfeec453db8c5bc96650e26ad861bef815a8d9`: `lay_of:938–953` boxes recursive ADTs/Arrays; `lay_node:980–989` still constructs constructor layouts; `lay_eq:992` uses JSON serialization; terminal C arity gate 2824–2825 is distinct from all censored attempts. The comparator experiment already removed that serialization in a copied compiler and still produced no C, so sampling shares cannot establish a speedup or unique hot cause.
 
 **Implementation boundary:** no further Inspector representation edit is currently evidence-justified. After provenance identifies a specific reached conversion/continuation, alter its private representation only, preserve all 23 grants and the whole oracle, source-check authority negatives and a reached semantic control, then qualify installed emission/Native and unchanged #28. Current declaration assembly, reader/noninterference and retained owners require source-current public delivery evidence. No timeout retry, reduced projection/toy workload, higher cap, forced arity/runtime limit change or adoption of a modified compiler is selected here.
+
+## Template provenance correction — 2026-10-09
+
+Pinned `bend.ts::def_inst` (3758–3770) records exact generated instance names
+in `book.tmps[originalTemplate]` Map values. The instantiated Def does not inherit
+its original namespace `.m`; a direct generated-Def namespace join misses these
+instances. Reverse this explicit Map relation, then join the original template's
+namespace to loaded source/lexical locations. Preserve instance and template keys;
+reject ambiguous relations rather than stripping a `~` suffix. This is source-backed
+mapping preparation, not measured compiler attribution or a compiler modification.
