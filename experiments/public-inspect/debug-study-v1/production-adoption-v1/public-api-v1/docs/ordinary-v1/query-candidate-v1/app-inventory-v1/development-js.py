@@ -154,13 +154,15 @@ def run(plan_path, expected_sha):
                     else:
                         row[key] = value
                 record['commands'].append(row)
+                if label == 'emit' and (generated.exists() or generated.is_symlink()):
+                    # Bind partial output before interpreting child failure.
+                    pins[str(generated)] = sha(generated)
+                    record['generatedSHA256'] = pins[str(generated)]
                 if result['exit'] != 0 or result['failure'] is not None:
                     raise ValueError('Owned child failed: ' + label)
                 if label == 'emit':
-                    if generated.is_symlink() or not generated.is_file():
+                    if str(generated) not in pins:
                         raise ValueError('Emit did not produce a regular non-symlink artifact')
-                    pins[str(generated)] = sha(generated)
-                    record['generatedSHA256'] = pins[str(generated)]
                 else:
                     if result['stderr']:
                         raise ValueError('Consumer stderr is not empty')

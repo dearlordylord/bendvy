@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
+from types import SimpleNamespace
 
 HERE = Path(__file__).resolve().parent
 spec = importlib.util.spec_from_file_location('js_boundary', HERE / 'development-js.py')
@@ -40,6 +42,40 @@ class Boundary(unittest.TestCase):
             target.mkdir()
             with self.assertRaises(ValueError): N.write_raw(target, b'changed')
             with self.assertRaises(ValueError): N.sha(target)
+
+    def test_failed_emit_partial_artifact_retained_without_consumer(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            old = json.loads((HERE / 'main-js-v1/plan.json').read_text())
+            old['pins'] = {p: N.sha(p) for p in old['pins']}
+            generated = Path(tmp) / 'scenario.js'
+            old['generated'] = str(generated)
+            old['commands'][0]['argv'][-1] = str(generated)
+            old['commands'][1]['argv'][-1] = str(generated)
+            plan = Path(tmp) / 'plan.json'
+            plan.write_text(json.dumps(old))
+            calls = []
+            def failed_emit(*args):
+                calls.append(args)
+                generated.write_bytes(b'partial generated output')
+                return {'exit': 1, 'failure': 'controlled emit failure',
+                        'stdout': b'original stdout', 'stderr': b'original stderr'}
+            real_load = N.load
+            def load(name, path):
+                return SimpleNamespace(execute_result=failed_emit) if name == 'task_runner' else real_load(name, path)
+            with patch.object(N, 'load', load):
+                with self.assertRaisesRegex(ValueError, 'Owned child failed: emit'):
+                    N.run(plan, N.sha(plan))
+            receipt = json.loads((Path(tmp) / 'receipt.json').read_text())
+            self.assertEqual(len(calls), 1)
+            self.assertEqual(receipt['commands'][0]['failure'], 'controlled emit failure')
+            self.assertEqual(receipt['generatedSHA256'], N.sha(generated))
+            self.assertEqual((Path(tmp) / 'emit.stdout').read_bytes(), b'original stdout')
+            self.assertEqual((Path(tmp) / 'emit.stderr').read_bytes(), b'original stderr')
+            for label in ('emit-post', 'final'):
+                guard = json.loads((Path(tmp) / (label + '.guard.json')).read_text())
+                self.assertTrue(guard['unchanged'])
+                self.assertEqual(guard['actualPins'][str(generated)], N.sha(generated))
+            self.assertNotEqual(receipt.get('status'), 'DEVELOPMENT_PASS')
 
     def test_actual_interpreter_path_and_hash_drift_refused_before_helpers(self):
         with tempfile.TemporaryDirectory() as tmp:
