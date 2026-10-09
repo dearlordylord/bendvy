@@ -1,0 +1,127 @@
+{
+  "scope": "Prepared only, independent admission required, no children",
+  "sequence": "normalJS whole positive then mutantJS whole countermodel/unchanged rejection; complete normalNative independently admitted, no slices",
+  "plans": [
+    {
+      "role": "normalJS",
+      "path": "/tmp/bendvy56-recursive-normal-js-v1/plan.json",
+      "sha256": "7a79404122e4038c782c9e7b659c67067151200ef279d6680678c0f2b9ab9d87",
+      "files": 121,
+      "resourceRoots": 0,
+      "expectedSHA256": "1f54b6bfa19f6db9a3d08fe030e2debf903ede484c45dd3efbf9d23f1ffe3036",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main.bend",
+            "-o",
+            "/tmp/bendvy56-recursive-normal-js-v1/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy56-recursive-normal-js-v1/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "role": "mutantJS",
+      "path": "/tmp/bendvy56-recursive-mutant-js-v1/plan.json",
+      "sha256": "c39e26ea17f9dd547f3f5d56926e2bda327ddea8774995bc55074a04ab82e43e",
+      "files": 121,
+      "resourceRoots": 0,
+      "expectedSHA256": "f4eb43fd7e1c07e0468f70f2f1cdd787148960107838ec13449b31a39652f14a",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main-drop-handlers.bend",
+            "-o",
+            "/tmp/bendvy56-recursive-mutant-js-v1/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy56-recursive-mutant-js-v1/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "role": "normalNative",
+      "path": "/tmp/bendvy56-recursive-native-v1/plan.json",
+      "sha256": "f875d06fa8e718ecb1d914c497f941b231be401bb74bcabba430b0beaceafc26",
+      "files": 125,
+      "resourceRoots": 3,
+      "expectedSHA256": "1f54b6bfa19f6db9a3d08fe030e2debf903ede484c45dd3efbf9d23f1ffe3036",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main.bend",
+            "-o",
+            "/tmp/bendvy56-recursive-native-v1/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy56-recursive-native-v1/scenario.c",
+            "-o",
+            "/tmp/bendvy56-recursive-native-v1/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy56-recursive-native-v1/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    }
+  ]
+}
