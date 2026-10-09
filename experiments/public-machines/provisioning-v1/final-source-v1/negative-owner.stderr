@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : world
+- observed : world (consumed more than once)
+Context:
+- owners : A.Owners<P.SchemaA>
+Location: wrong
+6 | 
+7>| def wrong(owners: A.Owners<P.SchemaA>,world: W.World<P.SchemaA,P.Store<P.SchemaA>,P.Resources<P.SchemaA>,Unit>,+plan: D.Plan<P.SchemaA>) -> A.FrameResult<P.SchemaA> & A.FrameResult<P.SchemaA>:
+  |                                       ^^^^^
+8 |   (D.frame(~P.SchemaA,owners,world,plan),D.frame(~P.SchemaA,owners,world,plan))

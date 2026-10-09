@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : A.Owners{Cat.Catalog{[]}, hooks, [Slots.Entry{12, instance}], [], [], [], []}
+Context:
+- factory  : W.Factory
+- hooks    : H.Owners<reader_registered~S, w => op => Ctx.finish(reader_registered~S, G.hook_body(reader_registered~S, Ctx.Frame<reader_registered~S>, G.HookWork{../../../../../bendvy/src/ecs/capabilities.ValueWrite{frame => Ctx.flow_pending_pair(reader_registered~S, Ctx.flow_read(reader_registered~S, frame)), frame => value => Ctx.flow_next(reader_registered~S, frame, value)}, ../../../../../bendvy/src/ecs/capabilities.ValueWrite{frame => Ctx.level_pending_pair(reader_registered~S, Ctx.level_read(reader_registered~S, frame)), frame => value => Ctx.level_next(reader_registered~S, frame, value)}}, op, Ctx.Frame{../../../../../bendvy/src/ecs/transaction.Tx{P.map_resources(reader_registered~S, resources => P.pulse_resources(reader_registered~S, resources), w), [], [], []}, None{}}))>
+- world    : W.World<reader_registered~S, P.Store<reader_registered~S>, P.Resources<reader_registered~S>, Unit>
+- instance : R.Instance<reader_registered~S, w => input => R.namespace_checked(reader_registered~S, W.namespace(reader_registered~S, P.Store<reader_registered~S>, P.Resources<reader_registered~S>, Unit, w), input)>
+Location: reader_registered
+78 |     case R.Provisioned{world,instance}:
+79>|       owners=(A.Owners{Cat.Catalog{[]},hooks,[Slots.Entry{12,instance}],[],[],[],[]} : A.Owners<S>)
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+80 |       current=snapshot(~S,"missing-initial","ok",owners,[],world)

@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : ../../../../../bendvy/src/ecs/world.World<run_checked~S, P.Store<run_checked~S>, P.Resources<run_checked~S>, Unit>
+- observed : W.World<run_checked~S, P.Store<run_checked~S>, P.Resources<run_checked~S>, Unit>
+Context:
+- name   : String
+- items  : List<&2, App.Action<run_checked~S>>
+- owners : App.Owners<run_checked~S>
+- world  : W.World<run_checked~S, P.Store<run_checked~S>, P.Resources<run_checked~S>, Unit>
+- _      : List<&2, Token<run_checked~S>>
+Location: run_checked
+59 |   match checked:
+60>|     case Req.Missing{owners,world,_}: App.FrameResult{owners,world,"machine-provision-rejected"}
+   |                                                              ^^^^^
+61 |     case Req.Ready{owners,world}: App.named(~S,owners,name,items,W.namespace(~S,~P.Store<S>,~P.Resources<S>,~Unit,world))

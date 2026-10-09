@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : M.Family<P.SchemaA, P.FlowToken, P.Flow, W.World<P.SchemaA, P.Store<P.SchemaA>, P.Resources<P.SchemaA>, Unit>, w => ../../../../../bendvy/src/ecs/machine-world.take(P.SchemaA, P.FlowToken, P.Flow, P.Store<P.SchemaA>, P.Resources<P.SchemaA>, Unit, r => P.flow_take_resource(P.SchemaA, r), w), w => slot => ../../../../../bendvy/src/ecs/machine-world.put(P.SchemaA, P.FlowToken, P.Flow, P.Store<P.SchemaA>, P.Resources<P.SchemaA>, Unit, r => s => P.flow_put_resource(P.SchemaA, r, s), w, slot)>
+- observed : Cap.ValueRead<wrong~H, M.CurrentView<P.SchemaA, P.FlowToken, P.Flow>>
+Context:
+- read  : Cap.ValueRead<wrong~H, M.CurrentView<P.SchemaA, P.FlowToken, P.Flow>>
+- world : W.World<P.SchemaA, P.Store<P.SchemaA>, P.Resources<P.SchemaA>, Unit>
+Location: wrong
+ 8 | def wrong(~H: Type,read: Cap.ValueRead<H,M.CurrentView<P.SchemaA,P.FlowToken,P.Flow>>,world: W.World<P.SchemaA,P.Store<P.SchemaA>,P.Resources<P.SchemaA>,Unit>) -> I.Installation<W.World<P.SchemaA,P.Store<P.SchemaA>,P.Resources<P.SchemaA>,Unit>,P.Flow>:
+ 9>|   I.install_empty(~P.SchemaA,~P.FlowToken,~P.Flow,~W.World<P.SchemaA,P.Store<P.SchemaA>,P.Resources<P.SchemaA>,Unit>,~(w => P.flow_take(~P.SchemaA,w)),~(w => slot => P.flow_put(~P.SchemaA,w,slot)),read,world,P.Boot{})
+   |                                                                                                                                                                                                      ^^^^
+10 | def main() -> Unit:

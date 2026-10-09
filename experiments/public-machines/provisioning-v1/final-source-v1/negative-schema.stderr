@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : D.Plan<P.SchemaA>
+- observed : D.Plan<P.SchemaB>
+Context:
+- owners : A.Owners<P.SchemaA>
+- world  : W.World<P.SchemaA, P.Store<P.SchemaA>, P.Resources<P.SchemaA>, Unit>
+- plan   : D.Plan<P.SchemaB>
+Location: wrong
+7 | def wrong(owners: A.Owners<P.SchemaA>,world: W.World<P.SchemaA,P.Store<P.SchemaA>,P.Resources<P.SchemaA>,Unit>,plan: D.Plan<P.SchemaB>) -> A.FrameResult<P.SchemaA>:
+8>|   D.frame(~P.SchemaA,owners,world,plan)
+  |                                   ^^^^
+9 | def main() -> Unit:
