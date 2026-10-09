@@ -1,0 +1,34 @@
+import Base
+import ./ordinary-component-binding.bend as B
+import ./ordinary-declaration.bend as Identity
+import ./ordinary-query-declaration.bend as D
+import ./inspector.bend as I
+import ./inspector-query.bend as Q
+import ./inspector-query-projection.bend as Projection
+import ./column.bend as Col
+import ./inspector-query-projection.bend as Rows
+
+type Declaration<-S:Data,-H:Type,-V:Data> is Type:
+  Declaration{query:Q.ReadQuery<H,S,V>,clauses:List<&2,D.Clause<S>>}
+def query(~S:Data,~H:Type,~V:Data,declaration:Declaration<S,H,V>) -> Q.ReadQuery<H,S,V>:
+  match declaration:
+    case Declaration{query,_}:query
+def observe(~S:Data,~H:Type,~V:Data,declaration:Declaration<S,H,V>) -> Declaration<S,H,V> & List<&2,D.Clause<S>>:
+  match declaration:
+    case Declaration{query,+clauses}:(Declaration{query,clauses},clauses)
+def read(~S:Data,~Store:Type,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,~R:Type,~E:Data,~binding:B.Binding<S,Store,Rest,P,V,Token,take,put,view>) -> Declaration<S,I.Frame<S,Store,R,E>,V>:
+  Declaration{Q.grant(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~B.family(~S,~Store,~Rest,~P,~V,~Token,~take,~put,~view,binding),~Projection.Required{}),[D.Clause{Identity.key(~S,~P,B.identity(~S,~Store,~Rest,~P,~V,~Token,~take,~put,~view,binding)),D.Read{}}]}
+def optional(~S:Data,~Store:Type,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,~R:Type,~E:Data,~binding:B.Binding<S,Store,Rest,P,V,Token,take,put,view>) -> Declaration<S,I.Frame<S,Store,R,E>,V>:
+  Declaration{Q.grant(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~B.family(~S,~Store,~Rest,~P,~V,~Token,~take,~put,~view,binding),~Projection.Optional{}),[D.Clause{Identity.key(~S,~P,B.identity(~S,~Store,~Rest,~P,~V,~Token,~take,~put,~view,binding)),D.Optional{}}]}
+def added(~S:Data,~Store:Type,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,~R:Type,~E:Data,~binding:B.Binding<S,Store,Rest,P,V,Token,take,put,view>) -> Declaration<S,I.Frame<S,Store,R,E>,V>:
+  Declaration{Q.grant(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~B.family(~S,~Store,~Rest,~P,~V,~Token,~take,~put,~view,binding),~Projection.Added{}),[D.Clause{Identity.key(~S,~P,B.identity(~S,~Store,~Rest,~P,~V,~Token,~take,~put,~view,binding)),D.Added{}}]}
+def changed(~S:Data,~Store:Type,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,~R:Type,~E:Data,~binding:B.Binding<S,Store,Rest,P,V,Token,take,put,view>) -> Declaration<S,I.Frame<S,Store,R,E>,V>:
+  Declaration{Q.grant(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~B.family(~S,~Store,~Rest,~P,~V,~Token,~take,~put,~view,binding),~Projection.Changed{}),[D.Clause{Identity.key(~S,~P,B.identity(~S,~Store,~Rest,~P,~V,~Token,~take,~put,~view,binding)),D.Changed{}}]}
+def clauses(~S:Data,~H:Type,~V:Data,declaration:Declaration<S,H,V>) -> List<&2,D.Clause<S>>:
+  match declaration:
+    case Declaration{_,clauses}:clauses
+def each_result(~S:Data,~H:Type,~V:Data,clauses:List<&2,D.Clause<S>>,result:H & List<&2,Rows.Row<S,V>>) -> H & (List<&2,Rows.Row<S,V>> & List<&2,D.Clause<S>>):
+  match result:
+    case (owner,rows):(owner,(rows,clauses))
+def each(~S:Data,~H:Type,~V:Data,~declaration:Declaration<S,H,V>,owner:H) -> H & (List<&2,Rows.Row<S,V>> & List<&2,D.Clause<S>>):
+  each_result(~S,~H,~V,clauses(~S,~H,~V,declaration),Q.each(~H,~S,~V,~query(~S,~H,~V,declaration),owner))

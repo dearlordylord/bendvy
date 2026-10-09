@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: wrong
+16 | 
+17>| def wrong(owner:S.Owner<Caller.A,Sys.Registry<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32,Unit & U32,Q.Error<Unit>,List<&2,Unit>,S.observable_runner(~Caller.A,~Col.Column<Caller.A,Caller.Payload>,~Array<U32>,~U32,~Good.ops,~Unit,~Unit,~Unit,~C.Access<U32>,~Good.read(~Caller.A),~Good.body)>>) -> S.Owner<Caller.A,Sys.Registry<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32,Unit & U32,Q.Error<Unit>,List<&2,Unit>,S.observable_runner(~Caller.A,~Col.Column<Caller.A,Caller.Payload>,~Array<U32>,~U32,~Good.ops,~Unit,~Unit,~Unit,~C.Access<U32>,~Good.read(~Caller.A),~Good.body)>> & S.Owner<Caller.A,Sys.Registry<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32,Unit & U32,Q.Error<Unit>,List<&2,Unit>,S.observable_runner(~Caller.A,~Col.Column<Caller.A,Caller.Payload>,~Array<U32>,~U32,~Good.ops,~Unit,~Unit,~Unit,~C.Access<U32>,~Good.read(~Caller.A),~Good.body)>>:
+   |           ^^^^^
+18 |   (owner,owner)
+bend 2.0.36 is available: run bend update

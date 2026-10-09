@@ -1,0 +1,20 @@
+import Base
+import ./snapshot-schema.bend as Schema
+import ./snapshot-data.bend as Export
+import ./decode-data.bend as D
+import ../../../../../../../../../../../../../src/ecs/world.bend as W
+
+def prepend(~C:Type,entity:Export.Entity,observed:C & List<&2,Export.Entity>) -> C & List<&2,Export.Entity>:
+  match observed:
+    case (owner,entities):(owner,entity <> entities)
+def stepped(~C:Type,next:C -> C & List<&2,Export.Entity>,id:U32,observed:C & List<&2,D.Field>) -> C & List<&2,Export.Entity>:
+  match observed:
+    case (owner,fields):prepend(~C,Export.Entity{id,fields},next(owner))
+def rows(~S:Data,~C:Type,~components:U32 -> C -> C & List<&2,D.Field>,handles:List<&2,W.Handle<S>>,owner:C) -> C & List<&2,Export.Entity>:
+  match handles:
+    case []:(owner,[])
+    case W.Handle{_,+id} <> rest:stepped(~C,next => rows(~S,~C,~components,rest,next),id,components(id,owner))
+# Public call requires the SAME complete ordinary schema to be save-eligible.
+# Plain leaves propagate False through product and cannot call this method.
+def save(~S:Data,~C:Type,~R:Type,~E:Data,~components:U32 -> C -> C & List<&2,D.Field>,~resources:R -> R & List<&2,D.Field>,schema:Schema.Schema<S,C,R,True{},components,resources>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & Export.Snapshot:
+  Export.basic(~S,~C,~R,~E,~rows(~S,~C,~components),~resources,world)

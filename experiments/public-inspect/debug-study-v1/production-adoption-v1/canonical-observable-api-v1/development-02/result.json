@@ -1,0 +1,13 @@
+{
+  "exit": 1,
+  "command": [
+    "flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "taskset",
+    "-c",
+    "5",
+    "scripts/bend-check",
+    "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/attempt-02.bend"
+  ],
+  "note": "Reproduced exact signature-shape failure; original first development output was not retained as receipt."
+}

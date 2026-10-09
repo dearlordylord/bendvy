@@ -1,0 +1,70 @@
+--- /workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/application.bend
++++ consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/application.bend
+@@ -7,11 +7,11 @@
+ import ../../../scenario-body.bend as Body
+ import ../../../scenario-dto.bend as DTO
+ import ../../../app.bend as Ordinary
+-import ../../../../../../../../../src/ecs/world.bend as W
+-import ../../../../../../../../../src/ecs/system.bend as Sys
+-import ../../../../../../../../../src/ecs/compose.bend as Q
+-import ../../../../../../../../../src/ecs/schedule.bend as Sch
+-import ../../../../../../../../../src/ecs/schedule-provision.bend as SP
++import ../../../../../../../../../../src/ecs/world.bend as W
++import ../../../../../../../../../../src/ecs/system.bend as Sys
++import ../../../../../../../../../../src/ecs/compose.bend as Q
++import ../../../../../../../../../../src/ecs/schedule.bend as Sch
++import ../../../../../../../../../../src/ecs/schedule-provision.bend as SP
+ 
+ import ./dispatch.bend as Dispatch
+ 
+@@ -98,11 +98,11 @@
+   ((((Unit{},added),changed),without),withHealth) = others
+   (main,mainSnapshot) = observed
+   collected = Ordinary.empty(~S.Schema,Driver.registry_namespace(mainSnapshot),debug)
+-  collected = Ordinary.add(~S.Schema,~S.plain_store(),~Unit,~Unit,~Body.Ops,~Bool,~Unit,~DTO.RowValues,~Queries.plain_base(),~(H => caps => fail => owner => Body.body(~H,~caps,fail,owner)),~Unit,collected,main)
+-  collected = Ordinary.add(~S.Schema,~S.plain_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.plain_base_added(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~(Unit & Systems.plain_main_owner()),collected,added)
+-  collected = Ordinary.add(~S.Schema,~S.plain_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.plain_base_changed(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()),collected,changed)
+-  collected = Ordinary.add(~S.Schema,~S.plain_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.plain_base_without_component(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~(((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()),collected,without)
+-  collected = Ordinary.add(~S.Schema,~S.plain_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.plain_base_with_component(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~((((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()) & Systems.plain_without_owner()),collected,withHealth)
++  collected = Ordinary.add(~S.Schema,~S.plain_store(),~Unit,~Unit,~Body.Ops,~Bool,~Unit,~DTO.RowValues,~Queries.base_view(),~Queries.plain_base(),~(H => caps => fail => owner => Body.body(~H,~caps,fail,owner)),~Unit,collected,main)
++  collected = Ordinary.add(~S.Schema,~S.plain_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.filtered_view(),~Queries.plain_base_added(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~(Unit & Systems.plain_main_owner()),collected,added)
++  collected = Ordinary.add(~S.Schema,~S.plain_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.filtered_view(),~Queries.plain_base_changed(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()),collected,changed)
++  collected = Ordinary.add(~S.Schema,~S.plain_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.filtered_view(),~Queries.plain_base_without_component(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~(((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()),collected,without)
++  collected = Ordinary.add(~S.Schema,~S.plain_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.filtered_view(),~Queries.plain_base_with_component(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~((((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()) & Systems.plain_without_owner()),collected,withHealth)
+   plain_built(world,Ordinary.build(~S.Schema,~S.plain_store(),~Unit,~Unit,~Dispatch.plain_owners(),"Update",plan(),plain_augment(collected,failId)))
+ def plain_start(world:W.World<S.Schema,S.plain_store(),Unit,Unit>,owners:Driver.plain_owners(),debug:Ordinary.Debug,failId:U32) -> Delivery<S.plain_store(),Dispatch.Plain>:
+   (((((Unit{},main),added),changed),without),withHealth) = owners
+@@ -118,11 +118,11 @@
+   ((((Unit{},added),changed),without),withHealth) = others
+   (main,mainSnapshot) = observed
+   collected = Ordinary.empty(~S.Schema,Driver.registry_namespace(mainSnapshot),debug)
+-  collected = Ordinary.add(~S.Schema,~S.transient_store(),~Unit,~Unit,~Body.Ops,~Bool,~Unit,~DTO.RowValues,~Queries.transient_base(),~(H => caps => fail => owner => Body.body(~H,~caps,fail,owner)),~Unit,collected,main)
+-  collected = Ordinary.add(~S.Schema,~S.transient_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.transient_base_added(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~(Unit & Systems.transient_main_owner()),collected,added)
+-  collected = Ordinary.add(~S.Schema,~S.transient_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.transient_base_changed(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()),collected,changed)
+-  collected = Ordinary.add(~S.Schema,~S.transient_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.transient_base_without_component(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~(((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()),collected,without)
+-  collected = Ordinary.add(~S.Schema,~S.transient_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.transient_base_with_component(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~((((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()) & Systems.transient_without_owner()),collected,withHealth)
++  collected = Ordinary.add(~S.Schema,~S.transient_store(),~Unit,~Unit,~Body.Ops,~Bool,~Unit,~DTO.RowValues,~Queries.base_view(),~Queries.transient_base(),~(H => caps => fail => owner => Body.body(~H,~caps,fail,owner)),~Unit,collected,main)
++  collected = Ordinary.add(~S.Schema,~S.transient_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.filtered_view(),~Queries.transient_base_added(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~(Unit & Systems.transient_main_owner()),collected,added)
++  collected = Ordinary.add(~S.Schema,~S.transient_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.filtered_view(),~Queries.transient_base_changed(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()),collected,changed)
++  collected = Ordinary.add(~S.Schema,~S.transient_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.filtered_view(),~Queries.transient_base_without_component(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~(((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()),collected,without)
++  collected = Ordinary.add(~S.Schema,~S.transient_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.filtered_view(),~Queries.transient_base_with_component(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~((((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()) & Systems.transient_without_owner()),collected,withHealth)
+   transient_built(world,Ordinary.build(~S.Schema,~S.transient_store(),~Unit,~Unit,~Dispatch.transient_owners(),"Update",plan(),transient_augment(collected,failId)))
+ def transient_start(world:W.World<S.Schema,S.transient_store(),Unit,Unit>,owners:Driver.transient_owners(),debug:Ordinary.Debug,failId:U32) -> Delivery<S.transient_store(),Dispatch.Transient>:
+   (((((Unit{},main),added),changed),without),withHealth) = owners
+@@ -138,11 +138,11 @@
+   ((((Unit{},added),changed),without),withHealth) = others
+   (main,mainSnapshot) = observed
+   collected = Ordinary.empty(~S.Schema,Driver.registry_namespace(mainSnapshot),debug)
+-  collected = Ordinary.add(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Body.Ops,~Bool,~Unit,~DTO.RowValues,~Queries.constructed_base(),~(H => caps => fail => owner => Body.body(~H,~caps,fail,owner)),~Unit,collected,main)
+-  collected = Ordinary.add(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.constructed_base_added(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~(Unit & Systems.constructed_main_owner()),collected,added)
+-  collected = Ordinary.add(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.constructed_base_changed(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()),collected,changed)
+-  collected = Ordinary.add(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.constructed_base_without_component(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~(((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()),collected,without)
+-  collected = Ordinary.add(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.constructed_base_with_component(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~((((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()) & Systems.constructed_without_owner()),collected,withHealth)
++  collected = Ordinary.add(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Body.Ops,~Bool,~Unit,~DTO.RowValues,~Queries.base_view(),~Queries.constructed_base(),~(H => caps => fail => owner => Body.body(~H,~caps,fail,owner)),~Unit,collected,main)
++  collected = Ordinary.add(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.filtered_view(),~Queries.constructed_base_added(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~(Unit & Systems.constructed_main_owner()),collected,added)
++  collected = Ordinary.add(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.filtered_view(),~Queries.constructed_base_changed(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()),collected,changed)
++  collected = Ordinary.add(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.filtered_view(),~Queries.constructed_base_without_component(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~(((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()),collected,without)
++  collected = Ordinary.add(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Body.FilterOps,~Bool,~Unit,~DTO.RowValues,~Queries.filtered_view(),~Queries.constructed_base_with_component(),~(H => caps => fail => owner => Body.filter_body(~H,~caps,fail,owner)),~((((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()) & Systems.constructed_without_owner()),collected,withHealth)
+   constructed_built(world,Ordinary.build(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Dispatch.constructed_owners(),"Update",plan(),constructed_augment(collected,failId)))
+ def constructed_start(world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,owners:Driver.constructed_owners(),debug:Ordinary.Debug,failId:U32) -> Delivery<S.constructed_store(),Dispatch.Constructed>:
+   (((((Unit{},main),added),changed),without),withHealth) = owners

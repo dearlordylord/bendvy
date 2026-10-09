@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Col.Column<Schema, Array<U32>>
+- observed : ../../../../../../../../../../../bendvy/src/ecs/column.Column<Schema, Array<U32>>
+Context:
+- column      : ../../../../../../../../../../../bendvy/src/ecs/column.Column<Schema, Array<U32>>
+- declaration : Recipe.Transient<Schema, Array<U32>, Identity.Declaration{transient_take~key}>
+Location: transient_take
+45 |   match owner:
+46>|     case Leaf.TransientComponent{column,declaration}:(declaration,column)
+   |                                                                   ^^^^^^
+47 | def transient_put(~key:String,declaration:Recipe.Transient<Schema,Array<U32>,identity(key)>,column:Col.Column<Schema,Array<U32>>) -> Leaf.TransientComponent<Schema,Array<U32>,identity(key)>:
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: misuse
+6 | 
+7>| def misuse(owner:System.Owner<Plain.Schema,Registered.plain_registry()>) -> System.Owner<Plain.Schema,Registered.plain_registry()> & System.Owner<Plain.Schema,Registered.plain_registry()>:
+  |            ^^^^^
+8 |   (owner,owner)
+bend 2.0.36 is available: run bend update

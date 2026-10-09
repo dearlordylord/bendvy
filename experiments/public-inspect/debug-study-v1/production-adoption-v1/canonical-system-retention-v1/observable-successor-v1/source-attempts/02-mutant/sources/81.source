@@ -1,0 +1,20 @@
+from pathlib import Path
+import re,types,json,hashlib,fcntl,sys
+root=Path.cwd();stage=Path(sys.argv[1]).resolve();attempt=sys.argv[2];h=stage/'consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1';helper=root/'scripts/task_runner.py';ch=root/'experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/check-source.py'
+def load(p):
+ m=types.ModuleType('m');m.__file__=str(p);exec(compile(p.read_bytes(),str(p),'exec'),m.__dict__);return m
+capture=load(ch);runner=load(helper)
+for role,name in [('normal','main.bend'),('mutant','main-drop-handlers.bend')]:
+ entry=h/name;seen=set()
+ def visit(p):
+  p=p.resolve()
+  if p in seen:return
+  seen.add(p)
+  for t in re.findall(r'^import\s+(\S+)',p.read_text(),re.M):
+   if t!='Base':visit(p.parent/t)
+ visit(entry);out=stage/'source-attempts'/(attempt+'-'+role);out.parent.mkdir(exist_ok=True);pins=capture.prepare_attempt(out,sorted(seen)+[helper,ch,Path(__file__),Path('/home/node/.bend/bin/bend-2.0.35')]);argv=['/usr/bin/taskset','-c','5','/home/node/.bend/bin/bend-2.0.35',str(entry),'--check-only']
+ with open('/tmp/bendvy-parity-heavy.lock','a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX)
+  try:
+   assert all(hashlib.sha256(Path(p).read_bytes()).hexdigest()==d for p,d in pins.items());r=capture.capture(out,argv,runner.execute_result);print(role,len(seen),r['exit'],r['failure'])
+  finally:(out/'post.json').write_text(json.dumps({'unchanged':all(hashlib.sha256(Path(p).read_bytes()).hexdigest()==d for p,d in pins.items())},indent=2)+'\n')

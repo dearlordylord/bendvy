@@ -1,0 +1,487 @@
+{
+  "parentCommit": "248f2dc3",
+  "coreCommit": "9887af15",
+  "sources": [
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/application.bend",
+      "originalSHA256": "169363baf058088aa50daa7fb9b15fd9acafa6a422d40eef28a5e82b40e5f4ac",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/application.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "bedfb7331e5de63c9e6c18edd298fdaa7c2be8d7ad907bd974c9ee6309f3870a",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/plain-transient-application.bend",
+      "originalSHA256": "febfa0644129a5b055e980d447968449f935e943663b8a5e409318e1b0b298af",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/plain-transient-application.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "a6e5ba3a12fd33c9a19405572ec8db9436fae283aa831fb8f658bd47cae774b3",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/registered-application.bend",
+      "originalSHA256": "a1c35b6109011cc45a96bbd29414ae4c22108159bd479f36567cea8e3f56b9ec",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/registered-application.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "ac496594aecf878acf62788e3512f830d4f27c99e2621174424f118760a5ab6f",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/scenario-queries.bend",
+      "originalSHA256": "ee4124926573beaffa2324171c161a6ec64cce1516cbb1856342788eb5a329ca",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/scenario-queries.bend",
+      "delta": "Observable ordinary declaration and explicit erased Inspector result index; existing operational owner/body/context routes preserved",
+      "successorSHA256": "4e04233f52b8022bce6109e3a99af41062c553fac6a81406a849f211ec401fc9",
+      "bodyEqual": false,
+      "checkedBodyRelation": "Same original lenses and query composition order / authority countermodel tied to actual successor registered owner"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/scenario-body.bend",
+      "originalSHA256": "43722ade1207a1f16683f99bffe99874b751dca8af107d05921bf7988dc1b4f8",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/scenario-body.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "83a469aec51a98bd60815d57582fd40f83e46d31fc8ca85ea8fe616c5fb721d3",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/scenario-returned.bend",
+      "originalSHA256": "00795ff4be47fe5f020c09148d62d43a8230644c460563be7faf8289886b2732",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/scenario-returned.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "00795ff4be47fe5f020c09148d62d43a8230644c460563be7faf8289886b2732",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/negative-system-schema.bend",
+      "originalSHA256": "e2c44f755a93869163760d804339e976067f040278b90c5c370c6c644f450f28",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/negative-system-schema.bend",
+      "delta": "Observable ordinary declaration and explicit erased Inspector result index; existing operational owner/body/context routes preserved",
+      "successorSHA256": "e11ebbd8e59a5a387cb50eb17590d81a9bad9c164f45e3a379323226f0507c9e",
+      "bodyEqual": false,
+      "checkedBodyRelation": "Same original lenses and query composition order / authority countermodel tied to actual successor registered owner"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/parse-scenario.py",
+      "originalSHA256": "0bcc7ecf508763261374b42bc531574c8b0df5b72c37a00bd73683a2129113e8",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/parse-scenario.py",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "0bcc7ecf508763261374b42bc531574c8b0df5b72c37a00bd73683a2129113e8",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/scenario-setup.bend",
+      "originalSHA256": "2bf73aa3f3d77354fe83f32bcabd22584c19bf66c796f69184c41400ac50303d",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/scenario-setup.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "15cfe0d917158724a85bad862c0f601578e92f6f10b4a3c7784d3851c43292da",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/scenario-main.bend",
+      "originalSHA256": "82719387db6ff156460997a219067807a294afff55750d65ac7f6f3046205fb5",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/scenario-main.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "82719387db6ff156460997a219067807a294afff55750d65ac7f6f3046205fb5",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/scenario-driver.bend",
+      "originalSHA256": "9ad60b9fa290953e7a363355232409f2d0d05f6b5f68bbf4c7f0f1aa717bf18f",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/scenario-driver.bend",
+      "delta": "Observable ordinary declaration and explicit erased Inspector result index; existing operational owner/body/context routes preserved",
+      "successorSHA256": "0a3e15c11731f2755341d8329cfe3fd7c07a1cd1f1dd070f77b40d873b1650f5",
+      "bodyEqual": false,
+      "checkedBodyRelation": "Function runtime body restored exactly by stripping only new erased IV arguments and observable counterpart names"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/scenario-schema.bend",
+      "originalSHA256": "7d8cd57647cf8a515adfef48f1863916f2005143037319c89c2833e9b4f4b189",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/scenario-schema.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "29573221203b21b4b41f04175ab6d51504b7ac0f2d47dc318b5f26ad02bd28c0",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/scenario-observation.bend",
+      "originalSHA256": "1d20deb15e5b0ad5642befd9c20c874d4908b1737475bf7adb0aa653e29b8bac",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/scenario-observation.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "8e68632cf1913159144506372d9985faebf93ae73221837f620bc7ac78b10204",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/scenario-dto.bend",
+      "originalSHA256": "072a1ff4f3af8063b53c355fbc076c0d6239e3133224fa08f298bdf4f771a0bc",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/scenario-dto.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "0631a2513972b329b45af6115fe8f925ac903d4cec781447e4f33246953e3012",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/scenario-systems.bend",
+      "originalSHA256": "79076f8016895417fe2997e9d4b41076c6432af6972a06504507ab14950c47bf",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/scenario-systems.bend",
+      "delta": "Observable ordinary declaration and explicit erased Inspector result index; existing operational owner/body/context routes preserved",
+      "successorSHA256": "697c8acf444cb819dd2cd7066393458947694716f158f61ae4c8d837d9065b6f",
+      "bodyEqual": false,
+      "checkedBodyRelation": "Function runtime body restored exactly by stripping only new erased IV arguments and observable counterpart names"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app.bend",
+      "originalSHA256": "da731402c3509ffb3649726f043233302d2c333cae1bebb2ea05ac8477bb1101",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app.bend",
+      "delta": "Observable ordinary declaration and explicit erased Inspector result index; existing operational owner/body/context routes preserved",
+      "successorSHA256": "0913f69c274981bf3c2a2b75bc1f31897f4f72e29302061c5592e79c394937ac",
+      "bodyEqual": false,
+      "checkedBodyRelation": "Function runtime body restored exactly by stripping only new erased IV arguments and observable counterpart names"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/negative-system-owner-duplication.bend",
+      "originalSHA256": "fc4df19ef671b7044df12cc2db31da9153989cf159b4533853109acc082b7261",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/negative-system-owner-duplication.bend",
+      "delta": "Observable ordinary declaration and explicit erased Inspector result index; existing operational owner/body/context routes preserved",
+      "successorSHA256": "a761fab76d4376ec4d84353416111ff53dfe03c121d2650e81bde9bb2fba3e67",
+      "bodyEqual": false,
+      "checkedBodyRelation": "Same original lenses and query composition order / authority countermodel tied to actual successor registered owner"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/scenario-execution.bend",
+      "originalSHA256": "6ef3c02bdd6fcb4d56d6f5abfb09b4e941b0c56b019a8f5875e7a36ed5e19e4d",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/scenario-execution.bend",
+      "delta": "Observable ordinary declaration and explicit erased Inspector result index; existing operational owner/body/context routes preserved",
+      "successorSHA256": "1422ee045c8dadaffa4256d8bbb13143c5cc868103917522e12a77568f61d9bb",
+      "bodyEqual": false,
+      "checkedBodyRelation": "Function runtime body restored exactly by stripping only new erased IV arguments and observable counterpart names"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/construction.bend",
+      "originalSHA256": "4e5b8d4d7beaf710e7c23b920a2f1092f69ba3dbaf9e374aa2ac9989c732e9c0",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/construction.bend",
+      "delta": "Observable ordinary declaration and explicit erased Inspector result index; existing operational owner/body/context routes preserved",
+      "successorSHA256": "c96d91f66a2be83200d400ee455cc7948bd34165477f9d1d13f89b7f4ea32e4c",
+      "bodyEqual": false,
+      "checkedBodyRelation": "Function runtime body restored exactly by stripping only new erased IV arguments and observable counterpart names"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/resource-control.bend",
+      "originalSHA256": "dcf767edf716f75fac93fd95ef499bb9b03de581f9d9119837e5f9a32f21168f",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/resource-control.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "4ca7ace381f78ef91774cadafbd19ca3bba0e492ae4a551e809627dbff09d641",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/parse-inventory.py",
+      "originalSHA256": "b0b042969076337e3cf335e7df88e5fde1b39ff5795cec024a913216bb455f53",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/parse-inventory.py",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "b0b042969076337e3cf335e7df88e5fde1b39ff5795cec024a913216bb455f53",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/resource-main.bend",
+      "originalSHA256": "0fd14434230dfbecfbc89e64465c8a46c3b567a156565e119bff8485ecb364cd",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/resource-main.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "887801de8f665b8175fa05fdd3c0f6533671590bb80eb9232f105f297c84f24f",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/main.bend",
+      "originalSHA256": "2fad23e4edb58ff406108c095ad59700b0402bc880561ef7223421bd1c18cb80",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/main.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "bf3ca144e991ed523c495f5e70f7fdd06ee49c53e00ca7584ae63b97c21353de",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/retained-schema.bend",
+      "originalSHA256": "3d11e1100181113699f7582c4c60e3b9d692bd118d5258bd11b61b41b1b9025e",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/retained-schema.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "cd55eaaac2be4d816ad89a99ec2f93d0e4125316a0bdd29219881433a13df618",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/app.bend",
+      "originalSHA256": "068db90646260f6df616c6010bd3e1397378ebde7f964a605a5c3be0dc7bb003",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/app.bend",
+      "delta": "Observable ordinary declaration and explicit erased Inspector result index; existing operational owner/body/context routes preserved",
+      "successorSHA256": "f40739ef04e7da7aaa72d46c00869920fdbd28b1139c914445bcddf1ad742301",
+      "bodyEqual": false,
+      "checkedBodyRelation": "Function runtime body restored exactly by stripping only new erased IV arguments and observable counterpart names"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/observe.bend",
+      "originalSHA256": "e4a29a40624ddbee24a5c4178bf7e187f36389ea8560c7022f996b43239c3d1d",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/observe.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "6c18be49de2ebd43609867aca507d3f22305114acb95c76554f62a4f329f759d",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/schema.bend",
+      "originalSHA256": "2b02cf94c86db468d45d321ad705cf34ae08fd4f10d8a9af34221d699731cd98",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/schema.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "c5c4730b177668ecd45620e48f01ce0b7b1699fc97a4501fa7cccd308ae75707",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/main.bend",
+      "originalSHA256": "e70ebfafe4e82a5fe6c2787b1132493698b3aae7ae6e41988bc3131e1949024f",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/main.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "af90bd9308ef2fc91afbfe89b10cfc5c4ab8a2d6bc826ab1652167a86efc91e2",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/types.bend",
+      "originalSHA256": "56c814f8913bd76dd20432bcc2b606fc32de9a6a0d9b33141adf5e1816dc9cfe",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/types.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "990f8b730818a51c514e48becfd506cf36e450dce1f9a5d57f67c5d202ceafb1",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/fixture.bend",
+      "originalSHA256": "2f6fe6456b4f92127b78e5bf3c9f18c6d1df8d75faf1aa3f51dda7a2c7657157",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/fixture.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "194822becb5c41fe4a950fce47c26a6708dfb52123babc58a0479374cc112825",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/app.bend",
+      "originalSHA256": "2035202e2db1380222907604824dd68a406af858a417b63b257bc52ad522937a",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/app.bend",
+      "delta": "Observable ordinary declaration and explicit erased Inspector result index; existing operational owner/body/context routes preserved",
+      "successorSHA256": "b56240365fe22fad5766e31bf0af34c5210da28fda56b6546c6ebe551159295b",
+      "bodyEqual": false,
+      "checkedBodyRelation": "Function runtime body restored exactly by stripping only new erased IV arguments and observable counterpart names"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/parse-graph-machine.py",
+      "originalSHA256": "52a8fe42343e2d59c5aab9b23b0a6c3e3901223383ef2699932b7096fa5bdc77",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/parse-graph-machine.py",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "52a8fe42343e2d59c5aab9b23b0a6c3e3901223383ef2699932b7096fa5bdc77",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/app-drop-handlers.bend",
+      "originalSHA256": "1347b41be4f5b1428ad406fdc94088b7eb3aea8a3838128f5f6680c2e04203eb",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/app-drop-handlers.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "47b3eef7ab1dd316fe1c2776fccd2abfcd1414d935cbc898a2a8093dd7d338f6",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/fixture-drop-handlers.bend",
+      "originalSHA256": "088b62725cdf2f0b1d544e11a1f8335a4f6445151ff124a64e03e52c6f41292c",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/fixture-drop-handlers.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "07fc2ec1a0f40b27177374a26c813920a35e36d89a48709b99a7ed0d2a7484de",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/negative-selector-schema.bend",
+      "originalSHA256": "8ba41fc50b54f6f75ae80e0d560cc3d0683446db55bfc8534d53b6b622b1c633",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/negative-selector-schema.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "498b440d24dc3c1cb0ce2fd65fb62b56728814503c708f8f8ba2384b77e40b87",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/test-transport.py",
+      "originalSHA256": "5571887fb4267b21ad7815cd814305444f038a50bb4671100702c378b2648164",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/test-transport.py",
+      "delta": "Existing helper/runner path and source-attempt record relocation only; invocation and guard machinery preserved",
+      "successorSHA256": "be609d9dc4482fdbc06bb093a73d4a1886b4332870f570afe5bac154dd0f8ac0",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/handlers.bend",
+      "originalSHA256": "d2d67ad934cf87824fc7e0e17df12ad00f28eb7609a63ac5902f4a77469231a4",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/handlers.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "7a221834e397db9e930ef7f9412517897d191c876498680a1fd1e9cba7c648d5",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/test-js-boundary.py",
+      "originalSHA256": "d573deb0a708dd0f72b2af7321773b016c917d461beda37cc555660896ef3aac",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/test-js-boundary.py",
+      "delta": "Existing helper/runner path and source-attempt record relocation only; invocation and guard machinery preserved",
+      "successorSHA256": "33c21a35420a701a950ab30357c7d4595c3c55257648a155887f76ba22b9d1ed",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main-drop-handlers.bend",
+      "originalSHA256": "530f28439dbb010e56edcaf59a0428f821db0567759c6a32ff4f2bfccd8bd95b",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main-drop-handlers.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "bf215242803c69425e2470f42fee5344f1b4c9c4d964526290f003221e246f0c",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/negative-selector-family.bend",
+      "originalSHA256": "ae3c8a2881282d5d930cf3e539ffe3b8951449d194516cc8205e99b8ed8118a8",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/negative-selector-family.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "d224281403336c6d39d849cd432f9ad42abc2a373eba2e4f6f84113641fecebd",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main.bend",
+      "originalSHA256": "77f7efa605708d699b4c55dd0e730f23d50fd3210c58826c87057cdd27037a9e",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "f9c1762fe24a73239deb85c45b6b98c69dfca349764269934e21aac1fed5adc0",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/parse-handlers.py",
+      "originalSHA256": "ca3f283f4e239218ed2dcbd650b02a3d997b962fb413be08ed6cb3b37f6f0aec",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/parse-handlers.py",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "ca3f283f4e239218ed2dcbd650b02a3d997b962fb413be08ed6cb3b37f6f0aec",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/development-js.py",
+      "originalSHA256": "9b4d68d93bb9d542a5a67770f81e1cb89f0751e0c0f89c28b625e28e948e1db9",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/development-js.py",
+      "delta": "Existing helper/runner path and source-attempt record relocation only; invocation and guard machinery preserved",
+      "successorSHA256": "eeea7c9e8f9d740551e1aabe5bb12271364609081a8f655b51f04cc6e04ec034",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/fixture.bend",
+      "originalSHA256": "6cda52d46a2e4530e62ccd8466bcbeb9c6db53f422402da6ee3f235b0c2d71f3",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/fixture.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "10ca727fa59be7caf4fd51e2b9078c98006df394613c09e3137a8eef8b186113",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/app.bend",
+      "originalSHA256": "2faa735f7b375c417146ceb46b5d643401315bdddeef1b24ac1c88e936e947f6",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/app.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "5f25e0e240eba6018f2f86d45eac2ec27f9855e1c412c81e8a95e22509157d52",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/application.bend",
+      "originalSHA256": "8e13af85130f54c4a9a5c548ffa1d35a47215b8701e00c7c57213477d3a29dc6",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/application.bend",
+      "delta": "Observable ordinary declaration and explicit erased Inspector result index; existing operational owner/body/context routes preserved",
+      "successorSHA256": "895b27779a3bfdb5b48fb2a47b85a70afcbbaedcedf673456c6cc5a17b780857",
+      "bodyEqual": false,
+      "checkedBodyRelation": "Function runtime body restored exactly by stripping only new erased IV arguments and observable counterpart names"
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/parse-app.py",
+      "originalSHA256": "e6740f81ad84e31798b7119ea9197aa674347ab5e9c0346a55cba22eb4de4ae5",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/parse-app.py",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "e6740f81ad84e31798b7119ea9197aa674347ab5e9c0346a55cba22eb4de4ae5",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/scenario.bend",
+      "originalSHA256": "1e488f592b2bde3702643f51256a6e7fc4e898d540d22b0f8cd324e8d3120942",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/scenario.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "498efb98ef32806c1b1e91b6e9de81817ce4f0bf706828d7f785e96ec6c9389b",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/output.bend",
+      "originalSHA256": "6e473eed5bf721b5ec2ba8b608f42c85bb54ea1a20a83ff71ed6be33516236f3",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/output.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "e83e272847ef89772594cc226b047a4bd1d79debf05054e79e7537d55482a279",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/main.bend",
+      "originalSHA256": "b6bc53f615d8c1fc0975e894582d881706a586e33144426ecf499602ccc49329",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/main.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "b6bc53f615d8c1fc0975e894582d881706a586e33144426ecf499602ccc49329",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/dispatch.bend",
+      "originalSHA256": "8b54f1a23375a7dedb5767a4008e09efae6cb082ed9f835b57c28400faeb4dd1",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/dispatch.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "a30c81d99c625a3ae91084c88f309a74e729b2ebe23f0453b77e884a1f1a7282",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/observation.bend",
+      "originalSHA256": "d1ccdf61944791f3f2944c689b2f1c4c27b7f0e900bd34240b229ed3adaa3c12",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/observation.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "8d31b761ac1fea9d17fd083b9b0190f7585ec135ab7673357af2f68ea4c62998",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/dependencies/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/application/game.bend",
+      "originalSHA256": "b50ea4b0d1d0f8d52789683572fd6dfedbb551ccef52010a78075d51ba6471fe",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/dependencies/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/application/game.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "e4e471398657875faecde26f7915a6f4e19880ec3bf9218cdc7a905fe0d843c1",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/dependencies/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/application/legacy-fixture.bend",
+      "originalSHA256": "99713460af4d857a1e49c1b1e385ade1361090e41c3d1e7d0fe7623e5f4e5550",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/dependencies/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/application/legacy-fixture.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "5e77bfeb582d08920a8db19a7d8a9c08eae98fe5c950df1b20009067838775b6",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/dependencies/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/application/legacy-column-provider.bend",
+      "originalSHA256": "02c3691de745890a9028514c0ed4fe75485c8079aaeb65d0ed12facdda76af8b",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/dependencies/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/application/legacy-column-provider.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "9c860955a3e527196e9169e7d1a281ff56716618f4442d0b8f34ef76fdbbf25a",
+      "bodyEqual": true
+    },
+    {
+      "original": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/dependencies/experiments/public-simulation/bend-v1/owner-view.bend",
+      "originalSHA256": "77ec73be5360d214f49d5242981ad9135878c0736e9c69e284f86fe227261b73",
+      "successor": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/dependencies/experiments/public-simulation/bend-v1/owner-view.bend",
+      "delta": "import relocation only before observable migration",
+      "successorSHA256": "77ec73be5360d214f49d5242981ad9135878c0736e9c69e284f86fe227261b73",
+      "bodyEqual": true
+    }
+  ],
+  "changedOwnedBodies": [
+    "consumer/scenario-queries.bend",
+    "consumer/negative-system-schema.bend",
+    "consumer/scenario-driver.bend",
+    "consumer/scenario-systems.bend",
+    "consumer/app.bend",
+    "consumer/negative-system-owner-duplication.bend",
+    "consumer/scenario-execution.bend",
+    "consumer/app-inventory-v1/construction.bend",
+    "consumer/app-inventory-v1/app.bend",
+    "consumer/app-inventory-v1/graph-machine-v1/app.bend",
+    "consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/application.bend"
+  ],
+  "bindingCount": 9,
+  "operationalBodyOpsUnchanged": true,
+  "inspection": "Only O7 + O.pair constructed from same identities/lenses/view; no runtime registered inspection or cursor API",
+  "preservedOracles": {
+    "normal": "1f54b6bfa19f6db9a3d08fe030e2debf903ede484c45dd3efbf9d23f1ffe3036",
+    "mutant": "f4eb43fd7e1c07e0468f70f2f1cdd787148960107838ec13449b31a39652f14a"
+  },
+  "constructed": "Existing fullconsumer flattened Rest retains Recipe.Constructed unchanged; no save invocation or constructed recipe API substitution",
+  "normalization": "Full operational function body equality after explicitly listed erased-index/counterpart substitutions; complete operational and snapshot workload retained"
+}

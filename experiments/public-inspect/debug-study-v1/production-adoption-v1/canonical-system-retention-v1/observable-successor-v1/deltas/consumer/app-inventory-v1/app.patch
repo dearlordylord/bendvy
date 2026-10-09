@@ -1,0 +1,39 @@
+--- /workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/app.bend
++++ consumer/app-inventory-v1/app.bend
+@@ -1,15 +1,17 @@
+ import Base
+-import ../../../../../../../src/ecs/ordinary-schema.bend as Normal
++import /workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-query-observable.bend as O
++import /workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector.bend as I
++import ../../../../../../../../src/ecs/ordinary-schema.bend as Normal
+ import ./retained-schema.bend as Schema
+-import ../../../../../../../src/ecs/schema-fragments.bend as Fragment
+-import ../../../../../../../src/ecs/ordinary-query-declaration.bend as Query
+-import ../../../../../../../src/ecs/ordinary-system.bend as System
+-import ../../../../../../../src/ecs/compose.bend as Q
+-import ../../../../../../../src/ecs/world.bend as W
+-import ../../../../../../../src/ecs/system.bend as Sys
+-import ../../../../../../../src/ecs/transaction.bend as T
+-import ../../../../../../../src/ecs/schedule-provision.bend as SP
+-import ../../../../../../../src/ecs/schedule.bend as Sch
++import ../../../../../../../../src/ecs/schema-fragments.bend as Fragment
++import ../../../../../../../../src/ecs/ordinary-query-declaration.bend as Query
++import ../../../../../../../../src/ecs/ordinary-system.bend as System
++import ../../../../../../../../src/ecs/compose.bend as Q
++import ../../../../../../../../src/ecs/world.bend as W
++import ../../../../../../../../src/ecs/system.bend as Sys
++import ../../../../../../../../src/ecs/transaction.bend as T
++import ../../../../../../../../src/ecs/schedule-provision.bend as SP
++import ../../../../../../../../src/ecs/schedule.bend as Sch
+ 
+ type Debug is Data:
+   Enabled{}
+@@ -39,7 +41,7 @@
+     case Binding{_,id,name,access,slot,clauses} <> rest:Entry{id,name,access,slot,clauses} <> entries(~S,rest)
+ def empty(~S:Data,~C:Type,~R:Type,namespace:U32,debug:Debug,schema:Normal.Schema<S,C,R>) -> Owners<S,C,R,Unit>:
+   Owners{schema,debug,namespace,[],Unit{},True{}}
+-def add(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:Query.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~H:Type,collected:Owners<S,C,R,H>,owner:System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>) -> Owners<S,C,R,H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>>:
++def add(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~IV:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,IV>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~H:Type,collected:Owners<S,C,R,H>,owner:System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~IV,~query,~body)>>) -> Owners<S,C,R,H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~IV,~query,~body)>>>:
+   match collected owner:
+     case Owners{schema,+debug,+namespace,bindings,owners,valid} System.Owner{Sys.Registry{+actual,+id,+name,+access,+cursor},+slot,+clauses}:
+       Owners{schema,debug,namespace,List.append(&2,Binding<S>,bindings,[Binding{actual,id,name,access,slot,clauses}]),(owners,System.Owner{Sys.Registry{actual,id,name,access,cursor},slot,clauses}),Bool.and(valid,U32.is_eq(namespace,actual))}

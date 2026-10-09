@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : ../../../../../../src/ecs/ordinary-declaration.Declaration<Schema, Payload>
+- observed : Identity.Declaration<Schema, Payload>
+Location: plain_read
+40 | def plain_read() -> Query.Declaration<Schema,Q.Frame<Schema,Plain,Unit,Unit>,Cap.Read<Q.Frame<Schema,Plain,Unit,Unit>,U32>>:
+41>|   Query.read(~Schema,~Payload,~Plain,~Unit,~Unit,~Recipe.Plain<Schema,Payload,plain_identity()>,~U32,~Schema,~plain_identity(),~view,~plain_take,~plain_put)
+   |                                                                                                               ^^^^^^^^^^^^^^
+42 | 
+bend 2.0.36 is available: run bend update

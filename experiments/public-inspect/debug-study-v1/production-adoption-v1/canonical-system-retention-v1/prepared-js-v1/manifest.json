@@ -1,0 +1,82 @@
+{
+  "scope": "Complete canonical legacy ordinary registration adoption normal and reached handler omission JS; one complete batch prepared for changed-portion launch review",
+  "sourceCommit": "9887af15",
+  "plans": [
+    {
+      "kind": "normal",
+      "plan": "/tmp/bendvy56-canonical-system-normal-js01/plan.json",
+      "archive": "normal.plan.json",
+      "sha256": "b19bd4ee1e91926dc9ff82de337da5972b4544d9ec16d13620a9649af8b79ee2",
+      "bytes": 37422,
+      "pins": 139,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main.bend",
+            "-o",
+            "/tmp/bendvy56-canonical-system-normal-js01/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy56-canonical-system-normal-js01/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "sourceMembers": 79,
+      "constructors": 144,
+      "status": "PREPARED_NO_BACKEND_CHILD"
+    },
+    {
+      "kind": "mutant",
+      "plan": "/tmp/bendvy56-canonical-system-mutant-js01/plan.json",
+      "archive": "mutant.plan.json",
+      "sha256": "95f20bc5ade03be2e49172fdea576128459e463a37dec5e4549dbd5ee828ada1",
+      "bytes": 37524,
+      "pins": 139,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main-drop-handlers.bend",
+            "-o",
+            "/tmp/bendvy56-canonical-system-mutant-js01/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy56-canonical-system-mutant-js01/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "sourceMembers": 79,
+      "constructors": 144,
+      "status": "PREPARED_NO_BACKEND_CHILD"
+    }
+  ],
+  "guards": "Existing reviewed collector unchanged execution/guard/raw/ReceiptBoundary behavior; ROOT relocation and explicit pin additions only (collector.patch)",
+  "remaining": "No backend executed. No observable counterpart runtime, foreign association policy, Native/full56/performance acceptance."
+}

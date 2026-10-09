@@ -1,0 +1,27 @@
+--- qualified-handler/development-js.py
++++ canonical-system-retention/development-js.py
+@@ -14,7 +14,7 @@
+ import stat
+ from pathlib import Path
+ 
+-ROOT = Path('/workspace/formal-proofs/bendvy')
++ROOT = Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention')
+ HERE = Path(__file__).resolve().parent
+ 
+ 
+@@ -79,6 +79,15 @@
+              oracle.parent.parent / 'synthetic-raw.py', oracle.parent.parent / 'CONSTRUCTOR-JOIN.json',
+              oracle.parent.parent / 'expected-v2.json', oracle.parent.parent / 'resource-expected-v2.json',
+              HERE / 'TRANSPORT-PREPARED.json', HERE / 'test-transport.py', HERE / 'transport-controls.stdout', HERE / 'test-js-boundary.py', HERE / 'JS-BOUNDARY-CONTROLS.json', *map(Path, tools.values())]
++    # Retain relocated parser prerequisites and exact canonical migration source checks.
++    migration = HERE.parents[3]
++    extra.extend([HERE / 'js-boundary.stdout', HERE / 'js-boundary.stderr',
++                  migration / 'MIGRATION.json', migration / 'ORACLE-BINDING.json',
++                  HERE.parents[2] / 'scenario-main.bend',
++                  HERE.parents[2] / 'app-run-v1/nominal-carrier-v1/accumulated-v1/main.bend'])
++    for role in ('normal', 'mutant'):
++        attempt = migration / 'source-attempts' / ('04-' + role)
++        extra.extend(attempt / name for name in ('SOURCE.json', 'result.json', 'post.json', 'stdout', 'stderr'))
+     pins = dict(identities['sourceSHA256'])
+     for path, digest in json.loads((oracle / 'source-basis.json').read_text())['sources'].items():
+         if sha(path) != digest:

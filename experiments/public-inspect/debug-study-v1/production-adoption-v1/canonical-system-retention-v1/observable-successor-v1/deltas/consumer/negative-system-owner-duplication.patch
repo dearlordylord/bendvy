@@ -1,0 +1,15 @@
+--- /workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/consumer/negative-system-owner-duplication.bend
++++ consumer/negative-system-owner-duplication.bend
+@@ -1,8 +1,8 @@
+ import Base
+-import ./plain-transient-application.bend as Plain
+-import ./registered-application.bend as Registered
+-import ../../../../../../src/ecs/ordinary-system.bend as System
++import ./scenario-schema.bend as S
++import ./scenario-systems.bend as Systems
++import ../../../../../../../src/ecs/ordinary-system.bend as System
+ import ./app.bend as App
+ 
+-def misuse(owner:System.Owner<Plain.Schema,Registered.plain_registry()>) -> System.Owner<Plain.Schema,Registered.plain_registry()> & System.Owner<Plain.Schema,Registered.plain_registry()>:
++def misuse(owner:System.Owner<S.Schema,Systems.plain_main_registry()>) -> System.Owner<S.Schema,Systems.plain_main_registry()> & System.Owner<S.Schema,Systems.plain_main_registry()>:
+   (owner,owner)
