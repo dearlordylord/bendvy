@@ -55,10 +55,13 @@ def assembly_binding(path,digest):
         return None
     assert path.is_absolute() and str(path.resolve())==str(path), 'binding path must be canonical'
     binding=admitted_plan(path,digest)
-    assert set(binding)=={'mode','entry','sourcePins','oracle'}, 'exact assembly binding fields required'
+    assert set(binding) in ({'mode','entry','sourcePins','oracle'},{'mode','entry','sourcePins','oracle','role'}), 'exact assembly binding fields required'
     assert binding['mode']=='registered-decode-assembly-v1', 'unknown assembly mode'
     entry=pinned_file(binding['entry'])
-    assert entry.name=='spine.bend', 'complete assembly spine required'
+    role=binding.get('role','normal')
+    assert role in ('normal','local-failure','skip-validation','partial-write'), 'unknown assembly role'
+    assert entry.name==('failure-controls.bend' if role=='local-failure' else 'spine.bend'), 'complete role entry required'
+    if role in ('skip-validation','partial-write'):assert entry.parent.name==role, 'mutant role/source differs'
     assert type(binding['sourcePins']) is dict and binding['sourcePins'], 'complete source pins required'
     for filename,sha in binding['sourcePins'].items():pinned_file({'path':filename,'sha256':sha})
     oracle=binding['oracle']
@@ -75,6 +78,18 @@ def assert_source_pins(binding,source_paths):
     assert observed==binding['sourcePins'], 'source closure differs from explicit assembly pins'
 
 
+def mutant_witness(role,observed,expected):
+    # Same full independent correct oracle, plus a narrow reached discriminator;
+    # arbitrary output mismatch is not a mutant-kill criterion.
+    actual=observed['insert']['value']['lateInvalid']['result']['trace']
+    correct=expected['insert']['value']['lateInvalid']['result']['trace']
+    if role=='skip-validation':
+        return correct['outcome']['$']=='ValidationRefused' and actual['outcome']['$']=='Replaced'
+    if role=='partial-write':
+        return actual['outcome']==correct['outcome'] and correct['outcome']['$']=='ValidationRefused' and actual['before']['resource']==correct['before']['resource'] and actual['after']['resource']!=actual['before']['resource'] and correct['after']['resource']==correct['before']['resource']
+    raise AssertionError('unknown reached mutant role')
+
+
 def admit_interpreter(plan):
     actual=Path(sys.executable).resolve(strict=True)
     assert actual.is_file() and not actual.is_symlink(), 'actual interpreter must resolve to regular file'
@@ -84,9 +99,10 @@ def admit_interpreter(plan):
 
 
 def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_path=None,binding_digest=None):
-    assert role == "normal"
     binding=assembly_binding(binding_path,binding_digest)
     assembly=binding is not None
+    assert role==(binding.get("role","normal") if assembly else "normal"), 'role requires matching explicit binding'
+    assert not native or role=="normal", 'failure/mutant roles require complete consuming runtime'
     plan_path = out/'plan.json'
     admitted = admitted_plan(plan_path,plan_digest) if execute else None
     if execute:
@@ -146,8 +162,8 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
     inputs.update({*authoring,basis_file,HERE/'transport.py',HERE.parent/'transport.py',ROOT/'experiments/public-simulation/bend-v1/parse-report.py',oracle})
     transport=load('decode_transport',HERE/'transport.py')
     expected=json.loads(oracle.read_text())
-    expected_raw=transport.render(expected,entries[0],assembly)
-    assert transport.parse(expected_raw,entries[0],assembly)==expected
+    expected_raw=transport.render(expected,entries[0],assembly,role)
+    assert transport.parse(expected_raw,entries[0],assembly,role)==expected
     raw_oracle=out/'expected.stdout'
     if not execute:raw_oracle.write_bytes(expected_raw)
     assert raw_oracle.is_file() and not raw_oracle.is_symlink() and raw_oracle.read_bytes()==expected_raw,'prepared raw oracle differs'
@@ -156,7 +172,7 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
     baseline_sha=binding['oracle']['whole']['sha256'] if assembly else 'ca88bdec56290ba3b5460463f59c4ddda389d2dcc7ecfa58d6d633c35016e075'
     assert hashlib.sha256(baseline_oracle.read_bytes()).hexdigest()==baseline_sha
     inputs.add(baseline_oracle)
-    assert transport.whole(expected)==json.loads(baseline_oracle.read_text()), 'complete Candidate must preserve unchanged whole baseline'
+    assert transport.whole(expected,role)==json.loads(baseline_oracle.read_text()), 'complete Candidate must preserve unchanged whole baseline'
 
     frozen = task_runner.Inputs(files=inputs,directories=resource_roots)
     commands = []
@@ -218,11 +234,17 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
             record['status']='DEVELOPMENT_C_EMIT_PASS'
         else:
             observed=(raw/'complete-run.stdout').read_bytes()
-            assert transport.parse(observed,entries[0],assembly)==expected, 'full typed Candidate differs from pre-run oracle'
-            assert observed==expected_raw, 'complete raw Candidate differs from pre-run oracle'
+            parsed=transport.parse(observed,entries[0],assembly,role)
+            if role in ('skip-validation','partial-write'):
+                assert transport.render(parsed,entries[0],assembly,role)==observed, 'mutant raw roundtrip differs'
+                assert parsed!=expected and observed!=expected_raw, 'reached mutant survived complete independent oracle'
+                assert mutant_witness(role,parsed,expected), 'complete disagreement lacks intended reached witness'
+            else:
+                assert parsed==expected, 'full typed output differs from pre-run oracle'
+                assert observed==expected_raw, 'complete raw output differs from pre-run oracle'
             assert (raw/'complete-run.stderr').read_bytes()==b'', 'unexpected runtime stderr'
-            assert transport.whole(expected)==json.loads(baseline_oracle.read_text())
-            record['status']='DEVELOPMENT_JS_PASS'
+            assert transport.whole(expected,role)==json.loads(baseline_oracle.read_text())
+            record['status']='DEVELOPMENT_JS_MUTANT_KILLED' if role in ('skip-validation','partial-write') else 'DEVELOPMENT_JS_PASS'
     print(json.dumps({'receipt':str(out/'receipt.json'),'status':record['status']}))
 
 
@@ -230,7 +252,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--assembly-binding',type=Path,help='Explicit complete source/independent oracle binding; default preserves historical cohort')
     parser.add_argument('--assembly-binding-sha256',help='Required exact binding digest')
-    parser.add_argument('--role',choices=['normal'],default='normal')
+    parser.add_argument('--role',choices=['normal','local-failure','skip-validation','partial-write'],default='normal')
     parser.add_argument('--native',action='store_true')
     parser.add_argument('--execute',action='store_true',help='Consume existing --output/plan.json after admission; default prepares without a child')
     parser.add_argument('--plan-sha256',help='Required exact admitted plan digest for --execute')

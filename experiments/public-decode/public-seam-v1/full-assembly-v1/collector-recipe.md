@@ -7,6 +7,7 @@ The binding has exactly these fields:
 ```json
 {
   "mode": "registered-decode-assembly-v1",
+  "role": "normal",
   "entry": {"path": "ABS/spine.bend", "sha256": "64hex"},
   "sourcePins": {"ABS_EVERY_TRANSITIVE_BEND_IMPORT_INCLUDING_BASE": "64hex"},
   "oracle": {
@@ -24,3 +25,5 @@ All paths are canonical absolute regular files. Source pins must match the exact
 After the independent oracle is committed: pin its source basis and authoring files, generate the complete manifest, and prepare using the existing collector without `--execute`. Preparation emits no child. Review the exact returned plan/digest, frozen inputs/tools/environment and unchanged CPU5/caps, then parent admits execution. `--native` currently means the existing installed **C-emission** development cohort; this change does not extend it to Native compile/run qualification.
 
 Transport opts into the new full DTO inventory only with explicit assembly binding. It retains complete Mail, Local recovery, declaration codec/completion, registrations, before/after/barrier snapshots and all original cases. It never fills absent fields or drops an unrecognized constructor. `check-collector-bindings.py` checks historical roundtrip + ca88 preservation, synthetic full declaration/recovery roundtrip, missing recovery rejection, exact closure and binding/source/oracle drift rejection. Synthetic controls are not a semantic oracle or backend acceptance.
+
+The same collector also supports explicit `--role local-failure|skip-validation|partial-write`, with the matching manifest role. `local-failure` requires `failure-controls.bend` and its complete independent four-case Report. Mutant roles require their named full source directory, the correct independent Candidate oracle and a targeted reached witness in addition to full typed/raw disagreement. Historical no-binding calls accept only normal. See `prepared-assembly-v1/REVIEW.md` and exact plan/manifest files; none has been executed.

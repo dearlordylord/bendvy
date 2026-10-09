@@ -5,13 +5,16 @@ HERE=Path(__file__).resolve().parent
 spec=importlib.util.spec_from_file_location('decode_complete_transport',HERE.parent/'transport.py')
 BASE=importlib.util.module_from_spec(spec);spec.loader.exec_module(BASE)
 
-def inventory(entry,assembly=False):
+def inventory(entry,assembly=False,role="normal"):
  entry=Path(entry).resolve()
  types,name=BASE.inventory(entry.parent.parent/'main.bend')
  if assembly:
   types=assembly_inventory(entry)
  maybe=lambda typ:('Base',{'None':[],'Some':[('value',typ)]})
  types['Report']=(str(entry),{'Candidate':[(k,maybe('Cases')) for k in ('insert','spawn','resource','otherSchema')]+[('foreign','Foreign'),('extension',maybe('Extension'))]})
+ if role=='local-failure':
+  assert assembly, 'failure role requires explicit assembly binding'
+  types['Report']=(str(entry),{'Report':[(k,'Observation') for k in ('resourceAccepted','resourceRefused','spawnAccepted','spawnRefused')]})
  # BASE inventory is bound to original qualification main, so its Cases,
  # Extension and every nested nominal constructor remain canonical imports.
  def nominal(module,tag):
@@ -47,23 +50,26 @@ def assembly_inventory(entry):
  types['NamedCodec']=record(d,'NamedCodec',fields(name='String',codec='Codec'))
  return types
 
-def whole(value):
+def whole(value,role="normal"):
+ if role=="local-failure":
+  assert type(value) is dict and set(value)=={"$","resourceAccepted","resourceRefused","spawnAccepted","spawnRefused"} and value["$"]=="Report"
+  return value
  assert type(value) is dict and set(value)=={'$','insert','spawn','resource','otherSchema','foreign','extension'} and value['$']=='Candidate'
  def present(group):
   assert type(group) is dict and set(group)=={'$','value'} and group['$']=='Some','internally assembled group must be Some'
   return group['value']
  return {'$':'Report','baseline':{'$':'Report',**{k:present(value[k]) for k in ('insert','spawn','resource','otherSchema')},'foreign':value['foreign']},'extension':present(value['extension'])}
 
-def render(expected,entry,assembly=False):
- whole(expected)
- types,name=inventory(entry,assembly)
+def render(expected,entry,assembly=False,role="normal"):
+ whole(expected,role)
+ types,name=inventory(entry,assembly,role)
  return (BASE.parser().render(BASE.codec(expected,'Report',types,name,True))+'\n').encode()
 
-def parse(raw,entry,assembly=False):
+def parse(raw,entry,assembly=False,role="normal"):
  assert type(raw) is bytes
  p=BASE.parser();term=p.parse(raw.decode())
  assert (p.render(term)+'\n').encode()==raw,'noncanonical complete output'
- types,name=inventory(entry,assembly)
+ types,name=inventory(entry,assembly,role)
  value=BASE.codec(term,'Report',types,name,False)
- whole(value)
+ whole(value,role)
  return value

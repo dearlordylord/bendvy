@@ -32,6 +32,23 @@ bad=copy.deepcopy(value);del bad['insert']['value']['array3']['instance']['recov
 try:transport.render(bad,entry,True)
 except AssertionError:pass
 else:raise AssertionError('missing recovery field accepted')
+# Independent full models authored before runtime, now integrated on master.
+model_home=Path('/workspace/formal-proofs/bendvy/experiments/public-decode/public-seam-v1/oracle-v1/full-assembly-v1')
+correct=json.loads((model_home/'expected.json').read_text())
+failure=json.loads((model_home/'failure-expected.json').read_text())
+assert transport.parse(transport.render(correct,entry,True),entry,True)==correct
+failure_entry=entry.parent/'failure-controls.bend'
+assert transport.parse(transport.render(failure,failure_entry,True,'local-failure'),failure_entry,True,'local-failure')==failure
+assert transport.whole(failure,'local-failure')==failure
+for role in ('skip-validation','partial-write'):
+ assert not runner.mutant_witness(role,correct,correct)
+ mutant=copy.deepcopy(correct)
+ actual=mutant['insert']['value']['lateInvalid']['result']['trace']
+ if role=='skip-validation':actual['outcome']={'$':'Replaced'}
+ else:actual['after']['resource']['value']['raw']={'$':'Text','value':'partial-before-validation'}
+ assert runner.mutant_witness(role,mutant,correct)
+ unrelated=copy.deepcopy(correct);unrelated['insert']['value']['array3']['instance']['name']='unrelated mismatch'
+ assert not runner.mutant_witness(role,unrelated,correct)
 with tempfile.TemporaryDirectory() as directory:
  home=Path(directory).resolve()
  def pin(name,body):
@@ -50,4 +67,4 @@ with tempfile.TemporaryDirectory() as directory:
   except AssertionError:pass
   else:raise AssertionError(action+' drift accepted')
   target.write_bytes(previous)
-print(json.dumps({'status':'PASS','oldDefaultRoundtrip':True,'assemblyCompleteSyntheticRoundtrip':True,'missingRecoveryRejected':True,'bindingSourceOracleDriftRejected':True,'backendChildren':0}))
+print(json.dumps({'status':'PASS','oldDefaultRoundtrip':True,'assemblyCompleteSyntheticRoundtrip':True,'missingRecoveryRejected':True,'bindingSourceOracleDriftRejected':True,'independentFullCandidateAndFailureRoundtrip':True,'targetedMutantWitnessControls':True,'backendChildren':0}))
