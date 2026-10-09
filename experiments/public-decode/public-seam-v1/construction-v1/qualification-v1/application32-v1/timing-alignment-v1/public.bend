@@ -26,10 +26,16 @@ def entities(live:List<&2,Bool>,+values:List<&2,Maybe<&2,Owner.View>>,+markers:L
     case []:[]
     case True{} <> rest:Entity{id,at(~Owner.View,values,index),at(~U32,markers,index)} <> entities(rest,values,markers,Succ{index},U32.add(id,1))
     case False{} <> rest:entities(rest,values,markers,Succ{index},U32.add(id,1))
+# World.live is indexed by logical id, including the reserved id0 sentinel.
+# Component columns are indexed id-1; discard only that sentinel before traversal.
+def live_entities(live:List<&2,Bool>,values:List<&2,Maybe<&2,Owner.View>>,markers:List<&2,Maybe<&2,U32>>) -> List<&2,Entity>:
+  match live:
+    case []:[]
+    case _ <> rest:entities(rest,values,markers,0n,1)
 type State is Data:State{entities:List<&2,Entity>,resource:Owner.View,pending:List<&2,Pending>,pendingCount:U32,receiptCountMatches:Bool} Unsupported{snapshot:App.Snapshot}
 def state(value:App.Snapshot) -> State:
   match value:
-    case App.Snapshot{_,live,App.StoreView{App.ColumnView{True{},values,_},App.MarkerView{markers,_},_,_,+receipts},resource,+n}:State{entities(live,values,markers,0n,1),resource,pending(receipts),n,U32.is_eq(count(pending(receipts)),n)}
+    case App.Snapshot{_,live,App.StoreView{App.ColumnView{True{},values,_},App.MarkerView{markers,_},_,_,+receipts},resource,+n}:State{live_entities(live,values,markers),resource,pending(receipts),n,U32.is_eq(count(pending(receipts)),n)}
     case other:Unsupported{other}
 type Checked is Data:
   Accepted{target:Maybe<&2,U32>,spawned:Bool,canonical:D.Raw}

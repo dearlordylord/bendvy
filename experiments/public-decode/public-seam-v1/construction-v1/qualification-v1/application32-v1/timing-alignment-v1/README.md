@@ -57,3 +57,10 @@ stdout has been used to derive expectations. Sources and new independent models
 must freeze before backend admission. TS codecs/cases now initialize inside run(); an actual timer binding remains
 unimplemented and unqualified. Common-main pure String display framing is specified
 in wire.mjs: quoted escaped JSON String plus one external LF; TS emits raw JSON.
+
+`model-adapter.py` adds complete typed Whole parsing and explicit common/native/TS
+oracle roles without editing historical collector dispatch. Mock corruption controls
+cover last owner, queued payload, omitted field, typed Bool/number and suffixes.
+The logical observer now discards World.live id0 sentinel before id1/column0 mapping;
+physical supplements remain untouched. This source correction supersedes the earlier
+observer freeze and must be reflected in fresh independent models. No backend run.
