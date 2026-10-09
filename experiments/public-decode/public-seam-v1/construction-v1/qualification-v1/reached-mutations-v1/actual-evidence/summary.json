@@ -1,0 +1,211 @@
+{
+  "scope": "actual full44 reached mutant outputs; positivecollector INCOMPLETE retained; separate exact whole44 witness qualifies kill",
+  "results": {
+    "skip-validation": {
+      "status": "INCOMPLETE",
+      "preparedPlanSha256": "5e7fccef6be60511aeaf017d4abda0c8c4bc762d8e4fd102fbd323c77f56fbe3",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/skip-validation/source/qualification-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/skip-validation/prepared-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/skip-validation/prepared-js/generated/complete.js",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/skip-validation/prepared-js/generated/complete.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/skip-validation/prepared-js/generated/complete.js": {
+          "sha256": "8e779370104d052af5cb94516b23b5c19c0b0eefc84eb9bc5987c6400df1f394",
+          "bytes": 839572,
+          "capture": "actual-evidence/skip-validation/complete.js.gz",
+          "captureSha256": "00cfdf3349c82b9f167131fbd093902f8a1c36f4d0a9ca23ea08b9961b30be4f"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/skip-validation/prepared-js/raw/complete-run.stdout": {
+          "sha256": "0917d0e7c1de7ba615796eca886cf40e7c4f4998ff13ad850978402ca4cb9159",
+          "bytes": 115915,
+          "capture": "actual-evidence/skip-validation/complete-run.stdout.gz",
+          "captureSha256": "3e640a695b1f78f88b045ac6574413c591a09e8ec7cbb20c40896a99392062d2"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/skip-validation/prepared-js/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/skip-validation/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/skip-validation/prepared-js/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/skip-validation/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/skip-validation/prepared-js/raw/complete-run.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/skip-validation/complete-run.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    },
+    "partial-write": {
+      "status": "INCOMPLETE",
+      "preparedPlanSha256": "561522ea0b6a7df40a838c778faa4445718514e537380574f184024642a1b266",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/partial-write/source/qualification-v1/complete-spine.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/partial-write/prepared-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/partial-write/prepared-js/generated/complete.js",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/partial-write/prepared-js/generated/complete.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "guardFailures": [],
+      "artifacts": {
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/partial-write/prepared-js/generated/complete.js": {
+          "sha256": "a263bfd25638fe0c695e7a08e24daf16ebd08449ab5c35d95a633a7a3e0ae39e",
+          "bytes": 845811,
+          "capture": "actual-evidence/partial-write/complete.js.gz",
+          "captureSha256": "c939ae69bb5cd9536a8576622bb0a8d5753493b8d426423f516605d3c8febaa0"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/partial-write/prepared-js/raw/complete-run.stdout": {
+          "sha256": "c3403cc70693ffa01154d0ea509b71e33482888f79a9b8010cab90a27e109eae",
+          "bytes": 115305,
+          "capture": "actual-evidence/partial-write/complete-run.stdout.gz",
+          "captureSha256": "c17c413463bd64fca54ff7f83da6f85f1ba30251f46ecd3bc05d22e65999c1cd"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/partial-write/prepared-js/raw/complete-emit.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/partial-write/complete-emit.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/partial-write/prepared-js/raw/complete-emit.stdout": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/partial-write/complete-emit.stdout.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        },
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/partial-write/prepared-js/raw/complete-run.stderr": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "capture": "actual-evidence/partial-write/complete-run.stderr.gz",
+          "captureSha256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+        }
+      }
+    }
+  },
+  "executedHelpers": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py": {
+      "sha256": "6bacfdd8d3080331a11594b7d1ea55193a9fb40257a83051bee030a1781a584a",
+      "capture": "actual-evidence/executed-helper-sources/6bacfdd8d3080331a11594b7d1ea55193a9fb40257a83051bee030a1781a584a/development-run.py.gz",
+      "captureSha256": "0a82a7f97df9105ad041dad7ebf8ca05fc06e552698f606abbf53d95d1f550a7"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/receipt-logs.py": {
+      "sha256": "fdb39388e409f2fe39d5785345739c681982f3aa98c9d5cc03e5544c8d5ec891",
+      "capture": "actual-evidence/executed-helper-sources/fdb39388e409f2fe39d5785345739c681982f3aa98c9d5cc03e5544c8d5ec891/receipt-logs.py.gz",
+      "captureSha256": "dc1b8399f54eb4e6abb0ab50e8e2faed04a29ffb1725ecf87758b4e69cb5159f"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-construction-oracle/experiments/public-decode/public-seam-v1/construction-v1/oracle-v1/expected.py": {
+      "sha256": "2a90763c3992305b17de21b807442a4794539a3cd74b1152c5b99349eaa21715",
+      "capture": "actual-evidence/executed-helper-sources/2a90763c3992305b17de21b807442a4794539a3cd74b1152c5b99349eaa21715/expected.py.gz",
+      "captureSha256": "d3575c78a0bb6520e6bf78a711150d1607da5be854ae8de83f7a39e346ffc69e"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py": {
+      "sha256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "capture": "actual-evidence/executed-helper-sources/ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714/task_runner.py.gz",
+      "captureSha256": "52bf1388cbc71ca709084d8f20811c829366ee8530c018fcf957d184bdf59bad"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/skip-validation/source/qualification-v1/transport-inventory.py": {
+      "sha256": "25eb5b3c6a818954dfcef83ce2c98b85df1fc9bdd47b4563ddfd776eb43398e1",
+      "capture": "actual-evidence/executed-helper-sources/25eb5b3c6a818954dfcef83ce2c98b85df1fc9bdd47b4563ddfd776eb43398e1/transport-inventory.py.gz",
+      "captureSha256": "dc19fa030eec807375e8ada6cea785a34ea4013fe53b223a68848f8a187e10d6"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/transport.py": {
+      "sha256": "c7ea40557f71ae2b1cbd0d066b77883051bdd810fdd8a587028a8b66530306ae",
+      "capture": "actual-evidence/executed-helper-sources/c7ea40557f71ae2b1cbd0d066b77883051bdd810fdd8a587028a8b66530306ae/transport.py.gz",
+      "captureSha256": "062d364e8142a05e891d310c4e19635cb729f0bd11a9e0ce2337d9dd17b984e2"
+    },
+    "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py": {
+      "sha256": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122",
+      "capture": "actual-evidence/executed-helper-sources/f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122/evidence_boundary.py.gz",
+      "captureSha256": "a938021849ef1d90919aa35120e20aaed9733b26f670f6a7a4e109ee2fe37fc0"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-construction-oracle/experiments/public-decode/public-seam-v1/construction-v1/oracle-v1/test-models.py": {
+      "sha256": "fe50e81edd41516237a2bd121c2c1f7177993a0576e8e0b40958cc056c800f27",
+      "capture": "actual-evidence/executed-helper-sources/fe50e81edd41516237a2bd121c2c1f7177993a0576e8e0b40958cc056c800f27/test-models.py.gz",
+      "captureSha256": "97335265d15931c6d9ed7249e90ef79fa5f4a4045f4247b4163342b6a862e995"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/adoption-v1/qualification-v1/transport.py": {
+      "sha256": "5daa72c73de09d6188b710284a85a049c403c8a12a1ba6092421f616e2e41fca",
+      "capture": "actual-evidence/executed-helper-sources/5daa72c73de09d6188b710284a85a049c403c8a12a1ba6092421f616e2e41fca/transport.py.gz",
+      "captureSha256": "a92237b0d1a41073e5c821f8515d4638858a1be070a759f323eb40c04c5eacde"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py": {
+      "sha256": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+      "capture": "actual-evidence/executed-helper-sources/fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347/installed-config.py.gz",
+      "captureSha256": "ae68aafc7f9d28da09dfca89ec8e07e2a2d4cd365a0794d9e1764dd8f9c54986"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/parse-report.py": {
+      "sha256": "b9366c499da4cb11360464d068bce653972c3a50b6c6042e92f54f3a6e487110",
+      "capture": "actual-evidence/executed-helper-sources/b9366c499da4cb11360464d068bce653972c3a50b6c6042e92f54f3a6e487110/parse-report.py.gz",
+      "captureSha256": "ddd125fca9918063ec34855dac0281f8a9ada717e064cbcc45e38580b898f6cb"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/reached-mutations-v1/partial-write/source/qualification-v1/transport-inventory.py": {
+      "sha256": "25eb5b3c6a818954dfcef83ce2c98b85df1fc9bdd47b4563ddfd776eb43398e1",
+      "capture": "actual-evidence/executed-helper-sources/25eb5b3c6a818954dfcef83ce2c98b85df1fc9bdd47b4563ddfd776eb43398e1/transport-inventory.py.gz",
+      "captureSha256": "dc19fa030eec807375e8ada6cea785a34ea4013fe53b223a68848f8a187e10d6"
+    }
+  }
+}
