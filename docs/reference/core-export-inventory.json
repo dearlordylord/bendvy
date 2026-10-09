@@ -818,6 +818,127 @@
       "manifestSHA256": "ad6c621f06aaf09b9ec1dda6ec9214ec3161052d1a9e137ffcea1a76167080b4",
       "scope": "Final bounded Inspector promotion selected path delta:91 listed plus self92; original95 review retained historical. Qualification unchanged. Selection delta pending independent review; full54/Native mutation/proof/performance/production integration UNMET.",
       "fullIssueAccepted": false
+    },
+    {
+      "issue": "#53",
+      "baseCommit": "17cf6d66",
+      "scope": "Repository-integrated experimental development only; no public src/ecs event acceptance",
+      "fullIssueAccepted": false,
+      "tsCapabilityRoutes": [
+        "System.readEvent",
+        "System.writeEvent",
+        "System.EventReadView",
+        "System.EventWriteView",
+        "Schema.events",
+        "Runtime staged event publication"
+      ],
+      "evidencePins": [
+        {
+          "path": "experiments/public-owned-events/owned-recovery-v1/README.md",
+          "sha256": "f6e88185e89de3927f53fc39367613e79d7383dabbf47b1dd98c0664f80397a7"
+        },
+        {
+          "path": "experiments/public-owned-events/owned-recovery-v1/evidence/native-1/raw/complete-run.stdout",
+          "sha256": "ed73cad108507ba89f20870d8b6cbda757e0d66e8e81d08b202e6870aade838d"
+        },
+        {
+          "path": "experiments/public-owned-events/scoped-read-v1/README.md",
+          "sha256": "edfac5566d9f822093a2597c144eb620c93bb95c992792f38fe4c9b4222e27f3"
+        },
+        {
+          "path": "experiments/public-owned-events/scoped-read-v1/evidence/native-1/raw/complete-run.stdout",
+          "sha256": "3d421ad3232fd522586620ab7b6ca104cbd1c4de2dadd764dfe657847338cae0"
+        },
+        {
+          "path": "experiments/public-owned-events/transaction-candidate-v1/README.md",
+          "sha256": "8893b800a9246a52473bac577818b75d27a33946581cabfe8fe35d5ae44d8fa1"
+        },
+        {
+          "path": "experiments/public-owned-events/transaction-candidate-v1/evidence/native-1/raw/complete-run.stdout",
+          "sha256": "4df56e7cd82baf2731d4ef1bedc49ff57872ac34521faa2d856a6eb9d5761ce5"
+        },
+        {
+          "path": "experiments/public-owned-events/transaction-candidate-v1/mutants/abort-recovery-loss-v1/evidence/js-1/raw/complete-run.stdout",
+          "sha256": "e9e37cd0482a56ee943724eb70183caeda8260b3cf25009277eaf39b18c8e3e3"
+        }
+      ],
+      "unmet": [
+        "Public log admission and independent reader cursor/retention/lag/disposal lifecycle",
+        "System/App recovery transport and transactional transfer ownership (#51/#52)",
+        "Full equivalent-work TS/JS/Native feature and unchanged #28 performance gates",
+        "Complete independent cross-feature two-application audit (#61)"
+      ],
+      "referenceSourcePins": [
+        {
+          "path": ".references/bevy-ts/packages/core/src/System.ts",
+          "sha256": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+          "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+        },
+        {
+          "path": ".references/bevy-ts/packages/core/src/Schema.ts",
+          "sha256": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+          "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+        },
+        {
+          "path": ".references/bevy-ts/packages/core/src/Runtime.ts",
+          "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+          "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+        }
+      ]
+    },
+    {
+      "issue": "#56",
+      "baseCommit": "17cf6d66",
+      "scope": "Ordinary query/System/App experimental fixture and Native compilation partition only; no original combined binary or public debug acceptance",
+      "fullIssueAccepted": false,
+      "tsCapabilityRoutes": [
+        "Runtime.make(debug:true)",
+        "Debug.Handle.describe",
+        "Debug.QueryDescription",
+        "Debug.SystemDescription",
+        "Debug.StepDescription",
+        "Debug.ScheduleDescription"
+      ],
+      "evidencePins": [
+        {
+          "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/README.md",
+          "sha256": "186fb76539b03b84235923b7caa8d31cba1555ff87b75a4543fad6512a7bd81a"
+        },
+        {
+          "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/native-entry-v1/NATIVE-PARTITION-RESULT.md",
+          "sha256": "cd84475ce9bd9d74e5b11eb8bcafcb9a971a1c1b8cf862dae0e36fb4d1723098"
+        },
+        {
+          "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/native-entry-v1/aggregate-native-v1.json",
+          "sha256": "61378e0165744c6afecfa58f1b60b08ad695c634a38a2efb29376b203a5129ad"
+        },
+        {
+          "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/native-entry-v1/aggregate.py",
+          "sha256": "6b5771a094dc1b18308cd60071f4ffddac63b6d03f8fc6752fb9eba8815af9ec"
+        },
+        {
+          "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/native-entry-v1/transport.py",
+          "sha256": "18b0ffeec1ecec3b1e2dfa5e2810b96dd635d13f6a1a6b50386589c388df641f"
+        }
+      ],
+      "unmet": [
+        "Actual App.run/SP.run/Sch dispatcher with preserved registered owners and unselected registration-refusal mapping",
+        "Disabled emitted-JS allocation/runtime noninterference",
+        "Broader debug categories and canonical facade promotion (#54/#55/#56/#57)",
+        "Full feature/regression performance and independent #61 applications"
+      ],
+      "referenceSourcePins": [
+        {
+          "path": ".references/bevy-ts/packages/core/src/Debug.ts",
+          "sha256": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+          "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+        },
+        {
+          "path": ".references/bevy-ts/packages/core/src/Runtime.ts",
+          "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+          "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+        }
+      ]
     }
   ],
   "limitations": [

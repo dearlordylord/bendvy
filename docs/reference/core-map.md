@@ -409,3 +409,36 @@ Master `1ebb743c` retains the source-current actual-src development handoff (`9f
 Pinned source boundaries also retain `Decode.struct` declared-key reconstruction/first nested error order and `Decode.handle` root/intent validation without proving entity existence; `Snapshot.parse` validates version, positive integer shape IDs, records/relations/machine scalar types separately from schema-name/payload validation in restore. These are source-backed obligations, not newly executed TS observations. Rust Bevy's World/entity/component/SystemParam architecture guides live ECS ownership/access; it does not establish Bend serialization or global runtime-authority rules. Bend compiler kind/quantity rules distinguish affine Type owners from duplicable Data codecs and closed templates; there is no runtime arbitrary-Type reflection or implicit inverse credited.
 
 All six actual-src application backend cohorts are development semantic evidence. Individual consuming stages contain 42 modules each; their union/private copied closure is 44. The final root snapshot source5 deadline is honestly INCOMPLETE; backend success does not rewrite that receipt. Complete resolver/tool qualification, unchanged #28 regression, full feature TS comparisons, scaling/profile qualification and numeric #21/#23/#24 targets remain separate gates. This documentation refresh checks source/reference/evidence hashes and JSON/gzip/count reconciliation only: no compiler, backend, TS adapter, proof, mutation, performance run or new contract/law/dependency.
+
+### Owned events and ordinary debug evidence refresh — base17cf6d66
+
+This #61 preparation updates existing #53/#56 evidence leads, not the frozen
+493-occurrence census or per-symbol acceptance. All named fixtures are now
+repository-integrated **experiments**; their APIs have not become public
+`src/ecs` event/debug acceptance. Historical absence statements above remain
+bound to their old cutoffs. Reference pins stay TS3040a3b2/Rustad678262/Benda950fd68.
+
+| Pinned contract/source → current implementation | Actual evidence | Concrete remaining gap → owning ticket |
+| --- | --- | --- |
+| System.readEvent/writeEvent and EventReadView/EventWriteView; Schema.events and ordinary system event specifications. Rust Messages.read/drain lends or returns owned payloads; Bend permits affine Type owners and independently owned observations. | [Detached Stage](../../experiments/public-owned-events/owned-recovery-v1/README.md): complete132B JS/Native commit/abort/refusal FIFO, intended duplication refusal and reached abort-loss JS control. [Scoped reads](../../experiments/public-owned-events/scoped-read-v1/README.md): complete89B JS/Native two sequential full readers, original payload/sentinel and independently allocated result; source owner/write/escape negatives. | No public log admission, independent fast/slow/skipped/failed reader cursors, retention/lag/drain/disposal or mixed publication/read lifecycle. Scoped Request trusts authored read lens; no universal immutability, simultaneous Rust borrow, mandatory Data projection or exactly-once cleanup. #53 owns implementation; #61 owns complete combinations. |
+| Runtime staged publication/rollback and System event write use cases, adapted under Rust ECS architecture and Bend affine ownership rather than copying JS value aliases. | [Transaction adapter](../../experiments/public-owned-events/transaction-candidate-v1/README.md): complete6139B JS/Native seeded two Array components, actual C.tx_set inverses/T.finish, Data events, staged command/barrier, full raw lifecycle/World/log/recovery/refused owners. Reached actual Adapter.abort-loss JS emits complete6349B and rejects the unchanged same-namespace6433B baseline; only first recovered payload in failure/foreign is lost. | Recovery is invocation-created/external-surviving payload only; no transactional extraction or duplicate restoration destination. Trusted publication callback and raw fixture World are explicit. Public System/App error transport, TS shared scenarios, retention/readers, source-current combined confinement and full feature/performance gates remain #53/#51/#52/#61. |
+| Runtime.make(debug:true), Debug.Handle.describe and Query/SystemDescription/StepDescription/ScheduleDescription; ordinary declarations supply structure/access rather than manual user metadata. | [Ordinary query/System/App candidate](../../experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/README.md) derives clauses/access/Enabled entries from actual registrations for Plain/Transient/Constructed affine Arrays. [Native compilation partition](../../experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/native-entry-v1/NATIVE-PARTITION-RESULT.md): three actual complete15-phase reports equal unchanged whole45-phase oracle129b;9stages/30guards. No category, phase or owner is omitted. | App build/describe is reached; actual App.run/SP/Sch dispatcher remains open. Original combined-entry Native compiler failure is preserved; partition does not prove that binary compiles. Emitted-JS Disabled allocation/runtime noninterference, broad event/relation/machine/service/naming/debug surface and canonical promotion remain #56/#57/#61 (Inspector/Check categories #54/#55). |
+
+The [schedule seam](../research/debug56-schedule-execution-seam.md) identifies the
+exact missing total interface: System.ScheduleDispatch preserves registration
+refusal owner/World/args, whereas Sch accepts only Sys.Outcome and records Ran.
+Mapping refusal into body failure or skipping it is unselected. No new capture,
+event, identity or refusal policy is inferred from this inventory update.
+
+Evidence history stays honest: Stage's first JS expectation omitted terminal LF;
+its original failed receipt remains. Transaction v1 incorrectly indexed physical
+Column slots by entity ID; independent source-corrected v2 changes exactly11
+slot lists (Column uses id-1; World.live uses id), with all other fields unchanged.
+Original failed JS oracle/receipt remains; corrected whole comparison did not
+rerun JS. These corrections are evidence reconciliation, not new semantics.
+
+The unchanged #28 regression, equivalent-work feature TS/JS/Native performance,
+full profiles/scaling and independent two-application #61 audit remain unmet by
+these packets. Current experimental results do not establish complete public
+API parity, universal proofs or installed-tool/frozen delivery qualification.
+This refresh reads exact source/evidence pins and JSON/gzip only; no child runs.
