@@ -1,0 +1,54 @@
+{
+  "scope": "Complete Inspector closed-owner carrier Native development only; no resolver qualification, performance or #54 completion",
+  "planSHA256": "25738944ca8240d41818030693b5ef7763d812cce21e93e0855ce1646285d23c",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/layout-followup-v1/continuation-v1/stage/output-io-main.bend",
+        "-o",
+        "/tmp/bendvy-inspect54-continuation-native01/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": null,
+      "failure": "child deadline",
+      "stdout": {
+        "path": "/tmp/bendvy-inspect54-continuation-native01/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-inspect54-continuation-native01/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-inspect54-continuation-native01/emit-pre.guard.json",
+      "sha256": "0dfe5ced35ca7850fb59db4c3d0be85e3289e9eb5ac744e90361feb7731c3420"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-continuation-native01/emit-acquired.guard.json",
+      "sha256": "17ec8ca51d60ce35d9330614e57b289d36941f738bf6b843434a8f4c52523ed4"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-continuation-native01/emit-post.guard.json",
+      "sha256": "ef8c895d8d8a037786084335efe886b68c7f0e904b715bdb21e123be9ea684c9"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-continuation-native01/final.guard.json",
+      "sha256": "ff08253b951013d35333e306931ac84bcb3518c74073912a6bdccc23578f914e"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Owned child failed: emit",
+  "guardFailures": []
+}

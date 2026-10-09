@@ -1,0 +1,1 @@
+Exact independently admitted plan25738944 executed once. Installed compiler emit30 reached child deadline with empty stdout/stderr; no C generated, no Clang/runtime/oracle comparison occurred. Four source/tool guards unchanged, guardFailures empty. INCOMPLETE retained; no cause, speedup or Native qualification claim. No retry or cap raise.
