@@ -1,0 +1,48 @@
+{
+  "status": "MUTANT_DETECTED",
+  "scope": "Direct actual transaction abort-recovery loss mutant development checks; no delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/transaction-candidate-v1/mutants/abort-recovery-loss-v1/main.bend",
+        "-o",
+        "/tmp/bendvy-owned-transaction-abort-loss-js-1/generated/complete.js"
+      ],
+      "capSeconds": 30,
+      "artifact": "/tmp/bendvy-owned-transaction-abort-loss-js-1/generated/complete.js",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-owned-transaction-abort-loss-js-1/generated/complete.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "generated": {
+    "/tmp/bendvy-owned-transaction-abort-loss-js-1/generated/complete.js": "19aeee952bc385d55b4232dbba3360b6c9c8cabd7833f7716bfd9e574e31b7e7"
+  },
+  "logs": {
+    "complete-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-run.stdout": "e9e37cd0482a56ee943724eb70183caeda8260b3cf25009277eaf39b18c8e3e3",
+    "complete-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
