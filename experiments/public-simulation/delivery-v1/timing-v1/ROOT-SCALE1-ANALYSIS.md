@@ -1,6 +1,6 @@
 # Full simulation scale1 paired analysis
 
-The admitted plan `b429fc3ba3e588254b3da439f78427426eb11a8edd6cb91d6de12bac85ad4f37` completed 86 fresh application processes, including two warmups and 20 balanced pairs per candidate backend. Original session 65920 terminated with exit 0. All 86 command receipts have exit 0 and no failure. The ordinary collector validates the complete outputs; independent actual-archive review remains pending.
+The admitted plan `b429fc3ba3e588254b3da439f78427426eb11a8edd6cb91d6de12bac85ad4f37` completed 86 fresh application processes, including two warmups and 20 balanced pairs per candidate backend. Original session 65920 terminated with exit 0. All 86 command receipts have exit 0 and no failure. The ordinary collector validates the complete outputs; independent [actual-archive review](../oracle-review-v1/sampling-scale1-actual-review.md) passes all complete outputs, guards, archive members and analysis joins.
 
 Original receipt: `/tmp/bendvy63-timing-paired-scale1-v1/receipt.json`, SHA256 `2144396bf0850ccb908d7fba561711b8f61544ce5bc9362310493f8ff3dfb824`. Its descriptive observations remain unchanged.
 
