@@ -1,0 +1,292 @@
+--- originaldriver
++++ successordriver
+@@ -1,14 +1,15 @@
++import ./carrier.bend as Hold
+ import Base
+-import ./scenario-schema.bend as S
+-import ./scenario-systems.bend as Systems
+-import ./scenario-queries.bend as Queries
+-import ./scenario-body.bend as Body
+-import ./scenario-dto.bend as DTO
+-import ./scenario-execution.bend as Execution
+-import ./scenario-setup.bend as Setup
+-import ./scenario-returned.bend as Returned
+-import ./system.bend as System
+-import ./app.bend as App
++import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend as S
++import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-systems.bend as Systems
++import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-queries.bend as Queries
++import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-body.bend as Body
++import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend as DTO
++import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-execution.bend as Execution
++import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-setup.bend as Setup
++import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-returned.bend as Returned
++import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend as System
++import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend as App
+ import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend as Identity
+ import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+ import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q
+@@ -175,48 +176,60 @@
+   Execution.plain_main_run_then(~Delivery<S.plain_store(),plain_owners()>,(world => main => operation => plain_observe(~Delivery<S.plain_store(),plain_owners()>,plain_main_retry,factory,world,(((((Unit{},main),added),changed),without),withHealth),phases,"main-fail",operation,[])),main,world,True{})
+ def plain_registered(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,owners:plain_owners(),phases:List<&2,DTO.Snapshot>) -> Delivery<S.plain_store(),plain_owners()>:
+   plain_observe(~Delivery<S.plain_store(),plain_owners()>,plain_main_fail,factory,world,owners,phases,"register",DTO.Observed{},[])
+-def plain_register_failed_4(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,previous:((((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()) & Systems.plain_without_owner())) -> Delivery<S.plain_store(),plain_owners()>:
++def plain_register_failed_4(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,held:Hold.Owner<((((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()) & Systems.plain_without_owner())>) -> Delivery<S.plain_store(),plain_owners()>:
++  Hold.Owner{previous,_}=held
+   ((((Unit{},main),added),changed),without) = previous
+   registry_seen(~Systems.plain_main_owner(),~Delivery<S.plain_store(),plain_owners()>,(main => snapshot_main => registry_seen(~Systems.plain_added_owner(),~Delivery<S.plain_store(),plain_owners()>,(added => snapshot_added => registry_seen(~Systems.plain_changed_owner(),~Delivery<S.plain_store(),plain_owners()>,(changed => snapshot_changed => registry_seen(~Systems.plain_without_owner(),~Delivery<S.plain_store(),plain_owners()>,(without => snapshot_without => failed(~S.plain_store(),~plain_owners(),"register-with-refused",factory,[snapshot_main,snapshot_added,snapshot_changed,snapshot_without],Execution.plain_world(world))),Systems.plain_without_observe(without))),Systems.plain_changed_observe(changed))),Systems.plain_added_observe(added))),Systems.plain_main_observe(main))
+-def plain_defined_4(factory:W.Factory,previous:((((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()) & Systems.plain_without_owner()),phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.plain_store(),Unit,Unit>,Systems.plain_with_registry()>) -> Delivery<S.plain_store(),plain_owners()>:
++def plain_defined_4(factory:W.Factory,held:Hold.Owner<((((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()) & Systems.plain_without_owner())>,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.plain_store(),Unit,Unit>,Systems.plain_with_registry()>) -> Delivery<S.plain_store(),plain_owners()>:
++  Hold.Owner{previous,_}=held
+   match result:
+     case System.Defined{world,owner}:plain_registered(factory,world,(previous,owner),phases)
+-    case System.Rejected{world}:plain_register_failed_4(factory,world,previous)
+-def plain_register_4(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,previous:((((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()) & Systems.plain_without_owner()),phases:List<&2,DTO.Snapshot>) -> Delivery<S.plain_store(),plain_owners()>:
+-  plain_defined_4(factory,previous,phases,Systems.plain_with_define(world))
+-def plain_register_failed_3(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,previous:(((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner())) -> Delivery<S.plain_store(),plain_owners()>:
++    case System.Rejected{world}:plain_register_failed_4(factory,world,Hold.hold(~((((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()) & Systems.plain_without_owner()),previous))
++def plain_register_4(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,held:Hold.Owner<((((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()) & Systems.plain_without_owner())>,phases:List<&2,DTO.Snapshot>) -> Delivery<S.plain_store(),plain_owners()>:
++  Hold.Owner{previous,_}=held
++  plain_defined_4(factory,Hold.hold(~((((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()) & Systems.plain_without_owner()),previous),phases,Systems.plain_with_define(world))
++def plain_register_failed_3(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,held:Hold.Owner<(((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner())>) -> Delivery<S.plain_store(),plain_owners()>:
++  Hold.Owner{previous,_}=held
+   (((Unit{},main),added),changed) = previous
+   registry_seen(~Systems.plain_main_owner(),~Delivery<S.plain_store(),plain_owners()>,(main => snapshot_main => registry_seen(~Systems.plain_added_owner(),~Delivery<S.plain_store(),plain_owners()>,(added => snapshot_added => registry_seen(~Systems.plain_changed_owner(),~Delivery<S.plain_store(),plain_owners()>,(changed => snapshot_changed => failed(~S.plain_store(),~plain_owners(),"register-without-refused",factory,[snapshot_main,snapshot_added,snapshot_changed],Execution.plain_world(world))),Systems.plain_changed_observe(changed))),Systems.plain_added_observe(added))),Systems.plain_main_observe(main))
+-def plain_defined_3(factory:W.Factory,previous:(((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()),phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.plain_store(),Unit,Unit>,Systems.plain_without_registry()>) -> Delivery<S.plain_store(),plain_owners()>:
+-  match result:
+-    case System.Defined{world,owner}:plain_register_4(factory,world,(previous,owner),phases)
+-    case System.Rejected{world}:plain_register_failed_3(factory,world,previous)
+-def plain_register_3(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,previous:(((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()),phases:List<&2,DTO.Snapshot>) -> Delivery<S.plain_store(),plain_owners()>:
+-  plain_defined_3(factory,previous,phases,Systems.plain_without_define(world))
+-def plain_register_failed_2(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,previous:((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner())) -> Delivery<S.plain_store(),plain_owners()>:
++def plain_defined_3(factory:W.Factory,held:Hold.Owner<(((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner())>,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.plain_store(),Unit,Unit>,Systems.plain_without_registry()>) -> Delivery<S.plain_store(),plain_owners()>:
++  Hold.Owner{previous,_}=held
++  match result:
++    case System.Defined{world,owner}:plain_register_4(factory,world,Hold.hold(~((((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()) & Systems.plain_without_owner()),(previous,owner)),phases)
++    case System.Rejected{world}:plain_register_failed_3(factory,world,Hold.hold(~(((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()),previous))
++def plain_register_3(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,held:Hold.Owner<(((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner())>,phases:List<&2,DTO.Snapshot>) -> Delivery<S.plain_store(),plain_owners()>:
++  Hold.Owner{previous,_}=held
++  plain_defined_3(factory,Hold.hold(~(((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()),previous),phases,Systems.plain_without_define(world))
++def plain_register_failed_2(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,held:Hold.Owner<((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner())>) -> Delivery<S.plain_store(),plain_owners()>:
++  Hold.Owner{previous,_}=held
+   ((Unit{},main),added) = previous
+   registry_seen(~Systems.plain_main_owner(),~Delivery<S.plain_store(),plain_owners()>,(main => snapshot_main => registry_seen(~Systems.plain_added_owner(),~Delivery<S.plain_store(),plain_owners()>,(added => snapshot_added => failed(~S.plain_store(),~plain_owners(),"register-changed-refused",factory,[snapshot_main,snapshot_added],Execution.plain_world(world))),Systems.plain_added_observe(added))),Systems.plain_main_observe(main))
+-def plain_defined_2(factory:W.Factory,previous:((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()),phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.plain_store(),Unit,Unit>,Systems.plain_changed_registry()>) -> Delivery<S.plain_store(),plain_owners()>:
+-  match result:
+-    case System.Defined{world,owner}:plain_register_3(factory,world,(previous,owner),phases)
+-    case System.Rejected{world}:plain_register_failed_2(factory,world,previous)
+-def plain_register_2(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,previous:((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()),phases:List<&2,DTO.Snapshot>) -> Delivery<S.plain_store(),plain_owners()>:
+-  plain_defined_2(factory,previous,phases,Systems.plain_changed_define(world))
+-def plain_register_failed_1(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,previous:(Unit & Systems.plain_main_owner())) -> Delivery<S.plain_store(),plain_owners()>:
++def plain_defined_2(factory:W.Factory,held:Hold.Owner<((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner())>,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.plain_store(),Unit,Unit>,Systems.plain_changed_registry()>) -> Delivery<S.plain_store(),plain_owners()>:
++  Hold.Owner{previous,_}=held
++  match result:
++    case System.Defined{world,owner}:plain_register_3(factory,world,Hold.hold(~(((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()) & Systems.plain_changed_owner()),(previous,owner)),phases)
++    case System.Rejected{world}:plain_register_failed_2(factory,world,Hold.hold(~((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()),previous))
++def plain_register_2(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,held:Hold.Owner<((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner())>,phases:List<&2,DTO.Snapshot>) -> Delivery<S.plain_store(),plain_owners()>:
++  Hold.Owner{previous,_}=held
++  plain_defined_2(factory,Hold.hold(~((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()),previous),phases,Systems.plain_changed_define(world))
++def plain_register_failed_1(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,held:Hold.Owner<(Unit & Systems.plain_main_owner())>) -> Delivery<S.plain_store(),plain_owners()>:
++  Hold.Owner{previous,_}=held
+   (Unit{},main) = previous
+   registry_seen(~Systems.plain_main_owner(),~Delivery<S.plain_store(),plain_owners()>,(main => snapshot_main => failed(~S.plain_store(),~plain_owners(),"register-added-refused",factory,[snapshot_main],Execution.plain_world(world))),Systems.plain_main_observe(main))
+-def plain_defined_1(factory:W.Factory,previous:(Unit & Systems.plain_main_owner()),phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.plain_store(),Unit,Unit>,Systems.plain_added_registry()>) -> Delivery<S.plain_store(),plain_owners()>:
+-  match result:
+-    case System.Defined{world,owner}:plain_register_2(factory,world,(previous,owner),phases)
+-    case System.Rejected{world}:plain_register_failed_1(factory,world,previous)
+-def plain_register_1(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,previous:(Unit & Systems.plain_main_owner()),phases:List<&2,DTO.Snapshot>) -> Delivery<S.plain_store(),plain_owners()>:
+-  plain_defined_1(factory,previous,phases,Systems.plain_added_define(world))
++def plain_defined_1(factory:W.Factory,held:Hold.Owner<(Unit & Systems.plain_main_owner())>,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.plain_store(),Unit,Unit>,Systems.plain_added_registry()>) -> Delivery<S.plain_store(),plain_owners()>:
++  Hold.Owner{previous,_}=held
++  match result:
++    case System.Defined{world,owner}:plain_register_2(factory,world,Hold.hold(~((Unit & Systems.plain_main_owner()) & Systems.plain_added_owner()),(previous,owner)),phases)
++    case System.Rejected{world}:plain_register_failed_1(factory,world,Hold.hold(~(Unit & Systems.plain_main_owner()),previous))
++def plain_register_1(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,held:Hold.Owner<(Unit & Systems.plain_main_owner())>,phases:List<&2,DTO.Snapshot>) -> Delivery<S.plain_store(),plain_owners()>:
++  Hold.Owner{previous,_}=held
++  plain_defined_1(factory,Hold.hold(~(Unit & Systems.plain_main_owner()),previous),phases,Systems.plain_added_define(world))
+ def plain_register_failed_0(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,previous:Unit) -> Delivery<S.plain_store(),plain_owners()>:
+   Unit{} = previous
+   failed(~S.plain_store(),~plain_owners(),"register-main-refused",factory,[],Execution.plain_world(world))
+ def plain_defined_0(factory:W.Factory,previous:Unit,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.plain_store(),Unit,Unit>,Systems.plain_main_registry()>) -> Delivery<S.plain_store(),plain_owners()>:
+   match result:
+-    case System.Defined{world,owner}:plain_register_1(factory,world,(previous,owner),phases)
++    case System.Defined{world,owner}:plain_register_1(factory,world,Hold.hold(~(Unit & Systems.plain_main_owner()),(previous,owner)),phases)
+     case System.Rejected{world}:plain_register_failed_0(factory,world,previous)
+ def plain_register_0(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,previous:Unit,phases:List<&2,DTO.Snapshot>) -> Delivery<S.plain_store(),plain_owners()>:
+   plain_defined_0(factory,previous,phases,Systems.plain_main_define(world))
+@@ -364,48 +377,60 @@
+   Execution.transient_main_run_then(~Delivery<S.transient_store(),transient_owners()>,(world => main => operation => transient_observe(~Delivery<S.transient_store(),transient_owners()>,transient_main_retry,factory,world,(((((Unit{},main),added),changed),without),withHealth),phases,"main-fail",operation,[])),main,world,True{})
+ def transient_registered(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,owners:transient_owners(),phases:List<&2,DTO.Snapshot>) -> Delivery<S.transient_store(),transient_owners()>:
+   transient_observe(~Delivery<S.transient_store(),transient_owners()>,transient_main_fail,factory,world,owners,phases,"register",DTO.Observed{},[])
+-def transient_register_failed_4(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,previous:((((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()) & Systems.transient_without_owner())) -> Delivery<S.transient_store(),transient_owners()>:
++def transient_register_failed_4(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,held:Hold.Owner<((((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()) & Systems.transient_without_owner())>) -> Delivery<S.transient_store(),transient_owners()>:
++  Hold.Owner{previous,_}=held
+   ((((Unit{},main),added),changed),without) = previous
+   registry_seen(~Systems.transient_main_owner(),~Delivery<S.transient_store(),transient_owners()>,(main => snapshot_main => registry_seen(~Systems.transient_added_owner(),~Delivery<S.transient_store(),transient_owners()>,(added => snapshot_added => registry_seen(~Systems.transient_changed_owner(),~Delivery<S.transient_store(),transient_owners()>,(changed => snapshot_changed => registry_seen(~Systems.transient_without_owner(),~Delivery<S.transient_store(),transient_owners()>,(without => snapshot_without => failed(~S.transient_store(),~transient_owners(),"register-with-refused",factory,[snapshot_main,snapshot_added,snapshot_changed,snapshot_without],Execution.transient_world(world))),Systems.transient_without_observe(without))),Systems.transient_changed_observe(changed))),Systems.transient_added_observe(added))),Systems.transient_main_observe(main))
+-def transient_defined_4(factory:W.Factory,previous:((((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()) & Systems.transient_without_owner()),phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.transient_store(),Unit,Unit>,Systems.transient_with_registry()>) -> Delivery<S.transient_store(),transient_owners()>:
++def transient_defined_4(factory:W.Factory,held:Hold.Owner<((((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()) & Systems.transient_without_owner())>,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.transient_store(),Unit,Unit>,Systems.transient_with_registry()>) -> Delivery<S.transient_store(),transient_owners()>:
++  Hold.Owner{previous,_}=held
+   match result:
+     case System.Defined{world,owner}:transient_registered(factory,world,(previous,owner),phases)
+-    case System.Rejected{world}:transient_register_failed_4(factory,world,previous)
+-def transient_register_4(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,previous:((((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()) & Systems.transient_without_owner()),phases:List<&2,DTO.Snapshot>) -> Delivery<S.transient_store(),transient_owners()>:
+-  transient_defined_4(factory,previous,phases,Systems.transient_with_define(world))
+-def transient_register_failed_3(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,previous:(((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner())) -> Delivery<S.transient_store(),transient_owners()>:
++    case System.Rejected{world}:transient_register_failed_4(factory,world,Hold.hold(~((((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()) & Systems.transient_without_owner()),previous))
++def transient_register_4(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,held:Hold.Owner<((((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()) & Systems.transient_without_owner())>,phases:List<&2,DTO.Snapshot>) -> Delivery<S.transient_store(),transient_owners()>:
++  Hold.Owner{previous,_}=held
++  transient_defined_4(factory,Hold.hold(~((((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()) & Systems.transient_without_owner()),previous),phases,Systems.transient_with_define(world))
++def transient_register_failed_3(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,held:Hold.Owner<(((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner())>) -> Delivery<S.transient_store(),transient_owners()>:
++  Hold.Owner{previous,_}=held
+   (((Unit{},main),added),changed) = previous
+   registry_seen(~Systems.transient_main_owner(),~Delivery<S.transient_store(),transient_owners()>,(main => snapshot_main => registry_seen(~Systems.transient_added_owner(),~Delivery<S.transient_store(),transient_owners()>,(added => snapshot_added => registry_seen(~Systems.transient_changed_owner(),~Delivery<S.transient_store(),transient_owners()>,(changed => snapshot_changed => failed(~S.transient_store(),~transient_owners(),"register-without-refused",factory,[snapshot_main,snapshot_added,snapshot_changed],Execution.transient_world(world))),Systems.transient_changed_observe(changed))),Systems.transient_added_observe(added))),Systems.transient_main_observe(main))
+-def transient_defined_3(factory:W.Factory,previous:(((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()),phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.transient_store(),Unit,Unit>,Systems.transient_without_registry()>) -> Delivery<S.transient_store(),transient_owners()>:
+-  match result:
+-    case System.Defined{world,owner}:transient_register_4(factory,world,(previous,owner),phases)
+-    case System.Rejected{world}:transient_register_failed_3(factory,world,previous)
+-def transient_register_3(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,previous:(((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()),phases:List<&2,DTO.Snapshot>) -> Delivery<S.transient_store(),transient_owners()>:
+-  transient_defined_3(factory,previous,phases,Systems.transient_without_define(world))
+-def transient_register_failed_2(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,previous:((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner())) -> Delivery<S.transient_store(),transient_owners()>:
++def transient_defined_3(factory:W.Factory,held:Hold.Owner<(((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner())>,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.transient_store(),Unit,Unit>,Systems.transient_without_registry()>) -> Delivery<S.transient_store(),transient_owners()>:
++  Hold.Owner{previous,_}=held
++  match result:
++    case System.Defined{world,owner}:transient_register_4(factory,world,Hold.hold(~((((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()) & Systems.transient_without_owner()),(previous,owner)),phases)
++    case System.Rejected{world}:transient_register_failed_3(factory,world,Hold.hold(~(((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()),previous))
++def transient_register_3(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,held:Hold.Owner<(((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner())>,phases:List<&2,DTO.Snapshot>) -> Delivery<S.transient_store(),transient_owners()>:
++  Hold.Owner{previous,_}=held
++  transient_defined_3(factory,Hold.hold(~(((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()),previous),phases,Systems.transient_without_define(world))
++def transient_register_failed_2(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,held:Hold.Owner<((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner())>) -> Delivery<S.transient_store(),transient_owners()>:
++  Hold.Owner{previous,_}=held
+   ((Unit{},main),added) = previous
+   registry_seen(~Systems.transient_main_owner(),~Delivery<S.transient_store(),transient_owners()>,(main => snapshot_main => registry_seen(~Systems.transient_added_owner(),~Delivery<S.transient_store(),transient_owners()>,(added => snapshot_added => failed(~S.transient_store(),~transient_owners(),"register-changed-refused",factory,[snapshot_main,snapshot_added],Execution.transient_world(world))),Systems.transient_added_observe(added))),Systems.transient_main_observe(main))
+-def transient_defined_2(factory:W.Factory,previous:((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()),phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.transient_store(),Unit,Unit>,Systems.transient_changed_registry()>) -> Delivery<S.transient_store(),transient_owners()>:
+-  match result:
+-    case System.Defined{world,owner}:transient_register_3(factory,world,(previous,owner),phases)
+-    case System.Rejected{world}:transient_register_failed_2(factory,world,previous)
+-def transient_register_2(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,previous:((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()),phases:List<&2,DTO.Snapshot>) -> Delivery<S.transient_store(),transient_owners()>:
+-  transient_defined_2(factory,previous,phases,Systems.transient_changed_define(world))
+-def transient_register_failed_1(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,previous:(Unit & Systems.transient_main_owner())) -> Delivery<S.transient_store(),transient_owners()>:
++def transient_defined_2(factory:W.Factory,held:Hold.Owner<((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner())>,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.transient_store(),Unit,Unit>,Systems.transient_changed_registry()>) -> Delivery<S.transient_store(),transient_owners()>:
++  Hold.Owner{previous,_}=held
++  match result:
++    case System.Defined{world,owner}:transient_register_3(factory,world,Hold.hold(~(((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()) & Systems.transient_changed_owner()),(previous,owner)),phases)
++    case System.Rejected{world}:transient_register_failed_2(factory,world,Hold.hold(~((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()),previous))
++def transient_register_2(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,held:Hold.Owner<((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner())>,phases:List<&2,DTO.Snapshot>) -> Delivery<S.transient_store(),transient_owners()>:
++  Hold.Owner{previous,_}=held
++  transient_defined_2(factory,Hold.hold(~((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()),previous),phases,Systems.transient_changed_define(world))
++def transient_register_failed_1(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,held:Hold.Owner<(Unit & Systems.transient_main_owner())>) -> Delivery<S.transient_store(),transient_owners()>:
++  Hold.Owner{previous,_}=held
+   (Unit{},main) = previous
+   registry_seen(~Systems.transient_main_owner(),~Delivery<S.transient_store(),transient_owners()>,(main => snapshot_main => failed(~S.transient_store(),~transient_owners(),"register-added-refused",factory,[snapshot_main],Execution.transient_world(world))),Systems.transient_main_observe(main))
+-def transient_defined_1(factory:W.Factory,previous:(Unit & Systems.transient_main_owner()),phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.transient_store(),Unit,Unit>,Systems.transient_added_registry()>) -> Delivery<S.transient_store(),transient_owners()>:
+-  match result:
+-    case System.Defined{world,owner}:transient_register_2(factory,world,(previous,owner),phases)
+-    case System.Rejected{world}:transient_register_failed_1(factory,world,previous)
+-def transient_register_1(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,previous:(Unit & Systems.transient_main_owner()),phases:List<&2,DTO.Snapshot>) -> Delivery<S.transient_store(),transient_owners()>:
+-  transient_defined_1(factory,previous,phases,Systems.transient_added_define(world))
++def transient_defined_1(factory:W.Factory,held:Hold.Owner<(Unit & Systems.transient_main_owner())>,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.transient_store(),Unit,Unit>,Systems.transient_added_registry()>) -> Delivery<S.transient_store(),transient_owners()>:
++  Hold.Owner{previous,_}=held
++  match result:
++    case System.Defined{world,owner}:transient_register_2(factory,world,Hold.hold(~((Unit & Systems.transient_main_owner()) & Systems.transient_added_owner()),(previous,owner)),phases)
++    case System.Rejected{world}:transient_register_failed_1(factory,world,Hold.hold(~(Unit & Systems.transient_main_owner()),previous))
++def transient_register_1(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,held:Hold.Owner<(Unit & Systems.transient_main_owner())>,phases:List<&2,DTO.Snapshot>) -> Delivery<S.transient_store(),transient_owners()>:
++  Hold.Owner{previous,_}=held
++  transient_defined_1(factory,Hold.hold(~(Unit & Systems.transient_main_owner()),previous),phases,Systems.transient_added_define(world))
+ def transient_register_failed_0(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,previous:Unit) -> Delivery<S.transient_store(),transient_owners()>:
+   Unit{} = previous
+   failed(~S.transient_store(),~transient_owners(),"register-main-refused",factory,[],Execution.transient_world(world))
+ def transient_defined_0(factory:W.Factory,previous:Unit,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.transient_store(),Unit,Unit>,Systems.transient_main_registry()>) -> Delivery<S.transient_store(),transient_owners()>:
+   match result:
+-    case System.Defined{world,owner}:transient_register_1(factory,world,(previous,owner),phases)
++    case System.Defined{world,owner}:transient_register_1(factory,world,Hold.hold(~(Unit & Systems.transient_main_owner()),(previous,owner)),phases)
+     case System.Rejected{world}:transient_register_failed_0(factory,world,previous)
+ def transient_register_0(factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,previous:Unit,phases:List<&2,DTO.Snapshot>) -> Delivery<S.transient_store(),transient_owners()>:
+   transient_defined_0(factory,previous,phases,Systems.transient_main_define(world))
+@@ -553,48 +578,60 @@
+   Execution.constructed_main_run_then(~Delivery<S.constructed_store(),constructed_owners()>,(world => main => operation => constructed_observe(~Delivery<S.constructed_store(),constructed_owners()>,constructed_main_retry,factory,world,(((((Unit{},main),added),changed),without),withHealth),phases,"main-fail",operation,[])),main,world,True{})
+ def constructed_registered(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,owners:constructed_owners(),phases:List<&2,DTO.Snapshot>) -> Delivery<S.constructed_store(),constructed_owners()>:
+   constructed_observe(~Delivery<S.constructed_store(),constructed_owners()>,constructed_main_fail,factory,world,owners,phases,"register",DTO.Observed{},[])
+-def constructed_register_failed_4(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,previous:((((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()) & Systems.constructed_without_owner())) -> Delivery<S.constructed_store(),constructed_owners()>:
++def constructed_register_failed_4(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,held:Hold.Owner<((((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()) & Systems.constructed_without_owner())>) -> Delivery<S.constructed_store(),constructed_owners()>:
++  Hold.Owner{previous,_}=held
+   ((((Unit{},main),added),changed),without) = previous
+   registry_seen(~Systems.constructed_main_owner(),~Delivery<S.constructed_store(),constructed_owners()>,(main => snapshot_main => registry_seen(~Systems.constructed_added_owner(),~Delivery<S.constructed_store(),constructed_owners()>,(added => snapshot_added => registry_seen(~Systems.constructed_changed_owner(),~Delivery<S.constructed_store(),constructed_owners()>,(changed => snapshot_changed => registry_seen(~Systems.constructed_without_owner(),~Delivery<S.constructed_store(),constructed_owners()>,(without => snapshot_without => failed(~S.constructed_store(),~constructed_owners(),"register-with-refused",factory,[snapshot_main,snapshot_added,snapshot_changed,snapshot_without],Execution.constructed_world(world))),Systems.constructed_without_observe(without))),Systems.constructed_changed_observe(changed))),Systems.constructed_added_observe(added))),Systems.constructed_main_observe(main))
+-def constructed_defined_4(factory:W.Factory,previous:((((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()) & Systems.constructed_without_owner()),phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.constructed_store(),Unit,Unit>,Systems.constructed_with_registry()>) -> Delivery<S.constructed_store(),constructed_owners()>:
++def constructed_defined_4(factory:W.Factory,held:Hold.Owner<((((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()) & Systems.constructed_without_owner())>,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.constructed_store(),Unit,Unit>,Systems.constructed_with_registry()>) -> Delivery<S.constructed_store(),constructed_owners()>:
++  Hold.Owner{previous,_}=held
+   match result:
+     case System.Defined{world,owner}:constructed_registered(factory,world,(previous,owner),phases)
+-    case System.Rejected{world}:constructed_register_failed_4(factory,world,previous)
+-def constructed_register_4(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,previous:((((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()) & Systems.constructed_without_owner()),phases:List<&2,DTO.Snapshot>) -> Delivery<S.constructed_store(),constructed_owners()>:
+-  constructed_defined_4(factory,previous,phases,Systems.constructed_with_define(world))
+-def constructed_register_failed_3(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,previous:(((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner())) -> Delivery<S.constructed_store(),constructed_owners()>:
++    case System.Rejected{world}:constructed_register_failed_4(factory,world,Hold.hold(~((((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()) & Systems.constructed_without_owner()),previous))
++def constructed_register_4(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,held:Hold.Owner<((((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()) & Systems.constructed_without_owner())>,phases:List<&2,DTO.Snapshot>) -> Delivery<S.constructed_store(),constructed_owners()>:
++  Hold.Owner{previous,_}=held
++  constructed_defined_4(factory,Hold.hold(~((((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()) & Systems.constructed_without_owner()),previous),phases,Systems.constructed_with_define(world))
++def constructed_register_failed_3(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,held:Hold.Owner<(((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner())>) -> Delivery<S.constructed_store(),constructed_owners()>:
++  Hold.Owner{previous,_}=held
+   (((Unit{},main),added),changed) = previous
+   registry_seen(~Systems.constructed_main_owner(),~Delivery<S.constructed_store(),constructed_owners()>,(main => snapshot_main => registry_seen(~Systems.constructed_added_owner(),~Delivery<S.constructed_store(),constructed_owners()>,(added => snapshot_added => registry_seen(~Systems.constructed_changed_owner(),~Delivery<S.constructed_store(),constructed_owners()>,(changed => snapshot_changed => failed(~S.constructed_store(),~constructed_owners(),"register-without-refused",factory,[snapshot_main,snapshot_added,snapshot_changed],Execution.constructed_world(world))),Systems.constructed_changed_observe(changed))),Systems.constructed_added_observe(added))),Systems.constructed_main_observe(main))
+-def constructed_defined_3(factory:W.Factory,previous:(((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()),phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.constructed_store(),Unit,Unit>,Systems.constructed_without_registry()>) -> Delivery<S.constructed_store(),constructed_owners()>:
+-  match result:
+-    case System.Defined{world,owner}:constructed_register_4(factory,world,(previous,owner),phases)
+-    case System.Rejected{world}:constructed_register_failed_3(factory,world,previous)
+-def constructed_register_3(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,previous:(((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()),phases:List<&2,DTO.Snapshot>) -> Delivery<S.constructed_store(),constructed_owners()>:
+-  constructed_defined_3(factory,previous,phases,Systems.constructed_without_define(world))
+-def constructed_register_failed_2(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,previous:((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner())) -> Delivery<S.constructed_store(),constructed_owners()>:
++def constructed_defined_3(factory:W.Factory,held:Hold.Owner<(((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner())>,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.constructed_store(),Unit,Unit>,Systems.constructed_without_registry()>) -> Delivery<S.constructed_store(),constructed_owners()>:
++  Hold.Owner{previous,_}=held
++  match result:
++    case System.Defined{world,owner}:constructed_register_4(factory,world,Hold.hold(~((((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()) & Systems.constructed_without_owner()),(previous,owner)),phases)
++    case System.Rejected{world}:constructed_register_failed_3(factory,world,Hold.hold(~(((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()),previous))
++def constructed_register_3(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,held:Hold.Owner<(((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner())>,phases:List<&2,DTO.Snapshot>) -> Delivery<S.constructed_store(),constructed_owners()>:
++  Hold.Owner{previous,_}=held
++  constructed_defined_3(factory,Hold.hold(~(((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()),previous),phases,Systems.constructed_without_define(world))
++def constructed_register_failed_2(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,held:Hold.Owner<((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner())>) -> Delivery<S.constructed_store(),constructed_owners()>:
++  Hold.Owner{previous,_}=held
+   ((Unit{},main),added) = previous
+   registry_seen(~Systems.constructed_main_owner(),~Delivery<S.constructed_store(),constructed_owners()>,(main => snapshot_main => registry_seen(~Systems.constructed_added_owner(),~Delivery<S.constructed_store(),constructed_owners()>,(added => snapshot_added => failed(~S.constructed_store(),~constructed_owners(),"register-changed-refused",factory,[snapshot_main,snapshot_added],Execution.constructed_world(world))),Systems.constructed_added_observe(added))),Systems.constructed_main_observe(main))
+-def constructed_defined_2(factory:W.Factory,previous:((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()),phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.constructed_store(),Unit,Unit>,Systems.constructed_changed_registry()>) -> Delivery<S.constructed_store(),constructed_owners()>:
+-  match result:
+-    case System.Defined{world,owner}:constructed_register_3(factory,world,(previous,owner),phases)
+-    case System.Rejected{world}:constructed_register_failed_2(factory,world,previous)
+-def constructed_register_2(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,previous:((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()),phases:List<&2,DTO.Snapshot>) -> Delivery<S.constructed_store(),constructed_owners()>:
+-  constructed_defined_2(factory,previous,phases,Systems.constructed_changed_define(world))
+-def constructed_register_failed_1(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,previous:(Unit & Systems.constructed_main_owner())) -> Delivery<S.constructed_store(),constructed_owners()>:
++def constructed_defined_2(factory:W.Factory,held:Hold.Owner<((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner())>,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.constructed_store(),Unit,Unit>,Systems.constructed_changed_registry()>) -> Delivery<S.constructed_store(),constructed_owners()>:
++  Hold.Owner{previous,_}=held
++  match result:
++    case System.Defined{world,owner}:constructed_register_3(factory,world,Hold.hold(~(((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()) & Systems.constructed_changed_owner()),(previous,owner)),phases)
++    case System.Rejected{world}:constructed_register_failed_2(factory,world,Hold.hold(~((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()),previous))
++def constructed_register_2(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,held:Hold.Owner<((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner())>,phases:List<&2,DTO.Snapshot>) -> Delivery<S.constructed_store(),constructed_owners()>:
++  Hold.Owner{previous,_}=held
++  constructed_defined_2(factory,Hold.hold(~((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()),previous),phases,Systems.constructed_changed_define(world))
++def constructed_register_failed_1(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,held:Hold.Owner<(Unit & Systems.constructed_main_owner())>) -> Delivery<S.constructed_store(),constructed_owners()>:
++  Hold.Owner{previous,_}=held
+   (Unit{},main) = previous
+   registry_seen(~Systems.constructed_main_owner(),~Delivery<S.constructed_store(),constructed_owners()>,(main => snapshot_main => failed(~S.constructed_store(),~constructed_owners(),"register-added-refused",factory,[snapshot_main],Execution.constructed_world(world))),Systems.constructed_main_observe(main))
+-def constructed_defined_1(factory:W.Factory,previous:(Unit & Systems.constructed_main_owner()),phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.constructed_store(),Unit,Unit>,Systems.constructed_added_registry()>) -> Delivery<S.constructed_store(),constructed_owners()>:
+-  match result:
+-    case System.Defined{world,owner}:constructed_register_2(factory,world,(previous,owner),phases)
+-    case System.Rejected{world}:constructed_register_failed_1(factory,world,previous)
+-def constructed_register_1(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,previous:(Unit & Systems.constructed_main_owner()),phases:List<&2,DTO.Snapshot>) -> Delivery<S.constructed_store(),constructed_owners()>:
+-  constructed_defined_1(factory,previous,phases,Systems.constructed_added_define(world))
++def constructed_defined_1(factory:W.Factory,held:Hold.Owner<(Unit & Systems.constructed_main_owner())>,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.constructed_store(),Unit,Unit>,Systems.constructed_added_registry()>) -> Delivery<S.constructed_store(),constructed_owners()>:
++  Hold.Owner{previous,_}=held
++  match result:
++    case System.Defined{world,owner}:constructed_register_2(factory,world,Hold.hold(~((Unit & Systems.constructed_main_owner()) & Systems.constructed_added_owner()),(previous,owner)),phases)
++    case System.Rejected{world}:constructed_register_failed_1(factory,world,Hold.hold(~(Unit & Systems.constructed_main_owner()),previous))
++def constructed_register_1(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,held:Hold.Owner<(Unit & Systems.constructed_main_owner())>,phases:List<&2,DTO.Snapshot>) -> Delivery<S.constructed_store(),constructed_owners()>:
++  Hold.Owner{previous,_}=held
++  constructed_defined_1(factory,Hold.hold(~(Unit & Systems.constructed_main_owner()),previous),phases,Systems.constructed_added_define(world))
+ def constructed_register_failed_0(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,previous:Unit) -> Delivery<S.constructed_store(),constructed_owners()>:
+   Unit{} = previous
+   failed(~S.constructed_store(),~constructed_owners(),"register-main-refused",factory,[],Execution.constructed_world(world))
+ def constructed_defined_0(factory:W.Factory,previous:Unit,phases:List<&2,DTO.Snapshot>,result:System.Defined<S.Schema,W.World<S.Schema,S.constructed_store(),Unit,Unit>,Systems.constructed_main_registry()>) -> Delivery<S.constructed_store(),constructed_owners()>:
+   match result:
+-    case System.Defined{world,owner}:constructed_register_1(factory,world,(previous,owner),phases)
++    case System.Defined{world,owner}:constructed_register_1(factory,world,Hold.hold(~(Unit & Systems.constructed_main_owner()),(previous,owner)),phases)
+     case System.Rejected{world}:constructed_register_failed_0(factory,world,previous)
+ def constructed_register_0(factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,previous:Unit,phases:List<&2,DTO.Snapshot>) -> Delivery<S.constructed_store(),constructed_owners()>:
+   constructed_defined_0(factory,previous,phases,Systems.constructed_main_define(world))

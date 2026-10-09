@@ -1,0 +1,34 @@
+import Base
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-inventory-v1/main.bend as Inventory
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-inventory-v1/resource-main.bend as Resource
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-inventory-v1/graph-machine-v1/fixture.bend as Fixture
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-inventory-v1/graph-machine-v1/observe.bend as Observe
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-inventory-v1/graph-machine-v1/types.bend as T
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-inventory-v1/graph-machine-v1/app.bend as App
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+
+type Outcome is Data:
+  Reported{report:Fixture.Report}
+  BuildFailed{factoryNext:U32,snapshot:Observe.Snapshot}
+  CreateFailed{factoryNext:U32,resource:T.ResourceView}
+type Complete is Data:
+  Complete{inventory:Inventory.Complete,resource:Resource.Outcome,graphMachine:Outcome}
+def failed_factory(factory:W.Factory,world:W.World<T.Tag,Unit,T.Resources,Unit>,owners:Unit,snapshot:Observe.Snapshot) -> Outcome:
+  match factory:
+    case W.Factory{next}:BuildFailed{next,snapshot}
+def failed(factory:W.Factory,owners:Unit,got:W.World<T.Tag,Unit,T.Resources,Unit> & Observe.Snapshot) -> Outcome:
+  match got:
+    case (world,snapshot):failed_factory(factory,world,owners,snapshot)
+def create_factory(factory:W.Factory,resource:T.Resources,view:T.ResourceView) -> Outcome:
+  match factory:
+    case W.Factory{next}:CreateFailed{next,view}
+def create_failed(factory:W.Factory,got:T.Resources & T.ResourceView) -> Outcome:
+  match got:
+    case (resource,view):create_factory(factory,resource,view)
+def consume(delivered:Fixture.Delivered) -> Outcome:
+  match delivered:
+    case Fixture.Delivered{factory,world,app,report}:Reported{report}
+    case Fixture.Failed{factory,world,owners}:failed(factory,owners,Observe.snapshot(world))
+    case Fixture.CreateFailed{factory,resources}:create_failed(factory,T.view(resources))
+def main() -> Complete:
+  Complete{Inventory.main(),Resource.main(),consume(Fixture.main())}

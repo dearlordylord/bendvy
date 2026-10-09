@@ -1,0 +1,161 @@
+import Base
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-schema.bend as Normal
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-inventory-v1/app.bend as App
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-inventory-v1/retained-schema.bend as Schema
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-inventory-v1/construction.bend as Construction
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app.bend as Original
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/scenario-schema.bend as S
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/scenario-driver.bend as Driver
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/scenario-dto.bend as DTO
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/scenario.bend as Scenario
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/output.bend as Prior
+import /workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/handler-inventory-v1/recursive-registration-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/dispatch.bend as Dispatch
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch
+import /workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend as SP
+
+type Origin is Data:
+  Origin{debug:Original.Debug,entries:List<&2,Original.Entry<S.Schema>>,namespace:U32,name:String,steps:List<&2,Sch.Step>,requirements:List<&2,SP.Requirement<S.Schema>>}
+type Report is Data:
+  Report{baseline:Scenario.Report,origin:Origin,observations:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>}
+type Outcome is Data:
+  Reported{report:Report}
+  PriorFailed{outcome:Prior.Outcome}
+  BuildFailed{baseline:Scenario.Report,origin:Origin,snapshots:List<&2,DTO.Snapshot>}
+# The normal schema captures existing typed slot declarations, preserving every World field.
+def retained(~C:Type,namespace:U32,nextId:U32,highWater:U32,live:Array<Bool>,capacity:U32,depth:Nat,resource:Unit,events:List<&2,Unit>,pending:List<(W.World<S.Schema,C,Unit,Unit> -> W.World<S.Schema,C,Unit,Unit>)>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32,got:C & Normal.Schema<S.Schema,C,Unit>) -> W.World<S.Schema,C,Unit,Unit> & Normal.Schema<S.Schema,C,Unit>:
+  match got:
+    case (store,catalog):(W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},catalog)
+def plain_capture(world:W.World<S.Schema,S.plain_store(),Unit,Unit>) -> W.World<S.Schema,S.plain_store(),Unit,Unit> & Normal.Schema<S.Schema,S.plain_store(),Unit>:
+  match world:
+    case W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock}:retained(~S.plain_store(),namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId,clock,Schema.plain(store))
+def plain_world_seen(~Out:Type,next:W.Factory -> W.World<S.Schema,S.plain_store(),Unit,Unit> -> App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain> -> List<&2,DTO.Snapshot> -> Out,+schema:Normal.Schema<S.Schema,S.plain_store(),Unit>,+debug:App.Debug,+bindings:List<&2,App.Binding<S.Schema>>,+namespace:U32,+name:String,+steps:List<&2,Sch.Step>,+requirements:List<&2,SP.Requirement<S.Schema>>,+trace:Dispatch.Trace,factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,owners:Driver.plain_owners(),snapshots:List<&2,DTO.Snapshot>) -> Out:
+  next(factory,world,App.Application{schema,debug,bindings,SP.Provisioned{Sch.Schedule{namespace,name,steps,Dispatch.plain_pack((owners,trace))},requirements}},snapshots)
+def plain_observe(~Out:Type,next:W.Factory -> W.World<S.Schema,S.plain_store(),Unit,Unit> -> App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain> -> List<&2,DTO.Snapshot> -> Out,factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,app:App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain>,snapshots:List<&2,DTO.Snapshot>,label:String) -> Out:
+  match app:
+    case App.Application{+schema,+debug,+bindings,SP.Provisioned{Sch.Schedule{+namespace,+name,+steps,Dispatch.Plain{main,added,changed,without,withHealth,+trace}},+requirements}}:
+      Driver.plain_observe(~Out,(factory => world => owners => snapshots => plain_world_seen(~Out,next,schema,debug,bindings,namespace,name,steps,requirements,trace,factory,world,owners,snapshots)),factory,world,(((((Unit{},main),added),changed),without),withHealth),snapshots,label,DTO.Observed{},[])
+def plain_debug(debug:App.Debug,app:App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain>) -> App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain>:
+  match app:
+    case App.Application{schema,_,bindings,schedule}:App.Application{schema,debug,bindings,schedule}
+def plain_finished(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.plain_store(),Unit,Unit>>,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,app:App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>) -> Outcome:
+  Reported{Report{baseline,origin,snapshots,descriptions}}
+def plain_barrier(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.plain_store(),Unit,Unit>>,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,app:App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>) -> Outcome:
+  plain_observe(~Outcome,(factory => world => app => snapshots => plain_finished(factory,baseline,origin,detached,otherWorlds,world,app,snapshots,descriptions)),factory,W.barrier(~S.Schema,~S.plain_store(),~Unit,~Unit,world),app,snapshots,"after-explicit-barrier")
+def plain_last(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.plain_store(),Unit,Unit>>,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>,got:App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain> & Maybe<&2,App.Description<S.Schema>>) -> Outcome:
+  match got:
+    case (app,last):plain_observe(~Outcome,(factory => world => app => snapshots => plain_barrier(factory,baseline,origin,detached,otherWorlds,world,app,snapshots,List.append(&2,Maybe<&2,App.Description<S.Schema>>,descriptions,[last]))),factory,world,app,snapshots,"after-repeated-app-descriptions")
+def plain_disabled(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.plain_store(),Unit,Unit>>,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>,got:App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain> & Maybe<&2,App.Description<S.Schema>>) -> Outcome:
+  match got:
+    case (app,disabled):plain_last(factory,baseline,origin,detached,otherWorlds,world,snapshots,List.append(&2,Maybe<&2,App.Description<S.Schema>>,descriptions,[disabled]),App.describe(~S.Schema,~S.plain_store(),~Unit,~Unit,~Dispatch.Plain,plain_debug(App.Enabled{},app)))
+def plain_second(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.plain_store(),Unit,Unit>>,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,snapshots:List<&2,DTO.Snapshot>,first:Maybe<&2,App.Description<S.Schema>>,got:App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain> & Maybe<&2,App.Description<S.Schema>>) -> Outcome:
+  match got:
+    case (app,second):plain_disabled(factory,baseline,origin,detached,otherWorlds,world,snapshots,[first,second],App.describe(~S.Schema,~S.plain_store(),~Unit,~Unit,~Dispatch.Plain,plain_debug(App.Disabled{},app)))
+def plain_first(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.plain_store(),Unit,Unit>>,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,snapshots:List<&2,DTO.Snapshot>,got:App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain> & Maybe<&2,App.Description<S.Schema>>) -> Outcome:
+  match got:
+    case (app,first):plain_second(factory,baseline,origin,detached,otherWorlds,world,snapshots,first,App.describe(~S.Schema,~S.plain_store(),~Unit,~Unit,~Dispatch.Plain,app))
+def plain_before(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.plain_store(),Unit,Unit>>,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,app:App.Application<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain>,snapshots:List<&2,DTO.Snapshot>) -> Outcome:
+  plain_first(factory,baseline,origin,detached,otherWorlds,world,snapshots,App.describe(~S.Schema,~S.plain_store(),~Unit,~Unit,~Dispatch.Plain,app))
+def plain_built(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.plain_store(),Unit,Unit>>,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,result:App.Built<S.Schema,S.plain_store(),Unit,Unit,Dispatch.Plain>) -> Outcome:
+  match result:
+    case App.Invalid{owners}:
+      Dispatch.Plain{main,added,changed,without,withHealth,trace} = owners
+      Driver.plain_observe(~Outcome,(factory => world => owners => snapshots => BuildFailed{baseline,origin,snapshots}),factory,world,(((((Unit{},main),added),changed),without),withHealth),[],"unexpected-build-refusal",DTO.Observed{},[])
+    case App.Built{app}:plain_observe(~Outcome,(factory => world => app => snapshots => plain_before(factory,baseline,origin,detached,otherWorlds,world,app,snapshots)),factory,W.enqueue(~S.Schema,~S.plain_store(),~Unit,~Unit,W.event_publish(~S.Schema,~S.plain_store(),~Unit,~Unit,world,[Unit{},Unit{}]),(world => W.event_publish(~S.Schema,~S.plain_store(),~Unit,~Unit,world,[Unit{}]))),app,[],"before-repeated-app-descriptions")
+def plain_captured(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.plain_store(),Unit,Unit>>,owners:Dispatch.Plain,got:W.World<S.Schema,S.plain_store(),Unit,Unit> & Normal.Schema<S.Schema,S.plain_store(),Unit>) -> Outcome:
+  match got:
+    case (world,schema):plain_built(factory,baseline,origin,detached,otherWorlds,world,Construction.plain(schema,owners,App.Enabled{}))
+def plain(result:Scenario.ExecutionResult<S.plain_store(),Dispatch.Plain>) -> Outcome:
+  match result:
+    case Scenario.Completed{factory,Original.Application{debug,entries,SP.Provisioned{Sch.Schedule{namespace,name,steps,owners},requirements}},world,detached,otherWorlds,report}:plain_captured(factory,report,Origin{debug,entries,namespace,name,steps,requirements},detached,otherWorlds,owners,plain_capture(world))
+    case other:PriorFailed{Prior.plain(other)}
+def transient_capture(world:W.World<S.Schema,S.transient_store(),Unit,Unit>) -> W.World<S.Schema,S.transient_store(),Unit,Unit> & Normal.Schema<S.Schema,S.transient_store(),Unit>:
+  match world:
+    case W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock}:retained(~S.transient_store(),namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId,clock,Schema.transient(store))
+def transient_world_seen(~Out:Type,next:W.Factory -> W.World<S.Schema,S.transient_store(),Unit,Unit> -> App.Application<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient> -> List<&2,DTO.Snapshot> -> Out,+schema:Normal.Schema<S.Schema,S.transient_store(),Unit>,+debug:App.Debug,+bindings:List<&2,App.Binding<S.Schema>>,+namespace:U32,+name:String,+steps:List<&2,Sch.Step>,+requirements:List<&2,SP.Requirement<S.Schema>>,+trace:Dispatch.Trace,factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,owners:Driver.transient_owners(),snapshots:List<&2,DTO.Snapshot>) -> Out:
+  next(factory,world,App.Application{schema,debug,bindings,SP.Provisioned{Sch.Schedule{namespace,name,steps,Dispatch.transient_pack((owners,trace))},requirements}},snapshots)
+def transient_observe(~Out:Type,next:W.Factory -> W.World<S.Schema,S.transient_store(),Unit,Unit> -> App.Application<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient> -> List<&2,DTO.Snapshot> -> Out,factory:W.Factory,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,app:App.Application<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient>,snapshots:List<&2,DTO.Snapshot>,label:String) -> Out:
+  match app:
+    case App.Application{+schema,+debug,+bindings,SP.Provisioned{Sch.Schedule{+namespace,+name,+steps,Dispatch.Transient{main,added,changed,without,withHealth,+trace}},+requirements}}:
+      Driver.transient_observe(~Out,(factory => world => owners => snapshots => transient_world_seen(~Out,next,schema,debug,bindings,namespace,name,steps,requirements,trace,factory,world,owners,snapshots)),factory,world,(((((Unit{},main),added),changed),without),withHealth),snapshots,label,DTO.Observed{},[])
+def transient_debug(debug:App.Debug,app:App.Application<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient>) -> App.Application<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient>:
+  match app:
+    case App.Application{schema,_,bindings,schedule}:App.Application{schema,debug,bindings,schedule}
+def transient_finished(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.transient_store(),Unit,Unit>>,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,app:App.Application<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>) -> Outcome:
+  Reported{Report{baseline,origin,snapshots,descriptions}}
+def transient_barrier(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.transient_store(),Unit,Unit>>,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,app:App.Application<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>) -> Outcome:
+  transient_observe(~Outcome,(factory => world => app => snapshots => transient_finished(factory,baseline,origin,detached,otherWorlds,world,app,snapshots,descriptions)),factory,W.barrier(~S.Schema,~S.transient_store(),~Unit,~Unit,world),app,snapshots,"after-explicit-barrier")
+def transient_last(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.transient_store(),Unit,Unit>>,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>,got:App.Application<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient> & Maybe<&2,App.Description<S.Schema>>) -> Outcome:
+  match got:
+    case (app,last):transient_observe(~Outcome,(factory => world => app => snapshots => transient_barrier(factory,baseline,origin,detached,otherWorlds,world,app,snapshots,List.append(&2,Maybe<&2,App.Description<S.Schema>>,descriptions,[last]))),factory,world,app,snapshots,"after-repeated-app-descriptions")
+def transient_disabled(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.transient_store(),Unit,Unit>>,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>,got:App.Application<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient> & Maybe<&2,App.Description<S.Schema>>) -> Outcome:
+  match got:
+    case (app,disabled):transient_last(factory,baseline,origin,detached,otherWorlds,world,snapshots,List.append(&2,Maybe<&2,App.Description<S.Schema>>,descriptions,[disabled]),App.describe(~S.Schema,~S.transient_store(),~Unit,~Unit,~Dispatch.Transient,transient_debug(App.Enabled{},app)))
+def transient_second(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.transient_store(),Unit,Unit>>,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,snapshots:List<&2,DTO.Snapshot>,first:Maybe<&2,App.Description<S.Schema>>,got:App.Application<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient> & Maybe<&2,App.Description<S.Schema>>) -> Outcome:
+  match got:
+    case (app,second):transient_disabled(factory,baseline,origin,detached,otherWorlds,world,snapshots,[first,second],App.describe(~S.Schema,~S.transient_store(),~Unit,~Unit,~Dispatch.Transient,transient_debug(App.Disabled{},app)))
+def transient_first(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.transient_store(),Unit,Unit>>,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,snapshots:List<&2,DTO.Snapshot>,got:App.Application<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient> & Maybe<&2,App.Description<S.Schema>>) -> Outcome:
+  match got:
+    case (app,first):transient_second(factory,baseline,origin,detached,otherWorlds,world,snapshots,first,App.describe(~S.Schema,~S.transient_store(),~Unit,~Unit,~Dispatch.Transient,app))
+def transient_before(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.transient_store(),Unit,Unit>>,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,app:App.Application<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient>,snapshots:List<&2,DTO.Snapshot>) -> Outcome:
+  transient_first(factory,baseline,origin,detached,otherWorlds,world,snapshots,App.describe(~S.Schema,~S.transient_store(),~Unit,~Unit,~Dispatch.Transient,app))
+def transient_built(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.transient_store(),Unit,Unit>>,world:W.World<S.Schema,S.transient_store(),Unit,Unit>,result:App.Built<S.Schema,S.transient_store(),Unit,Unit,Dispatch.Transient>) -> Outcome:
+  match result:
+    case App.Invalid{owners}:
+      Dispatch.Transient{main,added,changed,without,withHealth,trace} = owners
+      Driver.transient_observe(~Outcome,(factory => world => owners => snapshots => BuildFailed{baseline,origin,snapshots}),factory,world,(((((Unit{},main),added),changed),without),withHealth),[],"unexpected-build-refusal",DTO.Observed{},[])
+    case App.Built{app}:transient_observe(~Outcome,(factory => world => app => snapshots => transient_before(factory,baseline,origin,detached,otherWorlds,world,app,snapshots)),factory,W.enqueue(~S.Schema,~S.transient_store(),~Unit,~Unit,W.event_publish(~S.Schema,~S.transient_store(),~Unit,~Unit,world,[Unit{},Unit{}]),(world => W.event_publish(~S.Schema,~S.transient_store(),~Unit,~Unit,world,[Unit{}]))),app,[],"before-repeated-app-descriptions")
+def transient_captured(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.transient_store(),Unit,Unit>>,owners:Dispatch.Transient,got:W.World<S.Schema,S.transient_store(),Unit,Unit> & Normal.Schema<S.Schema,S.transient_store(),Unit>) -> Outcome:
+  match got:
+    case (world,schema):transient_built(factory,baseline,origin,detached,otherWorlds,world,Construction.transient(schema,owners,App.Enabled{}))
+def transient(result:Scenario.ExecutionResult<S.transient_store(),Dispatch.Transient>) -> Outcome:
+  match result:
+    case Scenario.Completed{factory,Original.Application{debug,entries,SP.Provisioned{Sch.Schedule{namespace,name,steps,owners},requirements}},world,detached,otherWorlds,report}:transient_captured(factory,report,Origin{debug,entries,namespace,name,steps,requirements},detached,otherWorlds,owners,transient_capture(world))
+    case other:PriorFailed{Prior.transient(other)}
+def constructed_capture(world:W.World<S.Schema,S.constructed_store(),Unit,Unit>) -> W.World<S.Schema,S.constructed_store(),Unit,Unit> & Normal.Schema<S.Schema,S.constructed_store(),Unit>:
+  match world:
+    case W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock}:retained(~S.constructed_store(),namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId,clock,Schema.constructed(store))
+def constructed_world_seen(~Out:Type,next:W.Factory -> W.World<S.Schema,S.constructed_store(),Unit,Unit> -> App.Application<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed> -> List<&2,DTO.Snapshot> -> Out,+schema:Normal.Schema<S.Schema,S.constructed_store(),Unit>,+debug:App.Debug,+bindings:List<&2,App.Binding<S.Schema>>,+namespace:U32,+name:String,+steps:List<&2,Sch.Step>,+requirements:List<&2,SP.Requirement<S.Schema>>,+trace:Dispatch.Trace,factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,owners:Driver.constructed_owners(),snapshots:List<&2,DTO.Snapshot>) -> Out:
+  next(factory,world,App.Application{schema,debug,bindings,SP.Provisioned{Sch.Schedule{namespace,name,steps,Dispatch.constructed_pack((owners,trace))},requirements}},snapshots)
+def constructed_observe(~Out:Type,next:W.Factory -> W.World<S.Schema,S.constructed_store(),Unit,Unit> -> App.Application<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed> -> List<&2,DTO.Snapshot> -> Out,factory:W.Factory,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,app:App.Application<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed>,snapshots:List<&2,DTO.Snapshot>,label:String) -> Out:
+  match app:
+    case App.Application{+schema,+debug,+bindings,SP.Provisioned{Sch.Schedule{+namespace,+name,+steps,Dispatch.Constructed{main,added,changed,without,withHealth,+trace}},+requirements}}:
+      Driver.constructed_observe(~Out,(factory => world => owners => snapshots => constructed_world_seen(~Out,next,schema,debug,bindings,namespace,name,steps,requirements,trace,factory,world,owners,snapshots)),factory,world,(((((Unit{},main),added),changed),without),withHealth),snapshots,label,DTO.Observed{},[])
+def constructed_debug(debug:App.Debug,app:App.Application<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed>) -> App.Application<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed>:
+  match app:
+    case App.Application{schema,_,bindings,schedule}:App.Application{schema,debug,bindings,schedule}
+def constructed_finished(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.constructed_store(),Unit,Unit>>,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,app:App.Application<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>) -> Outcome:
+  Reported{Report{baseline,origin,snapshots,descriptions}}
+def constructed_barrier(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.constructed_store(),Unit,Unit>>,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,app:App.Application<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>) -> Outcome:
+  constructed_observe(~Outcome,(factory => world => app => snapshots => constructed_finished(factory,baseline,origin,detached,otherWorlds,world,app,snapshots,descriptions)),factory,W.barrier(~S.Schema,~S.constructed_store(),~Unit,~Unit,world),app,snapshots,"after-explicit-barrier")
+def constructed_last(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.constructed_store(),Unit,Unit>>,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>,got:App.Application<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed> & Maybe<&2,App.Description<S.Schema>>) -> Outcome:
+  match got:
+    case (app,last):constructed_observe(~Outcome,(factory => world => app => snapshots => constructed_barrier(factory,baseline,origin,detached,otherWorlds,world,app,snapshots,List.append(&2,Maybe<&2,App.Description<S.Schema>>,descriptions,[last]))),factory,world,app,snapshots,"after-repeated-app-descriptions")
+def constructed_disabled(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.constructed_store(),Unit,Unit>>,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,snapshots:List<&2,DTO.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<S.Schema>>>,got:App.Application<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed> & Maybe<&2,App.Description<S.Schema>>) -> Outcome:
+  match got:
+    case (app,disabled):constructed_last(factory,baseline,origin,detached,otherWorlds,world,snapshots,List.append(&2,Maybe<&2,App.Description<S.Schema>>,descriptions,[disabled]),App.describe(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Dispatch.Constructed,constructed_debug(App.Enabled{},app)))
+def constructed_second(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.constructed_store(),Unit,Unit>>,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,snapshots:List<&2,DTO.Snapshot>,first:Maybe<&2,App.Description<S.Schema>>,got:App.Application<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed> & Maybe<&2,App.Description<S.Schema>>) -> Outcome:
+  match got:
+    case (app,second):constructed_disabled(factory,baseline,origin,detached,otherWorlds,world,snapshots,[first,second],App.describe(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Dispatch.Constructed,constructed_debug(App.Disabled{},app)))
+def constructed_first(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.constructed_store(),Unit,Unit>>,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,snapshots:List<&2,DTO.Snapshot>,got:App.Application<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed> & Maybe<&2,App.Description<S.Schema>>) -> Outcome:
+  match got:
+    case (app,first):constructed_second(factory,baseline,origin,detached,otherWorlds,world,snapshots,first,App.describe(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Dispatch.Constructed,app))
+def constructed_before(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.constructed_store(),Unit,Unit>>,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,app:App.Application<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed>,snapshots:List<&2,DTO.Snapshot>) -> Outcome:
+  constructed_first(factory,baseline,origin,detached,otherWorlds,world,snapshots,App.describe(~S.Schema,~S.constructed_store(),~Unit,~Unit,~Dispatch.Constructed,app))
+def constructed_built(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.constructed_store(),Unit,Unit>>,world:W.World<S.Schema,S.constructed_store(),Unit,Unit>,result:App.Built<S.Schema,S.constructed_store(),Unit,Unit,Dispatch.Constructed>) -> Outcome:
+  match result:
+    case App.Invalid{owners}:
+      Dispatch.Constructed{main,added,changed,without,withHealth,trace} = owners
+      Driver.constructed_observe(~Outcome,(factory => world => owners => snapshots => BuildFailed{baseline,origin,snapshots}),factory,world,(((((Unit{},main),added),changed),without),withHealth),[],"unexpected-build-refusal",DTO.Observed{},[])
+    case App.Built{app}:constructed_observe(~Outcome,(factory => world => app => snapshots => constructed_before(factory,baseline,origin,detached,otherWorlds,world,app,snapshots)),factory,W.enqueue(~S.Schema,~S.constructed_store(),~Unit,~Unit,W.event_publish(~S.Schema,~S.constructed_store(),~Unit,~Unit,world,[Unit{},Unit{}]),(world => W.event_publish(~S.Schema,~S.constructed_store(),~Unit,~Unit,world,[Unit{}]))),app,[],"before-repeated-app-descriptions")
+def constructed_captured(factory:W.Factory,baseline:Scenario.Report,origin:Origin,detached:List<Maybe<&1,Array<U32>>>,otherWorlds:List<W.World<S.Schema,S.constructed_store(),Unit,Unit>>,owners:Dispatch.Constructed,got:W.World<S.Schema,S.constructed_store(),Unit,Unit> & Normal.Schema<S.Schema,S.constructed_store(),Unit>) -> Outcome:
+  match got:
+    case (world,schema):constructed_built(factory,baseline,origin,detached,otherWorlds,world,Construction.constructed(schema,owners,App.Enabled{}))
+def constructed(result:Scenario.ExecutionResult<S.constructed_store(),Dispatch.Constructed>) -> Outcome:
+  match result:
+    case Scenario.Completed{factory,Original.Application{debug,entries,SP.Provisioned{Sch.Schedule{namespace,name,steps,owners},requirements}},world,detached,otherWorlds,report}:constructed_captured(factory,report,Origin{debug,entries,namespace,name,steps,requirements},detached,otherWorlds,owners,constructed_capture(world))
+    case other:PriorFailed{Prior.constructed(other)}
+type Complete is Data:
+  Complete{plain:Outcome,transient:Outcome,constructed:Outcome}
+def main() -> Complete:
+  Complete{plain(Scenario.plain()),transient(Scenario.transient()),constructed(Scenario.constructed())}
