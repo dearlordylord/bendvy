@@ -1,0 +1,54 @@
+{
+  "scope": "Complete Inspector closed-owner carrier Native development only; no resolver qualification, performance or #54 completion",
+  "planSHA256": "99e896ec4f9a1795165cd2d1f31dd5fd7c114c2a7f31aa62bd88bd1ce0261d22",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/stage/output-io-main.bend",
+        "-o",
+        "/tmp/bendvy-inspect54-carrier-native04/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": null,
+      "failure": "child deadline",
+      "stdout": {
+        "path": "/tmp/bendvy-inspect54-carrier-native04/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-inspect54-carrier-native04/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-inspect54-carrier-native04/emit-pre.guard.json",
+      "sha256": "1119eb22924a0ff5476bb1a6bbebe86b27b14a4ead853c38b26b43bb59657df2"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-carrier-native04/emit-acquired.guard.json",
+      "sha256": "f147a7c32d87a3f7552eaa1d52fcc94ceaf43c155e3496cf3af0dead85944e89"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-carrier-native04/emit-post.guard.json",
+      "sha256": "0a39ecf8ffd86f909ca4b13c245da6f5ac9655610ec96440c8ef88f3dfb97749"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-carrier-native04/final.guard.json",
+      "sha256": "c42b4e30983452435d20e549e74acc011d5751a8913256d2ba7817200ab2dec0"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Owned child failed: emit",
+  "guardFailures": []
+}
