@@ -1,0 +1,38 @@
+--- original-main.bend
++++ held-main.bend
+@@ -65,9 +65,34 @@
+ def setup_observed(factory:W.Factory,previous:GraphFixture.Report,registrations:List<&2,RegistrationView>,got:W.World<T.Tag,Unit,T.Resources,Unit> & Observe.Snapshot) -> Outcome:
+   match got:
+     case (world,snapshot):setup_factory(factory,previous,snapshot,registrations)
++# Recursive private carriers keep complete prior reports boxed across live calls.
++type Held<A:Type> is Type:
++  Held{value:A,tail:Maybe<&1,Held<A>>}
++type Success is Type:
++  Success{factory:W.Factory,previous:GraphFixture.Report,before:Observe.Snapshot,afterDescription:Observe.Snapshot,descriptions:List<&2,Maybe<&2,HandlerApp.Description<T.Tag,T.Key,T.State,SP.Requirement<T.Tag>>>>,result:B.BundleResult<T.Tag,T.Key,T.State,SP.Requirement<T.Tag>,Unit,T.Resources,Unit,Fixture.runner>}
++def prior_report(prior:Held<Previous.Complete>,report:Report) -> Outcome:
++  match prior:
++    case Held{previous,tail}:Reported{Complete{previous,report}}
++def final_report(prior:Held<Previous.Complete>,delivered:Delivered) -> Outcome:
++  match delivered:
++    case DeliveredBundle{world,bundle,report}:prior_report(prior,report)
++    case DeliveredRecovery{world,recovery,report}:prior_report(prior,report)
++def run_factory(prior:Held<Previous.Complete>,factory:W.Factory,before:Observe.Snapshot,afterDescription:Observe.Snapshot,descriptions:List<&2,Maybe<&2,HandlerApp.Description<T.Tag,T.Key,T.State,SP.Requirement<T.Tag>>>>,result:B.BundleResult<T.Tag,T.Key,T.State,SP.Requirement<T.Tag>,Unit,T.Resources,Unit,Fixture.runner>) -> Outcome:
++  final_report(prior,with_factory(factory,before,afterDescription,descriptions,result))
++def run_handlers(held:Held<Success>,inventory:Held<Inventory.Complete>,resource:Held<Resource.Outcome>) -> Outcome:
++  match held inventory resource:
++    case Held{Success{factory,previous,before,afterDescription,descriptions,result},tail} Held{inventory,inventoryTail} Held{resource,resourceTail}:run_factory(Held{Previous.Complete{inventory,resource,Previous.Reported{previous}},None{}},factory,before,afterDescription,descriptions,result)
++def after_resource(held:Held<Success>,inventory:Held<Inventory.Complete>,resource:Resource.Outcome) -> Outcome:
++  run_handlers(held,inventory,Held{resource,None{}})
++def run_resource(held:Held<Success>,inventory:Held<Inventory.Complete>) -> Outcome:
++  after_resource(held,inventory,Resource.main())
++def after_inventory(held:Held<Success>,inventory:Inventory.Complete) -> Outcome:
++  run_resource(held,Held{inventory,None{}})
++def run_inventory(held:Held<Success>) -> Outcome:
++  after_inventory(held,Inventory.main())
+ def consume(delivered:Fixture.Delivered) -> Outcome:
+   match delivered:
+-    case Fixture.Delivered{factory,previous,before,afterDescription,descriptions,result,core,family}:report(Previous.Complete{Inventory.main(),Resource.main(),Previous.Reported{previous}},with_factory(factory,before,afterDescription,descriptions,result))
++    case Fixture.Delivered{factory,previous,before,afterDescription,descriptions,result,core,family}:run_inventory(Held{Success{factory,previous,before,afterDescription,descriptions,result},None{}})
+     case Fixture.RegistrationFailed{factory,previous,world,core,registered}:setup_observed(factory,previous,registration_views(registered),Observe.snapshot(world))
+     case Fixture.PreviousFailed{previous}:PreviousFailed{Previous.consume(previous)}
+ def main() -> Outcome:

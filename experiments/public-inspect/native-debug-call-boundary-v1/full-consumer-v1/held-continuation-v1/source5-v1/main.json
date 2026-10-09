@@ -1,0 +1,21 @@
+{
+  "argv": [
+    "/usr/bin/taskset",
+    "-c",
+    "5",
+    "timeout",
+    "--signal=KILL",
+    "5s",
+    "/home/node/.bend/bin/bend-2.0.35",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/native-debug-call-boundary-v1/full-consumer-v1/held-continuation-v1/main.bend",
+    "--check-only"
+  ],
+  "capSeconds": 5,
+  "sourceToolPins": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/native-debug-call-boundary-v1/full-consumer-v1/held-continuation-v1/main.bend": "6260563bde4b17fb9875b2213d175d87c832edaa2df169b83a4e0d83aa579653",
+    "/home/node/.bend/bin/bend-2.0.35": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a"
+  },
+  "exit": 0,
+  "postUnchanged": true,
+  "developmentOnly": true
+}
