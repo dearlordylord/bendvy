@@ -1,0 +1,76 @@
+{
+  "preparedPlanSha256": "f61991a0b8fbe9fb2eea65cb17cbffa6f4b83d5042559b262cc1b881bdfd6c12",
+  "status": "DEVELOPMENT_PASS",
+  "scope": "Direct generic System-owner event-reader development checks; no delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/system-event-v1/generic-v1/main.bend",
+        "-o",
+        "/tmp/bendvy-generic-system-full-native/generated/complete.c"
+      ],
+      "capSeconds": 30,
+      "artifact": "/tmp/bendvy-generic-system-full-native/generated/complete.c",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "complete-build",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-generic-system-full-native/generated/complete.c",
+        "-o",
+        "/tmp/bendvy-generic-system-full-native/generated/complete.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "artifact": "/tmp/bendvy-generic-system-full-native/generated/complete.native",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-generic-system-full-native/generated/complete.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "generated": {
+    "/tmp/bendvy-generic-system-full-native/generated/complete.c": "888d76a1c5fdd6475261075b7e94be2a69e791cdc7a69da965bcc550135c1d93",
+    "/tmp/bendvy-generic-system-full-native/generated/complete.native": "568ceb066dea67b4fdfbef7ca5c0f4afc5c9499609bf157219d738d85b4f1030"
+  },
+  "logs": {
+    "complete-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-build.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-build.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-run.stdout": "e9183facb00e3aa261889e9a4cf53830cd8f8f4f16a3449b74233749b85e5266",
+    "complete-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

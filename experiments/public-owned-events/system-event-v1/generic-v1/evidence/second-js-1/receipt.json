@@ -1,0 +1,49 @@
+{
+  "preparedPlanSha256": "d5946298a5e5776d843ab705ff492ecfd126e211fa08876f0a8d337b4de75974",
+  "status": "DEVELOPMENT_PASS",
+  "scope": "Direct generic System-owner event-reader development checks; no delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-63-loader-resolver/experiments/public-owned-events/system-event-v1/generic-v1/second-schema.bend",
+        "-o",
+        "/tmp/bendvy-generic-system-second-js/generated/complete.js"
+      ],
+      "capSeconds": 30,
+      "artifact": "/tmp/bendvy-generic-system-second-js/generated/complete.js",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-generic-system-second-js/generated/complete.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "generated": {
+    "/tmp/bendvy-generic-system-second-js/generated/complete.js": "07ddbd86383a5b611912b18ef80a01bd671fdc1420085461107cba783d50131a"
+  },
+  "logs": {
+    "complete-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-run.stdout": "9a87741db352f65c2dc8a73b4cf0180934a8078985b4c6401cb22ad4d6fd06e8",
+    "complete-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
