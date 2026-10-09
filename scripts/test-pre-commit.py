@@ -87,7 +87,16 @@ class Selection(unittest.TestCase):
                                  ('validate-after-profile.py','test-after-profile.py')]:
             self.assertEqual(selected({prefix + changed}), [prefix + control])
         self.assertEqual(selected({'docs/notes.md'}), [])
-        self.assertEqual(len(selected({'scripts/task_runner.py'})), 6)
+        self.assertEqual(len(selected({'scripts/task_runner.py'})), 7)
+
+    def test_registered_source_attempt_preservation(self):
+        prefix = REGISTRY['CHUNKED_OUTPUT']
+        for changed in ('check-source.py', 'test-source-preservation.py'):
+            with self.subTest(changed=changed):
+                calls = self.check_paths([prefix + changed])
+                self.assertEqual(calls.count('scripts/run-admission-controls.py'), 1)
+                self.assertEqual(REGISTRY['selected']({prefix + changed}),
+                                 [prefix + 'test-source-preservation.py'])
 
     def test_registered_inspector_collector_controls(self):
         prefix = REGISTRY['INSPECTOR_LEAF']
