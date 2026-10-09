@@ -46,6 +46,35 @@ def write_raw(path, data):
         raise ValueError('Raw capture changed file type')
 
 
+def publish_result(command, result, out, pins, record, artifact):
+    label = command['label']
+    row = dict(command)
+    row.update({key: {'retainedRawHex': value.hex()} if isinstance(value, bytes) else value
+                for key, value in result.items()})
+    record['commands'].append(row)  # Actual completed child survives publication failure.
+    primary = None
+    try:
+        for key, value in result.items():
+            if isinstance(value, bytes):
+                target = out / (label + '.' + key)
+                write_raw(target, value)
+                row[key] = {'path': str(target), 'sha256': sha(target), 'bytes': len(value)}
+                pins[str(target)] = row[key]['sha256']
+    except BaseException as error:
+        primary = error
+        row['publicationError'] = repr(error)
+        raise
+    finally:
+        try:
+            if artifact is not None and (artifact.exists() or artifact.is_symlink()):
+                pins[str(artifact)] = sha(artifact)
+                record['generatedSHA256' if label == 'emit' else 'buildArtifactSHA256'] = pins[str(artifact)]
+        except BaseException as error:
+            row['artifactCaptureError'] = repr(error)
+            if primary is None:
+                raise
+
+
 VERIFIED_SOURCES = {}
 
 def load(name, path):
@@ -76,7 +105,7 @@ def prepare(out, oracle, expected_sha):
     extra = [Path(__file__), TRANSPORT / 'transport.py', TRANSPORT / 'constructor-identities.json',
              ROOT / 'scripts/task_runner.py', ROOT / 'scripts/evidence_boundary.py',
              oracle / 'expected.json', oracle / 'expected.stdout', oracle / 'expected.py', oracle / 'REVIEW.md', oracle / 'source-basis.json',
-             HERE / 'README.md', HERE / 'test-admission.py', TRANSPORT / 'test-transport.py', *map(Path, tools.values())]
+             HERE / 'README.md', HERE / 'test-admission.py', HERE / 'test-publication.py', TRANSPORT / 'test-transport.py', *map(Path, tools.values())]
     pins = dict(identities['sourceSHA256'])
     pins.update({str(path.resolve(strict=True)): sha(path) for path in extra})
     env = {'HOME': '/home/node', 'PATH': '/usr/bin:/bin', 'LANG': 'C', 'LC_ALL': 'C', 'TZ': 'UTC'}
@@ -147,21 +176,9 @@ def run(plan_path, expected_sha):
                         result = runner.execute_result(command['argv'], command['capSeconds'], plan['environment'], plan['cwd'], 'split')
                     finally:
                         fcntl.flock(lock, fcntl.LOCK_UN)
-                row = dict(command)
-                for key, value in result.items():
-                    if isinstance(value, bytes):
-                        target = out / (label + '.' + key)
-                        write_raw(target, value)
-                        row[key] = {'path': str(target), 'sha256': sha(target), 'bytes': len(value)}
-                        pins[str(target)] = row[key]['sha256']
-                    else:
-                        row[key] = value
-                record['commands'].append(row)
-                if label == 'emit' and (generated.exists() or generated.is_symlink()):
-                    # Failed emits can leave useful partial output: retain it before
-                    # evaluating the child's failure so post/final guards cover it.
-                    pins[str(generated)] = sha(generated)
-                    record['generatedSHA256'] = pins[str(generated)]
+                artifact = generated
+                publish_result(command, result, out, pins, record,
+                               artifact if label in ('emit', 'build') else None)
                 if result['exit'] != 0 or result['failure'] is not None:
                     raise ValueError('Owned child failed: ' + label)
                 if label == 'emit':
