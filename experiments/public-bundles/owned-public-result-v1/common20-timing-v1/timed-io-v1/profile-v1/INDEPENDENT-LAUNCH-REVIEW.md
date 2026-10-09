@@ -1,0 +1,9 @@
+# Independent profile launch review
+
+Scoped admission PASS for preparationac97789b and ONLY `/tmp/bendvy-bundle41-js-profile01/plan.json`, SHA256 `1a44abc715c36ed96f842be83272020d859d14de184b4d8c311a2d83d59aac40`. All205 current input pins and complete resource inventories match; planned profiles/raw outputs/receipt are absent. No profiling/runtime child executed by this reviewer. Three focused no-child profile controls pass.
+
+Reviewed complete runner and both stages: unchanged qualified generated JS, Node CPU sampling100us then heap sampling8192B, each CPU5/runtime cap5 under the shared lock. Exact plan/interpreter/current inputs admitted before captured source helpers load; constructor/source/resource membership guarded before acquisition, after acquisition, pre/post each child and unconditional final receipt. Result publication records actual child first, captures any generated partial profile before status validation, and preserves failure via existing ReceiptBoundary. Current profile paths are the actual declared output files, not historical roots.
+
+Both stages must preserve entire16012-byte literal oracle, strict IO elapsedNs/UTF8 byte/FNV metadata and all20 public checkpoints against retained qualified4606-byte TS output. Profile shape is validated separately; successful process alone cannot establish semantic acceptance. Exact artifacts/source helpers/tool selection remain pinned; no source rewrite, emission or alternate API path is introduced.
+
+These are whole-process diagnostic profiles including startup/JIT/rendering/flush, while IO elapsedNs describes its separately bounded application region. CPU samples are not causal proof; heap sampling is neither total allocation nor RSS/live memory. Extra physical-owner/inverse diagnostics remain authored measured work. This preparation establishes no speedup, core hot cause, external quietness, full parity or issue closure. Root execution admission remains separate.
