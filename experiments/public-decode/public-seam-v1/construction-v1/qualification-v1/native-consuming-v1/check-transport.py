@@ -3,7 +3,6 @@ import copy
 import importlib.util
 import json
 from pathlib import Path
-import subprocess
 
 ROOT = Path(__file__).resolve().parents[6]
 HERE = Path(__file__).resolve().parent
@@ -32,7 +31,13 @@ for filename, entry in [('expected.json','main.bend'),('mutant-expected.json','m
         else:
             raise AssertionError('whole typed corruption accepted')
 # Compare source-current old role against the pre-extension transport bytes.
-old_bytes = subprocess.run(['git','show','737f3c65:experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/transport.py'],cwd=ROOT,check=True,capture_output=True).stdout
+runner_path = Path('/workspace/formal-proofs/bendvy/scripts/task_runner.py')
+runner_spec = importlib.util.spec_from_file_location('native_control_task_runner', runner_path)
+task_runner = importlib.util.module_from_spec(runner_spec)
+exec(compile(runner_path.read_bytes(), str(runner_path), 'exec'), task_runner.__dict__)
+git_result = task_runner.execute_result(['/usr/bin/git','show','737f3c65:experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/transport.py'],5,cwd=ROOT,capture='split')
+assert git_result['exit']==0 and git_result['failure'] is None and git_result['stderr']==b''
+old_bytes = git_result['stdout']
 old = load('native_historical', old_bytes)
 binding = json.loads((HERE.parent / 'canonical-v1/bindings-v1/input-codec-spine-binding.json').read_text())
 entry = Path(binding['entry']['path'])
