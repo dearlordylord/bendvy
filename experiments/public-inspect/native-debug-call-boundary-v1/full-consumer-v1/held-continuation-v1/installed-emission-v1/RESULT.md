@@ -1,0 +1,5 @@
+# Actual installed emission: incomplete
+
+Exact independently admitted61393f4a plan ran once in originalsession14998 with actual installed Bend2.0.35 f7741747, CPU5 shared child lock, cap30. Child deadline, no regular C artifact; complete stdout/stderr both empty. No copied compiler, Clang or runtime ran. Receipt remains INCOMPLETE with no guardFailures, four complete pre/acquired/post/final guards and all601 pinned inputs; partial-artifact capture found no C. No retry/cap raise or source/oracle change.
+
+Eight original plan/receipt/raw/guard files are losslessly archived. No-child verifier recomputes compressed/raw hashes, exact admitted plan/command/cap/receipt/raw/evolving guard joins. Tools/environment/resource bytes remain historical pinned inputs rather than newly archived snapshots. Empty deadline output cannot locate a compiler phase, establish a semantic rejection or explain why copied emission completes. Source5 success and copied C/O0 runtime success remain distinct antecedents. Installed executable delivery, omission, whole71 runtime, Native production/performance and #56 closure remain unqualified.
