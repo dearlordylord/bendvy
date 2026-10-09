@@ -53,13 +53,12 @@ def assembly_binding(path,digest):
     assert path.is_absolute() and str(path.resolve())==str(path), 'binding path must be canonical'
     binding=admitted_plan(path,digest)
     assert set(binding) in ({'mode','entry','sourcePins','oracle','cEmission'},{'mode','entry','sourcePins','oracle','role','cEmission'}), 'exact assembly binding fields required'
-    assert binding['mode']=='registered-decode-assembly-v1', 'unknown assembly mode'
+    assert binding['mode'] in ('registered-decode-assembly-v1','generic-spine-decode-assembly-v1','deferred-spine-decode-assembly-v1'), 'unknown assembly mode'
     entry=pinned_file(binding['entry'])
     role=binding.get('role','normal')
-    assert role=='normal', 'Native assembly positive only'
-    assert role in ('normal','local-failure','skip-validation','partial-write'), 'unknown assembly role'
-    assert entry.name==('failure-controls.bend' if role=='local-failure' else 'spine.bend'), 'complete role entry required'
-    if role in ('skip-validation','partial-write'):assert entry.parent.name==role, 'mutant role/source differs'
+    assert role in ('normal','generic-spine','deferred-spine'), 'Native positive complete role only'
+    assert binding['mode']==({'generic-spine':'generic-spine-decode-assembly-v1','deferred-spine':'deferred-spine-decode-assembly-v1'}.get(role,'registered-decode-assembly-v1')), 'Native mode/role mismatch'
+    assert entry.name==('spine.bend' if role=='normal' else role+'.bend'), 'complete role entry required'
     assert type(binding['sourcePins']) is dict and binding['sourcePins'], 'complete source pins required'
     for filename,sha in binding['sourcePins'].items():pinned_file({'path':filename,'sha256':sha})
     oracle=binding['oracle']
@@ -123,9 +122,11 @@ def run_recorded(row,runner,command):
 
 
 def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_path=None,binding_digest=None):
-    assert role == "normal" and native, "Native-from-C only"
+    assert role in ("normal","generic-spine","deferred-spine") and native, "Native-from-C only"
+    assert binding_path is not None or role=="normal", "new Native roles require explicit binding"
     binding=assembly_binding(binding_path,binding_digest)
     assembly=binding is not None
+    assert role==(binding.get('role','normal') if assembly else 'normal'), 'Native role requires matching binding'
     plan_path = out/'plan.json'
     admitted = admitted_plan(plan_path,plan_digest) if execute else None
     if execute:
@@ -190,7 +191,7 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
         assert prior_plan['commands'][0]['artifact']==str(c_source) and previous.get('guardFailures',[])==[] and 'error' not in previous, 'unqualified prior C emission'
         assert len(previous['commands'])==1 and previous['commands'][0]['exit']==0 and previous['commands'][0]['failure'] is None, 'prior C command failed'
         assert all(previous['commands'][0][key]==value for key,value in prior_plan['commands'][0].items()), 'prior C command/plan differs'
-        assert prior_plan['native'] is True and prior_plan['role']=='normal' and prior_plan['commands'][0]['capSeconds']==30, 'prior C emission role differs'
+        assert prior_plan['native'] is True and prior_plan['role']==role and prior_plan['commands'][0]['capSeconds']==30, 'prior C emission role differs'
     oracle_home = Path('/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/oracle-v1/spine-report-v1')
     oracle=pinned_file(binding['oracle']['expected']) if assembly else oracle_home/ORACLE_FILES[role]['name']
     oracle_sha=binding['oracle']['expected']['sha256'] if assembly else ORACLE_FILES[role]['sha256']
@@ -203,11 +204,12 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
         assert path.is_file() and not path.is_symlink() and hashlib.sha256(path.read_bytes()).hexdigest()==digest, 'independent source basis drift'
         inputs.add(path)
     authoring={pinned_file(pin) for pin in binding['oracle']['authoring']} if assembly else {oracle_home/'expected.py',oracle_home/'REVIEW.md'}
+    if role in ('generic-spine','deferred-spine'):inputs.update({entries[0].parent/'transport-inventory.py',entries[0].parent.parent/'generic-assembly-v1/transport-inventory.py'})
     inputs.update({*authoring,basis_file,HERE/'transport.py',HERE.parent/'transport.py',ROOT/'experiments/public-simulation/bend-v1/parse-report.py',oracle})
     transport=load('decode_transport',HERE/'transport.py')
     expected=json.loads(oracle.read_text())
-    expected_raw=transport.render(expected,entries[0],assembly)
-    assert transport.parse(expected_raw,entries[0],assembly)==expected
+    expected_raw=transport.render(expected,entries[0],assembly,role)
+    assert transport.parse(expected_raw,entries[0],assembly,role)==expected
     raw_oracle=out/'expected.stdout'
     if not execute:raw_oracle.write_bytes(expected_raw)
     assert raw_oracle.is_file() and not raw_oracle.is_symlink() and raw_oracle.read_bytes()==expected_raw,'prepared raw oracle differs'
@@ -216,7 +218,7 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
     baseline_sha=binding['oracle']['whole']['sha256'] if assembly else 'ca88bdec56290ba3b5460463f59c4ddda389d2dcc7ecfa58d6d633c35016e075'
     assert hashlib.sha256(baseline_oracle.read_bytes()).hexdigest()==baseline_sha
     inputs.add(baseline_oracle)
-    assert transport.whole(expected)==json.loads(baseline_oracle.read_text()), 'complete Candidate must preserve unchanged whole baseline'
+    assert transport.whole(expected,role)==json.loads(baseline_oracle.read_text()), 'complete Candidate must preserve unchanged whole baseline'
 
     frozen = task_runner.Inputs(files=inputs,directories=resource_roots)
     artifact=generated/'complete.native'
@@ -263,10 +265,10 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
                     runner = task_runner.Runner(logs,inputs=current,env=env,cwd=HERE)
                     run_recorded(row,runner,command)
         observed=(raw/'complete-run.stdout').read_bytes()
-        assert transport.parse(observed,entries[0],assembly)==expected, 'full typed Native Candidate differs from pre-run oracle'
+        assert transport.parse(observed,entries[0],assembly,role)==expected, 'full typed Native Candidate differs from pre-run oracle'
         assert observed==expected_raw, 'complete raw Native Candidate differs from pre-run oracle'
         assert (raw/'complete-run.stderr').read_bytes()==b'', 'unexpected runtime stderr'
-        assert transport.whole(expected)==json.loads(baseline_oracle.read_text())
+        assert transport.whole(expected,role)==json.loads(baseline_oracle.read_text())
         record['status']='DEVELOPMENT_NATIVE_PASS'
     print(json.dumps({'receipt':str(out/'receipt.json'),'status':record['status']}))
 
@@ -275,7 +277,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--assembly-binding',type=Path,help='Explicit current assembly source/oracle/previous C bindings')
     parser.add_argument('--assembly-binding-sha256')
-    parser.add_argument('--role',choices=['normal'],default='normal')
+    parser.add_argument('--role',choices=['normal','generic-spine','deferred-spine'],default='normal')
     parser.add_argument('--native',action='store_true')
     parser.add_argument('--execute',action='store_true',help='Consume existing --output/plan.json after admission; default prepares without a child')
     parser.add_argument('--plan-sha256',help='Required exact admitted plan digest for --execute')

@@ -1,0 +1,102 @@
+{
+  "scope": "artifact-only approved Clang19 complete15/8 Native; unchangedsource/models; no re-emission/performance/closure",
+  "rootAliasFix": "6e3f6d95",
+  "plans": {
+    "generic-native": {
+      "planSha256": "6edb672bbd352da2b78344c8b7080ce21c308e8032a8fab44850a7f4cc45020b",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/generic-cEmit/generated/complete.c",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/generic-native/generated/complete.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/generic-native/generated/complete.native"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/generic-native/generated/complete.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "oracleCommit": "152dc70d9eb5cb715146dfdf9a4fbdf8d2441813",
+      "oracleSha256": "a0b2037dba1943acb7deb49f58007a72ff5d62821559744a8d1f9823c0a3e349",
+      "assemblyBindingSha256": "78aa5363cf5f476d2a6ce4dd4e6a90fb4fe8498e88896a8267e719684e937472",
+      "tools": {
+        "bend": "/home/node/.bend/bin/bend-2.0.35",
+        "node": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "taskset": "/usr/bin/taskset",
+        "python": "/usr/bin/python3.11",
+        "clangWrapper": "/tmp/bendvy-clang19-diagnostic/clang19",
+        "clangBinary": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      }
+    },
+    "deferred-native": {
+      "planSha256": "08d82cfb5b083fbad40fdca1e08d68d332341d4ad542510cee061db01211de40",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/deferred-cEmit/generated/complete.c",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/deferred-native/generated/complete.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/deferred-native/generated/complete.native"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-native-v1/deferred-native/generated/complete.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "oracleCommit": "dfdd7d0a7c518fc23acb4ed27d1b2fa4c117f920",
+      "oracleSha256": "8095a1eb678fcf3f9cf985ce33d9e779108f6041fbecdd7ac67cf8f94a2bac42",
+      "assemblyBindingSha256": "3d001392ee6b7290d6d0211b8e816cf24d7d911ce8a48d157b8ea867ece0d731",
+      "tools": {
+        "bend": "/home/node/.bend/bin/bend-2.0.35",
+        "node": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "taskset": "/usr/bin/taskset",
+        "python": "/usr/bin/python3.11",
+        "clangWrapper": "/tmp/bendvy-clang19-diagnostic/clang19",
+        "clangBinary": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      }
+    }
+  }
+}

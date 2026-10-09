@@ -1,0 +1,131 @@
+[
+  {
+    "group": "generic",
+    "control": "c-artifact-drift",
+    "status": "REJECTED",
+    "message": "pinned file drift"
+  },
+  {
+    "group": "generic",
+    "control": "oracle-drift",
+    "status": "REJECTED",
+    "message": "pinned file drift"
+  },
+  {
+    "group": "generic",
+    "control": "wrong-role",
+    "status": "REJECTED",
+    "message": "Native mode/role mismatch"
+  },
+  {
+    "group": "generic",
+    "control": "missing-c-receipt",
+    "status": "REJECTED",
+    "message": "exact prior C emission pins required"
+  },
+  {
+    "group": "deferred",
+    "control": "c-artifact-drift",
+    "status": "REJECTED",
+    "message": "pinned file drift"
+  },
+  {
+    "group": "deferred",
+    "control": "oracle-drift",
+    "status": "REJECTED",
+    "message": "pinned file drift"
+  },
+  {
+    "group": "deferred",
+    "control": "wrong-role",
+    "status": "REJECTED",
+    "message": "Native mode/role mismatch"
+  },
+  {
+    "group": "deferred",
+    "control": "missing-c-receipt",
+    "status": "REJECTED",
+    "message": "exact prior C emission pins required"
+  },
+  {
+    "script": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/full-assembly-v1/check-collector-bootstrap.py",
+    "sha256": "6d4acb9bda12a1fc5c8a7385df8170cb995fdf364c072acf18573a6363351de4",
+    "result": {
+      "status": "PASS",
+      "native": true,
+      "stdlibOnlyModuleEntry": true,
+      "wrongPythonNoHelperEntry": true,
+      "wrongPlanNoHelperEntry": true,
+      "pinDriftNoHelperEntry": true,
+      "missingHelperPinNoHelperEntry": true,
+      "positiveHelperEntryReached": true,
+      "backendChildren": 0
+    }
+  },
+  {
+    "script": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/check-partial-publication.py",
+    "sha256": "b65d36780f20578f3ad044b3a38820a8b3d8700557c234d755d795d6db50eaab",
+    "result": {
+      "status": "PASS",
+      "checks": [
+        {
+          "collector": "development-run.py",
+          "exactReturnedExitAndFailureRetained": true,
+          "stdoutJoinRetainedBeforeFailedGuard": true,
+          "partialStderrNotClaimedComplete": true,
+          "receiptStatus": "INCOMPLETE"
+        },
+        {
+          "collector": "native-from-c.py",
+          "exactReturnedExitAndFailureRetained": true,
+          "stdoutJoinRetainedBeforeFailedGuard": true,
+          "partialStderrNotClaimedComplete": true,
+          "receiptStatus": "INCOMPLETE"
+        }
+      ],
+      "backendChildren": 0
+    }
+  },
+  {
+    "script": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/check-transport.py",
+    "sha256": "37a78c137727643071d6ea81077fa8950fad33d6a8bf9dac8bda12cf2b2bc643",
+    "result": {
+      "status": "PASS",
+      "results": [
+        {
+          "group": "generic",
+          "reportCount": 15,
+          "unchangedModelSha256": "a0b2037dba1943acb7deb49f58007a72ff5d62821559744a8d1f9823c0a3e349",
+          "rawBytes": 45029,
+          "rawSha256": "5d23c765c3b487d7dd229820a077b951d9c5f7d4020f947c63aac512a3464ad2",
+          "rejections": [
+            "missing-report",
+            "duplicate-label",
+            "reordered-report",
+            "extra-report",
+            "unknown-field",
+            "cross-schema-nominal",
+            "complete-oracle-detects-physical-owner-corruption"
+          ]
+        },
+        {
+          "group": "deferred",
+          "reportCount": 8,
+          "unchangedModelSha256": "8095a1eb678fcf3f9cf985ce33d9e779108f6041fbecdd7ac67cf8f94a2bac42",
+          "rawBytes": 35867,
+          "rawSha256": "d9fd42ff0e5c624cb89fea6a36bd6fc6038f4411009204072f44974118410683",
+          "rejections": [
+            "missing-report",
+            "duplicate-label",
+            "reordered-report",
+            "extra-report",
+            "unknown-field",
+            "cross-schema-nominal",
+            "complete-oracle-detects-physical-owner-corruption"
+          ]
+        }
+      ],
+      "backendChildren": 0
+    }
+  }
+]
