@@ -1,0 +1,49 @@
+{
+  "status": "COMPLETE_MUTANT_ARTIFACT_RUNTIME_UNADMITTED",
+  "subject": "last-leaf-js",
+  "planSHA256": "e13d13a4877c51a9a03ae87dcb47413c674d0ec935436f3ad4d26341b11d289f",
+  "command": {
+    "label": "emit",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "5",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-42-adoption-current/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/chunk-serializer-v1/whole-feature-timing-v1/driver-last-leaf.bend",
+      "-o",
+      "/tmp/bendvy-relations42-timing-mutants02/last-leaf-js/trace.js"
+    ],
+    "seconds": 30
+  },
+  "guards": [
+    {
+      "label": "pre",
+      "unchanged": true
+    },
+    {
+      "label": "acquired",
+      "unchanged": true
+    },
+    {
+      "label": "post",
+      "unchanged": true
+    },
+    {
+      "label": "final",
+      "unchanged": true
+    }
+  ],
+  "logs": {
+    "emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "artifacts": {
+    "/tmp/bendvy-relations42-timing-mutants02/last-leaf-js/trace.js": "d2549e7c3206155545d299f6c6f7587060c6ae30ab178d43fd231b2d9a32dc62"
+  },
+  "result": {
+    "exit": 0,
+    "failure": null,
+    "capture": "split",
+    "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+  }
+}

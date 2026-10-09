@@ -1,0 +1,46 @@
+{
+  "status": "INCOMPLETE",
+  "subject": "moved-walk-native",
+  "planSHA256": "85ebf5952177b3f557f8cdb12d00ad6e766d613d0debd7f36edb8c33e094f832",
+  "command": {
+    "label": "emit",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "5",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-42-adoption-current/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/chunk-serializer-v1/whole-feature-timing-v1/driver-moved-walk.bend",
+      "-o",
+      "/tmp/bendvy-relations42-timing-mutants02/moved-walk-native/trace.c"
+    ],
+    "seconds": 30
+  },
+  "guards": [
+    {
+      "label": "pre",
+      "unchanged": true
+    },
+    {
+      "label": "acquired",
+      "unchanged": true
+    },
+    {
+      "label": "final",
+      "unchanged": true
+    }
+  ],
+  "logs": {
+    "emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "artifacts": {
+    "/tmp/bendvy-relations42-timing-mutants02/moved-walk-native/trace.c": "77a80c05549e0045b9ae60ac1da7fe9dc8646fbdf9882ef9ac08325c227c9c15"
+  },
+  "result": {
+    "exit": null,
+    "failure": "child deadline",
+    "capture": "split",
+    "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+  },
+  "error": "child deadline"
+}
