@@ -1,0 +1,7 @@
+# Actual metadata v5 independent review
+
+Author bba34aa1: PASS for retained metadata evidence only. Exact plan 5e4ac8873ebd1589c2981d9df64b95cbf53bf44816a279bbe3e2fd5df088c91f binds ten metadata commands, each CPU5/cap5. No child or replay was run by the reviewer.
+
+No-child verifier independently passed all 70 lossless archive members, 20 raw stream publication/result joins and 31 ordered progressive guards, including exact namespace, tool/source pins and final receipt. Every command completed exit0/failureNone/empty stderr. Archived collector source checks actual Python and all pins before exact-source helper execution, supplies the explicit sanitized environment, and records completed process results before publication. The executed task_runner ad723 bytes exactly match both v5 archive and preserved v4 member065; later root helper edits do not invalidate this historical execution.
+
+Independent derive-loader invocation reproduced the entire LOADER-TARGETS.json: 25 actual loaded target paths and 425 advertised cache entries, with observed platform/HWCAP/default-directory metadata. This does not close target bytes/alias chains, ELF NEEDED/RPATH/RUNPATH, final shallow search directory namespaces, or the legacy eight suffix traversal/order. NOT_RESOLVER_ADMISSION is correct. Safe integration requires retaining those limitations; a next 25-target ELF metadata stage must receive its own exact current helper/tool/source plan before execution.
