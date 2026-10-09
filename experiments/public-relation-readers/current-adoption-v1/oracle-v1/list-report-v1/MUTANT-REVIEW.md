@@ -1,0 +1,5 @@
+# Complete List reached counterfactuals
+
+Immutable source `8a6caeb1` preserves the ordinary List singleton Candidate wrapper and the full two-schema/eight-application consumer. Variant imports resolve to the already reviewed wrong-reader-advance and premature-publication source libraries; the actual semantic mutations remain wrong successful reader target ID1 and a reached barrier before read entry respectively. No output was used to author these expectations.
+
+Each complete named expectation requires Candidate.result.Some.value to equal its entire independently source-derived counterfactual: corrected physical queue model `902062af` for wrong reader and `91031446` for premature publication. Front/back queue orientation and all nested world/owner/cursor/log/rollback fields remain exact. Historical original counterfactuals and positive `ce3fae` remain untouched. Positive-gate rejection and full counterfactual equality must both be reached; neither None nor a partial-field difference qualifies. New wrapper raw bytes are distinct from old consumer bytes. No new contract or runtime qualification is claimed.
