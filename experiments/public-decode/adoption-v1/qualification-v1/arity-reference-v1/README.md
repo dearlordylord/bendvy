@@ -1,0 +1,7 @@
+# Complete decode Native arity diagnostic preparation
+
+The unchanged complete consumer passed JS, then installed Bend C emission refused `an arity over 247` before producing C. Pinned `comp.ts:2824–2825` has two refusal predicates: continuation parameters over247 and encoded constructor/function arity over255; the literal error alone distinguishes neither.
+
+This reuses the exact reviewed #43 diagnostic compiler patch and Node driver, with the same complete original #46 entry and actual import closure. It reports oversized continuations (callee, held/result words, source span) and final bad entries/nodes without changing layouts, algorithms or the original refusal. Copied Bend and Base provenance remains `a950fd683…`; Base bytes equal installed Base. That is reference-source provenance, not proof of installed ELF internals. No boxing, partition, source reduction, installed compiler change or backend replay is prepared here.
+
+The copied guarded runner differs only by reading its exact pinned private explicit environment file instead of embedding environment values in a Git plan. Actual Python, Node/taskset, copied compiler/driver/Base, full consumer source and helper bytes are frozen. `/tmp/bendvy-decode46-arity-reference01/plan.json` is the new CPU5/30-second metadata plan; `prepared-plan-digest.json` records its immutable digest. It requires independent review/admission before its single child. No child has executed.
