@@ -1,0 +1,7 @@
+# Bounded bundle JS CPU and allocation diagnostics
+
+Exactly two new Node processes execute the unchanged qualified registered ten-world bundle IO artifact: CPU profiling at 100 microseconds, then sampled heap profiling at 8192 bytes. Each keeps CPU5/cap5 and the existing shared lock. This reuses the simulation after-profile settings and shape validator, and the accepted bundle collector bootstrap/publication/receipt boundaries.
+
+Every process must pass the entire 16012-byte Bend output, exact timer metadata bytes/digest, and all twenty public joins against the qualified complete 4606-byte TS string. No output is subtracted. Actual owner/undo/teardown and diagnostic rendering remain part of the application. Profiles cover the whole Node process, including startup, evaluator, IO, rendering and flush; the IO elapsed region is separately observed and cannot be inferred from the whole-process sample counts. Heap samples estimate sampled allocation, not total allocated bytes or retained/RSS memory. No comparative speed or core-cause conclusion follows from this diagnostic alone.
+
+Inputs and resource membership are checked before source-byte helper execution, acquired, pre/post each child and receipt-final. Completed command results are recorded before stream publication. Partial regular profile artifacts are captured in finally, including failed children. Existing artifacts refuse replay. No compiler/ECS/workload changes, new dependencies or unreviewed launch.
