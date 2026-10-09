@@ -1,0 +1,132 @@
+{
+  "prechildWrapper": {
+    "session": 44198,
+    "exit": 143,
+    "compilerRuntimeChildrenStarted": false,
+    "rawGeneratedFiles": [],
+    "reason": "Worker mistakenly held outer shared flock while collector acquired same internal lock; terminated only owned unstarted wrapper/collector",
+    "coordinatorResume": "Exact original admitted plan directly without outer flock; no workload retry or capraise"
+  },
+  "cohorts": [
+    {
+      "cohort": "positive-js",
+      "originalSession": 33116,
+      "status": "DEVELOPMENT_JS_PASS",
+      "planSHA256": "d8d1dfdc81a2b3d35773891d2000f3a8929fcdcf6ac4bdbceb8a055c21d3c977",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/main.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-js/generated/complete.js",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-js/generated/complete.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "members": [
+        {
+          "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-js/raw/complete-emit.stderr",
+          "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/actual-evidence/positive-js/complete-emit.stderr.gz",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-js/raw/complete-emit.stdout",
+          "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/actual-evidence/positive-js/complete-emit.stdout.gz",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-js/raw/complete-run.stderr",
+          "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/actual-evidence/positive-js/complete-run.stderr.gz",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-js/raw/complete-run.stdout",
+          "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/actual-evidence/positive-js/complete-run.stdout.gz",
+          "bytes": 1056756,
+          "sha256": "aef13533dce452169a8d67d4d20b25148a8b77a9d6dcd01d2ed2cfbb8f301eb9"
+        },
+        {
+          "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-js/generated/complete.js",
+          "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/actual-evidence/positive-js/complete.js.gz",
+          "bytes": 1053328,
+          "sha256": "73644c8f3d1d4f105916e0584d45ee68a3937dc3a606e158a5d82f23d8556d4e"
+        }
+      ]
+    },
+    {
+      "cohort": "positive-cEmit",
+      "originalSession": 99514,
+      "status": "DEVELOPMENT_C_EMIT_PASS",
+      "planSHA256": "f550d6c4f943fcf55d17563ff2da9caa1d96d776dc779ab935be289c20926f38",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/main.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-cEmit/generated/complete.c",
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+        }
+      ],
+      "members": [
+        {
+          "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-cEmit/raw/complete-emit.stderr",
+          "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/actual-evidence/positive-cEmit/complete-emit.stderr.gz",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-cEmit/raw/complete-emit.stdout",
+          "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/actual-evidence/positive-cEmit/complete-emit.stdout.gz",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "original": "/workspace/formal-proofs/bendvy-worktrees/parity-46-native-completion/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/positive-cEmit/generated/complete.c",
+          "archive": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/prepared-v1/actual-evidence/positive-cEmit/complete.c.gz",
+          "bytes": 10027700,
+          "sha256": "91ed3fdb0b3f0f1b03bacdb8231bd1b92d89066ffe9697814f662b6d57264ffc"
+        }
+      ]
+    }
+  ],
+  "scope": "Full32 JS wholemodel/raw PASS + guardedC emission PASS. No Native runtime/performance credit."
+}
