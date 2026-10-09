@@ -1,0 +1,69 @@
+{
+  "role": "generic",
+  "entry": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/mutant-retainer/main.bend",
+    "sha256": "091c848c1d6da6e94f6284eb447032157737b1c2609d2f87347d625c5361da5e"
+  },
+  "sourcePins": {
+    "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+    "/workspace/formal-proofs/bendvy/experiments/public-inspect/bend-candidate/consumer.bend": "b0d4dee9627fde8d034de7c2aa8e5d7fe4eb4c8802657fe6716b353aa5459616",
+    "/workspace/formal-proofs/bendvy/experiments/public-inspect/bend-candidate/event-consumer.bend": "793021ac391e8bf1880f2ff464bb6f5b88a27c76e7aa3256e4baa7543e1a38ff",
+    "/workspace/formal-proofs/bendvy/experiments/public-inspect/bend-candidate/events.bend": "b9eefd9288ddb443ec9a36912e0122e6f1b3bc989087e4a416a0f326700824f8",
+    "/workspace/formal-proofs/bendvy/experiments/public-inspect/bend-candidate/inspect.bend": "dfc9d87b73b3ba758b04bfdcaad0cbf80f439e84a51a528c727886f1a5df60b8",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/workspace/formal-proofs/bendvy/src/ecs/reader-domains.bend": "1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/leaf.bend": "6ff53dbfa665ab1c0197c8191e38e58e1e9a2ea6dda8f22fc9cb858432c380e9",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/mutant-retainer/bridge.bend": "f63627087ff98ad3c7d347b7e179271c31c8b000a4dd3a40ab8abb0ab602ad83",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/mutant-retainer/main.bend": "091c848c1d6da6e94f6284eb447032157737b1c2609d2f87347d625c5361da5e"
+  },
+  "oracles": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/expected-retainer.stdout",
+      "sha256": "e7f24c907d7055e006f20d2bf9d6358fa7d217201b800fc54290638d1b99701f"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/expected-retainer.json",
+      "sha256": "3b89e9fe8f966731de2ff65d0b75e08439f74b6ecbcf29c10b36272f9bfe86b1"
+    }
+  ],
+  "oracleCommit": "a7c358e56afcf0e03c393ff576a2676dc7631647 + independent9752741d",
+  "transport": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/transport-retainer.py",
+    "sha256": "fefbae491f36955ccf45136b8ff1aa43c39c79cceacca03661ed50c843d1f853"
+  },
+  "transportInputs": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/transport.py",
+      "sha256": "ec899042fab01f3ee7e09ef1cf1efdd444b00c7533c6a9b20c535ec376c40897"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-owned-events/registered-read-v1/transport.py",
+      "sha256": "1f3bc6acce1d305729a763ecfeb78751d83a32a37d622417c303fb33deed4510"
+    }
+  ],
+  "tools": {
+    "bend": {
+      "path": "/home/node/.bend/bin/bend-2.0.35",
+      "sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a"
+    },
+    "node": {
+      "path": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+      "sha256": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477"
+    },
+    "taskset": {
+      "path": "/usr/bin/taskset",
+      "sha256": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5"
+    }
+  }
+}

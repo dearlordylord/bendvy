@@ -110,3 +110,21 @@ controls and two real no-child plan/interpreter admission controls pass. Raw
 oracles were rendered entirely from the independently reviewed JSON models
 before any backend output. Runtime plans are **unused and unadmitted** until the
 coordinator's exact recipe review. Root checkout relocation is not qualified.
+
+### Successor after shared publication-ledger repair
+
+The original `PREPARED.json`/prepared-v1 four cohorts remain **unadmitted and
+unexecuted**. Independent review found the reused collector copied published
+log joins after a potentially failing guard. Root-owned repair `371d84b9`
+(worker cherry-pick `7b47e256`) captures those joins before any failing guard;
+actual Runner second-stream publication failure tests also cover concurrent
+input drift. No feature source, model, tool selection or caps changed.
+
+The sole current successor index is
+`bendvy54-retention-backend02-INDEX.json`; its public copies are `prepared-v2/`.
+Original output paths `/tmp/bendvy54-retention-backend02` remain fresh. Run the
+existing no-child test with `BENDVY_RETENTION_PLAN_INDEX` pointing at this index;
+its default historical index deliberately remains preserved. Current two plan
+controls, three strict transport controls and three model controls pass. Only
+shared collector/helper bytes and new cohort paths change; prior results are
+not rebound. Independent review of the repair/current pins precedes execution.
