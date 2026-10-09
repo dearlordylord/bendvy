@@ -1,0 +1,689 @@
+{
+  "$": "Report",
+  "resourceAccepted": {
+    "$": "SystemFailedObserved",
+    "before": {
+      "$": "Snapshot",
+      "meta": {
+        "$": "Meta",
+        "namespace": 1,
+        "nextId": 2,
+        "highWater": 1,
+        "capacity": 2,
+        "depth": 1,
+        "events": [],
+        "registrations": [
+          {
+            "$": "RegistrationMeta",
+            "id": 1,
+            "name": "decode-owned",
+            "access": [
+              "decoded-resource"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 0
+      },
+      "live": [
+        false,
+        false
+      ],
+      "column": {
+        "$": "ColumnView",
+        "supported": true,
+        "slots": [
+          {
+            "$": "None"
+          }
+        ],
+        "stamps": []
+      },
+      "resource": {
+        "$": "MailView",
+        "value": {
+          "$": "PayloadView",
+          "raw": {
+            "$": "Text",
+            "value": "initial-resource"
+          },
+          "sentinel": [
+            555,
+            666
+          ]
+        },
+        "retired": [],
+        "returned": [],
+        "errors": []
+      },
+      "pending": 0
+    },
+    "after": {
+      "$": "Snapshot",
+      "meta": {
+        "$": "Meta",
+        "namespace": 1,
+        "nextId": 2,
+        "highWater": 1,
+        "capacity": 2,
+        "depth": 1,
+        "events": [],
+        "registrations": [
+          {
+            "$": "RegistrationMeta",
+            "id": 1,
+            "name": "decode-owned",
+            "access": [
+              "decoded-resource"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 0
+      },
+      "live": [
+        false,
+        false
+      ],
+      "column": {
+        "$": "ColumnView",
+        "supported": true,
+        "slots": [
+          {
+            "$": "None"
+          }
+        ],
+        "stamps": []
+      },
+      "resource": {
+        "$": "MailView",
+        "value": {
+          "$": "PayloadView",
+          "raw": {
+            "$": "Text",
+            "value": "initial-resource"
+          },
+          "sentinel": [
+            555,
+            666
+          ]
+        },
+        "retired": [],
+        "returned": [],
+        "errors": []
+      },
+      "pending": 0
+    },
+    "instance": {
+      "$": "InstanceView",
+      "namespace": 1,
+      "id": 1,
+      "name": "decode-owned",
+      "access": [
+        "decoded-resource"
+      ],
+      "operation": {
+        "$": "Resource"
+      },
+      "codec": {
+        "$": "Integer"
+      },
+      "completion": {
+        "$": "Failure",
+        "error": {
+          "$": "Unit"
+        }
+      },
+      "recovery": [
+        {
+          "$": "RecoveryView",
+          "output": {
+            "$": "AcceptedView",
+            "namespace": 1,
+            "id": 1,
+            "spawned": false,
+            "canonical": {
+              "$": "Number",
+              "value": 7
+            }
+          },
+          "packets": []
+        }
+      ]
+    },
+    "error": {
+      "$": "Unit"
+    }
+  },
+  "resourceRefused": {
+    "$": "SystemFailedObserved",
+    "before": {
+      "$": "Snapshot",
+      "meta": {
+        "$": "Meta",
+        "namespace": 1,
+        "nextId": 2,
+        "highWater": 1,
+        "capacity": 2,
+        "depth": 1,
+        "events": [],
+        "registrations": [
+          {
+            "$": "RegistrationMeta",
+            "id": 1,
+            "name": "decode-owned",
+            "access": [
+              "decoded-resource"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 0
+      },
+      "live": [
+        false,
+        false
+      ],
+      "column": {
+        "$": "ColumnView",
+        "supported": true,
+        "slots": [
+          {
+            "$": "None"
+          }
+        ],
+        "stamps": []
+      },
+      "resource": {
+        "$": "MailView",
+        "value": {
+          "$": "PayloadView",
+          "raw": {
+            "$": "Text",
+            "value": "initial-resource"
+          },
+          "sentinel": [
+            555,
+            666
+          ]
+        },
+        "retired": [],
+        "returned": [],
+        "errors": []
+      },
+      "pending": 0
+    },
+    "after": {
+      "$": "Snapshot",
+      "meta": {
+        "$": "Meta",
+        "namespace": 1,
+        "nextId": 2,
+        "highWater": 1,
+        "capacity": 2,
+        "depth": 1,
+        "events": [],
+        "registrations": [
+          {
+            "$": "RegistrationMeta",
+            "id": 1,
+            "name": "decode-owned",
+            "access": [
+              "decoded-resource"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 0
+      },
+      "live": [
+        false,
+        false
+      ],
+      "column": {
+        "$": "ColumnView",
+        "supported": true,
+        "slots": [
+          {
+            "$": "None"
+          }
+        ],
+        "stamps": []
+      },
+      "resource": {
+        "$": "MailView",
+        "value": {
+          "$": "PayloadView",
+          "raw": {
+            "$": "Text",
+            "value": "initial-resource"
+          },
+          "sentinel": [
+            555,
+            666
+          ]
+        },
+        "retired": [],
+        "returned": [],
+        "errors": []
+      },
+      "pending": 0
+    },
+    "instance": {
+      "$": "InstanceView",
+      "namespace": 1,
+      "id": 1,
+      "name": "decode-owned",
+      "access": [
+        "decoded-resource"
+      ],
+      "operation": {
+        "$": "Resource"
+      },
+      "codec": {
+        "$": "Integer"
+      },
+      "completion": {
+        "$": "Failure",
+        "error": {
+          "$": "Unit"
+        }
+      },
+      "recovery": [
+        {
+          "$": "RecoveryView",
+          "output": {
+            "$": "RefusedView",
+            "owner": {
+              "$": "Some",
+              "value": {
+                "$": "PayloadView",
+                "raw": {
+                  "$": "Boolean",
+                  "value": false
+                },
+                "sentinel": [
+                  111,
+                  222
+                ]
+              }
+            },
+            "error": {
+              "$": "Validation",
+              "error": {
+                "$": "Invalid",
+                "path": "$",
+                "expected": "integer",
+                "actual": {
+                  "$": "Boolean",
+                  "value": false
+                }
+              }
+            }
+          },
+          "packets": []
+        }
+      ]
+    },
+    "error": {
+      "$": "Unit"
+    }
+  },
+  "spawnAccepted": {
+    "$": "SystemFailedObserved",
+    "before": {
+      "$": "Snapshot",
+      "meta": {
+        "$": "Meta",
+        "namespace": 1,
+        "nextId": 2,
+        "highWater": 1,
+        "capacity": 2,
+        "depth": 1,
+        "events": [],
+        "registrations": [
+          {
+            "$": "RegistrationMeta",
+            "id": 1,
+            "name": "decode-owned",
+            "access": [
+              "decoded-value"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 0
+      },
+      "live": [
+        false,
+        false
+      ],
+      "column": {
+        "$": "ColumnView",
+        "supported": true,
+        "slots": [
+          {
+            "$": "None"
+          }
+        ],
+        "stamps": []
+      },
+      "resource": {
+        "$": "MailView",
+        "value": {
+          "$": "PayloadView",
+          "raw": {
+            "$": "Text",
+            "value": "initial-resource"
+          },
+          "sentinel": [
+            555,
+            666
+          ]
+        },
+        "retired": [],
+        "returned": [],
+        "errors": []
+      },
+      "pending": 0
+    },
+    "after": {
+      "$": "Snapshot",
+      "meta": {
+        "$": "Meta",
+        "namespace": 1,
+        "nextId": 3,
+        "highWater": 2,
+        "capacity": 4,
+        "depth": 2,
+        "events": [],
+        "registrations": [
+          {
+            "$": "RegistrationMeta",
+            "id": 1,
+            "name": "decode-owned",
+            "access": [
+              "decoded-value"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 0
+      },
+      "live": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "column": {
+        "$": "ColumnView",
+        "supported": true,
+        "slots": [
+          {
+            "$": "None"
+          }
+        ],
+        "stamps": []
+      },
+      "resource": {
+        "$": "MailView",
+        "value": {
+          "$": "PayloadView",
+          "raw": {
+            "$": "Text",
+            "value": "initial-resource"
+          },
+          "sentinel": [
+            555,
+            666
+          ]
+        },
+        "retired": [],
+        "returned": [],
+        "errors": []
+      },
+      "pending": 0
+    },
+    "instance": {
+      "$": "InstanceView",
+      "namespace": 1,
+      "id": 1,
+      "name": "decode-owned",
+      "access": [
+        "decoded-value"
+      ],
+      "operation": {
+        "$": "Spawn"
+      },
+      "codec": {
+        "$": "Integer"
+      },
+      "completion": {
+        "$": "Failure",
+        "error": {
+          "$": "Unit"
+        }
+      },
+      "recovery": [
+        {
+          "$": "RecoveryView",
+          "output": {
+            "$": "AcceptedView",
+            "namespace": 1,
+            "id": 2,
+            "spawned": true,
+            "canonical": {
+              "$": "Number",
+              "value": 7
+            }
+          },
+          "packets": [
+            {
+              "$": "PacketView",
+              "owner": {
+                "$": "Some",
+                "value": {
+                  "$": "PayloadView",
+                  "raw": {
+                    "$": "Number",
+                    "value": 7
+                  },
+                  "sentinel": [
+                    111,
+                    222
+                  ]
+                }
+              },
+              "original": {
+                "$": "Number",
+                "value": 7
+              },
+              "canonical": {
+                "$": "Number",
+                "value": 7
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "error": {
+      "$": "Unit"
+    }
+  },
+  "spawnRefused": {
+    "$": "SystemFailedObserved",
+    "before": {
+      "$": "Snapshot",
+      "meta": {
+        "$": "Meta",
+        "namespace": 1,
+        "nextId": 2,
+        "highWater": 1,
+        "capacity": 2,
+        "depth": 1,
+        "events": [],
+        "registrations": [
+          {
+            "$": "RegistrationMeta",
+            "id": 1,
+            "name": "decode-owned",
+            "access": [
+              "decoded-value"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 0
+      },
+      "live": [
+        false,
+        false
+      ],
+      "column": {
+        "$": "ColumnView",
+        "supported": true,
+        "slots": [
+          {
+            "$": "None"
+          }
+        ],
+        "stamps": []
+      },
+      "resource": {
+        "$": "MailView",
+        "value": {
+          "$": "PayloadView",
+          "raw": {
+            "$": "Text",
+            "value": "initial-resource"
+          },
+          "sentinel": [
+            555,
+            666
+          ]
+        },
+        "retired": [],
+        "returned": [],
+        "errors": []
+      },
+      "pending": 0
+    },
+    "after": {
+      "$": "Snapshot",
+      "meta": {
+        "$": "Meta",
+        "namespace": 1,
+        "nextId": 2,
+        "highWater": 1,
+        "capacity": 2,
+        "depth": 1,
+        "events": [],
+        "registrations": [
+          {
+            "$": "RegistrationMeta",
+            "id": 1,
+            "name": "decode-owned",
+            "access": [
+              "decoded-value"
+            ]
+          }
+        ],
+        "nextSystemId": 2,
+        "clock": 0
+      },
+      "live": [
+        false,
+        false
+      ],
+      "column": {
+        "$": "ColumnView",
+        "supported": true,
+        "slots": [
+          {
+            "$": "None"
+          }
+        ],
+        "stamps": []
+      },
+      "resource": {
+        "$": "MailView",
+        "value": {
+          "$": "PayloadView",
+          "raw": {
+            "$": "Text",
+            "value": "initial-resource"
+          },
+          "sentinel": [
+            555,
+            666
+          ]
+        },
+        "retired": [],
+        "returned": [],
+        "errors": []
+      },
+      "pending": 0
+    },
+    "instance": {
+      "$": "InstanceView",
+      "namespace": 1,
+      "id": 1,
+      "name": "decode-owned",
+      "access": [
+        "decoded-value"
+      ],
+      "operation": {
+        "$": "Spawn"
+      },
+      "codec": {
+        "$": "Integer"
+      },
+      "completion": {
+        "$": "Failure",
+        "error": {
+          "$": "Unit"
+        }
+      },
+      "recovery": [
+        {
+          "$": "RecoveryView",
+          "output": {
+            "$": "RefusedView",
+            "owner": {
+              "$": "Some",
+              "value": {
+                "$": "PayloadView",
+                "raw": {
+                  "$": "Boolean",
+                  "value": false
+                },
+                "sentinel": [
+                  111,
+                  222
+                ]
+              }
+            },
+            "error": {
+              "$": "Validation",
+              "error": {
+                "$": "Invalid",
+                "path": "$",
+                "expected": "integer",
+                "actual": {
+                  "$": "Boolean",
+                  "value": false
+                }
+              }
+            }
+          },
+          "packets": []
+        }
+      ]
+    },
+    "error": {
+      "$": "Unit"
+    }
+  }
+}
