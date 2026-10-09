@@ -188,3 +188,33 @@ validation/construction, approved rollback and #56 enable-debug requirements
 continue. Their current experimental or integrated evidence does not approve
 these extras. Full public applications, capability evidence and numeric gates
 remain open under their existing owners and #61.
+
+## Inspector/debug audit overlay — master `32e183cab`
+
+Preparation only. The current integrated surface contains 111 top-level core
+modules; the frozen TS export census and capability scope reconciliation above
+remain unchanged. Rust Bevy semantics govern World-bound state validation while
+static declarations may be reused; Bend requires affine owners and detached Data
+views. TS facade/DTO/helper compatibility is not an additional mandatory scope.
+No registered-system liveness requirement is inferred for ordinary inspection.
+
+| Contract / existing owner | Integrated implementation and concrete evidence | Remaining acceptance gap |
+| --- | --- | --- |
+| Read-only arbitrary-product query composition, declared presence/lifecycle selection → #54 | `ordinary-component-binding`, `ordinary-inspector-declaration`, `inspector-query-projection`, `inspector-query-families`, `inspector-query-world`, `ordinary-query-selections` and `inspector-query` are integrated. [Independent delivery review](../reviews/canonical-inspector-delivery/review-2026-10-09.md) joins four stock leaf JS/Native cohorts, full23 normal/reached-reader JS and six source/API controls. | Complete23 stock Native remains incomplete (emit30/no C; reader Native held), broader resource/stream and held-view ownership boundaries remain, and feature performance is not qualified. |
+| One ordinary Binding/declaration drives both operational and inspection lowerings and actual registration → #56 | `ordinary-query-observable` and additive `ordinary-system` registration are integrated. [Observable successor](../../experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/observable-successor-v1/README.md) qualifies full79 operational JS normal/handler omission; [eight source/API controls](../../experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/README.md) retain exact authority/affine diagnostics. Combined111-core unchanged #28 passes `c574ccaf`. | This operational qualification does not execute detached Inspector lowering or finish automatic descriptions/dumps. No registered-cursor inspection entry is adopted; extra registration-liveness semantics were withdrawn rather than introduced. |
+| Detached ordinary inspection with independent observation cursor, repeated enabled/disabled preservation → #56/#55 | [Full80 diagnostic review](../../experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/diagnostic-js-v1/launch-review.md) verifies normal/filter mutant/handler omission JS, complete outputs, ascending query rows and World/Registry preservation (`e4eae0d7`, `6a2b7d9e`). | The complete source5 prerequisite remains UNMET. These three executions are diagnostic, acceptance=false. [Native diagnostic review](../../experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/diagnostic-native-v1/launch-review.md) retains emit30/no C; build/runtime unattempted. Full stock Native, broader #55 categories, public App adoption and feature performance remain open. Family does not imply exhaustive states/transitions. |
+| Optional ordered execution observation and subscriber lifecycle → #57 | [Existing trace preparation](debug-trace.md#source-preparation-and-reusable-evidence-2026-10-09) identifies actual schedule/system/transaction/barrier/relation/handler seams and three historical executed TS comparators. Core Schedule `Ran` still conflates success/failure; no subscriber core exists. | Subscriber ownership/delivery/IO adaptations require an explicit contract. Complete failure/order/relation/transition traces, reached disposal mutants, noninterference, disabled publication avoidance and timing/allocation remain unqualified. TS callback Set identity and particular trace DTOs are not automatically approved. |
+
+Later copied-compiler phase/context diagnostics are retained investigation, not
+stock source/backend qualification: one full graph traverses 2,043,695 queued
+entries representing 3,727 unique definitions before an emission checkpoint
+without C. The earlier file_book stop differs; neither observation establishes
+an algorithmic cause, improvement or speedup. Original failures remain failures.
+
+Concrete gaps stay with #54–#57; joined cross-feature application coverage stays
+with #61 and full numeric product qualification with #21/#23/#24. #38 identity,
+#48 initialization/marker adaptations, #50–#53 affine capture/event recovery and
+#59–#60 restore policies remain their existing owners' decisions; this overlay
+accepts none. No archived TS-only requirement, new contract, new runtime run or
+full parity/audit closure is introduced. Current task coordination remains in
+[the existing table](README.md#current-delivery-coordination).
