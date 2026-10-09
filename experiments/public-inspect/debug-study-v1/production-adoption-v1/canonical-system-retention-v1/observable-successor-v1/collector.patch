@@ -1,0 +1,11 @@
+--- qualified-parent/development-js.py
++++ observable-successor/development-js.py
+@@ -86,7 +86,7 @@
+                   HERE.parents[2] / 'scenario-main.bend',
+                   HERE.parents[2] / 'app-run-v1/nominal-carrier-v1/accumulated-v1/main.bend'])
+     for role in ('normal', 'mutant'):
+-        attempt = migration / 'source-attempts' / ('04-' + role)
++        attempt = migration / 'source-attempts' / ('02-' + role)
+         extra.extend(attempt / name for name in ('SOURCE.json', 'result.json', 'post.json', 'stdout', 'stderr'))
+     pins = dict(identities['sourceSHA256'])
+     for path, digest in json.loads((oracle / 'source-basis.json').read_text())['sources'].items():
