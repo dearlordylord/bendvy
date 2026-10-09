@@ -1,0 +1,9 @@
+spawn-before=missing:missing
+spawn-after=[7, 9]:11
+insert=[13, 17]:19
+restore=[7, 9]:11
+cleanup=absent:absent|ns=1|next=2|high=1|clock=4|returned=[7, 9]:11,[13, 17]:19,end|installed=0|quarantine=0|errors=0|pending=0
+retry-first=MissingEntity
+retry-before=absent:absent
+retry-after=[7, 9]:23
+retry-cleanup=absent:absent|ns=2|next=2|high=1|clock=2|returned=[7, 9]:23,end|installed=0|quarantine=0|errors=0|pending=0

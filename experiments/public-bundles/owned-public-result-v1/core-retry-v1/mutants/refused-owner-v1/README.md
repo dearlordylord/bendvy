@@ -1,0 +1,3 @@
+# Planted public refused-owner recovery defect
+
+Original main copied with import-depth relocation only, plus wrong_raw/wrong_unpack/wrong_request and provider callback substitution. Generic Retry.body, actual core request/Batch and original core-runtime main are unchanged. The defect lives in the existing trusted callback slot used by the public refused-packet path; it preserves arbitrary affine Array ownership while returning wrong scalar content. Exact pre-output whole oracle and baseline are retained in oracle-v1. This is a falsification control, not an implementation fix or physical-identity proof. No backend ran. Source5 retained under source-1 reaches exact same five IO definitions.
