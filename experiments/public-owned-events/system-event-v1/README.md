@@ -9,3 +9,9 @@ Source checks are retained in `evidence`. No backend has run. Existing observer 
 ## App boundary
 
 Ordinary `App.add` accepts the entity-query runner registry nominal type; this event-stream registry is different. Canonical schedule dispatch returns `Sys.Outcome`, while `System.ScheduleDispatch` intentionally distinguishes registration rejection with returned arguments. A total App bridge must preserve this separate refusal; mapping it to success/failure or discarding arguments would select an unapproved contract. Boolean validation alone does not eliminate that sum branch. This experiment therefore exposes the complete typed transport and does not claim actual App dispatch, a public event API, task #53 closure, tool-closure qualification or performance evidence.
+
+## Frozen development preparation
+
+`transport.py` reuses the reviewed strict parser and explicitly binds the imported nominal record paths plus the new full OwnerMeta/Snapshot wrapper and Query Clause/Mode sums. `test-preparation.py` checks the whole independent oracle roundtrip, malformed/trailing bytes, a retained-owner cell mutation, wrong plan digest and self-rehashed interpreter-pin drift without launching a child.
+
+The JS/Native plans in `evidence/prepared-v1` use the existing reviewed direct development recipe: Python/tool/source/oracle/environment/resource pins, exact prepared-plan admission, CPU5, child-only shared lock, pre/post guards and unconditional receipt; emit30/build120/run5 and Native threads1/GPUoff. Plans remain unexecuted pending independent admission. Their original private environment files stay outside Git; this is installed-host development preparation, not closed tool resolver/clean-checkout qualification.
