@@ -35,6 +35,7 @@ def write():
   (HERE/(name+'-expected.json')).write_text(json.dumps(text,indent=2)+'\n')
   (HERE/(name+'-expected.stdout')).write_bytes(raw)
   (HERE/(name+'-expected.stdout.gz')).write_bytes(gzip.compress(raw,mtime=0))
+ basis['formattingSources']={str(path):hashlib.sha256(path.read_bytes()).hexdigest() for path in (Path('/home/node/.bend/bend2/base.bend'),Path('/home/node/.bend/bend2/effs/print.js'),Path('/home/node/.bend/bend2/effs/print.c'))}
  basis.update(sourceCommit='2d30c303',modelInputs={str(PARENT):hashlib.sha256(PARENT.read_bytes()).hexdigest()},chronology='Independent detached successor after pure printer refusal; no runtime streams read')
  (HERE/'SOURCE-BASIS.json').write_text(json.dumps(basis,indent=2)+'\n')
 if __name__=='__main__':write()
