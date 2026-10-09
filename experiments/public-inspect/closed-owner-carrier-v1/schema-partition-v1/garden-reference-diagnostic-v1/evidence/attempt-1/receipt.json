@@ -1,0 +1,53 @@
+{
+  "scope": "Garden exact-source copied-reference compiler progress diagnostic only; no installed ELF binding, Native/performance or complete54 qualification",
+  "planSHA256": "e492dc5f48879c1fb27771d29efa1a900013044fe0c7ed031c205e30c3421950",
+  "commands": [
+    {
+      "label": "reference-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/schema-partition-v1/garden-reference-diagnostic-v1/emit.mts",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/schema-partition-v1/garden.bend",
+        "/tmp/bendvy-inspect54-garden-reference02/reference.c"
+      ],
+      "capSeconds": 30,
+      "exit": null,
+      "failure": "child deadline",
+      "stdout": {
+        "path": "/tmp/bendvy-inspect54-garden-reference02/emit.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-inspect54-garden-reference02/emit.stderr",
+        "bytes": 262496,
+        "sha256": "013606d04ba5eacd4216d14c8f445d57d57e52ea4dda33f5bd98df858efd0a8a"
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-inspect54-garden-reference02/emit-pre.guard.json",
+      "sha256": "83318a9c3906adaf16576759e8bcf7d3c203918224ac09f72de7273588d1392e"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-garden-reference02/emit-acquired.guard.json",
+      "sha256": "674f81c60db4d6c38bc8a1aa7b015b371d93a3f73a39e99526cc504045437ae2"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-garden-reference02/emit-post.guard.json",
+      "sha256": "2adc3cbe0b1daefa5e41541ee8965d14fc275042716a01fe0253f50f1f3fe91e"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-garden-reference02/final.guard.json",
+      "sha256": "1de2746fd078b20eb671ce188cdc408c89046f4c7612c5082821a2f42f65227f"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "qualifiesInstalledCompiler": false
+}

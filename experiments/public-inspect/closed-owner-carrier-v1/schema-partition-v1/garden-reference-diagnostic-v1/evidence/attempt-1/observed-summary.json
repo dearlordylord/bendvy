@@ -1,0 +1,59 @@
+{
+  "events": {
+    "book_load.begin": 1,
+    "book_load.end": 1,
+    "book_valid.begin": 1,
+    "book_valid.end": 1,
+    "compile_book.begin": 1,
+    "file_book.begin": 1,
+    "file_book.definition": 1830,
+    "type_adts.calls": 20,
+    "file_book.end": 1,
+    "emit_iteration.begin": 1,
+    "emit_definition.begin": 195
+  },
+  "phaseBoundaries": [
+    {
+      "event": "book_load.begin",
+      "elapsedMs": 0
+    },
+    {
+      "event": "book_load.end",
+      "elapsedMs": 390
+    },
+    {
+      "event": "book_valid.begin",
+      "elapsedMs": 390
+    },
+    {
+      "event": "book_valid.end",
+      "elapsedMs": 1439
+    },
+    {
+      "event": "compile_book.begin",
+      "elapsedMs": 1439
+    },
+    {
+      "event": "file_book.begin",
+      "elapsedMs": 1440
+    },
+    {
+      "event": "file_book.end",
+      "elapsedMs": 2646,
+      "definitions": 452118,
+      "typeAdtCalls": 694137
+    },
+    {
+      "event": "emit_iteration.begin",
+      "elapsedMs": 2646,
+      "facts": 0
+    }
+  ],
+  "lastMarker": {
+    "event": "emit_definition.begin",
+    "elapsedMs": 3264,
+    "owner": "garden-stage/core-v1/src/ecs/column:indexed_view_projected~1"
+  },
+  "boundedProgressRecords": 2048,
+  "scope": "Compiler copy pipeline observed only. Queue definition counter counts visits including already-seen entries, not distinct definitions. Log budget exhausted; last marker does not identify blocker."
+}
