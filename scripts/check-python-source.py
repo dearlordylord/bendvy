@@ -5,6 +5,28 @@ import ast
 import pathlib
 from task_runner import run
 
+# Current frozen execution chains; historical receipts keep their original code.
+SOURCE_BOUND_LOADERS = {
+    'experiments/public-simulation/delivery-v1/collect-metadata.py',
+    'experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/development-run.py',
+    'experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/transport.py',
+    'experiments/public-decode/adoption-v1/qualification-v1/transport.py',
+}
+SOURCE_BOUND_PACKAGES = ('experiments/public-inspect/native-debug-call-boundary-v1/',)
+
+
+def source_bound_loader_scope(name):
+    path = pathlib.Path(name)
+    if path.is_absolute():
+        try:
+            path = path.relative_to(pathlib.Path(__file__).resolve().parents[1])
+        except ValueError:
+            return False
+    relative = path.as_posix()
+    return (relative in SOURCE_BOUND_LOADERS or
+            (relative.startswith(SOURCE_BOUND_PACKAGES) and not path.name.startswith('test-')))
+
+
 PATH_METHODS = {'read_text', 'read_bytes', 'write_text', 'write_bytes',
                 'exists', 'is_file', 'is_dir', 'mkdir', 'glob', 'rglob'}
 
@@ -37,6 +59,11 @@ def check(name, source):
                 and isinstance(node.func.value, ast.Tuple)
                 and node.func.attr in PATH_METHODS):
             print(f'{name}:{node.lineno}: tuple has no {node.func.attr} method')
+            valid = False
+        if (source_bound_loader_scope(name) and isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Attribute) and node.func.attr == 'exec_module'
+                and isinstance(node.func.value, ast.Attribute) and node.func.value.attr == 'loader'):
+            print(f'{name}:{node.lineno}: compile pinned source bytes; loader.exec_module may read unpinned bytecode')
             valid = False
         if entrypoint:
             if (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)

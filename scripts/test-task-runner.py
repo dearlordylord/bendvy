@@ -39,6 +39,18 @@ class Execution(unittest.TestCase):
                 continue
             self.assertTrue(python_source.check(str(path), path.read_bytes()), str(path))
 
+    def test_frozen_execution_chains_reject_cached_loaders(self):
+        for name in [*python_source.SOURCE_BOUND_LOADERS,
+                     'experiments/public-inspect/native-debug-call-boundary-v1/execution.py']:
+            with self.subTest(name=name), mock.patch('builtins.print'):
+                self.assertFalse(python_source.check(name, 'spec.loader.exec_module(module)'))
+                self.assertTrue(python_source.check(name, 'exec(compile(raw, path, "exec"), module.__dict__)'))
+                self.assertTrue(python_source.check(name, 'message = "spec.loader.exec_module(module)"'))
+        # A negative cache reproduction is not the frozen runtime loader.
+        self.assertTrue(python_source.check(
+            'experiments/public-inspect/native-debug-call-boundary-v1/test-execution.py',
+            'spec.loader.exec_module(module)'))
+
     def test_entrypoint_source_refusals(self):
         for folder in ['experiments/public-candidate', 'benchmarks', 'docs', 'examples', 'scripts']:
             for method in ['Popen', 'run', 'check_output', 'check_call', 'call']:
@@ -68,6 +80,26 @@ class Execution(unittest.TestCase):
             candidate.write_text('from task_runner import run\nrun([])\n')
             with mock.patch.object(sys, 'argv', ['check-python-source.py', str(candidate)]):
                 self.assertEqual(python_source.main(), 0)
+
+    def test_runner_publication_and_postguard_failure_keep_process_result(self):
+        result = dict(exit=7, failure=None, stdout=b'completed stdout', stderr=b'error')
+        for stage in ('publication', 'postguard'):
+            with self.subTest(stage=stage):
+                inputs, command_logs = mock.Mock(), mock.Mock()
+                command_logs.labels = {'probe'}
+                command_logs.hashes = {}
+                failure = OSError('publication refused') if stage == 'publication' else RuntimeError('input drift')
+                if stage == 'publication':
+                    command_logs.record.side_effect = failure
+                else:
+                    inputs.guard.side_effect = [None, failure]
+                runner = Runner(command_logs, inputs=inputs)
+                with mock.patch.object(task_runner, 'execute_result', return_value=result):
+                    with self.assertRaises(type(failure)) as caught:
+                        runner.run('probe', ['no child'], 5)
+                self.assertIs(caught.exception, failure)
+                self.assertIs(caught.exception.result, result)
+                self.assertEqual(caught.exception.result['stdout'], b'completed stdout')
 
     def test_completed_process_adapter(self):
         result = task_runner.run(command('import os; os.write(1,b"a\\r\\n"); os.write(2,b"err"); exit(7)'),timeout=3,capture_output=True,text=True)

@@ -246,13 +246,16 @@ class Runner:
         if label not in self.logs.labels or label + '.stdout' in self.logs.hashes:
             raise ValueError('unplanned or already executed command')
         result = execute_result(command, timeout, self.env, self.cwd, self.capture)
-        self.logs.record(label, result['stdout'], result['stderr'])
-        self.inputs.guard()
-        _raise_failure(result)
-        if expected is not None and result['exit'] != expected:
-            error = RuntimeError('unexpected command exit: ' + str(result['exit']))
+        try:
+            self.logs.record(label, result['stdout'], result['stderr'])
+            self.inputs.guard()
+            _raise_failure(result)
+            if expected is not None and result['exit'] != expected:
+                raise RuntimeError('unexpected command exit: ' + str(result['exit']))
+        except BaseException as error:
+            # A publication/postguard failure must retain the completed process.
             error.result = result
-            raise error
+            raise
         return result
 
 
