@@ -17,7 +17,14 @@ def parser(pins):
 
 def check(plan,cohort,raw,pins):
  P=parser(pins);identity=json.loads(Path(cohort['inventory']).read_text());join=json.loads(Path(cohort['join']).read_text())
- actual=P.normalize(raw.decode(),identity,join)
+ if cohort.get('heldIdentity'):
+  path=HERE/'held-continuation-v1/identities.py'
+  if hashlib.sha256(path.read_bytes()).hexdigest()!=pins[str(path)]:raise ValueError('relocation source drift')
+  module=types.ModuleType('held_identity');module.__file__=str(path);exec(compile(path.read_bytes(),str(path),'exec'),module.__dict__)
+  if identity!=module.derive(P,cohort['originalInventory'],cohort['entrypoint']):raise ValueError('held source/constructor inventory drift')
+  P.BASE.GROUPS['Output.Report']=['Handler.Reported']
+  actual=P.BASE.normalize(P.BASE.parse_term(raw.decode()),identity['constructors'],join)
+ else:actual=P.normalize(raw.decode(),identity,join)
  expected=json.loads(Path(cohort['oracle']).read_text());P.BASE.strict_equal(actual,expected)
  if cohort['kind']=='mutant':
   positive=json.loads(Path(plan['cohorts'][0]['oracle']).read_text())

@@ -50,10 +50,10 @@ def capture_artifact(record,artifact,pins):
   except Exception as error:
    ledger['captureError']=str(error);raise
 
-def prepare(out,arity_diagnostic=False):
+def prepare(out,arity_diagnostic=False,held=False):
  out=Path(out).resolve();out.mkdir(exist_ok=False);stage=out/'stage';stage.mkdir()
  parent=HERE.parent
- compiler=HERE/'arity-diagnostic-v1/compiler-diagnostic.ts.gz' if arity_diagnostic else parent/'candidate.comp.ts.gz'
+ compiler=HERE/'arity-diagnostic-v1/compiler-diagnostic.ts.gz' if arity_diagnostic or held else parent/'candidate.comp.ts.gz'
  capture(stage/'candidate.comp.ts',gzip.decompress(compiler.read_bytes()))
  capture(stage/'emit-full.mts',(HERE/'emit-full.mts').read_bytes())
  oldplans=[Path('/tmp/bendvy56-recursive-'+kind+'-js-v1/plan.json')for kind in ['normal','mutant']]
@@ -77,6 +77,22 @@ def prepare(out,arity_diagnostic=False):
   cohorts.append({'kind':kind,'entrypoint':previous['entrypoint'],'inventory':previous['constructorInventory'],'oracle':previous['oracle'],'join':previous['join'],'expectedSHA256':previous['expectedSHA256'],'sourceFiles':len(identity['sourceSHA256']),'commands':commands})
  if arity_diagnostic:
   cohorts=cohorts[:1];cohorts[0]['commands']=cohorts[0]['commands'][:1]
+ if held:
+  held_cohorts=[];parser_module=load('existing_full_transport',HERE/'transport.py').parser({r['original']:sha(r['original'])for r in json.loads((HERE/'PARSER-ADAPTERS.json').read_text())}|{str(HERE/r['adapted']):sha(HERE/r['adapted'])for r in json.loads((HERE/'PARSER-ADAPTERS.json').read_text())})
+  derivation=load('held_identity',HERE/'held-continuation-v1/identities.py')
+  for backend in ['js','native']:
+   for cohort in cohorts:
+    kind=cohort['kind'];entry=HERE/'held-continuation-v1'/('main.bend'if kind=='normal'else'main-drop-handlers.bend');identity=HERE/'held-continuation-v1'/(kind+'-identities.json')
+    actual=derivation.derive(parser_module,cohort['inventory'],entry)
+    if json.loads(identity.read_text())!=actual:raise ValueError('held exact inventory changed')
+    pins.update(actual['sourceSHA256']);pins[str(identity)]=sha(identity)
+    generated=out/(kind+'.'+('js'if backend=='js'else'c'));witness=out/(kind+'-'+backend+'.witness.json');binary=out/(kind+'.native')
+    commands=[{'label':kind+'-'+backend+'-emit','stage':'emit','argv':[tools['taskset'],'-c','5',tools['node'],str(stage/'emit-full.mts'),str(entry),str(generated),str(witness),backend],'capSeconds':30,'artifact':str(generated),'witness':str(witness)}]
+    if backend=='native':commands.append({'label':kind+'-native-build','stage':'build','argv':[tools['taskset'],'-c','5',tools['clangWrapper'],'-O3',str(generated),'-o',str(binary),'-pthread','-lm'],'capSeconds':120,'artifact':str(binary)})
+    runtime=[tools['taskset'],'-c','5',tools['node'],str(generated)]if backend=='js'else[tools['taskset'],'-c','5',str(binary),'--threads','1','--gpu','off']
+    commands.append({'label':kind+'-'+backend+'-runtime','stage':'runtime','argv':runtime,'capSeconds':5})
+    held_cohorts.append({**cohort,'backend':backend,'entrypoint':str(entry),'inventory':str(identity),'originalInventory':cohort['inventory'],'heldIdentity':True,'commands':commands})
+  cohorts=held_cohorts
  # Retain historical baseline and copied-control joins as provenance, never replay them.
  ref=ROOT/'.references/bend2/bend2'
  adapters=json.loads((HERE/'PARSER-ADAPTERS.json').read_text())
@@ -86,7 +102,7 @@ def prepare(out,arity_diagnostic=False):
    if path.resolve()==HERE/'arity-diagnostic-v1/PREPARED.json':continue # historical preparation pointer, not execution input
    resolved=path.resolve(strict=True);pins[str(resolved)]=sha(resolved)
    if path.is_symlink():bindings[str(path)]=str(resolved)
- p={'scope':'Copied candidate compiler full normal71 + reached handler omission whole controls only; no installed resolver/performance/task closure','pins':pins,'fileBindings':bindings,'resourceRoots':runner.Inputs(directories=configuration.RESOURCE_ROOTS).snapshot(),'environment':configuration.environment(),'tools':tools,'cwd':str(ROOT),'cohorts':cohorts,'compilerProvenance':str(parent/'SOURCE.json'),'successfulControls':str(parent/'controls-v1/evidence-v1/controls10/MANIFEST.json'),'arityDiagnosticOnly':arity_diagnostic}
+ p={'scope':'Copied candidate compiler complete source-current normal71 + reached handler omission whole controls; private Held source only when heldContinuation; no installed resolver/performance/task closure','pins':pins,'fileBindings':bindings,'resourceRoots':runner.Inputs(directories=configuration.RESOURCE_ROOTS).snapshot(),'environment':configuration.environment(),'tools':tools,'cwd':str(ROOT),'cohorts':cohorts,'compilerProvenance':str(parent/'SOURCE.json'),'successfulControls':str(parent/'controls-v1/evidence-v1/controls10/MANIFEST.json'),'arityDiagnosticOnly':arity_diagnostic,'heldContinuation':held}
  capture(out/'plan.json',(json.dumps(p,indent=2)+'\n').encode());print(sha(out/'plan.json'))
 
 def run(planpath,admitted):
@@ -143,5 +159,5 @@ def run(planpath,admitted):
      if cohort['kind']=='mutant':row['wholePositiveRejected']=True
   record['status']='DIAGNOSTIC_EMISSION_COMPLETED' if p.get('arityDiagnosticOnly')else 'COPIED_FULL_CONSUMER_PASS';record['qualifiesNative56']=False
 if __name__=='__main__':
- if sys.argv[1]in ['prepare','prepare-arity']:prepare(sys.argv[2],sys.argv[1]=='prepare-arity')
+ if sys.argv[1]in ['prepare','prepare-arity','prepare-held']:prepare(sys.argv[2],sys.argv[1]=='prepare-arity',sys.argv[1]=='prepare-held')
  else:run(sys.argv[2],sys.argv[3])
