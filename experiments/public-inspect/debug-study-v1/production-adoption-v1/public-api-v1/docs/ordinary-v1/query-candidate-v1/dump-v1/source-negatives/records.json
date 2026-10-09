@@ -1,0 +1,39 @@
+{
+  "scope": "Actual new dump read-declaration affine/schema boundary; source-negative only",
+  "capSeconds": 5,
+  "cases": [
+    {
+      "name": "write-grant",
+      "command": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/source-negatives/write-grant.bend"
+      ],
+      "exit": 1,
+      "sourceSHA256": "bcbed41921f39b1638ac4df8f99dc755560abb034a19390dcd77164c631c7508"
+    },
+    {
+      "name": "cross-schema",
+      "command": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/source-negatives/cross-schema.bend"
+      ],
+      "exit": 1,
+      "sourceSHA256": "a793bdafeec60591a98c49531a20787202d663ae51b1665b3f441ca0901b3daa"
+    },
+    {
+      "name": "owner-duplication",
+      "command": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/source-negatives/owner-duplication.bend"
+      ],
+      "exit": 1,
+      "sourceSHA256": "d24f64a6f2a50c321fa935e841db059a9dfe459288b0e4472cf3f16b989f5ae3"
+    }
+  ]
+}

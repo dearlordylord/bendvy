@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : ../../declaration.Declaration<S.Schema, ../../../../../../../../../../../../bendvy/src/ecs/compose.Frame<S.Schema, S.Store<S.PlainSlot<"Position">, S.PlainSlot<"Velocity">, S.PlainSlot<"Health">>, Unit, Unit>, ../../../../../../../../../../../../bendvy/src/ecs/capabilities.Read<../../../../../../../../../../../../bendvy/src/ecs/compose.Frame<S.Schema, S.Store<S.PlainSlot<"Position">, S.PlainSlot<"Velocity">, S.PlainSlot<"Health">>, Unit, Unit>, View.FullCell>>
+- observed : ../../declaration.Declaration<S.Schema, ../../../../../../../../../../../../bendvy/src/ecs/compose.Frame<S.Schema, S.Store<S.PlainSlot<"Position">, S.PlainSlot<"Velocity">, S.PlainSlot<"Health">>, Unit, Unit>, ../../../../../../../../../../../../bendvy/src/ecs/capabilities.Write<../../../../../../../../../../../../bendvy/src/ecs/compose.Frame<S.Schema, S.Store<S.PlainSlot<"Position">, S.PlainSlot<"Velocity">, S.PlainSlot<"Health">>, Unit, Unit>, Array<U32>, View.FullCell>>
+Location: misuse
+ 8 | def misuse(world:W.World<S.Schema,S.plain_store(),Unit,Unit>) -> W.World<S.Schema,S.plain_store(),Unit,Unit> & Maybe<&2,Dump.Population<S.Schema,View.FullCell>>:
+ 9>|   Dump.query(~S.Schema,~S.plain_store(),~Unit,~Unit,~View.FullCell,~Queries.plain_write(),App.Enabled{},world)
+   |                                                                     ^^^^^^^^^^^^^^^^^^^
+10 | 
+bend 2.0.36 is available: run bend update

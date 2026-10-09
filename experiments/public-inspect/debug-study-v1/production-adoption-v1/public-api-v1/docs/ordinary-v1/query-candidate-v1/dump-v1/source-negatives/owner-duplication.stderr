@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : world
+- observed : world (consumed more than once)
+Location: misuse
+7 | 
+8>| def misuse(world:W.World<S.Schema,S.plain_store(),Unit,Unit>) -> (W.World<S.Schema,S.plain_store(),Unit,Unit> & Maybe<&2,Dump.Population<S.Schema,View.FullCell>>) & (W.World<S.Schema,S.plain_store(),Unit,Unit> & Maybe<&2,Dump.Population<S.Schema,View.FullCell>>):
+  |            ^^^^^
+9 |   (Dump.query(~S.Schema,~S.plain_store(),~Unit,~Unit,~View.FullCell,~Queries.plain_read(),App.Enabled{},world),Dump.query(~S.Schema,~S.plain_store(),~Unit,~Unit,~View.FullCell,~Queries.plain_read(),App.Enabled{},world))
+bend 2.0.36 is available: run bend update
