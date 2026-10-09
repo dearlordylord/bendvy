@@ -9,6 +9,13 @@ consumer purpose, not by the old parity ticket: TS facade, optional adapter,
 wire/codec utility, test tooling, helper library, or reference research.
 Native ECS capabilities stay under their existing owners.
 
+For future tools offering a TypeScript interface, start with the TS facade row,
+then reuse wire/codec material and facade test models. Add Standard Schema only
+when that consumer needs it. Keep host adapters outside the Bend ECS core;
+archived TS signatures do not override Rust Bevy semantics or Bend ownership.
+The rows below distinguish reusable implementation from research and unfinished
+checks so a future tooling project can establish its own acceptance evidence.
+
 ## Classification
 
 | Future use | Preserved material | State and reuse boundary |
