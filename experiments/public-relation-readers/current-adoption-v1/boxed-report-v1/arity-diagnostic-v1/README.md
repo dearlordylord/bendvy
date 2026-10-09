@@ -1,0 +1,1 @@
+Same previously admitted additive copied compiler and helper, now bound to exact boxed-report source after its Native arity refusal. All original observations retained. CPU5/30 seconds; unexecuted and requires independent admission. No installed compiler attribution or runtime replay.
