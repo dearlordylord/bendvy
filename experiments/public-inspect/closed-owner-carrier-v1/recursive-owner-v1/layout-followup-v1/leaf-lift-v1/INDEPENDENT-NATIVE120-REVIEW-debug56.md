@@ -1,0 +1,11 @@
+# Independent Native120 feasibility admission review
+
+Scoped PASS for author preparation `9c3be21fa253f99da04334425ca47a0fff9c6832` and ONLY `/tmp/bendvy-inspect54-leaf-lift-native120-02/plan.json`, SHA256 `6dc7cdc429dd4202b8c3cbbb1811898a6eef5e84867faeaf8a1a3d4860275e2e`. No compiler/runtime child was launched by this reviewer.
+
+Independently hashed all 62 current file pins and rebuilt the three resource inventories (70/272/7 members). Verified absent generated C/ELF, exact unchanged source inventory/import closure/environment against the previously reviewed Native02 plan, and decompressed whole 5,077,477-byte oracle SHA256 `810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2`. The complete 46-module/23-grant subject is unchanged.
+
+Compared the complete collector with its repaired parent: changes are parent location, diagnostic scope, emit120, and stdlib accounting. Existing interpreter-before-import/captured-source checks, shared lock, CPU5, progressive resource/file guards, completed result before raw publication, complete unpublished stream recovery, partial generated artifact capture, and unconditional final receipt remain intact. Build120 uses the same Clang19/-O3/-pthread/-lm recipe; consumer5 retains threads1/GPUoff, empty stderr and complete byte equality. No result normalization or model modification.
+
+Both accounting controls passed independently. Monotonic wall and RUSAGE_CHILDREN user/system deltas surround execute_result while holding the lock, including returned deadline outcomes. They describe reaped child accounting, not RSS, compiler phase cost or product performance. Exceptions remain primary; an exception before a returned result does not fabricate a completed accounting row.
+
+The original emit30 failure is preserved in `actual-v1` at `7acbfc9c`; draft01 and prior v1/v2 preparations remain historical, not newly successful. This admission permits one explicit new operational budget experiment: emit120/build120/run5. It is not a cap ladder, retry of an unchanged admitted budget, installed resolver qualification, runtime success, speedup evidence, or full #54 adoption. The existing reached semantic mutation gap remains pending. Any actual failure must remain incomplete with its original partial evidence.
