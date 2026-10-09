@@ -1,0 +1,24 @@
+--- controls10-candidate.comp.ts
++++ arity-diagnostic.comp.ts
+@@ -2837,6 +2837,21 @@
+     refs: fl.clos }].flatMap((s) => [...s.refs].map((r) => [r, s.fid])));
+   const ars = [...cids.values()].map((n) => n > WIDE ? 240 + Math.log2(n) : n);
+   if (entries.some((s) => s.params.length > WIDE) || ars.some((n) => n > 255)) {
++    // Diagnostic only after the original unchanged refusal predicate.
++    BOUNDARY_ROWS.push({kind:"arity-refusal",limit:WIDE,
++      entries:entries.filter((s) => s.params.length > WIDE).map((s) => ({
++        fid:s.fid,sourceKey:s.def,checkedDef:book.tlds[s.def] === undefined ? null : {
++          kind:book.tlds[s.def].$,n:book.tlds[s.def].n,span:book.tlds[s.def].T.s ?? null,x:(book.tlds[s.def] as Bend.Def).x ?? null},
++        parameters:s.params.slice(),parameterCount:s.params.length,
++        parameterKinds:s.ks.slice(),returnLayout:s.ret,
++        frame:s.frame,refs:[...s.refs],fork:s.fork ?? false,spin:s.spin ?? false})),
++      constructors:[...cids].filter(([,n]) => (n > WIDE ? 240 + Math.log2(n) : n) > 255)
++        .map(([sourceKey,n]) => ({sourceKey,words:n,packedCount:n > WIDE ? 240 + Math.log2(n) : n,
++          nodeLayout:NODES.get(sourceKey) ?? null,
++          checkedConstructor:book.ctrs[sourceKey] === undefined ? null : {
++            k:book.ctrs[sourceKey].k,n:book.ctrs[sourceKey].n},
++          checkedDef:book.tlds[sourceKey] === undefined ? null : {
++            kind:book.tlds[sourceKey].$,n:book.tlds[sourceKey].n}}))});
+     die("an arity over " + WIDE);
+   }
+   const defs = [[...cids.keys()].map(cid_mac),
