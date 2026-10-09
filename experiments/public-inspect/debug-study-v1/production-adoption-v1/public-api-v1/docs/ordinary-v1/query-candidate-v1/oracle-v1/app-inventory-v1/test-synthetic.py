@@ -11,6 +11,7 @@ for role,expected,ids in [('main','expected-v2.json','main-identities.json'),('r
   except (ValueError,KeyError,IndexError):checks.append(role+':'+name)
   else:raise AssertionError('Accepted corrupted complete term '+name)
 # A complete same-shape mutation must be rejected at full semantic gate.
+M.P.BASE.GROUPS['Output.Report']=['Output.Report']
 role='main';inv=json.loads((M.SUBJECT/'main-identities.json').read_bytes());value=json.loads((HERE/'expected-v2.json').read_bytes());mutant=copy.deepcopy(value);mutant['plain']['Reported']['report']['descriptions'][0]['Some']['schema'][0]['key']='WrongPosition'
 raw=M.render(M.inverse(mutant,'Output.Report',inv))+'\n'
 try:M.P.BASE.strict_equal(M.P.normalize(raw,inv,M.join),value)
