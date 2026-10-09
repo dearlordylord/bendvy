@@ -1,0 +1,11 @@
+# Actual extended declaration development observations
+
+The three exact admitted JS cohorts executed once and matched their entire independent typed and raw expectations: normal 715461 bytes (`cfd09d58…`), skipped-validator 934046 (`cc733152…`), partial-write 805575 (`62170cb3…`). Both reached compiling mutants also reject the entire unchanged normal model in their own nominal namespace. All 32 original traces, genuine foreign-world refusal, twelve extensions, affine sentinels, physical columns/lifecycle metadata, resource, pending marker and barrier observations remain present.
+
+Normal Native emission executed once under the original 30-second cap and returned exit1, `Error: an arity over 247`. Clang and Native runtime were not reached. The INCOMPLETE unconditional receipt and exact failed raw stderr remain; no retry, cap raise, partition, or observation reduction occurred. Native mutation plans remain prepared and unexecuted.
+
+These are original-worker-entry development observations, not clean-checkout portability or full #46/tool/performance acceptance. Plans/receipts retain their original absolute provenance. Raw streams, pre-run expected/baseline stdout and actual generated JS are losslessly gzip archived without normalization. Fifty executed source/helper/model aliases join exact compressed source objects; tool/resource/environment identities remain in the original plans, and private environment values are excluded from Git. Existing inline guard implementations are captured; there is no separately serialized pre/post guard log claim.
+
+No-child verification: `python3 experiments/public-decode/adoption-v1/qualification-v1/verify-execution.py`. It checks recorded plan digests, complete nominal observations, both whole mutant counterfactuals/baseline refusals, exact raw/generated/source objects and precise failed/unexecuted Native scopes. It requires unchanged local transport/parser helpers and launches no backend.
+
+Plain/transient already-typed initialization and constructed result/decode selection are observed in this cohort; transient snapshot exclusion/restore, deferred command spawning, automatic gameplay capability delivery and arbitrary Type construction remain separately bounded. Trusted raw World admission is not declared-access enforcement. The independent TS reference has not executed or provided a model yet.

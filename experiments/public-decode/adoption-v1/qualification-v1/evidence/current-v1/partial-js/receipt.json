@@ -1,0 +1,54 @@
+{
+  "preparedPlanSha256": "0d31ba2a3cae8a9356b2a598037252ba1dcd3a04b9787c3506befbc55e9239cd",
+  "status": "DEVELOPMENT_PASS",
+  "scope": "Direct ordinary decode qualification development checks; no delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/mutants/partial-write-v1/qualification-v1/main.bend",
+        "-o",
+        "/tmp/bendvy-46-partial-js-prepared-v2/generated/complete.js"
+      ],
+      "capSeconds": 30,
+      "artifact": "/tmp/bendvy-46-partial-js-prepared-v2/generated/complete.js",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-46-partial-js-prepared-v2/generated/complete.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "generated": {
+    "/tmp/bendvy-46-partial-js-prepared-v2/generated/complete.js": "4d027eb4cb0f02b706ae7c0bf15c86ef8d77353fd2e1ede965661b228366afb9"
+  },
+  "logs": {
+    "complete-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-run.stdout": "62170cb3c61910d885ca095683c0d9a89d610826ff4b6b44031caf87e8a1decd",
+    "complete-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "unchangedBaselineRejected": {
+    "typed": true,
+    "raw": true,
+    "baselineSha256": "ca88bdec56290ba3b5460463f59c4ddda389d2dcc7ecfa58d6d633c35016e075"
+  }
+}
