@@ -48,13 +48,9 @@ verification probes outside that lock; keep the full pre/post validation and
 unconditional failure receipt. Revalidate the launch boundary after acquiring the lock. Review this
 routing as a collector change before execution; keep frozen in-flight runs intact.
 
-Prepare and review the complete execution code and stage sequence together.
-For a known consuming subject, include emission, build and runtime in one
-collector when their contracts and gates are ready. Bind generated artifacts
-through the collector's guarded output ledger before downstream consumption;
-retain partial artifacts on failure. A successful stage inside that reviewed
-sequence does not need another handoff. Return for review when execution code,
-inputs or gate scope changes. Preserve existing frozen attempts separately.
+Review execution code and the full stage sequence before launch. Bind generated
+artifacts through the guarded output ledger, then continue without intermediate
+handoffs. Re-review changes to code, inputs or gate scope; preserve frozen attempts.
 
 ## Parallel review routing
 
