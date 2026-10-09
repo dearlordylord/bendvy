@@ -1,0 +1,108 @@
+[
+  {
+    "script": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/check-transport.py",
+    "sha256": "37a78c137727643071d6ea81077fa8950fad33d6a8bf9dac8bda12cf2b2bc643",
+    "result": {
+      "status": "PASS",
+      "results": [
+        {
+          "group": "generic",
+          "reportCount": 15,
+          "unchangedModelSha256": "a0b2037dba1943acb7deb49f58007a72ff5d62821559744a8d1f9823c0a3e349",
+          "rawBytes": 45029,
+          "rawSha256": "5d23c765c3b487d7dd229820a077b951d9c5f7d4020f947c63aac512a3464ad2",
+          "rejections": [
+            "missing-report",
+            "duplicate-label",
+            "reordered-report",
+            "extra-report",
+            "unknown-field",
+            "cross-schema-nominal",
+            "complete-oracle-detects-physical-owner-corruption"
+          ]
+        },
+        {
+          "group": "deferred",
+          "reportCount": 8,
+          "unchangedModelSha256": "8095a1eb678fcf3f9cf985ce33d9e779108f6041fbecdd7ac67cf8f94a2bac42",
+          "rawBytes": 35867,
+          "rawSha256": "d9fd42ff0e5c624cb89fea6a36bd6fc6038f4411009204072f44974118410683",
+          "rejections": [
+            "missing-report",
+            "duplicate-label",
+            "reordered-report",
+            "extra-report",
+            "unknown-field",
+            "cross-schema-nominal",
+            "complete-oracle-detects-physical-owner-corruption"
+          ]
+        }
+      ],
+      "backendChildren": 0
+    }
+  },
+  {
+    "script": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/check-transport.py",
+    "sha256": "dd45c0bb946d4f1f12d0f2f9254c898172110059a2bfd2e627f3b703f02bb0a1",
+    "result": {
+      "status": "PASS",
+      "scope": "strict full DTO controls; no backend",
+      "genericRawBytes": 39106,
+      "genericRawSha256": "d657e73d725cab29149577ebf73d30779237ddb484f4e9178c87ba03d45f9113",
+      "deferredRawBytes": 32624,
+      "deferredRawSha256": "e0872735e119e5391acc5cf881bcba5e40b4233025907bb0d44d40677d927317",
+      "rejections": [
+        "missing-row",
+        "missing-owner",
+        "wrong-candidate",
+        "extra-field",
+        "trailing",
+        "cross-nominal",
+        "missing-barrier-owner",
+        "missing-failed-packets",
+        "missing-foreign-output",
+        "missing-refusal",
+        "cross-role"
+      ],
+      "historicalNormalRawUnchanged": true,
+      "backendChildren": 0
+    }
+  },
+  {
+    "script": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/check-source-loaders.py",
+    "sha256": "209f4b5b5d18173ad877e10cc66abf6cf12b1b1fbf94e5165caba01ab60a5c02",
+    "result": {
+      "status": "PASS",
+      "staleTimestampLoaderPositiveReached": true,
+      "spineBaseUsesPinnedSourceBytes": true,
+      "baseParserUsesPinnedSourceBytes": true,
+      "sameSizeSameMtimePycIgnored": true,
+      "cachedModulesIgnored": true,
+      "backendChildren": 0
+    }
+  },
+  {
+    "script": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/check-partial-publication.py",
+    "sha256": "b65d36780f20578f3ad044b3a38820a8b3d8700557c234d755d795d6db50eaab",
+    "result": {
+      "status": "PASS",
+      "checks": [
+        {
+          "collector": "development-run.py",
+          "exactReturnedExitAndFailureRetained": true,
+          "stdoutJoinRetainedBeforeFailedGuard": true,
+          "partialStderrNotClaimedComplete": true,
+          "receiptStatus": "INCOMPLETE"
+        },
+        {
+          "collector": "native-from-c.py",
+          "exactReturnedExitAndFailureRetained": true,
+          "stdoutJoinRetainedBeforeFailedGuard": true,
+          "partialStderrNotClaimedComplete": true,
+          "receiptStatus": "INCOMPLETE"
+        }
+      ],
+      "backendChildren": 0
+    }
+  }
+]

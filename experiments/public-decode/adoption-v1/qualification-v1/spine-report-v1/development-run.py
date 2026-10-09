@@ -54,12 +54,12 @@ def assembly_binding(path,digest):
     assert path.is_absolute() and str(path.resolve())==str(path), 'binding path must be canonical'
     binding=admitted_plan(path,digest)
     assert set(binding) in ({'mode','entry','sourcePins','oracle'},{'mode','entry','sourcePins','oracle','role'}), 'exact assembly binding fields required'
-    assert binding['mode'] in ('registered-decode-assembly-v1','generic-decode-assembly-v1','deferred-decode-assembly-v1'), 'unknown assembly mode'
+    assert binding['mode'] in ('registered-decode-assembly-v1','generic-decode-assembly-v1','deferred-decode-assembly-v1','generic-spine-decode-assembly-v1','deferred-spine-decode-assembly-v1'), 'unknown assembly mode'
     entry=pinned_file(binding['entry'])
     role=binding.get('role','normal')
-    assert role in ('normal','local-failure','skip-validation','partial-write','generic-assembly','deferred-assembly'), 'unknown assembly role'
-    assert binding['mode']==({'generic-assembly':'generic-decode-assembly-v1','deferred-assembly':'deferred-decode-assembly-v1'}.get(role,'registered-decode-assembly-v1')), 'mode/role mismatch'
-    assert entry.name==('complete.bend' if role=='generic-assembly' else ('fixture.bend' if role=='deferred-assembly' else ('failure-controls.bend' if role=='local-failure' else 'spine.bend'))), 'complete role entry required'
+    assert role in ('normal','local-failure','skip-validation','partial-write','generic-assembly','deferred-assembly','generic-spine','deferred-spine'), 'unknown assembly role'
+    assert binding['mode']==({'generic-assembly':'generic-decode-assembly-v1','deferred-assembly':'deferred-decode-assembly-v1','generic-spine':'generic-spine-decode-assembly-v1','deferred-spine':'deferred-spine-decode-assembly-v1'}.get(role,'registered-decode-assembly-v1')), 'mode/role mismatch'
+    assert entry.name==((role+'.bend') if role in ('generic-spine','deferred-spine') else ('complete.bend' if role=='generic-assembly' else ('fixture.bend' if role=='deferred-assembly' else ('failure-controls.bend' if role=='local-failure' else 'spine.bend')))), 'complete role entry required'
     if role in ('skip-validation','partial-write'):assert entry.parent.name==role, 'mutant role/source differs'
     assert type(binding['sourcePins']) is dict and binding['sourcePins'], 'complete source pins required'
     for filename,sha in binding['sourcePins'].items():pinned_file({'path':filename,'sha256':sha})
@@ -136,7 +136,7 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
     binding=assembly_binding(binding_path,binding_digest)
     assembly=binding is not None
     assert role==(binding.get("role","normal") if assembly else "normal"), 'role requires matching explicit binding'
-    assert not native or role in ("normal","generic-assembly","deferred-assembly"), 'failure/mutant roles require complete consuming runtime'
+    assert not native or role in ("normal","generic-assembly","deferred-assembly","generic-spine","deferred-spine"), 'failure/mutant roles require complete consuming runtime'
     plan_path = out/'plan.json'
     admitted = admitted_plan(plan_path,plan_digest) if execute else None
     if execute:
@@ -196,6 +196,7 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
         inputs.add(path)
     authoring={pinned_file(pin) for pin in binding['oracle']['authoring']} if assembly else {oracle_home/'expected.py',oracle_home/'REVIEW.md'}
     if role in ('generic-assembly','deferred-assembly'):inputs.add((entries[0].parent if role=='generic-assembly' else entries[0].parent.parent/'generic-assembly-v1')/'transport-inventory.py')
+    if role in ('generic-spine','deferred-spine'):inputs.update({entries[0].parent/'transport-inventory.py',entries[0].parent.parent/'generic-assembly-v1/transport-inventory.py'})
     inputs.update({*authoring,basis_file,HERE/'transport.py',HERE.parent/'transport.py',ROOT/'experiments/public-simulation/bend-v1/parse-report.py',oracle})
     transport=load('decode_transport',HERE/'transport.py')
     expected=json.loads(oracle.read_text())
@@ -283,7 +284,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--assembly-binding',type=Path,help='Explicit complete source/independent oracle binding; default preserves historical cohort')
     parser.add_argument('--assembly-binding-sha256',help='Required exact binding digest')
-    parser.add_argument('--role',choices=['normal','local-failure','skip-validation','partial-write','generic-assembly','deferred-assembly'],default='normal')
+    parser.add_argument('--role',choices=['normal','local-failure','skip-validation','partial-write','generic-assembly','deferred-assembly','generic-spine','deferred-spine'],default='normal')
     parser.add_argument('--native',action='store_true')
     parser.add_argument('--execute',action='store_true',help='Consume existing --output/plan.json after admission; default prepares without a child')
     parser.add_argument('--plan-sha256',help='Required exact admitted plan digest for --execute')

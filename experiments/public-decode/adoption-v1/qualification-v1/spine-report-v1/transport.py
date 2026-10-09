@@ -5,8 +5,17 @@ HERE=Path(__file__).resolve().parent
 spec=importlib.util.spec_from_file_location('decode_complete_transport',HERE.parent/'transport.py')
 BASE=importlib.util.module_from_spec(spec);exec(compile(Path(spec.origin).read_bytes(),str(spec.origin),"exec"),BASE.__dict__)
 
+def spine_helper(entry):
+ path=Path(entry).resolve().parent/'transport-inventory.py'
+ spec=importlib.util.spec_from_file_location('complete_spine_inventory',path)
+ module=importlib.util.module_from_spec(spec);exec(compile(path.read_bytes(),str(path),'exec'),module.__dict__)
+ return module
+
 def inventory(entry,assembly=False,role="normal"):
  entry=Path(entry).resolve()
+ if role in ('generic-spine','deferred-spine'):
+  assert assembly and entry.name==role+'.bend','spine role requires exact complete source'
+  return spine_helper(entry).inventory(entry,BASE,role)
  if role in ('generic-assembly','deferred-assembly'):
   assert assembly and entry.name==('complete.bend' if role=='generic-assembly' else 'fixture.bend'),'role requires explicit complete source'
   path=(entry.parent if role=='generic-assembly' else entry.parent.parent/'generic-assembly-v1')/'transport-inventory.py'
@@ -57,10 +66,10 @@ def assembly_inventory(entry):
  return types
 
 def whole(value,role="normal"):
- if role=="generic-assembly":
+ if role in ("generic-assembly","generic-spine"):
   assert type(value) is dict and set(value)=={"$","second","first","recovery"} and value["$"]=="Candidate"
   return value
- if role=="deferred-assembly":
+ if role in ("deferred-assembly","deferred-spine"):
   assert type(value) is dict and set(value)=={"$","spawn","insert","failure","foreign","lateMissing","invalid","failedInsert","failedInvalid"} and value["$"]=="Candidate"
   return value
  if role=="local-failure":
@@ -75,13 +84,15 @@ def whole(value,role="normal"):
 def render(expected,entry,assembly=False,role="normal"):
  whole(expected,role)
  types,name=inventory(entry,assembly,role)
- return (BASE.parser().render(BASE.codec(expected,'Report',types,name,True))+'\n').encode()
+ subject=spine_helper(entry).pack(expected,role) if role in ('generic-spine','deferred-spine') else expected
+ return (BASE.parser().render(BASE.codec(subject,types['Report'] if role in ('generic-spine','deferred-spine') else 'Report',types,name,True))+'\n').encode()
 
 def parse(raw,entry,assembly=False,role="normal"):
  assert type(raw) is bytes
  p=BASE.parser();term=p.parse(raw.decode())
  assert (p.render(term)+'\n').encode()==raw,'noncanonical complete output'
  types,name=inventory(entry,assembly,role)
- value=BASE.codec(term,'Report',types,name,False)
+ value=BASE.codec(term,types['Report'] if role in ('generic-spine','deferred-spine') else 'Report',types,name,False)
+ if role in ('generic-spine','deferred-spine'):value=spine_helper(entry).unpack(value,role)
  whole(value,role)
  return value
