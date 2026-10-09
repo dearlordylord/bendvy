@@ -1,0 +1,33 @@
+{
+  "basisCommit": "4f3ab2d9",
+  "referenceCommit": "a950fd683c0d76f09794078e6174fe98a1492876",
+  "compilerSource": {
+    "path": "/workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts",
+    "sha256": "32fb66e09f608ce9e4b173384bcfeec453db8c5bc96650e26ad861bef815a8d9"
+  },
+  "sourceRules": [
+    "C show_chr5726/show_val5773",
+    "JS show_chr6089/show_val6116/io_exit6136"
+  ],
+  "correction": "pure String wraps quotes/escapes internal LF and appends one external LF; unchanged semantic row model; historical unquoted stdout files preserved",
+  "files": {
+    "expected-wire.stdout": {
+      "bytes": 52125,
+      "sha256": "246cb1738c230477c3687e35b53a80d7734f7ccc7e44596374688f2c7ea9f0ff",
+      "semanticJSON": "expected.json",
+      "historicalRows": "expected.stdout"
+    },
+    "mutant-expected-wire.stdout": {
+      "bytes": 55015,
+      "sha256": "b1e67e2bdd33b42869ec995217a5d2a0d1f528ec8b2ff0cd3148e0ba4a046c63",
+      "semanticJSON": "mutant-expected.json",
+      "historicalRows": "mutant-expected.stdout"
+    },
+    "flow-only-expected-wire.stdout": {
+      "bytes": 4527,
+      "sha256": "57f5584f8240d3f4b6c4d521cded0d20242aa6877b167f1dda79dc083d43e34d",
+      "semanticJSON": "flow-only-expected.json",
+      "historicalRows": "flow-only-expected.stdout"
+    }
+  }
+}
