@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : args
+- observed : args (consumed more than once)
+Location: invalid
+5 | 
+6>| def invalid(~H:Type,~ops:Gameplay.Ops<Input.First,H>,args:Gameplay.Args<Input.First>,ctx:H) -> Gameplay.Args<Input.First> & (H & Gameplay.Output<Input.First>):
+  |                                                      ^^^^
+7 |   (args,Gameplay.gameplay(~Input.First,~H,~ops,args,ctx))
+bend 2.0.36 is available: run bend update

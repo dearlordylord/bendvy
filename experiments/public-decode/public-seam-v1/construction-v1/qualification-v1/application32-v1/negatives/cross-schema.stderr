@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.OwnedRequest<../../../../../../../../../bendvy/src/ecs/decode-frame.Frame<Input.First, Gameplay.Store<Input.First>, Input.Owner, Unit, Input.Owner, Unit, ../../../../../../../../../bendvy/src/ecs/ordinary-declaration.Declaration{"Value"}, Input.project>, ../../../../../../../../../bendvy/src/ecs/decode-constructed-requests.Input<Input.Second, Input.Input>, ../../../../../../../../../bendvy/src/ecs/decode-constructed-requests.Output<Input.Second, Input.Input, Input.Owner>>
+- observed : Cap.OwnedRequest<../../../../../../../../../bendvy/src/ecs/decode-frame.Frame<Input.First, Gameplay.Store<Input.First>, Input.Owner, Unit, Input.Owner, Unit, ../../../../../../../../../bendvy/src/ecs/ordinary-declaration.Declaration{"Value"}, Input.project>, ../../../../../../../../../bendvy/src/ecs/decode-constructed-requests.Input<Input.First, Input.Input>, ../../../../../../../../../bendvy/src/ecs/decode-constructed-requests.Output<Input.First, Input.Input, Input.Owner>>
+Location: invalid
+6 | def invalid(frame:Gameplay.Frame(~Input.First),args:Gameplay.Args<Input.Second>) -> Gameplay.Frame(~Input.First) & Gameplay.Output<Input.Second>:
+7>|   Gameplay.gameplay(~Input.Second,~Gameplay.Frame(~Input.First),~Gameplay.Ops{Gameplay.grants(~Input.First,~D.Integer{}),Gameplay.resource_grants(~Input.First,~D.Integer{})},args,frame)
+  |                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+8 | 
+bend 2.0.36 is available: run bend update
