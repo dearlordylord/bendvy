@@ -25,6 +25,33 @@ def sha(path):
         return hashlib.sha256(source.read()).hexdigest()
 
 
+def expected_guard_pins(plan_path, plan, receipt):
+    pins = {**plan['pins'], str(Path(plan_path).resolve(strict=True)): receipt['planSHA256']}
+    stages = {}
+    for command in receipt['commands']:
+        label = command['label']
+        stages[label + '-pre'] = dict(pins)
+        stages[label + '-acquired'] = dict(pins)
+        for stream in ('stdout', 'stderr'):
+            raw = command[stream]
+            pins[raw['path']] = raw['sha256']
+        if label in ('emit', 'build'):
+            artifact = plan['generated'] if label == 'emit' else plan['native']
+            digest = receipt[label + 'ArtifactSHA256']
+            if sha(artifact) != digest:
+                raise ValueError('Category generated artifact drift')
+            pins[artifact] = digest
+        stages[label + '-post'] = dict(pins)
+    stages['final'] = dict(pins)
+    return stages
+
+
+def verify_guard_state(state, expected):
+    label = state['label']
+    if label not in expected or state['actualPins'] != expected[label]:
+        raise ValueError('Exact per-stage guard pin set/digests refused')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('oracle_directory', type=Path)
@@ -63,6 +90,9 @@ def main():
             for stream in ('stdout', 'stderr'):
                 if sha(command[stream]['path']) != command[stream]['sha256']:
                     raise ValueError('Category stage raw drift')
+        if commands[-1]['argv'] != ['/usr/bin/taskset', '-c', '5', plan['native'], '--threads', '1', '--gpu', 'off']:
+            raise ValueError('Exact native threads1/GPUoff runtime required')
+        stage_pins = expected_guard_pins(plan_path, plan, receipt)
         required_guards = {label + '-' + stage for label in ('emit', 'build', 'consumer') for stage in ('pre', 'acquired', 'post')} | {'final'}
         observed_guards = set()
         for guard in receipt['guards']:
@@ -72,6 +102,7 @@ def main():
             state = json.loads(guard_path.read_text())
             if state['unchanged'] is not True or state['label'] in observed_guards:
                 raise ValueError('Category boundary unchanged flag/identity refused')
+            verify_guard_state(state, stage_pins)
             observed_guards.add(state['label'])
         if observed_guards != required_guards:
             raise ValueError('All exact boundary guards required')
