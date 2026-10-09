@@ -24,8 +24,8 @@ export function capture(Bend,book,entry,initial=snapshot(Bend,book,entry)) {
  if(book.hols!==0)throw new Error('unchecked Book holes');
  const authored=new Set([...fs.readFileSync(entry,'utf8').matchAll(/^def (\w+)\(/gm)].map(m=>m[1]));
  const allowed={};
- for(const name of ['main','target','countdown']) {
-  if(!authored.has(name)){if(name==='countdown')continue;throw new Error('missing exact authored def: '+name);}
+ for(const name of ['main','target','countdown','measure']) {
+  if(!authored.has(name)){if(name==='countdown'||name==='measure')continue;throw new Error('missing exact authored def: '+name);}
   const def=book.tlds[name];if(!def||def.$!=='Def'||def.v===null)throw new Error('missing checked source Def: '+name);
   if(def.x===0)allowed[name]=[name];
   else {
