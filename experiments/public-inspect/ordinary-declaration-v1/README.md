@@ -20,10 +20,12 @@ the declaration; a runtime-extracted grant cannot be re-erased for execution.
 `each` therefore lowers the same closed declaration directly and returns detached
 rows and clauses alongside the original abstract owner.
 
-Four binder-specific source negatives reject cross-schema substitution,
-undeclared nominal token substitution, converting an Inspector read to write,
-and duplicate affine Frame ownership. These are authority/type checks, not
-constructor unforgeability proofs. The mutation changes only the library-derived
+Binder-specific source negatives reject cross-schema substitution, interpreting
+a declared binding under another nominal token, converting an Inspector read to
+write, and consuming the derived Inspector each then reusing its old Frame. The
+original direct Frame-duplication control remains an existing affine canary.
+Trusted schema authors can construct declarations; these checks do not prove
+constructor unforgeability or forbid trusted declaration construction. The mutation changes only the library-derived
 Read clause to an empty list and is called by the complete same consumer.
 Independent expected observations and backend admission are still required.
 

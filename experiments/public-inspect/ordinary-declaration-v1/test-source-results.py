@@ -10,7 +10,8 @@ class SourceResults(unittest.TestCase):
                     'wrong-schema-01': (1, 'Caller.Other'),
                     'undeclared-01': (1, 'Absent'),
                     'read-write-01': (1, 'Cap.Write'),
-                    'affine-01': (1, 'consumed more than once')}
+                    'affine-01': (1, 'consumed more than once'),
+                    'derived-affine-01': (1, 'consumed more than once')}
         for name, (exit_code, diagnostic) in expected.items():
             with self.subTest(name=name):
                 directory = HERE / 'source-attempts' / name
