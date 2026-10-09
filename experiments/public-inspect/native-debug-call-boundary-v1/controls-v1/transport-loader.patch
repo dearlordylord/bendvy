@@ -1,0 +1,16 @@
+--- /workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/experiments/public-relation-readers/current-adoption-v1/declaration-adoption-v1/transport-v1/transport.py
++++ transport-source.py
+@@ -6,11 +6,9 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-ROOT = HERE.parents[4]
++ROOT = Path('/workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current')
+ TERM_PATH = ROOT / 'experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/parse-scenario.py'
+-spec = importlib.util.spec_from_file_location('existing_data_term', TERM_PATH)
+-TERM = importlib.util.module_from_spec(spec)
+-spec.loader.exec_module(TERM)
++TERM = SOURCE_LOADER(TERM_PATH, 'existing_data_term')
+ 
+ 
+ def split(text):

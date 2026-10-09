@@ -1,5 +1,5 @@
 """Focused derivative of existing native-development Runner/Inputs/receipt recipe."""
-import fcntl,gzip,hashlib,importlib.util,json,os,stat,sys
+import fcntl,gzip,hashlib,json,os,stat,sys,types
 from pathlib import Path
 sys.dont_write_bytecode=True
 ROOT=Path('/workspace/formal-proofs/bendvy')
@@ -11,18 +11,51 @@ def sha(path):
  with p.open('rb') as f:
   if not stat.S_ISREG(os.fstat(f.fileno()).st_mode):raise ValueError('regular descriptor required')
   return hashlib.sha256(f.read()).hexdigest()
-def load(name,path):
- s=importlib.util.spec_from_file_location(name,path);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+def load(name,path,pins=None):
+ path=Path(path)
+ if path.is_symlink() or not path.is_file():raise ValueError('regular source required')
+ with path.open('rb') as stream:
+  if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):raise ValueError('regular source descriptor required')
+  raw=stream.read()
+ if pins is not None and hashlib.sha256(raw).hexdigest()!=pins[str(path)]:raise ValueError('loaded source drift')
+ m=types.ModuleType(name);m.__file__=str(path);m.__dict__['PINNED_FILES']=pins
+ exec(compile(raw,str(path),'exec'),m.__dict__);return m
 def capture(path,raw):
  p=Path(path)
  if p.exists() or p.is_symlink():raise ValueError('output must start absent')
  with p.open('xb') as f:f.write(raw)
+def record_returned(record,command,result,out):
+ row=dict(command)
+ for key,value in result.items():
+  if isinstance(value,bytes):row[key]={'path':str(Path(out)/(command['label']+'.'+key)),'bytes':len(value),'sha256':hashlib.sha256(value).hexdigest(),'publication':'pending'}
+  else:row[key]=value
+ record['commands'].append(row)
+ return row
+def publish_streams(row,result,pins):
+ for key,value in result.items():
+  if isinstance(value,bytes):
+   target=Path(row[key]['path'])
+   try:
+    capture(target,value);pins[str(target)]=sha(target);row[key]['publication']='complete'
+   except Exception as error:
+    row[key]['publication']='failed';row[key]['publicationError']=str(error)
+    if target.is_file() and not target.is_symlink():
+     actual=target.read_bytes();row[key]['retainedPartialBytes']=len(actual);row[key]['retainedPartialSHA256']=hashlib.sha256(actual).hexdigest();pins[str(target)]=row[key]['retainedPartialSHA256']
+    raise
+def capture_artifact(record,artifact,pins):
+ if artifact is not None and (Path(artifact).exists() or Path(artifact).is_symlink()):
+  ledger={'path':str(artifact)};record.setdefault('artifactLedger',[]).append(ledger)
+  try:
+   pins[str(artifact)]=sha(artifact);ledger['sha256']=pins[str(artifact)]
+  except Exception as error:
+   ledger['captureError']=str(error);raise
 def prepare(out):
  out=Path(out).resolve();out.mkdir(exist_ok=False)
  root=HERE.parent;stage=out/'stage';stage.mkdir()
  for name in ['baseline','candidate']:capture(stage/(name+'.comp.ts'),gzip.decompress((root/(name+'.comp.ts.gz')).read_bytes()))
  for p in HERE.glob('*.bend'):capture(stage/p.name,p.read_bytes())
  capture(stage/'emit-controls.mts',(HERE/'emit-controls.mts').read_bytes())
+ capture(stage/'witness-gate.mjs',(HERE/'witness-gate.mjs').read_bytes())
  config=ROOT/'experiments/public-simulation/delivery-v1/installed-config.py'
  configuration=load('existing_configuration',config);runner=load('existing_runner',ROOT/'scripts/task_runner.py')
  tools={'python':str(Path(sys.executable).resolve()),'node':'/home/node/.local/share/mise/installs/node/24.20.0/bin/node','taskset':'/usr/bin/taskset','clangWrapper':'/tmp/bendvy-clang19-diagnostic/clang19','clangBinary':'/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'}
@@ -52,7 +85,7 @@ def run(planpath,admitted):
  if any(str(Path(n).resolve(strict=True))!=target for n,target in p.get('fileBindings',{}).items()):raise ValueError('preimport link resolution drift')
  actual=str(Path(sys.executable).resolve(strict=True))
  if actual!=p['tools']['python'] or sha(actual)!=pins[actual]:raise ValueError('actual interpreter drift')
- runner=load('existing_runner',ROOT/'scripts/task_runner.py');boundary=load('existing_boundary',ROOT/'scripts/evidence_boundary.py');gate=load('existing_whole_control',HERE/'check-whole.py')
+ runner=load('existing_runner',ROOT/'scripts/task_runner.py',pins);boundary=load('existing_boundary',ROOT/'scripts/evidence_boundary.py',pins);gate=load('existing_whole_control',HERE/'check-whole.py',pins)
  out=planpath.parent;record={'scope':p['scope'],'planSHA256':admitted,'commands':[],'guards':[]}
  def guard(label):
   actual={n:sha(n)for n in pins};unchanged=actual==pins
@@ -69,17 +102,16 @@ def run(planpath,admitted):
      guard(label+'-acquired')
      if artifact is not None and (Path(artifact).exists() or Path(artifact).is_symlink()):raise ValueError('artifact must start absent')
      result=runner.execute_result(command['argv'],command['capSeconds'],p['environment'],p['cwd'],'split')
+     row=record_returned(record,command,result,out)
+     publish_streams(row,result,pins)
     finally:
-     if artifact is not None and (Path(artifact).exists() or Path(artifact).is_symlink()):
-      pins[str(artifact)]=sha(artifact);record.setdefault('artifactLedger',[]).append({'path':str(artifact),'sha256':pins[str(artifact)]})
-     fcntl.flock(lock,fcntl.LOCK_UN)
-   row=dict(command)
-   for k,v in result.items():
-    if isinstance(v,bytes):
-     f=out/(label+'.'+k);capture(f,v);pins[str(f)]=sha(f);row[k]={'path':str(f),'bytes':len(v),'sha256':pins[str(f)]}
-    else:row[k]=v
-   record['commands'].append(row)
-   if artifact is not None and (Path(artifact).exists() or Path(artifact).is_symlink()):pins[str(artifact)]=sha(artifact);row['artifactSHA256']=pins[str(artifact)]
+     primary=sys.exc_info()[1]
+     try:
+      try:capture_artifact(record,artifact,pins)
+      except Exception as error:
+       if primary is None:raise
+       record.setdefault('secondaryCaptureErrors',[]).append(str(error))
+     finally:fcntl.flock(lock,fcntl.LOCK_UN)
    if result['failure'] is not None or result['exit']!=0:raise ValueError('child failed: '+label)
    return row
  with boundary.ReceiptBoundary(record,out/'receipt.json',[('final boundary',lambda:guard('final'))]):

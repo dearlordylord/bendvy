@@ -1,6 +1,7 @@
 // Copied compiler controls only; old/new branch witnesses are actual emitter events.
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {validate} from './witness-gate.mjs';
 import * as Bend from '/workspace/formal-proofs/bendvy/.references/bend2/bend2/bend.ts';
 import * as Before from './baseline.comp.ts';
 import * as After from './candidate.comp.ts';
@@ -24,15 +25,7 @@ try {
   const candidateC=After.compile_book(await load(entry));
   const candidateWitness=After.diagnosticBoundaryRows() as any[];
   Object.assign(active,{candidateC,candidateWitness});
-  // Full actual source-derived witness; no acceptance by case name alone.
-  const eligible=baselineWitness.filter(r=>r.kind==='decision'&&r.callee==='target'&&r.oldEligible&&!r.flat);
-  const fused=baselineWitness.filter(r=>r.kind==='fuse'&&r.callee==='target'&&!r.flat&&r.tail);
-  const jumped=candidateWitness.filter(r=>r.kind==='jump'&&r.callee==='target');
-  const stillFused=candidateWitness.filter(r=>r.kind==='fuse'&&r.callee==='target'&&!r.flat&&r.tail);
-  if(name!=='layout-cut' && (!eligible.length||!fused.length||!jumped.length||stillFused.length))throw new Error('once-tail changed branch was not actually reached: '+name);
-  if(name==='layout-cut' && !candidateWitness.some(r=>r.kind==='cut'))throw new Error('actual return-layout cut not reached');
-  if(name==='parallel-return'&&(!candidateWitness.some(r=>r.kind==='fork'&&r.bindings>=2)||!candidateWitness.some(r=>r.kind==='task')))throw new Error('actual parallel task-return boundary not reached');
-  if(name==='recursive-tail'&&!candidateWitness.some(r=>r.kind==='jump'&&r.self))throw new Error('recursive self-return boundary not reached');
+  validate(name,baselineWitness,candidateWitness);
   rows.push(active);active=null;console.error('BOUNDARY_CONTROL_EMITTED '+name);
  }
 }catch(error){failure=error;throw error;}

@@ -13,11 +13,13 @@
  
  // Types
  // =====
-@@ -2044,11 +2048,13 @@
+@@ -2043,12 +2047,14 @@
+ }
  
  function emit_task(fl: File, fid: string, rem: number, words: string[],
-   cont = "WL_CONT", idx: string | number = "WL_IDX"): string {
-+  BOUNDARY_ROWS.push({kind:"task",caller:fl.seg.def,fid,rem});
+-  cont = "WL_CONT", idx: string | number = "WL_IDX"): string {
++  cont = "WL_CONT", idx: string | number = "WL_IDX", diagnosticCallee?: string): string {
++  BOUNDARY_ROWS.push({kind:"task",caller:fl.seg.def,fid,rem,callee:diagnosticCallee});
    return node_fill(fl, "t",
      `task_node(e, ${seg_ref(fl, fid)}, ${cont}, ${idx}, ${rem})`, words);
  }
@@ -57,11 +59,20 @@
          return emit_body(fl, Bend.Let(["r"], [0], [Bend.Ann(x, ty!)],
            (xs) => xs[0]), ty, ers, args, dst);
        }
-@@ -2515,6 +2530,7 @@
- }
- 
+@@ -2517,6 +2532,7 @@
  function emit_fork(fl: File, x: Of<"Let">, ers: HTerm[]): void {
-+  BOUNDARY_ROWS.push({kind:"fork",caller:fl.seg.def,bindings:x.k.length});
    const o = term_open(x);
    const calls = x.v.map((v) => term_spine(fl, v));
++  BOUNDARY_ROWS.push({kind:"fork",caller:fl.seg.def,bindings:x.k.length,callees:calls.map(c=>c.k)});
    const fork = calls.length > 1;
+   const name = seg_name(fl, "j");
+   let hold: Of<"Var">[] = [];
+@@ -2538,7 +2554,7 @@
+       calls.forEach((c, j) => {
+         const fj = seg_fid(c.k!);
+         file_push(pl, `e.mem[${jn} + ${idx}] = term_tsk(${fj}, ${
+-          emit_task(pl, fj, 0, margs[j], jt, idx)});`);
++          emit_task(pl, fj, 0, margs[j], jt, idx, c.k!)});`);
+         idx += fun_of(pl, c.k!).ret.ks.length;
+       });
+       file_push(pl, `return ${jt};`);

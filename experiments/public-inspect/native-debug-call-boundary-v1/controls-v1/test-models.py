@@ -1,8 +1,8 @@
 """No compiler child: source-derived complete transport/model refusal controls."""
 from pathlib import Path
-import importlib.util,json,copy
+import types,json,copy
 p=Path(__file__).resolve().parent
-spec=importlib.util.spec_from_file_location('whole',p/'check-whole.py');g=importlib.util.module_from_spec(spec);spec.loader.exec_module(g)
+g=types.ModuleType('whole');g.__file__=str(p/'check-whole.py');exec(compile(Path(g.__file__).read_bytes(),g.__file__,'exec'),g.__dict__)
 rows=[]
 for entry in sorted(p.glob('*.bend')):
  t=g.m.Transport(entry);kind=t.resolve('Report',t.entry,{});expected=json.loads(entry.with_suffix('.expected.json').read_text())

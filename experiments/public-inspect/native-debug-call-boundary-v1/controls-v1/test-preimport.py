@@ -1,9 +1,9 @@
 """No child: changed source and alternate interpreter refused before helper import."""
 from pathlib import Path
-import importlib.util,json,tempfile,hashlib,sys
+import types,json,tempfile,hashlib,sys
 sys.dont_write_bytecode=True
 p=Path(__file__).resolve().parent
-s=importlib.util.spec_from_file_location('execution',p/'execution.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+m=types.ModuleType('execution');m.__file__=str(p/'execution.py');exec(compile(Path(m.__file__).read_bytes(),m.__file__,'exec'),m.__dict__)
 def forbidden(*args):raise AssertionError('helper imported before refusal')
 m.load=forbidden
 with tempfile.TemporaryDirectory(prefix='bendvy-debug56-boundary-preimport-') as d:
