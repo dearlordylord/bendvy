@@ -1,0 +1,45 @@
+{
+  "status": "SOURCE5_TERMINAL_UNINTERPRETED",
+  "planSHA256": "a62161327daf967bf59763bb3ae3c4148a16a27856f2a8004f8abb0460d91033",
+  "mutation": "last-leaf",
+  "command": {
+    "label": "source5",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "5",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-42-adoption-current/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/chunk-serializer-v1/whole-feature-timing-v1/driver-last-leaf.bend",
+      "--check-only"
+    ],
+    "seconds": 5
+  },
+  "guards": [
+    {
+      "label": "pre",
+      "unchanged": true
+    },
+    {
+      "label": "acquired",
+      "unchanged": true
+    },
+    {
+      "label": "post",
+      "unchanged": true
+    },
+    {
+      "label": "final",
+      "unchanged": true
+    }
+  ],
+  "logs": {
+    "source5.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source5.stderr": "271f1636eeb9e179ad900b3d19c471a66c96019ec29d7fb9c6f3e2e8701cb8dc"
+  },
+  "result": {
+    "exit": 1,
+    "failure": null,
+    "capture": "split",
+    "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "status": "SOURCE5_TERMINAL_UNINTERPRETED",
+  "planSHA256": "b4d616b2010491ee02334362da791d1b3016b8b12187e857e13a855ea650419a",
+  "mutation": "moved-walk",
+  "command": {
+    "label": "source5",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "5",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-42-adoption-current/experiments/public-relations/timing/current-qualification-v1/phase2/remainder-v1/chunk-serializer-v1/whole-feature-timing-v1/driver-moved-walk.bend",
+      "--check-only"
+    ],
+    "seconds": 5
+  },
+  "guards": [
+    {
+      "label": "pre",
+      "unchanged": true
+    },
+    {
+      "label": "acquired",
+      "unchanged": true
+    },
+    {
+      "label": "post",
+      "unchanged": true
+    },
+    {
+      "label": "final",
+      "unchanged": true
+    }
+  ],
+  "logs": {
+    "source5.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "source5.stderr": "e4b980c2888c6fd00e8e0c6f829400a735c3f5b0b24edd358b276f87fb6002df"
+  },
+  "result": {
+    "exit": 1,
+    "failure": null,
+    "capture": "split",
+    "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+  }
+}
