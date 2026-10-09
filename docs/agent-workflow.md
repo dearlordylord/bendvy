@@ -31,8 +31,8 @@ Use the development checks above for application work and the
 delivery. Complete source, tool, environment, output and oracle inventories
 before execution review.
 
-For new collectors, lock only the compiler/runtime/performance child; prepare
-immutable inputs and metadata-only probes outside the lock. Use the existing
+For new collectors, lock compiler/runtime/performance children and resource-heavy
+oracle materialization; prepare lightweight immutable metadata outside the lock. Use the existing
 [immutable dependency stage](check-policy.md#immutable-dependency-stages)
 helper with a reviewed resolver inventory: discover outside the lock, then
 statically check and revalidate the launch boundary after acquisition.
