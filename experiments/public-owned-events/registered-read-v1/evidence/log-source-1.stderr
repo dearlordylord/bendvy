@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : 'def', 'type' or 'law'
+- observed : '|'
+Location:
+6 | type Log<-P:Type> is Type: Log{seen:List<&2,U32>,rows:List<Row<P>>}
+7>| type Refusal is Data: DuplicateKey{key:U32} | MissingKey{key:U32}
+  |                                             ^
+8 | type Published<-P:Type> is Type:

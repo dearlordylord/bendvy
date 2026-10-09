@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : ':'
+- observed : '('
+Location:
+21 |     case Log.Reading{log,value,errors}: prepend_packet(key,value,errors,visit(rest,log))
+22>| law visit(keys:List<&2,U32>,log:Log.Log<Payload.Payload>) -> Visited
+   |          ^
+23 | # Ordinary forward function declaration, fulfilled below; no semantic law/proof.

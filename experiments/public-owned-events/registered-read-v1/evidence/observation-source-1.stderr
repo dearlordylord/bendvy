@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : a function type
+- observed : List<&1, Log.Row<P.Payload>>
+Context:
+- seen : List<&2, U32>
+- rows : List<&1, Log.Row<P.Payload>>
+Location: log
+45 |   match owner:
+46>|     case Log.Log{seen,rows}: log_done(seen,rows(rows))
+   |                                            ^^^^^^^^^^
+47 | def world_done(+meta:F.WorldMeta,live:Array<Bool>,store:Unit,pending:List<(W.World<F.Schema,Unit,Log.Log<P.Payload>,U32> -> W.World<F.Schema,Unit,Log.Log<P.Payload>,U32>)>,observed:Log.Log<P.Payload> & LogView) -> W.World<F.Schema,Unit,Log.Log<P.Payload>,U32> & (F.WorldMeta & LogView):
