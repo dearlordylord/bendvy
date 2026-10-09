@@ -1,0 +1,361 @@
+{
+  "scope": "Original normal JS compile-domain printer refusal; no runtime output/no semantic or Native qualification",
+  "session": 48956,
+  "terminalExit": 1,
+  "files": {
+    "/tmp/bendvy-ordinary-inspector-canonical-normal-js01/plan.json": "0a60fa30ee7871defe767034b1e6475355f131523e844d9e8a6e021c4d4c1610",
+    "/tmp/bendvy-ordinary-inspector-canonical-normal-js01/emit-pre.guard.json": "39c3177aea94b24c61b2e4157ecc07ec1abc5153a3b734f964ef3b78fc0fbf23",
+    "/tmp/bendvy-ordinary-inspector-canonical-normal-js01/emit-acquired.guard.json": "a825a0d7fbaa67a59eb82403fdd239a6ed6e2c1a43a4c733418219da479bb6d9",
+    "/tmp/bendvy-ordinary-inspector-canonical-normal-js01/emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-ordinary-inspector-canonical-normal-js01/emit.stderr": "ffd65fcbda116bd29cdd4a15a05211f9cf1cbe6413e69722481fcc8d294aabe8",
+    "/tmp/bendvy-ordinary-inspector-canonical-normal-js01/emit-post.guard.json": "187ca681ab2743fb779adff166b1726eddb896a5789c1543d9ecf0c82be2f4ec",
+    "/tmp/bendvy-ordinary-inspector-canonical-normal-js01/final.guard.json": "dde4d03aa67306fb3380a8e6971462222d08cfd6f025303ec9b3fb0a2a8cfd09",
+    "/tmp/bendvy-ordinary-inspector-canonical-normal-js01/receipt.json": "5ce90c2deac26284b5c32be51e6f72ea40697b32e5d176d21fb638456db59f28"
+  },
+  "sourceObjects": {
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/main.bend": "ace9882fc22de2a40980bdc482ae848111c17a420f8456d6c0293d57b67f77e4",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/caller.bend": "8b9973213938814a0efdfd0f28f5a1d6936882105bb2e206a49bf34bafdabdce",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/ordinary-component-binding.bend": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/ordinary-declaration.bend": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/ordinary-inspector-declaration.bend": "d916b7fbec58c0f51e3f05278b30a4b1ef08dc29d83d3f9149b33cbf716e00e3",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/ordinary-query-declaration.bend": "bbb77a38ebe83f27edf4d1ec7be7b56d6360687a088046ac2dc3c45ca6f73a32",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/persistence-declaration.bend": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/decode-data.bend": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/decode-utf16.bend": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/decode-capabilities.bend": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/schema-fragments.bend": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/decode.bend": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/decode-size.bend": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/declared-family.bend": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/snapshot-leaf.bend": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/snapshot-gate.bend": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/inspector.bend": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/inspector-query.bend": "c6b0f092e6271f3ee8c8ec3552f159ee65821440ef0561d4b63d16544991ea00",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/inspector-query-projection.bend": "fe11471686751792c2939bea532f26138492f097d61c9b6200dc58a4580ef614",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/development.py": "86307503be39fe5b98ff7192c430fb7f2a3232a63f7243dd38fceae9f7bc530b",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/SOURCE.json": "020bd74afbba6f7b0cbf55622a84f645d265ddb137a19edafe9b682cc8c5eedc",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/ORACLES.json": "9e80bf6d1413e84afd573f2c6e98b488f1614e38f0c0ef9c73cb00c400151da6",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/test-preparation.py": "c173200a0a0f4b084340888f880b7d0649244ae9bb9abe6a8953c62d11d85d2e",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/RECIPE.json": "f9012b57a0844bd90cda1ffeb37c964f0a98179bb46140e8547ca1dbfcde12d8",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/collector.patch": "2b91ad893b5963d39e1bd6fc64dc01cafb7013a5acbd389fb50cfbc77dd5b94f",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/parent-development.py.source": "c98ff542504e8141055c90af24d6870bf04ad9ddace912c46bb9eb2db934ab7b",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/normal-expected.stdout.gz": "4a98cce580c2bf88e1af9b21e3902aade48aae048b7f4f7ed0250932634bbe1c",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/source-attempts/normal-02/result.json": "7c41b2d23b6836054b3db03570f99cb3b88c1dad551ce01bce0482a7e2abe52e",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/source-attempts/normal-02/SOURCE.json": "5183a168c499c4be0c08c9c473e44ed94f69c34c9ebaac8bcf5e43f0662b6913",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/source-attempts/normal-02/post.json": "1ae748d5796cc995906ddf0fba5e5626f9c1c6ac79cec8fb465106e92254a77b",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/source-attempts/normal-02/stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/source-attempts/normal-02/stderr": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494",
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+    "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/MANIFEST.json": "d9ab89cf8afa966f0e6c2eb8f5570dfa20c90215f1079f2514af9d4ca6d02350",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/REVIEW.md": "2816654307c12cbd47eaceee3127c6105a3d2abcbb625a31704543d14851d03c",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/SOURCE-BASIS.json": "bfe84c37e276a9091cad069d470a107e0821424483979f9d45b10879d80dd366",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/__pycache__/expected.cpython-311.pyc": "8e7a86268bfe51bb02161044191ddb2d2959b165604b62333548ae23d06c2a91",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/expected.py": "4604be63a0ab29b077e87c970e8b88e2ade424565175034ea87634ce22f29168",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/mutant-expected.json": "02e18cd129c0406bc59ae59ab81e43810762e39b591af42d2fd554fe75d2c626",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/mutant-expected.stdout": "56a87ce9e597fe009562eea1b45cf6330493e029fe239cbc094e9196ff7e4194",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/mutant-expected.stdout.gz": "6fb5986e7c04e00e713eee0dd5dd39a54ba48ae63bc3d52a16c56d8b63b32342",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/mutant-namespace-normal-expected.json": "bcf02b89b3694833b058e383eaab6c549e4dbaa46ea0439989b28dd079eb34d5",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/mutant-namespace-normal-expected.stdout": "9a6e7d987a79b881b2626bced83458b4dd4761bcba49bd20ba61d59eae752f37",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/mutant-namespace-normal-expected.stdout.gz": "5cabee46ce83229ef6ec1e03e24dfb6d8fde2464df2723902e16ee66cb75f6b8",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/normal-expected.json": "bcf02b89b3694833b058e383eaab6c549e4dbaa46ea0439989b28dd079eb34d5",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/normal-expected.stdout": "8dc379f58f956ed993eaaea8be9eb1d6e5ed6de3ef410b8fea4ec92212b00e7a",
+    "/workspace/formal-proofs/bendvy-worktrees/review-46-native22-launch/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/oracle-v1/test-model.py": "16837f8ea92db5dc112922f255c2db1e2aec0fa0bbaaabac256ebb136d06281d"
+  },
+  "externalPins": {
+    "/home/node/.bend/bin/bend-2.0.35": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477",
+    "/usr/bin/python3.11": "9a070c8a36e16c152dae21b66aeb707f4d21b506c875e9b15edf4387fca7dcf8",
+    "/usr/bin/taskset": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5",
+    "/tmp/bendvy-clang19-diagnostic/clang19": "3e171a978d6c1decae4e6645e9bfb771cf5af21ff699ea119fdb058936b0af2d",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d"
+  },
+  "members": {
+    "0a60fa30ee7871defe767034b1e6475355f131523e844d9e8a6e021c4d4c1610": {
+      "member": "objects/0a60fa30ee7871defe767034b1e6475355f131523e844d9e8a6e021c4d4c1610.gz",
+      "bytes": 69154
+    },
+    "39c3177aea94b24c61b2e4157ecc07ec1abc5153a3b734f964ef3b78fc0fbf23": {
+      "member": "objects/39c3177aea94b24c61b2e4157ecc07ec1abc5153a3b734f964ef3b78fc0fbf23.gz",
+      "bytes": 13878
+    },
+    "a825a0d7fbaa67a59eb82403fdd239a6ed6e2c1a43a4c733418219da479bb6d9": {
+      "member": "objects/a825a0d7fbaa67a59eb82403fdd239a6ed6e2c1a43a4c733418219da479bb6d9.gz",
+      "bytes": 13883
+    },
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855": {
+      "member": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "bytes": 0
+    },
+    "ffd65fcbda116bd29cdd4a15a05211f9cf1cbe6413e69722481fcc8d294aabe8": {
+      "member": "objects/ffd65fcbda116bd29cdd4a15a05211f9cf1cbe6413e69722481fcc8d294aabe8.gz",
+      "bytes": 95
+    },
+    "187ca681ab2743fb779adff166b1726eddb896a5789c1543d9ecf0c82be2f4ec": {
+      "member": "objects/187ca681ab2743fb779adff166b1726eddb896a5789c1543d9ecf0c82be2f4ec.gz",
+      "bytes": 14159
+    },
+    "dde4d03aa67306fb3380a8e6971462222d08cfd6f025303ec9b3fb0a2a8cfd09": {
+      "member": "objects/dde4d03aa67306fb3380a8e6971462222d08cfd6f025303ec9b3fb0a2a8cfd09.gz",
+      "bytes": 14155
+    },
+    "5ce90c2deac26284b5c32be51e6f72ea40697b32e5d176d21fb638456db59f28": {
+      "member": "objects/5ce90c2deac26284b5c32be51e6f72ea40697b32e5d176d21fb638456db59f28.gz",
+      "bytes": 2189
+    },
+    "ace9882fc22de2a40980bdc482ae848111c17a420f8456d6c0293d57b67f77e4": {
+      "member": "objects/ace9882fc22de2a40980bdc482ae848111c17a420f8456d6c0293d57b67f77e4.gz",
+      "bytes": 305
+    },
+    "8b9973213938814a0efdfd0f28f5a1d6936882105bb2e206a49bf34bafdabdce": {
+      "member": "objects/8b9973213938814a0efdfd0f28f5a1d6936882105bb2e206a49bf34bafdabdce.gz",
+      "bytes": 6196
+    },
+    "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b": {
+      "member": "objects/a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b.gz",
+      "bytes": 2199
+    },
+    "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310": {
+      "member": "objects/f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310.gz",
+      "bytes": 22404
+    },
+    "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723": {
+      "member": "objects/2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723.gz",
+      "bytes": 897
+    },
+    "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1": {
+      "member": "objects/2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1.gz",
+      "bytes": 1402
+    },
+    "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5": {
+      "member": "objects/6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5.gz",
+      "bytes": 424
+    },
+    "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c": {
+      "member": "objects/0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c.gz",
+      "bytes": 31351
+    },
+    "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0": {
+      "member": "objects/6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0.gz",
+      "bytes": 1591
+    },
+    "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a": {
+      "member": "objects/3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a.gz",
+      "bytes": 45638
+    },
+    "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec": {
+      "member": "objects/91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec.gz",
+      "bytes": 6475
+    },
+    "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5": {
+      "member": "objects/e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5.gz",
+      "bytes": 3862
+    },
+    "d916b7fbec58c0f51e3f05278b30a4b1ef08dc29d83d3f9149b33cbf716e00e3": {
+      "member": "objects/d916b7fbec58c0f51e3f05278b30a4b1ef08dc29d83d3f9149b33cbf716e00e3.gz",
+      "bytes": 3638
+    },
+    "bbb77a38ebe83f27edf4d1ec7be7b56d6360687a088046ac2dc3c45ca6f73a32": {
+      "member": "objects/bbb77a38ebe83f27edf4d1ec7be7b56d6360687a088046ac2dc3c45ca6f73a32.gz",
+      "bytes": 11956
+    },
+    "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76": {
+      "member": "objects/06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76.gz",
+      "bytes": 3205
+    },
+    "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4": {
+      "member": "objects/1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4.gz",
+      "bytes": 11497
+    },
+    "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539": {
+      "member": "objects/343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539.gz",
+      "bytes": 1307
+    },
+    "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65": {
+      "member": "objects/a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65.gz",
+      "bytes": 1987
+    },
+    "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe": {
+      "member": "objects/bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe.gz",
+      "bytes": 4096
+    },
+    "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6": {
+      "member": "objects/83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6.gz",
+      "bytes": 7229
+    },
+    "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793": {
+      "member": "objects/13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793.gz",
+      "bytes": 855
+    },
+    "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281": {
+      "member": "objects/dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281.gz",
+      "bytes": 771
+    },
+    "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2": {
+      "member": "objects/e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2.gz",
+      "bytes": 2042
+    },
+    "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f": {
+      "member": "objects/9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f.gz",
+      "bytes": 4111
+    },
+    "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128": {
+      "member": "objects/60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128.gz",
+      "bytes": 1336
+    },
+    "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca": {
+      "member": "objects/8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca.gz",
+      "bytes": 19598
+    },
+    "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3": {
+      "member": "objects/bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3.gz",
+      "bytes": 1612
+    },
+    "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d": {
+      "member": "objects/f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d.gz",
+      "bytes": 9870
+    },
+    "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597": {
+      "member": "objects/31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597.gz",
+      "bytes": 6011
+    },
+    "c6b0f092e6271f3ee8c8ec3552f159ee65821440ef0561d4b63d16544991ea00": {
+      "member": "objects/c6b0f092e6271f3ee8c8ec3552f159ee65821440ef0561d4b63d16544991ea00.gz",
+      "bytes": 4212
+    },
+    "fe11471686751792c2939bea532f26138492f097d61c9b6200dc58a4580ef614": {
+      "member": "objects/fe11471686751792c2939bea532f26138492f097d61c9b6200dc58a4580ef614.gz",
+      "bytes": 3530
+    },
+    "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347": {
+      "member": "objects/fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347.gz",
+      "bytes": 5567
+    },
+    "86307503be39fe5b98ff7192c430fb7f2a3232a63f7243dd38fceae9f7bc530b": {
+      "member": "objects/86307503be39fe5b98ff7192c430fb7f2a3232a63f7243dd38fceae9f7bc530b.gz",
+      "bytes": 16499
+    },
+    "020bd74afbba6f7b0cbf55622a84f645d265ddb137a19edafe9b682cc8c5eedc": {
+      "member": "objects/020bd74afbba6f7b0cbf55622a84f645d265ddb137a19edafe9b682cc8c5eedc.gz",
+      "bytes": 12223
+    },
+    "9e80bf6d1413e84afd573f2c6e98b488f1614e38f0c0ef9c73cb00c400151da6": {
+      "member": "objects/9e80bf6d1413e84afd573f2c6e98b488f1614e38f0c0ef9c73cb00c400151da6.gz",
+      "bytes": 6990
+    },
+    "c173200a0a0f4b084340888f880b7d0649244ae9bb9abe6a8953c62d11d85d2e": {
+      "member": "objects/c173200a0a0f4b084340888f880b7d0649244ae9bb9abe6a8953c62d11d85d2e.gz",
+      "bytes": 10346
+    },
+    "f9012b57a0844bd90cda1ffeb37c964f0a98179bb46140e8547ca1dbfcde12d8": {
+      "member": "objects/f9012b57a0844bd90cda1ffeb37c964f0a98179bb46140e8547ca1dbfcde12d8.gz",
+      "bytes": 615
+    },
+    "2b91ad893b5963d39e1bd6fc64dc01cafb7013a5acbd389fb50cfbc77dd5b94f": {
+      "member": "objects/2b91ad893b5963d39e1bd6fc64dc01cafb7013a5acbd389fb50cfbc77dd5b94f.gz",
+      "bytes": 12003
+    },
+    "c98ff542504e8141055c90af24d6870bf04ad9ddace912c46bb9eb2db934ab7b": {
+      "member": "objects/c98ff542504e8141055c90af24d6870bf04ad9ddace912c46bb9eb2db934ab7b.gz",
+      "bytes": 16633
+    },
+    "4a98cce580c2bf88e1af9b21e3902aade48aae048b7f4f7ed0250932634bbe1c": {
+      "member": "objects/4a98cce580c2bf88e1af9b21e3902aade48aae048b7f4f7ed0250932634bbe1c.gz",
+      "bytes": 327
+    },
+    "7c41b2d23b6836054b3db03570f99cb3b88c1dad551ce01bce0482a7e2abe52e": {
+      "member": "objects/7c41b2d23b6836054b3db03570f99cb3b88c1dad551ce01bce0482a7e2abe52e.gz",
+      "bytes": 754
+    },
+    "5183a168c499c4be0c08c9c473e44ed94f69c34c9ebaac8bcf5e43f0662b6913": {
+      "member": "objects/5183a168c499c4be0c08c9c473e44ed94f69c34c9ebaac8bcf5e43f0662b6913.gz",
+      "bytes": 37480
+    },
+    "1ae748d5796cc995906ddf0fba5e5626f9c1c6ac79cec8fb465106e92254a77b": {
+      "member": "objects/1ae748d5796cc995906ddf0fba5e5626f9c1c6ac79cec8fb465106e92254a77b.gz",
+      "bytes": 24
+    },
+    "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1": {
+      "member": "objects/931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1.gz",
+      "bytes": 58
+    },
+    "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494": {
+      "member": "objects/57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494.gz",
+      "bytes": 42
+    },
+    "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714": {
+      "member": "objects/ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714.gz",
+      "bytes": 12358
+    },
+    "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122": {
+      "member": "objects/f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122.gz",
+      "bytes": 3014
+    },
+    "d9ab89cf8afa966f0e6c2eb8f5570dfa20c90215f1079f2514af9d4ca6d02350": {
+      "member": "objects/d9ab89cf8afa966f0e6c2eb8f5570dfa20c90215f1079f2514af9d4ca6d02350.gz",
+      "bytes": 1772
+    },
+    "2816654307c12cbd47eaceee3127c6105a3d2abcbb625a31704543d14851d03c": {
+      "member": "objects/2816654307c12cbd47eaceee3127c6105a3d2abcbb625a31704543d14851d03c.gz",
+      "bytes": 2920
+    },
+    "bfe84c37e276a9091cad069d470a107e0821424483979f9d45b10879d80dd366": {
+      "member": "objects/bfe84c37e276a9091cad069d470a107e0821424483979f9d45b10879d80dd366.gz",
+      "bytes": 12075
+    },
+    "8e7a86268bfe51bb02161044191ddb2d2959b165604b62333548ae23d06c2a91": {
+      "member": "objects/8e7a86268bfe51bb02161044191ddb2d2959b165604b62333548ae23d06c2a91.gz",
+      "bytes": 8507
+    },
+    "4604be63a0ab29b077e87c970e8b88e2ade424565175034ea87634ce22f29168": {
+      "member": "objects/4604be63a0ab29b077e87c970e8b88e2ade424565175034ea87634ce22f29168.gz",
+      "bytes": 3641
+    },
+    "02e18cd129c0406bc59ae59ab81e43810762e39b591af42d2fd554fe75d2c626": {
+      "member": "objects/02e18cd129c0406bc59ae59ab81e43810762e39b591af42d2fd554fe75d2c626.gz",
+      "bytes": 3835
+    },
+    "56a87ce9e597fe009562eea1b45cf6330493e029fe239cbc094e9196ff7e4194": {
+      "member": "objects/56a87ce9e597fe009562eea1b45cf6330493e029fe239cbc094e9196ff7e4194.gz",
+      "bytes": 1297
+    },
+    "6fb5986e7c04e00e713eee0dd5dd39a54ba48ae63bc3d52a16c56d8b63b32342": {
+      "member": "objects/6fb5986e7c04e00e713eee0dd5dd39a54ba48ae63bc3d52a16c56d8b63b32342.gz",
+      "bytes": 299
+    },
+    "bcf02b89b3694833b058e383eaab6c549e4dbaa46ea0439989b28dd079eb34d5": {
+      "member": "objects/bcf02b89b3694833b058e383eaab6c549e4dbaa46ea0439989b28dd079eb34d5.gz",
+      "bytes": 4079
+    },
+    "9a6e7d987a79b881b2626bced83458b4dd4761bcba49bd20ba61d59eae752f37": {
+      "member": "objects/9a6e7d987a79b881b2626bced83458b4dd4761bcba49bd20ba61d59eae752f37.gz",
+      "bytes": 1537
+    },
+    "5cabee46ce83229ef6ec1e03e24dfb6d8fde2464df2723902e16ee66cb75f6b8": {
+      "member": "objects/5cabee46ce83229ef6ec1e03e24dfb6d8fde2464df2723902e16ee66cb75f6b8.gz",
+      "bytes": 332
+    },
+    "8dc379f58f956ed993eaaea8be9eb1d6e5ed6de3ef410b8fea4ec92212b00e7a": {
+      "member": "objects/8dc379f58f956ed993eaaea8be9eb1d6e5ed6de3ef410b8fea4ec92212b00e7a.gz",
+      "bytes": 1509
+    },
+    "16837f8ea92db5dc112922f255c2db1e2aec0fa0bbaaabac256ebb136d06281d": {
+      "member": "objects/16837f8ea92db5dc112922f255c2db1e2aec0fa0bbaaabac256ebb136d06281d.gz",
+      "bytes": 1735
+    }
+  },
+  "remainingPlans": "normal Native, mutant JS/Native unattempted"
+}
