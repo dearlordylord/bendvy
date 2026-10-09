@@ -1,0 +1,15 @@
+# Source audit of failed first prediction
+
+The first model3f15 and its expected stream remain immutable as failed prediction. Its statement that every non-query line remains unchanged is wrong. No actual output is used to construct a replacement here.
+
+Frozen118923c8 call routes:
+
+1. GatePhase.run→Phase.run executes the Inspector query consumer first. The reached families.inspect_read still runs C.get but substitutes detached ComponentAbsent; Format.snapshot therefore changes selected component values in its record.
+2. GatePhase.from_phase/scan passes each of the first nine actual records to Gates.run→Instrument.preload. The record becomes Resource.Diagnostic.record.
+3. Gates.built invokes Sch.run with Instrument.condition. That callback reads the preloaded record and QueryCheck.run recomputes the unchanged Check consumer record. QueryCheck.compared requires BOTH nonempty rows AND complete SE.equal(Format.snapshot(actual Check), expected Inspector record).
+4. For optionalFour/requiredPair/fiveAlias, nonempty selected rows containing changed projected fields cause record inequality. Instrument.record_resource writes before/after/same/allowed/checks into the actual resource. Sch.conditioned false records Skipped and preserves holder args; Gates.runner is not invoked, so Args.ran does not increase. Empty/filter-only records retain their existing equality and membership behavior.
+5. The changed diagnostic record, before/after strings and allowed flag are retained in Resource and therefore affect subsequent queryWorld/phaseWorld/finalWorld dumps, subsequent condition snapshots and diagnostic output. The owner is preserved, but its full observed Data contents are different. This is why component-read preservation alone cannot establish unchanged global observations.
+
+Clock/cursor scope must be derived separately: this gate dispatch uses Sys.run, not run_tracked, and its runner only increments Args.ran. Sch.conditioned skip does not call dispatch. Neither branch advances clock or registry cursor here. Inspector Phase.run and explicit mutation operations still own their existing clock/cursor progression; unchanged membership cannot simply be asserted across all phases without reviewing those routes. Filter-only retry addedBoth uses no selected component field, but its complete source path must remain in the model.
+
+Existing independent promotion-stage/component-query-v1/physical-oracle-v2.py is suitable as a source-based generator seam: build computes query records, runs fourteen Inspector observations and then nine diagnostic gates. It currently derives Inspector qs and Check allowed from the same literal records. A successor can parameterize Inspector projected records independently from unchanged Check records, derive allowed as nonempty Check rows AND complete record equality, and regenerate all world/Args/diagnostic histories. It must first reproduce the entire unchanged normal810259 oracle exactly; no replacement stream has been authored or tuned from actual failure bytes in this note.
