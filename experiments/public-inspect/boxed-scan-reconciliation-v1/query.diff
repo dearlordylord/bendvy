@@ -1,0 +1,37 @@
+--- experiments/public-inspect/promotion-stage/component-query-v1/current-world-native-v1/stage/query.bend	2026-10-08 12:56:33.684472639 -0400
++++ experiments/public-inspect/promotion-stage/component-query-v1/current-world-native-v1/boxed-scan-v1/stage/query.bend	2026-10-08 13:32:53.028602362 -0400
+@@ -69,20 +69,29 @@
+ def lookup(~H:Type,~S:Data,~V:Data,~selection:D.Selection<H,S,V>,~world:WorldRead<H,S>,owner:H,target:W.Handle<S>) -> H & Result<&2,&2,Errors.LookupError,Row<S,V>>:
+   lookup_target(~H,~S,~V,~selection,~world,owner,target)
+ 
+-def scan_projected(~H:Type,~S:Data,~V:Data,target:W.Handle<S>,rows:List<&2,Row<S,V>>,continue:H -> List<&2,Row<S,V>> -> H & List<&2,Row<S,V>>,observed:H & V) -> H & List<&2,Row<S,V>>:
++# Private recursive result ABI; public query authority and result types unchanged.
++type ScanResult<-H:Type,-S:Data,-V:Data> is Type:
++  ScanResult{owner:H,rows:List<&2,Row<S,V>>}
++  ScanResultLink{next:ScanResult<H,S,V>}
++def unwrap_scan(~H:Type,~S:Data,~V:Data,result:ScanResult<H,S,V>) -> H & List<&2,Row<S,V>>:
++  match result:
++    case ScanResult{owner,rows}:(owner,rows)
++    case ScanResultLink{next}:unwrap_scan(~H,~S,~V,next)
++
++def scan_projected(~H:Type,~S:Data,~V:Data,target:W.Handle<S>,rows:List<&2,Row<S,V>>,continue:H -> List<&2,Row<S,V>> -> ScanResult<H,S,V>,observed:H & V) -> ScanResult<H,S,V>:
+   (owner,value)=observed
+   continue(owner,Row{target,value} <> rows)
+-def scan_matched(~H:Type,~S:Data,~V:Data,~selection:D.Selection<H,S,V>,+target:W.Handle<S>,rows:List<&2,Row<S,V>>,continue:H -> List<&2,Row<S,V>> -> H & List<&2,Row<S,V>>,observed:H & Bool) -> H & List<&2,Row<S,V>>:
++def scan_matched(~H:Type,~S:Data,~V:Data,~selection:D.Selection<H,S,V>,+target:W.Handle<S>,rows:List<&2,Row<S,V>>,continue:H -> List<&2,Row<S,V>> -> ScanResult<H,S,V>,observed:H & Bool) -> ScanResult<H,S,V>:
+   match observed:
+     case (owner,False{}):continue(owner,rows)
+     case (owner,True{}):scan_projected(~H,~S,~V,target,rows,continue,D.project_field(~H,~S,~V,selection)(owner,target))
+-def scan(~H:Type,~S:Data,~V:Data,~selection:D.Selection<H,S,V>,targets:List<&2,W.Handle<S>>,owner:H,rows:List<&2,Row<S,V>>) -> H & List<&2,Row<S,V>>:
++def scan(~H:Type,~S:Data,~V:Data,~selection:D.Selection<H,S,V>,targets:List<&2,W.Handle<S>>,owner:H,rows:List<&2,Row<S,V>>) -> ScanResult<H,S,V>:
+   match targets:
+-    case []:(owner,List.reverse(&2,Row<S,V>,rows))
++    case []:ScanResult{owner,List.reverse(&2,Row<S,V>,rows)}
+     case +target <> rest:scan_matched(~H,~S,~V,~selection,target,rows,(owner => rows => scan(~H,~S,~V,~selection,rest,owner,rows)),D.matches_field(~H,~S,~V,selection)(owner,target))
+ def scanned(~H:Type,~S:Data,~V:Data,~selection:D.Selection<H,S,V>,observed:H & List<&2,W.Handle<S>>) -> H & List<&2,Row<S,V>>:
+   (owner,targets)=observed
+-  scan(~H,~S,~V,~selection,targets,owner,[])
++  unwrap_scan(~H,~S,~V,scan(~H,~S,~V,~selection,targets,owner,[]))
+ def enumerate(~H:Type,~S:Data,~V:Data,~selection:D.Selection<H,S,V>,~world:WorldRead<H,S>,owner:H) -> H & List<&2,Row<S,V>>:
+   scanned(~H,~S,~V,~selection,handles_field(~H,~S,world)(owner))
+ def grant(~H:Type,~S:Data,~V:Data,~selection:D.Selection<H,S,V>,~world:WorldRead<H,S>) -> ReadQuery<H,S,V>:
