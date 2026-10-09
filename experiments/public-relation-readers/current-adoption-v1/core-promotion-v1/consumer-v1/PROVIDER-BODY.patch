@@ -1,0 +1,65 @@
+--- application.bend (old body)
++++ application.bend (current body)
+@@ -63,7 +63,7 @@
+     case (K.Input{_,ReaderArgs{args,_}},readings): Sy.Succeeded{world,(args,readings)}
+ 
+ def reader_success(~S: Data,world: W.World<S,RC.Store<S,CellOwners>,Resources<S>,RC.Notice<S,U32>>,input: K.Input<S,RC.Notice<S,U32>,ReaderArgs>) -> Sy.Outcome<W.World<S,RC.Store<S,CellOwners>,Resources<S>,RC.Notice<S,U32>>,U32,Array<U32> & List<&2,Read.KeyReading<S,RC.Notice<S,U32>>>>:
+-  reader_success_returned(~S,world,Access.gameplay(~K.Input<S,RC.Notice<S,U32>,ReaderArgs>,~S,~RC.Notice<S,U32>,~read_input(~S),Access.ReadGrant{},input))
++  reader_success_returned(~S,world,read_input(~S,input))
+ 
+ def returned_args(~S: Data,world: W.World<S,RC.Store<S,CellOwners>,Resources<S>,RC.Notice<S,U32>>,args: Array<U32>,readings: List<&2,Read.KeyReading<S,RC.Notice<S,U32>>>) -> W.World<S,RC.Store<S,CellOwners>,Resources<S>,RC.Notice<S,U32>>:
+   match world:
+@@ -82,6 +82,13 @@
+     case False{}: reader_success(~S,world,K.Input{readings,ReaderArgs{private,False{}}})
+     case True{}: reader_failure(~S,world,K.Input{readings,ReaderArgs{private,True{}}})
+ 
+-def reader(~S: Data,world: W.World<S,RC.Store<S,CellOwners>,Resources<S>,RC.Notice<S,U32>>,input: K.Input<S,RC.Notice<S,U32>,ReaderArgs>) -> Sy.Outcome<W.World<S,RC.Store<S,CellOwners>,Resources<S>,RC.Notice<S,U32>>,U32,Array<U32> & List<&2,Read.KeyReading<S,RC.Notice<S,U32>>>>:
++def reader_unwrapped(~S: Data,world: W.World<S,RC.Store<S,CellOwners>,Resources<S>,RC.Notice<S,U32>>,input: K.Input<S,RC.Notice<S,U32>,ReaderArgs>) -> Sy.Outcome<W.World<S,RC.Store<S,CellOwners>,Resources<S>,RC.Notice<S,U32>>,U32,Array<U32> & List<&2,Read.KeyReading<S,RC.Notice<S,U32>>>>:
+   match input:
+-    case K.Input{readings,ReaderArgs{private,fail}}: reader_dispatch(~S,fail,world,readings,private)+    case K.Input{readings,ReaderArgs{private,fail}}: reader_dispatch(~S,fail,world,readings,private)
++
++def reader_provided(~S:Data,pair:W.World<S,RC.Store<S,CellOwners>,Resources<S>,RC.Notice<S,U32>> & K.Input<S,RC.Notice<S,U32>,ReaderArgs>) -> Sy.Outcome<W.World<S,RC.Store<S,CellOwners>,Resources<S>,RC.Notice<S,U32>>,U32,Array<U32> & List<&2,Read.KeyReading<S,RC.Notice<S,U32>>>>:
++  (world,input) = pair
++  reader_unwrapped(~S,world,input)
++
++def reader(~S:Data,world:W.World<S,RC.Store<S,CellOwners>,Resources<S>,RC.Notice<S,U32>>,input:K.Input<S,RC.Notice<S,U32>,ReaderArgs>) -> Sy.Outcome<W.World<S,RC.Store<S,CellOwners>,Resources<S>,RC.Notice<S,U32>>,U32,Array<U32> & List<&2,Read.KeyReading<S,RC.Notice<S,U32>>>>:
++  reader_provided(~S,Provider.read(~S,~RC.Store<S,CellOwners>,~Resources<S>,~RC.Notice<S,U32>,~ReaderArgs,world,input))--- wider/application-v14.bend (old body)
++++ wider/application-v14.bend (current body)
+@@ -2,9 +2,16 @@
+ def World(~S: Data) -> Type: W.World<S,RC.Store<S,A.CellOwners>,A.Resources<S>,RC.Notice<S,U32>>
+ def Runtime(~S: Data) -> Type: K.Runtime<S,RC.Store<S,A.CellOwners>,A.Resources<S>,RC.Notice<S,U32>>
+ def Output(~S: Data) -> Type: Array<U32> & List<&2,Read.KeyReading<S,RC.Notice<S,U32>>>
+-def body(~S: Data,world: World(~S),input: K.Input<S,RC.Notice<S,U32>,Array<U32>>) -> Sy.Outcome<World(~S),U32,Output(~S)>:
++def body_unwrapped(~S: Data,world: World(~S),input: K.Input<S,RC.Notice<S,U32>,Array<U32>>) -> Sy.Outcome<World(~S),U32,Output(~S)>:
+   match input:
+     case K.Input{readings,private}: Sy.Succeeded{world,(private,readings)}
++def body_provided(~S:Data,pair:World(~S) & K.Input<S,RC.Notice<S,U32>,Array<U32>>) -> Sy.Outcome<World(~S),U32,Output(~S)>:
++  (world,input) = pair
++  body_unwrapped(~S,world,input)
++
++def body(~S:Data,world:World(~S),input:K.Input<S,RC.Notice<S,U32>,Array<U32>>) -> Sy.Outcome<World(~S),U32,Output(~S)>:
++  body_provided(~S,Provider.read(~S,~RC.Store<S,A.CellOwners>,~A.Resources<S>,~RC.Notice<S,U32>,~Array<U32>,world,input))
++
+ def Reader(~S: Data) -> Type: K.Reader<S,RC.Store<S,A.CellOwners>,A.Resources<S>,RC.Notice<S,U32>,Array<U32>,U32,Output(~S),body(~S)>
+ type Slot<S: Data> is Type:
+   Slot{reader: Reader(~S),private: Array<U32>}
+--- wider/mixed-clock-v16.bend (old body)
++++ wider/mixed-clock-v16.bend (current body)
+@@ -22,9 +22,16 @@
+ def captured(~S: Data,marked: M.World(~S) & ClockMark,+cursor: U32,private: Array<U32>,readings: List<&2,Read.KeyReading<S,M.Notice(~S)>>) -> Sy.Outcome<M.World(~S),U32,Output(~S)>:
+   match marked:
+     case (world,ClockMark{stage,tick,+clock,+stamp,component,_,_,_}): Sy.Succeeded{world,(private,(readings,ClockMark{stage,U32.to_nat(clock),clock,stamp,component,Some{cursor},Some{L.added(stamp,cursor)},Some{L.changed(stamp,cursor)}}))}
+-def body(~S: Data,world: M.World(~S),input: K.Input<S,M.Notice(~S),Args>) -> Sy.Outcome<M.World(~S),U32,Output(~S)>:
++def body_unwrapped(~S: Data,world: M.World(~S),input: K.Input<S,M.Notice(~S),Args>) -> Sy.Outcome<M.World(~S),U32,Output(~S)>:
+   match input:
+     case K.Input{readings,Args{private,cursor}}: captured(~S,marked_named(~S,W.namespace(~S,~M.Store(~S),~Array<U32>,~M.Notice(~S),world),"registered",0n),cursor,private,readings)
++def body_provided(~S:Data,pair:M.World(~S) & K.Input<S,M.Notice(~S),Args>) -> Sy.Outcome<M.World(~S),U32,Output(~S)>:
++  (world,input) = pair
++  body_unwrapped(~S,world,input)
++
++def body(~S:Data,world:M.World(~S),input:K.Input<S,M.Notice(~S),Args>) -> Sy.Outcome<M.World(~S),U32,Output(~S)>:
++  body_provided(~S,Provider.read(~S,~M.Store(~S),~Array<U32>,~M.Notice(~S),~Args,world,input))
++
+ def Reader(~S: Data) -> Type: K.Reader<S,M.Store(~S),Array<U32>,M.Notice(~S),Args,U32,Output(~S),body(~S)>
+ type State<S: Data> is Type:
+   State{runtime: Runtime(~S),reader: Reader(~S),private: Array<U32>,deliveries: List<&2,List<&2,Read.KeyReading<S,M.Notice(~S)>>>,marks: List<&2,ClockMark>}

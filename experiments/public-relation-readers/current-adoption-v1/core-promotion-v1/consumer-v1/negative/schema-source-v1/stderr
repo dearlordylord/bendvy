@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueRead<bad~H, List<&2, Read.KeyReading<A.ReadersBeta, RC.Notice<A.ReadersBeta, U32>>>>
+- observed : Cap.ValueRead<bad~H, List<&2, Read.KeyReading<A.ReadersAlpha, RC.Notice<A.ReadersAlpha, U32>>>>
+Context:
+- owner : bad~H
+Location: bad
+ 8 | def bad(~H:Type,~cap:Cap.ValueRead<H,List<&2,Read.KeyReading<A.ReadersAlpha,RC.Notice<A.ReadersAlpha,U32>>>>,owner:H) -> H & List<&2,Read.KeyReading<A.ReadersBeta,RC.Notice<A.ReadersBeta,U32>>>:
+ 9>|   Provider.gameplay(~H,~A.ReadersBeta,~RC.Notice<A.ReadersBeta,U32>,~cap,owner)
+   |                                                                      ^^^
+10 | 
+bend 2.0.36 is available: run bend update
