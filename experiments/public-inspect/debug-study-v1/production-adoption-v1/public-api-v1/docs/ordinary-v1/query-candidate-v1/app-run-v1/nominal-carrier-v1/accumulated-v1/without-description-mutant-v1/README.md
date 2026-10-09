@@ -1,0 +1,11 @@
+# Reached Without-description semantic mutant (source prepared)
+
+Existing description-v1/full-dto packets exercise older low-level paths; the current ordinary query/App full60 branch has parser corruption controls but no reached executable filter projection mutant. This control targets the actual ordinary App.entry_when_enabled call reached through existing ordinary system registration/App.add.
+
+The sole semantic defect removes Query.Without clauses from Enabled debug entries. The ordinary executable matcher/grants and registered owner clauses/access remain intact; application owner, world, scheduler, cursor and Trace are unchanged. Disabled entry behavior remains unchanged. This is an intentional semantic mutant, not production behavior or a new contract.
+
+App.Description appears in nominal DTO types. Exactly15 reverse-import ancestors of App are copied with consistent imports, reusing32 unaffected source modules; no shared source is edited. SOURCE-MAP.json pins both versions and aliases; SOURCE-DELTA-CHECK.json confirms only the helperblock/one enabled-entry expression changes semantically. app.patch retains source diff. Complete60 consuming main source5 passed first actual attempt (session80968 exit0); raw retained. A preceding Python preparation path typo stopped before any compiler/checker launched.
+
+Strict full typed transport inherits the independently reviewed parser and remaps constructor tokens only from exact source-map identities. Complete clean pre-backend synthetic roundtrip equals unchanged3ac85c wholeoracle under mutant namespaces (47sources/68constructors). This is a transport control, not a mutant expectation. Independent source-derived fullcounterfactual and synthetic are being authored before backend output; all18 predicted clause-array changes must be isolated to Enabled descriptions, with every world/owner/cursor/operation preserved.
+
+No backend, expected repair, public law/contract, dependency/cap change, owner simplification, or full#56 completion claim. Fresh mutant runner/plan and independent complete source/counterfactual review required before execution.
