@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: wrong
+14 | 
+15>| def wrong(owner:I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>) -> ( I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32> & List<&2,IQ.ProjectedRow<Caller.A,C.Access<U32>>>) & I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>:
+   |           ^^^^^
+16 |   (IQ.each_composed(~I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,~Caller.A,~C.Access<U32>,~Good.inspect(~Caller.A),owner),owner)
+bend 2.0.36 is available: run bend update

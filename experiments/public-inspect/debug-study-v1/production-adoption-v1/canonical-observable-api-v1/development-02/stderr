@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Type -> Type
+- observed : @-H:Type -> Type
+Context:
+- S     : Data
+- world : W.World<S, Col.Column<S, Caller.Payload>, Array<U32>, U32>
+Location: registered
+59 |   (owner,(Tx.Success{},Unit{}))
+60>| def registered(~S:Data,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>) -> S.Defined<S,W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Sys.Registry<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,Unit & U32,Q.Error<Unit>,List<&2,Unit>,S.observable_runner(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~ops,~Unit,~Unit,~Unit,~C.Access<U32>,~read(~S),~body)>>:
+   |                                                                                                                                                                                                                                                                                                                                     ^^^
+61 |   S.observable_define(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~ops,~Unit,~Unit,~Unit,~C.Access<U32>,~read(~S),~body,world,"source-boundary","Position")
+bend 2.0.36 is available: run bend update

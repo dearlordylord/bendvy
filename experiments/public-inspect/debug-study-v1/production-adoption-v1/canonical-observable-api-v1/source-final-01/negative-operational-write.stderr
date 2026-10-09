@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.Write<Q.Frame<Caller.A, Col.Column<Caller.A, Caller.Payload>, Array<U32>, U32>, Caller.Payload, U32>
+- observed : Cap.Read<Q.Frame<Caller.A, Col.Column<Caller.A, Caller.Payload>, Array<U32>, U32>, U32>
+Location: wrong
+17 | def wrong() -> Cap.Write<Q.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,Caller.Payload,U32>:
+18>|   N.grant(~Caller.A,~Q.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,~Cap.Read<Q.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,U32>,O.operational(~Caller.A,~Q.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,~Cap.Read<Q.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,U32>,~I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,~C.Access<U32>,Good.read(~Caller.A)))
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+19 | 
+bend 2.0.36 is available: run bend update
