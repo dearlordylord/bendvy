@@ -1,0 +1,35 @@
+{
+  "scope": "Preserved complete historical oracle source basis plus independently authored detached Inspector observation model; pre-runtime only",
+  "historicalNormalSHA256": "1f54b6bfa19f6db9a3d08fe030e2debf903ede484c45dd3efbf9d23f1ffe3036",
+  "historicalHandlerDropSHA256": "f4eb43fd7e1c07e0468f70f2f1cdd787148960107838ec13449b31a39652f14a",
+  "normalExpectedSHA256": "f8d3724706ac10e380aa531e3309b88c1baf3bdfdc328ec3ec5698ccafe2ac02",
+  "inspectorFilterExpectedSHA256": "ba6d0e9260be47b1bce886440a8c9cd0aa61139586a132dc23bbec7cf1172d77",
+  "handlerDropExpectedSHA256": "3e961d49c50cef6f76fec2191eb3a86024c814fa12a430a138e0b68eb7910e96",
+  "model": {
+    "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/oracle-v1/expected.py",
+    "sha256": "2b9751d107b06d29150984625af4a04586630ad3caf6af566cea442b3d7f56ea"
+  },
+  "controls": {
+    "path": "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/oracle-v1/TRANSPORT-CHECKS.json",
+    "sha256": "29d9abb8ce8d607a9bc2cad02b7a2ad0a9aa1d4f8be145fbd5212bd7aec88e71"
+  },
+  "fixtureCursor": 0,
+  "registeredCursorBorrow": false,
+  "observationBoundary": "after original explicit barrier, before World/App teardown",
+  "limitations": [
+    "No actual backend execution yet",
+    "Mutation affects only Inspector withoutHealth query lowering; historical operations/metadata unchanged",
+    "Before/after independent detached snapshots have pendingCount0 after original barrier; queue retention at a nonempty pending queue is not newly exercised",
+    "Fixture affine Array<U32> payloads; no all-Type preservation law claim"
+  ],
+  "genericSuccessor": {
+    "priorImmutableArchiveCommit": "17c0f428",
+    "wholeExpectedBytesUnchanged": true,
+    "historicalBaselineUnchanged": true,
+    "sourceGate": "UNMET",
+    "registeredCursorBorrow": false,
+    "fixtureCursor": 0,
+    "inverseSpecialization": "MIGRATION.json and inverse-specialization.bend.source",
+    "attribution": "Unknown stage/cause of prior emission deadline; this is source shape adaptation only"
+  }
+}
