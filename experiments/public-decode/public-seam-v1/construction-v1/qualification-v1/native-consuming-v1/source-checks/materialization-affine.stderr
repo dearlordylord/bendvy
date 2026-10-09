@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : input
+- observed : input (consumed more than once)
+Location: body
+5 | # Registered delivery cannot duplicate the arbitrary input owner.
+6>| def body(~S:Data,~H:Type,~cap:Cap.OwnedRequest<H,Constructed.Input<S,Input.Input>,Constructed.Output<S,Input.Input,Input.Owner>>,input:Constructed.Input<S,Input.Input>,ctx:H) -> Constructed.Input<S,Input.Input> & (H & Constructed.Output<S,Input.Input,Input.Owner>):
+  |                                                                                                                                  ^^^^^
+7 |   (input,Cap.owned_request(~H,~Constructed.Input<S,Input.Input>,~Constructed.Output<S,Input.Input,Input.Owner>,~cap,ctx,input))
+bend 2.0.36 is available: run bend update
