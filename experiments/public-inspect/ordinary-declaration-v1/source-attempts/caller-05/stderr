@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (declaration is a variable here, not comptime: pass it at run time)
+- observed : Q.each
+Context:
+- owner       : I.Frame<A, Col.Column<A, Payload>, Array<U32>, U32>
+- declaration : D.Declaration<A, I.Frame<A, Col.Column<A, Payload>, Array<U32>, U32>, U32>
+- clauses     : List<&2, Normal.Clause<A>>
+Location: read_declared~0
+43 |   match observed:
+44>|     case (declaration,clauses):read_rows(~S,clauses,Q.each(~I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,~S,~U32,~D.query(~S,~I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,~U32,declaration),owner))
+   |                                                     ^^^^^^
+45 | def inspector_read(~S:Data,owner:I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>) -> I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32> & (List<&2,Projection.Row<S,U32>> & List<&2,Normal.Clause<S>>):
+bend 2.0.36 is available: run bend update

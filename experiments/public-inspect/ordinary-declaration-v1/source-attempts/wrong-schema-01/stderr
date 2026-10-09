@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : B.Binding<Caller.A, Col.Column<Caller.A, Caller.Payload>, Unit, Caller.Payload, U32, Caller.Token, Caller.take(Caller.A), Caller.put(Caller.A), Caller.view>
+- observed : B.Binding<Caller.Other, Col.Column<Caller.Other, Caller.Payload>, Unit, Caller.Payload, U32, Caller.Token, Caller.take(Caller.Other), Caller.put(Caller.Other), Caller.view>
+Location: wrong
+ 9 | def wrong() -> D.Declaration<Caller.A,I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,U32>:
+10>|   D.read(~Caller.A,~Col.Column<Caller.A,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~Caller.A),~Caller.put(~Caller.A),~Caller.view,~Array<U32>,~U32,~Caller.binding(~Caller.Other))
+   |                                                                                                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+11 | def main() -> Unit:
+bend 2.0.36 is available: run bend update

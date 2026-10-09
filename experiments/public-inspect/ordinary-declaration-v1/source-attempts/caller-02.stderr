@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+37 | def inspector_read(~S:Data,owner:I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>) -> I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32> & (List<&2,Projection.Row<S,U32>> & List<&2,Normal.Clause<S>>):
+38>|   (declaration,clauses)=D.observe(~S,~I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,~U32,D.read(~S,~Col.Column<S,Payload>,~Unit,~Payload,~U32,~Token,~take(~S),~put(~S),~view,~Array<U32>,~U32,~binding(~S)))
+   |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+39 |   (owner,rows)=Q.each(~I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,~S,~U32,~D.query(~S,~I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,~U32,declaration),owner)
+bend 2.0.36 is available: run bend update

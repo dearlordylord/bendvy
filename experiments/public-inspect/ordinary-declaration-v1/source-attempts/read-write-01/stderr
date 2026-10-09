@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.Write<I.Frame<Caller.A, Col.Column<Caller.A, Caller.Payload>, Array<U32>, U32>, Caller.Payload, U32>
+- observed : Q.ReadQuery<I.Frame<Caller.A, Col.Column<Caller.A, Caller.Payload>, Array<U32>, U32>, Caller.A, U32>
+Location: wrong
+ 9 | def wrong() -> Cap.Write<I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,Caller.Payload,U32>:
+10>|   D.query(~Caller.A,~I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,~U32,D.read(~Caller.A,~Col.Column<Caller.A,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~Caller.A),~Caller.put(~Caller.A),~Caller.view,~Array<U32>,~U32,~Caller.binding(~Caller.A)))
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+11 | def main() -> Unit:
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,61 @@
+import Base
+import ../../../src/ecs/world.bend as W
+import ./ordinary-binding.bend as B
+import ./ordinary-inspector-declaration.bend as D
+import ../../../src/ecs/ordinary-declaration.bend as Identity
+import ../../../src/ecs/ordinary-query-declaration.bend as Normal
+import ../../../src/ecs/inspector.bend as I
+import ../../../src/ecs/inspector-query.bend as Q
+import ../../../src/ecs/inspector-query-projection.bend as Projection
+import ../../../src/ecs/compose.bend as Compose
+import ../../../src/ecs/component.bend as C
+import ../../../src/ecs/column.bend as Col
+
+type A is Data:
+  A{}
+type Other is Data:
+  Other{}
+type Token is Data:
+  Token{}
+# Affine payload, deliberately not a persistence/Data requirement.
+type Payload is Type:
+  Payload{values:Array<U32>}
+def viewed(result:Array<U32> & U32) -> Payload & U32:
+  match result:
+    case (values,value):(Payload{values},value)
+def view(payload:Payload) -> Payload & U32:
+  match payload:
+    case Payload{values}:
+      viewed(Array.get(U32,values,0))
+def take(~S:Data,column:Col.Column<S,Payload>) -> Unit & Col.Column<S,Payload>:
+  (Unit{},column)
+def put(~S:Data,rest:Unit,column:Col.Column<S,Payload>) -> Col.Column<S,Payload>:
+  column
+def binding(~S:Data) -> B.Binding<S,Col.Column<S,Payload>,Unit,Payload,U32,Token,take(~S),put(~S),view>:
+  B.bind(~S,~Col.Column<S,Payload>,~Unit,~Payload,~U32,~Token,~take(~S),~put(~S),~view,Identity.component(~S,~Payload,"Position"))
+def system_read(~S:Data,owner:Compose.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>) -> Compose.Frame<S,Col.Column<S,Payload>,Array<U32>,U32> & C.Access<U32>:
+  Normal.execute_read(~S,~Compose.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,~U32,Normal.read(~S,~Payload,~Col.Column<S,Payload>,~Array<U32>,~U32,~Unit,~U32,~Token,~B.identity(~S,~Col.Column<S,Payload>,~Unit,~Payload,~U32,~Token,~take(~S),~put(~S),~view,binding(~S)),~view,~take(~S),~put(~S)),owner)
+def read_rows(~S:Data,clauses:List<&2,Normal.Clause<S>>,result:I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32> & List<&2,Projection.Row<S,U32>>) -> I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32> & (List<&2,Projection.Row<S,U32>> & List<&2,Normal.Clause<S>>):
+  match result:
+    case (owner,rows):(owner,(rows,clauses))
+def read_declared(~S:Data,owner:I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,observed:D.Declaration<S,I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,U32> & List<&2,Normal.Clause<S>>) -> I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32> & (List<&2,Projection.Row<S,U32>> & List<&2,Normal.Clause<S>>):
+  match observed:
+    case (declaration,clauses):read_rows(~S,clauses,Q.each(~I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,~S,~U32,~D.query(~S,~I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,~U32,declaration),owner))
+def inspector_read(~S:Data,owner:I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>) -> I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32> & (List<&2,Projection.Row<S,U32>> & List<&2,Normal.Clause<S>>):
+  read_declared(~S,owner,D.observe(~S,~I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,~U32,D.read(~S,~Col.Column<S,Payload>,~Unit,~Payload,~U32,~Token,~take(~S),~put(~S),~view,~Array<U32>,~U32,~binding(~S))))
+type Delivery<-S:Data> is Type:
+  Delivered{factory:W.Factory,owner:I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,rows:List<&2,Projection.Row<S,U32>>,clauses:List<&2,Normal.Clause<S>>}
+  Refused{factory:W.Factory,resource:Array<U32>}
+def empty(~S:Data,unit:Unit) -> Col.Column<S,Payload>:
+  Col.empty(~S,~Payload)
+def delivered(~S:Data,factory:W.Factory,result:I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32> & (List<&2,Projection.Row<S,U32>> & List<&2,Normal.Clause<S>>)) -> Delivery<S>:
+  match result:
+    case (owner,(rows,clauses)):Delivered{factory,owner,rows,clauses}
+def created(~S:Data,creation:W.Creation<S,Col.Column<S,Payload>,Array<U32>,U32>) -> Delivery<S>:
+  match creation:
+    case W.Created{factory,world}:delivered(~S,factory,inspector_read(~S,I.Frame{world,0}))
+    case W.CreateRejected{factory,resource}:Refused{factory,resource}
+def run(~S:Data) -> Delivery<S>:
+  created(~S,W.create(~S,~Col.Column<S,Payload>,~Array<U32>,~U32,~empty(~S),W.factory(),Array.new(U32,0n,17)))
+def main() -> Delivery<A> & Delivery<Other>:
+  (run(~A),run(~Other))
