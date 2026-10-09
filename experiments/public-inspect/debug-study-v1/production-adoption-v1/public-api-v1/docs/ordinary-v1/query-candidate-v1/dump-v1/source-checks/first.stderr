@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh constructor name (duplicate declaration: Done)
+- observed : 'Done'
+Location:
+13 | type Outcome is Data:
+14>|   Done{report:Report}
+   |   ^^^^
+15 |   Failed{failure:Driver.Failure}
+bend 2.0.36 is available: run bend update
