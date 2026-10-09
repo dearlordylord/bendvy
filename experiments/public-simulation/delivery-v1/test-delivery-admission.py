@@ -24,6 +24,10 @@ class Bootstrap(unittest.TestCase):
             with self.assertRaises(OSError): namespace['regular'](alias)
             with self.assertRaises(ValueError): namespace['regular'](root)
     def test_nonzero_emit_retains_raw_partial_and_final_receipt(self):
+        self.check_failed_emitter(False)
+    def test_nonzero_emit_preserves_primary_when_artifact_is_nonregular(self):
+        self.check_failed_emitter(True)
+    def check_failed_emitter(self, nonregular):
         import types
         from unittest.mock import patch
         root_repo = Path('/workspace/formal-proofs/bendvy')
@@ -38,17 +42,27 @@ class Bootstrap(unittest.TestCase):
             out = root / 'output'; planpath = root / 'plan'; planpath.write_bytes(b'{}')
             plan = {'scope': 'control', 'outputRoot': str(out), 'stageRoot': str(stage), 'stagePins': {'source': sha(b'fixture')}, 'helpers': {'runner': 'runner', 'boundary': 'boundary', 'logs': 'logs', 'tools': 'tools', 'metadata': 'metadata'}, 'comparator': 'compare', 'parser': 'parser', 'tsJoiner': 'joiner', 'smallInputPaths': [], 'toolConfiguration': {'env': {}, 'taskset': '/taskset'}, 'constructorJoins': {}, 'namespaceLiterals': [], 'namespace': {}, 'configPresence': {}, 'maximumProbeCommands': 0, 'lock': str(root / 'lock'), 'commands': [{'label': 'JS-emit', 'argv': ['/fake-emit'], 'capSeconds': 30, 'emits': 'simulation.js'}]}
             def fake_execute(*args, **kwargs):
-                (out / 'simulation.js').write_bytes(b'partial-emitted-js')
+                if nonregular: (out / 'simulation.js').mkdir()
+                else: (out / 'simulation.js').write_bytes(b'partial-emitted-js')
                 return {'exit': 7, 'failure': None, 'stdout': b'compiler-out', 'stderr': b'compiler-error', 'runnerSHA256': 'controlled'}
             runner.execute_result = fake_execute
             modules = {'runner': runner, 'boundary': boundary, 'logs': logs, 'tools': types.SimpleNamespace(snapshot=lambda **kwargs: {}, verify=lambda *args, **kwargs: {}), 'metadata': types.SimpleNamespace(namespace_state=lambda *args: {}), 'compare': types.SimpleNamespace(stage_joins=lambda stage: {}), 'parser': types.SimpleNamespace(parse=lambda value: {}, render=lambda value: ''), 'joiner': types.SimpleNamespace()}
             with patch.dict(namespace, admitted=lambda *args: (plan, {}), load=lambda key, path, pins: modules[path]):
                 with self.assertRaisesRegex(RuntimeError, 'unexpected command exit'): namespace['run'](planpath, 'controlled')
             record = json.loads((out / 'receipt.json').read_bytes())
-            self.assertEqual(record['status'], 'INCOMPLETE'); self.assertEqual(record['guardFailures'], [])
+            self.assertEqual(record['status'], 'INCOMPLETE')
+            self.assertEqual(record['error'], 'RuntimeError: unexpected command exit: 7')
+            if nonregular:
+                self.assertEqual(record['commands'][0]['artifactCaptureFailure']['type'], 'ValueError')
+                self.assertEqual(record['commands'][0]['artifactCaptureFailure']['artifact'], 'simulation.js')
+                self.assertTrue(record['guardFailures'])
+            else: self.assertEqual(record['guardFailures'], [])
             self.assertEqual(record['commands'][0]['exit'], 7)
             self.assertEqual(bytes.fromhex(record['commands'][0]['stdout']['rawHex']), b'compiler-out')
             self.assertEqual((out / 'JS-emit.stderr').read_bytes(), b'compiler-error')
+            if nonregular:
+                self.assertNotIn('simulation.js', record['generated'])
+                return
             self.assertEqual(record['generated']['simulation.js'], sha(b'partial-emitted-js'))
             for label in ['JS-emit-post', 'final']:
                 guard = json.loads((out / (label + '.guard.json')).read_bytes())
