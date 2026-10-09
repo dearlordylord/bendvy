@@ -1,0 +1,38 @@
+--- clean32fb
++++ cacheb7d3
+@@ -537,6 +537,8 @@
+ 
+ const LAY_IDS = new Map<Lay, number>();
+ 
++let LAY_TEXT = new WeakMap<Lay, string>();
++
+ const CONSTS = new Map<HTerm, boolean>();
+ 
+ const LITS = new Map<HTerm, HTerm>();
+@@ -989,8 +991,17 @@
+   });
+ }
+ 
++function lay_text(lay: Lay): string {
++  let text = LAY_TEXT.get(lay);
++  if (text === undefined) {
++    text = JSON.stringify(lay);
++    LAY_TEXT.set(lay, text);
++  }
++  return text;
++}
++
+ function lay_eq(a: Lay, b: Lay): boolean {
+-  return a === b || JSON.stringify(a) === JSON.stringify(b);
++  return a === b || lay_text(a) === lay_text(b);
+ }
+ 
+ function lay_c(k: Kind): string {
+@@ -1308,6 +1319,7 @@
+ // instantiation. compile_book emits until a pass changes no fact.
+ 
+ function file_book(book: Bend.Book, roots: Name[], js: boolean): File {
++  LAY_TEXT = new WeakMap<Lay, string>();
+   for (const k of OWNED) {
+     if (book.tlds[k] && !book.tlds[k].b) {
+       die(Bend.name_key(k)

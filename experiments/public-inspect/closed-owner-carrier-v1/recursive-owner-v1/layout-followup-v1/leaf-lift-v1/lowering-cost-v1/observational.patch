@@ -1,0 +1,64 @@
+--- cacheb7d3
++++ cost-comp.ts
+@@ -1,3 +1,4 @@
++import * as Cost from "./cost.mjs";
+ // NOTE: Bend's runtime was designed by humans, but this file was mostly written
+ // by AI's, as it includes a ton of optimizations. It works and tests pass, yet,
+ // bugs ARE expected. It will take some time for the compiler to be stable.
+@@ -10,7 +11,7 @@
+ 
+ import * as fs from "node:fs";
+ 
+-import * as Bend from "./bend.ts";
++import * as Bend from "/workspace/formal-proofs/bendvy/.references/bend2/bend2/bend.ts";
+ 
+ // Types
+ // =====
+@@ -993,6 +994,7 @@
+ 
+ function lay_text(lay: Lay): string {
+   let text = LAY_TEXT.get(lay);
++  Cost.count(text === undefined ? "cacheMisses" : "cacheHits");
+   if (text === undefined) {
+     text = JSON.stringify(lay);
+     LAY_TEXT.set(lay, text);
+@@ -1464,6 +1466,7 @@
+ }
+ 
+ function file_push(fl: File, line: string): void {
++  Cost.line(line,fl.def);
+   fl.seg.lines.push(line);
+ }
+ 
+@@ -1654,6 +1657,7 @@
+ }
+ 
+ function val_to(fl: File, v: Val, lay: Lay): Val {
++  Cost.count("valTo",fl.def);
+   return lay_eq(v.lay, lay) ? v : lay_box(lay) ? val_new([val_box(fl, v)], BOX)
+     : lay_box(v.lay) ? val_unbox(fl, v, lay)
+     : val_arms(fl, lay, v.ws[0], (k) => val_arm(v, k));
+@@ -2461,6 +2465,7 @@
+ 
+ function emit_body(fl: File, tm: HTerm, ty0: HTerm | null,
+   ers: HTerm[], args: Val[], dst: Val | null): void {
++  Cost.body(fl.def);
+   const [x, ty] = ty_peel(tm, ty0);
+   if (args.length === 0 && fun_live(fl.book, x, ty)) {
+     return emit_put(fl, dst, emit_clo(fl, x, ty));
+@@ -2777,11 +2782,15 @@
+     fl.spins = [];
+     fl.img = [];
+     for (const [k, tld] of done_defs(fl).reverse()) {
++      const costToken=Cost.enter(k);let costCompleted=false;
++      try {
+       memo_gc();
+       const [dl, vals] = emit_open({ ...fl, fresh: new Map(),
+         brwl: new Map(), rest: [] }, k);
+       fl.segs.push(dl.seg);
+       emit_body(dl, fun_of(fl, k).h!, tld.T, [], vals, null);
++      costCompleted=true;
++      } finally { Cost.leave(costToken,costCompleted); }
+     }
+     reqs = effect_srcs(fl, ".c", "no .c import: ").join("");
+     for (const [k] of done_defs(fl, def_foreign)) {

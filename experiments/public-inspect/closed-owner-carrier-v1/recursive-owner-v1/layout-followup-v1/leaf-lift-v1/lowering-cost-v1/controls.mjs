@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import * as Cost from './cost.mjs';
+Cost.arm(10000);
+const root=Cost.enter('alpha');Cost.body('alpha');Cost.count('valTo','alpha');Cost.count('cacheHits');Cost.line('abc','alpha');
+const child=Cost.enter('beta');Cost.body('beta');Cost.count('cacheMisses');Cost.leave(child,true);
+Cost.arm(0);assert.throws(()=>Cost.check(),/cooperative lowering cutoff/);Cost.leave(root,false);
+const snapshot=Cost.snapshot();assert.deepEqual(snapshot.cutoffStack,['alpha']);assert.deepEqual(snapshot.active,[]);
+const rows=new Map(snapshot.rows.map(row=>[row.key,row]));
+assert.equal(rows.get('alpha').entries,1);assert.equal(rows.get('alpha').aborted,1);assert.equal(rows.get('alpha').completed,0);
+assert.equal(rows.get('alpha').bodyCalls,1);assert.equal(rows.get('alpha').valTo,1);assert.equal(rows.get('alpha').cacheHits,1);assert.equal(rows.get('alpha').lines,1);assert.equal(rows.get('alpha').chars,3);
+assert.equal(rows.get('beta').completed,1);assert.equal(rows.get('beta').cacheMisses,1);
+for(const row of rows.values())for(const [key,value]of Object.entries(row))if(key!=='key')assert(value>=0);
+console.log('PASS per-definition clocks/counters/unfinished cutoff stack; no compiler');
