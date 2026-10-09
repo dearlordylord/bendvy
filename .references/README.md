@@ -1,11 +1,11 @@
 # Reference sources
 
-Полные деревья исходников, скачанные через `git clone --depth 1`. История ограничена одним коммитом; файлы и вложенные `.git` сохранены локально. Точные коммиты записаны в [sources.json](sources.json).
+Full source trees downloaded with `git clone --depth 1`. Each clone contains a single commit of history; source files and nested `.git` directories are preserved locally. Exact commit hashes are recorded in [sources.json](sources.json).
 
-- `bevy-ts/`: порт ECS Сандро Маглионе.
-- `bevy/`: Rust Bevy, включая `crates/bevy_ecs`, `bevy_app`, `bevy_state`, `bevy_time`.
-- `bend2/`: актуальный Bend 2 из `bendlang/bend`. Старый `HigherOrderCO/Bend2` содержит указатель на этот репозиторий.
+- `bevy-ts/`: Sandro Maglione's ECS port.
+- `bevy/`: Rust Bevy, including `crates/bevy_ecs`, `bevy_app`, `bevy_state`, and `bevy_time`.
+- `bend2/`: the current Bend 2 repository at `bendlang/bend`. The former `HigherOrderCO/Bend2` repository points to this repository.
 
-Скачан текущий HEAD каждого репозитория. Bevy имеет версию `0.20.0-dev`; конкретная исходная версия Bevy, на которую ориентировался Сандро, этим не установлена. Для сравнения с историческими версиями потребуется отдельный checkout.
+Each repository was cloned at its HEAD at the time of retrieval. The Bevy checkout is version `0.20.0-dev`; this does not establish which Bevy version Sandro used as the basis for his port. Comparing historical versions requires a separate checkout.
 
-Исходники используются для чтения и сравнения. Зависимости не установлены, тесты upstream не запускались, репозитории не изменялись.
+These sources are used for reading and comparison. Dependencies were not installed, upstream tests were not run, and the cloned repositories were not modified.
