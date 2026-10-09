@@ -153,8 +153,10 @@ def run(plan_path, expected_sha):
                 raise ValueError('Generated artifact must be a regular non-symlink file')
         for row in record['commands']:
             for key in ('stdout', 'stderr'):
-                if key in row:
-                    verify_raw(row[key]['path'], row[key]['sha256'])
+                if key in row and row[key].get('published',False):
+                    verify_raw(row[key]['path'],row[key]['sha256'])
+                elif key in row and 'partialSHA256' in row[key]:
+                    verify_raw(row[key]['path'],row[key]['partialSHA256'])
         if validate_imports(plan['stage'], plan['sourceInventory']) != plan['importClosure']:
             raise ValueError('Import closure changed')
         actual = {path: sha(path) for path in pins}
@@ -181,18 +183,43 @@ def run(plan_path, expected_sha):
                         result = runner.execute_result(command['argv'], command['capSeconds'], plan['environment'], plan['cwd'], 'split')
                     finally:
                         fcntl.flock(lock, fcntl.LOCK_UN)
-                row = dict(command)
-                for key, value in result.items():
-                    if isinstance(value, bytes):
-                        target = out / (label + '.' + key)
-                        write_raw(target, value)
-                        row[key] = {'path': str(target), 'sha256': sha(target), 'bytes': len(value)}
-                    else:
-                        row[key] = value
+                row=dict(command)
+                row.update({key:value for key,value in result.items() if not isinstance(value,bytes)})
+                # Retain completed child facts and BOTH captured stream identities first.
+                for key in ('stdout','stderr'):
+                    value=result[key]
+                    row[key]={'path':str(out/(label+'.'+key)),'sha256':hashlib.sha256(value).hexdigest(),'bytes':len(value),'published':False}
                 record['commands'].append(row)
-                if label in ('emit', 'build') and artifact.is_file() and not artifact.is_symlink():
-                    pins[str(artifact)] = sha(artifact)
-                    record[label + 'ArtifactSHA256'] = pins[str(artifact)]
+                publication_error=None
+                try:
+                    for key in ('stdout','stderr'):
+                        target=Path(row[key]['path']);write_raw(target,result[key])
+                        verify_raw(target,row[key]['sha256']);row[key]['published']=True
+                        pins[str(target)]=row[key]['sha256']
+                except BaseException as error:
+                    publication_error=error
+                    row['captureError']=f'{type(error).__name__}: {error}'
+                    for key in ('stdout','stderr'):
+                        if not row[key]['published']:
+                            # Failure-only complete recovery bytes, not a normalized output.
+                            row[key]['unpublishedHex']=result[key].hex()
+                            target=Path(row[key]['path'])
+                            if target.is_file() and not target.is_symlink():
+                                try:
+                                    row[key]['partialSHA256']=sha(target);pins[str(target)]=row[key]['partialSHA256']
+                                except BaseException as partial_error:
+                                    row[key]['partialCaptureError']=f'{type(partial_error).__name__}: {partial_error}'
+                                    error.add_note('partial raw capture: '+str(partial_error))
+                    raise
+                finally:
+                    if label in ('emit','build') and (artifact.exists() or artifact.is_symlink()):
+                        try:
+                            pins[str(artifact)]=sha(artifact)
+                            record[label+'ArtifactSHA256']=pins[str(artifact)]
+                        except BaseException as error:
+                            record[label+'ArtifactCaptureError']=f'{type(error).__name__}: {error}'
+                            if publication_error is not None:publication_error.add_note('artifact capture: '+str(error))
+                            else:raise
                 if result['exit'] != 0 or result['failure'] is not None:
                     raise ValueError('Owned child failed: ' + label)
                 if label in ('emit', 'build'):
