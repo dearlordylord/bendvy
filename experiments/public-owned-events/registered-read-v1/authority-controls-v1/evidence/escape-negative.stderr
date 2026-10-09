@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : @-H:Type -> @-read:Cap.Request<H, U32, U32> -> @_:H -> Sigma<&1, &1, H, _ => Cap.Request<P.Payload, U32, U32>>
+- observed : @-H:Type -> @-read:Cap.Request<H, U32, U32> -> @owner:H -> Sigma<&1, &1, H, _ => Cap.Request<H, U32, U32>>
+Location: reached
+ 8 | def reached(log:Log.Log<P.Payload>) -> Log.Reading<P.Payload,Cap.Request<P.Payload,U32,U32>>:
+ 9>|   Log.read(~P.Payload,~Cap.Request<P.Payload,U32,U32>,~P.at,~escape,log,1)
+   |                                                              ^^^^^^
+10 | 

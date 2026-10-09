@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: duplicate
+6 | def consume(~H:Type,owner:H) -> U32: 0
+7>| def duplicate(~H:Type,~read:Cap.Request<H,U32,U32>,owner:H) -> H & U32:
+  |                                                    ^^^^^
+8 |   (owner,consume(~H,owner))

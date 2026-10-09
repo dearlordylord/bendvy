@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueWrite<write~H, U32, U32>
+- observed : Cap.Request<write~H, U32, U32>
+Context:
+- owner : write~H
+Location: write
+6 | def write(~H:Type,~read:Cap.Request<H,U32,U32>,owner:H) -> H & U32:
+7>|   (Cap.value_set(~H,~U32,~U32,~read,owner,99),0)
+  |                                ^^^^
+8 | def reached(log:Log.Log<P.Payload>) -> Log.Reading<P.Payload,U32>:
