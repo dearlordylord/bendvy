@@ -97,10 +97,12 @@ def run(path, digest):
         data = {'label': label, 'actualPins': {p: sha(regular(p)) for p in pins}, 'stagePins': actual_stage, 'namespace': namespace, 'generated': generated, 'rawPins': dict(logs.hashes), 'ordinaryToolsVerified': snapshot is not None, 'unchanged': True}
         publish(target, (json.dumps(data, indent=2) + '\n').encode()); record['guards'].append({'path': str(target), 'sha256': sha(regular(target))})
     def ordinary_guard(label):
-        source_guard(label)
-        if snapshot is not None:
-            current = modules['tools'].verify(snapshot, **resource_config)
-            record.setdefault('toolVerifications', []).append({'label': label, 'snapshot': encoded(current)})
+        # Source/config/raw/generated guard always runs AFTER discovery, including
+        # on discovery failure; GuardBoundary retains the primary exception.
+        with modules['boundary'].GuardBoundary([('source', lambda: source_guard(label))]):
+            if snapshot is not None:
+                current = modules['tools'].verify(snapshot, **resource_config)
+                record.setdefault('toolVerifications', []).append({'label': label, 'snapshot': encoded(current)})
     def final_guard():
         with open(plan['lock'], 'a') as lock:
             fcntl.flock(lock, fcntl.LOCK_EX)

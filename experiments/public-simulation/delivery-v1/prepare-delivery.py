@@ -16,7 +16,7 @@ def prepare():
     base = ROOT / 'experiments/public-simulation/delivery-v1'
     relocation = load('prepare', base / 'prepare.py')
     stage = Path('/tmp/bendvy63-ordinary-delivery-stage-v1')
-    output = Path('/tmp/bendvy63-ordinary-delivery-v4')
+    output = Path('/tmp/bendvy63-ordinary-delivery-v5')
     if stage.is_symlink() or output.exists() or output.is_symlink(): raise ValueError('Output starts absent; stage alias refused')
     manifest, sources = relocation.expected_stage()
     if len(sources) != 106: raise ValueError('Complete106 source closure required')
