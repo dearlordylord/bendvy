@@ -1,0 +1,43 @@
+{
+  "command": [
+    "flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "taskset",
+    "-c",
+    "5",
+    "scripts/bend-check",
+    "experiments/public-inspect/closed-owner-carrier-v1/stage/output-io-main.bend"
+  ],
+  "exit": 0,
+  "seconds": 5,
+  "changedFiles": [
+    "check-execution.bend",
+    "execution.bend",
+    "owner-carrier.bend",
+    "core-v1/src/ecs/owner-handoff.bend"
+  ],
+  "sourceFiles": 46,
+  "oracleBytes": 5077477,
+  "oracleSHA256": "810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2",
+  "raw": {
+    "stdout": {
+      "bytes": 58,
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    "stderr": {
+      "bytes": 42,
+      "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+    },
+    "source02.stdout": {
+      "bytes": 58,
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    "source02.stderr": {
+      "bytes": 42,
+      "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+    }
+  },
+  "scope": "Source development only. No backend, timings, source negative controls, public policy or adoption.",
+  "source01InventoryScope": "Before trailing-empty-line cleanup, original owner-handoff hash91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+  "source02Exit": 0
+}
