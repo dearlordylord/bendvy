@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.World<P.SchemaA, Unit, Unit, Unit>
+- observed : W.World<P.SchemaB, Unit, Unit, Unit>
+Context:
+- instance : Managed.Instance<P.SchemaA, Unit, Unit, Unit, Unit, Unit, Unit, P.body(P.SchemaA), P.Ports, P.validate, P.remove(P.SchemaA)>
+- world    : W.World<P.SchemaB, Unit, Unit, Unit>
+Location: wrong
+6 | def wrong(instance:Managed.Instance<P.SchemaA,Unit,Unit,Unit,Unit,Unit,Unit,P.body(~P.SchemaA),P.Ports,P.validate,P.remove(~P.SchemaA)>,world:W.World<P.SchemaB,Unit,Unit,Unit>) -> Managed.RunResult<P.SchemaA,Unit,Unit,Unit,Unit,Unit,Unit,P.body(~P.SchemaA),P.Ports,P.validate,P.remove(~P.SchemaA)>:
+7>|   P.run_a(instance,world)
+  |                    ^^^^^
+8 | def main() -> Unit:
+bend 2.0.36 is available: run bend update

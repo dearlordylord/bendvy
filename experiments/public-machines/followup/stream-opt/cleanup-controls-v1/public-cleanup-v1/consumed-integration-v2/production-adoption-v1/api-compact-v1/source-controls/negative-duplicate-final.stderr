@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : instance
+- observed : instance (consumed more than once)
+Location: duplicate
+4 | 
+5>| def duplicate(instance:Managed.Instance<P.SchemaA,Unit,Unit,Unit,Unit,Unit,Unit,P.body(~P.SchemaA),P.Ports,P.validate,P.remove(~P.SchemaA)>) -> Managed.Instance<P.SchemaA,Unit,Unit,Unit,Unit,Unit,Unit,P.body(~P.SchemaA),P.Ports,P.validate,P.remove(~P.SchemaA)> & Managed.Instance<P.SchemaA,Unit,Unit,Unit,Unit,Unit,Unit,P.body(~P.SchemaA),P.Ports,P.validate,P.remove(~P.SchemaA)>:
+  |               ^^^^^^^^
+6 |   (instance,instance)
+bend 2.0.36 is available: run bend update

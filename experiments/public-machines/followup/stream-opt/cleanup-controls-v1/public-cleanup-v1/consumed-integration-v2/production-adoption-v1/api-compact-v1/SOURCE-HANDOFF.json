@@ -1,0 +1,64 @@
+{
+  "scope": "Source API controls only; no backend/proof/full48 acceptance",
+  "bodyJoins": {
+    "system-instance.bend": {
+      "selected": "/workspace/formal-proofs/bendvy-worktrees/parity-48-api-compact/experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/consumed-integration-v2/production-adoption-v1/system-instance.bend",
+      "selectedSHA256": "ed76737a409f719cfa2073adcac316648348e91c6e52ab54d29d460e0b2069b6",
+      "consumer": "/workspace/formal-proofs/bendvy-worktrees/parity-48-api-compact/experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/consumed-integration-v2/production-adoption-v1/api-compact-v1/system-instance.bend",
+      "consumerSHA256": "7d854ee076276d17abca2b696e2dd5f6ec6b27f16848797d014bd319762ad9b9",
+      "bodySHA256": "ce105709c658123d0ff5ee0c3e4f59169bd6ae9d5f465ee56edf4c7c9e510f91",
+      "onlyDelta": "world/system imports point at actual current root; cleanup stays selected copy"
+    },
+    "system-cleanup.bend": {
+      "selected": "/workspace/formal-proofs/bendvy-worktrees/parity-48-api-compact/experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/consumed-integration-v2/production-adoption-v1/system-cleanup.bend",
+      "selectedSHA256": "cb545db8883bde3c20b5fbed7422e543f99be0ec2a8d974762e1af0bc089b940",
+      "consumer": "/workspace/formal-proofs/bendvy-worktrees/parity-48-api-compact/experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/consumed-integration-v2/production-adoption-v1/api-compact-v1/system-cleanup.bend",
+      "consumerSHA256": "116b5e7a5500e2603dbddcccb4a7cbe2b90e0d6733ee180f153b2ebec9f1c99d",
+      "bodySHA256": "b9d4ae200e7147dc8055fcc9dad161f5bbbe2597522959f2404b2d23cb2e6767",
+      "onlyDelta": "world/system imports point at actual current root; cleanup stays selected copy"
+    }
+  },
+  "sourceSHA256": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-api-compact/experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/consumed-integration-v2/production-adoption-v1/api-compact-v1/positive.bend": "a18e555b410ec3d03fb3c6eb9ee530de051d403bc45af611d547722115f6ff18",
+    "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-api-compact/experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/consumed-integration-v2/production-adoption-v1/api-compact-v1/system-instance.bend": "7d854ee076276d17abca2b696e2dd5f6ec6b27f16848797d014bd319762ad9b9",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-api-compact/experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/consumed-integration-v2/production-adoption-v1/api-compact-v1/system-cleanup.bend": "116b5e7a5500e2603dbddcccb4a7cbe2b90e0d6733ee180f153b2ebec9f1c99d",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-api-compact/experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/consumed-integration-v2/production-adoption-v1/api-compact-v1/negative-duplicate.bend": "6f2c0e6b834291b42c3b9e289aa0e5601544aaf3d1fb25244f88e4877833bb83",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-48-api-compact/experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/consumed-integration-v2/production-adoption-v1/api-compact-v1/negative-schema.bend": "466e8508507b9bf7944464a860b9ec072826cbadd9e7808f513494a65db49713"
+  },
+  "compilerSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "checks": [
+    {
+      "subject": "positive",
+      "exit": 0,
+      "capSeconds": 5,
+      "cpu": 5,
+      "compiler": "/home/node/.bend/bin/bend-2.0.35",
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+    },
+    {
+      "subject": "negative-duplicate-final",
+      "exit": 1,
+      "capSeconds": 5,
+      "cpu": 5,
+      "compiler": "/home/node/.bend/bin/bend-2.0.35",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "f5eb4bdc5c837b322d8a2034e0721da0ec5c4f245a04196d260c16cd55b84bd1"
+    },
+    {
+      "subject": "negative-schema-final",
+      "exit": 1,
+      "capSeconds": 5,
+      "cpu": 5,
+      "compiler": "/home/node/.bend/bin/bend-2.0.35",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "03ec05e45e35ba9f9ddc895725ac4fe250b6e68467fffe9214eea6a47131a4fe"
+    }
+  ],
+  "authority": "Selected register threads actual World namespace and actual Sys.identity; RegistrationFailed returns World without calling create. Returned managed instance retains registry and arbitrary affine Ports. No new cleanup contract."
+}

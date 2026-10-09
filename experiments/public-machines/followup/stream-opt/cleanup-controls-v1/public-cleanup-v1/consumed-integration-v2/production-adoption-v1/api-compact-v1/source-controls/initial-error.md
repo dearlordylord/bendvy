@@ -1,0 +1,1 @@
+First source5 returned exit1: register_a expected validate Ports -> U32 -> U32 -> Ports & Bool, observed duplicated +namespace/+id function parameters. Exact initial source retained; quantities corrected before next changed-source check. Tool chunk b463ae.
