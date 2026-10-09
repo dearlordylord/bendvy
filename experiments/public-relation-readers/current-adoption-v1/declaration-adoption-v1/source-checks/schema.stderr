@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Access.ReadGrant<cross_schema~H, A.ReadersBeta, Access.Parent<A.ReadersBeta>, RC.Notice<A.ReadersBeta, U32>, cross_schema~beta>
+- observed : Access.ReadGrant<cross_schema~H, A.ReadersAlpha, Access.Parent<A.ReadersAlpha>, RC.Notice<A.ReadersAlpha, U32>, cross_schema~alpha>
+Context:
+- grant : Access.ReadGrant<cross_schema~H, A.ReadersAlpha, Access.Parent<A.ReadersAlpha>, RC.Notice<A.ReadersAlpha, U32>, cross_schema~alpha>
+- owner : cross_schema~H
+Location: cross_schema
+ 8 | def cross_schema(~H: Type,~alpha: H -> H & List<&2,Read.KeyReading<A.ReadersAlpha,RC.Notice<A.ReadersAlpha,U32>>>,~beta: H -> H & List<&2,Read.KeyReading<A.ReadersBeta,RC.Notice<A.ReadersBeta,U32>>>,grant: Access.ReadGrant<H,A.ReadersAlpha,Access.Parent<A.ReadersAlpha>,RC.Notice<A.ReadersAlpha,U32>,alpha>,owner: H) -> H & List<&2,Read.KeyReading<A.ReadersBeta,RC.Notice<A.ReadersBeta,U32>>>:
+ 9>|   Access.gameplay(~H,~A.ReadersBeta,~RC.Notice<A.ReadersBeta,U32>,~beta,grant,owner)
+   |                                                                         ^^^^^
+10 | 

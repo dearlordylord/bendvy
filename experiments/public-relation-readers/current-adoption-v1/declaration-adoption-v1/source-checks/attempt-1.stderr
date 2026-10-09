@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : declarations
+- observed : declarations (consumed more than once)
+Context:
+- runtime : K.Runtime<register~S, register~C, register~R, register~E>
+Location: register
+26 | 
+27>| def register(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> K.Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,runtime: K.Runtime<S,C,R,E>,declarations: List<&2,Declaration<S>>,+name: String) -> K.Registered<S,C,R,E,A,Error,O,runner>:
+   |                                                                                                                                                                                                 ^^^^^^^^^^^^
+28 |   K.register(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,keys(~S,declarations),name,accesses(~S,declarations))
