@@ -30,7 +30,7 @@ function actual(root,operation,name,codec,raw){
  tick(G.System('seed',{},({commands})=>{
   id=commands.spawn(G.Command.spawn([Value,owner(9,[333,444])]));
  }),G.Schedule.applyDeferred());
- tick(G.System('queue',{},({commands})=>commands.insert(id,[Marker,1])));
+ tick(G.System('queue',{},({commands})=>{commands.insert(id,[Marker,1]);}));
  const incoming=owner(raw),original=clone(incoming),before=clone(runtime.debug.dump());
  const selection=G.Query({selection:{value:G.Query.write(Value)}});
  if(operation==='insert')tick(G.System('replace',{queries:{selection}},({queries})=>{
@@ -55,7 +55,7 @@ function foreignWorld(){
  tick(first,G.System('first-seed',{},({commands})=>{firstId=commands.spawn(G.Command.spawn([Value,owner('first',[777,888])]));}),G.Schedule.applyDeferred());
  tick(second,G.System('second-seed',{},({commands})=>{secondId=commands.spawn(G.Command.spawn([Value,owner(9,[333,444])]));}),G.Schedule.applyDeferred());
  const foreign=G.Entity.handle(firstId,Value);
- tick(second,G.System('queue',{},({commands})=>commands.insert(secondId,[Marker,1])));
+ tick(second,G.System('queue',{},({commands})=>{commands.insert(secondId,[Marker,1]);}));
  const original=owner({...values,extra:'drop-me'}),before={first:clone(first.debug.dump()),second:clone(second.debug.dump())};
  const query=G.Query({selection:{value:G.Query.write(Value)}});let lookupResult,checked;
  tick(second,G.System('foreign-replace',{queries:{query}},({lookup})=>{
