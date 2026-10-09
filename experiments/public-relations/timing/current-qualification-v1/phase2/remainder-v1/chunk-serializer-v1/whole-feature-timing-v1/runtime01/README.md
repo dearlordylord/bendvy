@@ -1,0 +1,7 @@
+# Full timing consumer runtime preparation
+
+Normal TS and JS plans reuse the exact already-emitted pinned JS; Native build uses exact already-emitted pinned C. No normal compiler replay. Existing Runner/Inputs/CommandLogs recipe with full source/tool/resource/env pins, shared CPU5 lock, five-second consumers, approved Clang19 build120, raw/partial-artifact guards and unconditional failure receipts. Plans are preparation only, not launch admission.
+
+All nine complete oracles remain explicit in each normal plan. TS retains9 commands; JS has8 commands plus population1024 explicitly blocked on source-backed changed consuming topology, not dropped or counted as qualified. Native all9 runtime commands remain an unbuilt-binary proposal requiring successful build/hash/new admission. Comparisons remain prohibited during external contention. This does not close scaling, parity or #28.
+
+Existing boundary falsifiers are adapted by exact source transformations: last-leaf recursively changes final Other systemResult, with nine independent complete counteroracles; moved-walk inserts invalid zero completion before unchanged setup/operations/walk. Their source control is no-child only; new actual mutant source/emission/runtime qualification is still required, never borrowed from older narrower fixture. Complete normal output and exact walk statistics are mandatory. Existing full physical/reorder proofs/evidence remain separately retained.
