@@ -1,0 +1,13 @@
+{
+  "session": 55519,
+  "status": "INCOMPLETE",
+  "applicationBegin": true,
+  "applicationComplete": true,
+  "error": "RangeError Maximum call stack size exceeded in show_val recursive list-tail traversal",
+  "runtimeExit": 1,
+  "failure": null,
+  "stdoutBytes": 0,
+  "guards": 4,
+  "scope": "Metadata-only copied JS diagnostic, no full output qualification",
+  "sourceCause": "Pinned comp.ts6086-6120 show_val recurses once per List.tail; 65536-element lists use linear JavaScript call stack. Full current ECS application reached COMPLETE marker before show_val error."
+}
