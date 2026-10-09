@@ -1,0 +1,11 @@
+# Held continuation source review
+
+Source review PASS for candidate `56e4b250`; no runtime or plan admission. Exact main SHA is `6260563bde4b17fb9875b2213d175d87c832edaa2df169b83a4e0d83aa579653`.
+
+Independent unified-diff reconstruction equals source.patch exactly and reverses to original main `880ca283e0c37be3aa60a5c938755b7999760d5fadf915cb0d9e23ee83672b2f`. All imports and original DTO/helper declarations are retained. The complete 71-file inventory matches current bytes; after replacing the entry, the other 70 source identities/hashes are exactly the original inventory. The retained source5 snapshot is byte-identical to candidate main; its recorded old f774 tool check exited 0 with unchanged pins. This is source acceptance only.
+
+The successful branch retains factory, prior graph report, both snapshots, all descriptions and the actual affine BundleResult inside Success. Inventory.main and Resource.main are each called once in the original textual order, with complete returned values wrapped in private Held carriers. Previous.Complete is reconstructed with precisely inventory, resource and Previous.Reported(previous), then retained through with_factory. All snapshots/status/owner observations and both Bundle/Recovery final branches remain intact; the complete independent 1f54 model is still required.
+
+Core/family are discarded at the same initial successful Fixture.Delivered match as the original. World/bundle/recovery are discarded at the same final report boundary; no new owner disposal occurs between gameplay operations. Private Held constructors all supply None tails; dropped tails therefore hold no additional owners on reached paths. The type is private and not a generic public disposal API. RegistrationFailed and PreviousFailed branches are byte-identical. No failure defaults or metadata projections are added.
+
+Recursive Held topology provides a source-grounded boxed-layout hypothesis under the pinned copied compiler. Actual arity reduction, runtime behavior, whole output constructor transport and future execution plans remain unqualified. Nothing here changes compiler limits, shared core or public debug contract, or establishes an installed-compiler cause/success. Safe integration as an isolated experimental source candidate; require complete nominal transport/model and exact plan review before execution.
