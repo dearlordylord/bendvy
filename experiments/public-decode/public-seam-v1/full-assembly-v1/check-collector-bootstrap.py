@@ -2,7 +2,8 @@
 """Code-entry sentinel controls for the existing collector; no backend children."""
 import builtins,hashlib,importlib.util,json,sys,tempfile
 from pathlib import Path
-collector=Path(__file__).resolve().parents[2]/'adoption-v1/qualification-v1/spine-report-v1/development-run.py'
+native='--native' in sys.argv
+collector=Path(__file__).resolve().parents[2]/('adoption-v1/qualification-v1/spine-report-v1/native-from-c.py' if native else 'adoption-v1/qualification-v1/spine-report-v1/development-run.py')
 collector=collector.resolve()
 eager=[];original_import=builtins.__import__
 def guarded_import(name,*args,**kwargs):
@@ -21,11 +22,11 @@ with tempfile.TemporaryDirectory() as directory:
  boundary.write_text('raise RuntimeError("boundary entered")\n')
  python=Path(sys.executable).resolve()
  def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
- plan={'native':False,'role':'normal','tools':{'python':str(python)},'inputs':{str(p):sha(p) for p in (collector,runner,boundary,python)}}
+ plan={'native':native,'role':'normal','tools':{'python':str(python)},'inputs':{str(p):sha(p) for p in (collector,runner,boundary,python)}}
  out=home/'out';out.mkdir();path=out/'plan.json'
  def call(value,digest_override=None):
   path.write_text(json.dumps(value));digest=sha(path)
-  try:module.main(out,execute=True,plan_digest=digest_override or digest)
+  try:module.main(out,native=native,execute=True,plan_digest=digest_override or digest)
   except (AssertionError,RuntimeError) as error:return str(error)
   raise AssertionError('unexpected collector completion')
  wrong_python=json.loads(json.dumps(plan));wrong_python['tools']['python']='/wrong/python'
@@ -36,4 +37,4 @@ with tempfile.TemporaryDirectory() as directory:
  missing=json.loads(json.dumps(plan));del missing['inputs'][str(runner)]
  assert 'helper pins missing' in call(missing) and not marker.exists()
  assert 'POSITIVE_HELPER_ENTRY_SENTINEL' in call(plan) and marker.read_text()=='EXECUTED'
-print(json.dumps({'status':'PASS','stdlibOnlyModuleEntry':True,'wrongPythonNoHelperEntry':True,'wrongPlanNoHelperEntry':True,'pinDriftNoHelperEntry':True,'missingHelperPinNoHelperEntry':True,'positiveHelperEntryReached':True,'backendChildren':0}))
+print(json.dumps({'status':'PASS','native':native,'stdlibOnlyModuleEntry':True,'wrongPythonNoHelperEntry':True,'wrongPlanNoHelperEntry':True,'pinDriftNoHelperEntry':True,'missingHelperPinNoHelperEntry':True,'positiveHelperEntryReached':True,'backendChildren':0}))
