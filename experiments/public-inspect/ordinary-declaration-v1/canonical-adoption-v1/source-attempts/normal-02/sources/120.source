@@ -1,0 +1,67 @@
+"""Development-only capture; adapted from qualified chunked-output check-source."""
+from pathlib import Path
+import fcntl
+import hashlib
+import json
+import sys
+import types
+
+ROOT = Path(__file__).resolve().parents[4]
+HERE = Path(__file__).resolve().parent
+
+def prepare_attempt(out, sources):
+    out.mkdir(exist_ok=False)
+    snapshot = out / 'sources'
+    snapshot.mkdir()
+    pins = {}
+    for number, source in enumerate(sources):
+        raw = source.read_bytes()
+        pins[str(source)] = hashlib.sha256(raw).hexdigest()
+        if source.suffix == '.py' or source.suffix == '.bend':
+            (snapshot / f'{number}.source').write_bytes(raw)
+    (out / 'SOURCE.json').write_text(json.dumps({'pins': pins, 'order': list(pins)}, indent=2) + '\n')
+    return pins
+
+def capture(out, argv, execute):
+    receipt = {'argv': argv, 'capSeconds': 5, 'status': 'INCOMPLETE', 'raw': {}}
+    try:
+        result = execute(argv, 5, cwd=str(ROOT), capture='split')
+        receipt.update({key: value for key, value in result.items() if key not in ('stdout', 'stderr')})
+        for key in ('stdout', 'stderr'):
+            raw = result[key]
+            path = out / key
+            with path.open('xb') as stream:
+                stream.write(raw)
+            receipt['raw'][key] = {'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw)}
+        receipt['status'] = 'CAPTURED_SOURCE_RESULT'
+    except Exception as error:
+        receipt['error'] = f'{type(error).__name__}: {error}'
+        raise
+    finally:
+        (out / 'result.json').write_text(json.dumps(receipt, indent=2) + '\n')
+    return receipt
+
+def main():
+    entry = HERE / sys.argv[1]
+    out = HERE / 'source-attempts' / sys.argv[2]
+    helper = ROOT / 'scripts/task_runner.py'
+    tool = Path('/home/node/.bend/bin/bend-2.0.35')
+    # Entire local candidate plus exact current dependency files, before execution.
+    sources = [*sorted(HERE.glob('*.bend')), *sorted(HERE.parent.glob('*.bend')), *sorted((ROOT / 'src/ecs').glob('*.bend')), helper, tool, Path(__file__)]
+    pins = prepare_attempt(out, sources)
+    runner = types.ModuleType('source_runner')
+    runner.__file__ = str(helper)
+    exec(compile(helper.read_bytes(), str(helper), 'exec'), runner.__dict__)
+    argv = ['/usr/bin/taskset', '-c', '5', str(tool), str(entry), '--check-only']
+    with open('/tmp/bendvy-parity-heavy.lock', 'a') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        try:
+            if not all(hashlib.sha256(Path(path).read_bytes()).hexdigest() == sha for path, sha in pins.items()):
+                raise RuntimeError('source changed while waiting for lock')
+            result = capture(out, argv, runner.execute_result)
+            print(result.get('exit'), result.get('failure'))
+        finally:
+            (out / 'post.json').write_text(json.dumps({'unchanged': all(hashlib.sha256(Path(path).read_bytes()).hexdigest() == sha for path, sha in pins.items())}, indent=2) + '\n')
+
+if __name__ == '__main__':
+    main()

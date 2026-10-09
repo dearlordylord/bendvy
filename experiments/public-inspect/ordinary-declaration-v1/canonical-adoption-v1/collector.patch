@@ -1,0 +1,157 @@
+--- reviewed-full23/development.py
++++ canonical-adoption-v1/development.py
+@@ -18,7 +18,6 @@
+ 
+ ROOT = Path('/workspace/formal-proofs/bendvy')
+ HERE = Path(__file__).resolve().parent
+-NORMAL_SHA = '810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2'
+ 
+ 
+ def sha(path):
+@@ -58,7 +57,7 @@
+         raise ValueError('Raw stream changed')
+ 
+ 
+-def validate_imports(stage, inventory):
++def validate_imports(entry, inventory):
+     reached = set()
+     def visit(path):
+         path = path.resolve(strict=True)
+@@ -70,7 +69,7 @@
+         for target in re.findall(r'^import\s+(\S+)', path.read_text(), re.MULTILINE):
+             if target != 'Base':
+                 visit((path.parent / target).resolve(strict=True))
+-    visit(Path(stage) / 'output-io-main.bend')
++    visit(Path(entry))
+     if {str(path) for path in reached} != set(inventory):
+         raise ValueError('Full consuming inventory has missing or unused entries')
+     return sorted(str(path) for path in reached)
+@@ -84,58 +83,52 @@
+     expected = gzip.decompress(expected_path.read_bytes())
+     if len(expected) != selection['bytes'] or hashlib.sha256(expected).hexdigest() != selection['sha256']:
+         raise ValueError('Independent complete oracle changed')
+-    baseline_path = Path(catalogue['normal']['path']).resolve(strict=True)
++    baseline_path = Path(selection['baselinePath']).resolve(strict=True)
+     baseline = gzip.decompress(baseline_path.read_bytes())
+-    if len(baseline) != 5077477 or hashlib.sha256(baseline).hexdigest() != NORMAL_SHA:
+-        raise ValueError('Original whole baseline changed')
+-    if subject == 'reader' and expected == baseline:
+-        raise ValueError('Reader countermodel must reject the complete normal baseline')
+-    stage = HERE / ('mutant-reader' if subject == 'reader' else 'stage')
+-    inventory = json.loads((HERE / 'source-inventory.json').read_text())[subject]
+-    if len(inventory) != 49 or {path: sha(path) for path in inventory} != inventory:
+-        raise ValueError('Complete 49-file consuming source changed')
+-    import_closure = validate_imports(stage, inventory)
+-    source_dir = HERE.parent / 'source-attempts' / ('full23-reader-01' if subject == 'reader' else 'full23-03')
++    if len(baseline) != selection['baselineBytes'] or hashlib.sha256(baseline).hexdigest() != selection['baselineSHA256']:
++        raise ValueError('Complete namespace-matched normal baseline changed')
++    if subject == 'mutant' and expected == baseline:
++        raise ValueError('Clause countermodel must reject complete namespace-matched normal baseline')
++    source = json.loads((HERE / 'SOURCE.json').read_text())
++    inventory = source['inventories'][subject]
++    entry = HERE / ('mutant-main.bend' if subject == 'mutant' else 'main.bend')
++    if len(inventory) != 31 or {path: sha(path) for path in inventory} != inventory:
++        raise ValueError('Complete31-file consuming source changed')
++    import_closure = validate_imports(entry, inventory)
++    source_dir = HERE / source['checks'][subject]
+     source_result = json.loads((source_dir / 'result.json').read_text())
+     source_pins = json.loads((source_dir / 'SOURCE.json').read_text())['pins']
+     if source_result['exit'] != 0 or source_result['failure'] is not None or not json.loads((source_dir / 'post.json').read_text())['unchanged']:
+         raise ValueError('Source check refused')
+     if any(source_pins.get(path) != digest for path, digest in inventory.items()):
+-        raise ValueError('Actual checked consuming closure differs from current source')
+-    tools = {'bend': '/home/node/.bend/bin/bend-2.0.35', 'node':'/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': '/usr/bin/taskset',
+-             'clangWrapper': '/tmp/bendvy-clang19-diagnostic/clang19',
+-             'clangBinary': '/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'}
++        raise ValueError('Actual checked source differs from current consuming closure')
++    tools = {'bend':'/home/node/.bend/bin/bend-2.0.35', 'node':'/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python':str(Path(sys.executable).resolve()), 'taskset':'/usr/bin/taskset',
++             'clangWrapper':'/tmp/bendvy-clang19-diagnostic/clang19', 'clangBinary':'/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'}
+     config = ROOT / 'experiments/public-simulation/delivery-v1/installed-config.py'
+     configuration = load('installed_configuration', config)
+     helper = load('preparation_runner', ROOT / 'scripts/task_runner.py')
+-    pins = dict(inventory)
+-    extra = [config, Path(__file__), HERE / 'source-inventory.json', HERE / 'ORACLES.json', expected_path, baseline_path,
++    extra = [config, Path(__file__), HERE / 'SOURCE.json', HERE / 'ORACLES.json', HERE / 'test-preparation.py', HERE / 'RECIPE.json', HERE / 'collector.patch', HERE / 'parent-development.py.source', expected_path, baseline_path,
+              source_dir / 'result.json', source_dir / 'SOURCE.json', source_dir / 'post.json', source_dir / 'stdout', source_dir / 'stderr',
+-             HERE / 'SOURCE.json', HERE / 'MUTATION.json', HERE / 'source.patch', HERE / 'reader.patch', HERE / 'test-source.py', HERE / 'test-preparation.py',
+-             ROOT / 'scripts/task_runner.py', ROOT / 'scripts/evidence_boundary.py', *map(Path, tools.values())]
++             ROOT / 'scripts/task_runner.py', ROOT / 'scripts/evidence_boundary.py', *map(Path,tools.values())]
+     extra.extend(Path(path) for path in selection['basisInputs'])
+-    pins.update({str(path.resolve(strict=True)): sha(path) for path in extra})
++    pins = inventory | {str(path.resolve(strict=True)):sha(path) for path in extra}
+     resources = helper.Inputs(directories=configuration.RESOURCE_ROOTS).expected
+-    env = configuration.environment()
+-    generated = out / ('scenario.c' if role=='native' else 'scenario.js')
++    generated = out / ('scenario.c' if role == 'native' else 'scenario.js')
+     native = out / 'scenario.native'
+-    entry = str(stage / 'output-io-main.bend')
+-    plan = {'scope': 'Complete23-grant ordinary binding '+subject+' '+role+' development; no closed resolver/performance/public closure', 'role':role, 'subject':subject,
+-            'entrypoint': entry, 'stage': str(stage), 'sourceInventory': inventory, 'importClosure': import_closure,
+-            'pins': pins, 'resourceRoots': resources, 'environment': env, 'cwd': str(HERE),
+-            'oracle': str(expected_path), 'oracleSHA256': selection['sha256'], 'oracleBytes': selection['bytes'],
+-            'normalOracle': str(baseline_path), 'normalOracleSHA256': NORMAL_SHA,
+-            'generated': str(generated), 'native': str(native),
+-            'tools': tools, 'commands': (
+-                [{'label':'emit','argv':[tools['taskset'],'-c','5',tools['bend'],entry,'-o',str(generated)],'capSeconds':30},
+-                 {'label':'build','argv':[tools['taskset'],'-c','5',tools['clangWrapper'],'-O3',str(generated),'-o',str(native),'-pthread','-lm'],'capSeconds':120},
+-                 {'label':'consumer','argv':[tools['taskset'],'-c','5',str(native),'--threads','1','--gpu','off'],'capSeconds':5}]
+-                if role=='native' else
+-                [{'label':'emit','argv':[tools['taskset'],'-c','5',tools['bend'],entry,'-o',str(generated)],'capSeconds':30},
+-                 {'label':'consumer','argv':[tools['taskset'],'-c','5',tools['node'],str(generated)],'capSeconds':5}]),
+-            'postConsumer': 'Complete byte equality with original5077477B oracle; empty runtime stderr'}
+-    out.mkdir(parents=True, exist_ok=False)
+-    (out / 'plan.json').write_text(json.dumps(plan, indent=2) + '\n')
++    commands = [{'label':'emit','argv':[tools['taskset'],'-c','5',tools['bend'],str(entry),'-o',str(generated)],'capSeconds':30}]
++    if role == 'native':
++        commands += [{'label':'build','argv':[tools['taskset'],'-c','5',tools['clangWrapper'],'-O3',str(generated),'-o',str(native),'-pthread','-lm'],'capSeconds':120},
++                     {'label':'consumer','argv':[tools['taskset'],'-c','5',str(native),'--threads','1','--gpu','off'],'capSeconds':5}]
++    else:
++        commands += [{'label':'consumer','argv':[tools['taskset'],'-c','5',tools['node'],str(generated)],'capSeconds':5}]
++    plan = {'scope':'Complete canonical ordinary leaf '+subject+' '+role+' finite development; no full23/closedresolver/performance qualification',
++            'role':role,'subject':subject,'entrypoint':str(entry),'stage':str(HERE),'sourceInventory':inventory,'importClosure':import_closure,
++            'pins':pins,'resourceRoots':resources,'environment':configuration.environment(),'cwd':str(HERE),'tools':tools,'commands':commands,
++            'oracle':str(expected_path),'oracleSHA256':selection['sha256'],'oracleBytes':selection['bytes'],
++            'normalOracle':str(baseline_path),'normalOracleSHA256':selection['baselineSHA256'],'normalOracleBytes':selection['baselineBytes'],
++            'generated':str(generated),'native':str(native),'postConsumer':'Entire independently source-derived term equality; mutant rejects namespace-matched complete normal term; empty runtime stderr'}
++    out.mkdir(parents=True,exist_ok=False)
++    (out / 'plan.json').write_text(json.dumps(plan,indent=2)+'\n')
+     print(sha(out / 'plan.json'))
+ 
+ 
+@@ -170,8 +163,10 @@
+                     verify_raw(row[key]['path'],row[key]['sha256'])
+                 elif key in row and 'partialSHA256' in row[key]:
+                     verify_raw(row[key]['path'],row[key]['partialSHA256'])
+-        if validate_imports(plan['stage'], plan['sourceInventory']) != plan['importClosure']:
++        if validate_imports(plan['entrypoint'], plan['sourceInventory']) != plan['importClosure']:
+             raise ValueError('Import closure changed')
++        for previous in record['guards']:
++            verify_raw(previous['path'],previous['sha256'])
+         actual = {path: sha(path) for path in pins}
+         unchanged = actual == pins and {path: sha(path) for path in plan['sourceInventory']} == plan['sourceInventory'] and runner.Inputs(directories=plan['resourceRoots']).expected == plan['resourceRoots']
+         receipt = {'label': label, 'actualPins': actual, 'unchanged': unchanged}
+@@ -250,12 +245,12 @@
+                     if result['stdout'] != expected_bytes:
+                         raise ValueError('Complete consumer byte output differs from whole independent oracle')
+                     record['wholeOracleSHA256'] = plan['oracleSHA256']
+-                    if plan['subject'] == 'reader':
++                    if plan['subject'] == 'mutant':
+                         baseline_bytes = gzip.decompress(Path(plan['normalOracle']).read_bytes())
+-                        if hashlib.sha256(baseline_bytes).hexdigest() != plan['normalOracleSHA256'] or len(baseline_bytes) != 5077477:
++                        if hashlib.sha256(baseline_bytes).hexdigest() != plan['normalOracleSHA256'] or len(baseline_bytes) != plan['normalOracleBytes']:
+                             raise ValueError('Original complete normal baseline changed')
+                         if result['stdout'] == baseline_bytes:
+-                            raise ValueError('Reached reader mutation did not reject normal baseline')
++                            raise ValueError('Reached clause mutation did not reject normal baseline')
+                         record['completeNormalBaselineRejected'] = True
+         record['status'] = 'COMPLETE_CONSUMER_DEVELOPMENT_PASS'
+ 
+@@ -266,7 +261,7 @@
+     preparation = sub.add_parser('prepare')
+     preparation.add_argument('output')
+     preparation.add_argument('role',choices=('js','native'))
+-    preparation.add_argument('subject',choices=('normal','reader'))
++    preparation.add_argument('subject',choices=('normal','mutant'))
+     execution = sub.add_parser('run')
+     execution.add_argument('plan')
+     execution.add_argument('admitted_sha256')

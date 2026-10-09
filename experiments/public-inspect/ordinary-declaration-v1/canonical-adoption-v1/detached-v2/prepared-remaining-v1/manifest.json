@@ -1,0 +1,156 @@
+{
+  "scope": "Remaining finite canonical detached leaf qualification: normal Native, reached clause mutant JS and Native. Preparation only; no backend executed.",
+  "priorNormalJSPlanSHA256": "d33237c1ab34439dbe2d1f5274d9f5b07082a1ab96cec58da7c9161e5dfe875f",
+  "plans": [
+    {
+      "subject": "normal",
+      "role": "native",
+      "originalPlan": "/tmp/bendvy-ordinary-inspector-detached-normal-native01/plan.json",
+      "archivedPlan": "normal-native.plan.json",
+      "sha256": "27c3c2bacab5c458db0821522cfbf901cb04d04f7cd31b268509f4af0e2e4404",
+      "bytes": 70155,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/main.bend",
+            "-o",
+            "/tmp/bendvy-ordinary-inspector-detached-normal-native01/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy-ordinary-inspector-detached-normal-native01/scenario.c",
+            "-o",
+            "/tmp/bendvy-ordinary-inspector-detached-normal-native01/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-ordinary-inspector-detached-normal-native01/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "sourceMembers": 33,
+      "oracleBytes": 1807,
+      "oracleSHA256": "b399daec4f9beb754ae8980d46a3dcfc8e4793c850c9f3c99bb13a5e19cba5b2"
+    },
+    {
+      "subject": "mutant",
+      "role": "js",
+      "originalPlan": "/tmp/bendvy-ordinary-inspector-detached-mutant-js01/plan.json",
+      "archivedPlan": "mutant-js.plan.json",
+      "sha256": "a69028ff5863414efe1eefd9249eff9aaafc6feae3b6aa690c11b35bf62072c4",
+      "bytes": 69904,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/mutant-main.bend",
+            "-o",
+            "/tmp/bendvy-ordinary-inspector-detached-mutant-js01/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy-ordinary-inspector-detached-mutant-js01/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "sourceMembers": 33,
+      "oracleBytes": 1755,
+      "oracleSHA256": "b2c85bae99dc508f19fae96a0efde4bd712ff47f17d9202ea9564834e78a0ee4"
+    },
+    {
+      "subject": "mutant",
+      "role": "native",
+      "originalPlan": "/tmp/bendvy-ordinary-inspector-detached-mutant-native01/plan.json",
+      "archivedPlan": "mutant-native.plan.json",
+      "sha256": "fc4cee2b9878f10a6b3f6e74e35d0090167ef573d22cec1b3a08cafc649937c6",
+      "bytes": 70340,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/mutant-main.bend",
+            "-o",
+            "/tmp/bendvy-ordinary-inspector-detached-mutant-native01/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy-ordinary-inspector-detached-mutant-native01/scenario.c",
+            "-o",
+            "/tmp/bendvy-ordinary-inspector-detached-mutant-native01/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-ordinary-inspector-detached-mutant-native01/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "sourceMembers": 33,
+      "oracleBytes": 1755,
+      "oracleSHA256": "b2c85bae99dc508f19fae96a0efde4bd712ff47f17d9202ea9564834e78a0ee4"
+    }
+  ],
+  "limits": "Pinned Bend2.0.35/Clang19/Node24.20, CPU5, caps30/120/5, internal heavy lock. No full23/#54/#56 closure, closed resolver or performance claim."
+}

@@ -1,0 +1,7 @@
+# Original pure Report printer refusal
+
+Original session 48956 executed the exact normal JS plan `0a60fa30ee7871defe767034b1e6475355f131523e844d9e8a6e021c4d4c1610` once. Compiler emission returned exit 1, failure null, stdout empty and the complete 95-byte diagnostic: `main's type Report cannot be printed (a function, a Type, an erased or dependent field)`. No generated JavaScript or consumer exists. The four progressive guard files and pin maps join the lossless 68-member archive; `verify.py` is archive-only.
+
+Source5 passed, but does not validate the pure-main printer domain. Pinned `.references/bend2/bend2/comp.ts:1845` describes the printer's type descriptor, which traverses declared field types; its refusal at line 1865 is consistent with Delivery's function-owner list fields even when their actual values are empty. This source explanation is not an installed ELF source-identity claim.
+
+The other three prepared plans remain unattempted. Original source, models, model review and plans are historical predictions, not runtime qualification. A separate detached-observer/IO successor is necessary: observe actual payload/resource/live/column/lifecycle/World/rows/clauses/previous state while returning every affine owner; retain opaque callback lists unchanged and observe count/current emptiness without executing or inventing callback contents. No unchanged retry, contract change, Native or performance claim accompanies this refusal.

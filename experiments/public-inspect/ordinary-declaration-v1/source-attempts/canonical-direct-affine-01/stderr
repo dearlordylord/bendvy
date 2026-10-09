@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: wrong
+ 8 | 
+ 9>| def wrong(owner:I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>) -> I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32> & I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>:
+   |           ^^^^^
+10 |   (owner,owner)
+bend 2.0.36 is available: run bend update
