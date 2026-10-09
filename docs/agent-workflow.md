@@ -3,6 +3,33 @@
 Read the applicable branch. The issue and linked spec define acceptance;
 [review criteria](../CODING_STANDARDS.md) guide review.
 
+## Porting scope and concerns
+
+Apply [SPEC scope decisions](SPEC.md#implementation-decisions) before treating
+an export or existing ticket as an implementation requirement.
+
+```text
+C(X) = normalized ECS capabilities of implementation X
+B = C(Bevy) intersection C(bevy-ts)
+Extras = C(bevy-ts) minus C(Bevy)
+Scope(Bendvy) = B union explicitly_user_approved(Extras)
+
+LanguageConcerns = {Rust, TypeScript, Bend}: types, ownership, effects, runtime
+ImplementationConcerns = {Bevy, bevy-ts, Bendvy}: APIs, storage, algorithms
+
+for capability in Scope(Bendvy):
+  contract = Bevy_ECS_semantics(capability) + explicit_approved_adaptations
+  implementation = idiomatic_Bend_design(contract)
+  require observable_contract_preserved and agreed_performance_met
+  if a proposed adaptation changes observable_contract:
+    obtain explicit_user_agreement before implementation
+```
+
+Classify each item by capability, semantics, language mechanism and implementation
+choice. Learn from Rust/TS implementations; select mechanisms valid for Bend.
+TS-only additions, including Standard Schema/JS host integration, remain pending
+scope agreement; continue independent approved ECS work.
+
 ## Bend implementation or proof
 
 Follow bend-ldd. Fix parser/type/affine errors with the five-second
