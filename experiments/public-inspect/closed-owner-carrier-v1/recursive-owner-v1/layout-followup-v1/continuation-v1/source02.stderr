@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : Prior<after_single~S, after_single~V>
+- observed : Result<&2, &2, Errors.SingleError, Q.Row<after_single~S, after_single~V>>
+Context:
+- rows   : List<&2, Q.Row<after_single~S, after_single~V>>
+- gets   : List<&2, Get<after_single~S, after_single~V>>
+- owner  : after_single~H
+- single : Result<&2, &2, Errors.SingleError, Q.Row<after_single~S, after_single~V>>
+Location: after_single
+21 |   (owner,single)=observed
+22>|   final(~H,~S,~V,rows,gets,single,Q.single_optional(~H,~S,~V,~Consumer.query_field(~H,~S,~V,caps),owner))
+   |                            ^^^^^^
+23 | def reverse(~S:Data,~V:Data,values:List<&2,Get<S,V>>,acc:List<&2,Get<S,V>>) -> List<&2,Get<S,V>>:
+bend 2.0.36 is available: run bend update

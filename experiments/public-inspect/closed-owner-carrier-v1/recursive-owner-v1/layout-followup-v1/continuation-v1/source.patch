@@ -1,0 +1,50 @@
+--- recursive/consumer-witness.bend
++++ continuation/consumer-witness.bend
+@@ -16,12 +16,18 @@
+ def query_field(~H:Type,~S:Data,~V:Data,value:Reads<H,S,V>) -> Q.ReadQuery<H,S,V>:
+   match value:
+     case Reads{query}:query
+-def final(~H:Type,~S:Data,~V:Data,rows:List<&2,Q.Row<S,V>>,get:Result<&2,&2,Errors.LookupError,Q.Row<S,V>>,single:Result<&2,&2,Errors.SingleError,Q.Row<S,V>>,observed:H & Result<&2,&2,Errors.SingleError,Maybe<&2,Q.Row<S,V>>>) -> H & Result<&2,&2,Unit,Snapshot<S,V>>:
+-  (owner,optional)=observed
+-  (owner,Done{Snapshot{rows,get,single,optional}})
++type Prior<S:Data,V:Data> is Data:
++  Prior{get:Result<&2,&2,Errors.LookupError,Q.Row<S,V>>,single:Result<&2,&2,Errors.SingleError,Q.Row<S,V>>}
++  PriorLink{next:Prior<S,V>}
++def final(~H:Type,~S:Data,~V:Data,rows:List<&2,Q.Row<S,V>>,prior:Prior<S,V>,observed:H & Result<&2,&2,Errors.SingleError,Maybe<&2,Q.Row<S,V>>>) -> H & Result<&2,&2,Unit,Snapshot<S,V>>:
++  match prior:
++    case Prior{get,single}:
++      (owner,optional)=observed
++      (owner,Done{Snapshot{rows,get,single,optional}})
++    case PriorLink{next}:final(~H,~S,~V,rows,next,observed)
+ def after_single(~H:Type,~S:Data,~V:Data,~caps:Reads<H,S,V>,rows:List<&2,Q.Row<S,V>>,get:Result<&2,&2,Errors.LookupError,Q.Row<S,V>>,observed:H & Result<&2,&2,Errors.SingleError,Q.Row<S,V>>) -> H & Result<&2,&2,Unit,Snapshot<S,V>>:
+   (owner,single)=observed
+-  final(~H,~S,~V,rows,get,single,Q.single_optional(~H,~S,~V,~query_field(~H,~S,~V,caps),owner))
++  final(~H,~S,~V,rows,Prior{get,single},Q.single_optional(~H,~S,~V,~query_field(~H,~S,~V,caps),owner))
+ def after_get(~H:Type,~S:Data,~V:Data,~caps:Reads<H,S,V>,rows:List<&2,Q.Row<S,V>>,observed:H & Result<&2,&2,Errors.LookupError,Q.Row<S,V>>) -> H & Result<&2,&2,Unit,Snapshot<S,V>>:
+   (owner,get)=observed
+   after_single(~H,~S,~V,~caps,rows,get,Q.single(~H,~S,~V,~query_field(~H,~S,~V,caps),owner))
+--- recursive/full-consumer.bend
++++ continuation/full-consumer.bend
+@@ -8,12 +8,18 @@
+   Get{target:W.Handle<S>,result:Result<&2,&2,Errors.LookupError,Q.Row<S,V>>}
+ type Snapshot<S:Data,V:Data> is Data:
+   Snapshot{each:List<&2,Q.Row<S,V>>,get:List<&2,Get<S,V>>,single:Result<&2,&2,Errors.SingleError,Q.Row<S,V>>,singleOptional:Result<&2,&2,Errors.SingleError,Maybe<&2,Q.Row<S,V>>>}
+-def final(~H:Type,~S:Data,~V:Data,rows:List<&2,Q.Row<S,V>>,gets:List<&2,Get<S,V>>,single:Result<&2,&2,Errors.SingleError,Q.Row<S,V>>,observed:H & Result<&2,&2,Errors.SingleError,Maybe<&2,Q.Row<S,V>>>) -> H & Result<&2,&2,Unit,Snapshot<S,V>>:
+-  (owner,optional)=observed
+-  (owner,Done{Snapshot{rows,gets,single,optional}})
++type Prior<S:Data,V:Data> is Data:
++  Prior{single:Result<&2,&2,Errors.SingleError,Q.Row<S,V>>}
++  PriorLink{next:Prior<S,V>}
++def final(~H:Type,~S:Data,~V:Data,rows:List<&2,Q.Row<S,V>>,gets:List<&2,Get<S,V>>,prior:Prior<S,V>,observed:H & Result<&2,&2,Errors.SingleError,Maybe<&2,Q.Row<S,V>>>) -> H & Result<&2,&2,Unit,Snapshot<S,V>>:
++  match prior:
++    case Prior{single}:
++      (owner,optional)=observed
++      (owner,Done{Snapshot{rows,gets,single,optional}})
++    case PriorLink{next}:final(~H,~S,~V,rows,gets,next,observed)
+ def after_single(~H:Type,~S:Data,~V:Data,~caps:Consumer.Reads<H,S,V>,rows:List<&2,Q.Row<S,V>>,gets:List<&2,Get<S,V>>,observed:H & Result<&2,&2,Errors.SingleError,Q.Row<S,V>>) -> H & Result<&2,&2,Unit,Snapshot<S,V>>:
+   (owner,single)=observed
+-  final(~H,~S,~V,rows,gets,single,Q.single_optional(~H,~S,~V,~Consumer.query_field(~H,~S,~V,caps),owner))
++  final(~H,~S,~V,rows,gets,Prior{single},Q.single_optional(~H,~S,~V,~Consumer.query_field(~H,~S,~V,caps),owner))
+ def reverse(~S:Data,~V:Data,values:List<&2,Get<S,V>>,acc:List<&2,Get<S,V>>) -> List<&2,Get<S,V>>:
+   match values:
+     case []:acc

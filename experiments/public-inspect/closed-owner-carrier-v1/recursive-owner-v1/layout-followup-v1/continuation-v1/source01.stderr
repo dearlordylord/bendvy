@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+26 | def final(~H:Type,~S:Data,~V:Data,rows:List<&2,Q.Row<S,V>>,prior:Prior<S,V>,observed:H & Result<&2,&2,Errors.SingleError,Maybe<&2,Q.Row<S,V>>>) -> H & Result<&2,&2,Unit,Snapshot<S,V>>:
+27>|   (get,single)=prior_values(~S,~V,prior)
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+28 |   (owner,optional)=observed
+bend 2.0.36 is available: run bend update
