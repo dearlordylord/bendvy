@@ -83,6 +83,7 @@ def prepare(out,arity_diagnostic=False):
  files=[*[Path(k)for prior in old for k in prior['pins']],*parent.rglob('*'),*stage.iterdir(),*oldplans,config,ROOT/'scripts/task_runner.py',ROOT/'scripts/evidence_boundary.py',ROOT/'scripts/owned-tool-pins.py',*map(Path,tools.values()),*map(Path,configuration.LINK_INPUTS),ref/'comp.ts',ref/'bend.ts',ref/'base.bend',*ref.joinpath('effs').rglob('*'),*[Path(r['original'])for r in adapters]]
  for path in files:
   if path.is_file()and '__pycache__'not in path.parts and path.suffix!='.pyc':
+   if path.resolve()==HERE/'arity-diagnostic-v1/PREPARED.json':continue # historical preparation pointer, not execution input
    resolved=path.resolve(strict=True);pins[str(resolved)]=sha(resolved)
    if path.is_symlink():bindings[str(path)]=str(resolved)
  p={'scope':'Copied candidate compiler full normal71 + reached handler omission whole controls only; no installed resolver/performance/task closure','pins':pins,'fileBindings':bindings,'resourceRoots':runner.Inputs(directories=configuration.RESOURCE_ROOTS).snapshot(),'environment':configuration.environment(),'tools':tools,'cwd':str(ROOT),'cohorts':cohorts,'compilerProvenance':str(parent/'SOURCE.json'),'successfulControls':str(parent/'controls-v1/evidence-v1/controls10/MANIFEST.json'),'arityDiagnosticOnly':arity_diagnostic}

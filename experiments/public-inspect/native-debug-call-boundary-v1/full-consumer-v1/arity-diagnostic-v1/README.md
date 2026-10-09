@@ -7,3 +7,5 @@ The successor adds one diagnostic record ONLY inside the existing final refusal 
 Reuse the existing full-consumer execution with prepare-arity mode: one normal71 copied emit under CPU5/shared lock/cap30; no build/runtime, omission child or old baseline replay. Full positive and omission source/model bindings remain pinned. Primary original arity failure is preserved; metadata witness is captured by the existing driver's finally and serialized guards/receipt. Hard deadline may prevent witness publication and stays INCOMPLETE. No limits or installed compiler changes. Exact patch inverse control uses no compiler.
 
 The purpose is source/layout identification for the next structural repair; a diagnostic record or available C does not qualify full Native debug or performance.
+
+Arity02 was not admitted: its preparation pointer was rewritten after inventory hashing. Preserve that plan unchanged. The pointer is explicitly excluded from runtime inputs; fresh final preparation indexes are written outside pinned inputs in the /tmp cohort directory. Compiler/source/helper inputs remain pinned.
