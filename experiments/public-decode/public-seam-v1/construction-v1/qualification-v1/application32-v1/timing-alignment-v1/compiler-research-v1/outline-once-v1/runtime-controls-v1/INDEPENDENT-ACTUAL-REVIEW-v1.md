@@ -1,0 +1,9 @@
+# Independent six-fixture actual audit
+
+Scoped retained finite-control PASS for immutable11bd1930f37a1dd30bc514f0422c66c204fe2c7e/root52ce5522. Reviewer executed only the source-inspected no-child archive verifier, not compiler/build/runtime replay.
+
+Verifier independently recomputes350 lossless member byte lengths/SHA, exact admitted INDEXfd027 twelve plan/receipt digests and full pin/source/artifact joins, thirty returned command argv/caps/exit0/failureNone,102 progressive guard hashes/complete actualPins and all six entire source-authored oracle outputs. Baselines reuse successful clean32fb C receipt/provenance without re-emission; candidate uninstru outlined1f139 source/assets remain exact. Complete native artifact identities and raw stdout/stderr publication facts match receipts. Baseline/candidate output bytes equal for189 LF,4000 LF,4 LF,18 LF+18432 LF,184n LF and504 LF; no prefix/default/trim projection was used.
+
+Candidate emit stderr preserves MODULE_TYPELESS_PACKAGE_JSON Node warnings; build and consumer stderr are empty. Those warnings are not suppressed or mislabeled clean emit. Original90961 and serial76651 complete, all failures/guards are retained; no repeated launch or cap change.
+
+This qualifies these finite fixtures under the copied uninstru outlined compiler and retained clean baseline only. wide_record is intermediate record rebuilding with scalar IO main, not pure wide-return ABI; Tree/family captures are Data, not arbitrary affine Type. No per-fixture suppressed optional-once counter exists, so no reached-once or causal claim follows from C differences/output equality. Full Inspector O3 build deadline and O0 runtime deadline remain independent INCOMPLETE results. This does not qualify installed compiler adoption, full Inspector runtime, performance, public policy or proof obligations.
