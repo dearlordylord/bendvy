@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : M.Family<T.Tag, T.Key, T.State, Unit, take, put>
+- observed : M.Family<T.Tag, T.Key, T.State, T.Resources, T.take, T.put>
+Location: main
+11 | def main() -> Schema.Declaration<T.Tag,Unit,Unit> & M.Family<T.Tag,T.Key,T.State,Unit,take,put>:
+12>|   Schema.machine_named(~T.Tag,~Unit,~Unit,~T.Key,~T.State,~take,~put,Schema.ordinary(~T.Tag,~Unit,~Unit,Normal.Schema{[]}),T.family())
+   |                                                                                                                            ^^^^^^^^
+13 | 
+bend 2.0.36 is available: run bend update

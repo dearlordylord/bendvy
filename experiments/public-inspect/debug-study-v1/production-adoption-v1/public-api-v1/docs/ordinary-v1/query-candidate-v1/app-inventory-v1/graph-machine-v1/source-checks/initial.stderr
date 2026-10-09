@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+46 | def publish(world:W.World<T.Tag,Unit,T.Resources,Unit>) -> W.World<T.Tag,Unit,T.Resources,Unit>:
+47>|   W.publish(~T.Tag,~Unit,~T.Resources,~Unit,world,[Unit{}])
+   |             ^
+48 | def related(factory:W.Factory,schema:Schema.Declaration<T.Tag,Unit,T.Resources>,reservations:List<&2,W.Reservation<T.Tag>>,activations:List<&2,W.Status>,queueOutcome:Tx.Outcome<Unit>,got:W.World<T.Tag,Unit,T.Resources,Unit> & Maybe<&2,Rel.Error>) -> Delivered:
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,30 @@
+{
+  "scope": "Pre-backend full previous App inventory/resource reports plus complete relation/machine consumer; no output consulted",
+  "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/main.bend",
+  "mutantEntry": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/mutants/drop-relations/main.bend",
+  "previousMainExpectedSHA256": "5bba9880ca4236a4440c0773ebc53b9242385b34b2d16cc87165c8f16e50546f",
+  "previousResourceExpectedSHA256": "ff6ae8abf5f41b292bb83531a23961eb610b4f23d5b561da3490d84ac7315294",
+  "neutralShape": {
+    "root": [
+      "inventory",
+      "resource",
+      "graphMachine"
+    ],
+    "graphMachine": "{Reported:{report: bare Fixture.Report}}",
+    "priorReports": "exact whole existing neutral objects, no changed fields",
+    "description": "bare Graph Description{ordinary: existing Inventory.Description,relations: full raw descriptor records,machines: derived name records}",
+    "slot": "preserve Present/Queued and Boot/Play sum tags; records exact declared fields",
+    "mutant": "only two Some descriptions graphMachine.report.descriptions[0,1].Some.relations become[]; no other change"
+  },
+  "sourceBasis": [
+    "relation-types.bend:6-7 full Descriptor",
+    "machine.bend:44-46 Family has only name",
+    "machine-handler-bundle.bend:7-17 selectors/requirements/registry are additional available normal-declaration seam"
+  ],
+  "limits": [
+    "experimental normal App only",
+    "no handler bundle discovery yet",
+    "no reflection of erased state type universe",
+    "no backend or Native qualification"
+  ]
+}

@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Data
+- observed : Type
+Location: final
+23 |     case W.Factory{next}:next
+24>| def final(+factory:W.Factory,app:App.Application<T.Tag,Unit,T.Resources,Unit,Unit>,reservations:List<&2,W.Reservation<T.Tag>>,activations:List<&2,W.Status>,queueOutcome:Tx.Outcome<Unit>,error:Maybe<&2,Rel.Error>,snapshots:List<&2,Observe.Snapshot>,descriptions:List<&2,Maybe<&2,App.Description<T.Tag>>>,got:W.World<T.Tag,Unit,T.Resources,Unit> & Observe.Snapshot) -> Delivered:
+   |                    ^^^^^^^^^
+25 |   match got:
+Note: +factory can be used many times, so its type must be Data.
+bend 2.0.36 is available: run bend update

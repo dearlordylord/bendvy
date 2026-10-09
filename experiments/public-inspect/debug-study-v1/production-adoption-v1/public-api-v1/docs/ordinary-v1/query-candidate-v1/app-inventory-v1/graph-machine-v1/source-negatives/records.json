@@ -1,0 +1,24 @@
+[
+  {
+    "name": "foreign-relation",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "scripts/bend-check",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/source-negatives/foreign-relation.bend"
+    ],
+    "exit": 1,
+    "rejectedAt": "Rel.Descriptor<T.Tag> versus Rel.Descriptor<Other>"
+  },
+  {
+    "name": "wrong-resource-machine",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "scripts/bend-check",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-inventory-v1/graph-machine-v1/source-negatives/wrong-resource-machine.bend"
+    ],
+    "exit": 1,
+    "rejectedAt": "Machine.Family resource/lens authority Unit versus Resources"
+  }
+]

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : ':'
+- observed : ','
+Location:
+ 9 | def main() -> Schema.Declaration<T.Tag,Unit,Unit> & Rel.Descriptor<T.Tag>:
+10>|   Schema.relation(~T.Tag,~Unit,~Unit,Schema.ordinary(~T.Tag,~Unit,~Unit,Normal.Schema{[]}),Rel.Descriptor<Other>{7,"Parent","Children",Rel.Hierarchy{}})
+   |                                                                                                                   ^
+11 | 
+bend 2.0.36 is available: run bend update

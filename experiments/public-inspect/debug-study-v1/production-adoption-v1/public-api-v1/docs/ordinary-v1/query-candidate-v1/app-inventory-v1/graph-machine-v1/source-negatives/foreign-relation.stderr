@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : Rel.Descriptor<T.Tag>
+- observed : Rel.Descriptor<Other>
+Location: main
+11 | def main() -> Schema.Declaration<T.Tag,Unit,Unit> & Rel.Descriptor<T.Tag>:
+12>|   Schema.relation(~T.Tag,~Unit,~Unit,Schema.ordinary(~T.Tag,~Unit,~Unit,Normal.Schema{[]}),foreign())
+   |                                                                                            ^^^^^^^
+13 | 
+bend 2.0.36 is available: run bend update
