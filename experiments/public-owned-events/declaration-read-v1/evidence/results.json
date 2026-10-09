@@ -1,0 +1,57 @@
+[
+  {
+    "source": "main.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "scripts/bend-check",
+      "experiments/public-owned-events/declaration-read-v1/main.bend"
+    ],
+    "sourceCapSeconds": 5,
+    "exit": 0
+  },
+  {
+    "source": "owner-duplication-negative.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "scripts/bend-check",
+      "experiments/public-owned-events/declaration-read-v1/owner-duplication-negative.bend"
+    ],
+    "sourceCapSeconds": 5,
+    "exit": 1
+  },
+  {
+    "source": "args-duplication-negative.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "scripts/bend-check",
+      "experiments/public-owned-events/declaration-read-v1/args-duplication-negative.bend"
+    ],
+    "sourceCapSeconds": 5,
+    "exit": 1
+  },
+  {
+    "source": "write-negative.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "scripts/bend-check",
+      "experiments/public-owned-events/declaration-read-v1/write-negative.bend"
+    ],
+    "sourceCapSeconds": 5,
+    "exit": 1
+  },
+  {
+    "source": "escape-negative.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "scripts/bend-check",
+      "experiments/public-owned-events/declaration-read-v1/escape-negative.bend"
+    ],
+    "sourceCapSeconds": 5,
+    "exit": 1
+  }
+]
