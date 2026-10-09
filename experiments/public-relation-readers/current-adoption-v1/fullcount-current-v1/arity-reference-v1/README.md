@@ -1,0 +1,3 @@
+# Full capacity arity source diagnostic
+
+Original Native emit fails with arity over 247. The existing pinned copied compiler records both final offending continuation parameters and encoded constructor arities, plus held/result layout at continuation creation; original algorithm and refusal remain. Unchanged full two-schema capacity consumer and complete oracle are retained. This Node30 CPU5 metadata-only plan is not executed yet. Existing central child lock, complete file pins, partial C capture and unconditional receipt apply. Loaded source paths must be reconciled against the complete source inventory after execution. Installed compiler cause is not established by copied-reference observations.
