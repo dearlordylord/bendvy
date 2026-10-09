@@ -1,0 +1,17 @@
+# Resolver declaration v2 independent source review
+
+Reviewed root integration 627010c2 / author 3111db5b, `DECLARATION-v2.json` SHA256 `40f68dcbb65dc579d152dea7d1353f97124084c490628de4dbfc17054a944f16`, preparation sources and current `scripts/owned-tool-pins.py`. No constructor, large byte sweep, ldd probe or workload ran during review.
+
+**Source declaration: suitable experimental acquisition input. Execution admission: withheld pending an exact standalone acquisition collector and plan.**
+
+The declaration retains 893 explicit resolver inputs, 64 shallow search roots, all 425 advertised cache literal paths and resolved targets, configuration/preload/include inputs and three approved resource roots. Literal aliases are retained alongside their targets. Only the explicitly declared configuration directory and approved resource roots recurse; loader roots enumerate immediate names and record absence, types, resolution chains and bytes. The current alias walker keys cycle detection by path plus remaining suffix, so legitimate repeated prefixes are not mistaken for cycles; its coverage checks reject escaping targets. Ordinary later `check()` calls remain probe-free and compare resolver state, tool configuration, resource membership and bytes. Skipping wrapper/ldd as ldd subjects does not remove their file pins.
+
+The eight proposed discoveries use CPU 5, a five-second limit each and split raw streams. These are proposals, not executed pins. `configuration.execute` is descriptive text, and `guardRecipe` is prose: neither provides an executable bootstrap, command/result publication ledger, partial-result recovery, unconditional receipt or acquired/post/final guard implementation. No exact standalone acquisition plan/entrypoint is supplied. Before execution, freeze that caller and its complete transitive helpers, actual interpreter, environment/configuration, output namespace and resource inputs; review its pre-import verification, shared-lock acquisition, bounded stage, failure/raw preservation and all guard boundaries. The existing helper's constructor repeats resolver hashing through its initial check; the declared lower bound is 3,152,680,675 bytes per pass before configuration-directory/resource costs. An ldd timeout does not bound that Python hashing stage. Its acquisition-stage bound must therefore be explicit without dropping archives or alias spellings.
+
+Cache inclusion is conservative byte/namespace coverage, not proof that every advertised cache entry applies to this loader invocation. Actual loader lists and v6 ELF dependencies establish observed paths only. Configuration includes, search candidates and absence are acquisition candidates until frozen checks execute. Compiler input and each generated Native ELF still require their own namespace stages.
+
+The README's upstream glibc 2.36 legacy suffix construction has a primary source basis: `elf/dl-hwcaps.c` enumerates masked important bits, then platform and TLS, and constructs the legacy power set. This is source authority for the declared order, not a byte-exact rebuild or qualification of the installed loader. Preserve that distinction and the outstanding cache applicability/resolver-closedness gates.
+
+Primary source: https://raw.githubusercontent.com/bminor/glibc/glibc-2.36/elf/dl-hwcaps.c
+
+Safe integration recommendation: retain the declaration and preparation evidence as unexecuted experimental metadata. Do not launch acquisition from this summary alone.
