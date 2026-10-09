@@ -15,7 +15,7 @@ Lines 177-194
 190:   return {$: "Unit"};
 191: }
 192: io_eff("boundary.complete", io_public_trace_complete);
-193: 
+193:
 194: io_eff("boundary.begin", io_public_trace_begin);
 
 Lines 237-249
@@ -31,17 +31,17 @@ Lines 237-249
 246:     return (_x_3) => $IO$print$("INPUT_REFUSED", _x_3);
 247:   }
 248: }
-249: 
+249:
 
 Lines 445-452
 445: function $materialized$(_population_0, _trace_0) {
 446:   return $forced$(run_loop($$$$047$$$047$$$047force$058force$(_population_0, _trace_0)), _population_0, _trace_0);
 447: }
-448: 
+448:
 449: function $trace$(_first_0, _second_0, _firstStats_0, _secondStats_0, _input_0) {
 450:   return {$: "../../../../trace-value.Object", "fields": {$: "Con", "head": {$: "../../../../trace-value.Field", "key": "input", "value": ($input_value$(_input_0))}, "tail": {$: "Con", "head": {$: "../../../../trace-value.Field", "key": "setup", "value": {$: "../../../../trace-value.Items", "values": {$: "Con", "head": ($metadata$("Workshop", _firstStats_0)), "tail": {$: "Con", "head": ($metadata$("Other", _secondStats_0)), "tail": {$: "Nil"}}}}}, "tail": {$: "Con", "head": {$: "../../../../trace-value.Field", "key": "roots", "value": {$: "../../../../trace-value.Items", "values": {$: "Con", "head": ($$$$047$$$047$$$047application$058run$1260$(_first_0, "Workshop", _input_0)), "tail": {$: "Con", "head": ($$$$047$$$047$$$047application$058run$1261$(_second_0, "Other", _input_0)), "tail": {$: "Nil"}}}}}, "tail": {$: "Nil"}}}}};
 451: }
-452: 
+452:
 
 Lines 804-832
 804: function $completed$(_summary_0, _population_0, _trace_0) {
@@ -54,7 +54,7 @@ Lines 804-832
 811: }), _x_0);
 812: });
 813: }
-814: 
+814:
 815: function $$$$047$$$047$$$047force$058walk$(_fuel_0, _pending_0, _summary_0) {
 816:   if (_fuel_0 === 0) {
 817:     return $$$$047$$$047$$$047force$058exhausted$(_pending_0, _summary_0);
@@ -67,7 +67,7 @@ Lines 804-832
 824: }));
 825:   }
 826: }
-827: 
+827:
 828: function $$$$047$$$047$$$047input$058walk_budget$(_population_0) {
 829:   const _x_0 = ((_population_0 + 1) >>> 0);
 830:   const _x_1 = (Math.imul(2048, _x_0) >>> 0);
@@ -93,14 +93,14 @@ Lines 1185-1197
 1194:     return $$$$047$$$047$$$047force$058visit$(_value_0, _rest_0, ((_nodes_0 + 1) >>> 0), _characters_0, _sum_0, _next_0);
 1195:   }
 1196: }
-1197: 
+1197:
 
 Lines 1400-1431
 1400:   const _x_4 = (Math.imul(4, _x_3) >>> 0);
 1401:   const _x_5 = ((_x_4 + 64) >>> 0);
 1402:   return _x_5;
 1403: }
-1404: 
+1404:
 1405: function $$$$047$$$047$$$047force$058visit$(_value_0, _rest_0, _nodes_0, _characters_0, _sum_0, _next_0) {
 1406:   if (_value_0.$ === "../../../../trace-value.Null") {
 1407:     return run_tail(_next_0(_rest_0), {$: "../../../force.Summary", "nodes": _nodes_0, "characters": _characters_0, "sum": ((_sum_0 + 1) >>> 0)});
@@ -126,7 +126,7 @@ Lines 1400-1431
 1427:     return run_tail(_next_0(($List$append$(($$$$047$$$047$$$047force$058fields$(_values_0)), _rest_0))), {$: "../../../force.Summary", "nodes": _nodes_0, "characters": _characters_0, "sum": ((_sum_0 + 7) >>> 0)});
 1428:   }
 1429: }
-1430: 
+1430:
 1431: function $$$$047$$$047$$$047application$058first_record$1260$(_result_0, _root_0, _retained_0, _population_0, _input_0) {
 
 Lines 13370-13395
