@@ -33,3 +33,11 @@ A fact-epoch number alone is insufficient: those local states change inside an e
 ## Actionable direction
 
 First establish repeated *distinct-object* layout comparisons or nested conversion-plan construction at the actual continuation sites from the independent instantiated-width report. A compile-local equality cache and effect-free plan cache can preserve arbitrary Type payloads and source APIs. They offer no established speedup and do not solve intrinsic generated branch multiplicity. Changing output representation or suppressing required ownership conversions is outside this proposal.
+
+## Current static result and exact duplication condition
+
+The independent selected initial cohort reports maximum argument sum 37 and return width 48; no selected function triggers WIDE argument fallback. These figures rule out that fallback as an explanation for these selected sites, not all compiler sites. `inspect_unpack` returns Frame35 containing nested World/schemaStore/Column layouts.
+
+A nested layout graph alone does not prove Cartesian emitted code. In `val_to`, structurally equal layouts stop immediately; boxing a field already BOX stops through `val_box`'s `arms === null` path. For one mismatched flat destination sum, `val_arms.ws(k)` converts each field inside that constructor's branch. If a field conversion itself expands a sum, that child branch generator is executed separately **inside each parent arm that contains it**. A repeated shared child across m parent arms with n emitted child arms creates m×n branch bodies; differing independent fields are additive, not multiplied unless their conversion is nested under another branch. Boxing has the analogous parent-arm→field→val_to→child-box expansion. Unboxing reads every destination arm through `node_fields` and then converts the fields through the same `val_arms` mechanism.
+
+Consequently the needed diagnostic is an actual mismatched layout pair and per-arm recursive conversion path, recording equality/BOX early exits and repeated child pairs. Merely counting nested Column constructors or Frame35 words cannot establish duplicated continuations. An equality/plan cache can remove repeated structural planning; it cannot merge these site-specific branch bodies safely. No selected concrete Cartesian pair has been established by this note.
