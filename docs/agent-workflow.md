@@ -1,100 +1,41 @@
 # Agent workflow
 
-Read the applicable branch. The issue and linked spec define acceptance;
-[review criteria](../CODING_STANDARDS.md) guide review.
+The issue and linked spec define acceptance. Apply [SPEC decisions](SPEC.md#implementation-decisions)
+and [review criteria](../CODING_STANDARDS.md); Rust Bevy semantics, Bend constraints,
+then bevy-ts inventory govern implementation choices.
 
-## Porting scope and concerns
+## Delivery
 
-Apply [SPEC scope decisions](SPEC.md#implementation-decisions) before treating
-an export or existing ticket as an implementation requirement.
+1. Read the current consumer and evidence; identify the exact missing acceptance
+   gate. Reuse qualified scenarios and assigned worktrees/file ownership.
+2. Implement the agreed contract. Follow bend-ldd for Bend; use
+   `scripts/bend-check source.bend` for parser/type/affine repairs. API changes
+   require undeclared-access, cross-schema, write-through-read and relevant
+   abstract-handle confinement controls with arbitrary affine `Type` payloads.
+3. Run the cheapest complete consumer, then affected required gates through an
+   existing runner under [check policy](check-policy.md). Batch changes for the
+   unchanged [regression gate](../benchmarks/README.md) on the integrated result.
+4. Deliver exact commit, owned files, source-bound receipts, complete outputs and
+   remaining gates for one independent final Spec/Standards review. Coordinator
+   integrates and updates the owning issue. A bounded slice is reported as such.
 
-```text
-C(X) = normalized ECS capabilities of implementation X
-B = C(Bevy) intersection C(bevy-ts)
-Extras = C(bevy-ts) minus C(Bevy)
-Scope(Bendvy) = B union explicitly_user_approved(Extras)
+New observable contracts, laws, dependencies and numerical criteria follow SPEC
+approval requirements. New/changed runners, compiler experiments and comparative
+performance plans need the launch review defined in check policy. Existing
+reviewed execution paths use final review without repeated stage admissions.
 
-LanguageConcerns = {Rust, TypeScript, Bend}: types, ownership, effects, runtime
-ImplementationConcerns = {Bevy, bevy-ts, Bendvy}: APIs, storage, algorithms
+## References and storage
 
-for capability in Scope(Bendvy):
-  contract = Bevy_ECS_semantics(capability) + explicit_approved_adaptations
-  implementation = idiomatic_Bend_design(contract)
-  require observable_contract_preserved and agreed_performance_met
-  if a proposed adaptation changes observable_contract:
-    obtain explicit_user_agreement before implementation
-```
+Verify read-only `.references/{bevy-ts,bevy,bend2}` against the
+[manifest](../.references/sources.json); worktrees use absolute reference paths.
+For query/storage changes, read [R-A](../experiments/ra-provider/README.md) and
+[R-C1](../experiments/rc1-query/README.md). For TS execution, reuse the selected
+Node adapter and delivery receipt before discovering new tooling. Source-derived
+traces count as observations only after actual execution.
 
-Classify each item by capability, semantics, language mechanism and implementation
-choice. Learn from Rust/TS implementations; select mechanisms valid for Bend.
-TS-only additions, including Standard Schema/JS host integration, remain pending
-scope agreement; continue independent approved ECS work.
+## Coordination
 
-## Bend implementation or proof
-
-Follow bend-ldd. Fix parser/type/affine errors with the five-second
-`scripts/bend-check source.bend`; preserve raw success and failure output.
-This check grants no proof or delivery acceptance; intermediate templates need
-no delivery wrapper or portable capsule.
-
-Complete the consuming fixture within assigned files and agreed contracts.
-Hand off unresolved contracts, shared-file changes and backend launches for
-review. Freeze source and complete oracle together; run unchanged source,
-negative, mutation and backend gates. Check the existing Node adapter and
-runnable Bend seam against the whole oracle before broad tool discovery.
-
-API extensions require undeclared-access, cross-schema and write-through-read
-negative controls.
-
-## Evidence runners and parallel review
-
-Use the [runner recipe](check-policy.md#preparing-a-focused-runner).
-Inventory source, tools, environment, outputs and oracle before launch review.
-
-Choose one lock owner from the runner implementation. Invoke collectors with
-internal locking directly; reserve an external cohort lock for runners without
-that lock. Lock compiler/runtime/performance children and heavy oracle
-materialization; prepare lightweight metadata outside. Start with ordinary installed-tool
-snapshot/verify from the [runner recipe](check-policy.md#preparing-a-focused-runner).
-Use the optional [immutable dependency session](check-policy.md#immutable-dependency-stages)
-when a closed resolver inventory is already reviewed; its preparation is a
-separate optimization, not a prerequisite for ordinary delivery. Preserve
-pre/post guards and unconditional failure receipts. Guard generated artifacts
-before consumption.
-
-Batch source, complete oracle and all stage recipes into one independent launch
-review. Reviewers own reports; authors execute the admitted sequence and return
-one final evidence commit. Resume completed authors with `followup_task`.
-Reopen review for changed code, recipes or gates; stage status alone is not a
-handoff. Coordinators may admit artifact-only stages matching the reviewed
-recipe and guarded ledger. Preserve frozen attempts and in-flight runs.
-
-## Approvals
-
-Follow [SPEC](SPEC.md) for laws, numerical performance criteria and dependencies.
-Identify each outstanding approval and its reason.
-
-## Query or storage
-
-Read [R-A](../experiments/ra-provider/README.md) and
-[R-C1](../experiments/rc1-query/README.md). Support arbitrary `Type` payloads
-through Bend types and affine ownership; Data-only components remain unapproved.
-Re-test abstract-handle confinement after API changes.
-
-## Executable src/ecs delivery
-
-Run the paired [regression gate](../benchmarks/README.md) and retain its receipt.
-Use the committed baseline; baseline/workload changes require review. This gate
-qualifies its workload only; SPEC separately governs full-core performance.
-
-## References
-
-Verify read-only, Git-excluded `.references/{bevy-ts,bevy,bend2}` against the
-[manifest](../.references/sources.json); use absolute paths in worktrees and
-report unavailable sources.
-
-For TS execution, try the existing Node runtime and a Node-only adapter against
-the pinned `.ts` entrypoint first. Core needs no external runtime dependencies;
-new packages require SPEC approval. Source-derived traces become observed
-evidence only after execution. Before rerunning a delivered comparator, apply
-the [delivery-manifest selection check](check-policy.md#preparing-a-focused-runner).
+Keep one owner for shared `src/ecs`; preserve other workers' changes and running
+stages. Parallelize authoring/research/review; serialize heavy checks and reserve
+performance cohorts exclusively under current resource limits. Follow the
+[current coordination table](parity/README.md#current-delivery-coordination).

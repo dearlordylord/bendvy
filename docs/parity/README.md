@@ -155,43 +155,22 @@ from accepting a behavior contract; specific laws need their own approval.
 
 ### Resource and handoff protocol
 
-Four workers may implement/research/prepare concurrently. With external CPU
-contention, one executable/check/backend/probe stage runs at a time; coordinator
-assigns the next slot. Run an admitted stage under
-`flock /tmp/bendvy-parity-heavy.lock COMMAND...` and retain normal receipts/guards.
-The lock serializes our processes; it cannot remove external contention.
-Comparative timing requires independent admission of its exact full-workload
-plan and an exclusive cohort reservation. A coordinator-granted source diagnostic slot
-may contain up to four sequential affected checks, each capped at5s. Freeze the
-actual source closure, command and raw receipt for each attempt; retain failed
-inputs before repairs. Release the executable lock between attempts and return
-the slot within60s, on success, timeout or any contract question. This batches
-routine syntax/quantity repairs without repeated admission messages or full
-resolver discovery; it grants no backend, proof or delivery acceptance.
-Performance/profiling gets one exclusive
-coordinator slot after live host assessment, with all our other child checks
-paused. Native remains one thread/GPU off. Limits stay checker5, emit30,
-compile120, runtime5; timeouts are inconclusive, not grounds to raise caps.
+Coordinator owns shared `src/ecs`, interfaces and integration. Workers own their
+assigned files/worktrees, preserve others' edits and hand off exact commits,
+source-bound receipts, complete outputs and remaining acceptance gates.
+Use [workflow](../agent-workflow.md) and [check policy](../check-policy.md) for
+execution/review; retain existing assignment contracts and unresolved approvals.
 
-Reference selection uses the manifest-bound check in
-[check policy](../check-policy.md#preparing-a-focused-runner).
+Authoring, research and review may run concurrently. One heavy stage runs at a
+time using one owner of `/tmp/bendvy-parity-heavy.lock`; performance cohorts have
+an exclusive reservation after host assessment. Current caps remain checker5,
+emit30, compile120, runtime5; Native one thread/GPU off. Explicitly approved
+scoped exceptions remain scoped; timeouts are inconclusive. A source diagnostic
+slot may batch up to four affected checks within60s. Reuse existing runners and
+run general regression on combined executable integration.
 
-A copied worktree must hash-join owned sources and read-only dependency overlays
-before resuming. Original absolute-path receipts are preserved as historical;
-new execution freezes its actual worktree paths/tool/config/environment. Never
-commit another worker's dependency overlay or private environment. All workers
-are not alone in the repository and must preserve others' changes.
-
-Handoff: exact commit SHA, owned file list, source/dependency joins, commands and
-terminal receipts/full oracles, intended negative diagnostics, reached mutants,
-and explicit remaining issue gates. Workers commit only their owned deliverable;
-they do not push/close issues or merge shared core. Coordinator obtains independent
-Spec/Standards review, integrates small commits and posts English issue updates.
-A bounded experiment is not full issue completion. Shared module/interface requests
-are agreed before editing; `src/ecs` has one writer. General regression gates run
-on the combined executable result, not redundantly per planning/evidence commit.
-Full equivalent JS≤TS and Native≤0.5×TS remains #21/#23/#24; the unchanged default
-#28 gate remains required. No performance tolerance is added here.
+Keep this table to current owner, blocker, evidence link and next result;
+evidence history belongs in linked reports.
 
 ## Full-scope return conditions
 
