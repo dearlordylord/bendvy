@@ -1,0 +1,20 @@
+
+// Initial/static layout inspection only, no body emission or conversion.
+export function initial_layout_probe(book: Bend.Book, names: string[]): any {
+ const show=show_main(book), fams=(show ?? []).flatMap(c => typeof c === "string" ? [Bend.book_fam(book,c)] : []);
+ const fl=file_book(book,["main",...RUNTIME_ADTS,...fams],false);
+ const instances=new Map<string,string[]>();
+ for(const [origin,values] of Object.entries(book.tmps)) {
+  if(!(values instanceof Map))throw new Error("template registry not Map");
+  for(const key of values.values())instances.set(key,[...(instances.get(key) ?? []),origin]);
+ }
+ const selected=[];
+ for(const [key]of done_defs(fl)) {
+  const origins=instances.get(key) ?? [];if(origins.length>1)throw new Error("ambiguous template");
+  const origin=origins[0] ?? key,local=origin.slice(origin.lastIndexOf(":")+1);
+  if(!names.includes(local))continue;
+  const fn=fun_of(fl,key);
+  selected.push({key,origin,local,arguments:fn.live.map(([,name,type],index)=>({name,typeKey:Bend.term_key(Bend.term_lower(type)),beforeWideFallback:lay_of(book,type),argument:fn.lays[index]})),result:fn.ret});
+ }
+ return {scope:"initial reachable file_book/fun_of; no emit_body/val_to/final facts",selected,constructorNodes:Object.keys(book.ctrs).filter(k => ["Frame","InspectOwner","InspectOwnerLink","CheckOwner","CheckOwnerLink"].includes(k.slice(k.lastIndexOf(":")+1))).map(key => ({key,layout:lay_node(book,key)})),reachableDefinitions:[...SRCS.keys()],templateInstances:[...instances]};
+}
