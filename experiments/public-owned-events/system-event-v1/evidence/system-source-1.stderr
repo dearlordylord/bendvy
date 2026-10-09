@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term (../../../../../bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.clauses takes 3 ~)
+- observed : '~'
+Location:
+22 |     case Ev.RegisterFailed{runtime}: DefineRefused{runtime}
+23>|     case Ev.Registered{runtime,reader,registry}: Defined{runtime,Ordinary.Owner{Registration{reader,registry},slot,Query.clauses(~F.Schema,~P.Payload,~Cap.Request<P.Payload,U32,U32>,~F.read_declaration())}}
+   |                                                                                                                                                                                       ^
+24 | def define(runtime:Ev.Runtime<F.Schema,Unit,Log.Log<P.Payload>,U32>,name:String,slot:String) -> Defined:
