@@ -1,0 +1,17 @@
+# Existing finite relation/failure-reader composition join
+
+This joins the already consuming #43 ordinary descriptor application to current #42 canonical relation source. It does not create another implementation or acceptance plan. Run `/usr/bin/python3.11 experiments/public-relations/timing/current-qualification-v1/reader-composition-join-v1/verify.py` in the #42 worker. No compiler/backend child is started.
+
+Authoritative source: `/workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/experiments/public-relation-readers/current-adoption-v1/declaration-adoption-v1` (worker checkpoint 33612f02). Existing `SOURCE-CLOSURE.json`, `transport-v1`, and `evidence-v1` remain authoritative; this thin join references them without rewriting imports or historical receipts. `RESULT.json` records this no-child verification. Historical tool pins are not asserted current; the complete source-derived transports and canonical source identities are checked current.
+
+| Contract / scenario | Existing consuming source (relative to library/public-relation-readers/keyed-candidate) | Complete retained evidence | Remaining owner |
+| --- | --- | --- | --- |
+| Ordinary descriptor-derived independent registration | reader-declaration.bend; pair.bend:20 | Both schemas; distinct fast/slow registrations with Parent:read accesses | #43 public module promotion |
+| Public relation commands remain deferred; failed relation publications reach descriptor readers after barrier | application.bend:55; driven.bend:99 | Complete chronological deliveries, domains, cursor positions and physical Final observations | #42/#43 delivery joins |
+| Reader failure rolls back world/event work and cursor; retry retains affine private owner | application.bend:67; driven.bend:37 | Failure77: slow cursor7, retry11; unrelated fast remains9; Original999 discarded; full owner arrays retained | Existing #43 contract unchanged |
+| Foreign same-schema Factory world handle yields MissingEntity without queue mutation | foreign.bend:46 | Before=after1; both actual world observations retained, both nominal schemas | Existing #42 contract unchanged |
+| Wrong-reader cursor advance and premature failure publication are detected | Existing mutants and independent whole models | Complete JS/Native counterfactuals; whole positive gate rejected | Finite negative coverage only |
+
+Verification: all39 current source pins and per-cohort constructor inventories;18 canonical ECS modules identical across #43 worker, #42 worker and master; every compressed and uncompressed retained member hash; six complete source-derived whole observations versus independent models; three JS/Native byte-identical pairs;51 serialized unchanged guards. Positive stdout70754 bytes, wrong-reader counterfactual76742 bytes, premature-publication counterfactual79744 bytes. There are no new output projections or policy choices.
+
+This establishes the requested **existing finite application composition**, not public adoption of the experimental #43 descriptor/runtime library, its separate full-capacity qualification, universal proof, fair timing, #28, or issue closure. Existing #42 full physical/absence controls and normal nine-case relation/query timing semantics remain separate retained evidence. Root owns any common-src promotion and unchanged #28; #43 owns its remaining delivery contract/qualification. Final source identity must be rejoined if common source changes.

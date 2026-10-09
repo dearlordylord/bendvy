@@ -1,0 +1,122 @@
+{
+  "scope": "Finite current composition source/retained observation join only, not new execution/public promotion/full43capacity/#28/performance",
+  "sourceFiles": 39,
+  "canonical18IdenticalAcross43Worker42AndMaster": {
+    "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+    "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/reader-domains.bend": "1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/relation-commands.bend": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+    "src/ecs/relation-graph.bend": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+    "src/ecs/relation-types.bend": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+    "src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+  },
+  "cohorts": {
+    "positive-js": {
+      "planSHA256": "25d972ce91a6a9f481661454f69791161cf5bd3cba42e5408c87971eb515de25",
+      "wholeOracleSHA256": "1cf4ba67ea13928f6772a42e41c00d5e610cf3e890b1b36906e62b8b0e033e99",
+      "wholeStdoutSHA256": "100ee43204e14e5d5c9fb2ff4b7786a3980fa1d2936b77d8493132700b6dfd4a",
+      "wholeStdoutBytes": 70754,
+      "completeSourceDerivedObservation": true,
+      "serializedGuards": 7,
+      "sourceInventoryFiles": 39,
+      "baselineRejected": null
+    },
+    "positive-native": {
+      "planSHA256": "a28033764757ed9ed1f5d366b054c6f1a5f06d4bcd10ef8c5ce3c7b12c7d88b0",
+      "wholeOracleSHA256": "1cf4ba67ea13928f6772a42e41c00d5e610cf3e890b1b36906e62b8b0e033e99",
+      "wholeStdoutSHA256": "100ee43204e14e5d5c9fb2ff4b7786a3980fa1d2936b77d8493132700b6dfd4a",
+      "wholeStdoutBytes": 70754,
+      "completeSourceDerivedObservation": true,
+      "serializedGuards": 10,
+      "sourceInventoryFiles": 39,
+      "baselineRejected": null
+    },
+    "wrong-reader-advance-js": {
+      "planSHA256": "7998e58a784bb70f6f9bac9d490e57e21b8a93fcac615e0c7a597c0e917afe80",
+      "wholeOracleSHA256": "6b976c4ddc34541f31699c5f987922eee3e8c8b3065fbf2411a41caa2b2a4693",
+      "wholeStdoutSHA256": "5948fec79dc268e6f72ee8287ed86f255ee611a4bfea96646878287884d4d595",
+      "wholeStdoutBytes": 76742,
+      "completeSourceDerivedObservation": true,
+      "serializedGuards": 7,
+      "sourceInventoryFiles": 39,
+      "baselineRejected": true
+    },
+    "wrong-reader-advance-native": {
+      "planSHA256": "f118af22f4c6d9bf24a302ea7fa093fd2c1c2544ed55356d72b5e3c116e360a0",
+      "wholeOracleSHA256": "6b976c4ddc34541f31699c5f987922eee3e8c8b3065fbf2411a41caa2b2a4693",
+      "wholeStdoutSHA256": "5948fec79dc268e6f72ee8287ed86f255ee611a4bfea96646878287884d4d595",
+      "wholeStdoutBytes": 76742,
+      "completeSourceDerivedObservation": true,
+      "serializedGuards": 10,
+      "sourceInventoryFiles": 39,
+      "baselineRejected": true
+    },
+    "premature-publication-js": {
+      "planSHA256": "a64a8bfd14d2ed89eee6e05ffb0a42cf75751c4eb13b3292ffa52fbbabac4360",
+      "wholeOracleSHA256": "4fd1b48078d81794f721fb375930d0fe30c2e9b7782f7cc3a5438448c9c00ddf",
+      "wholeStdoutSHA256": "a61094206d251359284099a5ce24d86fa64d73a8f6a5e2b7bc99709bf40ff63f",
+      "wholeStdoutBytes": 79744,
+      "completeSourceDerivedObservation": true,
+      "serializedGuards": 7,
+      "sourceInventoryFiles": 39,
+      "baselineRejected": true
+    },
+    "premature-publication-native": {
+      "planSHA256": "cdfb8f5839ca386dce2816cc42c492197546b40a45ebcc8e8c60c5b815593d34",
+      "wholeOracleSHA256": "4fd1b48078d81794f721fb375930d0fe30c2e9b7782f7cc3a5438448c9c00ddf",
+      "wholeStdoutSHA256": "a61094206d251359284099a5ce24d86fa64d73a8f6a5e2b7bc99709bf40ff63f",
+      "wholeStdoutBytes": 79744,
+      "completeSourceDerivedObservation": true,
+      "serializedGuards": 10,
+      "sourceInventoryFiles": 39,
+      "baselineRejected": true
+    }
+  },
+  "serializedGuards": 51,
+  "coverage": {
+    "alpha": {
+      "independentRegisteredReaders": [
+        "fast",
+        "slow"
+      ],
+      "failedReaderCode": 77,
+      "slowCursorOnFailure": 7,
+      "slowCursorAfterRetry": 11,
+      "unaffectedFastCursor": 9,
+      "foreignQueueStatus": "MissingEntity",
+      "foreignQueueBeforeAfter": [
+        1,
+        1
+      ],
+      "allAffineOwnerObservationsRetained": true
+    },
+    "beta": {
+      "independentRegisteredReaders": [
+        "fast",
+        "slow"
+      ],
+      "failedReaderCode": 77,
+      "slowCursorOnFailure": 7,
+      "slowCursorAfterRetry": 11,
+      "unaffectedFastCursor": 9,
+      "foreignQueueStatus": "MissingEntity",
+      "foreignQueueBeforeAfter": [
+        1,
+        1
+      ],
+      "allAffineOwnerObservationsRetained": true
+    }
+  },
+  "compilerChildren": 0
+}
