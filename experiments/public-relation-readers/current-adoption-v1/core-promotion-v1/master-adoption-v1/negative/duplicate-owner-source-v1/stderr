@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: bad
+7 | 
+8>| def bad(~H:Type,~S:Data,~E:Data,~cap:Cap.ValueRead<H,List<&2,Read.KeyReading<S,E>>>,owner:H) -> H & (H & List<&2,Read.KeyReading<S,E>>):
+  |                                                                                     ^^^^^
+9 |   (owner,Provider.gameplay(~H,~S,~E,~cap,owner))
+bend 2.0.36 is available: run bend update

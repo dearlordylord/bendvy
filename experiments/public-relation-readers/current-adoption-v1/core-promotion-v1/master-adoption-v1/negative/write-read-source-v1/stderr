@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueWrite<bad~H, U32, List<&2, Read.KeyReading<bad~S, bad~E>>>
+- observed : Cap.ValueRead<bad~H, List<&2, Read.KeyReading<bad~S, bad~E>>>
+Context:
+- owner : bad~H
+Location: bad
+ 8 | def bad(~H:Type,~S:Data,~E:Data,~cap:Cap.ValueRead<H,List<&2,Read.KeyReading<S,E>>>,owner:H) -> H:
+ 9>|   Cap.value_set(~H,~U32,~List<&2,Read.KeyReading<S,E>>,~cap,owner,7)
+   |                                                         ^^^
+10 | 
+bend 2.0.36 is available: run bend update
