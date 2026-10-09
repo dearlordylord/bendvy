@@ -1,0 +1,5 @@
+Source-derived correction to the complete wrong-reader counterfactual, before reading or comparing retained actual output. Original cd83 oracle and failed attempt remain immutable.
+
+The old model copied delivery7's domain queue into the final observation because slow cursor0 prevents retirement. That preserved logical batches but overlooked physical queue normalization at frame. Reached queue.bend:29–32 normalize reverses back into front when front is empty; trim_loop:44–47 always calls normalize before testing retention. domains.bend:28–40 gives descriptor1 boundary0 because actual slow reader2 remains cursor0, so both tick8 batches are retained, in oldest-first front, with empty back. runtime-v14.frame:31–33 calls that trim twice in the consuming observer path. Retention prevents removal, not normalization.
+
+The separately versioned whole v2 oracle changes only final descriptor1 queue.front/back in both schemas. All deliveries, values, owners, cursors, namespaces, clocks, metadata, other applications and unaffected queues remain exactly originalcd83. No core contract or implementation change; no backend replay or output-derived model values.
