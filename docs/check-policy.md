@@ -65,6 +65,8 @@ boundaries. Previously frozen wrappers retain their reviewed bytes.
 
 Start from the guard composition in the [constructor runner](../experiments/public-bundles/production-candidate/transactions/invalid-constructor-v1/run.py), adapting the consumer and command plan. Before requesting execution review, prepare the concrete wrapper, source/helper inventories, ordinary installed-tool snapshot, environment binding, ancestor configuration presence states, generated-output guards and full oracle. Completion means the reviewer can trace every planned command through central `Runner` and the same before/after guards. A list of planned commands is preparation evidence only.
 
+At execution entry, verify that the running interpreter resolves to the interpreter pinned in the admitted plan (for Python, resolve `sys.executable`). Hashing a prepared interpreter path does not establish which interpreter is executing the wrapper. Reuse the existing declaration-reader runner check when adapting another Python collector.
+
 Use `owned-tool-pins.py` snapshot/verify for the ordinary path. Historical binary hashes alone do not establish current resource membership, resolver or configuration state. Preserve the original failed or unadmitted plan when preparing its replacement. Reuse retained positive evidence when sources and its scope still match; concentrate new commands on changed behavior and missing controls.
 
 ## Portable evidence verification
