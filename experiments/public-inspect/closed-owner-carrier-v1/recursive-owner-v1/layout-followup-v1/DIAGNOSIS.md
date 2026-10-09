@@ -1,5 +1,13 @@
 # Full consuming Inspector qualification: bounded diagnosis
 
+Current result: the isolated optional nonflat once-tail outlining experiment
+emits the complete unchanged Inspector C (original81505 exit0, 32,192,296 bytes).
+[Preserved actual evidence](../../../../public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/compiler-research-v1/outline-once-v1/actual-v1/README.md)
+records exact source/tool guards and completed diagnostic counters. This is a
+modified copied compiler, not installed Native qualification. Clang, complete
+runtime oracle and compiler semantic controls remain outstanding. The observations
+below are retained history; they do not describe a new failed attempt.
+
 The complete two-schema consumer retains all23 actual grants and the original5,077,477-byte independent oracle. Closed owner carriers, recursive owner boxing, private prior-DTO continuations and four ordered IO blocks each have positive full source5 development evidence. Installed C emission remained incomplete at the approved30-second cap; raw receipts/guards are retained, without timeout-to-cause inference. No failed candidate reached Clang or whole runtime oracle equality. Stop wrapper/entry variants here.
 
 The exact copied-reference recursive consumer sampled25 seconds of emission: lay_eq3037/15056 unweighted leaf samples, GC1644. Source implements layout equality through repeated JSON serialization, and callers recursively box/unbox/convert constructor fields. It does not disclose argument layout widths or Bend definition provenance. The source-domain ordered comparator controls passed, but its full consuming reference diagnostic also aborted/noC (lay_eq4721/19032, GC2414). These censored proportions neither establish progress rate nor benchmark speed. Tool candidate is not adopted.
