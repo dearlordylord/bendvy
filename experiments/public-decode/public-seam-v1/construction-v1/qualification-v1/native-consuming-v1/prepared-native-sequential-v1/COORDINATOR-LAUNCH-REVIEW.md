@@ -1,0 +1,7 @@
+# Full22 artifact-only Native admission
+
+Scoped PASS by coordinator, independent of author0230f0a6. Admit original plan4e1452f219a3f804ef287402207f2820cc55495995d9ffa465c66280a46eb7c7 at the author-worktree manifest path. Existing native-from-c changes add only the positive native-consuming mode/entry and required transport helper pins; old defaults and guarded recipe remain.
+
+Actual checks PASS: all84 current input entries and complete resource bytes/membership; exact plan digest; no receipt/executable; actual C4151483 bytes SHA c04eb5d57a246ae6800b3362b46af33b813ba65526201c2efd6748f550c7b73f joins the successful emission receipt314cd2f4 and admitted emission plan5fe61b19. Root check-native-binding.py confirms exact positive source/artifact join, historical absent binding, refusal of source/artifact drift and mutant entry. Independent whole22 oracle84e0 remains pinned.
+
+Commands are existing private Clang19 -O3 build120 on CPU5, then run5 --threads1 --gpuoff on CPU5. No re-emission, tool/dependency change or cap increase. Interpreter/file/resource admission before source-byte helper loading, shared actual-child lock, acquired/post/final guards, generated-artifact inventory and unconditional failure receipts remain unchanged. Whole typed and exact raw stdout plus empty runtime stderr are required. Reviewer ran no compiler/runtime child. This gives launch admission only: actual Native results, independent review, performance and issue acceptance remain outstanding.
