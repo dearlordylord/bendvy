@@ -1,0 +1,11 @@
+# Detached canonical leaf observation
+
+The unchanged canonical caller performs its ordinary system read and declaration-derived Inspector enumeration for both nominal schemas. The observer now returns each original affine Delivery plus a detached String. It follows the existing owner-observer/world-observer pattern: recursively view and restore every Array, retain complete column values/lifecycle metadata and World fields, resource, Frame cursor, factory, rows, clauses, ordinary access, previous payload and events. It imposes no Data restriction on component or resource owners.
+
+Function-owner lists (World pending commands and transaction undo/commands) are opaque: count and current-empty are observed, and the original callback values are returned unchanged without execution. The entire Delivery is observed twice; the second complete snapshot consumes the owner returned by the first. The IO entry prints the detached result, then its private completion continuation receives the retained two Deliveries for fixture teardown. This does not select a public disposal/finalizer contract or claim introspection of callback contents.
+
+The generic column observer covers plain and Indexed ordinary carriers, including wrapper shape, all value-tree cells and complete metadata arrays/capacity/depth/exceptional stamps. Prepared variants are explicitly unsupported and retain the actual owner; the complete expected gate must refuse that marker. This is a complete observation of the selected ordinary caller state, not a generic serializer for all storage representations.
+
+Both IO entries passed pinned source5/CPU5 with snapshots and postguards. The pure-Report refusal and its independent historical expectations remain untouched in the parent directory. `observe.bend` and `mutant-observe.bend` have identical bodies after the nominal caller import substitution; the sole operational mutant remains the inherited library-derived Read clause omission. Independent successor expectations belong in `oracle-v2`; no backend result has been consulted.
+
+The next gate is the cheapest complete actual JS observation, then corresponding Native and reached clause control through the existing collector after changed-entry/model review. Full23 Native, broader #54/#56 delivery, foreign/held policy and performance remain open.
