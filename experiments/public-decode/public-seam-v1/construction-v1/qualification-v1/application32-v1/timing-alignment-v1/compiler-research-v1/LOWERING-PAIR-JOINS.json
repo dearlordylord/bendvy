@@ -1,0 +1,235 @@
+{
+  "scope": "retained static pair and lowering counters only, no child/new diagnostics",
+  "joins": [
+    {
+      "path": "/tmp/bendvy-inspect54-initial-layout01/initial-layout.json",
+      "sha256": "f3b2d2eba5d6c2aa5f41d5e6a2487c46b0bff5fd06604f4b9af5fd50c6e45074",
+      "bytes": 3373272
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-lowering-cost01/cost.json",
+      "sha256": "11fc0d23afcb7c40de2e488908023ccc1fe969107292ebb0ee747759f78edf9f",
+      "bytes": 3206762
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts",
+      "sha256": "32fb66e09f608ce9e4b173384bcfeec453db8c5bc96650e26ad861bef815a8d9",
+      "bytes": 185829
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/layout-followup-v1/leaf-lift-v1/stage/owner-carrier.bend",
+      "sha256": "5d4cf325f244f113db24fdcbddb7ca5542f2f90973ae507421cd8261e36068e7",
+      "bytes": 6904
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/layout-followup-v1/leaf-lift-v1/stage/runtime-owners.bend",
+      "sha256": "00e82aab8f589dea834108ce69de4c5da18c15f62830f699d91eecbe6192114c",
+      "bytes": 534
+    }
+  ],
+  "nodeFrameWidth": 24,
+  "actualFrameWidth": 34,
+  "exactDifferences": [
+    {
+      "path": "CheckOwner.frame/core-v1/src/ecs/check:Frame:0/core-v1/src/ecs/world:World:7",
+      "node": {
+        "ks": [
+          "box"
+        ],
+        "arms": null
+      },
+      "instantiated": {
+        "ks": [
+          "box",
+          "box",
+          "box",
+          "box",
+          "box",
+          "box",
+          "box",
+          "w32",
+          "w32",
+          "w32",
+          "w32"
+        ],
+        "arms": {
+          "runtime-owners:Resource": [
+            {
+              "ks": [
+                "box"
+              ],
+              "arms": null
+            },
+            {
+              "ks": [
+                "box",
+                "box"
+              ],
+              "arms": {
+                "runtime-owners:Extra": [
+                  {
+                    "ks": [
+                      "box"
+                    ],
+                    "arms": null
+                  },
+                  {
+                    "ks": [
+                      "box"
+                    ],
+                    "arms": null
+                  }
+                ]
+              }
+            },
+            {
+              "ks": [
+                "box",
+                "box",
+                "box",
+                "box",
+                "w32",
+                "w32",
+                "w32",
+                "w32"
+              ],
+              "arms": {
+                "runtime-owners:Diagnostic": [
+                  {
+                    "ks": [
+                      "box"
+                    ],
+                    "arms": null
+                  },
+                  {
+                    "ks": [
+                      "box"
+                    ],
+                    "arms": null
+                  },
+                  {
+                    "ks": [
+                      "box"
+                    ],
+                    "arms": null
+                  },
+                  {
+                    "ks": [
+                      "box"
+                    ],
+                    "arms": null
+                  },
+                  {
+                    "ks": [
+                      "w32"
+                    ],
+                    "arms": {
+                      "False": [],
+                      "True": []
+                    }
+                  },
+                  {
+                    "ks": [
+                      "w32"
+                    ],
+                    "arms": {
+                      "False": [],
+                      "True": []
+                    }
+                  },
+                  {
+                    "ks": [
+                      "w32"
+                    ],
+                    "arms": null
+                  },
+                  {
+                    "ks": [
+                      "w32"
+                    ],
+                    "arms": null
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "storeLayoutEqual": true,
+  "selectedCounters": [
+    {
+      "key": "owner-carrier:check_target~32",
+      "bodyCalls": 20076,
+      "entries": 1,
+      "completed": 1,
+      "aborted": 0,
+      "wallNsInclusive": 2612354,
+      "userUsInclusive": 2616,
+      "systemUsInclusive": 0,
+      "wallNsSelf": 2612354,
+      "userUsSelf": 2616,
+      "systemUsSelf": 0,
+      "valTo": 210795,
+      "cacheHits": 160,
+      "cacheMisses": 6,
+      "lines": 1107511,
+      "chars": 28809257
+    },
+    {
+      "key": "owner-carrier:check_target~12",
+      "bodyCalls": 20076,
+      "entries": 1,
+      "completed": 1,
+      "aborted": 0,
+      "wallNsInclusive": 1289135,
+      "userUsInclusive": 1288,
+      "systemUsInclusive": 0,
+      "wallNsSelf": 1289135,
+      "userUsSelf": 1288,
+      "systemUsSelf": 0,
+      "valTo": 210795,
+      "cacheHits": 163,
+      "cacheMisses": 3,
+      "lines": 1107511,
+      "chars": 28790828
+    },
+    {
+      "key": "query:lookup_valid~6",
+      "bodyCalls": 100,
+      "entries": 1,
+      "completed": 1,
+      "aborted": 0,
+      "wallNsInclusive": 2077076571,
+      "userUsInclusive": 2071299,
+      "systemUsInclusive": 5685,
+      "wallNsSelf": 2077076571,
+      "userUsSelf": 2071299,
+      "systemUsSelf": 5685,
+      "valTo": 240,
+      "cacheHits": 28228,
+      "cacheMisses": 0,
+      "lines": 655,
+      "chars": 16436
+    },
+    {
+      "key": "query:grant~16",
+      "bodyCalls": 7,
+      "entries": 1,
+      "completed": 1,
+      "aborted": 0,
+      "wallNsInclusive": 2093640074,
+      "userUsInclusive": 2082673,
+      "systemUsInclusive": 10870,
+      "wallNsSelf": 2093640074,
+      "userUsSelf": 2082673,
+      "systemUsSelf": 10870,
+      "valTo": 12,
+      "cacheHits": 45112,
+      "cacheMisses": 0,
+      "lines": 11,
+      "chars": 351
+    }
+  ]
+}
