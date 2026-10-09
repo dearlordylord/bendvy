@@ -1,13 +1,13 @@
 {
   "scope": "Direct whole current application development JS preparation only, no child executed",
-  "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/experiments/public-relation-readers/current-adoption-v1/development-js-v1/plan.json",
-  "planSHA256": "a2955fc276da8dab5a3dfdb88aa79e5b40685aaadae14925f556016e1f658bbe",
+  "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/experiments/public-relation-readers/current-adoption-v1/development-js-v2/plan.json",
+  "planSHA256": "2a8f121306c615e6a5b55e4528725f7189967179cd166c6c6997148e6fa3cd55",
   "pins": 55,
   "sourceCount": 38,
   "wholeIndependentOracleSHA256": "12ac1a036e525fa92417129364a03b6212dd241bee3b10e664fd9a840861d01a",
   "tests": {
     "typedWholeAndNegativeControls": 6,
-    "fdInterpreterBoundary": 4
+    "fdInterpreterBoundary": 5
   },
   "knownPreparationFailure": {
     "stage": "metadata only before output directory existed",
@@ -19,5 +19,13 @@
     30,
     5
   ],
-  "CPU": 5
+  "CPU": 5,
+  "supersededPlans": [
+    {
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-43-readers-current/experiments/public-relation-readers/current-adoption-v1/development-js-v1/plan.json",
+      "planSHA256": "a2955fc276da8dab5a3dfdb88aa79e5b40685aaadae14925f556016e1f658bbe",
+      "reason": "Unexecuted v1 omitted regular partial generated artifact on failed emit; retained unchanged."
+    }
+  ],
+  "failureArtifactRepair": "Regular generated artifact hashed before child failure evaluation; failed-emit mock retains primary failure, raw streams and generated digest in post/final guards. No backend."
 }
