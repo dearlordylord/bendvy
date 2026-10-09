@@ -123,3 +123,68 @@ JS 0.90532474, Native 0.98513866); that bounded workload does not qualify the
 full simulation, whose matched current JS/TS ratio remains 3.34450. #61 stays
 open: two independently authored complete public applications and the remaining
 capability/performance gates are still required.
+
+## Capability scope reconciliation — #61 preparation
+
+[Current SPEC decisions](../SPEC.md#implementation-decisions) and the
+[porting workflow](../agent-workflow.md#porting-scope-and-concerns) govern this
+overlay: required scope is Rust Bevy capabilities represented in pinned bevy-ts,
+plus explicitly approved extras. An export, existing issue or prior experimental
+execution does not approve a TS-only mechanism. This classifies all 23 existing
+inventory modules without changing their census or closing #61.
+
+Status: **required** means the underlying Bevy capability; **existing contract**
+means an explicitly retained SPEC/user decision (not a newly approved extension);
+**pending** means a TS-only mechanism or unresolved observable adaptation. Mixed
+modules are not approved wholesale. Owners below are existing tracking issues,
+not evidence of permission.
+
+| Inventory module | Underlying capability / scope status | TS mechanism or unresolved extra | Existing owner |
+| --- | --- | --- | --- |
+| Brand | Required typed identity/authority | JS symbols and structural phantom brands are language mechanisms; use Bend nominal/schema indices | #38/#61 |
+| Command | Required deferred structural commands, bundles and barriers | JS callback queue representation is not required; existing foreign-command MissingEntity contract remains binding | #41/#38/#35 |
+| Condition | Required read-only run conditions | Inspector callback/context facade is a mechanism; no broader mutable predicate contract inferred | #54/#55 |
+| Debug | Existing contract: opt-in read-only descriptions/dumps and observations (SPEC story30; user #56 enable-debug rule) | Particular TS DTOs, subscriptions and presentation helpers are not wholesale requirements; arbitrary Type presentation remains explicit | #56/#57 |
+| Decode | Existing contract: typed native validation and exact constructor/refusal owners | Standard Schema, unknown/JS-number reflection and host bridge pending separately; exact TS decoder helper algebra not automatically required | #46/#59/#61 |
+| Definition | Required reusable typed component/bundle declarations | Tuple/record mapped-type helper APIs are TS mechanisms; no separate generic JS record algebra approval | #41/#46/#61 |
+| Descriptor | Required components/resources/events and typed state; existing native construction/persistence contract | Symbol descriptors, Standard Schema adapters pending; transient save omission is an existing bounded persistence contract, not universal host reconstruction | #46/#47/#53/#58 |
+| Entity | Required entity handles, lookup/liveness and safe mutation | Intent/proof/draft TS brands are mechanisms; approved world isolation supersedes TS colliding-ID behavior | #38/#41/#60 |
+| EntityScope | Existing contract: grouped lifetime cleanup (SPEC story26) | Named nominal scope-token implementation differs from Bevy relationships/state-scoped cleanup; complete persistent/restore behavior remains unresolved | #45/#60 |
+| Feature | Required reusable application composition; existing schema/feature scope (story5) | TS pre-bind Game builder and lexical feature-access typing are mechanisms, not exact API targets | #39/#40/#61 |
+| Fx | Existing contract: typed system failure/read-your-writes/failed-system rollback | Delayed Fx environment, map/flatMap/access/provide/runSync package algebra is TS-specific and pending as a standalone API | #50/#51/#52/#61 |
+| Inspector | Required read-only query/resource/stream access and run conditions; existing observation contract | Unified TS Inspector/check facade is a mechanism; declared access and noninterference required, every helper/export is not | #54/#55/#56 |
+| Machine | Required represented Bevy state/NextState and enter/exit/transition schedules | TS values-array machine declarations and generic state-machine facade require Bend-native adaptation; full enumerable state universe is not inferred from Family | #48/#49/#55/#56 |
+| Query | Required read/write/optional/with/without/lifecycle selections | JS cell/result wrapper algebra is a mechanism; arbitrary affine owner recovery requires its selected contract, not copying host aliases | #35/#42/#47/#51/#52/#61 |
+| Relation | Required directed/inverse relationships, hierarchy and cleanup | TS name/pair brands and failure-result wrapper shapes are mechanisms; exact traversal/refusal contracts remain tracked | #42/#43/#44 |
+| Requirement | Required system parameter/resource availability/access; existing checked provisioning (story10) | Nominal union of descriptor/machine/host-service tokens is a mechanism; JS service/environment integration is not implied | #34/#54/#55/#61 |
+| Result | Required fallible typed outcomes where selected | Tagged JS Result helper package, exact combinator surface and exception conventions are not standalone approved extras | #46/#51/#61 |
+| Runtime | Required world execution, schedules, commands and readers | Bound JS Game/runtime object is a mechanism; automatic failed-system rollback is an existing explicit Bendvy contract, not Rust Bevy default behavior | #35/#38/#50/#53/#61 |
+| Schedule | Required order, phases, conditions, deferred application and state-transition schedules | Nested JS arrays/marker tokens are mechanisms; no implicit rollback/flush beyond selected contracts | #34/#35/#48/#49/#52 |
+| Schema | Required typed component/resource registration and access isolation; existing fragments contract | JS record merging, reflected names and bound Game factory are mechanisms; complete UTF16 field keys remain pending host scope | #39/#40/#46/#61 |
+| Snapshot | Existing contract: explicitly bounded save/restore (story29); Bevy reflection/scenes support related capability | TS whole-World DTO, validation gates and allocator/runtime reconstruction are not interchangeable with Bevy scene serialization; exact restore policies remain open | #58/#59/#60 |
+| System | Required typed SystemParams, Local, repeated systems, access and failure | JS captured aliases and closure ownership do not transfer to affine Type; #50/#53 capture/event policies must be selected explicitly | #36/#50/#51/#52/#53/#61 |
+| index | Reexport inventory only; inherits each capability's status | Barrel namespace/path compatibility is not a runtime capability | #61 |
+
+Primary-source anchors (same frozen pins as the census): Bevy
+`bevy_ecs/src/world/mod.rs:1243,2056` and `bundle/mod.rs:202` establish typed
+spawn/resource/Bundle boundaries; `system/system_param.rs:262,1189` supplies
+SystemParam/Local; `schedule/condition.rs:75` supplies run conditions;
+`relationship/mod.rs` supplies relationship architecture;
+`bevy_state/src/state/transitions.rs:19–68` supplies transition schedules/events.
+Bevy `reflect/component.rs:81,146` requires explicit reflection registration; it
+does not provide an inverse for every arbitrary affine Bend Type. TS
+`Descriptor.ts:95,157,513` separates constructor, transient and Standard Schema
+mechanisms; `Decode.ts:161` uses JS object-key reflection; `Fx.ts` documents
+failed-system rollback through its effect facade; `Snapshot.ts:78–126` defines
+its particular saved DTO/errors. Bend README:226 and installed Base
+`Nat.read`/type definitions supply affine/runtime constraints; pinned reference
+source and installed compiler provenance remain distinct.
+
+Outstanding scope decisions are genuinely separate: Standard Schema and JS-host
+interop; standalone Fx/Result/Definition helper parity; any TS-specific inspector
+facade beyond approved read-only capabilities; complete machine enumeration or
+runtime snapshot reconstruction beyond selected contracts. Existing typed native
+validation/construction, approved rollback and #56 enable-debug requirements
+continue. Their current experimental or integrated evidence does not approve
+these extras. Full public applications, capability evidence and numeric gates
+remain open under their existing owners and #61.
