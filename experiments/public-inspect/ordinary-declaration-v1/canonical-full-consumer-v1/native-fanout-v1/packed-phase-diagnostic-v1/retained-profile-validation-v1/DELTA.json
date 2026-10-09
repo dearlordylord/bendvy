@@ -1,0 +1,24 @@
+{
+  "originalValidator": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/validate-profile.py",
+  "originalSHA256": "a76bbb4787784ba23514f248316069c1982dc11ce0ad61de5342954d69bed4e4",
+  "successorSHA256": "fd3f3320cb7aa10c4005c25afe85667988d9922e4f5fd628ea122dbc41e35e88",
+  "patches": [
+    {
+      "original": "plan=json.loads((root/'plan.json').read_text())",
+      "replacement": "plan=json.loads((root/'plan.json').read_text())\nroot=Path(plan['retainedRoot'])"
+    },
+    {
+      "original": "ids=[n['id'] for n in nodes];assert len(ids)==len(set(ids))",
+      "replacement": "ids=[n['id'] for n in nodes];id_set=set(ids);assert len(ids)==len(id_set)"
+    },
+    {
+      "original": "i in ids for i in samples",
+      "replacement": "i in id_set for i in samples"
+    },
+    {
+      "original": "child in ids for child in node.get('children',[])",
+      "replacement": "child in id_set for child in node.get('children',[])"
+    }
+  ],
+  "scope": "Only retained-root binding plus duplicate-checked unique set reused for sample/child membership; all full schema/frame/phase/capture/count checks unchanged"
+}
