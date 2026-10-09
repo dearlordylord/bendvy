@@ -1,0 +1,53 @@
+import assert from 'node:assert/strict';
+import {Schema,Descriptor,Entity} from '/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts';
+import {streamCapacity} from '/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts';
+const publications=65537;
+assert.equal(streamCapacity,65536);
+const output=[];
+const failure=(relation,target)=>({operation:'relate',relation,source:1,target,error:target===1?{_tag:'SelfRelationNotAllowed',entityId:1,relation}:{_tag:'MissingTargetEntity',entityId:1,targetId:target,relation}});
+const alpha=failure('Alpha',1),beta=failure('Beta',1);
+const overflowExpected=Array.from({length:Math.min(publications,streamCapacity)},(_,index)=>failure('Beta',1000+Math.max(0,publications-streamCapacity)+index));
+for(const root of ['ReadersAlpha','ReadersBeta']){
+ const {relation:Alpha}=Descriptor.Hierarchy('Alpha','AlphaChildren');
+ const {relation:Beta}=Descriptor.Hierarchy('Beta','BetaChildren');
+ const Left=Descriptor.Component()('Left'),Right=Descriptor.Component()('Right'),Baseline=Descriptor.Resource()('Baseline');
+ const G=Schema.bind(Schema.fragment({components:{Left,Right},resources:{Baseline},relations:{Alpha,Beta}}),Schema.defineRoot(root));
+ const runtime=G.Runtime.make({debug:true,resources:{Baseline:[301,302]}});let id,label,enabled=false;
+ let deliveries=[];
+ const encode=f=>({operation:f.operation,relation:f.relation.name,source:f.source.value,target:f.target.value,error:f.error});
+ const condition=G.Condition.check('enabled',{},()=>enabled);
+ const onlyAlpha=G.System('only-alpha',{relationFailures:{alpha:G.System.readRelationFailures(Alpha)}},({relationFailures})=>{deliveries.push({reader:'only-alpha',alpha:{lagged:relationFailures.alpha.lagged(),values:relationFailures.alpha.all().map(encode)}});});
+ const onlyBeta=G.System('only-beta',{relationFailures:{beta:G.System.readRelationFailures(Beta)},when:[condition]},({relationFailures})=>{deliveries.push({reader:'only-beta',beta:{lagged:relationFailures.beta.lagged(),values:relationFailures.beta.all().map(encode)}});});
+ const both=G.System('both',{relationFailures:{alpha:G.System.readRelationFailures(Alpha),beta:G.System.readRelationFailures(Beta)}},({relationFailures})=>{deliveries.push({reader:'both',alpha:{lagged:relationFailures.alpha.lagged(),values:relationFailures.alpha.all().map(encode)},beta:{lagged:relationFailures.beta.lagged(),values:relationFailures.beta.all().map(encode)}});});
+ const tick=(...steps)=>assert.equal(runtime.tick(G.Schedule(...steps)).ok,true);
+ const flush=G.Schedule.applyDeferred();
+ const capture=()=>{output.push({root,label,world:structuredClone(runtime.debug.dump()),streams:structuredClone(runtime.debug.streams()),deliveries});deliveries=[];};
+ const expectedSingle=(reader,key,values,lagged=false)=>[{reader,[key]:{lagged,values}}];
+ const expectedBoth=(a,b,lagged=false)=>[{reader:'both',alpha:{lagged:false,values:a},beta:{lagged,values:b}}];
+ tick(G.System('seed',{},({commands})=>{id=commands.spawn(G.Command.spawn([Left,[11,12]],[Right,[21,22]]));}),flush);
+ label='never-activated-beta';tick(onlyAlpha,onlyBeta);assert.deepEqual(deliveries,expectedSingle('only-alpha','alpha',[]));capture();
+ assert.ok(!runtime.debug.streams().some(s=>s.readers.some(r=>r.system==='only-beta')));
+ tick(G.System('publish-two',{},({commands})=>{commands.relate(id,Alpha,id);commands.relate(id,Beta,id);}),flush);
+ label='age-unheld-beta';tick(onlyBeta);tick(onlyBeta);assert.deepEqual(deliveries,[]);capture();
+ assert.equal(runtime.debug.streams().find(s=>s.stream==='Alpha').size,1);assert.equal(runtime.debug.streams().find(s=>s.stream==='Beta').size,0);
+ label='alpha-held';tick(onlyAlpha);assert.deepEqual(deliveries,expectedSingle('only-alpha','alpha',[alpha]));capture();
+ enabled=true;label='beta-first';tick(onlyBeta);assert.deepEqual(deliveries,expectedSingle('only-beta','beta',[]));capture();
+ label='register-both';tick(both);assert.deepEqual(deliveries,expectedBoth([],[]));capture();
+ label='publication-queued';tick(G.System('publish-capacity',{},({commands})=>{commands.relate(id,Alpha,id);for(let index=0;index<publications;index++)commands.relate(id,Beta,Entity.makeEntityId(1000+index));}));capture();
+ label='after-publication';tick(flush);capture();
+ label='capacity-trim';tick();capture();
+ const streams=runtime.debug.streams();assert.equal(streams.find(s=>s.stream==='Alpha').size,1);assert.equal(streams.find(s=>s.stream==='Beta').size,Math.min(publications,streamCapacity));
+ label='alpha-not-lagged';tick(onlyAlpha);assert.deepEqual(deliveries,expectedSingle('only-alpha','alpha',[alpha]));capture();
+ label='beta-exact-ordered';tick(onlyBeta);assert.deepEqual(deliveries,expectedSingle('only-beta','beta',overflowExpected,publications>streamCapacity));capture();
+ label='shared-independent-lag';tick(both);assert.deepEqual(deliveries,expectedBoth([alpha],overflowExpected,publications>streamCapacity));capture();
+ label='activated-beta-skip';enabled=false;tick(G.System('publish-after-read',{},({commands})=>commands.relate(id,Beta,Entity.makeEntityId(70000))),flush,onlyBeta);assert.deepEqual(deliveries,[]);capture();
+ label='beta-resume-empty';enabled=true;tick(onlyBeta);assert.deepEqual(deliveries,expectedSingle('only-beta','beta',[]));capture();
+ label='shared-retains-skipped-beta';tick(both);assert.deepEqual(deliveries,expectedBoth([],[failure('Beta',70000)]));capture();
+ label='consumed';tick(onlyAlpha,onlyBeta,both);assert.deepEqual(deliveries,[...expectedSingle('only-alpha','alpha',[]),...expectedSingle('only-beta','beta',[]),...expectedBoth([],[])]);capture();
+ for(const checkpoint of output.filter(x=>x.root===root)){
+  assert.deepEqual(checkpoint.world.entities,[{id:1,components:{Left:[11,12],Right:[21,22]},relations:{}}]);
+  assert.deepEqual(checkpoint.world.resources,{Baseline:[301,302]});
+  assert.deepEqual(checkpoint.world.machines,{});
+ }
+}
+export const result = {developmentOnly:true,capacity:streamCapacity,publications,defaultCapacityOverflow:publications>streamCapacity,output};
