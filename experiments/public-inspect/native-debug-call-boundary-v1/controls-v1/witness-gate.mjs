@@ -1,6 +1,6 @@
 // Pure metadata gate; only actual emitter logs can qualify consuming coverage.
 export function validate(name, baseline, candidate, beforeIdentity, afterIdentity) {
- if(!beforeIdentity||!afterIdentity||beforeIdentity.sha256!==afterIdentity.sha256)throw new Error('checked Book identity mismatch');
+ if(!beforeIdentity||!afterIdentity||!beforeIdentity.bindingSHA256||beforeIdentity.bindingSHA256!==afterIdentity.bindingSHA256)throw new Error('checked Book identity mismatch');
  const allowed=beforeIdentity.allowed;
  if(JSON.stringify(allowed)!==JSON.stringify(afterIdentity.allowed))throw new Error('checked specialization identity mismatch');
  const exact=(author,name)=>Array.isArray(allowed[author])&&allowed[author].includes(name);

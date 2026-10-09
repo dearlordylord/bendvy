@@ -2,6 +2,14 @@
 import * as fs from 'node:fs';
 import {createHash} from 'node:crypto';
 const sha=value=>createHash('sha256').update(value).digest('hex');
+// Checked .e contains compiler-normalized shared type cells. Its full bytes are
+// evidence, while source bindings and the original .e root remain guarded.
+export function bindingSHA(artifact) {
+ const definitions=Object.fromEntries(Object.entries(artifact.definitions).map(([k,d])=>{
+  const {e,...binding}=d;return [k,binding];
+ }));
+ return sha(JSON.stringify({...artifact,definitions}));
+}
 export function snapshot(Bend,book,entry) {
  const source=fs.readFileSync(entry);
  const term=x=>x==null?null:Bend.term_key(Bend.term_lower(x));
@@ -10,7 +18,7 @@ export function snapshot(Bend,book,entry) {
   definitions[name]=def.$==='Def'?{kind:def.$,n:def.n,x:def.x,T:term(def.T),v:term(def.v),e:def.e==null?null:Bend.term_key(def.e),b:def.b??null,u:def.u??null,i:def.i??null,m:def.m??null}:{kind:def.$,n:def.n,g:def.g,T:term(def.T),b:def.b??null,c:def.c.map(c=>({k:c.k,n:c.n,T:term(c.T)}))};
  }
  const artifact={sourcePath:fs.realpathSync(entry),sourceSHA256:sha(source),hols:book.hols,order:[...book.order],definitions,constructors:Object.fromEntries(Object.entries(book.ctrs).map(([k,c])=>[k,{k:c.k,n:c.n,T:term(c.T)}])),templates:Object.fromEntries(Object.entries(book.tmps).map(([k,v])=>[k,[...v.entries()]]))};
- return {artifact,sha256:sha(JSON.stringify(artifact))};
+ return {artifact,sha256:sha(JSON.stringify(artifact)),bindingSHA256:bindingSHA(artifact)};
 }
 export function capture(Bend,book,entry,initial=snapshot(Bend,book,entry)) {
  if(book.hols!==0)throw new Error('unchecked Book holes');
@@ -33,9 +41,10 @@ export function capture(Bend,book,entry,initial=snapshot(Bend,book,entry)) {
  }
  for(const names of Object.values(allowed))Object.freeze(names);Object.freeze(allowed);
  const refs=new Map(Object.entries(book.tlds));
+ const checkedRoots=new Map(Object.entries(book.tlds).map(([k,v])=>[k,v.e]));
  function verify() {
   const after=snapshot(Bend,book,entry);
-  if(after.sha256!==initial.sha256||[...refs].some(([k,v])=>book.tlds[k]!==v))throw new Error('checked Book or source Def mapping changed');
+  if(after.bindingSHA256!==initial.bindingSHA256||[...refs].some(([k,v])=>book.tlds[k]!==v)||[...checkedRoots].some(([k,e])=>book.tlds[k].e!==e))throw new Error('checked Book or source Def mapping changed');
   return after;
  }
  return {...initial,allowed,verify};
