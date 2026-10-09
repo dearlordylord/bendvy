@@ -25,11 +25,13 @@ Use the [runner recipe](check-policy.md#preparing-a-focused-runner).
 Inventory source, tools, environment, outputs and oracle before launch review.
 
 Lock compiler/runtime/performance children and heavy oracle materialization;
-prepare lightweight metadata outside. Use the
-[immutable dependency helper](check-policy.md#immutable-dependency-stages):
-discover outside the lock, review resolver inventory, statically validate,
-then revalidate after acquisition. Preserve pre/post guards and unconditional
-failure receipts. Guard generated artifacts before consumption.
+prepare lightweight metadata outside. Start with ordinary installed-tool
+snapshot/verify from the [runner recipe](check-policy.md#preparing-a-focused-runner).
+Use the optional [immutable dependency session](check-policy.md#immutable-dependency-stages)
+when a closed resolver inventory is already reviewed; its preparation is a
+separate optimization, not a prerequisite for ordinary delivery. Preserve
+pre/post guards and unconditional failure receipts. Guard generated artifacts
+before consumption.
 
 Coordinators assign independent available reviewers; record oracle authorship,
 launch admission and actual-output review. Reviewers own reports; authors fix
