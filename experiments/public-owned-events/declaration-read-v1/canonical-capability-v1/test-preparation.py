@@ -1,5 +1,5 @@
 """No-child current binding, interpreter and whole transport controls."""
-import copy,hashlib,importlib.util,json,sys,tempfile,unittest
+import copy,hashlib,importlib.util,json,os,py_compile,sys,tempfile,unittest
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 spec=importlib.util.spec_from_file_location('canonical_reader_collector',HERE.parent/'development-run.py');R=importlib.util.module_from_spec(spec);spec.loader.exec_module(R)
@@ -24,4 +24,20 @@ class Preparation(unittest.TestCase):
   with self.assertRaises(AssertionError):R.interpreter_and_inputs(wrong)
   wrong=copy.deepcopy(plan);wrong['inputs'][plan['tools']['python']]='0'*64
   with self.assertRaises(AssertionError):R.interpreter_and_inputs(wrong)
+ def test_timestamp_valid_cache_cannot_replace_source(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   path=Path(tmp)/'helper.py';path.write_text("VALUE='stale'\n");py_compile.compile(str(path),doraise=True);stamp=path.stat().st_mtime_ns;path.write_text("VALUE='fresh'\n");os.utime(path,ns=(stamp,stamp))
+   spec=importlib.util.spec_from_file_location('cached_control',path);cached=importlib.util.module_from_spec(spec);spec.loader.exec_module(cached);self.assertEqual(cached.VALUE,'stale')
+   self.assertEqual(R.load('exact_control',path).VALUE,'fresh')
+ def test_real_main_refuses_helper_drift_before_import(self):
+  original=R.load;loaded=[]
+  def refuse(name,path):loaded.append(name);raise RuntimeError('repository helper imported too soon')
+  with tempfile.TemporaryDirectory() as tmp:
+   plan=json.loads(Path('/tmp/bendvy53-canonical-generic-js03/plan.json').read_bytes())
+   plan['inputs'][str(R.ROOT/'scripts/task_runner.py')]='0'*64
+   path=Path(tmp)/'plan.json';path.write_text(json.dumps(plan)+'\n');digest=hashlib.sha256(path.read_bytes()).hexdigest();R.load=refuse
+   try:
+    with self.assertRaisesRegex(AssertionError,'admitted file drift'):R.main(Path(tmp),execute=True,plan_digest=digest)
+   finally:R.load=original
+   self.assertEqual(loaded,[]);self.assertFalse((Path(tmp)/'receipt.json').exists())
 if __name__=='__main__':unittest.main()

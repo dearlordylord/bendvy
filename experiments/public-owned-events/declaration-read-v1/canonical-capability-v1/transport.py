@@ -1,10 +1,11 @@
 """Strict existing generic/registered transport with source-only entry rebinding."""
-import importlib.util
+import types
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
-PARENT=Path('/workspace/formal-proofs/bendvy/experiments/public-owned-events/declaration-read-v1/transport.py')
+PARENT=HERE.parent/'transport.py'
 def parser(role):
- spec=importlib.util.spec_from_file_location('canonical_declaration_transport',PARENT);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+ source=VERIFIED_SOURCES[str(PARENT)] if globals().get('VERIFIED_SOURCES') else PARENT.read_bytes()
+ m=types.ModuleType('canonical_declaration_transport');m.__file__=str(PARENT);m.__dict__['VERIFIED_SOURCES']=globals().get('VERIFIED_SOURCES',{});exec(compile(source,str(PARENT),'exec'),m.__dict__)
  p,t=m.parser(role);p.ENTRY=HERE/'source/declaration-read-v1'/('main.bend'if role=='generic'else'registered-v1/main.bend')
  return p,t
 def render(role,value):

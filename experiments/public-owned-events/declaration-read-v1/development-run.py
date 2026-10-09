@@ -16,10 +16,15 @@ HERE = Path(__file__).resolve().parent
 ROOT = Path('/workspace/formal-proofs/bendvy')
 
 
+VERIFIED_SOURCES = {}
 def load(name,path):
-    spec = importlib.util.spec_from_file_location(name,path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    import types
+    path=Path(path).resolve(strict=True)
+    source=VERIFIED_SOURCES[str(path)] if VERIFIED_SOURCES else path.read_bytes()
+    module=types.ModuleType(name)
+    module.__file__=str(path)
+    module.__dict__['VERIFIED_SOURCES']=VERIFIED_SOURCES
+    exec(compile(source,str(path),'exec'),module.__dict__)
     return module
 
 
@@ -68,6 +73,9 @@ def main(out,native=False,execute=False,plan_digest=None,role="generic",binding_
     admitted = admitted_plan(plan_path,plan_digest) if execute else None
     if execute:
         interpreter_and_inputs(admitted)
+        global VERIFIED_SOURCES
+        VERIFIED_SOURCES={name:Path(name).read_bytes() for name,digest in admitted['inputs'].items() if isinstance(digest,str) and name.endswith('.py')}
+        assert all(hashlib.sha256(data).hexdigest()==admitted['inputs'][name] for name,data in VERIFIED_SOURCES.items()), 'captured helper source drift'
         assert admitted['native'] == native, 'backend differs from admitted plan'
         assert not (out/'receipt.json').exists(), 'prepared cohort already executed'
     else:

@@ -1,11 +1,12 @@
 """Exact source-derived ordinary declaration DTOs; reviewed strict parser reused."""
-import importlib.util
+import types
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 ROOT=Path('/workspace/formal-proofs/bendvy')
 PARSER=HERE.parent/'registered-read-v1/transport.py'
 def parser(role):
- s=importlib.util.spec_from_file_location('declaration_'+role,PARSER);p=importlib.util.module_from_spec(s);s.loader.exec_module(p)
+ source=VERIFIED_SOURCES[str(PARSER)] if globals().get('VERIFIED_SOURCES') else PARSER.read_bytes()
+ p=types.ModuleType('declaration_'+role);p.__file__=str(PARSER);p.__dict__['VERIFIED_SOURCES']=globals().get('VERIFIED_SOURCES',{});exec(compile(source,str(PARSER),'exec'),p.__dict__)
  if role=='registered':p.ENTRY=HERE/'registered-v1/main.bend';return p,'Batch'
  assert role=='generic';p.ENTRY=HERE/'main.bend'
  gm=str(ROOT/'experiments/public-owned-events/generic-scoped-read-v1/main.bend')
