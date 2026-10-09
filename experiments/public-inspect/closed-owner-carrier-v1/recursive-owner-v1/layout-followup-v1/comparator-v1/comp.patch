@@ -1,0 +1,44 @@
+--- reviewed-profile/comp.ts
++++ comparator/comp.ts
+@@ -9,9 +9,9 @@
+ // the device, or to JS. The C and JS runtimes close the file.
+ 
+ import * as fs from "node:fs";
+-import { checkBudget } from "./profile-budget.mjs";
+-
+-import * as Bend from "../../schema-partition-v1/garden-reference-diagnostic-v1/bend.ts";
++import { checkBudget } from "../../cpu-profile-v1/profile-budget.mjs";
++
++import * as Bend from "../../../schema-partition-v1/garden-reference-diagnostic-v1/bend.ts";
+ 
+ // Types
+ // =====
+@@ -1015,7 +1015,27 @@
+ 
+ function lay_eq(a: Lay, b: Lay): boolean {
+   diagnostic_watch("lay_eq");
+-  return a === b || JSON.stringify(a) === JSON.stringify(b);
++  if (a === b) return true;
++  if (a.ks.length !== b.ks.length) return false;
++  for (let i = 0; i < a.ks.length; ++i) if (a.ks[i] !== b.ks[i]) return false;
++  if (a.arms === null || b.arms === null) return a.arms === b.arms;
++  let at = 0;
++  for (const key in a.arms) {
++    if (!Object.hasOwn(a.arms, key)) continue;
++    let found = false, index = 0;
++    for (const other in b.arms) {
++      if (!Object.hasOwn(b.arms, other)) continue;
++      if (index++ === at) { if (key !== other) return false; found = true; break; }
++    }
++    if (!found) return false;
++    const xs = a.arms[key], ys = b.arms[key];
++    if (xs.length !== ys.length) return false;
++    for (let i = 0; i < xs.length; ++i) if (!lay_eq(xs[i], ys[i])) return false;
++    ++at;
++  }
++  let count = 0;
++  for (const key in b.arms) if (Object.hasOwn(b.arms, key)) ++count;
++  return count === at;
+ }
+ 
+ function lay_c(k: Kind): string {
