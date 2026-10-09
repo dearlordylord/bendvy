@@ -15,6 +15,10 @@ def main(plan_path,admitted):
  plan_path=Path(plan_path).resolve(strict=True)
  if sha(plan_path)!=admitted:raise ValueError('exact plan digest required')
  p=json.loads(plan_path.read_text());root=Path(p['cwd'])
+ for path,digest in p['pins'].items():
+  if sha(path)!=digest:raise ValueError('pre-import file pin drift')
+ actual_python=str(Path(sys.executable).resolve(strict=True))
+ if actual_python!=p['executionPython'] or sha(actual_python)!=p['pins'].get(actual_python):raise ValueError('approved actual interpreter drift')
  if len(p['commands'])!=9 or p['mutation']!='last-leaf':raise ValueError('only complete Native lastleaf9 cohort')
  T=load('runner',root/'scripts/task_runner.py');L=load('logs',root/'scripts/receipt-logs.py');B=load('boundary',root/'scripts/evidence_boundary.py')
  inputs=T.Inputs(files=[plan_path,*p['pins']],directories=p['resourceRoots'])
