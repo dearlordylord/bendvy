@@ -1,0 +1,11 @@
+# Pre-accumulated prior phase: complete successor consumer
+
+Source-only successor to the frozen nominal full-JS-pass/Native-arity-failure fixture. Reference detail evidence ada188915 identifies the final offending continuation: enclosing plain_failed_done calls observation.plain_observe while retaining baseline2 + detached1 + prior Phase94, then receives Observed199 =296 words. This reference evidence guides the source change without binding installed ELF internals.
+
+Exactly three category-specific retry_start helpers now receive the existing List<Phase> accumulator [phase] before performing the actual retry-observe. failed_done passes factory/baseline/[phase]/detached/the actual retained app/world into that helper. The retry still resets the same fail flag, runs the same actual App/SP/Sch dispatch, observes complete owners/world/Trace, and advances the same later phases. No observation is removed or precomputed. The intended representation benefit is carrying the boxed list rather than the flattened previous Phase across the observed call; whether codegen realizes it remains unmeasured.
+
+All three categories, all baseline15 + actualApp5 phases each, same closed owner carrier, full error/refusal/foreign-world/removed-record/detached-owner/cursor/clock/description fields remain. Public ECS declarations, fixture-only refusal policy and whole oracle unchanged. Common module imports resolve to the exact original files. SOURCE-DELTA.json records exact parent text equivalence after inverse transformation of only these three helpers/branches; all other copied modules match apart from resolved common import paths.
+
+Actual full60 main passed direct source5 firstattempt, session38183 exit0. Raw stdout/stderr retained. Exact source-derived namespace map47sources/68 constructors and inherited typed parser preserve full3ac85c oracle. Synthetic is remapped only by exact source semantic constructor identities from independent pre-backend synthetic; whole equality and six complete parser/control tests PASS (session30043). Synthetic has no trailing newline; no byteidentity to runtime asserted.
+
+No backend has been launched, no installed cause/speedup/Native/performance/resolver/full#56 completion claim. Original failed source/plans/evidence remain immutable. Root source/transport and fresh plan review required before execution.
