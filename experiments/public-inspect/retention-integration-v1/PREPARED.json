@@ -1,0 +1,187 @@
+{
+  "scope": "Current13-step retention models, stock installed2.0.35 first; no runtime/adoption/performance claim",
+  "collector": "/workspace/formal-proofs/bendvy/experiments/public-owned-events/declaration-read-v1/development-run.py",
+  "collectorSha256": "5c69d58c45e71000c1771f06d70f87b6f68f90234f57de11c761a05ea05df523",
+  "plans": [
+    {
+      "name": "normal",
+      "native": false,
+      "plan": "/tmp/bendvy54-retention-backend01/normal-js/plan.json",
+      "planSha256": "9f960dde54334d062c4a1280898f5bf0dc2e4a5a3a87217caca8b62b2224994b",
+      "binding": "/tmp/bendvy54-retention-backend01/normal-binding.json",
+      "bindingSha256": "f79002f5c49bc01db8475cc4843cab6950f531f5f14f43dc863bf3e8252a6e09",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/main.bend",
+            "-o",
+            "/tmp/bendvy54-retention-backend01/normal-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/tmp/bendvy54-retention-backend01/normal-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy54-retention-backend01/normal-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "name": "normal",
+      "native": true,
+      "plan": "/tmp/bendvy54-retention-backend01/normal-native/plan.json",
+      "planSha256": "0f3de892c4d3d1470fb12de277026fb62cd969aae253fd1638591a3fbfbecdc1",
+      "binding": "/tmp/bendvy54-retention-backend01/normal-binding.json",
+      "bindingSha256": "f79002f5c49bc01db8475cc4843cab6950f531f5f14f43dc863bf3e8252a6e09",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/main.bend",
+            "-o",
+            "/tmp/bendvy54-retention-backend01/normal-native/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/tmp/bendvy54-retention-backend01/normal-native/generated/complete.c"
+        },
+        {
+          "label": "complete-build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy54-retention-backend01/normal-native/generated/complete.c",
+            "-o",
+            "/tmp/bendvy54-retention-backend01/normal-native/generated/complete.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "artifact": "/tmp/bendvy54-retention-backend01/normal-native/generated/complete.native"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy54-retention-backend01/normal-native/generated/complete.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "name": "retainer",
+      "native": false,
+      "plan": "/tmp/bendvy54-retention-backend01/retainer-js/plan.json",
+      "planSha256": "595e4a701a773842ca37107c5be7773337e84f457cdf7b89eb1ff70940da0755",
+      "binding": "/tmp/bendvy54-retention-backend01/retainer-binding.json",
+      "bindingSha256": "9f8031b017410929fa729946c838c77a28940f6dd384bd910f177d7f2ff36d65",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/mutant-retainer/main.bend",
+            "-o",
+            "/tmp/bendvy54-retention-backend01/retainer-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/tmp/bendvy54-retention-backend01/retainer-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy54-retention-backend01/retainer-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "name": "retainer",
+      "native": true,
+      "plan": "/tmp/bendvy54-retention-backend01/retainer-native/plan.json",
+      "planSha256": "aa51fd74dc65bac917ec8516307fb3f29b366f1690eb1fc3edd5e2a432c077db",
+      "binding": "/tmp/bendvy54-retention-backend01/retainer-binding.json",
+      "bindingSha256": "9f8031b017410929fa729946c838c77a28940f6dd384bd910f177d7f2ff36d65",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-54-layout-provenance/experiments/public-inspect/retention-integration-v1/mutant-retainer/main.bend",
+            "-o",
+            "/tmp/bendvy54-retention-backend01/retainer-native/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/tmp/bendvy54-retention-backend01/retainer-native/generated/complete.c"
+        },
+        {
+          "label": "complete-build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy54-retention-backend01/retainer-native/generated/complete.c",
+            "-o",
+            "/tmp/bendvy54-retention-backend01/retainer-native/generated/complete.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "artifact": "/tmp/bendvy54-retention-backend01/retainer-native/generated/complete.native"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy54-retention-backend01/retainer-native/generated/complete.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    }
+  ]
+}

@@ -78,3 +78,35 @@ results. `check-source.py` refuses preexisting attempt directories and snapshots
 source bytes before the child. Checks establish source syntax/types/ownership
 only; compiler/helper source pins do not imply complete environment/tool resolver
 qualification. Historical attempts are not rebound to current sources.
+
+## Frozen backend preparation (no execution)
+
+`PREPARED.json` identifies four original `/tmp/bendvy54-retention-backend01`
+cohorts and exact plan/binding digests. `prepared-v1/` retains their public bytes;
+private environment files stay outside Git. The collector is the **existing**
+canonical `public-owned-events/declaration-read-v1/development-run.py`, selected
+via its reviewed explicit assembly binding. No collector/helper code changed.
+Its historical `role=generic` label selects transport plumbing only; it does not
+claim a generic owned-event declaration scenario was executed by this fixture.
+Bindings select actual normal/mutant entries, exact recursive source closures,
+current complete JSON/raw models, original source-loaded strict parser and stock
+Bend2.0.35/Node24.20 tools. Python interpreter is admitted before repository
+helper loading; all reached Python helpers use captured pinned source bytes.
+
+Each JS cohort is emit30/Node5; each stock Native cohort is emit30/approved
+Clang19 -O3 build120/run5 threads1 GPUoff. CPU5/internal sole heavy-child lock,
+input/resource/generated/raw pre/acquired/post/final guards and unconditional
+failure receipts remain the existing collector recipe. Generated C/JS/binary is
+captured and guarded before next-stage consumption. Consumer stderr must be
+empty; emission diagnostics stay verbatim. Complete countermodel equality is
+required, not merely a positive-model mismatch. Full unchanged baseline refusal
+must also be recorded in the eventual reached mutation evidence; no results yet.
+Old installed emission failures on other Inspector subjects are not reinterpreted
+as results for this new source. No alternate copied compiler fallback is planned.
+
+Transport uses exact source constructor inventory and retains all13 snapshots;
+normal/mutant nominal namespaces are bound separately. Three roundtrip/refusal
+controls and two real no-child plan/interpreter admission controls pass. Raw
+oracles were rendered entirely from the independently reviewed JSON models
+before any backend output. Runtime plans are **unused and unadmitted** until the
+coordinator's exact recipe review. Root checkout relocation is not qualified.
