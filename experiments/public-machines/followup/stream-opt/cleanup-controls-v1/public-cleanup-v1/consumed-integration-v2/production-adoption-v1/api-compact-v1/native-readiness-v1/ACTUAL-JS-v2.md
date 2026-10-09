@@ -1,0 +1,5 @@
+All four exact admitted JS v2 plans completed once, sequentially using the collector's internal shared lock: post-consumption normal session 75722, failed-batch normal 94633, post-consumption mutant 46120, failed-batch mutant 40909. Every emit and consumer exited zero; complete independent normal and countermodels matched, with empty runtime stderr.
+
+`js-evidence-v2` preserves 728 lossless members: complete plans, receipts, raw outputs, generated JS, 28 guards, independent models and consumed source/helper snapshots. `python3 verify-js-evidence.py` passed exact progressive pin/resource inventories, raw/artifact hashes and whole parsed model comparisons. No backend replay was used for archival validation.
+
+Together with the separately retained Native v3 evidence, these observations qualify the selected complete canonical normal factory scenes and reached copied cleanup mutants. Trusted callback obligations remain explicit; this is neither a universal ownership proof nor a performance measurement. The default regression gate and issue acceptance reconciliation remain separate delivery requirements.
