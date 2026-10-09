@@ -1,3 +1,5 @@
+Current execution and successor status: see [CONTROL-RESULT.md](CONTROL-RESULT.md) and [SUCCESSOR-PLANS.json](SUCCESSOR-PLANS.json). The following records d2595de0 preparation history.
+
 # Complete23 private Check fanout candidate
 
 Source-only candidate; no backend launch. Full canonical47-source subject copied
