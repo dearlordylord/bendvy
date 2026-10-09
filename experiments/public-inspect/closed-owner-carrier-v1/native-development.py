@@ -31,6 +31,22 @@ def load(name, path):
     return module
 
 
+def write_raw(target, value):
+    target = Path(target)
+    if target.exists() or target.is_symlink():
+        raise ValueError('Raw output must start absent')
+    with target.open('xb') as stream:
+        stream.write(value)
+
+
+def verify_raw(target, expected):
+    target = Path(target)
+    if target.is_symlink() or not target.is_file():
+        raise ValueError('Raw stream must be a regular non-symlink file')
+    if sha(target) != expected:
+        raise ValueError('Raw stream changed')
+
+
 def validate_imports(stage, inventory):
     stage = Path(stage).resolve(strict=True)
     reached = set()
@@ -112,8 +128,8 @@ def run(plan_path, expected_sha):
                 raise ValueError('Generated artifact must be a regular non-symlink file')
         for row in record['commands']:
             for key in ('stdout', 'stderr'):
-                if key in row and sha(row[key]['path']) != row[key]['sha256']:
-                    raise ValueError('Raw stream changed')
+                if key in row:
+                    verify_raw(row[key]['path'], row[key]['sha256'])
         if validate_imports(plan['stage'], plan['sourceInventory']) != plan['importClosure']:
             raise ValueError('Import closure changed')
         actual = {path: sha(path) for path in pins}
@@ -144,7 +160,7 @@ def run(plan_path, expected_sha):
                 for key, value in result.items():
                     if isinstance(value, bytes):
                         target = out / (label + '.' + key)
-                        target.write_bytes(value)
+                        write_raw(target, value)
                         row[key] = {'path': str(target), 'sha256': sha(target), 'bytes': len(value)}
                     else:
                         row[key] = value
