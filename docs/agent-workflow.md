@@ -51,8 +51,10 @@ negative controls.
 Use the [runner recipe](check-policy.md#preparing-a-focused-runner).
 Inventory source, tools, environment, outputs and oracle before launch review.
 
-Lock compiler/runtime/performance children and heavy oracle materialization;
-prepare lightweight metadata outside. Start with ordinary installed-tool
+Choose one lock owner from the runner implementation. Invoke collectors with
+internal locking directly; reserve an external cohort lock for runners without
+that lock. Lock compiler/runtime/performance children and heavy oracle
+materialization; prepare lightweight metadata outside. Start with ordinary installed-tool
 snapshot/verify from the [runner recipe](check-policy.md#preparing-a-focused-runner).
 Use the optional [immutable dependency session](check-policy.md#immutable-dependency-stages)
 when a closed resolver inventory is already reviewed; its preparation is a
@@ -60,15 +62,12 @@ separate optimization, not a prerequisite for ordinary delivery. Preserve
 pre/post guards and unconditional failure receipts. Guard generated artifacts
 before consumption.
 
-Coordinators assign independent available reviewers; record oracle authorship,
-launch admission and actual-output review. Reviewers own reports; authors fix
-runners. Resume completed authors with `followup_task` after exact-plan admission.
-Reviews may overlap; heavy children share the lock and existing caps.
-
-Review routing, execution code and every stage before launch. Re-review code,
-input-recipe or gate changes; preserve frozen attempts and in-flight runs.
-Continue reviewed stages without intermediate handoffs; coordinators may admit
-artifact-only stages matching the reviewed recipe and guarded ledger.
+Batch source, complete oracle and all stage recipes into one independent launch
+review. Reviewers own reports; authors execute the admitted sequence and return
+one final evidence commit. Resume completed authors with `followup_task`.
+Reopen review for changed code, recipes or gates; stage status alone is not a
+handoff. Coordinators may admit artifact-only stages matching the reviewed
+recipe and guarded ledger. Preserve frozen attempts and in-flight runs.
 
 ## Approvals
 
