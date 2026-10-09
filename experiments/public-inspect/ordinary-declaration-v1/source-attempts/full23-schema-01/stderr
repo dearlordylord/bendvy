@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (a def parameter is not comptime)
+- observed : Carrier.inspect_grant
+Location: bad
+10 | def bad() -> Q.ReadQuery<I.Frame<F.Garden,F.Store<F.Garden>,Unit,U32>,F.Garden,N.ValueEmpty>:
+11>|   Carrier.inspect_grant(~F.Garden,~Unit,~N.ValueEmpty,~N.inspect_empty(~F.Workshop,~Unit),~T.inspect_world(~F.Garden,~F.Store<F.Garden>,~Unit,~U32))
+   |   ^^^^^^^^^^^^^^^^^^^^^
+12 | 
+bend 2.0.36 is available: run bend update

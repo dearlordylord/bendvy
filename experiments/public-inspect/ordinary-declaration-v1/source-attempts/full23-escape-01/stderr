@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : ../stage/owner-carrier.InspectOwner with 4 parameters
+- observed : Carrier.InspectOwner<F.Workshop, Unit>
+Context:
+- H     : Type
+- cap   : D.Read<H, F.Workshop, Unit>
+- owner : H
+Location: bad
+5 | 
+6>| def bad(~H:Type,~cap:D.Read<H,F.Workshop,Unit>,owner:H) -> Carrier.InspectOwner<F.Workshop,Unit>:
+  |                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+7 |   owner
+bend 2.0.36 is available: run bend update

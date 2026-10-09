@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- message  : a declared datatype (unknown: runtime-named-declarations.runtime-declarations:Store)
+Context:
+- S        : Data
+- Resource : Type
+Location: inspect_empty
+17 |     case Unit{}:ValueEmpty{}
+18>| def inspect_empty(~S:Data,~Resource:Type) -> Q.Selection<Carrier.InspectOwner<S,D.Store<S>,Resource,U32>,S,ValueEmpty>:
+   |                                                                                 ^^^^^^^^^
+19 |   Q.map(~Carrier.InspectOwner<S,D.Store<S>,Resource,U32>,~S,~Unit,~ValueEmpty,~D.inspect_empty(~S,~Resource),~name_empty)
+bend 2.0.36 is available: run bend update

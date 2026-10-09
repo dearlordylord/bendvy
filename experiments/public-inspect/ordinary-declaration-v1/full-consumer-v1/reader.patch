@@ -1,0 +1,18 @@
+--- stage/families.bend
++++ mutant-reader/families.bend
+@@ -19,9 +19,14 @@
+ def inspect_joined(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,cursor:U32,observed:W.World<S,Store,R,E> & C.Access<V>) -> I.Frame<S,Store,R,E> & C.Access<V>:
+   (world,value)=observed
+   (I.Frame{world,cursor},value)
++# Reached semantic mutation: perform the original C.get first, retaining its
++# actual World/affine payload; omit only the detached leaf read result.
++def omitted_read(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,cursor:U32,observed:W.World<S,Store,R,E> & C.Access<V>) -> I.Frame<S,Store,R,E> & C.Access<V>:
++  match observed:
++    case (world,_):(I.Frame{world,cursor},C.ComponentAbsent{})
+ def inspect_read(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~Payload:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,Payload>,~put:Rest -> Col.Column<S,Payload> -> Store,~project:Payload -> Payload & V,~family:C.Family<S,Store,Rest,Payload,V,Token,take,put,project>,frame:I.Frame<S,Store,R,E>,target:W.Handle<S>) -> I.Frame<S,Store,R,E> & C.Access<V>:
+   match frame:
+-    case I.Frame{world,cursor}:inspect_joined(~S,~Store,~R,~E,~V,cursor,C.get(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~project,family,world,target))
++    case I.Frame{world,cursor}:omitted_read(~S,~Store,~R,~E,~V,cursor,C.get(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~project,family,world,target))
+ def inspect_matched(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,mode:P.Selection,observed:I.Frame<S,Store,R,E> & C.Access<V>) -> I.Frame<S,Store,R,E> & Bool:
+   (frame,value)=observed
+   (frame,P.selected_value(~V,mode,value))

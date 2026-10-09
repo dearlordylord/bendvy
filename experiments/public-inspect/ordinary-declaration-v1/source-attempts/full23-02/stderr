@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Data
+- observed : Q.Selection<Carrier.InspectOwner<Families.Workshop, Families.Store<Families.Workshop>, inspect_empty_workshop~Resource, U32>, Families.Workshop, ValueEmpty>
+Context:
+- owner : I.Frame<Families.Workshop, Families.Store<Families.Workshop>, inspect_empty_workshop~Resource, U32>
+Location: inspect_empty_workshop
+20 | def inspect_empty_workshop(~Resource:Type,owner:I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>) -> I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32> & List<&2,Queries.Row<Families.Workshop,ValueEmpty>>:
+21>|   Queries.each(~I.Frame<Families.Workshop,Families.Store<Families.Workshop>,Resource,U32>,~Families.Workshop,~ValueEmpty,~Carrier.inspect_grant(~Families.Workshop,~Resource,~ValueEmpty,~inspect_empty(~Families.Workshop,~Resource),~Traversal.inspect_world(~Families.Workshop,~Families.Store<Families.Workshop>,~Resource,~U32)),owner)
+   |                                                                                                                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+22 | def inspect_empty_garden(~Resource:Type,owner:I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32>) -> I.Frame<Families.Garden,Families.Store<Families.Garden>,Resource,U32> & List<&2,Queries.Row<Families.Garden,ValueEmpty>>:
+bend 2.0.36 is available: run bend update

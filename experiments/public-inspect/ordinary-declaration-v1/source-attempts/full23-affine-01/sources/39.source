@@ -1,0 +1,7 @@
+import Base
+import ../stage/selection.bend as D
+import ../stage/owner-carrier.bend as Carrier
+import ../stage/schema-families.bend as F
+import ../../../../../src/ecs/world.bend as W
+def bad(~H:Type,~cap:D.Read<H,F.Workshop,Unit>,owner:H) -> Carrier.InspectOwner<F.Workshop,Unit>:
+  owner

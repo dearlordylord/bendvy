@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : D.Selection<bad~H, bad~S, Unit>
+- observed : D.Read<bad~H, bad~S, Unit>
+Context:
+- cap    : D.Read<bad~H, bad~S, Unit>
+- owner  : bad~H
+- target : W.Handle<bad~S>
+Location: bad
+6 | def bad(~H:Type,~S:Data,cap:D.Read<H,S,Unit>,owner:H,target:W.Handle<S>) -> H & Bool:
+7>|   D.matches_field(~H,~S,~Unit,cap)(owner,target)
+  |                               ^^^
+8 | 
+bend 2.0.36 is available: run bend update
