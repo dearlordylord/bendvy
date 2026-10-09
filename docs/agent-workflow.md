@@ -48,9 +48,9 @@ verification probes outside that lock; keep the full pre/post validation and
 unconditional failure receipt. Revalidate the launch boundary after acquiring the lock. Review this
 routing as a collector change before execution; keep frozen in-flight runs intact.
 
-Review execution code and the full stage sequence before launch. Bind generated
-artifacts through the guarded output ledger, then continue without intermediate
-handoffs. Re-review changes to code, inputs or gate scope; preserve frozen attempts.
+Before launch, review execution code and all stages; guard generated artifacts
+in the output ledger before consumption and proceed without intermediate handoffs.
+Re-review code, input or gate-scope changes; preserve frozen attempts.
 
 ## Parallel review routing
 
@@ -70,7 +70,9 @@ Read [SPEC](SPEC.md) for approval requirements on specific laws, numerical perfo
 
 Read [R-A](../experiments/ra-provider/README.md) and [R-C1](../experiments/rc1-query/README.md) before extending query/storage.
 
-Use Bend types and affine ownership for arbitrary `Type` payloads; Data-only components remain unapproved. Re-test abstract-handle confinement when extending the API.
+Support arbitrary `Type` payloads through Bend types and affine ownership;
+Data-only components remain unapproved. Re-test abstract-handle confinement
+after API extensions.
 
 ## Executable src/ecs delivery
 
