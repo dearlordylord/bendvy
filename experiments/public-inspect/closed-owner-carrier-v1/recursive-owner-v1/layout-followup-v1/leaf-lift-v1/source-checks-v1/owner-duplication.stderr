@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: bad
+5 | 
+6>| def bad(~S:Data,~R:Type,owner:Carrier.InspectOwner<S,R>) -> Carrier.InspectOwner<S,R> & Carrier.InspectOwner<S,R>:
+  |                         ^^^^^
+7 |   (owner,owner)
