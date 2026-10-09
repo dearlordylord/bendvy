@@ -19,3 +19,5 @@ Concrete scope gaps, not inferred acceptance:
 - No source-current backend/mutant/negative execution, timing/scaling, unchanged #28 regression, public full46 closure or universal law is claimed here.
 
 Host model retains undefined/symbol/wrapped paths, exact issue owner identity booleans, actual Promise refusal vs thenable acceptance, thrown sentinel identity, decode-over-result selection, full checked Raw representation and rejected malformed providers. Finite Float value is exact F32 conversion of1.1, not numerical output normalization.
+
+Prelaunch source self-audit: Request.enqueue projects the already constructed P, therefore PacketView.original is CANON while owner.original remains VALID. These distinct source fields are deliberately retained. Initial model commit is historical unadmitted preparation; current corrected model follows the actual callsite before any backend output.

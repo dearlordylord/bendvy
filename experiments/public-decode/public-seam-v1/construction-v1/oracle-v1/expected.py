@@ -44,7 +44,7 @@ def raw_resource():
 def materialization():
  access=['constructed-raw-owner','constructed-raw-resource']
  registration=c('RegistrationMeta',id=1,name='constructed-materialization',access=access)
- seed=owner(CANON);packet=c('PacketView',owner=some(owner(CANON,VALID,True)),original=VALID,canonical=CANON)
+ seed=owner(CANON);packet=c('PacketView',owner=some(owner(CANON,VALID,True)),original=CANON,canonical=CANON)
  def snap(nextId=2,live=None,clock=1,slots=None,stamps=None,pending=0,retired=None,returned=None,errors=None):
   return c('Snapshot',meta=meta(nextId,nextId-1,2 if nextId==2 else 4,1 if nextId==2 else 2,clock,[registration],2),live=[False,True] if live is None else live,column=c('ColumnView',supported=True,slots=[some(seed)] if slots is None else slots,stamps=[c('Entry',id=1,stamp=c('Stamp',added=1,changed=1))] if stamps is None else stamps),mail=c('MailView',value=owner(number(100)),retired=retired or [],returned=returned or [],errors=errors or []),pending=pending)
  def report(mode):
