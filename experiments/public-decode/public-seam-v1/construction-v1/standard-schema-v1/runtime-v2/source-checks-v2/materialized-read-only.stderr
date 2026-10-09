@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.OwnedRequest<body~H, Constructed.Input<body~S, Input.Input>, Constructed.Output<body~S, Input.Input, Business.Owner, Business.Error>>
+- observed : Cap.Read<body~H, D.Raw>
+Context:
+- input : Constructed.Input<body~S, Input.Input>
+- ctx   : body~H
+Location: body
+ 8 | def body(~S:Data,~H:Type,~cap:Cap.Read<H,D.Raw>,input:Constructed.Input<S,Input.Input>,ctx:H) -> H & Constructed.Output<S,Input.Input,Business.Owner,Business.Error>:
+ 9>|   Cap.owned_request(~H,~Constructed.Input<S,Input.Input>,~Constructed.Output<S,Input.Input,Business.Owner,Business.Error>,~cap,ctx,input)
+   |                                                                                                                            ^^^
+10 | 
+bend 2.0.36 is available: run bend update
