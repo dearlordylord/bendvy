@@ -4,7 +4,7 @@ import gzip,hashlib,importlib.util,json,os,re,sys
 sys.dont_write_bytecode=True
 HERE=Path(__file__).resolve().parent
 BASE=HERE.parents[3]
-ROOT=HERE.parents[8]
+ROOT=HERE.parents[7]
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 def verify_source():
  source=(HERE.parent/'driver.bend').read_text()
