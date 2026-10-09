@@ -1,0 +1,13 @@
+# Actual finer profiles
+
+Exact admitted plan bac63b05425bf5389b85f6369cbbc292394d8c288d573362c252c5c583af2009 ran once, original session92565. Both Node interval flags were accepted; two commands exited zero, empty stderr and unchanged whole simulation output. Nine guards/48 probes and CPU/heap artifacts are losslessly archived. `python3 verify.py` separately validates the actual new files and their generated/final-guard hashes, with no children.
+
+Admission/receipt caveat: the unchanged inherited validator's profile-shape check hardcodes the ORIGINAL profile directory. Its stdout/typed gates are actual, but its profile-shape cases do not qualify these new artifacts. This packet's explicit actual-file check supplies that missing observation separately; no rerun or historical receipt rewrite. The inherited sequencing status is likewise not a new sequencing qualification.
+
+CPU interval100µs produced209 samples (46.978ms sampled weight;47.253ms process span). Allocation interval8192bytes produced171 samples (2,366,712 estimated sample bytes), compared with40/3 originally. Whole-process startup/JIT/printer remain included; these are sampled diagnostic estimates, not exact allocation/RSS.
+
+Largest self weights: program8.455ms, loader.wrapSafe6.304ms, consumer-start.created specialization1260 5.107ms, show_val2.824ms, GC1.398ms. The created function at generated line349 is only a branch invoking Readers.register, corresponding to consumer-start.bend:24. Its large charge can reflect lazy compilation/cold work; the profile cannot separate that from computation. Other application frames are diffuse: column.indexed_view_state0.339ms, system.run_namespace_checked0.311ms, movement-transaction.traversed0.298ms. This does not confirm earlier tx_get as dominant.
+
+Heap samples now spread across owner snapshots, transaction/World reconstruction, registered systems and events. Loader/file-reading allocations dominate individual estimates. The former event-runtime.run_reading estimate524KB reduces to one8,240-byte sample here; infer neither leak nor a524KB allocation at that site.
+
+Small faithful shared-source candidate remains fusing component.tx_get's intermediate read-result packaging with transaction restoration, preserving get validation and the exact once-per-read take/project/put sequence. It may reduce World/Tuple/Tx object churn, but neither these profiles nor their sparse per-site samples establish material payoff. Avoid presence-only shortcuts or projection caching for arbitrary Type. Given the large cold initialization charge, evaluate any candidate using the existing complete fresh-lifecycle workload and unchanged whole oracle; do not call this a steady-state ECS result.
