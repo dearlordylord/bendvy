@@ -25,11 +25,13 @@ claim a memory improvement merely because an owner is returned.
   without repeating preparation or allocating a replacement unnecessarily,
   provided this keeps the API and rollback simple.
 
-These are application requirements, not two new runtime event classes. Prefer
-one typed ownership-return mechanism: immediate refusal returns the payload;
-commit transfers it to the log; abort returns staged payloads through an owned
-recovery result. Do not implicitly copy them or restore them into an arbitrary
-Resource, Local or capture. The application chooses reuse or discard.
+These are application requirements, not two new runtime event classes. A
+candidate is one typed ownership-return mechanism: immediate refusal returns
+the payload; commit transfers it to the log; abort returns available staged
+payloads through an owned recovery result. Evaluate this against simpler safe
+release; recovery is a preference, not an acceptance gate. Do not implicitly
+copy owners or restore them into an arbitrary Resource, Local or capture. When
+recovery is available, the application chooses reuse or discard.
 
 Existing ECS rollback takes precedence over exposing recovery ownership. If a
 payload was moved from transactional ECS storage, the same owner cannot both
