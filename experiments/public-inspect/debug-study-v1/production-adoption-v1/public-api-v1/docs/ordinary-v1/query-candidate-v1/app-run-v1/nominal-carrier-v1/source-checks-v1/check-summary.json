@@ -1,0 +1,47 @@
+{
+  "scope": "direct development source checks, not proof/delivery",
+  "command": [
+    "scripts/bend-check",
+    "experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-run-v1/nominal-carrier-v1/main.bend"
+  ],
+  "capSeconds": 5,
+  "attempts": [
+    {
+      "attempt": 1,
+      "exitCode": 1,
+      "error": "computed scrutinee"
+    },
+    {
+      "attempt": 2,
+      "exitCode": 1,
+      "error": "cannot infer product let"
+    },
+    {
+      "attempt": 3,
+      "exitCode": 1,
+      "error": "nested helper wrong return type"
+    },
+    {
+      "attempt": 4,
+      "exitCode": 0,
+      "session": 12991
+    }
+  ],
+  "finalLocalSources": {
+    "application.bend": "0bb88d7504a27335cc1181c0d89589c5b072dc46700a951a2819e59320d2fdac",
+    "constructed.bend": "4310028b3eef071fe36dff345c7c000c2e56f953c8fd6bf1b7d2aa780f83c930",
+    "dispatch.bend": "4d26b2cf9f34b38490b69d29b2c4f87f950c8c11e0be2bfa2ef7446ec841e283",
+    "main.bend": "b6bc53f615d8c1fc0975e894582d881706a586e33144426ecf499602ccc49329",
+    "observation.bend": "58632ac107daffda8f6c3e80cb30af91c8a4a6fd15ea9063b47f830a4c97e3c1",
+    "output.bend": "a4115d63924623ab279d3b3611970c4500e43b1ebfa2125d877455a69f129927",
+    "owners.bend": "8aa6e31ea4251456d72ad5c013c479e05776665f2ca18c1a5050702a86dab7c1",
+    "plain.bend": "2cb5d074d464c95aeb410ac21a17c6d6f406debeb489ce1786c658aa81610927",
+    "scenario.bend": "c388b44bf953c5b9aebd97802cb4f22596f156fb166baf9916d48923b37d85a8",
+    "transient.bend": "648d7d247f4fa6fd782c975d432752c44dcfc48f9656db2e4eefcf0f46d906de"
+  },
+  "transportTests": {
+    "exitCode": 0,
+    "tests": 6,
+    "session": 76035
+  }
+}

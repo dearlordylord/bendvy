@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+30 | def plain_owners_seen(factory:W.Factory,world:W.World<S.Schema,S.plain_store(),Unit,Unit>,+details:Actual.Details,+label:String,+first:Maybe<&2,Ordinary.Description<S.Schema>>,+second:Maybe<&2,Ordinary.Description<S.Schema>>,+debug:Ordinary.Debug,+entries:List<&2,Ordinary.Entry<S.Schema>>,+namespace:U32,+name:String,+steps:List<&2,Sch.Step>,+requirements:List<&2,SP.Requirement<S.Schema>>,returned:Dispatch.plain_owners()) -> Observed<S.plain_store(),Dispatch.Plain>:
+31>|   (owners,+trace) = Dispatch.plain_unpack(returned)
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+32 |   Driver.plain_observe(~Observed<S.plain_store(),Dispatch.Plain>,(factory => world => owners => snapshots => plain_world_seen(debug,entries,namespace,name,steps,requirements,trace,details,label,factory,world,owners,snapshots)),factory,world,owners,[],label,DTO.Observed{},[first,second])
+bend 2.0.36 is available: run bend update

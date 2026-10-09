@@ -1,0 +1,23 @@
+SOME PROOFS FAIL
+Error:
+- expected : Actual.Delivery<S.Store<S.PlainSlot<"Position">, S.PlainSlot<"Velocity">, S.PlainSlot<"Health">>, Dispatch.Plain>
+- observed : ExecutionResult<S.Store<S.PlainSlot<"Position">, S.PlainSlot<"Velocity">, S.PlainSlot<"Health">>, Dispatch.Plain>
+Context:
+- factory  : W.Factory
+- baseline : DTO.ScenarioReport
+- phases   : List<&2, Observe.Phase>
+- detached : List<&1, Maybe<&1, Array<U32>>>
+- world    : W.World<S.Schema, S.Store<S.PlainSlot<"Position">, S.PlainSlot<"Velocity">, S.PlainSlot<"Health">>, Unit, Unit>
+- _        : Ordinary.Debug
+- _        : List<&2, Ordinary.Entry<S.Schema>>
+- _        : U32
+- _        : String
+- _        : List<&2, Sch.Step>
+- returned : Dispatch.Plain
+- _        : List<&2, SP.Requirement<S.Schema>>
+Location: plain_disabled_start
+122 |     case Ordinary.Application{_,_,SP.Provisioned{Sch.Schedule{_,_,_,returned},_}}:
+123>|       plain_disabled_done(baseline,phases,detached,Observe.plain_observe(factory,"disabled-success",plain_disabled_unpacked(factory,baseline,phases,detached,world,Dispatch.plain_unpack(returned))))
+    |                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+124 | def plain_retry_done(baseline:DTO.ScenarioReport,phases:List<&2,Observe.Phase>,detached:List<Maybe<&1,Array<U32>>>,observed:Observe.Observed<S.plain_store(),Dispatch.Plain>) -> ExecutionResult<S.plain_store(),Dispatch.Plain>:
+bend 2.0.36 is available: run bend update

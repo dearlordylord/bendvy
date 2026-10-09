@@ -1,24 +1,17 @@
-# Concrete owner-carrier candidate (source only)
+# Actual App consumer with closed owner carriers
 
-The existing actual-App Plain emit deadline remains immutable. This candidate does not change that entry or any expected observation.
+Experimental representation candidate, preserving the original actual-App fixture and its Plain emit deadline. No backend has been launched for this variant.
 
-`owners.bend` introduces three closed, non-generic affine `Type` carriers. Each has exactly the five existing typed registered system owners and the existing Trace. Pack/unpack explicitly transport every field; arbitrary-owner roundtrip functions source-check all three category types. This is not an executable full-scenario qualification.
+The scheduler H is now directly `Dispatch.Plain`, `Dispatch.Transient`, or `Dispatch.Constructed`: a closed, non-generic affine Type containing exactly the five existing typed registered system owners and Trace. All selected dispatches reconstruct the carrier from the actual returned selected owner, four untouched owners, and appended Trace. Body failure, registration refusal, unknown ID, skip, and namespace refusal preserve the owner route explicitly.
 
-Minimal integration delta, subject to review:
+The public ordinary App.add declarations and actual App/SP/Sch implementation remain unchanged. Application restoration/reset now specialize to these carriers. Observation unpacks only at the complete existing Driver observer boundary and repacks the actual returned owners; Disabled rebuild similarly consumes the returned product through ordinary declarations. No old pair-based scheduler execution is used. Generic fixture Delivery and ExecutionResult hold the actual nominal H directly.
 
-1. After ordinary App.add has collected its existing nested five-owner product, pack it plus Trace into the appropriate nominal carrier. Keep the public ordinary declaration and registration path unchanged.
-2. Instantiate actual App/SP/Sch H with the closed carrier, not the nested product paired with Trace. Supply a closed dispatcher whose selected actual Execution continuation reconstructs that carrier with the returned selected owner and all four untouched owners. Body failure and registration refusal must reconstruct the same carrier too.
-3. Unpack only at existing complete Driver observation and ordinary App rebuild boundaries; repack the returned actual owners immediately. Preserve original and foreign worlds, removed registration records, detached component owners, every skip/failure/retry/barrier, Enabled/Disabled descriptions, and the unchanged entire 60-phase oracle.
-4. The current generic Delivery/Observed types assume `H & Trace`; a separate carrier-specific application/observation adapter must avoid reintroducing this nested product into scheduler H. This is the concrete remaining seam, not an alias-only rename.
+`main.bend` executes all three original category baselines plus all five actual App phases: full 60 phases. Category entries retain the complete 20-phase workload each. Foreign/original worlds, removed registration records, detached component owners, five registry cursors, actual scheduler observations, complete Trace and repeated Enabled/Disabled descriptions remain present. The fixture-only tagged registration-refusal policy is unchanged.
 
-Reference hypothesis: root `experiments/public-inspect/boxed-scan-reconciliation-v1/README.md:11` and `.references/bend2/bend2/comp.ts:908–925` describe nominal ADT argument traversal without expanding fields in that reference branch. Existing `client/multi-registered.bend:69` uses a closed Owners type. These references do not establish the installed compiler algorithm or timeout cause, nor a speedup.
+Development source check `scripts/bend-check main.bend` passed at the existing five-second cap (attempt4, session12991, exit0). Attempts1–3 preserve raw errors and complete local source snapshots in source-checks-v1; they concern computed-scrutinee, tuple inference, and a nested helper call. No cap change or backend retry occurred.
 
-Development check: existing scripts/bend-check main.bend, five-second cap, exited 0 (PTY session 29356). Tool output retained as a transcription below; no backend was launched. Source consumers accept arbitrary real typed owners; main returns Unit and does not execute a scenario.
+Transport preparation: exact source-derived namespace identities bind 47 source files and 68 displayed constructors. The original independent whole oracle SHA remains `3ac85c490f3f861ef62bbebf5400d2e3c754b16e2bcd9a7373e96c234260f37f`. Synthetic raw remaps constructor tokens of the existing independent pre-backend synthetic by exact semantic identity only; whole typed comparison equals that unchanged oracle. Six complete parser/control tests pass, including all three partition slots, last-phase corruption, removed-record omission, wrong namespace, missing category, omitted phase, raw type confusion and refusal, and arity/truncation/trailing data. This transport preparation is not independent source review or execution evidence.
 
-```text
-ALL PROOFS CHECK
-Use --verdict for mathematical validity.
-bend 2.0.36 is available: run bend update
-```
+Reference hypothesis only: root boxed-scan-reconciliation-v1/README.md:11 and reference bend2 comp.ts:908–925 describe nominal ADT argument traversal without field expansion in that branch. They neither bind the installed compiler implementation nor prove a timeout cause or speedup. Existing client/multi-registered.bend:69 uses a closed Owners type.
 
-No public ownership/failure policy, law, dependency, compiler cap, phase, or acceptance criterion changes are proposed. Backend admission and full independent source/transport/oracle review remain required before executing a carrier variant.
+The older `owners.bend` helper checkpoint remains as source history; the actual consumer uses the new closed carriers declared in dispatch.bend. No public ECS policy, law, dependency, cap, or acceptance criterion changed. Independent complete source/transport review and root admission are required before backend execution. No performance, installed resolver, original combined Native binary, or full #56 completion claim is made.
