@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'output' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+59 | def committed(~S:Data,h:W.Handle<S>,output:Deferred.Output<S,Input.Owner>,result:Batch.Finished<S,Store(~S),Mail<S>,Unit,Deferred.Packet<Input.Owner>,Unit>) -> Gate.Returned<(World(~S) & W.Handle<S>),Input.Owner,Output<S>>:
+60>|   match result output:
+   |                ^^^^^^
+61 |     case Batch.Committed{world} Deferred.Accepted{target,spawned,+canonical}:Gate.Admitted{(world,h),Replaced{canonical,None{},Some{target}},canonical}
+bend 2.0.36 is available: run bend update

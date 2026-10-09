@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : a constructor of ../../../../../../../bendvy/src/ecs/capabilities.ValueRead (missing, or already matched)
+- observed : \{Cap.OwnedRequest: (run => args => ctx => run(ctx, args))}
+Context:
+- H : Type
+Location: bad
+ 8 |   match cap:
+ 9>|     case Cap.OwnedRequest{run}:run(ctx,args)
+   |          ^^^^^^^^^^^^^^^^^^^^^
+10 | 
+bend 2.0.36 is available: run bend update

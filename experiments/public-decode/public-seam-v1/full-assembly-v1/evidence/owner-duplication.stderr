@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : args
+- observed : args (consumed more than once)
+Context:
+- H   : Type
+- run : @_:H -> @_:Public.Args<Schema> -> Sigma<&1, &1, H, _ => Public.Output<Schema>>
+Location: bad
+ 9 |     case (ctx,output):(ctx,(output,args))
+10>| def bad(-H:Type,cap:Cap.OwnedRequest<H,Public.Args<Schema>,Public.Output<Schema>>,args:Public.Args<Schema>,ctx:H) -> H & (Public.Output<Schema> & Public.Args<Schema>):
+   |                                                                                   ^^^^
+11 |   match cap:
+bend 2.0.36 is available: run bend update

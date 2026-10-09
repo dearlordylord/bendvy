@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+80 | def restore_value(~S:Data,world:World(~S),old:Input.Owner) -> World(~S):
+81>|   match swap_value(~S,world,old):
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^
+82 |     case (world,displaced):world
+bend 2.0.36 is available: run bend update

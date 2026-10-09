@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : App.Mail<Schema>
+- observed : Input.Owner
+Location: foreign_world
+120 | def foreign_world() -> Foreign:
+121>|   first_created(W.create(~Schema,~App.Store(~Schema),~App.Mail<Schema>,~Unit,~empty(~Schema),W.factory(),Input.Owner{D.Text{"first-resource"},ANode{ALeaf{777},ALeaf{888}}}))
+    |                                                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+122 | type Report is Data: Report{insert:Cases,spawn:Cases,resource:Cases,otherSchema:Cases,foreign:Foreign}
+bend 2.0.36 is available: run bend update

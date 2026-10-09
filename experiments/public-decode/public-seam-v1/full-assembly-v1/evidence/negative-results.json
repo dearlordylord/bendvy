@@ -1,0 +1,70 @@
+[
+  {
+    "source": "experiments/public-decode/public-seam-v1/full-assembly-v1/negative/cross-schema.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "5",
+      "timeout",
+      "--signal=KILL",
+      "5s",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "experiments/public-decode/public-seam-v1/full-assembly-v1/negative/cross-schema.bend",
+      "--check-only"
+    ],
+    "exit": 1
+  },
+  {
+    "source": "experiments/public-decode/public-seam-v1/full-assembly-v1/negative/owner-duplication.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "5",
+      "timeout",
+      "--signal=KILL",
+      "5s",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "experiments/public-decode/public-seam-v1/full-assembly-v1/negative/owner-duplication.bend",
+      "--check-only"
+    ],
+    "exit": 1
+  },
+  {
+    "source": "experiments/public-decode/public-seam-v1/full-assembly-v1/negative/read-only.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "5",
+      "timeout",
+      "--signal=KILL",
+      "5s",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "experiments/public-decode/public-seam-v1/full-assembly-v1/negative/read-only.bend",
+      "--check-only"
+    ],
+    "exit": 1
+  },
+  {
+    "source": "experiments/public-decode/public-seam-v1/full-assembly-v1/negative/undeclared.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "5",
+      "timeout",
+      "--signal=KILL",
+      "5s",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "experiments/public-decode/public-seam-v1/full-assembly-v1/negative/undeclared.bend",
+      "--check-only"
+    ],
+    "exit": 1
+  }
+]

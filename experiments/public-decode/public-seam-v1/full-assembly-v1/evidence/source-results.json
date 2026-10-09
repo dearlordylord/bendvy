@@ -1,0 +1,78 @@
+[
+  {
+    "source": "experiments/public-decode/public-seam-v1/full-assembly-v1/spine.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "5",
+      "timeout",
+      "--signal=KILL",
+      "5s",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "experiments/public-decode/public-seam-v1/full-assembly-v1/spine.bend",
+      "--check-only"
+    ],
+    "exit": 0,
+    "stdout": "spine-final.stdout",
+    "stderr": "spine-final.stderr"
+  },
+  {
+    "source": "experiments/public-decode/public-seam-v1/full-assembly-v1/failure-controls.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "5",
+      "timeout",
+      "--signal=KILL",
+      "5s",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "experiments/public-decode/public-seam-v1/full-assembly-v1/failure-controls.bend",
+      "--check-only"
+    ],
+    "exit": 0,
+    "stdout": "failure-controls-final.stdout",
+    "stderr": "failure-controls-final.stderr"
+  },
+  {
+    "source": "experiments/public-decode/public-seam-v1/full-assembly-v1/mutants/skip-validation/spine.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "5",
+      "timeout",
+      "--signal=KILL",
+      "5s",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "experiments/public-decode/public-seam-v1/full-assembly-v1/mutants/skip-validation/spine.bend",
+      "--check-only"
+    ],
+    "exit": 0,
+    "stdout": "mutants-skip-validation-spine-final.stdout",
+    "stderr": "mutants-skip-validation-spine-final.stderr"
+  },
+  {
+    "source": "experiments/public-decode/public-seam-v1/full-assembly-v1/mutants/partial-write/spine.bend",
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "5",
+      "timeout",
+      "--signal=KILL",
+      "5s",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "experiments/public-decode/public-seam-v1/full-assembly-v1/mutants/partial-write/spine.bend",
+      "--check-only"
+    ],
+    "exit": 0,
+    "stdout": "mutants-partial-write-spine-final.stdout",
+    "stderr": "mutants-partial-write-spine-final.stderr"
+  }
+]

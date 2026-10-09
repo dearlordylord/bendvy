@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh constructor name (duplicate declaration: Aborted)
+- observed : 'Aborted'
+Location:
+63 |   Committed{world:World(~S),output:Deferred.Output<S,Input.Owner>}
+64>|   Aborted{world:World(~S),output:Deferred.Output<S,Input.Owner>,packets:List<Deferred.Packet<Input.Owner>>,error:Unit}
+   |   ^^^^^^^
+65 | def finished(~S:Data,result:Batch.Finished<S,Store(~S),Mail<S>,Unit,Deferred.Packet<Input.Owner>,Unit>,output:Deferred.Output<S,Input.Owner>) -> Executed<S>:
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+65 |   match result:
+66>|     case (world,before):provisioned(~S,h,op,raw,seed,Registered.define(~S,world,Registered.Declaration{op,codec}))
+   |                                     ^
+67 | def registration_ran(~S:Data,before:O.Snapshot,seed:Maybe<&2,O.PayloadView>,raw:D.Raw,op:App.Operation,result:Local.Run<S,App.Store(~S),App.Mail<S>,Unit,Registered.State<S>,Registered.Args<S>,Unit,Deferred.Output<S,Input.Owner>,Registered.runner(~S)>) -> Observation:
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : '(output,view) (packets,views)'
+Location:
+46 |   match output packets:
+47>|     case (output,view) (packets,views):(Recovery{output,packets},RecoveryView{view,views})
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+48 | def recovery_view(~S:Data,value:Recovery<S>) -> Recovery<S> & RecoveryView<S>:
+bend 2.0.36 is available: run bend update

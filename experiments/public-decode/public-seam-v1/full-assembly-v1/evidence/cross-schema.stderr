@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : Public.Args<Schema>
+- observed : Public.Args<Other>
+Context:
+- H    : Type
+- run  : @_:H -> @_:Public.Args<Schema> -> Sigma<&1, &1, H, _ => Public.Output<Schema>>
+- args : Public.Args<Other>
+- ctx  : H
+Location: bad
+ 8 |   match cap:
+ 9>|     case Cap.OwnedRequest{run}:run(ctx,args)
+   |                                        ^^^^
+10 | 
+bend 2.0.36 is available: run bend update

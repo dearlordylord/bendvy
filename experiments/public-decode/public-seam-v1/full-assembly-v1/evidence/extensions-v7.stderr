@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- message  : a declared datatype (unknown: application.../../../../../../bendvy/src/ecs/transaction:Completion)
+Context:
+- S : Data
+Location: requested
+68 |     case Batch.Failed{world,packets,error}:Aborted{world,output,packets,error}
+69>| def requested(~S:Data,completion:T.Completion<Unit>,result:Deferred.Owner<S,Store(~S),Mail<S>,Unit,Input.Owner,identity(~S),Input.project> & Deferred.Output<S,Input.Owner>) -> Executed<S>:
+   |                                  ^^^^^^^^^^^^^^^^^
+70 |   match result:
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,70 @@
+import Base
+import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Identity
+import ./request.bend as Deferred
+import /workspace/formal-proofs/bendvy/experiments/public-decode/adoption-v1/application.bend as Legacy
+import /workspace/formal-proofs/bendvy/experiments/public-decode/adoption-v1/admission.bend as Gate
+import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
+import /workspace/formal-proofs/bendvy/experiments/public-decode/complete-v1/controls.bend as Input
+import /workspace/formal-proofs/bendvy/experiments/public-decode/adoption-v1/observation.bend as O
+import /workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/declaration.bend as Decl
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C
+import /workspace/formal-proofs/bendvy/src/ecs/bundle-batch.bend as Batch
+import /workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend as Delivery
+import /workspace/formal-proofs/bendvy/src/ecs/bundle-requests.bend as Commands
+import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap
+import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T
+
+# Explicit application recovery destination; no library default or finalizer.
+type Mail<S:Data> is Type:
+  Mail{value:Input.Owner,retired:List<Input.Owner>,returned:List<Deferred.Packet<Input.Owner>>,errors:List<&2,W.WorldError>}
+def initial(~S:Data,value:Input.Owner) -> Mail<S>:Mail{value,[],[],[]}
+def Store(~S:Data) -> Type:Legacy.Store(~S)
+def World(~S:Data) -> Type:W.World<S,Store(~S),Mail<S>,Unit>
+def identity(~S:Data) -> Identity.Declaration<S,Input.Owner>:Legacy.identity(~S)
+def resource_identity(~S:Data) -> Identity.Declaration<S,Input.Owner>:Legacy.resource_identity(~S)
+def take(~S:Data,column:Store(~S)) -> Unit & Col.Column<S,Input.Owner>:Legacy.take(~S,column)
+def put(~S:Data,rest:Unit,column:Col.Column<S,Input.Owner>) -> Store(~S):Legacy.put(~S,rest,column)
+def family(~S:Data) -> C.Family<S,Store(~S),Unit,Input.Owner,D.Raw,Unit,take(~S),put(~S),Input.project>:
+  C.Family{"decoded-value"}
+type Operation is Data:Insert{} Resource{} Spawn{}
+type Output<-S:Data> is Type:
+  Replaced{original:D.Raw,previous:Maybe<&1,Input.Owner>,handle:Maybe<&2,W.Handle<S>>}
+  OperationRefused{original:D.Raw,incoming:Maybe<&1,Input.Owner>,error:W.WorldError}
+def retire(~S:Data,mail:Mail<S>,previous:Maybe<&1,Input.Owner>) -> Mail<S>:
+  match mail previous:
+    case Mail{value,retired,returned,errors} None{}:Mail{value,retired,returned,errors}
+    case Mail{value,retired,returned,errors} Some{owner}:Mail{value,owner <> retired,returned,errors}
+def retired(~S:Data,previous:Maybe<&1,Input.Owner>,world:World(~S)) -> World(~S):
+  match world:
+    case W.World{ns,next,high,live,cap,depth,store,mail,events,commands,regs,system,clock}:W.World{ns,next,high,live,cap,depth,store,retire(~S,mail,previous),events,commands,regs,system,clock}
+def recover(~S:Data,world:World(~S),packet:Deferred.Packet<Input.Owner>,error:W.WorldError) -> World(~S):
+  match world:
+    case W.World{ns,next,high,live,cap,depth,store,Mail{value,retired,returned,errors},events,commands,regs,system,clock}:W.World{ns,next,high,live,cap,depth,store,Mail{value,retired,packet <> returned,error <> errors},events,commands,regs,system,clock}
+def attempted(~S:Data,+original:D.Raw,+canonical:D.Raw,result:C.Replacement<World(~S),Input.Owner>) -> Delivery.Delivery<World(~S),Deferred.Packet<Input.Owner>>:
+  match result:
+    case C.Replaced{world,previous}:Delivery.Delivered{retired(~S,previous,world)}
+    case C.ReplaceRejected{world,incoming,error}:Delivery.Undelivered{world,Deferred.Packet{Legacy.original_incoming(original,incoming),original,canonical},error}
+def normalized_attempt(~S:Data,world:World(~S),+target:W.Handle<S>,+original:D.Raw,+canonical:D.Raw,owner:Maybe<&1,Input.Owner>) -> Delivery.Delivery<World(~S),Deferred.Packet<Input.Owner>>:
+  match owner:
+    case None{}:Delivery.Undelivered{world,Deferred.Packet{None{},original,canonical},W.CapacityExceeded{}}
+    case Some{Input.Owner{_,sentinel}}:attempted(~S,original,canonical,C.replace(~S,~Store(~S),~Mail<S>,~Unit,~Unit,~Input.Owner,~D.Raw,~Unit,~take(~S),~put(~S),~Input.project,family(~S),world,target,Some{Input.Owner{canonical,sentinel}}))
+def attempt(~S:Data,world:World(~S),target:W.Handle<S>,packet:Deferred.Packet<Input.Owner>) -> Delivery.Delivery<World(~S),Deferred.Packet<Input.Owner>>:
+  match packet:
+    case Deferred.Packet{owner,original,canonical}:normalized_attempt(~S,world,target,original,canonical,owner)
+def command_body(~S:Data,-H:Type,cap:Cap.OwnedRequest<H,Deferred.Input<S,Input.Owner>,Deferred.Output<S,Input.Owner>>,input:Deferred.Input<S,Input.Owner>,ctx:H) -> H & Deferred.Output<S,Input.Owner>:
+  match cap:
+    case Cap.OwnedRequest{run}:run(ctx,input)
+def committed(~S:Data,h:W.Handle<S>,output:Deferred.Output<S,Input.Owner>,result:Batch.Finished<S,Store(~S),Mail<S>,Unit,Deferred.Packet<Input.Owner>,Unit>) -> Gate.Returned<(World(~S) & W.Handle<S>),Input.Owner,Output<S>>:
+  match result output:
+    case Batch.Committed{world} Deferred.Accepted{target,spawned,+canonical}:Gate.Admitted{(world,h),Replaced{canonical,None{},Some{target}},canonical}
+    case Batch.Committed{world} Deferred.Refused{Some{owner},Deferred.Validation{error}}:Gate.ValidationRefused{(world,h),owner,error}
+    case Batch.Committed{world} Deferred.Refused{incoming,Deferred.Entity{error}}:Gate.Admitted{(world,h),OperationRefused{D.Null{},incoming,error},D.Null{}}
+    case Batch.Committed{world} Deferred.Refused{None{},Deferred.Validation{error}}:Gate.Admitted{(world,h),OperationRefused{D.Null{},None{},W.CapacityExceeded{}},D.Null{}}
+    case Batch.Failed{world,packets,error} _:Gate.Admitted{(world,h),OperationRefused{D.Null{},None{},W.CapacityExceeded{}},D.Null{}}
+def requested(~S:Data,h:W.Handle<S>,result:Deferred.Owner<S,Store(~S),Mail<S>,Unit,Input.Owner,identity(~S),Input.project> & Deferred.Output<S,Input.Owner>) -> Gate.Returned<(World(~S) & W.Handle<S>),Input.Owner,Output<S>>:
+  match result:
+    case (owner,output):committed(~S,h,output,Deferred.finish(~S,~Store(~S),~Mail<S>,~Unit,~Input.Owner,~Unit,~identity(~S),~Input.project,~attempt(~S),~recover(~S),owner,T.Success{}))
+def command(~S:Data,h:W.Handle<S>,operation:Commands.Operation<S>,codec:D.Codec,world:World(~S),owner:Input.Owner) -> Gate.Returned<(World(~S) & W.Handle<S>),Input.Owner,Output<S>>:
+  requested(~S,h,Deferred.invoke(~S,~Store(~S),~Mail<S>,~Unit,~Input.Owner,~Deferred.Input<S,Input.Owner>,~Deferred.Output<S,Input.Owner>,~identity(~S),~Input.project,~(H => cap => input => ctx => command_body(~S,H,cap,input,ctx)),Deferred.Owner{Batch.begin(~S,~Store(~S),~Mail<S>,~Unit,~Deferred.Packet<Input.Owner>,T.begin(~World(~S),~Unit,world)),Decl.constructed(~S,~Input.Owner,~identity(~S),~Input.project,codec)},Deferred.Input{operation,owner}))

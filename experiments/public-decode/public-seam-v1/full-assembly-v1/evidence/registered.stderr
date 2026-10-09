@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a quantified datatype after + (+D<..> sets D's leading quantities to &2)
+- observed : ','
+Location:
+24 |   match state args:
+25>|     case State{+Declaration{+operation,+codec},previous} Args{target,incoming}:executed(~S,Declaration{operation,codec},App.request(~S,target,operation,codec,world,incoming))
+   |                                               ^
+26 | def Instance(~S:Data) -> Type:Local.Instance<S,App.Store(~S),App.Mail<S>,Unit,State<S>,Args<S>,Unit,Deferred.Output<S,Input.Owner>,runner(~S)>
+bend 2.0.36 is available: run bend update
