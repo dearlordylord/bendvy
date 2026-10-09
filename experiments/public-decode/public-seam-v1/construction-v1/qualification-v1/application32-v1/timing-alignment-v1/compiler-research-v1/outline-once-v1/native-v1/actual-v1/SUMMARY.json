@@ -1,0 +1,84 @@
+{
+  "status": "INCOMPLETE_BUILD_DEADLINE_NO_RUNTIME",
+  "originalSession": 59677,
+  "collectorExit": 1,
+  "planSHA256": "4befec5cae57df65ab0e40d939e02eb6618cb196d57b7227258447930e7c7d2f",
+  "receipt": {
+    "scope": "Artifact-only outlined copied-compiler fullInspector Native whole finite oracle; no compiler adoption/performance/#54 closure",
+    "planSHA256": "4befec5cae57df65ab0e40d939e02eb6618cb196d57b7227258447930e7c7d2f",
+    "commands": [
+      {
+        "label": "build",
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "5",
+          "/tmp/bendvy-clang19-diagnostic/clang19",
+          "-O3",
+          "/tmp/bendvy-inspect54-outline-once01/reference.c",
+          "-o",
+          "/tmp/bendvy-inspect54-outline-native01/inspector.native",
+          "-pthread",
+          "-lm"
+        ],
+        "capSeconds": 120,
+        "exit": null,
+        "failure": "child deadline",
+        "capture": "split",
+        "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+        "childAccounting": {
+          "scope": "collector reaped children delta around execute_result; not runtime performance",
+          "wallNs": 120162205395,
+          "userSeconds": 116.325853,
+          "systemSeconds": 2.7366599999999996,
+          "before": {
+            "userSeconds": 0.0,
+            "systemSeconds": 0.000996
+          },
+          "after": {
+            "userSeconds": 116.325853,
+            "systemSeconds": 2.737656
+          }
+        },
+        "stdout": {
+          "path": "/tmp/bendvy-inspect54-outline-native01/build.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "published": true
+        },
+        "stderr": {
+          "path": "/tmp/bendvy-inspect54-outline-native01/build.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "published": true
+        }
+      }
+    ],
+    "guards": [
+      {
+        "path": "/tmp/bendvy-inspect54-outline-native01/build-pre.guard.json",
+        "sha256": "0ef602eb0ab3da8774837a6582ad4b3e451e7a4a968755fd9d84a024a2508c01"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-native01/build-acquired.guard.json",
+        "sha256": "39210ecfaa0292c06c613c1581733cb3873f1c77f8c7d83c8a20b9ed86424ece"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-native01/build-post.guard.json",
+        "sha256": "fd5d874019bdf39c282074153c5a3ccec0e478bcc0363d2749e83b278d985998"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-native01/final.guard.json",
+        "sha256": "b025b2e063c98a74df74d4d513287538d712b7f180c52524a0874bde19af45e1"
+      }
+    ],
+    "status": "INCOMPLETE",
+    "error": "ValueError: Owned child failed: build",
+    "guardFailures": []
+  },
+  "binaryAbsent": true,
+  "runtimeInvoked": false,
+  "archiveMembers": 176,
+  "governedELFToolsNotRedistributed": 5,
+  "checks": "all current pins, resource guards and archived byte/hash joins PASS; no replay"
+}
