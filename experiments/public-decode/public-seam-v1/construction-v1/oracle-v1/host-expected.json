@@ -1,0 +1,452 @@
+{
+  "host": [
+    {
+      "name": "transform",
+      "sameFunctions": true,
+      "result": {
+        "ok": true,
+        "value": {
+          "count": 8
+        }
+      }
+    },
+    {
+      "name": "undefined",
+      "sameFunctions": true,
+      "result": {
+        "ok": true,
+        "value": {
+          "kind": "undefined"
+        }
+      }
+    },
+    {
+      "name": "null",
+      "sameFunctions": true,
+      "result": {
+        "ok": true,
+        "value": null
+      }
+    },
+    {
+      "name": "empty-issues",
+      "sameFunctions": true,
+      "result": {
+        "ok": false,
+        "error": []
+      }
+    },
+    {
+      "name": "nested-issues",
+      "sameFunctions": true,
+      "result": {
+        "ok": false,
+        "error": [
+          {
+            "message": "nested",
+            "path": [
+              "items",
+              1,
+              {
+                "key": "value"
+              },
+              {
+                "key": {
+                  "kind": "symbol",
+                  "description": "opaque-path"
+                }
+              },
+              {
+                "kind": "symbol",
+                "description": "opaque-path"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "resolved-promise",
+      "sameFunctions": true,
+      "result": {
+        "ok": false,
+        "error": [
+          {
+            "message": "Asynchronous validation is not supported: descriptor constructors run synchronously"
+          }
+        ]
+      }
+    },
+    {
+      "name": "rejected-promise",
+      "sameFunctions": true,
+      "result": {
+        "ok": false,
+        "error": [
+          {
+            "message": "Asynchronous validation is not supported: descriptor constructors run synchronously"
+          }
+        ]
+      }
+    },
+    {
+      "name": "thenable",
+      "sameFunctions": true,
+      "result": {
+        "ok": true,
+        "value": 9
+      }
+    }
+  ],
+  "ts": [
+    {
+      "name": "transform",
+      "sameFunctions": true,
+      "result": {
+        "ok": true,
+        "value": {
+          "count": 8
+        }
+      }
+    },
+    {
+      "name": "undefined",
+      "sameFunctions": true,
+      "result": {
+        "ok": true,
+        "value": {
+          "kind": "undefined"
+        }
+      }
+    },
+    {
+      "name": "null",
+      "sameFunctions": true,
+      "result": {
+        "ok": true,
+        "value": null
+      }
+    },
+    {
+      "name": "empty-issues",
+      "sameFunctions": true,
+      "result": {
+        "ok": false,
+        "error": []
+      }
+    },
+    {
+      "name": "nested-issues",
+      "sameFunctions": true,
+      "result": {
+        "ok": false,
+        "error": [
+          {
+            "message": "nested",
+            "path": [
+              "items",
+              1,
+              {
+                "key": "value"
+              },
+              {
+                "key": {
+                  "kind": "symbol",
+                  "description": "opaque-path"
+                }
+              },
+              {
+                "kind": "symbol",
+                "description": "opaque-path"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "resolved-promise",
+      "sameFunctions": true,
+      "result": {
+        "ok": false,
+        "error": [
+          {
+            "message": "Asynchronous validation is not supported: descriptor constructors run synchronously"
+          }
+        ]
+      }
+    },
+    {
+      "name": "rejected-promise",
+      "sameFunctions": true,
+      "result": {
+        "ok": false,
+        "error": [
+          {
+            "message": "Asynchronous validation is not supported: descriptor constructors run synchronously"
+          }
+        ]
+      }
+    },
+    {
+      "name": "thenable",
+      "sameFunctions": true,
+      "result": {
+        "ok": true,
+        "value": 9
+      }
+    }
+  ],
+  "issueIdentity": {
+    "host": true,
+    "ts": true
+  },
+  "dispatch": [
+    {
+      "index": 0,
+      "host": {
+        "ok": true,
+        "value": "decode"
+      },
+      "ts": {
+        "ok": true,
+        "value": "decode"
+      }
+    },
+    {
+      "index": 1,
+      "host": {
+        "ok": true,
+        "value": "fallback"
+      },
+      "ts": {
+        "ok": true,
+        "value": "fallback"
+      }
+    },
+    {
+      "index": 2,
+      "host": {
+        "ok": true,
+        "value": "nonfunction-fallback"
+      },
+      "ts": {
+        "ok": true,
+        "value": "nonfunction-fallback"
+      }
+    }
+  ],
+  "thrown": [
+    {
+      "name": "host",
+      "same": true
+    },
+    {
+      "name": "ts",
+      "same": true
+    }
+  ],
+  "typed": {
+    "accepted": {
+      "ok": true,
+      "value": {
+        "$": "Number",
+        "value": 8
+      }
+    },
+    "acceptedFrozen": true,
+    "refused": {
+      "ok": false,
+      "input": {
+        "$": "Number",
+        "value": 7
+      },
+      "error": {
+        "$": "Text",
+        "value": "same-owner"
+      },
+      "issues": [
+        {
+          "message": "same-owner",
+          "path": [
+            {
+              "kind": "symbol",
+              "description": "opaque-path"
+            }
+          ]
+        }
+      ]
+    },
+    "detached": true,
+    "unchanged": true,
+    "issuesIdentity": true
+  },
+  "representation": {
+    "valid": [
+      {
+        "raw": {
+          "$": "Missing"
+        },
+        "same": true
+      },
+      {
+        "raw": {
+          "$": "Null"
+        },
+        "same": true
+      },
+      {
+        "raw": {
+          "$": "Number",
+          "value": 0
+        },
+        "same": true
+      },
+      {
+        "raw": {
+          "$": "Number",
+          "value": 4294967295
+        },
+        "same": true
+      },
+      {
+        "raw": {
+          "$": "SignedInteger",
+          "negative": true,
+          "magnitude": 281474976710655
+        },
+        "same": true
+      },
+      {
+        "raw": {
+          "$": "Float",
+          "value": 1.100000023841858
+        },
+        "same": true
+      },
+      {
+        "raw": {
+          "$": "Binary64",
+          "high": 2147483648,
+          "low": 0
+        },
+        "same": true
+      },
+      {
+        "raw": {
+          "$": "Text",
+          "value": "x"
+        },
+        "same": true
+      },
+      {
+        "raw": {
+          "$": "Utf16Text",
+          "units": [
+            55296
+          ]
+        },
+        "same": true
+      },
+      {
+        "raw": {
+          "$": "Boolean",
+          "value": false
+        },
+        "same": true
+      },
+      {
+        "raw": {
+          "$": "Handle",
+          "namespace": 2,
+          "id": 1
+        },
+        "same": true
+      },
+      {
+        "raw": {
+          "$": "Array",
+          "items": [
+            {
+              "$": "Number",
+              "value": 1
+            }
+          ]
+        },
+        "same": true
+      },
+      {
+        "raw": {
+          "$": "Object",
+          "fields": [
+            {
+              "$": "Field",
+              "name": "x",
+              "value": {
+                "$": "Number",
+                "value": 7
+              }
+            }
+          ]
+        },
+        "same": true
+      }
+    ],
+    "invalid": [
+      {
+        "index": 0,
+        "rejected": true
+      },
+      {
+        "index": 1,
+        "rejected": true
+      },
+      {
+        "index": 2,
+        "rejected": true
+      },
+      {
+        "index": 3,
+        "rejected": true
+      },
+      {
+        "index": 4,
+        "rejected": true
+      },
+      {
+        "index": 5,
+        "rejected": true
+      },
+      {
+        "index": 6,
+        "rejected": true
+      },
+      {
+        "index": 7,
+        "rejected": true
+      },
+      {
+        "index": 8,
+        "rejected": true
+      },
+      {
+        "index": 9,
+        "rejected": true
+      },
+      {
+        "index": 10,
+        "rejected": true
+      }
+    ]
+  },
+  "badProviders": [
+    {
+      "name": "output",
+      "rejected": true
+    },
+    {
+      "name": "issues",
+      "rejected": true
+    }
+  ]
+}
