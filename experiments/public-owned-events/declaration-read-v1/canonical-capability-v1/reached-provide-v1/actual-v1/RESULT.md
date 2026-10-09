@@ -1,0 +1,7 @@
+# Reached canonical provider execution
+
+All six original-path admitted cohorts completed DEVELOPMENT_PASS exactly once: registered JS/Native, System full JS/Native, second-schema JS/Native. Complete raw reports are respectively37786,79794,1465 bytes and equal independently frozen51e05890 raw and unchanged neutral models in both backends. Every command exited0 with empty stderr. Source/collector/tool/environment/resource/artifact joins and unconditional terminal receipts are retained.
+
+The new registered visit and System full consumer reach Log.read_by → schema observe → Decl.provide → canonical Cap.invoke_owned → actual declaration grant. The second schema reaches the same provider through an original invocation Args Array. No transactional owner extraction or new policy is implied. Old direct Log.read controls remain unchanged.
+
+MANIFEST.json retains118 lossless members/89 deduplicated objects: exact plans, receipts, fullraw and generated artifacts plus reached source/helper/model bindings. Private environment bytes and tool/resource binaries are not archived; original files remain hash-bound and checked by the no-child verifier. Guards are inline execution checks, not independently serialized guard traces. Original author-worktree namespace only; relocated root suites/clean-host replay, fullWorld completeness, public#53 policy, runtime mutation and performance are not claimed.
