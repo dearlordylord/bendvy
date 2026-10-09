@@ -1,0 +1,26 @@
+# Independent canonical qualification admission
+
+Scoped PASS for the exact eleven plans in immutable author `7f36d17e`, following source/Spec review `a0708667` and independent new-input model `5a41088d`. No backend was launched by this reviewer. Eight positive stages are four JS consuming/C-emission pairs; three mutation stages are JS only. C emissions do not qualify Native runtime. Artifact-only Clang19 build120/runtime5 continuation needs successful actual C/receipt hashes and separate exact-plan admission.
+
+| Subject | JS plan SHA256 | C-emission plan SHA256 |
+| --- | --- | --- |
+| construction44 | 666ded9b5a4563f4a37aa3d6dfba2ee05d62aa737d67847e1bdc37b5e860a4f7 | 3cb330e1d848dd2322bda4c899516872c3a4890929aab57cb09f204ee359db84 |
+| custom20 | 783b0d5db4bd79bf0af3419b7b6f9fcf0ed3cc1e530d033e2e3c12171dbe74e9 | bf133d78009852c4850a12e5ecdd5dfb9a51b785957b4885029a4f4fc6213969 |
+| completion16 | 3fca8147e52d7d5f538e0efbc324b1e2298ddf04224aa0815826972766bded5e | a114e9442b40b4485dd32e760cec9f0677bdfd196e55ead0cb0b9f9935a9c0ca |
+| inputCodec12 | f7d0a6d5b09546d2e023f1c51510b3b664955415b3506b94d73ac4ef7b1505ef | 0a09ba505a94ab38d90d55afb2c13f625e8897da583aa8a39b7f9a0a96df1759 |
+
+Mutation JS plans: default validation `2432d4f85cfd0c5504900669e184f555c71ddcd7097d505abae6564b2f8013c8`; refusal partial write `f9308aec5272f33c6baf685d1018c46bdd250120ae2d02742d25701128f1dd96`; separate input validation `a3f3ffbca248e13160b1d72ff5e36b148ca93a778057f39629bdb75d636e5e91`.
+
+Independently checked all eleven plan digests, every current file/resource input and exclusive empty raw/generated directories with no receipts. Positive plans pin respectively91/92/87/82 files plus the complete70-file Bend resource snapshot; mutations pin91/91/82 plus that snapshot. Command topology retains CPU5, stock f774 Bend emit30, JS Node5 and shared child lock. Environment/tools/config bindings are explicit and reconstructed plan equality is required before execution.
+
+All32 canonical consumer bodies equal their historical sources after import-token rebinding; all six canonical implementation hashes match the frozen promotion manifest. The complete combined source ledger contains78 paths, including44 actually reached root core modules. These are the qualified source routes; no unused108-module semantic claim is made. Root reports the other installed core bytes unchanged and reserves combined default regression separately. Four positive spines and fourteen intended authority/schema/affine negatives have retained source receipts; no sourcechecker was rerun here.
+
+Independently exercised complete92 typed transport inverse/render/parse roundtrips, all36 corruption refusals, and the historical default compatibility check, suppressing only author-result-file publication. Every nominal constructor/field, scalar kind, labelled FIFO order, owner array and full source-derived error remains mandatory. Full old44/20/16 models remain unchanged; new12 uses the independently frozen input-versus-saved-codec model, not an old80 projection. Each model reassembles through transport.whole to its entire independent source oracle.
+
+Reviewed collector role/binding routes, exact actualPython/file/resource admission before repository imports, source-byte compiled direct/transitive helpers, frozen source/environment reconstruction, raw/result publication and finally capture. Existing guarded Runner records completed results before publication errors; generated partial regular artifacts are captured before post/final guards. No failing child, capture error or guard error is normalized into success. Empty regular output directories are required before execution; raw capture uses the existing exclusive CommandLogs recipe.
+
+Each isolated reached mutant keeps the same complete consumer and canonical dependencies except its explicit copied-library rebinding and source mutation. Default rejected construction builds Number999 instead of returning refusal; refused resource validation advances actual World.clock; input-kind rejection instead builds from Text7,8 while retaining incoming Number7 owner. Independently checked all three strict complete predicted-witness controls: unchanged output, unrelated owner changes and Bool/integer contamination reject. The positive collector must retain INCOMPLETE on whole-model disagreement; mutation credit additionally requires the exact full44/full12 source-derived witness via the pinned verify-witness.py. A mismatch alone, missing field, child failure or deadline cannot kill a mutant. All unaffected observations remain exact.
+
+This admission is source-current semantic qualification preparation only. It changes no ownership/declaration/recovery policy, threshold, oracle, source or helper. Standard Schema host conversion/generated ECS callback interoperability, actual Native qualification, combined default regression and feature timing/full issue46 closure remain separate gates.
+
+After root released the sampling/profile reservation, independently revalidated every exact plan digest, current file/resource pin and nonsymlink empty raw/generated directory; all eleven PASS, receipts absent including dangling symlinks. No executed input changed during the reservation. Commit hooks run only after release.
