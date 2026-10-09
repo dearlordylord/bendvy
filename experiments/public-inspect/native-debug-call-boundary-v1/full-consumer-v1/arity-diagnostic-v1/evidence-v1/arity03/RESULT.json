@@ -1,0 +1,75 @@
+{
+  "status": "INCOMPLETE",
+  "originalSession": 75067,
+  "planSHA256": "819462549e45fc08b3583320d92c3b32cda59aa20f60f7ea864d81bc065e061d",
+  "commands": 1,
+  "exit": 1,
+  "failure": null,
+  "error": "Error: an arity over 247",
+  "retainedBoundaryRows": 92876,
+  "arityLimit": 247,
+  "offendingSegments": [
+    {
+      "sourceKey": "consume$k6224",
+      "fid": "FID_CONSUME_K6224",
+      "parameterCount": 299,
+      "kinds": {
+        "w32": 85,
+        "box": 199,
+        "w64": 15
+      },
+      "prefixGroups": {
+        "_delivered": 104,
+        "_h": 195
+      },
+      "returnWords": 41,
+      "refs": [
+        "FID_CONSUME_K6225",
+        "FID_______RESOURCE_MAIN_MAIN"
+      ]
+    },
+    {
+      "sourceKey": "consume$k6225",
+      "fid": "FID_CONSUME_K6225",
+      "parameterCount": 328,
+      "kinds": {
+        "w32": 99,
+        "box": 209,
+        "w64": 20
+      },
+      "prefixGroups": {
+        "_delivered": 104,
+        "_h": 224
+      },
+      "returnWords": 41,
+      "refs": [
+        "FID_CONSUME_K6226",
+        "FID_WITH_FACTORY"
+      ]
+    },
+    {
+      "sourceKey": "consume$k6226",
+      "fid": "FID_CONSUME_K6226",
+      "parameterCount": 282,
+      "kinds": {
+        "w32": 70,
+        "box": 197,
+        "w64": 15
+      },
+      "prefixGroups": {
+        "_delivered": 11,
+        "_h": 271
+      },
+      "returnWords": 41,
+      "refs": [
+        "spin_943"
+      ]
+    }
+  ],
+  "offendingConstructors": [],
+  "guards": 4,
+  "generatedC": false,
+  "qualifiesNative56": false,
+  "unchangedRetry": false,
+  "scope": "Actual emitted continuation overflow, no constructor packed overflow. Names are exact emitted source keys, not invented checked Def identities."
+}
