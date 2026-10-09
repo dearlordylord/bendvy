@@ -42,7 +42,8 @@ class Selection(unittest.TestCase):
     def test_documentation_and_retained_data(self):
         calls = self.check_paths(['docs/parity/README.md', 'evidence/receipt.json',
                                   'src/ecs/component.bend'])
-        self.assertEqual(calls, ['scripts/check-python-source.py --staged'])
+        self.assertEqual(calls, ['scripts/check-python-source.py --staged',
+                                 'scripts/run-admission-controls.py'])
 
     def test_python_callers_and_shared_infrastructure(self):
         for name in ['experiments/public-debug/run.py', 'scripts/bend-check',
@@ -74,7 +75,8 @@ class Selection(unittest.TestCase):
             with patch.dict(os.environ, GIT_DIR=str(root / '.git'),
                             GIT_WORK_TREE=str(root), GIT_INDEX_FILE=str(index)):
                 calls = self.check_paths(['docs/only.md'])
-            self.assertEqual(calls, ['scripts/check-python-source.py --staged'])
+            self.assertEqual(calls, ['scripts/check-python-source.py --staged',
+                                 'scripts/run-admission-controls.py'])
             self.assertEqual(index.read_bytes(), before)
 
     def test_registered_simulation_controls(self):
@@ -85,7 +87,7 @@ class Selection(unittest.TestCase):
                                  ('validate-after-profile.py','test-after-profile.py')]:
             self.assertEqual(selected({prefix + changed}), [prefix + control])
         self.assertEqual(selected({'docs/notes.md'}), [])
-        self.assertEqual(len(selected({'scripts/task_runner.py'})), 5)
+        self.assertEqual(len(selected({'scripts/task_runner.py'})), 6)
 
     def test_registered_inspector_collector_controls(self):
         prefix = REGISTRY['INSPECTOR_LEAF']
@@ -93,6 +95,55 @@ class Selection(unittest.TestCase):
             self.assertEqual(REGISTRY['selected']({prefix + changed}),
                              [prefix + 'test-preparation.py'])
 
+
+    def test_registered_lowering_source_controls(self):
+        prefix = REGISTRY['LOWERING_COST']
+        for changed in ('cost-comp.ts', 'COPY.json', 'clean-comp.ts.gz',
+                        'cache-comp.ts.gz', 'cache.patch', 'observational.patch',
+                        'test-source.py', 'controls.mjs', 'cost.mjs'):
+            with self.subTest(changed=changed):
+                # Exercise an actual staged path, not only a guessed selector call.
+                calls = self.check_paths([prefix + changed])
+                self.assertIn('scripts/run-admission-controls.py', calls)
+                self.assertEqual(calls.count('scripts/run-admission-controls.py'), 1)
+                self.assertEqual(REGISTRY['selected']({prefix + changed}),
+                                 [prefix + 'test-source.py'])
+
+    def test_real_cost_only_stage_runs_registered_inverse_control(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            env = {k: v for k, v in os.environ.items() if not k.startswith('GIT_')}
+            env.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
+            subprocess.run(['git', 'init', '-q', str(root)], env=env, check=True)
+            prefix = REGISTRY['LOWERING_COST']
+            dependencies = next(d for c, d in REGISTRY['CONTROL_SETS']
+                                if c == prefix + 'test-source.py')
+            for name in dependencies:
+                target = root / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes((HOOK.parent.parent / name).read_bytes())
+            subprocess.run(['git', 'add', '.'], cwd=root, env=env, check=True)
+            subprocess.run(['git', '-c', 'user.name=Fixture', '-c',
+                            'user.email=fixture@example.invalid', 'commit', '-qm', 'baseline'],
+                           cwd=root, env=env, check=True)
+            # Only metadata is staged; no Python/shared path triggers broad tests.
+            target = root / (prefix + 'COPY.json')
+            target.write_bytes(target.read_bytes() + b'\n')
+            subprocess.run(['git', 'add', str(target)], cwd=root, env=env, check=True)
+            result = subprocess.run([sys.executable, str(root / 'scripts/run-admission-controls.py')],
+                                    cwd=root, env=env, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr.decode())
+            self.assertIn(b'Ran 5 tests', result.stderr)
+            # Mutant retains the exact source inverse but mislabels clean identity.
+            import json
+            metadata = json.loads(target.read_bytes())
+            metadata['cleanSHA256'] = metadata['cacheSHA256']
+            target.write_text(json.dumps(metadata))
+            subprocess.run(['git', 'add', str(target)], cwd=root, env=env, check=True)
+            result = subprocess.run([sys.executable, str(root / 'scripts/run-admission-controls.py')],
+                                    cwd=root, env=env, capture_output=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn(b'wrong baseline identity', result.stderr)
 
     def admission_fixture(self, unstaged=False, unstaged_helper=False, sampling=None):
         with tempfile.TemporaryDirectory() as directory:

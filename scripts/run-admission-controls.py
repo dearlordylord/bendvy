@@ -23,7 +23,13 @@ SHARED = {'scripts/run-admission-controls.py', 'scripts/task_runner.py',
           'scripts/evidence_boundary.py', 'scripts/receipt-logs.py'}
 INSPECTOR_LEAF = ('experiments/public-inspect/closed-owner-carrier-v1/'
                   'recursive-owner-v1/layout-followup-v1/leaf-lift-v1/')
+LOWERING_COST = INSPECTOR_LEAF + 'lowering-cost-v1/'
 CONTROL_SETS = (
+    (LOWERING_COST + 'test-source.py', SHARED | {
+        LOWERING_COST + name for name in (
+            'test-source.py', 'cost-comp.ts', 'COPY.json',
+            'clean-comp.ts.gz', 'cache-comp.ts.gz', 'cache.patch',
+            'observational.patch', 'controls.mjs', 'cost.mjs')}),
     (INSPECTOR_LEAF + 'test-preparation.py', SHARED | {
         INSPECTOR_LEAF + 'development.py',
         INSPECTOR_LEAF + 'test-preparation.py',
