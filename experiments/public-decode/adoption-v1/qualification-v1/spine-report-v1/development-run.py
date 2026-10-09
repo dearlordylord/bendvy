@@ -14,15 +14,13 @@ import time
 
 HERE = Path(__file__).resolve().parent
 ROOT = Path('/workspace/formal-proofs/bendvy')
-sys.path.insert(0,str(ROOT/'scripts'))
-import task_runner
-from evidence_boundary import ReceiptBoundary, GuardBoundary
 
 
 def load(name,path):
     spec = importlib.util.spec_from_file_location(name,path)
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    # Execute the pinned source bytes, never an unpinned cached .pyc.
+    exec(compile(Path(path).read_bytes(),str(path),"exec"),module.__dict__)
     return module
 
 
@@ -98,6 +96,30 @@ def admit_interpreter(plan):
     assert hashlib.sha256(actual.read_bytes()).hexdigest()==plan['inputs'][expected], 'actual interpreter bytes differ from admitted plan'
 
 
+def admit_file_pins(plan):
+    # Stdlib-only entry barrier: no repository code may execute before these.
+    pins=plan['inputs']
+    assert type(pins) is dict and pins, 'admitted input pins required'
+    required={str(Path(__file__).resolve()),str(ROOT/'scripts/task_runner.py'),str(ROOT/'scripts/evidence_boundary.py')}
+    assert required.issubset(pins), 'collector/helper pins missing before import'
+    for filename,expected in pins.items():
+        path=Path(filename)
+        assert path.is_absolute(), 'admitted input path must be absolute'
+        if isinstance(expected,str):
+            pinned_file({'path':filename,'sha256':expected})
+        else:
+            assert type(expected) is dict and path.is_dir() and not path.is_symlink(), 'invalid admitted resource pin'
+            actual={str(p.relative_to(path)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(path.rglob('*')) if p.is_file()}
+            assert actual==expected, 'admitted resource bytes/membership drift before import'
+
+
+def repository_helpers():
+    # Exact files, never an already-cached sys.modules helper or sys.path alias.
+    runner=load('decode_task_runner',ROOT/'scripts/task_runner.py')
+    boundary=load('decode_evidence_boundary',ROOT/'scripts/evidence_boundary.py')
+    return runner,boundary.ReceiptBoundary,boundary.GuardBoundary
+
+
 def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_path=None,binding_digest=None):
     binding=assembly_binding(binding_path,binding_digest)
     assembly=binding is not None
@@ -107,10 +129,12 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_p
     admitted = admitted_plan(plan_path,plan_digest) if execute else None
     if execute:
         admit_interpreter(admitted)
+        admit_file_pins(admitted)
         assert admitted['native'] == native and admitted['role'] == role, 'backend/role differs from admitted plan'
         assert not (out/'receipt.json').exists(), 'prepared cohort already executed'
     else:
         out.mkdir()
+    task_runner,ReceiptBoundary,GuardBoundary=repository_helpers()
     LOGS = load('decode_logs', ROOT/'scripts/receipt-logs.py')
     CONFIG = load('staging_config', ROOT/'experiments/public-simulation/delivery-v1/installed-config.py')
     raw = out/'raw'
