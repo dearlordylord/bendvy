@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[4]
 HERE = Path(__file__).resolve().parent
 TRANSPORT = HERE / 'transport-v1'
 ENTRY = HERE / 'main.bend'
-EXPECTED = 'INDEPENDENT_ORACLE_PENDING'
+EXPECTED = 'a90c73a2104352121b212c8a99357a866a4fb72bd6ba2143729917ab870ebe42'
 
 
 
@@ -75,7 +75,7 @@ def prepare(out, oracle, expected_sha):
     tools = {'bend': '/home/node/.bend/bin/bend-2.0.35', 'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
     extra = [Path(__file__), TRANSPORT / 'transport.py', TRANSPORT / 'constructor-identities.json',
              ROOT / 'scripts/task_runner.py', ROOT / 'scripts/evidence_boundary.py',
-             oracle / 'expected.json', oracle / 'expected.py', oracle / 'REVIEW.md', oracle / 'source-basis.json',
+             oracle / 'expected.json', oracle / 'expected.stdout', oracle / 'expected.py', oracle / 'REVIEW.md', oracle / 'source-basis.json',
              HERE / 'README.md', HERE / 'test-admission.py', TRANSPORT / 'test-transport.py', *map(Path, tools.values())]
     pins = dict(identities['sourceSHA256'])
     pins.update({str(path.resolve(strict=True)): sha(path) for path in extra})

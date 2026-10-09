@@ -1,0 +1,94 @@
+{
+  "status": "UNEXECUTED_PENDING_INDEPENDENT_ADMISSION",
+  "scope": "additive core-only example, complete413byteString; no replacement22/20 qualification/public41completion/performance",
+  "wholeJSONSHA256": "a90c73a2104352121b212c8a99357a866a4fb72bd6ba2143729917ab870ebe42",
+  "rawBytes": 413,
+  "rawSHA256": "be2a5ef953db00a218013d108942834f513671262c1d966a944c7ce1a50dd8f3",
+  "plans": [
+    {
+      "backend": "js",
+      "path": "/tmp/bendvy-bundles41-core-retry-js01/plan.json",
+      "SHA256": "c56d83d8c0fe74cb0063487ea9a7fdc64b1b3b8661a0f53f2eebb8e477c2ba77",
+      "snapshot": "plans-v1/js.json",
+      "pins": 44,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/core-retry-v1/main.bend",
+            "-o",
+            "/tmp/bendvy-bundles41-core-retry-js01/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy-bundles41-core-retry-js01/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "backend": "native",
+      "path": "/tmp/bendvy-bundles41-core-retry-native01/plan.json",
+      "SHA256": "45b9aeb85951eccd52e462562880df78fee9921d750d37c68695e55db5a60229",
+      "snapshot": "plans-v1/native.json",
+      "pins": 47,
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-41-public-readiness/experiments/public-bundles/owned-public-result-v1/core-retry-v1/main.bend",
+            "-o",
+            "/tmp/bendvy-bundles41-core-retry-native01/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy-bundles41-core-retry-native01/scenario.c",
+            "-o",
+            "/tmp/bendvy-bundles41-core-retry-native01/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/tmp/bendvy-bundles41-core-retry-native01/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    }
+  ]
+}
