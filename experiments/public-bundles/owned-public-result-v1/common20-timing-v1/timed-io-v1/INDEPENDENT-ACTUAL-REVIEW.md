@@ -11,3 +11,9 @@ Early-end JS session32890 exits1 and Native5019 exits2, both with null runner fa
 All source/oracle/helper/constructor bindings remain the previously admitted ones; failed-control exits and their original stderr are retained, not repaired into success. Archive scope includes raw/artifacts/plans/receipts/guards; source/helper fidelity additionally relies on current frozen plan pins rather than claiming every dependency is separately archived. No new source, ownership policy, numerical threshold or runner was introduced.
 
 Measured elapsed strings remain protocol observations only. Backend-specific inverse, physical observation, owner delivery and capture work stays inside the timer region. These one-shot cohorts provide semantic/protocol evidence, not a balanced timing comparison, full22/20 replacement or issue41 completion.
+
+## Verifier relocation correction
+
+Scoped PASS for verifier-only `b36d2fe3c52d792cd98782681389cf678bfac1ba`: one file, eight insertions and one deletion. The original verifier passed in the frozen author checkout but its current-checkout path lookup raised KeyError after root relocation. The correction selects exactly one historical shared-join pin by its canonical path suffix per positive plan, requires the same historical path in all three plans, and requires each retained digest to equal the current checkout's complete join source bytes. It then executes those bytes and reproduces the unchanged ACTUAL-PUBLIC-JOIN. No frozen pin is rewritten and suffix selection alone cannot authorize differing source bytes.
+
+The commit changes no archive, plan, raw stream, receipt, helper, oracle or source contract. Root independently reports its real relocated verifier terminal0 with all five protocol gates and twenty joins after integration. This fixes metadata path portability only; it does not repeat a backend or add timing credit. The preceding actual evidence PASS remains bound to immutable `3ea6a41a`.
