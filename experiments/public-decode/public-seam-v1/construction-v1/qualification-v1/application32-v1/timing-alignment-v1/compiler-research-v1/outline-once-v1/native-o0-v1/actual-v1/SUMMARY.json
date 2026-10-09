@@ -1,0 +1,137 @@
+{
+  "status": "INCOMPLETE_RUNTIME_DEADLINE",
+  "originalSession": 30472,
+  "collectorExit": 1,
+  "receipt": {
+    "scope": "Artifact-only O0 fullInspector finite semantic diagnostic; original O3 deadline preserved; no performance or adoption claim",
+    "planSHA256": "b2e6e9b31e36767d41d4f98f798e8f5273d6538abfa0dc090c9a1fcda5901b75",
+    "commands": [
+      {
+        "label": "build",
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "5",
+          "/tmp/bendvy-clang19-diagnostic/clang19",
+          "-O0",
+          "/tmp/bendvy-inspect54-outline-once01/reference.c",
+          "-o",
+          "/tmp/bendvy-inspect54-outline-native-o001/inspector.native",
+          "-pthread",
+          "-lm"
+        ],
+        "capSeconds": 120,
+        "exit": 0,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+        "childAccounting": {
+          "scope": "collector reaped children delta around execute_result; not runtime performance",
+          "wallNs": 54593160616,
+          "userSeconds": 52.802337,
+          "systemSeconds": 1.6985720000000002,
+          "before": {
+            "userSeconds": 0.0013059999999999999,
+            "systemSeconds": 0.006533
+          },
+          "after": {
+            "userSeconds": 52.803643,
+            "systemSeconds": 1.705105
+          }
+        },
+        "stdout": {
+          "path": "/tmp/bendvy-inspect54-outline-native-o001/build.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "published": true
+        },
+        "stderr": {
+          "path": "/tmp/bendvy-inspect54-outline-native-o001/build.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "published": true
+        }
+      },
+      {
+        "label": "consumer",
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "5",
+          "/tmp/bendvy-inspect54-outline-native-o001/inspector.native",
+          "--threads",
+          "1",
+          "--gpu",
+          "off"
+        ],
+        "capSeconds": 5,
+        "exit": null,
+        "failure": "child deadline",
+        "capture": "split",
+        "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+        "childAccounting": {
+          "scope": "collector reaped children delta around execute_result; not runtime performance",
+          "wallNs": 5019320122,
+          "userSeconds": 4.9835549999999955,
+          "systemSeconds": 0.029868999999999923,
+          "before": {
+            "userSeconds": 52.803643,
+            "systemSeconds": 1.705105
+          },
+          "after": {
+            "userSeconds": 57.787198,
+            "systemSeconds": 1.734974
+          }
+        },
+        "stdout": {
+          "path": "/tmp/bendvy-inspect54-outline-native-o001/consumer.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "published": true
+        },
+        "stderr": {
+          "path": "/tmp/bendvy-inspect54-outline-native-o001/consumer.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "published": true
+        }
+      }
+    ],
+    "guards": [
+      {
+        "path": "/tmp/bendvy-inspect54-outline-native-o001/build-pre.guard.json",
+        "sha256": "aeeefe582ab95bb187662622a52232cdc24e4502acfbbd649ae0d40da959ec18"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-native-o001/build-acquired.guard.json",
+        "sha256": "425107cf0cfa9994de0b9cb0a1d8e93e98a1391c35e37b80a35b80a57fe966df"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-native-o001/build-post.guard.json",
+        "sha256": "0715bd6a0fc8f4e2087b0250870bb20da0abd9b9bca55fbe1a1d4751ed6f6ea0"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-native-o001/consumer-pre.guard.json",
+        "sha256": "8123172a28ff6427d366abc3fc702c0a8dd9b461f79b1493d3fe5460dc08ee08"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-native-o001/consumer-acquired.guard.json",
+        "sha256": "8938e9662457217ce23f90e4593c11e071804db7d484d683e87687c46c733303"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-native-o001/consumer-post.guard.json",
+        "sha256": "419af98efa0ee1a6f1d8e522facb668247ee79ed0701f9e7e4671db2fba379c7"
+      },
+      {
+        "path": "/tmp/bendvy-inspect54-outline-native-o001/final.guard.json",
+        "sha256": "cf82d187918a12899dade9084ee080eaf2b4656de28c0da0ed0ece580b789619"
+      }
+    ],
+    "status": "INCOMPLETE",
+    "buildArtifactSHA256": "3a3a7028a3c0a09fd6f543a3460f5b8f785a3083f20516bf8bdc79d8de966156",
+    "error": "ValueError: Owned child failed: consumer",
+    "guardFailures": []
+  },
+  "archiveMembers": 191,
+  "checks": "all current pins, seven guards, generated binary and complete compressed bytes/length joins PASS; no replay"
+}
