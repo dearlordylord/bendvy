@@ -1,0 +1,25 @@
+# #46 native completion reconciliation
+
+Source-only assessment after `6d837aa6`; no implementation, compiler or backend run. Governing scope is current `docs/SPEC.md` Implementation Decisions, not every export in the TS inventory. Root's newer [core delivery report](canonical-v1/CORE-DELIVERY.md) is authoritative for delivered modules and default regression. Its historical host-interoperability remainder is superseded by the explicit pending-scope decision.
+
+## Capability and acceptance map
+
+| Capability | Public implementation / evidence | Remaining native acceptance |
+| --- | --- | --- |
+| Construct an arbitrary affine typed component from typed input | `src/ecs/decode-construction.bend`; retained nominal declaration, separate input/stored codecs, reversible builder and custom Data errors. Canonical inputCodec12 observes text→structured Object owners in two schemas. | No missing API established. A constructor is application-authored, not runtime reflection. |
+| Spawn/insert typed bundles through declared authority | `decode-constructed-requests.bend`, `decode-fallible-constructed-requests.bend`; opaque-H `Cap.invoke_owned` and retained declaration. Canonical44/20/16/12 cover materialization, failure, owner recovery and real independently created foreign worlds. | Broader descriptor-route coverage below; no new spawn ownership policy. |
+| Insert/replace typed resources | `decode-validated-resource.bend`, `decode-constructed-resource.bend`, `decode-fallible-constructed-resource.bend`. Full observations include downstream refusal returning original input and unchanged frame. | No missing resource API established. Accepted replacement rollback restores old resource and drops replacement under existing journal semantics; it does not return that replacement. |
+| Nested typed validation and exact errors | Canonical fixture `nested`: struct→array→nullable→literal; valid/rejected construction, malformed nested resource and malformed nested spawn. Handle namespace construction is separate from target-entity authority. | Source-current native acceptance does not yet explicitly join nested successful **insert** and handle-valued payloads through all three consuming routes. Add bounded two-schema consuming cases using existing grants, not new decoder APIs. |
+| Authority / transaction safety | Four full positive roles plus14 source negatives; three reached compiling mutants with exact whole witnesses. [Independent Native audit](canonical-v1/INDEPENDENT-NATIVE-ACTUAL-REVIEW.md), archive `00e2c3be`, review `042837d8`: full92 Native==JS==independent model. | Existing finite coverage is not universal proof. New consuming cases need full world/queue/owner observations and source-current authority controls. |
+| Plain/transient persistence markers | Native `persistence-declaration.bend` retains distinct markers; historical full-assembly selector12 exercised plain/transient. | Join distinct save behavior to current canonical snapshot acceptance (#58/#59), rather than treating old experiment-only selector callbacks as current public delivery. No requirement to reproduce TS helper precedence where no approved native capability needs it. |
+| Performance / delivery | Core delivery records unchanged #28 PASS: current/frozen JS0.90532474, Native0.98513866. | Equivalent agreed native feature workload with actual TS comparison and timing/scaling remains #46 acceptance. Workshop ratios are descriptive, not feature qualification. Root owns combined integration, reviews, push and English issue report. |
+
+## Primary-source basis
+
+Pinned Rust Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60`: `crates/bevy_ecs/src/world/mod.rs:1243` accepts `B: Bundle` in `World.spawn`; `:2056` accepts `R: Resource` in `insert_resource`; `world/entity_access/world_mut.rs:1005` inserts `T: Bundle`. `bundle/mod.rs:202,244` defines typed Bundle/DynamicBundle and exactly-once moves. These require typed component/resource admission, not Standard Schema, JS callbacks or automatic reflection. Reflect construction is a separately registered interface (`reflect/component.rs:146`), not evidence of a missing ordinary spawn API.
+
+Bend reference `a950fd683c0d76f09794078e6174fe98a1492876` supplies the affine Type constraint; native APIs retain arbitrary owners, explicit projector/builder/undo and Local recovery. TS `3040a3b2a3f28fa8554d856f9ccb6bf5433fa334` remains a feature inventory and comparison reference, third in contract priority.
+
+## Minimal next step
+
+No additional generic construction implementation is justified by this assessment. Finish the bounded native consuming coverage above and its independent full oracle, then review exact JS/Native plans; reuse qualified92 rather than replay unchanged historical work. Determine current save-evidence joins before adding duplicate persistence cases. Run the feature-specific comparator/scaling and unchanged combined #28 only for the final integrated delta. Standard Schema/host transport history stays preserved separately and pending agreement; it is neither a native blocker nor an implemented full-scope feature.
