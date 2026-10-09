@@ -1,0 +1,89 @@
+{
+  "scope": "Reviewed helper fake controls and builtin smoke only; no Bend/compiler workload",
+  "planSHA256": "a80058dcb18216100ae8ecad5b00a85fe2da28f16cc8422c692a49ddfbe8e36e",
+  "commands": [
+    {
+      "label": "controls",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/cpu-profile-v1/helper-controls.mjs"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "stdout": {
+        "path": "/tmp/bendvy-inspect54-recursive-profile02/controls.stdout",
+        "sha256": "8c90a21ca6ef37880c487773cc6e2da48dbfba0cc6b37cee442cf3e0cc094533",
+        "bytes": 26
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-inspect54-recursive-profile02/controls.stderr",
+        "sha256": "6a9055dabac3744228ecb0f69ce0af75c3f07575c9b2a83a9e4dc906a0f174df",
+        "bytes": 47
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    },
+    {
+      "label": "smoke",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/cpu-profile-v1/smoke.mjs",
+        "/tmp/bendvy-inspect54-recursive-profile02/smoke.cpuprofile"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "stdout": {
+        "path": "/tmp/bendvy-inspect54-recursive-profile02/smoke.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-inspect54-recursive-profile02/smoke.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-inspect54-recursive-profile02/controls-pre.helper-guard.json",
+      "sha256": "99baede9edc9b0c0ae483cb0523acd5d90bb22ab4fd437fba09413602121fb34"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-recursive-profile02/controls-acquired.helper-guard.json",
+      "sha256": "4e4fa4532e52500a8fbfd2293bcf06fda3574c2e2441db29118595f22cb1ccb3"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-recursive-profile02/controls-post.helper-guard.json",
+      "sha256": "b0f24a99eeb27351d1a989998e337351f2eb4e6ba790dd769d1b65cfa935c8ab"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-recursive-profile02/smoke-pre.helper-guard.json",
+      "sha256": "1c84bad198cc2d8f185e3f1f7aced20cca35957350c0102789e4e8f82007124a"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-recursive-profile02/smoke-acquired.helper-guard.json",
+      "sha256": "f1dc1dd057072c2598f284b233aa805e66a639e9895e9bd0a49ef29eb2929dc8"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-recursive-profile02/smoke-post.helper-guard.json",
+      "sha256": "238c9f50925a8f81313d8fd33c1db8bb3e657006446eb61bd209401ea3bba8ab"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-recursive-profile02/final.helper-guard.json",
+      "sha256": "6386611e4e41f5cfd4ec105da78c8eb100bb79919d2054ff758a4d86fdaf222c"
+    }
+  ],
+  "status": "HELPER_AND_BUILTIN_SMOKE_PASS",
+  "smokeProfileSHA256": "240f76688ea241c3365f8cbaf6b3fc49a926336eb3288c61837dff7ac167976f"
+}

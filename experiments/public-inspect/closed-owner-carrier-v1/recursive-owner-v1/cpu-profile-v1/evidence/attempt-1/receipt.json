@@ -1,0 +1,56 @@
+{
+  "scope": "Exact afbbe327 full recursive consumer copied-reference sampled CPU profile; diagnostic abort only, no installedELF/Native/parity/performance qualification",
+  "planSHA256": "a80058dcb18216100ae8ecad5b00a85fe2da28f16cc8422c692a49ddfbe8e36e",
+  "commands": [
+    {
+      "label": "reference-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/cpu-profile-v1/emit.mts",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-54-boxed-scan/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/stage/output-io-main.bend",
+        "/tmp/bendvy-inspect54-recursive-profile02/reference.c",
+        "/tmp/bendvy-inspect54-recursive-profile02/recursive.cpuprofile"
+      ],
+      "capSeconds": 30,
+      "exit": 1,
+      "failure": null,
+      "stdout": {
+        "path": "/tmp/bendvy-inspect54-recursive-profile02/emit.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-inspect54-recursive-profile02/emit.stderr",
+        "bytes": 37345,
+        "sha256": "2f80070b0c816df5ef510541406c058cbf6fdb66369bd45c6c3a3820ba5123d3"
+      },
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-inspect54-recursive-profile02/emit-pre.guard.json",
+      "sha256": "b388cc0574895db542ea9d802b9783b2795a53d1effad8a478a3ef3dbc234a2c"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-recursive-profile02/emit-acquired.guard.json",
+      "sha256": "b1975daf4a87c74fee6eb7ecbb62a944d0eeebcaa64c6686bcc56bf2b5d84dcd"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-recursive-profile02/emit-post.guard.json",
+      "sha256": "a0dc0cf7e8f033ea151f39be9438434081cc431e60506de89341a9e943410a2e"
+    },
+    {
+      "path": "/tmp/bendvy-inspect54-recursive-profile02/final.guard.json",
+      "sha256": "15e51339e7d362985405f79c53b27d6cdf21144d64777e38bbb57e05a7d6bd64"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "profileSHA256": "5c2c1cf78c989016ce4955a22dda1ca8e16e8f812552a79a52e92dae0278dda5",
+  "error": "ValueError: invalid sample delta",
+  "guardFailures": []
+}
