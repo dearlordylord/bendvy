@@ -1,0 +1,7 @@
+# Source-bound complete spine oracle
+
+Source candidate `56158284` preserves all eight `B.run` codec/input combinations for each of Insert, Spawn, Resource and OtherSchema Insert. Each completed observation is prepended to an actual recursive `Base.List`; the terminal exact eight-element pattern reverses that staging order into the original Cases fields. No item is projected away. The twelve extension steps preserve original call arguments and use typed World/Decode variants; the exact terminal pattern restores the original Extension field order. Foreign remains the actual `B.foreign_world()` operation.
+
+The independent expectation wraps every original Cases and Extension in explicit `Some`; `None` is never accepted as positive qualification. All 32 complete operation traces, twelve extensions and complete foreign observation retain the historical `ca88` semantic contents byte-equivalently as nested JSON values. Original world/column/owner/sentinel/stamp/event/queue and rejection observations remain required. The wrapper changes neither any operation nor any expected result. Historical oracle bytes are preserved in Git.
+
+This is source-semantic admission only. Recursive staging may affect representation, but no physical compiler/runtime success is inferred. Typed transport must bind the new Candidate nominal namespace and explicit Maybe tags before execution; the complete consuming backend remains unexecuted at this review.
