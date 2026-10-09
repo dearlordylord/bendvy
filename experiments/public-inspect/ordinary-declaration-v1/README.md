@@ -37,11 +37,11 @@ not pinned-tool qualification. Caller-04 failed raw publication because bytes
 were passed to write_text; its separate failure record remains incomplete.
 Caller-05 records the actual closed-grant restriction. Caller-06 and the four
 negatives/mutant use explicit 2.0.35, CPU5, source5, shared lock, snapshots and
-post-check guards. No proof, backend or performance qualification is claimed.
+post-check guards. These small-caller checks establish source behavior only; no proof or performance qualification is claimed.
 
-This is a vertical slice, not the full Inspector/Check acceptance. The existing
-23-grant consumer must next use the binding throughout with Store/Event/Resource
-parameterization and its unchanged complete oracle. Pair/filter/map, ordinary
+This is a vertical slice, not the full Inspector/Check acceptance. The [full23 consumer](full-consumer-v1/README.md) now uses the binding throughout with Store/Event/Resource
+parameterization; its normal JS output equals the unchanged complete oracle. The
+separate small caller clause mutation still needs independent actual qualification. Pair/filter/map, ordinary
 App inventory, opaque resource authority, foreign/held-view policy and current
 public runtime delivery remain their existing #54/#56/#35 obligations. No new
 capture/finalizer or lifecycle policy is selected and no laws/proofs are added.
