@@ -1,0 +1,58 @@
+{
+  "scope": "Private diagnostic context only; compiler algorithms/checkpoint count/deadline/dispatch unchanged",
+  "parentCompiler": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/packed-compiler.mjs",
+  "parentSHA256": "ecb67943d8e06f7257408927f0de4b1671af2ea6ceb03ec66cb1bcf4ec9f218d",
+  "successorCompiler": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/queue-context-v1/packed-compiler.mjs",
+  "successorSHA256": "5ac2e675acd459f889246a5bc94c4bc8bbb7d9b41e50cf21e70c917e97659f3d",
+  "patches": [
+    {
+      "name": "context-state",
+      "original": "calls:0, definition:null};",
+      "replacement": "calls:0, definition:null, queueContext:null};"
+    },
+    {
+      "name": "existing-phase-context",
+      "original": "BVY_PD_LOG(\"phase-\"+event,{name,pass:BVY_PD_STATE.pass});",
+      "replacement": "BVY_PD_LOG(\"phase-\"+event,{name,pass:BVY_PD_STATE.pass,queueContext:name === \"file_book\" ? BVY_PD_STATE.queueContext : null});"
+    },
+    {
+      "name": "existing-deadline-context",
+      "original": "BVY_PD_LOG(\"deadline\",{hook,definition:BVY_PD_STATE.definition,calls:BVY_PD_STATE.calls,limitMs:BVY_PD_STATE.limit,exit:75});",
+      "replacement": "BVY_PD_LOG(\"deadline\",{hook,definition:BVY_PD_STATE.definition,calls:BVY_PD_STATE.calls,limitMs:BVY_PD_STATE.limit,exit:75,queueContext:BVY_PD_STATE.phase === \"file_book\" ? BVY_PD_STATE.queueContext : null});"
+    },
+    {
+      "name": "queue-checkpoint",
+      "original": "  const queue = roots.slice();\n  for (const d of queue) {\n    if (SRCS.has(d)) {\n      continue;\n    }\n    memo_gc();\n    const tld = book.tlds[d];\n    SRCS.set(d, null);\n",
+      "replacement": "  const queue = roots.slice();\n  const BVY_PD_QUEUE = {upcoming:null,current:null,lastCompleted:null,substage:\"queue-ready\",queueLength:queue.length,uniqueVisited:SRCS.size,queueBeforeCurrent:null,queueAfterTypes:null};\n  BVY_PD_STATE.queueContext = BVY_PD_QUEUE;\n  for (const d of queue) {\n    if (SRCS.has(d)) {\n      continue;\n    }\n    BVY_PD_QUEUE.upcoming = d;\n    BVY_PD_QUEUE.substage = \"checkpoint-before-definition\";\n    BVY_PD_QUEUE.queueLength = queue.length;\n    BVY_PD_QUEUE.uniqueVisited = SRCS.size;\n    memo_gc();\n    BVY_PD_QUEUE.current = d;\n    BVY_PD_QUEUE.upcoming = null;\n    BVY_PD_QUEUE.queueBeforeCurrent = queue.length;\n    BVY_PD_QUEUE.substage = \"lookup\";\n    const tld = book.tlds[d];\n    SRCS.set(d, null);\n    BVY_PD_QUEUE.substage = \"type-dependencies\";\n"
+    },
+    {
+      "name": "inactive-completion",
+      "original": "    if (!done_live(tld)) {\n      continue;\n    }\n    const deps = new Set;\n",
+      "replacement": "    BVY_PD_QUEUE.queueAfterTypes = queue.length;\n    if (!done_live(tld)) {\n      BVY_PD_QUEUE.lastCompleted = {key:d,completionSubstage:\"inactive-after-type-dependencies\",queueBefore:BVY_PD_QUEUE.queueBeforeCurrent,queueAfterTypes:queue.length,queueAfterBody:queue.length,uniqueVisited:SRCS.size};\n      BVY_PD_QUEUE.current = null;\n      BVY_PD_QUEUE.substage = \"completed-inactive\";\n      BVY_PD_QUEUE.queueLength = queue.length;\n      BVY_PD_QUEUE.uniqueVisited = SRCS.size;\n      continue;\n    }\n    const deps = new Set;\n"
+    },
+    {
+      "name": "function-body-stages",
+      "original": "    let flat = true;\n    term_any(fl, fun_of(fl, d).h, (s, tail) => {\n      if (s.$ === \"Ann\") {\n        queue.push(...type_adts(fl, s.T));\n      }\n",
+      "replacement": "    let flat = true;\n    BVY_PD_QUEUE.substage = \"fun_of\";\n    const BVY_PD_FUN_BODY = fun_of(fl, d).h;\n    BVY_PD_QUEUE.substage = \"term_any\";\n    term_any(fl, BVY_PD_FUN_BODY, (s, tail) => {\n      if (s.$ === \"Ann\") {\n        BVY_PD_QUEUE.substage = \"type-dependencies-in-body\";\n        queue.push(...type_adts(fl, s.T));\n        BVY_PD_QUEUE.substage = \"term_any\";\n      }\n"
+    },
+    {
+      "name": "runtime-completion",
+      "original": "    SRCS.set(d, flat ? deps : null);\n    queue.push(...refs);\n  }\n  BVY_PD_PHASE(\"file_book\", \"exit\");",
+      "replacement": "    SRCS.set(d, flat ? deps : null);\n    queue.push(...refs);\n    BVY_PD_QUEUE.lastCompleted = {key:d,completionSubstage:\"runtime-after-body-scan\",queueBefore:BVY_PD_QUEUE.queueBeforeCurrent,queueAfterTypes:BVY_PD_QUEUE.queueAfterTypes,queueAfterBody:queue.length,uniqueVisited:SRCS.size};\n    BVY_PD_QUEUE.current = null;\n    BVY_PD_QUEUE.substage = \"completed-runtime\";\n    BVY_PD_QUEUE.queueLength = queue.length;\n    BVY_PD_QUEUE.uniqueVisited = SRCS.size;\n  }\n  BVY_PD_PHASE(\"file_book\", \"exit\");"
+    }
+  ],
+  "inverseToParent": true,
+  "inverseToExactPacked333165Bytes": true,
+  "missingContextRefusals": [
+    "context-state",
+    "existing-phase-context",
+    "existing-deadline-context",
+    "queue-checkpoint",
+    "inactive-completion",
+    "function-body-stages",
+    "runtime-completion"
+  ],
+  "question": "At existing cutoff, distinguish upcoming key from last completed key; expose actual current substage and queue length vs unique visited entries. QueueAfterTypes/Body are structural lengths, not costs.",
+  "boundaries": "Existing memo_gc checks before d processing. No new checks/timers/sampler/event stream; context appears only existing phase/deadline records. At a before-definition cutoff current=null; lastCompleted records completed work, not a timed bottleneck. Nested substage assignments are truthful but no stage-cost attribution follows.",
+  "equivalence": "fun_of(fl,d).h remains evaluated once in its original argument-evaluation order before term_any, retained in a local solely to distinguish stages. Queue/refs/SRCS/normalization/layout control flow otherwise unchanged. Diagnostic state allocation overhead unknown; no speed claim."
+}
