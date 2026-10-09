@@ -1,0 +1,50 @@
+[
+  {
+    "control": "oracle-drift",
+    "result": "REJECTED",
+    "message": "pinned file drift"
+  },
+  {
+    "control": "source-drift",
+    "result": "REJECTED",
+    "message": "pinned file drift"
+  },
+  {
+    "control": "mode-role",
+    "result": "REJECTED",
+    "message": "mode/role mismatch"
+  },
+  {
+    "control": "bootstrap",
+    "result": {
+      "status": "PASS",
+      "native": false,
+      "stdlibOnlyModuleEntry": true,
+      "wrongPythonNoHelperEntry": true,
+      "wrongPlanNoHelperEntry": true,
+      "pinDriftNoHelperEntry": true,
+      "missingHelperPinNoHelperEntry": true,
+      "positiveHelperEntryReached": true,
+      "backendChildren": 0
+    }
+  },
+  {
+    "control": "transport",
+    "result": {
+      "status": "PASS",
+      "scope": "strict full DTO controls; no backend",
+      "rawBytes": 39106,
+      "rawSha256": "d657e73d725cab29149577ebf73d30779237ddb484f4e9178c87ba03d45f9113",
+      "rejections": [
+        "missing-row",
+        "missing-owner",
+        "wrong-candidate",
+        "extra-field",
+        "trailing",
+        "cross-nominal"
+      ],
+      "historicalNormalRawUnchanged": true,
+      "backendChildren": 0
+    }
+  }
+]

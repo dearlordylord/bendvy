@@ -1,0 +1,60 @@
+{
+  "scope": "frozen72 source-current complete15-report candidate; not performance or issue closure",
+  "sourceCommit": "72f02c22",
+  "oracleCommit": "152dc70d9eb5cb715146dfdf9a4fbdf8d2441813",
+  "oracleSha256": "a0b2037dba1943acb7deb49f58007a72ff5d62821559744a8d1f9823c0a3e349",
+  "bindingSha256": "3b102fdcfb863df9be8e93bd81d11318d5f89cb3bc65cfc38867790e02f3d49d",
+  "plans": {
+    "normal-js": {
+      "planSha256": "204d9179c468829bc64da8500ff38815012b39176cf97ed9cedda76470809d25",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/complete.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/prepared-source72-v1/normal-js/generated/complete.js"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/prepared-source72-v1/normal-js/generated/complete.js"
+        },
+        {
+          "label": "complete-run",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/prepared-source72-v1/normal-js/generated/complete.js"
+          ],
+          "capSeconds": 5
+        }
+      ]
+    },
+    "normal-cEmit": {
+      "planSha256": "d53576242c54796eb39954456d78b1a8a728d4512efb54fe713bb11d1f6e318a",
+      "status": "PREPARED_NO_CHILD",
+      "commands": [
+        {
+          "label": "complete-emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "5",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/complete.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/prepared-source72-v1/normal-cEmit/generated/complete.c"
+          ],
+          "capSeconds": 30,
+          "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/generic-assembly-v1/prepared-source72-v1/normal-cEmit/generated/complete.c"
+        }
+      ]
+    }
+  }
+}

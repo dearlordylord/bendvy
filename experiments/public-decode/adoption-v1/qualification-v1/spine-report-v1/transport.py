@@ -7,6 +7,12 @@ BASE=importlib.util.module_from_spec(spec);spec.loader.exec_module(BASE)
 
 def inventory(entry,assembly=False,role="normal"):
  entry=Path(entry).resolve()
+ if role=='generic-assembly':
+  assert assembly and entry.name=='complete.bend','generic role requires explicit complete source'
+  path=entry.parent/'transport-inventory.py'
+  spec=importlib.util.spec_from_file_location('generic_assembly_inventory',path)
+  helper=importlib.util.module_from_spec(spec);exec(compile(path.read_bytes(),str(path),'exec'),helper.__dict__)
+  return helper.inventory(entry,BASE)
  types,name=BASE.inventory(entry.parent.parent/'main.bend')
  if assembly:
   types=assembly_inventory(entry)
@@ -51,6 +57,9 @@ def assembly_inventory(entry):
  return types
 
 def whole(value,role="normal"):
+ if role=="generic-assembly":
+  assert type(value) is dict and set(value)=={"$","second","first","recovery"} and value["$"]=="Candidate"
+  return value
  if role=="local-failure":
   assert type(value) is dict and set(value)=={"$","resourceAccepted","resourceRefused","spawnAccepted","spawnRefused"} and value["$"]=="Report"
   return value
