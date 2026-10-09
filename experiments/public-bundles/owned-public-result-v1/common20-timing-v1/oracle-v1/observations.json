@@ -1,0 +1,5820 @@
+[
+  {
+    "schema": "A",
+    "mode": "spawn-insert",
+    "namespace": 1,
+    "before": {
+      "namespace": 1,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        43
+      ],
+      "pending": [
+        "publish801",
+        "publish901",
+        "activate2",
+        "installInitial2",
+        "installReplacement2"
+      ],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "after": {
+      "namespace": 1,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ],
+            [
+              1091,
+              1092
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              7,
+              13
+            ],
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ],
+            [
+              1101,
+              1102
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              9,
+              14
+            ],
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag",
+            "tag"
+          ],
+          "stamps": [
+            [
+              2,
+              10,
+              15
+            ],
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17,
+            27
+          ],
+          "stamps": [
+            [
+              2,
+              11,
+              16
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 16,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 2,
+            "kind": "replacement",
+            "inverse": [
+              {
+                "field": "a",
+                "old": [
+                  1031,
+                  1032
+                ],
+                "stamp": [
+                  7,
+                  8
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1071,
+                  1072
+                ],
+                "stamp": [
+                  7,
+                  12
+                ]
+              },
+              {
+                "field": "b",
+                "old": [
+                  1041,
+                  1042
+                ],
+                "stamp": [
+                  9,
+                  9
+                ]
+              },
+              {
+                "field": "tag",
+                "old": "tag",
+                "stamp": [
+                  10,
+                  10
+                ]
+              },
+              {
+                "field": "value",
+                "old": 17,
+                "stamp": [
+                  11,
+                  11
+                ]
+              }
+            ],
+            "queued": [
+              [
+                111,
+                112
+              ]
+            ]
+          },
+          {
+            "id": 2,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  7,
+                  7
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          },
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "teardown": {
+      "namespace": 1,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ],
+            [
+              1031,
+              1032
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              7,
+              8
+            ],
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ],
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              9,
+              9
+            ],
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag",
+            "tag"
+          ],
+          "stamps": [
+            [
+              2,
+              10,
+              10
+            ],
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17,
+            17
+          ],
+          "stamps": [
+            [
+              2,
+              11,
+              11
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 16,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end"
+        ],
+        "installed": [
+          {
+            "id": 2,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  7,
+                  7
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          },
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          "unwound"
+        ]
+      }
+    },
+    "beforePublic": "[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "afterPublic": "[501, 502]:[1041, 1042]:tag:17/[1091, 1092]:[1101, 1102]:tag:27",
+    "delivery": "first=accepted:1:2:True|second=accepted:1:2:False|unsubmitted=none|first-refusal=none|returned-before-retry=|caller-context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|prepared=[1:2:2:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 1:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:1:2]",
+    "registry": "1:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6",
+    "text": "A-spawn-insert=Succeeded|before=[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing|after=[501, 502]:[1041, 1042]:tag:17/[1091, 1092]:[1101, 1102]:tag:27|registry=1:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6|teardown=[[501, 502], [1031, 1032]]@[2:7:8, 1:1:6]|[[1041, 1042], [1041, 1042]]@[2:9:9, 1:3:3]|[tag, tag]@[2:10:10, 1:4:4]|[17, 17]@[2:11:11, 1:5:5]|clock=16|live=[False, True, True, False]|ns=1|next=3|high=2|capacity=4|events=[43, 801, 802, 901, 902]|context=[1, 1, 1, 1]/[0, 1, 2, 3]|raw=[True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][]|installed=2|quarantine=0|pending=0|errors=[unwound]|installed-queues=[[[51, 52]], [[51, 52]]]|depth=2|registrations=[1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]]|nextSystem=2|delivery=first=accepted:1:2:True|second=accepted:1:2:False|unsubmitted=none|first-refusal=none|returned-before-retry=|caller-context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|prepared=[1:2:2:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 1:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:1:2]"
+  },
+  {
+    "schema": "A",
+    "mode": "invalid-return",
+    "namespace": 2,
+    "before": {
+      "namespace": 2,
+      "nextId": 2,
+      "highWater": 1,
+      "capacity": 2,
+      "depth": 1,
+      "live": [
+        false,
+        true
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        43
+      ],
+      "pending": [
+        "publish801",
+        "publish901"
+      ],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "after": {
+      "namespace": 2,
+      "nextId": 2,
+      "highWater": 1,
+      "capacity": 2,
+      "depth": 1,
+      "live": [
+        false,
+        true
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "teardown": {
+      "namespace": 2,
+      "nextId": 2,
+      "highWater": 1,
+      "capacity": 2,
+      "depth": 1,
+      "live": [
+        false,
+        true
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end"
+        ],
+        "installed": [],
+        "quarantine": [],
+        "errors": [
+          "unwound"
+        ]
+      }
+    },
+    "beforePublic": "[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "afterPublic": "[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "delivery": "first=refused:ConstructionRefused:[null, null, null, bad-3]:True:[11, 12]/True:17/True:tag/False:[31, 32]:[41, 42]:[[51, 52]]/end|second=none|unsubmitted=True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end|first-refusal=ConstructionRefused:[null, null, null, bad-3]|returned-before-retry=True:[11, 12]/True:17/True:tag/False:[31, 32]:[41, 42]:[[51, 52]]/end|caller-context=[1, 1, 1, 1]/[0, 1, 2, 3]|prepared=[]",
+    "registry": "2:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6",
+    "text": "A-invalid-return=Succeeded|before=[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing|after=[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing|registry=2:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6|teardown=[absent]@[1:0:0]|[absent]@[1:0:0]|[absent]@[1:0:0]|[absent]@[1:0:0]|clock=6|live=[False, True]|ns=2|next=2|high=1|capacity=2|events=[43, 801, 802, 901, 902]|context=[1, 1, 1, 1]/[0, 1, 2, 3]|raw=[True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end][]|installed=0|quarantine=0|pending=0|errors=[unwound]|installed-queues=[]|depth=1|registrations=[1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]]|nextSystem=2|delivery=first=refused:ConstructionRefused:[null, null, null, bad-3]:True:[11, 12]/True:17/True:tag/False:[31, 32]:[41, 42]:[[51, 52]]/end|second=none|unsubmitted=True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end|first-refusal=ConstructionRefused:[null, null, null, bad-3]|returned-before-retry=True:[11, 12]/True:17/True:tag/False:[31, 32]:[41, 42]:[[51, 52]]/end|caller-context=[1, 1, 1, 1]/[0, 1, 2, 3]|prepared=[]"
+  },
+  {
+    "schema": "A",
+    "mode": "invalid-retry",
+    "namespace": 3,
+    "before": {
+      "namespace": 3,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        43
+      ],
+      "pending": [
+        "publish801",
+        "publish901",
+        "activate2",
+        "installInitial2",
+        "installReplacement2"
+      ],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "after": {
+      "namespace": 3,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ],
+            [
+              1091,
+              1092
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              7,
+              13
+            ],
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ],
+            [
+              1101,
+              1102
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              9,
+              14
+            ],
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag",
+            "tag"
+          ],
+          "stamps": [
+            [
+              2,
+              10,
+              15
+            ],
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17,
+            27
+          ],
+          "stamps": [
+            [
+              2,
+              11,
+              16
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 16,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 2,
+            "kind": "replacement",
+            "inverse": [
+              {
+                "field": "a",
+                "old": [
+                  1031,
+                  1032
+                ],
+                "stamp": [
+                  7,
+                  8
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1071,
+                  1072
+                ],
+                "stamp": [
+                  7,
+                  12
+                ]
+              },
+              {
+                "field": "b",
+                "old": [
+                  1041,
+                  1042
+                ],
+                "stamp": [
+                  9,
+                  9
+                ]
+              },
+              {
+                "field": "tag",
+                "old": "tag",
+                "stamp": [
+                  10,
+                  10
+                ]
+              },
+              {
+                "field": "value",
+                "old": 17,
+                "stamp": [
+                  11,
+                  11
+                ]
+              }
+            ],
+            "queued": [
+              [
+                111,
+                112
+              ]
+            ]
+          },
+          {
+            "id": 2,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  7,
+                  7
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          },
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "teardown": {
+      "namespace": 3,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ],
+            [
+              1031,
+              1032
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              7,
+              8
+            ],
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ],
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              9,
+              9
+            ],
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag",
+            "tag"
+          ],
+          "stamps": [
+            [
+              2,
+              10,
+              10
+            ],
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17,
+            17
+          ],
+          "stamps": [
+            [
+              2,
+              11,
+              11
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 16,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end"
+        ],
+        "installed": [
+          {
+            "id": 2,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  7,
+                  7
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          },
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          "unwound"
+        ]
+      }
+    },
+    "beforePublic": "[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "afterPublic": "[501, 502]:[1041, 1042]:tag:17/[1091, 1092]:[1101, 1102]:tag:27",
+    "delivery": "first=accepted:3:2:True|second=accepted:3:2:False|unsubmitted=none|first-refusal=ConstructionRefused:[null, null, null, bad-3]|returned-before-retry=True:[11, 12]/True:17/True:tag/False:[31, 32]:[41, 42]:[[51, 52]]/end|caller-context=[3, 3, 3, 3]/[0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]|prepared=[3:2:2:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 3:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:3:2]",
+    "registry": "3:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6",
+    "text": "A-invalid-retry=Succeeded|before=[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing|after=[501, 502]:[1041, 1042]:tag:17/[1091, 1092]:[1101, 1102]:tag:27|registry=3:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6|teardown=[[501, 502], [1031, 1032]]@[2:7:8, 1:1:6]|[[1041, 1042], [1041, 1042]]@[2:9:9, 1:3:3]|[tag, tag]@[2:10:10, 1:4:4]|[17, 17]@[2:11:11, 1:5:5]|clock=16|live=[False, True, True, False]|ns=3|next=3|high=2|capacity=4|events=[43, 801, 802, 901, 902]|context=[1, 1, 1, 1]/[0, 1, 2, 3]|raw=[True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][]|installed=2|quarantine=0|pending=0|errors=[unwound]|installed-queues=[[[51, 52]], [[51, 52]]]|depth=2|registrations=[1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]]|nextSystem=2|delivery=first=accepted:3:2:True|second=accepted:3:2:False|unsubmitted=none|first-refusal=ConstructionRefused:[null, null, null, bad-3]|returned-before-retry=True:[11, 12]/True:17/True:tag/False:[31, 32]:[41, 42]:[[51, 52]]/end|caller-context=[3, 3, 3, 3]/[0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]|prepared=[3:2:2:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 3:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:3:2]"
+  },
+  {
+    "schema": "A",
+    "mode": "rollback",
+    "namespace": 4,
+    "before": {
+      "namespace": 4,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              1031,
+              1032
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              2
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [],
+      "pending": [
+        "publish801"
+      ],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end",
+          "True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end"
+        ],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          "body-failed|caller-context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|prepared=[4:2:2:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 4:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:4:2]"
+        ]
+      }
+    },
+    "after": {
+      "namespace": 4,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              1031,
+              1032
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              2
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        801,
+        802
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end",
+          "True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end"
+        ],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          "body-failed|caller-context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|prepared=[4:2:2:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 4:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:4:2]"
+        ]
+      }
+    },
+    "teardown": {
+      "namespace": 4,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        801,
+        802
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end",
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end",
+          "True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end"
+        ],
+        "installed": [],
+        "quarantine": [],
+        "errors": [
+          "unwound"
+        ]
+      }
+    },
+    "beforePublic": "[1031, 1032]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "afterPublic": "[1031, 1032]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "delivery": null,
+    "registry": "4:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:0",
+    "text": "A-rollback=Failed|before=[1031, 1032]:[1041, 1042]:tag:17/missing:missing:missing:missing|after=[1031, 1032]:[1041, 1042]:tag:17/missing:missing:missing:missing|registry=4:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:0|teardown=[absent]@[1:0:0]|[absent]@[1:0:0]|[absent]@[1:0:0]|[absent]@[1:0:0]|clock=6|live=[False, True, False, False]|ns=4|next=3|high=2|capacity=4|events=[801, 802]|context=[1, 1, 1, 1]/[0, 1, 2, 3]|raw=[True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end][True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end][]|installed=0|quarantine=0|pending=0|errors=[unwound]|installed-queues=[]|depth=2|registrations=[1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]]|nextSystem=2|delivery=failed"
+  },
+  {
+    "schema": "A",
+    "mode": "cleanup",
+    "namespace": 5,
+    "before": {
+      "namespace": 5,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        43
+      ],
+      "pending": [
+        "publish801",
+        "publish901",
+        "activate2",
+        "installInitial2",
+        "clear2",
+        "installReplacement2"
+      ],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "after": {
+      "namespace": 5,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ],
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ],
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag",
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17,
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 11,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end"
+        ],
+        "installed": [
+          {
+            "id": 2,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  7,
+                  7
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          },
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          "insert-refusal"
+        ]
+      }
+    },
+    "teardown": {
+      "namespace": 5,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ],
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ],
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag",
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17,
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 11,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end"
+        ],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [
+          {
+            "id": 2,
+            "kind": "initial",
+            "pendingTail": "value",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  7,
+                  7
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "errors": [
+          "quarantined"
+        ]
+      }
+    },
+    "beforePublic": "[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "afterPublic": "[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "delivery": "first=accepted:5:2:True|second=accepted:5:2:False|unsubmitted=none|first-refusal=none|returned-before-retry=|caller-context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|prepared=[5:2:3:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 5:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:5:2]",
+    "registry": "5:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6",
+    "text": "A-cleanup=Succeeded|before=[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing|after=[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing|registry=5:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6|teardown=[[501, 502], absent]@[1:1:6]|[[1041, 1042], absent]@[1:3:3]|[tag, absent]@[1:4:4]|[17, absent]@[1:5:5]|clock=11|live=[False, True, False, False]|ns=5|next=3|high=2|capacity=4|events=[43, 801, 802, 901, 902]|context=[1, 1, 1, 1]/[0, 1, 2, 3]|raw=[True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][]|installed=1|quarantine=1|pending=0|errors=[quarantined]|installed-queues=[[[51, 52]]]|depth=2|registrations=[1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]]|nextSystem=2|delivery=first=accepted:5:2:True|second=accepted:5:2:False|unsubmitted=none|first-refusal=none|returned-before-retry=|caller-context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|prepared=[5:2:3:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 5:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:5:2]"
+  },
+  {
+    "schema": "B",
+    "mode": "spawn-insert",
+    "namespace": 6,
+    "before": {
+      "namespace": 6,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        43
+      ],
+      "pending": [
+        "publish801",
+        "publish901",
+        "activate2",
+        "installInitial2",
+        "installReplacement2"
+      ],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "after": {
+      "namespace": 6,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ],
+            [
+              1091,
+              1092
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              7,
+              13
+            ],
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ],
+            [
+              1101,
+              1102
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              9,
+              14
+            ],
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag",
+            "tag"
+          ],
+          "stamps": [
+            [
+              2,
+              10,
+              15
+            ],
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17,
+            27
+          ],
+          "stamps": [
+            [
+              2,
+              11,
+              16
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 16,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 2,
+            "kind": "replacement",
+            "inverse": [
+              {
+                "field": "a",
+                "old": [
+                  1031,
+                  1032
+                ],
+                "stamp": [
+                  7,
+                  8
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1071,
+                  1072
+                ],
+                "stamp": [
+                  7,
+                  12
+                ]
+              },
+              {
+                "field": "b",
+                "old": [
+                  1041,
+                  1042
+                ],
+                "stamp": [
+                  9,
+                  9
+                ]
+              },
+              {
+                "field": "tag",
+                "old": "tag",
+                "stamp": [
+                  10,
+                  10
+                ]
+              },
+              {
+                "field": "value",
+                "old": 17,
+                "stamp": [
+                  11,
+                  11
+                ]
+              }
+            ],
+            "queued": [
+              [
+                111,
+                112
+              ]
+            ]
+          },
+          {
+            "id": 2,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  7,
+                  7
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          },
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "teardown": {
+      "namespace": 6,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ],
+            [
+              1031,
+              1032
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              7,
+              8
+            ],
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ],
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              9,
+              9
+            ],
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag",
+            "tag"
+          ],
+          "stamps": [
+            [
+              2,
+              10,
+              10
+            ],
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17,
+            17
+          ],
+          "stamps": [
+            [
+              2,
+              11,
+              11
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 16,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end"
+        ],
+        "installed": [
+          {
+            "id": 2,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  7,
+                  7
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          },
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          "unwound"
+        ]
+      }
+    },
+    "beforePublic": "[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "afterPublic": "[501, 502]:[1041, 1042]:tag:17/[1091, 1092]:[1101, 1102]:tag:27",
+    "delivery": "first=accepted:6:2:True|second=accepted:6:2:False|unsubmitted=none|first-refusal=none|returned-before-retry=|caller-context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|prepared=[6:2:2:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 6:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:6:2]",
+    "registry": "6:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6",
+    "text": "B-spawn-insert=Succeeded|before=[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing|after=[501, 502]:[1041, 1042]:tag:17/[1091, 1092]:[1101, 1102]:tag:27|registry=6:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6|teardown=[[501, 502], [1031, 1032]]@[2:7:8, 1:1:6]|[[1041, 1042], [1041, 1042]]@[2:9:9, 1:3:3]|[tag, tag]@[2:10:10, 1:4:4]|[17, 17]@[2:11:11, 1:5:5]|clock=16|live=[False, True, True, False]|ns=6|next=3|high=2|capacity=4|events=[43, 801, 802, 901, 902]|context=[1, 1, 1, 1]/[0, 1, 2, 3]|raw=[True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][]|installed=2|quarantine=0|pending=0|errors=[unwound]|installed-queues=[[[51, 52]], [[51, 52]]]|depth=2|registrations=[1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]]|nextSystem=2|delivery=first=accepted:6:2:True|second=accepted:6:2:False|unsubmitted=none|first-refusal=none|returned-before-retry=|caller-context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|prepared=[6:2:2:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 6:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:6:2]"
+  },
+  {
+    "schema": "B",
+    "mode": "invalid-return",
+    "namespace": 7,
+    "before": {
+      "namespace": 7,
+      "nextId": 2,
+      "highWater": 1,
+      "capacity": 2,
+      "depth": 1,
+      "live": [
+        false,
+        true
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        43
+      ],
+      "pending": [
+        "publish801",
+        "publish901"
+      ],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "after": {
+      "namespace": 7,
+      "nextId": 2,
+      "highWater": 1,
+      "capacity": 2,
+      "depth": 1,
+      "live": [
+        false,
+        true
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "teardown": {
+      "namespace": 7,
+      "nextId": 2,
+      "highWater": 1,
+      "capacity": 2,
+      "depth": 1,
+      "live": [
+        false,
+        true
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end"
+        ],
+        "installed": [],
+        "quarantine": [],
+        "errors": [
+          "unwound"
+        ]
+      }
+    },
+    "beforePublic": "[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "afterPublic": "[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "delivery": "first=refused:ConstructionRefused:[null, null, null, bad-3]:True:[11, 12]/True:17/True:tag/False:[31, 32]:[41, 42]:[[51, 52]]/end|second=none|unsubmitted=True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end|first-refusal=ConstructionRefused:[null, null, null, bad-3]|returned-before-retry=True:[11, 12]/True:17/True:tag/False:[31, 32]:[41, 42]:[[51, 52]]/end|caller-context=[1, 1, 1, 1]/[0, 1, 2, 3]|prepared=[]",
+    "registry": "7:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6",
+    "text": "B-invalid-return=Succeeded|before=[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing|after=[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing|registry=7:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6|teardown=[absent]@[1:0:0]|[absent]@[1:0:0]|[absent]@[1:0:0]|[absent]@[1:0:0]|clock=6|live=[False, True]|ns=7|next=2|high=1|capacity=2|events=[43, 801, 802, 901, 902]|context=[1, 1, 1, 1]/[0, 1, 2, 3]|raw=[True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end][]|installed=0|quarantine=0|pending=0|errors=[unwound]|installed-queues=[]|depth=1|registrations=[1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]]|nextSystem=2|delivery=first=refused:ConstructionRefused:[null, null, null, bad-3]:True:[11, 12]/True:17/True:tag/False:[31, 32]:[41, 42]:[[51, 52]]/end|second=none|unsubmitted=True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end|first-refusal=ConstructionRefused:[null, null, null, bad-3]|returned-before-retry=True:[11, 12]/True:17/True:tag/False:[31, 32]:[41, 42]:[[51, 52]]/end|caller-context=[1, 1, 1, 1]/[0, 1, 2, 3]|prepared=[]"
+  },
+  {
+    "schema": "B",
+    "mode": "invalid-retry",
+    "namespace": 8,
+    "before": {
+      "namespace": 8,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        43
+      ],
+      "pending": [
+        "publish801",
+        "publish901",
+        "activate2",
+        "installInitial2",
+        "installReplacement2"
+      ],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "after": {
+      "namespace": 8,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ],
+            [
+              1091,
+              1092
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              7,
+              13
+            ],
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ],
+            [
+              1101,
+              1102
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              9,
+              14
+            ],
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag",
+            "tag"
+          ],
+          "stamps": [
+            [
+              2,
+              10,
+              15
+            ],
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17,
+            27
+          ],
+          "stamps": [
+            [
+              2,
+              11,
+              16
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 16,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 2,
+            "kind": "replacement",
+            "inverse": [
+              {
+                "field": "a",
+                "old": [
+                  1031,
+                  1032
+                ],
+                "stamp": [
+                  7,
+                  8
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1071,
+                  1072
+                ],
+                "stamp": [
+                  7,
+                  12
+                ]
+              },
+              {
+                "field": "b",
+                "old": [
+                  1041,
+                  1042
+                ],
+                "stamp": [
+                  9,
+                  9
+                ]
+              },
+              {
+                "field": "tag",
+                "old": "tag",
+                "stamp": [
+                  10,
+                  10
+                ]
+              },
+              {
+                "field": "value",
+                "old": 17,
+                "stamp": [
+                  11,
+                  11
+                ]
+              }
+            ],
+            "queued": [
+              [
+                111,
+                112
+              ]
+            ]
+          },
+          {
+            "id": 2,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  7,
+                  7
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          },
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "teardown": {
+      "namespace": 8,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        true,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ],
+            [
+              1031,
+              1032
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              7,
+              8
+            ],
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ],
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              2,
+              9,
+              9
+            ],
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag",
+            "tag"
+          ],
+          "stamps": [
+            [
+              2,
+              10,
+              10
+            ],
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17,
+            17
+          ],
+          "stamps": [
+            [
+              2,
+              11,
+              11
+            ],
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 16,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end"
+        ],
+        "installed": [
+          {
+            "id": 2,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  7,
+                  7
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          },
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          "unwound"
+        ]
+      }
+    },
+    "beforePublic": "[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "afterPublic": "[501, 502]:[1041, 1042]:tag:17/[1091, 1092]:[1101, 1102]:tag:27",
+    "delivery": "first=accepted:8:2:True|second=accepted:8:2:False|unsubmitted=none|first-refusal=ConstructionRefused:[null, null, null, bad-3]|returned-before-retry=True:[11, 12]/True:17/True:tag/False:[31, 32]:[41, 42]:[[51, 52]]/end|caller-context=[3, 3, 3, 3]/[0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]|prepared=[8:2:2:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 8:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:8:2]",
+    "registry": "8:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6",
+    "text": "B-invalid-retry=Succeeded|before=[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing|after=[501, 502]:[1041, 1042]:tag:17/[1091, 1092]:[1101, 1102]:tag:27|registry=8:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6|teardown=[[501, 502], [1031, 1032]]@[2:7:8, 1:1:6]|[[1041, 1042], [1041, 1042]]@[2:9:9, 1:3:3]|[tag, tag]@[2:10:10, 1:4:4]|[17, 17]@[2:11:11, 1:5:5]|clock=16|live=[False, True, True, False]|ns=8|next=3|high=2|capacity=4|events=[43, 801, 802, 901, 902]|context=[1, 1, 1, 1]/[0, 1, 2, 3]|raw=[True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][]|installed=2|quarantine=0|pending=0|errors=[unwound]|installed-queues=[[[51, 52]], [[51, 52]]]|depth=2|registrations=[1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]]|nextSystem=2|delivery=first=accepted:8:2:True|second=accepted:8:2:False|unsubmitted=none|first-refusal=ConstructionRefused:[null, null, null, bad-3]|returned-before-retry=True:[11, 12]/True:17/True:tag/False:[31, 32]:[41, 42]:[[51, 52]]/end|caller-context=[3, 3, 3, 3]/[0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]|prepared=[8:2:2:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 8:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:8:2]"
+  },
+  {
+    "schema": "B",
+    "mode": "rollback",
+    "namespace": 9,
+    "before": {
+      "namespace": 9,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              1031,
+              1032
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              2
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [],
+      "pending": [
+        "publish801"
+      ],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end",
+          "True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end"
+        ],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          "body-failed|caller-context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|prepared=[9:2:2:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 9:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:9:2]"
+        ]
+      }
+    },
+    "after": {
+      "namespace": 9,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              1031,
+              1032
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              2
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        801,
+        802
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end",
+          "True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end"
+        ],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          "body-failed|caller-context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|prepared=[9:2:2:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 9:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:9:2]"
+        ]
+      }
+    },
+    "teardown": {
+      "namespace": 9,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        801,
+        802
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end",
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end",
+          "True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end"
+        ],
+        "installed": [],
+        "quarantine": [],
+        "errors": [
+          "unwound"
+        ]
+      }
+    },
+    "beforePublic": "[1031, 1032]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "afterPublic": "[1031, 1032]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "delivery": null,
+    "registry": "9:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:0",
+    "text": "B-rollback=Failed|before=[1031, 1032]:[1041, 1042]:tag:17/missing:missing:missing:missing|after=[1031, 1032]:[1041, 1042]:tag:17/missing:missing:missing:missing|registry=9:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:0|teardown=[absent]@[1:0:0]|[absent]@[1:0:0]|[absent]@[1:0:0]|[absent]@[1:0:0]|clock=6|live=[False, True, False, False]|ns=9|next=3|high=2|capacity=4|events=[801, 802]|context=[1, 1, 1, 1]/[0, 1, 2, 3]|raw=[True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end][True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][True:[11, 12]/True:17/True:tag/True:[31, 32]:[41, 42]:[[51, 52]]/end][]|installed=0|quarantine=0|pending=0|errors=[unwound]|installed-queues=[]|depth=2|registrations=[1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]]|nextSystem=2|delivery=failed"
+  },
+  {
+    "schema": "B",
+    "mode": "cleanup",
+    "namespace": 10,
+    "before": {
+      "namespace": 10,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ]
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag"
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 6,
+      "events": [
+        43
+      ],
+      "pending": [
+        "publish801",
+        "publish901",
+        "activate2",
+        "installInitial2",
+        "clear2",
+        "installReplacement2"
+      ],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "after": {
+      "namespace": 10,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ],
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ],
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag",
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17,
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 11,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end"
+        ],
+        "installed": [
+          {
+            "id": 2,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  7,
+                  7
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          },
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [],
+        "errors": [
+          "insert-refusal"
+        ]
+      }
+    },
+    "teardown": {
+      "namespace": 10,
+      "nextId": 3,
+      "highWater": 2,
+      "capacity": 4,
+      "depth": 2,
+      "live": [
+        false,
+        true,
+        false,
+        false
+      ],
+      "columns": {
+        "a": {
+          "values": [
+            [
+              501,
+              502
+            ],
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              1,
+              6
+            ]
+          ]
+        },
+        "b": {
+          "values": [
+            [
+              1041,
+              1042
+            ],
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              3,
+              3
+            ]
+          ]
+        },
+        "tag": {
+          "values": [
+            "tag",
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              4,
+              4
+            ]
+          ]
+        },
+        "value": {
+          "values": [
+            17,
+            null
+          ],
+          "stamps": [
+            [
+              1,
+              5,
+              5
+            ]
+          ]
+        }
+      },
+      "clock": 11,
+      "events": [
+        43,
+        801,
+        802,
+        901,
+        902
+      ],
+      "pending": [],
+      "registrations": [
+        {
+          "id": 1,
+          "name": "owned-commands",
+          "access": [
+            "write:a",
+            "write:b",
+            "write:tag",
+            "write:value",
+            "bundle.spawn",
+            "bundle.insert"
+          ]
+        }
+      ],
+      "nextSystemId": 2,
+      "mail": {
+        "context": 1,
+        "returned": [
+          "True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end"
+        ],
+        "installed": [
+          {
+            "id": 1,
+            "kind": "initial",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  1,
+                  1
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "quarantine": [
+          {
+            "id": 2,
+            "kind": "initial",
+            "pendingTail": "value",
+            "inverse": [
+              {
+                "field": "a",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "a",
+                "old": [
+                  1011,
+                  1012
+                ],
+                "stamp": [
+                  7,
+                  7
+                ]
+              },
+              {
+                "field": "b",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "tag",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              },
+              {
+                "field": "value",
+                "old": null,
+                "stamp": [
+                  0,
+                  0
+                ]
+              }
+            ],
+            "queued": [
+              [
+                51,
+                52
+              ]
+            ]
+          }
+        ],
+        "errors": [
+          "quarantined"
+        ]
+      }
+    },
+    "beforePublic": "[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "afterPublic": "[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing",
+    "delivery": "first=accepted:10:2:True|second=accepted:10:2:False|unsubmitted=none|first-refusal=none|returned-before-retry=|caller-context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|prepared=[10:2:3:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 10:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:10:2]",
+    "registry": "10:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6",
+    "text": "B-cleanup=Succeeded|before=[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing|after=[501, 502]:[1041, 1042]:tag:17/missing:missing:missing:missing|registry=10:1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]:6|teardown=[[501, 502], absent]@[1:1:6]|[[1041, 1042], absent]@[1:3:3]|[tag, absent]@[1:4:4]|[17, absent]@[1:5:5]|clock=11|live=[False, True, False, False]|ns=10|next=3|high=2|capacity=4|events=[43, 801, 802, 901, 902]|context=[1, 1, 1, 1]/[0, 1, 2, 3]|raw=[True:[71, 72]/True:27/True:tag/True:[91, 92]:[101, 102]:[[111, 112]]/end][]|installed=1|quarantine=1|pending=0|errors=[quarantined]|installed-queues=[[[51, 52]]]|depth=2|registrations=[1:owned-commands:[write:a, write:b, write:tag, write:value, bundle.spawn, bundle.insert]]|nextSystem=2|delivery=first=accepted:10:2:True|second=accepted:10:2:False|unsubmitted=none|first-refusal=none|returned-before-retry=|caller-context=[2, 2, 2, 2]/[0, 1, 2, 3, 0, 1, 2, 3]|prepared=[10:2:3:[1071, 1072]/27/tag/[1091, 1092]:[1101, 1102]:[[111, 112]]/end, 10:2:2:[1011, 1012]/17/tag/[1031, 1032]:[1041, 1042]:[[51, 52]]/end, receipt:10:2]"
+  }
+]
