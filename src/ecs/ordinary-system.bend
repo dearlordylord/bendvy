@@ -6,7 +6,6 @@ import ./system.bend as Sys
 import ./transaction.bend as T
 import ./ordinary-query-observable.bend as O
 import ./inspector.bend as I
-import ./inspector-query.bend as IQ
 
 # Retain clauses from the same declaration used to execute the registered body.
 # This is ordinary registration state, not a caller-supplied debug description.
@@ -44,7 +43,8 @@ def run(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:D
 
 # The same ordinary declaration also retains detached inspection lowering.
 # The Registry runner index retains this declaration; execution projects only
-# its operational part. Debug never executes the system body.
+# its operational part. Registered inspection awaits the existing foreign-world
+# association/refusal decision; no debug refusal policy is selected here.
 def observable_plan(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out)) -> Q.Plan<S,C,R,E,Ops>:
   Q.Plan{Query.grant(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),O.operational(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query)),Query.selector(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),O.operational(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query))}
 def observable_runner(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),world:W.World<S,C,R,E>,args:A & U32) -> Sys.Outcome<W.World<S,C,R,E>,Q.Error<U>,List<&2,Out>>:
@@ -62,15 +62,3 @@ def observable_run_cursor(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:D
 def observable_run(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),owner:Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>>,world:W.World<S,C,R,E>,args:A) -> Sys.RunResult<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)> & (String & List<&2,Query.Clause<S>>):
   match owner:
     case Owner{registry,slot,clauses}:observable_run_cursor(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body,slot,clauses,Sys.cursor(~S,~C,~R,~E,~(A & U32),~Q.Error<U>,~List<&2,Out>,~observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body),registry),world,args)
-
-# Read a registered query at its existing cursor; keep the actual Registry owner.
-# This path does not register, execute, transact, flush or advance that cursor.
-def inspected(~S:Data,~C:Type,~R:Type,~E:Data,~Registry:Type,~V:Data,owner:Owner<S,Registry>,observed:I.Frame<S,C,R,E> & List<&2,IQ.ProjectedRow<S,V>>) -> Owner<S,Registry> & (W.World<S,C,R,E> & List<&2,IQ.ProjectedRow<S,V>>):
-  match observed:
-    case (I.Frame{world,_},rows):(owner,(world,rows))
-def observable_inspect_cursor(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),slot:String,clauses:List<&2,Query.Clause<S>>,observed:Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)> & U32,world:W.World<S,C,R,E>) -> Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>> & (W.World<S,C,R,E> & List<&2,IQ.ProjectedRow<S,V>>):
-  match observed:
-    case (registry,cursor):inspected(~S,~C,~R,~E,~Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>,~V,Owner{registry,slot,clauses},IQ.each_composed(~I.Frame<S,C,R,E>,~S,~V,~O.inspect_query(~S,~C,~R,~E,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~V,~query),I.Frame{world,cursor}))
-def observable_inspect(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),owner:Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>>,world:W.World<S,C,R,E>) -> Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>> & (W.World<S,C,R,E> & List<&2,IQ.ProjectedRow<S,V>>):
-  match owner:
-    case Owner{registry,slot,clauses}:observable_inspect_cursor(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body,slot,clauses,Sys.cursor(~S,~C,~R,~E,~(A & U32),~Q.Error<U>,~List<&2,Out>,~observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body),registry),world)
