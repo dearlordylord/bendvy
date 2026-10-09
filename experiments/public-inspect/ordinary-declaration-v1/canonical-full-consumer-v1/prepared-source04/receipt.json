@@ -1,0 +1,290 @@
+{
+  "scope": "Canonical complete23 normal positive source plus five current API intended authority refusals; exact pre/post closure",
+  "planSHA256": "9f0d427491d0a941b3bc24b41aaa746e298637d443008fd0d80a5c51d9a74ca6",
+  "commands": [
+    {
+      "label": "source-normal",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/stage/output-io-main.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-normal.stdout",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-normal.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    },
+    {
+      "label": "source-cross-schema-grant",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/negatives/cross-schema-grant.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 1,
+      "stderrContains": [
+        "SOME PROOFS FAIL",
+        "- expected : D.DeclaredSelection<Carrier.InspectOwner<F.Garden",
+        "- observed : D.DeclaredSelection<Carrier.InspectOwner<F.Workshop"
+      ],
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-cross-schema-grant.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-cross-schema-grant.stderr",
+        "sha256": "07b0665c74ef759c62c39b3881b8260e6e687888a17ca25dbebb288c645162d0",
+        "bytes": 692,
+        "published": true
+      },
+      "sourceControlPassed": true
+    },
+    {
+      "label": "source-opaque-owner-escape",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/negatives/opaque-owner-escape.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 1,
+      "stderrContains": [
+        "SOME PROOFS FAIL",
+        "- expected : Carrier.InspectOwner<F.Workshop",
+        "- observed : bad~H"
+      ],
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-opaque-owner-escape.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-opaque-owner-escape.stderr",
+        "sha256": "68600f517dfe0396aef5164c5741db56c35365c2d6d2afcfbe02908db718bc08",
+        "bytes": 328,
+        "published": true
+      },
+      "sourceControlPassed": true
+    },
+    {
+      "label": "source-owner-duplication",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/negatives/owner-duplication.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 1,
+      "stderrContains": [
+        "SOME PROOFS FAIL",
+        "owner (consumed more than once)"
+      ],
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-owner-duplication.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-owner-duplication.stderr",
+        "sha256": "b44e7e7cadc80f37ffdf2afce9ab2d1e671e87c4f6088cabf417b6e839644315",
+        "bytes": 344,
+        "published": true
+      },
+      "sourceControlPassed": true
+    },
+    {
+      "label": "source-undeclared-selection",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/negatives/undeclared-selection.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 1,
+      "stderrContains": [
+        "SOME PROOFS FAIL",
+        "- expected : D.DeclaredSelection<bad~H",
+        "- observed : Q.ComposedReadQuery<bad~H"
+      ],
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-undeclared-selection.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-undeclared-selection.stderr",
+        "sha256": "a199295d6e8f9267554dbd726926bd0dbfe6fc00d51ace9876d56c06e2b87b81",
+        "bytes": 447,
+        "published": true
+      },
+      "sourceControlPassed": true
+    },
+    {
+      "label": "source-write-through-read",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/negatives/write-through-read.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 1,
+      "stderrContains": [
+        "SOME PROOFS FAIL",
+        "- expected : W.World<F.Workshop",
+        "- observed : bad~H"
+      ],
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-write-through-read.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-write-through-read.stderr",
+        "sha256": "63737e4646c4c6e7c98e82010363f3be30a0a17af26d1e4ff3ee0038624d994a",
+        "bytes": 434,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-normal-pre.guard.json",
+      "sha256": "2aec03341b50e8acfe104b7da754bf227d7ec19471278564e0683576be84409b"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-normal-acquired.guard.json",
+      "sha256": "f2fc048dff386c5a82ad08c10d8b595e699628dcf2628c3c21047cb1f8a95fff"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-normal-post.guard.json",
+      "sha256": "b28bd8161b7202368a8dafb90e1774d8c56ca164c087fb9872aac4623de4f120"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-cross-schema-grant-pre.guard.json",
+      "sha256": "9c05ddc82859d9d71fadebd7fe862ffacd4b03cb286c6dc45583a7efe334b034"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-cross-schema-grant-acquired.guard.json",
+      "sha256": "3b4b5882ca44cef4713cb1ac7448f8cd76883aeb8bc2939352a9a4179c4b3ea8"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-cross-schema-grant-post.guard.json",
+      "sha256": "1e22d881d26d1b2982fb900eaac5cac265851f6a3b47b2dc48016ce7ce874fab"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-opaque-owner-escape-pre.guard.json",
+      "sha256": "8505869a49a690836f2931adc31a0e485ba9c71f718b7bb2d13c6ffa3822dc1f"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-opaque-owner-escape-acquired.guard.json",
+      "sha256": "afae669432903ca7f0546fa74c8b38ae37109adf5174dc3af99dd28e5fa524e8"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-opaque-owner-escape-post.guard.json",
+      "sha256": "a18abd6aae50875dc53ff821657542e9eda296e6287e448d33bea79ca6e1d68f"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-owner-duplication-pre.guard.json",
+      "sha256": "26c27c26dbcafffab888e6fadcb398447d306dc8c75851017dff63751bddf290"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-owner-duplication-acquired.guard.json",
+      "sha256": "3650d90eac2df60443c3b4eb7e7eceec24af241d535a1545e899a6d0bfc93bb4"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-owner-duplication-post.guard.json",
+      "sha256": "548466f0187512bd2348bc7442bfcba1000494f68ac470acf4e9295c95a3c7f4"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-undeclared-selection-pre.guard.json",
+      "sha256": "5f594cd203755efb1d58150be7c92b64137c0a30e19833499b12ae5cd2d64b2d"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-undeclared-selection-acquired.guard.json",
+      "sha256": "7224c5dd96216acde3eabb40db3ef6dea06ac25abf7d158f3b6868a34552c243"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-undeclared-selection-post.guard.json",
+      "sha256": "523362d4a935ba7ff76155be1cd979d6ca4993d93cb718c2cf68abdaef202af2"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-write-through-read-pre.guard.json",
+      "sha256": "6ca986346fe1ca79b63efb8eacdfb9028207a545623f03154e9c29a9c7c9fefb"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-write-through-read-acquired.guard.json",
+      "sha256": "368366c35258ad73205d3abb077431b19b8f7e29fc67f0da8aa0e3e6bb99a573"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/source-write-through-read-post.guard.json",
+      "sha256": "5ce5d8b7ac62ed21551fe4b270a22cb7922fd6ea969f48b065227e0229727150"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-source04/final.guard.json",
+      "sha256": "2633fe5153992cc7e4e1c0badfef0ab38cb58fb3c0aa27566482333d3ea39630"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}

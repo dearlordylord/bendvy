@@ -1,0 +1,96 @@
+{
+  "scope": "Complete23-grant ordinary binding reader js development; no closed resolver/performance/public closure",
+  "planSHA256": "ef9a2a86036dd3366f2a29e74912fec4a18f142983669a8de2d5ebc174eb16c3",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/mutant-reader/output-io-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/scenario.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/scenario.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/consumer.stdout",
+        "sha256": "ea9857a0afe61387ecf5948fb11e1f6f7f099263057b963b06ca105ed1640a5b",
+        "bytes": 5057139,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/emit-pre.guard.json",
+      "sha256": "6ebcbf485ffa5468205cc190b303a6199c2481581861358431ad3022c8e15a5e"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/emit-acquired.guard.json",
+      "sha256": "c0a34916cc84017a6980d39701287a4f9357e26452f9b0436e5ef98f326f6811"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/emit-post.guard.json",
+      "sha256": "77723068a50c5558fce44d62fbac648714d0b821eafe02ee32cfa587798f9c14"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/consumer-pre.guard.json",
+      "sha256": "5ddee553442e21c4a2fee07f4263c4961cf5f85badae0fdd6b8c742dbf5e455d"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/consumer-acquired.guard.json",
+      "sha256": "06c4c6667fbb13cabed7cc155f5a57031a9d37dd1b8a16bd56576a12c3f9d587"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/consumer-post.guard.json",
+      "sha256": "2cb7c139803e9e0fdb78be29bc922ea313d2c8d7d2bb0c3ff42a28636f3ab0b6"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-reader-js04/final.guard.json",
+      "sha256": "2176e04f86b321b61b2380dacac398800b4cfe32b75a85b1cf9fc37753dfa5c8"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "fbac84726e932d75306ff97528537ae5a05abe6331b8852ea436a2648dab14e8",
+  "wholeOracleSHA256": "ea9857a0afe61387ecf5948fb11e1f6f7f099263057b963b06ca105ed1640a5b",
+  "completeNormalBaselineRejected": true
+}

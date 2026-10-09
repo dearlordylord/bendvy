@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : D.DeclaredSelection<bad~H, bad~S, Unit>
+- observed : Q.ComposedReadQuery<bad~H, bad~S, Unit>
+Context:
+- cap    : Q.ComposedReadQuery<bad~H, bad~S, Unit>
+- owner  : bad~H
+- target : W.Handle<bad~S>
+Location: bad
+7 | def bad(~H:Type,~S:Data,cap:Q.ComposedReadQuery<H,S,Unit>,owner:H,target:W.Handle<S>) -> H & Bool:
+8>|   D.matches_field(~H,~S,~Unit,cap)(owner,target)
+  |                               ^^^
+9 | 

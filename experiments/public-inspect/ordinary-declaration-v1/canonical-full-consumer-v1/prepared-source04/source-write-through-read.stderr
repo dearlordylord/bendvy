@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.World<F.Workshop, F.Store<F.Workshop>, U32, U32>
+- observed : bad~H
+Context:
+- owner : bad~H
+Location: bad
+7 | def bad(~H:Type,~cap:Q.ComposedReadQuery<H,F.Workshop,Unit>,owner:H) -> W.World<F.Workshop,F.Store<F.Workshop>,U32,U32> & U32:
+8>|   W.replace_resource(~F.Workshop,~F.Store<F.Workshop>,~U32,~U32,owner,99)
+  |                                                                 ^^^^^
+9 | 
