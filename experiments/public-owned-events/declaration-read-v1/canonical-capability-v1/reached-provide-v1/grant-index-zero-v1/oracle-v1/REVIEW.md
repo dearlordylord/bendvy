@@ -1,0 +1,9 @@
+# Independent grant-index-zero countermodel
+
+Frozen source 7d95ee60 changes only the reached registered observation provider's declaration grant to `Payload.at(owner,0)`. The same first_reader scans indexes [0,1,2,3], so each observed packet returns its first cell four times. This is reached by actual visit → Log.read_by → observe → Decl.provide → canonical Cap.invoke_owned → Query grant. Original read_at and direct controls still use the original indexes.
+
+The complete registered neutral baseline is retained and the countermodel changes only packet cells in accumulated ReadSucceeded and ReadBodyFailed histories. Both standard and capacity traces, all checkpoints, lag/failure/retry/skips/foreign refusal, log rows, retired/refused owners and sentinels, runtime cursors/statuses, registries/world metadata and every error field remain present. Failure observation also traverses the provider before the reader body fails; the owner and cursor behavior remain unchanged.
+
+Raw binding is authored before execution. Cloned main/fixture/observation constructors form the actual mutant report, while unchanged direct-controls still return their original observation.LogView/RowView/PayloadView and original log error constructors. Separate source-derived types retain this mixed namespace; a global observation rebind would be incorrect. Baseline and counterfactual raw files use this same actual mutant namespace.
+
+Three no-child tests check the entire changed-field frontier, complete failed read/log preservation and full strict mixed-namespace roundtrips. Expected values come from existing independent neutral model and the source read loop, never source-check or runtime stdout. No backend launch/admission, System mutant claim, new provider purity/access policy, physical identity assertion, performance or full public #53 acceptance is granted.
