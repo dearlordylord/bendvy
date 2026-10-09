@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (h is a variable here, not comptime: pass it at run time)
+- observed : activated
+Context:
+- op    : App.Operation
+- codec : D.Codec
+- raw   : D.Raw
+- world : W.World<Schema, Col.Column<Schema, Input.Owner>, Input.Owner, Unit>
+- h     : W.Handle<Schema>
+Location: reserved~0
+60 |   match result:
+61>|     case (world,W.Reserved{+h}): activated(~S,~h,op,codec,raw,W.activate(~S,~App.Store(~S),~Input.Owner,~Unit,world,h))
+   |                                  ^^^^^^^^^
+62 |     case (world,W.ReservationRejected{error}): SetupRefused{error}

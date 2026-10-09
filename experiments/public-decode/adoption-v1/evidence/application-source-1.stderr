@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : handle
+- observed : handle (consumed more than once)
+Context:
+- world : W.World<insert_normalized~S, Col.Column<insert_normalized~S, Input.Owner>, Input.Owner, Unit>
+Location: insert_normalized
+30 |     case Input.Owner{raw,sentinel}: (Input.Owner{canonical,sentinel},raw)
+31>| def insert_normalized(~S:Data,world:World(~S),handle:W.Handle<S>,result:Input.Owner & D.Raw) -> World(~S) & Output<S>:
+   |                                               ^^^^^^
+32 |   match result:

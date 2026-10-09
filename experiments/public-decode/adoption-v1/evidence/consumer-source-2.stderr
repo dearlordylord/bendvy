@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : '>' or ',' (a compound type argument takes parens: F<(A & B)>)
+- observed : '&'
+Location:
+65 |     case (world,h): context_done(~S,h,spawn(~S,world,owner,canonical))
+66>| def request(~S:Data,h:W.Handle<S>,op:Operation,codec:D.Codec,world:World(~S),owner:Input.Owner) -> Gate.Returned<World(~S) & W.Handle<S>,Input.Owner,Output<S>>:
+   |                                                                                                                            ^
+67 |   match op:

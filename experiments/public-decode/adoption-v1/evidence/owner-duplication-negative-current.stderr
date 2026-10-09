@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: duplicate
+3 | 
+4>| def duplicate(owner:Input.Owner) -> Input.Owner & Input.Owner: (owner,owner)
+  |               ^^^^^
+5 | 

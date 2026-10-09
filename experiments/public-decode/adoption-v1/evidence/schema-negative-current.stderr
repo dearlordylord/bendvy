@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.Handle<Main.Schema>
+- observed : W.Handle<Main.OtherSchema>
+Context:
+- world  : W.World<Main.Schema, ../../../../../bendvy/src/ecs/column.Column<Main.Schema, Input.Owner>, Input.Owner, Unit>
+- handle : W.Handle<Main.OtherSchema>
+- owner  : Input.Owner
+Location: wrong
+ 9 | def wrong(world:App.World(~Main.Schema),handle:W.Handle<Main.OtherSchema>,owner:Input.Owner) -> Gate.Returned<(App.World(~Main.Schema) & W.Handle<Main.Schema>),Input.Owner,App.Output<Main.Schema>>:
+10>|   App.request(~Main.Schema,handle,App.Insert{},D.BoolValue{},world,owner)
+   |                            ^^^^^^
+11 | 

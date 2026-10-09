@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : h
+- observed : h (consumed more than once)
+Location: activated
+54 |     case C.ReplaceRejected{world,incoming,error}: SetupRefused{error}
+55>| def activated(~S:Data,h:W.Handle<S>,op:App.Operation,codec:D.Codec,raw:D.Raw,result:App.World(~S) & W.Status) -> Observation:
+   |                       ^
+56 |   match result:

@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : ../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/declaration.Constructed<Main.Schema, Input.Owner, ../../../../../bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.Declaration{"decoded-value"}, Input.project>
+- observed : Unit
+Context:
+- world : ../../../../../bendvy/src/ecs/world.World<Main.Schema, ../../../../../bendvy/src/ecs/column.Column<Main.Schema, Input.Owner>, Input.Owner, Unit>
+- owner : Input.Owner
+Location: wrong
+ 8 | def wrong(world:App.World(~Main.Schema),owner:Input.Owner) -> Gate.Returned<App.World(~Main.Schema),Input.Owner,App.Output<Main.Schema>>:
+ 9>|   Gate.request(~Main.Schema,~App.World(~Main.Schema),~Input.Owner,~App.Output<Main.Schema>,~App.identity(~Main.Schema),~Input.project,~App.resource(~Main.Schema),Unit{},world,owner)
+   |                                                                                                                                                                   ^^^^^^
+10 | 
