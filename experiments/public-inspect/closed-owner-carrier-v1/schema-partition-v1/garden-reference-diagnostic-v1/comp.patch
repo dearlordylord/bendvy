@@ -1,0 +1,60 @@
+--- pinned/comp.ts
++++ copy/comp.ts
+@@ -905,7 +905,19 @@
+     : !["Typ", "Qua", "Min", "Eql"].includes(t?.$ ?? ""));
+ }
+ 
++
++// Bounded observation only; no compiler result/cache/layout modification.
++let DIAG_LOGS = 0;
++let DIAG_ADTS = 0;
++let DIAG_DEFS = 0;
++let DIAG_OWNER = "";
++function diagnostic(event: string, detail: object = {}): void {
++  if (DIAG_LOGS++ < 2048) console.error("REFERENCE_PROGRESS " + JSON.stringify({event, elapsedMs: Date.now() - DIAG_START, ...detail}));
++}
++const DIAG_START = Date.now();
+ function type_adts(fl: File, T: HTerm): Name[] {
++  DIAG_ADTS++;
++  if (DIAG_ADTS <= 1048576 && (DIAG_ADTS & (DIAG_ADTS - 1)) === 0) diagnostic("type_adts.calls", {calls: DIAG_ADTS, owner: DIAG_OWNER});
+   const t = ty_wnf(fl.book, T);
+   switch (t?.$) {
+     case "All": {
+@@ -1353,6 +1365,9 @@
+   };
+   const queue = roots.slice();
+   for (const d of queue) {
++    DIAG_OWNER = d;
++    DIAG_DEFS++;
++    if (DIAG_DEFS <= 64 || DIAG_DEFS % 256 === 0) diagnostic("file_book.definition", {count: DIAG_DEFS, owner: d});
+     if (SRCS.has(d)) {
+       continue;
+     }
+@@ -2753,11 +2768,14 @@
+   const show = show_main(book);
+   const fams = (show ?? []).flatMap((c) =>
+     typeof c === "string" ? [Bend.book_fam(book, c)] : []);
++  diagnostic("file_book.begin");
+   const fl = file_book(book, ["main", ...RUNTIME_ADTS, ...fams], false);
++  diagnostic("file_book.end", {definitions: DIAG_DEFS, typeAdtCalls: DIAG_ADTS});
+   const facts = () => fl.own.size + fl.hot.size + fl.stat.size;
+   let was: number;
+   let reqs: string;
+   do {
++    diagnostic("emit_iteration.begin", {facts: facts()});
+     was = facts();
+     [fl.lend, fl.spun, fl.clos, fl.tabs, fl.lits, fl.consts, BRWS]
+       .forEach((m) => m.clear());
+@@ -2766,6 +2784,7 @@
+     fl.img = [];
+     for (const [k, tld] of done_defs(fl).reverse()) {
+       memo_gc();
++      diagnostic("emit_definition.begin", {owner: k});
+       const [dl, vals] = emit_open({ ...fl, fresh: new Map(),
+         brwl: new Map(), rest: [] }, k);
+       fl.segs.push(dl.seg);
+@@ -6367,3 +6386,4 @@
+   }
+ }
+ `.slice(1);
++
