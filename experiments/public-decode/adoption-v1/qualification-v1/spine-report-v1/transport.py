@@ -5,9 +5,11 @@ HERE=Path(__file__).resolve().parent
 spec=importlib.util.spec_from_file_location('decode_complete_transport',HERE.parent/'transport.py')
 BASE=importlib.util.module_from_spec(spec);spec.loader.exec_module(BASE)
 
-def inventory(entry):
+def inventory(entry,assembly=False):
  entry=Path(entry).resolve()
  types,name=BASE.inventory(entry.parent.parent/'main.bend')
+ if assembly:
+  types=assembly_inventory(entry)
  maybe=lambda typ:('Base',{'None':[],'Some':[('value',typ)]})
  types['Report']=(str(entry),{'Candidate':[(k,maybe('Cases')) for k in ('insert','spawn','resource','otherSchema')]+[('foreign','Foreign'),('extension',maybe('Extension'))]})
  # BASE inventory is bound to original qualification main, so its Cases,
@@ -17,6 +19,34 @@ def inventory(entry):
   return tag if module=='Base' or module==str(entry) else os.path.relpath(Path(module).with_suffix(''),entry.parent)+'.'+tag
  return types,nominal
 
+def assembly_inventory(entry):
+ # Explicit source-current DTO inventory. The binding pins its entire closure;
+ # the independent whole oracle is mandatory and never taken from old ca88.
+ entry=Path(entry).resolve();home=entry.parent
+ types,_=BASE.inventory(HERE.parent/'main.bend')
+ m=str(home/'main.bend');o=str(home/'observation.bend');r=str(home/'registered.bend');a=str(home/'application.bend');q=str(home/'extensions.bend');request=str(home/'request.bend')
+ d=str(BASE.ROOT/'experiments/public-decode/typed.bend');tx=str(BASE.ROOT/'src/ecs/transaction.bend')
+ fields=lambda **kw:list(kw.items())
+ maybe=lambda typ:('Base',{'None':[],'Some':[('value',typ)]})
+ record=lambda module,tag,fs:(module,{tag:fs})
+ for key in ('Baseline','Cases','Foreign','Trace','Outcome','Observation'):types[key]=(m,types[key][1])
+ for key in ('Snapshot','Meta','ColumnView','PayloadView'):types[key]=(o,types[key][1])
+ types['Extension']=(q,types['Extension'][1])
+ types['Observation']=(m,{'Observed':fields(trace='Trace'),'SetupRefused':fields(error='WorldError'),'CreateRefused':fields(resource='MailView'),'RegistrationRefused':[],'RegistrationRunRefused':fields(incoming='PayloadView'),'RegisteredObserved':fields(instance='InstanceView',result='Observation'),'SystemFailedObserved':fields(before='Snapshot',after='Snapshot',instance='InstanceView',error='Unit'),'AbortObserved':fields(before='Snapshot',after='Snapshot',output=maybe('OutputView'),packets=['PacketView'])})
+ types['Outcome']=(m,{'ValidationRefused':fields(incoming=maybe('PayloadView'),error='Error'),'Replaced':fields(original='Raw',previous=maybe('PayloadView'),handle=maybe('U32')),'OperationRefused':fields(original='Raw',incoming=maybe('PayloadView'),error='WorldError')})
+ types['Snapshot']=record(o,'Snapshot',fields(meta='Meta',live=['Bool'],column='ColumnView',resource='MailView',pending='U32'))
+ types['PacketView']=record(o,'PacketView',fields(owner=maybe('PayloadView'),original='Raw',canonical='Raw'))
+ types['MailView']=record(o,'MailView',fields(value='PayloadView',retired=['PayloadView'],returned=['PacketView'],errors=['WorldError']))
+ types['OutputView']=(r,{'AcceptedView':fields(namespace='U32',id='U32',spawned='Bool',canonical='Raw'),'RefusedView':fields(owner=maybe('PayloadView'),error='AdmissionError')})
+ types['AdmissionError']=(request,{'Validation':fields(error='Error'),'Entity':fields(error='WorldError')})
+ types['RecoveryView']=record(r,'RecoveryView',fields(output='OutputView',packets=['PacketView']))
+ types['InstanceView']=record(r,'InstanceView',fields(namespace='U32',id='U32',name='String',access=['String'],operation='Operation',codec='Codec',completion='Completion',recovery=['RecoveryView']))
+ types['Operation']=(a,{'Insert':[],'Resource':[],'Spawn':[]})
+ types['Completion']=(tx,{'Success':[],'Failure':fields(error='Unit')})
+ types['Codec']=(d,{'FiniteNumber':[],'Integer':[],'StringValue':[],'BoolValue':[],'Literal':fields(value='Raw'),'LiteralValues':fields(values=['Raw']),'LiteralRendered':fields(values=['Raw'],expected='String'),'Nullable':fields(inner='Codec'),'ArrayValue':fields(inner='Codec'),'Struct':fields(fields=['NamedCodec']),'HandleValue':fields(namespace='U32')})
+ types['NamedCodec']=record(d,'NamedCodec',fields(name='String',codec='Codec'))
+ return types
+
 def whole(value):
  assert type(value) is dict and set(value)=={'$','insert','spawn','resource','otherSchema','foreign','extension'} and value['$']=='Candidate'
  def present(group):
@@ -24,16 +54,16 @@ def whole(value):
   return group['value']
  return {'$':'Report','baseline':{'$':'Report',**{k:present(value[k]) for k in ('insert','spawn','resource','otherSchema')},'foreign':value['foreign']},'extension':present(value['extension'])}
 
-def render(expected,entry):
+def render(expected,entry,assembly=False):
  whole(expected)
- types,name=inventory(entry)
+ types,name=inventory(entry,assembly)
  return (BASE.parser().render(BASE.codec(expected,'Report',types,name,True))+'\n').encode()
 
-def parse(raw,entry):
+def parse(raw,entry,assembly=False):
  assert type(raw) is bytes
  p=BASE.parser();term=p.parse(raw.decode())
  assert (p.render(term)+'\n').encode()==raw,'noncanonical complete output'
- types,name=inventory(entry)
+ types,name=inventory(entry,assembly)
  value=BASE.codec(term,'Report',types,name,False)
  whole(value)
  return value

@@ -39,6 +39,42 @@ def admitted_plan(path,digest):
     return json.loads(raw)
 
 
+def pinned_file(pin):
+    assert type(pin) is dict and set(pin)=={'path','sha256'}, 'exact file pin required'
+    path=Path(pin['path'])
+    assert path.is_absolute() and path.is_file() and not path.is_symlink(), 'pinned file must be absolute regular file'
+    assert str(path.resolve())==str(path), 'pinned path must be canonical'
+    assert re.fullmatch('[0-9a-f]{64}',pin['sha256'] or ''), 'file digest required'
+    assert hashlib.sha256(path.read_bytes()).hexdigest()==pin['sha256'], 'pinned file drift'
+    return path
+
+
+def assembly_binding(path,digest):
+    if path is None:
+        assert digest is None, 'assembly digest without binding'
+        return None
+    assert path.is_absolute() and str(path.resolve())==str(path), 'binding path must be canonical'
+    binding=admitted_plan(path,digest)
+    assert set(binding)=={'mode','entry','sourcePins','oracle'}, 'exact assembly binding fields required'
+    assert binding['mode']=='registered-decode-assembly-v1', 'unknown assembly mode'
+    entry=pinned_file(binding['entry'])
+    assert entry.name=='spine.bend', 'complete assembly spine required'
+    assert type(binding['sourcePins']) is dict and binding['sourcePins'], 'complete source pins required'
+    for filename,sha in binding['sourcePins'].items():pinned_file({'path':filename,'sha256':sha})
+    oracle=binding['oracle']
+    assert set(oracle)=={'commit','expected','whole','basis','authoring'}, 'exact independent oracle binding required'
+    assert re.fullmatch('[0-9a-f]{40}',oracle['commit'] or ''), 'full independent oracle commit required'
+    for key in ('expected','whole','basis'):pinned_file(oracle[key])
+    assert type(oracle['authoring']) is list and oracle['authoring'], 'independent oracle authoring files required'
+    for pin in oracle['authoring']:pinned_file(pin)
+    return binding
+
+
+def assert_source_pins(binding,source_paths):
+    observed={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in source_paths}
+    assert observed==binding['sourcePins'], 'source closure differs from explicit assembly pins'
+
+
 def admit_interpreter(plan):
     actual=Path(sys.executable).resolve(strict=True)
     assert actual.is_file() and not actual.is_symlink(), 'actual interpreter must resolve to regular file'
@@ -47,8 +83,10 @@ def admit_interpreter(plan):
     assert hashlib.sha256(actual.read_bytes()).hexdigest()==plan['inputs'][expected], 'actual interpreter bytes differ from admitted plan'
 
 
-def main(out,native=False,execute=False,plan_digest=None,role="normal"):
+def main(out,native=False,execute=False,plan_digest=None,role="normal",binding_path=None,binding_digest=None):
     assert role == "normal"
+    binding=assembly_binding(binding_path,binding_digest)
+    assembly=binding is not None
     plan_path = out/'plan.json'
     admitted = admitted_plan(plan_path,plan_digest) if execute else None
     if execute:
@@ -76,8 +114,11 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal"):
     resource_roots = ['/home/node/.bend/bend2']
     assert private.is_file() and not private.is_symlink() and private.read_text() == json.dumps(env,sort_keys=True)+'\n', 'prepared environment differs'
     inputs = {Path(__file__).resolve(),Path(CONFIG.__file__),Path(task_runner.__file__),ROOT/'scripts/evidence_boundary.py',ROOT/'scripts/receipt-logs.py',private,*tools.values()}
-    entries = [HERE/'main.bend']
+    entries = [Path(binding['entry']['path'])] if assembly else [HERE/'main.bend']
+    source_paths=set()
+    if assembly:inputs.add(binding_path)
     def visit(path):
+        source_paths.add(path)
         if path in inputs:
             return
         inputs.add(path)
@@ -88,26 +129,32 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal"):
                 visit((path.parent/target).resolve())
     for path in entries:
         visit(path)
+    if assembly:
+        assert_source_pins(binding,source_paths)
     oracle_home = Path('/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-decode/adoption-v1/qualification-v1/oracle-v1/spine-report-v1')
-    oracle = oracle_home/ORACLE_FILES[role]['name']
-    assert hashlib.sha256(oracle.read_bytes()).hexdigest()==ORACLE_FILES[role]['sha256']
-    basis_file=oracle_home/'source-basis.json'
+    oracle = pinned_file(binding['oracle']['expected']) if assembly else oracle_home/ORACLE_FILES[role]['name']
+    oracle_sha=binding['oracle']['expected']['sha256'] if assembly else ORACLE_FILES[role]['sha256']
+    oracle_commit=binding['oracle']['commit'] if assembly else ORACLE_COMMIT
+    assert hashlib.sha256(oracle.read_bytes()).hexdigest()==oracle_sha
+    basis_file=pinned_file(binding['oracle']['basis']) if assembly else oracle_home/'source-basis.json'
     basis=json.loads(basis_file.read_text())
     for filename,digest in basis['sources'].items():
         path=Path(filename)
         assert path.is_file() and not path.is_symlink() and hashlib.sha256(path.read_bytes()).hexdigest()==digest, 'independent source basis drift'
         inputs.add(path)
-    inputs.update({oracle_home/'expected.py',basis_file,oracle_home/'REVIEW.md',HERE/'transport.py',HERE.parent/'transport.py',ROOT/'experiments/public-simulation/bend-v1/parse-report.py',oracle})
+    authoring={pinned_file(pin) for pin in binding['oracle']['authoring']} if assembly else {oracle_home/'expected.py',oracle_home/'REVIEW.md'}
+    inputs.update({*authoring,basis_file,HERE/'transport.py',HERE.parent/'transport.py',ROOT/'experiments/public-simulation/bend-v1/parse-report.py',oracle})
     transport=load('decode_transport',HERE/'transport.py')
     expected=json.loads(oracle.read_text())
-    expected_raw=transport.render(expected,entries[0])
-    assert transport.parse(expected_raw,entries[0])==expected
+    expected_raw=transport.render(expected,entries[0],assembly)
+    assert transport.parse(expected_raw,entries[0],assembly)==expected
     raw_oracle=out/'expected.stdout'
     if not execute:raw_oracle.write_bytes(expected_raw)
     assert raw_oracle.is_file() and not raw_oracle.is_symlink() and raw_oracle.read_bytes()==expected_raw,'prepared raw oracle differs'
     inputs.add(raw_oracle)
-    baseline_oracle=oracle_home.parent/'normal-expected.json'
-    assert hashlib.sha256(baseline_oracle.read_bytes()).hexdigest()=='ca88bdec56290ba3b5460463f59c4ddda389d2dcc7ecfa58d6d633c35016e075'
+    baseline_oracle=pinned_file(binding['oracle']['whole']) if assembly else oracle_home.parent/'normal-expected.json'
+    baseline_sha=binding['oracle']['whole']['sha256'] if assembly else 'ca88bdec56290ba3b5460463f59c4ddda389d2dcc7ecfa58d6d633c35016e075'
+    assert hashlib.sha256(baseline_oracle.read_bytes()).hexdigest()==baseline_sha
     inputs.add(baseline_oracle)
     assert transport.whole(expected)==json.loads(baseline_oracle.read_text()), 'complete Candidate must preserve unchanged whole baseline'
 
@@ -121,7 +168,8 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal"):
     if native:
         source=generated/'complete.c'
         commands=[{'label':'complete-emit','argv':[str(tools['taskset']),'-c','5',str(tools['bend']),str(entries[0]),'-o',str(source)],'capSeconds':30,'artifact':str(source)}]
-    plan = {'scope':__doc__,'native':native,'oracleCommit':ORACLE_COMMIT,'oracleSha256':ORACLE_FILES[role]['sha256'],'role':role,'tools':{n:str(p) for n,p in tools.items()},'commands':commands,'inputs':frozen.expected}
+    plan = {'scope':__doc__,'native':native,'oracleCommit':oracle_commit,'oracleSha256':oracle_sha,'role':role,'tools':{n:str(p) for n,p in tools.items()},'commands':commands,'inputs':frozen.expected}
+    if assembly:plan['assemblyBindingSha256']=binding_digest
     if execute:
         assert plan == admitted, 'prepared cohort source/tool/environment/commands differ'
     else:
@@ -170,7 +218,7 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal"):
             record['status']='DEVELOPMENT_C_EMIT_PASS'
         else:
             observed=(raw/'complete-run.stdout').read_bytes()
-            assert transport.parse(observed,entries[0])==expected, 'full typed Candidate differs from pre-run oracle'
+            assert transport.parse(observed,entries[0],assembly)==expected, 'full typed Candidate differs from pre-run oracle'
             assert observed==expected_raw, 'complete raw Candidate differs from pre-run oracle'
             assert (raw/'complete-run.stderr').read_bytes()==b'', 'unexpected runtime stderr'
             assert transport.whole(expected)==json.loads(baseline_oracle.read_text())
@@ -180,6 +228,8 @@ def main(out,native=False,execute=False,plan_digest=None,role="normal"):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--assembly-binding',type=Path,help='Explicit complete source/independent oracle binding; default preserves historical cohort')
+    parser.add_argument('--assembly-binding-sha256',help='Required exact binding digest')
     parser.add_argument('--role',choices=['normal'],default='normal')
     parser.add_argument('--native',action='store_true')
     parser.add_argument('--execute',action='store_true',help='Consume existing --output/plan.json after admission; default prepares without a child')
@@ -187,4 +237,4 @@ if __name__ == '__main__':
     parser.add_argument('--output',type=Path,default=HERE/'development'/str(time.time_ns()))
     args = parser.parse_args()
     args.output.parent.mkdir(parents=True,exist_ok=True)
-    main(args.output.resolve(),args.native,args.execute,args.plan_sha256,args.role)
+    main(args.output.resolve(),args.native,args.execute,args.plan_sha256,args.role,args.assembly_binding.absolute() if args.assembly_binding else None,args.assembly_binding_sha256)
