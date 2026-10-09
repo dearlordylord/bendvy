@@ -90,3 +90,5 @@ The next prepared stage is `prepared-loader-paths-plan-v5.json` (`5e4ac887…`),
 Actual loader-path v5 is archived in [metadata-evidence-v5](metadata-evidence-v5/README.md): ten completed commands, 31 guards, 25 observed loaded targets and 425 advertised cache entries. This advances the candidate search inventory but does not admit a closed resolver. Exact old executed helper bytes are retained independently of subsequent helper repairs.
 
 Actual 25-target v6 ELF metadata is retained in [metadata-evidence-v6](metadata-evidence-v6/README.md): 76 guards and full transitive dependencies; one additional resolved-origin search root expands the candidate to 64 shallow directories. Candidate membership/absence, aliases/cache applicability and legacy suffix ordering remain unadmitted.
+
+[Complete ordinary delivery preparation](ORDINARY-DELIVERY.md) now takes the documented `snapshot/verify` branch directly. Closed PinnedTools acquisition is not a delivery prerequisite. The unused v4 plan covers all 106 relocated sources, full oracle/current retained controls, pinned TS and both standalone backends with failure-safe guards; independent launch review remains required.
