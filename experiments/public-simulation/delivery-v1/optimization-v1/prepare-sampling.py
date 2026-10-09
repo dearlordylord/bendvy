@@ -3,11 +3,18 @@ import argparse,hashlib,json,runpy
 from pathlib import Path
 HERE=Path(__file__).resolve().parent;T=HERE.parent/"timing-v1"
 ROOT=Path('/workspace/formal-proofs/bendvy');sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+def admit_receipt(receipt, expected_plan_sha):
+    if receipt.get('planSHA256') != expected_plan_sha or receipt.get('status') != 'REACHED_TIMING_SEQUENCE_CONTROLS_PASS_NOT_MEASUREMENT' or receipt.get('error') or receipt.get('guardFailures'):
+        raise ValueError('successful terminal qualification receipt required')
+    if len(receipt.get('commands', [])) != 4 or any(row.get('exit') != 0 or row.get('failure') is not None for row in receipt['commands']):
+        raise ValueError('all four qualification stages must succeed')
+    if set(receipt.get('cases', {})) != {'timed-TS','timed-JS','timed-Native'} or any(not case.get('reachedControlMatch') for case in receipt['cases'].values()):
+        raise ValueError('complete actual qualification required')
 def prepare(context, scales, qualified_plan, qualified_sha):
     old=Path(qualified_plan)
     if sha(old)!=qualified_sha:raise ValueError('qualified application plan required')
     plan=json.loads(old.read_bytes());actual=Path('/tmp/bendvy63-named-loop-timing-qualification-v2');receipt=json.loads((actual/'receipt.json').read_bytes())
-    if receipt['planSHA256']!=sha(old) or len(receipt['cases'])!=3 or any(not c['reachedControlMatch']for c in receipt['cases'].values()):raise ValueError('complete actual qualification required')
+    admit_receipt(receipt, sha(old))
     binary=actual/'simulation.native'
     if sha(binary)!=receipt['generated']['simulation.native']:raise ValueError('qualified binary drift')
     contract=ROOT/'benchmarks/contract.json';rows=runpy.run_path(str(T/'sampling.py'))['schedule'](json.loads(contract.read_bytes()),scales)
