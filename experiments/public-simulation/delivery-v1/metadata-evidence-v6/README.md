@@ -1,0 +1,9 @@
+# Actual transitive ELF metadata v6
+
+The original admitted plan `04ab7062…` executed once. This archive preserves 151 lossless members: original plan, all 127 output files, and exact helper/configuration/preparation sources. Twenty-five readelf commands completed successfully with empty stderr, 50 full raw streams and 76 progressive guards. No tool binaries or prior compressed archive members are duplicated.
+
+Run `python3 verify.py` for complete archive/command/raw/guard verification; `python3 derive-loader.py` reproduces `TRANSITIVE-ELF.json` without children. Historical v5 helper/tool evidence remains immutable; v6 explicitly binds the refreshed root execution helpers.
+
+All transitive DT_NEEDED names are represented in the observed loader lists, including the loader's absolute-alias spelling. The 25 actual ELF records reveal one additional `$ORIGIN`-derived search root: `/tmp/bendvy-clang19-diagnostic/root/usr/lib/lib`. This comes from actual resolved library origin, not the original literal symlink directory. No unresolved relative/dynamic-token search paths remain in this captured set. Expanding the eight expected legacy suffixes adds eight directories to the prior 56-directory candidate, yielding **64 candidate shallow search directories**.
+
+This remains **NOT_RESOLVER_ADMISSION**. Observed successful resolution cannot prove absence of alternate candidates. The remaining concrete boundary is shallow names/types/all candidate bytes/absence and symlink coverage for those directories, cache target coverage/applicability (425 advertised entries), and source-backed legacy suffix ordering. Configuration includes, preload absence and environment must remain guarded. Compiler headers/GCC/linker scripts and the eventual generated executable's ELF closure are separate stages. No new discovery or backend child was launched while archiving.

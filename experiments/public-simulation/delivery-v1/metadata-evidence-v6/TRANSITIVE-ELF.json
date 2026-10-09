@@ -1,0 +1,751 @@
+{
+  "status": "ACTUAL_TRANSITIVE_ELF_METADATA_NOT_RESOLVER_ADMISSION",
+  "actualPlanSHA256": "04ab7062f6df35f0cdafef4f5c6328177a2477462ff0cb91d8d6b602c68e2c45",
+  "priorPlanSHA256": "5e4ac8873ebd1589c2981d9df64b95cbf53bf44816a279bbe3e2fd5df088c91f",
+  "elfRoles": [
+    {
+      "label": "transitive-00",
+      "actualELF": "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/libz3.so.4",
+      "soname": [
+        "libz3.so.4"
+      ],
+      "needed": [
+        "libstdc++.so.6",
+        "libm.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-01",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libbfd-2.40-system.so",
+      "soname": [
+        "libbfd-2.40-system.so"
+      ],
+      "needed": [
+        "libz.so.1",
+        "libzstd.so.1",
+        "libsframe.so.0",
+        "libc.so.6"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-02",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libbsd.so.0.11.7",
+      "soname": [
+        "libbsd.so.0"
+      ],
+      "needed": [
+        "libmd.so.0",
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-03",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libc.so.6",
+      "soname": [
+        "libc.so.6"
+      ],
+      "needed": [
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [
+        "/lib/ld-linux-aarch64.so.1"
+      ],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-04",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libctf.so.0.0.0",
+      "soname": [
+        "libctf.so.0"
+      ],
+      "needed": [
+        "libbfd-2.40-system.so",
+        "libz.so.1",
+        "libc.so.6"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-05",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libdl.so.2",
+      "soname": [
+        "libdl.so.2"
+      ],
+      "needed": [
+        "libc.so.6"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-06",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libedit.so.2.0.70",
+      "soname": [
+        "libedit.so.2"
+      ],
+      "needed": [
+        "libtinfo.so.6",
+        "libbsd.so.0",
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-07",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libffi.so.8.1.2",
+      "soname": [
+        "libffi.so.8"
+      ],
+      "needed": [
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-08",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libgcc_s.so.1",
+      "soname": [
+        "libgcc_s.so.1"
+      ],
+      "needed": [
+        "libc.so.6"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-09",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libicudata.so.72.1",
+      "soname": [
+        "libicudata.so.72"
+      ],
+      "needed": [],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-10",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libicuuc.so.72.1",
+      "soname": [
+        "libicuuc.so.72"
+      ],
+      "needed": [
+        "libicudata.so.72",
+        "libstdc++.so.6",
+        "libm.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-11",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libjansson.so.4.14.0",
+      "soname": [
+        "libjansson.so.4"
+      ],
+      "needed": [
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-12",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/liblzma.so.5.4.1",
+      "soname": [
+        "liblzma.so.5"
+      ],
+      "needed": [
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-13",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libm.so.6",
+      "soname": [
+        "libm.so.6"
+      ],
+      "needed": [
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-14",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libmd.so.0.0.5",
+      "soname": [
+        "libmd.so.0"
+      ],
+      "needed": [
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-15",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libpthread.so.0",
+      "soname": [
+        "libpthread.so.0"
+      ],
+      "needed": [
+        "libc.so.6"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-16",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libsframe.so.0.0.0",
+      "soname": [
+        "libsframe.so.0"
+      ],
+      "needed": [
+        "libc.so.6"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-17",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libstdc++.so.6.0.30",
+      "soname": [
+        "libstdc++.so.6"
+      ],
+      "needed": [
+        "libm.so.6",
+        "libc.so.6",
+        "libgcc_s.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-18",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libtinfo.so.6.4",
+      "soname": [
+        "libtinfo.so.6"
+      ],
+      "needed": [
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-19",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libxml2.so.2.9.14",
+      "soname": [
+        "libxml2.so.2"
+      ],
+      "needed": [
+        "libicuuc.so.72",
+        "libz.so.1",
+        "liblzma.so.5",
+        "libm.so.6",
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-20",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libz.so.1.2.13",
+      "soname": [
+        "libz.so.1"
+      ],
+      "needed": [
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-21",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/libzstd.so.1.5.4",
+      "soname": [
+        "libzstd.so.1"
+      ],
+      "needed": [
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-22",
+      "actualELF": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/libLLVM.so.19.1",
+      "soname": [
+        "libLLVM.so.19.1"
+      ],
+      "needed": [
+        "libffi.so.8",
+        "libedit.so.2",
+        "libm.so.6",
+        "libz3.so.4",
+        "libz.so.1",
+        "libzstd.so.1",
+        "libxml2.so.2",
+        "libstdc++.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [
+        [
+          "RUNPATH",
+          "$ORIGIN/../lib"
+        ]
+      ],
+      "expandedPaths": [
+        {
+          "kind": "RUNPATH",
+          "path": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/lib"
+        }
+      ],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-23",
+      "actualELF": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/libclang-cpp.so.19.1",
+      "soname": [
+        "libclang-cpp.so.19.1"
+      ],
+      "needed": [
+        "libLLVM.so.19.1",
+        "libstdc++.so.6",
+        "libm.so.6",
+        "libgcc_s.so.1",
+        "libc.so.6",
+        "ld-linux-aarch64.so.1"
+      ],
+      "interpreter": [],
+      "rawPaths": [
+        [
+          "RUNPATH",
+          "$ORIGIN/../lib"
+        ]
+      ],
+      "expandedPaths": [
+        {
+          "kind": "RUNPATH",
+          "path": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/lib"
+        }
+      ],
+      "neededAbsentFromObservedNames": []
+    },
+    {
+      "label": "transitive-24",
+      "actualELF": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1",
+      "soname": [
+        "ld-linux-aarch64.so.1"
+      ],
+      "needed": [],
+      "interpreter": [],
+      "rawPaths": [],
+      "expandedPaths": [],
+      "neededAbsentFromObservedNames": []
+    }
+  ],
+  "actualLoadedBySubject": {
+    "bend-loader-list": {
+      "subject": "/home/node/.bend/bin/bend-2.0.35",
+      "actualLoaded": [
+        {
+          "soname": "libc.so.6",
+          "path": "/lib/aarch64-linux-gnu/libc.so.6"
+        },
+        {
+          "soname": "/lib/ld-linux-aarch64.so.1",
+          "path": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1"
+        },
+        {
+          "soname": "libpthread.so.0",
+          "path": "/lib/aarch64-linux-gnu/libpthread.so.0"
+        },
+        {
+          "soname": "libdl.so.2",
+          "path": "/lib/aarch64-linux-gnu/libdl.so.2"
+        },
+        {
+          "soname": "libm.so.6",
+          "path": "/lib/aarch64-linux-gnu/libm.so.6"
+        }
+      ]
+    },
+    "node-loader-list": {
+      "subject": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+      "actualLoaded": [
+        {
+          "soname": "libdl.so.2",
+          "path": "/lib/aarch64-linux-gnu/libdl.so.2"
+        },
+        {
+          "soname": "libstdc++.so.6",
+          "path": "/lib/aarch64-linux-gnu/libstdc++.so.6"
+        },
+        {
+          "soname": "libm.so.6",
+          "path": "/lib/aarch64-linux-gnu/libm.so.6"
+        },
+        {
+          "soname": "libgcc_s.so.1",
+          "path": "/lib/aarch64-linux-gnu/libgcc_s.so.1"
+        },
+        {
+          "soname": "libpthread.so.0",
+          "path": "/lib/aarch64-linux-gnu/libpthread.so.0"
+        },
+        {
+          "soname": "libc.so.6",
+          "path": "/lib/aarch64-linux-gnu/libc.so.6"
+        },
+        {
+          "soname": "/lib/ld-linux-aarch64.so.1",
+          "path": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1"
+        }
+      ]
+    },
+    "clang-loader-list": {
+      "subject": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang",
+      "actualLoaded": [
+        {
+          "soname": "libclang-cpp.so.19.1",
+          "path": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/libclang-cpp.so.19.1"
+        },
+        {
+          "soname": "libLLVM.so.19.1",
+          "path": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/libLLVM.so.19.1"
+        },
+        {
+          "soname": "libstdc++.so.6",
+          "path": "/lib/aarch64-linux-gnu/libstdc++.so.6"
+        },
+        {
+          "soname": "libm.so.6",
+          "path": "/lib/aarch64-linux-gnu/libm.so.6"
+        },
+        {
+          "soname": "libgcc_s.so.1",
+          "path": "/lib/aarch64-linux-gnu/libgcc_s.so.1"
+        },
+        {
+          "soname": "libc.so.6",
+          "path": "/lib/aarch64-linux-gnu/libc.so.6"
+        },
+        {
+          "soname": "/lib/ld-linux-aarch64.so.1",
+          "path": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1"
+        },
+        {
+          "soname": "libffi.so.8",
+          "path": "/lib/aarch64-linux-gnu/libffi.so.8"
+        },
+        {
+          "soname": "libedit.so.2",
+          "path": "/lib/aarch64-linux-gnu/libedit.so.2"
+        },
+        {
+          "soname": "libz3.so.4",
+          "path": "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/libz3.so.4"
+        },
+        {
+          "soname": "libz.so.1",
+          "path": "/lib/aarch64-linux-gnu/libz.so.1"
+        },
+        {
+          "soname": "libzstd.so.1",
+          "path": "/lib/aarch64-linux-gnu/libzstd.so.1"
+        },
+        {
+          "soname": "libxml2.so.2",
+          "path": "/lib/aarch64-linux-gnu/libxml2.so.2"
+        },
+        {
+          "soname": "libtinfo.so.6",
+          "path": "/lib/aarch64-linux-gnu/libtinfo.so.6"
+        },
+        {
+          "soname": "libbsd.so.0",
+          "path": "/lib/aarch64-linux-gnu/libbsd.so.0"
+        },
+        {
+          "soname": "libicuuc.so.72",
+          "path": "/lib/aarch64-linux-gnu/libicuuc.so.72"
+        },
+        {
+          "soname": "liblzma.so.5",
+          "path": "/lib/aarch64-linux-gnu/liblzma.so.5"
+        },
+        {
+          "soname": "libmd.so.0",
+          "path": "/lib/aarch64-linux-gnu/libmd.so.0"
+        },
+        {
+          "soname": "libicudata.so.72",
+          "path": "/lib/aarch64-linux-gnu/libicudata.so.72"
+        }
+      ]
+    },
+    "shell-loader-list": {
+      "subject": "/usr/bin/dash",
+      "actualLoaded": [
+        {
+          "soname": "libc.so.6",
+          "path": "/lib/aarch64-linux-gnu/libc.so.6"
+        },
+        {
+          "soname": "/lib/ld-linux-aarch64.so.1",
+          "path": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1"
+        }
+      ]
+    },
+    "bash-loader-list": {
+      "subject": "/usr/bin/bash",
+      "actualLoaded": [
+        {
+          "soname": "libtinfo.so.6",
+          "path": "/lib/aarch64-linux-gnu/libtinfo.so.6"
+        },
+        {
+          "soname": "libc.so.6",
+          "path": "/lib/aarch64-linux-gnu/libc.so.6"
+        },
+        {
+          "soname": "/lib/ld-linux-aarch64.so.1",
+          "path": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1"
+        }
+      ]
+    },
+    "env-loader-list": {
+      "subject": "/usr/bin/env",
+      "actualLoaded": [
+        {
+          "soname": "libc.so.6",
+          "path": "/lib/aarch64-linux-gnu/libc.so.6"
+        },
+        {
+          "soname": "/lib/ld-linux-aarch64.so.1",
+          "path": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1"
+        }
+      ]
+    },
+    "taskset-loader-list": {
+      "subject": "/usr/bin/taskset",
+      "actualLoaded": [
+        {
+          "soname": "libc.so.6",
+          "path": "/lib/aarch64-linux-gnu/libc.so.6"
+        },
+        {
+          "soname": "/lib/ld-linux-aarch64.so.1",
+          "path": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1"
+        }
+      ]
+    },
+    "linker-loader-list": {
+      "subject": "/usr/bin/aarch64-linux-gnu-ld.bfd",
+      "actualLoaded": [
+        {
+          "soname": "libbfd-2.40-system.so",
+          "path": "/lib/aarch64-linux-gnu/libbfd-2.40-system.so"
+        },
+        {
+          "soname": "libctf.so.0",
+          "path": "/lib/aarch64-linux-gnu/libctf.so.0"
+        },
+        {
+          "soname": "libjansson.so.4",
+          "path": "/lib/aarch64-linux-gnu/libjansson.so.4"
+        },
+        {
+          "soname": "libc.so.6",
+          "path": "/lib/aarch64-linux-gnu/libc.so.6"
+        },
+        {
+          "soname": "libz.so.1",
+          "path": "/lib/aarch64-linux-gnu/libz.so.1"
+        },
+        {
+          "soname": "libzstd.so.1",
+          "path": "/lib/aarch64-linux-gnu/libzstd.so.1"
+        },
+        {
+          "soname": "libsframe.so.0",
+          "path": "/lib/aarch64-linux-gnu/libsframe.so.0"
+        },
+        {
+          "soname": "/lib/ld-linux-aarch64.so.1",
+          "path": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1"
+        }
+      ]
+    }
+  },
+  "transitivePathRoots": [
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/lib"
+  ],
+  "uninterpretedSearchPaths": [],
+  "neededNotObserved": [],
+  "candidateSearchDirectories": [
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/tls/aarch64/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/tls/aarch64",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/tls/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/tls",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/aarch64/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/aarch64",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/tls/aarch64/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/tls/aarch64",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/tls/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/tls",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/aarch64/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/aarch64",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/tls/aarch64/atomics",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/tls/aarch64",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/tls/atomics",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/tls",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/aarch64/atomics",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/aarch64",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu/atomics",
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu",
+    "/lib/aarch64-linux-gnu/tls/aarch64/atomics",
+    "/lib/aarch64-linux-gnu/tls/aarch64",
+    "/lib/aarch64-linux-gnu/tls/atomics",
+    "/lib/aarch64-linux-gnu/tls",
+    "/lib/aarch64-linux-gnu/aarch64/atomics",
+    "/lib/aarch64-linux-gnu/aarch64",
+    "/lib/aarch64-linux-gnu/atomics",
+    "/lib/aarch64-linux-gnu",
+    "/usr/lib/aarch64-linux-gnu/tls/aarch64/atomics",
+    "/usr/lib/aarch64-linux-gnu/tls/aarch64",
+    "/usr/lib/aarch64-linux-gnu/tls/atomics",
+    "/usr/lib/aarch64-linux-gnu/tls",
+    "/usr/lib/aarch64-linux-gnu/aarch64/atomics",
+    "/usr/lib/aarch64-linux-gnu/aarch64",
+    "/usr/lib/aarch64-linux-gnu/atomics",
+    "/usr/lib/aarch64-linux-gnu",
+    "/lib/tls/aarch64/atomics",
+    "/lib/tls/aarch64",
+    "/lib/tls/atomics",
+    "/lib/tls",
+    "/lib/aarch64/atomics",
+    "/lib/aarch64",
+    "/lib/atomics",
+    "/lib",
+    "/usr/lib/tls/aarch64/atomics",
+    "/usr/lib/tls/aarch64",
+    "/usr/lib/tls/atomics",
+    "/usr/lib/tls",
+    "/usr/lib/aarch64/atomics",
+    "/usr/lib/aarch64",
+    "/usr/lib/atomics",
+    "/usr/lib",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/lib/tls/aarch64/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/lib/tls/aarch64",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/lib/tls/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/lib/tls",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/lib/aarch64/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/lib/aarch64",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/lib/atomics",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/lib"
+  ],
+  "expectedLegacySuffixes": [
+    "tls/aarch64/atomics",
+    "tls/aarch64",
+    "tls/atomics",
+    "tls",
+    "aarch64/atomics",
+    "aarch64",
+    "atomics",
+    ""
+  ],
+  "closureBoundary": "Observed selected files and their DT_NEEDED are accounted for; this does not pin names/bytes/absence of alternate loader search candidates, cache targets or actual symlink chains.",
+  "remainingGaps": [
+    "Final shallow candidate directory membership/types/all candidate bytes/absence and symlink target coverage",
+    "Legacy HWCAP combination order needs loader-source authority; diagnostics prove flags/platform, not traversal",
+    "Cache namespace (425 advertised entries) and selected applicability/aliases; configuration include and preload presence must remain guarded"
+  ],
+  "separateLaterStages": [
+    "Compiler header/GCC/linker script/search namespace",
+    "Generated executable ELF/runtime namespace"
+  ],
+  "qualifiesClosedResolver": false,
+  "newChildren": 0
+}
