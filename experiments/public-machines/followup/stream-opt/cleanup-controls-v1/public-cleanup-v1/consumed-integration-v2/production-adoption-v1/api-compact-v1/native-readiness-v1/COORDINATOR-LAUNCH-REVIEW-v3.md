@@ -1,0 +1,7 @@
+# Native launch admission v3
+
+Scoped PASS for c9f7c4b7 and the four exact original-path plans in NATIVE-PREPARED-v3.json. Coordinator independently inspected the complete collector execution, captured-source loader, per-stage shared lock, unconditional receipt and partial-output publication. All four plan digests, 529 unique live file pins, complete resource inventories, oracle hashes and absent generated outputs/receipts match. Limits remain emission30/build120/run5, CPU5, threads1/GPUoff.
+
+Eight no-child tests pass: complete historical four-scene model/parser joins, omitted-row and last-field refusal, six exact componentClock counterleaves, actual canonical normal imports and reached mutant Cleanup path, preimport digest/transitive/cached-source controls, and partial-result publication controls. Normal source closures consume canonical managed modules; mutants consume the selected copied managed body linked to the actual changed accepted Cleanup arm. Source IO diagnostics are retained and do not imply proof acceptance.
+
+Admit only these four v3 original-path Native cohorts, sequentially, with full normal/countermodels and existing guarded recipe. Earlier unexecuted v1/v2 plans remain superseded. Stop a failed cohort without unchanged retries. No relocation, performance, public ownership policy, universal proof or full #48 delivery is established. Fresh canonical JS observations and default regression remain delivery gates.
