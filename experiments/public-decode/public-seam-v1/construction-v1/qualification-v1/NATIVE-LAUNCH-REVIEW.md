@@ -1,0 +1,9 @@
+# Independent artifact-only Native admission
+
+PASS: actual six-cohort packet 9c62218b and Native preparation fff9fda3. Exact admitted Native plans: construction 3f0af5362ed997c5062d3e759d22379f6af6bf797b421f51ba594a6cd405c59a; custom 54094a128dfd5b7c260e835556940475b864cd3a7829f2055d3a2b6f6f03f3b3; completion 8af8509d8f29cfc0274c5f61ed15912b69481160901380411a9024130b57b246.
+
+All six archived receipts match original receipts and exact prior plans. All nine commands exited zero with null failure. Archived raw/generated gzip digests, decompressed lengths/hashes and current originals match summary. Actual JS complete raw equals independently rendered expected stdout: 44 reports 101097B cb90be0e; 20 reports 25101B 230eddfb; 16 reports 46233B 19e5cd31. Prior full typed roundtrip controls retain all fields and nominal identities. Existing guard calls execute at pre/acquired/post/final boundaries, but these receipts do not serialize separate guard snapshots; summary guardFailures is empty. Do not claim an independently portable serialized guard archive.
+
+All Native current inputs match (100/101/96 entries, including approved resource inventories); generated/raw directories and receipts are absent. Reviewed unchanged native-from-c recipe: actual Python and all pins before helper execution, verified byte loading; prior C/receipt/plan and exact source closure/role/command validation; build120/run5 CPU5, Clang19 O3 pthread/lm, threads1 GPUoff; shared child lock, partial binary capture, primary result preservation and unconditional final receipt. No compiler emission. Full typed/raw equality and entire joined models remain mandatory for all 44/20/16 reports.
+
+Admit each exact manifest invocation with --execute --plan-sha256 and its full digest. This is bounded experimental Native qualification preparation; no Native success, timing or full issue46 acceptance is inferred before actual execution. No backend executed by reviewer.
