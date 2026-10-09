@@ -1,0 +1,13 @@
+# Original copied packed phase diagnostic terminal evidence
+
+Original batch session32890 terminated1, INCOMPLETE, preserving the exact admitted89347aee sequence at96273a13. No retry, cap adjustment, source/tool/default change or backend launch occurred.
+
+normal33 passed source inverse/private-prefix/eight refusal controls, copied emission0 and validator0. Its complete C digest matched retained stock cc9402a414349fab4b33a0f7e21e4620b1d4617bf79b7b9e5d400c3eff0f8101 empirically. It reached39475 checkpoint calls and four emit passes. interrupted33 passed: compiler exit75/no runner failure at first memo_gc checkpoint during file_book, elapsed1188.45ms>=500ms, no C, valid exact captured profile. Both outcomes are diagnostic copied logic, not stock/backend acceptance.
+
+Conditional full47 compiler exited75/no runner failure at elapsed20000.14ms in emit pass1, reached emit_body checkpoint with151963 cumulative calls, last definition core/inspector-query-projection:matched_right~17. Raw phase entry/exit records show completed load/check/file_book and entered emission. The call count is cumulative across both hooks, not a matched_right recursion count. Profile23362164 bytes SHA c8024d7969d0234964a0c7b57228b0b4af447c08aae115482b621e626bcce05d and identical snapshot/capture metadata survived; final identity/digest joins pass. C is absent.
+
+The following full47 profile validator hit its unchanged5-second child deadline, exitNone, empty stdout/stderr. That schema/count validation remains INCOMPLETE; profile bytes/phase logs are not a validated whole-profile attribution. Exact original receipt/failed validator/empty streams stay immutable. No compiler or failed validator replay was performed.
+
+manifest.json archives187 named files in160 content-addressed lossless gzip objects, including all source/helper inputs, three original plans/cohorts, profiles+snapshots, phase/validator streams, metadata/C if present, all27 progressive guards and terminal receipts. Read-only verification checked every object byte length/hash, all current source/tool/helper pin joins, all27 guard joins and final original/snapshot identities/digests. External tool binaries/resource roots are identity-bound; Base additionally archived. Reviewer report remains untouched and excluded from author's archive.
+
+These source-backed phase observations cover copied packed logic under the same Bun ELF interpreter. They do not establish stock full47 phase cost, allocation/GC cause, ECS/fullfeature/backend performance or refinement. Stock full47 profiling remains held. Subsequent cheaper validation, if admitted, must reuse immutable witness bytes and preserve this failed attempt.

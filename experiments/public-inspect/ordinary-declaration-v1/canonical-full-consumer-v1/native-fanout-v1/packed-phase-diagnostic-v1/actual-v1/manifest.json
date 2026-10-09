@@ -1,0 +1,1741 @@
+{
+  "scope": "Copied packed logic diagnostics only; terminal full47 profile validator deadline preserves INCOMPLETE; no stock backend/performance/refinement/validated fullprofile attribution",
+  "session": 32890,
+  "terminalExit": 1,
+  "status": "INCOMPLETE",
+  "preparationCommit": "96273a138d254912573c16261930fc416270981a",
+  "batchSHA256": "89347aeea5d8f6a5fba884f10d7b758324ea23a20440a6bfaac14460ddafeb3a",
+  "cohorts": [
+    {
+      "name": "normal33",
+      "planSHA256": "0255ac683bdf27cbfe77efeb263e9f89a08d5b22b577947c7d133829af493126",
+      "status": "PACKED_COMPILER_DIAGNOSTIC_PASS",
+      "commands": [
+        {
+          "label": "source-copy-shape",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "source-copy-emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "source-profile-acceptance",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 11,
+      "profileCapture": {
+        "original": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/profiles/compiler.cpuprofile",
+        "snapshot": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/captured-profile.cpuprofile",
+        "sha256": "4257ecd16e9af706fcd7118b6827ef03ac8f350ff94313cbd67009126e386999",
+        "bytes": 8118389,
+        "identities": {
+          "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/profiles/compiler.cpuprofile": [
+            35,
+            23627385
+          ],
+          "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/captured-profile.cpuprofile": [
+            35,
+            23627388
+          ]
+        },
+        "compilerExit": 0,
+        "compilerFailure": null
+      },
+      "captureJoins": {
+        "original": true,
+        "snapshot": true
+      },
+      "phaseEvents": [
+        {
+          "event": "startup",
+          "phase": "startup",
+          "calls": 0,
+          "elapsedMs": 0.3243350000000049,
+          "deadlineMs": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 1.3260930000000002,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 832.529245,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 832.6860379999999,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 1692.865335,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "compile_book",
+          "calls": 0,
+          "elapsedMs": 1694.709183,
+          "name": "compile_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "file_book",
+          "calls": 0,
+          "elapsedMs": 1695.371022,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "file_book",
+          "calls": 547,
+          "elapsedMs": 2859.967017,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 547,
+          "elapsedMs": 2860.6123549999998,
+          "name": "emit-pass",
+          "pass": 1
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 10279,
+          "elapsedMs": 5071.233657000001,
+          "name": "emit-pass",
+          "pass": 1
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 10279,
+          "elapsedMs": 5071.266574,
+          "name": "emit-pass",
+          "pass": 2
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 20011,
+          "elapsedMs": 6612.800339,
+          "name": "emit-pass",
+          "pass": 2
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 20011,
+          "elapsedMs": 6612.898257000001,
+          "name": "emit-pass",
+          "pass": 3
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 29743,
+          "elapsedMs": 8043.696272,
+          "name": "emit-pass",
+          "pass": 3
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 29743,
+          "elapsedMs": 8043.790189,
+          "name": "emit-pass",
+          "pass": 4
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 39475,
+          "elapsedMs": 8730.315531,
+          "name": "emit-pass",
+          "pass": 4
+        },
+        {
+          "event": "phase-enter",
+          "phase": "C-assembly",
+          "calls": 39475,
+          "elapsedMs": 9245.644978,
+          "name": "C-assembly",
+          "pass": 4
+        },
+        {
+          "event": "phase-exit",
+          "phase": "C-assembly",
+          "calls": 39475,
+          "elapsedMs": 9293.064228000001,
+          "name": "C-assembly",
+          "pass": 4
+        },
+        {
+          "event": "phase-exit",
+          "phase": "compile_book",
+          "calls": 39475,
+          "elapsedMs": 9298.748148,
+          "name": "compile_book",
+          "pass": 4
+        }
+      ]
+    },
+    {
+      "name": "interrupted33",
+      "planSHA256": "b148ea2301a8c32a9285c2db5167fddd927d6cdf01f4577d787a800940d12c5f",
+      "status": "PACKED_COMPILER_DIAGNOSTIC_PASS",
+      "commands": [
+        {
+          "label": "source-copy-emit",
+          "exit": 75,
+          "failure": null
+        },
+        {
+          "label": "source-profile-acceptance",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 8,
+      "profileCapture": {
+        "original": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/profiles/compiler.cpuprofile",
+        "snapshot": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/captured-profile.cpuprofile",
+        "sha256": "48b29f71ea34a14578883cea9b55509232f35d6ba42f2ffb8d3b8ce824389c47",
+        "bytes": 1890642,
+        "identities": {
+          "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/profiles/compiler.cpuprofile": [
+            35,
+            23629962
+          ],
+          "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/captured-profile.cpuprofile": [
+            35,
+            23629965
+          ]
+        },
+        "compilerExit": 75,
+        "compilerFailure": null
+      },
+      "captureJoins": {
+        "original": true,
+        "snapshot": true
+      },
+      "phaseEvents": [
+        {
+          "event": "startup",
+          "phase": "startup",
+          "calls": 0,
+          "elapsedMs": 0.03241699999999881,
+          "deadlineMs": 500
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 3.0399819999999984,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 464.940006,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 465.124466,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 1177.140924,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "compile_book",
+          "calls": 0,
+          "elapsedMs": 1180.937371,
+          "name": "compile_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "file_book",
+          "calls": 0,
+          "elapsedMs": 1181.2666239999999,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "deadline",
+          "phase": "file_book",
+          "calls": 1,
+          "elapsedMs": 1188.453514,
+          "hook": "memo_gc",
+          "definition": null,
+          "limitMs": 500,
+          "exit": 75
+        }
+      ]
+    },
+    {
+      "name": "full47",
+      "planSHA256": "efa7248ad942c6970307ebd583c084afdad3e70f70415c1c37d09e74e49afcf1",
+      "status": "INCOMPLETE",
+      "commands": [
+        {
+          "label": "source-copy-emit",
+          "exit": 75,
+          "failure": null
+        },
+        {
+          "label": "source-profile-acceptance",
+          "exit": null,
+          "failure": "child deadline"
+        }
+      ],
+      "guards": 8,
+      "profileCapture": {
+        "original": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/profiles/compiler.cpuprofile",
+        "snapshot": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/captured-profile.cpuprofile",
+        "sha256": "c8024d7969d0234964a0c7b57228b0b4af447c08aae115482b621e626bcce05d",
+        "bytes": 23362164,
+        "identities": {
+          "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/profiles/compiler.cpuprofile": [
+            35,
+            23630039
+          ],
+          "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/captured-profile.cpuprofile": [
+            35,
+            23630042
+          ]
+        },
+        "compilerExit": 75,
+        "compilerFailure": null
+      },
+      "captureJoins": {
+        "original": true,
+        "snapshot": true
+      },
+      "phaseEvents": [
+        {
+          "event": "startup",
+          "phase": "startup",
+          "calls": 0,
+          "elapsedMs": 0.03191699999999287,
+          "deadlineMs": 20000
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 53.339670999999996,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 1398.2674630000001,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 1398.4091310000001,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 4158.701479,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "compile_book",
+          "calls": 0,
+          "elapsedMs": 4165.5689090000005,
+          "name": "compile_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "file_book",
+          "calls": 0,
+          "elapsedMs": 4166.523166,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "file_book",
+          "calls": 6437,
+          "elapsedMs": 8767.658307,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 6437,
+          "elapsedMs": 8768.062644,
+          "name": "emit-pass",
+          "pass": 1
+        },
+        {
+          "event": "deadline",
+          "phase": "emit-pass",
+          "calls": 151963,
+          "elapsedMs": 20000.144754,
+          "hook": "emit_body",
+          "definition": "core/inspector-query-projection:matched_right~17",
+          "limitMs": 20000,
+          "exit": 75
+        }
+      ]
+    }
+  ],
+  "members": {
+    "/home/node/.bend/bend2/base.bend": {
+      "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+      "bytes": 71530,
+      "object": "objects/c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661.gz"
+    },
+    "/tmp/bendvy-ordinary-inspector-detached-normal-native01/receipt.json": {
+      "sha256": "2c19169a47b3f8c8af86b431357cf047fd9b67a34de497f3035a023eba4060f9",
+      "bytes": 5625,
+      "object": "objects/2c19169a47b3f8c8af86b431357cf047fd9b67a34de497f3035a023eba4060f9.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/DELTA.json": {
+      "sha256": "5ad5725ca581514d6ea3326c9c352813307edd59cd8fb13ba9e7ca2c33c799c5",
+      "bytes": 29112,
+      "object": "objects/5ad5725ca581514d6ea3326c9c352813307edd59cd8fb13ba9e7ca2c33c799c5.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/PROBE-COPY.json": {
+      "sha256": "4225653c7b295e8c7e643ed78efa9c3b8bc12bc9cd4f57f3cf054b8cc2467baa",
+      "bytes": 742,
+      "object": "objects/4225653c7b295e8c7e643ed78efa9c3b8bc12bc9cd4f57f3cf054b8cc2467baa.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/BATCH.json": {
+      "sha256": "89347aeea5d8f6a5fba884f10d7b758324ea23a20440a6bfaac14460ddafeb3a",
+      "bytes": 1510,
+      "object": "objects/89347aeea5d8f6a5fba884f10d7b758324ea23a20440a6bfaac14460ddafeb3a.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/PATCHES.json": {
+      "sha256": "e7db919af731dd4a984ea2779e22bc508f94d68b6f7dc2f6d90aa6a5c1e710ec",
+      "bytes": 4978,
+      "object": "objects/e7db919af731dd4a984ea2779e22bc508f94d68b6f7dc2f6d90aa6a5c1e710ec.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/README.md": {
+      "sha256": "782d8025b32885617c34902323890942f040e02518fd1f2631c099ce3d53363b",
+      "bytes": 6009,
+      "object": "objects/782d8025b32885617c34902323890942f040e02518fd1f2631c099ce3d53363b.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/RESULT.json": {
+      "sha256": "657e58a7904bedb17dce84a0c147c4826a9948068c6ae71ae3c17284269808c8",
+      "bytes": 13761,
+      "object": "objects/657e58a7904bedb17dce84a0c147c4826a9948068c6ae71ae3c17284269808c8.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/batch-receipt.json": {
+      "sha256": "2648a229752c10f68dbea3e98ab6f568b68828e89305bc126c657c3afa951a7c",
+      "bytes": 2132,
+      "object": "objects/2648a229752c10f68dbea3e98ab6f568b68828e89305bc126c657c3afa951a7c.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/batch.py": {
+      "sha256": "81e3fc81b0ec69567eeb80bc69b2e71fb31286536c97c3d305887f2906a2fe33",
+      "bytes": 2373,
+      "object": "objects/81e3fc81b0ec69567eeb80bc69b2e71fb31286536c97c3d305887f2906a2fe33.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/check-copy.py": {
+      "sha256": "2f891073684fa66312d25109f1c9fb4d4b03a36d683a659f815a139f03154692",
+      "bytes": 1947,
+      "object": "objects/2f891073684fa66312d25109f1c9fb4d4b03a36d683a659f815a139f03154692.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/collect.py": {
+      "sha256": "c285fefacc746a8625bf65d56b03e334ed14e81f2a56b19c23eba9e5d2f6332b",
+      "bytes": 3054,
+      "object": "objects/c285fefacc746a8625bf65d56b03e334ed14e81f2a56b19c23eba9e5d2f6332b.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/collector-delta.patch": {
+      "sha256": "a354ab2711d277bd9cac4a6a83563ae915a600ba965ffb772726267dc851839f",
+      "bytes": 4898,
+      "object": "objects/a354ab2711d277bd9cac4a6a83563ae915a600ba965ffb772726267dc851839f.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/collector-profile.py": {
+      "sha256": "ca194f2a352fe3f06569fe88576cdcfcce1557063cc88ccb4c8c7c7cbc275818",
+      "bytes": 22672,
+      "object": "objects/ca194f2a352fe3f06569fe88576cdcfcce1557063cc88ccb4c8c7c7cbc275818.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/captured-profile.cpuprofile": {
+      "sha256": "c8024d7969d0234964a0c7b57228b0b4af447c08aae115482b621e626bcce05d",
+      "bytes": 23362164,
+      "object": "objects/c8024d7969d0234964a0c7b57228b0b4af447c08aae115482b621e626bcce05d.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/final.guard.json": {
+      "sha256": "81feaa9504cf14fb948aa866a2db2110a91159f5f6b0350002ae95fc0eb92998",
+      "bytes": 25310,
+      "object": "objects/81feaa9504cf14fb948aa866a2db2110a91159f5f6b0350002ae95fc0eb92998.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/plan.json": {
+      "sha256": "efa7248ad942c6970307ebd583c084afdad3e70f70415c1c37d09e74e49afcf1",
+      "bytes": 93865,
+      "object": "objects/efa7248ad942c6970307ebd583c084afdad3e70f70415c1c37d09e74e49afcf1.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/profile-artifacts.json": {
+      "sha256": "cffcf9289d19e7369978ffd8f023e31c5dfe44f6a7ad03721d17c844ded9bbef",
+      "bytes": 1928,
+      "object": "objects/cffcf9289d19e7369978ffd8f023e31c5dfe44f6a7ad03721d17c844ded9bbef.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/profile-capture.json": {
+      "sha256": "56f69ebe7be41a6766bffcc5c1fe13dd63637c75fa9bfbe86b10f2fc0f24af7e",
+      "bytes": 1185,
+      "object": "objects/56f69ebe7be41a6766bffcc5c1fe13dd63637c75fa9bfbe86b10f2fc0f24af7e.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/profile-captured.guard.json": {
+      "sha256": "63c59f33b294bbf9cf58edd404f8409c5807182614121d7526c4e95e8b26bf1a",
+      "bytes": 24715,
+      "object": "objects/63c59f33b294bbf9cf58edd404f8409c5807182614121d7526c4e95e8b26bf1a.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/profiles/compiler.cpuprofile": {
+      "sha256": "c8024d7969d0234964a0c7b57228b0b4af447c08aae115482b621e626bcce05d",
+      "bytes": 23362164,
+      "object": "objects/c8024d7969d0234964a0c7b57228b0b4af447c08aae115482b621e626bcce05d.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/receipt.json": {
+      "sha256": "50f8e980950559415789e1537436868b0ac76bfb2c091bbb95e0f5a5f66a86c6",
+      "bytes": 7890,
+      "object": "objects/50f8e980950559415789e1537436868b0ac76bfb2c091bbb95e0f5a5f66a86c6.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/source-copy-emit-acquired.guard.json": {
+      "sha256": "18dd2f3a2f102bb6463c83567850736c0c55ca68589597320d6916cabffca969",
+      "bytes": 23248,
+      "object": "objects/18dd2f3a2f102bb6463c83567850736c0c55ca68589597320d6916cabffca969.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/source-copy-emit-post.guard.json": {
+      "sha256": "69f1f7da5da105ef34ae83174db298e9600392f0bf0fd9da13115c21a3521b0a",
+      "bytes": 24720,
+      "object": "objects/69f1f7da5da105ef34ae83174db298e9600392f0bf0fd9da13115c21a3521b0a.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/source-copy-emit-pre.guard.json": {
+      "sha256": "0a7c7991fb17055f12a1f64eed62baa2ed688d84d464365ac65d4d62e9675711",
+      "bytes": 23243,
+      "object": "objects/0a7c7991fb17055f12a1f64eed62baa2ed688d84d464365ac65d4d62e9675711.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/source-copy-emit.stderr": {
+      "sha256": "cae27da427590dd7702038970d0f3aeccf6bc1b83939adb1ee3d94438cc12fd3",
+      "bytes": 1308,
+      "object": "objects/cae27da427590dd7702038970d0f3aeccf6bc1b83939adb1ee3d94438cc12fd3.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/source-copy-emit.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/source-profile-acceptance-acquired.guard.json": {
+      "sha256": "ceedd3bd2a30dada62bc5a21ca398f23c6e6314dfdec4320ceafc2b93ce3d5af",
+      "bytes": 24733,
+      "object": "objects/ceedd3bd2a30dada62bc5a21ca398f23c6e6314dfdec4320ceafc2b93ce3d5af.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/source-profile-acceptance-post.guard.json": {
+      "sha256": "d680698694e344085bd7e683c93a9ceeec9798db3db26bcf5e7f01982da94119",
+      "bytes": 25335,
+      "object": "objects/d680698694e344085bd7e683c93a9ceeec9798db3db26bcf5e7f01982da94119.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/source-profile-acceptance-pre.guard.json": {
+      "sha256": "ed5d0d50c398a6d07e9c824cec77427a3d59c29a85d5d06612b6abde2a6955b0",
+      "bytes": 24728,
+      "object": "objects/ed5d0d50c398a6d07e9c824cec77427a3d59c29a85d5d06612b6abde2a6955b0.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/source-profile-acceptance.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/source-profile-acceptance.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/captured-profile.cpuprofile": {
+      "sha256": "48b29f71ea34a14578883cea9b55509232f35d6ba42f2ffb8d3b8ce824389c47",
+      "bytes": 1890642,
+      "object": "objects/48b29f71ea34a14578883cea9b55509232f35d6ba42f2ffb8d3b8ce824389c47.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/final.guard.json": {
+      "sha256": "85be78a1fb8cf6cb1350434f107f9d57d287c6598238f2c69bc6fa46de481b8e",
+      "bytes": 15041,
+      "object": "objects/85be78a1fb8cf6cb1350434f107f9d57d287c6598238f2c69bc6fa46de481b8e.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/plan.json": {
+      "sha256": "b148ea2301a8c32a9285c2db5167fddd927d6cdf01f4577d787a800940d12c5f",
+      "bytes": 72388,
+      "object": "objects/b148ea2301a8c32a9285c2db5167fddd927d6cdf01f4577d787a800940d12c5f.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/profile-artifacts.json": {
+      "sha256": "f2bafe7a2655d3bcd8630ced600cd01594980298f58463b3c9187fde5504ba92",
+      "bytes": 1961,
+      "object": "objects/f2bafe7a2655d3bcd8630ced600cd01594980298f58463b3c9187fde5504ba92.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/profile-capture.json": {
+      "sha256": "88dda33ec578e14ea7c9fcf487c3a01f4894676447db798c24a28407bcf58b93",
+      "bytes": 1212,
+      "object": "objects/88dda33ec578e14ea7c9fcf487c3a01f4894676447db798c24a28407bcf58b93.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/profile-captured.guard.json": {
+      "sha256": "ce8ee0002d593a88b562bcf8b1352dae6aeb7fcd1a7db795b4588fe86039f44f",
+      "bytes": 14432,
+      "object": "objects/ce8ee0002d593a88b562bcf8b1352dae6aeb7fcd1a7db795b4588fe86039f44f.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/profiles/compiler.cpuprofile": {
+      "sha256": "48b29f71ea34a14578883cea9b55509232f35d6ba42f2ffb8d3b8ce824389c47",
+      "bytes": 1890642,
+      "object": "objects/48b29f71ea34a14578883cea9b55509232f35d6ba42f2ffb8d3b8ce824389c47.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/receipt.json": {
+      "sha256": "d8937c9ab5cc0b8103dd20ae98429b2c1fe849757ba49f756218b1f6f9974cac",
+      "bytes": 8001,
+      "object": "objects/d8937c9ab5cc0b8103dd20ae98429b2c1fe849757ba49f756218b1f6f9974cac.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/source-copy-emit-acquired.guard.json": {
+      "sha256": "19789bb1b89e4861400a8f8b614497308b65cb0dd62985ac4c23119c4e5f6ce6",
+      "bytes": 12930,
+      "object": "objects/19789bb1b89e4861400a8f8b614497308b65cb0dd62985ac4c23119c4e5f6ce6.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/source-copy-emit-post.guard.json": {
+      "sha256": "80282f0bd2397560665a81c0a2c0a572361884d2d2442441692d13c054135762",
+      "bytes": 14437,
+      "object": "objects/80282f0bd2397560665a81c0a2c0a572361884d2d2442441692d13c054135762.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/source-copy-emit-pre.guard.json": {
+      "sha256": "1d75f463a9d054ace77758ae7c89aa9840c79b073b2f2f965ec63156c84f5c68",
+      "bytes": 12925,
+      "object": "objects/1d75f463a9d054ace77758ae7c89aa9840c79b073b2f2f965ec63156c84f5c68.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/source-copy-emit.stderr": {
+      "sha256": "56da8fdbc5c1da5772a04b862912f15b5264c16b8a98e700b570ba9c237d1527",
+      "bytes": 991,
+      "object": "objects/56da8fdbc5c1da5772a04b862912f15b5264c16b8a98e700b570ba9c237d1527.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/source-copy-emit.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/source-profile-acceptance-acquired.guard.json": {
+      "sha256": "5d15e5232d5aa888419bba78bf39de60c89c8fbad55ee89b884ae2b7d5a0123e",
+      "bytes": 14450,
+      "object": "objects/5d15e5232d5aa888419bba78bf39de60c89c8fbad55ee89b884ae2b7d5a0123e.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/source-profile-acceptance-post.guard.json": {
+      "sha256": "ad655ea454271a4e1019358794e2faa599f7a2f997c33365328947a7156399e9",
+      "bytes": 15066,
+      "object": "objects/ad655ea454271a4e1019358794e2faa599f7a2f997c33365328947a7156399e9.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/source-profile-acceptance-pre.guard.json": {
+      "sha256": "c53e7a70dc56d744760b166fdf85953df64c8d13a8c2cfb30f65cd7dfc940268",
+      "bytes": 14445,
+      "object": "objects/c53e7a70dc56d744760b166fdf85953df64c8d13a8c2cfb30f65cd7dfc940268.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/source-profile-acceptance.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/source-profile-acceptance.stdout": {
+      "sha256": "1f896d942de78dde294e3ba0c38b3afba39e211dc0d77f314df5b603b6e73ca5",
+      "bytes": 1451533,
+      "object": "objects/1f896d942de78dde294e3ba0c38b3afba39e211dc0d77f314df5b603b6e73ca5.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/captured-profile.cpuprofile": {
+      "sha256": "4257ecd16e9af706fcd7118b6827ef03ac8f350ff94313cbd67009126e386999",
+      "bytes": 8118389,
+      "object": "objects/4257ecd16e9af706fcd7118b6827ef03ac8f350ff94313cbd67009126e386999.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/final.guard.json": {
+      "sha256": "0ba10a299aa5dd7a1398926ca94a2641d7e7c0d7365c4a1d99e286b8d379b34c",
+      "bytes": 15878,
+      "object": "objects/0ba10a299aa5dd7a1398926ca94a2641d7e7c0d7365c4a1d99e286b8d379b34c.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/plan.json": {
+      "sha256": "0255ac683bdf27cbfe77efeb263e9f89a08d5b22b577947c7d133829af493126",
+      "bytes": 72752,
+      "object": "objects/0255ac683bdf27cbfe77efeb263e9f89a08d5b22b577947c7d133829af493126.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/profile-artifacts.json": {
+      "sha256": "1824e85e685419fed053dbf4ce484cb87ac3a115ed9a06541951d69a3d8490df",
+      "bytes": 1935,
+      "object": "objects/1824e85e685419fed053dbf4ce484cb87ac3a115ed9a06541951d69a3d8490df.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/profile-capture.json": {
+      "sha256": "55041f54528fb1a661ee82dbcf3e5516dec0e357f918234dc552865e1ec11b86",
+      "bytes": 1191,
+      "object": "objects/55041f54528fb1a661ee82dbcf3e5516dec0e357f918234dc552865e1ec11b86.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/profile-captured.guard.json": {
+      "sha256": "ef045329492f71d44f0780187b6f16bde51ce300e5d05bc3ac1395ffcacc4807",
+      "bytes": 15279,
+      "object": "objects/ef045329492f71d44f0780187b6f16bde51ce300e5d05bc3ac1395ffcacc4807.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/profiles/compiler.cpuprofile": {
+      "sha256": "4257ecd16e9af706fcd7118b6827ef03ac8f350ff94313cbd67009126e386999",
+      "bytes": 8118389,
+      "object": "objects/4257ecd16e9af706fcd7118b6827ef03ac8f350ff94313cbd67009126e386999.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/receipt.json": {
+      "sha256": "38be9308196e42b47970fe6329f38449ee70549695dbbf21f451d78aa8697e99",
+      "bytes": 10481,
+      "object": "objects/38be9308196e42b47970fe6329f38449ee70549695dbbf21f451d78aa8697e99.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/scenario.c": {
+      "sha256": "cc9402a414349fab4b33a0f7e21e4620b1d4617bf79b7b9e5d400c3eff0f8101",
+      "bytes": 1962969,
+      "object": "objects/cc9402a414349fab4b33a0f7e21e4620b1d4617bf79b7b9e5d400c3eff0f8101.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-copy-emit-acquired.guard.json": {
+      "sha256": "93088623a64eb3a8eaa3e1615087ab1688f01008fd7f9d9c9faa2aba0c54b2e1",
+      "bytes": 13519,
+      "object": "objects/93088623a64eb3a8eaa3e1615087ab1688f01008fd7f9d9c9faa2aba0c54b2e1.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-copy-emit-post.guard.json": {
+      "sha256": "cb957a70067d30bb25380e2f5de47d9870e24742a4629498868e20b00ea61e64",
+      "bytes": 15284,
+      "object": "objects/cb957a70067d30bb25380e2f5de47d9870e24742a4629498868e20b00ea61e64.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-copy-emit-pre.guard.json": {
+      "sha256": "1e7643c2ea5108127c6f3c76d66ac3992ff0bf29b672b59b400f7aad5d742b76",
+      "bytes": 13514,
+      "object": "objects/1e7643c2ea5108127c6f3c76d66ac3992ff0bf29b672b59b400f7aad5d742b76.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-copy-emit.stderr": {
+      "sha256": "cbb9ab03a4e2932922402ac9e45cc790a4a358eff3aac86545c986134c7aaacc",
+      "bytes": 2341,
+      "object": "objects/cbb9ab03a4e2932922402ac9e45cc790a4a358eff3aac86545c986134c7aaacc.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-copy-emit.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-copy-shape-acquired.guard.json": {
+      "sha256": "05d1dbbc3e203fecbc60bb02b9a30758636cdf580dd191e241c6970d8da02cb0",
+      "bytes": 12926,
+      "object": "objects/05d1dbbc3e203fecbc60bb02b9a30758636cdf580dd191e241c6970d8da02cb0.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-copy-shape-post.guard.json": {
+      "sha256": "bd19381d837ab8922d05cec8cb436e1f857531f7f70ef902685a3eb6f4f957c8",
+      "bytes": 13516,
+      "object": "objects/bd19381d837ab8922d05cec8cb436e1f857531f7f70ef902685a3eb6f4f957c8.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-copy-shape-pre.guard.json": {
+      "sha256": "83f9e55d43bb60a41426a1f03ed3b425cf497e9015f07156ccd0ed53aa4a48af",
+      "bytes": 12921,
+      "object": "objects/83f9e55d43bb60a41426a1f03ed3b425cf497e9015f07156ccd0ed53aa4a48af.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-copy-shape.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-copy-shape.stdout": {
+      "sha256": "ad0fd4e4bfd8495c47ab5555d77fa640d54f9fbf5e983129d903dcdc85a5fb71",
+      "bytes": 414,
+      "object": "objects/ad0fd4e4bfd8495c47ab5555d77fa640d54f9fbf5e983129d903dcdc85a5fb71.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-profile-acceptance-acquired.guard.json": {
+      "sha256": "efb5973a1d6aab72cf397a462f75d9ce7c38ba38dc1ce2f91e4c8be8b51cf90d",
+      "bytes": 15297,
+      "object": "objects/efb5973a1d6aab72cf397a462f75d9ce7c38ba38dc1ce2f91e4c8be8b51cf90d.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-profile-acceptance-post.guard.json": {
+      "sha256": "b69d8ea61a7f97bd9d3329892706bb343bb98747c2acaa716df908bc6867250b",
+      "bytes": 15903,
+      "object": "objects/b69d8ea61a7f97bd9d3329892706bb343bb98747c2acaa716df908bc6867250b.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-profile-acceptance-pre.guard.json": {
+      "sha256": "0e117f5da64e7a26f8027098029a858ef2f433284282dfba2796f472de45dcfe",
+      "bytes": 15292,
+      "object": "objects/0e117f5da64e7a26f8027098029a858ef2f433284282dfba2796f472de45dcfe.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-profile-acceptance.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/source-profile-acceptance.stdout": {
+      "sha256": "740e3ffa962d4dd9ddc3e801647af2820bdab2864bb73563ac38706b7510d06a",
+      "bytes": 5971999,
+      "object": "objects/740e3ffa962d4dd9ddc3e801647af2820bdab2864bb73563ac38706b7510d06a.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/packed-compiler.mjs": {
+      "sha256": "ecb67943d8e06f7257408927f0de4b1671af2ea6ceb03ec66cb1bcf4ec9f218d",
+      "bytes": 334927,
+      "object": "objects/ecb67943d8e06f7257408927f0de4b1671af2ea6ceb03ec66cb1bcf4ec9f218d.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/validate-profile.py": {
+      "sha256": "a76bbb4787784ba23514f248316069c1982dc11ce0ad61de5342954d69bed4e4",
+      "bytes": 3681,
+      "object": "objects/a76bbb4787784ba23514f248316069c1982dc11ce0ad61de5342954d69bed4e4.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/reference-control02/plan.json": {
+      "sha256": "53cc5bf99e42cc0238af6fc2b5690570ba340cde77329e69d020b6cc91ca79a1",
+      "bytes": 86710,
+      "object": "objects/53cc5bf99e42cc0238af6fc2b5690570ba340cde77329e69d020b6cc91ca79a1.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/reference-control02/receipt.json": {
+      "sha256": "bf4b358eea953d9d52642ecb7c5c44236f755fe67eafc78d92abe7ddd2240d65",
+      "bytes": 8218,
+      "object": "objects/bf4b358eea953d9d52642ecb7c5c44236f755fe67eafc78d92abe7ddd2240d65.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/reference-control02/source-reference-survival.stdout": {
+      "sha256": "b4580bd154e848942d2291e8b9a78f8a328efddd24cea3640733783a72e2cc17",
+      "bytes": 2272819,
+      "object": "objects/b4580bd154e848942d2291e8b9a78f8a328efddd24cea3640733783a72e2cc17.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/retained-validation01/plan.json": {
+      "sha256": "e276cd5df079d453b657b66f817e7b0ea560be16691113cc54802771cd9fb968",
+      "bytes": 91734,
+      "object": "objects/e276cd5df079d453b657b66f817e7b0ea560be16691113cc54802771cd9fb968.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/final.guard.json": {
+      "sha256": "568bb9e43c47b5062b768b457857db37b8eb2e49d7df37cc0102472dccbfcb5f",
+      "bytes": 14988,
+      "object": "objects/568bb9e43c47b5062b768b457857db37b8eb2e49d7df37cc0102472dccbfcb5f.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/plan.json": {
+      "sha256": "8d1ab276d25b5aac69855a92246957c328452c9ca3881b6beec0ead3b6db4740",
+      "bytes": 81197,
+      "object": "objects/8d1ab276d25b5aac69855a92246957c328452c9ca3881b6beec0ead3b6db4740.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/receipt.json": {
+      "sha256": "2def4fe1944217c9d711a96c9334f6e595516b56da9ff834ff93eba06706573e",
+      "bytes": 2987,
+      "object": "objects/2def4fe1944217c9d711a96c9334f6e595516b56da9ff834ff93eba06706573e.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/source-normal-acquired.guard.json": {
+      "sha256": "359f7a6289a94cfe7515de8ae83b8ffca3b34cd8d553eb53889deb9361f1235f",
+      "bytes": 14457,
+      "object": "objects/359f7a6289a94cfe7515de8ae83b8ffca3b34cd8d553eb53889deb9361f1235f.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/source-normal-post.guard.json": {
+      "sha256": "4aaa92db59fef5d9578ef2a33d5e8f9f0a3134cf580f4ec601561045ce015af8",
+      "bytes": 15001,
+      "object": "objects/4aaa92db59fef5d9578ef2a33d5e8f9f0a3134cf580f4ec601561045ce015af8.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/source-normal-pre.guard.json": {
+      "sha256": "6e7cdbda2996285ab34b5b44c899616632978deba79257ce8ef90114ea5d7f30",
+      "bytes": 14452,
+      "object": "objects/6e7cdbda2996285ab34b5b44c899616632978deba79257ce8ef90114ea5d7f30.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/source-normal.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt03/source-normal.stdout": {
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "bytes": 58,
+      "object": "objects/931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-inventory.json": {
+      "sha256": "0d076eeb51691c28962416a89e4371bd01ae3b7b6d1d972bcd51f149a17dd086",
+      "bytes": 12311,
+      "object": "objects/0d076eeb51691c28962416a89e4371bd01ae3b7b6d1d972bcd51f149a17dd086.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/check-execution.bend": {
+      "sha256": "c47b673e0f5e72c81be0d2efab56ed734c0f4c51fb4ce29038a56fc8dfd1b220",
+      "bytes": 11674,
+      "object": "objects/c47b673e0f5e72c81be0d2efab56ed734c0f4c51fb4ce29038a56fc8dfd1b220.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/consumer-witness.bend": {
+      "sha256": "d9e73a425140949bd5226f70baab7baa58d0afa3ba224f4bd3b4377e5328a8b3",
+      "bytes": 6427,
+      "object": "objects/d9e73a425140949bd5226f70baab7baa58d0afa3ba224f4bd3b4377e5328a8b3.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/capabilities.bend": {
+      "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "bytes": 4096,
+      "object": "objects/bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/check.bend": {
+      "sha256": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f",
+      "bytes": 4757,
+      "object": "objects/9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/column.bend": {
+      "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "bytes": 45638,
+      "object": "objects/3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/commands.bend": {
+      "sha256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "bytes": 9870,
+      "object": "objects/f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/component.bend": {
+      "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "bytes": 31351,
+      "object": "objects/0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/compose.bend": {
+      "sha256": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+      "bytes": 19598,
+      "object": "objects/8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/indexed-lifecycle.bend": {
+      "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "bytes": 3862,
+      "object": "objects/e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/inspector-query-families.bend": {
+      "sha256": "020a8de48df12369c8709d10d15f0c3d22dcf8a9fb76f3af238ea4a4304edeb8",
+      "bytes": 9373,
+      "object": "objects/020a8de48df12369c8709d10d15f0c3d22dcf8a9fb76f3af238ea4a4304edeb8.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/inspector-query-projection.bend": {
+      "sha256": "422efbb7c19e8091a77f7e90e7f4e3d95474ae41d46e934b270b89638cd5f561",
+      "bytes": 8590,
+      "object": "objects/422efbb7c19e8091a77f7e90e7f4e3d95474ae41d46e934b270b89638cd5f561.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/inspector-query-world.bend": {
+      "sha256": "1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a",
+      "bytes": 2288,
+      "object": "objects/1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/inspector-query.bend": {
+      "sha256": "7a4c90e0f1e63d6a89aea256bd96c874758db73865dad02481a32c1dded8b58d",
+      "bytes": 11690,
+      "object": "objects/7a4c90e0f1e63d6a89aea256bd96c874758db73865dad02481a32c1dded8b58d.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/inspector.bend": {
+      "sha256": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+      "bytes": 6011,
+      "object": "objects/31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/lifecycle.bend": {
+      "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "bytes": 1591,
+      "object": "objects/6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/ordinary-component-binding.bend": {
+      "sha256": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1",
+      "bytes": 1402,
+      "object": "objects/2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/ordinary-declaration.bend": {
+      "sha256": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+      "bytes": 424,
+      "object": "objects/6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/ordinary-query-selections.bend": {
+      "sha256": "57ee96b72d098d0b3abf0504a166c3a0846c817fcc4cb2f77a9629be501bc755",
+      "bytes": 3821,
+      "object": "objects/57ee96b72d098d0b3abf0504a166c3a0846c817fcc4cb2f77a9629be501bc755.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/owner-handoff.bend": {
+      "sha256": "9fb32d2cf9f997ec7e27dbf34636253047299a946c7237a51281fa13c8734bd3",
+      "bytes": 6472,
+      "object": "objects/9fb32d2cf9f997ec7e27dbf34636253047299a946c7237a51281fa13c8734bd3.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/registration.bend": {
+      "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "bytes": 1768,
+      "object": "objects/34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/resource.bend": {
+      "sha256": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+      "bytes": 1612,
+      "object": "objects/bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/schedule.bend": {
+      "sha256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "bytes": 12704,
+      "object": "objects/e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/string-equality.bend": {
+      "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "bytes": 897,
+      "object": "objects/2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/system.bend": {
+      "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "bytes": 12147,
+      "object": "objects/e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/transaction.bend": {
+      "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "bytes": 2199,
+      "object": "objects/a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/core/world.bend": {
+      "sha256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "bytes": 22404,
+      "object": "objects/f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/execution.bend": {
+      "sha256": "a53a00906a80c49e74c04ec2345bc841143f227067ef1501758ff70669d97b19",
+      "bytes": 18558,
+      "object": "objects/a53a00906a80c49e74c04ec2345bc841143f227067ef1501758ff70669d97b19.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/family-witness.bend": {
+      "sha256": "2983c593ef01c2d9c07fa9b2095cba96c57b1edb5500b7fbffa6a702c7e3e72c",
+      "bytes": 24146,
+      "object": "objects/2983c593ef01c2d9c07fa9b2095cba96c57b1edb5500b7fbffa6a702c7e3e72c.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/five-phase-driver.bend": {
+      "sha256": "a9984b985dd9235bdb2d499173868b7f49c3ed608fcc5c8f6b9de66fa73d79a9",
+      "bytes": 5427,
+      "object": "objects/a9984b985dd9235bdb2d499173868b7f49c3ed608fcc5c8f6b9de66fa73d79a9.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/fixture.bend": {
+      "sha256": "a5f8700b0e03e84f9165175215828ba11238551d6dc18db50decacfc4dd9522c",
+      "bytes": 9730,
+      "object": "objects/a5f8700b0e03e84f9165175215828ba11238551d6dc18db50decacfc4dd9522c.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/format.bend": {
+      "sha256": "b6e838c547dbc9816136b8bd5c3ae5ac31c5c92ec5e4dc4b0bf88360b4778bb0",
+      "bytes": 6253,
+      "object": "objects/b6e838c547dbc9816136b8bd5c3ae5ac31c5c92ec5e4dc4b0bf88360b4778bb0.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/full-consumer.bend": {
+      "sha256": "6a8d73461781ce382d3f2bde1b45aa98b111755a0a48294616d67aaab8aa1212",
+      "bytes": 3050,
+      "object": "objects/6a8d73461781ce382d3f2bde1b45aa98b111755a0a48294616d67aaab8aa1212.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/gate-instrumentation.bend": {
+      "sha256": "9ff3b7935ee5c04087671e6874be013d9bd8419355d40e77ff7fdf649673209a",
+      "bytes": 5064,
+      "object": "objects/9ff3b7935ee5c04087671e6874be013d9bd8419355d40e77ff7fdf649673209a.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/gate-phase.bend": {
+      "sha256": "62a004748399860f010150c34a718ef3383c72734e44866d878ef02c5e772181",
+      "bytes": 4307,
+      "object": "objects/62a004748399860f010150c34a718ef3383c72734e44866d878ef02c5e772181.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/gates.bend": {
+      "sha256": "ac6ebaba5edff2c9e3b6385a656c08a8066431064eabc2b9d3f0f469babd68e6",
+      "bytes": 7954,
+      "object": "objects/ac6ebaba5edff2c9e3b6385a656c08a8066431064eabc2b9d3f0f469babd68e6.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/mutations.bend": {
+      "sha256": "c87f3bb9592c82f7867b79c5bfbe4485a95888dfd16febc1ddc1f2402250e4f5",
+      "bytes": 6906,
+      "object": "objects/c87f3bb9592c82f7867b79c5bfbe4485a95888dfd16febc1ddc1f2402250e4f5.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/output-adapter.bend": {
+      "sha256": "9fa48d003ab6e51dca2ce6c1cc84b902d68909072ae73b757e962dfa28402052",
+      "bytes": 6176,
+      "object": "objects/9fa48d003ab6e51dca2ce6c1cc84b902d68909072ae73b757e962dfa28402052.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/output-io-main.bend": {
+      "sha256": "ef3b61223649d1e886da59b4ab98888643e4a037f0a46f592415f293a2ce772b",
+      "bytes": 100,
+      "object": "objects/ef3b61223649d1e886da59b4ab98888643e4a037f0a46f592415f293a2ce772b.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/owner-carrier.bend": {
+      "sha256": "30c04215051f00114ef7536a9f2458130e86f18c84f4486be15327877a410280",
+      "bytes": 8924,
+      "object": "objects/30c04215051f00114ef7536a9f2458130e86f18c84f4486be15327877a410280.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/owner-observer.bend": {
+      "sha256": "6a6117a471a3a1e90a17777cc455f90012febd469d1a9c8282549ea16a9c1138",
+      "bytes": 6258,
+      "object": "objects/6a6117a471a3a1e90a17777cc455f90012febd469d1a9c8282549ea16a9c1138.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/phase-driver.bend": {
+      "sha256": "80dfff740d8790c8dfd09f754f0847831b423da826b40a660a255fd8b690a940",
+      "bytes": 4720,
+      "object": "objects/80dfff740d8790c8dfd09f754f0847831b423da826b40a660a255fd8b690a940.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/retry-driver.bend": {
+      "sha256": "10d3b6938fc64fb5d6e0beaeba339190edcfa44492bb3d264e74c74853a84334",
+      "bytes": 4560,
+      "object": "objects/10d3b6938fc64fb5d6e0beaeba339190edcfa44492bb3d264e74c74853a84334.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/runtime-declarations.bend": {
+      "sha256": "08b0cb61282c8a48588610b783c1a7f900a3eeca259f5ef6a96ec381115e114c",
+      "bytes": 60194,
+      "object": "objects/08b0cb61282c8a48588610b783c1a7f900a3eeca259f5ef6a96ec381115e114c.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/runtime-named-declarations.bend": {
+      "sha256": "5f6eae7837b00acf5b442845dbe810d04c7a95b83d22e341b4d94087274861a1",
+      "bytes": 41700,
+      "object": "objects/5f6eae7837b00acf5b442845dbe810d04c7a95b83d22e341b4d94087274861a1.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/runtime-owners.bend": {
+      "sha256": "126c1f0c9d36433ee4f931f74903c518832c8bbdf5640217d6bd6ff1b830235c",
+      "bytes": 523,
+      "object": "objects/126c1f0c9d36433ee4f931f74903c518832c8bbdf5640217d6bd6ff1b830235c.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/schema-families.bend": {
+      "sha256": "3441a703fbd7f7eef66e298b16d99b8b642af3b7642c8a74788276969e16772b",
+      "bytes": 5828,
+      "object": "objects/3441a703fbd7f7eef66e298b16d99b8b642af3b7642c8a74788276969e16772b.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/world-observer.bend": {
+      "sha256": "6ba86029f65770e65bc185fd51aafa26c7920ad714528c278452e0e48a826dc3",
+      "bytes": 3398,
+      "object": "objects/6ba86029f65770e65bc185fd51aafa26c7920ad714528c278452e0e48a826dc3.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-profile-v1/plan.json": {
+      "sha256": "44b613ff9145d54a91a5a911419551d262af968ccdd56bf304a5d2d6e5fa8d0c",
+      "bytes": 66731,
+      "object": "objects/44b613ff9145d54a91a5a911419551d262af968ccdd56bf304a5d2d6e5fa8d0c.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-profile-v2/collect.py": {
+      "sha256": "ab782cfe696987e9b99370e71442caa2e3e986175e88e95b8a9b24d44c1e17b4",
+      "bytes": 3054,
+      "object": "objects/ab782cfe696987e9b99370e71442caa2e3e986175e88e95b8a9b24d44c1e17b4.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-profile-v2/collector-profile.py": {
+      "sha256": "f7d415cb28bbf8a9dbad58424b49a8888a1be45741ed27ed2ac3531bd5cf9a6f",
+      "bytes": 22222,
+      "object": "objects/f7d415cb28bbf8a9dbad58424b49a8888a1be45741ed27ed2ac3531bd5cf9a6f.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-profile-v2/plan.json": {
+      "sha256": "e363f19a028ef7bd2fa55292ce6cbd8a83c79cbf1ca00eab425bdc4ea92ceb41",
+      "bytes": 68631,
+      "object": "objects/e363f19a028ef7bd2fa55292ce6cbd8a83c79cbf1ca00eab425bdc4ea92ceb41.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-profile-v2/profile-artifacts.json": {
+      "sha256": "3026c67d41f4d5df0db74bee9b57bbde79310d18a3b5cac5e8357337a0f68655",
+      "bytes": 1788,
+      "object": "objects/3026c67d41f4d5df0db74bee9b57bbde79310d18a3b5cac5e8357337a0f68655.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-profile-v2/receipt.json": {
+      "sha256": "a41a8643180253fde0373d9d86310113048ae9d99c5619fdbce74a97e41ff2ab",
+      "bytes": 7006,
+      "object": "objects/a41a8643180253fde0373d9d86310113048ae9d99c5619fdbce74a97e41ff2ab.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-profile-v2/scenario.c": {
+      "sha256": "cc9402a414349fab4b33a0f7e21e4620b1d4617bf79b7b9e5d400c3eff0f8101",
+      "bytes": 1962969,
+      "object": "objects/cc9402a414349fab4b33a0f7e21e4620b1d4617bf79b7b9e5d400c3eff0f8101.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-profile-v2/validate-profile.py": {
+      "sha256": "27d79e9c3b97dd4ffe98595ff50c92c78f48ed9ba5139ade92759210fc94b30f",
+      "bytes": 2412,
+      "object": "objects/27d79e9c3b97dd4ffe98595ff50c92c78f48ed9ba5139ade92759210fc94b30f.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/termination-source-v1/manifest.json": {
+      "sha256": "dc7372a13392b36db803e7117e825f6972748d988be37cb919e3d7c6ccc9415c",
+      "bytes": 3441,
+      "object": "objects/dc7372a13392b36db803e7117e825f6972748d988be37cb919e3d7c6ccc9415c.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/termination-source-v1/objects/015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62.gz": {
+      "sha256": "aaf922f753faef029d785964dc562bfba6eccfb7729b35d55118309f6ab0d25a",
+      "bytes": 97512,
+      "object": "objects/aaf922f753faef029d785964dc562bfba6eccfb7729b35d55118309f6ab0d25a.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/validate-retained.mjs": {
+      "sha256": "9106b9fd858d209b0223cc90229ea97a952998ee0e082e02bba69dd07d35e876",
+      "bytes": 3813,
+      "object": "objects/9106b9fd858d209b0223cc90229ea97a952998ee0e082e02bba69dd07d35e876.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/validation-retained-controls.mjs": {
+      "sha256": "45a50400015c7bb80712f81d5dc4e10ab752254936646dc4fdc2844192ea2e10",
+      "bytes": 2459,
+      "object": "objects/45a50400015c7bb80712f81d5dc4e10ab752254936646dc4fdc2844192ea2e10.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-simulation/delivery-v1/installed-config.py": {
+      "sha256": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+      "bytes": 5567,
+      "object": "objects/fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/scripts/evidence_boundary.py": {
+      "sha256": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122",
+      "bytes": 3014,
+      "object": "objects/f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/scripts/task_runner.py": {
+      "sha256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "bytes": 12358,
+      "object": "objects/ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/caller.bend": {
+      "sha256": "8b9973213938814a0efdfd0f28f5a1d6936882105bb2e206a49bf34bafdabdce",
+      "bytes": 6196,
+      "object": "objects/8b9973213938814a0efdfd0f28f5a1d6936882105bb2e206a49bf34bafdabdce.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/main.bend": {
+      "sha256": "fd7c9afd46ce5512c6f55e64c115dd85b14fa2c94c9719556985cea6076cb9ff",
+      "bytes": 512,
+      "object": "objects/fd7c9afd46ce5512c6f55e64c115dd85b14fa2c94c9719556985cea6076cb9ff.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/observe.bend": {
+      "sha256": "220154406038478b47ef39f7a2e9290bada77b60edac07ade8d0e680ca6ce020",
+      "bytes": 5801,
+      "object": "objects/220154406038478b47ef39f7a2e9290bada77b60edac07ade8d0e680ca6ce020.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/owner-observer.bend": {
+      "sha256": "c390dca4c39788a097e380002264149c0b7b7db9bd68fc464a901ba97ebc613e",
+      "bytes": 6935,
+      "object": "objects/c390dca4c39788a097e380002264149c0b7b7db9bd68fc464a901ba97ebc613e.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/capabilities.bend": {
+      "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "bytes": 4096,
+      "object": "objects/bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/column.bend": {
+      "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "bytes": 45638,
+      "object": "objects/3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/commands.bend": {
+      "sha256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "bytes": 9870,
+      "object": "objects/f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/component.bend": {
+      "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "bytes": 31351,
+      "object": "objects/0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/compose.bend": {
+      "sha256": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+      "bytes": 19598,
+      "object": "objects/8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/declared-family.bend": {
+      "sha256": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2",
+      "bytes": 2042,
+      "object": "objects/e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/decode-capabilities.bend": {
+      "sha256": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65",
+      "bytes": 1987,
+      "object": "objects/a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/decode-data.bend": {
+      "sha256": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4",
+      "bytes": 11497,
+      "object": "objects/1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/decode-size.bend": {
+      "sha256": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281",
+      "bytes": 771,
+      "object": "objects/dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/decode-utf16.bend": {
+      "sha256": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+      "bytes": 1307,
+      "object": "objects/343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/decode.bend": {
+      "sha256": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+      "bytes": 855,
+      "object": "objects/13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/indexed-lifecycle.bend": {
+      "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "bytes": 3862,
+      "object": "objects/e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/inspector-query-projection.bend": {
+      "sha256": "fe11471686751792c2939bea532f26138492f097d61c9b6200dc58a4580ef614",
+      "bytes": 3530,
+      "object": "objects/fe11471686751792c2939bea532f26138492f097d61c9b6200dc58a4580ef614.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/inspector-query.bend": {
+      "sha256": "c6b0f092e6271f3ee8c8ec3552f159ee65821440ef0561d4b63d16544991ea00",
+      "bytes": 4212,
+      "object": "objects/c6b0f092e6271f3ee8c8ec3552f159ee65821440ef0561d4b63d16544991ea00.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/inspector.bend": {
+      "sha256": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+      "bytes": 6011,
+      "object": "objects/31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/lifecycle.bend": {
+      "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "bytes": 1591,
+      "object": "objects/6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/ordinary-component-binding.bend": {
+      "sha256": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1",
+      "bytes": 1402,
+      "object": "objects/2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/ordinary-declaration.bend": {
+      "sha256": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+      "bytes": 424,
+      "object": "objects/6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/ordinary-inspector-declaration.bend": {
+      "sha256": "d916b7fbec58c0f51e3f05278b30a4b1ef08dc29d83d3f9149b33cbf716e00e3",
+      "bytes": 3638,
+      "object": "objects/d916b7fbec58c0f51e3f05278b30a4b1ef08dc29d83d3f9149b33cbf716e00e3.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/ordinary-query-declaration.bend": {
+      "sha256": "bbb77a38ebe83f27edf4d1ec7be7b56d6360687a088046ac2dc3c45ca6f73a32",
+      "bytes": 11956,
+      "object": "objects/bbb77a38ebe83f27edf4d1ec7be7b56d6360687a088046ac2dc3c45ca6f73a32.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/owner-handoff.bend": {
+      "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "bytes": 6475,
+      "object": "objects/91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/persistence-declaration.bend": {
+      "sha256": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+      "bytes": 3205,
+      "object": "objects/06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/resource.bend": {
+      "sha256": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+      "bytes": 1612,
+      "object": "objects/bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/schema-fragments.bend": {
+      "sha256": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+      "bytes": 7229,
+      "object": "objects/83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/snapshot-gate.bend": {
+      "sha256": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128",
+      "bytes": 1336,
+      "object": "objects/60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/snapshot-leaf.bend": {
+      "sha256": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f",
+      "bytes": 4111,
+      "object": "objects/9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/string-equality.bend": {
+      "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "bytes": 897,
+      "object": "objects/2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/transaction.bend": {
+      "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "bytes": 2199,
+      "object": "objects/a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b.gz"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/src/ecs/world.bend": {
+      "sha256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "bytes": 22404,
+      "object": "objects/f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310.gz"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-inspect/closed-owner-carrier-v1/recursive-owner-v1/layout-followup-v1/leaf-lift-v1/chunked-output-v1/complete-expected.txt.gz": {
+      "sha256": "c3e90cbd178d9f30775f0fd64247c1e055d9848984d78397b49131e58b437e1b",
+      "bytes": 71888,
+      "object": "objects/c3e90cbd178d9f30775f0fd64247c1e055d9848984d78397b49131e58b437e1b.gz"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/prepared-remaining-v1/normal-native.plan.json": {
+      "sha256": "27c3c2bacab5c458db0821522cfbf901cb04d04f7cd31b268509f4af0e2e4404",
+      "bytes": 70155,
+      "object": "objects/27c3c2bacab5c458db0821522cfbf901cb04d04f7cd31b268509f4af0e2e4404.gz"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py": {
+      "sha256": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+      "bytes": 5567,
+      "object": "objects/fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347.gz"
+    }
+  },
+  "externalToolPins": {
+    "/usr/bin/taskset": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5",
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+    "/tmp/bendvy-clang19-diagnostic/clang19": "3e171a978d6c1decae4e6645e9bfb771cf5af21ff699ea119fdb058936b0af2d",
+    "/usr/bin/python3.11": "9a070c8a36e16c152dae21b66aeb707f4d21b506c875e9b15edf4387fca7dcf8",
+    "/home/node/.bend/bin/bend-2.0.35": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a"
+  },
+  "resourceRootIdentities": {
+    "/home/node/.bend/bend2": {
+      "base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+      "bendtt.lean": "e15042434e73aab07ab05cea4b77b5619082c00a6d4924ea2d4a2cdec05facce",
+      "effs/args.c": "2635223ad1d401b07e1834b9341e3f0be254796f6de1d9a0e800ca59fb3000b4",
+      "effs/args.js": "ed1a7e7b73ae7fe58ac6d428d2762b66f223f4c70a165570fc5d68dc874ddc0b",
+      "effs/audio.c": "5b77ca51a275e0113cfb6fada35211f767c792a549d3b23375bde853d28d9478",
+      "effs/audio_close.js": "c700e2fc0eda1f9a67afd317184999d9283912817aaec00637af41b135b84c62",
+      "effs/audio_open.js": "6f531ac205dab98dd366111cdcc5eed69fb9058350ca715f3419065cd979b088",
+      "effs/audio_write.js": "377d3e938ce3cc9f083c662b69d34e3a0cf391c92ddaf3fca8a4b28c78662da7",
+      "effs/chan.c": "cf026f9d428e83870d046a973ac434ce0a2471f5b93748bb264af84a239eacd3",
+      "effs/chan.js": "c228f8c6ac2ef2fc7b09a016f43e894b524eb49f2ac5d0ebd629cef76d4d1248",
+      "effs/file_close.c": "08fdd18ef43dff0bc6f7e064eb7ccf7a49f4140c238450f1b5f49ee1a2739dd5",
+      "effs/file_close.js": "2b83f900113776ab875fa3afd29f31000a191fe48645abe78b1d7b34cb12a7fe",
+      "effs/file_open.c": "361322488ad1508478c8a8fc4c0d35434924cd6fe92c02fd0c12b28b37b16726",
+      "effs/file_open.js": "dd549f5f05eb896aef9a3a02ffecf2ee902e653f5463be72781edab1cd1180ae",
+      "effs/file_read.c": "f6b78f6c6060257a91e341fcc38ba6560d5023ded78e3096fa5bfdc50da9538f",
+      "effs/file_read.js": "7aa8a95a0b02f3c8db1167da5a936958a90c64e7df3e327ba5c66766d5e57da7",
+      "effs/file_size.c": "f9d0f2aba9f3e89131b8b4d6d69ab2f33a99b645f403174e60e26238cfee33f1",
+      "effs/file_size.js": "508a931334016f725f0446d9c63f91d7e9de79b9fb347d0e148777dba834ef0b",
+      "effs/file_write.c": "a4d891e392ae0d913a73359fd80a30a64629eb893bf974c08eedb79b5fb9e2db",
+      "effs/file_write.js": "4fe307538beb1047add7646f52df6e382a1da5d8999d8fe96969bd5055bc9b59",
+      "effs/get_env.c": "3c05cb6453d858df9f24d5734defb51afce55da23f5799025782fe8e3191634f",
+      "effs/get_env.js": "2fab2162d5ff9842d1b84bfdc56466a606eeb0b81b04dd29f091652ff715ded6",
+      "effs/listener_close.c": "f3b023a763f62d85c861b9f6e0a717ba05992fe0b9d08bb827722ebaad291310",
+      "effs/listener_close.js": "1b87fb43c373b1a8a54b5afaf0cf8e3ec2f8d39bdfde131e49527caa19ac0cb8",
+      "effs/now.c": "268e869a5b5dd667aeb61ee7ef07f832238fb17f93015fe708528e95987c3ec3",
+      "effs/now.js": "b2c45fdcfeba0f155be5631b25708341c09d3c80929d8467afd5977473b087bf",
+      "effs/print.c": "28552d3b56aee6f6cdb66326aaa49ad0df35e4476e08c548c908efcbfafbd3e7",
+      "effs/print.js": "814ceba4efbaa291b7b6a9ff29aa20e3a23c06eb4fa165c69ee0bd22878adaa9",
+      "effs/print_err.c": "1ae1025f57d14ccc5a593319f9ea82bff061a05b4c468ab1bd0b939d4b98e2c4",
+      "effs/print_err.js": "a7a00612edfe98af1a351e8f7b912af4ee33f4bb888c36f119f7712d72a9394e",
+      "effs/process_run.c": "bf22b58053df01a4a3ac5edacf1593ae6fc0a3c2a2f238de682703a1826a01e8",
+      "effs/process_run.js": "6ebe3b9875ef62ee189209096fb422508e79d34e58913457aefe52a052631e42",
+      "effs/random_u32.c": "bb1e6b2d690590858e4cdbd78ba9b10d349eb3fc7dde0c3265e23af7991623fe",
+      "effs/random_u32.js": "ab0b37cb6055ad08573d1263aa380c339c3fe7417530cfa63264629dce7744c2",
+      "effs/sleep.c": "eb9d441b0ec6b11cbc775dd6f85da0aefdf8d9cdcb7f45f316d4f12c7aa1fdbc",
+      "effs/sleep.js": "324704349471cacfb5ba94c1aed2f316d2e5fdbea486478ab1e2e5a278c7ad9d",
+      "effs/socket_close.c": "742b164fecf63abf8b39fe8d2dd027cec4aa5a9cd31184e7d9d7825c91d5d65c",
+      "effs/socket_close.js": "dc4bf1fa95692c91528d4eb855506dde8dfc9164a90de2c43cd1bd6916e0c380",
+      "effs/spawn.c": "6d140b2b73b200c4bbd3004528734e7517e87d3f7ed40b901a06bfcbf2449abc",
+      "effs/spawn.js": "8a14c7a7a5ff80b049f0659f9e58d43bf0f3b1a6724d35a199c3f864b3242e4b",
+      "effs/tcp_accept.c": "c72b9f83e2fb8f48b8bf28dc9a3ae95c3c9cee7725a6915797199949d560511c",
+      "effs/tcp_accept.js": "3a9eb2359ec60af942fc0aa0390e1d5213a6c8b050bc832b6c8709f68e57b6ed",
+      "effs/tcp_connect.c": "ec6d1900f4c7ca88890c7e689bd8317e807665eed0c84418bd7e6505addac8e7",
+      "effs/tcp_connect.js": "a20819822e4ce18c8878b94e6ee70466833415eb9ebc2b6a39b65cabfcc553c9",
+      "effs/tcp_listen.c": "e126135c5a7cf46e4b4a57060a83ef1983340502f958c65e5c9faf27787abd8a",
+      "effs/tcp_listen.js": "0da4cfafaa24ba5e17d9fda5e6a5b207b2b36031b2c888944f67b85842d76399",
+      "effs/tcp_poll.c": "1e651ea609d61e1fef86cd07aaca13fa81b04a2159b3a3ef85e788e381c21560",
+      "effs/tcp_poll.js": "b0654046a2bfd27a89a4788eec0d4e61cd24dea4efb992e8924cb17ac4238283",
+      "effs/tcp_recv.c": "18f669d4cac74e862559f39ecb277592d6b0f06da50000e32751b6505e1a7a43",
+      "effs/tcp_recv.js": "642735a0dd844d4ea1c83d4b5d100fec334d6032ba3115f3a41d0bbfe2d93dfd",
+      "effs/tcp_send.c": "571d9790ce5c32b2cae08d69ae83ffa0d2c13e2e149f524d14237a79a2f86410",
+      "effs/tcp_send.js": "b5e56fa57d7cd48d7d0ca42d793322971dfc96b77b83b0eef4a528c26e7c326b",
+      "effs/thread_count.c": "ff5605b52535484adc10cb800c376ed77ededbddc9adea7064294e2cc0670d49",
+      "effs/thread_count.js": "f4ef6d8ded95fe3114e50b7d2b6eb873e693419b85150f681b4a54a5043c2de9",
+      "effs/udp_bind.c": "abffc463de08b76c0a1ca1235af56b463711d91e7f6720a976b414443096da8b",
+      "effs/udp_bind.js": "e3afae5bf246184e76703efbcf41cb35bf5289e746cc40dc0300eef98753dfb5",
+      "effs/udp_poll.c": "b6b6c6eb0ee4fce361e15df09b6579d30634ceab95d530f1e9e401c06155511b",
+      "effs/udp_poll.js": "86a7c4eee06ac487f476589d3137e39c152d6ab87b9208adf18763a1ceb486bd",
+      "effs/udp_recv_from.c": "32cab1742c2e5017af56fc97c20db5b38490d05eb4eab39e137ea20cdccf1aa2",
+      "effs/udp_recv_from.js": "d2ca779e878b5f3f85db5fb56148de955f4d094b312299a33f27b70b5b330b1b",
+      "effs/udp_send_to.c": "f00dd855ec7120706bd26a4bab6cc44ebd438584b73d479db3e00ec21b95eb2d",
+      "effs/udp_send_to.js": "0eb95a9c026918435f1eabc6d6d04044731d10f56950d06582086250240911c7",
+      "effs/window.c": "617611d994fb7f4c57467f8d1a7e644ba19d4fce35770613dea2711e6cafd65c",
+      "effs/window_close.js": "be4ef11e9ac57c59aa4aee847f15ece18034ca9fe1c4a68c6e0b0d7bbd7c3590",
+      "effs/window_frame.js": "78baa53aa46e02165c0c94da68d1f6362386ebcfb97dbb36fffb82792a03d34f",
+      "effs/window_grab.js": "55cfc1925114f2d1f177137fad24d6252fe28707d26a1aae18a98ad97060a668",
+      "effs/window_open.js": "cd716864b8dfb27ca955c8aa58643c7d693ce76eb56472bd8255ff7ac0656e8d",
+      "effs/window_set_title.js": "eee0bf26b7f381f8800364e22e8c735e47dd6db3f58e23ff3dda8478a8411513",
+      "effs/write.c": "3e1dc13b5edbbed0c344df665d68e82c8b9d4b5972166ff2411ec039f76cf943",
+      "effs/write.js": "e3495066a5d8c53fe1c46cfd2bb32577e3bd7dcae9797808801599073504dacb"
+    },
+    "/tmp/bendvy-clang19-diagnostic/root": {
+      "usr/bin/asan_symbolize-19": "ac51817f26ae667e5d49942d9514484639b85ea5f0d7fc79aa016929ff1ef8ed",
+      "usr/bin/clang++-19": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+      "usr/bin/clang-19": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+      "usr/bin/clang-cpp-19": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+      "usr/lib/aarch64-linux-gnu/libLLVM-19.so": "ebefb8f67187f3a6fb95e03c22c4eebcfdbfc42ccc1c794d4661750603faf9cc",
+      "usr/lib/aarch64-linux-gnu/libLLVM.so.19.1": "ebefb8f67187f3a6fb95e03c22c4eebcfdbfc42ccc1c794d4661750603faf9cc",
+      "usr/lib/aarch64-linux-gnu/libclang-cpp.so.19.1": "af222f37309634c6bd320d638b38f7643bc6021b17fcff8858177fa11db83eee",
+      "usr/lib/llvm-19/bin/clang": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+      "usr/lib/llvm-19/bin/clang++": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+      "usr/lib/llvm-19/bin/clang-19": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+      "usr/lib/llvm-19/bin/clang-cpp": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+      "usr/lib/llvm-19/lib/clang/19/include/ISO_Fortran_binding.h": "19a807ed8e3f8d02762544abbb54008320377edd43b6ceaa3f82c94298ca14ad",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_cuda_builtin_vars.h": "32d445ec643c5802efbd54d41e4e8bff952436586d992fc0f91258238cb6e115",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_cuda_cmath.h": "e44c1e33315864e0906e901d76257ed1c17c4ffc25cb944e4223248e59adb815",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_cuda_complex_builtins.h": "2030f2976a00a8894b1434d72c2108210a60b6726550c97e8f78c09445bccce9",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_cuda_device_functions.h": "f2c23943edae8c6b97db55131907b069e9797d2931a7ccb73178e56f4349ad01",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_cuda_intrinsics.h": "fa27108769f5633c0632b925b565207d6691500dd5702d27ec672705e0f3f9e7",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_cuda_libdevice_declares.h": "ee16f6dab972b4c742e78676e1aa30c4292ef6e099099d9591ce6baf13b7f7c4",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_cuda_math.h": "8f000f8ffaba8a9b0fee39fb76a6cd6bfca1de924f5571027b7bb1d40745d944",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_cuda_math_forward_declares.h": "e8a11354786957de82d0887958cec963ee614d953dcbd1cfcee2376cda9fef64",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_cuda_runtime_wrapper.h": "f390e9f9eec612340becec729dce9a81edf28a262e58c75c18b8f23b1bcc08d7",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_cuda_texture_intrinsics.h": "2fe5e66298eb022571302cfff75fce249234b59b229d6d0b68b4d9e629f736de",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_hip_cmath.h": "2123aa3edd0b40d2bc5994e71aae0d1965f361226c9e4eb67febda2a29bd19ef",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_hip_libdevice_declares.h": "a50271d3960793d86c75dfdebc973cd060dcdffa960ce42086aa8b6f302adf05",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_hip_math.h": "c21f690d3265a69dca161656f3252081533abd06a84f2a40cc1e35d5868f86a6",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_hip_runtime_wrapper.h": "9372b41fa835c43544e598bce536eaa949138decea941b4c417d8fd6bd22e9ef",
+      "usr/lib/llvm-19/lib/clang/19/include/__clang_hip_stdlib.h": "d9a92fd8cb4712d4bf51082cf094cd6ea83d00974ecb7471dc421574693e0398",
+      "usr/lib/llvm-19/lib/clang/19/include/__stdarg___gnuc_va_list.h": "feca975bfdfb254d17458a8e3d51f8ad6d9bdc9fd6287727f0f8b2fb81fcb0b0",
+      "usr/lib/llvm-19/lib/clang/19/include/__stdarg___va_copy.h": "f0a8d3c963338173f2d57b2cbc209dde38c90536107b15eb0cf78166d4caee1f",
+      "usr/lib/llvm-19/lib/clang/19/include/__stdarg_header_macro.h": "7b3fbcc442af2508f36bb2dc98d9ad2b8a1f5c0f5333394fb2159c8bd5ecd5b8",
+      "usr/lib/llvm-19/lib/clang/19/include/__stdarg_va_arg.h": "db0cca3b7768cf07807553fb88ea74e00cba4503e08a5f5504989fb3cc3e4cf1",
+      "usr/lib/llvm-19/lib/clang/19/include/__stdarg_va_copy.h": "bb195f56cb08d4cee6a60bd9f62f34466e8ac4f89f6fed043b044cb2f7ead010",
+      "usr/lib/llvm-19/lib/clang/19/include/__stdarg_va_list.h": "81c3055f7033e26e7f53705653bc9d69b5202f25c2692e03b3a4f77ff44a7d76",
+      "usr/lib/llvm-19/lib/clang/19/include/__stddef_header_macro.h": "4cf46e8fbb809df048eecbbd63686fa741da27afa8db4245bd1f61c1fb1611dc",
+      "usr/lib/llvm-19/lib/clang/19/include/__stddef_max_align_t.h": "3c1e4de47f4f06b35e2c5890d670052e84f716760505ff51b022fc8b21a9400f",
+      "usr/lib/llvm-19/lib/clang/19/include/__stddef_null.h": "b1d71b08563ab3d2c22a1e4f8ddf4d9a1111c89e9404b859a45c307e8ebc6c69",
+      "usr/lib/llvm-19/lib/clang/19/include/__stddef_nullptr_t.h": "898b4465c5d3040d27e760e82983a751b1b0cae23ba280b18a1b81451841f9eb",
+      "usr/lib/llvm-19/lib/clang/19/include/__stddef_offsetof.h": "e5f0f4ff8ff5fc6a1cc8b535f5065f1728eadd2bf1e1401f021f803ec7b4222f",
+      "usr/lib/llvm-19/lib/clang/19/include/__stddef_ptrdiff_t.h": "b4178a57f3711b7013cba747a72a2f178c29fa9364e77d75b2159754072ced43",
+      "usr/lib/llvm-19/lib/clang/19/include/__stddef_rsize_t.h": "132339d4f07e852bf2d879bc91c4ccdfcf08c581c7c97f6f3794510e0bdda7bd",
+      "usr/lib/llvm-19/lib/clang/19/include/__stddef_size_t.h": "d86ddc0238da09b385846ebef814ffc50a44e40cf85d4e3793f485952b7e73ad",
+      "usr/lib/llvm-19/lib/clang/19/include/__stddef_unreachable.h": "bba07c327f8168f37b266a19aed625e0fa633a25cabef4f54f21faf3df5522b8",
+      "usr/lib/llvm-19/lib/clang/19/include/__stddef_wchar_t.h": "1900d4998aef3698b06399ed686db0c21e26509b08638a25734fb97ae89b1001",
+      "usr/lib/llvm-19/lib/clang/19/include/__stddef_wint_t.h": "f2ededa38c5454397242aceaefa65b42b292a1b3cc258e7ca6e216f146e51f0d",
+      "usr/lib/llvm-19/lib/clang/19/include/__wmmintrin_aes.h": "c72344a1e5874d3af7049ecdccae91304cc5c2b619776947434e49904f5f03a1",
+      "usr/lib/llvm-19/lib/clang/19/include/__wmmintrin_pclmul.h": "0492aed7e0731e9d5d83bca76ef338223d3ae9c89d38f7600b7294465b6ebfdc",
+      "usr/lib/llvm-19/lib/clang/19/include/adcintrin.h": "7fe016d58a977ff9ef4fd378422420c3f56345f48d7383f8b2040ba9c92cc506",
+      "usr/lib/llvm-19/lib/clang/19/include/adxintrin.h": "1024502c684b3b325dcef16d7c26502fc8198a87fe61d84b754759c42da4aa3b",
+      "usr/lib/llvm-19/lib/clang/19/include/altivec.h": "56aaf900a80b50fa95354fee6ba57d71da9b007814b19906ffeab99660972ef8",
+      "usr/lib/llvm-19/lib/clang/19/include/ammintrin.h": "4d5751058e2630a390ce53cbc8d360d794ca71acbf49eb85f177313c884dc2a6",
+      "usr/lib/llvm-19/lib/clang/19/include/amxcomplexintrin.h": "573736da7259cd04cda142815072832bb7486db2336a3eec59ee471ed90a61b6",
+      "usr/lib/llvm-19/lib/clang/19/include/amxfp16intrin.h": "8d01b795391b693e6dfe564b2ff8ff9ea78a961eff6ee9f52b3c9150123dc8de",
+      "usr/lib/llvm-19/lib/clang/19/include/amxintrin.h": "b2f5b24a9831c7a2274122f627edfe6111b9b980fa0fbf05185d66eced110861",
+      "usr/lib/llvm-19/lib/clang/19/include/arm64intr.h": "183845bfa6f0bae53748d5706568fe3d8830c5c720823152eacb107e7c234046",
+      "usr/lib/llvm-19/lib/clang/19/include/arm_acle.h": "aa1e62830c4274cf679d9dd1bd37b64c4177c3e1dd8e6a0f09805ea7236256d2",
+      "usr/lib/llvm-19/lib/clang/19/include/arm_bf16.h": "87f7bc1cb7aa53a85347bd4e1855cccd45599408bb106e66515519c1033a6a3d",
+      "usr/lib/llvm-19/lib/clang/19/include/arm_cde.h": "486e75376c1cd42b4579d342fe776591520a50b1a8ae4b9ed005d7a895fdf490",
+      "usr/lib/llvm-19/lib/clang/19/include/arm_cmse.h": "75b8a5a66726f8c4e8fc329b7b98b21977e2033ce2c95f362d624d0cc6d8a773",
+      "usr/lib/llvm-19/lib/clang/19/include/arm_fp16.h": "38d9991c033c9669e742190024e5a5207ec696b7a9b189785799b7e09dde8e38",
+      "usr/lib/llvm-19/lib/clang/19/include/arm_mve.h": "8e6fa1bb91c0e5403e6f6152380b4ff318833028b0d4e9c91911e4dd107bd762",
+      "usr/lib/llvm-19/lib/clang/19/include/arm_neon.h": "398e874688d461272fd9c9ad311d05898b102e9e33eed8f846c0b1e74b1782af",
+      "usr/lib/llvm-19/lib/clang/19/include/arm_neon_sve_bridge.h": "9a0e636549d26df39bec2dfcb9eb1110744972ede03bab2a52187e1b7d87bfee",
+      "usr/lib/llvm-19/lib/clang/19/include/arm_sme.h": "57efbd795f568d9f437bcb80a5a6045530e6ba0ebf33db0f536a20f97e33fa60",
+      "usr/lib/llvm-19/lib/clang/19/include/arm_sve.h": "9299871988ab951bd7337d9131e1633d01f402053dfc90cf5804ec590934bb30",
+      "usr/lib/llvm-19/lib/clang/19/include/arm_vector_types.h": "d6024a47e64e488ad99c9c40cd72498849af528d7e0b5f9cef7a75028a7150a3",
+      "usr/lib/llvm-19/lib/clang/19/include/armintr.h": "6bc077ccfe4c9f230f37a1b7803ca1706850d288a18d505323a520eebab57311",
+      "usr/lib/llvm-19/lib/clang/19/include/avx2intrin.h": "247f777b777c5df2c7449190a3935285ee016005478849dbe9def19228e2ecf9",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512bf16intrin.h": "ea3ee83a8c95a6feba588d3d5de78f6dc24adbebd043f593efb974e93778b4e3",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512bitalgintrin.h": "373a8d9324a53fb62dec009f8636e99b0b4ae46525ac19835612f0cdb4d5e80d",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512bwintrin.h": "394ee7f037ea129f9c363a88d73a091a15bca1d3b07476ceca0e562f8ab20c9b",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512cdintrin.h": "6f7d017bc978245c089c8caaa994156723fa5c49375ada07a221814cab6eb80f",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512dqintrin.h": "1d8d0ebf7276a50deee5bbb608cf7bbe4f0051902c07b907f0057eaff433cf2e",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512fintrin.h": "a8843eec58d8d2ac1994d18ed609e3455b7805b7967ad3ba729054ab77c35d15",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512fp16intrin.h": "4653ea3f861401bcefaca6e59e9152f2f7233a5d9553cba1ed81a6159d70386c",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512ifmaintrin.h": "afa219631345315ee3f6c4c4d19858a971200e78723f190fc0f35756c6a46a0b",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512ifmavlintrin.h": "75d50b90a2d43190201007d92b30c504e76d944c7ba4fa36737e1704e9463076",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vbmi2intrin.h": "290796e7ac715b503ff5b0457fb706a74b1bd1d0375c8547a8b01a61f21fd400",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vbmiintrin.h": "2d38897f86b5a8d070641773e0d0df1aba8c4923e6432d0425ad170b1f86df35",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vbmivlintrin.h": "2a5b68a5b7816bbaaa0a6e21e753846825b048f7bef925939e3e441b68776bc5",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vlbf16intrin.h": "bef8b890d4ff7ad5ef4ef6124b62be83eb3f5da0a653cfff33568162924d7162",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vlbitalgintrin.h": "cbf35a406de5ea3ac34ef024415b64590d33e195fbaeeeb12b7f8e8852afef1e",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vlbwintrin.h": "3ab5091ec9f6ed3d39dc617373678165e47d71c1288752a24980292c7c659543",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vlcdintrin.h": "cd14d673844dc0c1ff75df14029352dc7dc350b137f90156822ad53befe8e3c4",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vldqintrin.h": "30dedffcf21153addb581959e6f2ddf5f2a2e360719a8971bd48382dc1aa67d9",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vlfp16intrin.h": "f41282042043395f23c51bc9b13930ba2780b18fcd9c744d58aa2e847f3c65b9",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vlintrin.h": "43f8d7215141c5c27a9c82fce3d5c00285e6f4477924f8d18654ddf21b157b45",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vlvbmi2intrin.h": "7921fef1c74c75b1362aeb1c4c53374740585e98adabd4091a9de681d574cac2",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vlvnniintrin.h": "342a1b4843d42c8c92970ecb13c3e0ec585cc1c7799d13c8d96546fc25d9f12d",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vlvp2intersectintrin.h": "779724d5315664120b50eb627ccd75a061815474118903c260abe5e9996482c2",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vnniintrin.h": "21d10483bc80d4c6acc1fe1946d295e6244ef5bcee47ae7803dce2c0961e3ad5",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vp2intersectintrin.h": "840da01f3aa586b28b0f45359a4fbba3760c2e7c25ce0f96b493d425f1a829d8",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vpopcntdqintrin.h": "bbe7bd0b057c7aa1316bb4d629460043c28babe3c414316d7fa9767783af5859",
+      "usr/lib/llvm-19/lib/clang/19/include/avx512vpopcntdqvlintrin.h": "f2c9f89ef339675d86798e5fcbb0ea9a72ef5aa2c08d45fab5f20a1610bb3c79",
+      "usr/lib/llvm-19/lib/clang/19/include/avxifmaintrin.h": "67de2a399146be4d56423b1a1aa15792314db2fab075186c2dcb90d5d11719b6",
+      "usr/lib/llvm-19/lib/clang/19/include/avxintrin.h": "af0d6c0e79e3f95f3b81f1071eb13d824a0e5d7f1f3c67c6d4ce71a8cb0368ff",
+      "usr/lib/llvm-19/lib/clang/19/include/avxneconvertintrin.h": "05482a9fb775e9595b1bdcc0b822cde959296b6cdaf57d116d716df6a118c91a",
+      "usr/lib/llvm-19/lib/clang/19/include/avxvnniint16intrin.h": "7a4e239f9c3aa2dd6e94acd2a96e500159f391dd931f9d3ead0f4104491469a9",
+      "usr/lib/llvm-19/lib/clang/19/include/avxvnniint8intrin.h": "4a9629e80a3a4d63044264e48598d7d9df53951c45d361db30ad0bdeee2bc889",
+      "usr/lib/llvm-19/lib/clang/19/include/avxvnniintrin.h": "0e8b2996074f83b42d62c49ab8333754d1d492dcae48908ab9fd7b4a0a05bc9d",
+      "usr/lib/llvm-19/lib/clang/19/include/bmi2intrin.h": "c7f02c68da223d986c137eeb956fcb57ead4ba223b421508c71fa2a0df947d89",
+      "usr/lib/llvm-19/lib/clang/19/include/bmiintrin.h": "71d51cb984f87d3ae13faa70ea4a45e3f500ee244db64cccb9f5be94bb3fd189",
+      "usr/lib/llvm-19/lib/clang/19/include/builtins.h": "a7d1f052d48c4e27d0ae1023b1cb2419e443c686193a3ab392adc776595ee23f",
+      "usr/lib/llvm-19/lib/clang/19/include/cet.h": "23568727f480e5701af3f7371d38680952e33264d9f184843353b87f583a2a9a",
+      "usr/lib/llvm-19/lib/clang/19/include/cetintrin.h": "ec1203e06e12b4a21944443330eab3a968b1048d429470c4ee0236b7ddfa39e7",
+      "usr/lib/llvm-19/lib/clang/19/include/cldemoteintrin.h": "bc5d9530ed13a5fc22ddc26f72f695d225053462bf06783a95a3532e0fcebe0c",
+      "usr/lib/llvm-19/lib/clang/19/include/clflushoptintrin.h": "930b1feb5f02450e0f75228cdaaf380f18557fee8ea64d7d8dd7268edfb50656",
+      "usr/lib/llvm-19/lib/clang/19/include/clwbintrin.h": "c014c43c1fc700e529fa5f0df8504af8c03bf21609ded625526ada7a1833ca08",
+      "usr/lib/llvm-19/lib/clang/19/include/clzerointrin.h": "3ae5138554f982a100b937124ec5bb914620e1a4dfd9e57fc89689428d5bb100",
+      "usr/lib/llvm-19/lib/clang/19/include/cmpccxaddintrin.h": "bb77dced91ba2706b64755bed994b46f012d05910e1966bc955e3317fa1e6f67",
+      "usr/lib/llvm-19/lib/clang/19/include/cpuid.h": "3fb4d5ca702529fc11a81defd0d13f8d245e7fec483a728edc243c19a2451275",
+      "usr/lib/llvm-19/lib/clang/19/include/crc32intrin.h": "0f73e381b39e4718f70159158faa3da510769bb16120ec23f35bdcff14d34cb1",
+      "usr/lib/llvm-19/lib/clang/19/include/cuda_wrappers/algorithm": "52a1dba93372b31091687c7559098b1417612b783f0c23006456636a0506f7ab",
+      "usr/lib/llvm-19/lib/clang/19/include/cuda_wrappers/bits/basic_string.h": "f9aacc58217e4d682054c9bc79a855f66484c7c4941049442823c4e2fc5911ff",
+      "usr/lib/llvm-19/lib/clang/19/include/cuda_wrappers/bits/basic_string.tcc": "109eae76b6c4bd234c104ecc0966881ecb82a8da20505d6802ccf2aa2f5a78de",
+      "usr/lib/llvm-19/lib/clang/19/include/cuda_wrappers/bits/shared_ptr_base.h": "51984393c2035f289bf533c0539b40bb616833a4315380e9a7ca338282b272da",
+      "usr/lib/llvm-19/lib/clang/19/include/cuda_wrappers/cmath": "11892958957baea536b67436a8ac8cf375abe551685d244a0e8973417af24320",
+      "usr/lib/llvm-19/lib/clang/19/include/cuda_wrappers/complex": "fd4be2fd14eb31ba883593b450f7587af2914c0faf76073fa8c8d4a507822a7c",
+      "usr/lib/llvm-19/lib/clang/19/include/cuda_wrappers/new": "5a04f8a86e6b9018066ebfd85b7323c11ea9d17cae9923637246b6e46c850a73",
+      "usr/lib/llvm-19/lib/clang/19/include/emmintrin.h": "297e26e93bedaa333c1d09a7b5e8592b973796b89146983ca92da724869028b0",
+      "usr/lib/llvm-19/lib/clang/19/include/enqcmdintrin.h": "024a79176d11b3646aa6d3648c61cead39086228178ed1138990bd861c0818f5",
+      "usr/lib/llvm-19/lib/clang/19/include/f16cintrin.h": "835f822dd6d88ad7f2b14b5c82255c1f124dc850e305df53f6edabe894280357",
+      "usr/lib/llvm-19/lib/clang/19/include/float.h": "a29019c5ba04f9bf55a46f9bf75c63039a6015921ddde7298e057b2a188bebec",
+      "usr/lib/llvm-19/lib/clang/19/include/fma4intrin.h": "c605b5d80947d945b925ca0ed79adc98c190ddc2b4e82fcee284caffe5288361",
+      "usr/lib/llvm-19/lib/clang/19/include/fmaintrin.h": "648c377bcf8ca86b717eb695536c76e2206561751eacbfe285c9218767161664",
+      "usr/lib/llvm-19/lib/clang/19/include/fxsrintrin.h": "892f1f63664e34c69497333eae7495f217db9ad0b4975d13c4967faec481ce04",
+      "usr/lib/llvm-19/lib/clang/19/include/gfniintrin.h": "bfe5ecf3f9c4cb35699647e04ec64dff511910aed0c077bd624d5d44991dd25e",
+      "usr/lib/llvm-19/lib/clang/19/include/hexagon_circ_brev_intrinsics.h": "a1e5a7d54a47697707d54edf31b6c3eef0c3593cff2a15bb9319238b08d54be7",
+      "usr/lib/llvm-19/lib/clang/19/include/hexagon_protos.h": "0b130e0b52feb7074551b2389648a0fdc790784bb875e4f21fe47c9b0899fc8b",
+      "usr/lib/llvm-19/lib/clang/19/include/hexagon_types.h": "260b7090ef4ec87a49cc2908ffccff518e663304e430ca65604d0bf8a153d5aa",
+      "usr/lib/llvm-19/lib/clang/19/include/hresetintrin.h": "ea5012c0fe5e8818863fb65104783772f21dd278f5b4880e98451bb5d70f550a",
+      "usr/lib/llvm-19/lib/clang/19/include/htmintrin.h": "8f422a3313386d8767bfb89955928e32687e5dbd0698c8451f52969b21ca4e2f",
+      "usr/lib/llvm-19/lib/clang/19/include/htmxlintrin.h": "d42ffa98cdceb028ed7497e5245711d5667540b70f865697ffa5a1d42155807a",
+      "usr/lib/llvm-19/lib/clang/19/include/hvx_hexagon_protos.h": "38f764f7484f660ff47258110a9e0917446ba61213d81f0ec8f5510d3140fae6",
+      "usr/lib/llvm-19/lib/clang/19/include/ia32intrin.h": "ab2cf5dda79d4fc65346ec85c5d776153440f7bc538386d419e0e0be230ac9e4",
+      "usr/lib/llvm-19/lib/clang/19/include/immintrin.h": "aa70965556351d687f184b969478a408640a49c802f205611893539e3701d688",
+      "usr/lib/llvm-19/lib/clang/19/include/intrin.h": "42e164ecd828d19a8e81dd0943ffc808fd29f38760a4670fcfc2944b3981c654",
+      "usr/lib/llvm-19/lib/clang/19/include/intrin0.h": "1c1d0dfd57c53f9206b32f96465f1139732d7157b99a515cb4df2006d0ec8335",
+      "usr/lib/llvm-19/lib/clang/19/include/inttypes.h": "5433291db785860ede1e69d234a77f0536e004d4f9b2db916def7748432fe84d",
+      "usr/lib/llvm-19/lib/clang/19/include/invpcidintrin.h": "70f32ed90521d7135aa2b96e6fef366e9793ad99caf6fb5e0ec188be1fa6b7ed",
+      "usr/lib/llvm-19/lib/clang/19/include/iso646.h": "3a190443022054d1fd72ec44316dce619b8f130bd10eacf906edf9486e8c270c",
+      "usr/lib/llvm-19/lib/clang/19/include/keylockerintrin.h": "013f44c4bb8c13378c5a80a80c56a5bd09359c4c3630ed78030b312a456d9e30",
+      "usr/lib/llvm-19/lib/clang/19/include/larchintrin.h": "87c80b3d9290c083a6a701cab95f6b49a095f0bc11c04ce34f6e0e1bc81e764a",
+      "usr/lib/llvm-19/lib/clang/19/include/lasxintrin.h": "b3df9e33a65738ba70283f4e6de69363e153fc260ee6d716cc51b483aca758d4",
+      "usr/lib/llvm-19/lib/clang/19/include/limits.h": "55620ec210ddaa6e6142b0e7df4e643a942bee4d35f7b0cac82f9268c605946f",
+      "usr/lib/llvm-19/lib/clang/19/include/llvm_libc_wrappers/assert.h": "9451a01129c66dc1b6ddb8f56aed139e0fdf3f9bf6da426292880d6ecea374b3",
+      "usr/lib/llvm-19/lib/clang/19/include/llvm_libc_wrappers/ctype.h": "0ceb3336d5b51db9175f46eb281e59d245d85360ee3583d2249a6ce47bceac27",
+      "usr/lib/llvm-19/lib/clang/19/include/llvm_libc_wrappers/inttypes.h": "11cee61d1b4155f3ebc9a084dab327c6522a73fe6ebad86e819d4691e1a94724",
+      "usr/lib/llvm-19/lib/clang/19/include/llvm_libc_wrappers/stdio.h": "0267196669be2fccebe276b8b3f9c5eb7dfd2ce4a471675bdf63a95dde60b874",
+      "usr/lib/llvm-19/lib/clang/19/include/llvm_libc_wrappers/stdlib.h": "95e40ac9dade868e6db0ec7e0d818f22e7fd3e816f59dc57dbaffe755a447627",
+      "usr/lib/llvm-19/lib/clang/19/include/llvm_libc_wrappers/string.h": "3073516355e10451c97f06552aab2c2d582892cd948209f1f8c00df67d677cb8",
+      "usr/lib/llvm-19/lib/clang/19/include/llvm_libc_wrappers/time.h": "f9d4a45668e04014800613361d7f2f235a10ef6e4ca4b5fb772b8c0b2f87b55f",
+      "usr/lib/llvm-19/lib/clang/19/include/lsxintrin.h": "78ed036203ae33a98e00121731d33f1e75357b88b8045693f6232674a3e79d46",
+      "usr/lib/llvm-19/lib/clang/19/include/lwpintrin.h": "485b84552e9163bd7362e6353d5b2a5a3bce9c45d385d0c3224ad1ec543e790c",
+      "usr/lib/llvm-19/lib/clang/19/include/lzcntintrin.h": "1fffe056b3a6edbb765ae6e7d652610cc27841ef434241dd5b87a265f2063041",
+      "usr/lib/llvm-19/lib/clang/19/include/mm3dnow.h": "9779205196471f01374264a25acdf50c6705c29db47bb180bfa4f549b33c5a51",
+      "usr/lib/llvm-19/lib/clang/19/include/mm_malloc.h": "5cd8a3d288d469c9e5a2fc8a8ee624f50889dbcd06dea1262ef7aaf510a204af",
+      "usr/lib/llvm-19/lib/clang/19/include/mmintrin.h": "3b5248af70b547f344d335c0b637fb718fc824c84c79f9388c0973351d36d20f",
+      "usr/lib/llvm-19/lib/clang/19/include/module.modulemap": "40b59b7274792fda76fc709dfc146afbfa32bf886747fb392c87413682e0d8c4",
+      "usr/lib/llvm-19/lib/clang/19/include/movdirintrin.h": "ae4691076535aefa2a2c465e13e3873d29e1dcf7a6d12faf5f631a54ae7c77f8",
+      "usr/lib/llvm-19/lib/clang/19/include/msa.h": "1283e2b1437a068ce0d0d287b541df50badb5ea1781d79c173db7a672c0e0d80",
+      "usr/lib/llvm-19/lib/clang/19/include/mwaitxintrin.h": "e7dc6d77422aa1fcd6f26126dd98f6a88b2ff506ed75fd1538cc4b2aaf33ef8d",
+      "usr/lib/llvm-19/lib/clang/19/include/nmmintrin.h": "cd7b51a1c33c7e7d710f070315e7bc034757ea6be9e6804864cf159c79f48d54",
+      "usr/lib/llvm-19/lib/clang/19/include/opencl-c-base.h": "397c4ebdd7ae4c1105f04bce465479bc0f15f0df319dff3e6a41725f4b20e3e6",
+      "usr/lib/llvm-19/lib/clang/19/include/opencl-c.h": "579b58f482ab0b3dfd396cab32ea3e0537bc5cf4c1067377b83fe417cbcc513b",
+      "usr/lib/llvm-19/lib/clang/19/include/openmp_wrappers/__clang_openmp_device_functions.h": "c30681ff95a7d003b82121008aa35db15286d24656c6bfee153372d31a3fb947",
+      "usr/lib/llvm-19/lib/clang/19/include/openmp_wrappers/cmath": "bb75069b6aacb79ba85236f69c98410ea0ae84dd02e5d04da50b884d723e2d49",
+      "usr/lib/llvm-19/lib/clang/19/include/openmp_wrappers/complex": "c1448d113395586b11c357506f9a8dc207acf5e464b446995ba3dae5ae16e8d8",
+      "usr/lib/llvm-19/lib/clang/19/include/openmp_wrappers/complex.h": "5e0c4bd3e1165deaf1c557fa7fb9959772d476204507a42205099febd2232152",
+      "usr/lib/llvm-19/lib/clang/19/include/openmp_wrappers/complex_cmath.h": "397e350fe772f3b478a70c13cb9762596ad5dc3e950e289a4273721f1d09d3f1",
+      "usr/lib/llvm-19/lib/clang/19/include/openmp_wrappers/math.h": "74e192fa76f1648fc3081232fb4ebd6700ef92cde3a76ca4da30205ceea75277",
+      "usr/lib/llvm-19/lib/clang/19/include/openmp_wrappers/new": "b5d050cf4ac693abcfaeef786c656d55900256efe274fdcbbc73d9b383e94bc2",
+      "usr/lib/llvm-19/lib/clang/19/include/pconfigintrin.h": "c8090603fa18cca9af372a25de032695bc782e6480520a9da880907dc7f31679",
+      "usr/lib/llvm-19/lib/clang/19/include/pkuintrin.h": "d103441f018b003a07117ad8ae662294cb59c9b457196d85d8ac4287f1c0d01b",
+      "usr/lib/llvm-19/lib/clang/19/include/pmmintrin.h": "7baedd173a3af4e0331e1a577ca8a462ab4777fd5fe71c270d1204c38c4923a9",
+      "usr/lib/llvm-19/lib/clang/19/include/popcntintrin.h": "365a73b4a5fea8527395067862c7837665569e72605d6d2b5f42b282c5813e93",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/bmi2intrin.h": "0f0da0d31166135263adc3034475314536296ac0aa2ac45dac3ecfd75eac16b5",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/bmiintrin.h": "f5d485c66e0de5d881c7051432ec0e9b56e650d4a1c679877a62de3f287579cc",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/emmintrin.h": "3125e83d7fcdebda705ef1864aa1f765ba59ee2c3fb81b4dbdfb26dfdf258e8e",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/immintrin.h": "fd91e22fac3443525b0863eebe7db74381b8286e5dd6631ddcd12e40022839ca",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/mm_malloc.h": "6ff2b87659f5184f0655b6e83f59a230051e8f0ec2238fee07195dd5f3183417",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/mmintrin.h": "4211ef43a49c3f06ed33c9624adcb434cbb644078fb3e0f70bb766327efff2cd",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/nmmintrin.h": "93a42888efebb8de76b8fb963d688cc82e690893a36913f73f4b39eebc2123b4",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/pmmintrin.h": "37eca55a0d5db5a2aa0463fe4a31ccaac6441e15b38b08ca8bd8776acd57e39a",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/smmintrin.h": "4d38f5fe3dd49a3f125c147f4a3fec5d03f60bd97cc6168027be455efb8e16c0",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/tmmintrin.h": "1b58acbfe5f1d20dbc3f47909c2d73982ccafc9a0930b5127702e6c40d3e690f",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/x86gprintrin.h": "9d18b4b2272918636a78e865d2087387dbb0d2a25b588b036071ffbbb76586d5",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/x86intrin.h": "df147bbd99a860a79bae6ab7e8ae958b4a2634f2ae9fbc89e417252960c9fa9f",
+      "usr/lib/llvm-19/lib/clang/19/include/ppc_wrappers/xmmintrin.h": "064a446bfbb110ff61ac79faad162ff52fbef02a1943aefb45007cdcb601975e",
+      "usr/lib/llvm-19/lib/clang/19/include/prfchiintrin.h": "8dec1f9509fd459fc4d51bf5183e2672a7a3497681b322a36e78379c7e371af0",
+      "usr/lib/llvm-19/lib/clang/19/include/prfchwintrin.h": "debbd15c33686e9d09f2acb4941fe60247a5a06e37df28067fa700dde32fceaf",
+      "usr/lib/llvm-19/lib/clang/19/include/profile/InstrProfData.inc": "eb6810cc8319ee68d8e22e97f0f2848d6e27ebb63820f924a62e08dedd1f1706",
+      "usr/lib/llvm-19/lib/clang/19/include/profile/instr_prof_interface.h": "d23481bd777bcd4fe25af9299866b58b4155faba9f4ede5e8f609bf444e3b8dc",
+      "usr/lib/llvm-19/lib/clang/19/include/ptrauth.h": "a5987bdd8ad72a075c377bae5002090d202f330865838763a1d700d2c3d1b136",
+      "usr/lib/llvm-19/lib/clang/19/include/ptwriteintrin.h": "549e44eef926d5bb1333c87d32d977270649a8fd7c7161093db600e472d23039",
+      "usr/lib/llvm-19/lib/clang/19/include/raointintrin.h": "fcc60ade967bf5152675de42f9f48fe5b17b40ff432ab993159119ba2038c5e5",
+      "usr/lib/llvm-19/lib/clang/19/include/rdpruintrin.h": "6d0b9af132bfbbc72f6a3821b9eedbbb7457fc43cd94ad73c08d1de72ed8b7f3",
+      "usr/lib/llvm-19/lib/clang/19/include/rdseedintrin.h": "d936c47a6fd689a47acb819dd28ba4ad779e667116ae5002c1e06149c0804b14",
+      "usr/lib/llvm-19/lib/clang/19/include/riscv_bitmanip.h": "736cee6955e7ed4e0ff4e17a5edb42591e1e28f083ca9f9c109085c7ac57f8aa",
+      "usr/lib/llvm-19/lib/clang/19/include/riscv_crypto.h": "215fc9a87e37fe2d2c389e78895cccf2dca67f31964408da2b050c75c7e3b139",
+      "usr/lib/llvm-19/lib/clang/19/include/riscv_ntlh.h": "a0a75c40f11a4910506c44a6c1bb44e568f0c90c34aeb715836380c9ae7f54e5",
+      "usr/lib/llvm-19/lib/clang/19/include/riscv_vector.h": "08578981940a735b186bf2ec3ef7fda81d597cd036bc253e2ae2fb2e2021d69e",
+      "usr/lib/llvm-19/lib/clang/19/include/rtmintrin.h": "18fe263a76ad5970e47d2e8b9b5c99a4370f1a4f7258e2e197c4c8fab0cb2123",
+      "usr/lib/llvm-19/lib/clang/19/include/s390intrin.h": "2c8bfec677cd371893070d06f06e2ed9a6657c8e7d1dbafb2d8e3054dd8fe7c5",
+      "usr/lib/llvm-19/lib/clang/19/include/serializeintrin.h": "dd29ae159d83161dd61d6bfcd6a7a37aa3f5930f814e8d12bf15ae131a0c6ac6",
+      "usr/lib/llvm-19/lib/clang/19/include/sgxintrin.h": "0e8dc78c7311b9dda1499587ac5eaa3e1c485b9c7df0fc54225b8425db5ae964",
+      "usr/lib/llvm-19/lib/clang/19/include/sha512intrin.h": "094f1882a68f1511fec3d1145aef332ce75086cf194101dd5049e143ff771de0",
+      "usr/lib/llvm-19/lib/clang/19/include/shaintrin.h": "29dc687117c543bc40f843702b60c3e71d581a567235f645a542740d4cc182fc",
+      "usr/lib/llvm-19/lib/clang/19/include/sifive_vector.h": "9057e9337dd16700b9a24890628f62f9f372bebfc0d5d903e138f9cf3e2d1f15",
+      "usr/lib/llvm-19/lib/clang/19/include/sm3intrin.h": "66680c0998f322f5ae97157dd422a735bcf32363fe382076d43cd669b3361d0c",
+      "usr/lib/llvm-19/lib/clang/19/include/sm4intrin.h": "1a56d69f3c2fdadbf81c67b6cf7b36efc3892777d7c64d55bacdfb31b21aa5e6",
+      "usr/lib/llvm-19/lib/clang/19/include/smmintrin.h": "1191e87260be385a9ffbc2a460704cc0bb8c7089002060034bdc5eed71960b22",
+      "usr/lib/llvm-19/lib/clang/19/include/stdalign.h": "889808f7d7c3cb9fd6b3fdc01ee21ed3771dbf478f2942a028d9686d9c61f662",
+      "usr/lib/llvm-19/lib/clang/19/include/stdarg.h": "ce6e43d79dc89b50208ecf259b1ffd519f5a78cd3a2c7fcaac6386f376b89fef",
+      "usr/lib/llvm-19/lib/clang/19/include/stdatomic.h": "728b690f127fc85faa32b9031e3a0019da92f77db92ca91b749571e45617a9ea",
+      "usr/lib/llvm-19/lib/clang/19/include/stdbool.h": "48655faf4ebd4ca0af26a1ee8e3e16f8dc68385c9cd550ffb3629320681305b3",
+      "usr/lib/llvm-19/lib/clang/19/include/stdckdint.h": "808854b229028d66012bef0eb5f7cccb2d9a228edcdc5eb2bc710bc7cea4b25a",
+      "usr/lib/llvm-19/lib/clang/19/include/stddef.h": "b3e62a046ddf28d09eedebe6eb9461cb7060e47cad2c69964b222c4eea10347e",
+      "usr/lib/llvm-19/lib/clang/19/include/stdint.h": "655616d8fcb2c92b38c039019685c658c2346b3dd0021aed4ea057b43f621247",
+      "usr/lib/llvm-19/lib/clang/19/include/stdnoreturn.h": "53912b2e9a149a73fe58d88d6c41e69f49020eab7884c81ebf0b4f3607e96847",
+      "usr/lib/llvm-19/lib/clang/19/include/tbmintrin.h": "1a6e123306b23b889bf7064170539ebf9446d76cb22f260cdca080cb35fe3ce1",
+      "usr/lib/llvm-19/lib/clang/19/include/tgmath.h": "7aa69dc82ec404a51295498cc4cb07d0441e5dcd891819247c14ccb3f9745e3b",
+      "usr/lib/llvm-19/lib/clang/19/include/tmmintrin.h": "6f912ca22f4b493c2700003644343ee15396a9054e3906c8abeb04f2d5a60fdd",
+      "usr/lib/llvm-19/lib/clang/19/include/tsxldtrkintrin.h": "c833bd7383b431a0b1bf65c864deef445a25fb7db2c924b4b83272957f2ceb51",
+      "usr/lib/llvm-19/lib/clang/19/include/uintrintrin.h": "d34ec074087d3b827cdff359c4ce646f3563a94f335fab6ece28970e448d4bdb",
+      "usr/lib/llvm-19/lib/clang/19/include/unwind.h": "599d8fdbd53622e99e91725c5e9fbf4ac26f34a23f02b94ed6e3405845432d3a",
+      "usr/lib/llvm-19/lib/clang/19/include/usermsrintrin.h": "03c169539a584284e2eabb5230f98bdf7e85772a41f7d6e93fef11485499da32",
+      "usr/lib/llvm-19/lib/clang/19/include/vadefs.h": "e338a8bbdbc40a9662d76a0a395313cf17a9541a0fadf3cf8bfa6ee6fa3db4ec",
+      "usr/lib/llvm-19/lib/clang/19/include/vaesintrin.h": "2f2bb9eeb9bb63e519c6d5a9486a1e1a03b799254f1ad372dd7f60e3e0ec0dd2",
+      "usr/lib/llvm-19/lib/clang/19/include/varargs.h": "41bf9afa7c9cf7e5eb5e4a42aab8eee3f5a97977a6d33094b2c8f6b3ef1943bb",
+      "usr/lib/llvm-19/lib/clang/19/include/vecintrin.h": "c2be3c91bad83b48b6ea7d10dc457f778bf6d0dd592f5cb0047cb7d5a20a6d35",
+      "usr/lib/llvm-19/lib/clang/19/include/velintrin.h": "7c2e001d36310ceaea4045d9cea1f227f491d0cdebf749959c852b44b217978f",
+      "usr/lib/llvm-19/lib/clang/19/include/velintrin_approx.h": "6655c27881e5d1bb8d68f9aa3fee49576e22287f02e2cf422ed9dd3259727b57",
+      "usr/lib/llvm-19/lib/clang/19/include/velintrin_gen.h": "d39909a5d140e00148cda92e485afccd02288db702b1dbb4b2eb38b2c61a7754",
+      "usr/lib/llvm-19/lib/clang/19/include/vpclmulqdqintrin.h": "db240ad56ccfc14a7e29862b50c1214b1be5666cccecde1401d28afe075a606f",
+      "usr/lib/llvm-19/lib/clang/19/include/waitpkgintrin.h": "8b036e6a2c20dca74fbc38b898dc32a36dc46bdb4c0a5a71d691096ca04f6ca3",
+      "usr/lib/llvm-19/lib/clang/19/include/wasm_simd128.h": "68316973555ea3ec6f3c22489d47451d0365f5a83334faef424aa8f0066321fb",
+      "usr/lib/llvm-19/lib/clang/19/include/wbnoinvdintrin.h": "e22b8221209e1aeed8de50e81c6bfe84b378a8b92bdf018aea601bf1d3c4ac22",
+      "usr/lib/llvm-19/lib/clang/19/include/wmmintrin.h": "eb4f03593063aa1c27cc306474814e3c3caeb6644379415e1104d299288a3231",
+      "usr/lib/llvm-19/lib/clang/19/include/x86gprintrin.h": "e6584b89eab7b6fbdb19a68b467530f6825cecb2f1d737b5eac7d59ea4d8d82a",
+      "usr/lib/llvm-19/lib/clang/19/include/x86intrin.h": "105eb1700585770276391f512f60fe9c22c94cdf66d2a4957ec7279cf4fdf062",
+      "usr/lib/llvm-19/lib/clang/19/include/xmmintrin.h": "70394d8e3069bc53c00ce1d27dbe82e64376641933cdaaf07d3ec007819898b1",
+      "usr/lib/llvm-19/lib/clang/19/include/xopintrin.h": "dea8859bff1b74ad2ec860136168e907907dcbf793aab0bb8c0e6e8984db10ac",
+      "usr/lib/llvm-19/lib/clang/19/include/xray/xray_interface.h": "796a5943e47d0d3b3c11741aca5208859b1b11bccfb44aac197f4fdafa1258b3",
+      "usr/lib/llvm-19/lib/clang/19/include/xray/xray_log_interface.h": "3efcbcfea596d61511f4e68ddb1932db502edb4a008e0f26d2cf4e7c15154711",
+      "usr/lib/llvm-19/lib/clang/19/include/xray/xray_records.h": "2baf8d0f8097eee53eb5740196e0d33f0be75f8249ac32e2ca1fb2aa37c456db",
+      "usr/lib/llvm-19/lib/clang/19/include/xsavecintrin.h": "b3d0b240cd59068ba5dd40f79a921e727815f0722d07051ec01aae09b91c4ac8",
+      "usr/lib/llvm-19/lib/clang/19/include/xsaveintrin.h": "bb5b08b5b929d0a34b88230c7f5633071a05d17f0680332a30c4e1b607c3c164",
+      "usr/lib/llvm-19/lib/clang/19/include/xsaveoptintrin.h": "3dee1885dff4d101804c273d87f98cdf37a5e0975d936a3683ffbe1d10ffda7e",
+      "usr/lib/llvm-19/lib/clang/19/include/xsavesintrin.h": "cf3692a69c4c96e0b4c0d291c6aa09cba851dff1d82f8b266d08fee7bdeaa5ea",
+      "usr/lib/llvm-19/lib/clang/19/include/xtestintrin.h": "05e7c974641109d1214f9016c3939787e2912e6990fd20bf5886fcca4c40e699",
+      "usr/lib/llvm-19/lib/clang/19/include/yvals_core.h": "8f1033d2fc8cb786d7a6d3ff174aa819495c1c7d8948b5a94a9daca24d5ee3c2",
+      "usr/lib/llvm-19/lib/clang/19/include/zos_wrappers/builtins.h": "fca65b1462b08910b24dbd2016425aa6f4b7b32f1ed2eaa8014c10f79f88fbd4",
+      "usr/lib/llvm-19/lib/cmake/clang/AddClang.cmake": "f6957b77e96316301c2c7a23976aa30d995fa6333f188f2afb07be44bc0a4c10",
+      "usr/lib/llvm-19/lib/cmake/clang/ClangConfig.cmake": "210036bf16a646a8fe755c44bcbaf8313bcd94c8b967022730f8a28c58f6e59c",
+      "usr/lib/llvm-19/lib/cmake/clang/ClangConfigVersion.cmake": "fa438af6fb90fa2e4ad0261bc1c946e75e26cf6a5dfeaea56b28d42075aaf4ba",
+      "usr/lib/llvm-19/lib/cmake/clang/ClangTargets-relwithdebinfo.cmake": "e037d76ddec2fb5e8dbb584f422b13d9bb5f4d3658c649e3a23e35c807a55228",
+      "usr/lib/llvm-19/lib/cmake/clang/ClangTargets.cmake": "e06afb930db63bc8ecf122746e4730b927538753730d5432d9588c7259d4ee59",
+      "usr/lib/llvm-19/lib/libclang-cpp.so.19.1": "af222f37309634c6bd320d638b38f7643bc6021b17fcff8858177fa11db83eee",
+      "usr/lib/llvm-19/share/clang/bash-autocomplete.sh": "c15de92028c1dc32c8a98390a1995346ebdfbe78002a65d52711ac9ec1f9f2db",
+      "usr/share/bash-completion/completions/clang-19": "c15de92028c1dc32c8a98390a1995346ebdfbe78002a65d52711ac9ec1f9f2db",
+      "usr/share/doc/clang-19/TODO.Debian": "5fba8866c79670ceca67e197c12657acd59cd85a2f6e1fd71ea310e4a99984e6",
+      "usr/share/doc/clang-19/changelog.Debian.gz": "fb4201a647bcd4d2bfa94d605e910e0186d958a93cb6dbf5ef16b557baf0ef22",
+      "usr/share/doc/clang-19/copyright": "4c22cf66ddd6dfae2ac4e034342f93a9c96581d5e88c7bb700a125a71cf66cd7",
+      "usr/share/doc/libclang-common-19-dev/changelog.Debian.gz": "50d82df40e9c57db826df50287c280a6ac7516a31222fd81963af4bf00d180d2",
+      "usr/share/doc/libclang-common-19-dev/copyright": "4c22cf66ddd6dfae2ac4e034342f93a9c96581d5e88c7bb700a125a71cf66cd7",
+      "usr/share/doc/libclang-cpp19/changelog.Debian.gz": "b0dd1e24db18f2c61dce59e92a3880cfcb5e11bf590b6de92ed7a582fdf78bc1",
+      "usr/share/doc/libclang-cpp19/copyright": "4c22cf66ddd6dfae2ac4e034342f93a9c96581d5e88c7bb700a125a71cf66cd7",
+      "usr/share/doc/libllvm19/changelog.Debian.gz": "e4ddc18a74c58fb1837ea1eb2558e37b0b0ebfa2ad283344e7bf857af464e34f",
+      "usr/share/doc/libllvm19/copyright": "4c22cf66ddd6dfae2ac4e034342f93a9c96581d5e88c7bb700a125a71cf66cd7",
+      "usr/share/lintian/overrides/clang-19": "a3f76f9f0668ecca475764265377f6c514c93213b6360a5caed153b1362cf554",
+      "usr/share/lintian/overrides/libllvm19": "80cc22c475ce4eb023439b956592462d47ac4b1b2e86e59431292e3e52b7f653",
+      "usr/share/man/man1/clang-19.1.gz": "647ae58344e241c368847c417358024d6ecd98e0f7160c687b9090de94b26bd3"
+    },
+    "/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu": {
+      "libLLVM-14.so": "1ff1243403be3b8dd5120198e13212f69256d4399d39271dc00bc04f24393dca",
+      "libLLVM-14.so.1": "1ff1243403be3b8dd5120198e13212f69256d4399d39271dc00bc04f24393dca",
+      "libclang-14.so.1": "8046c202c212d75a41f52ce6ca3194d8a878d5daa5fcfe110099fb70f6132a57",
+      "libclang-14.so.13": "8046c202c212d75a41f52ce6ca3194d8a878d5daa5fcfe110099fb70f6132a57",
+      "libclang-14.so.14.0.6": "8046c202c212d75a41f52ce6ca3194d8a878d5daa5fcfe110099fb70f6132a57",
+      "libclang-cpp.so.14": "b9cdd42ec88a2655f2ff005738dfcfe4cab08a188daa4ebabb200251d6773d84",
+      "libz3.so.4": "6a1f171b6a6b040ffa0bf7e8048c50a7a7984720eabb488bf21780d9cdc0738a"
+    }
+  },
+  "note": "Exact raw profiles, duplicate snapshot bytes, metadata, complete streams, C if any, guards, receipts and non-tool source pins preserved. External binaries/resource roots identity-bound; Base additionally archived. Full47 schema validator failed unchanged cap5; no retroactive PASS/profile attribution. Reviewer report excluded untouched."
+}

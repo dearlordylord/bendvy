@@ -1,0 +1,9 @@
+# Validator deadline source cause and bounded repair proposal
+
+The original full47 validator is retained unchanged: it hit cap5 after copied compiler exit75/profile capture. No repeat of compiler or original validator is proposed.
+
+validate-profile.py builds ids as a LIST, checks uniqueness via set(ids), then uses `i in ids` for every sample and `child in ids` for every node edge. These repeated linear membership searches can approach O((samples+edges)*nodes). The retained full profile is23362164B versus the earlier stock leaf3208618B. This is a concrete source-level avoidable cost; it is not measured compiler phase/performance evidence. The failed validator emitted no parse progress, so its exact stopping operation was not observed.
+
+Minimal successor: retain the same node list and duplicate check, materialize the already-required unique ID set once, use that set for sample and child membership. Keep every other schema/count/timing/frame/phase/identity/digest check and complete output unchanged, under the same5-second cap. Set membership preserves original semantics after the unchanged uniqueness gate; no partial schema or sample dropping.
+
+Prepare a retained-witness validation-only plan using exact captured original/snapshot/metadata/compiler receipt/phase stream/old validator and tool pins. First run cheap source-equivalence controls that explicitly reject duplicate IDs, unknown sample/child IDs, timing/count mismatch and malformed frames; then run changed validator once on retained full bytes. Pin live original+snapshot and metadata before consumption, require original regular identity as recorded, and preserve pre/post/final guards/failure. Independent changed-portion launch review is required. A successful new validation must not rewrite original INCOMPLETE batch or imply stock compiler qualification. No compiler/profile/backend rerun or cap increase.
