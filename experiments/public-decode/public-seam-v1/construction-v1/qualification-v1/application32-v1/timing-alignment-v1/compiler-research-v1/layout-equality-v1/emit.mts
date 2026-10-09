@@ -1,0 +1,12 @@
+import * as fs from 'node:fs';
+import * as Bend from './bend.ts';
+import * as Comp from './comp.ts';
+const [entry, output] = process.argv.slice(2);
+if (!entry || !output || fs.existsSync(output)) throw new Error('exact entry and absent output required');
+const book = Bend.book_nil();
+const seen = new Map<string,string|null>();
+await Bend.book_load(book,entry,'',seen);
+Bend.book_valid(book);
+if (book.hols > 0) throw new Error('incomplete source');
+const result = Comp.compile_book(book);
+fs.writeFileSync(output,result,{flag:'wx'});
