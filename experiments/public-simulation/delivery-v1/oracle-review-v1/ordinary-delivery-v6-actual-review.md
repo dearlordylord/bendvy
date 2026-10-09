@@ -1,0 +1,11 @@
+# Actual ordinary delivery v6 review
+
+PASS for immutable actual package `2fa4ec70` (root `a77960fa`) and exact admitted plan `89b02105f70aecdc82cdabff3be0b492f4e8d565018b7037957b6b8494af0635`. No backend, loader probe or replay was run by this review.
+
+The no-child archive verifier checks all 601 lossless members, seven command results, 24 source/stage/raw/generated guards and 140 recorded ordinary tool probes. All commands exited 0 with null failure and empty stderr. Exact archived plan, source stage, executed helper/model bytes, generated JS/C/Native and raw receipt hashes join; all 295 current file pins independently still match. The preserved verified-source bootstrap and repaired primary/secondary capture-error handling are the admitted v6 implementation.
+
+Independent semantic recomputation used the archive's exact pinned parser bytes and comparator/join function definitions. Complete JS and Native stdout are each 44,552 bytes, SHA `4473bc5dbab2005bc4ae7d9cdce86ead92f498f488cfc728840e6f7e786af1ca`. Both render back to their complete terms and map through all 32 source-derived constructor identities to the full frozen oracle `f821c68264eb25c33a674841d0f2abcf466a9d6372e888cfc40b7ae691ae071a`; no report fields were projected away for this gate. The complete 19,258-byte TS output equals its pinned expected trace. For each Bend output, all 28 shared checkpoints independently recompute from the complete two-schema/14-phase observations and match TS entities, step, pending count, readers and success status.
+
+The 106-source relocation and current control-reuse applicability remain the previously admitted bindings. Historical reached controls provide applicable source-bound evidence, not new control executions inside this seven-stage cohort. Ordinary snapshot/verify and generated Native guards were exercised; `closedResolverQualified` remains false. Shallow resolver closure, performance, task closure and full parity are not inferred from successful probes or semantic delivery.
+
+Safe integration recommendation for this complete relocated semantic workload evidence. Earlier unused v5 and acquisition failures remain separate and immutable; no caps or scope were changed.
