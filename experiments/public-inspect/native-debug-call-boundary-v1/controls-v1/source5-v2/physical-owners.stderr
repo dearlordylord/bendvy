@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : a decreasing self-call (arguments are read left to right: each passed unchanged until one shrinks)
+- observed : observe
+Context:
+- left   : Array<U32>
+- right  : Array<U32>
+- right  : Array<U32>
+- unused : List<&2, U32>
+Location: observe
+14 |     case ALeaf{+value}:(ALeaf{value},[value])
+15>|     case ANode{left,right}:observe_left(right,observe(left),(right => unused => observe(right)))
+   |                                                                                 ^^^^^^^
+16 | def report_borrowed(values:List<&2,U32>,size:U32,scalar:U32,got:Array<U32> & List<&2,U32>) -> Report:
+bend 2.0.36 is available: run bend update

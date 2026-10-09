@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : '(left,leftValues) (right,rightValues)'
+Location:
+7 |   match leftGot rightGot:
+8>|     case (left,leftValues) (right,rightValues):(ANode{left,right},List.append(&2,U32,leftValues,rightValues))
+  |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+9 | def observe(owner:Array<U32>) -> Array<U32> & List<&2,U32>:
+bend 2.0.36 is available: run bend update

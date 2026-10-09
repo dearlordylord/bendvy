@@ -1,0 +1,67 @@
+--- candidate.comp.ts
++++ candidate.instrumented.comp.ts
+@@ -10,7 +10,11 @@
+ 
+ import * as fs from "node:fs";
+ 
+-import * as Bend from "./bend.ts";
++import * as Bend from "/workspace/formal-proofs/bendvy/.references/bend2/bend2/bend.ts";
++const BOUNDARY_ROWS: object[] = [];
++export function diagnosticBoundaryRows(): object[] { return BOUNDARY_ROWS.slice(); }
++export function diagnosticBoundaryReset(): void { BOUNDARY_ROWS.length=0; }
++
+ 
+ // Types
+ // =====
+@@ -2044,11 +2048,13 @@
+ 
+ function emit_task(fl: File, fid: string, rem: number, words: string[],
+   cont = "WL_CONT", idx: string | number = "WL_IDX"): string {
++  BOUNDARY_ROWS.push({kind:"task",caller:fl.seg.def,fid,rem});
+   return node_fill(fl, "t",
+     `task_node(e, ${seg_ref(fl, fid)}, ${cont}, ${idx}, ${rem})`, words);
+ }
+ 
+ function emit_jump(fl: File, args: string[], k: Name, bang?: boolean): void {
++  BOUNDARY_ROWS.push({kind:"jump",caller:fl.seg.def,callee:k,bang:!!bang,self:fl.seg.def===k});
+   const fid = seg_fid(k);
+   fl.seg.fork ||= bang;
+   if (bang || fl.seg.def !== k) {
+@@ -2125,6 +2131,7 @@
+ 
+ function emit_fuse(fl: File, ck: Spine, dst: Val | null, tail = false): void {
+   const k = ck.k!;
++  BOUNDARY_ROWS.push({kind:"fuse",caller:fl.seg.def,callee:k,flat:flat_of(k),tail});
+   const T = fl.book.tlds[k].T;
+   const doms = tele_unbind(fl.book, T).doms;
+   const { n, h, lays, ret } = fun_of(fl, k);
+@@ -2496,6 +2503,13 @@
+         return emit_put(fl, dst, v);
+       }
+       const ret = fun_of(fl, ck.k).ret;
++      const oldOnce = fl.sites.get(ck.k) === 1 && !ck.b
++        && !def_foreign(fl.book.tlds[ck.k])
++        && (!lay_box(ret) || lay_box(fl.seg.ret));
++      BOUNDARY_ROWS.push({kind:"decision",caller:fl.seg.def,callee:ck.k,
++        sites:fl.sites.get(ck.k)??0,flat:flat_of(ck.k),tail:dst===null,
++        oldEligible:fl.seg.def!==ck.k && dst===null && oldOnce,
++        callerWords:fl.seg.ret.ks.length,calleeWords:ret.ks.length});
+       // Experimental compilation boundary: non-flat single-site tail calls
+       // remain in their independently emitted WL segment instead of unfolding.
+       if (fl.seg.def !== ck.k && flat_call(fl, x)) {
+@@ -2503,6 +2517,7 @@
+       }
+       if (!lay_eq(fl.seg.ret, ret)
+         && (fl.seg.ret.arms !== null || ret.arms !== null)) {
++        BOUNDARY_ROWS.push({kind:"cut",caller:fl.seg.def,callee:ck.k});
+         return emit_body(fl, Bend.Let(["r"], [0], [Bend.Ann(x, ty!)],
+           (xs) => xs[0]), ty, ers, args, dst);
+       }
+@@ -2514,6 +2529,7 @@
+ }
+ 
+ function emit_fork(fl: File, x: Of<"Let">, ers: HTerm[]): void {
++  BOUNDARY_ROWS.push({kind:"fork",caller:fl.seg.def,bindings:x.k.length});
+   const o = term_open(x);
+   const calls = x.v.map((v) => term_spine(fl, v));
+   const fork = calls.length > 1;

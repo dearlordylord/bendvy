@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+ 9 |     case ANode{left,right}:
+10>|       (left,leftValues) = observe(left)
+   |                           ^^^^^^^^^^^^^
+11 |       (right,rightValues) = observe(right)
+bend 2.0.36 is available: run bend update

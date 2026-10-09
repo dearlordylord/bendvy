@@ -1,0 +1,42 @@
+// Copied compiler controls only; old/new branch witnesses are actual emitter events.
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as Bend from '/workspace/formal-proofs/bendvy/.references/bend2/bend2/bend.ts';
+import * as Before from './baseline.comp.ts';
+import * as After from './candidate.comp.ts';
+const [output]=process.argv.slice(2);
+if(!output || fs.existsSync(output)) throw new Error('absent report required');
+const names=['physical-owners','erased-specialization','parallel-return','recursive-tail','layout-cut'];
+const rows:unknown[]=[];let active:Record<string,unknown>|null=null;let failure:unknown=null;
+async function load(entry:string) {
+ const book=Bend.book_nil();await Bend.book_load(book,entry,'',new Map());Bend.book_valid(book);
+ if(book.hols)throw new Error('control source holes');return book;
+}
+try {
+ for(const name of names) {
+  const entry=path.join(import.meta.dirname,name+'.bend');active={name,entry};
+  console.error('BOUNDARY_CONTROL_BEGIN '+name);
+  Before.diagnosticBoundaryReset();
+  const baselineC=Before.compile_book(await load(entry));
+  const baselineWitness=Before.diagnosticBoundaryRows() as any[];
+  Object.assign(active,{baselineC,baselineWitness});
+  After.diagnosticBoundaryReset();
+  const candidateC=After.compile_book(await load(entry));
+  const candidateWitness=After.diagnosticBoundaryRows() as any[];
+  Object.assign(active,{candidateC,candidateWitness});
+  // Full actual source-derived witness; no acceptance by case name alone.
+  const eligible=baselineWitness.filter(r=>r.kind==='decision'&&r.callee==='target'&&r.oldEligible&&!r.flat);
+  const fused=baselineWitness.filter(r=>r.kind==='fuse'&&r.callee==='target'&&!r.flat&&r.tail);
+  const jumped=candidateWitness.filter(r=>r.kind==='jump'&&r.callee==='target');
+  const stillFused=candidateWitness.filter(r=>r.kind==='fuse'&&r.callee==='target'&&!r.flat&&r.tail);
+  if(name!=='layout-cut' && (!eligible.length||!fused.length||!jumped.length||stillFused.length))throw new Error('once-tail changed branch was not actually reached: '+name);
+  if(name==='layout-cut' && !candidateWitness.some(r=>r.kind==='cut'))throw new Error('actual return-layout cut not reached');
+  if(name==='parallel-return'&&(!candidateWitness.some(r=>r.kind==='fork'&&r.bindings>=2)||!candidateWitness.some(r=>r.kind==='task')))throw new Error('actual parallel task-return boundary not reached');
+  if(name==='recursive-tail'&&!candidateWitness.some(r=>r.kind==='jump'&&r.self))throw new Error('recursive self-return boundary not reached');
+  rows.push(active);active=null;console.error('BOUNDARY_CONTROL_EMITTED '+name);
+ }
+}catch(error){failure=error;throw error;}
+finally {
+ const report={scope:'Actual copied compiler emission/branch witnesses only; Native full logical gates pending',status:failure===null?'EMISSION_CONTROLS_PASS':'INCOMPLETE',cases:rows,active,error:failure===null?null:String(failure)};
+ try{fs.writeFileSync(output,JSON.stringify(report),{flag:'wx'});}catch(writeError){if(failure===null)throw writeError;console.error('REPORT_WRITE_FAILURE '+String(writeError));}
+}
