@@ -1,0 +1,5 @@
+# Complete generic collector successor
+
+Private fixture-only Store generic five-query collector with three unchanged category wrappers. Disabled App debug returns actual owners before any lowering or traversal. All five static ordinary declarations remain the same ones constructed by the existing queries and used for actual Registry registration. Full80 application, graph/machine/resource/handler/recipe paths, independent cursor0, row order and exact historical/new oracles remain. No registered-cursor association, core changes or new contract.
+
+Affected49 module default source5 PASS; complete80 normal and Inspector-filter checks each deadline at default5, so full source prerequisite remains UNMET. Prior source05 PASS belongs only to the immutable previous source closure. Diagnostic stockJS emit30/runtime5 will remain diagnostic-only with acceptance=false, pending frozen changedsource-pins review. Previous emission deadline stage/cause unknown. Previous raw evidence is referenced via explicit sibling symlinks without editing it.

@@ -1,0 +1,50 @@
+{
+  "status": "DIAGNOSTIC_PREPARED_ONLY_REQUIRES_CHANGEDPORTION_LAUNCH_REVIEW",
+  "sourcePrerequisite": "UNMET",
+  "acceptance": false,
+  "sourceScope": "Stock emitter book_read/book_load/book_valid validates types; extra --check-only cli_verdict/book_promises not replaced",
+  "sequence": [
+    {
+      "role": "normal",
+      "kind": "normal",
+      "originalPlan": "/tmp/bendvy56-detached-observable-normal-diagnostic-js01/plan.json",
+      "planSHA256": "ccce1fcbd7cb692f8baa2091eb2c20f1148313597ef81acce1448aa872e2d7aa",
+      "pins": 369,
+      "expectedSHA256": "f8d3724706ac10e380aa531e3309b88c1baf3bdfdc328ec3ec5698ccafe2ac02",
+      "sourceModules": 80,
+      "constructorIdentities": 147,
+      "execution": "NOT_LAUNCHED"
+    },
+    {
+      "role": "inspector-filter",
+      "kind": "mutant",
+      "originalPlan": "/tmp/bendvy56-detached-observable-inspector-filter-diagnostic-js01/plan.json",
+      "planSHA256": "9ef984740ecebe131d59fdd1324f20a0450d73bc215a498a5fcb30fc19528423",
+      "pins": 369,
+      "expectedSHA256": "ba6d0e9260be47b1bce886440a8c9cd0aa61139586a132dc23bbec7cf1172d77",
+      "sourceModules": 80,
+      "constructorIdentities": 147,
+      "execution": "NOT_LAUNCHED"
+    },
+    {
+      "role": "handler-drop",
+      "kind": "handler-drop",
+      "originalPlan": "/tmp/bendvy56-detached-observable-handler-drop-diagnostic-js01/plan.json",
+      "planSHA256": "7fb57a7566458ae11f46a804706ae9b14d884ff55f37c813081bcb74bb4f119c",
+      "pins": 369,
+      "expectedSHA256": "3e961d49c50cef6f76fec2191eb3a86024c814fa12a430a138e0b68eb7910e96",
+      "sourceModules": 80,
+      "constructorIdentities": 147,
+      "execution": "NOT_LAUNCHED"
+    }
+  ],
+  "conditional": "Diagnostic full normal equality required before reached Inspector filter then handler-drop controls",
+  "CPU": 11,
+  "emitSeconds": 30,
+  "runtimeSeconds": 5,
+  "heavyLock": "/tmp/bendvy-parity-heavy.lock",
+  "oldCPU5Plans": "Unmodified and held; prepared-js-v1",
+  "sourceFailureArchiveCommit": "d8c50b40",
+  "resource": "Pinned root-host-20261009.json, actualCPU5 sample and all historical source-failure archives",
+  "nextSourceReshape": "Generic Store/five-query private collector successor deferred until actual diagnostic observations"
+}

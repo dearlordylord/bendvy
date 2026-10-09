@@ -1,0 +1,53 @@
+{
+  "session": 32464,
+  "outerExit": 1,
+  "status": "INCOMPLETE",
+  "diagnosticOnly": true,
+  "acceptance": false,
+  "sourcePrerequisite": "UNMET",
+  "planSHA256": "ccce1fcbd7cb692f8baa2091eb2c20f1148313597ef81acce1448aa872e2d7aa",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main.bend",
+        "-o",
+        "/tmp/bendvy56-detached-observable-normal-diagnostic-js01/scenario.js"
+      ],
+      "capSeconds": 30,
+      "exit": null,
+      "failure": "child deadline",
+      "stdout": {
+        "path": "/tmp/bendvy56-detached-observable-normal-diagnostic-js01/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/tmp/bendvy56-detached-observable-normal-diagnostic-js01/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    }
+  ],
+  "all4GuardsExactUnchanged": true,
+  "generatedJS": false,
+  "runtimeLaunched": false,
+  "actualInspectorObservations": false,
+  "inspectorFilter": "NOT_LAUNCHED_CONDITIONAL_NORMAL_FAILED",
+  "handlerDrop": "NOT_LAUNCHED_CONDITIONAL_NORMAL_FAILED",
+  "archiveMembers": 375,
+  "noRetry": true,
+  "remaining": [
+    "source-only5 gate",
+    "actual full detached Inspector observations",
+    "independent whole oracle equality",
+    "reached runtime mutation rejection"
+  ],
+  "performanceClaim": false
+}

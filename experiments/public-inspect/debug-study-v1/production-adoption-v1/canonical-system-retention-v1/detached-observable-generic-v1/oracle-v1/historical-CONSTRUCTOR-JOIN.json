@@ -1,0 +1,528 @@
+{
+  "scope": "Independent exact new ordinary App inventory fields, inherited complete60 semantic transport, pre-output only",
+  "recordsStripTagExactOrderedFields": {
+    "Output.Report": [
+      "inventory",
+      "resource",
+      "graphMachine"
+    ],
+    "ScenarioReport": [
+      "category",
+      "phases"
+    ],
+    "Snapshot": [
+      "label",
+      "factoryNextNamespace",
+      "world",
+      "registries",
+      "operation",
+      "descriptions"
+    ],
+    "WorldSnapshot": [
+      "namespace",
+      "nextId",
+      "highWater",
+      "capacity",
+      "depth",
+      "liveBits",
+      "resource",
+      "events",
+      "pendingCount",
+      "registrations",
+      "nextSystemId",
+      "clock",
+      "columns"
+    ],
+    "Columns": [
+      "position",
+      "velocity",
+      "health"
+    ],
+    "Column": [
+      "storage",
+      "cells"
+    ],
+    "Cell": [
+      "id",
+      "payload",
+      "stamp"
+    ],
+    "FullCell": [
+      "length",
+      "values"
+    ],
+    "Stamp": [
+      "added",
+      "changed"
+    ],
+    "RegistrySnapshot": [
+      "namespace",
+      "id",
+      "name",
+      "access",
+      "cursor",
+      "slot",
+      "clauses"
+    ],
+    "RegistrationMeta": [
+      "id",
+      "name",
+      "access"
+    ],
+    "Clause": [
+      "name",
+      "mode"
+    ],
+    "RowValues": [
+      "position",
+      "velocityBefore",
+      "health"
+    ],
+    "RejectedArgs": [
+      "fail",
+      "cursor"
+    ],
+    "Description": [
+      "namespace",
+      "name",
+      "steps",
+      "systems"
+    ],
+    "Entry": [
+      "id",
+      "name",
+      "slot",
+      "clauses"
+    ],
+    "App.ScenarioReport": [
+      "category",
+      "baseline",
+      "phases",
+      "registrationBefore",
+      "removedRegistrations"
+    ],
+    "App.Phase": [
+      "label",
+      "details",
+      "snapshot"
+    ],
+    "App.Details": [
+      "status",
+      "observations",
+      "trace",
+      "namespace",
+      "name",
+      "steps",
+      "requirements"
+    ],
+    "App.Trace": [
+      "failId",
+      "records"
+    ],
+    "App.DispatchRecord": [
+      "id",
+      "operation"
+    ],
+    "Inventory.Report": [
+      "baseline",
+      "origin",
+      "observations",
+      "descriptions"
+    ],
+    "Inventory.Origin": [
+      "debug",
+      "entries",
+      "namespace",
+      "name",
+      "steps",
+      "requirements"
+    ],
+    "Inventory.Description": [
+      "schema",
+      "namespace",
+      "name",
+      "steps",
+      "systems"
+    ],
+    "Inventory.SchemaEntry": [
+      "kind",
+      "key",
+      "name"
+    ],
+    "Inventory.Entry": [
+      "id",
+      "name",
+      "access",
+      "slot",
+      "clauses"
+    ],
+    "Resource.Report": [
+      "factoryNext",
+      "before",
+      "after",
+      "descriptions"
+    ],
+    "Resource.Snapshot": [
+      "namespace",
+      "nextId",
+      "highWater",
+      "capacity",
+      "depth",
+      "liveBits",
+      "store",
+      "resource",
+      "events",
+      "pendingCount",
+      "registrations",
+      "nextSystemId",
+      "clock"
+    ],
+    "Inventory.Complete": [
+      "plain",
+      "transient",
+      "constructed"
+    ],
+    "Graph.Report": [
+      "factoryNext",
+      "reservations",
+      "activations",
+      "queueOutcome",
+      "relationError",
+      "snapshots",
+      "descriptions"
+    ],
+    "Graph.Description": [
+      "ordinary",
+      "relations",
+      "machines"
+    ],
+    "Graph.MachineEntry": [
+      "name"
+    ],
+    "Graph.Descriptor": [
+      "key",
+      "name",
+      "inverseName",
+      "kind"
+    ],
+    "Graph.Graph": [
+      "edges",
+      "inverses"
+    ],
+    "Graph.Edge": [
+      "relation",
+      "source",
+      "target"
+    ],
+    "Graph.Inverse": [
+      "relation",
+      "target",
+      "sources"
+    ],
+    "Graph.ResourceView": [
+      "array",
+      "slot",
+      "graph",
+      "relation"
+    ],
+    "Graph.Handle": [
+      "namespace",
+      "id"
+    ],
+    "Graph.Snapshot": [
+      "namespace",
+      "nextId",
+      "highWater",
+      "capacity",
+      "depth",
+      "liveBits",
+      "store",
+      "resource",
+      "events",
+      "pendingCount",
+      "registrations",
+      "nextSystemId",
+      "clock"
+    ],
+    "Previous.Complete": [
+      "inventory",
+      "resource",
+      "graphMachine"
+    ],
+    "Handler.Complete": [
+      "previous",
+      "handlers"
+    ],
+    "Handler.Report": [
+      "factoryNext",
+      "snapshots",
+      "descriptions",
+      "status",
+      "owners"
+    ],
+    "Handler.Description": [
+      "ordinary",
+      "machine",
+      "handlers"
+    ],
+    "Handler.BundleView": [
+      "namespace",
+      "entries"
+    ],
+    "Handler.EntryView": [
+      "selector",
+      "requirements",
+      "registry"
+    ],
+    "Handler.RegistryView": [
+      "ordinal",
+      "namespace",
+      "id",
+      "name",
+      "access",
+      "cursor"
+    ],
+    "Handler.RecoveryView": [
+      "entries",
+      "positions",
+      "kept",
+      "owners"
+    ],
+    "Handler.OwnersView": [
+      "exit",
+      "transition",
+      "enter"
+    ],
+    "Handler.Position": [
+      "selector",
+      "requirements",
+      "choice"
+    ]
+  },
+  "taggedExactFieldNames": {
+    "Operation.Run": [
+      "result"
+    ],
+    "Operation.PositionReplaced": [
+      "result",
+      "previous",
+      "incoming"
+    ],
+    "Operation.RefusedRegistration": [
+      "args",
+      "foreignWorld",
+      "registry"
+    ],
+    "Step.Phase": [
+      "name"
+    ],
+    "Step.System": [
+      "id",
+      "condition"
+    ],
+    "Storage.Constructed": [
+      "codec"
+    ],
+    "App.Failed": [
+      "error"
+    ],
+    "App.Missing": [
+      "needs"
+    ],
+    "App.BodyFailure": [
+      "id",
+      "error"
+    ],
+    "App.RegistrationRefused": [
+      "id",
+      "args",
+      "world",
+      "registry"
+    ],
+    "App.UnknownSystem": [
+      "id"
+    ],
+    "Observation.Entered": [
+      "name"
+    ],
+    "Observation.Ran": [
+      "id"
+    ],
+    "Observation.Skipped": [
+      "id"
+    ],
+    "Requirement.Component": [
+      "id"
+    ],
+    "Requirement.Resource": [
+      "id"
+    ],
+    "Requirement.Service": [
+      "id"
+    ],
+    "Inventory.Reported": [
+      "report"
+    ],
+    "Resource.Reported": [
+      "report"
+    ],
+    "Graph.Reported": [
+      "report"
+    ],
+    "Graph.Present": [
+      "current",
+      "pending",
+      "previous",
+      "changed"
+    ],
+    "Graph.Queued": [
+      "value",
+      "skipSame"
+    ],
+    "Graph.Reserved": [
+      "handle"
+    ],
+    "Handler.Reported": [
+      "report"
+    ],
+    "Handler.ExitFrom": [
+      "value"
+    ],
+    "Handler.TransitionPair": [
+      "from",
+      "to"
+    ],
+    "Handler.EnterTo": [
+      "value"
+    ],
+    "Handler.Returned": [
+      "bundle"
+    ],
+    "Handler.InternalRemainder": [
+      "namespace",
+      "recovery"
+    ],
+    "Handler.HandlerFailed": [
+      "phase",
+      "error"
+    ],
+    "Handler.MissingRequirements": [
+      "missing"
+    ],
+    "Handler.Completed": [],
+    "Handler.ForeignBundle": [],
+    "Handler.MachineUnavailable": [],
+    "Handler.Kept": [],
+    "Handler.SelectedExit": [],
+    "Handler.SelectedTransition": [],
+    "Handler.SelectedEnter": [],
+    "Handler.Exit": [],
+    "Handler.Transition": [],
+    "Handler.Enter": []
+  },
+  "taggedSingleFieldFlatten": {
+    "Maybe.Some": "value",
+    "Result.Done": "value",
+    "Result.Fail": "error",
+    "Access.Found": "value",
+    "Error.UserError": "error",
+    "Codec.ArrayValue": "inner",
+    "App.Report": "report"
+  },
+  "preserveEmptyTags": [
+    "Observed",
+    "Barrier",
+    "Plain",
+    "Transient",
+    "None",
+    "ComponentAbsent",
+    "Unit",
+    "Accepted",
+    "Integer",
+    "Finished",
+    "Rejected",
+    "Applied",
+    "Enabled",
+    "Disabled",
+    "Component",
+    "Resource",
+    "Event",
+    "Relation",
+    "Service",
+    "Boot",
+    "Play",
+    "NoPending",
+    "Ordinary",
+    "Hierarchy",
+    "Success",
+    "MachineMissing"
+  ],
+  "modeNullaryAsExactString": [
+    "Read",
+    "Write",
+    "Optional",
+    "With",
+    "Without",
+    "Added",
+    "Changed"
+  ],
+  "booleanNullaryToJSON": {
+    "False": false,
+    "True": true
+  },
+  "Nat": "exact finite successor count as {nat:n}; no numeric coalescing with U32",
+  "U32": "exact integer value",
+  "String": "exact full character sequence",
+  "List": "all cells in existing order including empty, no sorting/dedup/projection",
+  "failureRule": "Output.Failure or any unexpected constructor, fieldcount, negativeNat, inaccessiblepayload, refused status or unknownnormalpath is an error; never default, skip or silently normalize",
+  "expectedSHA256": "3ac85c490f3f861ef62bbebf5400d2e3c754b16e2bcd9a7373e96c234260f37f",
+  "sourceSHA256": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-run-v1/main.bend": "b6bc53f615d8c1fc0975e894582d881706a586e33144426ecf499602ccc49329",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-run-v1/scenario.bend": "6908a917d9f8abb437dfd930416b0383bde18465a2d1e0d0ce25557f523e2f1f",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend": "980bd13f41ee93533bef24af02a407be90047818a9b5c684848aec3bcf904065",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-utf16.bend": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-capabilities.bend": "a97545a4686cbb9bab2588d0847747ced7676f1a41b7bc2b81948e950f4cf7fd",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode.bend": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-size.bend": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-leaf.bend": "db7949d243d1698f09e2b4b81276562bd6b7c3d11a194aadb1003cdb51ecb66a",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-gate.bend": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend": "77ec73be5360d214f49d5242981ad9135878c0736e9c69e284f86fe227261b73",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-driver.bend": "1a7256ed0804d0250ee43f5b62c3329f90fd89ba7ce41912f8db7eb5f1c949cb",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-systems.bend": "ebc51df17a247cacf8e73bc8af308c1bd62b5b53d39c0c91e692b68fd8cc25fa",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-queries.bend": "b3683eca66efde4ca3e73d48f047a1c9c8ffca997aa47adaa51359fc6ed3c613",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-body.bend": "ba231ab98b1ae38ed5ba32438f0630deb748c4b3c7d253a3db0edc4822103888",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend": "3bde409add49493149b85396d01e0dd83b236c0acb3d2c779a36e447696f6372",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend": "d814be4eb96003efc746994500211c9c83cb4e4db21a4eb08e6f73dd2aaccf6b",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/declared-family.bend": "658755e273813906a09a6f95eacd44858d212ce3f0627fde074f3ab575c527f1",
+    "/workspace/formal-proofs/bendvy/src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "/workspace/formal-proofs/bendvy/src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "/workspace/formal-proofs/bendvy/src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend": "aa55ae27b742e62718b5452c0176ebe5e0d479d896e62737b8a35142ff538f64",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend": "306eb4a35fe1b2b71276263c8716f15858e7bc9b74b8418461da4f4205812ea1",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-execution.bend": "1000b2661c015c58597e30285b59fab4b03eb561eda0c57c8d79a63b1a320bc7",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-observation.bend": "7b00800fc9d120973429a84dd019324fae9f893f250a09b46129b11586f4586b",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-setup.bend": "05d0db891ee77013bfad08c0fec19f5950407824708976d77c44134c624fd138",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-returned.bend": "cc6dcc2f5924a8594c10ed207dbbbf3fcf4fb969470ba124f718972b843ee4ec",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-run-v1/dispatch.bend": "3b73370832e0effcb778ad2a787b796f1703a8b3b24caa037d77ce52569bf025",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-run-v1/application.bend": "0f47264208cd52099fa1b6e577d60aea688ee8d079d544789406dfd66c52ca45",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-run-v1/observation.bend": "352c32e608b4cd52ebfd8a3b863d22a4cd8d59f910e1b1630e47142acf738731",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app-run-v1/output.bend": "d1a9cbbeaa083f612e7a2f6a4866eb2bcce04f1798a132984c8a8e8883cb1182"
+  }
+}

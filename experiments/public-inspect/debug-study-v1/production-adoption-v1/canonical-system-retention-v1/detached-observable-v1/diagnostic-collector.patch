@@ -1,0 +1,42 @@
+--- held-source-gated/development-js.py
++++ diagnostic-only/development-diagnostic-js.py
+@@ -84,2 +84,2 @@
+-             HERE / 'test-js-boundary.py', HERE / 'JS-BOUNDARY-CONTROLS.json',
+-             HERE / 'js-boundary.stdout', HERE / 'js-boundary.stderr', *map(Path, tools.values())]
++             HERE / 'test-diagnostic-js-boundary.py', HERE / 'DIAGNOSTIC-JS-BOUNDARY-CONTROLS.json',
++             HERE / 'diagnostic-js-boundary.stdout', HERE / 'diagnostic-js-boundary.stderr', *map(Path, tools.values())]
+@@ -91,0 +92,11 @@
++    # Preserve failed source prerequisites and the resource adaptation explicitly.
++    extra.extend([migration / 'source-resources-v1/current-cpu5.json',
++                  migration / 'source-prerequisite-v1/root-host-20261009.json',
++                  migration / 'source-prerequisite-v1/actual-source-attempt02/manifest.json',
++                  migration / 'source-prerequisite-v1/actual-source-attempt02/verification-result.json',
++                  migration / 'source-attempts/snapshot-archive.json'])
++    extra.extend(sorted((migration / 'source-prerequisite-v1/actual-source-attempt02/objects').glob('*.gz')))
++    extra.extend(sorted((migration / 'source-attempts/objects').glob('*.gz')))
++    for selected in ('07-boundary-mutant',):
++        extra.extend(migration / 'source-attempts' / selected / name
++                     for name in ('SOURCE.json', 'result.json', 'post.json', 'stdout', 'stderr'))
+@@ -101 +112,3 @@
+-    plan = {'scope': 'direct development only; no complete resolver qualification or #56 completion',
++    plan = {'scope': 'DIAGNOSTIC ONLY actual complete detached Inspector behavior; source5 cli_verdict/book_promises remains UNMET; no acceptance/#56 closure/performance claim',
++            'diagnosticOnly': True, 'sourcePrerequisite': 'UNMET', 'acceptance': False,
++            'sourceValidation': 'Stock JS emit runs book_read/book_load/book_valid; does not replace extra --check-only cli_verdict/book_promises',
+@@ -106,3 +119,3 @@
+-                {'label': 'emit', 'argv': [tools['taskset'], '-c', '5', tools['bend'], identities['entrypoint'], '-o', str(generated)], 'capSeconds': 30},
+-                {'label': 'consumer', 'argv': [tools['taskset'], '-c', '5', tools['node'], str(generated)], 'capSeconds': 5}],
+-            'postConsumer': 'Strict entire preserved historical graph/App/resource/handler report plus independent same-ordinary-declaration detached Inspector rows and repeated/disabled owner preservation; both reached controls additionally reject the entire normal oracle; fixture cursor0 is independent of registered cursors; no full56/Native/performance claim'}
++                {'label': 'emit', 'argv': [tools['taskset'], '-c', '11', tools['bend'], identities['entrypoint'], '-o', str(generated)], 'capSeconds': 30},
++                {'label': 'consumer', 'argv': [tools['taskset'], '-c', '11', tools['node'], str(generated)], 'capSeconds': 5}],
++            'postConsumer': 'DIAGNOSTIC ONLY strict entire preserved historical graph/App/resource/handler report plus independent same-ordinary-declaration detached Inspector rows and repeated/disabled owner preservation; both reached controls additionally reject the entire normal oracle; fixture cursor0 is independent of registered cursors; no full56/Native/performance claim'}
+@@ -118,0 +132,4 @@
++    if plan.get('diagnosticOnly') is not True or plan.get('sourcePrerequisite') != 'UNMET' or plan.get('acceptance') is not False:
++        raise ValueError('Diagnostic source prerequisite/acceptance scope differs')
++    if 11 not in os.sched_getaffinity(0):
++        raise ValueError('Diagnostic CPU11 is outside actual allowed affinity')
+@@ -132 +149 @@
+-    record = {'scope': plan['scope'], 'planSHA256': expected_sha, 'commands': [], 'guards': []}
++    record = {'diagnosticOnly': True, 'sourcePrerequisite': 'UNMET', 'acceptance': False, 'scope': plan['scope'], 'planSHA256': expected_sha, 'commands': [], 'guards': []}
+@@ -195 +212 @@
+-        record['status'] = 'DEVELOPMENT_PASS'
++        record['status'] = 'DIAGNOSTIC_JS_PASS'

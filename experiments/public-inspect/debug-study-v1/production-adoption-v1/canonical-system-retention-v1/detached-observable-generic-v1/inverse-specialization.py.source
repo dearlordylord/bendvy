@@ -1,0 +1,30 @@
+from pathlib import Path
+import re,json,hashlib
+p=Path('experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1');o=p/'detached-observable-v1';n=p/'detached-observable-generic-v1';sha=lambda v:hashlib.sha256(v).hexdigest()
+def split(s):
+ out=[];start=0;depth=0
+ for i,c in enumerate(s):
+  if c in '(<[{':depth+=1
+  elif c in ')>]}':depth-=1
+  elif c==',' and depth==0:out.append(s[start:i]);start=i+1
+ return out+[s[start:]]
+def sections(s):return re.findall(r'def .*?(?=\ndef |\Z)',s,re.S)
+old=(o/'consumer/app-inventory-v1/detached.bend').read_text();new=(n/'consumer/app-inventory-v1/detached.bend').read_text();prefix=new[:new.index('def collected_world')];generic=sections(new)[:7];restored=prefix
+for cat in ['constructed','transient','plain']:
+ for section in generic:
+  header,body=section.split('\n',1);name=header.split('(')[0][4:];end=header.index(') ->');params=split(header[header.index('(')+1:end]);params=[x for x in params if not x.startswith('~')];newname=cat if name=='collect' else name.replace('collected_',cat+'_')
+  header='def '+newname+'('+','.join(params)+header[end:]
+  body=body.replace('collected_',cat+'_')
+  # Remove only static forwarding arguments to the shared continuation.
+  body=re.sub(r'('+cat+r'_\w+\()(~Store,)(?:~\w+Query,)*',r'\1',body)
+  suffix={'base':'base','added':'base_added','changed':'base_changed','without':'base_without_component','withHealth':'base_with_component'}
+  for k,v in suffix.items():body=body.replace('~'+k+'Query','~Queries.'+cat+'_'+v+'()')
+  section=header+'\n'+body;section=section.replace('Store','S.'+cat+'_store()');restored+=section.strip()+'\n\n'
+assert restored.strip()==old.strip(),'inverse specialization differs'
+rows=[]
+for f in sorted((o/'consumer').rglob('*.bend')):
+ rel=f.relative_to(o);after=n/rel;rows.append({'path':str(rel),'beforeSHA256':sha(f.read_bytes()),'afterSHA256':sha(after.read_bytes()),'bodyEqual':f.read_bytes()==after.read_bytes(),'allowedDelta':rel.name in ['detached.bend','detached-mutant.bend']})
+assert all(x['bodyEqual']or x['allowedDelta']for x in rows)
+(n/'inverse-specialization.bend.source').write_text(restored)
+d={'scope':'Fixture-only Store generic collector; cause of previous deadline unknown; no new contract','priorImmutableCommit':'17c0f428','normalInverseSpecializationExact':True,'oldSourceSHA256':sha(old.encode()),'reconstructedSHA256':sha(restored.encode()),'comparison':'strip final whitespace only; all actual function bodies/signatures otherwise exact','categoryWrappers':['constructed','transient','plain'],'fiveDeclarations':['base','base_added','base_changed','base_without_component','base_with_component'],'disabledBeforeLowering':True,'unchangedExistingFiles':rows,'sourceOnly5FullGate':'UNMET: both new full80 default5 deadline; affected49 normal PASS','priorSource05':'PASS on old exact closure only, not reused for changed generic source'}
+(n/'MIGRATION.json').write_text(json.dumps(d,indent=2)+'\n');print('inverse exact',len(rows),'Bend files')

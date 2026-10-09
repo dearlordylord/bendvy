@@ -1,0 +1,48 @@
+{
+  "status": "PREPARED_ONLY_REQUIRES_INDEPENDENT_LAUNCH_REVIEW",
+  "sequence": [
+    {
+      "role": "normal",
+      "kind": "normal",
+      "originalPlan": "/tmp/bendvy56-detached-observable-normal-js01/plan.json",
+      "planSHA256": "ca92c863ee5249c71c3677087fb86fdf6500b8e5b9931e43ca0243298bc31b05",
+      "pins": 144,
+      "expectedSHA256": "f8d3724706ac10e380aa531e3309b88c1baf3bdfdc328ec3ec5698ccafe2ac02",
+      "sourceModules": 80,
+      "constructorIdentities": 147,
+      "execution": "NOT_LAUNCHED"
+    },
+    {
+      "role": "inspector-filter",
+      "kind": "mutant",
+      "originalPlan": "/tmp/bendvy56-detached-observable-inspector-filter-js01/plan.json",
+      "planSHA256": "944ece441e3eecd44afafe9d6bdf6392bde1d3b1269992b25015cdc781129aa1",
+      "pins": 144,
+      "expectedSHA256": "ba6d0e9260be47b1bce886440a8c9cd0aa61139586a132dc23bbec7cf1172d77",
+      "sourceModules": 80,
+      "constructorIdentities": 147,
+      "execution": "NOT_LAUNCHED"
+    },
+    {
+      "role": "handler-drop",
+      "kind": "handler-drop",
+      "originalPlan": "/tmp/bendvy56-detached-observable-handler-drop-js01/plan.json",
+      "planSHA256": "a2878954195e9f3c6028749d34d15d13be36223806f2fb3300b2eadbc777b2cf",
+      "pins": 144,
+      "expectedSHA256": "3e961d49c50cef6f76fec2191eb3a86024c814fa12a430a138e0b68eb7910e96",
+      "sourceModules": 80,
+      "constructorIdentities": 147,
+      "execution": "NOT_LAUNCHED"
+    }
+  ],
+  "conditional": "normal full PASS required before either reached control",
+  "unchangedCommands": {
+    "CPU": 5,
+    "emitSeconds": 30,
+    "runtimeSeconds": 5,
+    "heavyLock": "/tmp/bendvy-parity-heavy.lock"
+  },
+  "normalFullSourceGate": "05 PASS exactpins reused;06 separate deadline retained",
+  "filterFullSourceGate": "06 source5 deadline UNMET; repaired import route, no semantic refusal claimed",
+  "noBackendOrPerformanceClaims": true
+}

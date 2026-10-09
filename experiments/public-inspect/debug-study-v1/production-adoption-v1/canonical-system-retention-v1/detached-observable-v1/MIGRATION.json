@@ -1,0 +1,448 @@
+{
+  "scope": "Actual detached ordinary declaration Inspector lowering; source/model preparation only",
+  "baselinePreparation": "63083841",
+  "coreOwnership": "root only; no edits",
+  "fixtureCursor": 0,
+  "registeredCursorBorrow": false,
+  "existingBendFiles": [
+    {
+      "relative": "consumer/app-inventory-v1/app.bend",
+      "beforeSHA256": "f40739ef04e7da7aaa72d46c00869920fdbd28b1139c914445bcddf1ad742301",
+      "afterSHA256": "f40739ef04e7da7aaa72d46c00869920fdbd28b1139c914445bcddf1ad742301",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/construction.bend",
+      "beforeSHA256": "c96d91f66a2be83200d400ee455cc7948bd34165477f9d1d13f89b7f4ea32e4c",
+      "afterSHA256": "c96d91f66a2be83200d400ee455cc7948bd34165477f9d1d13f89b7f4ea32e4c",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/app.bend",
+      "beforeSHA256": "b56240365fe22fad5766e31bf0af34c5210da28fda56b6546c6ebe551159295b",
+      "afterSHA256": "b56240365fe22fad5766e31bf0af34c5210da28fda56b6546c6ebe551159295b",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/fixture.bend",
+      "beforeSHA256": "194822becb5c41fe4a950fce47c26a6708dfb52123babc58a0479374cc112825",
+      "afterSHA256": "194822becb5c41fe4a950fce47c26a6708dfb52123babc58a0479374cc112825",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/app-drop-handlers.bend",
+      "beforeSHA256": "47b3eef7ab1dd316fe1c2776fccd2abfcd1414d935cbc898a2a8093dd7d338f6",
+      "afterSHA256": "47b3eef7ab1dd316fe1c2776fccd2abfcd1414d935cbc898a2a8093dd7d338f6",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/app.bend",
+      "beforeSHA256": "5f25e0e240eba6018f2f86d45eac2ec27f9855e1c412c81e8a95e22509157d52",
+      "afterSHA256": "5f25e0e240eba6018f2f86d45eac2ec27f9855e1c412c81e8a95e22509157d52",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/fixture-drop-handlers.bend",
+      "beforeSHA256": "07fc2ec1a0f40b27177374a26c813920a35e36d89a48709b99a7ed0d2a7484de",
+      "afterSHA256": "07fc2ec1a0f40b27177374a26c813920a35e36d89a48709b99a7ed0d2a7484de",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/fixture.bend",
+      "beforeSHA256": "10ca727fa59be7caf4fd51e2b9078c98006df394613c09e3137a8eef8b186113",
+      "afterSHA256": "10ca727fa59be7caf4fd51e2b9078c98006df394613c09e3137a8eef8b186113",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/handlers.bend",
+      "beforeSHA256": "7a221834e397db9e930ef7f9412517897d191c876498680a1fd1e9cba7c648d5",
+      "afterSHA256": "7a221834e397db9e930ef7f9412517897d191c876498680a1fd1e9cba7c648d5",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main-drop-handlers.bend",
+      "beforeSHA256": "bf215242803c69425e2470f42fee5344f1b4c9c4d964526290f003221e246f0c",
+      "afterSHA256": "bf215242803c69425e2470f42fee5344f1b4c9c4d964526290f003221e246f0c",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main.bend",
+      "beforeSHA256": "f9c1762fe24a73239deb85c45b6b98c69dfca349764269934e21aac1fed5adc0",
+      "afterSHA256": "f9c1762fe24a73239deb85c45b6b98c69dfca349764269934e21aac1fed5adc0",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/negative-selector-family.bend",
+      "beforeSHA256": "d224281403336c6d39d849cd432f9ad42abc2a373eba2e4f6f84113641fecebd",
+      "afterSHA256": "d224281403336c6d39d849cd432f9ad42abc2a373eba2e4f6f84113641fecebd",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/negative-selector-schema.bend",
+      "beforeSHA256": "498b440d24dc3c1cb0ce2fd65fb62b56728814503c708f8f8ba2384b77e40b87",
+      "afterSHA256": "498b440d24dc3c1cb0ce2fd65fb62b56728814503c708f8f8ba2384b77e40b87",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/main.bend",
+      "beforeSHA256": "af90bd9308ef2fc91afbfe89b10cfc5c4ab8a2d6bc826ab1652167a86efc91e2",
+      "afterSHA256": "af90bd9308ef2fc91afbfe89b10cfc5c4ab8a2d6bc826ab1652167a86efc91e2",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/observe.bend",
+      "beforeSHA256": "6c18be49de2ebd43609867aca507d3f22305114acb95c76554f62a4f329f759d",
+      "afterSHA256": "6c18be49de2ebd43609867aca507d3f22305114acb95c76554f62a4f329f759d",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/schema.bend",
+      "beforeSHA256": "c5c4730b177668ecd45620e48f01ce0b7b1699fc97a4501fa7cccd308ae75707",
+      "afterSHA256": "c5c4730b177668ecd45620e48f01ce0b7b1699fc97a4501fa7cccd308ae75707",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/graph-machine-v1/types.bend",
+      "beforeSHA256": "990f8b730818a51c514e48becfd506cf36e450dce1f9a5d57f67c5d202ceafb1",
+      "afterSHA256": "990f8b730818a51c514e48becfd506cf36e450dce1f9a5d57f67c5d202ceafb1",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/main.bend",
+      "beforeSHA256": "bf3ca144e991ed523c495f5e70f7fdd06ee49c53e00ca7584ae63b97c21353de",
+      "afterSHA256": "42ee5ab3214f9a7739db54a824b20d2bb1d04a49e5e1fb8f8757d47651f2f9d4",
+      "nonImportBodyEqual": false,
+      "reason": "Complete historical report retained; successful Outcome extended with actual detached observation and owner snapshots"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/resource-control.bend",
+      "beforeSHA256": "4ca7ace381f78ef91774cadafbd19ca3bba0e492ae4a551e809627dbff09d641",
+      "afterSHA256": "4ca7ace381f78ef91774cadafbd19ca3bba0e492ae4a551e809627dbff09d641",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/resource-main.bend",
+      "beforeSHA256": "887801de8f665b8175fa05fdd3c0f6533671590bb80eb9232f105f297c84f24f",
+      "afterSHA256": "887801de8f665b8175fa05fdd3c0f6533671590bb80eb9232f105f297c84f24f",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-inventory-v1/retained-schema.bend",
+      "beforeSHA256": "cd55eaaac2be4d816ad89a99ec2f93d0e4125316a0bdd29219881433a13df618",
+      "afterSHA256": "cd55eaaac2be4d816ad89a99ec2f93d0e4125316a0bdd29219881433a13df618",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/application.bend",
+      "beforeSHA256": "895b27779a3bfdb5b48fb2a47b85a70afcbbaedcedf673456c6cc5a17b780857",
+      "afterSHA256": "895b27779a3bfdb5b48fb2a47b85a70afcbbaedcedf673456c6cc5a17b780857",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/dispatch.bend",
+      "beforeSHA256": "a30c81d99c625a3ae91084c88f309a74e729b2ebe23f0453b77e884a1f1a7282",
+      "afterSHA256": "a30c81d99c625a3ae91084c88f309a74e729b2ebe23f0453b77e884a1f1a7282",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/main.bend",
+      "beforeSHA256": "b6bc53f615d8c1fc0975e894582d881706a586e33144426ecf499602ccc49329",
+      "afterSHA256": "b6bc53f615d8c1fc0975e894582d881706a586e33144426ecf499602ccc49329",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/observation.bend",
+      "beforeSHA256": "8d31b761ac1fea9d17fd083b9b0190f7585ec135ab7673357af2f68ea4c62998",
+      "afterSHA256": "8d31b761ac1fea9d17fd083b9b0190f7585ec135ab7673357af2f68ea4c62998",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/output.bend",
+      "beforeSHA256": "e83e272847ef89772594cc226b047a4bd1d79debf05054e79e7537d55482a279",
+      "afterSHA256": "e83e272847ef89772594cc226b047a4bd1d79debf05054e79e7537d55482a279",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/scenario.bend",
+      "beforeSHA256": "498efb98ef32806c1b1e91b6e9de81817ce4f0bf706828d7f785e96ec6c9389b",
+      "afterSHA256": "498efb98ef32806c1b1e91b6e9de81817ce4f0bf706828d7f785e96ec6c9389b",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/app.bend",
+      "beforeSHA256": "0913f69c274981bf3c2a2b75bc1f31897f4f72e29302061c5592e79c394937ac",
+      "afterSHA256": "0913f69c274981bf3c2a2b75bc1f31897f4f72e29302061c5592e79c394937ac",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/application.bend",
+      "beforeSHA256": "bedfb7331e5de63c9e6c18edd298fdaa7c2be8d7ad907bd974c9ee6309f3870a",
+      "afterSHA256": "bedfb7331e5de63c9e6c18edd298fdaa7c2be8d7ad907bd974c9ee6309f3870a",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/negative-system-owner-duplication.bend",
+      "beforeSHA256": "a761fab76d4376ec4d84353416111ff53dfe03c121d2650e81bde9bb2fba3e67",
+      "afterSHA256": "a761fab76d4376ec4d84353416111ff53dfe03c121d2650e81bde9bb2fba3e67",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/negative-system-schema.bend",
+      "beforeSHA256": "e11ebbd8e59a5a387cb50eb17590d81a9bad9c164f45e3a379323226f0507c9e",
+      "afterSHA256": "e11ebbd8e59a5a387cb50eb17590d81a9bad9c164f45e3a379323226f0507c9e",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/plain-transient-application.bend",
+      "beforeSHA256": "a6e5ba3a12fd33c9a19405572ec8db9436fae283aa831fb8f658bd47cae774b3",
+      "afterSHA256": "a6e5ba3a12fd33c9a19405572ec8db9436fae283aa831fb8f658bd47cae774b3",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/registered-application.bend",
+      "beforeSHA256": "ac496594aecf878acf62788e3512f830d4f27c99e2621174424f118760a5ab6f",
+      "afterSHA256": "ac496594aecf878acf62788e3512f830d4f27c99e2621174424f118760a5ab6f",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/scenario-body.bend",
+      "beforeSHA256": "83a469aec51a98bd60815d57582fd40f83e46d31fc8ca85ea8fe616c5fb721d3",
+      "afterSHA256": "83a469aec51a98bd60815d57582fd40f83e46d31fc8ca85ea8fe616c5fb721d3",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/scenario-driver.bend",
+      "beforeSHA256": "0a3e15c11731f2755341d8329cfe3fd7c07a1cd1f1dd070f77b40d873b1650f5",
+      "afterSHA256": "0a3e15c11731f2755341d8329cfe3fd7c07a1cd1f1dd070f77b40d873b1650f5",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/scenario-dto.bend",
+      "beforeSHA256": "0631a2513972b329b45af6115fe8f925ac903d4cec781447e4f33246953e3012",
+      "afterSHA256": "0631a2513972b329b45af6115fe8f925ac903d4cec781447e4f33246953e3012",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/scenario-execution.bend",
+      "beforeSHA256": "1422ee045c8dadaffa4256d8bbb13143c5cc868103917522e12a77568f61d9bb",
+      "afterSHA256": "1422ee045c8dadaffa4256d8bbb13143c5cc868103917522e12a77568f61d9bb",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/scenario-main.bend",
+      "beforeSHA256": "82719387db6ff156460997a219067807a294afff55750d65ac7f6f3046205fb5",
+      "afterSHA256": "82719387db6ff156460997a219067807a294afff55750d65ac7f6f3046205fb5",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/scenario-observation.bend",
+      "beforeSHA256": "8e68632cf1913159144506372d9985faebf93ae73221837f620bc7ac78b10204",
+      "afterSHA256": "8e68632cf1913159144506372d9985faebf93ae73221837f620bc7ac78b10204",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/scenario-queries.bend",
+      "beforeSHA256": "4e04233f52b8022bce6109e3a99af41062c553fac6a81406a849f211ec401fc9",
+      "afterSHA256": "4e04233f52b8022bce6109e3a99af41062c553fac6a81406a849f211ec401fc9",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/scenario-returned.bend",
+      "beforeSHA256": "00795ff4be47fe5f020c09148d62d43a8230644c460563be7faf8289886b2732",
+      "afterSHA256": "00795ff4be47fe5f020c09148d62d43a8230644c460563be7faf8289886b2732",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/scenario-schema.bend",
+      "beforeSHA256": "29573221203b21b4b41f04175ab6d51504b7ac0f2d47dc318b5f26ad02bd28c0",
+      "afterSHA256": "29573221203b21b4b41f04175ab6d51504b7ac0f2d47dc318b5f26ad02bd28c0",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/scenario-setup.bend",
+      "beforeSHA256": "15cfe0d917158724a85bad862c0f601578e92f6f10b4a3c7784d3851c43292da",
+      "afterSHA256": "15cfe0d917158724a85bad862c0f601578e92f6f10b4a3c7784d3851c43292da",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "consumer/scenario-systems.bend",
+      "beforeSHA256": "697c8acf444cb819dd2cd7066393458947694716f158f61ae4c8d837d9065b6f",
+      "afterSHA256": "697c8acf444cb819dd2cd7066393458947694716f158f61ae4c8d837d9065b6f",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "dependencies/experiments/public-simulation/bend-v1/owner-view.bend",
+      "beforeSHA256": "77ec73be5360d214f49d5242981ad9135878c0736e9c69e284f86fe227261b73",
+      "afterSHA256": "77ec73be5360d214f49d5242981ad9135878c0736e9c69e284f86fe227261b73",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "dependencies/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/application/game.bend",
+      "beforeSHA256": "e4e471398657875faecde26f7915a6f4e19880ec3bf9218cdc7a905fe0d843c1",
+      "afterSHA256": "e4e471398657875faecde26f7915a6f4e19880ec3bf9218cdc7a905fe0d843c1",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "dependencies/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/application/legacy-column-provider.bend",
+      "beforeSHA256": "9c860955a3e527196e9169e7d1a281ff56716618f4442d0b8f34ef76fdbbf25a",
+      "afterSHA256": "9c860955a3e527196e9169e7d1a281ff56716618f4442d0b8f34ef76fdbbf25a",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    },
+    {
+      "relative": "dependencies/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/application/legacy-fixture.bend",
+      "beforeSHA256": "5e77bfeb582d08920a8db19a7d8a9c08eae98fe5c950df1b20009067838775b6",
+      "afterSHA256": "5e77bfeb582d08920a8db19a7d8a9c08eae98fe5c950df1b20009067838775b6",
+      "nonImportBodyEqual": true,
+      "reason": "unchanged qualified body"
+    }
+  ],
+  "normalSource05ExactPinsStillMatch": {
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/app.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/construction.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/detached.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/graph-machine-v1/app.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/graph-machine-v1/fixture.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/app.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/fixture.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/handlers.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/graph-machine-v1/main.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/graph-machine-v1/observe.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/graph-machine-v1/schema.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/graph-machine-v1/types.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/main.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/resource-control.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/resource-main.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-inventory-v1/retained-schema.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/application.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/dispatch.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/observation.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/output.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/scenario.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/app.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/scenario-body.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/scenario-driver.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/scenario-dto.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/scenario-execution.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/scenario-observation.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/scenario-queries.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/scenario-returned.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/scenario-schema.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/scenario-setup.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/consumer/scenario-systems.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-v1/dependencies/experiments/public-simulation/bend-v1/owner-view.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/capabilities.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/check.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/column.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/commands.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/component.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/compose.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/declared-family.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/decode-capabilities.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/decode-data.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/decode-size.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/decode-utf16.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/decode.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/indexed-lifecycle.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector-query-families.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector-query-projection.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector-query-world.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector-query.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/lifecycle.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/machine-handler-bundle.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/machine-handlers.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/machine-world.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/machine.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-component-binding.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-declaration.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-query-declaration.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-query-observable.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-query-selections.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-schema.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-system.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/owner-handoff.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/owner-product.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/persistence-declaration.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/registration.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/relation-graph.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/relation-types.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/resource.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/schedule-provision.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/schedule.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/schema-fragments.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/snapshot-gate.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/snapshot-leaf.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/string-equality.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/system.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/transaction.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/world.bend": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/scripts/task_runner.py": true,
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/check-source.py": true,
+    "/tmp/bendvy-source-detached-qualified.py": true,
+    "/home/node/.bend/bin/bend-2.0.35": true
+  },
+  "mutantChanges": [
+    {
+      "file": "consumer/app-inventory-v1/detached-mutant.bend",
+      "from": "~Queries.plain_base_without_component()",
+      "to": "~Queries.plain_base_with_component()",
+      "boundary": "actual O.inspect_query/IQ.each_composed, plain enabled observations"
+    }
+  ],
+  "preservedSourceAttempts": [
+    "01 computed scrutinee failure",
+    "02 forward-definition failure",
+    "03 initial fixture debug source PASS",
+    "04 Data flag multiplicity failure",
+    "05 actual App debug normal PASS; mutant import identity failure",
+    "06 unchanged normal and import-repaired mutant source5 deadlines"
+  ],
+  "fullMutantSourceGate": "UNMET source5 deadline; no typed rejection or successful runtime claim"
+}
