@@ -36,10 +36,24 @@ def main():
     except BaseException as error:
         receipt['status']='INCOMPLETE';receipt['error']=repr(error);raise
     finally:
-        try:guard()
+        receipt['logs']=dict(logs.hashes) if logs is not None else {}
+        try:
+            if logs is not None:logs.guard()
+            guard()
         except BaseException as error:receipt['status']='INCOMPLETE';receipt['guardFailure']=repr(error)
-        (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
+        with (out/'receipt.json').open('x') as stream:stream.write(json.dumps(receipt,indent=2)+'\n')
     print(receipt['status'])
+def strict_equal(a,b,path='$'):
+    assert type(a) is type(b), ('Type mismatch',path,type(a),type(b))
+    if isinstance(a,dict):
+        assert set(a) == set(b), ('Object membership mismatch',path)
+        for key in a:strict_equal(a[key],b[key],path+'.'+key)
+    elif isinstance(a,list):
+        assert len(a) == len(b), ('List length mismatch',path,len(a),len(b))
+        for index,(x,y) in enumerate(zip(a,b)):strict_equal(x,y,path+'['+str(index)+']')
+    else:
+        assert a == b, ('Value mismatch',path,a,b)
+
 def host_main():
     # Closed additive role; no helper executes before admitted input checks.
     import argparse, types
@@ -57,7 +71,7 @@ def host_main():
     if not args.execute:
         assert args.plan_sha256 is None and not out.exists()
         node=Path(shutil.which('node')).resolve();taskset=Path(shutil.which('taskset')).resolve()
-        files=[Path(__file__).resolve(),Path(sys.executable).resolve(),ROOT/'scripts/task_runner.py',node,taskset,
+        files=[Path(__file__).resolve(),Path(sys.executable).resolve(),ROOT/'scripts/task_runner.py',ROOT/'scripts/receipt-logs.py',node,taskset,
                subject/'fixture.mjs',subject/'adapter.mjs',oracle/'host-expected.json',oracle/'host-expected.py',oracle/'source-basis.json',oracle/'REVIEW.md']
         pins={str(p):sha(p) for p in files};references=inventory(ROOT/'.references/bevy-ts/packages/core/src')
         pins.update(references)
@@ -80,30 +94,47 @@ def host_main():
     helper=Path(ROOT/'scripts/task_runner.py');module=types.ModuleType('host_task_runner');module.__file__=str(helper)
     helperbytes=helper.read_bytes();assert hashlib.sha256(helperbytes).hexdigest()==plan['inputs'][str(helper)]
     exec(compile(helperbytes,str(helper),'exec'),module.__dict__)
-    assert not (out/'receipt.json').exists(),'terminal attempt already exists'
+    assert not (out/'receipt.json').exists() and not (out/'receipt.json').is_symlink(),'terminal attempt already exists'
+    logpath=ROOT/'scripts/receipt-logs.py';logmodule=types.ModuleType('host_receipt_logs');logmodule.__file__=str(logpath)
+    logbytes=logpath.read_bytes();assert hashlib.sha256(logbytes).hexdigest()==plan['inputs'][str(logpath)]
+    exec(compile(logbytes,str(logpath),'exec'),logmodule.__dict__)
+    raw=out/'raw';logs=None
     receipt={'preparedPlanSha256':args.plan_sha256,'status':'INCOMPLETE','scope':plan['scope']}
     try:
+        raw.mkdir(exist_ok=False)
+        logs=logmodule.CommandLogs(raw,['host'])
+        runner=module.Runner(logs,inputs=types.SimpleNamespace(guard=guard),env=plan['environment'],cwd=plan['cwd'])
         with open('/tmp/bendvy-parity-heavy.lock','a') as lock:
             fcntl.flock(lock,fcntl.LOCK_EX)
             try:
-                guard();result=module.execute_result(plan['argv'],5,plan['environment'],plan['cwd'],'split')
-                receipt['result']={key:value for key,value in result.items() if not isinstance(value,bytes)}
-                for key,value in result.items():
-                    if isinstance(value,bytes):
-                        artifact=out/key;artifact.write_bytes(value)
-                        receipt['result'][key]={'path':str(artifact),'sha256':sha(artifact),'bytes':len(value)}
-                    else:receipt['result'][key]=value
-                guard();assert result['exit']==0 and not result['failure'] and not result['stderr']
-                assert json.loads(result['stdout'])==json.loads(Path(plan['expected']).read_bytes()),'whole host model mismatch'
+                guard()
+                receipt['result']={}
+                try:
+                    result=runner.run('host',plan['argv'],5)
+                except BaseException as error:
+                    failed=getattr(error,'result',None)
+                    if isinstance(failed,dict):
+                        receipt['result'].update({k:v for k,v in failed.items() if not isinstance(v,bytes)})
+                        receipt['captureError']=f'{type(error).__name__}: {error}'
+                        receipt['failedCaptureRaw']={k:bytes(v).hex() for k,v in failed.items() if isinstance(v,bytes)}
+                    raise
+                receipt['result'].update({k:v for k,v in result.items() if not isinstance(v,bytes)})
+                receipt['logs']=dict(logs.hashes)
+                logs.guard();guard()
+                assert result['exit']==0 and not result['failure'] and not result['stderr']
+                strict_equal(json.loads(result['stdout']),json.loads(Path(plan['expected']).read_bytes()))
                 receipt['status']='DEVELOPMENT_HOST_PASS'
             finally:fcntl.flock(lock,fcntl.LOCK_UN)
     except BaseException as error:
         receipt['error']=repr(error)
         raise
     finally:
-        try:guard()
+        receipt['logs']=dict(logs.hashes) if logs is not None else {}
+        try:
+            if logs is not None:logs.guard()
+            guard()
         except BaseException as error:receipt['status']='INCOMPLETE';receipt['guardFailure']=repr(error)
-        (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
+        with (out/'receipt.json').open('x') as stream:stream.write(json.dumps(receipt,indent=2)+'\n')
     print(receipt['status'])
 
 if __name__=='__main__':
