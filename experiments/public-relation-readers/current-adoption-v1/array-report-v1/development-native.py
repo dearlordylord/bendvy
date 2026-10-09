@@ -61,7 +61,7 @@ def prepare(out, oracle, expected_sha):
         raise ValueError('Frozen original source/constructor inventory changed')
     if expected_sha != EXPECTED or sha(oracle / 'expected.json') != EXPECTED:
         raise ValueError('Independent whole oracle changed')
-    tools = {'bend': '/home/node/.bend/bin/bend', 'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
+    tools = {'bend': '/home/node/.bend/bin/bend-2.0.35', 'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
     tools['clangWrapper'] = '/tmp/bendvy-clang19-diagnostic/clang19'
     tools['clangBinary'] = '/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'
     config = ROOT / 'experiments/public-simulation/delivery-v1/installed-config.py'

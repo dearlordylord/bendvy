@@ -61,7 +61,7 @@ def prepare(out, oracle, expected_sha):
         raise ValueError('Frozen original source/constructor inventory changed')
     if expected_sha != EXPECTED or sha(oracle / 'expected.json') != EXPECTED:
         raise ValueError('Independent whole oracle changed')
-    tools = {'bend': '/home/node/.bend/bin/bend', 'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
+    tools = {'bend': '/home/node/.bend/bin/bend-2.0.35', 'node': '/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': str(Path('/usr/bin/taskset').resolve(strict=True))}
     extra = [parser.TERM_PATH, Path(__file__), TRANSPORT / 'transport.py', TRANSPORT / 'constructor-identities.json',
              ROOT / 'scripts/task_runner.py', ROOT / 'scripts/evidence_boundary.py',
              Path('/home/node/.bend/bend2/base.bend'), oracle / 'expected.json', oracle / 'expected.py', oracle / 'source-basis.json',
