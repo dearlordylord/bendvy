@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Constructor.FallibleFactory<canonical_stage~S, canonical_stage~I, canonical_stage~P, canonical_stage~Custom, canonical_stage~identity, canonical_stage~project, canonical_stage~incoming, canonical_stage~build> -> @_:canonical_stage~I -> Sigma<&1, &1, Constructor.FallibleFactory<canonical_stage~S, canonical_stage~I, canonical_stage~P, canonical_stage~Custom, canonical_stage~identity, canonical_stage~project, canonical_stage~incoming, canonical_stage~build>, _ => Build.Construction<canonical_stage~I, canonical_stage~P, Constructor.Error<canonical_stage~Custom>>>
+- observed : @+factory:Constructor.FallibleFactory<canonical_stage~S, canonical_stage~I, canonical_stage~P, canonical_stage~Custom, canonical_stage~identity, canonical_stage~project, canonical_stage~incoming, canonical_stage~build> -> @input:canonical_stage~I -> Sigma<&1, &1, Constructor.FallibleFactory<canonical_stage~S, canonical_stage~I, canonical_stage~P, canonical_stage~Custom, canonical_stage~identity, canonical_stage~project, canonical_stage~incoming, canonical_stage~build>, _ => Build.Construction<canonical_stage~I, canonical_stage~P, Constructor.Error<canonical_stage~Custom>>>
+Context:
+- ctx   : canonical_stage~Ctx
+- input : Pack.Pack<canonical_stage~I, canonical_stage~TR>
+Location: canonical_stage
+28 | def canonical_stage(~S:Data,~Ctx:Type,~Rest:Type,~I:Type,~P:Type,~TR:Type,~TC:Type,~Custom:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~incoming:I -> I & D.Raw,~build:I -> D.Raw -> Build.Construction<I,P,Custom>,~take:Ctx -> Constructor.FallibleFactory<S,I,P,Custom,identity,project,incoming,build> & Rest,~put:Constructor.FallibleFactory<S,I,P,Custom,identity,project,incoming,build> -> Rest -> Ctx,~tail:Ctx -> TR -> Build.Staged<Ctx,TR,TC,Constructor.Error<Custom>>,ctx:Ctx,input:Pack.Pack<I,TR>) -> Build.Staged<Ctx,Pack.Pack<I,TR>,Pack.Pack<P,TC>,Constructor.Error<Custom>>:
+29>|   stage(~Ctx,~Constructor.FallibleFactory<S,I,P,Custom,identity,project,incoming,build>,~Rest,~I,~P,~TR,~TC,~Constructor.Error<Custom>,~take,~put,~Constructor.fallible_request(~S,~I,~P,~Custom,~identity,~project,~incoming,~build),~tail,ctx,input)
+   |                                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+30 | 
