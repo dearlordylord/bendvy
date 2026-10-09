@@ -1,0 +1,32 @@
+{
+  "status": "SOURCE_ONLY_NO_BACKEND",
+  "sourceCheck": {
+    "exitCode": 1,
+    "typeErrors": "No printed type errors; not a full source PASS",
+    "reason": "nine unsafe/foreign IO construction dependencies",
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "f6404d03f5f57c6079221a3c831006e3a82821f98ffbcf191e5a598bf1d21104",
+    "status": "INCOMPLETE_FOREIGN_EFFECT_CHECK"
+  },
+  "files": {
+    "experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/full-consumer-v1/lifecycle-a.bend": "70339fcbb9a31905b1752e23639a8594243a82a1e8195606eb42262d00975b49",
+    "experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/full-consumer-v1/lifecycle-b.bend": "39323a41563b735b1b7a7b6d5d98da92cc4f30064a245ace8e6b7520a434554d",
+    "experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/full-consumer-v1/main.bend": "eaf910a6acbbcdd9ab076ffae01940e628a01db8c8a7992aa320d2874d23f531",
+    "experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/full-consumer-v1/seed-a.bend": "b0e76071a190f259fed2ab7ef9c56f2e43a1136c4580d3bdb39fc4aba8b3a902",
+    "experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/full-consumer-v1/seed-b.bend": "c19be09447ea1bc3ee9193a8dfce3c2b6aace17254126da1782a1f3ed4b20bc5",
+    "experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/full-consumer-v1/surface-a.bend": "65a725e1a738f695ee5502a0d1488aa2fc973e54de3eedb37e5433f0bd06c1c1",
+    "experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/full-consumer-v1/surface-b.bend": "690b206f7abeff97af4d6432196160cb9f9c767513733cacc107cae25e969b2c",
+    "experiments/public-bundles/owned-public-result-v1/prebound-schema-v1/full-consumer-v1/wrong-binding.bend": "40b88ca8c9f8d865953eefc7d8bee4d86ae1f687ca31e0def2a68d95bf9d6649"
+  },
+  "mutant": {
+    "entry": "wrong-binding.bend",
+    "delta": "Only First seed binding available entries replaced by empty list; requirements unchanged. Actual bind_declared must refuse before registration/body.",
+    "sourceCheck": {
+      "exitCode": 1,
+      "status": "INCOMPLETE_FOREIGN_EFFECT_CHECK",
+      "stderrSHA256": "f6404d03f5f57c6079221a3c831006e3a82821f98ffbcf191e5a598bf1d21104",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "normalExpected": "Unchanged registered lifecycle full 16012-byte output; ten worlds, forty registered invocations, twenty checkpoints. Independent pre-output join pending."
+}
