@@ -36,6 +36,11 @@ This is a read-only requirements snapshot for #64, not copied integration, a red
 
 At initial inspection, the canonical checkout `/workspace/typescript/jev` had HEAD `7e2be112cbb165e247dc8023e0d4813d305aba0d` and was not globally clean: `.github/workflows/native-inputs.yml`, `docs/advicing-target-contract.md`, `docs/agents/navigation.md`, `packages/cli-entry/src/cli.ts` and `src/onboarding/interactive.test.ts` are modified, and `docs/update-context.md` is untracked. None was changed here. The inspected game/shared-Bend package paths and `simulation-adapter.ts` have no Git status changes; hashes below bind the actual files rather than treating HEAD as a blanket working-tree identity. Canonical README qualification belongs to its named historical receipts, not this preparation or Bendvy integration. During read-only validation its HEAD advanced externally to `9cace54ecfa5c9c04beecddd16eb59644f5d1d6b`; all fifteen named canonical source hashes remained identical. The later unrelated status also included `packages/administration/src/onboarding/verification-conversation.ts` instead of the workflow modification. This record does not freeze the whole evolving external checkout.
 
+Read-only revalidation (2026-10-09), canonical HEAD `749eff6f1ea90299ed24ef9f396063bb8c612191`: 13 of the 15 named source hashes still match. README and the shared reducer changed; the historical pins below remain unchanged. The reducer adds `SourceCacheCheck` and `SourceCacheDrop/Retain` decisions, so future copy execution must inspect and freeze its current complete dependency closure rather than reuse the old snapshot. No canonical files or reducer behavior were changed here.
+
+- `prototypes/canonical-defense/README.md` current SHA-256: `1fe354f746f64178f4302879aa2c957127bc0a34b552fd6999699e637799470d`.
+- `packages/agent-flow-bend/Canonical.bend` current SHA-256: `c5b08371df7f6ce42938b61f6f871ab08f720264225017eb947f13feee7d51fe`.
+
 ### Required behavior and owning boundaries
 
 The actual native entry is `prototypes/canonical-defense/DefenseMain.bend`, not an assumed TypeScript-only game. Its import chain is `DefenseHost` → `monkey-business-bend/NativeRun` → `Engine` → `agent-flow-bend/Canonical.step`. The TypeScript simulation adapter carries shared projections; it does not authorize replacing the reducer with a new ECS business loop.
