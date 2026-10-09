@@ -11,3 +11,11 @@ The strict full Candidate transport passes a 747754-byte roundtrip against indep
 Historical source-v1 command set literal BEND_TELEMETRY=0. Its retained receipt records that literal; the command did not set the current helper's BEND_NO_TELEMETRY=1 key, so source-v1 alone does not substantiate effective telemetry disablement. Future admitted plans use the helper's approved explicit environment. No historical receipt is rebound.
 
 Prepared-v2 adds explicit actual-interpreter admission immediately after supplied-plan digest validation, before configuration or transport loading. It compares resolved sys.executable path and bytes with that exact plan; alternate interpreter and pinned-byte drift controls refuse without children. Old v1 plans remain unexecuted historical preparation. Only separately admitted v2 plans may execute.
+
+## Actual development results
+
+Both exact admitted v2 cohorts finished once. JS emitted and executed successfully; the entire 747754-byte Candidate equals the independently preauthored typed/raw oracle, including all Some wrappers and unchanged ca88 contents. Installed preserved Bend 2.0.35 C emission also succeeds, with clean stderr and retained C SHA2425399baea9e3461b5b281c1ae77c1b5a250dbb02ce60878ad644a1dec7dc7d. This new representation clears this consumer's previous emission arity obstruction; no installed phase-cost attribution follows.
+
+Evidence/current-v2 retains original admitted plans and receipts, whole raw outputs/expected stdout, generated JS/C, and exact source/helper/model objects. Plans retain tool/resource/environment hashes; private environment values and tool binaries are deliberately absent. Inline pre/acquired/post/final guards are source-reviewed rather than separately serialized observations. verify-execution.py performs no children and rejoins complete outputs, generated artifacts, receipts, plans, source objects and both independent models.
+
+No Clang build, Native execution, performance result or full #46 closure is claimed. Remaining gate: separately admitted build/runtime over this exact retained C, then public authority/deferred and remaining qualification requirements.

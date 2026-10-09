@@ -1,0 +1,32 @@
+{
+  "preparedPlanSha256": "0c2fef8f89a7efcac2bde87b2545695bee7158d9793de57d830943ce2d0d0bf4",
+  "status": "DEVELOPMENT_C_EMIT_PASS",
+  "scope": "Complete list-spine JS consuming or installed C-emission development check; no delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/spine-report-v1/main.bend",
+        "-o",
+        "/tmp/bendvy-decode46-spine-cemit-v2/generated/complete.c"
+      ],
+      "capSeconds": 30,
+      "artifact": "/tmp/bendvy-decode46-spine-cemit-v2/generated/complete.c",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+    }
+  ],
+  "generated": {
+    "/tmp/bendvy-decode46-spine-cemit-v2/generated/complete.c": "2425399baea9e3461b5b281c1ae77c1b5a250dbb02ce60878ad644a1dec7dc7d"
+  },
+  "logs": {
+    "complete-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
