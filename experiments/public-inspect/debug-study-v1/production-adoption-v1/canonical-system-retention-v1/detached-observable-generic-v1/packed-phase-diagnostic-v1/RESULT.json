@@ -1,0 +1,295 @@
+{
+  "scope": "Source-current full80 exact-packed copied phase diagnostic only; no stock/backend/checker/proof/feature/performance acceptance",
+  "preparationCommit": "1d8b69e4d5a50eda0cc8c75070b6f51f495af7ee",
+  "batchSHA256": "86124b6a1099971fc1b985d7039256ad5fe7df05ae3033eb709a2d2f701a1e30",
+  "subjects": [
+    {
+      "name": "normal33",
+      "originalCollectorSession": 64738,
+      "planSHA256": "8fefcaf3c380dce23f3fbcdc258ab4b697f5a49aba1f43f03392b38746c5aef2",
+      "receiptSHA256": "5625a110048bd275c547ab9c01c180970847255584fc8ba432aba98a06f33bcd",
+      "status": "PACKED_COMPILER_DIAGNOSTIC_PASS",
+      "compilerOutcome": "normal copied-logic C emission; not stock backend qualification",
+      "commands": [
+        {
+          "label": "source-copy-shape",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "source-validator-shape",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "source-copy-emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "source-profile-acceptance",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "profileSHA256": "ef8e214c8ec8f809372805c3ea3e03a55653e9474c24777c02be38c18c0b43b8",
+      "profileBytes": 6521174,
+      "profileSamples": 3065,
+      "profileNodes": 20270,
+      "guards": 14,
+      "phaseEvents": [
+        {
+          "event": "startup",
+          "phase": "startup",
+          "calls": 0,
+          "elapsedMs": 0.0449169999999981,
+          "deadlineMs": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 4.123409000000038,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 772.0078560000001,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 772.1267320000001,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 2527.899788,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "compile_book",
+          "calls": 0,
+          "elapsedMs": 2533.147664,
+          "name": "compile_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "file_book",
+          "calls": 0,
+          "elapsedMs": 2536.3226480000003,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "file_book",
+          "calls": 547,
+          "elapsedMs": 4013.054229,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 547,
+          "elapsedMs": 4013.0903949999997,
+          "name": "emit-pass",
+          "pass": 1
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 10279,
+          "elapsedMs": 7613.695855999999,
+          "name": "emit-pass",
+          "pass": 1
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 10279,
+          "elapsedMs": 7613.743148,
+          "name": "emit-pass",
+          "pass": 2
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 20011,
+          "elapsedMs": 9016.233209,
+          "name": "emit-pass",
+          "pass": 2
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 20011,
+          "elapsedMs": 9043.103886,
+          "name": "emit-pass",
+          "pass": 3
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 29743,
+          "elapsedMs": 11248.768888,
+          "name": "emit-pass",
+          "pass": 3
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 29743,
+          "elapsedMs": 11248.817347,
+          "name": "emit-pass",
+          "pass": 4
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 39475,
+          "elapsedMs": 12644.620895,
+          "name": "emit-pass",
+          "pass": 4
+        },
+        {
+          "event": "phase-enter",
+          "phase": "C-assembly",
+          "calls": 39475,
+          "elapsedMs": 12876.739281,
+          "name": "C-assembly",
+          "pass": 4
+        },
+        {
+          "event": "phase-exit",
+          "phase": "C-assembly",
+          "calls": 39475,
+          "elapsedMs": 12882.183409000001,
+          "name": "C-assembly",
+          "pass": 4
+        },
+        {
+          "event": "phase-exit",
+          "phase": "compile_book",
+          "calls": 39475,
+          "elapsedMs": 12882.207284,
+          "name": "compile_book",
+          "pass": 4
+        }
+      ],
+      "generatedCBytes": 1962969,
+      "generatedCSHA256": "cc9402a414349fab4b33a0f7e21e4620b1d4617bf79b7b9e5d400c3eff0f8101"
+    },
+    {
+      "name": "full80",
+      "originalCollectorSession": 7981,
+      "planSHA256": "9e7eec1185849c0082878ad17838cc80320e1f1647d1f9641b07993c6e8f1916",
+      "receiptSHA256": "64dffb9b2e99b0c38d7aa4750ea646380b9b96bf4ec73105469ff7a770f5ed5d",
+      "status": "PACKED_COMPILER_DIAGNOSTIC_PASS",
+      "compilerOutcome": "interrupted exit75; not successful emission",
+      "commands": [
+        {
+          "label": "source-copy-emit",
+          "exit": 75,
+          "failure": null
+        },
+        {
+          "label": "source-profile-acceptance",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "profileSHA256": "904d75c79f43e25d0c03972279b5ebe98d1bec217ad6017fd39729892ddd6fd8",
+      "profileBytes": 7638489,
+      "profileSamples": 3355,
+      "profileNodes": 22722,
+      "guards": 8,
+      "phaseEvents": [
+        {
+          "event": "startup",
+          "phase": "startup",
+          "calls": 0,
+          "elapsedMs": 0.04037600000000907,
+          "deadlineMs": 20000
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 0.7741729999999905,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 3351.5780579999996,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 3351.759976,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 12790.725796,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "compile_book",
+          "calls": 0,
+          "elapsedMs": 12826.973976000001,
+          "name": "compile_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "file_book",
+          "calls": 0,
+          "elapsedMs": 13057.693378,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "deadline",
+          "phase": "file_book",
+          "calls": 320,
+          "elapsedMs": 20042.02711,
+          "hook": "memo_gc",
+          "definition": null,
+          "limitMs": 20000,
+          "exit": 75
+        }
+      ],
+      "generatedCBytes": 0,
+      "generatedCSHA256": null
+    }
+  ],
+  "full80Finding": "Copied load/book_valid completed; file_book entered; explicit20s memo_gc checkpoint exit75 before emit pass, cumulative320hooks/definitionnull/noC. No cost attribution from unaligned samples.",
+  "sourceGateStatus": "UNMET: unchanged checker5/cli_verdict/book_promises/proof/stockNative/runtime/feature acceptance",
+  "retries": 0,
+  "unrelatedProfilerCohortsReplayed": false
+}

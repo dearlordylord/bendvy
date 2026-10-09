@@ -1,0 +1,529 @@
+{
+  "scope": "Governing#56 source-current full80 Native diagnostic preparation only. No new compiler policy, profiler/dependency/helper code, archive machinery or acceptance gate. Extra checker/verdict/book_promises/proof and Native runtime remain UNMET.",
+  "governingIssue": "https://github.com/dearlordylord/bendvy/issues/56",
+  "baseCommit": "c4bc84ab5a264e9543ef414f59d893e40637e708",
+  "qualifiedFull80NativePlan": {
+    "path": "/tmp/bendvy56-detached-generic-normal-diagnostic-native01/plan.json",
+    "sha256": "41225570286a17bb5845250e89a39698987340bf5131cffd610ea4294b37243c"
+  },
+  "qualifiedFull80NativeArchiveCommit": "3439d0fab",
+  "full80SourceJoins": [
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/main.bend",
+      "sha256": "f9c1762fe24a73239deb85c45b6b98c69dfca349764269934e21aac1fed5adc0",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/fixture.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/fixture.bend",
+      "sha256": "10ca727fa59be7caf4fd51e2b9078c98006df394613c09e3137a8eef8b186113",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/app.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/app.bend",
+      "sha256": "5f25e0e240eba6018f2f86d45eac2ec27f9855e1c412c81e8a95e22509157d52",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/app.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/app.bend",
+      "sha256": "b56240365fe22fad5766e31bf0af34c5210da28fda56b6546c6ebe551159295b",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-query-observable.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/ordinary-query-observable.bend",
+      "sha256": "826ff50600b6b789cbe53ea717f316ca7edbad4e8cb68f63ea8db29e2e6b12b5",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-query-declaration.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/ordinary-query-declaration.bend",
+      "sha256": "bbb77a38ebe83f27edf4d1ec7be7b56d6360687a088046ac2dc3c45ca6f73a32",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/column.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/column.bend",
+      "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/lifecycle.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/lifecycle.bend",
+      "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/owner-handoff.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/owner-handoff.bend",
+      "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/indexed-lifecycle.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/indexed-lifecycle.bend",
+      "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/component.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/component.bend",
+      "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/world.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/world.bend",
+      "sha256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/string-equality.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/string-equality.bend",
+      "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/transaction.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/transaction.bend",
+      "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/persistence-declaration.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/persistence-declaration.bend",
+      "sha256": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/decode-data.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/decode-data.bend",
+      "sha256": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/decode-utf16.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/decode-utf16.bend",
+      "sha256": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/decode-capabilities.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/decode-capabilities.bend",
+      "sha256": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/capabilities.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/capabilities.bend",
+      "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/schema-fragments.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/schema-fragments.bend",
+      "sha256": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/decode.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/decode.bend",
+      "sha256": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/decode-size.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/decode-size.bend",
+      "sha256": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-declaration.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/ordinary-declaration.bend",
+      "sha256": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/declared-family.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/declared-family.bend",
+      "sha256": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/snapshot-leaf.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/snapshot-leaf.bend",
+      "sha256": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/snapshot-gate.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/snapshot-gate.bend",
+      "sha256": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/compose.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/compose.bend",
+      "sha256": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/resource.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/resource.bend",
+      "sha256": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/commands.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/commands.bend",
+      "sha256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-component-binding.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/ordinary-component-binding.bend",
+      "sha256": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-query-selections.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/ordinary-query-selections.bend",
+      "sha256": "57ee96b72d098d0b3abf0504a166c3a0846c817fcc4cb2f77a9629be501bc755",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector-query-families.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/inspector-query-families.bend",
+      "sha256": "020a8de48df12369c8709d10d15f0c3d22dcf8a9fb76f3af238ea4a4304edeb8",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector-query-projection.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/inspector-query-projection.bend",
+      "sha256": "422efbb7c19e8091a77f7e90e7f4e3d95474ae41d46e934b270b89638cd5f561",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/inspector.bend",
+      "sha256": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/check.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/check.bend",
+      "sha256": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector-query-world.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/inspector-query-world.bend",
+      "sha256": "1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/inspector-query.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/inspector-query.bend",
+      "sha256": "7a4c90e0f1e63d6a89aea256bd96c874758db73865dad02481a32c1dded8b58d",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/schema.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/schema.bend",
+      "sha256": "c5c4730b177668ecd45620e48f01ce0b7b1699fc97a4501fa7cccd308ae75707",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-schema.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/ordinary-schema.bend",
+      "sha256": "a713826ed240aca0fec5502d21682ea9adb75ac9b0653b76f5efb3ace1f058d0",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/owner-product.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/owner-product.bend",
+      "sha256": "5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/relation-types.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/relation-types.bend",
+      "sha256": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/machine.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/machine.bend",
+      "sha256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/app.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/app.bend",
+      "sha256": "f40739ef04e7da7aaa72d46c00869920fdbd28b1139c914445bcddf1ad742301",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/retained-schema.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/retained-schema.bend",
+      "sha256": "cd55eaaac2be4d816ad89a99ec2f93d0e4125316a0bdd29219881433a13df618",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-schema.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-schema.bend",
+      "sha256": "29573221203b21b4b41f04175ab6d51504b7ac0f2d47dc318b5f26ad02bd28c0",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/dependencies/experiments/public-simulation/bend-v1/owner-view.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/dependencies/experiments/public-simulation/bend-v1/owner-view.bend",
+      "sha256": "77ec73be5360d214f49d5242981ad9135878c0736e9c69e284f86fe227261b73",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/ordinary-system.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/ordinary-system.bend",
+      "sha256": "2b3aee3fd7550492c00fd27aa1ce8f74e0a94407c4c73d3425e81d1b1ec54810",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/system.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/system.bend",
+      "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/registration.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/registration.bend",
+      "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/schedule-provision.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/schedule-provision.bend",
+      "sha256": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/schedule.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/schedule.bend",
+      "sha256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/handlers.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/handler-inventory-v1/handlers.bend",
+      "sha256": "7a221834e397db9e930ef7f9412517897d191c876498680a1fd1e9cba7c648d5",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/machine-handler-bundle.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/machine-handler-bundle.bend",
+      "sha256": "04003a6575f7d478111062d83af0839bd402bfe1d2118c56fab0a609cd8173a8",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/machine-handlers.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/machine-handlers.bend",
+      "sha256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/machine-world.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/machine-world.bend",
+      "sha256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/fixture.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/fixture.bend",
+      "sha256": "194822becb5c41fe4a950fce47c26a6708dfb52123babc58a0479374cc112825",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/types.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/types.bend",
+      "sha256": "990f8b730818a51c514e48becfd506cf36e450dce1f9a5d57f67c5d202ceafb1",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/src/ecs/relation-graph.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/src/ecs/relation-graph.bend",
+      "sha256": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/observe.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/observe.bend",
+      "sha256": "6c18be49de2ebd43609867aca507d3f22305114acb95c76554f62a4f329f759d",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-observation.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-observation.bend",
+      "sha256": "8e68632cf1913159144506372d9985faebf93ae73221837f620bc7ac78b10204",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-dto.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-dto.bend",
+      "sha256": "0631a2513972b329b45af6115fe8f925ac903d4cec781447e4f33246953e3012",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app.bend",
+      "sha256": "0913f69c274981bf3c2a2b75bc1f31897f4f72e29302061c5592e79c394937ac",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/main.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/graph-machine-v1/main.bend",
+      "sha256": "af90bd9308ef2fc91afbfe89b10cfc5c4ab8a2d6bc826ab1652167a86efc91e2",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/main.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/main.bend",
+      "sha256": "42ee5ab3214f9a7739db54a824b20d2bb1d04a49e5e1fb8f8757d47651f2f9d4",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/detached.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/detached.bend",
+      "sha256": "afb57caf1fcd9d25a10a74b26a25a40da90e432afc8fce8075541ab810417c94",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-queries.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-queries.bend",
+      "sha256": "4e04233f52b8022bce6109e3a99af41062c553fac6a81406a849f211ec401fc9",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-body.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-body.bend",
+      "sha256": "83a469aec51a98bd60815d57582fd40f83e46d31fc8ca85ea8fe616c5fb721d3",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/construction.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/construction.bend",
+      "sha256": "c96d91f66a2be83200d400ee455cc7948bd34165477f9d1d13f89b7f4ea32e4c",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-driver.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-driver.bend",
+      "sha256": "0a3e15c11731f2755341d8329cfe3fd7c07a1cd1f1dd070f77b40d873b1650f5",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-systems.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-systems.bend",
+      "sha256": "697c8acf444cb819dd2cd7066393458947694716f158f61ae4c8d837d9065b6f",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-execution.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-execution.bend",
+      "sha256": "1422ee045c8dadaffa4256d8bbb13143c5cc868103917522e12a77568f61d9bb",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-setup.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-setup.bend",
+      "sha256": "15cfe0d917158724a85bad862c0f601578e92f6f10b4a3c7784d3851c43292da",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-returned.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/scenario-returned.bend",
+      "sha256": "00795ff4be47fe5f020c09148d62d43a8230644c460563be7faf8289886b2732",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/dispatch.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/dispatch.bend",
+      "sha256": "a30c81d99c625a3ae91084c88f309a74e729b2ebe23f0453b77e884a1f1a7282",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/application.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/application.bend",
+      "sha256": "895b27779a3bfdb5b48fb2a47b85a70afcbbaedcedf673456c6cc5a17b780857",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/scenario.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/scenario.bend",
+      "sha256": "498efb98ef32806c1b1e91b6e9de81817ce4f0bf706828d7f785e96ec6c9389b",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/observation.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/observation.bend",
+      "sha256": "8d31b761ac1fea9d17fd083b9b0190f7585ec135ab7673357af2f68ea4c62998",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/output.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-run-v1/nominal-carrier-v1/accumulated-v1/output.bend",
+      "sha256": "e83e272847ef89772594cc226b047a4bd1d79debf05054e79e7537d55482a279",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/resource-main.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/resource-main.bend",
+      "sha256": "887801de8f665b8175fa05fdd3c0f6533671590bb80eb9232f105f297c84f24f",
+      "byteEquality": true
+    },
+    {
+      "qualifiedSource": "/workspace/formal-proofs/bendvy-worktrees/ordinary-system-retention/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/resource-control.bend",
+      "currentSource": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/consumer/app-inventory-v1/resource-control.bend",
+      "sha256": "4ca7ace381f78ef91774cadafbd19ca3bba0e492ae4a551e809627dbff09d641",
+      "byteEquality": true
+    }
+  ],
+  "constructorCount": 147,
+  "helpers": {
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/collect.py": "c285fefacc746a8625bf65d56b03e334ed14e81f2a56b19c23eba9e5d2f6332b",
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/collector-profile.py": "ca194f2a352fe3f06569fe88576cdcfcce1557063cc88ccb4c8c7c7cbc275818",
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/check-copy.py": "2f891073684fa66312d25109f1c9fb4d4b03a36d683a659f815a139f03154692",
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/packed-compiler.mjs": "ecb67943d8e06f7257408927f0de4b1671af2ea6ceb03ec66cb1bcf4ec9f218d",
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/PATCHES.json": "e7db919af731dd4a984ea2779e22bc508f94d68b6f7dc2f6d90aa6a5c1e710ec",
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/validate-profile.py": "a76bbb4787784ba23514f248316069c1982dc11ce0ad61de5342954d69bed4e4",
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/retained-profile-validation-v1/validate-retained.py": "fd3f3320cb7aa10c4005c25afe85667988d9922e4f5fd628ea122dbc41e35e88",
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/retained-profile-validation-v1/check-source.py": "7c2b7a3418ce75de63f6c357417e29679d49c84c8bd7bd5381fa1e357c796d42",
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/retained-profile-validation-v1/DELTA.json": "2e307686590beedd780d8bb6b01856d41c54c45b78f0d474cb162367e77a0d36"
+  },
+  "compilerInverse": {
+    "originalManifest": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/termination-source-v1/manifest.json",
+    "originalSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+    "originalBytes": 333165,
+    "copySHA256": "ecb67943d8e06f7257408927f0de4b1671af2ea6ceb03ec66cb1bcf4ec9f218d",
+    "patches": 13,
+    "inverseByteEquality": true
+  },
+  "stockLeafC": {
+    "path": "/tmp/bendvy-ordinary-inspector-detached-normal-native01/scenario.c",
+    "bytes": 1962969,
+    "sha256": "cc9402a414349fab4b33a0f7e21e4620b1d4617bf79b7b9e5d400c3eff0f8101",
+    "actualReceipt": "/tmp/bendvy-ordinary-inspector-detached-normal-native01/receipt.json",
+    "actualStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+    "scope": "Existing exact33-source leaf control, not full80 Native qualification"
+  },
+  "retainedInterruptionControl": {
+    "receipt": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/receipt.json",
+    "sha256": "d8937c9ab5cc0b8103dd20ae98429b2c1fe849757ba49f756218b1f6f9974cac",
+    "status": "PACKED_COMPILER_DIAGNOSTIC_PASS",
+    "scope": "Existing actual500ms interrupted33 control reused, not replayed"
+  },
+  "validator": "Unchanged fd3f3320 repaired validator/ten source-equivalence controls reused; retainedRoot binds current cohort output",
+  "priorFull47Limits": "Copied full47 reached emit pass1 lastdef matched_right~17; cumulative151963 hooks and unaligned whole-process CPU samples do not attribute full80 cost",
+  "plannedOutputs": "Each collector retains exact source-copy streams, original profile+exclusive snapshot+identity metadata, progressive guards and optional regular C, profile-artifacts and receipt. Missing/partial/refused outputs retained and later cohort HELD."
+}

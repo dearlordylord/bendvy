@@ -1,0 +1,207 @@
+{
+  "scope": "Copied exact-packed-CLI source-current full80 phase diagnostic only; stock/checker/verdict/proof/performance/feature acceptance remain UNMET",
+  "planSHA256": "8fefcaf3c380dce23f3fbcdc258ab4b697f5a49aba1f43f03392b38746c5aef2",
+  "commands": [
+    {
+      "label": "source-copy-shape",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/check-copy.py"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-copy-shape.stdout",
+        "sha256": "ad0fd4e4bfd8495c47ab5555d77fa640d54f9fbf5e983129d903dcdc85a5fb71",
+        "bytes": 414,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-copy-shape.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    },
+    {
+      "label": "source-validator-shape",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/retained-profile-validation-v1/check-source.py"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-validator-shape.stdout",
+        "sha256": "a64124961d75338e0f4a2a83833a9ae99cc902c245fbba3042f099b48999a414",
+        "bytes": 248,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-validator-shape.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    },
+    {
+      "label": "source-copy-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/packed-compiler.mjs",
+        "/workspace/formal-proofs/bendvy-worktrees/integration-ordinary-inspector-public/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/scenario.c"
+      ],
+      "capSeconds": 30,
+      "expectedExits": [
+        0
+      ],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-copy-emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-copy-emit.stderr",
+        "sha256": "44513ddf7f72c05f757544cecb53957ae5a805e4f0bb5c07a7306568fdfad792",
+        "bytes": 2354,
+        "published": true
+      },
+      "sourceControlPassed": true
+    },
+    {
+      "label": "source-profile-acceptance",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/retained-profile-validation-v1/validate-retained.py",
+        "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/plan.json"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-profile-acceptance.stdout",
+        "sha256": "ccec94e31b18ebe1d18f932076b9bf710eb14795a11a850ce4786f4c3f220a10",
+        "bytes": 4814777,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-profile-acceptance.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-copy-shape-pre.guard.json",
+      "sha256": "9feb761ba99f9063d2bfc9bb6295dc54f41ccb66f12cee577271ae4ab694a3ca"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-copy-shape-acquired.guard.json",
+      "sha256": "7580b6be2fbbdaff6829f4692b732ed2b1fff4fee9c0dd4a415a5d8470abb5b6"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-copy-shape-post.guard.json",
+      "sha256": "ba32e76acbfe91ea02905a3d32366c236a534060d207e709e5a4616a2eb073ed"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-validator-shape-pre.guard.json",
+      "sha256": "f06c4e9e2cd591aa8ea4fdcfaf3b3bb189fd691e4bf9fffe8f2fbcd7eac1fd4a"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-validator-shape-acquired.guard.json",
+      "sha256": "9ff0ac41b6c776961c654a154f86b726a7481a486db97425fa075684c381bade"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-validator-shape-post.guard.json",
+      "sha256": "c8587e1d9b57efebe3cc1924e559fdf06e5b8be3128e94422f2a22a0c10fa9be"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-copy-emit-pre.guard.json",
+      "sha256": "7ee4a44aded1e0c692ec3d866b05c40cf3167bdcd3ec3b4ec0f18d40754e94d6"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-copy-emit-acquired.guard.json",
+      "sha256": "a69d1b4ce7b96d0d4fca199cd9c56a07c2845d0ab7edc6a983e6148524aa43d1"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/profile-captured.guard.json",
+      "sha256": "4c0a46c4957fe5b10e0ad389b71d2baceb8c90f4d1a7b238b47342f03090146a"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-copy-emit-post.guard.json",
+      "sha256": "0ca44ea585c91d064760e58cef060a77a21826c84bffe0a73e903eabc1ed4dc8"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-profile-acceptance-pre.guard.json",
+      "sha256": "f352bc621886fff3f8b25344b02256641e6c39c77749192a08479a3ec7f964e0"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-profile-acceptance-acquired.guard.json",
+      "sha256": "b276dcda9b00f050aba30d9da4f0fab43f74340379036fbf8c10db20aa2950be"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/source-profile-acceptance-post.guard.json",
+      "sha256": "a4b28814234797594ff469941eacd26eec565504300c8800524f48ae9a8875fc"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/final.guard.json",
+      "sha256": "9737fade3f748ed63fbd13f4eb33b4630c35205f6829770cd1e6e081415da3ec"
+    }
+  ],
+  "status": "PACKED_COMPILER_DIAGNOSTIC_PASS",
+  "source-copy-emitArtifactSHA256": "cc9402a414349fab4b33a0f7e21e4620b1d4617bf79b7b9e5d400c3eff0f8101",
+  "profileCapture": {
+    "original": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/profiles/compiler.cpuprofile",
+    "snapshot": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/captured-profile.cpuprofile",
+    "sha256": "ef8e214c8ec8f809372805c3ea3e03a55653e9474c24777c02be38c18c0b43b8",
+    "bytes": 6521174,
+    "identities": {
+      "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/profiles/compiler.cpuprofile": [
+        35,
+        24238507
+      ],
+      "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/captured-profile.cpuprofile": [
+        35,
+        24238510
+      ]
+    },
+    "compilerExit": 0,
+    "compilerFailure": null
+  },
+  "compilerOutcome": "normal copied-logic C emission; not stock backend qualification"
+}

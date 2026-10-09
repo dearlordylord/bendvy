@@ -1,0 +1,25 @@
+{
+  "scope": "Preparation only: exact2cohort source-current full80 copied compiler diagnostic; no stockNative/checker/proof/performance claim",
+  "cohorts": [
+    {
+      "name": "normal33",
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/normal33/plan.json",
+      "sha256": "8fefcaf3c380dce23f3fbcdc258ab4b697f5a49aba1f43f03392b38746c5aef2",
+      "sourceCount": 33,
+      "invokeHelper": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/collect.py",
+      "phaseDeadlineMs": 0,
+      "requires": "Independent whole admission"
+    },
+    {
+      "name": "full80",
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/full80-packed-phase-diagnostic-v1/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/packed-phase-diagnostic-v1/full80/plan.json",
+      "sha256": "9e7eec1185849c0082878ad17838cc80320e1f1647d1f9641b07993c6e8f1916",
+      "sourceCount": 80,
+      "invokeHelper": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/collect.py",
+      "phaseDeadlineMs": 20000,
+      "requires": "normal33 exact actualPASS including C equality/valid profile/all guards"
+    }
+  ],
+  "execution": "Existing external collect.py direct invocation per frozen plan/hash. Sole owner audits preceding actualPASS; no new batch driver. Any failure stops/full80 held.",
+  "noChildrenLaunched": true
+}

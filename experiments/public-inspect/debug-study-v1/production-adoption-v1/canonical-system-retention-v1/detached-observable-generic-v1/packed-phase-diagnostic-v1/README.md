@@ -1,0 +1,10 @@
+Source-current full80 packed phase diagnostic
+==========================================
+
+Preparation only for #56. Two existing-helper cohorts: necessary copied33 leaf C-equality control, then one full80 normal diagnostic. The existing successful interrupted33/profile-flush control is frozen provenance and is not replayed. Both cases use the byte-exact prior packed instrumentation and collector; the unchanged repaired validator avoids the known quadratic membership scan while retaining its complete schema/identity checks. No new helper, dependency, profiler, compiler policy or archive machinery is introduced.
+
+Full80 reads the exact frozen qualified80 graph at its original entrypoint, preserving its absolute imports. All80 source bodies/import bytes also join the source-current c4bc84ab5 worktree; existing147 constructors and709652-byte actual JS observation remain provenance. Stock full80 Native emit30 had no C. No source variant is proposed.
+
+The mandatory existing default checker5 gate remains UNMET. This copied diagnostic cannot establish cli_verdict/book_promises, proof, stock Native completion, feature acceptance, allocation cost or performance. No checker retry or waiver occurs. CPU11 is allowed semantic affinity; historical host information does not assert it is currently quiet.
+
+One changed-portion whole launch review must admit BATCH.json before any child. Invoke the unchanged external collect.py separately for each exact cohort plan/hash; the sole owner audits normal33 PACKED_COMPILER_DIAGNOSTIC_PASS, exact1962969-byte stock C equality and all guards before entering full80. Any failed child, equality mismatch, missing profile, refusal, guard drift or validator deadline stops and preserves outputs. Full80 allows only copied normal0/nonempty C or explicit hook deadline75/no C with valid captured profile; these are diagnostic outcomes. No Clang/runtime, no retry/cap increase. Existing validator/profile-capture guards and pidfd-owned runner remain unchanged.
