@@ -1,0 +1,60 @@
+import Base
+import consumer.bend as A
+import events.bend as I
+import ../../../src/ecs/world.bend as W
+import ../../../src/ecs/event-runtime.bend as Ev
+import ../../../src/ecs/reader-domains.bend as D
+import ../../../src/ecs/capabilities.bend as Cap
+import ../../../src/ecs/system.bend as Sys
+
+def Ops(H:Type) -> Type:
+  Cap.ValueRead<H,Ev.Reading<U32>>
+def plan() -> I.Plan<A.Schema,A.Store,A.Resource,U32,Ops>:
+  I.Plan{I.grant(~A.Schema,~A.Store,~A.Resource,~U32)}
+def concluded(~H:Type,fail:Bool,ctx:H,value:Ev.Reading<U32>) -> H & Result<&2,&2,Ev.Reading<U32>,Ev.Reading<U32>>:
+  match fail:
+    case True{}:(ctx,Fail{value})
+    case False{}:(ctx,Done{value})
+def read_result(~H:Type,fail:Bool,observed:H & Ev.Reading<U32>) -> H & Result<&2,&2,Ev.Reading<U32>,Ev.Reading<U32>>:
+  (ctx,value)=observed
+  concluded(~H,fail,ctx,value)
+def projected(~H:Type,~caps:Ops(H),fail:Bool,ctx:H) -> H & Result<&2,&2,Ev.Reading<U32>,Ev.Reading<U32>>:
+  read_result(~H,fail,Cap.value_read(~H,~Ev.Reading<U32>,~caps,ctx))
+def is_event(value:U32) -> Bool:
+  True{}
+def reading(value:Ev.Reading<U32>) -> String:
+  match value:
+    case Ev.Reading{items,lagged}:List.show(&2,U32,U32.show,items) ++ "/" ++ Bool.show(lagged)
+def result(value:Result<&2,&2,Ev.Reading<U32>,Ev.Reading<U32>>) -> String:
+  match value:
+    case Fail{value}:"fail:" ++ reading(value)
+    case Done{value}:"success:" ++ reading(value)
+def instance(value:I.Instance<A.Schema>) -> I.Instance<A.Schema> & String:
+  match value:
+    case I.Fresh{}:(I.Fresh{},"fresh")
+    case I.Active{+cursor,+registeredAt}:(I.Active{cursor,registeredAt},Nat.show(cursor) ++ "/" ++ Nat.show(registeredAt))
+def observed_instance(world:W.World<A.Schema,A.Store,A.Resource,U32>,events:D.Events<A.Schema,U32>,text:String,state:I.Instance<A.Schema> & String) -> (W.World<A.Schema,A.Store,A.Resource,U32> & D.Events<A.Schema,U32> & I.Instance<A.Schema>) & String:
+  (state,stateText)=state
+  ((world,events,state),text ++ "|cursor=" ++ stateText)
+def observed(value:I.Observed<A.Schema,A.Store,A.Resource,U32,Ev.Reading<U32>,Ev.Reading<U32>>) -> (W.World<A.Schema,A.Store,A.Resource,U32> & D.Events<A.Schema,U32> & I.Instance<A.Schema>) & String:
+  match value:
+    case I.Observed{world,events,state,value}:observed_instance(world,events,result(value),instance(state))
+def step_next(lines:String,continue:W.World<A.Schema,A.Store,A.Resource,U32> -> D.Events<A.Schema,U32> -> I.Instance<A.Schema> -> String -> String,observed:(W.World<A.Schema,A.Store,A.Resource,U32> & D.Events<A.Schema,U32> & I.Instance<A.Schema>) & String) -> String:
+  match observed:
+    case ((world,events,state),text):continue(world,events,state,lines ++ text ++ "\n")
+def steps(remaining:Nat,+stage:U32,world:W.World<A.Schema,A.Store,A.Resource,U32>,events:D.Events<A.Schema,U32>,state:I.Instance<A.Schema>,lines:String) -> String:
+  match remaining:
+    case 0n:lines
+    case 1n+rest:step_next(lines,(world => events => state => lines => steps(rest,(stage + 1 : U32),world,events,state,lines)),observed(I.run(~A.Schema,~A.Store,~A.Resource,~U32,~Ops,~Bool,~Ev.Reading<U32>,~Ev.Reading<U32>,~plan(),~projected,state,U32.is_eq(stage,0),world,events)))
+def published(detached:D.Detached<A.Schema,A.Store,A.Resource,U32>) -> String:
+  match detached:
+    case D.Detached{world,events}:steps(3n,0,world,events,I.Fresh{},"")
+def started(detached:D.Detached<A.Schema,A.Store,A.Resource,U32>) -> String:
+  match detached:
+    case D.Detached{world,events}:published(D.collect(~A.Schema,~A.Store,~A.Resource,~U32,~is_event,events,W.event_publish(~A.Schema,~A.Store,~A.Resource,~U32,world,[31,32])))
+def created(creation:W.Creation<A.Schema,A.Store,A.Resource,U32>) -> String:
+  match creation:
+    case W.Created{_,world}:started(I.start(~A.Schema,~A.Store,~A.Resource,~U32,world))
+    case W.CreateRejected{_,_}:"setup refused"
+def main() -> String:
+  created(W.create(~A.Schema,~A.Store,~A.Resource,~U32,~A.empty,W.factory(),A.Resource{Array.new(U32,2n,21)}))

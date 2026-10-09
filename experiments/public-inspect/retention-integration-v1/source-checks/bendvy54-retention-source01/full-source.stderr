@@ -1,0 +1,17 @@
+SOME PROOFS FAIL
+Error:
+- expected : Data
+- observed : Type
+Context:
+- label         : String
+- metadata      : Metadata
+- events        : List<&2, U32>
+- resource      : List<&2, U32>
+- clock         : U32
+- registrations : List<&2, W.RegistrationMeta>
+- nextSystem    : U32
+Location: Snapshot
+21 | type Snapshot is Data:
+22>|   Snapshot{label:String,metadata:Metadata,events:List<&2,U32>,resource:List<&2,U32>,clock:U32,registrations:List<&2,W.RegistrationMeta>,nextSystem:U32,inspectorCursor:Maybe<Nat>,readerResult:Maybe<Ev.Reading<U32>>}
+   |                                                                                                                                                                        ^^^^^^^^^
+23 | def inspector_cursor(instance:I.Instance<A.Schema>) -> I.Instance<A.Schema> & Maybe<Nat>:

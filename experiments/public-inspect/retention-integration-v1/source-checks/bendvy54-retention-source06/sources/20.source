@@ -1,0 +1,123 @@
+import Base
+import bridge.bend as Bridge
+import ../leaf.bend as Leaf
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/bend-candidate/consumer.bend as A
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/bend-candidate/events.bend as I
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/bend-candidate/event-consumer.bend as Observer
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend as Ev
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sy
+
+def reader_outcome(fail:Bool,world:W.World<A.Schema,A.Store,A.Resource,U32>,value:Ev.Reading<U32>) -> Sy.Outcome<W.World<A.Schema,A.Store,A.Resource,U32>,Ev.Reading<U32>,Ev.Reading<U32>>:
+  match fail:
+    case True{}:Sy.Failed{world,value}
+    case False{}:Sy.Succeeded{world,value}
+def reader(world:W.World<A.Schema,A.Store,A.Resource,U32>,input:Ev.Input<U32,Bool>) -> Sy.Outcome<W.World<A.Schema,A.Store,A.Resource,U32>,Ev.Reading<U32>,Ev.Reading<U32>>:
+  match input:
+    case Ev.Input{values,lagged,fail}:reader_outcome(fail,world,Ev.Reading{values,lagged})
+type Completion is Data:
+  NoRead{}
+  ReadSucceeded{value:Ev.Reading<U32>}
+  ReadFailed{value:Ev.Reading<U32>}
+  ReadRejected{args:Bool}
+type Host is Type:
+  Host{runtime:Ev.Runtime<A.Schema,A.Store,A.Resource,U32>,fast:Ev.Reader<A.Schema>,fastReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,slow:Ev.Reader<A.Schema>,slowReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,inspector:I.Instance<A.Schema>}
+type Metadata is Data:
+  Metadata{namespace:U32,batches:List<&2,Ev.Batch<U32>>,positions:List<&2,Ev.Position>,nextReader:U32,tick:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,dropped:Nat}
+type Snapshot is Data:
+  Snapshot{label:String,metadata:Metadata,events:List<&2,U32>,resource:List<&2,U32>,clock:U32,nextId:U32,highWater:U32,worldCapacity:U32,depth:Nat,registrations:List<&2,W.RegistrationMeta>,nextSystem:U32,inspectorCursor:Maybe<&2,Nat>,readerResult:Completion}
+def inspector_cursor(instance:I.Instance<A.Schema>) -> I.Instance<A.Schema> & Maybe<&2,Nat>:
+  match instance:
+    case I.Fresh{}:(I.Fresh{},None{})
+    case I.Active{+cursor,+registered}:(I.Active{cursor,registered},Some{cursor})
+def rebuild(meta:Metadata,world:W.World<A.Schema,A.Store,A.Resource,U32>) -> Ev.Runtime<A.Schema,A.Store,A.Resource,U32>:
+  match meta:
+    case Metadata{namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped}:Ev.Runtime{world,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped}
+def snap_world(label:String,+meta:Metadata,fast:Ev.Reader<A.Schema>,fastReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,slow:Ev.Reader<A.Schema>,slowReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,state:I.Instance<A.Schema> & Maybe<&2,Nat>,reading:Completion,observed:W.World<A.Schema,A.Store,A.Resource,U32> & List<&2,U32>) -> Host & Snapshot:
+  match state observed:
+    case (inspector,cursor),(W.World{+ns,+next,+high,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystem,+clock},cells):
+      (Host{rebuild(meta,W.World{ns,next,high,live,capacity,depth,store,resource,events,pending,registrations,nextSystem,clock}),fast,fastReg,slow,slowReg,inspector},Snapshot{label,meta,events,cells,clock,next,high,capacity,depth,registrations,nextSystem,cursor,reading})
+def snapshot(label:String,host:Host,reading:Completion) -> Host & Snapshot:
+  match host:
+    case Host{Ev.Runtime{world,+ns,+batches,+positions,+next,+tick,+start,+boundary,+capacity,+dropped},fast,fastReg,slow,slowReg,inspector}:snap_world(label,Metadata{ns,batches,positions,next,tick,start,boundary,capacity,dropped},fast,fastReg,slow,slowReg,inspector_cursor(inspector),reading,W.observe_resource(~A.Schema,~A.Store,~A.Resource,~U32,~List<&2,U32>,~A.project_resource,world))
+def completed(which:Bool,other:Ev.Reader<A.Schema>,otherReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,inspector:I.Instance<A.Schema>,result:Ev.RunResult<A.Schema,A.Store,A.Resource,U32,Bool,Ev.Reading<U32>,Ev.Reading<U32>,reader>) -> Host & Completion:
+  match which result:
+    case True{},Ev.Ran{runtime,reader,registry,Ev.Succeeded{value}}:(Host{runtime,reader,registry,other,otherReg,inspector},ReadSucceeded{value})
+    case False{},Ev.Ran{runtime,reader,registry,Ev.Succeeded{value}}:(Host{runtime,other,otherReg,reader,registry,inspector},ReadSucceeded{value})
+    case True{},Ev.Ran{runtime,reader,registry,Ev.Failed{value}}:(Host{runtime,reader,registry,other,otherReg,inspector},ReadFailed{value})
+    case False{},Ev.Ran{runtime,reader,registry,Ev.Failed{value}}:(Host{runtime,other,otherReg,reader,registry,inspector},ReadFailed{value})
+    case True{},Ev.Ran{runtime,reader,registry,Ev.Rejected{args}}:(Host{runtime,reader,registry,other,otherReg,inspector},ReadRejected{args})
+    case False{},Ev.Ran{runtime,reader,registry,Ev.Rejected{args}}:(Host{runtime,other,otherReg,reader,registry,inspector},ReadRejected{args})
+def read(host:Host,which:Bool,fail:Bool) -> Host & Completion:
+  match host which:
+    case Host{runtime,fast,fastReg,slow,slowReg,inspector},True{}:completed(which,slow,slowReg,inspector,Ev.run(~A.Schema,~A.Store,~A.Resource,~U32,~Bool,~Ev.Reading<U32>,~Ev.Reading<U32>,~reader,runtime,fast,fastReg,fail))
+    case Host{runtime,fast,fastReg,slow,slowReg,inspector},False{}:completed(which,fast,fastReg,inspector,Ev.run(~A.Schema,~A.Store,~A.Resource,~U32,~Bool,~Ev.Reading<U32>,~Ev.Reading<U32>,~reader,runtime,slow,slowReg,fail))
+def inspected(fast:Ev.Reader<A.Schema>,fastReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,slow:Ev.Reader<A.Schema>,slowReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,result:Ev.Runtime<A.Schema,A.Store,A.Resource,U32> & I.Instance<A.Schema> & Result<&2,&2,Ev.Reading<U32>,Ev.Reading<U32>>) -> Host & Completion:
+  match result:
+    case (runtime,inspector,Done{value}):(Host{runtime,fast,fastReg,slow,slowReg,inspector},ReadSucceeded{value})
+    case (runtime,inspector,Fail{value}):(Host{runtime,fast,fastReg,slow,slowReg,inspector},ReadFailed{value})
+def inspect(host:Host,fail:Bool) -> Host & Completion:
+  match host:
+    case Host{runtime,fast,fastReg,slow,slowReg,inspector}:inspected(fast,fastReg,slow,slowReg,Bridge.observe(~A.Schema,~A.Store,~A.Resource,~U32,~Observer.Ops,~Bool,~Ev.Reading<U32>,~Ev.Reading<U32>,~Observer.plan(),~Observer.projected,runtime,inspector,fail))
+def leaf_returned(fast:Ev.Reader<A.Schema>,fastReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,slow:Ev.Reader<A.Schema>,slowReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,inspector:I.Instance<A.Schema>,result:Ev.Runtime<A.Schema,A.Store,A.Resource,U32> & Ev.Reading<U32>) -> Host & Completion:
+  (runtime,value)=result
+  (Host{runtime,fast,fastReg,slow,slowReg,inspector},ReadSucceeded{value})
+def leaf_read(host:Host) -> Host & Completion:
+  match host:
+    case Host{runtime,fast,fastReg,slow,slowReg,inspector}:leaf_returned(fast,fastReg,slow,slowReg,inspector,Leaf.read(~A.Schema,~A.Store,~A.Resource,~U32,runtime))
+def framed(host:Host) -> Host:
+  match host:
+    case Host{runtime,fast,fastReg,slow,slowReg,inspector}:Host{Ev.frame(~A.Schema,~A.Store,~A.Resource,~U32,runtime),fast,fastReg,slow,slowReg,inspector}
+def skipped(slow:Ev.Reader<A.Schema>,slowReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,fastReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,inspector:I.Instance<A.Schema>,result:Ev.Runtime<A.Schema,A.Store,A.Resource,U32> & Ev.Reader<A.Schema>) -> Host:
+  (runtime,fast)=result
+  Host{runtime,fast,fastReg,slow,slowReg,inspector}
+def skip(host:Host) -> Host:
+  match host:
+    case Host{runtime,fast,fastReg,slow,slowReg,inspector}:skipped(slow,slowReg,fastReg,inspector,Ev.skip(~A.Schema,~A.Store,~A.Resource,~U32,runtime,fast))
+def publish(world:W.World<A.Schema,A.Store,A.Resource,U32>) -> W.World<A.Schema,A.Store,A.Resource,U32> & Unit:
+  (W.barrier(~A.Schema,~A.Store,~A.Resource,~U32,W.event_publish(~A.Schema,~A.Store,~A.Resource,~U32,world,[31,32])),Unit{})
+def published(fast:Ev.Reader<A.Schema>,fastReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,slow:Ev.Reader<A.Schema>,slowReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,inspector:I.Instance<A.Schema>,result:Ev.Runtime<A.Schema,A.Store,A.Resource,U32> & Unit) -> Host:
+  (runtime,_)=result
+  Host{runtime,fast,fastReg,slow,slowReg,inspector}
+def publishing(host:Host) -> Host:
+  match host:
+    case Host{runtime,fast,fastReg,slow,slowReg,inspector}:published(fast,fastReg,slow,slowReg,inspector,Ev.with_world(~A.Schema,~A.Store,~A.Resource,~U32,~Unit,publish,runtime))
+def observe_pair(label:String,result:Host & Completion) -> Host & Snapshot:
+  (host,value)=result
+  snapshot(label,host,value)
+def step(stage:U32,host:Host) -> Host & Snapshot:
+  match stage:
+    case 0:snapshot("registered",host,NoRead{})
+    case 1:snapshot("published",publishing(host),NoRead{})
+    case 2:observe_pair("slow-failed",read(host,False{},True{}))
+    case 3:observe_pair("inspector-success",inspect(host,False{}))
+    case 4:snapshot("frame-one",framed(host),NoRead{})
+    case 5:observe_pair("fast-read",read(host,True{},False{}))
+    case 6:snapshot("fast-skip",skip(host),NoRead{})
+    case 7:observe_pair("inspector-failed",inspect(host,True{}))
+    case 8:snapshot("frame-two",framed(host),NoRead{})
+    case 9:observe_pair("slow-read",read(host,False{},False{}))
+    case 10:snapshot("frame-three",framed(host),NoRead{})
+    case 11:snapshot("frame-four",framed(host),NoRead{})
+    case _:observe_pair("direct-leaf",leaf_read(host))
+def next(continue:Host -> List<&2,Snapshot> -> List<&2,Snapshot>,lines:List<&2,Snapshot>,result:Host & Snapshot) -> List<&2,Snapshot>:
+  (host,value)=result
+  continue(host,List.append(&2,Snapshot,lines,[value]))
+def loop(remaining:Nat,+stage:U32,host:Host,lines:List<&2,Snapshot>) -> List<&2,Snapshot>:
+  match remaining:
+    case 0n:lines
+    case 1n+rest:next(host => lines => loop(rest,(stage+1:U32),host,lines),lines,step(stage,host))
+def second(fast:Ev.Reader<A.Schema>,fastReg:Sy.Registry<A.Schema,A.Store,A.Resource,U32,Ev.Input<U32,Bool>,Ev.Reading<U32>,Ev.Reading<U32>,reader>,result:Ev.Registered<A.Schema,A.Store,A.Resource,U32,Bool,Ev.Reading<U32>,Ev.Reading<U32>,reader>) -> List<&2,Snapshot>:
+  match result:
+    case Ev.Registered{runtime,slow,slowReg}:loop(13n,0,Host{runtime,fast,fastReg,slow,slowReg,I.Fresh{}},[])
+    case Ev.RegisterFailed{_}:[]
+def first(result:Ev.Registered<A.Schema,A.Store,A.Resource,U32,Bool,Ev.Reading<U32>,Ev.Reading<U32>,reader>) -> List<&2,Snapshot>:
+  match result:
+    case Ev.Registered{runtime,fast,fastReg}:second(fast,fastReg,Ev.register(~A.Schema,~A.Store,~A.Resource,~U32,~Bool,~Ev.Reading<U32>,~Ev.Reading<U32>,~reader,runtime,"slow",["events:read"]))
+    case Ev.RegisterFailed{_}:[]
+def created(result:W.Creation<A.Schema,A.Store,A.Resource,U32>) -> List<&2,Snapshot>:
+  match result:
+    case W.Created{_,world}:first(Ev.register(~A.Schema,~A.Store,~A.Resource,~U32,~Bool,~Ev.Reading<U32>,~Ev.Reading<U32>,~reader,Ev.start(~A.Schema,~A.Store,~A.Resource,~U32,world,16n),"fast",["events:read"]))
+    case W.CreateRejected{_,_}:[]
+def main() -> List<&2,Snapshot>:
+  created(W.create(~A.Schema,~A.Store,~A.Resource,~U32,~A.empty,W.factory(),A.Resource{Array.new(U32,2n,21)}))

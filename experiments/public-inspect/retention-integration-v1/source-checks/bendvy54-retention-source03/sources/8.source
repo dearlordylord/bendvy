@@ -1,0 +1,58 @@
+import Base
+import ../../../src/ecs/world.bend as W
+import ../../../src/ecs/event-runtime.bend as Ev
+import ../../../src/ecs/reader-domains.bend as D
+import ../../../src/ecs/capabilities.bend as Cap
+
+# The real event metadata owner travels with the real World. No reader is registered.
+type Frame<-S:Data,-C:Type,-R:Type,-E:Data> is Type:
+  Frame{world:W.World<S,C,R,E>,events:D.Events<S,E>,cursor:Nat,registeredAt:Nat}
+type Instance<-S:Data> is Type:
+  Fresh{}
+  Active{cursor:Nat,registeredAt:Nat}
+type Plan<-S:Data,-C:Type,-R:Type,-E:Data,-Ops:Type -> Type> is Type:
+  Plan{caps:Ops(Frame<S,C,R,E>)}
+type Observed<-S:Data,-C:Type,-R:Type,-E:Data,U:Data,O:Data> is Type:
+  Observed{world:W.World<S,C,R,E>,events:D.Events<S,E>,instance:Instance<S>,result:Result<&2,&2,U,O>}
+
+def read(~S:Data,~C:Type,~R:Type,~E:Data,frame:Frame<S,C,R,E>) -> Frame<S,C,R,E> & Ev.Reading<E>:
+  match frame:
+    case Frame{world,D.Events{+ns,+batches,+positions,+next,+tick,+start,+boundary,+capacity,+dropped,+values},+cursor,+registeredAt}:
+      (Frame{world,D.Events{ns,batches,positions,next,tick,start,boundary,capacity,dropped,values},cursor,registeredAt},Ev.reading(~E,Ev.Position{0,cursor,registeredAt},batches,dropped))
+def grant(~S:Data,~C:Type,~R:Type,~E:Data) -> Cap.ValueRead<Frame<S,C,R,E>,Ev.Reading<E>>:
+  Cap.ValueRead{frame => read(~S,~C,~R,~E,frame)}
+def caps(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,plan:Plan<S,C,R,E,Ops>) -> Ops(Frame<S,C,R,E>):
+  match plan:
+    case Plan{caps}:caps
+
+# Success advances the actual domain tick, without mutating any system position.
+def success_detached(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~O:Data,registeredAt:Nat,value:O,detached:D.Detached<S,C,R,E>) -> Observed<S,C,R,E,U,O>:
+  match detached:
+    case D.Detached{world,D.Events{ns,batches,positions,next,+tick,start,boundary,capacity,dropped,values}}:Observed{world,D.Events{ns,batches,positions,next,tick,start,boundary,capacity,dropped,values},Active{tick,registeredAt},Done{value}}
+def success_runtime(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~O:Data,registeredAt:Nat,value:O,removals:List<&2,E>,advanced:Ev.Runtime<S,C,R,E> & Unit) -> Observed<S,C,R,E,U,O>:
+  (runtime,_)=advanced
+  success_detached(~S,~C,~R,~E,~U,~O,registeredAt,value,D.detach(~S,~C,~R,~E,runtime,removals))
+def success_values(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~O:Data,registeredAt:Nat,events:D.Events<S,E>,value:O,observed:W.World<S,C,R,E> & List<&2,E>) -> Observed<S,C,R,E,U,O>:
+  (world,removals)=observed
+  success_runtime(~S,~C,~R,~E,~U,~O,registeredAt,value,removals,Ev.with_world(~S,~C,~R,~E,~Unit,(world => (world,Unit{})),D.attach(~S,~C,~R,~E,events,world)))
+def succeeded(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~O:Data,registeredAt:Nat,events:D.Events<S,E>,value:O,observed:W.World<S,C,R,E> & U32) -> Observed<S,C,R,E,U,O>:
+  (world,_)=observed
+  success_values(~S,~C,~R,~E,~U,~O,registeredAt,events,value,W.events_view(~S,~C,~R,~E,world))
+def finished(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~O:Data,frame:Frame<S,C,R,E>,result:Result<&2,&2,U,O>) -> Observed<S,C,R,E,U,O>:
+  match frame result:
+    case Frame{world,events,cursor,registeredAt} Fail{error}:Observed{world,events,Active{cursor,registeredAt},Fail{error}}
+    case Frame{world,events,_,registeredAt} Done{value}:succeeded(~S,~C,~R,~E,~U,~O,registeredAt,events,value,W.advance_clock(~S,~C,~R,~E,world))
+def invoked(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~O:Data,observed:Frame<S,C,R,E> & Result<&2,&2,U,O>) -> Observed<S,C,R,E,U,O>:
+  (frame,result)=observed
+  finished(~S,~C,~R,~E,~U,~O,frame,result)
+def initialized(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~O:Data,~plan:Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & Result<&2,&2,U,O>,args:A,cursor:Nat,registeredAt:Nat,world:W.World<S,C,R,E>,events:D.Events<S,E>) -> Observed<S,C,R,E,U,O>:
+  invoked(~S,~C,~R,~E,~U,~O,Cap.invoke(~Ops,~A,~Result<&2,&2,U,O>,~body,~Frame<S,C,R,E>,~caps(~S,~C,~R,~E,~Ops,plan),args,Frame{world,events,cursor,registeredAt}))
+def run(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~O:Data,~plan:Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & Result<&2,&2,U,O>,instance:Instance<S>,args:A,world:W.World<S,C,R,E>,events:D.Events<S,E>) -> Observed<S,C,R,E,U,O>:
+  match instance events:
+    case Fresh{} D.Events{ns,batches,positions,next,+tick,start,boundary,capacity,dropped,values}:initialized(~S,~C,~R,~E,~Ops,~A,~U,~O,~plan,~body,args,0n,tick,world,D.Events{ns,batches,positions,next,tick,start,boundary,capacity,dropped,values})
+    case Active{cursor,registeredAt} events:initialized(~S,~C,~R,~E,~Ops,~A,~U,~O,~plan,~body,args,cursor,registeredAt,world,events)
+
+# Attach/detach transport uses the existing domains API. Publication/collection
+# remains the driver's existing operation; inspection does not call collect/trim.
+def start(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,C,R,E>) -> D.Detached<S,C,R,E>:
+  D.detach(~S,~C,~R,~E,Ev.start(~S,~C,~R,~E,world,4096n),[])

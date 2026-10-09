@@ -1,0 +1,45 @@
+from pathlib import Path
+import types,json,hashlib,fcntl,sys
+root=Path('/workspace/formal-proofs/bendvy')
+h=Path(__file__).resolve().parent
+
+def prepare_attempt(out,sources):
+ out.mkdir(exist_ok=False)
+ snapshot=out/'sources';snapshot.mkdir()
+ pins={}
+ for n,p in enumerate(sources):
+  raw=p.read_bytes();sha=hashlib.sha256(raw).hexdigest();pins[str(p)]=sha
+  (snapshot/(str(n)+'.source')).write_bytes(raw)
+ (out/'SOURCE.json').write_text(json.dumps({'pins':pins,'order':[str(p)for p in sources]},indent=2)+'\n')
+ return pins
+
+def with_open_write(path,raw):
+ with path.open('xb')as stream:stream.write(raw)
+def load(name,path):
+ m=types.ModuleType(name);m.__file__=str(path);exec(compile(path.read_bytes(),str(path),'exec'),m.__dict__);return m
+if __name__!='__main__':raise SystemExit('CLI-only helper; tests load prepare_attempt source separately')
+if len(sys.argv)<2:raise SystemExit('fresh attempt directory required')
+out=Path(sys.argv[1]);sources=[]
+def visit(p):
+ p=p.resolve()
+ if p in sources:return
+ sources.append(p)
+ if p.suffix=='.bend':
+  import re
+  for name in re.findall(r'^import\s+(\S+)',p.read_text(),re.M):
+   if name!='Base':visit(p.parent/name)
+visit(h/'main.bend')
+for name in sys.argv[2:]:visit(Path(name))
+sources.extend([root/'scripts/task_runner.py',Path('/home/node/.bend/bin/bend-2.0.35'),Path(__file__)])
+pins=prepare_attempt(out,sources)
+r=load('runner',root/'scripts/task_runner.py');c=load('config',root/'experiments/public-simulation/delivery-v1/installed-config.py');env=c.environment()
+targets=[('full-source',h/'main.bend')] if len(sys.argv)==2 else [(Path(name).parent.name,Path(name)) for name in sys.argv[2:]]
+for label,target in targets:
+ argv=['/usr/bin/taskset','-c','5','/home/node/.bend/bin/bend-2.0.35',str(target),'--check-only']
+ with open('/tmp/bendvy-parity-heavy.lock','a')as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX);assert all(hashlib.sha256(Path(p).read_bytes()).hexdigest()==sha for p,sha in pins.items());result=r.execute_result(argv,5,env=env,cwd=str(root),capture='split');same=all(hashlib.sha256(Path(p).read_bytes()).hexdigest()==sha for p,sha in pins.items())
+ raw={}
+ for key in ['stdout','stderr']:
+  value=result.pop(key);path=out/(label+'.'+key);with_open_write(path,value);raw[key]={'path':str(path),'sha256':hashlib.sha256(value).hexdigest(),'bytes':len(value)}
+ result.update(raw);result.update({'argv':argv,'capSeconds':5,'pins':pins,'unchangedAfter':same});with_open_write(out/(label+'.json'),(json.dumps(result,indent=2)+'\n').encode());print(label,result.get('exit'),result.get('failure'),same,flush=True)
+ if label=='full-source' and result.get('exit')!=0:break

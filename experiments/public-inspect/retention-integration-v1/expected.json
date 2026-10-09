@@ -1,0 +1,976 @@
+[
+  {
+    "$": "Snapshot",
+    "label": "registered",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [],
+      "positions": [],
+      "nextReader": 3,
+      "tick": 0,
+      "frameStart": 0,
+      "boundary": 0,
+      "capacity": 16,
+      "dropped": 0
+    },
+    "events": [],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 0,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "None"
+    },
+    "readerResult": {
+      "$": "NoRead"
+    }
+  },
+  {
+    "$": "Snapshot",
+    "label": "published",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [
+        {
+          "$": "Batch",
+          "tick": 1,
+          "values": [
+            31,
+            32
+          ]
+        }
+      ],
+      "positions": [],
+      "nextReader": 3,
+      "tick": 1,
+      "frameStart": 0,
+      "boundary": 0,
+      "capacity": 16,
+      "dropped": 0
+    },
+    "events": [
+      31,
+      32
+    ],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 0,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "None"
+    },
+    "readerResult": {
+      "$": "NoRead"
+    }
+  },
+  {
+    "$": "Snapshot",
+    "label": "slow-failed",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [
+        {
+          "$": "Batch",
+          "tick": 1,
+          "values": [
+            31,
+            32
+          ]
+        }
+      ],
+      "positions": [
+        {
+          "$": "Position",
+          "id": 2,
+          "cursor": 0,
+          "registeredAt": 1
+        }
+      ],
+      "nextReader": 3,
+      "tick": 2,
+      "frameStart": 0,
+      "boundary": 0,
+      "capacity": 16,
+      "dropped": 0
+    },
+    "events": [
+      31,
+      32
+    ],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 0,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "None"
+    },
+    "readerResult": {
+      "$": "ReadFailed",
+      "value": {
+        "$": "Reading",
+        "values": [
+          31,
+          32
+        ],
+        "lagged": false
+      }
+    }
+  },
+  {
+    "$": "Snapshot",
+    "label": "inspector-success",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [
+        {
+          "$": "Batch",
+          "tick": 1,
+          "values": [
+            31,
+            32
+          ]
+        }
+      ],
+      "positions": [
+        {
+          "$": "Position",
+          "id": 2,
+          "cursor": 0,
+          "registeredAt": 1
+        }
+      ],
+      "nextReader": 3,
+      "tick": 3,
+      "frameStart": 0,
+      "boundary": 0,
+      "capacity": 16,
+      "dropped": 0
+    },
+    "events": [
+      31,
+      32
+    ],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 1,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "Some",
+      "value": 3
+    },
+    "readerResult": {
+      "$": "ReadSucceeded",
+      "value": {
+        "$": "Reading",
+        "values": [
+          31,
+          32
+        ],
+        "lagged": false
+      }
+    }
+  },
+  {
+    "$": "Snapshot",
+    "label": "frame-one",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [
+        {
+          "$": "Batch",
+          "tick": 1,
+          "values": [
+            31,
+            32
+          ]
+        }
+      ],
+      "positions": [
+        {
+          "$": "Position",
+          "id": 2,
+          "cursor": 0,
+          "registeredAt": 1
+        }
+      ],
+      "nextReader": 3,
+      "tick": 3,
+      "frameStart": 3,
+      "boundary": 0,
+      "capacity": 16,
+      "dropped": 0
+    },
+    "events": [
+      31,
+      32
+    ],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 1,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "Some",
+      "value": 3
+    },
+    "readerResult": {
+      "$": "NoRead"
+    }
+  },
+  {
+    "$": "Snapshot",
+    "label": "fast-read",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [
+        {
+          "$": "Batch",
+          "tick": 1,
+          "values": [
+            31,
+            32
+          ]
+        }
+      ],
+      "positions": [
+        {
+          "$": "Position",
+          "id": 1,
+          "cursor": 4,
+          "registeredAt": 3
+        },
+        {
+          "$": "Position",
+          "id": 2,
+          "cursor": 0,
+          "registeredAt": 1
+        }
+      ],
+      "nextReader": 3,
+      "tick": 4,
+      "frameStart": 3,
+      "boundary": 0,
+      "capacity": 16,
+      "dropped": 0
+    },
+    "events": [
+      31,
+      32
+    ],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 1,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "Some",
+      "value": 3
+    },
+    "readerResult": {
+      "$": "ReadSucceeded",
+      "value": {
+        "$": "Reading",
+        "values": [
+          31,
+          32
+        ],
+        "lagged": false
+      }
+    }
+  },
+  {
+    "$": "Snapshot",
+    "label": "fast-skip",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [
+        {
+          "$": "Batch",
+          "tick": 1,
+          "values": [
+            31,
+            32
+          ]
+        }
+      ],
+      "positions": [
+        {
+          "$": "Position",
+          "id": 1,
+          "cursor": 4,
+          "registeredAt": 3
+        },
+        {
+          "$": "Position",
+          "id": 2,
+          "cursor": 0,
+          "registeredAt": 1
+        }
+      ],
+      "nextReader": 3,
+      "tick": 4,
+      "frameStart": 3,
+      "boundary": 0,
+      "capacity": 16,
+      "dropped": 0
+    },
+    "events": [
+      31,
+      32
+    ],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 1,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "Some",
+      "value": 3
+    },
+    "readerResult": {
+      "$": "NoRead"
+    }
+  },
+  {
+    "$": "Snapshot",
+    "label": "inspector-failed",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [
+        {
+          "$": "Batch",
+          "tick": 1,
+          "values": [
+            31,
+            32
+          ]
+        }
+      ],
+      "positions": [
+        {
+          "$": "Position",
+          "id": 1,
+          "cursor": 4,
+          "registeredAt": 3
+        },
+        {
+          "$": "Position",
+          "id": 2,
+          "cursor": 0,
+          "registeredAt": 1
+        }
+      ],
+      "nextReader": 3,
+      "tick": 4,
+      "frameStart": 3,
+      "boundary": 0,
+      "capacity": 16,
+      "dropped": 0
+    },
+    "events": [
+      31,
+      32
+    ],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 1,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "Some",
+      "value": 3
+    },
+    "readerResult": {
+      "$": "ReadFailed",
+      "value": {
+        "$": "Reading",
+        "values": [],
+        "lagged": false
+      }
+    }
+  },
+  {
+    "$": "Snapshot",
+    "label": "frame-two",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [
+        {
+          "$": "Batch",
+          "tick": 1,
+          "values": [
+            31,
+            32
+          ]
+        }
+      ],
+      "positions": [
+        {
+          "$": "Position",
+          "id": 1,
+          "cursor": 4,
+          "registeredAt": 3
+        },
+        {
+          "$": "Position",
+          "id": 2,
+          "cursor": 0,
+          "registeredAt": 1
+        }
+      ],
+      "nextReader": 3,
+      "tick": 4,
+      "frameStart": 4,
+      "boundary": 3,
+      "capacity": 16,
+      "dropped": 0
+    },
+    "events": [
+      31,
+      32
+    ],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 1,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "Some",
+      "value": 3
+    },
+    "readerResult": {
+      "$": "NoRead"
+    }
+  },
+  {
+    "$": "Snapshot",
+    "label": "slow-read",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [
+        {
+          "$": "Batch",
+          "tick": 1,
+          "values": [
+            31,
+            32
+          ]
+        }
+      ],
+      "positions": [
+        {
+          "$": "Position",
+          "id": 1,
+          "cursor": 4,
+          "registeredAt": 3
+        },
+        {
+          "$": "Position",
+          "id": 2,
+          "cursor": 5,
+          "registeredAt": 1
+        }
+      ],
+      "nextReader": 3,
+      "tick": 5,
+      "frameStart": 4,
+      "boundary": 3,
+      "capacity": 16,
+      "dropped": 0
+    },
+    "events": [
+      31,
+      32
+    ],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 1,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "Some",
+      "value": 3
+    },
+    "readerResult": {
+      "$": "ReadSucceeded",
+      "value": {
+        "$": "Reading",
+        "values": [
+          31,
+          32
+        ],
+        "lagged": false
+      }
+    }
+  },
+  {
+    "$": "Snapshot",
+    "label": "frame-three",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [],
+      "positions": [
+        {
+          "$": "Position",
+          "id": 1,
+          "cursor": 4,
+          "registeredAt": 3
+        },
+        {
+          "$": "Position",
+          "id": 2,
+          "cursor": 5,
+          "registeredAt": 1
+        }
+      ],
+      "nextReader": 3,
+      "tick": 5,
+      "frameStart": 5,
+      "boundary": 4,
+      "capacity": 16,
+      "dropped": 1
+    },
+    "events": [],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 1,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "Some",
+      "value": 3
+    },
+    "readerResult": {
+      "$": "NoRead"
+    }
+  },
+  {
+    "$": "Snapshot",
+    "label": "frame-four",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [],
+      "positions": [
+        {
+          "$": "Position",
+          "id": 1,
+          "cursor": 4,
+          "registeredAt": 3
+        },
+        {
+          "$": "Position",
+          "id": 2,
+          "cursor": 5,
+          "registeredAt": 1
+        }
+      ],
+      "nextReader": 3,
+      "tick": 5,
+      "frameStart": 5,
+      "boundary": 5,
+      "capacity": 16,
+      "dropped": 1
+    },
+    "events": [],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 1,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "Some",
+      "value": 3
+    },
+    "readerResult": {
+      "$": "NoRead"
+    }
+  },
+  {
+    "$": "Snapshot",
+    "label": "direct-leaf",
+    "metadata": {
+      "$": "Metadata",
+      "namespace": 1,
+      "batches": [],
+      "positions": [
+        {
+          "$": "Position",
+          "id": 1,
+          "cursor": 4,
+          "registeredAt": 3
+        },
+        {
+          "$": "Position",
+          "id": 2,
+          "cursor": 5,
+          "registeredAt": 1
+        }
+      ],
+      "nextReader": 3,
+      "tick": 5,
+      "frameStart": 5,
+      "boundary": 5,
+      "capacity": 16,
+      "dropped": 1
+    },
+    "events": [],
+    "resource": [
+      21,
+      21,
+      21,
+      21
+    ],
+    "clock": 1,
+    "nextId": 1,
+    "highWater": 0,
+    "worldCapacity": 1,
+    "depth": 0,
+    "registrations": [
+      {
+        "$": "RegistrationMeta",
+        "id": 2,
+        "name": "slow",
+        "access": [
+          "events:read"
+        ]
+      },
+      {
+        "$": "RegistrationMeta",
+        "id": 1,
+        "name": "fast",
+        "access": [
+          "events:read"
+        ]
+      }
+    ],
+    "nextSystem": 3,
+    "inspectorCursor": {
+      "$": "Some",
+      "value": 3
+    },
+    "readerResult": {
+      "$": "ReadSucceeded",
+      "value": {
+        "$": "Reading",
+        "values": [],
+        "lagged": true
+      }
+    }
+  }
+]
