@@ -1,0 +1,27 @@
+                if label == 'emit':
+                    profile = Path(plan['profile'])
+                    snapshot = Path(plan['capturedProfile'])
+                    if profile.is_symlink() or not profile.is_file():
+                        raise ValueError('Requested profile absent/nonregular at emit boundary')
+                    fd = os.open(profile, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+                    with os.fdopen(fd, 'rb') as stream:
+                        before = os.fstat(stream.fileno())
+                        if not stat.S_ISREG(before.st_mode):
+                            raise ValueError('Profile descriptor not regular')
+                        raw = stream.read()
+                        after = os.fstat(stream.fileno())
+                    if (before.st_size, before.st_mtime_ns, before.st_ctime_ns) != (after.st_size, after.st_mtime_ns, after.st_ctime_ns):
+                        raise ValueError('Profile changed while captured')
+                    write_raw(snapshot, raw)
+                    for artifact in (profile, snapshot):
+                        pins[str(artifact)] = hashlib.sha256(raw).hexdigest()
+                        verify_raw(artifact, pins[str(artifact)])
+                        info = artifact.lstat()
+                        profile_identities[str(artifact)] = [info.st_dev, info.st_ino]
+                    record['profileCapture'] = {'original': str(profile), 'snapshot': str(snapshot), 'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw), 'identities': dict(profile_identities)}
+                    metadata = Path(plan['profileCaptureMetadata'])
+                    write_raw(metadata, (json.dumps(record['profileCapture'], indent=2) + '\n').encode())
+                    pins[str(metadata)] = sha(metadata)
+                    info = metadata.lstat()
+                    profile_identities[str(metadata)] = [info.st_dev, info.st_ino]
+                    guard('profile-captured')
