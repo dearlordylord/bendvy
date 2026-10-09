@@ -1,0 +1,336 @@
+{
+  "scope": "Read-only current ELF/loader metadata only; no target workload/discovery/closed-resolver admission",
+  "status": "PREPARED_NOT_EXECUTED",
+  "outputRoot": "/tmp/bendvy63-loader-metadata-v1",
+  "commands": [
+    {
+      "label": "bend",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/usr/bin/readelf",
+        "-l",
+        "-d",
+        "/home/node/.bend/bin/bend-2.0.35"
+      ],
+      "capSeconds": 5,
+      "stdout": "/tmp/bendvy63-loader-metadata-v1/bend.stdout",
+      "stderr": "/tmp/bendvy63-loader-metadata-v1/bend.stderr"
+    },
+    {
+      "label": "node",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/usr/bin/readelf",
+        "-l",
+        "-d",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
+      ],
+      "capSeconds": 5,
+      "stdout": "/tmp/bendvy63-loader-metadata-v1/node.stdout",
+      "stderr": "/tmp/bendvy63-loader-metadata-v1/node.stderr"
+    },
+    {
+      "label": "clang",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/usr/bin/readelf",
+        "-l",
+        "-d",
+        "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang"
+      ],
+      "capSeconds": 5,
+      "stdout": "/tmp/bendvy63-loader-metadata-v1/clang.stdout",
+      "stderr": "/tmp/bendvy63-loader-metadata-v1/clang.stderr"
+    },
+    {
+      "label": "shell",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/usr/bin/readelf",
+        "-l",
+        "-d",
+        "/usr/bin/dash"
+      ],
+      "capSeconds": 5,
+      "stdout": "/tmp/bendvy63-loader-metadata-v1/shell.stdout",
+      "stderr": "/tmp/bendvy63-loader-metadata-v1/shell.stderr"
+    },
+    {
+      "label": "bash",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/usr/bin/readelf",
+        "-l",
+        "-d",
+        "/usr/bin/bash"
+      ],
+      "capSeconds": 5,
+      "stdout": "/tmp/bendvy63-loader-metadata-v1/bash.stdout",
+      "stderr": "/tmp/bendvy63-loader-metadata-v1/bash.stderr"
+    },
+    {
+      "label": "env",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/usr/bin/readelf",
+        "-l",
+        "-d",
+        "/usr/bin/env"
+      ],
+      "capSeconds": 5,
+      "stdout": "/tmp/bendvy63-loader-metadata-v1/env.stdout",
+      "stderr": "/tmp/bendvy63-loader-metadata-v1/env.stderr"
+    },
+    {
+      "label": "taskset",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/usr/bin/readelf",
+        "-l",
+        "-d",
+        "/usr/bin/taskset"
+      ],
+      "capSeconds": 5,
+      "stdout": "/tmp/bendvy63-loader-metadata-v1/taskset.stdout",
+      "stderr": "/tmp/bendvy63-loader-metadata-v1/taskset.stderr"
+    },
+    {
+      "label": "linker",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/usr/bin/readelf",
+        "-l",
+        "-d",
+        "/usr/bin/aarch64-linux-gnu-ld.bfd"
+      ],
+      "capSeconds": 5,
+      "stdout": "/tmp/bendvy63-loader-metadata-v1/linker.stdout",
+      "stderr": "/tmp/bendvy63-loader-metadata-v1/linker.stderr"
+    },
+    {
+      "label": "loader",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/usr/bin/readelf",
+        "-l",
+        "-d",
+        "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1"
+      ],
+      "capSeconds": 5,
+      "stdout": "/tmp/bendvy63-loader-metadata-v1/loader.stdout",
+      "stderr": "/tmp/bendvy63-loader-metadata-v1/loader.stderr"
+    },
+    {
+      "label": "loader-help",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1",
+        "--help"
+      ],
+      "capSeconds": 5,
+      "stdout": "/tmp/bendvy63-loader-metadata-v1/loader-help.stdout",
+      "stderr": "/tmp/bendvy63-loader-metadata-v1/loader-help.stderr"
+    }
+  ],
+  "pins": {
+    "/usr/bin/bash": "f5918390c5b15392ad8835e8368a79c1ee9937fbb19f2349cccf5d4524183299",
+    "/usr/bin/dash": "15fc4c72f49c86639a383121eec6fbdbcd32ec9d03db915cb3096928295e1a17",
+    "/etc/ld.so.cache": "cce00a2673d1ead97c15cb4d69accaac7a1a866cdf997a0ac858825bdee1b8ea",
+    "/etc/ld.so.conf": "d4b198c463418b493208485def26a6f4c57279467b9dfa491b70433cedb602e8",
+    "/etc/ld.so.conf.d/aarch64-linux-gnu.conf": "0a4000ec63eff65b2a41d8cab5688b6bd81efab5fbcabd72036ece1d227bf08a",
+    "/etc/ld.so.conf.d/libc.conf": "90d4c7e43e7661cd116010eb9f50ad5817e43162df344bd1ad10898851b15d41",
+    "/home/node/.bend/bin/bend-2.0.35": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477",
+    "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1": "add9309ee6f1252a4d018de9db5ed39100f8128037f45e387e07e279824d05a4",
+    "/tmp/bendvy-clang19-diagnostic/clang19": "3e171a978d6c1decae4e6645e9bfb771cf5af21ff699ea119fdb058936b0af2d",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+    "/usr/bin/env": "67a8c7fac47281a5ee335366bcd12f31aa7eeca008cef6eccad38304753ddee9",
+    "/usr/bin/aarch64-linux-gnu-ld.bfd": "6d5b4ab9086f723980eb4feceeb4ba6399729c0f61aaf6cf6c4edf9339c98b19",
+    "/usr/bin/ldd": "78470111ee47ef9204a0e40983016816003e21d9a8a82fd75ab91980be3dcbd2",
+    "/usr/bin/python3.11": "9a070c8a36e16c152dae21b66aeb707f4d21b506c875e9b15edf4387fca7dcf8",
+    "/usr/bin/aarch64-linux-gnu-readelf": "4f2b46707a337a09271ec70ddbbbb648b5ede5ed82f4e055b5133c9818647e32",
+    "/usr/bin/taskset": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/installed-config.py": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/prepare-metadata.py": "001eca927c77a637e15a0d2b4c9e72908c76735b1fa02ea3d2f214309282d8ef",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/resolver-candidate-input.json": "a7a160b85b21389d38529c3cb3587005d9a732f3b835fb8e71979e8665a04a67",
+    "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122",
+    "/workspace/formal-proofs/bendvy/scripts/owned-tool-pins.py": "79794be2f131916479482ae45d83be672ac52f0779f5ef568e0e06dbcec7400c",
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py": "ad723a8f1989c7d7610a7f58fe3a4bb820b43ba5069084201d1a3b6931fa4c44"
+  },
+  "aliases": {
+    "/bin/bash": {
+      "resolved": "/usr/bin/bash",
+      "links": [
+        {
+          "path": "/bin",
+          "target": "usr/bin"
+        }
+      ]
+    },
+    "/bin/sh": {
+      "resolved": "/usr/bin/dash",
+      "links": [
+        {
+          "path": "/bin",
+          "target": "usr/bin"
+        },
+        {
+          "path": "/bin/sh",
+          "target": "dash"
+        }
+      ]
+    },
+    "/etc/ld.so.cache": {
+      "resolved": "/etc/ld.so.cache",
+      "links": []
+    },
+    "/etc/ld.so.conf": {
+      "resolved": "/etc/ld.so.conf",
+      "links": []
+    },
+    "/etc/ld.so.conf.d/aarch64-linux-gnu.conf": {
+      "resolved": "/etc/ld.so.conf.d/aarch64-linux-gnu.conf",
+      "links": []
+    },
+    "/etc/ld.so.conf.d/libc.conf": {
+      "resolved": "/etc/ld.so.conf.d/libc.conf",
+      "links": []
+    },
+    "/home/node/.bend/bin/bend-2.0.35": {
+      "resolved": "/home/node/.bend/bin/bend-2.0.35",
+      "links": []
+    },
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node": {
+      "resolved": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+      "links": []
+    },
+    "/lib/ld-linux-aarch64.so.1": {
+      "resolved": "/usr/lib/aarch64-linux-gnu/ld-linux-aarch64.so.1",
+      "links": [
+        {
+          "path": "/lib",
+          "target": "usr/lib"
+        },
+        {
+          "path": "/lib/ld-linux-aarch64.so.1",
+          "target": "aarch64-linux-gnu/ld-linux-aarch64.so.1"
+        }
+      ]
+    },
+    "/tmp/bendvy-clang19-diagnostic/clang19": {
+      "resolved": "/tmp/bendvy-clang19-diagnostic/clang19",
+      "links": []
+    },
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang": {
+      "resolved": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang",
+      "links": []
+    },
+    "/usr/bin/env": {
+      "resolved": "/usr/bin/env",
+      "links": []
+    },
+    "/usr/bin/ld": {
+      "resolved": "/usr/bin/aarch64-linux-gnu-ld.bfd",
+      "links": [
+        {
+          "path": "/usr/bin/ld",
+          "target": "aarch64-linux-gnu-ld"
+        }
+      ]
+    },
+    "/usr/bin/ldd": {
+      "resolved": "/usr/bin/ldd",
+      "links": []
+    },
+    "/usr/bin/python3.11": {
+      "resolved": "/usr/bin/python3.11",
+      "links": []
+    },
+    "/usr/bin/readelf": {
+      "resolved": "/usr/bin/aarch64-linux-gnu-readelf",
+      "links": [
+        {
+          "path": "/usr/bin/readelf",
+          "target": "aarch64-linux-gnu-readelf"
+        }
+      ]
+    },
+    "/usr/bin/taskset": {
+      "resolved": "/usr/bin/taskset",
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/installed-config.py": {
+      "resolved": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/installed-config.py",
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/prepare-metadata.py": {
+      "resolved": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/prepare-metadata.py",
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/resolver-candidate-input.json": {
+      "resolved": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-simulation/delivery-v1/resolver-candidate-input.json",
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py": {
+      "resolved": "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py",
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy/scripts/owned-tool-pins.py": {
+      "resolved": "/workspace/formal-proofs/bendvy/scripts/owned-tool-pins.py",
+      "links": []
+    },
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py": {
+      "resolved": "/workspace/formal-proofs/bendvy/scripts/task_runner.py",
+      "links": []
+    }
+  },
+  "configIncludes": {
+    "/etc/ld.so.conf.d/*.conf": [
+      "/etc/ld.so.conf.d/aarch64-linux-gnu.conf",
+      "/etc/ld.so.conf.d/libc.conf"
+    ]
+  },
+  "configFiles": [
+    "/etc/ld.so.conf",
+    "/etc/ld.so.conf.d/aarch64-linux-gnu.conf",
+    "/etc/ld.so.conf.d/libc.conf"
+  ],
+  "configPresence": {
+    "/etc/ld.so.cache": true,
+    "/etc/ld.so.preload": false
+  },
+  "environment": {
+    "HOME": "/home/node",
+    "PATH": "/usr/bin:/bin",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "TZ": "UTC",
+    "BEND_NO_TELEMETRY": "1",
+    "BENDVY_CLANG19_ROOT": "/tmp/bendvy-clang19-diagnostic/root",
+    "LD_LIBRARY_PATH": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu"
+  },
+  "lock": "/tmp/bendvy-parity-heavy.lock",
+  "executor": "scripts/task_runner.py:execute_result",
+  "guards": "Exact pins, aliases, include membership, config presence and raw outputs pre/acquired/post/final; receipt unconditionally on failure",
+  "remainingStage": "Use actual loader help/ELF data to review shallow search roots and legacy suffixes; header/linker closure separate, generated ELF runtime later"
+}
