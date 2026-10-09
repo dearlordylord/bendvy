@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.World<Schema, Col.Column<Schema, Input.Owner>, Input.Owner, Unit>
+- observed : H
+Context:
+- H     : Type
+- cap   : Cap.OwnedRequest<H, Public.Input<Schema, Input.Owner>, Public.Output<Schema, Input.Owner, App.Output<Schema>>>
+- input : Public.Input<Schema, Input.Owner>
+- ctx   : H
+Location: body
+16 | def body(-H:Type,cap:Cap.OwnedRequest<H,Public.Input<Schema,Input.Owner>,Public.Output<Schema,Input.Owner,App.Output<Schema>>>,input:Public.Input<Schema,Input.Owner>,ctx:H) -> H & Public.Output<Schema,Input.Owner,App.Output<Schema>>:
+17>|   App.resource(~Schema,ctx,Input.Owner{D.Number{7},ALeaf{111}},D.Number{7})
+   |                        ^^^
+18 | def Descriptor() -> Data: Decl.Declaration<Schema,App.Store(~Schema),Input.Owner,Unit,Input.Owner,App.Output<Schema>,App.resource_identity(~Schema),Input.project,App.resource_context(~Schema)>
+bend 2.0.36 is available: run bend update

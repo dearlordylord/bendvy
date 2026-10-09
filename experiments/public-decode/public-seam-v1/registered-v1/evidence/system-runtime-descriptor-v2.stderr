@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : declaration
+- observed : declaration (consumed more than once)
+Location: registered
+27 |     case Invocation{Args{target,input},declaration}:completed(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~U,Public.invoke(~S,~(W.World<S,C,R,E> & W.Handle<S>),~P,~O,~A,~U,~identity,~project,~admit,~body,Decl.constructed(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,declaration),(world,target),input))
+28>| def registered(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~O:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~admit:(W.World<S,C,R,E> & W.Handle<S>) -> P -> D.Raw -> (W.World<S,C,R,E> & W.Handle<S>) & O,~A:Type,~U:Type,~body:@-H:Type -> @-cap:Cap.OwnedRequest<H,Public.Input<S,P>,Public.Output<S,P,O>> -> A -> H -> H & U,declaration:Decl.Declaration<S,C,R,E,P,O,identity,project,admit>,slot:String,result:Sys.RegistrationResult<S,C,R,E,Invocation<S,A,Decl.Declaration<S,C,R,E,P,O,identity,project,admit>>,Unit,U,runner(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~A,~U,~body)>) -> Defined<W.World<S,C,R,E>,Owner<S,Sys.Registry<S,C,R,E,Invocation<S,A,Decl.Declaration<S,C,R,E,P,O,identity,project,admit>>,Unit,U,runner(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~A,~U,~body)>,Decl.Declaration<S,C,R,E,P,O,identity,project,admit>>>:
+   |                                                                                                                                                                                                                                                                                                                                                ^^^^^^^^^^^
+29 |   match result:
+bend 2.0.36 is available: run bend update

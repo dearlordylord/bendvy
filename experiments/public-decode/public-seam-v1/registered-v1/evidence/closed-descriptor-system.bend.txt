@@ -1,0 +1,31 @@
+import Base
+import ./declaration.bend as Decl
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend as Query
+import ../capability.bend as Public
+import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/experiments/public-decode/typed.bend as D
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/canonical-component-declaration.bend as Identity
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend as Ordinary
+
+type Args<S:Data,A:Type> is Type:
+  Args{target:W.Handle<S>,input:A}
+def completed(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~O:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~admit:(W.World<S,C,R,E> & W.Handle<S>) -> P -> D.Raw -> (W.World<S,C,R,E> & W.Handle<S>) & O,~U:Type,result:Public.Frame<S,(W.World<S,C,R,E> & W.Handle<S>),P,identity,project> & U) -> Sys.Outcome<W.World<S,C,R,E>,Unit,U>:
+  match result:
+    case (Public.Frame{(world,_),_},value):Sys.Succeeded{world,value}
+# Non-failing body only. Operation refusals are owned outputs, never silently
+# converted into system failure or thrown away. Fallible transactional assembly
+# remains an explicit integration boundary.
+def runner(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~O:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~admit:(W.World<S,C,R,E> & W.Handle<S>) -> P -> D.Raw -> (W.World<S,C,R,E> & W.Handle<S>) & O,~A:Type,~U:Type,~declaration:Decl.Declaration<S,C,R,E,P,O,identity,project,admit>,~body:@-H:Type -> @-cap:Cap.OwnedRequest<H,Public.Input<S,P>,Public.Output<S,P,O>> -> A -> H -> H & U,world:W.World<S,C,R,E>,args:Args<S,A>) -> Sys.Outcome<W.World<S,C,R,E>,Unit,U>:
+  match args:
+    case Args{target,input}:completed(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~U,Public.invoke(~S,~(W.World<S,C,R,E> & W.Handle<S>),~P,~O,~A,~U,~identity,~project,~admit,~body,Decl.constructed(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,declaration),(world,target),input))
+def registered(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~O:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~admit:(W.World<S,C,R,E> & W.Handle<S>) -> P -> D.Raw -> (W.World<S,C,R,E> & W.Handle<S>) & O,~A:Type,~U:Type,~declaration:Decl.Declaration<S,C,R,E,P,O,identity,project,admit>,~body:@-H:Type -> @-cap:Cap.OwnedRequest<H,Public.Input<S,P>,Public.Output<S,P,O>> -> A -> H -> H & U,slot:String,result:Sys.RegistrationResult<S,C,R,E,Args<S,A>,Unit,U,runner(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~A,~U,~declaration,~body)>) -> Ordinary.Defined<S,W.World<S,C,R,E>,Sys.Registry<S,C,R,E,Args<S,A>,Unit,U,runner(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~A,~U,~declaration,~body)>>:
+  match result:
+    case Sys.RegistrationFailed{world}:Ordinary.Rejected{world}
+    case Sys.Registered{world,registry}:Ordinary.Defined{world,Ordinary.Owner{registry,slot,Decl.clauses(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,declaration)}}
+def define(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~O:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~admit:(W.World<S,C,R,E> & W.Handle<S>) -> P -> D.Raw -> (W.World<S,C,R,E> & W.Handle<S>) & O,~A:Type,~U:Type,~declaration:Decl.Declaration<S,C,R,E,P,O,identity,project,admit>,~body:@-H:Type -> @-cap:Cap.OwnedRequest<H,Public.Input<S,P>,Public.Output<S,P,O>> -> A -> H -> H & U,world:W.World<S,C,R,E>,name:String,slot:String) -> Ordinary.Defined<S,W.World<S,C,R,E>,Sys.Registry<S,C,R,E,Args<S,A>,Unit,U,runner(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~A,~U,~declaration,~body)>>:
+  registered(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~A,~U,~declaration,~body,slot,Sys.register(~S,~C,~R,~E,~Args<S,A>,~Unit,~U,~runner(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~A,~U,~declaration,~body),world,name,Decl.access(~S,Decl.clauses(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,declaration))))
+def run(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~O:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~admit:(W.World<S,C,R,E> & W.Handle<S>) -> P -> D.Raw -> (W.World<S,C,R,E> & W.Handle<S>) & O,~A:Type,~U:Type,~declaration:Decl.Declaration<S,C,R,E,P,O,identity,project,admit>,~body:@-H:Type -> @-cap:Cap.OwnedRequest<H,Public.Input<S,P>,Public.Output<S,P,O>> -> A -> H -> H & U,owner:Ordinary.Owner<S,Sys.Registry<S,C,R,E,Args<S,A>,Unit,U,runner(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~A,~U,~declaration,~body)>>,world:W.World<S,C,R,E>,args:Args<S,A>) -> Sys.RunResult<S,C,R,E,Args<S,A>,Unit,U,runner(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~A,~U,~declaration,~body)> & (String & List<&2,Query.Clause<S>>):
+  match owner:
+    case Ordinary.Owner{registry,slot,clauses}:(Sys.run(~S,~C,~R,~E,~Args<S,A>,~Unit,~U,~runner(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~A,~U,~declaration,~body),registry,world,args),(slot,clauses))

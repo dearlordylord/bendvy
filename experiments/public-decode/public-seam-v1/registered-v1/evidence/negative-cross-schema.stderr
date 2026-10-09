@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : Public.Input<Schema, Input.Owner>
+- observed : Public.Input<OtherSchema, Input.Owner>
+Context:
+- H     : Type
+- cap   : Cap.OwnedRequest<H, Public.Input<Schema, Input.Owner>, Public.Output<Schema, Input.Owner, App.Output<Schema>>>
+- input : Public.Input<OtherSchema, Input.Owner>
+- ctx   : H
+Location: body
+16 | def body(-H:Type,cap:Cap.OwnedRequest<H,Public.Input<Schema,Input.Owner>,Public.Output<Schema,Input.Owner,App.Output<Schema>>>,input:Public.Input<OtherSchema,Input.Owner>,ctx:H) -> H & Public.Output<Schema,Input.Owner,App.Output<Schema>>:
+17>|   Public.gameplay(~Schema,~Input.Owner,~App.Output<Schema>,H,cap,input,ctx)
+   |                                                                  ^^^^^
+18 | def Descriptor() -> Data: Decl.Declaration<Schema,App.Store(~Schema),Input.Owner,Unit,Input.Owner,App.Output<Schema>,App.resource_identity(~Schema),Input.project,App.resource_context(~Schema)>
+bend 2.0.36 is available: run bend update

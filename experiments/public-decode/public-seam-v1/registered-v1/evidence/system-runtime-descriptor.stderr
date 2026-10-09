@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : Ordinary.Owner<registered~S, Owner<registered~S, Sys.Registry<registered~S, registered~C, registered~R, registered~E, Invocation<registered~S, registered~A, Decl.Declaration<registered~S, registered~C, registered~R, registered~E, registered~P, registered~O, registered~identity, registered~project, registered~admit>>, Unit, registered~U, runner(registered~S, registered~C, registered~R, registered~E, registered~P, registered~O, registered~identity, registered~project, registered~admit, registered~A, registered~U, registered~body)>, Decl.Declaration<registered~S, registered~C, registered~R, registered~E, registered~P, registered~O, registered~identity, registered~project, registered~admit>>>
+- observed : Owner
+Context:
+- declaration : Decl.Declaration<registered~S, registered~C, registered~R, registered~E, registered~P, registered~O, registered~identity, registered~project, registered~admit>
+- slot        : String
+- world       : W.World<registered~S, registered~C, registered~R, registered~E>
+- registry    : Sys.Registry<registered~S, registered~C, registered~R, registered~E, Invocation<registered~S, registered~A, Decl.Declaration<registered~S, registered~C, registered~R, registered~E, registered~P, registered~O, registered~identity, registered~project, registered~admit>>, Unit, registered~U, runner(registered~S, registered~C, registered~R, registered~E, registered~P, registered~O, registered~identity, registered~project, registered~admit, registered~A, registered~U, registered~body)>
+Location: registered
+27 |     case Sys.RegistrationFailed{world}:Ordinary.Rejected{world}
+28>|     case Sys.Registered{world,registry}:Ordinary.Defined{world,Owner{Ordinary.Owner{registry,slot,Decl.clauses(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,declaration)},declaration}}
+   |                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+29 | def define(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~O:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~admit:(W.World<S,C,R,E> & W.Handle<S>) -> P -> D.Raw -> (W.World<S,C,R,E> & W.Handle<S>) & O,~A:Type,~U:Type,~body:@-H:Type -> @-cap:Cap.OwnedRequest<H,Public.Input<S,P>,Public.Output<S,P,O>> -> A -> H -> H & U,declaration:Decl.Declaration<S,C,R,E,P,O,identity,project,admit>,world:W.World<S,C,R,E>,name:String,slot:String) -> Ordinary.Defined<S,W.World<S,C,R,E>,Owner<S,Sys.Registry<S,C,R,E,Invocation<S,A,Decl.Declaration<S,C,R,E,P,O,identity,project,admit>>,Unit,U,runner(~S,~C,~R,~E,~P,~O,~identity,~project,~admit,~A,~U,~body)>,Decl.Declaration<S,C,R,E,P,O,identity,project,admit>>>:
+bend 2.0.36 is available: run bend update
