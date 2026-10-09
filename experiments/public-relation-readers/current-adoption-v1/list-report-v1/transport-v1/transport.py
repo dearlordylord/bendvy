@@ -142,7 +142,7 @@ class Transport:
         return {'$': constructor, **{name: self.convert(item, self.resolve(field, path, env)) for (name, field), item in zip(fields, raw)}}
 
     def normalize(self, raw):
-        return self.convert(TERM.parse_term(raw), self.resolve('Output', self.entry, {}))
+        return self.convert(TERM.parse_term(raw), self.resolve('Candidate', self.entry, {}))
 
     def inverse(self, value, kind):
         head, args = kind
