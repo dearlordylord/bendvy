@@ -52,6 +52,7 @@ def run(path, digest):
     comparator.parser_functions = lambda: (parser.parse, parser.render)
     ts_joiner = load('simulation_delivery_ts_joiner', plan['tsJoiner'], pins)
     ts_observed = None
+    qualification = load('simulation_timing_controls', plan['qualificationValidator'], pins) if plan.get('qualificationValidator') else None
     out = Path(plan['outputRoot']); stage = Path(plan['stageRoot'])
     if out.exists() or out.is_symlink(): raise ValueError('delivery outputs start absent')
     out.mkdir(mode=0o700); receiptpath = out / 'receipt.json'; publish(receiptpath, b'')
@@ -87,7 +88,7 @@ def run(path, digest):
             file = Path(name); actual = sha(regular(file)) if file.is_file() else None
             if file.is_symlink() or actual != value: raise ValueError('ancestor configuration drift')
         generated = {}
-        for name in ['simulation.js', 'simulation.c', 'simulation.native']:
+        for name in sorted({c['emits'] for c in plan['commands'] if c.get('emits')}):
             file = out / name
             if file.exists() or file.is_symlink():
                 raw = regular(file); generated[name] = sha(raw)
@@ -124,7 +125,7 @@ def run(path, digest):
                     ordinary_guard(label + '-acquired')
                     with modules['boundary'].GuardBoundary([('post', lambda: ordinary_guard(label + '-post'))]):
                         row = {'label': label, 'argv': command['argv'], 'capSeconds': command['capSeconds']}; record['commands'].append(row)
-                        try: result = runner.run(label, command['argv'], command['capSeconds'])
+                        try: result = runner.run(label, command['argv'], command['capSeconds'], expected=command.get('expectedExit', 0))
                         except BaseException as error:
                             result = getattr(error, 'result', None)
                             if result is not None: row.update(encoded(result))
@@ -141,7 +142,12 @@ def run(path, digest):
                         if command.get('emits'):
                             file = out / command['emits']; record['generated'][command['emits']] = sha(regular(file))
                         for stream in ['stdout', 'stderr']: row[stream] = {'rawHex': result[stream].hex(), 'sha256': sha(result[stream]), 'bytes': len(result[stream])}
-                        if result['stderr']: raise ValueError('delivery command stderr: ' + label)
+                        if qualification is not None:
+                            if command.get('control'):
+                                qualification.validate(command['control'], result['stdout'], result['stderr'])
+                                record['cases'][label] = {'reachedControlMatch': True}
+                            elif result['stderr']: raise ValueError('control build stderr: ' + label)
+                        elif result['stderr']: raise ValueError('delivery command stderr: ' + label)
                         if label == 'TS':
                             if result['stdout'] != regular(plan['tsExpected']): raise ValueError('wholeTS reference mismatch')
                             ts_observed = json.loads(result['stdout'])
@@ -157,12 +163,16 @@ def run(path, digest):
                                     expected = {'label': ts_phase['label'], 'ok': ts_phase['result']['ok'], 'entities': ts_phase['dump']['entities'], 'step': ts_phase['dump']['resources']['Simulation/Step'], 'pendingCount': len(ts_phase['dump']['pendingCommands']), 'readers': ts_phase['readers']}
                                     if ts_joiner.shared(bend_phase) != expected: raise ValueError('Full TS shared checkpoint mismatch')
                             record['cases'][label] = {'completeMatch': True, 'fullOracleSHA256': plan['oracleSHA256'], 'stdoutSHA256': sha(result['stdout'])}
-                    if label == 'Native-clang':
-                        resource_config['tools'] = dict(resource_config['tools'], generatedNative=str(out / 'simulation.native'))
+                    if command.get('runtimeArtifact') or label == 'Native-clang':
+                        resource_config['tools'] = dict(resource_config['tools'], **{label if qualification is not None else 'generatedNative': str(out / command.get('runtimeArtifact', 'simulation.native'))})
                         snapshot = modules['tools'].snapshot(**resource_config)
                         record['nativeRuntimeSnapshot'] = encoded(snapshot)
-                if set(record['cases']) != {'TS', 'JS-run', 'Native-run'}: raise ValueError('fullmatrix incomplete')
-                record['status'] = 'RELOCATED_SIMULATION_SEMANTIC_DELIVERY_PASS_NOT_TIMING_OR_FULL_PARITY'
+                if qualification is not None:
+                    if set(record['cases']) != {c['label'] for c in plan['commands'] if c.get('control')}: raise ValueError('complete reached controls required')
+                    record['status'] = 'REACHED_TIMING_SEQUENCE_CONTROLS_PASS_NOT_MEASUREMENT'
+                else:
+                    if set(record['cases']) != {'TS', 'JS-run', 'Native-run'}: raise ValueError('fullmatrix incomplete')
+                    record['status'] = 'RELOCATED_SIMULATION_SEMANTIC_DELIVERY_PASS_NOT_TIMING_OR_FULL_PARITY'
             finally: fcntl.flock(lock, fcntl.LOCK_UN)
 
 if __name__ == '__main__': run(sys.argv[1], sys.argv[2])
