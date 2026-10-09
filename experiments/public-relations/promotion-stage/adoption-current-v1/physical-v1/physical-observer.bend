@@ -6,8 +6,12 @@ import ../../../../../src/ecs/world.bend as W
 import ../../../../../src/ecs/column.bend as Col
 import ../../../../../src/ecs/lifecycle.bend as L
 
+def expand_column(~S:Data,column:Col.Column<S,O.Payload>) -> Col.Column<S,O.Payload>:
+  match column:
+    case Col.Column{values,entries}:Col.Column{ANode{values,Col.absent(~O.Payload,2n)},entries}
+    case other:other
 def seed_column(~S:Data,column:Col.Column<S,O.Payload>) -> Col.Column<S,O.Payload>:
-  Col.restore_stamp(~S,~O.Payload,column,1,L.Stamp{7,9})
+  Col.restore_stamp(~S,~O.Payload,expand_column(~S,column),1,L.Stamp{7,9})
 def seed_store(~S:Data,store:A.Store<S,O.Components<S>>) -> A.Store<S,O.Components<S>>:
   match store:
     case A.Store{O.Components{column},graph}:A.Store{O.Components{seed_column(~S,column)},graph}
