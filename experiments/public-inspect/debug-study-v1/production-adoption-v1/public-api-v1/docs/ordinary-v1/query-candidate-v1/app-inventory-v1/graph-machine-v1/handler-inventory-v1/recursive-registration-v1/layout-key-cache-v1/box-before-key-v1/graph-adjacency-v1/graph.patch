@@ -1,0 +1,21 @@
+--- before/comp.ts
++++ after/comp.ts
+@@ -625,8 +625,17 @@
+ // =====
+ 
+ function graph_close<K>(set: Set<K>, edges: K[][]): Set<K> {
++  const outgoing = new Map<K, K[]>();
++  for (const [a, b] of edges) {
++    // Strict equality never matches NaN, unlike Map's SameValueZero.
++    if (a !== a) continue;
++    const destinations = outgoing.get(a);
++    if (destinations === undefined) outgoing.set(a, [b]);
++    else destinations.push(b);
++  }
+   for (const k of set) {
+-    edges.forEach(([a, b]) => a === k && set.add(b));
++    if (k !== k) continue;
++    for (const b of outgoing.get(k) ?? []) set.add(b);
+   }
+   return set;
+ }
