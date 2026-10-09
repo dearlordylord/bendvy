@@ -49,7 +49,7 @@ function foreignWorld(){
  const Value=Descriptor.ConstructedComponent(wrap(D.struct(fields)))('Value');
  const Marker=Descriptor.TransientComponent()('Marker');
  const G=Schema.bind(Schema.fragment({components:{Value,Marker}}),Schema.defineRoot('ForeignWorkshop'));
- const create=()=>{const r=G.Runtime.make({resources:{},debug:true});if(!r.ok)throw Error('foreign make');return r.value;};
+ const create=()=>G.Runtime.make({resources:{},debug:true});
  const first=create(),second=create();let firstId,secondId;
  const tick=(runtime,...steps)=>{const r=runtime.tick(G.Schedule(...steps));if(!r.ok)throw Error(JSON.stringify(r));};
  tick(first,G.System('first-seed',{},({commands})=>{firstId=commands.spawn(G.Command.spawn([Value,owner('first',[777,888])]));}),G.Schedule.applyDeferred());
@@ -73,7 +73,7 @@ function selectors(){
  const Plain=Descriptor.Resource()('Plain'),Transient=Descriptor.TransientResource()('Transient');
  const G=Schema.bind(Schema.fragment({resources:{Selected:descriptor,Plain,Transient}}),Schema.defineRoot('Selectors'));
  return {initializeBoolean:G.Runtime.make({resources:{Selected:true}}),initializeInteger:G.Runtime.make({resources:{Selected:7},debug:true}),
-  plain:G.Runtime.make({resources:{Plain:'plain-value'}}).ok,transient:G.Runtime.make({resources:{Transient:false}}).ok,
+  plain:G.Runtime.make({resources:{Plain:'plain-value'},debug:true}).debug.dump().resources.Plain==='plain-value',transient:G.Runtime.make({resources:{Transient:false},debug:true}).debug.dump().resources.Transient===false,
   loadBoolean:Descriptor.decoderOf(descriptor)(true),fallbackBoolean:Descriptor.decoderOf(Descriptor.ConstructedResource({result:integer.result})('Fallback'))(true),
   literalReady:D.struct({kind:D.literal('ready')}).decode({kind:'ready',extra:99}),
   literalBusy:D.struct({kind:D.literal('ready')}).decode({kind:'busy'}),
