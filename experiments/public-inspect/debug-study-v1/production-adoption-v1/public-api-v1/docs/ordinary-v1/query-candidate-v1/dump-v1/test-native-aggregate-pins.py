@@ -13,6 +13,21 @@ spec.loader.exec_module(A)
 
 
 class Pins(unittest.TestCase):
+    def test_exact_external_oracle_join_binding(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            expected, join = root / 'expected.json', root / 'join.json'
+            expected.write_text('expected'); join.write_text('join')
+            plan = {'oracle': str(expected), 'join': str(join), 'pins': {str(expected): A.sha(expected), str(join): A.sha(join)}}
+            A.verify_oracle_binding(plan, expected, join)
+            alternative = root / 'alternate.json'
+            alternative.write_text(join.read_text())
+            with self.assertRaises(ValueError): A.verify_oracle_binding(plan, expected, alternative)
+            changed = copy.deepcopy(plan); changed['pins'][str(join)] = '0' * 64
+            with self.assertRaises(ValueError): A.verify_oracle_binding(changed, expected, join)
+            changed = copy.deepcopy(plan); del changed['pins'][str(expected)]
+            with self.assertRaises(ValueError): A.verify_oracle_binding(changed, expected, join)
+
     def test_progressive_full_pins_and_omission_drift(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

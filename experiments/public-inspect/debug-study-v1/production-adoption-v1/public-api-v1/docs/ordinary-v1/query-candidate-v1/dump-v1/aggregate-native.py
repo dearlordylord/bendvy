@@ -52,6 +52,14 @@ def verify_guard_state(state, expected):
         raise ValueError('Exact per-stage guard pin set/digests refused')
 
 
+def verify_oracle_binding(plan, expected, join):
+    for key, selected in (('oracle', expected), ('join', join)):
+        actual = Path(selected).resolve(strict=True)
+        planned = Path(plan[key]).resolve(strict=True)
+        if actual != planned or plan['pins'].get(str(planned)) != sha(actual):
+            raise ValueError('Selected independent oracle/join is not the frozen category input')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('oracle_directory', type=Path)
@@ -70,6 +78,7 @@ def main():
         receipt = json.loads(receipt_path.read_text())
         plan_path = cohort / 'plan.json'
         plan = json.loads(plan_path.read_text())
+        verify_oracle_binding(plan, expected, join)
         if receipt['status'] != 'CATEGORY_DEVELOPMENT_PASS' or receipt['category'] != category or plan['category'] != category:
             raise ValueError('All ordered successful category receipts required')
         if sha(plan_path) != receipt['planSHA256'] or receipt['wholeOracleSHA256'] != EXPECTED:
