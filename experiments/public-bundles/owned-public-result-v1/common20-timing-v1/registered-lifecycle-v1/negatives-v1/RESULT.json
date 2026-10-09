@@ -1,0 +1,26 @@
+{
+  "scope": "Source-only authority controls through actual registered observation callsite; no backend/proof/public policy acceptance",
+  "sourceCommit": "cc1d4e52",
+  "compiler": "/home/node/.bend/bin/bend-2.0.35",
+  "cpu": 5,
+  "capSeconds": 5,
+  "telemetry": "BEND_NO_TELEMETRY=1",
+  "results": [
+    {
+      "subject": "duplicate-world",
+      "sourceSHA256": "7f691d4b88441995becf5d7aedec37f78dd39c6a72680c5fa4072e9e0da832be",
+      "stderrSHA256": "6f60baf9410d9d29a593a823b4f49bf0f756016951d6bf8c02cf9f1ef199fc46",
+      "exit": 1,
+      "intendedBoundary": "consumed more than once",
+      "result": "INTENDED_SOURCE_REFUSAL"
+    },
+    {
+      "subject": "cross-schema",
+      "sourceSHA256": "2531354fbb9c2a422bdeb964767363eff8bc37b03cff159a6269929e8b6c564e",
+      "stderrSHA256": "0f3cc5372b953e89db0e030fdda610c0196af5706ca8276aeeba0e634383700f",
+      "exit": 1,
+      "intendedBoundary": "combined-other.Schema",
+      "result": "INTENDED_SOURCE_REFUSAL"
+    }
+  ]
+}

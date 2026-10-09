@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : world
+- observed : world (consumed more than once)
+Location: invalid
+2 | 
+3>| def invalid(world:A.World()) -> (A.World() & String) & (A.World() & String):
+  |             ^^^^^
+4 |   (A.observe("observer-one",world),A.observe("observer-two",world))
