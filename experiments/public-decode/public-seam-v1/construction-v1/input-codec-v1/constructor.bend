@@ -1,10 +1,10 @@
 import Base
-import ordinary-declaration.bend as Identity
-import persistence-declaration.bend as Decl
-import decode-data.bend as D
-import decode.bend as Decode
-import bundle-construction.bend as Build
-import capabilities.bend as Cap
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Identity
+import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Decl
+import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D
+import /workspace/formal-proofs/bendvy/src/ecs/decode.bend as Decode
+import /workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend as Build
+import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap
 
 # A retained nominal declaration supplies admission. The schema author provides
 # an actual reversible constructor, not an implicit inverse for arbitrary Type.

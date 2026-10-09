@@ -1,13 +1,13 @@
 {
-  "scope": "six import-only pure library modules, no shared core edits/backend replay/new contracts",
+  "scope": "six-module core proposal: constructor has additive separate input codec; other five remain import-only; no sharedcore edits/backend replay/new ownership contracts",
   "sourceQualified": "full44+20+16 JS/Native archived9c62218b/8deb8104",
   "hostBoundary": "explicit host conversion, no generated ECS callback interop",
   "modules": [
     {
-      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/constructor.bend",
-      "originSHA256": "292a353b0609b8eac3eb01670d54cef9ae659112608da3295dfbbbde91ac0193",
+      "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/input-codec-v1/constructor.bend",
+      "originSHA256": "9dc39b4bd4ad6d595d566a47860041399e917a48f7742bf737b2078eed69d31f",
       "candidate": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/promotion-v1/library/decode-construction.bend",
-      "candidateSHA256": "bfb24d86cd429a10602aeadb01deb412ce3f973ce9484456731c667622d576e7",
+      "candidateSHA256": "39518ef0d17aa1b55ef09ee87b12b485eb63c0900064d52206ca4ebabb0d335b",
       "intendedPublicPath": "src/ecs/decode-construction.bend",
       "importMapping": [
         {
@@ -41,7 +41,19 @@
           "canonicalTarget": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend"
         }
       ],
-      "exactInverseRestoresOrigin": true
+      "exactInverseRestoresOrigin": true,
+      "changeKind": "additive input codec implementation plus reversible imports",
+      "qualifiedDefaultOrigin": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/constructor.bend",
+        "sha256": "292a353b0609b8eac3eb01670d54cef9ae659112608da3295dfbbbde91ac0193"
+      },
+      "apiAddition": [
+        "Factory.inputCodec:D.Codec",
+        "FallibleFactory.inputCodec:D.Codec",
+        "factory_with_input_codec",
+        "fallible_factory_with_input_codec"
+      ],
+      "defaultContract": "factory and fallible_factory retain Decl.codec as inputCodec; stored declaration/identity/projector unchanged"
     },
     {
       "origin": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/request.bend",
@@ -257,6 +269,26 @@
         }
       ],
       "exactInverseRestoresOrigin": true
+    }
+  ],
+  "defaultSemanticJoins": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/complete44-model-join.json",
+      "sha256": "00861956e85d85847cf8b842e1c83e6fa94978377adbc66cf51e3041a8b1216c",
+      "scenarioCount": 44,
+      "status": "unchanged historical model; root integrated default qualification required"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/complete20-model-join.json",
+      "sha256": "df04e7ce326103508415ea37e568891613adf3be485c0aaea303ae762304d912",
+      "scenarioCount": 20,
+      "status": "unchanged historical model; root integrated default qualification required"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/complete16-model-join.json",
+      "sha256": "58a988e27a968373b958f5d0da87d1ab1fc28136b3f70ef2d74eded09e4c513c",
+      "scenarioCount": 16,
+      "status": "unchanged historical model; root integrated default qualification required"
     }
   ]
 }

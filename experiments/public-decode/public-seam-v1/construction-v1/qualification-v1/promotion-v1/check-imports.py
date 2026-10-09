@@ -1,4 +1,4 @@
-"""Check every import-only candidate and its exact inverse to qualified source."""
+"""Check every proposed candidate and its exact inverse to qualified source."""
 from pathlib import Path
 import hashlib,json,re
 H=Path(__file__).resolve().parent
@@ -14,4 +14,4 @@ for item in manifest['modules']:
     assert inverse==origin.read_text(),'non-import source delta'
     for target in re.findall(r'^import\s+(\S+)',candidate.read_text(),re.M):
         if target!='Base':assert (H/'library'/target).is_file() or (Path('/workspace/formal-proofs/bendvy/src/ecs')/target).is_file()
-print('PASS six qualified source inverses and canonical dependency targets')
+print('PASS six candidate source inverses and canonical dependency targets')
