@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueWrite<body~H, C.Query, C.Projection>
+- observed : Cap.Request<body~H, C.Query, C.Projection>
+Context:
+- owner : body~H
+- args  : C.Args
+Location: body
+5 | def body(~H:Type,~read:Cap.Request<H,C.Query,C.Projection>,owner:H,args:C.Args) -> H & C.Projection:
+6>|   (Cap.value_set(~H,~C.Query,~C.Projection,~read,owner,C.Query{0,ALeaf{1}}),C.Projection{False{},"write",[]})
+  |                                             ^^^^
+7 | def reached(owner:C.Payload,args:C.Args) -> C.Payload & C.Projection:
