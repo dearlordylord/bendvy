@@ -91,8 +91,9 @@ export census or qualify the full public core.
   defect controls on JS/Native. Core adoption, current TS and capacity gates remain.
 - #46: `3b139b9d` and `60234ea3` retain reviewed registration and deferred-abort
   source prototypes. Combined successful delivery and full runtime remain open.
-- #56: `328d719b` freezes the full recursive-registration consumer and models.
-  Its full source-check timeout remains inconclusive; runtime evidence is pending.
+- #56: `9d6af272` retains full recursive-registration JS normal/mutant passes
+  and the unchanged Native emission deadline. Full source-check qualification
+  remains inconclusive; Native completion and public delivery are still open.
 
 Use the [coordination table](README.md#current-delivery-coordination) for subsequent task state;
 experimental evidence remains distinct from `src/ecs` delivery and performance.
