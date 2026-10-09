@@ -1,0 +1,80 @@
+{
+  "events": {
+    "book_load.begin": 1,
+    "book_load.end": 1,
+    "book_valid.begin": 1,
+    "book_valid.end": 1,
+    "compile_book.begin": 1,
+    "file_book.begin": 1,
+    "type_adts": 20,
+    "fun_of": 20,
+    "lay_of": 20,
+    "file_book.end": 1,
+    "emit_iteration.begin": 1,
+    "emit_body": 19,
+    "val_to": 25,
+    "lay_eq": 25,
+    "emit_fuse": 17
+  },
+  "phaseBoundaries": [
+    {
+      "event": "book_load.begin",
+      "elapsedMs": 0
+    },
+    {
+      "event": "book_load.end",
+      "elapsedMs": 364
+    },
+    {
+      "event": "book_valid.begin",
+      "elapsedMs": 364
+    },
+    {
+      "event": "book_valid.end",
+      "elapsedMs": 1110
+    },
+    {
+      "event": "compile_book.begin",
+      "elapsedMs": 1110
+    },
+    {
+      "event": "file_book.begin",
+      "elapsedMs": 1111
+    },
+    {
+      "event": "file_book.end",
+      "elapsedMs": 2045,
+      "counters": {
+        "type_adts": 694137,
+        "fun_of": 27074,
+        "lay_of": 11562
+      }
+    },
+    {
+      "event": "emit_iteration.begin",
+      "elapsedMs": 2045,
+      "facts": 0,
+      "counters": {
+        "type_adts": 694137,
+        "fun_of": 27074,
+        "lay_of": 11562
+      }
+    }
+  ],
+  "lastCheckpoint": {
+    "event": "lay_of",
+    "calls": 524288,
+    "elapsedMs": 28599,
+    "owner": "garden-stage/query:lookup~5",
+    "counters": {
+      "type_adts": 694137,
+      "fun_of": 663611,
+      "lay_of": 524288,
+      "emit_body": 373275,
+      "val_to": 3212798,
+      "lay_eq": 3224665,
+      "emit_fuse": 96673
+    }
+  },
+  "scope": "Sparse continued conversion/emission activity, not exclusive CPU attribution. First emission iteration unfinished; last definition not a hotspot claim."
+}

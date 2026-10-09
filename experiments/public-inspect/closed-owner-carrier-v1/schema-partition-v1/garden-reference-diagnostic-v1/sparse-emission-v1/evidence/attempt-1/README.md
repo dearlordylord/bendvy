@@ -1,0 +1,7 @@
+# Sparse reference Garden attempt1
+
+Exact75d3448 plan executed once CPU5/cap30/shared lock. Receipt INCOMPLETE: child deadline, no C, zero stdout and38832-byte stderr. All four boundary guards unchanged. No installed compiler/runtime/parity/performance qualification.
+
+Actual copied-reference book_load completed364ms, book_valid1110ms, file_book2045ms; first emission iteration started2045ms and never emitted its end marker. Sparse observations continue through28599ms across multiple query/selection specializations, including scan, lookup_valid, lookup_target, constrained and lookup. Last counters: val_to3212798, lay_eq3224665, emit_body373275, emit_fuse96673, fun_of663611, lay_of524288. Counts establish repeated source transformations, not exclusive CPU time, serialization share, memory cost or an installed-ELF cause. Current top-level lookup~5 is context, not proof of the bottleneck.
+
+A next source-backed representation hypothesis is making the existing private nominal owner carrier recursive: pinned lay_of returns BOX for recursive ADTs, whereas the current one-constructor nonrecursive carrier still exposes its full Frame field layout. A total recursive unwrap and exact returned-frame threading can preserve public query signatures, both schema observations and arbitrary affine payloads. No such change or backend run is included or admitted by this evidence. Original saturated diagnostic and all installed deadlines remain immutable. No retry/capraise/normalization occurred.
