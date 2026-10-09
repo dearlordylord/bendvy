@@ -1,0 +1,56 @@
+{
+  "scope": "Complete23-grant ordinary binding normal native development; no closed resolver/performance/public closure",
+  "planSHA256": "c1fec8459674557ec359f3142338f2ddcf16b18c4f1f7ec6ec36421743cbd49d",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/stage/output-io-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-native04/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": null,
+      "failure": "child deadline",
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-native04/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-native04/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-native04/emit-pre.guard.json",
+      "sha256": "e0fea6ede19b945473a37171a793b4809e54b300e00246ba77394027d57999f3"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-native04/emit-acquired.guard.json",
+      "sha256": "f3823e15d20133dc5ef06293adfcb6df75e5976dd831a41a04a73c0c9fcec9ed"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-native04/emit-post.guard.json",
+      "sha256": "a320093f469316b0ce10e9b66c30010c8d1f7dccc4878384a1cf59e3fc7186f9"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/integration-canonical-composed-query/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/prepared-native04/final.guard.json",
+      "sha256": "c0d6b18b813fa2d59af6a66b87562cffc639e153a418901b2a0090c351c14c62"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Owned child failed: emit",
+  "guardFailures": []
+}

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : D.DeclaredSelection<Carrier.InspectOwner<F.Garden, F.Store<F.Garden>, Unit, U32>, F.Garden, N.ValueEmpty>
+- observed : D.DeclaredSelection<Carrier.InspectOwner<F.Workshop, F.Store<F.Workshop>, Unit, U32>, F.Workshop, N.ValueEmpty>
+Location: bad
+10 | def bad() -> Q.ComposedReadQuery<I.Frame<F.Garden,F.Store<F.Garden>,Unit,U32>,F.Garden,N.ValueEmpty>:
+11>|   Carrier.inspect_grant(~F.Garden,~F.Store<F.Garden>,~Unit,~U32,~N.ValueEmpty,~N.inspect_empty(~F.Workshop,~Unit),~T.inspect_world(~F.Garden,~F.Store<F.Garden>,~Unit,~U32))
+   |                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+12 | 
+bend 2.0.36 is available: run bend update
