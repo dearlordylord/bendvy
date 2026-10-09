@@ -1,0 +1,372 @@
+{
+  "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/main.bend",
+  "imports": {
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": {},
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": {
+      "SE": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/events.bend": {
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": {},
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": {},
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": {
+      "L": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": {
+      "L": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend",
+      "H": "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend",
+      "M": "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": {},
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": {
+      "L": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend",
+      "Col": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "T": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-utf16.bend": {},
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend": {
+      "Utf16": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-utf16.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": {
+      "Cmp": "/workspace/formal-proofs/bendvy/src/ecs/component.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend": {},
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-capabilities.bend": {
+      "D": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend",
+      "Cap": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+      "SF": "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-size.bend": {
+      "D": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode.bend": {
+      "D": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend",
+      "Size": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-size.bend"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend": {},
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend": {
+      "D": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend",
+      "Public": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-capabilities.bend",
+      "Complete": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode.bend",
+      "Canonical": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-gate.bend": {
+      "C": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend",
+      "D": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-leaf.bend": {
+      "Decl": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend",
+      "Gate": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-gate.bend",
+      "D": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend",
+      "Col": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "Canonical": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/declared-family.bend": {
+      "Identity": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend",
+      "Decl": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend",
+      "Leaf": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-leaf.bend",
+      "D": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend",
+      "Cmp": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "Col": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "SF": "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/resource.bend": {
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "T": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/commands.bend": {
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "T": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/compose.bend": {
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "Col": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "Cmp": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "T": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+      "Res": "/workspace/formal-proofs/bendvy/src/ecs/resource.bend",
+      "Cmd": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+      "Cap": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+      "L": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend": {
+      "Col": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "Cmp": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "Recipe": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend",
+      "Identity": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend",
+      "Family": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/declared-family.bend",
+      "Leaf": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-leaf.bend",
+      "D": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend",
+      "Q": "/workspace/formal-proofs/bendvy/src/ecs/compose.bend",
+      "Cap": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": {
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": {
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "Reg": "/workspace/formal-proofs/bendvy/src/ecs/registration.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend": {
+      "Query": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend",
+      "Q": "/workspace/formal-proofs/bendvy/src/ecs/compose.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "Sys": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+      "T": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend": {
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "Sys": "/workspace/formal-proofs/bendvy/src/ecs/system.bend"
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend": {
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "Sys": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+      "Sch": "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend": {
+      "Query": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend",
+      "System": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend",
+      "Q": "/workspace/formal-proofs/bendvy/src/ecs/compose.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "Sys": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+      "T": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+      "SP": "/workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend",
+      "Sch": "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/dump.bend": {
+      "App": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend",
+      "Decl": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "C": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "Q": "/workspace/formal-proofs/bendvy/src/ecs/compose.bend",
+      "Cap": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+      "T": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+      "Cmd": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend": {},
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend": {
+      "Identity": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend",
+      "Recipe": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend",
+      "Leaf": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-leaf.bend",
+      "D": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend",
+      "Col": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "View": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend": {
+      "D": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend",
+      "Schema": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend",
+      "Query": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend",
+      "App": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "Q": "/workspace/formal-proofs/bendvy/src/ecs/compose.bend",
+      "Cmp": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "Lifecycle": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend",
+      "View": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-body.bend": {
+      "DTO": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend",
+      "Cap": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+      "Cmp": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "T": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+      "View": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-queries.bend": {
+      "S": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend",
+      "Body": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-body.bend",
+      "DTO": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend",
+      "Query": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend",
+      "Col": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "Q": "/workspace/formal-proofs/bendvy/src/ecs/compose.bend",
+      "Cap": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+      "View": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend",
+      "Recipe": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/ordinary-component.bend": {
+      "Dump": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/dump.bend",
+      "App": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend",
+      "Query": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend",
+      "S": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend",
+      "Queries": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-queries.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "View": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-systems.bend": {
+      "S": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend",
+      "Queries": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-queries.bend",
+      "Body": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-body.bend",
+      "DTO": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend",
+      "Query": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend",
+      "System": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "Q": "/workspace/formal-proofs/bendvy/src/ecs/compose.bend",
+      "Sys": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+      "T": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-observation.bend": {
+      "L": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend",
+      "S": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend",
+      "D": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "C": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "V": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend",
+      "R": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-execution.bend": {
+      "S": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend",
+      "Systems": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-systems.bend",
+      "Queries": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-queries.bend",
+      "Body": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-body.bend",
+      "DTO": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend",
+      "Observation": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-observation.bend",
+      "Query": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend",
+      "System": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "Q": "/workspace/formal-proofs/bendvy/src/ecs/compose.bend",
+      "Sys": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+      "T": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+      "Recipe": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-setup.bend": {
+      "S": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend",
+      "Q": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-queries.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "C": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "Col": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "View": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend",
+      "R": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend",
+      "Leaf": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-leaf.bend",
+      "D": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend",
+      "I": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-returned.bend": {
+      "View": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-driver.bend": {
+      "S": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend",
+      "Systems": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-systems.bend",
+      "Queries": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-queries.bend",
+      "Body": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-body.bend",
+      "DTO": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend",
+      "Execution": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-execution.bend",
+      "Setup": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-setup.bend",
+      "Returned": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-returned.bend",
+      "System": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend",
+      "App": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend",
+      "Identity": "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "Q": "/workspace/formal-proofs/bendvy/src/ecs/compose.bend",
+      "Sys": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+      "Cmp": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "Sch": "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend",
+      "SP": "/workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend",
+      "View": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/main.bend": {
+      "Events": "/workspace/formal-proofs/bendvy/src/ecs/events.bend",
+      "Dump": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/ordinary-component.bend",
+      "D": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/dump.bend",
+      "App": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend",
+      "S": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend",
+      "Driver": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-driver.bend",
+      "DTO": "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend",
+      "W": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "View": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend"
+    }
+  },
+  "namespaces": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/main.bend": "",
+    "/workspace/formal-proofs/bendvy/src/ecs/events.bend": "../../../../../../../../../../../bendvy/src/ecs/events",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "../../../../../../../../../../../bendvy/src/ecs/world",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "../../../../../../../../../../../bendvy/src/ecs/string-equality",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/ordinary-component.bend": "ordinary-component",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/dump.bend": "dump",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend": "../app",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend": "../declaration",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "../../../../../../../../../../../bendvy/src/ecs/column",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "../../../../../../../../../../../bendvy/src/ecs/lifecycle",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "../../../../../../../../../../../bendvy/src/ecs/owner-handoff",
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "../../../../../../../../../../../bendvy/src/ecs/indexed-lifecycle",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "../../../../../../../../../../../bendvy/src/ecs/component",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "../../../../../../../../../../../bendvy/src/ecs/transaction",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend": "../../../../../../../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend": "../../../../../../../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-utf16.bend": "../../../../../../../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-utf16",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-capabilities.bend": "../../../../../../../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-capabilities",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "../../../../../../../../../../../bendvy/src/ecs/capabilities",
+    "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend": "../../../../../../../../../../../bendvy/src/ecs/schema-fragments",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode.bend": "../../../../../../../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-size.bend": "../../../../../../../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-size",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend": "../../../../../../../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/declared-family.bend": "../../../../../../../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/declared-family",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-leaf.bend": "../../../../../../../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-leaf",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-gate.bend": "../../../../../../../../../../../bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-gate",
+    "/workspace/formal-proofs/bendvy/src/ecs/compose.bend": "../../../../../../../../../../../bendvy/src/ecs/compose",
+    "/workspace/formal-proofs/bendvy/src/ecs/resource.bend": "../../../../../../../../../../../bendvy/src/ecs/resource",
+    "/workspace/formal-proofs/bendvy/src/ecs/commands.bend": "../../../../../../../../../../../bendvy/src/ecs/commands",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend": "../system",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "../../../../../../../../../../../bendvy/src/ecs/system",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "../../../../../../../../../../../bendvy/src/ecs/registration",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend": "../../../../../../../../../../../bendvy/src/ecs/schedule-provision",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend": "../../../../../../../../../../../bendvy/src/ecs/schedule",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend": "../scenario-schema",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend": "../../../../../../../../../../../bendvy/experiments/public-simulation/bend-v1/owner-view",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-queries.bend": "../scenario-queries",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-body.bend": "../scenario-body",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend": "../scenario-dto",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-driver.bend": "../scenario-driver",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-systems.bend": "../scenario-systems",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-execution.bend": "../scenario-execution",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-observation.bend": "../scenario-observation",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-setup.bend": "../scenario-setup",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-returned.bend": "../scenario-returned"
+  },
+  "sources": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/main.bend": "6aece2cf93f42097aa8689918f8c0daa54a8198835d4d915f111231bf906e0a7",
+    "/workspace/formal-proofs/bendvy/src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/ordinary-component.bend": "48fce6820308ea13e5d41eff6ff38719ed9e07ea7cccbfe8f9fa2a56583a0379",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/dump-v1/dump.bend": "17c334020f7612226dd3b2949f966f4837eb2bc0021171ee357a45e36e6f0dd0",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/app.bend": "aa55ae27b742e62718b5452c0176ebe5e0d479d896e62737b8a35142ff538f64",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend": "d814be4eb96003efc746994500211c9c83cb4e4db21a4eb08e6f73dd2aaccf6b",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/persistence-declaration.bend": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-data.bend": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-utf16.bend": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-capabilities.bend": "a97545a4686cbb9bab2588d0847747ced7676f1a41b7bc2b81948e950f4cf7fd",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode.bend": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/decode-size.bend": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/ordinary-declaration.bend": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/declared-family.bend": "658755e273813906a09a6f95eacd44858d212ce3f0627fde074f3ab575c527f1",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-leaf.bend": "db7949d243d1698f09e2b4b81276562bd6b7c3d11a194aadb1003cdb51ecb66a",
+    "/workspace/formal-proofs/bendvy/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/public-adoption-v1/core-promotion-v1/library/snapshot-gate.bend": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128",
+    "/workspace/formal-proofs/bendvy/src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "/workspace/formal-proofs/bendvy/src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "/workspace/formal-proofs/bendvy/src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/system.bend": "306eb4a35fe1b2b71276263c8716f15858e7bc9b74b8418461da4f4205812ea1",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-schema.bend": "980bd13f41ee93533bef24af02a407be90047818a9b5c684848aec3bcf904065",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/owner-view.bend": "77ec73be5360d214f49d5242981ad9135878c0736e9c69e284f86fe227261b73",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-queries.bend": "b3683eca66efde4ca3e73d48f047a1c9c8ffca997aa47adaa51359fc6ed3c613",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-body.bend": "ba231ab98b1ae38ed5ba32438f0630deb748c4b3c7d253a3db0edc4822103888",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-dto.bend": "3bde409add49493149b85396d01e0dd83b236c0acb3d2c779a36e447696f6372",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-driver.bend": "1a7256ed0804d0250ee43f5b62c3329f90fd89ba7ce41912f8db7eb5f1c949cb",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-systems.bend": "ebc51df17a247cacf8e73bc8af308c1bd62b5b53d39c0c91e692b68fd8cc25fa",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-execution.bend": "1000b2661c015c58597e30285b59fab4b03eb561eda0c57c8d79a63b1a320bc7",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-observation.bend": "7b00800fc9d120973429a84dd019324fae9f893f250a09b46129b11586f4586b",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-setup.bend": "05d0db891ee77013bfad08c0fec19f5950407824708976d77c44134c624fd138",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-56-query-proposal/experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/scenario-returned.bend": "cc6dcc2f5924a8594c10ed207dbbbf3fcf4fb969470ba124f718972b843ee4ec"
+  }
+}

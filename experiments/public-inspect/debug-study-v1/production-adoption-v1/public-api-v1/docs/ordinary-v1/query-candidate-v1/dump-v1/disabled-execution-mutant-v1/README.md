@@ -1,0 +1,3 @@
+# Disabled execution mutation
+
+Test-only compiling semantic defect at the actual dump query Disabled branch: it traverses the same ordinary declaration, including its selector/read grant/presentation, then discards the population and returns None. Thus a None-only formatting gate misses it. The full fixture includes the normal test-only trap renderer; actual component sentinel changes must be detected by unchanged complete world observations. No expected output or backend has been inspected. Source relocation changes import namespace only; all other consuming operations and owner/error paths are retained.
