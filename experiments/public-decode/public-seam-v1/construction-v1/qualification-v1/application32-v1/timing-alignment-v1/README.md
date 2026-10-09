@@ -54,5 +54,6 @@ Passing focused modules and full-entry source deadlines are distinct: applicatio
 and public modules pass source5; observation-main full32 check reached deadline137.
 Common-main source5 also reached deadline137 without diagnostic. Serializer source diagnostics and repairs are preserved in source-checks. No runtime
 stdout has been used to derive expectations. Sources and new independent models
-must freeze before backend admission. TS codecs/cases currently initialize at module
-load; no timing interval including that setup has been implemented or claimed.
+must freeze before backend admission. TS codecs/cases now initialize inside run(); an actual timer binding remains
+unimplemented and unqualified. Common-main pure String display framing is specified
+in wire.mjs: quoted escaped JSON String plus one external LF; TS emits raw JSON.

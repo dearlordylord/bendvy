@@ -29,12 +29,15 @@ separately. No phase subtraction claims pure ECS speed. Reuse existing complete
 capture/timer and paired collector after exact reviewed interval binding.
 
 Current sources still expose full backend diagnostics separately: native physical
-stores/lifecycle/clock/Local and TS debug dump retain native representations. A
-common public observation serializer has not yet been implemented. It must retain
+stores/lifecycle/clock/Local and TS debug dump retain native representations. The
+common public observation serializer is implemented as a source candidate. It retains
 full input/canonical/returned payloads, errors, all entity/component/resource
 values, real handles and pending order at original/before/committed/barrier, not a
 checksum or reduced successful-value trace. Public owner flags/original fields now
 match both payload declarations; JS alias identity is not normalized. Cross-backend
 mapping must explicitly retain backend-specific errors/IDs where approved semantics
-differ. Those source/observer decisions are a review boundary, not permission to
+differ. TS prepare() now performs codec/case/64-field/array setup inside callable run(),
+including actual shared input aliases within that lifecycle. Bend cases remain typed
+Data constants; compiler folding/type erasure is not assigned fabricated setup cost.
+Those source/observer decisions are a review boundary, not permission to
 replace historical full semantic controls.

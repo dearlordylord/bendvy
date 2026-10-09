@@ -11,6 +11,7 @@ const wrap=codec=>({result:input=>{
  return checked.ok?Result.success(owner(checked.value,input.sentinel,input.flags,input.original)):checked;
 }});
 const ones=n=>Array(n).fill(1);
+function prepare(){
 const fields=Object.fromEntries(Array.from({length:64},(_,i)=>[`f${i}`,D.integer]));
 const values=Object.fromEntries(Array.from({length:64},(_,i)=>[`f${i}`,i]));
 const nested=D.struct({items:D.nullable(D.array(D.struct({value:D.integer})))});
@@ -18,7 +19,9 @@ const cases=[['array3',D.array(D.integer),ones(3)],['array128',D.array(D.integer
  ['array256',D.array(D.integer),ones(256)],['lateInvalid',D.array(D.integer),[...ones(127),'late-invalid']],
  ['struct64',D.struct(fields),{...values,extra:'drop-me'}],['nullableNull',nested,{items:null}],
  ['nestedValid',nested,{items:[{value:1},{value:2}]}],['nestedMissing',nested,{items:[{value:1},{}]}]];
-function actual(root,operation,name,codec,raw){
+ return {cases,values};
+}
+function actual(root,operation,name,codec,raw,values){
  const Value=Descriptor.ConstructedComponent(wrap(codec))('Value');
  const Resource=Descriptor.ConstructedResource(wrap(codec))('Resource');
  const Marker=Descriptor.TransientComponent()('Marker');
@@ -48,7 +51,8 @@ function actual(root,operation,name,codec,raw){
 }
 
 export function run(){
- const traces=[];for(const operation of ['insert','spawn','resource'])for(const [name,codec,raw] of cases)traces.push(actual('Workshop',operation,name,codec,raw));
- for(const [name,codec,raw] of cases)traces.push(actual('Garden','insert',name,codec,raw));
+ const {cases,values}=prepare();
+ const traces=[];for(const operation of ['insert','spawn','resource'])for(const [name,codec,raw] of cases)traces.push(actual('Workshop',operation,name,codec,raw,values));
+ for(const [name,codec,raw] of cases)traces.push(actual('Garden','insert',name,codec,raw,values));
  return traces;
 }

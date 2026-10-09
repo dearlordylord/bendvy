@@ -13,4 +13,8 @@ def items(values:List<&2,Observation.Item>) -> List<&2,J.Value>:
   match values:
     case []:[]
     case value <> rest:item(value) <> items(rest)
-def main() -> Serialize.Encoded:Serialize.encode(J.Items{items(Observation.main())})
+def completed(value:Serialize.Encoded) -> String:
+  match value:
+    case Serialize.Complete{text}:text
+    case Serialize.Incomplete{}:"SERIALIZATION_INCOMPLETE"
+def main() -> String:completed(Serialize.encode(J.Items{items(Observation.main())}))
