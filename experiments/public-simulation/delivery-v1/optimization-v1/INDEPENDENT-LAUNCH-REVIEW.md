@@ -1,0 +1,11 @@
+# Independent named-loop admission
+
+PASS: dba875f2 +5c10d6fa; exact /tmp/bendvy63-named-loop-qualification-plan-v2.json SHA4a4367b17e3bffff1cea4e3f53181eaa7607fdc91d604234f316e8423e10873b. All435 current pins match; complete stage107 entries (106 Bend sources plus manifest), exact membership/bytes and output-root absence checked. Approved resources snapshot70/272/7 remains available.
+
+Source changes only scenario.bend plus stage metadata. Each step still invokes Barrier.frame→Actions.execute→App.observe once, retains result and snapshot in Phase, recurses on command rest with the actual owned Application/trace pair, and reverses trace once at terminal. Initialization refusal/factory/Application owners, all14 phases and two schemas stay intact. New loop removes runtime next closure without replacing gameplay/observer/barrier semantics. Three exact overlay/all-other-source/operational-call controls pass; source5 retained success is typechecking, not a speedup result.
+
+Independently reconstructed full32 constructor joins against source-derived overlay; unchanged whole oracle f821c68264eb25c33a674841d0f2abcf466a9d6372e888cfc40b7ae691ae071a and28 TS checkpoints remain mandatory. Comparator difference is stage-overlay validation only; parser/whole field comparison unchanged. Existing finite controls are historical shared-module evidence, not newly executed named-driver mutants; applicability scope remains explicit.
+
+Seven commands are exact existing ordinary v6 commands with only stage/output path relocation: source5, TS5, JSemit30/run5, Nativeemit30/Clang120/run5 CPU5. Helpers/env/tool policy and control selection identical. Reviewed existing stdlib preimport actual Python/all-file barrier, verified source loading, ordinary snapshot/verify, full-stage/source/alias/resource guards, shared cohort lock, exclusive outputs, original child-result/raw retention and separate partial artifact capture errors, post/final unconditional receipts. No optional closed resolver demand and no timing stage/threshold change.
+
+Admit run-delivery.py PLAN FULLSHA once using the exact pinned author helper. No backend executed by reviewer; no timing, generated topology, named-loop performance or complete resolver qualification is inferred.
