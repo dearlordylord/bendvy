@@ -1,0 +1,1 @@
+All eight fresh-book controls passed exact layouts and full emitted C byte comparisons for the invocation-local graph adjacency delta. Open Array refusal and boundVar controls reached. This is copied compiler control evidence, not full consumer compilation, runtime qualification, installed compiler cause or speedup. Original execution98072 terminal exit0; no retries.
