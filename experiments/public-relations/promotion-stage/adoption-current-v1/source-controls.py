@@ -6,7 +6,7 @@ s=(P/'foreign-provider.bend').read_text()
 reverse=s.replace('import ../../../../src/ecs/relation-providers.bend as P\n','').replace('import ../../../../src/ecs/capabilities.bend as Cap\n','').replace('../../../../src/','../../../src/').replace('import ../owned-world.bend','import owned-world.bend').replace('import ../cleanup-owned.bend','import cleanup-owned.bend')
 a=reverse.index('# Gameplay sees only');b=reverse.index('def foreign_ops(',a);reverse=reverse[:a]+reverse[b:]
 for source,target in [('foreign','local'),('local','foreign')]:
- reverse=reverse.replace(f'relate(~S,tx,{source},{target})',f'A.queue_relate(~S,~O.Components<S>,~U32,~U32,tx,G.Descriptor{{1,"Link","LinkedBy",G.Ordinary{{}}}},{source},{target})')
+ reverse=re.sub(r'(?<![A-Za-z_])'+re.escape(f'relate(~S,tx,{source},{target})'),lambda _:f'A.queue_relate(~S,~O.Components<S>,~U32,~U32,tx,G.Descriptor{{1,"Link","LinkedBy",G.Ordinary{{}}}},{source},{target})',reverse)
 reverse=reverse.replace('unrelate(~S,tx,foreign,local)','A.queue_unrelate(~S,~O.Components<S>,~U32,~U32,tx,G.Descriptor{1,"Link","LinkedBy",G.Ordinary{}},foreign)')
 reverse=reverse.replace('relate(~S,X.begin(~W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,~A.Notice<S,U32>,first),W.Handle{1,3},W.Handle{1,1})','A.queue_relate(~S,~O.Components<S>,~U32,~U32,X.begin(~W.World<S,A.Store<S,O.Components<S>>,U32,A.Notice<S,U32>>,~A.Notice<S,U32>,first),G.Descriptor{1,"Link","LinkedBy",G.Ordinary{}},W.Handle{1,3},W.Handle{1,1})')
 assert reverse==(P.parent/'foreign-owned.bend').read_text()
