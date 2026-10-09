@@ -1,0 +1,13 @@
+--- parent-development.py
++++ detached-v2/development.py
+@@ -92,8 +92,8 @@
+     source = json.loads((HERE / 'SOURCE.json').read_text())
+     inventory = source['inventories'][subject]
+     entry = HERE / ('mutant-main.bend' if subject == 'mutant' else 'main.bend')
+-    if len(inventory) != 31 or {path: sha(path) for path in inventory} != inventory:
+-        raise ValueError('Complete31-file consuming source changed')
++    if len(inventory) != 33 or {path: sha(path) for path in inventory} != inventory:
++        raise ValueError('Complete33-file consuming source changed')
+     import_closure = validate_imports(entry, inventory)
+     source_dir = HERE / source['checks'][subject]
+     source_result = json.loads((source_dir / 'result.json').read_text())
