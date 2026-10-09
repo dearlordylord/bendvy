@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.Handle<R.Schema>
+- observed : W.Handle<Other>
+Context:
+- input  : ../../../../../src/ecs/bundle-requests.Input<R.Schema, ../../../../../src/ecs/bundle-pack.Pack<Maybe<&1, Array<U32>>, ../../../../../src/ecs/bundle-pack.Pack<Maybe<&1, U32>, Unit>>>
+- target : W.Handle<Other>
+- ctx    : body~H
+Location: body
+ 8 | def body(~H:Type,~cap:Cap.OwnedRequest<H,R.Input(),R.Output()>,input:R.Input(),target:W.Handle<Other>,ctx:H) -> H & (Maybe<&2,AD.Refusal<String>> & R.Output()):
+ 9>|   Retry.body(~R.Schema,~R.Raw(),~String,~H,~cap,input,target,ctx)
+   |                                                       ^^^^^^
+10 | 
+bend 2.0.36 is available: run bend update

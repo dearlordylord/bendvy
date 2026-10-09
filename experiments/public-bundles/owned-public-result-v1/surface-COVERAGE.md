@@ -21,13 +21,15 @@ This is the current operation-to-evidence map. It does not retrospectively estab
 | Reached semantic defect | unchanged omitted-value installer mutant; full independent22 JS/Native observations differ from baseline |
 | Actual comparator and complete outputs | source-current actual TS10apps/20checkpoints; CLI IO20 + standaloneJS20 + Native20 physical rows; 20 declared public joins per backend |
 | Failed activation/reservation/cancel; runtime capture | Not chosen/exercised; explicit existing contract gates remain open |
-| Production integration/regression/timing/scaling | Open; finite experimental evidence does not waive #28 or performance acceptance |
+| Production module integration | Nine bundle module bytes are on master and exactly match the qualified production mapping; see MASTER-CORE-ACCEPTANCE-JOIN.json. Surrounding participating dependencies and current executable gates remain distinct. |
+| Independent ordinary core consumer and refused-owner retry | core-consumer-v4/core-runtime-v1 plus core-retry-v1 complete413-byte JS/Native output; same public request route reached wrong-recovery callback control changes exactly publication/returned scalar, rejects complete positive oracle. Content preservation, not physical identity. |
+| Regression/timing/scaling and final delivery | Open; unchanged #28/current root binding and fair feature timing remain mandatory; finite records do not close #41. |
 
 Exact source commits: bevy-ts 3040a3b2a3f28fa8554d856f9ccb6bf5433fa334; Rust Bevy ad678262ce53b5d142fe49ee5e08caff6f00ab60; Bend a950fd683c0d76f09794078e6174fe98a1492876. Pinned TS Command/Runtime source and executed public consumer define the comparator. Rust bundle/info, insert and system/commands source define architecture references. Bend guide kinds/quantities, compiler main/comp and installed Base/tool pins define owned-type and runtime authority. Source-current installed compiler binary and resources are separately frozen in receipts; repository source hashes do not replace installed-tool pins.
 
-## Production integration mapping (source-only proposal)
+## Historical production integration mapping
 
-The coordinator owns every target in src/ecs; this worker owns only this experiment. These are slices of the existing #41 delivery, not new policies or a second implementation plan.
+The coordinator owns src/ecs. This historical extraction map is retained for provenance; its nine module bytes are now integrated and source-joined above. Earlier source-only statuses are not current missing implementation claims. Current dependency/runtime/regression gates are separate.
 
 | Small integration slice | Exact candidate → production seam | Dependencies and affected qualification |
 |---|---|---|

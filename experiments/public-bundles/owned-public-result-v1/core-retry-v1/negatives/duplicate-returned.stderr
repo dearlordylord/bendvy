@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : raw
+- observed : raw (consumed more than once)
+Location: returned
+5 |   match result:
+6>|     case Cmd.Refused{raw,error}:(raw,raw)
+  |                      ^^^
+7 |     case Cmd.Accepted{target,spawned}:(R.sample(),R.sample())
+bend 2.0.36 is available: run bend update
