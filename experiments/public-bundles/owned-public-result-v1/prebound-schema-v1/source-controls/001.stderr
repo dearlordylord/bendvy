@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh constructor name (duplicate declaration: Done)
+- observed : 'Done'
+Location:
+20 | # Both successful and rejected branches return the complete World owner.
+21>| type Report<S:Data> is Type:Done{world:World(~S),registry:Sy.Registry<S,Unit,Array<U32>,Unit,Unit,Unit,U32,runner(~S)>,first:U32,second:U32} Declined{world:World(~S),error:SF.Error} RegistrationFailed{world:World(~S)} Refused{world:World(~S),registry:Sy.Registry<S,Unit,Array<U32>,Unit,Unit,Unit,U32,runner(~S)>} BodyFailed{world:World(~S),registry:Sy.Registry<S,Unit,Array<U32>,Unit,Unit,Unit,U32,runner(~S)>} CreateFailed{factory:W.Factory,resource:Array<U32>}
+   |                             ^^^^
+22 | def second(~S:Data,first:U32,value:Sy.RunResult<S,Unit,Array<U32>,Unit,Unit,Unit,U32,runner(~S)>) -> Report<S>:
+bend 2.0.36 is available: run bend update
