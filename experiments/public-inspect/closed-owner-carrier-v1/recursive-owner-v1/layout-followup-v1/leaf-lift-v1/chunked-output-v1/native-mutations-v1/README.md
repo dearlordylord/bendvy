@@ -1,0 +1,3 @@
+Preparation only: two full Native reached assembly controls reuse exactly the existing drop/reorder sources and pre-output complete countermodels. No mutation C was previously emitted; prior successful JS countermodel/baseline-refusal receipts and normal O0 Native complete receipt are pinned prerequisites.
+
+Existing unchanged repaired parent development.py executes copied uninstrumented outlined1f139 emission30, approved Clang19-O0 build120 and whole runtime5 on CPU5/one thread/GPUoff. Every result must equal its entire countermodel and reject the entire unchanged baseline. No new collector, source change, O3 retry, budget, performance criterion or child launch. Independent admission/root queue routing required; output directories are fresh and unused.
