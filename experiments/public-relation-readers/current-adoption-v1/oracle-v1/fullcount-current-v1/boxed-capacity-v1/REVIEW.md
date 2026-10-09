@@ -1,0 +1,7 @@
+# Complete boxed-capacity source expectation
+
+Frozen source f303490a preserves every finite application and the actual capacity65537 application independently for both nominal schemas. `finite` creates a singleton with the prior four complete observations; `held_finish` consumes its exact singleton and forms the full five-field Report directly inside a List. `completed` consumes both exact singletons and returns exactly one Candidate with Some of the full two-schema Output. No helper returns the expanded Report unboxed.
+
+The whole source-derived expected root is `[entire prior bda9 Candidate]`, implemented by expected.py from the immutable lossless parent oracle. This retains every physical queue front/back entry, dropped count, World/owner/cursor/error/lifecycle field. There is no projection or partial capacity scenario. The changed outer List is explicit: empty or multiple outputs and None cannot qualify. Old raw71461/151237818 byte identity is not asserted for this new entry/namespace/wrapper.
+
+The source-derived strict transport enforces List length1 and mandatory Some before returning the entire nested Candidate; this is a specified reversible singleton unwrap, not arbitrary normalization. Source registration/runtime operations remain unchanged. Source5 acceptance establishes type checking only. Copied compiler layout evidence motivates recursive carrier placement; installed C emission/build/runtime and full preoutput comparison remain required. No compiler cause, performance gain or public delivery claim is made.
