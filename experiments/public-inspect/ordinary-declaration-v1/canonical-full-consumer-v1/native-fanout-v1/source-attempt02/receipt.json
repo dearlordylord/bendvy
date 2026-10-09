@@ -1,0 +1,57 @@
+{
+  "scope": "Complete canonical47-source privateCheck fanout development source5 only; no backend/proof/compiler control acceptance",
+  "planSHA256": "c5fdf076caa056f3e012a26717eec5169d1bb8eb75ccd39ad5e846f98b84efc1",
+  "commands": [
+    {
+      "label": "source-normal",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/output-io-main.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt02/source-normal.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt02/source-normal.stderr",
+        "sha256": "76a8c73726e08e9d644b36e0dde963b0922f90276cc5ac747034dce83e62fc8c",
+        "bytes": 1141,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt02/source-normal-pre.guard.json",
+      "sha256": "8abca33a4f1d7ab0cddeeadc61a921e873d103bc79a60c622af8f54c1f6bd84e"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt02/source-normal-acquired.guard.json",
+      "sha256": "2a03857f85b19b1d69c70bddcb4c2aba7fb3dee80d69b781377c06f05deaa952"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt02/source-normal-post.guard.json",
+      "sha256": "f1a6776fefdf7bdb2ec4d67da039f01e754f2daea9f881080accf1d45249dc88"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/source-attempt02/final.guard.json",
+      "sha256": "23ee1215928e178f0b9e5a550314bb473c17372c742aa9bf9a5aef12035ff0db"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Source control exit differs: source-normal",
+  "guardFailures": []
+}

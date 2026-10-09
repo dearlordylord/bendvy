@@ -1,0 +1,56 @@
+{
+  "scope": "Full canonical47-source privateCheck-fanout stock Native candidate; only after retained initial validation PASS; no source-refinement/performance/fullissue claim",
+  "planSHA256": "09a86b8d59b7734a6c635913840cea0b2e48266c6efe966164d2a8245ecc860e",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stage/output-io-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-native01/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": null,
+      "failure": "child deadline",
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-native01/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-native01/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-native01/emit-pre.guard.json",
+      "sha256": "ba76991a8589340bb513ffe4df4c9a2f48a1418180870333f1e0bb8d72c648f5"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-native01/emit-acquired.guard.json",
+      "sha256": "fe4ae246b58536f8552dc837c579923f54496b9182a1c38ede29b4dd722deeb6"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-native01/emit-post.guard.json",
+      "sha256": "f1b46f35270797bcc89784621f8a73bf2ff66d9e14953bcda887144417390305"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/stock-native01/final.guard.json",
+      "sha256": "7955f564aaae088605d079935ce5e723e9428d763efe6edd202a813b6e39c812"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Owned child failed: emit",
+  "guardFailures": []
+}

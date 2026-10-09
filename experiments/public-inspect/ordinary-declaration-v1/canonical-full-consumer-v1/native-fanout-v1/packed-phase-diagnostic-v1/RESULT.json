@@ -1,0 +1,440 @@
+{
+  "scope": "Copied packed logic diagnostics only; terminal full47 profile validator deadline preserves INCOMPLETE; no stock backend/performance/refinement/validated fullprofile attribution",
+  "preparationCommit": "96273a138d254912573c16261930fc416270981a",
+  "session": 32890,
+  "terminalExit": 1,
+  "batchSHA256": "89347aeea5d8f6a5fba884f10d7b758324ea23a20440a6bfaac14460ddafeb3a",
+  "status": "INCOMPLETE",
+  "cohorts": [
+    {
+      "name": "normal33",
+      "planSHA256": "0255ac683bdf27cbfe77efeb263e9f89a08d5b22b577947c7d133829af493126",
+      "status": "PACKED_COMPILER_DIAGNOSTIC_PASS",
+      "commands": [
+        {
+          "label": "source-copy-shape",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "source-copy-emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "source-profile-acceptance",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 11,
+      "profileCapture": {
+        "original": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/profiles/compiler.cpuprofile",
+        "snapshot": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/captured-profile.cpuprofile",
+        "sha256": "4257ecd16e9af706fcd7118b6827ef03ac8f350ff94313cbd67009126e386999",
+        "bytes": 8118389,
+        "identities": {
+          "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/profiles/compiler.cpuprofile": [
+            35,
+            23627385
+          ],
+          "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/normal33/captured-profile.cpuprofile": [
+            35,
+            23627388
+          ]
+        },
+        "compilerExit": 0,
+        "compilerFailure": null
+      },
+      "captureJoins": {
+        "original": true,
+        "snapshot": true
+      },
+      "phaseEvents": [
+        {
+          "event": "startup",
+          "phase": "startup",
+          "calls": 0,
+          "elapsedMs": 0.3243350000000049,
+          "deadlineMs": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 1.3260930000000002,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 832.529245,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 832.6860379999999,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 1692.865335,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "compile_book",
+          "calls": 0,
+          "elapsedMs": 1694.709183,
+          "name": "compile_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "file_book",
+          "calls": 0,
+          "elapsedMs": 1695.371022,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "file_book",
+          "calls": 547,
+          "elapsedMs": 2859.967017,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 547,
+          "elapsedMs": 2860.6123549999998,
+          "name": "emit-pass",
+          "pass": 1
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 10279,
+          "elapsedMs": 5071.233657000001,
+          "name": "emit-pass",
+          "pass": 1
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 10279,
+          "elapsedMs": 5071.266574,
+          "name": "emit-pass",
+          "pass": 2
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 20011,
+          "elapsedMs": 6612.800339,
+          "name": "emit-pass",
+          "pass": 2
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 20011,
+          "elapsedMs": 6612.898257000001,
+          "name": "emit-pass",
+          "pass": 3
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 29743,
+          "elapsedMs": 8043.696272,
+          "name": "emit-pass",
+          "pass": 3
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 29743,
+          "elapsedMs": 8043.790189,
+          "name": "emit-pass",
+          "pass": 4
+        },
+        {
+          "event": "phase-exit",
+          "phase": "emit-pass",
+          "calls": 39475,
+          "elapsedMs": 8730.315531,
+          "name": "emit-pass",
+          "pass": 4
+        },
+        {
+          "event": "phase-enter",
+          "phase": "C-assembly",
+          "calls": 39475,
+          "elapsedMs": 9245.644978,
+          "name": "C-assembly",
+          "pass": 4
+        },
+        {
+          "event": "phase-exit",
+          "phase": "C-assembly",
+          "calls": 39475,
+          "elapsedMs": 9293.064228000001,
+          "name": "C-assembly",
+          "pass": 4
+        },
+        {
+          "event": "phase-exit",
+          "phase": "compile_book",
+          "calls": 39475,
+          "elapsedMs": 9298.748148,
+          "name": "compile_book",
+          "pass": 4
+        }
+      ]
+    },
+    {
+      "name": "interrupted33",
+      "planSHA256": "b148ea2301a8c32a9285c2db5167fddd927d6cdf01f4577d787a800940d12c5f",
+      "status": "PACKED_COMPILER_DIAGNOSTIC_PASS",
+      "commands": [
+        {
+          "label": "source-copy-emit",
+          "exit": 75,
+          "failure": null
+        },
+        {
+          "label": "source-profile-acceptance",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 8,
+      "profileCapture": {
+        "original": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/profiles/compiler.cpuprofile",
+        "snapshot": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/captured-profile.cpuprofile",
+        "sha256": "48b29f71ea34a14578883cea9b55509232f35d6ba42f2ffb8d3b8ce824389c47",
+        "bytes": 1890642,
+        "identities": {
+          "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/profiles/compiler.cpuprofile": [
+            35,
+            23629962
+          ],
+          "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/interrupted33/captured-profile.cpuprofile": [
+            35,
+            23629965
+          ]
+        },
+        "compilerExit": 75,
+        "compilerFailure": null
+      },
+      "captureJoins": {
+        "original": true,
+        "snapshot": true
+      },
+      "phaseEvents": [
+        {
+          "event": "startup",
+          "phase": "startup",
+          "calls": 0,
+          "elapsedMs": 0.03241699999999881,
+          "deadlineMs": 500
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 3.0399819999999984,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 464.940006,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 465.124466,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 1177.140924,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "compile_book",
+          "calls": 0,
+          "elapsedMs": 1180.937371,
+          "name": "compile_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "file_book",
+          "calls": 0,
+          "elapsedMs": 1181.2666239999999,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "deadline",
+          "phase": "file_book",
+          "calls": 1,
+          "elapsedMs": 1188.453514,
+          "hook": "memo_gc",
+          "definition": null,
+          "limitMs": 500,
+          "exit": 75
+        }
+      ]
+    },
+    {
+      "name": "full47",
+      "planSHA256": "efa7248ad942c6970307ebd583c084afdad3e70f70415c1c37d09e74e49afcf1",
+      "status": "INCOMPLETE",
+      "commands": [
+        {
+          "label": "source-copy-emit",
+          "exit": 75,
+          "failure": null
+        },
+        {
+          "label": "source-profile-acceptance",
+          "exit": null,
+          "failure": "child deadline"
+        }
+      ],
+      "guards": 8,
+      "profileCapture": {
+        "original": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/profiles/compiler.cpuprofile",
+        "snapshot": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/captured-profile.cpuprofile",
+        "sha256": "c8024d7969d0234964a0c7b57228b0b4af447c08aae115482b621e626bcce05d",
+        "bytes": 23362164,
+        "identities": {
+          "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/profiles/compiler.cpuprofile": [
+            35,
+            23630039
+          ],
+          "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/packed-phase-diagnostic-v1/full47/captured-profile.cpuprofile": [
+            35,
+            23630042
+          ]
+        },
+        "compilerExit": 75,
+        "compilerFailure": null
+      },
+      "captureJoins": {
+        "original": true,
+        "snapshot": true
+      },
+      "phaseEvents": [
+        {
+          "event": "startup",
+          "phase": "startup",
+          "calls": 0,
+          "elapsedMs": 0.03191699999999287,
+          "deadlineMs": 20000
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 53.339670999999996,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_load",
+          "calls": 0,
+          "elapsedMs": 1398.2674630000001,
+          "name": "book_load",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 1398.4091310000001,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "book_valid",
+          "calls": 0,
+          "elapsedMs": 4158.701479,
+          "name": "book_valid",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "compile_book",
+          "calls": 0,
+          "elapsedMs": 4165.5689090000005,
+          "name": "compile_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "file_book",
+          "calls": 0,
+          "elapsedMs": 4166.523166,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-exit",
+          "phase": "file_book",
+          "calls": 6437,
+          "elapsedMs": 8767.658307,
+          "name": "file_book",
+          "pass": 0
+        },
+        {
+          "event": "phase-enter",
+          "phase": "emit-pass",
+          "calls": 6437,
+          "elapsedMs": 8768.062644,
+          "name": "emit-pass",
+          "pass": 1
+        },
+        {
+          "event": "deadline",
+          "phase": "emit-pass",
+          "calls": 151963,
+          "elapsedMs": 20000.144754,
+          "hook": "emit_body",
+          "definition": "core/inspector-query-projection:matched_right~17",
+          "limitMs": 20000,
+          "exit": 75
+        }
+      ]
+    }
+  ],
+  "noRetry": true,
+  "stockFull47Profiling": "HELD_UNATTEMPTED"
+}

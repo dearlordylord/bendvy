@@ -1,0 +1,64 @@
+{
+  "scope": "Read-only actual ELF CLI extraction and primary Bun runtime source research; no runtime/compiler patches or diagnostic children",
+  "runtimeBuildString": "Bun v1.4.0 (34cbb9a40) Linux arm64",
+  "runtimeBuildStringOffset": 19279976,
+  "revision": "34cbb9a40b4bd1bd767d134a7065e66c2432a676",
+  "qualification": "Build string gives runtime source lead; no reproducible binary/runtime-source identity proof asserted",
+  "items": [
+    {
+      "name": "actual-packed-cli-source.js",
+      "origin": {
+        "binary": "/home/node/.bend/bin/bend-2.0.35",
+        "binarySHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+        "startOffset": 82378778,
+        "endOffsetExclusive": 82711943,
+        "method": "NUL-delimited UTF8 block containing function cli_emit; read-only extraction, never executed"
+      },
+      "sha256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+      "bytes": 333165,
+      "object": "objects/015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62.gz"
+    },
+    {
+      "name": "src/runtime/cli/run_command.rs",
+      "origin": "https://raw.githubusercontent.com/oven-sh/bun/34cbb9a40b4bd1bd767d134a7065e66c2432a676/src/runtime/cli/run_command.rs",
+      "sha256": "0e399f5ef9198972fa930c7b0d54857b3d1be6ce9aa95ae79066f7ecf4a63e7d",
+      "bytes": 176098,
+      "object": "objects/0e399f5ef9198972fa930c7b0d54857b3d1be6ce9aa95ae79066f7ecf4a63e7d.gz"
+    },
+    {
+      "name": "src/jsc/VirtualMachine.rs",
+      "origin": "https://raw.githubusercontent.com/oven-sh/bun/34cbb9a40b4bd1bd767d134a7065e66c2432a676/src/jsc/VirtualMachine.rs",
+      "sha256": "aa8c714d6ee078475742bffa6e05f8b74b0f8f367ef26b0f45fef7e8c8515b48",
+      "bytes": 313550,
+      "object": "objects/aa8c714d6ee078475742bffa6e05f8b74b0f8f367ef26b0f45fef7e8c8515b48.gz"
+    },
+    {
+      "name": "src/jsc/PosixSignalHandle.rs",
+      "origin": "https://raw.githubusercontent.com/oven-sh/bun/34cbb9a40b4bd1bd767d134a7065e66c2432a676/src/jsc/PosixSignalHandle.rs",
+      "sha256": "f0677bb85f812c7aead7611e65a4507f2f7390e1e35230d43e6b2f16e476b09d",
+      "bytes": 11677,
+      "object": "objects/f0677bb85f812c7aead7611e65a4507f2f7390e1e35230d43e6b2f16e476b09d.gz"
+    },
+    {
+      "name": "src/jsc/bindings/BunProcess.cpp",
+      "origin": "https://raw.githubusercontent.com/oven-sh/bun/34cbb9a40b4bd1bd767d134a7065e66c2432a676/src/jsc/bindings/BunProcess.cpp",
+      "sha256": "60042cc3fedc4cd568951418660908caff0ceba904aa0deed42223421c71fbdb",
+      "bytes": 226803,
+      "object": "objects/60042cc3fedc4cd568951418660908caff0ceba904aa0deed42223421c71fbdb.gz"
+    },
+    {
+      "name": "src/jsc/BunCPUProfiler.rs",
+      "origin": "https://raw.githubusercontent.com/oven-sh/bun/34cbb9a40b4bd1bd767d134a7065e66c2432a676/src/jsc/BunCPUProfiler.rs",
+      "sha256": "340a005e196208a43772bace938298b0392addb4bd0b14e01cc8907679f01e2f",
+      "bytes": 9332,
+      "object": "objects/340a005e196208a43772bace938298b0392addb4bd0b14e01cc8907679f01e2f.gz"
+    },
+    {
+      "name": "src/jsc/bindings/BunCPUProfiler.cpp",
+      "origin": "https://raw.githubusercontent.com/oven-sh/bun/34cbb9a40b4bd1bd767d134a7065e66c2432a676/src/jsc/bindings/BunCPUProfiler.cpp",
+      "sha256": "c85acd88ffcefa005cb6dd5818184d38b8f1af24fb3fef29c15ad1afa9f61eda",
+      "bytes": 39025,
+      "object": "objects/c85acd88ffcefa005cb6dd5818184d38b8f1af24fb3fef29c15ad1afa9f61eda.gz"
+    }
+  ]
+}

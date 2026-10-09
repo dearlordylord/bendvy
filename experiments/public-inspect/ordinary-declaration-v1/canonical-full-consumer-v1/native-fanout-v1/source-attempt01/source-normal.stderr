@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : a defined name
+- observed : U32.eq
+Context:
+- _  : U32
+- id : U32
+Location: check_target_flag
+55 |   match target:
+56>|     case W.Handle{_,id}:U32.eq(id,0)
+   |                         ^^^^^^
+57 | def check_target_body(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,~operation:K.Frame<S,Store,R,E> -> W.Handle<S> -> K.Frame<S,Store,R,E> & V,owner:CheckOwner<S,Store,R,E>,target:W.Handle<S>) -> CheckOwner<S,Store,R,E> & V:

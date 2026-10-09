@@ -1,0 +1,70 @@
+--- reviewed-profile-collector
++++ packed-diagnostic-collector
+@@ -200,8 +200,8 @@
+                     fcntl.flock(lock, fcntl.LOCK_EX)
+                     try:
+                         guard(label + '-acquired')
+-                        artifact = generated if label == 'emit' else native
+-                        if label in ('emit', 'build') and (artifact.exists() or artifact.is_symlink()):
++                        artifact = generated if label in ('emit','source-copy-emit') else native
++                        if label in ('emit', 'build', 'source-copy-emit') and (artifact.exists() or artifact.is_symlink()):
+                             raise ValueError('Generated output must start absent')
+                         result = runner.execute_result(command['argv'], command['capSeconds'], plan['environment'], plan['cwd'], 'split')
+                     finally:
+@@ -235,7 +235,7 @@
+                                     error.add_note('partial raw capture: '+str(partial_error))
+                     raise
+                 finally:
+-                    if label in ('emit','build') and (artifact.exists() or artifact.is_symlink()):
++                    if label in ('emit','build','source-copy-emit') and (artifact.exists() or artifact.is_symlink()):
+                         try:
+                             pins[str(artifact)]=sha(artifact)
+                             record[label+'ArtifactSHA256']=pins[str(artifact)]
+@@ -243,7 +243,7 @@
+                             record[label+'ArtifactCaptureError']=f'{type(error).__name__}: {error}'
+                             if publication_error is not None:publication_error.add_note('artifact capture: '+str(error))
+                             else:raise
+-                if label == 'emit':
++                if label in ('emit','source-copy-emit'):
+                     profile = Path(plan['profile'])
+                     snapshot = Path(plan['capturedProfile'])
+                     if profile.is_symlink() or not profile.is_file():
+@@ -264,6 +264,8 @@
+                         info = artifact.lstat()
+                         profile_identities[str(artifact)] = [info.st_dev, info.st_ino]
+                     record['profileCapture'] = {'original': str(profile), 'snapshot': str(snapshot), 'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw), 'identities': dict(profile_identities)}
++                    record['profileCapture']['compilerExit'] = result['exit']
++                    record['profileCapture']['compilerFailure'] = result['failure']
+                     metadata = Path(plan['profileCaptureMetadata'])
+                     write_raw(metadata, (json.dumps(record['profileCapture'], indent=2) + '\n').encode())
+                     pins[str(metadata)] = sha(metadata)
+@@ -271,7 +273,7 @@
+                     profile_identities[str(metadata)] = [info.st_dev, info.st_ino]
+                     guard('profile-captured')
+                 if label.startswith('source-'):
+-                    if result['failure'] is not None or result['exit'] != command['expectedExit']:
++                    if result['failure'] is not None or result['exit'] not in command.get('expectedExits', [command.get('expectedExit')]):
+                         raise ValueError('Source control exit differs: ' + label)
+                     for token in command.get('stderrContains', []):
+                         if token.encode() not in result['stderr']:
+@@ -280,8 +282,8 @@
+                     continue
+                 if result['exit'] != 0 or result['failure'] is not None:
+                     raise ValueError('Owned child failed: ' + label)
+-                if label in ('emit', 'build'):
+-                    artifact = generated if label == 'emit' else native
++                if label in ('emit', 'build', 'source-copy-emit'):
++                    artifact = generated if label in ('emit','source-copy-emit') else native
+                     if artifact.is_symlink() or not artifact.is_file():
+                         raise ValueError('Emit did not produce a regular non-symlink artifact')
+                     pins[str(artifact)] = sha(artifact)
+@@ -302,7 +304,8 @@
+                         if result['stdout'] == baseline_bytes:
+                             raise ValueError('Reached reader mutation did not reject normal baseline')
+                         record['completeNormalBaselineRejected'] = True
+-        record['status'] = 'COMPLETE_SOURCE_CONTROL_PASS' if all(command['label'].startswith('source-') for command in plan['commands']) else 'COMPLETE_CONSUMER_DEVELOPMENT_PASS'
++        record['status'] = 'PACKED_COMPILER_DIAGNOSTIC_PASS'
++        record['compilerOutcome'] = 'interrupted exit75; not successful emission' if next(row['exit'] for row in record['commands'] if row['label']=='source-copy-emit')==75 else 'normal copied-logic C emission; not stock backend qualification'
+ 
+ 
+ def prepare_source(out):

@@ -1,0 +1,31 @@
+
+// Read-only initial checked-book survival probe, reused static-layout pattern.
+// No body emission, layout conversion or compiler algorithm changes.
+export function native_fanout_probe(book: Bend.Book): any {
+  const show=show_main(book), fams=(show ?? []).flatMap(c => typeof c === "string" ? [Bend.book_fam(book,c)] : []);
+  const fl=file_book(book,["main",...RUNTIME_ADTS,...fams],false);
+  const origins=new Map<string,string[]>();
+  for(const [origin,values] of Object.entries(book.tmps)) {
+    if(!(values instanceof Map))throw new Error("template registry not Map");
+    for(const key of values.values())origins.set(key,[...(origins.get(key) ?? []),origin]);
+  }
+  const bodies=new Set<string>(), routes=[];
+  const local=(key:string) => {const row=origins.get(key) ?? [];if(row.length>1)throw new Error("ambiguous template");const origin=row[0] ?? key;return origin.slice(origin.lastIndexOf(":")+1);};
+  for(const [key]of done_defs(fl))if(local(key)==="check_target_body")bodies.add(key);
+  for(const [key]of done_defs(fl)) {
+    if(local(key)!=="check_target_routed")continue;
+    const fn=fun_of(fl,key), arms:any[]=[];
+    term_any(fl,fn.h!,(node) => {
+      if(node.$!=="Mat" || !["True","False"].includes(node.k.slice(node.k.lastIndexOf(":")+1)))return false;
+      const calls:any[]=[];
+      term_any(fl,node.h,(body,tail) => {
+        const ck=term_spine(fl,body);
+        if(ck.k!==null && bodies.has(ck.k))calls.push({key:ck.k,tail,bang:ck.b,flatCall:flat_call(fl,body),countedSites:fl.sites.get(ck.k) ?? 0,argumentCount:ck.args.length,returnBox:lay_box(fun_of(fl,ck.k).ret)});
+        return false;
+      });
+      arms.push({constructor:node.k,calls});return false;
+    });
+    routes.push({key,origin:origins.get(key) ?? [],flat:flat_of(key),arguments:fn.live.map(([,name])=>name),raisedBodyKey:Bend.term_key(Bend.term_lower(fn.h!)),arms});
+  }
+  return {scope:"Reference a950fd68 initial file_book/fun_of/term_higher only; no emission or packed stock2.0.35 equivalence",routes,bodies:[...bodies].map(key=>({key,origin:origins.get(key) ?? [],countedSites:fl.sites.get(key) ?? 0,flat:flat_of(key)})),reachableDefinitions:[...SRCS.keys()],templateInstances:[...origins]};
+}
