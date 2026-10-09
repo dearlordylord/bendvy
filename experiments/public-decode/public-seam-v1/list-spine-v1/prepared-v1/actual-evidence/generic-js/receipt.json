@@ -1,0 +1,49 @@
+{
+  "preparedPlanSha256": "7691b9fd8914fdcb036bb8d1298d574315ba495be605803b60975c55858f4600",
+  "status": "DEVELOPMENT_JS_PASS",
+  "scope": "Complete list-spine JS consuming or installed C-emission development check; no delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/generic-spine.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/generic-js/generated/complete.js"
+      ],
+      "capSeconds": 30,
+      "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/generic-js/generated/complete.js",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/generic-js/generated/complete.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    }
+  ],
+  "generated": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/list-spine-v1/prepared-v1/generic-js/generated/complete.js": "0516fef8ec8a79ea3c3641ec2f7f63dd114e332548fdbbc6cb0e13fe6761c4db"
+  },
+  "logs": {
+    "complete-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-run.stdout": "5d23c765c3b487d7dd229820a077b951d9c5f7d4020f947c63aac512a3464ad2",
+    "complete-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
