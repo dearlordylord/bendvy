@@ -1,0 +1,5 @@
+# Sampling preparation receipt fix review
+
+Scoped source/control PASS for f912be5f only; no sampling launch/plan admitted. Previously missing terminal qualification checks are now before binary/schedule/preparation: exactplanSHA, successful timingqualificationstatus, no error or guardFailures, allfourstageexit0/failureNone, exactlyTS/JS/Native passedcase keys. This closes the concrete failed-finalguard-with-populatedcases gap.
+
+Independently executed supplied goodfixture+9negativevariants and additionally the actual independently reviewed39cb0b61 successful receipt. Actualreceipt accepted; copies retaining allthreepassedcases but adding finalerror/guardfailure or INCOMPLETE status were refused. No children or author edits; qualification archive remains untouched. Binary hash/qualifiedplan and future source/tool/archive/quiet-context pins remain required by existing preparation. This review is not a generic untrusted-receipt authenticity theorem or a performance decision. A concrete freshly frozen sampling plan requires separate exactadmission and root scheduling authorization.
