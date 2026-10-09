@@ -1,0 +1,130 @@
+{
+  "originalSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+  "originalBytes": 333165,
+  "copySHA256": "01f8f7ba8ea6dbd4f55a84e9063e6956d89ea0c797b017de8f6725492c910c2b",
+  "patches": [
+    {
+      "kind": "installed resource root",
+      "original": "var BEND_DIR = import.meta.url.startsWith(\"file:///$bunfs/\") ? path.join(path.dirname(fs.realpathSync(process.execPath)), \"..\", \"bend2\") : url.fileURLToPath(new URL(\".\", import.meta.url));",
+      "replacement": "var BEND_DIR = \"/home/node/.bend/bend2\";"
+    },
+    {
+      "kind": "private helper before CLI entry",
+      "original": "var main_default = PLUGIN;",
+      "replacement": "\n// BENDVY diagnostic insertion; copied logic only, no stock qualification.\nvar BVY_PD_STATE = {start:performance.now(), limit:Number(process.env.BENDVY_DIAG_DEADLINE_MS ?? 0), phase:\"startup\", stack:[], pass:0, calls:0, definition:null};\nfunction BVY_PD_LOG(event, detail = {}) {\n  fs4.writeSync(2, \"BENDVY_PHASE \" + JSON.stringify({event, phase:BVY_PD_STATE.phase, calls:BVY_PD_STATE.calls, elapsedMs:performance.now()-BVY_PD_STATE.start, ...detail}) + \"\\n\");\n}\nfunction BVY_PD_PHASE(name, event) {\n  if (event === \"enter\") BVY_PD_STATE.stack.push(name);\n  BVY_PD_STATE.phase=name;\n  BVY_PD_LOG(\"phase-\"+event,{name,pass:BVY_PD_STATE.pass});\n  if (event === \"exit\") {\n    if (BVY_PD_STATE.stack.pop() !== name) throw new Error(\"diagnostic phase stack mismatch\");\n    BVY_PD_STATE.phase=BVY_PD_STATE.stack.at(-1) ?? \"startup\";\n  }\n}\nfunction BVY_PD_CHECK(hook, definition) {\n  BVY_PD_STATE.calls++;\n  if (definition !== undefined) BVY_PD_STATE.definition=definition;\n  if (BVY_PD_STATE.limit > 0 && performance.now()-BVY_PD_STATE.start >= BVY_PD_STATE.limit) {\n    BVY_PD_LOG(\"deadline\",{hook,definition:BVY_PD_STATE.definition,calls:BVY_PD_STATE.calls,limitMs:BVY_PD_STATE.limit,exit:75});\n    process.exit(75);\n  }\n}\nBVY_PD_LOG(\"startup\",{deadlineMs:BVY_PD_STATE.limit});\nvar main_default = PLUGIN;"
+    },
+    {
+      "kind": "existing memo checkpoint",
+      "original": "function memo_gc() {",
+      "replacement": "function memo_gc() {\n  BVY_PD_CHECK(\"memo_gc\");"
+    },
+    {
+      "kind": "recursive body checkpoint",
+      "original": "function emit_body(fl, tm, ty0, ers, args, dst) {",
+      "replacement": "function emit_body(fl, tm, ty0, ers, args, dst) {\n  BVY_PD_CHECK(\"emit_body\", fl.def);"
+    },
+    {
+      "kind": "load markers",
+      "original": "    await book_load(book, file, \"\", seen);",
+      "replacement": "    BVY_PD_PHASE(\"book_load\", \"enter\");\n    await book_load(book, file, \"\", seen);\n    BVY_PD_PHASE(\"book_load\", \"exit\");"
+    },
+    {
+      "kind": "check markers",
+      "original": "    book_valid(book, base?.order.length ?? 0);",
+      "replacement": "    BVY_PD_PHASE(\"book_valid\", \"enter\");\n    book_valid(book, base?.order.length ?? 0);\n    BVY_PD_PHASE(\"book_valid\", \"exit\");"
+    },
+    {
+      "kind": "compile enter",
+      "original": "function compile_book(book) {",
+      "replacement": "function compile_book(book) {\n  BVY_PD_PHASE(\"compile_book\", \"enter\");"
+    },
+    {
+      "kind": "file book enter",
+      "original": "function file_book(book, roots, js) {",
+      "replacement": "function file_book(book, roots, js) {\n  BVY_PD_PHASE(\"file_book\", \"enter\");"
+    },
+    {
+      "kind": "file book exit",
+      "original": "  return fl;\n}\nfunction facts_hot",
+      "replacement": "  BVY_PD_PHASE(\"file_book\", \"exit\");\n  return fl;\n}\nfunction facts_hot"
+    },
+    {
+      "kind": "pass begin",
+      "original": "  do {\n    was = facts();",
+      "replacement": "  do {\n    BVY_PD_STATE.pass++;\n    BVY_PD_PHASE(\"emit-pass\", \"enter\");\n    was = facts();"
+    },
+    {
+      "kind": "pass end",
+      "original": "  } while (was !== facts());",
+      "replacement": "    BVY_PD_PHASE(\"emit-pass\", \"exit\");\n  } while (was !== facts());"
+    },
+    {
+      "kind": "definition checkpoint context",
+      "original": "    for (const [k, tld] of done_defs(fl).reverse()) {\n      memo_gc();",
+      "replacement": "    for (const [k, tld] of done_defs(fl).reverse()) {\n      BVY_PD_STATE.definition = k;\n      memo_gc();"
+    },
+    {
+      "kind": "assembly/compile exit",
+      "original": "  return c_ids(fl, runtime_c([tabs, ...desc].join(`\n\n`), spins, segs, reqs));",
+      "replacement": "  BVY_PD_PHASE(\"C-assembly\", \"enter\");\n  const BVY_PD_RESULT = c_ids(fl, runtime_c([tabs, ...desc].join(`\n\n`), spins, segs, reqs));\n  BVY_PD_PHASE(\"C-assembly\", \"exit\");\n  BVY_PD_PHASE(\"compile_book\", \"exit\");\n  return BVY_PD_RESULT;"
+    },
+    {
+      "name": "context-state",
+      "original": "calls:0, definition:null};",
+      "replacement": "calls:0, definition:null, queueContext:null};"
+    },
+    {
+      "name": "existing-phase-context",
+      "original": "BVY_PD_LOG(\"phase-\"+event,{name,pass:BVY_PD_STATE.pass});",
+      "replacement": "BVY_PD_LOG(\"phase-\"+event,{name,pass:BVY_PD_STATE.pass,queueContext:name === \"file_book\" ? BVY_PD_STATE.queueContext : null});"
+    },
+    {
+      "name": "existing-deadline-context",
+      "original": "BVY_PD_LOG(\"deadline\",{hook,definition:BVY_PD_STATE.definition,calls:BVY_PD_STATE.calls,limitMs:BVY_PD_STATE.limit,exit:75});",
+      "replacement": "BVY_PD_LOG(\"deadline\",{hook,definition:BVY_PD_STATE.definition,calls:BVY_PD_STATE.calls,limitMs:BVY_PD_STATE.limit,exit:75,queueContext:BVY_PD_STATE.phase === \"file_book\" ? BVY_PD_STATE.queueContext : null});"
+    },
+    {
+      "name": "queue-checkpoint",
+      "original": "  const queue = roots.slice();\n  for (const d of queue) {\n    if (SRCS.has(d)) {\n      continue;\n    }\n    memo_gc();\n    const tld = book.tlds[d];\n    SRCS.set(d, null);\n",
+      "replacement": "  const queue = roots.slice();\n  const BVY_PD_QUEUE = {upcoming:null,current:null,lastCompleted:null,substage:\"queue-ready\",queueLength:queue.length,uniqueVisited:SRCS.size,queueBeforeCurrent:null,queueAfterTypes:null};\n  BVY_PD_STATE.queueContext = BVY_PD_QUEUE;\n  for (const d of queue) {\n    if (SRCS.has(d)) {\n      continue;\n    }\n    BVY_PD_QUEUE.upcoming = d;\n    BVY_PD_QUEUE.substage = \"checkpoint-before-definition\";\n    BVY_PD_QUEUE.queueLength = queue.length;\n    BVY_PD_QUEUE.uniqueVisited = SRCS.size;\n    memo_gc();\n    BVY_PD_QUEUE.current = d;\n    BVY_PD_QUEUE.upcoming = null;\n    BVY_PD_QUEUE.queueBeforeCurrent = queue.length;\n    BVY_PD_QUEUE.substage = \"lookup\";\n    const tld = book.tlds[d];\n    SRCS.set(d, null);\n    BVY_PD_QUEUE.substage = \"type-dependencies\";\n"
+    },
+    {
+      "name": "inactive-completion",
+      "original": "    if (!done_live(tld)) {\n      continue;\n    }\n    const deps = new Set;\n",
+      "replacement": "    BVY_PD_QUEUE.queueAfterTypes = queue.length;\n    if (!done_live(tld)) {\n      BVY_PD_QUEUE.lastCompleted = {key:d,completionSubstage:\"inactive-after-type-dependencies\",queueBefore:BVY_PD_QUEUE.queueBeforeCurrent,queueAfterTypes:queue.length,queueAfterBody:queue.length,uniqueVisited:SRCS.size};\n      BVY_PD_QUEUE.current = null;\n      BVY_PD_QUEUE.substage = \"completed-inactive\";\n      BVY_PD_QUEUE.queueLength = queue.length;\n      BVY_PD_QUEUE.uniqueVisited = SRCS.size;\n      continue;\n    }\n    const deps = new Set;\n"
+    },
+    {
+      "name": "function-body-stages",
+      "original": "    let flat = true;\n    term_any(fl, fun_of(fl, d).h, (s, tail) => {\n      if (s.$ === \"Ann\") {\n        queue.push(...type_adts(fl, s.T));\n      }\n",
+      "replacement": "    let flat = true;\n    BVY_PD_QUEUE.substage = \"fun_of\";\n    const BVY_PD_FUN_BODY = fun_of(fl, d).h;\n    BVY_PD_QUEUE.substage = \"term_any\";\n    term_any(fl, BVY_PD_FUN_BODY, (s, tail) => {\n      if (s.$ === \"Ann\") {\n        BVY_PD_QUEUE.substage = \"type-dependencies-in-body\";\n        queue.push(...type_adts(fl, s.T));\n        BVY_PD_QUEUE.substage = \"term_any\";\n      }\n"
+    },
+    {
+      "name": "runtime-completion",
+      "original": "    SRCS.set(d, flat ? deps : null);\n    queue.push(...refs);\n  }\n  BVY_PD_PHASE(\"file_book\", \"exit\");",
+      "replacement": "    SRCS.set(d, flat ? deps : null);\n    queue.push(...refs);\n    BVY_PD_QUEUE.lastCompleted = {key:d,completionSubstage:\"runtime-after-body-scan\",queueBefore:BVY_PD_QUEUE.queueBeforeCurrent,queueAfterTypes:BVY_PD_QUEUE.queueAfterTypes,queueAfterBody:queue.length,uniqueVisited:SRCS.size};\n    BVY_PD_QUEUE.current = null;\n    BVY_PD_QUEUE.substage = \"completed-runtime\";\n    BVY_PD_QUEUE.queueLength = queue.length;\n    BVY_PD_QUEUE.uniqueVisited = SRCS.size;\n  }\n  BVY_PD_PHASE(\"file_book\", \"exit\");"
+    },
+    {
+      "name": "first-occurrence-roots-and-enqueue",
+      "original": "  const queue = roots.slice();",
+      "replacement": "  const BVY_PD_SEEN = new Set(roots);\n  const queue = [...BVY_PD_SEEN];\n  const BVY_PD_ENQUEUE = (xs) => {\n    for (const x of xs) {\n      if (!BVY_PD_SEEN.has(x)) {\n        BVY_PD_SEEN.add(x);\n        queue.push(x);\n      }\n    }\n  };"
+    },
+    {
+      "name": "type-root-enqueue",
+      "original": "      queue.push(...type_adts(fl, x.T));",
+      "replacement": "      BVY_PD_ENQUEUE(type_adts(fl, x.T));"
+    },
+    {
+      "name": "annotation-type-enqueue",
+      "original": "        queue.push(...type_adts(fl, s.T));",
+      "replacement": "        BVY_PD_ENQUEUE(type_adts(fl, s.T));"
+    },
+    {
+      "name": "reference-enqueue",
+      "original": "    queue.push(...refs);",
+      "replacement": "    BVY_PD_ENQUEUE(refs);"
+    }
+  ],
+  "originalManifest": "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/termination-source-v1/manifest.json",
+  "privatePrefix": "BVY_PD_",
+  "inverseExact": true
+}
