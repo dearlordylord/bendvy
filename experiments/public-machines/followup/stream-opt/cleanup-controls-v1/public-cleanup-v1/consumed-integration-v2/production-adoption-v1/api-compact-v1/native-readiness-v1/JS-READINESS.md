@@ -1,0 +1,5 @@
+The canonical JS collector reuses the admitted Native collector's complete source/model inventory, verified-byte imports, interpreter check, ordinary resource guards, lock, publication and unconditional receipt paths. Its executable delta removes Clang tools and the build command, emits scenario.js, and runs the pinned Node on that exact artifact. The unused native artifact slot remains in the shared guard shape; no binary or build is produced.
+
+Only JS-PREPARED-v2.json is proposed for admission. The unused v1 index is preserved; v2 additionally pins the JS-specific preimport and publication controls. Those five no-child controls passed. The existing complete transport controls cover all four independent models, source authority and the six reached mutation differences. No JS child has run under these plans.
+
+Run each v2 plan only after independent admission, normal before its corresponding mutant. Complete literal DTO equality remains mandatory. This is semantic qualification, with no timing or default-regression claim.
