@@ -28,6 +28,30 @@ class Controls(unittest.TestCase):
             os.utime(path, ns=(metadata.st_atime_ns, metadata.st_mtime_ns))
             module = namespace['load']('controlled_helper', path, {str(path.resolve()): sha(path.read_bytes())})
             self.assertEqual(module.VALUE, 2)
+    def test_probe_result_survives_second_stream_publication_failure(self):
+        import types
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as name:
+            root = Path(name)
+            command = {'name': 'one', 'argv': ['/taskset', '-c', '5', '/ldd', '/tool']}
+            declaration = {'resolver_inputs': [], 'loader_search_directories': [], 'namespace': {}, 'cost': {}, 'discoveryCommands': [command], 'configuration': {'execute': 'adapter', 'env': {}}}
+            plan = {'outputRoot': str(root), 'declaration': declaration, 'resourceMetadata': {}, 'toolPins': {}, 'helpers': {'runner': 'runner', 'pins': 'pins', 'metadata': 'metadata'}}
+            result = {'exit': 7, 'failure': None, 'stdout': b'completed', 'stderr': b'error'}
+            class FakePins:
+                def __init__(self, **kwargs): kwargs['execute'](command['argv'], 5, {})
+            modules = {'runner': types.SimpleNamespace(execute_result=lambda *args: result), 'pins': types.SimpleNamespace(PinnedTools=FakePins), 'metadata': types.SimpleNamespace(namespace_state=lambda *args: {})}
+            actual_publish = namespace['publish']
+            def failing_publish(path, raw):
+                if str(path).endswith('.stderr'): raise OSError('controlled second-stream failure')
+                return actual_publish(path, raw)
+            with patch.dict(namespace, admitted=lambda *args: (plan, {}), load=lambda key, path, pins: modules[path], publish=failing_publish):
+                with self.assertRaisesRegex(OSError, 'second-stream failure'): namespace['worker']('unused', 'unused')
+            retained = json.loads((root / 'inner/one.result.json').read_bytes())
+            self.assertEqual(retained['exit'], 7); self.assertIsNone(retained['failure'])
+            self.assertEqual(bytes.fromhex(retained['stdout']['rawHex']), b'completed')
+            self.assertEqual(bytes.fromhex(retained['stderr']['rawHex']), b'error')
+            self.assertEqual((root / 'inner/one.stdout').read_bytes(), b'completed')
+            self.assertFalse((root / 'inner/one.stderr').exists())
     def test_regular_no_follow_and_no_overwrite(self):
         with tempfile.TemporaryDirectory() as name:
             root = Path(name); path = root / 'result'; namespace['publish'](path, b'raw')

@@ -93,6 +93,7 @@ def run(planpath, digest):
     record = {'planSHA256': digest, 'commands': [], 'guards': [], 'closedResolverQualified': False}
     expected_artifacts = {'started.json', 'acquired.json'} | {row['name'] + suffix for row in plan['declaration']['discoveryCommands'] for suffix in ['.stdout', '.stderr', '.result.json']}
     def guard(label):
+        regular(receiptpath)
         actual = {p: sha(regular(p)) for p in pins}
         artifacts = {}
         inner = out / 'inner'

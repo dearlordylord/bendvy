@@ -24,8 +24,8 @@ def prepare():
     for root in declaration['configuration']['resource_roots']:
         resources[root] = {str(p): {'resolved': str(p.resolve(strict=True)), 'bytes': p.stat().st_size} for p in sorted(Path(root).rglob('*')) if p.is_file()}
     resource_files = {row['resolved']: row['bytes'] for files in resources.values() for row in files.values()}
-    planpath = '/tmp/bendvy63-resolver-acquisition-plan-v1.json'
-    output = '/tmp/bendvy63-resolver-acquisition-v1'
+    planpath = '/tmp/bendvy63-resolver-acquisition-plan-v2.json'
+    output = '/tmp/bendvy63-resolver-acquisition-v2'
     if Path(output).exists() or Path(output).is_symlink(): raise ValueError('Output must start absent')
     source_pins = dict(declaration['helperSourcePins'])
     source_pins.update({str(p.resolve()): sha(p.read_bytes()) for p in sourcefiles})
