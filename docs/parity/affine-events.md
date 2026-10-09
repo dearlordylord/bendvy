@@ -128,6 +128,9 @@ logical IDs instead of canonical `id - 1` indices. Independently corrected sourc
 derived expectations match retained JS output without replay; Native passed on
 its first execution.
 
-No payload needed for ECS rollback is exposed in the recovery receipt. Public
-reader/retention contracts, a reached transaction mutation, independently authored
-public consumers and delivery/performance qualification remain outstanding.
+No payload needed for ECS rollback is exposed in the recovery receipt. A reached transaction abort-loss mutant now rejects the complete unchanged
+baseline and matches the complete preauthored counterfactual on JS. The sole
+change drops the first recovered payload after canonical rollback; all other
+observations remain unchanged. Independent review and execution joins pass.
+Public reader/retention contracts, independently authored public consumers and
+delivery/performance qualification remain outstanding.
