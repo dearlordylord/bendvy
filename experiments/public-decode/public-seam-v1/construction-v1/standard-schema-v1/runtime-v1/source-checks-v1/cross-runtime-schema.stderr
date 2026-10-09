@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.OwnedRequest<../../../../../../../../../bendvy/src/ecs/decode-requests.Owner<Input.Second, ../../../../../../../../../bendvy/src/ecs/column.Column<Input.Second, Business.Owner>, ../../../qualification-v1/canonical-v1/source/materialization-v1/mail.Mail<Business.Owner, Business.Owner>, Unit, Business.Owner, ../../../../../../../../../bendvy/src/ecs/ordinary-declaration.Declaration{"constructed-raw-owner"}, Business.project>, Constructed.Input<Input.Second, Input.Input>, Constructed.Output<Input.Second, Input.Input, Business.Owner, Business.Error>>
+- observed : Cap.OwnedRequest<../../../../../../../../../bendvy/src/ecs/decode-requests.Owner<Input.First, ../../../../../../../../../bendvy/src/ecs/column.Column<Input.First, Business.Owner>, ../../../qualification-v1/canonical-v1/source/materialization-v1/mail.Mail<Business.Owner, Business.Owner>, Unit, Business.Owner, ../../../../../../../../../bendvy/src/ecs/ordinary-declaration.Declaration{"constructed-raw-owner"}, Business.project>, Constructed.Input<Input.First, Input.Input>, Constructed.Output<Input.First, Input.Input, Business.Owner, Business.Error>>
+Location: invalid
+ 8 | def invalid() -> Cap.OwnedRequest<Material.Owner(~Input.Second),Constructed.Input<Input.Second,Input.Input>,Constructed.Output<Input.Second,Input.Input,Business.Owner,Business.Error>>:
+ 9>|   Material.grants(~Input.First)
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+10 | 
+bend 2.0.36 is available: run bend update
