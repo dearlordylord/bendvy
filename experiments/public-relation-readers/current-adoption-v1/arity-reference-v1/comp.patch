@@ -1,0 +1,35 @@
+--- pinned/comp.ts
++++ diagnostic/comp.ts
+@@ -2576,6 +2576,17 @@
+     const ret = fun_of(fl, c.k!).ret;
+     const rest = [...hold, chain[i]];
+     const rs = val_new(ret.ks.map(() => name_local(fl, o.ps[i].k)), ret);
++    const heldWords = held.reduce((n, [, b]) => n + b.val.ws.length, 0);
++    if (heldWords + rs.ws.length > WIDE) {
++      console.error("REFERENCE_CONTINUATION_LAYOUT " + JSON.stringify({
++        continuation: kn, enclosingDef: fl.def, callee: c.k,
++        heldWords, resultWords: rs.ws.length, total: heldWords + rs.ws.length,
++        resultBinder: o.ps[i].k, resultKinds: ret.ks,
++        held: held.map(([p, b]) => ({variable: p.k, words: b.val.ws.length, kinds: b.val.lay.ks})),
++        source: x.s ? {namespace: x.s.file.ns, beg: x.s.beg, end: x.s.end,
++          excerpt: x.s.file.str.slice(x.s.beg, x.s.end)} : null
++      }));
++    }
+     fl = seg_open(fl, kn, fl.seg.ret, { pop: last ? depth : 0, at }, held, rs,
+       rest);
+     bind_uses(fl, o.ps[i], rs, rest, ty_ann(x.v[i])!);
+@@ -2821,7 +2832,13 @@
+     .map((s) => s.fid)), [...fl.segs, { fid: seg_fid(CLO_APPLY),
+     refs: fl.clos }].flatMap((s) => [...s.refs].map((r) => [r, s.fid])));
+   const ars = [...cids.values()].map((n) => n > WIDE ? 240 + Math.log2(n) : n);
+-  if (entries.some((s) => s.params.length > WIDE) || ars.some((n) => n > 255)) {
++  const badEntries = entries.filter((s) => s.params.length > WIDE).map((s) =>
++    ({ fid: s.fid, def: s.def, flattenedArity: s.params.length, limit: WIDE }));
++  const badNodes = [...cids.entries()].filter(([, n]) =>
++    (n > WIDE ? 240 + Math.log2(n) : n) > 255).map(([name, n]) =>
++    ({ name, flattenedArity: n, encodedArity: n > WIDE ? 240 + Math.log2(n) : n, limit: 255 }));
++  if (badEntries.length || badNodes.length) {
++    console.error("REFERENCE_ARITY_DIAGNOSTIC " + JSON.stringify({badEntries,badNodes}));
+     die("an arity over " + WIDE);
+   }
+   const defs = [[...cids.keys()].map(cid_mac),
