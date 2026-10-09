@@ -2,6 +2,8 @@
 """Stage the complete ECS consumer with relative imports; launch no backend."""
 import argparse
 import hashlib
+import io
+import stat
 import json
 import os
 import re
@@ -19,9 +21,18 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def regular_bytes(path):
+    """Refuse leaf aliases/non-files before consuming immutable input bytes."""
+    fd = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+    with os.fdopen(fd, 'rb') as stream:
+        if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):
+            raise ValueError('regular preparation input required')
+        return stream.read()
+
+
 def archived():
-    index = json.loads((SUBJECT / 'development-evidence-index.json').read_text())
-    with tarfile.open(SUBJECT / 'development-evidence.tar.gz') as archive:
+    index = json.loads(regular_bytes(SUBJECT / 'development-evidence-index.json'))
+    with tarfile.open(fileobj=io.BytesIO(regular_bytes(SUBJECT / 'development-evidence.tar.gz'))) as archive:
         members = archive.getmembers()
         names = [m.name for m in members]
         assert len(names) == len(set(names)) and set(names) == set(index)
@@ -42,11 +53,11 @@ def relative_source(recorded):
 def expected_stage():
     archive = archived()
     pins = json.loads(archive['full-js-v1/sources.json'])
-    correction = json.loads((SUBJECT / 'candidate-source-correction.json').read_text())
+    correction = json.loads(regular_bytes(SUBJECT / 'candidate-source-correction.json'))
     sources = {}
     for recorded, expected in pins.items():
         relative = relative_source(recorded)
-        current = (ROOT / relative).read_bytes()
+        current = regular_bytes(ROOT / relative)
         if digest(current) != expected:
             assert relative == 'experiments/public-simulation/bend-v1/geometry.bend'
             assert expected == correction['executedSha256']

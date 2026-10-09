@@ -60,3 +60,11 @@ positive and controls evidence should be reused only where its exact scope and
 source bindings remain valid. Timing remains deferred during CPU contention.
 Proof and full-core performance prerequisites remain explicit; this simulation
 does not close full parity. No new law, dependency or numerical gate is added.
+
+## Current preparation boundary and exact unqualified inventory
+
+Preparation now reads index/archive/correction/current source inputs through a no-follow regular descriptor; same-byte leaf symlinks and special files are refused. `test-preparation-inputs.py` exercises this boundary without tool discovery or backend children. This does not pin ancestor directory aliases or substitute for the eventual complete source/tool guard.
+
+The current root `installed-config.py` is preparation configuration, not resolver admission. `RESOURCE_ROOTS` covers installed Base/private Clang/Z3 resources; `LINK_INPUTS`, `HEADER_SEARCH` and `LINK_SEARCH` are observed inputs/search candidates, not closed compiler resolution. Still missing: reviewed loader search roots and explicit hwcap variants; loader config includes/cache/preload/absence and environment/RPATH/RUNPATH closure; complete header candidates/absence and consumed include files; GCC selection, linker candidate/script/default-script closure; generated Native ELF/runtime resolution. Do not recursively treat `/lib` or `/usr/lib` as an approved resolver inventory. Existing snapshot/verify remains the ordinary helper; PinnedTools requires a separately reviewed closed namespace. No discovery was run by this repair.
+
+Delivery also still needs guarded complete relocated JS/Native/observed TS receipt joins, source-current negative/reached mutation binding, unchanged #28 and equivalent-work timing/scaling. Historical full observations remain reusable only with exact source/subject joins. CPU contention defers timing, not semantic preparation; no #63 closure or new numerical criterion is claimed.
