@@ -64,3 +64,30 @@ a JS/Native CLI transport. The callback/host glue remains TS-specific pending
 scope; the reader, complete serializer, malformed-frame controls and affine
 construction fixtures can support a Bend-native transport experiment. No such
 reuse has been qualified or promoted by this preservation commit.
+
+## Bend-native #46 boundary audit
+
+Pinned Rust Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60`:
+`world/mod.rs:1243` consumes an already typed Bundle for spawn;
+`world/entity_access/world_mut.rs:1005` inserts a typed Bundle;
+`world/mod.rs:2056` inserts/replaces a typed Resource.
+`bundle/mod.rs:244` explicitly moves component owners out of DynamicBundle.
+These paths do not require Standard Schema, JS callbacks or an unknown-value
+host bridge. Reflect construction is a separate registered interface
+(`reflect/component.rs:146`, requiring Component + FromReflect + TypePath).
+
+Bend-native construction/grants are already delivered through six canonical
+modules and complete independently modeled 92 JS/Native observations. Their
+explicit input codec, retained nominal declaration, arbitrary Type owner,
+projector/undo and declared capability replace implicit JS construction.
+This experiment adds no established missing Rust Bevy construction capability.
+
+Remaining #46 acceptance must be checked against the governing issue:
+source-current inventory of approved native descriptor/Decode boundaries,
+shared-scenario TS comparison, equivalent feature timing/scaling and final
+issue report/audit. Earlier scoped evidence must be joined to each criterion;
+a new host mechanism cannot substitute for a missing acceptance join.
+Standard Schema/JS bridge and UTF16 host-key extensions are pending scope,
+not reasons to claim an otherwise implemented native constructor is absent.
+The concrete fixture registration, installer, lenses and recovery sink remain
+application-selected adapters, not additional generic public APIs.
