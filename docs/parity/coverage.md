@@ -79,3 +79,20 @@ Fresh unchanged [#28](../../benchmarks/evidence/inspector-handlers-20261008/REPO
 The [existing core map refresh](../reference/core-map.md#snapshotpublic-core-audit-preparation-refresh--base1ebb743c) and inventory `currentSnapshotAuditPreparation` preserve the full 23-module census and classify all export occurrences while recording 33 exact TS core pins, 69 master core pins and 16 proposed src-module pins. Whole actual-src snapshot/Family and reached recipe-restoration control reports pass JS/Native development with byte-identical pairs; source/receipt/evidence states remain separately named. Proposed `fc37a04d` src integration is not yet master adoption/frozen delivery. The final snapshot source5 timeout remains INCOMPLETE.
 
 Concrete omissions remain owned: generic constructor/admission and complete codecs #46/#41/#59; full snapshot/restore graph/machine/runtime lifecycle #58/#59/#60; ordinary debug binding #56/#57; helper algebra and complete joined public apps #61. In particular, `world.factory()` restarts `Factory{1}` and independent factory roots are not globally unique. Current foreign-world controls use one threaded Factory, so independent-root collisions and caller-fabricated authority stay under existing #38/#45. No new authority contract or duplicate plan is created. This is source/evidence maintenance only; #61 stays OPEN and all acceptance criteria above remain unchanged.
+
+## Evidence maintenance — 2026-10-09
+
+These updates supplement the historical inventory; they do not regenerate its
+export census or qualify the full public core.
+
+- #42: `ed2ccaa0` retains the serializer successor's complete nine Native cases,
+  including N1024. JS N1024 and six subsequent cases remain unqualified.
+- #43: `ba8339bd` retains ordinary declaration-derived readers and both reached
+  defect controls on JS/Native. Core adoption, current TS and capacity gates remain.
+- #46: `3b139b9d` and `60234ea3` retain reviewed registration and deferred-abort
+  source prototypes. Combined successful delivery and full runtime remain open.
+- #56: `328d719b` freezes the full recursive-registration consumer and models.
+  Its full source-check timeout remains inconclusive; runtime evidence is pending.
+
+Use the [coordination table](README.md#current-delivery-coordination) for subsequent task state;
+experimental evidence remains distinct from `src/ecs` delivery and performance.
