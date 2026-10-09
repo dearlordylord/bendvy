@@ -1,0 +1,26 @@
+{
+  "sourceCommit": "1c1a566a",
+  "transportCommit": "bfb61cb7",
+  "basis": "Source only; no backend observations consumed",
+  "sources": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/main.bend": "6e38d483fe0bed83c17ddd3a30c4027e5ca79f439b971b3632c0dcece4a9370b",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/selector.bend": "488abda7d3268fbeb3e5e1136dc1c5480b102202f59661aa5538826b7f383010",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/admission.bend": "a980566281258616b8ebd7f7ecce6758ac1d7a62746071a789412c38b0dae76e",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/application.bend": "e69fe002faf7e43730c09b982969d85ce5a92c45dc890c813aeb45a1ba52bfc2",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/main.bend": "5d05949b60fcbcface7eb7acd6bf35c6dfc7be7fdce3dc988818a6b44d046b59",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/observation.bend": "dd53bf6a8a5d03a62bf48df8620c8bf7015ba06f53e9c5df9260f453686c2e55",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/mutants/skipped-validator-v1/admission.bend": "eace2b18e09a9ea9e611a6b699fdbca5c9c4b1689d74fe668e5ac3f04d6418fb",
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/mutants/partial-write-v1/application.bend": "1b94b488770dc774925a5c0baf7f9c10e9aad81fe09ab602c15cca490c30773b"
+  },
+  "oracles": {
+    "normal-expected.json": "ca88bdec56290ba3b5460463f59c4ddda389d2dcc7ecfa58d6d633c35016e075",
+    "skipped-validator-expected.json": "f682755ccbbef65d1fcf545084a8860bb738d3a7aad37987e346ae1e8f6b53f8",
+    "partial-write-expected.json": "004ede9a28daf7d8dbc454ff7540012edba2469abc64fce26083a9d44d79da83"
+  },
+  "checks": [
+    "Entire embedded baseline equals immutable333v2",
+    "Repeated source model equality; historical arrays detach via deepcopy",
+    "All12extension fields retained",
+    "Both complete mutant reports preserve all unaffected observations"
+  ]
+}
