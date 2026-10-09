@@ -8,7 +8,11 @@ QUERY=str(ROOT/'experiments/public-inspect/debug-study-v1/production-adoption-v1
 E=str(ROOT/'src/ecs/event-runtime.bend');W=str(ROOT/'src/ecs/world.bend')
 def parser(role):
  assert role in ('full','second')
- spec=importlib.util.spec_from_file_location('generic_system_parent',PARENT);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+ import types
+ source=globals().get('VERIFIED_SOURCES',{})
+ raw=source[str(PARENT.resolve())] if source else PARENT.read_bytes()
+ m=types.ModuleType('generic_system_parent');m.__file__=str(PARENT);m.__dict__['VERIFIED_SOURCES']=source
+ exec(compile(raw,str(PARENT),'exec'),m.__dict__)
  # Preserve parent dependency location while binding new original nominal entry.
  p,t=m.parser();p.ENTRY=HERE/('main.bend' if role=='full' else 'second-schema.bend')
  if role=='full':return p,t

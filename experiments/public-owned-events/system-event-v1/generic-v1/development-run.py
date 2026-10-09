@@ -14,23 +14,52 @@ import time
 
 HERE = Path(__file__).resolve().parent
 ROOT = Path('/workspace/formal-proofs/bendvy')
-sys.path.insert(0,str(ROOT/'scripts'))
-import task_runner
-from evidence_boundary import ReceiptBoundary, GuardBoundary
-
-
-def load(name,path):
-    spec = importlib.util.spec_from_file_location(name,path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
 
 
 ORACLE_HASHES = {'full':('e9183facb00e3aa261889e9a4cf53830cd8f8f4f16a3449b74233749b85e5266','20f8008c74c6e3aa924db92e88ccc4243af8493e8fc928f2ab012d9cb9a189ca'),'second':('9a87741db352f65c2dc8a73b4cf0180934a8078985b4c6401cb22ad4d6fd06e8','c314502431e407864113f3082c973b869068391a1487ff0de0161b930fa583b6')}
 ORACLE_COMMIT = '1b68c0de5bfacc99fc81d627c1dc348664262693'
 
-LOGS = load('decode_logs', ROOT/'scripts/receipt-logs.py')
-CONFIG = load('staging_config', ROOT/'experiments/public-simulation/delivery-v1/installed-config.py')
+VERIFIED_SOURCES = {}
+def load(name,path):
+    import types
+    path=Path(path).resolve(strict=True)
+    source=VERIFIED_SOURCES[str(path)] if VERIFIED_SOURCES else path.read_bytes()
+    module=types.ModuleType(name)
+    module.__file__=str(path)
+    module.__dict__['VERIFIED_SOURCES']=VERIFIED_SOURCES
+    exec(compile(source,str(path),'exec'),module.__dict__)
+    return module
+
+
+def interpreter_and_inputs(plan):
+    actual=Path(sys.executable).resolve(strict=True)
+    assert str(actual)==plan['tools']['python'], 'actual interpreter path differs'
+    assert hashlib.sha256(actual.read_bytes()).hexdigest()==plan['inputs'][str(actual)], 'actual interpreter bytes differ'
+    required={str(Path(__file__).resolve()),str(ROOT/'scripts/task_runner.py'),str(ROOT/'scripts/evidence_boundary.py'),str(ROOT/'scripts/receipt-logs.py'),str(ROOT/'experiments/public-simulation/delivery-v1/installed-config.py')}
+    assert required.issubset(plan['inputs']), 'helper pins missing before imports'
+    for name,digest in plan['inputs'].items():
+        path=Path(name)
+        if isinstance(digest,str):
+            assert path.is_file() and not path.is_symlink() and hashlib.sha256(path.read_bytes()).hexdigest()==digest, 'admitted file drift before helper imports'
+        else:
+            assert path.is_dir() and not path.is_symlink(), 'admitted resource directory differs'
+            assert {str(p.relative_to(path)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(path.rglob('*')) if p.is_file()}==digest, 'admitted resources drift before helper imports'
+
+
+def assembly_binding(path,digest,role):
+    if path is None:
+        assert digest is None
+        return None
+    binding=admitted_plan(path,digest)
+    assert set(binding)=={'role','entry','sourcePins','oracles','oracleCommit','transport','transportInputs','tools'}, 'exact reader binding fields required'
+    assert binding['role']==role and role in ('full','second')
+    for name,sha in binding['sourcePins'].items():
+        p=Path(name);assert p.is_absolute() and p.is_file() and not p.is_symlink() and hashlib.sha256(p.read_bytes()).hexdigest()==sha, 'bound source differs'
+    assert set(binding['tools'])=={'bend','node','taskset'}
+    assert len(binding['oracles'])==2
+    for pin in [binding['entry'],binding['transport'],*binding['oracles'],*binding['transportInputs'],*binding['tools'].values()]:
+        p=Path(pin['path']);assert set(pin)=={'path','sha256'} and p.is_absolute() and p.is_file() and not p.is_symlink() and hashlib.sha256(p.read_bytes()).hexdigest()==pin['sha256'], 'bound file differs'
+    return binding
 
 
 def admitted_plan(path,digest):
@@ -41,11 +70,15 @@ def admitted_plan(path,digest):
     return json.loads(raw)
 
 
-def main(out,native=False,execute=False,plan_digest=None,role="full"):
+def main(out,native=False,execute=False,plan_digest=None,role="full",binding_path=None,binding_digest=None):
     assert role in ("full","second")
     plan_path = out/'plan.json'
     admitted = admitted_plan(plan_path,plan_digest) if execute else None
     if execute:
+        interpreter_and_inputs(admitted)
+        global VERIFIED_SOURCES
+        VERIFIED_SOURCES={name:Path(name).read_bytes() for name,digest in admitted['inputs'].items() if isinstance(digest,str) and name.endswith('.py')}
+        assert all(hashlib.sha256(data).hexdigest()==admitted['inputs'][name] for name,data in VERIFIED_SOURCES.items()), 'captured helper source drift'
         assert admitted['native'] == native, 'backend differs from admitted plan'
         assert not (out/'receipt.json').exists(), 'prepared cohort already executed'
     else:
@@ -57,12 +90,18 @@ def main(out,native=False,execute=False,plan_digest=None,role="full"):
         generated.mkdir()
     for directory in (raw,generated):
         assert directory.is_dir() and not directory.is_symlink() and not any(directory.iterdir()), 'prepared output must be empty regular directory'
+    task_runner=load('declaration_task_runner',ROOT/'scripts/task_runner.py')
+    boundary=load('declaration_boundary',ROOT/'scripts/evidence_boundary.py')
+    ReceiptBoundary,GuardBoundary=boundary.ReceiptBoundary,boundary.GuardBoundary
+    LOGS=load('declaration_logs',ROOT/'scripts/receipt-logs.py')
+    CONFIG=load('declaration_config',ROOT/'experiments/public-simulation/delivery-v1/installed-config.py')
+    binding=assembly_binding(binding_path,binding_digest,role)
     env = CONFIG.environment()
     private = out/'private-environment.json'
     if not execute:
         private.write_text(json.dumps(env,sort_keys=True)+'\n')
         private.chmod(0o600)
-    tools = {n:Path(shutil.which(n)).resolve() for n in ('bend','node','taskset')}
+    tools = {n:Path(binding['tools'][n]['path'] if binding else shutil.which(n)).resolve() for n in ('bend','node','taskset')}
     tools['python'] = Path(sys.executable).resolve()
     resource_roots = ['/home/node/.bend/bend2']
     if native:
@@ -74,11 +113,14 @@ def main(out,native=False,execute=False,plan_digest=None,role="full"):
         resource_roots += ['/tmp/bendvy-clang19-diagnostic/root','/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu']
     assert private.is_file() and not private.is_symlink() and private.read_text() == json.dumps(env,sort_keys=True)+'\n', 'prepared environment differs'
     inputs = {Path(__file__).resolve(),Path(CONFIG.__file__),Path(task_runner.__file__),ROOT/'scripts/evidence_boundary.py',ROOT/'scripts/receipt-logs.py',private,*tools.values()}
-    entries = [HERE/('main.bend' if role=='full' else 'second-schema.bend')]
+    entries = [Path(binding['entry']['path'])] if binding else [HERE/('main.bend' if role=='full' else 'second-schema.bend')]
+    source_paths=set()
+    if binding:inputs.add(binding_path)
     def visit(path):
         if path in inputs:
             return
         inputs.add(path)
+        source_paths.add(path)
         for target in re.findall(r'^import\s+(\S+)',path.read_text(),re.MULTILINE):
             if target == 'Base':
                 visit(Path('/home/node/.bend/bend2/base.bend'))
@@ -86,13 +128,17 @@ def main(out,native=False,execute=False,plan_digest=None,role="full"):
                 visit((path.parent/target).resolve())
     for path in entries:
         visit(path)
+    if binding:assert {str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in source_paths}==binding['sourcePins'], 'exact source closure differs'
     oracle_home = Path('/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-owned-events/system-event-v1/generic-v1/oracle-v1')
-    oracles = [oracle_home/(role+'-expected.stdout'),oracle_home/(role+'-expected.json')]
-    oracle_hashes = ORACLE_HASHES
+    oracles = [Path(pin['path']) for pin in binding['oracles']] if binding else [oracle_home/(role+'-expected.stdout'),oracle_home/(role+'-expected.json')]
+    oracle_hashes = dict(ORACLE_HASHES)
     inputs.update({HERE/'transport.py',HERE.parent/'transport.py',HERE.parent.parent/'registered-read-v1/transport.py'})
+    if binding:
+        inputs.update(Path(pin['path']) for pin in [binding['transport'],*binding['transportInputs']])
+        oracle_hashes[role]=tuple(pin['sha256'] for pin in binding['oracles'])
     assert hashlib.sha256(oracles[0].read_bytes()).hexdigest() == oracle_hashes[role][0]
     assert hashlib.sha256(oracles[1].read_bytes()).hexdigest() == oracle_hashes[role][1]
-    transport = load('registered_transport',HERE/'transport.py')
+    transport = load('registered_transport',Path(binding['transport']['path']) if binding else HERE/'transport.py')
     expected = json.loads(oracles[1].read_text())
     assert transport.parse(role,oracles[0].read_bytes()) == expected
     assert (transport.render(role,expected)+'\n').encode() == oracles[0].read_bytes()
@@ -111,7 +157,8 @@ def main(out,native=False,execute=False,plan_digest=None,role="full"):
         commands = [{'label':'complete-emit','argv':prefix+[str(tools['bend']),str(entries[0]),'-o',str(source)],'capSeconds':30,'artifact':str(source)},
                     {'label':'complete-build','argv':prefix+[str(tools['clangWrapper']),'-O3',str(source),'-o',str(artifact),'-pthread','-lm'],'capSeconds':120,'artifact':str(artifact)},
                     {'label':'complete-run','argv':prefix+[str(artifact),'--threads','1','--gpu','off'],'capSeconds':5}]
-    plan = {'scope':__doc__,'native':native,'oracleCommit':ORACLE_COMMIT,'role':role,'tools':{n:str(p) for n,p in tools.items()},'commands':commands,'inputs':frozen.expected}
+    plan = {'scope':__doc__,'native':native,'oracleCommit':binding['oracleCommit'] if binding else ORACLE_COMMIT,'role':role,'tools':{n:str(p) for n,p in tools.items()},'commands':commands,'inputs':frozen.expected}
+    if binding:plan['assemblyBindingSha256']=binding_digest
     if execute:
         assert plan == admitted, 'prepared cohort source/tool/environment/commands differ'
     else:
@@ -166,10 +213,12 @@ def main(out,native=False,execute=False,plan_digest=None,role="full"):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--role',choices=['full','second'],default='full')
+    parser.add_argument('--assembly-binding',type=Path)
+    parser.add_argument('--assembly-binding-sha256')
     parser.add_argument('--native',action='store_true')
     parser.add_argument('--execute',action='store_true',help='Consume existing --output/plan.json after admission; default prepares without a child')
     parser.add_argument('--plan-sha256',help='Required exact admitted plan digest for --execute')
     parser.add_argument('--output',type=Path,default=HERE/'development'/str(time.time_ns()))
     args = parser.parse_args()
     args.output.parent.mkdir(parents=True,exist_ok=True)
-    main(args.output.resolve(),args.native,args.execute,args.plan_sha256,args.role)
+    main(args.output.resolve(),args.native,args.execute,args.plan_sha256,args.role,args.assembly_binding.resolve() if args.assembly_binding else None,args.assembly_binding_sha256)

@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : Query.Declaration<C.Schema, P.Payload, Cap.Request<P.Payload, P.Query, P.Projection>>
+- observed : Query.Declaration<Other, P.Payload, Cap.Request<P.Payload, P.Query, P.Projection>>
+Location: reached
+11 | def reached(owner:P.Payload,args:P.Args) -> P.Payload & P.Observation:
+12>|   Decl.provide(~C.Schema,~P.Payload,~P.Query,~P.Projection,~P.Args,~P.Observation,~crossed(),~P.reader,owner,args)
+   |                                                                                    ^^^^^^^
+13 | 

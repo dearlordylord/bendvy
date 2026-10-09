@@ -8,7 +8,11 @@ FIXTURE=ROOT/'experiments/public-owned-events/declaration-read-v1/registered-v1'
 QUERY=str(ROOT/'experiments/public-inspect/debug-study-v1/production-adoption-v1/public-api-v1/docs/ordinary-v1/query-candidate-v1/declaration.bend')
 def parser(role='system'):
  assert role=='system'
- spec=importlib.util.spec_from_file_location('system_dto',PARSER);p=importlib.util.module_from_spec(spec);spec.loader.exec_module(p)
+ import types
+ source=globals().get('VERIFIED_SOURCES',{})
+ raw=source[str(PARSER.resolve())] if source else PARSER.read_bytes()
+ p=types.ModuleType('system_dto');p.__file__=str(PARSER);p.__dict__['VERIFIED_SOURCES']=source
+ exec(compile(raw,str(PARSER),'exec'),p.__dict__)
  p.ENTRY=HERE/'main.bend'
  p.records={k:(str(FIXTURE/f) if f in ('observation.bend','fixture.bend','direct-controls.bend','log.bend') else f,fields) for k,(f,fields) in p.records.items()}
  p.sums={k:(str(FIXTURE/f) if f in ('fixture.bend','log.bend') else f,variants) for k,(f,variants) in p.sums.items()}
