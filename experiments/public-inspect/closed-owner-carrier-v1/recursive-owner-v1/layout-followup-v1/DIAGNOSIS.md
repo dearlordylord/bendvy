@@ -50,3 +50,15 @@ profile and provenance outputs. Preserve the 30s hard/25s cooperative limits,
 full source/oracle, original guards and terminal receipt. Start only after the
 #48 six-plan cohort releases the heavy queue. This admits diagnostic execution,
 not Native delivery, installed-compiler attribution or performance qualification.
+
+## Bounded Native completion diagnostic — 2026-10-09
+
+The 30s emission failures are censored observations, not evidence that compilation
+cannot finish. SPEC's five-second restriction governs checker/proof runs; no
+product criterion requires C generation within30s. Prepare one unchanged full
+leaf-lift Native diagnostic with emit120/build120/runtime5, exact whole oracle and
+all23 grants. Review its complete plan before execution; preserve old failures.
+Record child CPU separately from wall time when available. No budget ladder,
+workload reduction, compiler modification, runtime threshold change or performance
+credit follows. A complete run can establish finite Native semantics only;
+reached controls, core adoption and performance qualification remain separate.
