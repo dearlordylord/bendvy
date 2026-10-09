@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)
+- observed : supplied
+Context:
+- args : Sigma<&1, &1, Cmd.Input<R.Schema, ../../../../src/ecs/bundle-pack.Pack<Maybe<&1, Array<U32>>, ../../../../src/ecs/bundle-pack.Pack<Maybe<&1, U32>, Unit>>>, _ => W.Handle<R.Schema>>
+- ctx  : AD.Owner<R.Schema, R.Store, Existing.Mail, U32, R.Packet, Unit>
+Location: Cap.invoke_owned~2
+21 | def requested(world:Existing.World(),+target:W.Handle<R.Schema>) -> Existing.World() & (Maybe<&2,AD.Refusal<String>> & R.Output()):
+22>|   finish(Provider.provide_owned(~R.Owner(Existing.Mail),~R.Input(),~R.Output(),~(R.Input() & W.Handle<R.Schema>),~(Maybe<&2,AD.Refusal<String>> & R.Output()),~(ctx => input => R.request(~Existing.Mail,ctx,input)),~supplied,(Cmd.Input{Cmd.Insert{W.Handle{0,0}},R.sample()},target),R.owner(~Existing.Mail,T.begin(~Existing.World(),~U32,world))))
+   |                                                                                                                                                                                                                       ^^^^^^^^
+23 | def supplied(~H:Type,~cap:Cap.OwnedRequest<H,R.Input(),R.Output()>,args:R.Input() & W.Handle<R.Schema>,ctx:H) -> H & (Maybe<&2,AD.Refusal<String>> & R.Output()):
+bend 2.0.36 is available: run bend update

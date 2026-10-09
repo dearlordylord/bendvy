@@ -1,0 +1,7 @@
+# Core-only returned-owner retry consumer
+
+Uses the existing independently authored core-consumer-v4 schema and core-runtime-v1 install/recovery callbacks unchanged. Original core-runtime main executes first without alteration. A fresh second WorldIO world reserves and activates one entity, then actual opaque gameplay attempts Insert with handle {0,0}. The returned Raw is threaded unchanged into a caller-selected valid insert via Retry.body. The original refusal and final result are both inspected. Explicit barrier publishes the packet; existing typed inverse restores absence and returns that exact packet to the authored mailbox.
+
+No automatic retry, cleanup, failure-output or reservation policy is added to the library. Failed Batch packets follow the same existing core-runtime fixture branch; the consuming intended success path must match the complete pre-output model. This is an additive core-only example, not a replacement for existing22/20 complete physical two-schema fixtures.
+
+Source attempt6 reaches exactly world-namespace.fresh, world-io.create, Existing.main, next, main foreign/IO diagnostics; it is not a safe proof success. Five earlier parser/type attempts are retained. Actual duplicate abstractH and ValueRead-as-OwnedRequest negatives refuse at intended boundaries under source5/shared lock/CPU5. Complete source closure is pinned in SOURCE-INVENTORY.json. No backend has run. Independent complete output expectation and reviewed JS/Native exact plans are required before runtime.

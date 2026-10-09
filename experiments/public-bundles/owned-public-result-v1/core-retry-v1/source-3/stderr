@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 'def', 'type' or 'law'
+- observed : 'i'
+Location:
+24 |     case (input,target):Retry.body(~R.Schema,~R.Raw(),~String,~H,~cap,input,target,ctx)
+25>| import ../../../../src/ecs/capabilities.bend as Cap
+   | ^
+26 | def OwnedCap(~H:Type) -> Type:Cap.OwnedRequest<H,R.Input(),R.Output()>
+bend 2.0.36 is available: run bend update

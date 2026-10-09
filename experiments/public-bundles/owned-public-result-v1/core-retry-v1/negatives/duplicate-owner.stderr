@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : ctx
+- observed : ctx (consumed more than once)
+Context:
+- input  : ../../../../../src/ecs/bundle-requests.Input<R.Schema, ../../../../../src/ecs/bundle-pack.Pack<Maybe<&1, Array<U32>>, ../../../../../src/ecs/bundle-pack.Pack<Maybe<&1, U32>, Unit>>>
+- target : W.Handle<R.Schema>
+Location: body
+5 | 
+6>| def body(~H:Type,~cap:Cap.OwnedRequest<H,R.Input(),R.Output()>,input:R.Input(),target:W.Handle<R.Schema>,ctx:H) -> H & H:
+  |                                                                                                          ^^^
+7 |   (ctx,ctx)
+bend 2.0.36 is available: run bend update

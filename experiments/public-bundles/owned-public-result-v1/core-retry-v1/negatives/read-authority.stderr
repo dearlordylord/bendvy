@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.OwnedRequest<body~H, ../../../../../src/ecs/bundle-requests.Input<R.Schema, ../../../../../src/ecs/bundle-pack.Pack<Maybe<&1, Array<U32>>, ../../../../../src/ecs/bundle-pack.Pack<Maybe<&1, U32>, Unit>>>, ../../../../../src/ecs/bundle-requests.Output<R.Schema, ../../../../../src/ecs/bundle-pack.Pack<Maybe<&1, Array<U32>>, ../../../../../src/ecs/bundle-pack.Pack<Maybe<&1, U32>, Unit>>, String>>
+- observed : Cap.ValueRead<body~H, U32>
+Context:
+- input  : ../../../../../src/ecs/bundle-requests.Input<R.Schema, ../../../../../src/ecs/bundle-pack.Pack<Maybe<&1, Array<U32>>, ../../../../../src/ecs/bundle-pack.Pack<Maybe<&1, U32>, Unit>>>
+- target : W.Handle<R.Schema>
+- ctx    : body~H
+Location: body
+7 | def body(~H:Type,~cap:Cap.ValueRead<H,U32>,input:R.Input(),target:W.Handle<R.Schema>,ctx:H) -> H & (Maybe<&2,AD.Refusal<String>> & R.Output()):
+8>|   Retry.body(~R.Schema,~R.Raw(),~String,~H,~cap,input,target,ctx)
+  |                                             ^^^
+9 | 
+bend 2.0.36 is available: run bend update

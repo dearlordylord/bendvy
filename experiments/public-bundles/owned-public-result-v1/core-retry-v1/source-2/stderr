@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+21 |   finish(Provider.provide_owned(~R.Owner(Existing.Mail),~R.Input(),~R.Output(),~(R.Input() & W.Handle<R.Schema>),~(Maybe<&2,AD.Refusal<String>> & R.Output()),~(ctx => input => R.request(~Existing.Mail,ctx,input)),~supplied,(Cmd.Input{Cmd.Insert{W.Handle{0,0}},R.sample()},target),R.owner(~Existing.Mail,T.begin(~Existing.World(),~U32,world))))
+22>| def supplied(~H:Type,~cap:OwnedCap(~H),args:R.Input() & W.Handle<R.Schema>,ctx:H) -> H & (Maybe<&2,AD.Refusal<String>> & R.Output()):
+   |                                    ^
+23 |   match args:
+bend 2.0.36 is available: run bend update
