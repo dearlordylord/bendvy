@@ -1,0 +1,179 @@
+{
+  "scope": "Five one-shot admitted IO timer semantic/protocol qualifications; no timing cohort/comparative speed/public41 completion",
+  "cohorts": [
+    {
+      "label": "positiveJS",
+      "session": 49455,
+      "planSHA256": "a0ca53334c28f450f760f6dd1fba13e5b644d3c3fe2a6c3e1ab2a67ffe8dfd8f",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 7,
+      "stdout": {
+        "path": "/tmp/bendvy-bundle41-io-timed-js01/consumer.stdout",
+        "sha256": "db26a088d15fe4ee897fb3991f03b54ef344897d848cdc32bd47f2aa42e8fd8b",
+        "bytes": 16012
+      },
+      "timerQualification": {
+        "scope": "IO timer semantic protocol qualification only; no comparative timing credit",
+        "timer": {
+          "elapsedNs": "33268006",
+          "bytes": 16012,
+          "digest": 112154510
+        },
+        "wholeOutputEqual": true
+      }
+    },
+    {
+      "label": "positiveNative",
+      "session": 13991,
+      "planSHA256": "a6351bd2d4c6b28de9b049bfebd9678d6adb6299fe55e70840a00adeb876ff03",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "build",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 10,
+      "stdout": {
+        "path": "/tmp/bendvy-bundle41-io-timed-native01/consumer.stdout",
+        "sha256": "db26a088d15fe4ee897fb3991f03b54ef344897d848cdc32bd47f2aa42e8fd8b",
+        "bytes": 16012
+      },
+      "timerQualification": {
+        "scope": "IO timer semantic protocol qualification only; no comparative timing credit",
+        "timer": {
+          "elapsedNs": "2238847",
+          "bytes": 16012,
+          "digest": 112154510
+        },
+        "wholeOutputEqual": true
+      }
+    },
+    {
+      "label": "positiveTS",
+      "session": null,
+      "planSHA256": "ea4657f796708c000bd09a91660f48840a3a5dd7cb4760d47488c1e99aea1b6f",
+      "commands": [
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 4,
+      "stdout": {
+        "path": "/tmp/bendvy-bundle41-io-timed-ts01/consumer.stdout",
+        "sha256": "ee4c8437e4a2644cd9931945e9e40e8368810d4b8c321bec1534ab9874436974",
+        "bytes": 4606
+      },
+      "timerQualification": {
+        "scope": "IO timer semantic protocol qualification only; no comparative timing credit",
+        "timer": {
+          "elapsedNs": "8826302",
+          "bytes": 4606,
+          "digest": 3039766254
+        },
+        "wholeOutputEqual": true
+      }
+    },
+    {
+      "label": "earlyEndJS",
+      "session": 32890,
+      "planSHA256": "8d96e969f9d1217ac4cae2e85734f830553ee45e50190d5061e9a280a8683c25",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "consumer",
+          "exit": 1,
+          "failure": null
+        }
+      ],
+      "guards": 7,
+      "stdout": {
+        "path": "/tmp/bendvy-bundle41-io-early-end-js01/consumer.stdout",
+        "sha256": "a0312b23c667833cfda6b0293ff6df851b3c4383f45fbb84ac7577eaf8a2b19e",
+        "bytes": 14408
+      },
+      "timerQualification": {
+        "scope": "reached early-end refusal; not timing acceptance",
+        "timer": {
+          "elapsedNs": "41254575",
+          "bytes": 14408,
+          "digest": 1489859603
+        },
+        "wholePositiveRejected": true
+      }
+    },
+    {
+      "label": "earlyEndNative",
+      "session": 5019,
+      "planSHA256": "0f2463062df2739ecb154eeb2f10a0a7dc57b2328f9453dafbe854c1adb55308",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "build",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "consumer",
+          "exit": 2,
+          "failure": null
+        }
+      ],
+      "guards": 10,
+      "stdout": {
+        "path": "/tmp/bendvy-bundle41-io-early-end-native01/consumer.stdout",
+        "sha256": "a0312b23c667833cfda6b0293ff6df851b3c4383f45fbb84ac7577eaf8a2b19e",
+        "bytes": 14408
+      },
+      "timerQualification": {
+        "scope": "reached early-end refusal; not timing acceptance",
+        "timer": {
+          "elapsedNs": "1607161",
+          "bytes": 14408,
+          "digest": 1489859603
+        },
+        "wholePositiveRejected": true
+      }
+    }
+  ],
+  "losslessMembers": 74,
+  "guards": 38,
+  "sharedPublicRows": "All20 mandatory joins passed after allthreewholepositivegates; ACTUAL-PUBLIC-JOIN.json",
+  "negativeScope": "Both actual early-end consumers refuse at latecapture (JS1/Native2) and produce exactninecomplete lines; neither fullpositive output nor timingprotocol qualifies",
+  "limitations": [
+    "No comparative timing/cohort acceptance",
+    "Backend-specific owner/inverse/diagnostic materialization stays insideinterval; no subtraction or normalization",
+    "Original full22/20, activationpolicy and delivery obligations retained"
+  ]
+}
