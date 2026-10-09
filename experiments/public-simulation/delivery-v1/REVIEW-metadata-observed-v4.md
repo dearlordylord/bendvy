@@ -1,0 +1,9 @@
+# Observed v4 metadata receipt review
+
+PASS for the actual live cohort at `/tmp/bendvy63-loader-metadata-v2`, executed by root collector candidate `63a480903dc75fa8c1dada3e23124680a23e1dc9` against exact admitted plan SHA256 `27830e5ea5d1b81fa6d02a65e1e0ce2f1c3d19241a9354714f9694d931c2824f`. Receipt SHA256 is `73bf39e45a7b81e76c749893c2aaed91e91f88eb78b5460b7b022f01446ee96c`.
+
+Independent read-only audit verifies ten ordered commands with exact admitted argv and cap5/CPU5, exit 0, failure null and split capture, plus the exact pinned runner implementation. All twenty raw stdout/stderr publications join to both returned and published length/digest fields and their admitted paths. All 31 guard records join by digest in exact pre/acquired/post order followed by final; each retains unchanged=true, the frozen alias/config namespace and the exact cumulative source/tool/helper/plan/raw pins expected at that boundary. Exact directory membership is 52 regular files: one receipt, twenty raw files and 31 guard files; there are no symlinks or additional members.
+
+The receipt has status METADATA_CAPTURED_NOT_RESOLVER_ADMISSION and closedResolverQualified=false. The pinned reviewed collector passes the admitted explicit environment, cwd and lock to the sole executor path; the receipt binds that configuration through the exact plan digest and verified collector bytes, rather than separately recording an environment in each command row. The prior source review establishes initial output absence and exclusive raw creation; this observed audit establishes the resulting exact member set.
+
+No command was rerun for this audit. This evidence supports only current ELF and loader-help metadata collection. Closed loader inventory, header/linker closure, generated ELF runtime qualification, backend observations and performance gates remain outstanding. Archived manifest joins will receive a separate appended review when available.
