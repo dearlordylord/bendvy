@@ -21,7 +21,13 @@ SIMULATION = 'experiments/public-simulation/delivery-v1/'
 OPTIMIZATION = SIMULATION + 'optimization-v1/'
 SHARED = {'scripts/run-admission-controls.py', 'scripts/task_runner.py',
           'scripts/evidence_boundary.py', 'scripts/receipt-logs.py'}
+INSPECTOR_LEAF = ('experiments/public-inspect/closed-owner-carrier-v1/'
+                  'recursive-owner-v1/layout-followup-v1/leaf-lift-v1/')
 CONTROL_SETS = (
+    (INSPECTOR_LEAF + 'test-preparation.py', SHARED | {
+        INSPECTOR_LEAF + 'development.py',
+        INSPECTOR_LEAF + 'test-preparation.py',
+        INSPECTOR_LEAF + 'complete-expected.txt.gz'}),
     (CONTROL, DEPENDENCIES),
     (OPTIMIZATION + 'test-sampling-receipt.py', SHARED | {
         OPTIMIZATION + 'test-sampling-receipt.py',

@@ -85,7 +85,13 @@ class Selection(unittest.TestCase):
                                  ('validate-after-profile.py','test-after-profile.py')]:
             self.assertEqual(selected({prefix + changed}), [prefix + control])
         self.assertEqual(selected({'docs/notes.md'}), [])
-        self.assertEqual(len(selected({'scripts/task_runner.py'})), 4)
+        self.assertEqual(len(selected({'scripts/task_runner.py'})), 5)
+
+    def test_registered_inspector_collector_controls(self):
+        prefix = REGISTRY['INSPECTOR_LEAF']
+        for changed in ('development.py', 'test-preparation.py'):
+            self.assertEqual(REGISTRY['selected']({prefix + changed}),
+                             [prefix + 'test-preparation.py'])
 
 
     def admission_fixture(self, unstaged=False, unstaged_helper=False, sampling=None):
