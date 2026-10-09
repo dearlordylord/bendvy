@@ -1,0 +1,7 @@
+# Source-current control preparation
+
+Four negatives consume the actual closed ReadGrant type: requesting an undeclared OtherParent, crossing Alpha/Beta schemas, publishing through ReadGrant, and duplicating its abstract Type owner. Each five-second check exited1 without a child failure at the intended grant/type/affinity diagnostic; complete raw outputs are retained. This does not establish provider purity or universal capability confinement.
+
+Two complete source-current consuming mutants checked successfully under five seconds. `wrong-reader-advance` changes only the successful position update target from the actual registered reader ID to1; all owners and reader keys are preserved. `premature-publication` applies the actual structural barrier at reader entry through two closed transport helpers, causing queued mutations/failures to appear before the caller's explicit barrier. Both retain the entire main Report, two schemas, all four consuming applications and every observer field. Import relocation is separately recorded in each SOURCE-DELTA.
+
+No mutant has executed. Complete independently authored counterfactual observations and exact baseline rejection must precede separate backend admission; source acceptance is not reached runtime mutation evidence. Historical mutations remain scoped to their original sources/receipts. The unqualified full-count/default-capacity export obligation remains unchanged.

@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Access.ReadGrant<undeclared~H, A.ReadersAlpha, Access.OtherParent<A.ReadersAlpha>, RC.Notice<A.ReadersAlpha, U32>, undeclared~get>
+- observed : Access.ReadGrant<undeclared~H, A.ReadersAlpha, Access.Parent<A.ReadersAlpha>, RC.Notice<A.ReadersAlpha, U32>, undeclared~get>
+Context:
+- grant : Access.ReadGrant<undeclared~H, A.ReadersAlpha, Access.Parent<A.ReadersAlpha>, RC.Notice<A.ReadersAlpha, U32>, undeclared~get>
+- owner : undeclared~H
+Location: undeclared
+ 8 | def undeclared(~H: Type,~get: H -> H & List<&2,Read.KeyReading<A.ReadersAlpha,RC.Notice<A.ReadersAlpha,U32>>>,grant: Access.ReadGrant<H,A.ReadersAlpha,Access.Parent<A.ReadersAlpha>,RC.Notice<A.ReadersAlpha,U32>,get>,owner: H) -> H & List<&2,Read.KeyReading<A.ReadersAlpha,RC.Notice<A.ReadersAlpha,U32>>>:
+ 9>|   Access.all(~H,~A.ReadersAlpha,~Access.OtherParent<A.ReadersAlpha>,~RC.Notice<A.ReadersAlpha,U32>,~get,grant,owner)
+   |                                                                                                         ^^^^^
+10 | 

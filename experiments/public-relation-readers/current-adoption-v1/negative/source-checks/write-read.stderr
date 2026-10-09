@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Access.WriteGrant<write_read~H, A.ReadersAlpha, Access.Parent<A.ReadersAlpha>, RC.Notice<A.ReadersAlpha, U32>, write_read~put>
+- observed : Access.ReadGrant<write_read~H, A.ReadersAlpha, Access.Parent<A.ReadersAlpha>, RC.Notice<A.ReadersAlpha, U32>, write_read~get>
+Context:
+- grant : Access.ReadGrant<write_read~H, A.ReadersAlpha, Access.Parent<A.ReadersAlpha>, RC.Notice<A.ReadersAlpha, U32>, write_read~get>
+- owner : write_read~H
+Location: write_read
+ 8 | def write_read(~H: Type,~get: H -> H & List<&2,Read.KeyReading<A.ReadersAlpha,RC.Notice<A.ReadersAlpha,U32>>>,~put: H -> RC.Notice<A.ReadersAlpha,U32> -> H,grant: Access.ReadGrant<H,A.ReadersAlpha,Access.Parent<A.ReadersAlpha>,RC.Notice<A.ReadersAlpha,U32>,get>,owner: H) -> H:
+ 9>|   Access.write(~H,~A.ReadersAlpha,~Access.Parent<A.ReadersAlpha>,~RC.Notice<A.ReadersAlpha,U32>,~put,grant,owner,RC.Original{999})
+   |                                                                                                      ^^^^^
+10 | 
