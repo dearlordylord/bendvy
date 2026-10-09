@@ -1,0 +1,50 @@
+{
+  "sourcePreparation": "6041d15c",
+  "roles": [
+    {
+      "backend": "js",
+      "originalHandle": 90508,
+      "status": "DEVELOPMENT_PASS",
+      "stages": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "error": null,
+      "memberCount": 14
+    },
+    {
+      "backend": "native",
+      "originalHandle": 27662,
+      "status": "INCOMPLETE",
+      "stages": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "build",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "consumer",
+          "exit": 1,
+          "failure": null
+        }
+      ],
+      "error": "ValueError: Owned child failed: consumer",
+      "memberCount": 20
+    }
+  ],
+  "scope": "Same historical preserved f774 ELF direct development; no Native/full43/public/fullcount/performance qualification",
+  "finding": "JS entire12ac gate PASS; actual Native emit/build succeed, consumer exits1 memoryfault with117B malformedpartialstdout. Runtime failure retained; no stack-overflow causal attribution/retry."
+}
