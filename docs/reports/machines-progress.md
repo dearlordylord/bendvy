@@ -202,6 +202,12 @@ and Boolean composition act on that result. Therefore missing state under
 Do not import the TS blanket condition requirement union into native preflight.
 Explicit required body/reader accesses remain separate; refusing the whole frame
 for those accesses is a candidate adaptation, not proved Bevy scheduling parity.
+Pinned Rust `single_threaded.rs:82–141` evaluates conditions before executing
+each enabled system. `system_param.rs:902–904` makes missing required `Res` an
+invalid parameter; `system.rs:369–407` distinguishes ordinary parameter skips
+from failed validation. This is per-system execution/error handling, not a
+whole-frame requirement scan before any earlier system runs. A candidate must
+preserve this distinction instead of claiming generic preflight as Bevy parity.
 
 Generalizing declarations must keep undeclared/cross-schema/write-through-read
 negatives at the actual consumer boundary.
