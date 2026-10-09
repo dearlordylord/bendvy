@@ -1,0 +1,39 @@
+{
+  "scope": "Pre-Node source audit, not runtime evidence",
+  "fixtureCommit": "b1ca8db8",
+  "checks": [
+    {
+      "source": "Runtime.ts:1409\u20131410",
+      "result": "System body returns undefined for ordinary command queuing, not EntityId treated as Fx"
+    },
+    {
+      "source": "Runtime.ts:2050\u20132052",
+      "result": "Failed initialization error retains outer resources record; independent model correction required before admission"
+    },
+    {
+      "source": "Runtime.ts:2062",
+      "result": "Runtime.make returns direct runtime when supplied resources contain no constructed descriptor"
+    },
+    {
+      "source": "Runtime.ts:517 / Descriptor.ts:536\u2013538",
+      "result": "Initialization uses result; detached loading prefers decode, then result"
+    },
+    {
+      "source": "Runtime.ts:878\u2013879 / Entity.ts:307\u2013324",
+      "result": "Lookup uses positive numeric ID; root/namespace is not Bend foreign-world authority"
+    }
+  ],
+  "sources": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-adoption-current/experiments/public-decode/adoption-v1/qualification-v1/reference-v1/reference.mjs": "06dc1c3823a30cc0e4cb638696eecfcc9d40a494d9d2c86b295d96c82b63114e",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Descriptor.ts": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Entity.ts": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e"
+  },
+  "observations": {
+    "traces": 32,
+    "beforeAfterFlushed": "complete public debug dumps",
+    "incomingSentinels": "all cells",
+    "foreign": "two actual runtimes with coincident IDs and first handle used in second"
+  },
+  "childExecuted": false
+}
