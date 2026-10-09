@@ -1,0 +1,49 @@
+{
+  "preparedPlanSha256": "0307acb914b55f7e178aaf7ac7b1cf4b840f704b83824e5e05a37db25ed8ed59",
+  "status": "DEVELOPMENT_JS_PASS",
+  "scope": "Complete list-spine JS consuming or installed C-emission development check; no delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/complete-spine.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/prepared-v1/construction-spine-js/generated/complete.js"
+      ],
+      "capSeconds": 30,
+      "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/prepared-v1/construction-spine-js/generated/complete.js",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/prepared-v1/construction-spine-js/generated/complete.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    }
+  ],
+  "generated": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/prepared-v1/construction-spine-js/generated/complete.js": "599d3b219b5d6ef364b12a6ab4a5ae50b5fdbd5dd2411f59c56e2faeab5e7c4a"
+  },
+  "logs": {
+    "complete-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-run.stdout": "cb90be0e48698bb444b743d06021ab6cd02e043ade19b063e54e5f9edcab8964",
+    "complete-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

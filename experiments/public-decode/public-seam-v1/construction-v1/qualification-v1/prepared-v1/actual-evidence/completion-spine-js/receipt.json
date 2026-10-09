@@ -1,0 +1,49 @@
+{
+  "preparedPlanSha256": "ec56e690cd483ffeb3ae54d708c7a09e0be198f92d9d3490f9280dae3822f1c3",
+  "status": "DEVELOPMENT_JS_PASS",
+  "scope": "Complete list-spine JS consuming or installed C-emission development check; no delivery/performance gate.",
+  "commands": [
+    {
+      "label": "complete-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/completion-addon-v1/complete-spine.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/prepared-v1/completion-spine-js/generated/complete.js"
+      ],
+      "capSeconds": 30,
+      "artifact": "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/prepared-v1/completion-spine-js/generated/complete.js",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    },
+    {
+      "label": "complete-run",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/prepared-v1/completion-spine-js/generated/complete.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714"
+    }
+  ],
+  "generated": {
+    "/workspace/formal-proofs/bendvy-worktrees/parity-46-public-seam/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/prepared-v1/completion-spine-js/generated/complete.js": "ae0816b63806f001d46c7149f08ce1294481ffd13f418b71c4eda26d768c4bfe"
+  },
+  "logs": {
+    "complete-emit.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-emit.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "complete-run.stdout": "19e5cd31b5672c290efd8a24bec5e0670a668ad7d9fc0362ff1f934e3a958b79",
+    "complete-run.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}
