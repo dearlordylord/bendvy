@@ -34,6 +34,8 @@ Publication is complete scope tracking, not capability acceptance. Every issue i
 | [#63](https://github.com/dearlordylord/bendvy/issues/63) — Execute the complete deterministic fixed-step ECS scenario | #35, #41 | A reproducible console simulation spawns entities, moves them toward a goal, applies damage, removes them and reports hit/death events through the public ECS API. |
 | [#64](https://github.com/dearlordylord/bendvy/issues/64) — Freeze copied Tower Defense integration requirements | #63, #61 | A concrete integration plan identifies the exact ECS contracts needed by a separate copy of Canonical Tower Defense without modifying its original repository. |
 
+Historical TS mechanisms and reusable tooling: [explicit archive index](../archive/ts-extension-index.md). These records do not define ECS scope.
+
 ## Immediate frontier
 
 #38, #41, #42, #46, #48, #50 and #53. #34, #35, #39, #40 and #47 are closed; their dependencies permit #48 and the reader side of #43, whose #42 prerequisite remains open. #45 has actual TS preparation while #44 remains prerequisite. Explicit unresolved identity/capture/affine-event contract choices must still be resolved before implementation; there is no blanket approval of divergence.
@@ -125,7 +127,7 @@ rebase. Private environments and generated caches must stay out of Git.
 
 - **#61 preparation ownership:** `docs/reference/core-map.md` current inventory,
   preparation materials appended to `docs/parity/coverage.md`, and optional
-  `docs/reference/core-export-inventory.json`. Preserve historical inventory and
+  `docs/archive/ts-port/core-export-inventory.json` (historical reference census; not an implementation checklist). Preserve historical inventory and
   existing acceptance criteria. Reconcile all pinned public core entrypoints,
   exports/reexports, bound APIs, substantial usage combinations, source tests and
   static/error boundaries. Each row names the contract, actual implementation,
