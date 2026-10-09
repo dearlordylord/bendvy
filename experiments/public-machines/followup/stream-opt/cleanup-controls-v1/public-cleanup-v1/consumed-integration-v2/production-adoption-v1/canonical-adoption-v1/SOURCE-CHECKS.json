@@ -1,0 +1,37 @@
+{
+  "scope": "Canonical generic module source checks only; no full pre/post consuming receipt or runtime/proof qualification",
+  "checks": [
+    {
+      "module": "src/ecs/system-cleanup.bend",
+      "sha256": "cb545db8883bde3c20b5fbed7422e543f99be0ec2a8d974762e1af0bc089b940",
+      "compiler": "/home/node/.bend/bin/bend-2.0.35",
+      "cpu": 5,
+      "capSeconds": 5,
+      "args": [
+        "src/ecs/system-cleanup.bend",
+        "--check-only"
+      ],
+      "exit": 0,
+      "raw": [
+        "cleanup.stdout",
+        "cleanup.stderr"
+      ]
+    },
+    {
+      "module": "src/ecs/system-instance.bend",
+      "sha256": "ed76737a409f719cfa2073adcac316648348e91c6e52ab54d29d460e0b2069b6",
+      "compiler": "/home/node/.bend/bin/bend-2.0.35",
+      "cpu": 5,
+      "capSeconds": 5,
+      "args": [
+        "src/ecs/system-instance.bend",
+        "--check-only"
+      ],
+      "exit": 0,
+      "raw": [
+        "instance.stdout",
+        "instance.stderr"
+      ]
+    }
+  ]
+}
