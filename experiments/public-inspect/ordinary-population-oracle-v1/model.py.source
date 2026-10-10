@@ -1,0 +1,70 @@
+"""Independent finite public population interpretation; no runtime-output inputs."""
+from pathlib import Path
+import json,gzip,hashlib
+HERE=Path(__file__).resolve().parent
+ls=lambda xs:'['+', '.join(map(str,xs))+']'
+def tree(xs):
+    if len(xs)==1:return 'leaf:'+xs[0]
+    half=len(xs)//2;return 'node('+tree(xs[:half])+','+tree(xs[half:])+')'
+def optional(value):return 'none' if value is None else 'some(leaf:'+str(value)+')'
+def fields(c1,c2):
+    return ls([f'1:1:SharedSystem:Update:cursor={c1}:[Position, Position]:[Position:Read, Position:Read]:Component',f'1:2:SharedSystem:Update:cursor={c2}:[Counter]:[Counter:Write]:Field'])
+class World:
+    def __init__(self,pop):
+        self.live=[False]* (4 if pop else 1)
+        if pop:self.live[1]=self.live[2]=True
+        self.next_id=3 if pop else 1;self.high=2 if pop else 0
+        self.clock=1 if pop else 0
+        self.position=[42] if pop else [None]
+        self.unqueried=[None];self.resource=10;self.c1=self.c2=0
+        self.states=[]
+    def alive(self):return [i for i in range(1,self.high+1) if self.live[i]]
+    def present(self,column,id):return id>0 and id<=len(column) and column[id-1] is not None
+    def counts(self):return [sum(self.present(col,i) for i in self.alive()) for col in [self.position,self.unqueried]]
+    def physical(self):
+        col=lambda values,stamps:'Column{values='+tree([optional(x) for x in values])+';stamps='+stamps+'}'
+        store='product('+col(self.position,'[1:1:1]' if self.position[0] is not None else '[]')+',product('+col(self.unqueried,'[]')+',Unit))'
+        return (f'namespace=1|nextId={self.next_id}|highWater={self.high}|live='+tree(['True' if x else 'False' for x in self.live])+f'|capacity={len(self.live)}|depth={len(self.live).bit_length()-1}|store='+store+f'|resource=product(Unit,product(Unit,leaf:{self.resource}))|events=[]|pendingCount=1|pendingEmpty=False|registrations=[2:SharedSystem:[Counter], 1:SharedSystem:[Position, Position]]|nextSystemId=3|clock={self.clock}')
+    def complete(self,text,label):
+        self.states.append({'label':label,'alive':self.alive(),'counts':self.counts(),'nextId':self.next_id,'highWater':self.high,'live':self.live[:],'position':self.position[:],'unqueried':self.unqueried[:],'resource':self.resource,'clock':self.clock,'cursors':[self.c1,self.c2]})
+        return text+'|world{'+self.physical()+'}|owners='+fields(self.c1,self.c2)
+    def snapshot(self,flag=True):
+        pop='alive='+str(len(self.alive()))+':'+ls(['Position:'+str(self.counts()[0]),'Unqueried:'+str(self.counts()[1])]) if flag else 'Disabled'
+        return self.complete('population='+pop,'enabled' if flag else 'disabled')
+    def reserve(self):
+        rid=self.next_id
+        if rid>=len(self.live):self.live+= [False]*len(self.live)
+        self.next_id+=1;self.high=rid
+        return self.complete('Reserved:1:'+str(rid),'reserve')
+    def swap_unqueried(self,id,value):
+        while len(self.unqueried)<3:self.unqueried += [None]*len(self.unqueried)
+        previous=self.unqueried[id-1];self.unqueried[id-1]=value
+        return self.complete('Unqueried:Accepted:returned='+optional(previous),'unqueried'+str(id))
+    def dead(self):
+        self.live[1]=False
+        return self.complete('Deactivated:Accepted','dead')
+    def component(self):
+        matching=[i for i in self.alive() if self.present(self.position,i)]
+        self.c1=self.clock
+        return self.complete('ComponentSuccess:output='+ls(['Unit']*len(matching)),'component')
+    def write_resource(self,fail=False):
+        prior=self.resource
+        if not fail:self.resource+=1;self.c2=self.clock
+        return self.complete('Failure:RolledBack:'+str(prior) if fail else 'Success:output=leaf:'+str(prior),'resource-failure' if fail else 'resource-success')
+def scenario(pop):
+    w=World(pop)
+    rows=[w.snapshot(False),w.snapshot(),w.snapshot(),w.reserve(),w.swap_unqueried(3,73),w.snapshot(),w.swap_unqueried(1,71),w.snapshot(),w.snapshot(False),w.swap_unqueried(1,None),w.snapshot(),w.component(),w.snapshot(),w.dead(),w.snapshot(),w.component(),w.write_resource(),w.snapshot(),w.write_resource(True),w.snapshot(),w.write_resource(),w.snapshot(),w.snapshot()]
+    return '\n'.join(rows)+'\n',w.states
+
+def derive(qname='consumer-public.Report'):
+    scenes=[scenario(p) for p in (False,True)]
+    raw=(qname+'{'+', '.join(json.dumps(text,ensure_ascii=False) for text,_ in scenes)+'}\n').encode()
+    return raw,{'empty':scenes[0][1],'populated':scenes[1][1]}
+if __name__=='__main__':
+    raw,states=derive()
+    (HERE/'expected.stdout').write_bytes(raw)
+    (HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    (HERE/'STATES.json').write_text(json.dumps(states,indent=2)+'\n')
+    entry={'path':str(HERE/'expected.stdout'),'gzip':str(HERE/'expected.stdout.gz'),'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':entry},indent=2)+'\n')
+    print(entry['bytes'],entry['sha256'])
