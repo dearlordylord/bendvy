@@ -1,0 +1,29 @@
+{
+  "status": "PASS_SOURCE_MODEL_SECOND_SANITY",
+  "scope": "private two-machine apply-retention normal/drop; no initialization/failure/full48/performance claim",
+  "sourceBasisSHA256": "1c0500d3896f32ff9f4d822b02b7d393c2d55ef4792fd2212a1ca4b74c62daad",
+  "sourcePinsVerified": 46,
+  "oracles": {
+    "normal": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/apply-retention-oracle-v1/normal.stdout",
+      "gzip": "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/apply-retention-oracle-v1/normal.stdout.gz",
+      "bytes": 2460,
+      "sha256": "ed2142cae8bf479c7ac6bf8751c14ae0da2f72e27f6d123b1e40f95aa10955b5"
+    },
+    "drop": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/apply-retention-oracle-v1/drop.stdout",
+      "gzip": "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/apply-retention-oracle-v1/drop.stdout.gz",
+      "bytes": 2408,
+      "sha256": "2fc2c1a7a9c3c0af365d891d6f75922e9693027e9853a6ef91a0ecad6ad90450"
+    }
+  },
+  "checks": [
+    "whole initial cohort captured before apply",
+    "Level Boot40 created during apply survives captured Pause30 application",
+    "second marker applies retained Boot40; dropped branch remains Pause30",
+    "unscheduled mutant branch retains newly queued Boot40",
+    "complete clocks/cursors/events/physicalowners/status/slots match source",
+    "normal/drop model regenerated before actual backend stdout"
+  ],
+  "actualOutputConsulted": false
+}
