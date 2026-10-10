@@ -1,0 +1,8 @@
+import Base
+import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap
+import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M
+import /workspace/formal-proofs/bendvy/experiments/public-handlers/remaining-core-v1/types.bend as T
+type Schema is Data:Schema{}
+def invoke(~Owner:Type,owner:Owner,args:Unit) -> Owner & M.CurrentView<Schema,T.MachineKey,T.State>:
+  Cap.invoke(~Owner,~M.CurrentView<Schema,T.MachineKey,T.State>,args,owner)
+def main() -> Unit:Unit{}
