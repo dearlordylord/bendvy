@@ -1,0 +1,63 @@
+{
+  "newModule": {
+    "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-custom-store-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-custom-store-v1/public-candidate/source-provision.bend",
+    "sourceBytes": 13911,
+    "sourceSHA256": "f2928ad763a7593a595eebb191bce8492f8b39d768c106e6994f56bc5413a20b",
+    "target": "src/ecs/ordinary-binding-provision.bend",
+    "candidate": "/workspace/formal-proofs/bendvy-worktrees/ordinary-custom-store-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-custom-store-v1/public-candidate/ordinary-binding-provision.bend",
+    "bytes": 13531,
+    "sha256": "216fb52e17dc8b29eacc9e15a2e26b2e3debacfd4b09b80812af416e26847e1b",
+    "literalImportInverse": [
+      {
+        "from": "/workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend",
+        "to": "./persistence-declaration.bend"
+      },
+      {
+        "from": "/workspace/formal-proofs/bendvy/src/ecs/decode-data.bend",
+        "to": "./decode-data.bend"
+      },
+      {
+        "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-component-binding.bend",
+        "to": "./ordinary-component-binding.bend"
+      },
+      {
+        "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend",
+        "to": "./ordinary-declaration.bend"
+      },
+      {
+        "from": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+        "to": "./column.bend"
+      },
+      {
+        "from": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+        "to": "./world.bend"
+      },
+      {
+        "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend",
+        "to": "./ordinary-schema.bend"
+      },
+      {
+        "from": "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend",
+        "to": "./schema-fragments.bend"
+      },
+      {
+        "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-schema-provision.bend",
+        "to": "./ordinary-schema-provision.bend"
+      },
+      {
+        "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-schema-dump.bend",
+        "to": "./ordinary-schema-dump.bend"
+      }
+    ],
+    "nonImportBodiesExact": true
+  },
+  "existingRepair": {
+    "target": "src/ecs/ordinary-app-dump.bend",
+    "bytes": 10208,
+    "sha256": "daa2ce3d534d7a9d94815c7fe271ee430b9c1a03fecc902b75169e43eb52eb86",
+    "delta": "finished normalizes resource Schema entries with Fragment.bare_entries before Render.resources zip; preserves classification in retained Schema",
+    "historicalDefect": "classified-v1/runtime-v1/FAILED-ACTUAL.json"
+  },
+  "scope": "Same operational Binding provides identity/take/put/view; count uses actual alive W.handles and Col.has, value uses Col.view. Trusted schema-author lenses/opaque value presenter, not reflection of arbitrary nonColumn stores. Rootalone installs/adopts; public consumer rerouting/regression pending",
+  "classifiedWrappers": "All6existingPlain/Transient/Constructed component/resource extension shapes consume same ordinary identity/Binding; resource Plain/Transient source-complete fixtures retained"
+}
