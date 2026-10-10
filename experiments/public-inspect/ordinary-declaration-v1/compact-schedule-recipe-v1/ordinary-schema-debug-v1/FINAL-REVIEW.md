@@ -1,0 +1,13 @@
+# Mixed schema pair final review
+
+Bounded Spec/Standards PASS against immutable delivery ccc6425b3 (root integration 442c8d1f0), source 1c01d626d and independent oracle 4ff7cf92d. Reuses /tmp/bendvy56-mixed-schema-source-review.md; no backend or source replay.
+
+Independently decoded all 33 lossless archive members / 25 content-addressed objects, verified lengths and SHA256 identities and exact live original-byte joins. Manifest and ACTUAL bytes equal the delivery commit. Original JS61501 and Native99059 receipts both COMPLETE_CONSUMER_DEVELOPMENT_PASS: five commands exit0/failureNone, 17 unchanged guards, exact plan/receipt/raw-stream joins and all current plan pins. Generated JS/C and Native binary match receipt artifact hashes. Artifact bodies are deliberately omitted from this compact archive; receipts retain digests and live artifacts were independently checked, so this is not a durable lossless artifact-body archive.
+
+Both complete outputs are 13505 bytes, SHA256 dc2fd49b417aeb90dd85fd9e13060bf2a1a333a263bc9fe2ee54cac639347caa, byte-identical to the independently frozen gzip whole oracle, with empty runtime stderr. CPU11 stock emit30 / Native build120 / runtime5 and the existing guarded collector remain the recorded execution path. The source review's 67 current input bindings and canonical declaration/field authority findings remain applicable.
+
+This qualifies the finite SchemaA zero/two-entity mixed ordinary declaration fixture: actual registered component/resource invocations, success/failure/retry, enabled/disabled observations and complete physical World/output/test-only owner fields. Calls use Sys.run_tracked rather than Sch dispatch; pending event work remains unflushed. It does not establish arbitrary heterogeneous registration composition, a second nominal schema, current authority runtime controls, performance, or full #56 acceptance.
+
+Promotion limitation remains explicit: generic resource-field registration preserves the rejected builder, but this private frontend's setup-refusal callback consumes the prior application and returns only World, losing the prior owner/recipe pack. Normal executions do not reach this path. The private frontend therefore is not a generally reusable owner-preserving setup API, and generic bridge public promotion is not qualified by this pair. Raw schema/binding constructors retain the trusted administrative boundary identified in the source review. No new laws or contracts are accepted.
+
+No bounded archival blocker found. Public promotion still requires resolving the actual frontend boundary and source-current qualification of the intended public API; this report does not transfer private execution to a public module.
