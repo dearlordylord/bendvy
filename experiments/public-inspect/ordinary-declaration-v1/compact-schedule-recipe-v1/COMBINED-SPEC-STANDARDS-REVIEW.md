@@ -1,0 +1,16 @@
+# Independent combined schedule review
+
+Bounded source/backend evidence PASS through 5472053504e3cf27b24a117f9510bb8f2bc6ce91. Review reused the independently source-derived whole models and original operational source review; no compiler/backend was replayed. Portable checks independently decoded all 140 archive member rows across the four current scenario capsules, joined every raw command stream, verified current source inventories and original plan digests, and checked all 68 archived guard identities with unchanged=true. Eight stock JS/Native cohorts completed twenty commands successfully. Generated artifacts and complete output identities remain bound by the original receipts.
+
+| Scenario | Complete bytes | Whole SHA256 | Actual coverage |
+| --- | ---: | --- | --- |
+| Owner probes | 14280 | 09e5830e22aeabe543bbbada9f3a8b48e3e2488576d3cbe316ca2e19ac340be4 | ordinary successful/skip dispatch, barrier and retained owners |
+| Failure | 14272 | d788077b70f3e814b8984dd986efaf2c1a7479478592295d0662f4b56b0758be | resource replacement then typed failure/rollback and retry |
+| Missing provisioning | 14182 | de687e912c175f3c782ca989a7661d67fe7d6bacb5db9e41a073452f19331eb2 | complete deduplicated missing list before dispatch |
+| Registration refusal | 13850 | fc69355d044afcecc1e110eb05a0978c99b335aa4421d41141fa4569375b46db | actual Sys refusal with returned arguments, then prevalidation rejection |
+
+Each report contains empty/two-entity Worlds, seven enabled/disabled snapshots and two invocations with nine owner-preserving probes. The same ordinary declaration-generated operational plan reaches Sch.run and Sys.run_tracked, actual provisions/conditions and pending-command barrier. The probe is a test-only observation of retained typed owners; it supplies no production declaration metadata. Disabled observations now include actual owner fields, distinct from the older World-only snapshots. No additional disabled cursor behavior is inferred beyond the reported fields.
+
+Failure keeps the successful condition increment while undoing the failing resource replacement; the second run follows its actual skip/barrier path. Missing provisioning performs neither conditions nor dispatch. Registration refusal deliberately uses trusted test administration inside the first condition to remove World registration id2 after prevalidation. Its first returned Some ResourceArgs Unit and second None are actual distinct boundaries. Detached owner registry metadata remains visible even when World metadata is removed. Public Sch.Rejected carries no invented execution observations; no broader registered-world cursor or foreign-owner policy is adopted.
+
+Wrong-subject source72418, intended-source refusal repairs, and failed pre-child guard/preparation history remain historical evidence and receive no transferred qualification. The new finite error fixtures are A-schema Unit-argument/output cases; earlier Other-schema normal evidence remains separate. Arbitrary affine error-output behavior, universal failure laws, public adoption, comparative regression, feature scaling/performance and full #56 completion are not established by these traces. No shared core, runner, contract, dependency or law changed in this review.
