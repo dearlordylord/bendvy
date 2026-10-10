@@ -1,0 +1,54 @@
+{
+  "liveIssue": {
+    "body": "## Parent\n\n#1 \u2014 full Bend-native bevy-ts core parity.\n\nRemaining-core specification: #37.\n\n## What to build\n\nSystems create, replace and remove typed directed entity links and query both ends with consistent inverse results.\n\n## Acceptance criteria\n\n- [ ] Observe pinned relation definitions, self-link policies, missing-source/target errors, source replacement and inverse iteration order; compare Rust Bevy relationship source-of-truth and protected target collection architecture.\n- [ ] Execute actual deferred relate/unrelate and query operations, preserving pre-barrier visibility and exact post-barrier inverse consistency. Direct inverse mutation must not bypass the declared relation API.\n- [ ] Cover source/target deletion and exact ordered structural failure publication. Separate relation mutation failures from SystemFailure; registered failure-reader composition is a dependent slice.\n- [ ] Test foreign handles and schema/access controls; detect a reached stale-inverse or failed-publication mutant and preserve arbitrary component owners.\n\n## Blocked by\n\nNone (can start immediately; explicit unresolved contract gates still apply).\n\n## Delivery and evidence\n\n- Apply the [SPEC reference order](https://github.com/dearlordylord/bendvy/blob/master/docs/SPEC.md#implementation-decisions): Rust Bevy architecture and semantics first, Bend types/affine ownership/runtime constraints second, and bevy-ts feature inventory and porting inspiration third. Record exact reference commits. Execute bevy-ts comparisons for shared agreed scenarios, not as blanket behavior authority; preserve approved contracts and record reference differences explicitly.\n- Verify through independently authored public application operations, complete JS/Native observations and an actually executed Node TS reference. Test two nominal schemas where composition/authority is extended, and actual independently created same-schema worlds for foreign-handle operations. Preserve arbitrary component families and affine Type payloads; reject undeclared access, cross-schema misuse, writes through read and owner duplication at their actual boundary.\n- Freeze exact sources and retain command/input/output receipts, intended negative diagnostics and at least one reached compiling semantic mutant. Earlier task evidence does not substitute for this task's source-current acceptance. Finite traces are not universal proofs/refinement.\n- Run the unchanged default #28 paired regression gate before delivering executable core changes. Keep its workload/baseline/statistics unchanged. Add equivalent complete feature-specific TS/JS/Native observations and timing/scaling evidence without dropping work. No new numerical tolerance or baseline is approved by this ticket. During CPU contention defer comparative measurements, not semantics investigation; a timeout is inconclusive.\n- Use before/after JS call and allocation profiles for a consequential performance change; report allocation sampling separately from physical/RSS memory. Optimize demonstrated bottlenecks while completing features. The scoped #30 amendment is not a global gate waiver; full performance remains under #21/#23/#24.\n- Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.\n- Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.\n",
+    "state": "OPEN",
+    "title": "P-RELATIONS: Maintain directed links and inverse queries through barriers",
+    "url": "https://github.com/dearlordylord/bendvy/issues/42"
+  },
+  "cleanupArchive": "/workspace/formal-proofs/bendvy/experiments/public-relations/remaining-core-v1/control-runtime-v1.zip",
+  "cleanupArchiveSHA256": "05f56fc2915122cacc817754b781b4e4d03d10b8dfc5d03ee8e18b1693b294dd",
+  "currentCleanupCorePins": {
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-graph.bend": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-cleanup.bend": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3"
+  },
+  "references": {
+    "retrieved_on": "2026-10-03",
+    "sources": {
+      "bevy-ts": {
+        "url": "https://github.com/SandroMaglione/bevy-ts",
+        "commit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+        "branch": "main",
+        "commit_date": "2026-10-01T02:43:31-07:00",
+        "shallow": true
+      },
+      "bevy": {
+        "url": "https://github.com/bevyengine/bevy",
+        "commit": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+        "branch": "main",
+        "commit_date": "2026-10-03T00:50:35+00:00",
+        "shallow": true
+      },
+      "bend2": {
+        "url": "https://github.com/bendlang/bend",
+        "commit": "a950fd683c0d76f09794078e6174fe98a1492876",
+        "branch": "main",
+        "commit_date": "2026-10-03T18:48:23+02:00",
+        "shallow": true
+      }
+    }
+  },
+  "finiteEvidence": {
+    "ordinary": "440e/f06d normal15356 +wrong-key16028/15202 reviewd661",
+    "mutation": "4b304 bothnominal14197 +clear omission14419/14860 review00173",
+    "actualForeign": "6bca bothnominal8151 actual threadedFactory/handles/ownlookup reviews503d/28bc",
+    "SystemFailure": "020f bothnominal17728 writer18/unread19/failed20/delivery22 reviews11dee",
+    "TS": "TS-REUSE.json executed exact pinned programs; difference numeric-ID foreignalias retained",
+    "timing": "915367671/77595b06 independent conditional launchPASS; NOT measured"
+  },
+  "remaining": "Full equivalent nine-case whole-feature TS/JS/Native paired timing/scaling after root reservation; final complete retained joins, Spec/Standards and English governing issue delivery. No local-event-discard/universal owner/global allocator claim."
+}
