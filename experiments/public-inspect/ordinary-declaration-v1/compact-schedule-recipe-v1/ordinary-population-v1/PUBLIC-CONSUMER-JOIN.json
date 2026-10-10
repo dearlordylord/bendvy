@@ -1,0 +1,81 @@
+{
+  "joins": [
+    {
+      "source": "setup.bend",
+      "public": "setup-public.bend",
+      "imports": [
+        {
+          "from": "import provision.bend as",
+          "to": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-schema-provision.bend as"
+        }
+      ],
+      "inverseExact": true,
+      "sourceSha256": "62a8a539f5be2b0278877fff5d333dfb57140f43d5bc4d1555d29df497c84dca",
+      "publicSha256": "ced3362bc7a1c1fa4c49dd8c80c5d70827cb3bf260bde65c720391c2efc9cca0"
+    },
+    {
+      "source": "frontend.bend",
+      "public": "frontend-public.bend",
+      "imports": [
+        {
+          "from": "import setup.bend as",
+          "to": "import setup-public.bend as"
+        }
+      ],
+      "inverseExact": true,
+      "sourceSha256": "88fb234fba3b10c838645aed71bfeebb5db18db82eacdc61daf0b45b4da9986f",
+      "publicSha256": "f5ceb52c9221ade6a8c5c10a40880bc5e4fcdd6868511c56cc88274f693f7555"
+    },
+    {
+      "source": "observer.bend",
+      "public": "observer-public.bend",
+      "imports": [
+        {
+          "from": "import ./setup.bend as",
+          "to": "import ./setup-public.bend as"
+        }
+      ],
+      "inverseExact": true,
+      "sourceSha256": "136e71e4c5660d90c833a4fa792e85e1a5c209642515a59d8a2b77ef56f0f73e",
+      "publicSha256": "19634708c23a89de4a6d10e782ac7b7939e1e80627cf208f44feb85fcceee63d"
+    },
+    {
+      "source": "consumer.bend",
+      "public": "consumer-public.bend",
+      "imports": [
+        {
+          "from": "import ./frontend.bend as",
+          "to": "import ./frontend-public.bend as"
+        },
+        {
+          "from": "import ./setup.bend as",
+          "to": "import ./setup-public.bend as"
+        },
+        {
+          "from": "import ./observer.bend as",
+          "to": "import ./observer-public.bend as"
+        },
+        {
+          "from": "import ./population-app.bend as",
+          "to": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-population.bend as"
+        }
+      ],
+      "inverseExact": true,
+      "sourceSha256": "cf0fb3aa2bac443f237f4e351bb6a53520dcb45d01904eff7fcabfe623d69545",
+      "publicSha256": "0a45ab74a1e32bcab71f1ae1461d87852c10781379020fabb7726332cd38c621"
+    },
+    {
+      "source": "entry.bend",
+      "public": "entry-public.bend",
+      "imports": [
+        {
+          "from": "import ./consumer.bend as",
+          "to": "import ./consumer-public.bend as"
+        }
+      ],
+      "inverseExact": true,
+      "sourceSha256": "422a028b37fe1842016d9d290ffc300bf6ac340203c994a4c43eab9998305069",
+      "publicSha256": "4285636a85f277f6112cc71f0ddcf2c3cb15704c7f8e498882e362763bea5916"
+    }
+  ]
+}

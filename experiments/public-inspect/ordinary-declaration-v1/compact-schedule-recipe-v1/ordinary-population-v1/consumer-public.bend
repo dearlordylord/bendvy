@@ -1,7 +1,7 @@
 import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-access.bend as Index
 import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Projection
-import ./observer.bend as Whole
-import ./population-app.bend as Pop
+import ./observer-public.bend as Whole
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-population.bend as Pop
 import Base
 import /workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend as Ord
 import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-leaf-run.bend as LeafRun
@@ -23,8 +23,8 @@ import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-registration-fields.
 import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-records.bend as Leaf
 import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-observation-data.bend as DTO
 import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-registration-run.bend as Run
-import ./frontend.bend as Front
-import ./setup.bend as Setup
+import ./frontend-public.bend as Front
+import ./setup-public.bend as Setup
 import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-schema.bend as App
 import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-schema-debug-v1/refusal-preservation-v1/public-successor/consumer/owner-observer.bend as Observer
 def World(~S:Data) -> Type:
