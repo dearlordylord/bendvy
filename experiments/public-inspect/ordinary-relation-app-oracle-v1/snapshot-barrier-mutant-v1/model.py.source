@@ -1,0 +1,45 @@
+"""Independent complete source model. No producer/runtime output inputs."""
+import json
+
+def shown(items):return '['+', '.join(items)+']'
+DESC='7:Link:LinkedBy:ordinary'
+ACTIONS=[('snapshot',True),('snapshot',True),('snapshot',False),('read',),('relate',1,False),('snapshot',True),('barrier',),('snapshot',True),('read',),('relate',3,True),('snapshot',True),('relate',3,False),('barrier',),('snapshot',True),('read',),('snapshot',False)]
+def derive():
+    edges=[];sources=[];events=[91,92];pending=[('event',99)];reports=[];states=[]
+    def world():
+        graph=shown([DESC+':'+str(s)+'>2' for s in edges])+';'+shown([DESC+':2:'+shown(map(str,sources))] if sources else [])
+        return 'world(1,4,3,N(N(L(False),L(True)),N(L(True),L(True))),4,2,N(L(41),L(42));graph='+graph+',N(L(61),L(62)),events='+shown(['user:'+str(e) for e in events])+',pending='+str(len(pending))+',regs=[],nextSystem=1,clock=0)'
+    def debug():
+        rows=['Relation{key=7|name=Link|inverse=LinkedBy|kind=Ordinary}']
+        for entity in [1,2,3]:
+            outgoing='Target:1:2' if entity in edges else 'Missing'
+            incoming='Sources:'+shown(['1:'+str(s) for s in sources]) if entity==2 and sources else 'Missing'
+            rows.append('1:'+str(entity)+':'+shown(['Link:Outgoing:'+outgoing,'LinkedBy:Incoming:'+incoming]))
+        return 'Debug{bindings=0|relations='+shown(rows)+'}'
+    for action in ACTIONS:
+        if action[0]=='snapshot':
+            # Snapshot's rendered rows are already selected before presented drains.
+            text=debug() if action[1] else 'Disabled'
+            if action[1]:
+                for kind,value in pending:
+                    if kind=='event':events.append(value)
+                    elif value not in edges:edges.append(value);sources.append(value)
+                pending=[]
+        elif action[0]=='read':text='Inverse:'+shown(['1:'+str(s) for s in sources])
+        elif action[0]=='relate':
+            text='Queued:'+('Failure:Unit' if action[2] else 'Success')
+            if not action[2]:pending.append(('relate',action[1]))
+        else:
+            text='Barrier'
+            for kind,value in pending:
+                if kind=='event':events.append(value)
+                elif value not in edges:edges.append(value);sources.append(value)
+            pending=[]
+        reports.append(text+'|owners=Unit|'+world())
+        states.append({'action':action,'edges':list(edges),'inverse':list(sources),'events':list(events),'pending':list(pending),'clock':0})
+    text=''.join(s+'\n' for s in reports)
+    # Installed CLI show_val String + io_exit: quoted escapeLF, then external LF.
+    return (json.dumps(text,ensure_ascii=False)+'\n').encode(),states
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(derive()[0])
