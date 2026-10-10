@@ -1,0 +1,5 @@
+# Bundle affected controls
+
+Four source-current subjects retain the complete observer and real affine handler registries. All add a genuine inactive EnterPause owner. Missing requirements [99,99] belong only to that unselected owner; stable all-entry preflight must report [99] before barrier/frame/selection. Foreign Bundle namespace99 must retain the World and every owner without any schedule step. Namespace-normal executes selected exit/transition work and recovers the inactive owner in authored order. The reached order mutant swaps two recovered owners while retaining their actual registries and affine payloads.
+
+All four stock five-second source checks passed with unchanged post guards. Exact source captures are retained losslessly in source-evidence.zip; live source01 directories remain available for independent model binding. No control backend has run. Independent complete source-derived expectations and whole namespace-normal baseline rejection are required before qualification. This does not qualify all schemas, arbitrary requirement predicates, malformed recovery or multi-machine ordering.
