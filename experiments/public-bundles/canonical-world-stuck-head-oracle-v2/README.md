@@ -1,0 +1,3 @@
+Distinct source-derived oracle successor; eef45 remains immutable as the prior incorrect model. No producer/runtime stdout was read.
+
+The prior model incorrectly reconstructed raw wire from displaced cooked Payload.number. Actual canonical.undo consumes Payload{owned,_}, discarding its number; canonical.built closes over original wire/fail. The original saved construction captures Number9/False, so final cleanup returns displaced array41/42 with wire9 plus original tail31. Quarantine still retains original cookedhead9 and displacedtail61/errors3. All seven complete observations, source/input bindings and normal baseline remain unchanged apart from this source-derived raw-wire correction. CAPTURE-SEMANTICS pins the literal closure and inverse.
