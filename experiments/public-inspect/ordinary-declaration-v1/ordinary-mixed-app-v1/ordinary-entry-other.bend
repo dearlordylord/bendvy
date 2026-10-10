@@ -1,0 +1,10 @@
+import Base
+import ./ordinary-consumer-v2.bend as Consumer
+import ../automatic-app-observation-v1/component.bend as Caller
+import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend as ComponentFixture
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
+type IndependentApplicationSchema is Data:
+  IndependentApplicationSchema{}
+def main() -> String:
+  Consumer.created(~IndependentApplicationSchema,W.create(~IndependentApplicationSchema,~Col.Column<IndependentApplicationSchema,Caller.Payload>,~Array<U32>,~U32,~ComponentFixture.empty_store(~IndependentApplicationSchema),W.factory(),Array.new(U32,0n,17)))

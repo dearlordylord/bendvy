@@ -1,0 +1,5 @@
+import Base
+import ./ordinary-consumer-v2.bend as Consumer
+import ../automatic-app-observation-v1/component.bend as Caller
+def main() -> String:
+  Consumer.scenario(~Caller.A)
