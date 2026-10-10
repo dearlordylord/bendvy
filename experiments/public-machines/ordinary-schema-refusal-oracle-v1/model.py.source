@@ -1,0 +1,18 @@
+"""Source-only complete String model; no runtime output inputs."""
+import json
+def text():
+    # Full.entities reserves/activates two handles, replaces the first component.
+    # W.enqueue leaves one callback; limit changes only nextSystemId.
+    # W.register accepts 4294967294 and advances to max, then rejects unchanged.
+    world=("namespace=1|nextId=3|highWater=2|live=node(node(leaf:False,leaf:True),node(leaf:True,leaf:False))"
+           "|capacity=4|depth=2|store=product(Column{values=leaf:some(leaf:42);stamps=[1:1:1]},Unit)"
+           "|resource=product(Unit,leaf:10)|events=[]|pendingCount=1|pendingEmpty=False"
+           "|registrations=[4294967294:PositionRead:[Position]]|nextSystemId=4294967295|clock=1")
+    fields="1:4294967294:PositionRead:Update:cursor=0:[Position]:[Position:Read]:Component"
+    return "ResourceRejected|world{"+world+"}|owners=["+fields+"]"
+def report():
+    # Installed String result printer emits quoted/escaped String plus newline.
+    return (json.dumps(text(),ensure_ascii=False)+"\n").encode()
+if __name__=="__main__":
+    import sys
+    sys.stdout.buffer.write(report())
