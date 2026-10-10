@@ -1,0 +1,13 @@
+const fs=require('fs'),assert=require('assert');
+const source=fs.readFileSync(process.argv[2],'utf8');
+const begin=source.indexOf('// BEGIN BVY_OWN_PRESEED'),end=source.indexOf('// END BVY_OWN_PRESEED');assert(begin>=0&&end>begin);
+const text=source.slice(begin,end);
+const defs=[['box',{}],['array',{}],['flat',{}],['foreign',{}]];
+const layouts={box:{live:[[null,null,'List']],lays:[{ks:['box']}]},array:{live:[[null,null,'Array']],lays:[{ks:['box']}]},flat:{live:[[null,null,'U32']],lays:[{ks:['u32']}]},foreign:{live:[[null,null,'List']],lays:[{ks:['box']}]}};
+const fl={book:{tlds:{box:true,array:true,flat:true,foreign:false}},own:new Set(['old'])};
+const writes=[];let count=0;
+const fs4={writeSync(fd,b,at,n){const got=Math.min(n,7);writes.push(b.subarray(at,at+got));++count;return got;}};
+const [seed,log]=new Function('done_defs','fun_of','done_live','ty_adt','fs4',text+';return [bvy_preseed_owned,bvy_own_log];')(()=>defs,(fl,k)=>layouts[k],x=>x,(book,x)=>({k:x}),fs4);
+assert.deepStrictEqual(seed(fl),{eligible:1,added:1});assert.deepStrictEqual([...fl.own],['old','box~0']);assert.deepStrictEqual(seed(fl),{eligible:1,added:0});log({kind:'seed',eligible:1,added:1});assert(count>1);assert.strictEqual(Buffer.concat(writes).toString(),'BVY_OWN '+JSON.stringify({kind:'seed',eligible:1,added:1})+'\n');
+fs4.writeSync=()=>0;assert.throws(()=>log({}),/no progress/);
+process.stdout.write('OWNERSHIP_PRESEED_CONTROL_PASS\n');

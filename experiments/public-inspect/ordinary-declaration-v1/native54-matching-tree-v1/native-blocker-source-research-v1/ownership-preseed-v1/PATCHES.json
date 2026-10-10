@@ -1,0 +1,14 @@
+[
+  {
+    "before": "function compile_book(book) {",
+    "after": "// BEGIN BVY_OWN_PRESEED\nfunction bvy_preseed_owned(fl) {\n  let eligible = 0, added = 0;\n  for (const [k] of done_defs(fl)) {\n    const { live, lays } = fun_of(fl, k);\n    lays.forEach((l, i) => {\n      if (done_live(fl.book.tlds[k]) && l.ks.includes(\"box\") && ty_adt(fl.book, live[i][2])?.k !== \"Array\") {\n        ++eligible;\n        const key = k + \"~\" + i;\n        if (!fl.own.has(key)) ++added;\n        fl.own.add(key);\n      }\n    });\n  }\n  return { eligible, added };\n}\nfunction bvy_own_log(value) {\n  const data = Buffer.from(\"BVY_OWN \" + JSON.stringify(value) + \"\\n\");\n  let at = 0;\n  while (at < data.length) {\n    const n = fs4.writeSync(2, data, at, data.length - at);\n    if (n <= 0) throw new Error(\"ownership diagnostic write made no progress\");\n    at += n;\n  }\n}\n// END BVY_OWN_PRESEED\nfunction compile_book(book) {"
+  },
+  {
+    "before": "  const facts = () => fl.own.size + fl.hot.size + fl.stat.size;",
+    "after": "  bvy_own_log({kind:\"seed\", ...bvy_preseed_owned(fl)});\n  const facts = () => fl.own.size + fl.hot.size + fl.stat.size;\n  let bvy_pass = 0;"
+  },
+  {
+    "before": "    was = facts();",
+    "after": "    was = facts();\n    bvy_own_log({kind:\"pass\",pass:++bvy_pass,own:fl.own.size,hot:fl.hot.size,stat:fl.stat.size});"
+  }
+]
