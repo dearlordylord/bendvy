@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Schema.Resource<C.A, C.Counter>
+- observed : Schema.Resource<Other, C.Counter>
+Context:
+- identity : Schema.Resource<Other, C.Counter>
+Location: foreign
+13 | def foreign(identity:Schema.Resource<Other,C.Counter>) -> D.Declaration<C.A,Col.Column<C.A,Unit>,C.Counter,U32,D.write_ops(~C.Counter,~U32),U32>:
+14>|   D.write(~C.A,~Col.Column<C.A,Unit>,~C.Counter,~U32,~U32,~C.view,~U32.show,identity)
+   |                                                                             ^^^^^^^^
+15 | 
+bend 2.0.36 is available: run bend update
