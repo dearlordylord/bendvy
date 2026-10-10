@@ -1,0 +1,1 @@
+Reached candidate mutation: actual generic resume HeadPending always returns retained Pending instead of invoking head callback after caller reactivation. All affine owners/world retained; no fixture-output perturbation. Intended failure category unchanged. Full normal4993 baseline must be rejected after independent mutated fulloracle.
