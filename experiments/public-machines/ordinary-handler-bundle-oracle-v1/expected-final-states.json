@@ -1,0 +1,162 @@
+{
+  "exit": {
+    "selected": 1,
+    "component": 111,
+    "resource": 111,
+    "clock": 3,
+    "stamp": [
+      0,
+      3
+    ],
+    "locals": [
+      2,
+      1,
+      1
+    ],
+    "cursors": [
+      1,
+      2,
+      3,
+      3
+    ],
+    "current": "Play",
+    "pending": "Pause",
+    "previous": "Boot",
+    "changed": true,
+    "tick": 2,
+    "prefix": [
+      "exit",
+      "transition",
+      "enter"
+    ],
+    "batches": [
+      [
+        2,
+        "Boot",
+        "Play"
+      ]
+    ],
+    "position": [
+      2,
+      1
+    ],
+    "delivered": [
+      [
+        "Boot",
+        "Play"
+      ]
+    ],
+    "pendingCount": 3,
+    "applied": 0
+  },
+  "transition": {
+    "selected": 2,
+    "component": 112,
+    "resource": 112,
+    "clock": 4,
+    "stamp": [
+      0,
+      4
+    ],
+    "locals": [
+      2,
+      2,
+      1
+    ],
+    "cursors": [
+      2,
+      3,
+      4,
+      4
+    ],
+    "current": "Play",
+    "pending": "Pause",
+    "previous": "Boot",
+    "changed": true,
+    "tick": 2,
+    "prefix": [
+      "exit",
+      "exit",
+      "transition",
+      "enter"
+    ],
+    "batches": [
+      [
+        2,
+        "Boot",
+        "Play"
+      ]
+    ],
+    "position": [
+      2,
+      1
+    ],
+    "delivered": [
+      [
+        "Boot",
+        "Play"
+      ]
+    ],
+    "pendingCount": 3,
+    "applied": 1
+  },
+  "enter": {
+    "selected": 3,
+    "component": 111,
+    "resource": 111,
+    "clock": 3,
+    "stamp": [
+      0,
+      3
+    ],
+    "locals": [
+      1,
+      1,
+      2
+    ],
+    "cursors": [
+      1,
+      2,
+      3,
+      3
+    ],
+    "current": "Play",
+    "pending": "Pause",
+    "previous": "Play",
+    "changed": true,
+    "tick": 2,
+    "prefix": [
+      "exit",
+      "transition",
+      "enter"
+    ],
+    "batches": [
+      [
+        1,
+        "Boot",
+        "Play"
+      ],
+      [
+        2,
+        "Play",
+        "Play"
+      ]
+    ],
+    "position": [
+      2,
+      1
+    ],
+    "delivered": [
+      [
+        "Boot",
+        "Play"
+      ],
+      [
+        "Play",
+        "Play"
+      ]
+    ],
+    "pendingCount": 1,
+    "applied": 2
+  }
+}
