@@ -26,6 +26,7 @@ def main():
  out.mkdir();rows=[]
  templates={'js':TEMPLATE_ROOT/'runtime-v1/prepared-attempt01/a-normal-js/plan.json','native':TEMPLATE_ROOT/'runtime-v2/prepared-attempt01/a-normal-native-plan.json'}
  extras=[Path(__file__),catalogue,oracle,COLLECTOR,ROOT/'scripts/task_runner.py',ROOT/'scripts/evidence_boundary.py',ROOT/'experiments/public-inspect/development-plan-guard-v1/plan_guard.py',ROOT/'experiments/public-simulation/delivery-v1/installed-config.py',SOURCE/'PUBLIC-SOURCE-COMPLETE.json',SOURCE/'README.md']+[p for p in check.rglob('*') if p.is_file()]
+ extras += [catalogue.parent.parent/'model.py.source',catalogue.parent.parent/'retained-bundle-model.py.source']
  basisRecord=json.loads(Path(args.binding).read_text());basis=basisRecord[args.basiskey];extras.append(Path(args.binding));extras += [p for p in catalogue.parent.rglob('*') if p.is_file()]
  if isinstance(basis,dict):
   if any(sha(k)!=v for k,v in basis.items()):raise ValueError('Independent basis drift')
