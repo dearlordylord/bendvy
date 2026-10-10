@@ -1,0 +1,3 @@
+# Second nominal Garden complete pair
+
+Frozen440e source Garden source02 and independent0e3d catalogue/root sanity bind the same complete15356-byte observations (erased schema names do not change wire bytes). JS85909 and Native54271 terminal0/fulloraclePASS/empty runtime stderr,5commands17unchanged guards. actual-attempt01/manifest.json preserves44members/33CASobjects including every generated artifact and raw receipt/output. First Workshop evidence remains immutable in runtime-v1. No shared core mutation or new runner/cap/policy occurs; affected runtime control/independent final review/current TS/performance/full42 gates remain open.
