@@ -1,0 +1,110 @@
+{
+  "cases": [
+    {
+      "role": "source",
+      "originalSession": 87763,
+      "planSHA256": "4e5d17f61c7d7cef8a838a99b84ad382b79ea21c4bb5bd6b584ad0e63546a50f",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "guards": 4,
+      "commands": [
+        {
+          "label": "source-normal",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 5,
+          "stdout": {
+            "path": "/tmp/bendvy54-scan-projector-source01/source-normal.stdout",
+            "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+            "bytes": 58,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy54-scan-projector-source01/source-normal.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ]
+    },
+    {
+      "role": "js",
+      "originalSession": 8498,
+      "planSHA256": "f8524c0878b0e600fa9affea3af5124eee78a30af0d5a46776baee99b1c25e71",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "guards": 7,
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 30,
+          "stdout": {
+            "path": "/tmp/bendvy54-scan-projector-js01/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy54-scan-projector-js01/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 5,
+          "stdout": {
+            "path": "/tmp/bendvy54-scan-projector-js01/consumer.stdout",
+            "sha256": "810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2",
+            "bytes": 5077477,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy54-scan-projector-js01/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ]
+    },
+    {
+      "role": "native",
+      "originalSession": 39307,
+      "planSHA256": "743d8940ccb01b07a41273a79fb1e5cfaa455be28df7ca96c5b0c0af25f8703c",
+      "status": "INCOMPLETE",
+      "guards": 4,
+      "commands": [
+        {
+          "label": "emit",
+          "exit": null,
+          "failure": "child deadline",
+          "capSeconds": 30,
+          "stdout": {
+            "path": "/tmp/bendvy54-scan-projector-native01/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy54-scan-projector-native01/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ]
+    }
+  ],
+  "members": 558,
+  "newObjects": 60,
+  "reusedRows": 475,
+  "sourceModules": 47,
+  "oracleBytes": 5077477,
+  "oracleSHA256": "810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2",
+  "scope": "Source and completeJS development PASS; stockNative emission INCOMPLETE; no build/runtime/currentreader/authority/cost/cause/full54/performance qualification."
+}
