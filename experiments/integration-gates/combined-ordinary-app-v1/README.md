@@ -8,9 +8,11 @@ with [independent final review](actual-attempt156-01/FINAL-REVIEW.md), a lossles
 0.397648 and Native 0.099133 for the protected Workshop whole-process workload.
 These results do not prove universal speedup or complete feature performance.
 
-The four public additions are qualified within this protected workload. The
-next unadopted `ordinary-app-stream` candidate was prepared after the cohort and
-is excluded; it requires its own semantics and a future integration batch.
+The four public additions are qualified within this protected workload.
+`ordinary-app-stream` was adopted at `4658c74a7` after its complete JS/Native
+semantic checks and independent review. It was prepared after this cohort and
+is excluded from combined156; its integrated regression remains pending in the
+next batch.
 
 ## Historical combined152 run
 
