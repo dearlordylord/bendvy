@@ -1,0 +1,65 @@
+{
+  "inputs": [
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/sources.json",
+      "sha256": "5d4d89ca984a2eb21e21715344219bb9caa022b6bebca0c9f8959584cceb8b8f",
+      "bytes": 747
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy/crates/bevy_state/src/state/resources.rs",
+      "sha256": "99713a9fc7864a99ed1deb99257bc976017a2117c140415e0dd5c712a11b6d06",
+      "bytes": 7341
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Machine.ts",
+      "sha256": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3",
+      "bytes": 14083
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Debug.ts",
+      "sha256": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+      "bytes": 16362
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-declaration.bend",
+      "sha256": "dea2407308f0c9385d1938a950c138babb43a95a713d6c595406328f9eeb9b01",
+      "bytes": 2489
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-operations.bend",
+      "sha256": "fca6b0e0e089035a2e3f7e827038847fc3383c11fe361240ae167c6ba515b3b3",
+      "bytes": 1945
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/inspector-machine-projection.bend",
+      "sha256": "2c4085c7c4953587da136a3e4b47e6f422d8f37aa94c6fedd470563b9179282c",
+      "bytes": 1941
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend",
+      "sha256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+      "bytes": 9883
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-composer.bend",
+      "sha256": "e363475121c760902d2b3a7140fa40625dbd32aa3afcb06745792e8240fed8d4",
+      "bytes": 3212
+    }
+  ],
+  "priority": [
+    "RustBevy architecture/state queued-write semantics",
+    "Bend existing nominal declaration/current projection/transaction ownership",
+    "TS debug machine inventory only"
+  ],
+  "observations": [
+    "BevyState<State> current typed value and NextState set pending at resources.rs58,181,198",
+    "TS Debug.MachineDescription states/current exists, but Bend Family does not imply finite state universe",
+    "same current granted by ordinary-machine-declaration inspect and condition; same named declaration supplies existing operational queue capability"
+  ],
+  "limits": [
+    "no synthetic Resource identity or system Registry",
+    "no exhaustive state enum inferred",
+    "no transition/reader/events-policy adoption",
+    "candidate queue rollback is existing Bend transaction contract, not inferred from Bevy default"
+  ]
+}
