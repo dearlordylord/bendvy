@@ -48,5 +48,7 @@ materialize owned files and required dependencies with sparse checkout. Reuse
 immutable absolute dependency paths where supported by the runner. Resume a
 completed agent with `followup_task`; use messages for agents already running.
 Parallelize authoring/research/review; serialize heavy checks and reserve
-performance cohorts exclusively under current resource limits. Follow the
+performance cohorts exclusively under current resource limits. Ordinary runs use
+the runner’s internal lock; a terminal result and release from the preceding
+owner suffice to start the next admitted run. Follow the
 [current coordination table](parity/README.md#current-delivery-coordination).
