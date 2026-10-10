@@ -1,0 +1,16 @@
+from pathlib import Path
+import hashlib,json,re
+base=Path('/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1');own=base/'owner-data-format-v1';out=own/'current-classification-v1';out.mkdir(exist_ok=False)
+freeze=json.loads((own/'FREEZE.json').read_text());files=[Path(n) for n in freeze['sourcePins'] if n.endswith('.bend') and Path(n).is_relative_to(base)]
+files += [own/'main-scale2.bend',own/'main-scale4.bend'];mapping={str(f):str(out/'source'/f.relative_to(base)) for f in files};rows=[]
+h=lambda b:hashlib.sha256(b).hexdigest()
+for f in files:
+ s=f.read_text();original=s;changes=[]
+ for src,target in mapping.items():
+  s=re.sub(r'(?m)^(import\s+)'+re.escape(src)+r'(?=\s|$)',lambda m:m.group(1)+target,s)
+ if f.name in ['declared.bend','declared-other.bend'] and 'public-client' in f.parts:
+  needle='def entry_text(entry:SF.Entry<A.Schema>) -> String:\n  match entry:';assert s.count(needle)==1
+  s=s.replace(needle,'def entry_text(entry:SF.Entry<A.Schema>) -> String:\n  match SF.bare_entry(~A.Schema,entry):');changes=['Normalize identity input with public SF.bare_entry before original kind/key/name formatting']
+ dest=Path(mapping[str(f)]);dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(s);rows.append(dict(original=str(f),successor=str(dest),originalSHA256=h(original.encode()),successorSHA256=h(s.encode()),nonImportDelta=changes))
+manifest=dict(status='STATIC_SUCCESSOR_PREPARATION; source5 and independent complete model applicability pending; no old generated artifact transfer',basis='paired-current-v1/cohort01 plan9f1f2b52 immutable',rootSource='/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend',rootSourceSHA256=h(Path('/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend').read_bytes()),imports=mapping,rows=rows,selectedEntries={key:mapping[str(own/file)] for key,file in [('pureA','pure-a.bend'),('pureB','pure-b.bend'),('scale1','main.bend'),('scale2','main-scale2.bend'),('scale4','main-scale4.bend')]})
+(out/'SOURCE-DELTA.json').write_text(json.dumps(manifest,indent=2)+'\n');print(len(files),manifest['selectedEntries']['pureA'])

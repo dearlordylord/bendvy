@@ -1,0 +1,26 @@
+from pathlib import Path
+import json,hashlib,zipfile
+own=Path('/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1');out=own/'current-classification-v1';h=lambda b:hashlib.sha256(b).hexdigest()
+names=['current-classification-pure-A-source01','current-classification-pure-A-source02','current-classification-pure-A-source03','current-classification-pure-B-source01','current-classification-IO-source01','current-classification-scale2-source01','current-classification-scale4-source01'];selected=names[2:];rows=[];inputs=[];seen=set();pins={};closures={};receipts=[]
+with zipfile.ZipFile(out/'source-evidence.zip','w',zipfile.ZIP_DEFLATED) as z:
+ for name in names:
+  d=own/name;s=json.loads((d/'SOURCE.json').read_text());c=json.loads((d/'CLOSURE.json').read_text());r=json.loads((d/'result.json').read_text());assert json.loads((d/'post.json').read_text())['unchanged'];assert r['failure'] is None
+  if name in selected:
+   for n,v in s['pins'].items():assert n not in pins or pins[n]==v;pins[n]=v
+   closures[name]=c
+  receipts.append(dict(attempt=name,exit=r['exit'],failure=r['failure'],capSeconds=r['capSeconds'],postUnchanged=True,selected=name in selected,resultSHA256=h((d/'result.json').read_bytes())))
+  for fname in ['SOURCE.json','CLOSURE.json','result.json','post.json','stdout','stderr']:
+   f=d/fname;b=f.read_bytes();n=f'{name}/{fname}';z.writestr(n,b);rows.append(dict(path=n,bytes=len(b),sha256=h(b)))
+  for i,n in enumerate(s['order']):
+   v=s['pins'][n];f=d/'sources'/f'{i}.source'
+   if n=='/home/node/.bend/bin/bend-2.0.35':
+    assert h(Path(n).read_bytes())==v;row=dict(attempt=name,path=n,sha256=v,bytes=Path(n).stat().st_size,retention='Installed ELF identity; unchanged generic source capture intentionally does not duplicate binary. Exact bytes retained in established complete-input archive.')
+   else:
+    b=f.read_bytes();assert h(b)==v;row=dict(attempt=name,path=n,sha256=v,bytes=len(b));row['object']='objects/'+v
+    if v not in seen:z.writestr(row['object'],b);seen.add(v)
+   inputs.append(row)
+for n,v in pins.items():assert h(Path(n).read_bytes())==v,n
+manifest=dict(scope='Current classified metadata source compatibility and complete closure capture only; no runtime/performance credit',archive='source-evidence.zip',sha256=h((out/'source-evidence.zip').read_bytes()),members=rows,inputs=inputs,receipts=receipts,preparationObservation='First archive preparation assumed every order row has copied source bytes; installed ELF is intentionally identity-only in unchanged collector. Corrected archive retention join, no child rerun or source change.')
+(out/'SOURCE-EVIDENCE.json').write_text(json.dumps(manifest,indent=2)+'\n')
+freeze=dict(rootAdoption='0f2565855',rootSchemaFragmentsSHA256=pins['/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend'],selectedCaptures=selected,closures=closures,sourcePins=pins,independentWholeOracle='e73237223; original complete Bend scales1/2/4 18058/36186/72442 pending independent current-source applicability',priorPairedPlan='9f1f2b522f8f8feeeb1332da5b666138b53f94250da5586c78c46db2113347d8 remains immutable and stale',status='Source pure A/B PASS; IO1/2/4 intended foreign proof refusal only. No runtime artifact requalification or current paired successor yet.')
+(out/'FREEZE.json').write_text(json.dumps(freeze,indent=2)+'\n');print(len(rows),len(inputs),len(seen),len(pins))
