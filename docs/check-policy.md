@@ -14,7 +14,9 @@ Use an existing runner. Freeze the source closure, full oracle, command plan,
 tools/configuration/environment and required outputs. Retain pre/post guards,
 raw success/failure logs and unconditional terminal receipts through
 [GuardBoundary/ReceiptBoundary](../scripts/evidence_boundary.py).
-Guard generated artifacts before consumption; use one heavy-lock owner.
+Guard generated artifacts before consumption; use one heavy-lock owner. Use the
+runner's existing lock when present; an outer lock on the same file can deadlock
+its independently acquired child lock.
 
 Routine feature execution through an unchanged reviewed runner is authorized
 by the assigned issue and existing gates; one independent final Spec/Standards
