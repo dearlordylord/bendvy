@@ -47,3 +47,16 @@ This localizes the instrumented execution to repeated Native emission. It does
 not establish stock phase timing, exclusive cost or a causal bottleneck. Next
 work is source-based reduction of declaration/query specialization while
 preserving the complete consumer, affine authority and existing compiler caps.
+
+## Pair-return scan result
+
+The next private successor replaces the reached recursive `ScanResult.Link`
+construction with an internal owner-and-rows pair scan; the compatibility API
+and full47 consumer remain intact. Its reviewed source, receipts and exact
+inverse metadata are preserved at
+[evidence/inspector54-pair-scan-v1](https://github.com/dearlordylord/bendvy/tree/evidence/inspector54-pair-scan-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/pair-scan-v1).
+Stock source5 and the complete 5,077,477-byte JS oracle pass. Stock Native
+again reaches the unchanged emit30 deadline without C; build and runtime were
+not attempted. Removing this reached recursive box did not resolve the bounded
+compilation gate. This supplies no causal attribution or Native acceptance;
+authority/reader controls and public promotion remain outstanding.
