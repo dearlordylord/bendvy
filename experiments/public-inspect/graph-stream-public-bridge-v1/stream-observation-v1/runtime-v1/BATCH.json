@@ -1,0 +1,39 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "workshop-normal",
+      "path": "/tmp/bendvy-graph-stream-stream-observation-runtime01/workshop-normal-js/plan.json",
+      "sha256": "740f59742757ad5af2050e37dad25f66a05be49a166ef36e6abc13290c5dae87",
+      "sources": 41,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-stream-observation-runtime01/workshop-normal-js/plan.json",
+        "740f59742757ad5af2050e37dad25f66a05be49a166ef36e6abc13290c5dae87"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "workshop-normal",
+      "path": "/tmp/bendvy-graph-stream-stream-observation-runtime01/workshop-normal-native/plan.json",
+      "sha256": "651fee345332991703031519177f321758f26b7ac723a36a6709e4dd16c10fa0",
+      "sources": 41,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-stream-observation-runtime01/workshop-normal-native/plan.json",
+        "651fee345332991703031519177f321758f26b7ac723a36a6709e4dd16c10fa0"
+      ]
+    }
+  ],
+  "sequence": "Workshop JS wholePASS -> conditional Workshop Native wholePASS; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Exact source5 actual PASS for both frozen consuming closures; raw source evidence preserved",
+  "scope": "First complete ordinary Workshop Data stream snapshot qualification; no Type-reader ownership/full55/proof/performance acceptance"
+}
