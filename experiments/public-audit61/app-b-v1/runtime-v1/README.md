@@ -1,0 +1,7 @@
+AppB first complete normal backend pair
+
+Frozen application source e0920cbc5 passed the stock source5 check. Independent model packet79206e42c and root second sanity supplied the complete 14,582-byte oracle, SHA256 f6e7c416269ffffefd214690e5e1c32fca707e9861ecaeaa9bf8de4247112be8. The unchanged detached-v2 collector ran JS first; its actual whole PASS permitted the exact conditional Native plan. Native was held while root's exclusive regression ran, then resumed once after release without changing source, plan, oracle, resources or caps.
+
+Original handles: JS43954 and Native49417, both terminal0. All five commands exited zero; runtime stderr is empty. Seven JS and ten Native guards passed. BATCH.json/prepared-attempt01 preserve the two exact plans. actual-attempt01/manifest.json losslessly captures42members in33content-addressed gzip objects including raw streams, emitted/built artifacts, receipts/guards, source-derived oracle packet and root sanity receipt. Source history remains ../source-evidence-v1.
+
+The two complete normal outputs exercise this independently authored scene application; they are not a universal proof of lenses or affine identity preservation. Full #61 and all existing capability acceptance remain separate. This pair does not qualify error branches, installation-inverse execution, new reader ownership, AppB reached/authority controls or performance. AppA's distinct registered transaction/schedule application and its separately owned affected controls retain their own evidence.
