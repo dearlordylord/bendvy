@@ -1,0 +1,1 @@
+Independent source-derived public relocation wire models. Previous private model and failed public attempt remain unchanged. Core constructor QNames use the current public entry directory and actual defining modules; semantic values and full observations are inherited unchanged. No executable output was read to derive these expectations.

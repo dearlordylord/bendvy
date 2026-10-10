@@ -1,0 +1,52 @@
+{
+  "installedCompilerSliceSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+  "compilerPath": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-phase-v1/compiler/installed-cli-unmodified.mjs",
+  "jsRule": "show_val D[d]===2 => v + n",
+  "cRule": "show_val case2 printf %llun",
+  "typedNatFields": "RuntimeView batches ticks; Position cursor/registeredAt; tick/frameStart/boundary/capacity/dropped; transition Stream batches/positions/dropped/frameStart; Snapshot ReaderStatus cursor/registeredAt/unread/tick/boundary",
+  "typedU32Preserved": "namespace/id/registryId/nextReader/registryCursor/ObservationCursor and transition endpoints",
+  "change": "49 source-typed Nat suffixes only, String dump Nat.show remains unchanged",
+  "literalReplacements": [
+    [
+      "c(named('event-runtime','Batch'),'1',l(initial))",
+      "c(named('event-runtime','Batch'),'1n',l(initial))"
+    ],
+    [
+      "c(named('event-runtime','Batch'),'2',l(added))",
+      "c(named('event-runtime','Batch'),'2n',l(added))"
+    ],
+    [
+      "c(named('event-runtime','Position'),'1','1','0')",
+      "c(named('event-runtime','Position'),'1','1n','0n')"
+    ],
+    [
+      "'2','2','0','0','8','0')",
+      "'2','2n','0n','0n','8n','0n')"
+    ],
+    [
+      "c(named('event-runtime','Batch'),'2',l([c(named('machine','Transition')",
+      "c(named('event-runtime','Batch'),'2n',l([c(named('machine','Transition')"
+    ],
+    [
+      "c(named('event-runtime','Batch'),'3',l([c(named('machine','Transition')",
+      "c(named('event-runtime','Batch'),'3n',l([c(named('machine','Transition')"
+    ],
+    [
+      "c(named('event-runtime','Position'),'5','1','1')",
+      "c(named('event-runtime','Position'),'5','1n','1n')"
+    ],
+    [
+      "'0','2')\n snap",
+      "'0n','2n')\n snap"
+    ],
+    [
+      "c(named('event-runtime','ReaderStatus'),'1','1','0','3',c('False'))",
+      "c(named('event-runtime','ReaderStatus'),'1','1n','0n','3n',c('False'))"
+    ],
+    [
+      "c('False'))]),'2','0')",
+      "c('False'))]),'2n','0n')"
+    ]
+  ],
+  "priorModelSHA256": "428abbbeb7735c058e11120b019c6584a3d2ea0509936a3f4b25ad4be13f1a53"
+}
