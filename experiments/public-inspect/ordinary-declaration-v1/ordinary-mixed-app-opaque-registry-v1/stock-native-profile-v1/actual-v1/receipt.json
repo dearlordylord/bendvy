@@ -1,0 +1,143 @@
+{
+  "scope": "Full opaque ordinary mixed App A0/2 stock Native with profiling-only environment; no performance/full56 claim",
+  "planSHA256": "16571c9995c57602c8a685ad7b7d77930c87a5743dc26c764d2ce92c401d89a1",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/full-entry-a.bend",
+        "-o",
+        "/tmp/bendvy56-stock-native-profile01/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy56-stock-native-profile01/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy56-stock-native-profile01/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "build",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy56-stock-native-profile01/scenario.c",
+        "-o",
+        "/tmp/bendvy56-stock-native-profile01/scenario.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy56-stock-native-profile01/build.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy56-stock-native-profile01/build.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/tmp/bendvy56-stock-native-profile01/scenario.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy56-stock-native-profile01/consumer.stdout",
+        "sha256": "9f3ec35156829d4ba37cc8ed3bcf26c857d55cb3f02cdf7734f8c74bc49f5b8e",
+        "bytes": 7243,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy56-stock-native-profile01/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy56-stock-native-profile01/emit-pre.guard.json",
+      "sha256": "c00ca9356f10956a8791e81a1ff1f067d175099557acf7257c6aaceb752ce90d"
+    },
+    {
+      "path": "/tmp/bendvy56-stock-native-profile01/emit-acquired.guard.json",
+      "sha256": "0ebfb77a96ee279ae6b644139092f9e2ea933bd865d47de24a90bc4dc266bfa4"
+    },
+    {
+      "path": "/tmp/bendvy56-stock-native-profile01/emit-post.guard.json",
+      "sha256": "1e537630e3cfe1a5cb2ffd30b05710f7d99065b9a6066257307e4c6aee9663ca"
+    },
+    {
+      "path": "/tmp/bendvy56-stock-native-profile01/build-pre.guard.json",
+      "sha256": "d5e35513d68d6e69a9850c83a6551ed7e1411942de59d79a07e29727bf664f4b"
+    },
+    {
+      "path": "/tmp/bendvy56-stock-native-profile01/build-acquired.guard.json",
+      "sha256": "1c3c88ffe24be42859bcef7726b620f1291312f896afdae1f54f4f62b6d1456a"
+    },
+    {
+      "path": "/tmp/bendvy56-stock-native-profile01/build-post.guard.json",
+      "sha256": "30272ee715f87e0fe2fe225a513a6342b5da941494789b4b227022d6ef15281d"
+    },
+    {
+      "path": "/tmp/bendvy56-stock-native-profile01/consumer-pre.guard.json",
+      "sha256": "7acd1a36382cd05eb6ab9920e0f540c795212f91f08464d9c25ed1da38fe2f19"
+    },
+    {
+      "path": "/tmp/bendvy56-stock-native-profile01/consumer-acquired.guard.json",
+      "sha256": "9571030f35687415e2f10ec376946c8fd97331237a9231e6cb64a63b6bddad20"
+    },
+    {
+      "path": "/tmp/bendvy56-stock-native-profile01/consumer-post.guard.json",
+      "sha256": "fe6b4cd678bc187b7c1a9097fbdcf020184c4a0901682f8c4ca0f23476a7750b"
+    },
+    {
+      "path": "/tmp/bendvy56-stock-native-profile01/final.guard.json",
+      "sha256": "440c2a845e66a5a87ca533417729863bac5a29484015acb9df124847f51ef798"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "a4e5fbf29113adcda29151e35c85624f90ccd1442c239f1b1a3bb65242c29dbc",
+  "buildArtifactSHA256": "35e37261e1d2ebbb10f606cdd8087177ca06d353796e65ea779cc6263f39aca8",
+  "wholeOracleSHA256": "9f3ec35156829d4ba37cc8ed3bcf26c857d55cb3f02cdf7734f8c74bc49f5b8e"
+}

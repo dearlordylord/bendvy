@@ -1,0 +1,33 @@
+{
+  "scope": "Version-only packaged Bend2.0.35 profile capability control; no compiler/consumer/Native qualification",
+  "argv": [
+    "/usr/bin/taskset",
+    "-c",
+    "11",
+    "/home/node/.bend/bin/bend-2.0.35",
+    "version"
+  ],
+  "capSeconds": 5,
+  "environment": {
+    "HOME": "/home/node",
+    "PATH": "/usr/bin:/bin",
+    "LANG": "C",
+    "LC_ALL": "C",
+    "TZ": "UTC",
+    "BEND_NO_TELEMETRY": "1",
+    "BENDVY_CLANG19_ROOT": "/tmp/bendvy-clang19-diagnostic/root",
+    "LD_LIBRARY_PATH": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu",
+    "BUN_OPTIONS": "--cpu-prof --cpu-prof-dir=/tmp/bendvy56-packaged-version-profile01/profiles --cpu-prof-name=version.cpuprofile"
+  },
+  "cwd": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1",
+  "pins": {
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/packaged-profile-control-v1/control.py": "d73bc1ce64d555f86c64347748b3641d305fa0d45dee8860920df1fcff31c4bf",
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+    "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122",
+    "/home/node/.bend/bin/bend-2.0.35": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "/usr/bin/taskset": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5",
+    "/workspace/formal-proofs/bendvy/.references/bend2/bend2/main.ts": "d1a3e026f5014f8daec3614df8e39cf261e3fbc47769eb0916fd891bc18703c9"
+  },
+  "sourceRoute": "Pinned main.ts127 returns version before compiler/daily update; noBUN_BE_BUN or copiedscript",
+  "profile": "/tmp/bendvy56-packaged-version-profile01/profiles/version.cpuprofile"
+}
