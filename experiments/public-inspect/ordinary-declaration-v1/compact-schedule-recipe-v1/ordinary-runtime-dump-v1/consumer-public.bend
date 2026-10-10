@@ -119,7 +119,10 @@ def scenario(host: Host,+count: U32) -> List<&2,String>:
     Step{"capacity-enforced",[]},Step{"lagged-readers",[Read{True{},False{}},Read{False{},False{}}]},
     Step{"cleanup-after-lag",[]}
   ],host,[])
-def ready(presentation:Front.presentation_type(),app:Front.Application()) -> List<&2,String>:scenario(Host{Front.unsynchronized(app),[],True{},presentation},2)
+def ready_observed(result:Host & String) -> List<&2,String>:
+  match result:
+    case (host,text):List.append(&2,String,[text],scenario(host,2))
+def ready(presentation:Front.presentation_type(),app:Front.Application()) -> List<&2,String>:ready_observed(snapshot(Host{Front.unsynchronized(app),[],True{},presentation},"unsynchronized-before-frame"))
 def events_ready(presentation:Front.presentation_type(),app:Front.Initial()) -> List<&2,String>:
   Front.registered(~List<&2,String>,ready(presentation),Front.registration_failed(~Front.FirstReader()),Front.registration_failed(~Front.Publisher()),Front.registration_failed(~Front.Initial()),app)
 def prior_ready(presentation:Front.presentation_type(),schema:Schema.Schema<Types.Schema,Setup.store(~Types.Schema,~Array<U32>),Setup.resources(~Array<U32>)>,result:Prior.SetupResult<Types.Schema>) -> List<&2,String>:
