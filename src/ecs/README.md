@@ -219,3 +219,7 @@ original owners. An unscheduled registration has an empty phase; disabled debug
 skips observation. Snapshots preserve pending commands, events and cursors.
 The [independent review](../../experiments/public-inspect/ordinary-relation-schedule-oracle-v1/FINAL-REVIEW.md) verifies the complete finite backend observations and authority boundaries.
 Combined156 [protected regression](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt156-01/FINAL-REVIEW.md) passes. Broader automatic-debug coverage and feature timing remain pending; this entry does not complete #56.
+
+`ordinary-app-stream` binds selected transition and relation-failure declarations once. `read_app` returns typed values with the same affine App; enabling debug makes `snapshot` derive their presentation from those declarations. Disabled snapshots bypass both projections. Frame/grant construction is internal; built-in values need no metadata adapter.
+
+The [independent review](../../experiments/public-inspect/ordinary-stream-app-oracle-v1/FINAL-REVIEW.md) qualifies complete Workshop/Garden and reached-control JS/Native outputs. The inspector cursor remains independent of preserved NoticeReader/Registry owners; no new consumption policy or cursor association is selected. Additional owner runtime coverage is Unit; arbitrary Type preservation is source-checked. This module is excluded from combined156; its integrated regression and full #56 remain pending.
