@@ -1,0 +1,15 @@
+# Actual registered condition source slice
+
+Same ordinary `Consumer.flow` and `Consumer.declaration` supply a machine read capability and a composed relation query in an actual `K.Plan`. The registered runner invokes that plan with abstract `H`, returns the existing `Sys.Outcome`, and is executed by `Sys.run_tracked`. Two complete detached observations retain the actual affine registry owner; its cursor is read and restored next to each observation rather than inferred from World metadata. All owner fields are dumped before/between/after execution. Rejection is represented separately as `None`, while successful/failed condition outcomes remain `Some<Result>`.
+
+Complete Workshop source02 passed the existing five-second parser/type/affine check, with 38 explicit sources plus installed Base pinned. Source01's erased tuple-inference error is retained. Named capability field helpers repaired that representation. Kernel verdict, proof and runtime acceptance are not claimed. The independent complete backend oracle remains pending.
+
+Six focused authority source controls passed their intended outcomes: an abstract affine read compiles; cross-schema handle, cross-machine token, write-through-read, affine owner copy and undeclared relation access fail with the expected compiler diagnostics. All captured postguards were unchanged.
+
+Reached-control drafts retain the full ordinary consumer. Routing reverses projected relation cells while leaving its ordinary declaration unchanged; noninterference advances World clock during a machine observation. The namespace-positive clone's initial source5 deadline is preserved; its successor removes the shared Fixture's accidental original-Consumer import by using an import-only local Fixture copy, and also reached a source5 deadline. No blind retry, timing attribution or backend qualification is claimed. The foreign-handle complete consumer likewise reached a source5 deadline and remains unqualified. Those controls need a meaningful source remedy before execution.
+
+The temporary authority capture invocation first lacked its parent output directory and failed before source capture or any compiler child. Creating that directory repaired only the capture bootstrap; it did not change source or runner behavior.
+
+Stream reader visibility/retention and arbitrary owned stream payload observation remain outside this slice. Existing four normal backend results and their transitive delivery manifest are unchanged.
+
+The meaningful reached-controls-v2 representation reuses unchanged qualified bridge modules and clones only modules actually mutated. Its full namespace-positive source03 passed; the full noninterference mutant also passed source5. The recursive reverse-routing mutant reached a source5 deadline and remains unqualified. A separate nonrecursive first-two-cell routing swap draft is authored but not checked; it preserves the same declared keys and is an intended order violation. No result is attributed to compiler phase or speed.
