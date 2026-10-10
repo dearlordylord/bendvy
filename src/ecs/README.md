@@ -111,8 +111,8 @@ rejected disposal returns the original owner. `Local` threads a separate affine
 state owner for each registered system instance. Skip preserves that state;
 changes returned by a failing system persist while its ECS transaction rolls back,
 as explicitly approved. Rejected foreign execution/disposal returns the original
-instance and argument owners. Finite executable controls pass; final shared-source
-delivery remains pending. No universal proof/refinement or complete product
+instance and argument owners. The bounded #36 delivery is accepted; its finite executable controls and
+independent review are recorded in `docs/reports/public-local-owner.md`. No universal proof/refinement or complete product
 performance qualification follows from these finite compiler/application tests.
 
 `SchemaFragments` (`schema-fragments.bend`) combines schema-indexed declaration
@@ -146,7 +146,8 @@ decoder/write refusal. Local acceptance still does not commit its surrounding
 transaction. Equality, endpoints, decoder and closed checked-write adapters are
 trusted consumer declarations. See
 [`public-component-state`](../../experiments/public-component-state/completion.md)
-for source-bound controls and remaining #47 delivery gates.
+for the accepted bounded #47 delivery and source-bound controls. Full numeric
+performance qualification remains under #21/#23/#24.
 
 `MachineHandlerBundle` (`machine-handler-bundle.bend`) assembles arbitrary nested
 typed exit/transition/enter registrations. It flattens authored order, validates
