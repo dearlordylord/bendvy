@@ -1,6 +1,21 @@
 # Combined Workshop regression gate
 
-Current combined148 run: `NO_CONFIRMED_REGRESSION`, with independent
+Latest completed qualification: combined152 returns `NO_CONFIRMED_REGRESSION`,
+with [independent final review](actual-attempt152-01/FINAL-REVIEW.md) and a lossless
+330-file archive. [PLAN-152.json](PLAN-152.json) retains the unchanged #28 workload,
+baseline and sign/Holm criteria; all 123 commands and 110 whole outputs pass.
+Median paired candidate/frozen-Bend ratios are JS 0.818588 and Native 1.065547.
+The observed Native slowdown remains; the verdict does not prove equivalence.
+Descriptive candidate/bevy-ts ratios are JS 0.472952 and Native 0.103852 for the
+protected Workshop whole-process workload only.
+
+Later public relation App, ordinary bundle and registered relation schedule
+additions require the pending combined regression batch. Combined152 does not
+qualify those additions or complete feature timing/parity.
+
+## Historical combined148 run
+
+Combined148 returned `NO_CONFIRMED_REGRESSION`, with independent
 [final review](actual-attempt148-01/FINAL-REVIEW.md) and lossless archive.
 [PLAN-148.json](PLAN-148.json) binds the adopted checked scheduler, Bundle and
 schema/selected-field App foundations. All 123 commands and 110 whole outputs
