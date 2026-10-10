@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : app
+- observed : app (consumed more than once)
+Location: duplicate
+2 | 
+3>| def duplicate(~S:Data,~World:Type,~Owners:Type,~Rows:Data,~Recipes:Type,app:Compact.Application<S,World,Owners,Rows,Recipes>) -> Compact.Application<S,World,Owners,Rows,Recipes> & Compact.Application<S,World,Owners,Rows,Recipes>:
+  |                                                                         ^^^
+4 |   (app,app)
+bend 2.0.36 is available: run bend update

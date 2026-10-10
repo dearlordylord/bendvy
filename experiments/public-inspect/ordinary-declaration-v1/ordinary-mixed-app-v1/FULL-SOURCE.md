@@ -1,0 +1,15 @@
+# Full ordinary mixed App source fixture
+
+The current `full-entry-a.bend` and `full-entry-other.bend` each exercise zero and two live entities through the same imported `full-consumer.bend`. The independent nominal schema has its full name preserved. Both source checks completed with exit 0 under pinned Bend 2.0.35, CPU11/shared lock/default five seconds. These are development source captures with post-terminal inventories, not portable source acceptance or mathematical verdicts.
+
+The ordinary registration frontend accepts one closed presented component-declaration factory, one observable Resource declaration, and their ordinary bodies. Its library-owned selectors generate the component operational query/presenter. The same Resource declaration supplies the public provider grant, identity/mode, detached resource observation and presenter. The ordinary continuation receives generated snapshot/invoke callbacks and calls generic enable_debug. It never constructs an interpreter, repeats query lists at snapshot, supplies a separate World, or writes metadata/per-product render adapters.
+
+The complete fixture retains seven snapshots and three resource invocations: initial10/repeated10/disabled10, success prior10→11, failure prior11→11 through existing rollback, retry prior11→12/repeated12. Resource Args and successful Output each own an Array. Failed output uses existing discard semantics. The component declaration is read+Added; two-entity setup seeds Payload42 only on entity1. Component bodies are registered but not executed. Resource-only invocation is independent of entity count.
+
+Test-only `test-owner-metadata.bend` and the instrumented registration continuation expose actual Registry fields without invoking Inspector or advancing cursors. The full test observes owners after every snapshot, including disabled. That probe is excluded from the proposed production App contract; production disabled snapshot itself skips interpretation. Both world and owners are threaded through the normal projection/invocation paths. This source result is not an independent runtime preservation proof.
+
+The component Inspector observation uses a source-selected independent fixture cursor0, not a borrowed registered cursor. Empty World clock0 and seeded World clock1 produce distinct bounded tracked-resource cursor expectations. No new registry/liveness or refusal policy is introduced.
+
+The flattened one-presented-declaration frontend refusal04 is retained, including full normalized static-key context. The source-successor instead retains a closed declaration factory and derives selectors internally. No short names, finite callback inventory, caps change, shared core edits or compact-library changes were used. Earlier syntax/deadline attempts remain visible.
+
+Complete independent output models, third-nominal/authority controls, a reached compiling observation mutant, backend observations and final integration review remain pending. No schedule, performance, field-confined resource grant, arbitrary-schema runtime proof, or full #56 completion is claimed. The resource grant still replaces the whole aggregate R.

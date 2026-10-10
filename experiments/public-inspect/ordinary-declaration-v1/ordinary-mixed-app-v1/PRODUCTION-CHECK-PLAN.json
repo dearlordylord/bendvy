@@ -1,0 +1,77 @@
+{
+  "plans": [
+    {
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-factory-v1/full-entry-a.bend",
+      "manifest": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-factory-v1/SOURCE-a.json",
+      "sourceCount": 56,
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "taskset",
+        "-c",
+        "11",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-factory-v1/full-entry-a.bend",
+        "--check-only"
+      ]
+    },
+    {
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-factory-v1/full-entry-other.bend",
+      "manifest": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-factory-v1/SOURCE-other.json",
+      "sourceCount": 56,
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "taskset",
+        "-c",
+        "11",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-factory-v1/full-entry-other.bend",
+        "--check-only"
+      ]
+    },
+    {
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-cursor-control-v1/full-entry-a.bend",
+      "manifest": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-cursor-control-v1/SOURCE-a.json",
+      "sourceCount": 56,
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "taskset",
+        "-c",
+        "11",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-cursor-control-v1/full-entry-a.bend",
+        "--check-only"
+      ]
+    },
+    {
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-cursor-control-v1/full-entry-other.bend",
+      "manifest": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-cursor-control-v1/SOURCE-other.json",
+      "sourceCount": 56,
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "taskset",
+        "-c",
+        "11",
+        "timeout",
+        "--signal=KILL",
+        "5s",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-cursor-control-v1/full-entry-other.bend",
+        "--check-only"
+      ]
+    }
+  ],
+  "condition": "queue release then normalA/Other, controlA/Other once; preserve failure and repair only concrete diagnostic"
+}

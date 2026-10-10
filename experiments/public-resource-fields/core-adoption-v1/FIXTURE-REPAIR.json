@@ -1,0 +1,13 @@
+{
+  "scope": "Existing Col.ensure before Col.swap preserves intended two seeded component cells; fixture only, no core algorithm or cap change",
+  "originalActualHandle": 23768,
+  "originalFailureArchive": "runtime-v1/actual-attempt01",
+  "path": "/workspace/formal-proofs/bendvy-worktrees/resource-field-integration/experiments/public-resource-fields/core-adoption-v1/seeded-v1/seed.bend",
+  "beforeSHA256": "042bb7234d88a66790168de0e06e7532c73baa03544b49822a6e6a295309f6c5",
+  "afterSHA256": "ba6ba104eeda44eef8ed796b92517165a2e2d0b57a5ebb6917a7d271dfcb6cae",
+  "literalBefore": "Col.swap(~S,~Unit,column,id,Some{Unit{}})",
+  "literalAfter": "Col.swap(~S,~Unit,Col.ensure(~S,~Unit,column,id),id,Some{Unit{}})",
+  "replacements": 1,
+  "coreModulesUnchanged": true,
+  "expectedOutputPolicy": "Independent source requalification of intended two-cell model; no adoption of actual one-cell output"
+}

@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: attempt
+5 | 
+6>| def attempt(~H:Type,owner:H) -> H & H:
+  |                     ^^^^^
+7 |   (owner,owner)

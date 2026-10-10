@@ -1,0 +1,77 @@
+import Base
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app.bend as App
+import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend as ComponentFixture
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/component.bend as Caller
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v1/bridge.bend as ResourceApp
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v1/observable-resource.bend as D
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-resource-system.bend as P
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
+import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C
+import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q
+import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap
+import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend as Schema
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-declaration.bend as Query
+import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Projection
+import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch
+import /workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend as SP
+import ./registration.bend as Ordinary
+
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend as System
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/presentation.bend as Presented
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app.bend as DTO
+import /workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend as IQ
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-observable.bend as O
+import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I
+def value_view(value:Array<U32>) -> Array<U32> & U32:
+  Array.get(U32,value,0)
+def declaration(~S:Data) -> D.Declaration<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,D.write_ops(~Array<U32>,~U32),U32>:
+  D.write(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~U32,~value_view,~U32.show,Schema.resource(~S,~Array<U32>,"Counter"))
+def body_observed(~H:Type,~caps:D.write_ops(~Array<U32>,~U32,H),result:H & U32) -> H & (T.Outcome<Unit> & Unit):
+  match result:
+    case (owner,prior):(Cap.value_set(~H,~Array<U32>,~U32,~caps,owner,Array.new(U32,0n,(prior + 1 : U32))),(T.Success{},Unit{}))
+def body(~H:Type,~caps:D.write_ops(~Array<U32>,~U32,H),args:Unit,owner:H) -> H & (T.Outcome<Unit> & Unit):
+  body_observed(~H,~caps,Cap.value_get(~H,~Array<U32>,~U32,~caps,owner))
+def component_query(~S:Data) -> O.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,ComponentFixture.read_ops(Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>),I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Projection.Product<C.Access<U32>,Unit>>:
+  Presented.ordinary(~S,~Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,~ComponentFixture.read_ops(Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>),~I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,~Projection.Product<C.Access<U32>,Unit>,ComponentFixture.composite_query(~S))
+def component_render(~S:Data) -> Projection.Product<C.Access<U32>,Unit> -> String:
+  Presented.display(~S,~Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,~ComponentFixture.read_ops(Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>),~I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,~Projection.Product<C.Access<U32>,Unit>,ComponentFixture.composite_query(~S))
+def dump(~S:Data,~Rows:Data,value:Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>) -> String:
+  match value:
+    case None{}:"Disabled"
+    case Some{DTO.Product{bindings,DTO.Observation{_,rendered}}}:List.show(&2,DTO.Binding<S>,ComponentFixture.binding(~S),bindings) ++ "|" ++ List.show(&2,String,(x=>x),rendered)
+def last(~S:Data,~A:Type,~Rows:Data,prefix:String,result:A & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>) -> String:
+  match result:
+    case (_,value):prefix ++ "\n" ++ dump(~S,~Rows,value)
+def repeat(~S:Data,~A:Type,~Rows:Data,~snapshot:A -> A & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>,prefix:String,result:A & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>) -> String:
+  match result:
+    case (app,value):last(~S,~A,~Rows,prefix ++ "\n" ++ dump(~S,~Rows,value),snapshot(app))
+def enabled_done(~S:Data,~A:Type,~Rows:Data,~snapshot:A -> A & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>,~enable:A -> Bool -> A,result:A & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>) -> String:
+  match result:
+    case (app,value):repeat(~S,~A,~Rows,~snapshot,dump(~S,~Rows,value),snapshot(enable(app,True{})))
+def registered(~S:Data,~A:Type,~Rows:Data,~snapshot:A -> A & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>,~enable:A -> Bool -> A,app:A) -> String:
+  enabled_done(~S,~A,~Rows,~snapshot,~enable,snapshot(app))
+def rejected(~S:Data,~H:Type,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,owners:H) -> String:
+  "RegistrationRejected"
+def register_component(~S:Data,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>) -> String:
+  Ordinary.register_component_resource(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~ComponentFixture.read_ops,~Unit,~Unit,~Unit,~Projection.Product<C.Access<U32>,Unit>,~component_query(~S),~component_render(~S),~ComponentFixture.read_body,~D.write_ops(~Array<U32>,~U32),~Unit,~Unit,~Unit,~U32,~declaration(~S),~body,~String,~registered(~S),~rejected(~S),world,"PositionRead","Update","CounterUpdate","Update")
+def seeded(~S:Data,result:C.Replacement<W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Caller.Payload>) -> String:
+  match result:
+    case C.Replaced{world,_}:register_component(~S,world)
+    case C.ReplaceRejected{_,_,_}:"SEED_REJECTED"
+def activated(~S:Data,+handle:W.Handle<S>,result:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & W.Status) -> String:
+  match result:
+    case (world,W.Accepted{}):seeded(~S,C.replace(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,Caller.family(~S),world,handle,Some{Caller.Payload{Array.new(U32,0n,42)}}))
+    case (_,_):"ACTIVATION_REJECTED"
+def reserved(~S:Data,result:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & W.Reservation<S>) -> String:
+  match result:
+    case (world,W.Reserved{+handle}):activated(~S,handle,W.activate(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,world,handle))
+    case (_,_):"RESERVATION_REJECTED"
+def created(~S:Data,result:W.Creation<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>) -> String:
+  match result:
+    case W.Created{_,world}:reserved(~S,W.reserve_id(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,world))
+    case W.CreateRejected{_,_}:"CREATE_REJECTED"
+def main() -> String:
+  created(~Caller.A,W.create(~Caller.A,~Col.Column<Caller.A,Caller.Payload>,~Array<U32>,~U32,~ComponentFixture.empty_store(~Caller.A),W.factory(),Array.new(U32,0n,17)))

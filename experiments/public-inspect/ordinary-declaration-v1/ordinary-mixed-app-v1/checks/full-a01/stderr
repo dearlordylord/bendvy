@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: body_observed)
+- observed : 'body_observed'
+Location:
+44 |   D.write(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~U32,~value_view,~U32.show,Schema.resource(~S,~Array<U32>,"Counter"))
+45>| def body_observed(~H:Type,~caps:D.write_ops(~Array<U32>,~U32,H),result:H & U32) -> H & (T.Outcome<Unit> & Unit):
+   |     ^^^^^^^^^^^^^
+46 |   match result:
+bend 2.0.36 is available: run bend update

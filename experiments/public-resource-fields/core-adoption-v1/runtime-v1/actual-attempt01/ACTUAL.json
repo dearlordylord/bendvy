@@ -1,0 +1,37 @@
+{
+  "originalHandle": 23768,
+  "collectorPid": 4140736,
+  "collectorTerminalExit": 1,
+  "batchStatus": "INCOMPLETE",
+  "error": "ValueError: Complete consumer byte output differs from whole independent oracle",
+  "commands": 2,
+  "guards": 7,
+  "guardFailures": [],
+  "runtimeStdout": {
+    "path": "/tmp/bendvy70-core-runtime01/seeded-a-js/consumer.stdout",
+    "sha256": "1586bbcb161454ea48fa800b254e1ad5c588e70cfb4b743ff0b40a32572a54dc",
+    "bytes": 2908,
+    "published": true
+  },
+  "expectedBytes": 3018,
+  "expectedSHA256": "bac57a82fd406fb84a4ec02d2bf9c0f7a3d3f9efae803ae4b7a87eec05ab71dd",
+  "generatedJSSHA256": "ccb9a652d0e088528b0c008835ee5431a0f8c328acb552cb953f6509f392de2e",
+  "heldCases": [
+    "seeded-b-js",
+    "provision-js",
+    "seeded-a-native",
+    "seeded-b-native",
+    "provision-native"
+  ],
+  "members": 524,
+  "objects": 184,
+  "toolIdentities": 5,
+  "acceptance": false,
+  "sourceDiagnosis": "Fixture Col.swap id2 rejects at capacity1; seed discarded rejection and original model incorrectly assumed growth. Intended two-cell fixture requires existing Col.ensure; root core algorithms unchanged.",
+  "limits": [
+    "No whole oracle PASS",
+    "Five later cohorts not launched",
+    "No Native/performance/public feature acceptance",
+    "Original models and failed source/plan/receipt bytes retained unchanged before successor"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "d6bca6f968ea52ed186a8d0890884ac054287417ce07a1a75b53a4646190d144",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "seeded-a",
+      "path": "/tmp/bendvy70-core-runtime02/seeded-a-js/plan.json",
+      "sha256": "a6d09e53cb9c588b8b9f2d158b2b96c223570716f16ecd897aafd6a2afb72761",
+      "sources": 38,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy70-core-runtime02/seeded-a-js/plan.json",
+        "a6d09e53cb9c588b8b9f2d158b2b96c223570716f16ecd897aafd6a2afb72761"
+      ]
+    },
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "seeded-b",
+      "path": "/tmp/bendvy70-core-runtime02/seeded-b-js/plan.json",
+      "sha256": "c6484f9781851c2ada9e2d195105daf4c43c346fdc93fd00c0a66466bc5d517e",
+      "sources": 38,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy70-core-runtime02/seeded-b-js/plan.json",
+        "c6484f9781851c2ada9e2d195105daf4c43c346fdc93fd00c0a66466bc5d517e"
+      ]
+    },
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "provision",
+      "path": "/tmp/bendvy70-core-runtime02/provision-js/plan.json",
+      "sha256": "df74cb8ad72eda2dab6a9aaea2035951ed9c4fc008a20c7211aee33acbd888c7",
+      "sources": 38,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy70-core-runtime02/provision-js/plan.json",
+        "df74cb8ad72eda2dab6a9aaea2035951ed9c4fc008a20c7211aee33acbd888c7"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "seeded-a",
+      "path": "/tmp/bendvy70-core-runtime02/seeded-a-native/plan.json",
+      "sha256": "464ebfd70049615787d045e700e9e608df81ef044761a287fbc19130febc9e16",
+      "sources": 38,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy70-core-runtime02/seeded-a-native/plan.json",
+        "464ebfd70049615787d045e700e9e608df81ef044761a287fbc19130febc9e16"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "seeded-b",
+      "path": "/tmp/bendvy70-core-runtime02/seeded-b-native/plan.json",
+      "sha256": "42011af4501e290406457eecf4311e40451470f2f92c188a879227f41eb1885c",
+      "sources": 38,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy70-core-runtime02/seeded-b-native/plan.json",
+        "42011af4501e290406457eecf4311e40451470f2f92c188a879227f41eb1885c"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "provision",
+      "path": "/tmp/bendvy70-core-runtime02/provision-native/plan.json",
+      "sha256": "2e669a304747c45a73cb0d3bbd29192d4ba52c1baba2b10f433d509ee958df70",
+      "sources": 38,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy70-core-runtime02/provision-native/plan.json",
+        "2e669a304747c45a73cb0d3bbd29192d4ba52c1baba2b10f433d509ee958df70"
+      ]
+    }
+  ],
+  "sequence": "seededA JS -> seededB JS -> provisioning JS -> seededA Native -> seededB Native -> provisioning Native; stop any failure/deadline/guard failure; no retry; Native only after all three whole JS PASS",
+  "sourcePrerequisite": "Current core seededA/seededB/provision source5 actual PASS original3638; development capture with broad pre/post sources; no portable source-verdict claim",
+  "scope": "Core resource-field seeded World preservation and existing declaration rejection development; no automatic App/full70/universal/performance acceptance"
+}

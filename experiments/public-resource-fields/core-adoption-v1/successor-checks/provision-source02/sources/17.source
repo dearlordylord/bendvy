@@ -1,0 +1,40 @@
+import Base
+import /workspace/formal-proofs/bendvy-worktrees/resource-field-integration/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy-worktrees/resource-field-integration/src/ecs/column.bend as Col
+def World(~S:Data,~R:Type) -> Type:
+  W.World<S,Col.Column<S,Unit>,R,U32>
+def swapped(~S:Data,result:Col.SwapOutcome<S,Unit>) -> Col.Column<S,Unit> & Unit:
+  match result:
+    case Col.Accepted{column,_}:(column,Unit{})
+    case Col.Rejected{column,_}:(column,Unit{})
+def cell(~S:Data,+id:U32,column:Col.Column<S,Unit>) -> Col.Column<S,Unit> & Unit:
+  swapped(~S,Col.swap(~S,~Unit,Col.ensure(~S,~Unit,column,id),id,Some{Unit{}}))
+def stored(~S:Data,~R:Type,result:World(~S,~R) & Unit) -> World(~S,~R):
+  match result:
+    case (world,_):world
+def activated(~S:Data,~R:Type,+id:U32,result:World(~S,~R) & W.Status) -> World(~S,~R):
+  match result:
+    case (world,_):stored(~S,~R,W.with_store(~S,~Col.Column<S,Unit>,~R,~U32,~Unit,cell(~S,id),world))
+def reserved(~S:Data,~R:Type,result:World(~S,~R) & W.Reservation<S>) -> World(~S,~R):
+  match result:
+    case (world,W.Reserved{W.Handle{+namespace,+id}}):activated(~S,~R,id,W.activate(~S,~Col.Column<S,Unit>,~R,~U32,world,W.Handle{namespace,id}))
+    case (world,W.ReservationRejected{_}):world
+def entity(~S:Data,~R:Type,world:World(~S,~R)) -> World(~S,~R):
+  reserved(~S,~R,W.reserve_id(~S,~Col.Column<S,Unit>,~R,~U32,world))
+def ticked(~S:Data,~R:Type,result:World(~S,~R) & U32) -> World(~S,~R):
+  match result:
+    case (world,_):world
+def tick(~S:Data,~R:Type,world:World(~S,~R)) -> World(~S,~R):
+  ticked(~S,~R,W.advance_clock(~S,~Col.Column<S,Unit>,~R,~U32,world))
+def marker(~S:Data,~R:Type,world:World(~S,~R)) -> World(~S,~R):
+  W.event_publish(~S,~Col.Column<S,Unit>,~R,~U32,world,[99])
+def registered(~S:Data,~R:Type,result:World(~S,~R) & W.Registration) -> World(~S,~R):
+  match result:
+    case (world,_):world
+def world(~S:Data,~R:Type,value:World(~S,~R)) -> World(~S,~R):
+  a=entity(~S,~R,value)
+  b=entity(~S,~R,a)
+  c=tick(~S,~R,tick(~S,~R,tick(~S,~R,b)))
+  d=W.event_publish(~S,~Col.Column<S,Unit>,~R,~U32,c,[91,92])
+  e=registered(~S,~R,W.register(~S,~Col.Column<S,Unit>,~R,~U32,d,"Unrelated",["unrelated:Read"]))
+  W.enqueue(~S,~Col.Column<S,Unit>,~R,~U32,e,marker(~S,~R))
