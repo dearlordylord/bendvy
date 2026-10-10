@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: App)
+- observed : 'App'
+Location:
+13 | def World() -> Type: W.World<Schema,Array<U32>,Array<U32>,F.Publication<First,Second>>
+14>| def App() -> Type: F.Application<Schema,Array<U32>,Array<U32>,First,Second,Array<U32>>
+   |     ^^^
+15 | type Result is Type:
+bend 2.0.36 is available: run bend update

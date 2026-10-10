@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : a decreasing self-call (arguments are read left to right: each passed unchanged until one shrinks)
+- observed : enqueue
+Context:
+- world   : W.World<Schema, Array<U32>, Array<U32>, F.Publication<First, Second>>
+- command : @_:W.World<Schema, Array<U32>, Array<U32>, F.Publication<First, Second>> -> W.World<Schema, Array<U32>, Array<U32>, F.Publication<First, Second>>
+- rest    : List<&1, @_:W.World<Schema, Array<U32>, Array<U32>, F.Publication<First, Second>> -> W.World<Schema, Array<U32>, Array<U32>, F.Publication<First, Second>>>
+Location: enqueue
+21 |     case []:world
+22>|     case command <> rest:enqueue(command(world),rest)
+   |                          ^^^^^^^
+23 | def publish(world:World(),events:List<&2,F.Publication<First,Second>>) -> World():
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: Result)
+- observed : 'Result'
+Location:
+14 | def Host() -> Type: F.Hostlication<Schema,Array<U32>,Array<U32>,First,Second,Array<U32>>
+15>| type Result is Type:
+   |      ^^^^^^
+16 |   Ready{factory:W.Factory,app:Host,first:Ev.Reading<First>,second:Ev.Reading<Second>,outcome:Tx.Outcome<Error>}
+bend 2.0.36 is available: run bend update
