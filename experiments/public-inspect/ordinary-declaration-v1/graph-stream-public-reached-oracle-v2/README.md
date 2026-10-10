@@ -1,0 +1,1 @@
+Complete source-only public reached oracles. All three actual entry roots have identical namespace depth. FailureView is defined by the local failure module in every variant; normal/consumption modules have unchanged public non-import body while order reverses selected failures. Runtime inputs were not read. Initial public/old private oracle packets remain unchanged.
