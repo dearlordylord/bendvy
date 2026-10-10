@@ -18,14 +18,14 @@ owners through the existing reverse installation order. Repair the cause of a
 refusal before retrying; another refusal returns the recovery owner again.
 There is no automatic retry or disposal. The [independent recovery review](../../experiments/public-bundles/canonical-world-review-v1/RECOVERY-REVIEW.md)
 records both branches, the reached control and exact public-source evidence reuse.
-Combined integration regression is pending; broader bundle acceptance remains #41.
+Combined156 protected regression passes; broader bundle acceptance remains #41.
 
 `ordinary-bundle` derives component keys from ordinary typed declarations and
 composes them into a recursive `Plan` matching the raw and cooked bundle types.
 `request` rejects duplicate component keys before construction or command
 queuing, returning the original owner and affine raw payload through the existing
 refusal result. A caller can repair the request and retry. Plans are metadata;
-they grant no World or storage access. The [independent review](../../experiments/public-bundles/owned-public-result-v1/canonical-world-v1/duplicate-admission-v1/FINAL-REVIEW.md) verifies two schemas, full refusal/retry observations and authority controls, with explicit public-source reuse of private runtime evidence. Combined integration regression and full #41 acceptance remain pending.
+they grant no World or storage access. The [independent review](../../experiments/public-bundles/owned-public-result-v1/canonical-world-v1/duplicate-admission-v1/FINAL-REVIEW.md) verifies two schemas, full refusal/retry observations and authority controls, with explicit public-source reuse of private runtime evidence. Combined156 protected regression passes; full #41 acceptance remains pending.
 
 `Feature` (`feature.bend`) composes recursively typed feature owners and builder
 callbacks using `FeatureOwner`, `recipe_empty` and `prepend`. `run_recipe`
@@ -205,7 +205,7 @@ without a separate metadata adapter. Queued writes retain existing transactions
 and explicit barriers. The [independent review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/public-adoption-v1/FINAL-REVIEW.md)
 qualifies direct operations, two schemas and finite owner/World noninterference.
 Stream readers, full #56 and feature performance remain open.
-Combined integration regression is pending.
+Combined156 protected regression passes.
 
 `ordinary-app-relation-system` registers a read-only inverse-relation system from
 its ordinary declaration and target. `ordinary-app-relation-schedule` attaches
@@ -218,5 +218,4 @@ requested system ID different from the held Registry. Both refusals retain the
 original owners. An unscheduled registration has an empty phase; disabled debug
 skips observation. Snapshots preserve pending commands, events and cursors.
 The [independent review](../../experiments/public-inspect/ordinary-relation-schedule-oracle-v1/FINAL-REVIEW.md) verifies the complete finite backend observations and authority boundaries.
-Combined integration regression and broader automatic-debug coverage remain
-pending; this entry does not complete #56.
+Combined156 [protected regression](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt156-01/FINAL-REVIEW.md) passes. Broader automatic-debug coverage and feature timing remain pending; this entry does not complete #56.
