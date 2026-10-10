@@ -1,0 +1,44 @@
+import Base
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app.bend as DTO
+# Declaration-only observation and actual-owner metadata remain separate.
+# Neither fold consumes a callback budget or invokes an operational body.
+type Recipe<World:Type,Rows:Data,-observe:World -> World & DTO.Observation<Rows>> is Type:
+  Recipe{}
+type Application<S:Data,World:Type,Owners:Type,Rows:Data,-observe:World -> World & DTO.Observation<Rows>> is Type:
+  Application{world:World,owners:Owners,recipe:Recipe<World,Rows,observe>,debug:Bool}
+def enabled(~S:Data,~World:Type,~Owners:Type,~Rows:Data,~observe:World -> World & DTO.Observation<Rows>,app:Application<S,World,Owners,Rows,observe>,flag:Bool) -> Application<S,World,Owners,Rows,observe>:
+  match app:
+    case Application{world,owners,recipe,_}:Application{world,owners,recipe,flag}
+def described(~S:Data,~World:Type,~Owners:Type,~Rows:Data,~observe:World -> World & DTO.Observation<Rows>,world:World,rows:DTO.Observation<Rows>,result:Owners & List<&2,DTO.Binding<S>>) -> Application<S,World,Owners,Rows,observe> & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>:
+  match result:
+    case (owners,bindings):(Application{world,owners,Recipe{},True{}},Some{DTO.Product{bindings,rows}})
+def observed(~S:Data,~World:Type,~Owners:Type,~Rows:Data,~observe:World -> World & DTO.Observation<Rows>,describe:Owners -> Owners & List<&2,DTO.Binding<S>>,owners:Owners,result:World & DTO.Observation<Rows>) -> Application<S,World,Owners,Rows,observe> & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>:
+  match result:
+    case (world,rows):described(~S,~World,~Owners,~Rows,~observe,world,rows,describe(owners))
+def snapshot(~S:Data,~World:Type,~Owners:Type,~Rows:Data,~observe:World -> World & DTO.Observation<Rows>,describe:Owners -> Owners & List<&2,DTO.Binding<S>>,app:Application<S,World,Owners,Rows,observe>) -> Application<S,World,Owners,Rows,observe> & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>:
+  match app:
+    case Application{world,owners,recipe,False{}}:(Application{world,owners,recipe,False{}},None{})
+    case Application{world,owners,_,True{}}:observed(~S,~World,~Owners,~Rows,~observe,describe,owners,observe(world))
+def observation_right(~World:Type,~L:Data,~R:Data,left:L,leftText:List<&2,String>,result:World & DTO.Observation<R>) -> World & DTO.Observation<DTO.Product<L,R>>:
+  match result:
+    case (world,DTO.Observation{right,rightText}):(world,DTO.Observation{DTO.Product{left,right},List.append(&2,String,leftText,rightText)})
+def observation_left(~World:Type,~L:Data,~R:Data,~right:World -> World & DTO.Observation<R>,result:World & DTO.Observation<L>) -> World & DTO.Observation<DTO.Product<L,R>>:
+  match result:
+    case (world,DTO.Observation{value,text}):observation_right(~World,~L,~R,value,text,right(world))
+def observe_pair(~World:Type,~L:Data,~R:Data,~left:World -> World & DTO.Observation<L>,~right:World -> World & DTO.Observation<R>,world:World) -> World & DTO.Observation<DTO.Product<L,R>>:
+  observation_left(~World,~L,~R,~right,left(world))
+def metadata_right(~S:Data,~L:Type,~R:Type,left:L,leftBindings:List<&2,DTO.Binding<S>>,result:R & List<&2,DTO.Binding<S>>) -> (L & R) & List<&2,DTO.Binding<S>>:
+  match result:
+    case (right,rightBindings):((left,right),List.append(&2,DTO.Binding<S>,leftBindings,rightBindings))
+def metadata_left(~S:Data,~L:Type,~R:Type,~right:R -> R & List<&2,DTO.Binding<S>>,rightOwner:R,result:L & List<&2,DTO.Binding<S>>) -> (L & R) & List<&2,DTO.Binding<S>>:
+  match result:
+    case (left,bindings):metadata_right(~S,~L,~R,left,bindings,right(rightOwner))
+def describe_pair(~S:Data,~L:Type,~R:Type,~left:L -> L & List<&2,DTO.Binding<S>>,~right:R -> R & List<&2,DTO.Binding<S>>,owners:L & R) -> (L & R) & List<&2,DTO.Binding<S>>:
+  match owners:
+    case (l,r):metadata_left(~S,~L,~R,~right,r,left(l))
+def pair_right(~World:Type,~L:Data,~R:Data,~left:World -> World & DTO.Observation<L>,~right:World -> World & DTO.Observation<R>,token:Recipe<World,R,right>) -> Recipe<World,DTO.Product<L,R>,observe_pair(~World,~L,~R,~left,~right)>:
+  match token:
+    case Recipe{}:Recipe{}
+def pair(~World:Type,~L:Data,~R:Data,~left:World -> World & DTO.Observation<L>,~right:World -> World & DTO.Observation<R>,leftToken:Recipe<World,L,left>,rightToken:Recipe<World,R,right>) -> Recipe<World,DTO.Product<L,R>,observe_pair(~World,~L,~R,~left,~right)>:
+  match leftToken:
+    case Recipe{}:pair_right(~World,~L,~R,~left,~right,rightToken)

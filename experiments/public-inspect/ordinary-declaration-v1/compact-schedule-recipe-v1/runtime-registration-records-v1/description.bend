@@ -1,0 +1,20 @@
+import Base
+import ./records.bend as Records
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-declaration.bend as Query
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app.bend as DTO
+# Called only from enabled snapshot. Ordinary fields are not a cached description.
+def resource_clauses(~S:Data,+mode:Query.Mode,access:List<&2,String>) -> List<&2,Query.Clause<S>>:
+  match access:
+    case []:[]
+    case name <> rest:Query.Clause{name,mode} <> resource_clauses(~S,mode,rest)
+def clauses(~S:Data,kind:Records.RegistrationKind,access:List<&2,String>,retained:List<&2,Query.Clause<S>>) -> List<&2,Query.Clause<S>>:
+  match kind:
+    case Records.ComponentKind{}:retained
+    case Records.ResourceKind{mode}:resource_clauses(~S,mode,access)
+def binding(~S:Data,fields:Records.Fields<S>) -> DTO.Binding<S>:
+  match fields:
+    case Records.Fields{+namespace,+id,+name,+access,+cursor,+slot,retained,kind}:DTO.Binding{namespace,id,name,access,cursor,slot,clauses(~S,kind,access,retained)}
+def bindings(~S:Data,records:List<&2,Records.Fields<S>>) -> List<&2,DTO.Binding<S>>:
+  match records:
+    case []:[]
+    case record <> rest:binding(~S,record) <> bindings(~S,rest)
