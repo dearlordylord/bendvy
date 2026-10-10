@@ -1,0 +1,16 @@
+E
+======================================================================
+ERROR: test_staged_shared_module (__main__.Execution.test_staged_shared_module)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/scripts/test-task-runner.py", line 140, in test_staged_shared_module
+    result=execute_result(command(code),5,cwd=directory)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/scripts/task_runner.py", line 169, in execute_result
+    raise TimeoutError('command owner exceeded command and cleanup budget')
+TimeoutError: command owner exceeded command and cleanup budget
+
+----------------------------------------------------------------------
+Ran 1 test in 40.514s
+
+FAILED (errors=1)

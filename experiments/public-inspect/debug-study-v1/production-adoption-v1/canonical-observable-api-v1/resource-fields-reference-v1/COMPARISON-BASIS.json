@@ -1,0 +1,139 @@
+{
+  "bendActual": {
+    "receipt": "/tmp/bendvy70-normal-a-js01/normal-js/receipt.json",
+    "receiptSHA256": "2aa64616bcfea8917017a1d57efe0a7b62462880a391e357e324c92cc5f30c1e",
+    "stdout": "/tmp/bendvy70-normal-a-js01/normal-js/consumer.stdout",
+    "bytes": 1979,
+    "sha256": "1d926e2a69d9808eb3feee1f96192a10d81ef60aade12cd8e996ebe4ea8c84ef"
+  },
+  "tsActual": {
+    "receipt": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-reference-v1/actual-01/receipt.json",
+    "receiptSHA256": "717fffde885076b3071d418b5456a1acc06492b2277dca45aac4b9c413dc369a",
+    "stdoutSHA256": "45b78a3e1f6884f4afa0fd3cdaa5503a6a35972601c253dc7e6dad8788235847"
+  },
+  "scope": "Actual TS all4 shared cases vs actual Bend all4 normal JS/Native; mutation models only detected negatives, not TS normal equivalence",
+  "remainingBatch": {
+    "path": "/tmp/bendvy70-remaining-runtime01/BATCH-RESULT.json",
+    "sha256": "e4d571ccb28bb470cb3d0cfea32017ec6e70fc9761ab87c5def13c75691d2fc4",
+    "cases": [
+      {
+        "case": "wrong-field",
+        "role": "js",
+        "receipt": "/tmp/bendvy70-remaining-runtime01/wrong-field-js/receipt.json",
+        "receiptSHA256": "3884fe18c0fe0393dca0dbd713b0556199c3458630b6077f0d361b68c91e3d7a",
+        "stdout": "/tmp/bendvy70-remaining-runtime01/wrong-field-js/consumer.stdout",
+        "stdoutSHA256": "05b355d4e760221f4b2b1b709585cdc1f4a8d812f80ae8e61c82551417387cbb",
+        "expected": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-oracle-v1/wrong-field-expected.stdout",
+        "expectedSHA256": "05b355d4e760221f4b2b1b709585cdc1f4a8d812f80ae8e61c82551417387cbb",
+        "bytes": 1987,
+        "guards": 7,
+        "actualNormalBaselineRejected": true
+      },
+      {
+        "case": "incomplete-inverse",
+        "role": "js",
+        "receipt": "/tmp/bendvy70-remaining-runtime01/incomplete-inverse-js/receipt.json",
+        "receiptSHA256": "b3bb33bd6e81aa6ca12a05dc9e9238a690c21b231bb5a1b0d16daf652fcf9dcb",
+        "stdout": "/tmp/bendvy70-remaining-runtime01/incomplete-inverse-js/consumer.stdout",
+        "stdoutSHA256": "5272414f47a26bfda6c08421672402f0c363f3e42e9e412d2c202314f5f98d07",
+        "expected": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-oracle-v1/incomplete-inverse-expected.stdout",
+        "expectedSHA256": "5272414f47a26bfda6c08421672402f0c363f3e42e9e412d2c202314f5f98d07",
+        "bytes": 1979,
+        "guards": 7,
+        "actualNormalBaselineRejected": true
+      },
+      {
+        "case": "b-write",
+        "role": "js",
+        "receipt": "/tmp/bendvy70-remaining-runtime01/b-write-js/receipt.json",
+        "receiptSHA256": "eaa7890c368821c0e92c64735bee676b5df3988d787f5ac7b17ca386edd0688d",
+        "stdout": "/tmp/bendvy70-remaining-runtime01/b-write-js/consumer.stdout",
+        "stdoutSHA256": "a31e4ccc5737ed42a7935dba83532202f419ce0ffb428f5bdd899358f482b6b3",
+        "expected": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-oracle-v1/b-write-expected.stdout",
+        "expectedSHA256": "a31e4ccc5737ed42a7935dba83532202f419ce0ffb428f5bdd899358f482b6b3",
+        "bytes": 2359,
+        "guards": 7,
+        "actualNormalBaselineRejected": null
+      },
+      {
+        "case": "a-read",
+        "role": "js",
+        "receipt": "/tmp/bendvy70-remaining-runtime01/a-read-js/receipt.json",
+        "receiptSHA256": "21edeccce06e09b87e33e4850cc84ec1ad102bef912243c6b9b90eb49294a42c",
+        "stdout": "/tmp/bendvy70-remaining-runtime01/a-read-js/consumer.stdout",
+        "stdoutSHA256": "891c489e18c335b143717d96ca32368e8f3c7a13108369a114573d4bab7ecc8d",
+        "expected": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-oracle-v1/a-read-expected.stdout",
+        "expectedSHA256": "891c489e18c335b143717d96ca32368e8f3c7a13108369a114573d4bab7ecc8d",
+        "bytes": 2015,
+        "guards": 7,
+        "actualNormalBaselineRejected": null
+      },
+      {
+        "case": "b-read",
+        "role": "js",
+        "receipt": "/tmp/bendvy70-remaining-runtime01/b-read-js/receipt.json",
+        "receiptSHA256": "6ef7b844cbc2ed54f5a617ae690c6a0d27285f9bbaef7cdd5c7be2a705dfa61d",
+        "stdout": "/tmp/bendvy70-remaining-runtime01/b-read-js/consumer.stdout",
+        "stdoutSHA256": "7f0c57390b1e4d7da315c0a3b66c67ee402512dbb5ce506e64929a6e5d65c7db",
+        "expected": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-oracle-v1/b-read-expected.stdout",
+        "expectedSHA256": "7f0c57390b1e4d7da315c0a3b66c67ee402512dbb5ce506e64929a6e5d65c7db",
+        "bytes": 2395,
+        "guards": 7,
+        "actualNormalBaselineRejected": null
+      },
+      {
+        "case": "a-write",
+        "role": "native",
+        "receipt": "/tmp/bendvy70-remaining-runtime01/a-write-native/receipt.json",
+        "receiptSHA256": "d2036ce0201c99c436e46fd6918d73e70b13c85e224dde98930f676140a2f0cc",
+        "stdout": "/tmp/bendvy70-remaining-runtime01/a-write-native/consumer.stdout",
+        "stdoutSHA256": "1d926e2a69d9808eb3feee1f96192a10d81ef60aade12cd8e996ebe4ea8c84ef",
+        "expected": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-oracle-v1/a-write-expected.stdout",
+        "expectedSHA256": "1d926e2a69d9808eb3feee1f96192a10d81ef60aade12cd8e996ebe4ea8c84ef",
+        "bytes": 1979,
+        "guards": 10,
+        "actualNormalBaselineRejected": null
+      },
+      {
+        "case": "b-write",
+        "role": "native",
+        "receipt": "/tmp/bendvy70-remaining-runtime01/b-write-native/receipt.json",
+        "receiptSHA256": "a10af927ca223d5ce6713851cc00047293c20567c9ac92b3a19a2b3e5f4fffcf",
+        "stdout": "/tmp/bendvy70-remaining-runtime01/b-write-native/consumer.stdout",
+        "stdoutSHA256": "a31e4ccc5737ed42a7935dba83532202f419ce0ffb428f5bdd899358f482b6b3",
+        "expected": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-oracle-v1/b-write-expected.stdout",
+        "expectedSHA256": "a31e4ccc5737ed42a7935dba83532202f419ce0ffb428f5bdd899358f482b6b3",
+        "bytes": 2359,
+        "guards": 10,
+        "actualNormalBaselineRejected": null
+      },
+      {
+        "case": "a-read",
+        "role": "native",
+        "receipt": "/tmp/bendvy70-remaining-runtime01/a-read-native/receipt.json",
+        "receiptSHA256": "901579e07202318a2d3efd8866c9e67ed14920f60fb1daf262f1174c7bf58bd2",
+        "stdout": "/tmp/bendvy70-remaining-runtime01/a-read-native/consumer.stdout",
+        "stdoutSHA256": "891c489e18c335b143717d96ca32368e8f3c7a13108369a114573d4bab7ecc8d",
+        "expected": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-oracle-v1/a-read-expected.stdout",
+        "expectedSHA256": "891c489e18c335b143717d96ca32368e8f3c7a13108369a114573d4bab7ecc8d",
+        "bytes": 2015,
+        "guards": 10,
+        "actualNormalBaselineRejected": null
+      },
+      {
+        "case": "b-read",
+        "role": "native",
+        "receipt": "/tmp/bendvy70-remaining-runtime01/b-read-native/receipt.json",
+        "receiptSHA256": "d934428c999400515a97df3f3c30a163c9e41f1771ed479bc15a0e0f82fa0c3e",
+        "stdout": "/tmp/bendvy70-remaining-runtime01/b-read-native/consumer.stdout",
+        "stdoutSHA256": "7f0c57390b1e4d7da315c0a3b66c67ee402512dbb5ce506e64929a6e5d65c7db",
+        "expected": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-oracle-v1/b-read-expected.stdout",
+        "expectedSHA256": "7f0c57390b1e4d7da315c0a3b66c67ee402512dbb5ce506e64929a6e5d65c7db",
+        "bytes": 2395,
+        "guards": 10,
+        "actualNormalBaselineRejected": null
+      }
+    ],
+    "ownedArchive": "/workspace/formal-proofs/bendvy-worktrees/70-resource-confinement/experiments/public-resource-fields/runtime-v1/actual-remaining-v1"
+  }
+}

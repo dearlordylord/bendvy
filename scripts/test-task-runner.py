@@ -190,6 +190,87 @@ class Execution(unittest.TestCase):
             with self.assertRaises(EOFError):
                 execute_result(command('print("must not run")'), 3)
 
+    def test_owner_surviving_kill_preserves_failure_result_and_handle(self):
+        result = dict(exit=None, failure='child deadline', stdout=b'partial\xff',
+                      stderr=b'error\x00', capture='split')
+        clock = [0.0]
+        cleanup_started = []
+        owner = mock.Mock()
+        owner.is_alive.return_value = True
+        owner.terminate.side_effect = lambda: cleanup_started.append(clock[0])
+        def join(timeout=None):
+            self.assertIsNotNone(timeout, 'cleanup must never wait indefinitely')
+            self.assertGreaterEqual(timeout, 0)
+            clock[0] += timeout
+        owner.join.side_effect = join
+        receiver, sender = mock.Mock(), mock.Mock()
+        receiver.poll.return_value = True
+        receiver.recv.return_value = result
+        context = mock.Mock()
+        context.Pipe.return_value = (receiver, sender)
+        context.Process.return_value = owner
+        with mock.patch.object(task_runner.multiprocessing, 'get_context', return_value=context), \
+                mock.patch.object(task_runner.time, 'monotonic', side_effect=lambda: clock[0]):
+            with self.assertRaisesRegex(RuntimeError, 'command owner failed to exit') as caught:
+                execute_result(command('must not execute'), 3, capture='split')
+        error = caught.exception
+        self.assertIs(error.result, result)
+        self.assertEqual(result['failure'], 'child deadline')
+        self.assertEqual((error.stdout, error.stderr), (b'partial\xff', b'error\x00'))
+        self.assertRegex(str(error.cleanup_failure), 'survived bounded cleanup')
+        self.assertIs(error.owner, owner)
+        self.assertIs(error.cleanup_failure.owner, owner)
+        owner.terminate.assert_called_once()
+        owner.kill.assert_called_once()
+        self.assertLessEqual(clock[0] - cleanup_started[0], 4)
+        owner.close.assert_not_called()
+        receiver.close.assert_called_once()
+
+    def test_owner_surviving_kill_preserves_cancellation(self):
+        interruption = KeyboardInterrupt('original cancellation')
+        clock = [0.0]
+        cleanup_started = []
+        owner = mock.Mock()
+        owner.is_alive.return_value = True
+        owner.terminate.side_effect = lambda: cleanup_started.append(clock[0])
+        def join(timeout=None):
+            self.assertIsNotNone(timeout, 'cleanup must never wait indefinitely')
+            self.assertGreaterEqual(timeout, 0)
+            clock[0] += timeout
+        owner.join.side_effect = join
+        receiver, sender = mock.Mock(), mock.Mock()
+        receiver.poll.side_effect = interruption
+        context = mock.Mock()
+        context.Pipe.return_value = (receiver, sender)
+        context.Process.return_value = owner
+        with mock.patch.object(task_runner.multiprocessing, 'get_context', return_value=context), \
+                mock.patch.object(task_runner.time, 'monotonic', side_effect=lambda: clock[0]):
+            with self.assertRaises(KeyboardInterrupt) as caught:
+                execute_result(command('must not execute'), 3)
+        self.assertIs(caught.exception, interruption)
+        self.assertRegex(str(interruption.cleanup_failure), 'survived bounded cleanup')
+        self.assertIs(interruption.owner, owner)
+        self.assertLessEqual(clock[0] - cleanup_started[0], 4)
+        owner.terminate.assert_called_once()
+        owner.kill.assert_called_once()
+        owner.close.assert_not_called()
+        receiver.close.assert_called_once()
+
+    def test_owned_children_share_cleanup_phase_deadline(self):
+        clock, observed = [0.0], []
+        def traversal(pid, *, deadline=None):
+            observed.append((pid, deadline))
+            clock[0] += .6
+        with mock.patch.object(task_runner, 'child_pids', return_value={101, 102, 103}), \
+                mock.patch.object(task_runner, 'kill_descendants', side_effect=traversal), \
+                mock.patch.object(task_runner.os, 'waitpid'), \
+                mock.patch.object(task_runner.time, 'sleep'), \
+                mock.patch.object(task_runner.time, 'monotonic', side_effect=lambda: clock[0]):
+            with self.assertRaisesRegex(TimeoutError, 'owned descendants did not terminate'):
+                task_runner.cleanup_owned()
+        self.assertEqual(len(observed), 2)
+        self.assertEqual([deadline for _, deadline in observed], [1, 1])
+
     def test_merged_and_compatibility(self):
         cmd = command('import os; os.write(1,b"a"); os.write(2,b"b")')
         result = execute_result(cmd, 3)

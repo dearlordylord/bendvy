@@ -9,7 +9,7 @@ def tree(values):
     mid = len(values) // 2
     return 'node(' + tree(values[:mid]) + ',' + tree(values[mid:]) + ')'
 
-def scenario(schema, read=False):
+def scenario(schema, read=False, mutant=None):
     first, second = (10, 100) if schema == 'a' else (30, 300)
     keys = ['First', 'Second'] if schema == 'a' else ['Primary', 'Secondary']
     mode = 'Read' if read else 'Write'
@@ -30,14 +30,20 @@ def scenario(schema, read=False):
     f, s = list(range(first,first+4)), list(range(second,second+4))
     rows = [snapshot('Before',f,s)]
     for fail in [False,True,False]:
-        prior, sibling = f[0], s[0]
+        prior = s[0] if mutant == 'wrong-field' else f[0]
+        sibling = prior + 2 if mutant == 'wrong-field' else s[0]
         if read:
             label = 'Success{' + tree([prior,sibling,prior,sibling]) + '}'
         elif fail:
+            if mutant == 'incomplete-inverse':
+                f, s = list(range(prior+2,prior+6)), list(range(sibling+10,sibling+14))
             label = 'Failure{' + ':'.join(map(str,[prior,sibling,prior+1])) + '}'
         else:
             label = 'Success{' + tree([prior,sibling,prior+1,prior+2]) + '}'
-            f, s = list(range(prior+2,prior+6)), list(range(sibling+10,sibling+14))
+            if mutant == 'wrong-field':
+                s = list(range(sibling+10,sibling+14))
+            else:
+                f, s = list(range(prior+2,prior+6)), list(range(sibling+10,sibling+14))
         rows.append(snapshot(label,f,s))
     return '\n'.join(rows)
 
@@ -48,3 +54,8 @@ if __name__ == '__main__':
             text = scenario(schema,read)
             (HERE/(name+'-expected.json')).write_text(json.dumps(dict(observation=text),indent=2)+'\n')
             (HERE/(name+'-expected.stdout')).write_text(json.dumps(text)+'\n')
+
+    for name in ['wrong-field', 'incomplete-inverse']:
+        text = scenario('a', mutant=name)
+        (HERE/(name+'-expected.json')).write_text(json.dumps(dict(observation=text),indent=2)+'\n')
+        (HERE/(name+'-expected.stdout')).write_text(json.dumps(text)+'\n')
