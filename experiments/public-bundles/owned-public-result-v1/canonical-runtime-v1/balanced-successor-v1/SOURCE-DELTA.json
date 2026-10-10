@@ -1,0 +1,37 @@
+{
+  "originalCommit": "f7b9f18b7",
+  "originalSourceSHA256": "24a520f2f8abdb66f3ed39211fb380d075579b92d95eb83035fb74cbeb5499ea",
+  "successorSourceSHA256": "89879f7c84b534057dc60907b3ec404fe8c7ff4d5c840cdd27c66b19696f999d",
+  "from": "ANode{ALeaf{21},ANode{ALeaf{22},ALeaf{23}}}",
+  "to": "ANode{ANode{ALeaf{21},ALeaf{22}},ANode{ALeaf{23},ALeaf{24}}}",
+  "literalInverse": true,
+  "reason": "stock runtime array_node requires equal child lengths; original three-cell fixture stopped before any constructor execution",
+  "allFixtures": [
+    {
+      "head": "N(L11,L12)",
+      "childLengths": [
+        1,
+        1
+      ]
+    },
+    {
+      "tail": "N(N(L21,L22),N(L23,L24))",
+      "childLengths": [
+        2,
+        2
+      ]
+    },
+    {
+      "contextRest": "N(L(N(L70,L71)),L(L72))",
+      "outerChildLengths": [
+        1,
+        1
+      ],
+      "innerLengths": [
+        2,
+        1
+      ],
+      "note": "each nested inner Array balanced independently; differing inner payload lengths do not affect outer sibling lengths"
+    }
+  ]
+}

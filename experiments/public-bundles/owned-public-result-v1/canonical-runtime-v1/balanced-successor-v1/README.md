@@ -1,0 +1,5 @@
+# Balanced canonical constructor successor
+
+The original f7b9 first JS attempt emitted successfully but exited1 with runtime fail-stop/empty stdout. Generated scenario.js173 constructs array_node([21],array_node([22],[23])); the stock runtime rejects unequal sibling lengths at array_node108–110. The source checker accepted that malformed three-cell Array fixture. This failure is distinct from constructor semantics, ownership misuse or generated dispatch, and remains preserved in the parent prefix.
+
+Only the initial tail Array becomes balanced with four cells21/22/23/24. Head and each context rest inner/outer Array have been checked for balanced sibling lengths; different inner payload lengths are valid values in the outer Array. SOURCE-DELTA.json retains the literal inverse. Every canonical request/stage, error, affine context transport, eager tail, caller repair/retry and undo body is unchanged. A fresh independent complete source-only oracle is required; no old output is rewritten or runtime-derived expectation selected.
