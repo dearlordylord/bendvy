@@ -1,0 +1,1 @@
+This complete ordinary retained Scheduled.run witness deliberately supplies only Component8 availability. Required Resource7 is missing, so actual SP.run must return the unchanged App before conditions, dispatch or pending barrier. Full zero/two-entity snapshots/owners remain observed; no physical-resource removal policy is asserted. Source qualification pending.
