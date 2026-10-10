@@ -1,0 +1,27 @@
+{
+  "consumer": [
+    {
+      "from": "import schema-fragments.bend",
+      "to": "import /workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend"
+    },
+    {
+      "from": "import ordinary-schema.bend",
+      "to": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend"
+    },
+    {
+      "from": "import ordinary-schema-provision.bend",
+      "to": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-schema-provision.bend"
+    },
+    {
+      "from": "import ordinary-app-schema.bend",
+      "to": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-schema.bend"
+    }
+  ],
+  "entry": [
+    {
+      "from": "import consumer.bend",
+      "to": "import consumer-public.bend"
+    }
+  ],
+  "scope": "Literal import-only complete consumer relocation; List<String> grammar has no defining QName."
+}
