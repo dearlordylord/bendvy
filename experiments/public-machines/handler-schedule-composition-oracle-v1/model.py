@@ -1,0 +1,61 @@
+"""Independent frozen-source model. No runtime output, receipt or actual baseline input."""
+from pathlib import Path
+import json,gzip,hashlib,copy
+HERE=Path(__file__).resolve().parent
+ls=lambda values:'['+', '.join(values)+']'
+quote=lambda s:json.dumps(s,ensure_ascii=False,separators=(',',':'))
+trans=lambda a,b:'['+quote(a)+','+quote(b)+']'
+NAMES=['exit','transition','enter','reader']
+ACCESS=['cells:write','owned:write','machine:write']
+STEPS=['Barrier','Phase:apply','System:1:condition=0','Phase:exit','System:2:condition=0','Phase:transition','System:3:condition=0','Phase:enter','System:4:condition=0']
+def initial(selected):
+ return dict(selected=selected,component=0,resource=0,clock=0,stamp=None,locals=[0,0,0],cursors=[0,0,0,0],current='Boot',pending='Play',previous=None,changed=False,tick=0,prefix=[],batches=[],position=None,delivered=[],pendingCount=0,applied=0)
+def observed(w):
+ slot='"current":'+quote(w['current'])+',"pending":'+('null' if w['pending'] is None else quote(w['pending']))+',"previous":'+('null' if w['previous'] is None else quote(w['previous']))+',"changed":'+str(w['changed']).lower()
+ stamps=[] if w['stamp'] is None else ['1:'+str(w['stamp'][0])+':'+str(w['stamp'][1])]
+ batches=ls([str(t)+':'+ls([trans(a,b)]) for t,a,b in w['batches']])
+ positions=ls([] if w['position'] is None else ['4:'+str(w['position'][0])+':'+str(w['position'][1])])
+ resources='owned=node(leaf:'+str(w['resource'])+',leaf:'+str(w['selected'])+')|slot={'+slot+'}|pendingSkip='+('None' if w['pending'] is None else 'False')+'|stream={batches='+batches+'|positions='+positions+'|dropped=0|frameStart=0}|reader=1:4|locals='+ls(['1:'+str(i+1)+':leaf:'+str(n) for i,n in enumerate(w['locals'])])+'|tick='+str(w['tick'])+'|prefix='+ls([quote(x) for x in w['prefix']])+'|delivered='+ls([trans(a,b) for a,b in w['delivered']])+'|structuralApplied='+str(w['applied'])
+ registration=lambda i:str(i)+':'+NAMES[i-1]+':'+ls(ACCESS if i<4 else ['machine:read'])
+ world='namespace=1|nextId=2|highWater=1|live=node(leaf:False,leaf:True)|capacity=2|depth=1|store=Column{values=leaf:some(node(leaf:'+str(w['component'])+',leaf:7));stamps='+ls(stamps)+'}|resource={'+resources+'}|events=[]|pendingCount='+str(w['pendingCount'])+'|registrations='+ls([registration(i) for i in [4,3,2,1]])+'|nextSystemId=5|clock='+str(w['clock'])
+ owners=[ls([str(i)+':1:'+registration(i)+':cursor='+str(w['cursors'][i-1])]) for i in [1,2,3]]
+ return 'world{'+world+'}|exit='+owners[0]+'|transition='+owners[1]+'|enter='+owners[2]+'|readerRegistry=1:'+registration(4)+':cursor='+str(w['cursors'][3])
+def marker(w):
+ # Ordinary marker's Barrier precedes tick/capture and is the only flush here.
+ w['applied']+=w['pendingCount'];w['pendingCount']=0;w['tick']+=1
+ target=w['pending'];source=w['current'];w['pending']=None;w['previous']=source;w['changed']=False
+ obs=['Applied','Entered:apply','Ran:1'];status='finished'
+ for idx,(name,amount) in enumerate(zip(NAMES[:3],[1,10,100]),1):
+  obs+=['Entered:'+name]
+  w['locals'][idx-1]+=1
+  failed=w['selected']==idx and w['locals'][idx-1]==1
+  if failed:
+   # Resource/component/clock inverse restores prior state; Local precedes Tx.
+   if w['stamp'] is None:w['stamp']=(0,0)
+   if idx<3:w['pending']=target
+   obs+=['Ran:'+str(idx+1)];status='failed:once';break
+  w['resource']+=amount;w['component']+=amount;w['clock']+=1
+  w['stamp']=(0,w['clock']);w['cursors'][idx-1]=w['clock'];w['pendingCount']+=1;w['prefix'].append(name)
+  if idx==2:
+   w['current']=target;w['previous']=source;w['changed']=True;w['batches'].append((w['tick'],source,target))
+  if idx==3 and target=='Play':w['pending']='Pause'
+  obs+=['Ran:'+str(idx+1)]
+ return 'schedule='+status+'|steps='+ls(STEPS)+'|observations='+ls(obs)+'|'+observed(w)
+def reader(w):
+ cursor,registered=(0,w['tick']) if w['position'] is None else w['position']
+ w['delivered'] += [(a,b) for t,a,b in w['batches'] if cursor<t]
+ w['position']=(w['tick'],registered);w['cursors'][3]=w['clock']
+ return 'read|'+observed(w)
+def scenario(selected):
+ w=initial(selected);rows=['snapshot|'+observed(w),marker(w),reader(w)]
+ if selected==3:w['pending']='Play'
+ rows += [marker(w),reader(w),'snapshot|'+observed(w)]
+ assert w['pendingCount']==3 and w['pending']=='Pause'
+ return '\n'.join(rows)+'\n',copy.deepcopy(w)
+def derive():
+ results=[scenario(i) for i in [1,2,3]]
+ # Pure main Report fields use installed show_val: constructor + comma-space.
+ raw=('consumer.Report{'+', '.join(quote(r[0]) for r in results)+'}\n').encode()
+ return raw,dict(zip(NAMES[:3],[r[1] for r in results]))
+if __name__=='__main__':
+ raw,state=derive();(HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0));(HERE/'expected-final-states.json').write_text(json.dumps(state,indent=2)+'\n');print(len(raw),hashlib.sha256(raw).hexdigest())

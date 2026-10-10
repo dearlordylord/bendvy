@@ -1,0 +1,192 @@
+{
+  "authorCommit": "787b6bf1d146b6e76d66409a4c2516c96d5103c9",
+  "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/entry-a.bend",
+  "closureSources": 30,
+  "basisInputs": {
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/entry-a.bend": {
+      "currentSHA256": "ee4ec9d8771645aebea3eb15fcdf22af1a46e1ad0338a94b33d26fe9520525a8",
+      "checkedSHA256": "ee4ec9d8771645aebea3eb15fcdf22af1a46e1ad0338a94b33d26fe9520525a8",
+      "bytes": 214
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/consumer.bend": {
+      "currentSHA256": "addd1bc28aa691160c46c335cde594773f9ad7fd293417f9d620a9256095055c",
+      "checkedSHA256": "addd1bc28aa691160c46c335cde594773f9ad7fd293417f9d620a9256095055c",
+      "bytes": 3734
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-handlers/remaining-core-v1/types.bend": {
+      "currentSHA256": "75af6669a194c9129ce9ceb1adfa42a1b7b350838884fe11dea8ab64eee7b024",
+      "checkedSHA256": "75af6669a194c9129ce9ceb1adfa42a1b7b350838884fe11dea8ab64eee7b024",
+      "bytes": 1558
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": {
+      "currentSHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "checkedSHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "bytes": 22404
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": {
+      "currentSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "checkedSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "bytes": 897
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": {
+      "currentSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "checkedSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "bytes": 45638
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": {
+      "currentSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "checkedSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "bytes": 1591
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": {
+      "currentSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "checkedSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "bytes": 6475
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": {
+      "currentSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "checkedSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "bytes": 3862
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/local.bend": {
+      "currentSHA256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+      "checkedSHA256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+      "bytes": 8940
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": {
+      "currentSHA256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "checkedSHA256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "bytes": 1768
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/machine.bend": {
+      "currentSHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+      "checkedSHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+      "bytes": 9883
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": {
+      "currentSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "checkedSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "bytes": 2199
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend": {
+      "currentSHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+      "checkedSHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+      "bytes": 4396
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": {
+      "currentSHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "checkedSHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "bytes": 25508
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": {
+      "currentSHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "checkedSHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "bytes": 12147
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/application.bend": {
+      "currentSHA256": "1278de45ff73b09077dc7e919ba9dba077f3bcb977dc9634bb887177ba87b78e",
+      "checkedSHA256": "1278de45ff73b09077dc7e919ba9dba077f3bcb977dc9634bb887177ba87b78e",
+      "bytes": 10854
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/bridge.bend": {
+      "currentSHA256": "885584e5248a390d4828fea8e679b3f7fd5b86174691dfcf4e3badd84add284a",
+      "checkedSHA256": "885584e5248a390d4828fea8e679b3f7fd5b86174691dfcf4e3badd84add284a",
+      "bytes": 9755
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-handlers/remaining-core-v1/world.bend": {
+      "currentSHA256": "abc816ec9a09508f55f993501ce89af069b6f42a6e7f8784946116e7c06b3abe",
+      "checkedSHA256": "abc816ec9a09508f55f993501ce89af069b6f42a6e7f8784946116e7c06b3abe",
+      "bytes": 1409
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-world.bend": {
+      "currentSHA256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+      "checkedSHA256": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+      "bytes": 1887
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/systems.bend": {
+      "currentSHA256": "8c9c09e38bf725659bdfb41b015929bdd259deef250a43b980dcc888db0ca89b",
+      "checkedSHA256": "8c9c09e38bf725659bdfb41b015929bdd259deef250a43b980dcc888db0ca89b",
+      "bytes": 24439
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": {
+      "currentSHA256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "checkedSHA256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "bytes": 4096
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": {
+      "currentSHA256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "checkedSHA256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "bytes": 31351
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-handlers.bend": {
+      "currentSHA256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+      "checkedSHA256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+      "bytes": 10112
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend": {
+      "currentSHA256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "checkedSHA256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "bytes": 12704
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-schedule.bend": {
+      "currentSHA256": "2fce580736002319e902316dd98e47d4466140c86ef3add43b146b0077efd8bd",
+      "checkedSHA256": "2fce580736002319e902316dd98e47d4466140c86ef3add43b146b0077efd8bd",
+      "bytes": 2082
+    },
+    "/workspace/formal-proofs/bendvy/src/ecs/machine-conditions.bend": {
+      "currentSHA256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+      "checkedSHA256": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+      "bytes": 1487
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/full-observe.bend": {
+      "currentSHA256": "d3bc023aa608eb030892b91606e0b5b79137b8237afc4bc68707e2436ad530a3",
+      "checkedSHA256": "d3bc023aa608eb030892b91606e0b5b79137b8237afc4bc68707e2436ad530a3",
+      "bytes": 8664
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/observe.bend": {
+      "currentSHA256": "da6d34c16ed8b4024bde8086f9d9e6d9c49ebc0a4e1636edc39b3874d2ef1f2a",
+      "checkedSHA256": "da5754c8b768a2ebf9461e06d512162c16ef370795517e391cc22292712a3f26",
+      "bytes": 10989
+    },
+    "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/owner-observer.bend": {
+      "currentSHA256": "c390dca4c39788a097e380002264149c0b7b7db9bd68fc464a901ba97ebc613e",
+      "checkedSHA256": "c390dca4c39788a097e380002264149c0b7b7db9bd68fc464a901ba97ebc613e",
+      "bytes": 6935
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/FREEZE.json": {
+      "currentSHA256": "f4beff35abd104f9bda9685f14fa9722553e6ef0f2000b97cee4e7f5c681ad26",
+      "bytes": 2823
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/source04/CLOSURE.json": {
+      "currentSHA256": "5a6536124c60a93118826421c1c534dcb4144d2a7810559e0c0e54c64eafbbcc",
+      "bytes": 4865
+    },
+    "/home/node/.bend/bend2/base.bend": {
+      "currentSHA256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+      "bytes": 71530
+    },
+    "/workspace/formal-proofs/bendvy/.references/sources.json": {
+      "currentSHA256": "5d4d89ca984a2eb21e21715344219bb9caa022b6bebca0c9f8959584cceb8b8f",
+      "bytes": 747
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy/crates/bevy_state/src/state/transitions.rs": {
+      "currentSHA256": "ff04fb8ac040731353e072d59ea01347701c22f052fe6e373153f3a2ae181685",
+      "bytes": 10515
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy/crates/bevy_ecs/src/system/system_param.rs": {
+      "currentSHA256": "e7c04fb01eebff746876ab65a5db9e3e36184a872057408f2e8ac11b694a3d26",
+      "bytes": 126469
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-phase-v1/compiler/installed-cli-unmodified.mjs": {
+      "currentSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+      "bytes": 333165
+    }
+  },
+  "printer": "Pure main consumer.Report; installed book_load root-relative consumer namespace/name_key and show_val constructor, comma-space, escaped String/newline",
+  "scope": "Source-derived finite physical observations only, no backend inputs/execution/equivalence/full48/49 acceptance",
+  "referenceCommits": {
+    "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+    "bend2": "a950fd683c0d76f09794078e6174fe98a1492876",
+    "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+  }
+}
