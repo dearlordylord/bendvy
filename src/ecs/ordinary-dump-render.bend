@@ -18,7 +18,7 @@ def finished(~S:Data,~C:Type,row:Filter.Row<S>,result:C & List<&2,Filter.Row<S>>
     case (store,rows):(store,row <> rows)
 def rendered(~S:Data,~C:Type,entries:List<&2,Fragment.Entry<S>>,handle:W.Handle<S>,rest:C -> C & List<&2,Filter.Row<S>>,result:C & List<&2,Maybe<&2,String>>) -> C & List<&2,Filter.Row<S>>:
   match result:
-    case (store,slots):finished(~S,~C,Filter.Row{handle,components(~S,List.zip(&2,Fragment.Entry<S>,&2,Maybe<&2,String>,entries,slots))},rest(store))
+    case (store,slots):finished(~S,~C,Filter.Row{handle,components(~S,List.zip(&2,Fragment.Entry<S>,&2,Maybe<&2,String>,Fragment.bare_entries(~S,entries),slots))},rest(store))
 def rows(~S:Data,~C:Type,~read:C -> U32 -> C & List<&2,Maybe<&2,String>>,handles:List<&2,W.Handle<S>>,+entries:List<&2,Fragment.Entry<S>>,store:C) -> C & List<&2,Filter.Row<S>>:
   match handles:
     case []:(store,[])

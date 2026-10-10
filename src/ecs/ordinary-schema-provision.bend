@@ -1,4 +1,6 @@
 import Base
+import ./persistence-declaration.bend as Persist
+import ./decode-data.bend as D
 import ./world.bend as W
 import ./column.bend as Col
 import ./ordinary-schema.bend as Schema
@@ -46,3 +48,15 @@ def product(~S:Data,~LC:Type,~LR:Type,~RC:Type,~RR:Type,~leftEmpty:Unit -> LC,~l
     case Provision{left} Provision{right}:Provision{Schema.product(~S,~LC,~LR,~RC,~RR,left,right)}
 def create(~S:Data,~C:Type,~R:Type,~E:Data,~empty:Unit -> C,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,provision:Provision<S,C,R,empty,count>,factory:W.Factory,resource:R) -> Provision<S,C,R,empty,count> & W.Creation<S,C,R,E>:
   (provision,W.create(~S,~C,~R,~E,~empty,factory,resource))
+
+def component_plain(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,extension:Persist.Plain<S,P,identity>) -> Provision<S,Col.Column<S,P>,Unit,component_empty(~S,~P),component_count(~S,~P)>:Provision{Schema.component_plain(~S,~P,~identity,extension)}
+
+def component_transient(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,extension:Persist.Transient<S,P,identity>) -> Provision<S,Col.Column<S,P>,Unit,component_empty(~S,~P),component_count(~S,~P)>:Provision{Schema.component_transient(~S,~P,~identity,extension)}
+
+def component_constructed(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,extension:Persist.Constructed<S,P,identity,project>) -> Provision<S,Col.Column<S,P>,Unit,component_empty(~S,~P),component_count(~S,~P)>:Provision{Schema.component_constructed(~S,~P,~identity,~project,extension)}
+
+def resource_plain(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,extension:Persist.Plain<S,P,identity>) -> Provision<S,Unit,P,resource_empty,resource_count(~S)>:Provision{Schema.resource_plain(~S,~P,~identity,extension)}
+
+def resource_transient(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,extension:Persist.Transient<S,P,identity>) -> Provision<S,Unit,P,resource_empty,resource_count(~S)>:Provision{Schema.resource_transient(~S,~P,~identity,extension)}
+
+def resource_constructed(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,extension:Persist.Constructed<S,P,identity,project>) -> Provision<S,Unit,P,resource_empty,resource_count(~S)>:Provision{Schema.resource_constructed(~S,~P,~identity,~project,extension)}

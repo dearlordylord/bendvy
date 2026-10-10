@@ -9,8 +9,13 @@ type RegistryKind is Data:
   Service{}
 type Descriptor<S: Data,Token: Data,Payload: Type> is Data:
   Descriptor{kind: RegistryKind,key: String,name: String}
+type PersistenceKind is Data:
+  Plain{}
+  Transient{}
+  Constructed{}
 type Entry<S: Data> is Data:
   Entry{kind: RegistryKind,key: String,name: String}
+  Classified{kind: RegistryKind,key: String,name: String,persistence:PersistenceKind}
 type Fragment<S: Data,Owners: Type> is Type:
   Fragment{entries: List<&2,Entry<S>>,owners: Owners}
 type Error is Data:
@@ -27,6 +32,15 @@ type Bound<S: Data,Owners: Type,Output: Type> is Type:
   Built{output: Output}
   BindRejected{error: Error,fragment: Fragment<S,Owners>}
 
+# Only the operational extension builders choose a classification. Raw schema construction is trusted.
+def bare_entry(~S:Data,value:Entry<S>) -> Entry<S>:
+  match value:
+    case Entry{kind,key,name}:Entry{kind,key,name}
+    case Classified{kind,key,name,_}:Entry{kind,key,name}
+def bare_entries(~S:Data,values:List<&2,Entry<S>>) -> List<&2,Entry<S>>:
+  match values:
+    case []:[]
+    case head <> rest:bare_entry(~S,head) <> bare_entries(~S,rest)
 def same_kind(a: RegistryKind,b: RegistryKind) -> Bool:
   match a b:
     case Component{} Component{}: True{}
@@ -42,22 +56,28 @@ def empty(~S: Data,owners: Unit) -> Fragment<S,Unit>:
   Fragment{[],owners}
 def fragment(~S: Data,~Owners: Type,entries: List<&2,Entry<S>>,owners: Owners) -> Fragment<S,Owners>:
   Fragment{entries,owners}
-def key_exists(~S: Data,xs: List<&2,Entry<S>>,+kind: RegistryKind,+key: String) -> Bool:
+def key_exists_bare(~S: Data,xs: List<&2,Entry<S>>,+kind: RegistryKind,+key: String) -> Bool:
   match xs:
     case Nil{}: False{}
-    case Con{Entry{other,otherKey,_},rest}: Bool.or(Bool.and(same_kind(kind,other),String.eq(key,otherKey)),key_exists(~S,rest,kind,key))
-def name_exists(~S: Data,xs: List<&2,Entry<S>>,+kind: RegistryKind,+name: String) -> Bool:
+    case Con{Entry{other,otherKey,_},rest}: Bool.or(Bool.and(same_kind(kind,other),String.eq(key,otherKey)),key_exists_bare(~S,rest,kind,key))
+    case Con{Classified{other,otherKey,_,_},rest}: Bool.or(Bool.and(same_kind(kind,other),String.eq(key,otherKey)),key_exists_bare(~S,rest,kind,key))
+def key_exists(~S:Data,xs:List<&2,Entry<S>>,kind:RegistryKind,key:String) -> Bool:key_exists_bare(~S,bare_entries(~S,xs),kind,key)
+def name_exists_bare(~S: Data,xs: List<&2,Entry<S>>,+kind: RegistryKind,+name: String) -> Bool:
   match xs:
     case Nil{}: False{}
-    case Con{Entry{other,_,otherName},rest}: Bool.or(Bool.and(same_kind(kind,other),String.eq(name,otherName)),name_exists(~S,rest,kind,name))
+    case Con{Entry{other,_,otherName},rest}: Bool.or(Bool.and(same_kind(kind,other),String.eq(name,otherName)),name_exists_bare(~S,rest,kind,name))
+    case Con{Classified{other,_,otherName,_},rest}: Bool.or(Bool.and(same_kind(kind,other),String.eq(name,otherName)),name_exists_bare(~S,rest,kind,name))
+def name_exists(~S:Data,xs:List<&2,Entry<S>>,kind:RegistryKind,name:String) -> Bool:name_exists_bare(~S,bare_entries(~S,xs),kind,name)
 def check_entry(keyConflict: Bool,nameConflict: Bool,kind: RegistryKind,key: String,name: String) -> Validation:
   match keyConflict nameConflict:
     case True{} _: Invalid{DuplicateKey{kind,key}}
     case False{} True{}: Invalid{DuplicateName{kind,name}}
     case False{} False{}: Valid{}
-def check_one(~S: Data,+seen: List<&2,Entry<S>>,item: Entry<S>) -> Validation:
+def check_one_bare(~S: Data,+seen: List<&2,Entry<S>>,item: Entry<S>) -> Validation:
   match item:
     case Entry{+kind,+key,+name}: check_entry(key_exists(~S,seen,kind,key),name_exists(~S,seen,kind,name),kind,key,name)
+    case Classified{+kind,+key,+name,_}: check_entry(key_exists(~S,seen,kind,key),name_exists(~S,seen,kind,name),kind,key,name)
+def check_one(~S:Data,seen:List<&2,Entry<S>>,item:Entry<S>) -> Validation:check_one_bare(~S,bare_entries(~S,seen),bare_entry(~S,item))
 def validation_continue(~S: Data,result: Validation,next: Unit -> Validation) -> Validation:
   match result:
     case Invalid{error}: Invalid{error}
@@ -70,10 +90,11 @@ def filter_kind_done(~S: Data,selected: Bool,item: Entry<S>,rest: List<&2,Entry<
   match selected:
     case True{}: item <> rest
     case False{}: rest
-def filter_kind(~S: Data,xs: List<&2,Entry<S>>,+kind: RegistryKind) -> List<&2,Entry<S>>:
+def filter_kind(~S:Data,xs:List<&2,Entry<S>>,+kind:RegistryKind) -> List<&2,Entry<S>>:
   match xs:
-    case []: []
-    case Entry{+itemKind,+key,+name} <> rest: filter_kind_done(~S,same_kind(kind,itemKind),Entry{itemKind,key,name},filter_kind(~S,rest,kind))
+    case []:[]
+    case Entry{+itemKind,+key,+name} <> rest:filter_kind_done(~S,same_kind(kind,itemKind),Entry{itemKind,key,name},filter_kind(~S,rest,kind))
+    case Classified{+itemKind,+key,+name,+persistence} <> rest:filter_kind_done(~S,same_kind(kind,itemKind),Classified{itemKind,key,name,persistence},filter_kind(~S,rest,kind))
 def first_failure(first: Validation,second: Validation) -> Validation:
   match first:
     case Invalid{error}: Invalid{error}
@@ -97,18 +118,24 @@ def bind(~S: Data,~Owners: Type,~Output: Type,~build: Owners -> Output,fragment:
 
 # A closed initializer states its required descriptors before receiving any owners.
 # As with Family lenses, caller-authored adapters remain trusted provisioning.
-def descriptor_present(~S: Data,xs: List<&2,Entry<S>>,item: Entry<S>) -> Bool:
-  match xs item:
-    case Nil{} _: False{}
-    case Con{Entry{+ak,+ax,+an},rest} Entry{+bk,+bx,+bn}: Bool.or(Bool.and(same_kind(ak,bk),Bool.and(String.eq(ax,bx),String.eq(an,bn))),descriptor_present(~S,rest,Entry{bk,bx,bn}))
+def descriptor_equal(~S:Data,a:Entry<S>,b:Entry<S>) -> Bool:
+  match a b:
+    case Entry{ak,ax,an} Entry{bk,bx,bn}:Bool.and(same_kind(ak,bk),Bool.and(String.eq(ax,bx),String.eq(an,bn)))
+    case _ _:False{}
+def descriptor_present(~S:Data,xs:List<&2,Entry<S>>,+item:Entry<S>) -> Bool:
+  match xs:
+    case []:False{}
+    case head <> rest:Bool.or(descriptor_equal(~S,bare_entry(~S,head),bare_entry(~S,item)),descriptor_present(~S,rest,item))
 def required_continue(result: Validation,next: Unit -> Validation) -> Validation:
   match result:
     case Invalid{error}: Invalid{error}
     case Valid{}: next(Unit{})
-def required_check(~S: Data,present: Bool,item: Entry<S>) -> Validation:
+def required_check_bare(~S: Data,present: Bool,item: Entry<S>) -> Validation:
   match present item:
     case True{} _: Valid{}
     case False{} Entry{kind,key,name}: Invalid{UndeclaredDescriptor{kind,key,name}}
+    case False{} Classified{kind,key,name,_}: Invalid{UndeclaredDescriptor{kind,key,name}}
+def required_check(~S:Data,present:Bool,item:Entry<S>) -> Validation:required_check_bare(~S,present,bare_entry(~S,item))
 def requirements(~S: Data,required: List<&2,Entry<S>>,+entries: List<&2,Entry<S>>) -> Validation:
   match required:
     case []: Valid{}

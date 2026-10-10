@@ -21,7 +21,7 @@ def required(~S:Data,~C:Type,handle:W.Handle<S>,limit:Maybe<&2,Nat>,rest:C -> Ma
     case False{}:rest(store,limit)
 def selected(~S:Data,~C:Type,entries:List<&2,Fragment.Entry<S>>,criteria:List<&2,Filter.Component<S>>,handle:W.Handle<S>,limit:Maybe<&2,Nat>,rest:C -> Maybe<&2,Nat> -> C & List<&2,W.Handle<S>>,result:C & List<&2,Maybe<&2,U32>>) -> C & List<&2,W.Handle<S>>:
   match result:
-    case (store,slots):required(~S,~C,handle,limit,rest,store,Filter.requirements(~S,criteria,present(~S,List.zip(&2,Fragment.Entry<S>,&2,Maybe<&2,U32>,entries,slots))))
+    case (store,slots):required(~S,~C,handle,limit,rest,store,Filter.requirements(~S,criteria,present(~S,List.zip(&2,Fragment.Entry<S>,&2,Maybe<&2,U32>,Fragment.bare_entries(~S,entries),slots))))
 def included(~S:Data,~C:Type,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,entries:List<&2,Fragment.Entry<S>>,criteria:List<&2,Filter.Component<S>>,+handle:W.Handle<S>,limit:Maybe<&2,Nat>,rest:C -> Maybe<&2,Nat> -> C & List<&2,W.Handle<S>>,store:C,include:Bool) -> C & List<&2,W.Handle<S>>:
   match include:
     case False{}:rest(store,limit)
