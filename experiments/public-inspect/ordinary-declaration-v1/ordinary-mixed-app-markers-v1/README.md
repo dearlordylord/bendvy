@@ -1,0 +1,3 @@
+# Empty observation marker attempt
+
+This private source candidate removes phantom declaration/body/query arguments from empty ComponentRecipe and ResourceRecipe values, while preserving actual typed owners, runtime operation and full fixtures. Original source sequence 96322 stopped at the affected 45-module declaration check: captured exit137 with empty stdout/stderr, supervisor terminal1. Full A/Other entries were not launched. This is an inconclusive failed source attempt, without a cause attribution, acceptance or cap change. All exact checked inputs remain in this sibling and CHECK-PLAN inventory.

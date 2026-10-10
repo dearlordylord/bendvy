@@ -1,0 +1,9 @@
+# Mixed App with generic Registry observation helpers
+
+The source representation keeps observation-only markers unindexed and abstracts the leaf observation helpers over actual Registry Args, Error, Out, runner and resource kind. Actual operational Owner/Registry types remain unchanged. Ordinary registration supplies the canonical typed runner and kind internally; ordinary users still declare component/resource once and enable debug, with no metadata, query-list, interpreter or private owner-observer adapter.
+
+Original sequence96586 completed affected module45 and complete A/Other56 source closures with three exit0 results under pinned Bend2.0.35/default5. Reached cursor-control sequence61955 likewise completed all three checks. These are development source captures with exact pre/post subject hashes, not portable guard receipts, runtime equivalence, mathematical validity or evidence identifying the prior Native deadline cause.
+
+The complete 0/2-entity scenarios, seven snapshots, three affine-argument/resource success-failure-retry invocations, rollback, full World reports, declaration-derived metadata and opaque values are retained. The control changes only the private detached Inspector initial cursor0→1 at the same generated snapshot callsite, omitting seeded Added row42; operational calls/resource/world/owners remain the same. Independent whole model/authority refresh and stock backend qualification are pending.
+
+Prior original JS transport failure, separate requalification, complete JS outcomes, Native emission deadline and marker-only137 attempt remain unchanged in owning sibling packages. Whole aggregate-resource capability, component body registered but not executed, private trusted constructor/lens authority, detached fixture cursor (not registered cursor), no schedule/performance/full56 claim remain explicit.

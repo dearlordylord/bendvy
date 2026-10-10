@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+"""Freeze the cheapest complete normal JS then conditional Native, unchanged collector."""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import types
+
+ROOT = Path('/workspace/formal-proofs/bendvy')
+HERE = Path(__file__).resolve().parent
+OLD = HERE.parent / 'ordinary-mixed-app-v1'
+COLLECTOR = ROOT / 'experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py'
+
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('output')
+    out = Path(parser.parse_args().output).resolve()
+    if out.exists():
+        raise ValueError('Fresh output required')
+    source = json.loads((HERE / 'SOURCE-a01.json').read_text())
+    check = HERE / 'checks/a01'
+    terminal = json.loads((check / 'terminal.json').read_text())
+    if terminal['exitCode'] != 0 or terminal['sourceInventory'] != source['sourceInventory']:
+        raise ValueError('Current complete source capture required')
+    if b'ALL PROOFS CHECK' not in (check / 'stdout').read_bytes():
+        raise ValueError('Compiler development source result missing')
+    if any(sha(k) != v for k, v in source['sourceInventory'].items()):
+        raise ValueError('Source drift')
+    module = types.ModuleType('reviewed_collector')
+    module.__file__ = str(COLLECTOR)
+    exec(compile(COLLECTOR.read_bytes(), str(COLLECTOR), 'exec'), module.__dict__)
+    closure = module.validate_imports(source['entrypoint'], source['sourceInventory'])
+    catalogue = json.loads((HERE / 'oracle-v1/ORACLES.json').read_text())
+    selected = catalogue['a-normal']
+    oracle = HERE / 'oracle-v1/a-normal.stdout.gz'
+    import gzip
+    raw = gzip.decompress(oracle.read_bytes())
+    if len(raw) != selected['bytes'] or hashlib.sha256(raw).hexdigest() != selected['sha256']:
+        raise ValueError('Independent full oracle drift')
+    templates = {
+        'js': OLD / 'runtime-v1/prepared-attempt01/a-normal-js-plan.json',
+        'native': OLD / 'runtime-v2/prepared-attempt01/a-normal-native-plan.json'}
+    core = json.loads((HERE / 'CHECK-PLAN.json').read_text())['rootCoreInventory']
+    extras = [Path(__file__), COLLECTOR, ROOT / 'scripts/task_runner.py', ROOT / 'scripts/evidence_boundary.py',
+              ROOT / 'experiments/public-simulation/delivery-v1/installed-config.py',
+              HERE / 'CHECK-PLAN.json', HERE / 'SOURCE-a01.json', HERE / 'REPRESENTATION-DELTA.json', HERE / 'README.md']
+    extras += list(check.iterdir())
+    extras += [p for p in (HERE / 'oracle-v1').rglob('*') if p.is_file()]
+    extras += list(templates.values())
+    out.mkdir()
+    rows = []
+    for role, template in templates.items():
+        plan = json.loads(template.read_text())
+        stage = out / ('a-normal-' + role)
+        stage.mkdir()
+        old_stage = plan['stage']
+        old_entry = plan['entrypoint']
+        for command in plan['commands']:
+            command['argv'] = [x.replace(old_stage, str(stage)).replace(old_entry, source['entrypoint']) for x in command['argv']]
+        plan['scope'] = 'Complete finite ordinary opaque Registry mixed App normal A0/2 ' + role + '; no Native cause/performance/schedule/full56 claim'
+        plan['stage'] = str(stage)
+        plan['entrypoint'] = source['entrypoint']
+        plan['sourceInventory'] = source['sourceInventory']
+        plan['importClosure'] = closure
+        plan['generated'] = plan['generated'].replace(old_stage, str(stage))
+        if plan.get('native'):
+            plan['native'] = plan['native'].replace(old_stage, str(stage))
+        plan['oracle'] = str(oracle)
+        plan['oracleSHA256'] = selected['sha256']
+        plan['oracleBytes'] = selected['bytes']
+        plan['normalOracle'] = str(oracle)
+        plan['normalOracleSHA256'] = selected['sha256']
+        plan['normalOracleBytes'] = selected['bytes']
+        plan['sourceEvidenceScope'] = 'Current complete development source capture cap5; independent nominal/authority controls bound by oracle package; no mathematical verdict'
+        plan['postConsumer'] = 'Entire independent stdout equality and empty runtime stderr'
+        plan.pop('prerequisiteActualRequalification', None)
+        plan.pop('normalBaselineSource', None)
+        plan['pins'] = dict(core)
+        plan['pins'].update(source['sourceInventory'])
+        plan['pins'].update({str(p.resolve(strict=True)): sha(p) for p in extras + [Path(v) for v in plan['tools'].values()]})
+        target = stage / 'plan.json'
+        target.write_text(json.dumps(plan, indent=2) + '\n')
+        rows.append({'role': role, 'path': str(target), 'sha256': sha(target),
+                     'execute': [plan['tools']['python'], str(COLLECTOR), 'run', str(target), sha(target)]})
+    (out / 'SEQUENCE.json').write_text(json.dumps({'sequence': rows,
+        'condition': 'One new normal JS; Native only after complete JS PASS. Stop failure, no unchanged retry. Other schemas/control source remain preserved; no acceptance by old JS reuse.'}, indent=2) + '\n')
+    print(json.dumps({'sequence': str(out / 'SEQUENCE.json'), 'sha256': sha(out / 'SEQUENCE.json')}))
+
+
+if __name__ == '__main__':
+    main()
