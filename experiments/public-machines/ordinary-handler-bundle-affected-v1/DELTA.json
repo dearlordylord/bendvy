@@ -1,0 +1,19 @@
+{
+  "genericProducer": "5ece336bd",
+  "genericModules": {
+    "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/adapter.bend": "483db07866ea44517d552ae70d0c7db294bc0adc77ffd9dbf05cb2b08bbc7fa2",
+    "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/phases.bend": "f8218cbfd3fbb0db4145a9b8c6d9067ec1c753de1afa593b2b387a2d1ec79c5d"
+  },
+  "normalConsumerImportOnlyInverse": {
+    "source": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/consumer.bend",
+    "originalSHA256": "cf8cf277ae42a43855d275bb47e04b2dfdfbe27a50a0a7621e7d012c798463c2",
+    "copySHA256": "e5c59e956a001bfad5e18517f1aecb73f370ab0efa5bdfbf5509b55e79e14ef2",
+    "replaceOld": "import adapter.bend as Bridge",
+    "replaceNew": "import /workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/adapter.bend as Bridge"
+  },
+  "schema": "SchemaB",
+  "refusalSubjects": {
+    "cross-schema": "SchemaB actual adapter receives SchemaA affine World",
+    "owner-duplication": "Actual Bundle owner reused after adapter.run consumes it"
+  }
+}
