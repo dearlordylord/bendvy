@@ -13,8 +13,10 @@ The four public additions are qualified within this protected workload.
 semantic checks and independent review. It was prepared after this cohort and
 is excluded from combined156. The ordinary machine-handler App is subsequently
 adopted after ten complete JS/Native outcomes and its independent review.
-Combined156 excludes both modules; their integrated regression remains pending
-in the next batch.
+Combined156 excludes both modules. [PLAN-158.json](PLAN-158.json) freezes their
+combined regression with unchanged workload and criteria; [launch review](LAUNCH-REVIEW-158.md)
+passes statically. Execution awaits an exclusive quiet-host window after current
+feature checks. No combined158 measurement or verdict is available yet.
 
 ## Historical combined152 run
 
