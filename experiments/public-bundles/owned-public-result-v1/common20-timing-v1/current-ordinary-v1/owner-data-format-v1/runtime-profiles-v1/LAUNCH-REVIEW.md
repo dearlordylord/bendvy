@@ -1,0 +1,9 @@
+# Before/after runtime profile launch review
+
+PASS for frozen sourcee4a0c8a447a41ff63f47a8bc3b4e4bd531a5ef18 and exact before planbf91551b3b27f64bd5a2aa204e9d00faf4058348fd60e8afb781bba22b613634 (489pins), after plan76e7b891a967ee55e7ae8caff3b99007ce3e3d6d593b842edf6f2440c5fa6657 (502pins). No execution performed.
+
+The exact adapter diff changes only private ROOT binding, before/after role selection and removal of the historical TS projection join. Entire18,058-byte independent oracle remains required on every command through unchanged transport.validate_result(control=False), exit0/no failure, strict UTF8 equality and single complete byte/FNV timer metric. Profile schema validation follows that full-output gate. No hidden output narrowing replaces the removed stale projection.
+
+All file pins, tool/executable identities and resource inventories are current. Before selects the original stock emitted JS artifact; after selects the qualified owner/Data repair JS artifact. Both bind the same full oracle and application semantics; no C emission or copied compiler runs. Four commands total: CPU100us and sampled allocation8192 per side, stock5 cap/CPU5/environment/cwd and existing whole-cohort lock unchanged. Profile/raw/receipt artifacts absent. Verified helper sources are captured before import; acquired, per-command post and final receipt guards remain unconditional across exceptions, and completed raw child results are retained before publication validation.
+
+This authorizes artifact-bound whole-process CPU/sampled-allocation diagnostics only, conditional on normal queue availability. It does not establish region-only cost, total allocation, RSS, timing ratios, stock compiler adoption or full #41 qualification. Before/after artifacts and outputs must remain pinned; failure stops without replay or silent refresh. No source, runner, criteria or caps changed in this review.

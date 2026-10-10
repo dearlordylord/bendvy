@@ -1,0 +1,2689 @@
+{
+  "scope": "Before/after whole-process CPU-call samples and sampled allocation bytes; Node startup included, not region-only metrics, total allocation or RSS. No timing ratio/causal speedup claim.",
+  "sourceURL": "Exact generated artifact file URI matching Node callFrame.url",
+  "preparationObservation": "Initial analysis supplied lexical artifact path rather than Node file URI and reported zero matching generated samples; corrected source-linked selector without any child rerun.",
+  "subjects": {
+    "before": {
+      "scope": "Whole Node process only; unweighted CPU sample counts and sampled heap bytes, not measured IO-region CPU, total allocation, RSS, causal attribution or speedup",
+      "cpu": {
+        "samples": 500,
+        "generatedArtifactLeafSamples": 401,
+        "otherLeafSamples": 99,
+        "selfTop30": [
+          {
+            "countOrSampledBytes": 81,
+            "frame": {
+              "functionName": "wrapSafe",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1818,
+              "columnNumber": 17
+            },
+            "nodeId": 14
+          },
+          {
+            "countOrSampledBytes": 6,
+            "frame": {
+              "functionName": "io_feature_capture",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 172,
+              "columnNumber": 27
+            },
+            "nodeId": 569
+          },
+          {
+            "countOrSampledBytes": 6,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047bundle$045delivery$058apply_checked$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 7806,
+              "columnNumber": 123
+            },
+            "nodeId": 1086
+          },
+          {
+            "countOrSampledBytes": 5,
+            "frame": {
+              "functionName": "run_loop",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 135,
+              "columnNumber": 17
+            },
+            "nodeId": 19
+          },
+          {
+            "countOrSampledBytes": 5,
+            "frame": {
+              "functionName": "(garbage collector)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            "nodeId": 643
+          },
+          {
+            "countOrSampledBytes": 3,
+            "frame": {
+              "functionName": "$a_seed_registered$1262$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 513,
+              "columnNumber": 33
+            },
+            "nodeId": 776
+          },
+          {
+            "countOrSampledBytes": 3,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047constructor$045control$058string_identity$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 1909,
+              "columnNumber": 110
+            },
+            "nodeId": 2050
+          },
+          {
+            "countOrSampledBytes": 3,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047column$058cleared$1263$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 15449,
+              "columnNumber": 105
+            },
+            "nodeId": 2228
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "(program)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            "nodeId": 2
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "io_run",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 21490,
+              "columnNumber": 15
+            },
+            "nodeId": 17
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$a_seed_registered$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 486,
+              "columnNumber": 33
+            },
+            "nodeId": 27
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047schema$045fragments$058validate$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 4882,
+              "columnNumber": 119
+            },
+            "nodeId": 49
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047bundle$045install$058install$1263$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 12867,
+              "columnNumber": 116
+            },
+            "nodeId": 158
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058replace$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 15625,
+              "columnNumber": 108
+            },
+            "nodeId": 163
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058swap_world$1263$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 19354,
+              "columnNumber": 111
+            },
+            "nodeId": 201
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047bundle$045component$045install$058install$1264$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 18681,
+              "columnNumber": 129
+            },
+            "nodeId": 212
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058swap_world$1264$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 19833,
+              "columnNumber": 111
+            },
+            "nodeId": 220
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047owned$045public$045result$045v1$047surface$045a$058body$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 8433,
+              "columnNumber": 129
+            },
+            "nodeId": 275
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047string$045equality$058equal$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 3383,
+              "columnNumber": 110
+            },
+            "nodeId": 790
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047combined$045control$058populate$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 9308,
+              "columnNumber": 100
+            },
+            "nodeId": 908
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047registered$045lifecycle$045v1$047lifecycle$045a$058run$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 984,
+              "columnNumber": 71
+            },
+            "nodeId": 1010
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047schema$045fragments$058name_exists$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 6460,
+              "columnNumber": 122
+            },
+            "nodeId": 1030
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047world$058live_join$1261$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 6615,
+              "columnNumber": 106
+            },
+            "nodeId": 1214
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058lifecycle_allowed$1269$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 19219,
+              "columnNumber": 118
+            },
+            "nodeId": 1215
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047registered$045lifecycle$045v1$047lifecycle$045b$058after$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 1749,
+              "columnNumber": 73
+            },
+            "nodeId": 1504
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "f",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 129,
+              "columnNumber": 12
+            },
+            "nodeId": 1525
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$List$show$go$1261$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 1913,
+              "columnNumber": 28
+            },
+            "nodeId": 2049
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047schema$045fragments$058validate$1261$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 5082,
+              "columnNumber": 119
+            },
+            "nodeId": 2134
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047schema$045fragments$058same_kind$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 5958,
+              "columnNumber": 115
+            },
+            "nodeId": 2136
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047owned$045public$045result$045v1$047surface$045b$058prepared_head$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 4988,
+              "columnNumber": 133
+            },
+            "nodeId": 2165
+          }
+        ],
+        "inclusiveTop30": [
+          {
+            "countOrSampledBytes": 500,
+            "frame": {
+              "functionName": "(root)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            "nodeId": 1
+          },
+          {
+            "countOrSampledBytes": 493,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 2024,
+              "columnNumber": 36
+            },
+            "nodeId": 8
+          },
+          {
+            "countOrSampledBytes": 493,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1635,
+              "columnNumber": 32
+            },
+            "nodeId": 7
+          },
+          {
+            "countOrSampledBytes": 493,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1313,
+              "columnNumber": 23
+            },
+            "nodeId": 6
+          },
+          {
+            "countOrSampledBytes": 493,
+            "frame": {
+              "functionName": "wrapModuleLoad",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 243,
+              "columnNumber": 23
+            },
+            "nodeId": 5
+          },
+          {
+            "countOrSampledBytes": 493,
+            "frame": {
+              "functionName": "executeUserEntryPoint",
+              "scriptId": "82",
+              "url": "node:internal/modules/run_main",
+              "lineNumber": 139,
+              "columnNumber": 30
+            },
+            "nodeId": 4
+          },
+          {
+            "countOrSampledBytes": 493,
+            "frame": {
+              "functionName": "",
+              "scriptId": "87",
+              "url": "node:internal/main/run_main_module",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            "nodeId": 3
+          },
+          {
+            "countOrSampledBytes": 490,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1879,
+              "columnNumber": 36
+            },
+            "nodeId": 13
+          },
+          {
+            "countOrSampledBytes": 409,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            "nodeId": 15
+          },
+          {
+            "countOrSampledBytes": 408,
+            "frame": {
+              "functionName": "io_exit",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 21315,
+              "columnNumber": 16
+            },
+            "nodeId": 16
+          },
+          {
+            "countOrSampledBytes": 407,
+            "frame": {
+              "functionName": "io_run",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 21490,
+              "columnNumber": 15
+            },
+            "nodeId": 17
+          },
+          {
+            "countOrSampledBytes": 391,
+            "frame": {
+              "functionName": "f",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 129,
+              "columnNumber": 12
+            },
+            "nodeId": 18
+          },
+          {
+            "countOrSampledBytes": 389,
+            "frame": {
+              "functionName": "run_loop",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 135,
+              "columnNumber": 17
+            },
+            "nodeId": 19
+          },
+          {
+            "countOrSampledBytes": 379,
+            "frame": {
+              "functionName": "f",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 129,
+              "columnNumber": 12
+            },
+            "nodeId": 23
+          },
+          {
+            "countOrSampledBytes": 379,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 228,
+              "columnNumber": 32
+            },
+            "nodeId": 22
+          },
+          {
+            "countOrSampledBytes": 134,
+            "frame": {
+              "functionName": "$a_observed$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 371,
+              "columnNumber": 26
+            },
+            "nodeId": 25
+          },
+          {
+            "countOrSampledBytes": 134,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 281,
+              "columnNumber": 247
+            },
+            "nodeId": 24
+          },
+          {
+            "countOrSampledBytes": 133,
+            "frame": {
+              "functionName": "$a_seed_registered$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 486,
+              "columnNumber": 33
+            },
+            "nodeId": 27
+          },
+          {
+            "countOrSampledBytes": 103,
+            "frame": {
+              "functionName": "$b_observed$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 428,
+              "columnNumber": 26
+            },
+            "nodeId": 1098
+          },
+          {
+            "countOrSampledBytes": 103,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 321,
+              "columnNumber": 247
+            },
+            "nodeId": 1097
+          },
+          {
+            "countOrSampledBytes": 102,
+            "frame": {
+              "functionName": "$b_seed_registered$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 549,
+              "columnNumber": 33
+            },
+            "nodeId": 1102
+          },
+          {
+            "countOrSampledBytes": 81,
+            "frame": {
+              "functionName": "wrapSafe",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1818,
+              "columnNumber": 17
+            },
+            "nodeId": 14
+          },
+          {
+            "countOrSampledBytes": 71,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047system$058run_tracked$1266$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 659,
+              "columnNumber": 109
+            },
+            "nodeId": 28
+          },
+          {
+            "countOrSampledBytes": 70,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047system$058run_namespace_checked$12610$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 1511,
+              "columnNumber": 120
+            },
+            "nodeId": 32
+          },
+          {
+            "countOrSampledBytes": 70,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047system$058run_namespace_value$12610$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 1337,
+              "columnNumber": 118
+            },
+            "nodeId": 31
+          },
+          {
+            "countOrSampledBytes": 70,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047system$058run_namespace$12610$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 1147,
+              "columnNumber": 112
+            },
+            "nodeId": 30
+          },
+          {
+            "countOrSampledBytes": 70,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047system$058run$12610$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 1001,
+              "columnNumber": 102
+            },
+            "nodeId": 29
+          },
+          {
+            "countOrSampledBytes": 69,
+            "frame": {
+              "functionName": "$a_seed_runner$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 2222,
+              "columnNumber": 24
+            },
+            "nodeId": 41
+          },
+          {
+            "countOrSampledBytes": 69,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047system$058run_checked$12610$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 1977,
+              "columnNumber": 110
+            },
+            "nodeId": 40
+          },
+          {
+            "countOrSampledBytes": 69,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047system$058run_metadata$12610$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 1726,
+              "columnNumber": 111
+            },
+            "nodeId": 39
+          }
+        ]
+      },
+      "heap": {
+        "samples": 207,
+        "sampledBytes": 3544688,
+        "selfTop30": [
+          {
+            "countOrSampledBytes": 1537288,
+            "frame": {
+              "functionName": "readFileSync",
+              "scriptId": "48",
+              "url": "node:fs",
+              "lineNumber": 473,
+              "columnNumber": 21
+            },
+            "nodeId": 35
+          },
+          {
+            "countOrSampledBytes": 463608,
+            "frame": {
+              "functionName": "wrapSafe",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1818,
+              "columnNumber": 17
+            },
+            "nodeId": 37
+          },
+          {
+            "countOrSampledBytes": 243848,
+            "frame": {
+              "functionName": "exit",
+              "scriptId": "30",
+              "url": "node:internal/process/per_thread",
+              "lineNumber": 228,
+              "columnNumber": 15
+            },
+            "nodeId": 4457
+          },
+          {
+            "countOrSampledBytes": 99072,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            "nodeId": 38
+          },
+          {
+            "countOrSampledBytes": 32960,
+            "frame": {
+              "functionName": "run_loop",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 135,
+              "columnNumber": 17
+            },
+            "nodeId": 42
+          },
+          {
+            "countOrSampledBytes": 24880,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047combined$045other$058restored$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 2290,
+              "columnNumber": 98
+            },
+            "nodeId": 2893
+          },
+          {
+            "countOrSampledBytes": 24624,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047world$058create_checked$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 617,
+              "columnNumber": 111
+            },
+            "nodeId": 46
+          },
+          {
+            "countOrSampledBytes": 20560,
+            "frame": {
+              "functionName": "getCLIOptionsFromBinding",
+              "scriptId": "14",
+              "url": "node:internal/options",
+              "lineNumber": 31,
+              "columnNumber": 33
+            },
+            "nodeId": 15
+          },
+          {
+            "countOrSampledBytes": 16640,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047owned$045public$045result$045v1$047surface$045a$058declared$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 3838,
+              "columnNumber": 128
+            },
+            "nodeId": 269
+          },
+          {
+            "countOrSampledBytes": 16496,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047owned$045public$045result$045v1$047composition$058run$1262$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 9814,
+              "columnNumber": 127
+            },
+            "nodeId": 2628
+          },
+          {
+            "countOrSampledBytes": 16456,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047bundle$045install$058installed_head$1265$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 18548,
+              "columnNumber": 123
+            },
+            "nodeId": 2493
+          },
+          {
+            "countOrSampledBytes": 12416,
+            "frame": {
+              "functionName": "initializeReport",
+              "scriptId": "85",
+              "url": "node:internal/process/pre_execution",
+              "lineNumber": 446,
+              "columnNumber": 25
+            },
+            "nodeId": 16
+          },
+          {
+            "countOrSampledBytes": 9408,
+            "frame": {
+              "functionName": "",
+              "scriptId": "58",
+              "url": "node:internal/console/constructor",
+              "lineNumber": 212,
+              "columnNumber": 56
+            },
+            "nodeId": 12
+          },
+          {
+            "countOrSampledBytes": 9336,
+            "frame": {
+              "functionName": "(V8 API)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            "nodeId": 2
+          },
+          {
+            "countOrSampledBytes": 8640,
+            "frame": {
+              "functionName": "normalizeString",
+              "scriptId": "38",
+              "url": "node:path",
+              "lineNumber": 91,
+              "columnNumber": 24
+            },
+            "nodeId": 10
+          },
+          {
+            "countOrSampledBytes": 8640,
+            "frame": {
+              "functionName": "$String$order$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 6940,
+              "columnNumber": 23
+            },
+            "nodeId": 76
+          },
+          {
+            "countOrSampledBytes": 8448,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047bundle$045install$058installed_head$1265$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 18548,
+              "columnNumber": 123
+            },
+            "nodeId": 4155
+          },
+          {
+            "countOrSampledBytes": 8448,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058get_live_owned$1265$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 10389,
+              "columnNumber": 115
+            },
+            "nodeId": 2731
+          },
+          {
+            "countOrSampledBytes": 8448,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058get$1269$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 6957,
+              "columnNumber": 104
+            },
+            "nodeId": 2713
+          },
+          {
+            "countOrSampledBytes": 8448,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047world$058activate$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 11666,
+              "columnNumber": 105
+            },
+            "nodeId": 180
+          },
+          {
+            "countOrSampledBytes": 8448,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058swap_world$1261$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 16198,
+              "columnNumber": 111
+            },
+            "nodeId": 194
+          },
+          {
+            "countOrSampledBytes": 8424,
+            "frame": {
+              "functionName": "toRealPath",
+              "scriptId": "55",
+              "url": "node:internal/modules/helpers",
+              "lineNumber": 65,
+              "columnNumber": 19
+            },
+            "nodeId": 25
+          },
+          {
+            "countOrSampledBytes": 8400,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047world$058live_join$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 6393,
+              "columnNumber": 106
+            },
+            "nodeId": 229
+          },
+          {
+            "countOrSampledBytes": 8352,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047bundle$045component$045install$058replaced$1264$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 19074,
+              "columnNumber": 130
+            },
+            "nodeId": 2082
+          },
+          {
+            "countOrSampledBytes": 8352,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047commands$058enqueue_list$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 7241,
+              "columnNumber": 112
+            },
+            "nodeId": 176
+          },
+          {
+            "countOrSampledBytes": 8352,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047combined$045other$058project_array$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 11828,
+              "columnNumber": 103
+            },
+            "nodeId": 2845
+          },
+          {
+            "countOrSampledBytes": 8352,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047constructor$045control$058queue_valid$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 17284,
+              "columnNumber": 106
+            },
+            "nodeId": 2043
+          },
+          {
+            "countOrSampledBytes": 8320,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047bundle$045install$058install$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 18265,
+              "columnNumber": 116
+            },
+            "nodeId": 222
+          },
+          {
+            "countOrSampledBytes": 8320,
+            "frame": {
+              "functionName": "$U32$show$go$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 1411,
+              "columnNumber": 22
+            },
+            "nodeId": 415
+          },
+          {
+            "countOrSampledBytes": 8320,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047column$058mark$1263$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 8177,
+              "columnNumber": 102
+            },
+            "nodeId": 3392
+          }
+        ],
+        "inclusiveTop30": [
+          {
+            "countOrSampledBytes": 3544688,
+            "frame": {
+              "functionName": "(root)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            "nodeId": 1
+          },
+          {
+            "countOrSampledBytes": 3535352,
+            "frame": {
+              "functionName": "",
+              "scriptId": "87",
+              "url": "node:internal/main/run_main_module",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            "nodeId": 3
+          },
+          {
+            "countOrSampledBytes": 3476096,
+            "frame": {
+              "functionName": "executeUserEntryPoint",
+              "scriptId": "82",
+              "url": "node:internal/modules/run_main",
+              "lineNumber": 139,
+              "columnNumber": 30
+            },
+            "nodeId": 22
+          },
+          {
+            "countOrSampledBytes": 3467672,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1635,
+              "columnNumber": 32
+            },
+            "nodeId": 28
+          },
+          {
+            "countOrSampledBytes": 3467672,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1313,
+              "columnNumber": 23
+            },
+            "nodeId": 27
+          },
+          {
+            "countOrSampledBytes": 3467672,
+            "frame": {
+              "functionName": "wrapModuleLoad",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 243,
+              "columnNumber": 23
+            },
+            "nodeId": 26
+          },
+          {
+            "countOrSampledBytes": 3451248,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 2024,
+              "columnNumber": 36
+            },
+            "nodeId": 32
+          },
+          {
+            "countOrSampledBytes": 1913960,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1879,
+              "columnNumber": 36
+            },
+            "nodeId": 36
+          },
+          {
+            "countOrSampledBytes": 1537288,
+            "frame": {
+              "functionName": "readFileSync",
+              "scriptId": "48",
+              "url": "node:fs",
+              "lineNumber": 473,
+              "columnNumber": 21
+            },
+            "nodeId": 35
+          },
+          {
+            "countOrSampledBytes": 1537288,
+            "frame": {
+              "functionName": "defaultLoadImpl",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1232,
+              "columnNumber": 24
+            },
+            "nodeId": 34
+          },
+          {
+            "countOrSampledBytes": 1537288,
+            "frame": {
+              "functionName": "loadSource",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1943,
+              "columnNumber": 19
+            },
+            "nodeId": 33
+          },
+          {
+            "countOrSampledBytes": 1450352,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            "nodeId": 38
+          },
+          {
+            "countOrSampledBytes": 1351280,
+            "frame": {
+              "functionName": "io_exit",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 21315,
+              "columnNumber": 16
+            },
+            "nodeId": 39
+          },
+          {
+            "countOrSampledBytes": 1099216,
+            "frame": {
+              "functionName": "run_loop",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 135,
+              "columnNumber": 17
+            },
+            "nodeId": 42
+          },
+          {
+            "countOrSampledBytes": 1099216,
+            "frame": {
+              "functionName": "f",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 129,
+              "columnNumber": 12
+            },
+            "nodeId": 41
+          },
+          {
+            "countOrSampledBytes": 1099216,
+            "frame": {
+              "functionName": "io_run",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 21490,
+              "columnNumber": 15
+            },
+            "nodeId": 40
+          },
+          {
+            "countOrSampledBytes": 1033360,
+            "frame": {
+              "functionName": "f",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 129,
+              "columnNumber": 12
+            },
+            "nodeId": 48
+          },
+          {
+            "countOrSampledBytes": 1033360,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 228,
+              "columnNumber": 32
+            },
+            "nodeId": 47
+          },
+          {
+            "countOrSampledBytes": 463608,
+            "frame": {
+              "functionName": "wrapSafe",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1818,
+              "columnNumber": 17
+            },
+            "nodeId": 37
+          },
+          {
+            "countOrSampledBytes": 429816,
+            "frame": {
+              "functionName": "$a_seed_registered$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 486,
+              "columnNumber": 33
+            },
+            "nodeId": 51
+          },
+          {
+            "countOrSampledBytes": 429816,
+            "frame": {
+              "functionName": "$a_observed$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 371,
+              "columnNumber": 26
+            },
+            "nodeId": 50
+          },
+          {
+            "countOrSampledBytes": 429816,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 281,
+              "columnNumber": 247
+            },
+            "nodeId": 49
+          },
+          {
+            "countOrSampledBytes": 322512,
+            "frame": {
+              "functionName": "$b_seed_registered$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 549,
+              "columnNumber": 33
+            },
+            "nodeId": 2369
+          },
+          {
+            "countOrSampledBytes": 322512,
+            "frame": {
+              "functionName": "$b_observed$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 428,
+              "columnNumber": 26
+            },
+            "nodeId": 2368
+          },
+          {
+            "countOrSampledBytes": 322512,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 321,
+              "columnNumber": 247
+            },
+            "nodeId": 2367
+          },
+          {
+            "countOrSampledBytes": 243848,
+            "frame": {
+              "functionName": "exit",
+              "scriptId": "30",
+              "url": "node:internal/process/per_thread",
+              "lineNumber": 228,
+              "columnNumber": 15
+            },
+            "nodeId": 4457
+          },
+          {
+            "countOrSampledBytes": 222728,
+            "frame": {
+              "functionName": "$$$$047registered$045lifecycle$045v1$047lifecycle$045a$058registered$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 1105,
+              "columnNumber": 78
+            },
+            "nodeId": 234
+          },
+          {
+            "countOrSampledBytes": 222728,
+            "frame": {
+              "functionName": "$$$$047registered$045lifecycle$045v1$047lifecycle$045a$058run$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 984,
+              "columnNumber": 71
+            },
+            "nodeId": 233
+          },
+          {
+            "countOrSampledBytes": 222728,
+            "frame": {
+              "functionName": "$a_seed_ran$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 633,
+              "columnNumber": 26
+            },
+            "nodeId": 232
+          },
+          {
+            "countOrSampledBytes": 215144,
+            "frame": {
+              "functionName": "$b_seed_ran$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/js-semantic02/scenario.js",
+              "lineNumber": 808,
+              "columnNumber": 26
+            },
+            "nodeId": 2494
+          }
+        ]
+      },
+      "conclusion": "The short single process contains substantial Node startup samples. Generated evaluator/ECS/observation frames coexist; sample counts alone cannot isolate serialization versus ECS or explain the paired elapsed ratio. No optimization or workload subtraction is selected."
+    },
+    "after": {
+      "scope": "Whole Node process only; unweighted CPU sample counts and sampled heap bytes, not measured IO-region CPU, total allocation, RSS, causal attribution or speedup",
+      "cpu": {
+        "samples": 595,
+        "generatedArtifactLeafSamples": 442,
+        "otherLeafSamples": 153,
+        "selfTop30": [
+          {
+            "countOrSampledBytes": 97,
+            "frame": {
+              "functionName": "wrapSafe",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1818,
+              "columnNumber": 17
+            },
+            "nodeId": 46
+          },
+          {
+            "countOrSampledBytes": 14,
+            "frame": {
+              "functionName": "readFileUtf8",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            "nodeId": 44
+          },
+          {
+            "countOrSampledBytes": 14,
+            "frame": {
+              "functionName": "io_feature_capture",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 172,
+              "columnNumber": 27
+            },
+            "nodeId": 560
+          },
+          {
+            "countOrSampledBytes": 9,
+            "frame": {
+              "functionName": "io_run",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 21067,
+              "columnNumber": 15
+            },
+            "nodeId": 49
+          },
+          {
+            "countOrSampledBytes": 8,
+            "frame": {
+              "functionName": "(garbage collector)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            "nodeId": 613
+          },
+          {
+            "countOrSampledBytes": 7,
+            "frame": {
+              "functionName": "run_clo",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 128,
+              "columnNumber": 16
+            },
+            "nodeId": 726
+          },
+          {
+            "countOrSampledBytes": 5,
+            "frame": {
+              "functionName": "run_loop",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 135,
+              "columnNumber": 17
+            },
+            "nodeId": 51
+          },
+          {
+            "countOrSampledBytes": 4,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047world$058barrier$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 1216,
+              "columnNumber": 104
+            },
+            "nodeId": 142
+          },
+          {
+            "countOrSampledBytes": 4,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047owned$045public$045result$045v1$047schema$045b$058first$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 2592,
+              "columnNumber": 124
+            },
+            "nodeId": 1246
+          },
+          {
+            "countOrSampledBytes": 3,
+            "frame": {
+              "functionName": "(program)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            "nodeId": 2
+          },
+          {
+            "countOrSampledBytes": 3,
+            "frame": {
+              "functionName": "getNearestParentPackageJSONType",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            "nodeId": 31
+          },
+          {
+            "countOrSampledBytes": 3,
+            "frame": {
+              "functionName": "readFileSync",
+              "scriptId": "48",
+              "url": "node:fs",
+              "lineNumber": 473,
+              "columnNumber": 21
+            },
+            "nodeId": 43
+          },
+          {
+            "countOrSampledBytes": 3,
+            "frame": {
+              "functionName": "io_exit",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 20892,
+              "columnNumber": 16
+            },
+            "nodeId": 48
+          },
+          {
+            "countOrSampledBytes": 3,
+            "frame": {
+              "functionName": "$lifecycle$045a$058a_seen$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 6246,
+              "columnNumber": 35
+            },
+            "nodeId": 378
+          },
+          {
+            "countOrSampledBytes": 3,
+            "frame": {
+              "functionName": "encode",
+              "scriptId": "50",
+              "url": "node:internal/encoding",
+              "lineNumber": 354,
+              "columnNumber": 8
+            },
+            "nodeId": 562
+          },
+          {
+            "countOrSampledBytes": 3,
+            "frame": {
+              "functionName": "f",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 129,
+              "columnNumber": 12
+            },
+            "nodeId": 688
+          },
+          {
+            "countOrSampledBytes": 3,
+            "frame": {
+              "functionName": "$lifecycle$045a$058after$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 1210,
+              "columnNumber": 34
+            },
+            "nodeId": 501
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "normalizeString",
+              "scriptId": "38",
+              "url": "node:path",
+              "lineNumber": 91,
+              "columnNumber": 24
+            },
+            "nodeId": 8
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "getCLIOptionsFromBinding",
+              "scriptId": "14",
+              "url": "node:internal/options",
+              "lineNumber": 31,
+              "columnNumber": 33
+            },
+            "nodeId": 11
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "resolve",
+              "scriptId": "38",
+              "url": "node:path",
+              "lineNumber": 1244,
+              "columnNumber": 9
+            },
+            "nodeId": 24
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "resolve",
+              "scriptId": "38",
+              "url": "node:path",
+              "lineNumber": 1244,
+              "columnNumber": 9
+            },
+            "nodeId": 28
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 947,
+              "columnNumber": 36
+            },
+            "nodeId": 39
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$String$cmp$fin$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 7621,
+              "columnNumber": 25
+            },
+            "nodeId": 99
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047schema$045fragments$058requirements$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 4920,
+              "columnNumber": 123
+            },
+            "nodeId": 101
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047world$058enqueue$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 3910,
+              "columnNumber": 104
+            },
+            "nodeId": 140
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047bundle$045component$045install$058install$1261$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 11873,
+              "columnNumber": 129
+            },
+            "nodeId": 151
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047column$058mark$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 7463,
+              "columnNumber": 102
+            },
+            "nodeId": 171
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058lifecycle_join$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 17398,
+              "columnNumber": 115
+            },
+            "nodeId": 181
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047bundle$045component$045install$058stamped$1260$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 14642,
+              "columnNumber": 129
+            },
+            "nodeId": 182
+          },
+          {
+            "countOrSampledBytes": 2,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058lifecycle_world$1262$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 17633,
+              "columnNumber": 116
+            },
+            "nodeId": 197
+          }
+        ],
+        "inclusiveTop30": [
+          {
+            "countOrSampledBytes": 595,
+            "frame": {
+              "functionName": "(root)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            "nodeId": 1
+          },
+          {
+            "countOrSampledBytes": 584,
+            "frame": {
+              "functionName": "",
+              "scriptId": "87",
+              "url": "node:internal/main/run_main_module",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            "nodeId": 3
+          },
+          {
+            "countOrSampledBytes": 576,
+            "frame": {
+              "functionName": "executeUserEntryPoint",
+              "scriptId": "82",
+              "url": "node:internal/modules/run_main",
+              "lineNumber": 139,
+              "columnNumber": 30
+            },
+            "nodeId": 17
+          },
+          {
+            "countOrSampledBytes": 565,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1313,
+              "columnNumber": 23
+            },
+            "nodeId": 33
+          },
+          {
+            "countOrSampledBytes": 565,
+            "frame": {
+              "functionName": "wrapModuleLoad",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 243,
+              "columnNumber": 23
+            },
+            "nodeId": 32
+          },
+          {
+            "countOrSampledBytes": 564,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1635,
+              "columnNumber": 32
+            },
+            "nodeId": 38
+          },
+          {
+            "countOrSampledBytes": 562,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 2024,
+              "columnNumber": 36
+            },
+            "nodeId": 40
+          },
+          {
+            "countOrSampledBytes": 545,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1879,
+              "columnNumber": 36
+            },
+            "nodeId": 45
+          },
+          {
+            "countOrSampledBytes": 447,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            "nodeId": 47
+          },
+          {
+            "countOrSampledBytes": 446,
+            "frame": {
+              "functionName": "io_exit",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 20892,
+              "columnNumber": 16
+            },
+            "nodeId": 48
+          },
+          {
+            "countOrSampledBytes": 442,
+            "frame": {
+              "functionName": "io_run",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 21067,
+              "columnNumber": 15
+            },
+            "nodeId": 49
+          },
+          {
+            "countOrSampledBytes": 414,
+            "frame": {
+              "functionName": "f",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 129,
+              "columnNumber": 12
+            },
+            "nodeId": 50
+          },
+          {
+            "countOrSampledBytes": 411,
+            "frame": {
+              "functionName": "run_loop",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 135,
+              "columnNumber": 17
+            },
+            "nodeId": 51
+          },
+          {
+            "countOrSampledBytes": 396,
+            "frame": {
+              "functionName": "f",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 129,
+              "columnNumber": 12
+            },
+            "nodeId": 60
+          },
+          {
+            "countOrSampledBytes": 396,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 228,
+              "columnNumber": 32
+            },
+            "nodeId": 59
+          },
+          {
+            "countOrSampledBytes": 243,
+            "frame": {
+              "functionName": "$a_observed$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 307,
+              "columnNumber": 21
+            },
+            "nodeId": 62
+          },
+          {
+            "countOrSampledBytes": 243,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 281,
+              "columnNumber": 247
+            },
+            "nodeId": 61
+          },
+          {
+            "countOrSampledBytes": 241,
+            "frame": {
+              "functionName": "$a_seed_registered$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 350,
+              "columnNumber": 28
+            },
+            "nodeId": 64
+          },
+          {
+            "countOrSampledBytes": 153,
+            "frame": {
+              "functionName": "$b_observed$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 328,
+              "columnNumber": 21
+            },
+            "nodeId": 810
+          },
+          {
+            "countOrSampledBytes": 153,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 289,
+              "columnNumber": 247
+            },
+            "nodeId": 809
+          },
+          {
+            "countOrSampledBytes": 150,
+            "frame": {
+              "functionName": "$lifecycle$045a$058run$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 557,
+              "columnNumber": 32
+            },
+            "nodeId": 221
+          },
+          {
+            "countOrSampledBytes": 150,
+            "frame": {
+              "functionName": "$a_seed_ran$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 417,
+              "columnNumber": 21
+            },
+            "nodeId": 220
+          },
+          {
+            "countOrSampledBytes": 148,
+            "frame": {
+              "functionName": "$b_seed_registered$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 373,
+              "columnNumber": 28
+            },
+            "nodeId": 811
+          },
+          {
+            "countOrSampledBytes": 147,
+            "frame": {
+              "functionName": "$lifecycle$045a$058registered$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 678,
+              "columnNumber": 39
+            },
+            "nodeId": 222
+          },
+          {
+            "countOrSampledBytes": 102,
+            "frame": {
+              "functionName": "$b_seed_ran$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 483,
+              "columnNumber": 21
+            },
+            "nodeId": 941
+          },
+          {
+            "countOrSampledBytes": 101,
+            "frame": {
+              "functionName": "$lifecycle$045b$058run$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 605,
+              "columnNumber": 32
+            },
+            "nodeId": 942
+          },
+          {
+            "countOrSampledBytes": 99,
+            "frame": {
+              "functionName": "$lifecycle$045b$058registered$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 768,
+              "columnNumber": 39
+            },
+            "nodeId": 943
+          },
+          {
+            "countOrSampledBytes": 97,
+            "frame": {
+              "functionName": "wrapSafe",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1818,
+              "columnNumber": 17
+            },
+            "nodeId": 46
+          },
+          {
+            "countOrSampledBytes": 91,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047system$058run$12610$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 574,
+              "columnNumber": 102
+            },
+            "nodeId": 66
+          },
+          {
+            "countOrSampledBytes": 91,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047system$058run_tracked$1266$",
+              "scriptId": "88",
+              "url": "file:///workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 438,
+              "columnNumber": 109
+            },
+            "nodeId": 65
+          }
+        ]
+      },
+      "heap": {
+        "samples": 254,
+        "sampledBytes": 3900624,
+        "selfTop30": [
+          {
+            "countOrSampledBytes": 1508080,
+            "frame": {
+              "functionName": "readFileSync",
+              "scriptId": "48",
+              "url": "node:fs",
+              "lineNumber": 473,
+              "columnNumber": 21
+            },
+            "nodeId": 42
+          },
+          {
+            "countOrSampledBytes": 599064,
+            "frame": {
+              "functionName": "wrapSafe",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1818,
+              "columnNumber": 17
+            },
+            "nodeId": 44
+          },
+          {
+            "countOrSampledBytes": 221888,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            "nodeId": 45
+          },
+          {
+            "countOrSampledBytes": 218160,
+            "frame": {
+              "functionName": "exit",
+              "scriptId": "30",
+              "url": "node:internal/process/per_thread",
+              "lineNumber": 228,
+              "columnNumber": 15
+            },
+            "nodeId": 2913
+          },
+          {
+            "countOrSampledBytes": 24672,
+            "frame": {
+              "functionName": "io_run",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 21067,
+              "columnNumber": 15
+            },
+            "nodeId": 47
+          },
+          {
+            "countOrSampledBytes": 24632,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058get_projected$1261$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 10255,
+              "columnNumber": 114
+            },
+            "nodeId": 495
+          },
+          {
+            "countOrSampledBytes": 17656,
+            "frame": {
+              "functionName": "",
+              "scriptId": "87",
+              "url": "node:internal/main/run_main_module",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            "nodeId": 3
+          },
+          {
+            "countOrSampledBytes": 16720,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058get$1269$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 6534,
+              "columnNumber": 104
+            },
+            "nodeId": 1862
+          },
+          {
+            "countOrSampledBytes": 16704,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058get_live_owned$1261$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 8791,
+              "columnNumber": 115
+            },
+            "nodeId": 492
+          },
+          {
+            "countOrSampledBytes": 16704,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047fallible$045spawn$058spawn$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 9165,
+              "columnNumber": 100
+            },
+            "nodeId": 166
+          },
+          {
+            "countOrSampledBytes": 16544,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047world$058activate$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 11243,
+              "columnNumber": 105
+            },
+            "nodeId": 176
+          },
+          {
+            "countOrSampledBytes": 16528,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047schema$045fragments$058bind_declared$1267$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 4182,
+              "columnNumber": 124
+            },
+            "nodeId": 1625
+          },
+          {
+            "countOrSampledBytes": 16512,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047owned$045public$045result$045v1$047schema$045b$058raw_1$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 11617,
+              "columnNumber": 124
+            },
+            "nodeId": 2258
+          },
+          {
+            "countOrSampledBytes": 16480,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047combined$045other$058restored$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 1867,
+              "columnNumber": 98
+            },
+            "nodeId": 2073
+          },
+          {
+            "countOrSampledBytes": 16472,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047column$058plain_view_sized$1264$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 11315,
+              "columnNumber": 114
+            },
+            "nodeId": 1877
+          },
+          {
+            "countOrSampledBytes": 16464,
+            "frame": {
+              "functionName": "$List$show$1267$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 4022,
+              "columnNumber": 25
+            },
+            "nodeId": 2083
+          },
+          {
+            "countOrSampledBytes": 16448,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058get_live_owned$1265$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 9966,
+              "columnNumber": 115
+            },
+            "nodeId": 1880
+          },
+          {
+            "countOrSampledBytes": 16448,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058restore_stamp$1263$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 19129,
+              "columnNumber": 114
+            },
+            "nodeId": 664
+          },
+          {
+            "countOrSampledBytes": 12352,
+            "frame": {
+              "functionName": "getCLIOptionsFromBinding",
+              "scriptId": "14",
+              "url": "node:internal/options",
+              "lineNumber": 31,
+              "columnNumber": 33
+            },
+            "nodeId": 11
+          },
+          {
+            "countOrSampledBytes": 8800,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047combined$045other$058populate$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 9342,
+              "columnNumber": 98
+            },
+            "nodeId": 1670
+          },
+          {
+            "countOrSampledBytes": 8704,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047world$058clock$1261$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 958,
+              "columnNumber": 102
+            },
+            "nodeId": 1904
+          },
+          {
+            "countOrSampledBytes": 8704,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047world$058namespace$1260$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 448,
+              "columnNumber": 106
+            },
+            "nodeId": 589
+          },
+          {
+            "countOrSampledBytes": 8640,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047world$058set_live_checked$1261$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 12765,
+              "columnNumber": 113
+            },
+            "nodeId": 2894
+          },
+          {
+            "countOrSampledBytes": 8536,
+            "frame": {
+              "functionName": "io_exit",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 20892,
+              "columnNumber": 16
+            },
+            "nodeId": 46
+          },
+          {
+            "countOrSampledBytes": 8464,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058get_live_owned$1264$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 6800,
+              "columnNumber": 115
+            },
+            "nodeId": 1123
+          },
+          {
+            "countOrSampledBytes": 8448,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047bundle$045install$058installed_head$1263$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 13083,
+              "columnNumber": 123
+            },
+            "nodeId": 219
+          },
+          {
+            "countOrSampledBytes": 8448,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058swap_world$1269$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 19518,
+              "columnNumber": 111
+            },
+            "nodeId": 1722
+          },
+          {
+            "countOrSampledBytes": 8448,
+            "frame": {
+              "functionName": "$$$$047source$045v1$047experiments$047public$045bundles$047owned$045public$045result$045v1$047surface$045a$058finished$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 4342,
+              "columnNumber": 128
+            },
+            "nodeId": 1118
+          },
+          {
+            "countOrSampledBytes": 8448,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047commands$058spawn_join$1261$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 15843,
+              "columnNumber": 110
+            },
+            "nodeId": 411
+          },
+          {
+            "countOrSampledBytes": 8432,
+            "frame": {
+              "functionName": "$$$$047$$$047$$$047$$$047$$$047$$$047$$$047$$$047bendvy$047src$047ecs$047component$058get$1265$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 9234,
+              "columnNumber": 104
+            },
+            "nodeId": 1879
+          }
+        ],
+        "inclusiveTop30": [
+          {
+            "countOrSampledBytes": 3900624,
+            "frame": {
+              "functionName": "",
+              "scriptId": "87",
+              "url": "node:internal/main/run_main_module",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            "nodeId": 3
+          },
+          {
+            "countOrSampledBytes": 3900624,
+            "frame": {
+              "functionName": "(root)",
+              "scriptId": "0",
+              "url": "",
+              "lineNumber": -1,
+              "columnNumber": -1
+            },
+            "nodeId": 1
+          },
+          {
+            "countOrSampledBytes": 3845928,
+            "frame": {
+              "functionName": "executeUserEntryPoint",
+              "scriptId": "82",
+              "url": "node:internal/modules/run_main",
+              "lineNumber": 139,
+              "columnNumber": 30
+            },
+            "nodeId": 24
+          },
+          {
+            "countOrSampledBytes": 3829440,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1313,
+              "columnNumber": 23
+            },
+            "nodeId": 35
+          },
+          {
+            "countOrSampledBytes": 3829440,
+            "frame": {
+              "functionName": "wrapModuleLoad",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 243,
+              "columnNumber": 23
+            },
+            "nodeId": 34
+          },
+          {
+            "countOrSampledBytes": 3821152,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1635,
+              "columnNumber": 32
+            },
+            "nodeId": 36
+          },
+          {
+            "countOrSampledBytes": 3812928,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 2024,
+              "columnNumber": 36
+            },
+            "nodeId": 39
+          },
+          {
+            "countOrSampledBytes": 2304848,
+            "frame": {
+              "functionName": "",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1879,
+              "columnNumber": 36
+            },
+            "nodeId": 43
+          },
+          {
+            "countOrSampledBytes": 1697576,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 0,
+              "columnNumber": 0
+            },
+            "nodeId": 45
+          },
+          {
+            "countOrSampledBytes": 1508080,
+            "frame": {
+              "functionName": "readFileSync",
+              "scriptId": "48",
+              "url": "node:fs",
+              "lineNumber": 473,
+              "columnNumber": 21
+            },
+            "nodeId": 42
+          },
+          {
+            "countOrSampledBytes": 1508080,
+            "frame": {
+              "functionName": "defaultLoadImpl",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1232,
+              "columnNumber": 24
+            },
+            "nodeId": 41
+          },
+          {
+            "countOrSampledBytes": 1508080,
+            "frame": {
+              "functionName": "loadSource",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1943,
+              "columnNumber": 19
+            },
+            "nodeId": 40
+          },
+          {
+            "countOrSampledBytes": 1475688,
+            "frame": {
+              "functionName": "io_exit",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 20892,
+              "columnNumber": 16
+            },
+            "nodeId": 46
+          },
+          {
+            "countOrSampledBytes": 1248992,
+            "frame": {
+              "functionName": "io_run",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 21067,
+              "columnNumber": 15
+            },
+            "nodeId": 47
+          },
+          {
+            "countOrSampledBytes": 1224320,
+            "frame": {
+              "functionName": "f",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 129,
+              "columnNumber": 12
+            },
+            "nodeId": 48
+          },
+          {
+            "countOrSampledBytes": 1216080,
+            "frame": {
+              "functionName": "run_loop",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 135,
+              "columnNumber": 17
+            },
+            "nodeId": 49
+          },
+          {
+            "countOrSampledBytes": 1199568,
+            "frame": {
+              "functionName": "f",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 129,
+              "columnNumber": 12
+            },
+            "nodeId": 57
+          },
+          {
+            "countOrSampledBytes": 1199568,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 228,
+              "columnNumber": 32
+            },
+            "nodeId": 56
+          },
+          {
+            "countOrSampledBytes": 694208,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 281,
+              "columnNumber": 247
+            },
+            "nodeId": 58
+          },
+          {
+            "countOrSampledBytes": 685984,
+            "frame": {
+              "functionName": "$a_seed_registered$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 350,
+              "columnNumber": 28
+            },
+            "nodeId": 60
+          },
+          {
+            "countOrSampledBytes": 685984,
+            "frame": {
+              "functionName": "$a_observed$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 307,
+              "columnNumber": 21
+            },
+            "nodeId": 59
+          },
+          {
+            "countOrSampledBytes": 599064,
+            "frame": {
+              "functionName": "wrapSafe",
+              "scriptId": "68",
+              "url": "node:internal/modules/cjs/loader",
+              "lineNumber": 1818,
+              "columnNumber": 17
+            },
+            "nodeId": 44
+          },
+          {
+            "countOrSampledBytes": 505360,
+            "frame": {
+              "functionName": "$b_seed_registered$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 373,
+              "columnNumber": 28
+            },
+            "nodeId": 1599
+          },
+          {
+            "countOrSampledBytes": 505360,
+            "frame": {
+              "functionName": "$b_observed$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 328,
+              "columnNumber": 21
+            },
+            "nodeId": 1598
+          },
+          {
+            "countOrSampledBytes": 505360,
+            "frame": {
+              "functionName": "",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 289,
+              "columnNumber": 247
+            },
+            "nodeId": 1597
+          },
+          {
+            "countOrSampledBytes": 405464,
+            "frame": {
+              "functionName": "$a_seed_ran$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 417,
+              "columnNumber": 21
+            },
+            "nodeId": 257
+          },
+          {
+            "countOrSampledBytes": 397144,
+            "frame": {
+              "functionName": "$lifecycle$045a$058run$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 557,
+              "columnNumber": 32
+            },
+            "nodeId": 258
+          },
+          {
+            "countOrSampledBytes": 388936,
+            "frame": {
+              "functionName": "$lifecycle$045a$058registered$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 678,
+              "columnNumber": 39
+            },
+            "nodeId": 262
+          },
+          {
+            "countOrSampledBytes": 298256,
+            "frame": {
+              "functionName": "$b_seed_ran$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 483,
+              "columnNumber": 21
+            },
+            "nodeId": 1723
+          },
+          {
+            "countOrSampledBytes": 290016,
+            "frame": {
+              "functionName": "$lifecycle$045b$058registered$",
+              "scriptId": "88",
+              "url": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/js-semantic01/scenario.js",
+              "lineNumber": 768,
+              "columnNumber": 39
+            },
+            "nodeId": 1727
+          }
+        ]
+      },
+      "conclusion": "The short single process contains substantial Node startup samples. Generated evaluator/ECS/observation frames coexist; sample counts alone cannot isolate serialization versus ECS or explain the paired elapsed ratio. No optimization or workload subtraction is selected."
+    }
+  }
+}
