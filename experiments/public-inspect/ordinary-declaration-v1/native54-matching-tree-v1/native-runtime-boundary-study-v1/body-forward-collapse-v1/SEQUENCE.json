@@ -1,0 +1,27 @@
+{
+  "collector": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+  "cases": [
+    {
+      "role": "source",
+      "path": "/tmp/bendvy54-body-forward-collapse-source01/plan.json",
+      "sha256": "62ee922aceb53a1c807d9d0ca4ee12139ca591525c9d5effd141683e6f568aaf",
+      "pins": 120,
+      "sources": 47
+    },
+    {
+      "role": "js",
+      "path": "/tmp/bendvy54-body-forward-collapse-js01/plan.json",
+      "sha256": "49070576bf1f31c396a04f67de304f3db30d1babf60b2f674b41312879625e0d",
+      "pins": 162,
+      "sources": 47
+    },
+    {
+      "role": "native",
+      "path": "/tmp/bendvy54-body-forward-collapse-native01/plan.json",
+      "sha256": "cd4eb09a838afffe4043e217c624158ec4efa7e5cfaf3826f7306cb11b18e935",
+      "pins": 174,
+      "sources": 47
+    }
+  ],
+  "condition": "SourcePASS then source-only independent oracle sanity then fullJS and conditionalNative; internal shared lock, failstop/noretry"
+}

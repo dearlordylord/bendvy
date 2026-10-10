@@ -1,0 +1,43 @@
+from pathlib import Path
+import json,hashlib,re,gzip
+wt=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1');base=wt/'experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-runtime-boundary-study-v1';parent=base/'scan-projector-v1';p=base/'body-forward-collapse-v1';p.mkdir();sha=lambda b:hashlib.sha256(b).hexdigest()
+for f in (parent/'stage').rglob('*.bend'):
+ o=p/'stage'/f.relative_to(parent/'stage');o.parent.mkdir(parents=True,exist_ok=True);o.write_bytes(f.read_bytes())
+body=(parent/'stage/full-consumer.bend').read_text().split('def body(')[1].split('\n',1)[1].strip()
+for name in ['after_each','after_gets','after_single','final','fetch_all']:body=re.sub(r'\b'+name+r'\(', 'Consumer.'+name+'(',body)
+body=body.replace('Consumer.query_field','Caps.query_field')
+f=p/'stage/execution.bend';s=f.read_text();patches=[]
+for m in list(re.finditer(r'Consumer\.body\(~H,~S,~(D\.Value\w+),~caps,targets,owner\)',s)):
+ old=m.group();new=body.replace('~V','~'+m.group(1));assert old not in [a['old'] for a in patches];patches.append({'old':old,'new':new});s=s.replace(old,new)
+assert len(patches)==14;f.write_text(s)
+inv=s
+for a in reversed(patches):assert inv.count(a['new'])==1;inv=inv.replace(a['new'],a['old'])
+assert inv==(parent/'stage/execution.bend').read_text()
+joins=[]
+for f in sorted((parent/'stage').rglob('*.bend')):
+ o=p/'stage'/f.relative_to(parent/'stage');joins.append({'relative':str(f.relative_to(parent)),'parentSHA256':sha(f.read_bytes()),'candidateSHA256':sha(o.read_bytes()),'equal':f.read_bytes()==o.read_bytes()})
+assert len(joins)==47
+(p/'DELTA.json').write_text(json.dumps({'parent':str(parent),'parentSourceCommit':'86d5a0d18','patches':patches,'inverseExact':True,'joins':joins},indent=2)+'\n')
+(p/'README.md').write_text('''# Body forwarding boundary collapse
+
+One source-local change in execution.bend: expand the exact full-consumer.body expression at all14 query-body callsites, qualifying its existing helpers. Keep full-consumer.body and every compatibility definition, complete47 modules, matching/lookup/grants/affine H/formatters/output operations unchanged. The same runtime continuations and query order each→get→single→singleOptional are retained; no callback moved from erased to runtime, reused callback loop, schema/value or authority change. The literal inverse returns all47 parent sources byte-exact. Defining modules and formatter/constructor QNames are unchanged, so whole5077477 oracle810259 remains applicable subject independent source sanity.
+
+Measured765bcc/c2ddb keys identify query-body targets slots and initialized args slots. This candidate removes only the intervening Consumer.body runtime argument boundary. Compiler emit_fuse4621 still calls emit_args before recursively emitting its body: ordinary inlining therefore does not itself bypass that argument ownership analysis. Source substitution removes that particular call even if it would otherwise fuse. No proof of reduced pass count, cost, or stock Native completion follows. Earlier callback-forwarding24434 changed four pair matcher/projector signatures from erased selections to runtime functions and failed source5; this candidate changes none of those types or callback representations.
+
+Existing stock tools/source5 then completeJS30/runtime5 then conditionalNative30/build120/runtime5. No compiler/cap/core/runner/dependency/contract change. No run yet; source-current reader/authority controls remain unexecuted, previous failures retained.
+''')
+plans=[]
+for name,role in [('source-plan.json','source'),('normal-js-plan.json','js'),('normal-native-plan.json','native')]:
+ j=json.loads((parent/name).read_text());oldtemp=str(Path(j['generated']).parent);tmp=Path('/tmp/bendvy54-body-forward-collapse-'+role+'01');tmp.mkdir()
+ def move(v):
+  if isinstance(v,str):return v.replace(str(parent),str(p)).replace(oldtemp,str(tmp))
+  if isinstance(v,list):return [move(x) for x in v]
+  if isinstance(v,dict):return {move(k):move(x) for k,x in v.items()}
+  return v
+ j=move(j);j['scope']='Full47 body forwarding boundary collapse, complete unchanged oracle, stock compiler; no cause/performance claim'
+ for field in ['sourceInventory','pins']:
+  for path in j[field]:j[field][path]=sha(Path(path).read_bytes())
+ for field in ['generated','native']:
+  if j.get(field):assert not Path(j[field]).exists()
+ raw=(json.dumps(j,indent=2)+'\n').encode();(tmp/'plan.json').write_bytes(raw);(p/name).write_bytes(raw);plans.append({'role':role,'path':str(tmp/'plan.json'),'sha256':sha(raw),'pins':len(j['pins']),'sources':len(j['sourceInventory'])})
+(p/'SEQUENCE.json').write_text(json.dumps({'collector':'/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py','cases':plans,'condition':'SourcePASS then source-only independent oracle sanity then fullJS and conditionalNative; internal shared lock, failstop/noretry'},indent=2)+'\n');(p/'prepare.py.source').write_bytes(Path(__file__).read_bytes());print(json.dumps(plans))
