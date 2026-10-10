@@ -218,3 +218,39 @@ with #61 and full numeric product qualification with #21/#23/#24. #38 identity,
 accepts none. No archived TS-only requirement, new contract, new runtime run or
 full parity/audit closure is introduced. Current task coordination remains in
 [the existing table](README.md#current-delivery-coordination).
+
+## Current capability audit checkpoint — master `bef4f31c7`
+
+Preparation only; the earlier overlays remain historical evidence. Scope still
+follows Rust Bevy capabilities, Bend ownership/runtime, then TS scenarios.
+Master has the ordinary whole-resource provider; the three #70 field modules
+are staged candidates, not public adoption. Private automatic App frontends and
+schedule projections likewise do not become public capabilities through a
+successful development consumer. #61 remains open.
+
+| Accepted capability / owner | Implementation → actual evidence | Specific remaining gate |
+| --- | --- | --- |
+| Read-only component selection and independent observation visibility — #54 | Adopted ordinary bindings/Inspector query modules retain leaf JS/Native, full23 JS and source-authority evidence. The generic Check-wrapper complete47 successor passes stock source5; its first normal JS emission stops at30 seconds before an artifact/runtime. | Complete composed stock Native and the full47 backend remedy; held-view ownership remains an existing unresolved boundary. Resources/streams and dependent #55 categories need their own complete observations. |
+| Resource-only systems execute once per invocation, including empty Worlds — #56 | Master `ordinary-resource-system.bend` is adopted. Public one-resource normal/rollback-mutant JS/Native outputs match independent2294-byte models with source controls. | This provider replaces all of physical `R`; it does not establish selected-field confinement or automatic public App observation. |
+| Distinct ordinary resources generate confined affine field grants — #70 | Candidate `resource-field-binding`, `resource-field`, `ordinary-resource-field-system` retain four writer/read cases, five authority refusals and reached wrong-field/incomplete-inverse controls. [Core actual archive](../../experiments/public-resource-fields/core-adoption-v1/runtime-v2/actual-attempt01/ACTUAL.json) records seeded A3018/B3493/provision2771 bytes on JS and Native, original31428; two component cells, nested siblings, registration/cursor, events91/92, pending callback and final barrier are included. Original failed fixture remains preserved. | Unchanged #28 is held for CPU contention; no performance child started. Source/evidence integration and public promotion remain. Automatic field-resource observation must use these grants, rather than treating whole-aggregate descriptions as field authority. |
+| Ordinary declarations generate debug; user enables it without metadata adapters — #56 | Private opaque-Registry producer `0cd5f1d6d` passes normal/control stock source5. [Independent packet](https://github.com/dearlordylord/bendvy/blob/a9fdcdcf90f4f18394e17d034b4ba90e5bb2152e/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/ordinary-mixed-app-opaque-oracle-v1/README.md) `a9fdcdcf9` binds four whole models and actual third-schema/foreign-factory/affine-App controls. Runtime04 JS original92493 matches complete7243-byte A0/2 production output: seven snapshots and three actual resource invocations. Component bodies are registered, not executed. | Runtime04 Native original87687 stops at emit30, no C/build/runtime; Other and cursor controls are source-only on this successor. Earlier production7243/7087 and owner-companion9427 JS evidence remains historical, not transferable Native qualification. Full public App adoption, automatic schedules and remaining dump categories remain. |
+| Retained operational schedules supply descriptions without executing conditions/barriers — #56/#34/#55 | Private schedule-observation normal/namespace-control JS/Native preserves Plan steps, duplicate per-step requirements, actual Registry owners and true/false condition/barrier execution; a reached description omission rejects the normal oracle. | The current public App schedule bridge is not qualified: generic source feasibility does not pass its complete concrete consumer. Actual provisioning/availability and mixed component/resource/schedule coverage remain. Condition names cannot be inferred from IDs absent an ordinary declaration source. |
+| Relation/machine/stream observation and automatic full dump categories — #55/#56 | Integrated relation and machine execution modules supply operational data; earlier Inspector evidence does not qualify every dependent read category or automatic dump. | Derive declared read-only projections and preserve complete graph/state/events/failure streams, cursors/retention and pending work, with authority and reached-consumption controls. These are concrete missing bridges, not TS DTO compatibility requirements. |
+| Ordered execution/failure/barrier observation — #57 | [Trace preparation](debug-trace.md#source-preparation-and-reusable-evidence-2026-10-09) maps actual schedule, system, transaction, barrier and handler seams. `Schedule.Ran` still conflates success/failure; no subscriber core exists. | Subscriber ownership/delivery/IO contract remains unresolved. This task cannot be silently implemented from TS callback Set semantics. |
+
+The [expanded executed TS reference](https://github.com/dearlordylord/bendvy/blob/7726a3c8ce04c49c711d17fe87f6e5221203c201/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-reference-v1/expanded-v1/SHARED-COMPARISON.md)
+`7726a3c8c` passes its independent complete7421-byte oracle once. It compares
+selected numeric contents, rollback/retry, two live component entities, retained
+91/92 events and pending-work visibility. Its Marker99 insertion is explicitly
+an analogue, not Bend's event99 callback. Physical missing-resource preflight,
+Schema duplicate throws, frame/ticks, readers and valid runtime execution differ
+from Bend Fragment metadata/owner return and identity initialization. No affine,
+clock/cursor or generic Rust rollback equivalence follows.
+
+Concrete independent feature work after the complete-consumer remedies remains
+within existing owners: #54 selected-resource/stream read projections; #55
+relation/machine/failure-stream projections; #56 automatic retained-schedule and
+those projection-to-dump bridges. Coordinate their interfaces with the single
+core integrator and #70 selected-field representation. #57 and ownership-policy
+gaps need existing contract decisions first. No new plan, contract, law, archived
+TS-only requirement, backend run or #61 closure is introduced by this update.
