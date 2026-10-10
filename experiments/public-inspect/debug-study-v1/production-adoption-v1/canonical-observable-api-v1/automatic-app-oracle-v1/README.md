@@ -42,3 +42,14 @@ is supplied. Disabled App storage has no separate binding inventory and its
 snapshot branch skips describe and row folds; measured overhead remains open.
 Full #56 App/schema/schedule/lint/index/resource coverage, large consumer source5
 and stock Native/performance acceptance remain owning-task obligations.
+
+## Frozen reached-filter source join
+
+FILTER-SOURCE-JOIN.json binds `e88eae5b3` and its exact 41-source inventory.
+The source-only constraint keeps entity2 only within generated Inspector lowering:
+Read+Added entity1 disappears, Without entity2 stays. Entry changes only the App
+import; operational registration, body, metadata and owner observation remain
+unchanged. filter-source.patch retains the entire App difference. This discharges
+the earlier conditional model source join without modifying historical basis or
+any expected byte. Runtime execution and detected baseline rejection remain
+coordinator-owned future gates.
