@@ -1,0 +1,1 @@
+Independent complete22-observation source model. Original16 observations remain exact prefix; six appended actual unrelate1→pending snapshot→barrier→removed snapshot→inverse2→disabled observations qualify direct queued clear. No runtime stdout consulted; no scheduling/stream-reader/performance/full56 claim.
