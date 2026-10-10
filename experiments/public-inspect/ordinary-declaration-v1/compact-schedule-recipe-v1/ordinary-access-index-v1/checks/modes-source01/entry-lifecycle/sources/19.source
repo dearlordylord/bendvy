@@ -1,0 +1,84 @@
+import Base
+import ./world.bend as W
+import ./ordinary-schema.bend as Schema
+import ./ordinary-app-schema.bend as SchemaApp
+import ./ordinary-app-registration-fields.bend as Records
+import ./ordinary-query-declaration.bend as Query
+import ./ordinary-app-composer.bend as App
+import ./ordinary-app-recipe.bend as Tree
+import ./ordinary-app-observation-data.bend as DTO
+
+type Category is Data:
+  Components{}
+  Resources{}
+type Role is Data:
+  Reader{}
+  Writer{}
+  Filter{}
+type Use is Data:
+  Use{namespace:U32,id:U32,name:String,mode:Query.Mode,role:Role}
+type Entry is Data:
+  Entry{category:Category,key:String,uses:List<&2,Use>}
+# Typed modes retain the exact operational declaration, including filter-only modes.
+def category(kind:Records.RegistrationKind) -> Category:
+  match kind:
+    case Records.ComponentKind{}:Components{}
+    case Records.FieldKind{}:Resources{}
+    case Records.ResourceKind{_}:Resources{}
+def resource_fields(~S:Data,+mode:Query.Mode,access:List<&2,String>) -> List<&2,Query.Clause<S>>:
+  match access:
+    case []:[]
+    case name <> rest:Query.Clause{name,mode} <> resource_fields(~S,mode,rest)
+def clauses(~S:Data,kind:Records.RegistrationKind,access:List<&2,String>,retained:List<&2,Query.Clause<S>>) -> List<&2,Query.Clause<S>>:
+  match kind:
+    case Records.ComponentKind{}:retained
+    case Records.FieldKind{}:retained
+    case Records.ResourceKind{mode}:resource_fields(~S,mode,access)
+def role(mode:Query.Mode) -> Role:
+  match mode:
+    case Query.Write{}:Writer{}
+    case Query.With{}:Filter{}
+    case Query.Without{}:Filter{}
+    case Query.Read{}:Reader{}
+    case Query.Optional{}:Reader{}
+    case Query.Added{}:Reader{}
+    case Query.Changed{}:Reader{}
+def entries(~S:Data,+category:Category,+namespace:U32,+id:U32,+name:String,clauses:List<&2,Query.Clause<S>>) -> List<&2,Entry>:
+  match clauses:
+    case []:[]
+    case Query.Clause{key,+mode} <> rest:Entry{category,key,[Use{namespace,id,name,mode,role(mode)}]} <> entries(~S,category,namespace,id,name,rest)
+def fields(~S:Data,records:List<&2,Records.Fields<S>>) -> List<&2,Entry>:
+  match records:
+    case []:[]
+    case Records.Fields{namespace,id,name,access,_,_,retained,+kind} <> rest:List.append(&2,Entry,entries(~S,category(kind),namespace,id,name,clauses(~S,kind,access,retained)),fields(~S,rest))
+def same_category(left:Category,right:Category) -> Bool:
+  match left right:
+    case Components{} Components{}:True{}
+    case Resources{} Resources{}:True{}
+    case _ _:False{}
+def selected(found:Bool,category:Category,key:String,uses:List<&2,Use>,other:Category,otherKey:String,otherUses:List<&2,Use>,rest:List<&2,Entry>,tail:Unit -> List<&2,Entry>) -> List<&2,Entry>:
+  match found:
+    case True{}:Entry{other,otherKey,List.append(&2,Use,otherUses,uses)} <> rest
+    case False{}:Entry{other,otherKey,otherUses} <> tail(Unit{})
+def insert(+category:Category,+key:String,+uses:List<&2,Use>,entries:List<&2,Entry>) -> List<&2,Entry>:
+  match entries:
+    case []:[Entry{category,key,uses}]
+    case Entry{+other,+otherKey,+otherUses} <> +rest:selected(Bool.and(same_category(category,other),String.eq(key,otherKey)),category,key,uses,other,otherKey,otherUses,rest,_ => insert(category,key,uses,rest))
+def grouped(entries:List<&2,Entry>,index:List<&2,Entry>) -> List<&2,Entry>:
+  match entries:
+    case []:index
+    case Entry{category,key,uses} <> rest:grouped(rest,insert(category,key,uses,index))
+def folded(~S:Data,~World:Type,~Owners:Type,~Rows:Data,~observe:World -> World & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Records.Fields<S>>,world:World,recipe:Tree.Recipe<World,Rows,observe>,result:Owners & List<&2,Records.Fields<S>>) -> App.Registered<S,World,Owners,Rows,observe,fold> & Maybe<&2,List<&2,Entry>>:
+  match result:
+    case (owners,records):(App.Registered{world,owners,recipe,True{}},Some{grouped(fields(~S,records),[])})
+def index(~S:Data,~World:Type,~Owners:Type,~Rows:Data,~observe:World -> World & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Records.Fields<S>>,app:App.Registered<S,World,Owners,Rows,observe,fold>) -> App.Registered<S,World,Owners,Rows,observe,fold> & Maybe<&2,List<&2,Entry>>:
+  match app:
+    case App.Registered{world,owners,recipe,False{}}:(App.Registered{world,owners,recipe,False{}},None{})
+    case App.Registered{world,owners,recipe,True{}}:folded(~S,~World,~Owners,~Rows,~observe,~fold,world,recipe,fold(owners))
+
+def schema_returned(~S:Data,~C:Type,~R:Type,~E:Data,~Owners:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Records.Fields<S>>,schema:Schema.Schema<S,C,R>,result:App.Registered<S,W.World<S,C,R,E>,Owners,Rows,observe,fold> & Maybe<&2,List<&2,Entry>>) -> SchemaApp.Application<S,C,R,E,Owners,Rows,observe,fold> & Maybe<&2,List<&2,Entry>>:
+  match result:
+    case (app,view):(SchemaApp.Application{schema,app},view)
+def schema_index(~S:Data,~C:Type,~R:Type,~E:Data,~Owners:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Records.Fields<S>>,value:SchemaApp.Application<S,C,R,E,Owners,Rows,observe,fold>) -> SchemaApp.Application<S,C,R,E,Owners,Rows,observe,fold> & Maybe<&2,List<&2,Entry>>:
+  match value:
+    case SchemaApp.Application{schema,app}:schema_returned(~S,~C,~R,~E,~Owners,~Rows,~observe,~fold,schema,index(~S,~W.World<S,C,R,E>,~Owners,~Rows,~observe,~fold,app))
