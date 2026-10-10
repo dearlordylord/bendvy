@@ -1,0 +1,1 @@
+Corrected wrong-slot complete source-only oracle. Only four enabled binding slots change Update→empty because actual heldid2 absentPlan1 reaches phase_for EOF. Normal matchingid1 and namespaceFalse Factory refusal outputs unchanged. Prior model/files/runtime immutable; no runtime stdout input.
