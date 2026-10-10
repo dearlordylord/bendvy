@@ -1,0 +1,81 @@
+{
+  "sourceCommit": "9c560c8c0",
+  "oracleCommit": "4da1da4e6",
+  "other": {
+    "JS": 11667,
+    "Native": 20678,
+    "manifest": "actual-other01/manifest.json",
+    "bytes": 30262,
+    "sha256": "982396409ad47b254b5d6a414cb134db8f7ac78de21291cbfa4d60ac322a98ea"
+  },
+  "mutant": {
+    "JS": 18321,
+    "Native": 43629,
+    "manifest": "actual-mutant01/manifest.json",
+    "bytes": 30262,
+    "sha256": "18dbe5f5bc79be990e7d8445d0a98299429be6c390236caae0e79d8062674e17"
+  },
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "baselineComparisons": [
+    {
+      "backend": "js",
+      "actual": "/tmp/bendvy-ordinary-population-mutant-runtime01/a-normal-js/consumer.stdout",
+      "receipt": "/tmp/bendvy-ordinary-population-mutant-runtime01/a-normal-js/receipt.json",
+      "actualBytes": 30262,
+      "actualSHA256": "18dbe5f5bc79be990e7d8445d0a98299429be6c390236caae0e79d8062674e17",
+      "expectedWholeMutantEqual": true,
+      "baselineKey": "baseline",
+      "baseline": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-population-oracle-v1/affected-v1/baseline.stdout.gz",
+      "baselineBytes": 30262,
+      "baselineSHA256": "982396409ad47b254b5d6a414cb134db8f7ac78de21291cbfa4d60ac322a98ea",
+      "wholeBaselineUnequal": true,
+      "firstDifferingByte": 9,
+      "scope": "Matched-namespace baseline differs in enabled nonalive-slot3 counts; original baseline also has Report QName difference. Collector receipt unchanged; separate full-byte comparison."
+    },
+    {
+      "backend": "js",
+      "actual": "/tmp/bendvy-ordinary-population-mutant-runtime01/a-normal-js/consumer.stdout",
+      "receipt": "/tmp/bendvy-ordinary-population-mutant-runtime01/a-normal-js/receipt.json",
+      "actualBytes": 30262,
+      "actualSHA256": "18dbe5f5bc79be990e7d8445d0a98299429be6c390236caae0e79d8062674e17",
+      "expectedWholeMutantEqual": true,
+      "baselineKey": "same-namespace-baseline",
+      "baseline": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-population-oracle-v1/affected-v1/same-namespace-baseline.stdout.gz",
+      "baselineBytes": 30262,
+      "baselineSHA256": "29515ec3e64bb84ff8f97943d5174598bea11f8c412378599f545698940d1b74",
+      "wholeBaselineUnequal": true,
+      "firstDifferingByte": 2988,
+      "scope": "Matched-namespace baseline differs in enabled nonalive-slot3 counts; original baseline also has Report QName difference. Collector receipt unchanged; separate full-byte comparison."
+    },
+    {
+      "backend": "native",
+      "actual": "/tmp/bendvy-ordinary-population-mutant-runtime01/a-normal-native/consumer.stdout",
+      "receipt": "/tmp/bendvy-ordinary-population-mutant-runtime01/a-normal-native/receipt.json",
+      "actualBytes": 30262,
+      "actualSHA256": "18dbe5f5bc79be990e7d8445d0a98299429be6c390236caae0e79d8062674e17",
+      "expectedWholeMutantEqual": true,
+      "baselineKey": "baseline",
+      "baseline": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-population-oracle-v1/affected-v1/baseline.stdout.gz",
+      "baselineBytes": 30262,
+      "baselineSHA256": "982396409ad47b254b5d6a414cb134db8f7ac78de21291cbfa4d60ac322a98ea",
+      "wholeBaselineUnequal": true,
+      "firstDifferingByte": 9,
+      "scope": "Matched-namespace baseline differs in enabled nonalive-slot3 counts; original baseline also has Report QName difference. Collector receipt unchanged; separate full-byte comparison."
+    },
+    {
+      "backend": "native",
+      "actual": "/tmp/bendvy-ordinary-population-mutant-runtime01/a-normal-native/consumer.stdout",
+      "receipt": "/tmp/bendvy-ordinary-population-mutant-runtime01/a-normal-native/receipt.json",
+      "actualBytes": 30262,
+      "actualSHA256": "18dbe5f5bc79be990e7d8445d0a98299429be6c390236caae0e79d8062674e17",
+      "expectedWholeMutantEqual": true,
+      "baselineKey": "same-namespace-baseline",
+      "baseline": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-population-oracle-v1/affected-v1/same-namespace-baseline.stdout.gz",
+      "baselineBytes": 30262,
+      "baselineSHA256": "29515ec3e64bb84ff8f97943d5174598bea11f8c412378599f545698940d1b74",
+      "wholeBaselineUnequal": true,
+      "firstDifferingByte": 2988,
+      "scope": "Matched-namespace baseline differs in enabled nonalive-slot3 counts; original baseline also has Report QName difference. Collector receipt unchanged; separate full-byte comparison."
+    }
+  ]
+}
