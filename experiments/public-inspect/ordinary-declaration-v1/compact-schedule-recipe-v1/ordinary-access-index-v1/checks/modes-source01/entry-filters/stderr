@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : O.Declaration<query~S, Q.Frame<query~S, Product.Owner<Col.Column<query~S, Array<U32>>, Unit>, Product.Owner<Unit, Array<U32>>, U32>, Unit, I.Frame<query~S, Product.Owner<Col.Column<query~S, Array<U32>>, Unit>, Product.Owner<Unit, Array<U32>>, U32>, C.Access<U32>>
+- observed : O.Declaration<query~S, Q.Frame<query~S, Product.Owner<Col.Column<query~S, Array<U32>>, Unit>, Product.Owner<Unit, Array<U32>>, U32>, Unit, I.Frame<query~S, Product.Owner<Col.Column<query~S, Array<U32>>, Unit>, Product.Owner<Unit, Array<U32>>, U32>, Unit>
+Location: query
+51 | def query(~S:Data) -> O.Declaration<S,Q.Frame<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>),U32>,component_ops(Q.Frame<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>),U32>),I.Frame<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>),U32>,Projection.Product<Unit,Unit>>:
+52>|   O.pair(~S,~Q.Frame<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>),U32>,~Unit,~Unit,~I.Frame<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>),U32>,~C.Access<U32>,~C.Access<U32>,~first_query(~S),~second_query(~S))
+   |                                                                                                                                                                                                          ^^^^^^^^^^^^^^^
+53 | def resource_ops(~S:Data) -> Type -> Type:
+bend 2.0.36 is available: run bend update
