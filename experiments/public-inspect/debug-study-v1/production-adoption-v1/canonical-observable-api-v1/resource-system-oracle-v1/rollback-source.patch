@@ -1,0 +1,18 @@
+--- provider.bend
++++ provider-rollback-mutant.bend
+@@ -36,9 +36,14 @@
+   match result:
+     case T.Returned{world,T.Success{}}:Sys.Succeeded{world,output}
+     case T.Returned{world,T.Failure{error}}:Sys.Failed{world,error}
++# Reached negative control: suppress rollback journal only for a failed invocation.
++def omitted_undo(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,tx:T.Tx<W.World<S,C,R,E>,E>,outcome:T.Outcome<Error>) -> T.Returned<W.World<S,C,R,E>,Error>:
++  match tx outcome:
++    case T.Tx{world,_,commands,events} T.Failure{error}:Cmd.tx_finish(~S,~C,~R,~E,~Error,T.Tx{world,[],commands,events},T.Failure{error})
++    case tx outcome:Cmd.tx_finish(~S,~C,~R,~E,~Error,tx,outcome)
+ def finished(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Type,result:T.Tx<W.World<S,C,R,E>,E> & (T.Outcome<Error> & Out)) -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>:
+   match result:
+-    case (tx,(outcome,output)):returned(~S,~C,~R,~E,~Error,~Out,output,Cmd.tx_finish(~S,~C,~R,~E,~Error,tx,outcome))
++    case (tx,(outcome,output)):returned(~S,~C,~R,~E,~Error,~Out,output,omitted_undo(~S,~C,~R,~E,~Error,tx,outcome))
+ def runner(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Args:Type,~Error:Data,~Out:Type,~declaration:Declaration<S,R,T.Tx<W.World<S,C,R,E>,E>,Ops(T.Tx<W.World<S,C,R,E>,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> Args -> H -> H & (T.Outcome<Error> & Out),world:W.World<S,C,R,E>,args:Args) -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>:
+   finished(~S,~C,~R,~E,~Error,~Out,Cap.invoke_owned(~Ops,~Args,~(T.Outcome<Error> & Out),~body,~T.Tx<W.World<S,C,R,E>,E>,~grant(~S,~R,~T.Tx<W.World<S,C,R,E>,E>,~Ops(T.Tx<W.World<S,C,R,E>,E>),declaration),args,T.begin(~W.World<S,C,R,E>,~E,world)))
+ type Owner<-S:Data,-Registry:Type,-kind:Query.Mode> is Type:
