@@ -1,0 +1,88 @@
+"""Source-only complete runtime population/dump consumer; no runtime output inputs."""
+import json, gzip, hashlib
+from pathlib import Path
+
+def ls(items): return '[' + ', '.join(map(str, items)) + ']'
+def truth(value): return 'true' if value else 'false'
+def observations(items):
+    return ls(['{"reader":"'+r+'","values":['+','.join(map(str,v))+'],"lagged":'+truth(l)+'}' for r,v,l in items])
+
+class Runtime:
+    def __init__(self):
+        self.batches=[]; self.positions=[]; self.events=[]
+        self.tick=0; self.frame_start=0; self.boundary=0; self.dropped=0
+        self.reads=[]; self.ok=True
+    def values(self): return [x for _,v in self.batches for x in v]
+    def frame(self):
+        self.boundary,self.frame_start=self.frame_start,self.tick
+        boundary=min([self.boundary]+[p[1] for p in self.positions])
+        while self.batches and self.batches[0][0]<=boundary:
+            self.dropped=max(self.dropped,self.batches.pop(0)[0])
+        while len(self.values())>3:
+            self.dropped=max(self.dropped,self.batches.pop(0)[0])
+        self.events=self.values(); self.reads=[]; self.ok=True
+    def sync(self):
+        published=self.events[len(self.values()):]
+        if published: self.batches.append((self.tick,published[:]))
+    def publish(self,value,count=1,second=None,fail=False):
+        # Tx reverse accumulation is reversed at success; failure has no journal or publication.
+        self.tick+=1
+        if not fail: self.events += [value]*count + ([] if second is None else [second])
+        self.sync(); self.ok=not fail
+    def read(self,fast=True,fail=False):
+        rid=1 if fast else 2
+        p=next((p for p in self.positions if p[0]==rid),None)
+        cursor,registered=(p[1],p[2]) if p else (0,self.tick)
+        values=[x for t,v in self.batches if t>cursor for x in v]
+        self.reads.append(('fast' if fast else 'slow',values,self.dropped>max(cursor,registered)))
+        old_tick=self.tick; self.tick+=1
+        if p is None:
+            p=[rid,0,old_tick]; self.positions.insert(0,p)
+        if not fail: p[1]=self.tick; self.sync()
+        self.ok=not fail
+    def skip(self):
+        for p in self.positions:
+            if p[0]==1: p[1]=self.tick
+    def physical(self):
+        world=physical_world(12,self.events,True)
+        batches=ls([str(t)+':'+ls(v) for t,v in self.batches])
+        positions=ls([':'.join(map(str,p)) for p in self.positions])
+        return world+'|runtime{1|batches='+batches+'|positions='+positions+'|nextReader=3|tick='+str(self.tick)+'|frame='+str(self.frame_start)+'|boundary='+str(self.boundary)+'|capacity=3|dropped='+str(self.dropped)+'}'
+    def debug(self,flag):
+        index=ls(['Component:Signal:'+ls(['1:1:SharedSystem:Read:Reader']*2),'Resource:Signal:'+ls(['1:2:SharedSystem:Write:Writer']),'Event:Signal:'+ls(['1:3:publish:Write:Writer','1:4:fast:Read:Reader','1:5:slow:Read:Reader'])]) if flag else 'Disabled'
+        publisher='Signal:Write:1:3:publish:[Signal:write]:cursor=0:debug=False'
+        fast='Reader(1:1:registry=4)|Owner(Signal:Read:1:4:fast:[Signal:read]:cursor=0:debug=False)'
+        slow='Reader(1:2:registry=5)|Owner(Signal:Read:1:5:slow:[Signal:read]:cursor=0:debug=False)'
+        return 'ok='+truth(self.ok)+'|reads='+observations(self.reads)+'|'+('alive=2|[Signal=1]|dump=alive=2|rows=[1:1[Signal=leaf:42], 1:2[]]|resources=[Signal=leaf:12]' if flag else 'None|dump=None')+'|index='+index+'|debug='+('True' if flag else 'False')+'|prior='+fields(1,1)+'|publisher='+publisher+'|fast='+fast+'|slow='+slow+'|'+self.physical()
+
+def fields(c1,c2):
+    return ls([f'1:1:SharedSystem:Update:cursor={c1}:[Signal, Signal]:[Signal:Read, Signal:Read]:Component',f'1:2:SharedSystem:Update:cursor={c2}:[Signal]:[Signal:Write]:Field'])
+def physical_world(value,events,event_owners=False):
+    regs='[5:slow:[Signal:read], 4:fast:[Signal:read], 3:publish:[Signal:write], 2:SharedSystem:[Signal], 1:SharedSystem:[Signal, Signal]]' if event_owners else '[2:SharedSystem:[Signal], 1:SharedSystem:[Signal, Signal]]'
+    return ('namespace=1|nextId=3|highWater=2|live=node(node(leaf:False,leaf:True),node(leaf:True,leaf:False))|capacity=4|depth=2|store=product(Column{values=leaf:some(leaf:42);stamps=[1:1:1]},Unit)|resource=product(Unit,leaf:'+str(value)+')|events='+ls(events)+'|pendingCount=1|pendingEmpty=False|registrations='+regs+'|nextSystemId='+('6' if event_owners else '3')+'|clock=1')
+def prior_calls():
+    def complete(text,value,c1,c2):return text+'|world{'+physical_world(value,[])+'}|owners='+fields(c1,c2)
+    return [complete('ComponentSuccess:output=[Unit]',10,1,0),complete('Success:output=leaf:10',11,1,1),complete('Failure:RolledBack:11',11,1,1),complete('Success:output=leaf:11',12,1,1)]
+
+def derive():
+    r=Runtime(); r.tick=5; r.events=[77]; result=prior_calls(); states=[]
+    result.append('unsynchronized-before-frame|'+'\n'.join(r.debug(flag) for flag in [False,True,True,False]))
+    states.append({'label':'unsynchronized-before-frame','tick':5,'frameStart':0,'boundary':0,'dropped':0,'batches':[],'positions':[],'events':[77],'reads':[],'ok':True,'registryCursors':[1,1,0,0,0]})
+    steps=[('initial',[]),('register',[('r',True,False),('r',False,False)]),('publish-fast',[('p',10,1,11,False),('r',True,False)]),('slow-retains-first',[]),('slow-retains-second',[]),('failed-read',[('r',False,True)]),('retry-read',[('r',False,False)]),('cleanup-passed',[]),('publish-skip',[('p',20,1,None,False),('s',)]),('after-skip',[('r',True,False)]),('slow-after-skip',[('r',False,False)]),('failed-publication',[('p',999,1,None,True)]),('retry-publication',[('p',21,1,None,False)]),('both-read-retry',[('r',True,False),('r',False,False)]),('capacity-first-batch',[('p',30,2,None,False)]),('capacity-second-batch',[('p',40,1,41,False)]),('capacity-enforced',[]),('lagged-readers',[('r',True,False),('r',False,False)]),('cleanup-after-lag',[])]
+    for label,actions in steps:
+        r.frame()
+        for op,*args in actions:
+            {'p':r.publish,'r':r.read,'s':r.skip}[op](*args)
+        result.append(label+'|'+'\n'.join(r.debug(flag) for flag in [False,True,True,False]))
+        states.append({'label':label,'tick':r.tick,'frameStart':r.frame_start,'boundary':r.boundary,'dropped':r.dropped,'batches':[(t,v[:]) for t,v in r.batches],'positions':[p[:] for p in r.positions],'events':r.events[:],'reads':r.reads[:],'ok':r.ok,'registryCursors':[1,1,0,0,0]})
+    # Bend show_val of List<String>: list punctuation, quoted escaped Strings, external LF.
+    return (json.dumps(result,ensure_ascii=False,separators=(', ', ': '))+'\n').encode(),states
+
+if __name__=='__main__':
+    root=Path(__file__).resolve().parent
+    raw,states=derive()
+    (root/'expected.stdout').write_bytes(raw)
+    (root/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    (root/'STATES.json').write_text(json.dumps(states,indent=2)+'\n')
+    entry={'path':str(root/'expected.stdout'),'gzip':str(root/'expected.stdout.gz'),'stdout':str(root/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+    (root/'ORACLES.json').write_text(json.dumps({'normal':entry},indent=2)+'\n')
