@@ -1,0 +1,70 @@
+{
+  "source": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-machine-binding-v1/binding.bend",
+    "sha256": "d0fa6fe7bdcadc8571aeeabdc73e08a962ea22ca1ffde494bb06a009b846c58e",
+    "bytes": 8987
+  },
+  "prepared": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-machine-binding-v1/public-preparation/targets/ordinary-app-machine.bend",
+    "sha256": "aaad5ca79c7b19484f73d2920db40f9b51f1f8b6cdc22346a1a019c1555c8dce",
+    "bytes": 8531
+  },
+  "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-machine.bend",
+  "importRelocations": [
+    {
+      "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-composer.bend",
+      "to": "./ordinary-app-composer.bend"
+    },
+    {
+      "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-recipe.bend",
+      "to": "./ordinary-app-recipe.bend"
+    },
+    {
+      "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-observation-data.bend",
+      "to": "./ordinary-app-observation-data.bend"
+    },
+    {
+      "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-registration-fields.bend",
+      "to": "./ordinary-app-registration-fields.bend"
+    },
+    {
+      "from": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "to": "./world.bend"
+    },
+    {
+      "from": "/workspace/formal-proofs/bendvy/src/ecs/inspector.bend",
+      "to": "./inspector.bend"
+    },
+    {
+      "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-declaration.bend",
+      "to": "./ordinary-machine-declaration.bend"
+    },
+    {
+      "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-operations.bend",
+      "to": "./ordinary-machine-operations.bend"
+    },
+    {
+      "from": "/workspace/formal-proofs/bendvy/src/ecs/machine.bend",
+      "to": "./machine.bend"
+    },
+    {
+      "from": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+      "to": "./capabilities.bend"
+    },
+    {
+      "from": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+      "to": "./transaction.bend"
+    },
+    {
+      "from": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+      "to": "./commands.bend"
+    }
+  ],
+  "inverse": "Replacing each exact prepared import with original import reconstructs whole private module byte-exact. Consumer only replaces binding import; entries byte-identical.",
+  "consumer": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-machine-binding-v1/public-preparation/consumer.bend",
+    "sha256": "75e569758db3daa4a3cf350761f5ae65dd3b9f3e584dff156c91dd98c93f8025",
+    "bytes": 10566
+  },
+  "scope": "Operational machine App install/read/queue generates current observer from same declaration; finite direct consumer. No synthetic Registry, transition/stream/schedule/state universe/arity/full56 assertion."
+}
