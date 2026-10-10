@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Type -> Type
+- observed : @-H:Type -> Type
+Context:
+- app : App.ApplicationType<second~S, Col.Column<second~S, Caller.Payload>, Array<U32>, U32, second~H, second~Rows, second~fold>
+Location: second
+36 | def second(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & Rows,app:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold>) -> Bool:
+37>|   App.register_with(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~no_ops,~Unit,~Unit,~Unit,~Unit,~absent_query(~S),~absent_body,~H,~Rows,~fold,~Bool,~enabled(~S),~failed(~S,~H,~Rows,~fold),app,"PositionAbsent","Update")
+   |                                                                        ^^^^^^
+38 | def first(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & Rows,app:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold>) -> Bool:
+bend 2.0.36 is available: run bend update

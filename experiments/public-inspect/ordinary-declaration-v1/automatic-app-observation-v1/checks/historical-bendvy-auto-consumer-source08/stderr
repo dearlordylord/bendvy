@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:disabled~H -> Sigma<&1, &1, disabled~H, _ => List<&2, App.Binding<disabled~S>>>
+- observed : App.ApplicationType<disabled~S, Col.Column<disabled~S, Caller.Payload>, Array<U32>, U32, disabled~H, disabled~Rows, disabled~fold, disabled~describe>
+Context:
+- before : String
+- one    : String
+- two    : String
+- app    : App.ApplicationType<disabled~S, Col.Column<disabled~S, Caller.Payload>, Array<U32>, U32, disabled~H, disabled~Rows, disabled~fold, disabled~describe>
+- text   : String
+Location: disabled
+76 |   match result:
+77>|     case (app,text):fourth(~S,~H,~Rows,~fold,~describe,before,one,two,text,snapshot_text(~S,~H,~Rows,~fold,~describe,App.snapshot(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~H,~Rows,~fold,App.enable_debug(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~H,~Rows,~fold,~describe,app,True{}))))
+   |                                                                                                                                                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+78 | def repeated(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,before:String,one:String,result:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & String) -> String:
+bend 2.0.36 is available: run bend update

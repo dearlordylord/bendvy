@@ -1,0 +1,38 @@
+import Base
+import ./presentation.bend as D
+import ./app.bend as App
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend as System
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q
+import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-observable.bend as O
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-declaration.bend as N
+import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I
+import /workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend as IQ
+
+# Test-only owner handoff. No proposed production App observer/authority API.
+type ActualRegistry<S:Data> is Data:
+  ActualRegistry{namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:U32,slot:String,clauses:List<&2,N.Clause<S>>}
+def empty_owners(~S:Data,owners:Unit) -> Unit & List<&2,ActualRegistry<S>>:
+  (owners,[])
+def actual_registry(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),owner:System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>>) -> System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>> & ActualRegistry<S>:
+  match owner:
+    case System.Owner{Sys.Registry{+namespace,+id,+name,+access,+cursor},+slot,+clauses}:(System.Owner{Sys.Registry{namespace,id,name,access,cursor},slot,clauses},ActualRegistry{namespace,id,name,access,cursor,slot,clauses})
+def owners_tail(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~H:Type,previous:H,values:List<&2,ActualRegistry<S>>,result:System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>> & ActualRegistry<S>) -> (H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>>) & List<&2,ActualRegistry<S>>:
+  match result:
+    case (owner,value):((previous,owner),List.append(&2,ActualRegistry<S>,values,[value]))
+def owners_previous(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~H:Type,owner:System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>>,result:H & List<&2,ActualRegistry<S>>) -> (H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>>) & List<&2,ActualRegistry<S>>:
+  match result:
+    case (previous,values):owners_tail(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body,~H,previous,values,actual_registry(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body,owner))
+def appended_owners(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~H:Type,~observe:H -> H & List<&2,ActualRegistry<S>>,owners:H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>>) -> (H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>>) & List<&2,ActualRegistry<S>>:
+  match owners:
+    case (previous,owner):owners_previous(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body,~H,owner,observe(previous))
+def finish_registration(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:D.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~H:Type,~Rows:Data,~fold:W.World<S,C,R,E> -> W.World<S,C,R,E> & App.Observation<Rows>,~observe:H -> H & List<&2,ActualRegistry<S>>,~Output:Type,~done:@-H:Type -> @-Rows:Data -> @-fold:(W.World<S,C,R,E> -> W.World<S,C,R,E> & App.Observation<Rows>) -> @-observe:(H -> H & List<&2,ActualRegistry<S>>) -> App.ApplicationType<S,C,R,E,H,Rows,fold> -> Output,~failed:App.ApplicationType<S,C,R,E,H,Rows,fold> -> Output,result:App.Registration<App.ApplicationType<S,C,R,E,H,Rows,fold>,App.ApplicationType<S,C,R,E,H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~D.ordinary(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query),~body)>>,App.Product<Rows,List<&2,IQ.ProjectedRow<S,V>>>,App.append_fold(~S,~C,~R,~E,~Rows,~fold,~Ops,~V,~D.ordinary(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query),~D.display(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query))>>) -> Output:
+  match result:
+    case App.Registered{app}:done((H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~D.ordinary(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query),~body)>>),App.Product<Rows,List<&2,IQ.ProjectedRow<S,V>>>,App.append_fold(~S,~C,~R,~E,~Rows,~fold,~Ops,~V,~D.ordinary(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query),~D.display(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query)),appended_owners(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~D.ordinary(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query),~body,~H,~observe),app)
+    case App.Failed{app}:failed(app)
+def register_with(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:D.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~H:Type,~Rows:Data,~fold:W.World<S,C,R,E> -> W.World<S,C,R,E> & App.Observation<Rows>,~observe:H -> H & List<&2,ActualRegistry<S>>,~Output:Type,~done:@-H:Type -> @-Rows:Data -> @-fold:(W.World<S,C,R,E> -> W.World<S,C,R,E> & App.Observation<Rows>) -> @-observe:(H -> H & List<&2,ActualRegistry<S>>) -> App.ApplicationType<S,C,R,E,H,Rows,fold> -> Output,~failed:App.ApplicationType<S,C,R,E,H,Rows,fold> -> Output,app:App.ApplicationType<S,C,R,E,H,Rows,fold>,name:String,slot:String) -> Output:
+  finish_registration(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body,~H,~Rows,~fold,~observe,~Output,~done,~failed,App.register(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~D.ordinary(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query),~D.display(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query),~body,~H,~Rows,~fold,app,name,slot))
+def start(~S:Data,~C:Type,~R:Type,~E:Data,~Output:Type,~done:@-H:Type -> @-Rows:Data -> @-fold:(W.World<S,C,R,E> -> W.World<S,C,R,E> & App.Observation<Rows>) -> @-observe:(H -> H & List<&2,ActualRegistry<S>>) -> App.ApplicationType<S,C,R,E,H,Rows,fold> -> Output,world:W.World<S,C,R,E>) -> Output:
+  done(Unit,Unit,App.empty_fold(~S,~C,~R,~E),empty_owners(~S),App.empty(~S,~C,~R,~E,world))

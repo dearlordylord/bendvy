@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+58 | def start(~S:Data,~C:Type,~R:Type,~E:Data,~Output:Type,~done:@-H:Type -> @-Rows:Data -> @-fold:W.World<S,C,R,E> -> W.World<S,C,R,E> & Rows -> ApplicationType<S,C,R,E,H,Rows,fold> -> Output,world:W.World<S,C,R,E>) -> Output:
+59>|   done(~Unit,~Unit,~empty_fold(~S,~C,~R,~E),empty(~S,~C,~R,~E,world))
+   |        ^
+60 | def continue_registered(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~H:Type,~Rows:Data,~fold:W.World<S,C,R,E> -> W.World<S,C,R,E> & Rows,~Output:Type,~done:@-H:Type -> @-Rows:Data -> @-fold:W.World<S,C,R,E> -> W.World<S,C,R,E> & Rows -> ApplicationType<S,C,R,E,H,Rows,fold> -> Output,~failed:ApplicationType<S,C,R,E,H,Rows,fold> -> Output,result:Registration<ApplicationType<S,C,R,E,H,Rows,fold>,ApplicationType<S,C,R,E,H & System.Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>>,Product<Rows,List<&2,IQ.ProjectedRow<S,V>>>,append_fold(~S,~C,~R,~E,~Rows,~fold,~Ops,~V,~query)>>) -> Output:
+bend 2.0.36 is available: run bend update

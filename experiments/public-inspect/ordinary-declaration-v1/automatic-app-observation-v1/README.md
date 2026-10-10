@@ -1,0 +1,11 @@
+# Private automatic App observation prototype
+
+The ordinary setup declares its component binding and presenter once, then registers two named declarations. `presentation.bend` lifts Access, Unit and Product presentation automatically. `app.bend` derives operational registration, descriptions and detached query rows from the same declaration. Universal continuations carry opaque indices; the ordinary consumer does not reconstruct a query list or generated fold.
+
+The App owns its World and affine Registry owner product. Registration retains only actual owners and erased description/row folds. Enabled snapshot reads metadata from those owners and lowers detached rows with a fixed independent fixture cursor of zero. Disabled snapshot returns before either fold. This cursor is not borrowed from Registry state; foreign registered inspection remains outside this prototype.
+
+The complete minimal fixture has two nominal schemas, two live entities, affine Array-backed payload value 42, a missing component, a read+added composite and a without declaration. It observes three enabled snapshots and one disabled snapshot, and returns complete World plus actual Registry/Owner observations before and after. The test-side owner projection reuses the generated description fold, reconstructing exact owners including cursor, slot and clauses. Registered operational bodies are not executed here.
+
+`checks/normal-source11` records actual default-five-second source success after the generic Registry description reshape. Earlier eager-metadata successes, authoring refusals and five-second deadlines remain preserved. The source success is a development type check, not a mathematical verdict or runtime evidence. Private opaque string views are fixture transport, not a new public serialization contract. No new laws or proofs are adopted. No JS/Native execution has occurred for this package.
+
+The reached Inspector filter control and whole independent oracle are being prepared before bounded execution through the existing reviewed canonical leaf runner. Full application migration, full Native qualification and #56 completion remain open.

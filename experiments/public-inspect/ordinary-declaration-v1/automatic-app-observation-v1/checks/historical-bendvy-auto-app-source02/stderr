@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+27 | def append_fold(~S:Data,~C:Type,~R:Type,~E:Data,~Rows:Data,~fold:W.World<S,C,R,E> -> W.World<S,C,R,E> & Rows,~Ops:Type -> Type,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & (Rows & List<&2,IQ.ProjectedRow<S,V>>):
+28>|   (world,previous)=fold(world)
+   |                    ^^^^^^^^^^^
+29 |   (world,rows)=lowered(~S,~C,~R,~E,~V,IQ.each_composed(~I.Frame<S,C,R,E>,~S,~V,~O.inspect_query(~S,~C,~R,~E,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~V,~query),I.Frame{world,0}))
+bend 2.0.36 is available: run bend update

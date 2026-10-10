@@ -1,0 +1,22 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : Sys.Registry{namespace, id, name, access, cursor}
+Context:
+- owners    : retained~H
+- bindings  : List<&2, Binding<retained~S>>
+- debug     : Bool
+- world     : W.World<retained~S, retained~C, retained~R, retained~E>
+- namespace : U32
+- id        : U32
+- name      : String
+- access    : List<&2, String>
+- cursor    : U32
+- slot      : String
+- clauses   : List<&2, N.Clause<retained~S>>
+Location: retained
+51 |     case System.Defined{world,System.Owner{Sys.Registry{+namespace,+id,+name,+access,cursor},+slot,+clauses}}:
+52>|       registry=Sys.Registry{namespace,id,name,access,cursor}
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+53 |       owner=System.Owner{registry,slot,clauses}
+bend 2.0.36 is available: run bend update
