@@ -189,4 +189,4 @@ attachment or `Tree.observe_pair` adapter. `Recipe`, `ObservedRows` and
 skip observation. The [independent review](../../experiments/public-inspect/ordinary-machine-review-v1/ENTRY-FINAL-REVIEW.md)
 qualifies direct CurrentView/read/queue paths and declaration association;
 transitions, stream readers, broader debug categories and full #56 remain open.
-Combined integration regression is pending.
+Combined152 protected regression passes [independent review](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt152-01/FINAL-REVIEW.md); full-feature performance remains separate.
