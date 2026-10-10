@@ -1,0 +1,26 @@
+{
+  "planSHA256": "d203ba443ecfbbbfe16f4f7d552ddc26a6236f86c8a737179cc93d0b3cdfc074",
+  "statisticsReturncode": 0,
+  "command": [
+    "/usr/bin/flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "/usr/bin/env",
+    "-i",
+    "HOME=/home/node",
+    "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+    "LANG=C",
+    "LC_ALL=C",
+    "TZ=UTC",
+    "BEND_NO_TELEMETRY=1",
+    "BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root",
+    "LD_LIBRARY_PATH=/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu",
+    "/usr/bin/python3.11",
+    "/workspace/formal-proofs/bendvy/benchmarks/run.py",
+    "--output",
+    "/tmp/bendvy-combined-ordinary-app-regression148-01",
+    "--cpu",
+    "11"
+  ],
+  "queue": "Root exclusive; all three implementation owners report no live heavy child and HOLD.",
+  "hostObservation": "/tmp/bendvy-regression148-host-pre.json"
+}

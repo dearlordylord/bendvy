@@ -1,0 +1,1 @@
+Original combined148 root48316 terminal0 once. INDEX.json losslessly indexes output.tar.gz; prerequisite captures and FINAL-REVIEW preserve exact statistical and scope limits. Default Workshop regression only; no repeated measurement. Historical actual-attempt01 remains unchanged.
