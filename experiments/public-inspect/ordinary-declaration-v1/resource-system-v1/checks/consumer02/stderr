@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Type -> Type
+- observed : @-H:Type -> Type
+Context:
+- world : W.World<runner~S, Col.Column<runner~S, Unit>, Counter, U32>
+- fail  : Bool
+Location: runner
+38 | def runner(~S:Data,world:W.World<S,Col.Column<S,Unit>,Counter,U32>,fail:Bool) -> Sys.Outcome<W.World<S,Col.Column<S,Unit>,Counter,U32>,Error,Output>:
+39>|   P.runner(~S,~Col.Column<S,Unit>,~Counter,~U32,~ops,~Bool,~Error,~Output,~declaration(~S),~body,world,fail)
+   |                                                  ^^^
+40 | def RegistryType(~S:Data) -> Type:
+bend 2.0.36 is available: run bend update
