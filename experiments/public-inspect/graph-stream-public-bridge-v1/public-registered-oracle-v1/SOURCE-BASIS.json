@@ -1,0 +1,88 @@
+{
+  "method": "Independent source-only import relocation of already reviewed complete model; no runtime outputs read",
+  "parentOracle": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/graph-stream-registered-oracle-v1/workshop-registered.stdout",
+    "sha256": "9981a344785a9ae1be2c57177f65207d5abce25941c3131d134ec3d32775e3c7",
+    "bytes": 10334
+  },
+  "sourceJoins": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/registered-v2/consumer.bend",
+      "sha256": "4b96d57358c8d789fc02d3cbcc687e6b4c041f22d65ff920103c8da316c080d1",
+      "bytes": 10200
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/public-registered-v1/consumer.bend",
+      "sha256": "209e824e88f67267341dbfdc52b3467f7aa3c8430ad15a14abcb7670be0e971c",
+      "bytes": 10297
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/consumer.bend",
+      "sha256": "a537a46bd5c787a380b8b5b59c5d2f1a54a25ba083a661b7bb3b5a7b33a4f1d2",
+      "bytes": 7197
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/public-consumer.bend",
+      "sha256": "4b60afc14afee489a72ab6ae827c2123120f6f0764a976fcabdc54f5fb1009b4",
+      "bytes": 7296
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/registered-v2/entry-workshop.bend",
+      "sha256": "959756a2e8aca98051bd08322ba1324897e0ee1c5fb0d262306df415d6fdc76f",
+      "bytes": 236
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/public-registered-v1/entry-workshop.bend",
+      "sha256": "7a35f9598a0f53b3dfb047c38245d224924f764efa6414c5a89f3240a68466fb",
+      "bytes": 233
+    }
+  ],
+  "publicModuleJoins": [
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/machine-projection.bend",
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/inspector-machine-projection.bend",
+      "sourceSha256": "4b5bba60c9f5c47fa558d75503e6be0b636ddd9f8c931c1bc41dae078f1e2ba9",
+      "targetSha256": "2c4085c7c4953587da136a3e4b47e6f422d8f37aa94c6fedd470563b9179282c",
+      "change": "absolute core imports become sibling imports; all non-import lines identical"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/machine-declaration.bend",
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-declaration.bend",
+      "sourceSha256": "7cb1692da0391fb5c0ee3f129c6158b8615a813dc9937c60d1291cac7ae2cc89",
+      "targetSha256": "dea2407308f0c9385d1938a950c138babb43a95a713d6c595406328f9eeb9b01",
+      "change": "absolute core imports become sibling imports; all non-import lines identical"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/relation-projection.bend",
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/inspector-relation-projection.bend",
+      "sourceSha256": "b286d533da169aceed4a48198c175df5f5fa5fb9199ab09dee2672f979619cd0",
+      "targetSha256": "0655e6bd0a6d4e275fe5e4e444b11cf5f6d1ca72c716f58ac9d4d64d6dc99f0f",
+      "change": "absolute core imports become sibling imports; all non-import lines identical"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/relation-condition.bend",
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/check-relation-projection.bend",
+      "sourceSha256": "d6a394b2e55079c3224c64944afbdd3364bdb9ab3d6cfdae47df6b21b0554914",
+      "targetSha256": "291a9e3dd15902136308b282f3bd13cc68542fe76664108f51cbbb49f6086a8b",
+      "change": "absolute core imports become sibling imports; all non-import lines identical"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/traversal.bend",
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/inspector-query-frame-world.bend",
+      "sourceSha256": "82779272b7216941e7c714b3be33fc056d2bfdfc1a674da6b7ee9690aaa1149e",
+      "targetSha256": "1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a",
+      "change": "absolute core imports become sibling imports; all non-import lines identical"
+    }
+  ],
+  "printChange": {
+    "from": "../consumer.Observation",
+    "to": "../public-consumer.Observation",
+    "occurrences": 2,
+    "reason": "Registered consumer imports public-consumer instead of consumer; declaration bodies unchanged"
+  },
+  "expected": {
+    "sha256": "41b9df98392fb008fed04feedaec27f5a7ae1bebe2a6ad6dc3926864bc10aa24",
+    "bytes": 10348
+  },
+  "scope": "Workshop registered condition and projection full normal consumer; no stream-reader ownership or full parity claim"
+}
