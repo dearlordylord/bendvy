@@ -1,0 +1,53 @@
+{
+  "candidate": "frontend.bend",
+  "target": "src/ecs/ordinary-machine-operations.bend",
+  "candidateSHA256": "527e2303e898f6322cb1b6f28586181d625babd6b466e9534280ac6db592b21c",
+  "publicSHA256": "fca6b0e0e089035a2e3f7e827038847fc3383c11fe361240ae167c6ba515b3b3",
+  "nonImportSHA256": "4ec8be9801d0e5816e8a1337e624d147c4fb51f5e854b635a2c2e4d4d9aa694c",
+  "rewires": [
+    {
+      "before": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-declaration.bend as OD",
+      "after": "import ./ordinary-machine-declaration.bend as OD"
+    },
+    {
+      "before": "import /workspace/formal-proofs/bendvy/src/ecs/machine-queue.bend as Q",
+      "after": "import ./machine-queue.bend as Q"
+    },
+    {
+      "before": "import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M",
+      "after": "import ./machine.bend as M"
+    },
+    {
+      "before": "import /workspace/formal-proofs/bendvy/src/ecs/machine-world.bend as MW",
+      "after": "import ./machine-world.bend as MW"
+    },
+    {
+      "before": "import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as Tx",
+      "after": "import ./transaction.bend as Tx"
+    },
+    {
+      "before": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W",
+      "after": "import ./world.bend as W"
+    },
+    {
+      "before": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap",
+      "after": "import ./capabilities.bend as Cap"
+    }
+  ],
+  "consumerRewires": [
+    {
+      "source": "consumer.bend",
+      "before": "import frontend.bend as F",
+      "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-operations.bend as F"
+    },
+    {
+      "source": "consumer-read-write.bend",
+      "before": "import frontend.bend as F",
+      "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-operations.bend as F"
+    }
+  ],
+  "ordinaryDeclarationUnchanged": true,
+  "rootOwnsSharedSource": true,
+  "publicSourceCheckRequiredAfterIntegration": true,
+  "rawStringOraclesUnchanged": true
+}

@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "scope": "B explicit read+write normal and reached setter-drop source/model before runtime",
+  "closureCountEach": 22,
+  "normalBytes": 1323,
+  "dropBytes": 1281,
+  "dropSHA256": "995abb6e0e3f404759cf070fd6b658639e0d767218c4a897a252c04f49e55c84",
+  "reviewed": [
+    "additional ValueRead projection returns unchanged Tx then writer get/set",
+    "drop changes only setter to identity owner",
+    "all writes absent; successful tracked cursors17 and failed cursor preserved",
+    "observer/full world layout unchanged; quoted String has no QName difference"
+  ],
+  "backendOutputConsulted": false
+}
