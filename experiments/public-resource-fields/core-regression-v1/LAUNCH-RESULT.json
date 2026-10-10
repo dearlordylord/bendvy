@@ -1,0 +1,36 @@
+{
+  "planSHA256": "983d4b76db0da293732259cf92cdbecac32583ce3f3dc8ca461d5118b06ed69d",
+  "command": [
+    "/usr/bin/flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "/usr/bin/env",
+    "-i",
+    "HOME=/home/node",
+    "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+    "LANG=C",
+    "LC_ALL=C",
+    "TZ=UTC",
+    "BEND_NO_TELEMETRY=1",
+    "BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root",
+    "LD_LIBRARY_PATH=/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu",
+    "/usr/bin/python3.11",
+    "/workspace/formal-proofs/bendvy-worktrees/resource-field-integration/benchmarks/run.py",
+    "--output",
+    "/tmp/bendvy-public-resource-field-regression115-01",
+    "--cpu",
+    "11"
+  ],
+  "cwd": "/workspace/formal-proofs/bendvy-worktrees/resource-field-integration",
+  "started": true,
+  "exit": 1,
+  "pid": 264549,
+  "elapsedSeconds": 12.292193169007078,
+  "launch01.stdout": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "launch01.stderr": {
+    "bytes": 956,
+    "sha256": "85a7c2efd374b0085e0696de64aa34e718cd855f7b0c8f0dc0f9afa550c4a787"
+  }
+}

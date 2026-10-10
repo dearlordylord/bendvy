@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/workspace/formal-proofs/bendvy-worktrees/resource-field-integration/benchmarks/run.py", line 261, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/formal-proofs/bendvy-worktrees/resource-field-integration/benchmarks/run.py", line 173, in main
+    run(["bend", entry, "--check-only"], 5, role + "-checker")
+  File "/workspace/formal-proofs/bendvy-worktrees/resource-field-integration/benchmarks/run.py", line 84, in run
+    result = task_runner.run(argv, timeout=seconds, cwd=ROOT,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/formal-proofs/bendvy-worktrees/resource-field-integration/scripts/task_runner.py", line 307, in run
+    raise error
+subprocess.TimeoutExpired: Command '['bend', '/tmp/bendvy-public-resource-field-regression115-01/baseline/examples/query-composition/timing-main.bend', '--check-only']' timed out after 5 seconds

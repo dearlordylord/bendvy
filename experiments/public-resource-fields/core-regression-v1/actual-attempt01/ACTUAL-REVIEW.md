@@ -1,0 +1,7 @@
+# Independent failed comparative attempt review
+
+Bounded evidence integrity PASS for original51961 terminal1 and frozen115-core plan983d4b76db0da293732259cf92cdbecac32583ce3f3dc8ca461d5118b06ed69d. Independently verified exact output.tar.gz digest and all170 manifest members, including file lengths/hashes and symlink targets; launch raw956-byte stderr/empty stdout identities and receipt current121 source hashes/baseline identity join the plan. Five preliminary version/reference commands exited0. Receipt ERROR records frozen baseline --check-only default5 deadline before measurements; timings and pairs are empty.
+
+No speed, statistical regression or NO_CONFIRMED_REGRESSION verdict exists. Two retained CPU11 idle observations/statistics control do not convert a failed baseline checker into a measurement. Separate92222 pinned-CPU baseline control also reaches checker5; it does not justify a blind affinity retry, cap change or baseline change. Candidate field source/backend evidence remains distinct; unchanged #28 gate is unmet and public promotion is blocked on it. No rerun or heavy check by reviewer.
+
+Coverage current #70 row accurately records the failed attempt and empty measurements. The root preparation README still needs its current-status paragraph to record this attempt rather than only preparation wording; this documentation correction does not affect raw evidence integrity or supply a gate pass.
