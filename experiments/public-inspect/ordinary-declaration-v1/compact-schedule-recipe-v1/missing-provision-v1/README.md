@@ -1,0 +1,1 @@
+Preparation-only additive finite ordinary schedule missing-provision-v1. The prior qualified owner-probe scenario is unchanged. No current source check, runtime or independent oracle yet. Reuse existing registered bodies, tracked registry execution, schedule outcomes and full World/actual-owner observations; no new contracts.
