@@ -1,0 +1,37 @@
+"""Independent affected custom Store model from frozen source, no stdout inputs.
+
+The added opaque Lookup executes existing Family.get once with cursor0. Its
+Value projections are discarded; retained World and Found11 are unchanged.
+The wrong-count branch preserves owners but suppresses every found increment.
+"""
+from pathlib import Path
+import json
+import runpy
+
+
+def full_output(wrong_count=False):
+    root = Path(__file__).resolve().parent.parent
+    source_model = runpy.run_path(str(root / 'classified-v1/model.py.source'))['full_output']
+    values = json.loads(source_model())
+    physical = values[5].split('|')[-1]
+    schema = values[5].split('|')[0]
+    resource = 'Inventory=node(leaf:81,leaf:82)'
+    # Added limit-zero snapshot bypasses component presentation but retains the
+    # global resources. Population is independent of entity filtering/limit.
+    values.append(schema + '|population=2:[First=1, Second=2]|alive=2;rows=[];resources=['
+                  + resource + ']|' + physical)
+    if wrong_count:
+        # Both callbacks start at0 and found never increments; disabled stays
+        # None. Empty conjunction still permits all/limit1 rows and displays
+        # actual payloads; required Second sees absence and returns no rows.
+        values = [row.replace('population=2:[First=1, Second=2]',
+                              'population=2:[First=0, Second=0]') for row in values]
+        values[7] = schema + '|population=2:[First=0, Second=0]|alive=2;rows=[];resources=[' \
+                    + resource + ']|' + physical
+    return (json.dumps(values, ensure_ascii=False) + '\n').encode()
+
+
+if __name__ == '__main__':
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    sys.stdout.buffer.write(full_output('--wrong-count' in sys.argv))
