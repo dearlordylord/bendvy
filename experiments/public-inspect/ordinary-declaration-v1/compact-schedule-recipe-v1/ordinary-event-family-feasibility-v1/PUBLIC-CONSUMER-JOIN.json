@@ -1,0 +1,158 @@
+{
+  "sourceCommit": "a517f1604",
+  "scope": "literal import-only public consumer successor, not checked yet",
+  "joins": [
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/consumer.bend",
+      "public": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/consumer-public.bend",
+      "sourceSha256": "1cd2b5734df54ebce4bcf2fe8165db6a957a5c354d6140207ac04f255b47efe4",
+      "publicSha256": "3fdacd68ccae3291f7a7c6981513290eadf3007d3fdf65442650b35a0a5f1c61",
+      "imports": [
+        {
+          "from": "family.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-publication.bend"
+        },
+        {
+          "from": "stream.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-stream.bend"
+        }
+      ]
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/tree-setup.bend",
+      "public": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/tree-setup-public.bend",
+      "sourceSha256": "30d5a3af39a0bf3586a936991ec339b245ca675729cd126ee23fc3c6bbecccab",
+      "publicSha256": "893aca18fd615eb471c12061e2cbea45e41ba15bea6499028dd0c062c74417d7",
+      "imports": [
+        {
+          "from": "stream.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-stream.bend"
+        },
+        {
+          "from": "family.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-publication.bend"
+        },
+        {
+          "from": "composition.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-event-family.bend"
+        },
+        {
+          "from": "tree-runtime.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-family-runtime.bend"
+        },
+        {
+          "from": "routing.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-family-routing.bend"
+        },
+        {
+          "from": "consumer.bend",
+          "to": "consumer-public.bend"
+        }
+      ]
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/tree-consumer.bend",
+      "public": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/tree-consumer-public.bend",
+      "sourceSha256": "4e292fa435dc324d1fb847f472b52a00a9c950076e6c972a269af6bee049e8a9",
+      "publicSha256": "68ae403d3c9b3f40d0e291db096c863d63065e395852de29320a382b0ede06b4",
+      "imports": [
+        {
+          "from": "family.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-publication.bend"
+        },
+        {
+          "from": "tree-setup.bend",
+          "to": "tree-setup-public.bend"
+        },
+        {
+          "from": "composition.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-event-family.bend"
+        },
+        {
+          "from": "routing.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-family-routing.bend"
+        },
+        {
+          "from": "stream.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-stream.bend"
+        },
+        {
+          "from": "consumer.bend",
+          "to": "consumer-public.bend"
+        }
+      ]
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/observer.bend",
+      "public": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/observer-public.bend",
+      "sourceSha256": "92fb78718a16bd38ce4551bcc12a2067633b221e646ff53fe7015a1055bd9d84",
+      "publicSha256": "3db86157a460f13f6d0b5e715841524c99919983ace95d80682eaee8ba4c0419",
+      "imports": [
+        {
+          "from": "stream.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-stream.bend"
+        },
+        {
+          "from": "family.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-publication.bend"
+        },
+        {
+          "from": "routing.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-family-routing.bend"
+        },
+        {
+          "from": "tree-runtime.bend",
+          "to": "/workspace/formal-proofs/bendvy/src/ecs/event-family-runtime.bend"
+        },
+        {
+          "from": "tree-setup.bend",
+          "to": "tree-setup-public.bend"
+        },
+        {
+          "from": "tree-consumer.bend",
+          "to": "tree-consumer-public.bend"
+        },
+        {
+          "from": "consumer.bend",
+          "to": "consumer-public.bend"
+        }
+      ]
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/trace-consumer.bend",
+      "public": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/trace-consumer-public.bend",
+      "sourceSha256": "84178854fc30c93e01dc9f6d0c3d48119f18f83edfee85ac1f0bfc71e365949b",
+      "publicSha256": "b812b0506810c680c347d20830cdc6276cea1e93c3d970d62757e5acbb21879d",
+      "imports": [
+        {
+          "from": "tree-consumer.bend",
+          "to": "tree-consumer-public.bend"
+        },
+        {
+          "from": "tree-setup.bend",
+          "to": "tree-setup-public.bend"
+        },
+        {
+          "from": "observer.bend",
+          "to": "observer-public.bend"
+        }
+      ]
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/tree-entry.bend",
+      "public": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/tree-entry-public.bend",
+      "sourceSha256": "6844acd769196e3842ba78a5a134a2744bea0d77b44442a05c515c106e7d5f79",
+      "publicSha256": "5928f46e75bcdddd310c016699a3d0281115a0e067f1e7014aa1c2c1fa60dc8b",
+      "imports": [
+        {
+          "from": "trace-consumer.bend",
+          "to": "trace-consumer-public.bend"
+        },
+        {
+          "from": "tree-consumer.bend",
+          "to": "tree-consumer-public.bend"
+        }
+      ]
+    }
+  ]
+}
