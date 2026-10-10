@@ -204,5 +204,19 @@ query metadata and built-in direction/handle rendering; callers enable debug
 without a separate metadata adapter. Queued writes retain existing transactions
 and explicit barriers. The [independent review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/public-adoption-v1/FINAL-REVIEW.md)
 qualifies direct operations, two schemas and finite owner/World noninterference.
-Scheduled relations, stream readers, full #56 and feature performance remain open.
+Stream readers, full #56 and feature performance remain open.
 Combined integration regression is pending.
+
+`ordinary-app-relation-system` registers a read-only inverse-relation system from
+its ordinary declaration and target. `ordinary-app-relation-schedule` attaches
+that actual Registry and World to their operational `schedule-provision.Plan`;
+`snapshot(app, flag)` derives the relation query, registered access, cursor and
+schedule phase without user metadata adapters. The finite entry uses Unit system
+arguments/output and built-in relation rendering. Attachment rejects a Registry
+from another World or with mismatched registration metadata. Dispatch rejects a
+requested system ID different from the held Registry. Both refusals retain the
+original owners. An unscheduled registration has an empty phase; disabled debug
+skips observation. Snapshots preserve pending commands, events and cursors.
+The [independent review](../../experiments/public-inspect/ordinary-relation-schedule-oracle-v1/FINAL-REVIEW.md) verifies the complete finite backend observations and authority boundaries.
+Combined integration regression and broader automatic-debug coverage remain
+pending; this entry does not complete #56.
