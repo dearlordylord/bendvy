@@ -1,0 +1,28 @@
+[
+  {
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-app-reusable-oracle-v1/positive-imported-other.bend"
+    ],
+    "exit": 0,
+    "seconds": 1.3610763869946823
+  },
+  {
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-app-reusable-oracle-v1/negative-rejected-args-duplication.bend"
+    ],
+    "exit": 1,
+    "seconds": 0.8335815360187553
+  }
+]
