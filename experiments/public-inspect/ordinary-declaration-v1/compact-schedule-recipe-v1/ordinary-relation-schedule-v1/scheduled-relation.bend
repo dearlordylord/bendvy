@@ -22,17 +22,17 @@ def Application(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,
   Scheduled.Application<S,A.Store<S,C>,R,A.Notice<S,E>,Registered.Owner(~S,~C,~R,~E,~declaration,~target),Relation.View<S>,Relation.observe(~S,~C,~R,~E,~declaration,~Relation.builtin_row(~S)),Registered.empty_fold(~S,~C,~R,~E,~declaration,~target)>
 def Recipe(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~target:W.Handle<S>) -> Type:
   Tree.Recipe<Relation.World(~S,~C,~R,~E),Relation.View<S>,Relation.observe(~S,~C,~R,~E,~declaration,~Relation.builtin_row(~S))>
-def selected_phase(allowed:Bool,current:String,later:String) -> String:
+def selected_phase(allowed:Bool,current:String,later:Unit -> String) -> String:
   match allowed:
     case True{}:current
-    case False{}:later
+    case False{}:later(Unit{})
 def phase_for(steps:List<&2,Sch.Step>,+id:U32,+current:String) -> String:
   match steps:
-    case []:current
+    case []:""
     case Sch.Phase{name} <> rest:phase_for(rest,id,name)
     case Sch.Barrier{} <> rest:phase_for(rest,id,current)
     case Sch.System{candidate,_} <> rest:
-      selected_phase(U32.is_eq(candidate,id),current,phase_for(rest,id,current))
+      selected_phase(U32.is_eq(candidate,id),current,unused=>phase_for(rest,id,current))
 def described(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~target:W.Handle<S>,plan:SP.Plan<S>,namespace:U32,name:String,steps:List<&2,Sch.Step>,needs:List<&2,SP.Requirement<S>>,schema:Schema.Schema<S,A.Store<S,C>,R>,world:Relation.World(~S,~C,~R,~E),recipe:Recipe(~S,~C,~R,~E,~declaration,~target),debug:Bool,description:Scheduled.Description<S,Relation.View<S>>,result:Registered.Owner(~S,~C,~R,~E,~declaration,~target) & DTO.Binding<S>) -> Application(~S,~C,~R,~E,~declaration,~target) & Maybe<&2,Scheduled.Description<S,Relation.View<S>>>:
   match description:
     case Scheduled.Description{App.Description{schemaEntries,DTO.Product{_,observation}},ns,label,planned}:
