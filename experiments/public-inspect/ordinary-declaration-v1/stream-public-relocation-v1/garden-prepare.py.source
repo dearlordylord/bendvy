@@ -1,0 +1,18 @@
+from pathlib import Path
+import json,hashlib,re,importlib.util
+p=Path('/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1');o=Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/graph-stream-public-relocation-oracle-v2');v=json.loads((o/'ORACLES.json').read_text())['garden-normal'];sha=lambda f:hashlib.sha256(Path(f).read_bytes()).hexdigest();rows=[]
+for role in ['js','native']:
+ j=json.loads((p/('workshop-'+role+'-plan02.json')).read_text());out=Path('/tmp/bendvy55-public-garden-'+role+'02');out.mkdir(exist_ok=True);old=str(Path(j['generated']).parent)
+ def r(x):
+  if isinstance(x,str):return x.replace(old,str(out)).replace('/entry-workshop.bend','/entry-garden.bend').replace('/bendvy55-public-workshop-source01/','/bendvy55-public-garden-source01/')
+  if isinstance(x,list):return [r(z)for z in x]
+  if isinstance(x,dict):return {r(k):r(z)for k,z in x.items()}
+  return x
+ j=r(j);j['scope']='Current public Garden whole17819 independent source-derived QName model';j.update(oracle=v['path'],normalOracle=v['path'],oracleBytes=v['bytes'],normalOracleBytes=v['bytes'],oracleSHA256=v['sha256'],normalOracleSHA256=v['sha256'])
+ for k in ['sourceInventory','pins']:
+  for f in j[k]:j[k][f]=sha(f)
+ for f in [Path('/tmp/bendvy55-public-garden-source01/plan.json'),Path('/tmp/bendvy55-public-garden-source01/receipt.json'),Path(v['path'])]:j['pins'][str(f)]=sha(f)
+ j['importClosure']=sorted(j['sourceInventory'])
+ guard=Path('/workspace/formal-proofs/bendvy/experiments/public-inspect/development-plan-guard-v1/plan_guard.py');s=importlib.util.spec_from_file_location('g',guard);g=importlib.util.module_from_spec(s);s.loader.exec_module(g);g.validate(j,output_dir=out)
+ raw=(json.dumps(j,indent=2)+'\n').encode();(out/'plan.json').write_bytes(raw);(p/('garden-'+role+'-plan02.json')).write_bytes(raw);rows.append({'role':role,'path':str(out/'plan.json'),'sha256':hashlib.sha256(raw).hexdigest()})
+print(rows)

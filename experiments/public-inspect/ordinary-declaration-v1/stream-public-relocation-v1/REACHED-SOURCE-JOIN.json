@@ -1,0 +1,164 @@
+{
+  "joins": [
+    {
+      "variant": "namespace-normal",
+      "relative": "consumer.bend",
+      "parentSHA256": "d1075c9b5907deda44b464c3991b228ef37684cb13a132f7d8c7fb0bc624e7c8",
+      "candidateSHA256": "3b481436433bdd80fd846f04f67422ba332c6faa01c58312cf892f831dc1b46e",
+      "inverseExact": true,
+      "imports": [
+        [
+          "frame.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-stream-frame.bend"
+        ],
+        [
+          "transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ],
+        [
+          "failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "variant": "namespace-normal",
+      "relative": "entry-workshop.bend",
+      "parentSHA256": "de15799729178d300c572b429b3107b8f8b4774d1ab345b500c5e8c5aa004d8b",
+      "candidateSHA256": "de15799729178d300c572b429b3107b8f8b4774d1ab345b500c5e8c5aa004d8b",
+      "inverseExact": true,
+      "imports": []
+    },
+    {
+      "variant": "namespace-normal",
+      "relative": "fixture.bend",
+      "parentSHA256": "ec5cf38430e969667f7f24c030992a81f6e5b5e478c0f656af0b940eb58dba7e",
+      "candidateSHA256": "ec5cf38430e969667f7f24c030992a81f6e5b5e478c0f656af0b940eb58dba7e",
+      "inverseExact": true,
+      "imports": []
+    },
+    {
+      "variant": "namespace-normal",
+      "relative": "resources.bend",
+      "parentSHA256": "d5959f2d4b2187c739d5cd5e9a266fcdafdf88455961d4f613cf89021f3014e9",
+      "candidateSHA256": "28053151a3e63f7ec40a40f2f1a11355684527181040b22c27f6b0692aec5db8",
+      "inverseExact": true,
+      "imports": [
+        [
+          "transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ]
+      ]
+    },
+    {
+      "variant": "stream-consumption",
+      "relative": "consumer.bend",
+      "parentSHA256": "d1075c9b5907deda44b464c3991b228ef37684cb13a132f7d8c7fb0bc624e7c8",
+      "candidateSHA256": "3b481436433bdd80fd846f04f67422ba332c6faa01c58312cf892f831dc1b46e",
+      "inverseExact": true,
+      "imports": [
+        [
+          "frame.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-stream-frame.bend"
+        ],
+        [
+          "transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ],
+        [
+          "failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "variant": "stream-consumption",
+      "relative": "entry-workshop.bend",
+      "parentSHA256": "de15799729178d300c572b429b3107b8f8b4774d1ab345b500c5e8c5aa004d8b",
+      "candidateSHA256": "de15799729178d300c572b429b3107b8f8b4774d1ab345b500c5e8c5aa004d8b",
+      "inverseExact": true,
+      "imports": []
+    },
+    {
+      "variant": "stream-consumption",
+      "relative": "fixture.bend",
+      "parentSHA256": "ec5cf38430e969667f7f24c030992a81f6e5b5e478c0f656af0b940eb58dba7e",
+      "candidateSHA256": "ec5cf38430e969667f7f24c030992a81f6e5b5e478c0f656af0b940eb58dba7e",
+      "inverseExact": true,
+      "imports": []
+    },
+    {
+      "variant": "stream-consumption",
+      "relative": "resources.bend",
+      "parentSHA256": "cdd4edf45d4612935938abf643219b1394cbeb31ac11976703a4a5f3a5621f10",
+      "candidateSHA256": "a3934879a82fecd425cb20809b922332f3ad13e0e171f12bd35dfbe257f2d8ed",
+      "inverseExact": true,
+      "imports": [
+        [
+          "transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ]
+      ]
+    },
+    {
+      "variant": "failure-order",
+      "relative": "consumer.bend",
+      "parentSHA256": "d1075c9b5907deda44b464c3991b228ef37684cb13a132f7d8c7fb0bc624e7c8",
+      "candidateSHA256": "3ab09fb6edea97588744a511703f4762e84c817c349afc51733532a109bd3d06",
+      "inverseExact": true,
+      "imports": [
+        [
+          "frame.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-stream-frame.bend"
+        ],
+        [
+          "transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ]
+      ]
+    },
+    {
+      "variant": "failure-order",
+      "relative": "entry-workshop.bend",
+      "parentSHA256": "de15799729178d300c572b429b3107b8f8b4774d1ab345b500c5e8c5aa004d8b",
+      "candidateSHA256": "de15799729178d300c572b429b3107b8f8b4774d1ab345b500c5e8c5aa004d8b",
+      "inverseExact": true,
+      "imports": []
+    },
+    {
+      "variant": "failure-order",
+      "relative": "fixture.bend",
+      "parentSHA256": "ec5cf38430e969667f7f24c030992a81f6e5b5e478c0f656af0b940eb58dba7e",
+      "candidateSHA256": "ec5cf38430e969667f7f24c030992a81f6e5b5e478c0f656af0b940eb58dba7e",
+      "inverseExact": true,
+      "imports": []
+    },
+    {
+      "variant": "failure-order",
+      "relative": "resources.bend",
+      "parentSHA256": "d5959f2d4b2187c739d5cd5e9a266fcdafdf88455961d4f613cf89021f3014e9",
+      "candidateSHA256": "28053151a3e63f7ec40a40f2f1a11355684527181040b22c27f6b0692aec5db8",
+      "inverseExact": true,
+      "imports": [
+        [
+          "transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ]
+      ]
+    },
+    {
+      "variant": "failure-order",
+      "relative": "failures.bend",
+      "parentSHA256": "052f2459b8e56dcc25c025600a57bcf03c0568a254e7c6dd3048ab53b857f0f8",
+      "candidateSHA256": "aa0db74454ab29f8f7e236d15626b827d3d43e9ca6e77c772fe24742c84f3578",
+      "inverseExact": true,
+      "imports": [
+        [
+          "frame.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-stream-frame.bend"
+        ]
+      ]
+    }
+  ],
+  "scope": "Import-only relocation of original reached variants; failure-order retains only private altered failure provider. namespace and stream variants use actual public providers. Runtime/oracle binding pending."
+}

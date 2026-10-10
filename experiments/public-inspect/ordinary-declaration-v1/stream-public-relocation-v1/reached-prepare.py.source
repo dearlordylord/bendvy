@@ -1,0 +1,28 @@
+from pathlib import Path
+import json,hashlib,re,importlib.util
+root=Path('/workspace/formal-proofs/bendvy');p=Path('/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1');o=Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/graph-stream-public-reached-oracle-v2');cat=json.loads((o/'ORACLES.json').read_text());sha=lambda f:hashlib.sha256(Path(f).read_bytes()).hexdigest();print(cat)
+collector=root/'experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py';s=importlib.util.spec_from_file_location('c',collector);c=importlib.util.module_from_spec(s);s.loader.exec_module(c);rows=[]
+for case in ['namespace-normal','stream-consumption','failure-order']:
+ for role in ['js','native']:
+  j=json.loads((p/('workshop-'+role+'-plan02.json')).read_text());oldinv=set(j['sourceInventory']);out=Path('/tmp/bendvy55-public-reached-runtime01')/(case+'-'+role);out.mkdir(parents=True,exist_ok=True);old=str(Path(j['generated']).parent);entry=p/'reached-controls-v1'/case/'entry-workshop.bend';inv={}
+  def visit(f):
+   f=f.resolve(strict=True)
+   if str(f)in inv:return
+   inv[str(f)]=sha(f)
+   for t in re.findall(r'^import\s+(\S+)',f.read_text(),re.M):
+    if t!='Base':visit(f.parent/t)
+  visit(entry)
+  def r(x):
+   if isinstance(x,str):return x.replace(old,str(out)).replace(str(p/'entry-workshop.bend'),str(entry))
+   if isinstance(x,list):return [r(z)for z in x]
+   if isinstance(x,dict):return {r(k):r(z)for k,z in x.items()}
+   return x
+  j=r(j);v=cat[case];j.update(scope='Current public association reached '+case+' full independent18949 oracle; matching local FailureView baseline; no publiccore mutation/performance claim',subject='normal' if case=='namespace-normal' else 'mutant',entrypoint=str(entry),stage=str(entry.parent),sourceInventory=inv,importClosure=c.validate_imports(entry,inv),oracle=v['path'],normalOracle=v['baselinePath'],oracleBytes=v['bytes'],normalOracleBytes=cat['namespace-normal']['bytes'],oracleSHA256=v['sha256'],normalOracleSHA256=v['baselineSHA256'])
+  pins=dict(inv)
+  for f in j['pins']:
+   if f in oldinv or '/bendvy55-public-workshop-source01/'in f:continue
+   pins[f]=sha(f)
+  source=Path('/tmp/bendvy55-public-reached-source01'if case=='failure-order'else'/tmp/bendvy55-public-reached-source02')
+  for f in [*filter(lambda f:f.is_file(),o.iterdir()),*filter(lambda f:f.is_file(),source.iterdir()),p/'REACHED-SOURCE-JOIN.json',p/'REACHED-QNAME-ASSOCIATION.json',Path('/tmp/bendvy55-public-reached-model-sanity.json')]:pins[str(f)]=sha(f)
+  j['pins']=pins;s=importlib.util.spec_from_file_location('g',c.PLAN_GUARD);g=importlib.util.module_from_spec(s);s.loader.exec_module(g);g.validate(j,output_dir=out);raw=(json.dumps(j,indent=2)+'\n').encode();(out/'plan.json').write_bytes(raw);copy=p/'reached-runtime-v1'/case/role;copy.mkdir(parents=True,exist_ok=True);(copy/'plan.json').write_bytes(raw);rows.append({'case':case,'role':role,'path':str(out/'plan.json'),'sha256':hashlib.sha256(raw).hexdigest()})
+(p/'REACHED-SEQUENCE.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(rows))

@@ -1,0 +1,28 @@
+from pathlib import Path
+import json,hashlib,gzip
+p=Path('/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1');out=p/'actual-v2';(out/'objects').mkdir(parents=True,exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest();subjects=[('workshop-source',15183,Path('/tmp/bendvy55-public-workshop-source01')),('garden-source',8132,Path('/tmp/bendvy55-public-garden-source01')),('workshop-js',84560,Path('/tmp/bendvy55-public-workshop-js02')),('workshop-native',98044,Path('/tmp/bendvy55-public-workshop-native02')),('garden-js',26656,Path('/tmp/bendvy55-public-garden-js02')),('garden-native',14848,Path('/tmp/bendvy55-public-garden-native02')),('authority-first',31848,Path('/tmp/bendvy55-public-authority01')),('authority-remaining',12144,Path('/tmp/bendvy55-public-authority02')),('reached-source-initial',83538,Path('/tmp/bendvy55-public-reached-source01')),('reached-source-current',38877,Path('/tmp/bendvy55-public-reached-source02'))]+[(d.name,84321,d)for d in sorted(Path('/tmp/bendvy55-public-reached-runtime01').iterdir())];inputs={};cases=[];recovered=[]
+for label,handle,d in subjects:
+ j=json.loads((d/'plan.json').read_text());r=json.loads((d/'receipt.json').read_text());cases.append({'case':label,'originalSession':handle,'planSHA256':sha((d/'plan.json').read_bytes()),'status':r['status'],'commands':[(c['label'],c['exit'],c['failure'])for c in r['commands']],'guards':len(r['guards']),'baselineRejected':r.get('completeNormalBaselineRejected')})
+ for f,h in j['pins'].items():
+  raw=Path(f).read_bytes()
+  if sha(raw)!=h:
+   # Only known import-only attribution repair changed two prior consumer files.
+   assert label=='reached-source-initial' and f.endswith('/consumer.bend') and ('/namespace-normal/'in f or'/stream-consumption/'in f)
+   raw=raw.replace(b'import failures.bend as Fail',b'import /workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend as Fail');assert sha(raw)==h;recovered.append({'path':f,'sha256':h,'scope':'Exact historical bytes recovered by declared import inverse after execution; not a historical byte capture/pre-guard invention'})
+  inputs[(f,h)]=raw
+ for f in d.rglob('*'):
+  if f.is_file():raw=f.read_bytes();inputs[(str(f),sha(raw))]=raw
+ for c in r['commands']:
+  for k in ['stdout','stderr']:assert sha(Path(c[k]['path']).read_bytes())==c[k]['sha256']
+ for g in r['guards']:assert sha(Path(g['path']).read_bytes())==g['sha256'] and json.loads(Path(g['path']).read_text())['unchanged']
+rows=[]
+for (f,h),raw in sorted(inputs.items()):
+ row={'path':f,'sha256':h,'bytes':len(raw)}
+ if raw.startswith(b'\x7fELF') and not f.startswith('/tmp/bendvy55-public-'):row['hashOnly']='Installed external tool identity'
+ else:
+  parent=p/'initial-attempt01/objects'/(h+'.gz')
+  if parent.exists():obj=parent;name='../initial-attempt01/objects/'+obj.name
+  else:obj=out/'objects'/(h+'.gz');obj.write_bytes(gzip.compress(raw,mtime=0));name='objects/'+obj.name
+  assert gzip.decompress(obj.read_bytes())==raw;row.update(object=name,compressedSHA256=sha(obj.read_bytes()))
+ rows.append(row)
+(out/'manifest.json').write_text(json.dumps({'members':rows,'recoveredHistoricalBytes':recovered},indent=2)+'\n');(out/'RESULT.json').write_text(json.dumps({'cases':cases,'members':len(rows),'newObjects':len(list((out/'objects').glob('*.gz'))),'ordinaryBackendCases':4,'reachedBackendCases':6,'authority':'First intendedaffinerefusal31848 actual1 reused with outerlabelINCOMPLETE; remaining10 currentrefusals12144 complete sourcePASS, nofirstrepeat','scope':'Current public ordinary modules fullfiniteData stream/failure observation and reachedcontrols; no full55/Type-reader/universalproof/performance claim; initialmodelmismatch14098 unchanged'},indent=2)+'\n');print(len(rows),len(recovered))

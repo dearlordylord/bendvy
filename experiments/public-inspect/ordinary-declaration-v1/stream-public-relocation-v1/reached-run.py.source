@@ -1,0 +1,6 @@
+import json,subprocess,sys
+from pathlib import Path
+p=Path('/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1');collector='/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py'
+for r in json.loads((p/'REACHED-SEQUENCE.json').read_text()):
+ print('START',r['case'],r['role'],flush=True);result=subprocess.run(['/usr/bin/python3.11',collector,'run',r['path'],r['sha256']]);print('TERMINAL',r['case'],r['role'],result.returncode,flush=True)
+ if result.returncode:sys.exit(result.returncode)

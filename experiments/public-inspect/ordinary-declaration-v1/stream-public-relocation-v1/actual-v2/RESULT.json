@@ -1,0 +1,385 @@
+{
+  "cases": [
+    {
+      "case": "workshop-source",
+      "originalSession": 15183,
+      "planSHA256": "ee7f1889d50f6cfe06be0eb3f8729a6b6951728ae8d9d41f95d5afae9f19aff3",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "commands": [
+        [
+          "source-normal",
+          0,
+          null
+        ]
+      ],
+      "guards": 4,
+      "baselineRejected": null
+    },
+    {
+      "case": "garden-source",
+      "originalSession": 8132,
+      "planSHA256": "e7e051bd4e25ebe56282e45b86ed2205dc4c78acbecde43d959e3bf9578eeaf0",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "commands": [
+        [
+          "source-normal",
+          0,
+          null
+        ]
+      ],
+      "guards": 4,
+      "baselineRejected": null
+    },
+    {
+      "case": "workshop-js",
+      "originalSession": 84560,
+      "planSHA256": "417427196a572b641ffc50bdf18ffc48cede47858a83c24bc747679d8e771440",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        [
+          "emit",
+          0,
+          null
+        ],
+        [
+          "consumer",
+          0,
+          null
+        ]
+      ],
+      "guards": 7,
+      "baselineRejected": null
+    },
+    {
+      "case": "workshop-native",
+      "originalSession": 98044,
+      "planSHA256": "7d9abf8cda3df1ec6504b5491a72ea2844837f3459db0c2adee16ffb9d34691b",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        [
+          "emit",
+          0,
+          null
+        ],
+        [
+          "build",
+          0,
+          null
+        ],
+        [
+          "consumer",
+          0,
+          null
+        ]
+      ],
+      "guards": 10,
+      "baselineRejected": null
+    },
+    {
+      "case": "garden-js",
+      "originalSession": 26656,
+      "planSHA256": "754d74b4387a2e9a9ccb12e0b14941195620aa23869fe0458ffe0a87a4fc2d30",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        [
+          "emit",
+          0,
+          null
+        ],
+        [
+          "consumer",
+          0,
+          null
+        ]
+      ],
+      "guards": 7,
+      "baselineRejected": null
+    },
+    {
+      "case": "garden-native",
+      "originalSession": 14848,
+      "planSHA256": "dd8baab9a2a287e2d627db24b1183be50a55a9f90735d9943469a696c80ee8b0",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        [
+          "emit",
+          0,
+          null
+        ],
+        [
+          "build",
+          0,
+          null
+        ],
+        [
+          "consumer",
+          0,
+          null
+        ]
+      ],
+      "guards": 10,
+      "baselineRejected": null
+    },
+    {
+      "case": "authority-first",
+      "originalSession": 31848,
+      "planSHA256": "2163d0f00a647d10404aac5ea50b73a8a7ad0242a4220580a6afc3f2958b26d2",
+      "status": "INCOMPLETE",
+      "commands": [
+        [
+          "affine-owner-copy",
+          1,
+          null
+        ]
+      ],
+      "guards": 4,
+      "baselineRejected": null
+    },
+    {
+      "case": "authority-remaining",
+      "originalSession": 12144,
+      "planSHA256": "1ff5c18db23059076253ae9bbe3c2068158d3699848e733cd143a118441b6bec",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "commands": [
+        [
+          "source-failure-write-through-read",
+          1,
+          null
+        ],
+        [
+          "source-failure-wrong-schema",
+          1,
+          null
+        ],
+        [
+          "source-notice-payload-escape",
+          1,
+          null
+        ],
+        [
+          "source-shared-reader-count-escape",
+          1,
+          null
+        ],
+        [
+          "source-shared-snapshot-escape",
+          1,
+          null
+        ],
+        [
+          "source-undeclared-failure",
+          1,
+          null
+        ],
+        [
+          "source-undeclared-transition",
+          1,
+          null
+        ],
+        [
+          "source-write-through-read",
+          1,
+          null
+        ],
+        [
+          "source-wrong-schema",
+          1,
+          null
+        ],
+        [
+          "source-wrong-token",
+          1,
+          null
+        ]
+      ],
+      "guards": 31,
+      "baselineRejected": null
+    },
+    {
+      "case": "reached-source-initial",
+      "originalSession": 83538,
+      "planSHA256": "a13f20c0198f586a2296e354f4b9c9f70363dff2aa8db6495d11e504bc4b5154",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "commands": [
+        [
+          "source-namespace-normal",
+          0,
+          null
+        ],
+        [
+          "source-stream-consumption",
+          0,
+          null
+        ],
+        [
+          "source-failure-order",
+          0,
+          null
+        ]
+      ],
+      "guards": 10,
+      "baselineRejected": null
+    },
+    {
+      "case": "reached-source-current",
+      "originalSession": 38877,
+      "planSHA256": "6207c50236d7816b5ac4c6044c8dfb9051b8f3370e3886f26392f1c7a7893376",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "commands": [
+        [
+          "source-namespace-normal",
+          0,
+          null
+        ],
+        [
+          "source-stream-consumption",
+          0,
+          null
+        ]
+      ],
+      "guards": 7,
+      "baselineRejected": null
+    },
+    {
+      "case": "failure-order-js",
+      "originalSession": 84321,
+      "planSHA256": "85b726994e412b6e67b8bd199acdc2169807d5e82a438432b6c4755a572473d8",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        [
+          "emit",
+          0,
+          null
+        ],
+        [
+          "consumer",
+          0,
+          null
+        ]
+      ],
+      "guards": 7,
+      "baselineRejected": true
+    },
+    {
+      "case": "failure-order-native",
+      "originalSession": 84321,
+      "planSHA256": "b7a335755d72e462da16f69995a336bedc80b5de9c98cd2d6394974e6885dbc7",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        [
+          "emit",
+          0,
+          null
+        ],
+        [
+          "build",
+          0,
+          null
+        ],
+        [
+          "consumer",
+          0,
+          null
+        ]
+      ],
+      "guards": 10,
+      "baselineRejected": true
+    },
+    {
+      "case": "namespace-normal-js",
+      "originalSession": 84321,
+      "planSHA256": "36aa2ebbfdec25f99ea0708dc735fbae9bf6dc0b123b1c8719caddc47020d172",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        [
+          "emit",
+          0,
+          null
+        ],
+        [
+          "consumer",
+          0,
+          null
+        ]
+      ],
+      "guards": 7,
+      "baselineRejected": null
+    },
+    {
+      "case": "namespace-normal-native",
+      "originalSession": 84321,
+      "planSHA256": "fba90c1ebb504e89bf4cea5acc64d743b4349c05bc24840211b11397f0cdf8f5",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        [
+          "emit",
+          0,
+          null
+        ],
+        [
+          "build",
+          0,
+          null
+        ],
+        [
+          "consumer",
+          0,
+          null
+        ]
+      ],
+      "guards": 10,
+      "baselineRejected": null
+    },
+    {
+      "case": "stream-consumption-js",
+      "originalSession": 84321,
+      "planSHA256": "e3fe3b81c1963319cad472ce727bc2218319fdcd427ec900f81ac9170adc22e4",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        [
+          "emit",
+          0,
+          null
+        ],
+        [
+          "consumer",
+          0,
+          null
+        ]
+      ],
+      "guards": 7,
+      "baselineRejected": true
+    },
+    {
+      "case": "stream-consumption-native",
+      "originalSession": 84321,
+      "planSHA256": "1180ce49284ba66ccc296edc69441c755f849415faf5074385536212cc98c684",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        [
+          "emit",
+          0,
+          null
+        ],
+        [
+          "build",
+          0,
+          null
+        ],
+        [
+          "consumer",
+          0,
+          null
+        ]
+      ],
+      "guards": 10,
+      "baselineRejected": true
+    }
+  ],
+  "members": 412,
+  "newObjects": 237,
+  "ordinaryBackendCases": 4,
+  "reachedBackendCases": 6,
+  "authority": "First intendedaffinerefusal31848 actual1 reused with outerlabelINCOMPLETE; remaining10 currentrefusals12144 complete sourcePASS, nofirstrepeat",
+  "scope": "Current public ordinary modules fullfiniteData stream/failure observation and reachedcontrols; no full55/Type-reader/universalproof/performance claim; initialmodelmismatch14098 unchanged"
+}
