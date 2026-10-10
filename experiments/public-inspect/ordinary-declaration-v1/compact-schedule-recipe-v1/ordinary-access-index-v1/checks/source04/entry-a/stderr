@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : \{Tuple: (left => right => args => owner => component_second(component_body~H, right, Cap.read_field(component_body~H, U32, left, owner)))}
+Location: component_body
+49 |   match caps:
+50>|     case (left,right):component_second(~H,right,Cap.read(~H,~U32,left,owner))
+   |          ^^^^^^^^^^^^
+51 | def read_query(~S:Data) -> O.Declaration<S,Q.Frame<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>),U32>,Cap.Read<Q.Frame<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>),U32>,U32>,I.Frame<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>),U32>,C.Access<U32>>:
+bend 2.0.36 is available: run bend update

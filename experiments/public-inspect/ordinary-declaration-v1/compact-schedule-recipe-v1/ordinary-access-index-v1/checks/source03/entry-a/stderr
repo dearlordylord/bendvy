@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : \{Tuple: (left => right => args => owner => component_second(component_body~H, right, Cap.read_field(component_body~H, U32, left, owner)))}
+Location: component_body
+48 | def component_body(~H:Type,~caps:component_ops(H),args:Unit,owner:H) -> H & (T.Outcome<Unit> & Unit):
+49>|   (left,right)=caps
+   |   ^^^^^^^^^^^^
+50 |   component_second(~H,right,Cap.read(~H,~U32,left,owner))
+bend 2.0.36 is available: run bend update
