@@ -1,0 +1,90 @@
+{
+  "sources": {
+    "namespace-normal/consumer.bend": {
+      "bytes": 26201,
+      "sha256": "b5aa3a508fd82ee1e67ca3db2636812d97415186a0b4a006f9120a07b46d9903"
+    },
+    "namespace-normal/entry-workshop.bend": {
+      "bytes": 125,
+      "sha256": "b7669cfb1de60ef2a95c61f9454ffc35a12e1b1d6962a1bec9ebdb11f6373b2a"
+    },
+    "namespace-normal/fixture.bend": {
+      "bytes": 10486,
+      "sha256": "e8f413e4add7fcdc2e09bd1d9367c0b153046d3599b435c3adbc47f2cddf85b3"
+    },
+    "namespace-normal/operations.bend": {
+      "bytes": 3885,
+      "sha256": "2b64fbe65eb968aac8bdc5c046b556f10311e5758d9ef9e88debd80852accf86"
+    },
+    "clear-omitted/consumer.bend": {
+      "bytes": 26201,
+      "sha256": "b5aa3a508fd82ee1e67ca3db2636812d97415186a0b4a006f9120a07b46d9903"
+    },
+    "clear-omitted/entry-workshop.bend": {
+      "bytes": 125,
+      "sha256": "b7669cfb1de60ef2a95c61f9454ffc35a12e1b1d6962a1bec9ebdb11f6373b2a"
+    },
+    "clear-omitted/fixture.bend": {
+      "bytes": 10486,
+      "sha256": "e8f413e4add7fcdc2e09bd1d9367c0b153046d3599b435c3adbc47f2cddf85b3"
+    },
+    "clear-omitted/operations.bend": {
+      "bytes": 3880,
+      "sha256": "1a38cc9414729739ead8234ed795b6dd3313f7e524a61da9889d8dffeee5a108"
+    }
+  },
+  "captures": {
+    "namespace-source01": {
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/controls-v1/namespace-normal/entry-workshop.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "status": "CAPTURED_SOURCE_RESULT",
+      "raw": {
+        "stdout": {
+          "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+          "bytes": 58
+        },
+        "stderr": {
+          "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494",
+          "bytes": 42
+        }
+      },
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+    },
+    "omitted-source01": {
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/controls-v1/clear-omitted/entry-workshop.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "status": "CAPTURED_SOURCE_RESULT",
+      "raw": {
+        "stdout": {
+          "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+          "bytes": 58
+        },
+        "stderr": {
+          "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494",
+          "bytes": 42
+        }
+      },
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+    }
+  }
+}

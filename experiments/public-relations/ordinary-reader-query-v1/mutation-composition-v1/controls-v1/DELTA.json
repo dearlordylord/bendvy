@@ -1,0 +1,10 @@
+{
+  "normalSource": "4b3041329",
+  "normalCase": "namespace-normal",
+  "mutationCase": "clear-omitted",
+  "file": "operations.bend",
+  "old": "case P.Writable{_,_,Cap.Request{clear}}:clear(owner,source)",
+  "new": "case P.Writable{_,_,Cap.Request{_}}:(owner,A.Queued{})",
+  "inverse": "Unique literal replacement; all other source files byte exact",
+  "scope": "Actual supplied writable clear Request callback omitted; owner and Queued status retained, no core API change"
+}
