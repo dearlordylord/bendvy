@@ -1,0 +1,11 @@
+# Generic Bundle affected SchemaB / authority review
+
+Bounded Spec/Standards PASS against source5d75cf2534aea2331bb42a0dfb63fa51e7abd4d0 and immutable runtime728210b5e5560ff3c38fbed4cfe8c05b87dfa071 (author configured terminal0). Reuses independently reviewed /tmp/bendvy48-generic-bundle-schemaB-applicability.json and oracle6d176. No source/backend/statistics reruns.
+
+Verified43 lossless runtime rows/34objects, compressed/decoded identities and live original joins; all archive bytes equal immutable commit. Original JS88354/Native39450 both COMPLETE_CONSUMER_DEVELOPMENT_PASS: five commands exit0/failureNone,17 unchanged guards, exact plan/receipt/raw/current-pin joins, generated JS/C and Native binary hashes. Complete outputs both21569 bytes SHA39fa741680b22d0f0448f9a8f6c3fbc5a3b874608e4608d3f923deedb349a1a6, byte-identical to independent whole oracle, runtime stderr empty.
+
+Source ZIP132members/archiveSHA verified against exact live bytes. All three34-source closures and full capture pins remain current. Normal source stock5 exit0; cross-schema and owner-duplication actual source stock5 exit1/failureNone, unchanged postguards. Diagnostics are intended actual adapter.run boundaries: World<SchemaA> supplied where World<SchemaB> required, and affine Bundle consumed by run then reused. These are genuine type/affinity refusals, not runtime namespace refusals or deadline failures.
+
+Private adapter/phases hashes remain exactly5ece generic source. Normal consumer inverse changes only adapter import; SchemaB entry and unchanged full formatter use same consumer.Report constructor and String fields, so21569 applicability remains exact. Full three exit/transition/enter failure+retry reports retain physical World, Local, readers, barriers and authored Bundle owner/recovery order. This extends finite qualification to the second nominal schema with the same physical payload shape.
+
+No new public backend receipt is claimed: root's public-module relocation has its separate source/import applicability review; these runs target the unchanged private generic adapter. This is not arbitrary heterogeneous/multimachine frontend, universal preflight/provisioning, initialization, independent Factory-root uniqueness, performance or full #48/#49 closure. No new contracts/laws/runner changes accepted. No bounded integration blocker found.
