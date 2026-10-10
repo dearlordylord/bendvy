@@ -1,0 +1,39 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "app-b",
+      "path": "/tmp/bendvy-public-audit61-app-b-runtime01/app-b-js/plan.json",
+      "sha256": "f1443dc9f603a8a09e5d6bfda6d365dac6260e0669b4dcd74fe7095a9ec6066e",
+      "sources": 73,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-public-audit61-app-b-runtime01/app-b-js/plan.json",
+        "f1443dc9f603a8a09e5d6bfda6d365dac6260e0669b4dcd74fe7095a9ec6066e"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "app-b",
+      "path": "/tmp/bendvy-public-audit61-app-b-runtime01/app-b-native/plan.json",
+      "sha256": "aa050906a781c4bfa490b0392d1af3dfd60e264c2a1509b9ddc8415598d5306d",
+      "sources": 73,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-public-audit61-app-b-runtime01/app-b-native/plan.json",
+        "aa050906a781c4bfa490b0392d1af3dfd60e264c2a1509b9ddc8415598d5306d"
+      ]
+    }
+  ],
+  "sequence": "AppB JS wholePASS -> conditional AppB Native wholePASS; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Exact complete04 source5 actual PASS for frozen AppB closure; raw source evidence preserved",
+  "scope": "First complete AppB public cross-feature audit slice; no authority/reached-control/full61/proof/performance acceptance"
+}
