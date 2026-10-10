@@ -16,3 +16,5 @@ def pair(~S:Data,~Left:Type,~Right:Type,leftFold:Left -> Left & List<&2,Stored.F
     case (left,right):first(~S,~Left,~Right,rightFold,right,leftFold(left))
 def empty(~S:Data,unit:Unit) -> Unit & List<&2,Stored.Fields<S>>:
   (unit,[])
+def fold_pair(~S:Data,~Left:Type,~Right:Type,~left:Left -> Left & List<&2,Stored.Fields<S>>,~right:Right -> Right & List<&2,Stored.Fields<S>>,owners:Left & Right) -> (Left & Right) & List<&2,Stored.Fields<S>>:
+  pair(~S,~Left,~Right,left,right,owners)
