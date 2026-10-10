@@ -1,0 +1,17 @@
+{
+  "normalSource": "440e95385",
+  "normalClone": "byte-exact original four source files at matching depth/names",
+  "mutant": {
+    "path": "wrong-key/consumer.bend",
+    "before": "[D.relation(~S,F.parent(~S))]",
+    "after": "[D.relation(~S,F.link(~S))]",
+    "occurrences": 1,
+    "scope": "Only actual D.register descriptor declaration changes; Parent writer/inverse/body and all owners/outputs preserved"
+  },
+  "negatives": {
+    "crossSchema": "actual P.read_live Handle<Workshop> versus Handle<Garden>",
+    "writeThroughRead": "actual P.relate_live Writable versus ReadOnly",
+    "ownerDuplication": "actual abstract H reused after P.read_live consumes it",
+    "undeclaredWorldRead": "actual A.inverse bypass requires concrete World but gameplay only has abstract H"
+  }
+}
