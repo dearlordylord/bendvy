@@ -190,3 +190,12 @@ skip observation. The [independent review](../../experiments/public-inspect/ordi
 qualifies direct CurrentView/read/queue paths and declaration association;
 transitions, stream readers, broader debug categories and full #56 remain open.
 Combined152 protected regression passes [independent review](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt152-01/FINAL-REVIEW.md); full-feature performance remains separate.
+
+`ordinary-app-relation.Application` uses one ordinary relation declaration for
+inverse reads, `relate_app`, `unrelate_app` and `snapshot_app`. The library derives
+query metadata and built-in direction/handle rendering; callers enable debug
+without a separate metadata adapter. Queued writes retain existing transactions
+and explicit barriers. The [independent review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/public-adoption-v1/FINAL-REVIEW.md)
+qualifies direct operations, two schemas and finite owner/World noninterference.
+Scheduled relations, stream readers, full #56 and feature performance remain open.
+Combined integration regression is pending.
