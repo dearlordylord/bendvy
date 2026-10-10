@@ -1,0 +1,11 @@
+# Ordinary condition and transition reader consumer
+
+The smallest joint consumer uses the public ordinary machine condition grant with an opaque K.Frame body for inState(Play) and its negation. The existing actual registered independent reader instances run or skip through public Sch.run_with_skip. A public ordinary-machine-schedule declaration installs the intervening transition marker. No stateChanged capability is fabricated.
+
+Provider, reader, context, gameplay and legacy observer copies have exact non-import joins to the earlier executed #48 TypeScript/Bend scenarios (SOURCE-JOINS.json). Only their imports bind current canonical public M/St/MW/Cond and ECS modules. The initial seed body and explicit pre-existing current/previous/pending/transition fixture are test setup, not approved initialization policy. Existing lower-level writer functions remain historical unused seams; this packet makes no ordinary writer claim.
+
+Four complete observations preserve actual World live metadata, column lifecycle and physical payload arrays, resource owner, both machine slots, every transition batch/reader position, frame/tick, world registrations/cursors, both affine reader instances, extra affine owner and complete deliveries and Sch observations. The legacy observer is supplemented with owner-preserving physical array serialization; no metadata shadow replaces the real resource.
+
+Selected older matching scenarios are readers-register, skip-reader, skip-reader-no-backlog and reader-repeat-empty under experiments/public-machines/reference.mjs/full-semantic-v2. Their historical complete record is supporting lifecycle evidence, not a claim that this smaller explicit fixture has an identical transcript. Current source-derived full oracle is required before backend qualification. Initialization, changed projection, capacity overflow, foreign-reader association and handler failure lifecycle remain separate gates.
+
+Final selected source is A-source04, stock five-second PASS/current37closure/42pins/post unchanged. Source-only prior successful A01 was superseded by preserving existing non-ok reader failure forwarding; all success observations unchanged. Source attempts and binding/forward-definition/parser repairs remain byte-archived in SOURCE-EVIDENCE.json. No backend evidence yet.

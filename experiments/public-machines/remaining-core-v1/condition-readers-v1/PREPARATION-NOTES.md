@@ -1,0 +1,1 @@
+An entry-file authoring path duplicated the leaf name; FileNotFoundError occurred before entry creation and before capture preparation/child execution. Corrected the destination; no compiler/check evidence is attributed to that failed preparation.
