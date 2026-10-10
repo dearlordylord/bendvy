@@ -1,0 +1,28 @@
+{
+  "scope": "Original development typecheck; no preguard, portable admission, mathematical verdict or backend qualification",
+  "toolOutputChunk": "65315c",
+  "exit": 0,
+  "capSeconds": 5,
+  "cpu": 11,
+  "heavyLock": "/tmp/bendvy-parity-heavy.lock",
+  "compiler": "/home/node/.bend/bin/bend-2.0.35",
+  "argv": [
+    "taskset",
+    "-c",
+    "11",
+    "timeout",
+    "--signal=KILL",
+    "5s",
+    "/home/node/.bend/bin/bend-2.0.35",
+    "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/consumer.bend",
+    "--check-only"
+  ],
+  "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n",
+  "stderr": "bend 2.0.36 is available: run bend update\n",
+  "checkedFileHashes": {
+    "src/ecs/ordinary-resource-system.bend": "463a51c5a5996c86be5e08c23741b3e575241033962e669115c5a0b215de04af",
+    "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/consumer.bend": "7a1adea110211f98e108c1d2d5426c34afa26cc08b26f898a0414766fa6a5a4e",
+    "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/owner-observer.bend": "079c8b79f68e899156c01434b0a78de87468e0765025a2b7abe3393a55d9c89a"
+  },
+  "initialStagingFailure": "Sparse worktree index was not materialized; provider write and missing-consumer check failed before code existed. git read-tree -mu HEAD materialized the selected files before the successful check."
+}

@@ -1,0 +1,69 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "d6bca6f968ea52ed186a8d0890884ac054287417ce07a1a75b53a4646190d144",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "normal",
+      "path": "/tmp/bendvy-public-resource-runtime01/normal-js/plan.json",
+      "sha256": "74480265b19568c547fdc8db0e6b09fb7e17db1d727827c618ea21e95e5622c6",
+      "sources": 31,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-public-resource-runtime01/normal-js/plan.json",
+        "74480265b19568c547fdc8db0e6b09fb7e17db1d727827c618ea21e95e5622c6"
+      ]
+    },
+    {
+      "role": "js",
+      "subject": "mutant",
+      "case": "mutant",
+      "path": "/tmp/bendvy-public-resource-runtime01/mutant-js/plan.json",
+      "sha256": "fb10325342cbb26c034c94a01ba128c2700fea7a29189e3b9ed2fa01446d7438",
+      "sources": 31,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-public-resource-runtime01/mutant-js/plan.json",
+        "fb10325342cbb26c034c94a01ba128c2700fea7a29189e3b9ed2fa01446d7438"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "normal",
+      "path": "/tmp/bendvy-public-resource-runtime01/normal-native/plan.json",
+      "sha256": "8f77d55fa0d5ac95e305f05c1cd7fa6e72d382648ec536481bc583d84e588d2e",
+      "sources": 31,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-public-resource-runtime01/normal-native/plan.json",
+        "8f77d55fa0d5ac95e305f05c1cd7fa6e72d382648ec536481bc583d84e588d2e"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "mutant",
+      "case": "mutant",
+      "path": "/tmp/bendvy-public-resource-runtime01/mutant-native/plan.json",
+      "sha256": "8fde623811742010a8dc884778ffb462553bddb2d515fe86387f4b6f8d7371fa",
+      "sources": 31,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-public-resource-runtime01/mutant-native/plan.json",
+        "8fde623811742010a8dc884778ffb462553bddb2d515fe86387f4b6f8d7371fa"
+      ]
+    }
+  ],
+  "sequence": "normalJS PASS -> mutantJS PASS and normalbaseline rejection -> normalNative PASS -> mutantNative PASS; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Exact source5 actual PASS for both frozen consuming closures; raw source evidence preserved",
+  "scope": "Public ordinary resource module finite backend and reached rollback qualification; no automatic App/full56/universal/performance acceptance"
+}

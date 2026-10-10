@@ -1,0 +1,65 @@
+{
+  "status": "NO_CONFIRMED_REGRESSION",
+  "originalSession": 34839,
+  "terminalExit": 0,
+  "planSHA256": "19b47eae5766c7eeb6741be234cddc6c7e3ce0fb213a6a3fcea39e9a131c3c10",
+  "receiptSHA256": "caab32c91d91274b3525705a0c57b65705ee73dee2e71696568eee96c222b2f4",
+  "manifestSHA256": "56632d780e28337882aae28984425ee40bcd365af286564f184f4245e1178c6b",
+  "memberCount": 451,
+  "objectCount": 211,
+  "compressedObjectBytes": 3108861,
+  "integrity": {
+    "originalSession": 34839,
+    "terminalExit": 0,
+    "planSHA256": "19b47eae5766c7eeb6741be234cddc6c7e3ce0fb213a6a3fcea39e9a131c3c10",
+    "receiptSHA256": "caab32c91d91274b3525705a0c57b65705ee73dee2e71696568eee96c222b2f4",
+    "allCurrentSourceToolReferenceBindingsExact": true,
+    "sourceCounts": {
+      "coreModules": 112,
+      "monitoredFiles": 118,
+      "stagedCoreFiles": 121,
+      "baselineArchiveFiles": 29,
+      "TSCoreFiles": 33
+    },
+    "completeOutputFiles": 110,
+    "applicationsPerOutput": 10,
+    "TSCheckpointCount": 22,
+    "allCompleteOutputsAndCommandHashesExact": true,
+    "commands": 123,
+    "pairsPerBackend": 20,
+    "warmupsPerRole": 2,
+    "runtimeStderrFiles": 0,
+    "scope": "Read-only terminal integrity verification; no new executions, portable toolchain or equal-feature claim"
+  },
+  "endpoints": {
+    "JS": {
+      "nonTiePairs": 20,
+      "slowerPairs": 7,
+      "pValue": 0.9423408508300781,
+      "medianPairedRatio": 0.8609932442381913,
+      "confirmedRegression": false
+    },
+    "Native": {
+      "nonTiePairs": 20,
+      "slowerPairs": 13,
+      "pValue": 0.13158798217773438,
+      "medianPairedRatio": 1.1877602613281821,
+      "confirmedRegression": false,
+      "holmCutoff": 0.025
+    }
+  },
+  "descriptiveTargets": {
+    "JS/TS": 0.39423703808141325,
+    "Native/TS": 0.0997901711684121
+  },
+  "mediansMs": {
+    "TS": 771.11424,
+    "baseline-JS": 371.2324625,
+    "baseline-Native": 57.3804225,
+    "candidate-JS": 304.001794,
+    "candidate-Native": 76.949622
+  },
+  "limitsScope": "Unchanged #28 Workshop whole-process regression only, no hot-path/equal-feature/full56 performance acceptance",
+  "prelaunchFailureRetained": 61961,
+  "compilerRetries": 0
+}

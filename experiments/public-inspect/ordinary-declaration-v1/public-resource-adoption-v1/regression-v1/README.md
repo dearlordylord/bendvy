@@ -1,0 +1,17 @@
+# Public resource comparative gate preparation
+
+PLAN.json freezes the unchanged #28 Workshop comparison for the candidate public resource module. It binds all 112 Bend modules, the full 121-file staged core tree, 118 monitored runner/core files, the 29-file archived baseline, and the read-only TypeScript source tree. The candidate preparation commits are d3deda383 and 5bff40961; subsequent evidence-only commits do not change this source binding.
+
+The runner is the candidate worktree’s unchanged benchmarks/run.py. Its default route compiles the frozen baseline and current core anew, checks every complete observation, then compares twenty balanced randomized adjacent pairs per backend with the existing exact sign/Holm policy. No provider variant, artificial delay, statistical tolerance, sample rejection, or deadline adjustment is selected. The new module is staged and monitored; this Workshop workload does not call its new provider. Four independent feature cohorts qualify that behavior separately.
+
+The local ignored .references/bevy-ts alias resolves to the canonical read-only reference tree, including the target used by the archived reference’s absolute imports. PLAN.json records its realpath, HEAD and all core source hashes. The existing pinned-tools PATH selects Bend 2.0.35 and Node 24.20.0, avoiding the ambient Bend 2.0.36 default. No runner, installed resource, reference, or compiler changes are made. The environment is exactly the installed delivery configuration with this PATH prefix, passed through env -i. This is the existing comparative harness boundary, not a portable closed-toolchain claim.
+
+Before launch, independently review this whole plan, verify every frozen binding and fresh output path, verify CPU11 remains allowed, and obtain the four feature cohort terminal receipt audit plus exclusive queue release. The outer flock owns the shared heavy lock for the entire comparison. No other heavy checks may run during it. The required statistics harness check must have an exact matching configured passing receipt or run once under its unchanged five-second limit before the cohort.
+
+Execute the literal PLAN.json command once only after admission. Retain the original handle, complete output directory, raw failure evidence and receipt on any result. Do not replay unchanged failures or alter thresholds/caps. Final review must join the actual receipt to this source/tool/reference/environment plan and check all outputs, staged inputs, measurements and the statistical verdict. Prior 111-module evidence cannot replace this new subject’s gate. Same-cohort TS ratios are descriptive; no hot-path, equal-feature performance, automatic App, or full #56 acceptance follows from this comparison.
+
+The initial preparation commit 092572a48 did not execute configured hooks because sparse checkout omitted .githooks. The tracked hook has now been materialized; this successor receives the configured documentation/data checks. That does not retroactively qualify the initial commit.
+
+HOST-OBSERVATION.json is a five-second read-only preparation sample: allowed CPUs0–11, CPU11 idle during that interval. Existing #56 delivery requires deferring comparative measurements during contention. Reobserve and retain host state before launch; if no reasonable exclusive cohort is available, hold measurements. This adds no numerical admission threshold and waives no gate.
+
+Preparation has not executed the benchmark.

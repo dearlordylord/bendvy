@@ -1,0 +1,25 @@
+--- public-consumer
++++ rollback-control-consumer
+@@ -1,13 +1,13 @@
+ import Base
+-import ../../../../src/ecs/ordinary-resource-system.bend as P
+-import ../../../../src/ecs/ordinary-schema.bend as Schema
+-import ../../../../src/ecs/ordinary-query-declaration.bend as Query
+-import ../../../../src/ecs/world.bend as W
+-import ../../../../src/ecs/system.bend as Sys
+-import ../../../../src/ecs/column.bend as Col
+-import ../../../../src/ecs/transaction.bend as T
+-import ../../../../src/ecs/capabilities.bend as Cap
+-import ./owner-observer.bend as Dump
++import ./ordinary-resource-system.bend as P
++import ../../../../../src/ecs/ordinary-schema.bend as Schema
++import ../../../../../src/ecs/ordinary-query-declaration.bend as Query
++import ../../../../../src/ecs/world.bend as W
++import ../../../../../src/ecs/system.bend as Sys
++import ../../../../../src/ecs/column.bend as Col
++import ../../../../../src/ecs/transaction.bend as T
++import ../../../../../src/ecs/capabilities.bend as Cap
++import ../owner-observer.bend as Dump
+ type A is Data:
+   A{}
+ type Counter is Type:

@@ -1,0 +1,114 @@
+[
+  {
+    "source": "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/authority-controls/positive.bend",
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/authority-controls/positive.bend"
+    ],
+    "exit": 0,
+    "secondsIncludingLock": 2.2149474089965224,
+    "intendedTokens": [
+      "ALL PROOFS CHECK"
+    ],
+    "intendedResultConfirmed": true
+  },
+  {
+    "source": "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/authority-controls/negative-schema.bend",
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/authority-controls/negative-schema.bend"
+    ],
+    "exit": 1,
+    "secondsIncludingLock": 1.1504623319488019,
+    "intendedTokens": [
+      "Schema.Resource<C.A, C.Counter>",
+      "Schema.Resource<Other, C.Counter>"
+    ],
+    "intendedResultConfirmed": true
+  },
+  {
+    "source": "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/authority-controls/negative-write-through-read.bend",
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/authority-controls/negative-write-through-read.bend"
+    ],
+    "exit": 1,
+    "secondsIncludingLock": 1.3403216510196216,
+    "intendedTokens": [
+      "Cap.ValueWrite",
+      "Cap.ValueRead"
+    ],
+    "intendedResultConfirmed": true
+  },
+  {
+    "source": "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/authority-controls/negative-undeclared-grant.bend",
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/authority-controls/negative-undeclared-grant.bend"
+    ],
+    "exit": 1,
+    "secondsIncludingLock": 1.0913619530037977,
+    "intendedTokens": [
+      "P.Declaration",
+      "Query.Clause<C.A>"
+    ],
+    "intendedResultConfirmed": true
+  },
+  {
+    "source": "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/authority-controls/negative-abstract-owner.bend",
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/authority-controls/negative-abstract-owner.bend"
+    ],
+    "exit": 1,
+    "secondsIncludingLock": 1.024588013999164,
+    "intendedTokens": [
+      "W.World<C.A",
+      "recover_world~H"
+    ],
+    "intendedResultConfirmed": true
+  },
+  {
+    "source": "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/authority-controls/negative-affine-output.bend",
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/ordinary-declaration-v1/public-resource-adoption-v1/authority-controls/negative-affine-output.bend"
+    ],
+    "exit": 1,
+    "secondsIncludingLock": 1.077788889000658,
+    "intendedTokens": [
+      "output (consumed more than once)"
+    ],
+    "intendedResultConfirmed": true
+  }
+]
