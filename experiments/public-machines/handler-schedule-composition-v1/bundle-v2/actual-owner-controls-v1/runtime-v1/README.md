@@ -1,0 +1,9 @@
+# Actual slot and independent World runtime evidence
+
+The actual missing-slot consumer passed complete JS and Native equality to the independently source-derived 18832-byte oracle cf3af381. The actual same-schema independent-World consumer passed both backends against the complete 10566-byte oracle e2bd625d. All ten commands exited zero without failure; all 34 guards retained exact inputs and artifact joins. Neither rejected marker changed the observed pending queue, tick, barrier count or actual owner/registry state.
+
+The missing slot belongs only to the genuine inactive EnterPause declaration's requirement1; selected entries require resource2. The foreign Bundle is obtained from actual registrations in the second World, created by consuming the first World's returned Factory. Both complete Worlds, both Bundles/readers and returned Factory3 are retained across two foreign refusals. This exercises namespace rejection without asserting independent Factory roots are globally unique.
+
+`actual-attempt01/manifest.json` preserves 78 lossless members, 59 compressed content-addressed objects, all full outputs/receipts/guards/artifacts/native binaries, the independent523575f2f model packet and root second sanity. Sourceb176 and both source01 captures remain unchanged. Prepared-attempt01 was never launched; attempt02 corrected only an inherited preparation description from four source captures to two before freezing actual plans.
+
+This remains finite SchemaA fixture evidence with trusted declaration-authored World lenses, not universal identity/refinement, a reusable public frontend, heterogeneous/multi-machine ordering, arbitrary requirement predicates, malformed recovery, initialization or performance qualification. The separately authored generic adapter has its own source/evidence gates; no acceptance is transferred here.
