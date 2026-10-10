@@ -1,0 +1,24 @@
+{
+  "verdict": "SOURCE_MODEL_PASS",
+  "scope": "Independent source-derived lost-retry countermodel sanity; no runtime output consulted or backend execution performed",
+  "models": {
+    "A": {
+      "bytes": 2860,
+      "sha256": "6aca599e5f9129bd1bb23bb0d90348a50c3f068cd1a3c164451e6c5f35f2e8e4"
+    },
+    "B": {
+      "bytes": 2860,
+      "sha256": "f3438e62a5cf31864435e01a8846e71059afede20b5af8154988e700a99db1c9"
+    }
+  },
+  "findings": [
+    "Only requeued omits M.queue; original failed transition keeps committed exit effects, rolled-back transition writes and affine physical siblings. Subsequent markers have no pending transition, so no enter/publication/barrier work occurs.",
+    "Successful empty reader runs activate at tick 2, finish at ticks 2/3, and update tracked registry cursor to unchanged world clock 1. Missing reader fails and preserves registry cursor 0.",
+    "Seven report rows and mixed List.show/manual JSON grammar remain inherited from reviewed normal model. Initial/condition_false/requirement_missing rows unchanged.",
+    "Historical/current core joins count is 18 (17 unchanged plus changed world), not prior transcribed 19."
+  ],
+  "limitations": [
+    "Finite private mutation countermodel only; source and actual backend acceptance are separate evidence gates; no new handler policy or full issue closure."
+  ],
+  "modelSHA256": "fd0a8ee1e29f4d0b0bb986ed512b367ed7a8d0445d09c772c442d25bb431535e"
+}

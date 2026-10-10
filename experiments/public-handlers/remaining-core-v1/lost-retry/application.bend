@@ -1,0 +1,131 @@
+import Base
+import types.bend as T
+import world.bend as AppWorld
+import systems.bend as Systems
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/src/ecs/local.bend as Local
+import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M
+import /workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend as Stream
+import machine-handlers.bend as H
+import /workspace/formal-proofs/bendvy/src/ecs/machine-conditions.bend as Cond
+import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
+type Application<S:Data> is Type:
+  Application{world:W.World<S,T.Store<S>,T.Resources<S>,Unit>,owners:H.Owners<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>,readerRegistry:Maybe<&1,Sys.Registry<S,T.Store<S>,T.Resources<S>,Unit,Unit,String,Unit,Systems.reader_runner(~S)>>}
+def install_local(~S:Data,world:W.World<S,T.Store<S>,T.Resources<S>,Unit>,id:U32) -> W.World<S,T.Store<S>,T.Resources<S>,Unit>:
+  match world:
+    case W.World{+ns,next,high,live,capacity,depth,store,T.Resources{owned,slot,stream,reader,locals,tick,prefix,delivered,applied},events,pending,registrations,nextSystem,clock}:
+      W.World{ns,next,high,live,capacity,depth,store,T.Resources{owned,slot,stream,reader,List.append(&1,T.LocalOwner,locals,[T.LocalOwner{ns,id,Local.Cell{ALeaf{0}}}]),tick,prefix,delivered,applied},events,pending,registrations,nextSystem,clock}
+def entry_registered(~S:Data,result:Sys.RegistrationResult<S,T.Store<S>,T.Resources<S>,Unit,H.Invocation<T.State>,String,Unit,Systems.runner(~S)>) -> W.World<S,T.Store<S>,T.Resources<S>,Unit> & List<&1,H.Entry<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>>:
+  match result:
+    case Sys.RegistrationFailed{world}: (world,[])
+    case Sys.Registered{world,Sys.Registry{+namespace,+id,+name,+access,+cursor}}:
+      (install_local(~S,world,id),[H.Entry{id,Sys.Registry{namespace,id,name,access,cursor}}])
+def register(~S:Data,world:W.World<S,T.Store<S>,T.Resources<S>,Unit>,name:String) -> W.World<S,T.Store<S>,T.Resources<S>,Unit> & List<&1,H.Entry<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>>:
+  entry_registered(~S,Sys.register(~S,~T.Store<S>,~T.Resources<S>,~Unit,~H.Invocation<T.State>,~String,~Unit,~Systems.runner(~S),world,name,["cells:write","owned:write","machine:write"]))
+def assembled(~S:Data,exit:List<&1,H.Entry<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>>,transition:List<&1,H.Entry<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>>,result:W.World<S,T.Store<S>,T.Resources<S>,Unit> & List<&1,H.Entry<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>>) -> Application<S>:
+  (world,enter)=result
+  Application{world,H.Owners{exit,transition,enter},None{}}
+def registered_transition(~S:Data,exit:List<&1,H.Entry<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>>,result:W.World<S,T.Store<S>,T.Resources<S>,Unit> & List<&1,H.Entry<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>>) -> Application<S>:
+  (world,transition)=result
+  assembled(~S,exit,transition,register(~S,world,"enter"))
+def registered_exit(~S:Data,result:W.World<S,T.Store<S>,T.Resources<S>,Unit> & List<&1,H.Entry<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>>) -> Application<S>:
+  (world,exit)=result
+  registered_transition(~S,exit,register(~S,world,"transition"))
+def initial_resources(~S:Data) -> T.Resources<S>:
+  T.Resources{ANode{ALeaf{0},ALeaf{19}},M.Present{T.Boot{},M.NoPending{},None{},False{}},Stream.empty(~T.State),None{},[],0n,[],[],0}
+def empty_store(~S:Data,_:Unit) -> T.Store<S>:
+  T.Store{Col.Column{ALeaf{Some{ANode{ALeaf{0},ALeaf{7}}}},[]}}
+type Construction<S:Data> is Type:
+  Constructed{factory:W.Factory,application:Application<S>}
+  ConstructionRefused{factory:W.Factory}
+def activated(~S:Data,factory:W.Factory,result:W.World<S,T.Store<S>,T.Resources<S>,Unit> & W.Status) -> Construction<S>:
+  match result:
+    case (world,W.Accepted{}): Constructed{factory,registered_exit(~S,register(~S,world,"exit"))}
+    case (_,W.Rejected{_}): ConstructionRefused{factory}
+def reserved(~S:Data,factory:W.Factory,result:W.World<S,T.Store<S>,T.Resources<S>,Unit> & W.Reservation<S>) -> Construction<S>:
+  match result:
+    case (world,W.Reserved{handle}): activated(~S,factory,W.activate(~S,~T.Store<S>,~T.Resources<S>,~Unit,world,handle))
+    case (_,W.ReservationRejected{_}): ConstructionRefused{factory}
+def created(~S:Data,result:W.Creation<S,T.Store<S>,T.Resources<S>,Unit>) -> Construction<S>:
+  match result:
+    case W.CreateRejected{factory,_}: ConstructionRefused{factory}
+    case W.Created{factory,world}: reserved(~S,factory,W.reserve_id(~S,~T.Store<S>,~T.Resources<S>,~Unit,world))
+def create(~S:Data,factory:W.Factory) -> Construction<S>:
+  created(~S,W.create(~S,~T.Store<S>,~T.Resources<S>,~Unit,~(u => empty_store(~S,u)),factory,initial_resources(~S)))
+
+def published(~S:Data,world:W.World<S,T.Store<S>,T.Resources<S>,Unit>,event:M.Transition<T.State>) -> W.World<S,T.Store<S>,T.Resources<S>,Unit>:
+  match world:
+    case W.World{ns,next,high,live,capacity,depth,store,T.Resources{owned,slot,stream,reader,locals,+tick,prefix,delivered,applied},events,pending,registrations,nextSystem,clock}:
+      W.World{ns,next,high,live,capacity,depth,store,T.Resources{owned,slot,Stream.publish(~T.State,stream,tick,event),reader,locals,tick,prefix,delivered,applied},events,pending,registrations,nextSystem,clock}
+def marker_tick(~S:Data,world:W.World<S,T.Store<S>,T.Resources<S>,Unit>) -> W.World<S,T.Store<S>,T.Resources<S>,Unit>:
+  match world:
+    case W.World{ns,next,high,live,capacity,depth,store,T.Resources{owned,slot,stream,reader,locals,tick,prefix,delivered,applied},events,pending,registrations,nextSystem,clock}:
+      W.World{ns,next,high,live,capacity,depth,store,T.Resources{owned,slot,stream,reader,locals,1n+tick,prefix,delivered,applied},events,pending,registrations,nextSystem,clock}
+def retained(~S:Data,readerRegistry:Maybe<&1,Sys.Registry<S,T.Store<S>,T.Resources<S>,Unit,Unit,String,Unit,Systems.reader_runner(~S)>>,result:H.HandlerResult<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>) -> Application<S>:
+  match result:
+    case H.Completed{owners,world}: Application{world,owners,readerRegistry}
+    case H.Stopped{owners,world,_,_}: Application{world,owners,readerRegistry}
+def marker_slot(~S:Data,readerRegistry:Maybe<&1,Sys.Registry<S,T.Store<S>,T.Resources<S>,Unit,Unit,String,Unit,Systems.reader_runner(~S)>>,owners:H.Owners<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>,pair:W.World<S,T.Store<S>,T.Resources<S>,Unit> & M.Slot<S,T.MachineKey,T.State>) -> Application<S>:
+  (world,+slot)=pair
+  retained(~S,readerRegistry,H.run(~S,~T.Store<S>,~T.Resources<S>,~Unit,~T.State,~Systems.runner(~S),~T.MachineKey,~AppWorld.take(~S),~AppWorld.put(~S),~published(~S),~T.same,owners,AppWorld.put(~S,world,slot),M.snapshot(~S,~T.MachineKey,~T.State,slot)))
+def marker(~S:Data,app:Application<S>) -> Application<S>:
+  match app:
+    case Application{world,owners,readerRegistry}: marker_slot(~S,readerRegistry,owners,AppWorld.take(~S,marker_tick(~S,world)))
+def queue_slot(~S:Data,readerRegistry:Maybe<&1,Sys.Registry<S,T.Store<S>,T.Resources<S>,Unit,Unit,String,Unit,Systems.reader_runner(~S)>>,owners:H.Owners<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>,pair:W.World<S,T.Store<S>,T.Resources<S>,Unit> & M.Slot<S,T.MachineKey,T.State>) -> Application<S>:
+  (world,slot)=pair
+  Application{AppWorld.put(~S,world,M.queue(~S,~T.MachineKey,~T.State,slot,T.Play{},False{})),owners,readerRegistry}
+def queue_play(~S:Data,app:Application<S>) -> Application<S>:
+  match app:
+    case Application{world,owners,readerRegistry}: queue_slot(~S,readerRegistry,owners,AppWorld.take(~S,world))
+
+def reader_installed(~S:Data,world:W.World<S,T.Store<S>,T.Resources<S>,Unit>,namespace:U32,id:U32) -> W.World<S,T.Store<S>,T.Resources<S>,Unit>:
+  match world:
+    case W.World{ns,next,high,live,capacity,depth,store,T.Resources{owned,slot,stream,_,locals,tick,prefix,delivered,applied},events,pending,registrations,nextSystem,clock}:
+      W.World{ns,next,high,live,capacity,depth,store,T.Resources{owned,slot,stream,Some{Stream.Reader{namespace,id}},locals,tick,prefix,delivered,applied},events,pending,registrations,nextSystem,clock}
+def reader_registered(~S:Data,owners:H.Owners<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>,result:Sys.RegistrationResult<S,T.Store<S>,T.Resources<S>,Unit,Unit,String,Unit,Systems.reader_runner(~S)>) -> Application<S>:
+  match result:
+    case Sys.RegistrationFailed{world}: Application{world,owners,None{}}
+    case Sys.Registered{world,Sys.Registry{+namespace,+id,+name,+access,+cursor}}:
+      Application{reader_installed(~S,world,namespace,id),owners,Some{Sys.Registry{namespace,id,name,access,cursor}}}
+def install_reader(~S:Data,app:Application<S>) -> Application<S>:
+  match app:
+    case Application{world,owners,_}:
+      reader_registered(~S,owners,Sys.register(~S,~T.Store<S>,~T.Resources<S>,~Unit,~Unit,~String,~Unit,~Systems.reader_runner(~S),world,"reader",["machine:read"]))
+def read_completed(~S:Data,owners:H.Owners<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>,registry:Sys.Registry<S,T.Store<S>,T.Resources<S>,Unit,Unit,String,Unit,Systems.reader_runner(~S)>,result:Sys.Outcome<W.World<S,T.Store<S>,T.Resources<S>,Unit>,String,Unit>) -> Application<S>:
+  match result:
+    case Sys.Succeeded{world,_}: Application{world,owners,Some{registry}}
+    case Sys.Failed{world,_}: Application{world,owners,Some{registry}}
+def read_result(~S:Data,owners:H.Owners<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>,result:Sys.RunResult<S,T.Store<S>,T.Resources<S>,Unit,Unit,String,Unit,Systems.reader_runner(~S)>) -> Application<S>:
+  match result:
+    case Sys.Completed{registry,outcome}: read_completed(~S,owners,registry,outcome)
+    case Sys.RegistrationRejected{registry,world,_}: Application{world,owners,Some{registry}}
+def read(~S:Data,app:Application<S>) -> Application<S>:
+  match app:
+    case Application{world,owners,None{}}: Application{world,owners,None{}}
+    case Application{world,owners,Some{registry}}:
+      read_result(~S,owners,Sys.run_tracked(~S,~T.Store<S>,~T.Resources<S>,~Unit,~Unit,~String,~Unit,~Systems.reader_runner(~S),registry,world,Unit{}))
+
+def gate_decided(~S:Data,allowed:Bool,app:Application<S>) -> Application<S>:
+  match allowed:
+    case False{}: app
+    case True{}: marker(~S,app)
+def gate_slot(~S:Data,readerRegistry:Maybe<&1,Sys.Registry<S,T.Store<S>,T.Resources<S>,Unit,Unit,String,Unit,Systems.reader_runner(~S)>>,owners:H.Owners<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>,pair:W.World<S,T.Store<S>,T.Resources<S>,Unit> & M.Slot<S,T.MachineKey,T.State>,tree:Cond.Tree<T.Atom<S>>) -> Application<S>:
+  match pair:
+    case (world,M.Missing{}): Application{AppWorld.put(~S,world,M.Missing{}),owners,readerRegistry}
+    case (world,M.Present{+current,pending,previous,changed}):
+      gate_decided(~S,Cond.evaluate(~T.Atom<S>,~T.Environment<S>,~T.condition(~S),tree,T.Environment{current,True{}}),Application{AppWorld.put(~S,world,M.Present{current,pending,previous,changed}),owners,readerRegistry})
+def gated_marker(~S:Data,app:Application<S>,tree:Cond.Tree<T.Atom<S>>) -> Application<S>:
+  match app:
+    case Application{world,owners,readerRegistry}: gate_slot(~S,readerRegistry,owners,AppWorld.take(~S,world),tree)
+def missing_requirement(~S:Data,app:Application<S>) -> Application<S>:
+  match app:
+    case Application{world,owners,readerRegistry}: Application{AppWorld.put(~S,world,M.Missing{}),owners,readerRegistry}
+
+def without_reader(~S:Data,world:W.World<S,T.Store<S>,T.Resources<S>,Unit>) -> W.World<S,T.Store<S>,T.Resources<S>,Unit>:
+  match world:
+    case W.World{ns,next,high,live,capacity,depth,store,T.Resources{owned,slot,stream,_,locals,tick,prefix,delivered,applied},events,pending,registrations,nextSystem,clock}:
+      W.World{ns,next,high,live,capacity,depth,store,T.Resources{owned,slot,stream,None{},locals,tick,prefix,delivered,applied},events,pending,registrations,nextSystem,clock}
+def missing_reader(~S:Data,app:Application<S>) -> Application<S>:
+  match app:
+    case Application{world,owners,readerRegistry}: Application{without_reader(~S,world),owners,readerRegistry}

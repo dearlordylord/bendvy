@@ -1,0 +1,774 @@
+{
+  "status": "INDEPENDENT_APPLICATION_ORACLE_BEFORE_EXECUTABLE_OUTPUT",
+  "scope": "Independent application specification. One successful gameplay callback increments clock once; commands defer until explicit barrier. Public stream tick advances per explicit marker; read after retry/next only.",
+  "rows": {
+    "A_initial": {
+      "namespace": 1,
+      "entity": 1,
+      "component": [
+        0,
+        7
+      ],
+      "resource": [
+        0,
+        19
+      ],
+      "locals": [
+        0,
+        0,
+        0
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "streamReader": {
+        "namespace": 1,
+        "id": 4,
+        "position": null
+      },
+      "current": "Boot",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "publications": [],
+      "deliveries": [],
+      "clock": 0,
+      "pendingStructural": 0,
+      "structuralApplied": 0,
+      "prefix": [],
+      "publicationTicks": [],
+      "tick": 0
+    },
+    "A_failed": {
+      "namespace": 1,
+      "entity": 1,
+      "component": [
+        1,
+        7
+      ],
+      "resource": [
+        1,
+        19
+      ],
+      "locals": [
+        1,
+        1,
+        0
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "streamReader": {
+        "namespace": 1,
+        "id": 4,
+        "position": null
+      },
+      "current": "Boot",
+      "pending": "Play",
+      "previous": "Boot",
+      "changed": false,
+      "publications": [],
+      "deliveries": [],
+      "clock": 1,
+      "pendingStructural": 1,
+      "structuralApplied": 0,
+      "prefix": [
+        "exit"
+      ],
+      "publicationTicks": [],
+      "tick": 1
+    },
+    "A_retry": {
+      "namespace": 1,
+      "entity": 1,
+      "component": [
+        112,
+        7
+      ],
+      "resource": [
+        112,
+        19
+      ],
+      "locals": [
+        2,
+        2,
+        1
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        2,
+        3,
+        4,
+        4
+      ],
+      "streamReader": {
+        "namespace": 1,
+        "id": 4,
+        "position": {
+          "cursor": 2,
+          "registeredAt": 2
+        }
+      },
+      "current": "Play",
+      "pending": "Pause",
+      "previous": "Boot",
+      "changed": true,
+      "publications": [
+        [
+          "Boot",
+          "Play"
+        ]
+      ],
+      "deliveries": [
+        [
+          "Boot",
+          "Play"
+        ]
+      ],
+      "clock": 4,
+      "pendingStructural": 4,
+      "structuralApplied": 0,
+      "prefix": [
+        "exit",
+        "exit",
+        "transition",
+        "enter"
+      ],
+      "publicationTicks": [
+        2
+      ],
+      "tick": 2
+    },
+    "A_next": {
+      "namespace": 1,
+      "entity": 1,
+      "component": [
+        223,
+        7
+      ],
+      "resource": [
+        223,
+        19
+      ],
+      "locals": [
+        3,
+        3,
+        2
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        5,
+        6,
+        7,
+        7
+      ],
+      "streamReader": {
+        "namespace": 1,
+        "id": 4,
+        "position": {
+          "cursor": 3,
+          "registeredAt": 2
+        }
+      },
+      "current": "Pause",
+      "pending": null,
+      "previous": "Play",
+      "changed": true,
+      "publications": [
+        [
+          "Boot",
+          "Play"
+        ],
+        [
+          "Play",
+          "Pause"
+        ]
+      ],
+      "deliveries": [
+        [
+          "Boot",
+          "Play"
+        ],
+        [
+          "Play",
+          "Pause"
+        ]
+      ],
+      "clock": 7,
+      "pendingStructural": 7,
+      "structuralApplied": 0,
+      "prefix": [
+        "exit",
+        "exit",
+        "transition",
+        "enter",
+        "exit",
+        "transition",
+        "enter"
+      ],
+      "publicationTicks": [
+        2,
+        3
+      ],
+      "tick": 3
+    },
+    "A_condition_false": {
+      "namespace": 1,
+      "entity": 1,
+      "component": [
+        0,
+        7
+      ],
+      "resource": [
+        0,
+        19
+      ],
+      "locals": [
+        0,
+        0,
+        0
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "streamReader": {
+        "namespace": 1,
+        "id": 4,
+        "position": null
+      },
+      "current": "Boot",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "publications": [],
+      "deliveries": [],
+      "clock": 0,
+      "pendingStructural": 0,
+      "structuralApplied": 0,
+      "prefix": [],
+      "publicationTicks": [],
+      "tick": 0
+    },
+    "A_requirement_missing": {
+      "namespace": 1,
+      "entity": 1,
+      "component": [
+        0,
+        7
+      ],
+      "resource": [
+        0,
+        19
+      ],
+      "locals": [
+        0,
+        0,
+        0
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "streamReader": {
+        "namespace": 1,
+        "id": 4,
+        "position": null
+      },
+      "current": null,
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "publications": [],
+      "deliveries": [],
+      "clock": 0,
+      "pendingStructural": 0,
+      "structuralApplied": 0,
+      "prefix": [],
+      "publicationTicks": [],
+      "tick": 0
+    },
+    "B_initial": {
+      "namespace": 2,
+      "entity": 1,
+      "component": [
+        0,
+        7
+      ],
+      "resource": [
+        0,
+        19
+      ],
+      "locals": [
+        0,
+        0,
+        0
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "streamReader": {
+        "namespace": 2,
+        "id": 4,
+        "position": null
+      },
+      "current": "Boot",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "publications": [],
+      "deliveries": [],
+      "clock": 0,
+      "pendingStructural": 0,
+      "structuralApplied": 0,
+      "prefix": [],
+      "publicationTicks": [],
+      "tick": 0
+    },
+    "B_failed": {
+      "namespace": 2,
+      "entity": 1,
+      "component": [
+        1,
+        7
+      ],
+      "resource": [
+        1,
+        19
+      ],
+      "locals": [
+        1,
+        1,
+        0
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "streamReader": {
+        "namespace": 2,
+        "id": 4,
+        "position": null
+      },
+      "current": "Boot",
+      "pending": "Play",
+      "previous": "Boot",
+      "changed": false,
+      "publications": [],
+      "deliveries": [],
+      "clock": 1,
+      "pendingStructural": 1,
+      "structuralApplied": 0,
+      "prefix": [
+        "exit"
+      ],
+      "publicationTicks": [],
+      "tick": 1
+    },
+    "B_retry": {
+      "namespace": 2,
+      "entity": 1,
+      "component": [
+        112,
+        7
+      ],
+      "resource": [
+        112,
+        19
+      ],
+      "locals": [
+        2,
+        2,
+        1
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        2,
+        3,
+        4,
+        4
+      ],
+      "streamReader": {
+        "namespace": 2,
+        "id": 4,
+        "position": {
+          "cursor": 2,
+          "registeredAt": 2
+        }
+      },
+      "current": "Play",
+      "pending": "Pause",
+      "previous": "Boot",
+      "changed": true,
+      "publications": [
+        [
+          "Boot",
+          "Play"
+        ]
+      ],
+      "deliveries": [
+        [
+          "Boot",
+          "Play"
+        ]
+      ],
+      "clock": 4,
+      "pendingStructural": 4,
+      "structuralApplied": 0,
+      "prefix": [
+        "exit",
+        "exit",
+        "transition",
+        "enter"
+      ],
+      "publicationTicks": [
+        2
+      ],
+      "tick": 2
+    },
+    "B_next": {
+      "namespace": 2,
+      "entity": 1,
+      "component": [
+        223,
+        7
+      ],
+      "resource": [
+        223,
+        19
+      ],
+      "locals": [
+        3,
+        3,
+        2
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        5,
+        6,
+        7,
+        7
+      ],
+      "streamReader": {
+        "namespace": 2,
+        "id": 4,
+        "position": {
+          "cursor": 3,
+          "registeredAt": 2
+        }
+      },
+      "current": "Pause",
+      "pending": null,
+      "previous": "Play",
+      "changed": true,
+      "publications": [
+        [
+          "Boot",
+          "Play"
+        ],
+        [
+          "Play",
+          "Pause"
+        ]
+      ],
+      "deliveries": [
+        [
+          "Boot",
+          "Play"
+        ],
+        [
+          "Play",
+          "Pause"
+        ]
+      ],
+      "clock": 7,
+      "pendingStructural": 7,
+      "structuralApplied": 0,
+      "prefix": [
+        "exit",
+        "exit",
+        "transition",
+        "enter",
+        "exit",
+        "transition",
+        "enter"
+      ],
+      "publicationTicks": [
+        2,
+        3
+      ],
+      "tick": 3
+    },
+    "B_condition_false": {
+      "namespace": 2,
+      "entity": 1,
+      "component": [
+        0,
+        7
+      ],
+      "resource": [
+        0,
+        19
+      ],
+      "locals": [
+        0,
+        0,
+        0
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "streamReader": {
+        "namespace": 2,
+        "id": 4,
+        "position": null
+      },
+      "current": "Boot",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "publications": [],
+      "deliveries": [],
+      "clock": 0,
+      "pendingStructural": 0,
+      "structuralApplied": 0,
+      "prefix": [],
+      "publicationTicks": [],
+      "tick": 0
+    },
+    "B_requirement_missing": {
+      "namespace": 2,
+      "entity": 1,
+      "component": [
+        0,
+        7
+      ],
+      "resource": [
+        0,
+        19
+      ],
+      "locals": [
+        0,
+        0,
+        0
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "streamReader": {
+        "namespace": 2,
+        "id": 4,
+        "position": null
+      },
+      "current": null,
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "publications": [],
+      "deliveries": [],
+      "clock": 0,
+      "pendingStructural": 0,
+      "structuralApplied": 0,
+      "prefix": [],
+      "publicationTicks": [],
+      "tick": 0
+    },
+    "A_missing_reader": {
+      "namespace": 1,
+      "entity": 1,
+      "component": [
+        112,
+        7
+      ],
+      "resource": [
+        112,
+        19
+      ],
+      "locals": [
+        2,
+        2,
+        1
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        2,
+        3,
+        4,
+        0
+      ],
+      "streamReader": null,
+      "current": "Play",
+      "pending": "Pause",
+      "previous": "Boot",
+      "changed": true,
+      "publications": [
+        [
+          "Boot",
+          "Play"
+        ]
+      ],
+      "deliveries": [],
+      "clock": 4,
+      "pendingStructural": 4,
+      "structuralApplied": 0,
+      "prefix": [
+        "exit",
+        "exit",
+        "transition",
+        "enter"
+      ],
+      "publicationTicks": [
+        2
+      ],
+      "tick": 2
+    },
+    "B_missing_reader": {
+      "namespace": 2,
+      "entity": 1,
+      "component": [
+        112,
+        7
+      ],
+      "resource": [
+        112,
+        19
+      ],
+      "locals": [
+        2,
+        2,
+        1
+      ],
+      "registryIds": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "registryCursors": [
+        2,
+        3,
+        4,
+        0
+      ],
+      "streamReader": null,
+      "current": "Play",
+      "pending": "Pause",
+      "previous": "Boot",
+      "changed": true,
+      "publications": [
+        [
+          "Boot",
+          "Play"
+        ]
+      ],
+      "deliveries": [],
+      "clock": 4,
+      "pendingStructural": 4,
+      "structuralApplied": 0,
+      "prefix": [
+        "exit",
+        "exit",
+        "transition",
+        "enter"
+      ],
+      "publicationTicks": [
+        2
+      ],
+      "tick": 2
+    }
+  }
+}

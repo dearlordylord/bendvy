@@ -1,0 +1,46 @@
+{
+  "scope": "Private copied current handler mutation omits existing exit/transition retry; actual transition failure reached by unchanged application",
+  "changes": {
+    "types.bend": {
+      "originalSHA256": "75af6669a194c9129ce9ceb1adfa42a1b7b350838884fe11dea8ab64eee7b024",
+      "candidateSHA256": "75af6669a194c9129ce9ceb1adfa42a1b7b350838884fe11dea8ab64eee7b024",
+      "delta": "unchanged"
+    },
+    "world.bend": {
+      "originalSHA256": "abc816ec9a09508f55f993501ce89af069b6f42a6e7f8784946116e7c06b3abe",
+      "candidateSHA256": "abc816ec9a09508f55f993501ce89af069b6f42a6e7f8784946116e7c06b3abe",
+      "delta": "unchanged"
+    },
+    "systems.bend": {
+      "originalSHA256": "3263c92a6e77497e4eb02b9083b05d02655e48f4cfa77b0f79211f248d0550cd",
+      "candidateSHA256": "20ea2f11ce6fed33df138bd7f0afc1f8d85c414a98d9b3279a7b6966e1ab6043",
+      "delta": "H import substitution only"
+    },
+    "application.bend": {
+      "originalSHA256": "26bf6c97c49e029ab8dad6fdde24b9142dc80e2c8b4b0bbaeab4462f133570b2",
+      "candidateSHA256": "6f18ce1cc616ac3139c7d49e472f7a28f80e7f76679c496a3dfc94370d71e90c",
+      "delta": "H import substitution only"
+    },
+    "main.bend": {
+      "originalSHA256": "e2865f25c454307b7a62ab4c59d054cfe71d1ac75c43ccac9e0ee7ccf6001859",
+      "candidateSHA256": "b87b017e0ab793c006a15b793ba10ba692dc3ac2b746f1560bb3a4df2b3cef68",
+      "delta": "H import substitution only"
+    },
+    "native-a.bend": {
+      "originalSHA256": "23a56fe0b6f2618a263151f728616b24b1323e49ce1f9c6b2d3a912a1392035d",
+      "candidateSHA256": "23a56fe0b6f2618a263151f728616b24b1323e49ce1f9c6b2d3a912a1392035d",
+      "delta": "unchanged"
+    },
+    "native-b.bend": {
+      "originalSHA256": "52c5e710b42a4bed14f847f6a90d5a490ae6042f5240ea93a0e68a30075c4001",
+      "candidateSHA256": "52c5e710b42a4bed14f847f6a90d5a490ae6042f5240ea93a0e68a30075c4001",
+      "delta": "unchanged"
+    },
+    "machine-handlers.bend": {
+      "originalPath": "/workspace/formal-proofs/bendvy/src/ecs/machine-handlers.bend",
+      "originalSHA256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+      "candidateSHA256": "7df3f2fc875f237dbc13a37fccd3b31cbc2457d598cfeef79d954bc7ebfdd4f5",
+      "diff": "--- \n+++ \n@@ -1,10 +1,10 @@\n import Base\n \n-import world.bend as W\n+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n \n-import system.bend as Sys\n+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys\n \n-import machine.bend as M\n+import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M\n \n \n \n@@ -73,7 +73,7 @@\n \n def requeued(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,observed:W.World<S,C,R,E> & M.Slot<S,K,V>,to:V,skipSame:Bool) -> W.World<S,C,R,E>:\n   (world,slot)=observed\n-  put(world,M.queue(~S,~K,~V,slot,to,skipSame))\n+  put(world,slot)\n \n def published(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,observed:W.World<S,C,R,E> & M.Slot<S,K,V>,+from:V,+to:V) -> W.World<S,C,R,E>:\n   (world,slot)=observed\n"
+    }
+  }
+}
