@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : cases for consumer.Internal
+- observed : \{}
+Context:
+- declaration : Ordinary.Declaration<ordinary_queued~S>
+- debug       : Bool
+Location: ordinary_queued
+153 | def ordinary_queued(~S:Data,declaration:Ordinary.Declaration<S>,debug:Bool,app:Application<S>) -> ordinary_application(~S):
+154>|   match app:
+    |   ^^^^^^^^^^
+155 |     case Application{world,bundle,reader}:App.Application{world,bundle,declaration,reader,debug}
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : declaration
+- observed : declaration (consumed more than once)
+Context:
+- world  : W.World<run_app~S, run_app~C, run_app~R, run_app~E>
+- bundle : B.Bundle<run_app~S, run_app~K, run_app~V, run_app~Q, run_app~C, run_app~R, run_app~E, run_app~runner>
+Location: run_app
+43 |     case Recovering{result,declaration,extra,debug}:RunResult{result,declaration,extra,debug}
+44>|     case Application{world,bundle,declaration,extra,debug}:RunResult{Operation.run(~S,~K,~V,~Q,~C,~R,~E,~runner,~take,~put,~publish,~same,~requirement_same,~has,~frame,declaration,bundle,world),declaration,extra,debug}
+   |                                   ^^^^^^^^^^^
+45 | 
+bend 2.0.36 is available: run bend update
