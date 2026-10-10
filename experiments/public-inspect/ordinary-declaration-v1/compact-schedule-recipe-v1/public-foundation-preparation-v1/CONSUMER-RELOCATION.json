@@ -1,0 +1,562 @@
+{
+  "members": [
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/entry-a.bend",
+      "sourceSHA256": "db8bea954213e9d01c2d269e1188cac287e32a11cfed907106b0bc2232ab66ff",
+      "preparedPath": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/public-foundation-preparation-v1/consumer/entry-a.bend",
+      "sha256": "db8bea954213e9d01c2d269e1188cac287e32a11cfed907106b0bc2232ab66ff",
+      "importEdits": [
+        {
+          "before": "import ./consumer.bend as Consumer",
+          "after": "import ./consumer.bend as Consumer"
+        }
+      ],
+      "extractedDeclarations": null
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/declarations.bend",
+      "sourceSHA256": "f60513f64fefbdfb6bcc51925e6c6bff3ec2645c1e91f42c4832a9af8dbc6285",
+      "preparedPath": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/public-foundation-preparation-v1/consumer/declarations.bend",
+      "sha256": "56d0b01f1f446f75d67dd37671412bc1289f87bddf4077b1c60277988b1e7521",
+      "importEdits": [
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/component.bend as Caller",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/component.bend as Caller"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend as Fixture",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend as Fixture"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/full-consumer.bend as Full",
+          "after": "import ./fixture-full.bend as Full"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v1/observable-resource.bend as D",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-resource-declaration.bend as D"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-resource-system.bend as P",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-resource-system.bend as P"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/input.bend as Input",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/input.bend as Input"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/fixture.bend as RF",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/fixture.bend as RF"
+        },
+        {
+          "before": "import ./records.bend as Leaf",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-records.bend as Leaf"
+        },
+        {
+          "before": "import ../runtime-registration-records-v1/records.bend as Stored",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-registration-fields.bend as Stored"
+        },
+        {
+          "before": "import ../operational-v1/unit-bodies.bend as Bodies",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/unit-bodies.bend as Bodies"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend as Ord",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend as Ord"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-observable.bend as O",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-observable.bend as O"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Projection",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Projection"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/presentation.bend as Presented",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/presentation.bend as Presented"
+        },
+        {
+          "before": "import ../recipe-tree-v1/ordinary-unit.bend as Ordinary",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/recipe-tree-v1/ordinary-unit.bend as Ordinary"
+        }
+      ],
+      "extractedDeclarations": null
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/frontend.bend",
+      "sourceSHA256": "a1b8d39f77e80e7db7ae88bb25ea53769e9798403349ade2ea15d7a0824643ee",
+      "preparedPath": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/public-foundation-preparation-v1/consumer/frontend.bend",
+      "sha256": "6ba6f8143bd6938ff552aeaca11e839cbd375e95273e291818a4f6b4b11f60d5",
+      "importEdits": [
+        {
+          "before": "import ./component.bend as ComponentRegistration",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-component.bend as ComponentRegistration"
+        },
+        {
+          "before": "import ./resource.bend as ResourceRegistration",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-resource.bend as ResourceRegistration"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app.bend as DTO",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-observation-data.bend as DTO"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/component.bend as Caller",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/component.bend as Caller"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend as Fixture",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend as Fixture"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/full-consumer.bend as Full",
+          "after": "import ./fixture-full.bend as Full"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v1/observable-resource.bend as D",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-resource-declaration.bend as D"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/input.bend as Input",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/input.bend as Input"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/fixture.bend as RF",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/fixture.bend as RF"
+        },
+        {
+          "before": "import ./dispatch.bend as Dispatch",
+          "after": "import ./dispatch.bend as Dispatch"
+        },
+        {
+          "before": "import ./schedule-transport.bend as Transport",
+          "after": "import ./schedule-transport.bend as Transport"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch"
+        },
+        {
+          "before": "import ../operational-v1/dispatch-result.bend as Results",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-dispatch-result.bend as Results"
+        },
+        {
+          "before": "import ../operational-v1/unit-bodies.bend as Bodies",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/unit-bodies.bend as Bodies"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Projection",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Projection"
+        },
+        {
+          "before": "import ./declarations.bend as Decl",
+          "after": "import ./declarations.bend as Decl"
+        },
+        {
+          "before": "import ./records.bend as Leaf",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-records.bend as Leaf"
+        },
+        {
+          "before": "import ./composer.bend as Build",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-composer.bend as Build"
+        },
+        {
+          "before": "import ./metadata.bend as Metadata",
+          "after": "import ./metadata.bend as Metadata"
+        },
+        {
+          "before": "import ../recipe-tree-v1/tree.bend as Tree",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-recipe.bend as Tree"
+        },
+        {
+          "before": "import ../recipe-tree-v1/leaves.bend as Leaves",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-observation.bend as Leaves"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend as IQ",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend as IQ"
+        }
+      ],
+      "extractedDeclarations": null
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/consumer.bend",
+      "sourceSHA256": "b77e831514977074fc6895b22bef602fc44e0d902321e5ed0fbd47dbe798da89",
+      "preparedPath": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/public-foundation-preparation-v1/consumer/consumer.bend",
+      "sha256": "b6ffcbcbdd8f72d6f2301db597b4b782122420a3457313b9e119da0559d007c0",
+      "importEdits": [
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app.bend as DTO",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-observation-data.bend as DTO"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/component.bend as Caller",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/component.bend as Caller"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend as Fixture",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend as Fixture"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/full-consumer.bend as Full",
+          "after": "import ./fixture-full.bend as Full"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/input.bend as Input",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/input.bend as Input"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/fixture.bend as RF",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/fixture.bend as RF"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q"
+        },
+        {
+          "before": "import ../recipe-tree-v1/tree.bend as Tree",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-recipe.bend as Tree"
+        },
+        {
+          "before": "import ./frontend.bend as Auto",
+          "after": "import ./frontend.bend as Auto"
+        },
+        {
+          "before": "import ./declarations.bend as Decl",
+          "after": "import ./declarations.bend as Decl"
+        },
+        {
+          "before": "import ./composer.bend as Build",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-composer.bend as Build"
+        },
+        {
+          "before": "import ./metadata.bend as Metadata",
+          "after": "import ./metadata.bend as Metadata"
+        },
+        {
+          "before": "import ../runtime-record-run-v1/consumer.bend as Fields",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/runtime-record-run-v1/consumer.bend as Fields"
+        },
+        {
+          "before": "import ../runtime-registration-records-v1/records.bend as Stored",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-registration-fields.bend as Stored"
+        },
+        {
+          "before": "import ../operational-v1/dispatch-result.bend as Result",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-dispatch-result.bend as Result"
+        },
+        {
+          "before": "import ../operational-v1/consumer.bend as ScheduleFixture",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/consumer.bend as ScheduleFixture"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/owner-observer.bend as Dump",
+          "after": "import /workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/owner-observer.bend as Dump"
+        },
+        {
+          "reason": "Extracted field serializer rebinds public nominal Fields type",
+          "before": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/runtime-record-run-v1/consumer.bend",
+          "after": "./fixture-fields.bend"
+        }
+      ],
+      "extractedDeclarations": null
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/dispatch.bend",
+      "sourceSHA256": "330515d24bfb657987760545b8c992851a4c46e1552110a52aab3df175579e2a",
+      "preparedPath": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/public-foundation-preparation-v1/consumer/dispatch.bend",
+      "sha256": "9e4357b09445dcfe309dcc9acf32b9f69eb0a9c8cdbafc7e1a50934fea6c9fce",
+      "importEdits": [
+        {
+          "before": "import ./focus.bend as Focus",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-focus.bend as Focus"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v1/observable-resource.bend as ResourceDeclaration",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-resource-declaration.bend as ResourceDeclaration"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend as Fixture",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend as Fixture"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/full-consumer.bend as Full",
+          "after": "import ./fixture-full.bend as Full"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-resource-system.bend as P",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-resource-system.bend as P"
+        },
+        {
+          "before": "import ../operational-v1/unit-bodies.bend as Bodies",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/unit-bodies.bend as Bodies"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend as Ord",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend as Ord"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Projection",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Projection"
+        },
+        {
+          "before": "import ../recipe-tree-v1/ordinary-unit.bend as Ordinary",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/recipe-tree-v1/ordinary-unit.bend as Ordinary"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/component.bend as Caller",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/component.bend as Caller"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/input.bend as Input",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/input.bend as Input"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/fixture.bend as RF",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/fixture.bend as RF"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q"
+        },
+        {
+          "before": "import ./declarations.bend as Decl",
+          "after": "import ./declarations.bend as Decl"
+        },
+        {
+          "before": "import ./records.bend as Leaf",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-records.bend as Leaf"
+        },
+        {
+          "before": "import ./leaf-run.bend as Run",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-leaf-run.bend as Run"
+        },
+        {
+          "before": "import ../runtime-registration-records-v1/records.bend as Stored",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-registration-fields.bend as Stored"
+        },
+        {
+          "before": "import ../operational-v1/dispatch-result.bend as D",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-dispatch-result.bend as D"
+        },
+        {
+          "before": "import ../operational-v1/dispatch.bend as Convert",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/dispatch.bend as Convert"
+        }
+      ],
+      "extractedDeclarations": null
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/metadata.bend",
+      "sourceSHA256": "7281c0fe107eb84173bcd7d0c9ca7bcfa35fd257deb9ff65834d77fc337dec8d",
+      "preparedPath": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/public-foundation-preparation-v1/consumer/metadata.bend",
+      "sha256": "22d9f15eda22d43749f646e9f1f1b72a7d08c52ab6cf9fb636d100a207e2e5cd",
+      "importEdits": [
+        {
+          "before": "import ./declarations.bend as Decl",
+          "after": "import ./declarations.bend as Decl"
+        },
+        {
+          "before": "import ./records.bend as Leaf",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-records.bend as Leaf"
+        },
+        {
+          "before": "import ../runtime-registration-records-v1/records.bend as Stored",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-registration-fields.bend as Stored"
+        }
+      ],
+      "extractedDeclarations": null
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/schedule-transport.bend",
+      "sourceSHA256": "e5941815e18d7c0a3d273e800220a57c3c284b01bd617d8a54171d83392f51be",
+      "preparedPath": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/public-foundation-preparation-v1/consumer/schedule-transport.bend",
+      "sha256": "82fed610ba273b4a9cc5d497fddad602fef4e204e2f007605f02f7f5a9261dc9",
+      "importEdits": [
+        {
+          "before": "import ../operational-v1/dispatch-result.bend as D",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-dispatch-result.bend as D"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch"
+        }
+      ],
+      "extractedDeclarations": null
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/full-consumer.bend",
+      "sourceSHA256": "89e2217ecf2f08d3f837c9b866005e54aaccb5b141e755b1b6217ecc0bd2a261",
+      "preparedPath": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/public-foundation-preparation-v1/consumer/fixture-full.bend",
+      "sha256": "9c89303cb7958336370e773f86d1ec75047879dafaf0332315953ec7b830ff15",
+      "importEdits": [
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend as ComponentFixture",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend as ComponentFixture"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/component.bend as Caller",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/component.bend as Caller"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v1/observable-resource.bend as D",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-resource-declaration.bend as D"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend as Schema",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend as Schema"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Projection",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Projection"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/presentation.bend as Presented",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/presentation.bend as Presented"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app.bend as DTO",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-observation-data.bend as DTO"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/fixture.bend as ResourceFixture",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/fixture.bend as ResourceFixture"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/input.bend as Input",
+          "after": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/input.bend as Input"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-declaration.bend as Query",
+          "after": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-declaration.bend as Query"
+        }
+      ],
+      "extractedDeclarations": [
+        "activated",
+        "binding",
+        "body",
+        "body_finished",
+        "body_flag",
+        "body_observed",
+        "clause",
+        "component_declaration",
+        "debug",
+        "declaration",
+        "entities",
+        "mode",
+        "replaced",
+        "reserved",
+        "seed_if",
+        "value_view"
+      ]
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/runtime-record-run-v1/consumer.bend",
+      "sourceSHA256": "571d5171ee61b82fd18c10511d3dc579c073306ad16067f76e4b06ab6eb2d27e",
+      "preparedPath": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/public-foundation-preparation-v1/consumer/fixture-fields.bend",
+      "sha256": "fda90506563473c6c00069c001604c69509277a27170ada527be078515fa4196",
+      "extractedDeclarations": [
+        "fields_text",
+        "kind_text"
+      ]
+    }
+  ],
+  "futureCoreRoot": "/workspace/formal-proofs/bendvy/src/ecs",
+  "scope": "Complete prior A0/2 consumer, seven snapshots/two realSch runs/physicalOut/soleFields. Generic publicfoundation imports prepared; finite frontend/metadata/dispatch remain testfixture, notgeneralApp. No current publicsource/runtime claim."
+}
