@@ -1,0 +1,1744 @@
+{
+  "originalSession": 5145,
+  "planSHA256": "00b1d08a36befc0fe87f3a6639bdd7e504abbedb8a3be812a42f38956a12c8fb",
+  "status": "INCOMPLETE",
+  "commands": [
+    {
+      "label": "source-fact-control",
+      "exit": 0,
+      "failure": null,
+      "capSeconds": 5,
+      "stdout": {
+        "path": "/tmp/bendvy54-fact-origin-probe02/source-fact-control.stdout",
+        "sha256": "82fad70d45089f6d51b481bbe3af225c3addedadea3238bbf319f6025382353c",
+        "bytes": 25,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy54-fact-origin-probe02/source-fact-control.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "emit",
+      "exit": null,
+      "failure": "child deadline",
+      "capSeconds": 30,
+      "stdout": {
+        "path": "/tmp/bendvy54-fact-origin-probe02/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy54-fact-origin-probe02/emit.stderr",
+        "sha256": "8495eb548eb48ca4f2d8599e9c2ff3adc21fb0d24c4fd10b00ca1c194a4558e4",
+        "bytes": 1063823,
+        "published": true
+      }
+    }
+  ],
+  "guards": 7,
+  "events": 178,
+  "stderrBytes": 1063823,
+  "completedPasses": [
+    {
+      "event": "pass-exit",
+      "wallMs": 14027.184874,
+      "cpuUs": 14027067,
+      "pass": 1,
+      "ordinal": 5895,
+      "inst": {
+        "calls": 10827,
+        "hits": 4440,
+        "misses": 6387,
+        "teleInclusiveMs": 215.82621399999312,
+        "keyMs": 191.0174260000158,
+        "keyChars": 8902867,
+        "maxKeyChars": 15667
+      },
+      "gcMs": 6.714311999994152,
+      "openMs": 80.66215500002363,
+      "bodyMs": 8004.607567999942,
+      "bodyCpuUs": 8009897,
+      "settleMs": 2193.4225030000016,
+      "priorLogMs": 7.074351999998441,
+      "priorEvents": 51,
+      "top": [
+        {
+          "label": "core/inspector-query:composed_lookup_target~29",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 116.13607100000081,
+          "cpuUs": 116140
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~24",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 79.69048199999997,
+          "cpuUs": 79691
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~11",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 77.8355930000007,
+          "cpuUs": 77837
+        },
+        {
+          "label": "core/inspector-query-projection:predicate_both_target~48",
+          "labelLength": 56,
+          "calls": 1,
+          "ms": 72.99130299999979,
+          "cpuUs": 72993
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~27",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 64.16864799999894,
+          "cpuUs": 64171
+        },
+        {
+          "label": "core/inspector-query-families:check_matches~33",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 62.79738700000007,
+          "cpuUs": 62795
+        },
+        {
+          "label": "runtime-named-declarations:check_multipleWith~1",
+          "labelLength": 47,
+          "calls": 1,
+          "ms": 61.61696099999972,
+          "cpuUs": 61618
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~32",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 56.49208499999986,
+          "cpuUs": 56494
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~48",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 54.89303099999961,
+          "cpuUs": 54895
+        },
+        {
+          "label": "core/inspector-query:grant_composed~31",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 51.661754000000656,
+          "cpuUs": 51665
+        },
+        {
+          "label": "core/inspector-query:grant_composed~45",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 49.24210899999889,
+          "cpuUs": 49245
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~26",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 48.02730800000063,
+          "cpuUs": 48029
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~28",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 46.59233800000038,
+          "cpuUs": 46590
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~9",
+          "labelLength": 45,
+          "calls": 1,
+          "ms": 45.88995700000032,
+          "cpuUs": 45893
+        },
+        {
+          "label": "core/inspector-query:grant_composed~8",
+          "labelLength": 37,
+          "calls": 1,
+          "ms": 44.55844700000034,
+          "cpuUs": 44560
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~10",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 39.66161499999998,
+          "cpuUs": 39664
+        },
+        {
+          "label": "runtime-named-declarations:check_multipleWithout~1",
+          "labelLength": 50,
+          "calls": 1,
+          "ms": 38.11418599999979,
+          "cpuUs": 38115
+        },
+        {
+          "label": "core/inspector-query-families:check_matches~35",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 35.59958199999983,
+          "cpuUs": 35602
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~18",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 33.883984000000055,
+          "cpuUs": 33885
+        },
+        {
+          "label": "core/inspector-query:grant_composed~9",
+          "labelLength": 37,
+          "calls": 1,
+          "ms": 33.85815100000036,
+          "cpuUs": 33859
+        },
+        {
+          "label": "core/inspector-query:grant_composed~11",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 32.61401600000045,
+          "cpuUs": 32615
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_matched~18",
+          "labelLength": 47,
+          "calls": 1,
+          "ms": 32.43213900000046,
+          "cpuUs": 32434
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~17",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 31.04041899999993,
+          "cpuUs": 31043
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~30",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 30.017077999998946,
+          "cpuUs": 30019
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_matched~17",
+          "labelLength": 47,
+          "calls": 1,
+          "ms": 29.801410000000033,
+          "cpuUs": 29803
+        },
+        {
+          "label": "core/inspector-query:grant_composed~10",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 29.79686799999945,
+          "cpuUs": 29798
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~12",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 29.510741000000053,
+          "cpuUs": 29513
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~45",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 29.304573000001255,
+          "cpuUs": 29306
+        },
+        {
+          "label": "core/inspector-query-families:check_matches~23",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 29.038112000000183,
+          "cpuUs": 29041
+        },
+        {
+          "label": "core/inspector-query-families:check_matches~39",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 27.800643000000036,
+          "cpuUs": 27802
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_valid~10",
+          "labelLength": 45,
+          "calls": 1,
+          "ms": 27.1968880000004,
+          "cpuUs": 27198
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~19",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 25.827334999999948,
+          "cpuUs": 25831
+        }
+      ],
+      "factOrigins": {
+        "own": {
+          "attempts": 234724,
+          "newKeys": 8021,
+          "producers": {
+            "borrow-origin-consumed": {
+              "attempts": 38884,
+              "newKeys": 4756
+            },
+            "callee-slot-owned": {
+              "attempts": 187882,
+              "newKeys": 1597
+            },
+            "arm-provenance-disagreement": {
+              "attempts": 5,
+              "newKeys": 5
+            },
+            "unresolved-borrow-finalize": {
+              "attempts": 7953,
+              "newKeys": 1663
+            }
+          },
+          "samples": [
+            {
+              "key": "core/world:metadata_valid~1~0",
+              "keyLength": 29,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/world:metadata_valid~1",
+              "definitionLength": 27
+            },
+            {
+              "key": "core/world:valid_join~1~1",
+              "keyLength": 25,
+              "producer": "callee-slot-owned",
+              "definition": "core/world:valid~1",
+              "definitionLength": 18
+            },
+            {
+              "key": "core/world:valid_checked~1~1",
+              "keyLength": 28,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/world:valid_checked~1",
+              "definitionLength": 26
+            },
+            {
+              "key": "core/world:live_join~1~0",
+              "keyLength": 24,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/world:live_join~1",
+              "definitionLength": 22
+            },
+            {
+              "key": "core/world:live_join~1~6",
+              "keyLength": 24,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/world:live_join~1",
+              "definitionLength": 22
+            },
+            {
+              "key": "core/world:live_join~1~7",
+              "keyLength": 24,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/world:live_join~1",
+              "definitionLength": 22
+            },
+            {
+              "key": "core/world:live_join~1~8",
+              "keyLength": 24,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/world:live_join~1",
+              "definitionLength": 22
+            },
+            {
+              "key": "core/world:live_join~1~9",
+              "keyLength": 24,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/world:live_join~1",
+              "definitionLength": 22
+            },
+            {
+              "key": "core/world:live_join~1~10",
+              "keyLength": 25,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/world:live_join~1",
+              "definitionLength": 22
+            },
+            {
+              "key": "core/component:get_allowed~12~0",
+              "keyLength": 31,
+              "producer": "callee-slot-owned",
+              "definition": "core/inspector-query-families:check_presence~12",
+              "definitionLength": 47
+            },
+            {
+              "key": "schema-families:take_stock~1~0",
+              "keyLength": 30,
+              "producer": "borrow-origin-consumed",
+              "definition": "schema-families:take_stock~1",
+              "definitionLength": 28
+            },
+            {
+              "key": "core/component:get_store~24~1",
+              "keyLength": 29,
+              "producer": "callee-slot-owned",
+              "definition": "core/component:get_world~12",
+              "definitionLength": 27
+            },
+            {
+              "key": "core/column:view~8~0",
+              "keyLength": 20,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/column:view~8",
+              "definitionLength": 18
+            },
+            {
+              "key": "core/column:plain_view_sized~8~2",
+              "keyLength": 32,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/column:plain_view_sized~8",
+              "definitionLength": 30
+            },
+            {
+              "key": "core/column:plain_view_checked~8~1",
+              "keyLength": 34,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/column:plain_view_checked~8",
+              "definitionLength": 32
+            },
+            {
+              "key": "core/column:plain_view_taken~8~2",
+              "keyLength": 32,
+              "producer": "callee-slot-owned",
+              "definition": "core/column:plain_view_checked~8",
+              "definitionLength": 32
+            }
+          ]
+        },
+        "hot": {
+          "attempts": 11205,
+          "newKeys": 327,
+          "producers": {
+            "datatype-hot": {
+              "attempts": 119,
+              "newKeys": 119
+            },
+            "constructor-hot": {
+              "attempts": 189,
+              "newKeys": 189
+            },
+            "wildcard-hot": {
+              "attempts": 10665,
+              "newKeys": 1
+            },
+            "erased-slot-hot": {
+              "attempts": 224,
+              "newKeys": 10
+            },
+            "matched-type-family": {
+              "attempts": 8,
+              "newKeys": 8
+            }
+          },
+          "samples": [
+            {
+              "key": "t:schema-families:Garden",
+              "keyLength": 24,
+              "producer": "datatype-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "schema-families:Garden",
+              "keyLength": 22,
+              "producer": "constructor-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "t:runtime-named-declarations:ValueContradictory",
+              "keyLength": 47,
+              "producer": "datatype-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "runtime-named-declarations:ValueContradictory",
+              "keyLength": 45,
+              "producer": "constructor-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "t:core/inspector-query:ProjectedRow",
+              "keyLength": 35,
+              "producer": "datatype-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "core/inspector-query:ProjectedRow",
+              "keyLength": 33,
+              "producer": "constructor-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "t:core/world:Handle",
+              "keyLength": 19,
+              "producer": "datatype-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "core/world:Handle",
+              "keyLength": 17,
+              "producer": "constructor-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "t:U32",
+              "keyLength": 5,
+              "producer": "datatype-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "U32",
+              "keyLength": 3,
+              "producer": "constructor-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "t:Word.Con",
+              "keyLength": 10,
+              "producer": "datatype-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "WCon",
+              "keyLength": 4,
+              "producer": "constructor-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "t:Bool",
+              "keyLength": 6,
+              "producer": "datatype-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "False",
+              "keyLength": 5,
+              "producer": "constructor-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "True",
+              "keyLength": 4,
+              "producer": "constructor-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            },
+            {
+              "key": "t:List",
+              "keyLength": 6,
+              "producer": "datatype-hot",
+              "definition": "check-execution:compared~17",
+              "definitionLength": 27
+            }
+          ]
+        },
+        "stat": {
+          "attempts": 24027,
+          "newKeys": 2,
+          "producers": {
+            "static-constructor": {
+              "attempts": 24027,
+              "newKeys": 2
+            }
+          },
+          "samples": [
+            {
+              "key": "SCon",
+              "keyLength": 4,
+              "producer": "static-constructor",
+              "definition": "core/inspector-query-families:check_read~12",
+              "definitionLength": 43
+            },
+            {
+              "key": "Con",
+              "keyLength": 3,
+              "producer": "static-constructor",
+              "definition": "core/schedule:execute~1",
+              "definitionLength": 23
+            }
+          ]
+        }
+      },
+      "own": 8021,
+      "hot": 327,
+      "stat": 2
+    },
+    {
+      "event": "pass-exit",
+      "wallMs": 20324.115449,
+      "cpuUs": 20323944,
+      "pass": 2,
+      "ordinal": 5895,
+      "inst": {
+        "calls": 10827,
+        "hits": 4440,
+        "misses": 6387,
+        "teleInclusiveMs": 215.82621399999312,
+        "keyMs": 191.0174260000158,
+        "keyChars": 8902867,
+        "maxKeyChars": 15667
+      },
+      "gcMs": 5.055063999889171,
+      "openMs": 66.68687800008956,
+      "bodyMs": 6082.116762000176,
+      "bodyCpuUs": 6084758,
+      "settleMs": 16.22754900000291,
+      "priorLogMs": 12.999356999990312,
+      "priorEvents": 99,
+      "top": [
+        {
+          "label": "core/inspector-query:grant_composed~17",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 63.58610099999896,
+          "cpuUs": 63588
+        },
+        {
+          "label": "core/inspector-query:grant_composed~8",
+          "labelLength": 37,
+          "calls": 1,
+          "ms": 58.58360299999913,
+          "cpuUs": 58588
+        },
+        {
+          "label": "core/inspector-query:grant_composed~18",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 40.677498000000924,
+          "cpuUs": 40680
+        },
+        {
+          "label": "core/inspector-query:grant_composed~11",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 40.04732700000022,
+          "cpuUs": 40048
+        },
+        {
+          "label": "core/inspector-query:grant_composed~19",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 39.035359999999855,
+          "cpuUs": 39036
+        },
+        {
+          "label": "core/inspector-query:grant_composed~10",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 37.42626400000154,
+          "cpuUs": 37429
+        },
+        {
+          "label": "core/inspector-query:grant_composed~9",
+          "labelLength": 37,
+          "calls": 1,
+          "ms": 35.21916200000123,
+          "cpuUs": 35221
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~26",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 34.732992000001104,
+          "cpuUs": 34734
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~34",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 32.36309699999765,
+          "cpuUs": 32364
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~32",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 32.18442900000082,
+          "cpuUs": 32186
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~40",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 32.06076100000064,
+          "cpuUs": 32064
+        },
+        {
+          "label": "core/inspector-query:grant_composed~20",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 30.66162499999882,
+          "cpuUs": 30664
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~29",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 28.121562000000267,
+          "cpuUs": 28124
+        },
+        {
+          "label": "core/inspector-query:grant_composed~12",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 26.31488199999876,
+          "cpuUs": 26316
+        },
+        {
+          "label": "check-execution:run~1",
+          "labelLength": 21,
+          "calls": 1,
+          "ms": 24.47953300000154,
+          "cpuUs": 24481
+        },
+        {
+          "label": "core/inspector-query:grant_composed~16",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 23.590233999999327,
+          "cpuUs": 23593
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~27",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 23.550567000002047,
+          "cpuUs": 23555
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~28",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 22.862144999999146,
+          "cpuUs": 22863
+        },
+        {
+          "label": "core/inspector-query-families:check_matches~33",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 21.68155200000001,
+          "cpuUs": 21684
+        },
+        {
+          "label": "core/inspector-query:grant_composed~31",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 20.407624999999825,
+          "cpuUs": 20410
+        },
+        {
+          "label": "core/inspector-query:grant_composed~4",
+          "labelLength": 37,
+          "calls": 1,
+          "ms": 19.860787000001437,
+          "cpuUs": 19862
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~12",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 18.784695000000283,
+          "cpuUs": 18786
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~11",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 18.768153000000893,
+          "cpuUs": 18770
+        },
+        {
+          "label": "core/inspector-query:grant_composed~13",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 17.303016000001662,
+          "cpuUs": 17304
+        },
+        {
+          "label": "core/inspector-query-families:check_matches~26",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 17.202765,
+          "cpuUs": 17206
+        },
+        {
+          "label": "core/inspector-query:grant_composed~48",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 17.0938900000001,
+          "cpuUs": 17096
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~9",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 16.971222000000125,
+          "cpuUs": 16976
+        },
+        {
+          "label": "full-consumer:body~10",
+          "labelLength": 21,
+          "calls": 1,
+          "ms": 16.881388000001607,
+          "cpuUs": 16883
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~10",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 16.621344000001045,
+          "cpuUs": 16622
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~30",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 16.558552000002237,
+          "cpuUs": 16560
+        },
+        {
+          "label": "core/inspector-query:grant_composed~7",
+          "labelLength": 37,
+          "calls": 1,
+          "ms": 16.511175999999978,
+          "cpuUs": 16513
+        },
+        {
+          "label": "core/inspector-query:grant_composed~46",
+          "labelLength": 38,
+          "calls": 1,
+          "ms": 15.814963000000716,
+          "cpuUs": 15817
+        }
+      ],
+      "factOrigins": {
+        "own": {
+          "attempts": 77,
+          "newKeys": 67,
+          "producers": {
+            "borrow-origin-consumed": {
+              "attempts": 77,
+              "newKeys": 67
+            }
+          },
+          "samples": [
+            {
+              "key": "execution:optionalUnselectedFilter_body~1~0",
+              "keyLength": 43,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:optionalUnselectedFilter_body~1",
+              "definitionLength": 41
+            },
+            {
+              "key": "execution:repeatedAdded_body~1~0",
+              "keyLength": 32,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:repeatedAdded_body~1",
+              "definitionLength": 30
+            },
+            {
+              "key": "execution:mixedFilters_body~1~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:mixedFilters_body~1",
+              "definitionLength": 29
+            },
+            {
+              "key": "execution:changedBoth_body~1~0",
+              "keyLength": 30,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:changedBoth_body~1",
+              "definitionLength": 28
+            },
+            {
+              "key": "execution:contradictory_body~1~0",
+              "keyLength": 32,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:contradictory_body~1",
+              "definitionLength": 30
+            },
+            {
+              "key": "execution:repeated_body~1~0",
+              "keyLength": 27,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:repeated_body~1",
+              "definitionLength": 25
+            },
+            {
+              "key": "execution:multipleWithout_body~1~0",
+              "keyLength": 34,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:multipleWithout_body~1",
+              "definitionLength": 32
+            },
+            {
+              "key": "execution:multipleWith_body~1~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:multipleWith_body~1",
+              "definitionLength": 29
+            },
+            {
+              "key": "execution:withWithout_body~1~0",
+              "keyLength": 30,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:withWithout_body~1",
+              "definitionLength": 28
+            },
+            {
+              "key": "execution:fiveAlias_body~1~0",
+              "keyLength": 28,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:fiveAlias_body~1",
+              "definitionLength": 26
+            },
+            {
+              "key": "execution:requiredPair_body~1~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:requiredPair_body~1",
+              "definitionLength": 29
+            },
+            {
+              "key": "execution:optionalFour_body~1~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:optionalFour_body~1",
+              "definitionLength": 29
+            },
+            {
+              "key": "execution:empty_body~1~0",
+              "keyLength": 24,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:empty_body~1",
+              "definitionLength": 22
+            },
+            {
+              "key": "execution:optionalUnselectedFilter_body~0~0",
+              "keyLength": 43,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:optionalUnselectedFilter_body~0",
+              "definitionLength": 41
+            },
+            {
+              "key": "execution:repeatedAdded_body~0~0",
+              "keyLength": 32,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:repeatedAdded_body~0",
+              "definitionLength": 30
+            },
+            {
+              "key": "execution:mixedFilters_body~0~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "execution:mixedFilters_body~0",
+              "definitionLength": 29
+            }
+          ]
+        },
+        "hot": {
+          "attempts": 25875,
+          "newKeys": 5,
+          "producers": {
+            "wildcard-hot": {
+              "attempts": 25382,
+              "newKeys": 0
+            },
+            "erased-slot-hot": {
+              "attempts": 488,
+              "newKeys": 0
+            },
+            "datatype-hot": {
+              "attempts": 1,
+              "newKeys": 1
+            },
+            "constructor-hot": {
+              "attempts": 4,
+              "newKeys": 4
+            }
+          },
+          "samples": [
+            {
+              "key": "t:core/compose:Selection",
+              "keyLength": 24,
+              "producer": "datatype-hot",
+              "definition": "core/inspector-query-families:check_matched~3",
+              "definitionLength": 45
+            },
+            {
+              "key": "core/compose:Required",
+              "keyLength": 21,
+              "producer": "constructor-hot",
+              "definition": "core/inspector-query-families:check_matched~3",
+              "definitionLength": 45
+            },
+            {
+              "key": "core/compose:Present",
+              "keyLength": 20,
+              "producer": "constructor-hot",
+              "definition": "core/inspector-query-families:check_matched~3",
+              "definitionLength": 45
+            },
+            {
+              "key": "core/compose:Absent",
+              "keyLength": 19,
+              "producer": "constructor-hot",
+              "definition": "core/inspector-query-families:check_matched~3",
+              "definitionLength": 45
+            },
+            {
+              "key": "core/compose:Optional",
+              "keyLength": 21,
+              "producer": "constructor-hot",
+              "definition": "core/inspector-query-families:check_matched~3",
+              "definitionLength": 45
+            }
+          ]
+        },
+        "stat": {
+          "attempts": 24027,
+          "newKeys": 0,
+          "producers": {
+            "static-constructor": {
+              "attempts": 24027,
+              "newKeys": 0
+            }
+          },
+          "samples": []
+        }
+      },
+      "own": 8088,
+      "hot": 332,
+      "stat": 2
+    },
+    {
+      "event": "pass-exit",
+      "wallMs": 26108.990766,
+      "cpuUs": 26108773,
+      "pass": 3,
+      "ordinal": 5895,
+      "inst": {
+        "calls": 10827,
+        "hits": 4440,
+        "misses": 6387,
+        "teleInclusiveMs": 215.82621399999312,
+        "keyMs": 191.0174260000158,
+        "keyChars": 8902867,
+        "maxKeyChars": 15667
+      },
+      "gcMs": 3.5875009999981557,
+      "openMs": 56.07388600015838,
+      "bodyMs": 5653.276946000038,
+      "bodyCpuUs": 5656084,
+      "settleMs": 9.483576999999059,
+      "priorLogMs": 19.101199999972494,
+      "priorEvents": 147,
+      "top": [
+        {
+          "label": "core/inspector-query:composed_lookup~45",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 50.52516100000139,
+          "cpuUs": 50526
+        },
+        {
+          "label": "core/inspector-query:composed_lookup~31",
+          "labelLength": 39,
+          "calls": 1,
+          "ms": 50.01040800000192,
+          "cpuUs": 50011
+        },
+        {
+          "label": "runtime-named-declarations:inspect_repeatedAdded~0",
+          "labelLength": 50,
+          "calls": 1,
+          "ms": 40.008410000002186,
+          "cpuUs": 40012
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~45",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 38.015934999999445,
+          "cpuUs": 38019
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~31",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 37.432597000002716,
+          "cpuUs": 37434
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~46",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 32.161761999999726,
+          "cpuUs": 32163
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_matched~32",
+          "labelLength": 47,
+          "calls": 1,
+          "ms": 30.04291100000046,
+          "cpuUs": 30046
+        },
+        {
+          "label": "core/inspector-query:pair_scan~8",
+          "labelLength": 32,
+          "calls": 1,
+          "ms": 29.170987999998033,
+          "cpuUs": 29173
+        },
+        {
+          "label": "core/inspector-query:pair_scan~11",
+          "labelLength": 33,
+          "calls": 1,
+          "ms": 27.23005600000033,
+          "cpuUs": 27231
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_matched~34",
+          "labelLength": 47,
+          "calls": 1,
+          "ms": 26.379214999997203,
+          "cpuUs": 26375
+        },
+        {
+          "label": "core/inspector-query:pair_scan~17",
+          "labelLength": 33,
+          "calls": 1,
+          "ms": 25.82046000000264,
+          "cpuUs": 25823
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~43",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 25.144995999999082,
+          "cpuUs": 25147
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_valid~8",
+          "labelLength": 44,
+          "calls": 1,
+          "ms": 24.875244999999268,
+          "cpuUs": 24876
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_valid~11",
+          "labelLength": 45,
+          "calls": 1,
+          "ms": 24.36361499999839,
+          "cpuUs": 24366
+        },
+        {
+          "label": "runtime-named-declarations:inspect_changedBoth~0",
+          "labelLength": 48,
+          "calls": 1,
+          "ms": 23.523441999997885,
+          "cpuUs": 23526
+        },
+        {
+          "label": "gate-instrumentation:condition~0",
+          "labelLength": 32,
+          "calls": 1,
+          "ms": 23.250522999998793,
+          "cpuUs": 23251
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_valid~17",
+          "labelLength": 45,
+          "calls": 1,
+          "ms": 22.351432000003115,
+          "cpuUs": 22353
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_valid~9",
+          "labelLength": 44,
+          "calls": 1,
+          "ms": 21.46271699999852,
+          "cpuUs": 21465
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~48",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 19.384949999999662,
+          "cpuUs": 19387
+        },
+        {
+          "label": "core/inspector-query:pair_scan~10",
+          "labelLength": 33,
+          "calls": 1,
+          "ms": 18.66961099999753,
+          "cpuUs": 18671
+        },
+        {
+          "label": "core/inspector-query:pair_scan~9",
+          "labelLength": 32,
+          "calls": 1,
+          "ms": 18.602484999999433,
+          "cpuUs": 18604
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_target~44",
+          "labelLength": 46,
+          "calls": 1,
+          "ms": 18.574275999999372,
+          "cpuUs": 18579
+        },
+        {
+          "label": "core/inspector-query:pair_scan~19",
+          "labelLength": 33,
+          "calls": 1,
+          "ms": 18.51848400000017,
+          "cpuUs": 18520
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_matched~29",
+          "labelLength": 47,
+          "calls": 1,
+          "ms": 18.08260599999994,
+          "cpuUs": 18084
+        },
+        {
+          "label": "core/inspector-query:pair_scan~18",
+          "labelLength": 33,
+          "calls": 1,
+          "ms": 18.012730999998894,
+          "cpuUs": 18013
+        },
+        {
+          "label": "runtime-named-declarations:inspect_withWithout~1",
+          "labelLength": 48,
+          "calls": 1,
+          "ms": 17.893020999999862,
+          "cpuUs": 17895
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_valid~10",
+          "labelLength": 45,
+          "calls": 1,
+          "ms": 17.88031200000114,
+          "cpuUs": 17882
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_valid~19",
+          "labelLength": 45,
+          "calls": 1,
+          "ms": 17.87047900000107,
+          "cpuUs": 17871
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_valid~18",
+          "labelLength": 45,
+          "calls": 1,
+          "ms": 17.390809000000445,
+          "cpuUs": 17392
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_matched~30",
+          "labelLength": 47,
+          "calls": 1,
+          "ms": 16.607552000001306,
+          "cpuUs": 16605
+        },
+        {
+          "label": "core/inspector-query:composed_lookup_matched~40",
+          "labelLength": 47,
+          "calls": 1,
+          "ms": 16.521426999999676,
+          "cpuUs": 16527
+        },
+        {
+          "label": "core/inspector-query:pair_scan~12",
+          "labelLength": 33,
+          "calls": 1,
+          "ms": 16.239299000000756,
+          "cpuUs": 16241
+        }
+      ],
+      "factOrigins": {
+        "own": {
+          "attempts": 42,
+          "newKeys": 40,
+          "producers": {
+            "borrow-origin-consumed": {
+              "attempts": 38,
+              "newKeys": 36
+            },
+            "unresolved-borrow-finalize": {
+              "attempts": 4,
+              "newKeys": 4
+            }
+          },
+          "samples": [
+            {
+              "key": "core/inspector:initialized~29~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~29",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~28~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~28",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~27~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~27",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~26~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~26",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~24~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~24",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~23~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~23",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~22~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~22",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~21~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~21",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~20~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~20",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~19~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~19",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~18~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~18",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~17~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~17",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~16~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~16",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~15~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~15",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~14~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~14",
+              "definitionLength": 29
+            },
+            {
+              "key": "core/inspector:initialized~13~0",
+              "keyLength": 31,
+              "producer": "borrow-origin-consumed",
+              "definition": "core/inspector:initialized~13",
+              "definitionLength": 29
+            }
+          ]
+        },
+        "hot": {
+          "attempts": 25870,
+          "newKeys": 0,
+          "producers": {
+            "wildcard-hot": {
+              "attempts": 25382,
+              "newKeys": 0
+            },
+            "erased-slot-hot": {
+              "attempts": 488,
+              "newKeys": 0
+            }
+          },
+          "samples": []
+        },
+        "stat": {
+          "attempts": 24027,
+          "newKeys": 0,
+          "producers": {
+            "static-constructor": {
+              "attempts": 24027,
+              "newKeys": 0
+            }
+          },
+          "samples": []
+        }
+      },
+      "own": 8128,
+      "hot": 332,
+      "stat": 2
+    }
+  ],
+  "lastObserved": {
+    "event": "completed-checkpoint",
+    "wallMs": 29939.879532,
+    "cpuUs": 29939625,
+    "pass": 4,
+    "ordinal": 3712,
+    "inst": {
+      "calls": 10827,
+      "hits": 4440,
+      "misses": 6387,
+      "teleInclusiveMs": 215.82621399999312,
+      "keyMs": 191.0174260000158,
+      "keyChars": 8902867,
+      "maxKeyChars": 15667
+    },
+    "gcMs": 1.9381040000844223,
+    "openMs": 27.096627999952034,
+    "bodyMs": 3752.1413669999783,
+    "bodyCpuUs": 3754250,
+    "settleMs": 0,
+    "priorLogMs": 21.29671899995509,
+    "priorEvents": 177,
+    "top": [
+      {
+        "label": "core/inspector-query:grant_composed~48",
+        "labelLength": 38,
+        "calls": 1,
+        "ms": 61.81558699999732,
+        "cpuUs": 61817
+      },
+      {
+        "label": "core/inspector-query:composed_lookup~26",
+        "labelLength": 39,
+        "calls": 1,
+        "ms": 35.560788999999204,
+        "cpuUs": 35562
+      },
+      {
+        "label": "check-execution:run~0",
+        "labelLength": 21,
+        "calls": 1,
+        "ms": 31.675592000003235,
+        "cpuUs": 31678
+      },
+      {
+        "label": "core/inspector-query:composed_lookup_target~17",
+        "labelLength": 46,
+        "calls": 1,
+        "ms": 30.364497999999003,
+        "cpuUs": 30367
+      },
+      {
+        "label": "core/inspector-query:composed_lookup~32",
+        "labelLength": 39,
+        "calls": 1,
+        "ms": 30.363038999999844,
+        "cpuUs": 30365
+      },
+      {
+        "label": "core/inspector-query:composed_lookup~34",
+        "labelLength": 39,
+        "calls": 1,
+        "ms": 29.752243000002636,
+        "cpuUs": 29755
+      },
+      {
+        "label": "core/inspector-query:composed_lookup~29",
+        "labelLength": 39,
+        "calls": 1,
+        "ms": 28.06543700000111,
+        "cpuUs": 28068
+      },
+      {
+        "label": "check-execution:run~1",
+        "labelLength": 21,
+        "calls": 1,
+        "ms": 28.019979000000603,
+        "cpuUs": 28023
+      },
+      {
+        "label": "core/inspector-query:composed_lookup~40",
+        "labelLength": 39,
+        "calls": 1,
+        "ms": 27.983643999999913,
+        "cpuUs": 27986
+      },
+      {
+        "label": "core/inspector-query:pair_scan~11",
+        "labelLength": 33,
+        "calls": 1,
+        "ms": 27.823851000001014,
+        "cpuUs": 27827
+      },
+      {
+        "label": "core/inspector-query:composed_lookup~27",
+        "labelLength": 39,
+        "calls": 1,
+        "ms": 27.65926699999909,
+        "cpuUs": 27662
+      },
+      {
+        "label": "core/inspector-query:composed_lookup_target~20",
+        "labelLength": 46,
+        "calls": 1,
+        "ms": 25.911168999999063,
+        "cpuUs": 25913
+      },
+      {
+        "label": "core/inspector-query:pair_scan~10",
+        "labelLength": 33,
+        "calls": 1,
+        "ms": 25.719834000003175,
+        "cpuUs": 25722
+      },
+      {
+        "label": "core/inspector-query:composed_lookup_valid~11",
+        "labelLength": 45,
+        "calls": 1,
+        "ms": 23.8826939999999,
+        "cpuUs": 23885
+      },
+      {
+        "label": "core/inspector-query:composed_lookup~28",
+        "labelLength": 39,
+        "calls": 1,
+        "ms": 23.872403000001214,
+        "cpuUs": 23874
+      },
+      {
+        "label": "core/inspector-query:composed_lookup~42",
+        "labelLength": 39,
+        "calls": 1,
+        "ms": 23.693734999997105,
+        "cpuUs": 23695
+      },
+      {
+        "label": "core/inspector-query:composed_lookup_valid~9",
+        "labelLength": 44,
+        "calls": 1,
+        "ms": 23.674858999998833,
+        "cpuUs": 23677
+      },
+      {
+        "label": "core/inspector-query:pair_scan~8",
+        "labelLength": 32,
+        "calls": 1,
+        "ms": 22.439683000000514,
+        "cpuUs": 22441
+      },
+      {
+        "label": "core/inspector-query:pair_scan~9",
+        "labelLength": 32,
+        "calls": 1,
+        "ms": 22.12809699999707,
+        "cpuUs": 22130
+      },
+      {
+        "label": "core/inspector-query:composed_lookup_valid~8",
+        "labelLength": 44,
+        "calls": 1,
+        "ms": 22.05717999999979,
+        "cpuUs": 22058
+      },
+      {
+        "label": "core/inspector-query:composed_lookup~41",
+        "labelLength": 39,
+        "calls": 1,
+        "ms": 21.7896359999977,
+        "cpuUs": 21792
+      },
+      {
+        "label": "core/inspector-query:composed_lookup_target~21",
+        "labelLength": 46,
+        "calls": 1,
+        "ms": 21.417217000001983,
+        "cpuUs": 21422
+      },
+      {
+        "label": "core/inspector-query:composed_lookup_target~18",
+        "labelLength": 46,
+        "calls": 1,
+        "ms": 20.417457999999897,
+        "cpuUs": 20419
+      },
+      {
+        "label": "core/inspector-query:composed_lookup_valid~10",
+        "labelLength": 45,
+        "calls": 1,
+        "ms": 20.397249999998166,
+        "cpuUs": 20407
+      },
+      {
+        "label": "core/inspector-query:composed_lookup_target~19",
+        "labelLength": 46,
+        "calls": 1,
+        "ms": 20.097663999997167,
+        "cpuUs": 20099
+      },
+      {
+        "label": "core/inspector-query:composed_lookup~30",
+        "labelLength": 39,
+        "calls": 1,
+        "ms": 17.907563000000664,
+        "cpuUs": 17909
+      },
+      {
+        "label": "core/inspector-query:grant_composed~40",
+        "labelLength": 38,
+        "calls": 1,
+        "ms": 17.028597000000445,
+        "cpuUs": 17031
+      },
+      {
+        "label": "core/inspector-query:grant_composed~46",
+        "labelLength": 38,
+        "calls": 1,
+        "ms": 16.715927999997803,
+        "cpuUs": 16719
+      },
+      {
+        "label": "core/inspector-query:grant_composed~47",
+        "labelLength": 38,
+        "calls": 1,
+        "ms": 16.236423999998806,
+        "cpuUs": 16239
+      },
+      {
+        "label": "core/inspector-query:pair_scan~12",
+        "labelLength": 33,
+        "calls": 1,
+        "ms": 16.03454799999963,
+        "cpuUs": 16037
+      },
+      {
+        "label": "core/inspector-query-families:check_matches~22",
+        "labelLength": 46,
+        "calls": 1,
+        "ms": 15.893129000000044,
+        "cpuUs": 15895
+      },
+      {
+        "label": "core/inspector-query:grant_composed~34",
+        "labelLength": 38,
+        "calls": 1,
+        "ms": 15.303374999999505,
+        "cpuUs": 15306
+      }
+    ],
+    "factOrigins": {
+      "own": {
+        "attempts": 0,
+        "newKeys": 0,
+        "producers": {},
+        "samples": []
+      },
+      "hot": {
+        "attempts": 23284,
+        "newKeys": 0,
+        "producers": {
+          "wildcard-hot": {
+            "attempts": 22924,
+            "newKeys": 0
+          },
+          "erased-slot-hot": {
+            "attempts": 360,
+            "newKeys": 0
+          }
+        },
+        "samples": []
+      },
+      "stat": {
+        "attempts": 2146,
+        "newKeys": 0,
+        "producers": {
+          "static-constructor": {
+            "attempts": 2146,
+            "newKeys": 0
+          }
+        },
+        "samples": []
+      }
+    }
+  },
+  "scope": "Copied instrumented observations only; interrupted/unflushed spans unknown. No stock cause/performance/Native acceptance."
+}
