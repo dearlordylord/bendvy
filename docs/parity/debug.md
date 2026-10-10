@@ -66,3 +66,9 @@ The retained full80 fixture contains reusable Registry/schedule projections
 (see [the source archive](../../experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/diagnostic-js-v1/actual-js-v1/manifest.json)), but does not establish an
 ordinary automatic public App or complete #56 acceptance. Pinned bevy-ts
 `Debug.ts` identifies output categories; it does not determine the contract.
+
+### Qualified slices and remaining integration
+
+- [Resource-system evidence](../../experiments/public-inspect/ordinary-declaration-v1/resource-system-v1/runtime-v1/actual-attempt01/README.md) covers once-per-invocation execution in empty and two-entity Worlds, success, rollback and retry on JS/Native. It does not attach resource observation to the ordinary App.
+- [Schedule evidence](../../experiments/public-inspect/ordinary-declaration-v1/schedule-observation-v1/runtime-v1/actual-attempt01/README.md) covers descriptions from the retained operational Plan, actual condition/dispatch/barrier execution and a reached description-omission control on JS/Native. It does not exercise the provisioning availability gate or complete public App integration.
+- Public resource promotion and ResourceApp observation remain in progress. See the [current assignments](README.md#current-delivery-coordination); source acceptance alone does not establish backend or performance acceptance.
