@@ -1,0 +1,18 @@
+"""Source-only Plain/Transient resource successors; no runtime output inputs."""
+from pathlib import Path
+import json
+import runpy
+import sys
+
+def full_output(kind):
+    assert kind in ('plain', 'transient')
+    root = Path(__file__).resolve().parent.parent
+    sys.path.insert(0, str(root))
+    values = json.loads(runpy.run_path(str(root / 'classified-v1/model.py.source'))['full_output']())
+    values[0] = 'resource-extension=' + kind
+    values = [value.replace('Resource:Inventory:Inventory:Constructed',
+                            'Resource:Inventory:Inventory:' + kind.title()) for value in values]
+    return (json.dumps(values, ensure_ascii=False) + '\n').encode()
+
+if __name__ == '__main__':
+    sys.stdout.buffer.write(full_output(sys.argv[1]))
