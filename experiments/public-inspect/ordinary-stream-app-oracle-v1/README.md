@@ -1,0 +1,7 @@
+# Ordinary stream App — independent complete public oracle
+
+Public source853bc4af3 / intended public-source01 PASS37880,46 capturedpins current. Full Workshop main Maybe<consumer-public.Report>,25990 bytes SHA889dd4f9575eaf1ab808d14713f52af6d6837cd2c74d67172086b620b5c736da. Catalogue keyworkshop provides gzip/stdout/bytes/sha256. No producer/runtime stdout input.
+
+Report retains setup fullRuntime; disabled Observation(cursor19,False,None); operational actual read_app Values; before; two enabled Observation(cursor19,True,Some Description(Flow,Values)); afterFirst/afterSecond; actual Reader(namespace31,id1,registry2) and Registry(cursor0). Values retain full transition Stream batches/positions/boundary/start and declaration-selected Parent visible/retained failures/timing. Every runtime retains all Notices/batches/positions/nextReader/tick/start/boundary/capacity/dropped and physical World/store/resource/live Arrays/graph/pending/registrations/clock.
+
+Fixture byteidentity and nine setup/physical/failure/registration/run functions match retained source model basis. New report assembled independently from current defining-module QName grammar. Public module7-import inverse and consumer/entry2 import inverses literal. Disabled snapshots bypass selected reads; read_app and repeated enabled snapshots preserve runtime/owner/cursor. NoticeReader association remains independent; no failure/delivery policy/globalnamespace/full56/authority/performance claim. Actual execution pending.
