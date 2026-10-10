@@ -63,7 +63,7 @@ def main():
         stage = out / ('a-normal-' + role)
         stage.mkdir()
         generated = str(stage / ('scenario.js' if role == 'js' else 'scenario.c'))
-        native = str(stage / 'scenario.native')
+        native = str(stage / 'scenario.native') if role == 'native' else None
         mapping = {plan['entrypoint']: source['entrypoint'], plan['generated']: generated}
         if plan.get('native'):
             mapping[plan['native']] = native

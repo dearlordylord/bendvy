@@ -52,32 +52,24 @@ def main():
     extras += list(check.iterdir())
     extras += [p for p in (HERE / 'oracle-v1').rglob('*') if p.is_file()]
     extras += list(templates.values())
-    basis = json.loads((HERE / 'oracle-v1/SOURCE-BASIS.json').read_text())
-    if any(sha(k) != v for k, v in basis['inputs'].items()):
-        raise ValueError('Independent source/model basis drift')
-    extras += [Path(k) for k in basis['inputs']]
     out.mkdir()
     rows = []
     for role, template in templates.items():
         plan = json.loads(template.read_text())
         stage = out / ('a-normal-' + role)
         stage.mkdir()
-        generated = str(stage / ('scenario.js' if role == 'js' else 'scenario.c'))
-        native = str(stage / 'scenario.native')
-        mapping = {plan['entrypoint']: source['entrypoint'], plan['generated']: generated}
-        if plan.get('native'):
-            mapping[plan['native']] = native
+        old_stage = plan['stage']
+        old_entry = plan['entrypoint']
         for command in plan['commands']:
-            command['argv'] = [mapping.get(x, x) for x in command['argv']]
-        if Path(generated).exists() or (native is not None and Path(native).exists()):
-            raise ValueError('Generated outputs must start absent')
+            command['argv'] = [x.replace(old_stage, str(stage)).replace(old_entry, source['entrypoint']) for x in command['argv']]
         plan['scope'] = 'Complete finite ordinary opaque Registry mixed App normal A0/2 ' + role + '; no Native cause/performance/schedule/full56 claim'
         plan['stage'] = str(stage)
         plan['entrypoint'] = source['entrypoint']
         plan['sourceInventory'] = source['sourceInventory']
         plan['importClosure'] = closure
-        plan['generated'] = generated
-        plan['native'] = native
+        plan['generated'] = plan['generated'].replace(old_stage, str(stage))
+        if plan.get('native'):
+            plan['native'] = plan['native'].replace(old_stage, str(stage))
         plan['oracle'] = str(oracle)
         plan['oracleSHA256'] = selected['sha256']
         plan['oracleBytes'] = selected['bytes']

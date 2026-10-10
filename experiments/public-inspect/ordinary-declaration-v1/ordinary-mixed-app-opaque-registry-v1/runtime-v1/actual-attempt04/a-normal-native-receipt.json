@@ -1,0 +1,56 @@
+{
+  "scope": "Complete finite ordinary opaque Registry mixed App normal A0/2 native; no Native cause/performance/schedule/full56 claim",
+  "planSHA256": "145eeec5dcd95d5637b8962a0d85511a65749827e63c232e04b214c97bc1e58b",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/full-entry-a.bend",
+        "-o",
+        "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-native/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": null,
+      "failure": "child deadline",
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-native/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-native/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-native/emit-pre.guard.json",
+      "sha256": "b4a29f668b75ce2f9b79da9c8cd9ea41a5d59c40b12e34488039f3b0ffbb3036"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-native/emit-acquired.guard.json",
+      "sha256": "59f388317d9f207ac4b1b15d892558c653be35c1fe4a2d2d768118703b844e53"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-native/emit-post.guard.json",
+      "sha256": "a1fd53ccf2b37af1117a17b0d787cc20208ea8147e481a16a7e32e8005729bd0"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-native/final.guard.json",
+      "sha256": "e7afdb82a54cf90c450b931198723f041a111af62d38e446f26fb468bf0cb261"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Owned child failed: emit",
+  "guardFailures": []
+}

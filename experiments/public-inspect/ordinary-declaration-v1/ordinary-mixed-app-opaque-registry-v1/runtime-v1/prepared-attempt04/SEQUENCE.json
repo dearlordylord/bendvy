@@ -1,0 +1,29 @@
+{
+  "sequence": [
+    {
+      "role": "js",
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/plan.json",
+      "sha256": "8dbcb6d87ded5971cd8806e5e2f6af1c626b2d4afada25bddedb75cd0373daff",
+      "execute": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/plan.json",
+        "8dbcb6d87ded5971cd8806e5e2f6af1c626b2d4afada25bddedb75cd0373daff"
+      ]
+    },
+    {
+      "role": "native",
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-native/plan.json",
+      "sha256": "145eeec5dcd95d5637b8962a0d85511a65749827e63c232e04b214c97bc1e58b",
+      "execute": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-native/plan.json",
+        "145eeec5dcd95d5637b8962a0d85511a65749827e63c232e04b214c97bc1e58b"
+      ]
+    }
+  ],
+  "condition": "One new normal JS; Native only after complete JS PASS. Stop failure, no unchanged retry. Other schemas/control source remain preserved; no acceptance by old JS reuse."
+}

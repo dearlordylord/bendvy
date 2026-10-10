@@ -1,0 +1,9 @@
+# Bounded actual opaque-Registry mixed App evidence
+
+Original JS session 92493 terminated 0. Both emission and execution returned 0; all 7 guards joined unchanged pins. The complete 7,243-byte output equals the independent a9fdcdcf9 normal oracle (SHA256 `9f3ec35156829d4ba37cc8ed3bcf26c857d55cb3f02cdf7734f8c74bc49f5b8e`). This covers the ordinary production registration frontend, A-schema 0/2 entities, seven snapshots and resource success/failure/retry. Component bodies were registered, not executed.
+
+Conditional Native session 87687 terminated 1. Its stock emission reached the 30-second child deadline with null exit and empty streams. No C artifact exists; build and runtime were not launched. Four guards joined unchanged pins. The unconditional receipt remains INCOMPLETE. No retry or cap change occurred, and no compiler-stage or resource-cause conclusion follows from this failure.
+
+The content-addressed archive retains 29 original members in 25 objects, including generated JS, all raw streams and receipts, eleven guards, plans/sequence, and pinned Python helper bodies. Source bodies reuse immutable checkpoint 0cd5f1d6d; independent models and authority controls reuse a9fdcdcf9. The prior preparation defect, attempt02 prelaunch HOLD and attempt03 bootstrap failure (original12962, no child) remain alongside these observations.
+
+Only A normal JS is qualified on this successor. Other-schema and reached cursor-control consumers have source checks and independent models, not backend observations here. Existing source captures are development captures, not portable proof verdicts. Whole aggregate-resource authority, trusted raw constructors, private observer scope and fixed detached observation cursor remain bounded. This does not complete #56, schedule coverage, Native delivery or any performance claim.
