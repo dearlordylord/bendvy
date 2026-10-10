@@ -1,0 +1,11 @@
+--- schedule.bend
++++ runtime-v1/mutant/schedule.bend
+@@ -20,7 +20,7 @@
+ def planned(~S:Data,plan:SP.Plan<S>) -> List<&2,PlannedStep<S>>:
+   match plan:
+     case SP.Empty{}:[]
+-    case SP.Entry{step,needs}:[PlannedStep{step,needs}]
++    case SP.Entry{step,_}:[PlannedStep{step,[]}]
+     case SP.Sequence{left,right}:List.append(&2,PlannedStep<S>,planned(~S,left),planned(~S,right))
+ def built(~S:Data,~C:Type,~R:Type,~E:Data,~one:W.World<S,C,R,E> -> Unit -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~two:W.World<S,C,R,E> -> Unit -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,world:W.World<S,C,R,E>,plan:SP.Plan<S>,enabled:Bool,result:SP.Build<S,C,R,E,Pack<S,C,R,E,one,two>>) -> Build<S,C,R,E,one,two>:
+   match result:
