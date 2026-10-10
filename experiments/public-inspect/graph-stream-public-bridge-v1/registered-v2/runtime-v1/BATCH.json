@@ -1,0 +1,39 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "workshop-registered",
+      "path": "/tmp/bendvy-graph-stream-registered-workshop-runtime01/workshop-registered-js/plan.json",
+      "sha256": "afc8722854bec9d05446d562a93036cc46812e65dcc9ed15d7555eec08788806",
+      "sources": 38,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-registered-workshop-runtime01/workshop-registered-js/plan.json",
+        "afc8722854bec9d05446d562a93036cc46812e65dcc9ed15d7555eec08788806"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "workshop-registered",
+      "path": "/tmp/bendvy-graph-stream-registered-workshop-runtime01/workshop-registered-native/plan.json",
+      "sha256": "edecc8ba453f489f39b3f4bf873dfff1488f601dfec054d95e2dc7d4700ede11",
+      "sources": 38,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-registered-workshop-runtime01/workshop-registered-native/plan.json",
+        "edecc8ba453f489f39b3f4bf873dfff1488f601dfec054d95e2dc7d4700ede11"
+      ]
+    }
+  ],
+  "sequence": "Workshop JS wholePASS -> conditional Workshop Native wholePASS; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Exact source5 actual PASS for both frozen consuming closures; raw source evidence preserved",
+  "scope": "Finite Workshop registered condition backend qualification; no reader/full55/universal/performance acceptance"
+}

@@ -1,0 +1,101 @@
+{
+  "scope": "Registered and reached cases only; literal foreign-v2 unlaunched; actual provenance-v3 remains required; stream projections/full55 not qualified.",
+  "results": [
+    {
+      "case": "workshop-registered",
+      "role": "js",
+      "receipt": "/tmp/bendvy-graph-stream-registered-workshop-runtime01/workshop-registered-js/receipt.json",
+      "receiptSHA256": "c916ce02fdfeb7533d7cfbec950b1cee7641716eda1ffe537970103cb9452ea3",
+      "wholeOracleSHA256": "9981a344785a9ae1be2c57177f65207d5abce25941c3131d134ec3d32775e3c7",
+      "guards": 7,
+      "completeNormalBaselineRejected": null
+    },
+    {
+      "case": "workshop-registered",
+      "role": "native",
+      "receipt": "/tmp/bendvy-graph-stream-registered-workshop-runtime01/workshop-registered-native/receipt.json",
+      "receiptSHA256": "7c8d9ddf982224c1970857edaf25608264a51d1f89ab95b1f5e31e0d037886c8",
+      "wholeOracleSHA256": "9981a344785a9ae1be2c57177f65207d5abce25941c3131d134ec3d32775e3c7",
+      "guards": 10,
+      "completeNormalBaselineRejected": null
+    },
+    {
+      "case": "garden-registered",
+      "role": "js",
+      "receipt": "/tmp/bendvy-graph-stream-remaining-runtime02/garden-registered-js/receipt.json",
+      "receiptSHA256": "625daff7ec1c2a487ddd159353e0142fa5a11945294556f627a85e01a2f2331f",
+      "wholeOracleSHA256": "165628471fa8ec0b991ae89af6c47ef101c19aafaf3a345bd78b8912746e5ed8",
+      "guards": 7,
+      "completeNormalBaselineRejected": null
+    },
+    {
+      "case": "garden-registered",
+      "role": "native",
+      "receipt": "/tmp/bendvy-graph-stream-remaining-runtime02/garden-registered-native/receipt.json",
+      "receiptSHA256": "a1110861b4c06ce00b6bd1ec6c3c6a45273e9eff6607c4542897b08cd0edb7b0",
+      "wholeOracleSHA256": "165628471fa8ec0b991ae89af6c47ef101c19aafaf3a345bd78b8912746e5ed8",
+      "guards": 10,
+      "completeNormalBaselineRejected": null
+    },
+    {
+      "case": "namespace-normal",
+      "role": "js",
+      "receipt": "/tmp/bendvy-graph-stream-remaining-runtime02/namespace-normal-js/receipt.json",
+      "receiptSHA256": "7f00689a0ecbd60deeacf0a58fcc5b7ded3ae557b149b2a8da66c30046971548",
+      "wholeOracleSHA256": "411323381f15350daa30aec8863ff1840b32cc728dafdb66ac5e8d3dd4210958",
+      "guards": 7,
+      "completeNormalBaselineRejected": null
+    },
+    {
+      "case": "namespace-normal",
+      "role": "native",
+      "receipt": "/tmp/bendvy-graph-stream-remaining-runtime02/namespace-normal-native/receipt.json",
+      "receiptSHA256": "70e0d179f386d808f9ef4257c05cf547ed3497c55e12b9518c817e0168b17fc0",
+      "wholeOracleSHA256": "411323381f15350daa30aec8863ff1840b32cc728dafdb66ac5e8d3dd4210958",
+      "guards": 10,
+      "completeNormalBaselineRejected": null
+    },
+    {
+      "case": "noninterference-mutant",
+      "role": "js",
+      "receipt": "/tmp/bendvy-graph-stream-remaining-runtime02/noninterference-mutant-js/receipt.json",
+      "receiptSHA256": "ee06338d7ddc995987bea2ce4b6e3bb4a8c7904399b7343fa9ba14ae2809bf77",
+      "wholeOracleSHA256": "9bc094a7aee00c447dd484948c38e8a1481f2f72c60fcc3a8fbfc010a9ff8959",
+      "guards": 7,
+      "completeNormalBaselineRejected": true
+    },
+    {
+      "case": "noninterference-mutant",
+      "role": "native",
+      "receipt": "/tmp/bendvy-graph-stream-remaining-runtime02/noninterference-mutant-native/receipt.json",
+      "receiptSHA256": "672e981dad3ebd3fbdf0c16e030c6c92178c0e7da8fb6c0115079734e3465284",
+      "wholeOracleSHA256": "9bc094a7aee00c447dd484948c38e8a1481f2f72c60fcc3a8fbfc010a9ff8959",
+      "guards": 10,
+      "completeNormalBaselineRejected": true
+    },
+    {
+      "case": "routing-swap-mutant",
+      "role": "js",
+      "receipt": "/tmp/bendvy-graph-stream-remaining-runtime02/routing-swap-mutant-js/receipt.json",
+      "receiptSHA256": "6b818c87b5e89e952ff24d084ace64e1e5f0612eedbba2171249d9a1a1815133",
+      "wholeOracleSHA256": "fbed3aa707f54fe1a19873e53746f816b60a92a3201aa7e6534f650a014fce7c",
+      "guards": 7,
+      "completeNormalBaselineRejected": true
+    },
+    {
+      "case": "routing-swap-mutant",
+      "role": "native",
+      "receipt": "/tmp/bendvy-graph-stream-remaining-runtime02/routing-swap-mutant-native/receipt.json",
+      "receiptSHA256": "b9db49311925e55815a59e6cb5544e2959bed86c08cfad960b7d9992b291a94e",
+      "wholeOracleSHA256": "fbed3aa707f54fe1a19873e53746f816b60a92a3201aa7e6534f650a014fce7c",
+      "guards": 10,
+      "completeNormalBaselineRejected": true
+    }
+  ],
+  "held": [
+    "workshop-foreign-js",
+    "workshop-foreign-native",
+    "garden-foreign-js",
+    "garden-foreign-native"
+  ]
+}
