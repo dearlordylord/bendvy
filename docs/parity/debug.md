@@ -47,7 +47,22 @@ fixed in [the manifest](../../.references/sources.json).
 | Relations and machines | [relation-types](../../src/ecs/relation-types.bend): `Descriptor` retains name/kind/inverse. [machine](../../src/ecs/machine.bend) and [machine-handler-bundle](../../src/ecs/machine-handler-bundle.bend) retain slots, selectors, order, requirements and registries. | Derive descriptions at their actual App registration/build seams. |
 
 Descriptions must be derived only when debug is enabled. Do not add unconditional
-description copies or require user metadata adapters. The retained full80 fixture contains reusable Registry/schedule projections
+description copies or require user metadata adapters.
+
+Resource-only bodies should run once per permitted registered invocation with
+valid resource grants, including an empty World, as in pinned Bevy
+`function_system.rs`. Use the existing
+`System.run_checked`/`Capabilities.invoke_owned` seam and resource transaction
+grants. `OrdinarySystem.runner` uses `Compose.each_since`: it runs zero times
+without matching entities and once per match otherwise, so it cannot supply
+resource-only execution. Keep entity-query iteration unchanged.
+
+Schedule descriptions read retained steps and actual Registry owners without
+executing conditions, dispatch or barriers. Condition IDs remain available;
+condition names are absent from the current declaration model. Runtime system
+IDs also prevent treating every operational Plan as an erased static index.
+
+The retained full80 fixture contains reusable Registry/schedule projections
 (see [the source archive](../../experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/diagnostic-js-v1/actual-js-v1/manifest.json)), but does not establish an
 ordinary automatic public App or complete #56 acceptance. Pinned bevy-ts
 `Debug.ts` identifies output categories; it does not determine the contract.
