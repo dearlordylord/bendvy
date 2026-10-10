@@ -1,0 +1,37 @@
+"""Independent complete public ordinary stream App source model; no runtime inputs."""
+from pathlib import Path
+import types,json,os
+HERE=Path(__file__).resolve().parent
+retained=types.ModuleType('retained');retained.__file__=str(HERE/'retained-stream-model.py.source')
+exec(compile((HERE/'retained-stream-model.py.source').read_bytes(),retained.__file__,'exec'),retained.__dict__)
+retained.ROOT=Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-stream-app-v1')
+c=retained.c;l=retained.l;t=retained.t;named=retained.named
+
+def values():
+    _,_,selected=retained.events()
+    stream=c(named('machine-stream','Stream'),l([
+      c(named('event-runtime','Batch'),'2n',l([c(named('machine','Transition'),'4','7')])),
+      c(named('event-runtime','Batch'),'3n',l([c(named('machine','Transition'),'7','8'),c(named('machine','Transition'),'8','7')]))]),
+      l([c(named('event-runtime','Position'),'5','1n','1n')]),'0n','2n')
+    transitions=c(named('inspector-transition-projection','TransitionLog'),stream)
+    failures=c(named('inspector-failure-projection','FailureView'),retained.descriptor(2),l(selected),l(selected),'2n','0n')
+    return c(named('ordinary-app-stream','Values'),transitions,failures)
+
+def derive():
+    ns,base=31,100
+    runtime=retained.runtime(ns,base).replace('consumer.RuntimeView','consumer-public.RuntimeView')
+    selected=values()
+    disabled=c('consumer-public.Observation','19',c('False'),c('None'))
+    observed=c('consumer-public.Observation','19',c('True'),c('Some',c(named('ordinary-app-stream','Description'),t('Flow'),selected)))
+    report=c('consumer-public.Report',c('consumer-public.ReaderView','31','1','2'),
+      c('consumer-public.RegistryView','31','2',t('NoticeReader'),l([t('relationFailures'),t('transitionEvents')]),'0'),
+      runtime,disabled,selected,runtime,observed,runtime,observed,runtime)
+    return (c('Some',report)+'\n').encode(),{'namespace':31,'base':100,'applicationCursor':19,'registryCursor':0,
+      'setupEqualsBeforeAfterFirstAfterSecond':True,'disabled':{'debug':False,'values':None},
+      'enabledNames':['Flow','Flow'],'selectedParentFailureSources':[[2,3],[2,2],[4,2]],
+      'runtimeTick':2,'frameStart':0,'boundary':0,'capacity':8,'dropped':0,'pendingWorldCommands':1,
+      'readerPosition':[1,1,0],'nextReader':2,'worldClock':13,'owners':'Unit',
+      'flowStream':'batches2:[4>7],3:[7>8,8>7]; position5:1:1; boundary0/start2'}
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(derive()[0])
