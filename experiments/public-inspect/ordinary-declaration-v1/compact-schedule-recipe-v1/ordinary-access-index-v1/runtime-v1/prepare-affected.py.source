@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+"""Prepare stock whole ordinary-schedule JS and conditional Native; no execution."""
+import argparse, gzip, hashlib, json, types
+from pathlib import Path
+ROOT=Path('/workspace/formal-proofs/bendvy')
+HERE=Path(__file__).resolve().parent
+SOURCE=HERE.parent
+COLLECTOR=ROOT/'experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py'
+TEMPLATE_ROOT=Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1')
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def main():
+ parser=argparse.ArgumentParser(description=__doc__)
+ parser.add_argument('catalogue');parser.add_argument('key');parser.add_argument('output')
+ parser.add_argument('capture');parser.add_argument('entry');parser.add_argument('binding');parser.add_argument('basiskey');args=parser.parse_args();catalogue=Path(args.catalogue).resolve();selected=json.loads(catalogue.read_text())[args.key]
+ oracle=Path(selected['gzip']).resolve();raw=gzip.decompress(oracle.read_bytes())
+ if len(raw)!=selected['bytes'] or hashlib.sha256(raw).hexdigest()!=selected['sha256']:raise ValueError('Independent full model drift')
+ check=Path(args.capture).resolve();receipt=json.loads((check/'result.json').read_text())
+ if receipt['exit']!=0 or receipt.get('failure') is not None or not json.loads((check/'post.json').read_text())['unchanged']:raise ValueError('Source qualification required')
+ if b'ALL PROOFS CHECK' not in (check/'stdout').read_bytes():raise ValueError('Source result missing')
+ captured=json.loads((check/'SOURCE.json').read_text())['pins'];inventory={k:v for k,v in captured.items() if k.endswith('.bend')}
+ if any(sha(k)!=v for k,v in inventory.items()):raise ValueError('Current source drift')
+ entry=str((SOURCE/args.entry).resolve());module=types.ModuleType('collector');module.__file__=str(COLLECTOR);exec(compile(COLLECTOR.read_bytes(),str(COLLECTOR),'exec'),module.__dict__)
+ closure=module.validate_imports(entry,inventory)
+ out=Path(args.output).resolve()
+ if out.exists():raise ValueError('Fresh output required')
+ out.mkdir();rows=[]
+ templates={'js':TEMPLATE_ROOT/'runtime-v1/prepared-attempt01/a-normal-js/plan.json','native':TEMPLATE_ROOT/'runtime-v2/prepared-attempt01/a-normal-native-plan.json'}
+ extras=[Path(__file__),catalogue,oracle,COLLECTOR,ROOT/'scripts/task_runner.py',ROOT/'scripts/evidence_boundary.py',ROOT/'experiments/public-inspect/development-plan-guard-v1/plan_guard.py',ROOT/'experiments/public-simulation/delivery-v1/installed-config.py',SOURCE/'PUBLIC-SOURCE-COMPLETE.json']+[p for p in check.rglob('*') if p.is_file()]
+ extras += [p for p in catalogue.parent.rglob('*.source') if p.is_file()]
+ extras += [catalogue.parent.parent/'model.py.source'] if (catalogue.parent.parent/'model.py.source').exists() else []
+ basisRecord=json.loads(Path(args.binding).read_text());basis=basisRecord[args.basiskey];extras.append(Path(args.binding));extras += [p for p in catalogue.parent.rglob('*') if p.is_file()]
+ if isinstance(basis,dict):
+  if any(sha(k)!=v for k,v in basis.items()):raise ValueError('Independent basis drift')
+ extras += [Path(k) for k in basis]
+ for role,template in templates.items():
+  plan=json.loads(template.read_text());stage=out/('a-normal-'+role);stage.mkdir()
+  generated=str(stage/('scenario.js' if role=='js' else 'scenario.c'));native=str(stage/'scenario.native')
+  mapping={plan['entrypoint']:entry,plan['generated']:generated}
+  if plan.get('native'):mapping[plan['native']]=native
+  for command in plan['commands']:command['argv']=[mapping.get(x,x) for x in command['argv']]
+  plan.update(scope='Ordinary public mixed schema App automatic access index; seven snapshots and four actual registered operations in both zero/two-row worlds, sole Fields enabled fold without value projection, same key distinct categories and same name distinct actual IDs, duplicated Read grants and full affine arrays/rollback/pending retained; event and full56 gates remain '+role,stage=str(stage),entrypoint=entry,sourceInventory=inventory,importClosure=closure,generated=generated,native=native,oracle=str(oracle),oracleSHA256=selected['sha256'],oracleBytes=selected['bytes'],normalOracle=str(oracle),normalOracleSHA256=selected['sha256'],normalOracleBytes=selected['bytes'],sourceEvidenceScope='Current complete source5 capture and independent whole source-derived oracle',postConsumer='Entire independent stdout equality and empty runtime stderr')
+  plan.pop('prerequisiteActualRequalification',None);plan.pop('normalBaselineSource',None)
+  if args.key=='mutant':
+   baseline=json.loads(catalogue.read_text())['baseline'];plan.update(normalOracle=baseline['gzip'],normalOracleSHA256=baseline['sha256'],normalOracleBytes=baseline['bytes']);extras += [Path(baseline['gzip'])]
+  plan['pins']=dict(inventory);plan['pins'].update({str(p.resolve(strict=True)):sha(p) for p in extras+[template]+[Path(v) for v in plan['tools'].values()]})
+  target=stage/'plan.json';target.write_text(json.dumps(plan,indent=2)+'\n');rows.append({'role':role,'path':str(target),'sha256':sha(target),'execute':[plan['tools']['python'],str(COLLECTOR),'run',str(target),sha(target)]})
+ (out/'SEQUENCE.json').write_text(json.dumps({'sequence':rows,'condition':'One JS; Native only after complete JS PASS. Stop at first failure; no unchanged retry.'},indent=2)+'\n')
+ print(out/'SEQUENCE.json')
+if __name__=='__main__':main()

@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueRead<read~Owner, U32>
+- observed : Unit
+Context:
+- owner : read~Owner
+Location: read
+3 | def read(~Owner:Type,~grant:Unit,owner:Owner) -> Owner & U32:
+4>|   Cap.value_read(~Owner,~U32,grant,owner)
+  |                              ^^^^^
+5 | def main() -> Unit:Unit{}
+bend 2.0.36 is available: run bend update
