@@ -1,0 +1,10 @@
+"""Source-only threaded Factory namespaces and actual attachment refusal."""
+import json
+def derive():
+    world='world(2,1,0,L(False),1,0,Unit;graph=[];[],N(L(61),L(62)),events=[],pending=0,regs=[1:ReadLinks:[Link:read]],nextSystem=2,clock=0)'
+    owner='Owner{ns=1|id=1|name=ReadLinks|access=[Link:read]|cursor=0}'
+    text='before='+world+'|'+owner+'|Invalid|after='+world+'|'+owner
+    return (json.dumps(text,ensure_ascii=False)+'\n').encode(), {'factoryNamespaces':[1,2],'returnedFactoryNext':3,'beforeWorld':world,'afterWorld':world,'returnedOwner':owner,'attachment':'Invalid','projectionInvoked':False,'readerInvoked':False}
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(derive()[0])

@@ -1,0 +1,1 @@
+Independent complete actual Factory two-World attachment refusal. Full before/after physical World2/resource Array and retained actual Registry1 owner, manual String printer. No runtime output input or process-global uniqueness claim. Source basis captures actual pure stock5 passes.
