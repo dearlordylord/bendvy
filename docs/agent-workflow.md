@@ -9,7 +9,8 @@ then bevy-ts inventory govern implementation choices.
 1. Read the current consumer and evidence; identify the exact missing acceptance
    gate. For automatic features, verify the ordinary user entry supplies the behavior
    before preparing large backend evidence. Reuse qualified scenarios and assigned
-   worktrees/file ownership.
+   worktrees/file ownership. Stabilize the ordinary entry with concrete independent
+   consumers before adapting dependent capabilities to its interface.
 2. Implement the agreed contract. Follow bend-ldd for Bend; use
    `scripts/bend-check source.bend` for parser/type/affine repairs. API changes
    require undeclared-access, cross-schema, write-through-read and relevant
