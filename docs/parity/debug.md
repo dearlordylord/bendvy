@@ -72,3 +72,9 @@ ordinary automatic public App or complete #56 acceptance. Pinned bevy-ts
 - [Resource-system evidence](../../experiments/public-inspect/ordinary-declaration-v1/resource-system-v1/runtime-v1/actual-attempt01/README.md) covers once-per-invocation execution in empty and two-entity Worlds, success, rollback and retry on JS/Native. It does not attach resource observation to the ordinary App.
 - [Schedule evidence](../../experiments/public-inspect/ordinary-declaration-v1/schedule-observation-v1/runtime-v1/actual-attempt01/README.md) covers descriptions from the retained operational Plan, actual condition/dispatch/barrier execution and a reached description-omission control on JS/Native. It does not exercise the provisioning availability gate or complete public App integration.
 - Public resource promotion and ResourceApp observation remain in progress. See the [current assignments](README.md#current-delivery-coordination); source acceptance alone does not establish backend or performance acceptance.
+
+The qualified resource provider owns and replaces the entire `R`. Its one-resource
+fixture does not establish independently confined writes to fields of a resource
+aggregate. Per-resource lenses and protection of undeclared sibling resources
+remain part of #51/#61 acceptance; generated access descriptions do not supply
+that missing authority boundary.
