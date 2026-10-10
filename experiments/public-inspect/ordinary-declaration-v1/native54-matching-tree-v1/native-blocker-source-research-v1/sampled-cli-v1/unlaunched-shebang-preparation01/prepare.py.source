@@ -1,0 +1,143 @@
+from pathlib import Path
+import json,hashlib,importlib.util
+wt=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1')
+r=wt/'experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1';d=r/'sampled-cli-v1';c=d/'compiler';c.mkdir(exist_ok=True)
+sha=lambda b:hashlib.sha256(b).hexdigest();elf=Path('/home/node/.bend/bin/bend-2.0.35');packed=elf.read_bytes();original=packed[82378778:82711943]
+assert sha(packed)=='f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a';assert len(original)==333165 and sha(original)=='015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62'
+helper=r'''import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+import {Session} from 'node:inspector';
+let state;
+export function writeAll(bytes,write) {
+  for(let offset=0;offset<bytes.length;) {
+    const remaining=bytes.length-offset,n=write(bytes,offset,remaining);
+    if(!Number.isInteger(n)||n<=0||n>remaining)throw new Error('profile transport made invalid progress');
+    offset+=n;
+  }
+}
+function publish(path,bytes) {
+  const fd=fs.openSync(path,fs.constants.O_WRONLY|fs.constants.O_CREAT|fs.constants.O_EXCL|fs.constants.O_NOFOLLOW,0o600);
+  try {
+    const before=fs.fstatSync(fd);if(!before.isFile())throw new Error('profile publication is not regular');
+    writeAll(bytes,(buffer,offset,remaining)=>fs.writeSync(fd,buffer,offset,remaining));fs.fsyncSync(fd);
+    const after=fs.fstatSync(fd);
+    if(before.dev!==after.dev||before.ino!==after.ino||after.size!==bytes.length)throw new Error('profile FD identity/size changed');
+    return {path,device:after.dev,inode:after.ino,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')};
+  } finally {fs.closeSync(fd);}
+}
+export function due(active,started,now) {return active && now-started>=15000;}
+export function start(path=process.env.BENDVY_CPU_PROFILE_PATH) {
+  if(state!==undefined)throw new Error('profile sampler may start only once');
+  if(typeof path!=='string'||!path.startsWith('/'))throw new Error('profile path must be absolute');
+  if(fs.existsSync(path)||fs.existsSync(path+'.metadata.json'))throw new Error('profile output exists');
+  const session=new Session();session.connect();session.post('Profiler.enable');
+  session.post('Profiler.setSamplingInterval',{interval:1000});session.post('Profiler.start');
+  state={session,path,started:performance.now(),active:true,completed:0};
+}
+export function finish(reason) {
+  if(state===undefined||!state.active)return;
+  state.active=false;const stopped=performance.now();
+  const result=state.session.post('Profiler.stop');
+  if(result===undefined||result===null||typeof result.profile!=='object')throw new Error('synchronous profiler result absent');
+  const profile=result.profile,bytes=Buffer.from(JSON.stringify(profile)+'\n');
+  const metadata={...publish(state.path,bytes),reason,intervalMicroseconds:1000,completedDefinitions:state.completed,hookStartMs:state.started,hookStopMs:stopped,scope:'Copied instrumented compiler sample only; flush overhead and later/interrupted interval unmeasured'};
+  publish(state.path+'.metadata.json',Buffer.from(JSON.stringify(metadata)+'\n'));
+  state.session.disconnect();return metadata;
+}
+export function checkpoint() {
+  if(state===undefined||!state.active)return;
+  state.completed++;if(due(state.active,state.started,performance.now()))finish('completed-definition-after-15s');
+}
+export function compile(book,originalCompile) {
+  let value;
+  try {value=originalCompile(book);} catch(error) {
+    try {finish('compiler-error');} catch(observationError) {
+      const bytes=Buffer.from('BENDVY_PROFILE_OBSERVATION_FAILED '+String(observationError)+'\n');
+      writeAll(bytes,(buffer,offset,remaining)=>fs.writeSync(2,buffer,offset,remaining));
+    }
+    throw error;
+  }
+  finish('normal-compile-exit');return value;
+}
+'''
+(d/'sample-helper.mjs').write_text(helper)
+text=original.decode();patches=[]
+def patch(label,old,new):
+ global text
+ assert text.count(old)==1,(label,text.count(old));text=text.replace(old,new);patches.append({'label':label,'original':old,'replacement':new})
+patch('helper-import','// src/bend2.ts','import {start as BVY_N54P_START,checkpoint as BVY_N54P_CHECKPOINT,compile as BVY_N54P_COMPILE} from "../sample-helper.mjs";\n// src/bend2.ts') if '// src/bend2.ts' in text else None
+if not patches:patch('helper-import',text.splitlines(keepends=True)[0],'import {start as BVY_N54P_START,checkpoint as BVY_N54P_CHECKPOINT,compile as BVY_N54P_COMPILE} from "../sample-helper.mjs";\n'+text.splitlines(keepends=True)[0])
+patch('sampler-start','function compile_book(book) {','function compile_book(book) {\n  BVY_N54P_START();')
+patch('completed-definition-checkpoint','      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);','      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);\n      BVY_N54P_CHECKPOINT();')
+patch('normal-exit-fallback','    fs4.writeFileSync(out, compile_book(book));','    fs4.writeFileSync(out, BVY_N54P_COMPILE(book,compile_book));')
+inverse=text
+for p in reversed(patches):assert inverse.count(p['replacement'])==1;inverse=inverse.replace(p['replacement'],p['original'])
+assert inverse.encode()==original
+(c/'installed-cli-unmodified.mjs').write_bytes(original);(c/'installed-cli-sampled.mjs').write_text(text)
+for name in ['base.bend','bendtt.lean','effs']:
+ link=c/name;target=Path('/home/node/.bend/bend2')/name
+ if not link.exists():link.symlink_to(target,target_is_directory=target.is_dir())
+ assert link.resolve()==target.resolve()
+(d/'PATCHES.json').write_text(json.dumps({'patches':patches,'inverseBytes':len(original),'inverseSHA256':sha(original),'instrumentedSHA256':sha(text.encode()),'inversePASS':True},indent=2)+'\n')
+control=r'''import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import {start,finish,due,writeAll} from './sample-helper.mjs';
+const path=process.argv[2];assert(path.startsWith('/'));
+assert.equal(due(true,100,15099),false);assert.equal(due(true,100,15100),true);assert.equal(due(false,100,99999),false);
+const buffer=Buffer.from('λ😀'.repeat(60000));
+for(const chunk of [1,7,131072,buffer.length]) {
+ const captures=[];writeAll(buffer,(b,o,n)=>{const count=Math.min(n,chunk);captures.push(b.subarray(o,o+count));return count;});
+ assert.deepEqual(Buffer.concat(captures),buffer);
+}
+for(const invalid of [0,-1,NaN,0.5,buffer.length+1])assert.throws(()=>writeAll(buffer,()=>invalid));
+start(path);assert.throws(()=>start(path));
+const until=performance.now()+20;let value=0;while(performance.now()<until)value=(value*1664525+1013904223)>>>0;
+const meta=finish('api-control');assert(meta&&meta.reason==='api-control');
+const profile=JSON.parse(fs.readFileSync(path,'utf8'));assert(profile.samples.length>0);
+assert.equal(profile.samples.length,profile.timeDeltas.length);assert.equal(finish('second-finish'),undefined);
+assert.equal(JSON.parse(fs.readFileSync(path+'.metadata.json','utf8')).sha256,meta.sha256);
+console.log(JSON.stringify({status:'SAME_ELF_PROFILE_CONTROL_PASS',samples:profile.samples.length,transportBytes:buffer.length,shortWrites:[1,7,131072,buffer.length],zeroProgressRejected:true,secondStartRejected:true,synchronousResult:true}));
+'''
+(d/'check-api.mjs').write_text(control)
+validator=r'''from pathlib import Path
+import os,json,hashlib,math,stat,sys
+p=Path(sys.argv[1]);m=json.loads(Path(str(p)+'.metadata.json').read_bytes())
+fd=os.open(p,os.O_RDONLY|os.O_NOFOLLOW)
+try:
+ a=os.fstat(fd);assert stat.S_ISREG(a.st_mode)
+ with os.fdopen(os.dup(fd),'rb') as f:raw=f.read()
+ z=os.fstat(fd);assert (a.st_dev,a.st_ino,a.st_size)==(z.st_dev,z.st_ino,z.st_size)
+ assert (a.st_dev,a.st_ino,len(raw))==(m['device'],m['inode'],m['bytes'])
+ digest=hashlib.sha256(raw).hexdigest();assert digest==m['sha256']
+finally:os.close(fd)
+j=json.loads(raw);nodes=j['nodes'];samples=j['samples'];deltas=j['timeDeltas'];assert nodes and len(samples)==len(deltas)
+ids=[n['id'] for n in nodes];assert len(ids)==len(set(ids)) and all(type(x) is int and x>0 for x in ids);known=set(ids)
+assert all(type(x) is int and x in known for x in samples)
+for n in nodes:
+ assert type(n['callFrame']['functionName']) is str
+ assert all(type(x) is int and x in known for x in n.get('children',[]))
+assert all(type(x) in (int,float) and math.isfinite(x) and x>=0 for x in deltas)
+assert all(type(j[k]) in (int,float) and math.isfinite(j[k]) for k in ['startTime','endTime']);assert j['endTime']>=j['startTime']
+assert m['reason'] in ['completed-definition-after-15s','normal-compile-exit'] and m['intervalMicroseconds']==1000
+print(json.dumps({'status':'COMPLETE_PROFILE_SCHEMA_PASS','sha256':digest,'bytes':len(raw),'samples':len(samples),'nodes':len(nodes),'scope':'Copied compiler sample; profile timestamps are not stock phase anchors'}))
+'''
+(d/'validate-profile.py.source').write_text(validator)
+(d/'README.md').write_text('''# One sampled copied-CLI diagnostic (not launched)\n\nSame installed ELF f774/raw333165B015d, four literal profile-only patches. Compile entry starts node:inspector Session sampler interval1000us. First completed definition boundary after15s flushes one full profile; normal .c compile exit is the fallback. No timer, asynchronous callback, early cutoff, profiler restart, per-term hook, definition/fact/cache change or reduced source/output. Catch preserves original compiler exception; observation failure is explicit stderr. Sampler/stop/serialization/transport all perturb JIT, GC and scheduling and count against emit30; active interrupted/later interval is unmeasured. One profile maximum. Absence under external deadline is inconclusive.\n\nFirst command same-ELF file-mode cap5 API control imports only exact helper; tests synchronous stop, threshold boundary, double-start/finish and Unicode positive-shortwrite transport1/7/131072/full plus invalid progress. No compiler loads. Failure stops all later commands. Copied emit30 then conditional schema5/build120/runtime5; whole5077477/810259 and empty runtime stderr mandatory. Source/JS59721 positives and stock Native22214 deadline remain separate controls, not rerun. On emit deadline the collector does not run later validator; raw checkpoint remains for bounded archival schema review, without claiming a validator command. BUN_OPTIONS absent; BUN_BE_BUN1 runs the copied CLI via same ELF. Existing collector/guards/internal lock/resource aliases unchanged. No stock qualification/performance/cause/compiler adoption follows even if copied whole runtime succeeds. Independent exact launch review required.\n''')
+(d/'PROVENANCE.json').write_text(json.dumps({'installedELF':str(elf),'elfSHA256':sha(packed),'slice':[82378778,82711943],'CLIbytes':len(original),'CLIsha256':sha(original),'runtimeIdentity':'Bun1.4.0 34cbb9a40 (ELF string; API not yet tested)','primarySourceBasis':str(r/'profiler-primary-source/SOURCE-BASIS.json'),'subject':str(r/'seek-view-delegation-v1/stage'),'subjectSourceHandle':44922,'subjectJSHandle':59721,'stockNativeFailureHandle':22214,'scope':'private copied instrumented diagnostic only'},indent=2)+'\n')
+j=json.loads((r/'seek-view-delegation-v1/normal-native-plan.json').read_text());temp=Path('/tmp/bendvy54-sampled-cli01');temp.mkdir(exist_ok=False)
+j['scope']='ONE sampled copied-CLI full47 normal diagnostic; no stock qualification/performance';j['cwd']=str(d);j['generated']=str(temp/'scenario.c');j['native']=str(temp/'scenario.native');j['environment']['BUN_BE_BUN']='1';j['environment'].pop('BUN_OPTIONS',None);j['environment']['BENDVY_CPU_PROFILE_PATH']=str(temp/'compiler.cpuprofile')
+j['commands']=[{'label':'source-profile-api-control','argv':[j['tools']['taskset'],'-c','11',str(elf),str(d/'check-api.mjs'),str(temp/'api-control.cpuprofile')],'capSeconds':5,'expectedExit':0},{'label':'emit','argv':[j['tools']['taskset'],'-c','11',str(elf),str(c/'installed-cli-sampled.mjs'),j['entrypoint'],'-o',j['generated']],'capSeconds':30},{'label':'source-profile-schema','argv':[j['tools']['taskset'],'-c','11',j['tools']['python'],str(d/'validate-profile.py.source'),str(temp/'compiler.cpuprofile')],'capSeconds':5,'expectedExit':0},{'label':'build','argv':[j['tools']['taskset'],'-c','11',j['tools']['clangWrapper'],'-O3',j['generated'],'-o',j['native'],'-pthread','-lm'],'capSeconds':120},{'label':'consumer','argv':[j['tools']['taskset'],'-c','11',j['native'],'--threads','1','--gpu','off'],'capSeconds':5}]
+j['postConsumer']='Complete whole5077477 SHA810259 exact and empty runtime stderr; diagnostic copied mode only, never stock acceptance. No mutant baseline criterion.'
+for f in [*d.glob('*.mjs'),d/'validate-profile.py.source',d/'PATCHES.json',d/'README.md',d/'PROVENANCE.json',c/'installed-cli-unmodified.mjs',c/'installed-cli-sampled.mjs',r/'profiler-primary-source/SOURCE-BASIS.json',r/'seek-view-delegation-v1/INDEPENDENT-SOURCE-REVIEW.json',r/'seek-view-delegation-v1/actual-v1/RESULT.json']:
+ if f.exists():j['pins'][str(f)]=sha(f.read_bytes())
+for f in (r/'profiler-primary-source').glob('*.source'):j['pins'][str(f)]=sha(f.read_bytes())
+root=Path('/workspace/formal-proofs/bendvy');sp=importlib.util.spec_from_file_location('sampler_runner',root/'scripts/task_runner.py');runner=importlib.util.module_from_spec(sp);sp.loader.exec_module(runner)
+# Inputs canonicalizes symlink directory roots; direct regular file pins never include aliases.
+j['resourceRoots'].update(runner.Inputs(directories=[str(c)]).expected)
+for p,h in j['pins'].items():assert sha(Path(p).read_bytes())==h,p
+assert len(j['sourceInventory'])==47
+for p,h in j['sourceInventory'].items():assert sha(Path(p).read_bytes())==h,p
+assert not any((temp/x).exists() for x in ['scenario.c','scenario.native','compiler.cpuprofile','api-control.cpuprofile'])
+raw=(json.dumps(j,indent=2)+'\n').encode();(temp/'plan.json').write_bytes(raw);(d/'plan.json').write_bytes(raw)
+(d/'PREPARED.json').write_text(json.dumps({'plan':str(temp/'plan.json'),'sha256':sha(raw),'pins':len(j['pins']),'sourceCount':47,'sourceCurrentPASS':True,'inversePASS':True,'outputsAbsent':True,'controlsExecuted':False,'compilerExecuted':False},indent=2)+'\n')
+print(json.dumps({'plan':str(temp/'plan.json'),'sha256':sha(raw),'pins':len(j['pins']),'patches':len(patches)}))

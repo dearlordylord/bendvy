@@ -1,0 +1,28 @@
+{
+  "patches": [
+    {
+      "label": "helper-import",
+      "original": "#!/usr/bin/env bun\n",
+      "replacement": "#!/usr/bin/env bun\nimport {start as BVY_N54P_START,checkpoint as BVY_N54P_CHECKPOINT,compile as BVY_N54P_COMPILE} from \"../sample-helper.mjs\";\n"
+    },
+    {
+      "label": "sampler-start",
+      "original": "function compile_book(book) {",
+      "replacement": "function compile_book(book) {\n  BVY_N54P_START();"
+    },
+    {
+      "label": "completed-definition-checkpoint",
+      "original": "      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);",
+      "replacement": "      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);\n      BVY_N54P_CHECKPOINT();"
+    },
+    {
+      "label": "normal-exit-fallback",
+      "original": "    fs4.writeFileSync(out, compile_book(book));",
+      "replacement": "    fs4.writeFileSync(out, BVY_N54P_COMPILE(book,compile_book));"
+    }
+  ],
+  "inverseBytes": 333165,
+  "inverseSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+  "instrumentedSHA256": "83e7b4115e62d3ad7c4e33ff173ae997aa0b7d82816ef2b3092746ddf2000567",
+  "inversePASS": true
+}

@@ -1,0 +1,21 @@
+from pathlib import Path
+import os,json,hashlib,math,stat,sys
+p=Path(sys.argv[1]);m=json.loads(Path(str(p)+'.metadata.json').read_bytes())
+fd=os.open(p,os.O_RDONLY|os.O_NOFOLLOW)
+try:
+ a=os.fstat(fd);assert stat.S_ISREG(a.st_mode)
+ with os.fdopen(os.dup(fd),'rb') as f:raw=f.read()
+ z=os.fstat(fd);assert (a.st_dev,a.st_ino,a.st_size)==(z.st_dev,z.st_ino,z.st_size)
+ assert (a.st_dev,a.st_ino,len(raw))==(m['device'],m['inode'],m['bytes'])
+ digest=hashlib.sha256(raw).hexdigest();assert digest==m['sha256']
+finally:os.close(fd)
+j=json.loads(raw);nodes=j['nodes'];samples=j['samples'];deltas=j['timeDeltas'];assert nodes and len(samples)==len(deltas)
+ids=[n['id'] for n in nodes];assert len(ids)==len(set(ids)) and all(type(x) is int and x>0 for x in ids);known=set(ids)
+assert all(type(x) is int and x in known for x in samples)
+for n in nodes:
+ assert type(n['callFrame']['functionName']) is str
+ assert all(type(x) is int and x in known for x in n.get('children',[]))
+assert all(type(x) in (int,float) and math.isfinite(x) and x>=0 for x in deltas)
+assert all(type(j[k]) in (int,float) and math.isfinite(j[k]) for k in ['startTime','endTime']);assert j['endTime']>=j['startTime']
+assert m['reason'] in ['completed-definition-after-15s','normal-compile-exit'] and m['intervalMicroseconds']==1000
+print(json.dumps({'status':'COMPLETE_PROFILE_SCHEMA_PASS','sha256':digest,'bytes':len(raw),'samples':len(samples),'nodes':len(nodes),'scope':'Copied compiler sample; profile timestamps are not stock phase anchors'}))
