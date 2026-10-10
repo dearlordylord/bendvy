@@ -1,0 +1,7 @@
+# Bounded invalid-attach final review
+
+PASS for immutable 4a16deeb1, frozen source 199efcf15/intended source47041 and independent oracle9cf073157/root second sanity. All36 lossless manifest members decompress to exact recorded length/SHA; both archived source inventories match current files. Receipts40672/86832 have five commands exit0/failureNone and seventeen exact referenced guards. Both complete stdout bodies are3918B SHA0ad9daa5670221a87b5e1eb59d5a577b9a88749f8c43fa3c242241f3faa70bec; emitted JS/C/native retained.
+
+The source-derived complete oracle preserves zero/two physical worlds, sole registration Fields, pending99 and enabled before/after plus disabled returned-App observations. Unknown system999 reaches actual Scheduled.attach rejection and reconstruction of the original affine App; no replacement owner, skipped world field or narrowed comparison is used. Reuse of the previously reviewed formatting/state basis is bounded to these exact source joins.
+
+This qualifies the finite invalid-attach recovery slice. It does not execute Scheduled.run, scheduled bodies, conditions or barriers, prove arbitrary affine argument cleanup, public adoption, unbounded arity, full56 or performance. The earlier normal retained-Plan execution is Adapter.run→Sch.run and must not be labeled Scheduled.run qualification. No rerun, source edit or receipt relabeling was performed in this review.
