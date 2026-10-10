@@ -1,0 +1,13 @@
+# Independent heterogeneous-record App expectation
+
+Bound to producer9cb24d57e/source13 original28250, stock5 PASS. Model inputs are source only; no backend stdout, receipt or generated artifact was consulted. The full consumer.Report contains empty and two-entity scenarios, each seven enabled/disabled snapshots and two actual Sch.run traces.
+
+Three real registrations appear in registration order: PositionRead (Read+Added), CounterUpdate (Write), PositionAbsent (Without). Every snapshot and run result includes each sole record's full Fields and the complete World physical trees, stamps, resource, events, pending count, allocation and registration metadata. Enabled metadata derives the resource Clause from actual retained mode/access; the sole record's own resource Clause list remains empty. Disabled production snapshots skip fold/projection; the explicitly separate trusted harness still observes owners and World.
+
+Run1 executes PositionRead/CounterUpdate, drains the pending +100 callback, and skips PositionAbsent. Run2 skips PositionRead and executes CounterUpdate/PositionAbsent. Actual resource progresses10→11→111→112, returning displaced leaf10 then leaf111 Arrays. Component output lists contain zero Unit values in the empty World and one in the populated World. Normal refused arguments are None; Input.Args flags are physically allocated at depth2 with False and consumed by the actual successful resource body. Successful record cursors follow World clock0/1, never the resource counter. Debug projection retains its separate initial observation cursor0.
+
+Authority basis is pinned Rust Bevy run-condition/System registration architecture, followed by actual Bend Sch/Sys, affine transport and fixture semantics. It does not infer implicit Bevy rollback. Prior independent source-only World/Fields/DTO primitive serializers are retained as basis only where their current imported source joins match; new heterogeneous orchestration is derived here.
+
+Finite scope: one nominal schema with empty/two-entity Worlds; closed three-registration dispatch and successful normal runs. This does not qualify arbitrary registration composition, arbitrary closure identity or a universal preservation theorem, failure/rejection/rollback/retry, missing-resource provisioning, public App adoption, other debug categories, performance or full #56/#61 acceptance. Returned whole resource Arrays are observed; no new affine publication/finalizer policy is selected.
+
+verify.py is a pure source-pin/regeneration/gzip check and launches no compiler or backend. ORACLES.json supplies the whole expected report, not selected summaries.
