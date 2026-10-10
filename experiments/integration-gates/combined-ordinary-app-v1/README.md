@@ -1,13 +1,21 @@
-# Combined unchanged #28 preparation
+# Combined 140-module regression gate
 
-Preparation only, no launch approval or execution. PLAN-DRAFT copies the existing 125-module gate contract, baseline29 bindings, TS source/reference, installed tools/environment, exclusive outer lock and unchanged benchmark command. Current root has 140 direct and six internal Bend modules; all 149 staged files and 145 monitored sources are captured. INVENTORY-DELTA distinguishes additions from prior-body/README changes. No benchmark source or numerical criteria changed.
+Actual original42115 completed with `NO_CONFIRMED_REGRESSION`; independent
+[final review](actual-attempt01/FINAL-REVIEW.md) passes. The compact archive retains
+all 123 commands, 110 complete outputs, 40 paired observations, staged sources,
+artifacts and the original receipt. No measurements were repeated.
 
-Wait for root to integrate/freeze the automatic registration-derived metadata fold. Refresh current inventory, HEAD and counts into a successor (preserve this draft), and review only the changed candidate bindings/feature eligibility before one combined run. No idle host claim is made. At launch root must retain fresh allowed CPU11/host observations, entire exclusive heavy queue, exact tool/reference/environment/source pins and a fresh absent output tree. Reuse unchanged passing statistics-suite evidence only with matching source/tool pins; otherwise existing cap5 statistics test precedes cohort. All concurrent semantic/hook children must be terminal.
+[PLAN.json](PLAN.json) binds 140 direct and six internal Bend modules, 149 staged
+core files and 145 monitored sources. The unchanged #28 workload, baseline,
+zero-allowance sign/Holm statistics, tools and limits remain binding. Public App
+metadata folding was qualified before this combined run.
 
-The command retains frozen baseline327bec49, ten complete22-checkpoint Workshop applications, two warmups,20 balanced randomized pairs/backend, one-sided exact sign tests with Holm family alpha0.05 and zero slowdown allowance. Caps remain checker5/emit30/Clang120/runtime5. Full observations are mandatory, no reduced workload or provider variant. Original gate failures and successful125 receipt remain unchanged. Stop on a failed checker/build/output/guard/regression; no unchanged retry. No performance execution is authorized by this preparation.
+Candidate/frozen-Bend median paired ratios: JS 0.8892753, Native 0.9901812.
+Descriptive candidate/bevy-ts ratios: JS 0.390248709, Native 0.098202388.
+No confirmed slowdown does not prove equivalence or speedup. This protects the
+Workshop whole-process workload; new feature hot paths and full parity require
+separate qualification.
 
-NO_CONFIRMED_REGRESSION would only protect this whole-process Workshop workload; descriptive TS ratios and feature/product/full-parity acceptance remain separate.
-
-## Frozen source successor
-
-PLAN.json supersedes the preparation-only PLAN-DRAFT.json with exact materialized root automatic-fold bytes and intended public source45227 PASS. Public14+consumer10 import-only joins and no private module fallback were independently checked at /tmp/bendvy56-public-auto-fold-relocation-review.json; immutable source packet639560c5e. Counts remain140 direct/6 internal,149 staged/145 monitored. This successor still requires independent comparative launch review by another reviewer, fresh host observations and exclusive root queue; no measurements have launched. Draft history and its pending-freeze conditions remain historical.
+[PLAN-DRAFT.json](PLAN-DRAFT.json) preserves preparation before the automatic-fold
+freeze. Its pending conditions are historical; actual launch, host observations,
+post-checks and review are retained under `actual-attempt01/`.
