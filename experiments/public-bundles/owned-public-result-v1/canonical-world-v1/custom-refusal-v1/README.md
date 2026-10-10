@@ -1,0 +1,1 @@
+Existing custom constructor rejection through public canonical_stage and registered bundle request. Valid finite Number8 with declared Blocked custom failure, returned raw/affine owners/context retained, existing repaired raw9False retry, deferred insertion/replacement and inverse cleanup. No changed recovery/duplicate/allocator policy. Quarantine/nonplain remain separate.
