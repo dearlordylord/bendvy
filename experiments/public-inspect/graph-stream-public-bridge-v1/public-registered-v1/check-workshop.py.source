@@ -1,0 +1,19 @@
+from pathlib import Path
+import importlib.util,re,json,hashlib,fcntl,sys
+ROOT=Path('/workspace/formal-proofs/bendvy');HERE=Path('/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1')
+def load(name,p):
+ s=importlib.util.spec_from_file_location(name,p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+cap=load('cap',ROOT/'experiments/public-inspect/ordinary-declaration-v1/check-source.py');runner=load('runner',ROOT/'scripts/task_runner.py');subject=sys.argv[1];entry=HERE/'public-registered-v1/entry-workshop.bend';inventory={}
+def visit(p):
+ p=p.resolve(strict=True)
+ if str(p) in inventory:return
+ inventory[str(p)]=hashlib.sha256(p.read_bytes()).hexdigest()
+ for target in re.findall(r'^import\s+(\S+)',p.read_text(),re.M):
+  if target!='Base':visit(p.parent/target)
+visit(entry);out=Path('/tmp/bendvy-graph-stream-public-registered-workshop-source02');sources=[*map(Path,inventory),Path('/home/node/.bend/bend2/base.bend'),Path('/home/node/.bend/bin/bend-2.0.35'),ROOT/'scripts/task_runner.py',ROOT/'experiments/public-inspect/ordinary-declaration-v1/check-source.py'];pins=cap.prepare_attempt(out,sources);(out/'CLOSURE.json').write_text(json.dumps({'entrypoint':str(entry),'sourceInventory':inventory},indent=2)+'\n')
+argv=['/usr/bin/taskset','-c','11','/home/node/.bend/bin/bend-2.0.35',str(entry),'--check-only']
+with open('/tmp/bendvy-parity-heavy.lock','a') as lock:
+ fcntl.flock(lock,fcntl.LOCK_EX)
+ try:
+  assert all(hashlib.sha256(Path(p).read_bytes()).hexdigest()==h for p,h in pins.items());result=cap.capture(out,argv,runner.execute_result);print(subject,len(inventory),result.get('exit'),result.get('failure'))
+ finally:(out/'post.json').write_text(json.dumps({'unchanged':all(hashlib.sha256(Path(p).read_bytes()).hexdigest()==h for p,h in pins.items())})+'\n')
