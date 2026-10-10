@@ -1,0 +1,64 @@
+{
+  "candidateModules": [
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/composer.bend",
+      "suggestedPublic": "src/ecs/ordinary-app-composer.bend",
+      "bytes": 2878,
+      "sha256": "a6f802fd6b4c0bf7357d8c606d34f6d3481063ccc10714cf5f8bb60af901c1ec"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/records.bend",
+      "suggestedPublic": "src/ecs/ordinary-app-records.bend",
+      "bytes": 1288,
+      "sha256": "2c740d90f1de9d9cec951b92975a048abfdf81fdcdd5082340ad7ea6ed79add7"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/description.bend",
+      "suggestedPublic": "src/ecs/ordinary-app-description.bend",
+      "bytes": 1331,
+      "sha256": "3970daac405197895fda6c2d4c555489e0a673a9fe4606523f40d206ee3dca12"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/component.bend",
+      "suggestedPublic": "src/ecs/ordinary-app-component.bend",
+      "bytes": 5617,
+      "sha256": "60e6d21ada5bd5725b2d0e4e9fdc3b2c6251d88913ebf01d1defea0a3930ae0e"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/resource.bend",
+      "suggestedPublic": "src/ecs/ordinary-app-resource.bend",
+      "bytes": 5286,
+      "sha256": "c859bd074c123780d49ebb485ad9cc86b829b37329de6c08b58cfa8163522e48"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/focus.bend",
+      "suggestedPublic": "src/ecs/ordinary-app-focus.bend",
+      "bytes": 1069,
+      "sha256": "621291338da2ec665fe4a54ac9a167981179795e413963dc0bbb138b26813093"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/generic-registration-api-v1/leaf-run.bend",
+      "suggestedPublic": "src/ecs/ordinary-app-leaf-run.bend",
+      "bytes": 3075,
+      "sha256": "c9ec7b74c80328fa5afdd4733f2d56de129d04106efe18ee37e0ee51432d094e"
+    }
+  ],
+  "requiredPrivateFoundations": [
+    "../runtime-registration-records-v1/records.bend (canonical Registry extraction, Fields/Token)",
+    "../runtime-registration-records-v1/run.bend (actual Sys.run_tracked transport)",
+    "../recipe-tree-v1/tree.bend (owner-free typed observation recipe)",
+    "../recipe-tree-v1/leaves.bend (ordinary query/resource observation)",
+    "automatic-app-observation-v1/app.bend (DTO types only; must extract DTO layer without demoApp)",
+    "resource-app-public-v1/observable-resource.bend (ordinary Resource observation declaration)",
+    "../operational-v1/dispatch-result.bend (typed Args/Out refusal transport)"
+  ],
+  "excludedFixtureModules": [
+    "frontend.bend",
+    "dispatch.bend",
+    "metadata.bend",
+    "declarations.bend",
+    "consumer.bend",
+    "schedule-transport.bend"
+  ],
+  "limits": "Root owns public relocation; this is preparation, not public adoption. Generic CPS operations reached, arbitrary-length generated metadata/dispatcher composition not runtime-qualified. Ordinary wrapper ordinary-component.bend unreached and old done signature requires matching current generic API before use."
+}
