@@ -31,5 +31,8 @@ rejected an erased callback partially applied to a runtime Bool. Source04 uses
 closed ordinary condition templates and accepts the complete consumer. Raw
 failures and pre/post guards remain in the lossless history archive.
 
-Independent whole model, first JS/Native pair, affected controls and final
-review remain required. No general arbitrary schema/arity/full #56 claim.
+Independent oracle32fb12b40 and root second sanity preceded actual JS77168
+and Native94186, both complete 12,865-byte equality (f2565a7b…). Five commands
+and unchanged guards are retained in the compact runtime archive. Affected
+authority/failure controls and final review remain required. No general
+arbitrary schema/arity/full #56 claim.
