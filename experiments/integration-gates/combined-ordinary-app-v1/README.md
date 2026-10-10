@@ -1,4 +1,14 @@
-# Combined 140-module regression gate
+# Combined Workshop regression gate
+
+Current combined148 run: `NO_CONFIRMED_REGRESSION`, with independent
+[final review](actual-attempt148-01/FINAL-REVIEW.md) and lossless archive.
+[PLAN-148.json](PLAN-148.json) binds the adopted checked scheduler, Bundle and
+schema/selected-field App foundations. All 123 commands and 110 whole outputs
+pass; twenty balanced pairs per backend retain the unchanged #28 criteria.
+Descriptive candidate/bevy-ts time ratios are JS 0.3855362 and Native 0.09972777.
+This qualifies the protected Workshop workload, not full feature timing or parity.
+
+## Historical combined140 run
 
 Actual original42115 completed with `NO_CONFIRMED_REGRESSION`; independent
 [final review](actual-attempt01/FINAL-REVIEW.md) passes. The compact archive retains
