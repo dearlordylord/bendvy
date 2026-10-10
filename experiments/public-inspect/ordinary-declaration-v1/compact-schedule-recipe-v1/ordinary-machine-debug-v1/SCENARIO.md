@@ -1,0 +1,7 @@
+# Frozen complete ordinary machine scenario
+
+Each freshly created nominal World has Store Unit, Resource holding Flow Slot(current7, no pending, previous6, changedTrue) and an affine sibling Array physical node(leaf41,leaf42). One ordinary machine declaration Flow with one slot lens supplies both transactional queue grants and the automatic enabled recipe/name. No Resource or System identity is fabricated. Existing operational owner pack and Fields fold remain Unit/empty.
+
+Entrypoint concatenates complete zero-entity and two-reserved/activated-entity scenarios. Events start [91,92]; one pending command would publish99 but is never executed by dump. The source action list has six snapshots (True,True,False,True,True,False) and two operations: queue8 Success, queue9 Failure Unit. CurrentView remains Current7; committed pending8 remains after failed queue9 rollback. Each action includes complete physical World and owners, preserving all slot/sibling/live/event/pending/registration fields. No transition/readers are advanced or claimed. Snapshot false bypasses the production fold/observers; full test observer still prints owner/World for noninterference.
+
+Source05 checks the entire entry and actual closure at stock five seconds. Source01..04 failures remain raw/snapshotted. The observe alias is a closed function term (not an extensional wrapper), so generated recipe index is definitionally the same; this is representation repair only. Independent whole expected stdout must be generated from frozen code before backend.

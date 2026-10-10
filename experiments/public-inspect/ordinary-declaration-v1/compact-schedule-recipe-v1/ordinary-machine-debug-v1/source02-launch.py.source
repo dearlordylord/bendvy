@@ -1,0 +1,27 @@
+from pathlib import Path
+import re,types,json,hashlib,fcntl
+root=Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1')
+owned=root/'experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-machine-debug-v1'
+helper=root/'scripts/task_runner.py'; capturepath=root/'experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/check-source.py'
+def load(path):
+ m=types.ModuleType('capture');m.__file__=str(path);exec(compile(path.read_bytes(),str(path),'exec'),m.__dict__);return m
+capture=load(capturepath);runner=load(helper)
+for name in ['entry-a']:
+ entry=owned/(name+'.bend');seen=set();assert owned.name=='ordinary-machine-debug-v1'
+ def visit(path):
+  path=path.resolve()
+  if path in seen:return
+  seen.add(path)
+  for target in re.findall(r'^import\s+(\S+)',path.read_text(),re.M):
+   if target!='Base':visit(path.parent/target)
+ visit(entry)
+ out=Path('/tmp/bendvy-ordinary-machine-debug-source02')/name
+ out.parent.mkdir(exist_ok=True)
+ with open('/tmp/bendvy-parity-heavy.lock','a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX)
+  pins=capture.prepare_attempt(out,sorted(seen)+[helper,capturepath,Path(__file__),Path('/home/node/.bend/bin/bend-2.0.35')])
+  try:
+   assert all(hashlib.sha256(Path(p).read_bytes()).hexdigest()==sha for p,sha in pins.items())
+   result=capture.capture(out,['/usr/bin/taskset','-c','11','/home/node/.bend/bin/bend-2.0.35',str(entry),'--check-only'],runner.execute_result)
+   print(name,result.get('exit'),result.get('failure'),flush=True)
+  finally:(out/'post.json').write_text(json.dumps({'unchanged':all(hashlib.sha256(Path(p).read_bytes()).hexdigest()==sha for p,sha in pins.items())},indent=2)+'\n')
