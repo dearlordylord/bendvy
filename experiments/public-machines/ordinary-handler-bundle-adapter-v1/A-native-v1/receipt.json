@@ -1,0 +1,143 @@
+{
+  "scope": "#48/#49 generic ordinary Bundle adapter first complete consumer; existing failure/retry semantics only",
+  "planSHA256": "ae8450ca810dc8dbfb9b756f878d79fde81b4aec4b60057f515a7e196f365483",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/entry-a.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "build",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/scenario.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/scenario.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/build.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/build.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/scenario.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/consumer.stdout",
+        "sha256": "39fa741680b22d0f0448f9a8f6c3fbc5a3b874608e4608d3f923deedb349a1a6",
+        "bytes": 21569,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/emit-pre.guard.json",
+      "sha256": "477012efadd617210fa8a57abb08aac4a890ae2e19f9e2fde12625ced10080e9"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/emit-acquired.guard.json",
+      "sha256": "9622b485f816c1dcae88dcf780800a34d09d46fd1f3eeebfc3d91c309f6a4057"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/emit-post.guard.json",
+      "sha256": "191e13070287878c7532119bc42639cbef3e73e8015062e8347ae77447432e59"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/build-pre.guard.json",
+      "sha256": "9fc0cb3ed62e7b1ea364024175caf9797079d19866d372a2ffbe7c2e863c58d2"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/build-acquired.guard.json",
+      "sha256": "dc8471f1d19402aaad2f958934e68217b90f7dc1ea261f25e5b71d5230d1a5ca"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/build-post.guard.json",
+      "sha256": "a5e95dd0532bde92e03e4121a39f2360939cb745990f27c5743819d56f21f8d3"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/consumer-pre.guard.json",
+      "sha256": "d859bd12112931248d450e5d833ea5476472018fcc2f73c515e311d61630831b"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/consumer-acquired.guard.json",
+      "sha256": "74bd1319a968d4006ba39b64684441cb0950a617e7d2e4ce95fe9f8f1b5c3128"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/consumer-post.guard.json",
+      "sha256": "dcf2f3c085264c251d8f1325fe77915d82111b45902cc5adf103189a4604ed61"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-native-v1/final.guard.json",
+      "sha256": "0d1867631f1e5c613cc9761001e7dc7d5cc10897a7628f1b83bfe171b48a1290"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "fc6802d1b13998582ac749ac4f8107af05b30d8e9cfa47db16fdcc7c39e6fa3e",
+  "buildArtifactSHA256": "56697af6cedc7c5362ec8829930f9e75ceac59a514e6959e790bcb7d48a54702",
+  "wholeOracleSHA256": "39fa741680b22d0f0448f9a8f6c3fbc5a3b874608e4608d3f923deedb349a1a6"
+}

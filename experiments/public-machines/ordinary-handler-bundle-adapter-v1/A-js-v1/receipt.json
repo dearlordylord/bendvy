@@ -1,0 +1,95 @@
+{
+  "scope": "#48/#49 generic ordinary Bundle adapter first complete consumer; existing failure/retry semantics only",
+  "planSHA256": "c7b259c45d8223b676ce9fd85c9def9d56efe2acf629805b2837996a0cf4ae9a",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/entry-a.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/scenario.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/scenario.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/consumer.stdout",
+        "sha256": "39fa741680b22d0f0448f9a8f6c3fbc5a3b874608e4608d3f923deedb349a1a6",
+        "bytes": 21569,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/emit-pre.guard.json",
+      "sha256": "f5d698baa7be15bcc6845589a2c685c35f5327ec55a7368b334603bfb601f611"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/emit-acquired.guard.json",
+      "sha256": "7344f89e9b5fc9a3a6bcf6442a7e7585b8552dc7df10fbe3a4f97fefe77d2f51"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/emit-post.guard.json",
+      "sha256": "d4ab98fc9934a237531c06d0d158a9ca127e479980f1311ae1b962e5e4dace90"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/consumer-pre.guard.json",
+      "sha256": "75c0e4031e324f821e9fd7c9bf1bba84be9a29975133731b5fc36b1708efb785"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/consumer-acquired.guard.json",
+      "sha256": "2e5f00b759cd17c4b6b79e0a5437b5f1a10a912ecb7e8943d4a597f89ded6ea7"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/consumer-post.guard.json",
+      "sha256": "01a2950a5c4905d06d4c2e33b031890f459f93a2ffb0dade0aee56a5838de8b1"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/A-js-v1/final.guard.json",
+      "sha256": "b9b13095cdd5d64352af7cc02db2e8e98e4d94a897fc527dc3a88f6e1e8d3b96"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "1b685a841da559a5d47b973efa28c5d96114596e13c6ebd576ec191d512323f4",
+  "wholeOracleSHA256": "39fa741680b22d0f0448f9a8f6c3fbc5a3b874608e4608d3f923deedb349a1a6"
+}
