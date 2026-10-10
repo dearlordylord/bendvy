@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (right is a variable here, not comptime: pass it at run time)
+- observed : component_second
+Context:
+- left  : Cap.Read<Q.Frame<ApplicationSchema, Product.Owner<Col.Column<ApplicationSchema, Array<U32>>, Unit>, Product.Owner<Unit, Array<U32>>, U32>, U32>
+- right : Cap.Read<Q.Frame<ApplicationSchema, Product.Owner<Col.Column<ApplicationSchema, Array<U32>>, Unit>, Product.Owner<Unit, Array<U32>>, U32>, U32>
+- owner : Q.Frame<ApplicationSchema, Product.Owner<Col.Column<ApplicationSchema, Array<U32>>, Unit>, Product.Owner<Unit, Array<U32>>, U32>
+Location: component_caps~0
+49 |   match caps:
+50>|     case (left,right):component_second(~H,right,Cap.read(~H,~U32,left,owner))
+   |                       ^^^^^^^^^^^^^^^^
+51 | def component_body(~H:Type,~caps:component_ops(H),args:Unit,owner:H) -> H & (T.Outcome<Unit> & Unit):
+bend 2.0.36 is available: run bend update

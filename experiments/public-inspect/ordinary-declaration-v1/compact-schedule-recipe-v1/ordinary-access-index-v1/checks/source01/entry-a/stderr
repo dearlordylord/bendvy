@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : flag
+- observed : flag (consumed more than once)
+Location: snapshot
+ 98 |     case (app,view):indexed_done(~S,access_view(view),described(~S,flag,app))
+ 99>| def snapshot(~S:Data,flag:Bool,value:Application(~S)) -> Application(~S) & String:
+    |                      ^^^^
+100 |   indexed(~S,flag,Index.schema_index(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,~Front.owners(~S),~Front.rows(~S),~Front.observe(~S),~Front.fold(~S),App.enabled(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,~Front.owners(~S),~Front.rows(~S),~Front.observe(~S),~Front.fold(~S),value,flag)))
+bend 2.0.36 is available: run bend update
