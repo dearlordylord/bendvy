@@ -1,6 +1,6 @@
 # Heterogeneous ordinary record execution
 
-Source13 passes stock source5 for the complete ordinary consumer after twelve preserved parser/name/quantity repairs. There is no runtime result yet. The previous composition and sole-owner execution packets remain unchanged.
+Source13 passes stock source5 for the complete ordinary consumer after twelve preserved parser/name/quantity repairs. The first complete JS/Native pair passed; see runtime-v1/actual-attempt01. The previous composition and sole-owner execution packets remain unchanged.
 
 The ordinary declaration fixture defines Read+Added component, affine Counter resource and Without component once. The private generated frontend registers their actual canonical runners and creates a typed owner product of `Record<Token>` leaves. Each leaf holds the sole operational namespace/id/name/access/cursor/slot/clauses/kind fields. No second field list is retained in App, and App/Recipe carry no erased description index. Enabled snapshots reconstruct a fresh runtime owner-preserving field fold and transient Binding values; disabled snapshots invoke neither that fold nor world observation. A separate test observer reads the actual records around disabled operations.
 
