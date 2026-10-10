@@ -1,0 +1,30 @@
+from pathlib import Path
+import json,hashlib,importlib.util,sys
+base=Path('/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1');own=base/'owner-data-format-v1';here=own/'paired-current-v1'
+h=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+root=Path('/workspace/formal-proofs/bendvy');contract=json.loads((root/'benchmarks/contract.json').read_text())
+spec=importlib.util.spec_from_file_location('sampler',here/'sampling-io.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+rows=m.schedule(contract);assert len(rows)==258
+roles={};pins={};qualification=[]
+for scale in [1,2,4]:
+ for role in ['TS','JS','Native']:
+  if scale==1:subject=base/'ts-root-profile-v1/actual01' if role=='TS' else own/(role.lower()+'-semantic01')
+  else:subject=own/f'scale{scale}-{role.lower()}-semantic01'
+  p=json.loads((subject/'plan.json').read_text());r=json.loads((subject/'receipt.json').read_text());assert r['status']=='DEVELOPMENT_PASS';assert r['timerQualification']['wholeOutputEqual']
+  for n,v in p['pins'].items():
+   assert n not in pins or pins[n]==v;pins[n]=v
+  for x in [subject/'plan.json',subject/'receipt.json',subject/'consumer.stdout',subject/'consumer.stderr']:
+   pins[str(x)]=h(x)
+  for n in ['generated','native']:
+   x=p.get(n)
+   if x and Path(x).exists():pins[x]=h(x)
+  transport=base/'ts-root-profile-v1/transport.py' if role=='TS' else Path(p['collector']).parent/'transport-v1/transport.py'
+  roles[f'scale{scale}-{role}']=dict(command=p['commands'][-1]['argv'],environment=p['environment'],cwd=p['cwd'],entrypoint=p['entrypoint'],transport=str(transport),inventory=p['constructorInventory'],oracle=p['oracle'],expectedSHA256=p['expectedSHA256'])
+  qualification.append(dict(scale=scale,role=role,plan=str(subject/'plan.json'),planSHA256=h(subject/'plan.json'),receiptSHA256=h(subject/'receipt.json'),bytes=r['timerQualification']['timer']['bytes'],fnv1a32=r['timerQualification']['timer']['digest']))
+  if role=='Native':resources={k:p[k] for k in ['resourceRoots','resourceInventory']}
+for x in [here/'run.py',here/'sampling-io.py',root/'benchmarks/contract.json',Path(sys.executable).resolve(),own/'SCALING-RUNTIME-EVIDENCE.json',own/'SCALING-RUNTIME-SOURCE-INPUTS.json',own/'SCALING-APPLICABILITY.json',own/'APPLICABILITY.json',base/'ORACLES.json']:
+ pins[str(x)]=h(x)
+assert all(h(n)==v for n,v in pins.items())
+commands=[dict(label=row['label'],role=row['role'],roleKey=f"scale{row['lifecycles']}-{row['role']}",capSeconds=5,argv=roles[f"scale{row['lifecycles']}-{row['role']}"]['command']) for row in rows]
+plan=dict(scope='Full current equivalent-feature same-process scales 1,2,4 matched TS/JS/Native IO regions; complete qualified work and outputs; unchanged separate #28 gate',roles=roles,pins=pins,tools={'python':str(Path(sys.executable).resolve())},commands=commands,samplingRows=rows,samplingHelper=str(here/'sampling-io.py'),warmups=2,seed=contract['seed'],quietWindowPrerequisite='Exact independent launch review and root-exclusive fresh quiet host window required; no launch under external contention',wholeCohortLock='/tmp/bendvy-parity-heavy.lock',cpu=5,targets={'JS':'JS <= TS','Native':'Native <= 0.5 * TS'},qualification=qualification,observationOverhead='All full owner/columns/constructors/refusal/retry/rollback/cleanup/string capture work included; Bend and TS full outputs differ, no subtraction',**resources)
+out=here/'cohort01';out.mkdir(exist_ok=False);f=out/'plan.json';f.write_text(json.dumps(plan,indent=2)+'\n');print(h(f),len(pins),len(commands))
