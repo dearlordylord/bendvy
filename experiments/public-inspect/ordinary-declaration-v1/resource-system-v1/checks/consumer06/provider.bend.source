@@ -1,0 +1,58 @@
+import Base
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend as Schema
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-declaration.bend as Query
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/src/ecs/resource.bend as Res
+import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T
+import /workspace/formal-proofs/bendvy/src/ecs/commands.bend as Cmd
+import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap
+# Static declaration: one ordinary identity supplies operational grant and metadata.
+# Current resource operations replace the entire Resources owner, not one field.
+type Declaration<-S:Data,-R:Type,-H:Type,-Ops:Type> is Type:
+  Declaration{identity:Schema.Resource<S,R>,kind:Query.Mode,grant:Ops}
+def read(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~project:R -> R & V,identity:Schema.Resource<S,R>) -> Declaration<S,R,T.Tx<W.World<S,C,R,E>,E>,Cap.ValueRead<T.Tx<W.World<S,C,R,E>,E>,V>>:
+  Declaration{identity,Query.Read{},Cap.ValueRead{Res.tx_get(~S,~C,~R,~E,~V,~project)}}
+def write(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~project:R -> R & V,identity:Schema.Resource<S,R>) -> Declaration<S,R,T.Tx<W.World<S,C,R,E>,E>,Cap.ValueWrite<T.Tx<W.World<S,C,R,E>,E>,R,V>>:
+  Declaration{identity,Query.Write{},Cap.ValueWrite{Res.tx_get(~S,~C,~R,~E,~V,~project),Res.tx_replace(~S,~C,~R,~E)}}
+def grant(~S:Data,~R:Type,~H:Type,~Ops:Type,declaration:Declaration<S,R,H,Ops>) -> Ops:
+  match declaration:
+    case Declaration{_,_,grant}:grant
+def clause(~S:Data,~R:Type,~H:Type,~Ops:Type,declaration:Declaration<S,R,H,Ops>) -> Query.Clause<S>:
+  match declaration:
+    case Declaration{identity,kind,_}:Query.Clause{Schema.resource_key(~S,~R,identity),kind}
+def mode(~S:Data,~R:Type,~H:Type,~Ops:Type,declaration:Declaration<S,R,H,Ops>) -> Query.Mode:
+  match declaration:
+    case Declaration{_,kind,_}:kind
+# Description allocation is explicit observation work, not registration work.
+def descriptions(~S:Data,+kind:Query.Mode,names:List<&2,String>) -> List<&2,Query.Clause<S>>:
+  match names:
+    case []:[]
+    case name <> rest:Query.Clause{name,kind} <> descriptions(~S,kind,rest)
+def access(~S:Data,value:Query.Clause<S>) -> List<&2,String>:
+  match value:
+    case Query.Clause{name,_}:[name]
+def returned(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Type,output:Out,result:T.Returned<W.World<S,C,R,E>,Error>) -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>:
+  match result:
+    case T.Returned{world,T.Success{}}:Sys.Succeeded{world,output}
+    case T.Returned{world,T.Failure{error}}:Sys.Failed{world,error}
+def finished(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Type,result:T.Tx<W.World<S,C,R,E>,E> & (T.Outcome<Error> & Out)) -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>:
+  match result:
+    case (tx,(outcome,output)):returned(~S,~C,~R,~E,~Error,~Out,output,Cmd.tx_finish(~S,~C,~R,~E,~Error,tx,outcome))
+def runner(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Args:Type,~Error:Data,~Out:Type,~declaration:Declaration<S,R,T.Tx<W.World<S,C,R,E>,E>,Ops(T.Tx<W.World<S,C,R,E>,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> Args -> H -> H & (T.Outcome<Error> & Out),world:W.World<S,C,R,E>,args:Args) -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>:
+  finished(~S,~C,~R,~E,~Error,~Out,Cap.invoke_owned(~Ops,~Args,~(T.Outcome<Error> & Out),~body,~T.Tx<W.World<S,C,R,E>,E>,~grant(~S,~R,~T.Tx<W.World<S,C,R,E>,E>,~Ops(T.Tx<W.World<S,C,R,E>,E>),declaration),args,T.begin(~W.World<S,C,R,E>,~E,world)))
+type Owner<-S:Data,-Registry:Type,-kind:Query.Mode> is Type:
+  Owner{registry:Registry,slot:String}
+type Defined<-S:Data,-World:Type,-Registry:Type,-kind:Query.Mode> is Type:
+  Defined{world:World,owner:Owner<S,Registry,kind>}
+  Rejected{world:World}
+def registered(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~kind:Query.Mode,~run:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,slot:String,result:Sys.RegistrationResult<S,C,R,E,Args,Error,Out,run>) -> Defined<S,W.World<S,C,R,E>,Sys.Registry<S,C,R,E,Args,Error,Out,run>,kind>:
+  match result:
+    case Sys.RegistrationFailed{world}:Rejected{world}
+    case Sys.Registered{world,registry}:Defined{world,Owner{registry,slot}}
+def define(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Args:Type,~Error:Data,~Out:Type,~declaration:Declaration<S,R,T.Tx<W.World<S,C,R,E>,E>,Ops(T.Tx<W.World<S,C,R,E>,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> Args -> H -> H & (T.Outcome<Error> & Out),world:W.World<S,C,R,E>,name:String,slot:String) -> Defined<S,W.World<S,C,R,E>,Sys.Registry<S,C,R,E,Args,Error,Out,runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~declaration,~body)>,mode(~S,~R,~T.Tx<W.World<S,C,R,E>,E>,~Ops(T.Tx<W.World<S,C,R,E>,E>),declaration)>:
+  registered(~S,~C,~R,~E,~Args,~Error,~Out,~mode(~S,~R,~T.Tx<W.World<S,C,R,E>,E>,~Ops(T.Tx<W.World<S,C,R,E>,E>),declaration),~runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~declaration,~body),slot,Sys.register(~S,~C,~R,~E,~Args,~Error,~Out,~runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~declaration,~body),world,name,access(~S,clause(~S,~R,~T.Tx<W.World<S,C,R,E>,E>,~Ops(T.Tx<W.World<S,C,R,E>,E>),declaration))))
+# Registry's existing namespace and registration checks remain authoritative.
+def run(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~kind:Query.Mode,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,owner:Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>,kind>,world:W.World<S,C,R,E>,args:Args) -> Sys.RunResult<S,C,R,E,Args,Error,Out,runner> & String:
+  match owner:
+    case Owner{registry,slot}:(Sys.run_tracked(~S,~C,~R,~E,~Args,~Error,~Out,~runner,registry,world,args),slot)
