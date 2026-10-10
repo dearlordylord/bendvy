@@ -1,0 +1,37 @@
+from pathlib import Path
+import json,hashlib,subprocess
+root=Path('/workspace/formal-proofs/bendvy');wt=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1');prefix='experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1';p=wt/prefix;parent=Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/direct-target-binding-v1');originalprefix='experiments/public-inspect/ordinary-declaration-v1/direct-target-binding-v1';p.mkdir(parents=True,exist_ok=True)
+def sha(b):return hashlib.sha256(b).hexdigest()
+old='owner => target => pair_matches_target(~H,~S,~A,~B,~left,~right,owner,target)'
+new='owner => target => tree_matches(~H,~S,MatchBoth{MatchLeaf{matches_field(~H,~S,~A,left)},MatchLeaf{matches_field(~H,~S,~B,right)}},owner,target)'
+rows=[]
+for f in sorted((parent/'stage').rglob('*.bend')):
+ rel=f.relative_to(parent);raw=subprocess.check_output(['git','show','4fcf50989:'+originalprefix+'/'+str(rel)],cwd=root);assert raw==f.read_bytes();current=raw
+ if rel.as_posix()=='stage/core/inspector-query-projection.bend':
+  text=raw.decode();assert text.count(old)==1;current=text.replace(old,new).encode();assert current.decode().replace(new,old).encode()==raw
+ out=p/rel;out.parent.mkdir(parents=True,exist_ok=True);out.write_bytes(current);rows.append({'relative':str(rel),'parentSHA256':sha(raw),'candidateSHA256':sha(current),'equal':raw==current})
+assert len(rows)==47
+(p/'DELTA.json').write_text(json.dumps({'parentCommit':'4fcf50989','parent':str(parent),'old':old,'new':new,'inverseExact':True,'joins':rows,'scope':'Matching callback constructor-only bypass; projection/API/full47/generic9Check unchanged; specialization economy is an unmeasured hypothesis.'},indent=2)+'\n')
+(p/'README.md').write_text('''# Matching-tree constructor bypass
+
+Private source discriminator based on direct-target-binding-v1 at 4fcf50989. All 47 complete consumer modules are retained; only the first pair constructor callback invokes the existing tree_matches body directly instead of pair_matches_target. The MatchBoth/MatchLeaf fields and left-to-right short circuit are identical. Projection, arbitrary affine owner H, actual Value fields, ordinary declarations, generic nine Check wrappers and full independent 5,077,477-byte model remain unchanged. No compiler, core, runner, cap, dependency or contract changes.
+
+Execute unchanged canonical-full-consumer-v1/development-v2.py with positional run PLAN DIGEST. Its internal per-command shared lock serializes source5, conditional JS emit30/runtime5, then conditional Native emit30/build120/runtime5. Stop at any failure; no unchanged retry. Source pass does not establish backend acceptance, and compiler phase/cost is not inferred from deadlines. Current authority and reached reader qualification remain required before promotion. Prior parent source/JS PASS and Native deadline are historical distinct evidence.
+''')
+plans=[]
+for name,role in [('source-plan.json','source'),('normal-js-plan.json','js'),('normal-native-plan.json','native')]:
+ j=json.loads((parent/name).read_text());temp=Path('/tmp/bendvy54-matching-tree-'+role+'01');temp.mkdir(exist_ok=True)
+ oldtemp=str(Path(j['generated']).parent)
+ def replace(v):
+  if isinstance(v,str):return v.replace(str(parent),str(p)).replace(oldtemp,str(temp))
+  if isinstance(v,list):return [replace(x) for x in v]
+  if isinstance(v,dict):return {replace(k):replace(x) for k,x in v.items()}
+  return v
+ j=replace(j);j['scope']='Full47 matching-tree constructor bypass; complete independent oracle; stock source/JS/Native only, no performance or phase claim'
+ for k in ['sourceInventory','pins']:
+  for path in list(j[k]):j[k][path]=sha(Path(path).read_bytes())
+ for path in [p/'DELTA.json',p/'README.md'] :j['pins'][str(path)]=sha(path.read_bytes())
+ for directory,files in j['resourceRoots'].items():
+  for path,h in files.items():assert sha((Path(directory)/path).read_bytes())==h
+ raw=(json.dumps(j,indent=2)+'\n').encode();(temp/'plan.json').write_bytes(raw);(p/name).write_bytes(raw);plans.append({'role':role,'path':str(temp/'plan.json'),'sha256':sha(raw),'pins':len(j['pins']),'sources':len(j['sourceInventory'])})
+(p/'SEQUENCE.json').write_text(json.dumps({'collector':str(root/'experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py'),'cases':plans,'condition':'Run sequentially only after preceding complete PASS; internal per-command lock; no retry.'},indent=2)+'\n');print(json.dumps(plans))

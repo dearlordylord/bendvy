@@ -1,0 +1,5 @@
+# Matching-tree constructor bypass
+
+Private source discriminator based on direct-target-binding-v1 at 4fcf50989. All 47 complete consumer modules are retained; only the first pair constructor callback invokes the existing tree_matches body directly instead of pair_matches_target. The MatchBoth/MatchLeaf fields and left-to-right short circuit are identical. Projection, arbitrary affine owner H, actual Value fields, ordinary declarations, generic nine Check wrappers and full independent 5,077,477-byte model remain unchanged. No compiler, core, runner, cap, dependency or contract changes.
+
+Execute unchanged canonical-full-consumer-v1/development-v2.py with positional run PLAN DIGEST. Its internal per-command shared lock serializes source5, conditional JS emit30/runtime5, then conditional Native emit30/build120/runtime5. Stop at any failure; no unchanged retry. Source pass does not establish backend acceptance, and compiler phase/cost is not inferred from deadlines. Current authority and reached reader qualification remain required before promotion. Prior parent source/JS PASS and Native deadline are historical distinct evidence.
