@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : ../../../../../../../../bendvy/src/ecs/ordinary-app-machine-handler.Application<Schema, T.MachineKey, T.State, U32, T.Store<Schema>, T.Resources<Schema>, Unit, ../../../../../../../../bendvy/experiments/public-machines/handler-schedule-composition-v1/systems.runner(Schema), Maybe<&1, ../../../../../../../../bendvy/src/ecs/system.Registry<Schema, T.Store<Schema>, T.Resources<Schema>, Unit, Unit, String, Unit, ../../../../../../../../bendvy/experiments/public-machines/handler-schedule-composition-v1/systems.reader_runner(Schema)>>>
+- observed : read_result~Owner
+Context:
+- owner : read_result~Owner
+- _     : M.CurrentView<Schema, T.MachineKey, T.State>
+Location: read_result
+ 8 |   (owner,_)=result
+ 9>|   Consumer.ordinary_marker(~Schema,owner)
+   |                                    ^^^^^
+10 | def invoke(~Owner:Type,grant:Cap.ValueRead<Owner,M.CurrentView<Schema,T.MachineKey,T.State>>,owner:Owner) -> Consumer.ordinary_application(~Schema) & String:
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Type -> Type
+- observed : Type
+Context:
+- owner : invoke~Owner
+- args  : Unit
+Location: invoke
+6 | def invoke(~Owner:Type,owner:Owner,args:Unit) -> Owner & M.CurrentView<Schema,T.MachineKey,T.State>:
+7>|   Cap.invoke(~Owner,~M.CurrentView<Schema,T.MachineKey,T.State>,args,owner)
+  |               ^^^^^
+8 | def main() -> Unit:Unit{}
+bend 2.0.36 is available: run bend update
