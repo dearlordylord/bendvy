@@ -1,0 +1,15 @@
+# Mixed schema setup-refusal preservation review
+
+Bounded Spec/Standards PASS for immutable delivery52282cc68, configured author commit terminal0. Source 7cfc3d3d5; independent source-only refusal oracle36e820cc1/root second sanity. No backend/source replay.
+
+Generic ResourceRegistration.defined P.Rejected returns Registered{world,owners,recipe,debug}. New frontend ResourceRejected carries FirstApp and ComponentRejected carries the complete empty Registered application, rather than returning World alone. Thus the previous fixture setup-refusal owner-loss source obstruction is repaired. Successful component/resource registration, bodies, queries, physical formatter and normal consumer nonimport body remain unchanged; the prior13505-byte model applies to successful paths, without relabeling prior runtime as successor execution.
+
+The reached trusted fixture sets nextSystemId4294967294 after two active entities, a first component42 and an enqueued pending99 callback. Component registration succeeds at4294967294; resource registration reaches existing SystemIdExhausted at4294967295. Rejection retains the prior component owner/Fields/cursor0, recipe, debugflag and complete World. Independent complete String expected458bytes SHA946cfb46be51dcf3da68afb536ef94d7208aebb7af39a8bc0a23abe95611cb41.
+
+first_observed borrows/returns physical World and reconstructs the same FirstApp. Tree.Recipe has exactly one fieldless constructor with the same erased observer index, so Tree.Recipe{} is value-equivalent reconstruction here. Final observed_text consumes the returned app only at the test's String boundary, not inside the rejection API. The text exposes full physical World and Fields; runtime text alone does not establish universal recipe/callback identity.
+
+No new allocator policy, arbitrary frontend arity/second-schema/authority/performance/full56 or generic public bridge qualification follows from this finite fixture.
+
+Independently verified all33 lossless archive members/25objects, compressed/decoded identities and exact live/commit joins. Originals JS47052/Native89544 both COMPLETE_CONSUMER_DEVELOPMENT_PASS: five commands exit0/failureNone,17 unchanged guards,94 current planpins each, exact plan/receipt/raw/hash joins, empty runtime stderr and both458-byte outputs byte-identical independent whole oracle. Generated JS/C and Native binary hashes match receipts. Bodies are explicitly omitted from compact archive; live artifacts verified, so durable lossless artifact-body preservation is not claimed.
+
+The prior source-level fixture owner-loss limitation is repaired and this finite reached resource-registration refusal now has complete actual JS/Native evidence. ComponentRejected preservation is source-inspected, not separately reached at runtime by this scenario. Normal13505 remains model-applicability reuse only, not new normal execution. No bounded integration blocker; generic public promotion requires intended API/source-current qualification and wider composition scope. No replay/shared edits.
