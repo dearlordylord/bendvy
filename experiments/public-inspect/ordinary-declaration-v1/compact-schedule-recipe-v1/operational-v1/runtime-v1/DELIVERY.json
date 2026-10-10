@@ -1,0 +1,2086 @@
+{
+  "sourceCommit": "8e86eb170",
+  "actualCommit": "dfa59be97",
+  "ownPaths": [
+    "experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/production-v3",
+    "experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1"
+  ],
+  "transitivePins": [
+    {
+      "path": "/home/node/.bend/bin/bend-2.0.35",
+      "sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+      "kind": "tool",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+      "sha256": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477",
+      "kind": "tool",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/tmp/bendvy-clang19-diagnostic/clang19",
+      "sha256": "3e171a978d6c1decae4e6645e9bfb771cf5af21ff699ea119fdb058936b0af2d",
+      "kind": "tool",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang",
+      "sha256": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+      "kind": "tool",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/usr/bin/python3.11",
+      "sha256": "9a070c8a36e16c152dae21b66aeb707f4d21b506c875e9b15edf4387fca7dcf8",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/usr/bin/taskset",
+      "sha256": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5",
+      "kind": "tool",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app.bend",
+      "sha256": "66e89989016b9b74f4940989221aff1e1d9b0b03794183a5b1e6476dcdc51511",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/component.bend",
+      "sha256": "eb1e7e603929677aef23777e76ff520cf4131913f1c94cb3171c73095a164f33",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/presentation.bend",
+      "sha256": "7b5c27baaa88a38a2c5789dc8fb4d408afa0174a617ba1c2938e69a28d931fe2",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/declaration-facade.bend",
+      "sha256": "dd385de8f2cb6732fe23626f9a4e3e7cfdc9dec07eb7f67db63c3f8b71cb4368",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/declarations.bend",
+      "sha256": "bba2f5fc284cb787fa357e724f7cda6f6c81732499be7ab18778a9e3a234116a",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/full-consumer.bend",
+      "sha256": "89e2217ecf2f08d3f837c9b866005e54aaccb5b141e755b1b6217ecc0bd2a261",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/invocation.bend",
+      "sha256": "0300cb106b0747698dceae22105e894cdc9fc7d345aed7627873475a0a769e00",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/ordinary.bend",
+      "sha256": "552cdce9547548f8a461c396fb7b0a2680cfec756a9ac82b398957f63b73c9a1",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/registration.bend",
+      "sha256": "f3b1885cb55212c31f98c439fd169f1c4475a69cd59295488b19b267704cb58f",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/runtime-v1/prepared-attempt01/a-normal-js/plan.json",
+      "sha256": "c43828c43d3a8b2dd5df399001950f6950d7558ae772c1aef9ee96a6a1a1a48f",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/runtime-v1/prepared-attempt01/other-normal-js/plan.json",
+      "sha256": "b2b4f679da7df97a04af3287faa42b2812bfb69d06105e8ce350310741bf695c",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/runtime-v2/prepared-attempt01/a-normal-native-plan.json",
+      "sha256": "1045b35ad5d4021bd86fd50458a269eef06f51e0d9e019ed19a541740b4fe6d4",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/runtime-v2/prepared-attempt01/other-normal-native-plan.json",
+      "sha256": "8483440ac15c05865111050f2881e338a6a4cded61ab1c39be95405a35be5f19",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-schedule-operational-oracle-v1/DELIVERY-MEMBERS.json",
+      "sha256": "9faf29cd9e993e0445e3ccf67bcc37ebfb61154395720dc51212d72328f0ee97",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-schedule-operational-oracle-v1/ORACLES.json",
+      "sha256": "dcfe18c07a52c2ae144c361174826c6750bc129f48d6fc698fa1a04353a8589f",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-schedule-operational-oracle-v1/README.md",
+      "sha256": "4c5328badee924dfb1ff494c4fb889ba03f9afc6d59759b46145028e7d5a5df4",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-schedule-operational-oracle-v1/SOURCE-BASIS.json",
+      "sha256": "8ea8d2b07cb4b97ff93951081e06680ac1f81e85670e0e67ca556d8845af6d54",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-schedule-operational-oracle-v1/a-normal.stdout",
+      "sha256": "fd064060ebf1d8e35579ed4a76dbedf93dc0ecabb2b999df4293bc111eed6270",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-schedule-operational-oracle-v1/a-normal.stdout.gz",
+      "sha256": "a06b46d8d5b0f9bd392e456fc0e5d4121aec1fecf977518ed86ac9c87d5640cd",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-schedule-operational-oracle-v1/mixed-model.py.source",
+      "sha256": "1c706705e4125a7cd38eddb718fcc1009e335a4b8eeb9840bdf5ffd539c924ea",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-schedule-operational-oracle-v1/model.py",
+      "sha256": "b367b716f1c2962b886b7e3028892a3d4dd05968d16ac8492535567e74b3417b",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-schedule-operational-oracle-v1/other-normal.stdout",
+      "sha256": "fd064060ebf1d8e35579ed4a76dbedf93dc0ecabb2b999df4293bc111eed6270",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-schedule-operational-oracle-v1/other-normal.stdout.gz",
+      "sha256": "a06b46d8d5b0f9bd392e456fc0e5d4121aec1fecf977518ed86ac9c87d5640cd",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v1/bridge.bend",
+      "sha256": "cfbb1f0fccc6402435ef54b68d8e1a7d2e88ab278ba510154356ccd9b77ad2ab",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v1/observable-resource.bend",
+      "sha256": "baede04dde236b2d68f82c2719dec7802d20f9ffa960de521d02ae0ae999f647",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/fixture.bend",
+      "sha256": "b475d41186508e6556b87fcadafaf2d1e79ecc668c7015568c727cdc82fcec62",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v2/input.bend",
+      "sha256": "59d83b2c014dd3410555015ec49b841aaf595283455fa053935cbbf3616b0196",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/SOURCE-COMPLETE.json",
+      "sha256": "ca01d1fcc162b907e5557e4bd4f4f000ec4661b796ebceeeb146f875f2da1a0d",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/bridge.bend",
+      "sha256": "3652fd6600c7a623471e0483faa9531b2c57c1f7181944a2e6d61fbe8ad3782d",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checked-schedule.bend",
+      "sha256": "b62d766acc8aa96afe8275ed2ae19c9f181286941aca723cd7ff7beba57f5e56",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/SOURCE.json",
+      "sha256": "e530b9195c7465293db5ae8fffaead0b93cdb8214824edb5156230f994b792e9",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/post.json",
+      "sha256": "1ae748d5796cc995906ddf0fba5e5626f9c1c6ac79cec8fb465106e92254a77b",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/result.json",
+      "sha256": "76825c694cecca55e32bba997cf920fb9c22acd06d5baedcba01b1edfea8fc57",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/0.source.gz",
+      "sha256": "708f6ba2a91cedc3b8bc9ecd82e49170240262e27a1a7192a4916177a843aad4",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/1.source.gz",
+      "sha256": "aa4070eaadc1d66dc8b9f6703639fafc2343f09b4015e2d273c74c5db141ad9f",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/10.source.gz",
+      "sha256": "e1eb1ce6cf72e8da1d6086a55107962aa9674fb7801163d539ef26e511911887",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/11.source.gz",
+      "sha256": "12b0371ce33333dbad403c1a298dacd4e024d2a0241728fcaec831d7f066f428",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/12.source.gz",
+      "sha256": "2827db552d2c13bf3b73580e4b60cbb9eb4fbfb462da90c848fd8aab26830442",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/13.source.gz",
+      "sha256": "48ed8ffefd9e69aa4aac0f3ab9e62e042a2cca0ac7b28788cadbacc0dcd89291",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/14.source.gz",
+      "sha256": "4697e0e11615f8e2ff06bdd91cf6e7351866fa7e970c07e35e45a4b941e4ab16",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/15.source.gz",
+      "sha256": "dfc6f82a8b0876090344d0493012069ed1b795158026432e4a6e6ecbf3a45078",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/16.source.gz",
+      "sha256": "cbaff94127470b49d32829c3c87deb036cfbf5dd0ea0e4ab7a113504b63deb52",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/17.source.gz",
+      "sha256": "75603ce9c45d0a91725a5a7d8039ee75aece3f71265f79fee4da5bf7f29b04bf",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/18.source.gz",
+      "sha256": "05bf94907a8c9713fcf5aa9c16ee30f0c64020b2249bc2a74b989cb8ccd2ea87",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/19.source.gz",
+      "sha256": "0f45fd80a988efa7e319e2eaad1a6cfc8339fcfd1e3f814f744e596000b02ee9",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/2.source.gz",
+      "sha256": "c90973f187134b6604e78b078074e175eb67e8a7abf6418cbd47c53ccf1c14a2",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/20.source.gz",
+      "sha256": "b7fb6e21f4fac80dd00058fd469ea072b522d40ef3798babadf9fd2a8406b905",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/21.source.gz",
+      "sha256": "ee66448d76f627af132337004b9e500f2a434808164b6e2ee0b0f2eeb8dcabb7",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/22.source.gz",
+      "sha256": "9095e0f49c977ece731295030137cef8314438f8c577e298918b194dbc97d6ac",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/23.source.gz",
+      "sha256": "36a70def8cf2280fa185220761770f59e1c2337a42804bcbd3f5fb69713ba986",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/24.source.gz",
+      "sha256": "42968cda69c7470fec3e6af04f4ce93804f4bb11008f5d9e261e45fe15cdd2b4",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/25.source.gz",
+      "sha256": "52151161a9a85c99c9d4e2b62822fdac5b936538ca589cefbc0693779fbe9471",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/26.source.gz",
+      "sha256": "948e5a49083e2e4d160a31614400fe3de253ff906899ec8bde92c768f55f3175",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/27.source.gz",
+      "sha256": "030eaf0df5103e11b799ae3bbbc10c2c6d0bca4f6f3b0b4f3aa4663defc6e102",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/28.source.gz",
+      "sha256": "e954e3988a33717dbad434222c9feba71a7f7a6116c3e39ac65c80ff70cc7492",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/29.source.gz",
+      "sha256": "50be29623381b4444236783a88eed04f97a3d857f29ad5b0a2fd2de49bf780ef",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/3.source.gz",
+      "sha256": "f3b858b2440dd8eb9a5b50a5c3970969f33f141b0b449765c49e1e57ebea444f",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/30.source.gz",
+      "sha256": "4384974b32d2c8bb35b3942dc37e5c8764bdfacda2151ee583263cfa71eebee2",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/31.source.gz",
+      "sha256": "2748f4f04d624bb979e6cf12fa5622cb936527d5da321a70cec1f226f579ce13",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/32.source.gz",
+      "sha256": "d44bff1a15153ec3a3df9c1131064f8a4333c697db35061fda9d7193b5c38880",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/33.source.gz",
+      "sha256": "e5bd1907c0b1d7f2c38693f10c68d7dcf0cab31525a4bd924fa4643d44ceddaa",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/34.source.gz",
+      "sha256": "dfa3a7d38ef27cbb54c4d98cc5ea05cbc2985c09e2447a91078a82e7a1ffefb5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/35.source.gz",
+      "sha256": "10d318665db487ee5ab32e635c8febe381c392ae948733451a862b1977bd7be2",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/36.source.gz",
+      "sha256": "fe48ee6b1c595c1e04d603e031b58c795c56d7ae3f0b3024add6f28b78e05845",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/37.source.gz",
+      "sha256": "3a3f91bf5f5b98482296f5db484313dde24df4ecea31b283199a45dbf5956068",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/38.source.gz",
+      "sha256": "e759e1eca4cad2f3c7018ccec00c9ba2120d9ddda401be22bd131f140bb6df8c",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/39.source.gz",
+      "sha256": "98976d4dbf2e0770254d05611594f0087e1368a670ef7e42f28634887cbb23a9",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/4.source.gz",
+      "sha256": "671f52b06d216645b3410516bcf57bcd0066fe3b586acf1cb8b36a66fd3e22d5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/40.source.gz",
+      "sha256": "fe5fee23dd275867a1eaf47e9d9d2723672f1db481727c177d37af3684d8803e",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/41.source.gz",
+      "sha256": "0395f6adb6962e8efcea733fcd11a3ad19f20ff136f03231400e153148ac73a8",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/42.source.gz",
+      "sha256": "82d56f6b7ae1caac7b4b3bfabd9ace9474e3c669d942e8398959f80a8b4d0e8b",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/43.source.gz",
+      "sha256": "9928d797a6860380d0c96b16d8fa2c8411a31130204ce65c4d878abec4eeb41c",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/44.source.gz",
+      "sha256": "9a4e25e30ff8de9dc88d25fb7b18ecc17fd2fb597e0b9e34482bd786a7d7c783",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/45.source.gz",
+      "sha256": "ea39a2f9958983a2d23c83145eca4da65b5951fda6e9a2df9aa4380c4c21ad92",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/46.source.gz",
+      "sha256": "f714a310b74760bae80767af443b09b060b20823a7e8f3ef9c250f307ec87ccb",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/47.source.gz",
+      "sha256": "44df5fe8bd7f46ccf4d87509f574133b259c32a04130dc3f8a3a8b2960cbdf95",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/48.source.gz",
+      "sha256": "2da15024bb551198a86b44fac46172e953b66c5b5109e75dd915082ad1752925",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/49.source.gz",
+      "sha256": "c85c05f10d784c1b4434cc8d9b16d316631e6bee3e0c767c530f810f39288347",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/5.source.gz",
+      "sha256": "39ba4bed5f8dfd619a0265fe5d5bc8b5cce9ea6a0add1a951c078e55409ea4db",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/50.source.gz",
+      "sha256": "44c5aac8e0e03d8583eef339c5eb6be8e344eb151e00ca5b672e49d7739c61bf",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/51.source.gz",
+      "sha256": "1f9bd2d775da25aceec50cd21e187b060e51c46e3ac5d61e7bb2ba20abd459ea",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/52.source.gz",
+      "sha256": "0a702e5bed6b680f83662355d19327adf335e5f6a9043137422a29362e480113",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/53.source.gz",
+      "sha256": "d22a3d88bc83bd938ac52125df4031a4dac29fda43da06ac46b56c2a27f1064b",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/54.source.gz",
+      "sha256": "ac313730f3ca4d36bb30cd6dc12cf786d4f2b08a7f10ede44a1ef08ecfef7e33",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/55.source.gz",
+      "sha256": "7d83e2dfafff812d479d246e783d28b3068af2fcf4dc0d82b1a8cf52fdace9de",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/56.source.gz",
+      "sha256": "860e66c73418b5092186e5c99f00649541c3816dfe26956cf35bcbc19a6f8dc8",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/57.source.gz",
+      "sha256": "e4bb79901ef76a1ca82646ea9bea5bf0bdebb45fa26df27282f54d8c15c4197c",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/58.source.gz",
+      "sha256": "ff35fa364be4bdcda22ef2e9ef49a2f66a60164963bafaa9f68d4989b4611cc5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/59.source.gz",
+      "sha256": "e16051a3634f436e0b24161075b11f004bb98c6acd3952e7ae62b0de612dbf62",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/6.source.gz",
+      "sha256": "74a7f5872e3ca9d64ba405bd651d10c6b24e2dd6c32152fa500da0187e0d0e35",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/60.source.gz",
+      "sha256": "4d416258ba830a6d6404a642889a181cefb4da4a768f9c42e2d47b75ebc96bb8",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/61.source.gz",
+      "sha256": "35fb4167ad5c3b0ff6f7a46263fec1a67c0af34ba2a6c257a3e4201fb23fc6d5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/62.source.gz",
+      "sha256": "0445e12dfc4d588a1ed8735cafe32412a3fd633c98cea7740f017858f00b2dfd",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/63.source.gz",
+      "sha256": "358b12b5b3b823f72456c87631ad451923c051d6f9521f21f2546149bb56c27d",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/64.source.gz",
+      "sha256": "eb27ae70bbc218ca2815eb19b9ce4e046796bfaea5869b21d27e15853c0b77fa",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/65.source.gz",
+      "sha256": "cefd69b8e4e5e8a8779f912a84172876210d49e8456cc820f6244370303e74f0",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/66.source.gz",
+      "sha256": "e6577f2379e9fd550237fc527d8d8f117fc5eb9597ffc955ee700bc8c9c88c33",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/67.source.gz",
+      "sha256": "fa572885a3baaa7240f0eff280f2f9c82e82a7dee05360b2be521d93c24ee371",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/68.source.gz",
+      "sha256": "cae5e05a107acdfcc401ff8694a7b4ed2cb71b5e8f4f32ece412746d92ba45b1",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/69.source.gz",
+      "sha256": "1c3f260d55b57f020987e55a4be1f4dff5489412af462203cc355f469305f5da",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/7.source.gz",
+      "sha256": "d81a0e2d3c7339a0d0a6abbf46d93040ed4a418f33fc3ab4b13d4632da6a0ce9",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/70.source.gz",
+      "sha256": "ab023502aed64a0d1e0eb5399ff2d84bf2a3382c8fa797c2395cbffed956655d",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/71.source.gz",
+      "sha256": "2513b2af35720edfe6252937161cfccfd77119d5a1c2ba44b816e13aa827e886",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/72.source.gz",
+      "sha256": "421c39fcbe7d9eb9bdad3adec9143d3a8db507db9c416ab2a6809b05b6a2e90b",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/8.source.gz",
+      "sha256": "c6105b8b629d9620868d55b77fceb73ce218ba1f290dd868300828850cf7455c",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/sources/9.source.gz",
+      "sha256": "083559b43bc0c82d90398c8e0b31ec03e9204621d1b4f73c900088840bdb5a40",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/stderr.gz",
+      "sha256": "503b5b0f6f356cd22e7cac0a7f7056d5e673db62a3ff9bc5548fdef003d401e0",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/consumer-source08/stdout.gz",
+      "sha256": "c3fa79423127d3813c410d3a552e9e0c8b7174c9e48326780c8e58b627c82a77",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/SOURCE.json",
+      "sha256": "77f69da91270f7303049c21b1c311406907f3660379c25d03b83101a3c1d367c",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/post.json",
+      "sha256": "1ae748d5796cc995906ddf0fba5e5626f9c1c6ac79cec8fb465106e92254a77b",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/result.json",
+      "sha256": "5a448029f856b047b4f65355f3846bd959affffd9ca22aa6233cc8030d8a83e5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/0.source.gz",
+      "sha256": "708f6ba2a91cedc3b8bc9ecd82e49170240262e27a1a7192a4916177a843aad4",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/1.source.gz",
+      "sha256": "aa4070eaadc1d66dc8b9f6703639fafc2343f09b4015e2d273c74c5db141ad9f",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/10.source.gz",
+      "sha256": "e1eb1ce6cf72e8da1d6086a55107962aa9674fb7801163d539ef26e511911887",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/11.source.gz",
+      "sha256": "12b0371ce33333dbad403c1a298dacd4e024d2a0241728fcaec831d7f066f428",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/12.source.gz",
+      "sha256": "2827db552d2c13bf3b73580e4b60cbb9eb4fbfb462da90c848fd8aab26830442",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/13.source.gz",
+      "sha256": "48ed8ffefd9e69aa4aac0f3ab9e62e042a2cca0ac7b28788cadbacc0dcd89291",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/14.source.gz",
+      "sha256": "4697e0e11615f8e2ff06bdd91cf6e7351866fa7e970c07e35e45a4b941e4ab16",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/15.source.gz",
+      "sha256": "dfc6f82a8b0876090344d0493012069ed1b795158026432e4a6e6ecbf3a45078",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/16.source.gz",
+      "sha256": "cbaff94127470b49d32829c3c87deb036cfbf5dd0ea0e4ab7a113504b63deb52",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/17.source.gz",
+      "sha256": "75603ce9c45d0a91725a5a7d8039ee75aece3f71265f79fee4da5bf7f29b04bf",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/18.source.gz",
+      "sha256": "05bf94907a8c9713fcf5aa9c16ee30f0c64020b2249bc2a74b989cb8ccd2ea87",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/19.source.gz",
+      "sha256": "0f45fd80a988efa7e319e2eaad1a6cfc8339fcfd1e3f814f744e596000b02ee9",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/2.source.gz",
+      "sha256": "c90973f187134b6604e78b078074e175eb67e8a7abf6418cbd47c53ccf1c14a2",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/20.source.gz",
+      "sha256": "b7fb6e21f4fac80dd00058fd469ea072b522d40ef3798babadf9fd2a8406b905",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/21.source.gz",
+      "sha256": "ee66448d76f627af132337004b9e500f2a434808164b6e2ee0b0f2eeb8dcabb7",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/22.source.gz",
+      "sha256": "9095e0f49c977ece731295030137cef8314438f8c577e298918b194dbc97d6ac",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/23.source.gz",
+      "sha256": "36a70def8cf2280fa185220761770f59e1c2337a42804bcbd3f5fb69713ba986",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/24.source.gz",
+      "sha256": "42968cda69c7470fec3e6af04f4ce93804f4bb11008f5d9e261e45fe15cdd2b4",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/25.source.gz",
+      "sha256": "52151161a9a85c99c9d4e2b62822fdac5b936538ca589cefbc0693779fbe9471",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/26.source.gz",
+      "sha256": "948e5a49083e2e4d160a31614400fe3de253ff906899ec8bde92c768f55f3175",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/27.source.gz",
+      "sha256": "030eaf0df5103e11b799ae3bbbc10c2c6d0bca4f6f3b0b4f3aa4663defc6e102",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/28.source.gz",
+      "sha256": "e954e3988a33717dbad434222c9feba71a7f7a6116c3e39ac65c80ff70cc7492",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/29.source.gz",
+      "sha256": "50be29623381b4444236783a88eed04f97a3d857f29ad5b0a2fd2de49bf780ef",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/3.source.gz",
+      "sha256": "f3b858b2440dd8eb9a5b50a5c3970969f33f141b0b449765c49e1e57ebea444f",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/30.source.gz",
+      "sha256": "4384974b32d2c8bb35b3942dc37e5c8764bdfacda2151ee583263cfa71eebee2",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/31.source.gz",
+      "sha256": "2748f4f04d624bb979e6cf12fa5622cb936527d5da321a70cec1f226f579ce13",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/32.source.gz",
+      "sha256": "d44bff1a15153ec3a3df9c1131064f8a4333c697db35061fda9d7193b5c38880",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/33.source.gz",
+      "sha256": "e5bd1907c0b1d7f2c38693f10c68d7dcf0cab31525a4bd924fa4643d44ceddaa",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/34.source.gz",
+      "sha256": "dfa3a7d38ef27cbb54c4d98cc5ea05cbc2985c09e2447a91078a82e7a1ffefb5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/35.source.gz",
+      "sha256": "10d318665db487ee5ab32e635c8febe381c392ae948733451a862b1977bd7be2",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/36.source.gz",
+      "sha256": "fe48ee6b1c595c1e04d603e031b58c795c56d7ae3f0b3024add6f28b78e05845",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/37.source.gz",
+      "sha256": "3a3f91bf5f5b98482296f5db484313dde24df4ecea31b283199a45dbf5956068",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/38.source.gz",
+      "sha256": "e759e1eca4cad2f3c7018ccec00c9ba2120d9ddda401be22bd131f140bb6df8c",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/39.source.gz",
+      "sha256": "98976d4dbf2e0770254d05611594f0087e1368a670ef7e42f28634887cbb23a9",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/4.source.gz",
+      "sha256": "671f52b06d216645b3410516bcf57bcd0066fe3b586acf1cb8b36a66fd3e22d5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/40.source.gz",
+      "sha256": "fe5fee23dd275867a1eaf47e9d9d2723672f1db481727c177d37af3684d8803e",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/41.source.gz",
+      "sha256": "0395f6adb6962e8efcea733fcd11a3ad19f20ff136f03231400e153148ac73a8",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/42.source.gz",
+      "sha256": "82d56f6b7ae1caac7b4b3bfabd9ace9474e3c669d942e8398959f80a8b4d0e8b",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/43.source.gz",
+      "sha256": "9928d797a6860380d0c96b16d8fa2c8411a31130204ce65c4d878abec4eeb41c",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/44.source.gz",
+      "sha256": "9a4e25e30ff8de9dc88d25fb7b18ecc17fd2fb597e0b9e34482bd786a7d7c783",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/45.source.gz",
+      "sha256": "ea39a2f9958983a2d23c83145eca4da65b5951fda6e9a2df9aa4380c4c21ad92",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/46.source.gz",
+      "sha256": "f714a310b74760bae80767af443b09b060b20823a7e8f3ef9c250f307ec87ccb",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/47.source.gz",
+      "sha256": "44df5fe8bd7f46ccf4d87509f574133b259c32a04130dc3f8a3a8b2960cbdf95",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/48.source.gz",
+      "sha256": "2da15024bb551198a86b44fac46172e953b66c5b5109e75dd915082ad1752925",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/49.source.gz",
+      "sha256": "c85c05f10d784c1b4434cc8d9b16d316631e6bee3e0c767c530f810f39288347",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/5.source.gz",
+      "sha256": "39ba4bed5f8dfd619a0265fe5d5bc8b5cce9ea6a0add1a951c078e55409ea4db",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/50.source.gz",
+      "sha256": "44c5aac8e0e03d8583eef339c5eb6be8e344eb151e00ca5b672e49d7739c61bf",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/51.source.gz",
+      "sha256": "1f9bd2d775da25aceec50cd21e187b060e51c46e3ac5d61e7bb2ba20abd459ea",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/52.source.gz",
+      "sha256": "0a702e5bed6b680f83662355d19327adf335e5f6a9043137422a29362e480113",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/53.source.gz",
+      "sha256": "d22a3d88bc83bd938ac52125df4031a4dac29fda43da06ac46b56c2a27f1064b",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/54.source.gz",
+      "sha256": "ac313730f3ca4d36bb30cd6dc12cf786d4f2b08a7f10ede44a1ef08ecfef7e33",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/55.source.gz",
+      "sha256": "7d83e2dfafff812d479d246e783d28b3068af2fcf4dc0d82b1a8cf52fdace9de",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/56.source.gz",
+      "sha256": "860e66c73418b5092186e5c99f00649541c3816dfe26956cf35bcbc19a6f8dc8",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/57.source.gz",
+      "sha256": "e4bb79901ef76a1ca82646ea9bea5bf0bdebb45fa26df27282f54d8c15c4197c",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/58.source.gz",
+      "sha256": "ff35fa364be4bdcda22ef2e9ef49a2f66a60164963bafaa9f68d4989b4611cc5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/59.source.gz",
+      "sha256": "e16051a3634f436e0b24161075b11f004bb98c6acd3952e7ae62b0de612dbf62",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/6.source.gz",
+      "sha256": "74a7f5872e3ca9d64ba405bd651d10c6b24e2dd6c32152fa500da0187e0d0e35",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/60.source.gz",
+      "sha256": "fc72056cceb667d5aef46106b7fee7070637f845a2a40c78991f692c8ab84a3f",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/61.source.gz",
+      "sha256": "35fb4167ad5c3b0ff6f7a46263fec1a67c0af34ba2a6c257a3e4201fb23fc6d5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/62.source.gz",
+      "sha256": "0445e12dfc4d588a1ed8735cafe32412a3fd633c98cea7740f017858f00b2dfd",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/63.source.gz",
+      "sha256": "358b12b5b3b823f72456c87631ad451923c051d6f9521f21f2546149bb56c27d",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/64.source.gz",
+      "sha256": "eb27ae70bbc218ca2815eb19b9ce4e046796bfaea5869b21d27e15853c0b77fa",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/65.source.gz",
+      "sha256": "cefd69b8e4e5e8a8779f912a84172876210d49e8456cc820f6244370303e74f0",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/66.source.gz",
+      "sha256": "e6577f2379e9fd550237fc527d8d8f117fc5eb9597ffc955ee700bc8c9c88c33",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/67.source.gz",
+      "sha256": "fa572885a3baaa7240f0eff280f2f9c82e82a7dee05360b2be521d93c24ee371",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/68.source.gz",
+      "sha256": "cae5e05a107acdfcc401ff8694a7b4ed2cb71b5e8f4f32ece412746d92ba45b1",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/69.source.gz",
+      "sha256": "1c3f260d55b57f020987e55a4be1f4dff5489412af462203cc355f469305f5da",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/7.source.gz",
+      "sha256": "d81a0e2d3c7339a0d0a6abbf46d93040ed4a418f33fc3ab4b13d4632da6a0ce9",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/70.source.gz",
+      "sha256": "ab023502aed64a0d1e0eb5399ff2d84bf2a3382c8fa797c2395cbffed956655d",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/71.source.gz",
+      "sha256": "2513b2af35720edfe6252937161cfccfd77119d5a1c2ba44b816e13aa827e886",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/72.source.gz",
+      "sha256": "28d8aca7294d2856bfb956b06cd3b80c6a81f421960e0fe04a1c00eb2bbf9a98",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/8.source.gz",
+      "sha256": "c6105b8b629d9620868d55b77fceb73ce218ba1f290dd868300828850cf7455c",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/sources/9.source.gz",
+      "sha256": "083559b43bc0c82d90398c8e0b31ec03e9204621d1b4f73c900088840bdb5a40",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/stderr.gz",
+      "sha256": "503b5b0f6f356cd22e7cac0a7f7056d5e673db62a3ff9bc5548fdef003d401e0",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/checks/other-source02/stdout.gz",
+      "sha256": "c3fa79423127d3813c410d3a552e9e0c8b7174c9e48326780c8e58b627c82a77",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/consumer.bend",
+      "sha256": "81dfefd3bac56256815db36c5cadca6f2d5763cfbedad98250a42127786a3a5c",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/cross-schema-control.bend",
+      "sha256": "ba7eac10a099456ed108cecb5fcd0b6612aa9649ddb84bfec34182a8753c5987",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/dispatch-result.bend",
+      "sha256": "1fb705c930220a902778f8fff70a77fb130c8735dbcbef9ef14c6c64967f15d8",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/dispatch.bend",
+      "sha256": "c6fe0110e1892568f1a7ff8ab1f70ecdf4e37a19cec7c25318523786420f6fe7",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/driver.bend",
+      "sha256": "a697ed4cfa882802e84b06264d436d725bd80b3e4fc17e94e5b88462da9b0409",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/entry-a.bend",
+      "sha256": "b154faef3d8b697ef897437aea7aedfe86b1d937529945eac50d0b255d42b7be",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/entry-other.bend",
+      "sha256": "d8bbb9085d36fa2bfbd5e7ff3c72b343481aeb432d8d4468031c1f4a0f7c9b84",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/finite-adapter-runtime.bend",
+      "sha256": "0e630d05e64ea011d87260e1b112a112d17c4dfe1de1376faf79468cd838e8f6",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/finite-adapter.bend",
+      "sha256": "74eb20a14f8ff3a99164c9e890b67014519b7a54dcb275ebce88136ab401c31d",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/ordinary-unit.bend",
+      "sha256": "f2d832ef4da535241e2a53c390add3ea54ae47061ed61fb75b7aa235f6ea206b",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/ordinary.bend",
+      "sha256": "9053be6bf3c501f2314997b093b82d5f1f61fcc1e526fb2cd341b20d8bc0b4e7",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/registration-unit.bend",
+      "sha256": "9463cecdce66082773dc52f9ab39688518b6cdb40f6e6471975eb3185d74db9e",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/registration.bend",
+      "sha256": "463d700f930776b29dda2b0211cda4c6cf0e20d52fc2aa4aa43471670e89f635",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepare-other.py.source",
+      "sha256": "daec34cfc175bc4100b4d74461d4adf25eda49c72871a80cc5f3b8f7331a9c50",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepare.py.source",
+      "sha256": "5497d771e78822425c8f882202209f1feae14332c1574d23a0330e4c32ee4a73",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/unit-bodies.bend",
+      "sha256": "8280bfaf684d49f7283a70f7d5ccc24169d8d60874ca2b0b3ef5f74b680fa79d",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/validation.bend",
+      "sha256": "4f4bdcb37eb59b584f36cf5d991cd08f5452b5092a1ba8dce9380ede0e458206",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/compact-observation-app-v1/recipes.bend",
+      "sha256": "cd606e069d34f870a7830d5a0bce37e95da2780091735befb260f18156ca9e40",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-app-observation-v1/component-fixture.bend",
+      "sha256": "2c1bc14e5290159b50ea04d703b81f61933ef8875e1b9eae9edf0a20bb9b9953",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/schedule-observation-v1/schedule.bend",
+      "sha256": "e63b9a9bd202e4d02300a3c6c4bdb0b5c4784222a3e4ccac6931b837e94c83b1",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": false,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/development-plan-guard-v1/plan_guard.py",
+      "sha256": "3f3ff92f6bcf3709fd851ee991b677bd7b39819aafa4c8fa0c24a7493fa8eb9d",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+      "sha256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/owner-observer.bend",
+      "sha256": "c390dca4c39788a097e380002264149c0b7b7db9bd68fc464a901ba97ebc613e",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py",
+      "sha256": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py",
+      "sha256": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/scripts/task_runner.py",
+      "sha256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": false,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+      "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/check.bend",
+      "sha256": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+      "sha256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/compose.bend",
+      "sha256": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/declared-family.bend",
+      "sha256": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/decode-capabilities.bend",
+      "sha256": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/decode-data.bend",
+      "sha256": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/decode-size.bend",
+      "sha256": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/decode-utf16.bend",
+      "sha256": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/decode.bend",
+      "sha256": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend",
+      "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/inspector-query-families.bend",
+      "sha256": "020a8de48df12369c8709d10d15f0c3d22dcf8a9fb76f3af238ea4a4304edeb8",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend",
+      "sha256": "422efbb7c19e8091a77f7e90e7f4e3d95474ae41d46e934b270b89638cd5f561",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/inspector-query-world.bend",
+      "sha256": "1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend",
+      "sha256": "7a4c90e0f1e63d6a89aea256bd96c874758db73865dad02481a32c1dded8b58d",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/inspector.bend",
+      "sha256": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend",
+      "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-component-binding.bend",
+      "sha256": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend",
+      "sha256": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-query-declaration.bend",
+      "sha256": "bbb77a38ebe83f27edf4d1ec7be7b56d6360687a088046ac2dc3c45ca6f73a32",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-query-observable.bend",
+      "sha256": "826ff50600b6b789cbe53ea717f316ca7edbad4e8cb68f63ea8db29e2e6b12b5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-query-selections.bend",
+      "sha256": "57ee96b72d098d0b3abf0504a166c3a0846c817fcc4cb2f77a9629be501bc755",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-resource-system.bend",
+      "sha256": "463a51c5a5996c86be5e08c23741b3e575241033962e669115c5a0b215de04af",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend",
+      "sha256": "a713826ed240aca0fec5502d21682ea9adb75ac9b0653b76f5efb3ace1f058d0",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend",
+      "sha256": "2b3aee3fd7550492c00fd27aa1ce8f74e0a94407c4c73d3425e81d1b1ec54810",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend",
+      "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/owner-product.bend",
+      "sha256": "5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend",
+      "sha256": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/registration.bend",
+      "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/resource.bend",
+      "sha256": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend",
+      "sha256": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend",
+      "sha256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend",
+      "sha256": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/snapshot-gate.bend",
+      "sha256": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/snapshot-leaf.bend",
+      "sha256": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+      "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+      "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+      "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "sha256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "kind": "source-or-helper-or-oracle",
+      "rootTrackedReuse": true,
+      "sourceSnapshotCaptured": true,
+      "adoptAsLiveHelper": false
+    }
+  ],
+  "sourceSnapshots": "checks/*/SOURCE.json order and sources/N.source.gz; decodedSHA exact original",
+  "runtimeObjects": "actual-attempt01/manifest.json maps original paths to lossless gzip CAS",
+  "oracle": "Independent leaf ordinary-schedule-operational-oracle-v1; pinned in each plan with both11004B models and SOURCE-BASIS",
+  "integrationLimit": "Reuse root tracked source/helper bytes; imported private fixture/frontend sources require mapping/adoption; no live helper replacement or tool binary adoption"
+}
