@@ -1,0 +1,48 @@
+{
+  "verdict": "PASS_CONDITIONAL_COMPARATIVE_LAUNCH",
+  "planSHA256": "177af01e8bf1a2ab11d09cef661b3ddccd7c973dcf956959a86c14ac8b695f58",
+  "originalPlan": "/tmp/bendvy-combined150-plan-frozen.json",
+  "predecessorPLAN148SHA256": "d203ba443ecfbbbfe16f4f7d552ddc26a6236f86c8a737179cc93d0b3cdfc074",
+  "candidateSourceQualificationHEAD": "53191e235a3cb77681f6bb992f029a015f7ad824",
+  "monitoredSources": 156,
+  "old154MonitoredHashesUnchanged": true,
+  "stagedCoreFiles": 159,
+  "directModules": 150,
+  "internalModules": 6,
+  "addedModules": {
+    "src/ecs/bundle-canonical-construction.bend": "fef2938185f4077b4b4957187e5417497aa6873caa05dd77770635be6ec34ff8",
+    "src/ecs/ordinary-app-schedule.bend": "327e617bb2d0743fc5270d9012707aedb96b667c7c607ab64b38a486906d5a47"
+  },
+  "metadataRepair": "Only current staged README size/SHA refresh; prior frozen digest retained metadataSuccessorOfSHA256. Executable source and command unchanged.",
+  "unchangedContract": {
+    "baselineCommit": "327bec49d41f00f88950343dea1edc1e0ec97dc4",
+    "workload": "Workshop: ten complete 22-checkpoint applications per process",
+    "scope": "Whole-process API regression; startup and output included, not qualified hot-path acceptance",
+    "pairs": 20,
+    "warmups": 2,
+    "seed": 20261007,
+    "alpha": 0.05,
+    "method": "One-sided exact paired sign tests, Holm correction across JS and Native",
+    "allowedSlowdown": 0,
+    "approval": "User: no statistically confirmed slowdown, 2026-10-06",
+    "iterations": 10,
+    "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+  },
+  "unchangedLimits": {
+    "checkerSeconds": 5,
+    "emitSeconds": 30,
+    "nativeCompileSeconds": 120,
+    "runtimeSeconds": 5,
+    "archiveSeconds": 15
+  },
+  "verified": "Current156monitored+159staged bindings,8literal/resolvedtoolSHA joins,33reference source hashes/HEAD, fresh output. Contract/baseline29/archive/environment/resources/statistics controls unchanged from accepted148. Command differs only fresh output.",
+  "conditions": [
+    "All heavy semantic/hook children terminal and root-exclusive whole heavy queue",
+    "Fresh CPU11 allowed/host suitability observation; defer under contention, no continuous idle proof inferred",
+    "Immediately before launch recheck source/tool/reference/environment/resources and output absence",
+    "Record actual launch GitHEAD even if evidence/docs-only advancement beyond source qualification53191",
+    "Any frozen executable change requires a bound successor; no criteria/workload/provider/cap changes or unchanged failed retry"
+  ],
+  "scope": "Unchanged #28 Workshop whole-process regression only; not full56/feature timing/fullparity/speedup qualification",
+  "reviewerExecution": "No backend or statistics rerun"
+}
