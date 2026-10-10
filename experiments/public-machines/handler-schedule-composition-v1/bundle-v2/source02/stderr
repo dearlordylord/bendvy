@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : cases for Con
+- observed : \{}
+Context:
+- select : B.Selector<entry_observed~S, T.MachineKey, T.State>
+- needs  : List<&2, U32>
+- rest   : List<&1, B.Scheduled<entry_observed~S, T.MachineKey, T.State, U32, T.Store<entry_observed~S>, T.Resources<entry_observed~S>, Unit, Systems.runner(entry_observed~S)>>
+- text   : List<&2, String>
+- entry  : H.Entry<entry_observed~S, T.Store<entry_observed~S>, T.Resources<entry_observed~S>, Unit, T.State, Systems.runner(entry_observed~S)>
+Location: entry_observed
+28 | def entry_observed(~S:Data,+select:B.Selector<S,T.MachineKey,T.State>,+needs:List<&2,U32>,tail:List<&1,B.Scheduled<S,T.MachineKey,T.State,U32,T.Store<S>,T.Resources<S>,Unit,Systems.runner(~S)>> & List<&2,String>,head:List<&1,H.Entry<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>> & List<&2,String>) -> List<&1,B.Scheduled<S,T.MachineKey,T.State,U32,T.Store<S>,T.Resources<S>,Unit,Systems.runner(~S)>> & List<&2,String>:
+29>|   match tail head:
+   |   ^^^^^^^^^^^^^^^^
+30 |     case (rest,text),(entry <> [],shown):(B.Scheduled{select,needs,entry} <> rest,(selector(~S,select) ++ ":needs=" ++ List.show(&2,U32,U32.show,needs) ++ ":" ++ List.show(&2,String,x=>x,shown)) <> text)
+bend 2.0.36 is available: run bend update

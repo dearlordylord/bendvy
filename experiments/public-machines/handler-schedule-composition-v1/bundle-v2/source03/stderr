@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : cases for Con
+- observed : \{}
+Context:
+- bundle : B.Bundle<read_returned~S, T.MachineKey, T.State, U32, T.Store<read_returned~S>, T.Resources<read_returned~S>, Unit, Systems.runner(read_returned~S)>
+- world  : W.World<read_returned~S, T.Store<read_returned~S>, T.Resources<read_returned~S>, Unit>
+Location: read_returned
+75 | def read_returned(~S:Data,bundle:B.Bundle<S,T.MachineKey,T.State,U32,T.Store<S>,T.Resources<S>,Unit,Systems.runner(~S)>,app:Old.Application<S>) -> Application<S> & String:
+76>|   match app:
+   |   ^^^^^^^^^^
+77 |     case Old.Application{world,H.Owners{[],[],[]},reader}:shown(~S,"read",observe(~S,Application{world,bundle,reader}))
+bend 2.0.36 is available: run bend update
