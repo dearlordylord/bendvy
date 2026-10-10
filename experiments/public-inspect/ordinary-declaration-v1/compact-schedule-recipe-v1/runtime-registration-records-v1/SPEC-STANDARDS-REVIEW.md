@@ -1,0 +1,11 @@
+# Final Spec/Standards review — runtime registration records
+
+PASS for bounded archival of checkpoint 4574fbf60. No blocking finding.
+
+Source02 original 9042 qualifies the intended complete consumer at the unchanged five-second source cap. All 75 current source bindings match SOURCE-COMPLETE.json. The witness registers PositionRead (Read + Added), CounterUpdate (Write), and PositionAbsent (Without), then observes empty and two-entity worlds with repeated enabled snapshots and a disabled snapshot.
+
+The representation consumes canonical registry runtime fields into the sole Fields record and retains the affine owner token needed for reconstruction. Description.bindings is called only in the enabled snapshot branch; the disabled branch retains owners/world/records without generating descriptions or observing rows. This is operational-field retention, not an eagerly cached description list. Component/resource restore reconstructs the canonical owner from those fields. Operational bodies are registered but never invoked in this consumer; run.bend is excluded and unqualified. Consequently this evidence does not establish cursor refresh after execution, arbitrary registration length, full #56 acceptance, or performance.
+
+Both stock JS and Native receipts are COMPLETE_CONSUMER_DEVELOPMENT_PASS: five commands exit zero with no failure, full 3,198-byte stdout SHA256 5f270d5f04ef1e4e6474a027d0b4b37a68c435a40ed1a495775d19a5c140893c, empty runtime stderr, and all 17 retained guards verified. Plan digests and raw stream length/hash bindings match. The independent source-derived oracle was authored before execution; the separate root INDEPENDENT-SECOND-SANITY.json supplies the model sanity review rather than treating this reviewer's own model as independently self-approved.
+
+All 35 runtime archive members decode to their exact recorded length/hash (27 objects). All 560 historical indexed-composer failed-source members likewise decode exactly (110 objects); source01 and indexed-composer01–07 failures remain historical failures, with no qualification transferred from them. No compiler, backend, or test was rerun for this review. No core contract, law, policy, or shared source change is approved by this archival verdict.
