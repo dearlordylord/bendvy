@@ -1,0 +1,25 @@
+{
+  "candidate": "queue.bend",
+  "target": "src/ecs/machine-queue.bend",
+  "candidateSHA256": "528df41f7a71386dbb69c4a92fc5a0dfa02eea084fc70e5598e71d1d4a3986a2",
+  "publicSHA256": "6c70aa7de2bda89c153b7dbb71b1db176da9ecdf83e5510f507f89a8b1268928",
+  "nonImportSHA256": "b5d88bf437f1c62d490d72882b10edc7b61d640fb9cd43b530187672c7d14289",
+  "rewires": [
+    {
+      "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M",
+      "to": "import ./machine.bend as M"
+    },
+    {
+      "from": "import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as Tx",
+      "to": "import ./transaction.bend as Tx"
+    }
+  ],
+  "consumerRewire": {
+    "source": "consumer.bend",
+    "from": "import queue.bend as Q",
+    "to": "import /workspace/formal-proofs/bendvy/src/ecs/machine-queue.bend as Q"
+  },
+  "publicSourceCheckRequiredAfterIntegration": true,
+  "rawStringOracleUnchanged": true,
+  "rootOwnsSharedSource": true
+}
