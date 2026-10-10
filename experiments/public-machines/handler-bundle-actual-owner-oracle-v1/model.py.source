@@ -1,0 +1,39 @@
+"""Pure complete source-derived actual-owner Bundle controls; no runtime inputs."""
+import json
+ls=lambda xs:'['+', '.join(xs)+']'
+quote=lambda text:json.dumps(text,ensure_ascii=False)
+NAMES=['exit','transition','enter','reader']
+def registration(i):
+    return str(i)+':'+NAMES[i-1]+':'+ls(['cells:write','owned:write','machine:write'] if i<4 else ['machine:read'])
+def app(ns,selected,missing=False,reader_active=False):
+    # Physical seeded arrays and Local owners remain unchanged by rejected markers.
+    slot='"current":null,"pending":null,"previous":null,"changed":false' if missing else '"current":"Boot","pending":"Play","previous":null,"changed":false'
+    positions='[4:0:0]' if reader_active else '[]'
+    resource=(f'owned=node(leaf:0,leaf:{selected})|slot={{'+slot+'}|pendingSkip='+('Missing' if missing else 'False')
+              +'|stream={batches=[]|positions='+positions+f'|dropped=0|frameStart=0}}|reader={ns}:4|locals='
+              +ls([f'{ns}:{i}:leaf:0' for i in [1,2,3]])+'|tick=0|prefix=[]|delivered=[]|structuralApplied=0')
+    world=(f'namespace={ns}|nextId=2|highWater=1|live=node(leaf:False,leaf:True)|capacity=2|depth=1'
+           +'|store=Column{values=leaf:some(node(leaf:0,leaf:7));stamps=[]}|resource={'+resource+'}|events=[]|pendingCount=0|registrations='
+           +ls([registration(i) for i in [4,3,2,1]])+'|nextSystemId=5|clock=0')
+    selectors=['exit:Boot','transition:Boot>Play','enter:Pause' if missing else 'enter:Play']
+    needs=['[2]','[2]','[1]'] if missing else ['[1, 2, 1]','[2]','[1]']
+    entries=ls([selectors[i-1]+':needs='+needs[i-1]+':'+ls([f'{i}:{ns}:'+registration(i)+':cursor=0']) for i in [1,2,3]])
+    return world+f'/bundle={ns}:'+entries+f'/readerRegistry={ns}:'+registration(4)+':cursor=0'
+def missing_scene(selected):
+    before=app(1,selected,True,False);after=app(1,selected,True,True)
+    mark='marker=missing:[1]/steps=[]/observations=[]:'
+    # Two explicit successful reader actions activate/finish their own cursor at tick0.
+    return '\n'.join(['snapshot:'+before,mark+before,'read:'+after,mark+after,'read:'+after,'snapshot:'+after])+'\n'
+def missing_report():
+    return ('consumer.Report{'+', '.join(quote(missing_scene(i)) for i in [1,2,3])+'}\n').encode()
+def foreign_report():
+    twin='factory=3/home='+app(1,1)+'/foreign='+app(2,1)
+    refusal='foreign-marker=foreign/steps=[]/observations=[]:'+twin
+    # No read action, Barrier, tick or dispatch exists in this five-action sequence.
+    scene='\n'.join(['snapshot:'+twin,refusal,'snapshot:'+twin,refusal,'snapshot:'+twin])+'\n'
+    return (quote(scene)+'\n').encode()
+def derive():
+    return {'missing-slot':missing_report(),'foreign-world':foreign_report()}
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(derive()[sys.argv[1]])
