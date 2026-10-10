@@ -1,0 +1,95 @@
+{
+  "scope": "Complete finite ordinary resource-only registered execution on empty/two-entity worlds normal js; aggregate Resources owner; no App debug integration/schedule/full56/performance claim",
+  "planSHA256": "1ec50aab998e8ea72e8ea8514566d9e865c35181ed95742b211e736da1515936",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-system-v1/consumer.bend",
+        "-o",
+        "/tmp/bendvy-resource-system-runtime01/normal-js/scenario.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/tmp/bendvy-resource-system-runtime01/normal-js/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-resource-system-runtime01/normal-js/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-resource-system-runtime01/normal-js/scenario.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/tmp/bendvy-resource-system-runtime01/normal-js/consumer.stdout",
+        "sha256": "e5bd4d3c96c88428603b0329be8679faf28566d1f8dc5f166c596864fb9d8fe6",
+        "bytes": 2294,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-resource-system-runtime01/normal-js/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-js/emit-pre.guard.json",
+      "sha256": "a73d3dd2684c428ea61f95f965d0b101dedec6c87aca326157863b0db6444672"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-js/emit-acquired.guard.json",
+      "sha256": "edcfd8ec5b4b2e67f58bb8c732324d6361c9f0136a4f054ae4ff71bb34a30744"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-js/emit-post.guard.json",
+      "sha256": "f829245814a43cb93be6f71b8f84dd9476a7f61f1891c5aa614825a775cf44c3"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-js/consumer-pre.guard.json",
+      "sha256": "2d4830f776dd032d1ffb5289dd7d5a24a57e649e92a4b55c60e748ad8f19a139"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-js/consumer-acquired.guard.json",
+      "sha256": "74b4c8a8449a83cdfab8ab16bf374c1c9ef20776e2e1cf31ca51ccbbb26e3738"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-js/consumer-post.guard.json",
+      "sha256": "82c7bc4f620a963659bc838cfb2fcc75cabf91c5cdb53e651a3d2ed2e0926b38"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-js/final.guard.json",
+      "sha256": "cc975d92b62a622eb97996a3f6207b55f857bf53d350baa9f9dba0bf67a9bac7"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "e6ee632aea706318dbf58f94efe22d50b2c2d380ef6e876a964b9d4595e0dffa",
+  "wholeOracleSHA256": "e5bd4d3c96c88428603b0329be8679faf28566d1f8dc5f166c596864fb9d8fe6"
+}
