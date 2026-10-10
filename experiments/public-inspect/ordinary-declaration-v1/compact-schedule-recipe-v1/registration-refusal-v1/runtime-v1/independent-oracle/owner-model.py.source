@@ -1,0 +1,24 @@
+"""Independent source-only owner-probe additions; no runtime output input."""
+from pathlib import Path
+import types,json,gzip,hashlib
+HERE=Path(__file__).resolve().parent
+base=types.ModuleType("schedule");base.__file__=str(HERE/"schedule-model.py.source")
+exec(compile((HERE/"schedule-model.py.source").read_bytes(),base.__file__,"exec"),base.__dict__)
+def owners(seeded,component_ran=False,resource_ran=False):
+    cc=int(seeded and component_ran);rc=int(seeded and resource_ran)
+    return ('owners=[1:1:PositionRead:access=[Position, Position]:cursor='+str(cc)+
+            ':slot=Update:clauses=[Position:Read, Position:Added],'+
+            '1:2:CounterUpdate:access=[Counter]:cursor='+str(rc)+':slot=Update:mode=Write]')
+def scenario(seeded):
+    lines=base.scenario(seeded).splitlines()
+    phases=[(False,False)]*3+[(False,True)]*2+[(True,True)]*4
+    assert len(lines)==len(phases)==9
+    result=[]
+    for line,(component,resource) in zip(lines,phases):
+        label,world=line.split("|world{",1)
+        result.append(label+"|"+owners(seeded,component,resource)+"|world{"+world+"\n")
+    return "".join(result)
+def report():
+    return ('consumer.Report{'+json.dumps(scenario(False))+', '+json.dumps(scenario(True))+'}\n').encode()
+if __name__=="__main__":
+    raw=report();print(len(raw),hashlib.sha256(raw).hexdigest())

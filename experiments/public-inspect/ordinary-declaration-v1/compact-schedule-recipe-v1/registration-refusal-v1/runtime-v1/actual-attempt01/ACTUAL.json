@@ -1,0 +1,248 @@
+{
+  "original": 10553,
+  "terminalExit": 0,
+  "producerCommit": "8cfdb8299",
+  "wholeBytes": 13850,
+  "wholeSHA256": "fc69355d044afcecc1e110eb05a0978c99b335aa4421d41141fa4569375b46db",
+  "receipts": {
+    "a-normal-native": {
+      "scope": "Complete ordinary registered Unit-output schedule actual registration refusal A0/2 native; finite private seam, no performance/full56 closure",
+      "planSHA256": "9274e344361cf574f69f2101a5ec01930efd0fec5901a8fd7b0f020ef09ab6cd",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/entry-a.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/scenario.c"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/scenario.c",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/build.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/build.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/consumer.stdout",
+            "sha256": "fc69355d044afcecc1e110eb05a0978c99b335aa4421d41141fa4569375b46db",
+            "bytes": 13850,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": [
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/emit-pre.guard.json",
+          "sha256": "b5f630333517b8c83a86ae8e5e07433ae1120f9f5fafcf7a84e38678bd6d3fae"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/emit-acquired.guard.json",
+          "sha256": "04ab1fbc8e05566670be08660200795d3375ffca848fc36832bec32e1c48ae8e"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/emit-post.guard.json",
+          "sha256": "49e3f8ff73531ca00f67852c24a6c280901150674a726148796e8fc91617d04a"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/build-pre.guard.json",
+          "sha256": "5825062f500edd8f7f45f49c09de32d6a80aee89b63f82f201d522f169151309"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/build-acquired.guard.json",
+          "sha256": "f0711eee7a0311d5e9534df81259bb16e584490c1c0102fe19b6ec3bf8889d60"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/build-post.guard.json",
+          "sha256": "bd2b6328bd44e81591675c694d1dda54e0d23b49df2e545a52ea73a70c68810e"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/consumer-pre.guard.json",
+          "sha256": "4c1bb20a5420a0a82b3eb274b406dab796df63610e51c00c6430f02aaba35579"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/consumer-acquired.guard.json",
+          "sha256": "ebd4a88625213cac4e52fbfedf797eae6fc898b18d273c26564681d365261355"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/consumer-post.guard.json",
+          "sha256": "1cb0e87f624af57a01e7b733b04c47fa0af91546aa8172b67a5069a14a1a4bd3"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-native/final.guard.json",
+          "sha256": "1ead0a2df7e432ebe10832382f5457596c4415db74a4d4276847d70bb4d566aa"
+        }
+      ],
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "emitArtifactSHA256": "ff64b40e4441a206c9af5368052640becf45ca7da3651eecbdee4067c92c2bb0",
+      "buildArtifactSHA256": "22ab2c5d31baa15fa6adf7ac82bfae8860520cf420083be51becdd65b78f3373",
+      "wholeOracleSHA256": "fc69355d044afcecc1e110eb05a0978c99b335aa4421d41141fa4569375b46db"
+    },
+    "a-normal-js": {
+      "scope": "Complete ordinary registered Unit-output schedule actual registration refusal A0/2 js; finite private seam, no performance/full56 closure",
+      "planSHA256": "8fbef3668317588d2566cd7d439e73cf018316bf465f366e28292e8686e4c9ea",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/entry-a.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/scenario.js"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/scenario.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/consumer.stdout",
+            "sha256": "fc69355d044afcecc1e110eb05a0978c99b335aa4421d41141fa4569375b46db",
+            "bytes": 13850,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": [
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/emit-pre.guard.json",
+          "sha256": "f19a84d5ac7958e5c57137897962ca18cf1f50f181bb3216f8b0928aa9dfa035"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/emit-acquired.guard.json",
+          "sha256": "531872ec2751102a91fba0c57d0e6184bc5967e6355e7b0e21d060be50f7acf2"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/emit-post.guard.json",
+          "sha256": "7d0329919b50dcd54901b646537a1d59b1b4782a1db83a353771b01ee31f9435"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/consumer-pre.guard.json",
+          "sha256": "a9a0c4054c2ea5ee6eaf1db645d76c8ab7c17019961013ae4c5e1f5a6b8f8bd2"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/consumer-acquired.guard.json",
+          "sha256": "48028fa49350cc6a1fa54a2d08c0f34f6b5eea940ac45fb02f64c1f1e559d02e"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/consumer-post.guard.json",
+          "sha256": "db9fdec639936b38c6d6e61f7c80904facfe44690c1f6c3d0df229dad29ee000"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/registration-refusal-v1/runtime-v1/prepared-attempt01/a-normal-js/final.guard.json",
+          "sha256": "0107f8e1cbf8c110596085e03c81c545246b39318943dd86f06ae8d6f4ffaf16"
+        }
+      ],
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "emitArtifactSHA256": "14f5072b0022383cfac33795d8e116dbfc9c7a360b676983236c89ceafc53065",
+      "wholeOracleSHA256": "fc69355d044afcecc1e110eb05a0978c99b335aa4421d41141fa4569375b46db"
+    }
+  },
+  "scope": "finite ordinary refusal A0/2 JS/Native; no full56/performance closure"
+}

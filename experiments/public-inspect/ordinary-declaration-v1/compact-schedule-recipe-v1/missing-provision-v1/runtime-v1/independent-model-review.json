@@ -1,0 +1,20 @@
+{
+  "reviewer": "root",
+  "checks": [
+    {
+      "case": "ordinary-schedule-missing-oracle-v1",
+      "sourcePins": 75,
+      "expectedBytes": 14182,
+      "sha256": "de687e912c175f3c782ca989a7661d67fe7d6bacb5db9e41a073452f19331eb2",
+      "result": "PASS"
+    },
+    {
+      "case": "ordinary-schedule-refusal-oracle-v1",
+      "sourcePins": 75,
+      "expectedBytes": 13850,
+      "sha256": "fc69355d044afcecc1e110eb05a0978c99b335aa4421d41141fa4569375b46db",
+      "result": "PASS"
+    }
+  ],
+  "scope": "Source-only independent model review; no runtime outputs consulted. Source routes for MissingProvision and actual registration refusal inspected separately; runtime qualification pending."
+}

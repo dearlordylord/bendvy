@@ -1,0 +1,38 @@
+"""Independent ordinary schedule wire model. Never reads runtime stdout."""
+from pathlib import Path
+import types,json,gzip,hashlib
+HERE=Path(__file__).resolve().parent
+base=types.ModuleType('mixed');exec(compile((HERE/'mixed-model.py.source').read_bytes(),'mixed-model.py.source','exec'),base.__dict__)
+SOURCE=Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1')
+STEPS='[Phase:Update:[], System:2:condition=1:[Resource:7], Barrier:[], System:1:condition=2:[Resource:7, Resource:7]]'
+def bindings(seeded,component_ran,resource_ran):
+ return '[1:1:PositionRead:Update:cursor='+str(int(seeded and component_ran))+':[Position, Position]:[Position:Read, Position:Added], 1:2:CounterUpdate:Update:cursor='+str(int(seeded and resource_ran))+':[Counter]:[Counter:Write]]'
+def state(seeded,value,pending):
+ w=base.world(seeded,value)
+ if pending:w=w.replace('pendingCount=0|pendingEmpty=True','pendingCount=1|pendingEmpty=False')
+ return 'world{'+w+'}'
+def snapshot(seeded,value,pending,component_ran=False,resource_ran=False,enabled=True):
+ b=bindings(seeded,component_ran,resource_ran)
+ rows='[1:1:Product(Found:42,Unit)]' if seeded else '[]'
+ label='Debug{fixtureInitialCursor=0|bindings='+b+'|rows=['+rows+', Counter='+str(value)+']}|schedule=1:Main:'+STEPS+':'+b if enabled else 'Disabled'
+ return label+'|'+state(seeded,value,pending)
+def scenario(seeded):
+ # Each condition call increments the counter, even for a skipped system.
+ # First: condition10->11, resource11->12, queuedbarrier12->112,
+ # secondcondition112->113; resourcecursor updates0/1, component stays0.
+ # Second: condition113->114 skippedresource, emptybarrier,
+ # secondcondition114->115 then component succeeds (zero or one matches).
+ lines=[snapshot(seeded,10,True),snapshot(seeded,10,True,enabled=False),snapshot(seeded,10,True),
+ 'FirstRun:Finished:[Entered:Update, Ran:2, Applied, Skipped:1]|'+state(seeded,113,False),
+ snapshot(seeded,113,False,resource_ran=True),
+ 'SecondRun:Finished:[Entered:Update, Skipped:2, Applied, Ran:1]|'+state(seeded,115,False),
+ snapshot(seeded,115,False,True,True),snapshot(seeded,115,False,True,True,False),snapshot(seeded,115,False,True,True)]
+ return ''.join(line+'\n' for line in lines)
+def report():return ('consumer.Report{'+json.dumps(scenario(False))+', '+json.dumps(scenario(True))+'}\n').encode()
+def generate():
+ raw=report();catalogue={}
+ for key,entry in [('a-normal','entry-a.bend'),('other-normal','entry-other.bend')]:
+  (HERE/(key+'.stdout')).write_bytes(raw);packed=HERE/(key+'.stdout.gz');packed.write_bytes(gzip.compress(raw,mtime=0))
+  catalogue[key]={'path':str(packed),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'entrypoint':str(SOURCE/entry)}
+ (HERE/'ORACLES.json').write_text(json.dumps(catalogue,indent=2)+'\n');return catalogue
+if __name__=='__main__':print(json.dumps(generate(),indent=2))
