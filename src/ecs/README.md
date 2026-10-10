@@ -20,6 +20,13 @@ There is no automatic retry or disposal. The [independent recovery review](../..
 records both branches, the reached control and exact public-source evidence reuse.
 Combined integration regression is pending; broader bundle acceptance remains #41.
 
+`ordinary-bundle` derives component keys from ordinary typed declarations and
+composes them into a recursive `Plan` matching the raw and cooked bundle types.
+`request` rejects duplicate component keys before construction or command
+queuing, returning the original owner and affine raw payload through the existing
+refusal result. A caller can repair the request and retry. Plans are metadata;
+they grant no World or storage access. The [independent review](../../experiments/public-bundles/owned-public-result-v1/canonical-world-v1/duplicate-admission-v1/FINAL-REVIEW.md) verifies two schemas, full refusal/retry observations and authority controls, with explicit public-source reuse of private runtime evidence. Combined integration regression and full #41 acceptance remain pending.
+
 `Feature` (`feature.bend`) composes recursively typed feature owners and builder
 callbacks using `FeatureOwner`, `recipe_empty` and `prepend`. `run_recipe`
 validates selected names, dependencies and fragment collisions before running
