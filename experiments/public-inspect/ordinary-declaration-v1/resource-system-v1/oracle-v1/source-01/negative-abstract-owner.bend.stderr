@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.World<C.A, Col.Column<C.A, Unit>, C.Counter, U32>
+- observed : recover_world~H
+Context:
+- owner : recover_world~H
+Location: recover_world
+12 | def recover_world(~H:Type,~caps:C.ops(H),owner:H) -> W.World<C.A,Col.Column<C.A,Unit>,C.Counter,U32>:
+13>|   owner
+   |   ^^^^^
+14 | 
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : output
+- observed : output (consumed more than once)
+Location: duplicate
+11 |   Other{}
+12>| def duplicate(output:C.Output) -> C.Output & C.Output:
+   |               ^^^^^^
+13 |   (output,output)
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,62 @@
+--- previous automatic-App preparation
++++ resource profile preparation
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-"""Prepare finite automatic-App plans; execute only the unchanged leaf collector."""
++"""Prepare finite resource-only registered system plans; execute only the unchanged leaf collector."""
+ import argparse
+ import gzip
+ import hashlib
+@@ -45,8 +45,8 @@
+     output.mkdir()
+     oracle_paths = {}
+     for subject, name, expected_sha in (
+-        ('normal', 'normal', 'bc1b4261fdb46bb20439688160d13d064b3f65452827f0dcbc796c396ed74e60'),
+-        ('mutant', 'filter', 'a7c06aac98e8d335e3f003f0749c1190bb6858fd0843471e4778092a021aeb56')):
++        ('normal', 'normal', 'e5bd4d3c96c88428603b0329be8679faf28566d1f8dc5f166c596864fb9d8fe6'),
++        ('mutant', 'rollback-mutant', '056d9a8333b8efee91219de33d2943868e88190f3fc015c5ceb66c16bdb184b6')):
+         raw = (HERE / 'oracle-v1' / (name + '-expected.stdout')).read_bytes()
+         if hashlib.sha256(raw).hexdigest() != expected_sha:
+             raise ValueError('Independent complete oracle changed')
+@@ -60,8 +60,8 @@
+               ROOT / 'scripts/evidence_boundary.py', HERE / 'SOURCE.json',
+               HERE / 'SOURCE-MUTANT.json', HERE / 'ORACLE-PROVENANCE.json', HERE / 'README.md']
+     extras.extend(path for path in (HERE / 'oracle-v1').rglob('*') if path.is_file())
+-    extras.extend(path for path in (HERE / 'checks/normal-source11').iterdir() if path.is_file())
+-    extras.extend(path for path in (HERE / 'checks/filter-source01').iterdir() if path.is_file())
++    extras.extend(path for path in (HERE / 'checks/consumer07').iterdir() if path.is_file())
++    extras.extend(path for path in (HERE / 'checks/mutant02').iterdir() if path.is_file())
+     extras.extend(Path(value) for value in tools.values())
+     extras.extend(oracle_paths[subject][0] for subject in oracle_paths)
+     shared_pins = {str(path.resolve(strict=True)): collector.sha(path) for path in extras}
+@@ -74,9 +74,9 @@
+         if {path: collector.sha(path) for path in inventory} != inventory:
+             raise ValueError('Frozen source inventory changed')
+         closure = collector.validate_imports(entry, inventory)
+-        check = HERE / 'checks' / ('normal-source11' if subject == 'normal' else 'filter-source01')
+-        result = json.loads((check / 'receipt.json').read_text())
+-        if result['exitCode'] != 0 or 'ALL PROOFS CHECK' not in (check / 'stdout').read_text():
++        check = HERE / 'checks' / ('consumer07' if subject == 'normal' else 'mutant02')
++        result = json.loads((check / 'terminal.json').read_text())
++        if result['exit'] != 0 or 'ALL PROOFS CHECK' not in (check / 'stdout').read_text():
+             raise ValueError('Development source prerequisite not satisfied')
+         stage = output / (subject + '-' + role)
+         stage.mkdir()
+@@ -90,7 +90,7 @@
+             commands += [{'label': 'consumer', 'argv': [tools['taskset'], '-c', '11', tools['node'], str(generated)], 'capSeconds': 5}]
+         oracle_path, raw = oracle_paths[subject]
+         baseline_path, baseline = oracle_paths['normal']
+-        plan = {'scope': 'Complete finite two-schema automatic App registration/descriptions and detached snapshots '+subject+' '+role+'; no body execution/schedule/full56/performance claim',
++        plan = {'scope': 'Complete finite ordinary resource-only registered execution on empty/two-entity worlds '+subject+' '+role+'; aggregate Resources owner; no App debug integration/schedule/full56/performance claim',
+                 'role': role, 'subject': subject, 'entrypoint': str(entry), 'stage': str(HERE),
+                 'sourceInventory': inventory, 'importClosure': closure, 'pins': inventory | shared_pins,
+                 'resourceRoots': resources, 'environment': config.environment(), 'cwd': str(HERE),
+@@ -98,7 +98,7 @@
+                 'oracleSHA256': hashlib.sha256(raw).hexdigest(), 'oracleBytes': len(raw),
+                 'normalOracle': str(baseline_path), 'normalOracleSHA256': hashlib.sha256(baseline).hexdigest(),
+                 'normalOracleBytes': len(baseline), 'generated': str(generated), 'native': str(native),
+-                'postConsumer': 'Entire independently authored stdout equality; reached Inspector control rejects entire normal baseline; empty runtime stderr',
++                'postConsumer': 'Entire independently authored stdout equality; reached rollback control rejects entire normal baseline; empty runtime stderr',
+                 'sourceEvidenceScope': 'Routine development cap5 success; no portable pre/post source acceptance claim',
+                 'executionReuse': {'collector': str(COLLECTOR), 'sha256': collector.sha(COLLECTOR), 'unchanged': True},
+                 'cpuSelection': {'cpu': 11, 'allowedAtPreparation': sorted(os.sched_getaffinity(0)), 'scope': 'Functional execution only; no resource or performance comparison'}}

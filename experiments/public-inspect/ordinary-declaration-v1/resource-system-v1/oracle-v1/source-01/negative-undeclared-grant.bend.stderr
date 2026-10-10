@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : P.Declaration<C.A, C.Counter, T.Tx<W.World<C.A, Col.Column<C.A, Unit>, C.Counter, U32>, U32>, Cap.ValueWrite<T.Tx<W.World<C.A, Col.Column<C.A, Unit>, C.Counter, U32>, U32>, C.Counter, U32>>
+- observed : Query.Clause<C.A>
+Context:
+- metadata : Query.Clause<C.A>
+Location: invented
+12 | def invented(metadata:Query.Clause<C.A>) -> Cap.ValueWrite<T.Tx<W.World<C.A,Col.Column<C.A,Unit>,C.Counter,U32>,U32>,C.Counter,U32>:
+13>|   P.grant(~C.A,~C.Counter,~T.Tx<W.World<C.A,Col.Column<C.A,Unit>,C.Counter,U32>,U32>,~Cap.ValueWrite<T.Tx<W.World<C.A,Col.Column<C.A,Unit>,C.Counter,U32>,U32>,C.Counter,U32>,metadata)
+   |                                                                                                                                                                               ^^^^^^^^
+14 | 
+bend 2.0.36 is available: run bend update

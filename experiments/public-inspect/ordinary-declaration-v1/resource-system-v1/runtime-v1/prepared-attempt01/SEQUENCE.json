@@ -1,0 +1,58 @@
+{
+  "sequence": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-js/plan.json",
+      "sha256": "1ec50aab998e8ea72e8ea8514566d9e865c35181ed95742b211e736da1515936",
+      "execute": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-resource-system-runtime01/normal-js/plan.json",
+        "1ec50aab998e8ea72e8ea8514566d9e865c35181ed95742b211e736da1515936"
+      ]
+    },
+    {
+      "role": "js",
+      "subject": "mutant",
+      "path": "/tmp/bendvy-resource-system-runtime01/mutant-js/plan.json",
+      "sha256": "77e069725d2c0353f665729c70dce7be802057cf34ce1958db5a76a91c0bb566",
+      "execute": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-resource-system-runtime01/mutant-js/plan.json",
+        "77e069725d2c0353f665729c70dce7be802057cf34ce1958db5a76a91c0bb566"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-native/plan.json",
+      "sha256": "74e678620750a2687a82c2e9f72f3ada1286d6551dc1518441dfc923513fab3c",
+      "execute": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-resource-system-runtime01/normal-native/plan.json",
+        "74e678620750a2687a82c2e9f72f3ada1286d6551dc1518441dfc923513fab3c"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "mutant",
+      "path": "/tmp/bendvy-resource-system-runtime01/mutant-native/plan.json",
+      "sha256": "1d20acd64b3c65b79a2313f544b0b9e4bd633b7f1265e5f6c8bddb113db77f9d",
+      "execute": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-resource-system-runtime01/mutant-native/plan.json",
+        "1d20acd64b3c65b79a2313f544b0b9e4bd633b7f1265e5f6c8bddb113db77f9d"
+      ]
+    }
+  ],
+  "condition": "Run once in listed order. Stop on any failed receipt; no unchanged retry. Native only after both JS whole-oracle successes.",
+  "unchangedCollector": "d6bca6f968ea52ed186a8d0890884ac054287417ce07a1a75b53a4646190d144"
+}
