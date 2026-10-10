@@ -1,0 +1,38 @@
+"""Affected full String models from frozen source86d896; no runtime inputs."""
+from pathlib import Path
+import runpy,json,gzip,hashlib
+HERE=Path(__file__).resolve().parent
+D=runpy.run_path(str(HERE.parent/'model.py.source'));B=D['B'];ls=B['ls'];quote=B['quote']
+def physical(w,worldNs=1,ownerNs=1,mismatch=False):
+ world,rest=B['observed'](w).split('/bundle=',1)
+ world=world.replace('namespace=1|','namespace='+str(worldNs)+'|').replace('|reader=1:4|','|reader='+str(worldNs)+':4|')
+ for i in (1,2,3):world=world.replace('1:'+str(i)+':leaf:',str(worldNs)+':'+str(i)+':leaf:')
+ rest=rest.replace('1:[',str(ownerNs)+':[' ,1)
+ for i in (1,2,3):rest=rest.replace(str(i)+':1:'+str(i)+':',str(i)+':'+str(ownerNs)+':'+str(i)+':')
+ rest=rest.replace('/readerRegistry=1:', '/readerRegistry='+str(ownerNs)+':')
+ if mismatch:rest=rest.replace('[1:1:1:exit:', '[101:1:1:exit:',1)
+ return world+'/bundle='+rest
+def description(w,ownerNs=1,mismatch=False):
+ text=D['description'](w).replace(':namespace=1:',':namespace='+str(ownerNs)+':')
+ for i in (1,2,3):text=text.replace(':owner=1:'+str(i)+':'+str(i)+':',':owner='+str(ownerNs)+':'+str(i)+':'+str(i)+':')
+ if mismatch:text=text.replace(':owner=1:1:1:', ':owner=1:101:1:',1)
+ return text
+def snapshot(w,flag,worldNs=1,ownerNs=1,mismatch=False,mutant=False):
+ shown=description(w,ownerNs,mismatch) if flag else 'Disabled'
+ if flag and mutant:w['cursors'][:3]=[x+1 for x in w['cursors'][:3]]
+ return 'debug='+shown+'/'+physical(w,worldNs,ownerNs,mismatch)
+def mismatched(mutant=False):
+ w=B['initial'](19);rows=[snapshot(w,f,mismatch=True,mutant=mutant) for f in (False,True,True,False)]
+ return (quote('\n'.join(rows)+'\n')+'\n').encode()
+def foreign():
+ left=B['initial'](19);right=B['initial'](19)
+ def snap(flag):return 'left='+snapshot(left,flag,2,1)+'/right='+physical(right,1,2)
+ rows=[snap(False),snap(True)]
+ # Namespace mismatch refuses before requirements, barrier/frame or dispatch.
+ rows.append('left=marker=foreign/steps=[]/observations=[]/'+physical(left,2,1)+'/right='+physical(right,1,2))
+ rows += [snap(True),snap(False)]
+ return (quote('\n'.join(rows)+'\n')+'\n').encode()
+def derive():return {'foreign':foreign(),'mismatch':mismatched(),'mutant':mismatched(True)}
+if __name__=='__main__':
+ for name,raw in derive().items():
+  (HERE/(name+'.stdout')).write_bytes(raw);(HERE/(name+'.stdout.gz')).write_bytes(gzip.compress(raw,mtime=0));print(name,len(raw),hashlib.sha256(raw).hexdigest())
