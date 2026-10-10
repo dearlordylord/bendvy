@@ -1,0 +1,108 @@
+import Base
+import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A
+import /workspace/formal-proofs/bendvy/src/ecs/relation-types.bend as G
+import state.bend as State
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M
+import /workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend as St
+import /workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend as Ev
+
+def leaf(~T:Type,result:T & String) -> Array<T> & String:
+  (value,text)=result
+  (ALeaf{value},"L(" ++ text ++ ")")
+def tree_join(~T:Type,a:Array<T>,text:String,result:Array<T> & String) -> Array<T> & String:
+  (b,other)=result
+  (ANode{a,b},"N(" ++ text ++ "," ++ other ++ ")")
+def tree_left(~T:Type,b:Array<T> & String,result:Array<T> & String) -> Array<T> & String:
+  (a,text)=result
+  tree_join(~T,a,text,b)
+def tree(~T:Type,~show:T -> T & String,owner:Array<T>) -> Array<T> & String:
+  match owner:
+    case ALeaf{value}:leaf(~T,show(value))
+    case ANode{a,b}:tree_left(~T,tree(~T,~show,b),tree(~T,~show,a))
+def u32_value(+value:U32) -> U32 & String:
+  (value,U32.show(value))
+def boolean_value(+value:Bool) -> Bool & String:
+  (value,Bool.show(value))
+def u32(value:U32) -> U32 & String:
+  u32_value(value)
+def boolean(value:Bool) -> Bool & String:
+  boolean_value(value)
+def pending(value:M.Pending<U32>) -> String:
+  match value:
+    case M.NoPending{}:"none"
+    case M.Queued{value,skip}:"next(" ++ U32.show(value) ++ "," ++ Bool.show(skip) ++ ")"
+def previous(value:Maybe<&2,A.Notice<S,U32>>) -> String:
+  match value:
+    case None{}:"none"
+    case Some{value}:U32.show(value)
+def slot(~S:Data,~K:Data,value:M.Slot<S,K,A.Notice<S,U32>>) -> String:
+  match value:
+    case M.Missing{}:"missing"
+    case M.Present{current,next,old,changed}:"slot(" ++ U32.show(current) ++ "," ++ pending(next) ++ "," ++ previous(old) ++ "," ++ Bool.show(changed) ++ ")"
+def transition(value:M.Transition<U32>) -> String:
+  match value:
+    case M.Transition{a,b}:U32.show(a) ++ ">" ++ U32.show(b)
+def batch(value:Ev.Batch<M.Transition<U32>>) -> String:
+  match value:
+    case Ev.Batch{tick,items}:Nat.show(tick) ++ ":" ++ List.show(&2,M.Transition<U32>,transition,items)
+def position(value:Ev.Position) -> String:
+  match value:
+    case Ev.Position{id,cursor,registered}:U32.show(id) ++ ":" ++ Nat.show(cursor) ++ ":" ++ Nat.show(registered)
+def stream(value:St.Stream<U32>) -> String:
+  match value:
+    case St.Stream{batches,positions,dropped,start}:"stream(" ++ List.show(&2,Ev.Batch<M.Transition<U32>>,batch,batches) ++ "," ++ List.show(&2,Ev.Position,position,positions) ++ "," ++ Nat.show(dropped) ++ "," ++ Nat.show(start) ++ ")"
+def resource_done(~S:Data,+flow:M.Slot<S,State.FlowToken,A.Notice<S,U32>>,+level:M.Slot<S,State.LevelToken,A.Notice<S,U32>>,+ran:U32,+flowStream:St.Stream<U32>,+levelStream:St.Stream<U32>,result:Array<U32> & String) -> State.Resources<S> & String:
+  match result:
+    case (owned,text):(State.Resources{owned,flow,level,ran,flowStream,levelStream},text ++ ";" ++ slot(~S,~State.FlowToken,flow) ++ ";" ++ slot(~S,~State.LevelToken,level) ++ ";ran=" ++ U32.show(ran) ++ ";" ++ stream(flowStream) ++ ";" ++ stream(levelStream))
+def resources(~S:Data,resources:State.Resources<S>) -> State.Resources<S> & String:
+  match resources:
+    case State.Resources{owned,flow,level,ran,flowStream,levelStream}:resource_done(~S,flow,level,ran,flowStream,levelStream,tree(~U32,~u32,owned))
+def component_done(~S:Data,result:Array<U32> & String) -> State.Components<S> & String:
+  (cells,text)=result
+  (State.Components{cells},text)
+def components(~S:Data,value:State.Components<S>) -> State.Components<S> & String:
+  match value:
+    case State.Components{cells}:component_done(~S,tree(~U32,~u32,cells))
+def descriptor(~S:Data,value:G.Descriptor<S>) -> String:
+  match value:
+    case G.Descriptor{key,name,inverseName,_}:U32.show(key) ++ ":" ++ name ++ ":" ++ inverseName
+def edge(~S:Data,value:G.Edge<S>) -> String:
+  match value:
+    case G.Edge{relation,source,target}:descriptor(~S,relation) ++ ":" ++ U32.show(source) ++ ">" ++ U32.show(target)
+def inverse(~S:Data,value:G.Inverse<S>) -> String:
+  match value:
+    case G.Inverse{relation,target,sources}:descriptor(~S,relation) ++ ":" ++ U32.show(target) ++ ":" ++ List.show(&2,U32,U32.show,sources)
+def graph(~S:Data,value:G.Graph<S>) -> String:
+  match value:
+    case G.Graph{edges,inverses}:List.show(&2,G.Edge<S>,edge(~S),edges) ++ ";" ++ List.show(&2,G.Inverse<S>,inverse(~S),inverses)
+def store_done(~S:Data,+relations:G.Graph<S>,observed:State.Components<S> & String) -> A.Store<S,State.Components<S>> & String:
+  (components,text)=observed
+  (A.Store{components,relations},text ++ ";graph=" ++ graph(~S,relations))
+def store(~S:Data,value:A.Store<S,State.Components<S>>) -> A.Store<S,State.Components<S>> & String:
+  match value:
+    case A.Store{owner,relations}:store_done(~S,relations,components(~S,owner))
+def registration(value:W.RegistrationMeta) -> String:
+  match value:
+    case W.RegistrationMeta{id,name,access}:U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,x => x,access)
+def notice(~S:Data,value:A.Notice<S,U32>) -> String:
+  match value:
+    case A.Original{value}:"user:" ++ U32.show(value)
+    case _:"relation-failure"
+def finished(~S:Data,+ns:U32,+next:U32,+high:U32,+capacity:U32,+depth:Nat,store:A.Store<S,State.Components<S>>,resources:State.Resources<S>,+events:List<&2,A.Notice<S,U32>>,commands:List<(W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>> -> W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>>)>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:U32,pendingCount:U32,resourceText:String,storeText:String,result:Array<Bool> & String) -> W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>> & String:
+  (live,text)=result
+  (W.World{ns,next,high,live,capacity,depth,store,resources,events,commands,registrations,nextSystem,clock},"world(" ++ U32.show(ns) ++ "," ++ U32.show(next) ++ "," ++ U32.show(high) ++ "," ++ text ++ "," ++ U32.show(capacity) ++ "," ++ Nat.show(depth) ++ "," ++ storeText ++ "," ++ resourceText ++ ",events=" ++ List.show(&2,A.Notice<S,U32>,notice(~S),events) ++ ",pending=" ++ U32.show(pendingCount) ++ ",regs=" ++ List.show(&2,W.RegistrationMeta,registration,registrations) ++ ",nextSystem=" ++ U32.show(nextSystem) ++ ",clock=" ++ U32.show(clock) ++ ")")
+def live(~S:Data,pendingCount:U32,resourceText:String,storeText:String,world:W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>>) -> W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>> & String:
+  match world:
+    case W.World{ns,next,high,live,capacity,depth,store,resources,events,commands,registrations,nextSystem,clock}:finished(~S,ns,next,high,capacity,depth,store,resources,events,commands,registrations,nextSystem,clock,pendingCount,resourceText,storeText,tree(~Bool,~boolean,live))
+def stored(~S:Data,pendingCount:U32,resourceText:String,result:W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>> & String) -> W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>> & String:
+  (world,storeText)=result
+  live(~S,pendingCount,resourceText,storeText,world)
+def resourced(~S:Data,pendingCount:U32,result:W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>> & String) -> W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>> & String:
+  (world,text)=result
+  stored(~S,pendingCount,text,W.with_store(~S,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,~String,store(~S),world))
+def counted(~S:Data,result:W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>> & U32) -> W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>> & String:
+  (world,count)=result
+  resourced(~S,count,W.observe_resource(~S,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,~String,~resources(~S),world))
+def world(~S:Data,world:W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>>) -> W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>> & String:
+  counted(~S,W.pending_count(~S,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,world))

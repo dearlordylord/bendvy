@@ -1,0 +1,13 @@
+# Public graph/machine bridge draft — source gate unmet
+
+This private candidate starts from master `35d579156b47a94521fc281419625adb0bb84957`. It reuses the existing inspector-extension study's relation matcher and typed machine projection against current canonical imports; it does not adopt the study's duplicate query engine or copied historical core. Root owns public core integration.
+
+`machine-declaration.bend` retains a nominal machine token and operational slot lens, and derives committed-current Inspector and cursor-free Check grants from that one declaration. Actual slot availability supplies ordered Check preflight. Names convey no authority. `relation-projection.bend` and `relation-condition.bend` use the same ordinary `relation-query.Spec` and current composed-query grant with World namespace/liveness validation. Arbitrary Store and resource owners remain `Type`.
+
+The concrete consumer retains two nominal schemas, three live entities, ordinary/hierarchy edges and distinct inverse ordering, two machine slots with pending/previous/changed state, affine arrays, retained transition batches and reader position, a pending clock-changing command, World registrations and clock, repeated detached cursor-19 observations, and actual `Check.run`. Retained stream state tests intended noninterference; this is not an authorized stream-reader projection. The first fixture selects a Unit component projection; actual non-Unit ordinary component-family interoperability remains to be qualified.
+
+Source01 checks the combined nominal entry. Source02 separates closed entry roots over the identical generic consumer. Both actual five-second source checks reached a child deadline with empty stdout/stderr and unchanged guards (original handles 42559 and 70293). Source02 Garden remains held. Exact captures are content-addressed in `source-evidence-v1`; both failures are preserved. These results do not identify a parser/type failure, compiler phase, performance cause, or technical impossibility.
+
+No backend, authority control, reached semantic mutant, independent oracle, registered System gate, mathematical verdict/proof, public adoption, or full #55 acceptance is claimed. The draft formatter covers the fixture's original event but does not yet serialize every Notice alternative or descriptor kind; complete output coverage must be repaired and independently modeled before runtime qualification. The stream-reader visibility/retention contract has not been selected here. The next action is source-backed diagnosis of the pinned checker and actual 36-module closures, before another source change or check.
+
+Configured commit checks cover staged source/admission/whitespace policy. They do not replace either unmet Bend source gate.
