@@ -1,0 +1,1 @@
+Fixture-only nongeneric error and detached String envelopes. Full47 unchanged except format lookup/single/optional block; literal inverse DELTA. Full5077477 oracle preserved. No Native cost or full54 claim. Preparation first pass stopped before any child because README pin was not yet materialized.

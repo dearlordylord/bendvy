@@ -1,0 +1,46 @@
+from pathlib import Path
+import json,hashlib,shutil
+wt=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1'); base=wt/'experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-runtime-boundary-study-v1'; parent=base/'rendering-dag-v1'; out=wt/'experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/format-envelope-v1';out.mkdir(exist_ok=True);shutil.copytree(parent/'stage',out/'stage',dirs_exist_ok=True)
+f=out/'stage/format.bend';text=f.read_text();start=text.index('def lookup(');end=text.index('def get(',start);old=text[start:end]
+# Reuse the exact parent error expressions, moving only their type-independent dispatch.
+lookup=old[old.index('    case Fail{Errors.MissingEntity'):old.index('def single(')]
+single=old[old.index('    case Fail{Errors.NoEntities'):old.index('def single_optional(')]
+lookup=lookup.replace('case Fail{Errors.MissingEntity{id}}:','case Errors.MissingEntity{id}:').replace('case Fail{Errors.QueryMismatch{id}}:','case Errors.QueryMismatch{id}:')
+single=single.replace('case Fail{Errors.NoEntities{}}:','case Errors.NoEntities{}:').replace('case Fail{Errors.MultipleEntities{count}}:','case Errors.MultipleEntities{count}:')
+found=old.split('case Done{value}:',1)[1].split('\n',1)[0].replace('row(~S,~V,~format,value)','value')
+none=old.split('case Done{None{}}:',1)[1].split('\n',1)[0]
+new='def lookup_failure(value:Errors.LookupError) -> String:\n  match value:\n'+lookup+'def single_failure(value:Errors.SingleError) -> String:\n  match value:\n'+single+'def rendered_found(value:String) -> String:\n  '+found+'\ndef rendered_none() -> String:\n  '+none+'\n'
+new+='''def lookup(~S:Data,~V:Data,~format:V -> String,value:Result<&2,&2,Errors.LookupError,Q.ProjectedRow<S,V>>) -> String:
+  match value:
+    case Done{value}:rendered_found(row(~S,~V,~format,value))
+    case Fail{error}:lookup_failure(error)
+def single(~S:Data,~V:Data,~format:V -> String,value:Result<&2,&2,Errors.SingleError,Q.ProjectedRow<S,V>>) -> String:
+  match value:
+    case Done{value}:rendered_found(row(~S,~V,~format,value))
+    case Fail{error}:single_failure(error)
+def single_optional(~S:Data,~V:Data,~format:V -> String,value:Result<&2,&2,Errors.SingleError,Maybe<&2,Q.ProjectedRow<S,V>>>) -> String:
+  match value:
+    case Done{None{}}:rendered_none()
+    case Done{Some{value}}:rendered_found(row(~S,~V,~format,value))
+    case Fail{error}:single_failure(error)
+'''
+f.write_text(text[:start]+new+text[end:]);assert f.read_text().replace(new,old)==text
+sha=lambda b:hashlib.sha256(b).hexdigest(); joins=[]
+for p in sorted((parent/'stage').rglob('*.bend')):
+ q=out/'stage'/p.relative_to(parent/'stage');joins.append({'path':str(p.relative_to(parent/'stage')),'parentSHA256':sha(p.read_bytes()),'candidateSHA256':sha(q.read_bytes()),'equal':p.read_bytes()==q.read_bytes()})
+assert len(joins)==47 and sum(not x['equal'] for x in joins)==1
+(out/'DELTA.json').write_text(json.dumps({'parent':str(parent),'old':old,'new':new,'inverseExact':True,'joins':joins},indent=2)+'\n')
+(out/'README.md').write_text('Fixture-only nongeneric error and detached String envelopes. Full47 unchanged except format lookup/single/optional block; literal inverse DELTA. Full5077477 oracle preserved. No Native cost or full54 claim. Preparation first pass stopped before any child because README pin was not yet materialized.\n')
+plans=[]
+for name,role in [('source-plan.json','source'),('normal-js-plan.json','js'),('normal-native-plan.json','native')]:
+ j=json.loads((parent/name).read_text());temp=Path('/tmp/bendvy54-format-envelope-'+role+'01');temp.mkdir(exist_ok=True);oldtemp=str(Path(j['generated']).parent)
+ def repl(v):
+  if isinstance(v,str):return v.replace(str(parent),str(out)).replace(oldtemp,str(temp))
+  if isinstance(v,list):return [repl(x) for x in v]
+  if isinstance(v,dict):return {repl(k):repl(x) for k,x in v.items()}
+  return v
+ j=repl(j);j['scope']='Full47 fixture-only typed error and detached String envelope factoring; unchanged whole oracle, no compiler or cost qualification'
+ for key in ['sourceInventory','pins']:
+  for p in j[key]:j[key][p]=sha(Path(p).read_bytes())
+ b=(json.dumps(j,indent=2)+'\n').encode();(out/name).write_bytes(b);(temp/'plan.json').write_bytes(b);plans.append({'role':role,'path':str(temp/'plan.json'),'sha256':sha(b)})
+(out/'SEQUENCE.json').write_text(json.dumps(plans,indent=2)+'\n');shutil.copyfile('/tmp/prepare-format-envelope.py',out/'prepare.py.source');print(json.dumps(plans))
