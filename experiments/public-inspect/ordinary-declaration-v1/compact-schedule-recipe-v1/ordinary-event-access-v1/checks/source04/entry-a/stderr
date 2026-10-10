@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+207 | def snapshot(host:Host,label:String) -> Host & String:
+208>|   match debug(host,False{}):
+    |         ^^^^^^^^^^^^^^^^^^^
+209 |     case (host,text):repeated_first(label,text,debug(host,True{}))
+bend 2.0.36 is available: run bend update
