@@ -1,0 +1,26 @@
+--- app.bend
++++ app-filter-mutant.bend
+@@ -1,4 +1,5 @@
+ import Base
++import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as P
+ import ./presentation.bend as D
+ import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+ import /workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend as System
+@@ -37,9 +38,16 @@
+ def appended(~S:Data,~C:Type,~R:Type,~E:Data,~Rows:Data,~V:Data,~render:V -> String,previous:Rows,summaries:List<&2,String>,result:W.World<S,C,R,E> & List<&2,IQ.ProjectedRow<S,V>>) -> W.World<S,C,R,E> & Observation<Product<Rows,List<&2,IQ.ProjectedRow<S,V>>>>:
+   match result:
+     case (world,+rows):(world,Observation{Product{previous,rows},List.append(&2,String,summaries,[List.show(&2,IQ.ProjectedRow<S,V>,render_row(~S,~V,~render),rows)])})
++# Reached compiling control: constrain only the actual Inspector lowering.
++# Operational runner and Registry/description metadata retain the original query.
++def only_second(~H:Type,~S:Data,owner:H,target:W.Handle<S>) -> H & Bool:
++  match target:
++    case W.Handle{_,id}:(owner,U32.is_eq(id,2))
++def filtered_query(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>) -> O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>:
++  O.Declaration{O.operational(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query),P.constrain(~I.Frame<S,C,R,E>,~S,~V,~O.inspection(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query),~P.Predicate{only_second(~I.Frame<S,C,R,E>,~S)})}
+ def append_previous(~S:Data,~C:Type,~R:Type,~E:Data,~Rows:Data,~Ops:Type -> Type,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~render:V -> String,result:W.World<S,C,R,E> & Observation<Rows>) -> W.World<S,C,R,E> & Observation<Product<Rows,List<&2,IQ.ProjectedRow<S,V>>>>:
+   match result:
+-    case (world,Observation{previous,summaries}):appended(~S,~C,~R,~E,~Rows,~V,~render,previous,summaries,lowered(~S,~C,~R,~E,~V,IQ.each_composed(~I.Frame<S,C,R,E>,~S,~V,~O.inspect_query(~S,~C,~R,~E,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~V,~query),I.Frame{world,0})))
++    case (world,Observation{previous,summaries}):appended(~S,~C,~R,~E,~Rows,~V,~render,previous,summaries,lowered(~S,~C,~R,~E,~V,IQ.each_composed(~I.Frame<S,C,R,E>,~S,~V,~O.inspect_query(~S,~C,~R,~E,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~V,~filtered_query(~S,~C,~R,~E,~Ops,~V,~query)),I.Frame{world,0})))
+ def append_fold(~S:Data,~C:Type,~R:Type,~E:Data,~Rows:Data,~fold:W.World<S,C,R,E> -> W.World<S,C,R,E> & Observation<Rows>,~Ops:Type -> Type,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~render:V -> String,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & Observation<Product<Rows,List<&2,IQ.ProjectedRow<S,V>>>>:
+   append_previous(~S,~C,~R,~E,~Rows,~Ops,~V,~query,~render,fold(world))
+ # Metadata is read only on demand from actual Registry owners, never mirrored
