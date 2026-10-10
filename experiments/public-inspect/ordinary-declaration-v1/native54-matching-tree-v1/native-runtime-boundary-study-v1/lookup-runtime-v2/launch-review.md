@@ -1,0 +1,9 @@
+# Independent launch review — lookup-runtime-v2
+
+Conditional PASS for preparation8032d5e63, SEQUENCE SHA-256 `0888f750cd698343a15240a49d8e75ac0ca3efeaffc3c81575b411608fd377b0` and its exact three bound plans.
+
+Verified all47 parent/candidate source joins and the literal inverse: only inspector-query.bend changes. Two new helpers each match their observed parameter at the head; the target constructs fresh affine runtime continuations. Invalid stops before membership; mismatch stops before projection; success projects once. Every returned H is passed to the next operation once. Compatibility helpers, public types/capabilities, constructor/printer paths, recursive scans, consumer continuations and all scenario bodies remain unchanged. This removes selection from the two helper telescopes but does not establish a compiler cost cause or a successful Native emission.
+
+Verified exact original/saved plan bytes, all120/162/174 pins, source inventories, complete existing resource-root membership and hashes, installed tools/environment, fresh absent outputs and source5 / JS30+5 / Native30+120+5 command sequence. Full reused independent oracle has5077477 bytes and SHA-256 `810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2`; relative constructor names and complete observed semantic work remain applicable. The unchanged reviewed collector retains internal per-command locking; no outer same-file lock is allowed.
+
+Execution may proceed once source passes, followed by complete JS equality and guards, then Native. Queue coordination and fresh source/resource guards remain required. Stop on the first refusal/deadline/output/guard failure; preserve the attempt, no unchanged retry or cap extension. Reader/authority controls and full54 acceptance remain separate unmet gates. The rejected computed-match predecessor stays preserved unlaunched. No backend child was launched by this review.

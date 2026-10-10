@@ -1,0 +1,111 @@
+{
+  "cases": [
+    {
+      "role": "source",
+      "originalSession": 59903,
+      "planSHA256": "412ad5c6175d1b4c7173ac8c43663a9ea796a51ad8a2eb1f45a5e4b8493023ad",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "commands": [
+        {
+          "label": "source-normal",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 5,
+          "stdout": {
+            "path": "/tmp/bendvy54-lookup-runtime-source01/source-normal.stdout",
+            "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+            "bytes": 58,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy54-lookup-runtime-source01/source-normal.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": 4
+    },
+    {
+      "role": "js",
+      "originalSession": 93828,
+      "planSHA256": "ebc2135a7a693c129cb3445f3a4abd667b22cf7299cc1ccd4683267addfdc5bc",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 30,
+          "stdout": {
+            "path": "/tmp/bendvy54-lookup-runtime-js01/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy54-lookup-runtime-js01/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 5,
+          "stdout": {
+            "path": "/tmp/bendvy54-lookup-runtime-js01/consumer.stdout",
+            "sha256": "810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2",
+            "bytes": 5077477,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy54-lookup-runtime-js01/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": 7
+    },
+    {
+      "role": "native",
+      "originalSession": 71354,
+      "planSHA256": "9e0122586d01541215fd4d08a0a2d17ba64c1e3228e6ad163ca47167e4f72c1b",
+      "status": "INCOMPLETE",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": null,
+          "failure": "child deadline",
+          "capSeconds": 30,
+          "stdout": {
+            "path": "/tmp/bendvy54-lookup-runtime-native01/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy54-lookup-runtime-native01/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": 4
+    }
+  ],
+  "sourceModules": 47,
+  "wholeOracleBytes": 5077477,
+  "wholeOracleSHA256": "810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2",
+  "members": 558,
+  "objects": 468,
+  "authorityControls": "CURRENT_SUCCESSOR_UNEXECUTED",
+  "readerControl": "CURRENT_SUCCESSOR_UNEXECUTED",
+  "scope": "Legal runtime lookup continuations removing two static-selection helper applications; source and fullJS development PASS, stockNative emission INCOMPLETE. No cost/cause/full54/publicpromotion/performance claim."
+}
