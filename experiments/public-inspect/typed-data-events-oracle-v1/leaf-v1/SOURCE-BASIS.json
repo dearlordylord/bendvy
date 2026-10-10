@@ -1,0 +1,33 @@
+{
+  "scope": "Source-derived existing single-stream leaf primitives only; consumer sequence, serializer, affine physical owners and cross-stream orchestration remain unbound.",
+  "sourcePins": {
+    "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "/workspace/formal-proofs/bendvy/docs/parity/typed-data-events.md": "b1985b1443a996632c3e8951a44c2ba7864bbb1ba8d28edf3267680dcaac2d6e",
+    "/workspace/formal-proofs/bendvy/docs/reviews/typed-data-events-spec.md": "5236819c2c638e06bdf951fbeadfeac3312655f649f090be414289a150f525fa"
+  },
+  "sourceCommit": "bd0e3806e242780b20ef5679d8529d69b33cd1f5",
+  "sourceSymbols": {
+    "registration": "event-runtime.registered_identity/registered_result: lazy position activation",
+    "readCompletion": "event-runtime.run_position/run_registered_result/run_outcome",
+    "retention": "event-runtime.frame/trim/past_window/at_capacity",
+    "lag": "event-runtime.reading",
+    "publicationObservation": "event-runtime.sync_values/with_world",
+    "skip": "event-runtime.skip_checked"
+  },
+  "authority": "Existing accepted Bend per-stream semantics; not candidate implementation, backend evidence or #71 acceptance.",
+  "limits": [
+    "No multi-stream transaction dispatcher or shared World representation assumed.",
+    "Registration supplied actual Registry.id; model does not allocate System registries.",
+    "Caller supplies committed post-transaction log; failed staged publication is not fabricated.",
+    "No claim of affine ownership proof from immutable Python Data views.",
+    "No cross-type total order or duplicate-domain policy."
+  ],
+  "checks": {
+    "command": "python3 check.py.source",
+    "exit": 0,
+    "scope": "Minimal Python model sanity checks, no runtime/compiler execution"
+  },
+  "dependencies": "Python standard library only; check imports adjacent model through runpy."
+}

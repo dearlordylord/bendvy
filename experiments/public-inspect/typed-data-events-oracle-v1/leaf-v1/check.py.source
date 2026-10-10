@@ -1,0 +1,38 @@
+"""Small model sanity checks; no compiler, consumer or backend evidence."""
+import runpy
+from pathlib import Path
+from dataclasses import replace
+m = runpy.run_path(str(Path(__file__).with_name('model.py.source')))
+Leaf, Batch, Position, Reader = (m[k] for k in ('Leaf','Batch','Position','Reader'))
+s, a = Leaf(1, 3).register(7)
+s, b = s.register(9)
+assert (a.id, a.registry_id, b.id, b.registry_id) == (1,7,2,9)
+assert s.positions == () and s.tick == 0
+assert s.register(11, False) == (s, None)
+s = s.with_world_return(('a','b'))
+assert s.reading(a.id).values == ('a','b')
+f = s.complete(a, 7, 'failed')
+assert f.tick == 2 and f.position(a.id) == Position(1,0,1)
+assert f.reading(a.id).values == ('a','b')
+g = f.complete(a, 7, 'succeeded')
+assert g.position(a.id) == Position(1,3,1) and g.reading(a.id).values == ()
+assert g.reading(b.id).values == ('a','b')
+assert s.complete(a, 99, 'succeeded') is s
+r = s.complete(a, 7, 'registration_rejected')
+assert r.tick == 2 and r.positions == ()
+assert s.skip(b).positions == ()
+# Whole-batch overflow may leave fewer values than capacity, never partial batch.
+c = replace(s, batches=(Batch(1,('a','b')),Batch(2,('c','d'))), tick=2)
+c = c.frame()
+assert c.batches == (Batch(2,('c','d')),) and c.dropped_through == 1
+assert replace(c, positions=(Position(1,0,0),)).reading(1).lagged
+assert not replace(c, positions=(Position(1,0,1),)).reading(1).lagged
+# Two successive frame boundaries expire old batches absent activated readers.
+w = Leaf(1,9).with_world_return(('a',)).frame().frame()
+assert w.log == () and w.dropped_through == 1
+# Inactive-world log is a detached input; frame does not manufacture a batch.
+assert Leaf(1,3,log=(77,)).frame().log == ()
+# Independent leaves neither share cursor state nor impose cross-type order.
+other = Leaf(1,3).with_world_return((('other',1),))
+assert other.positions == () and other.reading(1).values == (('other',1),)
+print('PASS: registration, completion paths, independent cursors, lag, window, whole-batch capacity, unsynchronized log')

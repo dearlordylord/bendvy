@@ -1,0 +1,123 @@
+"""Independent Data-only leaf model of src/ecs/event-runtime.bend.
+
+No World/affine owner is duplicated here: log is the caller's detached Data view.
+No consumer sequence, cross-stream order, transaction dispatcher or serializer is
+bound. Source ranges refer to the SOURCE-BASIS.json hashed source.
+"""
+from dataclasses import dataclass, replace
+from typing import Any
+
+@dataclass(frozen=True)
+class Batch:
+    tick: int
+    values: tuple[Any, ...]
+
+@dataclass(frozen=True)
+class Position:
+    id: int
+    cursor: int
+    registered_at: int
+
+@dataclass(frozen=True)
+class Reader:
+    namespace: int
+    id: int
+    registry_id: int
+
+@dataclass(frozen=True)
+class Reading:
+    values: tuple[Any, ...]
+    lagged: bool
+
+@dataclass(frozen=True)
+class Leaf:
+    namespace: int
+    capacity: int
+    log: tuple[Any, ...] = ()
+    batches: tuple[Batch, ...] = ()
+    positions: tuple[Position, ...] = ()
+    next_reader: int = 1
+    tick: int = 0
+    frame_start: int = 0
+    boundary: int = 0
+    dropped_through: int = 0
+
+    def register(self, registry_id: int, succeeded: bool = True):
+        """175–182: reserve Reader identity only; no activated position."""
+        if not succeeded:
+            return self, None
+        return replace(self, next_reader=(self.next_reader + 1) % 2**32), Reader(
+            self.namespace, self.next_reader, registry_id)
+
+    def position(self, reader_id: int):
+        """114–130: first matching position, including malformed duplicates."""
+        return next((p for p in self.positions if p.id == reader_id), None)
+
+    def update(self, reader_id: int, cursor: int, dispose: bool = False):
+        """102–111: update/remove all matches; absent positions stay absent."""
+        return replace(self, positions=tuple(
+            replace(p, cursor=cursor) if p.id == reader_id else p
+            for p in self.positions if not (dispose and p.id == reader_id)))
+
+    def activate(self, reader_id: int, registered_at: int):
+        """185–191: prepend only on first attempted completed invocation."""
+        if self.position(reader_id) is not None:
+            return self
+        return replace(self, positions=(Position(reader_id, 0, registered_at),) + self.positions)
+
+    def reading(self, reader_id: int):
+        """132–146,210–213: absent reader uses current tick as registration floor."""
+        p = self.position(reader_id) or Position(reader_id, 0, self.tick)
+        return Reading(tuple(v for b in self.batches if b.tick > p.cursor
+                             for v in b.values),
+                       self.dropped_through > max(p.cursor, p.registered_at))
+
+    def sync(self, log):
+        """152–155: append only the suffix past retained size; do not trim."""
+        log = tuple(log)
+        suffix = log[sum(len(b.values) for b in self.batches):]
+        batches = self.batches + ((Batch(self.tick, suffix),) if suffix else ())
+        return replace(self, log=log, batches=batches)
+
+    def with_world_return(self, log):
+        """158–161: wrapper advances once, then synchronizes returned log."""
+        return replace(self, tick=self.tick + 1).sync(log)
+
+    def complete(self, reader: Reader, actual_registry_id: int, outcome: str, log=None):
+        """193–229: identity rejection versus registered rejection versus completion.
+
+        Caller supplies actual post-transaction log, never speculative staged values.
+        'failed' preserves returned physical log but neither syncs nor advances cursor.
+        'registration_rejected' represents Sy.run refusal after the tick increment.
+        Args/Out/Registry/World owner threading is deliberately outside this leaf.
+        """
+        if reader.namespace != self.namespace or reader.registry_id != actual_registry_id:
+            return self
+        if outcome not in ('succeeded', 'failed', 'registration_rejected'):
+            raise ValueError(outcome)
+        advanced = replace(self, tick=self.tick + 1,
+                           log=self.log if log is None else tuple(log))
+        if outcome == 'registration_rejected':
+            return advanced
+        active = advanced.activate(reader.id, self.tick)
+        if outcome == 'failed':
+            return active
+        return active.update(reader.id, advanced.tick).sync(advanced.log)
+
+    def skip(self, reader: Reader):
+        """241–247: namespace-valid existing position only; no tick increment."""
+        return self.update(reader.id, self.tick) if reader.namespace == self.namespace else self
+
+    def frame(self):
+        """48–91: window then whole-batch capacity; rewrite log from survivors."""
+        boundary = self.frame_start
+        held = min((boundary,) + tuple(p.cursor for p in self.positions))
+        batches = list(self.batches)
+        dropped = self.dropped_through
+        while batches and batches[0].tick <= held:
+            dropped = max(dropped, batches.pop(0).tick)
+        while batches and sum(len(b.values) for b in batches) > self.capacity:
+            dropped = max(dropped, batches.pop(0).tick)
+        return replace(self, frame_start=self.tick, boundary=boundary,
+                       batches=tuple(batches), dropped_through=dropped,
+                       log=tuple(v for b in batches for v in b.values))
