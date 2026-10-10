@@ -1,0 +1,30 @@
+"""Complete source-derived ordinary handler App model; no runtime input."""
+from pathlib import Path
+import runpy,json,copy,gzip,hashlib
+HERE=Path(__file__).resolve().parent
+B=runpy.run_path(str(HERE/'retained-bundle-model.py.source'))
+ls=B['ls'];quote=B['quote'];STEPS=B['STEPS']
+def description(w):
+ selectors=['exit:Boot','transition:Boot>Play','enter:Play'];needs=['[1, 2, 1]','[2]','[1]'];items=[]
+ for i in range(3):
+  # Entry ordinal and Registry id are read independently; equal only in fixture.
+  entryId=i+1;registryId=i+1
+  items.append(selectors[i]+':needs='+needs[i]+':owner=1:'+str(entryId)+':'+str(registryId)+':'+B['NAMES'][i]+':'+ls(B['ACCESS'])+':cursor='+str(w['cursors'][i]))
+ return 'handler-bundle-global-marker:namespace=1:steps='+ls(STEPS)+':entries='+ls(items)
+def snapshot(w,enabled):
+ return 'debug='+(description(w) if enabled else 'Disabled')+'/'+B['observed'](w)
+def marker(w):
+ # Consumer ordinary_ran uses slash, unlike old returned label's colon.
+ text=B['marker'](w);pos=text.index(':namespace=');return text[:pos]+'/'+text[pos+1:]
+def scenario(selected):
+ w=B['initial'](selected)
+ rows=[snapshot(w,False),snapshot(w,True),snapshot(w,True),marker(w),snapshot(w,False),snapshot(w,True),B['reader'](w)]
+ if selected==3:w['pending']='Play'
+ rows += [marker(w),snapshot(w,True),B['reader'](w),snapshot(w,False)]
+ assert len(rows)==11
+ return '\n'.join(rows)+'\n',copy.deepcopy(w)
+def derive():
+ scenes=[scenario(i) for i in (1,2,3)]
+ return ('consumer.Report{'+', '.join(quote(x[0]) for x in scenes)+'}\n').encode(),dict(zip(['exit','transition','enter'],[x[1] for x in scenes]))
+if __name__=='__main__':
+ raw,states=derive();(HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0));(HERE/'STATES.json').write_text(json.dumps(states,indent=2)+'\n');print(len(raw),hashlib.sha256(raw).hexdigest())

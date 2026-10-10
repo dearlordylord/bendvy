@@ -1,0 +1,9 @@
+# Ordinary handler App independent complete oracle
+
+Frozen source 50037c4dc, selected stock source04 successful capture. Derives three complete exit/transition/enter first-failure and retry scenes with eleven actions each: disabled, enabled, repeated enabled, marker, disabled, enabled, actual reader, retry, enabled, actual reader, disabled. No producer/backend stdout is read.
+
+The retained source-only Bundle state interpreter is copied unchanged. Six fixture/system/physical observer source hashes join the earlier independent model exactly. Current public Operation.run and phase implementation preserve selected preflight, authored recovery order, Local-before-transaction behavior, rollback, queued command barrier, transition publication and reader finish semantics. New model adds the actual library snapshot Description and full metadata without normalizing Entry.ordinal into Registry.id. They happen to coincide in this fixture but are independent source fields.
+
+The consumer's debug_entry/debug_view are test serialization of the returned typed Description. They are not callback parameters or user projectors passed to bind/snapshot. App.snapshot derives metadata internally. This does not close broader presentation/#56 gaps. Complete physical World arrays, Column stamps, Local owners, Bundle selectors/requirements/registries, reader Registry/cursors, transition stream batches/positions, resource owners, clocks and pending callbacks remain visible.
+
+ORACLES.json normal selects the full 43,679-byte pure-main Data Report. Printer grammar is installed Bend show_val: consumer.Report, comma-space field separators, escaped quoted Strings, external newline. Source basis pins all current capture inputs and Base/installed ELF. Source only; no backend acceptance or universal/generic owner proof. Public relocation changes defining consumer QName and requires a separate exact whole output, not byte equality with this private constructor.
