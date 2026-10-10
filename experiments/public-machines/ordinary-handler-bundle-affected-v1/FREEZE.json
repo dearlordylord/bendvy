@@ -1,0 +1,207 @@
+{
+  "genericProducer": "5ece336bd",
+  "cases": {
+    "normal": {
+      "result": {
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "11",
+          "/home/node/.bend/bin/bend-2.0.35",
+          "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/ordinary-handler-bundle-affected-v1/entry-b.bend",
+          "--check-only"
+        ],
+        "capSeconds": 5,
+        "status": "CAPTURED_SOURCE_RESULT",
+        "raw": {
+          "stdout": {
+            "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+            "bytes": 58
+          },
+          "stderr": {
+            "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494",
+            "bytes": 42
+          }
+        },
+        "exit": 0,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+      },
+      "closure": {
+        "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/ordinary-handler-bundle-affected-v1/entry-b.bend",
+        "sourceInventory": {
+          "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/ordinary-handler-bundle-affected-v1/entry-b.bend": "35dff412a76af43a793e44431ff1373290925fef156d671861a82f80c728a020",
+          "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/ordinary-handler-bundle-affected-v1/consumer.bend": "e5c59e956a001bfad5e18517f1aecb73f370ab0efa5bdfbf5509b55e79e14ef2",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/bridge.bend": "885584e5248a390d4828fea8e679b3f7fd5b86174691dfcf4e3badd84add284a",
+          "/workspace/formal-proofs/bendvy/experiments/public-handlers/remaining-core-v1/types.bend": "75af6669a194c9129ce9ceb1adfa42a1b7b350838884fe11dea8ab64eee7b024",
+          "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+          "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+          "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+          "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+          "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+          "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+          "/workspace/formal-proofs/bendvy/src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+          "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine.bend": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+          "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+          "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+          "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+          "/workspace/formal-proofs/bendvy/experiments/public-handlers/remaining-core-v1/world.bend": "abc816ec9a09508f55f993501ce89af069b6f42a6e7f8784946116e7c06b3abe",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-world.bend": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/systems.bend": "8c9c09e38bf725659bdfb41b015929bdd259deef250a43b980dcc888db0ca89b",
+          "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+          "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-handlers.bend": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+          "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+          "/workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-schedule.bend": "2fce580736002319e902316dd98e47d4466140c86ef3add43b146b0077efd8bd",
+          "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/adapter.bend": "483db07866ea44517d552ae70d0c7db294bc0adc77ffd9dbf05cb2b08bbc7fa2",
+          "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/phases.bend": "f8218cbfd3fbb0db4145a9b8c6d9067ec1c753de1afa593b2b387a2d1ec79c5d",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-handler-bundle.bend": "04003a6575f7d478111062d83af0839bd402bfe1d2118c56fab0a609cd8173a8",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/application.bend": "1278de45ff73b09077dc7e919ba9dba077f3bcb977dc9634bb887177ba87b78e",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-conditions.bend": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/consumer.bend": "addd1bc28aa691160c46c335cde594773f9ad7fd293417f9d620a9256095055c",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/full-observe.bend": "d3bc023aa608eb030892b91606e0b5b79137b8237afc4bc68707e2436ad530a3",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/observe.bend": "da6d34c16ed8b4024bde8086f9d9e6d9c49ebc0a4e1636edc39b3874d2ef1f2a",
+          "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/owner-observer.bend": "c390dca4c39788a097e380002264149c0b7b7db9bd68fc464a901ba97ebc613e"
+        }
+      }
+    },
+    "cross-schema": {
+      "result": {
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "11",
+          "/home/node/.bend/bin/bend-2.0.35",
+          "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/ordinary-handler-bundle-affected-v1/cross-schema.bend",
+          "--check-only"
+        ],
+        "capSeconds": 5,
+        "status": "CAPTURED_SOURCE_RESULT",
+        "raw": {
+          "stdout": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "stderr": {
+            "sha256": "2601deec298b3139539fde21b66434c5511f668c32180edf7868e37b573dd222",
+            "bytes": 1526
+          }
+        },
+        "exit": 1,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+      },
+      "closure": {
+        "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/ordinary-handler-bundle-affected-v1/cross-schema.bend",
+        "sourceInventory": {
+          "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/ordinary-handler-bundle-affected-v1/cross-schema.bend": "0b11549436c4807a198f435632781bc1d84f72c8e06640c2bb8d04ffad93f99b",
+          "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/adapter.bend": "483db07866ea44517d552ae70d0c7db294bc0adc77ffd9dbf05cb2b08bbc7fa2",
+          "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/phases.bend": "f8218cbfd3fbb0db4145a9b8c6d9067ec1c753de1afa593b2b387a2d1ec79c5d",
+          "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+          "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+          "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+          "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine.bend": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+          "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-handlers.bend": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-handler-bundle.bend": "04003a6575f7d478111062d83af0839bd402bfe1d2118c56fab0a609cd8173a8",
+          "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+          "/workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-schedule.bend": "2fce580736002319e902316dd98e47d4466140c86ef3add43b146b0077efd8bd",
+          "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/ordinary-handler-bundle-affected-v1/consumer.bend": "e5c59e956a001bfad5e18517f1aecb73f370ab0efa5bdfbf5509b55e79e14ef2",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/bridge.bend": "885584e5248a390d4828fea8e679b3f7fd5b86174691dfcf4e3badd84add284a",
+          "/workspace/formal-proofs/bendvy/experiments/public-handlers/remaining-core-v1/types.bend": "75af6669a194c9129ce9ceb1adfa42a1b7b350838884fe11dea8ab64eee7b024",
+          "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+          "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+          "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+          "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+          "/workspace/formal-proofs/bendvy/src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+          "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+          "/workspace/formal-proofs/bendvy/experiments/public-handlers/remaining-core-v1/world.bend": "abc816ec9a09508f55f993501ce89af069b6f42a6e7f8784946116e7c06b3abe",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-world.bend": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/systems.bend": "8c9c09e38bf725659bdfb41b015929bdd259deef250a43b980dcc888db0ca89b",
+          "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+          "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/application.bend": "1278de45ff73b09077dc7e919ba9dba077f3bcb977dc9634bb887177ba87b78e",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-conditions.bend": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/consumer.bend": "addd1bc28aa691160c46c335cde594773f9ad7fd293417f9d620a9256095055c",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/full-observe.bend": "d3bc023aa608eb030892b91606e0b5b79137b8237afc4bc68707e2436ad530a3",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/observe.bend": "da6d34c16ed8b4024bde8086f9d9e6d9c49ebc0a4e1636edc39b3874d2ef1f2a",
+          "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/owner-observer.bend": "c390dca4c39788a097e380002264149c0b7b7db9bd68fc464a901ba97ebc613e"
+        }
+      }
+    },
+    "owner-duplication": {
+      "result": {
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "11",
+          "/home/node/.bend/bin/bend-2.0.35",
+          "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/ordinary-handler-bundle-affected-v1/owner-duplication.bend",
+          "--check-only"
+        ],
+        "capSeconds": 5,
+        "status": "CAPTURED_SOURCE_RESULT",
+        "raw": {
+          "stdout": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "stderr": {
+            "sha256": "126ab386212449418f4a8a046f1a33655d4ec3d347ec73e69a46e7b20542c493",
+            "bytes": 1032
+          }
+        },
+        "exit": 1,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+      },
+      "closure": {
+        "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/ordinary-handler-bundle-affected-v1/owner-duplication.bend",
+        "sourceInventory": {
+          "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/ordinary-handler-bundle-affected-v1/owner-duplication.bend": "2172f080b9355db3145a1442033dec1febd9c328f2252476c06281b86a3c8d99",
+          "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/adapter.bend": "483db07866ea44517d552ae70d0c7db294bc0adc77ffd9dbf05cb2b08bbc7fa2",
+          "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/phases.bend": "f8218cbfd3fbb0db4145a9b8c6d9067ec1c753de1afa593b2b387a2d1ec79c5d",
+          "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+          "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+          "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+          "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine.bend": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+          "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-handlers.bend": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-handler-bundle.bend": "04003a6575f7d478111062d83af0839bd402bfe1d2118c56fab0a609cd8173a8",
+          "/workspace/formal-proofs/bendvy/src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+          "/workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-schedule.bend": "2fce580736002319e902316dd98e47d4466140c86ef3add43b146b0077efd8bd",
+          "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/ordinary-handler-bundle-affected-v1/consumer.bend": "e5c59e956a001bfad5e18517f1aecb73f370ab0efa5bdfbf5509b55e79e14ef2",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/bridge.bend": "885584e5248a390d4828fea8e679b3f7fd5b86174691dfcf4e3badd84add284a",
+          "/workspace/formal-proofs/bendvy/experiments/public-handlers/remaining-core-v1/types.bend": "75af6669a194c9129ce9ceb1adfa42a1b7b350838884fe11dea8ab64eee7b024",
+          "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+          "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+          "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+          "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+          "/workspace/formal-proofs/bendvy/src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+          "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+          "/workspace/formal-proofs/bendvy/experiments/public-handlers/remaining-core-v1/world.bend": "abc816ec9a09508f55f993501ce89af069b6f42a6e7f8784946116e7c06b3abe",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-world.bend": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/systems.bend": "8c9c09e38bf725659bdfb41b015929bdd259deef250a43b980dcc888db0ca89b",
+          "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+          "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/application.bend": "1278de45ff73b09077dc7e919ba9dba077f3bcb977dc9634bb887177ba87b78e",
+          "/workspace/formal-proofs/bendvy/src/ecs/machine-conditions.bend": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/consumer.bend": "addd1bc28aa691160c46c335cde594773f9ad7fd293417f9d620a9256095055c",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/full-observe.bend": "d3bc023aa608eb030892b91606e0b5b79137b8237afc4bc68707e2436ad530a3",
+          "/workspace/formal-proofs/bendvy/experiments/public-machines/handler-schedule-composition-v1/observe.bend": "da6d34c16ed8b4024bde8086f9d9e6d9c49ebc0a4e1636edc39b3874d2ef1f2a",
+          "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/owner-observer.bend": "c390dca4c39788a097e380002264149c0b7b7db9bd68fc464a901ba97ebc613e"
+        }
+      }
+    }
+  },
+  "scope": "Second SchemaB complete consumer sourcePASS and actual generic run schema/affine Bundle refusals; backend matrix held until firstgenericpair"
+}
