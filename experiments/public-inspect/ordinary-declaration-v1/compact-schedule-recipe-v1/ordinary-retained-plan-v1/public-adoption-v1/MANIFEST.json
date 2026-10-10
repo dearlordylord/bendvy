@@ -1,0 +1,155 @@
+{
+  "publicModule": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-schedule.bend",
+  "publicModuleSHA256": "327e617bb2d0743fc5270d9012707aedb96b667c7c607ab64b38a486906d5a47",
+  "privateModule": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/scheduled.bend",
+  "privateModuleSHA256": "d697e68d8b21638f77481dd47cdd1efd6a3a9b3b0b4e52495a6d5d7933dc971c",
+  "consumers": [
+    {
+      "case": "normal",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/scheduled-run-v1/consumer.bend",
+      "sourceSHA256": "2f460564ef832ea20ba1019676ee6c300b62ec860babe7db2d6fa5ff9923afc4",
+      "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/public-adoption-v1/normal/consumer.bend",
+      "targetSHA256": "3448ecfcac2a32027eb57fb422f2ac14a2f1f5fd2f7925edf7e6d452fc23fe23",
+      "literalImportInverse": [
+        {
+          "old": "import ../frontend.bend as Front",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/frontend.bend as Front"
+        },
+        {
+          "old": "import ../fixture.bend as F",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/fixture.bend as F"
+        },
+        {
+          "old": "import ../scheduled.bend as Scheduled",
+          "new": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-schedule.bend as Scheduled"
+        },
+        {
+          "old": "import ../dispatch.bend as Dispatch",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/dispatch.bend as Dispatch"
+        },
+        {
+          "old": "import ../unit-adapter.bend as Adapter",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/unit-adapter.bend as Adapter"
+        }
+      ],
+      "bodyEqualAfterInverse": true
+    },
+    {
+      "case": "invalid",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/invalid-attach-v1/consumer.bend",
+      "sourceSHA256": "650e94a21004118dca0a1699d4c58bbca22762508a6460ed1fb31969f18c1edc",
+      "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/public-adoption-v1/invalid/consumer.bend",
+      "targetSHA256": "06e3466af283fe80abf576556e9a4654fb6d861537016e4f413a13ba4127a794",
+      "literalImportInverse": [
+        {
+          "old": "import ../scheduled.bend as Scheduled",
+          "new": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-schedule.bend as Scheduled"
+        },
+        {
+          "old": "import ../frontend.bend as Front",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/frontend.bend as Front"
+        },
+        {
+          "old": "import ../fixture.bend as F",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/fixture.bend as F"
+        },
+        {
+          "old": "import ../consumer.bend as Ordinary",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/consumer.bend as Ordinary"
+        }
+      ],
+      "bodyEqualAfterInverse": true
+    },
+    {
+      "case": "missing",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/scheduled-run-missing-owner-v2/consumer.bend",
+      "sourceSHA256": "3db8a84d69c18c73e844a8b9673a7215657ad1cb6dc38e600278563fa6baaf81",
+      "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/public-adoption-v1/missing/consumer.bend",
+      "targetSHA256": "dddd990c2f82be89a6a42d1bce3161731509bc7e98e5784942aabe0bca0f5729",
+      "literalImportInverse": [
+        {
+          "old": "import ../frontend.bend as Front",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/frontend.bend as Front"
+        },
+        {
+          "old": "import ../fixture.bend as F",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/fixture.bend as F"
+        },
+        {
+          "old": "import ../scheduled.bend as Scheduled",
+          "new": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-schedule.bend as Scheduled"
+        },
+        {
+          "old": "import ../dispatch.bend as Dispatch",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/dispatch.bend as Dispatch"
+        },
+        {
+          "old": "import ../unit-adapter.bend as Adapter",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/unit-adapter.bend as Adapter"
+        }
+      ],
+      "bodyEqualAfterInverse": true
+    },
+    {
+      "case": "failure",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/scheduled-run-failure-v1/consumer.bend",
+      "sourceSHA256": "673022f0223dac7bc9a6d17b4a18aaf044227952bf257248b3095650435a25c8",
+      "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/public-adoption-v1/failure/consumer.bend",
+      "targetSHA256": "c6ed7563f22adf11f3790bd04fed586fed429b821c2633fc5113746ed02f2da9",
+      "literalImportInverse": [
+        {
+          "old": "import ./frontend.bend as Front",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/scheduled-run-failure-v1/frontend.bend as Front"
+        },
+        {
+          "old": "import ./fixture.bend as F",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/scheduled-run-failure-v1/fixture.bend as F"
+        },
+        {
+          "old": "import ../scheduled.bend as Scheduled",
+          "new": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-schedule.bend as Scheduled"
+        },
+        {
+          "old": "import ./dispatch.bend as Dispatch",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/scheduled-run-failure-v1/dispatch.bend as Dispatch"
+        },
+        {
+          "old": "import ../unit-adapter.bend as Adapter",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/unit-adapter.bend as Adapter"
+        }
+      ],
+      "bodyEqualAfterInverse": true
+    },
+    {
+      "case": "namespace-rejection",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/scheduled-run-namespace-rejection-v1/consumer.bend",
+      "sourceSHA256": "96d666fa112967f6f38b3a5775e2ac5c34cc800a5891f013ff685a6a1c57ea43",
+      "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/public-adoption-v1/namespace-rejection/consumer.bend",
+      "targetSHA256": "981af9b8c3f012c9628cefae54b69638efde4905eeb09e16a0699c709553f72d",
+      "literalImportInverse": [
+        {
+          "old": "import ../frontend.bend as Front",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/frontend.bend as Front"
+        },
+        {
+          "old": "import ../fixture.bend as F",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/fixture.bend as F"
+        },
+        {
+          "old": "import ../scheduled.bend as Scheduled",
+          "new": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-schedule.bend as Scheduled"
+        },
+        {
+          "old": "import ../dispatch.bend as Dispatch",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/dispatch.bend as Dispatch"
+        },
+        {
+          "old": "import ../unit-adapter.bend as Adapter",
+          "new": "import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-retained-plan-v1/unit-adapter.bend as Adapter"
+        }
+      ],
+      "bodyEqualAfterInverse": true
+    }
+  ],
+  "scope": "Preparation only: explicit import relocation of qualified finite ordinary consumer and resultcontrols to root-owned Schedule wrapper; no public source/runtime qualification claimed yet."
+}
