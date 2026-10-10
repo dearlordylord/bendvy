@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : to
+- observed : to (consumed more than once)
+Context:
+- from : T.State
+Location: committed
+28 |   Lens.put(~S,world,M.queue(~S,~T.MachineKey,~T.State,slot,to,skipSame))
+29>| def committed(~S:Data,from:T.State,to:T.State,pair:W.World<S,T.Store<S>,T.Resources<S>,Unit> & M.Slot<S,T.MachineKey,T.State>) -> W.World<S,T.Store<S>,T.Resources<S>,Unit>:
+   |                                    ^^
+30 |   (world,slot)=pair
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,47 @@
+{
+  "schema": "handler-schedule-source-v1",
+  "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/entry-a.bend",
+  "sourceCheck": "source04",
+  "status": "SOURCE_PASS_BACKENDS_UNRUN",
+  "sourcePins": {
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/application.bend": {
+      "sha256": "1278de45ff73b09077dc7e919ba9dba077f3bcb977dc9634bb887177ba87b78e",
+      "bytes": 10854
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/bridge.bend": {
+      "sha256": "885584e5248a390d4828fea8e679b3f7fd5b86174691dfcf4e3badd84add284a",
+      "bytes": 9755
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/consumer.bend": {
+      "sha256": "addd1bc28aa691160c46c335cde594773f9ad7fd293417f9d620a9256095055c",
+      "bytes": 3734
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/entry-a.bend": {
+      "sha256": "ee4ec9d8771645aebea3eb15fcdf22af1a46e1ad0338a94b33d26fe9520525a8",
+      "bytes": 214
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/full-observe.bend": {
+      "sha256": "d3bc023aa608eb030892b91606e0b5b79137b8237afc4bc68707e2436ad530a3",
+      "bytes": 8664
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/observe.bend": {
+      "sha256": "da6d34c16ed8b4024bde8086f9d9e6d9c49ebc0a4e1636edc39b3874d2ef1f2a",
+      "bytes": 10989
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/phase-result.bend": {
+      "sha256": "3d426c10f34080658495a7a063d4780b583452693663e6681a4ddda9c1e5addb",
+      "bytes": 1055
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/systems.bend": {
+      "sha256": "8c9c09e38bf725659bdfb41b015929bdd259deef250a43b980dcc888db0ca89b",
+      "bytes": 24439
+    }
+  },
+  "postCheckTransportOnly": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-machines/handler-schedule-composition-v1/observe.bend",
+    "change": "remove one extra EOF blank line",
+    "checkedSHA256": "da5754c8b768a2ebf9461e06d512162c16ef370795517e391cc22292712a3f26",
+    "currentSHA256": "da6d34c16ed8b4024bde8086f9d9e6d9c49ebc0a4e1636edc39b3874d2ef1f2a",
+    "inverse": "append one newline to current bytes"
+  }
+}
