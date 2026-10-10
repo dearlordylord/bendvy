@@ -1,0 +1,48 @@
+{
+  "scope": "Instrumented single stock baseline checker accounting only; no #28/performance/phase/cause claim",
+  "originalSession": 93010,
+  "terminalExit": 0,
+  "planSHA256": "8c7b5813539183e7628c8c657d39e1bd6d96252f5bd91bb603f34d9600713bae",
+  "checkerExit": 0,
+  "checkerFailure": null,
+  "observerExit": 0,
+  "samples": 22,
+  "clockTicksPerSecond": 100,
+  "sampleWindowNs": 1094386236,
+  "processTicks": {
+    "first": {
+      "utime": 7,
+      "stime": 0
+    },
+    "last": {
+      "utime": 66,
+      "stime": 3
+    }
+  },
+  "mainSchedstatRaw": {
+    "first": "38803417 160555582 24\n",
+    "last": "294222910 1006901335 195\n"
+  },
+  "ioRaw": {
+    "first": "rchar: 87778\nwchar: 0\nsyscr: 52\nsyscw: 0\nread_bytes: 0\nwrite_bytes: 0\ncancelled_write_bytes: 0\n",
+    "last": "rchar: 243103\nwchar: 0\nsyscr: 169\nsyscw: 0\nread_bytes: 0\nwrite_bytes: 0\ncancelled_write_bytes: 0\n"
+  },
+  "observerTicks": {
+    "first": {
+      "utime": 8,
+      "stime": 6
+    },
+    "last": {
+      "utime": 9,
+      "stime": 6
+    }
+  },
+  "limitations": [
+    "Snapshot window excludes early startup and final unsampled lifetime.",
+    "Main schedstat is not aggregate worker CPU; raw stat/schedstat of all observed fourthreads retained.",
+    "Wait accounting does not identify external contention versus sibling/compiler/runtime scheduling.",
+    "Observer and executable hashing add work on sameCPU; no speed comparison.",
+    "IO counters do not identify compiler phases or prove stalled physical IO.",
+    "Current success does not relabel51961 or92222 deadlines and is not comparative #28 gate."
+  ]
+}

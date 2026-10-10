@@ -1,0 +1,9 @@
+# Focused comparative launch review — attempt02
+
+PASS for root-authorized plan5e164ad4f3a03739588f023fa6cb1302bd2301bdf7b1cae3a62601e1865693ee. Original plan983d4b76 and original51961 failure remain unchanged. No benchmark or checker child was run by the reviewer.
+
+Compared every plan field with original: the sole command argument change is fresh output /tmp/bendvy-public-resource-field-regression115-02. Additional provenance/prerequisites identify the explicit root-authorized new attempt. All121 monitored source hashes currently match and output is absent. Candidate115 modules/124 staged files, runner, environment, tools/configuration/resources,29 baseline members, TS reference,10 applications/22 checkpoints,20 pairs, sign/Holm decision and existing caps remain byte-bound by unchanged fields. No numerical workload, baseline or slowdown criterion is amended.
+
+Final diagnostic93010 integrity review passed separately: exact stock frozen baseline checker succeeded under cap5 with original argv/environment/cwd/inheritedCPU11 and retained accounting evidence. This makes the previously failing prerequisite empirically successful in that instrumented attempt; it supplies no comparative gate result or explanation of earlier failures. Two retained CPU11 observations show100%idle in their sampled windows, not a prediction of whole-cohort host conditions.
+
+Admit one unchanged comparative command under the existing exclusive shared lock and coordinator queue. Required exact binding/output/affinity checks, current contention-defer condition and unchanged statistics-suite prerequisite still apply at launch; HOLD if not met. Any subsequent failure or regression remains failed with complete raw evidence. This review grants no further retry, performance result, public integration or #28 acceptance; those depend on the actual complete paired receipt and final review.

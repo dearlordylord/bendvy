@@ -1,0 +1,62 @@
+{
+  "scope": "Read-only stock frozen #28 baseline checker CPU/scheduler/IO accounting; no gate or performance acceptance",
+  "planSHA256": "8c7b5813539183e7628c8c657d39e1bd6d96252f5bd91bb603f34d9600713bae",
+  "commands": [
+    {
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "argv": [
+        "bend",
+        "/tmp/bendvy-public-resource-field-regression115-01/baseline/examples/query-composition/timing-main.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "stdout": {
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "published": true,
+        "path": "/tmp/bendvy-baseline-proc-accounting01/checker.stdout"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "published": true,
+        "path": "/tmp/bendvy-baseline-proc-accounting01/checker.stderr"
+      }
+    }
+  ],
+  "status": "STOCK_CHECKER_ACCOUNTING_DIAGNOSTIC_RETAINED",
+  "parentAffinity": [
+    11
+  ],
+  "observer": {
+    "pid": 555049,
+    "exit": 0,
+    "stdout": {
+      "path": "/tmp/bendvy-baseline-proc-accounting01/observer.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "path": "/tmp/bendvy-baseline-proc-accounting01/observer.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "samples": {
+    "path": "/tmp/bendvy-baseline-proc-accounting01/samples.jsonl",
+    "bytes": 143762,
+    "sha256": "14b5e6418cea1ccdb19dcc1de7387710c9050b58a9549043c8fb8158ccb3654c",
+    "identity": [
+      6291605,
+      253701443
+    ]
+  },
+  "accountingObservation": {
+    "boundEvents": 1,
+    "samples": 22,
+    "status": "BOUND_ACCOUNTING_CAPTURE"
+  }
+}
