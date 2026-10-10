@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : namespace
+- observed : namespace (consumed more than once)
+Location: named
+77 |     case True{}:gathered(~S,~has,namespace,world,B.requirements(~S,~T.MachineKey,~T.State,~U32,~T.Store<S>,~T.Resources<S>,~Unit,~Systems.runner(~S),entries))
+78>| def named(~S:Data,~has:W.World<S,T.Store<S>,T.Resources<S>,Unit> -> U32 -> W.World<S,T.Store<S>,T.Resources<S>,Unit> & Bool,namespace:U32,entries:List<&1,B.Scheduled<S,T.MachineKey,T.State,U32,T.Store<S>,T.Resources<S>,Unit,Systems.runner(~S)>>,pair:W.World<S,T.Store<S>,T.Resources<S>,Unit> & U32) -> MarkerResult<S>:
+   |                                                                                                                             ^^^^^^^^^
+79 |   (world,actual)=pair
+bend 2.0.36 is available: run bend update
