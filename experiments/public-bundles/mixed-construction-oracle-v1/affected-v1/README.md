@@ -1,0 +1,3 @@
+# Mixed construction affected independent oracles
+
+SchemaB retains the entire normal String after six literal nominal inverses. Lost-tail-errors executes both stages and preserves complete owners/context/world but replaces only later failed positions with None; the complete normal baseline must be rejected. TS expectation models eager entryRaw calls, positional failures, four cooked family values and snapshots of retained successful head arrays for both labels. Shared logical categories/order/values agree with Bend; TS has no affine inverse or physical World claim. No runtime outputs were consumed.
