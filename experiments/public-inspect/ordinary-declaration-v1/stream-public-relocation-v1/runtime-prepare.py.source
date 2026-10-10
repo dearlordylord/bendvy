@@ -1,0 +1,27 @@
+from pathlib import Path
+import json,re,hashlib,importlib.util
+root=Path('/workspace/formal-proofs/bendvy');p=Path('/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1');origin=Path('/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2');sha=lambda f:hashlib.sha256(Path(f).read_bytes()).hexdigest();collector=root/'experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py';s=importlib.util.spec_from_file_location('c',collector);c=importlib.util.module_from_spec(s);s.loader.exec_module(c);source=Path('/tmp/bendvy55-public-workshop-source01');assert json.loads((source/'receipt.json').read_text())['status']=='COMPLETE_SOURCE_CONTROL_PASS';cases=[]
+for role in ['js','native']:
+ j=json.loads((origin/'runtime-v1/prepared-attempt01'/('workshop-normal-'+role)/'plan.json').read_text());out=Path('/tmp/bendvy55-public-workshop-'+role+'01');out.mkdir(exist_ok=True);entry=p/'entry-workshop.bend';inv={}
+ def visit(f):
+  f=f.resolve(strict=True)
+  if str(f) in inv:return
+  inv[str(f)]=sha(f)
+  for t in re.findall(r'^import\s+(\S+)',f.read_text(),re.M):
+   if t!='Base':visit(f.parent/t)
+ visit(entry);oldinv=set(j['sourceInventory']);oldout=str(Path(j['generated']).parent);oldentry=j['entrypoint']
+ def r(v):
+  if isinstance(v,str):return v.replace(oldout,str(out)).replace(oldentry,str(entry))
+  if isinstance(v,list):return [r(x)for x in v]
+  if isinstance(v,dict):return {r(k):r(x)for k,x in v.items()}
+  return v
+ j=r(j);j.update(entrypoint=str(entry),stage=str(p),sourceInventory=inv,importClosure=c.validate_imports(entry,inv),cwd=str(p),scope='Current public stream modules ordinary Workshop complete whole18219 oracle; no new contract/performance/full55 claim')
+ pins=dict(inv)
+ for f in list(j['pins']):
+  if f in oldinv or 'stream-control-boundary-workshop-source01' in f:continue
+  pins[f]=sha(f)
+ for f in [collector,c.PLAN_GUARD,*source.glob('*.json'),source/'source-normal.stdout',source/'source-normal.stderr',p/'SOURCE-JOIN.json',p/'ORACLE-JOIN.json']:pins[str(f)]=sha(f)
+ j['oracle']=str(p/'workshop-normal-expected.stdout.gz');j['normalOracle']=j['oracle'];pins[j['oracle']]=sha(j['oracle']);j['pins']=pins
+ s=importlib.util.spec_from_file_location('guard',c.PLAN_GUARD);g=importlib.util.module_from_spec(s);s.loader.exec_module(g);g.validate(j,output_dir=out)
+ raw=(json.dumps(j,indent=2)+'\n').encode();(out/'plan.json').write_bytes(raw);(p/('workshop-'+role+'-plan.json')).write_bytes(raw);cases.append({'role':role,'path':str(out/'plan.json'),'sha256':hashlib.sha256(raw).hexdigest(),'pins':len(pins),'sources':len(inv)})
+(p/'WORKSHOP-SEQUENCE.json').write_text(json.dumps(cases,indent=2)+'\n');print(json.dumps(cases))

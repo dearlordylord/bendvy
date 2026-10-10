@@ -1,0 +1,14 @@
+from pathlib import Path
+import json,re,hashlib,importlib.util
+root=Path('/workspace/formal-proofs/bendvy');p=Path('/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1');sha=lambda f:hashlib.sha256(Path(f).read_bytes()).hexdigest();collector=root/'experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py'
+def load(n,f):
+ s=importlib.util.spec_from_file_location(n,f);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+c=load('c',collector);cfg=load('cfg',root/'experiments/public-simulation/delivery-v1/installed-config.py');runner=load('r',root/'scripts/task_runner.py');entry=p/'entry-workshop.bend';inv={}
+def visit(f):
+ f=f.resolve(strict=True)
+ if str(f) in inv:return
+ inv[str(f)]=sha(f)
+ for t in re.findall(r'^import\s+(\S+)',f.read_text(),re.M):
+  if t!='Base':visit(f.parent/t)
+visit(entry);out=Path('/tmp/bendvy55-public-workshop-source01');out.mkdir(exist_ok=True);tools={'bend':'/home/node/.bend/bin/bend-2.0.35','node':'/home/node/.local/share/mise/installs/node/24.20.0/bin/node','python':'/usr/bin/python3.11','taskset':'/usr/bin/taskset'};extra=[collector,root/'scripts/task_runner.py',root/'scripts/evidence_boundary.py',root/'experiments/public-simulation/delivery-v1/installed-config.py',*map(Path,tools.values()),Path('/home/node/.bend/bend2/base.bend'),p/'SOURCE-JOIN.json',p/'ORACLE-JOIN.json',p/'PREPARATION.json',p/'README.md'];pins=inv|{str(f):sha(f)for f in extra}
+j={'scope':'Public stream relocation Workshop complete source prerequisite only','role':'source','subject':'normal','entrypoint':str(entry),'stage':str(p),'sourceEntries':[str(entry)],'sourceInventory':inv,'importClosure':c.validate_imports(p,inv,[entry]),'pins':pins,'resourceRoots':runner.Inputs(directories=cfg.RESOURCE_ROOTS).expected,'environment':cfg.environment(),'cwd':str(p),'generated':str(out/'unused.js'),'native':str(out/'unused.native'),'tools':tools,'commands':[{'label':'source-normal','argv':[tools['taskset'],'-c','11',tools['bend'],str(entry),'--check-only'],'capSeconds':5,'expectedExit':0,'stderrContains':[]}],'postConsumer':'Current public source5 only; no backend/performance qualification'};raw=(json.dumps(j,indent=2)+'\n').encode();(out/'plan.json').write_bytes(raw);(p/'workshop-source-plan.json').write_bytes(raw);print(hashlib.sha256(raw).hexdigest(),len(inv),len(pins))
