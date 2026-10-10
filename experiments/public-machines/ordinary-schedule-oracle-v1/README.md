@@ -1,0 +1,7 @@
+# Ordinary schedule whole source-only oracle
+
+Frozen complete A-source04 consumer lowers a Barrier and four globally ordered phase groups into actual Sch.Schedule and calls actual Sch.run. Full initial/marker1/marker2 observations retain World, registry, physical Array owners, machine current/pending/previous/changed states, cohort, events, complete schedule namespace/name/steps, observations and status. Callback state evolution reuses the independently authored315b35d2 apply-retention pure model only after joining its exact imported consumer; no runtime output was read.
+
+The Sch barrier replaces the prior direct marker flush at the same boundary. Initial observations are empty/status ready; each invocation records applied and entered/ran for all four groups, resets observations, and retains the nine-step plan/status finished. Group ids are generated adapter catalog ids, not four additional World registries. Internal callbacks reach the existing tracked registry through the unchanged C.marker; the schedule group adapter wraps successful ownership return.
+
+No handler failure/init policy, public installation promotion, universal law, arbitrary scheduling vocabulary, full#48 or performance qualification follows. This model covers the actual valid normal path; it does not invent propagation of errors beyond the frozen success wrapper. Root independently reviews the whole source-derived model before backend execution.
