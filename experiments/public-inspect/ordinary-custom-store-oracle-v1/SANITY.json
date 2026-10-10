@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "command": "python3 inline source-model sanity",
+  "modelSHA256": "1494e8819318f63f1a90f9908b855193f2cb0202b5d41e284c53560f55fe49ce",
+  "assertions": [
+    "ascending alive membership excludes inactive slot",
+    "per-family live population",
+    "component conjunction",
+    "ID filter preserves source handle order and limit",
+    "zero limit retains global resource presentation",
+    "disabled branches avoid presentation",
+    "physical fixture inputs unchanged"
+  ],
+  "scope": "Python model sanity only; no Bend/compiler/backend/whole-consumer qualification",
+  "runtimeOutputInputs": [],
+  "commitAttempts": [
+    {
+      "original": 79868,
+      "exit": 1,
+      "reason": "git whitespace check rejected extra EOF blank line after all configured suites passed; formatting-only repair"
+    }
+  ],
+  "postFormattingSanity": "PASS: source compiled/imported and alive ordering rechecked; formatting-only change"
+}
