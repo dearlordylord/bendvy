@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : args
+- observed : args (consumed more than once)
+Context:
+- _ : duplicate_rejected~Application
+Location: duplicate_rejected
+16 |   match result:
+17>|     case B.RegistrationRejected{_,args}:(args,args)
+   |                                   ^^^^
+18 |     case B.Completed{_,_}:(Input.Args{Array.new(Bool,0n,False{})},Input.Args{Array.new(Bool,0n,False{})})
+bend 2.0.36 is available: run bend update

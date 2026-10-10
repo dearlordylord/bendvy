@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : D.Declaration<C.A, Col.Column<C.A, Unit>, C.Counter, U32, D.write_ops(C.Counter, U32), U32>
+- observed : App.Binding<C.A>
+Context:
+- metadata : App.Binding<C.A>
+Location: recover_grant
+13 | def recover_grant(metadata:App.Binding<C.A>) -> P.Declaration<C.A,C.Counter,T.Tx<W.World<C.A,Col.Column<C.A,Unit>,C.Counter,U32>,U32>,Cap.ValueWrite<T.Tx<W.World<C.A,Col.Column<C.A,Unit>,C.Counter,U32>,U32>,C.Counter,U32>>:
+14>|   D.ordinary(~C.A,~Col.Column<C.A,Unit>,~C.Counter,~U32,~D.write_ops(~C.Counter,~U32),~U32,metadata)
+   |                                                                                            ^^^^^^^^
+15 | 
+bend 2.0.36 is available: run bend update

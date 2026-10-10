@@ -1,0 +1,9 @@
+# Independent public Resource App v2 source evidence
+
+Exact producer `40a60d345`; previous independent `78f60555a` failures remain immutable. Four complete String models reuse normal6698B SHA77735c5124a8b9975abd81beec60e237f58af70413a171ce3a5b37c027fa4580 and presentation-control6578B SHAd7aaa61cbf6cf09dff0a73baacb8a18a2b7d718c0cc84f258725329211a1a261 after explicit body/formatter joins. A/Other each cover zero/two live entities, seven full World/actualRegistry observations, success/failure/rollback/retry with priors10/11/11 and resources10→11→11→12. No expected bytes derived from runtime outputs.
+
+Source-01 actual six stock5 CPU11/sharedlock checks: canonical read/write declarations and independently declared third nominal schema full imported scenario0/2 PASS0; nominal schema mismatch, read→write upgrade, description DTO-as-grant, actual isolated Input.Args rejection-carrier duplication all intended exit1. Raw streams, commands, elapsed times (including lock), complete pre/post unchanged guards retained. Meaningful callback construction repair preserves all13actions and7/3/3 callbacks, all owner fields and typed transport; no unchanged retry or increased cap.
+
+Typed observation rows are not fully inspected by String observer; rendered-omission mutant preserves typed value/product/World/body/metadata. Test owner observer runs after disabled snapshots independently; production False skipsfold/describe but workload is not zero-overhead evidence. Raw constructors trusted admin, affine at-most-once only. Whole aggregate one-resource fixture does not prove independent fields or sibling confinement (#61 audit gap owned by #70). Rejection-Args refusal is source-only, not runtime recovery evidence.
+
+No backend/performance/noninterference qualification, obsolete8plan launch, or #56 closure. This resource-only source/evidence is reusable groundwork while compact mixed App structural seam is prepared.

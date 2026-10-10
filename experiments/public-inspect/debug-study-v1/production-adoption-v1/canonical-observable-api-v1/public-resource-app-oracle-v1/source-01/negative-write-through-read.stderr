@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : D.Declaration<C.A, Col.Column<C.A, Unit>, C.Counter, U32, D.write_ops(C.Counter, U32), U32>
+- observed : D.Declaration<C.A, Col.Column<C.A, Unit>, C.Counter, U32, D.read_ops(U32), U32>
+Location: upgrade_read
+13 | def upgrade_read() -> P.Declaration<C.A,C.Counter,T.Tx<W.World<C.A,Col.Column<C.A,Unit>,C.Counter,U32>,U32>,Cap.ValueWrite<T.Tx<W.World<C.A,Col.Column<C.A,Unit>,C.Counter,U32>,U32>,C.Counter,U32>>:
+14>|   D.ordinary(~C.A,~Col.Column<C.A,Unit>,~C.Counter,~U32,~D.write_ops(~C.Counter,~U32),~U32,D.read(~C.A,~Col.Column<C.A,Unit>,~C.Counter,~U32,~U32,~C.view,~U32.show,Schema.resource(~C.A,~C.Counter,"Counter")))
+   |                                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+15 | 
+bend 2.0.36 is available: run bend update
