@@ -79,7 +79,7 @@ def built(~S:Data,world:W.World<S,P.Store<S>,P.Resources<S>,Unit>,result:Sch.Bui
     case Sch.Built{schedule}:scheduled(~S,CheckedSch.run_with_skip(~S,~P.Store<S>,~P.Resources<S>,~Unit,~ReaderOwners<S>,~String,~skip(~S),~dispatch(~S),~condition(~S),schedule,world))
 def named(~S:Data,owners:ReaderOwners<S>,pair:W.World<S,P.Store<S>,P.Resources<S>,Unit> & U32) -> ReaderApplication<S>:
   (world,namespace)=pair
-  built(~S,world,Sch.build(~S,~P.Store<S>,~P.Resources<S>,~Unit,~ReaderOwners<S>,namespace,"ordinary-readers",[Sch.System{1,1},Sch.System{2,2}],[1,2],owners))
+  built(~S,world,Sch.build(~S,~P.Store<S>,~P.Resources<S>,~Unit,~ReaderOwners<S>,namespace,"ordinary-readers",[Sch.Phase{"condition-preflight"},Sch.System{1,1},Sch.System{2,2}],[1,2],owners))
 def run(~S:Data,app:ReaderApplication<S>) -> ReaderApplication<S>:
   match app:
     case ReaderApplication{owners,world,_,_}:named(~S,owners,W.namespace(~S,~P.Store<S>,~P.Resources<S>,~Unit,P.frame(~S,world)))
