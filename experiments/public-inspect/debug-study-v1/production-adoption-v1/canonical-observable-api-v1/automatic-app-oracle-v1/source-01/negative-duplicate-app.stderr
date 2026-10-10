@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : app
+- observed : app (consumed more than once)
+Location: wrong
+6 | 
+7>| def wrong(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe>) -> (App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & Maybe<&2,App.Product<List<&2,App.Binding<S>>,App.Observation<Rows>>>) & App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe>:
+  |                                                                                                                                                                                                                                ^^^
+8 |   (App.snapshot(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~H,~Rows,~fold,~describe,app),app)
+bend 2.0.36 is available: run bend update
