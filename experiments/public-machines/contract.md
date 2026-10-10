@@ -1,4 +1,6 @@
-# #48 observed machine contract and pending decision
+# Historical #48 TS comparator study
+
+This is preserved historical comparator evidence, not the governing Bendvy contract. Current authority is [SPEC](../../docs/SPEC.md#implementation-decisions): Rust Bevy semantics, Bend constraints, then TS inventory. Source-bound current delivery is indexed in [parity coordination](../../docs/parity/README.md#current-delivery-coordination); historical pending decisions below do not supersede it.
 
 The pinned TS public API is the executable comparator. Node 24.20.0 directly executes reference.mjs with no dependencies. The frozen expected.json contains 24 complete checkpoints per independent schema plus raw provisioning/name controls. evidence/reference-v1/receipt.json binds actual sources, installed tools, complete TS source inventory and all three tracked reference commits before/after execution. No Bend implementation existed when this oracle was frozen.
 
@@ -22,6 +24,6 @@ The staged candidate will reproduce pinned behavior as a reference investigation
 
 Pinned bevy-ts 3040a3b2a3f28fa8554d856f9ccb6bf5433fa334: Machine.ts337–425 declares reads/writes/conditions; Runtime.ts995–1065 journals pending changes per system,1133–1170 supplies views/conditions,1521–1602 snapshots/sorts/applies transitions,1390–1430 controls cursor success/failure/skip; internal/streams.ts defines keyed retention and capacity 65,536. internal/game.ts records definition order and binds schema APIs.
 
-Pinned Bevy ad678262ce53b5d142fe49ee5e08caff6f00ab60: crates/bevy_state/src/state/resources.rs separates State from NextState; transitions.rs separates transition/exit/enter phases and emits transition messages. Rust informs architecture; TS behavior remains authoritative, including its identity-transition behavior.
+Pinned Bevy ad678262ce53b5d142fe49ee5e08caff6f00ab60: crates/bevy_state/src/state/resources.rs separates State from NextState; transitions.rs separates transition/exit/enter phases and emits transition messages. This historical study recorded TS identity-transition behavior. It does not approve that behavior for Bendvy; current decisions follow the SPEC reference order.
 
 Pinned Bend a950fd683c0d76f09794078e6174fe98a1492876 and installed 2.0.35 guide/Base determine affine quantities, closed templates, head matches and decreasing recursion. Machine values are finite Data; ECS components/World owners remain arbitrary Type. All actual Array payloads, returned owners, queue metadata and public stream deliveries are retained. New Type-owner and access boundaries require positive/negative controls; finite traces are not universal refinement. Full handler failure-position matrices belong to #49, while #48 covers publishing-system failures and successful hooks that create pending writes during markers.
