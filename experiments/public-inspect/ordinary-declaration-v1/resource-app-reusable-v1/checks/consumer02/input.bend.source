@@ -3,7 +3,7 @@ import ./input.bend as Input
 import ./sequence.bend as Sequence
 import ../resource-app-observation-v1/observable-resource.bend as D
 import ../resource-app-observation-v1/bridge.bend as B
-import ./owner-observer.bend as OwnerProbe
+import ../resource-app-observation-v1/owner-observer.bend as OwnerProbe
 import ../resource-system-v1/provider.bend as P
 import ../resource-app-observation-v1/fixture.bend as C
 import ../automatic-app-observation-v1/app.bend as App
@@ -45,14 +45,9 @@ def rejected_args(args:Input.Args) -> String:
     case Input.Args{flags}:args_value(Array.get(Bool,flags,0))
 def restore(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,world:W.World<S,Col.Column<S,Unit>,C.Counter,U32>,owners:Owners,enabled:Bool) -> App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>:
   App.Application{world,owners,enabled}
-def labels_joined(~S:Data,~Owners:Type,result:Owners & List<&2,App.Binding<S>>) -> Owners & String:
-  match result:
-    case (owners,values):(owners,List.show(&2,App.Binding<S>,binding(~S),values))
-def owner_labels(~S:Data,~Owners:Type,describe:Owners -> Owners & List<&2,App.Binding<S>>,owners:Owners) -> Owners & String:
-  labels_joined(~S,~Owners,describe(owners))
 def app_observed(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,label:String) -> App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String:
   match app:
-    case App.Application{world,owners,enabled}:OwnerProbe.observed(~W.World<S,Col.Column<S,Unit>,C.Counter,U32>,~Owners,~App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,restore(~S,~Owners,~Rows,~fold,~describe),C.world(~S),owner_labels(~S,~Owners,describe),world,owners,enabled,label)
+    case App.Application{world,owners,enabled}:OwnerProbe.observed(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~Owners,~App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,~restore(~S,~Owners,~Rows,~fold,~describe),~C.world(~S),~binding(~S),~describe,world,owners,enabled,label)
 def snapshot_observed(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & Maybe<&2,App.Product<List<&2,App.Binding<S>>,App.Observation<Rows>>>) -> App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String:
   match result:
     case (app,value):app_observed(~S,~Owners,~Rows,~fold,~describe,app,debug(~S,~Rows,value))
@@ -70,3 +65,9 @@ def created(~S:Data,count:Nat,result:W.Creation<S,Col.Column<S,Unit>,C.Counter,U
     case W.CreateRejected{_,_}:"CREATE_FAILED"
 def scenario(~S:Data,count:Nat) -> String:
   created(~S,count,W.create(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~C.empty(~S),W.factory(),C.Counter{Array.new(U32,0n,10)}))
+type Other is Data:
+  Other{}
+type Report is Data:
+  Report{empty:String,nonempty:String,otherEmpty:String,otherNonempty:String}
+def main() -> Report:
+  Report{scenario(~C.A,0n),scenario(~C.A,2n),scenario(~Other,0n),scenario(~Other,2n)}

@@ -70,3 +70,9 @@ def created(~S:Data,count:Nat,result:W.Creation<S,Col.Column<S,Unit>,C.Counter,U
     case W.CreateRejected{_,_}:"CREATE_FAILED"
 def scenario(~S:Data,count:Nat) -> String:
   created(~S,count,W.create(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~C.empty(~S),W.factory(),C.Counter{Array.new(U32,0n,10)}))
+type Other is Data:
+  Other{}
+type Report is Data:
+  Report{empty:String,nonempty:String,otherEmpty:String,otherNonempty:String}
+def main() -> Report:
+  Report{scenario(~C.A,0n),scenario(~C.A,2n),scenario(~Other,0n),scenario(~Other,2n)}

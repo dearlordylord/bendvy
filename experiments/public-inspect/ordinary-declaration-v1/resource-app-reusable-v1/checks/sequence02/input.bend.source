@@ -3,11 +3,6 @@ import ../resource-app-observation-v1/bridge.bend as B
 import ../resource-app-observation-v1/fixture.bend as C
 import ./input.bend as Input
 import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
-# Closed noncapturing callbacks are constructed afresh; no runtime affine value is copied.
-def copies(~Value:Type,~value:Value,count:Nat) -> List<Value>:
-  match count:
-    case 0n:[]
-    case 1n+k:value <> copies(~Value,~value,k)
 type Action is Data:
   Snapshot{}
   Enable{flag:Bool}

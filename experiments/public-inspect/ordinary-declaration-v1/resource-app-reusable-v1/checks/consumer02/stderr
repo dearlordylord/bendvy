@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : a ~ argument that stops growing
+- observed : OwnerProbe.observed
+Context:
+- world   : W.World<C.A, Col.Column<C.A, Unit>, C.Counter, U32>
+- owners  : Sigma<&1, &1, Unit, _ => P.Owner<C.A, Sys.Registry<C.A, Col.Column<C.A, Unit>, C.Counter, U32, Input.Args, C.Error, C.Output, P.runner(C.A, Col.Column<C.A, Unit>, C.Counter, U32, D.write_ops(C.Counter, U32), Input.Args, C.Error, C.Output, P.Declaration{Schema.Resource{"Counter"}, Query.Write{}, ../../../../../../bendvy/src/ecs/capabilities.ValueWrite{../../../../../../bendvy/src/ecs/resource.tx_get(C.A, Col.Column<C.A, Unit>, C.Counter, U32, U32, C.view), ../../../../../../bendvy/src/ecs/resource.tx_replace(C.A, Col.Column<C.A, Unit>, C.Counter, U32)}}, body)>, Query.Write{}>>
+- enabled : Bool
+- label   : String
+Location: app_observed~0
+49 |   match app:
+50>|     case App.Application{world,owners,enabled}:OwnerProbe.observed(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~Owners,~App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,~restore(~S,~Owners,~Rows,~fold,~describe),~C.world(~S),~binding(~S),~describe,world,owners,enabled,label)
+   |                                                ^^^^^^^^^^^^^^^^^^^
+51 | def snapshot_observed(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & Maybe<&2,App.Product<List<&2,App.Binding<S>>,App.Observation<Rows>>>) -> App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String:
+bend 2.0.36 is available: run bend update
