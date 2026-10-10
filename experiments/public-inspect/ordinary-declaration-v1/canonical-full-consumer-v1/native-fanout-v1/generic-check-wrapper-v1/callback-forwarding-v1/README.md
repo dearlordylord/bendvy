@@ -1,0 +1,5 @@
+# Runtime callback forwarding successor
+
+Three exact reversible patches change only private pair helper signatures/calls. Public pair still takes the same erased declarations, and extracts the same actual matching/project callbacks once per constructed field. Four internal helpers receive runtime typed callbacks instead of forwarding whole erased declarations. Matching retains the existing runtime MatchTree, left-first short circuit and owner reconstruction. Projection calls left first and right with the resulting affine owner. The 47-source consumer, generic9 Check, actual Value fields and complete normal/reader oracles are unchanged. DELTA.json records all file joins and inverse.
+
+The specialization-economy proposal follows the installed compiler def_inst full erased-argument serialization/cache behavior; it is a hypothesis. Original24434 stock complete source5 hit its deadline with no output and four unchanged guards. JS, Native and current authority/reader controls remain unexecuted. No retry or cap change occurred. This does not establish the cause of any deadline or invalidate previous independently qualified subjects.
