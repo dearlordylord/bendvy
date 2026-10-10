@@ -1,0 +1,27 @@
+{
+  "collector": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+  "cases": [
+    {
+      "role": "source",
+      "path": "/tmp/bendvy54-runtime-boundary-source01/plan.json",
+      "sha256": "de4900aec7ce6b29f86754d791141604506c38561275484aa3040f4ef1964299",
+      "pins": 120,
+      "sources": 47
+    },
+    {
+      "role": "js",
+      "path": "/tmp/bendvy54-runtime-boundary-js01/plan.json",
+      "sha256": "dfaac1956082e195c05f906d0cd8a93c4d0199371c4d80388071388be744d998",
+      "pins": 162,
+      "sources": 47
+    },
+    {
+      "role": "native",
+      "path": "/tmp/bendvy54-runtime-boundary-native01/plan.json",
+      "sha256": "9e0495fd869c6821b9499cadd4f7b26794f9b5e3eda9f33d70f7f67109727ae1",
+      "pins": 174,
+      "sources": 47
+    }
+  ],
+  "condition": "source PASS then JS whole PASS then Native; direct collector internal shared lock; stop on failure/no retry"
+}

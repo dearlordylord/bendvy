@@ -1,0 +1,111 @@
+{
+  "cases": [
+    {
+      "role": "source",
+      "originalSession": 19188,
+      "planSHA256": "de4900aec7ce6b29f86754d791141604506c38561275484aa3040f4ef1964299",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "commands": [
+        {
+          "label": "source-normal",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 5,
+          "stdout": {
+            "path": "/tmp/bendvy54-runtime-boundary-source01/source-normal.stdout",
+            "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+            "bytes": 58,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy54-runtime-boundary-source01/source-normal.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": 4
+    },
+    {
+      "role": "js",
+      "originalSession": 96120,
+      "planSHA256": "dfaac1956082e195c05f906d0cd8a93c4d0199371c4d80388071388be744d998",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 30,
+          "stdout": {
+            "path": "/tmp/bendvy54-runtime-boundary-js01/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy54-runtime-boundary-js01/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 5,
+          "stdout": {
+            "path": "/tmp/bendvy54-runtime-boundary-js01/consumer.stdout",
+            "sha256": "810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2",
+            "bytes": 5077477,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy54-runtime-boundary-js01/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": 7
+    },
+    {
+      "role": "native",
+      "originalSession": 5754,
+      "planSHA256": "9e0495fd869c6821b9499cadd4f7b26794f9b5e3eda9f33d70f7f67109727ae1",
+      "status": "INCOMPLETE",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": null,
+          "failure": "child deadline",
+          "capSeconds": 30,
+          "stdout": {
+            "path": "/tmp/bendvy54-runtime-boundary-native01/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy54-runtime-boundary-native01/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": 4
+    }
+  ],
+  "sourceModules": 47,
+  "wholeOracleBytes": 5077477,
+  "wholeOracleSHA256": "810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2",
+  "members": 558,
+  "objects": 468,
+  "authorityControls": "CURRENT_SUCCESSOR_UNEXECUTED",
+  "readerControl": "CURRENT_SUCCESSOR_UNEXECUTED",
+  "scope": "Three one-shot consumer continuations; source and fullJS development PASS, stockNative emission INCOMPLETE. No cost/cause/full54/publicpromotion/performance claim."
+}

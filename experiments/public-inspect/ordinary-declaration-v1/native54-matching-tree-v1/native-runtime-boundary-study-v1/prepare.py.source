@@ -1,0 +1,41 @@
+from pathlib import Path
+import json,hashlib,shutil
+wt=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1'); base=wt/'experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1'; parent=base/'pair-scan-v1'; p=base/'native-runtime-boundary-study-v1'
+def sha(b):return hashlib.sha256(b).hexdigest()
+shutil.copytree(parent/'stage',p/'stage',dirs_exist_ok=True)
+f=p/'stage/full-consumer.bend'; text=f.read_text(); patches=[]
+result='H & Result<&2,&2,Unit,Snapshot<S,V>>'; rows='List<&2,Q.ProjectedRow<S,V>>'; gets='List<&2,Get<S,V>>'; single='Result<&2,&2,Errors.SingleError,Q.ProjectedRow<S,V>>'
+for name,typ,oldbody,newbody in [
+ ('after_single',f'H -> {rows} -> {gets} -> {single} -> {result}','final(~H,~S,~V,rows,gets,single,Q.single_optional_composed(~H,~S,~V,~Consumer.query_field(~H,~S,~V,caps),owner))','next(owner,rows,gets,single)'),
+ ('after_gets',f'H -> {rows} -> {gets} -> {result}','after_single(~H,~S,~V,~caps,rows,gets,Q.single_composed(~H,~S,~V,~Consumer.query_field(~H,~S,~V,caps),owner))','next(owner,rows,gets)'),
+ ('after_each',f'H -> List<&2,W.Handle<S>> -> {rows} -> {result}','after_gets(~H,~S,~V,~caps,rows,fetch_all(~H,~S,~V,~caps,targets,owner))','next(owner,targets,rows)')]:
+ start=text.index('def '+name+'(');end=text.index('\ndef ',start);old=text[start:end];new=old.replace('~caps:Consumer.Reads<H,S,V>', 'next:'+typ).replace(oldbody,newbody);assert old!=new and '~caps' not in new;patches.append({'old':old,'new':new});text=text.replace(old,new)
+old='after_each(~H,~S,~V,~caps,targets,Q.each_composed(~H,~S,~V,~Consumer.query_field(~H,~S,~V,caps),owner))'
+new='''after_each(~H,~S,~V,(owner => targets => rows =>
+    after_gets(~H,~S,~V,(owner => rows => gets =>
+      after_single(~H,~S,~V,(owner => rows => gets => single =>
+        final(~H,~S,~V,rows,gets,single,Q.single_optional_composed(~H,~S,~V,~Consumer.query_field(~H,~S,~V,caps),owner))),rows,gets,Q.single_composed(~H,~S,~V,~Consumer.query_field(~H,~S,~V,caps),owner))),rows,fetch_all(~H,~S,~V,~caps,targets,owner))),targets,Q.each_composed(~H,~S,~V,~Consumer.query_field(~H,~S,~V,caps),owner))'''
+assert text.count(old)==1;patches.append({'old':old,'new':new});text=text.replace(old,new);f.write_text(text)
+inverse=text
+for patch in reversed(patches):assert inverse.count(patch['new'])==1;inverse=inverse.replace(patch['new'],patch['old'])
+assert inverse.encode()==(parent/'stage/full-consumer.bend').read_bytes()
+joins=[]
+for source in sorted((parent/'stage').rglob('*.bend')):
+ rel=source.relative_to(parent); current=(p/rel).read_bytes();joins.append({'relative':str(rel),'parentSHA256':sha(source.read_bytes()),'candidateSHA256':sha(current),'equal':source.read_bytes()==current})
+assert len(joins)==47 and sum(not j['equal'] for j in joins)==1
+(p/'DELTA.json').write_text(json.dumps({'parent':str(parent),'patches':patches,'inverseExact':True,'joins':joins},indent=2)+'\n')
+plans=[]
+for name,role in [('source-plan.json','source'),('normal-js-plan.json','js'),('normal-native-plan.json','native')]:
+ j=json.loads((parent/name).read_text());temp=Path('/tmp/bendvy54-runtime-boundary-'+role+'01');temp.mkdir(exist_ok=True);oldtemp=str(Path(j['generated']).parent)
+ def replace(v):
+  if isinstance(v,str):return v.replace(str(parent),str(p)).replace(oldtemp,str(temp))
+  if isinstance(v,list):return [replace(x) for x in v]
+  if isinstance(v,dict):return {replace(k):replace(x) for k,x in v.items()}
+  return v
+ j=replace(j);j['scope']='Full47 runtime continuation boundary; one changed consumer, whole oracle; source5 then conditional JS and Native, no cost claim'
+ for key in ['sourceInventory','pins']:
+  for path in j[key]:j[key][path]=sha(Path(path).read_bytes())
+ for path in [p/'DELTA.json',p/'README.md']:j['pins'][str(path)]=sha(path.read_bytes())
+ raw=(json.dumps(j,indent=2)+'\n').encode();(temp/'plan.json').write_bytes(raw);(p/name).write_bytes(raw);plans.append({'role':role,'path':str(temp/'plan.json'),'sha256':sha(raw),'pins':len(j['pins']),'sources':len(j['sourceInventory'])})
+(p/'SEQUENCE.json').write_text(json.dumps({'collector':'/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py','cases':plans,'condition':'source PASS then JS whole PASS then Native; direct collector internal shared lock; stop on failure/no retry'},indent=2)+'\n')
+print(json.dumps(plans))
