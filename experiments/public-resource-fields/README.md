@@ -1,5 +1,9 @@
 # Declaration-bound resource fields (#70)
 
+Current public API: [resource-field-binding](../../src/ecs/resource-field-binding.bend), [resource-field](../../src/ecs/resource-field.bend), and [ordinary-resource-field-system](../../src/ecs/ordinary-resource-field-system.bend). The [core delivery](core-adoption-v1/CORE-DELIVERY.md) records integrated runtime and regression evidence. The remaining public read/mutation matrix is owned by `work/resource-field-public-transactions-v1`; #70 stays open pending its complete evidence and final acceptance review.
+
+The material below describes the original private prototype and its historical qualification state.
+
 Private source candidate, not public qualification. `binding.bend` generates physical Product paths and resource identities from the same ordinary declaration tree. `provider.bend` supplies identity-indexed arbitrary-Type Read/Write grants to an opaque rank-2 owner body. A setter accepts only its selected resource payload. Raw constructors, canonical lenses and projections remain trusted setup; this does not claim constructor secrecy or universal lens correctness.
 
 Four complete entrypoints share `consumer-engine.bend`: schema A/B writers and schema A/B Read-only registrations. Both schemas use the same affine Counter payload for distinct declaration keys. Schema B nests another affine owner with nonempty numeric and Boolean arrays. Writers read, write the first field twice, update its sibling, commit, fail and roll back, then retry. Each boundary reports complete World contents and actual Registry fields, access, cursor and generated clauses. Read-only bodies intentionally ignore the Boolean failure request and return Success without resource updates. Arrays are reconstructed during observation. Affine ownership is at most once; dropping displaced contents makes no exactly-once cleanup claim.
