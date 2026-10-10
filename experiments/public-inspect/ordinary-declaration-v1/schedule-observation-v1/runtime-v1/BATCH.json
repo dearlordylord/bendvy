@@ -1,0 +1,84 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "d6bca6f968ea52ed186a8d0890884ac054287417ce07a1a75b53a4646190d144",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "normal",
+      "path": "/tmp/bendvy-schedule-runtime01/normal-js/plan.json",
+      "sha256": "8b4ffebf6fbbb13a0158f6a604d42ccf5bdd51cc1e0a98f8be20a2349811408a",
+      "sources": 8,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-schedule-runtime01/normal-js/plan.json",
+        "8b4ffebf6fbbb13a0158f6a604d42ccf5bdd51cc1e0a98f8be20a2349811408a"
+      ]
+    },
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "namespace-normal",
+      "path": "/tmp/bendvy-schedule-runtime01/namespace-normal-js/plan.json",
+      "sha256": "7b4e7c937ee10d5ff3af4dc63d420b22d9d1a543d95dd3db3df945a1511cec32",
+      "sources": 8,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-schedule-runtime01/namespace-normal-js/plan.json",
+        "7b4e7c937ee10d5ff3af4dc63d420b22d9d1a543d95dd3db3df945a1511cec32"
+      ]
+    },
+    {
+      "role": "js",
+      "subject": "mutant",
+      "case": "mutant",
+      "path": "/tmp/bendvy-schedule-runtime01/mutant-js/plan.json",
+      "sha256": "aa0435f9b145dfbd07811cdef298a561ecf8d58f3e8478293a6747b1d59c25ec",
+      "sources": 8,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-schedule-runtime01/mutant-js/plan.json",
+        "aa0435f9b145dfbd07811cdef298a561ecf8d58f3e8478293a6747b1d59c25ec"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "normal",
+      "path": "/tmp/bendvy-schedule-runtime01/normal-native/plan.json",
+      "sha256": "d24da497dbc49d95e6e50f23676792f90cde943f89a64eae3c3577387b7f8076",
+      "sources": 8,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-schedule-runtime01/normal-native/plan.json",
+        "d24da497dbc49d95e6e50f23676792f90cde943f89a64eae3c3577387b7f8076"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "mutant",
+      "case": "mutant",
+      "path": "/tmp/bendvy-schedule-runtime01/mutant-native/plan.json",
+      "sha256": "2679f01c65e35f98f9518cba642c2daa7f453f04551db0189fafed2477d389ea",
+      "sources": 8,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-schedule-runtime01/mutant-native/plan.json",
+        "2679f01c65e35f98f9518cba642c2daa7f453f04551db0189fafed2477d389ea"
+      ]
+    }
+  ],
+  "sequence": "normalJS PASS -> namespaceNormalJS PASS -> mutantJS PASS and normalbaseline rejection -> normalNative PASS -> mutantNative PASS; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Exact source5 actual PASS for both frozen consuming closures; raw source evidence preserved",
+  "scope": "Finite automatic schedule bridge, no public provision/refusal policy or universal acceptance"
+}
