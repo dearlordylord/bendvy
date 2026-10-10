@@ -1,0 +1,5 @@
+# Complete unavailable ordinary machine oracle
+
+Source-only successor to d04ed23c7, bound to 8b69d44a8/source08 37161. The new consumer supplies M.Missing to the unchanged full Consumer.created pipeline. Installed M.current_view maps Missing to Unavailable; M.queue preserves Missing. Transaction Success and Failure:Unit are still explicit outcomes. Both zero/two scenes retain all eight actions, complete physical World and Unit owners, sibling Array41/42, events91/92, unflushed callback99, empty registrations and clock0. Enabled debug uses the same declaration name Flow with Unavailable; Disabled still retains the test physical dump.
+
+The independent model retains the original World growth/action interpreter, changing only slot representation, queue preservation and derived CurrentView text. Full String printer escaping is unchanged. No runtime output or producer expected was read. This is an existing supplied Missing slot, not a new initialization/admission policy, scheduled machine run, transition or reader evidence.
