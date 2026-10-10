@@ -9,6 +9,7 @@ import ./ordinary-query-declaration.bend as Query
 type RegistrationKind is Data:
   ComponentKind{}
   ResourceKind{mode:Query.Mode}
+  FieldKind{}
 type Fields<S:Data> is Data:
   Fields{namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:U32,slot:String,clauses:List<&2,Query.Clause<S>>,kind:RegistrationKind}
 type Token<-Registry:Type> is Type:
@@ -37,3 +38,8 @@ def restored_resource(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Ou
 def restore_resource(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~mode:Query.Mode,token:Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>,fields:Fields<S>) -> Resource.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>,mode>:
   match token:
     case Token{}:restored_resource(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~mode,fields)
+
+# Field declarations retain each canonical clause, including mixed read/write packs.
+def field_registry(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,slot:String,clauses:List<&2,Query.Clause<S>>,registry:Sys.Registry<S,C,R,E,Args,Error,Out,runner>) -> Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>> & Fields<S>:
+  match registry:
+    case Sys.Registry{namespace,id,name,access,cursor}:(Token{},Fields{namespace,id,name,access,cursor,slot,clauses,FieldKind{}})

@@ -10,6 +10,7 @@ def resource_clauses(~S:Data,+mode:Query.Mode,access:List<&2,String>) -> List<&2
 def clauses(~S:Data,kind:Records.RegistrationKind,access:List<&2,String>,retained:List<&2,Query.Clause<S>>) -> List<&2,Query.Clause<S>>:
   match kind:
     case Records.ComponentKind{}:retained
+    case Records.FieldKind{}:retained
     case Records.ResourceKind{mode}:resource_clauses(~S,mode,access)
 def binding(~S:Data,fields:Records.Fields<S>) -> DTO.Binding<S>:
   match fields:
