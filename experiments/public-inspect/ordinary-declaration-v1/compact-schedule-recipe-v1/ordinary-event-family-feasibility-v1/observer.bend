@@ -79,6 +79,7 @@ def publisher_registry(value:Consumer.PublisherRegistry()) -> Consumer.Publisher
   match value:
     case Sys.Registry{+namespace,+id,+name,+access,+cursor}:(Sys.Registry{namespace,id,name,access,cursor},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,text,access) ++ ":" ++ U32.show(cursor))
 def fixture_returned(factory:W.Factory,publisher:Consumer.PublisherRegistry() & String,runtime:Setup.Runtime() & String,first:Consumer.FirstReader() & String,firstRegistry:Consumer.FirstRegistry() & String,slow:Consumer.FirstReader() & String,slowRegistry:Consumer.FirstRegistry() & String,second:Consumer.SecondReader() & String,secondRegistry:Consumer.SecondRegistry() & String) -> Consumer.Fixture & String:
+  W.Factory{+nextNamespace}=factory
   (publisher,publisherText)=publisher
   (runtime,runtimeText)=runtime
   (first,firstText)=first
@@ -87,7 +88,7 @@ def fixture_returned(factory:W.Factory,publisher:Consumer.PublisherRegistry() & 
   (slowRegistry,slowRegistryText)=slowRegistry
   (second,secondText)=second
   (secondRegistry,secondRegistryText)=secondRegistry
-  (Consumer.Fixture{factory,publisher,runtime,first,firstRegistry,slow,slowRegistry,second,secondRegistry},runtimeText ++ "|publisher=" ++ publisherText ++ "|firstReader=" ++ firstText ++ ":" ++ firstRegistryText ++ "|slowReader=" ++ slowText ++ ":" ++ slowRegistryText ++ "|secondReader=" ++ secondText ++ ":" ++ secondRegistryText)
+  (Consumer.Fixture{W.Factory{nextNamespace},publisher,runtime,first,firstRegistry,slow,slowRegistry,second,secondRegistry},"factory=" ++ U32.show(nextNamespace) ++ "|" ++ runtimeText ++ "|publisher=" ++ publisherText ++ "|firstReader=" ++ firstText ++ ":" ++ firstRegistryText ++ "|slowReader=" ++ slowText ++ ":" ++ slowRegistryText ++ "|secondReader=" ++ secondText ++ ":" ++ secondRegistryText)
 def fixture(value:Consumer.Fixture) -> Consumer.Fixture & String:
   match value:
     case Consumer.Fixture{factory,publisher,runtime,first,firstRegistry,slow,slowRegistry,second,secondRegistry}:fixture_returned(factory,publisher_registry(publisher),observe_runtime(runtime),first_reader(first),first_registry(firstRegistry),first_reader(slow),first_registry(slowRegistry),second_reader(second),second_registry(secondRegistry))
