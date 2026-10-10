@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: Result)
+- observed : 'Result'
+Location:
+17 |   Owners{handlers:H.Owners<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>,intent:Intent}
+18>| type Result<S:Data> is Type:
+   |      ^^^^^^
+19 |   Result{world:W.World<S,T.Store<S>,T.Resources<S>,Unit>,owners:H.Owners<S,T.Store<S>,T.Resources<S>,Unit,T.State,Systems.runner(~S)>,steps:List<&2,Sch.Step>,observations:List<&2,Sch.Observation>,status:String}
+bend 2.0.36 is available: run bend update
