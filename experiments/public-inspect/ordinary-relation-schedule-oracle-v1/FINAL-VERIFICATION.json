@@ -1,0 +1,231 @@
+{
+  "archives": {
+    "runtime-v1/actual-attempt01/manifest.json": 35,
+    "runtime-v1/actual-wrong-slot-predecessor/manifest.json": 35,
+    "runtime-v1/actual-snapshot-barrier-mutant/manifest.json": 36,
+    "runtime-v1/actual-wrong-corrected/manifest.json": 35,
+    "runtime-v1/actual-two-worlds-refusal/manifest.json": 35,
+    "runtime-v1/actual-other-attempt01/manifest.json": 35,
+    "affected-checks/manifest.json": 738,
+    "affected-current-checks/manifest.json": 164,
+    "checks/manifest.json": 820,
+    "current-checks/manifest.json": 247,
+    "public-checks/manifest.json": 164,
+    "slot-checks/manifest.json": 164,
+    "attachment-checks/manifest.json": 247,
+    "write-checks/manifest.json": 21
+  },
+  "runtime": {
+    "runtime-v1/actual-attempt01/manifest.json": {
+      "members": 35,
+      "outcomes": [
+        {
+          "path": "a-normal-js/consumer.stdout",
+          "bytes": 3346,
+          "sha256": "c1a5a701d196f71135587fd8f127d11c173e3d9dadffd93b49c72fc6702d7021",
+          "oracle": "normal"
+        },
+        {
+          "path": "a-normal-native/consumer.stdout",
+          "bytes": 3346,
+          "sha256": "c1a5a701d196f71135587fd8f127d11c173e3d9dadffd93b49c72fc6702d7021",
+          "oracle": "normal"
+        }
+      ],
+      "commands": 5,
+      "guards": 17
+    },
+    "runtime-v1/actual-wrong-slot-predecessor/manifest.json": {
+      "members": 35,
+      "outcomes": [
+        {
+          "path": "a-normal-js/consumer.stdout",
+          "bytes": 3519,
+          "sha256": "e68c920779dd927afdb7297758364ec37dda5353061bf7dcb2cb3566fbe09b2b",
+          "oracle": "supersededWrong"
+        },
+        {
+          "path": "a-normal-native/consumer.stdout",
+          "bytes": 3519,
+          "sha256": "e68c920779dd927afdb7297758364ec37dda5353061bf7dcb2cb3566fbe09b2b",
+          "oracle": "supersededWrong"
+        }
+      ],
+      "commands": 5,
+      "guards": 17
+    },
+    "runtime-v1/actual-snapshot-barrier-mutant/manifest.json": {
+      "members": 36,
+      "outcomes": [
+        {
+          "path": "a-normal-js/consumer.stdout",
+          "bytes": 3373,
+          "sha256": "5e5a5a99a48bf99b48287f37e5f43ba5eeb4840d3210a5534ec4db30fec3b1aa",
+          "oracle": "mutant"
+        },
+        {
+          "path": "a-normal-native/consumer.stdout",
+          "bytes": 3373,
+          "sha256": "5e5a5a99a48bf99b48287f37e5f43ba5eeb4840d3210a5534ec4db30fec3b1aa",
+          "oracle": "mutant"
+        }
+      ],
+      "commands": 5,
+      "guards": 17
+    },
+    "runtime-v1/actual-wrong-corrected/manifest.json": {
+      "members": 35,
+      "outcomes": [
+        {
+          "path": "a-normal-js/consumer.stdout",
+          "bytes": 3495,
+          "sha256": "92ab34b141accd1f0ab0626380568aa7b6fb88e2e831c73c957f3b1636286730",
+          "oracle": "wrong"
+        },
+        {
+          "path": "a-normal-native/consumer.stdout",
+          "bytes": 3495,
+          "sha256": "92ab34b141accd1f0ab0626380568aa7b6fb88e2e831c73c957f3b1636286730",
+          "oracle": "wrong"
+        }
+      ],
+      "commands": 5,
+      "guards": 17
+    },
+    "runtime-v1/actual-two-worlds-refusal/manifest.json": {
+      "members": 35,
+      "outcomes": [
+        {
+          "path": "a-normal-js/consumer.stdout",
+          "bytes": 403,
+          "sha256": "71131be4a27a3fcf570f36df97c359cb76857a37839b8f95e22f363507e3e487",
+          "oracle": "factory"
+        },
+        {
+          "path": "a-normal-native/consumer.stdout",
+          "bytes": 403,
+          "sha256": "71131be4a27a3fcf570f36df97c359cb76857a37839b8f95e22f363507e3e487",
+          "oracle": "factory"
+        }
+      ],
+      "commands": 5,
+      "guards": 17
+    },
+    "runtime-v1/actual-other-attempt01/manifest.json": {
+      "members": 35,
+      "outcomes": [
+        {
+          "path": "a-normal-js/consumer.stdout",
+          "bytes": 3346,
+          "sha256": "c1a5a701d196f71135587fd8f127d11c173e3d9dadffd93b49c72fc6702d7021",
+          "oracle": "normal"
+        },
+        {
+          "path": "a-normal-native/consumer.stdout",
+          "bytes": 3346,
+          "sha256": "c1a5a701d196f71135587fd8f127d11c173e3d9dadffd93b49c72fc6702d7021",
+          "oracle": "normal"
+        }
+      ],
+      "commands": 5,
+      "guards": 17
+    }
+  },
+  "typedRefusals": {
+    "duplicate": {
+      "exit": 1,
+      "failure": null,
+      "bodySHA256": "34981e8313c7bba979f6cb276c7baff9b1fbd4d929cf0d8d7dce4cd1dac58438",
+      "scope": "Captured source01 preattachment; exact body retained, current indexed API signature/type boundary preserved."
+    },
+    "foreign": {
+      "exit": 1,
+      "failure": null,
+      "bodySHA256": "2738a101ba48c63fe86eb557100e3755fde112cc7dce38893445db2bdba1910e",
+      "scope": "Captured source01 preattachment; exact body retained, current indexed API signature/type boundary preserved."
+    },
+    "other-declaration": {
+      "exit": 1,
+      "failure": null,
+      "bodySHA256": "ab30d4c1ea684a52637b1b9ebee007d64098ddcaac9d3456f340dcbc4f909e5b",
+      "scope": "Captured source01 preattachment; exact body retained, current indexed API signature/type boundary preserved."
+    },
+    "read-only-app": {
+      "exit": 1,
+      "failure": null,
+      "bodySHA256": "22446b5824c9be63622b3c5d18e5242d2fb06c9dc657fe4a4dd945fe0381e31e",
+      "scope": "Captured source01 preattachment; exact body retained, current indexed API signature/type boundary preserved."
+    },
+    "write-through-read": {
+      "exit": 1,
+      "failure": null,
+      "reachedDiagnostic": "expected Writable, observed ReadOnly"
+    }
+  },
+  "reachedBaselineComparison": {
+    "mode": "Explicit complete actual byte comparison; collector subject normal/receipt immutable; no invented receipt flag",
+    "actualBytes": 3373,
+    "normalBytes": 3346,
+    "bothUnequal": true
+  },
+  "publicModules": [
+    {
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation-system.bend",
+      "bytes": 4393,
+      "sha256": "1135ea79c0b019739f7a55704c6ce51e5159f04215ef47ca3c735cafc3b556fe",
+      "inverseImports": 11
+    },
+    {
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation-schedule.bend",
+      "bytes": 9339,
+      "sha256": "4fa568ef9d3318c08fbaa8af4e92b0a387ff49a94ebd1da6c99496c1af423ad0",
+      "inverseImports": 15
+    }
+  ],
+  "sourceCurrent": {
+    "entry-public": {
+      "pins": 79,
+      "exit": 0,
+      "postUnchanged": true
+    },
+    "entry-wrong-id-v2": {
+      "pins": 79,
+      "exit": 0,
+      "postUnchanged": true
+    },
+    "entry-two-worlds": {
+      "pins": 80,
+      "exit": 0,
+      "postUnchanged": true
+    }
+  },
+  "currentTotals": {
+    "runtimeMembers": 176,
+    "outcomes": 10,
+    "commands": 25,
+    "guards": 85
+  },
+  "historicalSupersededWrong": {
+    "runtimeMembers": 35,
+    "outcomes": 2,
+    "bytes": 3519,
+    "commands": 5,
+    "guards": 17,
+    "status": "Preserved pre-slot-fix evidence; not current3495 qualification"
+  },
+  "deliveryCommit": "215a6001b",
+  "verdict": "BOUNDED_SPEC_AND_STANDARDS_PASS",
+  "noReruns": true,
+  "limits": [
+    "Finite Unit Args/Out and Unit component store plus resource physical Array; no universal affine payload proof.",
+    "Registered inverse reader scheduling; no scheduled relation mutation/condition skip/stream failure delivery or full56 claim.",
+    "Threaded Factory namespace refusal; no independent Factory/global uniqueness claim.",
+    "Protected comparative/performance gates separate."
+  ],
+  "proseCommit": "f01132cc3",
+  "publicEntryDocumentation": {
+    "path": "/workspace/formal-proofs/bendvy/src/ecs/README.md",
+    "sha256": "276a4f976713636e38e1e3ed33a8eeb688682b0ca35f7db2b3d354fd33167abf",
+    "scope": "Uncommitted root-owned final ordinary relation system/schedule paragraph reviewed. Names true registry/plan/default metadata, finite Unit arguments/output, source-backed namespace/metadata/id validation, disabled/noninterference and pending broader gates accurately. Registration metadata mismatch refusal is source-inspected, not distinct runtime fixture."
+  }
+}
