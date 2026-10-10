@@ -95,7 +95,7 @@ timeout or missing plumbing establishes technical impossibility.
 
 `ordinary-app-access.index`/`schema_index` derives component/resource Reader, Writer and Filter uses from operational fields, retaining original modes and actual system identities. Debug disabled preserves affine owners and skips presentation. [Final review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-access-index-v1/FINAL-REVIEW.md) covers twelve complete JS/Native outputs, seven query modes, two schemas, authority refusals and a reached grouping defect. Event declaration origins, schedule lints, complete population/dump categories and integrated regression remain open; this does not close #56.
 
-The additive common `Events` category at `9611c7f8c` passes the source checker. It does not itself produce event access or qualify a heterogeneous ordinary-App index. Event declaration/App candidates have a first complete JS/Native pair against the independent 37,423-byte model; integration and source-current combined qualification remain pending. Earlier access-index evidence stays bound to its exact prior module bytes.
+Historical preparation at `9611c7f8c` added the common `Events` category. The earlier event-only 37,423-byte pair and component/resource access-index packet retain their original source bindings; the adopted same-World successor is qualified below.
 
 ### Adopted same-World Data event access
 
