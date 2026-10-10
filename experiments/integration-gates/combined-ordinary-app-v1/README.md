@@ -17,7 +17,7 @@ Combined156 excludes both modules. [PLAN-158.json](PLAN-158.json) freezes their
 combined regression with unchanged workload and criteria; [launch review](LAUNCH-REVIEW-158.md)
 passes statically. Execution awaits an exclusive quiet-host window after current
 feature checks. No combined158 measurement or verdict is available yet.
-The ordinary access-index module is now adopted at `25a1e0eb4`. PLAN-158 remains an unexecuted historical snapshot. [PLAN-159.json](PLAN-159.json) freezes the combined 159-module core with the unchanged runner, workload and criteria; launch review and an exclusive quiet-host window remain required. No combined159 measurement or verdict is available.
+The ordinary access-index module is now adopted at `25a1e0eb4`. PLAN-158 remains an unexecuted historical snapshot. [PLAN-159.json](PLAN-159.json) freezes the combined 159-module core with the unchanged runner, workload and criteria; [static launch review](LAUNCH-REVIEW-159.md) passes; execution still requires an exclusive quiet-host window. No combined159 measurement or verdict is available.
 The preliminary CPU11 sample was idle, but host load was 9.1/12.1/12.4 with
 external work active; no exclusive quiet-host window was established.
 

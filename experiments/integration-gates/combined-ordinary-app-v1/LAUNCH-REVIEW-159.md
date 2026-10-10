@@ -1,0 +1,9 @@
+# Combined159 comparative launch review
+
+Static PASS for exact PLAN-159 SHA25615afea55a2788b02fbe36354a753a8e593296b7869492614f995d8e2dd8d3bc1, candidate source basis25a1e0eb4. Execution remains HOLD under current contention and until actual launch prerequisites are satisfied. No measurement performed.
+
+Compared with approved unexecuted PLAN-158, all164 previous monitored hashes remain identical. Only ordinary-app-access.bend is added (5,419 bytes/SHA2086ab68…), plus current staged README. The candidate contains159 direct/six internal modules,165 monitored and168 staged files; all current hash/size bindings match. The adopted sole access-index final review binds public materialization and twelve complete traces/all seven modes, affected category control and source authority refusals, with finite limits preserved. PLAN-158 remains unexecuted, not a regression result.
+
+Baseline archive and29 member identities,33 reference hashes,eight literal/resolved tool hashes,runner,contract,environment,installed configuration/resources,statistics control and caps are identical to PLAN-158. Current monitored/staged/reference/tool bytes verified. Launch argv differs only by fresh output path; output absent. Existing protected Workshop workload,20 balanced pairs,two warmups,seed20261007,zero slowdown allowance and exact paired sign/Holm criteria remain unchanged. No feature timing/full parity or measured regression acceptance inferred.
+
+Root must ensure all semantic/hook children terminal, reserve the entire heavy queue, validate fresh suitable CPU11 host conditions and preserve required statistics control evidence. Outer flock is mandatory because benchmarks/run.py has no internal flock. External contention requires HOLD; static review establishes no quiet-host claim. Any executable binding drift requires a frozen successor. No source/plan/runner/criteria changes or heavy probes were performed.
