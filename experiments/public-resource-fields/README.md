@@ -1,6 +1,6 @@
 # Declaration-bound resource fields (#70)
 
-Current public API: [resource-field-binding](../../src/ecs/resource-field-binding.bend), [resource-field](../../src/ecs/resource-field.bend), and [ordinary-resource-field-system](../../src/ecs/ordinary-resource-field-system.bend). The [core delivery](core-adoption-v1/CORE-DELIVERY.md) records integrated runtime and regression evidence. The remaining public read/mutation matrix is owned by `work/resource-field-public-transactions-v1`; #70 stays open pending its complete evidence and final acceptance review.
+Current public API: [resource-field-binding](../../src/ecs/resource-field-binding.bend), [resource-field](../../src/ecs/resource-field.bend), and [ordinary-resource-field-system](../../src/ecs/ordinary-resource-field-system.bend). The [core delivery](core-adoption-v1/CORE-DELIVERY.md) records integrated runtime and regression evidence. The [public read/mutation matrix](public-transactions-v1/ACCEPTANCE.md) completes #70 finite acceptance with independent final review and configured delivery checks. Broader core parity and product performance remain open.
 
 The material below describes the original private prototype and its historical qualification state.
 
