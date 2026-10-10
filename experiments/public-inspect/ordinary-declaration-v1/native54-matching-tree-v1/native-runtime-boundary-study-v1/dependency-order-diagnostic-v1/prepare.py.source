@@ -1,0 +1,99 @@
+from pathlib import Path
+import json,hashlib,gzip,os
+wt=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1');base=wt/'experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-runtime-boundary-study-v1';p=base/'dependency-order-diagnostic-v1';p.mkdir();c=p/'compiler';c.mkdir();sha=lambda b:hashlib.sha256(b).hexdigest()
+elf=Path('/home/node/.bend/bin/bend-2.0.35');raw=elf.read_bytes();original=raw[82378778:82711943];assert len(original)==333165 and sha(original)=='015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62';(c/'installed-cli-unmodified.mjs').write_bytes(original)
+helper='''function BVY_N54_ORDER_KEYS(keys, deps) {
+  const seen = new Set;
+  const output = [];
+  for (const root of keys) {
+    if (seen.has(root)) continue;
+    seen.add(root);
+    const stack = [[root, 0]];
+    while (stack.length) {
+      const frame = stack[stack.length - 1];
+      const children = deps.get(frame[0]) ?? [];
+      if (frame[1] < children.length) {
+        const child = children[frame[1]++];
+        if (!seen.has(child)) {
+          seen.add(child);
+          stack.push([child, 0]);
+        }
+      } else {
+        output.push(frame[0]);
+        stack.pop();
+      }
+    }
+  }
+  return output;
+}
+function BVY_N54_NATIVE_ORDER(fl) {
+  const rows = done_defs(fl).reverse();
+  const byKey = new Map(rows);
+  const keys = rows.map(([k]) => k);
+  const deps = new Map;
+  for (const k of keys) {
+    const found = new Set;
+    term_any(fl, fun_of(fl, k).h, (s) => {
+      if (s.$ === "Ref" && s.k !== k && byKey.has(s.k)) found.add(s.k);
+      return false;
+    });
+    deps.set(k, [...found]);
+  }
+  return BVY_N54_ORDER_KEYS(keys, deps).map((k) => [k, byKey.get(k)]);
+}
+'''
+s=original.decode();patches=[]
+def patch(old,new):
+ global s
+ assert s.count(old)==1;s=s.replace(old,new);patches.append({'original':old,'replacement':new})
+patch('function compile_book(book) {',helper+'function compile_book(book) {')
+patch('  let reqs;\n  do {','  let reqs;\n  const nativeOrder = BVY_N54_NATIVE_ORDER(fl);\n  do {')
+patch('    for (const [k, tld] of done_defs(fl).reverse()) {','    for (const [k, tld] of nativeOrder) {')
+inv=s
+for x in reversed(patches):assert inv.count(x['replacement'])==1;inv=inv.replace(x['replacement'],x['original'])
+assert inv.encode()==original;(c/'installed-cli-order.mjs').write_text(s)
+for name in ['base.bend','bendtt.lean','effs']:(c/name).symlink_to(Path('/home/node/.bend/bend2')/name)
+(p/'PATCHES.json').write_text(json.dumps({'scope':'Native done_defs traversal order only; no cache/facts/body/kernel/termination mutation','inverseExact':True,'unmodifiedBytes':len(original),'unmodifiedSHA256':sha(original),'patches':patches},indent=2)+'\n')
+control='''const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const src=fs.readFileSync(process.argv[2],'utf8');
+const block=src.slice(src.indexOf('function BVY_N54_ORDER_KEYS('),src.indexOf('function compile_book(book) {'));
+function qualify(keys,edges,expected){
+ const state={keys,edges,done_defs:()=>keys.slice().reverse().map(k=>[k,{h:k}]),fun_of:(_,k)=>({h:k}),term_any:(_,k,f)=>{for(const dep of edges[k]??[])f({$:"Ref",k:dep});}};
+ vm.createContext(state);vm.runInContext(block,state);const got=state.BVY_N54_NATIVE_ORDER({}).map(x=>x[0]);
+ assert.deepStrictEqual(Array.from(got),expected);assert.strictEqual(new Set(got).size,keys.length);assert.deepStrictEqual([...got].sort(),[...keys].sort());
+ assert.deepStrictEqual(Array.from(state.BVY_N54_NATIVE_ORDER({}).map(x=>x[0])),expected);
+}
+qualify(['caller','leaf'],{caller:['leaf']},['leaf','caller']);
+qualify(['root','shared','deep'],{root:['shared','deep'],deep:['shared']},['shared','deep','root']);
+qualify(['a','b','tail'],{a:['b'],b:['a','tail']},['tail','b','a']);
+qualify(['a','b'],{a:['a','foreign','b','b']},['b','a']);
+qualify([],{},[]);
+const keys=Array.from({length:6000},(_,i)=>'k'+i),edges=Object.fromEntries(keys.map((k,i)=>[k,i+1<keys.length?[keys[i+1]]:[]]));qualify(keys,edges,keys.slice().reverse());
+console.log('NATIVE_DEPENDENCY_ORDER_CONTROL_PASS');
+'''
+(p/'control.cjs').write_text(control)
+(p/'README.md').write_text('''# One Native dependency-order discriminator
+
+Unchanged full47 scan-projector source/sourcePASS/fullJSwhole5077477 oracle reused. Exact installed ELF333165B embedded CLI015d extracted/provenance pinned. Three inverse patches add bounded-stack dependency postorder from existing done_defs keys, compute it once after file_book, and replace only compile_book outer reverse-discovery traversal. All original emission/fact additions/BRWS clears/lending closure/finalization/cardinality termination/kernel/runtime code remain unchanged. For cycles deterministic first-discovery DFS order is a heuristic, not a cyclic borrow solution. Every key occurs exactly once; all dependencies are filtered to the same existing done_defs set. Existing term_any and fun_of inspect lowered Ref graph only; source read may warm existing FUNS cache and adds prep work. No mutation of SRCS/refbook/maps beyond ordinary existing memo reads, no new compiler/dependency/core adoption.
+
+Source rationale: file_book builds SRCS in root BFS discovery order, whereas reverse discovery is not dependency postorder for shared/cross-depth references. brw_of caches first per-pass slot choices; val_own consumption acquired after that lookup only informs later passes. Dependency order can make callee facts available earlier for caller emission. Existing emit_fuse still invokes emit_args; nested fusion/late unresolved-borrow finalization remain and may prevent fewer passes. No claim this resolves stock90 deadline or changes safe runtime semantics. Segment/constant allocation order changes require full actual independent oracle, not byteequal C proof.
+
+Node5 exact extracted ordering-helper controls cover chain/shared/cycle/self/unknown/empty/6000-depth/permutation/determinism. Then ONE copied compiler emit30→conditionalClang19-O3 build120→runtime5/full5077477 oracle, CPU11/internalsharedlock unchanged. Filemode BUN_BE_BUN only; no profiler/instrumentation/cutoff/capraise. Original stockfailures preserved. Private compiler pipeline never establishes stock packaged acceptance or compiler equivalence; no speed/convergence/universalproof/performance/full54 claim. Both control and compiler UNEXECUTED pending independent whole compiler-experiment review/root queue routing.
+''')
+(p/'PROVENANCE.json').write_text(json.dumps({'elf':str(elf),'elfBytes':len(raw),'elfSHA256':sha(raw),'slice':[82378778,82711943],'sliceBytes':len(original),'sliceSHA256':sha(original),'installedUnmodified':True,'compilerAdoption':False,'sourcePrerequisite':'scan-projector-v1/source-actual-v1 original87763','fullJSPrerequisite':'scan-projector-v1/actual-v1 original8498'},indent=2)+'\n')
+j=json.loads((base/'scan-projector-v1/normal-native-plan.json').read_text());tmp=Path('/tmp/bendvy54-dependency-order-native01');tmp.mkdir();oldtmp=str(Path(j['generated']).parent)
+def move(v):
+ if isinstance(v,str):return v.replace(oldtmp,str(tmp))
+ if isinstance(v,list):return [move(x) for x in v]
+ if isinstance(v,dict):return {move(k):move(x) for k,x in v.items()}
+ return v
+j=move(j);j['scope']='Private copied Native dependency-order discriminator, no stock qualification/compiler adoption';j['environment']['BUN_BE_BUN']='1';j['cwd']=str(p);j['commands'][0]['argv'].insert(4,str(c/'installed-cli-order.mjs'))
+j['commands'].insert(0,{'label':'source-order-control','argv':['/usr/bin/taskset','-c','11',j['tools']['node'],str(p/'control.cjs'),str(c/'installed-cli-order.mjs')],'capSeconds':5,'expectedExit':0})
+for f in [c/'installed-cli-unmodified.mjs',c/'installed-cli-order.mjs',p/'PATCHES.json',p/'PROVENANCE.json',p/'README.md',p/'control.cjs',base/'scan-projector-v1/source-actual-v1/manifest.json',base/'scan-projector-v1/actual-v1/manifest.json']:j['pins'][str(f)]=sha(f.read_bytes())
+for directory in [c,c/'effs']:
+ from importlib.util import spec_from_file_location,module_from_spec
+ spec=spec_from_file_location('runner','/workspace/formal-proofs/bendvy/scripts/task_runner.py');runner=module_from_spec(spec);import sys;sys.modules['runner']=runner;spec.loader.exec_module(runner)
+ j['resourceRoots'][str(directory)]=runner.Inputs(directories=[str(directory)]).expected[str(directory.resolve())]
+for f,h in j['pins'].items():assert sha(Path(f).read_bytes())==h,f
+assert not Path(j['generated']).exists() and not Path(j['native']).exists()
+plan=(json.dumps(j,indent=2)+'\n').encode();(tmp/'plan.json').write_bytes(plan);(p/'plan.json').write_bytes(plan);(p/'PREPARED.json').write_text(json.dumps({'path':str(tmp/'plan.json'),'sha256':sha(plan),'pins':len(j['pins']),'sources':len(j['sourceInventory']),'control':'UNEXECUTED','pipeline':'UNEXECUTED'},indent=2)+'\n');(p/'prepare.py.source').write_bytes(Path(__file__).read_bytes());print(sha(plan),len(j['pins']))

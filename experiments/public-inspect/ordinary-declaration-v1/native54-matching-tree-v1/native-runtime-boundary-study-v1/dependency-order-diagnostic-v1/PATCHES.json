@@ -1,0 +1,20 @@
+{
+  "scope": "Native done_defs traversal order only; no cache/facts/body/kernel/termination mutation",
+  "inverseExact": true,
+  "unmodifiedBytes": 333165,
+  "unmodifiedSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+  "patches": [
+    {
+      "original": "function compile_book(book) {",
+      "replacement": "function BVY_N54_ORDER_KEYS(keys, deps) {\n  const seen = new Set;\n  const output = [];\n  for (const root of keys) {\n    if (seen.has(root)) continue;\n    seen.add(root);\n    const stack = [[root, 0]];\n    while (stack.length) {\n      const frame = stack[stack.length - 1];\n      const children = deps.get(frame[0]) ?? [];\n      if (frame[1] < children.length) {\n        const child = children[frame[1]++];\n        if (!seen.has(child)) {\n          seen.add(child);\n          stack.push([child, 0]);\n        }\n      } else {\n        output.push(frame[0]);\n        stack.pop();\n      }\n    }\n  }\n  return output;\n}\nfunction BVY_N54_NATIVE_ORDER(fl) {\n  const rows = done_defs(fl).reverse();\n  const byKey = new Map(rows);\n  const keys = rows.map(([k]) => k);\n  const deps = new Map;\n  for (const k of keys) {\n    const found = new Set;\n    term_any(fl, fun_of(fl, k).h, (s) => {\n      if (s.$ === \"Ref\" && s.k !== k && byKey.has(s.k)) found.add(s.k);\n      return false;\n    });\n    deps.set(k, [...found]);\n  }\n  return BVY_N54_ORDER_KEYS(keys, deps).map((k) => [k, byKey.get(k)]);\n}\nfunction compile_book(book) {"
+    },
+    {
+      "original": "  let reqs;\n  do {",
+      "replacement": "  let reqs;\n  const nativeOrder = BVY_N54_NATIVE_ORDER(fl);\n  do {"
+    },
+    {
+      "original": "    for (const [k, tld] of done_defs(fl).reverse()) {",
+      "replacement": "    for (const [k, tld] of nativeOrder) {"
+    }
+  ]
+}
