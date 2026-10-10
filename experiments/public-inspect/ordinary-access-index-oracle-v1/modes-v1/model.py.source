@@ -1,0 +1,31 @@
+"""Three full typed mode consumer source models; no runtime input."""
+from pathlib import Path
+import runpy,json,gzip,hashlib
+HERE=Path(__file__).resolve().parent
+ls=lambda xs:'['+', '.join(xs)+']'
+MODES={'optional-write':('Optional','Write'),'lifecycle':('Added','Changed'),'filters':('With','Without')}
+ROLE={'Optional':'Reader','Write':'Writer','Added':'Reader','Changed':'Reader','With':'Filter','Without':'Filter'}
+def derive(tag):
+ D=runpy.run_path(str(HERE.parent/'model.py.source'));modes=MODES[tag]
+ def fields(c1,c2,kinds=False):
+  xs=[f'1:1:SharedSystem:Update:cursor={c1}:[Shared, Shared]:'+ls(['Shared:'+m for m in modes]),f'1:2:SharedSystem:Update:cursor={c2}:[Shared]:[Shared:Write]']
+  if kinds:xs=[xs[0]+':Component',xs[1]+':Field']
+  return ls(xs)
+ def index():return ls(['Component:Shared:'+ls(['1:1:SharedSystem:'+m+':'+ROLE[m] for m in modes]),'Resource:Shared:[1:2:SharedSystem:Write:Writer]'])
+ def snapshot(pop,value,c1,c2,enabled=True):
+  row='[]'
+  if pop and tag!='filters':row='[1:1:'+('Found:42:Found:42' if tag=='optional-write' else 'Unit:Unit')+']'
+  text=('Debug{schema=[Component:Shared:Shared, Resource:Shared:Shared]|bindings='+fields(c1,c2)+'|rendered='+ls([row,f'Shared={value}'])+'}') if enabled else 'Disabled'
+  return 'index='+(index() if enabled else 'Disabled')+'|'+D['complete'](text,pop,value,c1,c2)
+ D['complete'].__globals__['fields']=fields
+ def scenario(pop):
+  c1=c2=0;value=10;rows=[snapshot(pop,value,c1,c2),snapshot(pop,value,c1,c2),snapshot(pop,value,c1,c2,False)]
+  # Lifecycle since0 matches added/changed stamp1; With∧Without samekey never does.
+  c1=int(pop);matched=pop and tag!='filters';rows.append(D['complete']('ComponentSuccess:output='+ls(['Unit'] if matched else []),pop,value,c1,c2))
+  prior=value;value+=1;c2=int(pop);rows.append(D['complete'](f'Success:output=leaf:{prior}',pop,value,c1,c2));rows.append(snapshot(pop,value,c1,c2))
+  rows.append(D['complete'](f'Failure:RolledBack:{value}',pop,value,c1,c2));rows.append(snapshot(pop,value,c1,c2));prior=value;value+=1;rows.append(D['complete'](f'Success:output=leaf:{prior}',pop,value,c1,c2));rows += [snapshot(pop,value,c1,c2),snapshot(pop,value,c1,c2)]
+  return '\n'.join(rows)+'\n'
+ return ('consumer-'+tag+'.Report{'+', '.join(json.dumps(scenario(p),ensure_ascii=False) for p in (False,True))+'}\n').encode()
+if __name__=='__main__':
+ for tag in MODES:
+  raw=derive(tag);(HERE/(tag+'.stdout')).write_bytes(raw);(HERE/(tag+'.stdout.gz')).write_bytes(gzip.compress(raw,mtime=0));print(tag,len(raw),hashlib.sha256(raw).hexdigest())
