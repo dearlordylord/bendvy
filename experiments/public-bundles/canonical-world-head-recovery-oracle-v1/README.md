@@ -1,0 +1,3 @@
+Complete source-only HeadPending recovery oracle for 3e4474dcc. Seven full observations preserve distinct same-world head1/tail2 targets, physical columns, lifecycle stamps, context, registry and retained raw/recovery owners. No producer or backend stdout was read.
+
+The generic installer restores tail first. Deactivated head1 then retains HeadPending with originalhead9/stamp1:1 and displacedtail61; repeated inactive resume preserves both. Reactivation resumes only head restoration before rawUndo and final original cleanup. Registry cursor remains0 because this driver stages/install entries directly after registration. This is generic distinct-target composition, not an ordinary single-target Bundle request. No new retry/disposal policy or nonplain recovery claim.
