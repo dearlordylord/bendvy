@@ -1,0 +1,1 @@
+Independent complete source-only foreign relation composition: seven receiver snapshots and seven peer Worlds, actual Factory/handles/statuses/own inverse lookup, four refused foreign writes, and empty failure reading. No runtime inputs. Threaded Factory scope only.
