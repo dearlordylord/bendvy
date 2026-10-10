@@ -15,9 +15,13 @@ then bevy-ts inventory govern implementation choices.
    `scripts/bend-check source.bend` for parser/type/affine repairs. API changes
    require undeclared-access, cross-schema, write-through-read and relevant
    abstract-handle confinement controls with arbitrary affine `Type` payloads.
-3. Run the cheapest complete consumer, then affected required gates through an
-   existing runner under [check policy](check-policy.md). Batch changes for the
-   unchanged [regression gate](../benchmarks/README.md) on the integrated result.
+3. Before preparing a multi-scenario qualification package, execute one complete
+   ordinary consumer on every required backend against its full oracle, or reuse
+   matching qualified evidence under [check policy](check-policy.md). If a backend
+   is blocked, resolve that blocker; prepare additional scenarios only when needed
+   to diagnose it. After all required backends pass, prepare the remaining affected
+   gates through an existing runner. Batch changes for the unchanged
+   [regression gate](../benchmarks/README.md) on the integrated result.
 4. Deliver exact commit, owned files, source-bound receipts, complete outputs and
    remaining gates for one independent final Spec/Standards review. Coordinator
    integrates and updates the owning issue. A bounded slice is reported as such.

@@ -25,6 +25,9 @@ changed runners/guards, compiler experiments and comparative performance plans.
 Batch the entire planned sequence into that review. A source repair within the
 same agreed contract uses affected checks and final review; changes to an admitted
 frozen plan require a preserved successor and review of the changed portion.
+Launch approval binds the reviewed source, plan and prerequisite conditions.
+After a commit, verify those bindings and prerequisites; unchanged bindings retain
+the existing approval without another review or admission report.
 
 Select reused TS references with the delivery-manifest binding. Check selected
 Python sources with `scripts/check-python-source.py` and run configured staged
