@@ -1,0 +1,58 @@
+{
+  "developmentOnly": true,
+  "prePostEqual": true,
+  "checks": [
+    {
+      "name": "cross-schema",
+      "argv": [
+        "/usr/bin/flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "/usr/bin/env",
+        "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+        "scripts/bend-check",
+        "experiments/public-resource-fields/controls/cross-schema.bend"
+      ],
+      "exit": 1,
+      "elapsed": 0.619379245035816
+    },
+    {
+      "name": "write-through-read",
+      "argv": [
+        "/usr/bin/flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "/usr/bin/env",
+        "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+        "scripts/bend-check",
+        "experiments/public-resource-fields/controls/write-through-read.bend"
+      ],
+      "exit": 1,
+      "elapsed": 0.6831508710165508
+    },
+    {
+      "name": "duplicate-owner",
+      "argv": [
+        "/usr/bin/flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "/usr/bin/env",
+        "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+        "scripts/bend-check",
+        "experiments/public-resource-fields/controls/duplicate-owner.bend"
+      ],
+      "exit": 1,
+      "elapsed": 0.6614568250370212
+    },
+    {
+      "name": "wrong-binding",
+      "argv": [
+        "/usr/bin/flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "/usr/bin/env",
+        "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+        "scripts/bend-check",
+        "experiments/public-resource-fields/controls/wrong-binding.bend"
+      ],
+      "exit": 1,
+      "elapsed": 0.6331036860356107
+    }
+  ]
+}

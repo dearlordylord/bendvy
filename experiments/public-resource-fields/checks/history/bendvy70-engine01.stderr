@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+58 |   match result:
+59>|     case (own,(world,text)):last(~S,~R,~run,~clauses,pre,commit,text,run(~S,~R,~run,~clauses,~view,own,world,False{}))
+   |                                                                          ^
+60 | def committed(~S:Data,~R:Type,~run:World(~S,~R) -> Bool -> Sys.Outcome<World(~S,~R),O.Error,O.Output>,~clauses:List<&2,Q.Clause<S>>,~view:R -> R & String,pre:String,result:Owner(~S,~R,~run,~clauses) & (World(~S,~R) & String)) -> String:
+bend 2.0.36 is available: run bend update

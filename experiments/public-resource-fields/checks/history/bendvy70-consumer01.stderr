@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : '(left,lt) (right,rt)'
+Location:
+52 |   match a b:
+53>|     case (left,lt) (right,rt):(Product.Owner{left,right},"First=" ++ lt ++ ";Second=" ++ rt)
+   |          ^^^^^^^^^^^^^^^^^^^^
+54 | def resource_view(value:Resources()) -> Resources() & String:
+bend 2.0.36 is available: run bend update
