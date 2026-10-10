@@ -1,0 +1,7 @@
+# Actual copied diagnostic
+
+Original85249 terminal1 INCOMPLETE: copied emit30 childdeadline/null, zero stdout/noC; no build/runtime planned. Four guards unchanged. All41,911 stderr markers (6,127,427 bytes) are complete JSON; no non-marker stderr. Book reading completed and Native compile_book entered. Passes1/2/3 each emitted5,941 outer definitions and facts sizes changed0→8131→8149→8157. Pass4 entered with8157 and stopped after definition-entry ordinal3128, core/inspector-query:composed_lookup_valid~46; its matching exit and compile-book exit were not observed.
+
+Markers bracket the actual outer emission block including memo_gc/emit_open/emit_body; they do not identify an inner costly expression or establish dominant cost. Instrumentation/file-mode/marker IO affect the execution. This diagnostic locates its own deadline in Native fixed-point emission, not the original stock70124 phase or cause. No stock Native acceptance, timing/performance, refinement, runtime or wholeoracle execution is inferred. Original failures remain intact, no retries or caps changed.
+
+actual-v1 retains complete original plan/receipt/raw marker stream/four guards and pinned source/tool/compiler/provenance bytes, with immutable parent CAS reuse stated in its manifest. No compiler/core/runner was changed outside this private diagnostic. Any next experiment requires new evidence-driven planning and authorization.
