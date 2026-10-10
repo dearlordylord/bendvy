@@ -1,0 +1,1 @@
+Source07 reaches actual Sch.run and rejects its growing static dispatcher specialization. Next successor moves the actual dispatcher into a finite runtime callback carrier, retaining typed owners, original registration refusal arguments, provisioning and Sch.run. Source07 is not a deadline or a semantic acceptance result. No source/backend successor has run yet.
