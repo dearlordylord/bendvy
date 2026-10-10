@@ -1,0 +1,33 @@
+F
+======================================================================
+FAIL: test_owner_surviving_kill_preserves_failure_result_and_handle (__main__.Execution.test_owner_surviving_kill_preserves_failure_result_and_handle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/bendvy-bounded-runner-unbounded-mutant02/task_runner.py", line 183, in execute_result
+    raise RuntimeError('command owner failed to exit')
+RuntimeError: command owner failed to exit
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/tmp/bendvy-bounded-runner-unbounded-mutant02/test-task-runner.py", line 215, in test_owner_surviving_kill_preserves_failure_result_and_handle
+    execute_result(command('must not execute'), 3, capture='split')
+  File "/tmp/bendvy-bounded-runner-unbounded-mutant02/task_runner.py", line 204, in execute_result
+    owner.join()
+  File "/usr/lib/python3.11/unittest/mock.py", line 1118, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/unittest/mock.py", line 1122, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.11/unittest/mock.py", line 1183, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/bendvy-bounded-runner-unbounded-mutant02/test-task-runner.py", line 202, in join
+    self.assertIsNotNone(timeout, 'cleanup must never wait indefinitely')
+AssertionError: unexpectedly None : cleanup must never wait indefinitely
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=1)

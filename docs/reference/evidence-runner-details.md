@@ -69,6 +69,16 @@ At execution entry, verify that the running interpreter resolves to the interpre
 
 Portable admission controls registered in [the hook selector](../../scripts/run-admission-controls.py) run when their collector or helper changes. Use isolated temporary fixtures for these controls; frozen execution plans remain historical evidence. The selector checks all declared dependency bytes against the index before running controls.
 
+Command-owner cancellation cleanup shares its existing four-second join budget
+across termination and SIGKILL. A surviving owner causes explicit cleanup failure;
+the primary exception and captured result remain available, and a live owner
+handle is retained rather than closed. Child traversals within an owned-child
+cleanup phase share that phase's one-second deadline. These bounds do not make
+filesystem operations or operating-system scheduling instantaneous. A caller
+receiving a surviving owner handle must arrange subsequent cleanup; Python's
+process-exit handling can also join live multiprocessing owners. This is a bound
+on the runner's explicit cleanup waits, not a universal shutdown guarantee.
+
 Use `owned-tool-pins.py` snapshot/verify for the ordinary path. Historical binary hashes alone do not establish current resource membership, resolver or configuration state. Preserve the original failed or unadmitted plan when preparing its replacement. Reuse retained positive evidence when sources and its scope still match; concentrate new commands on changed behavior and missing controls.
 
 ## Portable evidence verification

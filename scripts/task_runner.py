@@ -35,9 +35,11 @@ def enable_subreaper():
         raise OSError(ctypes.get_errno(), 'cannot establish command subreaper')
 
 
-def kill_descendants(pid):
+def kill_descendants(pid, *, deadline=None):
     pending, descriptors, seen = [pid], [], set()
     end = time.monotonic() + 1
+    if deadline is not None:
+        end = min(end, deadline)
     try:
         while pending and time.monotonic() < end:
             current = pending.pop()
@@ -82,7 +84,9 @@ def cleanup_owned(pid=None, prior=()):
         if not owned:
             return
         for child in owned:
-            kill_descendants(child)
+            if time.monotonic() >= end:
+                break
+            kill_descendants(child, deadline=end)
         for child in owned:
             try:
                 os.waitpid(child, os.WNOHANG)
@@ -162,6 +166,7 @@ def execute_result(command, timeout, env=None, cwd=None, capture='merged-stdout'
     owner.start()
     sender.close()
     end = time.monotonic() + timeout + 5
+    result, primary_error = None, None
     try:
         # Polling avoids an indefinite wait after an unexpected worker death.
         while not receiver.poll(.05):
@@ -182,15 +187,37 @@ def execute_result(command, timeout, env=None, cwd=None, capture='merged-stdout'
             result['failure'] = (result['failure'] or '') + '; ' + str(error)
         result['runnerSHA256'] = IMPLEMENTATION_SHA256
         return result
+    except BaseException as error:
+        primary_error = error
+        if result is not None:
+            error.result = result
+            error.stdout, error.stderr = result['stdout'], result['stderr']
+        raise
     finally:
+        cleanup_error = None
         if owner.is_alive():
+            cleanup_end = time.monotonic() + 4
             owner.terminate()
-            owner.join(4)
+            owner.join(max(0, cleanup_end - time.monotonic()))
             if owner.is_alive():
                 owner.kill()
-                owner.join()
+                owner.join(max(0, cleanup_end - time.monotonic()))
+                if owner.is_alive():
+                    cleanup_error = RuntimeError('command owner survived bounded cleanup')
+                    cleanup_error.owner = owner
+                    if result is not None:
+                        cleanup_error.result = result
+                        cleanup_error.stdout, cleanup_error.stderr = result['stdout'], result['stderr']
         receiver.close()
-        owner.close()
+        if not owner.is_alive():
+            owner.close()
+        if cleanup_error is not None:
+            if primary_error is not None:
+                primary_error.cleanup_failure = cleanup_error
+                primary_error.owner = owner
+                primary_error.add_note(str(cleanup_error))
+            else:
+                raise cleanup_error
 
 
 def _raise_failure(result):

@@ -1,0 +1,117 @@
+{
+  "kind": "retrospective archive of original tool-observed executions; not a new execution receipt",
+  "sourceCommit": "775a63b5efa41a77ce8ff786eb62acb441102f1c",
+  "sourceSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+  "testSHA256": "e585e6b8cb8ee477ba5a4ce66b76768c46dea99d974271a84028fc01213003db",
+  "normalSuite": {
+    "originalSession": 12871,
+    "exit": 0,
+    "tests": 29,
+    "testSeconds": 6.433,
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "python3",
+      "scripts/test-task-runner.py"
+    ],
+    "testSourceIdentity": "Earlier working-tree test before assertion-only refinements; exact test bytes were not independently captured. The final configured hook qualifies the committed test source."
+  },
+  "configuredHook": {
+    "originalSession": 92094,
+    "exit": 0,
+    "argv": [
+      "taskset",
+      "-c",
+      "11",
+      "git",
+      "commit",
+      "-m",
+      "Bound command-owner cancellation cleanup without losing failures"
+    ],
+    "runnerTests": 29,
+    "runnerTestSeconds": 6.36,
+    "allConfiguredChecks": "PASS"
+  },
+  "mutant": {
+    "exit": 1,
+    "argv": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "python3",
+      "/tmp/bendvy-bounded-runner-unbounded-mutant02/test-task-runner.py",
+      "Execution.test_owner_surviving_kill_preserves_failure_result_and_handle"
+    ],
+    "reached": "owner.join() after SIGKILL",
+    "refusal": "AssertionError: unexpectedly None : cleanup must never wait indefinitely",
+    "inverseRestoresSourceExactly": true
+  },
+  "members": [
+    {
+      "path": "normal-suite.stdout",
+      "originalPath": "/tmp/bendvy-bounded-runner-suite01.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "normal-suite.stderr",
+      "originalPath": "/tmp/bendvy-bounded-runner-suite01.stderr",
+      "bytes": 128,
+      "sha256": "5fc85d143049ecf3f32ffcab53d8d8471bcb6d18d6f818b6928bdfde8a46a036"
+    },
+    {
+      "path": "configured-hook.stdout",
+      "originalPath": "/tmp/bendvy-bounded-runner-commit05.stdout",
+      "bytes": 156,
+      "sha256": "5d800a495588d1663a53fef08e166ba61a822bd0bfac7cebe2d8344fa2297ffc"
+    },
+    {
+      "path": "configured-hook.stderr",
+      "originalPath": "/tmp/bendvy-bounded-runner-commit05.stderr",
+      "bytes": 3943,
+      "sha256": "b0e9087c95dd6ad4c512459d32007dea013a2804025f9f69a7adc389795d7138"
+    },
+    {
+      "path": "unbounded-join-mutant.stdout",
+      "originalPath": "/tmp/bendvy-bounded-runner-mutant02.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "unbounded-join-mutant.stderr",
+      "originalPath": "/tmp/bendvy-bounded-runner-mutant02.stderr",
+      "bytes": 1810,
+      "sha256": "30ceb47b1ad407a9091987e05fa689c19c44910dcc3805fb1ba8b0d1134781da"
+    },
+    {
+      "path": "task_runner.py.gz",
+      "originalPath": "/tmp/bendvy-bounded-runner-unbounded-mutant02/task_runner.py",
+      "bytes": 13599,
+      "sha256": "0b7e0fc212f493e8590cdd350153851f00f124f77722b049a9ad62a2894e789a",
+      "storedBytes": 3716,
+      "storedSHA256": "87bd4026129202b28ac2ae3bf51c710bcb2cd391e2a86845df8f7a9ac43e0595",
+      "encoding": "gzip"
+    },
+    {
+      "path": "test-task-runner.py.gz",
+      "originalPath": "/tmp/bendvy-bounded-runner-unbounded-mutant02/test-task-runner.py",
+      "bytes": 22837,
+      "sha256": "e585e6b8cb8ee477ba5a4ce66b76768c46dea99d974271a84028fc01213003db",
+      "storedBytes": 5381,
+      "storedSHA256": "0760c1e55c9a3a686ec050a1c6139d82d4eb02130b820156885727d674df2f0c",
+      "encoding": "gzip"
+    },
+    {
+      "path": "MUTATION.json",
+      "originalPath": "/tmp/bendvy-bounded-runner-unbounded-mutant02/MUTATION.json",
+      "bytes": 326,
+      "sha256": "96fa9f3dff99d9e1aadb8b8714b3780de7e1eeeb71cf77701af37982be9244e7"
+    }
+  ],
+  "testSHA256Scope": "Committed test source used by final configured hook and mutant02; not an identity claim for the earlier standalone suite."
+}
