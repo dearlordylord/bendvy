@@ -1,0 +1,9 @@
+# Public ordinary frontend successor
+
+This qualification uses actual src/ecs/ordinary-machine-operations.bend (fca6b0e0…) and machine-queue.bend (6c70aa7d…). Six source files differ from the independently reviewed private frontend packet only at their frontend import. RELOCATION.json records each literal inverse and non-import body hash; entry/model/full String oracle bytes remain unchanged.
+
+The registered SchemaA consumer exercises public writer get/set; SchemaB additionally exercises public ValueRead. Both retain the complete four-checkpoint 1323-byte independent observation, including physical affine owners, actual tracked registry/cursor, pending callback, all slot fields and exact failed-transaction rollback. The source/model applicability receipt precedes runtime. No expected output was authored or repaired from runtime output.
+
+Two positive source gates and four intended undeclared/read-only/schema/owner refusals bind fresh complete current closures under stock source5. Actual JS/Native successors use the unchanged collector, caps emit30/build120/run5, CPU5, Native thread1/GPUoff and internal shared lock. EVIDENCE.json retains complete raw diagnostics, plans/guards/receipts/generated artifacts and lossless source snapshots. No repair or infrastructure failure occurred in this successor.
+
+The prior reached setter-drop control and final Spec/Standards review remain in the parent packet. Only QName-independent imports changed; those controls are not replayed. This packet qualifies the adopted public frontend, not full #48. Remaining marker/condition/reader/provisioning contract and whole-issue acceptance gates remain explicit in the parent README. The combined current-module default regression is owned by root and has a freshly prepared successor plan; older plans are not relabeled current. No comparative/performance run or new law/policy is included.
