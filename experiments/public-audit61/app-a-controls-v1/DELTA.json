@@ -1,0 +1,54 @@
+{
+  "parentCommit": "c75db5e15",
+  "parent": "/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-a/experiments/public-audit61/app-a-v1",
+  "changedFile": "bundle.bend",
+  "replacements": [
+    {
+      "old": "~(w => entry => install_array(~Resource,w,entry))",
+      "new": "~(w => entry => omitted_array(~Resource,w,entry))"
+    }
+  ],
+  "inverseExact": true,
+  "files": {
+    "inspect.bend": {
+      "parentSHA256": "2364b5c2385c82f3f39fd228a65bb2dfdb81e226c1c8881629c9b6b3ad298dae",
+      "candidateSHA256": "2364b5c2385c82f3f39fd228a65bb2dfdb81e226c1c8881629c9b6b3ad298dae"
+    },
+    "install.bend": {
+      "parentSHA256": "19943a3b99103c317cad59027f01cb0528118cbdf6b390a791e3bc761f410d24",
+      "candidateSHA256": "19943a3b99103c317cad59027f01cb0528118cbdf6b390a791e3bc761f410d24"
+    },
+    "observe.bend": {
+      "parentSHA256": "322a6c1091c9cab96547d53240b6f6cad699affe41b5c3961a210c12882ccda8",
+      "candidateSHA256": "322a6c1091c9cab96547d53240b6f6cad699affe41b5c3961a210c12882ccda8"
+    },
+    "systems.bend": {
+      "parentSHA256": "cda4e2db433176a0e2606b47d34dda761a00e932ac94680a9adef0391c6df429",
+      "candidateSHA256": "cda4e2db433176a0e2606b47d34dda761a00e932ac94680a9adef0391c6df429"
+    },
+    "component.bend": {
+      "parentSHA256": "2eb8012ea24a844b04095c4af7fe9176401256e44c229e921df39421fb47f42a",
+      "candidateSHA256": "2eb8012ea24a844b04095c4af7fe9176401256e44c229e921df39421fb47f42a"
+    },
+    "owner-observer.bend": {
+      "parentSHA256": "4cb6dfbaa30f2bcbd6154cf7222681777fb27591e189ba20155c318f99e14536",
+      "candidateSHA256": "4cb6dfbaa30f2bcbd6154cf7222681777fb27591e189ba20155c318f99e14536"
+    },
+    "main.bend": {
+      "parentSHA256": "8fb985ad93c34f9811478c4159a07d215a29df70900512a4644194ab4fb3b660",
+      "candidateSHA256": "8fb985ad93c34f9811478c4159a07d215a29df70900512a4644194ab4fb3b660"
+    },
+    "resources.bend": {
+      "parentSHA256": "700b7e8e45d41771de7b1925e58baec03fc8dfe4a32bd5cdf1d9cef66ba5a497",
+      "candidateSHA256": "700b7e8e45d41771de7b1925e58baec03fc8dfe4a32bd5cdf1d9cef66ba5a497"
+    },
+    "bundle.bend": {
+      "parentSHA256": "f7a0adba6210da3823a8a3d48b5ab6755984d5aa1f8b021edcdf66a50249f545",
+      "candidateSHA256": "a8cc2df2d1454334481b3cb35a14a834d57ffdbe891a4417a0c22861f1b933a0"
+    }
+  },
+  "helperInsertion": {
+    "before": "def install_entries",
+    "text": "# Reached omission control: keep the affine entry in the inverse receipt,\n# skipping only the public array installation operation.\ndef omitted_array(~Resource:Type,world:World(Resource),entry:I.Entry<AuditWorkshop,Array<U32>>) -> F.Attempt<World(Resource),I.Entry<AuditWorkshop,Array<U32>>,I.Recovery<AuditWorkshop,Array<U32>>>:\n  F.Installed{world,w => F.Restored{w,entry}}\n"
+  }
+}

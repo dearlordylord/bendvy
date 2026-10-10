@@ -1,0 +1,39 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "mutant",
+      "case": "omitted-install",
+      "path": "/tmp/bendvy-public-audit61-app-a-controls-runtime01/omitted-install-js/plan.json",
+      "sha256": "d1963b2ed8094fbfee15f2370e07ff4e5e06ad985206b4f2c84323397fb5fecb",
+      "sources": 61,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-public-audit61-app-a-controls-runtime01/omitted-install-js/plan.json",
+        "d1963b2ed8094fbfee15f2370e07ff4e5e06ad985206b4f2c84323397fb5fecb"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "mutant",
+      "case": "omitted-install",
+      "path": "/tmp/bendvy-public-audit61-app-a-controls-runtime01/omitted-install-native/plan.json",
+      "sha256": "89af564fee252839d521465688298ba1498504bc5237e7650488f87cbe90c039",
+      "sources": 61,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-public-audit61-app-a-controls-runtime01/omitted-install-native/plan.json",
+        "89af564fee252839d521465688298ba1498504bc5237e7650488f87cbe90c039"
+      ]
+    }
+  ],
+  "sequence": "AppA JS wholePASS -> conditional AppA Native wholePASS; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Exact omitted-install source02 cap5PASS; root source-model sanity; authority negatives intendedrefusals retained; baseline actualoriginalAppA normalJS reused",
+  "scope": "First complete AppA public cross-feature audit slice; no secondindependentapp/full61/proof/performance acceptance"
+}

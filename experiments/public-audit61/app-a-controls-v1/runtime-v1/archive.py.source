@@ -1,0 +1,32 @@
+from pathlib import Path
+import json,hashlib,gzip
+HERE=Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-audit61/app-a-controls-v1')
+ROOT=Path('/tmp/bendvy-public-audit61-app-a-controls-runtime01')
+OUT=HERE/'runtime-v1/actual-attempt01'
+files={p.resolve() for p in ROOT.rglob('*') if p.is_file()}
+for p in HERE.rglob('*'):
+ if p.is_file() and 'actual-attempt01' not in p.parts:files.add(p.resolve())
+for name in ('second','successor'):
+ files.add(Path('/tmp/bendvy61-app-a-controls-'+name+'-sanity.json'))
+result={'scope':'Producer evidence: reached omitted array install, no full61/final Spec approval','originals':{'js':15398,'native':95801},'cases':[]}
+for role in ('js','native'):
+ case=ROOT/('omitted-install-'+role);plan=json.loads((case/'plan.json').read_text());r=json.loads((case/'receipt.json').read_text())
+ assert r['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS' and r['completeNormalBaselineRejected'] is True
+ assert all(c['exit']==0 and c['failure'] is None for c in r['commands'])
+ files.update(Path(p).resolve() for p in plan['pins'])
+ result['cases'].append({'role':role,'status':r['status'],'commands':len(r['commands']),'guards':len(r['guards']),'wholeBytes':len((case/'consumer.stdout').read_bytes()),'wholeSHA256':hashlib.sha256((case/'consumer.stdout').read_bytes()).hexdigest(),'completeNormalBaselineRejected':True,'receiptPath':str(case/'receipt.json'),'planSHA256':hashlib.sha256((case/'plan.json').read_bytes()).hexdigest()})
+rows=[]
+for f in sorted(files):
+ raw=f.read_bytes();h=hashlib.sha256(raw).hexdigest();row={'path':str(f),'bytes':len(raw),'sha256':h}
+ if len(raw)>5_000_000:
+  assert raw.startswith(b'\x7fELF'),f
+  row['hashIdentityOnly']='Existing selected executable/tool; same pinned qualification retained; no executable blob copy.'
+ else:
+  obj=OUT/'objects'/(h+'.gz')
+  if not obj.exists():obj.write_bytes(gzip.compress(raw,mtime=0))
+  compressed=obj.read_bytes();assert gzip.decompress(compressed)==raw
+  row.update({'object':'objects/'+obj.name,'compressedSHA256':hashlib.sha256(compressed).hexdigest()})
+ rows.append(row)
+(OUT/'manifest.json').write_text(json.dumps({'scope':result['scope'],'members':rows},indent=2)+'\n')
+(OUT/'RESULT.json').write_text(json.dumps(result,indent=2)+'\n')
+print(len(rows),'rows',len({r['object'] for r in rows if 'object' in r}),'objects',sum('hashIdentityOnly' in r for r in rows),'explicit hash-only tools')
