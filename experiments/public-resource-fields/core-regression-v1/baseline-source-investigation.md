@@ -32,7 +32,7 @@ for this investigation; no baseline, cap, helper or core source was changed.
   records0/600.864162ms. These are retained successful observations, not a current
   pass or proof that present tool/environment equals the historical execution.
 
-Historical receipt hashes: ordinary-system `04d020be22dc2255ddb15263863ff93bbfea4bb3793c6e99b70643e22b119037`; world-IO `1c432eccb83bb1524706788cace0cea300dee1ed4766c85efddef81d7c8d6257`. Both record CPU5, the same entry digest and version strings, but neither receipt records full environment or executable hashes. Current PLAN uses sanitized env/PATH and CPU11; checker itself in the benchmark is not taskset-wrapped, whereas the separate control is. Path relocation changes imported nominal names; Base/config/environment and host state are not proven historically identical.
+Historical receipt hashes: ordinary-system `04d020be22dc2255ddb15263863ff93bbfea4bb3793c6e99b70643e22b119037`; world-IO `1c432eccb83bb1524706788cace0cea300dee1ed4766c85efddef81d7c8d6257`. Both record CPU5, the same entry digest and version strings, but neither receipt records full environment or executable hashes. Current PLAN uses sanitized env/PATH and CPU11. The pinned benchmark runner calls os.sched_setaffinity(0,{args.cpu}) before launching children, so the original checker inherits CPU11 even though its argv has no taskset wrapper; the separate control sets CPU11 explicitly through taskset. Lack of a wrapper does not mean unbound affinity. Path relocation changes imported nominal names; Base/config/environment and host state are not proven historically identical.
 
 ## What the pinned source explains
 
@@ -63,3 +63,5 @@ copied compiler or changing workload first. If phase instrumentation is needed,
 a separately pinned copied compiler can mark book_load/book_valid/verdict only,
 with its result explicitly excluded from stock acceptance. Do not infer a
 performance fix or launch another unchanged blind attempt from this report.
+
+Source correction: the selected benchmark runner SHA-256 `019071ae` (prefix) establishes inherited affinity before task_runner execution. The planned external observer therefore reproduces the original checker argv and parent CPU11 affinity, rather than substituting the separate taskset control. This corrects the earlier affinity description; neither timeout establishes its cause.
