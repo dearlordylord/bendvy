@@ -1,0 +1,1 @@
+Independent complete seventeen-snapshot namespace-normal and reached clear-omitted countermodels. Same defining QName geometry across both subjects; full normal baseline included. Only actual supplied clear Request invocation is omitted, preserving owner/status. No backend stdout inputs.
