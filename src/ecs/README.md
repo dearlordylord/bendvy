@@ -178,3 +178,15 @@ implementation: those remain governed by #48/#49 and the
 [current delivery index](../../docs/parity/README.md#current-delivery-coordination).
 
 `ordinary-app-schedule` retains an ordinary `schedule-provision.Plan` with the schema App that owns its World and registered systems. Attach the operational Plan once; enabling debug makes snapshots derive the ordered steps and their declared requirements from that same Plan, alongside the App’s declaration-derived schema, accesses and values. Disabled snapshots bypass presentation. Invalid attachment returns the original App. Running uses the existing owner-preserving dispatcher, conditions and provision callback; finished, failed, rejected and missing results return the owned App. Existing provision checks run before the Schedule namespace check. The finite ordinary examples qualify these paths with Unit-output scheduled systems; they do not establish every automatic-debug category or full #56 completion.
+
+`ordinary-app-machine.Application` binds an ordinary machine declaration and
+renderer to an App. Use `install`, `read_app` and `queue_app` for normal operations;
+reads and successful or failed transactions return the owned App. Enable debug
+with `snapshot_app(app, flag)`, supplying the same ordinary type indices. The
+library assembles the observer and rows; callers need no metadata list, separate
+attachment or `Tree.observe_pair` adapter. `Recipe`, `ObservedRows` and
+`observation` expose derived aliases for typed serializers. Disabled snapshots
+skip observation. The [independent review](../../experiments/public-inspect/ordinary-machine-review-v1/ENTRY-FINAL-REVIEW.md)
+qualifies direct CurrentView/read/queue paths and declaration association;
+transitions, stream readers, broader debug categories and full #56 remain open.
+Combined integration regression is pending.
