@@ -1,0 +1,7 @@
+# Independent bounded review
+
+PASS for evidence archival at eaa45020c7db7272fddb6abdd0299fcf2e518cd5. Portable review verified all 495 ZIP member hashes, the 26-file source-stage inventory, all 17 current root joins, and exact historical ZIP identity plus byte-identical nine authority subjects. Raw results and pre/post guards match support exit0 and eight intended type/affine refusals exit1 without deadlines. Diagnostics identify cross-schema input, duplicate context/input/result, opaque-H output, wrong read authority and concrete-owner manufacture; they are not parser/import refusals.
+
+The preparation adapter preserves existing source capture/executor, source5 cap, tool selection, environment/configuration/resource guards and shared serialization. Infrastructure/history notes distinguish unsuccessful preparation and whitespace/hook stages from actual source results. The archived lexical compiler alias is installed-host selection evidence, not portable tool acceptance.
+
+This satisfies the current-source support/eight-control evidence slice only. Duplicate schema descriptors and repeated component families inside one bundle remain distinct questions; no new duplicate policy, cleanup law or exactly-once finalization is adopted. Backend full22/full20/reached omission qualification, public delivery, feature timing/scaling and full #41 completion remain separate. No heavy child was run during review.
