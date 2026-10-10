@@ -1,0 +1,34 @@
+"""Independent frozen source model; no actual stdout input."""
+import json
+ls=lambda xs:'['+', '.join(xs)+']'
+PLAN='[Phase:Update:needs=[], System:2:condition=1:needs=[Resource:7], Barrier:needs=[], System:1:condition=2:needs=[Component:8, Resource:7]]'
+def fields(c1,c2,kinds=False):
+ x=[f'1:1:PositionRead:Update:cursor={c1}:[Position]:[Position:Read]',f'1:2:CounterUpdate:Update:cursor={c2}:[Counter]:[Counter:Write]']
+ return ls([x[0]+':Component',x[1]+':Field'] if kinds else x)
+def world(pop,value,flushed):
+ live='node(node(leaf:False,leaf:True),node(leaf:True,leaf:False))' if pop else 'leaf:False'
+ col='Column{values=leaf:some(leaf:42);stamps=[1:1:1]}' if pop else 'Column{values=leaf:none;stamps=[]}'
+ return (f'namespace=1|nextId={3 if pop else 1}|highWater={2 if pop else 0}|live={live}|capacity={4 if pop else 1}|depth={2 if pop else 0}'
+ f'|store=product({col},Unit)|resource=product(Unit,leaf:{value})|events={"[99]" if flushed else "[]"}|pendingCount={0 if flushed else 1}|pendingEmpty={"True" if flushed else "False"}'
+ f'|registrations=[2:CounterUpdate:[Counter], 1:PositionRead:[Position]]|nextSystemId=3|clock={int(pop)}')
+def complete(text,pop,value,c1,c2,flushed):return text+'|world{'+world(pop,value,flushed)+'}|owners='+fields(c1,c2,True)
+def snapshot(pop,value,c1,c2,flushed,enabled=True):
+ row='[1:1:Found:42]' if pop else '[]'
+ text=('Debug{schema=[Component:Position:Position, Resource:Counter:Counter]|bindings='+fields(c1,c2)+'|rendered='+ls([row,f'Counter={value}'])+'}|schedule=1:UpdateSchedule:'+PLAN) if enabled else 'Disabled'
+ return complete(text,pop,value,c1,c2,flushed)
+def scenario(pop):
+ value=10;c1=c2=0;flushed=False
+ rows=[snapshot(pop,value,c1,c2,flushed),snapshot(pop,value,c1,c2,flushed),snapshot(pop,value,c1,c2,flushed,False)]
+ # Trusted fixture changes only retained runtime schedule namespace to2.
+ # Provision succeeds on unchanged World1, then Sch.run rejects before
+ # conditions/dispatch/barrier, returning seeded ResourceUnit untouched.
+ rejected='Rejected:refused=ResourceUnit'
+ def after(enabled=True):
+  return snapshot(pop,value,c1,c2,flushed,enabled).replace('|schedule=1:UpdateSchedule:', '|schedule=2:UpdateSchedule:')
+ rows.append(complete(rejected,pop,value,c1,c2,flushed));rows.append(after())
+ rows.append(complete(rejected,pop,value,c1,c2,flushed));rows.extend([after(),after(False),after()])
+ return '\n'.join(rows)+'\n'
+def report():return ('consumer.Report{'+', '.join(json.dumps(scenario(p),ensure_ascii=False) for p in [False,True])+'}\n').encode()
+if __name__=='__main__':
+ import sys
+ sys.stdout.buffer.write(report())
