@@ -1,0 +1,1 @@
+Independent complete wrong-id-v2 source model: actual OtherReadLinks id1 then retained ReadLinks id2, Plan known System1. Both runs fail without reader/barrier, eight complete observations retain events/pending/full graph/live/resource arrays/metadata/cursor. No runtime stdout inputs.
