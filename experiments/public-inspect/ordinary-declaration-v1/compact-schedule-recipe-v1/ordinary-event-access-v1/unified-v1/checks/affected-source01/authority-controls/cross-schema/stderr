@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Event.Domain<Normal.Schema, U32>
+- observed : Event.Domain<Types.OtherSchema, U32>
+Context:
+- value : Event.Domain<Types.OtherSchema, U32>
+Location: cross
+6 | 
+7>| def cross(value:Event.Domain<Types.OtherSchema,U32>) -> Event.Domain<Normal.Schema,U32>:value
+  |                                                                                         ^^^^^
+8 | def main() -> Unit:Unit{}
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Ev.ReadAccess<read~H, U32, read~observe>
+- observed : Unit
+Context:
+- ops   : Unit
+- owner : read~H
+Location: read
+4 | 
+5>| def read(~H:Type,~observe:H -> H & Ev.Reading<U32>,ops:Unit,owner:H) -> H & Ev.Reading<U32>:Ev.all(~H,~U32,~observe,ops,owner)
+  |                                                                                                                     ^^^
+6 | def main() -> Unit:Unit{}
+bend 2.0.36 is available: run bend update

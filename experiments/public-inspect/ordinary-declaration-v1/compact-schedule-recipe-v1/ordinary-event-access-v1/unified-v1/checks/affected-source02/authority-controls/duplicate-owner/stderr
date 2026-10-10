@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : host
+- observed : host (consumed more than once)
+Location: twice
+2 | 
+3>| def twice(host:Consumer.Host) -> Consumer.Host & Consumer.Host:(host,host)
+  |           ^^^^
+4 | def main() -> Unit:Unit{}
+bend 2.0.36 is available: run bend update

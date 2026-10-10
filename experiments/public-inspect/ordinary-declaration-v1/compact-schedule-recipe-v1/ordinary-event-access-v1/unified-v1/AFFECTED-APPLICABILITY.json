@@ -1,0 +1,56 @@
+{
+  "nominal": [
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/types.bend",
+      "other": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/types-other.bend",
+      "inverseExact": true
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/operations-public.bend",
+      "other": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/operations-other.bend",
+      "inverseExact": true
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/event-frontend-public.bend",
+      "other": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/event-frontend-other.bend",
+      "inverseExact": true
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/consumer-public.bend",
+      "other": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/consumer-other.bend",
+      "inverseExact": true
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/entry-public.bend",
+      "other": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/entry-other.bend",
+      "inverseExact": true
+    }
+  ],
+  "categoryMutant": {
+    "source": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-event.bend",
+    "mutant": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/event-owner-category-mutant.bend",
+    "inverseExact": true,
+    "delta": "described emits Components instead of Events, real same Signal grouping"
+  },
+  "predecessor": {
+    "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-access-index-v1/consumer-public.bend",
+    "compatible": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/predecessor-compatibility/consumer.bend",
+    "inverseExact": true,
+    "delta": "add exhaustive Events harness case and literal import relocation only; existing old C/R six pairs remain historical"
+  },
+  "authority": {
+    "intended": [
+      "undeclared",
+      "write-through-read",
+      "read-through-write",
+      "read-owner",
+      "cross-schema",
+      "duplicate-owner"
+    ],
+    "wrongSubject": "duplicate computed destructuring syntax failure excluded; exact duplicate-owner quantity refusal current"
+  },
+  "captureRoots": [
+    "/tmp/bendvy-ordinary-event-access-unified-affected-source01",
+    "/tmp/bendvy-ordinary-event-access-unified-affected-source02"
+  ]
+}

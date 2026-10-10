@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+5 | def twice(host:Consumer.Host) -> Consumer.Host & String:
+6>|   (first,_) = Consumer.snapshot(host,"first")
+  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+7 |   Consumer.snapshot(host,"second")
+bend 2.0.36 is available: run bend update
