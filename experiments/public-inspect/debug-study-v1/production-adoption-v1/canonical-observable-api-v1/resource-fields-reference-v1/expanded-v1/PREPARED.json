@@ -1,0 +1,25 @@
+{
+  "scope": "expanded development reference preparation; no Node child executed",
+  "command": [
+    "/usr/bin/taskset",
+    "-c",
+    "5",
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-reference-v1/expanded-v1/reference.mjs"
+  ],
+  "seconds": 5,
+  "oracle": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/resource-fields-reference-v1/expanded-v1/expected.stdout",
+  "expectedBytes": 7421,
+  "expectedSHA256": "635b57375fce8e0c4707abde5ea433a1a1e08281493542dc90a8012610669ac5",
+  "toolPins": {
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477",
+    "/usr/bin/taskset": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5"
+  },
+  "runnerPins": {
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+    "/workspace/formal-proofs/bendvy/scripts/check_preflight.py": "015b526cdcf2e210c883690760013dba2f6ffe9b1ffd2b4c5f15d55be9dce97c"
+  },
+  "adapterSHA256": "c66e9dab0644cb362a3251cc90ff77a2b1d5d1ae66e28402babccb0382f333c3",
+  "outerLock": "/tmp/bendvy-parity-heavy.lock",
+  "admission": "pending exact review and #56 remaining batch release"
+}
