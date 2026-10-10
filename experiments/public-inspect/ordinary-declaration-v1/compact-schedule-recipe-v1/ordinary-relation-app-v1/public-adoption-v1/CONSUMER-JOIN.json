@@ -1,0 +1,130 @@
+[
+  {
+    "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/consumer.bend",
+    "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/consumer-public.bend",
+    "sourceSHA256": "2c8cf54397b22131f01f0e01329f0c8f4fcbef1abbc3bdfe71a6eb30fc1a9aba",
+    "targetSHA256": "8e5c4a1db440211b910f24ae63ef7c70498fe4581e57c42500998ab808920581",
+    "inverseExact": true,
+    "imports": [
+      [
+        "./relation-app.bend",
+        "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation.bend"
+      ]
+    ]
+  },
+  {
+    "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/entry.bend",
+    "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/entry-public.bend",
+    "sourceSHA256": "4757e0f85dd3094680432d4b1b58c63a80cf6ff1e0a730f7087feb722420c185",
+    "targetSHA256": "2dabaad3d3b4f26642e6a7005609676261750238802e212b712b685ad411d7ac",
+    "inverseExact": true,
+    "imports": [
+      [
+        "./consumer.bend",
+        "./consumer-public.bend"
+      ]
+    ]
+  },
+  {
+    "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/authority-controls/foreign-declaration.bend",
+    "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/authority-controls/foreign-declaration-public.bend",
+    "sourceSHA256": "8e74d9363ea68f1058953d319ffb77c3258d399fdff257f66b462bc1ee81f563",
+    "targetSHA256": "baebdab677c218f2400757cb10278c99718e2f6871c83e102578c8e99c834407",
+    "inverseExact": true,
+    "imports": [
+      [
+        "../consumer.bend",
+        "../consumer-public.bend"
+      ],
+      [
+        "../relation-app.bend",
+        "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation.bend"
+      ]
+    ]
+  },
+  {
+    "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/authority-controls/duplicate-app.bend",
+    "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/authority-controls/duplicate-app-public.bend",
+    "sourceSHA256": "4d268537dd01a6502e45016471f85abc95b6bbce4fd066247f2d1b0caef10586",
+    "targetSHA256": "031bb660d412169ed6592712bf339260111fbaf7d5bf70e41cdc58da0dd00245",
+    "inverseExact": true,
+    "imports": [
+      [
+        "../consumer.bend",
+        "../consumer-public.bend"
+      ],
+      [
+        "../relation-app.bend",
+        "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation.bend"
+      ]
+    ]
+  },
+  {
+    "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/authority-controls/read-write.bend",
+    "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/authority-controls/read-write-public.bend",
+    "sourceSHA256": "9040f4bc4328751c25f080af74b502c95e2356bb8a95f56a7e83e35914f93364",
+    "targetSHA256": "c82e2dfdb14da444a002710d1ffd296b7e0de2ee9ff1347be93a5ba80c7c2fc0",
+    "inverseExact": true,
+    "imports": [
+      [
+        "../consumer.bend",
+        "../consumer-public.bend"
+      ],
+      [
+        "../relation-app.bend",
+        "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation.bend"
+      ]
+    ]
+  },
+  {
+    "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/authority-controls/other.bend",
+    "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/authority-controls/other-public.bend",
+    "sourceSHA256": "9400c3b4517993c5b7398a71c718ff5cc433a82f88e1d4497f0d41611c3f7cff",
+    "targetSHA256": "fb7a3e4cf0129012f2819fc872fa1aca56ff5f02ba44a7dbab3d394ecc3f4485",
+    "inverseExact": true,
+    "imports": [
+      [
+        "../consumer.bend",
+        "../consumer-public.bend"
+      ],
+      [
+        "../relation-app.bend",
+        "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation.bend"
+      ]
+    ]
+  },
+  {
+    "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/authority-controls/foreign-schema.bend",
+    "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/authority-controls/foreign-schema-public.bend",
+    "sourceSHA256": "29796d0fe2df8ea0cba18d49deaedd73e5f75fe15aefaa1eb38aceb067204883",
+    "targetSHA256": "cc04640e322e7dc57916f7094a7f42b74f7c76ed539dea04cf932ab05b595527",
+    "inverseExact": true,
+    "imports": [
+      [
+        "../consumer.bend",
+        "../consumer-public.bend"
+      ],
+      [
+        "../relation-app.bend",
+        "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation.bend"
+      ]
+    ]
+  },
+  {
+    "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/authority-controls/opaque-read-app.bend",
+    "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/authority-controls/opaque-read-app-public.bend",
+    "sourceSHA256": "5f16cd4b66d7f1f99be209a345e78c0d3a1a0d2f6ac9765bcd74e70078b633b8",
+    "targetSHA256": "6b378b5752ef44f37a6b48f98a4f4571d64452ac4f922db57f8494bca32491ec",
+    "inverseExact": true,
+    "imports": [
+      [
+        "../consumer.bend",
+        "../consumer-public.bend"
+      ],
+      [
+        "../relation-app.bend",
+        "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation.bend"
+      ]
+    ]
+  }
+]
