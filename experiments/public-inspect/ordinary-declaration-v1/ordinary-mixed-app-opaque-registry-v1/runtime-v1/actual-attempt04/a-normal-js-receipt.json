@@ -1,0 +1,95 @@
+{
+  "scope": "Complete finite ordinary opaque Registry mixed App normal A0/2 js; no Native cause/performance/schedule/full56 claim",
+  "planSHA256": "8dbcb6d87ded5971cd8806e5e2f6af1c626b2d4afada25bddedb75cd0373daff",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/full-entry-a.bend",
+        "-o",
+        "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/scenario.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/scenario.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/consumer.stdout",
+        "sha256": "9f3ec35156829d4ba37cc8ed3bcf26c857d55cb3f02cdf7734f8c74bc49f5b8e",
+        "bytes": 7243,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/emit-pre.guard.json",
+      "sha256": "a4a6def11e35d3ee94a7227a1ca0e692ae2ff6a57857e2a1b0683b621408f5af"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/emit-acquired.guard.json",
+      "sha256": "dbc82118580ab717831ef70ee86e4436de5923ee0dba283f5c1f6629fa573d8e"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/emit-post.guard.json",
+      "sha256": "3f8f01c3db5b1a0d3270d481b52d6f1738b4fac883b62d181dd19f737f612647"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/consumer-pre.guard.json",
+      "sha256": "398476dace661fa530456aa467e50e2db87bab3487f9661b0e1acb45d8f4c5a8"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/consumer-acquired.guard.json",
+      "sha256": "768667a2aff05c8c6c97f098f6d770f3192305e82e656379ca88ce5537867e0e"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/consumer-post.guard.json",
+      "sha256": "ee9277bdf35664863078dc438836d0a7969410f21b55acc588bcc0695e3447e5"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-opaque-registry-runtime04/a-normal-js/final.guard.json",
+      "sha256": "1b3d08f8b1e377f8b713488056f94b15cc5099bfb38a1125d4a50d2755776306"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "df33ed7d7967ba197346e2ddb27b27132c7e1806b9fc6d904350c2705c202e91",
+  "wholeOracleSHA256": "9f3ec35156829d4ba37cc8ed3bcf26c857d55cb3f02cdf7734f8c74bc49f5b8e"
+}
