@@ -12,6 +12,14 @@ supplies closed `take`, `put` and ownership-preserving Data `project` functions.
 wrappers can bind the repeated template arguments; no generator is required.
 Lenses and bundle population/cleanup are trusted provisioning declarations.
 
+`BundleRecovery.resume` (`bundle-recovery.bend`) explicitly retries a retained
+`HeadPending` or `TailPending` restoration. It threads the World and all pending
+owners through the existing reverse installation order. Repair the cause of a
+refusal before retrying; another refusal returns the recovery owner again.
+There is no automatic retry or disposal. The [independent recovery review](../../experiments/public-bundles/canonical-world-review-v1/RECOVERY-REVIEW.md)
+records both branches, the reached control and exact public-source evidence reuse.
+Combined integration regression is pending; broader bundle acceptance remains #41.
+
 `Feature` (`feature.bend`) composes recursively typed feature owners and builder
 callbacks using `FeatureOwner`, `recipe_empty` and `prepend`. `run_recipe`
 validates selected names, dependencies and fragment collisions before running
