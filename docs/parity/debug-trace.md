@@ -71,3 +71,59 @@ elapsed ms is normalized. These are historical nonportable development evidence,
 not approved Bend defect policy, source-current Bend/Native qualification or full
 #57 acceptance. Relation/transition traces, subscriber mutation/errors, ownership,
 reached mutants, disabled-path nonexecution and timing/allocation remain open.
+
+## Subscriber decision context (source-only, 2026-10-11)
+
+This is a proposed default for #57 preparation, not an adopted contract. Pinned
+Bevy `ad678262` [single_threaded.rs](../../.references/bevy/crates/bevy_ecs/src/schedule/executor/single_threaded.rs)
+lines77–118/196 observes condition and actual deferred execution boundaries;
+[bevy_log](../../.references/bevy/crates/bevy_log/src/lib.rs) lines226–235/319–403
+builds layers once and installs a global subscriber. It does not specify an ECS
+per-listener unsubscribe token, journal reset, callback reentrancy or listener
+failure policy. Therefore those questions cannot be answered by calling a JS
+listener Set “Bevy semantics.”
+
+The existing ticket already decides detached ordered execution observations,
+no ECS mutation/reader advancement/retention participation, and no publication
+work when disabled. SPEC keeps external IO outside rollback. These require no
+new user decision. Preserve actual success/skip/failure/barrier/handler boundaries
+and separate attempted observations from committed ECS changes. Resetting a
+collector journal must not reset a World or subscriber registry; the historical
+TS reset fixture is only the former, not a runtime reset API.
+
+Pinned Bend `a950fd68` [GUIDE](../../.references/bend2/guide/GUIDE.md) lines55–58,
+83–86 and185–187 establishes that closures are affine even with Data captures,
+only top-level definitions are reusable, and arrays have one owner. Consequently
+repeated delivery cannot copy/call the same affine closure twice. A proposed
+ordinary subscriber is an explicit affine state owner plus a reusable top-level
+`state -> copied Trace -> state` step; delivery threads that owner back, while
+trace records are detached Data. This is a representation compatible with Bend,
+not proof of its public lifecycle/error contract. Unsubscribe should return the
+owned state rather than silently discard it; reset can take a fresh state and
+return the displaced state, requiring no new exactly-once cleanup promise.
+
+Proposed smallest initial contract: explicit subscription identity, deterministic
+sequential delivery in subscription order, state-returning pure steps, and
+subscribe/unsubscribe/reset only between completed ECS runs. Under that API there
+is no callback reentrant mutation question and no fallible callback channel;
+these are restrictions to approve, not properties inferred from affine typing.
+An IO bridge, if needed, remains separately outside ECS rollback. Do not implement
+this proposal until the existing contract-approval route accepts that boundary.
+
+Only the following choice remains material before implementation: whether users
+need arbitrary host IO/fallible/reentrant callbacks during delivery, or whether
+state-returning pure subscribers with between-run lifecycle suffice. If the former
+is required, specify whether delivery errors stop or continue other observers,
+how owner state is returned on failure, and whether registry mutations affect the
+current or next trace. Rust Bevy ECS sources do not decide those port-specific
+questions. Token deduplication versus new identity per registration is likewise
+an observable choice; proposed explicit distinct tokens avoid undocumented JS
+function-reference equality. The TS `3040a3b2` [Runtime.ts](../../.references/bevy-ts/packages/core/src/Runtime.ts)
+lines723/735–738/1983–1995 uses Set iteration and callback-reference deletion; its
+observed deduplication/idempotent-stop behavior stays a recorded difference until
+approved, not a reason to force that ownership model into Bend.
+
+No new dependencies, laws, implementation or executable qualification accompanies
+this note. #56 remains the actual-boundary integration prerequisite; subscriber
+lifecycle/noninterference/disabled-path controls and complete JS/Native/TS plus
+timing/allocation gates remain #57 work, not reasons to ask for a second plan.
