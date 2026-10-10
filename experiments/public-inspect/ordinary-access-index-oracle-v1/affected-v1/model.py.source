@@ -1,0 +1,16 @@
+"""Affected source-derived whole outputs; no runtime input."""
+from pathlib import Path
+import runpy,json,gzip,hashlib
+HERE=Path(__file__).resolve().parent
+D=runpy.run_path(str(HERE.parent/'model.py.source'))
+def derive():
+ baseline=D['derive']('consumer-mutant')
+ # Single FieldKind categorization delta merges its write use into Components Shared.
+ def mutated_index():return D['ls'](['Component:Shared:'+D['ls'](['1:1:SharedSystem:Read:Reader']*2+['1:2:SharedSystem:Write:Writer'])])
+ D['snapshot'].__globals__['index']=mutated_index
+ mutant=D['derive']('consumer-mutant')
+ assert mutant!=baseline
+ return {'mutant':mutant,'same-namespace-baseline':baseline}
+if __name__=='__main__':
+ for name,raw in derive().items():
+  (HERE/(name+'.stdout')).write_bytes(raw);(HERE/(name+'.stdout.gz')).write_bytes(gzip.compress(raw,mtime=0));print(name,len(raw),hashlib.sha256(raw).hexdigest())
