@@ -1,0 +1,9 @@
+# Independent body-forward collapse review
+
+Bounded failure-evidence PASS for preparation49ecc3a7b and actual8f8b38d76. Candidate source acceptance remains UNMET. No compiler/backend/test rerun or source edit.
+
+Fourteen substitutions in execution.bend expand the existing parent full-consumer.body expression using qualified original helpers. Each reverse replacement occurs once; all47 module bytes then equal the scan-projector parent. Compatibility body/formatter/query definitions and module namespaces remain retained. The each→fetch_all/get→single→singleOptional order, runtime continuation chain, target list and arbitrary affine H threading are preserved structurally; no matcher/projector callback representation or grants changed. This is a source transformation hypothesis, not a proved effect or accepted complete checker result.
+
+All482 manifest rows verify:460 lossless members and22 installed-tool identity rows; exact parent CAS dependency hash joins and compressed/decoded content hashes match. Current120 source-plan pins/47-source closure match. Archived plan joins original receipt digest62ee922aceb53a1c807d9d0ca4ee12139ca591525c9d5effd141683e6f568aaf. Source85753 stays INCOMPLETE: stock5 deadline/null, published zero stdout and stderr, four unchanged guard hashes. JS/Native remain held/unexecuted; no complete runtime oracle was compared. Reader/current authority controls likewise remain unexecuted.
+
+README's emit_fuse/emit_args explanation is a source rationale for removing one forwarding boundary, not evidence of reduced pass count, cost or stock Native completion. Prior24434 signature-changing failure and prior parent results remain separate. README's historical preparation sentence 'No run yet' predates this source attempt; RESULT accurately records the terminal failure and held backends. No source acceptance, cause/performance inference, public promotion or full#54 closure follows.
