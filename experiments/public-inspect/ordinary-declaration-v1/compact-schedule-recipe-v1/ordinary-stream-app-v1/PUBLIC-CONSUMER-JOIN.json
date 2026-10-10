@@ -1,0 +1,20 @@
+{
+  "joins": [
+    {
+      "source": "consumer.bend",
+      "public": "consumer-public.bend",
+      "sourceSHA256": "195f4d27c6816d9b78f468ab1c6bc517abe6eecd8e6d8795465b11ec7344b4f3",
+      "publicSHA256": "59c5ac2a38178b539b1f5c21f0434aca098660bf8c1436c693afaa1ed92a0cd6",
+      "old": "import stream-app.bend as App",
+      "new": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-stream.bend as App"
+    },
+    {
+      "source": "entry-workshop.bend",
+      "public": "entry-public.bend",
+      "sourceSHA256": "de15799729178d300c572b429b3107b8f8b4774d1ab345b500c5e8c5aa004d8b",
+      "publicSHA256": "4a166de37fcb5a5bc0310e27ab06e8840d65bdab773379eb1495ec1c3fff4a10",
+      "old": "import consumer.bend as Consumer",
+      "new": "import consumer-public.bend as Consumer"
+    }
+  ]
+}
