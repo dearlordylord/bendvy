@@ -1,0 +1,38 @@
+from pathlib import Path
+import json,os,stat,hashlib,math,collections,importlib.util
+p=Path(__file__).resolve().parent/'actual01';rawplan=(p/'plan.json').read_bytes();plan=json.loads(rawplan);assert hashlib.sha256(rawplan).hexdigest()=='b07b92f55112e64833e59ac88f718e47abb4dbb824def220ec8bb441be7cda9d'
+receipt=json.loads((p/'receipt.json').read_text());assert receipt['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS' and not receipt.get('guardFailures',[]);assert len(receipt['commands'])==3 and len(receipt['guards'])==10
+for g in receipt['guards']:assert hashlib.sha256(Path(g['path']).read_bytes()).hexdigest()==g['sha256']
+for c in receipt['commands']:
+ for stream in ['stdout','stderr']:
+  a=c[stream];data=Path(a['path']).read_bytes();assert len(data)==a['bytes'] and hashlib.sha256(data).hexdigest()==a['sha256']
+control,emit,schema=receipt['commands'];assert all(x['exit']==0 and x['failure'] is None for x in [control,emit,schema]);assert control['sourceControlPassed'] and schema['sourceControlPassed']
+assert (p/'scenario.c').is_file() and not (p/'scenario.c').is_symlink();assert not (p/'not-executed.native').exists()
+meta=json.loads((p/'compiler.cpuprofile.metadata.json').read_bytes());fd=os.open(p/'compiler.cpuprofile',os.O_RDONLY|os.O_NOFOLLOW)
+try:
+ a=os.fstat(fd);assert stat.S_ISREG(a.st_mode)
+ with os.fdopen(os.dup(fd),'rb') as f:raw=f.read()
+ z=os.fstat(fd);assert (a.st_dev,a.st_ino,a.st_size)==(z.st_dev,z.st_ino,z.st_size)==(meta['device'],meta['inode'],meta['bytes']);assert hashlib.sha256(raw).hexdigest()==meta['sha256']
+finally:os.close(fd)
+j=json.loads(raw);nodes={n['id']:n for n in j['nodes']};assert len(nodes)==len(j['nodes']);samples=j['samples'];deltas=j['timeDeltas'];assert samples and len(samples)==len(deltas)
+assert all(type(n) is int and n in nodes for n in samples);assert all(type(x) in (int,float) and math.isfinite(x) and x>=0 for x in deltas)
+assert all(type(j[k]) in (int,float) and math.isfinite(j[k]) for k in ['startTime','endTime']) and j['endTime']>=j['startTime']
+parents={}
+for id,n in nodes.items():
+ assert type(id) is int and id>0 and isinstance(n['callFrame']['functionName'],str)
+ for kid in n.get('children',[]):
+  assert kid in nodes and kid not in parents;parents[kid]=id
+frames=lambda n:(n['callFrame']['functionName'],n['callFrame']['url'],n['callFrame']['lineNumber'],n['callFrame']['columnNumber'])
+selfcounts=collections.Counter(frames(nodes[id]) for id in samples);inclusive=collections.Counter();depths=[]
+for id in samples:
+ path=set();groups=set()
+ while id is not None:
+  assert id not in path;path.add(id);groups.add(frames(nodes[id]));id=parents.get(id)
+ depths.append(len(path));inclusive.update(groups)
+def top(counter):return [{'function':k[0],'url':k[1],'lineZeroBased':k[2],'columnZeroBased':k[3],'recordedStackSamples':v,'fractionOfRecordedSamples':v/len(samples)} for k,v in counter.most_common(32)]
+analysis={'scope':'Raw sampled stacks from copied instrumented compile_book prefix only; sample frequencies are not call counts, exact CPU cost or stock phase/cause/performance','profileSHA256':meta['sha256'],'profileBytes':len(raw),'nodes':len(nodes),'samples':len(samples),'profileStartTime':j['startTime'],'profileEndTime':j['endTime'],'timeDeltasSum':sum(deltas),'hookIntervalMs':meta['hookStopMs']-meta['hookStartMs'],'completedDefinitions':meta['completedDefinitions'],'reason':meta['reason'],'schemaAsArchivalAnalysisPASS':True,'plannedValidatorExecuted':True,'maxRecordedStackDepth':max(depths),'topSelf':top(selfcounts),'topInclusive':top(inclusive),'inclusiveDefinition':'Count once per sample per identical function/url/line/column anywhere on captured parent chain; recursion does not multiply frequency','limits':['Snapshot stop/serialization/write overhead consumes emit30 but occurs after sampling stops.','Interrupted/later compilation after this snapshot is unmeasured.','Compiled frame names/source mapping may group closures/inlined work; counts do not prove term visits or allocations.','Bun profile timestamps/timeDeltas are runtime profiler fields, not external CPU or stock phase anchors.','Copied C emitted and profile schema validated; no build/runtime/stockNative acceptance.']}
+(p/'PROFILE-ANALYSIS.json').write_text(json.dumps(analysis,indent=2)+'\n')
+post={'planSHA256':hashlib.sha256(rawplan).hexdigest(),'pinCount':len(plan['pins']),'sourceCount':len(plan['sourceInventory']),'allPinsPASS':True}
+for path,h in plan['pins'].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==h,path
+root=Path('/workspace/formal-proofs/bendvy');sp=importlib.util.spec_from_file_location('sampled_post_inputs',root/'scripts/task_runner.py');m=importlib.util.module_from_spec(sp);sp.loader.exec_module(m);assert m.Inputs(directories=list(plan['resourceRoots'])).expected==plan['resourceRoots'];post['resourceRootsPASS']=True;(p/'postlaunch.json').write_text(json.dumps(post,indent=2)+'\n')
+print(json.dumps({k:analysis[k] for k in ['samples','nodes','hookIntervalMs','completedDefinitions','timeDeltasSum','maxRecordedStackDepth']}));print(json.dumps(analysis['topSelf'][:12],indent=2))
