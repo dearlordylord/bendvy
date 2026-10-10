@@ -1,0 +1,5 @@
+# Independent ordinary machine whole oracle
+
+Frozen source6053585dd/source05 (18260). The interpreter retains every physical World field and emits all sixteen action lines inside the complete returned String. Each fresh World starts at clock0; reserve/activate and transactional queue do not advance it. Success commits pending8; failure restores pending8, preserving current7/previous6/changedTrue, sibling Array41/42, events91/92 and the unflushed pending99 callback. Enabled descriptions derive Flow/Current7 from the same declaration; Disabled bypasses production observation. Unit owners and empty registration metadata remain explicit.
+
+Base List.show uses comma-space; Nat.show depth and binding count use decimal digits. Main returns String, so the installed output printer escapes embedded newlines and quotes the whole value. No constructor QName enters this String formatter. No runtime output or producer expected file was used. Scope is a finite direct machine queue/observation witness, not scheduled machine dispatch, transitions, readers or full #56.
