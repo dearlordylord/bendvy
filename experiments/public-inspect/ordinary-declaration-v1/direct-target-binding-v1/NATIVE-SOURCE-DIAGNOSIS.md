@@ -29,3 +29,21 @@ owner => target => tree_matches(~H,~S,MatchBoth{MatchLeaf{matches_field(~H,~S,~A
 This supplies owner and target once at the stored callback boundary; duplication of the Data handle remains inside the already typed interpreter. It removes calls from `pair` to the declaration-specialized matching target. Keep the unused helpers for this discriminator. Public declarations, H:Type, projection field and left-to-right reconstruction, interpreter short circuit, Check and every full47 consumer/oracle remain unchanged. No new callback-accepting helper signature is introduced. This differs from the prior [four-helper runtime-callback rewrite](/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/generic-check-wrapper-v1/callback-forwarding-v1/TYPECHECK-DELTA.md), which reached source5 deadline. The expression may increase enclosing closed-term size; source correctness and compile-time improvement are hypotheses, not conclusions.
 
 Freeze the successor's sole source delta and run the existing stock source5 gate, then complete stock JS30/runtime5 against the unchanged independent 5,077,477-byte oracle. Conditional on those passing, run the existing stock Native emit30/build120/runtime5 collector with the same tool pin, environment, four guards and complete oracle. Preserve every terminal receipt; no unchanged retry, new cap, reduced consumer or compiler alteration. A Native pass supports delivery of that exact successor; another deadline only rejects this bounded candidate and still does not attribute a phase. Subsequent affected authority/reader controls and final review remain necessary before adoption.
+
+## Matching-tree result and copied phase diagnostic
+
+The full47 matching-tree successor `ce8b6bcee` passes stock source and the complete
+5,077,477-byte JS observation. Stock Native still reaches the unchanged30-second
+emission deadline without C; no build/runtime qualification follows.
+
+The independently reviewed copied installed-CLI diagnostic and complete archive
+are retained under [evidence/inspector54-native-phase-v1](https://github.com/dearlordylord/bendvy/tree/evidence/inspector54-native-phase-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-phase-v1).
+All191 archive identities and41,911 JSON markers pass final review. Reading
+completes; three emission passes each process5941 outer definitions, while fact
+counts grow0→8131→8149→8157. The30-second deadline interrupts pass4 after its
+entry marker for definition3128. No C is produced.
+
+This localizes the instrumented execution to repeated Native emission. It does
+not establish stock phase timing, exclusive cost or a causal bottleneck. Next
+work is source-based reduction of declaration/query specialization while
+preserving the complete consumer, affine authority and existing compiler caps.
