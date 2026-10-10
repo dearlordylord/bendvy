@@ -75,6 +75,7 @@ ordinary automatic public App or complete #56 acceptance. Pinned bevy-ts
 
 The qualified resource provider owns and replaces the entire `R`. Its one-resource
 fixture does not establish independently confined writes to fields of a resource
-aggregate. Per-resource lenses and protection of undeclared sibling resources
-remain part of #51/#61 acceptance; generated access descriptions do not supply
-that missing authority boundary.
+aggregate. Record per-resource lenses and protection of undeclared sibling
+resources in the remaining #61 API audit; #51 specifically owns captured-system
+composition. Generated access descriptions do not supply the missing authority
+boundary.
