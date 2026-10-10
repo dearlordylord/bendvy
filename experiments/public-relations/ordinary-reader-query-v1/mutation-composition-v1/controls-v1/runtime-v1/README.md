@@ -1,0 +1,3 @@
+All four namespace-normal/clear-omitted JSNative cohorts pass their exact independent complete models14419/14860. Both counterfactual outputs reject the actual samebackend complete normal baseline. Ten commands succeed and34 guards remain unchanged. The77member/58object lossless archive retains plans/receipts/rawstreams/generatedJS/C/native/model sources.
+
+The sole mutation omits the actual supplied clear callback and reports Queued while returning the owner. Pending unrelate closures are absent and Parent2→3/inverse3 persist; all other authored operations/cursors and physical owners remain observed. This is finite reached semantic sensitivity, not proof, fullissue42, newpolicy or fair timing evidence.
