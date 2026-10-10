@@ -1,0 +1,215 @@
+{
+  "controls": [
+    {
+      "name": "undeclared",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/authority-controls/undeclared.bend",
+      "capture": "/tmp/bendvy-ordinary-runtime-dump-authority-source01/authority-controls/undeclared",
+      "result": {
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "11",
+          "/home/node/.bend/bin/bend-2.0.35",
+          "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/authority-controls/undeclared.bend",
+          "--check-only"
+        ],
+        "capSeconds": 5,
+        "status": "CAPTURED_SOURCE_RESULT",
+        "raw": {
+          "stdout": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "stderr": {
+            "sha256": "1cb56226f0f31f909005d766812f90da7da77712df784468ca0aa6708c650215",
+            "bytes": 354
+          }
+        },
+        "exit": 1,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+      },
+      "post": {
+        "unchanged": true
+      },
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : Cap.ValueRead<read~Owner, U32>\n- observed : Unit\nContext:\n- owner : read~Owner\nLocation: read\n3 | def read(~Owner:Type,~grant:Unit,owner:Owner) -> Owner & U32:\n4>|   Cap.value_read(~Owner,~U32,grant,owner)\n  |                              ^^^^^\n5 | def main() -> Unit:Unit{}\nbend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "name": "write-through-read",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/authority-controls/write-through-read.bend",
+      "capture": "/tmp/bendvy-ordinary-runtime-dump-authority-source01/authority-controls/write-through-read",
+      "result": {
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "11",
+          "/home/node/.bend/bin/bend-2.0.35",
+          "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/authority-controls/write-through-read.bend",
+          "--check-only"
+        ],
+        "capSeconds": 5,
+        "status": "CAPTURED_SOURCE_RESULT",
+        "raw": {
+          "stdout": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "stderr": {
+            "sha256": "3f1ed87c7fd8020f61e2a80b943652a11e6276c20542a00bb0959e7e63224d4d",
+            "bytes": 478
+          }
+        },
+        "exit": 1,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+      },
+      "post": {
+        "unchanged": true
+      },
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : Cap.ValueWrite<write~Owner, Array<U32>, U32>\n- observed : Cap.ValueRead<write~Owner, U32>\nContext:\n- owner : write~Owner\n- value : Array<U32>\nLocation: write\n3 | def write(~Owner:Type,~grant:Cap.ValueRead<Owner,U32>,owner:Owner,value:Array<U32>) -> Owner:\n4>|   Cap.value_set(~Owner,~Array<U32>,~U32,grant,owner,value)\n  |                                         ^^^^^\n5 | def main() -> Unit:Unit{}\nbend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "name": "duplicate-owner",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/authority-controls/duplicate-owner.bend",
+      "capture": "/tmp/bendvy-ordinary-runtime-dump-authority-source01/authority-controls/duplicate-owner",
+      "result": {
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "11",
+          "/home/node/.bend/bin/bend-2.0.35",
+          "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/authority-controls/duplicate-owner.bend",
+          "--check-only"
+        ],
+        "capSeconds": 5,
+        "status": "CAPTURED_SOURCE_RESULT",
+        "raw": {
+          "stdout": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "stderr": {
+            "sha256": "538562c41fc2ae19f157722f74f9e8958b95c872f0aa956c9f4713cb4f4b15af",
+            "bytes": 313
+          }
+        },
+        "exit": 1,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+      },
+      "post": {
+        "unchanged": true
+      },
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : value\n- observed : value (consumed more than once)\nLocation: duplicate\n2 | \n3>| def duplicate(value:Front.Application()) -> Front.Application() & Front.Application():(value,value)\n  |               ^^^^^\n4 | def main() -> Unit:Unit{}\nbend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "name": "read-owner",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/authority-controls/read-owner.bend",
+      "capture": "/tmp/bendvy-ordinary-runtime-dump-authority-source02/authority-controls/read-owner",
+      "result": {
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "11",
+          "/home/node/.bend/bin/bend-2.0.35",
+          "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/authority-controls/read-owner.bend",
+          "--check-only"
+        ],
+        "capSeconds": 5,
+        "status": "CAPTURED_SOURCE_RESULT",
+        "raw": {
+          "stdout": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "stderr": {
+            "sha256": "bd6fe1a7dc9c52833b7047508cc396b853aed726dd507a6ae5e6fd4466614866",
+            "bytes": 1415
+          }
+        },
+        "exit": 1,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+      },
+      "post": {
+        "unchanged": true
+      },
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : App.Application<observed~S, observed~C, observed~R, observed~E, observed~H, observed~Rows, observed~observe, observed~fold, observed~Events, observed~eventFold>\n- observed : observed~Owner\nContext:\n- presentation : Presentation.Recipe<observed~S, observed~C, observed~R, observed~count, observed~components, observed~resources>\n- owner        : observed~Owner\n- _            : U32\nLocation: observed\n13 |   match result:\n14>|     case (owner,_):App.population(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,~count,~components,~resources,presentation,owner)\n   |                                                                                                                                     ^^^^^\n15 | def read(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,~components:C -> U32 -> C & List<&2,Maybe<&2,String>>,~resources:R -> R & List<&2,Maybe<&2,String>>,~Owner:Type,presentation:Presentation.Recipe<S,C,R,count,components,resources>,grant:Cap.ValueRead<Owner,U32>,owner:Owner) -> App.Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,Population.Population>:\nbend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "name": "cross-schema-recipe",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/authority-controls/cross-schema-recipe.bend",
+      "capture": "/tmp/bendvy-ordinary-runtime-dump-authority-source02/authority-controls/cross-schema-recipe",
+      "result": {
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "11",
+          "/home/node/.bend/bin/bend-2.0.35",
+          "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/authority-controls/cross-schema-recipe.bend",
+          "--check-only"
+        ],
+        "capSeconds": 5,
+        "status": "CAPTURED_SOURCE_RESULT",
+        "raw": {
+          "stdout": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "stderr": {
+            "sha256": "f93ebd9ca1b41f03a71be103d259b046a52af1d01d661e468e806797ae8c3cd2",
+            "bytes": 1818
+          }
+        },
+        "exit": 1,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+      },
+      "post": {
+        "unchanged": true
+      },
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : Presentation.Recipe<foreign~S, foreign~C, foreign~R, foreign~count, foreign~components, foreign~resources>\n- observed : Presentation.Recipe<foreign~Other, foreign~C, foreign~R, foreign~foreignCount, foreign~foreignComponents, foreign~foreignResources>\nContext:\n- presentation : Presentation.Recipe<foreign~Other, foreign~C, foreign~R, foreign~foreignCount, foreign~foreignComponents, foreign~foreignResources>\n- app          : App.Application<foreign~S, foreign~C, foreign~R, foreign~E, foreign~H, foreign~Rows, foreign~observe, foreign~fold, foreign~Events, foreign~eventFold>\nLocation: foreign\n12 | def foreign(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,~components:C -> U32 -> C & List<&2,Maybe<&2,String>>,~resources:R -> R & List<&2,Maybe<&2,String>>,~Other:Data,~foreignCount:C -> List<&2,W.Handle<Other>> -> C & List<&2,Maybe<&2,U32>>,~foreignComponents:C -> U32 -> C & List<&2,Maybe<&2,String>>,~foreignResources:R -> R & List<&2,Maybe<&2,String>>,presentation:Presentation.Recipe<Other,C,R,foreignCount,foreignComponents,foreignResources>,app:App.Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>) -> App.Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,Population.Population>:\n13>|   App.population(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,~count,~components,~resources,presentation,app)\n   |                                                                                                       ^^^^^^^^^^^^\n14 | def main() -> Unit:Unit{}\nbend 2.0.36 is available: run bend update\n"
+    },
+    {
+      "name": "cross-schema-filter",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/authority-controls/cross-schema-filter.bend",
+      "capture": "/tmp/bendvy-ordinary-runtime-dump-authority-source02/authority-controls/cross-schema-filter",
+      "result": {
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "11",
+          "/home/node/.bend/bin/bend-2.0.35",
+          "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/authority-controls/cross-schema-filter.bend",
+          "--check-only"
+        ],
+        "capSeconds": 5,
+        "status": "CAPTURED_SOURCE_RESULT",
+        "raw": {
+          "stdout": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "stderr": {
+            "sha256": "d570389ff218cffa382eca10db07fb5c3d541c79d1e4c46293fae4b6e351918d",
+            "bytes": 1536
+          }
+        },
+        "exit": 1,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+      },
+      "post": {
+        "unchanged": true
+      },
+      "diagnostic": "SOME PROOFS FAIL\nError:\n- expected : Filter.Component<foreign~S>\n- observed : Filter.Component<foreign~Other>\nContext:\n- presentation : Presentation.Recipe<foreign~S, foreign~C, foreign~R, foreign~count, foreign~components, foreign~resources>\n- component    : Filter.Component<foreign~Other>\n- app          : App.Application<foreign~S, foreign~C, foreign~R, foreign~E, foreign~H, foreign~Rows, foreign~observe, foreign~fold, foreign~Events, foreign~eventFold>\nLocation: foreign\n12 | def foreign(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,~components:C -> U32 -> C & List<&2,Maybe<&2,String>>,~resources:R -> R & List<&2,Maybe<&2,String>>,~Other:Data,presentation:Presentation.Recipe<S,C,R,count,components,resources>,component:Filter.Component<Other>,app:App.Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>) -> App.Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,Dump.Dump<S>>:\n13>|   App.dump(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,~count,~components,~resources,presentation,Filter.Filter{None{},[component],None{}},app)\n   |                                                                                                                                    ^^^^^^^^^\n14 | def main() -> Unit:Unit{}\nbend 2.0.36 is available: run bend update\n"
+    }
+  ],
+  "scope": "Six actual boundaries; arbitrary affine C/R/H/Events, read-grant produced abstract Owner cannot obtain App; foreign Recipe/filter reach actual Runtime.population/dump; undeclared/write-through-read canonical grants and actual RuntimeApp duplication. Three earlier deadlines inconclusive."
+}
