@@ -9,10 +9,11 @@ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def load(name,path):
  spec=importlib.util.spec_from_file_location(name,path);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
 def main():
+ planPath=HERE/'REFERENCE-PLAN.json';assert sha(planPath)==sys.argv[2];plan=json.loads(planPath.read_text());assert plan['capSeconds']==5
  inventory=json.loads((HERE/'FREEZE.json').read_text())['sourceInventory'];assert all(sha(n)==h for n,h in inventory.items())
  config=load('reference_environment',CONFIG);cap=load('reference_capture',CAPTURE);runner=load('reference_executor',HELPER);out=HERE/sys.argv[1]
- sources=[*map(Path,inventory),CAPTURE,HELPER,CONFIG,NODE,Path('/usr/bin/taskset'),Path(__file__),HERE/'FREEZE.json',HERE/'INDEPENDENT-SOURCE-BASIS.json',HERE/'ORACLES.json',HERE/'model.py',HERE/'expected.stdout.gz']
- pins=cap.prepare_attempt(out,sources);env=config.environment();(out/'ENVIRONMENT.json').write_text(json.dumps(env,sort_keys=True,indent=2)+'\n');(out/'CLOSURE.json').write_text(json.dumps({'sourceInventory':inventory,'scope':'Reference Node execution, not Bend proof'},indent=2)+'\n')
+ sources=[*map(Path,inventory),CAPTURE,HELPER,CONFIG,NODE,Path('/usr/bin/taskset'),Path(__file__),HERE/'FREEZE.json',HERE/'INDEPENDENT-SOURCE-BASIS.json',HERE/'ORACLES.json',HERE/'model.py',HERE/'expected.stdout.gz',planPath]
+ pins=cap.prepare_attempt(out,sources);assert pins==plan['pins']|{str(planPath):sha(planPath)};assert str(out)==plan['out'];env=config.environment();(out/'ENVIRONMENT.json').write_text(json.dumps(env,sort_keys=True,indent=2)+'\n');(out/'CLOSURE.json').write_text(json.dumps({'sourceInventory':inventory,'scope':'Reference Node execution, not Bend proof'},indent=2)+'\n')
  with open('/tmp/bendvy-parity-heavy.lock','a') as lock:
   fcntl.flock(lock,fcntl.LOCK_EX)
   try:
@@ -21,5 +22,7 @@ def main():
    assert result['exit']==0 and result['failure'] is None and (out/'stderr').read_bytes()==b''
    raw=(out/'stdout').read_bytes();expected=gzip.decompress((HERE/'expected.stdout.gz').read_bytes());assert raw==expected
    (out/'COMPARISON.json').write_text(json.dumps({'completeIndependentOracleMatch':True,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'scope':'TS shared constructor observations; no Bend physical-world identity claim'},indent=2)+'\n')
-  finally:(out/'post.json').write_text(json.dumps({'unchanged':all(sha(n)==h for n,h in pins.items())})+'\n')
+  finally:
+   unchanged=all(sha(n)==h for n,h in pins.items());(out/'post.json').write_text(json.dumps({'unchanged':unchanged})+'\n')
+   if not unchanged:raise RuntimeError('reference inputs changed during capture')
 if __name__=='__main__':main()
