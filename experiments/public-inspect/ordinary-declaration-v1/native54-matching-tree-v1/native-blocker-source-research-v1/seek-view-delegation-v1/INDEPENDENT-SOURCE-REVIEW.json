@@ -1,0 +1,44 @@
+{
+  "status": "PASS_BOUNDED_SOURCE_DELTA_AND_EXISTING_EXECUTION_BINDINGS",
+  "sourceCommit": "9e9296e7d",
+  "changed": [
+    "core/column.bend"
+  ],
+  "planChecks": {
+    "normal-js-plan.json": {
+      "sha256": "f417a2f6049a63d8dbe091bd4c87d6dd3717701d2fd51362d500cc4a71a8e589",
+      "pins": 162,
+      "commands": [
+        {
+          "label": "emit",
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "capSeconds": 5
+        }
+      ],
+      "postConsumer": "Exact complete independent whole bytes; reader rejects whole normal baseline; empty runtime stderr. Source controls require intended exits and diagnostics."
+    },
+    "normal-native-plan.json": {
+      "sha256": "c070a89af7b439845f11a5d86a0d8bdd709e5c1efd0cb84b0f5ad13564a1f620",
+      "pins": 174,
+      "commands": [
+        {
+          "label": "emit",
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "capSeconds": 5
+        }
+      ],
+      "postConsumer": "Exact complete independent whole bytes; reader rejects whole normal baseline; empty runtime stderr. Source controls require intended exits and diagnostics."
+    }
+  },
+  "reason": "Casewise seek with incoming None preserves original view owner restoration, fuel and physical history; no discarded live incoming or new callback owner. Existing full oracle retained; no runtime acceptance or adoption claimed."
+}
