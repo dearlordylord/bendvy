@@ -41,7 +41,7 @@ def flow_done(~S:Data,observed:I.Frame<S,A.Store<S,State.Components<S>>,State.Re
   level_done(~S,flow,Cap.value_read(~I.Frame<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>>,~M.CurrentView<S,State.LevelToken,U32>,~MD.inspect(~S,~State.LevelToken,~U32,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,~State.level(~S),~level(~S)),frame))
 def snapshot(~S:Data,world:W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>>) -> W.World<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>> & Observation<S>:
   flow_done(~S,Cap.value_read(~I.Frame<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>>,~M.CurrentView<S,State.FlowToken,U32>,~MD.inspect(~S,~State.FlowToken,~U32,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,~State.flow(~S),~flow(~S)),I.Frame{world,19}))
-def condition_body(~S:Data,@-H:Type,@-cap:Cap.ValueRead<H,M.CurrentView<S,State.FlowToken,U32>>,args:Unit,owner:H) -> H & Bool:
+def condition_body(~S:Data,~H:Type,~cap:Cap.ValueRead<H,M.CurrentView<S,State.FlowToken,U32>>,args:Unit,owner:H) -> H & Bool:
   MD.matches(~H,~S,~State.FlowToken,~U32,~U32.is_eq,~cap,owner,7)
 def condition_plan(~S:Data) -> K.Plan<S,A.Store<S,State.Components<S>>,State.Resources<S>,A.Notice<S,U32>,H => Cap.ValueRead<H,M.CurrentView<S,State.FlowToken,U32>>>:
   K.Plan{MD.required(~S,~State.FlowToken,~U32,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,~State.flow(~S),~flow(~S)),MD.condition(~S,~State.FlowToken,~U32,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,~State.flow(~S),~flow(~S))}
