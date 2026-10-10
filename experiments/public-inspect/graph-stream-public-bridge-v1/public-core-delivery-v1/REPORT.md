@@ -1,0 +1,13 @@
+# Public machine/relation bridge qualification
+
+Six public consuming executions passed complete independently source-derived output models through the unchanged guarded collector. Both nominal provenance consumers passed JS and Native (12,785 bytes each). The targeted Workshop registered-condition consumer passed JS and Native (10,348 bytes). All command exits were zero, runtime stderr was empty, and 51 command/final guards preserved pinned inputs.
+
+The public provenance consumers use actual World.create/reserve_id/activate ownership. Their returned foreign handle has live numeric id2, which collides with live id2 in the primary same-schema World. Own-world composed lookup succeeds. Both primary snapshots return the existing MissingEntity{2} without advancing their cursor19 or changing either complete World. The foreign own-world cursor41, factory, actual status and full before/after owner dumps remain observable.
+
+The registered consumer derives machine and relation Check grants from the same ordinary declarations, retains the actual Registry outside repeated observations, and executes through Sys.run_tracked. Registry cursor0 stays unchanged during descriptions and reaches13 only after the actual successful run. Pending commands and stream retention/positions remain unchanged. Public normal output differs from the independently qualified private normal output only in the source-derived imported Observation constructor identity.
+
+SOURCE-JOIN records bind import-only consumer copies and all five private/public modules; non-import bodies are identical. The private authority/refusal and reached routing/clock controls remain separately qualified evidence. Their bodies/source mapping is reusable; this package does not claim those private executions occurred through public imports. Historical failed source attempts and unlaunched literal-foreign plans remain preserved with their original statuses.
+
+DEPENDENCIES.json binds the reused original normal, ten-case registered/reached, actual private provenance and current public evidence through exact path/hash/size and existing CAS objects. QUALIFIED-SOURCE-SET.json identifies the three public consuming closures (38 Bend modules each plus installed Base) and all five actual public module hashes for parent-owned integration and unchanged comparative preparation. It does not claim every module in the parent's 120-module core image was reached.
+
+Read-only transition/failure stream projections, their ownership/visibility contracts, full #55 acceptance and universal proof remain open. Root owns shared source integration and the unchanged comparative gate. No performance claim follows from this execution evidence.

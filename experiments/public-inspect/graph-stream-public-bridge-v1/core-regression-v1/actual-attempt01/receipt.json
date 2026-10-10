@@ -1,0 +1,2339 @@
+{
+  "status": "NO_CONFIRMED_REGRESSION",
+  "contract": {
+    "baselineCommit": "327bec49d41f00f88950343dea1edc1e0ec97dc4",
+    "workload": "Workshop: ten complete 22-checkpoint applications per process",
+    "scope": "Whole-process API regression; startup and output included, not qualified hot-path acceptance",
+    "pairs": 20,
+    "warmups": 2,
+    "seed": 20261007,
+    "alpha": 0.05,
+    "method": "One-sided exact paired sign tests, Holm correction across JS and Native",
+    "allowedSlowdown": 0,
+    "approval": "User: no statistically confirmed slowdown, 2026-10-06",
+    "iterations": 10,
+    "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+  },
+  "cpu": 11,
+  "machine": {
+    "system": "Linux",
+    "node": "f09fe046f4d2",
+    "release": "7.0.14-orbstack-00380-ga7e0a2dc9535",
+    "version": "#1 SMP PREEMPT Fri Aug  7 03:48:40 UTC 2026",
+    "machine": "aarch64",
+    "processor": ""
+  },
+  "commands": [
+    {
+      "argv": [
+        "bend",
+        "version"
+      ],
+      "limitSeconds": 5,
+      "label": "version-Bend",
+      "exit": 0,
+      "elapsedMs": 78.230303,
+      "stdoutSHA256": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d"
+    },
+    {
+      "argv": [
+        "node",
+        "--version"
+      ],
+      "limitSeconds": 5,
+      "label": "version-Node",
+      "exit": 0,
+      "elapsedMs": 7.735063,
+      "stdoutSHA256": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "--version"
+      ],
+      "limitSeconds": 5,
+      "label": "version-Clang",
+      "exit": 0,
+      "elapsedMs": 139.735887,
+      "stdoutSHA256": "cdddf8c4dfb42fef72caa5c3988c573a4f7bca9409456a32841dfe34e6b4b6c3"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+        "rev-parse",
+        "HEAD"
+      ],
+      "limitSeconds": 5,
+      "label": "reference-head",
+      "exit": 0,
+      "elapsedMs": 9.310117,
+      "stdoutSHA256": "1e9fa0f2cb924e419c66fb68fbc27326da39b4f0a4ec43b422da942e21d2459f"
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+        "status",
+        "--porcelain",
+        "--",
+        "packages/core/src"
+      ],
+      "limitSeconds": 5,
+      "label": "reference-clean",
+      "exit": 0,
+      "elapsedMs": 12.393809,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/examples/query-composition/timing-main.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "label": "baseline-checker",
+      "exit": 0,
+      "elapsedMs": 774.641762,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/examples/query-composition/timing-main.bend",
+        "-o",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 30,
+      "label": "baseline-js-emit",
+      "exit": 0,
+      "elapsedMs": 1090.14887,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/examples/query-composition/timing-main.bend",
+        "-o",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.c"
+      ],
+      "limitSeconds": 30,
+      "label": "baseline-c-emit",
+      "exit": 0,
+      "elapsedMs": 6520.284264,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.c",
+        "-o",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "label": "baseline-native-build",
+      "exit": 0,
+      "elapsedMs": 31330.645937,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/examples/query-composition/timing-main.bend",
+        "--check-only"
+      ],
+      "limitSeconds": 5,
+      "label": "candidate-checker",
+      "exit": 0,
+      "elapsedMs": 2005.621653,
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/examples/query-composition/timing-main.bend",
+        "-o",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 30,
+      "label": "candidate-js-emit",
+      "exit": 0,
+      "elapsedMs": 3824.145659,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "bend",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/examples/query-composition/timing-main.bend",
+        "-o",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.c"
+      ],
+      "limitSeconds": 30,
+      "label": "candidate-c-emit",
+      "exit": 0,
+      "elapsedMs": 11184.289839,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.c",
+        "-o",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native",
+        "-pthread",
+        "-lm"
+      ],
+      "limitSeconds": 120,
+      "label": "candidate-native-build",
+      "exit": 0,
+      "elapsedMs": 17942.948626,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-TS",
+      "exit": 0,
+      "elapsedMs": 287.507506,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 99.166348,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 26.678426,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 99.293933,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-0-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 23.160772,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-TS",
+      "exit": 0,
+      "elapsedMs": 244.176237,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 119.034301,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 26.154713,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 96.93033,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "warmup-1-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 25.739376,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 109.467307,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 99.238307,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 26.602258,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 22.647976,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-0-TS",
+      "exit": 0,
+      "elapsedMs": 247.751474,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 103.342341,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 126.878241,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 24.574034,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 24.247072,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-1-TS",
+      "exit": 0,
+      "elapsedMs": 248.942192,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 25.743501,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 21.846469,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-TS",
+      "exit": 0,
+      "elapsedMs": 245.804541,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 107.592376,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-2-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 98.528468,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-TS",
+      "exit": 0,
+      "elapsedMs": 250.181452,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 107.939129,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 94.418435,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 24.435324,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-3-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 25.415165,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 24.560325,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 27.699059,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 111.5597,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 97.531419,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-4-TS",
+      "exit": 0,
+      "elapsedMs": 247.62589,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 97.078206,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 110.934069,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-TS",
+      "exit": 0,
+      "elapsedMs": 245.355205,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 26.386381,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-5-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 25.907128,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 22.872186,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 22.604226,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 111.608367,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 97.83338,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-6-TS",
+      "exit": 0,
+      "elapsedMs": 250.211161,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 23.035146,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 25.990836,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 103.579635,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 110.87861,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-7-TS",
+      "exit": 0,
+      "elapsedMs": 247.845058,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-TS",
+      "exit": 0,
+      "elapsedMs": 247.760682,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 112.512957,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 106.450032,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 28.02902,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-8-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 29.057445,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 91.690955,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 103.425758,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 24.247197,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 21.174964,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-9-TS",
+      "exit": 0,
+      "elapsedMs": 248.559522,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-TS",
+      "exit": 0,
+      "elapsedMs": 242.998811,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 103.741761,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 101.186574,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 27.376639,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-10-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 24.495783,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 105.538067,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 93.514594,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-TS",
+      "exit": 0,
+      "elapsedMs": 266.097082,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 25.543333,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-11-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 24.989662,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 25.461083,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 24.463949,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 97.318,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 105.88132,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-12-TS",
+      "exit": 0,
+      "elapsedMs": 314.650352,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 25.14433,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 30.150912,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 120.219103,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 113.599132,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-13-TS",
+      "exit": 0,
+      "elapsedMs": 238.844902,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-TS",
+      "exit": 0,
+      "elapsedMs": 253.963066,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 25.533208,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 24.042613,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 105.5074,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-14-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 96.586744,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 25.081662,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 25.589667,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-TS",
+      "exit": 0,
+      "elapsedMs": 247.773349,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 96.853746,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-15-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 96.416951,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-TS",
+      "exit": 0,
+      "elapsedMs": 243.548982,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 24.716368,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 24.473782,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 94.493352,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-16-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 100.349442,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 26.37134,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 23.826194,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-TS",
+      "exit": 0,
+      "elapsedMs": 243.96136,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 106.780202,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-17-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 95.422193,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-TS",
+      "exit": 0,
+      "elapsedMs": 242.589474,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 24.673409,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 24.723118,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 98.257341,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-18-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 106.120364,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-candidate-Native",
+      "exit": 0,
+      "elapsedMs": 21.401508,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.native"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-baseline-Native",
+      "exit": 0,
+      "elapsedMs": 22.840978,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/candidate/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-candidate-JS",
+      "exit": 0,
+      "elapsedMs": 148.546667,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/baseline/workshop.js"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-baseline-JS",
+      "exit": 0,
+      "elapsedMs": 198.832993,
+      "stdoutSHA256": "fd860b27ba9f5c329e9421fa94d5a0786ef47c36b6af52bc5139cc4bb16cd513"
+    },
+    {
+      "argv": [
+        "node",
+        "/tmp/bendvy-public-inspector-extension-regression120-01/reference.mjs"
+      ],
+      "limitSeconds": 5,
+      "label": "pair-19-TS",
+      "exit": 0,
+      "elapsedMs": 338.378254,
+      "stdoutSHA256": "3f75954394c69e1130580ae3c84c543fa10351972022f83d92f48046e530bab2"
+    }
+  ],
+  "pairs": [
+    {
+      "pair": 0,
+      "backend": "JS",
+      "baselineMs": 109.467307,
+      "candidateMs": 99.238307
+    },
+    {
+      "pair": 0,
+      "backend": "Native",
+      "baselineMs": 26.602258,
+      "candidateMs": 22.647976
+    },
+    {
+      "pair": 1,
+      "backend": "JS",
+      "baselineMs": 126.878241,
+      "candidateMs": 103.342341
+    },
+    {
+      "pair": 1,
+      "backend": "Native",
+      "baselineMs": 24.574034,
+      "candidateMs": 24.247072
+    },
+    {
+      "pair": 2,
+      "backend": "JS",
+      "baselineMs": 107.592376,
+      "candidateMs": 98.528468
+    },
+    {
+      "pair": 2,
+      "backend": "Native",
+      "baselineMs": 25.743501,
+      "candidateMs": 21.846469
+    },
+    {
+      "pair": 3,
+      "backend": "JS",
+      "baselineMs": 107.939129,
+      "candidateMs": 94.418435
+    },
+    {
+      "pair": 3,
+      "backend": "Native",
+      "baselineMs": 25.415165,
+      "candidateMs": 24.435324
+    },
+    {
+      "pair": 4,
+      "backend": "JS",
+      "baselineMs": 111.5597,
+      "candidateMs": 97.531419
+    },
+    {
+      "pair": 4,
+      "backend": "Native",
+      "baselineMs": 27.699059,
+      "candidateMs": 24.560325
+    },
+    {
+      "pair": 5,
+      "backend": "JS",
+      "baselineMs": 110.934069,
+      "candidateMs": 97.078206
+    },
+    {
+      "pair": 5,
+      "backend": "Native",
+      "baselineMs": 26.386381,
+      "candidateMs": 25.907128
+    },
+    {
+      "pair": 6,
+      "backend": "JS",
+      "baselineMs": 111.608367,
+      "candidateMs": 97.83338
+    },
+    {
+      "pair": 6,
+      "backend": "Native",
+      "baselineMs": 22.604226,
+      "candidateMs": 22.872186
+    },
+    {
+      "pair": 7,
+      "backend": "JS",
+      "baselineMs": 110.87861,
+      "candidateMs": 103.579635
+    },
+    {
+      "pair": 7,
+      "backend": "Native",
+      "baselineMs": 25.990836,
+      "candidateMs": 23.035146
+    },
+    {
+      "pair": 8,
+      "backend": "JS",
+      "baselineMs": 112.512957,
+      "candidateMs": 106.450032
+    },
+    {
+      "pair": 8,
+      "backend": "Native",
+      "baselineMs": 28.02902,
+      "candidateMs": 29.057445
+    },
+    {
+      "pair": 9,
+      "backend": "JS",
+      "baselineMs": 103.425758,
+      "candidateMs": 91.690955
+    },
+    {
+      "pair": 9,
+      "backend": "Native",
+      "baselineMs": 21.174964,
+      "candidateMs": 24.247197
+    },
+    {
+      "pair": 10,
+      "backend": "JS",
+      "baselineMs": 103.741761,
+      "candidateMs": 101.186574
+    },
+    {
+      "pair": 10,
+      "backend": "Native",
+      "baselineMs": 27.376639,
+      "candidateMs": 24.495783
+    },
+    {
+      "pair": 11,
+      "backend": "JS",
+      "baselineMs": 105.538067,
+      "candidateMs": 93.514594
+    },
+    {
+      "pair": 11,
+      "backend": "Native",
+      "baselineMs": 25.543333,
+      "candidateMs": 24.989662
+    },
+    {
+      "pair": 12,
+      "backend": "JS",
+      "baselineMs": 105.88132,
+      "candidateMs": 97.318
+    },
+    {
+      "pair": 12,
+      "backend": "Native",
+      "baselineMs": 25.461083,
+      "candidateMs": 24.463949
+    },
+    {
+      "pair": 13,
+      "backend": "JS",
+      "baselineMs": 113.599132,
+      "candidateMs": 120.219103
+    },
+    {
+      "pair": 13,
+      "backend": "Native",
+      "baselineMs": 30.150912,
+      "candidateMs": 25.14433
+    },
+    {
+      "pair": 14,
+      "backend": "JS",
+      "baselineMs": 105.5074,
+      "candidateMs": 96.586744
+    },
+    {
+      "pair": 14,
+      "backend": "Native",
+      "baselineMs": 24.042613,
+      "candidateMs": 25.533208
+    },
+    {
+      "pair": 15,
+      "backend": "JS",
+      "baselineMs": 96.416951,
+      "candidateMs": 96.853746
+    },
+    {
+      "pair": 15,
+      "backend": "Native",
+      "baselineMs": 25.589667,
+      "candidateMs": 25.081662
+    },
+    {
+      "pair": 16,
+      "backend": "JS",
+      "baselineMs": 100.349442,
+      "candidateMs": 94.493352
+    },
+    {
+      "pair": 16,
+      "backend": "Native",
+      "baselineMs": 24.716368,
+      "candidateMs": 24.473782
+    },
+    {
+      "pair": 17,
+      "backend": "JS",
+      "baselineMs": 106.780202,
+      "candidateMs": 95.422193
+    },
+    {
+      "pair": 17,
+      "backend": "Native",
+      "baselineMs": 26.37134,
+      "candidateMs": 23.826194
+    },
+    {
+      "pair": 18,
+      "backend": "JS",
+      "baselineMs": 106.120364,
+      "candidateMs": 98.257341
+    },
+    {
+      "pair": 18,
+      "backend": "Native",
+      "baselineMs": 24.723118,
+      "candidateMs": 24.673409
+    },
+    {
+      "pair": 19,
+      "backend": "JS",
+      "baselineMs": 198.832993,
+      "candidateMs": 148.546667
+    },
+    {
+      "pair": 19,
+      "backend": "Native",
+      "baselineMs": 22.840978,
+      "candidateMs": 21.401508
+    }
+  ],
+  "versions": {
+    "Bend": "bend 2.0.35",
+    "Node": "v24.20.0",
+    "Clang": "Debian clang version 19.1.7 (3~deb12u1)\nTarget: aarch64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin"
+  },
+  "sources": {
+    "baseline": {
+      "examples/query-composition/array-controls.bend": "f5c6c28b2a563db088331309b6753ec09ccc00b2c8f22931e838b7cd5e913cd2",
+      "examples/query-composition/declarations.bend": "50da7392497713d68874a609c39f418f829611654c1db05973e2249463ada9f2",
+      "examples/query-composition/driver.bend": "cf15e0ca8bbb1ea0b410776a3f74916e3f86f10ff9a92d44f0efcc5ad5974b4c",
+      "examples/query-composition/expected.json": "e042305fedcb646ff7a52d28ca3fd5ba9f11a1eda2a12cd5c945dd77f57bb742",
+      "examples/query-composition/gameplay.bend": "590a878e0002afcc4904dc42c7a36df1b2afc3c3515dac8dac773cbed7d24670",
+      "examples/query-composition/json.bend": "826fca39e8bd47bef326b9fd141d1784bc1f9004c7b460894a602cc3100f16be",
+      "examples/query-composition/main.bend": "4339adc4de65c6bcbe25f243ba3a152ee16509fe3a74c966251d6ccc0bba97dd",
+      "examples/query-composition/observe.bend": "0380c97203301393e5954aafe1be98269f5e2776de7f5aebb6eed25071f366ac",
+      "examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35",
+      "examples/query-composition/scenario-ops.bend": "fb6e87b28dd29552f530c4986b793726a6f3f00e5e29c3641e01a7d1b2c5d64e",
+      "examples/query-composition/scenario.md": "f05bf4d785d86f09052fe6b11c8f7e6c06b149b599e2fdde106ef0a11e112857",
+      "examples/query-composition/schema.bend": "d845bf538d8368406bed7473677f9c3511f311d373511d8e6322728e5d5b8384",
+      "examples/query-composition/timing-main.bend": "a7fea467df249864772e4be3e229342cddd2e457bed6fb596f28e224b203fbb6",
+      "examples/query-composition/verify.py": "e80c4264366b7380f516689964e5d0204a93b75eef4e7958351f4abbbe4a9235",
+      "src/ecs/README.md": "45f691b2b5fb1eb4921403ec398d4513dd99f63a719d697735def756cc217cbe",
+      "src/ecs/capabilities.bend": "91c0cdc01e9143d10dc0156ef4f6c39beff97d8088ed0bbb056ffff2ffabf964",
+      "src/ecs/column.bend": "635a9ededb97fdccb5a0272a581485aa5faafd1bdc2ba2e2504c609a0aee5115",
+      "src/ecs/commands.bend": "b41ec45ad17513351fd68436cefbaec0058ac4556d1d722f2c0ce5a7d4a9f9d1",
+      "src/ecs/component.bend": "d36e068152c07c410425e5114b5ca2d3e853d615025481b9b4a5fbade38d04f6",
+      "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+      "src/ecs/events.bend": "3d89fbbb40fefab4be349bfbe0d1f99c870c25c725130ccb1823910c1ace7c53",
+      "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+      "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+      "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+      "src/ecs/structural.bend": "f813a10058914cdf85f94e879b2dc68b9cb3e878b5c683dae60152f40001fcae",
+      "src/ecs/system.bend": "95756114410e8606896ffc40ad4f50f6293e1f8fd3d739156c8d0c55a48a92ef",
+      "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "src/ecs/world.bend": "4dfe48b4d9457f8a3c0455260d8465dede4057d6a6f9c8864caa7c5bb19d5c16"
+    },
+    "candidate": {
+      "examples/query-composition/array-controls.bend": "f5c6c28b2a563db088331309b6753ec09ccc00b2c8f22931e838b7cd5e913cd2",
+      "examples/query-composition/declarations.bend": "50da7392497713d68874a609c39f418f829611654c1db05973e2249463ada9f2",
+      "examples/query-composition/driver.bend": "cf15e0ca8bbb1ea0b410776a3f74916e3f86f10ff9a92d44f0efcc5ad5974b4c",
+      "examples/query-composition/expected.json": "e042305fedcb646ff7a52d28ca3fd5ba9f11a1eda2a12cd5c945dd77f57bb742",
+      "examples/query-composition/gameplay.bend": "590a878e0002afcc4904dc42c7a36df1b2afc3c3515dac8dac773cbed7d24670",
+      "examples/query-composition/json.bend": "826fca39e8bd47bef326b9fd141d1784bc1f9004c7b460894a602cc3100f16be",
+      "examples/query-composition/main.bend": "4339adc4de65c6bcbe25f243ba3a152ee16509fe3a74c966251d6ccc0bba97dd",
+      "examples/query-composition/observe.bend": "0380c97203301393e5954aafe1be98269f5e2776de7f5aebb6eed25071f366ac",
+      "examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35",
+      "examples/query-composition/scenario-ops.bend": "fb6e87b28dd29552f530c4986b793726a6f3f00e5e29c3641e01a7d1b2c5d64e",
+      "examples/query-composition/scenario.md": "f05bf4d785d86f09052fe6b11c8f7e6c06b149b599e2fdde106ef0a11e112857",
+      "examples/query-composition/schema.bend": "d845bf538d8368406bed7473677f9c3511f311d373511d8e6322728e5d5b8384",
+      "examples/query-composition/timing-main.bend": "a7fea467df249864772e4be3e229342cddd2e457bed6fb596f28e224b203fbb6",
+      "examples/query-composition/verify.py": "e80c4264366b7380f516689964e5d0204a93b75eef4e7958351f4abbbe4a9235",
+      "src/ecs/world-io.bend": "4cb99615ad5177439b60cb659be2d5bc95ff02dc9cf55c162c2470e6d0f19a2a",
+      "src/ecs/decode-construction.bend": "39518ef0d17aa1b55ef09ee87b12b485eb63c0900064d52206ca4ebabb0d335b",
+      "src/ecs/relation-types.bend": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+      "src/ecs/machine.bend": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+      "src/ecs/decode-traversal.bend": "d1a2ef1a6578dfd23b23d24dbaf2b1efb3d8aca0297fc721c13b1ad7f61292f6",
+      "src/ecs/machine-conditions.bend": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+      "src/ecs/relation-query.bend": "e9c129a5404ab2eabc0d39f57364036cfc3f3c8c68e520cb679419b39bd98800",
+      "src/ecs/ordinary-machine-declaration.bend": "dea2407308f0c9385d1938a950c138babb43a95a713d6c595406328f9eeb9b01",
+      "src/ecs/inspector-declaration.bend": "835bedcfac18d3a567b06fc5ee4e4cfdfcb804d0701ca86e6e155b2760189997",
+      "src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "src/ecs/snapshot-product.bend": "7bea0f24bfb3051f5349494307364707a19a916bbfe684d5cb02da7c9fa7b999",
+      "src/ecs/inspector-query-world.bend": "1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a",
+      "src/ecs/declared-family.bend": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2",
+      "src/ecs/bundle-requests.bend": "7fbf0265e2b48af86f62ba936f24964b1f6b20b6ed92029433ea02c0a77c353c",
+      "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+      "src/ecs/ordinary-inspector-declaration.bend": "d916b7fbec58c0f51e3f05278b30a4b1ef08dc29d83d3f9149b33cbf716e00e3",
+      "src/ecs/decode-size.bend": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281",
+      "src/ecs/machine-stream.bend": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+      "src/ecs/snapshot-data.bend": "9d86378d30177b9412a8443ca21cbc4c0181ed3e09c72001c638522bf1d4489e",
+      "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+      "src/ecs/ordinary-schema.bend": "a713826ed240aca0fec5502d21682ea9adb75ac9b0653b76f5efb3ace1f058d0",
+      "src/ecs/decode-utf16.bend": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+      "src/ecs/relation-reorder.bend": "2d58a3d76aaa955044b39f6cafcfdbbda6a4b20415bea8b4041193072a35d9dd",
+      "src/ecs/snapshot-schema.bend": "c5eb06160ceb018b7d820a10164f83e53f54894e654db55a62d6dbca21bf4298",
+      "src/ecs/decode-owned-component.bend": "659ce811a6bb00a7a0a5e12dd1cd6bee79bdbdd0e90006bd7af02b7ffa501b56",
+      "src/ecs/bundle-insert-adapter.bend": "a7ed3cc40a904e516cdf8c63dc2afa066598c47ba6760b558e0646dc3958ad67",
+      "src/ecs/relation-failure-disposal.bend": "fd5e8b07537605f12159d1d3ae3d6675a567c17e247453f4605d4a1fbcc0d1d5",
+      "src/ecs/inspector-query-families.bend": "020a8de48df12369c8709d10d15f0c3d22dcf8a9fb76f3af238ea4a4304edeb8",
+      "src/ecs/bundle-construction.bend": "659fbf766f2d4d3768a0342ab30925c52b83fd28e79facc9868b5382a5048a59",
+      "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+      "src/ecs/machine-handlers.bend": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+      "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "src/ecs/owner-product.bend": "5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f",
+      "src/ecs/decode-data.bend": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4",
+      "src/ecs/relation-providers.bend": "6a69de7d29d0a150446689228878f19df5b6d2fdefdfcb2eb1ce1048246ac594",
+      "src/ecs/machine-handler-bundle.bend": "04003a6575f7d478111062d83af0839bd402bfe1d2118c56fab0a609cd8173a8",
+      "src/ecs/check.bend": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f",
+      "src/ecs/inspector-definition.bend": "d4f269a5da1f98203e2466744b31d581c3ed7b7d9dbdbce7a08ea70232133d5c",
+      "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+      "src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "src/ecs/decode-constructed-resource.bend": "1ff45eb2357c26f005a9c617f13f89ac1d8d4e44ed4ba8973d37d410b216678b",
+      "src/ecs/relation-reorder-core.bend": "be833923be7481a6bf002723b857d69ebfae6861394021947138d2bb01166f6a",
+      "src/ecs/decode-constructed-requests.bend": "585287688a889db9a50cbdd99151ed160b9819b3ffab4f32ed602d6533fe1c11",
+      "src/ecs/owned-optimized-compose.bend": "3e651cc49f4d6cfb37ea5af07a4b4668a8983911a7547a03aec193f9ca305fff",
+      "src/ecs/ordinary-system.bend": "2b3aee3fd7550492c00fd27aa1ce8f74e0a94407c4c73d3425e81d1b1ec54810",
+      "src/ecs/decode-validated-resource.bend": "ec058ddae2ddfcec148e77940c93356935d5eb6826cdf4efad35091365a33a84",
+      "src/ecs/relation-commands.bend": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+      "src/ecs/resource-field.bend": "c8652e2bb394c94e52f34a079b4eae6591495e3dfad4e76f1a40fd5d0558d6d3",
+      "src/ecs/feature-provision.bend": "430b9a1a382c4b78e4eaeb11a838b3f1cd01b5c3042ec83a72364815886a2b9d",
+      "src/ecs/relation-cleanup.bend": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3",
+      "src/ecs/inspector-query-frame-world.bend": "1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a",
+      "src/ecs/check-relation-projection.bend": "291a9e3dd15902136308b282f3bd13cc68542fe76664108f51cbbb49f6086a8b",
+      "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+      "src/ecs/decode-owned-journal.bend": "078af9c93a351f04b824b15023f810a6dfc9f251dc683631d91b5fd1dfbb7d3e",
+      "src/ecs/bundle-provider.bend": "3aa34afa2cd7c3f1ac3e1c9a66df5be1518d3c763e76e26e61cd24c95e1d39fc",
+      "src/ecs/reader-domains.bend": "1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314",
+      "src/ecs/decode-local.bend": "1d071fa4c589aa9a2f2866936998b1661ca209cb7c2cc1904a3bb572e6ea9a18",
+      "src/ecs/inspector-query.bend": "7a4c90e0f1e63d6a89aea256bd96c874758db73865dad02481a32c1dded8b58d",
+      "src/ecs/ordinary-component-binding.bend": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1",
+      "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "src/ecs/README.md": "683cbe78735a971fc18aa8581e325d2375e2796f5fc93640617588283c70c032",
+      "src/ecs/bundle-delivery.bend": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+      "src/ecs/bundle-pack.bend": "a900386d18d9e741ec9001dee0c8203366e6feac706b15db9db755a95e96f8f0",
+      "src/ecs/decode-declaration.bend": "78a14499ff457c55e13422c5bc5c56469fdc82d1ec021599dd2c0c9bcb4bb70f",
+      "src/ecs/ordinary-resource-field-system.bend": "febc3f2167d3f4631897938ee771ae12d691f36279385d480656402aee61f4ec",
+      "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+      "src/ecs/resource-field-binding.bend": "c3fb3e3b1ecce25e0f847da4bf695c4375915be9f63b4a1a5bcecd006789bbfe",
+      "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "src/ecs/ordinary-query-declaration.bend": "bbb77a38ebe83f27edf4d1ec7be7b56d6360687a088046ac2dc3c45ca6f73a32",
+      "src/ecs/captured-column.bend": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a",
+      "src/ecs/world-namespace.c": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+      "src/ecs/bundle-install.bend": "69845857ee62856ffdd72a876fa5c259034ee512a0d1d430c26169b5ffb6061e",
+      "src/ecs/inspector-relation-projection.bend": "0655e6bd0a6d4e275fe5e4e444b11cf5f6d1ca72c716f58ac9d4d64d6dc99f0f",
+      "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+      "src/ecs/bundle-component-install.bend": "cc5f6bccf5c012c7ffc5f104fa174e5f36194aba7a644d409f4caaf929fce938",
+      "src/ecs/persistence-declaration.bend": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+      "src/ecs/system-instance.bend": "ed76737a409f719cfa2073adcac316648348e91c6e52ab54d29d460e0b2069b6",
+      "src/ecs/ordinary-declaration.bend": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+      "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+      "src/ecs/owned-family.bend": "1fe504b1130eed24fb0c1dfc9bf7c6de0ab0f855d4adf30694a1f6b3c634f7e1",
+      "src/ecs/bundle-batch.bend": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d",
+      "src/ecs/decode.bend": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+      "src/ecs/snapshot.bend": "cd10bf6002f09c377e084faa2a303e38446384f4cdd658f054dc6486dac2ebcf",
+      "src/ecs/inspector-query-projection.bend": "422efbb7c19e8091a77f7e90e7f4e3d95474ae41d46e934b270b89638cd5f561",
+      "src/ecs/inspector.bend": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+      "src/ecs/owned-compose.bend": "1115ffe6db7a1940b53889f53df09cff7fd43a3d244e07b843ea9094f62d31c7",
+      "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+      "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+      "src/ecs/relation-failure-runtime.bend": "11df4128184ea27bd9f87993235ef9459342c17c5165858814fea1f62c460ac9",
+      "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "src/ecs/system-cleanup.bend": "cb545db8883bde3c20b5fbed7422e543f99be0ec2a8d974762e1af0bc089b940",
+      "src/ecs/decode-frame.bend": "9c10e3d8fd690f4a36f95743be7b708ddbf857d9f776331a9e5e2e170c7fd793",
+      "src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "src/ecs/feature.bend": "be03fb80093190ed1bc963a7f6516195c189921a56694b998ec3325e35c9091d",
+      "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "src/ecs/row-column.bend": "f3846a5378958c522d4053f13f7af4898a8a60c76f7534b060f020adca631f72",
+      "src/ecs/ordinary-resource-system.bend": "463a51c5a5996c86be5e08c23741b3e575241033962e669115c5a0b215de04af",
+      "src/ecs/ordinary-query-observable.bend": "826ff50600b6b789cbe53ea717f316ca7edbad4e8cb68f63ea8db29e2e6b12b5",
+      "src/ecs/snapshot-gate.bend": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128",
+      "src/ecs/world-namespace.js": "2731ad76f78bcdfe51714a1562fe487d5808b9300394ec0aebd89e24b00163f3",
+      "src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "src/ecs/relation-failure-reader.bend": "6c355ea7f29297ee96172c39364b97cbf0f8223b7cce7f46d85636919a36c75e",
+      "src/ecs/machine-world.bend": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+      "src/ecs/restored-row.bend": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5",
+      "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+      "src/ecs/inspector-metadata.bend": "a2c715edcfefff6f3f5abcd84e5293c7ebf29521708f2298fe90bff36b96ad4a",
+      "src/ecs/snapshot-leaf.bend": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f",
+      "src/ecs/decode-fallible-constructed-resource.bend": "d1e12ab848877a63e2645b1d770def8b63effa7f2d98272c6d5709a8e7592dbd",
+      "src/ecs/schedule-provision.bend": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+      "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+      "src/ecs/decode-immediate.bend": "6f9265855c4f65ab00417f06dc050536413008a461e75674a173b6219438e384",
+      "src/ecs/decode-capabilities.bend": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65",
+      "src/ecs/relation-graph.bend": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+      "src/ecs/decode-requests.bend": "f3d5400335f1fa54b298ccfdf6cb9a3d994931986a98f840f75d1a0a4a5d71da",
+      "src/ecs/schema-fragments.bend": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+      "src/ecs/decode-fallible-constructed-requests.bend": "aff15cc664ae86d1f0879977a9a75e7d14cc5831f865eac96a275ba18ef0ba05",
+      "src/ecs/ordinary-query-selections.bend": "57ee96b72d098d0b3abf0504a166c3a0846c817fcc4cb2f77a9629be501bc755",
+      "src/ecs/inspector-machine-projection.bend": "2c4085c7c4953587da136a3e4b47e6f422d8f37aa94c6fedd470563b9179282c",
+      "src/ecs/state.bend": "301fc0aea3ecfd95b1253fe48f51b3a11e23345bfc0bb449b3287ddbc997f694",
+      "src/ecs/internal/machine-handler-events.bend": "c0e605e1b707e9e344d2f19172daa348b8467d6db5b7596960a3649318f44c74",
+      "src/ecs/internal/relation-failures/routing.bend": "928a41657992d49110836caa4d7dd0349e14b003f8cf9112c413206c9b9df693",
+      "src/ecs/internal/relation-failures/queue.bend": "ca7363dac7df55b46fc06e42b123a874fbeae3181abe0c8da37d99ae9da524df",
+      "src/ecs/internal/relation-failures/barrier.bend": "78f61ec8cd251f8362f738f264c313ec3ed15246c5227d8a90c43fbada967752",
+      "src/ecs/internal/relation-failures/domains.bend": "38821350d2565c576067bb4f9e2ba03cbe1b65da47258555c0c2b213eaafd379",
+      "src/ecs/internal/relation-failures/readings.bend": "09bcc21e95fbedef0c3f48025e93bc3088e7a89edfd2011d33d96884bc3d4a0e"
+    }
+  },
+  "artifacts": {
+    "normative-reference.mjs": "9f12dfd6e3a5d5114d9a4c4f13d9b3fad5c10f5143672cbb9c67d7de93208ff0",
+    "reference.mjs": "4cbe9d18fce49840f9400d7b587aecaeeb6fe07281e769d201b123d3b96ab7e6",
+    "baseline/workshop.js": "926bb3dd820d6fedb9f11a5759e37564531826977178c11c4d6b38f1e5000e67",
+    "baseline/workshop.c": "6945bd7db285b76664e7439f9150f7e2e4de81ed5e0e4b5f9b9c614e4b36614c",
+    "baseline/workshop.native": "4e2dbfcdeca9c40798c2199eeba64ea8b7d87ac88a1633c8b393ff25dfe1543d",
+    "baseline/examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35",
+    "candidate/workshop.js": "ca22d6b8b91ba06a4a91ffcfb43682ce1722132f880dff52ee31475ae2c913e6",
+    "candidate/workshop.c": "217789331517d25dcb479c1d036ed1ad138ff9088c41df51e8430b29f70f74a5",
+    "candidate/workshop.native": "54f17b56adae64d3745d1d3c34544b83da467a5cb5444851f778dbae1c0d1df6",
+    "candidate/examples/query-composition/reference.mjs": "40ea098e003335229a2fdbeac023ad01a786fca6322165d1a698889c01358e35",
+    "candidate/src/ecs/world-namespace.c": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+    "candidate/src/ecs/world-namespace.js": "2731ad76f78bcdfe51714a1562fe487d5808b9300394ec0aebd89e24b00163f3"
+  },
+  "timings": [
+    {
+      "pair": 0,
+      "order": [
+        "baseline-JS",
+        "candidate-JS",
+        "baseline-Native",
+        "candidate-Native",
+        "TS"
+      ],
+      "milliseconds": {
+        "baseline-JS": 109.467307,
+        "candidate-JS": 99.238307,
+        "baseline-Native": 26.602258,
+        "candidate-Native": 22.647976,
+        "TS": 247.751474
+      }
+    },
+    {
+      "pair": 1,
+      "order": [
+        "candidate-JS",
+        "baseline-JS",
+        "baseline-Native",
+        "candidate-Native",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-JS": 103.342341,
+        "baseline-JS": 126.878241,
+        "baseline-Native": 24.574034,
+        "candidate-Native": 24.247072,
+        "TS": 248.942192
+      }
+    },
+    {
+      "pair": 2,
+      "order": [
+        "baseline-Native",
+        "candidate-Native",
+        "TS",
+        "baseline-JS",
+        "candidate-JS"
+      ],
+      "milliseconds": {
+        "baseline-Native": 25.743501,
+        "candidate-Native": 21.846469,
+        "TS": 245.804541,
+        "baseline-JS": 107.592376,
+        "candidate-JS": 98.528468
+      }
+    },
+    {
+      "pair": 3,
+      "order": [
+        "TS",
+        "baseline-JS",
+        "candidate-JS",
+        "candidate-Native",
+        "baseline-Native"
+      ],
+      "milliseconds": {
+        "TS": 250.181452,
+        "baseline-JS": 107.939129,
+        "candidate-JS": 94.418435,
+        "candidate-Native": 24.435324,
+        "baseline-Native": 25.415165
+      }
+    },
+    {
+      "pair": 4,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "baseline-JS",
+        "candidate-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 24.560325,
+        "baseline-Native": 27.699059,
+        "baseline-JS": 111.5597,
+        "candidate-JS": 97.531419,
+        "TS": 247.62589
+      }
+    },
+    {
+      "pair": 5,
+      "order": [
+        "candidate-JS",
+        "baseline-JS",
+        "TS",
+        "baseline-Native",
+        "candidate-Native"
+      ],
+      "milliseconds": {
+        "candidate-JS": 97.078206,
+        "baseline-JS": 110.934069,
+        "TS": 245.355205,
+        "baseline-Native": 26.386381,
+        "candidate-Native": 25.907128
+      }
+    },
+    {
+      "pair": 6,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "baseline-JS",
+        "candidate-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 22.872186,
+        "baseline-Native": 22.604226,
+        "baseline-JS": 111.608367,
+        "candidate-JS": 97.83338,
+        "TS": 250.211161
+      }
+    },
+    {
+      "pair": 7,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "candidate-JS",
+        "baseline-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 23.035146,
+        "baseline-Native": 25.990836,
+        "candidate-JS": 103.579635,
+        "baseline-JS": 110.87861,
+        "TS": 247.845058
+      }
+    },
+    {
+      "pair": 8,
+      "order": [
+        "TS",
+        "baseline-JS",
+        "candidate-JS",
+        "baseline-Native",
+        "candidate-Native"
+      ],
+      "milliseconds": {
+        "TS": 247.760682,
+        "baseline-JS": 112.512957,
+        "candidate-JS": 106.450032,
+        "baseline-Native": 28.02902,
+        "candidate-Native": 29.057445
+      }
+    },
+    {
+      "pair": 9,
+      "order": [
+        "candidate-JS",
+        "baseline-JS",
+        "candidate-Native",
+        "baseline-Native",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-JS": 91.690955,
+        "baseline-JS": 103.425758,
+        "candidate-Native": 24.247197,
+        "baseline-Native": 21.174964,
+        "TS": 248.559522
+      }
+    },
+    {
+      "pair": 10,
+      "order": [
+        "TS",
+        "baseline-JS",
+        "candidate-JS",
+        "baseline-Native",
+        "candidate-Native"
+      ],
+      "milliseconds": {
+        "TS": 242.998811,
+        "baseline-JS": 103.741761,
+        "candidate-JS": 101.186574,
+        "baseline-Native": 27.376639,
+        "candidate-Native": 24.495783
+      }
+    },
+    {
+      "pair": 11,
+      "order": [
+        "baseline-JS",
+        "candidate-JS",
+        "TS",
+        "baseline-Native",
+        "candidate-Native"
+      ],
+      "milliseconds": {
+        "baseline-JS": 105.538067,
+        "candidate-JS": 93.514594,
+        "TS": 266.097082,
+        "baseline-Native": 25.543333,
+        "candidate-Native": 24.989662
+      }
+    },
+    {
+      "pair": 12,
+      "order": [
+        "baseline-Native",
+        "candidate-Native",
+        "candidate-JS",
+        "baseline-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "baseline-Native": 25.461083,
+        "candidate-Native": 24.463949,
+        "candidate-JS": 97.318,
+        "baseline-JS": 105.88132,
+        "TS": 314.650352
+      }
+    },
+    {
+      "pair": 13,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "candidate-JS",
+        "baseline-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 25.14433,
+        "baseline-Native": 30.150912,
+        "candidate-JS": 120.219103,
+        "baseline-JS": 113.599132,
+        "TS": 238.844902
+      }
+    },
+    {
+      "pair": 14,
+      "order": [
+        "TS",
+        "candidate-Native",
+        "baseline-Native",
+        "baseline-JS",
+        "candidate-JS"
+      ],
+      "milliseconds": {
+        "TS": 253.963066,
+        "candidate-Native": 25.533208,
+        "baseline-Native": 24.042613,
+        "baseline-JS": 105.5074,
+        "candidate-JS": 96.586744
+      }
+    },
+    {
+      "pair": 15,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "TS",
+        "candidate-JS",
+        "baseline-JS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 25.081662,
+        "baseline-Native": 25.589667,
+        "TS": 247.773349,
+        "candidate-JS": 96.853746,
+        "baseline-JS": 96.416951
+      }
+    },
+    {
+      "pair": 16,
+      "order": [
+        "TS",
+        "baseline-Native",
+        "candidate-Native",
+        "candidate-JS",
+        "baseline-JS"
+      ],
+      "milliseconds": {
+        "TS": 243.548982,
+        "baseline-Native": 24.716368,
+        "candidate-Native": 24.473782,
+        "candidate-JS": 94.493352,
+        "baseline-JS": 100.349442
+      }
+    },
+    {
+      "pair": 17,
+      "order": [
+        "baseline-Native",
+        "candidate-Native",
+        "TS",
+        "baseline-JS",
+        "candidate-JS"
+      ],
+      "milliseconds": {
+        "baseline-Native": 26.37134,
+        "candidate-Native": 23.826194,
+        "TS": 243.96136,
+        "baseline-JS": 106.780202,
+        "candidate-JS": 95.422193
+      }
+    },
+    {
+      "pair": 18,
+      "order": [
+        "TS",
+        "candidate-Native",
+        "baseline-Native",
+        "candidate-JS",
+        "baseline-JS"
+      ],
+      "milliseconds": {
+        "TS": 242.589474,
+        "candidate-Native": 24.673409,
+        "baseline-Native": 24.723118,
+        "candidate-JS": 98.257341,
+        "baseline-JS": 106.120364
+      }
+    },
+    {
+      "pair": 19,
+      "order": [
+        "candidate-Native",
+        "baseline-Native",
+        "candidate-JS",
+        "baseline-JS",
+        "TS"
+      ],
+      "milliseconds": {
+        "candidate-Native": 21.401508,
+        "baseline-Native": 22.840978,
+        "candidate-JS": 148.546667,
+        "baseline-JS": 198.832993,
+        "TS": 338.378254
+      }
+    }
+  ],
+  "injectedSlowdownMs": 0,
+  "currentSourceHashes": {
+    "src/ecs/world-io.bend": "4cb99615ad5177439b60cb659be2d5bc95ff02dc9cf55c162c2470e6d0f19a2a",
+    "src/ecs/decode-construction.bend": "39518ef0d17aa1b55ef09ee87b12b485eb63c0900064d52206ca4ebabb0d335b",
+    "src/ecs/relation-types.bend": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+    "src/ecs/machine.bend": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+    "src/ecs/decode-traversal.bend": "d1a2ef1a6578dfd23b23d24dbaf2b1efb3d8aca0297fc721c13b1ad7f61292f6",
+    "src/ecs/machine-conditions.bend": "610912561009d08c5b554371c140ec1267d0744cb941f860199dee469df6ac4f",
+    "src/ecs/relation-query.bend": "e9c129a5404ab2eabc0d39f57364036cfc3f3c8c68e520cb679419b39bd98800",
+    "src/ecs/ordinary-machine-declaration.bend": "dea2407308f0c9385d1938a950c138babb43a95a713d6c595406328f9eeb9b01",
+    "src/ecs/inspector-declaration.bend": "835bedcfac18d3a567b06fc5ee4e4cfdfcb804d0701ca86e6e155b2760189997",
+    "src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "src/ecs/snapshot-product.bend": "7bea0f24bfb3051f5349494307364707a19a916bbfe684d5cb02da7c9fa7b999",
+    "src/ecs/inspector-query-world.bend": "1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a",
+    "src/ecs/declared-family.bend": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2",
+    "src/ecs/bundle-requests.bend": "7fbf0265e2b48af86f62ba936f24964b1f6b20b6ed92029433ea02c0a77c353c",
+    "src/ecs/provider.bend": "33aaea0702805243d5682f18e4bb19da697d48e45040a40e9e154e7f00bf7b72",
+    "src/ecs/ordinary-inspector-declaration.bend": "d916b7fbec58c0f51e3f05278b30a4b1ef08dc29d83d3f9149b33cbf716e00e3",
+    "src/ecs/decode-size.bend": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281",
+    "src/ecs/machine-stream.bend": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+    "src/ecs/snapshot-data.bend": "9d86378d30177b9412a8443ca21cbc4c0181ed3e09c72001c638522bf1d4489e",
+    "src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "src/ecs/local.bend": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+    "src/ecs/ordinary-schema.bend": "a713826ed240aca0fec5502d21682ea9adb75ac9b0653b76f5efb3ace1f058d0",
+    "src/ecs/decode-utf16.bend": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+    "src/ecs/relation-reorder.bend": "2d58a3d76aaa955044b39f6cafcfdbbda6a4b20415bea8b4041193072a35d9dd",
+    "src/ecs/snapshot-schema.bend": "c5eb06160ceb018b7d820a10164f83e53f54894e654db55a62d6dbca21bf4298",
+    "src/ecs/decode-owned-component.bend": "659ce811a6bb00a7a0a5e12dd1cd6bee79bdbdd0e90006bd7af02b7ffa501b56",
+    "src/ecs/bundle-insert-adapter.bend": "a7ed3cc40a904e516cdf8c63dc2afa066598c47ba6760b558e0646dc3958ad67",
+    "src/ecs/relation-failure-disposal.bend": "fd5e8b07537605f12159d1d3ae3d6675a567c17e247453f4605d4a1fbcc0d1d5",
+    "src/ecs/inspector-query-families.bend": "020a8de48df12369c8709d10d15f0c3d22dcf8a9fb76f3af238ea4a4304edeb8",
+    "src/ecs/bundle-construction.bend": "659fbf766f2d4d3768a0342ab30925c52b83fd28e79facc9868b5382a5048a59",
+    "src/ecs/compose.bend": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca",
+    "src/ecs/machine-handlers.bend": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+    "src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "src/ecs/owner-product.bend": "5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f",
+    "src/ecs/decode-data.bend": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4",
+    "src/ecs/relation-providers.bend": "6a69de7d29d0a150446689228878f19df5b6d2fdefdfcb2eb1ce1048246ac594",
+    "src/ecs/machine-handler-bundle.bend": "04003a6575f7d478111062d83af0839bd402bfe1d2118c56fab0a609cd8173a8",
+    "src/ecs/check.bend": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f",
+    "src/ecs/inspector-definition.bend": "d4f269a5da1f98203e2466744b31d581c3ed7b7d9dbdbce7a08ea70232133d5c",
+    "src/ecs/optimized-compose.bend": "ac9c98457c7d6890f1f30dd82f41658a5d3ae962a7fb9022062af5b9d581ca25",
+    "src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+    "src/ecs/schedule.bend": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+    "src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "src/ecs/decode-constructed-resource.bend": "1ff45eb2357c26f005a9c617f13f89ac1d8d4e44ed4ba8973d37d410b216678b",
+    "src/ecs/relation-reorder-core.bend": "be833923be7481a6bf002723b857d69ebfae6861394021947138d2bb01166f6a",
+    "src/ecs/decode-constructed-requests.bend": "585287688a889db9a50cbdd99151ed160b9819b3ffab4f32ed602d6533fe1c11",
+    "src/ecs/owned-optimized-compose.bend": "3e651cc49f4d6cfb37ea5af07a4b4668a8983911a7547a03aec193f9ca305fff",
+    "src/ecs/ordinary-system.bend": "2b3aee3fd7550492c00fd27aa1ce8f74e0a94407c4c73d3425e81d1b1ec54810",
+    "src/ecs/decode-validated-resource.bend": "ec058ddae2ddfcec148e77940c93356935d5eb6826cdf4efad35091365a33a84",
+    "src/ecs/relation-commands.bend": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+    "src/ecs/resource-field.bend": "c8652e2bb394c94e52f34a079b4eae6591495e3dfad4e76f1a40fd5d0558d6d3",
+    "src/ecs/feature-provision.bend": "430b9a1a382c4b78e4eaeb11a838b3f1cd01b5c3042ec83a72364815886a2b9d",
+    "src/ecs/relation-cleanup.bend": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3",
+    "src/ecs/inspector-query-frame-world.bend": "1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a",
+    "src/ecs/check-relation-projection.bend": "291a9e3dd15902136308b282f3bd13cc68542fe76664108f51cbbb49f6086a8b",
+    "src/ecs/resource.bend": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3",
+    "src/ecs/decode-owned-journal.bend": "078af9c93a351f04b824b15023f810a6dfc9f251dc683631d91b5fd1dfbb7d3e",
+    "src/ecs/bundle-provider.bend": "3aa34afa2cd7c3f1ac3e1c9a66df5be1518d3c763e76e26e61cd24c95e1d39fc",
+    "src/ecs/reader-domains.bend": "1771e9a969c2533e4b38f27d7a8d4752f07f31f45cb9442625f44175e0beb314",
+    "src/ecs/decode-local.bend": "1d071fa4c589aa9a2f2866936998b1661ca209cb7c2cc1904a3bb572e6ea9a18",
+    "src/ecs/inspector-query.bend": "7a4c90e0f1e63d6a89aea256bd96c874758db73865dad02481a32c1dded8b58d",
+    "src/ecs/ordinary-component-binding.bend": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1",
+    "src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "src/ecs/bundle-delivery.bend": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+    "src/ecs/bundle-pack.bend": "a900386d18d9e741ec9001dee0c8203366e6feac706b15db9db755a95e96f8f0",
+    "src/ecs/decode-declaration.bend": "78a14499ff457c55e13422c5bc5c56469fdc82d1ec021599dd2c0c9bcb4bb70f",
+    "src/ecs/ordinary-resource-field-system.bend": "febc3f2167d3f4631897938ee771ae12d691f36279385d480656402aee61f4ec",
+    "src/ecs/query.bend": "c88635f89662d76987dfb07cc1c13d38c68328a40ffa75a0c749124c2c9fcfc9",
+    "src/ecs/resource-field-binding.bend": "c3fb3e3b1ecce25e0f847da4bf695c4375915be9f63b4a1a5bcecd006789bbfe",
+    "src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "src/ecs/ordinary-query-declaration.bend": "bbb77a38ebe83f27edf4d1ec7be7b56d6360687a088046ac2dc3c45ca6f73a32",
+    "src/ecs/captured-column.bend": "340efc234a5681adb2ccd35da22a1cbe3fbde4d15f0e6a3f8a75e76c4852df0a",
+    "src/ecs/bundle-install.bend": "69845857ee62856ffdd72a876fa5c259034ee512a0d1d430c26169b5ffb6061e",
+    "src/ecs/inspector-relation-projection.bend": "0655e6bd0a6d4e275fe5e4e444b11cf5f6d1ca72c716f58ac9d4d64d6dc99f0f",
+    "src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "src/ecs/bundle-component-install.bend": "cc5f6bccf5c012c7ffc5f104fa174e5f36194aba7a644d409f4caaf929fce938",
+    "src/ecs/persistence-declaration.bend": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+    "src/ecs/system-instance.bend": "ed76737a409f719cfa2073adcac316648348e91c6e52ab54d29d460e0b2069b6",
+    "src/ecs/ordinary-declaration.bend": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/owned-family.bend": "1fe504b1130eed24fb0c1dfc9bf7c6de0ab0f855d4adf30694a1f6b3c634f7e1",
+    "src/ecs/bundle-batch.bend": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d",
+    "src/ecs/decode.bend": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+    "src/ecs/snapshot.bend": "cd10bf6002f09c377e084faa2a303e38446384f4cdd658f054dc6486dac2ebcf",
+    "src/ecs/inspector-query-projection.bend": "422efbb7c19e8091a77f7e90e7f4e3d95474ae41d46e934b270b89638cd5f561",
+    "src/ecs/inspector.bend": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+    "src/ecs/owned-compose.bend": "1115ffe6db7a1940b53889f53df09cff7fd43a3d244e07b843ea9094f62d31c7",
+    "src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+    "src/ecs/query-contract.bend": "de8eb5a047d2ca82e5832513798a6590a2cd025296b80b154da65a51270c4e91",
+    "src/ecs/relation-failure-runtime.bend": "11df4128184ea27bd9f87993235ef9459342c17c5165858814fea1f62c460ac9",
+    "src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "src/ecs/system-cleanup.bend": "cb545db8883bde3c20b5fbed7422e543f99be0ec2a8d974762e1af0bc089b940",
+    "src/ecs/decode-frame.bend": "9c10e3d8fd690f4a36f95743be7b708ddbf857d9f776331a9e5e2e170c7fd793",
+    "src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "src/ecs/feature.bend": "be03fb80093190ed1bc963a7f6516195c189921a56694b998ec3325e35c9091d",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/row-column.bend": "f3846a5378958c522d4053f13f7af4898a8a60c76f7534b060f020adca631f72",
+    "src/ecs/ordinary-resource-system.bend": "463a51c5a5996c86be5e08c23741b3e575241033962e669115c5a0b215de04af",
+    "src/ecs/ordinary-query-observable.bend": "826ff50600b6b789cbe53ea717f316ca7edbad4e8cb68f63ea8db29e2e6b12b5",
+    "src/ecs/snapshot-gate.bend": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128",
+    "src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "src/ecs/relation-failure-reader.bend": "6c355ea7f29297ee96172c39364b97cbf0f8223b7cce7f46d85636919a36c75e",
+    "src/ecs/machine-world.bend": "8b8610e7ae42eea066639b5cb970a2885dd2fa14024efedef9fbc28dd6ba1816",
+    "src/ecs/restored-row.bend": "9a1e25359a7775e230ad1b720180db622c12c2e9757cba98acef9c89e8d0f2d5",
+    "src/ecs/events.bend": "fffc3ec427072c4ba1c880f2ba8a73c1fcd1db66550cf63cdce56ba9e10bdc63",
+    "src/ecs/inspector-metadata.bend": "a2c715edcfefff6f3f5abcd84e5293c7ebf29521708f2298fe90bff36b96ad4a",
+    "src/ecs/snapshot-leaf.bend": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f",
+    "src/ecs/decode-fallible-constructed-resource.bend": "d1e12ab848877a63e2645b1d770def8b63effa7f2d98272c6d5709a8e7592dbd",
+    "src/ecs/schedule-provision.bend": "45d8b7d2c11d9fe28a6ee2a4cd460bad2b8591dbc8546daa68ae29d66d3979e9",
+    "src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "src/ecs/decode-immediate.bend": "6f9265855c4f65ab00417f06dc050536413008a461e75674a173b6219438e384",
+    "src/ecs/decode-capabilities.bend": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65",
+    "src/ecs/relation-graph.bend": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+    "src/ecs/decode-requests.bend": "f3d5400335f1fa54b298ccfdf6cb9a3d994931986a98f840f75d1a0a4a5d71da",
+    "src/ecs/schema-fragments.bend": "83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6",
+    "src/ecs/decode-fallible-constructed-requests.bend": "aff15cc664ae86d1f0879977a9a75e7d14cc5831f865eac96a275ba18ef0ba05",
+    "src/ecs/ordinary-query-selections.bend": "57ee96b72d098d0b3abf0504a166c3a0846c817fcc4cb2f77a9629be501bc755",
+    "src/ecs/inspector-machine-projection.bend": "2c4085c7c4953587da136a3e4b47e6f422d8f37aa94c6fedd470563b9179282c",
+    "src/ecs/state.bend": "301fc0aea3ecfd95b1253fe48f51b3a11e23345bfc0bb449b3287ddbc997f694",
+    "benchmarks/run.py": "019071aea358e84e902931822d480b47703756278610a73a496437fc40ed54a3",
+    "benchmarks/test-statistics.py": "dda374623d512b150cb734764c9eb7333e33c8b1cd17e38e5b091f0ecd4081da",
+    "benchmarks/slowdown-control.py": "cddfbe1a65449bd51269fa541f3396d8d9dad816f2235864ffac141175c4f78a",
+    "benchmarks/decision.py": "c16d3ffe4a0cc47354522c7e4639b92a11fdbc444e366074da73c63f82272a6a",
+    "benchmarks/contract.json": "c0e13575f6e4d25ca8ca669936eef39c93a66b57ac1e4bfa42186f6f2d58bb6a",
+    "scripts/task_runner.py": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+  },
+  "referenceHashes": {
+    "packages/core/src/Schema.ts": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec",
+    "packages/core/src/EntityScope.ts": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a",
+    "packages/core/src/Snapshot.ts": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b",
+    "packages/core/src/Brand.ts": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9",
+    "packages/core/src/Decode.ts": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df",
+    "packages/core/src/Fx.ts": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3",
+    "packages/core/src/Schedule.ts": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a",
+    "packages/core/src/Entity.ts": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e",
+    "packages/core/src/Definition.ts": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f",
+    "packages/core/src/Debug.ts": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff",
+    "packages/core/src/Condition.ts": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083",
+    "packages/core/src/Result.ts": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c",
+    "packages/core/src/Machine.ts": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3",
+    "packages/core/src/Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+    "packages/core/src/Feature.ts": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8",
+    "packages/core/src/Inspector.ts": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3",
+    "packages/core/src/index.ts": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f",
+    "packages/core/src/Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+    "packages/core/src/Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+    "packages/core/src/Requirement.ts": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783",
+    "packages/core/src/System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+    "packages/core/src/Relation.ts": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4",
+    "packages/core/src/Descriptor.ts": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7",
+    "packages/core/src/internal/brand.ts": "7b888113edd48ea9777880fa85fc159428b78ac82587ca43eda8f1bbec4cc1b0",
+    "packages/core/src/internal/cells.ts": "adbf5e99cb1d40e284aee9ce3b1ddeefdcb10e0e1420be5bda91f58a96afe41e",
+    "packages/core/src/internal/fragments.ts": "4220e09fcc78e50cecd05ec373f57a278a5c33fbd51c53cbb2f7d57c6593ba68",
+    "packages/core/src/internal/queries.ts": "382ce3b334df1bb7f4d0c4c19c17827b2343cae8a68ba7f562e9e732b6a5a4ab",
+    "packages/core/src/internal/definition.ts": "543dee934661802fb57cb75a8faec653112433a566ce31231fca33ffa8d36f92",
+    "packages/core/src/internal/debug.ts": "944a9858586dcf8ad58e66efd92b05c437c0be23afe517fabe00642d7bf4e338",
+    "packages/core/src/internal/result.ts": "87570330858b0b41bed22be9661bd9e3b04f67e7004998082e6a83cbb1ce1c89",
+    "packages/core/src/internal/game.ts": "b1584dbe4c579783e4b2fae802a25e6af95384972e15ffccd2b868d6ba879773",
+    "packages/core/src/internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e",
+    "packages/core/src/internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7"
+  },
+  "baselineArchiveSHA256": "567e1e0e7d27a4c111791fcd89f9afc84e301c008741a323de258b5ca1e793e3",
+  "endpoints": {
+    "JS": {
+      "nonTiePairs": 20,
+      "slowerPairs": 2,
+      "pValue": 0.9999799728393555,
+      "medianPairedRatio": 0.9110032626595275,
+      "confirmedRegression": false
+    },
+    "Native": {
+      "nonTiePairs": 20,
+      "slowerPairs": 4,
+      "pValue": 0.9987115859985352,
+      "medianPairedRatio": 0.969885423486851,
+      "confirmedRegression": false,
+      "holmCutoff": 0.025
+    }
+  },
+  "mediansMs": {
+    "TS": 247.7670155,
+    "baseline-JS": 107.76575249999999,
+    "baseline-Native": 25.566499999999998,
+    "candidate-JS": 97.6823995,
+    "candidate-Native": 24.4688655
+  },
+  "descriptiveTargets": {
+    "JS/TS": 0.39425102370012605,
+    "Native/TS": 0.09875755838855797
+  }
+}
