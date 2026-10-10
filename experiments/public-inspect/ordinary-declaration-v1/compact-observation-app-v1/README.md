@@ -1,0 +1,13 @@
+# Runtime observation renewal source checkpoint
+
+The compact Application carries World, Owners, Rows indices and an owned runtime Observer. No fold or description implementation is an outer Application index. The generic types alone passed source01 under pinned Bend 2.0.35/default source5. Generic leaf and pair renewal source02 is refused: reconstructing Observer from the same partially applied leaf_step is a nondecreasing self-call. This is a concrete restriction on this candidate, not proof that the full integration is impossible. Current app.bend is the refused source02 input.
+
+Both exact source attempts are retained content-addressably. No runtime/backend ran, no callback copying or unbounded unchecked recursion was added, and no frozen or canonical module changed. Mixed component/resource registration has not yet been exercised through this representation. A later equivalent representation must preserve arbitrary repeated enabled snapshots and disabled observation without invocation; finite callback fuel is not a substitute.
+
+## Static declaration recipes successor
+
+The runtime-renewal candidate above remains unchanged. recipes.bend instead retains finite leaf recipe values and composes them through generic RecipePair. declarations.bend derives component query projection/actual owner metadata and resource observation/actual owner metadata from the same ordinary declarations. A fresh affine interpreter is rebuilt outside the snapshot call; enabled snapshots return the same finite recipes and exact World/owners, while disabled snapshots do not invoke the interpreter. No recursive renewal, fuel, or closure copying is used.
+
+Generic recipes module source02 and declaration module source01 pass default source5. The normal consumer performs actual ordinary component registration, actual public resource registration, a disabled snapshot, then two enabled snapshots; mixed-consumer-source01 passes with its exact 51-module closure. The independent long nominal schema copy reaches child deadline with zero streams under the same source5 cap; this is unqualified and no retry is made. Source captures/receipts are retained in source-evidence-static-v1; STATIC-SOURCE-JOIN binds the schema-only copy inverse. No backend ran.
+
+The finite consumer constructs its own closed library-composed snapshot factory internally. A generic ordinary registration façade that hides this construction from applications is being authored in a separate sibling by the leaf author. This checkpoint does not claim that façade, complete observation models, full schedule composition, noninterference controls, or public/runtime qualification.
