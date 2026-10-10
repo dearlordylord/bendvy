@@ -1,0 +1,15 @@
+{
+  "removedDefinition": "def slow_ready(~Result:Type,done:Application() -> Result,failed:FirstReader() -> Result,app:Application()) -> Result:done(app)\n",
+  "localNameOccurrencesBefore": 1,
+  "importingModules": [
+    {
+      "module": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-view-v1/consumer-other.bend",
+      "alias": "Front",
+      "slowReadyReferences": 0
+    }
+  ],
+  "privateFrontendInverse": "Insert exactly removedDefinition before fast_ready; no other frontend change",
+  "consumerEntryInverse": "Only frontend-other\u2192frontend-other-v4 and consumer-other\u2192consumer-other-v4 imports",
+  "observations": 80,
+  "allReachedBodiesUnchanged": true
+}
