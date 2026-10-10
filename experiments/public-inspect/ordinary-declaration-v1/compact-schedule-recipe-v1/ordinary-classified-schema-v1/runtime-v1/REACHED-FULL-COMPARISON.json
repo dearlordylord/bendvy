@@ -1,0 +1,28 @@
+{
+  "catalogue": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-classified-schema-oracle-v1/affected-v1/ORACLES.json",
+  "baselinePath": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-classified-schema-oracle-v1/affected-v1/same-namespace-baseline.stdout.gz",
+  "baselineBytes": 5083,
+  "baselineSHA256": "dc7d95b2358f8df53bbba8b981b1ee5d541a441091f00a6ae06b7fe4c832957e",
+  "sameGrammarNoQNameConfound": true,
+  "comparison": "Independent complete raw stdout bytes versus decompressed whole matched baseline, not length-only. Original collector receipts unchanged; no nonexistent receipt flag claimed.",
+  "results": [
+    {
+      "role": "js",
+      "actualPath": "/tmp/bendvy-ordinary-classified-schema-mutant01/a-normal-js/consumer.stdout",
+      "actualBytes": 5091,
+      "actualSHA256": "67edf4b9e07fbfa9ef86e1faed92b6a1dd512e5bbd126e47ebcb1f734f67734b",
+      "mutantWholeEqual": true,
+      "matchedBaselineWholeEqual": false,
+      "firstDifferentByteZeroBased": 357
+    },
+    {
+      "role": "native",
+      "actualPath": "/tmp/bendvy-ordinary-classified-schema-mutant01/a-normal-native/consumer.stdout",
+      "actualBytes": 5091,
+      "actualSHA256": "67edf4b9e07fbfa9ef86e1faed92b6a1dd512e5bbd126e47ebcb1f734f67734b",
+      "mutantWholeEqual": true,
+      "matchedBaselineWholeEqual": false,
+      "firstDifferentByteZeroBased": 357
+    }
+  ]
+}
