@@ -1,0 +1,65 @@
+from pathlib import Path
+import json,hashlib,importlib.util
+wt=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1');parent=wt/'experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-runtime-boundary-study-v1';d=parent/'native-cost-probe-v1';comp=d/'compiler';comp.mkdir(exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest();elf=Path('/home/node/.bend/bin/bend-2.0.35');packed=elf.read_bytes();original=packed[82378778:82711943];assert sha(packed)=='f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a';assert sha(original)=='015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62';text=original.decode();assert 'BVY_N54C_' not in text
+patches=[]
+def patch(label,a,b):
+ global text
+ assert text.count(a)==1,(label,text.count(a));text=text.replace(a,b);patches.append({'label':label,'original':a,'replacement':b})
+helpers=r'''
+function BVY_N54C_STATE() {
+  return BVY_N54C_STATE.state ??= {start:performance.now(),cpu:process.cpuUsage(),inst:{calls:0,hits:0,misses:0,teleInclusiveMs:0,keyMs:0,keyChars:0,maxKeyChars:0},pass:0,ordinal:0,gcMs:0,openMs:0,bodyMs:0,bodyCpuUs:0,settleMs:0,tops:new Map(),logMs:0,events:0};
+}
+function BVY_N54C_LOG(event,extra={}) {
+  const s=BVY_N54C_STATE(),t=performance.now(),cpu=process.cpuUsage(s.cpu);
+  const top=[...s.tops].sort((a,b)=>b[1].ms-a[1].ms).slice(0,32).map(([key,v])=>({label:key.slice(-256),labelLength:key.length,...v}));
+  const bytes=Buffer.from('BENDVY_NATIVE_COST '+JSON.stringify({event,wallMs:t-s.start,cpuUs:cpu.user+cpu.system,pass:s.pass,ordinal:s.ordinal,inst:{...s.inst},gcMs:s.gcMs,openMs:s.openMs,bodyMs:s.bodyMs,bodyCpuUs:s.bodyCpuUs,settleMs:s.settleMs,priorLogMs:s.logMs,priorEvents:s.events,top,...extra})+'\n');
+  for(let offset=0;offset<bytes.length;){const n=fs4.writeSync(2,bytes,offset,bytes.length-offset);if(!(n>0))throw new Error('diagnostic stderr made no progress');offset+=n;}
+  s.logMs+=performance.now()-t;s.events++;
+}
+function BVY_N54C_DONE(key,start,cpu) {
+  const s=BVY_N54C_STATE(),ms=performance.now()-start,u=process.cpuUsage(cpu),cpuUs=u.user+u.system;
+  s.bodyMs+=ms;s.bodyCpuUs+=cpuUs;s.ordinal++;
+  const v=s.tops.get(key)??{calls:0,ms:0,cpuUs:0};v.calls++;v.ms+=ms;v.cpuUs+=cpuUs;s.tops.set(key,v);
+  if(s.ordinal%128===0)BVY_N54C_LOG('completed-checkpoint');
+}
+'''.replace("+'\\n'","+'\n'")
+# JSON transport newline is a literal JS escape, not source line break.
+helpers=helpers.replace("+'\n');","+'\\n');")
+helpers=helpers.replace(r'\\n',r'\n')
+patch('book-entry','async function book_read(file, base, seen = new Map) {','async function book_read(file, base, seen = new Map) {\n  BVY_N54C_LOG("book-read-entry");')
+patch('book-exit','  return book;\n}\n\nclass Check_Fail','  BVY_N54C_LOG("book-read-exit");\n  return book;\n}\n\nclass Check_Fail')
+patch('tele-start','  let T;\n  try {\n    T = tele_check(book, lhs, def.T, xs, None(), ctx_nil(), d, tm.s).tel;','  let T;\n  const BVY_N54C_INST = BVY_N54C_STATE().inst;\n  BVY_N54C_INST.calls++;\n  const BVY_N54C_TELE_START = performance.now();\n  try {\n    T = tele_check(book, lhs, def.T, xs, None(), ctx_nil(), d, tm.s).tel;')
+patch('tele-end-key-start','    throw e;\n  }\n  const key = xs.map((a) => term_key(term_lower(a))).join(`\n`);','    throw e;\n  } finally {\n    BVY_N54C_INST.teleInclusiveMs += performance.now()-BVY_N54C_TELE_START;\n  }\n  const BVY_N54C_KEY_START = performance.now();\n  const key = xs.map((a) => term_key(term_lower(a))).join(`\n`);\n  BVY_N54C_INST.keyMs += performance.now()-BVY_N54C_KEY_START;\n  BVY_N54C_INST.keyChars += key.length;\n  BVY_N54C_INST.maxKeyChars = Math.max(BVY_N54C_INST.maxKeyChars,key.length);')
+patch('cache-count','  let o = is.get(key);','  let o = is.get(key);\n  if(o===undefined)BVY_N54C_INST.misses++;else BVY_N54C_INST.hits++;')
+patch('native-entry','function compile_book(book) {','function compile_book(book) {\n  BVY_N54C_LOG("compile-book-entry");')
+patch('file-book','  const fl = file_book(book, ["main", ...RUNTIME_ADTS, ...fams], false);','  const BVY_N54C_FILE_START = performance.now();\n  const fl = file_book(book, ["main", ...RUNTIME_ADTS, ...fams], false);\n  BVY_N54C_LOG("file-book-exit",{fileBookMs:performance.now()-BVY_N54C_FILE_START});')
+patch('pass-entry','  do {\n    was = facts();','  do {\n    const BVY_N54C_S=BVY_N54C_STATE();\n    BVY_N54C_S.pass++;BVY_N54C_S.ordinal=0;BVY_N54C_S.tops=new Map();BVY_N54C_S.gcMs=0;BVY_N54C_S.openMs=0;BVY_N54C_S.bodyMs=0;BVY_N54C_S.bodyCpuUs=0;BVY_N54C_S.settleMs=0;\n    BVY_N54C_LOG("pass-entry",{own:fl.own.size,hot:fl.hot.size,stat:fl.stat.size});\n    was = facts();')
+patch('outer-gc-start','    for (const [k, tld] of done_defs(fl).reverse()) {\n      memo_gc();','    for (const [k, tld] of done_defs(fl).reverse()) {\n      const BVY_N54C_GC_START=performance.now();\n      memo_gc();\n      BVY_N54C_STATE().gcMs+=performance.now()-BVY_N54C_GC_START;\n      const BVY_N54C_OPEN_START=performance.now();')
+patch('outer-open-end','      fl.segs.push(dl.seg);\n      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);','      fl.segs.push(dl.seg);\n      BVY_N54C_STATE().openMs+=performance.now()-BVY_N54C_OPEN_START;\n      const BVY_N54C_BODY_START=performance.now(),BVY_N54C_BODY_CPU=process.cpuUsage();\n      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);\n      BVY_N54C_DONE(k,BVY_N54C_BODY_START,BVY_N54C_BODY_CPU);')
+patch('settle-entry','    reqs = effect_srcs(fl, ".c", "no .c import: ").join("");','    const BVY_N54C_SETTLE_START=performance.now();\n    reqs = effect_srcs(fl, ".c", "no .c import: ").join("");')
+patch('pass-exit','  } while (was !== facts());','    BVY_N54C_STATE().settleMs=performance.now()-BVY_N54C_SETTLE_START;\n    BVY_N54C_LOG("pass-exit",{own:fl.own.size,hot:fl.hot.size,stat:fl.stat.size});\n  } while (was !== facts());')
+patch('helpers','\n//# sourceMappingURL=$bunfs/root/bend.js.map','\n'+helpers+'\n//# sourceMappingURL=$bunfs/root/bend.js.map') if '\n//# sourceMappingURL=$bunfs/root/bend.js.map' in text else None
+if not any(p['label']=='helpers' for p in patches):text+=helpers;patches.append({'label':'helpers','original':'','replacement':helpers})
+inverse=text
+for p in reversed(patches):assert inverse.count(p['replacement'])==1;inverse=inverse.replace(p['replacement'],p['original'])
+assert inverse.encode()==original
+(comp/'installed-cli-unmodified.mjs').write_bytes(original);(comp/'installed-cli-cost.mjs').write_text(text)
+for name in ['base.bend','bendtt.lean','effs']:
+ link=comp/name;target=Path('/home/node/.bend/bend2')/name
+ if not link.exists():link.symlink_to(target,target_is_directory=target.is_dir())
+ assert link.resolve()==target.resolve()
+(d/'PATCHES.json').write_text(json.dumps({'patches':patches,'inverseBytes':len(original),'inverseSHA256':sha(original),'instrumentedSHA256':sha(text.encode()),'inversePASS':True,'privateIdentifierAbsentInOriginal':True},indent=2)+'\n')
+(d/'PROVENANCE.json').write_text(json.dumps({'installedELF':str(elf),'elfSHA256':sha(packed),'slice':[82378778,82711943],'unmodifiedSHA256':sha(original),'subjectCommit':'86d5a0d18','subjectStage':str(parent/'scan-projector-v1/stage'),'scope':'Copied compiler instrumented timing only, not stock Native qualification.'},indent=2)+'\n')
+(d/'README.md').write_text('''# One bounded Native cost probe
+
+Unchanged full47 scan-projector source at86d5a0d18, wholeJS8498 PASS; Native39307 incomplete remains unchanged. Same installed ELF Bun file mode executes reversible timing copy of its exact333165B015d embedded CLI. ONE emit30 only through existing collector/internal lock CPU11; no build/runtime/profile/acceptance. No new dependencies/caps/source/core edits.
+
+Frontend counters record def_inst calls/cache hit/miss, inclusive tele_check elapsed, key lowering/JSON serialization elapsed and key character totals/max without emitting terms or keys. Native book preparation, every pass own/hot/stat sizes, memo_gc/open elapsed, completed outer emit_body+fun_of elapsed and CPU deltas, and post-loop fact settlement elapsed are separate. Perpass top32 uses completed outer definition aggregates (label suffix256+length is not unique). Fresh perpass aggregates and checkpoint every128 completed definitions emit synchronously via positive partial-write loop; records survive an eventual outer timeout. No custom cutoff or signal handler. A timeout during a definition leaves its incomplete span unmeasured; checkpoint totals are partial lower bounds over completed spans only. Whole process CPU/wall includes logger/timer overhead; prior logging elapsed is separately reported. Sparse top32 sorting/transport, clocks and process.cpuUsage perturb execution. tele_check inclusive spans may overlap nested instantiation and must not be added as exclusive costs. Key timing includes clock overhead. These metrics attribute work only within this copied instrumented run, never stock deadline cause, speed/performance, compiler equivalence or backend acceptance.
+
+Literal inverse PATCHES restores installed source bytes. No compiler decisions/caches/fact algorithms modified; observations read existing sizes/keys only. Compiler experiment requires independent whole-plan launch review; one run/failstop/no retry. Current source/authority/reader acceptance remains as prior packets, not requalified by diagnostics.
+''')
+j=json.loads((parent/'scan-projector-v1/normal-native-plan.json').read_text());temp=Path('/tmp/bendvy54-native-cost-probe02');temp.mkdir(exist_ok=False);j['scope']='ONE copied compiler completed-span Native cost probe only, no stock acceptance/performance';j['role']='diagnostic';j['cwd']=str(d);j['generated']=str(temp/'scenario.c');j['native']=str(temp/'unused.native');j['environment']['BUN_BE_BUN']='1';j['commands']=[{'label':'emit','argv':['/usr/bin/taskset','-c','11',str(elf),str(comp/'installed-cli-cost.mjs'),j['entrypoint'],'-o',j['generated']],'capSeconds':30}];j['postConsumer']='Diagnostic only; whole independent oracle pinned continuity, unexecuted.'
+for f in [comp/'installed-cli-unmodified.mjs',comp/'installed-cli-cost.mjs',d/'PATCHES.json',d/'PROVENANCE.json',d/'README.md']:j['pins'][str(f)]=sha(f.read_bytes())
+root=Path('/workspace/formal-proofs/bendvy');spec=importlib.util.spec_from_file_location('probe_runner',root/'scripts/task_runner.py');mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod);j['resourceRoots'].update(mod.Inputs(directories=[str(comp)]).expected)
+for path,h in j['pins'].items():assert sha(Path(path).read_bytes())==h
+raw=(json.dumps(j,indent=2)+'\n').encode();(temp/'plan.json').write_bytes(raw);(d/'plan.json').write_bytes(raw);(d/'PREPARED.json').write_text(json.dumps({'path':str(temp/'plan.json'),'sha256':sha(raw),'pins':len(j['pins']),'sources':len(j['sourceInventory']),'inversePASS':True,'allCurrentPinsPASS':True,'outputAbsent':not Path(j['generated']).exists()},indent=2)+'\n');print(sha(raw),len(j['pins']),len(patches))

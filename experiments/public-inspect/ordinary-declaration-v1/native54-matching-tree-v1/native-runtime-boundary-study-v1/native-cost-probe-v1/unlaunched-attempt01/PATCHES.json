@@ -1,0 +1,74 @@
+{
+  "patches": [
+    {
+      "label": "book-entry",
+      "original": "async function book_read(file, base, seen = new Map) {",
+      "replacement": "async function book_read(file, base, seen = new Map) {\n  BVY_N54C_LOG(\"book-read-entry\");"
+    },
+    {
+      "label": "book-exit",
+      "original": "  return book;\n}\n\nclass Check_Fail",
+      "replacement": "  BVY_N54C_LOG(\"book-read-exit\");\n  return book;\n}\n\nclass Check_Fail"
+    },
+    {
+      "label": "tele-start",
+      "original": "  let T;\n  try {\n    T = tele_check(book, lhs, def.T, xs, None(), ctx_nil(), d, tm.s).tel;",
+      "replacement": "  let T;\n  const BVY_N54C_INST = BVY_N54C_STATE().inst;\n  BVY_N54C_INST.calls++;\n  const BVY_N54C_TELE_START = performance.now();\n  try {\n    T = tele_check(book, lhs, def.T, xs, None(), ctx_nil(), d, tm.s).tel;"
+    },
+    {
+      "label": "tele-end-key-start",
+      "original": "    throw e;\n  }\n  const key = xs.map((a) => term_key(term_lower(a))).join(`\n`);",
+      "replacement": "    throw e;\n  } finally {\n    BVY_N54C_INST.teleInclusiveMs += performance.now()-BVY_N54C_TELE_START;\n  }\n  const BVY_N54C_KEY_START = performance.now();\n  const key = xs.map((a) => term_key(term_lower(a))).join(`\n`);\n  BVY_N54C_INST.keyMs += performance.now()-BVY_N54C_KEY_START;\n  BVY_N54C_INST.keyChars += key.length;\n  BVY_N54C_INST.maxKeyChars = Math.max(BVY_N54C_INST.maxKeyChars,key.length);"
+    },
+    {
+      "label": "cache-count",
+      "original": "  let o = is.get(key);",
+      "replacement": "  let o = is.get(key);\n  if(o===undefined)BVY_N54C_INST.misses++;else BVY_N54C_INST.hits++;"
+    },
+    {
+      "label": "native-entry",
+      "original": "function compile_book(book) {",
+      "replacement": "function compile_book(book) {\n  BVY_N54C_LOG(\"compile-book-entry\");"
+    },
+    {
+      "label": "file-book",
+      "original": "  const fl = file_book(book, [\"main\", ...RUNTIME_ADTS, ...fams], false);",
+      "replacement": "  const BVY_N54C_FILE_START = performance.now();\n  const fl = file_book(book, [\"main\", ...RUNTIME_ADTS, ...fams], false);\n  BVY_N54C_LOG(\"file-book-exit\",{fileBookMs:performance.now()-BVY_N54C_FILE_START});"
+    },
+    {
+      "label": "pass-entry",
+      "original": "  do {\n    was = facts();",
+      "replacement": "  do {\n    const BVY_N54C_S=BVY_N54C_STATE();\n    BVY_N54C_S.pass++;BVY_N54C_S.ordinal=0;BVY_N54C_S.tops=new Map();BVY_N54C_S.gcMs=0;BVY_N54C_S.openMs=0;BVY_N54C_S.bodyMs=0;BVY_N54C_S.bodyCpuUs=0;BVY_N54C_S.settleMs=0;\n    BVY_N54C_LOG(\"pass-entry\",{own:fl.own.size,hot:fl.hot.size,stat:fl.stat.size});\n    was = facts();"
+    },
+    {
+      "label": "outer-gc-start",
+      "original": "    for (const [k, tld] of done_defs(fl).reverse()) {\n      memo_gc();",
+      "replacement": "    for (const [k, tld] of done_defs(fl).reverse()) {\n      const BVY_N54C_GC_START=performance.now();\n      memo_gc();\n      BVY_N54C_STATE().gcMs+=performance.now()-BVY_N54C_GC_START;\n      const BVY_N54C_OPEN_START=performance.now();"
+    },
+    {
+      "label": "outer-open-end",
+      "original": "      fl.segs.push(dl.seg);\n      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);",
+      "replacement": "      fl.segs.push(dl.seg);\n      BVY_N54C_STATE().openMs+=performance.now()-BVY_N54C_OPEN_START;\n      const BVY_N54C_BODY_START=performance.now(),BVY_N54C_BODY_CPU=process.cpuUsage();\n      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);\n      BVY_N54C_DONE(k,BVY_N54C_BODY_START,BVY_N54C_BODY_CPU);"
+    },
+    {
+      "label": "settle-entry",
+      "original": "    reqs = effect_srcs(fl, \".c\", \"no .c import: \").join(\"\");",
+      "replacement": "    const BVY_N54C_SETTLE_START=performance.now();\n    reqs = effect_srcs(fl, \".c\", \"no .c import: \").join(\"\");"
+    },
+    {
+      "label": "pass-exit",
+      "original": "  } while (was !== facts());",
+      "replacement": "    BVY_N54C_STATE().settleMs=performance.now()-BVY_N54C_SETTLE_START;\n    BVY_N54C_LOG(\"pass-exit\",{own:fl.own.size,hot:fl.hot.size,stat:fl.stat.size});\n  } while (was !== facts());"
+    },
+    {
+      "label": "helpers",
+      "original": "",
+      "replacement": "\nfunction BVY_N54C_STATE() {\n  return BVY_N54C_STATE.state ??= {start:performance.now(),cpu:process.cpuUsage(),inst:{calls:0,hits:0,misses:0,teleInclusiveMs:0,keyMs:0,keyChars:0,maxKeyChars:0},pass:0,ordinal:0,gcMs:0,openMs:0,bodyMs:0,bodyCpuUs:0,settleMs:0,tops:new Map(),logMs:0,events:0};\n}\nfunction BVY_N54C_LOG(event,extra={}) {\n  const s=BVY_N54C_STATE(),t=performance.now(),cpu=process.cpuUsage(s.cpu);\n  const top=[...s.tops].sort((a,b)=>b[1].ms-a[1].ms).slice(0,32).map(([key,v])=>({label:key.slice(-256),labelLength:key.length,...v}));\n  const bytes=Buffer.from('BENDVY_NATIVE_COST '+JSON.stringify({event,wallMs:t-s.start,cpuUs:cpu.user+cpu.system,pass:s.pass,ordinal:s.ordinal,inst:{...s.inst},gcMs:s.gcMs,openMs:s.openMs,bodyMs:s.bodyMs,bodyCpuUs:s.bodyCpuUs,settleMs:s.settleMs,priorLogMs:s.logMs,priorEvents:s.events,top,...extra})+'\\n');\n  for(let offset=0;offset<bytes.length;){const n=fs4.writeSync(2,bytes,offset,bytes.length-offset);if(!(n>0))throw new Error('diagnostic stderr made no progress');offset+=n;}\n  s.logMs+=performance.now()-t;s.events++;\n}\nfunction BVY_N54C_DONE(key,start,cpu) {\n  const s=BVY_N54C_STATE(),ms=performance.now()-start,u=process.cpuUsage(cpu),cpuUs=u.user+u.system;\n  s.bodyMs+=ms;s.bodyCpuUs+=cpuUs;s.ordinal++;\n  const v=s.tops.get(key)??{calls:0,ms:0,cpuUs:0};v.calls++;v.ms+=ms;v.cpuUs+=cpuUs;s.tops.set(key,v);\n  if(s.ordinal%128===0)BVY_N54C_LOG('completed-checkpoint');\n}\n"
+    }
+  ],
+  "inverseBytes": 333165,
+  "inverseSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+  "instrumentedSHA256": "623afbdb93d9c257398bf296442f5ed0d7c01de06fd8b71dd5b946974593f4e8",
+  "inversePASS": true,
+  "privateIdentifierAbsentInOriginal": true
+}
