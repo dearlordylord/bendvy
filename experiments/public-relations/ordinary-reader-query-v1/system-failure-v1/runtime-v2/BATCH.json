@@ -1,0 +1,39 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "garden",
+      "path": "/tmp/bendvy-relations42-system-failure-runtime02/garden-js/plan.json",
+      "sha256": "7fe5f42b222a8b8362fb36e37ac61db3426d6e96d1f8c66f4aac9e3dce9cb38f",
+      "sources": 29,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-relations42-system-failure-runtime02/garden-js/plan.json",
+        "7fe5f42b222a8b8362fb36e37ac61db3426d6e96d1f8c66f4aac9e3dce9cb38f"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "garden",
+      "path": "/tmp/bendvy-relations42-system-failure-runtime02/garden-native/plan.json",
+      "sha256": "ca4f13253ff0caecfbbc4c7556cdc33970d0b19c45f292781e42b2d18655f860",
+      "sources": 29,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-relations42-system-failure-runtime02/garden-native/plan.json",
+        "ca4f13253ff0caecfbbc4c7556cdc33970d0b19c45f292781e42b2d18655f860"
+      ]
+    }
+  ],
+  "sequence": "Garden JS wholePASS -> conditional Garden Native wholePASS; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Exact Garden source01 cap5 actual PASS for frozen relation/provider/reader closure; raw source evidence preserved",
+  "scope": "First complete registered registered SystemFailure transaction and retained reader composition; no new reader/identity/affine-event policy, authority/reached-control/full42/proof/performance acceptance"
+}
