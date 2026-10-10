@@ -56,12 +56,16 @@ historical. Current public slices are:
 | [ordinary-app-relation](../../src/ecs/ordinary-app-relation.bend) and [registered relation schedule](../../src/ecs/ordinary-app-relation-schedule.bend) | Same declaration supplies relation kind/name/inverse query and presentation. Actual operations/barriers and registered schedule/cursor/phase associations have complete public nominal and reached-control evidence; [registered review](../../experiments/public-inspect/ordinary-relation-schedule-oracle-v1/FINAL-REVIEW.md). | Selected relation views do not establish a generic all-relations World dump. |
 | [ordinary-app-stream](../../src/ecs/ordinary-app-stream.bend) read_app/snapshot | Selected transition and relation-failure grants derive from ordinary declarations; enabled/disabled snapshots preserve independent reader/Registry owners. [Complete finite review](../../experiments/public-inspect/ordinary-stream-app-oracle-v1/FINAL-REVIEW.md) covers both schemas and reached control. | No new reader-consumption/cursor association policy; integrated regression and full feature timing remain separate. |
 
-The current machine-handler App candidate is **not adopted**. Its public-pruned
-source `af9cc` and first JS/Native pair `b077f9f5c` cover all 33 normal actions
-against independent oracle `ecbe791fc`; second nominal and typed source controls
-are checked. Actual foreign-World, mismatched-ID and reached controls are still in
-progress under the existing #56 owner. This supersedes the older “awaiting first
-pair” wording, but does not complete the affected matrix or public promotion.
+The [ordinary machine-handler App](../../src/ecs/ordinary-app-machine-handler.bend)
+is adopted after [one independent final review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-machine-handler-app-v1/FINAL-REVIEW.md).
+Its normal and Other schemas, actual foreign Worlds, distinct Entry/Registry IDs
+and reached cursor mutation pass ten complete JS/Native outcomes, with 25 commands
+and 85 unchanged guards. The same operational Bundle and ordinary schedule
+declaration supply descriptions; disabled snapshots bypass them. Binding retains
+owners structurally, while execution applies the existing namespace refusal.
+Malformed-ID preservation is snapshot-only; InternalOwnerRemainder remains a
+source-retained path. This finite slice does not complete #56 or feature timing;
+its combined regression is pending.
 
 ### Concrete unqualified debug operations
 

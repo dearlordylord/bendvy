@@ -223,3 +223,19 @@ Combined156 [protected regression](../../experiments/integration-gates/combined-
 `ordinary-app-stream` binds selected transition and relation-failure declarations once. `read_app` returns typed values with the same affine App; enabling debug makes `snapshot` derive their presentation from those declarations. Disabled snapshots bypass both projections. Frame/grant construction is internal; built-in values need no metadata adapter.
 
 The [independent review](../../experiments/public-inspect/ordinary-stream-app-oracle-v1/FINAL-REVIEW.md) qualifies complete Workshop/Garden and reached-control JS/Native outputs. The inspector cursor remains independent of preserved NoticeReader/Registry owners; no new consumption policy or cursor association is selected. Additional owner runtime coverage is Unit; arbitrary Type preservation is source-checked. This module is excluded from combined156; its integrated regression and full #56 remain pending.
+
+`ordinary-app-machine-handler` binds the operational handler Bundle, ordinary
+machine schedule declaration and World once. `enabled(app, flag)` controls
+`snapshot`: enabled snapshots derive typed entry names, access, requirements,
+cursors and phases from those actual owners; disabled snapshots bypass
+descriptions. Both Entry and Registry IDs are preserved separately. `run_app`
+uses the existing ordinary handler dispatcher and returns its owned result.
+Structural binding retains owners; execution rejects a foreign Bundle before
+accessing the World. No user metadata adapter is required.
+
+The [independent review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-machine-handler-app-v1/FINAL-REVIEW.md)
+qualifies ten complete JS/Native outcomes, nominal/authority refusals, actual
+foreign Worlds and a reached cursor mutation. Malformed-ID preservation is
+snapshot-only; generic Extra preservation is source-checked. Full #56 and feature
+performance remain open. Combined156 excludes this module and the later selected
+stream App; their integrated regression remains pending in the next batch.
