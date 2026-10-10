@@ -1,0 +1,20 @@
+SOME PROOFS FAIL
+Error:
+- expected : a declared constructor (Result declares Fail, Done)
+- observed : Ok{observations}
+Context:
+- plan         : SP.Plan<ran~S>
+- before       : String
+- disabled     : Maybe<&2, App.Description<ran~S>>
+- enabled      : Maybe<&2, App.Description<ran~S>>
+- repeated     : Maybe<&2, App.Description<ran~S>>
+- after        : String
+- schedule     : Sch.Schedule<ran~S, Unit, Array<U32>, Unit, App.Pack<ran~S, Unit, Array<U32>, Unit, runner1(ran~S), runner2(ran~S)>>
+- world        : W.World<ran~S, Unit, Array<U32>, Unit>
+- observations : List<&2, Sch.Observation>
+Location: ran
+83 |   match result:
+84>|     case Sch.Finished{schedule,world,observations}:final(~S,before,disabled,enabled,repeated,after,Ok{observations},observe(~S,App.Application{world,plan,SP.Provisioned{schedule,SP.unique(~S,SP.requirements(~S,plan))},True{}}))
+   |                                                                                                    ^^^^^^^^^^^^^^^^
+85 |     case _:Refused{"fixture-schedule-nonfinished"}
+bend 2.0.36 is available: run bend update

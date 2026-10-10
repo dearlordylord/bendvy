@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 3 patterns (one per scrutinee)
+- observed : '(live,liveText) (resource,resourceText) (commands,count)'
+Location:
+63 |   match liveSeen resourceSeen pendingSeen:
+64>|     case (live,liveText) (resource,resourceText) (commands,count):
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+65 |       (W.World{ns,next,high,live,cap,depth,Unit{},resource,events,commands,regs,nextSystem,clock},String.join([U32.show(ns),U32.show(next),U32.show(high),liveText,U32.show(cap),Nat.show(depth),"Unit",resourceText,List.show(&2,Unit,x => "Unit",events),Nat.show(count),List.show(&2,W.RegistrationMeta,metadata,regs),U32.show(nextSystem),U32.show(clock)],"|"))
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,9 @@
+# Private automatic schedule observation
+
+`schedule.bend` retains one ordinary operational `schedule-provision.Plan` alongside its executable build. Enabled snapshots derive ordered steps and their original per-step requirements from that Plan, and names, access, IDs and cursors from the actual registered owners. Disabled snapshots return before projection. No condition, dispatch or barrier executes during description. Condition names are unavailable from the existing condition IDs.
+
+This bounded implementation owns two typed registered systems. `consumer.bend` uses two independent schemas and empty Worlds, a resource counter, two condition IDs, and one pending command. It records complete fixture World fields, registry fields, executable steps, requirement union and the original Plan before description, after disabled and repeated enabled descriptions, and after actual execution. The execution uses the existing `Schedule.run`; it retains the provisioned requirement union but does not qualify the provision-availability gate. Fixture-only refusal mappings establish no generic refusal policy.
+
+`checks/consumer08/result.json` records the final pinned Bend source check: exit 0 within the unchanged five-second cap, CPU 11, literal `--check-only`. Its captured inputs and post-check guards are retained. Earlier parser/type failures, the consumer06 deadline, and all other attempts remain available. Consumer04 accidentally checked unchanged consumer03 source after a failed editing command; it is not additional implementation evidence.
+
+No JavaScript or Native execution, complete-output oracle comparison, universal proof, performance result, or full #56 acceptance is claimed here. The original pending closure is preserved affinely and observed by count plus its later barrier effect; this finite consumer does not establish a universal owner law.

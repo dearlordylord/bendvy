@@ -1,0 +1,24 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Bool -> Sigma<&1, &1, Bool, _ => String>
+- observed : @+value:Bool -> Sigma<&1, &1, Bool, _ => String>
+Context:
+- ns         : U32
+- next       : U32
+- high       : U32
+- live       : Array<Bool>
+- cap        : U32
+- depth      : Nat
+- _          : Unit
+- resource   : Array<U32>
+- events     : List<&2, Unit>
+- commands   : List<&1, @_:W.World<world_view~S, Unit, Array<U32>, Unit> -> W.World<world_view~S, Unit, Array<U32>, Unit>>
+- regs       : List<&2, W.RegistrationMeta>
+- nextSystem : U32
+- clock      : U32
+Location: world_view
+82 |   match world:
+83>|     case W.World{ns,next,high,live,cap,depth,_,resource,events,commands,regs,nextSystem,clock}:world_parts(~S,ns,next,high,cap,depth,events,regs,nextSystem,clock,array_view(~Bool,~bool_view,live),array_view(~U32,~u32_view,resource),pending(~S,commands))
+   |                                                                                                                                                                                     ^^^^^^^^^
+84 | def seen(~S:Data,+plan:SP.Plan<S>,+ns:U32,+name:String,+steps:List<&2,Sch.Step>,+needs:List<&2,SP.Requirement<S>>,+enabled:Bool,owners:App.Pack<S,Unit,Array<U32>,Unit,runner1(~S),runner2(~S)>,result:W.World<S,Unit,Array<U32>,Unit> & String) -> App.Application<S,Unit,Array<U32>,Unit,runner1(~S),runner2(~S)> & State<S>:
+bend 2.0.36 is available: run bend update
