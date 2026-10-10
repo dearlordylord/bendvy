@@ -1,0 +1,44 @@
+from pathlib import Path
+import json,hashlib,shutil
+wt=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1');base=wt/'experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-runtime-boundary-study-v1';parent=base/'scan-projector-v1';out=base/'rendering-dag-v1';out.mkdir(exist_ok=True);shutil.copytree(parent/'stage',out/'stage',dirs_exist_ok=True)
+f=out/'stage/format.bend';text=f.read_text();start=text.index('def snapshot(');end=text.index('def main()',start);old=text[start:end]
+new=r'''def rendered_tail(values:List<&2,String>) -> String:
+  match values:
+    case []:""
+    case value <> rest:"," ++ value ++ rendered_tail(rest)
+def rendered_list(values:List<&2,String>) -> String:
+  match values:
+    case []:"[]"
+    case value <> rest:"[" ++ value ++ rendered_tail(rest) ++ "]"
+def rendered_rows(~S:Data,~V:Data,~format:V -> String,values:List<&2,Q.ProjectedRow<S,V>>) -> List<&2,String>:
+  match values:
+    case []:[]
+    case value <> rest:row(~S,~V,~format,value) <> rendered_rows(~S,~V,~format,rest)
+def rendered_gets(~S:Data,~V:Data,~format:V -> String,values:List<&2,Consumer.Get<S,V>>) -> List<&2,String>:
+  match values:
+    case []:[]
+    case value <> rest:get(~S,~V,~format,value) <> rendered_gets(~S,~V,~format,rest)
+def rendered_snapshot(name:String,rows:List<&2,String>,gets:List<&2,String>,one:String,optional:String) -> String:
+  "{\"query\":" ++ string(name) ++ ",\"each\":" ++ rendered_list(rows) ++ ",\"get\":" ++ rendered_list(gets) ++ ",\"single\":" ++ one ++ ",\"singleOptional\":" ++ optional ++ "}"
+def snapshot(~S:Data,~V:Data,~format:V -> String,name:String,value:Consumer.Snapshot<S,V>) -> String:
+  match value:
+    case Consumer.Snapshot{rows,gets,one,optional}:rendered_snapshot(name,rendered_rows(~S,~V,~format,rows),rendered_gets(~S,~V,~format,gets),single(~S,~V,~format,one),single_optional(~S,~V,~format,optional))
+'''
+f.write_text(text[:start]+new+text[end:]);sha=lambda b:hashlib.sha256(b).hexdigest();joins=[]
+for x in sorted((parent/'stage').rglob('*.bend')):
+ y=out/'stage'/x.relative_to(parent/'stage');joins.append({'path':str(x.relative_to(parent)),'parentSHA256':sha(x.read_bytes()),'candidateSHA256':sha(y.read_bytes()),'equal':x.read_bytes()==y.read_bytes()})
+assert f.read_text().replace(new,old)==text
+(out/'DELTA.json').write_text(json.dumps({'parent':str(parent),'old':old,'new':new,'inverseExact':True,'joins':joins},indent=2)+'\n')
+plans=[]
+for name,role in [('source-plan.json','source'),('normal-js-plan.json','js'),('normal-native-plan.json','native')]:
+ j=json.loads((parent/name).read_text());temp=Path('/tmp/bendvy54-rendering-dag-'+role+'01');temp.mkdir(exist_ok=True);oldtemp=str(Path(j['generated']).parent)
+ def repl(v):
+  if isinstance(v,str):return v.replace(str(parent),str(out)).replace(oldtemp,str(temp))
+  if isinstance(v,list):return [repl(x) for x in v]
+  if isinstance(v,dict):return {repl(k):repl(x) for k,x in v.items()}
+  return v
+ j=repl(j);j['scope']='Full47 fixture-only detached String rendering DAG; public query types/grants unchanged; no Native cost claim'
+ for key in ['sourceInventory','pins']:
+  for p in j[key]:j[key][p]=sha(Path(p).read_bytes())
+ b=(json.dumps(j,indent=2)+'\n').encode();(out/name).write_bytes(b);(temp/'plan.json').write_bytes(b);plans.append({'role':role,'path':str(temp/'plan.json'),'sha256':sha(b)})
+(out/'SEQUENCE.json').write_text(json.dumps(plans,indent=2)+'\n');print(plans)

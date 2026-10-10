@@ -1,0 +1,56 @@
+{
+  "scope": "Full47 fixture-only detached String rendering DAG; public query types/grants unchanged; no Native cost claim",
+  "planSHA256": "1cf28ef1793980536ac8952c0ff0609aa8794abd0041e4f14081d8d519adb7c2",
+  "commands": [
+    {
+      "label": "source-normal",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-runtime-boundary-study-v1/rendering-dag-v1/stage/output-io-main.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy54-rendering-dag-source01/source-normal.stdout",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy54-rendering-dag-source01/source-normal.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy54-rendering-dag-source01/source-normal-pre.guard.json",
+      "sha256": "7fd9f212a6e36d4e3f8f0883caac6cb3111daa939093b1998facf84d3691bc0a"
+    },
+    {
+      "path": "/tmp/bendvy54-rendering-dag-source01/source-normal-acquired.guard.json",
+      "sha256": "d45f88a6a6c903211f5405dc52ee3e2d0c759a8177cf51a603c2dbe38d611a02"
+    },
+    {
+      "path": "/tmp/bendvy54-rendering-dag-source01/source-normal-post.guard.json",
+      "sha256": "4687b625eb29714bb25a5ecaefdb75445d75670ddce2326b2b24ed4cff74e9d3"
+    },
+    {
+      "path": "/tmp/bendvy54-rendering-dag-source01/final.guard.json",
+      "sha256": "b4c9c8051e2b858d5305b579fadcd4659b0e7f1d5f41294e5c3cd54f533b1f10"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}
