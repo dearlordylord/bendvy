@@ -1,0 +1,56 @@
+import Base
+import ./dispatch-result.bend as D
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend as Ord
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-resource-system.bend as Res
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-declaration.bend as Query
+
+def component_outcome(~S:Data,~C:Type,~R:Type,~E:Data,~CE:Data,~CO:Data,~RE:Data,~RO:Type,outcome:Sys.Outcome<W.World<S,C,R,E>,CE,List<&2,CO>>) -> Sys.Outcome<W.World<S,C,R,E>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match outcome:
+    case Sys.Succeeded{world,value}:Sys.Succeeded{world,D.ComponentOutput{value}}
+    case Sys.Failed{world,error}:Sys.Failed{world,D.ComponentError{error}}
+
+def resource_outcome(~S:Data,~C:Type,~R:Type,~E:Data,~CE:Data,~CO:Data,~RE:Data,~RO:Type,outcome:Sys.Outcome<W.World<S,C,R,E>,RE,RO>) -> Sys.Outcome<W.World<S,C,R,E>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match outcome:
+    case Sys.Succeeded{world,value}:Sys.Succeeded{world,D.ResourceOutput{value}}
+    case Sys.Failed{world,error}:Sys.Failed{world,D.ResourceError{error}}
+
+def component_returned(~S:Data,~C:Type,~R:Type,~E:Data,~CA:Data,~CE:Data,~CO:Data,~RA:Type,~RE:Data,~RO:Type,~kind:Query.Mode,~crun:W.World<S,C,R,E> -> (CA & U32) -> Sys.Outcome<W.World<S,C,R,E>,CE,List<&2,CO>>,~rrun:W.World<S,C,R,E> -> RA -> Sys.Outcome<W.World<S,C,R,E>,RE,RO>,other:Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>,slot:String,clauses:List<&2,Query.Clause<S>>,result:Sys.RunResult<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>) -> D.DispatchResult<S,C,R,E,(Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>> & Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>),D.Arguments<CA,RA>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match result:
+    case Sys.Completed{registry,outcome}:D.Completed{(Ord.Owner{registry,slot,clauses},other),component_outcome(~S,~C,~R,~E,~CE,~CO,~RE,~RO,outcome)}
+    case Sys.RegistrationRejected{registry,world,args}:D.RegistrationRejected{(Ord.Owner{registry,slot,clauses},other),world,D.ComponentArgs{args}}
+def component_cursor(~S:Data,~C:Type,~R:Type,~E:Data,~CA:Data,~CE:Data,~CO:Data,~RA:Type,~RE:Data,~RO:Type,~kind:Query.Mode,~crun:W.World<S,C,R,E> -> (CA & U32) -> Sys.Outcome<W.World<S,C,R,E>,CE,List<&2,CO>>,~rrun:W.World<S,C,R,E> -> RA -> Sys.Outcome<W.World<S,C,R,E>,RE,RO>,~build:Unit -> CA,other:Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>,slot:String,clauses:List<&2,Query.Clause<S>>,world:W.World<S,C,R,E>,observed:Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun> & U32) -> D.DispatchResult<S,C,R,E,(Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>> & Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>),D.Arguments<CA,RA>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match observed:
+    case (registry,cursor):component_returned(~S,~C,~R,~E,~CA,~CE,~CO,~RA,~RE,~RO,~kind,~crun,~rrun,other,slot,clauses,Sys.run_tracked(~S,~C,~R,~E,~(CA & U32),~CE,~List<&2,CO>,~crun,registry,world,(build(Unit{}),cursor)))
+def component_run(~S:Data,~C:Type,~R:Type,~E:Data,~CA:Data,~CE:Data,~CO:Data,~RA:Type,~RE:Data,~RO:Type,~kind:Query.Mode,~crun:W.World<S,C,R,E> -> (CA & U32) -> Sys.Outcome<W.World<S,C,R,E>,CE,List<&2,CO>>,~rrun:W.World<S,C,R,E> -> RA -> Sys.Outcome<W.World<S,C,R,E>,RE,RO>,~build:Unit -> CA,owner:Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>>,other:Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>,world:W.World<S,C,R,E>) -> D.DispatchResult<S,C,R,E,(Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>> & Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>),D.Arguments<CA,RA>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match owner:
+    case Ord.Owner{registry,slot,clauses}:component_cursor(~S,~C,~R,~E,~CA,~CE,~CO,~RA,~RE,~RO,~kind,~crun,~rrun,~build,other,slot,clauses,world,Sys.cursor(~S,~C,~R,~E,~(CA & U32),~CE,~List<&2,CO>,~crun,registry))
+def resource_returned(~S:Data,~C:Type,~R:Type,~E:Data,~CA:Data,~CE:Data,~CO:Data,~RA:Type,~RE:Data,~RO:Type,~kind:Query.Mode,~crun:W.World<S,C,R,E> -> (CA & U32) -> Sys.Outcome<W.World<S,C,R,E>,CE,List<&2,CO>>,~rrun:W.World<S,C,R,E> -> RA -> Sys.Outcome<W.World<S,C,R,E>,RE,RO>,other:Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>>,slot:String,result:Sys.RunResult<S,C,R,E,RA,RE,RO,rrun>) -> D.DispatchResult<S,C,R,E,(Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>> & Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>),D.Arguments<CA,RA>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match result:
+    case Sys.Completed{registry,outcome}:D.Completed{(other,Res.Owner{registry,slot}),resource_outcome(~S,~C,~R,~E,~CE,~CO,~RE,~RO,outcome)}
+    case Sys.RegistrationRejected{registry,world,args}:D.RegistrationRejected{(other,Res.Owner{registry,slot}),world,D.ResourceArgs{args}}
+def resource_run(~S:Data,~C:Type,~R:Type,~E:Data,~CA:Data,~CE:Data,~CO:Data,~RA:Type,~RE:Data,~RO:Type,~kind:Query.Mode,~crun:W.World<S,C,R,E> -> (CA & U32) -> Sys.Outcome<W.World<S,C,R,E>,CE,List<&2,CO>>,~rrun:W.World<S,C,R,E> -> RA -> Sys.Outcome<W.World<S,C,R,E>,RE,RO>,~build:Unit -> RA,other:Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>>,owner:Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>,world:W.World<S,C,R,E>) -> D.DispatchResult<S,C,R,E,(Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>> & Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>),D.Arguments<CA,RA>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match owner:
+    case Res.Owner{registry,slot}:resource_returned(~S,~C,~R,~E,~CA,~CE,~CO,~RA,~RE,~RO,~kind,~crun,~rrun,other,slot,Sys.run_tracked(~S,~C,~R,~E,~RA,~RE,~RO,~rrun,registry,world,build(Unit{})))
+
+def resource_selected(~S:Data,~C:Type,~R:Type,~E:Data,~CA:Data,~CE:Data,~CO:Data,~RA:Type,~RE:Data,~RO:Type,~kind:Query.Mode,~crun:W.World<S,C,R,E> -> (CA & U32) -> Sys.Outcome<W.World<S,C,R,E>,CE,List<&2,CO>>,~rrun:W.World<S,C,R,E> -> RA -> Sys.Outcome<W.World<S,C,R,E>,RE,RO>,~cbuild:Unit -> CA,~rbuild:Unit -> RA,allowed:Bool,component:Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>>,resource:Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>,world:W.World<S,C,R,E>,+id:U32) -> D.DispatchResult<S,C,R,E,(Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>> & Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>),D.Arguments<CA,RA>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match allowed:
+    case True{}:resource_run(~S,~C,~R,~E,~CA,~CE,~CO,~RA,~RE,~RO,~kind,~crun,~rrun,~rbuild,component,resource,world)
+    case False{}:D.UnknownSystem{(component,resource),world,id}
+def resource_identified(~S:Data,~C:Type,~R:Type,~E:Data,~CA:Data,~CE:Data,~CO:Data,~RA:Type,~RE:Data,~RO:Type,~kind:Query.Mode,~crun:W.World<S,C,R,E> -> (CA & U32) -> Sys.Outcome<W.World<S,C,R,E>,CE,List<&2,CO>>,~rrun:W.World<S,C,R,E> -> RA -> Sys.Outcome<W.World<S,C,R,E>,RE,RO>,~cbuild:Unit -> CA,~rbuild:Unit -> RA,component:Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>>,slot:String,world:W.World<S,C,R,E>,+id:U32,identified:Sys.Registry<S,C,R,E,RA,RE,RO,rrun> & U32) -> D.DispatchResult<S,C,R,E,(Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>> & Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>),D.Arguments<CA,RA>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match identified:
+    case (registry,actual):resource_selected(~S,~C,~R,~E,~CA,~CE,~CO,~RA,~RE,~RO,~kind,~crun,~rrun,~cbuild,~rbuild,U32.is_eq(id,actual),component,Res.Owner{registry,slot},world,id)
+def resource_route(~S:Data,~C:Type,~R:Type,~E:Data,~CA:Data,~CE:Data,~CO:Data,~RA:Type,~RE:Data,~RO:Type,~kind:Query.Mode,~crun:W.World<S,C,R,E> -> (CA & U32) -> Sys.Outcome<W.World<S,C,R,E>,CE,List<&2,CO>>,~rrun:W.World<S,C,R,E> -> RA -> Sys.Outcome<W.World<S,C,R,E>,RE,RO>,~cbuild:Unit -> CA,~rbuild:Unit -> RA,component:Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>>,resource:Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>,world:W.World<S,C,R,E>,+id:U32) -> D.DispatchResult<S,C,R,E,(Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>> & Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>),D.Arguments<CA,RA>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match resource:
+    case Res.Owner{registry,slot}:resource_identified(~S,~C,~R,~E,~CA,~CE,~CO,~RA,~RE,~RO,~kind,~crun,~rrun,~cbuild,~rbuild,component,slot,world,id,Sys.identity(~S,~C,~R,~E,~RA,~RE,~RO,~rrun,registry))
+def component_selected(~S:Data,~C:Type,~R:Type,~E:Data,~CA:Data,~CE:Data,~CO:Data,~RA:Type,~RE:Data,~RO:Type,~kind:Query.Mode,~crun:W.World<S,C,R,E> -> (CA & U32) -> Sys.Outcome<W.World<S,C,R,E>,CE,List<&2,CO>>,~rrun:W.World<S,C,R,E> -> RA -> Sys.Outcome<W.World<S,C,R,E>,RE,RO>,~cbuild:Unit -> CA,~rbuild:Unit -> RA,allowed:Bool,component:Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>>,resource:Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>,world:W.World<S,C,R,E>,+id:U32) -> D.DispatchResult<S,C,R,E,(Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>> & Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>),D.Arguments<CA,RA>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match allowed:
+    case True{}:component_run(~S,~C,~R,~E,~CA,~CE,~CO,~RA,~RE,~RO,~kind,~crun,~rrun,~cbuild,component,resource,world)
+    case False{}:resource_route(~S,~C,~R,~E,~CA,~CE,~CO,~RA,~RE,~RO,~kind,~crun,~rrun,~cbuild,~rbuild,component,resource,world,id)
+def component_identified(~S:Data,~C:Type,~R:Type,~E:Data,~CA:Data,~CE:Data,~CO:Data,~RA:Type,~RE:Data,~RO:Type,~kind:Query.Mode,~crun:W.World<S,C,R,E> -> (CA & U32) -> Sys.Outcome<W.World<S,C,R,E>,CE,List<&2,CO>>,~rrun:W.World<S,C,R,E> -> RA -> Sys.Outcome<W.World<S,C,R,E>,RE,RO>,~cbuild:Unit -> CA,~rbuild:Unit -> RA,resource:Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>,slot:String,clauses:List<&2,Query.Clause<S>>,world:W.World<S,C,R,E>,+id:U32,identified:Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun> & U32) -> D.DispatchResult<S,C,R,E,(Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>> & Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>),D.Arguments<CA,RA>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match identified:
+    case (registry,actual):component_selected(~S,~C,~R,~E,~CA,~CE,~CO,~RA,~RE,~RO,~kind,~crun,~rrun,~cbuild,~rbuild,U32.is_eq(id,actual),Ord.Owner{registry,slot,clauses},resource,world,id)
+def dispatch(~S:Data,~C:Type,~R:Type,~E:Data,~CA:Data,~CE:Data,~CO:Data,~RA:Type,~RE:Data,~RO:Type,~kind:Query.Mode,~crun:W.World<S,C,R,E> -> (CA & U32) -> Sys.Outcome<W.World<S,C,R,E>,CE,List<&2,CO>>,~rrun:W.World<S,C,R,E> -> RA -> Sys.Outcome<W.World<S,C,R,E>,RE,RO>,~cbuild:Unit -> CA,~rbuild:Unit -> RA,owners:(Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>> & Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>),world:W.World<S,C,R,E>,+id:U32) -> D.DispatchResult<S,C,R,E,(Ord.Owner<S,Sys.Registry<S,C,R,E,CA & U32,CE,List<&2,CO>,crun>> & Res.Owner<S,Sys.Registry<S,C,R,E,RA,RE,RO,rrun>,kind>),D.Arguments<CA,RA>,D.Error<CE,RE>,D.Output<CO,RO>>:
+  match owners:
+    case (Ord.Owner{registry,slot,clauses},resource):component_identified(~S,~C,~R,~E,~CA,~CE,~CO,~RA,~RE,~RO,~kind,~crun,~rrun,~cbuild,~rbuild,resource,slot,clauses,world,id,Sys.identity(~S,~C,~R,~E,~(CA & U32),~CE,~List<&2,CO>,~crun,registry))
