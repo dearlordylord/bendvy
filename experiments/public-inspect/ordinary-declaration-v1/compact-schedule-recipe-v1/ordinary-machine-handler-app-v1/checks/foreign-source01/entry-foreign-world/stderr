@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : cases for ../../../../../../../bendvy/src/ecs/ordinary-app-machine-handler.Recovering
+- observed : \{}
+Context:
+- world1       : W.World<swapped~S, ../../../../../../../bendvy/experiments/public-handlers/remaining-core-v1/types.Store<swapped~S>, ../../../../../../../bendvy/experiments/public-handlers/remaining-core-v1/types.Resources<swapped~S>, Unit>
+- bundle1      : ../../../../../../../bendvy/src/ecs/machine-handler-bundle.Bundle<swapped~S, ../../../../../../../bendvy/experiments/public-handlers/remaining-core-v1/types.MachineKey, ../../../../../../../bendvy/experiments/public-handlers/remaining-core-v1/types.State, U32, ../../../../../../../bendvy/experiments/public-handlers/remaining-core-v1/types.Store<swapped~S>, ../../../../../../../bendvy/experiments/public-handlers/remaining-core-v1/types.Resources<swapped~S>, Unit, ../../../../../../../bendvy/experiments/public-machines/handler-schedule-composition-v1/systems.runner(swapped~S)>
+- declaration1 : ../../../../../../../bendvy/src/ecs/ordinary-machine-schedule.Declaration<swapped~S>
+- reader1      : Maybe<&1, ../../../../../../../bendvy/src/ecs/system.Registry<swapped~S, ../../../../../../../bendvy/experiments/public-handlers/remaining-core-v1/types.Store<swapped~S>, ../../../../../../../bendvy/experiments/public-handlers/remaining-core-v1/types.Resources<swapped~S>, Unit, Unit, String, Unit, ../../../../../../../bendvy/experiments/public-machines/handler-schedule-composition-v1/systems.reader_runner(swapped~S)>>
+- debug1       : Bool
+Location: swapped
+18 | def swapped(~S:Data,left:Consumer.ordinary_application(~S),right:Consumer.ordinary_application(~S)) -> Twin<S>:
+19>|   match left right:
+   |   ^^^^^^^^^^^^^^^^^
+20 |     case App.Application{world1,bundle1,declaration1,reader1,debug1},App.Application{world2,bundle2,declaration2,reader2,debug2}:Twin{App.Application{world2,bundle1,declaration1,reader1,debug1},App.Application{world1,bundle2,declaration2,reader2,debug2}}
+bend 2.0.36 is available: run bend update
