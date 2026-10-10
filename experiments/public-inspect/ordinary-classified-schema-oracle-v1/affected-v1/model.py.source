@@ -1,0 +1,28 @@
+"""Complete source-only classified schema consumer, including retained codec owners."""
+import json,gzip,hashlib
+from pathlib import Path
+MUTANT=False
+MODES=['Plain','Transient','Constructed','unclassified']
+def world(resource):
+ return 'namespace=1|nextId=1|highWater=0|live=leaf:False|capacity=1|depth=0|store=product(Column{values=leaf:some(leaf:42);stamps=[]},Unit)|resource=product(Unit,leaf:'+str(resource)+')|events=[]|pendingCount=0|pendingEmpty=True|registrations=[]|nextSystemId=1|clock=0'
+def snapshot(mode,flag,resource):
+ description='description=[component:Payload:Payload:'+('Transient' if MUTANT and mode=='Plain' else mode)+', resource:Counter:Counter:'+mode+']' if flag else 'description=None'
+ return description+'|'+world(resource)
+def scenario(mode):
+ rows=['component=Accepted|previous=none|incoming=none',snapshot(mode,False,7)]
+ if mode=='Constructed':
+  # Literal(Number42) validates actual projected Number7 as refusal, retaining same Array.
+  rows+=['prepare=Rejected','request=Accepted|retained=leaf:42;empty|empty=False']
+  rows += [snapshot(mode,True,42),snapshot(mode,True,42),snapshot(mode,False,42)]
+ else:rows += [snapshot(mode,True,7),snapshot(mode,True,7),snapshot(mode,False,7)]
+ return rows
+def derive():return (json.dumps([scenario(m) for m in MODES],ensure_ascii=False,separators=(', ', ': '))+'\n').encode()
+
+def emit():
+ global MUTANT
+ root=Path(__file__).resolve().parent;cat={}
+ for key,mutant in [('other',False),('baseline',False),('same-namespace-baseline',False),('mutant',True)]:
+  MUTANT=mutant;raw=derive();p=root/(key+'.stdout');p.write_bytes(raw);g=root/(key+'.stdout.gz');g.write_bytes(gzip.compress(raw,mtime=0))
+  cat[key]={'path':str(p),'gzip':str(g),'stdout':str(g),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+ (root/'ORACLES.json').write_text(json.dumps(cat,indent=2)+'\n')
+if __name__=='__main__':emit()
