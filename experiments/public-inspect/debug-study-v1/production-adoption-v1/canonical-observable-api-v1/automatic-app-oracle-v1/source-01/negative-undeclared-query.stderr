@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Sigma<&1, &1, App.ApplicationType<wrong~S, Col.Column<wrong~S, Caller.Payload>, Array<U32>, U32, wrong~H, wrong~Rows, wrong~fold, wrong~describe>, _ => IQ.ComposedReadQuery<wrong~H, wrong~S, Unit>>
+- observed : Sigma<&1, &1, App.ApplicationType<wrong~S, Col.Column<wrong~S, Caller.Payload>, Array<U32>, U32, wrong~H, wrong~Rows, wrong~fold, wrong~describe>, _ => Maybe<&2, App.Product<List<&2, App.Binding<wrong~S>>, App.Observation<wrong~Rows>>>>
+Context:
+- app : App.ApplicationType<wrong~S, Col.Column<wrong~S, Caller.Payload>, Array<U32>, U32, wrong~H, wrong~Rows, wrong~fold, wrong~describe>
+Location: wrong
+ 8 | def wrong(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe>) -> App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & IQ.ComposedReadQuery<H,S,Unit>:
+ 9>|   App.snapshot(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~H,~Rows,~fold,~describe,app)
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+10 | 
+bend 2.0.36 is available: run bend update
