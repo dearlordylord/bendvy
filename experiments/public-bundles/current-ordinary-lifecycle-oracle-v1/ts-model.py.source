@@ -1,0 +1,16 @@
+"""Independent literal public TS oracle; no execution/import of reference."""
+import json
+def application_output():
+ out=[]
+ for schema in ['A','B']:
+  for mode in ['spawn-insert','invalid-return','invalid-retry','rollback','cleanup']:
+   invalid=mode.startswith('invalid');refused=mode=='invalid-return';failed=mode=='rollback'
+   raw={'stock':[11,12],'value':{'valid':True,'value':17},'tag':{},'queue':{'valid':False,'front':[31,32],'back':[41,42],'queued':[[51,52]]}}
+   first={'id':1,'stock':[1011,1012] if failed else [501,502],'front':[1031,1032],'back':[1041,1042],'tag':{},'value':17}
+   last=[first] if refused or failed or mode=='cleanup' else [first,{'id':2,'stock':[1071,1072],'front':[1091,1092],'back':[1101,1102],'tag':{},'value':27}]
+   out.append({'schema':schema,'mode':mode,'work':{'ok':False,'kind':'SystemFailure','error':'body-failed'} if failed else {'ok':True},'refusal':{'errors':[None,None,None,'bad-3'],'raw':raw} if invalid else None,'handles':None if refused else {'spawned':2,'inserted':2},'retryIdentity':True if mode=='invalid-retry' else None,'calls':[0,1,3]*(2 if refused else 4 if mode=='invalid-retry' else 3),'checkpoints':[{'label':'before','rows':[first]},{'label':'after','rows':last}]})
+ return json.dumps(out,separators=(',',':'))+'\n'
+def expected(scale=1):return application_output()*scale
+if __name__=='__main__':
+ import sys
+ sys.stdout.write(expected(int(sys.argv[1]) if len(sys.argv)>1 else 1))

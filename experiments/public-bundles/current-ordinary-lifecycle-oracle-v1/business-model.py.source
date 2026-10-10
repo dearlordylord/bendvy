@@ -1,0 +1,92 @@
+"""Independent source-only ten-world lifecycle model; no runtime input."""
+import copy,json
+from pathlib import Path
+MODES=['spawn-insert','invalid-return','invalid-retry','rollback','cleanup']
+ACCESS=['write:a','write:front','write:b','write:tag','write:value','bundle.spawn','bundle.insert']
+ERROR='ConstructionRefused:[null, null, null, bad-3]'
+def show(v):
+ if isinstance(v,list):return '['+', '.join(show(x) for x in v)+']'
+ if isinstance(v,bool):return 'True' if v else 'False'
+ if v is None:return 'absent'
+ return str(v)
+def context(n):return show([n]*4)+'/'+show([0,1,2,3]*n)
+def raw(kind,invalid=False):
+ a,v,f,b,q=([11,12],17,[31,32],[41,42],[[51,52]]) if kind=='initial' else ([71,72],27,[91,92],[101,102],[[111,112]])
+ return 'True:'+show(a)+'/True:'+str(v)+'/True:tag/'+('False'if invalid else'True')+':'+show(f)+':'+show(b)+':'+show(q)+'/end'
+def cooked(kind):
+ a,v,f,b,q=([1011,1012],17,[1031,1032],[1041,1042],[[51,52]])if kind=='initial'else([1071,1072],27,[1091,1092],[1101,1102],[[111,112]])
+ return show(a)+'/'+str(v)+'/tag/'+show(f)+':'+show(b)+':'+show(q)+'/end'
+def write(w,f,id,value,tick=True):
+ c=w['columns'][f]
+ while len(c['values'])<id:c['values'].append(None)
+ old=copy.deepcopy(c['values'][id-1]);stamp=next((s[1:]for s in c['stamps']if s[0]==id),[0,0]);c['values'][id-1]=copy.deepcopy(value)
+ if tick:w['clock']+=1
+ new=[0,0]if value is None else [w['clock'],w['clock']]if old is None else [stamp[0],w['clock']]
+ c['stamps']=[[id,*new]]+[s for s in c['stamps']if s[0]!=id]
+ return old,list(stamp)
+def install(w,id,kind):
+ vals=([1011,1012],[1031,1032],[1041,1042],'tag',17)if kind=='initial'else([1071,1072],[1091,1092],[1101,1102],'tag',27)
+ inverse=[]
+ for f,v in zip(['a','front','b','tag','value'],vals):
+  old,stamp=write(w,f,id,v);inverse.append({'field':f,'old':old,'stamp':stamp})
+ w['mail']['installed'].insert(0,{'id':id,'kind':kind,'inverse':inverse,'queued':[[51,52]]if kind=='initial'else[[111,112]]})
+def unwind(w):
+ if not w['mail']['installed']:return
+ owned=w['mail']['installed'].pop(0);id=owned['id']
+ if not w['live'][id]:
+  # Recursive install undo runs tail-first: value restoration refuses first.
+  w['mail']['quarantine'].insert(0,{'id':id,'kind':owned['kind'],'pendingTail':'value','inverse':owned['inverse'],'queued':owned['queued']});w['mail']['errors']=['quarantined'];return
+ for inv in reversed(owned['inverse']):
+  write(w,inv['field'],id,inv['old'],False);c=w['columns'][inv['field']];c['stamps']=[[id,*inv['stamp']]]+[s for s in c['stamps']if s[0]!=id]
+ w['mail']['returned'].insert(0,raw(owned['kind']));w['mail']['errors']=['unwound']
+def seeded(ns):
+ w={'namespace':ns,'nextId':2,'highWater':1,'capacity':2,'depth':1,'live':[False,True],'columns':{f:{'values':[None],'stamps':[]}for f in ['a','front','b','tag','value']},'clock':0,'events':[],'pending':[],'registrations':[],'nextSystemId':1,'mail':{'context':1,'returned':[],'installed':[],'quarantine':[],'errors':[None]*4}}
+ install(w,1,'initial');return w
+# Defined symbolically so receipt order is independent of string formatter.
+def prepared(ns,cleanup):return [str(ns)+':2:'+str(3 if cleanup else 2)+':'+cooked('replacement'),str(ns)+':2:2:'+cooked('initial'),'receipt:'+str(ns)+':2']
+def public(w):
+ rows=[]
+ for id in [1,2]:
+  if id>=len(w['live'])or not w['live'][id]:rows.append('missing:front=missing:missing:missing:missing');continue
+  cells=[]
+  for f in ['a','front','b','tag','value']:
+   values=w['columns'][f]['values'];cells.append(show(values[id-1])if id<=len(values)else'absent')
+  rows.append(cells[0]+':front='+':'.join(cells[1:]))
+ return '/'.join(rows)
+def world_text(w):
+ cols=[]
+ for f in ['a','front','b','tag','value']:
+  c=w['columns'][f];cols.append(show(c['values'])+'@'+show([':'.join(map(str,s))for s in c['stamps']]))
+ m=w['mail'];reg=['1:owned-commands:'+show(ACCESS)]
+ return cols[0]+'|front='+ '|'.join(cols[1:])+f"|clock={w['clock']}|live={show(w['live'])}|ns={w['namespace']}|next={w['nextId']}|high={w['highWater']}|capacity={w['capacity']}|events={show(w['events'])}|context={context(m['context'])}|raw="+''.join('['+v+']'for v in m['returned'])+'[]'+f"|installed={len(m['installed'])}|quarantine={len(m['quarantine'])}|pending={len(w['pending'])}|errors="+show(['null'if x is None else x for x in m['errors']])+ '|installed-queues='+show([show(x['queued'])for x in m['installed']])+f"|depth={w['depth']}|registrations={show(reg)}|nextSystem={w['nextSystemId']}"
+def lifecycle(schema,mode,ns):
+ w=seeded(ns);w['registrations']=[{'id':1,'name':'owned-commands','access':ACCESS.copy()}];w['nextSystemId']=2
+ # Existing.begin enqueues nonjournalled801 before tx.begin, then writes501.
+ w['pending']=['publish801'];old,stamp=write(w,'a',1,[501,502]);invalid=mode.startswith('invalid-');refused=mode=='invalid-return';failed=mode=='rollback';cleanup=mode=='cleanup'
+ delivery=None
+ if not refused:w['nextId']=3;w['highWater']=2;w['capacity']=4;w['depth']=2;w['live']=[False,True,False,False]
+ if failed:
+  write(w,'a',1,old,False);w['columns']['a']['stamps']=[[1,*stamp]];w['mail']['returned']=[raw('replacement'),raw('initial')];w['mail']['errors']=['body-failed|caller-context='+context(2)+'|prepared='+show(prepared(ns,False))]
+ else:
+  w['events']=[43];w['pending']+=['publish901']
+  if not refused:w['pending']+=['activate2','installInitial2']+(['clear2']if cleanup else[])+['installReplacement2']
+  first='refused:'+ERROR+':'+raw('initial',True)if refused else f'accepted:{ns}:2:True';second='none'if refused else f'accepted:{ns}:2:False';unused=raw('replacement')if refused else'none'
+  delivery=f'first={first}|second={second}|unsubmitted={unused}|first-refusal='+ (ERROR if invalid else'none')+'|returned-before-retry='+(raw('initial',True)if invalid else'')+'|caller-context='+context(1 if refused else 3 if invalid else 2)+'|prepared='+show([]if refused else prepared(ns,cleanup))
+ before=copy.deepcopy(w);before_public=public(w)
+ for action in w['pending'][:]:
+  if action=='publish801':w['events'] += [801,802]
+  elif action=='publish901':w['events'] += [901,902]
+  elif action=='activate2':w['live'][2]=True
+  elif action=='installInitial2':install(w,2,'initial')
+  elif action=='clear2':
+   w['live'][2]=False
+   for c in w['columns'].values():c['values'][1]=None;c['stamps']=[s for s in c['stamps']if s[0]!=2]
+  elif action=='installReplacement2':
+   if w['live'][2]:install(w,2,'replacement')
+   else:w['mail']['returned'].insert(0,raw('replacement'));w['mail']['errors']=['insert-refusal']
+ w['pending']=[];after=copy.deepcopy(w);after_public=public(w);unwind(w);teardown=copy.deepcopy(w)
+ registry=f'{ns}:1:owned-commands:'+show(ACCESS)+(':'+str(0 if failed else 6))
+ text=('Failed'if failed else'Succeeded')+'|before='+before_public+'|after='+after_public+'|registry='+registry+'|teardown='+world_text(w)+'|delivery='+('failed'if failed else delivery)
+ return {'schema':schema,'mode':mode,'namespace':ns,'before':before,'after':after,'teardown':teardown,'beforePublic':before_public,'afterPublic':after_public,'delivery':delivery,'registry':registry,'text':schema+'-'+mode+'='+text}
+def models():return [lifecycle(s,m,1+si*5+mi)for si,s in enumerate(['A','B'])for mi,m in enumerate(MODES)]
+def expected():return '\n'.join(m['text']for m in models())+'\n'
