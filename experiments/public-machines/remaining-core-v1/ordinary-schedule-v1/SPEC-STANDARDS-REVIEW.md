@@ -1,0 +1,13 @@
+# Final Spec/Standards review — ordinary machine schedule
+
+PASS for bounded archival of immutable2792250fa. No blocking finding; no shared core change or full#48 acceptance is approved.
+
+The ordinary declaration lowers fixed groups to the existing nine-step Sch plan: Barrier then apply/exit/transition/enter phases and four group steps. Installer.run calls actual public Sch.run; the complete consumer retains returned Sch.Schedule, World, observations and status across both executions. Dispatch selects closed typed group callbacks, passing arbitrary affine owner state; installer forwards Sys.Outcome rather than replacing failure semantics. Sch.run owns structural barrier/order/observations and existing rejection/failure paths. The finite normal group adapters wrap OwnedMarker returns as Succeeded: the actual trace reaches successful registered machine writers, not handler prepare/commit failure execution. The four generated catalog ids are adapter group ids, not four World registration ids or gameplay grants. Initial setup/init policy is unchanged and remains unqualified.
+
+Intended complete A-source04 passes stock5; all32 current captured pins and the frozen entry/consumer/installer match. Earlier installer/A-source01–03 repairs are preserved as history and not transferred qualification. The independent pre-execution modelb1e0489c27c300cda9eecc0eeec0a43a0a97ba92 and separate root second sanity bind full inherited physical World/machine/registry/cohort/owner states plus complete schedule metadata and nine per-run observations. This reviewer authored that model and relies on root's independent sanity rather than claiming independent self-review.
+
+Actual JS23719 and Native45451 both COMPLETE_CONSUMER_DEVELOPMENT_PASS with all3342 output bytes SHA f1d195b04eb5ff751d8d17ed68bf1f1e490d5bd15f3665f8b48e81a7588bf8e3, empty runtime stderr, five commands exit0/failureNone and17 exact guards. All receipt/plan/raw stream hash/length joins, complete plan-pin bindings and generated JS/C/native artifact hashes verified. Original source/build/runtime caps and internal shared lock are unchanged.
+
+Source ZIP164 members and runtime ZIP34 members exactly match EVIDENCE.json member and container digests/lengths. No compiler, backend, test or statistics was rerun during review; no source edits.
+
+This establishes finite ordinary schedule execution and full normal-state observations through the declared frontend. Arbitrary group arity, actual failure/foreign namespace/refusal controls, handler preparation/commit/retry lifecycle, initialization, broader feature parity, performance and full#48 remain open. No new rollback/error/disposal policy or universal law follows.
