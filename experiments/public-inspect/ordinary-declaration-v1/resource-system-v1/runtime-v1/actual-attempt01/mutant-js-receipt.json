@@ -1,0 +1,96 @@
+{
+  "scope": "Complete finite ordinary resource-only registered execution on empty/two-entity worlds mutant js; aggregate Resources owner; no App debug integration/schedule/full56/performance claim",
+  "planSHA256": "77e069725d2c0353f665729c70dce7be802057cf34ce1958db5a76a91c0bb566",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-system-v1/consumer-rollback-mutant.bend",
+        "-o",
+        "/tmp/bendvy-resource-system-runtime01/mutant-js/scenario.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/tmp/bendvy-resource-system-runtime01/mutant-js/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-resource-system-runtime01/mutant-js/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-resource-system-runtime01/mutant-js/scenario.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/tmp/bendvy-resource-system-runtime01/mutant-js/consumer.stdout",
+        "sha256": "056d9a8333b8efee91219de33d2943868e88190f3fc015c5ceb66c16bdb184b6",
+        "bytes": 2294,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-resource-system-runtime01/mutant-js/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/mutant-js/emit-pre.guard.json",
+      "sha256": "9cca63ff0ad9024f5c5380fd937e68931dc4223666920dc6dcc7f44c09d065f9"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/mutant-js/emit-acquired.guard.json",
+      "sha256": "4235c91aa17d11979b17d758c9c2404151d8faa93cddfe78fb84a1ccfb7cb9ea"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/mutant-js/emit-post.guard.json",
+      "sha256": "e454635d6280df6fea2b01d0aad5d51c85fdee70861a5eb38f278dd260a1651e"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/mutant-js/consumer-pre.guard.json",
+      "sha256": "6662488024fc8b475f24769cb9fa9f2f66b48444f64daf86d386443d109bfb45"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/mutant-js/consumer-acquired.guard.json",
+      "sha256": "91dbb217539329ff8e923d5eac488bb5a62177129f9fa20c7dc22b45637b48d5"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/mutant-js/consumer-post.guard.json",
+      "sha256": "2c3d15febc787070e16c628531aa582ce99c6130929db67ecece880049d40971"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/mutant-js/final.guard.json",
+      "sha256": "d0cb370b405d6a6ce3826ea271d54e1d3ab39bc066726661ef83884a975391f2"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "4f8a06098b326f30686bba051e9c971cb5fc6e49740bc7b85a1b426832e53a95",
+  "wholeOracleSHA256": "056d9a8333b8efee91219de33d2943868e88190f3fc015c5ceb66c16bdb184b6",
+  "completeNormalBaselineRejected": true
+}

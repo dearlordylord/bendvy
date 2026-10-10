@@ -1,0 +1,143 @@
+{
+  "scope": "Complete finite ordinary resource-only registered execution on empty/two-entity worlds normal native; aggregate Resources owner; no App debug integration/schedule/full56/performance claim",
+  "planSHA256": "74e678620750a2687a82c2e9f72f3ada1286d6551dc1518441dfc923513fab3c",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-system-v1/consumer.bend",
+        "-o",
+        "/tmp/bendvy-resource-system-runtime01/normal-native/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/tmp/bendvy-resource-system-runtime01/normal-native/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-resource-system-runtime01/normal-native/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "build",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-resource-system-runtime01/normal-native/scenario.c",
+        "-o",
+        "/tmp/bendvy-resource-system-runtime01/normal-native/scenario.native",
+        "-pthread",
+        "-lm"
+      ],
+      "capSeconds": 120,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/tmp/bendvy-resource-system-runtime01/normal-native/build.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-resource-system-runtime01/normal-native/build.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/tmp/bendvy-resource-system-runtime01/normal-native/scenario.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "ee166e354afca23d1b2ac87424b97925172d79a7cb693285a36ac188c7ef0714",
+      "stdout": {
+        "path": "/tmp/bendvy-resource-system-runtime01/normal-native/consumer.stdout",
+        "sha256": "e5bd4d3c96c88428603b0329be8679faf28566d1f8dc5f166c596864fb9d8fe6",
+        "bytes": 2294,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-resource-system-runtime01/normal-native/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-native/emit-pre.guard.json",
+      "sha256": "e64add60c1fd55c4bb2fffe5c19d2d653a4b4f0bb2258fcfba7b67b9597d598a"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-native/emit-acquired.guard.json",
+      "sha256": "d5a5b39ce93cffef95cacc4f7c91da433e9e76381590ad75b728eae52c4982fa"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-native/emit-post.guard.json",
+      "sha256": "f034a2aefb027cd77ce6a02a8a200e56ff3b07dfdb40e4fae08b792cae49b399"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-native/build-pre.guard.json",
+      "sha256": "a0a65fe28e3de768fff86287f3836095641b60c0a180b23ac53a94f1ee8d4dbc"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-native/build-acquired.guard.json",
+      "sha256": "15d778ad2f63c52deb1d49e0fac3df1632e889769fe4cea66f9e07b803d6e48c"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-native/build-post.guard.json",
+      "sha256": "0e4b785b42d5a67bf00f81572b2e6560f23f04697321b841b68754f30e5c1017"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-native/consumer-pre.guard.json",
+      "sha256": "611b5b9f29275ae16fa10174141504c697dbc57826e437542c8b0397efa8e7f5"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-native/consumer-acquired.guard.json",
+      "sha256": "9b67aed7ab809607cf6fcbfc58116dde6ceb037bb7073f10c5cfe5d687d48b17"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-native/consumer-post.guard.json",
+      "sha256": "c2cd449dd3ee0cb6fc148baaf10cdcde650cbfeba923603f069b1d542342656f"
+    },
+    {
+      "path": "/tmp/bendvy-resource-system-runtime01/normal-native/final.guard.json",
+      "sha256": "2725aab65b1b6fdbce3acb5f2c0a8e05127cd295171d824ea7a359d1c1c3374f"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "acd201543316542126340e187b415659c1f173d9018de8a66531eaf5a58e24eb",
+  "buildArtifactSHA256": "a41d5eb978db6d844e608e76a251904f018129a91bd760a9a4ffeff0f78bdf16",
+  "wholeOracleSHA256": "e5bd4d3c96c88428603b0329be8679faf28566d1f8dc5f166c596864fb9d8fe6"
+}
