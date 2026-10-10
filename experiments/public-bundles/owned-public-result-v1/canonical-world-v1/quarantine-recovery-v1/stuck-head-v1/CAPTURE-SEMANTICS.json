@@ -1,0 +1,11 @@
+{
+  "source": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/canonical-world-v1/canonical.bend",
+  "sourceSHA256": "8bc08af4bdb0ccc8970137d0d67c4e3b3261f66320925e510045a90afb895fa0",
+  "literalSource": "def undo(wire:D.Raw,fail:Bool,owner:Payload) -> Incoming:\n  match owner:\n    case Payload{owned,_}:Incoming{owned,wire,fail}\ndef built(allowed:Bool,+wire:D.Raw,+fail:Bool,owned:Array<U32>,number:U32) -> Build.Construction<Incoming,Payload,Custom>:\n  match allowed:\n    case True{}:Build.Constructed{Payload{owned,number},p => undo(wire,fail,p)}\n    case False{}:Build.Invalid{Incoming{owned,wire,fail},Blocked{}}\ndef decoded(owner:Incoming,canonical:D.Raw) -> Build.Construction<Incoming,Payload,Custom>:\n  match owner canonical:\n    case Incoming{owned,wire,+fail} D.Number{number}:built(Bool.not(fail),wire,fail,owned,number)\n    case owner _:Build.Invalid{owner,Blocked{}}\n",
+  "reason": "undo captures raw wire/fail; Payload.number is ignored, owned array is returned",
+  "modelLiteralCorrection": {
+    "old": "self.returned.insert(0,tree((41,42))+\"/wire=Number(17)/fail=False/tail=\"+tail(False))",
+    "new": "self.returned.insert(0,tree((41,42))+\"/wire=Number(9)/fail=False/tail=\"+tail(False))"
+  },
+  "limits": "No actual stdout consulted; complete model regenerates solely from source; eef45 unchanged"
+}
