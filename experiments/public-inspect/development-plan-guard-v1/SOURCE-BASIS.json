@@ -1,0 +1,83 @@
+{
+  "basis": {
+    "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py": "d6bca6f968ea52ed186a8d0890884ac054287417ce07a1a75b53a4646190d144",
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/runtime-v1/prepared-attempt03/js-plan.json": "b202e370060112e3b08998bdd065abe93ebb276ff1ea867c5dbcec8b58893b6d",
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/runtime-v1/prepared-attempt03/native-plan.json": "1c1b66abd4e83d17b88937eb30dfa7d4d029c71530c05da3acffc9703a55b0dd"
+  },
+  "guardSHA256": "3f3ff92f6bcf3709fd851ee991b677bd7b39819aafa4c8fa0c24a7493fa8eb9d",
+  "testSHA256": "1241099daf057e707eedf16086f18972bee6475fc82082c1350feec8ac9a52c2",
+  "actualTests": {
+    "session": 12223,
+    "exit": 0,
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "python3",
+      "-m",
+      "unittest",
+      "-v",
+      "test_plan_guard.py"
+    ],
+    "childCommands": 0,
+    "controls": 21,
+    "stdout": {
+      "originalPath": "/tmp/bendvy-development-plan-guard05.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "stderr": {
+      "originalPath": "/tmp/bendvy-development-plan-guard05.stderr",
+      "sha256": "a0f2ec8d85194413918213fabcbfc4b238156b39cb77d88d4a8bc4be76de8f43",
+      "bytes": 2619
+    }
+  },
+  "actualPrepareFixtures": {
+    "js": {
+      "originalPath": "/tmp/bendvy-ordinary-inspector-detached-normal-js01/plan.json",
+      "sha256": "d33237c1ab34439dbe2d1f5274d9f5b07082a1ab96cec58da7c9161e5dfe875f",
+      "fixture": "fixtures/prepare-js.json.gz"
+    },
+    "native": {
+      "originalPath": "/tmp/bendvy-ordinary-inspector-detached-normal-native01/plan.json",
+      "sha256": "27c3c2bacab5c458db0821522cfbf901cb04d04f7cd31b268509f4af0e2e4404",
+      "fixture": "fixtures/prepare-native.json.gz"
+    }
+  },
+  "integration": {
+    "testSHA256": "92bb1c89d6d64b472ab8ff3291d9fa4c0d73fd0304a17f4d12df13086c85ac27",
+    "collectorPath": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+    "collectorSHA256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+    "controls": 4,
+    "exit": 0,
+    "toolChunk": "6c2c94",
+    "childCommands": 0,
+    "normalSource": "actual selected collector unmodified; only PLAN_GUARD path rebound to pinned candidate",
+    "mutant": "remove exactly one actual validate call; no shared mutation",
+    "failedHarness01": {
+      "session": 94829,
+      "exit": 143,
+      "cause": "test outer lock nested with collector internal lock; stopped only own PID207998",
+      "claim": "not a collector defect or passing evidence"
+    },
+    "01.stdout": {
+      "originalPath": "/tmp/bendvy-development-plan-guard-integration01.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "01.stderr": {
+      "originalPath": "/tmp/bendvy-development-plan-guard-integration01.stderr",
+      "sha256": "fe1de52495a07ae6a957db9aa938bdbcb0f4e1d34487bad0aaa33ab60e9decf2",
+      "bytes": 125
+    },
+    "02.stdout": {
+      "originalPath": "/tmp/bendvy-development-plan-guard-integration02.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "02.stderr": {
+      "originalPath": "/tmp/bendvy-development-plan-guard-integration02.stderr",
+      "sha256": "172735948e4000955dad9977117abaea274c79a678cf3aaaafb4a96973438e41",
+      "bytes": 708
+    }
+  }
+}

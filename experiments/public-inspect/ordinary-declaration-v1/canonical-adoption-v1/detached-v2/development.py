@@ -18,6 +18,7 @@ from pathlib import Path
 
 ROOT = Path('/workspace/formal-proofs/bendvy')
 HERE = Path(__file__).resolve().parent
+PLAN_GUARD = ROOT / 'experiments/public-inspect/development-plan-guard-v1/plan_guard.py'
 
 
 def sha(path):
@@ -107,7 +108,7 @@ def prepare(out, role, subject):
     config = ROOT / 'experiments/public-simulation/delivery-v1/installed-config.py'
     configuration = load('installed_configuration', config)
     helper = load('preparation_runner', ROOT / 'scripts/task_runner.py')
-    extra = [config, Path(__file__), HERE / 'SOURCE.json', HERE / 'ORACLES.json', HERE / 'test-preparation.py', HERE / 'RECIPE.json', HERE / 'collector.patch', HERE / 'parent-development.py.source', expected_path, baseline_path,
+    extra = [config, PLAN_GUARD, Path(__file__), HERE / 'SOURCE.json', HERE / 'ORACLES.json', HERE / 'test-preparation.py', HERE / 'RECIPE.json', HERE / 'collector.patch', HERE / 'parent-development.py.source', expected_path, baseline_path,
              source_dir / 'result.json', source_dir / 'SOURCE.json', source_dir / 'post.json', source_dir / 'stdout', source_dir / 'stderr',
              ROOT / 'scripts/task_runner.py', ROOT / 'scripts/evidence_boundary.py', *map(Path,tools.values())]
     extra.extend(Path(path) for path in selection['basisInputs'])
@@ -145,6 +146,7 @@ def run(plan_path, expected_sha):
     VERIFIED_SOURCES={name:Path(name).read_bytes()for name in plan['pins']if name.endswith('.py')}
     if any(hashlib.sha256(raw).hexdigest()!=plan['pins'][name]for name,raw in VERIFIED_SOURCES.items()):raise ValueError('captured helper source drift')
     out = plan_path.parent
+    load('development_plan_guard', PLAN_GUARD).validate(plan, output_dir=out)
     runner = load('task_runner', ROOT / 'scripts/task_runner.py')
     boundary = load('evidence_boundary', ROOT / 'scripts/evidence_boundary.py')
     pins = dict(plan['pins'])
