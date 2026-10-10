@@ -1,0 +1,27 @@
+{
+  "other": "/tmp/bendvy-ordinary-stream-app-affected-source01/entry-other-public",
+  "negatives": [
+    {
+      "subject": "duplicate",
+      "capture": "/tmp/bendvy-ordinary-stream-app-affected-source01/authority-controls/duplicate",
+      "expectedExit": 1
+    },
+    {
+      "subject": "foreign",
+      "capture": "/tmp/bendvy-ordinary-stream-app-affected-source01/authority-controls/foreign",
+      "expectedExit": 1
+    },
+    {
+      "subject": "read-only-app",
+      "capture": "/tmp/bendvy-ordinary-stream-app-affected-source01/authority-controls/read-only-app",
+      "expectedExit": 1
+    },
+    {
+      "subject": "other-declaration",
+      "capture": "/tmp/bendvy-ordinary-stream-app-affected-source01/authority-controls/other-declaration",
+      "expectedExit": 1
+    }
+  ],
+  "mutant": "/tmp/bendvy-ordinary-stream-app-mutant-source01/entry-mutant",
+  "mutantDelta": "Enabled snapshot_read increments preserved inspector cursor once; ordinary read and disabled branch untouched. Constructor module names also follow private clone/printer source and must be modelled independently."
+}
