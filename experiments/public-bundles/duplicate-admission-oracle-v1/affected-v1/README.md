@@ -1,0 +1,13 @@
+Independent complete source-only models for9734b0d61. No affected runtime outputs were read. Case-specific source bases bind actual selected checker captures and full closures; the catalogue exposes each basis path.
+
+SchemaB preserves6879 bytes after six nominal non-import body inverses and resolved shared generic frontend/canonical imports. Explicit IO String observers contain no schema QName.
+
+All-valid keeps duplicate refusal before construction, but remaining raw has Number7. The caller retains extra Array91/92 and retries the valid four-entry pack directly; there is no construction refusal or repair. Its complete output contains ten lines, retaining all physical columns, registry metadata, raw owners, clocks and inverse results.
+
+All-valid bypass changes the actual SF.validate call to Valid. Both heads construct successfully. Actual Batch.spawn reserves id1, stores Prepared position1 ahead of ReservationReceipt, and stages one activation command. The duplicate-only runner finishes the transaction while RETAINING these packets; it never calls Batch.finish to install them. Before barrier the entity is inactive/pending1; afterward active/pending0. All four columns remain absent, clock0, saved0, context trail[tail], registry1 cursor0. Prepared text unpacks the actual five-entry packet undo into original raw values8/7 and keeps the reservation receipt. Three complete lines differ from the complete6070 all-valid baseline, which is the required rejection input; bad-input6879 is not the mutant baseline.
+
+Missing uses a valid four-entry plan and Number7 raw. It reserves an inactive target, then construction appends tail before MissingEntity refusal. Caller activation allows a second full construction, so context trail progresses0→1→2. Insert queues only delivery, installs all four families at barrier clock4, then inverse restores absence/zero stamps and returns full original raw7.
+
+Foreign creates two actual WorldIO worlds in one emitted process: home namespace1/spare70,71 and peer namespace2/spare80,81. Peer reserves/activates id1; home registers the normal system. Two valid constructed requests using the peer handle refuse MissingEntity, each appending tail, while both complete Worlds stay unchanged. Peer has no registry and no component installation. This is the existing same-process actual foreign-world channel, not independent-root/global uniqueness.
+
+Scope remains finite complete ordinary admission/retry/owner observations. No new duplicate/disposal/recovery contract, compiler adoption, IO proof acceptance, TS feature equivalence/timing or full #41 closure is implied by source models.
