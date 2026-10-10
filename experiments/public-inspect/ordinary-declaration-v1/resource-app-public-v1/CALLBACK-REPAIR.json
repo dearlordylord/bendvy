@@ -1,0 +1,16 @@
+{
+  "priorInputs": [
+    "checks/prior01-consumer.bend.source",
+    "checks/prior01-sequence.bend.source"
+  ],
+  "reason": "NormalOther01 source deadline137; no cause attribution. Generic copies Value Type previously exceeded32K. snapshots indexes only opaque App, generates closed function references7 times.",
+  "semanticDelta": "Fixed test construction only: [snapshot,...7] becomes snapshots(~App,~snapshot,7n). Enables3/invocations3 unchanged, no runtime owner/function value duplicated.",
+  "scope": "Snapshot factory is private test harness only, not required ordinary App API.",
+  "currentChecks": [
+    "a02",
+    "other02",
+    "a-mutant02",
+    "other-mutant02"
+  ],
+  "priorRelocationManifest": "PUBLIC-RELOCATION.json describes initial import-only candidate before callback repair."
+}
