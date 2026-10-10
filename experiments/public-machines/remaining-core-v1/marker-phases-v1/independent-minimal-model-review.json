@@ -1,0 +1,17 @@
+{
+  "status": "SOURCE_MODEL_SECOND_SANITY_PASS",
+  "sourcePins": 29,
+  "modelSHA256": "30dc9974578a9410326adccab13dbbf9ce67890dbabe682e16db965e50c3647c",
+  "outputBytes": 2326,
+  "outputSHA256": "b863dceb758ffeea8ef3ea184e86556c47ccba46286263f2d11580ef1587fb1d",
+  "runtimeInputsConsulted": false,
+  "reviewed": [
+    "structural callback drains once before cohort capture",
+    "both initial pending values captured/reset before apply",
+    "global apply/exit/transition/enter sequence",
+    "six tracked hooks read committed values then queue next cohort",
+    "two markers and retained complete raw event order",
+    "world metadata/registry cursor and three physical affine array owners"
+  ],
+  "limits": "All-success two-machine finite phase primitive; no handler failure, initialization, independent readers, full #48 or performance claim"
+}
