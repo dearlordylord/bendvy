@@ -167,3 +167,5 @@ The four group IDs are schedule adapter IDs, not registered gameplay authorities
 The finite installer does not supply machine initialization or handler lifecycle
 implementation: those remain governed by #48/#49 and the
 [current delivery index](../../docs/parity/README.md#current-delivery-coordination).
+
+`ordinary-app-schedule` retains an ordinary `schedule-provision.Plan` with the schema App that owns its World and registered systems. Attach the operational Plan once; enabling debug makes snapshots derive the ordered steps and their declared requirements from that same Plan, alongside the App’s declaration-derived schema, accesses and values. Disabled snapshots bypass presentation. Invalid attachment returns the original App. Running uses the existing owner-preserving dispatcher, conditions and provision callback; finished, failed, rejected and missing results return the owned App. Existing provision checks run before the Schedule namespace check. The finite ordinary examples qualify these paths with Unit-output scheduled systems; they do not establish every automatic-debug category or full #56 completion.
