@@ -1,0 +1,760 @@
+[
+  {
+    "label": "initial",
+    "tick": 0,
+    "frameStart": 0,
+    "boundary": 0,
+    "dropped": 0,
+    "batches": [],
+    "positions": [],
+    "events": [],
+    "reads": [],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "register",
+    "tick": 2,
+    "frameStart": 0,
+    "boundary": 0,
+    "dropped": 0,
+    "batches": [],
+    "positions": [
+      [
+        2,
+        2,
+        1
+      ],
+      [
+        1,
+        1,
+        0
+      ]
+    ],
+    "events": [],
+    "reads": [
+      [
+        "fast",
+        [],
+        false
+      ],
+      [
+        "slow",
+        [],
+        false
+      ]
+    ],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "publish-fast",
+    "tick": 4,
+    "frameStart": 2,
+    "boundary": 0,
+    "dropped": 0,
+    "batches": [
+      [
+        3,
+        [
+          10,
+          11
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        2,
+        1
+      ],
+      [
+        1,
+        4,
+        0
+      ]
+    ],
+    "events": [
+      10,
+      11
+    ],
+    "reads": [
+      [
+        "fast",
+        [
+          10,
+          11
+        ],
+        false
+      ]
+    ],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "slow-retains-first",
+    "tick": 4,
+    "frameStart": 4,
+    "boundary": 2,
+    "dropped": 0,
+    "batches": [
+      [
+        3,
+        [
+          10,
+          11
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        2,
+        1
+      ],
+      [
+        1,
+        4,
+        0
+      ]
+    ],
+    "events": [
+      10,
+      11
+    ],
+    "reads": [],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "slow-retains-second",
+    "tick": 4,
+    "frameStart": 4,
+    "boundary": 4,
+    "dropped": 0,
+    "batches": [
+      [
+        3,
+        [
+          10,
+          11
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        2,
+        1
+      ],
+      [
+        1,
+        4,
+        0
+      ]
+    ],
+    "events": [
+      10,
+      11
+    ],
+    "reads": [],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "failed-read",
+    "tick": 5,
+    "frameStart": 4,
+    "boundary": 4,
+    "dropped": 0,
+    "batches": [
+      [
+        3,
+        [
+          10,
+          11
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        2,
+        1
+      ],
+      [
+        1,
+        4,
+        0
+      ]
+    ],
+    "events": [
+      10,
+      11
+    ],
+    "reads": [
+      [
+        "slow",
+        [
+          10,
+          11
+        ],
+        false
+      ]
+    ],
+    "ok": false,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "retry-read",
+    "tick": 6,
+    "frameStart": 5,
+    "boundary": 4,
+    "dropped": 0,
+    "batches": [
+      [
+        3,
+        [
+          10,
+          11
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        6,
+        1
+      ],
+      [
+        1,
+        4,
+        0
+      ]
+    ],
+    "events": [
+      10,
+      11
+    ],
+    "reads": [
+      [
+        "slow",
+        [
+          10,
+          11
+        ],
+        false
+      ]
+    ],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "cleanup-passed",
+    "tick": 6,
+    "frameStart": 6,
+    "boundary": 5,
+    "dropped": 3,
+    "batches": [],
+    "positions": [
+      [
+        2,
+        6,
+        1
+      ],
+      [
+        1,
+        4,
+        0
+      ]
+    ],
+    "events": [],
+    "reads": [],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "publish-skip",
+    "tick": 7,
+    "frameStart": 6,
+    "boundary": 6,
+    "dropped": 3,
+    "batches": [
+      [
+        7,
+        [
+          20
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        6,
+        1
+      ],
+      [
+        1,
+        7,
+        0
+      ]
+    ],
+    "events": [
+      20
+    ],
+    "reads": [],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "after-skip",
+    "tick": 8,
+    "frameStart": 7,
+    "boundary": 6,
+    "dropped": 3,
+    "batches": [
+      [
+        7,
+        [
+          20
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        6,
+        1
+      ],
+      [
+        1,
+        8,
+        0
+      ]
+    ],
+    "events": [
+      20
+    ],
+    "reads": [
+      [
+        "fast",
+        [],
+        false
+      ]
+    ],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "slow-after-skip",
+    "tick": 9,
+    "frameStart": 8,
+    "boundary": 7,
+    "dropped": 3,
+    "batches": [
+      [
+        7,
+        [
+          20
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        9,
+        1
+      ],
+      [
+        1,
+        8,
+        0
+      ]
+    ],
+    "events": [
+      20
+    ],
+    "reads": [
+      [
+        "slow",
+        [
+          20
+        ],
+        false
+      ]
+    ],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "failed-publication",
+    "tick": 10,
+    "frameStart": 9,
+    "boundary": 8,
+    "dropped": 7,
+    "batches": [],
+    "positions": [
+      [
+        2,
+        9,
+        1
+      ],
+      [
+        1,
+        8,
+        0
+      ]
+    ],
+    "events": [],
+    "reads": [],
+    "ok": false,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "retry-publication",
+    "tick": 11,
+    "frameStart": 10,
+    "boundary": 9,
+    "dropped": 7,
+    "batches": [
+      [
+        11,
+        [
+          21
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        9,
+        1
+      ],
+      [
+        1,
+        8,
+        0
+      ]
+    ],
+    "events": [
+      21
+    ],
+    "reads": [],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "both-read-retry",
+    "tick": 13,
+    "frameStart": 11,
+    "boundary": 10,
+    "dropped": 7,
+    "batches": [
+      [
+        11,
+        [
+          21
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        13,
+        1
+      ],
+      [
+        1,
+        12,
+        0
+      ]
+    ],
+    "events": [
+      21
+    ],
+    "reads": [
+      [
+        "fast",
+        [
+          21
+        ],
+        false
+      ],
+      [
+        "slow",
+        [
+          21
+        ],
+        false
+      ]
+    ],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "capacity-first-batch",
+    "tick": 14,
+    "frameStart": 13,
+    "boundary": 11,
+    "dropped": 11,
+    "batches": [
+      [
+        14,
+        [
+          30,
+          30
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        13,
+        1
+      ],
+      [
+        1,
+        12,
+        0
+      ]
+    ],
+    "events": [
+      30,
+      30
+    ],
+    "reads": [],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "capacity-second-batch",
+    "tick": 15,
+    "frameStart": 14,
+    "boundary": 13,
+    "dropped": 11,
+    "batches": [
+      [
+        14,
+        [
+          30,
+          30
+        ]
+      ],
+      [
+        15,
+        [
+          40,
+          41
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        13,
+        1
+      ],
+      [
+        1,
+        12,
+        0
+      ]
+    ],
+    "events": [
+      30,
+      30,
+      40,
+      41
+    ],
+    "reads": [],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "capacity-enforced",
+    "tick": 15,
+    "frameStart": 15,
+    "boundary": 14,
+    "dropped": 14,
+    "batches": [
+      [
+        15,
+        [
+          40,
+          41
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        13,
+        1
+      ],
+      [
+        1,
+        12,
+        0
+      ]
+    ],
+    "events": [
+      40,
+      41
+    ],
+    "reads": [],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "lagged-readers",
+    "tick": 17,
+    "frameStart": 15,
+    "boundary": 15,
+    "dropped": 14,
+    "batches": [
+      [
+        15,
+        [
+          40,
+          41
+        ]
+      ]
+    ],
+    "positions": [
+      [
+        2,
+        17,
+        1
+      ],
+      [
+        1,
+        16,
+        0
+      ]
+    ],
+    "events": [
+      40,
+      41
+    ],
+    "reads": [
+      [
+        "fast",
+        [
+          40,
+          41
+        ],
+        true
+      ],
+      [
+        "slow",
+        [
+          40,
+          41
+        ],
+        true
+      ]
+    ],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "label": "cleanup-after-lag",
+    "tick": 17,
+    "frameStart": 17,
+    "boundary": 15,
+    "dropped": 15,
+    "batches": [],
+    "positions": [
+      [
+        2,
+        17,
+        1
+      ],
+      [
+        1,
+        16,
+        0
+      ]
+    ],
+    "events": [],
+    "reads": [],
+    "ok": true,
+    "registryCursors": [
+      0,
+      0,
+      0
+    ]
+  }
+]

@@ -1,0 +1,74 @@
+"""Source-only interpretation of c0ce22953's nineteen event phases. No output inputs."""
+import json, gzip, hashlib
+from pathlib import Path
+
+def ls(items): return '[' + ', '.join(map(str, items)) + ']'
+def truth(value): return 'true' if value else 'false'
+def observations(items):
+    return ls(['{"reader":"'+r+'","values":['+','.join(map(str,v))+'],"lagged":'+truth(l)+'}' for r,v,l in items])
+
+class Runtime:
+    def __init__(self):
+        self.batches=[]; self.positions=[]; self.events=[]
+        self.tick=0; self.frame_start=0; self.boundary=0; self.dropped=0
+        self.reads=[]; self.ok=True
+    def values(self): return [x for _,v in self.batches for x in v]
+    def frame(self):
+        self.boundary,self.frame_start=self.frame_start,self.tick
+        boundary=min([self.boundary]+[p[1] for p in self.positions])
+        while self.batches and self.batches[0][0]<=boundary:
+            self.dropped=max(self.dropped,self.batches.pop(0)[0])
+        while len(self.values())>3:
+            self.dropped=max(self.dropped,self.batches.pop(0)[0])
+        self.events=self.values(); self.reads=[]; self.ok=True
+    def sync(self):
+        published=self.events[len(self.values()):]
+        if published: self.batches.append((self.tick,published[:]))
+    def publish(self,value,count=1,second=None,fail=False):
+        # Tx reverse accumulation is reversed at success; failure has no journal or publication.
+        self.tick+=1
+        if not fail: self.events += [value]*count + ([] if second is None else [second])
+        self.sync(); self.ok=not fail
+    def read(self,fast=True,fail=False):
+        rid=1 if fast else 2
+        p=next((p for p in self.positions if p[0]==rid),None)
+        cursor,registered=(p[1],p[2]) if p else (0,self.tick)
+        values=[x for t,v in self.batches if t>cursor for x in v]
+        self.reads.append(('fast' if fast else 'slow',values,self.dropped>max(cursor,registered)))
+        old_tick=self.tick; self.tick+=1
+        if p is None:
+            p=[rid,0,old_tick]; self.positions.insert(0,p)
+        if not fail: p[1]=self.tick; self.sync()
+        self.ok=not fail
+    def skip(self):
+        for p in self.positions:
+            if p[0]==1: p[1]=self.tick
+    def physical(self):
+        world='world{1|1|0|leaf:False|1|0|Unit|Unit|'+ls(self.events)+'|pending=0|registrations=[3:slow:[Signal:read], 2:fast:[Signal:read], 1:publish:[Signal:write]]|nextSystem=4|clock=0}'
+        batches=ls([str(t)+':'+ls(v) for t,v in self.batches])
+        positions=ls([':'.join(map(str,p)) for p in self.positions])
+        return world+'|runtime{1|batches='+batches+'|positions='+positions+'|nextReader=3|tick='+str(self.tick)+'|frame='+str(self.frame_start)+'|boundary='+str(self.boundary)+'|capacity=3|dropped='+str(self.dropped)+'}'
+    def debug(self,flag):
+        uses=['Events:Signal:write:writer:1:1:publish:[Signal:write]:cursor=0','Events:Signal:read:reader:1:2:fast:[Signal:read]:cursor=0','Events:Signal:read:reader:1:3:slow:[Signal:read]:cursor=0'] if flag else ['Disabled']*3
+        return 'debug='+truth(flag)+'|uses=['+';'.join(uses)+']|readers=[1:1:registry=2;1:2:registry=3]|ok='+truth(self.ok)+'|reads='+observations(self.reads)+'|'+self.physical()
+
+def derive():
+    r=Runtime(); result=[]; states=[]
+    steps=[('initial',[]),('register',[('r',True,False),('r',False,False)]),('publish-fast',[('p',10,1,11,False),('r',True,False)]),('slow-retains-first',[]),('slow-retains-second',[]),('failed-read',[('r',False,True)]),('retry-read',[('r',False,False)]),('cleanup-passed',[]),('publish-skip',[('p',20,1,None,False),('s',)]),('after-skip',[('r',True,False)]),('slow-after-skip',[('r',False,False)]),('failed-publication',[('p',999,1,None,True)]),('retry-publication',[('p',21,1,None,False)]),('both-read-retry',[('r',True,False),('r',False,False)]),('capacity-first-batch',[('p',30,2,None,False)]),('capacity-second-batch',[('p',40,1,41,False)]),('capacity-enforced',[]),('lagged-readers',[('r',True,False),('r',False,False)]),('cleanup-after-lag',[])]
+    for label,actions in steps:
+        r.frame()
+        for op,*args in actions:
+            {'p':r.publish,'r':r.read,'s':r.skip}[op](*args)
+        result.append(label+'|'+'\n'.join(r.debug(flag) for flag in [False,True,True,False]))
+        states.append({'label':label,'tick':r.tick,'frameStart':r.frame_start,'boundary':r.boundary,'dropped':r.dropped,'batches':[(t,v[:]) for t,v in r.batches],'positions':[p[:] for p in r.positions],'events':r.events[:],'reads':r.reads[:],'ok':r.ok,'registryCursors':[0,0,0]})
+    # Bend show_val of List<String>: list punctuation, quoted escaped Strings, external LF.
+    return (json.dumps(result,ensure_ascii=False,separators=(', ', ': '))+'\n').encode(),states
+
+if __name__=='__main__':
+    root=Path(__file__).resolve().parent
+    raw,states=derive()
+    (root/'expected.stdout').write_bytes(raw)
+    (root/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    (root/'STATES.json').write_text(json.dumps(states,indent=2)+'\n')
+    entry={'path':str(root/'expected.stdout'),'gzip':str(root/'expected.stdout.gz'),'stdout':str(root/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+    (root/'ORACLES.json').write_text(json.dumps({'normal':entry},indent=2)+'\n')
