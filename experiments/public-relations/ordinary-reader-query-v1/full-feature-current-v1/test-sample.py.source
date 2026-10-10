@@ -1,0 +1,34 @@
+"""No-child complete-protocol controls and retained nine-case wire checks."""
+from pathlib import Path
+import gzip,importlib.util,importlib.machinery,json,unittest
+HERE=Path(__file__).resolve().parent
+s=importlib.util.spec_from_file_location('sample',HERE/'sample.py.source',loader=importlib.machinery.SourceFileLoader('sample',str(HERE/'sample.py.source')));M=importlib.util.module_from_spec(s);s.loader.exec_module(M)
+s=importlib.util.spec_from_file_location('force','/workspace/formal-proofs/bendvy/experiments/public-relations/timing/current-qualification-v1/trace-cheap.py');F=importlib.util.module_from_spec(s);s.loader.exec_module(F)
+class Protocol(unittest.TestCase):
+ def setUp(self):
+  self.value={'roots':[{'root':'Workshop','records':[{'phase':'queued','last':[1,2]},{'phase':'applied','last':[2,1]}]},{'root':'Other','records':[]} ]};self.walk=F.force(self.value);self.stdout=json.dumps(self.value).encode();self.end={'boundary':'complete-trace-forced',**self.walk,'region':M.REGION,'elapsedNs':'123'};self.stderr=self.markers(self.end)
+ def markers(self,end):return (json.dumps({'boundary':'begin'})+'\n'+json.dumps(end)+'\n').encode()
+ def test_positive(self):self.assertEqual(M.validate(self.stdout,self.stderr,self.value,self.walk)['elapsedNs'],'123')
+ def test_full_last_field_not_digest_substitute(self):
+  changed=json.loads(self.stdout);changed['roots'][0]['records'][1]['last']=[2,0]
+  with self.assertRaises(ValueError):M.validate(json.dumps(changed).encode(),self.stderr,self.value,self.walk)
+ def test_actual_chronology(self):
+  changed=json.loads(self.stdout);changed['roots'][0]['records'].reverse()
+  with self.assertRaises(ValueError):M.validate(json.dumps(changed).encode(),self.stderr,self.value,self.walk)
+ def test_extra_missing_duplicate_markers(self):
+  for raw in (b'',self.stderr+b'{}\n',self.stderr.splitlines()[1]+b'\n',self.stderr+self.stderr):
+   with self.assertRaises(ValueError):M.validate(self.stdout,raw,self.value,self.walk)
+ def test_unforced_or_wrong_region(self):
+  for field,value in [('nodes',self.walk['nodes']+1),('sum',True),('region','whole-process'),('elapsedNs','-1'),('elapsedNs',123)]:
+   end={**self.end,field:value}
+   with self.assertRaises(ValueError):M.validate(self.stdout,self.markers(end),self.value,self.walk)
+ def test_no_old_header_or_missing_full_output(self):
+  for raw in (b'{"elapsedNs":123}\n'+self.stdout,b'{}',b'123'):
+   with self.assertRaises((ValueError,json.JSONDecodeError)):M.validate(raw,self.stderr,self.value,self.walk)
+ def test_retained_all_nine_js_and_native(self):
+  basis=json.loads((HERE/'PLAN.json').read_text());old=Path(basis['extends']).parent/'phase2/remainder-v1/chunk-serializer-v1/whole-feature-timing-v1'
+  for c in basis['cases']:
+   expected=json.loads(gzip.decompress((old/'prepared'/c['oracle']).read_bytes()));walk=F.force(expected);label='-'.join(c['input'])
+   for directory in [old/'direct-runtime-evidence-v1/full-js',old/'direct-native-evidence-v1']:
+    M.validate(gzip.decompress((directory/(label+'.stdout.gz')).read_bytes()),gzip.decompress((directory/(label+'.stderr.gz')).read_bytes()),expected,walk)
+if __name__=='__main__':unittest.main()

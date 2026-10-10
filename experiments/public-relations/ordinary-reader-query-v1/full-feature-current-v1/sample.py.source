@@ -1,0 +1,13 @@
+"""Qualified direct-driver protocol; complete observations, no process execution."""
+import json,re
+REGION='whole-feature-setup-operations-full-trace'
+def validate(stdout,stderr,expected,walk):
+    actual=json.loads(stdout)
+    if actual!=expected:raise ValueError('complete independent trace mismatch')
+    markers=[json.loads(line) for line in stderr.splitlines()]
+    if len(markers)!=2 or markers[0]!={'boundary':'begin'}:raise ValueError('exact Begin then Complete required')
+    end=markers[1]
+    if set(end)!={'boundary','nodes','characters','sum','region','elapsedNs'} or end['boundary']!='complete-trace-forced' or end['region']!=REGION:raise ValueError('exact complete region required')
+    if any(type(end[k]) is not int or end[k]!=walk[k] for k in ('nodes','characters','sum')):raise ValueError('complete forcing walk mismatch')
+    if not isinstance(end['elapsedNs'],str) or not re.fullmatch(r'[0-9]+',end['elapsedNs']):raise ValueError('decimal elapsedNs required')
+    return {'elapsedNs':end['elapsedNs'],'region':REGION,'nodes':end['nodes'],'characters':end['characters'],'sum':end['sum']}
