@@ -1,0 +1,1018 @@
+[
+  {
+    "schema": "ResourceA",
+    "entities": 0,
+    "enabled": true,
+    "debugHandle": true,
+    "description": {
+      "components": [
+        {
+          "name": "ResourceA/Tag",
+          "storage": "plain"
+        }
+      ],
+      "resources": [
+        {
+          "name": "ResourceA/Counter",
+          "storage": "plain",
+          "present": true
+        }
+      ],
+      "schedules": [
+        {
+          "name": "success",
+          "steps": [
+            {
+              "kind": "system",
+              "system": "ResourceA/Increment"
+            }
+          ]
+        },
+        {
+          "name": "failure",
+          "steps": [
+            {
+              "kind": "system",
+              "system": "ResourceA/Fail"
+            }
+          ]
+        }
+      ],
+      "systems": [
+        {
+          "name": "ResourceA/Increment",
+          "placements": [
+            "success#0"
+          ],
+          "queries": [],
+          "resources": {
+            "reads": [],
+            "writes": [
+              "ResourceA/Counter"
+            ]
+          }
+        },
+        {
+          "name": "ResourceA/Fail",
+          "placements": [
+            "failure#0"
+          ],
+          "queries": [],
+          "resources": {
+            "reads": [],
+            "writes": [
+              "ResourceA/Counter"
+            ]
+          }
+        }
+      ]
+    },
+    "before": {
+      "counter": 10,
+      "rows": []
+    },
+    "phases": [
+      {
+        "label": "success",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 11,
+          "rows": []
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          }
+        ]
+      },
+      {
+        "label": "failure",
+        "result": {
+          "ok": false,
+          "error": {
+            "kind": "SystemFailure",
+            "system": "ResourceA/Fail",
+            "error": "ExpectedFailure"
+          }
+        },
+        "state": {
+          "counter": 11,
+          "rows": []
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          }
+        ]
+      },
+      {
+        "label": "retry",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 12,
+          "rows": []
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          },
+          {
+            "body": "increment",
+            "prior": 11
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "schema": "ResourceA",
+    "entities": 0,
+    "enabled": false,
+    "debugHandle": false,
+    "description": null,
+    "before": {
+      "counter": 10,
+      "rows": []
+    },
+    "phases": [
+      {
+        "label": "success",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 11,
+          "rows": []
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          }
+        ]
+      },
+      {
+        "label": "failure",
+        "result": {
+          "ok": false,
+          "error": {
+            "kind": "SystemFailure",
+            "system": "ResourceA/Fail",
+            "error": "ExpectedFailure"
+          }
+        },
+        "state": {
+          "counter": 11,
+          "rows": []
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          }
+        ]
+      },
+      {
+        "label": "retry",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 12,
+          "rows": []
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          },
+          {
+            "body": "increment",
+            "prior": 11
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "schema": "ResourceA",
+    "entities": 2,
+    "enabled": true,
+    "debugHandle": true,
+    "description": {
+      "components": [
+        {
+          "name": "ResourceA/Tag",
+          "storage": "plain"
+        }
+      ],
+      "resources": [
+        {
+          "name": "ResourceA/Counter",
+          "storage": "plain",
+          "present": true
+        }
+      ],
+      "schedules": [
+        {
+          "name": "success",
+          "steps": [
+            {
+              "kind": "system",
+              "system": "ResourceA/Increment"
+            }
+          ]
+        },
+        {
+          "name": "failure",
+          "steps": [
+            {
+              "kind": "system",
+              "system": "ResourceA/Fail"
+            }
+          ]
+        }
+      ],
+      "systems": [
+        {
+          "name": "ResourceA/Increment",
+          "placements": [
+            "success#0"
+          ],
+          "queries": [],
+          "resources": {
+            "reads": [],
+            "writes": [
+              "ResourceA/Counter"
+            ]
+          }
+        },
+        {
+          "name": "ResourceA/Fail",
+          "placements": [
+            "failure#0"
+          ],
+          "queries": [],
+          "resources": {
+            "reads": [],
+            "writes": [
+              "ResourceA/Counter"
+            ]
+          }
+        }
+      ]
+    },
+    "before": {
+      "counter": 10,
+      "rows": [
+        {
+          "id": 1,
+          "tag": 7
+        },
+        {
+          "id": 2,
+          "tag": 8
+        }
+      ]
+    },
+    "phases": [
+      {
+        "label": "success",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 11,
+          "rows": [
+            {
+              "id": 1,
+              "tag": 7
+            },
+            {
+              "id": 2,
+              "tag": 8
+            }
+          ]
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          }
+        ]
+      },
+      {
+        "label": "failure",
+        "result": {
+          "ok": false,
+          "error": {
+            "kind": "SystemFailure",
+            "system": "ResourceA/Fail",
+            "error": "ExpectedFailure"
+          }
+        },
+        "state": {
+          "counter": 11,
+          "rows": [
+            {
+              "id": 1,
+              "tag": 7
+            },
+            {
+              "id": 2,
+              "tag": 8
+            }
+          ]
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          }
+        ]
+      },
+      {
+        "label": "retry",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 12,
+          "rows": [
+            {
+              "id": 1,
+              "tag": 7
+            },
+            {
+              "id": 2,
+              "tag": 8
+            }
+          ]
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          },
+          {
+            "body": "increment",
+            "prior": 11
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "schema": "ResourceA",
+    "entities": 2,
+    "enabled": false,
+    "debugHandle": false,
+    "description": null,
+    "before": {
+      "counter": 10,
+      "rows": [
+        {
+          "id": 1,
+          "tag": 7
+        },
+        {
+          "id": 2,
+          "tag": 8
+        }
+      ]
+    },
+    "phases": [
+      {
+        "label": "success",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 11,
+          "rows": [
+            {
+              "id": 1,
+              "tag": 7
+            },
+            {
+              "id": 2,
+              "tag": 8
+            }
+          ]
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          }
+        ]
+      },
+      {
+        "label": "failure",
+        "result": {
+          "ok": false,
+          "error": {
+            "kind": "SystemFailure",
+            "system": "ResourceA/Fail",
+            "error": "ExpectedFailure"
+          }
+        },
+        "state": {
+          "counter": 11,
+          "rows": [
+            {
+              "id": 1,
+              "tag": 7
+            },
+            {
+              "id": 2,
+              "tag": 8
+            }
+          ]
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          }
+        ]
+      },
+      {
+        "label": "retry",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 12,
+          "rows": [
+            {
+              "id": 1,
+              "tag": 7
+            },
+            {
+              "id": 2,
+              "tag": 8
+            }
+          ]
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          },
+          {
+            "body": "increment",
+            "prior": 11
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "schema": "ResourceOther",
+    "entities": 0,
+    "enabled": true,
+    "debugHandle": true,
+    "description": {
+      "components": [
+        {
+          "name": "ResourceOther/Tag",
+          "storage": "plain"
+        }
+      ],
+      "resources": [
+        {
+          "name": "ResourceOther/Counter",
+          "storage": "plain",
+          "present": true
+        }
+      ],
+      "schedules": [
+        {
+          "name": "success",
+          "steps": [
+            {
+              "kind": "system",
+              "system": "ResourceOther/Increment"
+            }
+          ]
+        },
+        {
+          "name": "failure",
+          "steps": [
+            {
+              "kind": "system",
+              "system": "ResourceOther/Fail"
+            }
+          ]
+        }
+      ],
+      "systems": [
+        {
+          "name": "ResourceOther/Increment",
+          "placements": [
+            "success#0"
+          ],
+          "queries": [],
+          "resources": {
+            "reads": [],
+            "writes": [
+              "ResourceOther/Counter"
+            ]
+          }
+        },
+        {
+          "name": "ResourceOther/Fail",
+          "placements": [
+            "failure#0"
+          ],
+          "queries": [],
+          "resources": {
+            "reads": [],
+            "writes": [
+              "ResourceOther/Counter"
+            ]
+          }
+        }
+      ]
+    },
+    "before": {
+      "counter": 10,
+      "rows": []
+    },
+    "phases": [
+      {
+        "label": "success",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 11,
+          "rows": []
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          }
+        ]
+      },
+      {
+        "label": "failure",
+        "result": {
+          "ok": false,
+          "error": {
+            "kind": "SystemFailure",
+            "system": "ResourceOther/Fail",
+            "error": "ExpectedFailure"
+          }
+        },
+        "state": {
+          "counter": 11,
+          "rows": []
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          }
+        ]
+      },
+      {
+        "label": "retry",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 12,
+          "rows": []
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          },
+          {
+            "body": "increment",
+            "prior": 11
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "schema": "ResourceOther",
+    "entities": 0,
+    "enabled": false,
+    "debugHandle": false,
+    "description": null,
+    "before": {
+      "counter": 10,
+      "rows": []
+    },
+    "phases": [
+      {
+        "label": "success",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 11,
+          "rows": []
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          }
+        ]
+      },
+      {
+        "label": "failure",
+        "result": {
+          "ok": false,
+          "error": {
+            "kind": "SystemFailure",
+            "system": "ResourceOther/Fail",
+            "error": "ExpectedFailure"
+          }
+        },
+        "state": {
+          "counter": 11,
+          "rows": []
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          }
+        ]
+      },
+      {
+        "label": "retry",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 12,
+          "rows": []
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          },
+          {
+            "body": "increment",
+            "prior": 11
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "schema": "ResourceOther",
+    "entities": 2,
+    "enabled": true,
+    "debugHandle": true,
+    "description": {
+      "components": [
+        {
+          "name": "ResourceOther/Tag",
+          "storage": "plain"
+        }
+      ],
+      "resources": [
+        {
+          "name": "ResourceOther/Counter",
+          "storage": "plain",
+          "present": true
+        }
+      ],
+      "schedules": [
+        {
+          "name": "success",
+          "steps": [
+            {
+              "kind": "system",
+              "system": "ResourceOther/Increment"
+            }
+          ]
+        },
+        {
+          "name": "failure",
+          "steps": [
+            {
+              "kind": "system",
+              "system": "ResourceOther/Fail"
+            }
+          ]
+        }
+      ],
+      "systems": [
+        {
+          "name": "ResourceOther/Increment",
+          "placements": [
+            "success#0"
+          ],
+          "queries": [],
+          "resources": {
+            "reads": [],
+            "writes": [
+              "ResourceOther/Counter"
+            ]
+          }
+        },
+        {
+          "name": "ResourceOther/Fail",
+          "placements": [
+            "failure#0"
+          ],
+          "queries": [],
+          "resources": {
+            "reads": [],
+            "writes": [
+              "ResourceOther/Counter"
+            ]
+          }
+        }
+      ]
+    },
+    "before": {
+      "counter": 10,
+      "rows": [
+        {
+          "id": 1,
+          "tag": 7
+        },
+        {
+          "id": 2,
+          "tag": 8
+        }
+      ]
+    },
+    "phases": [
+      {
+        "label": "success",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 11,
+          "rows": [
+            {
+              "id": 1,
+              "tag": 7
+            },
+            {
+              "id": 2,
+              "tag": 8
+            }
+          ]
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          }
+        ]
+      },
+      {
+        "label": "failure",
+        "result": {
+          "ok": false,
+          "error": {
+            "kind": "SystemFailure",
+            "system": "ResourceOther/Fail",
+            "error": "ExpectedFailure"
+          }
+        },
+        "state": {
+          "counter": 11,
+          "rows": [
+            {
+              "id": 1,
+              "tag": 7
+            },
+            {
+              "id": 2,
+              "tag": 8
+            }
+          ]
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          }
+        ]
+      },
+      {
+        "label": "retry",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 12,
+          "rows": [
+            {
+              "id": 1,
+              "tag": 7
+            },
+            {
+              "id": 2,
+              "tag": 8
+            }
+          ]
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          },
+          {
+            "body": "increment",
+            "prior": 11
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "schema": "ResourceOther",
+    "entities": 2,
+    "enabled": false,
+    "debugHandle": false,
+    "description": null,
+    "before": {
+      "counter": 10,
+      "rows": [
+        {
+          "id": 1,
+          "tag": 7
+        },
+        {
+          "id": 2,
+          "tag": 8
+        }
+      ]
+    },
+    "phases": [
+      {
+        "label": "success",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 11,
+          "rows": [
+            {
+              "id": 1,
+              "tag": 7
+            },
+            {
+              "id": 2,
+              "tag": 8
+            }
+          ]
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          }
+        ]
+      },
+      {
+        "label": "failure",
+        "result": {
+          "ok": false,
+          "error": {
+            "kind": "SystemFailure",
+            "system": "ResourceOther/Fail",
+            "error": "ExpectedFailure"
+          }
+        },
+        "state": {
+          "counter": 11,
+          "rows": [
+            {
+              "id": 1,
+              "tag": 7
+            },
+            {
+              "id": 2,
+              "tag": 8
+            }
+          ]
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          }
+        ]
+      },
+      {
+        "label": "retry",
+        "result": {
+          "ok": true
+        },
+        "state": {
+          "counter": 12,
+          "rows": [
+            {
+              "id": 1,
+              "tag": 7
+            },
+            {
+              "id": 2,
+              "tag": 8
+            }
+          ]
+        },
+        "calls": [
+          {
+            "body": "increment",
+            "prior": 10
+          },
+          {
+            "body": "fail",
+            "prior": 11
+          },
+          {
+            "body": "increment",
+            "prior": 11
+          }
+        ]
+      }
+    ]
+  }
+]

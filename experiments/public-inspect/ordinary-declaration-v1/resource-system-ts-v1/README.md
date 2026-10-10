@@ -1,0 +1,11 @@
+# Finite TS resource/schedule reference
+
+Prepared independently from pinned bevy-ts3040a3b2. Eight cases: nominal ResourceA/ResourceOther, zero/two live entities, debug enabled/disabled. Resource-only body succeeds10→11, increments then Fx.fail rolls back to11, retry succeeds→12. Complete selected state includes Counter and every entity ID/value; host body-call logs retain prior10/11/11 independently of rollback. TS calls a system once rather than once per entity.
+
+Enabled description projection retains complete component/resource schema descriptions, ordered named schedule steps, and system names/placements/query and resource clauses. Repeated descriptions around every phase must equal the initial description and leave public read-only state equal. Disabled runtime has no own debug handle and executes the same resource sequence. The fixture does not call describe when disabled; absence of a handle does not establish zero hidden allocation/work.
+
+Oracle authored before execution from Runtime.runSystem/transaction and internal/debug.describe. No clock normalization or timing fields are observed. Entity setup runs once then one deferred barrier in all cases. Registered success/failure systems have no entity queries. Public Inspector reads state without an extra system invocation. Projection excludes unused event/machine/service/lint DTOs; this is not full Debug format acceptance.
+
+run.py is byte-identical to existing runtime-reference-v1 adapter: selected Node, CPU5, five-second cap, check_preflight/task_runner, exact whole stdout and empty stderr; no runner/dependency changes. PREPARED.json fixes planned command/tool/oracle identity. Existing adapter inventories the whole fixture and pinned TS source tree, environment hash and tools at execution; historical adapter receipt is not new evidence. Central serialization must be reserved by coordinator before launch.
+
+Rust semantics and Bend ownership/contracts govern. TS arrays are ordinary JS payloads, not Bend affine ownership equivalents. TS ticks/readers, symbol identities, snapshot/DTO naming and failure mechanics are recorded reference properties; no new contract, proof, portable replay capsule, Native/performance or full56 claim.
