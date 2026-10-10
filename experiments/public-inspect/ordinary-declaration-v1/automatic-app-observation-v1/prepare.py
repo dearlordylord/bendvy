@@ -105,7 +105,7 @@ def main():
         plan_path = stage / 'plan.json'
         plan_path.write_text(json.dumps(plan, indent=2)+'\n')
         rows.append({'role': role, 'subject': subject, 'path': str(plan_path), 'sha256': collector.sha(plan_path),
-                     'execute': [tools['python'], str(COLLECTOR), 'run', str(plan_path), '--admitted-sha256', collector.sha(plan_path)]})
+                     'execute': [tools['python'], str(COLLECTOR), 'run', str(plan_path), collector.sha(plan_path)]})
     (output / 'SEQUENCE.json').write_text(json.dumps({'sequence': rows, 'condition': 'Run once in listed order. Stop on any failed receipt; no unchanged retry. Native only after both JS whole-oracle successes.', 'unchangedCollector': collector.sha(COLLECTOR)}, indent=2)+'\n')
     print(json.dumps(rows, indent=2))
 
