@@ -1,0 +1,9 @@
+{
+  "normalSourceCommit": "395fdb088",
+  "entry": "affine-entry.bend",
+  "capture": "checks/affine-source02/affine-entry",
+  "sequence": "Initial + Publish, Read(False), Publish, Read(True), Retry, Read(False), Frame, Frame, Read(False); each state False/True/True/False =40 snapshots",
+  "actualArgs": "Request{Array<U32> leaf71,fail}; created once then threaded through successful Array Out, raw callback Failed World Resource.retained list, same-owner extraction and successful Array Out",
+  "resource": "Resource{base:Array<U32> leaf51,retained:List<Array<U32>>}; base owner retained across park/extract",
+  "scope": "Raw registered Sys callback ownership transfer, not transaction rollback of resource mutation and not automatic Args recovery. Main80-row transaction rollback qualification unchanged. Source01 R-index diagnostic historical; source02 PASS authoritative. Generic library files unchanged."
+}
