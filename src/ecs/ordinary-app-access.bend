@@ -11,6 +11,7 @@ import ./ordinary-app-observation-data.bend as DTO
 type Category is Data:
   Components{}
   Resources{}
+  Events{}
 type Role is Data:
   Reader{}
   Writer{}
@@ -55,6 +56,7 @@ def same_category(left:Category,right:Category) -> Bool:
   match left right:
     case Components{} Components{}:True{}
     case Resources{} Resources{}:True{}
+    case Events{} Events{}:True{}
     case _ _:False{}
 def selected(found:Bool,category:Category,key:String,uses:List<&2,Use>,other:Category,otherKey:String,otherUses:List<&2,Use>,rest:List<&2,Entry>,tail:Unit -> List<&2,Entry>) -> List<&2,Entry>:
   match found:
