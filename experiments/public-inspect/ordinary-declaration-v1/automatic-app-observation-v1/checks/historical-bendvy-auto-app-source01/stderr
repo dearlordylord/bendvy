@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: App)
+- observed : 'App'
+Location:
+13 |   Binding{namespace:U32,id:U32,name:String,access:List<&2,String>,slot:String,clauses:List<&2,N.Clause<S>>}
+14>| type App<-S:Data,-C:Type,-R:Type,-E:Data,-H:Type,-Rows:Data,-fold:W.World<S,C,R,E> -> W.World<S,C,R,E> & Rows> is Type:
+   |      ^^^
+15 |   App{world:W.World<S,C,R,E>,owners:H,bindings:List<&2,Binding<S>>,debug:Bool}
+bend 2.0.36 is available: run bend update

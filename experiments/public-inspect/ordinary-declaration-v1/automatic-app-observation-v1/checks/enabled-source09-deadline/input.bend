@@ -1,0 +1,124 @@
+import Base
+import ./app.bend as App
+import ./presentation.bend as D
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/owner-observer.bend as Dump
+import /workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/observe.bend as View
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-declaration.bend as N
+import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as P
+import ./component.bend as Caller
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
+import /workspace/formal-proofs/bendvy/src/ecs/component.bend as C
+import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap
+import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q
+import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-observable.bend as O
+import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I
+
+def read_ops(H:Type) -> Type:
+  Cap.Read<H,U32> & Unit
+def no_ops(H:Type) -> Type:
+  Unit
+def presented_binding(~S:Data) -> D.Binding<S,Col.Column<S,Caller.Payload>,Unit,Caller.Payload,U32,Caller.Token,Caller.take(~S),Caller.put(~S),Caller.view>:
+  D.bind(~S,~Col.Column<S,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,Caller.binding(~S),U32.show)
+def read_query(~S:Data) -> D.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Cap.Read<Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,U32>,I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,C.Access<U32>>:
+  D.read(~S,~Col.Column<S,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,~Array<U32>,~U32,~presented_binding(~S))
+def absent_query(~S:Data) -> D.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit,I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit>:
+  D.without_component(~S,~Col.Column<S,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,~Array<U32>,~U32,~presented_binding(~S))
+def added_query(~S:Data) -> D.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit,I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit>:
+  D.added(~S,~Col.Column<S,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,~Array<U32>,~U32,~presented_binding(~S))
+def composite_query(~S:Data) -> D.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,read_ops(Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>),I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,P.Product<C.Access<U32>,Unit>>:
+  D.pair(~S,~Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,~Cap.Read<Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,U32>,~Unit,~I.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,~C.Access<U32>,~Unit,~read_query(~S),~added_query(~S))
+def read_cap(~H:Type,caps:read_ops(H)) -> Cap.Read<H,U32>:
+  match caps:
+    case (read,_):read
+def read_done(~H:Type,result:H & C.Access<U32>) -> H & (T.Outcome<Unit> & Unit):
+  match result:
+    case (owner,_):(owner,(T.Success{},Unit{}))
+def read_body(~H:Type,~caps:read_ops(H),args:Unit,owner:H) -> H & (T.Outcome<Unit> & Unit):
+  read_done(~H,Cap.read(~H,~U32,~read_cap(~H,caps),owner))
+def absent_body(~H:Type,~caps:Unit,args:Unit,owner:H) -> H & (T.Outcome<Unit> & Unit):
+  (owner,(T.Success{},Unit{}))
+def failed(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe>) -> String:
+  "SETUP_FAILED"
+def payload_done(result:Array<U32> & String) -> Caller.Payload & String:
+  match result:
+    case (values,text):(Caller.Payload{values},"Payload{" ++ text ++ "}")
+def payload(value:Caller.Payload) -> Caller.Payload & String:
+  match value:
+    case Caller.Payload{values}:payload_done(Dump.u32_array(values))
+def binding(~S:Data,value:App.Binding<S>) -> String:
+  match value:
+    case App.Binding{namespace,id,name,access,cursor,slot,clauses}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ slot ++ ":" ++ List.show(&2,String,x => x,access) ++ ":" ++ List.show(&2,N.Clause<S>,View.clause(~S),clauses)
+def world_done(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,owners:H,debug:Bool,actual:String,result:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & String) -> App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & String:
+  match result:
+    case (world,text):(App.Application{world,owners,debug},"owners" ++ actual ++ "|world{" ++ text ++ "}")
+def actual_registry(~S:Data,value:App.Binding<S>) -> String:
+  match value:
+    case App.Binding{namespace,id,name,access,cursor,slot,clauses}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ slot ++ ":cursor=" ++ U32.show(cursor) ++ ":" ++ List.show(&2,String,x => x,access) ++ ":" ++ List.show(&2,N.Clause<S>,View.clause(~S),clauses)
+def world_owners(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,debug:Bool,result:H & List<&2,App.Binding<S>>) -> App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & String:
+  match result:
+    case (owners,actual):world_done(~S,~H,~Rows,~fold,~describe,owners,debug,List.show(&2,App.Binding<S>,actual_registry(~S),actual),Dump.world(~S,~Caller.Payload,~Array<U32>,~U32,~payload,~Dump.u32_array,~U32.show,world))
+def world_text(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe>) -> App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & String:
+  match app:
+    case App.Application{world,owners,debug}:world_owners(~S,~H,~Rows,~fold,~describe,world,debug,describe(owners))
+def snapshot_text(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,result:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & Maybe<&2,App.Product<List<&2,App.Binding<S>>,App.Observation<Rows>>>) -> App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & String:
+  match result:
+    case (app,Some{App.Product{bindings,App.Observation{_,rendered}}}):(app,"Debug{fixtureInitialCursor=0|bindings=" ++ List.show(&2,App.Binding<S>,binding(~S),bindings) ++ "|rows=" ++ List.show(&2,String,x => x,rendered) ++ "}")
+    case (app,None{}):(app,"Disabled")
+def final_world(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,before:String,one:String,two:String,disabled:String,four:String,result:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & String) -> String:
+  match result:
+    case (_,after):"before{" ++ before ++ "}\nfirst|" ++ one ++ "\nsecond|" ++ two ++ "\ndisabled|" ++ disabled ++ "\nfourth|" ++ four ++ "\nafter{" ++ after ++ "}"
+def fourth(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,before:String,one:String,two:String,disabled:String,result:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,four):final_world(~S,~H,~Rows,~fold,~describe,before,one,two,disabled,four,world_text(~S,~H,~Rows,~fold,~describe,app))
+def disabled(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,before:String,one:String,two:String,result:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,text):fourth(~S,~H,~Rows,~fold,~describe,before,one,two,text,snapshot_text(~S,~H,~Rows,~fold,~describe,App.snapshot(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~H,~Rows,~fold,~describe,App.enable_debug(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~H,~Rows,~fold,~describe,app,True{}))))
+def repeated(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,before:String,one:String,result:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,two):disabled(~S,~H,~Rows,~fold,~describe,before,one,two,snapshot_text(~S,~H,~Rows,~fold,~describe,App.snapshot(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~H,~Rows,~fold,~describe,App.enable_debug(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~H,~Rows,~fold,~describe,app,False{}))))
+def first_snapshot(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,before:String,result:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,one):repeated(~S,~H,~Rows,~fold,~describe,before,one,snapshot_text(~S,~H,~Rows,~fold,~describe,App.snapshot(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~H,~Rows,~fold,~describe,app)))
+def before_world(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,result:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,before):first_snapshot(~S,~H,~Rows,~fold,~describe,before,snapshot_text(~S,~H,~Rows,~fold,~describe,App.snapshot(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~H,~Rows,~fold,~describe,App.enable_debug(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~H,~Rows,~fold,~describe,app,True{}))))
+def enabled(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe>) -> String:
+  before_world(~S,~H,~Rows,~fold,~describe,world_text(~S,~H,~Rows,~fold,~describe,app))
+def second(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe>) -> String:
+  App.register_presented_with(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~no_ops,~Unit,~Unit,~Unit,~Unit,~absent_query(~S),~absent_body,~H,~Rows,~fold,~describe,~String,~enabled(~S),~failed(~S,~H,~Rows,~fold,~describe),app,"PositionAbsent","Update")
+def first(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe>) -> String:
+  App.register_presented_with(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~read_ops,~Unit,~Unit,~Unit,~P.Product<C.Access<U32>,Unit>,~composite_query(~S),~read_body,~H,~Rows,~fold,~describe,~String,~second(~S),~failed(~S,~H,~Rows,~fold,~describe),app,"PositionRead","Update")
+def activated(~S:Data,result:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & W.Status) -> String:
+  match result:
+    case (world,W.Accepted{}):App.start(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~String,~first(~S),world)
+    case (_,W.Rejected{_}):"SETUP_FAILED"
+def reserved(~S:Data,result:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & W.Reservation<S>) -> String:
+  match result:
+    case (world,W.Reserved{handle}):activated(~S,W.activate(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,world,handle))
+    case (_,W.ReservationRejected{_}):"SETUP_FAILED"
+def replaced(~S:Data,result:C.Replacement<W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Caller.Payload>) -> String:
+  match result:
+    case C.Replaced{world,_}:reserved(~S,W.reserve_id(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,world))
+    case C.ReplaceRejected{_,_,_}:"SETUP_FAILED"
+def first_activated(~S:Data,+handle:W.Handle<S>,result:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & W.Status) -> String:
+  match result:
+    case (world,W.Accepted{}):replaced(~S,C.replace(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,Caller.family(~S),world,handle,Some{Caller.Payload{Array.new(U32,0n,42)}}))
+    case (_,W.Rejected{_}):"SETUP_FAILED"
+def first_reserved(~S:Data,result:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & W.Reservation<S>) -> String:
+  match result:
+    case (world,W.Reserved{+handle}):first_activated(~S,handle,W.activate(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,world,handle))
+    case (_,W.ReservationRejected{_}):"SETUP_FAILED"
+def empty_store(~S:Data,unit:Unit) -> Col.Column<S,Caller.Payload>:
+  Col.empty(~S,~Caller.Payload)
+def created(~S:Data,result:W.Creation<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>) -> String:
+  match result:
+    case W.Created{_,world}:first_reserved(~S,W.reserve_id(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,world))
+    case W.CreateRejected{_,_}:"SETUP_FAILED"
+def setup(~S:Data) -> String:
+  created(~S,W.create(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~empty_store(~S),W.factory(),Array.new(U32,0n,17)))
+type Report is Data:
+  Report{first:String,second:String}
+def main() -> Report:
+  Report{setup(~Caller.A),setup(~Caller.Other)}

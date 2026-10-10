@@ -1,0 +1,21 @@
+SOME PROOFS FAIL
+Error:
+- expected : Data
+- observed : Type
+Context:
+- S        : Data
+- C        : Type
+- R        : Type
+- E        : Data
+- H        : Type
+- Rows     : Data
+- fold     : @_:W.World<S, C, R, E> -> Sigma<&1, &1, W.World<S, C, R, E>, _ => Rows>
+- owners   : H
+- bindings : List<&2, Binding<S>>
+- result   : Sigma<&1, &1, W.World<S, C, R, E>, _ => Rows>
+Location: snapshot_rows
+34 |   append_previous(~S,~C,~R,~E,~Rows,~Ops,~V,~query,fold(world))
+35>| def snapshot_rows(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~fold:W.World<S,C,R,E> -> W.World<S,C,R,E> & Rows,owners:H,+bindings:List<&2,Binding<S>>,result:W.World<S,C,R,E> & Rows) -> ApplicationType<S,C,R,E,H,Rows,fold> & Maybe<&2,List<&2,Binding<S>> & Rows>:
+   |                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+36 |   match result:
+bend 2.0.36 is available: run bend update
