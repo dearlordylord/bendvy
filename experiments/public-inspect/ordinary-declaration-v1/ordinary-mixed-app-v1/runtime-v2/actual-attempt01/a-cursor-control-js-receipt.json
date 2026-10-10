@@ -1,0 +1,96 @@
+{
+  "scope": "Complete finite ordinary mixed App a-cursor-control js; no schedule/performance/full56 qualification",
+  "planSHA256": "7f0d5e4576f9af0fed3597e91c7c87dc7a6c38e922884e54adbce736171df518",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-cursor-control-v1/full-entry-a.bend",
+        "-o",
+        "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/scenario.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/scenario.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/consumer.stdout",
+        "sha256": "f169fc3e895eb13bc686479739533625752068bd8a9c4ab183656f1c7f258c48",
+        "bytes": 7087,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/emit-pre.guard.json",
+      "sha256": "65220af49f24c7a7e7c2c301ef6d380d829705ac9c5054cd25a790896a1acfc4"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/emit-acquired.guard.json",
+      "sha256": "5d8dfb36296aeb06a3b818dc80468705de3e8356f436b89ef2a6453b0aad7b9e"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/emit-post.guard.json",
+      "sha256": "a4aa6edba25b9d156d8effd960585402351db1ac09cd5eae0144a0a8db203201"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/consumer-pre.guard.json",
+      "sha256": "c9b4742cc25c9e89c6b46e102db9bbf0a84c17404cb82c668e7d69d7085bc57e"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/consumer-acquired.guard.json",
+      "sha256": "ddff5e2a896df181a4c054e0fdcccc4efb399e231f7c80ff1d3c6fceed9df87e"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/consumer-post.guard.json",
+      "sha256": "e9ffdb413c74bfaa14c5a58157261ce7b46a018deeff3e776d23629184dd1286"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-cursor-control-js/final.guard.json",
+      "sha256": "68c6130da49ad0e72b301b1f875f88bf38c5196efe1d893f7bdf32b160297eae"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "590711ca8b470c4ca40bbe66fbd3c955e1d952878bdd38c6e9ec0495d2b750cf",
+  "wholeOracleSHA256": "f169fc3e895eb13bc686479739533625752068bd8a9c4ab183656f1c7f258c48",
+  "completeNormalBaselineRejected": true
+}

@@ -1,0 +1,96 @@
+{
+  "scope": "Complete finite ordinary mixed App other-cursor-control js; no schedule/performance/full56 qualification",
+  "planSHA256": "5d58bc2c943070545e732409b8127f8392dfc0537a92c8987ee2ff566605fdc5",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/production-cursor-control-v1/full-entry-other.bend",
+        "-o",
+        "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/scenario.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/scenario.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/consumer.stdout",
+        "sha256": "f169fc3e895eb13bc686479739533625752068bd8a9c4ab183656f1c7f258c48",
+        "bytes": 7087,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/emit-pre.guard.json",
+      "sha256": "dcae9742eb93fe7c74cc135d6fe63cfc81d75c824f91140feabbb799f2d96594"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/emit-acquired.guard.json",
+      "sha256": "05ad056185a19da69160d79b9cfba4cd071b93505c663fbd76d1ba0fc295783b"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/emit-post.guard.json",
+      "sha256": "617ca419e8293c43d348a41c53f4478f3afbae1a17510f19e03a3ecdadacc911"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/consumer-pre.guard.json",
+      "sha256": "266cbf3481daabc25f960803bf98ad8a3339ce6fbfe29f366437c6913ca2cb64"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/consumer-acquired.guard.json",
+      "sha256": "d3c8a88e324c6c82c57ece14cbb2461771ab5868291c392bbf58d8ebd908992c"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/consumer-post.guard.json",
+      "sha256": "8bef28bea7b5f7ece7c0e8a17d8d227138d802e23ff473c18d0e8fbae3f338f1"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/other-cursor-control-js/final.guard.json",
+      "sha256": "d8817d763712d7bfc1dfe7b3541f21fe5c74a37010dd12f32aef6bf52b4b5b4d"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "590711ca8b470c4ca40bbe66fbd3c955e1d952878bdd38c6e9ec0495d2b750cf",
+  "wholeOracleSHA256": "f169fc3e895eb13bc686479739533625752068bd8a9c4ab183656f1c7f258c48",
+  "completeNormalBaselineRejected": true
+}

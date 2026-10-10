@@ -1,0 +1,95 @@
+{
+  "scope": "Complete finite ordinary mixed App a-companion js; no schedule/performance/full56 qualification",
+  "planSHA256": "e0cc9236d257dfc3d4dfd1735bb630f8ae199608836deb10e856fe60616b51b7",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-v1/full-entry-a.bend",
+        "-o",
+        "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/scenario.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/scenario.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/consumer.stdout",
+        "sha256": "33027fde2d5e0b20d8f4e96ad4845808505986e4223fe27f8be2ba6090a07e71",
+        "bytes": 9427,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/emit-pre.guard.json",
+      "sha256": "84447339688a54f52f8e9dc50cbf3fe06fead96fadbdc7842f410c9e4e767871"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/emit-acquired.guard.json",
+      "sha256": "926e72142acb3ad38e64443298d59cea09c5cbb290be1b241eaf1e737f1ab415"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/emit-post.guard.json",
+      "sha256": "af31d7fe09ebbe1f2060791ce8c5e39eab1109fb0628838e40aededd565d3693"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/consumer-pre.guard.json",
+      "sha256": "8e78cfc9aa324f014ff6a425b0b5920fa9921c05ff9484589862d54889180dbe"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/consumer-acquired.guard.json",
+      "sha256": "0a5d51a3bd879a197822e056016126607d5df6ba65455109489b80bae4ff8e91"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/consumer-post.guard.json",
+      "sha256": "6c811f22f96c6b40b510518915329a56311f36f86c13a49540e22a733738f9bc"
+    },
+    {
+      "path": "/tmp/bendvy-ordinary-mixed-app-runtime02/a-companion-js/final.guard.json",
+      "sha256": "4ee9e9ba33c89a60690cc995d02135459156b55f4a246b66517563a2d58e9d3a"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "535aebe592b291c77621b46d43ce8deefe67dcb406dc089be9d43e60f6192c8d",
+  "wholeOracleSHA256": "33027fde2d5e0b20d8f4e96ad4845808505986e4223fe27f8be2ba6090a07e71"
+}

@@ -1,0 +1,11 @@
+# Mixed App actual JavaScript delivery and Native stop
+
+Five new JavaScript cohorts completed with exact independent whole outputs: Other normal (7243 bytes), both reached Inspector cursor controls (7087 bytes), and both instrumented owner companions (9427 bytes). All ten commands exited 0 with no runner failure; all 35 boundaries were unchanged. Both controls reject the SAME original normal A actual 7243-byte baseline. Original A JavaScript is qualified only by the separate reviewed transport-v2 comparison; its original terminal 1 / INCOMPLETE receipt and old oracle remain unchanged, and it was not rerun.
+
+First Native normal A original session 53185 terminated 1: stock emission reached its 30-second child deadline, with empty stdout/stderr and no C artifact. Its four boundaries remained unchanged. No build or runtime occurred, and the three remaining Native plans were not launched. No retry, cap change, compiler workaround, or cause attribution is made.
+
+The existing content-addressed pattern preserves 82 original members as 62 objects, including all original plans, full raw streams, guards, emitted JavaScript and six receipts. The immutable preparation 593bb9ce0 binds the source/tool/resource/oracle closure; historical source checks and explicit EOF transport equality retain their original scope. Previously archived original failure and source snapshots are reused rather than copied again.
+
+The production consumer directly calls ordinary registration and enables debug; the same declarations derive metadata, typed rows and opaque-value presentation. Each schema executes complete 0/2-entity scenarios with seven snapshots and three resource success/failure/retry invocations, preserving affine arguments/outputs and rollback. Instrumented companions additionally expose live owners through a private test observer; this is not an ordinary-user adapter or an independent universal preservation proof.
+
+Scope remains finite private frontend/component-plus-resource qualification. The registered component body is not executed here. Whole aggregate resource access, source-selected detached Inspector cursor 0, trusted raw constructors and arbitrary opaque presenter limitations remain explicit. Native, automatic schedule composition, broad public integration, mathematical laws, performance and full #56 closure remain open.
