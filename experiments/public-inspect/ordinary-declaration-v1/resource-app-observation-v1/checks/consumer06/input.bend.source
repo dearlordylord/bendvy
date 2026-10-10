@@ -1,0 +1,113 @@
+import Base
+import ./observable-resource.bend as D
+import ./bridge.bend as B
+import ./owner-observer.bend as OwnerProbe
+import ../resource-system-v1/provider.bend as P
+import ./fixture.bend as C
+import ../automatic-app-observation-v1/app.bend as App
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend as Schema
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-declaration.bend as Query
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
+import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as T
+# Affine invocation input and output, in addition to affine resource state.
+type Args is Type:
+  Args{flags:Array<Bool>}
+def body_flag(~H:Type,~caps:D.write_ops(~C.Counter,~U32,H),owner:H,result:Array<Bool> & Bool) -> H & (T.Outcome<C.Error> & C.Output):
+  match result:
+    case (_,fail):C.body(~H,~caps,fail,owner)
+def body(~H:Type,~caps:D.write_ops(~C.Counter,~U32,H),args:Args,owner:H) -> H & (T.Outcome<C.Error> & C.Output):
+  match args:
+    case Args{flags}:body_flag(~H,~caps,owner,Array.get(Bool,flags,0))
+def declaration(~S:Data) -> D.Declaration<S,Col.Column<S,Unit>,C.Counter,U32,D.write_ops(~C.Counter,~U32),U32>:
+  D.write(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~U32,~C.view,~U32.show,Schema.resource(~S,~C.Counter,"Counter"))
+def mode(value:Query.Mode) -> String:
+  match value:
+    case Query.Read{}:"Read"
+    case Query.Write{}:"Write"
+    case _:"OTHER"
+def clause(~S:Data,value:Query.Clause<S>) -> String:
+  match value:
+    case Query.Clause{name,kind}:name ++ ":" ++ mode(kind)
+def binding(~S:Data,value:App.Binding<S>) -> String:
+  match value:
+    case App.Binding{namespace,id,name,access,cursor,slot,clauses}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":access=" ++ List.show(&2,String,(s=>s),access) ++ ":cursor=" ++ U32.show(cursor) ++ ":slot=" ++ slot ++ ":clauses=" ++ List.show(&2,Query.Clause<S>,clause(~S),clauses)
+def debug(~S:Data,~Rows:Data,value:Maybe<&2,App.Product<List<&2,App.Binding<S>>,App.Observation<Rows>>>) -> String:
+  match value:
+    case None{}:"Disabled"
+    case Some{App.Product{bindings,App.Observation{_,rendered}}}:"Debug{bindings=" ++ List.show(&2,App.Binding<S>,binding(~S),bindings) ++ "|resources=" ++ List.show(&2,String,(s=>s),rendered) ++ "}"
+def args_value(result:Array<Bool> & Bool) -> String:
+  match result:
+    case (_,value):"RegistrationRejected{arg=" ++ Bool.show(value) ++ "}"
+def rejected_args(args:Args) -> String:
+  match args:
+    case Args{flags}:args_value(Array.get(Bool,flags,0))
+def restore(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,world:W.World<S,Col.Column<S,Unit>,C.Counter,U32>,owners:Owners,enabled:Bool) -> App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>:
+  App.Application{world,owners,enabled}
+def app_observed(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,label:String) -> App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String:
+  match app:
+    case App.Application{world,owners,enabled}:OwnerProbe.observed(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~Owners,~App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,~restore(~S,~Owners,~Rows,~fold,~describe),~C.world(~S),~binding(~S),~describe,world,owners,enabled,label)
+def snapshot_observed(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & Maybe<&2,App.Product<List<&2,App.Binding<S>>,App.Observation<Rows>>>) -> App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String:
+  match result:
+    case (app,value):app_observed(~S,~Owners,~Rows,~fold,~describe,app,debug(~S,~Rows,value))
+def snapshot(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>) -> App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String:
+  snapshot_observed(~S,~Owners,~Rows,~fold,~describe,App.snapshot(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~Owners,~Rows,~fold,~describe,app))
+def outcome(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,app:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,value:Sys.Outcome<Unit,C.Error,C.Output>) -> App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String:
+  match value:
+    case Sys.Succeeded{_,output}:(app,C.output(output))
+    case Sys.Failed{_,C.RolledBack{prior}}:(app,"Failure{prior=" ++ U32.show(prior) ++ "}")
+def run_outcome(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,result:B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>) -> App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String:
+  match result:
+    case B.Completed{app,value}:outcome(~S,~Owners,~Rows,~fold,~describe,~invoke,app,value)
+    case B.RegistrationRejected{app,args}:(app,rejected_args(args))
+def run(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,app:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,fail:Bool) -> App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String:
+  run_outcome(~S,~Owners,~Rows,~fold,~describe,~invoke,invoke(app,Args{Array.new(Bool,0n,fail)}))
+def final_snapshot(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,prefix:String,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String) -> String:
+  match result:
+    case (_ ,text):prefix ++ "\n" ++ text
+def retry_snapshot(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,prefix:String,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,text):final_snapshot(~S,~Owners,~Rows,~fold,~describe,~invoke,prefix ++ "\n" ++ text,snapshot(~S,~Owners,~Rows,~fold,~describe,app))
+def retry_result(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,prefix:String,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,text):retry_snapshot(~S,~Owners,~Rows,~fold,~describe,~invoke,prefix ++ "\n" ++ text,snapshot(~S,~Owners,~Rows,~fold,~describe,app))
+def failed_snapshot(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,prefix:String,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,text):retry_result(~S,~Owners,~Rows,~fold,~describe,~invoke,prefix ++ "\n" ++ text,run(~S,~Owners,~Rows,~fold,~describe,~invoke,app,False{}))
+def failed_result(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,prefix:String,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,text):failed_snapshot(~S,~Owners,~Rows,~fold,~describe,~invoke,prefix ++ "\n" ++ text,snapshot(~S,~Owners,~Rows,~fold,~describe,app))
+def success_snapshot(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,prefix:String,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,text):failed_result(~S,~Owners,~Rows,~fold,~describe,~invoke,prefix ++ "\n" ++ text,run(~S,~Owners,~Rows,~fold,~describe,~invoke,app,True{}))
+def success_result(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,prefix:String,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,text):success_snapshot(~S,~Owners,~Rows,~fold,~describe,~invoke,prefix ++ "\n" ++ text,snapshot(~S,~Owners,~Rows,~fold,~describe,app))
+def disabled_snapshot(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,prefix:String,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,text):success_result(~S,~Owners,~Rows,~fold,~describe,~invoke,prefix ++ "\n" ++ text,run(~S,~Owners,~Rows,~fold,~describe,~invoke,App.enable_debug(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~Owners,~Rows,~fold,~describe,app,True{}),False{}))
+def second_snapshot(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,prefix:String,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,text):disabled_snapshot(~S,~Owners,~Rows,~fold,~describe,~invoke,prefix ++ "\n" ++ text,snapshot(~S,~Owners,~Rows,~fold,~describe,App.enable_debug(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~Owners,~Rows,~fold,~describe,app,False{})))
+def first_snapshot(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String) -> String:
+  match result:
+    case (app,text):second_snapshot(~S,~Owners,~Rows,~fold,~describe,~invoke,text,snapshot(~S,~Owners,~Rows,~fold,~describe,app))
+def complete(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,app:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>) -> String:
+  first_snapshot(~S,~Owners,~Rows,~fold,~describe,~invoke,snapshot(~S,~Owners,~Rows,~fold,~describe,App.enable_debug(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~Owners,~Rows,~fold,~describe,app,True{})))
+def registered(~S:Data,~H:Type,~Rows:Data,~kind:Query.Mode,~runFn:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> Args -> Sys.Outcome<W.World<S,Col.Column<S,Unit>,C.Counter,U32>,C.Error,C.Output>,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:(H & P.Owner<S,Sys.Registry<S,Col.Column<S,Unit>,C.Counter,U32,Args,C.Error,C.Output,runFn>,kind>) -> (H & P.Owner<S,Sys.Registry<S,Col.Column<S,Unit>,C.Counter,U32,Args,C.Error,C.Output,runFn>,kind>) & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,H & P.Owner<S,Sys.Registry<S,Col.Column<S,Unit>,C.Counter,U32,Args,C.Error,C.Output,runFn>,kind>,Rows,fold,describe>) -> String:
+  complete(~S,~(H & P.Owner<S,Sys.Registry<S,Col.Column<S,Unit>,C.Counter,U32,Args,C.Error,C.Output,runFn>,kind>),~Rows,~fold,~describe,~B.run_latest_resource(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~Args,~C.Error,~C.Output,~kind,~runFn,~H,~Rows,~fold,~describe),app)
+def failed(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,H,Rows,fold,describe>) -> String:
+  "DEFINE_FAILED"
+def register(~S:Data,~H:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<S>>,app:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,H,Rows,fold,describe>) -> String:
+  B.register_resource_with(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~D.write_ops(~C.Counter,~U32),~Args,~C.Error,~C.Output,~U32,~declaration(~S),~body,~H,~Rows,~fold,~describe,~String,~registered(~S),~failed(~S,~H,~Rows,~fold,~describe),app,"CounterUpdate","Update")
+def created(~S:Data,count:Nat,result:W.Creation<S,Col.Column<S,Unit>,C.Counter,U32>) -> String:
+  match result:
+    case W.Created{_,world}:App.start(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~String,~register(~S),C.entities(~S,count,world))
+    case W.CreateRejected{_,_}:"CREATE_FAILED"
+def scenario(~S:Data,count:Nat) -> String:
+  created(~S,count,W.create(~S,~Col.Column<S,Unit>,~C.Counter,~U32,~C.empty(~S),W.factory(),C.Counter{Array.new(U32,0n,10)}))
+type Report is Data:
+  Report{empty:String,nonempty:String}
+def main() -> Report:
+  Report{scenario(~C.A,0n),scenario(~C.A,2n)}

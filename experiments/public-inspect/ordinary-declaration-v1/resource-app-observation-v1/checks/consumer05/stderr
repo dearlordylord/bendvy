@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:App.ApplicationType<retry_snapshot~S, Col.Column<retry_snapshot~S, Unit>, C.Counter, U32, retry_snapshot~Owners, retry_snapshot~Rows, retry_snapshot~fold, retry_snapshot~describe> -> @_:Args -> B.RunResult<App.ApplicationType<retry_snapshot~S, Col.Column<retry_snapshot~S, Unit>, C.Counter, U32, retry_snapshot~Owners, retry_snapshot~Rows, retry_snapshot~fold, retry_snapshot~describe>, Args, C.Error, C.Output>
+- observed : String
+Context:
+- prefix : String
+- app    : App.ApplicationType<retry_snapshot~S, Col.Column<retry_snapshot~S, Unit>, C.Counter, U32, retry_snapshot~Owners, retry_snapshot~Rows, retry_snapshot~fold, retry_snapshot~describe>
+- text   : String
+Location: retry_snapshot
+70 |   match result:
+71>|     case (app,text):final_snapshot(~S,~Owners,~Rows,~fold,~describe,prefix ++ "\n" ++ text,snapshot(~S,~Owners,~Rows,~fold,~describe,app))
+   |                                                                     ^^^^^^^^^^^^^^^^^^^^^^
+72 | def retry_result(~S:Data,~Owners:Type,~Rows:Data,~fold:W.World<S,Col.Column<S,Unit>,C.Counter,U32> -> W.World<S,Col.Column<S,Unit>,C.Counter,U32> & App.Observation<Rows>,~describe:Owners -> Owners & List<&2,App.Binding<S>>,~invoke:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> -> Args -> B.RunResult<App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe>,Args,C.Error,C.Output>,prefix:String,result:App.ApplicationType<S,Col.Column<S,Unit>,C.Counter,U32,Owners,Rows,fold,describe> & String) -> String:
+bend 2.0.36 is available: run bend update

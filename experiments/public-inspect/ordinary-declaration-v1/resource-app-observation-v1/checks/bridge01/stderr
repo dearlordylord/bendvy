@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : 'App.Observation{rows,rendered} (world,+value)'
+Location:
+12 |   match previous result:
+13>|     case App.Observation{rows,rendered} (world,+value):(world,App.Observation{App.Product{rows,value},List.append(&2,String,rendered,[key ++ "=" ++ render(value)])})
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14 | def previous_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Rows:Data,~V:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & V,~render:V -> String,~key:String,result:W.World<S,C,R,E> & App.Observation<Rows>) -> W.World<S,C,R,E> & App.Observation<App.Product<Rows,V>>:
+bend 2.0.36 is available: run bend update
