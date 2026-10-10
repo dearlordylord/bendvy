@@ -1,0 +1,30 @@
+"""Independent source-only ordinary schema App model. No runtime inputs."""
+import json
+ls=lambda xs:'['+', '.join(xs)+']'
+def fields(c1,c2,kinds=False):
+    xs=[f'1:1:PositionRead:Update:cursor={c1}:[Position]:[Position:Read]',f'1:2:CounterUpdate:Update:cursor={c2}:[Counter]:[Counter:Write]']
+    if kinds:xs=[xs[0]+':Component',xs[1]+':Field']
+    return ls(xs)
+def world(pop,value):
+    live='node(node(leaf:False,leaf:True),node(leaf:True,leaf:False))' if pop else 'leaf:False'
+    col='Column{values=leaf:some(leaf:42);stamps=[1:1:1]}' if pop else 'Column{values=leaf:none;stamps=[]}'
+    return (f'namespace=1|nextId={3 if pop else 1}|highWater={2 if pop else 0}|live={live}|capacity={4 if pop else 1}|depth={2 if pop else 0}'
+            f'|store=product({col},Unit)|resource=product(Unit,leaf:{value})|events=[]|pendingCount=1|pendingEmpty=False'
+            f'|registrations=[2:CounterUpdate:[Counter], 1:PositionRead:[Position]]|nextSystemId=3|clock={int(pop)}')
+def complete(text,pop,value,c1,c2):
+    return text+'|world{'+world(pop,value)+'}|owners='+fields(c1,c2,True)
+def snapshot(pop,value,c1,c2,enabled=True):
+    row='[1:1:Found:42]' if pop else '[]'
+    text=('Debug{schema=[Component:Position:Position, Resource:Counter:Counter]|bindings='+fields(c1,c2)+'|rendered='+ls([row,f'Counter={value}'])+'}') if enabled else 'Disabled'
+    return complete(text,pop,value,c1,c2)
+def scenario(pop):
+    before=snapshot(pop,10,0,0,True)
+    after=snapshot(pop,10,0,0,True)
+    disabled=snapshot(pop,10,0,0,False)
+    return 'Before{'+before+'}\nInvalidRecovered{'+after+'}\nDisabledRecovered{'+disabled+'}\n'
+def report():
+    whole='Empty\n'+scenario(False)+'Populated\n'+scenario(True)
+    return (json.dumps(whole,ensure_ascii=False)+'\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(report())
