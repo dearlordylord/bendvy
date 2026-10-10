@@ -1,0 +1,488 @@
+{
+  "originalAHandle": 36907,
+  "originalOtherHandle": 76585,
+  "terminalExit": 0,
+  "sourceCommit": "8e86eb170",
+  "wholeExpectedBytes": 11004,
+  "wholeExpectedSHA256": "fd064060ebf1d8e35579ed4a76dbedf93dc0ecabb2b999df4293bc111eed6270",
+  "receipts": {
+    "a-normal-js": {
+      "scope": "Complete ordinary registered Unit-output schedule A0/2 js; finite private seam, no performance/full56 closure",
+      "planSHA256": "1c6a83d4a749a84674e114b2495f1deafa4911d1909b46a345cf7fc7a291e213",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/entry-a.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/scenario.js"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/scenario.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/consumer.stdout",
+            "sha256": "fd064060ebf1d8e35579ed4a76dbedf93dc0ecabb2b999df4293bc111eed6270",
+            "bytes": 11004,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": [
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/emit-pre.guard.json",
+          "sha256": "162d1862226b9d289e4d7f11fb85546f7a1e9ef47e23eefc2a0f1ee885e5cc27"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/emit-acquired.guard.json",
+          "sha256": "e5d24c1598bcbe071d04505342440822f0da7554bbaf528d6fa96ef7fee72427"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/emit-post.guard.json",
+          "sha256": "d020514cb79a63a74309aaf08def20a401ec47a91ac6dce11549761d2e4d5591"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/consumer-pre.guard.json",
+          "sha256": "ab852ebb9859ec8ab76dfc490233a18a69bf578680c7351eeedb0a690f27c4a4"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/consumer-acquired.guard.json",
+          "sha256": "bd1147c1c5e3ef3b3268c4a53039b514eddc731d57b513fd88af245808509fc8"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/consumer-post.guard.json",
+          "sha256": "98f1731a037dc41dd4c7a333eb94dd8882b24bb056b09da430703efac17ad231"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-js/final.guard.json",
+          "sha256": "65324a453daa14e92c9379130c8c20337f92acf4feeab9a0045ae56960670dd7"
+        }
+      ],
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "emitArtifactSHA256": "805e96c24c46ff2611ca5c87865fd6b6adfb1dc119b15657838d8ad95d50cac6",
+      "wholeOracleSHA256": "fd064060ebf1d8e35579ed4a76dbedf93dc0ecabb2b999df4293bc111eed6270"
+    },
+    "a-normal-native": {
+      "scope": "Complete ordinary registered Unit-output schedule A0/2 native; finite private seam, no performance/full56 closure",
+      "planSHA256": "476a88113a3a1002beece5b162332b41e99fb88e5755e5ca66d2c312c6afc1bd",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/entry-a.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/scenario.c"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/scenario.c",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/build.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/build.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/consumer.stdout",
+            "sha256": "fd064060ebf1d8e35579ed4a76dbedf93dc0ecabb2b999df4293bc111eed6270",
+            "bytes": 11004,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": [
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/emit-pre.guard.json",
+          "sha256": "7978f8209497d60496c2844785fd0a6deb7e5b0081a853cbff85ad0c722351fb"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/emit-acquired.guard.json",
+          "sha256": "dc218165269c91ec7adeadd5dabb59cd29d988f38dbfa7edb669dc428202143e"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/emit-post.guard.json",
+          "sha256": "94bb527ed0bf11a72df1d0581227e705ed50026380957d7410532641d692f774"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/build-pre.guard.json",
+          "sha256": "eb259540358c50536fd973bbd75e860ed3e6d7adb55c9b7f48fe894750a65c0f"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/build-acquired.guard.json",
+          "sha256": "430e5b7c592f4c8f1117fa155a183b5127c3de0c022a23fa5961e097470fd773"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/build-post.guard.json",
+          "sha256": "530f52270832d594f6011eab0eea458d38d01a8be6013b651d80903d4fd5d473"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/consumer-pre.guard.json",
+          "sha256": "7fcbb2ca27fed49b3207dc70866ab648625f06a3a8a652b504e8e28d710a0ece"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/consumer-acquired.guard.json",
+          "sha256": "672a7b6e2ec97da6ef7be7e66cfcf40125a9c21385ec40c62dfb4669526aae44"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/consumer-post.guard.json",
+          "sha256": "5a610d0a9dfdb29ba11de809fae1c8127c2b1e9f83118800d37c116af71364b9"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-attempt03/a-normal-native/final.guard.json",
+          "sha256": "82b266d992ee2440d0e1f963c08333269b0283181b234f3474f5189090c9de0b"
+        }
+      ],
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "emitArtifactSHA256": "89d8c123a8ff5825f2c4519fc20756dbc17590961c58bcadecc80766493899ef",
+      "buildArtifactSHA256": "af8258e9aed62b9b46060d27faa16fd9a777af063df5ded45dad21c97cfc3a01",
+      "wholeOracleSHA256": "fd064060ebf1d8e35579ed4a76dbedf93dc0ecabb2b999df4293bc111eed6270"
+    },
+    "other-normal-js": {
+      "scope": "Complete ordinary registered Unit-output schedule Other0/2 js; finite private seam, no performance/full56 closure",
+      "planSHA256": "9e821b68eb54433c48e2c68c4a0f9de157237de216b2fa157d32886f7993f2a3",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/entry-other.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/scenario.js"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/scenario.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/consumer.stdout",
+            "sha256": "fd064060ebf1d8e35579ed4a76dbedf93dc0ecabb2b999df4293bc111eed6270",
+            "bytes": 11004,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": [
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/emit-pre.guard.json",
+          "sha256": "fec121765af2ef7a65128d482b0c51d111a70c4396a00e2d5613385e8e1a741e"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/emit-acquired.guard.json",
+          "sha256": "8a858561f2bf57fd972e59d707680e2b29b696405d5303d352db9b0f169d733e"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/emit-post.guard.json",
+          "sha256": "e4220ccc0c1bced4a44faaf0b9d94a7b90c869411dec9bd9d3f9d0fa5bd6e826"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/consumer-pre.guard.json",
+          "sha256": "63f76cffb88b69b4fb505e1b1315db7b9266a60ccc5d9b7cbb331b13bee32c93"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/consumer-acquired.guard.json",
+          "sha256": "7bd4a9ce75374abc6725dfa192001e1e942c95e280aa99b773d02f554358267f"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/consumer-post.guard.json",
+          "sha256": "af7781680b8ee19c070a2ccf034a64b7cdfb6c28b6fe8a0267eecbe928b33898"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-js/final.guard.json",
+          "sha256": "f72ebf9e5b0d701253cb43209719d6e53ef41dc8b2a6407ee4fd42dc790d6173"
+        }
+      ],
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "emitArtifactSHA256": "805e96c24c46ff2611ca5c87865fd6b6adfb1dc119b15657838d8ad95d50cac6",
+      "wholeOracleSHA256": "fd064060ebf1d8e35579ed4a76dbedf93dc0ecabb2b999df4293bc111eed6270"
+    },
+    "other-normal-native": {
+      "scope": "Complete ordinary registered Unit-output schedule Other0/2 native; finite private seam, no performance/full56 closure",
+      "planSHA256": "9a5103cc3f2881c75911d51d762b4ee6bbaedfb960f4767937ffd12cd80ecdd6",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/entry-other.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/scenario.c"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/scenario.c",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/build.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/build.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/consumer.stdout",
+            "sha256": "fd064060ebf1d8e35579ed4a76dbedf93dc0ecabb2b999df4293bc111eed6270",
+            "bytes": 11004,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": [
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/emit-pre.guard.json",
+          "sha256": "9099d650071c89f592bbf030d3290542a5d43dc4fe85b156922465d2d9931de1"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/emit-acquired.guard.json",
+          "sha256": "d4866f8f85c0a47e6c46e2bef1a04e51946bac181d1e44b03739040f902a8c54"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/emit-post.guard.json",
+          "sha256": "d7e81fe58b28575e4f0eb12c889df80e3c3289a99c552da435711bdbc92f8da4"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/build-pre.guard.json",
+          "sha256": "86f763d257886029cdbf8493bbf1942b4cc0885ea41b3e7ee3439bb2611444bb"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/build-acquired.guard.json",
+          "sha256": "b5fa09acac9e446b8f5690a1111d3f71b6fe9e4f0a6455a13450b958a88d51ab"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/build-post.guard.json",
+          "sha256": "97030558a73f64218edf4e8289e89e3c5d6179c5a6e76749ed2dcf09f7aaca46"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/consumer-pre.guard.json",
+          "sha256": "1cbc0090e7e43a72d97d07fff6ace7a32542db721ffbfdecaf478330020c0220"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/consumer-acquired.guard.json",
+          "sha256": "919de4600113593baf7b570d8871bc3f0fee0f1d82020f2c544c05366270d6ad"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/consumer-post.guard.json",
+          "sha256": "e9b88cc1950dc9adb9cc696814b30fd7e276890d548e1b870d412264229cac3d"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/prepared-other01/other-normal-native/final.guard.json",
+          "sha256": "4b27c9de52f05f1e4a1c9986ac52e58331b56c1a85960b6f0368a5688de1830b"
+        }
+      ],
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "emitArtifactSHA256": "a282757abb4f33e85f3088070d454e51a6d1bb29a03d68c4a2189b61f615fca9",
+      "buildArtifactSHA256": "af8258e9aed62b9b46060d27faa16fd9a777af063df5ded45dad21c97cfc3a01",
+      "wholeOracleSHA256": "fd064060ebf1d8e35579ed4a76dbedf93dc0ecabb2b999df4293bc111eed6270"
+    }
+  },
+  "preChildPreparationFailure": "prepared-attempt02 omitted required current plan_guard.py pin; no compiler child. attempt03 exact helper binding and absent JS native artifact path fixed; no source/oracle/cap change.",
+  "limits": "finite Unit-output two-system schedule; disabled metadata-fold skip not independent owner probe; no performance/public promotion/full56 closure"
+}
