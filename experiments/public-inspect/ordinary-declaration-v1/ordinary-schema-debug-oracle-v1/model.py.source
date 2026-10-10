@@ -1,0 +1,41 @@
+"""Independent source-only ordinary schema App model. No runtime inputs."""
+import json
+ls=lambda xs:'['+', '.join(xs)+']'
+def fields(c1,c2,kinds=False):
+    xs=[f'1:1:PositionRead:Update:cursor={c1}:[Position]:[Position:Read]',f'1:2:CounterUpdate:Update:cursor={c2}:[Counter]:[Counter:Write]']
+    if kinds:xs=[xs[0]+':Component',xs[1]+':Field']
+    return ls(xs)
+def world(pop,value):
+    live='node(node(leaf:False,leaf:True),node(leaf:True,leaf:False))' if pop else 'leaf:False'
+    col='Column{values=leaf:some(leaf:42);stamps=[1:1:1]}' if pop else 'Column{values=leaf:none;stamps=[]}'
+    return (f'namespace=1|nextId={3 if pop else 1}|highWater={2 if pop else 0}|live={live}|capacity={4 if pop else 1}|depth={2 if pop else 0}'
+            f'|store=product({col},Unit)|resource=product(Unit,leaf:{value})|events=[]|pendingCount=1|pendingEmpty=False'
+            f'|registrations=[2:CounterUpdate:[Counter], 1:PositionRead:[Position]]|nextSystemId=3|clock={int(pop)}')
+def complete(text,pop,value,c1,c2):
+    return text+'|world{'+world(pop,value)+'}|owners='+fields(c1,c2,True)
+def snapshot(pop,value,c1,c2,enabled=True):
+    row='[1:1:Found:42]' if pop else '[]'
+    text=('Debug{schema=[Component:Position:Position, Resource:Counter:Counter]|bindings='+fields(c1,c2)+'|rendered='+ls([row,f'Counter={value}'])+'}') if enabled else 'Disabled'
+    return complete(text,pop,value,c1,c2)
+def scenario(pop):
+    c1=c2=0;value=10
+    out=[snapshot(pop,value,c1,c2),snapshot(pop,value,c1,c2),snapshot(pop,value,c1,c2,False)]
+    # Direct registered read operation is successful even when zero matches;
+    # success advances its sole Fields cursor to actual World clock, no writes.
+    c1=int(pop)
+    out.append(complete('ComponentSuccess:output='+ls(['Unit'] if pop else []),pop,value,c1,c2))
+    # Selected-field replacement journals old physical Array and keeps World clock.
+    prior=value;value+=1;c2=int(pop)
+    out.append(complete(f'Success:output=leaf:{prior}',pop,value,c1,c2))
+    out.append(snapshot(pop,value,c1,c2))
+    out.append(complete(f'Failure:RolledBack:{value}',pop,value,c1,c2))
+    out.append(snapshot(pop,value,c1,c2))
+    prior=value;value+=1
+    out.append(complete(f'Success:output=leaf:{prior}',pop,value,c1,c2))
+    out.extend([snapshot(pop,value,c1,c2),snapshot(pop,value,c1,c2)])
+    return '\n'.join(out)+'\n'
+def report():
+    return ('consumer.Report{'+', '.join(json.dumps(scenario(p),ensure_ascii=False) for p in [False,True])+'}\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(report())
