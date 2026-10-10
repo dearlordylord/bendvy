@@ -11,3 +11,5 @@ The existing output archive contains311 exact members (~2.99MB compressed), incl
 This result permits only the exact source-frozen combined140 gate scope. Source/formal contract and feature-specific finite evidence/reached controls retain their reviewed limits; arbitrary-arity and generalized laws remain open.
 
 Statistics prerequisite provenance: root TOOL-OBSERVATIONS records the original four-test OK and original42115 terminal0/full summary. Launcher ran the unchanged statistics command with check=True/timeout5 before the benchmark. No separate child-split statistics raw files were created; none are invented or rerun. This tool-observation scope is explicit.
+
+The separately retained TOOL-POST.json records eight current literal/resolved tool-path and SHA joins passing after the run. This adds post-run tool evidence without rerunning any command.
