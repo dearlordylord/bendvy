@@ -1,0 +1,58 @@
+{
+  "independentCatalogue": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/typed-data-events-oracle-v1/affected-v1/ORACLES.json",
+  "oracleCommit": "584e10ff7",
+  "sourceCommit": "fbf6fb1f2",
+  "scope": "Cursor defect attribution uses same-namespace-baseline completebytes, originalQName baseline retained separately. Collector receipt unchanged; this is independent separate fullbyte comparison",
+  "results": [
+    {
+      "role": "js",
+      "actualPath": "/tmp/bendvy-typed-data-events-mutant-runtime01/a-normal-js/consumer.stdout",
+      "actualBytes": 97765,
+      "actualSHA256": "5015d880d1713ad9f1ae726c9c077fe9a7f62ecab2f053bc7fd4e26aac122c1a",
+      "equalsIndependentCountermodel": true,
+      "comparisons": [
+        {
+          "baselineKey": "baseline",
+          "baselinePath": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/typed-data-events-oracle-v1/affected-v1/baseline.stdout.gz",
+          "baselineBytes": 90365,
+          "baselineSHA256": "5e08abfaa69cad310934ec7d810eabbf8808bb4a6bc094f36dc0c439e8721f89",
+          "equal": false,
+          "firstDifferentByte": 16
+        },
+        {
+          "baselineKey": "same-namespace-baseline",
+          "baselinePath": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/typed-data-events-oracle-v1/affected-v1/same-namespace-baseline.stdout.gz",
+          "baselineBytes": 90365,
+          "baselineSHA256": "a167743c03c45db492fe28a4d65a34666fb9bc55ae4a3a7631ede60e89a2501b",
+          "equal": false,
+          "firstDifferentByte": 3923
+        }
+      ]
+    },
+    {
+      "role": "native",
+      "actualPath": "/tmp/bendvy-typed-data-events-mutant-runtime01/a-normal-native/consumer.stdout",
+      "actualBytes": 97765,
+      "actualSHA256": "5015d880d1713ad9f1ae726c9c077fe9a7f62ecab2f053bc7fd4e26aac122c1a",
+      "equalsIndependentCountermodel": true,
+      "comparisons": [
+        {
+          "baselineKey": "baseline",
+          "baselinePath": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/typed-data-events-oracle-v1/affected-v1/baseline.stdout.gz",
+          "baselineBytes": 90365,
+          "baselineSHA256": "5e08abfaa69cad310934ec7d810eabbf8808bb4a6bc094f36dc0c439e8721f89",
+          "equal": false,
+          "firstDifferentByte": 16
+        },
+        {
+          "baselineKey": "same-namespace-baseline",
+          "baselinePath": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/typed-data-events-oracle-v1/affected-v1/same-namespace-baseline.stdout.gz",
+          "baselineBytes": 90365,
+          "baselineSHA256": "a167743c03c45db492fe28a4d65a34666fb9bc55ae4a3a7631ede60e89a2501b",
+          "equal": false,
+          "firstDifferentByte": 3923
+        }
+      ]
+    }
+  ]
+}
