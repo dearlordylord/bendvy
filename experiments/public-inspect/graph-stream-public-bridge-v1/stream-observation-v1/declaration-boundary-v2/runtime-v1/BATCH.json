@@ -1,0 +1,69 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "workshop-normal",
+      "path": "/tmp/bendvy-graph-stream-stream-declaration-boundary-runtime01/workshop-normal-js/plan.json",
+      "sha256": "4f822195a946827e770c375bffe82c14ddd792a28ed00333cc0781526612b021",
+      "sources": 41,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-stream-declaration-boundary-runtime01/workshop-normal-js/plan.json",
+        "4f822195a946827e770c375bffe82c14ddd792a28ed00333cc0781526612b021"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "workshop-normal",
+      "path": "/tmp/bendvy-graph-stream-stream-declaration-boundary-runtime01/workshop-normal-native/plan.json",
+      "sha256": "ff996380a4429a598c1bd004d6c79e6a2b5434ed2093c06a9c2d8d24a41a2b1d",
+      "sources": 41,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-stream-declaration-boundary-runtime01/workshop-normal-native/plan.json",
+        "ff996380a4429a598c1bd004d6c79e6a2b5434ed2093c06a9c2d8d24a41a2b1d"
+      ]
+    },
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "garden-normal",
+      "path": "/tmp/bendvy-graph-stream-stream-declaration-boundary-runtime01/garden-normal-js/plan.json",
+      "sha256": "7caee8b4f38e76afd97c351dcaedb29372496091f00afd2ff240ab8e9e924e05",
+      "sources": 41,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-stream-declaration-boundary-runtime01/garden-normal-js/plan.json",
+        "7caee8b4f38e76afd97c351dcaedb29372496091f00afd2ff240ab8e9e924e05"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "garden-normal",
+      "path": "/tmp/bendvy-graph-stream-stream-declaration-boundary-runtime01/garden-normal-native/plan.json",
+      "sha256": "9343f679bf78de48c9ea904fcd2be5ce2c6aca2eb635d9bca9f178b50ddd0fff",
+      "sources": 41,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-stream-declaration-boundary-runtime01/garden-normal-native/plan.json",
+        "9343f679bf78de48c9ea904fcd2be5ce2c6aca2eb635d9bca9f178b50ddd0fff"
+      ]
+    }
+  ],
+  "sequence": "Workshop JS wholePASS -> conditional Workshop Native wholePASS -> Garden JS wholePASS -> conditional Garden Native wholePASS; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Exact source5 actual PASS for both frozen consuming closures; raw source evidence preserved",
+  "scope": "First complete ordinary Workshop Data stream snapshot qualification; no Type-reader ownership/full55/proof/performance acceptance"
+}
