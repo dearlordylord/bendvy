@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+107 |     case Snapshot{} <> rest:snapshot_joined(~S,~H,~Rows,~Recipes,~metadata,app=>text=>go(~S,~H,~Rows,~Recipes,~snapshot,~invoke,~metadata,rest,app,appended(prefix,text)),snapshot(app))
+108>|     case Enable{flag} <> rest:go(~S,~H,~Rows,~Recipes,~snapshot,~invoke,~metadata,rest,Ordinary.enable_debug(~S,~W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,~H,~Rows,~Recipes,app,flag),prefix)
+    |                                                                                                              ^
+109 |     case Invoke{flag} <> rest:invoked(~S,~H,~Rows,~Recipes,app=>text=>go(~S,~H,~Rows,~Recipes,~snapshot,~invoke,~metadata,rest,app,appended(prefix,text)),invoke(app,Input.Args{Array.new(Bool,0n,flag)}))
+bend 2.0.36 is available: run bend update
