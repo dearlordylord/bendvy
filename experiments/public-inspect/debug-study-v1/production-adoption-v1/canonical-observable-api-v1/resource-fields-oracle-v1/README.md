@@ -1,0 +1,13 @@
+# Independent #70 resource field oracle preparation
+
+Accepted owner: [#70](https://github.com/dearlordylord/bendvy/issues/70). Implementation source currently evolving in `70-resource-confinement/experiments/public-resource-fields`; no exact source or output admission yet. Expected outputs must be source-derived independently, never sampled runtime output.
+
+Scenario matrix: two independently nominal schemas; equal physical Counter payload with distinct First/Second resource identities; nested affine untouched siblings; actual ordinary registered read/write grants. Complete pre/post World and actual Registry observation includes all nested arrays, liveness/IDs/capacity/depth/store/events/pending/registration/clock/cursor/access metadata.
+
+Current selected-write sequence reads First, replaces it with prior+1 and checks afterFirst, replaces First again with prior+2, reads/writes Second prior+10. Commit, typed failure rollback, retry preserve earlier commit. With current A initial arrays First10/11/12/13 and Second100/101/102/103, first commit gives12/13/14/15 and110/111/112/113. Failure must restore those entire arrays; retry gives14/15/16/17 and120/121/122/123. Success Output carries all four observed values; Error carries first/second/afterFirst. These numbers are provisional until frozen source.
+
+Open acceptance boundaries before freeze: second nominal schema with independently shaped nested affine siblings; registered Read boundary and undeclared-sibling confinement; actual wrong-field routing and incomplete inverse mutants; source-current wrong binding/cross-schema/write-through-read/duplication controls. Own implementation authority remains #70; final audit #61, world identity #38 and general finalizer/irreversible effects #52. No optional/tick/disposal/identity contract chosen here.
+
+Affine typing alone does not establish canonical lens correctness, original-owner preservation, or exactly-once cleanup. Complete content/metadata observations detect selected routing/rollback mistakes, but pointer identity of affine allocations is not an invented observable contract. No compiler/backend/performance runs or qualification.
+
+Current four normal models now include A/B writer and true Read entrypoints. B Primary30..33/Secondary300..303 with untouched Sentinel values700/701 and flagsTrue/False. Actual read_body ignores fail Bool and returns Success all three invocations, unchanged resources; writer gives First+2 and Second+10 on each commit, complete rollback on failed invocation. Clock/cursor remain0 in this selected fixture, not a new tick policy. Pure generation only; PREPARATION-BASIS is evolving source read receipt, not final freeze.
