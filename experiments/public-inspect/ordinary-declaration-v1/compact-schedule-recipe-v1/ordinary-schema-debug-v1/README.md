@@ -32,7 +32,18 @@ Failure has the existing `Sys.Failed{world,error}` shape; no failed output is
 invented. Pending event callback 99 remains unflushed. A test-side owner observer
 runs after every action, including Disabled; production Disabled skips both
 metadata and World observation. No schedule-dispatch acceptance is inferred.
-Independent whole-model and first JS/Native pair remain pending.
+Independent oracle `4ff7cf92d` and root source/model sanity precede the first
+actual JS/Native pair: originals 61501/99059 both PASS the complete 13,505-byte
+model (`dc2fd49b…`), with five commands and unchanged guards. Compact runtime
+archive retains complete raw streams/plans/receipts/source joins. Generated
+artifact bodies are omitted; receipt digests and live artifacts remain.
+
+Canonical source review found fixture `resource_failed` discards the existing
+FirstApp owner pack when setup fails. The reusable field registration helper
+returns the original builder, but the finite fixture frontend is not qualified
+as a reusable preservation API. This source remains frozen successful evidence;
+a successor must retain the actual failed App and owners. Second nominal and
+authority controls remain pending; no generic arity/public/full #56 claim.
 
 Other #56 gaps remain: generic operational schedule/Plan integration;
 relation/machine registration descriptions (#55); persistence classification
