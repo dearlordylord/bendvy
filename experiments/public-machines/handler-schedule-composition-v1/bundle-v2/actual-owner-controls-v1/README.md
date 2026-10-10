@@ -1,0 +1,7 @@
+# Actual required-slot and independent-world Bundle controls
+
+Missing-slot retains real exit/transition registrations requiring only typed resource2 and a real inactive EnterPause registration requiring machine-slot1. The trusted fixture removes only the actual Data machine slot via Lens.put(M.Missing); every affine World field, queue callback, Bundle owner and reader remains. The complete three-scenario observer checks missing [1] before any leading barrier, tick, preparation or handler dispatch; it does not substitute unknown requirement99.
+
+Foreign-world consumes the returned affine Factory from actual first creation to create an independent second same-schema World and its own actual registrations. Bundle namespace2 comes from that World, not a reconstructed literal. The second actual Bundle is executed against World1 twice while Factory3, both full Worlds, both Bundle registries/owners and both readers are retained and fully observed. No reader callback or marker step is invoked by rejected execution.
+
+Both source01 captures passed stock five-second checking with unchanged guards. Exact capture bytes are retained in source-evidence.zip. Complete independent source-derived oracles and actual JS/Native outcomes are pending. This is still fixture-specific declaration/World projection; it is not a general public adapter, allocator-policy choice, multi-machine/heterogeneous proof, initialization qualification or full issue closure. Construction-failure and internal-recovery formatting are outside this finite normal setup.
