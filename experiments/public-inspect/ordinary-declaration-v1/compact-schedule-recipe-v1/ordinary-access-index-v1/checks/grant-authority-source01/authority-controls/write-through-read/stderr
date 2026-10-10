@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueWrite<write~Owner, Array<U32>, U32>
+- observed : Cap.ValueRead<write~Owner, U32>
+Context:
+- owner : write~Owner
+- value : Array<U32>
+Location: write
+3 | def write(~Owner:Type,~grant:Cap.ValueRead<Owner,U32>,owner:Owner,value:Array<U32>) -> Owner:
+4>|   Cap.value_set(~Owner,~Array<U32>,~U32,grant,owner,value)
+  |                                         ^^^^^
+5 | def main() -> Unit:Unit{}
+bend 2.0.36 is available: run bend update
