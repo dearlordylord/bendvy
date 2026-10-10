@@ -1,0 +1,365 @@
+{
+  "scope": "Complete Workshop registered transaction failure discards local relation command while retaining writer cursor and preexisting reader backlog; ten physical owner snapshots; local event discard, Garden, TS applicability, feature performance and full42 remain open",
+  "producerCommit": "020f099d3",
+  "oracleCommit": "9bb0e1528",
+  "outcomes": {
+    "workshop-js": {
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "wholeOracleSHA256": "34006c516f9583846dc1b671046f08af4ac69d252ac3237c80acb61c9d6881cf",
+      "commands": 2,
+      "guards": 7,
+      "normalBaselineRejected": null
+    },
+    "workshop-native": {
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "wholeOracleSHA256": "34006c516f9583846dc1b671046f08af4ac69d252ac3237c80acb61c9d6881cf",
+      "commands": 3,
+      "guards": 10,
+      "normalBaselineRejected": null
+    }
+  },
+  "commands": 5,
+  "guards": 17,
+  "members": [
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/consumer-acquired.guard.json",
+      "bytes": 10715,
+      "sha256": "e4e1c508c525ca91054cfb44e3b1d079971826c2a82a242476aa6c672573f858",
+      "object": "objects/e4e1c508c525ca91054cfb44e3b1d079971826c2a82a242476aa6c672573f858.gz",
+      "compressedSHA256": "32446a6b5c2aef2c14855b8fa862a59dcab14c4c1fecbd2edc176ec35e06c785"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/consumer-post.guard.json",
+      "bytes": 11015,
+      "sha256": "852fd9c2efaf276197fd5d2468ea215b270a7832a936037f86398b248e5d0a0b",
+      "object": "objects/852fd9c2efaf276197fd5d2468ea215b270a7832a936037f86398b248e5d0a0b.gz",
+      "compressedSHA256": "094c595929f1cb5670a8db551d9a9f36f82d0b157aec8b38f79a6b6103ef3db3"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/consumer-pre.guard.json",
+      "bytes": 10710,
+      "sha256": "5f31f0856a427d7853d944e0dcc69f2716f98f4eabc403fd0b85386a2f1c3d7d",
+      "object": "objects/5f31f0856a427d7853d944e0dcc69f2716f98f4eabc403fd0b85386a2f1c3d7d.gz",
+      "compressedSHA256": "dcf9ca4e4c8359d79d84c44d9c4869a27637ef6edad5cdb04488b55a888820c8"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/consumer.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "compressedSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/consumer.stdout",
+      "bytes": 17728,
+      "sha256": "34006c516f9583846dc1b671046f08af4ac69d252ac3237c80acb61c9d6881cf",
+      "object": "objects/34006c516f9583846dc1b671046f08af4ac69d252ac3237c80acb61c9d6881cf.gz",
+      "compressedSHA256": "103e7cfabdcc412881dbeaf674663aa813d56199a0b4a757d4d9c53627930782"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/emit-acquired.guard.json",
+      "bytes": 10267,
+      "sha256": "db054a8119787f9c2e1d31273391f052c525fc2c2d7d783d308ae01e50332599",
+      "object": "objects/db054a8119787f9c2e1d31273391f052c525fc2c2d7d783d308ae01e50332599.gz",
+      "compressedSHA256": "435d69a6e377f08e676dfb538a39c6557c5f5dfaa34ca84c32fa09b60fb199e4"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/emit-post.guard.json",
+      "bytes": 10707,
+      "sha256": "b6672b7b72964f5be4f1a06c171c7d1c4a14b84bc07dfbb7b3bf561ef1cc2265",
+      "object": "objects/b6672b7b72964f5be4f1a06c171c7d1c4a14b84bc07dfbb7b3bf561ef1cc2265.gz",
+      "compressedSHA256": "7c67be28dc0c9d03f55f07f2f7efa43c671260f899fcad66b135f999e044b8b2"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/emit-pre.guard.json",
+      "bytes": 10262,
+      "sha256": "50fbd5a0cce1c6276be7ee20e000a7ea8e8723851f879ed3b85ac9fc7caef847",
+      "object": "objects/50fbd5a0cce1c6276be7ee20e000a7ea8e8723851f879ed3b85ac9fc7caef847.gz",
+      "compressedSHA256": "52dbb6407e89b87bc4e6a10c47ac2b37cebbf1404bd7da787292574b821d53ed"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/emit.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "compressedSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/emit.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "compressedSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/final.guard.json",
+      "bytes": 11007,
+      "sha256": "0042033e1330a75c76c284a4bbe2e11d761cbf656443273970d2d86fabea799e",
+      "object": "objects/0042033e1330a75c76c284a4bbe2e11d761cbf656443273970d2d86fabea799e.gz",
+      "compressedSHA256": "487c74ca0fbfec932d5c2870eb2127b6a6cba2e97c8d24486dd82e295da3d1d1"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/plan.json",
+      "bytes": 62996,
+      "sha256": "cf6460e33213d329ef51b631d2156a68f05ffec2698e7d67b65c8b5a36b7a93a",
+      "object": "objects/cf6460e33213d329ef51b631d2156a68f05ffec2698e7d67b65c8b5a36b7a93a.gz",
+      "compressedSHA256": "1c0c592063e5d4ea5d3d2e560d06aefd5acc50553594daf5985d16bd74894375"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/receipt.json",
+      "bytes": 4081,
+      "sha256": "026126dfa68560ae7d7c6c60491c842032c11ff9bb9e65901329026ed9ee495e",
+      "object": "objects/026126dfa68560ae7d7c6c60491c842032c11ff9bb9e65901329026ed9ee495e.gz",
+      "compressedSHA256": "600afade9d136c3872d0f1c5b395e6a8feaf09bf54aa5f7809c2c799aa5ae5ed"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-js/scenario.js",
+      "bytes": 209573,
+      "sha256": "df7f1b66b5f7da43bc42c09f879bbce40bc6a0a5b79135925d760f31ab1dba9a",
+      "object": "objects/df7f1b66b5f7da43bc42c09f879bbce40bc6a0a5b79135925d760f31ab1dba9a.gz",
+      "compressedSHA256": "400a57f859568b617daf0372c9e9b179faea889bd7a1aeae5b1972a340199165"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/build-acquired.guard.json",
+      "bytes": 10727,
+      "sha256": "bd5f755a4105333a7b72854bb3339c9bdc11264a4b5c717ab015d7a35ae665cc",
+      "object": "objects/bd5f755a4105333a7b72854bb3339c9bdc11264a4b5c717ab015d7a35ae665cc.gz",
+      "compressedSHA256": "7e468c9edd97323fcfcd50edf8ec559033b9c60678dd6aae984b37cf6aaa08f0"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/build-post.guard.json",
+      "bytes": 11185,
+      "sha256": "e1f7939d1de6d0eadc300539088e91b9171eb7ffd31a9e13d3c4d7f1d2cd9fb7",
+      "object": "objects/e1f7939d1de6d0eadc300539088e91b9171eb7ffd31a9e13d3c4d7f1d2cd9fb7.gz",
+      "compressedSHA256": "309e969884574070b6258b1dec4fb8ce5436e85ebd940385b1a26a2957ddbe40"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/build-pre.guard.json",
+      "bytes": 10722,
+      "sha256": "d174dbfe3501571cd3396eb1e752974444ca6d7cde1e738ef6d6b30c59ee3a8c",
+      "object": "objects/d174dbfe3501571cd3396eb1e752974444ca6d7cde1e738ef6d6b30c59ee3a8c.gz",
+      "compressedSHA256": "04ab2571a058e4019bc2c54350ad216bf0f007700774199a50388f8879fda823"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/build.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "compressedSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/build.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "compressedSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/consumer-acquired.guard.json",
+      "bytes": 11192,
+      "sha256": "fe63e7da9c69182eb38a77b2978738cab5c19d91cfb5c61f60103e026dc53525",
+      "object": "objects/fe63e7da9c69182eb38a77b2978738cab5c19d91cfb5c61f60103e026dc53525.gz",
+      "compressedSHA256": "e90b6e71ed28f0dee65c2e453e6c461a8db6e5172e69d1d4303b96a2ff4036d8"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/consumer-post.guard.json",
+      "bytes": 11500,
+      "sha256": "e77b437a649e2caa1b56c1f360a5c35cdd5ff6876062e42fc937d47229f1f3f1",
+      "object": "objects/e77b437a649e2caa1b56c1f360a5c35cdd5ff6876062e42fc937d47229f1f3f1.gz",
+      "compressedSHA256": "2323fc03fc1c61e40e828216bb9b1a791a865a6f821657ef5ec232fa68c8b2e5"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/consumer-pre.guard.json",
+      "bytes": 11187,
+      "sha256": "9760bf64c65a5c5f447667613a826a0781d5fc17bb6811c8e14f848d3c1be0a3",
+      "object": "objects/9760bf64c65a5c5f447667613a826a0781d5fc17bb6811c8e14f848d3c1be0a3.gz",
+      "compressedSHA256": "722fe8fdab90a4fae08455c44243ae28498e5c45a00caf8a9075676e76d4a120"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/consumer.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "compressedSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/consumer.stdout",
+      "bytes": 17728,
+      "sha256": "34006c516f9583846dc1b671046f08af4ac69d252ac3237c80acb61c9d6881cf",
+      "object": "objects/34006c516f9583846dc1b671046f08af4ac69d252ac3237c80acb61c9d6881cf.gz",
+      "compressedSHA256": "103e7cfabdcc412881dbeaf674663aa813d56199a0b4a757d4d9c53627930782"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/emit-acquired.guard.json",
+      "bytes": 10271,
+      "sha256": "846e05e52ff662638fe8b8adc95519b119ef7d7aa182df13473359fc748a707a",
+      "object": "objects/846e05e52ff662638fe8b8adc95519b119ef7d7aa182df13473359fc748a707a.gz",
+      "compressedSHA256": "a832ee08e68e5afb2aa33c1f8cefc883cd419922b3ee351522cf2903e2b24ec2"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/emit-post.guard.json",
+      "bytes": 10722,
+      "sha256": "6b9b9bb784bcf6d37c1c0d2a1503630369b53c584d4dd63dab5ff4a278e9033f",
+      "object": "objects/6b9b9bb784bcf6d37c1c0d2a1503630369b53c584d4dd63dab5ff4a278e9033f.gz",
+      "compressedSHA256": "b70d5a111b8399fd2330758174313277f246548941422145125e97c079b7ae17"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/emit-pre.guard.json",
+      "bytes": 10266,
+      "sha256": "316d8dfcfee7c9c9174636a13a2026ee006a2b2494276e050df1b10a5635b20f",
+      "object": "objects/316d8dfcfee7c9c9174636a13a2026ee006a2b2494276e050df1b10a5635b20f.gz",
+      "compressedSHA256": "6b214279f063468653a4d319ad51374b6f9e04ada18192df23fbd321b6911b93"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/emit.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "compressedSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/emit.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "object": "objects/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.gz",
+      "compressedSHA256": "f61f27bd17de546264aa58f40f3aafaac7021e0ef69c17f6b1b4cd7664a037ec"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/final.guard.json",
+      "bytes": 11492,
+      "sha256": "75a331c5be62528c7880d781fca140de2eb475e40013e91d5e71905275e6a308",
+      "object": "objects/75a331c5be62528c7880d781fca140de2eb475e40013e91d5e71905275e6a308.gz",
+      "compressedSHA256": "94fa7da3ad31eacec9ee6127c8c2bed609e98c56f13057e5d02f71f02772584f"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/plan.json",
+      "bytes": 63451,
+      "sha256": "7131def7df9b1a1fab8d2a02e0c1652fac07d57cad0ff3e6c04413b1a9f49e07",
+      "object": "objects/7131def7df9b1a1fab8d2a02e0c1652fac07d57cad0ff3e6c04413b1a9f49e07.gz",
+      "compressedSHA256": "0355b676bbfef65c6368756d9eeb5112109ef9d9dc5784f135fcb820d23e1390"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/receipt.json",
+      "bytes": 5933,
+      "sha256": "e44cfa24082b6fe6cca13491b9ab814e3a6af6f25a273a6e307a4137bcb76409",
+      "object": "objects/e44cfa24082b6fe6cca13491b9ab814e3a6af6f25a273a6e307a4137bcb76409.gz",
+      "compressedSHA256": "5902ce4e7815c645b36b16992cc8bd3230d7d3ab794356c8d9be1e542081d473"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/scenario.c",
+      "bytes": 1419900,
+      "sha256": "40bcbf9cf2366c45a955f8ad6654d36ddfd2a688065aa205c4341759f1461ecf",
+      "object": "objects/40bcbf9cf2366c45a955f8ad6654d36ddfd2a688065aa205c4341759f1461ecf.gz",
+      "compressedSHA256": "d4b479bbb8eef17536f8859f0e7bcc61796fa94b1cbb1a1b4ac9c1f9e152f290"
+    },
+    {
+      "path": "/tmp/bendvy-relations42-system-failure-runtime01/workshop-native/scenario.native",
+      "bytes": 504312,
+      "sha256": "2136c069f277c02d22ac88c51b19b3a68e3f38de124d91793bb7b627805718b9",
+      "object": "objects/2136c069f277c02d22ac88c51b19b3a68e3f38de124d91793bb7b627805718b9.gz",
+      "compressedSHA256": "d89f12941aafe55532fb6e0e29dd486b4bbc061ca7df2857e08b6f6f0a6f2bef"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/ORACLES.json",
+      "bytes": 7004,
+      "sha256": "5522178878b23293d0f62d45b35eca31fbfcdbbf8651f19e35467a44c2ed136a",
+      "object": "objects/5522178878b23293d0f62d45b35eca31fbfcdbbf8651f19e35467a44c2ed136a.gz",
+      "compressedSHA256": "eb565518446804382e7f6db026fb31287a5e6453975f2afc29154e0b59cb6684"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/README.md",
+      "bytes": 658,
+      "sha256": "e8e003a5af8f36f3872579ab46790de91991b547ee7f0a500c2c1c80db4e598b",
+      "object": "objects/e8e003a5af8f36f3872579ab46790de91991b547ee7f0a500c2c1c80db4e598b.gz",
+      "compressedSHA256": "9bd2d9673af5ee272bb2796c20f7b0eab262aa3075cdaa65bf22f0da75d92fb1"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/SOURCE-BASIS.json",
+      "bytes": 8330,
+      "sha256": "9732a7871d301b8a4bfa6e81383b57af090687fe41b2455c01645ff7c1bdcb78",
+      "object": "objects/9732a7871d301b8a4bfa6e81383b57af090687fe41b2455c01645ff7c1bdcb78.gz",
+      "compressedSHA256": "8f8c3a31a7e3346d9f4f93cfff759e4fe33ce5191e97f0e5898881e598dd5957"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/model.py.source",
+      "bytes": 4247,
+      "sha256": "79cbb826fef3228a480c82f7b2a55b744f33c1e46a111d9089bebf02f800af48",
+      "object": "objects/79cbb826fef3228a480c82f7b2a55b744f33c1e46a111d9089bebf02f800af48.gz",
+      "compressedSHA256": "54b13137331b9cf16f8ccc005b98a8e73dbac1ca510ad120fbb5e674811bff2d"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/workshop-expected.stdout",
+      "bytes": 17728,
+      "sha256": "34006c516f9583846dc1b671046f08af4ac69d252ac3237c80acb61c9d6881cf",
+      "object": "objects/34006c516f9583846dc1b671046f08af4ac69d252ac3237c80acb61c9d6881cf.gz",
+      "compressedSHA256": "103e7cfabdcc412881dbeaf674663aa813d56199a0b4a757d4d9c53627930782"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/workshop-expected.stdout.gz",
+      "bytes": 906,
+      "sha256": "103e7cfabdcc412881dbeaf674663aa813d56199a0b4a757d4d9c53627930782",
+      "object": "objects/103e7cfabdcc412881dbeaf674663aa813d56199a0b4a757d4d9c53627930782.gz",
+      "compressedSHA256": "052eae85f90290645f43b7169fa1f6e7b8229d09239e868ca1c23e8322d546e2"
+    }
+  ],
+  "reusedPins": {
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/entry-workshop.bend": "2b13bade4e2ea09b331cbe3e40eae1e4e126817b9d0223fb14a6eb0ff768dc4d",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/consumer.bend": "de657bb58706de3749891f0bceaf4a504761766e160ee6dc4d9d7d3db5a6a275",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/fixture.bend": "e8f413e4add7fcdc2e09bd1d9367c0b153046d3599b435c3adbc47f2cddf85b3",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-graph.bend": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-cleanup.bend": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/operations.bend": "63674c8203ac977065997f20299fc32bac0bbb11f9e2c4abbaafccd1bfe96eb9",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-providers.bend": "6a69de7d29d0a150446689228878f19df5b6d2fdefdfcb2eb1ce1048246ac594",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "/workspace/formal-proofs/bendvy/src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-failure-runtime.bend": "11df4128184ea27bd9f87993235ef9459342c17c5165858814fea1f62c460ac9",
+    "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/domains.bend": "38821350d2565c576067bb4f9e2ba03cbe1b65da47258555c0c2b213eaafd379",
+    "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/queue.bend": "ca7363dac7df55b46fc06e42b123a874fbeae3181abe0c8da37d99ae9da524df",
+    "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+    "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/readings.bend": "09bcc21e95fbedef0c3f48025e93bc3088e7a89edfd2011d33d96884bc3d4a0e",
+    "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/routing.bend": "928a41657992d49110836caa4d7dd0349e14b003f8cf9112c413206c9b9df693",
+    "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/barrier.bend": "78f61ec8cd251f8362f738f264c313ec3ed15246c5227d8a90c43fbada967752",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-failure-reader.bend": "6c355ea7f29297ee96172c39364b97cbf0f8223b7cce7f46d85636919a36c75e",
+    "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+    "/workspace/formal-proofs/bendvy/scripts/task_runner.py": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+    "/workspace/formal-proofs/bendvy/scripts/evidence_boundary.py": "f65bec69285b71014fd6a750146e535a0128233b926248cd92ee04afeafd0122",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/ORACLES.json": "5522178878b23293d0f62d45b35eca31fbfcdbbf8651f19e35467a44c2ed136a",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/SOURCE-BASIS.json": "9732a7871d301b8a4bfa6e81383b57af090687fe41b2455c01645ff7c1bdcb78",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/model.py.source": "79cbb826fef3228a480c82f7b2a55b744f33c1e46a111d9089bebf02f800af48",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/SOURCE-EVIDENCE.json": "56cf2db963a70b22645d362a0c1d79aadc2062594b95523df57204dc73c8ee95",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/FREEZE.json": "62a137fde95776b89faa0032e2ce2105360fc54ba7dab18ae72161c5771134ac",
+    "/workspace/formal-proofs/bendvy/experiments/public-inspect/development-plan-guard-v1/plan_guard.py": "3f3ff92f6bcf3709fd851ee991b677bd7b39819aafa4c8fa0c24a7493fa8eb9d",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/runtime-v1/prepare.py.source": "793eda8ba74cfc99ad100a44b86dd67e2574f79d8457df952aa8c3aefd04a212",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/workshop-expected.stdout.gz": "103e7cfabdcc412881dbeaf674663aa813d56199a0b4a757d4d9c53627930782",
+    "/home/node/.bend/bin/bend-2.0.35": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477",
+    "/usr/bin/python3.11": "9a070c8a36e16c152dae21b66aeb707f4d21b506c875e9b15edf4387fca7dcf8",
+    "/usr/bin/taskset": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5",
+    "/tmp/bendvy-clang19-diagnostic/clang19": "3e171a978d6c1decae4e6645e9bfb771cf5af21ff699ea119fdb058936b0af2d",
+    "/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang": "c50213cae902a10db8c1ff172df4798b0a5a94f569a81270b834cd8a7d3afb5d",
+    "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+    "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/check-source.py": "7f50e78f776e658d3714e0a425eec0c99ca47d4bdb3eef06eb8bd7f6501c301e",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/check-source.py": "efab142dbfb7f760f03ec0d81cc9fa24c33a70d3c4b9c4e0d4a88879070be5c9",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/workshop-source04/SOURCE.json": "431e8d973b212942030e6692556058d7e6be43a13fb8744a98d4dea018d33e8a",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/workshop-source04/CLOSURE.json": "256b690a6107263016fc0cb96cc049c42a3ac02d4cd78ad1c5e135fba0727cc2",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/workshop-source04/result.json": "05967b17dca85175f4f35f3f55538b735dec3e1882e62d97086163092dbb3b7b",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/workshop-source04/post.json": "c4e829428d7b4008a59fde995012e1f2ec44911adb621225441de6c2ba99a153",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/README.md": "e8e003a5af8f36f3872579ab46790de91991b547ee7f0a500c2c1c80db4e598b",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/workshop-expected.stdout": "34006c516f9583846dc1b671046f08af4ac69d252ac3237c80acb61c9d6881cf",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/workshop-source04/stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-reader-query-v1/experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/workshop-source04/stderr": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+  }
+}
