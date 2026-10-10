@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : P.Declaration<C.A, C.Counter, T.Tx<W.World<C.A, Col.Column<C.A, Unit>, C.Counter, U32>, U32>, Cap.ValueWrite<T.Tx<W.World<C.A, Col.Column<C.A, Unit>, C.Counter, U32>, U32>, C.Counter, U32>>
+- observed : P.Declaration<C.A, C.Counter, T.Tx<W.World<C.A, Col.Column<C.A, Unit>, C.Counter, U32>, U32>, Cap.ValueRead<T.Tx<W.World<C.A, Col.Column<C.A, Unit>, C.Counter, U32>, U32>, U32>>
+Location: write_from_read
+12 | def write_from_read() -> Cap.ValueWrite<T.Tx<W.World<C.A,Col.Column<C.A,Unit>,C.Counter,U32>,U32>,C.Counter,U32>:
+13>|   P.grant(~C.A,~C.Counter,~T.Tx<W.World<C.A,Col.Column<C.A,Unit>,C.Counter,U32>,U32>,~Cap.ValueWrite<T.Tx<W.World<C.A,Col.Column<C.A,Unit>,C.Counter,U32>,U32>,C.Counter,U32>,P.read(~C.A,~Col.Column<C.A,Unit>,~C.Counter,~U32,~U32,~C.view,Schema.resource(~C.A,~C.Counter,"Counter")))
+   |                                                                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14 | 
+bend 2.0.36 is available: run bend update
