@@ -1,0 +1,35 @@
+{
+  "controls": [
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/authority-controls/undeclared.bend",
+      "capture": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/checks/authority-source01/authority-controls/undeclared",
+      "scope": "Actual Ev.all requires ReadAccess for abstract affine H; Unit is not a declared grant"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/authority-controls/write-through-read.bend",
+      "capture": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/checks/authority-source01/authority-controls/write-through-read",
+      "scope": "Actual Ev.emit refuses a ReadAccess where WriteAccess required; arbitrary affine H threaded"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/authority-controls/read-through-write.bend",
+      "capture": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/checks/authority-source01/authority-controls/read-through-write",
+      "scope": "Actual Ev.all refuses WriteAccess where ReadAccess required"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/authority-controls/cross-stream.bend",
+      "capture": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/checks/authority-source01/authority-controls/cross-stream",
+      "scope": "Actual run_first refuses SecondReader despite same World/schema and identical printable Signal names"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/authority-controls/cross-schema.bend",
+      "capture": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/checks/authority-source01/authority-controls/cross-schema",
+      "scope": "Actual run_first refuses real Other nominal reader/family type"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/authority-controls/affine-duplication.bend",
+      "capture": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/checks/authority-source01/authority-controls/affine-duplication",
+      "scope": "Actual public family Runtime owner cannot be duplicated"
+    }
+  ],
+  "scope": "typed grant/route/affine refusals only; no claim of raw trusted constructors being originproof or actual namespace rejection execution"
+}
