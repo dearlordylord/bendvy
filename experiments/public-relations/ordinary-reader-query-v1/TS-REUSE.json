@@ -1,0 +1,703 @@
+{
+  "evidence": [
+    {
+      "archive": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/1791352336073975279.tar.gz",
+      "archiveSHA256": "19cc6ce859eb3713ac9ba63a21b6f01a3e93a58ace6f7c016d4ff785d9b7dad6",
+      "receiptMember": "1791352336073975279/receipt.json",
+      "status": "NODE_RELATION_REFERENCE_RESEARCH_PASS",
+      "program": "/workspace/formal-proofs/bendvy/experiments/public-relations/reference.mjs",
+      "programSHA256": "93c7751541df7d982b4152d07774a28ae0eab0200a08a11b5fde68979edd43fb",
+      "commands": [
+        {
+          "argv": [
+            "git",
+            "-C",
+            "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+            "rev-parse",
+            "HEAD"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "head-bevy-ts.txt",
+          "logSHA256": "1e9fa0f2cb924e419c66fb68fbc27326da39b4f0a4ec43b422da942e21d2459f"
+        },
+        {
+          "argv": [
+            "git",
+            "-C",
+            "/workspace/formal-proofs/bendvy/.references/bevy",
+            "rev-parse",
+            "HEAD"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "head-bevy.txt",
+          "logSHA256": "9d667d1b5a173bd77d18a052c89dfe962a682536324abca195bd390f8686f635"
+        },
+        {
+          "argv": [
+            "git",
+            "-C",
+            "/workspace/formal-proofs/bendvy/.references/bend2",
+            "rev-parse",
+            "HEAD"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "head-bend2.txt",
+          "logSHA256": "c53bda1d7dcf325e36742cd1f44a9b6ce315828efa108c57f73015807decb429"
+        },
+        {
+          "argv": [
+            "node",
+            "--version"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "node-version.txt",
+          "logSHA256": "b67d0ced059f9313d861ddbbe734d2d1f9219106a9e036ae6d88407afa0846e6"
+        },
+        {
+          "argv": [
+            "bend",
+            "version"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "bend-version.txt",
+          "logSHA256": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d"
+        },
+        {
+          "argv": [
+            "bend",
+            "guide"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "bend-guide.txt",
+          "logSHA256": "9001a4ac112e92dc0c069c8b9d5812e114c2557427d9f962cddeef1ef6c292b6"
+        },
+        {
+          "argv": [
+            "node",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/reference-development-v0.mjs"
+          ],
+          "capSeconds": 5,
+          "exit": 1,
+          "log": "reference-development-v0.txt",
+          "logSHA256": "3ce84b5aa38bec743a25e4dd70330f762a98440ec60a864eadfc475c01c0e9a4"
+        },
+        {
+          "argv": [
+            "node",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/reference-development-v1.mjs"
+          ],
+          "capSeconds": 5,
+          "exit": 1,
+          "log": "reference-development-v1.txt",
+          "logSHA256": "f117fb9ea56fe1552667b25bc6416a8ef8bedb21dd5c1ef20ac707330d430c7e"
+        },
+        {
+          "argv": [
+            "node",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/reference.mjs"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "reference.txt",
+          "logSHA256": "63f4bad557a907325c6b1aef540cf3f340f4870eb9e28611e82325d33faa3f43"
+        },
+        {
+          "argv": [
+            "node",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/foreign-reference.mjs"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "foreign.txt",
+          "logSHA256": "73ef75d9d85e06adff298e584bbedfe17fca406bf68c8d841c31e51a4bda5ad5"
+        }
+      ],
+      "scope": "Node reference research only; no Bend implementation/law approval/proof/performance gate",
+      "referenceHeads": {
+        "bevy-ts": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+        "bevy": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+        "bend2": "a950fd683c0d76f09794078e6174fe98a1492876"
+      }
+    },
+    {
+      "archive": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658.tar.gz",
+      "archiveSHA256": "10ecbc4e5521762529f10e8cbefbd6e8fce48f7962c430489a2dfb08ba6c6410",
+      "receiptMember": "provider-1791361096655754658/receipt.json",
+      "status": "FINITE_REGISTERED_RELATION_PROVIDER_PASS",
+      "program": "/workspace/formal-proofs/bendvy/experiments/public-relations/provider-reference.mjs",
+      "programSHA256": "a54ebb9be23ea693c298083e2fb18c525938608e70a2bbf75bffd65807d0978c",
+      "commands": [
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "version"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-0.txt",
+          "sha256": "ca6fc52ac20b452bc60b3e8da766c53d679f0325ca4f1ac580ec72f09758d79d"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "guide"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-1.txt",
+          "sha256": "21293396a074f0062e437651cd27f5e81312bd1d52db6d67f82975335ca68710"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "git",
+            "-C",
+            "/workspace/formal-proofs/bendvy/.references/bevy-ts",
+            "rev-parse",
+            "HEAD"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-2.txt",
+          "sha256": "1e9fa0f2cb924e419c66fb68fbc27326da39b4f0a4ec43b422da942e21d2459f"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "git",
+            "-C",
+            "/workspace/formal-proofs/bendvy/.references/bevy",
+            "rev-parse",
+            "HEAD"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-3.txt",
+          "sha256": "9d667d1b5a173bd77d18a052c89dfe962a682536324abca195bd390f8686f635"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "git",
+            "-C",
+            "/workspace/formal-proofs/bendvy/.references/bend2",
+            "rev-parse",
+            "HEAD"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-4.txt",
+          "sha256": "c53bda1d7dcf325e36742cd1f44a9b6ce315828efa108c57f73015807decb429"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "node",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/reference.mjs"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-5.txt",
+          "sha256": "63f4bad557a907325c6b1aef540cf3f340f4870eb9e28611e82325d33faa3f43"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "node",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/foreign-reference.mjs"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-6.txt",
+          "sha256": "73ef75d9d85e06adff298e584bbedfe17fca406bf68c8d841c31e51a4bda5ad5"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "node",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/provider-reference.mjs"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-7.txt",
+          "sha256": "5c118ef487d82d622d65015460bab970fac788cb88d16504a465169dbf41e2a9"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/experiments/public-relations/negative-affine.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "exit": 1,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-8.txt",
+          "sha256": "d62e363a5b166954074e3cc6f13bbf8be7365415d38de8478069fdc2edc95a32"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/experiments/public-relations/negative-cross-schema.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "exit": 1,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-9.txt",
+          "sha256": "08f11bfd4b227b4c535b1e03c36696edfc3397ab6b211a9dca21a0718af87ddc"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/experiments/public-relations/negative-owner-inspect.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "exit": 1,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-10.txt",
+          "sha256": "ed3d48ab9c1526607f88e9737ceb14a3c52fd19869ba87d1df4d6314a1bc951f"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/experiments/public-relations/negative-undeclared.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "exit": 1,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-11.txt",
+          "sha256": "749e23a36f01147dae93e6083f232b5afddf801621a4369c0187ead5cc2c9c05"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/experiments/public-relations/negative-write-through-read.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "exit": 1,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-12.txt",
+          "sha256": "4e45460e162053ee036a5208f96bf313b392726ba1b0ff914da9112617811861"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/experiments/public-relations/negative-inverse-write.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "exit": 1,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-13.txt",
+          "sha256": "638e82ffafd705e93d1a9db979366e624491d96e5554ce8b50dc36deec0360a9"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/experiments/public-relations/registered-world.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-14.txt",
+          "sha256": "8517c333d80f899ab52eff3cb7e07cf947fafcb671f8c43d653a985db143e500"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/experiments/public-relations/registered-world.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/world.js"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-15.txt",
+          "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "node",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/world.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-16.txt",
+          "sha256": "b63575256218aa6bffcd8c39e36e9ca1f3f13e3bf0dec913465fa4df60b5d74b"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/experiments/public-relations/registered-world.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/world.c"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-17.txt",
+          "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/world.c",
+            "-pthread",
+            "-lm",
+            "-o",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/world-native"
+          ],
+          "capSeconds": 120,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-18.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/normal/world-native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-19.txt",
+          "sha256": "b63575256218aa6bffcd8c39e36e9ca1f3f13e3bf0dec913465fa4df60b5d74b"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/registered-relate-omission/experiments/public-relations/registered-world.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-20.txt",
+          "sha256": "8517c333d80f899ab52eff3cb7e07cf947fafcb671f8c43d653a985db143e500"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/registered-relate-omission/experiments/public-relations/registered-world.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/registered-relate-omission/world.js"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-21.txt",
+          "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "node",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/registered-relate-omission/world.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-22.txt",
+          "sha256": "b1d35a8e24693e75c1df28b511906e516072c53c8f0a29665a38b4313b1600c1"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/registered-relate-omission/experiments/public-relations/registered-world.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/registered-relate-omission/world.c"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-23.txt",
+          "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/registered-relate-omission/world.c",
+            "-pthread",
+            "-lm",
+            "-o",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/registered-relate-omission/world-native"
+          ],
+          "capSeconds": 120,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-24.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/registered-relate-omission/world-native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-25.txt",
+          "sha256": "b1d35a8e24693e75c1df28b511906e516072c53c8f0a29665a38b4313b1600c1"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-snapshot-omission/experiments/public-relations/registered-world.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-26.txt",
+          "sha256": "8517c333d80f899ab52eff3cb7e07cf947fafcb671f8c43d653a985db143e500"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-snapshot-omission/experiments/public-relations/registered-world.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-snapshot-omission/world.js"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-27.txt",
+          "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "node",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-snapshot-omission/world.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-28.txt",
+          "sha256": "e7f6f54e18cedee1c4c02bfcf16821cad77438952cfdd9706cac55735556451d"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-snapshot-omission/experiments/public-relations/registered-world.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-snapshot-omission/world.c"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-29.txt",
+          "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-snapshot-omission/world.c",
+            "-pthread",
+            "-lm",
+            "-o",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-snapshot-omission/world-native"
+          ],
+          "capSeconds": 120,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-30.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-snapshot-omission/world-native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-31.txt",
+          "sha256": "e7f6f54e18cedee1c4c02bfcf16821cad77438952cfdd9706cac55735556451d"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-foreign-namespace/experiments/public-relations/registered-world.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-32.txt",
+          "sha256": "8517c333d80f899ab52eff3cb7e07cf947fafcb671f8c43d653a985db143e500"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-foreign-namespace/experiments/public-relations/registered-world.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-foreign-namespace/world.js"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-33.txt",
+          "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "node",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-foreign-namespace/world.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-34.txt",
+          "sha256": "aec89d94e144096a56a97606e1508c2d0fe4628c1af834214d504a377bd4dffb"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "bend",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-foreign-namespace/experiments/public-relations/registered-world.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-foreign-namespace/world.c"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-35.txt",
+          "sha256": "57f1325a11b98d00f4bdbb487bda0cc9787e2baa240266722596845baee2e494"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-foreign-namespace/world.c",
+            "-pthread",
+            "-lm",
+            "-o",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-foreign-namespace/world-native"
+          ],
+          "capSeconds": 120,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-36.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "argv": [
+            "taskset",
+            "-c",
+            "10",
+            "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/inverse-foreign-namespace/world-native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "log": "/workspace/formal-proofs/bendvy/experiments/public-relations/evidence/provider-1791361096655754658/command-37.txt",
+          "sha256": "aec89d94e144096a56a97606e1508c2d0fe4628c1af834214d504a377bd4dffb"
+        }
+      ],
+      "scope": "finite actual registered relation providers/retained inverse/Type owners; cleanup/reorder/retention OPEN",
+      "referenceHeads": null
+    }
+  ],
+  "scope": "Executed pinned shared semantic observations only. reference.mjs covers repeat/replacement/unrelate/FIFO/deletion and failed-system relation discard; provider-reference.mjs covers registered provider replacement and retained inverse. New complete reader/World transcripts are independent Bend models, not identical TS outputs. TS numeric-ID foreign aliasing remains an explicit reference difference; no rerun or fair timing claim."
+}
