@@ -1,0 +1,11 @@
+# Same-process scales2/4 final Spec/Standards review
+
+PASS for immutable delivery6e6fd019472a00b0c41fad06708255309e1e3b80, source dependencies05daa190e/3c2212964 and independent e73237223 whole-output models. No concrete mismatch found; read-only review, no execution or source/index changes.
+
+The previously reviewed one timer region enclosing two/four complete lifecycle calls remains exact. Each lifecycle preserves ten Worlds, forty registered invocations, twenty observations and full five-family physical owners/teardown. Actual pinned JS/C namespace effects retain one program-local allocator across calls:1..20/1..40. Source checks intentionally report seventeen foreign proof dependencies, separately from actual runtime qualification. Imported Loop.main is not invoked.
+
+Verified all84 lossless runtime ZIP members by byte size/hash and exact member set; six archived plans/receipts,12 commands exit0/no failure and42 unchanged guards. Both Bend backends match full36,186/72,442 outputs: scale2 SHA70616b4fff850c726c60f63e33772a127a4192cd0a0ab20d694e18ac51eb08f4, scale4 full72,442 SHAb384bb3943e7b20bc1ccd3e99d63b0866a638e9a7dc9f8ed3183a4b31d7bd949. Matching TS full10,172 and20,344 outputs match their complete independent models. Every stdout equals the frozen gzip; stderr is one timer JSON with matching complete byte count/FNV. Generated JS/C/native artifact identities and bodies are retained and verified. All527 current input identities and208 retained source objects match their archive index and current bytes.
+
+Preparation failures were pre-child and retained: source archive duplicate-content CAS preparation correction and TS additional package/support input assertion repair. They did not change runner, caps or application work. TS runs use the unchanged root adapter and pinned actual TS entrypoints; their logical models do not assert Bend affine ownership or physical World parity.
+
+These six successful runs qualify same-process scale2/4 whole semantics and timer transport. They confer no comparative timing credit, stock compiler adoption or full #41 acceptance. Comparative cohort still requires its exact independent launch review and exclusive suitable host; no ratios or speedup inferred here. Earlier failures and copied-profile diagnostics stay separate.
