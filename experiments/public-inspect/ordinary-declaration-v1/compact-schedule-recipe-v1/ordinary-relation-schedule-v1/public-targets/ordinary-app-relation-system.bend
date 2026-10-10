@@ -34,5 +34,10 @@ def dispatched(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~
     case Sys.Completed{registry,Sys.Succeeded{world,output}}:(registry,Sys.Succeeded{world,output})
     case Sys.Completed{registry,Sys.Failed{world,error}}:(registry,Sys.Failed{world,Some{error}})
     case Sys.RegistrationRejected{registry,world,args}:(registry,Sys.Failed{world,None{}})
+def dispatch_checked(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~target:W.Handle<S>,allowed:Bool,owner:Owner(~S,~C,~R,~E,~declaration,~target),world:Relation.World(~S,~C,~R,~E)) -> Owner(~S,~C,~R,~E,~declaration,~target) & Sys.Outcome<Relation.World(~S,~C,~R,~E),Maybe<&2,Unit>,Unit>:
+  match allowed:
+    case False{}:(owner,Sys.Failed{world,None{}})
+    case True{}:dispatched(~S,~C,~R,~E,~declaration,~target,Sys.run_tracked(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~Unit,~Unit,~Unit,~reader(~S,~C,~R,~E,~declaration,~target),owner,world,Unit{}))
 def dispatch(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~target:W.Handle<S>,owner:Owner(~S,~C,~R,~E,~declaration,~target),world:Relation.World(~S,~C,~R,~E),id:U32) -> Owner(~S,~C,~R,~E,~declaration,~target) & Sys.Outcome<Relation.World(~S,~C,~R,~E),Maybe<&2,Unit>,Unit>:
-  dispatched(~S,~C,~R,~E,~declaration,~target,Sys.run_tracked(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~Unit,~Unit,~Unit,~reader(~S,~C,~R,~E,~declaration,~target),owner,world,Unit{}))
+  match owner:
+    case Sys.Registry{namespace,+actual,name,access,cursor}:dispatch_checked(~S,~C,~R,~E,~declaration,~target,U32.is_eq(actual,id),Sys.Registry{namespace,actual,name,access,cursor},world)
