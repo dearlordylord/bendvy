@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "reviewer": "root",
+  "planSHA256": "e0ca5f5c43a63b363daee73f5f75de34b821527db47bbe2efda2a3c119bd454e",
+  "candidateCommit": "6c5d32068",
+  "scope": "unchanged default #28; protected workload only",
+  "checks": [
+    "baseline/workload/statistics/tools/environment/limits exact previous plan",
+    "145 monitored and149 staged current hashes",
+    "public relocation independentreview PASS",
+    "exclusivequeue reserved, no live heavy children",
+    "fresh CPU11 idle observation retained"
+  ],
+  "limitations": [
+    "host can change during cohort",
+    "no detected regression does not prove equivalence",
+    "not full-feature performance qualification"
+  ]
+}
