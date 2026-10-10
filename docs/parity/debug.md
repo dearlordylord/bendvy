@@ -29,3 +29,25 @@ An ordinary ECS application user enables debug. Structure, declared access and s
 - Use before/after JS call and allocation profiles for a consequential performance change; report allocation sampling separately from physical/RSS memory. Optimize demonstrated bottlenecks while completing features. The scoped #30 amendment is not a global gate waiver; full performance remains under #21/#23/#24.
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
+
+## Remaining automatic declaration bridges
+
+Source preparation for #56; these are implementation gaps, not executed acceptance
+or evidence of technical impossibility. Rust Bevy retains access from system
+parameters (`crates/bevy_ecs/src/system/system_param.rs`, `Res`/`ResMut::init_access`)
+and exposes registered systems in `schedule/schedule.rs`. Reference commits are
+fixed in [the manifest](../../.references/sources.json).
+
+| Ordinary declaration | Existing operational information | Required App bridge |
+| --- | --- | --- |
+| Resource/schema | [ordinary-schema](../../src/ecs/ordinary-schema.bend): `resource`, `resource_schema`, `entries`, `product` retain keys, names and order; their type parameters carry physical types, not runtime type descriptors. | Derive schema descriptions from these same entries. |
+| Resource access | [compose](../../src/ecs/compose.bend): `resource_read`/`resource_write`; [inspector](../../src/ecs/inspector.bend): `read_resource`. | Retain the ordinary resource identity and access clause with the grant. The separate caller-authored identity in [inspector-declaration](../../src/ecs/inspector-declaration.bend) is reusable plumbing, but not automatic declaration integration. |
+| Schedule | [schedule](../../src/ecs/schedule.bend): `Schedule` retains names and ordered steps, system/condition IDs and barriers. [schedule-provision](../../src/ecs/schedule-provision.bend): `Plan` retains per-step requirements before `build` lowers them to steps and a requirement union. | Describe the actual executable schedule. Preserve the operational Plan if per-step requirements are exposed; the union cannot recover that association. |
+| Storage classification | [persistence-declaration](../../src/ecs/persistence-declaration.bend) distinguishes Plain/Transient/Constructed; [snapshot-leaf](../../src/ecs/snapshot-leaf.bend) retains recipes. | Connect classification to the ordinary schema; current schema entries omit it. |
+| Relations and machines | [relation-types](../../src/ecs/relation-types.bend): `Descriptor` retains name/kind/inverse. [machine](../../src/ecs/machine.bend) and [machine-handler-bundle](../../src/ecs/machine-handler-bundle.bend) retain slots, selectors, order, requirements and registries. | Derive descriptions at their actual App registration/build seams. |
+
+Descriptions must be derived only when debug is enabled. Do not add unconditional
+description copies or require user metadata adapters. The retained full80 fixture contains reusable Registry/schedule projections
+(see [the source archive](../../experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-system-retention-v1/detached-observable-generic-v1/diagnostic-js-v1/actual-js-v1/manifest.json)), but does not establish an
+ordinary automatic public App or complete #56 acceptance. Pinned bevy-ts
+`Debug.ts` identifies output categories; it does not determine the contract.
