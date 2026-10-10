@@ -1,0 +1,39 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "garden",
+      "path": "/tmp/bendvy-graph-stream-garden-runtime01/garden-js/plan.json",
+      "sha256": "b0696527fe6eb20a49ab61d7dcd02170127f185a4ce1213d87947d5fff7aaab0",
+      "sources": 36,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-garden-runtime01/garden-js/plan.json",
+        "b0696527fe6eb20a49ab61d7dcd02170127f185a4ce1213d87947d5fff7aaab0"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "garden",
+      "path": "/tmp/bendvy-graph-stream-garden-runtime01/garden-native/plan.json",
+      "sha256": "9b669dfc5bad909993d75d90d7ec970c284247742af85c3ca8c43705fdcb7cd1",
+      "sources": 36,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-garden-runtime01/garden-native/plan.json",
+        "9b669dfc5bad909993d75d90d7ec970c284247742af85c3ca8c43705fdcb7cd1"
+      ]
+    }
+  ],
+  "sequence": "Garden JS wholePASS -> conditional Garden Native wholePASS; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Exact source5 actual PASS for both frozen consuming closures; raw source evidence preserved",
+  "scope": "Finite Garden projection backend qualification; no reader/registered-System/full55/universal/performance acceptance"
+}
