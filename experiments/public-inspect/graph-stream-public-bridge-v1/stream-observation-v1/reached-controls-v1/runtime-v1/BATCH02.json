@@ -1,0 +1,99 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "namespace-normal",
+      "path": "/tmp/bendvy-graph-stream-stream-observation-controls-runtime02/namespace-normal-js/plan.json",
+      "sha256": "c9345515b6918beee4563efa69dc8e8255afbb60e80937dada6db223c6672762",
+      "sources": 41,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-stream-observation-controls-runtime02/namespace-normal-js/plan.json",
+        "c9345515b6918beee4563efa69dc8e8255afbb60e80937dada6db223c6672762"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "namespace-normal",
+      "path": "/tmp/bendvy-graph-stream-stream-observation-controls-runtime02/namespace-normal-native/plan.json",
+      "sha256": "cd0db9a18eef4aa091424468ddbb05cbe765fba54bd251ad63dddfe551b65526",
+      "sources": 41,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-stream-observation-controls-runtime02/namespace-normal-native/plan.json",
+        "cd0db9a18eef4aa091424468ddbb05cbe765fba54bd251ad63dddfe551b65526"
+      ]
+    },
+    {
+      "role": "js",
+      "subject": "mutant",
+      "case": "stream-consumption",
+      "path": "/tmp/bendvy-graph-stream-stream-observation-controls-runtime02/stream-consumption-js/plan.json",
+      "sha256": "7ff69995d234991d942e9b92dca5684c825282672b8b31186ee9c18416d6efdd",
+      "sources": 41,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-stream-observation-controls-runtime02/stream-consumption-js/plan.json",
+        "7ff69995d234991d942e9b92dca5684c825282672b8b31186ee9c18416d6efdd"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "mutant",
+      "case": "stream-consumption",
+      "path": "/tmp/bendvy-graph-stream-stream-observation-controls-runtime02/stream-consumption-native/plan.json",
+      "sha256": "e6b9810fb4559b6ce48739b6db4e1d62815be234c4da9b93d03b8b62cdc5df75",
+      "sources": 41,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-stream-observation-controls-runtime02/stream-consumption-native/plan.json",
+        "e6b9810fb4559b6ce48739b6db4e1d62815be234c4da9b93d03b8b62cdc5df75"
+      ]
+    },
+    {
+      "role": "js",
+      "subject": "mutant",
+      "case": "failure-order",
+      "path": "/tmp/bendvy-graph-stream-stream-observation-controls-runtime02/failure-order-js/plan.json",
+      "sha256": "21a74583a5f6de223f2b7e5d4d830c2736300a85906f2e5259e8f33c6f801940",
+      "sources": 41,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-stream-observation-controls-runtime02/failure-order-js/plan.json",
+        "21a74583a5f6de223f2b7e5d4d830c2736300a85906f2e5259e8f33c6f801940"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "mutant",
+      "case": "failure-order",
+      "path": "/tmp/bendvy-graph-stream-stream-observation-controls-runtime02/failure-order-native/plan.json",
+      "sha256": "b8ec78bdf074eb3481f093c168386a24f0817325500b1a1357879c5a074dd552",
+      "sources": 41,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-graph-stream-stream-observation-controls-runtime02/failure-order-native/plan.json",
+        "b8ec78bdf074eb3481f093c168386a24f0817325500b1a1357879c5a074dd552"
+      ]
+    }
+  ],
+  "sequence": "Namespace-normal JS\u2192Native wholePASS then stream-consumption JS\u2192Native then failure-order JS\u2192Native; each mutant matches its independent complete model and rejects namespace-normal whole oracle; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Exact source5 actual PASS for both frozen consuming closures; raw source evidence preserved",
+  "scope": "Finite reached stream controls only; source-current authority checked separately; no Type-reader ownership/full55/proof/performance acceptance"
+}
