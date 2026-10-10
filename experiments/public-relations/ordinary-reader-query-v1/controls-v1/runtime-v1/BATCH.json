@@ -1,0 +1,69 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "namespace-normal",
+      "path": "/tmp/bendvy-relations42-reader-query-controls-runtime01/namespace-normal-js/plan.json",
+      "sha256": "449ec067de8efcf3195f8da5464d8a7ecf375d451402f982d46fc9204a9a8892",
+      "sources": 29,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-relations42-reader-query-controls-runtime01/namespace-normal-js/plan.json",
+        "449ec067de8efcf3195f8da5464d8a7ecf375d451402f982d46fc9204a9a8892"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "namespace-normal",
+      "path": "/tmp/bendvy-relations42-reader-query-controls-runtime01/namespace-normal-native/plan.json",
+      "sha256": "0f68f1422a9b97309fb15dc5bc9b4168a0e7aaa966b496d7f1dba1f36daee335",
+      "sources": 29,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-relations42-reader-query-controls-runtime01/namespace-normal-native/plan.json",
+        "0f68f1422a9b97309fb15dc5bc9b4168a0e7aaa966b496d7f1dba1f36daee335"
+      ]
+    },
+    {
+      "role": "js",
+      "subject": "mutant",
+      "case": "wrong-key",
+      "path": "/tmp/bendvy-relations42-reader-query-controls-runtime01/wrong-key-js/plan.json",
+      "sha256": "52502a4b538ed9cf774a56b259e9327b708a3fb08a119630403b8d16518501fd",
+      "sources": 29,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-relations42-reader-query-controls-runtime01/wrong-key-js/plan.json",
+        "52502a4b538ed9cf774a56b259e9327b708a3fb08a119630403b8d16518501fd"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "mutant",
+      "case": "wrong-key",
+      "path": "/tmp/bendvy-relations42-reader-query-controls-runtime01/wrong-key-native/plan.json",
+      "sha256": "f7826de09876cb7a6a7122ff9b9d44a96befaa0f38535b3467fb8e591ce1a721",
+      "sources": 29,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-relations42-reader-query-controls-runtime01/wrong-key-native/plan.json",
+        "f7826de09876cb7a6a7122ff9b9d44a96befaa0f38535b3467fb8e591ce1a721"
+      ]
+    }
+  ],
+  "sequence": "Namespace JS\u2192Native wholePASS then wrong-key JS\u2192Native whole countermodelPASS+normal baseline rejection; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Both exact controls source01 cap5 actual PASS for frozen clone/key mutation closures; raw source evidence preserved",
+  "scope": "Affected actual declaration-routing control against complete namespace-matched baseline; Finite reached routing and source authority scope only; no new reader/identity/affine-event policy or full42/proof/performance acceptance"
+}
