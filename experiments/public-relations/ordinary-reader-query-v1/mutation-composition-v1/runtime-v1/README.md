@@ -1,0 +1,3 @@
+Workshop JavaScript and Native both match the complete independent14197-byte oracle1ce022e4. Five commands succeed and17 guards remain unchanged. actual-attempt01/manifest.json retains41 lossless members/32 content-addressed gzip objects, including generated JS/C/native, raw streams/plans/receipts and independent model.
+
+This finite17-checkpoint trace executes actual supplied writable clear Request, registered source replacement/repeated edge/deferred unrelate/benign absent clear and two actual empty descriptor-reader deliveries. It does not qualify broader failures/foreign applicability/TS timing or full issue42.
