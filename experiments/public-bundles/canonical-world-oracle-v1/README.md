@@ -1,0 +1,3 @@
+Independent complete source-only canonical World pipeline oracle for frozen `78302e9bc`. All eight physical World/registry/context snapshots and recovered affine owner values are included. Raw IO.print String plus LF differs from the prior quoted String-main fixture. No producer or backend stdout was read.
+
+Two installs advance clock to 2 then 4; request cursor becomes 2 before replacement delivery and stays 2 during inverse restoration. Cleanup preserves live entity and clock 4, restores both absent columns with explicit lifecycle `1:0:0` entries, and returns retry raw before replacement raw. This does not establish arbitrary world creation, namespace-root uniqueness, or universal Bundle insertion.
