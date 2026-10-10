@@ -1,0 +1,184 @@
+{
+  "modules": [
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/provision.bend",
+      "sourceBytes": 6844,
+      "sourceSha256": "ee73c48f4457e7ede53b8968394f25b8292b175ebe1009aedba307d5fe4cfda4",
+      "prepared": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/public-target/ordinary-schema-dump.bend",
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-schema-dump.bend",
+      "targetBytes": 6578,
+      "targetSha256": "4fda9e50cb8c8ef9b1bfad53a5b6288072042469b44198dd43d7e9ff2505b233",
+      "imports": [
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "to": "./world.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+          "to": "./column.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend",
+          "to": "./ordinary-schema.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend",
+          "to": "./ordinary-declaration.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/owner-product.bend",
+          "to": "./owner-product.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-schema-provision.bend",
+          "to": "./ordinary-schema-provision.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-dump-builtin.bend",
+          "to": "./ordinary-dump-builtin.bend"
+        }
+      ],
+      "inverseExact": true,
+      "previousTargetSha256": "97f1b7f2e15d3a678a8db4fffa122ab6264dcdd0c4a8c5a73b73c2d17708d248"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/dump-app.bend",
+      "sourceBytes": 10587,
+      "sourceSha256": "135c5a76c7b1d2edba6038d16ed3925cf8d8f106567ee2e7836a6d734bcaa854",
+      "prepared": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/public-target/ordinary-app-dump.bend",
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-dump.bend",
+      "targetBytes": 10182,
+      "targetSha256": "ae92cc1379ab9a7fcac00a73819b7d2701bacfea519a6700ad4bb86ac4ec2d52",
+      "imports": [
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "to": "./world.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend",
+          "to": "./ordinary-schema.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend",
+          "to": "./schema-fragments.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-schema.bend",
+          "to": "./ordinary-app-schema.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-composer.bend",
+          "to": "./ordinary-app-composer.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-registration-fields.bend",
+          "to": "./ordinary-app-registration-fields.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-observation-data.bend",
+          "to": "./ordinary-app-observation-data.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-recipe.bend",
+          "to": "./ordinary-app-recipe.bend"
+        },
+        {
+          "from": "provision.bend",
+          "to": "./ordinary-schema-dump.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-dump-filter.bend",
+          "to": "./ordinary-dump-filter.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-dump-eligibility.bend",
+          "to": "./ordinary-dump-eligibility.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-dump-render.bend",
+          "to": "./ordinary-dump-render.bend"
+        }
+      ],
+      "inverseExact": true,
+      "previousTargetSha256": "9900b15872b2613c8d34f954bdb5dedca345ab66f2aceda1dd88adea186f8f36"
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/runtime-app.bend",
+      "sourceBytes": 20250,
+      "sourceSha256": "ca18c46562227b349ee4e8734d7f30df21e635f5ea2aab0a82c1f85575117ef6",
+      "prepared": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/public-target/ordinary-app-event-runtime.bend",
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-event-runtime.bend",
+      "targetBytes": 19742,
+      "targetSha256": "a91eba4540b93367f36785c1a9f1950969b5c7df4e5c8243c580919106f89752",
+      "imports": [
+        {
+          "from": "provision.bend",
+          "to": "./ordinary-schema-dump.bend"
+        },
+        {
+          "from": "dump-app.bend",
+          "to": "./ordinary-app-dump.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-population.bend",
+          "to": "./ordinary-app-population.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-dump-filter.bend",
+          "to": "./ordinary-dump-filter.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "to": "./world.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend",
+          "to": "./event-runtime.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend",
+          "to": "./ordinary-schema.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-schema.bend",
+          "to": "./ordinary-app-schema.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-composer.bend",
+          "to": "./ordinary-app-composer.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-registration-fields.bend",
+          "to": "./ordinary-app-registration-fields.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-recipe.bend",
+          "to": "./ordinary-app-recipe.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-observation-data.bend",
+          "to": "./ordinary-app-observation-data.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-access.bend",
+          "to": "./ordinary-app-access.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+          "to": "./system.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-event-declaration.bend",
+          "to": "./ordinary-event-declaration.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-event.bend",
+          "to": "./ordinary-app-event.bend"
+        }
+      ],
+      "inverseExact": true,
+      "previousTargetSha256": "71a6b55f84852e481c0dea697a4d5cf3939b9513d75f43b0c0997304dd967af6"
+    }
+  ],
+  "scope": "Additive normal Provision Recipe, SchemaApp dump bridge, and direct RuntimeApp population/dump. Existing RuntimeApp arity and operational functions unchanged."
+}
