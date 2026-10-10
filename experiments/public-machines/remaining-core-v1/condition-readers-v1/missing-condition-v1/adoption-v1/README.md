@@ -1,3 +1,5 @@
 # Checked scheduler adoption preparation
 
 SchemaB uses the identical frozen ordinary consumer with nominal SchemaB substituted only at the entrypoint. The handwritten complete String observer prints no constructor namespace or schema name. Public promotion is exactly imports-only and performed by root. Existing callback signatures retain affine H, C and R as Type; no artificial Data restriction is introduced.
+
+SchemaB complete JS/Native PASS exact3733 SHA82950 against independently reviewed applicability. Reached Fail-to-false JS/Native PASS exact3740 SHA7e03ec7a and reject the entire normal3733 baseline on both backends. Four runtime cohorts, ten commands34guards preserve unchanged collector/caps/internal lock. Four source negatives refuse at the intended semantic type/linearity boundary (AUTHORITY-CONTROLS.json); no parser refusal is counted. EVIDENCE.json hashes complete source/runtime archives. Exact public module and consumer import inverses are prepared, but no public qualification or module edit is claimed.
