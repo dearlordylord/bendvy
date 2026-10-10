@@ -1,0 +1,9 @@
+# Ordinary filtered dump candidate
+
+The ordinary component/resource/product provisioning builders retain one Schema and generate typed presence and presentation operations. The component tokens in criteria come from the same operational declarations; consumers supply no separate key list, metadata fold or built-in payload presenter. Array<U32>, U32 and Bool have library presentation; opaque payload display is an optional explicit owner-returning extension.
+
+An enabled dump selects ascending actual alive handles by raw U32 IDs and component conjunction, then applies an optional native Nat limit before presenting selected component values. Resources are displayed globally, including when entity limit is zero. Disabled returns the original owned App without presence/value traversal. Presence uses the ordinary generated count traversal on singleton handles; projections use Col.view and return the original affine column/resource owners. No barrier, clock tick or reader action is performed.
+
+The complete ordinary consumer reuses the population fixture's physical World/store/resource/Fields observation and real live component read, unqueried 0→1→0 edits, retained reserved73/dead42 payloads, resource success/rollback/retry and pending99. It adds raw-ID criteria, conjunction, limits 0/1/None and repeated disabled calls: 33 actions in each empty/populated scene. Source07 stock5 is PASS; public source/backend/oracle/affected qualification is pending.
+
+The candidate covers Column/Product-backed ordinary provisioning. Forged trusted raw Schema/Provision/index bridges and arbitrary opaque formatter behavior are not validated by this finite consumer. No new raw mismatch policy, Type-event policy, JSON format, reflection/restoration contract, law, proof or performance claim is introduced. Full issue #56 remains open.
