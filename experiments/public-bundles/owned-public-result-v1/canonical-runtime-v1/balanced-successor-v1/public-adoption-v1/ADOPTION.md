@@ -1,0 +1,5 @@
+Public adapter: `src/ecs/bundle-canonical-construction.bend`, SHA256 `fef2938185f4077b4b4957187e5417497aa6873caa05dd77770635be6ec34ff8`. Definitions are identical to the qualified private adapter; only ECS imports become relative.
+
+Independent review `be0385c49` verifies the full 2,309-byte JS/Native constructor trace, reached position-receipt loss rejection, two nominal public source consumers and intended cross-schema/affine-owner refusals. Public import/body/nominal joins support reuse of the private runtime evidence; no fresh public runtime receipt is claimed.
+
+This supplies a reusable canonical constructor head for recursively authored bundle stages with arbitrary affine payload/context types. The caller still supplies trusted take/put lenses and undo; no default retry, allocation, insertion, duplicate policy or universal inverse law is added. World insertion and complete #41 acceptance remain open. The combined #28 regression must qualify the next integrated core batch before delivery acceptance.
