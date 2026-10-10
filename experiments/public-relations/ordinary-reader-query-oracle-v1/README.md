@@ -1,0 +1,13 @@
+# Ordinary registered relation reader/query oracle
+
+This source-only packet binds producer `440e95385abf9592041a32d2209dce518f393140`. `model.py.source` independently derives the complete generic Data output for Workshop and Garden. Neither runtime stdout nor producer expected output is an input. Both erased nominal schema instantiations reach the same executable body and generic constructor names, so their whole bytes agree. Root second sanity is required before backend execution.
+
+All eleven snapshots retain the complete physical World String, ordinary notices, descriptor-local queues including their front/back representation, registered positions, runtime tick/window/capacity, three actual registry owners and argument leaves. Four deferred writes, two inverse queries and both complete failure readings remain in the Report. The initial graph is empty: `start` calls `fixture`, not `setup`.
+
+`with_world` advances the actual World clock before the tracked system. The first barrier stamps tick 16, then its seeded command advances World clock to 17 before the Parent command; the snapshot therefore distinguishes runtime tick 16 from World clock 17. The second barrier stamps all three distinct error batches at 22. Queue back is newest-first (missing target, self, cycle), while the first reading returns FIFO cycle, self, missing target. Successful reads activate actual registry 4 and advance its position/cursor to 23 then 24; the repeated reading is empty. No frame or trim runs, so all three batches remain retained.
+
+The source's fixed argument owner is exactly `ANode{ALeaf{101},ALeaf{102}}`. Its runner returns that owner unchanged; snapshot clones its Data values and observes leaves in order. This finite capacity-two fixture does not establish arbitrary argument-topology observation. Component slot/payload, live, resource and removed-owner observations retain the fixture's complete Array tree shapes.
+
+The installed ELF extraction and Base sources pin constructor QName, String escaping, Nat suffix, record/list delimiters and final newline. The Bevy relationship/query and hierarchy sources are reference context, not authority for changing the existing Bend failure/reader contracts. No new laws, policy, universal refinement, runtime acceptance or full #42 completion is claimed.
+
+Regeneration uses Python only: `python3 model.py.source` writes the raw expected stdout. Deterministic gzip wrappers use mtime zero. `SOURCE-BASIS.json` records all current source pins and reference/printer identities; `ORACLES.json` is the existing collector-compatible whole-output catalogue.
