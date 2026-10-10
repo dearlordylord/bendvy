@@ -158,3 +158,12 @@ closed author declarations. Raw partitions are trusted constructors.
 The [current qualification](../../experiments/public-machine-handlers/candidate-v1/bundle-v1/delivery-relocated-v1/REPORT.md)
 and reached JS/Native mutations establish finite application coverage; full #49,
 #48 policy, universal bundle laws and feature-specific timing remain separate.
+
+`OrdinaryMachineSchedule` (`ordinary-machine-schedule.bend`) installs an explicit
+structural barrier followed by Apply, Exit, Transition and Enter groups. Closed
+typed callbacks thread arbitrary affine owners and return existing system
+outcomes; the schedule runner preserves its failure and world-rejection behavior.
+The four group IDs are schedule adapter IDs, not registered gameplay authorities.
+The finite installer does not supply machine initialization or handler lifecycle
+implementation: those remain governed by #48/#49 and the
+[current delivery index](../../docs/parity/README.md#current-delivery-coordination).
