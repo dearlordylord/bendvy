@@ -1,0 +1,101 @@
+"""Complete source-derived 19-action/80-snapshot trace. No backend inputs.
+
+Tree/leaf models are explicit external model dependencies in SOURCE-BASIS.
+The affine fixture is threaded in Bend; Python represents its full detached
+observer state. Stdout encoding requires a printable terminal source binding.
+"""
+from pathlib import Path
+from dataclasses import replace,asdict
+import runpy,json,os,gzip,hashlib
+HERE=Path(__file__).resolve().parent
+m=runpy.run_path(str(HERE.parent/'tree-v1/model.py.source'))
+Tree,Record,Leaf=m['Tree'],m['Record'],m['Leaf']
+A,B,U=(0,0),(0,1),(1,)
+ls=lambda xs:'['+', '.join(xs)+']'
+booltext=lambda b:'True' if b else 'False'
+
+def event(record):
+    a=ls('A:'+str(v) for v in record.selected(A))
+    b=ls('B:'+booltext(v) for v in record.selected(B))
+    u=ls('Unused:'+str(v) for v in record.selected(U))
+    inner=ls(['pair('+a+','+b+')']) if record.selected(A) or record.selected(B) else '[]'
+    return 'record('+inner+','+u+')'
+
+def batches(bs,show):return ls(str(b.tick)+':'+ls(show(v) for v in b.values) for b in bs)
+def stream(s,key,show):
+    return ('domain='+key+'|batches='+batches(s.batches,show)
+        +'|positions='+ls(f'{p.id}:{p.cursor}:{p.registered_at}' for p in s.positions)
+        +f'|nextReader={s.next_reader}|frame={s.frame_start}|boundary={s.boundary}|capacity={s.capacity}|dropped={s.dropped_through}')
+def physical(tree):
+    regs='[4:second:[Signal:read], 3:slow:[Signal:read], 2:first:[Signal:read], 1:publisher:[Signal:write, Signal:write]]'
+    world=('ns=1|next=1|high=0|live=leaf:False|capacity=1|depth=0|store=leaf:41|resource=leaf:51'
+           +'|events='+ls(event(r) for r in tree.log)+'|pending=0|registrations='+regs+'|nextSystem=5|clock=0')
+    state=('first{'+stream(tree.leaf(A),'Signal',lambda v:'A:'+str(v))+'}|second{'
+        +stream(tree.leaf(B),'Signal',lambda v:'B:'+booltext(v))+'}|unused{'
+        +stream(tree.leaf(U),'Unused',lambda v:'Unused:'+str(v))+'}|sibling=leaf:61|journal='
+        +batches(tree.journal,event)+f'|frameStart={tree.frame_start}')
+    owners='|publisher=1:1:publisher:[Signal:write, Signal:write]:0|firstReader=1:1:2:1:2:first:[Signal:read]:0|slowReader=1:2:3:1:3:slow:[Signal:read]:0|secondReader=1:1:4:1:4:second:[Signal:read]:0'
+    return f'factory=2|tick={tree.tick}|'+world+'|'+state+owners
+
+def sequence():
+    tree=Tree(tuple((p,Leaf(1,2)) for p in (A,B,U)))
+    tree,first=tree.register(A,2);tree,slow=tree.register(A,3);tree,second=tree.register(B,4)
+    # Source trace-consumer.actions, not producer synopsis or actual stdout.
+    actions=[('first',False,False),('publish',False),('first',False,False),('second',False),('publish',True),('first',True,True),('publish',False),('frame',),('publish',False),('frame',),('first',True,False),('first',False,False),('second',False),('frame',),('frame',),('first',False,False),('second',True),('second',False),('frame',)]
+    snapshots=[];states=[]
+    def capture(completion):
+        before=tree
+        for flag in (False,True,True,False):
+            snapshots.append({'enabled':flag,'inventory':['Signal','Signal','Unused'] if flag else None,'completion':completion,'physical':physical(tree)})
+        assert tree == before
+        states.append(asdict(tree))
+    capture(None)
+    for action in actions:
+        if action[0]=='frame':
+            tree=tree.frame();completion={'kind':'Framed'}
+        elif action[0]=='publish':
+            fail=action[1];tree=replace(tree,tick=tree.tick+1)
+            if not fail:
+                emitted=tuple(Record.emission(p,v) for p,v in ((A,7),(B,True),(A,8)))
+                tree=tree.sync(tree.log+emitted)
+            completion={'kind':'Published','failed':fail}
+        else:
+            if action[0]=='first':
+                reader=slow if action[1] else first;path=A;fail=action[2];kind='FirstRead'
+            else:reader=second;path=B;fail=action[1];kind='SecondRead'
+            reading=tree.reading(path,reader.id)
+            completion={'kind':kind,'values':list(reading.values),'lagged':reading.lagged,'failed':fail}
+            tree=tree.complete(path,reader,reader.registry_id,'failed' if fail else 'succeeded')
+        capture(completion)
+    assert len(snapshots)==80 and len(states)==20
+    assert tree.tick==14
+    assert tree.leaf(U).batches==() and tree.leaf(U).positions==()
+    assert all(snapshots[i]['physical']==snapshots[i+3]['physical'] for i in range(0,80,4))
+    # Failed publication changes clock alone, preserving log/batches/positions.
+    for field in ('log','journal','leaves'):assert states[4][field]==states[5][field]
+    assert any(r['completion'] and r['completion'].get('lagged') for r in snapshots)
+    return snapshots,states
+
+def qname(path,entry_dir):
+    return os.path.relpath(path,entry_dir).removesuffix('.bend')
+
+def derive(entry_dir,source_root):
+    # Pinned compiler book_load/name_key/show_val: relative path namespace.
+    observation=qname(source_root/'tree-consumer-public.bend',entry_dir)
+    values=qname(source_root/'consumer-public.bend',entry_dir)
+    rows=qname(source_root/'trace-consumer-public.bend',entry_dir)
+    ev=qname(Path('/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend'),entry_dir)
+    def completion(c):
+        if c is None:return 'None{}'
+        kind=c['kind']
+        if kind in ('FirstRead','SecondRead'):
+            name='First' if kind=='FirstRead' else 'Second'
+            data=ls(values+'.'+name+'{'+(booltext(v)+'{}' if name=='Second' else str(v))+'}' for v in c['values'])
+            body=ev+'.Reading{'+data+', '+booltext(c['lagged'])+'{}}'
+            body=observation+'.'+kind+'{'+body+', '+booltext(c['failed'])+'{}}'
+        elif kind=='Published':body=observation+'.Published{'+booltext(c['failed'])+'{}}'
+        else:body=observation+'.'+kind+'{}'
+        return 'Some{'+body+'}'
+    records,states=sequence()
+    output=ls(rows+'.Row{'+booltext(r['enabled'])+'{}, '+('None{}' if r['inventory'] is None else 'Some{'+ls(json.dumps(v) for v in r['inventory'])+'}')+', '+completion(r['completion'])+', '+json.dumps(r['physical'])+'}' for r in records)+'\n'
+    return output.encode(),states
