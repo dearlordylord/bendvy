@@ -1,0 +1,5 @@
+# Complete ordinary operational machine App oracle
+
+Frozen889f40f02/source02 15340, independently derived before runtime. Complete first Read:Current:7 then six snapshots/two queue outcomes for both zero/two Worlds: all18 lines retained in the returned escaped String. Binding.read_app calls actual canonical Ops.read and commits an empty read journal; it returns the exact App owner pack/recipe/debug. Queue_app consumes/returns App around the existing commit/rollback path. Install uses same declaration for operational grants and derived debug recipe/name.
+
+Every prior physical/slot/array formatter and World setup definition is byte-identical to parent6053585dd except install wiring; pending99 remains unflushed, clock0, registrations empty, sibling41/42 and all live storage retained. Commit pending8, failed queue9 rollback to8, Current7/previous6/changedTrue unchanged. No producer stdout or self-expected was consulted. Trusted closed take/put lens convention and finite Unit owner pack remain limits; this is not scheduled machine dispatch, transition, reader or full #56 qualification.

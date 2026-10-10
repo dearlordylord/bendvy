@@ -1,0 +1,51 @@
+"""Independent full App binding interpreter of frozen 889f40f02; no runtime inputs."""
+import json
+from dataclasses import dataclass
+
+def array_text(xs, render):
+    if len(xs)==1: return "leaf:"+render(xs[0])
+    n=len(xs)//2
+    return "node("+array_text(xs[:n],render)+","+array_text(xs[n:],render)+")"
+
+@dataclass
+class World:
+    next_id:int=1
+    high_water:int=0
+    live:object=None
+    depth:int=0
+    pending_slot:object=None
+    def __post_init__(self): self.live=[False]
+    def reserve_activate(self):
+        ident=self.next_id
+        if ident>=len(self.live):
+            self.live += [False]*len(self.live)
+            self.depth+=1
+        self.next_id+=1; self.high_water=ident; self.live[ident]=True
+    def physical(self):
+        pending="NoPending" if self.pending_slot is None else "Queued:"+str(self.pending_slot)+":False"
+        return ("world{1|"+str(self.next_id)+"|"+str(self.high_water)+"|"+
+                array_text(self.live,lambda x:"True" if x else "False")+"|"+str(len(self.live))+"|"+
+                str(self.depth)+"|Unit|Present:7:"+pending+":Some:6:True|"+
+                array_text([41,42],str)+"|[91, 92]|pending=1|registrations=[]|nextSystem=1|clock=0}")
+    def observed(self,label): return label+"|owners=Unit|"+self.physical()+"\n"
+    def queue(self,value,fail):
+        old=self.pending_slot
+        self.pending_slot=value
+        if fail: self.pending_slot=old
+        return self.observed("Failure:Unit" if fail else "Success")
+
+def scene(count):
+    world=World()
+    for _ in range(count): world.reserve_activate()
+    debug="Debug{bindings=0|machines=[Flow:Current:7]}"
+    return (world.observed("Read:Current:7")+world.observed(debug)+world.observed(debug)+world.observed("Disabled")+
+            world.queue(8,False)+world.observed(debug)+world.queue(9,True)+
+            world.observed(debug)+world.observed("Disabled"))
+
+def expected():
+    # Installed JS/native String printer quotes and escapes the full returned String.
+    return (json.dumps(scene(0)+scene(2),ensure_ascii=False,separators=(",",":"))+"\n").encode()
+
+if __name__=="__main__":
+    import sys
+    sys.stdout.buffer.write(expected())
