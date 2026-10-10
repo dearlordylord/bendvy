@@ -1,0 +1,29 @@
+"""Source-only nine complete Fragment observations and both retained Array owners."""
+import json,gzip,hashlib
+from pathlib import Path
+PLAIN=('Component','A','A','Plain');TRANSIENT=('Resource','A','A','Transient');BARE=('Component','B','B','bare')
+def entries(xs):return ''.join(':'.join(x)+';' for x in xs)+'end'
+def validate(xs):
+ for kind in ['Component','Resource','Event','Relation','Service']:
+  seen=[]
+  for x in xs:
+   if x[0]!=kind:continue
+   if any(y[1]==x[1] for y in seen):return 'DuplicateKey:'+kind+':'+x[1]
+   if any(y[2]==x[2] for y in seen):return 'DuplicateName:'+kind+':'+x[2]
+   seen.insert(0,x)
+ return 'Valid'
+def requirements(required,xs):
+ for x in required:
+  if not any(y[:3]==x[:3] for y in xs):return 'Undeclared:'+':'.join(x[:3])
+ return 'Valid'
+def merge(left,right):
+ reason=next((v for v in [validate(left),validate(right),validate(left+right)] if v!='Valid'),'Valid')
+ if reason=='Valid':return 'Merged:'+entries(left+right)+'|left=leaf:41|right=leaf:43'
+ return reason+'|left='+entries(left)+'|owner=leaf:41|right='+entries(right)+'|owner=leaf:43'
+def derive():
+ xs=[PLAIN,TRANSIENT,BARE];bare=[x[:3]+('bare',) for x in xs]
+ values=['all='+entries(xs),'component='+entries([x for x in xs if x[0]=='Component']),'resource='+entries([x for x in xs if x[0]=='Resource']),'valid='+validate(xs),'duplicate='+validate([PLAIN,PLAIN]),'required-bare='+requirements(bare,xs),'required-classified='+requirements(xs,bare),merge([PLAIN],[TRANSIENT,BARE]),merge([PLAIN],[PLAIN])]
+ return (json.dumps(values,ensure_ascii=False,separators=(', ', ': '))+'\n').encode()
+if __name__=='__main__':
+ root=Path(__file__).resolve().parent;raw=derive();(root/'expected.stdout').write_bytes(raw);(root/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+ (root/'ORACLES.json').write_text(json.dumps({'normal':{'path':str(root/'expected.stdout'),'gzip':str(root/'expected.stdout.gz'),'stdout':str(root/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}},indent=2)+'\n')
