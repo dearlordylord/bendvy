@@ -1,0 +1,45 @@
+{
+  "sourceCommits": [
+    "0ccdd7b07",
+    "363c01e54"
+  ],
+  "runtimeCommits": [
+    "18fc36df8"
+  ],
+  "modelCommits": [
+    "a4a9e31a0",
+    "d91bc55bd"
+  ],
+  "publicManifest": "PUBLIC-MANIFEST.json",
+  "publicConsumerJoins": "PUBLIC-CONSUMER-JOIN.json",
+  "affectedApplicability": "AFFECTED-APPLICABILITY.json",
+  "sourceCaptures": [
+    "checks/public-source02/entry-public",
+    "checks/affected-source01/entry-other",
+    "checks/affected-source01/entry-category-mutant",
+    "checks/affected-source01/authority-controls",
+    "checks/affected-source02"
+  ],
+  "runtimeArchives": [
+    "runtime-v1/actual-attempt01/manifest.json",
+    "runtime-v1/actual-other01/manifest.json",
+    "runtime-v1/actual-category01/manifest.json"
+  ],
+  "currentPublicTargets": [
+    "ordinary-event-declaration.bend",
+    "ordinary-app-event.bend",
+    "ordinary-app-event-runtime.bend"
+  ],
+  "commonCategoryCommit": "9611c7f8c",
+  "currentOutcomes": 6,
+  "commands": 15,
+  "guards": 51,
+  "nonAuthorReview": "pending",
+  "limits": [
+    "finite two nominal complete mixed schema consumers",
+    "Data events only; #53 and #50 unchanged",
+    "no arbitrary registration arity or full #56 closure",
+    "existing Ev.with_world behavior, World pending separate from Runtime batches",
+    "six older component/resource pairs retain original historical bytes"
+  ]
+}
