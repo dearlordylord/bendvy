@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (values is a variable here, not comptime: pass it at run time)
+- observed : second
+Context:
+- values : Array<U32>
+Location: output
+39 |   match value:
+40>|     case O.Output{values}:"Success{" ++ second(Dump.u32_array(values)) ++ "}"
+   |                                         ^^^^^^
+41 | def outcome(~S:Data,~R:Type,value:Sys.Outcome<World(~S,~R),O.Error,O.Output>) -> World(~S,~R) & String:
+bend 2.0.36 is available: run bend update

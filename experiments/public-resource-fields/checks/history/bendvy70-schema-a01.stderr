@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (old is a variable here, not comptime: pass it at run time)
+- observed : W.observe_resource
+Context:
+- old   : operations.Counter
+- world : W.World<A, ../../src/ecs/column.Column<A, Unit>, Product.Owner<operations.Counter, operations.Counter>, U32>
+Location: restore~0
+24 | def restore(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Rest:Type,~lens:Product.Lens<R,P,Rest>,old:P,world:W.World<S,C,R,E>) -> W.World<S,C,R,E>:
+25>|   restored(~S,~C,~R,~E,~P,W.observe_resource(~S,~C,~R,~E,~P,~replace(~R,~P,~Rest,~lens,old),world))
+   |                           ^^^^^^^^^^^^^^^^^^
+26 | def journaled(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Rest:Type,~lens:Product.Lens<R,P,Rest>,undo:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,commands:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,events:List<&2,E>,result:W.World<S,C,R,E> & P) -> T.Tx<W.World<S,C,R,E>,E>:
+bend 2.0.36 is available: run bend update

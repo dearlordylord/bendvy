@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : \{Read: (operation => owner => Cap.value_read_field(read_value~H, read_value~V, operation, owner))}
+Location: read_value
+18 |   match cap:
+19>|     case Read{operation}:Cap.value_read(~H,~V,~operation,owner)
+   |          ^^^^^^^^^^^^^^^
+20 | def get(~S:Data,~P:Type,~identity:Schema.Resource<S,P>,~H:Type,~V:Data,~cap:Write<S,P,identity,H,V>,owner:H) -> H & V:
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,71 @@
+{
+  "developmentOnly": true,
+  "prePostEqual": true,
+  "checks": [
+    {
+      "name": "consumer",
+      "argv": [
+        "/usr/bin/flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "/usr/bin/env",
+        "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+        "scripts/bend-check",
+        "experiments/public-resource-fields/consumer.bend"
+      ],
+      "exit": 0,
+      "elapsed": 2.5479879059712403
+    },
+    {
+      "name": "consumer-b",
+      "argv": [
+        "/usr/bin/flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "/usr/bin/env",
+        "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+        "scripts/bend-check",
+        "experiments/public-resource-fields/consumer-b.bend"
+      ],
+      "exit": 0,
+      "elapsed": 2.137552388012409
+    },
+    {
+      "name": "consumer-read",
+      "argv": [
+        "/usr/bin/flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "/usr/bin/env",
+        "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+        "scripts/bend-check",
+        "experiments/public-resource-fields/consumer-read.bend"
+      ],
+      "exit": 0,
+      "elapsed": 2.534329006972257
+    },
+    {
+      "name": "consumer-b-read",
+      "argv": [
+        "/usr/bin/flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "/usr/bin/env",
+        "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+        "scripts/bend-check",
+        "experiments/public-resource-fields/consumer-b-read.bend"
+      ],
+      "exit": 0,
+      "elapsed": 2.561933056975249
+    },
+    {
+      "name": "controls/undeclared",
+      "argv": [
+        "/usr/bin/flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "/usr/bin/env",
+        "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+        "scripts/bend-check",
+        "experiments/public-resource-fields/controls/undeclared.bend"
+      ],
+      "exit": 1,
+      "elapsed": 1.3119046060019173
+    }
+  ]
+}

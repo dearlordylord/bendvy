@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : an undestructed scrutinee (this value is already a constructor: bind its fields directly; if an outer match destructed it, fold the pattern into the outer case)
+Location:
+51 | def resource_view_join(a:O.Counter & String,b:O.Counter & String) -> Resources() & String:
+52>|   match (a,b):
+   |   ^^^^^^^^^^^^
+53 |     case ((left,lt),(right,rt)):(Product.Owner{left,right},"First=" ++ lt ++ ";Second=" ++ rt)
+bend 2.0.36 is available: run bend update
