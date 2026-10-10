@@ -1,0 +1,72 @@
+{
+  "firstHook": {
+    "session": 5858,
+    "exit": 1,
+    "tests": 26,
+    "seconds": 84.156,
+    "failures": [
+      "Execution.test_raw_bytes_and_exit: TimeoutError owner exceeded command and cleanup budget",
+      "Execution.test_staged_shared_module: childdeadline; owned descendants didnotterminate; pipesdidnotclose"
+    ],
+    "reportedPid": 3932444,
+    "subsequentPs": "No such PID present; no termination performed"
+  },
+  "scope": "Configured hook failure only; source-derived expected bytes unchanged; cause unestablished",
+  "focused": {
+    "command": [
+      "python3",
+      "scripts/test-task-runner.py",
+      "Execution.test_raw_bytes_and_exit",
+      "Execution.test_staged_shared_module"
+    ],
+    "session": 15397,
+    "exit": 0,
+    "tests": 2,
+    "seconds": 4.531,
+    "cause": "Initial hook cause still unknown"
+  },
+  "authorizedRetry": {
+    "session": 25012,
+    "exit": 1,
+    "tests": 26,
+    "seconds": 129.27,
+    "failure": "Execution.test_staged_shared_module: child deadline",
+    "stdout": "/tmp/bendvy-fields-commit-retry01.stdout",
+    "stderr": "/tmp/bendvy-fields-commit-retry01.stderr",
+    "scope": "One retry authorized, no further unchanged retries"
+  },
+  "hostSnapshot": {
+    "loadavg": "48.80 49.98 34.78 17/1728",
+    "cpuPressure": "File unavailable",
+    "scope": "Observed after retry failure; no causal proof"
+  },
+  "focusedAffinity": {
+    "command": [
+      "taskset",
+      "-c",
+      "11",
+      "python3",
+      "scripts/test-task-runner.py",
+      "Execution.test_staged_shared_module"
+    ],
+    "session": 23912,
+    "exit": 1,
+    "seconds": 40.514,
+    "error": "TimeoutError: command owner exceeded command and cleanup budget",
+    "scope": "Changed affinity environment attempt failed; conditional wholecommit retry not launched"
+  },
+  "helperAdoption": {
+    "commit": "37c7f51c4",
+    "paths": [
+      "scripts/task_runner.py",
+      "scripts/test-task-runner.py",
+      "docs/reference/evidence-runner-details.md"
+    ],
+    "scope": "Authorized exact3helperpath adoption after rootconfigured29testPASS; archived runtimehelperpins unchanged"
+  },
+  "sparseMaterialization": {
+    "firstAttemptExit": 1,
+    "failure": "run-admission-controls.py missing tracked sparse test-admission.py",
+    "action": "Authorized git sparse-checkout add for unchanged fullcapacity-v1 and restore reference-v1; no fixture source/index edits"
+  }
+}
