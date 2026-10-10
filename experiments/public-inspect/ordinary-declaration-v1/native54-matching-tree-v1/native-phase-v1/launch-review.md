@@ -1,0 +1,9 @@
+# Independent changed-experiment launch review
+
+PASS for the one emit-only copied-CLI diagnostic plan SHA256 8595f3454a30fb7f111f2c69026fb56f65fb18b97ec54d4f34763b6a35ca0d5e. Portable review verified all 183 current pins and the unchanged 47-source subject. All nine instrumentation replacements invert exactly to the 333,165-byte embedded CLI, SHA256 015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62; independently re-extracting the stated byte range from the selected installed ELF produces those same bytes.
+
+Markers surround the actual book_read/compile_book, fixed-point passes, and done_defs loop emission bodies. Extra facts reads sum existing Set sizes and do not change decisions. The c_ids result is evaluated once before the completion marker. The synchronous logger bounds key suffixes to 256 characters and advances by positive writeSync return counts, rejecting zero progress. It introduces neither a timer nor traversal of terms/template keys. Definition markers identify this actual outer emission loop, not nested work or exclusive cost attribution.
+
+The exact plan retains CPU11, the existing internally serialized collector, thirty-second child deadline, full source/resource/tool guards and fresh C/native paths. BUN_BE_BUN selects copied file mode of the installed ELF; no Clang or game runtime is requested. Canonical installed Base/effects and aliases remain guarded. The independent whole oracle is pinned for subject continuity but is not executed by this plan. Preserve unconditional raw receipts and any incomplete result; no retry is admitted here.
+
+The prior ce8b6bcee source/whole-JS PASS and stock Native deadline remain separately recorded in the parent review. A diagnostic collector success is not stock Native qualification, runtime acceptance, phase timing, causal explanation, performance, universal refinement or full #54 completion. No compiler child was launched during review.
