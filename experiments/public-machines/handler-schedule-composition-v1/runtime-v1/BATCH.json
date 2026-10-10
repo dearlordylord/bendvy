@@ -1,0 +1,39 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "normal",
+      "path": "/tmp/bendvy-handler-schedule-composition-runtime01/normal-js/plan.json",
+      "sha256": "c7a5cfbfeafcadd782ea178068670fba65616aa6d5f9194079b7b1d1d4060446",
+      "sources": 30,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-handler-schedule-composition-runtime01/normal-js/plan.json",
+        "c7a5cfbfeafcadd782ea178068670fba65616aa6d5f9194079b7b1d1d4060446"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "normal",
+      "path": "/tmp/bendvy-handler-schedule-composition-runtime01/normal-native/plan.json",
+      "sha256": "69bc92c54aa285da70ca24424cbd16ff6ebfa983d4580f7fcca23dddec2279b3",
+      "sources": 30,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-handler-schedule-composition-runtime01/normal-native/plan.json",
+        "69bc92c54aa285da70ca24424cbd16ff6ebfa983d4580f7fcca23dddec2279b3"
+      ]
+    }
+  ],
+  "sequence": "Handler complete JS wholePASS -> conditional Native wholePASS; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Exact source04 stock5 actual PASS, one documented EOF transport cleanup inverse; raw source evidence preserved",
+  "scope": "First complete ordinary handler schedule finite slice; no authority/reached-control/full61/proof/performance acceptance"
+}
