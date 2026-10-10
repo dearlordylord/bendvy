@@ -18,6 +18,6 @@ def main():
  generated=out/('scenario.c' if role=='native' else 'scenario.js');native=out/'scenario.native'
  for command in plan['commands']:
   command['argv']=[str(entry) if arg==plan['entrypoint'] else str(generated) if arg==plan['generated'] else str(native) if arg==plan['native'] else arg for arg in command['argv']]
- plan.update(scope='#41 current classified metadata fresh stock same-process scale'+scale+' semantic qualification; no comparative credit',entrypoint=str(entry),constructorInventory=str(ip),pins=pins,generated=str(generated),native=str(native),oracle=str(oracle),expectedSHA256=sha(oracle),cwd=str(HERE),postConsumer='Complete independent '+str(model['bytes'])+'-byte scale'+scale+' output and sole UTF8/FNV metric; fresh current stock artifact required, unchanged terminal guards')
+ plan.update(independentRawBytes=model['bytes'],independentRawSHA256=model['sha256'],independentFNV1a32=model['fnv1a32'],scope='#41 current classified metadata fresh stock same-process scale'+scale+' semantic qualification; no comparative credit',entrypoint=str(entry),constructorInventory=str(ip),pins=pins,generated=str(generated),native=str(native),oracle=str(oracle),expectedSHA256=sha(oracle),cwd=str(HERE),postConsumer='Complete independent '+str(model['bytes'])+'-byte scale'+scale+' output and sole UTF8/FNV metric; fresh current stock artifact required, unchanged terminal guards')
  out.mkdir();f=out/'plan.json';f.write_text(json.dumps(plan,indent=2)+'\n');print(str(f),sha(f),len(pins))
 if __name__=='__main__':main()
