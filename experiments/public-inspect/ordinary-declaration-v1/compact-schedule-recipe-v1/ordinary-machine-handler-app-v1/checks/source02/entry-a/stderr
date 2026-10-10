@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : cases for consumer.Internal
+- observed : \{}
+Context:
+- declaration : Ordinary.Declaration<physical_returned~S>
+- debug       : Bool
+- label       : String
+Location: physical_returned
+123 | def physical_returned(~S:Data,+declaration:Ordinary.Declaration<S>,debug:Bool,label:String,result:Application<S> & String) -> ordinary_application(~S) & String:
+124>|   match result:
+    |   ^^^^^^^^^^^^^
+125 |     case (Application{world,bundle,reader},text):(App.Application{world,bundle,declaration,reader,debug},label ++ text)
+bend 2.0.36 is available: run bend update
