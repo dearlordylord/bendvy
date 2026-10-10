@@ -1,0 +1,45 @@
+from pathlib import Path
+import json,hashlib,os,importlib.util
+p=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1');d=p/'native-phase-v1';comp=d/'compiler';comp.mkdir(parents=True,exist_ok=True)
+old=Path('/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/generic-check-wrapper-v1/projection-continuation-v1/unmodified-file-mode-v1');elf=Path('/home/node/.bend/bin/bend-2.0.35')
+def sha(raw):return hashlib.sha256(raw).hexdigest()
+packed=elf.read_bytes();original=packed[82378778:82711943];assert sha(packed)=='f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a';assert len(original)==333165 and sha(original)=='015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62';assert original==(old/'compiler/installed-cli.mjs').read_bytes();text=original.decode();assert 'BVY_N54_' not in text
+log='''\n// BENDVY copied diagnostic only. No stock backend qualification.\nfunction BVY_N54_LOG(event, pass = 0, ordinal = 0, key = "", facts = -1) {\n  const BVY_N54_LABEL = String(key);\n  const BVY_N54_BYTES = Buffer.from("BENDVY_NATIVE_PHASE " + JSON.stringify({event,pass,ordinal,keySuffix:BVY_N54_LABEL.slice(-256),keyLength:BVY_N54_LABEL.length,facts}) + "\\n");\n  for (let BVY_N54_OFFSET = 0; BVY_N54_OFFSET < BVY_N54_BYTES.length;) {\n    const BVY_N54_WRITTEN = fs4.writeSync(2,BVY_N54_BYTES,BVY_N54_OFFSET,BVY_N54_BYTES.length-BVY_N54_OFFSET);\n    if (!(BVY_N54_WRITTEN > 0)) throw new Error("diagnostic stderr made no write progress");\n    BVY_N54_OFFSET += BVY_N54_WRITTEN;\n  }\n}\n'''
+patches=[
+ ('book-read-entry','async function book_read(file, base, seen = new Map) {','async function book_read(file, base, seen = new Map) {\n  BVY_N54_LOG("book-read-entry",0,0,file);'),
+ ('book-read-exit','  return book;\n}\n\nclass Check_Fail','  BVY_N54_LOG("book-read-exit",0,0,file);\n  return book;\n}\n\nclass Check_Fail'),
+ ('native-entry','function compile_book(book) {','function compile_book(book) {\n  BVY_N54_LOG("compile-book-entry");'),
+ ('pass-entry','  let reqs;\n  do {\n    was = facts();','  let reqs;\n  let BVY_N54_PASS = 0;\n  let BVY_N54_ORDINAL = 0;\n  do {\n    BVY_N54_PASS++;\n    BVY_N54_ORDINAL = 0;\n    BVY_N54_LOG("pass-entry",BVY_N54_PASS,0,"",facts());\n    was = facts();'),
+ ('definition-entry','    for (const [k, tld] of done_defs(fl).reverse()) {\n      memo_gc();','    for (const [k, tld] of done_defs(fl).reverse()) {\n      BVY_N54_ORDINAL++;\n      BVY_N54_LOG("emit-def-entry",BVY_N54_PASS,BVY_N54_ORDINAL,k);\n      memo_gc();'),
+ ('definition-exit','      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);\n    }\n    reqs = effect_srcs','      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);\n      BVY_N54_LOG("emit-def-exit",BVY_N54_PASS,BVY_N54_ORDINAL,k);\n    }\n    reqs = effect_srcs'),
+ ('pass-exit','  } while (was !== facts());','    BVY_N54_LOG("pass-exit",BVY_N54_PASS,BVY_N54_ORDINAL,"",facts());\n  } while (was !== facts());'),
+ ('native-exit','  return c_ids(fl, runtime_c([tabs, ...desc].join(`\n\n`), spins, segs, reqs));','  const BVY_N54_RESULT = c_ids(fl, runtime_c([tabs, ...desc].join(`\n\n`), spins, segs, reqs));\n  BVY_N54_LOG("compile-book-exit",BVY_N54_PASS,BVY_N54_ORDINAL);\n  return BVY_N54_RESULT;'),
+ ('logger','',log)]
+for label,before,after in patches:
+ if before:assert text.count(before)==1,(label,text.count(before));text=text.replace(before,after)
+ else:text+=after
+inverse=text
+for label,before,after in reversed(patches):assert inverse.count(after)==1,label;inverse=inverse.replace(after,before)
+assert inverse.encode()==original
+(comp/'installed-cli-unmodified.mjs').write_bytes(original);(comp/'installed-cli-phase.mjs').write_text(text)
+aliases=[]
+for name in ['base.bend','bendtt.lean','effs']:
+ target=Path('/home/node/.bend/bend2')/name;link=comp/name
+ if not link.exists():link.symlink_to(target,target_is_directory=target.is_dir())
+ assert link.resolve()==target.resolve();aliases.append({'path':str(link),'target':str(target),'realpath':str(link.resolve())})
+(d/'PATCHES.json').write_text(json.dumps({'patches':[{'label':a,'original':b,'replacement':c}for a,b,c in patches],'inverseBytes':len(original),'inverseSHA256':sha(original),'instrumentedSHA256':sha(text.encode()),'inversePASS':True,'identifierCollisionAbsent':True},indent=2)+'\n')
+(d/'PROVENANCE.json').write_text(json.dumps({'installedELF':str(elf),'elfSHA256':sha(packed),'elfBytes':len(packed),'slice':[82378778,82711943],'unmodifiedBytes':len(original),'unmodifiedSHA256':sha(original),'priorUnmodifiedExact':str(old/'compiler/installed-cli.mjs'),'aliases':aliases,'sourceSubject':'ce8b6bcee exact full47 matching-tree stage','scope':'Copied installed compiler instrumentation in SAME ELF Bun file mode, not stock packaged Native acceptance. No compiler decision or source/cap change.'},indent=2)+'\n')
+(d/'README.md').write_text('''# Copied Native phase discriminator
+
+ONE proposed emit-only diagnostic on the exact frozen full47 matching-tree consumer. Source and full stockJS passed; Native70124 emit30 deadline/no C remains unchanged. This runs a phase-marked copy of the exact333165-byte installed ELF source through the same ELF with BUN_BE_BUN=1. It is not stock packaged-mode qualification, runtime acceptance, refinement or performance evidence.
+
+Nine reversible literal patches observe book_read entry/normal exit, Native compile_book entry/normal exit, each fixed-point pass entry/exit and each actual done_defs emit-loop entry/exit. The installed compiler has no emit_def function; those labels bracket its memo_gc/emit_open/emit_body block. A compile entry before pass entry includes graph preparation; a missing definition exit identifies the active outer definition only, not an inner cost cause. All decisions/arguments/iteration order remain unchanged. Facts markers read existing Map/Set sizes. Labels retain at most256 UTF16 code units plus original length; pass/ordinal correlate events, suffixes are not a uniqueness proof. No terms, cache keys, profile, clocks, per-term events or timing claims.
+
+The synchronous logger reuses the reviewed positive-partial-write loop and rejects zero progress. Marker IO can affect execution; an instrumented deadline cannot locate the stock attempt's phase. Existing development-v2 collector retains pre/acquired/post/final source/tool/resource guards and raw streams/partial C. ONE emit30 only, CPU11/internal shared lock; no Clang/runtime/oracle execution or retry. A generic emit-only collector PASS would mean diagnostic completion only. No launch before independent compiler-experiment review.
+''')
+j=json.loads((p/'normal-native-plan.json').read_text());temp=Path('/tmp/bendvy54-matching-tree-native-phase01');temp.mkdir(exist_ok=False);j['scope']='Copied installed CLI phase diagnostic only; exactfull47 matching-tree source, no stock Native/runtime/performance qualification';j['role']='diagnostic';j['cwd']=str(d);j['generated']=str(temp/'scenario.c');j['native']=str(temp/'unused.native');j['environment']['BUN_BE_BUN']='1';j['commands']=[{'label':'emit','argv':['/usr/bin/taskset','-c','11',str(elf),str(comp/'installed-cli-phase.mjs'),j['entrypoint'],'-o',j['generated']],'capSeconds':30}];j['postConsumer']='Emit-only copied diagnostic. Complete independent model pinned for subject continuity; NEVER executed or claimed. No Native acceptance.'
+for f in [comp/'installed-cli-unmodified.mjs',comp/'installed-cli-phase.mjs',d/'PATCHES.json',d/'PROVENANCE.json',d/'README.md',old/'PROVENANCE.json',old/'compiler/installed-cli.mjs'] :j['pins'][str(f)]=sha(f.read_bytes())
+for name in ['base.bend','bendtt.lean']:target=(comp/name).resolve();j['pins'][str(target)]=sha(target.read_bytes())
+root=Path('/workspace/formal-proofs/bendvy');spec=importlib.util.spec_from_file_location('native_phase_runner',root/'scripts/task_runner.py');mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod);j['resourceRoots'].update(mod.Inputs(directories=[str(comp)]).expected)
+for name,h in j['pins'].items():assert sha(Path(name).read_bytes())==h,name
+raw=(json.dumps(j,indent=2)+'\n').encode();(temp/'plan.json').write_bytes(raw);(d/'plan.json').write_bytes(raw);(d/'PREPARED.json').write_text(json.dumps({'path':str(temp/'plan.json'),'sha256':sha(raw),'pins':len(j['pins']),'sources':len(j['sourceInventory']),'inversePASS':True,'allCurrentPinsPASS':True,'freshOutputAbsent':not Path(j['generated']).exists(),'command':j['commands'][0],'collector':str(root/'experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py')},indent=2)+'\n');print(sha(raw),len(j['pins']))

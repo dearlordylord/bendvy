@@ -1,0 +1,7 @@
+# Independent Spec/Standards review
+
+Bounded archival PASS at immutable ce8b6bcee617baa60958979f2be2559b9f2b93ba. Independently verified all 47 parent/candidate hashes and exact inverse of the sole constructor callback delta. The first matching callback constructs the same MatchBoth/MatchLeaf tree passed to tree_matches; projection, public pair signature, generic Check factoring and arbitrary affine owner flow remain unchanged. This is a private source discriminator, not a new contract or proof.
+
+Portable inspection verified all 204 archive member joins, compressed and decoded object identities, and complete raw command streams against RESULT. Source original69528 passed the unchanged five-second check with four guards. Stock JS original65328 passed emission and execution, producing the complete 5,077,477-byte independent oracle (SHA256 810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2), empty stderr and seven guards.
+
+Stock Native original70124 remains INCOMPLETE: its thirty-second emission deadline produced zero-byte streams and no C; build and runtime were unattempted. Four guards passed. Current successor reader and authority controls remain unexecuted. These facts support bounded source/JS evidence archival only; they establish no Native acceptance, specialization cost, compiler cause, performance, public promotion or full #54 completion. No compiler or backend was replayed during review.

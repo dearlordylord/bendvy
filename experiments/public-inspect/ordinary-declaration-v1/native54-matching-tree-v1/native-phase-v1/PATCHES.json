@@ -1,0 +1,54 @@
+{
+  "patches": [
+    {
+      "label": "book-read-entry",
+      "original": "async function book_read(file, base, seen = new Map) {",
+      "replacement": "async function book_read(file, base, seen = new Map) {\n  BVY_N54_LOG(\"book-read-entry\",0,0,file);"
+    },
+    {
+      "label": "book-read-exit",
+      "original": "  return book;\n}\n\nclass Check_Fail",
+      "replacement": "  BVY_N54_LOG(\"book-read-exit\",0,0,file);\n  return book;\n}\n\nclass Check_Fail"
+    },
+    {
+      "label": "native-entry",
+      "original": "function compile_book(book) {",
+      "replacement": "function compile_book(book) {\n  BVY_N54_LOG(\"compile-book-entry\");"
+    },
+    {
+      "label": "pass-entry",
+      "original": "  let reqs;\n  do {\n    was = facts();",
+      "replacement": "  let reqs;\n  let BVY_N54_PASS = 0;\n  let BVY_N54_ORDINAL = 0;\n  do {\n    BVY_N54_PASS++;\n    BVY_N54_ORDINAL = 0;\n    BVY_N54_LOG(\"pass-entry\",BVY_N54_PASS,0,\"\",facts());\n    was = facts();"
+    },
+    {
+      "label": "definition-entry",
+      "original": "    for (const [k, tld] of done_defs(fl).reverse()) {\n      memo_gc();",
+      "replacement": "    for (const [k, tld] of done_defs(fl).reverse()) {\n      BVY_N54_ORDINAL++;\n      BVY_N54_LOG(\"emit-def-entry\",BVY_N54_PASS,BVY_N54_ORDINAL,k);\n      memo_gc();"
+    },
+    {
+      "label": "definition-exit",
+      "original": "      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);\n    }\n    reqs = effect_srcs",
+      "replacement": "      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);\n      BVY_N54_LOG(\"emit-def-exit\",BVY_N54_PASS,BVY_N54_ORDINAL,k);\n    }\n    reqs = effect_srcs"
+    },
+    {
+      "label": "pass-exit",
+      "original": "  } while (was !== facts());",
+      "replacement": "    BVY_N54_LOG(\"pass-exit\",BVY_N54_PASS,BVY_N54_ORDINAL,\"\",facts());\n  } while (was !== facts());"
+    },
+    {
+      "label": "native-exit",
+      "original": "  return c_ids(fl, runtime_c([tabs, ...desc].join(`\n\n`), spins, segs, reqs));",
+      "replacement": "  const BVY_N54_RESULT = c_ids(fl, runtime_c([tabs, ...desc].join(`\n\n`), spins, segs, reqs));\n  BVY_N54_LOG(\"compile-book-exit\",BVY_N54_PASS,BVY_N54_ORDINAL);\n  return BVY_N54_RESULT;"
+    },
+    {
+      "label": "logger",
+      "original": "",
+      "replacement": "\n// BENDVY copied diagnostic only. No stock backend qualification.\nfunction BVY_N54_LOG(event, pass = 0, ordinal = 0, key = \"\", facts = -1) {\n  const BVY_N54_LABEL = String(key);\n  const BVY_N54_BYTES = Buffer.from(\"BENDVY_NATIVE_PHASE \" + JSON.stringify({event,pass,ordinal,keySuffix:BVY_N54_LABEL.slice(-256),keyLength:BVY_N54_LABEL.length,facts}) + \"\\n\");\n  for (let BVY_N54_OFFSET = 0; BVY_N54_OFFSET < BVY_N54_BYTES.length;) {\n    const BVY_N54_WRITTEN = fs4.writeSync(2,BVY_N54_BYTES,BVY_N54_OFFSET,BVY_N54_BYTES.length-BVY_N54_OFFSET);\n    if (!(BVY_N54_WRITTEN > 0)) throw new Error(\"diagnostic stderr made no write progress\");\n    BVY_N54_OFFSET += BVY_N54_WRITTEN;\n  }\n}\n"
+    }
+  ],
+  "inverseBytes": 333165,
+  "inverseSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+  "instrumentedSHA256": "74e23908e65c04e9eb682edab27c91ddf85bbbb7b64dcb435c53c5253762d0eb",
+  "inversePASS": true,
+  "identifierCollisionAbsent": true
+}
