@@ -1,0 +1,30 @@
+"""Source-only complete classified custom Store successor; no output inputs.
+
+The frozen consumer's physical setup, Family operations and count/dump callbacks
+are identical to the bare consumer. This composition reuses the source-derived
+parent model, adds the SAME Constructed admission and actual SchemaApp snapshot.
+"""
+from pathlib import Path
+import json
+import runpy
+
+
+def full_output():
+    parent = Path(__file__).resolve().parent.parent
+    bare = runpy.run_path(str(parent / 'full-model.py.source'))['full_output']
+    values = json.loads(bare())
+    entries = [('Component', 'First', 'First', 'Plain'),
+               ('Component', 'Second', 'Second', 'Transient'),
+               ('Resource', 'Inventory', 'Inventory', 'Constructed')]
+    classified = 'schema=[' + ', '.join(':'.join(row) for row in entries) + ']'
+    snapshots = ['schema=None|' + values[3]] + [classified + '|' + row for row in values[4:]]
+    # The Integer codec accepts projected Number81 while returning Array81/82.
+    # Base List.show uses comma-space; compiler List<String> quotes each item/LF.
+    return (json.dumps(['constructed-admission=81'] + values[:3] + snapshots,
+                       ensure_ascii=False) + '\n').encode()
+
+
+if __name__ == '__main__':
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    sys.stdout.buffer.write(full_output())
