@@ -1,0 +1,15 @@
+{
+  "source": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/remaining-core-v1/ordinary-schedule-controls-v1/installer.bend",
+  "sourceSHA256": "9fbcd8fc5fcf39e7c8e044a2eb6c6dd26fc33da052d8d8cc9ee176abcc4df784",
+  "target": "src/ecs/ordinary-machine-schedule.bend",
+  "targetSHA256": "2fce580736002319e902316dd98e47d4466140c86ef3add43b146b0077efd8bd",
+  "nonImportBodySHA256": "9a213ce8d55d81529056300707ccde56a42f8f923d05eded9cf660cdfa4d07e9",
+  "literalInverse": "replace import ./ with import /workspace/formal-proofs/bendvy/src/ecs/ for Sch/W/Sys only; Base unchanged",
+  "consumerRewire": {
+    "normalAandB": "replace import installer.bend as I with import /workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-schedule.bend as I",
+    "authority": "negative-schema.bend same I import rewire",
+    "failureAndRejected": "same I import rewire; no semantic changes",
+    "order": "counterfactual private installer-order remains private; do not promote it"
+  },
+  "oracleApplicability": "All actual output uses hand-written String fields; no printed constructor QName. Imported public successor still needs current complete source closures/affected qualification."
+}
