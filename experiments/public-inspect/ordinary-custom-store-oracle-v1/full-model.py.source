@@ -1,0 +1,65 @@
+"""Whole source-only model of the corrected custom aggregate consumer.
+
+The final catalogue is emitted only after its exact source capture is frozen.
+Uses no actual consumer output as an input.
+"""
+import json
+from model import population, filtered_dump
+
+
+def array(values, show=str):
+    assert values and len(values) & (len(values) - 1) == 0
+    if len(values) == 1:
+        return 'leaf:' + show(values[0])
+    n = len(values) // 2
+    return 'node(' + array(values[:n], show) + ',' + array(values[n:], show) + ')'
+
+
+def column(values, stamps):
+    optional = lambda value: 'none' if value is None else 'some(leaf:' + str(value) + ')'
+    return 'Column{values=' + array(values, optional) + ';stamps=[' + ', '.join(stamps) + ']}'
+
+
+def text_list(values):
+    return '[' + ', '.join(values) + ']'
+
+
+def full_output():
+    # World.create, four reserve_id operations and activate1/2/3,deactivate3.
+    world = {'namespace': 1, 'nextId': 5, 'highWater': 4,
+             'live': [False, True, True, False, False, False, False, False],
+             'capacity': 8, 'depth': 3, 'clock': 1}
+    # Explicit ensure+raw swap seeds carry no lifecycle stamp; public replace
+    # Second1 from absent to24 advances clock and records Stamp{1,1}.
+    columns = {'First': {1: 11, 3: 33}, 'Second': {1: 24, 2: 22, 4: 44}}
+    entries = [('component', 'First'), ('component', 'Second'), ('resource', 'Inventory')]
+    resource = [81, 82]
+    physical = ('world{1;next=5;high=4;live=' + array(world['live'], lambda b: 'True' if b else 'False')
+                + ';capacity=8;depth=3;store{' + column([11, None, 33, None], [])
+                + ';' + column([24, 22, None, 44], ['1:1:1'])
+                + ';sibling=' + array([91, 92]) + '};resource=' + array(resource)
+                + ';events=[];pending=1;registrations=[];nextSystem=1;clock=1}')
+    snapshots = []
+    for enabled, required, limit in [(False, (), None), (True, (), None),
+                                     (True, (), None), (True, ('Second',), None),
+                                     (True, (), 1)]:
+        p = population(world, entries, columns, enabled)
+        d = filtered_dump(world, entries, columns, {'Inventory': resource},
+                          lambda key, value: array(value) if key == 'Inventory' else str(value),
+                          required=required, limit=limit, enabled=enabled)
+        pop = 'population=None' if p is None else 'population=' + str(p['alive']) + ':' + text_list([
+            item['key'] + '=' + str(item['count']) for item in p['components']])
+        dump = 'dump=None' if d is None else 'alive=' + str(d['alive']) + ';rows=' + text_list([
+            str(row['entity'][0]) + ':' + str(row['entity'][1]) + ':' + text_list([
+                item['key'] + '=' + item['value'] for item in row['components']])
+            for row in d['rows']]) + ';resources=' + text_list([
+                item['key'] + '=' + item['value'] for item in d['resources']])
+        snapshots.append(pop + '|' + dump + '|' + physical)
+    # Pinned JS/C show_val List<String>: quoted strings, comma-space, terminal LF.
+    return (json.dumps(['actual-read=11', 'write=Accepted;previous=None',
+                        'actual-second-read=24'] + snapshots, ensure_ascii=False) + '\n').encode()
+
+
+if __name__ == '__main__':
+    import sys
+    sys.stdout.buffer.write(full_output())
