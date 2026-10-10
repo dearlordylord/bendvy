@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : App.ApplicationType<Caller.Other, Col.Column<Caller.Other, Caller.Payload>, Array<U32>, U32, wrong~H, wrong~Rows, wrong~otherFold, wrong~otherDescribe>
+- observed : App.ApplicationType<Caller.A, Col.Column<Caller.A, Caller.Payload>, Array<U32>, U32, wrong~H, wrong~Rows, wrong~fold, wrong~describe>
+Context:
+- app : App.ApplicationType<Caller.A, Col.Column<Caller.A, Caller.Payload>, Array<U32>, U32, wrong~H, wrong~Rows, wrong~fold, wrong~describe>
+Location: wrong
+7 | def wrong(~H:Type,~Rows:Data,~fold:W.World<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32> -> W.World<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~otherFold:W.World<Caller.Other,Col.Column<Caller.Other,Caller.Payload>,Array<U32>,U32> -> W.World<Caller.Other,Col.Column<Caller.Other,Caller.Payload>,Array<U32>,U32> & App.Observation<Rows>,~describe:H -> H & List<&2,App.Binding<Caller.A>>,~otherDescribe:H -> H & List<&2,App.Binding<Caller.Other>>,app:App.ApplicationType<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32,H,Rows,fold,describe>) -> App.ApplicationType<Caller.Other,Col.Column<Caller.Other,Caller.Payload>,Array<U32>,U32,H,Rows,otherFold,otherDescribe>:
+8>|   app
+  |   ^^^
+9 | 
+bend 2.0.36 is available: run bend update

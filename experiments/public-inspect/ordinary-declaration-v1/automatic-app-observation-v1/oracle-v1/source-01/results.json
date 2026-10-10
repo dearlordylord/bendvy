@@ -1,0 +1,72 @@
+[
+  {
+    "source": "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/automatic-app-oracle-v1/positive-snapshot.bend",
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/automatic-app-oracle-v1/positive-snapshot.bend"
+    ],
+    "exit": 0,
+    "secondsIncludingLock": 1.4827697980217636
+  },
+  {
+    "source": "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/automatic-app-oracle-v1/negative-cross-schema-app.bend",
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/automatic-app-oracle-v1/negative-cross-schema-app.bend"
+    ],
+    "exit": 1,
+    "secondsIncludingLock": 0.7448653649771586
+  },
+  {
+    "source": "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/automatic-app-oracle-v1/negative-duplicate-app.bend",
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/automatic-app-oracle-v1/negative-duplicate-app.bend"
+    ],
+    "exit": 1,
+    "secondsIncludingLock": 0.698926659009885
+  },
+  {
+    "source": "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/automatic-app-oracle-v1/negative-undeclared-query.bend",
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/automatic-app-oracle-v1/negative-undeclared-query.bend"
+    ],
+    "exit": 1,
+    "secondsIncludingLock": 0.8052843119949102
+  },
+  {
+    "source": "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/automatic-app-oracle-v1/negative-write-through-snapshot.bend",
+    "command": [
+      "flock",
+      "/tmp/bendvy-parity-heavy.lock",
+      "taskset",
+      "-c",
+      "11",
+      "scripts/bend-check",
+      "experiments/public-inspect/debug-study-v1/production-adoption-v1/canonical-observable-api-v1/automatic-app-oracle-v1/negative-write-through-snapshot.bend"
+    ],
+    "exit": 1,
+    "secondsIncludingLock": 0.6809929729788564
+  }
+]
