@@ -1,0 +1,36 @@
+{
+  "sequence": [
+    {
+      "case": "a-read",
+      "role": "js",
+      "path": "/tmp/bendvy70-public-transactions-first01/a-read-js/plan.json",
+      "sha256": "4a7cad5d3461caed4d175c605aa0bfbdd45ec44c47d9ec40572b462ac14d3330",
+      "pins": 103,
+      "sources": 37,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy70-public-transactions-first01/a-read-js/plan.json",
+        "4a7cad5d3461caed4d175c605aa0bfbdd45ec44c47d9ec40572b462ac14d3330"
+      ]
+    },
+    {
+      "case": "a-read",
+      "role": "native",
+      "path": "/tmp/bendvy70-public-transactions-first01/a-read-native/plan.json",
+      "sha256": "bf0c97014c45dabe1e4a1abfcf18b2dbc03cf1640d6798e1a94565f2e8273845",
+      "pins": 103,
+      "sources": 37,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy70-public-transactions-first01/a-read-native/plan.json",
+        "bf0c97014c45dabe1e4a1abfcf18b2dbc03cf1640d6798e1a94565f2e8273845"
+      ]
+    }
+  ],
+  "conditions": "Execute once JS wholePASS then Native; stop any failure; no retry. Existing collector internal lock, no outerlock.",
+  "oracle": "Independent source-only exact public join, model bytes unchanged; no historical backend acceptance transfer"
+}

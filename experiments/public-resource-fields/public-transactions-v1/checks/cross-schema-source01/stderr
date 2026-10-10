@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : P.Write<Other.Other, O.Counter, ../../../../../src/ecs/ordinary-schema.Resource{"Primary"}, attempt~H, U32>
+- observed : P.Write<A.A, O.Counter, ../../../../../src/ecs/ordinary-schema.Resource{"First"}, attempt~H, U32>
+Context:
+- owner : attempt~H
+Location: attempt
+6 | def attempt(~H:Type,~cap:P.Write<A.A,O.Counter,A.first(),H,U32>,owner:H) -> H:
+7>|   P.set(~Other.Other,~O.Counter,~Other.first(),~H,~U32,~cap,owner,O.counter(1,2,3,4))
+  |                                                         ^^^
+8 | 
+bend 2.0.36 is available: run bend update
