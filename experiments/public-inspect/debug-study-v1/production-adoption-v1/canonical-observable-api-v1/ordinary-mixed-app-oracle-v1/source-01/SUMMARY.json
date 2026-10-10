@@ -1,0 +1,34 @@
+[
+  {
+    "case": "positive-third-nominal",
+    "exit": 0,
+    "failure": null,
+    "expectedTokens": [
+      "ALL PROOFS CHECK"
+    ],
+    "postUnchanged": true
+  },
+  {
+    "case": "negative-component-factory-schema",
+    "exit": 1,
+    "failure": null,
+    "expectedTokens": [
+      "expected :",
+      "Caller.A",
+      "observed :",
+      "Other",
+      "Location: wrong_schema"
+    ],
+    "postUnchanged": true
+  },
+  {
+    "case": "negative-app-duplication",
+    "exit": 1,
+    "failure": null,
+    "expectedTokens": [
+      "app (consumed more than once)",
+      "Location: duplicate"
+    ],
+    "postUnchanged": true
+  }
+]

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Unit -> ../../../../../../../ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/presentation.Declaration<Caller.A, Q.Frame<Caller.A, Col.Column<Caller.A, Caller.Payload>, Array<U32>, U32>, Sigma<&1, &1, ../../../../../../../../bendvy/src/ecs/capabilities.Read<Q.Frame<Caller.A, Col.Column<Caller.A, Caller.Payload>, Array<U32>, U32>, U32>, _ => Unit>, I.Frame<Caller.A, Col.Column<Caller.A, Caller.Payload>, Array<U32>, U32>, Projection.Product<C.Access<U32>, Unit>>
+- observed : @unit:Unit -> ../../../../../../../ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/presentation.Declaration<Other, Q.Frame<Other, Col.Column<Other, Caller.Payload>, Array<U32>, U32>, Sigma<&1, &1, ../../../../../../../../bendvy/src/ecs/capabilities.Read<Q.Frame<Other, Col.Column<Other, Caller.Payload>, Array<U32>, U32>, U32>, _ => Unit>, I.Frame<Other, Col.Column<Other, Caller.Payload>, Array<U32>, U32>, Projection.Product<C.Access<U32>, Unit>>
+Location: wrong_schema
+14 | def wrong_schema() -> O.Declaration<Caller.A,Q.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,Fixture.read_ops(Q.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>),I.Frame<Caller.A,Col.Column<Caller.A,Caller.Payload>,Array<U32>,U32>,Projection.Product<C.Access<U32>,Unit>>:
+15>|   Ordinary.component_query(~Caller.A,~Col.Column<Caller.A,Caller.Payload>,~Array<U32>,~U32,~Fixture.read_ops,~Projection.Product<C.Access<U32>,Unit>,~Consumer.component_declaration(~Other))
+   |                                                                                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+16 | 
+bend 2.0.36 is available: run bend update
