@@ -32,3 +32,19 @@ def frame(~S:Data,~E:Data,stream:Stream<S,E>,+tick:Nat) -> Stream<S,E>:
 def inventory(~S:Data,~E:Data,stream:Stream<S,E>) -> String:
   match stream:
     case Stream{Event.Domain{key},_,_,_,_,_,_,_}:key
+def dropped(~S:Data,~E:Data,stream:Stream<S,E>) -> Nat:
+  match stream:
+    case Stream{_,_,_,_,_,_,_,value}:value
+def completed_positions(success:Bool,+positions:List<&2,Ev.Position>,+id:U32,+tick:Nat) -> List<&2,Ev.Position>:
+  match success:
+    case False{}:Ev.activate(positions,id,Nat.sub(tick,1n))
+    case True{}:Ev.update(Ev.activate(positions,id,Nat.sub(tick,1n)),id,tick,False{})
+def completed(~S:Data,~E:Data,stream:Stream<S,E>,id:U32,tick:Nat,success:Bool) -> Stream<S,E>:
+  match stream:
+    case Stream{domain,batches,positions,nextReader,frameStart,boundary,capacity,dropped}:Stream{domain,batches,completed_positions(success,positions,id,tick),nextReader,frameStart,boundary,capacity,dropped}
+def read_declaration(~S:Data,~E:Data,stream:Stream<S,E>) -> Event.Declaration<S,E>:
+  match stream:
+    case Stream{domain,_,_,_,_,_,_,_}:Event.read(~S,~E,domain)
+def domain(~S:Data,~E:Data,stream:Stream<S,E>) -> Event.Domain<S,E>:
+  match stream:
+    case Stream{domain,_,_,_,_,_,_,_}:domain

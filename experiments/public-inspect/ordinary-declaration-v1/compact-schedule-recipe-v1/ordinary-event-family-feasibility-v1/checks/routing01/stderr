@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : '(stream,id) (registry,registryId)'
+Location:
+17 |   match returned identified:
+18>|     case (stream,id) (registry,registryId):Registered{Runtime{world,put(family,stream),tick},Reader{namespace,id,registryId},registry}
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+19 | def registration_result(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~O:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>,family:F,+stream:Leaf.Stream<S,E>,+tick:Nat,+namespace:U32,result:Sys.RegistrationResult<S,C,R,P,Ev.Input<E,A>,Error,O,runner>) -> Registration<S,C,R,P,E,F,A,Error,O,take,put,runner>:
+bend 2.0.36 is available: run bend update

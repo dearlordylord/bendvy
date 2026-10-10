@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a quantified datatype after + (+D<..> sets D's leading quantities to &2)
+- observed : ')'
+Location:
+70 |   match record:
+71>|     case Publication{first,second}:Nat.is_lt(0n,Ev.count(~A,first)+Ev.count(~B,second))
+   |                                                                                       ^
+72 | def retained_head(~A:Data,~B:Data,keep:Bool,record:Publication<A,B>,rest:List<&2,Publication<A,B>>) -> List<&2,Publication<A,B>>:
+bend 2.0.36 is available: run bend update

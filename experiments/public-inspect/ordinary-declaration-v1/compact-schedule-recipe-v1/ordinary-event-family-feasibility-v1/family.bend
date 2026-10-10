@@ -58,3 +58,43 @@ def observed_leaf(~S:Data,~E:Data,~F:Type,~put:F -> Leaf.Stream<S,E> -> F,return
     case (family,+stream):observed_read(~S,~E,~F,~put,family,Leaf.reading(~S,~E,stream,id,tick))
 def observe(~S:Data,~E:Data,~F:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,family:F,id:U32,tick:Nat) -> F & Ev.Reading<E>:
   observed_leaf(~S,~E,~F,~put,take(family),tick,id)
+
+def retained_values(~E:Data,remove:Bool,values:List<&2,E>) -> List<&2,E>:
+  match remove:
+    case True{}:[]
+    case False{}:values
+def retained_record(~A:Data,~B:Data,record:Publication<A,B>,+tick:Nat,+firstDropped:Nat,+secondDropped:Nat) -> Publication<A,B>:
+  match record:
+    case Publication{first,second}:Publication{retained_values(~A,Nat.is_le(tick,firstDropped),first),retained_values(~B,Nat.is_le(tick,secondDropped),second)}
+def nonempty_record(~A:Data,~B:Data,record:Publication<A,B>) -> Bool:
+  match record:
+    case Publication{first,second}:Nat.is_lt(0n,Nat.add(Ev.count(~A,first),Ev.count(~B,second)))
+def retained_head(~A:Data,~B:Data,keep:Bool,record:Publication<A,B>,rest:List<&2,Publication<A,B>>) -> List<&2,Publication<A,B>>:
+  match keep:
+    case True{}:record <> rest
+    case False{}:rest
+def retained_join(~A:Data,~B:Data,+record:Publication<A,B>,rest:List<&2,Publication<A,B>>) -> List<&2,Publication<A,B>>:
+  retained_head(~A,~B,nonempty_record(~A,~B,record),record,rest)
+def retained_records(~A:Data,~B:Data,records:List<&2,Publication<A,B>>,+tick:Nat,+firstDropped:Nat,+secondDropped:Nat) -> List<&2,Publication<A,B>>:
+  match records:
+    case []:[]
+    case record <> rest:retained_join(~A,~B,retained_record(~A,~B,record,tick,firstDropped,secondDropped),retained_records(~A,~B,rest,tick,firstDropped,secondDropped))
+def retained_batch(~A:Data,~B:Data,keep:Bool,tick:Nat,records:List<&2,Publication<A,B>>,rest:List<&2,Ev.Batch<Publication<A,B>>>) -> List<&2,Ev.Batch<Publication<A,B>>>:
+  match keep:
+    case True{}:Ev.Batch{tick,records} <> rest
+    case False{}:rest
+def retained_batch_join(~A:Data,~B:Data,tick:Nat,+records:List<&2,Publication<A,B>>,rest:List<&2,Ev.Batch<Publication<A,B>>>) -> List<&2,Ev.Batch<Publication<A,B>>>:
+  retained_batch(~A,~B,Nat.is_lt(0n,Ev.count(~Publication<A,B>,records)),tick,records,rest)
+def retained_journal(~A:Data,~B:Data,journal:List<&2,Ev.Batch<Publication<A,B>>>,+firstDropped:Nat,+secondDropped:Nat) -> List<&2,Ev.Batch<Publication<A,B>>>:
+  match journal:
+    case []:[]
+    case Ev.Batch{+tick,records} <> rest:retained_batch_join(~A,~B,tick,retained_records(~A,~B,records,tick,firstDropped,secondDropped),retained_journal(~A,~B,rest,firstDropped,secondDropped))
+def framed_journal(~S:Data,~C:Type,~R:Type,~A:Data,~B:Data,~H:Type,world:W.World<S,C,R,Publication<A,B>>,streams:Streams<S,A,B,H>,+tick:Nat,+journal:List<&2,Ev.Batch<Publication<A,B>>>) -> Application<S,C,R,A,B,H>:
+  Application{W.events_replace(~S,~C,~R,~Publication<A,B>,world,Ev.values(~Publication<A,B>,journal)),streams,journal,tick,tick}
+def framed_streams(~S:Data,~C:Type,~R:Type,~A:Data,~B:Data,~H:Type,world:W.World<S,C,R,Publication<A,B>>,streams:Streams<S,A,B,H>,tick:Nat,journal:List<&2,Ev.Batch<Publication<A,B>>>) -> Application<S,C,R,A,B,H>:
+  match streams:
+    case Streams{+first,+second,owners}:
+      framed_journal(~S,~C,~R,~A,~B,~H,world,Streams{first,second,owners},tick,retained_journal(~A,~B,journal,Leaf.dropped(~S,~A,first),Leaf.dropped(~S,~B,second)))
+def frame(~S:Data,~C:Type,~R:Type,~A:Data,~B:Data,~H:Type,app:Application<S,C,R,A,B,H>) -> Application<S,C,R,A,B,H>:
+  match app:
+    case Application{world,Streams{first,second,owners},journal,+tick,_}:framed_streams(~S,~C,~R,~A,~B,~H,world,Streams{Leaf.frame(~S,~A,first,tick),Leaf.frame(~S,~B,second,tick),owners},tick,journal)

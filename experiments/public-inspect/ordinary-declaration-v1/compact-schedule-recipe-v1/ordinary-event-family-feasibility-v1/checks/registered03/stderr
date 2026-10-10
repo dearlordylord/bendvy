@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+143 |     case (fixture,observation):
+144>|       (fixture,rest)=sequence(actions,fixture)
+    |                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+145 |       (fixture,observation <> rest)
+bend 2.0.36 is available: run bend update

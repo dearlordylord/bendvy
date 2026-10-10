@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a defined name
+- observed : String.show
+Location: first_registry
+69 |   match value:
+70>|     case Sys.Registry{+namespace,+id,+name,+access,+cursor}:(Sys.Registry{namespace,id,name,access,cursor},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,String.show,access) ++ ":" ++ U32.show(cursor))
+   |                                                                                                                                                                                                    ^^^^^^^^^^^
+71 | def second_reader(value:Consumer.SecondReader()) -> Consumer.SecondReader() & String:
+bend 2.0.36 is available: run bend update

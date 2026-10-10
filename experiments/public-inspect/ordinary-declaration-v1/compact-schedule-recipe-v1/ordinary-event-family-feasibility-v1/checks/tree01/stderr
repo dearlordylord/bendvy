@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+46 |     case True{} Route.Runtime{world,State{family,owners,journal,frameStart},tick}:
+47>|       (runtime,names)=inventory_returned(~S,~C,~R,~P,~F,~H,world,owners,journal,frameStart,tick,inventory(family))
+   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+48 |       (runtime,Some{names})
+bend 2.0.36 is available: run bend update

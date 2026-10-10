@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (rest is a variable here, not comptime: pass it at run time)
+- observed : sequence_join
+Context:
+- action  : Action
+- rest    : List<&2, Action>
+- fixture : Fixture
+Location: sequence
+149 |     case []:(fixture,[])
+150>|     case action <> rest:sequence_join(~(fixture => sequence(rest,fixture)),step(action,fixture))
+    |                         ^^^^^^^^^^^^^
+151 | def scenario() -> Fixture & List<&2,Observation>:
+bend 2.0.36 is available: run bend update

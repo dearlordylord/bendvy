@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Leaf.Stream<S, E> -> @_:Nat -> @_:List<&2, E> -> Sigma<&1, &1, Leaf.Stream<S, E>, _ => List<&2, E>>
+- observed : @+stream:Leaf.Stream<S, E> -> @tick:Nat -> @values:List<&2, E> -> Sigma<&1, &1, Leaf.Stream<S, E>, _ => List<&2, E>>
+Context:
+- S      : Data
+- E      : Data
+- domain : Event.Domain<S, E>
+Location: leaf
+21 | def leaf_inventory(~S:Data,~E:Data,+stream:Leaf.Stream<S,E>) -> Leaf.Stream<S,E> & List<&2,String>:(stream,[Leaf.inventory(~S,~E,stream)])
+22>| def leaf(~S:Data,~E:Data,domain:Event.Domain<S,E>) -> Provision<S,E,Event.Domain<S,E>,Leaf.Stream<S,E>,leaf_make(~S,~E),leaf_sync(~S,~E),leaf_frame(~S,~E),leaf_retain(~S,~E),leaf_inventory(~S,~E)>:Provision{domain}
+   |                                                                                                                                                            ^^^^^^^^^^^^^^^^^^
+23 | def pair_make(~DA:Data,~DB:Data,~FA:Type,~FB:Type,~makeA:DA -> Nat -> FA,~makeB:DB -> Nat -> FB,domains:Domains<DA,DB>,+capacity:Nat) -> Product.Owner<FA,FB>:
+bend 2.0.36 is available: run bend update

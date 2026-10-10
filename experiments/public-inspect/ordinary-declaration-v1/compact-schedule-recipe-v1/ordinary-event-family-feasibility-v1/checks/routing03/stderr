@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : 'Event.Declaration{_,Event.Write{}} (world,namespace)'
+Location:
+25 |   match declaration named:
+26>|     case Event.Declaration{_,Event.Write{}} (world,namespace):RegistrationFailed{Runtime{world,put(family,stream),tick}}
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+27 |     case Event.Declaration{+domain,Event.Read{}} (world,namespace):registration_result(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,family,stream,tick,namespace,Sys.register(~S,~C,~R,~P,~Ev.Input<E,A>,~Error,~O,~runner,world,name,[Event.access(~S,~E,Event.Declaration{domain,Event.Read{}})]))
+bend 2.0.36 is available: run bend update
