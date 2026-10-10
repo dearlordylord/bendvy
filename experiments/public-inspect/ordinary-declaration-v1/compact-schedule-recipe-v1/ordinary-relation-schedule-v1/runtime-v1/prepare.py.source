@@ -14,7 +14,7 @@ def main():
  args=parser.parse_args();catalogue=Path(args.catalogue).resolve();selected=json.loads(catalogue.read_text())[args.key]
  oracle=Path(selected['gzip']).resolve();raw=gzip.decompress(oracle.read_bytes())
  if len(raw)!=selected['bytes'] or hashlib.sha256(raw).hexdigest()!=selected['sha256']:raise ValueError('Independent full model drift')
- check=Path('/tmp/bendvy-ordinary-relation-schedule-public-source01/entry-public');receipt=json.loads((check/'result.json').read_text())
+ check=Path('/tmp/bendvy-ordinary-relation-schedule-public-source02/entry-public');receipt=json.loads((check/'result.json').read_text())
  if receipt['exit']!=0 or receipt.get('failure') is not None or not json.loads((check/'post.json').read_text())['unchanged']:raise ValueError('Source qualification required')
  if b'ALL PROOFS CHECK' not in (check/'stdout').read_bytes():raise ValueError('Source result missing')
  captured=json.loads((check/'SOURCE.json').read_text())['pins'];inventory={k:v for k,v in captured.items() if k.endswith('.bend')}
