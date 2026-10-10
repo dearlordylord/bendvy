@@ -1,0 +1,27 @@
+from pathlib import Path
+import json,hashlib
+base=Path('/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1')
+here=base/'owner-data-format-v1/runtime-profiles-v1';here.mkdir(exist_ok=True)
+old=Path('/workspace/formal-proofs/bendvy/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/profile-v1/run.py')
+s=old.read_text().replace('ROOT = Path(__file__).resolve().parents[6]',"ROOT = Path('/workspace/formal-proofs/bendvy')")
+s=s.replace("validator=load('profile_shape',plan['profileValidator']);join=load('public_join',plan['join'])","validator=load('profile_shape',plan['profileValidator'])")
+s=s.replace("info=plan['roles']['JS'];transport=load('transport',info['transport'])","info=plan['roles'][plan['side']];transport=load('transport',info['transport'])")
+s=s.replace("                        full=join.compare(result['stdout'].decode('utf8'),Path(plan['tsStdout']).read_text())\n",'')
+s=s.replace('publicJoin=full','wholeOutputEqual=True')
+(here/'run.py').write_text(s)
+h=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+validator=Path('/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/optimization-v1/validate-after-profile.py')
+for side,subject in [('before',base/'js-semantic02'),('after',base/'owner-data-format-v1/js-semantic01')]:
+ p=json.loads((subject/'plan.json').read_text());r=json.loads((subject/'receipt.json').read_text());assert r['status']=='DEVELOPMENT_PASS'
+ out=here/(side+'01');out.mkdir(exist_ok=False)
+ pins=p['pins'].copy()
+ for x in [here/'run.py',old,validator,subject/'plan.json',subject/'receipt.json',subject/'scenario.js',subject/'consumer.stdout',subject/'consumer.stderr']:
+  pins[str(x)]=h(x)
+ assert all(h(n)==v for n,v in pins.items())
+ argv=p['commands'][-1]['argv'];commands=[]
+ for role,flag,name,interval in [('CPU','--cpu-prof','bundle.cpuprofile','100'),('allocation','--heap-prof','bundle.heapprofile','8192')]:
+  commands.append(dict(label=role,role=role,capSeconds=5,profile=str(out/name),argv=argv[:4]+[flag,flag+'-dir='+str(out),flag+'-name='+name,flag+'-interval='+interval,argv[4]]))
+ info=dict(command=argv,environment=p['environment'],cwd=p['cwd'],entrypoint=p['entrypoint'],transport=str(Path(p['collector']).parent/'transport-v1/transport.py'),inventory=p['constructorInventory'],oracle=p['oracle'],expectedSHA256=p['expectedSHA256'])
+ plan=dict(scope='Original versus owner/Data repair complete scale1 whole-process JS CPU-call and sampled-allocation diagnostics; startup included, no compiler profiling, region-only allocation/RSS/timing ratio or comparative credit',side=side,pins=pins,tools=p['tools'],commands=commands,roles={side:info},resourceRoots=p['resourceRoots'],resourceInventory=p['resourceInventory'],wholeCohortLock='/tmp/bendvy-parity-heavy.lock',cpu=5,profileValidator=str(validator))
+ f=out/'plan.json';f.write_text(json.dumps(plan,indent=2)+'\n');print(side,h(f),len(pins))
+(here/'SOURCE-DELTA.json').write_text(json.dumps({'basis':str(old),'basisSHA256':h(old),'changes':['Explicit repository ROOT for private relocation','Select before/after qualified JS role by side','Remove historical hardcoded TS projection, keep exact entire18058-byte oracle gate before profile observations'],'unchanged':'CPU100us/heap8192 intervals, stock5 child cap, exact source/artifact/resource guards, existing executor and unconditional terminal guards'},indent=2)+'\n')
