@@ -1,0 +1,9 @@
+# Independent ordinary condition / reader oracle
+
+Frozen producer e075e428cc4972fb6b8028603cc64857be86d8e9, condition-readers-v1 A-source04: 37 imported Bend modules, 42 admitted input pins, stock five-second source PASS. This packet derives one complete four-checkpoint String from source; no actual stdout or backend is an input. Run verify.py for pure input/model/raw/gzip identity checks.
+
+Bevy's in_state tests the present state; MessageReader retains an independent counter for unread messages. Bend's existing machine-stream lifecycle defines the exact lazy activation, registered skip and frame retention here. TS reference comparison is not asserted for this custom transcript.
+
+The pending spawn initially retains physical payload ownership in its callback. The first reader schedule does not flush it. Fast activates at tick1, reads Boot>Play, completes at tick2; slow's never-activated skip stays absent. The ordinary marker leading barrier activates entity1 and writes column physical index0/stamp1/clock1. Its apply publishes Play>Boot at tick3. The second reader schedule skips fast to3, activates slow at3, and completes its backlog at4. The final schedule trims tick3 at the retained boundary, skips fast to4 and completes slow's empty read at5. Both actual Registry cursors remain0 because invoke uses Sys.run, not run_tracked. Full physical owners, World metadata, registrations, streams/positions/retention, selected state, deliveries and schedule outcomes are included at all four checkpoints.
+
+This finite normal fixture does not exercise reader failures, initialization, handler lifecycle, foreign readers, every retention input, or universal affine preservation. Failure-forwarding code is pinned but its failing branch is not reached. Root must independently sanity-check this source-derived complete model before execution.
