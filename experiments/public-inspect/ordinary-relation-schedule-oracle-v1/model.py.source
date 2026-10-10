@@ -1,0 +1,57 @@
+"""Complete source-derived finite scheduled relation trace; no runtime inputs."""
+import json
+
+def shown(items):
+    return '[' + ', '.join(items) + ']'
+
+ACTIONS = [('snapshot', True), ('snapshot', True), ('snapshot', False),
+           ('run',), ('snapshot', True), ('run',),
+           ('snapshot', True), ('snapshot', False)]
+DESC = '7:Link:LinkedBy:ordinary'
+
+def derive():
+    # Created ns1; reserved/activated ids1..3; seeded relate1->2 committed
+    # and drained before registration. Resource Array is physical Node(61,62).
+    events = [91, 92]
+    pending = [99]
+    clock = cursor = 0
+    reports, states = [], []
+    def world():
+        return ('world(1,4,3,N(N(L(False),L(True)),N(L(True),L(True))),4,2,'
+                'Unit;graph=[' + DESC + ':1>2];[' + DESC + ':2:[1]],'
+                'N(L(61),L(62)),events=' + shown('user:' + str(e) for e in events)
+                + ',pending=' + str(len(pending))
+                + ',regs=[1:ReadLinks:[Link:read]],nextSystem=2,clock=' + str(clock) + ')')
+    def debug():
+        rows = ['Relation{key=7|name=Link|inverse=LinkedBy|kind=Ordinary}']
+        for entity in [1, 2, 3]:
+            outgoing = 'Target:1:2' if entity == 1 else 'Missing'
+            incoming = 'Sources:[1:1]' if entity == 2 else 'Missing'
+            rows.append('1:' + str(entity) + ':' + shown([
+                'Link:Outgoing:' + outgoing, 'LinkedBy:Incoming:' + incoming]))
+        binding = '1:1:ReadLinks:[Link:read]:' + str(cursor) + ':Update'
+        return ('Debug{bindings=[' + binding + ']|relations=' + shown(rows)
+                + '|schedule=Update|steps=3}')
+    for action in ACTIONS:
+        if action[0] == 'snapshot':
+            text = debug() if action[1] else 'Disabled'
+        else:
+            # Phase Update; slot1 condition true; actual Sys.run_tracked checks
+            # registry ns/id/name/access, reads inverse2, finishes empty tx.
+            # Successful cursor is World.clock0. Explicit barrier drains FIFO.
+            cursor = clock
+            events.extend(pending)
+            pending.clear()
+            text = 'Finished:[Entered:Update, Ran:1, Applied]'
+        reports.append(text + '|' + world())
+        states.append({'action': action, 'graph': {'edges': [[1,2]], 'inverses': [[2,[1]]]},
+                       'events': list(events), 'pending': list(pending),
+                       'clock': clock, 'registry': {'namespace':1,'id':1,'name':'ReadLinks',
+                       'access':['Link:read'],'cursor':cursor,'phase':'Update'},
+                       'resources': ['node',61,62], 'components':'Unit'})
+    # Installed CLI String show_val escapes internal LF; io_exit appends LF.
+    return (json.dumps(''.join(r + '\n' for r in reports), ensure_ascii=False) + '\n').encode(), states
+
+if __name__ == '__main__':
+    import sys
+    sys.stdout.buffer.write(derive()[0])
