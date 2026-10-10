@@ -17,9 +17,19 @@ def current_text(~S:Data,~K:Data,~V:Data,~render:V -> String,view:M.CurrentView<
   match view:
     case M.Unavailable{}:"Unavailable"
     case M.Current{value}:"Current:" ++ render(value)
+# The ordered vocabulary comes from the same operational declaration. The
+# registered observer is invoked only on the enabled snapshot branch.
+def vocabulary_text(~V:Data,~render:V -> String,values:List<&2,V>) -> List<&2,String>:
+  match values:
+    case []:[]
+    case value <> rest:render(value) <> vocabulary_text(~V,~render,rest)
+def vocabulary_description(~V:Data,~render:V -> String,name:String,value:Maybe<&2,List<&2,V>>) -> List<&2,String>:
+  match value:
+    case None{}:[]
+    case Some{values}:[name ++ ":Vocabulary=" ++ List.show(&2,String,x=>x,vocabulary_text(~V,~render,values))]
 def presented(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~take:R -> R & M.Slot<S,K,V>,~declaration:OD.Declaration<S,K,V,R,take>,~render:V -> String,result:I.Frame<S,C,R,E> & M.CurrentView<S,K,V>) -> W.World<S,C,R,E> & DTO.Observation<M.CurrentView<S,K,V>>:
   match result:
-    case (I.Frame{world,_},+view):(world,DTO.Observation{view,[OD.name(~S,~K,~V,~R,~take,declaration) ++ ":" ++ current_text(~S,~K,~V,~render,view)]})
+    case (I.Frame{world,_},+view):(world,DTO.Observation{view,List.append(&2,String,[OD.name(~S,~K,~V,~R,~take,declaration) ++ ":" ++ current_text(~S,~K,~V,~render,view)],vocabulary_description(~V,~render,OD.name(~S,~K,~V,~R,~take,declaration),OD.values(~S,~K,~V,~R,~take,declaration)))})
 def observe(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~take:R -> R & M.Slot<S,K,V>,~declaration:OD.Declaration<S,K,V,R,take>,~render:V -> String,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & DTO.Observation<M.CurrentView<S,K,V>>:
   presented(~S,~K,~V,~C,~R,~E,~take,~declaration,~render,OD.get(~I.Frame<S,C,R,E>,~S,~K,~V,~OD.inspect(~S,~K,~V,~C,~R,~E,~take,~declaration),I.Frame{world,0}))
 def attach(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~take:R -> R & M.Slot<S,K,V>,~declaration:OD.Declaration<S,K,V,R,take>,~render:V -> String,~Owners:Type,~Rows:Data,~prior:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Fields.Fields<S>>,app:Build.Registered<S,W.World<S,C,R,E>,Owners,Rows,prior,fold>) -> Build.Registered<S,W.World<S,C,R,E>,Owners,DTO.Product<Rows,M.CurrentView<S,K,V>>,Tree.observe_pair(~W.World<S,C,R,E>,~Rows,~M.CurrentView<S,K,V>,~prior,~observe(~S,~K,~V,~C,~R,~E,~take,~declaration,~render)),fold>:

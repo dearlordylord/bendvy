@@ -1,19 +1,29 @@
 import Base
-import machine-world.bend as MW
-import machine.bend as M
-import world.bend as W
-import inspector.bend as I
-import check.bend as K
-import capabilities.bend as Cap
-import inspector-machine-projection.bend as P
+import ./machine-world.bend as MW
+import ./machine.bend as M
+import ./world.bend as W
+import ./inspector.bend as I
+import ./check.bend as K
+import ./capabilities.bend as Cap
+import ./inspector-machine-projection.bend as P
 
 # Closed ordinary declaration. Names never grant authority; K and the operational
 # slot lens remain nominal/static. No Resource identity is fabricated for a machine.
 type Declaration<-S:Data,-Token:Data,-V:Data,-R:Type,-take:R -> R & M.Slot<S,Token,V>> is Data:
   Declaration{name:String}
+  Vocabulary{name:String,values:List<&2,V>}
 def name(~S:Data,~Token:Data,~V:Data,~R:Type,~take:R -> R & M.Slot<S,Token,V>,declaration:Declaration<S,Token,V,R,take>) -> String:
   match declaration:
     case Declaration{name}:name
+    case Vocabulary{name,_}:name
+# One ordinary declaration retains its finite ordered values. This is descriptive,
+# not a queue membership restriction; legacy arbitrary V declarations stay valid.
+def declared(~S:Data,~Token:Data,~V:Data,~R:Type,~take:R -> R & M.Slot<S,Token,V>,name:String,values:List<&2,V>) -> Declaration<S,Token,V,R,take>:
+  Vocabulary{name,values}
+def values(~S:Data,~Token:Data,~V:Data,~R:Type,~take:R -> R & M.Slot<S,Token,V>,declaration:Declaration<S,Token,V,R,take>) -> Maybe<&2,List<&2,V>>:
+  match declaration:
+    case Declaration{_}:None{}
+    case Vocabulary{_,values}:Some{values}
 def inspect(~S:Data,~Token:Data,~V:Data,~C:Type,~R:Type,~E:Data,~take:R -> R & M.Slot<S,Token,V>,~declaration:Declaration<S,Token,V,R,take>) -> Cap.ValueRead<I.Frame<S,C,R,E>,M.CurrentView<S,Token,V>>:
   P.provide(~S,~Token,~V,~C,~R,~E,~take)
 def condition(~S:Data,~Token:Data,~V:Data,~C:Type,~R:Type,~E:Data,~take:R -> R & M.Slot<S,Token,V>,~declaration:Declaration<S,Token,V,R,take>) -> Cap.ValueRead<K.Frame<S,C,R,E>,M.CurrentView<S,Token,V>>:
