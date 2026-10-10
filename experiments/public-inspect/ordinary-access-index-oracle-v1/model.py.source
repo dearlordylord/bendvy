@@ -1,0 +1,35 @@
+"""Complete source-derived ordinary access index model; no runtime inputs."""
+from pathlib import Path
+import json,gzip,hashlib
+HERE=Path(__file__).resolve().parent
+ls=lambda xs:'['+', '.join(xs)+']'
+def fields(c1,c2,kinds=False):
+ xs=[f'1:1:SharedSystem:Update:cursor={c1}:[Shared, Shared]:[Shared:Read, Shared:Read]',f'1:2:SharedSystem:Update:cursor={c2}:[Shared]:[Shared:Write]']
+ if kinds:xs=[xs[0]+':Component',xs[1]+':Field']
+ return ls(xs)
+def world(pop,value):
+ live='node(node(leaf:False,leaf:True),node(leaf:True,leaf:False))' if pop else 'leaf:False'
+ col='Column{values=leaf:some(leaf:42);stamps=[1:1:1]}' if pop else 'Column{values=leaf:none;stamps=[]}'
+ return (f'namespace=1|nextId={3 if pop else 1}|highWater={2 if pop else 0}|live={live}|capacity={4 if pop else 1}|depth={2 if pop else 0}'
+  f'|store=product({col},Unit)|resource=product(Unit,leaf:{value})|events=[]|pendingCount=1|pendingEmpty=False'
+  f'|registrations=[2:SharedSystem:[Shared], 1:SharedSystem:[Shared, Shared]]|nextSystemId=3|clock={int(pop)}')
+def complete(text,pop,value,c1,c2):return text+'|world{'+world(pop,value)+'}|owners='+fields(c1,c2,True)
+def index():
+ # Fields preorder: component clauses twice then selected resource field clause.
+ return ls(['Component:Shared:'+ls(['1:1:SharedSystem:Read:Reader']*2),'Resource:Shared:'+ls(['1:2:SharedSystem:Write:Writer'])])
+def snapshot(pop,value,c1,c2,enabled=True):
+ row='[1:1:Found:42:Found:42]' if pop else '[]'
+ text=('Debug{schema=[Component:Shared:Shared, Resource:Shared:Shared]|bindings='+fields(c1,c2)+'|rendered='+ls([row,f'Shared={value}'])+'}') if enabled else 'Disabled'
+ return 'index='+(index() if enabled else 'Disabled')+'|'+complete(text,pop,value,c1,c2)
+def scenario(pop):
+ c1=c2=0;value=10
+ rows=[snapshot(pop,value,c1,c2),snapshot(pop,value,c1,c2),snapshot(pop,value,c1,c2,False)]
+ c1=int(pop);rows.append(complete('ComponentSuccess:output='+ls(['Unit'] if pop else []),pop,value,c1,c2))
+ prior=value;value+=1;c2=int(pop);rows.append(complete(f'Success:output=leaf:{prior}',pop,value,c1,c2));rows.append(snapshot(pop,value,c1,c2))
+ rows.append(complete(f'Failure:RolledBack:{value}',pop,value,c1,c2));rows.append(snapshot(pop,value,c1,c2))
+ prior=value;value+=1;rows.append(complete(f'Success:output=leaf:{prior}',pop,value,c1,c2));rows += [snapshot(pop,value,c1,c2),snapshot(pop,value,c1,c2)]
+ return '\n'.join(rows)+'\n'
+def derive(prefix='consumer'):
+ return (prefix+'.Report{'+', '.join(json.dumps(scenario(p),ensure_ascii=False) for p in (False,True))+'}\n').encode()
+if __name__=='__main__':
+ raw=derive();(HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0));public=derive('consumer-public');(HERE/'public.stdout').write_bytes(public);(HERE/'public.stdout.gz').write_bytes(gzip.compress(public,mtime=0));print(len(public),hashlib.sha256(public).hexdigest())
