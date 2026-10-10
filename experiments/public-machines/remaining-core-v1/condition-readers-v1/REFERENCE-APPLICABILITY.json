@@ -1,0 +1,26 @@
+{
+  "referenceSource": "/workspace/formal-proofs/bendvy/experiments/public-machines/reference.mjs",
+  "referenceSourceSHA256": "962e9e962915553c03f28078e4dcecfcbfecaeced3812f2fc7337f5471dfabd1",
+  "historicalReceipt": "/workspace/formal-proofs/bendvy/experiments/public-machines/evidence/full-semantic-v2/receipt.json",
+  "historicalReceiptSHA256": "0c439f18af799980c0462245d38939a071052ca6a033a3aed09dd7c371ec25c1",
+  "referenceCommand": {
+    "label": "reference",
+    "command": [
+      "node",
+      "/workspace/formal-proofs/bendvy/experiments/public-machines/reference.mjs"
+    ],
+    "capSeconds": 5,
+    "expectedExit": 0,
+    "status": "TERMINAL",
+    "exit": 0,
+    "directChildExit": 0,
+    "inconclusiveReason": null
+  },
+  "matchingScenarioLabels": [
+    "readers-register",
+    "skip-reader",
+    "skip-reader-no-backlog",
+    "reader-repeat-empty"
+  ],
+  "limitation": "Selected labels support existing registration/skip/retention behavior. The new explicit initial fixture and full physical serializer differ; no historical transcript is claimed as its oracle. No new TS/runtime execution or runtime stdout input to the current independent source-derived model."
+}

@@ -1,1 +1,2 @@
 An entry-file authoring path duplicated the leaf name; FileNotFoundError occurred before entry creation and before capture preparation/child execution. Corrected the destination; no compiler/check evidence is attributed to that failed preparation.
+The first oracle gzip copy selected absent gzip/path catalogue fields instead of the actual stdout field and raised TypeError before any runtime plan or child. Copied the unchanged explicit normal.stdout.gz thereafter.
