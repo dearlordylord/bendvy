@@ -1,0 +1,28 @@
+import runpy
+from pathlib import Path
+from dataclasses import replace
+m=runpy.run_path(str(Path(__file__).with_name('model.py.source')))
+Tree,Record,Leaf=m['Tree'],m['Record'],m['Leaf']
+a,b,u=(0,0),(0,1),(1,)
+s=Tree(tuple((p,Leaf(1,2)) for p in (a,b,u)))
+s,reader=s.register(a,7)
+assert s.leaf(a).positions == () and s.leaf(b).next_reader == 1
+records=tuple(Record.emission(p,v) for p,v in ((a,1),(b,10),(a,2),(b,20)))
+s=replace(s,tick=1).sync(records)
+assert s.log == records and len(s.journal[0].values)==4
+assert s.reading(a,1).values==(1,2) and s.reading(b,1).values==(10,20)
+assert s.leaf(u).batches==()
+f=s.complete(a,reader,7,'failed')
+assert f.tick==2 and f.leaf(a).position(1).cursor==0
+assert f.journal==s.journal and f.leaf(b)==s.leaf(b)
+g=f.complete(a,reader,7,'succeeded')
+assert g.leaf(a).position(1).cursor==3 and g.reading(a,1).values==()
+assert g.complete(a,reader,99,'succeeded') is g
+# New First-only batch overflows First capacity, keeping Second chronology.
+h=replace(g,tick=4).sync(g.log+(Record.emission(a,3),))
+h=h.frame()
+assert h.leaf(a).dropped_through==1
+assert tuple(r.selected(b) for r in h.log)==((10,),(20,),())
+assert h.reading(a,1).values==(3,) and h.reading(b,1).values==(10,20)
+assert h.leaf(u).positions==() and h.leaf(u).batches==()
+print('PASS: nested routing, ordered singleton records, lazy activation, sole clock, partial record retention')

@@ -1,0 +1,35 @@
+{
+  "scope": "Independent generic normalized journal routing/frame/registration/completion primitives; consumer sequence and encoder not bound.",
+  "sourcePins": {
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/composition.bend": "7cfae7349944cc8979ed5d51275a7decc2c8a3067c1cad19222d41ede6004461",
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/tree-runtime.bend": "8fb2db1b2d09ed92bbb9f236f3d38a13f3980145a7dc310e74ee264bd67b2ffa",
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/tree-setup.bend": "23f6de2b2398c9b194442fbdb09f0cdda8a7342210f6073b5571ec3b0872eff0",
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/stream.bend": "1e30a43212c8b9aa4320cf2715a88560605e1f450a917ecbaf965f1381d9e68e",
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/routing.bend": "48b58d1dd74ee70db390edfd2b1080bbe84c5279a6a18b36a15dac427a9a86df",
+    "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/family.bend": "269777677aebe9fd073d59c9fe4da41af0f5ce7edf67467fc8c9feffb49bf174",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/typed-data-events-oracle-v1/leaf-v1/model.py.source": "25df85587fdd772d240aade5f5fcb03714a42f721a0016ded13efe5625b31ba4",
+    "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557"
+  },
+  "producerCommit": null,
+  "checkpointStatus": "Author checked setup01 positive; evolving consumer intentionally excluded. Source file hashes identify this preparation precisely.",
+  "modelDependency": "../leaf-v1/model.py.source (explicit runpy import; pin listed above)",
+  "sourceSymbols": [
+    "composition.pair_sync/pair_retain/inject_left/inject_right",
+    "tree-runtime.synchronize_world/retained_journal/frame",
+    "stream.registered/completed/frame",
+    "routing.run_identity/run_result/run_outcome",
+    "family.emit_first/emit_second"
+  ],
+  "checks": {
+    "command": "python3 check.py.source",
+    "exit": 0,
+    "scope": "Python model sanity only; no backend evidence."
+  },
+  "limits": [
+    "Normalized path-slot records are a mathematical projection of nested Publications; concrete constructor serialization remains unbound.",
+    "No shared affine World/C/R/Args/Out model or ownership proof yet.",
+    "Caller supplies actual committed returned log; no invented transaction publication policy.",
+    "No global cross-type ordering law: this candidate retains its actual aggregate ordered journal only.",
+    "No duplicate-domain policy, final consumer expected bytes, backend acceptance or performance claim."
+  ]
+}

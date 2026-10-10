@@ -1,0 +1,100 @@
+"""Independent generic journal model; path-labelled mathematical projection.
+
+A record is an ordered tuple of (leaf path, payload tuple) slots. This normalized
+model is not the candidate's nested Product implementation. Record boundaries
+and chronological order survive routing; the consumer-specific encoder remains
+unbound. Only detached Data log/metadata are represented, never affine World.
+"""
+from dataclasses import dataclass, replace
+from pathlib import Path
+import runpy
+_leaf = runpy.run_path(str(Path(__file__).parent.parent / 'leaf-v1/model.py.source'))
+Leaf, Batch = _leaf['Leaf'], _leaf['Batch']
+
+@dataclass(frozen=True)
+class Record:
+    slots: tuple
+
+    def selected(self, path):
+        return tuple(v for p, values in self.slots if p == path for v in values)
+
+    @staticmethod
+    def emission(path, value):
+        return Record(((tuple(path), (value,)),))
+
+@dataclass(frozen=True)
+class Tree:
+    leaves: tuple  # ordered (path, Leaf); duplicate display names are irrelevant
+    journal: tuple = ()
+    log: tuple = ()
+    tick: int = 0
+    frame_start: int = 0
+
+    def leaf(self, path):
+        return next(s for p,s in self.leaves if p == tuple(path))
+
+    def put(self, path, value):
+        return replace(self, leaves=tuple((p,value if p == tuple(path) else s)
+                                         for p,s in self.leaves))
+
+    def sync(self, log):
+        """tree-runtime.synchronize_world: suffix by aggregate record count."""
+        log = tuple(log)
+        suffix = log[sum(len(b.values) for b in self.journal):]
+        routed = []
+        for path, leaf in self.leaves:
+            values = tuple(v for r in suffix for v in r.selected(path))
+            batches = leaf.batches + ((Batch(self.tick,values),) if values else ())
+            routed.append((path,replace(leaf,batches=batches)))
+        journal = self.journal + ((Batch(self.tick,suffix),) if suffix else ())
+        return replace(self,leaves=tuple(routed),journal=journal,log=log)
+
+    def frame(self):
+        """Per-leaf window/capacity, then prune each record at each dropped floor.
+
+        Different leaves can retain different slots of the same record. Empty
+        records/batches disappear; surviving aggregate chronology is preserved.
+        """
+        leaves = tuple((p,replace(s,tick=self.tick).frame()) for p,s in self.leaves)
+        floors = {p:s.dropped_through for p,s in leaves}
+        journal = []
+        for batch in self.journal:
+            records = []
+            for record in batch.values:
+                slots = tuple((p,values) for p,values in record.slots
+                              if batch.tick > floors[p] and values)
+                if slots:
+                    records.append(Record(slots))
+            if records:
+                journal.append(Batch(batch.tick,tuple(records)))
+        return replace(self,leaves=leaves,journal=tuple(journal),
+                       log=tuple(r for b in journal for r in b.values),
+                       frame_start=self.tick)
+
+    def reading(self,path,reader_id):
+        return replace(self.leaf(path),tick=self.tick).reading(reader_id)
+
+    def register(self,path,registry_id,succeeded=True):
+        leaf,reader = self.leaf(path).register(registry_id,succeeded)
+        return self.put(path,leaf),reader
+
+    def complete(self,path,reader,actual_registry_id,outcome,returned_log=None):
+        """routing.run_identity/run_result/run_outcome: sole aggregate clock.
+
+        Success routes committed log to every leaf; failure activates selected
+        position only. An identity refusal does not increment the clock.
+        Registration refusal after Sys.run increments but never activates.
+        """
+        leaf = replace(self.leaf(path),tick=self.tick)
+        if reader.namespace != leaf.namespace or reader.registry_id != actual_registry_id:
+            return self
+        if outcome not in ('failed','succeeded','registration_rejected'):
+            raise ValueError(outcome)
+        tick = self.tick + 1
+        if outcome != 'registration_rejected':
+            leaf = leaf.activate(reader.id,self.tick)
+            if outcome == 'succeeded':
+                leaf = leaf.update(reader.id,tick)
+        updated = replace(self.put(path,leaf),tick=tick,
+                          log=self.log if returned_log is None else tuple(returned_log))
+        return updated.sync(updated.log) if outcome == 'succeeded' else updated
