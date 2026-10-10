@@ -1,0 +1,14 @@
+import Base
+import ./tree.bend as Tree
+import ../operational-v1/bridge.bend as B
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch
+import /workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend as SP
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app.bend as DTO
+import /workspace/formal-proofs/bendvy-worktrees/schedule-observation-v1/experiments/public-inspect/ordinary-declaration-v1/compact-observation-app-v1/recipes.bend as Compact
+def restored(~S:Data,~C:Type,~R:Type,~E:Data,~Owners:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~describe:Owners -> Owners & List<&2,DTO.Binding<S>>,plan:SP.Plan<S>,namespace:U32,name:String,steps:List<&2,Sch.Step>,needs:List<&2,SP.Requirement<S>>,result:Tree.Application<S,W.World<S,C,R,E>,Owners,Rows,observe> & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>) -> B.ApplicationType<S,C,R,E,Owners,Rows,Tree.Recipe<W.World<S,C,R,E>,Rows,observe>> & Maybe<&2,DTO.Product<DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>,B.ScheduleDescription<S>>>:
+  match result:
+    case (Tree.Application{world,owners,recipe,debug},view):B.snapshot_returned(~S,~C,~R,~E,~Owners,~Rows,~Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,plan,namespace,name,steps,needs,(Compact.Application{world,owners,recipe,debug},view))
+def snapshot(~S:Data,~C:Type,~R:Type,~E:Data,~Owners:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~describe:Owners -> Owners & List<&2,DTO.Binding<S>>,app:B.ApplicationType<S,C,R,E,Owners,Rows,Tree.Recipe<W.World<S,C,R,E>,Rows,observe>>) -> B.ApplicationType<S,C,R,E,Owners,Rows,Tree.Recipe<W.World<S,C,R,E>,Rows,observe>> & Maybe<&2,DTO.Product<DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>,B.ScheduleDescription<S>>>:
+  match app:
+    case B.Application{world,plan,SP.Provisioned{Sch.Schedule{namespace,name,steps,owners},needs},recipe,debug}:restored(~S,~C,~R,~E,~Owners,~Rows,~observe,~describe,plan,namespace,name,steps,needs,Tree.snapshot(~S,~W.World<S,C,R,E>,~Owners,~Rows,~observe,~describe,Tree.Application{world,owners,recipe,debug}))
