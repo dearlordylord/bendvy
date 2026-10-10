@@ -1,0 +1,30 @@
+from pathlib import Path
+import json,hashlib,sys
+base=Path('/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1');own=base/'owner-data-format-v1';cur=own/'current-classification-v1';old=own/'paired-current-v1';h=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+plan=json.loads((old/'cohort01/plan.json').read_text());roles={};pins={};qualification=[];replacements=[]
+for scale in [1,2,4]:
+ for role in ['TS','JS','Native']:
+  if role=='TS':subject=base/'ts-root-profile-v1/actual01' if scale==1 else own/f'scale{scale}-ts-semantic01'
+  else:subject=cur/({'JS':'js-semantic01','Native':'native-semantic01'}[role] if scale==1 else f'scale{scale}-{role.lower()}-semantic'+('03' if scale==2 and role=='JS' else '02'))
+  p=json.loads((subject/'plan.json').read_text());r=json.loads((subject/'receipt.json').read_text());assert r['status']=='DEVELOPMENT_PASS' and r['timerQualification']['wholeOutputEqual']
+  for n,v in p['pins'].items():
+   actual=h(n)
+   if actual!=v:
+    assert role=='TS' and n=='/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend' and v=='83525f185b6099d48af4e3a14f30149cd94069ad5e29663c63e44a15a866cfe6' and actual=='e161ff13196cd40b2218efc7734c2e1e661e74e09a754e6ff60cbe2b525d65ca'
+    replacements.append({'role':f'scale{scale}-TS','historicalSupport':n,'oldSHA256':v,'currentSHA256':actual,'reason':'Not consumed by TS module/reference closure; current bundle source applicability pins exact adopted normalization. Historical TS receipt remains unchanged.'});v=actual
+   assert n not in pins or pins[n]==v;pins[n]=v
+  for x in [subject/'plan.json',subject/'receipt.json',subject/'consumer.stdout',subject/'consumer.stderr']:
+   pins[str(x)]=h(x)
+  for key in ['generated','native']:
+   x=p.get(key)
+   if x and Path(x).exists():pins[x]=h(x)
+  transport=base/'ts-root-profile-v1/transport.py' if role=='TS' else Path(p['collector']).parent/'transport-v1/transport.py'
+  roles[f'scale{scale}-{role}']=dict(command=p['commands'][-1]['argv'],environment=p['environment'],cwd=p['cwd'],entrypoint=p['entrypoint'],transport=str(transport),inventory=p['constructorInventory'],oracle=p['oracle'],expectedSHA256=p['expectedSHA256'])
+  qualification.append(dict(scale=scale,role=role,plan=str(subject/'plan.json'),planSHA256=h(subject/'plan.json'),receiptSHA256=h(subject/'receipt.json'),bytes=r['timerQualification']['timer']['bytes'],fnv1a32=r['timerQualification']['timer']['digest'],scope='Fresh current stock artifact' if role!='TS' else 'Unchanged direct TS source/reference/artifact; exact historical executed receipt reused, not new execution'))
+  if role=='Native':resources={k:p[k] for k in ['resourceRoots','resourceInventory']}
+for x in [old/'run.py',old/'sampling-io.py',Path('/workspace/formal-proofs/bendvy/benchmarks/contract.json'),Path(sys.executable).resolve(),cur/'APPLICABILITY.md',cur/'FREEZE.json',cur/'SOURCE-DELTA.json',cur/'RUNTIME-EVIDENCE.json',cur/'RUNTIME-SOURCE-INPUTS.json',cur/'SCALING-RUNTIME-EVIDENCE.json',cur/'SCALING-RUNTIME-SOURCE-INPUTS.json',base/'ORACLES.json']:
+ pins[str(x)]=h(x)
+assert all(h(n)==v for n,v in pins.items())
+commands=[dict(x,argv=roles[x['roleKey']]['command']) for x in plan['commands']];assert len(commands)==258 and len(roles)==9
+plan.update(scope='Current classified-schema full equivalent-feature scales1/2/4; fresh stock Bend artifacts and unchanged qualified TS direct sources; unchanged criteria, no execution yet',roles=roles,pins=pins,commands=commands,qualification=qualification,sourceApplicability='APPLICABILITY.md',historicalSupportRebindings=replacements,**resources)
+out=cur/'paired-current-cohort01';assert not out.exists();out.mkdir();f=out/'plan.json';f.write_text(json.dumps(plan,indent=2)+'\n');print(h(f),len(pins),len(commands));print(replacements)
