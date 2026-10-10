@@ -1,0 +1,117 @@
+{
+  "originalSession": 50438,
+  "planSHA256": "c32635dc99d41fc202840b2fe7eef7a77d8a0ae66a52f289b834661fd0e890b6",
+  "status": "PACKED_COMPILER_DIAGNOSTIC_PASS",
+  "copiedCompilerExit": 75,
+  "validatorExit": 0,
+  "profileBytes": 20426513,
+  "profileSHA256": "1c33a7f8a85b694d1c105c003ef472d96e70dbc0ba1ef954b870c64ab943ca5d",
+  "nodes": 55906,
+  "samples": 7640,
+  "guards": 8,
+  "phaseEvents": [
+    {
+      "event": "startup",
+      "phase": "startup",
+      "calls": 0,
+      "elapsedMs": 0.13300100000000015,
+      "deadlineMs": 20000
+    },
+    {
+      "event": "phase-enter",
+      "phase": "book_load",
+      "calls": 0,
+      "elapsedMs": 2.6026039999999995,
+      "name": "book_load",
+      "pass": 0,
+      "queueContext": null
+    },
+    {
+      "event": "phase-exit",
+      "phase": "book_load",
+      "calls": 0,
+      "elapsedMs": 988.2368280000001,
+      "name": "book_load",
+      "pass": 0,
+      "queueContext": null
+    },
+    {
+      "event": "phase-enter",
+      "phase": "book_valid",
+      "calls": 0,
+      "elapsedMs": 988.4033300000001,
+      "name": "book_valid",
+      "pass": 0,
+      "queueContext": null
+    },
+    {
+      "event": "phase-exit",
+      "phase": "book_valid",
+      "calls": 0,
+      "elapsedMs": 6450.2546170000005,
+      "name": "book_valid",
+      "pass": 0,
+      "queueContext": null
+    },
+    {
+      "event": "phase-enter",
+      "phase": "js_lib",
+      "calls": 0,
+      "elapsedMs": 6457.977844,
+      "name": "js_lib",
+      "pass": 0,
+      "queueContext": null
+    },
+    {
+      "event": "phase-enter",
+      "phase": "file_book",
+      "calls": 0,
+      "elapsedMs": 6458.182179,
+      "name": "file_book",
+      "pass": 0,
+      "queueContext": null
+    },
+    {
+      "event": "phase-exit",
+      "phase": "file_book",
+      "calls": 6238,
+      "elapsedMs": 15023.786214,
+      "name": "file_book",
+      "pass": 0,
+      "queueContext": {
+        "upcoming": null,
+        "current": null,
+        "lastCompleted": {
+          "key": "core/inspector-query-families:check_matches~31",
+          "completionSubstage": "runtime-after-body-scan",
+          "queueBefore": 972139,
+          "queueAfterTypes": 972155,
+          "queueAfterBody": 972248,
+          "uniqueVisited": 6238
+        },
+        "substage": "completed-runtime",
+        "queueLength": 972248,
+        "uniqueVisited": 6238,
+        "queueBeforeCurrent": 972139,
+        "queueAfterTypes": 972155
+      }
+    },
+    {
+      "event": "deadline",
+      "phase": "js_lib",
+      "calls": 10514,
+      "elapsedMs": 20001.502353,
+      "hook": "memo_gc",
+      "definition": "core/inspector-query-projection:projected_right~32",
+      "limitMs": 20000,
+      "exit": 75,
+      "queueContext": null
+    }
+  ],
+  "generatedJS": false,
+  "stock14308Status": "INCOMPLETE/no retry",
+  "runtimeOracleExecuted": false,
+  "scope": "Copiedlogic exploratory phasecheckpoint/profile only; JSdeadline definition denotes outerJSdefinition/loopgroup, not innercost/cause/stockphase/performance/Native acceptance",
+  "members": 98,
+  "newObjects": 35
+}
