@@ -1,0 +1,33 @@
+"""Source-only complete four ten-action ordinary machine vocabulary scenes."""
+import json,gzip,hashlib
+from pathlib import Path
+CASE='normal'
+class World:
+ def __init__(self,populated,available):self.populated=populated;self.available=available;self.queued=False
+ def physical(self):
+  ids='3|2|node(node(leaf:False,leaf:True),node(leaf:True,leaf:False))|4|2' if self.populated else '1|0|leaf:False|1|0'
+  slot=('Present:7:'+('Queued:'+str(self.queued)+':False' if self.queued else 'NoPending')+':Some:6:True') if self.available else 'Missing'
+  return 'world{1|'+ids+'|Unit|'+slot+'|node(leaf:41,leaf:42)|[91, 92]|pending=1|registrations=[]|nextSystem=1|clock=0}'
+ def complete(self,text):return text+'|owners=Unit|'+self.physical()
+ def snapshot(self,enabled):
+  current='Current:7' if self.available else 'Unavailable'
+  vocab='' if CASE=='legacy' else ', Flow:Vocabulary='+('[]' if CASE in ['empty','mutant'] else '[7, 8, 42, 6]')
+  text='Debug{bindings=0|machines=[Flow:'+current+vocab+']}' if enabled else 'Disabled'
+  return self.complete(text)
+ def read(self):return self.complete('Read:'+('Current:7' if self.available else 'Unavailable'))
+ def queue(self,fail,value=8):
+  if not fail and self.available:self.queued=value
+  return self.complete('Failure:Unit' if fail else 'Success')
+def scene(populated,available):
+ w=World(populated,available)
+ return '\n'.join([w.snapshot(False),w.read(),w.snapshot(True),w.snapshot(True),w.snapshot(False),w.queue(False),w.snapshot(True),w.queue(CASE!='unlisted',9),w.snapshot(True),w.snapshot(False)])+'\n'
+def derive():return (json.dumps([scene(False,True),scene(True,True),scene(False,False),scene(True,False)],ensure_ascii=False,separators=(', ', ': '))+'\n').encode()
+
+def emit():
+ global CASE
+ p=Path(__file__).resolve().parent;cat={}
+ for key in ['other','unlisted','legacy','empty','mutant','baseline','same-namespace-baseline']:
+  CASE=key;raw=derive();target=p/(key+'.stdout');target.write_bytes(raw);gz=p/(key+'.stdout.gz');gz.write_bytes(gzip.compress(raw,mtime=0))
+  cat[key]={'path':str(target),'gzip':str(gz),'stdout':str(gz),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest()}
+ (p/'ORACLES.json').write_text(json.dumps(cat,indent=2)+'\n')
+if __name__=='__main__':emit()
