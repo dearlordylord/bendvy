@@ -1,0 +1,273 @@
+{
+  "origin": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2",
+  "joins": [
+    {
+      "relative": "entry-workshop.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/entry-workshop.bend",
+      "sourceSHA256": "de15799729178d300c572b429b3107b8f8b4774d1ab345b500c5e8c5aa004d8b",
+      "candidateSHA256": "de15799729178d300c572b429b3107b8f8b4774d1ab345b500c5e8c5aa004d8b",
+      "nonImportBodySHA256": "c13dc15ff0c38cfd665e35ff46670d6ffcadd7a33f71d0de380af159d04d8f2a",
+      "inverseExact": true,
+      "imports": []
+    },
+    {
+      "relative": "entry-garden.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/entry-garden.bend",
+      "sourceSHA256": "5342d220a05ea787dcdbac0da10b9b8f329d55ab19eeb12b81291fc0d377a57f",
+      "candidateSHA256": "5342d220a05ea787dcdbac0da10b9b8f329d55ab19eeb12b81291fc0d377a57f",
+      "nonImportBodySHA256": "6cf97d144469b3c7ab40a2f7181d1faf24e208c3ddca50c3b1b26ffc6471a626",
+      "inverseExact": true,
+      "imports": []
+    },
+    {
+      "relative": "consumer.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/consumer.bend",
+      "sourceSHA256": "d1075c9b5907deda44b464c3991b228ef37684cb13a132f7d8c7fb0bc624e7c8",
+      "candidateSHA256": "3b481436433bdd80fd846f04f67422ba332c6faa01c58312cf892f831dc1b46e",
+      "nonImportBodySHA256": "ad0f9414ebc01bc163910c310710d2ca6478be1fcca0451c84e1fdf626e340ca",
+      "inverseExact": true,
+      "imports": [
+        [
+          "frame.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-stream-frame.bend"
+        ],
+        [
+          "transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ],
+        [
+          "failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "relative": "fixture.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/fixture.bend",
+      "sourceSHA256": "ec5cf38430e969667f7f24c030992a81f6e5b5e478c0f656af0b940eb58dba7e",
+      "candidateSHA256": "ec5cf38430e969667f7f24c030992a81f6e5b5e478c0f656af0b940eb58dba7e",
+      "nonImportBodySHA256": "4ae8597d7e3f74cb4e8bdb2c6a9ffdf275324bf512fd6525c4d0051167447147",
+      "inverseExact": true,
+      "imports": []
+    },
+    {
+      "relative": "resources.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/resources.bend",
+      "sourceSHA256": "d5959f2d4b2187c739d5cd5e9a266fcdafdf88455961d4f613cf89021f3014e9",
+      "candidateSHA256": "28053151a3e63f7ec40a40f2f1a11355684527181040b22c27f6b0692aec5db8",
+      "nonImportBodySHA256": "08f9b9580320dfd77aaac24ccc02b54b869474d06d1b731dfa49c4b9f8530689",
+      "inverseExact": true,
+      "imports": [
+        [
+          "transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ]
+      ]
+    },
+    {
+      "relative": "authority-controls/affine-owner-copy.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/authority-controls/affine-owner-copy.bend",
+      "sourceSHA256": "c3a7dcc918533b877b3be2f3e958cf9c54d037864f976a59d384849fc69a0969",
+      "candidateSHA256": "c72a0ab1363f131a7f4134fb8c2021a725365cea0989e8721c666772883610e2",
+      "nonImportBodySHA256": "03230b3aea9bf34aa5f4df374cd898fea0c0f12c09918413adc2c0d0f5efa822",
+      "inverseExact": true,
+      "imports": [
+        [
+          "../transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ],
+        [
+          "../failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "relative": "authority-controls/failure-write-through-read.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/authority-controls/failure-write-through-read.bend",
+      "sourceSHA256": "540e034530c7554f87512a304be1da8067958af99a08344f9095f8b6045948fa",
+      "candidateSHA256": "4cb8306a01a396476b9a2cb54cdae852566d904d9e26361b1b250b9adb909789",
+      "nonImportBodySHA256": "3dde629e8af7a6a8f7912d4bea452049f553931f7010d178f0472efb5373197c",
+      "inverseExact": true,
+      "imports": [
+        [
+          "../failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "relative": "authority-controls/failure-wrong-schema.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/authority-controls/failure-wrong-schema.bend",
+      "sourceSHA256": "ed3c00675bf19c4c4883395d36138269028266f730224389ee6ee55d7ac532f1",
+      "candidateSHA256": "61c63c1ee7a52781ed0a85c4535ec4bd33bb2c4a8a1a53ca0cef20f4fed1e0e1",
+      "nonImportBodySHA256": "8fa543657f83a2dc571625fb1f9d3705abab90b2114214a98c899ad164b6f6a8",
+      "inverseExact": true,
+      "imports": [
+        [
+          "../failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "relative": "authority-controls/notice-payload-escape.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/authority-controls/notice-payload-escape.bend",
+      "sourceSHA256": "6dfbedf6ec4be0b5577278622a9561c4965d7ec963a5aad314c98a1be1d22efe",
+      "candidateSHA256": "a748e9590319ddb1bb4fc639cbf284c123bae4d8f22c451ed6d12343537a807b",
+      "nonImportBodySHA256": "ac759393b50b966c05bc77c24333f91d80c8dbe10cc85ad618a034c4d3c07a53",
+      "inverseExact": true,
+      "imports": [
+        [
+          "../failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "relative": "authority-controls/shared-reader-count-escape.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/authority-controls/shared-reader-count-escape.bend",
+      "sourceSHA256": "c4170440503088559580c6dfdb125e6a213cee1e606d662d84020238077f1f46",
+      "candidateSHA256": "761b26a5fe413de164d50c26d235143d30d6c5ce01354477575e0e1378c41ddf",
+      "nonImportBodySHA256": "1d8fbe217174a3664c6ce0dd00426a584ce1f94e1d2a445a73d00b9f62347b0d",
+      "inverseExact": true,
+      "imports": [
+        [
+          "../failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "relative": "authority-controls/shared-snapshot-escape.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/authority-controls/shared-snapshot-escape.bend",
+      "sourceSHA256": "07b801e370ebb60635133ab93351d06be5306bb189803cf714239e42f2217105",
+      "candidateSHA256": "91672054136d78ff1b0c57742201722e4ff324667c883c42f87717cc6671414b",
+      "nonImportBodySHA256": "b821d56b32ca6673e543d2f3820b10cf59c0e70f2924e2ee0efe04538cd05559",
+      "inverseExact": true,
+      "imports": [
+        [
+          "../failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "relative": "authority-controls/undeclared-failure.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/authority-controls/undeclared-failure.bend",
+      "sourceSHA256": "7d6ba34966520ee26e231066dc6bfa3ee57f724535fdca81ebbe25959e59c4c3",
+      "candidateSHA256": "083702ebe7bf4ec55db09e26a87098a87ede1d14a97ed224da98ce7056f8e7fb",
+      "nonImportBodySHA256": "ac445c8486bf73038dee3445078118d70a87978b741c2fc3e6eace9fc270d250",
+      "inverseExact": true,
+      "imports": [
+        [
+          "../transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ],
+        [
+          "../failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "relative": "authority-controls/undeclared-transition.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/authority-controls/undeclared-transition.bend",
+      "sourceSHA256": "6349f9d4992be30b47e47aa8fc28f56ea326d8a9da8392fc90af1c7bd0712491",
+      "candidateSHA256": "b91c46ba80ba8440ff4d660b68b135240c528e7015ccd5077da56efb925ab7c2",
+      "nonImportBodySHA256": "71e70e86c9e741936793d59cc484261d6122b1a89c1017e32616954b0cce1a8c",
+      "inverseExact": true,
+      "imports": [
+        [
+          "../transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ],
+        [
+          "../failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "relative": "authority-controls/write-through-read.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/authority-controls/write-through-read.bend",
+      "sourceSHA256": "3094ad49f6e2b4409a1d0395e62aa35be2aab941b65292a4a95de3c2b1fc9ba3",
+      "candidateSHA256": "e49c1892a24db09b9ad2b2e6ed58789cad9bc986511491e16d2e387a4493ab80",
+      "nonImportBodySHA256": "ea8b76e72f14ae77b1a4e2f7a29392784151e9625ea30274703e5213df924d71",
+      "inverseExact": true,
+      "imports": [
+        [
+          "../transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ],
+        [
+          "../failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "relative": "authority-controls/wrong-schema.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/authority-controls/wrong-schema.bend",
+      "sourceSHA256": "d048a8f35790dcc3e6ae180e6ab001b25044846cb987446b05b02d31eeee9c72",
+      "candidateSHA256": "e3bc0616c832dda14349cef95dbbd3e3f8caadbcdc18fc23fb830faeb1335f1e",
+      "nonImportBodySHA256": "fd6d31769f98a78324b310c1b885964690d0c72865cf5abaaa322f63950a0574",
+      "inverseExact": true,
+      "imports": [
+        [
+          "../transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ],
+        [
+          "../failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    },
+    {
+      "relative": "authority-controls/wrong-token.bend",
+      "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/authority-controls/wrong-token.bend",
+      "sourceSHA256": "6f5df066f10751df114f10fb23fcfb46122d8c377af768fc79044db0f95062a1",
+      "candidateSHA256": "c96de21d6bf3f8ac5588ba68f84d28242396f8c4ab6cb7e19113354914bdf8db",
+      "nonImportBodySHA256": "b7da91517059cc788d2b507faa538a9ff5cf8bea15a9a57c5c5538b8c65cedfb",
+      "inverseExact": true,
+      "imports": [
+        [
+          "../transitions.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-transition-projection.bend"
+        ],
+        [
+          "../failures.bend",
+          "/workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend"
+        ]
+      ]
+    }
+  ],
+  "publicPreview": {
+    "scope": "relocation preview only; not integrated or backend-qualified",
+    "modules": [
+      {
+        "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/frame.bend",
+        "source_sha256": "03aba01df7532337b87c22bbaa007491898345319d9c59ba6335ff9316d02804",
+        "target": "src/ecs/inspector-stream-frame.bend",
+        "target_sha256": "ad526fdddff76e8d1d1adca35d3d43f43c1460c41a88b1fd62e660c820fd630e",
+        "inverse_exact": true
+      },
+      {
+        "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/transitions.bend",
+        "source_sha256": "b324539ae89325b5a1a43e335e179ef3b1319b7016956cc809339213c1d5ad16",
+        "target": "src/ecs/inspector-transition-projection.bend",
+        "target_sha256": "5f56ed95281f717caa2a633dc54ded11bc7449eaa2b4eb6d6eaeffe3f177e04b",
+        "inverse_exact": true
+      },
+      {
+        "source": "/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/failures.bend",
+        "source_sha256": "7ea429563508a30b82c1cf0da685908c54abcb38566e475a2d1bc7767666a798",
+        "target": "src/ecs/inspector-failure-projection.bend",
+        "target_sha256": "31fa3a5047a27c3bc66ddd2a598c6a3995d65e37146e9b64801d7a02ec6f1c2b",
+        "inverse_exact": true
+      }
+    ]
+  },
+  "status": "PREPARATION_ONLY_PUBLIC_MODULES_NOT_INTEGRATED"
+}

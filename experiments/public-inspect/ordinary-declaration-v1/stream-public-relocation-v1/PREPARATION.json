@@ -1,0 +1,224 @@
+{
+  "status": "HELD_UNTIL_ROOT_PUBLIC_INTEGRATION_AND_CURRENT_SOURCE_CHECKS",
+  "cases": [
+    {
+      "case": "workshop-js",
+      "futurePlan": "/tmp/bendvy55-public-relocation-runtime01/workshop-js/plan.json",
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1/entry-workshop.bend",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1/entry-workshop.bend",
+            "-o",
+            "/tmp/bendvy55-public-relocation-runtime01/workshop-js/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy55-public-relocation-runtime01/workshop-js/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "collectorCommand": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy55-public-relocation-runtime01/workshop-js/plan.json",
+        "EXACT_DIGEST_AFTER_SOURCE_CURRENT_FREEZE"
+      ]
+    },
+    {
+      "case": "workshop-native",
+      "futurePlan": "/tmp/bendvy55-public-relocation-runtime01/workshop-native/plan.json",
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1/entry-workshop.bend",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1/entry-workshop.bend",
+            "-o",
+            "/tmp/bendvy55-public-relocation-runtime01/workshop-native/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy55-public-relocation-runtime01/workshop-native/scenario.c",
+            "-o",
+            "/tmp/bendvy55-public-relocation-runtime01/workshop-native/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy55-public-relocation-runtime01/workshop-native/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "collectorCommand": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy55-public-relocation-runtime01/workshop-native/plan.json",
+        "EXACT_DIGEST_AFTER_SOURCE_CURRENT_FREEZE"
+      ]
+    },
+    {
+      "case": "garden-js",
+      "futurePlan": "/tmp/bendvy55-public-relocation-runtime01/garden-js/plan.json",
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1/entry-garden.bend",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1/entry-garden.bend",
+            "-o",
+            "/tmp/bendvy55-public-relocation-runtime01/garden-js/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy55-public-relocation-runtime01/garden-js/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "collectorCommand": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy55-public-relocation-runtime01/garden-js/plan.json",
+        "EXACT_DIGEST_AFTER_SOURCE_CURRENT_FREEZE"
+      ]
+    },
+    {
+      "case": "garden-native",
+      "futurePlan": "/tmp/bendvy55-public-relocation-runtime01/garden-native/plan.json",
+      "entry": "/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1/entry-garden.bend",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1/entry-garden.bend",
+            "-o",
+            "/tmp/bendvy55-public-relocation-runtime01/garden-native/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy55-public-relocation-runtime01/garden-native/scenario.c",
+            "-o",
+            "/tmp/bendvy55-public-relocation-runtime01/garden-native/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy55-public-relocation-runtime01/garden-native/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "collectorCommand": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy55-public-relocation-runtime01/garden-native/plan.json",
+        "EXACT_DIGEST_AFTER_SOURCE_CURRENT_FREEZE"
+      ]
+    }
+  ],
+  "sourceCommands": [
+    [
+      "/usr/bin/taskset",
+      "-c",
+      "11",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1/entry-workshop.bend",
+      "--check-only"
+    ],
+    [
+      "/usr/bin/taskset",
+      "-c",
+      "11",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "/workspace/formal-proofs/bendvy-worktrees/resource-field-public-transactions-v1/experiments/public-inspect/ordinary-declaration-v1/stream-public-relocation-v1/entry-garden.bend",
+      "--check-only"
+    ]
+  ],
+  "sourceCapSeconds": 5,
+  "locking": "Existing guarded source capture and collector internal per-command shared lock; no nested outer same-lock wrapper",
+  "minimumAffectedChecks": [
+    "Two complete ordinary source5 current closures",
+    "Eleven current imported authority refusals with expected diagnostics, preserving original trusted administration scope",
+    "Workshop JS then Native complete18219 oracle; Garden JS then Native complete18219 oracle conditional failstop",
+    "Reached stream-consumption and failure-order control public-source association: exact changed private fork versus corresponding new public baseline, source5 and full reached output rejection; previous private receipts are not public current evidence",
+    "Reached namespace-normal control must remain associated to the public normal baseline; reuse only if exact applicable implementation and complete import closure joins prove applicability, otherwise new current source/backend evidence",
+    "Root-owned configured/public index and affected existing comparative gate are separate unchanged requirements"
+  ],
+  "planFreeze": "After integration traverse imports, bind actual public three modules+complete closure, installed resources/tools/environment/current source receipts, exact old independent models; use unchanged existing prepare profile/collector and plan_guard. No digest invented before future modules exist."
+}

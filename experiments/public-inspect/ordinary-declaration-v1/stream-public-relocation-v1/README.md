@@ -1,0 +1,3 @@
+# Public stream relocation preparation
+
+Preparation only. Sixteen import-only consumer/authority copies preserve nonimport body hashes and exact inverse joins. Three future public modules remain root-owned; their preview hashes are recorded, not execution acceptance. Both complete independent models are byteexact18219-byte copies. PREPARATION.json specifies existing runner commands and minimum affected checks. No source or backend child has launched. Actual plan pins/closure/digests must be frozen after root integration/current source controls. Existing private reached controls require explicit association to the relocated public baseline; their earlier receipts cannot qualify that changed subject. No new contract, runner, caps or performance criteria.
