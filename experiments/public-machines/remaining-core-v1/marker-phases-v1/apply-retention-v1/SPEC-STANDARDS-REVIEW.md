@@ -1,0 +1,13 @@
+# Final bounded Spec/Standards review — apply retention
+
+PASS for archival of immutable9d835a93389ce329464183bf00e17c1526ca9818. No blocking finding; no shared core change approved by this evidence review.
+
+The complete normal consumer captures the initial two-machine cohort before global application. Its registered applyQueueLevel callback reaches actual Sys.run_tracked, queuing Level Boot40 between applyFlow and applyLevel. Cohort.apply restores the newly pending value after applying the captured target; idle exitFlow/enterFlow prevent later hooks from masking retention. The next marker consumes that retained queue. PhasedMarker sequences existing owned markers and flushes the initial pending World work before apply/exit/transition/enter. Existing affine owner pack and physical Array owners remain threaded through the complete World/registry/cohort observations.
+
+The reached drop counter changes exactly the restored slot pending field to M.NoPending; source otherwise remains associated with the corresponding copied consumer. No initialization, equality, failure, handler preparation/commit, scheduling-installation, or disposal policy changes. A-source01 and intended drop-source02 source checks both exit0 at stock5 with29 current pin bindings verified. The42-byte source warning stderr is retained honestly. drop-source01 is preserved as an inadmissible normal-bound preparation capture, not mutant qualification.
+
+Four complete JS/Native outcomes pass ten commands with no failures,34 guards, empty runtime stderr and exact full pre-execution source-derived models: normal2460 bytes ed2142cae8bf479c7ac6bf8751c14ae0da2f72e27f6d123b1e40f95aa10955b5; drop2408 bytes2fc2c1a7a9c3c0af365d891d6f75922e9693027e9853a6ef91a0ecad6ad90450. Both actual mutant receipts set completeNormalBaselineRejected true; complete actual bytes differ from the normal baseline. Independent model315b35d2 and separate root sanity are reused, with no runtime-derived oracle rewrite.
+
+All source ZIP102 members and runtime ZIP68 members match EVIDENCE.json lengths/hashes and exact ZIP container hashes. Receipt/plan digests, raw stream identities, all34 guard hashes/complete plan-pin bindings, generated JS/C/native artifact hashes and complete oracle equality verified. No test/compiler/backend/statistics was rerun.
+
+This is finite pending-retention and phase-order development evidence. It does not establish full#48, general handler failure/preparation/commit/init contracts, universal laws, ordinary schedule integration, performance or broader feature parity. Existing parent audit gates remain open.
