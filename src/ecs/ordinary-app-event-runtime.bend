@@ -107,3 +107,27 @@ def population(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.Wor
 def dump(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,~components:C -> U32 -> C & List<&2,Maybe<&2,String>>,~resources:R -> R & List<&2,Maybe<&2,String>>,presentation:Presentation.Recipe<S,C,R,count,components,resources>,criteria:Filter.Filter<S>,app:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,Dump.Dump<S>>:
   match presentation:
     case Presentation.Recipe{}:internal_observation(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,~Maybe<&2,Dump.Dump<S>>,value => Dump.schema_snapshot(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~count,~components,~resources,criteria,value),app)
+
+# Descriptive values only. Position.id is the actual Reader ID, not a Registry ID.
+type RuntimeView<E:Data> is Data:
+  RuntimeView{namespace:U32,batches:List<&2,Ev.Batch<E>>,positions:List<&2,Ev.Position>,nextReader:U32,tick:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,droppedThrough:Nat,log:List<&2,E>}
+def runtime_view_returned(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,schema:Schema.Schema<S,C,R>,owners:H,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,events:Events,+namespace:U32,+batches:List<&2,Ev.Batch<E>>,+positions:List<&2,Ev.Position>,+nextReader:U32,+tick:Nat,+frameStart:Nat,+boundary:Nat,+capacity:Nat,+dropped:Nat,result:W.World<S,C,R,E> & List<&2,E>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,RuntimeView<E>>:
+  match result:
+    case (world,log):(Application{schema,Ev.Runtime{world,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped},owners,recipe,events,True{}},Some{RuntimeView{namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped,log}})
+def runtime_view_enabled(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,schema:Schema.Schema<S,C,R>,owners:H,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,events:Events,runtime:Ev.Runtime<S,C,R,E>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,RuntimeView<E>>:
+  match runtime:
+    case Ev.Runtime{world,+namespace,+batches,+positions,+nextReader,+tick,+frameStart,+boundary,+capacity,+dropped}:runtime_view_returned(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,schema,owners,recipe,events,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped,W.events_view(~S,~C,~R,~E,world))
+def runtime_view(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,app:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,RuntimeView<E>>:
+  match app:
+    case Application{schema,runtime,owners,recipe,events,False{}}:(Application{schema,runtime,owners,recipe,events,False{}},None{})
+    case Application{schema,runtime,owners,recipe,events,True{}}:runtime_view_enabled(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,schema,owners,recipe,events,runtime)
+def runtime_batch_u32(batch:Ev.Batch<U32>) -> String:
+  match batch:
+    case Ev.Batch{tick,values}:Nat.show(tick) ++ ":" ++ List.show(~&2,~U32,~U32.show,values)
+def runtime_position(position:Ev.Position) -> String:
+  match position:
+    case Ev.Position{id,cursor,registeredAt}:"Reader" ++ U32.show(id) ++ ":" ++ Nat.show(cursor) ++ ":" ++ Nat.show(registeredAt)
+def runtime_text_u32(view:Maybe<&2,RuntimeView<U32>>) -> String:
+  match view:
+    case None{}:"runtime=None"
+    case Some{RuntimeView{namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped,log}}:"runtime=namespace:" ++ U32.show(namespace) ++ ";batches:" ++ List.show(~&2,~Ev.Batch<U32>,~runtime_batch_u32,batches) ++ ";readers:" ++ List.show(~&2,~Ev.Position,~runtime_position,positions) ++ ";nextReader:" ++ U32.show(nextReader) ++ ";tick:" ++ Nat.show(tick) ++ ";frameStart:" ++ Nat.show(frameStart) ++ ";boundary:" ++ Nat.show(boundary) ++ ";capacity:" ++ Nat.show(capacity) ++ ";droppedThrough:" ++ Nat.show(dropped) ++ ";log:" ++ List.show(~&2,~U32,~U32.show,log)
