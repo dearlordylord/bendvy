@@ -1,0 +1,46 @@
+from pathlib import Path
+import hashlib,json,gzip,re,sys,importlib.util
+ROOT=Path('/workspace/formal-proofs/bendvy');HERE=Path('/workspace/formal-proofs/bendvy-worktrees/graph-stream-public-bridge-v1/experiments/public-inspect/graph-stream-public-bridge-v1');OUT=Path('/tmp/bendvy-graph-stream-provenance-v3-runtime01')
+RUNNER=ROOT/'experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py'
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def load(name,p):
+ s=importlib.util.spec_from_file_location(name,p);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+configuration=load('cfg',ROOT/'experiments/public-simulation/delivery-v1/installed-config.py');helper=load('runner',ROOT/'scripts/task_runner.py')
+collector=load('collector',RUNNER)
+# No child launches: this script prepares exact guarded plans only.
+ORACLES=Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/graph-stream-foreign-provenance-oracle-v1/ORACLES.json');BASIS=ORACLES.parent/'SOURCE-BASIS.json';cat=json.loads(ORACLES.read_text());sequence=[]
+for case in ('workshop-provenance','garden-provenance'):
+ for role in ('js','native'):
+  subject='mutant' if case=='mutant' else 'normal'
+  schema=case.split('-')[0];entry=HERE/('runtime-controls-v3/entry-'+schema+'.bend');inventory={}
+  def visit(p):
+   p=p.resolve(strict=True)
+   if str(p) in inventory:return
+   inventory[str(p)]=sha(p)
+   for target in re.findall(r'^import\s+(\S+)',p.read_text(),re.M):
+    if target!='Base':visit(p.parent/target)
+  visit(entry);closure=collector.validate_imports(entry,inventory)
+  selection=cat[case];oracle=Path(selection['path']);baseline=oracle
+  expected=gzip.decompress(oracle.read_bytes());normal=gzip.decompress(baseline.read_bytes())
+  assert len(expected)==selection['bytes'] and hashlib.sha256(expected).hexdigest()==selection['sha256']
+  assert len(normal)==selection['bytes'] and hashlib.sha256(normal).hexdigest()==selection['sha256']
+  if subject=='mutant':assert expected!=normal
+  out=OUT/(case+'-'+role);out.mkdir(parents=True,exist_ok=False)
+  tools={'bend':'/home/node/.bend/bin/bend-2.0.35','node':'/home/node/.local/share/mise/installs/node/24.20.0/bin/node','python':str(Path(sys.executable).resolve()),'taskset':'/usr/bin/taskset','clangWrapper':'/tmp/bendvy-clang19-diagnostic/clang19','clangBinary':'/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'}
+  extra=[RUNNER,ROOT/'scripts/task_runner.py',ROOT/'scripts/evidence_boundary.py',ROOT/'experiments/public-simulation/delivery-v1/installed-config.py',ORACLES,BASIS,ORACLES.parent/'model.py',ORACLES.parent/'README.md',HERE/'runtime-controls-v3/SOURCE.json',collector.PLAN_GUARD,HERE/'runtime-controls-v3/runtime-v1/prepare.py.source',oracle,baseline,*map(Path,tools.values()),Path('/home/node/.bend/bend2/base.bend')]
+  check=Path('/tmp/bendvy-graph-stream-provenance-v3-'+schema+'-source03')
+  result=json.loads((check/'result.json').read_text());source=json.loads((check/'SOURCE.json').read_text());assert result['exit']==0 and result['failure'] is None and json.loads((check/'post.json').read_text())['unchanged']
+  assert all(source['pins'].get(p)==h for p,h in inventory.items())
+  extra += [check/n for n in ('result.json','SOURCE.json','post.json','stdout','stderr')]
+  pins=inventory|{str(p.resolve(strict=True)):sha(p) for p in extra};generated=out/('scenario.c' if role=='native' else 'scenario.js');native=out/'scenario.native'
+  commands=[{'label':'emit','argv':[tools['taskset'],'-c','11',tools['bend'],str(entry),'-o',str(generated)],'capSeconds':30}]
+  if role=='native':commands += [{'label':'build','argv':[tools['taskset'],'-c','11',tools['clangWrapper'],'-O3',str(generated),'-o',str(native),'-pthread','-lm'],'capSeconds':120},{'label':'consumer','argv':[tools['taskset'],'-c','11',str(native),'--threads','1','--gpu','off'],'capSeconds':5}]
+  else:commands += [{'label':'consumer','argv':[tools['taskset'],'-c','11',tools['node'],str(generated)],'capSeconds':5}]
+  plan={'scope':'Complete actual same-schema foreign-handle provenance; own-world success and repeated foreign refusal with both full affine Worlds/cursors '+subject+' '+role+'; no reader projection/full55/proof/performance acceptance','role':role,'subject':subject,'entrypoint':str(entry),'stage':str(entry.parent),'sourceInventory':inventory,'importClosure':closure,'pins':pins,'resourceRoots':helper.Inputs(directories=configuration.RESOURCE_ROOTS).expected,'environment':configuration.environment(),'cwd':str(HERE),'tools':tools,'commands':commands,'oracle':str(oracle),'oracleSHA256':selection['sha256'],'oracleBytes':selection['bytes'],'normalOracle':str(baseline),'normalOracleSHA256':selection['sha256'],'normalOracleBytes':selection['bytes'],'generated':str(generated),'native':str(native),'postConsumer':'Whole independent complete term byte equality; mutant rejects namespace-matched normal term; empty runtime stderr'}
+  load('plan_guard',collector.PLAN_GUARD).validate(plan,output_dir=out)
+  path=out/'plan.json';path.write_text(json.dumps(plan,indent=2)+'\n');sequence.append({'role':role,'subject':subject,'case':case,'path':str(path),'sha256':sha(path),'sources':len(inventory),'command':[tools['python'],str(RUNNER),'run',str(path),sha(path)]})
+proposal={'runner':str(RUNNER),'runnerSHA256':sha(RUNNER),'plans':sequence,'sequence':'Workshop JS wholePASS -> conditional Workshop Native wholePASS -> Garden JS wholePASS -> conditional Garden Native wholePASS; stop any failure/deadline/guard failure; no retry','sourcePrerequisite':'Exact source5 actual PASS for both frozen consuming closures; raw source evidence preserved','scope':'Finite two-schema actual foreign provenance backend qualification; no reader/full55/universal/performance acceptance'}
+(HERE/'runtime-controls-v3/runtime-v1/BATCH.json').write_text(json.dumps(proposal,indent=2)+'\n')
+for row in sequence:
+ target=HERE/'runtime-controls-v3/runtime-v1/prepared-attempt01'/ (row['case']+'-'+row['role']);target.mkdir(parents=True);(target/'plan.json').write_bytes(Path(row['path']).read_bytes())
+print(json.dumps(proposal,indent=2))
