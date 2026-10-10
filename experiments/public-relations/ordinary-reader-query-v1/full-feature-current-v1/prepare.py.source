@@ -1,0 +1,44 @@
+"""Freeze exact successor inputs/commands only; never launch a child."""
+from pathlib import Path
+import hashlib,importlib.util,importlib.machinery,json,random,sys
+sys.dont_write_bytecode=True
+HERE=Path(__file__).resolve().parent;ROOT=Path('/workspace/formal-proofs/bendvy')
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def load(name,p):
+ s=importlib.util.spec_from_file_location(name,p,loader=importlib.machinery.SourceFileLoader(name,str(p)));m=importlib.util.module_from_spec(s);s.loader.exec_module(m);return m
+def main(planpath,out):
+ planpath=Path(planpath).resolve();out=Path(out).resolve()
+ if planpath.exists() or out.exists():raise ValueError('fresh plan/output paths required')
+ basis=json.loads((HERE/'PLAN.json').read_text());pins=dict(basis['pins'])
+ if any(sha(n)!=v for n,v in pins.items()):raise ValueError('preparation basis drift')
+ C=load('configuration',ROOT/'experiments/public-simulation/delivery-v1/installed-config.py');T=load('runner',ROOT/'scripts/task_runner.py')
+ force=load('force',ROOT/'experiments/public-relations/timing/current-qualification-v1/trace-cheap.py').force
+ old=Path(basis['extends']).parent/'phase2/remainder-v1/chunk-serializer-v1/whole-feature-timing-v1'
+ selected=basis['selectedTS'];pins.update({str(Path(selected['repository'])/n):h for n,h in selected['pins'].items()})
+ tools={'bend':'/home/node/.bend/bin/bend-2.0.35','node':'/home/node/.local/share/mise/installs/node/24.20.0/bin/node','python':str(Path(sys.executable).resolve()),'taskset':'/usr/bin/taskset','clang':'/tmp/bendvy-clang19-diagnostic/clang19','clangBinary':'/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'}
+ helpers=[HERE/n for n in ['PLAN.json','prepare.py.source','sample.py.source','execute.py.source','test-sample.py.source']]+[ROOT/'scripts/receipt-logs.py',ROOT/'scripts/task_runner.py',ROOT/'scripts/evidence_boundary.py',ROOT/'experiments/public-simulation/delivery-v1/installed-config.py',ROOT/'experiments/public-relations/timing/current-qualification-v1/trace-cheap.py']
+ pins.update({str(p.resolve()):sha(p) for p in helpers});pins.update({str(Path(p).resolve()):sha(p) for p in tools.values()})
+ import gzip
+ cases={}
+ for c in basis['cases']:
+  f=old/'prepared'/c['oracle'];raw=gzip.decompress(f.read_bytes());assert len(raw)==c['bytes'] and hashlib.sha256(raw).hexdigest()==c['sha256'];key='-'.join(c['input']);cases[key]={**c,'oracle':str(f),'walk':force(json.loads(raw))}
+ prefix=[tools['taskset'],'-c','5'];commands=[];js=out/'trace.js';cc=out/'trace.c';native=out/'trace.native';entry=old/'driver-direct.bend'
+ commands.append({'label':'source5','kind':'source','seconds':5,'argv':prefix+[tools['bend'],str(entry),'--check-only']})
+ for label,artifact in [('emit-js',js),('emit-c',cc)]:commands.append({'label':label,'kind':'emit','seconds':30,'argv':prefix+[tools['bend'],str(entry),'-o',str(artifact)],'artifact':str(artifact)})
+ commands.append({'label':'build','kind':'build','seconds':120,'argv':prefix+[tools['clang'],'-O3',str(cc),'-o',str(native),'-pthread','-lm'],'artifact':str(native)})
+ def sample(case,role,label,phase,**extra):
+  argv=[tools['node'],str(old/'reference.mjs')] if role=='TS' else [tools['node'],str(js)] if role=='JS' else [str(native),'--threads','1','--gpu','off']
+  commands.append({'label':label,'kind':'runtime','seconds':5,'argv':prefix+argv+cases[case]['input'],'case':case,'role':role,'phase':phase,**extra})
+ contract=json.loads((ROOT/'benchmarks/contract.json').read_text());rng=random.Random(contract['seed'])
+ for case in cases:
+  for role in ('TS','JS','Native'):sample(case,role,case+'-'+role+'-qualification','qualification')
+ for case in cases:
+  for role in ('TS','JS','Native'):
+   for i in range(contract['warmups']):sample(case,role,f'{case}-{role}-warm-{i}','warmup')
+  for backend in ('JS','Native'):
+   n=contract['pairs'];assert n%2==0;orders=[['TS',backend]]*(n//2)+[[backend,'TS']]*(n//2);rng.shuffle(orders)
+   for i,order in enumerate(orders):
+    for role in order:sample(case,role,f'{case}-{backend}-pair-{i}-{role}','pair',pair=i,order=order)
+ plan={'status':'FROZEN_REQUIRES_INDEPENDENT_LAUNCH_REVIEW_AND_QUIET_RESERVATION','scope':'Existing FAIR-PLAN whole setup/operations/fulltrace forcing; ninecases/twoschemas/thirtyobservations; samples descriptive until existing performance evaluation; no newcriterion','pins':pins,'python':tools['python'],'runner':str(ROOT/'scripts/task_runner.py'),'logs':str(ROOT/'scripts/receipt-logs.py'),'sample':str(HERE/'sample.py.source'),'execution':str(HERE/'execute.py.source'),'contract':str(ROOT/'benchmarks/contract.json'),'cases':cases,'cpu':5,'caps':basis['caps'],'commands':commands,'output':str(out),'environment':C.environment(),'resourceRoots':T.Inputs(directories=C.RESOURCE_ROOTS).expected,'cwd':str(ROOT),'lock':'/tmp/bendvy-parity-heavy.lock','prerequisites':basis['prerequisites']}
+ planpath.write_text(json.dumps(plan,indent=2)+'\n');print(sha(planpath),len(commands),'commands',len(pins),'pins')
+if __name__=='__main__':main(sys.argv[1],sys.argv[2])

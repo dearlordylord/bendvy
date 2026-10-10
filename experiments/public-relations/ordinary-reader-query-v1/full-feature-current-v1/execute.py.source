@@ -1,0 +1,71 @@
+"""Narrow direct-driver successor to existing paired relation timing recipe."""
+from pathlib import Path
+import fcntl,gzip,hashlib,importlib.util,importlib.machinery,json,random,sys,time
+sys.dont_write_bytecode=True
+def sha(p):
+    p=Path(p)
+    if p.is_symlink() or not p.is_file():raise ValueError('regular non-symlink input required')
+    return hashlib.sha256(p.read_bytes()).hexdigest()
+def load(name,p):
+    spec=importlib.util.spec_from_file_location(name,p,loader=importlib.machinery.SourceFileLoader(name,str(p)));m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+def telemetry():
+    return {'time_ns':time.time_ns(),'load':Path('/proc/loadavg').read_text(),'cpu':next(x for x in Path('/proc/stat').read_text().splitlines() if x.startswith('cpu5 ')),'pressure':Path('/proc/pressure/cpu').read_text()}
+def main(path,digest):
+    path=Path(path).resolve(strict=True)
+    if sha(path)!=digest:raise ValueError('admitted exact plan digest required')
+    p=json.loads(path.read_text())
+    for f,h in p['pins'].items():
+        if sha(f)!=h:raise ValueError('pre-import input drift')
+    if str(Path(sys.executable).resolve())!=p['python']:raise ValueError('pinned actual interpreter required')
+    if p['cpu']!=5 or p['caps']!={'source':5,'emit':30,'build':120,'runtime':5}:raise ValueError('unchanged recipe required')
+    contract=json.loads(Path(p['contract']).read_text())
+    if (contract['warmups'],contract['pairs'],contract['seed'])!=(2,20,20261007):raise ValueError('unchanged pairing required')
+    T=load('task_runner',p['runner']);L=load('logs',p['logs']);S=load('sample',p['sample'])
+    if str(Path(__file__).resolve())!=p['execution'] or sha(p['execution'])!=p['pins'][p['execution']]:raise ValueError('executed source binding')
+    out=Path(p['output'])
+    if out.exists() or out.is_symlink():raise ValueError('fresh output required')
+    out.mkdir();commands=p['commands'];labels=[c['label'] for c in commands]
+    if len(labels)!=len(set(labels)):raise ValueError('unique planned labels')
+    inputs=T.Inputs(files=[path,*p['pins']],directories=p['resourceRoots'])
+    if inputs.expected!={str(path):digest,**p['pins'],**p['resourceRoots']}:raise ValueError('resource membership drift')
+    logs=L.CommandLogs(out,labels);runner=T.Runner(logs,inputs=inputs,env=p['environment'],cwd=p['cwd'],capture='split')
+    r={'status':'INCOMPLETE','planSHA256':digest,'commands':[],'samples':[],'guards':[],'scope':p['scope']};artifacts={}
+    def save():
+        r['logs']=dict(logs.hashes);r['artifacts']=dict(artifacts);(out/'receipt.json').write_text(json.dumps(r,indent=2)+'\n')
+    def guard(label):
+        inputs.guard();logs.guard()
+        for f,h in artifacts.items():
+            if sha(f)!=h:raise ValueError('generated artifact changed')
+        r['guards'].append({'label':label,'unchanged':True});save()
+    save()
+    try:
+        for c in commands:
+            argv=c['argv'];kind=c['kind']
+            if argv[:3]!=['/usr/bin/taskset','-c','5'] or c['seconds']!=p['caps'][kind]:raise ValueError('command recipe drift')
+            if str(Path(argv[3]).resolve()) not in p['pins'] and argv[3] not in artifacts:raise ValueError('executable not pinned')
+            guard(c['label']+'-before')
+            with open(p['lock'],'a') as lock:
+                fcntl.flock(lock,fcntl.LOCK_EX);guard(c['label']+'-acquired')
+                before=telemetry()
+                started=time.perf_counter_ns()
+                result=runner.run(c['label'],argv,c['seconds'])
+                process_ns=time.perf_counter_ns()-started
+            r['commands'].append({'label':c['label'],'argv':argv,'seconds':c['seconds'],'exit':result['exit'],'failure':result['failure'],'process_ns':process_ns});save()
+            if result['exit']!=0 or result['failure'] is not None:raise ValueError('command failure/deadline; retained no retry')
+            if kind=='source' and b'SOME PROOFS FAIL' in result['stdout']+result['stderr']:raise ValueError('source refusal')
+            if kind in ('emit','build'):
+                f=c['artifact'];artifacts[f]=sha(f)
+                runner.inputs=inputs=T.Inputs(files=[path,*p['pins'],*artifacts],directories=p['resourceRoots'])
+            if kind=='runtime':
+                case=p['cases'][c['case']];raw=gzip.decompress(Path(case['oracle']).read_bytes())
+                if len(raw)!=case['bytes'] or hashlib.sha256(raw).hexdigest()!=case['sha256']:raise ValueError('independent oracle drift')
+                timing=S.validate(result['stdout'],result['stderr'],json.loads(raw),case['walk'])
+                r['samples'].append({'label':c['label'],'case':c['case'],'role':c['role'],'phase':c['phase'],'pair':c.get('pair'),'order':c.get('order'),'region':timing,'before':before,'after':telemetry()})
+            guard(c['label']+'-after')
+        r['status']='COMPLETE_FULL_FEATURE_PAIRED_SAMPLES_NO_NEW_VERDICT';save()
+    except BaseException as e:
+        r['status']='INCONCLUSIVE' if any(x['failure'] is not None for x in r['commands']) else 'FAIL';r['error']=repr(e);save();raise
+    finally:
+        r['finalGenerated']={c['artifact']:({'sha256':sha(c['artifact']),'bytes':Path(c['artifact']).stat().st_size} if Path(c['artifact']).is_file() and not Path(c['artifact']).is_symlink() else {'absentOrInvalid':True}) for c in commands if 'artifact' in c}
+        save()
+if __name__=='__main__':main(sys.argv[1],sys.argv[2])
