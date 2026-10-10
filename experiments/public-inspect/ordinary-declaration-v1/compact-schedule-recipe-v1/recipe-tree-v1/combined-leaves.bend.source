@@ -1,0 +1,28 @@
+import Base
+import ./tree.bend as Tree
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend as System
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-resource-system.bend as P
+import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q
+import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I
+import /workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend as IQ
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-observable.bend as O
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-declaration.bend as N
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/declarations.bend as Recipe
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app.bend as DTO
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v1/observable-resource.bend as D
+def component_returned(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~Ops:Type -> Type,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~render:V -> String,result:W.World<S,C,R,E> & (System.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>> & (Recipe.ComponentRecipe & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<DTO.Product<Unit,List<&2,IQ.ProjectedRow<S,V>>>>>))) -> W.World<S,C,R,E> & (System.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>> & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<DTO.Product<Unit,List<&2,IQ.ProjectedRow<S,V>>>>>):
+  match result:
+    case (world,(owner,(_,view))):(world,(owner,view))
+def component_fold(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~Ops:Type -> Type,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~render:V -> String,world:W.World<S,C,R,E>,owner:System.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>>) -> W.World<S,C,R,E> & (System.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>> & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<DTO.Product<Unit,List<&2,IQ.ProjectedRow<S,V>>>>>):
+  component_returned(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~Ops,~V,~query,~render,Recipe.component_view(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~Ops,~V,~query,~render,Recipe.ComponentRecipe{},world,owner))
+def component(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~Ops:Type -> Type,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~render:V -> String) -> Tree.Recipe<S,W.World<S,C,R,E>,System.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>>,DTO.Product<Unit,List<&2,IQ.ProjectedRow<S,V>>>,component_fold(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~Ops,~V,~query,~render)>:
+  Tree.Recipe{}
+def resource_returned(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~kind:N.Mode,~Ops:Type -> Type,~V:Data,~declaration:D.Declaration<S,C,R,E,Ops,V>,result:W.World<S,C,R,E> & (P.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>,kind> & (Recipe.ResourceRecipe & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<V>>))) -> W.World<S,C,R,E> & (P.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>,kind> & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<V>>):
+  match result:
+    case (world,(owner,(_,view))):(world,(owner,view))
+def resource_fold(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~kind:N.Mode,~Ops:Type -> Type,~V:Data,~declaration:D.Declaration<S,C,R,E,Ops,V>,world:W.World<S,C,R,E>,owner:P.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>,kind>) -> W.World<S,C,R,E> & (P.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>,kind> & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<V>>):
+  resource_returned(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~kind,~Ops,~V,~declaration,Recipe.resource_view(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~kind,~Ops,~V,~declaration,Recipe.ResourceRecipe{},world,owner))
+def resource(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~kind:N.Mode,~Ops:Type -> Type,~V:Data,~declaration:D.Declaration<S,C,R,E,Ops,V>) -> Tree.Recipe<S,W.World<S,C,R,E>,P.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>,kind>,V,resource_fold(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~kind,~Ops,~V,~declaration)>:
+  Tree.Recipe{}

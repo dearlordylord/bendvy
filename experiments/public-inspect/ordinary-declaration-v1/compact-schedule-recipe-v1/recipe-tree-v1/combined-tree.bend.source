@@ -1,0 +1,33 @@
+import Base
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app.bend as DTO
+# The compiled fold retains a declaration tree, never an invocation budget.
+# Operational dispatcher/Args/Out policies are independent of observation.
+type Recipe<S:Data,World:Type,Owners:Type,Rows:Data,-fold:World -> Owners -> World & (Owners & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>)> is Type:
+  Recipe{}
+type Application<S:Data,World:Type,Owners:Type,Rows:Data,-fold:World -> Owners -> World & (Owners & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>)> is Type:
+  Application{world:World,owners:Owners,recipe:Recipe<S,World,Owners,Rows,fold>,debug:Bool}
+def enabled(~S:Data,~World:Type,~Owners:Type,~Rows:Data,~fold:World -> Owners -> World & (Owners & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>),app:Application<S,World,Owners,Rows,fold>,flag:Bool) -> Application<S,World,Owners,Rows,fold>:
+  match app:
+    case Application{world,owners,recipe,_}:Application{world,owners,recipe,flag}
+def observed(~S:Data,~World:Type,~Owners:Type,~Rows:Data,~fold:World -> Owners -> World & (Owners & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>),result:World & (Owners & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>)) -> Application<S,World,Owners,Rows,fold> & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>:
+  match result:
+    case (world,(owners,view)):(Application{world,owners,Recipe{},True{}},Some{view})
+def snapshot(~S:Data,~World:Type,~Owners:Type,~Rows:Data,~fold:World -> Owners -> World & (Owners & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>),app:Application<S,World,Owners,Rows,fold>) -> Application<S,World,Owners,Rows,fold> & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>>:
+  match app:
+    case Application{world,owners,recipe,False{}}:(Application{world,owners,recipe,False{}},None{})
+    case Application{world,owners,_,True{}}:observed(~S,~World,~Owners,~Rows,~fold,fold(world,owners))
+def right_returned(~S:Data,~World:Type,~L:Type,~R:Type,~LV:Data,~RV:Data,left:L,leftBindings:List<&2,DTO.Binding<S>>,leftRows:LV,leftRendered:List<&2,String>,result:World & (R & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<RV>>)) -> World & ((L & R) & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<DTO.Product<LV,RV>>>):
+  match result:
+    case (world,(right,DTO.Product{bindings,DTO.Observation{rows,rendered}})):(world,((left,right),DTO.Product{List.append(&2,DTO.Binding<S>,leftBindings,bindings),DTO.Observation{DTO.Product{leftRows,rows},List.append(&2,String,leftRendered,rendered)}}))
+def left_returned(~S:Data,~World:Type,~L:Type,~R:Type,~LV:Data,~RV:Data,~rightFold:World -> R -> World & (R & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<RV>>),right:R,result:World & (L & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<LV>>)) -> World & ((L & R) & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<DTO.Product<LV,RV>>>):
+  match result:
+    case (world,(left,DTO.Product{bindings,DTO.Observation{rows,rendered}})):right_returned(~S,~World,~L,~R,~LV,~RV,left,bindings,rows,rendered,rightFold(world,right))
+def joined(~S:Data,~World:Type,~L:Type,~R:Type,~LV:Data,~RV:Data,~leftFold:World -> L -> World & (L & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<LV>>),~rightFold:World -> R -> World & (R & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<RV>>),world:World,owners:L & R) -> World & ((L & R) & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<DTO.Product<LV,RV>>>):
+  match owners:
+    case (left,right):left_returned(~S,~World,~L,~R,~LV,~RV,~rightFold,right,leftFold(world,left))
+def pair_right(~S:Data,~World:Type,~L:Type,~R:Type,~LV:Data,~RV:Data,~leftFold:World -> L -> World & (L & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<LV>>),~rightFold:World -> R -> World & (R & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<RV>>),right:Recipe<S,World,R,RV,rightFold>) -> Recipe<S,World,L & R,DTO.Product<LV,RV>,joined(~S,~World,~L,~R,~LV,~RV,~leftFold,~rightFold)>:
+  match right:
+    case Recipe{}:Recipe{}
+def pair(~S:Data,~World:Type,~L:Type,~R:Type,~LV:Data,~RV:Data,~leftFold:World -> L -> World & (L & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<LV>>),~rightFold:World -> R -> World & (R & DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<RV>>),left:Recipe<S,World,L,LV,leftFold>,right:Recipe<S,World,R,RV,rightFold>) -> Recipe<S,World,L & R,DTO.Product<LV,RV>,joined(~S,~World,~L,~R,~LV,~RV,~leftFold,~rightFold)>:
+  match left:
+    case Recipe{}:pair_right(~S,~World,~L,~R,~LV,~RV,~leftFold,~rightFold,right)

@@ -1,0 +1,36 @@
+import Base
+import ./tree.bend as Tree
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend as System
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-resource-system.bend as P
+import /workspace/formal-proofs/bendvy/src/ecs/compose.bend as Q
+import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I
+import /workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend as IQ
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-observable.bend as O
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-declaration.bend as N
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-mixed-app-opaque-registry-v1/declarations.bend as Recipe
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app.bend as DTO
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v1/observable-resource.bend as D
+import /workspace/formal-proofs/bendvy-worktrees/ordinary-app-generated-observation-v1/experiments/public-inspect/ordinary-declaration-v1/resource-app-public-v1/bridge.bend as RB
+def component_observe(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~render:V -> String,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & DTO.Observation<DTO.Product<Unit,List<&2,IQ.ProjectedRow<S,V>>>>:
+  DTO.append_previous(~S,~C,~R,~E,~Unit,~Ops,~V,~query,~render,(world,DTO.Observation{Unit{},[]}))
+def component_binding(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,result:System.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>> & DTO.Binding<S>) -> System.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>> & List<&2,DTO.Binding<S>>:
+  match result:
+    case (owner,binding):(owner,[binding])
+def component_describe(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,owner:System.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>>) -> System.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>> & List<&2,DTO.Binding<S>>:
+  component_binding(~S,~C,~R,~E,~Args,~Error,~Out,~runner,DTO.actual_description(~S,~C,~R,~E,~Args,~Error,~Out,~runner,owner))
+def resource_binding(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~kind:N.Mode,result:P.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>,kind> & DTO.Binding<S>) -> P.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>,kind> & List<&2,DTO.Binding<S>>:
+  match result:
+    case (owner,binding):(owner,[binding])
+def resource_describe(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~kind:N.Mode,owner:P.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>,kind>) -> P.Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>,kind> & List<&2,DTO.Binding<S>>:
+  resource_binding(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~kind,RB.actual_description(~S,~C,~R,~E,~Args,~Error,~Out,~kind,~runner,owner))
+def resource_returned(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~V:Data,~declaration:D.Declaration<S,C,R,E,Ops,V>,result:W.World<S,C,R,E> & V) -> W.World<S,C,R,E> & DTO.Observation<V>:
+  match result:
+    case (world,+value):(world,DTO.Observation{value,[D.name(~S,~C,~R,~E,~Ops,~V,declaration) ++ "=" ++ D.presenter(~S,~C,~R,~E,~Ops,~V,declaration)(value)]})
+def resource_observe(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~V:Data,~declaration:D.Declaration<S,C,R,E,Ops,V>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & DTO.Observation<V>:
+  resource_returned(~S,~C,~R,~E,~Ops,~V,~declaration,D.observer(~S,~C,~R,~E,~Ops,~V,declaration)(world))
+def component(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~Ops:Type -> Type,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~render:V -> String) -> Tree.Recipe<W.World<S,C,R,E>,DTO.Product<Unit,List<&2,IQ.ProjectedRow<S,V>>>,component_observe(~S,~C,~R,~E,~Ops,~V,~query,~render)>:
+  Tree.Recipe{}
+def resource(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~kind:N.Mode,~Ops:Type -> Type,~V:Data,~declaration:D.Declaration<S,C,R,E,Ops,V>) -> Tree.Recipe<W.World<S,C,R,E>,V,resource_observe(~S,~C,~R,~E,~Ops,~V,~declaration)>:
+  Tree.Recipe{}
