@@ -1,0 +1,97 @@
+{
+  "scope": "Only corrected selected-failure Data projection; root owns relocation. Fixture lens and old full-Notice grants excluded.",
+  "modules": [
+    {
+      "source": "experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/frame.bend",
+      "sourceBytes": 422,
+      "sourceSHA256": "03aba01df7532337b87c22bbaa007491898345319d9c59ba6335ff9316d02804",
+      "target": "src/ecs/inspector-stream-frame.bend",
+      "targetBytes": 346,
+      "targetSHA256": "04aa5d48ca780c94c16acc958285bde2637640dc70c01562480f32f0f61d541d",
+      "patches": [
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend as Ev",
+          "after": "import ./event-runtime.bend as Ev"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A",
+          "after": "import ./relation-commands.bend as A"
+        }
+      ],
+      "inverseRestoresExactSource": true,
+      "nonImportBodyExact": true
+    },
+    {
+      "source": "experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/transitions.bend",
+      "sourceBytes": 2070,
+      "sourceSHA256": "b324539ae89325b5a1a43e335e179ef3b1319b7016956cc809339213c1d5ad16",
+      "target": "src/ecs/inspector-transition-projection.bend",
+      "targetBytes": 1899,
+      "targetSHA256": "f91fc48f87462b4b2af12dfefa54322b25c5f220a500785d7f99ac38dcf6b1e2",
+      "patches": [
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W",
+          "after": "import ./world.bend as W"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend as Ev",
+          "after": "import ./event-runtime.bend as Ev"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend as St",
+          "after": "import ./machine-stream.bend as St"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A",
+          "after": "import ./relation-commands.bend as A"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap",
+          "after": "import ./capabilities.bend as Cap"
+        },
+        {
+          "before": "import frame.bend as F",
+          "after": "import ./inspector-stream-frame.bend as F"
+        }
+      ],
+      "inverseRestoresExactSource": true,
+      "nonImportBodyExact": true
+    },
+    {
+      "source": "experiments/public-inspect/graph-stream-public-bridge-v1/stream-observation-v1/declaration-boundary-v2/failures.bend",
+      "sourceBytes": 2931,
+      "sourceSHA256": "7ea429563508a30b82c1cf0da685908c54abcb38566e475a2d1bc7767666a798",
+      "target": "src/ecs/inspector-failure-projection.bend",
+      "targetBytes": 2760,
+      "targetSHA256": "041b6970695bd9d5295e1468ebeaa449f972abf266fa6fbb1ad3a4070ae73587",
+      "patches": [
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend as Ev",
+          "after": "import ./event-runtime.bend as Ev"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A",
+          "after": "import ./relation-commands.bend as A"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/relation-types.bend as G",
+          "after": "import ./relation-types.bend as G"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/relation-graph.bend as Graph",
+          "after": "import ./relation-graph.bend as Graph"
+        },
+        {
+          "before": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap",
+          "after": "import ./capabilities.bend as Cap"
+        },
+        {
+          "before": "import frame.bend as F",
+          "after": "import ./inspector-stream-frame.bend as F"
+        }
+      ],
+      "inverseRestoresExactSource": true,
+      "nonImportBodyExact": true
+    }
+  ]
+}
