@@ -5,7 +5,7 @@ const output=[];
 for(const schema of ['ResourceA','ResourceOther']) for(const entities of [0,2]) for(const enabled of [true,false]) {
  const Counter=Descriptor.Resource()(schema+'/Counter'),Tag=Descriptor.Component()(schema+'/Tag');
  const G=Schema.bind(Schema.fragment({resources:{Counter},components:{Tag}}));
- const runtime=G.Runtime.make({resources:{Counter:10},debug:enabled});
+ const runtime=G.Runtime.make({services:{},resources:{Counter:10},debug:enabled});
  const calls=[];
  const Seed=G.System(schema+'/Seed',{},({commands})=>{for(let i=0;i<entities;i++)commands.spawn(G.Command.spawn([Tag,i+7]));});
  const Increment=G.System(schema+'/Increment',{resources:{counter:G.System.writeResource(Counter)}},({resources})=>{calls.push({body:'increment',prior:resources.counter.get()});resources.counter.update(x=>x+1);});

@@ -11,3 +11,5 @@ run.py is byte-identical to existing runtime-reference-v1 adapter: selected Node
 Rust semantics and Bend ownership/contracts govern. TS arrays are ordinary JS payloads, not Bend affine ownership equivalents. TS ticks/readers, symbol identities, snapshot/DTO naming and failure mechanics are recorded reference properties; no new contract, proof, portable replay capsule, Native/performance or full56 claim.
 
 Prepared environmentSHA256 is a preparation-only shell snapshot, not a consumed fixed environment contract. The unchanged adapter captures and guards the actual launch environment. Verify resolved PATH Node selection against PREPARED before launch; final receipt must bind the same selected Node. Distinct shell environment hashes are not silently equated. Initial prepared files remain in history/.
+
+Original admitted run53933 remains INCOMPLETE in actual-initial/: Runtime.describe threw because services was omitted. Successor adds only explicit services:{} to Runtime.make, preserving both whole oracle files. This is fixture initialization repair, not evidence that resource or description behavior failed. No unchanged retry.
