@@ -137,14 +137,18 @@ def swapped_first(rest:Rest,result:Col.SwapOutcome<S,Array<U32>>) -> Store:
     case Col.Rejected{column,_}:first_put(rest,column)
 def seed_first(store:Store,id:U32,value:U32) -> Store:
   match store:
-    case Store{a,b,c}:swapped_first(Rest{b,c},Col.swap(~S,~Array<U32>,a,id,Some{ALeaf{value}}))
+    case Store{a,b,c}:
+      +id=id
+      swapped_first(Rest{b,c},Col.swap(~S,~Array<U32>,Col.ensure(~S,~Array<U32>,a,id),id,Some{ALeaf{value}}))
 def swapped_second(rest:Rest,result:Col.SwapOutcome<S,Array<U32>>) -> Store:
   match result:
     case Col.Accepted{column,_}:second_put(rest,column)
     case Col.Rejected{column,_}:second_put(rest,column)
 def seed_second(store:Store,id:U32,value:U32) -> Store:
   match store:
-    case Store{a,b,c}:swapped_second(Rest{a,c},Col.swap(~S,~Array<U32>,b,id,Some{ALeaf{value}}))
+    case Store{a,b,c}:
+      +id=id
+      swapped_second(Rest{a,c},Col.swap(~S,~Array<U32>,Col.ensure(~S,~Array<U32>,b,id),id,Some{ALeaf{value}}))
 def seed(store:Store) -> Store:seed_second(seed_second(seed_first(seed_first(store,1,11),3,33),2,22),4,44)
 def queued(world:World()) -> World():world
 def second_read_result(schema:Schema.Schema<S,Store,Array<U32>>,result:World() & Cmp.Access<U32>) -> List<&2,String>:
