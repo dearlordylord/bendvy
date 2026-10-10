@@ -239,3 +239,7 @@ foreign Worlds and a reached cursor mutation. Malformed-ID preservation is
 snapshot-only; generic Extra preservation is source-checked. Full #56 and feature
 performance remain open. Combined156 excludes this module and the later selected
 stream App; their integrated regression remains pending in the next batch.
+
+`ordinary-app-access.index` and `schema_index` derive an access index from the App’s sole operational registration fields when its existing debug flag is enabled. Disabled calls preserve App/World/owners without invoking the fold or value projection. Entries group by component/resource category and canonical key, retain real system namespace/id/name and original declared modes, and label Reader, Writer or Filter. Write denotes a declared write slot; With/Without are filter-only and Added/Changed are readers. Duplicate declared uses remain visible. Event origins, unique-system aggregates and a complete cross-schedule inventory remain separate coverage gaps.
+
+Its [independent review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-access-index-v1/FINAL-REVIEW.md) verifies twelve complete JS/Native outputs, all seven query modes and authority controls. Integrated regression and full #56 remain pending.

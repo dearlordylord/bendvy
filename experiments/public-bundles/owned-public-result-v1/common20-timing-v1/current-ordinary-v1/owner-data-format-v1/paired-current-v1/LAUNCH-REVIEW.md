@@ -1,0 +1,11 @@
+# Current ordinary paired cohort launch review
+
+Static PASS for preparation7fb887c3ca683eb85659caad8a1a54e92669a9bf and exact plan9f1f2b522f8f8feeeb1332da5b666138b53f94250da5586c78c46db2113347d8. Execution remains HOLD until root establishes exclusive fresh quiet-host prerequisites; no performance run performed.
+
+All577 source/tool/artifact pins and resource inventory are current. Nine role command/oracle/transport bindings match their independently qualified complete semantic plans/receipts. Scale2/4 now invoke one same-process scale-specific application, not reset-process sums. Each sample forces and validates its entire output and one timer metric: actual creation/registrations/five physical families/refusal/retry/rollback/cleanup/owner teardown/rendering/capture remain inside the same work, with flush after timer stop. Bend/TS full output differences are retained, no work subtraction.
+
+Runner diff from the accepted predecessor is only ROOT relocation and scale roleKey selection for command/transport. Sampling has258 processes:86 per scale, two warmups each TS/JS/Native, twenty adjacent TS/candidate pairs each JS/Native, exactly ten AB and ten BA, deterministic seed20261007. Summary requires exactly one reference and candidate metric per pair; it does not sum independently reset lifecycles. All frozen rows/commands were independently reconstructed and checked. Existing JS<=TS and Native<=0.5*TS targets remain unchanged; summary ratios are descriptive and add no statistical verdict or #28 change.
+
+All child caps remain5, CPU5, environment/cwd/tool resources exact. Prospective raw files and receipt are absent. Source/resource/artifact inventory guards cover all nine roles; before/acquired/per-command pre/post and final receipt boundaries remain unconditional, completed raw child results survive publication failure, and whole-cohort internal flock is retained. No C emission or compiler modification occurs.
+
+Root must hold all peer semantic/hook work terminal, reserve the full heavy queue and retain fresh suitable host evidence before launch. Explicit quiet-context text is required by the runner but cannot prove host suitability; external contention means HOLD. This review confers no measured ratios, RSS, total allocation, timing/full41 qualification or relaxed criterion. No source/plan/runner edits or execution were performed.
