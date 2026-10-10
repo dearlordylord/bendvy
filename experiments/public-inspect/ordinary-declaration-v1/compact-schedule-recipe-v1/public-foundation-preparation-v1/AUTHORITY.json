@@ -1,0 +1,33 @@
+{
+  "cases": [
+    {
+      "subject": "third-nominal",
+      "attempt": "authority02",
+      "original": 34959,
+      "exit": 0,
+      "scope": "actual completeConsumer.scenario imported freshnominalS2entities; sourceonly"
+    },
+    {
+      "subject": "foreign-schema",
+      "attempt": "authority02",
+      "original": 34959,
+      "exit": 1,
+      "intendedDiagnostic": [
+        "AuthoritySchema",
+        "OtherSchema"
+      ],
+      "scope": "actualpublicComponent.register queryschema mismatch"
+    },
+    {
+      "subject": "owner-duplication",
+      "attempt": "authority01",
+      "original": 77296,
+      "exit": 1,
+      "intendedDiagnostic": [
+        "consumed more than once"
+      ],
+      "scope": "actualpublicApp affineowner duplication"
+    }
+  ],
+  "history": "authority01 firstpositive/foreignrefusals parserauthoringerrors preserved; repaired02 changes main() and callback/typealias spelling, no unchanged repeats."
+}

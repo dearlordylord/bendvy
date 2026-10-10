@@ -1,0 +1,7 @@
+# Public ordinary App foundations — bounded adoption candidate
+
+Fourteen public modules were materialized by root exactly from MANIFEST. The complete ordinary consumer passed stock source5 and JS/Native with independent16816-byte output. Third nominal source specialization passed; foreign-query schema and affine App duplication produced their intended type refusals. A compiling Inspector cursor1 control passed both backends with full16686-byte output and rejected the normal baseline. Full original source snapshots, failures, guards and receipts are retained in compact lossless archives.
+
+The reusable CPS component/resource registrations preserve original builders on rejection (source-inspected). The witness reaches three declarations and actual Sch dispatch, sole Fields, current operational component cursor, full resource outputs and real condition skips/barriers. Debug observations use fixture cursor0. Generic arbitrary-arity runtime, other outcome matrices and performance are not qualified here.
+
+Composer.snapshot still requires a runtime Fields fold. The private generated Metadata.observe supplies it for this finite witness, so these foundations alone do not fulfill ordinary-user enable-debug acceptance. A separate private successor must derive/compose that fold at registration and expose App-only snapshot; the fourteen frozen targets stay unchanged during current gates. Raw owner/Fields/App constructors remain trusted low-level assembly.
