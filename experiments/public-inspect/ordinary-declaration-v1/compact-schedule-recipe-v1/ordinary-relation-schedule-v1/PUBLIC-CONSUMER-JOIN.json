@@ -1,0 +1,36 @@
+{
+  "joins": [
+    {
+      "source": "consumer.bend",
+      "public": "consumer-public.bend",
+      "sourceSHA256": "e346d361d49490e99d97863123f4df255b9e67f2f0fdb6c98f3035aa6f6af7f6",
+      "publicSHA256": "37b770b960bd2e7749c0e13bb6a0c10e2381e31632004afc47bd09cfbe053745",
+      "imports": [
+        {
+          "old": "./scheduled-relation.bend",
+          "new": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation-schedule.bend"
+        },
+        {
+          "old": "./registered.bend",
+          "new": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation-system.bend"
+        }
+      ],
+      "literalInverse": true
+    },
+    {
+      "source": "entry.bend",
+      "public": "entry-public.bend",
+      "sourceSHA256": "24c2644c02258d77f2099fca279c97091d7f551a992b74446299103d17b0443f",
+      "publicSHA256": "00a77d30300767d860ee2a9f60dd87d4cf7ae8ada1a5ba9377d1ce29f6681b71",
+      "imports": [
+        {
+          "old": "./consumer.bend",
+          "new": "./consumer-public.bend"
+        }
+      ],
+      "literalInverse": true
+    }
+  ],
+  "moduleManifest": "PUBLIC-MANIFEST.json",
+  "source": "PUBLIC-SOURCE-COMPLETE.json"
+}
