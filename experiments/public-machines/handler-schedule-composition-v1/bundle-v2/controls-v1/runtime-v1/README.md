@@ -1,0 +1,7 @@
+# Actual affected Bundle controls
+
+The frozen four subjects each passed complete JS and Native output equality to independently source-derived models after independent second sanity. Namespace-normal 21408 bytes; missing-unselected 19144; foreign 19042; recovery-order 21408. All 20 commands exited zero with no failure, and all 68 guards retained exact inputs/artifact joins. Both compiling order-mutant outputs rejected the complete shared-namespace normal baseline, with every actual owner retained.
+
+`actual-attempt01/manifest.json` joins 150 lossless archived members and 111 content-addressed compressed objects, including all commands/raw outputs/receipts/guards/generated artifacts and Native binaries, the complete independent model packet and second-sanity receipt. Existing source86e and first normal pairc3b4 archives remain authoritative and unchanged.
+
+The missing control checks declared unknown requirement99 on an actual inactive EnterPause owner, including stable duplicate removal before any barrier. It does not qualify removal of actual machine-slot requirement1. The foreign control checks Bundle namespace99 against actual World namespace1; it is not an independent foreign-world instance test. Broader requirement predicates, schema coverage, malformed recovery, multi-machine ordering, initialization, universal owner identity and performance remain open. Public module integration belongs to root.
