@@ -1,0 +1,3 @@
+Complete independent source-only SystemFailure model bound to frozen 020f099d3. Ten physical snapshots, three actual WriteOutcome values and three registered failure-reader deliveries are rendered with the pinned installed printer. No producer/runtime stdout was read.
+
+The failed valid request discards its deferred command and preserves writer cursor18, while earlier self3 batch19 remains unread until delivery22. Both full batches remain retained because no frame/trim runs. The model preserves the fixture fixed capacity2 Args topology without claiming arbitrary shapes. No new failure policy, Garden, full #42 or performance qualification is inferred.
