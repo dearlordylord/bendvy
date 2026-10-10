@@ -1,0 +1,50 @@
+from pathlib import Path
+import json,hashlib,shutil,subprocess,gzip
+wt=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1');parent=wt/'experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-runtime-boundary-study-v1';p=parent/'lookup-inline-v1';p.mkdir(exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest()
+old='  composed_lookup_valid(~H,~S,~V,~selection,target,composed_valid_field(~H,~S,world)(owner,target))'
+new='''  match composed_valid_field(~H,~S,world)(owner,target):
+    case (owner,False{}):composed_missing(~H,~S,~V,target,owner)
+    case (owner,True{}):
+      match Q.matches_field(~H,~S,~V,selection)(owner,target):
+        case (owner,False{}):composed_mismatched(~H,~S,~V,target,owner)
+        case (owner,True{}):composed_lookup_projected(~H,~S,~V,target,Q.project_field(~H,~S,~V,selection)(owner,target))'''
+rows=[]
+for f in sorted((parent/'stage').rglob('*.bend')):
+ rel=f.relative_to(parent);raw=f.read_bytes();committed=subprocess.check_output(['git','show','4d8223cd7:'+str(f.relative_to(wt))],cwd=wt);assert raw==committed
+ current=raw
+ if str(rel)=='stage/core/inspector-query.bend':
+  text=raw.decode();assert text.count(old)==1;current=text.replace(old,new).encode();assert current.decode().replace(new,old).encode()==raw
+ out=p/rel;out.parent.mkdir(parents=True,exist_ok=True);out.write_bytes(current);rows.append({'relative':str(rel),'parentSHA256':sha(raw),'candidateSHA256':sha(current),'equal':raw==current})
+assert len(rows)==47 and sum(not x['equal'] for x in rows)==1
+(p/'DELTA.json').write_text(json.dumps({'parentCommit':'4d8223cd7223a62275b38d8eed41bda017418d1b','parent':str(parent),'old':old,'new':new,'inverseExact':True,'joins':rows},indent=2)+'\n')
+(p/'README.md').write_text('''# Inline lookup staging: frozen source discriminator
+
+Parent is exact runtime-boundary stage at4d8223cd7: full47 source and wholeJS passed; stockNative emit30 deadline. The three runtime consumer continuations, matching tree, pair-return scan, generic9 Check, actual Value fields and all47 complete scenario modules remain. Only composed_lookup_target's body changes: nested matches perform the existing validity -> membership -> projection decisions directly. Compatibility composed_lookup_valid/matched definitions remain byte-identical and callable; public signatures/grants/callbacks unchanged.
+
+MissingEntity returns before membership; QueryMismatch returns before projection. Each returned arbitrary affine H becomes the next owner, with target borrowed unchanged. Project runs once only after both successes. No exception/error/printer/state/ordering policy changes. The structural expectation is removal of valid/matched template applications from this ordinary get route. Other callers may retain them, and Native already may inline; this does not demonstrate lower compile cost, serialization as fixed-point cause or Native resolution.
+
+DELTA.json's one exact literal inverse reconstructs parent bytes, including whitespace, and lists all47 source joins. Source-current reader/authority controls remain unexecuted; historical compatibility/source/JS receipts do not substitute for current controls or full54 acceptance.
+
+Printer/model reuse is applicable: every stage-relative source filename/import/Data type/constructor/field/printer/scenario is unchanged, including ProjectedRow, LookupError, full-consumer Snapshot/Get and output adapter. Only control-flow source in the same defining module changes. Complete normal oracle5077477 bytes SHA810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2 stays byteexact and pinned. This is source-derived applicability, not an actual-output claim.
+
+SEQUENCE.json freezes original source/JS/Native plans. Direct unchanged development-v2.py run PLAN DIGEST uses existing per-command shared lock and CPU11 caps source5 -> conditionalJS30/5 -> conditionalNative30/120/5, same installedBend/Node/Clang19-O3, oneNativeThread/GPUoff. Stop at failure, no unchanged retry/fallback/capraise/compiler/runner/dependency/law/core changes. Independent whole changed-subject/plan review required before backend; no child launched at preparation.
+''')
+plans=[]
+for name,role in [('source-plan.json','source'),('normal-js-plan.json','js'),('normal-native-plan.json','native')]:
+ j=json.loads((parent/name).read_text());temp=Path('/tmp/bendvy54-lookup-inline-'+role+'01');temp.mkdir(exist_ok=True);oldtemp=str(Path(j['generated']).parent)
+ def repl(v):
+  if isinstance(v,str):return v.replace(str(parent),str(p)).replace(oldtemp,str(temp))
+  if isinstance(v,list):return [repl(x) for x in v]
+  if isinstance(v,dict):return {repl(k):repl(x) for k,x in v.items()}
+  return v
+ j=repl(j);j['scope']='Full47 inline lookup staging; complete independent oracle; source5 then conditional wholeJSNative; no compiler cause/performance claim'
+ for key in ['sourceInventory','pins']:
+  for path in j[key]:j[key][path]=sha(Path(path).read_bytes())
+ for d,fs in j['resourceRoots'].items():
+  for path,h in fs.items():assert sha((Path(d)/path).read_bytes())==h
+ if 'oracle' in j:
+  b=gzip.decompress(Path(j['oracle']).read_bytes());assert len(b)==j['oracleBytes'] and sha(b)==j['oracleSHA256']
+ for key in ['generated','native']:
+  if j.get(key):assert not Path(j[key]).exists()
+ raw=(json.dumps(j,indent=2)+'\n').encode();(temp/'plan.json').write_bytes(raw);(p/name).write_bytes(raw);plans.append({'role':role,'path':str(temp/'plan.json'),'sha256':sha(raw),'pins':len(j['pins']),'sources':len(j['sourceInventory'])})
+(p/'SEQUENCE.json').write_text(json.dumps({'collector':'/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py','cases':plans,'condition':'SourcePASS then wholeJSPASS then Native; direct collector internal shared lock, failstop/noretry'},indent=2)+'\n');print(json.dumps(plans));print('SEQUENCE',sha((p/'SEQUENCE.json').read_bytes()))

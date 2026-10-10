@@ -1,0 +1,27 @@
+{
+  "collector": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+  "cases": [
+    {
+      "role": "source",
+      "path": "/tmp/bendvy54-lookup-runtime-source01/plan.json",
+      "sha256": "412ad5c6175d1b4c7173ac8c43663a9ea796a51ad8a2eb1f45a5e4b8493023ad",
+      "pins": 120,
+      "sources": 47
+    },
+    {
+      "role": "js",
+      "path": "/tmp/bendvy54-lookup-runtime-js01/plan.json",
+      "sha256": "ebc2135a7a693c129cb3445f3a4abd667b22cf7299cc1ccd4683267addfdc5bc",
+      "pins": 162,
+      "sources": 47
+    },
+    {
+      "role": "native",
+      "path": "/tmp/bendvy54-lookup-runtime-native01/plan.json",
+      "sha256": "9e0122586d01541215fd4d08a0a2d17ba64c1e3228e6ad163ca47167e4f72c1b",
+      "pins": 174,
+      "sources": 47
+    }
+  ],
+  "condition": "SourcePASS then wholeJSPASS then Native; direct collector internal shared lock, failstop/noretry"
+}

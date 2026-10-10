@@ -1,0 +1,34 @@
+from pathlib import Path
+import json,hashlib,shutil,subprocess,gzip
+wt=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1');parent=wt/'experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-runtime-boundary-study-v1';p=parent/'lookup-runtime-v2';p.mkdir(exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest()
+old='def composed_lookup_target(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,~world:WorldRead<H,S>,owner:H,+target:W.Handle<S>) -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:\n  composed_lookup_valid(~H,~S,~V,~selection,target,composed_valid_field(~H,~S,world)(owner,target))'
+new='def lookup_runtime_matched(~H:Type,~S:Data,~V:Data,project:H -> H & V,+target:W.Handle<S>,observed:H & Bool) -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:\n  match observed:\n    case (owner,False{}):composed_mismatched(~H,~S,~V,target,owner)\n    case (owner,True{}):composed_lookup_projected(~H,~S,~V,target,project(owner))\ndef lookup_runtime_valid(~H:Type,~S:Data,~V:Data,next:H -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>,+target:W.Handle<S>,observed:H & Bool) -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:\n  match observed:\n    case (owner,False{}):composed_missing(~H,~S,~V,target,owner)\n    case (owner,True{}):next(owner)\ndef composed_lookup_target(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,~world:WorldRead<H,S>,owner:H,+target:W.Handle<S>) -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:\n  lookup_runtime_valid(~H,~S,~V,(owner => lookup_runtime_matched(~H,~S,~V,(owner => Q.project_field(~H,~S,~V,selection)(owner,target)),target,Q.matches_field(~H,~S,~V,selection)(owner,target))),target,composed_valid_field(~H,~S,world)(owner,target))'
+rows=[]
+for f in sorted((parent/'stage').rglob('*.bend')):
+ rel=f.relative_to(parent);raw=f.read_bytes();committed=subprocess.check_output(['git','show','4d8223cd7:'+str(f.relative_to(wt))],cwd=wt);assert raw==committed
+ current=raw
+ if str(rel)=='stage/core/inspector-query.bend':
+  text=raw.decode();assert text.count(old)==1;current=text.replace(old,new).encode();assert current.decode().replace(new,old).encode()==raw
+ out=p/rel;out.parent.mkdir(parents=True,exist_ok=True);out.write_bytes(current);rows.append({'relative':str(rel),'parentSHA256':sha(raw),'candidateSHA256':sha(current),'equal':raw==current})
+assert len(rows)==47 and sum(not x['equal'] for x in rows)==1
+(p/'DELTA.json').write_text(json.dumps({'parentCommit':'4d8223cd7223a62275b38d8eed41bda017418d1b','parent':str(parent),'old':old,'new':new,'inverseExact':True,'joins':rows},indent=2)+'\n')
+(p/'README.md').write_text('# Runtime lookup staging successor\n\nParent exact runtime-boundary stage at4d8223cd7 retains all47 fullsubject sources, runtimeconsumercontinuations, pairscan/matchingtree, generic9Check/actualValue. Earlier lookup-inline-v1 remains UNLAUNCHED_REJECTED for computed/nested match syntax; no source/backend children were run.\n\nOne literal replacement adds two private helpers before composed_lookup_target and replaces only its body. Each helper has one head match on its observed pair parameter. lookup_runtime_valid receives next:H->result; invalid returns MissingEntity and discards next. Valid passes returned owner once to next. lookup_runtime_matched receives project:H->H&V; mismatch returns QueryMismatch without projecting; success calls project once with the returned owner. composed_lookup_target constructs fresh runtime continuations closing over the existing static selection and borrowed target. No callback is duplicated/reused across recursion; arbitraryaffineH is consumed and returned in exact validity->membership->projection order. Originalcompatibilityvalid/matched defs, publicAPI/authority/grant/pair/scan/recursivefetch/printer fields are retained unchanged.\n\nThe two private helpers have erased H/S/V only; selection is absent from their parameter telescopes/keys. The ordinarytarget route no longer applies the old erased-selection valid/matched staginghelpers. The original top target still specializes on selection/world; closure construction/checking/capture and Nativefusion may remain costly. Structuralkey change is a hypothesis, not a fixedpointcause/speed/Nativequalification claim. Prior4paircallback extraction24434 and runtimeconsumercontinuation Native5754 failures remain unchanged.\n\nLiteralinverse/full47joins in DELTA reconstruct parent byteexact. No Data type/constructor/formatter/output/scenario/import/definingrelativepath changes: complete5077477 normaloracle SHA810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2 reused source-derived, never actualdriven. Currentreader/authority unexecuted.\n\nExistingunchanged collector direct run PLAN DIGEST/internalpercommandheavylock CPU11 source5->conditionalJS30/5->conditionalNative30/120/5, sameBendNodeClang19-O3/threads1GPUoff/fulloracle. Source/plan reviewed before children; failstop/no retry/caps/compiler/runner/core/deps/laws changes. Preparationonly; currentrootexclusivequeue forbids anycompiler/hook child until release.\n')
+plans=[]
+for name,role in [('source-plan.json','source'),('normal-js-plan.json','js'),('normal-native-plan.json','native')]:
+ j=json.loads((parent/name).read_text());temp=Path('/tmp/bendvy54-lookup-runtime-'+role+'01');temp.mkdir(exist_ok=True);oldtemp=str(Path(j['generated']).parent)
+ def repl(v):
+  if isinstance(v,str):return v.replace(str(parent),str(p)).replace(oldtemp,str(temp))
+  if isinstance(v,list):return [repl(x) for x in v]
+  if isinstance(v,dict):return {repl(k):repl(x) for k,x in v.items()}
+  return v
+ j=repl(j);j['scope']='Full47 runtime lookup staging; complete independent oracle; source5 then conditional wholeJSNative; no compiler cause/performance claim'
+ for key in ['sourceInventory','pins']:
+  for path in j[key]:j[key][path]=sha(Path(path).read_bytes())
+ for d,fs in j['resourceRoots'].items():
+  for path,h in fs.items():assert sha((Path(d)/path).read_bytes())==h
+ if 'oracle' in j:
+  b=gzip.decompress(Path(j['oracle']).read_bytes());assert len(b)==j['oracleBytes'] and sha(b)==j['oracleSHA256']
+ for key in ['generated','native']:
+  if j.get(key):assert not Path(j[key]).exists()
+ raw=(json.dumps(j,indent=2)+'\n').encode();(temp/'plan.json').write_bytes(raw);(p/name).write_bytes(raw);plans.append({'role':role,'path':str(temp/'plan.json'),'sha256':sha(raw),'pins':len(j['pins']),'sources':len(j['sourceInventory'])})
+(p/'SEQUENCE.json').write_text(json.dumps({'collector':'/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py','cases':plans,'condition':'SourcePASS then wholeJSPASS then Native; direct collector internal shared lock, failstop/noretry'},indent=2)+'\n');print(json.dumps(plans));print('SEQUENCE',sha((p/'SEQUENCE.json').read_bytes()))
