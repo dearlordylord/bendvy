@@ -1,0 +1,5 @@
+# Independent diagnostic final review
+
+Bounded PASS for author f9014f226 and admitted preparation 0c28051d1. Independently decoded and checked all 222 manifest rows /165 unique lossless objects, preserving explicit installed-tool identity-only scope. Joined the original receipt, two actual command results and seven unchanged guard hashes. Same-ELF control passed; emit deadline is retained as INCOMPLETE; schema/build/runtime were not executed.
+
+Independent raw-profile recomputation confirms 9,386 samples and all2,144 stringify exclusive samples partition as lay_of1,320 / lay_eq824. Source mapping uses exact literal import-only line shift; the original and instrumented CLI inverse was checked at launch review. The observational profile covers an instrumented prefix only and cannot support stock timing, Native runtime qualification or a performance/causality claim. Layout comparison is a hypothesis requiring independently reviewed next experiment. No new source/compiler/cap change is accepted by this review.
