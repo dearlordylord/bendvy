@@ -49,3 +49,10 @@ def snapshot(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World
   match value:
     case Application{schema,Build.Registered{world,owners,recipe,False{}}}:(Application{schema,Build.Registered{world,owners,recipe,False{}}},None{})
     case Application{schema,Build.Registered{world,owners,recipe,True{}}}:scanned(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~count,~components,~resources,schema,owners,recipe,criteria,W.handles(~S,~C,~R,~E,world))
+
+def schema_returned(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,~components:C -> U32 -> C & List<&2,Maybe<&2,String>>,~resources:R -> R & List<&2,Maybe<&2,String>>,result:Application<S,C,R,E,H,Rows,observe,fold,count,components,resources> & Maybe<&2,Dump<S>>) -> SchemaApp.Application<S,C,R,E,H,Rows,observe,fold> & Maybe<&2,Dump<S>>:
+  match result:
+    case (Application{schema,app},view):(SchemaApp.Application{schema,app},view)
+def schema_snapshot(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,~components:C -> U32 -> C & List<&2,Maybe<&2,String>>,~resources:R -> R & List<&2,Maybe<&2,String>>,criteria:Filter.Filter<S>,value:SchemaApp.Application<S,C,R,E,H,Rows,observe,fold>) -> SchemaApp.Application<S,C,R,E,H,Rows,observe,fold> & Maybe<&2,Dump<S>>:
+  match value:
+    case SchemaApp.Application{schema,app}:schema_returned(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~count,~components,~resources,snapshot(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~count,~components,~resources,criteria,Application{schema,app}))
