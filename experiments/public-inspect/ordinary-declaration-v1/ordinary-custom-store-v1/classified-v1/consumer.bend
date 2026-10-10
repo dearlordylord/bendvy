@@ -1,4 +1,5 @@
 import Base
+import /workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend as Fragment
 import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Persist
 import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D
 import provision.bend as Provision
@@ -64,7 +65,8 @@ def resource_projected(result:Array<U32> & U32) -> Array<U32> & D.Raw:
   match result:
     case (owner,value):(owner,D.Number{value})
 def resource_project(owner:Array<U32>) -> Array<U32> & D.Raw:resource_projected(view(owner))
-def provision() -> DumpProvision.Provision<S,Store,Array<U32>,empty,count(),values(),resources()>:Provision.with_resource_constructed(~S,~Store,~Array<U32>,~empty,~component_counts(),~component_values(),~resource_prefix(),~O.u32_array,~resource_identity(),~resource_project,Persist.constructed(~S,~Array<U32>,~resource_identity(),~resource_project,D.Integer{}),component_provision())
+def resource_extension() -> Persist.Constructed<S,Array<U32>,resource_identity(),resource_project>:Persist.constructed(~S,~Array<U32>,~resource_identity(),~resource_project,D.Integer{})
+def provision() -> DumpProvision.Provision<S,Store,Array<U32>,empty,count(),values(),resources()>:Provision.with_resource_constructed(~S,~Store,~Array<U32>,~empty,~component_counts(),~component_values(),~resource_prefix(),~O.u32_array,~resource_identity(),~resource_project,resource_extension(),component_provision())
 def World() -> Type:W.World<S,Store,Array<U32>,U32>
 def observe() -> World() -> World() & DTO.Observation<Unit>:Build.empty_observe(~World())
 def Application() -> Type:Dump.Application<S,Store,Array<U32>,U32,Unit,Unit,observe(),Leaf.empty(~S),count(),values(),resources()>
@@ -120,7 +122,33 @@ def population_returned(filter:Filter.Filter<S>,result:Population.Application<S,
 def population_first(filter:Filter.Filter<S>,app:Application()) -> Application() & String:
   match app:
     case Dump.Application{schema,app}:population_returned(filter,Population.population(~S,~Store,~Array<U32>,~U32,~Unit,~Unit,~observe(),~Leaf.empty(~S),~count(),Population.Application{SchemaApp.Application{schema,app}}))
-def snapshot(app:Application(),flag:Bool,filter:Filter.Filter<S>) -> Application() & String:population_first(filter,Dump.enabled(~S,~Store,~Array<U32>,~U32,~Unit,~Unit,~observe(),~Leaf.empty(~S),~count(),~values(),~resources(),app,flag))
+def kind(value:Fragment.RegistryKind) -> String:
+  match value:
+    case Fragment.Component{}:"Component"
+    case Fragment.Resource{}:"Resource"
+    case Fragment.Event{}:"Event"
+    case Fragment.Relation{}:"Relation"
+    case Fragment.Service{}:"Service"
+def persistence(value:Fragment.PersistenceKind) -> String:
+  match value:
+    case Fragment.Plain{}:"Plain"
+    case Fragment.Transient{}:"Transient"
+    case Fragment.Constructed{}:"Constructed"
+def entry(value:Fragment.Entry<S>) -> String:
+  match value:
+    case Fragment.Entry{k,key,name}:kind(k) ++ ":" ++ key ++ ":" ++ name ++ ":Bare"
+    case Fragment.Classified{k,key,name,p}:kind(k) ++ ":" ++ key ++ ":" ++ name ++ ":" ++ persistence(p)
+def description(value:Maybe<&2,SchemaApp.Description<S,Unit>>) -> String:
+  match value:
+    case None{}:"schema=None"
+    case Some{SchemaApp.Description{entries,_}}:"schema=" ++ List.show(&2,Fragment.Entry<S>,entry,entries)
+def described(filter:Filter.Filter<S>,result:SchemaApp.Application<S,Store,Array<U32>,U32,Unit,Unit,observe(),Leaf.empty(~S)> & Maybe<&2,SchemaApp.Description<S,Unit>>) -> Application() & String:
+  match result:
+    case (SchemaApp.Application{schema,app},view):population_dumped(description(view),population_first(filter,Dump.Application{schema,app}))
+def describing(filter:Filter.Filter<S>,value:Application()) -> Application() & String:
+  match value:
+    case Dump.Application{schema,app}:described(filter,SchemaApp.snapshot(~S,~Store,~Array<U32>,~U32,~Unit,~Unit,~observe(),~Leaf.empty(~S),SchemaApp.Application{schema,app}))
+def snapshot(app:Application(),flag:Bool,filter:Filter.Filter<S>) -> Application() & String:describing(filter,Dump.enabled(~S,~Store,~Array<U32>,~U32,~Unit,~Unit,~observe(),~Leaf.empty(~S),~count(),~values(),~resources(),app,flag))
 
 def snapshot_last(before:List<&2,String>,result:Application() & String) -> List<&2,String>:
   match result:
@@ -209,7 +237,11 @@ def created(schema:Schema.Schema<S,Store,Array<U32>>,result:W.Creation<S,Store,A
   match result:
     case W.Created{_,world}:reserved_first(schema,W.reserve_id(~S,~Store,~Array<U32>,~U32,world))
     case _:["create-rejected"]
+def resource_admitted(schema:Schema.Schema<S,Store,Array<U32>>,receipt:D.Receipt<Array<U32>>) -> List<&2,String>:
+  match receipt:
+    case D.Receipt{owner,D.Accepted{D.Number{value}}}:("constructed-admission=" ++ U32.show(value)) <> created(schema,W.create(~S,~Store,~Array<U32>,~U32,~empty,W.factory(),owner))
+    case D.Receipt{owner,_}:"constructed-admission=Unexpected" <> created(schema,W.create(~S,~Store,~Array<U32>,~U32,~empty,W.factory(),owner))
 def prepared(result:Schema.Schema<S,Store,Array<U32>> & DumpProvision.Recipe<S,Store,Array<U32>,count(),values(),resources()>) -> List<&2,String>:
   match result:
-    case (schema,_):created(schema,W.create(~S,~Store,~Array<U32>,~U32,~empty,W.factory(),ANode{ALeaf{81},ALeaf{82}}))
+    case (schema,_):resource_admitted(schema,Persist.validate(~S,~Array<U32>,~resource_identity(),~resource_project,resource_extension(),ANode{ALeaf{81},ALeaf{82}}))
 def main() -> List<&2,String>:prepared(DumpProvision.prepared(~S,~Store,~Array<U32>,~empty,~count(),~values(),~resources(),provision()))
