@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : app
+- observed : app (consumed more than once)
+Location: duplicate
+3 | type Schema is Data:Schema{}
+4>| def duplicate(app:Consumer.Application(~Schema)) -> Consumer.Application(~Schema) & Consumer.Application(~Schema):(app,app)
+  |               ^^^
+5 | def main() -> Unit:Unit{}
+bend 2.0.36 is available: run bend update
