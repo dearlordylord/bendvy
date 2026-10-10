@@ -1,0 +1,78 @@
+{
+  "status": "TERMINAL",
+  "planSHA256": "90c9517d76f4de190494f80f51a32e80d027e5b81001aea1588f06063d5deeab",
+  "coreFiles": 134,
+  "monitored": 131,
+  "tools": 8,
+  "referenceSourceFiles": 33,
+  "cpu": 11,
+  "cpuTicksOneSecond": [
+    0,
+    0,
+    0,
+    100,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "cpuBusyFraction": 0.0,
+  "load": "2.42 3.79 4.46 2/1613 1428655",
+  "rootExclusiveReservation": true,
+  "workerTerminalAcknowledgements": [
+    "bundles41_authority_refresh",
+    "canonical_full23_delivery",
+    "debug56_remaining_sources",
+    "observable_query_boundaries"
+  ],
+  "statisticsHarness": {
+    "exit": 0,
+    "sourceSHA256": "dda374623d512b150cb734764c9eb7333e33c8b1cd17e38e5b091f0ecd4081da",
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "e6ec182765cd965f2837d8eeaef5a64af48a104f245cd1a0b7281559194c57c1",
+    "capSeconds": 5
+  },
+  "benchmarkLaunched": true,
+  "launchHostObservation": {
+    "cpuTicksOneSecond": [
+      0,
+      0,
+      0,
+      100,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "cpuBusyFraction": 0.0,
+    "utc": "2026-10-10T09:32:45Z",
+    "cpuAllowed": true
+  },
+  "command": [
+    "/usr/bin/flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "/usr/bin/env",
+    "-i",
+    "HOME=/home/node",
+    "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+    "LANG=C",
+    "LC_ALL=C",
+    "TZ=UTC",
+    "BEND_NO_TELEMETRY=1",
+    "BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root",
+    "LD_LIBRARY_PATH=/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu",
+    "/usr/bin/python3.11",
+    "/workspace/formal-proofs/bendvy/benchmarks/run.py",
+    "--output",
+    "/tmp/bendvy-public-machine-operations-regression125-01",
+    "--cpu",
+    "11"
+  ],
+  "rootHEAD": "d3c17d4b5e3f5cd11d0eaa35b6a26d16a2b223ab",
+  "exit": 0,
+  "terminalUTC": "2026-10-10T09:33:49Z"
+}
