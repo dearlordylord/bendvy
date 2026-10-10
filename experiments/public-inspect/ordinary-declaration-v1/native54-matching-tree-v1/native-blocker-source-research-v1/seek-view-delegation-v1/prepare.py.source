@@ -1,0 +1,27 @@
+from pathlib import Path
+import json,hashlib,shutil
+wt=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1');research=wt/'experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1';parent=research/'format-envelope-v1';out=research/'seek-view-delegation-v1';out.mkdir();shutil.copytree(parent/'stage',out/'stage');f=out/'stage/core/column.bend';s=f.read_text();a=s.index('def seek_view(');b=s.index('def prepared_view_different(',a);old=s[a:b]
+new='''def seek_view(~S:Data,~C:Type,~V:Data,~project:C -> C & V,fuel:Nat,values:Array<Maybe<&1,C>>,stamps:List<&2,L.Entry>,capacity:U32,+target:U32,remaining:H.PrototypeHandoffRows<S,C>,past:History<S,C>,phase:SeekPhase) -> Column<S,C> & Maybe<&2,V>:
+  prepared_view_taken(~S,~C,~V,~project,target,seek(~S,~C,fuel,values,stamps,capacity,target,None{},remaining,past,phase))
+def indexed_seek_view(~S:Data,~C:Type,~V:Data,~project:C -> C & V,fuel:Nat,values:Array<Maybe<&1,C>>,metadata:M.Metadata,capacity:U32,+target:U32,remaining:H.PrototypeHandoffRows<S,C>,past:History<S,C>,phase:SeekPhase) -> Column<S,C> & Maybe<&2,V>:
+  prepared_view_taken(~S,~C,~V,~project,target,indexed_seek(~S,~C,fuel,values,metadata,capacity,target,None{},remaining,past,phase))
+'''
+f.write_text(s[:a]+new+s[b:]);assert f.read_text().replace(new,old)==s;sha=lambda b:hashlib.sha256(b).hexdigest();joins=[]
+for p in sorted((parent/'stage').rglob('*.bend')):
+ q=out/'stage'/p.relative_to(parent/'stage');joins.append({'path':str(p.relative_to(parent/'stage')),'parentSHA256':sha(p.read_bytes()),'candidateSHA256':sha(q.read_bytes()),'equal':p.read_bytes()==q.read_bytes()})
+assert len(joins)==47 and sum(not r['equal'] for r in joins)==1
+(out/'DELTA.json').write_text(json.dumps({'parent':str(parent),'old':old,'new':new,'inverseExact':True,'joins':joins},indent=2)+'\n')
+(out/'README.md').write_text('Full47 private prepared read traversal factoring. Only seek_view/indexed_seek_view delegate existing seek/indexed_seek incomingNone then existing prepared_view_taken. Publiccompat signatures/plainColumn/fuel/history/current/HandoffNil precedence retained. Casewise rationale SEMANTIC-DELTA.md. Full5077477 oracle unchanged. No runtime callback/disposal/core adoption/compiler/cost claim. Source5 first, independent review before fullJS/conditionalNative30/120/5 once.\n')
+plans=[]
+for name,role in [('source-plan.json','source'),('normal-js-plan.json','js'),('normal-native-plan.json','native')]:
+ j=json.loads((parent/name).read_text());temp=Path('/tmp/bendvy54-seek-view-delegation-'+role+'01');temp.mkdir();oldtemp=str(Path(j['generated']).parent)
+ def repl(v):
+  if isinstance(v,str):return v.replace(str(parent),str(out)).replace(oldtemp,str(temp))
+  if isinstance(v,list):return [repl(x) for x in v]
+  if isinstance(v,dict):return {repl(k):repl(x) for k,x in v.items()}
+  return v
+ j=repl(j);j['scope']='Full47 private prepared seek traversal delegation; compatibility affine owner restoration/whole oracle unchanged; no cost or adoption claim'
+ for key in ['sourceInventory','pins']:
+  for p in j[key]:j[key][p]=sha(Path(p).read_bytes())
+ b=(json.dumps(j,indent=2)+'\n').encode();(out/name).write_bytes(b);(temp/'plan.json').write_bytes(b);plans.append({'role':role,'path':str(temp/'plan.json'),'sha256':sha(b)})
+(out/'SEQUENCE.json').write_text(json.dumps(plans,indent=2)+'\n');shutil.copyfile('/tmp/prepare-seek-delegation.py',out/'prepare.py.source');print(json.dumps(plans))
