@@ -1,0 +1,1 @@
+Independent complete source-only eight-snapshot custom constructor refusal World pipeline. Frozen2dd299138 initial Number8/True passes validation then custom Blocked; returned actual raw8True is repaired to9False and all later owner/barrier/inverse paths unchanged. No runtime output inputs.
