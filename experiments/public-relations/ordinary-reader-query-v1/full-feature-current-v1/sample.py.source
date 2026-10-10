@@ -1,9 +1,17 @@
 """Qualified direct-driver protocol; complete observations, no process execution."""
 import json,re
 REGION='whole-feature-setup-operations-full-trace'
+def same(actual,expected):
+    if type(actual) is not type(expected):return False
+    if isinstance(expected,dict):return actual.keys()==expected.keys() and all(same(actual[k],v) for k,v in expected.items())
+    if isinstance(expected,list):return len(actual)==len(expected) and all(same(a,b) for a,b in zip(actual,expected))
+    return actual==expected
+
+def invalid_constant(value):raise ValueError('non-JSON numeric constant: '+value)
+
 def validate(stdout,stderr,expected,walk):
-    actual=json.loads(stdout)
-    if actual!=expected:raise ValueError('complete independent trace mismatch')
+    actual=json.loads(stdout,parse_constant=invalid_constant)
+    if not same(actual,expected):raise ValueError('complete typed independent trace mismatch')
     markers=[json.loads(line) for line in stderr.splitlines()]
     if len(markers)!=2 or markers[0]!={'boundary':'begin'}:raise ValueError('exact Begin then Complete required')
     end=markers[1]

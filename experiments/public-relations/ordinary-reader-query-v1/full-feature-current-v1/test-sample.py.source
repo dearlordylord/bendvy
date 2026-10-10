@@ -12,6 +12,14 @@ class Protocol(unittest.TestCase):
  def test_full_last_field_not_digest_substitute(self):
   changed=json.loads(self.stdout);changed['roots'][0]['records'][1]['last']=[2,0]
   with self.assertRaises(ValueError):M.validate(json.dumps(changed).encode(),self.stderr,self.value,self.walk)
+ def test_bool_int_substitution_with_unchanged_markers(self):
+  for value in (True,False,1.0):
+   changed=json.loads(self.stdout);changed['roots'][0]['records'][0]['last'][0]=value
+   with self.assertRaises(ValueError):M.validate(json.dumps(changed).encode(),self.stderr,self.value,self.walk)
+  self.assertFalse(M.same({'value':False},{'value':0}))
+  self.assertFalse(M.same({'value':1},{'value':True}))
+ def test_non_json_numeric_constant(self):
+  with self.assertRaises(ValueError):M.validate(b'{"roots":NaN}',self.stderr,self.value,self.walk)
  def test_actual_chronology(self):
   changed=json.loads(self.stdout);changed['roots'][0]['records'].reverse()
   with self.assertRaises(ValueError):M.validate(json.dumps(changed).encode(),self.stderr,self.value,self.walk)

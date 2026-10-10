@@ -16,6 +16,8 @@ def main(planpath,out):
  old=Path(basis['extends']).parent/'phase2/remainder-v1/chunk-serializer-v1/whole-feature-timing-v1'
  selected=basis['selectedTS'];pins.update({str(Path(selected['repository'])/n):h for n,h in selected['pins'].items()})
  tools={'bend':'/home/node/.bend/bin/bend-2.0.35','node':'/home/node/.local/share/mise/installs/node/24.20.0/bin/node','python':str(Path(sys.executable).resolve()),'taskset':'/usr/bin/taskset','clang':'/tmp/bendvy-clang19-diagnostic/clang19','clangBinary':'/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'}
+ sidecars=[old/'boundary.js',old/'boundary.c']
+ pins.update({str(p):sha(p) for p in sidecars})
  helpers=[HERE/n for n in ['PLAN.json','prepare.py.source','sample.py.source','execute.py.source','test-sample.py.source']]+[ROOT/'scripts/receipt-logs.py',ROOT/'scripts/task_runner.py',ROOT/'scripts/evidence_boundary.py',ROOT/'experiments/public-simulation/delivery-v1/installed-config.py',ROOT/'experiments/public-relations/timing/current-qualification-v1/trace-cheap.py']
  pins.update({str(p.resolve()):sha(p) for p in helpers});pins.update({str(Path(p).resolve()):sha(p) for p in tools.values()})
  import gzip
