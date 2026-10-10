@@ -1,0 +1,32 @@
+{
+  "consumerJoins": [
+    {
+      "source": "consumer.bend",
+      "public": "consumer-public.bend",
+      "mapping": [
+        {
+          "from": "import event-declaration.bend",
+          "to": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-event-declaration.bend"
+        },
+        {
+          "from": "import event-owner.bend",
+          "to": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-event.bend"
+        }
+      ],
+      "inverseExact": true,
+      "publicSha256": "514b7179432982fc25b6d4d888c045ec30e932315c975898503f4ca5d5f009a5"
+    },
+    {
+      "source": "entry-a.bend",
+      "public": "entry-public.bend",
+      "mapping": [
+        {
+          "from": "import consumer.bend",
+          "to": "import consumer-public.bend"
+        }
+      ],
+      "inverseExact": true,
+      "publicSha256": "2fa8389b4b2503186a3c5a0515a0ea6d3527896a025d8615e572e039995f114a"
+    }
+  ]
+}
