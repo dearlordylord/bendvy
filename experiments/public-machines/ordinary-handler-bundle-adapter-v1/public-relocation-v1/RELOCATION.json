@@ -1,0 +1,31 @@
+{
+  "consumer": {
+    "privateSource": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/consumer.bend",
+    "privateSHA256": "cf8cf277ae42a43855d275bb47e04b2dfdfbe27a50a0a7621e7d012c798463c2",
+    "publicSHA256": "67c1587ba9d9583d23662ca0b343b94b2db76cd6083d289d4ea9a123745e2a44",
+    "from": "import adapter.bend as Bridge",
+    "to": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-handler-bundle.bend as Bridge",
+    "literalInverse": true
+  },
+  "modules": [
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/phases.bend",
+      "sourceSHA256": "f8218cbfd3fbb0db4145a9b8c6d9067ec1c753de1afa593b2b387a2d1ec79c5d",
+      "target": "src/ecs/machine-handler-phases.bend",
+      "targetSHA256": "5a005592948f1b14756486bf74fb52acb37d6b71e90d27902dc8fdbe86df3781",
+      "literalImportInverse": true,
+      "actualTarget": "/workspace/formal-proofs/bendvy/src/ecs/machine-handler-phases.bend",
+      "literalInverseVerified": true
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-machines/ordinary-handler-bundle-adapter-v1/adapter.bend",
+      "sourceSHA256": "483db07866ea44517d552ae70d0c7db294bc0adc77ffd9dbf05cb2b08bbc7fa2",
+      "target": "src/ecs/ordinary-machine-handler-bundle.bend",
+      "targetSHA256": "a05eb1a8b28f82bae84941ed83282bef6268d6e22f9751c01cd41009848729b1",
+      "literalImportInverse": true,
+      "actualTarget": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-handler-bundle.bend",
+      "literalInverseVerified": true
+    }
+  ],
+  "scope": "Actual public source successor only; no backend receipt replay/transfer. Existing nominal public H/B/M/World dependencies joined by source closure."
+}
