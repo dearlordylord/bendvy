@@ -1,0 +1,11 @@
+# Missing-condition delivery: bounded Spec/Standards review
+
+PASS for delivery `030575749b82ab6dc71d2e04aa8f756ae4744ed1`, source `f4895ec3c`, independent oracle `bdbc622e1`. This qualifies the private additive checked-condition adapter and its finite missing-Flow consumer; it does not close #48/#49.
+
+Spec: `checked-schedule.bend:after_condition` returns `Sch.Failed` directly with the actual condition-returned World, untouched affine owners, original schedule steps and prior observations. The failure branch invokes neither dispatch nor skip. The consumer executes the ordinary declaration-derived `K.run` requirement check against the actual Flow slot, rather than synthesizing a missing-slot result. Its fixture removes only that slot. `P.frame` precedes checked scheduling, so retention/frame changes survive failure, and the reached `Entered(condition-preflight)` observation is retained. The existing missing-requirements category and names are mapped into the fixture's String error (`ConditionMissing:[Flow]`); this is not a claim that the original nominal K.Error value is returned unchanged.
+
+Standards: the adapter leaves the public Bool-condition runner unchanged, uses named continuations for computed results, and transports typed owners without cloning or discarding them. Scope and historical attempts are retained explicitly. No shared source was edited during review.
+
+Evidence: independently verified every hash/length in the 160-member source ZIP and 34-member runtime ZIP, binding-file hashes and current independent source pins. Regenerated the pure source-derived model: 3733 bytes, SHA256 `82950a7dc9c6ab95f9f1eb1372e49b93d15c69db8861009ea687a6b4d4a657ae`, exactly matching the retained gzip and both actual JS/Native complete outputs. All five recorded commands exited zero with no failure; all 17 guard receipts, their plan/source/artifact joins, generated artifacts and Native binary identities match. The archived root second-sanity receipt agrees. No compiler, backend or test was rerun.
+
+Remaining gates: broader condition/handler failure cases, second-schema execution, initialization and changed-state policy, affected authority/counterfactual controls, public promotion and comparative performance are unqualified by this packet. Finite owner-preservation observations do not establish universal callback noninterference.
