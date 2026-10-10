@@ -36,3 +36,8 @@ and Native94186, both complete 12,865-byte equality (f2565a7b…). Five commands
 and unchanged guards are retained in the compact runtime archive. Affected
 authority/failure controls and final review remain required. No general
 arbitrary schema/arity/full #56 claim.
+
+Affected source controls23925: foreign nominal Plan and affine Scheduled duplication
+refused with intended tokens; second nominal complete consumer and invalid-attach
+full original App recovery typecheck. Invalid-attach runtime remains open. Exact
+generated JS/C/native artifact bodies are preserved losslessly alongside plans.
