@@ -1,0 +1,3 @@
+# Internal pair-return scan
+
+All47 modules and whole5077477-byte oracle retained. Compatibility ScanResult/Link and scan functions remain unchanged; only composed_scanned routes through the internal pair worker. Matching before projection, affine owner threading, continuation once, final reversal and lookup refusals remain unchanged. Removing reached recursive boxed result is an unmeasured representation hypothesis. Completed diagnostic outer definition census stayed fixed while aggregate analysis facts converged; no observed specialization growth or stock cause claim. Source5 then whole stock JS30/runtime5 and conditional Native30/build120/runtime5; unchanged runner and internal shared lock.
