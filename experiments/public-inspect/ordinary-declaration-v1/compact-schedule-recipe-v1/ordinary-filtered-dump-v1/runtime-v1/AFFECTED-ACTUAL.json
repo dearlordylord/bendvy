@@ -1,0 +1,122 @@
+{
+  "actuals": {
+    "other": {
+      "scope": "Whole33actions\u00d72scenes, finiteColumn/Product ArrayU32.",
+      "sourceCheckpoint": "18e5799ed",
+      "modelCommit": "c30971c2b",
+      "catalogue": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-filtered-dump-oracle-v1/affected-v1/ORACLES.json",
+      "catalogueSHA256": "0ac89642c11d4cba31549a6a341bcf9cdb2d3b191b5e14c00a31d330178cbdad",
+      "results": [
+        {
+          "role": "js",
+          "originalHandle": 5998,
+          "receipt": "/tmp/bendvy-ordinary-filtered-dump-other-runtime01/a-normal-js/receipt.json",
+          "receiptSHA256": "9b20d4bc844a0e51d5b255fb454422edab7dfcf5d12da46195515673cd64c0d4",
+          "bytes": 43738,
+          "sha256": "5f098863f30f5d019926f5b5afe14d3717cbf3f21ec8193f78eafbcb2cd47aa3",
+          "commands": 2,
+          "guards": 7
+        },
+        {
+          "role": "native",
+          "originalHandle": 21703,
+          "receipt": "/tmp/bendvy-ordinary-filtered-dump-other-runtime01/a-normal-native/receipt.json",
+          "receiptSHA256": "544c8cc9db1fd298a839145940520fe3c534a2c781ed22dcc6c412ac3326cacf",
+          "bytes": 43738,
+          "sha256": "5f098863f30f5d019926f5b5afe14d3717cbf3f21ec8193f78eafbcb2cd47aa3",
+          "commands": 3,
+          "guards": 10
+        }
+      ],
+      "archive": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-filtered-dump-v1/runtime-v1/actual-other01/manifest.json",
+      "archiveMembers": 35
+    },
+    "mutant": {
+      "scope": "Whole33actions\u00d72scenes, finiteColumn/Product ArrayU32.",
+      "sourceCheckpoint": "18e5799ed",
+      "modelCommit": "c30971c2b",
+      "catalogue": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-filtered-dump-oracle-v1/affected-v1/ORACLES.json",
+      "catalogueSHA256": "0ac89642c11d4cba31549a6a341bcf9cdb2d3b191b5e14c00a31d330178cbdad",
+      "results": [
+        {
+          "role": "js",
+          "originalHandle": 52260,
+          "receipt": "/tmp/bendvy-ordinary-filtered-dump-mutant-runtime01/a-normal-js/receipt.json",
+          "receiptSHA256": "9d22c17eeb79e54acc3c6d6f11e4c7aa3f69ee987e69325e6eb89188803ffdac",
+          "bytes": 43806,
+          "sha256": "d4662bcc7c169a36317c186a62c77878e53936230e2cfe4348708ffab72a8910",
+          "commands": 2,
+          "guards": 7
+        },
+        {
+          "role": "native",
+          "originalHandle": 53831,
+          "receipt": "/tmp/bendvy-ordinary-filtered-dump-mutant-runtime01/a-normal-native/receipt.json",
+          "receiptSHA256": "fb227cbba9857be0e3ab350f83b5c4730f41feb0e07ea0a60993d4ad98460942",
+          "bytes": 43806,
+          "sha256": "d4662bcc7c169a36317c186a62c77878e53936230e2cfe4348708ffab72a8910",
+          "commands": 3,
+          "guards": 10
+        }
+      ],
+      "archive": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-filtered-dump-v1/runtime-v1/actual-mutant01/manifest.json",
+      "archiveMembers": 36
+    }
+  },
+  "comparisons": [
+    {
+      "role": "js",
+      "actual": "/tmp/bendvy-ordinary-filtered-dump-mutant-runtime01/a-normal-js/consumer.stdout",
+      "actualBytes": 43806,
+      "actualSHA256": "d4662bcc7c169a36317c186a62c77878e53936230e2cfe4348708ffab72a8910",
+      "modelEquality": true,
+      "receiptUnchanged": true,
+      "receiptClaimsBaselineFlag": false,
+      "baselines": {
+        "baseline": {
+          "gzip": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-filtered-dump-oracle-v1/affected-v1/baseline.stdout.gz",
+          "bytes": 43738,
+          "sha256": "5f098863f30f5d019926f5b5afe14d3717cbf3f21ec8193f78eafbcb2cd47aa3",
+          "completeBytesUnequal": true,
+          "firstDifference": 9,
+          "semanticFaultAttribution": false
+        },
+        "same-namespace-baseline": {
+          "gzip": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-filtered-dump-oracle-v1/affected-v1/same-namespace-baseline.stdout.gz",
+          "bytes": 43738,
+          "sha256": "be1b7cae658403f60ac8b4b1f37632064fe0865bc8e88310ff175aa602f509ed",
+          "completeBytesUnequal": true,
+          "firstDifference": 24778,
+          "semanticFaultAttribution": true
+        }
+      }
+    },
+    {
+      "role": "native",
+      "actual": "/tmp/bendvy-ordinary-filtered-dump-mutant-runtime01/a-normal-native/consumer.stdout",
+      "actualBytes": 43806,
+      "actualSHA256": "d4662bcc7c169a36317c186a62c77878e53936230e2cfe4348708ffab72a8910",
+      "modelEquality": true,
+      "receiptUnchanged": true,
+      "receiptClaimsBaselineFlag": false,
+      "baselines": {
+        "baseline": {
+          "gzip": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-filtered-dump-oracle-v1/affected-v1/baseline.stdout.gz",
+          "bytes": 43738,
+          "sha256": "5f098863f30f5d019926f5b5afe14d3717cbf3f21ec8193f78eafbcb2cd47aa3",
+          "completeBytesUnequal": true,
+          "firstDifference": 9,
+          "semanticFaultAttribution": false
+        },
+        "same-namespace-baseline": {
+          "gzip": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-filtered-dump-oracle-v1/affected-v1/same-namespace-baseline.stdout.gz",
+          "bytes": 43738,
+          "sha256": "be1b7cae658403f60ac8b4b1f37632064fe0865bc8e88310ff175aa602f509ed",
+          "completeBytesUnequal": true,
+          "firstDifference": 24778,
+          "semanticFaultAttribution": true
+        }
+      }
+    }
+  ]
+}
