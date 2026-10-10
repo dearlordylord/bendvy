@@ -1,0 +1,239 @@
+import Base
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sy
+import /workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend as Ev
+import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as Tx
+
+import event-declaration.bend as Event
+import event-owner.bend as Owner
+
+type Schema is Data:
+  Schema{}
+type ReadRequest is Data:
+  ReadRequest{reader: String,fail: Bool}
+type Observation is Data:
+  Observation{reader: String,values: List<&2,U32>,lagged: Bool}
+type Error is Data:
+  ReadFailed{observation: Observation}
+  PublishFailed{}
+type PublishRequest is Data:
+  PublishRequest{value: U32,count: U32,second: Maybe<&2,U32>,fail: Bool}
+
+def signal() -> Event.Domain<Schema,U32>:Event.domain(~Schema,~U32,"Signal")
+def reader_declaration() -> Event.Declaration<Schema,U32>:Event.read(~Schema,~U32,signal())
+def writer_declaration() -> Event.Declaration<Schema,U32>:Event.write(~Schema,~U32,signal())
+
+def empty(_: Unit) -> Unit: Unit{}
+def fail_read(fail: Bool,world: W.World<Schema,Unit,Unit,U32>,+observation: Observation) -> Sy.Outcome<W.World<Schema,Unit,Unit,U32>,Error,Observation>:
+  match fail:
+    case False{}: Sy.Succeeded{world,observation}
+    case True{}: Sy.Failed{world,ReadFailed{observation}}
+
+def observed(~H: Type,owner: H,+reader: String,reading: Ev.Reading<U32>) -> H & Observation:
+  match reading:
+    case Ev.Reading{values,lagged}: (owner,Observation{reader,values,lagged})
+
+def gameplay_observed(~H: Type,+reader: String,returned: H & Ev.Reading<U32>) -> H & Observation:
+  (owner,reading) = returned
+  observed(~H,owner,reader,reading)
+
+def gameplay(~H: Type,~observe: H -> H & Ev.Reading<U32>,ops: Ev.ReadAccess<H,U32,observe>,owner: H,+reader: String) -> H & Observation:
+  gameplay_observed(~H,reader,Ev.all(~H,~U32,~observe,ops,owner))
+
+def read_finished(world: W.World<Schema,Unit,Unit,U32>,returned: Ev.Input<U32,ReadRequest> & Observation) -> Sy.Outcome<W.World<Schema,Unit,Unit,U32>,Error,Observation>:
+  match returned:
+    case (Ev.Input{_,_,ReadRequest{_,fail}},observation): fail_read(fail,world,observation)
+
+def read_runner(world: W.World<Schema,Unit,Unit,U32>,input: Ev.Input<U32,ReadRequest>) -> Sy.Outcome<W.World<Schema,Unit,Unit,U32>,Error,Observation>:
+  match input:
+    case Ev.Input{+values,+lagged,ReadRequest{+reader,+fail}}: read_finished(world,gameplay(~Ev.Input<U32,ReadRequest>,~(input => Ev.input_read(~U32,~ReadRequest,input)),Event.read_grant(~Schema,~U32,~Ev.Input<U32,ReadRequest>,~(input => Ev.input_read(~U32,~ReadRequest,input)),signal()),Ev.Input{values,lagged,ReadRequest{reader,fail}},reader))
+
+def stage_many(remaining: Nat,+value: U32,tx: Tx.Tx<W.World<Schema,Unit,Unit,U32>,U32>) -> Tx.Tx<W.World<Schema,Unit,Unit,U32>,U32>:
+  match remaining:
+    case 0n: tx
+    case 1n+rest: stage_many(rest,value,Ev.emit(~Tx.Tx<W.World<Schema,Unit,Unit,U32>,U32>,~U32,~(tx => event => Tx.emit(~W.World<Schema,Unit,Unit,U32>,~U32,tx,event)),Event.write_grant(~Schema,~U32,~Tx.Tx<W.World<Schema,Unit,Unit,U32>,U32>,~(tx => event => Tx.emit(~W.World<Schema,Unit,Unit,U32>,~U32,tx,event)),signal()),tx,value))
+
+def stage_second(second: Maybe<&2,U32>,tx: Tx.Tx<W.World<Schema,Unit,Unit,U32>,U32>) -> Tx.Tx<W.World<Schema,Unit,Unit,U32>,U32>:
+  match second:
+    case None{}: tx
+    case Some{value}: Ev.emit(~Tx.Tx<W.World<Schema,Unit,Unit,U32>,U32>,~U32,~(tx => event => Tx.emit(~W.World<Schema,Unit,Unit,U32>,~U32,tx,event)),Event.write_grant(~Schema,~U32,~Tx.Tx<W.World<Schema,Unit,Unit,U32>,U32>,~(tx => event => Tx.emit(~W.World<Schema,Unit,Unit,U32>,~U32,tx,event)),signal()),tx,value)
+
+def outcome(fail: Bool) -> Tx.Outcome<Error>:
+  match fail:
+    case False{}: Tx.Success{}
+    case True{}: Tx.Failure{PublishFailed{}}
+
+def queue_none(world: W.World<Schema,Unit,Unit,U32>,_: List<(W.World<Schema,Unit,Unit,U32> -> W.World<Schema,Unit,Unit,U32>)>) -> W.World<Schema,Unit,Unit,U32>: world
+
+def published(returned: Tx.Returned<W.World<Schema,Unit,Unit,U32>,Error>) -> Sy.Outcome<W.World<Schema,Unit,Unit,U32>,Error,Unit>:
+  match returned:
+    case Tx.Returned{world,Tx.Success{}}: Sy.Succeeded{world,Unit{}}
+    case Tx.Returned{world,Tx.Failure{error}}: Sy.Failed{world,error}
+
+def publish_runner(world: W.World<Schema,Unit,Unit,U32>,request: PublishRequest) -> Sy.Outcome<W.World<Schema,Unit,Unit,U32>,Error,Unit>:
+  match request:
+    case PublishRequest{value,count,second,fail}: published(Tx.finish(~W.World<Schema,Unit,Unit,U32>,~U32,~Error,~queue_none,~(world => events => W.event_publish(~Schema,~Unit,~Unit,~U32,world,events)),stage_second(second,stage_many(U32.to_nat(count),value,Tx.begin(~W.World<Schema,Unit,Unit,U32>,~U32,world))),outcome(fail)))
+
+type Host is Type:
+  Host{runtime: Ev.Runtime<Schema,Unit,Unit,U32>,fast: Ev.Reader<Schema>,fastReg: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,slow: Ev.Reader<Schema>,slowReg: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,publisher: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>>,reads: List<&2,Observation>,ok: Bool}
+type PublisherResult is Type:
+  PublisherResult{registry: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>>,ok: Bool}
+
+def publisher_outcome(registry: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>>,result: Sy.Outcome<W.World<Schema,Unit,Unit,U32>,Error,Unit>) -> W.World<Schema,Unit,Unit,U32> & PublisherResult:
+  match result:
+    case Sy.Failed{world,_}: (world,PublisherResult{registry,False{}})
+    case Sy.Succeeded{world,_}: (world,PublisherResult{registry,True{}})
+
+def publisher_result(result: Owner.WriterResult<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>) -> W.World<Schema,Unit,Unit,U32> & PublisherResult:
+  match result:
+    case Owner.Rejected{registry,world,_}: (world,PublisherResult{registry,False{}})
+    case Owner.Completed{registry,outcome}: publisher_outcome(registry,outcome)
+
+def publish_join(joined: Ev.Runtime<Schema,Unit,Unit,U32> & PublisherResult,fast: Ev.Reader<Schema>,fastReg: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,slow: Ev.Reader<Schema>,slowReg: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,+reads: List<&2,Observation>) -> Host:
+  match joined:
+    case (runtime,PublisherResult{publisher,ok}): Host{runtime,fast,fastReg,slow,slowReg,publisher,reads,ok}
+
+def publish(host: Host,+request: PublishRequest) -> Host:
+  match host:
+    case Host{runtime,fast,fastReg,slow,slowReg,publisher,+reads,_}: publish_join(Ev.with_world(~Schema,~Unit,~Unit,~U32,~PublisherResult,world => publisher_result(Owner.run_writer(~Schema,~Unit,~Unit,~U32,~PublishRequest,~Error,~Unit,~publish_runner,publisher,world,request)),runtime),fast,fastReg,slow,slowReg,reads)
+
+def host_read(which: Bool,runtime: Ev.Runtime<Schema,Unit,Unit,U32>,reader: Ev.Reader<Schema>,registry: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,other: Ev.Reader<Schema>,otherReg: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,publisher: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>>,+reads: List<&2,Observation>,ok: Bool) -> Host:
+  match which:
+    case True{}: Host{runtime,reader,registry,other,otherReg,publisher,reads,ok}
+    case False{}: Host{runtime,other,otherReg,reader,registry,publisher,reads,ok}
+
+def read_completion(which: Bool,runtime: Ev.Runtime<Schema,Unit,Unit,U32>,reader: Ev.Reader<Schema>,registry: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,other: Ev.Reader<Schema>,otherReg: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,publisher: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>>,+reads: List<&2,Observation>,completion: Ev.Completion<Error,Observation,ReadRequest>) -> Host:
+  match completion:
+    case Ev.Succeeded{observation}: host_read(which,runtime,reader,registry,other,otherReg,publisher,List.append(&2,Observation,reads,[observation]),True{})
+    case Ev.Failed{ReadFailed{observation}}: host_read(which,runtime,reader,registry,other,otherReg,publisher,List.append(&2,Observation,reads,[observation]),False{})
+    case Ev.Failed{PublishFailed{}}: host_read(which,runtime,reader,registry,other,otherReg,publisher,reads,False{})
+    case Ev.Rejected{_}: host_read(which,runtime,reader,registry,other,otherReg,publisher,reads,False{})
+
+def complete_read(which: Bool,result: Owner.ReaderResult<Schema,Unit,Unit,U32,ReadRequest,Error,Observation,read_runner>,other: Ev.Reader<Schema>,otherReg: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,publisher: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>>,+reads: List<&2,Observation>) -> Host:
+  match result:
+    case Owner.Ran{runtime,reader,registry,completion}: read_completion(which,runtime,reader,registry,other,otherReg,publisher,reads,completion)
+
+def read(host: Host,which: Bool,+fail: Bool) -> Host:
+  match host which:
+    case Host{runtime,fast,fastReg,slow,slowReg,publisher,+reads,_} True{}: complete_read(True{},Owner.run_reader(~Schema,~Unit,~Unit,~U32,~ReadRequest,~Error,~Observation,~read_runner,fastReg,runtime,fast,ReadRequest{"fast",fail}),slow,slowReg,publisher,reads)
+    case Host{runtime,fast,fastReg,slow,slowReg,publisher,+reads,_} False{}: complete_read(False{},Owner.run_reader(~Schema,~Unit,~Unit,~U32,~ReadRequest,~Error,~Observation,~read_runner,slowReg,runtime,slow,ReadRequest{"slow",fail}),fast,fastReg,publisher,reads)
+
+def begin(host: Host) -> Host:
+  match host:
+    case Host{runtime,fast,fastReg,slow,slowReg,publisher,_,_}: Host{Ev.frame(~Schema,~Unit,~Unit,~U32,runtime),fast,fastReg,slow,slowReg,publisher,[],True{}}
+
+def skipped(joined: Ev.Runtime<Schema,Unit,Unit,U32> & Ev.Reader<Schema>,fastReg: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,slow: Ev.Reader<Schema>,slowReg: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,publisher: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>>,+reads: List<&2,Observation>,ok: Bool) -> Host:
+  (runtime,fast) = joined
+  Host{runtime,fast,fastReg,slow,slowReg,publisher,reads,ok}
+
+def skip(host: Host) -> Host:
+  match host:
+    case Host{runtime,fast,fastReg,slow,slowReg,publisher,+reads,ok}: skipped(Ev.skip(~Schema,~Unit,~Unit,~U32,runtime,fast),fastReg,slow,slowReg,publisher,reads,ok)
+
+def bool(value: Bool) -> String:
+  match value:
+    case False{}: "false"
+    case True{}: "true"
+def raw(value: String) -> String: value
+def array(+values: List<&2,String>) -> String: List.show(~&2,~String,~raw,values)
+def comma(first: Bool) -> String:
+  match first:
+    case False{}: ","
+    case True{}: ""
+def numbers_loop(items: List<&2,U32>,+acc: String,first: Bool) -> String:
+  match items:
+    case []: "[" ++ acc
+    case value <> rest: numbers_loop(rest,U32.show(value) ++ comma(first) ++ acc,False{})
+def numbers(+values: List<&2,U32>) -> String: numbers_loop(List.reverse(&2,U32,values),"]",True{})
+def observation(observation: Observation) -> String:
+  match observation:
+    case Observation{reader,values,lagged}: "{\"reader\":\"" ++ reader ++ "\",\"values\":" ++ numbers(values) ++ ",\"lagged\":" ++ bool(lagged) ++ "}"
+def observations(items: List<&2,Observation>) -> List<&2,String>:
+  match items:
+    case []: []
+    case item <> rest: observation(item) <> observations(rest)
+def reader_json(status: Ev.ReaderStatus,+name: String) -> String:
+  match status:
+    case Ev.ReaderStatus{_,_,_,unread,lagged}: "{\"name\":\"" ++ name ++ "\",\"unread\":" ++ Nat.show(unread) ++ ",\"lagged\":" ++ bool(lagged) ++ "}"
+def reader_name(first: Bool) -> String:
+  match first:
+    case True{}: "fast"
+    case False{}: "slow"
+def named_status(status: Ev.ReaderStatus) -> String:
+  match status:
+    case Ev.ReaderStatus{+id,+cursor,+registered,+unread,+lagged}: reader_json(Ev.ReaderStatus{id,cursor,registered,unread,lagged},reader_name(U32.is_eq(id,1)))
+def statuses(items: List<&2,Ev.ReaderStatus>) -> List<&2,String>:
+  match items:
+    case []: []
+    case item <> rest: named_status(item) <> statuses(rest)
+def snapshot_json(+label: String,ok: Bool,+reads: List<&2,Observation>,snapshot: Ev.Snapshot<U32>) -> String:
+  match snapshot:
+    case Ev.Snapshot{_,+retained,readers,_,_}: "{\"label\":\"" ++ label ++ "\",\"ok\":" ++ bool(ok) ++ ",\"reads\":" ++ array(observations(reads)) ++ ",\"stored\":" ++ numbers(retained) ++ ",\"retainedSize\":" ++ Nat.show(Ev.count(~U32,retained)) ++ ",\"readers\":" ++ array(statuses(readers)) ++ "}"
+def snapshot_join(+label: String,joined: Ev.Runtime<Schema,Unit,Unit,U32> & Ev.Snapshot<U32>,fast: Ev.Reader<Schema>,fastReg: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,slow: Ev.Reader<Schema>,slowReg: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,publisher: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>>,+reads: List<&2,Observation>,+ok: Bool) -> Host & String:
+  (runtime,snapshot) = joined
+  (Host{runtime,fast,fastReg,slow,slowReg,publisher,reads,ok},snapshot_json(label,ok,reads,snapshot))
+
+def snapshot(host: Host,+label: String) -> Host & String:
+  match host:
+    case Host{runtime,fast,fastReg,slow,slowReg,publisher,+reads,+ok}: snapshot_join(label,Ev.inspect(~Schema,~Unit,~Unit,~U32,runtime),fast,fastReg,slow,slowReg,publisher,reads,ok)
+
+type Action is Data:
+  Publish{request: PublishRequest}
+  Read{fast: Bool,fail: Bool}
+  Skip{}
+type Step is Data:
+  Step{label: String,actions: List<&2,Action>}
+def action(action: Action,host: Host) -> Host:
+  match action:
+    case Publish{request}: publish(host,request)
+    case Read{fast,fail}: read(host,fast,fail)
+    case Skip{}: skip(host)
+def actions(items: List<&2,Action>,host: Host) -> Host:
+  match items:
+    case []: host
+    case item <> rest: actions(rest,action(item,host))
+def step_finish(joined: Host & String,+previous: List<&2,String>,ih: Host -> List<&2,String> -> List<&2,String>) -> List<&2,String>:
+  (host,checkpoint) = joined
+  ih(host,List.append(&2,String,previous,[checkpoint]))
+def steps(items: List<&2,Step>,host: Host,+previous: List<&2,String>) -> List<&2,String>:
+  match items:
+    case []: previous
+    case Step{label,commands} <> rest: step_finish(snapshot(actions(commands,begin(host)),label),previous,host => checkpoints => steps(rest,host,checkpoints))
+
+def scenario(host: Host,+count: U32) -> List<&2,String>:
+  steps([
+    Step{"register",[Read{True{},False{}},Read{False{},False{}}]},
+    Step{"publish-fast",[Publish{PublishRequest{10,1,Some{11},False{}}},Read{True{},False{}}]},
+    Step{"slow-retains-first",[]},Step{"slow-retains-second",[]},
+    Step{"failed-read",[Read{False{},True{}}]},Step{"retry-read",[Read{False{},False{}}]},
+    Step{"cleanup-passed",[]},
+    Step{"publish-skip",[Publish{PublishRequest{20,1,None{},False{}}},Skip{}]},
+    Step{"after-skip",[Read{True{},False{}}]},Step{"slow-after-skip",[Read{False{},False{}}]},
+    Step{"failed-publication",[Publish{PublishRequest{999,1,None{},True{}}}]},
+    Step{"retry-publication",[Publish{PublishRequest{21,1,None{},False{}}}]},
+    Step{"both-read-retry",[Read{True{},False{}},Read{False{},False{}}]},
+    Step{"capacity-first-batch",[Publish{PublishRequest{30,count,None{},False{}}}]},
+    Step{"capacity-second-batch",[Publish{PublishRequest{40,1,Some{41},False{}}}]},
+    Step{"capacity-enforced",[]},Step{"lagged-readers",[Read{True{},False{}},Read{False{},False{}}]},
+    Step{"cleanup-after-lag",[]}
+  ],host,[])
+def setup_slow(~probe: Host -> @+count: U32 -> List<&2,String>,registered: Ev.Registered<Schema,Unit,Unit,U32,ReadRequest,Error,Observation,read_runner>,fast: Ev.Reader<Schema>,fastReg: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>>,publisher: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>>,+count: U32) -> List<&2,String>:
+  match registered:
+    case Ev.RegisterFailed{_}: ["{\"setupFailure\":\"slow\"}"]
+    case Ev.Registered{runtime,slow,slowReg}: probe(Host{runtime,fast,fastReg,slow,Owner.bind(~Schema,~U32,~Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>,reader_declaration(),slowReg),publisher,[],True{}},count)
+
+def setup_fast(~probe: Host -> @+count: U32 -> List<&2,String>,registered: Ev.Registered<Schema,Unit,Unit,U32,ReadRequest,Error,Observation,read_runner>,publisher: Owner.Owner<Schema,U32,Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>>,+count: U32) -> List<&2,String>:
+  match registered:
+    case Ev.RegisterFailed{_}: ["{\"setupFailure\":\"fast\"}"]
+    case Ev.Registered{runtime,fast,fastReg}: setup_slow(~probe,Event.register_reader(~Schema,~Unit,~Unit,~U32,~ReadRequest,~Error,~Observation,~read_runner,runtime,reader_declaration(),"slow"),fast,Owner.bind(~Schema,~U32,~Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>,reader_declaration(),fastReg),Owner.bind(~Schema,~U32,~Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>,writer_declaration(),publisher),count)
+
+def setup_publisher(~probe: Host -> @+count: U32 -> List<&2,String>,+count: U32,registered: Sy.RegistrationResult<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>) -> List<&2,String>:
+  match registered:
+    case Sy.RegistrationFailed{_}: ["{\"setupFailure\":\"publisher\"}"]
+    case Sy.Registered{world,publisher}: setup_fast(~probe,Event.register_reader(~Schema,~Unit,~Unit,~U32,~ReadRequest,~Error,~Observation,~read_runner,Ev.start(~Schema,~Unit,~Unit,~U32,world,U32.to_nat((count+1 : U32))),reader_declaration(),"fast"),Owner.bind(~Schema,~U32,~Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>,writer_declaration(),publisher),count)
+
+def setup(~probe: Host -> @+count: U32 -> List<&2,String>,+count: U32,created: W.Creation<Schema,Unit,Unit,U32>) -> List<&2,String>:
+  match created:
+    case W.CreateRejected{_,_}: ["{\"setupFailure\":\"world\"}"]
+    case W.Created{_,world}: setup_publisher(~probe,count,Event.register_writer(~Schema,~Unit,~Unit,~U32,~PublishRequest,~Error,~Unit,~publish_runner,world,writer_declaration(),"publish"))
+

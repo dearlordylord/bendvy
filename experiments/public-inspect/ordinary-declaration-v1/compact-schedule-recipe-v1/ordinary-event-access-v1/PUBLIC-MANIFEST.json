@@ -1,0 +1,56 @@
+{
+  "modules": [
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/event-declaration.bend",
+      "sourceBytes": 2700,
+      "sourceSha256": "66f8386d4bba5b5f784c7f7439e1f635223a11d6cde0f0195309ed12523028ba",
+      "prepared": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/public-target/ordinary-event-declaration.bend",
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-event-declaration.bend",
+      "targetBytes": 2586,
+      "targetSha256": "e168b856cf35273713117364a83723e168d695c2437f86e4f838baac807ef55b",
+      "imports": [
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "to": "./world.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+          "to": "./system.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend",
+          "to": "./event-runtime.bend"
+        }
+      ],
+      "inverseExact": true
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/event-owner.bend",
+      "sourceBytes": 7291,
+      "sourceSha256": "31db62266b2d4d794d76da74e9c9407a19e7446016e4a8118af3d147431d28c0",
+      "prepared": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/public-target/ordinary-app-event.bend",
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-event.bend",
+      "targetBytes": 7188,
+      "targetSha256": "12033cac9f3db4ca2d421fc64e5f5837ace60c15830b969c4fc76db001b05eb0",
+      "imports": [
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "to": "./world.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/system.bend",
+          "to": "./system.bend"
+        },
+        {
+          "from": "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend",
+          "to": "./event-runtime.bend"
+        },
+        {
+          "from": "event-declaration.bend",
+          "to": "./ordinary-event-declaration.bend"
+        }
+      ],
+      "inverseExact": true
+    }
+  ]
+}

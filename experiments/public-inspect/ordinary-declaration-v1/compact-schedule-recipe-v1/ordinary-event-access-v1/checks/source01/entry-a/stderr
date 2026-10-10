@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : Sy.Registry<Schema, Unit, Unit, U32, PublishRequest, Error, Unit, publish_runner>
+- observed : Owner.Owner<Schema, U32, Sy.Registry<Schema, Unit, Unit, U32, PublishRequest, Error, Unit, publish_runner>>
+Context:
+- runtime   : Ev.Runtime<Schema, Unit, Unit, U32>
+- fast      : Ev.Reader<Schema>
+- fastReg   : Sy.Registry<Schema, Unit, Unit, U32, Ev.Input<U32, ReadRequest>, Error, Observation, read_runner>
+- publisher : Owner.Owner<Schema, U32, Sy.Registry<Schema, Unit, Unit, U32, PublishRequest, Error, Unit, publish_runner>>
+- count     : U32
+Location: setup_fast
+227 |     case Ev.RegisterFailed{_}: ["{\"setupFailure\":\"fast\"}"]
+228>|     case Ev.Registered{runtime,fast,fastReg}: setup_slow(~probe,Event.register_reader(~Schema,~Unit,~Unit,~U32,~ReadRequest,~Error,~Observation,~read_runner,runtime,reader_declaration(),"slow"),fast,Owner.bind(~Schema,~U32,~Sy.Registry<Schema,Unit,Unit,U32,Ev.Input<U32,ReadRequest>,Error,Observation,read_runner>,reader_declaration(),fastReg),Owner.bind(~Schema,~U32,~Sy.Registry<Schema,Unit,Unit,U32,PublishRequest,Error,Unit,publish_runner>,writer_declaration(),publisher),count)
+    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  ^^^^^^^^^
+229 | 
+bend 2.0.36 is available: run bend update
