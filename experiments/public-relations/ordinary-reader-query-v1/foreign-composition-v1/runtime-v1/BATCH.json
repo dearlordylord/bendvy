@@ -1,0 +1,39 @@
+{
+  "runner": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+  "runnerSHA256": "fa765d72b5be47d61b157dba3fd992858deea48f4ab1d4f464bd2c43e68efefa",
+  "plans": [
+    {
+      "role": "js",
+      "subject": "normal",
+      "case": "workshop",
+      "path": "/tmp/bendvy-relations42-foreign-composition-runtime01/workshop-js/plan.json",
+      "sha256": "31c8d4a180b3edd537b06743d7083eef5c9e17cd99d4312b35600fb0a9c4d2b3",
+      "sources": 30,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-relations42-foreign-composition-runtime01/workshop-js/plan.json",
+        "31c8d4a180b3edd537b06743d7083eef5c9e17cd99d4312b35600fb0a9c4d2b3"
+      ]
+    },
+    {
+      "role": "native",
+      "subject": "normal",
+      "case": "workshop",
+      "path": "/tmp/bendvy-relations42-foreign-composition-runtime01/workshop-native/plan.json",
+      "sha256": "7f3a8f62ee77f9a96db43c70c1f0bb627a804064ff87afba05cab1ed19fa3889",
+      "sources": 30,
+      "command": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-relations42-foreign-composition-runtime01/workshop-native/plan.json",
+        "7f3a8f62ee77f9a96db43c70c1f0bb627a804064ff87afba05cab1ed19fa3889"
+      ]
+    }
+  ],
+  "sequence": "Workshop JS wholePASS -> conditional Workshop Native wholePASS; stop any failure/deadline/guard failure; no retry",
+  "sourcePrerequisite": "Exact Workshop source02 cap5 actual PASS for frozen relation/provider/reader closure; raw source evidence preserved",
+  "scope": "First complete registered actual two-world foreign relation composition; no new reader/identity/affine-event policy, authority/reached-control/full42/proof/performance acceptance"
+}
