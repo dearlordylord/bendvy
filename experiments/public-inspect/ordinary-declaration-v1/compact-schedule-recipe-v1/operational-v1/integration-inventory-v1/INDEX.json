@@ -1,0 +1,15 @@
+{
+  "sourceAndArchiveCommit": "a4e4e7471",
+  "gitMembers": 1332,
+  "gitMembersBytes": 4466232,
+  "membersFile": "GIT-MEMBERS.jsonl.gz",
+  "decodedMembersSHA256": "fadd0ac6faf41ca23cab3e28492177deb198d0d1e1d7e35d96bde35328495451",
+  "supplemental": "SUPPLEMENTAL.json",
+  "transitiveIndex": "experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/operational-v1/runtime-v1/DELIVERY.json",
+  "excludes": [
+    "live tool installations",
+    "live helper adoption",
+    "untracked original execution directories"
+  ],
+  "rule": "Extract exact immutable Git files, then validate per-member SHA256/size. Existing root tracked dependencies are reuse only; private imported source bytes are captured by immutable checks/*/SOURCE.json+gzip source snapshots. No branch HEAD guess or compiler rerun needed."
+}
