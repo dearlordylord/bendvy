@@ -1,0 +1,36 @@
+{
+  "scope": "Diagnostic phase observations only; no production/compiler-mode equivalence or Native qualification",
+  "baseSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+  "observedSHA256": "fed4e2f8827cdb563ef02b962339f53cd539c60960d7446b0cedf336ecb910d1",
+  "inverseExact": true,
+  "patches": [
+    {
+      "before": "function compile_book(book) {",
+      "after": "function compile_book(book) {\n  const phaseStart = performance.now();\n  let phasePass = 0;\n  fs2.writeSync(2, JSON.stringify({phase:\"compile-enter\", ms:performance.now()})+\"\\n\");"
+    },
+    {
+      "before": "  const facts = () => fl.own.size + fl.hot.size + fl.stat.size;",
+      "after": "  fs2.writeSync(2, JSON.stringify({phase:\"file-book-complete\", ms:performance.now()})+\"\\n\");\n  const facts = () => fl.own.size + fl.hot.size + fl.stat.size;"
+    },
+    {
+      "before": "  do {\n    was = facts();",
+      "after": "  do {\n    fs2.writeSync(2, JSON.stringify({phase:\"pass-enter\", pass:++phasePass, ms:performance.now()})+\"\\n\");\n    was = facts();"
+    },
+    {
+      "before": "  } while (was !== facts());",
+      "after": "    fs2.writeSync(2, JSON.stringify({phase:\"pass-complete\", pass:phasePass, ms:performance.now(), facts:facts()})+\"\\n\");\n  } while (was !== facts());"
+    },
+    {
+      "before": "    fs4.writeFileSync(out, compile_book(book));",
+      "after": "    const phaseC = compile_book(book);\n    fs4.writeSync(2, JSON.stringify({phase:\"compile-complete\", ms:performance.now(), bytes:Buffer.byteLength(phaseC)})+\"\\n\");\n    fs4.writeFileSync(out, phaseC);\n    fs4.writeSync(2, JSON.stringify({phase:\"artifact-written\", ms:performance.now()})+\"\\n\");"
+    },
+    {
+      "before": "async function book_read(file, base, seen = new Map) {",
+      "after": "async function book_read(file, base, seen = new Map) {\n  fs4.writeSync(2, JSON.stringify({phase:\"book-read-enter\", ms:performance.now(), file})+\"\\n\");"
+    },
+    {
+      "before": "  return book;\n}\n\nclass Check_Fail",
+      "after": "  fs4.writeSync(2, JSON.stringify({phase:\"book-read-complete\", ms:performance.now(), file})+\"\\n\");\n  return book;\n}\n\nclass Check_Fail"
+    }
+  ]
+}
