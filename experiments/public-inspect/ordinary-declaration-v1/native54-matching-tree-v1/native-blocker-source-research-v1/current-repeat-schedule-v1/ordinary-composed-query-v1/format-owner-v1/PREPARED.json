@@ -1,0 +1,76 @@
+{
+  "scope": "Data-only World text extraction; exact reconstruction and 48 queries/12 snapshots unchanged; no compiler-cause or benefit claim",
+  "original": [
+    {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/policy-free-v2/observer-public.bend",
+      "bytes": 8968,
+      "sha256": "1484064d694093a0c5bf2b039eb67b6c5e8116fdb055120bb92503932793b202"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/ordinary-composed-query-v1/consumer.bend",
+      "bytes": 1551,
+      "sha256": "94f47449c32461b1e9696e4b91df4467b65c84bf62ee1ead95717c5105513109"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/ordinary-composed-query-v1/entry.bend",
+      "bytes": 1668,
+      "sha256": "7ece2a27dae962433a98b42fdce0be4280f7eeb2eab0d6b2ee2e5fcda8a71797"
+    }
+  ],
+  "candidate": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/inspector54-format-owner-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/ordinary-composed-query-v1/format-owner-v1/observer-public.bend",
+      "bytes": 9426,
+      "sha256": "851aa39824fefe7e4494e44213c6125161140190cec7585745fe6b4691d7e773"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/inspector54-format-owner-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/ordinary-composed-query-v1/format-owner-v1/consumer.bend",
+      "bytes": 1854,
+      "sha256": "58a7cf608ef05d515dc863573016741b55f730b8878a254a268a9ed04b11ef63"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/inspector54-format-owner-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/ordinary-composed-query-v1/format-owner-v1/entry.bend",
+      "bytes": 1835,
+      "sha256": "86cc100ccfcfd4ce054679529cda9c14a4c5c7a7d5b06157b152dba049ae7bd4"
+    }
+  ],
+  "importRelocations": {
+    "observer": [
+      [
+        "import ./consumer-public.bend as C",
+        "import /workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/policy-free-v2/consumer-public.bend as C"
+      ]
+    ],
+    "consumer": [
+      [
+        "import ../removal-inspection-v1/public-relocation-v1/policy-free-v2/consumer-public.bend as C",
+        "import /workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/policy-free-v2/consumer-public.bend as C"
+      ],
+      [
+        "import ../removal-inspection-v1/public-relocation-v1/policy-free-v2/observer-public.bend as O",
+        "import ./observer-public.bend as O"
+      ],
+      [
+        "import ./queries.bend as Q",
+        "import /workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/ordinary-composed-query-v1/queries.bend as Q"
+      ]
+    ],
+    "entry": [
+      [
+        "import ../removal-inspection-v1/public-relocation-v1/policy-free-v2/consumer-public.bend as C",
+        "import /workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/policy-free-v2/consumer-public.bend as C"
+      ],
+      [
+        "import ./consumer.bend as O",
+        "import ./consumer.bend as O"
+      ]
+    ]
+  },
+  "formatterExpressionInverse": {
+    "original": "\"World{namespace=\" ++ U32.show(ns) ++ \",nextId=\" ++ U32.show(next) ++ \",highWater=\" ++ U32.show(high) ++ \",live=\" ++ lt ++ \",capacity=\" ++ U32.show(capacity) ++ \",depth=\" ++ Nat.show(depth) ++ \",store=\" ++ st ++ \",resource=\" ++ rt ++ \",events=\" ++ List.show(~&2,~Provision.Publication<Rm.Record<S,Identity.Declaration<S,C.Payload>>,Rm.Record<S,Identity.Declaration<S,C.Payload>>>,~event(~S),events) ++ \",pending=\" ++ U32.show(n) ++ \",registrations=\" ++ List.show(~&2,~W.RegistrationMeta,~registration,registrations) ++ \",nextSystemId=\" ++ U32.show(system) ++ \",clock=\" ++ U32.show(clock) ++ \"}\"",
+    "candidate": "\"World{namespace=\" ++ U32.show(ns) ++ \",nextId=\" ++ U32.show(next) ++ \",highWater=\" ++ U32.show(high) ++ \",live=\" ++ lt ++ \",capacity=\" ++ U32.show(capacity) ++ \",depth=\" ++ Nat.show(depth) ++ \",store=\" ++ st ++ \",resource=\" ++ rt ++ \",events=\" ++ et ++ \",pending=\" ++ U32.show(n) ++ \",registrations=\" ++ regt ++ \",nextSystemId=\" ++ U32.show(system) ++ \",clock=\" ++ U32.show(clock) ++ \"}\"",
+    "events": "List.show(~&2,~Provision.Publication<Rm.Record<S,Identity.Declaration<S,C.Payload>>,Rm.Record<S,Identity.Declaration<S,C.Payload>>>,~event(~S),events)",
+    "registrations": "List.show(~&2,~W.RegistrationMeta,~registration,registrations)"
+  },
+  "ownerReconstructionPrefix": "  (W.World{ns,next,high,live,capacity,depth,store,resource,events,pending,registrations,system,clock}"
+}

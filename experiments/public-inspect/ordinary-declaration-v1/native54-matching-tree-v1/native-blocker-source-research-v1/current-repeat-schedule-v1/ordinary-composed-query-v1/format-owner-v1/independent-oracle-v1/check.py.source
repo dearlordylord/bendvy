@@ -1,0 +1,42 @@
+"""Current source inverse and independent full-output check; no runtime inputs."""
+from pathlib import Path
+import gzip, hashlib, json, re, runpy
+Q=Path(__file__).resolve().parent
+P=Q.parent
+sha=lambda raw:hashlib.sha256(raw).hexdigest()
+basis=json.loads((Q/'SOURCE-BASIS.json').read_text())
+for pins in (basis['sourcePins'],basis['inputs'],basis['modelPins']):
+    for name,digest in pins.items():assert sha(Path(name).read_bytes())==digest,name
+prepared=json.loads((P/'PREPARED.json').read_text())
+for row in prepared['original']+prepared['candidate']:
+    raw=Path(row['path']).read_bytes();assert len(raw)==row['bytes'] and sha(raw)==row['sha256']
+s=(P/'observer-public.bend').read_text()
+a=s.index('def world_format(');b=s.index('def world_join(',a);s=s[:a]+s[b:]
+e=prepared['formatterExpressionInverse']
+call='world_format(ns,next,high,capacity,depth,system,clock,lt,st,rt,'+e['events']+','+e['registrations']+',n)'
+assert s.count(call)==1
+s=s.replace(call,e['original'])
+for before,after in prepared['importRelocations']['observer']:s=s.replace(after,before)
+assert s==Path(prepared['original'][0]['path']).read_text()
+for label,index in (('consumer',1),('entry',2)):
+    s=(P/(label+'.bend')).read_text()
+    for before,after in prepared['importRelocations'][label]:s=s.replace(after,before)
+    assert s==Path(prepared['original'][index]['path']).read_text()
+closure={}
+def visit(path):
+    path=path.resolve();key=str(path)
+    if key in closure:return
+    closure[key]=sha(path.read_bytes())
+    for target in re.findall(r'^import\s+(\S+)',path.read_text(),re.M):
+        if target!='Base':visit(path.parent/target)
+visit(P/'entry.bend')
+assert closure==basis['sourcePins'] and len(closure)==34
+raw=runpy.run_path(str(Q/'model.py.source'))['expected']()
+assert len(raw)==9645 and sha(raw)=='6e0f59e6a879a9e8533d20d7ebba224b69a78e9e0def1f0a7b3a06cd6ac7a169'
+oldgzip=next(Path(f)for f in basis['inputs']if f.endswith('expected.stdout.gz'))
+assert raw==gzip.decompress(oldgzip.read_bytes())
+scene=json.loads(raw)
+assert len(scene.split('\n'))==12 and scene.count('composedQueries{')==12
+(Q/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+(Q/'CHECKS.json').write_text(json.dumps({'status':'PASS','sourcePins':34,'bytes':len(raw),'sha256':sha(raw),'snapshots':12,'queryCalls':48,'observerInverse':True,'consumerEntryImportInverse':True,'completePhysicalFieldRetention':'Exact old formatter expression and same World constructor after inverse'},indent=2)+'\n')
+print('PASS',len(raw),sha(raw))
