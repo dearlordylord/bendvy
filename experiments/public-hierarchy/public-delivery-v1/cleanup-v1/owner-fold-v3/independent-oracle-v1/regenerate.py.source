@@ -1,0 +1,38 @@
+"""Regenerate finite cleanup output from the frozen public source closure."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;P=HERE.parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    complete=json.loads((P/'SOURCE-COMPLETE.json').read_text());pins=complete['sourcePins'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    model=runpy.run_path(str(HERE/'model.py.source'));world=model['World']()
+    world.cleanup(2)
+    assert world.live=={1,3} and world.payloads=={1,3}
+    assert world.edges==[(1,3,1)] and world.inverses==[(1,1,[3])]
+    assert world.events==['Removed:4','Original:1004','Removed:2','Original:1002']
+    before=world.physical();world.cleanup(2);assert world.physical()==before
+    world.cleanup(1)
+    assert not world.live and not world.payloads and not world.edges and not world.inverses
+    assert world.events==['Removed:4','Original:1004','Removed:2','Original:1002','Removed:3','Original:1003','Removed:1','Original:1001']
+    old_source=(P.parent/'consumer.bend').read_text()
+    new_source=(P/'consumer.bend').read_text().replace('../../owners.bend','../owners.bend').replace('../../observer.bend','../observer.bend')
+    assert old_source.split('def final(')[0]==new_source.split('def final(')[0]
+    assert old_source[old_source.index('def seeded('):]==new_source[new_source.index('def seeded('):]
+    assert '[Operation{"INTERMEDIATE",h2},Operation{"REPEAT",h2},Operation{"ROOT",h1}]' in new_source
+    assert 'fold(~Op,~Owner,~step,rest,step(operation,state))' in new_source
+    assert 'each(~S,handles,queue_cleanup(~S,world,target))' in new_source
+    assert 'each(~S,handles,W.barrier(' in new_source
+    raw=model['expected']();text=raw.decode()
+    assert len(raw)==7933 and hashlib.sha256(raw).hexdigest()=='119e9ae791bd3e19cdac1feb7d901edd3e3c570113c868c8ccf2c3386435e8fd' 
+    assert text.count('|meta=')==14 and text.count('|pending=1')==6
+    assert text.count('entity=')+text.count('MissingEntity')==56
+    assert text.count('|stamps=')==14 and text.count('|registrations=')==14
+    for path in [model['DEPENDENCY'],model['SOURCE']['DEPENDENCY'],P.parent/'consumer.bend',HERE/'model.py.source',HERE/'regenerate.py.source',P/'SOURCE-COMPLETE.json',Path('/home/node/.bend/bend2/base.bend'),Path('/home/node/.bend/bend2/effs/print.js'),Path('/home/node/.bend/bend2/effs/print.c')]:pins[str(path)]=sha(path)
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    basis={'producerCommit':'5892f65d0','sourcePins':pins,'dependencies':[str(model['DEPENDENCY']),str(model['SOURCE']['DEPENDENCY'])],'entry':str(P/'entry.bend'),'applicability':'Prefix through final and seeded-through-main are exact under import relocation. Owned Workflow fold executes INTERMEDIATE2,REPEAT2,ROOT1 once each; each process records same pending observation then one barrier and applied observation, retaining World/text/handles. No operation or owner dropped. Original whole expected remains byte exact.','derivation':'Automatic cleanup uses live-checked Enter, snapshots ordered inverses per Parent then Link. Hierarchy children recurse, Ordinary incoming sources unrelate without deletion. Each descriptor unrelates own outgoing edge, finish clears actual Payload, deactivates, publishes ComponentRemoved then Original. Intermediate postorder4then2 removes Link3to2 but retains3to1. Repeated dead2 entersFalse then Complete with unchanged World; root postorder3then1. Barrier pending is cleared before callbacks; raw Column.clear preserves empty stamps, clock0 and resource17 retained. H.grant validates live target and returns MissingEntity for cleared entities. IO.print final LF from pinned effects. No runtime outputs used.','limits':'Finite four-entity valid two-descriptor hierarchy;56publiclookups/14physicalobservations, arbitrary affine payload exemplified by two-cell Arrays+tag. No exhaustion/cyclicgraph/foreigncleanup/generalfinalizer/Systemreader/performance qualification.'}
+    b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle},indent=2)+'\n')
+    result={'sourcePins':len(pins),'physicalObservations':14,'publicLookups':56,'deadRepeatUnchanged':True,**oracle};(HERE/'SELFTEST.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+if __name__=='__main__':regenerate()

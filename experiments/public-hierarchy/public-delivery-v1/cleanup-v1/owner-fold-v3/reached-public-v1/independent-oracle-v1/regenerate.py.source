@@ -1,0 +1,34 @@
+"""Prepared clear-omission finite countermodel, not applied-source evidence."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    context=HERE.parent/'SOURCE-STATES.json';state=json.loads(context.read_text())
+    target=Path(state['target']);old=HERE.parent/'normal.bend.source';new=HERE.parent/'mutant.bend.source'
+    assert sha(target)==state['normalSHA256']==sha(old)
+    assert sha(new)==state['mutantSHA256']
+    before='W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~List<&2,A.Notice<S,E>>,store => clear_store(~S,~C,~E,~clear,store,handle),world)'
+    assert old.read_text().count(before)==1 and old.read_text().replace(before,'(world,[])')==new.read_text()
+    normaldir=HERE.parents[1]/'independent-oracle-v1';normalmod=runpy.run_path(str(normaldir/'model.py.source'))
+    normal=normalmod['expected']();m=runpy.run_path(str(HERE/'model.py.source'));w=m['World']()
+    w.cleanup(2);assert w.live=={1,3} and w.payloads=={1,2,3,4}
+    assert w.events==['Original:1004','Original:1002'] and w.edges==[(1,3,1)] and w.inverses==[(1,1,[3])]
+    physical=w.physical();w.cleanup(2);assert w.physical()==physical
+    w.cleanup(1);assert not w.live and not w.edges and not w.inverses and w.payloads=={1,2,3,4}
+    assert w.events==['Original:1004','Original:1002','Original:1003','Original:1001']
+    raw=m['expected']();rows=normal.decode().splitlines();changed=raw.decode().splitlines()
+    assert len(rows)==len(changed)
+    differences=[i for i,(a,b) in enumerate(zip(rows,changed)) if a!=b]
+    assert len(differences)==10 and all('|meta=' in rows[i] for i in differences)
+    assert 'Removed:' not in raw.decode() and raw.decode().count('|meta=')==14
+    pins=json.loads((normaldir/'SOURCE-BASIS.json').read_text())['sourcePins'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    for path in [context,old,new,normaldir/'SOURCE-BASIS.json',normaldir/'model.py.source',normalmod['DEPENDENCY'],normalmod['SOURCE']['DEPENDENCY'],m['DEPENDENCY'],HERE/'model.py.source',HERE/'regenerate.py.source']:pins[str(path)]=sha(path)
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    basis={'producerCommit':'ef916ac20','status':'PREPARED_NOT_APPLIED','sourcePins':pins,'normalRootPrecondition':state['normalSHA256'],'runtimeBindingRequirement':{'target':str(target),'requiredAppliedSHA256':state['mutantSHA256'],'preparedSourcePinsAreNotRuntimePins':True},'derivation':'Single finish input omits actual clear_store and notices, retaining live-check recursion, graphunrelation,finalizeddeactivate andOriginal notice. Finite counterinterpreter keeps allfouraffinepayloads even dead, removes allRemovednotices; postorder4,2 thenrepeatunchanged then3,1. All56Frame results remain source-identical, only10physicalowner/eventlines change across14observations. Normal full7933 preserved; no runtimeoutputs used.','limits':'Conditional finite prepared omission only; no applied/currentbackend,effectfulfinalizer,newpolicy,proof/performance credit.'}
+    b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b),'normalBaseline':str(normaldir/'expected.stdout.gz'),'normalBaselineBytes':len(normal),'normalBaselineSHA256':hashlib.sha256(normal).hexdigest()}
+    (HERE/'ORACLES.json').write_text(json.dumps({'mutant':oracle},indent=2)+'\n')
+    result={'sourcePins':len(pins),'physicalDifferences':differences,**oracle};(HERE/'SELFTEST.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+if __name__=='__main__':regenerate()

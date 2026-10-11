@@ -1,0 +1,51 @@
+"""Unbound source-only automatic cleanup model; no runtime output inputs."""
+import copy
+import runpy
+from pathlib import Path
+DEPENDENCY=Path(__file__).resolve().parents[2]/'full-frame-v2/independent-oracle-v1/model.py.source'
+
+class World:
+    def __init__(self):
+        self.edges=[(1,2,1),(1,3,1),(1,4,2),(2,3,2)]
+        self.inverses=[(1,1,[2,3]),(1,2,[4]),(2,2,[3])]
+        self.live={1,2,3,4};self.payloads={1,2,3,4};self.events=[];self.pending=0
+    def unrelate(self,key,source):
+        previous=next((target for k,s,target in self.edges if k==key and s==source),None)
+        self.edges=[e for e in self.edges if not(e[0]==key and e[1]==source)]
+        updated=[]
+        for k,target,children in self.inverses:
+            if k==key and target==previous:children=[c for c in children if c!=source]
+            if children:updated.append((k,target,children))
+        self.inverses=updated
+    def cleanup(self,target):
+        if target not in self.live:return
+        for key in (1,2):
+            children=next((list(cs) for k,t,cs in self.inverses if k==key and t==target),[])
+            for child in children:
+                if key==1:self.cleanup(child)
+                else:self.unrelate(key,child)
+            self.unrelate(key,target)
+        if target in self.payloads:
+            self.payloads.remove(target);self.events.append('Removed:'+str(target))
+        self.live.discard(target);self.events.append('Original:'+str(1000+target))
+    def physical(self):
+        owners=''.join((f'{i},{i},{10*i},' if i in self.payloads else 'absent')+';' for i in range(1,9))
+        descriptors={1:'1:Parent:Children:hierarchy',2:'2:Link:Incoming:ordinary'}
+        graph='graph-edges='+''.join(descriptors[k]+f':{s}:{t};' for k,s,t in self.edges)
+        graph+='|graph-inverses='+''.join(descriptors[k]+':'+str(t)+':['+''.join(str(c)+',' for c in cs)+'];' for k,t,cs in self.inverses)
+        live=''.join('1,' if i in self.live else '0,' for i in range(16))
+        events=''.join(e+';' for e in self.events)
+        return owners+'|stamps=|events='+events+'|meta=1,5,4,8,3,17,,1,0|registrations=|pending='+str(self.pending)+'|edges='+graph+'|live='+live
+    def observation(self):
+        frames=runpy.run_path(str(DEPENDENCY))['frames']([(s,t) for k,s,t in self.edges if k==1],[(t,cs) for k,t,cs in self.inverses if k==1])
+        return '\n'.join([frame if i in self.live else 'MissingEntity' for i,frame in enumerate(frames,1)]+[self.physical()])
+def scene():
+    world=World();output=['INITIAL\n'+world.observation()]
+    for label,target in [('INTERMEDIATE',2),('REPEAT',2),('ROOT',1)]:
+        world.pending=1;output.append(label+'_PENDING\n'+world.observation())
+        world.pending=0;world.cleanup(target);output.append(label+'_APPLIED\n'+world.observation())
+    return '\n'.join(output)
+def expected():return ('HierarchyAlpha\n'+scene()+'\nHierarchyBeta\n'+scene()+'\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(expected())
