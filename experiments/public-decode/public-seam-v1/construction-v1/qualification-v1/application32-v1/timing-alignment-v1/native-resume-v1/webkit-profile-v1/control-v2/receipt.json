@@ -1,0 +1,57 @@
+{
+  "scope": "Diagnostic remote WebKit profiling only; no Native or performance qualification",
+  "planSHA256": "621c41496d1609e75d126ec3990c37263efc775ddc47decc548f6a3c0458612c",
+  "commands": [
+    {
+      "label": "source-webkit-control",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/webkit-profile-v1/sample.mjs",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/webkit-profile-v1/control-v2/controller-config.json"
+      ],
+      "capSeconds": 1,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": null,
+      "failure": "child deadline",
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/webkit-profile-v1/control-v2/source-webkit-control.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/webkit-profile-v1/control-v2/source-webkit-control.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/webkit-profile-v1/control-v2/source-webkit-control-pre.guard.json",
+      "sha256": "c0d3132a5c7a079eef3f6c6d102bd3edd5b5766be77e7e40cac1cbb4bfd68e43"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/webkit-profile-v1/control-v2/source-webkit-control-acquired.guard.json",
+      "sha256": "c4d18b186d4647c8f0c94deb5bcbc464436f7be52194b39a05dcaa74596b772d"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/webkit-profile-v1/control-v2/source-webkit-control-post.guard.json",
+      "sha256": "6561000a56454fa527c0478848a6ead5bad13914a9696cc34a62911b571399d2"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/webkit-profile-v1/control-v2/final.guard.json",
+      "sha256": "aae385f0f605634ecde5d05f3370353e85d18dd6fe7dd6d779485f87eda51125"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Source control exit differs: source-webkit-control",
+  "guardFailures": []
+}

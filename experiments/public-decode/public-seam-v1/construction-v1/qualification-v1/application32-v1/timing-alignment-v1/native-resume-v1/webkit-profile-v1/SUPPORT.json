@@ -1,0 +1,8 @@
+{
+  "protocolSource": "https://raw.githubusercontent.com/oven-sh/bun/bun-v1.4.0/packages/bun-inspector-protocol/src/protocol/jsc/protocol.json",
+  "standaloneFlagSupport": "https://bun.sh/docs/bundler/executables",
+  "protocol": "Inspector.enable; ScriptProfiler.startTracking(includeSamples:true); Inspector.initialized; ScriptProfiler.stopTracking; trackingComplete samples.stackTraces",
+  "controlRequirement": "Actual one-second process deadline plus schema-valid complete samples received and saved before SIGKILL; otherwise no compiler",
+  "runtimeSupport": "Bun1.4.0 ELF runtime support still tested by actual control; tagged protocol guidance is not runtime proof",
+  "costScope": "Inspector wait/client overhead included in process cap, diagnostic only; no pure compiler duration/performance"
+}
