@@ -1,0 +1,15 @@
+"""Finite ordinary removal log interpretation, no runtime output inputs."""
+import json
+record='Removed{Handle{1,1},Declaration{Position}}'
+def column(value,tick):
+    return 'Column{ALeaf{'+('None{}' if value is None else 'Some{Payload{ALeaf{'+str(value)+'}}}')+'},[Entry{1,Stamp{'+str(tick)+','+str(tick)+'}}]}'
+def snapshot(stage):
+    removed=stage>0;read=stage==2
+    world='World{namespace=1,nextId=2,highWater=1,live=ANode{ALeaf{False},ALeaf{True}},capacity=2,depth=1,store=Owner{'+column(None if removed else 42,0 if removed else 1)+','+column(43,2)+'},resource=ALeaf{17},events='+('[Left{'+record+'}]' if removed else '[]')+',pending=0,registrations=[Registration{1,PositionRemovals,[removal, PositionRemovals]}],nextSystemId=2,clock='+('3' if removed else '2')+'}'
+    return 'Fixture{factory=2,'+world+',Reader{1,1,PositionRemovals,'+('1' if read else '0')+'},projection=Some{'+('['+record+']' if removed else '[]')+'},status='+('ReadSucceeded' if read else 'Removed' if removed else 'Ready')+',output='+('[Removed{1,1,Position}]' if read else '')+'}'
+def expected():
+    scene='\n'.join('snapshot'+str(i+1)+'='+snapshot(i//2) for i in range(6))
+    return (json.dumps('A='+scene+'\nOther='+scene,separators=(',',':'))+'\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(expected())

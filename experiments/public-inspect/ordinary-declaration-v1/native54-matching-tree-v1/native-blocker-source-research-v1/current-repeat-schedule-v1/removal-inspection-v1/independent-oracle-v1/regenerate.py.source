@@ -1,0 +1,45 @@
+"""Bind finite removal expectations to source; no runtime outputs consulted."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+P=HERE.parent
+ROOT=Path('/workspace/formal-proofs/bendvy')
+def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def regenerate(producer):
+    complete=json.loads((P/'SOURCE-COMPLETE.json').read_text())
+    assert complete['status']=='COMPLETE_SOURCE_CONTROL_PASS'
+    pins=complete['sourcePins'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    lifecycle=(ROOT/'src/ecs/lifecycle.bend').read_text()
+    removals=(ROOT/'src/ecs/removals.bend').read_text()
+    consumer=(P/'consumer.bend').read_text()
+    entry=(P/'entry.bend').read_text()
+    assert 'case False{}: Stamp{0,0}' in lifecycle
+    assert 'Entry{id,stamp} <> clear(entries,id)' in lifecycle
+    assert 'Reader{namespace,id,name,next}' in removals
+    assert 'reader,count(~E,values),world,result' in removals
+    assert '"Position"' in consumer and '"OtherPosition"' in consumer
+    assert 'W.barrier(' in consumer and 'Cmd.tx_finish(' in consumer and 'Rm.run(' in consumer
+    assert 'C.inspect(~S,C.remove(~S,owner))' in entry
+    assert 'C.inspect(~S,C.read(~S,owner))' in entry
+    assert 'def main() -> String:' in entry
+    for path in (P/'SOURCE-COMPLETE.json',Path('/home/node/.bend/bend2/base.bend'),ROOT/'.references/sources.json',P.parent.parent/'ownership-preseed-v1/compiler/installed-cli-unmodified.mjs'):
+        pins[str(path)]=sha(path)
+    raw=runpy.run_path(str(HERE/'model.py.source'))['expected']()
+    assert raw.count(b'status=Ready')==4
+    assert raw.count(b'status=Removed')==4
+    assert raw.count(b'status=ReadSucceeded')==4
+    assert raw.count(b'resource=ALeaf{17}')==12
+    assert raw.count(b'Stamp{0,0}')==8
+    assert raw.count(b'Stamp{2,2}')==12
+    (HERE/'expected.stdout').write_bytes(raw)
+    (HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    basis={'producerCommit':producer,'sourcePins':pins,'modelPins':{str(HERE/'model.py.source'):sha(HERE/'model.py.source')},'entry':str(P/'entry.bend'),'derivation':'Independent finite setup/remove/read state interpretation. Two schemas each reserve/activate1 and seed distinct Binding identities Position42 and OtherPosition43; registration1. Actual tx_remove_observed/commit/barrier removes only Position, advances clock2 to3, retains zero stamp, publishes selected Removed metadata. Inspector reads since0 without mutation. Successful operational removal reader advances Nat cursor0 to1, preserves clock/log/owners. Explicit manual String formatter is JSON quoted plus LF; no constructor QName transport. No runtime output inputs.','scope':'Six complete observations per schema; static same Binding identity/Selection generation; Removed execution only. Despawned branch is source-present but not executed; dynamic bindings, reader disposal, event retention/frame/tick, cleanup and full54 acceptance unqualified.'}
+    b=HERE/'SOURCE-BASIS.json'
+    b.write_text(json.dumps(basis,indent=2)+'\n')
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle},indent=2)+'\n')
+    return {'sourcePins':len(pins),**oracle}
+if __name__=='__main__':
+    import sys
+    print(json.dumps(regenerate(sys.argv[1]),indent=2))
