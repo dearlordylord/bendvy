@@ -1,0 +1,61 @@
+import Base
+import ../removal-inspection-v1/public-relocation-v1/policy-free-v2/consumer-public.bend as C
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-selections.bend as Ordinary
+import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-families.bend as Families
+import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Select
+import /workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend as Query
+import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-frame-world.bend as Traversal
+import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-removal-provision.bend as Publication
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Identity
+import /workspace/formal-proofs/bendvy/src/ecs/removals.bend as Rm
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
+import /workspace/formal-proofs/bendvy/src/ecs/component.bend as Component
+import /workspace/formal-proofs/bendvy/src/ecs/owner-product.bend as Product
+
+def Store(~S:Data) -> Type:Product.Owner<Col.Column<S,C.Payload>,Col.Column<S,C.Payload>>
+def Events(~S:Data) -> Data:Publication.Publication<Rm.Record<S,Identity.Declaration<S,C.Payload>>,Rm.Record<S,Identity.Declaration<S,C.Payload>>>
+def Frame(~S:Data) -> Type:I.Frame<S,Store(~S),Array<U32>,Events(~S)>
+def Value() -> Data:Select.Product<Component.Access<U32>,Component.Access<U32>>
+def left(~S:Data,~mode:Families.SlotMode) -> Select.DeclaredSelection<Frame(~S),S,Component.Access<U32>>:
+  Ordinary.inspect_slot(~S,~Store(~S),~Array<U32>,~Events(~S),~Col.Column<S,C.Payload>,~C.Payload,~U32,~C.Token,~C.take_left(~S),~C.put_left(~S),~C.view,~C.binding(~S),~mode)
+def right(~S:Data,~mode:Families.SlotMode) -> Select.DeclaredSelection<Frame(~S),S,Component.Access<U32>>:
+  Ordinary.inspect_slot(~S,~Store(~S),~Array<U32>,~Events(~S),~Col.Column<S,C.Payload>,~C.Payload,~U32,~C.Token,~C.take_right(~S),~C.put_right(~S),~C.view,~C.other_binding(~S),~mode)
+def required_left(~S:Data) -> Query.ComposedReadQuery<Frame(~S),S,Value()>:
+  Query.grant_composed(~Frame(~S),~S,~Value(),~Select.pair(~Frame(~S),~S,~Component.Access<U32>,~Component.Access<U32>,~left(~S,~Families.Required{}),~right(~S,~Families.Optional{})),~Traversal.inspect_world(~S,~Store(~S),~Array<U32>,~Events(~S)))
+def required_right(~S:Data) -> Query.ComposedReadQuery<Frame(~S),S,Value()>:
+  Query.grant_composed(~Frame(~S),~S,~Value(),~Select.pair(~Frame(~S),~S,~Component.Access<U32>,~Component.Access<U32>,~left(~S,~Families.Optional{}),~right(~S,~Families.Required{})),~Traversal.inspect_world(~S,~Store(~S),~Array<U32>,~Events(~S)))
+def access(value:Component.Access<U32>) -> String:
+  match value:
+    case Component.Found{value}:"Found{" ++ U32.show(value) ++ "}"
+    case Component.ComponentAbsent{}:"ComponentAbsent{}"
+    case Component.MissingEntity{}:"MissingEntity{}"
+def row(~S:Data,value:Query.ProjectedRow<S,Value()>) -> String:
+  match value:
+    case Query.ProjectedRow{W.Handle{ns,id},Select.Product{left,right}}:"Row{" ++ U32.show(ns) ++ "," ++ U32.show(id) ++ "," ++ access(left) ++ "," ++ access(right) ++ "}"
+def rows(~S:Data,value:List<&2,Query.ProjectedRow<S,Value()>>) -> String:
+  List.show(~&2,~Query.ProjectedRow<S,Value()>,~row(~S),value)
+def lookup(~S:Data,value:Result<&2,&2,Query.LookupError,Query.ProjectedRow<S,Value()>>) -> String:
+  match value:
+    case Done{value}:"Done{" ++ row(~S,value) ++ "}"
+    case Fail{Query.QueryMismatch{id}}:"Fail{QueryMismatch{" ++ U32.show(id) ++ "}}"
+    case Fail{Query.MissingEntity{id}}:"Fail{MissingEntity{" ++ U32.show(id) ++ "}}"
+def fourth(~S:Data,prefix:String,result:Frame(~S) & Result<&2,&2,Query.LookupError,Query.ProjectedRow<S,Value()>>) -> W.World<S,Store(~S),Array<U32>,Events(~S)> & String:
+  match result:
+    case (I.Frame{world,cursor},value):(world,prefix ++ "|optionalLeftRequiredRightGet=" ++ lookup(~S,value) ++ "|queryFrameCursor=" ++ U32.show(cursor))
+def third(~S:Data,prefix:String,target:W.Handle<S>,result:Frame(~S) & List<&2,Query.ProjectedRow<S,Value()>>) -> W.World<S,Store(~S),Array<U32>,Events(~S)> & String:
+  match result:
+    case (owner,value):fourth(~S,prefix ++ "|optionalLeftRequiredRightEach=" ++ rows(~S,value),Query.get_composed(~Frame(~S),~S,~Value(),~required_right(~S),owner,target))
+def second(~S:Data,prefix:String,target:W.Handle<S>,result:Frame(~S) & Result<&2,&2,Query.LookupError,Query.ProjectedRow<S,Value()>>) -> W.World<S,Store(~S),Array<U32>,Events(~S)> & String:
+  match result:
+    case (owner,value):third(~S,prefix ++ "|requiredLeftOptionalRightGet=" ++ lookup(~S,value),target,Query.each_composed(~Frame(~S),~S,~Value(),~required_right(~S),owner))
+def first(~S:Data,target:W.Handle<S>,result:Frame(~S) & List<&2,Query.ProjectedRow<S,Value()>>) -> W.World<S,Store(~S),Array<U32>,Events(~S)> & String:
+  match result:
+    case (owner,value):second(~S,"requiredLeftOptionalRightEach=" ++ rows(~S,value),target,Query.get_composed(~Frame(~S),~S,~Value(),~required_left(~S),owner,target))
+def targets(~S:Data,result:Frame(~S) & List<&2,W.Handle<S>>) -> W.World<S,Store(~S),Array<U32>,Events(~S)> & String:
+  match result:
+    case (owner,target <> _):first(~S,target,Query.each_composed(~Frame(~S),~S,~Value(),~required_left(~S),owner))
+    case (I.Frame{world,_},[]):(world,"UNEXPECTED:NoActualHandle")
+def inspect(~S:Data,world:W.World<S,Store(~S),Array<U32>,Events(~S)>) -> W.World<S,Store(~S),Array<U32>,Events(~S)> & String:
+  targets(~S,Traversal.inspect_handles(~S,~Store(~S),~Array<U32>,~Events(~S),I.Frame{world,0}))

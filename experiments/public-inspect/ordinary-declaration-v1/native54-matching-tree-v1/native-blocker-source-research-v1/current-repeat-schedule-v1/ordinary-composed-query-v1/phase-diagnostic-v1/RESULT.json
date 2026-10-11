@@ -1,0 +1,99 @@
+{
+  "status": "COPIED_PHASE_DIAGNOSTIC_ONLY_NATIVE_BLOCKED",
+  "originalOuter": 92841,
+  "outerTerminal": {
+    "exit": 0,
+    "failure": null,
+    "capture": "split",
+    "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+  },
+  "planSHA256": "904121033b957edfa6012d8dfab68240a24c5784bc1e75784975df18d1d7ab0a",
+  "postPinsUnchanged": true,
+  "postLinksUnchanged": true,
+  "controlsCEqual": true,
+  "fullChild": {
+    "exit": null,
+    "failure": "child deadline",
+    "capture": "split",
+    "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+    "label": "full-observed",
+    "stdout": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "bytes": 1241947,
+      "sha256": "0e43c6d233708697a0d144a7bd6b3757d72cff99d584d6c2324f6f2a1978df50"
+    }
+  },
+  "phases": [
+    {
+      "phase": "book-read-complete",
+      "ms": 6907.287795,
+      "file": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/ordinary-composed-query-v1/entry.bend"
+    },
+    {
+      "phase": "compile-enter",
+      "ms": 6931.839855
+    },
+    {
+      "phase": "file-book-complete",
+      "ms": 14038.646001
+    },
+    {
+      "phase": "pass-enter",
+      "pass": 1,
+      "ms": 14038.808587
+    },
+    {
+      "phase": "pass-complete",
+      "pass": 1,
+      "ms": 19684.053372,
+      "facts": 1276
+    },
+    {
+      "phase": "pass-enter",
+      "pass": 2,
+      "ms": 19684.08258
+    },
+    {
+      "phase": "pass-complete",
+      "pass": 2,
+      "ms": 22635.883582,
+      "facts": 1457
+    },
+    {
+      "phase": "pass-enter",
+      "pass": 3,
+      "ms": 22635.960541
+    },
+    {
+      "phase": "pass-complete",
+      "pass": 3,
+      "ms": 26228.556172,
+      "facts": 1483
+    },
+    {
+      "phase": "pass-enter",
+      "pass": 4,
+      "ms": 26228.632756
+    },
+    {
+      "phase": "pass-complete",
+      "pass": 4,
+      "ms": 28678.10246,
+      "facts": 1491
+    },
+    {
+      "phase": "pass-enter",
+      "pass": 5,
+      "ms": 28681.630671
+    }
+  ],
+  "limits": [
+    "No stock phase/cause/performance attribution.",
+    "No C for full subject; no build/run or Native acceptance.",
+    "Exact copied instrumentation/JIT/resource differences retained.",
+    "No source/query workload reduction or additional retry."
+  ]
+}
