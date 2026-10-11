@@ -16,7 +16,7 @@ const publisher=G.System('publisher',{events:{first:G.System.writeEvent(First),s
 });
 const rows=[];
 function observe(label,ok){for(const enabled of [false,true,true,false])rows.push({label,enabled,ok,completion,inventory:enabled?rt.debug.describe().events.map(x=>x.name):null,streams:enabled?rt.debug.streams():null,physicalStreams:rt.debug.streams()});}
-function step(label,system,readFailure=false,publishFailure=false){failRead=readFailure;failPublish=publishFailure;completion=null;begin();const result=rt.tick(G.Schedule(...(system?[system]:[])));end();if(!system)completion={kind:'Framed'};observe(label,result.ok);}
+function step(label,system,readFailure=false,publishFailure=false){failRead=readFailure;failPublish=publishFailure;completion=null;begin(label);const result=rt.tick(G.Schedule(...(system?[system]:[])));end();if(!system)completion={kind:'Framed'};observe(label,result.ok);}
 reset();observe('initial',true);
 step('activate-fast',fast);step('activate-slow',slow);step('activate-second',second);step('publish',publisher);step('fast-read',fast);step('publish-abort',publisher,false,true);step('second-failed',second,true);step('second-retry',second);step('publish-retry',publisher);step('slow-failed',slow,true);step('slow-retry',slow);step('fast-read-again',fast);step('second-read-again',second);step('frame',null);step('frame-again',null);step('fast-empty',fast);step('second-empty',second);
 capture(JSON.stringify({format:1,rows}));finish();

@@ -6,9 +6,10 @@
   "publicOperations": "Original Trace.ticked and Trace.actions are called unchanged once per entry; original observation four flags retained",
   "TSInverse": [
     "remove single timer import",
-    "replace begin();const result=rt.tick(...);end(); with original exact tick",
+    "replace begin(label);const result=rt.tick(...);end(); with original exact tick",
     "remove reset before initial observation",
     "replace capture+finish with original console.log"
   ],
-  "scope": "Source proposal only. Emitted JS/C evaluation checks and full actual correctness require focused launch review. Fixed renderer reproduces finite qualified original show_main grammar, not new public reflection."
+  "scope": "Source proposal only. Emitted JS/C evaluation checks and full actual correctness require focused launch review. Fixed renderer reproduces finite qualified original show_main grammar, not new public reflection.",
+  "intervalOrdinal": "Bend index0..16 follows the unchanged actions list exactly; JS/C begin refuse repeated/skipped index. TS begin checks existing actual step label order; no ECS/metadata identity claim."
 }

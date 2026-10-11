@@ -14,10 +14,10 @@ def next_rows(next:C.Fixture -> IO(C.Fixture & List<&2,T.Row>),returned:C.Fixtur
 def after_end(next:C.Fixture -> IO(C.Fixture & List<&2,T.Row>),returned:C.Fixture & C.Observation) -> IO(C.Fixture & List<&2,T.Row>):
   match returned:
     case (fixture,completion):IO.bind(Unit,C.Fixture & List<&2,T.Row>,Clock.end(),u => next_rows(next,T.observe(Some{completion},fixture)))
-def sequence(actions:List<&2,C.Action>,fixture:C.Fixture) -> IO(C.Fixture & List<&2,T.Row>):
+def sequence(actions:List<&2,C.Action>,+index:U32,fixture:C.Fixture) -> IO(C.Fixture & List<&2,T.Row>):
   match actions:
     case []:IO.pure(C.Fixture & List<&2,T.Row>,(fixture,[]))
-    case action <> rest:IO.bind(Unit,C.Fixture & List<&2,T.Row>,Clock.begin(),u => after_end(fixture => sequence(rest,fixture),T.ticked(action,fixture)))
+    case action <> rest:IO.bind(Unit,C.Fixture & List<&2,T.Row>,Clock.begin(index),u => after_end(fixture => sequence(rest,U32.add(index,1),fixture),T.ticked(action,fixture)))
 def started(u:Unit) -> IO(Unit):
-  IO.bind(C.Fixture & List<&2,T.Row>,Unit,next_rows(fixture => sequence(T.actions(),fixture),T.observe(None{},C.setup())),finished)
+  IO.bind(C.Fixture & List<&2,T.Row>,Unit,next_rows(fixture => sequence(T.actions(),0,fixture),T.observe(None{},C.setup())),finished)
 def main() -> IO(Unit):IO.bind(Unit,Unit,Clock.reset(),started)

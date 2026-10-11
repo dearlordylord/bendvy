@@ -2,7 +2,7 @@ import Base
 def reset() -> IO(Unit):
   import "./timing.c"
   import "./timing.js"
-def begin() -> IO(Unit):
+def begin(index:U32) -> IO(Unit):
   import "./timing.c"
   import "./timing.js"
 def end() -> IO(Unit):

@@ -19,6 +19,8 @@ def main():
  for d in [ROOT/'.references/bevy-ts/packages/core/src',Path('/home/node/.bend/bend2')]:external.update({str(p):sha(p) for p in d.rglob('*') if p.is_file()})
  cat=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/typed-data-events-oracle-v1/feature-v1')
  external.update({str(p):sha(p) for p in cat.rglob('*') if p.is_file()})
+ for dep in ['tree-v1/model.py.source','leaf-v1/model.py.source']: 
+  path=cat.parent/dep;external[str(path)]=sha(path)
  stage=x.output/'stage';h=stage/'feature-harness';h.mkdir(parents=True)
  # Keep all existing consumer/type module paths. Instrumentation has its own harness path.
  feature=HERE.parent;target=stage/'qualified-regular';target.mkdir()

@@ -15,7 +15,7 @@ Term io_interval_reset_run(Env e, Term *f, IoWork *w) {
  feature_require(!feature_active && !interval_ready); interval_ready=true; interval_elapsed=0; interval_count=0; feature_digest=UINT32_C(2166136261); feature_bytes=0; return term_pak(CID(Unit),0);
 }
 Term io_feature_begin_run(Env e, Term *f, IoWork *w) {
-  feature_require(interval_ready && !feature_active);
+  feature_require(interval_ready && !feature_active && (uint32_t)f[0] == interval_count);
   feature_require(clock_gettime(CLOCK_MONOTONIC, &feature_start) == 0);
   feature_active = true;
   return term_pak(CID(Unit), 0);
