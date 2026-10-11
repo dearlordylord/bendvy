@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : runtime
+- observed : runtime (consumed more than once)
+Location: duplicate
+6 | 
+7>| def duplicate(runtime:Events.Runtime()) -> Events.Runtime() & Events.Runtime():(runtime,runtime)
+  |               ^^^^^^^
+8 | def main() -> Unit:Unit{}
+bend 2.0.36 is available: run bend update
