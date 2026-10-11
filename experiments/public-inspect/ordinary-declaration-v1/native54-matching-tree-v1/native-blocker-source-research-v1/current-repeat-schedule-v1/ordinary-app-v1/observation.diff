@@ -1,0 +1,146 @@
+--- /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-population-v1/consumer-public.bend
++++ observation.bend
+@@ -1,6 +1,6 @@
+ import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-access.bend as Index
+ import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Projection
+-import ./observer-public.bend as Whole
++import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-population-v1/observer-public.bend as Whole
+ import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-population.bend as Pop
+ import Base
+ import /workspace/formal-proofs/bendvy/src/ecs/ordinary-system.bend as Ord
+@@ -23,8 +23,8 @@
+ import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-records.bend as Leaf
+ import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-observation-data.bend as DTO
+ import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-registration-run.bend as Run
+-import ./frontend-public.bend as Front
+-import ./setup-public.bend as Setup
++import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-population-v1/frontend-public.bend as Front
++import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-population-v1/setup-public.bend as Setup
+ import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-schema.bend as App
+ import /workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-schema-debug-v1/refusal-preservation-v1/public-successor/consumer/owner-observer.bend as Observer
+ def World(~S:Data) -> Type:
+@@ -38,9 +38,12 @@
+     case Fragment.Event{}:"Event"
+     case Fragment.Relation{}:"Relation"
+     case Fragment.Service{}:"Service"
+-def entry(~S:Data,value:Fragment.Entry<S>) -> String:
++def entry_bare(~S:Data,value:Fragment.Entry<S>) -> String:
+   match value:
+     case Fragment.Entry{value,key,name}:kind(value) ++ ":" ++ key ++ ":" ++ name
++    case Fragment.Classified{value,key,name,_}:kind(value) ++ ":" ++ key ++ ":" ++ name
++def entry(~S:Data,value:Fragment.Entry<S>) -> String:
++  entry_bare(~S,Fragment.bare_entry(~S,value))
+ def mode(value:Query.Mode) -> String:
+   match value:
+     case Query.Read{}:"Read"
+@@ -65,6 +68,8 @@
+     case Records.ComponentKind{}:"Component"
+     case Records.ResourceKind{value}:"Resource:" ++ mode(value)
+     case Records.FieldKind{}:"Field"
++    case Records.ServiceKind{}:"Service"
++    case Records.EventKind{}:"Event"
+ def record(~S:Data,value:Records.Fields<S>) -> String:
+   match value:
+     case Records.Fields{namespace,id,name,access,cursor,slot,clauses,kind}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ slot ++ ":cursor=" ++ U32.show(cursor) ++ ":" ++ List.show(&2,String,x=>x,access) ++ ":" ++ List.show(&2,Query.Clause<S>,clause(~S),clauses) ++ ":" ++ record_kind(kind)
+@@ -82,29 +87,6 @@
+     case (app,view):complete(~S,debug(~S,~Front.rows(~S),view),app)
+ def described(~S:Data,flag:Bool,value:Application(~S)) -> Application(~S) & String:
+   snapshot_returned(~S,App.snapshot(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,~Front.owners(~S),~Front.rows(~S),~Front.observe(~S),~Front.fold(~S),App.enabled(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,~Front.owners(~S),~Front.rows(~S),~Front.observe(~S),~Front.fold(~S),value,flag)))
+-def role_text(value:Index.Role) -> String:
+-  match value:
+-    case Index.Reader{}:"Reader"
+-    case Index.Writer{}:"Writer"
+-    case Index.Filter{}:"Filter"
+-def use(value:Index.Use) -> String:
+-  match value:
+-    case Index.Use{namespace,id,name,value,role}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ mode(value) ++ ":" ++ role_text(role)
+-def access_entry(value:Index.Entry) -> String:
+-  match value:
+-    case Index.Entry{Index.Components{},key,uses}:"Component:" ++ key ++ ":" ++ List.show(&2,Index.Use,use,uses)
+-    case Index.Entry{Index.Resources{},key,uses}:"Resource:" ++ key ++ ":" ++ List.show(&2,Index.Use,use,uses)
+-    case Index.Entry{Index.Events{},key,uses}:"Event:" ++ key ++ ":" ++ List.show(&2,Index.Use,use,uses)
+-def access_view(value:Maybe<&2,List<&2,Index.Entry>>) -> String:
+-  match value:
+-    case None{}:"Disabled"
+-    case Some{entries}:List.show(&2,Index.Entry,access_entry,entries)
+-def indexed_done(~S:Data,text:String,result:Application(~S) & String) -> Application(~S) & String:
+-  match result:
+-    case (app,shown):(app,"index=" ++ text ++ "|" ++ shown)
+-def indexed(~S:Data,flag:Bool,result:Application(~S) & Maybe<&2,List<&2,Index.Entry>>) -> Application(~S) & String:
+-  match result:
+-    case (app,view):indexed_done(~S,access_view(view),described(~S,flag,app))
+ def component_count(value:Pop.ComponentCount) -> String:
+   match value:
+     case Pop.ComponentCount{key,count}:key ++ ":" ++ U32.show(count)
+@@ -148,59 +130,6 @@
+ def resource(~S:Data,fail:Bool,value:Application(~S)) -> Application(~S) & String:
+   match value:
+     case App.Application{schema,Build.Registered{world,(left,Leaf.Record{token,fields}),_,flag}}:resource_returned(~S,schema,left,flag,Run.run(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,~Front.Args,~Front.Error,~Front.Output,~Field.runner(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,~Front.resource_ops(~S),~Front.Args,~Front.Error,~Front.Output,~D.ordinary(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,~Front.resource_ops(~S),~U32,Front.resource_declaration(~S)),~Front.resource_body(~S)),token,fields,world,Front.Args{Array.new(Bool,0n,fail)}))
+-def component_completed(~S:Data,schema:Schema.Schema<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>)>,rest:Unit,right:Leaf.Record<S,Records.Token<Front.ResourceRegistry(~S)>>,token:Records.Token<Front.ComponentRegistry(~S)>,fields:Records.Fields<S>,flag:Bool,result:Sys.Outcome<World(~S),Q.Error<Unit>,List<&2,Unit>>) -> Application(~S) & String:
+-  match result:
+-    case Sys.Succeeded{world,out}:complete(~S,"ComponentSuccess:output=" ++ List.show(&2,Unit,x=>"Unit",out),App.Application{schema,Build.Registered{world,((rest,Leaf.Record{token,fields}),right),Tree.Recipe{},flag}})
+-    case Sys.Failed{world,_}:complete(~S,"ComponentFailure",App.Application{schema,Build.Registered{world,((rest,Leaf.Record{token,fields}),right),Tree.Recipe{},flag}})
+-def component_returned(~S:Data,schema:Schema.Schema<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>)>,rest:Unit,right:Leaf.Record<S,Records.Token<Front.ResourceRegistry(~S)>>,flag:Bool,result:Run.TransportResult<S,World(~S),Unit & U32,Q.Error<Unit>,List<&2,Unit>,Records.Token<Front.ComponentRegistry(~S)>>) -> Application(~S) & String:
+-  match result:
+-    case Run.Completed{token,fields,outcome}:component_completed(~S,schema,rest,right,token,fields,flag,outcome)
+-    case Run.RegistrationRejected{token,fields,world,_}:complete(~S,"ComponentRejected",App.Application{schema,Build.Registered{world,((rest,Leaf.Record{token,fields}),right),Tree.Recipe{},flag}})
+-def component(~S:Data,value:Application(~S)) -> Application(~S) & String:
+-  match value:
+-    case App.Application{schema,Build.Registered{world,((rest,Leaf.Record{token,+fields}),right),_,flag}}:component_returned(~S,schema,rest,right,flag,Run.run(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,~(Unit & U32),~Q.Error<Unit>,~List<&2,Unit>,~Ord.observable_runner(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,~Front.component_ops,~Unit,~Unit,~Unit,~Projection.Product<C.Access<U32>,C.Access<U32>>,~Front.query(~S),~Front.component_body),token,fields,world,(Unit{},LeafRun.current_cursor(~S,fields))))
+-# Actual ordinary setup edits the unqueried column; no system registration is added.
+-def unqueried_observed(~S:Data,left:Col.Column<S,Array<U32>>,unit:Unit,column:Col.Column<S,Array<U32>>,status:String,result:Maybe<&1,Array<U32>> & String) -> Setup.store(~S,~Array<U32>) & String:
+-  match result:
+-    case (_,text):(Product.Owner{left,Product.Owner{column,unit}},status ++ ":returned=" ++ text)
+-def unqueried_result(~S:Data,left:Col.Column<S,Array<U32>>,unit:Unit,result:Col.SwapOutcome<S,Array<U32>>) -> Setup.store(~S,~Array<U32>) & String:
+-  match result:
+-    case Col.Accepted{column,previous}:unqueried_observed(~S,left,unit,column,"Accepted",Observer.optional(~Array<U32>,~Observer.u32_array,previous))
+-    case Col.Rejected{column,incoming}:unqueried_observed(~S,left,unit,column,"Rejected",Observer.optional(~Array<U32>,~Observer.u32_array,incoming))
+-def unqueried_store(~S:Data,id:U32,incoming:Maybe<&1,Array<U32>>,value:Setup.store(~S,~Array<U32>)) -> Setup.store(~S,~Array<U32>) & String:
+-  match value:
+-    case Product.Owner{left,Product.Owner{right,unit}}:unqueried_result(~S,left,unit,Col.swap(~S,~Array<U32>,Col.ensure(~S,~Array<U32>,right,3),id,incoming))
+-def edited(~S:Data,schema:Schema.Schema<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>)>,owners:Front.owners(~S),flag:Bool,namespace:U32,nextId:U32,highWater:U32,live:Array<Bool>,capacity:U32,depth:Nat,resource:Setup.resources(~Array<U32>),events:List<&2,U32>,pending:List<(World(~S) -> World(~S))>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32,result:Setup.store(~S,~Array<U32>) & String) -> Application(~S) & String:
+-  match result:
+-    case (store,text):complete(~S,"Unqueried:" ++ text,App.Application{schema,Build.Registered{W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},owners,Tree.Recipe{},flag}})
+-def unqueried(~S:Data,id:U32,incoming:Maybe<&1,Array<U32>>,value:Application(~S)) -> Application(~S) & String:
+-  match value:
+-    case App.Application{schema,Build.Registered{W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},owners,_,flag}}:edited(~S,schema,owners,flag,namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId,clock,unqueried_store(~S,id,incoming,store))
+-def status_returned(~S:Data,schema:Schema.Schema<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>)>,owners:Front.owners(~S),flag:Bool,result:World(~S) & W.Status) -> Application(~S) & String:
+-  match result:
+-    case (world,W.Accepted{}):complete(~S,"Deactivated:Accepted",App.Application{schema,Build.Registered{world,owners,Tree.Recipe{},flag}})
+-    case (world,_):complete(~S,"Deactivated:Rejected",App.Application{schema,Build.Registered{world,owners,Tree.Recipe{},flag}})
+-def dead(~S:Data,id:U32,value:Application(~S)) -> Application(~S) & String:
+-  match value:
+-    case App.Application{schema,Build.Registered{world,owners,_,flag}}:status_returned(~S,schema,owners,flag,W.deactivate(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,world,W.Handle{1,id}))
+-def reserved_only(~S:Data,schema:Schema.Schema<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>)>,owners:Front.owners(~S),flag:Bool,result:World(~S) & W.Reservation<S>) -> Application(~S) & String:
+-  match result:
+-    case (world,W.Reserved{W.Handle{namespace,id}}):complete(~S,"Reserved:" ++ U32.show(namespace) ++ ":" ++ U32.show(id),App.Application{schema,Build.Registered{world,owners,Tree.Recipe{},flag}})
+-    case (world,_):complete(~S,"ReserveRejected",App.Application{schema,Build.Registered{world,owners,Tree.Recipe{},flag}})
+-def reserve(~S:Data,value:Application(~S)) -> Application(~S) & String:
+-  match value:
+-    case App.Application{schema,Build.Registered{world,owners,_,flag}}:reserved_only(~S,schema,owners,flag,W.reserve_id(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,world))
+-def joined(~Value:Type,continue:Value -> String -> String,result:Value & String) -> String:
+-  match result:
+-    case (value,text):continue(value,text)
+-def sequence(~Value:Type,actions:List<(Value -> Value & String)>,prefix:String,value:Value) -> String:
+-  match actions:
+-    case []:prefix
+-    case action <> rest:joined(~Value,next=>text=>sequence(~Value,rest,prefix ++ text ++ "\n",next),action(value))
+-def registered(~S:Data,schema:Schema.Schema<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>)>,result:Front.SetupResult<S>) -> String:
+-  match result:
+-    case Front.Ready{app}:sequence(~Application(~S),[snapshot(~S,False{}),snapshot(~S,True{}),snapshot(~S,True{}),reserve(~S),unqueried(~S,3,Some{Array.new(U32,0n,73)}),snapshot(~S,True{}),unqueried(~S,1,Some{Array.new(U32,0n,71)}),snapshot(~S,True{}),snapshot(~S,False{}),unqueried(~S,1,None{}),snapshot(~S,True{}),component(~S),snapshot(~S,True{}),dead(~S,1),snapshot(~S,True{}),component(~S),resource(~S,False{}),snapshot(~S,True{}),resource(~S,True{}),snapshot(~S,True{}),resource(~S,False{}),snapshot(~S,True{}),snapshot(~S,True{})],"",App.attached(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,~Front.owners(~S),~Front.rows(~S),~Front.observe(~S),~Front.fold(~S),schema,app))
+-    case _:"REGISTRATION_REJECTED"
+ def empty_store(~S:Data,value:Unit) -> Setup.store(~S,~Array<U32>):
+   Setup.empty(~S,~Array<U32>)(value)
+ def replaced(~S:Data,result:C.Replacement<World(~S),Array<U32>>) -> World(~S):
+@@ -223,11 +152,3 @@
+   match count:
+     case 0n:world
+     case 1n+k:entities(~S,k,False{},reserved(~S,first,W.reserve_id(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,world)))
+-def created(~S:Data,count:Nat,result:Schema.Schema<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>)> & W.Creation<S,Setup.store(~S,~Array<U32>),Setup.resources(~Array<U32>),U32>) -> String:
+-  match result:
+-    case (schema,W.Created{_,world}):registered(~S,schema,Front.register(~S,W.enqueue(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,entities(~S,count,True{},world),pending(~S))))
+-    case _:"CREATE_REJECTED"
+-def scenario(~S:Data,count:Nat) -> String:
+-  created(~S,count,App.create(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,~empty_store(~S),Setup.schema(~S,~Array<U32>,~Array<U32>,Front.declarations(~S)),W.factory(),Product.Owner{Unit{},Product.Owner{Unit{},Array.new(U32,0n,10)}}))
+-type Report is Data:
+-  Report{empty:String,populated:String}
