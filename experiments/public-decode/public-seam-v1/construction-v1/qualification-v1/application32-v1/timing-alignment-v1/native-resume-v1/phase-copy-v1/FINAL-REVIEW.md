@@ -71,3 +71,19 @@ Admit exact existing launcher + absolute PLAN-v6 + digest after root queue/fresh
 ## Retained nested V6 outcome — 9c0ffee7c
 
 Spec/Standards: PASS for bounded retention. Phase archive17 rows/11 objects verifies every body. Actual64231 outer0 retains tiny C equality and full copied30s deadline/no C,459 postpins unchanged. Raw2,563,234 bytes contain11,445 complete JSON records. A LIFO match of def_check names/depth confirms inclusive run_case~0=19,000.735466ms and nested application:run~4=18,631.897845ms. These overlap, must not be summed, and include copied observer costs. execute/run_case~1 and their nested application chain remain open at interruption. No pure culprit, stock cause, Native or performance result; future source repair is not admitted.
+
+## V7 changed source bindings launch
+
+Spec/Standards: PASS for changed-bindings diagnostic admission at immutable62b67fda9/configurede367a2 terminal0. PLAN-v7 SHA256 `09e72bdaacab451aefc15d0fc89af52820f67d6e0469d152c249c45aebcdcf7f`;460 current pins match and actual07 is absent. Observed-cli-v4/PATCHES-v4, launcher,16 links, environments and caps remain unchanged. All three command arrays match predecessor after only actual07 paths and full worklist-v7 entry substitution; cwd itself remains the predecessor value. This accurately reviews frozen argv/cwd rather than assuming a cwd change from handoff prose.
+
+The full subject is now private V7 main/application with original nominal App types and earlier same InstanceView handoff. Pending history aggregation is not a semantic qualification: source47672 deadline5 and JS79312 emitdeadline30 generated no qualified output, and Native was not launched. Neither contention nor source semantics is established as its cause. The independent model is not actual stdout. Final V7 retained-history verdict is deferred to the grouped actual07 packet as directed by root.
+
+Admit the same two tiny5s stock/copied success+exact C equality gate and conditional full copied30s attempt, using absolute PLAN-v7/digest, fresh bindings/output, root queue release and prior outer55s supervision. No observer/runner redesign, production mutation, Native/performance claim, future source change or ticket closure. No reviewer child was executed.
+
+## Grouped V7 actual07 retention — 0759c9970
+
+Spec/Standards: PASS for bounded history. Phase archive15 rows/9 objects and ordinary V7 archive125 rows/120 objects verify all lengths/SHA. Actual63639 outer0 retains tiny C equality, then full copied30s deadline/no C and460 postpins unchanged. Exact cwd remains predecessorV6 with absoluteV7 entry.
+
+Raw2,417,879 bytes/12,031 JSON records match archive. LIFO def_check name/depth pairing closes without stack error or open checks. Book-read-complete occurs at21,242.590695ms absolute process timestamp, after book-valid-enter430.369249ms; it must not be called a21.242s validation duration. Compile-enter21,245.412261ms, file-book-complete22,052.932336ms, pass1-complete26,818.653597ms/facts3662 and pass2-complete29,301.699891ms/facts3682 are retained; pass3 enters29,303.963202ms without completion.
+
+Recomputed nested span gaps after subtracting child def_check spans match ran~4/~12≈5772/5253ms, started~4/~12≈2336/2499ms and registered~4/~12≈2204/1926ms. These residual wall intervals include all other work and observer overhead; they are not exclusive CPU or causal hotspots. Neither their values nor overlapping inclusive spans establish stock timing, speedup or source equivalence. No completed C/build/runtime/Native result and no future launch admission.

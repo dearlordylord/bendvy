@@ -1,0 +1,71 @@
+from pathlib import Path
+import runpy,json,hashlib,gzip,re
+p=Path(__file__).resolve().parent;b=json.loads((p/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs','modelPins'):
+ for path,digest in b[group].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==digest,path
+m=runpy.run_path(str(p/'model.py.source'));prior=m['prior']();source=m['ENTRY'].read_text();specs=m['specs']();assert len(specs)==32
+branches=dict(re.findall(r'case (\w+)\{\}:Workload.run\(~S,~Cases.codec\(Cases.(\w+)\(\)\),mode,input,seed\)',source));assert len(branches)==8
+expanded=[]
+for schema,tag,operation,name,mode,rawcase,seedcase in specs:
+ assert branches[tag]==rawcase==seedcase
+ assert {'insert':'Insert','spawn':'Spawn','resource':'ResourceWrite'}[operation]==mode
+ owner={'Workshop':'First','Garden':'Second'}[schema]
+ expanded.append(f'Gameplay.run(~Owner.{owner},~Cases.codec(Cases.{branches[tag]}()),Gameplay.{mode}{{}},Cases.input(Cases.{rawcase}()),Cases.resource(Cases.{seedcase}()))')
+old=(prior['ALIGNED']/'main.bend').read_text();calls={}
+for line in old.splitlines():
+ step=re.match(r'def step_(\d+)\(',line)
+ if not step:continue
+ start=line.index('Gameplay.run(');depth=0
+ for i in range(start+len('Gameplay.run'),len(line)):
+  if line[i]=='(':depth+=1
+  elif line[i]==')':
+   depth-=1
+   if depth==0:calls[int(step.group(1))]=line[start:i+1];break
+assert expanded==[calls[i] for i in range(32)]
+expected_keys=[(v['$'],v['operation'],v['name']) for v in prior['formatted']()]
+assert [(a,c,d) for a,tag,c,d,mode,rawcase,seedcase in specs]==expected_keys
+assert 'case value <> rest:collect(rest,execute(value) <> previous)' in source
+assert 'collected_item' not in source
+assert source.count('List.reverse(&2,Item,previous)')==1
+helpers='def workshop_item(operation:String,name:String,value:Gameplay.Report<Owner.First>) -> Item:Workshop{operation,name,value}\ndef garden_item(operation:String,name:String,value:Gameplay.Report<Owner.Second>) -> Item:Garden{operation,name,value}\n'
+assert source.count(helpers)==1 and source.index(helpers)<source.index('def execute(')
+inverse=source.replace(helpers,'').replace('workshop_item(operation,name,run_case(~Owner.First,caseTag,mode,input,seed))','Workshop{operation,name,run_case(~Owner.First,caseTag,mode,input,seed)}').replace('garden_item(operation,name,run_case(~Owner.Second,caseTag,mode,input,seed))','Garden{operation,name,run_case(~Owner.Second,caseTag,mode,input,seed)}')
+# V7 retains V6 typed helpers; only new Workload import and eight run branches differ.
+v6=Path(b['predecessorEntry']).read_text()
+assert source.replace('import ./application.bend as Workload\n','').replace('Workload.run(', 'Gameplay.run(')==v6
+assert 'case value <> rest:separator ++ item(value) ++ work(rest,",")' in source
+
+application=Path(b['privateApplication']).read_text();original=Path(b['originalApplication']).read_text();mapping=json.loads(Path(b['helperMap']).read_text())
+def definitions(text):
+ parts=re.split(r'(?=^def |^type |^#)',text,flags=re.M)
+ return {re.match(r'def (\w+)',v).group(1):v.strip() for v in parts if v.startswith('def ')}
+a=definitions(application);o=definitions(original)
+assert len(a)==23 and set(a)==set(mapping['copiedDefinitions'])
+assert not re.search(r'^type ',application,re.M)
+for name in set(a)-set(mapping['changedDefinitions']):assert a[name].replace('App.','')==o[name],name
+assert 'instance:App.InstanceView<S>' in a['reported'] and 'App.Report{original,before,committed,barrier,instance,result}' in a['reported']
+assert application.count('App.instance_view(~S,~codec,instance)')==2
+assert 'published_main(~S,original,before,App.instance_view(~S,~codec,instance),App.published_result(~S,world,App.result_view(~S,result)))' in a['ran']
+assert 'invocation_refused(~S,original,before,world,App.instance_view(~S,~codec,instance),args)' in a['ran']
+assert 'App.snapshot(~S,App.observed_barrier(~S,world))' in a['barrier']
+assert 'case (_,view):barrier(~S,original,before,instance,App.InvocationRefused{view,op,target},App.snapshot(~S,world))' in a['invocation_refused_view']
+assert 'case (world,result):barrier(~S,original,before,instance,result,App.snapshot(~S,world))' in a['published_main']
+assert 'instance_view(~S,~codec,instance)' in o['reported']
+assert 'case Local.Instance{namespace,id,name,access,State{values,pending}}:InstanceView{namespace,id,name,access,recoveries(~S,values),pending_view(pending)}' in o['instance_view']
+assert 'instance' not in o['observed_barrier']
+
+
+for name in mapping['changedDefinitions']:
+ reconstructed=a[name].replace('App.','')
+ reconstructed=reconstructed.replace('(~S:Data,original:', '(~S:Data,~codec:D.Codec,original:')
+ reconstructed=reconstructed.replace('instance:InstanceView<S>', 'instance:Instance(~S,~codec)')
+ for helper in ('reported','barrier','invocation_refused_view','invocation_refused','published_main'):
+  reconstructed=reconstructed.replace(helper+'(~S,original',helper+'(~S,~codec,original')
+ if name=='reported':reconstructed=reconstructed.replace('barrier,instance,result}', 'barrier,instance_view(~S,~codec,instance),result}')
+ if name=='ran':reconstructed=reconstructed.replace('instance_view(~S,~codec,instance)', 'instance')
+ assert reconstructed==o[name],name
+
+raw=m['expected']();assert raw==prior['expected']() and m['formatted']()==prior['formatted']()
+v=json.loads((p/'ORACLES.json').read_text())['normal'];assert raw==gzip.decompress(Path(v['stdout']).read_bytes())
+assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+print('PASS:60pins/32actual sourceSpecs→originalcalls/schema-mode-codec-raw-seed-name-order/fullfield+wire equality; source01 deadline not PASS')
