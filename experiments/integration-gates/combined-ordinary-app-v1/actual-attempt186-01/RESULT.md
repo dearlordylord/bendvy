@@ -1,0 +1,7 @@
+# Combined186 actual capture
+
+Root original session18696 / PID926172 terminated exit0. Exact PLAN c2fb3d63adb5b467593f826b701ca92a24d85815551621841e67c6046a197b12; no rerun. Verified 368 lossless members, 3053383 archive bytes; full current candidate196/monitored193/direct187, baseline29, tools8 and TS33 source bindings. All123 commands exit0;110 full streams each contain ten complete22-checkpoint reports, under existing approved foreign-reference exclusion. All40 paired rows and20 chronological rows are retained; each backend has10 AB/10 BA. Exact sign/Holm recomputation matches NO_CONFIRMED_REGRESSION.
+
+JS paired ratio 0.8807684855733975, p 0.9423408508300781; Native 0.9254107129175674, p 0.8684120178222656. Descriptive JS/TS 0.36623549548669165, Native/TS 0.0941981401204589. Protected Workshop whole-process observations only; no universal speedup, full parity, hot-path or full54 qualification.
+
+Retained full staged/baseline/workload/source/artifact/receipt tree, captured inner streams, outer split stdout/stderr and actual terminal/preflight records. Reused four181 statistics controls through185 lossless raw receipt joins with unchanged source/tool/criteria; no control rerun. Preflight CPU11 idle501/busy0 is a launch observation, not continuous host proof. A read-only helper-path filesystem search occurred during the cohort; no compiler/checker/backend/hook was launched. Source/tool/artifact/receipt guards verified stable.
