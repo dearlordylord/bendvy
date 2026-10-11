@@ -1,0 +1,11 @@
+"""Full source-derived capacity interval grammar; no backend inputs."""
+from pathlib import Path
+import runpy
+HERE=Path(__file__).resolve().parent
+BASE=HERE.parents[1]
+A=Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/capacity-trace-v1/interval-v1')
+def derive():
+ grammar=runpy.run_path(str(BASE/'feature-v1/interval-v1/grammar-v3/model.py.source'))
+ capacity=runpy.run_path(str(HERE.parent/'bend-model.py.source'))
+ grammar['derive'].__globals__['model']=capacity
+ return grammar['derive']((A/'render.bend').read_text())
