@@ -1,0 +1,1 @@
+Source-only final public-v2 applicability for d6469d9c7. Original 9807e40e9 public-v1 packet remains immutable. Same declarations derive First and Inventory slots; eight other bodies and namespace depth are unchanged. Pure model regeneration is byte exact: 18011 bytes. No runtime inputs or backend acceptance.
