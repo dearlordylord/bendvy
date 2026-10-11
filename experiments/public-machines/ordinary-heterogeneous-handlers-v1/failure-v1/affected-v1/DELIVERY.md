@@ -1,0 +1,11 @@
+# Ordinary heterogeneous handler affected packet
+
+Exit and Enter fixtures retain the first Transition-failure consumer's complete ten checkpoints and Factory. Each changes only its real Local one-shot failure phase and error text. Exit preserves the old state and requeues; Enter retains the committed Warm transition and its earlier callbacks. The next ordinary marker does not rerun Enter.
+
+Source producer `482c6631d` and independent oracle `0d74ed498` precede execution. Exit source51973, JS90554 and Native62907 are terminal0, both complete23,526-byte outputs match b104c578bc8125c6bf7f767c0fbf66fbcdd9be76c35c6700f55c27f88ea12713. Enter source24855, JS82463 and Native77416 are terminal0, both complete23,481-byte outputs match a91c21afd8940f37f639823cd1e54426523019e5a0b989e6ad91baddbe459abc. Each pair retains five commands/seventeen guards and its full generated JS/C/native executable, raw outputs and receipts in a verified35-member RUNTIME.zip. Each source archive retains35 members. Executed collector scope strings inherited a Transition label; ACTUAL.json explicitly corrects that label from the operative frozen source and full independent oracle, without rewriting executed plans.
+
+`phase-baseline` privately copies current public Phase and ordinary Operation. Imports are relocated, a test-only rewind template is threaded through current ordinary scheduling, and both precommit failure catches invoke it before requeue. Application rewind is identity. Removing those exact changes recovers both public source files byte for byte. Source79426 passes pinned2.0.35 check-only under cap5 with unchanged pins. Its whole runtime baseline and named reached controls are pending; source review is not runtime qualification.
+
+An earlier producer hook and #54 source stage overlapped after a handoff misunderstanding; both original terminal receipts remain. This packet makes no measurement or exclusive-host claim. Subsequent backend sequences used the unchanged shared heavy lock, with explicit terminal handoffs and no hooks during live children.
+
+No production source/API, law, initialization, capture, cleanup or performance policy changes. Full #49 closure remains open until the current named failure controls and final independent review complete.
