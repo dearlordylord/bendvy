@@ -1,0 +1,25 @@
+from pathlib import Path
+import types,hashlib,json,fcntl,re
+ROOT=Path('/workspace/formal-proofs/bendvy')
+HERE=Path(__file__).resolve().parent
+HELPER=ROOT/'experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/check-source.py'
+def load(path):
+ m=types.ModuleType('loaded');m.__file__=str(path);exec(compile(path.read_bytes(),str(path),'exec'),m.__dict__);return m
+sources=set()
+def visit(p):
+ p=p.resolve()
+ if p in sources:return
+ sources.add(p)
+ for token in re.findall(r'^import\s+(\S+)',p.read_text(),re.M):
+  if token.endswith('.bend'):visit(Path(token) if token.startswith('/') else p.parent/token)
+visit(HERE/'source/owner-data-format-v1/main-scale4.bend')
+checker=load(HELPER);runner=load(ROOT/'scripts/task_runner.py')
+out=HERE/'source01'
+pins=checker.prepare_attempt(out,sorted(sources)+[HERE/'core/src/ecs/world-namespace.js',HERE/'core/src/ecs/world-namespace.c',ROOT/'benchmarks/parity-features/timing.js',ROOT/'benchmarks/parity-features/timing.c',HELPER,ROOT/'scripts/task_runner.py',Path('/home/node/.bend/bin/bend-2.0.35'),Path(__file__)])
+with open('/tmp/bendvy-parity-heavy.lock','a') as lock:
+ fcntl.flock(lock,fcntl.LOCK_EX)
+ try:
+  assert all(hashlib.sha256(Path(k).read_bytes()).hexdigest()==v for k,v in pins.items())
+  result=checker.capture(out,['/usr/bin/taskset','-c','11','/home/node/.bend/bin/bend-2.0.35',str(HERE/'source/owner-data-format-v1/main-scale4.bend'),'--check-only'],runner.execute_result)
+  print(result.get('exit'),result.get('failure'))
+ finally:(out/'post.json').write_text(json.dumps({'unchanged':all(hashlib.sha256(Path(k).read_bytes()).hexdigest()==v for k,v in pins.items())})+'\n')
