@@ -1,0 +1,50 @@
+{
+  "allPredecessorSourceAndStagePinsCurrent": true,
+  "allToolsAndReferencePinsCurrent": true,
+  "candidateHEAD": "0612fcc72b40a410dbe25180819ca24ba948151f",
+  "childrenExecuted": false,
+  "counts": {
+    "TS": 33,
+    "baseline": 29,
+    "direct": 185,
+    "monitored": 191,
+    "staged": 194,
+    "tools": 8
+  },
+  "delta": {
+    "added": {
+      "src/ecs/ordinary-app-schedule-description.bend": {
+        "bytes": 3474,
+        "sha256": "f6aa0e82ff60bf2537f8aed7e93d04d9866c3f0be0fd41441b29b84f67762192"
+      }
+    },
+    "changed": {},
+    "removed": {}
+  },
+  "launchCommand": [
+    "/usr/bin/flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "/usr/bin/env",
+    "-i",
+    "HOME=/home/node",
+    "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+    "LANG=C",
+    "LC_ALL=C",
+    "TZ=UTC",
+    "BEND_NO_TELEMETRY=1",
+    "BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root",
+    "LD_LIBRARY_PATH=/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu",
+    "/usr/bin/python3.11",
+    "/workspace/formal-proofs/bendvy/benchmarks/run.py",
+    "--output",
+    "/tmp/bendvy-combined-ordinary-app-regression185-01",
+    "--cpu",
+    "11"
+  ],
+  "outputAbsent": true,
+  "pendingPrerequisites": "Schedule-description final affected Spec/Standards review and exact functional adoption required before final freeze or launch. Independent exact comparative launch review required; all profile/semantic/hook children terminal, root-exclusive heavy queue and fresh suitable CPU11 host observations. No execution authorized by this preparation.",
+  "planSHA256": "24290042b89f2dbdc10f5191f9412c0f03f9224d7a62d37feaae0db42f0f06f2",
+  "predecessorSHA256": "9022209f991a14dbafaf717ddf97be25043c629f02a8900d98debdcf722b9ec0",
+  "statisticsReuse": "Exact unchanged four-control source/Python applicability inherited; no rerun or new control receipt claimed.",
+  "status": "PROSPECTIVE_SOURCE_JOIN_PASS_NOT_ADOPTED_NOT_EXECUTED"
+}
