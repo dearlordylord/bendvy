@@ -12,6 +12,7 @@ type Category is Data:
   Components{}
   Resources{}
   Events{}
+  Services{}
 type Role is Data:
   Reader{}
   Writer{}
@@ -25,6 +26,7 @@ def category(kind:Records.RegistrationKind) -> Category:
   match kind:
     case Records.ComponentKind{}:Components{}
     case Records.FieldKind{}:Resources{}
+    case Records.ServiceKind{}:Services{}
     case Records.ResourceKind{_}:Resources{}
 def resource_fields(~S:Data,+mode:Query.Mode,access:List<&2,String>) -> List<&2,Query.Clause<S>>:
   match access:
@@ -34,6 +36,7 @@ def clauses(~S:Data,kind:Records.RegistrationKind,access:List<&2,String>,retaine
   match kind:
     case Records.ComponentKind{}:retained
     case Records.FieldKind{}:retained
+    case Records.ServiceKind{}:[]
     case Records.ResourceKind{mode}:resource_fields(~S,mode,access)
 def role(mode:Query.Mode) -> Role:
   match mode:
@@ -51,12 +54,14 @@ def entries(~S:Data,+category:Category,+namespace:U32,+id:U32,+name:String,claus
 def fields(~S:Data,records:List<&2,Records.Fields<S>>) -> List<&2,Entry>:
   match records:
     case []:[]
+    case Records.Fields{_,_,_,_,_,slot,_,Records.ServiceKind{}} <> rest:Entry{Services{},slot,[]} <> fields(~S,rest)
     case Records.Fields{namespace,id,name,access,_,_,retained,+kind} <> rest:List.append(&2,Entry,entries(~S,category(kind),namespace,id,name,clauses(~S,kind,access,retained)),fields(~S,rest))
 def same_category(left:Category,right:Category) -> Bool:
   match left right:
     case Components{} Components{}:True{}
     case Resources{} Resources{}:True{}
     case Events{} Events{}:True{}
+    case Services{} Services{}:True{}
     case _ _:False{}
 def selected(found:Bool,category:Category,key:String,uses:List<&2,Use>,other:Category,otherKey:String,otherUses:List<&2,Use>,rest:List<&2,Entry>,tail:Unit -> List<&2,Entry>) -> List<&2,Entry>:
   match found:

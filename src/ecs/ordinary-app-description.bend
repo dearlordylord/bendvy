@@ -11,6 +11,7 @@ def clauses(~S:Data,kind:Records.RegistrationKind,access:List<&2,String>,retaine
   match kind:
     case Records.ComponentKind{}:retained
     case Records.FieldKind{}:retained
+    case Records.ServiceKind{}:[]
     case Records.ResourceKind{mode}:resource_clauses(~S,mode,access)
 def binding(~S:Data,fields:Records.Fields<S>) -> DTO.Binding<S>:
   match fields:
