@@ -1,0 +1,17 @@
+from pathlib import Path
+import json,hashlib,runpy,gzip
+p=Path(__file__).resolve().parent;b=json.loads((p/'SOURCE-BASIS.json').read_text());sha=lambda x:hashlib.sha256(Path(x).read_bytes()).hexdigest()
+for group in ('sourcePins','inputs'):
+ for path,digest in b[group].items():assert sha(path)==digest,path
+core=Path('/workspace/formal-proofs/bendvy/src/ecs')
+for name,line in [('ordinary-app-registration-fields.bend','  EventKind{}\n'),('ordinary-app-description.bend','    case Records.EventKind{}:retained\n')]:
+ source=(core/name).read_text();assert source.count(line)==1;assert source.replace(line,'')==(p/(name+'.before.source')).read_text()
+v=json.loads((p/'ORACLES.json').read_text())
+for tag,s in b['subjects'].items():
+ assert len(s['closure'])==95
+ assert set(s['onlySourceDrift'])=={str(core/'ordinary-app-registration-fields.bend'),str(core/'ordinary-app-description.bend')}
+ for path,d in s['onlySourceDrift'].items():assert sha(p/(Path(path).name+'.before.source'))==d['old']
+ model=runpy.run_path(s['modelPath']);assert str(model['TOP']/'entry-a.bend')==s['entry']
+ text=Path(s['modelPath']).read_text();assert "'EventKind'" not in text
+ raw=model['full_output']();item=v[tag];assert raw==gzip.decompress(Path(item['stdout']).read_bytes());assert len(raw)==item['bytes'] and hashlib.sha256(raw).hexdigest()==item['sha256']
+print('PASS: three95sourceclosures/current100pins/only2EventKind additions/exact oldarm inverse/QNames/full18467normal+Other/21542fault; no runtime inputs')
