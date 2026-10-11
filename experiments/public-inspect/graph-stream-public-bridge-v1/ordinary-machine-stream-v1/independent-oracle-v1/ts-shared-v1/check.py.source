@@ -1,0 +1,31 @@
+from pathlib import Path
+import json,hashlib,gzip,runpy
+p=Path(__file__).resolve().parent;b=json.loads((p/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs','modelPins'):
+ for path,digest in b[group].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==digest,path
+m=runpy.run_path(str(p/'model.py.source'));raw=m['expected']();v=json.loads((p/'ORACLES.json').read_text())['ts']
+assert raw==gzip.decompress(Path(v['stdout']).read_bytes())
+assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+records=json.loads(raw);assert len(records)==2
+for r in records:
+ name=r['schema'];assert r['first']==r['afterReader']['readerValues'][1]
+ assert r['second']['flowTransitions']==[] and r['second']['levelTransitions']==[] and r['second']['parentFailures']==[]
+ assert r['first']['flowTransitions']==[{'from':4,'to':7}] and r['first']['levelTransitions']==[{'from':10,'to':11}]
+ assert r['first']['parentFailures'][0]['error']=={'_tag':'HierarchyCycle','entityId':2,'targetId':3,'relation':name+'/Parent'}
+ assert r['first']['parentFailures'][0]['relation']['related']['~bevy-ts/Relation']=={}
+ for phase,tick in [('before',12),('afterFirst',13),('afterSecond',14),('afterReader',15)]:
+  q=r[phase];assert q['world']['tick']==tick and q['world']['frame']==(7 if phase=='afterReader' else 6)
+  assert len(q['world']['entities'])==3 and q['world']['pendingCommands']==[{'tag':'spawn','system':name+'/Pending'}]
+  assert q['world']['machines'][name+'/Flow']=={'current':7,'pending':9,'previous':4}
+  assert q['world']['machines'][name+'/Level']=={'current':11,'pending':12,'previous':10}
+  assert all(x['size']==1 for x in q['streams'])
+  assert all(x['readers'][0]['unread']==(0 if phase=='afterReader' else 1) for x in q['streams'])
+  assert [('heldBy' in x) for x in q['streams']]==([False]*3 if phase=='afterReader' else [True,True,False])
+ assert r['readResult']=={'ok':True}
+root=Path('/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src')
+r=(root/'Runtime.ts').read_text();rel=(root/'Relation.ts').read_text();w=(root/'internal/world.ts').read_text()
+assert 'transitionEvents.append(machineKey, world.advanceTick(), [snapshot])' in r
+assert 'relationFailures.append(relation.key, world.currentTick(), [' in r
+assert 'reader.lastRun = world.advanceTick()' in r and 'retainedAfter = frameStart' in w
+assert 'operation,\n  source,\n  target,\n  error' in rel
+print('PASS:35sourcepins/two complete TS scenes/eight physicalpoints/ticks12-15/Inspector-only consumption/Reader retention/failure descriptor JSON/full13834bytes')
