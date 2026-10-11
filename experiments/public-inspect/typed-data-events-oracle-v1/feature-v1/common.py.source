@@ -1,0 +1,47 @@
+"""Source-explicit observational projection; full platform bytes stay separate.
+
+Reader names associate retained Bend selections with TS declared systems, never
+assert numeric Registry/Reader identity parity. Raw clocks are intentionally
+platform companion state, not equal quantities: TS commits add publication tick.
+"""
+from pathlib import Path
+import runpy,json
+HERE=Path(__file__).resolve().parent
+bend=runpy.run_path(str(HERE/'bend-model.py.source'))
+ts=runpy.run_path(str(HERE/'ts-model.py.source'))
+def derive():
+    snapshots,states=bend['sequence']();labels=bend['LABELS'];rows=[]
+    for i,state in enumerate(states):
+        streams=[]
+        for j,key in enumerate(('First','Second','Unused')):
+            leaf=state['leaves'][j][1]
+            if not leaf['batches'] and not leaf['positions']:continue
+            order=[(1,'first'),(2,'slow')] if j==0 else [(1,'second')]
+            positions={p['id']:p for p in leaf['positions']}
+            readers=[];holder=None
+            for identity,name in order:
+                if identity not in positions:continue
+                p=positions[identity]
+                unread=sum(len(b['values']) for b in leaf['batches'] if b['tick']>p['cursor'])
+                readers.append({'system':name,'unread':unread,'lagged':leaf['dropped_through']>max(p['cursor'],p['registered_at'])})
+                if holder is None or p['cursor']<holder[1]:holder=(name,p['cursor'])
+            item={'kind':'event','stream':key,'size':sum(len(b['values']) for b in leaf['batches']),'capacity':leaf['capacity'],'readers':readers}
+            if leaf['batches'] and holder:
+                oldest=leaf['batches'][0]['tick']
+                if oldest<=leaf['boundary'] and holder[1]<oldest:item['heldBy']=holder[0]
+            streams.append(item)
+        for snapshot in snapshots[4*i:4*i+4]:
+            c=snapshot['completion'];completion=None
+            if c:
+                if c['kind'] in ('FirstRead','SecondRead'):
+                    completion={'kind':'First' if c['kind']=='FirstRead' else 'Second','failed':c['failed'],'reading':{'values':c['values'],'lagged':c['lagged']}}
+                elif c['kind']=='Published':completion={'kind':'Published','failed':c['failed']}
+                else:completion={'kind':'Framed'}
+            enabled=snapshot['enabled']
+            rows.append({'label':labels[i],'enabled':enabled,'ok':not(c and c.get('failed',False)),'completion':completion,'inventory':snapshot['inventory'],'streams':streams if enabled else None,'physicalStreams':streams})
+    expected={'format':1,'rows':rows}
+    tsraw,tsstates=ts['derive']();tsvalue=json.loads(tsraw)
+    differences=[i for i,(a,b) in enumerate(zip(rows,tsvalue['rows'])) if a!=b]
+    return expected,tsvalue,differences,states,tsstates
+if __name__=='__main__':
+    b,t,d,_,_=derive();print('different common rows:',d)

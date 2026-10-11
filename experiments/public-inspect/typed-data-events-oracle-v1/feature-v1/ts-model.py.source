@@ -1,0 +1,58 @@
+"""Independent TS source model: Runtime.runSystem/commitSystemTransaction,
+streams.register/trim/inspect and World.advanceFrame. Does not run JS/TS.
+"""
+import json,copy
+LABELS=['initial','activate-fast','activate-slow','activate-second','publish','fast-read','publish-abort','second-failed','second-retry','publish-retry','slow-failed','slow-retry','fast-read-again','second-read-again','frame','frame-again','fast-empty','second-empty']
+ACTIONS=[('first',False),('slow',False),('second',False),('publisher',False),('first',False),('publisher',True),('second',True),('second',False),('publisher',False),('slow',True),('slow',False),('first',False),('second',False),(None,False),(None,False),('first',False),('second',False)]
+def derive():
+    tick=frame_start=boundary=0;positions={};logs={};dropped={};rows=[];states=[]
+    def since(key,cursor):return [v for t,values in logs.get(key,[]) if t>cursor for v in values]
+    def streams():
+        keys=list(dict.fromkeys(list(logs)+[p['key'] for p in positions.values()]))
+        out=[]
+        for key in keys:
+            holders=[(name,p) for name,p in positions.items() if p['key']==key]
+            readers=[{'system':name,'unread':len(since(key,p['cursor'])),'lagged':dropped.get(key,0)>max(p['cursor'],p['registered'])} for name,p in holders]
+            item={'kind':'event','stream':key,'size':sum(len(v) for _,v in logs.get(key,[])),'capacity':65536,'readers':readers}
+            if logs.get(key) and holders:
+                oldest=logs[key][0][0];name,p=min(holders,key=lambda h:h[1]['cursor'])
+                if oldest<=boundary and p['cursor']<oldest:item['heldBy']=name
+            out.append(item)
+        return out
+    def observe(label,ok,completion):
+        physical=streams()
+        for enabled in (False,True,True,False):
+            rows.append({'label':label,'enabled':enabled,'ok':ok,'completion':copy.deepcopy(completion),'inventory':['First','Second','Unused'] if enabled else None,'streams':copy.deepcopy(physical) if enabled else None,'physicalStreams':copy.deepcopy(physical)})
+        states.append({'tick':tick,'frameStart':frame_start,'boundary':boundary,'positions':copy.deepcopy(positions),'logs':copy.deepcopy(logs),'droppedThrough':dict(dropped)})
+    observe('initial',True,None)
+    for label,(system,fail) in zip(LABELS[1:],ACTIONS):
+        # world.advanceFrame, then Streams.trim; frame itself never increments.
+        if frame_start>0:boundary=frame_start
+        frame_start=tick
+        for key,batches in logs.items():
+            held=min([boundary]+[p['cursor'] for p in positions.values() if p['key']==key])
+            while batches and batches[0][0]<=held:
+                dropped[key]=max(dropped.get(key,0),batches.pop(0)[0])
+            while sum(len(v) for _,v in batches)>65536:
+                dropped[key]=max(dropped.get(key,0),batches.pop(0)[0])
+        if system is None:completion={'kind':'Framed'}
+        else:
+            # slotOf activates before first run; publisher owns a slot but reads no streams.
+            if system!='publisher' and system not in positions:
+                positions[system]={'key':'Second' if system=='second' else 'First','cursor':0,'registered':tick}
+            tick+=1;this_run=tick
+            if system=='publisher':
+                completion={'kind':'Published','failed':fail}
+                if not fail:
+                    # commitSystemTransaction adds one publication tick, once
+                    # per transaction, not once per event key.
+                    tick+=1
+                    for key,values in [('First',[7,8]),('Second',[True])]:logs.setdefault(key,[]).append((tick,values))
+            else:
+                p=positions[system];key=p['key']
+                reading={'values':since(key,p['cursor']),'lagged':dropped.get(key,0)>max(p['cursor'],p['registered'])}
+                completion={'kind':key,'failed':fail,'reading':reading}
+                if not fail:p['cursor']=this_run
+        observe(label,not fail,completion)
+    assert len(rows)==72 and len(states)==18 and tick==17
+    return (json.dumps({'format':1,'rows':rows},separators=(',',':'))+'\n').encode(),states

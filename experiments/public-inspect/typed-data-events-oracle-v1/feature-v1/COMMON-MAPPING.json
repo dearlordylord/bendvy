@@ -1,0 +1,35 @@
+{
+  "scope": "Source-derived common operational observations; no measured/backend equality claim.",
+  "equalRows": 72,
+  "equalStates": 18,
+  "commonColumns": [
+    "label",
+    "enabled",
+    "ok",
+    "completion kind/failed/values/lagged",
+    "installed inventory including Unused",
+    "live stream kind/name/size/capacity/readers(system/unread/lagged)/optionalheldBy"
+  ],
+  "explicitAssociations": [
+    "Bend First typed selection id1 with actual registry namefirst -> TS first system and First descriptor",
+    "Bend First typed selection id2 with actual registry nameslow -> TS slow system and First descriptor",
+    "Bend Second typed selection id1 with actual registry namesecond -> TS second system and Second descriptor"
+  ],
+  "platformCompanionDifferences": {
+    "rawClock": {
+      "BendFinal": 15,
+      "TSFinal": 17,
+      "reason": "TS Runtime.commitSystemTransaction advances publication tick for each successful nonempty emittedEvents transaction (two here); Bend synchronize uses registeredrun completion tick."
+    },
+    "activation": "Bend Registry allocated at setup but Position absent until completedrun; TS SystemSlot/stream registration activated on first run before callback. All three readers successfully activated before first publication in this subject.",
+    "readerOrder": "Bend raw Position list prepends activation; common reader list follows exact named selection/callsite declaration order, TS Set insertion first then slow. Raw Bend list remains in whole physical oracle.",
+    "retention": "Separate clocks/frameStart/boundary/dropped stamps and batch shapes preserved in STATE-CHECKS; common retained sizes/readers/heldBy agree on these18source states.",
+    "identity": "No equality of raw Registry IDs, Reader IDs, symbol encodings or namespaces.",
+    "aggregateJournal": "Bend preserves First7/SecondTrue/First8 singleton records; TS commits one batch per descriptor. Each whole platform retains its actual exposed state; no cross-type order contract asserted."
+  },
+  "limits": [
+    "No raw World/owner byte parity with TS; complete Bend physical oracle separate.",
+    "Capacity65536 declared but no actual overflow/lag boundary crossed; separate fullcase required.",
+    "TS reference not executed; no correctness/performance acceptance yet."
+  ]
+}
