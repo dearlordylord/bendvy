@@ -1,0 +1,109 @@
+import sys,json,hashlib,types,time,os,fcntl,subprocess
+from pathlib import Path
+plan=Path(sys.argv[1]).resolve();digest=sys.argv[2]
+if hashlib.sha256(plan.read_bytes()).hexdigest()!=digest:raise SystemExit('plan digest mismatch')
+p=json.loads(plan.read_text());out=Path(p['stage'])
+if out.exists():raise SystemExit('fresh diagnostic stage required')
+def load(path):
+ m=types.ModuleType('diagnostic_dependency');m.__file__=str(path);exec(compile(Path(path).read_bytes(),str(path),'exec'),m.__dict__);return m
+def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def host():
+ data={'timeNs':time.time_ns(),'stat':Path('/proc/stat').read_text(),'loadavg':Path('/proc/loadavg').read_text()}
+ try:
+  x=subprocess.run(['/bin/ps','-eo','pid,ppid,stat,pcpu,time,comm'],capture_output=True,text=True,timeout=5)
+  data['ps']={'exit':x.returncode,'stdout':x.stdout,'stderr':x.stderr}
+ except Exception as e:data['ps']={'failure':str(e)}
+ return data
+primary=None;result=None;captureErrors=[]
+def error_info(e):return {'type':type(e).__name__,'message':str(e)}
+def failed(label,e):captureErrors.append({'boundary':label,**error_info(e)})
+def save(name,value):
+ try:
+  out.mkdir(exist_ok=True)
+  (out/name).write_text(json.dumps(value,indent=2)+'\n')
+ except BaseException as e:failed('save:'+name,e)
+def captured_host(name):
+ try:value=host()
+ except BaseException as e:
+  failed('host:'+name,e);value={'captureFailure':error_info(e)}
+ save(name,value)
+def link_state(path,binding):
+ link=Path(path)
+ if not link.is_symlink():raise RuntimeError('expected resource symlink: '+path)
+ observed=os.readlink(link)
+ if observed!=binding['readlink']:raise RuntimeError('resource readlink drift: '+path)
+ resolved=str(link.resolve(strict=True))
+ if resolved!=binding['resolved']:raise RuntimeError('resource resolved target drift: '+path)
+ return {'unchanged':True,'readlink':observed,'resolved':resolved}
+def binding_post():
+ files={};roots={};links={}
+ for path,expected in p['pins'].items():
+  try:files[path]={'unchanged':sha(path)==expected}
+  except BaseException as e:
+   failed('binding:'+path,e);files[path]={'unchanged':False,'bindingError':error_info(e)}
+ for root,expected in p['resourceRoots'].items():
+  try:
+   if not Path(root).is_dir():raise FileNotFoundError(root)
+   actual={str(f.relative_to(root)):sha(f) for f in sorted(Path(root).rglob('*')) if f.is_file()}
+   roots[root]={'unchanged':actual==expected}
+  except BaseException as e:
+   failed('resource:'+root,e);roots[root]={'unchanged':False,'bindingError':error_info(e)}
+ for path,binding in p.get('symlinkBindings',{}).items():
+  try:links[path]=link_state(path,binding)
+  except BaseException as e:
+   failed('symlink:'+path,e);links[path]={'unchanged':False,'bindingError':error_info(e)}
+ return {'pinsUnchanged':all(v['unchanged'] for v in files.values()),'resourcesUnchanged':all(v['unchanged'] for v in roots.values()),'linksUnchanged':all(v['unchanged'] for v in links.values()),'files':files,'roots':roots,'links':links}
+post=None
+try:
+ runner=load(p['taskRunner']);capture=load(p['sourceCapture'])
+ with open(p['lock'],'a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX)
+  try:
+   for path,expected in p['pins'].items():
+    if sha(path)!=expected:raise RuntimeError('pinned input drift: '+path)
+   for root,expected in p['resourceRoots'].items():
+    if not Path(root).is_dir():raise FileNotFoundError(root)
+    actual={str(f.relative_to(root)):sha(f) for f in sorted(Path(root).rglob('*')) if f.is_file()}
+    if actual!=expected:raise RuntimeError('resource membership/byte drift: '+root)
+   for path,binding in p.get('symlinkBindings',{}).items():link_state(path,binding)
+   inputs=runner.Inputs(files=p['pins'].keys(),directories=p['resourceRoots'].keys())
+   capture.prepare_attempt(out,[Path(f) for f in p['pins']])
+   captured_host('host-before.json')
+   env=dict(p['environment'])
+   def execute(argv,timeout,**kwargs):
+    inputs.guard();return runner.execute_result(argv,timeout,env=env,**kwargs)
+   result=capture.capture(out,p['argv'],execute)
+  except BaseException as e:primary=error_info(e)
+  finally:
+   captured_host('host-after.json')
+   try:post=binding_post()
+   except BaseException as e:failed('post-capture',e);post={'captureFailure':error_info(e)}
+   save('post.json',post)
+   observation={}
+   try:
+    marker=Path(p['boundaryOutput']);observation={'exists':marker.exists()}
+    if marker.exists():
+     raw=marker.read_bytes();observation.update(bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest())
+     try:observation['lastBoundary']=json.loads(raw.decode().strip())
+     except BaseException as e:observation['parseFailure']=error_info(e)
+   except BaseException as e:failed('observation-capture',e);observation['captureFailure']=error_info(e)
+   save('OBSERVATION.json',observation)
+except BaseException as e:
+ if primary is None:primary=error_info(e)
+ else:failed('outer-cleanup',e)
+finally:
+ # Primary remains the first execution/setup failure; every later capture/save
+ # error is separately recorded. Always attempt terminal persistence last.
+ if post is None:
+  captured_host('host-after.json')
+  try:post=binding_post()
+  except BaseException as e:failed('outer-post-capture',e);post={'captureFailure':error_info(e)}
+  save('post.json',post)
+ terminal={'primaryError':primary,'sourceResult':result,'post':post,'captureErrors':list(captureErrors),'scope':'Copied checker boundary diagnostic only; no stock source/backend qualification or measured cause.'}
+ save('TERMINAL.json',terminal)
+ # If persistence itself failed, emit a fallback containing the original error.
+ if any(v['boundary']=='save:TERMINAL.json' for v in captureErrors):
+  try:sys.stderr.write(json.dumps({**terminal,'captureErrors':captureErrors})+'\n')
+  except BaseException:pass
+if primary is not None or captureErrors or not isinstance(post,dict) or not post.get('pinsUnchanged') or not post.get('resourcesUnchanged') or not post.get('linksUnchanged',True):raise SystemExit(1)
+raise SystemExit(0 if result is not None and result.get('failure') is None and result.get('exit')==0 else 1)
