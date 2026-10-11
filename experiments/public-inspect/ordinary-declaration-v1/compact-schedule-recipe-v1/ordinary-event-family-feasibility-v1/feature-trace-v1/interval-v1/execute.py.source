@@ -34,12 +34,15 @@ def main():
    validator.validate(backend,result.stdout,result.stderr)
   h.guard();h.receipt.update(status='COMPLETE_TYPED_EVENT_INTERVAL_SEMANTICS',features=['typed-events'],scales=[1],scope='Complete72rows/17operations each platform; elapsed telemetry is not comparative acceptance')
  finally:
-  primary=sys.exc_info()[1];post=binding();post['primaryError']=repr(primary) if primary else None
+  primary=sys.exc_info()[1]
+  try:post=binding()
+  except Exception as error:post={'planSHA256':None,'drift':None,'bindingError':repr(error)}
+  post['primaryError']=repr(primary) if primary else None
   if h:
    try:h.guard();post['harnessPostguard']='UNCHANGED'
    except Exception as error:post['harnessPostguard']={'error':repr(error)}
    h.receipt['terminalPostguard']=post;h.save()
   terminal.write_text(json.dumps(post,indent=2)+'\n')
-  if primary is None:assert not post['drift'] and post['planSHA256']==x.plan_sha and post.get('harnessPostguard')=='UNCHANGED','Terminal input/stage/tool drift'
+  if primary is None:assert 'bindingError' not in post and not post['drift'] and post['planSHA256']==x.plan_sha and post.get('harnessPostguard')=='UNCHANGED','Terminal input/stage/tool drift'
  print(h.receipt['status'])
 if __name__=='__main__':main()
