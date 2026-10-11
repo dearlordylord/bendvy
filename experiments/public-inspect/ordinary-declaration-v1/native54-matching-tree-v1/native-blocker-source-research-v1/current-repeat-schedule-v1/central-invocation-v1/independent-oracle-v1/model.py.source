@@ -1,0 +1,15 @@
+"""Finite source-only central Inspector invocation model."""
+import json
+world="World{namespace=1,nextId=2,highWater=1,live=ANode{ALeaf{False},ALeaf{True}},capacity=2,depth=1,store=Column{ALeaf{Some{Payload{ALeaf{42}}}},[Entry{1,Stamp{1,1}}]},resource=ALeaf{17},events=[],pending=0,registrations=[],nextSystemId=1,clock=CLOCK}"
+row="Row{Handle{1,1},Value{Found{42},True,True}}"
+def observation(clock,instance,output):
+    delivery="Delivered{factory=2,Frame{cursor=0,"+world.replace("CLOCK",str(clock))+"},rows=["+row+"],clauses=[Clause{Position,Read{}}],access=Found{42},previous=None{},undo=0,commands=0,events=[]}"
+    return delivery+"|instance="+instance+"|output="+output
+
+def expected():
+    steps=[("before",1,"Fresh{}","None{}"),("fresh",2,"Active{2,1}","Some{Done{"+row+"}}"),("repeat",3,"Active{3,1}","Some{Done{"+row.replace("True,True","False,False")+"}}"),("error",3,"Active{3,1}","Some{Fail{MissingEntity{99}}}")]
+    scene="\n".join(label+str(i)+"="+observation(clock,instance,output) for label,clock,instance,output in steps for i in (1,2))
+    return (json.dumps("A\n"+scene+"\nOther\n"+scene,separators=(",",":"))+"\n").encode()
+if __name__=="__main__":
+    import sys
+    sys.stdout.buffer.write(expected())

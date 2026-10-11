@@ -1,0 +1,31 @@
+"""Bind exact central invocation sources and full independent output."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;P=HERE.parent;ROOT=Path('/workspace/formal-proofs/bendvy')
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+complete=json.loads((P/'SOURCE-COMPLETE.json').read_text());assert complete['status']=='COMPLETE_SOURCE_CONTROL_PASS'
+pins=complete['sourcePins'].copy()
+for path,digest in pins.items():assert sha(path)==digest,path
+consumer=(P/'consumer.bend').read_text();core=(ROOT/'src/ecs/inspector.bend').read_text()
+for text in ('D.read(', 'D.query(', 'I.Plan{', 'Query.get(', 'I.run(', 'I.Fresh{}', 'W.Handle{namespace,99}', 'I.Frame{world,cursor}', 'Some{result}'):
+    assert text in consumer,text
+assert 'Sys.' not in consumer and 'Sch.' not in consumer
+for text in ('case Fresh{}:first(', 'args,0,registeredAt,world)', 'case Active{cursor,registeredAt}:initialized(', 'case Frame{world,_} Fail{error}:Observed{world,Active{cursor,registeredAt},Fail{error}}', 'W.advance_clock('):assert text in core,text
+lifecycle=(ROOT/'src/ecs/lifecycle.bend').read_text();assert lifecycle.count('U32.is_gt(value,cursor)')==2
+query=(ROOT/'src/ecs/inspector-query.bend').read_text();assert 'case W.Handle{_,id}:(owner,Fail{MissingEntity{id}})' in query
+extras=[P.parent/'model.py.source',Path('/home/node/.bend/bend2/base.bend'),ROOT/'.references/sources.json',P.parent.parent/'ownership-preseed-v1/compiler/installed-cli-unmodified.mjs']
+# Prior physical serializer basis and exact installed loader/printer are declared inputs.
+extras[0]=P.parent/'actual-schedule-v1/independent-oracle-v1/model.py.source'
+extras[3]=P.parent.parent/'ownership-preseed-v1/compiler/installed-cli-unmodified.mjs'
+for extra in extras:pins[str(extra)]=sha(extra)
+raw=runpy.run_path(str(HERE/'model.py.source'))['expected']()
+assert raw.count(b'Frame{cursor=0,')==16
+assert raw.count(b'instance=Fresh{}')==4 and raw.count(b'instance=Active{2,1}')==4 and raw.count(b'instance=Active{3,1}')==8
+assert raw.count(b'output=Some{Fail{MissingEntity{99}}}')==4
+assert raw.count(b'Value{Found{42},False,False}')==4
+assert raw.count(b'registrations=[],nextSystemId=1')==16
+(HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+basis={'producerCommit':'d06ee591f','sourcePins':pins,'modelPins':{str(HERE/'model.py.source'):sha(HERE/'model.py.source')},'entry':str(P/'consumer.bend'),'derivation':'Caller initial World clock1 and Frame cursor0. Ordinary D.read and D.query build opaque Plan; I.run Fresh saves registeredAt1 and invokes with cursor0. Done advances clock2 and Instance Active2,1. Repeat invokes at cursor2: Stamp1,1 yields false lifecycle flags; Done advances clock3 and Instance Active3,1. Same-namespace missing handle99 fails before projection; finished Fail retains world and Active3,1. Owner-returning Caller.inspector_read still uses retained delivery cursor0, so physical rows remain true/true. Eight repeated observations per nominal schema; no Sys registration, scheduling, command delivery or payload mutation. Explicit String output has no constructor QName ambiguity. Legacy source-plan scope prose is superseded by actual consumer/closure.','scope':'Finite two-schema actual central invocation success/repeat/callback LookupError only; no missing resources, App, performance or universal proof. No runtime outputs used.'}
+b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+e={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+(HERE/'ORACLES.json').write_text(json.dumps({'normal':e},indent=2)+'\n');print(json.dumps({'sourcePins':len(pins),**e},indent=2))
