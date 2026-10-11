@@ -1,6 +1,20 @@
 # Combined Workshop regression gate
 
-Latest completed qualification: combined156 returns `NO_CONFIRMED_REGRESSION`,
+Latest completed qualification is [combined186](actual-attempt186-01/FINAL-REVIEW.md):
+`NO_CONFIRMED_REGRESSION`, all123 commands and110 complete outputs pass.
+Paired candidate/frozen-Bend medians are JS0.880768 and Native0.925411.
+Descriptive candidate/bevy-ts ratios are JS0.366235 and Native0.094198,
+for the protected Workshop whole-process workload only.
+
+The four newly integrated ordinary removal/despawn modules require a combined
+successor; combined186 does not qualify them. Batch that successor with the
+relation-category integration after its functional acceptance. Preserve the
+existing #28 workload, baseline and statistical criteria; execute only in an
+exclusive quiet-host window. Full feature performance remains separate.
+
+## Historical combined156 run
+
+Combined156 returns `NO_CONFIRMED_REGRESSION`,
 with [independent final review](actual-attempt156-01/FINAL-REVIEW.md), a lossless
 333-file archive and [unchanged launch plan](PLAN-156.json). All 123 commands and
 110 whole outputs pass. Median paired candidate/frozen-Bend ratios are JS
