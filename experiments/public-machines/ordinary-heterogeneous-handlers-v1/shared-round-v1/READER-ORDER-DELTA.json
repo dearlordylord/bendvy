@@ -1,0 +1,15 @@
+{
+  "reason": "Independent source derivation: TS Second batch trimmed at frame7 before first Second-reader activation; no runtime consumed.",
+  "change": "Swap Second-reader and First-reader checkpoints after retry on BOTH backends; First is already active before retry. Preserve all operations/observations/full physical scopes.",
+  "unchangedFiles": [
+    "application.bend",
+    "types.bend",
+    "lenses.bend",
+    "systems.bend",
+    "observe.bend"
+  ],
+  "oldFreeze": "FREEZE-pre-reader-order.json",
+  "oldReference": "reference-pre-reader-order.mjs",
+  "oldSourceCapture": "source02",
+  "newSourceCapture": "source03"
+}
