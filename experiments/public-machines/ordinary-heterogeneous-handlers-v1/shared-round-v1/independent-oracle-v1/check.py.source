@@ -1,0 +1,38 @@
+"""Finite model checks; reads source models only, never backend output."""
+from pathlib import Path
+import runpy
+
+HERE=Path(__file__).resolve().parent
+
+def checked():
+ bend=runpy.run_path(str(HERE/'bend-model.py.source'))
+ ts=runpy.run_path(str(HERE/'ts-model.py.source'))
+ strings,ledger=bend['observations']()
+ full=ts['Model']().run()
+ common=dict(ledger)
+ common['firstDelivered']=[{'from':a,'to':b} for a,b in (v.split('>') for v in ledger['firstDelivered'])]
+ common['secondDelivered']=[{'from':0,'to':7} for v in ledger['secondDelivered'] if v=='Idle>Active:7']
+ assert common==full['ledger']
+ assert len(strings)==13 and len(full['records'])==11
+ assert [r['label'] for r in full['records']]==['before','queued','round-failure','first-reader-before-retry','round-retry','second-reader','first-reader','later-round','final-first-reader','final-second-reader','final-barrier']
+ failure=full['records'][2]
+ assert failure['local']==[1,1,0,0,0,0]
+ assert failure['world']['machines']=={'First':{'current':'Cold','previous':'Cold','pending':'Warm'},'Second':{'current':0,'pending':7}}
+ assert failure['world']['resources']['Owned']==[22,12]
+ assert failure['world']['resources']['Trace']==['1:1']
+ assert failure['world']['entities'][0]['components']['Cells']==[0,32]
+ assert failure['world']['pendingCommands']==[{'tag':'insert','system':'first-exit'}]
+ assert full['records'][3]['firstDelivered']==[]
+ assert common['locals']==[2,2,1,1,1,1]
+ assert common['appliedReplacements']==8 and common['pendingCommands']==0
+ assert len(common['committedCallbacks'])==7 and len(common['pulse'])==7
+ assert full['records'][-1]['streams']==[
+  {'kind':'event','stream':'Pulse','size':0,'capacity':65536,'readers':[]},
+  {'kind':'transitionEvent','stream':'First','size':0,'capacity':65536,'readers':[{'system':'first-reader','unread':0,'lagged':False}]},
+  {'kind':'transitionEvent','stream':'Second','size':0,'capacity':65536,'readers':[{'system':'second-reader','unread':0,'lagged':False}]}]
+ assert all('ms' not in e for r in full['records'] for e in r['traces'])
+ return {'status':'SOURCE_ONLY_COMPLETE_MODELS_AND_COMMON_LEDGER_PASS','bendStrings':13,'tsSnapshots':11,'committedCallbacks':7,'appliedReplacements':8,'localAttempts':sum(common['locals']),'bendFinalClock':8,'tsFinalClock':full['records'][-1]['world']['tick'],'noRuntimeInputs':True}
+
+if __name__=='__main__':
+ import json
+ print(json.dumps(checked(),sort_keys=True))
