@@ -1,0 +1,11 @@
+--- /workspace/formal-proofs/bendvy/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/runtime-profiles-v1/run.py
++++ /workspace/formal-proofs/bendvy-worktrees/ordinary-custom-store-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1/owner-data-format-v1/current-classification-v1/cpu11-v1/region-cpu-v1/run.py
+@@ -174,7 +174,7 @@
+                         profile=json.loads(Path(command['profile']).read_bytes());validator.validate_shape(command['role'],profile)
+                         record['observations'].append(dict(role=command['role'],timer=validated['timer'],profileSHA256=sha(command['profile']),wholeOutputEqual=True))
+             finally:fcntl.flock(lock,fcntl.LOCK_UN)
+-        record['status']='COMPLETE_WHOLE_PROCESS_DIAGNOSTIC'
++        record['status']='COMPLETE_REGION_CPU_DIAGNOSTIC'
+ 
+ 
+ if __name__=='__main__':
