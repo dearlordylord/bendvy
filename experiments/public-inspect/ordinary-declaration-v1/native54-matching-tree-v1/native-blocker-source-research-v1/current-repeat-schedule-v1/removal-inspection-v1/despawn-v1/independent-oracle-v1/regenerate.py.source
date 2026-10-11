@@ -1,0 +1,34 @@
+"""Current source joins and independent observed despawn whole oracle."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;P=HERE.parent;OLD=P.parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    complete=json.loads((P/'SOURCE-COMPLETE.json').read_text());pins=complete['sourcePins'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    clear=(P/'despawn-clear.bend').read_text();consumer=(P/'consumer.bend').read_text();entry=(P/'entry.bend').read_text()
+    assert 'Col.Accepted{column,Some{_}}:(put(rest,column),[emit(handle)])' in clear
+    assert 'Col.Accepted{column,None{}}:(put(rest,column),[])' in clear
+    assert 'Col.clear(' in clear and 'inject(Binding.identity(' in clear
+    assert 'product_next(~S,~Store,~E,~right,handle,left(store,handle))' in clear
+    assert 'Cmd.tx_despawn_observed(' in consumer and 'Provision.Right{Rm.Despawned{handle}}' in consumer
+    assert 'scenario(~C.A,True{}),scenario(~C.Other,False{})' in entry
+    assert 'case False{}:None{}' in consumer and 'other_payload(present)' in consumer
+    oldbasis=json.loads((OLD/'independent-oracle-v1/SOURCE-BASIS.json').read_text())
+    for path,digest in oldbasis['sourcePins'].items():
+        assert sha(path)==digest,path
+        pins[path]=digest
+    for path in (OLD/'independent-oracle-v1/model.py.source',P/'SOURCE-COMPLETE.json'):pins[str(path)]=sha(path)
+    raw=runpy.run_path(str(HERE/'model.py.source'))['expected']()
+    assert raw.count(b'clock=2')==12 and raw.count(b'resource=ALeaf{17}')==12
+    assert raw.count(b'Aggregate{Despawned{Handle{1,1}}}')==8
+    assert raw.count(b'Declaration{OtherPosition}')==4
+    assert raw.count(b'Reader{1,1,PositionRemovals,3}')==2
+    assert raw.count(b'Reader{1,1,PositionRemovals,2}')==2
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    basis={'producerCommit':'bb4a8640d','sourcePins':pins,'modelPins':{str(HERE/'model.py.source'):sha(HERE/'model.py.source')},'entry':str(P/'entry.bend'),'derivation':'Same Binding identity/lens leaf cleanup Col.clear consumes present arbitrary Type owner and removes lifecycle metadata; absent leaf emits no record. Product left then right records; actual accepted Cmd.tx_despawn_observed deactivates live1, clears columns, publishes component records followed by one aggregateGone. Column clear/deactivate/log/read do not advance writeclock2. A log count3; Other count2 despite absent43 still having successful None replacement setup tick2/zero stamp. Component selector excludes outer aggregate and other leaf; inspector projects Position record, reader succeeds and advances to whole log length3/2. Complete explicit manual String grammar, no QName; no runtime outputs used.','scope':'Finite present/absent same-P leaf observed despawn, two schemas/twelve snapshots; existing disposal semantics only, no universal exactly-once/finalizer/cleanup-failure/eventframe/dynamiclayout/full54 claim.'}
+    b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle},indent=2)+'\n')
+    print(json.dumps({'sourcePins':len(pins),**oracle},indent=2))
+if __name__=='__main__':regenerate()
