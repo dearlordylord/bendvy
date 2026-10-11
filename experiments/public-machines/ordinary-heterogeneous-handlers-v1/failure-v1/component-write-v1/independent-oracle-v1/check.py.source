@@ -1,0 +1,16 @@
+from pathlib import Path
+import json,hashlib,gzip,runpy
+here=Path(__file__).resolve().parent
+b=json.loads((here/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs'):
+ for path,digest in b[group].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==digest,path
+m=runpy.run_path(str(here/'model.py.source'));raw=m['expected']();v=json.loads((here/'ORACLES.json').read_text())['normal']
+assert raw==gzip.decompress(Path(v['stdout']).read_bytes())
+assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+rows=m['observations']();assert len(rows)==11
+assert 'tentativeCells=Column{values=leaf:some(node(leaf:12,leaf:32));stamps=[1:0:2]}|clock=2' in rows[2]
+assert 'first=Column{values=leaf:some(node(leaf:11,leaf:32));stamps=[1:0:1]}' in rows[2]
+assert '|clock=2}' in rows[2] and '|clock=5}' in rows[4]
+assert 'first=Column{values=leaf:some(node(leaf:23,leaf:32));stamps=[1:0:8]}' in rows[-2]
+assert '|clock=8}' in rows[-2]
+print('PASS:32pins/full11Strings/tentative+undo+retained clock')
