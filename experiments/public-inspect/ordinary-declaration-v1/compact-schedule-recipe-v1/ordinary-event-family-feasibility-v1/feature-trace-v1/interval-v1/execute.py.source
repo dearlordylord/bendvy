@@ -19,7 +19,11 @@ def main():
   initial=binding();assert initial['planSHA256']==x.plan_sha and not initial['drift'],'Frozen input drift';assert not output.exists(),'Fresh output required'
   record=json.loads((stage/'stage.json').read_text())
   preflight.snapshot=lambda:{k:preflight.digest(ROOT/k) for k in record['sources']}
-  preflight.external=lambda:{k:preflight.digest(Path(k)) for k in record['external']}
+  def external():
+   for directory,members in record['externalMembership'].items():
+    d=Path(directory);assert sorted(str(p.relative_to(d)) for p in d.rglob('*') if p.is_file())==members,'Reference/Base membership drift'
+   return {k:preflight.digest(Path(k)) for k in record['external']}
+  preflight.external=external
   h=execute.Harness(stage,output)
   commands=h.build('typed-events-1')
   spec=importlib.util.spec_from_loader('evaluation_check',importlib.machinery.SourceFileLoader('evaluation_check',str(HERE/'evaluation-check.py.source')));evaluation=importlib.util.module_from_spec(spec);spec.loader.exec_module(evaluation)
