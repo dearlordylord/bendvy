@@ -26,7 +26,7 @@ def boolean(value:Bool) -> String:
 def access(value:C.Access<U32>) -> String:
   match value:
     case C.Found{value}:"Found{" ++ U32.show(value) ++ "}"
-    case C.MissingComponent{}:"MissingComponent{}"
+    case C.ComponentAbsent{}:"ComponentAbsent{}"
     case C.MissingEntity{}:"MissingEntity{}"
 def row(~S:Data,value:Rows.Row<S,U32>) -> String:
   match value:
