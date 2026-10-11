@@ -1,0 +1,37 @@
+"""Exact checked public mutation and immutable full normal baseline."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;P=HERE.parent;PUBLIC=P.parent;OLD=PUBLIC.parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def body(p):return '\n'.join(x for x in Path(p).read_text().splitlines() if not x.startswith('import '))
+def regenerate():
+    complete=json.loads((P/'SOURCE-COMPLETE.json').read_text());assert complete['status']=='COMPLETE_SOURCE_CONTROL_PASS'
+    pins=complete['sourcePins'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    applied=json.loads((P/'ROOT-APPLIED.json').read_text())
+    assert sha(applied['path'])==applied['afterSHA256']
+    assert Path(applied['path']).read_bytes()==(P/'mutant-public.source').read_bytes()
+    normal=(P/'normal-public.source').read_text();mutant=(P/'mutant-public.source').read_text()
+    assert mutant.replace('case Left{_}:None{}','case Left{value}:select(value)',1)==normal
+    assert body(P/'normal-public.source')==body(OLD/'removal-provision.bend')
+    assert body(P/'mutant-public.source')==body(OLD/'affected-v1/removal-provision-mutant.bend')
+    publicbasis=json.loads((PUBLIC/'independent-oracle-v1/SOURCE-BASIS.json').read_text())
+    for path,digest in publicbasis['sourcePins'].items():
+        if path==applied['path']:continue
+        assert sha(path)==digest,path
+        pins[path]=digest
+    for path in (P/'SOURCE-COMPLETE.json',P/'ROOT-APPLIED.json',P/'SOURCE-STATES.json',P/'normal-public.source',P/'mutant-public.source',OLD/'affected-v1/independent-oracle-v1/model.py.source',OLD/'independent-oracle-v1/model.py.source'):pins[str(path)]=sha(path)
+    model=runpy.run_path(str(HERE/'model.py.source'));catalogue={}
+    for case in ('normal','mutant'):
+        raw=model['expected'](case)
+        assert raw==(OLD/'affected-v1/independent-oracle-v1'/case/'expected.stdout').read_bytes()
+        directory=HERE/case;directory.mkdir(exist_ok=True)
+        (directory/'expected.stdout').write_bytes(raw);(directory/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+        basis={'producerCommit':'71c3575c1','sourcePins':pins,'case':case,'modelPins':{str(HERE/'model.py.source'):sha(HERE/'model.py.source')},'derivation':'Exact current root public left-select omission is sole body delta. Same public entry/consumer/observer and actual removal injection/physical work. Shared selector affects inspector and operational reader: empty projections and reader output, cursor still full event count1. Prior independent full state interpretation reused by literal source inverse; no runtime output input. Normal baseline uses retained pre-mutation source, not current source claim.','scope':'Controlled actual public candidate defect only, finite two schemas/twelve snapshots; no general cleanup/despawn/full54 claim.'}
+        b=directory/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+        catalogue[case]={'stdout':str(directory/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    catalogue['mutant'].update(normalBaseline=catalogue['normal']['stdout'],normalBaselineBytes=catalogue['normal']['bytes'],normalBaselineSHA256=catalogue['normal']['sha256'])
+    (HERE/'SOURCE-BASIS.json').write_text(json.dumps({'producerCommit':'71c3575c1','sourcePins':pins},indent=2)+'\n')
+    (HERE/'ORACLES.json').write_text(json.dumps(catalogue,indent=2)+'\n')
+    print(json.dumps({'sourcePins':len(pins),'cases':catalogue},indent=2))
+if __name__=='__main__':regenerate()
