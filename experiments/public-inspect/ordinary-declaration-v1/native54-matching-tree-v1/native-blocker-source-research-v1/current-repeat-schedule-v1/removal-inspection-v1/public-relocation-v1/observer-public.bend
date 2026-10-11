@@ -1,6 +1,6 @@
 import Base
 import ./consumer-public.bend as C
-import ./removal-provision.bend as Provision
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-removal-provision.bend as Provision
 import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
 import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col
 import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Identity
