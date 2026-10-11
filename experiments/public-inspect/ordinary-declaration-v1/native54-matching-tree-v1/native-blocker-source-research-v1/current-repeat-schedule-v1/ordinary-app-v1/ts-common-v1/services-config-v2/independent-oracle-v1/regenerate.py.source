@@ -1,0 +1,37 @@
+"""Exact TS source binding and source-operation selfchecks."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;P=HERE.parent;ROOT=Path('/workspace/formal-proofs/bendvy')
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+f=json.loads((P/'FREEZE.json').read_text());pins=f['sourceInventory'].copy()
+for path,digest in pins.items():assert sha(path)==digest,path
+ref=(P/'reference.mjs').read_text();original=(P.parent/'reference.mjs').read_text();assert ref.replace('services:G.Runtime.services(),','')==original
+runtime=(ROOT/'.references/bevy-ts/packages/core/src/Runtime.ts').read_text();debug=(ROOT/'.references/bevy-ts/packages/core/src/internal/debug.ts').read_text()
+assert 'services:G.Runtime.services()' in ref
+assert 'const provided: Record<string, unknown> = {}' in runtime
+assert 'const providedServices = options.services as unknown as Services' in runtime
+assert 'providedServices: Object.keys(providedServices)' in runtime
+assert 'readonly services: ProvidedServices' in (ROOT/'.references/bevy-ts/packages/core/src/Schema.ts').read_text()
+assert ref.count('snapshot(')==6 # six actual observations; helper is an arrow function
+assert "rt.tick(schedule)" in ref and ref.count('rt.tick(schedule)')==2
+assert 'rt.inspect(inspect)' in ref and 'rt.debug.nameSchedules(' in ref
+assert 'reader.lastRun = world.advanceTick()' in runtime
+assert 'const thisRun = world.advanceTick()' in runtime
+assert 'pendingCommands.splice(0, pendingCommands.length)' in runtime
+assert 'const described = new Map([...placements]' in debug
+assert 'readers: [...entry.readers]' in debug
+pins[str(P/'FREEZE.json')]=sha(P/'FREEZE.json');pins[str(P/'COMMON-LEDGER.json')]=sha(P/'COMMON-LEDGER.json')
+pins[str(P/'SOURCE-REPAIR.json')]=sha(P/'SOURCE-REPAIR.json')
+pins[str(P.parent/'reference.mjs')]=sha(P.parent/'reference.mjs')
+pins[str(P.parent/'independent-oracle-v1/model.py')]=sha(P.parent/'independent-oracle-v1/model.py')
+assert sha(HERE/'model.py')==sha(P.parent/'independent-oracle-v1/model.py')
+m=runpy.run_path(str(HERE/'model.py'));raw=m['expected']();value=json.loads(raw)
+assert [o['dump']['tick'] for o in value[0]['observations']]==[3,4,6,7,9,10]
+assert len(value)==2 and all(len(x['observations'])==6 for x in value)
+assert all(o['dump']['pendingCommands']==[] for x in value for o in x['observations'])
+assert all(o['streams']==[] for x in value for o in x['observations'])
+(HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+basis={'producerCommit':'d47437feb','sourcePins':pins,'modelPins':{str(HERE/'model.py'):sha(HERE/'model.py')},'reference':str(P/'reference.mjs'),'derivation':'Required services:G.Runtime.services() builds empty ordinary record passed unchanged to providedServices, describe services[]; original omitted-config applicability withdrawn and failed attempt retained. Sole reference change verified literally. Setup runs at tick1 and applyDeferred advances tick2, installing entity1 PositionArray42 and empty entity2. No initial resource tick. Persistent Inspector created lazily at tick2, each inspect advances one tick after successful rows/resource projection: observations3/4, schedule system5, observations6/7, schedule system8, observations9/10. Runtime.tick advances frame, giving1/1/2/2/3/3. No writes/events/commands in component reads. Two named distinct system objects share printable SharedSystem; describe includes both schedules, deduplicates component readers by name and retains resource writer, no HostRead or Setup placement. ResourceNotRun slot is not executed. Streams empty without event/relation/machine declarations. Success undefined value omitted by JSON.stringify. All arrays/identity booleans/full exposed debug objects retained.','limits':'Actual TS persistent Inspector/schedule/debug witness, not identical Bend semantics: pending publication99 unavailable via public TS commands; no fabricated equivalent operation. No affine proof/native private state/raw-ID equivalence/performance/full54 claim. No runtime output inputs or TS evaluation.'}
+b=HERE/'INDEPENDENT-SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+e={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+(HERE/'ORACLES.json').write_text(json.dumps({'normal':e},indent=2)+'\n');print(json.dumps({'sourcePins':len(pins),**e},indent=2))
