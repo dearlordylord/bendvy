@@ -6,9 +6,10 @@ Paired candidate/frozen-Bend medians are JS0.880768 and Native0.925411.
 Descriptive candidate/bevy-ts ratios are JS0.366235 and Native0.094198,
 for the protected Workshop whole-process workload only.
 
-The four newly integrated ordinary removal/despawn modules require a combined
-successor; combined186 does not qualify them. Batch that successor with the
-relation-category integration after its functional acceptance. Preserve the
+The four ordinary removal/despawn modules and the ordinary relation-category
+frontend are now integrated after bounded functional reviews. A combined
+successor is pending; combined186 does not qualify these additions. Batch that
+successor with the resource binding after its functional acceptance. Preserve the
 existing #28 workload, baseline and statistical criteria; execute only in an
 exclusive quiet-host window. Full feature performance remains separate.
 
