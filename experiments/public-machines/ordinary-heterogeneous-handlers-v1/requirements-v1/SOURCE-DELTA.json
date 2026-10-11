@@ -1,0 +1,34 @@
+{
+  "unchangedBodies": [
+    {
+      "file": "types.bend",
+      "sha256": "9edf636d52257c5fc74b44a7b5e9ad1ef995daa62d99da2c0560dec2069de717",
+      "baseline": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/types.bend"
+    },
+    {
+      "file": "lenses.bend",
+      "sha256": "cf466448e74f4dfe9aff265087b456443a500b91725c78c31e8b695c8ab43945",
+      "baseline": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/lenses.bend"
+    },
+    {
+      "file": "systems.bend",
+      "sha256": "83363ba9d8d70898026df68f5a651bfdb6f7a1cd6be0582fc3cb29cda3368be3",
+      "baseline": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/systems.bend"
+    },
+    {
+      "file": "observe.bend",
+      "sha256": "f87227f9e209a8df04b1f9efbdcdb0f39dc99b0ed0346d8329cccc4f26338993",
+      "baseline": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/observe.bend"
+    }
+  ],
+  "applicationInverseExact": true,
+  "mainInverseExact": true,
+  "baselineApplicationSHA256": "13711e24896b276ce64b34df9049498b7efe500882de76f7d50f1856251c5895",
+  "baselineMainSHA256": "bd98f3b11ed6bc170bb98b877e6bd8d5bf8443c6b68a99ec8dc89e3659207a7b",
+  "changes": [
+    "First Enter needs [1,2,3,1], explicit needs parameter to avoid affine Selector duplication",
+    "First has3 takes/restores actual Second Slot; existing second_availability declaration relocated before call only",
+    "Detach/restore helpers preserve complete Application fields and held actual Slot",
+    "Two preflight full observations and restored-before followed exact original complete continuation"
+  ]
+}
