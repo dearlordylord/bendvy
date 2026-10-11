@@ -1,0 +1,50 @@
+{
+  "allPredecessorPinsAndStagedBytesUnchanged": true,
+  "allToolsAndTSHashesCurrent": true,
+  "candidateHEAD": "ee0825a5cca741b6f1a8bb4320bd944be18d251e",
+  "capacityCandidateExcluded": true,
+  "counts": {
+    "TS": 33,
+    "baseline": 29,
+    "direct": 184,
+    "monitored": 190,
+    "staged": 193,
+    "tools": 8
+  },
+  "delta": {
+    "added": {
+      "src/ecs/ordinary-app-relation-failure-reader.bend": {
+        "bytes": 8480,
+        "sha256": "918b3f6c0865e0ea57142216741aaa788593f2fa1b3a089590add64a3d1deb15"
+      }
+    },
+    "changed": {},
+    "removed": {}
+  },
+  "launchCommand": [
+    "/usr/bin/flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "/usr/bin/env",
+    "-i",
+    "HOME=/home/node",
+    "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+    "LANG=C",
+    "LC_ALL=C",
+    "TZ=UTC",
+    "BEND_NO_TELEMETRY=1",
+    "BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root",
+    "LD_LIBRARY_PATH=/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu",
+    "/usr/bin/python3.11",
+    "/workspace/formal-proofs/bendvy/benchmarks/run.py",
+    "--output",
+    "/tmp/bendvy-combined-ordinary-app-regression184-01",
+    "--cpu",
+    "11"
+  ],
+  "outputAbsent": true,
+  "pendingPrerequisites": "Independent exact comparative launch review PASS; accepted common reader488958bdc only. All profile/semantic/hook children terminal; root-exclusive heavy queue and fresh suitable CPU11 host observations. Private carried-count capacity candidate excluded; root event-runtime baseline remains unchanged.",
+  "planSHA256": "9022209f991a14dbafaf717ddf97be25043c629f02a8900d98debdcf722b9ec0",
+  "predecessorSHA256": "34b0cb8fd5d255404903e4a7fa74fa72d47990ac5e3d72da14454b2cbd3fa382",
+  "statisticsControlReuse": "Exact four qualified controls retained from DEFERRED180/actual183; suite and Python literal/resolved/hash bindings unchanged. No execution claimed.",
+  "status": "SOURCE_CURRENT_PASS_NO_LAUNCH"
+}
