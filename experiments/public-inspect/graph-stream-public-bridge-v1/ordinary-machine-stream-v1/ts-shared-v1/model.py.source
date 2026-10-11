@@ -1,0 +1,30 @@
+"""Source-derived finite TS machine/stream Inspector model; no runtime inputs."""
+import json,copy
+def parent(name):
+    return {'kind':'relation','name':name+'/Parent','relatedName':name+'/Children','relationKind':'hierarchy','linkedDespawn':True,'allowSelf':False,'ordered':True,'related':{'kind':'related','relatedName':name+'/Children','relationName':name+'/Parent','relationKind':'hierarchy','~bevy-ts/Relation':{}},'~bevy-ts/Relation':{}}
+def failure(name):
+    return {'relation':parent(name),'operation':'relate','source':{'kind':'EntityId','value':2},'target':{'kind':'EntityId','value':3},'error':{'_tag':'HierarchyCycle','entityId':2,'targetId':3,'relation':name+'/Parent'}}
+def projection(name,phase):
+    initial=phase=='initial';values=phase in ('first','reader')
+    return {'flow':4 if initial else 7,'level':10 if initial else 11,'flowTransitions':[{'from':4,'to':7}] if values else [],'levelTransitions':[{'from':10,'to':11}] if values else [],'flowLagged':False,'levelLagged':False,'parentFailures':[failure(name)] if values else [],'parentLagged':False}
+def point(name,phase):
+    ticks={'before':12,'afterFirst':13,'afterSecond':14,'afterReader':15};read=phase=='afterReader'
+    entities=[]
+    for i in (1,2,3):
+        relations={name+'/Link':2,name+'/Parent':2} if i in (1,3) else {}
+        entities.append({'id':i,'components':{name+'/Cells':[i*10+1,i*10+2],name+'/Sibling':[i*10+3,i*10+4]},'relations':relations})
+    world={'version':1,'frame':7 if read else 6,'tick':ticks[phase],'entityCount':3,'entities':entities,'resources':{name+'/Owned':[11,12],name+'/SiblingOwner':[21,22]},'machines':{name+'/Flow':{'current':7,'pending':9,'previous':4},name+'/Level':{'current':11,'pending':12,'previous':10}},'pendingCommands':[{'tag':'spawn','system':name+'/Pending'}]}
+    streams=[]
+    for kind,stream,stamp in (('transitionEvent','Flow',8),('transitionEvent','Level',9),('relationFailure','Parent',11)):
+        item={'kind':kind,'stream':name+'/'+stream,'size':1,'capacity':65536,'readers':[{'system':name+'/Reader','unread':0 if read else 1,'lagged':False}]}
+        # Before reader, retainedAfter=9; failure stamp11 remains in frame window.
+        if not read and stamp<=9:item['heldBy']=name+'/Reader'
+        streams.append(item)
+    values=[projection(name,'initial')]
+    if read:values.append(projection(name,'reader'))
+    return {'world':world,'streams':streams,'readerValues':values}
+def expected():
+    output=[]
+    for name in ('Workshop','Garden'):
+        output.append({'schema':name,'before':point(name,'before'),'first':projection(name,'first'),'afterFirst':point(name,'afterFirst'),'second':projection(name,'second'),'afterSecond':point(name,'afterSecond'),'readResult':{'ok':True},'afterReader':point(name,'afterReader')})
+    return (json.dumps(output,ensure_ascii=False,separators=(',',':'))+'\n').encode()
