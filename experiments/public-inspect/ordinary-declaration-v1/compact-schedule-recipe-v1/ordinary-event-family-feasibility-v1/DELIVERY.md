@@ -1,0 +1,11 @@
+# Typed Data event family bounded delivery
+
+Five prepared public modules compose arbitrary finite typed Data families through recursive ordinary provisioning and retain one World. The complete ordinary consumer installs three distinct typed leaves including an unused leaf; the same retained Domains drive grants, registration and enabled inventory. Reader identity is separate from actual system registration identity.
+
+Four complete JS/Native pairs passed independent whole source-derived oracles: normal 90365 bytes, nominal Other 90165, reached cursor countermodel 97765, and focused affine Args/Out 45825. The three runtime archives retain 140 lossless members, eight complete outputs, twenty commands and 68 guards. All children are terminal. Source captures, six intended typed authority refusals and exact five public import inverses are retained. REACHED-FULL-COMPARISON.json binds actual complete bytes to the countermodel and rejects the matched-QName baseline at byte3923; physical retention changes follow the deliberate cursor defect.
+
+The focused affine witness preserves Array71 through Args→Output, explicit raw callback parking in Resource.retained on failure, explicit extraction and same-owner retry→Output. Base resource51 and siblings remain retained. This is application ownership transfer, not automatic Args recovery or transactional resource rollback. The main transaction failure/rollback witness remains separate and unchanged.
+
+Historical alias-tool, parser/type and unprintable terminal-entry captures provide no backend qualification credit. Explicit stock2.0.35 positive captures and current source bindings govern execution. Low-level forged provisioning/indices remain trusted; no same-type named-channel policy, Type-event policy, capture/finalizer policy or new law is introduced. Finite callbacks and consumer scenarios do not close full #71/#56 or performance/integration regression gates.
+
+Evidence: runtime-v1/ACTUAL.json, AFFECTED-ACTUAL.json, AFFINE-ACTUAL.json and their lossless manifests; AUTHORITY-CONTROLS.json, AFFECTED-SOURCE.json, AFFINE-ARGS-OUT-SOURCE.json, PUBLIC-MANIFEST.json and public capture joins. Independent model commits cc6db0d45, 584e10ff7 and 92b3a1806; their declared external tree/leaf model dependencies are pinned. One non-author final review remains before root public adoption.
