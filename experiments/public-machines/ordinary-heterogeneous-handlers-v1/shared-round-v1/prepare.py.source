@@ -5,7 +5,7 @@ HERE=Path(__file__).resolve().parent
 ROOT=Path('/workspace/formal-proofs/bendvy')
 COLLECTOR=ROOT/'experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py'
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
-cat=Path(sys.argv[1]).resolve();catalogue=json.loads(cat.read_text());selected=catalogue['normal'];oracle=Path(selected.get('gzip') or selected['stdout']);raw=gzip.decompress(oracle.read_bytes())
+cat=Path(sys.argv[1]).resolve();catalogue=json.loads(cat.read_text());selected=catalogue['bend'];oracle=Path(selected.get('gzip') or selected['stdout']);raw=gzip.decompress(oracle.read_bytes())
 assert len(raw)==selected['bytes'] and hashlib.sha256(raw).hexdigest()==selected['sha256']
 m=types.ModuleType('collector');m.__file__=str(COLLECTOR);exec(compile(COLLECTOR.read_bytes(),str(COLLECTOR),'exec'),m.__dict__)
 capture=HERE/'source03';receipt=json.loads((capture/'result.json').read_text());assert receipt['exit']==0 and not receipt.get('failure') and json.loads((capture/'post.json').read_text())['unchanged']

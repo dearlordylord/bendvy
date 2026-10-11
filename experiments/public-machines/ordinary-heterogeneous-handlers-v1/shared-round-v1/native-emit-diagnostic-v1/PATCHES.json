@@ -1,0 +1,36 @@
+{
+  "patches": [
+    {
+      "original": "#!/usr/bin/env bun\n",
+      "replacement": "#!/usr/bin/env bun\nimport {mark as BVY_EMIT_MARK} from \"../boundary-helper.mjs\";\n"
+    },
+    {
+      "original": "function compile_book(book) {",
+      "replacement": "function compile_book(book) {\n  BVY_EMIT_MARK(\"compile-begin\");"
+    },
+    {
+      "original": "  do {\n    was = facts();",
+      "replacement": "  do {\n    BVY_EMIT_MARK(\"iteration-begin\", \"\", {facts:facts()});\n    was = facts();"
+    },
+    {
+      "original": "    for (const [k, tld] of done_defs(fl).reverse()) {\n      memo_gc();",
+      "replacement": "    for (const [k, tld] of done_defs(fl).reverse()) {\n      BVY_EMIT_MARK(\"definition-begin\",k);\n      memo_gc();"
+    },
+    {
+      "original": "      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);",
+      "replacement": "      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);\n      BVY_EMIT_MARK(\"definition-end\",k);"
+    },
+    {
+      "original": "  } while (was !== facts());\n  const edges",
+      "replacement": "    BVY_EMIT_MARK(\"iteration-end\", \"\", {before:was,after:facts()});\n  } while (was !== facts());\n  BVY_EMIT_MARK(\"fixed-point-end\");\n  const edges"
+    },
+    {
+      "original": "    fs4.writeFileSync(out, compile_book(book));",
+      "replacement": "    const BVY_EMIT_TEXT = compile_book(book);\n    BVY_EMIT_MARK(\"compile-text-returned\", \"\", {bytes:Buffer.byteLength(BVY_EMIT_TEXT)});\n    fs4.writeFileSync(out, BVY_EMIT_TEXT);\n    BVY_EMIT_MARK(\"artifact-written\");"
+    }
+  ],
+  "original": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/ordinary-composed-debug-v1/registered-mixed-readers-v1/affected-v1/other-profile-v2/compiler/installed-cli-unmodified.mjs",
+  "originalSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+  "inverseByteExact": true,
+  "observedSHA256": "f82c4a97838de5a347f08d35d5f0381ecaacf305415145c013620dce5ec7f7c0"
+}

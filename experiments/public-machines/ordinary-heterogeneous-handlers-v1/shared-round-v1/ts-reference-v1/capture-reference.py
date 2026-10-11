@@ -21,7 +21,7 @@ def main():
    result=cap.capture(out,['/usr/bin/taskset','-c','5',str(NODE),str(HERE/'reference.mjs')],functools.partial(runner.execute_result,env=env))
    assert result['exit']==0 and result['failure'] is None and (out/'stderr').read_bytes()==b''
    raw=(out/'stdout').read_bytes();expected=gzip.decompress((HERE/'expected.stdout.gz').read_bytes());assert raw==expected
-   (out/'COMPARISON.json').write_text(json.dumps({'completeIndependentOracleMatch':True,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'scope':'TS shared constructor observations; no Bend physical-world identity claim'},indent=2)+'\n')
+   (out/'COMPARISON.json').write_text(json.dumps({'completeIndependentOracleMatch':True,'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'scope':'Shared heterogeneous handler round: full TS physical state and semantic trace excluding nondeterministic ms; no Bend physical identity or timing claim'},indent=2)+'\n')
   finally:
    unchanged=all(sha(n)==h for n,h in pins.items());(out/'post.json').write_text(json.dumps({'unchanged':unchanged})+'\n')
    if not unchanged:raise RuntimeError('reference inputs changed during capture')
