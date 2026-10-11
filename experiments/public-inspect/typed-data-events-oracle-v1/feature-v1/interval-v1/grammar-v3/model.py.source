@@ -1,0 +1,37 @@
+"""Source-faithful finite Maybe/row grammar model, no runtime output inputs.
+Uses original source-derived72 physical rows. Explicit helper delimiters are
+parsed from frozen render source; historical helper follows pinned Base.
+"""
+from pathlib import Path
+import json,re,runpy
+HERE=Path(__file__).resolve().parent
+model=runpy.run_path(str(HERE.parents[1]/'bend-model.py.source'))
+ls=lambda xs:'['+', '.join(xs)+']'
+booltext=lambda b:'True{}' if b else 'False{}'
+def maybe_tokens(source,name):
+    start=source.index('def '+name+'(');tail=source[start:];nextdef=tail.find('\ndef ',1);body=tail[:nextdef if nextdef>=0 else len(tail)]
+    none=re.search(r'case None\{\}:"([^"]*)"',body)[1]
+    some=re.search(r'case Some\{[^}]+\}:"([^"]*)"[\s\S]*?\+\+ "([^"]*)"',body)
+    return none,some[1],some[2]
+def derive(source,historical=False):
+    snapshots,_=model['sequence']()
+    inventory_tokens=('None','Some(',')') if historical else maybe_tokens(source,'inventory_text')
+    completion_tokens=('None','Some(',')') if historical else maybe_tokens(source,'completion_text')
+    prefix=re.search(r'case Ev.Reading\{values,lagged\}:"([^"]+)"',source)[1]
+    def maybe(value,inner,tokens):return tokens[0] if value is None else tokens[1]+inner(value)+tokens[2]
+    def completion(c):
+        kind=c['kind']
+        if kind in ('FirstRead','SecondRead'):
+            first=kind=='FirstRead';tag='First' if first else 'Second'
+            values=ls('types.'+tag+'{'+(str(v) if first else booltext(v))+'}' for v in c['values'])
+            reading=prefix+values+', '+booltext(c['lagged'])+'}'
+            return 'consumer.'+kind+'{'+reading+', '+booltext(c['failed'])+'}'
+        if kind=='Published':return 'consumer.Published{'+booltext(c['failed'])+'}'
+        return 'consumer.'+kind+'{}'
+    rows=[]
+    for row in snapshots:
+        assert not any(c in row['physical'] for c in ['"','\\','\n','\r'])
+        inv=maybe(row['inventory'],lambda xs:ls('"'+x+'"' for x in xs),inventory_tokens)
+        completed=maybe(row['completion'],completion,completion_tokens)
+        rows.append('trace.Row{'+booltext(row['enabled'])+', '+inv+', '+completed+', "'+row['physical']+'"}')
+    return (ls(rows)+'\n').encode()
