@@ -13,6 +13,33 @@ import setup.bend as Setup
 import consumer.bend as Consumer
 import types.bend as Source
 
+# Complete observer-only list rendering: gather ordered chunks, then combine
+# adjacent pairs. No growing-prefix append and no recursion per printed row.
+def chunk_pairs(chunks:List<&2,String>,reversed:List<&2,String>) -> List<&2,String>:
+  match chunks:
+    case []:List.reverse(&2,String,reversed)
+    case one <> []:List.reverse(&2,String,one <> reversed)
+    case first <> second <> rest:chunk_pairs(rest,(first ++ second) <> reversed)
+def chunks_text(fuel:Nat,chunks:List<&2,String>) -> String:
+  match fuel:
+    case 0n:String.concat(chunks)
+    case 1n+rest:
+      match chunks:
+        case []:""
+        case one <> []:one
+        case first <> second <> tail:chunks_text(rest,chunk_pairs(first <> second <> tail,[]))
+def list_chunks(~E:Data,~show:E -> String,values:List<&2,E>,reversed:List<&2,String>,count:Nat) -> List<&2,String> & Nat:
+  match values:
+    case []:(List.reverse(&2,String,"]" <> reversed),1n+count)
+    case head <> rest:list_chunks(~E,~show,rest,(", " ++ show(head)) <> reversed,1n+count)
+def list_returned(returned:List<&2,String> & Nat) -> String:
+  (chunks,count)=returned
+  chunks_text(count,chunks)
+def list_show(~E:Data,~show:E -> String,values:List<&2,E>) -> String:
+  match values:
+    case []:"[]"
+    case head <> rest:list_returned(list_chunks(~E,~show,rest,["[" ++ show(head)],1n))
+
 def text(value:String) -> String:value
 def first_text(value:Source.First) -> String:
   match value:
@@ -25,13 +52,13 @@ def unused(value:Setup.Unused) -> String:
     case Setup.Unused{code}:"Unused:" ++ U32.show(code)
 def pair(value:Setup.PairEvents()) -> String:
   match value:
-    case Publication.Publication{a,b}:"pair(" ++ List.show(&2,Source.First,first_text,a) ++ "," ++ List.show(&2,Source.Second,second_text,b) ++ ")"
+    case Publication.Publication{a,b}:"pair(" ++ list_show(~Source.First,~first_text,a) ++ "," ++ list_show(~Source.Second,~second_text,b) ++ ")"
 def event(value:Setup.Events()) -> String:
   match value:
-    case Publication.Publication{a,b}:"record(" ++ List.show(&2,Setup.PairEvents(),pair,a) ++ "," ++ List.show(&2,Setup.Unused,unused,b) ++ ")"
+    case Publication.Publication{a,b}:"record(" ++ list_show(~Setup.PairEvents(),~pair,a) ++ "," ++ list_show(~Setup.Unused,~unused,b) ++ ")"
 def batch(~E:Data,~show:E -> String,value:Ev.Batch<E>) -> String:
   match value:
-    case Ev.Batch{tick,values}:Nat.show(tick) ++ ":" ++ List.show(&2,E,show,values)
+    case Ev.Batch{tick,values}:Nat.show(tick) ++ ":" ++ list_show(~E,show,values)
 def position(value:Ev.Position) -> String:
   match value:
     case Ev.Position{id,cursor,registered}:U32.show(id) ++ ":" ++ Nat.show(cursor) ++ ":" ++ Nat.show(registered)
@@ -40,19 +67,19 @@ def domain_key(~E:Data,value:Event.Domain<Source.Schema,E>) -> String:
     case Event.Domain{key}:key
 def stream(~E:Data,~show:E -> String,value:Leaf.Stream<Source.Schema,E>) -> String:
   match value:
-    case Leaf.Stream{domain,batches,positions,nextReader,frameStart,boundary,capacity,dropped}:"domain=" ++ domain_key(~E,domain) ++ "|batches=" ++ List.show(&2,Ev.Batch<E>,batch(~E,~show),batches) ++ "|positions=" ++ List.show(&2,Ev.Position,position,positions) ++ "|nextReader=" ++ U32.show(nextReader) ++ "|frame=" ++ Nat.show(frameStart) ++ "|boundary=" ++ Nat.show(boundary) ++ "|capacity=" ++ Nat.show(capacity) ++ "|dropped=" ++ Nat.show(dropped)
+    case Leaf.Stream{domain,batches,positions,nextReader,frameStart,boundary,capacity,dropped}:"domain=" ++ domain_key(~E,domain) ++ "|batches=" ++ list_show(~Ev.Batch<E>,~batch(~E,~show),batches) ++ "|positions=" ++ list_show(~Ev.Position,~position,positions) ++ "|nextReader=" ++ U32.show(nextReader) ++ "|frame=" ++ Nat.show(frameStart) ++ "|boundary=" ++ Nat.show(boundary) ++ "|capacity=" ++ Nat.show(capacity) ++ "|dropped=" ++ Nat.show(dropped)
 def world_returned(+namespace:U32,+nextId:U32,+highWater:U32,+capacity:U32,+depth:Nat,+events:List<&2,Setup.Events()>,+registrations:List<&2,W.RegistrationMeta>,+nextSystemId:U32,+clock:U32,live:Array<Bool> & String,store:Array<U32> & String,resource:Array<U32> & String,pending:List<(Setup.World() -> Setup.World())> & Nat) -> Setup.World() & String:
   (live,liveText)=live
   (store,storeText)=store
   (resource,resourceText)=resource
   (pending,+count)=pending
-  (W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},"ns=" ++ U32.show(namespace) ++ "|next=" ++ U32.show(nextId) ++ "|high=" ++ U32.show(highWater) ++ "|live=" ++ liveText ++ "|capacity=" ++ U32.show(capacity) ++ "|depth=" ++ Nat.show(depth) ++ "|store=" ++ storeText ++ "|resource=" ++ resourceText ++ "|events=" ++ List.show(&2,Setup.Events(),event,events) ++ "|pending=" ++ Nat.show(count) ++ "|registrations=" ++ List.show(&2,W.RegistrationMeta,O.registration,registrations) ++ "|nextSystem=" ++ U32.show(nextSystemId) ++ "|clock=" ++ U32.show(clock))
+  (W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},"ns=" ++ U32.show(namespace) ++ "|next=" ++ U32.show(nextId) ++ "|high=" ++ U32.show(highWater) ++ "|live=" ++ liveText ++ "|capacity=" ++ U32.show(capacity) ++ "|depth=" ++ Nat.show(depth) ++ "|store=" ++ storeText ++ "|resource=" ++ resourceText ++ "|events=" ++ list_show(~Setup.Events(),~event,events) ++ "|pending=" ++ Nat.show(count) ++ "|registrations=" ++ list_show(~W.RegistrationMeta,~O.registration,registrations) ++ "|nextSystem=" ++ U32.show(nextSystemId) ++ "|clock=" ++ U32.show(clock))
 def observe_world(value:Setup.World()) -> Setup.World() & String:
   match value:
     case W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock}:world_returned(namespace,nextId,highWater,capacity,depth,events,registrations,nextSystemId,clock,O.bool_array(live),O.u32_array(store),O.u32_array(resource),O.callbacks(~Setup.World(),~Setup.World(),pending))
 def state_returned(+first:Leaf.Stream<Source.Schema,Source.First>,+second:Leaf.Stream<Source.Schema,Source.Second>,+unusedLeaf:Leaf.Stream<Source.Schema,Setup.Unused>,+journal:List<&2,Ev.Batch<Setup.Events()>>,+frameStart:Nat,observed:Array<U32> & String) -> Setup.State() & String:
   match observed:
-    case (owners,text):(Tree.State{Product.Owner{Product.Owner{first,second},unusedLeaf},owners,journal,frameStart},"first{" ++ stream(~Source.First,~first_text,first) ++ "}|second{" ++ stream(~Source.Second,~second_text,second) ++ "}|unused{" ++ stream(~Setup.Unused,~unused,unusedLeaf) ++ "}|sibling=" ++ text ++ "|journal=" ++ List.show(&2,Ev.Batch<Setup.Events()>,batch(~Setup.Events(),~event),journal) ++ "|frameStart=" ++ Nat.show(frameStart))
+    case (owners,text):(Tree.State{Product.Owner{Product.Owner{first,second},unusedLeaf},owners,journal,frameStart},"first{" ++ stream(~Source.First,~first_text,first) ++ "}|second{" ++ stream(~Source.Second,~second_text,second) ++ "}|unused{" ++ stream(~Setup.Unused,~unused,unusedLeaf) ++ "}|sibling=" ++ text ++ "|journal=" ++ list_show(~Ev.Batch<Setup.Events()>,~batch(~Setup.Events(),~event),journal) ++ "|frameStart=" ++ Nat.show(frameStart))
 def observe_state(value:Setup.State()) -> Setup.State() & String:
   match value:
     case Tree.State{Product.Owner{Product.Owner{first,second},unusedLeaf},owners,journal,frameStart}:state_returned(first,second,unusedLeaf,journal,frameStart,O.u32_array(owners))
@@ -68,16 +95,16 @@ def first_reader(value:Consumer.FirstReader()) -> Consumer.FirstReader() & Strin
     case Route.Reader{+namespace,+id,+registryId}:(Route.Reader{namespace,id,registryId},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ U32.show(registryId))
 def first_registry(value:Consumer.FirstRegistry()) -> Consumer.FirstRegistry() & String:
   match value:
-    case Sys.Registry{+namespace,+id,+name,+access,+cursor}:(Sys.Registry{namespace,id,name,access,cursor},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,text,access) ++ ":" ++ U32.show(cursor))
+    case Sys.Registry{+namespace,+id,+name,+access,+cursor}:(Sys.Registry{namespace,id,name,access,cursor},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ list_show(~String,~text,access) ++ ":" ++ U32.show(cursor))
 def second_reader(value:Consumer.SecondReader()) -> Consumer.SecondReader() & String:
   match value:
     case Route.Reader{+namespace,+id,+registryId}:(Route.Reader{namespace,id,registryId},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ U32.show(registryId))
 def second_registry(value:Consumer.SecondRegistry()) -> Consumer.SecondRegistry() & String:
   match value:
-    case Sys.Registry{+namespace,+id,+name,+access,+cursor}:(Sys.Registry{namespace,id,name,access,cursor},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,text,access) ++ ":" ++ U32.show(cursor))
+    case Sys.Registry{+namespace,+id,+name,+access,+cursor}:(Sys.Registry{namespace,id,name,access,cursor},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ list_show(~String,~text,access) ++ ":" ++ U32.show(cursor))
 def publisher_registry(value:Consumer.PublisherRegistry()) -> Consumer.PublisherRegistry() & String:
   match value:
-    case Sys.Registry{+namespace,+id,+name,+access,+cursor}:(Sys.Registry{namespace,id,name,access,cursor},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,text,access) ++ ":" ++ U32.show(cursor))
+    case Sys.Registry{+namespace,+id,+name,+access,+cursor}:(Sys.Registry{namespace,id,name,access,cursor},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ list_show(~String,~text,access) ++ ":" ++ U32.show(cursor))
 def fixture_returned(factory:W.Factory,publisher:Consumer.PublisherRegistry() & String,runtime:Setup.Runtime() & String,first:Consumer.FirstReader() & String,firstRegistry:Consumer.FirstRegistry() & String,slow:Consumer.FirstReader() & String,slowRegistry:Consumer.FirstRegistry() & String,second:Consumer.SecondReader() & String,secondRegistry:Consumer.SecondRegistry() & String) -> Consumer.Fixture & String:
   W.Factory{+nextNamespace}=factory
   (publisher,publisherText)=publisher
