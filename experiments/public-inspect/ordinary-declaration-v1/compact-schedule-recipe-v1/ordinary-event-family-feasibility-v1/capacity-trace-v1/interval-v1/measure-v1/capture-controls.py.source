@@ -1,0 +1,37 @@
+"""Synthetic exact-AST sample boundary control; no ECS/compiler/timer execution."""
+import ast,gzip,hashlib,json,tempfile
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+SOURCE=HERE/'measure-v3.py.source'
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+tree=ast.parse(SOURCE.read_text());sample=next(x for x in ast.walk(tree) if isinstance(x,ast.FunctionDef) and x.name=='sample')
+code=compile(ast.Module(body=[sample],type_ignores=[]),str(SOURCE),'exec')
+checks=[]
+for failure in ['none','save','hash','absent']:
+ with tempfile.TemporaryDirectory(prefix='capacity-capture-control-') as temp:
+  output=Path(temp);primary=TimeoutError('synthetic child deadline')
+  primary.stdout=b'full\x00output\n';primary.stderr=b'raw failure\n';primary.result={'stdout':primary.stdout,'stderr':primary.stderr,'failure':'child deadline','exit':-9,'cleanup':{'terminated':True,'nested':[1,None]}}
+  if failure=='absent':primary.result=None
+  class Harness:
+   tools={'taskset':'unused','node':'unused'}
+   receipt={'logs':{}}
+   def run(self,*args):raise primary
+   def save(self):
+    if failure=='save':raise OSError('synthetic saver refusal')
+  h=Harness()
+  def digest(path):
+   if failure=='hash':raise OSError('synthetic hash refusal')
+   return sha(path)
+  namespace=dict(h=h,output=output,plan={'cpu':11},args=type('A',(),{'plan_sha':'test'})(),binding=lambda:{'drift':[],'planSHA256':'test'},sha=digest,gzip=gzip,hashlib=hashlib,json=json)
+  exec(code,namespace)
+  try:namespace['sample']('Native',['unused'],'forced')
+  except Exception as error:assert error is primary
+  else:raise AssertionError('primary not rethrown')
+  if failure=='none':
+   assert gzip.decompress((output/'forced.failure.stdout.gz').read_bytes())==primary.stdout
+   assert (output/'forced.failure.stderr').read_bytes()==primary.stderr
+   record=json.loads((output/'forced.failure.result.json').read_text());assert record['runnerResult']['cleanup']==primary.result['cleanup'];assert record['runnerResult']['stdout']['bytes']==len(primary.stdout)
+   assert len(h.receipt['logs'])==3 and all(sha(output/n)==v for n,v in h.receipt['logs'].items())
+  if failure=='absent':assert json.loads((output/'forced.failure.result.json').read_text())['runnerResultAvailable'] is False
+  checks.append({'case':failure,'samePrimaryObjectRethrown':True,'notes':getattr(primary,'__notes__',[])})
+print(json.dumps({'sourceSHA256':sha(SOURCE),'checks':checks,'scope':'synthetic only; no child/ECS/performance'},indent=2))
