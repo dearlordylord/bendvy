@@ -1,0 +1,13 @@
+"""Independent source-expanded32 worklist model; no runtime output inputs."""
+from pathlib import Path
+import runpy,json,re
+PRIOR=Path(__file__).resolve().parent.parent/'full-format-v2/model.py.source'
+ENTRY=Path('/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/worklist-v5/main.bend')
+PATTERN=r'Spec\{(Workshop|Garden)Schema\{\},(\w+)\{\},"([^"\n]+)","([^"\n]+)",Gameplay\.(\w+)\{\},Cases\.input\(Cases\.(\w+)\(\)\),Cases\.resource\(Cases\.(\w+)\(\)\)\}'
+def prior():return runpy.run_path(str(PRIOR))
+def specs():return re.findall(PATTERN,ENTRY.read_text())
+def formatted():
+    m=prior();values=m['formatted']();bykey={(v['$'],v['operation'],v['name']):v for v in values}
+    return [bykey[(schema,operation,name)] for schema,tag,operation,name,mode,rawcase,seedcase in specs()]
+def semantic_json():return json.dumps(formatted(),separators=(',',':'),ensure_ascii=False)
+def expected():return (json.dumps(semantic_json(),ensure_ascii=False)+'\n').encode()

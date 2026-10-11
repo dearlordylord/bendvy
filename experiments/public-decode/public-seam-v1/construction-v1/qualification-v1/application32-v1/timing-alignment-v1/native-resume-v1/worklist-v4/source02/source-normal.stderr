@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : a declared constructor (Item declares Workshop, Garden)
+- observed : Item.Workshop{operation, name, run_case(Owner.First, caseTag, mode, input, seed)}
+Context:
+- caseTag   : CaseTag
+- operation : String
+- name      : String
+- mode      : Gameplay.Mode
+- input     : D.Raw
+- seed      : D.Raw
+Location: execute
+28 |       match schema:
+29>|         case WorkshopSchema{}:Item.Workshop{operation,name,run_case(~Owner.First,caseTag,mode,input,seed)}
+   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+30 |         case GardenSchema{}:Item.Garden{operation,name,run_case(~Owner.Second,caseTag,mode,input,seed)}
