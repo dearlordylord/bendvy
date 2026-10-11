@@ -1,0 +1,15 @@
+# Combined183 final Spec and Standards review
+
+Spec PASS. Standards PASS. The captured protected default #28 Workshop cohort supports NO_CONFIRMED_REGRESSION under its unchanged zero-allowance exact paired sign/Holm policy. No rerun was performed.
+
+Delivery author20d8a98bc / root426da05e6; original34544 terminal0. PLAN SHA256 `34b0cb8fd5d255404903e4a7fa74fa72d47990ac5e3d72da14454b2cbd3fa382`. Archive SHA256 `589cd60ded480f09f1400142d5b31d61633085acead4660d71e83f251b24c7cc`; manifest SHA256 `7c6f128ad38be7f0f07af4127bae3fdf60c9ea79982c69ff6c41ce0a10c16243`.
+
+All362 archive members match exact manifest membership, lengths and SHA256. All189 monitored current source bindings match; all192 staged core bodies match PLAN. Receipt candidate206 staged sources include those192 plus14 workload files; baseline29 and reference33 retain exact hashes. All generated JS/C/native artifacts match receipt hashes. Eight literal/resolved tool identities remain exact. The two additive Notice modules match their functional adoption review and repaired metadata joins; this gate does not replace that semantic review.
+
+All123 commands exited0 with the inherited limits. All110 retained warmup/pair stdout bodies decompress losslessly, match their command hashes and contain ten complete copies of the expected22-checkpoint application. Receipt pair timings join their ordered measurements. Seed20261007 reproduces the entire20-pair order sequence, with ten baseline-first and ten candidate-first observations for each backend; two warmups per role are retained. Runner source still enforces final source inventory/hash, staged source, artifact and reference guards before assessment. The unchanged statistics source/tool bindings support reuse of the archived four-test passing control stdout/stderr; no repeated control was needed.
+
+Independent recomputation gives JS slower5/20, one-sided p=0.9940910339355469, median paired ratio0.8474545493586545; Native slower12/20, p=0.2517223358154297, median paired ratio1.0424337428470216. The smaller p exceeds the first Holm cutoff0.025, so neither endpoint confirms regression. A Native median above1 does not independently change this approved statistical decision. Descriptive Workshop candidate JS/TS0.37353649143518963 and Native/TS0.09739243445195112 are not feature timing or parity qualification.
+
+The retained prelaunch observation reports CPU11 five-second delta501 idle ticks and zero busy ticks, no source/tool drift and fresh output. Root recorded exclusive peer holds, functional Notice adoption79ebde27e, outer heavy flock and terminal release. Outer stdout/stderr and terminal0 are retained. These observations and ownership records support this cohort context; the prelaunch sample is not continuous proof of host quietness.
+
+Scope remains whole-process startup/output-inclusive default Workshop regression against327bec49, with unchanged workload, reference, environment, caps, seed and numeric criteria. Full #56/#71/#41, other feature workloads, scaling and hot-path timing remain separate gates. No provider variant, injected delay, tolerance or blanket performance claim is introduced.
