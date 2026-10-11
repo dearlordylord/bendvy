@@ -1,0 +1,14 @@
+{
+  "primaryURL": "https://bun.sh/docs/bundler/executables",
+  "primarySupport": "Standalone executables read BUN_OPTIONS; --cpu-prof writes profile on exit",
+  "localRuntime": "Bun1.4.0+34cbb9a40 embedded in pinned Bend ELF",
+  "localSymbols": [
+    "BUN_OPTIONS",
+    "--cpu-prof",
+    "--cpu-prof-dir",
+    "--cpu-prof-name"
+  ],
+  "termination": "Pinned task_runner kill_descendants SIGSTOP then pidfd SIGKILL; profile flush not assumed",
+  "gate": "If one-second forced-timeout control lacks valid nodes+samples, do not launch emit",
+  "limits": "No compiler causality, performance or stock Native runtime credit"
+}
