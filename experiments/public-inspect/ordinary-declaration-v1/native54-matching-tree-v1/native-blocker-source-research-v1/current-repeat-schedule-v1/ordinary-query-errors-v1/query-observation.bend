@@ -64,8 +64,8 @@ def first(~S:Data,result:Frame(~S) & Result<&2,&2,Query.LookupError,Rows.Row<S,U
     case (owner,value):second(~S,"requiredGet=" ++ lookup(~S,value),Query.single(~Frame(~S),~S,~U32,~required_query(~S),owner))
 def enumerated(~S:Data,result:Old.World(~S) & List<&2,W.Handle<S>>) -> Old.World(~S) & String:
   match result:
-    case (world,target <> _):first(~S,Query.get(~Frame(~S),~S,~U32,~required_query(~S),I.Frame{world,0},target))
-    case (world,[]):(world,"NO_ACTUAL_HANDLE")
+    case (world,_ <> target <> _):first(~S,Query.get(~Frame(~S),~S,~U32,~required_query(~S),I.Frame{world,0},target))
+    case (world,_):(world,"NO_SECOND_ACTUAL_HANDLE")
 def inspect_world(~S:Data,value:Old.World(~S)) -> Old.World(~S) & String:
   enumerated(~S,W.handles(~S,~Setup.store(~S,~Array<U32>),~Setup.resources(~Array<U32>),~U32,value))
 def joined(~S:Data,text:String,result:Old.Application(~S) & String) -> Old.Application(~S) & String:

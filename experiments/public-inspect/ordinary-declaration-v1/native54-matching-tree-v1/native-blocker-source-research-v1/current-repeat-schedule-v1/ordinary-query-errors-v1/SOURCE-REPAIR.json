@@ -1,0 +1,9 @@
+{
+  "predecessorCommit": "03871f1cc",
+  "predecessorSHA256": "78de9488e2122f8349fac60c2eeac97f2bbb08394abd758d1b19f1f2beb6544d",
+  "successorSHA256": "c00a0593b0d6ca62d4cb448ee1c4dd778a68e7a14e47e62bd831d0586f3f21a8",
+  "old": "case (world,target <> _):",
+  "new": "case (world,_ <> target <> _):",
+  "reason": "Current W.handles reaches collect_tail then handles_tail_finish without reverse; descending scan/prepend yields actual public list [1,2]. Select second returned handle2 to reach required QueryMismatch, rather than mistakenly assuming head2. Independent source review caught before any backend/model execution.",
+  "scope": "Same actual public handles and retainedWorld; no fabricatedHandle/newcontract"
+}
