@@ -1,0 +1,9 @@
+# Fixed32 CPU100 changed-profile launch review
+
+PASS — focused diagnostic launch approval for exact PLAN SHA256 `1778f299d9a7a2938cf41d841dc617c7dfb0c03d67d32cb49d24fc791909c10f`, authora61bca267 / root46fbc7b62. No execution performed.
+
+All363 current bindings and82 staged bodies match. Fresh cpu10001 output and terminal are absent. The semantic receipt joins the previously reviewed complete fixed32 packet, its exact stageReceiptSHA and clean terminal guard. The reused generatedJS hash b1abc04dfd4f14a57329e004d8c5e26b323157a52ac978d387190f3cce78067f matches that receipt; TS uses the same pinned staged32-lifecycle module. Complete prior Bend2498976/TS1310592 oracle validation and actual completion barriers remain applicable. No failed artifact is reused.
+
+The adapter runs exactly two CPU captures, JS then TS, adding --cpu-prof-interval=100 to stock Node profiling. There is no emission, compilation, heap capture or lifecycle growth. Each child uses unchanged Harness supervision, CPU11/taskset, cap5 and full32 validator; a profile must exist and parse before being pinned. Initial bindings, per-child bindings, final Harness guard and unconditional terminal binding/error preservation remain enforced. The existing heavy flock wraps the launcher; launch must substitute the exact reviewed digest for EXACT_PLAN_SHA256_AT_LAUNCH.
+
+The increased sampling frequency can add overhead and does not convert these whole-process samples into interval-exclusive timing or a comparative cohort. No new numerical target, reliable hotspot, allocation/RSS or causal conclusion is authorized. Inherited allocation-description prose refers to the existing evidence; actual children and current scope are CPU-only. Root/author must retain the exact bindings and serialize against any other heavy owner; no quiet-host assumption is made by this static review.
