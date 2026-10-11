@@ -1,0 +1,40 @@
+"""Import-only timer qualification plan binding using existing reviewed executors."""
+import json,sys,hashlib,types
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+ROOT=Path('/workspace/formal-proofs/bendvy')
+OLD=Path('/workspace/formal-proofs/bendvy-worktrees/bundle41-authority-refresh-v1/experiments/public-bundles/owned-public-result-v1/common20-timing-v1/current-ordinary-v1')
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def load(p):
+ m=types.ModuleType('qualified_transport');m.__file__=str(p);exec(compile(p.read_bytes(),str(p),'exec'),m.__dict__);return m
+scale=int(sys.argv[2]);assert scale in [2,4]
+catalogue=Path(sys.argv[1]).resolve();cat=json.loads(catalogue.read_text());freeze=json.loads((HERE/'FREEZE.json').read_text());rows=[]
+for role in ['js','native','ts']:
+ template=OLD/('ts-root-profile-v1/actual01/plan.json' if role=='ts' else 'owner-data-format-v1/current-classification-v1/'+role+'-semantic01/plan.json')
+ plan=json.loads(template.read_text());stage=HERE/('scale'+str(scale)+'-ordinary01')/role;stage.mkdir(parents=True,exist_ok=False)
+ entry=HERE/('main-scale'+str(scale)+'.mjs' if role=='ts' else 'main-scale'+str(scale)+'.bend')
+ helper=(OLD/'ts-root-profile-v1/run.py') if role=='ts' else ROOT/('experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/development-'+role+'.py')
+ transport=(OLD/'ts-root-profile-v1/transport.py') if role=='ts' else ROOT/'experiments/public-bundles/owned-public-result-v1/common20-timing-v1/timed-io-v1/transport-v1/transport.py'
+ inventory=stage/'inventory.json';inventory.write_text(json.dumps(load(transport).Transport(entry).inventory(),indent=2)+'\n')
+ expected=cat[('ts' if role=='ts' else 'bend')+str(scale)];oracle=Path(expected['expectedJSON'])
+ raw=json.loads(oracle.read_text()).encode('utf8');digest=2166136261
+ for byte in raw:digest=((digest^byte)*16777619)&0xffffffff
+ plan.update(independentRawSHA256=hashlib.sha256(raw).hexdigest(),independentRawBytes=len(raw),independentFNV1a32=digest)
+ generated=entry if role=='ts' else stage/('scenario.js' if role=='js' else 'scenario.c');native=stage/'scenario.native'
+ mapping={plan['entrypoint']:str(entry),plan['generated']:str(generated)}
+ if plan.get('native'):mapping[plan['native']]=str(native)
+ for command in plan['commands']:
+  command['argv']=[mapping.get(x,x) for x in command['argv']];command['argv'][2]='11'
+ plan.update(scope='Complete scaled observer-inclusive shared handler IO timer qualification only; different physical vocab/string-JSON costs retained, no comparative or pure-handler performance claim',entrypoint=str(entry),constructorInventory=str(inventory),oracle=str(oracle),expectedSHA256=sha(oracle),generated=str(generated),collector=str(helper),postConsumer='Whole independent timed stdout plus existing exact bytes/FNV/timer protocol; no comparative performance credit')
+ if role!='ts':plan['native']=str(native) if role=='native' else None
+ plan['pins']={k:h for k,h in plan['pins'].items() if not k.endswith('.bend')}
+ plan['pins'].update(freeze['pins'])
+ for f in [helper,transport,inventory,oracle,catalogue,HERE/'FREEZE.json',Path(__file__),template]:plan['pins'][str(f)]=sha(f)
+ for f in catalogue.parent.rglob('*'):
+  if f.is_file():plan['pins'][str(f)]=sha(f)
+ if role=='ts':
+  # Historical TS profile template includes unrelated Bend source; do not rebind it.
+  plan['pins']={k:h for k,h in plan['pins'].items() if k!='/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend'}
+ assert all(sha(k)==h for k,h in plan['pins'].items())
+ target=stage/'plan.json';target.write_text(json.dumps(plan,indent=2)+'\n');rows.append({'role':role,'helper':str(helper),'plan':str(target),'sha256':sha(target)})
+(HERE/('scale'+str(scale)+'-ordinary01/SEQUENCE.json')).write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(rows))
