@@ -1,0 +1,25 @@
+"""Regenerate finite full source-only oracle; no runtime streams consumed."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def main():
+    basis=json.loads((HERE/"SOURCE-BASIS.json").read_text())
+    for path,digest in basis["sourcePins"].items():assert sha(path)==digest,path
+    model=runpy.run_path(str(HERE/"model.py.source"))
+    raw=model["expected"]()
+    assert raw.count(b"queryErrors{")==12
+    assert raw.count(b"zeroSingle=Fail{NoEntities{}}")==12
+    assert raw.count(b"zeroSingleOptional=Done{None{}}")==12
+    assert raw.count(b"Finished:[Entered{Update}, Ran{1}]")==4
+    text=json.loads(raw)
+    prior=runpy.run_path(str(model["PRIOR"]))["expected"]()
+    import re
+    assert re.sub(r"\|queryErrors\{zeroSingle=.*?queryFrameCursor=1\}","",text)==json.loads(prior)
+    (HERE/"expected.stdout").write_bytes(raw)
+    (HERE/"expected.stdout.gz").write_bytes(gzip.compress(raw,mtime=0))
+    record={"stdout":str(HERE/"expected.stdout.gz"),"bytes":len(raw),"sha256":hashlib.sha256(raw).hexdigest(),"sourceBasisPath":str(HERE/"SOURCE-BASIS.json"),"sourceBasisSHA256":sha(HERE/"SOURCE-BASIS.json")}
+    (HERE/"ORACLES.json").write_text(json.dumps({"normal":record},indent=2)+"\n")
+    (HERE/"SELFTEST.json").write_text(json.dumps({"status":"PASS","sourcePins":len(basis["sourcePins"]),"completeSnapshots":12,"actualAppRuns":4,"priorPhysicalOutputExact":True,"runtimeOutputInputs":False,"bytes":len(raw),"sha256":record["sha256"]},indent=2)+"\n")
+    print(json.dumps(record))
+if __name__=="__main__":main()

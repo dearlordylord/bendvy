@@ -1,0 +1,23 @@
+"""Independent ordinary query errors plus retained App physical observations."""
+import json,runpy
+from pathlib import Path
+PRIOR=Path(__file__).resolve().parents[3]/"ordinary-app-v1/independent-oracle-v1/model.py.source"
+m=runpy.run_path(str(PRIOR))
+def snapshot(w):
+    # Changed stamp1 is not strictly greater than supplied Frame cursor1.
+    # Required changed selection filters both unchanged1 and absent2.
+    result="zeroSingle=Fail{NoEntities{}}|zeroSingleOptional=Done{None{}}|queryFrameCursor=1"
+    return m["snapshot"](w)+"|queryErrors{"+result+"}"
+def scenario():
+    w=m["m"]["World"](True)
+    rows=[snapshot(w),snapshot(w)]
+    for _ in range(2):
+        w.c1=w.clock
+        rows.append("Finished:[Entered{Update}, Ran{1}]")
+        rows.extend([snapshot(w),snapshot(w)])
+    return "\n".join(rows)+"\n"
+def expected():
+    return (json.dumps("A\n"+scenario()+"Other\n"+scenario(),separators=(",",":"))+"\n").encode()
+if __name__=="__main__":
+    import sys
+    sys.stdout.buffer.write(expected())
