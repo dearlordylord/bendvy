@@ -11,6 +11,7 @@ type RegistrationKind is Data:
   ResourceKind{mode:Query.Mode}
   FieldKind{}
   ServiceKind{}
+  EventKind{}
 type Fields<S:Data> is Data:
   Fields{namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:U32,slot:String,clauses:List<&2,Query.Clause<S>>,kind:RegistrationKind}
 type Token<-Registry:Type> is Type:

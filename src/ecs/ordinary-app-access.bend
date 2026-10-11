@@ -27,6 +27,7 @@ def category(kind:Records.RegistrationKind) -> Category:
     case Records.ComponentKind{}:Components{}
     case Records.FieldKind{}:Resources{}
     case Records.ServiceKind{}:Services{}
+    case Records.EventKind{}:Events{}
     case Records.ResourceKind{_}:Resources{}
 def resource_fields(~S:Data,+mode:Query.Mode,access:List<&2,String>) -> List<&2,Query.Clause<S>>:
   match access:
@@ -37,6 +38,7 @@ def clauses(~S:Data,kind:Records.RegistrationKind,access:List<&2,String>,retaine
     case Records.ComponentKind{}:retained
     case Records.FieldKind{}:retained
     case Records.ServiceKind{}:[]
+    case Records.EventKind{}:retained
     case Records.ResourceKind{mode}:resource_fields(~S,mode,access)
 def role(mode:Query.Mode) -> Role:
   match mode:
