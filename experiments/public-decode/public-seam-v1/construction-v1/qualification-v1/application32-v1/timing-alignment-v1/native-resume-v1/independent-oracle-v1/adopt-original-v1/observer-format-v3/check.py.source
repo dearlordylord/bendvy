@@ -1,0 +1,35 @@
+from pathlib import Path
+import json,hashlib,runpy,gzip,re
+p=Path(__file__).resolve().parent;b=json.loads((p/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs','modelPins'):
+ for path,digest in b[group].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==digest,path
+meta=json.loads(Path(b['preparedMetadata']).read_text());targets=meta['targets'];home=Path(next(x for x in targets if x.endswith('/full-format.bend'))).parent
+formatter=(home/'full-format.bend').read_text();qualified=Path(meta['qualifiedFormatterSource']).read_text()
+helper='def whole_value(~S:Data,value:Public.Whole<S>) -> J.Value:\n  match value:\n    case Public.Whole{public,native}:record("Whole",[J.Field{"public",view(public)},J.Field{"native",report(~S,native)}])\n'
+assert formatter.count(helper)==1 and formatter.replace(helper,'')==qualified
+obs=(home/'observation-main.bend').read_text();common=(home/'common-main.bend').read_text()
+assert 'def observations() -> List<&2,Item>:items(Cases.main())' in obs
+assert 'case item <> rest:observe(item) <> items(rest)' in obs
+for tag,schema in [('Workshop','First'),('Garden','Second')]:
+ assert f'case Cases.{tag}{{operation,name,value}}:{tag}{{operation,name,Public.whole(~Owner.{schema},value)}}' in obs
+ assert f'Format.whole_value(~Owner.{schema},value)' in obs
+ assert f'case Observation.{tag}{{operation,name,Public.Whole{{public,_}}}}:Serialize.record("{tag}"' in common
+assert 'Public.view(' not in helper
+assert 'def main() -> String:"[" ++ work(observations(),"") ++ "]"' in obs
+assert 'def main() -> String:"[" ++ work(Observation.observations(),"") ++ "]"' in common
+for text,fun in [(obs,'formatted_item'),(common,'formatted_item')]:assert f'case value <> rest:separator ++ {fun}(value) ++ work(rest,",")' in text
+assert 'def formatted_item(value:Observation.Item) -> String:completed(Serialize.encode(item(value)))' in common
+assert 'case Serialize.Incomplete{}:"SERIALIZATION_INCOMPLETE"' in common
+assert 'case Encode.Incomplete{}:"FORMATTER_INCOMPLETE"' in formatter
+rawtags=re.findall(r'case D\.(\w+)\{',formatter[formatter.index('def expand('):formatter.index('def raw_step(')])
+assert rawtags==['Missing','Null','Number','SignedInteger','Float','Binary64','Text','Utf16Text','Boolean','Handle','Array','Object']
+assert 'F32.bits(value)' in formatter and 'J.Text{Nat.show(value)}' in formatter
+assert 'case Public.Unsupported{value}:record("Unsupported",[J.Field{"snapshot",snapshot(value)}])' in formatter
+m=runpy.run_path(str(p/'model.py.source'));v=json.loads((p/'ORACLES.json').read_text())
+for role in ('whole','semantic','common'):
+ raw=m[role]();item=v[role];path=item.get('stdout',item.get('json'));assert raw==gzip.decompress(Path(path).read_bytes());assert len(raw)==item['bytes'] and hashlib.sha256(raw).hexdigest()==item['sha256']
+semantic=json.loads(m['semantic']());models=m['commonmodel']()['models']();assert len(semantic)==len(models['native'])==32
+for a,z in zip(semantic,models['common']):assert a['value']['public']==z['value']
+assert json.loads(m['whole']())==m['semantic']().decode()
+assert json.loads(json.loads(m['common']()))==models['common']
+print('PASS:51pins/exact formatter+actualWhole helper/order/Raw12/full32 semantic and wire/Common exact; selectedstrings limitation retained')
