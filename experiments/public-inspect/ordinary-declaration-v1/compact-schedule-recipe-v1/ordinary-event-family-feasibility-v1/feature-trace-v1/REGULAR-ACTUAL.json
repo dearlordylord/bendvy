@@ -1,0 +1,250 @@
+{
+  "archive": "regular-actual-attempt01/manifest.json",
+  "sourceCommit": "579e84448",
+  "oracleCommit": "c886c1a0f",
+  "originalHandles": {
+    "js": 33422,
+    "native": 4899
+  },
+  "receipts": {
+    "js": {
+      "scope": "First complete regular equivalent typed Data event feature trace:72 full Bend rows, corresponding TS tick frame boundaries, two active streams/three readers/unused installed leaf, actual commit/abort/read failure/retry. Capacity65536 but overflow/lag remains unqualified; no timing or raw platform clock/identity equivalence.",
+      "planSHA256": "b8ef73a0b5b3a1075a5aefc7150426693b8e6e63b41fc8a1d2b43ad3f641cf07",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/main.bend",
+            "-o",
+            "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/scenario.js"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/scenario.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/consumer.stdout",
+            "sha256": "dd4b84cfd0eafa1c44986d6a9d5853916c87630aff3852a10b4494fcca8a512d",
+            "bytes": 78093,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": [
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/emit-pre.guard.json",
+          "sha256": "ee78d40bfe8054659425b73e185e0cf74047610882e895ce9dfe9098ef30acbb"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/emit-acquired.guard.json",
+          "sha256": "2350584057a1fe56abedd393c523e452faca2f9ca333dc294220135f6925e04e"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/emit-post.guard.json",
+          "sha256": "839d00642f5070c7b3b1e2ab06d34ffd15c114194f8afc2ea3b32eedd205d87d"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/consumer-pre.guard.json",
+          "sha256": "029d4684770bbc9a68ed22807ef7a78a282ec5271f07092ddc45af6d1d0e88da"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/consumer-acquired.guard.json",
+          "sha256": "bd440b92e24194475582bf4dbfef17d1d8d1a2a4eb4789ff802ecb341008be9b"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/consumer-post.guard.json",
+          "sha256": "4e3a3842afacf00c90dda9551353858520f2bd126763a69a859d70b6f1ff2e9c"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-js/final.guard.json",
+          "sha256": "7790761e2919522fdd9f38d9a0ed987d01d5a4183fe4bf84d7b3796362243e5a"
+        }
+      ],
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "emitArtifactSHA256": "0bf383ec3406dfc1223b76ae3e4fdf81f14ad0954d3c17e191c5316c0eddc8d1",
+      "wholeOracleSHA256": "dd4b84cfd0eafa1c44986d6a9d5853916c87630aff3852a10b4494fcca8a512d"
+    },
+    "native": {
+      "scope": "First complete regular equivalent typed Data event feature trace:72 full Bend rows, corresponding TS tick frame boundaries, two active streams/three readers/unused installed leaf, actual commit/abort/read failure/retry. Capacity65536 but overflow/lag remains unqualified; no timing or raw platform clock/identity equivalence.",
+      "planSHA256": "edae5da3de1e5774efc6a6890d8ff817a2556100e7f1632ced840801f418367f",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/main.bend",
+            "-o",
+            "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/scenario.c"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/scenario.c",
+            "-o",
+            "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/build.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/build.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/consumer.stdout",
+            "sha256": "dd4b84cfd0eafa1c44986d6a9d5853916c87630aff3852a10b4494fcca8a512d",
+            "bytes": 78093,
+            "published": true
+          },
+          "stderr": {
+            "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": [
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/emit-pre.guard.json",
+          "sha256": "1d32e4aa108bc680a036c97966c54f22bf56217c0efb27d2630fc05588f58d1c"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/emit-acquired.guard.json",
+          "sha256": "d10d340c0b6da234522f1e5487f993d1796398e28174f955915ca5b2ba6878b0"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/emit-post.guard.json",
+          "sha256": "4decc9d1183fa0cf909ad41645fe250b0ca923a305a863b85616336a2232176e"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/build-pre.guard.json",
+          "sha256": "85ac0b7d1c8bdb39c25649257830addb2bf76f6211a30989e975f2871ec5ee27"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/build-acquired.guard.json",
+          "sha256": "bb1118a6e60c65989f5107dbd9f9c46671026ac7e61a5fd71b3a0bd26ccc31d3"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/build-post.guard.json",
+          "sha256": "a367082fc843fd1682e0d3772ae812f6d2e69894038408a16309c074f1a260cb"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/consumer-pre.guard.json",
+          "sha256": "4e01ff985f15337fe67bb179cfb960169a8294d86c49667e43e0a7a166892687"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/consumer-acquired.guard.json",
+          "sha256": "76ce86561a3b25a7b210d64574724866bcc45609aba98aa80935fe13c8e71731"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/consumer-post.guard.json",
+          "sha256": "216912d64143f25c2b941f333a55228d446d4ff307167a26cf1b4dbcf7af109c"
+        },
+        {
+          "path": "/tmp/bendvy-typed-data-events-feature-runtime01/a-normal-native/final.guard.json",
+          "sha256": "32c5b44500f041250c66c8d00ddb6c5b253cce5ff522db7fd61c1342a006741c"
+        }
+      ],
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "emitArtifactSHA256": "1fc5b6d63da060bdc5db185b0942cb78ea7ed169c9de9f16e0996fc53fac658e",
+      "buildArtifactSHA256": "8849d3df63d8e4f8dfe80372c53922963d3eb662c21bdcad32bd1ff62b97e89a",
+      "wholeOracleSHA256": "dd4b84cfd0eafa1c44986d6a9d5853916c87630aff3852a10b4494fcca8a512d"
+    }
+  },
+  "scope": "Bend whole regular trace passed; TS not executed, sourceonly common equality not runtime parity. Capacity overflow/lag remains pending."
+}

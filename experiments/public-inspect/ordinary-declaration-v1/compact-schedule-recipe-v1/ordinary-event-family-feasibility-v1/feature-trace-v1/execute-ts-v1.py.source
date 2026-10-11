@@ -1,0 +1,17 @@
+"""Subject/config adapter of runtime-reference-v1/run.py; execution requires exact reviewed plan SHA."""
+import sys,json,hashlib,fcntl
+from pathlib import Path
+sys.dont_write_bytecode=True
+root=Path('/workspace/formal-proofs/bendvy')
+sys.path.insert(0,str(root/'scripts'))
+import check_preflight
+plan=Path(sys.argv[1]);expected=sys.argv[2]
+assert hashlib.sha256(plan.read_bytes()).hexdigest()==expected
+p=json.loads(plan.read_text())
+assert all(hashlib.sha256(Path(k).read_bytes()).hexdigest()==v for k,v in p['pins'].items())
+with open('/tmp/bendvy-parity-heavy.lock','a') as lock:
+ fcntl.flock(lock,fcntl.LOCK_EX)
+ assert check_preflight.binding(p['root'],p['files'],p['directories'],p['checks'],p['environment'])==p['binding']
+ receipt=check_preflight.run(p['output'],root=p['root'],files=p['files'],directories=p['directories'],checks=p['checks'],env=p['environment'])
+ check_preflight.verify(receipt,root=p['root'],files=p['files'],directories=p['directories'],checks=p['checks'],env=p['environment'])
+ print(receipt)
