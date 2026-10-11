@@ -1,0 +1,14 @@
+"""Full repeated outputs from independently derived corrected lifecycle grammar.
+Freshness is established by exact producer callable/IO source joins, not runtime
+samples. No producer execution; all payloads and physical states are preserved.
+"""
+from pathlib import Path
+import runpy
+HERE=Path(__file__).resolve().parent
+GRAMMAR=HERE.parent/'grammar-v3/model.py.source'
+FEATURE=HERE.parents[1]
+def derive(render_source:str):
+    bend=runpy.run_path(str(GRAMMAR))['derive'](render_source)
+    ts,_=runpy.run_path(str(FEATURE/'ts-model.py.source'))['derive']()
+    assert len(bend)==78093 and len(ts)==40956
+    return {'bend':bend*32,'ts':ts*32}
