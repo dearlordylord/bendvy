@@ -1,0 +1,57 @@
+"""Narrow typed-event registration on the existing reviewed feature Harness.
+No comparative/profile driver: this command is correctness-only after launch review.
+"""
+from pathlib import Path
+import argparse,importlib.util,importlib.machinery,json,sys
+ROOT=Path('/workspace/formal-proofs/bendvy');sys.path.insert(0,str(ROOT/'benchmarks/parity-features'))
+import execute,preflight
+HERE=Path(__file__).resolve().parent
+INTERVAL=HERE.parent.parent
+spec=importlib.util.spec_from_loader('typed_event_validator',importlib.machinery.SourceFileLoader('typed_event_validator',str(HERE/'validate.py.source')));validator=importlib.util.module_from_spec(spec);spec.loader.exec_module(validator)
+def main():
+ a=argparse.ArgumentParser();a.add_argument('--plan',type=Path,required=True);a.add_argument('--plan-sha',required=True);x=a.parse_args()
+ import hashlib
+ sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+ assert sha(x.plan)==x.plan_sha,'Literal plan drift'
+ plan=json.loads(x.plan.read_text());stage=Path(plan['stage']);output=Path(plan['output']);terminal=Path(plan['terminalRecord']);assert not terminal.exists(),'Fresh terminal record required'
+ h=None
+ def binding():return {'planSHA256':sha(x.plan),'drift':[p for p,v in plan['pins'].items() if not Path(p).is_file() or sha(p)!=v]}
+ try:
+  initial=binding();assert initial['planSHA256']==x.plan_sha and not initial['drift'],'Frozen input drift';assert not output.exists(),'Fresh output required'
+  record=json.loads((stage/'stage.json').read_text())
+  preflight.snapshot=lambda:{k:preflight.digest(ROOT/k) for k in record['sources']}
+  def external():
+   for directory,members in record['externalMembership'].items():
+    d=Path(directory);assert sorted(str(p.relative_to(d)) for p in d.rglob('*') if p.is_file())==members,'Reference/Base membership drift'
+   return {k:preflight.digest(Path(k)) for k in record['external']}
+  preflight.external=external
+  h=execute.Harness(stage,output)
+  commands=h.build('typed-events-32')
+  spec=importlib.util.spec_from_loader('evaluation_check',importlib.machinery.SourceFileLoader('evaluation_check',str(INTERVAL/'evaluation-check.py.source')));evaluation=importlib.util.module_from_spec(spec);spec.loader.exec_module(evaluation)
+  finding=evaluation.check(output/'typed-events-32.js',output/'typed-events-32.c');(output/'evaluation.json').write_text(json.dumps(finding,indent=2)+'\n');h.pin(output/'evaluation.json')
+  h.run('timer-protocol',[h.tools['taskset'],'-c','11',h.tools['node'],INTERVAL/'controls.mjs'],5)
+  for backend in ['JS','Native','TS']:
+   result=h.run('typed-events-32-'+backend,[h.tools['taskset'],'-c','11',*commands[backend]],5)
+   validator.validate(backend,result.stdout,result.stderr)
+  h.guard();h.receipt.update(status='COMPLETE_REPEATED_TYPED_EVENT_SEMANTICS',features=['typed-events'],lifecycles=32,scope='Complete32freshlifecycles/2304observations/544operations each platform; no comparative claim');h.save()
+  wrapper=output/'allocate.mjs';import shutil;shutil.copy2(HERE.parent/'allocate.mjs',wrapper);h.pin(wrapper)
+  for backend in ['JS','TS']:
+   program=output/'typed-events-32.js' if backend=='JS' else h.stage/'feature-harness/typed-events-32.mjs'
+   for kind in ['cpu','allocation']:
+    label=backend+'-'+kind;profile=output/(label+('.cpuprofile' if kind=='cpu' else '.heapprofile'));assert not profile.exists()
+    command=[h.tools['node'],'--cpu-prof','--cpu-prof-dir='+str(output),'--cpu-prof-name='+profile.name,program] if kind=='cpu' else [h.tools['node'],wrapper,program,profile]
+    result=h.run(label,[h.tools['taskset'],'-c','11',*command],5);validator.validate(backend,result.stdout,result.stderr);assert profile.is_file();json.loads(profile.read_text());h.pin(profile)
+  h.guard();h.receipt.update(status='COMPLETE_REPEATED_TYPED_EVENT_PROFILES_FULLY_VALIDATED',scope='Fixed32freshlifecycles: threecompletecorrectness consumers thenfourwholeprocessdiagnostics; no numeric performance/intervalexclusive allocation claim')
+ finally:
+  primary=sys.exc_info()[1]
+  try:post=binding()
+  except Exception as error:post={'planSHA256':None,'drift':None,'bindingError':repr(error)}
+  post['primaryError']=repr(primary) if primary else None
+  if h:
+   try:h.guard();post['harnessPostguard']='UNCHANGED'
+   except Exception as error:post['harnessPostguard']={'error':repr(error)}
+   h.receipt['terminalPostguard']=post;h.save()
+  terminal.write_text(json.dumps(post,indent=2)+'\n')
+  if primary is None:assert 'bindingError' not in post and not post['drift'] and post['planSHA256']==x.plan_sha and post.get('harnessPostguard')=='UNCHANGED','Terminal input/stage/tool drift'
+ print(h.receipt['status'])
+if __name__=='__main__':main()

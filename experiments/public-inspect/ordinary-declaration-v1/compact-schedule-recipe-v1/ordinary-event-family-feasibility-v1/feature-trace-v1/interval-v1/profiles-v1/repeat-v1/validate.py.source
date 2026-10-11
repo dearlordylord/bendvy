@@ -1,0 +1,12 @@
+"""Complete32-lifecycle oracles and each unchanged17-ordinal telemetry record."""
+from pathlib import Path
+import json,gzip,hashlib
+CATALOGUE=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/typed-data-events-oracle-v1/feature-v1/interval-v1/repeat-v1/ORACLES.json')
+def validate(backend,stdout,stderr):
+ catalogue=json.loads(CATALOGUE.read_text());key='ts' if backend=='TS' else 'bend';item=catalogue[key];expected=gzip.decompress(Path(item['gzip']).read_bytes());assert hashlib.sha256(expected).hexdigest()==item['sha256'];assert len(expected)==item['bytes'];assert stdout==expected,'Complete32lifecycle full observation mismatch'
+ records=[json.loads(line) for line in stderr.splitlines()];assert len(records)==32
+ lines=stdout.splitlines(keepends=True);assert len(lines)==32
+ for raw,record in zip(lines,records):
+  digest=2166136261
+  for byte in raw:digest=((digest^byte)*16777619)&0xffffffff
+  assert record['intervals']==17 and int(record['elapsedNs'])>=0 and record['bytes']==len(raw) and record['digest']==digest,'Lifecycle transport/timer protocol mismatch'
