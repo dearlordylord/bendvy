@@ -1,0 +1,26 @@
+"""Bind finite foreign lookup from checked sources, without runtime output input."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+P=HERE.parents[1]
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    complete=json.loads((P/'SOURCE-COMPLETE.json').read_text());pins=complete['sourcePins'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    model=runpy.run_path(str(HERE/'model.py.source'));raw=model['expected']();text=raw.decode()
+    assert text.count('lookup=None')==2 and text.count('factoryNext=3')==2
+    assert text.count('|meta=1,5,4,8,3,17,,1,0')==4
+    assert text.count('|meta=2,5,4,8,3,18,,1,0')==4
+    assert text.count('|pending=0')==8
+    for label in ('HierarchyAlpha','HierarchyBeta'):assert label in text
+    source=(P/'foreign.bend').read_text()
+    assert 'factory,Array.new(U32,0n,18)' in source and 'W.factory(),Array.new(U32,0n,17)' in source
+    assert source.count('H.grant(')==1
+    for path in [HERE/'model.py.source',HERE/'regenerate.py.source',P/'SOURCE-COMPLETE.json',Path('/home/node/.bend/bend2/base.bend'),Path('/home/node/.bend/bend2/effs/print.js'),Path('/home/node/.bend/bend2/effs/print.c')]:pins[str(path)]=sha(path)
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    basis={'producerCommit':'470dea65e','sourcePins':pins,'entry':str(P/'foreign.bend'),'derivation':'First actual Created factory creates second same-schema World; four reservations each yield reverse [4,3,2,1], tail selects actual id1. Returned factory next3; ns1 resource17 versus ns2 resource18. Public grant delegates W.valid, namespace mismatch returns None without graph lookup. Observe local/peer before and after preserves all four tag/two-cell owners, live1..4, capacity8/depth3, next5/high4, empty stamps/events/registrations/pending, clock0. No runtime outputs used.','limits':'Two finite nominal scenarios; genuine independently created same-schema foreign namespace lookup, not forged handle. No registered systems, cleanup, failure routing or performance claim.'}
+    b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle},indent=2)+'\n')
+    result={'sourcePins':len(pins),'physicalWorldObservations':8,**oracle};(HERE/'SELFTEST.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+if __name__=='__main__':regenerate()

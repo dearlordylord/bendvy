@@ -1,0 +1,21 @@
+{
+  "target": "/workspace/formal-proofs/bendvy/src/ecs/hierarchy-traversal.bend",
+  "normalSHA256": "c513f20811bc42ad7bd46b6799c47ffb930e4f297c3283ff9b56bca550b96adf",
+  "mutantSHA256": "4171f7a84307095d151257d2800a7e29a00137ca77d59f65370f47010c053834",
+  "normalBytes": 3150,
+  "mutantBytes": 3150,
+  "delta": {
+    "before": "case Depth{}: List.append(&2,U32,children,rest)",
+    "after": "case Depth{}: List.append(&2,U32,rest,children)"
+  },
+  "entrySHA256": "0096bf35f60c6fc4bac6a4acd668ada12da01d90cc0bb61035be78d7899c9fe0",
+  "consumerSHA256": "e768fe3f47ee16b890ceec4f45612695d0e1fb4ce98f03a1f6a57dc70944227f",
+  "providerSHA256": "c1939fc59f727557cf494e916463ae34e40f95995012d3e696cc8bf1673aaa58",
+  "normalOracleBytes": 7187,
+  "normalOracleSHA256": "49be903926ad59877408471a7fea6bcdafd8f945852ec33e89caa8773ca452a7",
+  "scope": "ActualpublicDepth append change; fullactualFrame.entity plusotherfields/40lookups/10ownersnapshots; rootsoleapplyrestore afterfullV2normalpairandcounteroracle.",
+  "status": "PREPARED_NOT_APPLIED",
+  "entryPath": "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-hierarchy/public-delivery-v1/full-frame-v2/entry.bend",
+  "consumerPath": "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-hierarchy/public-delivery-v1/full-frame-v2/consumer.bend",
+  "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-hierarchy/public-delivery-v1/full-frame-v2/independent-oracle-v1/expected.stdout.gz"
+}

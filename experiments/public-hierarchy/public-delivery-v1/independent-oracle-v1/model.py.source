@@ -1,0 +1,40 @@
+"""Finite source-only hierarchy model; no observed runtime outputs as inputs."""
+from collections import deque
+DESCRIPTOR='1:Parent:Children:hierarchy'
+def ids(values):return ''.join(str(x)+',' for x in values)
+def handles(values):return ''.join('1:'+str(x)+',' for x in values)
+def frames(edges,inverses):
+    parents=dict(edges);children=dict(inverses);out=[]
+    for entity in range(1,5):
+        ancestors=[];p=parents.get(entity)
+        while p is not None:
+            ancestors.append(p);p=parents.get(p)
+        walks=[]
+        for breadth in (False,True):
+            pending=list(children.get(entity,[]));seen=[]
+            while pending:
+                current=pending.pop(0);seen.append(current)
+                following=children.get(current,[])
+                pending=pending+following if breadth else following+pending
+            walks.append(seen)
+        parent='absent' if entity not in parents else '1:'+str(parents[entity])
+        root=ancestors[-1] if ancestors else entity
+        out.append('parent='+parent+'|children='+handles(children.get(entity,[]))+'|ancestors='+handles(ancestors)+'|root=1:'+str(root)+'|depth='+handles(walks[0])+'|breadth='+handles(walks[1]))
+    return out
+
+def physical(edges,inverses,pending):
+    owners=''.join((ids([i,i,10*i]) if i<=4 else 'absent')+';' for i in range(1,9))
+    graph='graph-edges='+''.join(DESCRIPTOR+':'+str(a)+':'+str(b)+';' for a,b in edges)
+    graph+='|graph-inverses='+''.join(DESCRIPTOR+':'+str(p)+':['+ids(xs)+'];' for p,xs in inverses)
+    live=''.join('1,' if 1<=i<=4 else '0,' for i in range(16))
+    return owners+'|stamps=|events=|meta=1,5,4,8,3,17,,1,0|registrations=|pending='+str(pending)+'|edges='+graph+'|live='+live
+
+def scene():
+    initial=[(2,1),(3,1),(4,2)];before=[(1,[2,3]),(2,[4])]
+    changed=[(2,1),(3,1),(4,3)];after=[(1,[2,3]),(3,[4])]
+    stages=[('INITIAL',initial,before,0),('REPARENT_PENDING',initial,before,1),('REPARENT_APPLIED',changed,after,0),('REORDER_PENDING',changed,after,1),('REORDER_APPLIED',changed,[(1,[3,2]),(3,[4])],0)]
+    return '\n'.join(label+'\n'+'\n'.join(frames(edges,inverses)+[physical(edges,inverses,pending)]) for label,edges,inverses,pending in stages)
+def expected():return ('HierarchyAlpha\n'+scene()+'\nHierarchyBeta\n'+scene()+'\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(expected())
