@@ -1,0 +1,3 @@
+Original source model incorrectly conflated authored record folds (List.append) with physical World metadata (prepend). Service then component then resource registration assigns ids1,2,3 and stores physical list3,2,1. Observer List.show preserves stored order. Existing failed JS23035 is retained by producer; no runtime stdout used as model input.
+
+Source audit also distinguishes records.fold_pair append order from World prepends; transaction.finish reverses accumulated publications back to authored order. No source/core behavior changed. Original oracle packets and failed attempt remain immutable.
