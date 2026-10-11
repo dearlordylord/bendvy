@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: duplicate
+7 | 
+8>| def duplicate(owner:B.FirstOwner()) -> B.FirstOwner() & B.FirstOwner():(owner,owner)
+  |               ^^^^^
+9 | def main() -> Unit:Unit{}
+bend 2.0.36 is available: run bend update

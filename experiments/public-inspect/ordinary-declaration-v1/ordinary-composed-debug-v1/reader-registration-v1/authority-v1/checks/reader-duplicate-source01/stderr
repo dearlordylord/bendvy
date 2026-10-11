@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : reader
+- observed : reader (consumed more than once)
+Context:
+- _ : ../../../../../../../../bendvy/src/ecs/ordinary-event-declaration.Declaration<F.S, F.FirstEvent>
+Location: duplicate
+ 9 |   match owner:
+10>|     case Reader.Owner{_,reader,_}:(reader,reader)
+   |                         ^^^^^^
+11 | def main() -> Unit:Unit{}
+bend 2.0.36 is available: run bend update

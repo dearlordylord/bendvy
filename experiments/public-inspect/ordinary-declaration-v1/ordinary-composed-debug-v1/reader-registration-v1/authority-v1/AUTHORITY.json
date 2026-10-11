@@ -1,0 +1,24 @@
+{
+  "selected": {
+    "cross-stream": {
+      "capture": "checks/cross-stream-source01",
+      "scope": "Actual public Reader.run rejects First owner at Second typed stream parameters"
+    },
+    "cross-schema": {
+      "capture": "checks/cross-schema-source02",
+      "scope": "Actual PUBLIC Owner type (same module identity) rejects different nominal schema at public Reader.run"
+    },
+    "owner-duplicate": {
+      "capture": "checks/owner-duplicate-source01",
+      "scope": "Actual returned Reader.Owner consumed twice"
+    },
+    "reader-duplicate": {
+      "capture": "checks/reader-duplicate-source01",
+      "scope": "Actual retained Route.Reader consumed twice after unpacking Owner"
+    }
+  },
+  "historicalExcluded": {
+    "cross-schema-source01": "different local Owner module identity confounded nominal schema; retained but not credited"
+  },
+  "ownerPayloadScope": "Actual typed public native Owner/Reader with same full affine World containing Array columns/resources, Data Bool reader args; no universal effect theorem"
+}
