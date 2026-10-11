@@ -1,0 +1,26 @@
+"""Pure grammar/fuel witnesses from frozen chunk gather/pair source.
+Not Bend execution, backend qualification or universal proof.
+"""
+def paired(chunks):
+    return [chunks[i]+chunks[i+1] if i+1<len(chunks) else chunks[i] for i in range(0,len(chunks),2)]
+def balanced(values):
+    if not values:return '[]',0,False
+    chunks=['['+values[0]]+[', '+v for v in values[1:]]+[']']
+    fuel=len(values)+1;rounds=0
+    while len(chunks)>1:
+        assert fuel>0
+        chunks=paired(chunks);fuel-=1;rounds+=1
+    return chunks[0],rounds,False
+
+def check():
+    cases=[[],[''],['x'],['[]','[x, y]','[record([pair([A:30],[])],[])]'],['comma, space','"quote"','line\nfeed',']','[']]
+    cases.extend([[str(i) for i in range(n)] for n in range(2,513)])
+    cases.append(['A:30']*65536)
+    maxrounds=0
+    for values in cases:
+        text,rounds,fallback=balanced(values)
+        assert text=='['+', '.join(values)+']'
+        assert not fallback
+        maxrounds=max(maxrounds,rounds)
+    return {'cases':len(cases),'largestElements':65536,'maxPairRounds':maxrounds,'fallbackReached':False,'semantics':'Exact ordered punctuation; nested/punctuation-bearing strings passed verbatim; empty and singleton lists; generated n+1 fuel exceeds required pair rounds.'}
+if __name__=='__main__':print(check())
