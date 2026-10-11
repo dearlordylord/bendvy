@@ -1,0 +1,19 @@
+{
+  "originalHandle": 1711,
+  "exitCode": 1,
+  "expectedForeignOnly": true,
+  "command": [
+    "flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "timeout",
+    "-s",
+    "KILL",
+    "5",
+    "/home/node/.bend/bin/bend-2.0.35",
+    "experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/interval-v1/profiles-v1/repeat-v1/main.bend",
+    "--check-only"
+  ],
+  "toolSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "sourceSHA256": "faf8f99f46dd0f972b78b31bf3eaab4a2ee9391213839cd67174fa3286d0a83e",
+  "delta": "Only erased Unit indices added to IO.pure and IO.bind; sequencing/fuel/32 lifecycles unchanged"
+}
