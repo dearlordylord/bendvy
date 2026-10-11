@@ -1,0 +1,94 @@
+{
+  "scope": "First complete regular common operational trace; capacity65536 exact but actual capacity-crossing/lag case not yet supplied or qualified. No timing/TS/backend execution.",
+  "sourceCapture": "checks/source01/main",
+  "stock": "/home/node/.bend/bin/bend-2.0.35",
+  "joins": [
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/consumer-public.bend",
+      "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/types.bend",
+      "sourceSHA256": "3fdacd68ccae3291f7a7c6981513290eadf3007d3fdf65442650b35a0a5f1c61",
+      "targetSHA256": "3fdacd68ccae3291f7a7c6981513290eadf3007d3fdf65442650b35a0a5f1c61",
+      "importOnly": true
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/tree-setup-public.bend",
+      "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/setup.bend",
+      "sourceSHA256": "893aca18fd615eb471c12061e2cbea45e41ba15bea6499028dd0c062c74417d7",
+      "targetSHA256": "c85a7bfc9d4a903243529252e0f6e226c70df0cb821c8b0c0829b486975f0015",
+      "importOnly": false,
+      "delta": "Only actual operational domain names First/Second and capacity65536; generated composition and all operations unchanged."
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/tree-consumer-public.bend",
+      "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/consumer.bend",
+      "sourceSHA256": "68ae403d3c9b3f40d0e291db096c863d63065e395852de29320a382b0ede06b4",
+      "targetSHA256": "fba04a69864fae4ef964b5b27f4f9a192f2f1f8c53356721f528f3c170208ec1",
+      "importOnly": true
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/observer-public.bend",
+      "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/observer.bend",
+      "sourceSHA256": "3db86157a460f13f6d0b5e715841524c99919983ace95d80682eaee8ba4c0419",
+      "targetSHA256": "9bda441d03fecb66b6b653a2555f140bb2140703dcc3fa9d6330feabfc35f76a",
+      "importOnly": true
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/trace-consumer-public.bend",
+      "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/trace.bend",
+      "sourceSHA256": "b812b0506810c680c347d20830cdc6276cea1e93c3d970d62757e5acbb21879d",
+      "targetSHA256": "2f6c8f49798b17334311071e38d086df72c0b6edeec5e8afcb114a55bdc197f0",
+      "importOnly": false,
+      "delta": "Matched TS frame-before-each-single-system schedule; frame-only tick once. Seventeen complete actions plus initial, four observations each; source branch delegates retained C.step unchanged."
+    },
+    {
+      "source": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/tree-entry-public.bend",
+      "target": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/main.bend",
+      "sourceSHA256": "5928f46e75bcdddd310c016699a3d0281115a0e067f1e7014aa1c2c1fa60dc8b",
+      "targetSHA256": "8fe322d8321738794053e93409db1e6006f8ef5d9cd26f65bb86fcab3af1e149",
+      "importOnly": true
+    }
+  ],
+  "referencePins": {
+    "/workspace/formal-proofs/bendvy/.references/sources.json": "5d4d89ca984a2eb21e21715344219bb9caa022b6bebca0c9f8959584cceb8b8f",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/debug.ts": "944a9858586dcf8ad58e66efd92b05c437c0be23afe517fabe00642d7bf4e338",
+    "/workspace/formal-proofs/bendvy/experiments/public-event-readers/reference.mjs": "00528f0d5436e383e8e96b2ba14658b0ac715289bace88dcb050eadcaf92a7b2"
+  },
+  "reference": "reference.mjs",
+  "states": 18,
+  "snapshots": 72,
+  "actions": [
+    "activate-fast",
+    "activate-slow",
+    "activate-second",
+    "publish",
+    "fast-read",
+    "publish-abort",
+    "second-failed",
+    "second-retry",
+    "publish-retry",
+    "slow-failed",
+    "slow-retry",
+    "fast-read-again",
+    "second-read-again",
+    "frame",
+    "frame-again",
+    "fast-empty",
+    "second-empty"
+  ],
+  "mapping": {
+    "frame": "TS tick advances frame before its sole scheduled system; Bend ticked performs corresponding public frame before C.step. Frame-only action performs one frame.",
+    "identity": "Two distinct actual Data leaf types versus TS two distinct descriptor symbols. Third installed unused leaf retained. Registry/Reader origins and numeric IDs are platform-specific companion observations.",
+    "abort": "Actual registered publisher uses staged transaction commit or abort; failed reader same actual reader retry.",
+    "inventory": "Bend ordinary retained family inventory; TS actual Schema Debug.describe events includes unused. Live streams view separately may omit unused.",
+    "observation": "Bend full Row owners plus platform common projection; TS structured rows/full public streams. Independent common and each platform full oracle still required."
+  },
+  "remaining": [
+    "Actual capacity overflow/lag fullcase at public TS65536 boundary",
+    "Independent source-derived common/platform whole oracles",
+    "Frozen TS import/config/tool bindings and guarded actual TS reference execution",
+    "JS/Native regular correctness",
+    "No timing driver/package until complete feature correctness and launch review"
+  ]
+}
