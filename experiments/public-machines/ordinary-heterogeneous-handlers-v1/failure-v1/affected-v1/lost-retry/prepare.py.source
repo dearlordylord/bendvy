@@ -1,0 +1,27 @@
+"""Mechanical plan preparation through the unchanged qualified collector."""
+import sys,json,gzip,hashlib,types
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+ROOT=Path('/workspace/formal-proofs/bendvy')
+COLLECTOR=ROOT/'experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py'
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+cat=Path(sys.argv[1]).resolve();catalogue=json.loads(cat.read_text());selected=catalogue[sys.argv[2] if len(sys.argv)>2 else 'normal'];oracle=Path(selected.get('gzip') or selected['stdout']);raw=gzip.decompress(oracle.read_bytes());baseline=Path(selected['normalBaseline']);baselineRaw=gzip.decompress(baseline.read_bytes());assert len(baselineRaw)==selected['normalBaselineBytes'] and hashlib.sha256(baselineRaw).hexdigest()==selected['normalBaselineSHA256'] and raw!=baselineRaw
+assert len(raw)==selected['bytes'] and hashlib.sha256(raw).hexdigest()==selected['sha256']
+m=types.ModuleType('collector');m.__file__=str(COLLECTOR);exec(compile(COLLECTOR.read_bytes(),str(COLLECTOR),'exec'),m.__dict__)
+capture=HERE/'source01';receipt=json.loads((capture/'result.json').read_text());assert receipt['exit']==0 and not receipt.get('failure') and json.loads((capture/'post.json').read_text())['unchanged']
+inventory={k:v for k,v in json.loads((capture/'SOURCE.json').read_text())['pins'].items() if k.endswith('.bend')};assert all(sha(k)==v for k,v in inventory.items())
+closure=m.validate_imports(str(HERE/'main.bend'),inventory);rows=[]
+TEMPLATES=HERE.parent.parent/'runtime01'
+for role in ['js','native']:
+ template=TEMPLATES/role/'plan.json';plan=json.loads(template.read_text());stage=HERE/'runtime01'/role;stage.mkdir(parents=True,exist_ok=False)
+ entry=str(HERE/'main.bend');generated=str(stage/('scenario.js' if role=='js' else 'scenario.c'));native=str(stage/'scenario.native');mapping={plan['entrypoint']:entry,plan['generated']:generated}
+ if plan.get('native'):mapping[plan['native']]=native
+ for c in plan['commands']:c['argv']=[mapping.get(x,x) for x in c['argv']]
+ plan.update(scope='Ordinary heterogeneous handlers: two distinct typed public Bundles in one World, explicitly authored marker order, actual callbacks/readers and complete affine owners; ten whole failure/retry snapshots and Factory; prior Exit commits, Transition Local retained/transaction rolled back, no initialization/new policy/performance',subject='mutant',stage=str(stage),entrypoint=entry,sourceInventory=inventory,importClosure=closure,generated=generated,native=native,oracle=str(oracle),oracleSHA256=selected['sha256'],oracleBytes=selected['bytes'],normalOracle=str(baseline),normalOracleSHA256=selected['normalBaselineSHA256'],normalOracleBytes=selected['normalBaselineBytes'])
+ plan['pins']=dict(inventory)
+ extras=[Path(__file__),COLLECTOR,template,HERE/'FREEZE.json',cat]+[x for x in cat.parent.rglob('*') if x.is_file()]+[x for x in capture.rglob('*') if x.is_file()]+[Path(x) for x in json.loads(template.read_text())['pins'] if not x.endswith('.bend')]
+ for x in extras:
+  if x.is_file():plan['pins'][str(x.resolve())]=sha(x)
+ assert all(sha(k)==v for k,v in plan['pins'].items())
+ target=stage/'plan.json';target.write_text(json.dumps(plan,indent=2)+'\n');rows.append({'role':role,'path':str(target),'sha256':sha(target),'execute':[plan['tools']['python'],str(COLLECTOR),'run',str(target),sha(target)]})
+(HERE/'runtime01/SEQUENCE.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(rows))
