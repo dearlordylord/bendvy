@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Decl.Declaration<F.S>
+- observed : Decl.Declaration<Other>
+Context:
+- runtime     : ../../../../../../../../bendvy/src/ecs/event-family-routing.Runtime<F.S, ../../../../../../../../bendvy/src/ecs/relation-commands.Store<F.S, Array<U32>>, Array<U32>, ../../../../../../../../bendvy/src/ecs/relation-commands.Notice<F.S, ../../../../../../../../bendvy/src/ecs/event-publication.Publication<../../../../../../../../bendvy/src/ecs/event-publication.Publication<F.FirstEvent, F.SecondEvent>, F.UnusedEvent>>, ../../../../../../../../bendvy/src/ecs/event-notice-runtime.State<F.S, ../../../../../../../../bendvy/src/ecs/event-publication.Publication<../../../../../../../../bendvy/src/ecs/event-publication.Publication<F.FirstEvent, F.SecondEvent>, F.UnusedEvent>, ../../../../../../../../bendvy/src/ecs/owner-product.Owner<../../../../../../../../bendvy/src/ecs/owner-product.Owner<../../../../../../../../bendvy/src/ecs/event-stream.Stream<F.S, F.FirstEvent>, ../../../../../../../../bendvy/src/ecs/event-stream.Stream<F.S, F.SecondEvent>>, ../../../../../../../../bendvy/src/ecs/event-stream.Stream<F.S, F.UnusedEvent>>, Array<U32>>>
+- declaration : Decl.Declaration<Other>
+Location: misuse
+ 8 | type Other is Data:Other{}
+ 9>| def misuse(runtime:Events.Runtime(),declaration:Decl.Declaration<Other>) -> Reader.Registration<F.S,F.Store(),F.Resources(),Events.Events(),Events.Metadata(),Array<U32>,Reader.OwnerType(~F.S,~F.Store(),~F.Resources(),~Events.Events(),~Array<U32>,~Unit,~(Array<U32> & List<&2,Read.KeyReading<F.S,F.Events()>>),~Operations.runner)>:Reader.register(~F.S,~F.Store(),~F.Resources(),~Events.Events(),~Array<U32>,~Unit,~(Array<U32> & List<&2,Read.KeyReading<F.S,F.Events()>>),~Operations.runner,~Events.Metadata(),~Array<U32>,runtime,declaration,"ParentFailures")
+   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ^^^^^^^^^^^
+10 | def main() -> Unit:Unit{}
+bend 2.0.36 is available: run bend update
