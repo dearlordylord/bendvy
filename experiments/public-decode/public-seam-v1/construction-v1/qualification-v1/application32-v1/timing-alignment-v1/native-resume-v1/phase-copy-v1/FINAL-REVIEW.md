@@ -113,3 +113,22 @@ Current Item-preserving32-Spec main is the intentionally selected source, not an
 Spec/Standards: PASS for retained diagnostic history only. Actual35395 outer0 retains tinyC74978 equality and full copied30 deadline/no C,465 postpins/16 links unchanged. Verified raw1,662,330 bytes/11,491 JSON records gives absolute book-load-complete1599.593361ms, book-read-complete4446.818680ms, compile-enter4458.538151ms, file-book-complete7521.241044ms, pass1-complete20551.120856ms/facts3552 then pass2-enter20554.409031ms without completion.
 
 Actual08 and09 have different unpaired copied subjects/context. Their timings cannot establish speedup, slowdown, causality or stock performance. Current ordinary source PASS and complete JS outputs do not promote copied compile progress to Native acceptance. No new adoption/source repair/launch admitted; no reviewer child.
+
+## Whole adapter/per-definition changed bindings
+
+Spec/Standards: PASS for focused static launch at immutabledf47e2f37/configured96628 terminal0, PLAN-v10 SHA256 `b4ed6bc9a751d5ed36d38766ec9b9037ba709e2968194238015f6012b801c12c`.469 current regular pins/16 links match and actual10 absent. Current51-module frozen adapter inventory includes the Common companion; recursively rooted Whole entry itself resolves50 nonBase modules, all pinned. No closure reduction is inferred from those distinct counts.
+
+Actual Whole String adapter entry/cwd and freeze61d00 are selected, with main2d91/App4b6a unchanged. Reviewed5a2e per-definition marker compiler executable exactly reverses to own v4abba25 using the retained byte-exact proposal. Command arrays differ from v9 only new copied compiler path and actual10 artifacts; existing CPU5/env/tiny source/launcher/task_runner/links/caps remain exact. Source/model history remains the separately reviewed finite adapter; no new semantic output is asserted by this launch.
+
+Admit two5s stock/copied successful C equality controls then at most one conditional copied30s full emit, only after explicit root grant/queue release, fresh inputs/links/absent outputs and prior outer55s supervision. Source-proposal inclusive spans, display-name normalization, unbounded-by-count/time-bounded log volume and synchronous IO perturbation limits apply. No default-engine equivalence, stock cause/Native/performance/adoption/full46 or future change admitted. Reviewer ran no child/check/hook.
+
+
+## Retained actual10 — 2da08785d
+
+Spec: PASS for bounded copied-compiler diagnostic retention. Standards: PASS within the same scope. Launch producer df47e2f37 and PLAN-v10 b4ed6bc9a751d5ed36d38766ec9b9037ba709e2968194238015f6012b801c12c remain the basis; this addendum grants no future launch.
+
+Independently verified all 18 MANIFEST-v10 logical rows against the 12 PORTABLE-v10 CAS bodies, their lengths and SHA256, including the plan, observed compiler, result, raw streams, both tiny C artifacts, full emitted C and SUMMARY-v10 (7e0c09c467d6fa24fae44c007ed2206648d5253c78fc5082d071985735b66540). Current 469 plan bindings join the reviewed adapter subject; terminal result retains unchanged pins and all 16 resource links. Outer 42715 is terminal 0. Both tiny commands and the full copied emission have exit 0/failure null. Tiny stock/copied C is exactly 74,978 bytes, SHA256 678bd29c8f63dc5131135269c0da7127a8412341abe85243ec74082a9f03dc0b.
+
+The full retained C is 11,304,657 bytes, SHA256 d3a4a80d7e911af26970d49e8d270eb2b8256caf2004c16d5b6a512fc77fe73d. Raw stderr contains 40,270 complete JSON markers / 5,207,117 bytes. Seven completed passes retain facts 3671, 3691, 3700, 3702, 3705, 3707, 3707. Compile-complete is the absolute process timestamp 22481.671543 ms; artifact-written follows at 22492.151091 ms. Counts include 1,893 file-book and 12,250 emission entry/completion pairs. The summary records no unclosed definition spans and reports completed inclusive wall spans, without summing nested work or claiming CPU attribution.
+
+This establishes successful copied observed emission for the pinned Whole observer-adapter subject. There is no C build or execution, no complete semantic output from this C, no stock Native qualification, and no production adoption, performance, causal attribution, general compiler equivalence or full #46 completion. Tiny C equality is a finite prerequisite, not a universal equivalence proof. Existing observer I/O, filesystem-resource branch, launch/JIT and unpaired-history limitations remain. Earlier failures and verdicts remain unchanged. No rerun or additional checks were performed.
