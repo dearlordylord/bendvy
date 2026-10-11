@@ -1,0 +1,30 @@
+from pathlib import Path
+import json,hashlib,gzip,runpy
+here=Path(__file__).resolve().parent
+basis=json.loads((here/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs','modelPins'):
+ for path,digest in basis[group].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==digest,path
+m=runpy.run_path(str(here/'model.py.source'));raw=m['expected']();v=json.loads((here/'ORACLES.json').read_text())['ts']
+assert gzip.decompress(Path(v['stdout']).read_bytes())==raw
+assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+records=json.loads(raw)['observations'];assert len(records)==32
+counts={'required_out':2,'optional_out':3,'required_in':1,'optional_in':3,'present_out':2,'absent_out':1,'present_in':1,'absent_in':2}
+for i,r in enumerate(records):
+ step=i%16;assert r['before']['world']['tick']==7+step*4 and r['before']['world']['frame']==6+step*2
+ assert len(r['firstRows'])==counts[r['mode']] and r['secondRows']==r['firstRows'] and r['checks']==[True,True]
+ for phase,offset in (('before',0),('afterFirst',1),('afterSecond',2),('afterChecks',4)):
+  q=r[phase];assert q['world']['tick']==7+step*4+offset
+  assert len(q['world']['entities'])==3 and len(q['world']['pendingCommands'])==1
+  assert q['readerValues']==[[]] and q['streams'][0]['size']==1 and q['streams'][0]['readers'][0]['unread']==1
+ if r['mode'].startswith(('present','absent')):assert all(x['cells']==[] for x in r['firstRows'])
+ if r['mode'] in ('required_in','optional_in'):
+  selected=next(x for x in r['firstRows'] if x['id']==2)
+  assert selected['cells']==[{'sources':[3,1] if r['relation']=='Link' else [1,3]}]
+# Check source-directed public semantics independently of serializer field count.
+root=Path('/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src')
+r=(root/'Runtime.ts').read_text();w=(root/'internal/world.ts').read_text();q=(root/'internal/queries.ts').read_text()
+assert 'reader.lastRun = world.advanceTick()' in r
+assert 'return projection.read(context as never) === true' in r
+assert 'reader.lastRun = thisRun' in r and 'const published = world.advanceTick()' in r
+assert 'entries.push(sourceId)' in w and 'records.sort(byId)' in q
+print('PASS:34sourcepins/32complete records/128fullpoints/clock and retention/incoming order/filter Cells/full104275bytes')
