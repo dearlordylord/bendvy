@@ -1,0 +1,69 @@
+{
+  "scope": "Source-only exact V8 helper adoption; original nominal types and externally consumed instance_view retained; unused old helper chain removed",
+  "target": "/workspace/formal-proofs/bendvy/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/application.bend",
+  "beforeSHA256": "70062e5640a4828a41d81bc2f5fcb12d9cc8a3021140c3e18baab66ca6154848",
+  "afterSHA256": "4b6a2d27fff2ff549bcbbd43f951f7b168b9151218fbce470ee2adacc28e36ed",
+  "prepared": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/adopt-original-v1/prepared-targets/application.bend",
+  "V8producer": "2c2b76af1",
+  "V8sourceSHA256": "56f44a4eec3bc82a087fe0c9954a00f639231ed1c67b8734d6e3215c1505f9d5",
+  "newDefinitions": {
+    "instance_view": "instance_view_with_runner",
+    "reported": "reported_data_view",
+    "barrier": "barrier_data_view",
+    "invocation_refused_view": "invocation_refused_data_view",
+    "invocation_refused": "invocation_refused_data",
+    "published_main": "published_main_data_view",
+    "ran": "ran_with_runner",
+    "started": "started_with_runner",
+    "selected_again": "selected_again_with_runner",
+    "selected_once": "selected_once_with_runner",
+    "ordinary_started": "ordinary_started_with_runner",
+    "registered": "registered_with_runner"
+  },
+  "existingBodyChanges": [
+    {
+      "before": "registered(~S,~codec,op,target,raw,Completion.registered(",
+      "after": "registered_with_runner(~S,~runner(~S,~codec),op,target,raw,Completion.registered(",
+      "count": 2
+    }
+  ],
+  "ordinaryRoute": "run\u2192ordinary_resource_seeded\u2192ordinary_created\u2192seed_registered\u2192seed_ran\u2192queue_registered\u2192queue_ran\u2192registered_with_runner\u2192ordinary_started_with_runner\u2192selected/started_with_runner\u2192ran_with_runner\u2192complete Data reporting",
+  "oldWrappers": "Retain original instance_view for two retained V7 historical consumer callsites. Remove eleven old reporting/runner helpers: no external qualified callers in current experiments tree; ordinary seeded/queue_ran call new chain. Unrelated public-machines App.barrier is another imported module, not this target.",
+  "limits": [
+    "No source/runtime/adoption credit yet",
+    "No new observable contract, field, or operation changes",
+    "Historical V7 instance_view caller remains compatible"
+  ],
+  "compatibilityPredecessorSHA256": "b5713bb8a4d5d993f51cd29e48126372095229c664e1f34e27b9c05223b1b53b",
+  "afterBytes": 42513,
+  "removedDefinitions": {
+    "reported": "def reported(~S:Data,~codec:D.Codec,original:Input.InputView,before:Snapshot,committed:Snapshot,instance:Instance(~S,~codec),result:ResultView<S>,world:World(~S) & Snapshot) -> Report<S>:\n  match world:\n    case (_,barrier):Report{original,before,committed,barrier,instance_view(~S,~codec,instance),result}\n",
+    "barrier": "def barrier(~S:Data,~codec:D.Codec,original:Input.InputView,before:Snapshot,instance:Instance(~S,~codec),result:ResultView<S>,world:World(~S) & Snapshot) -> Report<S>:\n  match world:\n    case (world,committed):reported(~S,~codec,original,before,committed,instance,result,snapshot(~S,observed_barrier(~S,world)))\n",
+    "invocation_refused_view": "def invocation_refused_view(~S:Data,~codec:D.Codec,original:Input.InputView,before:Snapshot,world:World(~S),instance:Instance(~S,~codec),op:Mode,target:W.Handle<S>,input:Input.Input & Input.InputView) -> Report<S>:\n  match input:\n    case (_,view):barrier(~S,~codec,original,before,instance,InvocationRefused{view,op,target},snapshot(~S,world))\n",
+    "invocation_refused": "def invocation_refused(~S:Data,~codec:D.Codec,original:Input.InputView,before:Snapshot,world:World(~S),instance:Instance(~S,~codec),args:Args<S>) -> Report<S>:\n  match args:\n    case Args{op,target,owner}:invocation_refused_view(~S,~codec,original,before,world,instance,op,target,Input.input_view(owner))\n\n",
+    "published_main": "def published_main(~S:Data,~codec:D.Codec,original:Input.InputView,before:Snapshot,instance:Instance(~S,~codec),value:World(~S) & ResultView<S>) -> Report<S>:\n  match value:\n    case (world,result):barrier(~S,~codec,original,before,instance,result,snapshot(~S,world))\n",
+    "ran": "def ran(~S:Data,~codec:D.Codec,original:Input.InputView,before:Snapshot,value:Local.Run<S,Store<S>,Input.Owner,Unit,State<S>,Args<S>,Unit,Output<S>,runner(~S,~codec)>) -> Report<S>:\n  match value:\n    case Local.Completed{world,instance,result}:published_main(~S,~codec,original,before,instance,published_result(~S,world,result_view(~S,result)))\n    case Local.Refused{world,instance,args}:invocation_refused(~S,~codec,original,before,world,instance,args)\n",
+    "started": "def started(~S:Data,~codec:D.Codec,op:Mode,target:W.Handle<S>,instance:Instance(~S,~codec),input:Input.Input & Input.InputView,world:World(~S) & Snapshot) -> Report<S>:\n  match input world:\n    case (input,original),(world,before):ran(~S,~codec,original,before,Local.run(~S,~Store<S>,~Input.Owner,~Unit,~State<S>,~Args<S>,~Unit,~Output<S>,~runner(~S,~codec),instance,world,Args{op,target,input}))\n# The two selection passes match TS each().length then each()[0]; only the\n# selected declared Value row supplies the immediate-write target.\n",
+    "selected_again": "def selected_again(~S:Data,~codec:D.Codec,raw:D.Raw,instance:Instance(~S,~codec),value:Selection.Scanned<S,Store<S>,Input.Owner,Unit>) -> Report<S>:\n  match value:\n    case Selection.Scanned{world,target <> []}:started(~S,~codec,Insert{},target,instance,Input.input_view(Input.input(raw)),snapshot(~S,world))\n    case _:SetupRefused{}\n",
+    "selected_once": "def selected_once(~S:Data,~codec:D.Codec,raw:D.Raw,instance:Instance(~S,~codec),value:Selection.Scanned<S,Store<S>,Input.Owner,Unit>) -> Report<S>:\n  match value:\n    case Selection.Scanned{world,_ <> []}:selected_again(~S,~codec,raw,instance,Selection.scan(~S,~Store<S>,~Input.Owner,~Unit,~ScanOps,~scan_plan(~S),world,0))\n    case _:SetupRefused{}\n",
+    "ordinary_started": "def ordinary_started(~S:Data,~codec:D.Codec,op:Mode,target:W.Handle<S>,raw:D.Raw,instance:Instance(~S,~codec),world:World(~S)) -> Report<S>:\n  match op:\n    case Insert{}:selected_once(~S,~codec,raw,instance,Selection.scan(~S,~Store<S>,~Input.Owner,~Unit,~ScanOps,~scan_plan(~S),world,0))\n    case _:started(~S,~codec,op,target,instance,Input.input_view(Input.input(raw)),snapshot(~S,world))\n",
+    "registered": "def registered(~S:Data,~codec:D.Codec,op:Mode,target:W.Handle<S>,raw:D.Raw,value:Local.Registered<S,Store<S>,Input.Owner,Unit,State<S>,Args<S>,Unit,Output<S>,runner(~S,~codec)>) -> Report<S>:\n  match value:\n    case Local.Registered{world,instance}:ordinary_started(~S,~codec,op,target,raw,instance,world)\n    case Local.RegistrationRejected{_,_}:SetupRefused{}\n"
+  },
+  "independentSourceAudit": {
+    "scope": "Source-only; no compiler/backend execution",
+    "result": "PASS",
+    "helper": "observable_query_boundaries",
+    "joins": [
+      "12 transformed helpers equal V8 after declared qualification removal and renaming",
+      "strip12 added/reinsert11 removed/reverse2call changes reconstruct original70062e",
+      "all nominal type declarations and retained instance_view byte-identical",
+      "same runner and original setup order; original Whole/Common QName geometry unchanged"
+    ],
+    "limit": "Producer caller search is not an exhaustive resolved import alias proof; root independently audits that before materialization"
+  },
+  "resolvedCallerAudit": {
+    "owner": "root",
+    "result": "29 experiments Bend files import exact original application; zero qualified calls to eleven removed helpers",
+    "retained": "two historical V7 instance_view calls"
+  }
+}

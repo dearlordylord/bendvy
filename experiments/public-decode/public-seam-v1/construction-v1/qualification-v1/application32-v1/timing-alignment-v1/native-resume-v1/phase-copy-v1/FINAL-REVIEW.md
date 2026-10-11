@@ -87,3 +87,17 @@ Spec/Standards: PASS for bounded history. Phase archive15 rows/9 objects and ord
 Raw2,417,879 bytes/12,031 JSON records match archive. LIFO def_check name/depth pairing closes without stack error or open checks. Book-read-complete occurs at21,242.590695ms absolute process timestamp, after book-valid-enter430.369249ms; it must not be called a21.242s validation duration. Compile-enter21,245.412261ms, file-book-complete22,052.932336ms, pass1-complete26,818.653597ms/facts3662 and pass2-complete29,301.699891ms/facts3682 are retained; pass3 enters29,303.963202ms without completion.
 
 Recomputed nested span gaps after subtracting child def_check spans match ran~4/~12≈5772/5253ms, started~4/~12≈2336/2499ms and registered~4/~12≈2204/1926ms. These residual wall intervals include all other work and observer overhead; they are not exclusive CPU or causal hotspots. Neither their values nor overlapping inclusive spans establish stock timing, speedup or source equivalence. No completed C/build/runtime/Native result and no future launch admission.
+
+## Original aligned-entry changed bindings
+
+Spec/Standards: PASS for static changed-binding admission at immutable4b94f7a9a, PLAN-v8 SHA256 `6c141c5df7214d78b2b1eb8b823246f9a66c1b45097ec3400aef3ca128e3febc`. All464 current pins/16 links match; actual08 absent. Observer payload/markers, launcher, control source, environment and2×5s/full30s caps remain exact. Command arrays change only fresh actual08 artifacts and the absolute full source entry. Cwd now matches the root original timing-alignment directory.
+
+The selected root observation-main imports that directory's main/public/owner and applies Public.whole to the returned32 Items. This is the actual original aligned-entry binding, not a private V8 entry or inferred runtime result. Current original application patch is guarded by the successor source pins; its broader evidence/adoption assessment is outside this focused launch review. Prior original/Whole/Common qualification handoff is not aggregate qualification here.
+
+Admit only the existing tiny stock/copied success+exact C equality gated diagnostic after canonical54 owning pair terminal and explicit root queue grant, fresh source/resource/output verification and prior outer55s supervision. No child was run, no quiet-host assumption, Native/runtime/performance credit, future source repair or broader history verdict.
+
+## Retained original aligned-entry actual08 — 15318b057
+
+Spec/Standards: PASS for bounded diagnostic retention only. The grouped523-row/498-object archive includes exact original80053 outer terminal0, tiny stock/copied74978-byte C equality and full copied30s deadline/no C.464 postpins/16 links are unchanged. Raw stderr1,676,363 bytes/11,720 records reproduces book-read-complete1623.536144ms, compile-enter1627.337258ms, file-book-complete2973.737262ms and7 completed pass markers. Facts3621,3640,3649,3651,3654,3656,3656 and final pass-complete29902.866811ms reconcile. The final equal facts imply the recorded fixed-point stopping condition, but no artifact-written/full C marker or qualified C exists before interruption.
+
+These absolute timestamps and copied-mode markers include synchronous IO/runtime effects; no stock causal phase, production compiler equivalence, speed or Native credit. Actual original entry is distinguished from private V8 and its original Whole/Common failed gates. No further launch, adoption or future source repair is admitted. Reviewer ran no child/check/hook.
