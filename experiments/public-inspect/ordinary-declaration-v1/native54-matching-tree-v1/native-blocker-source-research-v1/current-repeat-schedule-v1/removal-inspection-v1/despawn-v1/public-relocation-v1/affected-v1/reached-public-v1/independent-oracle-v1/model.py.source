@@ -1,0 +1,21 @@
+"""Source-only actual public second-cleanup omission interpretation."""
+import json,runpy
+from pathlib import Path
+DEPENDENCY=Path(__file__).resolve().parents[4]/'independent-oracle-v1/model.py.source'
+base=runpy.run_path(str(DEPENDENCY))
+def snapshot(stage,present,mutant):
+    row=base['snapshot'](stage,present)
+    if mutant and stage:
+        empty='Column{ALeaf{None{}},[]}'
+        sibling=base['base']['column'](43,2) if present else base['base']['column'](None,0)
+        row=row.replace('Owner{'+empty+','+empty+'}','Owner{'+empty+','+sibling+'}')
+        row=row.replace(', Components{Right{Removed{Handle{1,1},Declaration{OtherPosition}}}}','')
+        if stage==2:row=row.replace('Reader{1,1,PositionRemovals,3}','Reader{1,1,PositionRemovals,2}')
+    return row
+def expected(case):
+    assert case in ('normal','mutant')
+    def scene(present):return '\n'.join('snapshot'+str(i+1)+'='+snapshot(i//2,present,case=='mutant') for i in range(6))
+    return (json.dumps('A='+scene(True)+'\nOther='+scene(False),separators=(',',':'))+'\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(expected(sys.argv[1]))

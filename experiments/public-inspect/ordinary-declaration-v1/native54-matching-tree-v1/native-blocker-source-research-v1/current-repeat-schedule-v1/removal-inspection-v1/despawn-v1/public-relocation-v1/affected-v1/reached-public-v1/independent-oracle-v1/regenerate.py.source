@@ -1,0 +1,39 @@
+"""Bind controlled root cleanup composition defect and full baseline."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;P=HERE.parent;PUBLIC=P.parents[1];PRIVATE=PUBLIC.parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    complete=json.loads((P/'SOURCE-COMPLETE.json').read_text());pins=complete['sourcePins'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    applied=json.loads((P/'ROOT-APPLIED.json').read_text())
+    assert sha(applied['target'])==applied['mutantSHA256']
+    normal=(P/'normal-public.source').read_text();mutant=(P/'mutant-public.source').read_text()
+    assert mutant.replace('  (store,records)\ndef product(','  append(~Store,~E,records,right(store,handle))\ndef product(',1)==normal
+    assert Path(applied['target']).read_text()==mutant
+    prior=json.loads((PUBLIC/'independent-oracle-v1/SOURCE-BASIS.json').read_text())
+    for path,digest in prior['sourcePins'].items():
+        if path==applied['target']:continue
+        assert sha(path)==digest,path
+        pins[path]=digest
+    for path in (PRIVATE/'independent-oracle-v1/model.py.source',PRIVATE.parent/'independent-oracle-v1/model.py.source',P/'SOURCE-COMPLETE.json',P/'ROOT-APPLIED.json',P/'SOURCE-STATES.json',P/'normal-public.source',P/'mutant-public.source'):pins[str(path)]=sha(path)
+    model=runpy.run_path(str(HERE/'model.py.source'));catalogue={}
+    normalraw=model['expected']('normal');assert normalraw==(PRIVATE/'independent-oracle-v1/expected.stdout').read_bytes()
+    for case in ('normal','mutant'):
+        raw=model['expected'](case)
+        assert raw.count(b'clock=2')==12
+        assert raw.count(b'Aggregate{Despawned{Handle{1,1}}}')==8
+        if case=='mutant':
+            assert raw!=normalraw and b'Declaration{OtherPosition}' not in raw
+            assert raw.count(b'Stamp{2,2}')==6
+            assert raw.count(b'Stamp{0,0}')==6
+        d=HERE/case;d.mkdir(exist_ok=True)
+        (d/'expected.stdout').write_bytes(raw);(d/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+        basis={'producerCommit':'c2a874481','sourcePins':pins,'case':case,'modelPins':{str(HERE/'model.py.source'):sha(HERE/'model.py.source')},'derivation':'Actual public product_next sole omission bypasses right cleanup after left successfully clears42. Accepted deactivation and aggregate publication retained; A right43/Stamp2,2 survives, Other absent right/Stamp0,0 survives. No OtherPosition record emitted, full log count2 and successful Position reader cursor2 both. All original owners/World fields/manual String from pinned finite independent model; normal baseline bound retained pre-mutation bytes, not current normal source claim. No runtime output input.','scope':'Reached public cleanup composition defect only; no new disposal/finalizer/rollback/exactly-once policy or full54 qualification.'}
+        b=d/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+        catalogue[case]={'stdout':str(d/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    catalogue['mutant'].update(normalBaseline=catalogue['normal']['stdout'],normalBaselineBytes=catalogue['normal']['bytes'],normalBaselineSHA256=catalogue['normal']['sha256'])
+    (HERE/'SOURCE-BASIS.json').write_text(json.dumps({'producerCommit':'c2a874481','sourcePins':pins},indent=2)+'\n')
+    (HERE/'ORACLES.json').write_text(json.dumps(catalogue,indent=2)+'\n')
+    print(json.dumps({'sourcePins':len(pins),'cases':catalogue},indent=2))
+if __name__=='__main__':regenerate()
