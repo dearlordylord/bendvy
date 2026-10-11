@@ -1,0 +1,8 @@
+"""Direct structural ordinary removal valid scene, source-only model reuse."""
+import runpy
+from pathlib import Path
+DEPENDENCY=Path(__file__).resolve().parents[2]/'independent-oracle-v1/model.py.source'
+def expected():return runpy.run_path(str(DEPENDENCY))['expected']()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(expected())
