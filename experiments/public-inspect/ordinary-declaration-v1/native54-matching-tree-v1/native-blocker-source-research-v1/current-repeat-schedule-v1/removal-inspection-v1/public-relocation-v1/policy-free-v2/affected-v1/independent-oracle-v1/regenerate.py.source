@@ -1,0 +1,36 @@
+"""Bind current direct St.Queued authority scenes, retaining obsolete histories."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;P=HERE.parent;V2=P.parent;PUBLIC=V2.parent;OLD=PUBLIC.parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def body(p):return '\n'.join(x for x in Path(p).read_text().splitlines() if not x.startswith('import '))
+def regenerate():
+    complete=json.loads((P/'SOURCE-COMPLETE.json').read_text());assert complete['status']=='COMPLETE_CURRENT_AUTHORITY_SOURCE_CONTROLS'
+    pins=complete['sourcePins'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    current=body(V2/'consumer-public.bend')
+    for case in ('write','wrongkey'):
+        cb=body(P/('consumer-'+case+'.bend'))
+        if case=='write':assert cb.replace('Access.write(','Access.read(')==current
+        else:
+            assert cb.replace('~take_right(~S),~put_right(~S),~view,other_binding(~S)),selection(~S))','~take_left(~S),~put_left(~S),~view,binding(~S)),selection(~S))')==current
+        for name in ('entry','observer'):assert body(P/(name+'-'+case+'.bend'))==body(V2/(name+'-public.bend'))
+        assert 'SelectionRejected' not in cb and 'case St.Queued{tx}:' in cb
+    prior=json.loads((V2/'independent-oracle-v1/SOURCE-BASIS.json').read_text())
+    for path,digest in prior['sourcePins'].items():
+        assert sha(path)==digest,path
+        pins[path]=digest
+    for path in (P/'SOURCE-COMPLETE.json',OLD/'affected-v1/independent-oracle-v1/model.py.source',OLD/'independent-oracle-v1/model.py.source'):pins[str(path)]=sha(path)
+    model=runpy.run_path(str(HERE/'model.py.source'));catalogue={}
+    for case in ('normal','write','wrongkey'):
+        raw=model['expected'](case)
+        assert raw==(OLD/'affected-v1/independent-oracle-v1'/case/'expected.stdout').read_bytes()
+        directory=HERE/case;directory.mkdir(exist_ok=True)
+        (directory/'expected.stdout').write_bytes(raw);(directory/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+        basis={'producerCommit':'e746c8490','sourcePins':pins,'case':case,'modelPins':{str(HERE/'model.py.source'):sha(HERE/'model.py.source')},'derivation':'Literal current v2 scene inverse except getter Read→Write or distinct OtherPosition declaration with same Payload. Direct St.Queued valid removal remains unchanged, no SelectionRejected frontend. Complete source-only prior state model retained: refused getter None, operational reader selects actual removal and advances cursor1, full owners/log/clock/factory unchanged. No runtime output inputs.','scope':'Finite actual public getter authority/current direct structural API only. Six obsolete source attempts are history, not coverage. No new setup/rejection/despawn/general absence policy/full54 claim.'}
+        b=directory/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+        catalogue[case]={'stdout':str(directory/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'SOURCE-BASIS.json').write_text(json.dumps({'producerCommit':'e746c8490','sourcePins':pins},indent=2)+'\n')
+    (HERE/'ORACLES.json').write_text(json.dumps(catalogue,indent=2)+'\n')
+    print(json.dumps({'sourcePins':len(pins),'cases':catalogue},indent=2))
+if __name__=='__main__':regenerate()
