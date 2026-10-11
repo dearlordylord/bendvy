@@ -1,0 +1,25 @@
+"""Source-only complete ordinary App hierarchy transcript."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    freeze=HERE.parent/'FREEZE-v2.json';pins=json.loads(freeze.read_text())['sourceInventory'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    m=runpy.run_path(str(HERE/'model.py.source'));raw=m['expected']();text=raw.decode()
+    assert text.count('entity=')==32 and text.count('|meta=')==10
+    assert text.count('|resource-all=17,18,')==10 and text.count('|owners=901,902,')==10
+    assert text.count('Relation{key=1|name=Parent|inverse=Children|kind=Hierarchy}')==10
+    assert text.count('|pending=3')==2 and text.count('|pending=1')==2 and text.count('|pending=0')==6
+    assert m['recipe']([],[])[1]=='1:1:[Parent:Outgoing:Missing, Children:Incoming:Missing]'
+    assert m['recipe']([(2,1),(3,1),(4,2)],[(1,[2,3]),(2,[4])])[1]=='1:1:[Parent:Outgoing:Missing, Children:Incoming:Sources:[1:2, 1:3]]'
+    old=runpy.run_path(str(HERE/'model.pre-resource.py.source'))['expected']()
+    assert raw.replace(b'|resource-all=17,18,',b'')==old
+    for path in [freeze,HERE/'model.py.source',HERE/'model.pre-resource.py.source',HERE/'regenerate.py.source',Path('/home/node/.bend/bend2/base.bend'),Path('/home/node/.bend/bend2/effs/print.js'),Path('/home/node/.bend/bend2/effs/print.c')]:pins[str(path)]=sha(path)
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    basis={'producerCommit':'07a1df43c','sourcePins':pins,'entry':str(HERE.parent/'consumer.bend'),'derivation':'Same hierarchy descriptor derives nominal relation declaration and installed Recipe observation. Build snapshot enablesactualdebug, ownerprojection restores901/902; Tree.observe_pair appends priorphysical+complete tworesourcecells to descriptor and4optionalrelation rows. World.handles current collect_tail returns ascending1..4; composedscan preserves order. Relation requirements preserve outgoingParent then incomingChildren cell order; List.show uses bracket/comma-space. Initial3deferredrelations leave emptygraph/pending3 beforebarrier, then FIFO edges2to1,3to1,4to2. Reparent4to3 preservesoldgraph/pending1 beforebarrier, replacesedge/inverseafter. Fourgroups of4targets requestroot/ancestors/Depth/Breadth throughinstalledApp methods; returned reconstructs sameWorld/owners/recipe/debug with no aggregateFrame. All128requests retainaffinepayloads andresource17/18/owners901/902, rawstamps/events/registrations remainempty,clock0. texts appends LF aftereveryobservation string and joined wrappers retain additionalLF. IO.print adds terminalLF. No runtimeoutputs used.','limits':'Finite two nominalschemas/10snapshots/128requests. Historicalsource03 retainedinsufficientresourceobservation, correctedsource04 authoritative. No disabledsnapshot/foreign/ordinaryAppauthoritycontrols/TS/performance/descendantMatches/universalproof credit.'}
+    b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle},indent=2)+'\n')
+    result={'sourcePins':len(pins),'requests':128,'physicalSnapshots':10,**oracle};(HERE/'SELFTEST.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+if __name__=='__main__':regenerate()

@@ -1,0 +1,64 @@
+import Base
+import ../consumer.bend as C
+import ./foreign-observation.bend as View
+import ../fixture.bend as Seed
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-hierarchy.bend as App
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation.bend as Relation
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-composer.bend as Build
+import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-recipe.bend as Tree
+import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A
+import /workspace/formal-proofs/bendvy/src/ecs/relation-types.bend as G
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/experiments/public-hierarchy/public-delivery-v1/owners.bend as O
+def finished(~S:Data,text:String,local:View.Application(~S),result:View.Application(~S) & String) -> String:
+  match result:
+    case (_,peerText):text ++ "\n" ++ peerText
+def local_after(~S:Data,text:String,peer:View.Application(~S),result:View.Application(~S) & String) -> String:
+  match result:
+    case (local,localText):finished(~S,text ++ "\n" ++ localText,local,View.snapshot(~S,"PEER_AFTER",peer))
+def dead_done(~S:Data,text:String,peer:View.Application(~S),result:View.Application(~S) & String) -> String:
+  match result:
+    case (local,row):local_after(~S,text ++ "\nDEAD_READ:" ++ row,peer,View.snapshot(~S,"LOCAL_AFTER",local))
+def world_error(value:W.WorldError) -> String:
+  match value:
+    case W.MissingEntity{}:"MissingEntity"
+    case W.CapacityExceeded{}:"CapacityExceeded"
+    case W.NamespaceExhausted{}:"NamespaceExhausted"
+    case W.SystemIdExhausted{}:"SystemIdExhausted"
+def deactivated(~S:Data,text:String,peer:View.Application(~S),owners:Array<U32>,recipe:Relation.Recipe(~S,~O.Components<S>,~Array<U32>,~U32,~App.declaration(~S,C.hierarchy(~S)),~Array<U32>,~String,~View.prior(~S),~C.fold(~S)),debug:Bool,result:C.World(~S) & W.Status) -> String:
+  match result:
+    case (world,W.Accepted{}):dead_done(~S,text ++ "\nDEACTIVATE:Accepted",peer,View.read(~S,Build.Registered{world,owners,recipe,debug},W.Handle{1,1}))
+    case (world,W.Rejected{error}):dead_done(~S,text ++ "\nDEACTIVATE:Rejected:" ++ world_error(error),peer,View.read(~S,Build.Registered{world,owners,recipe,debug},W.Handle{1,1}))
+def deactivate(~S:Data,text:String,local:View.Application(~S),peer:View.Application(~S)) -> String:
+  match local:
+    case Build.Registered{world,owners,recipe,debug}:deactivated(~S,text,peer,owners,recipe,debug,W.deactivate(~S,~A.Store<S,O.Components<S>>,~Array<U32>,~A.Notice<S,U32>,world,W.Handle{1,1}))
+def missing_done(~S:Data,text:String,peer:View.Application(~S),result:View.Application(~S) & String) -> String:
+  match result:
+    case (local,row):deactivate(~S,text ++ "\nMISSING_READ:" ++ row,local,peer)
+def foreign_done(~S:Data,text:String,peer:View.Application(~S),result:View.Application(~S) & String) -> String:
+  match result:
+    case (local,row):missing_done(~S,text ++ "\nFOREIGN_READ:" ++ row,peer,View.read(~S,local,W.Handle{1,99}))
+def peer_seen(~S:Data,text:String,local:View.Application(~S),result:View.Application(~S) & String) -> String:
+  match result:
+    case (peer,peerText):foreign_done(~S,text ++ "\n" ++ peerText,peer,View.read(~S,local,W.Handle{2,1}))
+def local_seen(~S:Data,peer:View.Application(~S),result:View.Application(~S) & String) -> String:
+  match result:
+    case (local,text):peer_seen(~S,text,local,View.snapshot(~S,"PEER_BEFORE",peer))
+def peer_seeded(~S:Data,local:View.Application(~S),result:C.World(~S) & List<&2,W.Handle<S>>) -> String:
+  match result:
+    case (world,_):local_seen(~S,App.install(~S,~O.Components<S>,~Array<U32>,~U32,~C.hierarchy(~S),~Array<U32>,~String,~View.prior(~S),~C.fold(~S),Build.Registered{world,ANode{ALeaf{1901},ALeaf{1902}},Tree.Recipe{},False{}}),View.snapshot(~S,"LOCAL_BEFORE",local))
+def peer_created(~S:Data,local:View.Application(~S),result:W.Creation<S,A.Store<S,O.Components<S>>,Array<U32>,A.Notice<S,U32>>) -> String:
+  match result:
+    case W.Created{_,world}:peer_seeded(~S,local,Seed.spawn(~S,4n,(world,[])))
+    case _:"PEER_CREATE_REFUSAL"
+def local_seeded(~S:Data,factory:W.Factory,result:C.World(~S) & List<&2,W.Handle<S>>) -> String:
+  match result:
+    case (world,_):peer_created(~S,App.install(~S,~O.Components<S>,~Array<U32>,~U32,~C.hierarchy(~S),~Array<U32>,~String,~View.prior(~S),~C.fold(~S),Build.Registered{world,ANode{ALeaf{901},ALeaf{902}},Tree.Recipe{},False{}}),W.create(~S,~A.Store<S,O.Components<S>>,~Array<U32>,~A.Notice<S,U32>,~Seed.empty(~S),factory,ANode{ALeaf{27},ALeaf{28}}))
+def local_created(~S:Data,result:W.Creation<S,A.Store<S,O.Components<S>>,Array<U32>,A.Notice<S,U32>>) -> String:
+  match result:
+    case W.Created{factory,world}:local_seeded(~S,factory,Seed.spawn(~S,4n,(world,[])))
+    case _:"LOCAL_CREATE_REFUSAL"
+def run(~S:Data) -> String:
+  local_created(~S,W.create(~S,~A.Store<S,O.Components<S>>,~Array<U32>,~A.Notice<S,U32>,~Seed.empty(~S),W.factory(),ANode{ALeaf{17},ALeaf{18}}))
+def main() -> IO(Unit):
+  IO.print("AppForeignAlpha\n" ++ run(~C.Alpha) ++ "\nAppForeignBeta\n" ++ run(~C.Beta))
