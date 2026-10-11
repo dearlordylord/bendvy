@@ -1,6 +1,6 @@
 {
   "scope": "ONE copied CLI Native emit fixed-point/top-level definition boundary diagnostic; same frozen shared round, no Native/runtime qualification or causal timing claim",
-  "stage": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/actual01",
+  "stage": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/actual02",
   "pins": {
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/application.bend": "4fdd3898d504bf89e802fc529c0d9e940123ed85aa7e971d97b4d7a84e46f06a",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/types.bend": "9edf636d52257c5fc74b44a7b5e9ad1ef995daa62d99da2c0560dec2069de717",
@@ -84,7 +84,7 @@
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/PATCHES.json": "a01f597d97b0b1e24092f3b045fc475363d40666684bf425f7923a426db64b8f",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/compiler/installed-cli-unmodified.mjs": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/compiler/observed-cli.mjs": "f82c4a97838de5a347f08d35d5f0381ecaacf305415145c013620dce5ec7f7c0",
-    "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/controls.py.source": "4f34f1aaf8746b34c82dc360b77a0b034f873a5cf9c369ea4f5f96d99f2f9f85"
+    "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/controls.py.source": "dbc01948c5cf5520e19f14fd5cf8843c0e184e5f9776bce5c57ca30db0a53001"
   },
   "resourceRoots": {
     "/home/node/.bend/bend2": {
@@ -186,26 +186,28 @@
     "BEND_NO_TELEMETRY": "1",
     "BENDVY_CLANG19_ROOT": "/tmp/bendvy-clang19-diagnostic/root",
     "LD_LIBRARY_PATH": "/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu",
-    "BENDVY_EMIT_BOUNDARY": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/actual01/boundary.json"
+    "BENDVY_EMIT_BOUNDARY": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/actual02/boundary.json",
+    "BUN_BE_BUN": "1"
   },
   "argv": [
     "/usr/bin/taskset",
     "-c",
     "11",
-    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+    "/home/node/.bend/bin/bend-2.0.35",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/compiler/observed-cli.mjs",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/main.bend",
     "-o",
-    "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/actual01/diagnostic.c"
+    "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/actual02/diagnostic.c"
   ],
-  "boundaryOutput": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/actual01/boundary.json",
+  "boundaryOutput": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/actual02/boundary.json",
   "capSeconds": 30,
   "originalNativeFailure": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/runtime01/native/receipt.json",
-  "observerLimits": "16KiB fixed page synchronous overwrite at top-level iteration/definition/text/write boundaries; serialization and syscall overhead can change elapsed time/deadline. Top16 completed spans include memo_gc/emit_open/emit_body, not recursive pure emit_body cost. Torn page or observer failure retained. Copied Node CLI differs from pinned ELF; no stock causal or production C qualification. Child process.resourceUsage/cpuUsage/memory snapshots are written at module-load and each boundary; retained last snapshot is cumulative copied Node diagnostic context, not unconditional final child usage or stock ELF attribution. No sampling child/process installed.",
+  "observerLimits": "16KiB fixed page synchronous overwrite at top-level iteration/definition/text/write boundaries; serialization and syscall overhead can change elapsed time/deadline. Top16 completed spans include memo_gc/emit_open/emit_body, not recursive pure emit_body cost. Torn page or observer failure retained. Copied Node CLI differs from pinned ELF; no stock causal or production C qualification. Child process.resourceUsage/cpuUsage/memory snapshots are written at module-load and each boundary; retained last snapshot is cumulative copied embedded-Bun diagnostic context, not unconditional final child usage or stock ELF attribution. No sampling child/process installed.",
   "launch": [
     "/usr/bin/python3.11",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/launch.py.source"
   ],
   "preservedPreparation": "pre-resource-plan.json",
-  "python": "/usr/bin/python3.11"
+  "python": "/usr/bin/python3.11",
+  "preservedRuntimeFailure": "actual01: Node runtime refused before compiler; iteration0 observer-loaded only"
 }

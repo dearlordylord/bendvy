@@ -18,13 +18,16 @@ exec(code,{"Path":Path,"sys":sys,"p":{"python":p["python"]}})
 try:exec(code,{"Path":Path,"sys":sys,"p":{"python":"/not/admitted/python"}})
 except SystemExit as error:assert str(error)=="admitted Python interpreter mismatch"
 else:raise AssertionError("foreign interpreter accepted")
-node=p["argv"][3]
+node="/home/node/.local/share/mise/installs/node/24.20.0/bin/node"
 for f in [HERE/"compiler/observed-cli.mjs",HERE/"boundary-helper.mjs"]:
  r=subprocess.run([node,"--check",str(f)],capture_output=True,timeout=5);assert r.returncode==0,(r.stdout,r.stderr)
 with tempfile.TemporaryDirectory() as tmp:
  dest=Path(tmp)/"boundary.json"
  code=f'import {{mark}} from {json.dumps((HERE/"boundary-helper.mjs").as_uri())};mark("iteration-begin");for(let i=0;i<20;i++){{mark("definition-begin","dummy"+i);mark("definition-end","dummy"+i);}}mark("iteration-end","",{{before:1,after:1}});'
- env=dict(os.environ);env["BENDVY_EMIT_BOUNDARY"]=str(dest)
- r=subprocess.run([node,"--input-type=module","-e",code],env=env,capture_output=True,timeout=5);assert r.returncode==0,(r.stdout,r.stderr)
+ env=dict(p["environment"]);env["BENDVY_EMIT_BOUNDARY"]=str(dest)
+ script=Path(tmp)/"helper-control.mjs";script.write_text(code)
+ r=subprocess.run([p["argv"][3],str(script)],env=env,capture_output=True,timeout=5)
+ (HERE/"control-runtime.stdout").write_bytes(r.stdout);(HERE/"control-runtime.stderr").write_bytes(r.stderr)
+ assert r.returncode==0,(r.stdout,r.stderr)
  raw=dest.read_bytes();value=json.loads(raw);assert len(raw)==16384 and value["boundary"]=="iteration-end" and value["completedDefinitions"]==20 and len(value["slow"])==16 and value["iteration"]==1 and value["resource"]["pid"]>0 and value["resource"]["usage"]["maxRSS"]>0 and value["resource"]["cpu"]["user"]>=0
 print("PASS: literal CLI inverse/current pins/resource links/syntax/bounded helper dummy ordering; no compiler workload")
