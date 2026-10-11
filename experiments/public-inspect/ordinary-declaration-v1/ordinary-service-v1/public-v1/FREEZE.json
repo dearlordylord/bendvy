@@ -1,0 +1,32 @@
+{
+  "privateSource": "dabb014d5",
+  "selectedCapture": "/tmp/bendvy-ordinary-service-public-source01",
+  "sources": {
+    "consumer.bend": {
+      "bytes": 17862,
+      "sha256": "38af72601f2d592e2039b8218aebc7402ebe667e3ed0fd1853cb63688df2c120"
+    },
+    "entry-a.bend": {
+      "bytes": 77,
+      "sha256": "2c3e0b1235d02a9d271d9a893d742f72a612d106bceaabc6bbb02f527272af09"
+    }
+  },
+  "publicTargets": [
+    {
+      "source": "declaration.bend",
+      "target": "src/ecs/ordinary-service-declaration.bend",
+      "candidate": "public-candidate/ordinary-service-declaration.bend",
+      "bytes": 6769,
+      "sha256": "f4b331ab58280059f018acdefc8db8ab4b2d28e36645837cea94fb30f19b340d",
+      "inverse": "core absolute imports -> sibling imports; declaration.bend -> ./ordinary-service-declaration.bend; non-import bodies exact"
+    },
+    {
+      "source": "application.bend",
+      "target": "src/ecs/ordinary-app-service.bend",
+      "candidate": "public-candidate/ordinary-app-service.bend",
+      "bytes": 10178,
+      "sha256": "de191592d007e9a89ad681b6f9f8427b038e075118d170f1c53d6fec5d913d49",
+      "inverse": "core absolute imports -> sibling imports; declaration.bend -> ./ordinary-service-declaration.bend; non-import bodies exact"
+    }
+  ]
+}
