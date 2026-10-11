@@ -31,7 +31,7 @@ def main():
  if isinstance(basis,dict):
   if any(sha(k)!=v for k,v in basis.items()):raise ValueError('Independent basis drift')
  extras += [Path(k) for k in basis]
- for field in ['printerReferenceInputs','modelInputs','sourceProvenanceInputs']:
+ for field in ['printerReferenceInputs','modelInputs','sourceProvenanceInputs','provenance']:
   joined=basisRecord.get(field,{})
   if any(sha(k)!=v for k,v in joined.items()):raise ValueError('Independent model input drift')
   extras += [Path(k) for k in joined]
