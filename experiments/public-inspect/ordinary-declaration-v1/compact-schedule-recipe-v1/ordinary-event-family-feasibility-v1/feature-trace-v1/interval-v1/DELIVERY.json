@@ -1,0 +1,60 @@
+{
+  "scope": "ONE regular typed Data-event instrumented correctness lifecycle,17public operations and72full observations on actual JS/Native/TS",
+  "status": "COMPLETE_CORRECTNESS_PENDING_FINAL_REVIEW_COMPARATIVE_AND_PROFILES",
+  "sourceCommit": "dcd61c930",
+  "planCommit": "a760d2e40",
+  "planSHA256": "f51e12ee7cfa65842f67b913b477a308e75a0607921d05ce0e4f4a96ca4f1b5b",
+  "launchReviewSHA256": "f3408939772d1ee7f837f1d2bca4b102bbbffecc87586419a8077a5ad27a304d",
+  "success": "success01/ACTUAL.json",
+  "failedAttempts": [
+    {
+      "path": "attempt01",
+      "handle": 39350,
+      "scope": "Barrier checker rejected before all consumers",
+      "members": 17
+    },
+    {
+      "path": "attempt02",
+      "handle": 79094,
+      "scope": "Barrier/protocol passed, firstJS complete renderer grammar rejected;NativeTS held",
+      "members": 22
+    }
+  ],
+  "fullOracles": {
+    "JS": {
+      "bytes": 78093,
+      "sha256": "dd4b84cfd0eafa1c44986d6a9d5853916c87630aff3852a10b4494fcca8a512d",
+      "intervals": 17,
+      "fullOracle": "EXACT_MATCH",
+      "elapsedScope": "Raw correctness telemetry only, no comparative credit"
+    },
+    "Native": {
+      "bytes": 78093,
+      "sha256": "dd4b84cfd0eafa1c44986d6a9d5853916c87630aff3852a10b4494fcca8a512d",
+      "intervals": 17,
+      "fullOracle": "EXACT_MATCH",
+      "elapsedScope": "Raw correctness telemetry only, no comparative credit"
+    },
+    "TS": {
+      "bytes": 40956,
+      "sha256": "592608006c0caa234ead6484323fdbe5cd4b754010067af7a0af631e789cddb6",
+      "intervals": 17,
+      "fullOracle": "EXACT_MATCH",
+      "elapsedScope": "Raw correctness telemetry only, no comparative credit"
+    }
+  },
+  "sourceOnlyApplicability": "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/typed-data-events-oracle-v1/feature-v1/interval-v1/grammar-v3/ORACLES.json",
+  "boundaries": [
+    "Raw Bendclock15 versus TS17 retained; two publicationcommit clock differences",
+    "Generated Native76 returned owner/completion fields captured before end, observationcontinuation afterend",
+    "No actualoperations/scenario/fulloutput reduced or reordered",
+    "No comparative cohort, scaling, CPU/allocation profiles or newthresholds",
+    "Regular scenario does not cross capacity; previous complete capacity qualification remains separate",
+    "Earlier erroneous source applicability retained/retracted; fulloriginal oracles never weakened"
+  ],
+  "remaining": [
+    "One independent final Spec/Standards review of bounded instrumented correctness",
+    "Source-current reviewed equivalent interval comparative plan, rootexclusive admission",
+    "Before/after CPU/allocation profiling and justified capacity/scaling if selected"
+  ]
+}
