@@ -1,0 +1,19 @@
+# Layout-attribution launch review
+
+Spec: PASS. Standards: PASS, scoped to ONE copied-CLI diagnostic, not stock compiler qualification or adoption.
+
+Immutable author c1be3642c / root 4ee397e784579ece163dae60d2f43f43f0cc4ece; reviewed plan SHA256 215aa88191069dea19ecfdfbf14618e25b0348fefb18ac6a6f754d3d33654592. All 205 literal pins match. The original sampled seek-view-delegation subject has the full 47-source closure; no consumer reduction or world-text substitution. Mandatory full oracle is 5,077,477 bytes, SHA256 810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2.
+
+The six attribution patches reconstruct sampled CLI 83e7b4115e62d3ad7c4e33ff173ae997aa0b7d82816ef2b3092746ddf2000567; reversing the four retained sampler patches reconstructs 333,165-byte installed source 015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62. Candidate CLI is c068adbb41267f98b924b815480752dc91d9d52097ea18ea6d9b0b98c2440ced. The outer synchronous context covers memo_gc, emit_open and emit_body and restores ownership in finally. The inspected loop has no return/continue/break whose target changes. Wrappers preserve original values/errors, JSON replacer and equality short circuit; they add no term/layout walks, cache mutation or output transformation. They do add closures, clocks, counters and profiler/publication overhead: diagnostic durations are inclusive, nested and nonadditive, not stock timing or causal proof.
+
+Rows are bounded at 8192 distinct names, with explicit overflow calls and four fixed metric kinds. Nested context, result/error identity and short-circuit controls are source-bound but their real execution remains required. The same installed ELF/BUN_BE_BUN API control must pass before emit. Profile and attribution publish through exclusive non-symlink regular FDs, positive-progress short-write loops, fsync and length/hash metadata. Publication follows a completed definition after 15 seconds, with normal/error fallback. A killed process may never reach a checkpoint; absence or a partial publication is inconclusive. A deadline stops the collector before its schema command: preserve raw files and metadata as captured, and do not describe an unexecuted schema validator as PASS.
+
+Existing development-v2 collector is unchanged and pinned. It enforces import closure, all literal/source/resource pins before/acquired/after each command and unconditional final receipt boundary; holds/releases the internal heavy flock in finally; retains split completed child streams and available generated-artifact identity before failure rejection. Controls stop on nonzero/deadline; emit30 then schema5/build120/consumer5 are conditional. No retry or cap escalation. Compiler-relative base.bend, bendtt.lean and effs resolve to the exact installed resources; their target contents and membership are guarded. All current profile/generated/runtime outputs are absent: /tmp/bendvy54-layout-attribution01 contains only the exact prepared plan.
+
+Exact admitted collector argv:
+
+```text
+/usr/bin/python3.11 /workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py run /tmp/bendvy54-layout-attribution01/plan.json 215aa88191069dea19ecfdfbf14618e25b0348fefb18ac6a6f754d3d33654592
+```
+
+Root must wait for the debug affected sequence terminal/release, recheck current pins/resources and fresh output absence, and retain outer raw stdout/stderr plus original terminal result outside collector-exclusive output names. Internal locking remains authoritative for each child. The six commands are context Node5, same-ELF API5, copied emit30, profile-schema5, build120, full consumer5, all taskset CPU11. Successful downstream full output would qualify only this copied diagnostic execution; failure is retained without stock-native acceptance, speedup, adoption or universal compiler-correctness credit. No compiler/control/backend was executed by this review.
