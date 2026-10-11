@@ -1,0 +1,48 @@
+{
+  "patches": [
+    {
+      "label": "helper-import",
+      "original": "#!/usr/bin/env bun\n",
+      "replacement": "#!/usr/bin/env bun\nimport {mark as BVY_CHECK_MARK} from \"../boundary-helper.mjs\";\n"
+    },
+    {
+      "label": "validation-begin",
+      "original": "function book_valid(book, done = 0) {",
+      "replacement": "function book_valid(book, done = 0) {\n  BVY_CHECK_MARK(\"validation-begin\");"
+    },
+    {
+      "label": "definition-begin",
+      "original": "    const tld = tlds[k];\n    const fin = last.get(k) === i;",
+      "replacement": "    const tld = tlds[k];\n    BVY_CHECK_MARK(\"definition-begin\",k);\n    const fin = last.get(k) === i;"
+    },
+    {
+      "label": "adt-end",
+      "original": "      continue;\n    }\n    if (i >= done) {",
+      "replacement": "      BVY_CHECK_MARK(\"definition-end\",k);\n      continue;\n    }\n    if (i >= done) {"
+    },
+    {
+      "label": "definition-end",
+      "original": "    if (fin) {\n      book.tlds[k] = tld;\n    }\n  }\n}\n\n// ../bend2-core/.claude/worktrees/rel-2035/bend2/comp.ts",
+      "replacement": "    if (fin) {\n      book.tlds[k] = tld;\n    }\n    BVY_CHECK_MARK(\"definition-end\",k);\n  }\n  BVY_CHECK_MARK(\"validation-end\");\n}\n\n// ../bend2-core/.claude/worktrees/rel-2035/bend2/comp.ts"
+    },
+    {
+      "label": "verdict-begin",
+      "original": "function cli_verdict(book, kernel) {",
+      "replacement": "function cli_verdict(book, kernel) {\n  BVY_CHECK_MARK(\"verdict-begin\");"
+    },
+    {
+      "label": "promises-begin",
+      "original": "function book_promises(book) {",
+      "replacement": "function book_promises(book) {\n  BVY_CHECK_MARK(\"promises-begin\");"
+    },
+    {
+      "label": "promises-end",
+      "original": "  return own.filter((k) => bad.has(k));",
+      "replacement": "  BVY_CHECK_MARK(\"promises-end\");\n  return own.filter((k) => bad.has(k));"
+    }
+  ],
+  "inverseBytes": 333165,
+  "inverseSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+  "instrumentedSHA256": "be16d9f5fd143428c18c4795f4c397c4d07130c798f7e456c4a6b94d95acef4c",
+  "inversePASS": true
+}
