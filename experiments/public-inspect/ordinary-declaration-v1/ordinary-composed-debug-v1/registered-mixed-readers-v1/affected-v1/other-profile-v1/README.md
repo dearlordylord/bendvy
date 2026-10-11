@@ -1,0 +1,5 @@
+# One copied compiler diagnostic
+
+Preserve Other Native89401 stock emit30 deadline and complete semantic source unchanged. Native perf is unavailable in PATH; no package is installed. Reuse exact already-reviewed #41 sampled same-ELF CLI source, helper/API/schema and four literal observation-only patches. Copied profiling affects JIT/GC/time and cannot establish stock cause, Native qualification or performance. No C build or consumer is requested; generic COMPLETE_CONSUMER status is diagnostic only.
+
+Launch only after focused compiler-experiment review and heavy-owner release, using launch.py.source with exact plan and digest. It invokes the unchanged collector and unconditionally attempts host-terminal process/CPU observation in finally, even on emit deadline. Existing source-host-before and conditional host-after are also retained. Host snapshots cannot reconstruct earlier unobserved contention. Original emit30 remains; source/API/schema/host observations retain cap5. No unchanged stock retry. Full interrupted sample or missing profile remains inconclusive.

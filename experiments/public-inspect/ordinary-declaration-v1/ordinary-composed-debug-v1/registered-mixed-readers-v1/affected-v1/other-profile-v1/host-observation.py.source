@@ -1,0 +1,10 @@
+import json,os,time
+from pathlib import Path
+rows=[]
+for p in Path('/proc').iterdir():
+ if p.name.isdigit():
+  try:
+   cmd=(p/'cmdline').read_bytes().replace(bytes([0]),b' ').decode(errors='replace')
+   if any(x in cmd for x in ['bend','clang','taskset','development.py','development-v2.py']):rows.append({'pid':int(p.name),'command':cmd,'stat':(p/'stat').read_text(),'status':(p/'status').read_text()})
+  except (OSError,ProcessLookupError):pass
+print(json.dumps({'timeNs':time.time_ns(),'affinity':sorted(os.sched_getaffinity(0)),'cpuStat':Path('/proc/stat').read_text(),'loadavg':Path('/proc/loadavg').read_text(),'processes':rows}))
