@@ -1,0 +1,67 @@
+"""One qualified lifecycle on the existing paired feature loop; prepare-only until review.
+Uses unchanged Harness supervision, guards, telemetry, contract orders and validator.
+"""
+from pathlib import Path
+import argparse,hashlib,importlib.util,importlib.machinery,json,random,shutil,statistics,sys
+ROOT=Path('/workspace/formal-proofs/bendvy');sys.path.insert(0,str(ROOT/'benchmarks/parity-features'))
+import execute,preflight,run as feature_loop
+HERE=Path(__file__).resolve().parent
+spec=importlib.util.spec_from_loader('interval_validator',importlib.machinery.SourceFileLoader('interval_validator',str(HERE.parent/'validate.py.source')));validator=importlib.util.module_from_spec(spec);spec.loader.exec_module(validator)
+def main():
+ parser=argparse.ArgumentParser();parser.add_argument('--plan',type=Path,required=True);parser.add_argument('--plan-sha',required=True);parser.add_argument('--quiet-window',required=True);args=parser.parse_args()
+ sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+ assert sha(args.plan)==args.plan_sha,'Literal plan drift'
+ plan=json.loads(args.plan.read_text());stage=Path(plan['stage']);output=Path(plan['output']);terminal=Path(plan['terminalRecord']);assert not terminal.exists(),'Fresh terminal record'
+ h=None
+ def binding():return {'planSHA256':sha(args.plan),'drift':[p for p,v in plan['pins'].items() if not Path(p).is_file() or sha(p)!=v]}
+ try:
+  initial=binding();assert not initial['drift'] and initial['planSHA256']==args.plan_sha;assert not output.exists()
+  record=json.loads((stage/'stage.json').read_text())
+  preflight.snapshot=lambda:{k:preflight.digest(ROOT/k) for k in record['sources']}
+  def external():
+   for directory,members in record['externalMembership'].items():
+    d=Path(directory);assert sorted(str(p.relative_to(d)) for p in d.rglob('*') if p.is_file())==members,'Reference/Base membership drift'
+   return {k:preflight.digest(Path(k)) for k in record['external']}
+  preflight.external=external
+  h=execute.Harness(stage,output)
+  semantic=json.loads(Path(plan['semanticReceipt']).read_text());assert semantic['status']=='COMPLETE_TYPED_EVENT_INTERVAL_SEMANTICS';assert semantic['stageReceiptSHA']==h.receipt['stageReceiptSHA'];assert semantic['terminalPostguard']['harnessPostguard']=='UNCHANGED' and not semantic['terminalPostguard']['drift']
+  # Reuse exact qualified artifacts, preserving their explicit source/receipt joins.
+  artifacts={}
+  for name,source in plan['qualifiedArtifacts'].items():
+   target=output/name;shutil.copy2(source,target);h.pin(target);artifacts[name]=target
+  commands={'TS':[h.tools['node'],h.stage/'feature-harness/typed-events-1.mjs'],'JS':[h.tools['node'],artifacts['typed-events-1.js']],'Native':[artifacts['typed-events-1'],'--threads','1','--gpu','off']}
+  contract=json.loads((ROOT/'benchmarks/contract.json').read_text());assert contract['pairs']==plan['pairs'] and contract['warmups']==plan['warmups'] and contract['seed']==plan['seed']
+  h.receipt.update(scope='ONE regular typed-event lifecycle;17 operation intervals/72 full observations, no automatic scaling',quietWindowContext=args.quiet_window,cpu=plan['cpu'],semanticReceiptSHA=sha(plan['semanticReceipt']),pairs=contract['pairs'],warmups=contract['warmups'],observations=[])
+  generator=random.Random(contract['seed']);summary=[]
+  def sample(backend,command,label):
+   current=binding();assert not current['drift'] and current['planSHA256']==args.plan_sha
+   result=h.run(label,[h.tools['taskset'],'-c',str(plan['cpu']),*command],5)
+   validator.validate(backend,result.stdout,result.stderr)
+   return json.loads(result.stderr)
+  for backend,command in commands.items():
+   for warmup in range(contract['warmups']):sample(backend,command,f'typed-events-1-{backend}-warmup{warmup}')
+  for backend in ['JS','Native']:
+   orders=[['TS',backend]]*(contract['pairs']//2)+[[backend,'TS']]*(contract['pairs']//2)
+   assert len(orders)==contract['pairs'];generator.shuffle(orders);ratios=[]
+   for index,order in enumerate(orders):
+    before=feature_loop.telemetry(plan['cpu']);values={}
+    for role in order:values[role]=sample(role,commands[role],f'typed-events-1-{backend}-pair{index}-{role}')
+    assert int(values['TS']['elapsedNs'])>0
+    ratio=int(values[backend]['elapsedNs'])/int(values['TS']['elapsedNs']);ratios.append(ratio)
+    h.receipt['observations'].append({'feature':'typed-events','lifecycles':1,'backend':backend,'pair':index,'order':order,'before':before,'after':feature_loop.telemetry(plan['cpu']),'regions':values,'ratio':ratio});h.save()
+   summary.append({'feature':'typed-events','lifecycles':1,'backend':backend,'medianPairedRatio':statistics.median(ratios),'minimum':min(ratios),'maximum':max(ratios),'allPairedRatios':ratios})
+  h.guard();assert sha(plan['semanticReceipt'])==h.receipt['semanticReceiptSHA']
+  h.receipt.update(status='COMPLETE_FEATURE_OBSERVATIONS',summary=summary,qualification='Existing JS<=TS and Native<=0.5TS targets; root assesses exclusive quiet-window evidence. No new statistical criterion, scaling or profile claim.')
+ finally:
+  primary=sys.exc_info()[1]
+  try:post=binding()
+  except Exception as error:post={'planSHA256':None,'drift':None,'bindingError':repr(error)}
+  post['primaryError']=repr(primary) if primary else None
+  if h:
+   try:h.guard();post['harnessPostguard']='UNCHANGED'
+   except Exception as error:post['harnessPostguard']={'error':repr(error)}
+   h.receipt['terminalPostguard']=post;h.save()
+  terminal.write_text(json.dumps(post,indent=2)+'\n')
+  if primary is None:assert 'bindingError' not in post and not post['drift'] and post['planSHA256']==args.plan_sha and post.get('harnessPostguard')=='UNCHANGED','Terminal drift'
+ print(h.receipt['status'])
+if __name__=='__main__':main()
