@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : records
+- observed : records (consumed more than once)
+Context:
+- tick : Nat
+Location: retained_batch_join
+63 |     case head <> rest:retained_record_head(~P,~F,(family => retained_records(~P,~F,~retain,rest,family,tick)),retain(family,tick,[head]))
+64>| def retained_batch_join(~P:Data,~F:Type,tick:Nat,records:List<&2,P>,slots:List<&2,List<&2,P>>,returned:Retention<P,F>) -> Retention<P,F>:
+   |                                                  ^^^^^^^
+65 |   match returned:
+bend 2.0.36 is available: run bend update

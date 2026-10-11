@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 4 patterns (one per scrutinee)
+- observed : '(live,liveText) (store,(componentText,graph)) (resources,resourceText) (pending,count)'
+Location:
+26 |   match live components resources pending:
+27>|     case (live,liveText) (store,(componentText,graph)) (resources,resourceText) (pending,count):(W.World{namespace,nextId,highWater,live,capacity,depth,store,resources,events,pending,registrations,nextSystemId,clock},WorldView{namespace,nextId,highWater,liveText,capacity,depth,componentText,graph,resourceText,events,count,registrations,nextSystemId,clock})
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+28 | def world(value:F.World()) -> F.World() & WorldView:
+bend 2.0.36 is available: run bend update
