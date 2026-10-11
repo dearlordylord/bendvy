@@ -1,0 +1,23 @@
+{
+  "candidateSourceSHA256": "0e427ec891096d1468f0bcf46f1df6d316fff95990983d2143976e6741589294",
+  "stageRecordSHA256": "9c17a978589ccf0b1159720c51493b1e6ae83fdf71912abb6d05c858f2bb581b",
+  "changedStagedBodies": [
+    "src/ecs/event-runtime.bend"
+  ],
+  "candidateStagedSHA256": "fd9836d451d06a3d5cf51c8aae66d0b170b80a97f2e3bd0b16784546294359f3",
+  "baselineRootUnchangedSHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+  "scope": "Existing actualtyped-events-1 publicfamily callsite imports same staged src/ecs event-runtime; only candidate override, no consumer/timer/workload/renderer changes",
+  "stockCommand": [
+    "flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "timeout",
+    "-s",
+    "KILL",
+    "5",
+    "/home/node/.bend/bin/bend-2.0.35",
+    "/tmp/bendvy-typed-data-events-capacity-count-stage01/stage/feature-harness/typed-events-1.bend",
+    "--check-only"
+  ],
+  "stockExit": 1,
+  "stockExpected": "11defs rely on unsafe or foreign code; no type errors"
+}
