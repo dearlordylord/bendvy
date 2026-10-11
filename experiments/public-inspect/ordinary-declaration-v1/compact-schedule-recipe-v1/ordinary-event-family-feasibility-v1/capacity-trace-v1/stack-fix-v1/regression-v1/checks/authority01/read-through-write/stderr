@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Ev.ReadAccess<forbidden~H, forbidden~E, forbidden~observe>
+- observed : Ev.WriteAccess<forbidden~H, forbidden~E, forbidden~publish>
+Context:
+- grant : Ev.WriteAccess<forbidden~H, forbidden~E, forbidden~publish>
+- owner : forbidden~H
+Location: forbidden
+2 | 
+3>| def forbidden(~H:Type,~E:Data,~observe:H -> H & Ev.Reading<E>,~publish:H -> E -> H,grant:Ev.WriteAccess<H,E,publish>,owner:H) -> H & Ev.Reading<E>:Ev.all(~H,~E,~observe,grant,owner)
+  |                                                                                                                                                                          ^^^^^
+4 | def main() -> U32:0
+bend 2.0.36 is available: run bend update

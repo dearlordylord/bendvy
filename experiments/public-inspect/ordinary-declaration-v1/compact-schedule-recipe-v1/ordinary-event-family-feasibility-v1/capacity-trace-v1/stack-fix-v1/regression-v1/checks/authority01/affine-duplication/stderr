@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : runtime
+- observed : runtime (consumed more than once)
+Location: forbidden
+2 | 
+3>| def forbidden(runtime:C.Runtime()) -> C.Runtime() & C.Runtime():(runtime,runtime)
+  |               ^^^^^^^
+4 | def main() -> U32:0
+bend 2.0.36 is available: run bend update
