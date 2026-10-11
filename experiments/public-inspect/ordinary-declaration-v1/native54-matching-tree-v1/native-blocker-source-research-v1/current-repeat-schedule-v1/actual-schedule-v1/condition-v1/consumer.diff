@@ -1,0 +1,85 @@
+--- /workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/actual-schedule-v1/consumer.bend	2026-10-11 05:12:31.310625308 -0400
++++ /workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/actual-schedule-v1/condition-v1/consumer.bend	2026-10-11 05:32:04.408126836 -0400
+@@ -14,6 +14,13 @@
+ import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys
+ import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch
+ 
++import /workspace/formal-proofs/bendvy/src/ecs/check.bend as K
++import /workspace/formal-proofs/bendvy/src/ecs/ordinary-query-selections.bend as Selections
++import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-families.bend as Families
++import /workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend as Query
++import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-world.bend as QueryWorld
++import /workspace/formal-proofs/bendvy/src/ecs/schedule-checked.bend as CheckedSchedule
++
+ # Exact read-only declaration used inside the original Caller.system_read runner.
+ def declaration(~S:Data) -> N.Declaration<S,Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Cap.Read<Q.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,U32>>:
+   N.read(~S,~Caller.Payload,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~Unit,~U32,~Caller.Token,~B.identity(~S,~Col.Column<S,Caller.Payload>,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,Caller.binding(~S)),~Caller.view,~Caller.take(~S),~Caller.put(~S))
+@@ -84,30 +91,60 @@
+     case Sys.Completed{registry,Sys.Failed{world,_}}:State{rebuilt(~S,factory,cursor,rows,clauses,access,previous,undo,commands,events,world),registry,"Failed",None{}}
+     case Sys.RegistrationRejected{registry,world,_}:State{rebuilt(~S,factory,cursor,rows,clauses,access,previous,undo,commands,events,world),registry,"RegistrationRejected",None{}}
+ type Owners<-S:Data> is Type:Owners{registry:Sys.Registry<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,W.Handle<S>,Unit,C.Access<U32>,runner(~S)>,target:W.Handle<S>,output:Maybe<&2,C.Access<U32>>}
+-def condition(~S:Data,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,_:U32) -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & Bool:(world,True{})
++type ConditionError is Data:
++  Check{error:K.Error}
++  System{}
++def check_selection(~S:Data) -> P.DeclaredSelection<K.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,S,C.Access<U32>>:
++  Selections.check_slot(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~Unit,~Caller.Payload,~U32,~Caller.Token,~Caller.take(~S),~Caller.put(~S),~Caller.view,~Caller.binding(~S),~Families.Required{})
++def check_query(~S:Data) -> Query.ComposedReadQuery<K.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,S,C.Access<U32>>:
++  Query.grant_composed(~K.Frame<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,~S,~C.Access<U32>,~check_selection(~S),~QueryWorld.check_world(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32))
++def check_ops(~S:Data) -> Type -> Type:
++  H => Query.ComposedReadQuery<H,S,C.Access<U32>>
++def check_rows(~H:Type,~S:Data,result:H & List<&2,Query.ProjectedRow<S,C.Access<U32>>>) -> H & Bool:
++  match result:
++    case (owner,[]):(owner,False{})
++    case (owner,_ <> _):(owner,True{})
++def check_body(~S:Data,~H:Type,~caps:Query.ComposedReadQuery<H,S,C.Access<U32>>,_:Unit,owner:H) -> H & Bool:
++  check_rows(~H,~S,Query.each_composed(~H,~S,~C.Access<U32>,~caps,owner))
++def required(~S:Data,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>) -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & List<&2,String>:
++  (world,[])
++def check_plan(~S:Data) -> K.Plan<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,check_ops(~S)>:
++  K.Plan{required(~S),check_query(~S)}
++def condition_checked(~S:Data,checked:K.Checked<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>) -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & Result<ConditionError,Bool>:
++  match checked:
++    case K.Checked{world,Done{allowed}}:(world,Done{allowed})
++    case K.Checked{world,Fail{error}}:(world,Fail{Check{error}})
++def condition(~S:Data,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,_:U32) -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & Result<ConditionError,Bool>:
++  condition_checked(~S,K.run(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~check_ops(~S),~Unit,~check_body(~S),~check_plan(~S),Unit{},world))
++def skip(~S:Data,owners:Owners<S>,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,_:U32) -> Owners<S> & W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>:
++  (owners,world)
++def condition_error(error:ConditionError) -> String:
++  match error:
++    case Check{K.MissingRuntimeRequirements{resources}}:"MissingRuntimeRequirements{" ++ List.show(~&2,~String,~Dump.text,resources) ++ "}"
++    case System{}:"System{}"
+ def schedule_observation(value:Sch.Observation) -> String:
+   match value:
+     case Sch.Entered{name}:"Entered{" ++ name ++ "}"
+     case Sch.Ran{id}:"Ran{" ++ U32.show(id) ++ "}"
+     case Sch.Skipped{id}:"Skipped{" ++ U32.show(id) ++ "}"
+     case Sch.Applied{}:"Applied{}"
+-def dispatched(~S:Data,+target:W.Handle<S>,output:Maybe<&2,C.Access<U32>>,result:Sys.RunResult<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,W.Handle<S>,Unit,C.Access<U32>,runner(~S)>) -> Owners<S> & Sys.Outcome<W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit,Unit>:
++def dispatched(~S:Data,+target:W.Handle<S>,output:Maybe<&2,C.Access<U32>>,result:Sys.RunResult<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,W.Handle<S>,Unit,C.Access<U32>,runner(~S)>) -> Owners<S> & Sys.Outcome<W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,ConditionError,Unit>:
+   match result:
+     case Sys.Completed{registry,Sys.Succeeded{world,value}}:(Owners{registry,target,Some{value}},Sys.Succeeded{world,Unit{}})
+-    case Sys.Completed{registry,Sys.Failed{world,error}}:(Owners{registry,target,output},Sys.Failed{world,error})
+-    case Sys.RegistrationRejected{registry,world,_}:(Owners{registry,target,output},Sys.Failed{world,Unit{}})
+-def dispatch(~S:Data,owners:Owners<S>,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,_:U32) -> Owners<S> & Sys.Outcome<W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,Unit,Unit>:
++    case Sys.Completed{registry,Sys.Failed{world,error}}:(Owners{registry,target,output},Sys.Failed{world,System{}})
++    case Sys.RegistrationRejected{registry,world,_}:(Owners{registry,target,output},Sys.Failed{world,System{}})
++def dispatch(~S:Data,owners:Owners<S>,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,_:U32) -> Owners<S> & Sys.Outcome<W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,ConditionError,Unit>:
+   match owners:
+     case Owners{registry,+target,output}:dispatched(~S,target,output,Sys.run_tracked(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~W.Handle<S>,~Unit,~C.Access<U32>,~runner(~S),registry,world,target))
+-def scheduled_result(~S:Data,factory:W.Factory,cursor:U32,rows:List<&2,P.Row<S,U32>>,clauses:List<&2,N.Clause<S>>,access:C.Access<U32>,previous:Maybe<&1,Caller.Payload>,undo:List<(W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>)>,commands:List<(W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>)>,events:List<&2,U32>,result:Sch.RunResult<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,Owners<S>,Unit>) -> State<S>:
++def scheduled_result(~S:Data,factory:W.Factory,cursor:U32,rows:List<&2,P.Row<S,U32>>,clauses:List<&2,N.Clause<S>>,access:C.Access<U32>,previous:Maybe<&1,Caller.Payload>,undo:List<(W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>)>,commands:List<(W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>)>,events:List<&2,U32>,result:Sch.RunResult<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,Owners<S>,ConditionError>) -> State<S>:
+   match result:
+     case Sch.Finished{Sch.Schedule{_,_,_,Owners{registry,_,output}},world,observations}:State{rebuilt(~S,factory,cursor,rows,clauses,access,previous,undo,commands,events,world),registry,"Finished:" ++ List.show(~&2,~Sch.Observation,~schedule_observation,observations),output}
+-    case Sch.Failed{Sch.Schedule{_,_,_,Owners{registry,_,output}},world,_,observations}:State{rebuilt(~S,factory,cursor,rows,clauses,access,previous,undo,commands,events,world),registry,"Failed:" ++ List.show(~&2,~Sch.Observation,~schedule_observation,observations),output}
++    case Sch.Failed{Sch.Schedule{_,_,_,Owners{registry,_,output}},world,error,observations}:State{rebuilt(~S,factory,cursor,rows,clauses,access,previous,undo,commands,events,world),registry,"Failed{" ++ condition_error(error) ++ "}:" ++ List.show(~&2,~Sch.Observation,~schedule_observation,observations),output}
+     case Sch.Rejected{Sch.Schedule{_,_,_,Owners{registry,_,output}},world}:State{rebuilt(~S,factory,cursor,rows,clauses,access,previous,undo,commands,events,world),registry,"Rejected",output}
+ def scheduled_built(~S:Data,factory:W.Factory,cursor:U32,rows:List<&2,P.Row<S,U32>>,clauses:List<&2,N.Clause<S>>,access:C.Access<U32>,previous:Maybe<&1,Caller.Payload>,undo:List<(W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>)>,commands:List<(W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>)>,events:List<&2,U32>,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,built:Sch.Build<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,Owners<S>>) -> State<S>:
+   match built:
+     case Sch.Invalid{Owners{registry,_,output}}:State{rebuilt(~S,factory,cursor,rows,clauses,access,previous,undo,commands,events,world),registry,"Invalid",output}
+-    case Sch.Built{schedule}:scheduled_result(~S,factory,cursor,rows,clauses,access,previous,undo,commands,events,Sch.run(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~Owners<S>,~Unit,~dispatch(~S),~condition(~S),schedule,world))
++    case Sch.Built{schedule}:scheduled_result(~S,factory,cursor,rows,clauses,access,previous,undo,commands,events,CheckedSchedule.run_with_skip(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~Owners<S>,~ConditionError,~skip(~S),~dispatch(~S),~condition(~S),schedule,world))
+ def scheduled_registry(~S:Data,factory:W.Factory,cursor:U32,rows:List<&2,P.Row<S,U32>>,clauses:List<&2,N.Clause<S>>,access:C.Access<U32>,previous:Maybe<&1,Caller.Payload>,undo:List<(W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>)>,commands:List<(W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>)>,events:List<&2,U32>,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>,registry:Sys.Registry<S,Col.Column<S,Caller.Payload>,Array<U32>,U32,W.Handle<S>,Unit,C.Access<U32>,runner(~S)>,target:W.Handle<S>) -> State<S>:
+   match registry:
+     case Sys.Registry{+namespace,+id,name,accessNames,registeredCursor}:scheduled_built(~S,factory,cursor,rows,clauses,access,previous,undo,commands,events,world,Sch.build(~S,~Col.Column<S,Caller.Payload>,~Array<U32>,~U32,~Owners<S>,namespace,"InspectRead",[Sch.Phase{"Update"},Sch.System{id,1}],[id],Owners{Sys.Registry{namespace,id,name,accessNames,registeredCursor},target,None{}}))
