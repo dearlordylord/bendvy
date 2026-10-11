@@ -1,0 +1,69 @@
+"""Fail-closed emitted barrier checks, consumed before any full consumer run."""
+from pathlib import Path
+import hashlib,re
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def body(text,name):
+ matches=list(re.finditer(r'function (\S*\$058'+name+r'\$)\(',text));assert len(matches)==1,(name,len(matches))
+ start=matches[0].start();nextdef=text.find('\nfunction ',start+1);return text[start:nextdef if nextdef!=-1 else len(text)]
+def native_segments(text):
+ matches=list(re.finditer(r'WL_CASE\((FID_[A-Z0-9_]+)\)',text))
+ return {m[1]:text[m.end():matches[i+1].start() if i+1<len(matches) else len(text)] for i,m in enumerate(matches)}
+def native_barrier(native):
+ segments=native_segments(native)
+ # Require the actual operation call, its installed return continuation and
+ # the forwarding of returned register words to the actual after_end helper.
+ # Missing/inlined/unrecognized shapes fail closed before consumer execution.
+ candidates=[]
+ for name,code in segments.items():
+  if not re.search(r'_INTERVAL_V1_MAIN_SEQUENCE(?:_[CK]\d+)?$',name):continue
+  for jump in re.finditer(r'WL_JMP\((FID_[A-Z0-9_]+_TICKED)\)',code):
+   before=code[:jump.start()]
+   continuations=re.findall(r'STK\(\d+\) = (FID_[A-Z0-9_]+);',before)
+   assert continuations,'Operation call lacks explicit strict return continuation'
+   continuation=continuations[-1];returned=segments[continuation]
+   # Native inlines after_end. The operation return continuation captures
+   # every returned word in a closure; that closure creates IO.bind(end,k).
+   reads=re.findall(r'\b(\w+) = r(\d+);',returned)
+   assert reads and sorted(int(i) for _,i in reads)==list(range(len(reads)))
+   closures=re.findall(r'r0 = term_clo\((FID_[A-Z0-9_]+), (\w+)\);',returned)
+   assert len(closures)==1,'Returned owner must form exactly one IO closure'
+   ended_id,node=closures[0];ended=segments[ended_id]
+   capture=[(word,index) for word,index in reads if re.search(r'e\.mem\['+re.escape(node)+r' \+ '+str(int(index)+1)+r'\] = '+re.escape(word)+r';',returned)]
+   assert len(capture)==len(reads)>=2,'Every operation result word must be captured in order'
+   end_call=re.search(r'r0 = term_clo\((FID_[A-Z0-9_]+_TIMING_END), 0\);\s*r1 = term_clo\((FID_[A-Z0-9_]+), (\w+)\);\s*[^}]*?WL_JMP\(FID_IO_BIND\);',ended)
+   assert end_call,'Actual end must be first IO.bind argument and observation second'
+   end_id,observe_id,observe_node=end_call.groups();observe=segments[observe_id]
+   assert re.search(r'WL_JMP\(FID_[A-Z0-9_]+_TRACE_OBSERVE\);',observe)
+   assert not re.search(r'WL_JMP\(FID_[A-Z0-9_]+_TRACE_OBSERVE\);',ended),'Observation executed before end'
+   end_reads=re.findall(r'\b(\w+) = r(\d+);',ended)
+   assert len(end_reads)==len(reads)+2,'Closure must retain next, complete operation result and IO world'
+   world,world_index=end_reads[-1];assert int(world_index)==len(reads)+1
+   assert re.search(r'r2 = '+re.escape(world)+r';',ended),'IO world must be threaded into bind'
+   for word,index in end_reads[:-1]:
+    assert re.search(r'e\.mem\['+re.escape(observe_node)+r' \+ '+index+r'\] = '+re.escape(word)+r';',ended),'End continuation capture dropped/reordered owner word'
+   assert len(re.findall(r'\b\w+ = r\d+;',observe))>=len(end_reads),'Observation continuation lost returned fields'
+   assert 'WL_RETN(1)' in returned
+   end_body=segments[end_id];assert re.search(r'term_ctr\(CID_[A-Z0-9_]+_TIMING_END,',end_body)
+   candidates.append({'operationCallSegment':name,'operation':jump[1],'operationCall':code,'returnContinuation':continuation,'returnedWordCount':len(reads),'returnedContinuationBody':returned,'inlinedAfterEndClosure':ended_id,'afterEndBody':ended,'endEffectBody':end_body,'observationContinuation':observe_id,'observationBody':observe})
+ assert len(candidates)==1,('Unrecognized actual Native operation/end barrier',len(candidates))
+ compiler=Path('/workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts')
+ source=compiler.read_text();support={}
+ for name,nextname in [('emit_args','emit_each'),('emit_each','emit_put'),('emit_put','emit_fuse')]:
+  start=source.index('function '+name+'(');stop=source.index('function '+nextname+'(',start+1);support[name]=source[start:stop]
+ assert 'emit_expr(' in support['emit_args'] and 'emit_expr(' in support['emit_each']
+ assert 'r" + j' in support['emit_put'] and 'WL_RETN(' in support['emit_put']
+ assert 'WL_DYN((u32)STK(0))' in native,'Returned words must resume the installed continuation'
+ return {'actualBarrier':candidates[0],'strictCompiler':{'path':str(compiler),'sha256':sha(compiler),'source':support},'qualification':'Fail-closed actual operation return/forwarding/end/observation continuation check, joined to pinned strict argument/constructor/return lowering.'}
+def check(js,c):
+ j=js.read_text();native=c.read_text();sequence=body(j,'sequence');ended=body(j,'after_end')
+ assert '$058begin$(' in sequence and '$058after_end$(' in sequence and '$058ticked$(' in sequence
+ # Strict JS call arguments evaluate ticked before entering after_end.
+ assert re.search(r'\$058after_end\$[\s\S]*\$058ticked\$',sequence)
+ assert '["fst"]' in ended and '["snd"]' in ended and '$058end$(' in ended and '$058observe$(' in ended
+ assert ended.index('["fst"]')<ended.index('$058end$(')
+ # Observation is held in the IO.bind continuation, never evaluated before end.
+ assert re.search(r'\$058end\$\(\w+\)[\s\S]*=>[\s\S]*\$058observe\$',ended)
+ step=native[native.index('static void io_step('):native.index('OUTLINE void io_loop(',native.index('static void io_step('))]
+ assert step.index('Term req = corpus_eval(')<step.index('Term x = io_exec(')
+ assert 'interval_elapsed += elapsed; interval_count++' in native
+ return {'JS':{'sha256':sha(js),'sequence':sequence,'returnedBeforeEnd':ended},'Native':{'sha256':sha(c),'IORequestEvaluatedBeforeForeignDispatch':step,'actualOperationBarrier':native_barrier(native)},'qualification':'Source/compiler callsite barrier evidence; complete consumer oracle and reached timer controls still mandatory. No timing verdict.'}

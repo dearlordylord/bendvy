@@ -1,0 +1,40 @@
+"""Prepare one complete capacity workload with existing Harness stage schema; no child."""
+from pathlib import Path
+import argparse,hashlib,json,re,shutil
+ROOT=Path('/workspace/formal-proofs/bendvy');HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def main():
+ a=argparse.ArgumentParser();a.add_argument('--output',type=Path,required=True);x=a.parse_args();assert not x.output.exists()
+ source=set();pending=[HERE/'main.bend']
+ while pending:
+  p=pending.pop().resolve()
+  if p in source:continue
+  source.add(p)
+  for t in re.findall(r'^import\s+(\S+)',p.read_text(),re.M):
+   if t!='Base' and t.endswith('.bend'):pending.append((p.parent/t).resolve())
+ source|=set(HERE/n for n in ['main.bend','render.bend','timing.bend','timing.js','timing.c','ts-timing.mjs','reference.mjs','controls.mjs','execute.py.source','stage.py.source','validate.py.source','evaluation-check.py.source','SOURCE-JOINS.json']);source|=set((ROOT/'benchmarks/parity-features').glob('*'))
+ source|={ROOT/'scripts/task_runner.py',ROOT/'benchmarks/contract.json',ROOT/'.references/sources.json',ROOT/'experiments/public-simulation/delivery-v1/installed-config.py',ROOT/'.references/bevy-ts/package.json',ROOT/'.references/bevy-ts/packages/core/package.json',ROOT/'.references/bend2/bend2/comp.ts'}
+ source={p for p in source if p.is_file() and p != HERE/'PLAN.json'}
+ sources={str(p.relative_to(ROOT)):sha(p) for p in source if p.is_relative_to(ROOT)}
+ external={str(p):sha(p) for p in source if not p.is_relative_to(ROOT)}
+ for d in [ROOT/'.references/bevy-ts/packages/core/src',Path('/home/node/.bend/bend2')]:external.update({str(p):sha(p) for p in d.rglob('*') if p.is_file()})
+ cat=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/typed-data-events-oracle-v1/capacity-v1')
+ external.update({str(p):sha(p) for p in cat.rglob('*') if p.is_file()})
+ for dep in ['tree-v1/model.py.source','leaf-v1/model.py.source']: 
+  path=cat.parent/dep;external[str(path)]=sha(path)
+ stage=x.output/'stage';h=stage/'feature-harness';h.mkdir(parents=True)
+ # Keep all existing consumer/type module paths. Instrumentation has its own harness path.
+ feature=HERE.parent;target=stage/'qualified-regular';target.mkdir()
+ for p in feature.glob('*.bend'):shutil.copy2(p,target/p.name)
+ inst=target/'interval-v1';inst.mkdir()
+ for n in ['main.bend','render.bend','timing.bend','timing.js','timing.c','ts-timing.mjs','reference.mjs']:
+  shutil.copy2(HERE/n,inst/n)
+ for k in sources:
+  dest=stage/k;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/k,dest)
+ (h/'typed-events-1.bend').write_text('import Base\nimport ../qualified-regular/interval-v1/main.bend as I\ndef main() -> IO(Unit):I.main()\n')
+ (h/'typed-events-1.mjs').write_text("import '../qualified-regular/interval-v1/reference.mjs';\n")
+ inv={str(p.relative_to(stage)):sha(p) for p in sorted(stage.rglob('*')) if p.is_file()}
+ receipt={'status':'STAGED_REVIEW_REQUIRED_NO_EXECUTION','sources':sources,'external':external,'externalMembership':{str(d):sorted(str(p.relative_to(d)) for p in d.rglob('*') if p.is_file()) for d in [ROOT/'.references/bevy-ts/packages/core/src',Path('/home/node/.bend/bend2')]},'stageInventory':inv,'scales':[1],'features':['typed-events'],'timingScope':'11 operation intervals; complete12row observations outside; one lifecycle only','noticeCacheObserved':{'scope':'not an execution input'}}
+ (x.output/'stage.json').write_text(json.dumps(receipt,indent=2)+'\n')
+ print(x.output/'stage.json')
+if __name__=='__main__':main()
