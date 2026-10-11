@@ -1,0 +1,27 @@
+"""Independent source-only bounded ordinary service model; no output inputs."""
+import json
+
+def array(a,b): return f'node(leaf:{a},leaf:{b})'
+def full_output():
+    active=11; barriers=0; pending=1; held=False; debug=False
+    values=[]
+    def capture(label):
+        registry='1:1:service-call:[Clock]:0'
+        steps='[barrier, system:1:0]'
+        statuses='[service(1,Clock,'+('False' if held else 'True')+'), service(2,Unused,True)]'
+        view=('debug{entries=[Service(Clock,Clock), Service(Unused,Unused)];services='+statuses+';required=[service:1];registry='+registry+';steps='+steps+'}') if debug else 'debug=None'
+        scheduled='scheduled{1:service-schedule;registry='+registry+';steps='+steps+';needs=[service:1];debug='+str(debug)+'}'
+        resource='resources{active='+('Missing' if held else 'Ready('+array(active,12)+')')+';unused=Ready('+array(21,22)+');held='+('Some('+array(active,12)+')' if held else 'None')+';sibling='+array(91,92)+';barriers='+str(barriers)+'}'
+        world='world{1;next=1;high=0;live=leaf:False;capacity=1;depth=0;store=Unit;'+resource+';events=[];pending='+str(pending)+';registrations=[1:service-call:[Clock]];nextSystem=2;clock=0}'
+        values.append(label+'|'+view+'|'+scheduled+'|'+world)
+    capture('disabled'); debug=True; capture('enabled'); capture('repeat')
+    barriers+=pending;pending=0;active+=1;values.append('Finished:[Applied, Ran:1]');capture('after-run')
+    held=True;pending=1;capture('missing-before');values.append('Missing:[service:1]');capture('missing-after')
+    held=False;barriers+=pending;pending=0;active+=1;values.append('Finished:[Applied, Ran:1]');capture('after-retry')
+    debug=False;capture('disabled-final');values.append('factory=2')
+    assert len(values)==12 and active==13 and barriers==2 and pending==0
+    return (json.dumps(values,ensure_ascii=False)+'\n').encode()
+
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(full_output())
