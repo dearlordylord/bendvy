@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+ 98 |   match result:
+ 99>|     case W.Created{W.Factory{factory},world}:reserved(factory,W.reserve(~F.S,~F.Store(),~F.Resources(),~F.Events(),world))
+    |                                                                         ^
+100 |     case _:None{}
+bend 2.0.36 is available: run bend update
