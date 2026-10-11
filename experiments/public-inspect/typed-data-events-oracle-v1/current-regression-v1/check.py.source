@@ -1,0 +1,64 @@
+from pathlib import Path
+import json,hashlib,runpy,re,gzip
+p=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/typed-data-events-oracle-v1');o=p/'current-regression-v1';o.mkdir(exist_ok=True)
+r=Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1');meta=r/'capacity-trace-v1/stack-fix-v1/regression-v1/SOURCE-CURRENT.json';s=json.loads(meta.read_text());pins=s['sourcePins'].copy()
+prior={}
+for d in ['public-v1','affected-v1','affine-v1']:
+ prior.update(json.loads((p/d/'SOURCE-BASIS.json').read_text()).get('sourcePins',{}))
+changes=[{'path':k,'old':prior.get(k),'new':v} for k,v in s['sourcePins'].items() if prior.get(k)!=v]
+# Every fixture except the rebased two libraries stays literal historical bytes.
+allowed={'event-publication.bend','ordinary-event-family.bend','publication-mutant.bend','composition-mutant.bend'}
+for x in changes:
+ if x['old'] is not None:assert Path(x['path']).name in allowed,x
+
+def norm(path):
+ out=[]
+ for line in path.read_text().splitlines():
+  m=re.match(r'import (\S+)(.*)',line)
+  if not m or m[1]=='Base':out.append(line);continue
+  target=Path(m[1]);target=target if target.is_absolute() else path.parent/target
+  target=target.resolve()
+  mapping={'publication-mutant.bend':'event-publication.bend','composition-mutant.bend':'ordinary-event-family.bend','stream-mutant.bend':'event-stream.bend','routing-mutant.bend':'event-family-routing.bend','runtime-mutant.bend':'event-family-runtime.bend'}
+  if target.parent==r and target.name in mapping:target=Path('/workspace/formal-proofs/bendvy/src/ecs')/mapping[target.name]
+  out.append('import '+str(target)+m[2])
+ return '\n'.join(out)
+joins=[]
+for candidate,public in [('publication-mutant.bend','event-publication.bend'),('composition-mutant.bend','ordinary-event-family.bend')]:
+ a=r/candidate;b=Path('/workspace/formal-proofs/bendvy/src/ecs')/public
+ assert norm(a)==norm(b),(a,b)
+ joins.append({'candidate':str(a),'public':str(b),'resolvedImportAndWholeBodyEqual':True})
+checks={}
+for name,path in s['positiveCaptures'].items():
+ path=Path(path);result=json.loads((path/'result.json').read_text());post=json.loads((path/'post.json').read_text())
+ assert result['exit']==0 and result['failure'] is None and post['unchanged']
+ cp=json.loads((path/'SOURCE.json').read_text())['pins'];checks[name]={'sourceExit':0,'unchanged':True,'pins':len(cp)}
+ for k,v in cp.items():
+  assert k not in pins or pins[k]==v,k
+  pins[k]=v
+ for file in ['SOURCE.json','result.json','post.json']:
+  f=path/file;pins[str(f)]=hashlib.sha256(f.read_bytes()).hexdigest()
+neg={}
+for name,path in s['negativeCaptures'].items():
+ path=Path(path);v=json.loads((path/'result.json').read_text());post=json.loads((path/'post.json').read_text())
+ assert v['exit']==1 and v['failure'] is None and post['unchanged'],name
+ neg[name]={'sourceExit':1,'unchanged':True,'scope':'Current intended source type refusal; no universal authority claim.'}
+ for file in ['SOURCE.json','result.json','post.json','stdout','stderr']:
+  f=path/file;pins[str(f)]=hashlib.sha256(f.read_bytes()).hexdigest()
+cat={};cases=[('normal','public-v1','normal',None),('other','affected-v1','other',False),('mutant','affected-v1','mutant',True),('same-namespace-baseline','affected-v1','same-namespace-baseline',False),('affine','affine-v1','affine',None)]
+for key,d,ck,omit in cases:
+ oldcat=json.loads((p/d/'ORACLES.json').read_text())
+ if ck not in oldcat:ck=next(iter(oldcat))
+ item=oldcat[ck];m=runpy.run_path(str(p/d/'model.py.source'))
+ if d=='public-v1':raw,_=m['derive'](r,r)
+ elif d=='affine-v1':raw,_=m['derive']()
+ else:raw,_=m['derive'](r,r,tag='other' if key=='other' else 'mutant',omit_cursor=omit)
+ assert raw==gzip.decompress(Path(item['gzip']).read_bytes()),key
+ assert len(raw)==item['bytes'] and hashlib.sha256(raw).hexdigest()==item['sha256']
+ cat[key]=item
+ for f in [p/d/'model.py.source',Path(item['gzip'])]:pins[str(f)]=hashlib.sha256(f.read_bytes()).hexdigest()
+for f in [p/'tree-v1/model.py.source',p/'leaf-v1/model.py.source',meta]:pins[str(f)]=hashlib.sha256(f.read_bytes()).hexdigest()
+for k,v in pins.items():assert hashlib.sha256(Path(k).read_bytes()).hexdigest()==v,k
+(o/'ORACLES.json').write_text(json.dumps(cat,indent=2)+'\n')
+(o/'SOURCE-BASIS.json').write_text(json.dumps({'producerCommit':'bfff60986','sourcePins':pins,'changes':changes,'resolvedJoins':joins,'executionDependencies':[str(p/d/'model.py.source') for d in ['public-v1','affected-v1','affine-v1']]+[str(p/'tree-v1/model.py.source'),str(p/'leaf-v1/model.py.source')],'provenance':'Whole source/QName applicability and full independent mathematical regeneration; no actual runtime-output input.'},indent=2)+'\n')
+(o/'CHECKS.json').write_text(json.dumps({'positive':checks,'negative':neg,'outputs':{k:{'bytes':v['bytes'],'sha256':v['sha256']} for k,v in cat.items()},'changedSourcePins':changes,'resolvedLibraryJoins':joins},indent=2)+'\n')
+print(json.dumps({'outputs':{k:v['bytes'] for k,v in cat.items()},'changes':changes}))
