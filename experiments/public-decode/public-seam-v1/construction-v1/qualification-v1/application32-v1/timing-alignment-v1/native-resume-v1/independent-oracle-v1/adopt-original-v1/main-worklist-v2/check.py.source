@@ -1,0 +1,56 @@
+from pathlib import Path
+import json,hashlib,runpy,gzip,re
+p=Path(__file__).resolve().parent;b=json.loads((p/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs','modelPins'):
+ for path,digest in b[group].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==digest,path
+meta=json.loads(Path(b['preparedMetadata']).read_text());original=(p/'original-application.bend.source').read_text();candidate=Path(meta['target']).read_text();v8=Path(b['v8Application']).read_text()
+def blocks(t):return {re.match(r'def (\w+)',x).group(1):x for x in re.split(r'(?=^def |^type |^#)',t,flags=re.M) if x.startswith('def ')}
+o=blocks(original);c=blocks(candidate);v=blocks(v8)
+for old,new in meta['newDefinitions'].items():
+ transformed=v[old].replace('App.','')
+ for a,z in meta['newDefinitions'].items():transformed=re.sub(r'\b'+a+r'\b',z,transformed)
+ assert transformed.strip()==c[new].strip(),new
+remainder=candidate
+for name in meta['newDefinitions'].values():remainder=remainder.replace(c[name],'')
+for change in meta['existingBodyChanges']:
+ assert candidate.count(change['after'])==change['count']
+ remainder=remainder.replace(change['after'],change['before'])
+oldremainder=original
+for name in meta['removedDefinitions']:oldremainder=oldremainder.replace(o[name],'')
+assert remainder==oldremainder and c['instance_view']==o['instance_view']
+assert re.findall(r'^type .*',candidate,re.M)==re.findall(r'^type .*',original,re.M)
+m=runpy.run_path(str(p/'model.py.source'));models=m['models']();assert len(models['native'])==len(models['common'])==32
+for common,native in zip(models['common'],models['native']):assert common['value']==native['value']['public']
+
+main=m['ALIGNED']/'main.bend';source=main.read_text();meta2=json.loads(Path(b['mainPrepared']).read_text());oldmain=Path(b['oldMain']).read_text();template=Path(meta2['qualifiedTemplate']).read_text()
+assert next(x for x in source.splitlines() if x.startswith('type Item '))==next(x for x in oldmain.splitlines() if x.startswith('type Item '))
+assert source[source.index('type Schema '):source.index('def main(')]==template[template.index('type Schema '):template.index('def item(')].replace('Workload.run(','Gameplay.run(')
+pattern=r'Spec\{(Workshop|Garden)Schema\{\},(\w+)\{\},"([^"\n]+)","([^"\n]+)",Gameplay\.(\w+)\{\},Cases\.input\(Cases\.(\w+)\(\)\),Cases\.resource\(Cases\.(\w+)\(\)\)\}'
+specs=re.findall(pattern,source);assert len(specs)==32
+branches=dict(re.findall(r'case (\w+)\{\}:Gameplay.run\(~S,~Cases.codec\(Cases.(\w+)\(\)\),mode,input,seed\)',source));assert len(branches)==8
+calls={};labels={}
+for line in oldmain.splitlines():
+ step=re.match(r'def step_(\d+)\(',line)
+ if not step:continue
+ n=int(step.group(1));start=line.index('Gameplay.run(');depth=0
+ for i in range(start+len('Gameplay.run'),len(line)):
+  if line[i]=='(':depth+=1
+  elif line[i]==')':
+   depth-=1
+   if depth==0:calls[n]=line[start:i+1];break
+ labels[n]=re.search(r'(Workshop|Garden)\{"([^"]+)","([^"]+)",Gameplay.run',line).groups()
+expanded=[]
+for schema,tag,operation,name,mode,raw,seed in specs:
+ assert branches[tag]==raw==seed and {'insert':'Insert','spawn':'Spawn','resource':'ResourceWrite'}[operation]==mode
+ owner={'Workshop':'First','Garden':'Second'}[schema]
+ expanded.append(f'Gameplay.run(~Owner.{owner},~Cases.codec(Cases.{raw}()),Gameplay.{mode}{{}},Cases.input(Cases.{raw}()),Cases.resource(Cases.{seed}()))')
+assert expanded==[calls[i] for i in range(32)]
+assert [(a,c,d) for a,tag,c,d,mode,raw,seed in specs]==[labels[i] for i in range(32)]
+assert source.count('List.reverse(&2,Item,previous)')==1 and 'case value <> rest:collect(rest,execute(value) <> previous)' in source
+
+v=json.loads((p/'ORACLES.json').read_text())
+for role,method in [('whole','whole'),('common','common')]:
+ raw=m[method]();item=v[role];assert raw==gzip.decompress(Path(item['stdout']).read_bytes());assert len(raw)==item['bytes'] and hashlib.sha256(raw).hexdigest()==item['sha256']
+assert m['adapter']()['parse_native'](m['whole'](),m['ALIGNED']/'observation-main.bend')==models['native']
+assert m['adapter']()['parse_common'](m['common'](),'bend')==models['common']
+print('PASS: exact adoption inverse/original nominal types and32 full Whole/Common source models+printer roundtrips; no runtime inputs')

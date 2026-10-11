@@ -101,3 +101,15 @@ Admit only the existing tiny stock/copied success+exact C equality gated diagnos
 Spec/Standards: PASS for bounded diagnostic retention only. The grouped523-row/498-object archive includes exact original80053 outer terminal0, tiny stock/copied74978-byte C equality and full copied30s deadline/no C.464 postpins/16 links are unchanged. Raw stderr1,676,363 bytes/11,720 records reproduces book-read-complete1623.536144ms, compile-enter1627.337258ms, file-book-complete2973.737262ms and7 completed pass markers. Facts3621,3640,3649,3651,3654,3656,3656 and final pass-complete29902.866811ms reconcile. The final equal facts imply the recorded fixed-point stopping condition, but no artifact-written/full C marker or qualified C exists before interruption.
 
 These absolute timestamps and copied-mode markers include synchronous IO/runtime effects; no stock causal phase, production compiler equivalence, speed or Native credit. Actual original entry is distinguished from private V8 and its original Whole/Common failed gates. No further launch, adoption or future source repair is admitted. Reviewer ran no child/check/hook.
+
+## Current original-main worklist binding successor
+
+Spec/Standards: PASS for static changed binding at immutablefbd0e8121, PLAN-v9 SHA256 `1ab1ea9e1a6057a2bc9d61c9a79677debf605a228e10fd113cd4778c87999ace`.465 current pins match; actual09 absent. Relative to accepted v8, only root main2d91 and declared FREEZE93ad pin plus fresh actual09 artifacts/metadata change. SourceEntry observation-main and aligned cwd remain exact. Command arrays reverse exactly via actual09→actual08; observer/compiler/runtime/env/caps/control/launcher unchanged.
+
+Current Item-preserving32-Spec main is the intentionally selected source, not an old copied subject. Upcoming ordinary source/runtime results are not qualified by this launch report; their final archive review remains separate. Existing tiny2×5 success/equal C gate, full copied30 and outer55 supervisor prerequisites remain. Actual09 is held until root explicit grant after owning evidence hook/queue release and fresh pin/link/output verification. No reviewer child, future candidate, causal/performance/Native acceptance or ticket closure.
+
+## Current original-worklist actual09 — a30b656d4
+
+Spec/Standards: PASS for retained diagnostic history only. Actual35395 outer0 retains tinyC74978 equality and full copied30 deadline/no C,465 postpins/16 links unchanged. Verified raw1,662,330 bytes/11,491 JSON records gives absolute book-load-complete1599.593361ms, book-read-complete4446.818680ms, compile-enter4458.538151ms, file-book-complete7521.241044ms, pass1-complete20551.120856ms/facts3552 then pass2-enter20554.409031ms without completion.
+
+Actual08 and09 have different unpaired copied subjects/context. Their timings cannot establish speedup, slowdown, causality or stock performance. Current ordinary source PASS and complete JS outputs do not promote copied compile progress to Native acceptance. No new adoption/source repair/launch admitted; no reviewer child.
