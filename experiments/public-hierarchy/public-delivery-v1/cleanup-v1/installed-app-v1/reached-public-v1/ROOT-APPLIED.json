@@ -1,0 +1,43 @@
+{
+  "state": "ACTUALLY_APPLIED",
+  "timestamp": "2026-10-11T23:29:16.257214+00:00",
+  "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-linked-cleanup.bend",
+  "normal": {
+    "bytes": 9995,
+    "sha256": "496ecd9cac2a1a706464b01534872e8d2ab38299a5def89a00462d5cbbd4355d"
+  },
+  "mutant": {
+    "bytes": 9977,
+    "sha256": "c6d0ec0cf09cc6e7b7e4a853848fd5b6cf94594a72e8e5e5a75fa6d80693e97f"
+  },
+  "backup": "/tmp/bendvy44-installed-cleanup-normal-before-reached.bend",
+  "sourceStatesSHA256": "4bae14963c353ba77c2827a15bbcca7ce4fc51d43b10a975e318aeb37b037e7c",
+  "entry": "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-hierarchy/public-delivery-v1/cleanup-v1/installed-app-v1/entry.bend",
+  "entrySHA256": "17667941e33f045b05dde8d017960ade8b1543b1fabb7f16c456687f148ad880",
+  "consumer": "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-hierarchy/public-delivery-v1/cleanup-v1/installed-app-v1/public-consumer.bend",
+  "consumerSHA256": "861c73be788ef678bcc974167f5090c31ac0e46c8f45010ec6b3d66d806350b2",
+  "delta": {
+    "before": "case Ord.Declaration{descriptor} <> rest:descriptor <> descriptors(~S,rest)",
+    "after": "case Ord.Declaration{descriptor} <> rest:descriptor <> []"
+  },
+  "underlyingCleanupSHA256": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3",
+  "terminalPrerequisites": [
+    {
+      "original": 27136,
+      "exit": 0
+    },
+    {
+      "original": 42082,
+      "exit": 0
+    },
+    {
+      "original": 62323,
+      "exit": 1
+    },
+    {
+      "original": 74099,
+      "exit": 1
+    }
+  ],
+  "queue": "root sole semantic mutation; peer source-only authoring; no child/hook"
+}

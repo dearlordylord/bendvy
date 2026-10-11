@@ -1,0 +1,116 @@
+HierarchyAlpha
+INITIAL
+owners=19,|recipe=Recipe{}
+debug=True
+1,1,10,;2,2,20,;3,3,30,;4,4,40,;absent;absent;absent;absent;|stamps=|events=|meta=1,5,4,8,3,17,18,,1,0|registrations=|pending=0|edges=graph-edges=1:Parent:Children:hierarchy:2:1;1:Parent:Children:hierarchy:3:1;1:Parent:Children:hierarchy:4:2;2:Link:Incoming:ordinary:3:2;|graph-inverses=1:Parent:Children:hierarchy:1:[2,3,];1:Parent:Children:hierarchy:2:[4,];2:Link:Incoming:ordinary:2:[3,];|live=0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,
+Relation{key=1|name=Parent|inverse=Children|kind=Hierarchy}
+1:1:[Parent:Outgoing:Missing, Children:Incoming:Sources:[1:2, 1:3]]
+1:2:[Parent:Outgoing:Target:1:1, Children:Incoming:Sources:[1:4]]
+1:3:[Parent:Outgoing:Target:1:1, Children:Incoming:Missing]
+1:4:[Parent:Outgoing:Target:1:2, Children:Incoming:Missing]
+Relation{key=2|name=Link|inverse=Incoming|kind=Ordinary}
+1:1:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+1:2:[Link:Outgoing:Missing, Incoming:Incoming:Sources:[1:3]]
+1:3:[Link:Outgoing:Target:1:2, Incoming:Incoming:Missing]
+1:4:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+
+ABORT=Queued:Failure:77
+ABORTED
+owners=19,|recipe=Recipe{}
+debug=True
+1,1,10,;2,2,20,;3,3,30,;4,4,40,;absent;absent;absent;absent;|stamps=|events=|meta=1,5,4,8,3,17,18,,1,0|registrations=|pending=0|edges=graph-edges=1:Parent:Children:hierarchy:2:1;1:Parent:Children:hierarchy:3:1;1:Parent:Children:hierarchy:4:2;2:Link:Incoming:ordinary:3:2;|graph-inverses=1:Parent:Children:hierarchy:1:[2,3,];1:Parent:Children:hierarchy:2:[4,];2:Link:Incoming:ordinary:2:[3,];|live=0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,
+Relation{key=1|name=Parent|inverse=Children|kind=Hierarchy}
+1:1:[Parent:Outgoing:Missing, Children:Incoming:Sources:[1:2, 1:3]]
+1:2:[Parent:Outgoing:Target:1:1, Children:Incoming:Sources:[1:4]]
+1:3:[Parent:Outgoing:Target:1:1, Children:Incoming:Missing]
+1:4:[Parent:Outgoing:Target:1:2, Children:Incoming:Missing]
+Relation{key=2|name=Link|inverse=Incoming|kind=Ordinary}
+1:1:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+1:2:[Link:Outgoing:Missing, Incoming:Incoming:Sources:[1:3]]
+1:3:[Link:Outgoing:Target:1:2, Incoming:Incoming:Missing]
+1:4:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+
+QUEUE=Queued:Success
+PENDING
+owners=19,|recipe=Recipe{}
+debug=True
+1,1,10,;2,2,20,;3,3,30,;4,4,40,;absent;absent;absent;absent;|stamps=|events=|meta=1,5,4,8,3,17,18,,1,0|registrations=|pending=1|edges=graph-edges=1:Parent:Children:hierarchy:2:1;1:Parent:Children:hierarchy:3:1;1:Parent:Children:hierarchy:4:2;2:Link:Incoming:ordinary:3:2;|graph-inverses=1:Parent:Children:hierarchy:1:[2,3,];1:Parent:Children:hierarchy:2:[4,];2:Link:Incoming:ordinary:2:[3,];|live=0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,
+Relation{key=1|name=Parent|inverse=Children|kind=Hierarchy}
+1:1:[Parent:Outgoing:Missing, Children:Incoming:Sources:[1:2, 1:3]]
+1:2:[Parent:Outgoing:Target:1:1, Children:Incoming:Sources:[1:4]]
+1:3:[Parent:Outgoing:Target:1:1, Children:Incoming:Missing]
+1:4:[Parent:Outgoing:Target:1:2, Children:Incoming:Missing]
+Relation{key=2|name=Link|inverse=Incoming|kind=Ordinary}
+1:1:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+1:2:[Link:Outgoing:Missing, Incoming:Incoming:Sources:[1:3]]
+1:3:[Link:Outgoing:Target:1:2, Incoming:Incoming:Missing]
+1:4:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+
+owners=19,|recipe=Recipe{}
+debug=True
+1,1,10,;absent;3,3,30,;absent;absent;absent;absent;absent;|stamps=|events=Removed:4;Original:1004;Removed:2;Original:1002;|meta=1,5,4,8,3,17,18,,1,0|registrations=|pending=0|edges=graph-edges=1:Parent:Children:hierarchy:3:1;|graph-inverses=1:Parent:Children:hierarchy:1:[3,];|live=0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+Relation{key=1|name=Parent|inverse=Children|kind=Hierarchy}
+1:1:[Parent:Outgoing:Missing, Children:Incoming:Sources:[1:3]]
+1:3:[Parent:Outgoing:Target:1:1, Children:Incoming:Missing]
+Relation{key=2|name=Link|inverse=Incoming|kind=Ordinary}
+1:1:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+1:3:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+
+HierarchyBeta
+INITIAL
+owners=19,|recipe=Recipe{}
+debug=True
+1,1,10,;2,2,20,;3,3,30,;4,4,40,;absent;absent;absent;absent;|stamps=|events=|meta=1,5,4,8,3,17,18,,1,0|registrations=|pending=0|edges=graph-edges=1:Parent:Children:hierarchy:2:1;1:Parent:Children:hierarchy:3:1;1:Parent:Children:hierarchy:4:2;2:Link:Incoming:ordinary:3:2;|graph-inverses=1:Parent:Children:hierarchy:1:[2,3,];1:Parent:Children:hierarchy:2:[4,];2:Link:Incoming:ordinary:2:[3,];|live=0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,
+Relation{key=1|name=Parent|inverse=Children|kind=Hierarchy}
+1:1:[Parent:Outgoing:Missing, Children:Incoming:Sources:[1:2, 1:3]]
+1:2:[Parent:Outgoing:Target:1:1, Children:Incoming:Sources:[1:4]]
+1:3:[Parent:Outgoing:Target:1:1, Children:Incoming:Missing]
+1:4:[Parent:Outgoing:Target:1:2, Children:Incoming:Missing]
+Relation{key=2|name=Link|inverse=Incoming|kind=Ordinary}
+1:1:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+1:2:[Link:Outgoing:Missing, Incoming:Incoming:Sources:[1:3]]
+1:3:[Link:Outgoing:Target:1:2, Incoming:Incoming:Missing]
+1:4:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+
+ABORT=Queued:Failure:77
+ABORTED
+owners=19,|recipe=Recipe{}
+debug=True
+1,1,10,;2,2,20,;3,3,30,;4,4,40,;absent;absent;absent;absent;|stamps=|events=|meta=1,5,4,8,3,17,18,,1,0|registrations=|pending=0|edges=graph-edges=1:Parent:Children:hierarchy:2:1;1:Parent:Children:hierarchy:3:1;1:Parent:Children:hierarchy:4:2;2:Link:Incoming:ordinary:3:2;|graph-inverses=1:Parent:Children:hierarchy:1:[2,3,];1:Parent:Children:hierarchy:2:[4,];2:Link:Incoming:ordinary:2:[3,];|live=0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,
+Relation{key=1|name=Parent|inverse=Children|kind=Hierarchy}
+1:1:[Parent:Outgoing:Missing, Children:Incoming:Sources:[1:2, 1:3]]
+1:2:[Parent:Outgoing:Target:1:1, Children:Incoming:Sources:[1:4]]
+1:3:[Parent:Outgoing:Target:1:1, Children:Incoming:Missing]
+1:4:[Parent:Outgoing:Target:1:2, Children:Incoming:Missing]
+Relation{key=2|name=Link|inverse=Incoming|kind=Ordinary}
+1:1:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+1:2:[Link:Outgoing:Missing, Incoming:Incoming:Sources:[1:3]]
+1:3:[Link:Outgoing:Target:1:2, Incoming:Incoming:Missing]
+1:4:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+
+QUEUE=Queued:Success
+PENDING
+owners=19,|recipe=Recipe{}
+debug=True
+1,1,10,;2,2,20,;3,3,30,;4,4,40,;absent;absent;absent;absent;|stamps=|events=|meta=1,5,4,8,3,17,18,,1,0|registrations=|pending=1|edges=graph-edges=1:Parent:Children:hierarchy:2:1;1:Parent:Children:hierarchy:3:1;1:Parent:Children:hierarchy:4:2;2:Link:Incoming:ordinary:3:2;|graph-inverses=1:Parent:Children:hierarchy:1:[2,3,];1:Parent:Children:hierarchy:2:[4,];2:Link:Incoming:ordinary:2:[3,];|live=0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,
+Relation{key=1|name=Parent|inverse=Children|kind=Hierarchy}
+1:1:[Parent:Outgoing:Missing, Children:Incoming:Sources:[1:2, 1:3]]
+1:2:[Parent:Outgoing:Target:1:1, Children:Incoming:Sources:[1:4]]
+1:3:[Parent:Outgoing:Target:1:1, Children:Incoming:Missing]
+1:4:[Parent:Outgoing:Target:1:2, Children:Incoming:Missing]
+Relation{key=2|name=Link|inverse=Incoming|kind=Ordinary}
+1:1:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+1:2:[Link:Outgoing:Missing, Incoming:Incoming:Sources:[1:3]]
+1:3:[Link:Outgoing:Target:1:2, Incoming:Incoming:Missing]
+1:4:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+
+owners=19,|recipe=Recipe{}
+debug=True
+1,1,10,;absent;3,3,30,;absent;absent;absent;absent;absent;|stamps=|events=Removed:4;Original:1004;Removed:2;Original:1002;|meta=1,5,4,8,3,17,18,,1,0|registrations=|pending=0|edges=graph-edges=1:Parent:Children:hierarchy:3:1;|graph-inverses=1:Parent:Children:hierarchy:1:[3,];|live=0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+Relation{key=1|name=Parent|inverse=Children|kind=Hierarchy}
+1:1:[Parent:Outgoing:Missing, Children:Incoming:Sources:[1:3]]
+1:3:[Parent:Outgoing:Target:1:1, Children:Incoming:Missing]
+Relation{key=2|name=Link|inverse=Incoming|kind=Ordinary}
+1:1:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+1:3:[Link:Outgoing:Missing, Incoming:Incoming:Missing]
+

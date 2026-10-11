@@ -1,0 +1,9 @@
+Ordinary declaration-installed linked cleanup
+
+The current two-schema consumer and independent models qualify complete JS/Native outputs: normal7987, genuine foreign/missing10087 and reached inventory omission8115. The packet retains23 accepted commands/79 guards. Each relation is installed once from the same declaration; the component clear comes from the same Binding through the public leaf. Payload owners, Owners19, resources17/18, actual recipe views, rollbackFailure77 and pending/applied cleanup2 are observed.
+
+The runtime foreign scene threads one actual Factory into ns1 and ns2, reserves inactive local5, and observes both entire Apps before/after rejected cleanup and barriers. Four typed boundaries reject cross-schema handles, Installed duplication, resource-clear category and wrong closed declaration inventory. The reached root mutation truncates operative inventory and leaves incoming Link3→dead2; full8115 matches, separately rejects full7987 at byte3553, and root restores exact496ecd before archive.
+
+DELIVERY.json retains all immutable predecessors and exact raw archives. Historical fixture refusals, invalid concurrent development probes, collector preflight/label errors and empty contended deadline receive no credit. One corrected-label launch occurred before narrow review completed; subsequent exact review validates its results but does not make the launch compliant. The namespace1-only foreign observer is historical and its full-peer claim withdrawn; current foreign successor derives actual namespace.
+
+This wrapper starts before relation installation and cannot retrofit arbitrary prior Apps. Pure clear/drop and notices do not establish effectful IO finalization. Installed root/repeated-dead cleanup and registered-system authority, full44, TS comparison, universal proofs, combined regression and performance remain open. CPU3 runs qualify semantics only.

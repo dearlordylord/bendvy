@@ -1,0 +1,126 @@
+{
+  "scope": "Bounded ordinary declaration-installed linked cleanup",
+  "predecessorCommits": [
+    "768f6a7f9",
+    "498ce08c4",
+    "28ee8ae0b",
+    "366b10836",
+    "ffea1f310",
+    "1dea8be8a"
+  ],
+  "normalPublicModule": {
+    "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-linked-cleanup.bend",
+    "bytes": 9995,
+    "sha256": "496ecd9cac2a1a706464b01534872e8d2ab38299a5def89a00462d5cbbd4355d"
+  },
+  "qualification": {
+    "commands": 23,
+    "guards": 79,
+    "firstpair": {
+      "bytes": 7987,
+      "sha256": "482d9f15a0c26da3f41b5b228c681ac46010b8965d4cfd958d0b09ca731d005c",
+      "originals": [
+        66509,
+        88310
+      ]
+    },
+    "foreignMissing": {
+      "bytes": 10087,
+      "sha256": "1eca161f1b2d6240ecb0dcff1b361051474e92244e8608533f8d80d4def2a806",
+      "originals": [
+        27136,
+        42082
+      ]
+    },
+    "reachedInventory": {
+      "bytes": 8115,
+      "sha256": "7bd3806fe6c30cecab0455797e6af8fe8a07a0d6031cabfa76e8ae384fe47156",
+      "originals": [
+        97785,
+        63374,
+        59530
+      ],
+      "normalRejectedBySeparateWholeByteVerifier": true,
+      "firstDifferingByte": 3553
+    }
+  },
+  "archives": [
+    {
+      "path": "source01.zip",
+      "sha256": "88675949c4cc7fba0beca555a15c2e61f06a0803885ad694caea922fefdf17db",
+      "bytes": 168735
+    },
+    {
+      "path": "source02.zip",
+      "sha256": "81b3527daf4e5b384212007bee2e3e3a707886801be7ec628ffbca3ba1b7e16c",
+      "bytes": 168749
+    },
+    {
+      "path": "source03.zip",
+      "sha256": "62a6f193f540b66910e75427dc472d988e057a90ba21b027aecdf2808934bb17",
+      "bytes": 168703
+    },
+    {
+      "path": "source-complete.zip",
+      "sha256": "5e4c9e2e344d631f95c42dd7ee9e7ae6b2988ed9ba0105c050f2da63e3e5a6fc",
+      "bytes": 168412
+    },
+    {
+      "path": "firstpair-runtime.zip",
+      "sha256": "2fd6efd484eca3feabb5a75f16d20b36a18aeed7026b23f31742e1d4b24e8d3d",
+      "bytes": 85883879
+    },
+    {
+      "path": "affected-v1/source-complete.zip",
+      "sha256": "da7fc2e21d9560bda4498ed6fcdb3683a06b3d177960b3529460e4d00c4352f7",
+      "bytes": 376125
+    },
+    {
+      "path": "affected-v1/foreign-namespace-source.zip",
+      "sha256": "c4470c97b9c4b72a19db1237de887abf98088c3fb9cf85db3a5a077cdc4a64b7",
+      "bytes": 167267
+    },
+    {
+      "path": "affected-v1/foreign-runtime.zip",
+      "sha256": "b7d9a683401f1e6b44acb4fd702be5eb37ebbd4bb8abe367a66757faa038cef1",
+      "bytes": 85643330
+    },
+    {
+      "path": "affected-v1/collector-history.zip",
+      "sha256": "9ce73bf26009dfed863c3c9968c85a0dc7a36f7fa2085e0dabbbc1830c21fb5e",
+      "bytes": 193875
+    },
+    {
+      "path": "affected-v1/development-probes.zip",
+      "sha256": "6588f430d66b2bd2b3514a3fbf0d1e3d26efb3244fd5c98f7759df5f2d2acb7c",
+      "bytes": 5907
+    },
+    {
+      "path": "reached-public-v1/runtime.zip",
+      "sha256": "fae04d82fe3b6668b8177d1c3aabba317f3089adaba1f508a5d9af51ba6c9727",
+      "bytes": 85961619
+    }
+  ],
+  "semantics": [
+    "Wrapper exists before actual relation installs; captures each SAME declaration once; gameplay takes installedApp+actualHandle+Outcome",
+    "Clear supplied by SAME ordinary component Binding through public leaf; arbitrary affine payloads, Owners19, two resources17/18 retained",
+    "Failure77 rollback observed; valid queued cleanup2 before and after barrier",
+    "Actual sharedFactory ns1/2; foreign peerlive1 and localreservedinactive5 return MissingEntity:Success with unchanged queues and both complete Apps afterbarriers",
+    "Crossschema Handle, affine Installed duplication, resource-clear category and closeddeclaration-index mismatch refused at actualwrapper boundary",
+    "Actual descriptor inventory truncation keeps incoming Link3->dead2; all Parent deletion/clear/notices/owners unchanged; root exactnormal restored beforearchive"
+  ],
+  "history": [
+    "Source01 duplicate App refusal; source02 resourceR instantiation refusal; source03 affine String duplication retained uncredited",
+    "Four overlapped development negative timeouts124/empty due owner sequencing error have NO credit",
+    "Collector unusedentry guard and wronglabel oracleKeyError retained, no acceptancecredit",
+    "CPU11 foreign emptydeadline inconclusive under externallycontended CPU; semantic CPU3 affinity narrowly reviewed",
+    "Correctedlabel successor launched before narrowreview finished; subsequent exactreview validated results/dispatch but does not establish compliant priorlaunch",
+    "Initial foreignobserver namespace1-only fullpeer claim withdrawn; foreign-only actualnamespace successor source9246 and fullcurrentmodel/runtimes qualify peer"
+  ],
+  "limits": [
+    "Pure owner clear/drop and finite notices are not effectful exact IO finalizer proof",
+    "No arbitrary prior-App retrofit or registered-system cleanup authority claim",
+    "Firstpair performs intermediate cleanup only; installed root/repeated-dead route remains open (trustedWorld earlier evidence separatelyscoped)",
+    "No full #44/TS/proofs/performance/combined regression/adoption claim; source/currentbody applicability and normal restore only"
+  ]
+}

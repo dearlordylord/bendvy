@@ -1,0 +1,64 @@
+{
+  "original": 37267,
+  "status": "UNQUALIFIED_DUPLICATE_DECLARATION_APP",
+  "archive": "source01.zip",
+  "archiveSHA256": "88675949c4cc7fba0beca555a15c2e61f06a0803885ad694caea922fefdf17db",
+  "rows": 83,
+  "receipt": {
+    "scope": "Actual ordinary installed App linked cleanup firstconsumer, Same declaration inventory and generated binding clear; two resources17/18 and Owner19; abort/pending/applied",
+    "planSHA256": "2b448f46532be09eefef55c4435f47c05eff0889cb1d9de16e63a8dec1e484c1",
+    "commands": [
+      {
+        "label": "source-normal",
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "11",
+          "/home/node/.bend/bin/bend-2.0.35",
+          "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-hierarchy/public-delivery-v1/cleanup-v1/installed-app-v1/entry.bend",
+          "--check-only"
+        ],
+        "capSeconds": 5,
+        "expectedExit": 0,
+        "stderrContains": [],
+        "exit": 1,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+        "stdout": {
+          "path": "/tmp/bendvy44-cleanup-installed-app-source01/source-normal.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "published": true
+        },
+        "stderr": {
+          "path": "/tmp/bendvy44-cleanup-installed-app-source01/source-normal.stderr",
+          "sha256": "58091d30fc8fad518731f96f5d610b8e4136914f9020320f253ab1babffaffb6",
+          "bytes": 529,
+          "published": true
+        }
+      }
+    ],
+    "guards": [
+      {
+        "path": "/tmp/bendvy44-cleanup-installed-app-source01/source-normal-pre.guard.json",
+        "sha256": "7e37b8645acc6112abb57ec1385f85769b259544e07ef84bfb741d4436662998"
+      },
+      {
+        "path": "/tmp/bendvy44-cleanup-installed-app-source01/source-normal-acquired.guard.json",
+        "sha256": "d3f341dbbb4dd153670576ece0946480c16eaa3de7e03edad50615311912e999"
+      },
+      {
+        "path": "/tmp/bendvy44-cleanup-installed-app-source01/source-normal-post.guard.json",
+        "sha256": "05807fa75658ec1ec50a1ff3a2572cb954d9f0c882f83399520fb58368e7434f"
+      },
+      {
+        "path": "/tmp/bendvy44-cleanup-installed-app-source01/final.guard.json",
+        "sha256": "0b52b87976d7f4e726b8c407af5fd0373795de999cd48d4c2bc106c46cda2538"
+      }
+    ],
+    "status": "INCOMPLETE",
+    "error": "ValueError: Source control exit differs: source-normal",
+    "guardFailures": []
+  }
+}

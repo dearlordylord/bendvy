@@ -1,0 +1,26 @@
+"""Source-only full installed cleanup App observations."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    complete=HERE.parent/'SOURCE-COMPLETE.json';pins=json.loads(complete.read_text())['sourceInventory'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    m=runpy.run_path(str(HERE/'model.py.source'));raw=m['expected']();text=raw.decode();w=m['World']()
+    before=w.snapshot();assert before==w.snapshot()
+    w.pending=1;assert '|pending=1' in w.snapshot();w.pending=0;w.cleanup(2)
+    assert w.live=={1,3} and w.payloads=={1,3} and w.edges==[(1,3,1)] and w.inverses==[(1,1,[3])]
+    assert w.events==['Removed:4','Original:1004','Removed:2','Original:1002']
+    assert text.count('|meta=')==8 and text.count('owners=19,|recipe=Recipe{}')==8
+    assert text.count('debug=True')==8 and text.count('17,18,,1,0')==8
+    assert text.count('Relation{')==16 and text.count('|pending=1')==2
+    assert text.count('ABORT=Queued:Failure:77')==2 and text.count('QUEUE=Queued:Success')==2
+    assert '|resource-all=' not in text and 'entity=' not in text
+    for path in [complete,HERE/'model.py.source',HERE/'regenerate.py.source',Path('/home/node/.bend/bend2/base.bend'),Path('/home/node/.bend/bend2/effs/print.js'),Path('/home/node/.bend/bend2/effs/print.c')]:pins[str(path)]=sha(path)
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    basis={'producerCommit':'768f6a7f9','sourcePins':pins,'entry':str(HERE.parent/'entry.bend'),'derivation':'Installed empty App then actual Parent andLink declarations append sameoperational descriptor list and Recipe observation tree; physical prior first, Parent rows thenLinkrows. Snapshot enablesdebug and restoresOwnerArray19/Recipe, resourceproductprojects bothactual17/18. Graph startsParent2to1,3to1,4to2 andLink3to2. Binding-generated Clear.leaf usesactualsamePayloadbinding, Col.clear consumespayload/disposesoldowner and emitsRemovedonlypresent. Queue validateslive2; Failure77 txfinish discardsstagedcleanup, barrier leavesWorld/recipe/owners exact. Success stagesonecallback, pending1 observation retainsinitialgraph; barrier appliesCleanup automatic postorder4,2. OrdinaryLinkincoming3unrelateswithoutdeleting3. Removed4/Original1004 thenRemoved2/Original1002; live/payload1,3 andParent3to1 remain. World clock0/rawstamps unchanged. Recipe rows enumerateactualascendinglivehandles withoptionalParent/Children thenLink/Incoming, preservecellorder and List.show comma-space. ActualmanualString prints completephysical+recipe fields, noFrame serialization claimed. text_lines terminalLF plus outerLF/IO.printLF preserved. No runtimeoutputs used.','limits':'Finite two nominalschemas/eight physicalsnapshots; actualinstalled cleanup success andFailure77 boundary. No RootReader,foreign,missing,repeateddeadtarget,incompleteCleanupPaused,effectfulfinalizer,Typeevent,TS/performance/universalproof credit.'}
+    b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle},indent=2)+'\n')
+    result={'sourcePins':len(pins),'snapshots':8,**oracle};(HERE/'SELFTEST.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+if __name__=='__main__':regenerate()
