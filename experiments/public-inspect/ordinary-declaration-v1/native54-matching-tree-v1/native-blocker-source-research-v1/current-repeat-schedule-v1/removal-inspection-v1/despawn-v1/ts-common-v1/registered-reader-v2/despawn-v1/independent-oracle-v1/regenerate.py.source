@@ -1,0 +1,23 @@
+"""Freeze whole source-derived public TS lifecycle grammar and provenance."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;P=HERE.parent;COMMON=P.parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    freeze=json.loads((P/'FREEZE.json').read_text());pins=freeze['sourceInventory'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    consumer=(COMMON/'consumer.mjs').read_text()
+    assert 'services:G.Runtime.services()' in consumer
+    assert 'commands.remove(handle,Position)' in consumer and 'commands.despawn(handle)' in consumer
+    assert "snapshot('queuedBeforeBarrier')" in consumer
+    for path in (P/'FREEZE.json',P/'COMMON-LEDGER.json',COMMON/'SOURCE-CHECK.json'):pins[str(path)]=sha(path)
+    raw=runpy.run_path(str(HERE/'model.py'))['expected']()
+    assert raw.count(b'"label":')==16
+    assert raw.count(b'"tag":')==2 and raw.count(b'"tick":14')==2
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    basis={'producerCommit':'b4eaf003eb56d2869cec235da5ad6f63a1bfdd18','sourcePins':pins,'modelPins':{str(HERE/'model.py'):sha(HERE/'model.py')},'derivation':'Independent Python interpretation of actual frozen TS calls and public debug object construction order. Setup ticks1/2; actual initial operational read3 registers and returns empty lifecycle lists; persistent registeredinspection4 then before5/6; mutation7 and queuedinspect8; actualbarrier9 then inspections10/11; same operationalreader12 then inspections13/14. Frames2/3/4/5. Removal/despawn logs stamped9: inspector first sees then advances, repeated read empty; same operationalreader priorcompletedtick3 sees original change. Named schedules only Mutation/Flush/Read; no inspector/setup placement. Physical visible owners/dump/population/describe/streams source-derived. Undefined other property omitted for absent43. No runtime outputs or TS evaluation as model input.','scope':'Finite public TS lifecycle observation only, no internal rawlog/cursor/affine disposal/Bend owner equivalence or full54/performance claim.'}
+    b=HERE/'INDEPENDENT-SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle},indent=2)+'\n')
+    print(json.dumps({'sourcePins':len(pins),**oracle},indent=2))
+if __name__=='__main__':regenerate()
