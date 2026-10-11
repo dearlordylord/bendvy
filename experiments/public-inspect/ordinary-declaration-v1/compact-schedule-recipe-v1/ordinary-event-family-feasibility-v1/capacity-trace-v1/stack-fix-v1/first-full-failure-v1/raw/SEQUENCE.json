@@ -1,0 +1,29 @@
+{
+  "sequence": [
+    {
+      "role": "js",
+      "path": "/tmp/bendvy-typed-data-events-capacity-fixed-runtime01/a-normal-js/plan.json",
+      "sha256": "e152d2b0e732d065f3e54597fe7eea6b639546f2f38c3f02dcf726e45d5fcbd5",
+      "execute": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-typed-data-events-capacity-fixed-runtime01/a-normal-js/plan.json",
+        "e152d2b0e732d065f3e54597fe7eea6b639546f2f38c3f02dcf726e45d5fcbd5"
+      ]
+    },
+    {
+      "role": "native",
+      "path": "/tmp/bendvy-typed-data-events-capacity-fixed-runtime01/a-normal-native/plan.json",
+      "sha256": "c164f3d6cc3c8fbd9a1f951bd2305ed2c04b4fba60cd597bbdaac55a732547b9",
+      "execute": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py",
+        "run",
+        "/tmp/bendvy-typed-data-events-capacity-fixed-runtime01/a-normal-native/plan.json",
+        "c164f3d6cc3c8fbd9a1f951bd2305ed2c04b4fba60cd597bbdaac55a732547b9"
+      ]
+    }
+  ],
+  "condition": "One JS; Native only after complete JS PASS. Stop at first failure; no unchanged retry."
+}
