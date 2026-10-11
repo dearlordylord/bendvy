@@ -1,0 +1,21 @@
+"""Bind the unchanged reviewed reference adapter to one independently modeled TS refusal."""
+from pathlib import Path
+import hashlib,json,sys,shutil
+HERE=Path(__file__).resolve().parent
+ROOT=Path('/workspace/formal-proofs/bendvy')
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+cat=Path(sys.argv[1]).resolve();modelCommit=sys.argv[2];selected=json.loads(cat.read_text())['ts']
+shutil.copyfile(cat,HERE/'ORACLES.json')
+shutil.copyfile(cat.parent/'model.py.source',HERE/'model.py')
+shutil.copyfile(selected['sourceBasisPath'],HERE/'INDEPENDENT-SOURCE-BASIS.json')
+shutil.copyfile(selected['stdout'],HERE/'expected.stdout.gz')
+assert sha(Path(selected['sourceBasisPath']))==selected['sourceBasisSHA256']
+inventory=json.loads((HERE/'FREEZE.json').read_text())['sourceInventory']
+CAPTURE=ROOT/'experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/check-source.py'
+HELPER=ROOT/'scripts/task_runner.py';CONFIG=ROOT/'experiments/public-simulation/delivery-v1/installed-config.py'
+NODE=Path('/home/node/.local/share/mise/installs/node/24.20.0/bin/node')
+sources=[*map(Path,inventory),CAPTURE,HELPER,CONFIG,NODE,Path('/usr/bin/taskset'),HERE/'capture-reference.py',HERE/'FREEZE.json',HERE/'INDEPENDENT-SOURCE-BASIS.json',HERE/'ORACLES.json',HERE/'model.py',HERE/'expected.stdout.gz']
+pins={str(p.resolve()):sha(p) for p in sources};assert all(sha(Path(k))==v for k,v in inventory.items())
+plan={'scope':'Pinned TS unselected handler requires absent Second; full before/queued/refused state retains deferred work/readers/resources; no live provision/recovery/timing claim','capSeconds':5,'pins':pins,'out':str(HERE/'ref01'),'argv':['/usr/bin/taskset','-c','5',str(NODE),str(HERE/'reference.mjs')],'independentOracleCommit':modelCommit,'producer':'a20accac6','wholeBytes':selected['bytes'],'wholeSHA256':selected['sha256']}
+assert not (HERE/'ref01').exists()
+p=HERE/'REFERENCE-PLAN.json';p.write_text(json.dumps(plan,indent=2)+'\n');print(sha(p),len(pins))

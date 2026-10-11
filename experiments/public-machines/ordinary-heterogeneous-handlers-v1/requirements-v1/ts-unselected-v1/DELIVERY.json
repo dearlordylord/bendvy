@@ -1,0 +1,47 @@
+{
+  "status": "COMPLETE_TS_UNSELECTED_MACHINE_REQUIREMENT_REFUSAL",
+  "producer": "a20accac6",
+  "independentModel": "c2c9db896",
+  "originalCapture": {
+    "execChunk": "0d10f6",
+    "terminalExit": 0,
+    "noOngoingSession": true
+  },
+  "fullBytes": 2340,
+  "fullSHA256": "abdb7f2f7d9f13e772b123abeaaaf80bdc5d7d483a95412b06ad8161cb5ad750",
+  "planSHA256": "fd3d261351a34fa0fac125c717c84cbc5c0539d0aff086f0cb3c4c376862a6b8",
+  "planPins": 45,
+  "actualCapturePins": 46,
+  "result": {
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "5",
+      "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+      "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/requirements-v1/ts-unselected-v1/reference.mjs"
+    ],
+    "capSeconds": 5,
+    "status": "CAPTURED_SOURCE_RESULT",
+    "raw": {
+      "stdout": {
+        "sha256": "abdb7f2f7d9f13e772b123abeaaaf80bdc5d7d483a95412b06ad8161cb5ad750",
+        "bytes": 2340
+      },
+      "stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    "exit": 0,
+    "failure": null,
+    "capture": "split",
+    "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+  },
+  "postUnchanged": true,
+  "archive": "ACTUAL.zip",
+  "runtimeBodies": 19,
+  "sourceArchive": "SOURCE.zip",
+  "sourceBodies": 34,
+  "scope": "First Cold provided, Second absent; unselected EnterWarm callback requires Second, all-entry union refuses before frame/barrier. Existing seed deferred spawn and registered readers/resources/all observations retained. Cached requirements Owned then Second, selector First omission source limitation explicit. No live machine provision/recovery or Bend owner parity/timing claim. Only nondeterministic trace.ms omitted; actual clock calculations retained.",
+  "reuse": "SOURCE-JOINS.json"
+}
