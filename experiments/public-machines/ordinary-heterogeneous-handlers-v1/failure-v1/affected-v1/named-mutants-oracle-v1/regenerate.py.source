@@ -1,0 +1,34 @@
+"""Freeze source-derived complete countermodels with full normal rejection baseline."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent; P=HERE.parent; ROOT=Path('/workspace/formal-proofs/bendvy')
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+model=runpy.run_path(str(HERE/'model.py.source'))
+normal=runpy.run_path(str(P/'phase-baseline-oracle-v1/model.py.source'))['expected']()
+assert len(normal)==23694 and hashlib.sha256(normal).hexdigest()=='3659487db2e5f8345dea4be2a73cdeec4970e81a3fde41ff28358bdca664e07c'
+(HERE/'normal-baseline.stdout').write_bytes(normal);(HERE/'normal-baseline.stdout.gz').write_bytes(gzip.compress(normal,mtime=0))
+cat={}
+for case in ('lost-retry','premature-publication','whole-marker-rewind'):
+    source=P/case;base=P/'phase-baseline'
+    pins=json.loads((source/'source01/SOURCE.json').read_text())['pins']
+    for path,digest in pins.items():assert sha(path)==digest,path
+    changed='application' if case=='whole-marker-rewind' else 'phase'
+    for name in ('types','lenses','systems','application','observe','main','operation','phase'):
+        if name!=changed:assert (source/(name+'.bend')).read_bytes()==(base/(name+'.bend')).read_bytes(),name
+    original=(base/(changed+'.bend')).read_text();actual=(source/(changed+'.bend')).read_text()
+    if case=='lost-retry':assert actual==original.replace('put(world,M.queue(~S,~K,~V,slot,to,skipSame))','put(world,slot)')
+    elif case=='premature-publication':assert actual==original.replace('case H.Ready{slot,M.Transition{from,to},skipSame}:(Owners{handlers,Ready{from,to,skipSame}},Sys.Succeeded{put(world,slot),Unit{}})','case H.Ready{slot,M.Transition{+from,+to},skipSame}:(Owners{handlers,Ready{from,to,skipSame}},Sys.Succeeded{publish(put(world,slot),M.Transition{from,to}),Unit{}})')
+    else:
+        prefix='def rewind(~S:Data,world:W.World<S,T.Store<S>,T.Resources<S>,T.Pulse>) -> W.World<S,T.Store<S>,T.Resources<S>,T.Pulse>:'
+        before,tail=original.split(prefix,1);_,end=tail.split('\n',1)
+        start,rest=actual.split(prefix,1); body,finish=rest.split('\ndef ',1)
+        assert start==before and end=='def '+finish
+        assert 'Array.set(U32,owned,0,11)' in body and 'firstTick,secondTick,[],firstDelivered,secondDelivered,applied},[],[],registrations,nextSystem,clock}' in body
+    for extra in (Path('/home/node/.bend/bend2/base.bend'),ROOT/'.references/sources.json',Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/ownership-preseed-v1/compiler/installed-cli-unmodified.mjs')):pins[str(extra)]=sha(extra)
+    raw=model['expected'](case);assert raw!=normal
+    divergence=next(i for i,(a,b) in enumerate(zip(raw,normal)) if a!=b)
+    (HERE/(case+'.stdout')).write_bytes(raw);(HERE/(case+'.stdout.gz')).write_bytes(gzip.compress(raw,mtime=0))
+    basis={'producerCommit':'425f17141','case':case,'sourcePins':pins,'modelPins':{str(HERE/'model.py.source'):sha(HERE/'model.py.source')},'entry':str(source/'main.bend'),'normalBaselineModel':str(P/'phase-baseline-oracle-v1/model.py.source'),'derivation':'Exact changed body + seven byte-identical source owners. Eleven complete explicit Strings derived without runtime output inputs.','firstDivergenceByte':divergence,'limits':'Finite private test mutation only; no production API/new contract/general proof.'}
+    b=HERE/(case+'-SOURCE-BASIS.json');b.write_text(json.dumps(basis,indent=2)+'\n')
+    cat[case]={'stdout':str(HERE/(case+'.stdout.gz')),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b),'normalBaseline':str(HERE/'normal-baseline.stdout.gz'),'normalBaselineBytes':len(normal),'normalBaselineSHA256':hashlib.sha256(normal).hexdigest()}
+(HERE/'ORACLES.json').write_text(json.dumps(cat,indent=2)+'\n');print(json.dumps(cat,indent=2))
