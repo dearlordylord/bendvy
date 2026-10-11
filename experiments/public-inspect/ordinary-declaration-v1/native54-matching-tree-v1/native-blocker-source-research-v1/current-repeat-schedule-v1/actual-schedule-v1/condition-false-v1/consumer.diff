@@ -1,0 +1,12 @@
+--- /workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/actual-schedule-v1/condition-v1/consumer.bend	2026-10-11 05:32:04.408126836 -0400
++++ /workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/actual-schedule-v1/condition-false-v1/consumer.bend	2026-10-11 05:35:59.241240385 -0400
+@@ -103,7 +103,8 @@
+ def check_rows(~H:Type,~S:Data,result:H & List<&2,Query.ProjectedRow<S,C.Access<U32>>>) -> H & Bool:
+   match result:
+     case (owner,[]):(owner,False{})
+-    case (owner,_ <> _):(owner,True{})
++    case (owner,Query.ProjectedRow{_,C.Found{value}} <> _):(owner,U32.is_eq(value,99))
++    case (owner,_ <> _):(owner,False{})
+ def check_body(~S:Data,~H:Type,~caps:Query.ComposedReadQuery<H,S,C.Access<U32>>,_:Unit,owner:H) -> H & Bool:
+   check_rows(~H,~S,Query.each_composed(~H,~S,~C.Access<U32>,~caps,owner))
+ def required(~S:Data,world:W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32>) -> W.World<S,Col.Column<S,Caller.Payload>,Array<U32>,U32> & List<&2,String>:
