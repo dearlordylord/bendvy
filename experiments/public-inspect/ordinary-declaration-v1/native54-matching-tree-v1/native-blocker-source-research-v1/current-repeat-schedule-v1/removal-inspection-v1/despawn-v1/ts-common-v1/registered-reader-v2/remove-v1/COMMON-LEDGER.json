@@ -1,0 +1,147 @@
+{
+  "status": "SOURCE_ONLY_NOT_EXECUTED",
+  "sharedWork": "Existing removal scene42/43 and despawn present42/43 versus absent43; resource17, actual deferred commands and present-family removal logs, explicit aggregate despawn channel, repeated Inspector and operational lifecycle reader",
+  "scenes": [
+    {
+      "schema": "A",
+      "operation": "remove",
+      "presentOther": true
+    },
+    {
+      "schema": "Other",
+      "operation": "remove",
+      "presentOther": true
+    },
+    {
+      "schema": "A",
+      "operation": "despawn",
+      "presentOther": true
+    },
+    {
+      "schema": "Other",
+      "operation": "despawn",
+      "presentOther": false
+    }
+  ],
+  "differences": [
+    "TS rt.inspect is persistent per-reader incremental read and advances world tick; Bend selected removal getter returns retained records without advancing clock/readers",
+    "TS lifecycle values are schema-branded numeric entity IDs, not Bend namespace-qualified handles or typed declaration-bearing metadata; no TS foreign namespace-refusal comparison",
+    "TS operational lifecycle retention registers lazily on a genuine initial empty public System run BEFORE publication; Bend uses explicit Rm.register. Extra TS frame/tick/status/result/snapshot remain observable.",
+    "TS commands are queued by actual mutation System then a separate applyDeferred schedule; additional queued-before-barrier Inspector observation/ticks/frames are retained, not normalized to six Bend snapshots",
+    "TS JS array aliases remain accessible after component deletion; Bend affine ownership/disposal cannot be inferred from those aliases",
+    "TS debug dump/population/streams own retention/frame and reader format differs; separate complete source-derived oracle required",
+    "Public TS dump reports entities/resources/frame/tick/pending; streams exposes event/transition/relationFailure only, not raw removed/despawned logs or internal lifecycle cursor fields. Full oracle retains all public lifecycle projection results and operational behavior; no claim of complete Bend owner/log representation equivalence."
+  ],
+  "BendBasis": {
+    "removal": 6405,
+    "despawn": 6585,
+    "scope": "Previously qualified whole Bend outputs remain immutable; no byte or clock normalization"
+  },
+  "sourceAuthority": [
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/System.ts",
+      "sha256": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+      "firstLine": 425,
+      "lastLine": 501,
+      "source": " * Declares read access to removed-component lifecycle records.\n *\n * Each run returns the entities whose component was removed since the\n * system's previous run (removals are applied when commands are). Records are\n * kept until every system that reads them has run, so a reader in a schedule\n * ticked less often than the one that removes (rendering after several fixed\n * updates) still sees every removal. A system skipped by its run conditions\n * keeps its position, like `added`/`changed`, and sees the removals when it\n * runs again. Each log is capped at `Runtime.streamCapacity` entries; drops\n * show up as `missed` reads in the debug trace. Systems usually pair this\n * with host cleanup such as removing renderer-owned nodes. {@link readDespawned}\n * complements this for whole-entity teardown.\n *\n * @example\n * ```ts\n * const DestroyRenderNodesSystem = Game.System(\"DestroyRenderNodes\", {\n *   removed: {\n *     renderables: Game.System.readRemoved(Renderable)\n *   }\n * }, ({ removed }) => {\n *   for (const entityId of removed.renderables.all()) {\n *     // destroy host-owned node here\n *   }\n * })\n * ```\n */\nexport const readRemoved = <D extends Descriptor<\"component\", string, any>>(\n  descriptor: D\n): RemovedRead<D> => ({\n  descriptor\n})\n\n/**\n * Declares read access to relation-mutation failure records.\n */\nexport const readRelationFailures = <R extends Relation.Relation.Any>(\n  relation: R\n): RelationFailureRead<R> => ({\n  relation\n})\n\n/**\n * Declares read access to despawned-entity lifecycle records.\n *\n * Each run returns the entities despawned since the system's previous run.\n * Records are retained like {@link readRemoved} records. Use it when host-owned state must be destroyed even if no single removed\n * component is the canonical trigger. {@link readRemoved} is often used\n * alongside this in authoritative host mirrors.\n *\n * @example\n * ```ts\n * const DestroyNodesSystem = Game.System(\"DestroyNodes\", {\n *   despawned: {\n *     entities: Game.System.readDespawned()\n *   }\n * }, ({ despawned }) => {\n *   for (const entityId of despawned.entities.all()) {\n *     // destroy host-owned node here\n *   }\n * })\n * ```\n */\nexport const readDespawned = (): DespawnedRead => ({\n  kind: \"despawned\"\n})\n\n/**\n * A read-only lifecycle stream of entity ids for one removed component.\n */\nexport interface RemovedReadView<S extends Schema.Any, Root = unknown> {\n  all(): ReadonlyArray<import(\"./Entity.ts\").EntityId<S, Root>>\n}\n\n/**\n * A read-only lifecycle stream of despawned entity ids.\n */\nexport interface DespawnedReadView<S extends Schema.Any, Root = unknown> {"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Inspector.ts",
+      "sha256": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3",
+      "firstLine": 35,
+      "lastLine": 43,
+      "source": "  readonly resources?: Record<string, System.ResourceRead<Descriptor<\"resource\", string, any>>>\n  readonly events?: Record<string, System.EventRead<Descriptor<\"event\", string, any>>>\n  readonly services?: Record<string, System.ServiceRead<Descriptor<\"service\", string, any>>>\n  readonly machines?: Record<string, Machine.MachineRead<Machine.StateMachine.Any>>\n  readonly transitionEvents?: Record<string, Machine.TransitionEventRead<Machine.StateMachine.Any>>\n  readonly removed?: Record<string, System.RemovedRead<Descriptor<\"component\", string, any>>>\n  readonly despawned?: Record<string, System.DespawnedRead>\n  readonly relationFailures?: Record<string, System.RelationFailureRead<Relation.Relation.Any>>\n}"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Command.ts",
+      "sha256": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+      "firstLine": 435,
+      "lastLine": 454,
+      "source": "  ) => Entity.EntityId<S, Root>\n  /**\n   * Queues an entity removal.\n   */\n  readonly despawn: (entity: Entity.EntityId<S, Root>) => void\n  /**\n   * Queues removal of every entity owned by one lifetime scope.\n   */\n  readonly despawnScope: (scope: EntityScope.EntityScope<string, Root>) => void\n  /**\n   * Queues a component removal on an existing entity.\n   */\n  readonly remove: <D extends Extract<Schema.Components<S>[keyof Schema.Components<S>], Descriptor<\"component\", string, any>>>(\n    entity: Entity.EntityId<S, Root>,\n    descriptor: D\n  ) => Entity.EntityId<S, Root>\n  /**\n   * Queues one live relation mutation for deferred application.\n   */\n  readonly relate: <R extends Extract<Schema.Relations<S>[keyof Schema.Relations<S>], Relation.Relation.Any>>("
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts",
+      "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+      "firstLine": 1103,
+      "lastLine": 1116,
+      "source": "  const makeRemovedReadView = (descriptor: Descriptor<\"component\", string, any>, reader: ReaderState): RemovedReadView<S, Root> => {\n    const ordinal = world.ordinalOf(descriptor)\n    return {\n      all() {\n        return world.removedSince(ordinal, reader.since).map(entityId)\n      }\n    }\n  }\n\n  const makeDespawnedReadView = (reader: ReaderState): DespawnedReadView<S, Root> => ({\n    all() {\n      return world.despawnedSince(reader.since).map(entityId)\n    }\n  })"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts",
+      "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+      "firstLine": 1344,
+      "lastLine": 1376,
+      "source": "  const registerStreamReader = (system: SystemDefinition<any, any, any>, reader: ReaderState): void => {\n    if (debugEnabled) streamReaders.set(reader, { system: system.name, reader })\n    const spec = system.spec\n    for (const access of Object.values(spec.events as Record<string, { readonly mode: string; readonly descriptor: Descriptor.Any }>)) {\n      if (access.mode === \"read\") events.register(access.descriptor.key, reader)\n    }\n    for (const access of Object.values(spec.transitionEvents as Record<string, { readonly machine: Machine.StateMachine.Any }>)) {\n      transitionEvents.register(access.machine.key, reader)\n    }\n    for (const access of Object.values(spec.relationFailures as Record<string, { readonly relation: Relation.Relation.Any }>)) {\n      relationFailures.register(access.relation.key, reader)\n    }\n    // Removed/despawned reads use the change-detection cursor, so a system\n    // skipped by its run conditions keeps them, like `added`/`changed`.\n    for (const access of Object.values(spec.removed as Record<string, { readonly descriptor: Descriptor<\"component\", string, any> }>)) {\n      world.registerRemovedReader(world.ordinalOf(access.descriptor), reader)\n    }\n    if (Object.keys(spec.despawned).length > 0) world.registerDespawnedReader(reader)\n  }\n\n  /** Gated copies (`Schedule.when`) share the state of the system they copy. */\n  const stateKey = (system: SystemDefinition<any, any, any>): SystemDefinition<any, any, any> => system.base ?? system\n\n  const slotOf = (system: SystemDefinition<any, any, any>, holdsStreams: boolean): SystemSlot => {\n    let slot = slots.get(stateKey(system))\n    if (!slot) {\n      const reader: ReaderState = { since: 0, lastRun: 0, streamSince: 0, streamLastRun: 0, registeredAt: world.currentTick() }\n      slot = { context: makeContext(system, reader), reader }\n      slots.set(stateKey(system), slot)\n      if (holdsStreams) registerStreamReader(system, slot.reader)\n    }\n    return slot\n  }"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts",
+      "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+      "firstLine": 1690,
+      "lastLine": 1705,
+      "source": "  /**\n   * Evaluates a declared read-only projection without running a schedule.\n   * Like a system, an inspector sees `added`/`changed`/removed records made\n   * since its previous evaluation.\n   */\n  const inspect = <const Selected extends Inspector.InspectorDefinition<any, any, Root, any, any>>(\n    inspector: Selected\n  ): Inspector.Inspector.Value<Selected> => {\n    const { context, reader } = slotOf(inspector.system, false)\n    reader.since = reader.lastRun\n    reader.streamSince = reader.streamLastRun\n    const value = inspector.read(context) as Inspector.Inspector.Value<Selected>\n    reader.lastRun = world.advanceTick()\n    reader.streamLastRun = reader.lastRun\n    return value\n  }"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/World.ts",
+      "sha256": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7",
+      "firstLine": 479,
+      "lastLine": 492,
+      "source": "  const removeComponent = (id: number, descriptor: ComponentDescriptor): void => {\n    const record = records.get(id)\n    if (!record) {\n      return\n    }\n    const ordinal = ordinalOf(descriptor)\n    if (!has(record, ordinal)) {\n      return\n    }\n    record.values[ordinal] = ABSENT\n    members[ordinal]!.delete(record)\n    bumpMembership(record, ordinal)\n    appendLog(logFor(removedLogs, ordinal), id, tick)\n    if (hooks !== undefined) hooks.removed(id, ordinal)"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/World.ts",
+      "sha256": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7",
+      "firstLine": 650,
+      "lastLine": 667,
+      "source": "      unrelate(id, relation)\n    }\n    const values = record.values\n    for (let ordinal = 0; ordinal < values.length; ordinal++) {\n      if (values[ordinal] === ABSENT) {\n        continue\n      }\n      values[ordinal] = ABSENT\n      members[ordinal]!.delete(record)\n      bumpMembership(record, ordinal)\n      appendLog(logFor(removedLogs, ordinal), id, tick)\n    }\n    clearEntityScope(id)\n    appendLog(despawnedLog, id, tick)\n    record.alive = false\n    records.delete(id)\n    entitiesVersion += 1\n    if (hooks !== undefined) hookDepth -= 1"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/World.ts",
+      "sha256": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7",
+      "firstLine": 678,
+      "lastLine": 710,
+      "source": "  /**\n   * Starts a new frame (one `runtime.tick(...)` call): log entries older than\n   * the previous frame are dropped. Returns that boundary tick (entries at or\n   * before it are gone), or `0` when nothing was dropped yet.\n   */\n  const advanceFrame = (): number => {\n    for (let ordinal = 0; ordinal < descriptors.length; ordinal++) {\n      // Keep membership changes from the current and previous frame.\n      const boundary = frameVersions[ordinal]!\n      const versions = membershipVersions[ordinal]!\n      let count = 0\n      while (count < versions.length && versions[count]! <= boundary) count++\n      if (count > 0) {\n        versions.splice(0, count)\n        membershipRecords[ordinal]!.splice(0, count)\n        membershipFrom[ordinal] = boundary\n      }\n      frameVersions[ordinal] = componentVersions[ordinal]!\n    }\n    if (frameStart > 0) {\n      for (const log of changedLogs) if (log) trimLog(log, frameStart)\n      removedLogs.forEach((log, ordinal) => {\n        if (log) trimHeldLog(log, frameStart, removedReaders[ordinal], lifecycleCapacity)\n      })\n      trimHeldLog(despawnedLog, frameStart, despawnedReaders, lifecycleCapacity)\n      retainedAfter = frameStart\n    }\n    frameStart = tick\n    return retainedAfter\n  }\n\n  const entriesSince = (log: TickLog | undefined, since: number): ReadonlyArray<number> => {\n    if (log === undefined) return noSources"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts",
+      "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+      "firstLine": 1920,
+      "lastLine": 1968,
+      "source": "      version: 1,\n      frame: frameCount,\n      tick: world.currentTick(),\n      entityCount: world.records.size,\n      entities,\n      resources: dumpedResources,\n      machines: dumpedMachines,\n      pendingCommands: pendingCommands.map((command, index) => ({ tag: command.tag, system: pendingOrigins[index] ?? \"(unknown)\" }))\n    }\n  }\n\n  const streams = (): ReadonlyArray<Debug.StreamStatus> => {\n    const result: Array<Debug.StreamStatus> = []\n    const windowBoundary = world.retainedAfter()\n    const inspectStore = (\n      kind: Debug.StreamStatus[\"kind\"],\n      store: Streams.Streams<unknown>,\n      names: ReadonlyMap<symbol, string>\n    ): void => {\n      for (const entry of store.inspect()) {\n        let holder: { readonly system: string; readonly lastRun: number } | undefined\n        const readers = entry.readers.map((cursor): Debug.StreamReaderStatus => {\n          const known = streamReaders.get(cursor)\n          const system = known?.system ?? \"(unknown)\"\n          if (holder === undefined || cursor.streamLastRun < holder.lastRun) holder = { system, lastRun: cursor.streamLastRun }\n          return {\n            system,\n            unread: store.since(entry.key, cursor.streamLastRun).length,\n            lagged: known !== undefined && store.lagged(entry.key, known.reader.streamLastRun, known.reader.registeredAt)\n          }\n        })\n        const heldByReader = entry.oldestTick !== undefined && entry.oldestTick <= windowBoundary\n          && holder !== undefined && holder.lastRun < entry.oldestTick\n        result.push({\n          kind,\n          stream: names.get(entry.key) ?? \"(unknown)\",\n          size: entry.size,\n          capacity: store.capacity,\n          readers,\n          heldBy: heldByReader ? holder!.system : undefined\n        })\n      }\n    }\n    inspectStore(\"event\", events, debugNames!.events)\n    inspectStore(\"transitionEvent\", transitionEvents as Streams.Streams<unknown>, debugNames!.machines)\n    inspectStore(\"relationFailure\", relationFailures as Streams.Streams<unknown>, debugNames!.relations)\n    return result\n  }\n"
+    },
+    {
+      "path": "/home/node/.bend/bend2/base.bend",
+      "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+      "firstLine": 2245,
+      "lastLine": 2255,
+      "source": "def Array.size.node(-T: Type, ys: Array<T>, r: Array<T> & U32) ->\n  Array<T> & U32:\n  (xs2, n) = r\n  (ANode{xs2, ys}, U32.shl(n))\n\ndef Array.size(-T: Type, a: Array<T>) -> Array<T> & U32:\n  match a:\n    case ALeaf{x}:\n      (ALeaf{x}, 1)\n    case ANode{xs, ys}:\n      Array.size.node(T, ys, Array.size(T, xs))"
+    },
+    {
+      "path": "/home/node/.bend/bend2/base.bend",
+      "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+      "firstLine": 2369,
+      "lastLine": 2375,
+      "source": "def Array.new(-T: Data, +d: Nat, +v: T) -> Array<T>:\n  match d:\n    case 0n:\n      ALeaf{v}\n    case 1n+p:\n      ANode{[v : T^p], [v : T^p]}\n"
+    }
+  ],
+  "open": [
+    "Independent full TS physical model not yet derived",
+    "Node complete capture not yet executed; no equivalent complete-feature/performance claim",
+    "No fabricated foreign entity authority, missing resource representation or held-view policy"
+  ],
+  "ordinaryScopes": {
+    "remove": "remove-v1/reference.mjs",
+    "despawn": "despawn-v1/reference.mjs"
+  },
+  "payloadJoin": {
+    "Bend": "Array.new(U32,0n,42/43/17) is ALeaf{value}; Array.size(ALeaf)=1",
+    "TypeScript": "Literal vectors [42], [43], [17], one cell each; Other despawn omits OtherPosition entirely, no empty-vector substitute",
+    "identity": "Position and OtherPosition are distinct descriptors/domain identities; 42/43 are payload values only"
+  },
+  "registrationSuccessor": {
+    "predecessorCommit": "54fca8c45",
+    "predecessorConsumerSHA256": "3984adf4726e1e76cfdff747899df87507aceb54659785807abab5e15d6d204f",
+    "previousScope": "Unexecuted late-reader comparison; first operational reader ran after publication",
+    "actualSetup": "Real public rt.tick(readerSchedule) before mutation; initialReadStatus, initial empty lifecycle result and registeredBeforePublication complete snapshot retained",
+    "physicalDifferences": "Extra real frame/tick and Inspector snapshot remain in full TS oracle; no private registration or normalization"
+  }
+}
