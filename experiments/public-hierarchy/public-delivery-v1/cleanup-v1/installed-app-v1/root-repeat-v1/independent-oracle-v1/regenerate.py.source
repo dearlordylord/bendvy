@@ -1,0 +1,29 @@
+"""Source pins and finite state/serializer checks; no runtime-output inputs."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    source=HERE.parent/'SOURCE-COMPLETE.json';capture=json.loads(source.read_text());pins=capture['sourceInventory'].copy()
+    assert len(pins)==74
+    for p,h in pins.items():assert sha(p)==h,p
+    m=runpy.run_path(str(HERE/'model.py.source'));base=m['BASE'];World=m['World']
+    w=World();w.cleanup(2);assert w.live=={1,3} and w.payloads=={1,3}
+    w.cleanup(1);assert not w.live and not w.payloads and not w.edges and not w.inverses
+    assert w.events==['Removed:4','Original:1004','Removed:2','Original:1002','Removed:3','Original:1003','Removed:1','Original:1001']
+    before=w.snapshot();w.cleanup(1);assert w.snapshot()==before
+    assert m['scene']().split('\nROOT_QUEUE=',1)[0]==base['scene']()
+    raw=m['expected']();text=raw.decode()
+    assert text.count('|meta=')==18 and text.count('owners=19,|recipe=Recipe{}')==18
+    assert text.count('|pending=2')==2 and text.count('|pending=1')==4
+    assert text.count('DEAD_REPEAT_QUEUE=MissingEntity:Success')==2
+    assert text.count('Removed:1;')==6 and text.count('Removed:3;')==6
+    dependency=m['DEPENDENCY'];assert sha(dependency)=='b0a3e43a7ad41781b78b5042599cac526bfcfd16313922a8d7e45e35d6c084d3'
+    for p in [source,dependency,HERE/'model.py.source',HERE/'regenerate.py.source',Path('/home/node/.bend/bend2/base.bend'),Path('/home/node/.bend/bend2/effs/print.js'),Path('/home/node/.bend/bend2/effs/print.c')]:pins[str(p)]=sha(p)
+    basis={'producerCommit':'56825eb7c','sourcePins':pins,'entry':str(HERE.parent/'entry.bend'),'sourcePositiveOriginal':35035,'derivation':'Source-only exact original installed four-snapshot scene via pinned immutable model algorithm. Actual reserved h1 is retained. After intermediate cleanup2, root remains live1 with child3. First successful wrapper invocation validates live h1 and commits one deferred command, snapshot pending1. Duplicate invocation before barrier still sees live h1, commits a second command, pending2. FIFO barrier first automatic cleanup runs postorder3,1, clears payloads through SAME Binding Clear.leaf and appends Removed3/Original1003 then Removed1/Original1001; second automatic sees deadtarget and completes unchanged. Full graph/inverses/live/payload owners become empty, resource arrays17/18 and owner19 retain, lifecycle/clock/registrations remain unchanged. Later wrapper validates W.valid false, returns MissingEntity:Success without scheduling; pending snapshot and barrier-applied snapshot identical. Recipe retains installed Parent and Link descriptors but live row lists empty. Exact helper string concatenations preserve LF after snapshots and separators. IO.print adds terminal LF. No runtime output input.','limits':['Finite two nominal schemas, eighteen full snapshots; no universal proof or general finalizer/IO Drop claim.','Underlying automatic deadtarget Complete differs from wrapper MissingEntity queue status.','No new retention, exactly-once, cleanup or ownership policy.','Original accepted four-snapshot model is pinned algorithm dependency, not observed output.']}
+    b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle},indent=2)+'\n')
+    result={'sourcePins':len(pins),'physicalSnapshots':18,**oracle};(HERE/'SELFTEST.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+if __name__=='__main__':regenerate()
