@@ -1,0 +1,47 @@
+{
+  "parent": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1",
+  "changes": [
+    {
+      "file": "types.bend",
+      "beforeSHA256": "9edf636d52257c5fc74b44a7b5e9ad1ef995daa62d99da2c0560dec2069de717",
+      "afterSHA256": "9edf636d52257c5fc74b44a7b5e9ad1ef995daa62d99da2c0560dec2069de717",
+      "equal": true,
+      "diff": ""
+    },
+    {
+      "file": "lenses.bend",
+      "beforeSHA256": "cf466448e74f4dfe9aff265087b456443a500b91725c78c31e8b695c8ab43945",
+      "afterSHA256": "cf466448e74f4dfe9aff265087b456443a500b91725c78c31e8b695c8ab43945",
+      "equal": true,
+      "diff": ""
+    },
+    {
+      "file": "application.bend",
+      "beforeSHA256": "13711e24896b276ce64b34df9049498b7efe500882de76f7d50f1856251c5895",
+      "afterSHA256": "13711e24896b276ce64b34df9049498b7efe500882de76f7d50f1856251c5895",
+      "equal": true,
+      "diff": ""
+    },
+    {
+      "file": "observe.bend",
+      "beforeSHA256": "f87227f9e209a8df04b1f9efbdcdb0f39dc99b0ed0346d8329cccc4f26338993",
+      "afterSHA256": "f87227f9e209a8df04b1f9efbdcdb0f39dc99b0ed0346d8329cccc4f26338993",
+      "equal": true,
+      "diff": ""
+    },
+    {
+      "file": "systems.bend",
+      "beforeSHA256": "bc96504c9320654cdbf466cdb989381783d89307ba171188b32ede72a0b853d6",
+      "afterSHA256": "d08fdb4e4373f487fd5dca3acfec965fe8962a8796ffc7e1089f01065083413d",
+      "equal": false,
+      "diff": "--- \n+++ \n@@ -93,7 +93,7 @@\n     case W.World{ns,next,high,live,capacity,depth,store,T.Resources{owned,sibling,first,second,firstStream,secondStream,firstReader,secondReader,locals,firstTick,secondTick,trace,firstDelivered,secondDelivered,applied},events,pending,registrations,nextSystem,clock}:first_local_restored(~S,W.World{ns,next,high,live,capacity,depth,store,T.Resources{owned,sibling,first,second,firstStream,secondStream,firstReader,secondReader,[],firstTick,secondTick,trace,firstDelivered,secondDelivered,applied},events,pending,registrations,nextSystem,clock},locals_first(locals,id))\n def first_outcome(phase:H.Phase,first:Bool) -> Tx.Outcome<String>:\n   match phase first:\n-    case H.Transition{} True{}:Tx.Failure{\"transition-first-attempt\"}\n+    case H.Exit{} True{}:Tx.Failure{\"exit-first-attempt\"}\n     case _ _:Tx.Success{}\n def first_selected(~S:Data,+phase:H.Phase,pair:W.World<S,T.Store<S>,T.Resources<S>,T.Pulse> & Bool) -> Sys.Outcome<W.World<S,T.Store<S>,T.Resources<S>,T.Pulse>,String,Unit>:\n   (world,first)=pair\n"
+    },
+    {
+      "file": "main.bend",
+      "beforeSHA256": "9acd771e91e3db6b7f55d997734eae62c95cff712eef071f3f6f7a0815d8cd39",
+      "afterSHA256": "9acd771e91e3db6b7f55d997734eae62c95cff712eef071f3f6f7a0815d8cd39",
+      "equal": true,
+      "diff": ""
+    }
+  ]
+}
