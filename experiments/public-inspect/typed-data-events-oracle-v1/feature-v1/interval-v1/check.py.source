@@ -40,7 +40,7 @@ changed=[]
 for path,digest in plan['pins'].items():
  if sha(path)!=digest:changed.append(path)
 assert not changed,changed
-(o/'SOURCE-BASIS.json').write_text(json.dumps({'producerCommit':'d793ea5da','sourcePins':pins,'planSHA256':sha(a/'PLAN.json'),'planPinsCurrent':len(plan['pins']),'executionDependencies':[str(old/f) for f in ['bend-model.py.source','ts-model.py.source','common.py.source']]+[str(p/'tree-v1/model.py.source'),str(p/'leaf-v1/model.py.source')],'scope':'Conditional complete semantic stdout applicability, no current compiled/source-positive/actual runtime or timing qualification.'},indent=2)+'\n')
+(o/'SOURCE-BASIS.json').write_text(json.dumps({'producerCommit':'b8f2feb19','sourcePins':pins,'planSHA256':sha(a/'PLAN.json'),'planPinsCurrent':len(plan['pins']),'executionDependencies':[str(old/f) for f in ['bend-model.py.source','ts-model.py.source','common.py.source']]+[str(p/'tree-v1/model.py.source'),str(p/'leaf-v1/model.py.source')],'scope':'Conditional complete semantic stdout applicability, no current compiled/source-positive/actual runtime or timing qualification.'},indent=2)+'\n')
 (o/'ORACLES.json').write_text(json.dumps(cat,indent=2)+'\n')
 (o/'CHECKS.json').write_text(json.dumps({'TSExactInverse':True,'BendFiniteRendererBytesEqual':True,'finiteStringsNeedNoEscaping':True,'snapshots':72,'operationIntervals':17,'systemRuns':15,'frameOnlyOperations':2,'bendBytes':len(raw),'bendSHA256':hashlib.sha256(raw).hexdigest(),'TSBytes':len(tr),'TSSHA256':hashlib.sha256(tr).hexdigest(),'planPinsCurrent':len(plan['pins']),'generatedEvaluationCheckNotExecuted':True},indent=2)+'\n')
 print({'bendBytes':len(raw),'TSBytes':len(tr),'planPins':len(plan['pins'])})
