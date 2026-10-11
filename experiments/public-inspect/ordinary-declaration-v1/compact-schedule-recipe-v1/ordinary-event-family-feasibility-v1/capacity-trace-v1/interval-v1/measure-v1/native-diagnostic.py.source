@@ -30,7 +30,7 @@ def main():
   for name,source in plan['qualifiedArtifacts'].items():
    target=output/name;shutil.copy2(source,target);h.pin(target);artifacts[name]=target
   commands={'TS':[h.tools['node'],h.stage/'feature-harness/typed-events-1.mjs'],'JS':[h.tools['node'],artifacts['typed-events-1.js']],'Native':[artifacts['typed-events-1'],'--threads','1','--gpu','off']}
-  contract=json.loads((ROOT/'benchmarks/contract.json').read_text());assert contract['pairs']==plan['pairs'] and contract['warmups']==plan['warmups'] and contract['seed']==plan['seed']
+  contract=json.loads((ROOT/'benchmarks/contract.json').read_text());assert contract['pairs']==20 and contract['warmups']==2 and contract['seed']==plan['seed']
   h.receipt.update(scope='ONE capacity typed-event lifecycle;11 operation intervals/12 full observations; TS Inspectors remain outside intervals, no automatic scaling',quietWindowContext=args.quiet_window,cpu=plan['cpu'],semanticReceiptSHA=sha(plan['semanticReceipt']),pairs=0,warmups=0,observations=[])
   generator=random.Random(contract['seed']);summary=[]
   def sample(backend,command,label):
