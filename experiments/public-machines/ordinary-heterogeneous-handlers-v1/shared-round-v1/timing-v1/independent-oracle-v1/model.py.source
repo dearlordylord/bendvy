@@ -1,0 +1,21 @@
+"""Source-derived full timer stdout; no runtime output inputs."""
+from pathlib import Path
+import runpy
+HERE=Path(__file__).resolve().parent
+PARENT=HERE.parents[1]/'independent-oracle-v1'
+BEND=PARENT/'bend-model.py.source'
+TS=PARENT/'dump-order-v3/ts-model.py.source'
+def expected(platform,scale):
+    assert scale in (1,2,4)
+    if platform=='bend':
+        items,_=runpy.run_path(str(BEND))['observations']()
+        assert len(items)==13
+        single=('\n'.join(items)+'\n').encode('utf-8')
+    else:
+        assert platform=='ts'
+        single=runpy.run_path(str(TS))['expected']()
+    return single*scale
+def digest(raw):
+    result=2166136261
+    for byte in raw: result=((result^byte)*16777619)&0xffffffff
+    return result
