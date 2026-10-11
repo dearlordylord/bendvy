@@ -1,0 +1,29 @@
+"""Source-only staged retention boundary/capacity models; no backend inputs."""
+from pathlib import Path
+import runpy,ast,re,json,os
+HERE=Path(__file__).resolve().parent
+BASE=HERE.parents[4]
+AUTHOR=Path('/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/interval-v1/profiles-v1/repeat-v1/capacity-count-v1')
+join=json.loads((AUTHOR/'NEEDED-SOURCE-JOIN.json').read_text())
+stage=Path(join['afterStage'])/'stage'
+ls=lambda xs:'['+', '.join(xs)+']'
+def boundary():
+ s=(stage/'feature-harness/capacity-boundary.bend').read_text().split('def main()')[1].split('  ',1)[1].strip()
+ s=re.sub(r'(\d+)n',r'\1',s).replace('row(', '(').replace('Ev.Batch{','(').replace('}',')')
+ cases=ast.literal_eval(s)
+ show=lambda b:str(b[0])+':'+ls(map(str,b[1]))
+ rows=[]
+ for cap,dropped,batches in cases:
+  original=ls(map(show,batches));kept=list(batches);d=dropped
+  while kept and sum(len(x[1]) for x in kept)>cap:
+   tick,_=kept.pop(0);d=max(d,tick)
+  rows.append(f'cap={cap};initial={dropped};input={original};drop={d};batches='+ls(map(show,kept)))
+ return (ls(json.dumps(x) for x in rows)+'\n').encode()
+def capacity():
+ m=runpy.run_path(str(BASE/'capacity-v1/bend-model.py.source'))
+ derive=m['derive'];g=derive.__globals__;old=g['qname']
+ def relocated(path,entry):
+  if str(path)=='/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend':path=stage/'src/ecs/event-runtime.bend'
+  return old(path,entry)
+ g['qname']=relocated
+ return derive(stage/'qualified-capacity',stage/'qualified-capacity')[0]
