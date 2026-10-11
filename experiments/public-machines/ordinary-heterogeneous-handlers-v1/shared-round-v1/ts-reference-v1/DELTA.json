@@ -1,0 +1,23 @@
+{
+  "original": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/reference.mjs",
+  "originalSHA256": "06765bfa06a30965313d3df3d73e02c76086c427653c3eefdebb8b2cc4bae7c9",
+  "candidate": "reference.mjs",
+  "candidateSHA256": "67681d8a5767523f44df4f8824e27c09b92aac63c4e837162dc24bf6afbb5562",
+  "changes": [
+    {
+      "from": "ctx=>firstDelivered.push(...clone(ctx.transitionEvents.first.all()))",
+      "to": "ctx=>{firstDelivered.push(...clone(ctx.transitionEvents.first.all()));}",
+      "count": 1
+    },
+    {
+      "from": "ctx=>secondDelivered.push(...clone(ctx.transitionEvents.second.all()))",
+      "to": "ctx=>{secondDelivered.push(...clone(ctx.transitionEvents.second.all()));}",
+      "count": 1
+    }
+  ],
+  "API": "Pinned Runtime.ts1408: undefined callbacks succeed, otherwise effect.run(context.services).",
+  "oldSourceModelLimit": "Original TS model simulated intended void callbacks but original arrow source returned numbers; original packet retained, no old-source execution credit.",
+  "captureSHA256": "eb84f15c5e5ffc62457c7a04d82b1d0f831ed0e9da1b8961854c9a86ced1d00f",
+  "captureByteExact": true,
+  "oldBendInputsPreserved": true
+}
