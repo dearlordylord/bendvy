@@ -41,3 +41,33 @@ Admit one existing conditional sequence with absolute PLAN-v4 and its exact dige
 Spec/Standards: PASS for bounded evidence retention only; no new launch admission. All18 indexed archive rows/12 objects verify exact lengths/SHA. Actual79113 outer0 retains two successful tiny emissions with identical74978-byte C/678bd29c, followed by full copied30s child deadline/no C. No build or runtime occurred. All441 current pins/16 links remain exact.
 
 Recomputing raw marker differences gives book-read-enter→book-load-complete385.448236ms and book-valid-enter→book-read-complete22,380.032122ms (1676 definitions). These intervals describe this copied, instrumented run, including observer/runtime effects; the latter boundary includes the remaining book_read tail. They support a diagnostic validation hypothesis, not stock causality, pure function timing or compiler/runtime equivalence. Full source5 and stock Native30 qualification remain absent. Root source-candidate research and any future diagnostic are not approved by this outcome addendum. No reviewer execution.
+
+## Current V5 per-definition observation launch
+
+Spec/Standards: PASS, bounded changed-subject diagnostic admission at immutable80d8aa5c0/configuredf75680 terminal0. PLAN-v5 SHA256 `fac09386b11e2149b7fd46611ad845dc3634f8101d3171e8bc6d1a6da544f1e6`;458 current regular pins/16 links match and actual05 is absent.
+
+Three new observations lie only inside book_valid: enter after identifying the current ordered definition, completion before the ADT continue and completion at the ordinary loop bottom. They read index/key/time and write synchronous stderr; neither checking statements, book mutation, fin/done conditions nor exception paths are replaced. Their literal inverse exactly reconstructs observed-cli-v2, whose earlier inverse joins the original embedded015d payload. An absent completion means this attempt did not reach that marker, not a proven culprit or semantic failure classification. Per-definition intervals include observer IO/JIT/runtime effects and are not stock timings.
+
+The full subject now intentionally uses current worklist-v5/main.bend and its cwd, previously reviewed complete32-scenario JS/model source. This is a new diagnostic subject binding, not reuse of old full-format timings. All source/model/resource inputs are frozen; code/environment/caps/launcher/control source remain. Commands change only observed-cli-v3, current full subject, and fresh actual05 artifacts. Two tiny5s stock/copied success+exact C equality still gate the single full30s copied attempt; root queue release/fresh bindings/output and prior outer55s supervision remain required.
+
+Logs remain data-dependent, time-bounded runner captures rather than fixed-byte or noninterfering telemetry. No installed source mutation, build/runtime/Native acceptance, general compiler equivalence, speed/cause or issue closure. This review ran no child.
+
+## Retained actual05 per-definition frontier — 6b0aec4aa
+
+Spec/Standards: PASS for bounded outcome retention only. All16 archive rows/10 objects verify exact length/SHA. Actual13971 outer0 retains tiny C equality followed by full copied current-V5 childdeadline30/no C. All458 current input bodies match; recorded458 postpins/16 links unchanged. No compilation, build or runtime qualification follows.
+
+Raw stderr is461798 bytes/3224 complete JSON records:3 coarse markers,1611 ordered validation-enter records and1610 matched completion records. Enter indices are0..1610; completed indices0..1609 with matching definition names and nonnegative spans. The final record enters execute/index1610 at1440.069919ms; no corresponding completion, book-read-complete or compile-enter is present. Counts reconcile exactly:3+1611+1610=3224. This establishes the last observed frontier at interruption, not a pure culprit, semantic proof or stock timing attribution. Marker IO and copied launch/filesystem/JIT differences remain material limits. No future V6 or diagnostic launch is admitted; reviewer ran no child.
+
+## V6 nested-check/cache-miss observation launch
+
+Spec/Standards: PASS for bounded changed-portion admission at immutable6001d21ae/configuredb0d0e8 terminal0. PLAN-v6 SHA256 `e2f7c19136edcbcee52492b8a44921e402493091691cb83f918b0b6613727d41`;459 current pins/16 links match, actual06 absent.
+
+Three literal patches exactly reverse observed-cli-v4 to observed-cli-v3: def_check entry, result capture/completion before returning the same term_check(...).tm, and enter/completion surrounding def_check only inside the existing def_inst cache-miss branch. Existing cache keys/maps, insertion order, placeholders, depth limit and result assignment are unchanged. Logs read definition/template/caller names, depth and time; they do not serialize template values or mutate compiler state. Missing completions and nested spans remain bounded observations, not proven causes; durations overlap and synchronous stderr IO adds overhead/failure paths.
+
+The full source/cwd intentionally advances to worklist-v6. Command arrays differ only by this subject, copied observer filename and fresh actual06 artifacts; tiny source, environment, caps, launcher, internal lock and C-equality gate remain. V6 ordinary full JS/Native archive preparation is separate; no pending evidence is treated as completed qualification by this launch review.
+
+Admit exact existing launcher + absolute PLAN-v6 + digest after root queue/fresh bindings/output checks, retaining prior outer55s supervision. Two5s successful tiny emits with equal C still gate at most one copied30s full attempt. No retry/cap change, value cache experiment, production compiler modification, general equivalence, Native/performance claim or future launch admitted. Reviewer ran no child.
+
+## Retained nested V6 outcome — 9c0ffee7c
+
+Spec/Standards: PASS for bounded retention. Phase archive17 rows/11 objects verifies every body. Actual64231 outer0 retains tiny C equality and full copied30s deadline/no C,459 postpins unchanged. Raw2,563,234 bytes contain11,445 complete JSON records. A LIFO match of def_check names/depth confirms inclusive run_case~0=19,000.735466ms and nested application:run~4=18,631.897845ms. These overlap, must not be summed, and include copied observer costs. execute/run_case~1 and their nested application chain remain open at interruption. No pure culprit, stock cause, Native or performance result; future source repair is not admitted.

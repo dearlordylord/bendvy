@@ -1,0 +1,20 @@
+{
+  "scope": "Nested def_check spans and def_inst cache misses only; names/depth/ms, no template values; observer IO/time-bounded logs",
+  "predecessorSHA256": "a53543419335f7650d3b7d496eabe6fd08087d86659ae2e3bb14cd5fe133a369",
+  "successorSHA256": "abba25adc468f451dd673effb2aeca02ab50faf9e3539519ce9da194758894b1",
+  "inverseExact": true,
+  "additionalPatches": [
+    {
+      "before": "function def_check(book, k, def, z) {",
+      "after": "function def_check(book, k, def, z) {\n  fs4.writeSync(2, JSON.stringify({phase:\"def-check-enter\",ms:performance.now(),definition:k,depth:z ?? 0})+\"\\n\");"
+    },
+    {
+      "before": "  return term_check(gen, { t, n: def.n - def.x, def: k, qs, u: def.u, z }, v, Lone(), T, ctx_nil(), 0).tm;",
+      "after": "  const checked = term_check(gen, { t, n: def.n - def.x, def: k, qs, u: def.u, z }, v, Lone(), T, ctx_nil(), 0).tm;\n  fs4.writeSync(2, JSON.stringify({phase:\"def-check-complete\",ms:performance.now(),definition:k,depth:z ?? 0})+\"\\n\");\n  return checked;"
+    },
+    {
+      "before": "    inst.e = def_check(book, o, inst, z);",
+      "after": "    fs4.writeSync(2, JSON.stringify({phase:\"inst-cache-miss-enter\",ms:performance.now(),template:tm.k,definition:o,caller:lhs.def,depth:z})+\"\\n\");\n    inst.e = def_check(book, o, inst, z);\n    fs4.writeSync(2, JSON.stringify({phase:\"inst-cache-miss-complete\",ms:performance.now(),template:tm.k,definition:o,caller:lhs.def,depth:z})+\"\\n\");"
+    }
+  ]
+}
