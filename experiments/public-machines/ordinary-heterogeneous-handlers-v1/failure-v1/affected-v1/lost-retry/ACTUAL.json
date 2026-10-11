@@ -1,0 +1,280 @@
+{
+  "status": "COMPLETE_REACHED_PRIVATE_CURRENT_PHASE_MUTANT",
+  "subject": "lost-retry",
+  "sourceCommit": "425f17141",
+  "oracleCommit": "de84c0231",
+  "originalSessions": {
+    "source": 99740,
+    "JS": 13408,
+    "Native": 30957
+  },
+  "allOriginalSessionsTerminal": true,
+  "wholeBytes": 23311,
+  "wholeSHA256": "a02b3af5a0b29c8123472ca9a2e9ae742fbc371dcdbfe21e31ef3094db6a37e4",
+  "normalBaselineBytes": 23694,
+  "normalBaselineSHA256": "3659487db2e5f8345dea4be2a73cdeec4970e81a3fde41ff28358bdca664e07c",
+  "normalBaselineRejectedBoth": true,
+  "differences": [
+    {
+      "role": "js",
+      "firstDifferenceZeroBased": 4700,
+      "normalExcerpt": "de(leaf:21,leaf:22)|first={Cold:pending=Warm:False:previous=Cold:changed=False}|second={Idle:pending=Active:7:",
+      "mutantExcerpt": "de(leaf:21,leaf:22)|first={Cold:pending=None:previous=Cold:changed=False}|second={Idle:pending=Active:7:False:"
+    },
+    {
+      "role": "native",
+      "firstDifferenceZeroBased": 4700,
+      "normalExcerpt": "de(leaf:21,leaf:22)|first={Cold:pending=Warm:False:previous=Cold:changed=False}|second={Idle:pending=Active:7:",
+      "mutantExcerpt": "de(leaf:21,leaf:22)|first={Cold:pending=None:previous=Cold:changed=False}|second={Idle:pending=Active:7:False:"
+    }
+  ],
+  "commands": 5,
+  "guards": 17,
+  "currentPins": {
+    "js": 265,
+    "native": 265
+  },
+  "receipts": {
+    "js": {
+      "scope": "Ordinary heterogeneous handlers: two distinct typed public Bundles in one World, explicitly authored marker order, actual callbacks/readers and complete affine owners; ten whole failure/retry snapshots and Factory; prior Exit commits, Transition Local retained/transaction rolled back, no initialization/new policy/performance",
+      "planSHA256": "eda0010f7a6f4173f717a236285e8be573a0b8adfe40ad758fdbdd490912ee82",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/main.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/scenario.js"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/scenario.js"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/consumer.stdout",
+            "sha256": "a02b3af5a0b29c8123472ca9a2e9ae742fbc371dcdbfe21e31ef3094db6a37e4",
+            "bytes": 23311,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": [
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/emit-pre.guard.json",
+          "sha256": "5b91296e400e044356ba95e2708c4d1a34dc82776e9c76a460473ba525ae106b"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/emit-acquired.guard.json",
+          "sha256": "2c5e0db3c04bd0b12e82153228210e01efa3c630fcd052422c0b56f640b73dcd"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/emit-post.guard.json",
+          "sha256": "007306ea4b8c412de220cdea18e769aa01e2ad0060c6333884e615cdf8420c5d"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/consumer-pre.guard.json",
+          "sha256": "20874c9af63831f4db82cbc16d0f3fd51643e3395577e58b6f444b407a7937c9"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/consumer-acquired.guard.json",
+          "sha256": "285da46ad9de3e09fd273c40ac19c52b1a1a59e55c29a7c02b41af05b6d87b3a"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/consumer-post.guard.json",
+          "sha256": "a2fe89b23e25fe8190769f9edd014edc786d00073e50550feaeab916c19d0ba7"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/js/final.guard.json",
+          "sha256": "cfe7e9e57a8ccae5daa7e24dfa7000a65d99dc315e099c3dd1188b055767e270"
+        }
+      ],
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "emitArtifactSHA256": "699e831439e726c8905820efc71837a77d5b9ee5884860123e044ef3beda3ac8",
+      "wholeOracleSHA256": "a02b3af5a0b29c8123472ca9a2e9ae742fbc371dcdbfe21e31ef3094db6a37e4",
+      "completeNormalBaselineRejected": true
+    },
+    "native": {
+      "scope": "Ordinary heterogeneous handlers: two distinct typed public Bundles in one World, explicitly authored marker order, actual callbacks/readers and complete affine owners; ten whole failure/retry snapshots and Factory; prior Exit commits, Transition Local retained/transaction rolled back, no initialization/new policy/performance",
+      "planSHA256": "515088d83ce761d00dac0b29fdef7b1b1d8b5e3ac3b58c9fdbce5e977a973855",
+      "commands": [
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.bend/bin/bend-2.0.35",
+            "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/main.bend",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/scenario.c"
+          ],
+          "capSeconds": 30,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/emit.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/emit.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/scenario.c",
+            "-o",
+            "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/build.stdout",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/build.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5,
+          "exit": 0,
+          "failure": null,
+          "capture": "split",
+          "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+          "stdout": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/consumer.stdout",
+            "sha256": "a02b3af5a0b29c8123472ca9a2e9ae742fbc371dcdbfe21e31ef3094db6a37e4",
+            "bytes": 23311,
+            "published": true
+          },
+          "stderr": {
+            "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/consumer.stderr",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0,
+            "published": true
+          }
+        }
+      ],
+      "guards": [
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/emit-pre.guard.json",
+          "sha256": "5fd8308075a2f356933bbb3cc543600fe8c22d50e24e12484ef804ccbcab8a7f"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/emit-acquired.guard.json",
+          "sha256": "55586e0cf4174cf015fb3e88600f17f6978b3e23e2099eefb512c139216c43cc"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/emit-post.guard.json",
+          "sha256": "d73306c30573d0ed237d0f98d704a0284cd4e914778e1652524fad9aaa06e86b"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/build-pre.guard.json",
+          "sha256": "3103222fbd768253d993fe71324e25c0ad92c09f4f8e8f50194ef16ec56b9e58"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/build-acquired.guard.json",
+          "sha256": "37634a7f6c60c971549625cff3d1aed8b98f1a2bf0514d932b1fa94aa6e7b209"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/build-post.guard.json",
+          "sha256": "ee1e54f27d9692774935b49aa6dd4cb4ab15044834c5c563eeeb0a42eb8ccf45"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/consumer-pre.guard.json",
+          "sha256": "c20d6a270fac57f9fbb1e34e17020f9b8f55c13077878c02ea146d8c89261f3b"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/consumer-acquired.guard.json",
+          "sha256": "abe23755701999057e66b13e245573a534ec20417fcb0ac31754d6fed72232d1"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/consumer-post.guard.json",
+          "sha256": "7479dbf6a5338311486dbb2f2c2ebec31a459fe6e99771628a91ae855128233d"
+        },
+        {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/runtime01/native/final.guard.json",
+          "sha256": "21f1a727c709ce7da4997769782729e1fbf9f04621d68768c8b69478af2fa2a6"
+        }
+      ],
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "emitArtifactSHA256": "e26828e093dd9e7986dc51595eb5228a54ecf8da7a4bca5a36ea2354af5c4bba",
+      "buildArtifactSHA256": "4b16f8eb8c8922965fde7fdb2d2c5dd33393070035b292e9641b54da2dc89e27",
+      "wholeOracleSHA256": "a02b3af5a0b29c8123472ca9a2e9ae742fbc371dcdbfe21e31ef3094db6a37e4",
+      "completeNormalBaselineRejected": true
+    }
+  },
+  "scopeLabelCorrection": "Inherited collector scope labels the original Transition scene; actual subject is the sole exact DELTA change and full independent countermodel. Plans retained unchanged."
+}

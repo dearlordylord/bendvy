@@ -19,7 +19,7 @@ for role in ['js','native']:
  for c in plan['commands']:c['argv']=[mapping.get(x,x) for x in c['argv']]
  plan.update(scope='Ordinary heterogeneous handlers: two distinct typed public Bundles in one World, explicitly authored marker order, actual callbacks/readers and complete affine owners; ten whole failure/retry snapshots and Factory; prior Exit commits, Transition Local retained/transaction rolled back, no initialization/new policy/performance',subject='mutant',stage=str(stage),entrypoint=entry,sourceInventory=inventory,importClosure=closure,generated=generated,native=native,oracle=str(oracle),oracleSHA256=selected['sha256'],oracleBytes=selected['bytes'],normalOracle=str(baseline),normalOracleSHA256=selected['normalBaselineSHA256'],normalOracleBytes=selected['normalBaselineBytes'])
  plan['pins']=dict(inventory)
- extras=[Path(__file__),COLLECTOR,template,HERE/'FREEZE.json',cat]+[x for x in cat.parent.rglob('*') if x.is_file()]+[x for x in capture.rglob('*') if x.is_file()]+[Path(x) for x in json.loads(template.read_text())['pins'] if not x.endswith('.bend')]
+ extras=[Path(__file__),COLLECTOR,template,HERE/'FREEZE.json',cat,baseline]+[x for x in cat.parent.rglob('*') if x.is_file()]+[x for x in capture.rglob('*') if x.is_file()]+[Path(x) for x in json.loads(template.read_text())['pins'] if not x.endswith('.bend')]
  for x in extras:
   if x.is_file():plan['pins'][str(x.resolve())]=sha(x)
  assert all(sha(k)==v for k,v in plan['pins'].items())
