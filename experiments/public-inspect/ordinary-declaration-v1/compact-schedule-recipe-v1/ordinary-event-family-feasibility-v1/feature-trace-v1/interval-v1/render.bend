@@ -29,7 +29,15 @@ def observation(o:C.Observation) -> String:
     case C.Rejected{}:"consumer.Rejected{}"
     case C.Framed{}:"consumer.Framed{}"
     case C.SetupUnavailable{}:"consumer.SetupUnavailable{}"
+def inventory_text(value:Maybe<&2,List<&2,String>>) -> String:
+  match value:
+    case None{}:"None{}"
+    case Some{values}:"Some{" ++ List.show(&2,String,quoted,values) ++ "}"
+def completion_text(value:Maybe<&2,C.Observation>) -> String:
+  match value:
+    case None{}:"None{}"
+    case Some{value}:"Some{" ++ observation(value) ++ "}"
 def row(r:T.Row) -> String:
   match r:
-    case T.Row{enabled,inventory,completion,physical}:"trace.Row{" ++ boolean(enabled) ++ ", " ++ Maybe.show(&2,List<&2,String>,xs => List.show(&2,String,quoted,xs),inventory) ++ ", " ++ Maybe.show(&2,C.Observation,observation,completion) ++ ", " ++ quoted(physical) ++ "}"
+    case T.Row{enabled,inventory,completion,physical}:"trace.Row{" ++ boolean(enabled) ++ ", " ++ inventory_text(inventory) ++ ", " ++ completion_text(completion) ++ ", " ++ quoted(physical) ++ "}"
 def rows(rs:List<&2,T.Row>) -> String:List.show(&2,T.Row,row,rs)

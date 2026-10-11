@@ -1,0 +1,95 @@
+{
+  "originalHandle": 79094,
+  "terminalExit": 1,
+  "status": "INCOMPLETE_FULL_OUTPUT_MISMATCH",
+  "commands": [
+    {
+      "label": "typed-events-1-check",
+      "command": [
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/tmp/bendvy-typed-data-events-interval-stage08/stage/feature-harness/typed-events-1.bend",
+        "--check-only"
+      ],
+      "cap": 5,
+      "exit": 1
+    },
+    {
+      "label": "typed-events-1-emit-JS",
+      "command": [
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/tmp/bendvy-typed-data-events-interval-stage08/stage/feature-harness/typed-events-1.bend",
+        "-o",
+        "/tmp/bendvy-typed-data-events-interval-correctness07/typed-events-1.js"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "typed-events-1-emit-Native",
+      "command": [
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/tmp/bendvy-typed-data-events-interval-stage08/stage/feature-harness/typed-events-1.bend",
+        "-o",
+        "/tmp/bendvy-typed-data-events-interval-correctness07/typed-events-1.c"
+      ],
+      "cap": 30,
+      "exit": 0
+    },
+    {
+      "label": "typed-events-1-compile",
+      "command": [
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/tmp/bendvy-typed-data-events-interval-correctness07/typed-events-1.c",
+        "-o",
+        "/tmp/bendvy-typed-data-events-interval-correctness07/typed-events-1",
+        "-pthread",
+        "-lm"
+      ],
+      "cap": 120,
+      "exit": 0
+    },
+    {
+      "label": "timer-protocol",
+      "command": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/interval-v1/controls.mjs"
+      ],
+      "cap": 5,
+      "exit": 0
+    },
+    {
+      "label": "typed-events-1-JS",
+      "command": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-typed-data-events-interval-correctness07/typed-events-1.js"
+      ],
+      "cap": 5,
+      "exit": 0
+    }
+  ],
+  "terminalPostguard": {
+    "planSHA256": "6538b653a874ce81c1f8ce555f98bf20266f60a19c2e1d17b7565f9197f68f5e",
+    "drift": [],
+    "primaryError": "AssertionError('Complete72row platform observation mismatch')",
+    "harnessPostguard": "UNCHANGED"
+  },
+  "actualJS": {
+    "bytes": 78013,
+    "sha256": "0d5ed1974da24178906b7269499565d8434decc25b53ebb9cf400effd2b8213b",
+    "firstDifference": 24
+  },
+  "failure": "Base.Maybe.show produces None and Some(...) versus original constructor grammar None{} and Some{...}; entire output preserved without normalization or qualification",
+  "generatedBarrier": "PASS",
+  "ordinalProtocol": "PASS",
+  "Native": "NOT_EXECUTED",
+  "TS": "NOT_EXECUTED",
+  "archiveSHA256": "ac5403635a96469910e08b02c663f1aaaaa1a29692fc172904a51decdb381742",
+  "outerStreams": "Original API stdout empty/full traceback stderr captured with terminal exit1"
+}
