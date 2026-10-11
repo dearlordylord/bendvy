@@ -1,0 +1,22 @@
+from pathlib import Path
+import json,hashlib,runpy,gzip
+p=Path(__file__).resolve().parent;b=json.loads((p/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs','modelPins'):
+ for path,digest in b[group].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==digest,path
+r=json.loads(Path(b['relocationPath']).read_text());source=Path(r['target']).read_text()
+for entry in r['importRebindings']:
+ assert source.count('import '+entry['to']+' as ')==1
+ source=source.replace('import '+entry['to']+' as ','import '+entry['from']+' as ')
+assert source==Path(r['source']).read_text() and len(r['importRebindings'])==7
+for tag in ('a','b'):
+ entry=Path(r['target']).with_name('entry-'+tag+'.bend').read_text();assert f'C.main_trace(~P.Schema{tag.upper()},C.create(~P.Schema{tag.upper()}))' in entry
+schedule=Path(r['publicSchedule']).read_text();assert 'case (world,Fail{error}): Sch.Failed{Sch.Schedule{namespace,name,all,owners},world,error,observations}' in schedule
+assert 'case (world,Done{allowed}): Sch.conditioned_skip' in schedule
+assert 'P.frame(~S,world)' in source
+m=runpy.run_path(str(p/'model.py.source'));v=json.loads((p/'ORACLES.json').read_text())
+for key,fun in [('normal','normal'),('fail-false-conditional','control')]:
+ raw=m[fun]();item=v[key];assert len(raw)==item['bytes'] and hashlib.sha256(raw).hexdigest()==item['sha256'];assert raw==gzip.decompress(Path(item['stdout']).read_bytes())
+normal=runpy.run_path(str(p/'normal-model.py.source'));a=normal['App']();a.run();a.flow=None;prior=(a.tick,list(a.fs.positions),list(a.levels.positions),a.queued,list(a.deliveries));a.run();assert a.status=='ConditionMissing:[Flow]' and a.observations==['entered:condition-preflight'];assert (a.tick,a.fs.positions,a.levels.positions,a.queued,a.deliveries)==prior
+control=runpy.run_path(str(p/'control-model.py.source'));z=control['App']();z.run();z.flow=None;z.run();assert z.status=='finished' and z.observations==['entered:condition-preflight','skipped:1','skipped:2']
+assert m['normal']()!=m['control']()
+print('PASS: current39sourcepins/sevenimports/A-Bnominals/Failordering/full3733normal+conditional3740control; no runtime inputs or control execution binding')

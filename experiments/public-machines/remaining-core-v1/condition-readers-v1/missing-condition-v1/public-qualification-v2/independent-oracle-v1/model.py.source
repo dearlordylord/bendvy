@@ -1,0 +1,5 @@
+from pathlib import Path
+import runpy
+HOME=Path(__file__).resolve().parent
+def normal():return runpy.run_path(str(HOME/'normal-model.py.source'))['render']()
+def control():return runpy.run_path(str(HOME/'control-model.py.source'))['render']()

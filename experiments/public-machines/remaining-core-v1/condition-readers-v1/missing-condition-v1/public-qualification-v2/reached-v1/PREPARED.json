@@ -1,0 +1,16 @@
+{
+  "scope": "Reached public condition Fail\u2192false skip mutation, existing approved missingcondition discriminator only",
+  "target": "/workspace/formal-proofs/bendvy/src/ecs/schedule-checked.bend",
+  "beforeSHA256": "e6c38354be34c3763e2c79d8c078065d5b62e1a628230f222a3158031dccbfb4",
+  "afterSHA256": "270b9077bc2687565b7392f7616fc7180a57cc4ab444058bf0c70da12672a69f",
+  "preparedSource": "/workspace/formal-proofs/bendvy-worktrees/checked48-public-condition-v1/experiments/public-machines/remaining-core-v1/condition-readers-v1/missing-condition-v1/public-qualification-v2/reached-v1/schedule-checked.bend.source",
+  "patch": {
+    "before": "case (world,Fail{error}): Sch.Failed{Sch.Schedule{namespace,name,all,owners},world,error,observations}",
+    "after": "case (world,Fail{_}): Sch.conditioned_skip(~S,~C,~R,~E,~H,~Error,~skip,~dispatch,next,False{},owners,world,namespace,name,all,observations,id)",
+    "matches": 1
+  },
+  "sameOrdinaryEntry": "/workspace/formal-proofs/bendvy-worktrees/checked48-public-condition-v1/experiments/public-machines/remaining-core-v1/condition-readers-v1/missing-condition-v1/public-qualification-v2/entry-a.bend",
+  "model": "conditional3740/7e03ec7a expected requires actual applied source freeze",
+  "ownership": "Root alone applies/restores publicmodule; no normal child or otherconsumer while mutated; restore afterbothterminal beforearchive",
+  "limits": "No newpolicy/law, no skippeduniversalvalidator claim"
+}

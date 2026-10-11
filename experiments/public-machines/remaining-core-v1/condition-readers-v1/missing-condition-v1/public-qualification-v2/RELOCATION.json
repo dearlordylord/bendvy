@@ -1,0 +1,42 @@
+{
+  "scope": "Fresh ordinary public checked machine-condition consumer; no core changes",
+  "source": "/workspace/formal-proofs/bendvy/experiments/public-machines/remaining-core-v1/condition-readers-v1/missing-condition-v1/public-successor-v1/consumer.bend",
+  "sourceSHA256": "02e763fedcb2dc351d6ffcaca28b2831fb910e45a015dd6c1e3bfe28104ae552",
+  "target": "/workspace/formal-proofs/bendvy-worktrees/checked48-public-condition-v1/experiments/public-machines/remaining-core-v1/condition-readers-v1/missing-condition-v1/public-qualification-v2/consumer.bend",
+  "targetSHA256": "b597dc859379b2c0b5287e7b6017f04e515978edad74248d68a94a6311dc0844",
+  "importRebindings": [
+    {
+      "from": "../../provider.bend",
+      "to": "/workspace/formal-proofs/bendvy/experiments/public-machines/remaining-core-v1/condition-readers-v1/provider.bend"
+    },
+    {
+      "from": "../../readers.bend",
+      "to": "/workspace/formal-proofs/bendvy/experiments/public-machines/remaining-core-v1/condition-readers-v1/readers.bend"
+    },
+    {
+      "from": "../../context.bend",
+      "to": "/workspace/formal-proofs/bendvy/experiments/public-machines/remaining-core-v1/condition-readers-v1/context.bend"
+    },
+    {
+      "from": "../../gameplay.bend",
+      "to": "/workspace/formal-proofs/bendvy/experiments/public-machines/remaining-core-v1/condition-readers-v1/gameplay.bend"
+    },
+    {
+      "from": "../../observe.bend",
+      "to": "/workspace/formal-proofs/bendvy/experiments/public-machines/remaining-core-v1/condition-readers-v1/observe.bend"
+    },
+    {
+      "from": "../../full-observe.bend",
+      "to": "/workspace/formal-proofs/bendvy/experiments/public-machines/remaining-core-v1/condition-readers-v1/full-observe.bend"
+    },
+    {
+      "from": "../../../marker-phases-v1/apply-retention-v1/consumer.bend",
+      "to": "/workspace/formal-proofs/bendvy/experiments/public-machines/remaining-core-v1/marker-phases-v1/apply-retention-v1/consumer.bend"
+    }
+  ],
+  "literalInverse": "reverse recorded import substitutions restores exact source",
+  "publicSchedule": "/workspace/formal-proofs/bendvy/src/ecs/schedule-checked.bend",
+  "publicScheduleSHA256": "e6c38354be34c3763e2c79d8c078065d5b62e1a628230f222a3158031dccbfb4",
+  "contract": "CheckedSch.run_with_skip retains condition Fail as Sch.Failed before dispatch/skip/barrier; complete affine ReaderOwners and World retained; no initializer/eventpolicy change",
+  "next": "Fresh source5 and first full A JSNative then B/controls"
+}

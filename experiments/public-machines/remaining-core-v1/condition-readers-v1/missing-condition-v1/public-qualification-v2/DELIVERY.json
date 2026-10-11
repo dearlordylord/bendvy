@@ -1,0 +1,252 @@
+{
+  "scope": "Bounded fresh ordinary public checked machine-condition qualification: A/B full JSNative, fourauthorityrefusals and reached Fail-to-false through actual publicmodule",
+  "sourceProducer": "4b315b8d2",
+  "modelProducer": "2a5e5a476",
+  "controlProducer": "f4989e283",
+  "countermodelProducer": "b1006bfa2",
+  "stages": {
+    "source01": {
+      "original": 98197,
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "planSHA256": "62e95fc027fd4468d0e1824ab0c5699f91acc029e110789a62c92d5805964223",
+      "commands": [
+        {
+          "label": "source-a",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "source-b",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 7,
+      "oracleBytes": null,
+      "oracleSHA256": null
+    },
+    "a-js01": {
+      "original": 9024,
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "planSHA256": "b2bd100214a5f2598404ffea9fe4561e939deb83db52de5fc5a619e511f7bc75",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 7,
+      "oracleBytes": 3733,
+      "oracleSHA256": "82950a7dc9c6ab95f9f1eb1372e49b93d15c69db8861009ea687a6b4d4a657ae"
+    },
+    "a-native01": {
+      "original": 42700,
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "planSHA256": "c4795ff17a29f63881cd6da5b2c1bb829e8f37ccfe2bda552a80aa16600ad01f",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "build",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 10,
+      "oracleBytes": 3733,
+      "oracleSHA256": "82950a7dc9c6ab95f9f1eb1372e49b93d15c69db8861009ea687a6b4d4a657ae"
+    },
+    "b-js02": {
+      "original": 71252,
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "planSHA256": "541f8d88a286fb4057078c72511cd246514da86d29e687ccc533dc86e39f36ef",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 7,
+      "oracleBytes": 3733,
+      "oracleSHA256": "82950a7dc9c6ab95f9f1eb1372e49b93d15c69db8861009ea687a6b4d4a657ae"
+    },
+    "b-native02": {
+      "original": 12876,
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "planSHA256": "b55a54261ec5d0e26ee124419d19e6b634a7b0eff0fb71da9452551fd5115440",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "build",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 10,
+      "oracleBytes": 3733,
+      "oracleSHA256": "82950a7dc9c6ab95f9f1eb1372e49b93d15c69db8861009ea687a6b4d4a657ae"
+    },
+    "authority-v1/source01": {
+      "original": 36642,
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "planSHA256": "fb29d066ed5ec78731c7bda079f37055556812f86c814b0b8c3b6aed88ff7f18",
+      "commands": [
+        {
+          "label": "source-owner",
+          "exit": 1,
+          "failure": null
+        },
+        {
+          "label": "source-schema",
+          "exit": 1,
+          "failure": null
+        },
+        {
+          "label": "source-read-write",
+          "exit": 1,
+          "failure": null
+        },
+        {
+          "label": "source-access",
+          "exit": 1,
+          "failure": null
+        }
+      ],
+      "guards": 13,
+      "oracleBytes": null,
+      "oracleSHA256": null
+    },
+    "reached-v1/source01": {
+      "original": 93985,
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "planSHA256": "0bcd889d3a8e376cb27f5b3da372a7a6f83cb34a9ecc28009ca26ca4e40de1f8",
+      "commands": [
+        {
+          "label": "source-a",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 4,
+      "oracleBytes": null,
+      "oracleSHA256": null
+    },
+    "reached-v1/js01": {
+      "original": 94752,
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "planSHA256": "0af6bd47b62d1e9ac01b1e73654dd4085f257beb56c8de8ac5b5d240504d8e13",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 7,
+      "oracleBytes": 3740,
+      "oracleSHA256": "7e03ec7a6098b88a4d0b9294122f73c8b49f23e213daddc2d12908fc863bda50"
+    },
+    "reached-v1/native01": {
+      "original": 1031,
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "planSHA256": "b536f517ab39f1eb9c4c0ff5ffd1fee78320393bab32139d8af288a44fb8e8f0",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "build",
+          "exit": 0,
+          "failure": null
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null
+        }
+      ],
+      "guards": 10,
+      "oracleBytes": 3740,
+      "oracleSHA256": "7e03ec7a6098b88a4d0b9294122f73c8b49f23e213daddc2d12908fc863bda50"
+    }
+  },
+  "creditedCommands": 22,
+  "creditedGuards": 75,
+  "prechildFailureHistory": {
+    "b-js01": {
+      "originalChunk": "5b8e70",
+      "planSHA256": "8f42f3d670077f009dd005f60cbefa617293b02ef6eb83119330ce6f427cdfc5",
+      "cause": "Producer broad entrypath substitution replaced sourceInventoryA key, violating exact A+B union; guard refused before child",
+      "repair": "B02 changes subject/commandargv and freshoutputpaths only; exactA+B sourceInventory/entries retained",
+      "credit": "No child/backend credit; failure preserved"
+    },
+    "b-native01": "Prepared neverexecuted; B02 freshcorrectbindings used"
+  },
+  "rootPublicMutation": {
+    "target": "/workspace/formal-proofs/bendvy/src/ecs/schedule-checked.bend",
+    "normalSHA256": "e6c38354be34c3763e2c79d8c078065d5b62e1a628230f222a3158031dccbfb4",
+    "mutantSHA256": "270b9077bc2687565b7392f7616fc7180a57cc4ab444058bf0c70da12672a69f",
+    "applyACK": "Root applied exactnormal\u2192mutant isolated before93985; backup /tmp/bendvy48-public-schedule-checked-before-reached.bend",
+    "restoreACK": "Root restoredexactmutant\u2192normal after94752+1031bothterminal, hashchecked/gitdiffempty, mutant neverstaged",
+    "observedCurrentHash": "e6c38354be34c3763e2c79d8c078065d5b62e1a628230f222a3158031dccbfb4",
+    "timestamps": "No separate root apply/restore timestamps recorded; no fabricated duration",
+    "context": "Reached model needed explicit followup because helper had completed prior turn; source-only resumptiondelay retained, no competingconsumer"
+  },
+  "baselineRejection": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/checked48-public-condition-v1/experiments/public-machines/remaining-core-v1/condition-readers-v1/missing-condition-v1/public-qualification-v2/reached-v1/BASELINE-REJECTION.json",
+    "sha256": "d4d4badd68565f924f00024f31cd89c7fa3cd8561f4cc70303ad7d343cd78da1"
+  },
+  "manifest": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/checked48-public-condition-v1/experiments/public-machines/remaining-core-v1/condition-readers-v1/missing-condition-v1/public-qualification-v2/ACTUAL-MANIFEST.json",
+    "sha256": "0bf1a9d1cdddd74874546c8454e1303cedc2ca4b0904accfcab60589d56c0010",
+    "rows": 251,
+    "objects": 212
+  },
+  "archive": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/checked48-public-condition-v1/experiments/public-machines/remaining-core-v1/condition-readers-v1/missing-condition-v1/public-qualification-v2/PORTABLE.zip",
+    "sha256": "195e8a6aa144c75d131be51818fb1c7026d2be19d3f5bde76284e3e0532e45bf",
+    "bytes": 3546595
+  },
+  "limits": [
+    "Freshpublicqualification only; privatehistory not relabeled",
+    "Finite complete traces/refusals/reachedbranch, not universalproof/newownership orcaptureeventpolicy",
+    "No initialization/full48/combined193/performance gates closed",
+    "No newECSAPI/corechanges; publicmodule normalrestored"
+  ]
+}
