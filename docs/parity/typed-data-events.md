@@ -33,4 +33,10 @@ The [interval adapter](../../experiments/public-inspect/ordinary-declaration-v1/
 
 [Independent final Spec/Standards review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/interval-v1/FINAL-REVIEW.md) accepts complete JS/Native 78,093-byte and TS 40,956-byte outputs against unchanged independent oracles, source/artifact guards and seventeen intervals per platform. The foreign timer source's expected checker refusal is retained separately from successful compilation/runtime; no proof claim follows. Earlier generated-shape and formatter failures, including the corrected source-model interpretation, remain archived.
 
-This qualifies instrumentation correctness for one regular lifecycle. Raw clocks Bend15/TS17 preserve existing publication differences. Comparative timing, CPU/allocation profiles, capacity scaling and full #71 remain open. Whole-process Workshop results do not substitute for this feature workload.
+This qualifies instrumentation correctness for one regular lifecycle. Raw clocks Bend15/TS17 preserve existing publication differences. CPU/allocation profiles, capacity scaling and full #71 remain open. Whole-process Workshop results do not substitute for this feature workload.
+
+## Regular operation-only comparative result
+
+The [independently reviewed cohort](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-family-feasibility-v1/feature-trace-v1/interval-v1/measure-v1/actual01/FINAL-REVIEW.md) retains all 86 complete outputs, twenty balanced pairs per backend, seventeen intervals and seventy-two observations per run. Median paired Bend/bevy-ts time is **JS 3.598892×** (target unmet; all twenty pairs slower) and **Native 0.070365×** (target met; all twenty below 0.5×). Measurement integrity passes; this does not constitute performance acceptance for JS.
+
+These are operation-only measurements for one regular typed-event lifecycle. The faster whole-process Workshop result describes a different workload. Source-bound whole-process CPU and sampled-allocation diagnostics are prepared to identify actual calls; they include setup and rendering and cannot automatically attribute those costs to timed ECS operations. No optimization or scaling result is established by this cohort.
