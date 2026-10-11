@@ -1,9 +1,9 @@
 import Base
-import ./world.bend as W
-import ./event-runtime.bend as Ev
-import ./transaction.bend as Tx
-import ./ordinary-event-declaration.bend as Event
-import ./event-stream.bend as Leaf
+import world.bend as W
+import event-runtime.bend as Ev
+import transaction.bend as Tx
+import ordinary-event-declaration.bend as Event
+import event-stream.bend as Leaf
 
 # Each ordinary emit stages one singleton product record. Tx.finish preserves
 # the record list's emission order; products are never merged across emissions.
@@ -31,14 +31,22 @@ def emit_first(~S:Data,~C:Type,~R:Type,~A:Data,~B:Data,tx:Tx.Tx<W.World<S,C,R,Pu
   Tx.emit(~W.World<S,C,R,Publication<A,B>>,~Publication<A,B>,tx,Publication{[event],[]})
 def emit_second(~S:Data,~C:Type,~R:Type,~A:Data,~B:Data,tx:Tx.Tx<W.World<S,C,R,Publication<A,B>>,Publication<A,B>>,event:B) -> Tx.Tx<W.World<S,C,R,Publication<A,B>>,Publication<A,B>>:
   Tx.emit(~W.World<S,C,R,Publication<A,B>>,~Publication<A,B>,tx,Publication{[],[event]})
-def first_values(~A:Data,~B:Data,items:List<&2,Publication<A,B>>) -> List<&2,A>:
+# Reverse-accumulate each record's values, then reverse once. Both traversals
+# decrease before the accumulator and preserve order within/across records.
+def prepend_values(~E:Data,values:List<&2,E>,reversed:List<&2,E>) -> List<&2,E>:
+  match values:
+    case []:reversed
+    case head <> rest:prepend_values(~E,rest,head <> reversed)
+def first_values_loop(~A:Data,~B:Data,items:List<&2,Publication<A,B>>,reversed:List<&2,A>) -> List<&2,A>:
   match items:
-    case []:[]
-    case Publication{first,_} <> rest:Ev.append(~A,first,first_values(~A,~B,rest))
-def second_values(~A:Data,~B:Data,items:List<&2,Publication<A,B>>) -> List<&2,B>:
+    case []:List.reverse(&2,A,reversed)
+    case Publication{first,_} <> rest:first_values_loop(~A,~B,rest,prepend_values(~A,first,reversed))
+def first_values(~A:Data,~B:Data,items:List<&2,Publication<A,B>>) -> List<&2,A>:first_values_loop(~A,~B,items,[])
+def second_values_loop(~A:Data,~B:Data,items:List<&2,Publication<A,B>>,reversed:List<&2,B>) -> List<&2,B>:
   match items:
-    case []:[]
-    case Publication{_,second} <> rest:Ev.append(~B,second,second_values(~A,~B,rest))
+    case []:List.reverse(&2,B,reversed)
+    case Publication{_,second} <> rest:second_values_loop(~A,~B,rest,prepend_values(~B,second,reversed))
+def second_values(~A:Data,~B:Data,items:List<&2,Publication<A,B>>) -> List<&2,B>:second_values_loop(~A,~B,items,[])
 def synced(~S:Data,~C:Type,~R:Type,~A:Data,~B:Data,~H:Type,observed:W.World<S,C,R,Publication<A,B>> & List<&2,Publication<A,B>>,streams:Streams<S,A,B,H>,+journal:List<&2,Ev.Batch<Publication<A,B>>>,+tick:Nat,frameStart:Nat) -> Application<S,C,R,A,B,H>:
   match observed streams:
     case (world,items) Streams{first,second,owners}:
