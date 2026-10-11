@@ -1,0 +1,65 @@
+{
+  "originalHandle": 87724,
+  "status": "COPIED_CHECKER_COMPLETE_DIAGNOSTIC_ONLY",
+  "sourceResult": {
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "11",
+      "/home/node/.bend/bin/bend-2.0.35",
+      "/workspace/formal-proofs/bendvy-worktrees/ordinary-custom-store-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-schedule-description-v1/affected-v1/checker-diagnostic-v3/compiler/installed-cli-observed.mjs",
+      "/workspace/formal-proofs/bendvy-worktrees/ordinary-custom-store-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-schedule-description-v1/affected-v1/name-omitted-v2/entry.bend",
+      "--check-only"
+    ],
+    "capSeconds": 5,
+    "status": "CAPTURED_SOURCE_RESULT",
+    "raw": {
+      "stdout": {
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58
+      },
+      "stderr": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    "exit": 0,
+    "failure": null,
+    "capture": "split",
+    "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+  },
+  "post": {
+    "pinsUnchanged": true,
+    "resourcesUnchanged": true,
+    "linksUnchanged": true
+  },
+  "observation": {
+    "exists": true,
+    "bytes": 4096,
+    "sha256": "6702cca9440b45750371c9ddeed41748e1c76248290f28858037a66fd723d43a",
+    "lastBoundary": {
+      "sequence": 4673,
+      "phase": "promises-end",
+      "key": "",
+      "lastCompleted": "main",
+      "monotonicNs": "4028467846"
+    }
+  },
+  "passiveHostContext": {
+    "wallSeconds": 4.189970838,
+    "cpu11Ticks": [
+      383,
+      0,
+      35,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "observerBytesWrittenBound": 19140608,
+  "scope": "No stuck checker boundary found; current copied checker validates exact failed entry and ends promises scan. This is no stock-checker/source/backend/adoption qualification or explanation of past deadline. Observer has syscall/serialization cost and explicit telemetry-off environment; original deadline streams/cache/context limits remain."
+}
