@@ -1,0 +1,31 @@
+"""Narrow typed-event registration on the existing reviewed feature Harness.
+No comparative/profile driver: this command is correctness-only after launch review.
+"""
+from pathlib import Path
+import argparse,importlib.util,importlib.machinery,json,sys
+ROOT=Path('/workspace/formal-proofs/bendvy');sys.path.insert(0,str(ROOT/'benchmarks/parity-features'))
+import execute,preflight
+HERE=Path(__file__).resolve().parent
+spec=importlib.util.spec_from_loader('typed_event_validator',importlib.machinery.SourceFileLoader('typed_event_validator',str(HERE/'validate.py.source')));validator=importlib.util.module_from_spec(spec);spec.loader.exec_module(validator)
+def main():
+ a=argparse.ArgumentParser();a.add_argument('--stage',type=Path,required=True);a.add_argument('--output',type=Path,required=True);x=a.parse_args();record=json.loads((x.stage/'stage.json').read_text())
+ # Same Harness guards; replace only workload source membership with this frozen finite registration.
+ preflight.snapshot=lambda:{k:preflight.digest(ROOT/k) for k in record['sources']}
+ preflight.external=lambda:{k:preflight.digest(Path(k)) for k in record['external']}
+ h=execute.Harness(x.stage,x.output)
+ try:
+  commands=h.build('typed-events-1')
+  spec=importlib.util.spec_from_loader('evaluation_check',importlib.machinery.SourceFileLoader('evaluation_check',str(HERE/'evaluation-check.py.source')));evaluation=importlib.util.module_from_spec(spec);spec.loader.exec_module(evaluation)
+  finding=evaluation.check(x.output/'typed-events-1.js',x.output/'typed-events-1.c');(x.output/'evaluation.json').write_text(json.dumps(finding,indent=2)+'\n');h.pin(x.output/'evaluation.json')
+  h.run('timer-protocol',[h.tools['taskset'],'-c','11',h.tools['node'],HERE/'controls.mjs'],5)
+  for backend in ['JS','Native','TS']:
+   result=h.run('typed-events-1-'+backend,[h.tools['taskset'],'-c','11',*commands[backend]],5)
+   validator.validate(backend,result.stdout,result.stderr)
+  h.guard();h.receipt.update(status='COMPLETE_TYPED_EVENT_INTERVAL_SEMANTICS',features=['typed-events'],scales=[1],scope='Complete72rows/17operations each platform; elapsed telemetry is not comparative acceptance')
+ finally:
+  # Preserve terminal source/tool/stage drift even when build/run/oracle fails.
+  try:h.guard();h.receipt['terminalPostguard']='UNCHANGED'
+  except Exception as error:h.receipt['terminalPostguard']={'error':repr(error)};h.save();raise
+  h.save()
+ print(h.receipt['status'])
+if __name__=='__main__':main()

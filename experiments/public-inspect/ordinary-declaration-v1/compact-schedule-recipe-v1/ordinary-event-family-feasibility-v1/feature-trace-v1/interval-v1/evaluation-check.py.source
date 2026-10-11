@@ -1,0 +1,20 @@
+"""Fail-closed emitted barrier checks, consumed before any full consumer run."""
+from pathlib import Path
+import hashlib,re
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def body(text,name):
+ matches=list(re.finditer(r'function (\S*\$058'+name+r'\$)\(',text));assert len(matches)==1,(name,len(matches))
+ start=matches[0].start();nextdef=text.find('\nfunction ',start+1);return text[start:nextdef if nextdef!=-1 else len(text)]
+def check(js,c):
+ j=js.read_text();native=c.read_text();sequence=body(j,'sequence');ended=body(j,'after_end')
+ assert '$058begin$(' in sequence and '$058after_end$(' in sequence and '$058ticked$(' in sequence
+ # Strict JS call arguments evaluate ticked before entering after_end.
+ assert re.search(r'\$058after_end\$[\s\S]*\$058ticked\$',sequence)
+ assert '["fst"]' in ended and '["snd"]' in ended and '$058end$(' in ended and '$058observe$(' in ended
+ assert ended.index('["fst"]')<ended.index('$058end$(')
+ # Observation is held in the IO.bind continuation, never evaluated before end.
+ assert re.search(r'\$058end\$\(\)[\s\S]*=>[\s\S]*\$058observe\$',ended)
+ step=native[native.index('static void io_step('):native.index('OUTLINE void io_loop(',native.index('static void io_step('))]
+ assert step.index('Term req = corpus_eval(')<step.index('Term x = io_exec(')
+ assert 'interval_elapsed += elapsed; interval_count++' in native
+ return {'JS':{'sha256':sha(js),'sequence':sequence,'returnedBeforeEnd':ended},'Native':{'sha256':sha(c),'IORequestEvaluatedBeforeForeignDispatch':step},'qualification':'Source/compiler callsite barrier evidence; complete consumer oracle and reached timer controls still mandatory. No timing verdict.'}
