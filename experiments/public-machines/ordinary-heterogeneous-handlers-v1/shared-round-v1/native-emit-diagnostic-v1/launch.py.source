@@ -2,7 +2,9 @@ import sys,json,hashlib,types,time,os,fcntl,subprocess
 from pathlib import Path
 plan=Path(sys.argv[1]).resolve();digest=sys.argv[2]
 if hashlib.sha256(plan.read_bytes()).hexdigest()!=digest:raise SystemExit('plan digest mismatch')
-p=json.loads(plan.read_text());out=Path(p['stage'])
+p=json.loads(plan.read_text())
+if Path(sys.executable).resolve()!=Path(p['python']).resolve():raise SystemExit('admitted Python interpreter mismatch')
+out=Path(p['stage'])
 if out.exists():raise SystemExit('fresh diagnostic stage required')
 def load(path):
  m=types.ModuleType('diagnostic_dependency');m.__file__=str(path);exec(compile(Path(path).read_bytes(),str(path),'exec'),m.__dict__);return m

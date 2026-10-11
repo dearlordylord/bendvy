@@ -12,10 +12,15 @@ export function mark(boundary,name="",extra={}){
   count++;slow.push({name:name.slice(0,512),ms:now-began,iteration});
   slow.sort((a,b)=>b.ms-a.ms);slow.length=Math.min(slow.length,16);
  }
- const value={boundary,name:name.slice(0,512),iteration,completedDefinitions:count,elapsedMs:now-started,slow,...extra};
+ let resource;
+ try{resource={usage:process.resourceUsage(),cpu:process.cpuUsage(),memory:process.memoryUsage(),pid:process.pid};}
+ catch(error){resource={captureError:String(error)};}
+ const value={boundary,name:name.slice(0,512),iteration,completedDefinitions:count,elapsedMs:now-started,slow,resource,...extra};
  const raw=Buffer.from(JSON.stringify(value));
  if(raw.length>=size)throw new Error("bounded observation page overflow");
  page.fill(32);raw.copy(page);
  if(fd===null){fd=fs.openSync(path,"wx");fs.ftruncateSync(fd,size);}
  fs.writeSync(fd,page,0,size,0);
 }
+
+mark("observer-loaded");

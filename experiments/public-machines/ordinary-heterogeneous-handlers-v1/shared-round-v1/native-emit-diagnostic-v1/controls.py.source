@@ -1,4 +1,4 @@
-import ast,hashlib,json,os,subprocess,tempfile
+import ast,hashlib,json,os,subprocess,tempfile,sys
 from pathlib import Path
 HERE=Path(__file__).resolve().parent
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
@@ -12,6 +12,12 @@ assert all(sha(k)==v for k,v in p["pins"].items())
 for path,b in p["symlinkBindings"].items():
  assert os.readlink(path)==b["readlink"] and str(Path(path).resolve(strict=True))==b["resolved"]
 for n in ["launch.py.source","emit-capture.py.source"]:ast.parse((HERE/n).read_text())
+guard=next(n for n in ast.parse((HERE/"launch.py.source").read_text()).body if isinstance(n,ast.If) and "sys.executable" in ast.unparse(n))
+code=compile(ast.Module(body=[guard],type_ignores=[]),"interpreter-guard-control","exec")
+exec(code,{"Path":Path,"sys":sys,"p":{"python":p["python"]}})
+try:exec(code,{"Path":Path,"sys":sys,"p":{"python":"/not/admitted/python"}})
+except SystemExit as error:assert str(error)=="admitted Python interpreter mismatch"
+else:raise AssertionError("foreign interpreter accepted")
 node=p["argv"][3]
 for f in [HERE/"compiler/observed-cli.mjs",HERE/"boundary-helper.mjs"]:
  r=subprocess.run([node,"--check",str(f)],capture_output=True,timeout=5);assert r.returncode==0,(r.stdout,r.stderr)
@@ -20,5 +26,5 @@ with tempfile.TemporaryDirectory() as tmp:
  code=f'import {{mark}} from {json.dumps((HERE/"boundary-helper.mjs").as_uri())};mark("iteration-begin");for(let i=0;i<20;i++){{mark("definition-begin","dummy"+i);mark("definition-end","dummy"+i);}}mark("iteration-end","",{{before:1,after:1}});'
  env=dict(os.environ);env["BENDVY_EMIT_BOUNDARY"]=str(dest)
  r=subprocess.run([node,"--input-type=module","-e",code],env=env,capture_output=True,timeout=5);assert r.returncode==0,(r.stdout,r.stderr)
- raw=dest.read_bytes();value=json.loads(raw);assert len(raw)==16384 and value["boundary"]=="iteration-end" and value["completedDefinitions"]==20 and len(value["slow"])==16 and value["iteration"]==1
+ raw=dest.read_bytes();value=json.loads(raw);assert len(raw)==16384 and value["boundary"]=="iteration-end" and value["completedDefinitions"]==20 and len(value["slow"])==16 and value["iteration"]==1 and value["resource"]["pid"]>0 and value["resource"]["usage"]["maxRSS"]>0 and value["resource"]["cpu"]["user"]>=0
 print("PASS: literal CLI inverse/current pins/resource links/syntax/bounded helper dummy ordering; no compiler workload")

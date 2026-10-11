@@ -78,13 +78,13 @@
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/FREEZE.json": "e53f884518902b20b06b08aad42c689ffde64bbd2059b2cad2c435c18afc2751",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/runtime01/native/receipt.json": "1515ebb3b20e0549f74bef2a258b762c464ff7b717fb44430f98d655fd7caed5",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/runtime01/native/plan.json": "123b052a61dc5c8db424f3fca5ea8d8a735fb81b5beb0778f41f4b7d81581c01",
-    "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/launch.py.source": "c0d06f1d04389e6ade71b387aa33ea3eb20adff1be4a74ca1c918b4772a68176",
+    "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/launch.py.source": "f42b644bf1caec8bd3ef05cf56a94732c3d39471ea73e10789467529c033e48a",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/emit-capture.py.source": "be6ec18444568070ddd33aaa311a2ba65fcb742839589564d1d9f6b859297e29",
-    "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/boundary-helper.mjs": "af5374a49d83e829033e4d5c3e447de04bdfc280ccbd365e9a9209c9622ff955",
+    "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/boundary-helper.mjs": "6fb66709da0cc3a31ab0bad909ad38ff4fd038cb7f946f31b77e5518362d9f87",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/PATCHES.json": "a01f597d97b0b1e24092f3b045fc475363d40666684bf425f7923a426db64b8f",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/compiler/installed-cli-unmodified.mjs": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/compiler/observed-cli.mjs": "f82c4a97838de5a347f08d35d5f0381ecaacf305415145c013620dce5ec7f7c0",
-    "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/controls.py.source": "2e541e4049370563eb8afa07b1f085e76355e8392220f99047ca917d964acada"
+    "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/controls.py.source": "4f34f1aaf8746b34c82dc360b77a0b034f873a5cf9c369ea4f5f96d99f2f9f85"
   },
   "resourceRoots": {
     "/home/node/.bend/bend2": {
@@ -201,9 +201,11 @@
   "boundaryOutput": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/actual01/boundary.json",
   "capSeconds": 30,
   "originalNativeFailure": "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/runtime01/native/receipt.json",
-  "observerLimits": "16KiB fixed page synchronous overwrite at top-level iteration/definition/text/write boundaries; serialization and syscall overhead can change elapsed time/deadline. Top16 completed spans include memo_gc/emit_open/emit_body, not recursive pure emit_body cost. Torn page or observer failure retained. Copied Node CLI differs from pinned ELF; no stock causal or production C qualification.",
+  "observerLimits": "16KiB fixed page synchronous overwrite at top-level iteration/definition/text/write boundaries; serialization and syscall overhead can change elapsed time/deadline. Top16 completed spans include memo_gc/emit_open/emit_body, not recursive pure emit_body cost. Torn page or observer failure retained. Copied Node CLI differs from pinned ELF; no stock causal or production C qualification. Child process.resourceUsage/cpuUsage/memory snapshots are written at module-load and each boundary; retained last snapshot is cumulative copied Node diagnostic context, not unconditional final child usage or stock ELF attribution. No sampling child/process installed.",
   "launch": [
     "/usr/bin/python3.11",
     "/workspace/formal-proofs/bendvy-worktrees/handlers49-current-ordinary-v1/experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/native-emit-diagnostic-v1/launch.py.source"
-  ]
+  ],
+  "preservedPreparation": "pre-resource-plan.json",
+  "python": "/usr/bin/python3.11"
 }

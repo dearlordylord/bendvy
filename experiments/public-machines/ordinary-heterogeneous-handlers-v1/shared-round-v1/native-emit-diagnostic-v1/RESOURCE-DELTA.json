@@ -1,0 +1,18 @@
+{
+  "parentCommit": "e1c3063fb",
+  "changes": [
+    "boundary-helper.mjs: best-effort resourceUsage/cpuUsage/memory at existing marks, plus observer-loaded mark",
+    "controls.py.source: dummy check requires resource identity/usage fields",
+    "plan.json: two changed source pins, descriptive limits and preserved preparation"
+  ],
+  "coreCLIUnchanged": true,
+  "capArgvLauncherCaptureUnchanged": true,
+  "predecessorPlanSHA256": "8d295ca12ff391bb6926dfc0f6f57ef58d126c0b0d2992fcdc545f3fb6eb9e11",
+  "finalPlanSHA256": "c7597106925a03e4f885684fd8439b9fb3ed6353d73b07f3d0c5a6bd1f4240c0",
+  "interpreterRepair": {
+    "parentPlan": "c7597106925a03e4f885684fd8439b9fb3ed6353d73b07f3d0c5a6bd1f4240c0",
+    "entryAssertion": "Path(sys.executable).resolve()==Path(plan[python]).resolve()",
+    "launcherSemanticAddition": "Reject mismatched Python before output creation/child",
+    "finalPlanSHA256": "3bd2f5a6249f45d49ac6fef00726ab83ed77f5a91f615d226d9a80881b0562d9"
+  }
+}
