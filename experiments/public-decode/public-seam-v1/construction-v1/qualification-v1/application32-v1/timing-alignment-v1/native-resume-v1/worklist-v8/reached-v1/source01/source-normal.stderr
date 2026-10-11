@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- message  : a type for this operator (write (a + b : Nat))
+Location:
+32 |   match value:
+33>|     case Local.Instance{namespace,id,name,access,App.State{values,pending}}:App.InstanceView{namespace+1,id,name,access,App.recoveries(~S,values),App.pending_view(pending)}
+   |                                                                                                       ^
+34 | def reported(~S:Data,original:Input.InputView,before:App.Snapshot,committed:App.Snapshot,instance:App.InstanceView<S>,result:App.ResultView<S>,world:App.World(~S) & App.Snapshot) -> App.Report<S>:
+Note: we broke this after launch, sorry. Until 2.0.16 a bare operator meant Nat.
+That was a bug: operators demand annotation. Wrap the expression and it'll work again.

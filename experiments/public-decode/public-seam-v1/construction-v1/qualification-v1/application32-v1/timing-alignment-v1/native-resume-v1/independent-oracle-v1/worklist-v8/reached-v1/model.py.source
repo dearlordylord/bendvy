@@ -1,0 +1,11 @@
+from pathlib import Path
+import runpy,json,copy
+def prior():return runpy.run_path(str(Path(__file__).resolve().parent.parent/'model.py.source'))
+def formatted():
+ values=copy.deepcopy(prior()['formatted']())
+ for value in values:
+  instance=value['value']['native']['instance']
+  instance['namespace']=(instance['namespace']+1)&0xffffffff
+ return values
+def semantic_json():return json.dumps(formatted(),separators=(',',':'),ensure_ascii=False)
+def expected():return (json.dumps(semantic_json(),ensure_ascii=False)+'\n').encode()

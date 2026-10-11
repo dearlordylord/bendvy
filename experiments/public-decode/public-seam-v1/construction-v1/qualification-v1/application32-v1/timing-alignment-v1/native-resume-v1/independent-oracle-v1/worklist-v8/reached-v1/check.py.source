@@ -1,0 +1,19 @@
+from pathlib import Path
+import json,hashlib,runpy,gzip,copy
+p=Path(__file__).resolve().parent;b=json.loads((p/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs','modelPins'):
+ for path,digest in b[group].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==digest,path
+entry=next(Path(x) for x in b['sourcePins'] if x.endswith('/reached-v1/main.bend'));app=entry.with_name('application.bend');normal=entry.parent.parent
+mutation='App.InstanceView{(namespace+1:U32),id,name,access,App.recoveries(~S,values),App.pending_view(pending)}'
+original='App.InstanceView{namespace,id,name,access,App.recoveries(~S,values),App.pending_view(pending)}'
+s=app.read_text();assert s.count(mutation)==1 and s.replace(mutation,original)==(normal/'application.bend').read_text()
+main=entry.read_text();assert main.replace('import '+str(normal.parent/'full-format-v2/format.bend')+' as Format','import ../full-format-v2/format.bend as Format')==(normal/'main.bend').read_text()
+public=Path(b['originalApplication']).with_name('public.bend').read_text();assert 'case App.Report{original,before,committed,barrier,_,result}:View{' in public
+m=runpy.run_path(str(p/'model.py.source'));before=m['prior']()['formatted']();after=m['formatted']();restored=copy.deepcopy(after)
+for a,z in zip(before,restored):
+ assert z['value']['native']['instance']['namespace']==((a['value']['native']['instance']['namespace']+1)&0xffffffff)
+ z['value']['native']['instance']['namespace']=a['value']['native']['instance']['namespace']
+assert len(after)==32 and restored==before
+v=json.loads((p/'ORACLES.json').read_text());raw=m['expected']();assert raw==gzip.decompress(Path(v['mutant']['stdout']).read_bytes());assert len(raw)==v['mutant']['bytes'] and hashlib.sha256(raw).hexdigest()==v['mutant']['sha256']
+baseline=gzip.decompress(Path(v['normalBaseline']['stdout']).read_bytes());assert baseline==m['prior']()['expected']() and raw!=baseline
+print('PASS:60pins/unique private namespace mutation/32 native instance fields only/full counterwire and normal rejection; no runtime inputs')

@@ -1,0 +1,56 @@
+{
+  "scope": "Private same erased runner threaded through original Local nominal indices; same32 runtime Specs/full original reports; sourcequalification only",
+  "planSHA256": "8230c965c89020ae46b10a5d491ffbd5568477da8067b190948c21867ea5d7b2",
+  "commands": [
+    {
+      "label": "source-normal",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/worklist-v8/main.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/worklist-v8/source01/source-normal.stdout",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/worklist-v8/source01/source-normal.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/worklist-v8/source01/source-normal-pre.guard.json",
+      "sha256": "b52a8b95f32a0221fbdbb84e5138d5f118af7461fcbfa6c482a3e7d92b8d3c8a"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/worklist-v8/source01/source-normal-acquired.guard.json",
+      "sha256": "d2f4f8c4d1eaf3045e8af333d981906150060067696ee6ccdecce12bcf758688"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/worklist-v8/source01/source-normal-post.guard.json",
+      "sha256": "994e46e7f48b05b5908b6fd21ca8566e3e4b9dd4359baf9df9e56ad047f63572"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/worklist-v8/source01/final.guard.json",
+      "sha256": "83c462a247e770f7e2b4918339125ae7bb34a397fa06ed184f40544439a222c4"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}
