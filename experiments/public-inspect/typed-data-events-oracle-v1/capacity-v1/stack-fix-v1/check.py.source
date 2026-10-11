@@ -1,0 +1,40 @@
+"""Source-derived algebra checks, not Bend execution or universal proof."""
+from itertools import product
+def projection(records,side):return [v for record in records for v in record[side]]
+def accumulated(records,side):
+    reverse=[]
+    for record in records:
+        for value in record[side]:reverse.insert(0,value)
+    return list(reversed(reverse))
+def callback(owner,values,side,variant):
+    owner=owner+1
+    if variant==0:out=values
+    elif variant==1:out=[] if owner%2 else values
+    else:out=[side*100+owner]+list(values) # empty input still has effects
+    return owner,out
+# Old recursive continuation computes each pair then recurses with returned
+# owners; retained_join occurs after recursion. New fold keeps reverse records.
+def old(records,owners,variant):
+    if not records:return owners,[]
+    a,av=callback(owners[0],records[0][0],1,variant)
+    b,bv=callback(owners[1],records[0][1],2,variant)
+    owners,tail=old(records[1:],(a,b),variant)
+    return owners,([(av,bv)]+tail if av or bv else tail)
+def new(records,owners,variant):
+    reverse=[]
+    for record in records:
+        a,av=callback(owners[0],record[0],1,variant)
+        b,bv=callback(owners[1],record[1],2,variant)
+        owners=(a,b)
+        if av or bv:reverse.insert(0,(av,bv))
+    return owners,list(reversed(reverse))
+def check():
+    choices=[([],[]),([1,2],[10]),([3],[11,12]),([],[13,14]),([4,5],[])]
+    tested=0
+    for length in range(5):
+        for records in product(choices,repeat=length):
+            for side in (0,1):assert projection(records,side)==accumulated(records,side)
+            for variant in range(3):assert old(records,(0,7),variant)==new(records,(0,7),variant)
+            tested+=1
+    return {'publicationSequences':tested,'callbackVariants':3,'maxRecords':4,'checks':'Order within/across records; empty records invoke callbacks; callback-returned owners and values feed next record; fully empty products only removed.'}
+if __name__=='__main__':print(check())
