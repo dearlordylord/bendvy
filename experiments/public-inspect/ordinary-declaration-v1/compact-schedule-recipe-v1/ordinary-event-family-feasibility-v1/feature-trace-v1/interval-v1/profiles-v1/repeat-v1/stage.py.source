@@ -18,6 +18,8 @@ def main():
  assert (catalogue/'ORACLES.json').is_file(),'Independent repeat catalogue required before plan freeze'
  for p in catalogue.rglob('*'):
   if p.is_file():record['external'][str(p)]=sha(p)
+ basis=json.loads((catalogue/'SOURCE-BASIS.json').read_text())
+ for dependency in basis['executionDependencies']:record['external'][dependency]=sha(dependency)
  record['stageInventory']={str(p.relative_to(stage)):sha(p) for p in sorted(stage.rglob('*')) if p.is_file()};record.update(features=['typed-events'],scales=[32],lifecycles=32,timingScope='Fixed32fullfreshlifecycles;544publicoperations/2304observations,notcomparativescaling')
  (args.output/'stage.json').write_text(json.dumps(record,indent=2)+'\n');print(args.output/'stage.json')
 if __name__=='__main__':main()
