@@ -1,0 +1,11 @@
+from pathlib import Path
+import json,hashlib,gzip,runpy
+here=Path(__file__).resolve().parent
+basis=json.loads((here/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs'):
+ for path,digest in basis[group].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==digest,path
+m=runpy.run_path(str(here/'model.py.source'));raw=m['expected']();v=json.loads((here/'ORACLES.json').read_text())['normal']
+assert len(m['observations']())==11
+assert raw==gzip.decompress(Path(v['stdout']).read_bytes())
+assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+print('PASS: current32pins/full11observations/preflight+happy continuation')
