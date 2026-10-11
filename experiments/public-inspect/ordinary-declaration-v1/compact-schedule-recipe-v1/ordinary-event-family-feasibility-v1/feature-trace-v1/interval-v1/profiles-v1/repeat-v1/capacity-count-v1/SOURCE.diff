@@ -1,0 +1,24 @@
+--- accepted/event-runtime.bend
++++ candidate/event-runtime.bend
+@@ -69,10 +69,17 @@
+     case False{}: Trimmed{Batch{tick,items} <> rest,dropped}
+     case True{}: ih(Nat.max(dropped,tick))
+ 
+-def at_capacity(~E: Data,batches: List<&2,Batch<E>>,+capacity: Nat,+dropped: Nat) -> Trimmed<E>:
+-  match batches:
+-    case []: Trimmed{[],dropped}
+-    case Batch{+tick,+items} <> +rest: capacity_checked(~E,Nat.is_lt(capacity,size(~E,Batch{tick,items} <> rest)),tick,items,rest,dropped,gone => at_capacity(~E,rest,capacity,gone))
++def capacity_loop(~E:Data,batches:List<&2,Batch<E>>,+remaining:Nat,+capacity:Nat,+dropped:Nat,overflow:Bool) -> Trimmed<E>:
++  match batches overflow:
++    case [] overflow:Trimmed{[],dropped}
++    case batches False{}:Trimmed{batches,dropped}
++    case Batch{+tick,+items} <> rest True{}:
++      +next=Nat.sub(remaining,count(~E,items))
++      capacity_loop(~E,rest,next,capacity,Nat.max(dropped,tick),Nat.is_lt(capacity,next))
++def capacity_counted(~E:Data,batches:List<&2,Batch<E>>,+capacity:Nat,dropped:Nat,+remaining:Nat) -> Trimmed<E>:
++  capacity_loop(~E,batches,remaining,capacity,dropped,Nat.is_lt(capacity,remaining))
++def at_capacity(~E: Data,+batches: List<&2,Batch<E>>,+capacity: Nat,+dropped: Nat) -> Trimmed<E>:
++  capacity_counted(~E,batches,capacity,dropped,size(~E,batches))
+ 
+ def trim_capacity(~E: Data,trimmed: Trimmed<E>,+capacity: Nat) -> Trimmed<E>:
+   match trimmed:
