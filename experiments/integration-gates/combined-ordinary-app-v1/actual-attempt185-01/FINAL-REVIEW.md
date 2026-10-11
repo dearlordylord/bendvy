@@ -1,0 +1,15 @@
+# Combined185 final Spec and Standards review
+
+Spec PASS and Standards PASS: supported NO_CONFIRMED_REGRESSION for the protected default Workshop #28 gate. No rerun.
+
+Author6487/root6fc8 actual-attempt185-01. PLAN-185-FINAL SHA2562b610ee45dfddd8525009bb797fa8e2461d2e2d2323b3823012295684d761e8e; launch reviewac9f19996bf31c831c5b3d2520b65308cbe541e48365689db6ed51b5a3b0efc8. Archive SHA3dc25fd4285cf6c6f9c1cc9d08f7bec735c511127f6c7a37084084a8563226eb; manifest SHA5d8f74def9a20dc6853a9af71de959dcfa86a9a9cdebc47c11efb2f9a3742b63.
+
+Independently verified exact365 archive members/body lengths/hashes,191 current monitored hashes,194 staged core/support bodies (185 direct/six internal inventory),208 complete candidate source bodies,29 frozen baseline sources,33 reference sources and eight executable identities. All emitted artifact hashes and source/reference joins verify. Exact adopted named-placement addition c93/f6aa is the only source increment over184; private capacity and copied compiler diagnostics have no adoption or qualification transfer.
+
+All123 commands exit0. Independently decompressed all110 complete warmup/pair stdout bodies, matched their command receipt SHA and all ten complete expected applications per process. Existing normative reference-only foreign-collision checkpoint exclusion remains unchanged; no additional output or workload reduction. Workshop22-checkpoint application×10, default327bec49 baseline, two warmups and20 pairs/backend remain bound to unchanged runner/contract/config/environment/caps/TS/tool sources. Four unchanged181 statistics controls are archived with successful raw output and exact reusable source/tool bindings.
+
+Recomputed seed20261007 shuffled orders with ten AB/ten BA per backend, all pair endpoint/timing joins, median candidate/frozen ratios and exact one-sided sign/Holm decision. JS0.9179743947975832, six slower of20, p0.9793052673339844; Native0.9933470774858018, nine slower of20, p0.7482776641845703. Smaller p exceeds the first Holm cutoff0.025; neither regression is confirmed under zero allowance/alpha0.05. Descriptive Workshop candidate/TS ratios are the ratios of process medians: JS0.40089048003936306 and Native0.09646627148196453, not feature-target or general parity evidence.
+
+Root original67865 terminal0, exact plan binding and postDrift=[] retained with outer raw stdout/stderr. Host-pre01 retains CPU11 five-second500idle/zero busy ticks,191 current pins, absent output; terminal context records root-exclusive peers held and eight tools verified. Existing outer flock, runner pre/post source/artifact/reference guards and unconditional archived terminal scopes remain unchanged. These finite host observations do not prove continuous quiet or causal speedup. Documentation-only audit changes outside191 pins are not feature adoption evidence.
+
+The verdict qualifies only this protected API-regression workload. It does not close full #56/#71/#41/#54 parity, arbitrary backend/ownership generality, feature timing, profiles or scaling, and grants no private optimization/compiler acceptance. No source, runner, criterion or dependency was modified during review.
