@@ -1,0 +1,34 @@
+import {Descriptor as D, Schema} from '/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts';
+
+export function scenario(schemaLabel,operation,presentOther) {
+  const Position=D.Component()('Position');
+  const OtherPosition=D.Component()('OtherPosition');
+  const Resource=D.Resource()('Resource');
+  const G=Schema.bind(Schema.fragment({components:{Position,OtherPosition},resources:{Resource}}));
+  const position=[42], other=presentOther ? [43] : undefined, resource=[17];
+  const rt=G.Runtime.make({services:G.Runtime.services(),resources:{Resource:resource},debug:true});
+  const positionQuery=G.Query({selection:{position:G.Query.read(Position)}});
+  const otherQuery=G.Query({selection:{other:G.Query.read(OtherPosition)}});
+  const access={queries:{position:positionQuery,other:otherQuery},resources:{resource:G.System.readResource(Resource)},removed:{position:G.System.readRemoved(Position),other:G.System.readRemoved(OtherPosition)},despawned:{entities:G.System.readDespawned()}};
+  const ids=values=>values.map(entity=>entity.value);
+  const projection=context=>({position:[...context.queries.position.each()].map(({entity,data})=>({entity:entity.id.value,value:data.position.get(),sameOwner:data.position.get()===position})),other:[...context.queries.other.each()].map(({entity,data})=>({entity:entity.id.value,value:data.other.get(),sameOwner:data.other.get()===other})),resource:context.resources.resource.get(),sameResource:context.resources.resource.get()===resource,removedPosition:ids(context.removed.position.all()),removedOther:ids(context.removed.other.all()),despawned:ids(context.despawned.entities.all())});
+  const inspector=G.Inspector('RemovalInspector',access,projection);
+  const operational=[];
+  const reader=G.System('RemovalReader',access,context=>{operational.push(projection(context));});
+  let handle;
+  const setup=G.System('Setup',{},({commands})=>{handle=commands.spawn(presentOther ? G.Command.spawn([Position,position],[OtherPosition,other]) : G.Command.spawn([Position,position]));});
+  const setupStatus=rt.tick(G.Schedule(setup,G.Schedule.applyDeferred()));
+  const mutation=G.System('Mutation',{},({commands})=>{if(operation==='remove') commands.remove(handle,Position); else commands.despawn(handle);});
+  const mutationSchedule=G.Schedule(mutation),flushSchedule=G.Schedule(G.Schedule.applyDeferred()),readerSchedule=G.Schedule(reader);
+  rt.debug.nameSchedules({Mutation:mutationSchedule,Flush:flushSchedule,Read:readerSchedule});
+  const observations=[];
+  const snapshot=label=>{const projected=rt.inspect(inspector);observations.push({label,projection:projected,dump:rt.debug.dump(),population:rt.debug.population(),description:rt.debug.describe(),streams:rt.debug.streams()});};
+  snapshot('before1');snapshot('before2');
+  const queuedStatus=rt.tick(mutationSchedule);
+  snapshot('queuedBeforeBarrier');
+  const flushStatus=rt.tick(flushSchedule);
+  snapshot('afterBarrier');snapshot('repeatAfterBarrier');
+  const readStatus=rt.tick(readerSchedule);
+  snapshot('afterOperational');snapshot('repeatAfterOperational');
+  return {schema:schemaLabel,operation,presentOther,handle:handle.value,setupStatus,queuedStatus,flushStatus,readStatus,operational,observations,position,other,resource};
+}
