@@ -1,0 +1,38 @@
+from pathlib import Path
+import json,hashlib,gzip,runpy,re,copy
+p=Path(__file__).resolve().parent;b=json.loads((p/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs','modelPins'):
+ for path,digest in b[group].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==digest,path
+m=runpy.run_path(str(p/'model.py.source'));models=m['models']();raw=m['expected']();v=json.loads((p/'ORACLES.json').read_text())['normal']
+assert raw==gzip.decompress(Path(v['stdout']).read_bytes())
+assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+a=m['ALIGNED'];new=m['ENTRY'].read_text();old=(a/'main.bend').read_text()
+def calls(source):
+ out={}
+ for line in source.splitlines():
+  step=re.match(r'def step_(\d+)\(',line)
+  if not step:continue
+  start=line.index('Gameplay.run(');at=start+len('Gameplay.run');depth=0
+  for i in range(at,len(line)):
+   if line[i]=='(':depth+=1
+   elif line[i]==')':
+    depth-=1
+    if depth==0:out[int(step.group(1))]=line[start:i+1];break
+ return out
+assert calls(new)==calls(old) and set(calls(new))==set(range(32))
+assert 'Public.whole(~Owner.First,value)' in new and 'Public.whole(~Owner.Second,value)' in new
+adapter=runpy.run_path(str(a/'model-adapter.py'));types,name=adapter['inventory'](m['ENTRY'])
+parsed=adapter['BASE'].BASE.parser().parse(raw.decode())
+restored=adapter['BASE'].BASE.codec(parsed,types['Report'],types,name,False)
+adapter['same'](restored,models['native'])
+assert len(restored)==32 and all(set(x['value'])=={'$','public','native'} for x in restored)
+# Complete last-item physical/logical owners remain in the typed model.
+changed=copy.deepcopy(restored);changed[-1]['value']['native']['barrier']['resource']['words'].pop()
+try:adapter['same'](changed,models['native'])
+except AssertionError:pass
+else:raise AssertionError('last physical owner drop accepted')
+assert 'Classified' in Path('/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend').read_text()
+assert types['Entry'][0].endswith('/src/ecs/lifecycle.bend')
+assert all(not (isinstance(value,tuple) and isinstance(value[0],str) and value[0].endswith('/schema-fragments.bend')) for value in types.values())
+assert 'provision_declared' not in (a/'owner.bend').read_text() and 'provision_declared' not in (a/'application.bend').read_text()
+print('PASS:54currentpins/32exact Gameplay calls/typed complete current-entry grammar/whole32roundtrip/lastowner control/full2684547bytes; source03 deadline not PASS')

@@ -1,0 +1,12 @@
+"""Independent complete32 current-entry source model; never reads runtime outputs."""
+from pathlib import Path
+import runpy
+ROOT=Path('/workspace/formal-proofs/bendvy')
+ALIGNED=ROOT/'experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1'
+ENTRY=Path('/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/observation-main.bend')
+def models():return runpy.run_path(str(ALIGNED/'oracle-v1/expected.py'))['expected']()
+def expected():
+    value=models()['native']
+    # Accepted closed inventory traverses every logical and physical Report field.
+    adapter=runpy.run_path(str(ALIGNED/'model-adapter.py'))
+    return adapter['render_native'](value,ENTRY)

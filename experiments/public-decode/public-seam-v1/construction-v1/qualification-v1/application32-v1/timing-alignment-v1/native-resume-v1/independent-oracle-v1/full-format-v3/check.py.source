@@ -1,0 +1,37 @@
+from pathlib import Path
+import runpy,json,hashlib,gzip,re
+p=Path(__file__).resolve().parent;b=json.loads((p/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs','modelPins'):
+ for path,digest in b[group].items():assert hashlib.sha256(Path(path).read_bytes()).hexdigest()==digest,path
+m=runpy.run_path(str(p/'model.py.source'));prior=m['prior']();raw=m['expected']();semantic=m['semantic_json']()
+assert raw==prior['expected']() and semantic==prior['semantic_json']() and m['formatted']()==prior['formatted']()
+c=json.loads((p/'ORACLES.json').read_text());v=c['normal'];assert gzip.decompress(Path(v['stdout']).read_bytes())==raw
+assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+s=Path('/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/full-format-v3');source=(s/'main.bend').read_text();old=(prior['ALIGNED']/'main.bend').read_text()
+def calls(source):
+ out={}
+ for line in source.splitlines():
+  step=re.match(r'def step_(\d+)\(',line)
+  if not step:continue
+  start=line.index('Gameplay.run(');depth=0
+  for i in range(start+len('Gameplay.run'),len(line)):
+   if line[i]=='(':depth+=1
+   elif line[i]==')':
+    depth-=1
+    if depth==0:out[int(step.group(1))]=line[start:i+1];break
+ return out
+assert calls(source)==calls(old) and set(calls(source))==set(range(32))
+assert 'List.reverse(&2,Item,value <> previous)' in source
+for i in range(31):assert f':step_{i+1}(value <> previous)' in source
+assert 'def collected() -> List<&2,Item>:step_0([])' in source
+assert 'case value <> rest:separator ++ item(value) ++ work(rest,",")' in source
+assert '"[" ++ work(collected(),"") ++ "]"' in source
+assert source.count('Format.whole(~Owner.First,report)')==1 and source.count('Format.whole(~Owner.Second,report)')==1
+values=json.loads(semantic);assert len(values)==32 and all(set(x['value'])=={'$','public','native'} for x in values)
+# Runtime recursive seam's punctuation/order for empty, single and selected32.
+def fold(values,separator=''):
+ return '' if not values else separator+json.dumps(values[0],separators=(',',':'),ensure_ascii=False)+fold(values[1:],',')
+assert '['+fold(values)+']'==semantic
+assert '['+fold([])+']'=='[]'
+assert json.loads('['+fold(values[:1])+']')==values[:1]
+print('PASS:58pins/exact32calls/reversal+recursive order/fullfield model equality/unchanged1323096 wire and1065569semantic; source01 deadline not PASS')

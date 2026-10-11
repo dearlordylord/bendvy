@@ -1,0 +1,22 @@
+"""Independent selected32 complete Report JSON wire; no runtime outputs."""
+from pathlib import Path
+import runpy,json,struct
+ROOT=Path('/workspace/formal-proofs/bendvy')
+ALIGNED=ROOT/'experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1'
+ENTRY=Path('/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/full-format-v2/main.bend')
+def source_models():return runpy.run_path(str(ALIGNED/'oracle-v1/expected.py'))['expected']()
+def inventory():return runpy.run_path(str(ALIGNED/'model-adapter.py'))['inventory'](ENTRY)[0]
+def format_value(value,typ,types):
+    if typ=='Nat':return {'$':'Nat','decimal':str(value)}
+    if typ in ('U32','Bool','String','F32'):return value
+    if isinstance(typ,list):return [format_value(x,typ[0],types) for x in value]
+    module,variants=typ if isinstance(typ,tuple) else types[typ]
+    tag=value['$'];fields=variants[tag]
+    if typ=='Raw' and tag=='Float':
+        return {'$':'Float','bits':struct.unpack('<I',struct.pack('<f',value['value']))[0]}
+    return {'$':tag,**{key:format_value(value[key],child,types) for key,child in fields}}
+def formatted():return format_value(source_models()['native'],inventory()['Report'],inventory())
+def semantic_json():return json.dumps(formatted(),separators=(',',':'),ensure_ascii=False)
+def expected():
+    # Pure String main is shown quoted/escaped by pinned show_val, then LF.
+    return (json.dumps(semantic_json(),ensure_ascii=False)+'\n').encode()
