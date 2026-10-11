@@ -1,0 +1,21 @@
+from pathlib import Path
+import json,hashlib,gzip,runpy,re
+here=Path(__file__).resolve().parent;b=json.loads((here/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs'):
+ for p,h in b[group].items():assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==h,p
+m=runpy.run_path(str(here/'model.py.source'));prior=runpy.run_path(str(here.parent/'model.py.source'))
+assert m['expected']('required_out')==prior['expected']()
+counts={'optional_out':3,'required_in':1,'optional_in':3,'present_out':2,'absent_out':1,'present_in':1,'absent_in':2}
+for mode,v in json.loads((here/'ORACLES.json').read_text()).items():
+ raw=m['expected'](mode);assert raw==gzip.decompress(Path(v['stdout']).read_bytes())
+ assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+ for ns in (31,47):
+  for relation in ('link','parent'):
+   row=m['rows'](ns,relation+'_'+mode)
+   assert len(re.findall(str(ns)+r':\d+:\[',row))==counts[mode]
+   if mode.startswith(('present','absent')):assert 'Outgoing' not in row and 'Incoming' not in row
+   if mode in ('required_in','optional_in'):
+    order=(3,1) if relation=='link' else (1,3)
+    assert 'Sources:['+', '.join(f'{ns}:{i}' for i in order)+']' in row
+   if mode.startswith('optional'):assert 'Missing' in row
+print('PASS:7fulltupleoracles/sourcepins/first-mode byteinverse/incoming order/empty filter cells')
