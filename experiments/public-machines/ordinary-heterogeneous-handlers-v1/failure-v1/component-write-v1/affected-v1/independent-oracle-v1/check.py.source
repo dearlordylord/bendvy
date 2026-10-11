@@ -1,0 +1,22 @@
+from pathlib import Path
+import json,hashlib,gzip,runpy
+here=Path(__file__).resolve().parent;b=json.loads((here/'SOURCE-BASIS.json').read_text())
+for group in ('sourcePins','inputs'):
+ for p,h in b[group].items():assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==h,p
+m=runpy.run_path(str(here/'model.py.source'))
+for scene,v in json.loads((here/'ORACLES.json').read_text()).items():
+ raw=m['expected'](scene);rows=m['observations'](scene)
+ assert len(rows)==11 and raw==gzip.decompress(Path(v['stdout']).read_bytes())
+ assert len(raw)==v['bytes'] and hashlib.sha256(raw).hexdigest()==v['sha256']
+ clocks={'first-exit':7,'first-enter':6,'second-exit':7,'second-transition':8,'second-enter':6}
+ assert '|clock='+str(clocks[scene])+'}' in rows[-2]
+ if scene=='first-enter':
+  assert 'first={Warm:pending=None:previous=Cold:changed=False}' in rows[-2]
+  assert 'firstDelivered=[Cold>Warm]' in rows[-2]
+ if scene=='second-enter':assert 'second={Active:7:pending=None:previous=Idle:changed=False}' in rows[-2]
+ if scene in ('second-exit','second-transition'):
+  assert 'secondDelivered=[]' in rows[-2] # successful retry occurs after last reader
+  assert 'secondStream={batches=[2:[Idle>Active:7]]' in rows[-2]
+prior=here.parents[1]/'independent-oracle-v1/tracked-cursors-v2/model.py.source'
+assert m['expected']('first-transition')==runpy.run_path(str(prior))['expected']()
+print('PASS:5full11Stringoracles/currentpins/phasecommit-retry/cursors/clock/source-bound baseline inverse')
