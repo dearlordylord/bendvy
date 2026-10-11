@@ -1,0 +1,11 @@
+# Combined184 focused comparative launch review
+
+PASS for exact PLAN-184 SHA256 `9022209f991a14dbafaf717ddf97be25043c629f02a8900d98debdcf722b9ec0`, author4001c7d1f / roote2768e871. Static approval only; root owns actual exclusive queue/fresh suitableCPU11 admission, outer lock and launch.
+
+Compared with reviewed PLAN183, the sole source addition is adopted ordinary-app-relation-failure-reader.bend8480 bytes SHA918b3f6c0865e0ea57142216741aaa788593f2fa1b3a089590add64a3d1deb15. Its exact Spec/Standards review59ed8f… matches the archived adoption report. All prior189 monitored hashes and192 staged records are unchanged;190/193 now match current bodies. Inventory is184 direct plus6 internal. The private carried-count candidate is excluded and root event-runtime baseline remains unchanged.
+
+All eight literal/resolved tool hashes and33 TS source hashes verify current. Baseline archive/members, contract, runner/statistics/task_runner source, resources/configuration/environment, reference identity and caps remain exact predecessor bindings. The prior preserved four-test statistics control is applicable through unchanged source/Python bindings; no repeated control was run. Zero allowance, exact sign/Holmalpha.05, default327bec49 Workshop22 checkpoints×10,20 pairs/two warmups/seed20261007 are unchanged.
+
+The exact command differs only by fresh regression184-01 output: /usr/bin/flock /tmp/bendvy-parity-heavy.lock /usr/bin/env -i [identical PLAN pinned environment] /usr/bin/python3.11 /workspace/formal-proofs/bendvy/benchmarks/run.py --output /tmp/bendvy-combined-ordinary-app-regression184-01 --cpu 11. Output is absent. No provider variant, injected delay, target/workload reduction or new criterion is introduced. benchmark runner has no internal flock; the recorded outer command supplies serialization.
+
+Launch remains conditional on all semantic/profile/hook children terminal, root-exclusive reservation and fresh quiet/suitable host observations immediately before execution; this static review assumes no enduring host quietness. Retain exact plan/source/tool pre/post joins, actual raw/terminal and full whole-output cohort evidence. This approves the protected default regression launch, not measurements, feature timing or full #56 parity. No reviewer child or source edit occurred.
