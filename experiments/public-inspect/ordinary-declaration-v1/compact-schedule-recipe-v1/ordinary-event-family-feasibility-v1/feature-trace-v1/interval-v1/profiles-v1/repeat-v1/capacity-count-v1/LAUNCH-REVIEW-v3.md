@@ -1,0 +1,19 @@
+# Capacity-count private staging launch review
+
+HOLD — candidate reach is not established for exact PLAN SHA256 `75bc4fb1cca4f071dcd348b5c7b3f7c1959e240d3ca1e4eed42235c18a4de583`, root7e8b7c477/52fd16ccf.
+
+All360 pins and82 stage inventory hashes match; output/terminal are fresh. The candidate source changes only capacity trimming implementation, normalizes its two imports into staged src/ecs, and retains public signatures/protocols. Independent source equivalence and unchanged runner approval do not by themselves prove actual candidate execution.
+
+Concrete blocker: feature-harness/typed-events-1.bend imports qualified-regular/interval-v1/main.bend; that trace reaches qualified-regular/setup.bend. The staged setup still imports absolute /workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend and the live root event-stream, ordinary-event-family, event-family-runtime and routing modules. Pinned .references/bend2/bend2/bend.ts lines1000–1006 normalize imports and resolve nonhub paths with path.posix.resolve(dir,rel). An absolute import therefore resolves the live root file, not the staged candidate. Staged src/ecs/event-runtime.bend fd9836d451d06a3d5cf51c8aae66d0b170b80a97f2e3bd0b16784546294359f3 differs from guarded root baseline2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557, but the changed staged body is bypassed by this actual closure. STAGED-JOIN's reach assertion and stock wrapper foreign-only check do not repair the import binding.
+
+Before launch, provide an immutable subject successor whose actual full regular import closure reaches the candidate, with exact relocation/inverse and nominal complete-output applicability joins. Preserve root baseline guards, full72-row oracles/17-operation completion checker, unchanged Harness/caps/terminal behavior and fresh artifacts. Review only that changed source-binding repair; no new runner, criteria, profile or cohort is needed. No child was launched and no shared source was edited.
+
+## Actual-closure successor
+
+PASS for exact successor PLAN SHA256 `a6e8f2fa4727e44e6a62dce38afb3c9b90db6b3a3088ff97bc573d2713ec8102`, authoraac7e6ab3. Prior HOLD and unreachable subject remain preserved.
+
+Independently resolved stage03 entry's27 Bend modules and94 import edges; every nonBase target now lies inside stage03, including the candidate event-runtime. All closure pins match. Six regular import inverses, the additional observer-link inverse and five copied owner-observer import inverses reconstruct the original bodies exactly. The stock wrapper check is scoped to expected11 foreign-dependent definitions; the intermediate nominal mismatch is retained as failed history. This repairs actual candidate reach rather than merely asserting it.
+
+Independent staged-v3 applicability30c8 binds the complete78093 Bend/40956 TS oracles. The explicit renderer's nonimport body and hardcoded constructor text are unchanged, so internally coherent nominal relocation does not change the returned String grammar. Full physical state/order/owner applicability follows the reviewed carried-count invariant, not a passing reduced fixture. Actual generated operation-completion checks remain mandatory before consumers and may fail closed.
+
+All367 final input bindings and83 staged bodies match. Fresh regular03 output and terminal are absent. The unchanged interval execute.py.source/Harness, evaluation checker, timer, operations and caps remain approved; no profile or comparative cohort is added. Baseline root source and staged candidate are separately guarded. Launch must substitute this exact digest for the placeholder and wait until the current heavy owner has released the queue; retain full outputs and unconditional terminal/source guards. This approves one regular JS/Native/TS correctness sequence only, with no performance or core-adoption credit.
