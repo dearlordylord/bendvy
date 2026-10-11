@@ -1,0 +1,17 @@
+"""Source-only foreign/missing/deactivated granular traversal transcript."""
+def physical(namespace,resource,dead=False):
+    owners=''.join((f'{i},{i},{10*i},' if i<=4 else 'absent')+';' for i in range(1,9))
+    live=''.join('1,' if 1<=i<=4 and not(dead and i==1) else '0,' for i in range(16))
+    return owners+f'|stamps=|events=|meta={namespace},5,4,8,3,{resource},,1,0|registrations=|pending=0|edges=graph-edges=|graph-inverses=|live='+live
+def rejected(namespace,entity):
+    return f'entity={namespace}:{entity}|root=absent|ancestors=MissingEntity|depth=MissingEntity|breadth=MissingEntity'
+def scene():
+    local=physical(1,17);peer=physical(2,18)
+    lookup='\n'.join([rejected(2,1),rejected(1,99),rejected(1,1)])+'\n'
+    return ('target=1:1|foreign=2:1|factoryNext=3|deactivation=Accepted\nLOCAL_BEFORE\n'+local+
+            '\nPEER_BEFORE\n'+peer+'\n'+lookup+'\nLOCAL_AFTER\n'+physical(1,17,True)+
+            '\nPEER_AFTER\n'+peer)
+def expected():return ('HierarchyAlpha\n'+scene()+'\nHierarchyBeta\n'+scene()+'\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(expected())

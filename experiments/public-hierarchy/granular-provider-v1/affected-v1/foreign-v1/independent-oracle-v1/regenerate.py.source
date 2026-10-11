@@ -1,0 +1,25 @@
+"""Bind full foreign granular transcript to frozen source, never runtime output."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    freeze=HERE.parents[1]/'FREEZE.json'
+    pins=json.loads(freeze.read_text())['sourceInventory'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    m=runpy.run_path(str(HERE/'model.py.source'));raw=m['expected']();text=raw.decode()
+    assert text.count('entity=')==6 and text.count('root=absent')==6
+    assert text.count('MissingEntity')==18 and text.count('|meta=')==8
+    assert text.count('deactivation=Accepted')==2
+    assert m['physical'](1,17).split('|live=')[0]==m['physical'](1,17,True).split('|live=')[0]
+    assert m['physical'](1,17).split('|live=')[1].split(',')[1]=='1'
+    assert m['physical'](1,17,True).split('|live=')[1].split(',')[1]=='0'
+    assert text.count('\n\nLOCAL_AFTER')==2
+    for path in [freeze,HERE/'model.py.source',HERE/'regenerate.py.source',Path('/home/node/.bend/bend2/base.bend'),Path('/home/node/.bend/bend2/effs/print.js'),Path('/home/node/.bend/bend2/effs/print.c')]:pins[str(path)]=sha(path)
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    basis={'producerCommit':'d5531718d','sourcePins':pins,'entry':str(HERE.parents[1]/'foreign.bend'),'derivation':'Sequential actual Factory allocations produce namespace1/resource17 then namespace2/resource18 and FactoryNext3. Four reserves/activations per World retain payload tag and two cells; returned reverse handle tail picks id1. Granular grants independently validate foreign2:1,missing1:99,then dead1:1; rootNone printsabsent, each pathNone printsMissingEntity. World.deactivate uses metadata_valid and replaces only live[1] withFalse, preserving all store/resource/graph/log/pending/registrations/clocks and peer World. All4requests thread actual affine World per target. dead_done appends LF before finish adds another, retaining blank line. IO.print final LF pinned. No runtime outputs used.','limits':'Two nominal schemas,24independent requests and8completephysicalWorld observations; no disposal/cleanup/foreignwrite/retention/ordinaryApp bridge/performance/proof qualification.'}
+    b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle,'foreign':oracle},indent=2)+'\n')
+    result={'sourcePins':len(pins),'requests':24,'physicalWorlds':8,**oracle};(HERE/'SELFTEST.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+if __name__=='__main__':regenerate()
