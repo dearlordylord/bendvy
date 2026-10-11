@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : app
+- observed : app (consumed more than once)
+Location: duplicate
+5 | 
+6>| def duplicate(app:A.Scheduled()) -> (A.Scheduled() & Maybe<&2,Description.Description<F.S,B.Rows4()>>) & (A.Scheduled() & Maybe<&2,Description.Description<F.S,B.Rows4()>>):(Description.snapshot(~F.S,~F.Store,~F.Resources,~F.Events(),~B.Owners4(),~B.Rows4(),~B.observe4(),~B.fold4(),app),Description.snapshot(~F.S,~F.Store,~F.Resources,~F.Events(),~B.Owners4(),~B.Rows4(),~B.observe4(),~B.fold4(),app))
+  |               ^^^
+7 | def main() -> Unit:Unit{}
+bend 2.0.36 is available: run bend update
