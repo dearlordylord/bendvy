@@ -1,0 +1,32 @@
+"""No-child control: command operands must join complete qualified artifacts."""
+from pathlib import Path
+import json,hashlib,copy,sys
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def validate(plan):
+ for role in ['JS','Native']:
+  binding=plan['qualifiedArtifactBindings'][role];s=json.loads(Path(binding['semanticPlan']).read_text());r=json.loads(Path(binding['semanticReceipt']).read_text())
+  assert r['status']=='DEVELOPMENT_PASS' and sha(binding['semanticPlan'])==binding['semanticPlanSHA256'] and sha(binding['semanticReceipt'])==binding['semanticReceiptSHA256']
+  artifact=s['generated'] if role=='JS' else s['native'];field='generatedSHA256' if role=='JS' else 'buildArtifactSHA256'
+  assert binding['path']==artifact and binding['sha256']==sha(artifact)==r[field]==plan['pins'][artifact]
+  expected=list(next(row['argv'] for row in s['commands'] if row['label']=='consumer'));assert expected[:2]==['/usr/bin/taskset','-c'];expected[2]=str(plan['cpu'])
+  assert binding['operandIndex']==(4 if role=='JS' else 3) and expected[binding['operandIndex']]==artifact
+  if role=='Native':assert expected[4:]==['--threads','1','--gpu','off']
+  else:assert expected[3]==s['tools']['node'] and len(expected)==5
+  assert plan['roles']['scale4-'+role]['command']==expected
+  rows=[row for row in plan['commands'] if row['roleKey']=='scale4-'+role];assert len(rows)==22
+  assert all(row['argv']==expected and row['role']==role and row['capSeconds']==5 for row in rows)
+ return True
+if __name__=='__main__':
+ plan=json.loads(Path(sys.argv[1]).read_text());validate(plan);refused=[]
+ for name in ['native-executable','native-gpu-value','native-row','js-artifact','js-row','artifact-hash']:
+  bad=copy.deepcopy(plan)
+  if name=='native-executable':bad['roles']['scale4-Native']['command'][3]='/not-qualified/baseline.native'
+  if name=='native-gpu-value':bad['roles']['scale4-Native']['command'][7]=bad['qualifiedArtifactBindings']['Native']['path']
+  if name=='native-row':next(x for x in bad['commands'] if x['roleKey']=='scale4-Native')['argv'][3]='/not-qualified/baseline.native'
+  if name=='js-artifact':bad['roles']['scale4-JS']['command'][4]='/not-qualified/baseline.js'
+  if name=='js-row':next(x for x in bad['commands'] if x['roleKey']=='scale4-JS')['argv'][4]='/not-qualified/baseline.js'
+  if name=='artifact-hash':bad['qualifiedArtifactBindings']['Native']['sha256']='0'*64
+  try:validate(bad)
+  except AssertionError:refused.append(name)
+  else:raise AssertionError('Planted defect accepted: '+name)
+ print(json.dumps({'qualifiedNativeExecutableOperand':3,'qualifiedJSArtifactOperand':4,'all44CandidateRowsJoinQualifiedArtifacts':True,'nativeOptionsUnchanged':['--threads','1','--gpu','off'],'sixPlantedDefectsRefused':refused,'noCompilerRuntimeOrProfilerChild':True}))
