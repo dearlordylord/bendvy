@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : rows
+- observed : rows (consumed more than once)
+Context:
+- registry : Sys.Registry<run_delivery~S, Col.Column<run_delivery~S, Caller.Payload>, Array<U32>, U32, W.Handle<run_delivery~S>, Unit, C.Access<U32>, runner(run_delivery~S)>
+- factory  : W.Factory
+- world    : W.World<run_delivery~S, Col.Column<run_delivery~S, Caller.Payload>, Array<U32>, U32>
+- cursor   : U32
+Location: run_delivery
+90 |   match delivery:
+91>|     case Caller.Delivered{factory,I.Frame{world,cursor},rows,clauses,access,previous,undo,commands,events}:execute_actual(~S,factory,cursor,rows,clauses,access,previous,undo,commands,events,registry,world,actual_target(~S,rows))
+   |                                                         ^^^^
+92 |     case Caller.SetupRefused{factory,world,incoming,error}:Unexpected{Caller.SetupRefused{factory,world,incoming,error},"SetupRefused"}
