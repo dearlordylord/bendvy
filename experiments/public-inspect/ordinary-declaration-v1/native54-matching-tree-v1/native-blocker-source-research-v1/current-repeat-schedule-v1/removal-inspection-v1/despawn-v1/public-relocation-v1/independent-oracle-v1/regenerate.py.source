@@ -1,0 +1,31 @@
+"""Public wrapper and physical scene source applicability, no runtime inputs."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;P=HERE.parent;OLD=P.parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def body(p):return '\n'.join(x for x in Path(p).read_text().splitlines() if not x.startswith('import '))
+def regenerate():
+    complete=json.loads((P/'SOURCE-COMPLETE.json').read_text());pins=complete['sourcePins'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    material=json.loads((P/'ROOT-MATERIALIZED.json').read_text());target=Path(material['target'])
+    assert sha(target)==material['sha256']
+    public=body(target);private=body(OLD/'despawn-clear.bend')
+    assert public.split('\ndef despawn(',1)[0].rstrip()==private.rstrip()
+    assert 'Cmd.tx_despawn_observed(~S,~C,~R,~E,~clear,~record,tx,handle)' in public
+    consumer=body(P/'consumer-public.bend')
+    assert consumer.replace('Clear.despawn(','Cmd.tx_despawn_observed(')==body(OLD/'consumer.bend')
+    for name in ('entry','observer'):assert body(P/(name+'-public.bend'))==body(OLD/(name+'.bend'))
+    prior=json.loads((OLD/'independent-oracle-v1/SOURCE-BASIS.json').read_text())
+    for path,digest in prior['sourcePins'].items():
+        assert sha(path)==digest,path
+        pins[path]=digest
+    for path in (P/'ROOT-MATERIALIZED.json',P/'PUBLIC-MANIFEST.json',P/'SOURCE-COMPLETE.json',OLD/'independent-oracle-v1/model.py.source'):pins[str(path)]=sha(path)
+    raw=runpy.run_path(str(HERE/'model.py.source'))['expected']()
+    assert raw==(OLD/'independent-oracle-v1/expected.stdout').read_bytes() and len(raw)==6585
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    basis={'producerCommit':'728c4bcc8','sourcePins':pins,'modelPins':{str(HERE/'model.py.source'):sha(HERE/'model.py.source')},'entry':str(P/'entry-public.bend'),'derivation':'Actual public Clear module leaf/product bodies identical to qualified private cleanup, thin despawn wrapper exactly forwards existing Cmd.tx_despawn_observed. Consumer replaces only that call plus public imports, observer/entry nonimport bodies identical; explicit manual String has no QName. Same full source-derived twelve-state interpretation and logs/cursors/owner disposal. No runtime output input or prior generated artifact transfer.','scope':'Finite present/absent same-P observed despawn, two schemas. Existing cleanup only; no universal exactly-once, finalizer, failure/recovery policy, dynamic layout or full54 acceptance.'}
+    b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle},indent=2)+'\n')
+    print(json.dumps({'sourcePins':len(pins),**oracle},indent=2))
+if __name__=='__main__':regenerate()
