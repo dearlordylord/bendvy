@@ -1,0 +1,9 @@
+The actual public ordinary removal consumer passes stocksource20989, JS16851 and Native63745 against the full independent6,405-byte oracle. All23closure modules are recursively pinned; the three actual root library imports are used, with no private helper shadow. Public applicability6f533e918 verifies three library and three scene body/import inverses. The archive verifies94logicalrows78CASobjects and6commands21guards. Public core modules remain root-owned pending final qualification/adoption.
+
+The prepared observer initially retained an unresolved local Provision import. The source-plan preparer refused that path before any compiler execution. The corrected import points to the actual public library, and the unexecuted predecessor is preserved. No failed compiler/runtime credit is inferred.
+
+Both executed public backend plans retain inherited postConsumer prose about eight registered-system observations. That field is inaccurate and preserved unchanged; the actual entry, scope, captured source and exact full output contain twelve removal observations. The same correction applies to the private precursor. No extra execution credit follows from the stale prose.
+
+Configured model43955 and peer evidence97848 had crossed hook grants; possible brief overlap of scoped configured hooks is retained. No Bend/backend/performance child overlap occurred in that boundary. Both hooks are terminal and the actual public pair ran afterward under its exclusive lock.
+
+Actual public Write/wrongkey positive source controls and four typed authority refusals are frozen in affected-v1/SOURCE-COMPLETE.json; complete backend controls and root-controlled actual public selector mutation remain pending. Despawn execution, dynamic declaration binding, resource absence, full#54 coverage, TS equivalence and performance remain unqualified.

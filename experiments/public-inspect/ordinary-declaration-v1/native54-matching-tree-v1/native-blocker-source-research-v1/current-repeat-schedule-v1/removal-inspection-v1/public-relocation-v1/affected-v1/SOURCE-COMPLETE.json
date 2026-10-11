@@ -1,0 +1,76 @@
+{
+  "cases": {
+    "write": {
+      "capture": "/tmp/bendvy54-removal-public-write-source01",
+      "exit": 0,
+      "planSHA256": "477df600d1b31fa3cc645d3e31ef0c89b55d4abaad8cf32905da014c32c04980"
+    },
+    "wrongkey": {
+      "capture": "/tmp/bendvy54-removal-public-wrongkey-source01",
+      "exit": 0,
+      "planSHA256": "8c49dcb46c52bc3a8e2faab09ebad6cd72ea2ac9228a01ffe861fce0ce62e0b7"
+    },
+    "cross-schema": {
+      "capture": "/tmp/bendvy54-removal-public-cross-schema-source01",
+      "exit": 1,
+      "planSHA256": "23a066a4fb20fb9509dfc804d8151ed606faf643207d6dfd476a3847d4aefe03"
+    },
+    "owner-duplication": {
+      "capture": "/tmp/bendvy54-removal-public-owner-duplication-source01",
+      "exit": 1,
+      "planSHA256": "1a3d2ac29b4054567532a3948b8ad540014609e458e7df0a462d9f15dafb7241"
+    },
+    "undeclared": {
+      "capture": "/tmp/bendvy54-removal-public-undeclared-source01",
+      "exit": 1,
+      "planSHA256": "8a9bc6802bbfc93c641e56b710cdadd4e758ded899c6e751007df45f9c375285"
+    },
+    "wrong-category": {
+      "capture": "/tmp/bendvy54-removal-public-wrong-category-source01",
+      "exit": 1,
+      "planSHA256": "bca5fb061f0edadb6d04eb4ad9044375c741845ff5e158c325b297b4c46c60ed"
+    }
+  },
+  "sourcePins": {
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/affected-v1/entry-write.bend": "c38d3d97ff27924d8432e29c835e20108398cfd75e04730e5c8e8a9034b10884",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/affected-v1/consumer-write.bend": "715a4e697a377cb14aec3b5374489a8b177d2f82bcafd5fcd5e9f3b295eaf462",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "/workspace/formal-proofs/bendvy/src/ecs/ordinary-removal-provision.bend": "33048c1c46809ad9fae490fa1a59d47b4d37e7ec117ffeb0bfb035d6c5f82eab",
+    "/workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+    "/workspace/formal-proofs/bendvy/src/ecs/ordinary-component-binding.bend": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy/src/ecs/removals.bend": "98a5f5cf42372d8eab35f3927539079e4412886eeaa3e07bbb2113f2286222f6",
+    "/workspace/formal-proofs/bendvy/src/ecs/ordinary-inspector-removal.bend": "cd37c28f48ee828899b402e4ee8d2bcc1b90e66206bebf978a207c624d26d053",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "/workspace/formal-proofs/bendvy/src/ecs/ordinary-component-removal.bend": "c49bd21a6fb731697c305b55508ca722b601642eea1aba840bb2b95baaef0041",
+    "/workspace/formal-proofs/bendvy/src/ecs/structural.bend": "e8e813dc6de2f8a38ca61f51c0cbc5aeaf243fcc9cd399303e2adca2674480d4",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-product.bend": "5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f",
+    "/workspace/formal-proofs/bendvy/src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/affected-v1/observer-write.bend": "a20826fefab56c7d0cf600c46b7b6e70d2a33829f38981d9dad495cd416a435f",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/affected-v1/entry-wrongkey.bend": "91765f4de8b89f60c25072bb9fd57e05e3dba0eb78dfaa033cee7889a97b7785",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/affected-v1/consumer-wrongkey.bend": "966d7982376976c418a849cb52589e4a02e0414690096ea47c9004b038c6bfed",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/affected-v1/observer-wrongkey.bend": "265ec844588fdcea0a39a58f2d89ab45eb8c50e1ea4bf7a91184ce6ac5253f5e",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/affected-v1/cross-schema.bend": "6f755aa59b1b2eed00673f86924caba9c618d4914d06e97a68aab8b0bec4f0d3",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/consumer-public.bend": "c1c1723f9750efdb42aaf29b8abf1ad71aa3b02bfdf5f5250d02c8c4e9fff7c7",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/affected-v1/owner-duplication.bend": "57fc7dd792d700924dd5312cea492da8913094cf8504a327e413859c30752704",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/affected-v1/undeclared.bend": "1d0a21175ffae85f5d7560254074dad1bfc4ee66d3134b0b67520dfdd66fdec6",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/affected-v1/wrong-category.bend": "3583085f3365a727f26d9378be20c3fc61553e89bd495fb1c687173645072499",
+    "/workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend": "a694d2570202141ec906fd89fb0306d2ad8a55b2279a98b963daefe2b8f19ffc",
+    "/workspace/formal-proofs/bendvy/src/ecs/decode-data.bend": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4",
+    "/workspace/formal-proofs/bendvy/src/ecs/decode-utf16.bend": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+    "/workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+    "/workspace/formal-proofs/bendvy/src/ecs/decode-capabilities.bend": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65",
+    "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend": "e161ff13196cd40b2218efc7734c2e1e661e74e09a754e6ff60cbe2b525d65ca",
+    "/workspace/formal-proofs/bendvy/src/ecs/decode.bend": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+    "/workspace/formal-proofs/bendvy/src/ecs/decode-size.bend": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281"
+  },
+  "scope": "Actual public3 imports: complete Write/wrongkey plus four intended current typed authority refusals; no private helper shadow, backends pending"
+}
