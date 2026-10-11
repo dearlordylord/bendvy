@@ -1,0 +1,80 @@
+"""Finite literal model; no Bend execution, law/proof or runtime output input."""
+import ast, json
+from pathlib import Path
+
+KINDS = ['Component', 'Resource', 'Event', 'Relation', 'Service']
+
+def reference_functions(path):
+    tree = ast.parse(Path(path).read_text())
+    defs = [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name in ('classify', 'validate')]
+    assert len(defs) == 2
+    scope = {}
+    exec(compile(ast.Module(body=defs, type_ignores=[]), str(path), 'exec'), scope)
+    return scope['classify'], scope['validate']
+
+def bare(x):
+    return tuple(x[:3])
+
+def show_result(x):
+    code, kind, key, name = x
+    return 'Valid' if code == 0 else ('DuplicateKey:' + KINDS[kind] + ':' + key if code == 1 else 'DuplicateName:' + KINDS[kind] + ':' + name)
+
+def show_entries(xs):
+    return ''.join(KINDS[k] + ':' + key + ':' + name + ':' + (extension or 'bare') + ';' for k, key, name, extension in xs) + 'end'
+
+def classify_without_key(seen, item):
+    kind, key, name = item
+    return [2, kind, '', name] if any(k == kind and n == name for k, _, n in seen) else [0, 0, '', '']
+
+def validation(xs, classify):
+    for kind in range(5):
+        seen = []
+        for item in map(bare, xs):
+            if item[0] == kind:
+                result = classify(seen, item)
+                if result[0]:
+                    return result
+                seen.append(item)
+    return [0, 0, '', '']
+
+def ordinary(classify):
+    plain = [[0, 'A', 'A', 'Plain']]
+    transient = [[1, 'A', 'A', 'Transient']]
+    tail = transient + [[0, 'B', 'B', None]]
+    values = plain + tail
+    reason = show_result(validation(plain + plain, classify))
+    return ['all=' + show_entries(values), 'component=' + show_entries([x for x in values if x[0] == 0]),
+            'resource=' + show_entries(transient), 'valid=Valid', 'duplicate=' + reason,
+            'required-bare=Valid', 'required-classified=Valid',
+            'Merged:' + show_entries(values) + '|left=leaf:41|right=leaf:43',
+            reason + '|left=' + show_entries(plain) + '|owner=leaf:41|right=' + show_entries(plain) + '|owner=leaf:43']
+
+def derive(cases, reference, omitted=False):
+    classify, validate = reference
+    active = classify_without_key if omitted else classify
+    rows = ordinary(active)
+    for mode in ('bare', 'normalized'):
+        for label, seen, item in cases['collisionCases']:
+            rows.append(mode + ':' + label + '=' + show_result(active([bare(x) for x in seen], bare(item))))
+    for label, values in cases['validationCases']:
+        expected = validation(values, active)
+        if not omitted:
+            assert expected == validate([bare(x) for x in values])
+        rows.append('validate:' + label + '=' + show_result(expected))
+    assert len(rows) == 50
+    assert rows[9:27] == [x.replace('normalized:', 'bare:', 1) for x in rows[27:45]]
+    return rows
+
+def stdout(rows):
+    # Base List.show uses comma-space; String.show quotes ASCII strings; CLI adds LF.
+    return (json.dumps(rows, ensure_ascii=False) + '\n').encode()
+
+if __name__ == '__main__':
+    import argparse, hashlib
+    parser = argparse.ArgumentParser()
+    parser.add_argument('cases')
+    parser.add_argument('reference')
+    parser.add_argument('--omitted', action='store_true')
+    args = parser.parse_args()
+    raw = stdout(derive(json.loads(Path(args.cases).read_text()), reference_functions(args.reference), args.omitted))
+    print(json.dumps({'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest()}))
