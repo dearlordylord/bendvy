@@ -1,0 +1,35 @@
+"""Exact actual-public authorization source joins and whole expectations."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;P=HERE.parent;PUBLIC=P.parent;OLD=PUBLIC.parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def body(p):return '\n'.join(x for x in Path(p).read_text().splitlines() if not x.startswith('import '))
+def regenerate():
+    complete=json.loads((P/'SOURCE-COMPLETE.json').read_text());pins=complete['sourcePins'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    for case in ('write','wrongkey'):
+        assert complete['cases'][case]['exit']==0
+        for name in ('consumer','entry','observer'):
+            assert body(P/(name+'-'+case+'.bend'))==body(OLD/'affected-v1'/(name+'-'+case+'.bend'))
+        consumer=(P/('consumer-'+case+'.bend')).read_text()
+        assert 'src/ecs/ordinary-removal-provision.bend as Provision' in consumer
+        assert 'src/ecs/ordinary-inspector-removal.bend as Access' in consumer
+        assert 'src/ecs/ordinary-component-removal.bend as Operation' in consumer
+    publicbasis=json.loads((PUBLIC/'independent-oracle-v1/SOURCE-BASIS.json').read_text())
+    for path,digest in publicbasis['sourcePins'].items():
+        assert sha(path)==digest,path
+        pins[path]=digest
+    for path in (OLD/'affected-v1/independent-oracle-v1/model.py.source',OLD/'independent-oracle-v1/model.py.source',P/'SOURCE-COMPLETE.json'):pins[str(path)]=sha(path)
+    model=runpy.run_path(str(HERE/'model.py.source'));catalogue={}
+    for case in ('normal','write','wrongkey'):
+        raw=model['expected'](case)
+        assert raw==(OLD/'affected-v1/independent-oracle-v1'/case/'expected.stdout').read_bytes()
+        directory=HERE/case;directory.mkdir(exist_ok=True)
+        (directory/'expected.stdout').write_bytes(raw);(directory/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+        basis={'producerCommit':'4274ce35e','sourcePins':pins,'modelPins':{str(HERE/'model.py.source'):sha(HERE/'model.py.source')},'case':case,'derivation':'Actual public3 imports and literal nonimport scene inverses to independently modeled private authority scenes. Write or distinct OtherPosition declaration rejects getter projection None without effects; actual removal/log/reader still operate unchanged. Manual String has no QName output. Complete source-only state interpretation; no runtime output inputs or generated artifact transfer.','scope':'Two nominal schemas/twelve full snapshots, same-P distinct identity and Read/Write authority only; typed refusal captures are producer evidence, no general cleanup/despawn/absence/full54 qualification.'}
+        b=directory/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+        catalogue[case]={'stdout':str(directory/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'SOURCE-BASIS.json').write_text(json.dumps({'producerCommit':'4274ce35e','sourcePins':pins},indent=2)+'\n')
+    (HERE/'ORACLES.json').write_text(json.dumps(catalogue,indent=2)+'\n')
+    print(json.dumps({'sourcePins':len(pins),'cases':catalogue},indent=2))
+if __name__=='__main__':regenerate()
