@@ -21,19 +21,30 @@ def native_barrier(native):
    continuations=re.findall(r'STK\(\d+\) = (FID_[A-Z0-9_]+);',before)
    assert continuations,'Operation call lacks explicit strict return continuation'
    continuation=continuations[-1];returned=segments[continuation]
-   targets=re.findall(r'WL_JMP\((FID_[A-Z0-9_]+_AFTER_END)\)',returned)
-   assert len(targets)==1,'Returned operation must enter actual after_end'
-   reads=re.findall(r'(\w+) = r(\d+);',returned)
-   forwarded=[(word,index) for word,index in reads if re.search(r'r\d+ = '+re.escape(word)+r';',returned)]
-   assert len(forwarded)>=2,'Fixture and completion returned words are not forwarded'
-   ended=segments[targets[0]]
-   assert re.search(r'CID_[A-Z0-9_]*TIMING_END\b',ended),'after_end lacks actual end request'
-   assert re.search(r'\w+ = r\d+;',ended),'after_end must consume returned arguments'
-   closures=re.findall(r'FID_[A-Z0-9_]+_AFTER_END_C\d+',ended)
-   assert closures,'End must retain an explicit observation continuation'
-   observation=[(key,segments[key]) for key in set(closures) if key in segments and re.search(r'FID_[A-Z0-9_]+_OBSERVE\b',segments[key])]
-   assert observation,'Observe must reside in the continuation after end'
-   candidates.append({'operationCallSegment':name,'operation':jump[1],'operationCall':code,'returnContinuation':continuation,'returnedWordForwarding':forwarded,'returnedContinuationBody':returned,'afterEnd':targets[0],'afterEndBody':ended,'observationContinuations':dict(observation)})
+   # Native inlines after_end. The operation return continuation captures
+   # every returned word in a closure; that closure creates IO.bind(end,k).
+   reads=re.findall(r'\b(\w+) = r(\d+);',returned)
+   assert reads and sorted(int(i) for _,i in reads)==list(range(len(reads)))
+   closures=re.findall(r'r0 = term_clo\((FID_[A-Z0-9_]+), (\w+)\);',returned)
+   assert len(closures)==1,'Returned owner must form exactly one IO closure'
+   ended_id,node=closures[0];ended=segments[ended_id]
+   capture=[(word,index) for word,index in reads if re.search(r'e\.mem\['+re.escape(node)+r' \+ '+str(int(index)+1)+r'\] = '+re.escape(word)+r';',returned)]
+   assert len(capture)==len(reads)>=2,'Every operation result word must be captured in order'
+   end_call=re.search(r'r0 = term_clo\((FID_[A-Z0-9_]+_TIMING_END), 0\);\s*r1 = term_clo\((FID_[A-Z0-9_]+), (\w+)\);\s*[^}]*?WL_JMP\(FID_IO_BIND\);',ended)
+   assert end_call,'Actual end must be first IO.bind argument and observation second'
+   end_id,observe_id,observe_node=end_call.groups();observe=segments[observe_id]
+   assert re.search(r'WL_JMP\(FID_[A-Z0-9_]+_TRACE_OBSERVE\);',observe)
+   assert not re.search(r'WL_JMP\(FID_[A-Z0-9_]+_TRACE_OBSERVE\);',ended),'Observation executed before end'
+   end_reads=re.findall(r'\b(\w+) = r(\d+);',ended)
+   assert len(end_reads)==len(reads)+2,'Closure must retain next, complete operation result and IO world'
+   world,world_index=end_reads[-1];assert int(world_index)==len(reads)+1
+   assert re.search(r'r2 = '+re.escape(world)+r';',ended),'IO world must be threaded into bind'
+   for word,index in end_reads[:-1]:
+    assert re.search(r'e\.mem\['+re.escape(observe_node)+r' \+ '+index+r'\] = '+re.escape(word)+r';',ended),'End continuation capture dropped/reordered owner word'
+   assert len(re.findall(r'\b\w+ = r\d+;',observe))>=len(end_reads),'Observation continuation lost returned fields'
+   assert 'WL_RETN(1)' in returned
+   end_body=segments[end_id];assert re.search(r'term_ctr\(CID_[A-Z0-9_]+_TIMING_END,',end_body)
+   candidates.append({'operationCallSegment':name,'operation':jump[1],'operationCall':code,'returnContinuation':continuation,'returnedWordCount':len(reads),'returnedContinuationBody':returned,'inlinedAfterEndClosure':ended_id,'afterEndBody':ended,'endEffectBody':end_body,'observationContinuation':observe_id,'observationBody':observe})
  assert len(candidates)==1,('Unrecognized actual Native operation/end barrier',len(candidates))
  compiler=Path('/workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts')
  source=compiler.read_text();support={}
@@ -51,7 +62,7 @@ def check(js,c):
  assert '["fst"]' in ended and '["snd"]' in ended and '$058end$(' in ended and '$058observe$(' in ended
  assert ended.index('["fst"]')<ended.index('$058end$(')
  # Observation is held in the IO.bind continuation, never evaluated before end.
- assert re.search(r'\$058end\$\(\)[\s\S]*=>[\s\S]*\$058observe\$',ended)
+ assert re.search(r'\$058end\$\(\w+\)[\s\S]*=>[\s\S]*\$058observe\$',ended)
  step=native[native.index('static void io_step('):native.index('OUTLINE void io_loop(',native.index('static void io_step('))]
  assert step.index('Term req = corpus_eval(')<step.index('Term x = io_exec(')
  assert 'interval_elapsed += elapsed; interval_count++' in native
