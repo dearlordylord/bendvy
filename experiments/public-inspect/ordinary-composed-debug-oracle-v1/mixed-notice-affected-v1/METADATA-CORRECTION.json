@@ -1,0 +1,23 @@
+{
+  "originalCommit": "3e11ebf2d",
+  "cause": "Catalogue hashes generated before sourceCommit changed from pending provenance text to immutable producer SHA; basis files were updated but catalogue hashes were not refreshed.",
+  "scope": "Only sourceBasisSHA256 fields corrected in distinct catalogue successor; original catalogue, bases, models and complete expected outputs unchanged.",
+  "rows": {
+    "normal": {
+      "staleHash": "8665cb0a2dd473619f09374682327bbc2d81266faaa4fb79402bb3a2b7bd52e4",
+      "committedBasisHash": "c6690b454a66b5f720479cd67ef8101a2f766fb1506e4dc29b6a8c40ef2d7510",
+      "priorProvenanceTextReproducesStaleHash": true
+    },
+    "other": {
+      "staleHash": "a7a37ec7d6f17d4b947e9dfc7ac7c9998201552dc5e8e335af7b4b1ae3fe8b86",
+      "committedBasisHash": "8dc75f8e35714934570cad435d31bcbf195b224a2b10470937fef0c93ac63904",
+      "priorProvenanceTextReproducesStaleHash": true
+    },
+    "passthrough-omitted": {
+      "staleHash": "105f93f5ecd14bbe19e3a1e4ca6ab71f3b17756617f6eff3252e781a0a9c4b12",
+      "committedBasisHash": "cccbbd374b4b593b362fc684c2e7e8b66678b1cda19b28164c9241cb2b9a74b6",
+      "priorProvenanceTextReproducesStaleHash": true
+    }
+  },
+  "verification": "Reconstructed prior provenance text reproduces all three stale hashes; current model and raw/gzip hashes verified."
+}
