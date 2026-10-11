@@ -1,0 +1,53 @@
+{
+  "targets": [
+    {
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-registration-fields.bend",
+      "proposal": "/workspace/formal-proofs/bendvy-worktrees/ordinary-custom-store-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-composed-debug-v1/reader-registration-v1/core-proposal/ordinary-app-registration-fields.bend",
+      "previousSHA256": "09851e22f794c4fab14a9617fc45de943fb272e485b02a46052bfd71fe092d00",
+      "candidateSHA256": "5267ffa5730b7603ebcf2461cfdba3a2dc584beb497a2724f97cebee0f35e6e7",
+      "bytes": 4731,
+      "replacements": [
+        {
+          "before": "  ServiceKind{}",
+          "after": "  ServiceKind{}\n  EventKind{}"
+        }
+      ]
+    },
+    {
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-description.bend",
+      "proposal": "/workspace/formal-proofs/bendvy-worktrees/ordinary-custom-store-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-composed-debug-v1/reader-registration-v1/core-proposal/ordinary-app-description.bend",
+      "previousSHA256": "734727bfa2cc4083fa1b156ebc1903ce4e25b210065fabbc84d6ebc3fb16c25e",
+      "candidateSHA256": "50a3c086d84bf37eea7a5025b15532e1cda1e0f6f17c4d491eadc12770ab3509",
+      "bytes": 1263,
+      "replacements": [
+        {
+          "before": "    case Records.ServiceKind{}:[]",
+          "after": "    case Records.ServiceKind{}:[]\n    case Records.EventKind{}:retained"
+        }
+      ]
+    },
+    {
+      "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-app-access.bend",
+      "proposal": "/workspace/formal-proofs/bendvy-worktrees/ordinary-custom-store-v1/experiments/public-inspect/ordinary-declaration-v1/ordinary-composed-debug-v1/reader-registration-v1/core-proposal/ordinary-app-access.bend",
+      "previousSHA256": "13cd04ca06045a268c6a7e7e7600009bb70726bab94733492af99786e4ef3a39",
+      "candidateSHA256": "41bd654d004d2234fc58ad84790e50504b0443514e70f31d638966df5b59834f",
+      "bytes": 5784,
+      "replacements": [
+        {
+          "before": "    case Records.ServiceKind{}:Services{}",
+          "after": "    case Records.ServiceKind{}:Services{}\n    case Records.EventKind{}:Events{}"
+        },
+        {
+          "before": "    case Records.ServiceKind{}:[]",
+          "after": "    case Records.ServiceKind{}:[]\n    case Records.EventKind{}:retained"
+        }
+      ]
+    }
+  ],
+  "scope": "EventKind carries existing generated retained clause, actual Event.Mode\u2192Query mode from ordinary-app-event.query_mode, exact Events access category; no string parsing/new access policy",
+  "allMatchSites": [
+    "ordinary-app-description.clauses",
+    "ordinary-app-access.category",
+    "ordinary-app-access.clauses"
+  ]
+}
