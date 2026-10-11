@@ -1,0 +1,21 @@
+# Policy-free public removal final review
+
+Spec PASS; Standards PASS for bounded functional/code integration of the current v2. The v1 adoption HOLD remains historical and is resolved by the actual API change, not waived. Final cd228959d; source/model/actual chain af37d3f22,298f815ed,de5b9f6cc,e746c8490,6d0d17adc,deb14919c,37a0a5064. RESULT.md SHA256 03ed20e933be5e96b287e193d7dabee1362cf5f5bbd392b80ac9581db57205fb.
+
+Core bindings: operation f31a3d77c3bf15d77ca586f68827bc549217efeccfe05553ace9656e78fb0fae (1203 bytes); provision33048c1c46809ad9fae490fa1a59d47b4d37e7ec117ffeb0bfb035d6c5f82eab; gettercd37c28f48ee828899b402e4ee8d2bcc1b90e66206bebf978a207c624d26d053. All live normal hashes verified. Normal/authority/reached manifests: f19bf7e5e37843ca3758c3b469f124ab6b456308cf2e0fa7a640d1dbfad95354 / 19e9f2617e28431fdca8bd183c61c38b606f1d4a2f5697885cfb9d5ed9cff72f / 18936aaa774f517a242caff702de075f40c7875b17417fc36419329563867497.
+
+## Spec
+
+The public operation now derives family and removal metadata identity from the same operational Binding, invokes existing St.tx_remove_observed and returns existing St.Queued. There is no Selection identity parameter, runtime key comparison, Returned wrapper or SelectionRejected outcome. Existing structural command validation/owner threading remains the selected contract. Generated injection/sum projection use the ordinary declaration; no second family key or mirrored EventFamily list is introduced. Inspector access uses actual opaque Cap.value_read, retains World and typed Data removal records, and does not advance the operational removal reader. Actual removal commit/barrier and subsequent Rm.run remain exercised.
+
+Generic P:Type, C/R:Type and owner-returning column lenses remain unrestricted at the signature; the executed Payload/sibling/resource Array witnesses demonstrate this finite path, not arbitrary raw lens correctness or universal owner identity. Static Binding/injection/presenter setup remains trusted. This is ordinary structural removal retention through existing World.events/Rm.since, not Type-event capture policy or a new foreign-command outcome.
+
+## Standards and actual evidence
+
+Verified all303 logical archive rows/249 CAS bodies, exact membership/length/SHA/archive digests and successful receipt terminal joins: normal77/64 with6commands21guards; authority142/112 with12commands42guards; reached84/73 with6commands21guards. Four intended source refusals supply the remaining4commands16guards, total28/100; six obsolete-import/alias attempts are explicitly uncredited. Actual diagnostics reach cross-schema Fixture mismatch, affine Fixture duplication, Selection-versus-inspection Declaration, and Resource-versus-component declaration category; they are finite typed-boundary witnesses.
+
+Every current normal and authority executed plan pin matches filesystem bytes. Reached plans differ only at the deliberately restored provision target: the immutable archived mutant485dcec6870b6f67b2ab5e01668a927f7513c4fa94b5fda4b78c00a74068ed4f is retained as execution input. ROOT-RESTORED records exact33048 after both actual44983/28194 terminals; f31a/cd37 remain unchanged. Do not substitute the current normal file for historical mutant source.
+
+All eight complete stdout bodies equal the independent source-model outputs: normal6405/cd48a3b87aab7100cf38440ad0e883bc2566f4e89edba179d4cc12429c35fe68; Write/wrongkey6045/0232fddda430c316e7484c9d2f2e79eb2817afde3f58d01c7ba5ef8415436921; selector omission5985/5046361badc4e840e48ee56ae80afcdcb630abca7387f551cb0bb794f35d564e. Complete same-caller baseline rejects at445 for access controls and1429 for actual public selector mutation on both backends. This mutation affects shared getter/operational-reader projection, not reader consumption. Full physical owner/log states are modeled, not blanket inferred. No output weakening or v1 wrapper qualification transfer occurred.
+
+Adoption limits: this verdict allows bounded functional/code integration; combined #28 regression for three new core bodies remains pending and is not waived. Actual Despawned publication, dynamic bindings, missing resources, held views, TS equivalent work, timing/scaling and full #54 remain open. No universal law/proof/performance credit. Reviewer ran no compiler/backend/checker/hook and changed no repository source.
