@@ -1,0 +1,19 @@
+# Matched capacity controls and JS32 diagnostics launch review
+
+PASS for exact PLAN-NEEDED SHA256 `9a3de975a25f4c1f5349db169bd408d4e628d90928aace8b1940c183cecdd456`, authord8aeddd00 / root08c99cfff. Static source review only; root separately owns admission and queue release.
+
+All487 input bindings match. Both91-member staged inventories match their guarded records. Before/after file geometries and bodies are identical except src/ecs/event-runtime.bend; actual direct-boundary/repeated entry import closures reach that role's runtime and stay within the corresponding stage except Base. Candidate complete-capacity entry also reaches the staged runtime. Fresh needed01 output and terminal are absent. No live root source is replaced.
+
+The coherent sequence runs both complete ten-boundary subjects through source5/JS+Cemit30/clang120/fullJSNative5, then candidate complete-capacity65536 physical workload on both backends. Complete independent679-byte boundary and8663200-byte relocated-capacity oracles decompress and hash exactly. Both matched JS32 sources then undergo foreign-only source checks, freshJSemit30, actual generated JS evaluation checks joined to previously qualified candidate regular1 C, ordinal protocol controls and complete2498976-byte32-lifecycle correctness. That Native check's scope is explicitly regular1 evidence, not new Native32 qualification. Both full32 correctness subjects must pass before any of the four matched CPU100/heap diagnostic children cap5.
+
+The changed adapter uses unchanged Harness supervision, logs/artifact pinning, source/external membership guards, tools, compiler/runtime caps and outer heavy flock. Pure outputs compare the entire independently pinned catalogue, not projections or FNV alone; repeated consumers use the existing full32 stdout/metric validator. Four profiles must exist and parse, then are pinned. Terminal finally captures primary/binding errors and attempts both role-specific Harness postguards; successful completion requires unchanged bindings and both clean guards. Failures stop the coherent sequence; no automatic retry, output substitution or failure credit is introduced.
+
+The copied allocation wrapper and CPU100 options retain actual completion before sampling stops, whole-process scope,32768 sampled allocation protocol and profiler overhead. No TS rebuild/capture, Native32 rebuild, comparative cohort, performance ratio, new criterion, automatic scaling or core adoption is included. Full operation/order/ownership equivalence and exact oracle applicability are source prerequisites; generated completion assertions remain fail-closed runtime prerequisites. Launch must replace the literal digest placeholder with this exact9a3de975 digest and serialize under the existing lock after root admission. No child was run during review.
+
+## External-metadata-only successor
+
+PASS for author906cd385f PLAN-NEEDED-v2 SHA256 `f56ac969fc326b17b7a691fd35d501629523acf9ba5e269587f48a7e3caaaeab`. Original6876 stage guard failure is preserved before any compiler/runtime command; prior coherent sequence review remains applicable.
+
+Independently compared both freshstage03 records with stage02: only each external boundary.bend hash changes, from stale34f04b0c… to actualf469d639…. All91 staged source bodies per role are byte-identical. All493 final input hashes match. Recorded actual Harness initialization/guard preflight2973 has PASS for both roles, exact receipt hashes and zero commands. Tools/environment/CPU/lock/contract/caps/catalogue/qualifiedNative1C/children remain identical to the approved plan. Fresh needed02 output and terminal are absent.
+
+This repairs the redundant external metadata binding without changing source, output grammar, sequence, oracle or validator. Execute only exact successor digest under previously stated root admission/queue/lock conditions. No reviewer child or repeated full review was performed.
