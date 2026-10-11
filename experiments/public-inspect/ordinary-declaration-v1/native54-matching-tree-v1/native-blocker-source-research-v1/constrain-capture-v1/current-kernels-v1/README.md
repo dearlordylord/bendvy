@@ -1,0 +1,1 @@
+Private one-body constrain prototype bound to CURRENT public query/projection kernels; full47 ordinary consumer preserved. Historical predecessor remains immutable. No backend/adoption/performance claim.
