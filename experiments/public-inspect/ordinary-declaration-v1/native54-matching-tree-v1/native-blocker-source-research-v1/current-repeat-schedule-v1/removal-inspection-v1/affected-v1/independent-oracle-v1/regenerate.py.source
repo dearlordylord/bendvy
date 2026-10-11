@@ -1,0 +1,56 @@
+"""Current frozen source joins and full independent removal countermodels."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;P=HERE.parent;OLD=P.parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def body(p):return '\n'.join(x for x in Path(p).read_text().splitlines() if not x.startswith('import '))
+def regenerate():
+    complete=json.loads((P/'SOURCE-COMPLETE.json').read_text())
+    pins=complete['sourcePins'].copy()
+    for path,digest in pins.items():assert sha(path)==digest,path
+    for case in ('write','wrongkey','mutant'):
+        assert complete['cases'][case]['exit']==0
+        assert body(P/('entry-'+case+'.bend'))==body(OLD/'entry.bend')
+        assert body(P/('observer-'+case+'.bend'))==body(OLD/'observer.bend')
+        assert body(P/('removal-operation-'+case+'.bend'))==body(OLD/'removal-operation.bend')
+        assert body(P/('removal-access-'+case+'.bend'))==body(OLD/'removal-access.bend')
+        cb=body(P/('consumer-'+case+'.bend'));old=body(OLD/'consumer.bend')
+        if case=='write':assert cb.replace('Access.write(','Access.read(')==old
+        elif case=='wrongkey':
+            changed='~take_right(~S),~put_right(~S),~view,other_binding(~S)),selection(~S))'
+            assert cb.replace(changed,'~take_left(~S),~put_left(~S),~view,binding(~S)),selection(~S))')==old
+        else:assert cb==old
+        provision=body(P/('removal-provision-'+case+'.bend'));original=body(OLD/'removal-provision.bend')
+        if case=='mutant':assert provision.replace('case Left{_}:None{}','case Left{value}:select(value)',1)==original
+        else:assert provision==original
+    oldbasis=json.loads((OLD/'independent-oracle-v1/SOURCE-BASIS.json').read_text())
+    for path,digest in oldbasis['sourcePins'].items():
+        assert sha(path)==digest,path
+        pins[path]=digest
+    for path in (OLD/'independent-oracle-v1/model.py.source',P/'SOURCE-COMPLETE.json'):pins[str(path)]=sha(path)
+    model=runpy.run_path(str(HERE/'model.py.source'))
+    normal=model['expected']('normal')
+    assert normal==(OLD/'independent-oracle-v1/expected.stdout').read_bytes()
+    catalogue={};results={}
+    for case in ('normal','write','wrongkey','mutant'):
+        raw=model['expected'](case)
+        assert raw.count(b'resource=ALeaf{17}')==12
+        assert raw.count(b'Stamp{2,2}')==12
+        assert raw.count(b'Reader{1,1,PositionRemovals,1}')==4
+        if case in ('write','wrongkey'):assert raw.count(b'projection=None{}')==12
+        if case=='mutant':
+            assert raw.count(b'projection=Some{[]}')==12
+            assert raw.count(b'output=[]')==4
+            assert raw!=normal
+        directory=HERE/case;directory.mkdir(exist_ok=True)
+        (directory/'expected.stdout').write_bytes(raw)
+        (directory/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+        basis={'producerCommit':'1cd73680c','sourcePins':pins,'modelPins':{str(HERE/'model.py.source'):sha(HERE/'model.py.source')},'case':case,'derivation':'All original physical operations and serialization retained by literal nonimport joins. Write refuses getter before World view; wrongkey OtherPosition vs Position refuses getter. Shared left selector omission removes selected records from both getter and operational reader, but injection/log unchanged; reader succeeds with empty output and still advances cursor to full event count1. Complete original clock2/3, removed Position42, retained sibling43/resource17, registration/factory/schema states. Source-only finite interpretation; no actual output inputs.','scope':'Static same-P family selection and authority; four source typing refusals are producer evidence only. No dynamic selection/despawn/cleanup/reader disposal/full54 proof.'}
+        b=directory/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+        entry={'stdout':str(directory/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+        if case=='mutant':entry.update(normalBaseline=str(HERE/'normal/expected.stdout.gz'),normalBaselineBytes=len(normal),normalBaselineSHA256=hashlib.sha256(normal).hexdigest())
+        catalogue['matched-normal' if case=='normal' else case]=entry;results[case]=entry
+    (HERE/'SOURCE-BASIS.json').write_text(json.dumps({'producerCommit':'1cd73680c','sourcePins':pins,'modelPins':{str(HERE/'model.py.source'):sha(HERE/'model.py.source')},'scope':'Complete affected source-only outputs; individual derivations and hashes in case bases.'},indent=2)+'\n')
+    (HERE/'ORACLES.json').write_text(json.dumps(catalogue,indent=2)+'\n')
+    print(json.dumps({'sourcePins':len(pins),'cases':results},indent=2))
+if __name__=='__main__':regenerate()

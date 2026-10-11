@@ -1,0 +1,23 @@
+"""Source-only finite removal authorization/selector interpretations."""
+import json,runpy
+from pathlib import Path
+P=Path(__file__).resolve().parent.parent.parent/'independent-oracle-v1/model.py.source'
+base=runpy.run_path(str(P))
+def expected(case):
+    rows=[]
+    for i in range(6):
+        stage=i//2
+        row=base['snapshot'](stage)
+        projection='Some{'+('['+base['record']+']' if stage else '[]')+'}'
+        if case in ('write','wrongkey'):
+            row=row.replace('projection='+projection,'projection=None{}')
+        elif case=='mutant':
+            row=row.replace('projection='+projection,'projection=Some{[]}')
+            if stage==2:row=row.replace('output=[Removed{1,1,Position}]','output=[]')
+        else:assert case=='normal'
+        rows.append('snapshot'+str(i+1)+'='+row)
+    scene='\n'.join(rows)
+    return (json.dumps('A='+scene+'\nOther='+scene,separators=(',',':'))+'\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(expected(sys.argv[1]))
