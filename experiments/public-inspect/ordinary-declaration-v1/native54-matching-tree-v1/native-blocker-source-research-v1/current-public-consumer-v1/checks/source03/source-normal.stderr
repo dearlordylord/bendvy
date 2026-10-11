@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:U32 -> Sigma<&1, &1, U32, _ => String>
+- observed : @+x:U32 -> Sigma<&1, &1, U32, _ => String>
+Location: payload
+27 |   match value:
+28>|     case Caller.Payload{values}:payload_join(array(~U32,~u32,values))
+   |                                                          ^^^
+29 | def some(value:Caller.Payload & String) -> Maybe<&1,Caller.Payload> & String:

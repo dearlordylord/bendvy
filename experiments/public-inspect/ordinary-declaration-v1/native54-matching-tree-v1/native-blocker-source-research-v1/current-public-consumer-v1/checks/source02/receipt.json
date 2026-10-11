@@ -1,0 +1,57 @@
+{
+  "scope": "Small current public ordinary caller; detached terminal test observer/full physical affine Delivery, two nominal schemas",
+  "planSHA256": "2c1e0929e4f8733bba272815a9ff7f573423ed45800c165f2d1e3ba28206bb7c",
+  "commands": [
+    {
+      "label": "source-normal",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-public-consumer-v1/observer.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy54-current-public-source02/source-normal.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy54-current-public-source02/source-normal.stderr",
+        "sha256": "c2d46cd945969196c7158387776834b4eb24207014c616e4f048a2430b10a192",
+        "bytes": 229,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy54-current-public-source02/source-normal-pre.guard.json",
+      "sha256": "a288687d8f49d491cb768711daabb4609df09b1d47a39d9a4a38c3238279f68c"
+    },
+    {
+      "path": "/tmp/bendvy54-current-public-source02/source-normal-acquired.guard.json",
+      "sha256": "22e0393d0ae6897f156c7865c4e5949270a655e18af1c4fe5c7a5c50aa44aa01"
+    },
+    {
+      "path": "/tmp/bendvy54-current-public-source02/source-normal-post.guard.json",
+      "sha256": "4ec97ea563373bc5fa3dc73d6fa2ed83d35bee52e0f65cc20e7ffa7c27ce9a15"
+    },
+    {
+      "path": "/tmp/bendvy54-current-public-source02/final.guard.json",
+      "sha256": "46f7f72508da4d0c0fe25e917ed8b71e5af2a35937fb1e5ad39018f34c76eb5a"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Source control exit differs: source-normal",
+  "guardFailures": []
+}

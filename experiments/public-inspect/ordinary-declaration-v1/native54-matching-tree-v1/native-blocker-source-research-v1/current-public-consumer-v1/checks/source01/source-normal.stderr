@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : '(l,lt) (r,rt)'
+Location:
+17 |   match left right:
+18>|     case (l,lt) (r,rt):(ANode{l,r},"ANode{" ++ lt ++ "," ++ rt ++ "}")
+   |          ^^^^^^^^^^^^^
+19 | def array(~T:Type,~f:T -> T & String,value:Array<T>) -> Array<T> & String:

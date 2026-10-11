@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Data
+- observed : Type
+Context:
+- S : Data
+Location: column_join
+40 |     case L.Entry{id,L.Stamp{added,changed}}:"Entry{" ++ U32.show(id) ++ ",Stamp{" ++ U32.show(added) ++ "," ++ U32.show(changed) ++ "}}"
+41>| def column_join(~S:Data,+stamps:List<L.Entry>,result:Array<Maybe<&1,Caller.Payload>> & String) -> Col.Column<S,Caller.Payload> & String:
+   |                                 ^^^^^^^^^^^^
+42 |   match result:
+Note: +stamps can be used many times, so its type must be Data.
