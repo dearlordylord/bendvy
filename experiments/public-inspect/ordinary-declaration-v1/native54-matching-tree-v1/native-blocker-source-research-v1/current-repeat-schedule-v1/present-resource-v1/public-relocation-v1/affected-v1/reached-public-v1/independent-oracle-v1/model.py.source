@@ -1,0 +1,21 @@
+"""Finite source-only metadata countermodel; no producer output input."""
+import json, runpy
+from pathlib import Path
+NORMAL_MODEL = Path(__file__).resolve().parents[3] / "independent-oracle-v1" / "model.py.source"
+
+def expected(mutant=True):
+    # bind still grants the identical ValueRead; only the two derived clauses change.
+    core = runpy.run_path(str(NORMAL_MODEL))
+    mode = "Write" if mutant else "Read"
+    def observation(value):
+        return (core["delivery"]() + "|resourceRead=" + value +
+                "|firstClauses=[Clause{FirstResource," + mode + "{}}]" +
+                "|secondClauses=[Clause{SecondResource," + mode + "{}}]")
+    scene = "\n".join(label + "=" + observation(value) for label, value in
+                      [("before1", "None{}"), ("before2", "None{}"),
+                       ("after1", "Some{17,18}"), ("after2", "Some{17,18}")])
+    return (json.dumps("A\n" + scene + "\nOther\n" + scene, ensure_ascii=False) + "\n").encode()
+
+if __name__ == "__main__":
+    import sys
+    sys.stdout.buffer.write(expected())
