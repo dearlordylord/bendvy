@@ -1,0 +1,37 @@
+"""Regenerate the source-only oracle, hashing provenance after final basis writes."""
+import gzip, hashlib, json, runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+P=HERE.parent
+sha=lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
+pins=json.loads((P/'source01/SOURCE.json').read_text())['pins']
+for path,digest in pins.items(): assert sha(path)==digest,path
+base=Path('/home/node/.bend/bend2/base.bend'); pins[str(base)]=sha(base)
+root=Path('/workspace/formal-proofs/bendvy')
+assert 'RegistrationMeta{nextSystemId,name,access} <> registrations' in (root/'src/ecs/world.bend').read_text()
+steps=(root/'src/ecs/ordinary-machine-schedule.bend').read_text().split('def steps()',1)[1].split('def install',1)[0]
+assert steps.count('Sch.Barrier{}')==1
+assert 'List.append(&1,T.LocalOwner,locals' in (P/'application.bend').read_text()
+assert 'Array.set(U32,owner,0,U32.add(old,amount))' in (P/'systems.bend').read_text()
+assert 'first_local(~S,touch(~S,world,id),id)' in (P/'systems.bend').read_text()
+assert 'case H.Transition{} True{}:Tx.Failure{"transition-first-attempt"}' in (P/'systems.bend').read_text()
+assert 'Returned{rollback(~W, undo, world), Failure{error}}' in (root/'src/ecs/transaction.bend').read_text()
+assert 'case H.Failed{transition,world,error}' in (root/'src/ecs/machine-handler-phases.bend').read_text()
+for name in ('types','lenses','application','observe'):
+    assert (P/(name+'.bend')).read_bytes()==(P.parent/(name+'.bend')).read_bytes(),name
+
+printer=Path('/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/ownership-preseed-v1/compiler/installed-cli-unmodified.mjs')
+assert sha(printer)=='015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62'
+pins[str(printer)]=sha(printer)
+pins[str(root/'.references/sources.json')]=sha(root/'.references/sources.json')
+assert 'def main() -> List<&2,String>' in (P/'main.bend').read_text()
+assert 'List.show(&2,String,x=>x' in (P/'observe.bend').read_text()
+assert 'path.posix.resolve(dir, rel)' in printer.read_text()
+model=runpy.run_path(str(HERE/'model.py.source')); raw=model['expected']()
+(HERE/'expected.stdout').write_bytes(raw)
+(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+basis={'producerCommit':'8c82b43fa','selectedSource':'source01','sourcePins':pins,'modelPins':{str(HERE/'model.py.source'):sha(HERE/'model.py.source')},'scope':'Finite present-state heterogeneous two-machine success consumer, ten complete owner-returning snapshots plus Factory with reached First Transition failure, actual Tx rollback, retained Local and retry. No runtime output inputs, initialization/expiry/universal lifecycle qualification.','sequenceSource':str(P/'main.bend'),'semantics':['World registration metadata prepends; authored Bundle/local lists append.','Each Ordinary marker has one initial barrier; staged callback work drains only at next marker.','Frame increments resource machine tick only; World clock remains zero.','Transition publication occurs after transition callbacks and before enter; First Enter queues Settled in its own slot.','Failed First Transition touches Local outside Tx; Tx undo restores head/trace and discards only failed staged command/Pulse. Ready preserves old Cold and requeues Warm before retry.', 'Earlier successful Exit remains committed and repeats on retry; no global marker rollback.', 'Later Warm-to-Settled selects no Cold/Warm authored callbacks; second NoPending clears changed only.','First Stream.open before retry activates id1 at tick1 and sees empty batches; retry publishes tick2, next read moves cursor2 preserving registeredAt1. Second read tick1; no trimming.']}
+(HERE/'SOURCE-BASIS.json').write_text(json.dumps(basis,indent=2)+'\n')
+entry={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(HERE/'SOURCE-BASIS.json'),'sourceBasisSHA256':sha(HERE/'SOURCE-BASIS.json')}
+(HERE/'ORACLES.json').write_text(json.dumps({'normal':entry},indent=2)+'\n')
+print(json.dumps({'pins':len(pins),'observations':len(model['observations']()),**entry},indent=2))
