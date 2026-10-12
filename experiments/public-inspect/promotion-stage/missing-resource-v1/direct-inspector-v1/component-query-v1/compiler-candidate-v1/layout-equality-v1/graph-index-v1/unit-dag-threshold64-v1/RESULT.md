@@ -1,0 +1,1 @@
+The full O3 Unit-C build with scheduling-DAG threshold64 reached its 120-second child deadline with empty streams. Runtime did not start. All four guards and current53 hashes remained unchanged. Held metadata and corrected review are retained; no Native acceptance or performance claim.
