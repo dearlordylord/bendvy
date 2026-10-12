@@ -1,0 +1,21 @@
+# CPU-profile-v1 prospective launch review
+
+## Verdict
+
+**Approve one bounded native-only CPU-profile diagnostic launch** with the exact bindings below. The repaired outer sequence now guards freshness of the profile output before source activation. This is not native acceptance, compiler adoption, semantic repair, parity closure, or a performance result. No compiler, collector, hook, or activation ran for this review.
+
+## Exact bindings and scope
+
+The compiler is `3c77f2dc8130d386bde12e4547d7e1ace77ff8740cbcceb140aa88574f0dbacc`, patch `76df97d1ac2b9d9e535064941ea78c5117fd26e9e62d50b150427d53c46418de`, based on postpass `0438756db603acb9c46bb002950012a871d261381e0644cb6a1563f2a1ab619c`. The native plan is `3c4e528f65c28e4e300a19847aa6ed9ea61b5300856b8833ad6208c2e90003b2`; outer plan `d2b38df346e22508a9bba8ad21c8adbef260ffafb7d27b6b232862bcbf16e291`; guarded outer script `dfdf1beffd849272a3f90b92b2a6861edca9611f3889fe751367fc9e346c6aa9`; source scope `470a0feae9e02a1e2dd19e146df36802ae12c1baf51037d1449a4edbe1ae9f1a`; launch review `4a91142515cfca394bdef1e1aba0233d654d2edf236b7261b4e23337f7d713e1`.
+
+The compiler diff adds the preserved `Date.now()` cooperative `>25000 ms`/exit-77 stop, profile boundary logs at native per-definition entry and phase points, and cumulative CPU/RSS/heap-used observations. It does not change native semantics before the diagnostic stop, source-checker or JS emitter bodies, core/API, or installed tools. `Date.now()` is captured at module load in all modes, but only the native diagnostic helper reads it; prior source/JS receipts remain scoped reuse, with no fresh source/JS or profiling claim.
+
+## Guard and evidence boundary
+
+The outer script checks all 154 pinned inputs, then under the existing activation lock loads each pinned role plan and rejects its exact profile path if it exists or is a symlink. It records the guarded paths and `allAbsentBeforeActivation: true` before activating source files. The only script/plan changes from the preserved unexecuted proposal are this guard, the new outer-script pin, and matching launch bindings. At review time, the profile path and C/native outputs are absent.
+
+All 154 outer pins match. SOURCE02 freeze/archive hashes match; the 53-file inventory matches the native plan, with five intentional activated files backed up exactly and the other 48 unchanged. The native plan’s only five preactivation hash differences are those activation bodies and are checked after activation by the existing delivery/source-boundary preflights. The outer activation lock is distinct from the collector’s heavy lock; its `finally` restores and verifies all 53 source entries.
+
+The pinned sidearchive (`12b98d5a844d580c014177cc797d58e5626b3a6d4d5f7e82c9781264b3d772cb`) contains byte-identical preserved profiled source, exit status 77, summary, and a parseable nonempty CPU profile with 17,541 samples. It supports the cooperative-stop/profile-flush method, not this candidate’s future result.
+
+The expected diagnostic exit 77 makes the unchanged collector receipt `INCOMPLETE`. A long synchronous definition/postwork step or profile flush can miss the cooperative boundary and outer 30-second cap, leaving the profile missing; classify that as defined diagnostic failure. After terminal status and source restoration, final review must hash and parse the profile before using it, distinguishing valid nonempty samples, missing output, and invalid/empty JSON. CPU/RSS/heap-used boundaries and sampled CPU stacks do not establish an allocation timeline, peak memory, or performance improvement. The run uses the frozen 53-source scope, CPU 3, caps 30/120/5, and pinned 207,834-byte oracle, but exit 77 provides no C/build/consumer result or native credit.
