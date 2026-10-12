@@ -1,0 +1,42 @@
+/usr/bin/timeout: sending signal QUIT to command '/tmp/bendvy-clang19-diagnostic/clang19'
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace, preprocessed source, and associated run script.
+Stack dump:
+0.	Program arguments: /tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang -resource-dir /tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib/clang/19 --gcc-toolchain=/usr -O3 -Xclang -disable-llvm-passes -c /workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/graph-index-v1/native/scenario.c -o /dev/null -pthread
+1.	<eof> parser at end of file
+2.	Code generation
+3.	Running pass 'Function Pass Manager' on module '/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/graph-index-v1/native/scenario.c'.
+4.	Running pass 'CodeGen Prepare' on function '@WL_FID_________________________BENDVY_SRC_ECS_INSPECTOR_QUERY_COMPOSED_SCAN_MATCHED_31_K10616'
+Stack dump without symbol names (ensure you have llvm-symbolizer in your PATH or set the environment var `LLVM_SYMBOLIZER_PATH` to point to it):
+0  libLLVM.so.19.1      0x0000ffff97d313b0 llvm::sys::PrintStackTrace(llvm::raw_ostream&, int) + 80
+1  libLLVM.so.19.1      0x0000ffff97d2f5a8 llvm::sys::RunSignalHandlers() + 112
+2  libLLVM.so.19.1      0x0000ffff97d31ac0
+3  linux-vdso.so.1      0x0000ffffa24168c0 __kernel_rt_sigreturn + 0
+4  libLLVM.so.19.1      0x0000ffff99a189a8
+5  libLLVM.so.19.1      0x0000ffff97fb6214
+6  libLLVM.so.19.1      0x0000ffff97fa4d98
+7  libLLVM.so.19.1      0x0000ffff97fa2b00
+8  libLLVM.so.19.1      0x0000ffff97f9aadc
+9  libLLVM.so.19.1      0x0000ffff97f99494
+10 libLLVM.so.19.1      0x0000ffff97e7f740 llvm::FPPassManager::runOnFunction(llvm::Function&) + 572
+11 libLLVM.so.19.1      0x0000ffff97e84a00 llvm::FPPassManager::runOnModule(llvm::Module&) + 60
+12 libLLVM.so.19.1      0x0000ffff97e7fd4c llvm::legacy::PassManagerImpl::run(llvm::Module&) + 940
+13 libclang-cpp.so.19.1 0x0000ffffa0139c74 clang::EmitBackendOutput(clang::DiagnosticsEngine&, clang::HeaderSearchOptions const&, clang::CodeGenOptions const&, clang::TargetOptions const&, clang::LangOptions const&, llvm::StringRef, llvm::Module*, clang::BackendAction, llvm::IntrusiveRefCntPtr<llvm::vfs::FileSystem>, std::unique_ptr<llvm::raw_pwrite_stream, std::default_delete<llvm::raw_pwrite_stream>>, clang::BackendConsumer*) + 3280
+14 libclang-cpp.so.19.1 0x0000ffffa044da9c clang::BackendConsumer::HandleTranslationUnit(clang::ASTContext&) + 1312
+15 libclang-cpp.so.19.1 0x0000ffff9ef92078 clang::ParseAST(clang::Sema&, bool, bool) + 588
+16 libclang-cpp.so.19.1 0x0000ffffa0eb0cac clang::FrontendAction::Execute() + 108
+17 libclang-cpp.so.19.1 0x0000ffffa0e3a414 clang::CompilerInstance::ExecuteAction(clang::FrontendAction&) + 1012
+18 libclang-cpp.so.19.1 0x0000ffffa0f2aee8 clang::ExecuteCompilerInvocation(clang::CompilerInstance*) + 520
+19 clang                0x0000aaaacd340fa8 cc1_main(llvm::ArrayRef<char const*>, char const*, void*) + 4668
+20 clang                0x0000aaaacd33e7a8
+21 libclang-cpp.so.19.1 0x0000ffffa0b27088
+22 libLLVM.so.19.1      0x0000ffff97c7b79c llvm::CrashRecoveryContext::RunSafely(llvm::function_ref<void ()>) + 152
+23 libclang-cpp.so.19.1 0x0000ffffa0b26980 clang::driver::CC1Command::Execute(llvm::ArrayRef<std::optional<llvm::StringRef>>, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char>>*, bool*) const + 340
+24 libclang-cpp.so.19.1 0x0000ffffa0af2db0 clang::driver::Compilation::ExecuteCommand(clang::driver::Command const&, clang::driver::Command const*&, bool) const + 788
+25 libclang-cpp.so.19.1 0x0000ffffa0af2fdc clang::driver::Compilation::ExecuteJobs(clang::driver::JobList const&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&, bool) const + 132
+26 libclang-cpp.so.19.1 0x0000ffffa0b0c178 clang::driver::Driver::ExecuteCompilation(clang::driver::Compilation&, llvm::SmallVectorImpl<std::pair<int, clang::driver::Command const*>>&) + 316
+27 clang                0x0000aaaacd33dec8 clang_main(int, char**, llvm::ToolContext const&) + 5452
+28 clang                0x0000aaaacd349f9c main + 88
+29 libc.so.6            0x0000ffff969f7744
+30 libc.so.6            0x0000ffff969f7818 __libc_start_main + 152
+31 clang                0x0000aaaacd33c5f0 _start + 48
+/usr/bin/timeout: sending signal KILL to command '/tmp/bendvy-clang19-diagnostic/clang19'

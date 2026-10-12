@@ -1,0 +1,47 @@
+{
+  "status": "SOURCE_AUDIT_INFERENCE_NOT_PINNED_BINARY_PROOF",
+  "references": [
+    {
+      "url": "https://raw.githubusercontent.com/llvm/llvm-project/release/19.x/llvm/lib/Support/InitLLVM.cpp",
+      "body": "InitLLVM.cpp.source",
+      "sha256": "3ffa9779b0ed14ec3d4cd4921c2e32e56e915e3b393aefcc629c9c64c1420609",
+      "lines": "35-57"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/llvm/llvm-project/release/19.x/llvm/lib/Support/Unix/Signals.inc",
+      "body": "Signals.inc.source",
+      "sha256": "d0d734733d00c2c6127bcd2225806780e9927de1e5b34d329cb5609f5321c5b7",
+      "lines": "193-223,268-312,342-381,655-748"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/llvm/llvm-project/release/19.x/llvm/lib/Support/CrashRecoveryContext.cpp",
+      "body": "CrashRecoveryContext.cpp.source",
+      "sha256": "2c98d9157049d09aa3c8a6a5e1413fd58199b774c10d60716a1f7deb6a9db0bf",
+      "lines": "314-365"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/llvm/llvm-project/release/19.x/clang/tools/driver/CMakeLists.txt",
+      "body": "clang-driver-CMakeLists.txt.source",
+      "sha256": "2a8f84bc329ca9d004c4033ad637b99f5e6cfab51e0d8e12a2c0d93e1c38169b",
+      "lines": "24-37"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/llvm/llvm-project/release/19.x/llvm/cmake/modules/llvm-driver-template.cpp.in",
+      "body": "llvm-driver-template.cpp.in.source",
+      "sha256": "5772fa2b64c1db73beb4dab7f0dca21bf83b51061953a226c910e3c439a06feb",
+      "lines": "13-15"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/coreutils/coreutils/v9.1/src/timeout.c",
+      "body": "timeout.c.source",
+      "sha256": "3baf072e1bed2bb6835c49b0f8b14001fdf4818239174f984dbe6fde7287907b",
+      "lines": "default process group and kill-after handling"
+    }
+  ],
+  "inference": "LLVM19 InitLLVM installs stack printer; SIGQUIT is in fatal signal set and integrated crash recovery excludes it. Generic Linux QUIT handler may print and resume; default timeout process group reaches descendants and kill-after5 may kill timeout itself, giving Python -9.",
+  "limits": [
+    "Actual trace required for attribution; no usable symbols/trace guaranteed.",
+    "Alternative124/137 exits remain INCOMPLETE; expected -9 is controlled termination, not compiler success.",
+    "Core dumps disabled; no extra crash diagnostic flag; no elapsed CPU or Native acceptance claim."
+  ]
+}

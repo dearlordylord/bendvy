@@ -1,0 +1,9 @@
+# Controlled stack diagnostic v1 launch review
+
+**Verdict: APPROVE this exact prospective bounded diagnostic.** It is approved to collect a controlled trace attempt, not to claim a compiler pass or Native acceptance. No compiler or signal was run during review.
+
+The plan, freeze, and launch bind to `c07abf40e4c5913d42b84c2a3ad7fd96d21c6550ab155f6f291c8969d78a67f4`, `80b3e608b97be17c68ed371d4d2dd3a7914d272bfa1417aa0e9eccf5ac297ff8`, and `3e7d782cd45c72f7ca4a7558f564b4f65f770d32a687e8f826637118aa37d020`. All 41 pins and five resource-root snapshots are current. The underlying compiler command is unchanged from the pinned default-backend diagnostic on the original 43,550,580-byte C input (SHA256 `24b6ef6a…58465`): CPU 3, `-O3 -Xclang -disable-llvm-passes -c`, output discarded to `/dev/null`, `-pthread`.
+
+The wrapper disables core files, then runs GNU `timeout` with an initial QUIT at 90 seconds and a 5-second KILL grace period inside the collector’s 120-second limit. Pinned timeout source confirms the non-foreground process-group behavior and group signal delivery; pinned LLVM source installs its stack printer for fatal signals and includes SIGQUIT in its handled signal set. These are source-based expectations, not proof of pinned-binary behavior or that a useful/symbolized trace will be emitted.
+
+The planned `-9` result is only the controlled termination outcome. If the compiler exits on QUIT or the outer deadline/status differs, the existing collector captures both raw streams, records the actual result, runs final guards, and leaves the receipt `INCOMPLETE`; such a result is not a pass. All output, receipt, raw-stream, and guard paths were absent. No source activation, compiler-success, Native, or performance claim is made.
