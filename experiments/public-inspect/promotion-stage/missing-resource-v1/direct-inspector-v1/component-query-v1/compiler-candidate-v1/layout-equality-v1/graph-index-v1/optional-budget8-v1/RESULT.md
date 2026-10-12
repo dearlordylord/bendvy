@@ -1,0 +1,1 @@
+Fresh budget8 JS matched the complete 207834-byte oracle. Native emission reached its 30-second deadline after six passes completed and pass7 began; no C/build/runtime output. All current53 source hashes remained unchanged. No Native acceptance, adoption or performance claim.

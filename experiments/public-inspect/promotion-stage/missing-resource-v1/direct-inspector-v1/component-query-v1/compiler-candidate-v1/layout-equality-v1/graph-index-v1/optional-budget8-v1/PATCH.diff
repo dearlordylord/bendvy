@@ -1,0 +1,20 @@
+--- budget64/candidate.mjs
++++ budget8/candidate.mjs
+@@ -5203,7 +5203,7 @@
+   }
+   return [...seen].map(([p, m]) => c_ids(fl, fs2.readFileSync(p, "utf8"), m));
+ }
+-var OPTIONAL_INLINE_LEFT = 64;
++var OPTIONAL_INLINE_LEFT = 8;
+ function take_optional_inline() {
+   if (OPTIONAL_INLINE_LEFT <= 0) return false;
+   OPTIONAL_INLINE_LEFT--;
+@@ -5243,7 +5243,7 @@
+       fl.lend = trace.lends;
+       TRACE = trace;
+       try {
+-      OPTIONAL_INLINE_LEFT = 64;
++      OPTIONAL_INLINE_LEFT = 8;
+       memo_gc();
+       const [dl, vals] = emit_open({
+         ...fl,
