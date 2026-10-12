@@ -1,6 +1,6 @@
-# Work3: expectations and later observations
+# Delivery process: expectations and later observations
 
-Baseline: `30f87151a`, 2026-10-12 UTC. Branch: `infra/retro-work3`.
+Baseline: `30f87151a`, 2026-10-12 UTC. Branch: `infra/delivery-process-controls`.
 This records expectations before implementation. Keep these expectations unchanged;
 append outcomes and subsequent observations. Main-thread sources, active runners,
 the shared heavy lock and existing evidence remain untouched.
@@ -26,12 +26,12 @@ does not establish a reproduced or fixed compiler blocker.
 
 ## Outcomes
 
-Initial expectations commit: `01fd5b2b5`. Changes are isolated in Work3; main-thread
-adoption and real-session impact have not been measured.
+Initial expectations commit: `01fd5b2b5`. Changes were developed in an isolated worktree and integrated into `master`
+(`04d0aa9af`, `818f53a94`). Real-session impact has not been measured.
 
 - #1: `scripts/delivery_preflight.py` validates one plan or a `--manifest` containing
   `{"plans": ["/absolute/plan.json"]}`. Retained control results:
-  `experiments/retro-work3/preflight-controls.json`.
+  `experiments/delivery-process-controls/preflight-controls.json`.
 - #2: `scripts/delivery_batch.py MANIFEST FRESH_OUTPUT` runs an explicit ready batch.
   Each `jobs` entry supplies `id`, `kind: "ordinary"`, `plan`, `planSHA256`, `argv`,
   `cwd`, and `capSeconds`. Collectors retain their own resource admission. It stops
@@ -45,7 +45,7 @@ adoption and real-session impact have not been measured.
   `CODING_STANDARDS.md`; it is not mechanically inferred from raw IDs. Existing
   historical collectors are not rewritten or automatically covered by this helper.
 - #5: `scripts/native_reduce.py` prepares subsets and reports phase markers.
-  `experiments/retro-work3/native-one-case` keeps one of 32 scenarios and pins its
+  `experiments/delivery-process-controls/native-one-case` keeps one of 32 scenarios and pins its
   file-import closure. Helpers and schema branches remain, so this is not a proven
   minimal reproduction. Base/tool dependencies are not frozen. The retained
   historical instrumented log ends at `validation-enter` for `execute`, index 1610;

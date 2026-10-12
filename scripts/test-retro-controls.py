@@ -1,4 +1,4 @@
-"""Regress actual Work3 failure classes using temporary, noncompiler fixtures."""
+"""Regress delivery-process failure classes using temporary, noncompiler fixtures."""
 import copy
 import hashlib
 import json
