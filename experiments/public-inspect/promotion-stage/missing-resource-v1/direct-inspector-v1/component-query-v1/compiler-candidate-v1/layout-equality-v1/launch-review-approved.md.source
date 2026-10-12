@@ -1,0 +1,17 @@
+# Inspector #54 layout-equality-v1 prospective bounded launch review
+
+**Verdict: APPROVE the exact frozen one-batch diagnostic sequence only.** This approves a future run of standalone controls followed by source, fresh JS, and Native consumers, with the existing activation/finally restoration flow. It grants no source correctness proof, compiler adoption, installed-tool acceptance, Native parity, or performance credit. No command, hook, backend, activation, or collector was run for this review.
+
+## Reviewed change and bounded domain
+
+The candidate (`917ef1a88a143ab12f89213fe3f765548a74314b1a8febcc85d3eca67147d729`) applies patch `7dc2b4d452a82ea9b3bac555d194100bf68db4e2a4627df74c27ed7632f81fcb` over repeated-pass base `64e1b85102f434f32208bfe579dc4cba699a3427183d7f7ba7b3a2482179f88f`. It adds finalized-layout tracking and per-file pair memoization, compares ordered `ks`, ordered arm keys and ordered child rows, and marks `lay_node` layouts only after padding. Existing WIDE and recursive-layout behavior collapses to BOX; identity, sorting, and deduplication paths are untouched. The controls extract the actual helpers/reset block and compare against the old JSON equality on produced layouts, with explicit stubs; the full consumer remains necessary.
+
+The stated domain is the compiler's dense ordered layout objects. It excludes arbitrary `toJSON`, extra enumerable fields, sparse arrays, and custom cycles; no domain-general equality claim is justified. The one batch pins unchanged 53-file source and import closure, full 207,834-byte oracle (`14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d`), CPU 3, and controls/source/emit/build/runtime caps of 5/5/30/120/5 seconds.
+
+## Binding and orchestration checks
+
+The repaired outer script, plan, freeze, and launch record bind exactly (`a249e01a6483c4eeabae4d7481558449952b9f3454d4a31be3a29da81ea2afa7`, `5519be310de5ccdc37bcbbcd838cd32e8e1a625c96f8c360ea7652151beec1d4`, `fd67ed97cce2c29cb68b79dde7233787177c47e77f026b15566d3a04af617daf`, and `75db7828057db38e581442bc293a7972cfe6bf670392e219134c6f92fe933b04`). All 143 configured input pins matched. Candidate, patch, controls, and all three role plans matched their launch/freeze hashes. The entry check resolves and hashes the executing Python against the plan. The added controls call uses the existing `GuardBoundary` and `task_runner.execute_result`; postchecks bind pins, successful exit/failure metadata, and regular non-symlink raw streams to captured bytes and hashes. The separate activation lock remains distinct from the collector's heavy lock. `outer01`, receipts, and generated JS/Native artifacts were absent at review.
+
+## Validation and limits
+
+I read the repository check policy, runner details, coding standards, candidate patch, source-domain argument, controls, all role plans, and the outer sequence. I verified all hashes and joins with read-only scripts and compiled the wrapper source to check Python syntax without executing it. At run time the planned post-activation preflight and each collector's own guards/receipts remain required. Any failed stage must remain incomplete and execute the existing unconditional 53-source restoration; no later status converts that into a pass.

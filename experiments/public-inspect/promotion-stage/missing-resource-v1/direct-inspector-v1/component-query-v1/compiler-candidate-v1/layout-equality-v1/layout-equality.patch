@@ -1,0 +1,67 @@
+--- repeated-pass.mjs
++++ layout-equality.mjs
+@@ -3392,6 +3392,8 @@
+ var NODES = new Map;
+ var LAYS = new Map;
+ var LAY_IDS = new Map;
++var LAY_FINAL = new WeakSet([W32, BOX, W64]);
++var LAY_EQ_PAIRS = new WeakMap;
+ var CONSTS = new Map;
+ var LITS = new Map;
+ var FUEL = 0;
+@@ -3685,7 +3687,7 @@
+     }
+     LAYS.set(key, BOX);
+     const lay = lay_pack(tld.c.map((c) => [c.k, ctr_doms(book, c, t.x).map((A2) => lay_of(book, A2))]));
+-    return lay.ks.length > WIDE ? BOX : lay;
++    return lay.ks.length > WIDE ? BOX : lay_final(lay);
+   });
+ }
+ function lay_el(book, A) {
+@@ -3717,11 +3719,35 @@
+     while (lay.ks.length > WIDE && lay.ks.length & lay.ks.length - 1) {
+       lay.ks.push("w32");
+     }
+-    return lay;
++    return lay_final(lay);
+   });
+ }
++function lay_final(lay) {
++  LAY_FINAL.add(lay);
++  return lay;
++}
+ function lay_eq(a, b) {
+-  return a === b || JSON.stringify(a) === JSON.stringify(b);
++  if (a === b) return true;
++  const finalized = LAY_FINAL.has(a) && LAY_FINAL.has(b);
++  let pairs = finalized ? LAY_EQ_PAIRS.get(a) : undefined;
++  if (pairs?.has(b)) return pairs.get(b);
++  const equal = () => {
++    if (a.ks.length !== b.ks.length || a.ks.some((k, i) => k !== b.ks[i])) return false;
++    if (a.arms === null || b.arms === null) return a.arms === b.arms;
++    const ak = Object.keys(a.arms), bk = Object.keys(b.arms);
++    if (ak.length !== bk.length) return false;
++    return ak.every((k, i) => {
++      if (k !== bk[i]) return false;
++      const ar = a.arms[k], br = b.arms[k];
++      return ar.length === br.length && ar.every((child, j) => lay_eq(child, br[j]));
++    });
++  };
++  const got = equal();
++  if (finalized) {
++    if (pairs === undefined) LAY_EQ_PAIRS.set(a, pairs = new WeakMap());
++    pairs.set(b, got);
++  }
++  return got;
+ }
+ function lay_c(k) {
+   return k === "w32" ? "u32" : "Term";
+@@ -3976,6 +4002,8 @@
+       die(name_key(k) + " names both a constructor and a foreign def: name one apart");
+     }
+   }
++  LAY_FINAL = new WeakSet([W32, BOX, W64]);
++  LAY_EQ_PAIRS = new WeakMap();
+   [
+     TELES,
+     SRCS,
