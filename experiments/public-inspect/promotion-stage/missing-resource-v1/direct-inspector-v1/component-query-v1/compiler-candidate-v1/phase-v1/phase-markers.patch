@@ -1,0 +1,26 @@
+--- budget64.mjs
++++ phase.mjs
+@@ -5170,8 +5170,15 @@
+   const facts = () => fl.own.size + fl.hot.size + fl.stat.size;
+   let was;
+   let reqs;
++  let diagnostic_pass = 0;
++  const diagnostic_phase = (phase) => {
++    const cpu = process.cpuUsage();
++    fs2.writeSync(2, "INSPECTOR54_PHASE " + JSON.stringify({phase, pass: diagnostic_pass, facts: facts(), cpuSeconds: (cpu.user + cpu.system) / 1e6}) + "\n");
++  };
+   do {
+     was = facts();
++    diagnostic_pass++;
++    diagnostic_phase("begin");
+     [fl.lend, fl.spun, fl.clos, fl.tabs, fl.lits, fl.consts, BRWS].forEach((m) => m.clear());
+     fl.segs = [];
+     fl.spins = [];
+@@ -5208,6 +5215,7 @@
+         fl.own.add(k + "~" + i);
+       }
+     }));
++    diagnostic_phase("end");
+   } while (was !== facts());
+   const edges = [...fl.segs, ...fl.spins].flatMap((s) => [...s.refs].map((r) => [s.fid, r]));
+   const reach = (from) => graph_close(new Set(from), edges);

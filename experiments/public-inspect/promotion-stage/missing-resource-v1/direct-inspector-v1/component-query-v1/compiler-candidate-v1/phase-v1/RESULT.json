@@ -1,0 +1,67 @@
+{
+  "status": "INCOMPLETE_NATIVE_PHASE_FIRST_PASS_DEADLINE",
+  "nativeReceipt": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/phase-v1/native/receipt.json",
+    "sha256": "41d3533645f749d955aada811bcc25ce93dec801a9058de602d46f92058e743e",
+    "commands": [
+      {
+        "label": "emit",
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "3",
+          "/home/node/.local/share/mise/installs/bun/1.3.14/bin/bun",
+          "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/phase-v1/compiler/phase.mjs",
+          "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/main.bend",
+          "-o",
+          "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/phase-v1/native/scenario.c"
+        ],
+        "capSeconds": 30,
+        "exit": null,
+        "failure": "child deadline",
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/phase-v1/native/emit.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "published": true
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/phase-v1/native/emit.stderr",
+          "sha256": "20fac722b4fe276b621868b5ff9b34ad95d68492b59dcad1bf0100aa4b8be5c8",
+          "bytes": 77,
+          "published": true
+        }
+      }
+    ]
+  },
+  "outerReceipt": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/phase-v1/outer01/receipt.json",
+    "sha256": "15d0cf6d77ce5521e1b341d1ea4fff7dbf7a46fb199d4df38822fd6fe5abad34",
+    "status": "INCOMPLETE"
+  },
+  "emitStderr": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/phase-v1/native/emit.stderr",
+    "sha256": "20fac722b4fe276b621868b5ff9b34ad95d68492b59dcad1bf0100aa4b8be5c8",
+    "bytes": 77,
+    "markers": [
+      {
+        "phase": "begin",
+        "pass": 1,
+        "facts": 0,
+        "cpuSeconds": 5.551023
+      }
+    ]
+  },
+  "interpretation": "Pass1 begin only; no pass1end/repeatedpass marker. First native pass did not reach factboundary withincap30. Doesnotjustify PR1386 repeatedpass optimization as resolution. CPUvalue cumulativeprocess atbegin only, no passduration/comparativespeedup inference.",
+  "restoration": {
+    "allFiveCurrentUnitBackupsMatch": true,
+    "other48FrozenHashesInRestoreSnapshotExact": true,
+    "other48LiveFrozenHashesExact": true,
+    "snapshotWasCapturedUnderOuterLock": true,
+    "outerCodeAssertions": "Existing approved unchangedouter verifiesfive beforeunlock; other48 exactvalues werecaptured in restorestdout underlock and compared read-only afterterminal, not an additional preunlock assertion."
+  },
+  "queueReleased": true,
+  "scope": "Phase-only copiedcompiler diagnostic exactbudget64+markers, noPR1386/stockNative/adoption/performance/proof/fullconsumer qualification. Native noC/build/runtime; priorbudget64JS207834 explicitdiagnosticreuseonly."
+}
