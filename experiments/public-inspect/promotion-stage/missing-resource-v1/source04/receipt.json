@@ -1,0 +1,57 @@
+{
+  "scope": "Two nominal schemas actual Missing and Present affine resource slots; ordinary declaration-derived actual Registry/recipe and optional/required system body; required Missing preflight before Tx/callback; full arrays/pending/owners",
+  "planSHA256": "0df028399de5ad94a01f268c82622e45857a374ea50ef36712b316a6c76d90db",
+  "commands": [
+    {
+      "label": "source-optional-resource",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/consumer-source-v1/main.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/source04/source-optional-resource.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/source04/source-optional-resource.stderr",
+        "sha256": "4e8c42828002180e1b1374319288346ee87db1cc6945a627a0fbce27a8478aca",
+        "bytes": 544,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/source04/source-optional-resource-pre.guard.json",
+      "sha256": "dfcbafb6a632e55eefc416a18b2027e24866a88c429d407cf00fe417e290ea8c"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/source04/source-optional-resource-acquired.guard.json",
+      "sha256": "c42370ddfb8c9d17ef6d98ccf5cbc4100d05ab34499fa6616f8b8c1aff8028fa"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/source04/source-optional-resource-post.guard.json",
+      "sha256": "b99f6b853699c9a867e98e32789ad08ad0ca22cd7a9a007062786cf22bb02f79"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/source04/final.guard.json",
+      "sha256": "95e71d44ebadc27b51fae600413aeb1df965a4768076985acc1ae20d9e35def4"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Source control exit differs: source-optional-resource",
+  "guardFailures": []
+}

@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:U32 -> Sigma<&1, &1, U32, _ => String>
+- observed : @+value:U32 -> Sigma<&1, &1, U32, _ => String>
+Context:
+- pendingCount : U32
+- world        : W.World<resourced~S, Array<U32>, Product.Owner<O.Slot<resourced~S, Array<U32>, ../../../../../../../bendvy/src/ecs/ordinary-schema.Resource{"Payload"}>, Product.Owner<Array<U32>, Product.Owner<Array<U32>, Array<U32>>>>, U32>
+- text         : String
+Location: resourced
+74 |   match result:
+75>|     case (world,text):stored(~S,pendingCount,text,W.with_store(~S,~Array<U32>,~State.Resource(~S),~U32,~String,tree(~U32,~u32_value),world))
+   |                                                                                                                           ^^^^^^^^^
+76 | def counted(~S:Data,result:W.World<S,Array<U32>,State.Resource(~S),U32> & U32) -> W.World<S,Array<U32>,State.Resource(~S),U32> & String:

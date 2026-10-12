@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : D.Declaration<optional_declaration~S, Array<U32>, Product.Owner<O.Slot<optional_declaration~S, Array<U32>, Schema.Resource{"Payload"}>, Product.Owner<Array<U32>, Product.Owner<Array<U32>, Array<U32>>>>, U32, LeftOps(optional_declaration~S), Maybe<&2, List<&2, U32>>>
+- observed : D.Declaration<optional_declaration~S, Array<U32>, Product.Owner<O.Slot<optional_declaration~S, Array<U32>, Schema.Resource{"Payload"}>, Product.Owner<Array<U32>, Product.Owner<Array<U32>, Array<U32>>>>, U32, D.Ops(optional_declaration~S, Array<U32>, Schema.Resource{"Payload"}, List<&2, U32>), Maybe<&2, List<&2, U32>>>
+Location: optional_declaration
+68 | def optional_declaration(~S:Data) -> D.Declaration<S,Array<U32>,Resource(~S),U32,Ops(~S),Maybe<&2,List<&2,U32>>>:
+69>|   D.with(~S,~Array<U32>,~Resource(~S),~U32,~LeftOps(~S),~RightOps(~S),~Maybe<&2,List<&2,U32>>,D.optional(~S,~Array<U32>,~Resource(~S),~U32,~Array<U32>,~(Unit & Tail()),~List<&2,U32>,~payload(~S),~slot_lens(~S),~slot_binding(~S),~view,render),Field.write(~S,~Array<U32>,~Resource(~S),~U32,~Array<U32>,~((Unit & Slot(~S)) & Product.Owner<Array<U32>,Array<U32>>),~U32,~counter_lens(~S),~counter(~S),~counter_binding(~S),~count))
+   |                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+70 | def required_declaration(~S:Data) -> D.Declaration<S,Array<U32>,Resource(~S),U32,Ops(~S),Maybe<&2,List<&2,U32>>>:

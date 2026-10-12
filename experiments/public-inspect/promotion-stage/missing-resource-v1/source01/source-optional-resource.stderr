@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : U32
+- observed : Nat
+Context:
+- array : Array<U32>
+- first : U32
+Location: array_first
+52 |   match result:
+53>|     case (array,first):array_second(first,Array.get(U32,array,1n))
+   |                                                               ^^
+54 | def view(array:Array<U32>) -> Array<U32> & List<&2,U32>:

@@ -1,0 +1,13 @@
+{
+  "status": "PREPARED_NOT_APPLIED",
+  "target": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-optional-resource-system.bend",
+  "normalSHA256": "007017de685156c80949d9f01e76201dfa54c9d51541e08b0a2ae90361e43f1d",
+  "mutantSHA256": "9093396059f61cf8c21661407cecdc7dce113e176d1b2d7048cca343a609afdd",
+  "inverse": {
+    "from": "case (world,missing):Field.runner(~S,~C,~R,~E,~Ops,~Args,~K.Error,~Out,~D.ordinary(~S,~C,~R,~E,~Ops,~Value,declaration),~body,world,args)",
+    "to": "case (world,missing):Sys.Failed{world,K.MissingRuntimeRequirements{missing}}"
+  },
+  "sourceProducer": "1e1b23a80b8c3b1f11f05e887ce4a2f6b568d96a",
+  "consumer": "consumer-source-v1/main.bend",
+  "scope": "Only nonempty declared Missing preflight branch invokes existing Field.runner rather than refusing. Original required/optional declaration, same callback/Tx, full owner return and all other branches unchanged. Root sole applies/restores; independent complete counter required before execution."
+}
