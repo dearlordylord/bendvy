@@ -1,0 +1,43 @@
+"""Source-only finite identity-transition scene model, awaiting immutable fixture."""
+
+def stream(published=False, consumed=False):
+    batches = "[1:[7>7]]" if published else "[]"
+    return f"stream({batches},[1:{1 if consumed else 0}:0],0,0)"
+
+def world(pending="none", previous="none", changed=False, published=False, consumed=False):
+    flow = f"slot(7,{pending},{previous},{str(changed)})"
+    resources = "N(L(11),L(12));" + flow + ";slot(11,next(12,True),10,False);ran=0;" + stream(published, consumed) + ";stream([],[],0,0)"
+    return "world(1,1,0,L(False),1,0,N(L(31),L(32));graph=[];[]," + resources + ",events=[],pending=1,regs=[],nextSystem=1,clock=0)"
+
+def inspect():
+    return "inspect(cursor=19,namespace=1,batches=0,positions=[],nextReader=1,tick=0,start=0,boundary=0,capacity=65536,dropped=0," + stream(True) + ")"
+
+def rows():
+    lines = ["before:" + world(), "false-queued:Success", "false-queued-world:" + world("next(7,False)"), "false-marker:Completed"]
+    false_world = world(previous="7", changed=True, published=True)
+    lines += ["false-before-inspect:" + false_world, "false-first:" + inspect(), "false-after-first:" + false_world, "false-second:" + inspect(), "false-after-second:" + false_world]
+    lines += ["true-queued:Success", "true-queued-world:" + world("next(7,True)", "7", True, True), "true-marker:Completed"]
+    true_world = world(previous="7", published=True)
+    lines += ["true-before-inspect:" + true_world, "true-first:" + inspect(), "true-after-first:" + true_world, "true-second:" + inspect(), "true-after-second:" + true_world]
+    lines += ["operational:[7>7]:lagged=False", "after-operational:" + world(previous="7", published=True, consumed=True)]
+    return lines
+
+def quoted(value):
+    # Exact show_chr scope: all authored rows are printable ASCII without
+    # quotation marks/backslashes; do not imply a universal string codec.
+    assert all(32 <= ord(c) < 127 and c not in ('"', chr(92)) for c in value)
+    return '"' + value + '"'
+
+def expected():
+    text = "[" + ", ".join(quoted(row) for row in rows()) + "]"
+    return ("(" + text + ", " + text + ")\n").encode()
+
+def selftest():
+    values = rows()
+    assert len(values) == 19
+    assert values[4].split(":", 1)[1] == values[6].split(":", 1)[1] == values[8].split(":", 1)[1]
+    assert values[12].split(":", 1)[1] == values[14].split(":", 1)[1] == values[16].split(":", 1)[1]
+    assert values[5].split(":", 1)[1] == values[7].split(":", 1)[1] == values[13].split(":", 1)[1] == values[15].split(":", 1)[1]
+    assert "[1:0:0]" in values[16] and "[1:1:0]" in values[18]
+    assert all("pending=1" in line for line in values if "world(" in line)
+    assert "operational:[7>7]:lagged=False" in values

@@ -1,0 +1,17 @@
+from pathlib import Path
+import gzip, hashlib, json
+HERE = Path(__file__).resolve().parent
+sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def main():
+    basis = json.loads((HERE / "SOURCE-BASIS.json").read_text())
+    for path, digest in basis["sourcePins"].items():
+        assert sha(path) == digest, path
+    model = {"__name__": "source_model"}
+    exec(compile((HERE / "model.py.source").read_text(), "model.py.source", "exec"), model)
+    model["selftest"]()
+    raw = model["expected"]()
+    (HERE / "normal.stdout.gz").write_bytes(gzip.compress(raw, mtime=0))
+    (HERE / "ORACLES.json").write_text(json.dumps({"normal": {"stdout": str(HERE / "normal.stdout.gz"), "bytes": len(raw), "sha256": hashlib.sha256(raw).hexdigest(), "sourceBasisSHA256": sha(HERE / "SOURCE-BASIS.json")}}, indent=2) + "\n")
+    print(len(raw), hashlib.sha256(raw).hexdigest())
+if __name__ == "__main__":
+    main()

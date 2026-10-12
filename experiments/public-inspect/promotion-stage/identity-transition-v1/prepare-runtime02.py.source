@@ -1,0 +1,26 @@
+"""Mechanical subject/oracle rebind to the unchanged accepted CPU3 collector."""
+from pathlib import Path
+import gzip,hashlib,json,sys,zipfile
+HERE=Path(__file__).resolve().parent
+ROOT=Path('/workspace/formal-proofs/bendvy')
+TEMPLATE=Path('/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-inspect/promotion-stage/ordinary-condition-declaration-v1/firstpair.zip')
+COLLECTOR=ROOT/'experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py'
+def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+cat=Path(sys.argv[1]).resolve();selected=json.loads(cat.read_text())['normal'];oracle=Path(selected.get('gzip') or selected.get('path') or selected['stdout'])
+raw=gzip.decompress(oracle.read_bytes());assert len(raw)==selected['bytes'] and hashlib.sha256(raw).hexdigest()==selected['sha256']
+freeze=json.loads((HERE/'FREEZE.json').read_text());inventory=freeze['sourceInventory'];assert all(sha(n)==h for n,h in inventory.items())
+receipt=json.loads((HERE/'source02/receipt.json').read_text());assert receipt['status']=='COMPLETE_SOURCE_CONTROL_PASS' and all(not c.get('failure') and c['exit']==0 for c in receipt['commands'])
+rows=[]
+with zipfile.ZipFile(TEMPLATE) as z:
+ for role in ['js','native']:
+  plan=json.loads(z.read(role+'/plan.json'));out=HERE/'runtime02'/role;out.mkdir(parents=True,exist_ok=False)
+  entry=str(HERE/'main.bend');generated=str(out/('scenario.js' if role=='js' else 'scenario.c'));native=str(out/'scenario.native')
+  mapping={plan['entrypoint']:entry,plan['generated']:generated,plan['native']:native}
+  for command in plan['commands']:command['argv']=[mapping.get(x,x) for x in command['argv']]
+  plan.update(scope=freeze['scope'],role=role,subject='normal',stage=str(HERE),cwd=str(HERE),entrypoint=entry,sourceEntries=[entry],sourceInventory=inventory,importClosure=sorted(inventory),generated=generated,native=native,oracle=str(oracle),oracleSHA256=selected['sha256'],oracleBytes=selected['bytes'],normalOracle=str(oracle),normalOracleSHA256=selected['sha256'],normalOracleBytes=selected['bytes'],postConsumer='Complete independently source-derived two-schema identity transition trace; no stderr; no performance or universal proof claim')
+  extras=[COLLECTOR,ROOT/'scripts/task_runner.py',ROOT/'scripts/evidence_boundary.py',TEMPLATE,Path(__file__),HERE/'FREEZE.json',cat,*map(Path,plan['tools'].values())]+[q for q in cat.parent.rglob('*') if q.is_file()]+[q for q in (HERE/'source02').rglob('*') if q.is_file()]
+  basis=json.loads((cat.parent/'SOURCE-BASIS.json').read_text());extra_pins=basis.get('pins',basis.get('executionPins',{}))
+  plan['pins']={**inventory,**extra_pins,**{str(q.resolve()):sha(q) for q in extras}}
+  assert all(sha(n)==h for n,h in plan['pins'].items())
+  target=out/'plan.json';target.write_text(json.dumps(plan,indent=2)+'\n');rows.append({'role':role,'path':str(target),'sha256':sha(target),'execute':[plan['tools']['python'],str(COLLECTOR),'run',str(target),sha(target)]})
+(HERE/'runtime02/SEQUENCE.json').write_text(json.dumps(rows,indent=2)+'\n');print(json.dumps(rows))

@@ -1,0 +1,57 @@
+{
+  "scope": "Two nominal schemas: real identity transition publication skipSame=false, suppression=true; four public T.inspect reads preserve complete World/streams/reader positions/pending and affine arrays; final actual operational open/finish",
+  "planSHA256": "7721430dd5ca594515630cb1900da686115655ab4c1410eceaa05e0a3544f6ed",
+  "commands": [
+    {
+      "label": "source-identity",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/main.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/source01/source-identity.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/source01/source-identity.stderr",
+        "sha256": "b6c69b11175f6171154fc1782e9597e70a0041735fa292d846e843e2da2eec55",
+        "bytes": 429,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/source01/source-identity-pre.guard.json",
+      "sha256": "68d06c22cab3b49bdd70397ba7c9a40632cfde9b29ce0f2a2a500371b7aee626"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/source01/source-identity-acquired.guard.json",
+      "sha256": "d0bb51242c9a84ff57d68120a41eb484d31e78231a35cd7750954285d90806ac"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/source01/source-identity-post.guard.json",
+      "sha256": "f158f83ef9fffd7a81c4198b9d8fc3d3664c04ac5d3f79077cfc5fa16280b3a3"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/source01/final.guard.json",
+      "sha256": "8c77188d04e3ed8fc13d4ba771a477a06be59fe18ce304b42235cd3118096ab4"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Source control exit differs: source-identity",
+  "guardFailures": []
+}
