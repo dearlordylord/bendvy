@@ -1,0 +1,15 @@
+# #56 ordinary mixed-reader filtered dump — final review
+
+PASS for bounded normal functional/code integration; full #56 acceptance is not granted.
+
+Bound to immutable 36d823b19 and DELIVERY SHA256 39f7da7a126d5282d649c3335bc8500f9240350091ca0186d2caf64de40b418e. Reviewed public ordinary-app-event-family-dump.bend SHA256 9106a262dedf1d3ace8507603b7b3e5bae85cf23385c3fff90b8b548778b7672, current workflow, CODING_STANDARDS and docs/parity/debug.md.
+
+Spec: the additive snapshot entry delegates to the existing schema dump, returning the actual affine Application with its family and tick. Ordinary component/resource bindings supply identity, presence and presentation; the consumer does not mirror metadata routes. Two nominal schemas exercise the actual mixed-reader sequence, entity/conjunction/limit filtering, repeated and disabled observations, global resources, pending records and retained physical owners. The complete normal JS56534 and Native52418 outputs are each 212540 bytes, SHA256 01ee4af7f37a4bcfa549a9ebccb724da48d208034d868e3960b83b878b22f529. Independent model30581fc9e regenerates exactly that body.
+
+Standards: arbitrary Type owners and nominal App/filter indices remain threaded through existing boundaries. Authority98244 comprises one matching positive plus three actual intended refusals (App schema, filter schema, affine duplication), not four negatives. Presentation/lens callbacks and setup remain trusted; this does not establish callback purity, universal owner identity or additional access-grant policy. No new error contract or approved law is introduced.
+
+Evidence: verified every indexed body length/SHA in all ten ZIP archives, including normal/source/history/authority/reached/inline packets. The 107 normal closure bodies currently match their captured hashes. Actual emitted artifacts, full stdout, receipt plan bindings and guards are retained. Independent counter model regenerates 207106 bytes, SHA256 17051ab41f35497a20613081ff1615b679cee5146ecf78be0f9fc4bd94163544; reached JS69194 equals it and rejects the entire normal oracle at byte319 after the actual root limit-zero mutation. Both normal restoration receipts are retained. Historical model/slot failures and reported hook-overlap context remain uncredited and explicit.
+
+Limits: Native99609 reached emission hit its unchanged 30-second deadline with no C; inline9635 hit source5 with empty diagnostics. Neither qualifies source/backend behavior or Native normal-oracle rejection. These are unresolved, with no inferred cause or unchanged retry authorization. Normal Native success does not erase them. Combined #28 for this additive module, full #56 formats/machines/transient/plain values and enabled overhead, performance, TS parity and universal proofs remain open. The bounded PASS permits exact normal API integration subject to the separate combined gate; it does not close the ticket.
+
+No compiler, runtime, hook, profiler or host probe was run by this review; only read-only archive/hash checks and independent pure-model regeneration were used.

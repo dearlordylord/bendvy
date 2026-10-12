@@ -1,0 +1,43 @@
+from pathlib import Path
+import runpy,json,gzip,hashlib
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def main():
+ b=json.loads((HERE/'SOURCE-BASIS.json').read_text())
+ for p,h in b['inputs'].items():assert sha(p)==h,p
+ m=runpy.run_path(str(HERE/'model.py.source'));top=Path(b['consumerPrefix'])
+ direct=Path(b['directSource']).read_text();original=Path(b['callbackSource']).read_text()
+ assert 'App.with_previous(' in original and 'match value:' in direct
+ assert 'case App.Application{schema,Route.Runtime{world,family,tick},owners,recipe,debug}:App.returned(' in direct
+ assert 'family,tick,Dump.schema_snapshot(' in direct
+ assert 'SchemaApp.Application{schema,Build.Registered{world,owners,recipe,debug}}' in direct
+ assert 'App.with_previous(' not in direct
+ assert sha(HERE/'model.py.source')==b['identicalModelSHA256']
+ for local in ['alpha','beta']:
+  src=(top/local/'consumer.bend').read_text();app=(top/local/'application.bend').read_text();state=(top/local/'state.bend').read_text();provision=(top/local/'provision.bend').read_text()
+  assert 'Checkpoint{dump:Maybe' in src and src.count('dump:Maybe<&2,Dump.Dump<F.S>>')==2
+  assert 'Common.dump(app)' in src and 'Provision.criteria()' in app and 'Filter.component(~F.S,~Array<U32>,Binding.identity(' in provision and 'Some{[1]}' in provision and 'Some{1n}' in provision
+  assert 'Col.Column{ANode{ALeaf{Some{ANode{ALeaf{41},ALeaf{42}}}},ALeaf{None{}}}' in state
+  assert 'Array.swap(Maybe<&1,C>, values, U32.sub(id, 1), incoming)' in Path(b['columnSource']).read_text()
+  assert m['COLUMN_SLOTS']==[[41,42],None] and m['LIVE_IDS']==[1]
+  assert [id for id in m['LIVE_IDS'] if m['COLUMN_SLOTS'][id-1] is not None]==[1]
+  assert 'binding()' in provision and 'Provision.with_resource' in provision
+  m['report'].__globals__['LOCAL']=local;report=m['report']().fields[0];cps=report.fields[1];assert len(cps)==14
+  for i,cp in enumerate(cps):
+   dump,description,inventory,physical,readers,args=cp.fields
+   assert args=='node(leaf:101,leaf:102)' and len(readers.fields)==4
+   assert physical.fields[0].fields[6]=='Column{values=node(leaf:some(node(leaf:41,leaf:42)),leaf:none);stamps=[]};sibling=node(leaf:11,leaf:12)'
+   assert (dump.name=='None')==(i==9)
+   if i!=9:
+    d=dump.fields[0];assert d.fields[0]==1 and len(d.fields[1])==1 and d.fields[1][0].fields[0].fields==(1,1)
+    assert d.fields[1][0].fields[1][0].fields==('Payload','node(leaf:41,leaf:42)')
+    assert d.fields[2][0].fields==('Resources','node(leaf:81,leaf:82)')
+  assert m['show'](cps[7].fields[3])==m['show'](cps[8].fields[3])==m['show'](cps[9].fields[3])
+ raw=m['full_output']();assert raw.count(b'consumer.Checkpoint{')==28
+ assert raw.count(b'ordinary-app-dump.Dump{')==26
+ (HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+ digest=hashlib.sha256(raw).hexdigest()
+ (HERE/'ORACLES.json').write_text(json.dumps({'normal':{'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':digest,'sourceBasisPath':str(HERE/'SOURCE-BASIS.json'),'sourceBasisSHA256':sha(HERE/'SOURCE-BASIS.json')}},indent=2)+'\n')
+ (HERE/'CHECKS.json').write_text(json.dumps({'status':'SOURCE_DERIVED_COMPLETE_ORACLE_PASS','sourcePins':107,'basisPins':len(b['inputs']),'bytes':len(raw),'sha256':digest,'checks':['Two nominal schemas/14 complete checkpoints each','Actual Column id-minus-one indexing derives matched id1 from source slot0; same binding drives schema/filter/presentation','Complete physical owners/stamps/sibling/reader positions/journal/failure queue','26 enabled dumps and two disabled None observations','Repeated/disabled same-phase full physical equality'],'limits':['No runtime output inputs','Finite selected source consumer; not universal observer purity','No full56/stateful/performance claim']},indent=2)+'\n')
+ print(len(raw),digest)
+if __name__=='__main__':main()

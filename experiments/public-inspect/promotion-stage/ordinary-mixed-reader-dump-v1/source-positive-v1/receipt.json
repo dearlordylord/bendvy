@@ -1,0 +1,56 @@
+{
+  "scope": "Two nominal mixed-reader Apps: same binding-derived filtered dump preserving actual readers, family, queues and owners",
+  "planSHA256": "a74216018f9ecbcd73f60a5c8827dfec7a0864f98da2087bc6dbfb825a411473",
+  "commands": [
+    {
+      "label": "source-mixed-reader-dump",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/entry.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy56-mixed-reader-dump-source01/source-mixed-reader-dump.stdout",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy56-mixed-reader-dump-source01/source-mixed-reader-dump.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy56-mixed-reader-dump-source01/source-mixed-reader-dump-pre.guard.json",
+      "sha256": "6e9e36427dd5d20815bbe78b7edd961f9e6958bd3a4a73804b204762e9f94768"
+    },
+    {
+      "path": "/tmp/bendvy56-mixed-reader-dump-source01/source-mixed-reader-dump-acquired.guard.json",
+      "sha256": "5245308e271fbdb35a71b782cf7b03cd2f166595bdba99cd517f8b524aa19195"
+    },
+    {
+      "path": "/tmp/bendvy56-mixed-reader-dump-source01/source-mixed-reader-dump-post.guard.json",
+      "sha256": "3e1e90dddff1b01341d96247a1120bcffc21df40f4296c9e593e346b41631863"
+    },
+    {
+      "path": "/tmp/bendvy56-mixed-reader-dump-source01/final.guard.json",
+      "sha256": "d1e8da0cad16493dad8fe27634ae6371e388c9a5c68077814e52c94fe2c648b2"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}
