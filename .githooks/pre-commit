@@ -2,6 +2,12 @@
 set -eu
 cd "$(git rev-parse --show-toplevel)"
 python3 scripts/check-python-source.py --staged
+if [ -n "${BENDVY_OWNED_PATHS:-}" ]; then
+  python3 scripts/owned_stage.py "$BENDVY_OWNED_PATHS"
+fi
+if [ -n "${BENDVY_DELIVERY_PLANS:-}" ]; then
+  python3 scripts/delivery_preflight.py --manifest "$BENDVY_DELIVERY_PLANS"
+fi
 python3 scripts/run-admission-controls.py
 # Shared runner tests qualify changes to their implementation and callers.
 # Documentation and retained data still receive staged-source/whitespace checks.
@@ -18,6 +24,7 @@ else
   python3 scripts/test-staged-bend-imports.py
   python3 scripts/test-selected-reference.py
   python3 benchmarks/test-statistics.py
+  python3 scripts/test-retro-controls.py
   python3 scripts/test-pre-commit.py
 fi
 # Raw evidence retains compiler whitespace and complete output terminators.

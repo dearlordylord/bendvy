@@ -14,12 +14,14 @@ REGISTRY = runpy.run_path(str(HOOK.parent.parent / 'scripts/run-admission-contro
 
 
 class Selection(unittest.TestCase):
-    def check_paths(self, names):
+    def check_paths(self, names, selectors=None):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             # Hooks may inherit GIT_DIR/WORK_TREE/INDEX_FILE from the real repo.
             env = {key: value for key, value in os.environ.items()
-                   if not key.startswith('GIT_')}
+                   if not key.startswith('GIT_') and key not in
+                   ('BENDVY_OWNED_PATHS', 'BENDVY_DELIVERY_PLANS')}
+            env.update(selectors or {})
             env.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
             subprocess.run(['git', 'init', '-q', str(root)], env=env, check=True)
             for name in names:
@@ -58,6 +60,14 @@ class Selection(unittest.TestCase):
                 self.assertIn('scripts/run-admission-controls.py', calls)
                 self.assertIn('benchmarks/test-statistics.py', calls)
                 self.assertEqual(calls[-1], 'scripts/test-pre-commit.py')
+                self.assertIn('scripts/test-retro-controls.py', calls)
+
+    def test_explicit_ownership_and_candidate_plan_selection(self):
+        calls = self.check_paths(['docs/change.md'], {
+            'BENDVY_OWNED_PATHS': '/tmp/owned.json',
+            'BENDVY_DELIVERY_PLANS': '/tmp/plans.json'})
+        self.assertIn('scripts/owned_stage.py /tmp/owned.json', calls)
+        self.assertIn('scripts/delivery_preflight.py --manifest /tmp/plans.json', calls)
 
     def test_mixed_paths_and_quoted_names(self):
         calls = self.check_paths(['docs/notes with spaces.md',
@@ -68,7 +78,8 @@ class Selection(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             env = {key: value for key, value in os.environ.items()
-                   if not key.startswith('GIT_')}
+                   if not key.startswith('GIT_') and key not in
+                   ('BENDVY_OWNED_PATHS', 'BENDVY_DELIVERY_PLANS')}
             subprocess.run(['git', 'init', '-q', str(root)], env=env, check=True)
             (root / 'sentinel').write_text('unchanged\n')
             subprocess.run(['git', 'add', 'sentinel'], cwd=root, env=env, check=True)
@@ -160,7 +171,8 @@ class Selection(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             env = {key: value for key, value in os.environ.items()
-                   if not key.startswith('GIT_')}
+                   if not key.startswith('GIT_') and key not in
+                   ('BENDVY_OWNED_PATHS', 'BENDVY_DELIVERY_PLANS')}
             env.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
             subprocess.run(['git', 'init', '-q', str(root)], env=env, check=True)
             script = root / 'scripts/run-admission-controls.py'
