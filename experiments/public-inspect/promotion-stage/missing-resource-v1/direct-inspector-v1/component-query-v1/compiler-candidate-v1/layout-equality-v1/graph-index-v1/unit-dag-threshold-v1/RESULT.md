@@ -1,0 +1,1 @@
+The full O3 build of the unchanged Unit consumer C, with only scheduling-DAG threshold128 added, reached its 120-second child deadline with empty streams. Runtime did not start. All four guards and current53 source hashes remained unchanged. Full Native output equality is unqualified; no permanent flag, performance or adoption claim.
