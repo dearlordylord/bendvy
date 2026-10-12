@@ -1,0 +1,1 @@
+The original-C backend diagnostic with preRA scheduling disabled reached its 120-second child deadline with empty streams. All four guards passed. This provides no Native acceptance, output-quality qualification or total-cost attribution.
