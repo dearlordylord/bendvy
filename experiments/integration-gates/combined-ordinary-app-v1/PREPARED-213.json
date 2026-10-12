@@ -1,0 +1,82 @@
+{
+  "addedModules": [
+    "src/ecs/optional-resource-binding.bend",
+    "src/ecs/ordinary-app-optional-resource-run.bend",
+    "src/ecs/ordinary-app-optional-resource.bend",
+    "src/ecs/ordinary-app-schedule-access.bend",
+    "src/ecs/ordinary-optional-resource-declaration.bend",
+    "src/ecs/ordinary-optional-resource-observation.bend",
+    "src/ecs/ordinary-optional-resource-system.bend",
+    "src/ecs/ordinary-optional-resource.bend"
+  ],
+  "coreModules": 213,
+  "current213AdoptionReviews": [
+    {
+      "capability": "scheduleAccess",
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/promotion-stage/ordinary-schedule-access-v1/FINAL-REVIEW.md",
+      "scope": "Bounded functional Spec/Standards review; no feature performance credit.",
+      "sha256": "0421b99230eef7fe6172334d9422056e51a8a0d7110624ab06873ccd135c1d23"
+    },
+    {
+      "capability": "optionalResource",
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/promotion-stage/missing-resource-v1/FINAL-REVIEW.md",
+      "scope": "Bounded functional Spec/Standards review; no feature performance credit.",
+      "sha256": "d14eb5813945ad2e9f9eacacfa66cb2944e954e4122375b06dbaf6f64cff28ae"
+    }
+  ],
+  "currentBindingAudit": {
+    "baselineMembers": 29,
+    "drift": [],
+    "hostAdmission": false,
+    "outputAbsent": true,
+    "referenceSources": 33,
+    "tools": 8
+  },
+  "execute": [
+    "/usr/bin/flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "/usr/bin/env",
+    "-i",
+    "HOME=/home/node",
+    "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+    "LANG=C",
+    "LC_ALL=C",
+    "TZ=UTC",
+    "BEND_NO_TELEMETRY=1",
+    "BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root",
+    "LD_LIBRARY_PATH=/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu",
+    "/usr/bin/python3.11",
+    "/workspace/formal-proofs/bendvy/benchmarks/run.py",
+    "--output",
+    "/tmp/bendvy-combined-ordinary-app-regression213-01",
+    "--cpu",
+    "11"
+  ],
+  "integrationCommits": [
+    "903c991ca",
+    "c35ec00c5307e02d7fc725c45595cb4983cd2fee"
+  ],
+  "monitored": 219,
+  "planSHA256": "08cc051872724d93c3998dc42b3e5e7b356d2302f2b26d569702af7c823a122c",
+  "predecessorSHA256": "3310935af83bf98bcb30f6fdc0399dc49e4109c6c7ff4ed1ed5659ebe2e3bee0",
+  "scope": "Existing combined28 regression only; no benchmark launched; launch review and fresh root-exclusive quiet CPU11 admission pending.",
+  "sourceCurrentHEAD": "c35ec00c5307e02d7fc725c45595cb4983cd2fee",
+  "staged": 222,
+  "status": "PREPARED_NOT_EXECUTED",
+  "unchangedFields": [
+    "baselineMembers",
+    "baselineArchiveSHA256",
+    "contract",
+    "reference",
+    "tools",
+    "resources",
+    "environment",
+    "environmentSHA256",
+    "limits",
+    "statisticsControl",
+    "queue",
+    "installedConfiguration"
+  ],
+  "unchangedMonitoredPredecessorPins": 211,
+  "unchangedStagedPredecessorFiles": 214
+}
