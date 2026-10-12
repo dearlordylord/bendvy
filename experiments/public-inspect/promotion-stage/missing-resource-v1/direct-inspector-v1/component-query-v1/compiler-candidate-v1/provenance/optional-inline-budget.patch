@@ -1,0 +1,32 @@
+--- installed-cli-unmodified.mjs
++++ optional-inline-budget.mjs
+@@ -4949,7 +4949,7 @@
+       }
+       const ret = fun_of(fl, ck.k).ret;
+       const once = fl.sites.get(ck.k) === 1 && !ck.b && !def_foreign(fl.book.tlds[ck.k]) && (!lay_box(ret) || lay_box(fl.seg.ret));
+-      if (fl.seg.def !== ck.k && (flat_call(fl, x) || dst === null && once)) {
++      if (fl.seg.def !== ck.k && (flat_call(fl, x) || dst === null && once && take_optional_inline())) {
+         return emit_fuse(fl, ck, dst, true);
+       }
+       if (!lay_eq(fl.seg.ret, ret) && (fl.seg.ret.arms !== null || ret.arms !== null)) {
+@@ -5157,6 +5157,12 @@
+   }
+   return [...seen].map(([p, m]) => c_ids(fl, fs2.readFileSync(p, "utf8"), m));
+ }
++var OPTIONAL_INLINE_LEFT = 0;
++function take_optional_inline() {
++  if (OPTIONAL_INLINE_LEFT <= 0) return false;
++  OPTIONAL_INLINE_LEFT--;
++  return true;
++}
+ function compile_book(book) {
+   const show = show_main(book);
+   const fams = (show ?? []).flatMap((c) => typeof c === "string" ? [book_fam(book, c)] : []);
+@@ -5171,6 +5177,7 @@
+     fl.spins = [];
+     fl.img = [];
+     for (const [k, tld] of done_defs(fl).reverse()) {
++      OPTIONAL_INLINE_LEFT = 64;
+       memo_gc();
+       const [dl, vals] = emit_open({
+         ...fl,

@@ -8,7 +8,7 @@ Owning issue: [#54](https://github.com/dearlordylord/bendvy/issues/54). This is 
 
 `optional-inline-budget.patch` permits at most64 optional once-tail inline decisions per top-level emitted definition/pass. A counter is shared with nested emitted specializations; mandatory flat/template calls bypass it. The next definition resets it.64 is an experimental implementation setting, not a performance gate or agreed default. Full disabling remains diagnostic history, not the proposed permanent implementation. The original copied compiler can be recovered from the archive; patch applies to its exactSHA.
 
-Status: source candidate prepared, syntax checked; not executed, reviewed, installed or adopted. Risks for review: layout/ownership fact convergence, nested spin-cache/order sensitivity, lost runtime optimizations and correctness of tail/return conversions. No new public contract or erased-argument handling is introduced.
+Preparation status (retained historical metadata in CANDIDATE.json): source candidate prepared, syntax checked. The subsequent reviewed run below supersedes its unexecuted status; candidate is not installed or adopted. Risks for review: layout/ownership fact convergence, nested spin-cache/order sensitivity, lost runtime optimizations and correctness of tail/return conversions. No new public contract or erased-argument handling is introduced.
 
 ## Required next steps, in order
 
@@ -19,3 +19,7 @@ Status: source candidate prepared, syntax checked; not executed, reviewed, insta
 5. Follow up separately on DAG-aware `lay_eq`/type keys. Verify cached-layout immutability, equal distinct layouts and multi-compilation reset before adoption. Existing layout identity fix from#1270 is already present.
 
 Boxing remains a reserve candidate because it changes data layout. Heap tuning did not unblock the subject; mat_lits was not reached. Do not change ECS APIs or sacrifice parity based on these diagnostics. Related#46 may benefit but has no source-matching execution credit from this#54 investigation.
+
+## Reviewed complete-consumer attempt — 2026-10-12
+
+The [candidate packet](../../public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/README.md) preserves prospective launch review, full 53-source consumer/oracle, raw attempts and restoration. Source check and complete 207,834-byte JS output pass. Native emit hits its unchanged 30-second deadline without C; build/runtime are unstarted. [Independent final review](../../public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/FINAL-REVIEW.md) accepts this partial diagnostic only. All five temporarily activated source bodies were restored exactly; installed Bend and shared ECS source remain unchanged. No identical retry, Native acceptance, compiler adoption or performance credit.

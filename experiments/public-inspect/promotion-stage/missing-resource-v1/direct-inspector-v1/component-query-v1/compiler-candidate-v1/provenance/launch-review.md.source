@@ -1,0 +1,61 @@
+# Inspector #54 optional-inline-budget launch review
+
+**Review mode:** independent prospective Spec/Standards review, read-only. I inspected `docs/check-policy.md`, `CODING_STANDARDS.md`, the inspector54 README/RESULT/CANDIDATE/patch, the candidate launch packet, all three role plans, the existing `development-v2.py` runner, and the guarded source activation script. I did not activate sources or execute the candidate, runner, backend, hooks, or preflight.
+
+## Verdict
+
+**CONDITIONAL PASS for a bounded diagnostic launch; no unconditional launch approval and no adoption or stock credit.**
+
+The candidate is an exact pristine compiler copy plus the reviewed optional-inline patch, and the role plans bind the complete 53-source ordinary consumer, existing runner, tools, environment, CPU/caps, and 207,834-byte independent oracle. Launch remains gated on an outer coordinator that actually performs the declared source activation, post-activation preflight, serialized role sequence, and unconditional restoration. The `sourceActivation` field is metadata: `development-v2.py` does not invoke it.
+
+## Bound candidate and evidence
+
+- Pristine compiler SHA: `015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62`.
+- Candidate compiler SHA: `0c4fd320d50c0ec63c2774fa0b9113c2185b307f0e7402d62922d96ddc45ce03`.
+- Optional patch SHA: `e56a54a10ff36a176a29108f7c3cfa5c038af9d20b13b0899a1d73b85e87a3ba`.
+- Candidate metadata SHA: `78226f46654b24387f567c0eea804d47d523eabd9a5b04ff6eb4e14e68f78596`; diagnostic evidence SHA: `12b98d5a844d580c014177cc797d58e5626b3a6d4d5f7e82c9781264b3d772cb`.
+- Freeze SHA: `4a6f9228b7069f17722f038fca4bea4d5adbee40e833cb9e9ce0d6a344b4f0a8`; SOURCE02 archive SHA: `404df7dfd9d252d94e44efac0eda017c02e40d0dd65eccd6cdc8415db54192ab`.
+- Activation configuration SHA: `b716c688196999346ada7c7f97f19dbd034ef1b71feafe90a4ee8a4facc79ff9`; activation script SHA: `143f1f53d5d5426f7e42e583173f2bad4318c91d72359ebbbd2c6f356ce9e339`.
+- Launch packet SHA: `bcc781f95c721d2df9202079e2981ea79290fed1185adc0a7ec72028fa963c49`; sequence SHA: `37a8ca85c7227befa286500279a07f01a23834e64e290123a69f8293c3879a17`.
+- Role plan SHAs: source `204e5d050feb5927cfcf7cf505fc80a3469f5bf32094519c329c0104f303c170`, JS `f30aad9126918f38558e85cafb78a113cee76ac7aed36e2ac18bae82130df1bc`, Native `c37cfdb74c01bc0b6df42f84b216fecd473865dab29faf182e3c642a8f6ec5be`.
+- The decompressed whole oracle is exactly 207,834 bytes with SHA `14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d`; its compressed file is pinned by the role plans. The normal subject uses the same complete ordinary oracle; this is not a countermodel or stock compiler result.
+
+## Patch preservation review
+
+The candidate differs from pristine in exactly three patch hunks. The condition remains `flat_call(fl, x) || ...`; JavaScript short-circuiting means mandatory flat/template fusion never consumes or depends on the budget. The existing `once` predicate is unchanged, including its single-site, non-branch, non-foreign and boxing/layout guards. The patch only limits the optional `dst === null && once` tail fusion.
+
+`emit_fuse(..., true)`, `bind_dead`, `val_to`, `spare_flush`, `emit_args`, `emit_jump`, layout comparison, and tail/return conversion code are unchanged. When the budget denies a once-tail fusion, the existing layout/jump fallback is exercised. That preserves source-level scope while making complete JS and Native whole-output equality necessary before any semantic credit.
+
+The module-global counter is reset to 64 for each emitted definition in each fixpoint pass and is shared by nested specializations in that emission. This is deterministic only within the declared one-process serial launch; definition order, nested spin/cache state, and fixpoint convergence can change generated code. It is therefore an experimental compiler setting, not an acceptance threshold, default, performance claim, or concurrent compiler facility.
+
+## Reviewed command and boundary scope
+
+All role plans use `/usr/bin/taskset -c 3`, the pinned Bun 1.3.14 candidate compiler, and the existing `development-v2.py` runner (SHA `1d8467f5c3e035e1c5d711986b30e1c4df9d507de4c7c61adea9b5c23fdcc124`). The source role is candidate `--check-only`, cap 5 seconds, expected exit 0 and empty stderr. JS is candidate emit, cap 30 seconds, then pinned Node 24.20.0 consumer, cap 5 seconds. Native is candidate emit, cap 30 seconds, pinned Clang19 wrapper `-O3` build, cap 120 seconds, then `--threads 1 --gpu off` consumer, cap 5 seconds.
+
+The bound environment is:
+
+```
+HOME=/home/node
+PATH=/usr/bin:/bin
+LANG=C
+LC_ALL=C
+TZ=UTC
+BEND_NO_TELEMETRY=1
+BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root
+LD_LIBRARY_PATH=/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu
+```
+
+Bun, Node, taskset, Clang wrapper/binary, Python, runner helpers, resource roots, candidate/pristine compiler, patch, activation files, all 53 source hashes, and the oracle are pinned in the plans. The copied CLI uses the role-pinned `/home/node/.bend/bend2` Base/effs resource inventory (including candidate `compiler/base.bend` SHA `c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661`), while it is invoked directly through Bun rather than the installed compiler. The inspector archive's relocated source paths and copied-tool execution are research scope; this launch restores and checks the original 53 QNames/paths. The installed `/home/node/.bend/bin/bend-2.0.35` remains the authoritative stock control; the candidate is a copied diagnostic CLI and cannot replace installed-tool acceptance.
+
+## Required launch conditions
+
+1. Acquire one distinct outer source-activation queue before changing the five live files. Do not hold `/tmp/bendvy-parity-heavy.lock` around the role sequence: the existing runner acquires that lock independently for each child command, so reusing it as an outer lock can deadlock. The outer queue must serialize this activation/restoration cohort against other source consumers.
+2. Under that queue, call the pinned `source-activation.py.source activate` with `/usr/bin/python3.11`, then run the existing delivery-plan preflight and exact all-pin/resource/entry/import coverage against the activated source. The five current Unit-repair bodies deliberately differ from FREEZE02; the role runner's frozen source guards cannot pass until activation has occurred. The historical `source02/delivery-preflight.log` is an input pin, not a substitute for this post-activation check. Bind the preflight command/helper bytes in the outer launch receipt.
+3. Run the reviewed sequence serially: source control, then JS; run Native only after a complete JS whole-oracle PASS. Stop on the first failure or deadline and do not retry unchanged stages. Preserve each existing runner guard, raw stdout/stderr, generated-artifact boundary, and unconditional terminal receipt.
+4. Put all three role calls and the preflight inside a `try/finally` whose first restoration action calls the pinned activation script in `restore` mode. Restore all five preserved bodies even when activation, preflight, emission, build, or consumer fails; verify every restored SHA before releasing the outer queue. The role plans' `sourceActivation` metadata alone does not provide this finally behavior.
+5. Credit a successful diagnostic only when source control passes, JS stdout exactly matches the 207,834-byte oracle with empty stderr, and Native independently does the same. A timeout, incomplete output, failed restoration, changed boundary, or missing raw receipt is inconclusive and receives no semantic credit.
+
+## Residual scope
+
+A passing candidate run would establish a finite, whole-output diagnostic for this 53-source public ordinary slice. It would not establish universal compiler correctness, installed-tool acceptance, ECS API changes, Native adoption, or performance improvement. The prior diagnostic timings remain observations only. Full authority/reached controls, source-current regression, and performance evaluation remain separate gates after a complete output pass. Report generated at the request path only; no repository/core files were edited.
+
