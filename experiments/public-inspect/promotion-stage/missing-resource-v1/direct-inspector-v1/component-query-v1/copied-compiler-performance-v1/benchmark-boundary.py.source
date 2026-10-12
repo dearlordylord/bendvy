@@ -1,0 +1,80 @@
+"""Bind copied tools around the unchanged benchmark; no statistical policy changes."""
+import base64
+import fcntl
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import sys
+
+sha = lambda path: hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+def decode(value):
+    if isinstance(value, dict):
+        if set(value) == {'base64'}:
+            return base64.b64decode(value['base64'])
+        return {key: decode(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [decode(item) for item in value]
+    return value
+
+def main():
+    path = Path(sys.argv[1]).resolve(strict=True)
+    expected = sys.argv[2]
+    if sha(path) != expected:
+        raise ValueError('plan changed')
+    plan = json.loads(path.read_text())
+    actual = Path(sys.executable).resolve(strict=True)
+    if str(actual) != plan['tools']['python'] or sha(actual) != plan['pins'][str(actual)]:
+        raise ValueError('executing interpreter differs')
+    raw_pins = {}
+    def guard():
+        if any(sha(name) != digest for name, digest in raw_pins.items()):
+            raise ValueError('published raw output changed')
+        if any(sha(name) != digest for name, digest in plan['pins'].items()):
+            raise ValueError('frozen inputs changed')
+        if plan['nodeAliasTarget'] != str(Path(plan['nodeAlias']).resolve(strict=True)):
+            raise ValueError('Node resolver alias changed')
+    guard()
+    sys.path.insert(0, plan['scripts'])
+    import task_runner
+    from evidence_boundary import GuardBoundary, ReceiptBoundary
+    spec = importlib.util.spec_from_file_location('owned_pins', plan['ownedToolPins'])
+    owned = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(owned)
+    prior = decode(json.loads(Path(plan['toolSnapshot']).read_text()))
+    def tools_guard():
+        owned.verify(prior, execute=lambda argv, cap, env: task_runner.execute_result(argv, cap, env=env, capture='split'),
+                     tools=prior['tools'], resource_roots=prior['resource_roots'], ldd=prior['ldd'], taskset=prior['taskset'],
+                     cpu=prior['cpu'], env=plan['environment'], skip_ldd=prior['skip_ldd'], capture_mode='split')
+    out = path.parent
+    record = {'scope': plan['scope'], 'planSHA256': expected, 'commands': []}
+    with open('/tmp/bendvy-parity-heavy.lock', 'a') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        with ReceiptBoundary(record, out / 'receipt.json', [('inputs', guard), ('tools/resources', tools_guard)]):
+            tools_guard()
+            if Path(plan['output']).exists():
+                raise ValueError('benchmark output must start absent')
+            with GuardBoundary([('inputs', guard)]):
+                result = task_runner.execute_result(plan['argv'], plan['outerCapSeconds'], env=plan['environment'], cwd=plan['cwd'], capture='split')
+                for stream in ('stdout', 'stderr'):
+                    target = out / ('cohort.' + stream)
+                    with target.open('xb') as file:
+                        file.write(result[stream])
+                record['commands'].append({key: result[key] for key in ('exit', 'failure')})
+                record['stdoutSHA256'] = sha(out / 'cohort.stdout')
+                record['stderrSHA256'] = sha(out / 'cohort.stderr')
+                raw_pins.update({str(out / 'cohort.stdout'): record['stdoutSHA256'], str(out / 'cohort.stderr'): record['stderrSHA256']})
+                if result['failure'] is not None or result['exit'] != 0:
+                    raise ValueError('benchmark cohort failed; raw receipt retained')
+                receipt = Path(plan['output']) / 'receipt.json'
+                record['benchmarkReceiptSHA256'] = sha(receipt)
+                raw_pins[str(receipt)] = record['benchmarkReceiptSHA256']
+                if json.loads(receipt.read_text())['baselineArchiveSHA256'] != plan['baselineArchiveSHA256']:
+                    raise ValueError('baseline archive differs from frozen source')
+                if json.loads(receipt.read_text())['status'] != 'NO_CONFIRMED_REGRESSION':
+                    raise ValueError('unchanged statistical gate not passed')
+                record['status'] = 'UNCHANGED_BENCHMARK_NO_CONFIRMED_REGRESSION'
+
+if __name__ == '__main__':
+    main()

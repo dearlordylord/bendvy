@@ -1,0 +1,81 @@
+{
+  "scope": "CurrentbyteidenticalUnitJS wholeprocess allocation diagnostic; full207834oracle/cap5, no comparativeperformance claim",
+  "planSHA256": "86fbbf49ebcaf14cbb1a6008c29db4fcc791ac43bd5ae2bb63a820e79f3295be",
+  "commands": [
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "--heap-prof",
+        "--heap-prof-dir=/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/copied-compiler-performance-v1/profiles/allocation",
+        "--heap-prof-name=scenario.heapprofile",
+        "--heap-prof-interval=8192",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/graph-index-v1/inline-layout31-v1/js/scenario.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "childAccounting": {
+        "scope": "collector reaped children delta around execute_result; not runtime performance",
+        "wallNs": 359406725,
+        "userSeconds": 0.33408699999999997,
+        "systemSeconds": 0.018845999999999998,
+        "before": {
+          "userSeconds": 0.0,
+          "systemSeconds": 0.0008929999999999999,
+          "subtreeMaxRSSKiB": 1724
+        },
+        "after": {
+          "userSeconds": 0.33408699999999997,
+          "systemSeconds": 0.019739,
+          "subtreeMaxRSSKiB": 95100
+        },
+        "RSSScope": "Linux KiB peak across reaped subprocess subtree, including supervisor owner and Node; not Node-only, live heap or timed-region RSS"
+      },
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/copied-compiler-performance-v1/profiles/allocation/consumer.stdout",
+        "sha256": "14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d",
+        "bytes": 207834,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/copied-compiler-performance-v1/profiles/allocation/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "profileArtifact": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/copied-compiler-performance-v1/profiles/allocation/scenario.heapprofile",
+        "sha256": "ba0891af1a4e85dc326c52193c688d343307d244b7a9e448284843663269b41b",
+        "bytes": 836066
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/copied-compiler-performance-v1/profiles/allocation/consumer-pre.guard.json",
+      "sha256": "65b49a6a88ae52d35f47dca83c46daf215d4fc8cb33dbe807ff1923d63c6780b"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/copied-compiler-performance-v1/profiles/allocation/consumer-acquired.guard.json",
+      "sha256": "75e1c8fa62188dd4bdec3ab59008b7918982fac2bb9e1e6a3ad38649d6d508c1"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/copied-compiler-performance-v1/profiles/allocation/consumer-post.guard.json",
+      "sha256": "435b1a4a40c2377761d45f727beccf58237d874174d813bb8ae483db2a4e8c8c"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/copied-compiler-performance-v1/profiles/allocation/final.guard.json",
+      "sha256": "388f39ab3325215f9de534ea014c79f8e33a61eec4742a3d488265f87407d79f"
+    }
+  ],
+  "status": "WHOLE_OUTPUT_WITH_JS_PROFILE_CAPTURED_NOT_BENCHMARK",
+  "wholeOracleSHA256": "14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d",
+  "profileSHA256": "ba0891af1a4e85dc326c52193c688d343307d244b7a9e448284843663269b41b",
+  "profileKind": "allocation"
+}
