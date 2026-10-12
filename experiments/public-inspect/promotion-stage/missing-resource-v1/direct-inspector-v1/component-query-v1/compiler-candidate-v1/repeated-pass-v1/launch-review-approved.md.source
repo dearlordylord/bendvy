@@ -1,0 +1,19 @@
+# Repeated-pass-v1 repaired binding successor review
+
+This is the successor review for the repaired bindings only. The held report remains unchanged at SHA-256 `d4f371992d1d2b299951b1748125e1726f69645d991e9c882d240093acce56e2` and is preserved at `launch-review.held-review.source`.
+
+Verdict: **APPROVE the bounded prospective three-role launch.** This approves the reviewed source -> fresh JS -> Native diagnostic sequence for execution under its frozen plans. It grants no runtime result, Native credit, compiler adoption, stock-tool credit, performance claim, parity claim, or #54 closure. No compiler, backend, consumer, activation, hook, or restoration command was run for this successor review.
+
+The candidate compiler `64e1b85102f434f32208bfe579dc4cba699a3427183d7f7ba7b3a2482179f88f` and patch `419e1e5ada9d950eef3b9df40dacc694beb99c9e5e4002cbebcb051779fb1ebd` are byte-identical to the held review. The source audit and syntax evidence are unchanged. The only reviewed changes are the packet bindings and wording:
+
+`BINDING-REPAIR.json` is `28bf483646e6f3a57a225bc32919fcbdbfbc7f0a69ff7945a1aefbf42ec2cd2a`; its claims were independently checked by hashing and parsing the active packet.
+
+- Source, JS, and Native plans now hash to `f5a35ecae178b31aa9e6375eb26e176ea55b4d00fb7c5139e8a8e6d7264eae6d`, `9ac6581a5f204185fb202c2675667cce5bda8d9850b44f42ca26640d08303ac2`, and `933e669e9617cde761a58a3ead98d086e9c97f4bed7871471d0b2608bb65ea64`.
+- `OUTER-PLAN.json` is `61396fd00fdf6aedb5f7b2299c3e12175248c77b6b6ce5772e63784023b29c8a`; `LAUNCH-REVIEW.json` is `249678882b9c75c7a760ee4d67631bdea721dfcc082ea71055776391e16a1e6f`; the outer script is `6296d7a6b862f7ab9dd47ff6d1f78e41e680d7ea1d242922e10030b05f29e978`.
+- All 133 outer preactivation pins match the current workspace. The five changed source files are pinned to their current hashes before activation and to their distinct frozen hashes in each role plan after activation. The source, JS, and Native plans now pin the current inspector README hash `8bd533cd3fb4775090a573140eb7e835a36c8f258af9bdb0fe0943daf555dbe4`.
+- Every boundary preflight now carries its own plan SHA: source `f5a35ecae178eb31aa9e6375eb26e176ea55b4d00fb7c5139e8a8e6d7264eae6d`, JS `9ac6581a5f204185fb202c2675667cce5bda8d9850b44f42ca26640d08303ac2`, Native `933e669e9617cde761a58a3ead98d086e9c97f4bed7871471d0b2608bb65ea64`; collector execute arguments carry the same joins. Launch and outer parent hashes were re-bound accordingly.
+- Scope metadata and the outer script description now name the three-role manual adaptation of pinned upstream commit `8c94532186ec658ef378187a663ffba32ff3ef52`, with direct upstream adoption, stock credit, installed compiler changes, performance credit, and issue closure explicitly excluded.
+
+Independent read-only checks found 67 binding, inventory, oracle, cap, and metadata assertions passing with zero failures. Each role retains 53 source inventory entries, 53 import-closure entries, two source entries, and three resource roots. JS and Native bind the same complete 207,834-byte oracle (`14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d`). The declared limits remain source 5 seconds, emit 30, build 120, consumer 5, CPU 3. Restoration remains the first `finally` action, followed by all five changed-file and remaining-48 checks before lock release.
+
+The launch remains diagnostic only. Its completion still requires actual source control, fresh JS whole-oracle equality, Native emit/build/runtime under the declared caps, empty runtime consumer stderr, and exact restoration. A deadline or incomplete stage earns no credit. The held report's semantic and adoption limitations remain binding; this successor adds no new compiler finding.

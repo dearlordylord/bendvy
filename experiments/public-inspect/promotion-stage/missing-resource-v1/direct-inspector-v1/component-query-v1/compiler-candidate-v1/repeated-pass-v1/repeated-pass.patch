@@ -1,0 +1,94 @@
+--- phase-budget0.mjs
++++ repeated-pass.mjs
+@@ -3869,11 +3869,22 @@
+     return { n, h, live, lays: lays.map((l) => wide && l.ks.length > 1 ? BOX : l), ret: ret.ks.length === 0 ? BOX : ret };
+   });
+ }
++let TRACE = null;
++class Facts extends Set {
++  has(k) {
++    const got = super.has(k);
++    if (!got) TRACE?.miss.push(() => super.has(k));
++    return got;
++  }
++}
+ function brw_of(fl, k) {
+-  return memo(BRWS, k, () => {
++  const row = memo(BRWS, k, () => {
+     const { live, lays } = fun_of(fl, k);
+     return lays.map((l, i) => done_live(fl.book.tlds[k]) && l.ks.includes("box") && ty_adt(fl.book, live[i][2])?.k !== "Array" && !fl.own.has(k + "~" + i));
+   });
++  TRACE?.asks.push(k);
++  row.forEach((b, i) => b && TRACE?.miss.push(() => fl.own.has(k + "~" + i)));
++  return row;
+ }
+ function def_raise(book, t, left) {
+   const s = term_strip2(t);
+@@ -3985,8 +3996,8 @@
+     js,
+     bangs: new Set,
+     sites: new Map,
+-    hot: new Set,
+-    stat: new Set,
++    hot: new Facts,
++    stat: new Facts,
+     own: new Set,
+     lend: new Set,
+     segs: [],
+@@ -5170,6 +5181,8 @@
+   const facts = () => fl.own.size + fl.hot.size + fl.stat.size;
+   let was;
+   let reqs;
++  const traces = new Map();
++  let full;
+   let diagnostic_pass = 0;
+   const diagnostic_phase = (phase) => {
+     const cpu = process.cpuUsage();
+@@ -5177,6 +5190,7 @@
+   };
+   do {
+     was = facts();
++    full = traces.size === 0;
+     diagnostic_pass++;
+     diagnostic_phase("begin");
+     [fl.lend, fl.spun, fl.clos, fl.tabs, fl.lits, fl.consts, BRWS].forEach((m) => m.clear());
+@@ -5184,6 +5198,16 @@
+     fl.spins = [];
+     fl.img = [];
+     for (const [k, tld] of done_defs(fl).reverse()) {
++      const prior = traces.get(k);
++      if (prior && !prior.miss.some((f) => f())) {
++        prior.asks.forEach((key) => brw_of(fl, key));
++        continue;
++      }
++      const trace = {miss: [], asks: [], lends: new Set()};
++      traces.set(k, trace);
++      fl.lend = trace.lends;
++      TRACE = trace;
++      try {
+       OPTIONAL_INLINE_LEFT = 0;
+       memo_gc();
+       const [dl, vals] = emit_open({
+@@ -5194,7 +5218,11 @@
+       }, k);
+       fl.segs.push(dl.seg);
+       emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);
+-    }
++      } finally {
++        TRACE = null;
++      }
++    }
++    fl.lend = new Set([...traces.values()].flatMap((trace) => [...trace.lends]));
+     reqs = effect_srcs(fl, ".c", "no .c import: ").join("");
+     for (const [k] of done_defs(fl, def_foreign)) {
+       const qp = [
+@@ -5216,7 +5244,8 @@
+       }
+     }));
+     diagnostic_phase("end");
+-  } while (was !== facts());
++    if (was === facts()) traces.clear();
++  } while (was !== facts() || !full);
+   const edges = [...fl.segs, ...fl.spins].flatMap((s) => [...s.refs].map((r) => [s.fid, r]));
+   const reach = (from) => graph_close(new Set(from), edges);
+   const live = reach([seg_fid("main")]);

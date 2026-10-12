@@ -1,0 +1,21 @@
+{
+  "candidateSHA256": "64e1b85102f434f32208bfe579dc4cba699a3427183d7f7ba7b3a2482179f88f",
+  "postpassOrder": [
+    "edges + graph_close live/dev + filter segments/spins",
+    "SHOW descriptors, entries, constructor IDs, fork closure, arity checks and defs",
+    "tabs and spins string assembly",
+    "segs via seg_take/seg_text",
+    "undefined scan of combined strings",
+    "runtime_c assembly then c_ids regex substitution",
+    "compile_book return then cli_emit fs4.writeFileSync"
+  ],
+  "mat_lits": "Called by earlier pattern emitter; no direct postpass mat_lits call in compile_book. No PR1387 assumption.",
+  "minimalMarkers": [
+    "after loop: post-reach begin/end around edges/reach/filter",
+    "post-sections end after tabs/spins/segs and undefined check",
+    "runtime_c begin/end",
+    "c_ids begin/end",
+    "cli Native write begin/end after compile_book returns"
+  ],
+  "scope": "Proposal only; marker insertion preserves computation/return and adds stderr cumulative processCPU timestamps. No semantic patch or execution authorized."
+}
