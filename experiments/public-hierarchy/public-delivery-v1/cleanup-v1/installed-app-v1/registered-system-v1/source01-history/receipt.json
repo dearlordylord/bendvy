@@ -1,0 +1,57 @@
+{
+  "scope": "First registered linked-cleanup System: opaque Ops, Binding-derived full access metadata, two schemas and eight complete App snapshots",
+  "planSHA256": "b2a8e03f360bb74d7d2f2ac24a689ea2dcea95609b9667b40cc82cba493a1b83",
+  "commands": [
+    {
+      "label": "source-registered-cleanup",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-hierarchy/public-delivery-v1/cleanup-v1/installed-app-v1/registered-system-v1/entry.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy44-registered-cleanup-source01/source-registered-cleanup.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy44-registered-cleanup-source01/source-registered-cleanup.stderr",
+        "sha256": "6ba2006717800ad788e5324a469bd95034e80152ce38e976fcbeae95b2a38872",
+        "bytes": 359,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy44-registered-cleanup-source01/source-registered-cleanup-pre.guard.json",
+      "sha256": "10beaa0bc0a4309ee4c6413c2ab50c1c5e2bea743d8984c7c12d5099c38fd213"
+    },
+    {
+      "path": "/tmp/bendvy44-registered-cleanup-source01/source-registered-cleanup-acquired.guard.json",
+      "sha256": "a910fd1f8361955cfd87d5aa9cf4d31f7230c1859a8b558613c848ce8878f939"
+    },
+    {
+      "path": "/tmp/bendvy44-registered-cleanup-source01/source-registered-cleanup-post.guard.json",
+      "sha256": "04bd22b6e04bf7823e8b5d955712e0436fc06894969bd1db8fe3fdb89bdc80dd"
+    },
+    {
+      "path": "/tmp/bendvy44-registered-cleanup-source01/final.guard.json",
+      "sha256": "4aeaa6d322095b1699cec13339e7487b88f92970292136a3a113b011f04752b8"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Source control exit differs: source-registered-cleanup",
+  "guardFailures": []
+}

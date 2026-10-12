@@ -1,0 +1,17 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Store -> @_:W.Handle<S> -> Sigma<&1, &1, Store, _ => List<&2, E>>
+- observed : @store:Store -> @+handle:W.Handle<S> -> Sigma<&1, &1, Store, _ => List<&2, E>>
+Context:
+- S                : Data
+- Store            : Type
+- E                : Data
+- left             : @_:Store -> @_:W.Handle<S> -> Sigma<&1, &1, Store, _ => List<&2, E>>
+- right            : @_:Store -> @_:W.Handle<S> -> Sigma<&1, &1, Store, _ => List<&2, E>>
+- leftDeclaration  : Declaration<S, Store, E, left>
+- rightDeclaration : Declaration<S, Store, E, right>
+Location: product
+15 |   Declaration{[Identity.key(~S,~P,Binding.identity(~S,~Store,~Rest,~P,~V,~Token,~take,~put,~view,binding))]}
+16>| def product(~S:Data,~Store:Type,~E:Data,~left:Store -> W.Handle<S> -> Store & List<&2,E>,~right:Store -> W.Handle<S> -> Store & List<&2,E>,~leftDeclaration:Declaration<S,Store,E,left>,~rightDeclaration:Declaration<S,Store,E,right>) -> Declaration<S,Store,E,Clear.product(~S,~Store,~E,~left,~right)>:
+   |                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+17 |   Declaration{List.append(&2,String,keys(~S,~Store,~E,~left,leftDeclaration),keys(~S,~Store,~E,~right,rightDeclaration))}

@@ -1,0 +1,54 @@
+{
+  "status": "ACTUAL_REGISTERED_REQUEST_OMISSION_REACHED_RESTORED",
+  "sourceProducer": "981cacd24",
+  "preparedIndependentModel": "69fd9ac04",
+  "actualSourceOriginal": 79860,
+  "actualSourceClosureCount": 76,
+  "runs": [
+    {
+      "role": "source",
+      "original": 79860,
+      "planSHA256": "97975b9bdca32358357f66d4d2c47598c333e4561d950f2c83f063db9c2f9de5",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "commands": 1,
+      "guards": 4
+    },
+    {
+      "role": "js",
+      "original": 23289,
+      "planSHA256": "fc2edf555357558cd67297cfc2cc326fb79161d1012ee45f169a1be1415c121a",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": 2,
+      "guards": 7
+    },
+    {
+      "role": "native",
+      "original": 23268,
+      "planSHA256": "89b5fb91e4519a12862b1782ccc682a84efea7d954a72a885cf332f8970de7dd",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": 3,
+      "guards": 10
+    }
+  ],
+  "counter": {
+    "bytes": 9835,
+    "sha256": "823e29dc1fc4544a85ec911f099f4198801df91694f156bd8adf0027eda2be41"
+  },
+  "completeNormal": {
+    "bytes": 9103,
+    "sha256": "6c8dfee1fc657bf96e0024a6b26b124d62142f8ce27caa9e870afdef7ab0bb29",
+    "rejectedByBoth": true,
+    "firstDifferenceByte": 2799,
+    "comparison": "independent complete retained raw byte comparison, not collector normalOracle enforcement"
+  },
+  "applyReceiptSHA256": "895f5a3acdb551f663064e65170e72d67f3c2dc3bab69cef9e2e02dce7035123",
+  "restoreReceiptSHA256": "c0e6945003989b777b089bc86a029c2cf3583b4ecc17609ae78862ffc62f84af",
+  "currentNormalSHA256": "1eaee7ea2d166ffb26040889eb893d45d901e2e87ca68cc360896f109f8b6dcc",
+  "archive": {
+    "path": "runtime.zip",
+    "sha256": "daf061c2b8b17b71d245b864988728424109ac099d3aa5f96e2a4c8ade2f64e0",
+    "rows": 290,
+    "objects": 127
+  },
+  "scope": "Actual opaque Ops request dispatch; Queued result with no pending command/cleanup exposes omission. Restored before packaging. No IO finalizer/universal/performance credit."
+}

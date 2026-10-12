@@ -1,0 +1,24 @@
+"""Current-source full oracle checks; no backend/output observation dependencies."""
+from pathlib import Path
+import gzip,hashlib,json,runpy
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+def main():
+    basis=json.loads((HERE/'SOURCE-BASIS.json').read_text())
+    for p,d in basis['inputs'].items():assert sha(Path(p))==d,p
+    consumer=Path(basis['consumer']).read_text()
+    assert '"LinkedCleanup"' in consumer and 'X.Failure{77}' in consumer
+    assert consumer.count('session_snapshot(~S,')==4
+    source=runpy.run_path(str(HERE/'model.py.source'));raw=source['expected']()
+    assert raw.count(b'system=1:1:LinkedCleanup|access=Payload:write,Parent:write,Link:write,|cursor=0')==8
+    assert raw.count(b'|registrations=1:LinkedCleanup:[Payload:write,Parent:write,Link:write,];')==8
+    assert raw.count(b'ABORT=NoOutput:Failure:77')==2
+    assert raw.count(b'QUEUE=Queued:Success')==2
+    assert raw.count(b'|pending=1|')==2
+    assert raw.count(b'Removed:4;Original:1004;Removed:2;Original:1002;')==2
+    (HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    oracle={'normal':{'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(HERE/'SOURCE-BASIS.json'),'sourceBasisSHA256':sha(HERE/'SOURCE-BASIS.json')}}
+    (HERE/'ORACLES.json').write_text(json.dumps(oracle,indent=2)+'\n')
+    (HERE/'CHECKS.json').write_text(json.dumps({'status':'SOURCE_DERIVED_COMPLETE_ORACLE_PASS','sourcePins':basis['sourcePins'],'basisPins':len(basis['inputs']),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'checks':['Current closure and producer pins','Full two schemas/four snapshots/physical World and relation rows','Registry namespace/id/name/declaration access/cursor preserved','Failure77 discards queued command and output','Success deferred until barrier; postorder4/2 and incoming Link detach'],'limits':['No runtime outputs read','Finite pure Array ownership removal only; no IO destructor claim']},indent=2)+'\n')
+    print(len(raw),hashlib.sha256(raw).hexdigest())
+if __name__=='__main__':main()
