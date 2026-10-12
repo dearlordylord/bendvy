@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: bad
+10 | 
+11>| def bad(~H:Type,~grant:Q.ReadQuery<H,Families.Workshop,Unit>,owner:H) -> H & H:
+   |                                                              ^^^^^
+12 |   (owner,owner)

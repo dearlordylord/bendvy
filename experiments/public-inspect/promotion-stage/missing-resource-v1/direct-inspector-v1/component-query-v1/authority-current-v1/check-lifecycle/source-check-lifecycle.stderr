@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Selection.Predicate<K.Frame<bad~S, bad~Store, bad~R, bad~E>, bad~S>
+- observed : Selection.Predicate<I.Frame<bad~S, bad~Store, bad~R, bad~E>, bad~S>
+Context:
+- value : Selection.Predicate<I.Frame<bad~S, bad~Store, bad~R, bad~E>, bad~S>
+Location: bad
+11 | def bad(~S:Data,~Store:Type,~R:Type,~E:Data,value:Selection.Predicate<I.Frame<S,Store,R,E>,S>) -> Selection.Predicate<K.Frame<S,Store,R,E>,S>:
+12>|   value
+   |   ^^^^^
+13 | def main() -> Unit:Unit{}

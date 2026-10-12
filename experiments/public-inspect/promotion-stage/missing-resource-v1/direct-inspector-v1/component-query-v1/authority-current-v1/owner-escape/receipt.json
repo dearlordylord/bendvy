@@ -1,0 +1,56 @@
+{
+  "scope": "Finitecurrentpublicauthority witness owner-escape; raw refusal requires intendeddiagnostic classification, no universalproof.",
+  "planSHA256": "8e75154fc4eb37ccad4ee87dd1fbc5a4aaf34df9114acbdcd1209e0f258375c4",
+  "commands": [
+    {
+      "label": "source-owner-escape",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-escape.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 1,
+      "stderrContains": [],
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-escape/source-owner-escape.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-escape/source-owner-escape.stderr",
+        "sha256": "7706db033ea4356fe0613036c277dcdcb4d570c02b8dd320c8b91f7dc2c8d116",
+        "bytes": 264,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-escape/source-owner-escape-pre.guard.json",
+      "sha256": "2495b662403499089a921d581692260859173c2da5ffdf0b96da9e68e58752bf"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-escape/source-owner-escape-acquired.guard.json",
+      "sha256": "81eea7f144e991c83a10acef3e870f032a4a305bda58398eb5e7e50eb576741d"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-escape/source-owner-escape-post.guard.json",
+      "sha256": "52c095b269cc31f79638faade337acf488e1517733de364347d25e2189ebd75e"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-escape/final.guard.json",
+      "sha256": "1aa996085def7f4c9a6b57ab6df43c9efb7caa66066ea48cb3add37564e6c390"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}

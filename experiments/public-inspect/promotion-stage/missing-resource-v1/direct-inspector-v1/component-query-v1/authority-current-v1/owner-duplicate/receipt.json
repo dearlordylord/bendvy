@@ -1,0 +1,56 @@
+{
+  "scope": "Finitecurrentpublicauthority witness owner-duplicate; raw refusal requires intendeddiagnostic classification, no universalproof.",
+  "planSHA256": "7db96ed7f7018505c23176f7e425b16a295972806cad87a2f618b6988351e637",
+  "commands": [
+    {
+      "label": "source-owner-duplicate",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-duplicate.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 1,
+      "stderrContains": [],
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-duplicate/source-owner-duplicate.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-duplicate/source-owner-duplicate.stderr",
+        "sha256": "2ab373783d2bee81bf62006b6bfcce344ccbfdf625ee7f5df5f979d363391188",
+        "bytes": 286,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-duplicate/source-owner-duplicate-pre.guard.json",
+      "sha256": "193e9d41274138dd8449ba57015d23d9b6e3fdd9938a535e260b80810bb63de1"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-duplicate/source-owner-duplicate-acquired.guard.json",
+      "sha256": "e42b95648999a6d1b73bbdd73c9675dac61daf976d143172522eba879827f07d"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-duplicate/source-owner-duplicate-post.guard.json",
+      "sha256": "aab9fe7b291fd8d403cc13ed90172c0866a393497982ba260acae9b4861b0548"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/authority-current-v1/owner-duplicate/final.guard.json",
+      "sha256": "5fead49042fa385956e79ce1398bb79cb0083fb49bdde3f21403187c357c4144"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}
