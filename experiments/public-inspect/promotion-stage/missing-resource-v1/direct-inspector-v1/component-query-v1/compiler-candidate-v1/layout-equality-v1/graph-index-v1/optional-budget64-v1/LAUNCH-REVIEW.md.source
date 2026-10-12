@@ -1,0 +1,9 @@
+# Optional inline budget 64 v1 launch review
+
+**Verdict: APPROVE this exact prospective JS→Native batch, conditional on the JS whole-output pass.** No consumer was executed.
+
+The source patch is exactly two constant changes in the graph845c9b candidate: `OPTIONAL_INLINE_LEFT` initializes at 64 and resets to 64 for each definition instead of 0. Direct comparison with the pinned graph-index candidate shows no other source changes, so repeated-pass, layout, and graph-index fixes remain intact. The patch and candidate hashes are `822ca9ce07d6673e2fdad1dc38252670ce72923bb0512294c5c1d33f2ec48819` and `7ffb2ee978c6acf9245f91434447ff52ebe360f3ed1d46dd1c8c99d15eeb3322`.
+
+The JS and Native plans are `4f5450c62a50ad5a17ba1380aa99e067c48b191ba09697cc8e2ebaa5dc2bb3f2` and `7a5d1592f214be15c5d3621d809c2f1329c1f05ddf99ac286072d6c2ea9c5dc4`; FREEZE is `c952caf592a447ba24d4b5f5da40710586292d78d3a0041e356c020668ccc6b8`, and LAUNCH is `11ab8330c906fb0d7d3539b65c9d19fb4270c098b00e881c428177801f7da07a`. Their joins match, all 135 pins and six resource-root inventories are current, and both plans bind the same 53-file Unit source inventory and 207,834-byte oracle (SHA256 `14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d`). LAUNCH conditions Native on JS whole-output PASS. JS, generated C, Native binary, receipts, raw streams, and guards are absent. Caps/CPU remain emit 30, build 120, consumer 5 on CPU 3; Native uses standard Clang `-O3` with no experimental backend flags. Existing source guards and byte-for-byte consumer checks remain bound.
+
+This approves launch only. It makes no general correctness, performance, or adoption claim; the complete JS and Native consumer results are still required.
