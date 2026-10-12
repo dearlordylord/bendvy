@@ -1,0 +1,56 @@
+{
+  "status": "PROFILE_MISSING_NATIVE_REACH_DEADLINE_RESTORED",
+  "session": 19637,
+  "outerExit": 1,
+  "nativeCommand": {
+    "label": "emit",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "3",
+      "/home/node/.local/share/mise/installs/bun/1.3.14/bin/bun",
+      "--cpu-prof",
+      "--cpu-prof-interval=10000",
+      "--cpu-prof-name=emitter.cpuprofile",
+      "--cpu-prof-dir=/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/cpu-profile-v4/native",
+      "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/cpu-profile-v4/compiler/profiled.mjs",
+      "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/main.bend",
+      "-o",
+      "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/cpu-profile-v4/native/scenario.c"
+    ],
+    "capSeconds": 30,
+    "exit": null,
+    "failure": "child deadline",
+    "capture": "split",
+    "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+    "stdout": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/cpu-profile-v4/native/emit.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "published": true
+    },
+    "stderr": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/cpu-profile-v4/native/emit.stderr",
+      "sha256": "3ca0be235d7394efef51ce14f4964aa1a2bad982862a77f78b86862010e1d33c",
+      "bytes": 1363,
+      "published": true
+    }
+  },
+  "profile": {
+    "role": "native",
+    "status": "PROFILE_MISSING",
+    "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/cpu-profile-v4/native/emitter.cpuprofile"
+  },
+  "markerCount": 17,
+  "lastMarker": {
+    "phase": "post-reach-begin",
+    "pass": 8,
+    "facts": 6517,
+    "cpuSeconds": 23.117984
+  },
+  "all53RestoredBeforeUnlock": true,
+  "nativeBuildStarted": false,
+  "nativeRuntimeStarted": false,
+  "priorScopedSourceJSCommit": "0199966e0713c94bb1038d36c1af90783910e854",
+  "interpretation": "All eight passes completed and post-reach-begin observed; no post-reach-end or cooperative-stop marker before30s deadline. Profile absent; no measured CPU hotspot attribution/dump-cause/performance/nativeacceptance claim. No identical retry."
+}

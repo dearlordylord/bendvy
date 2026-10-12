@@ -1,0 +1,9 @@
+# Inspector #54 cpu-profile-v4 launch review
+
+**Verdict: APPROVE this exact frozen one-run Native-only diagnostic sequence prospectively.**
+
+Current bindings are candidate `3b19105dcdde0b6eaf27d681b784d4bdc801df6abc46ac801b706b2fc827fc14`, patch `d36b53b3169da54f7c71c20f482387e3edd4968e9c68c12a9e8999b299f06cae`, Native plan `45e54048b88fc46b36fbdac3debd41405b7e5461267b1cdadc6373f9c2b7763c`, outer plan `fa88a7aeac5aa4367c916fe3aa4cfed5d47257436026e4d1d485373f850b7530`, script `b54bb6cfdef608ae67e7a09d2e9978d710d3987ad22adaffdac1c57e074ac379`, freeze `f0782e8af6e9c9afed07fa7223b11785fdc9fe45b541512af1d8041c768e909c`, and launch `948e8d5488b3342266d5737f5824353d50980b486e5e5bf3e2c349d03a8907f1`. All 174 pins and joins match current files. The 53-file Native inventory equals activation and Native-pin inventories. Reused source and JS receipts remain complete, pinned, and scope-identical; the JS output matches the full 207,834-byte oracle.
+
+The repaired outer sequence guards the profile path absent under lock before activation. Its existing `finally` begins with source restoration and verifies the five changed files plus remaining 48; it then records `PROFILE_MISSING`, `PROFILE_INVALID`, or a regular nonsymlink profile’s byte count, SHA256, parsed nonempty nodes/samples/timeDeltas, ID joins, counts, and sampled-time sum in the terminal receipt before unlock. The diagnostic retains the 25s cooperative exit 77, 10ms sampling, CPU 3, and 30/120/5s emit/build/runtime caps. The code delta remains diagnostic-only; missing/invalid profile outcomes and exit 77 do not grant Native acceptance, parity, adoption, or performance credit.
+
+I verified the changed validator and exact joins read-only. No compiler, profiler, runner, test, or hook was executed.
