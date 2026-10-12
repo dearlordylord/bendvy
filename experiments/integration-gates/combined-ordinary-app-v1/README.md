@@ -1,6 +1,15 @@
 # Combined Workshop regression gate
 
-Latest completed qualification is [combined186](actual-attempt186-01/FINAL-REVIEW.md):
+Latest qualification is [combined213](actual-attempt213-01/FINAL-REVIEW.md):
+`NO_CONFIRMED_REGRESSION` on JS and Native; all 123 commands and 110 complete
+outputs pass. Median paired candidate/frozen-Bend ratios are JS 0.929149 and
+Native 0.985415. Descriptive candidate/bevy-ts ratios are JS 0.402080 and Native
+0.096538 for the protected Workshop workload only. The 213-module source tree
+includes ordinary optional-resource registration and retained Schedule access.
+The historical contention deferral remains preserved; this run used a fresh
+quiet CPU11 observation and exclusive queue. Full feature performance is separate.
+
+Historical qualification: [combined186](actual-attempt186-01/FINAL-REVIEW.md):
 `NO_CONFIRMED_REGRESSION`, all123 commands and110 complete outputs pass.
 Paired candidate/frozen-Bend medians are JS0.880768 and Native0.925411.
 Descriptive candidate/bevy-ts ratios are JS0.366235 and Native0.094198,

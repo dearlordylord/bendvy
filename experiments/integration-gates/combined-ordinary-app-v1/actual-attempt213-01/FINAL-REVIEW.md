@@ -1,0 +1,13 @@
+# Combined213 final Spec/Standards review
+
+Verdict: PASS for the unchanged #28 protected whole-process Workshop regression gate. No blocking findings.
+
+Exact durable packet: `f1344ea1f`, hierarchy44-public-traversal-v1 worktree, experiments/integration-gates/combined-ordinary-app-v1/actual-attempt213-01. Archive SHA256 `7ea9f5c41a9100503ac5fb739e130c069e728dada1f9c018e8dc728c9b8bc358`; receipt SHA256 `7f78dbefb03556ebda1aa9b9da4300e607b114e9d938dfe1431cf197552b8733`. Original execution session18512 terminal0; this review performed no heavy execution.
+
+Independently verified exact archive membership and every length/SHA256 for 866 files; all123 receipt commands exit0; all110 retained compressed outputs match their full raw stdout hashes and each contains ten complete22-checkpoint JSON application observations equal to the selected oracle. Checked baseline29/candidate236 archived source trees and all219 current monitored source hashes. Reconstructed seeded balanced pair ordering and joined pair timings to actual command telemetry. Recomputed exact paired sign tests and Holm endpoints from all20 pairs/backend: JS0 slower,p1,median ratio0.9291494442857182; Native6 slower,p0.9793052673339844,median0.9854146649365652. Result is NO_CONFIRMED_REGRESSION under the unchanged zero-confirmed-slowdown contract, not a general speedup claim.
+
+Launch review binds PLAN213 SHA08cc051872724d93c3998dc42b3e5e7b356d2302f2b26d569702af7c823a122c, candidatec35ec00c5, unchanged baseline/workload/runner/statistics/configuration/tool/reference/lock plan. Retained fresh CPU11 five-second observation03 records0%busy; accurate owner chronology records exclusive grant, immediate exact preflight and one benchmark run. POST records222staged/219monitored/8tools/33TS with zero drift. Existing statistics controls are explicitly scoped unchanged-source/tool reuse; no new controls execution is claimed. Historical deferral/205 remain preserved. Packaging JSON-lines correction occurred before archive staging and did not rerun the benchmark.
+
+Evidence limitation: no separate outer stdout/stderr files were captured; owner records execution-tool start/terminal provenance transparently. Full runner command telemetry, raw complete outputs and terminal status remain retained. The packet does not manufacture missing outer logs.
+
+Qualification applies only to the protected whole-process Workshop, including startup/output. It does not establish feature hot-path performance, full feature matrix completion, universal equivalence, proof acceptance or issue closure. No numerical tolerance, workload reduction or baseline change is approved.
