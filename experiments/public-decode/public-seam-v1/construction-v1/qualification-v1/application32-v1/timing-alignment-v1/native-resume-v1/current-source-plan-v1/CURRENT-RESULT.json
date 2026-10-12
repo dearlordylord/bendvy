@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "status": "CURRENT_SOURCE_BOUNDED_CONSUMER_PASS",
+  "scope": {
+    "issue": "#46 complete decoding",
+    "consumer": "current-source ordinary32 consumer at observation-main.bend",
+    "operations": 32,
+    "nominalSchemas": 2,
+    "result": "Current-source source check, JS consumer, and Native consumer pass; both complete consumer outputs match the independent source-derived whole oracle."
+  },
+  "historicalPrelaunchResult": {
+    "path": "RESULT.json",
+    "bytes": 6770,
+    "sha256": "5411c56a8a9f5933f78ab9fb1392cf42eb4213d555493357b4e0907a5b1fbf34",
+    "status": "SOURCE_CHECK_PASS_ORACLE_BOUND_PLAN_PREPARED_NATIVE_NOT_RUN",
+    "meaning": "Prelaunch snapshot: its JS/Native NOT_RUN fields remain historically correct and are not the current execution result."
+  },
+  "source": {
+    "repository": "/workspace/formal-proofs/bendvy",
+    "commit": "af14109613de424f0aee9067dea9dc37ca3d8c03",
+    "entrypoint": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/observation-main.bend",
+    "projectSourceFiles": 50,
+    "sourceBindings": "Both execution plans' 50 SHA-256 sourceInventory entries match the bytes in this commit.",
+    "base": {
+      "path": "/home/node/.bend/bend2/base.bend",
+      "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+    },
+    "check": {
+      "status": "PASS",
+      "receipt": "source-check/receipt.json",
+      "receiptSHA256": "e25361b247544a4c8502497d022a96ce114445f46b971f3296a288c14f1e93d2",
+      "closureFilesIncludingBase": 51,
+      "interpretation": "The source-check wrapper reports ALL PROOFS CHECK; this is not a mathematical-validity claim."
+    }
+  },
+  "candidateCompiler": {
+    "repositoryCommit": "ac244d4d35eebd4faa0a922d648f7a45d411cb46",
+    "path": "experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/graph-index-v1/inline-layout31-v1/compiler/candidate.mjs",
+    "sha256": "a28692cdcb0a4df2d0c235f2d2159565f4eb58a0d73e5dc6104a6c0474c64d25",
+    "freezeSHA256": "51f6a4f5370d9ff470a61a205573672f75368ac6647218e31d581d2b53060663",
+    "candidateNativePlanSHA256": "57429e883e319b090d1e93189c8b8fe92f6a73267e9dfe38094992c0b68ea89b",
+    "resourceRoots": 6
+  },
+  "independentOracle": {
+    "authoringLineage": [
+      {
+        "commit": "a39b5a05d7253faa5ad114888765106b4cac2edf",
+        "role": "#46 timing-aligned independent model author provenance"
+      },
+      {
+        "commit": "2bdc792447ec5917a24c1311023bb0bfe0e28d52",
+        "role": "#46 recursive full-format source and preparation provenance"
+      },
+      {
+        "commit": "79fcafefed57f580a30987d94ba4e0c54075299f",
+        "role": "#46 full-format-v3 model and source-basis rebind provenance"
+      }
+    ],
+    "contentJoin": {
+      "commit": "f3ee4cec6eef7aeaae406cb26a88b9187a16dd31",
+      "role": "#54 worktree commit containing the exact verified #46 oracle model, basis, and archive bodies; this is content containment, not model authorship"
+    },
+    "sourceBasis": {
+      "path": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/independent-oracle-v1/full-format-v3/SOURCE-BASIS.json",
+      "sha256": "dcf0f2dd9a27b2444b1f36943dd967c5f85790087aa3eb038eaab0f69f193b1e"
+    },
+    "modelSHA256": "c4d87b13bf4a8ef4395e1287b3cd2d672023a36155579294162a95a110f08f17",
+    "catalogueSHA256": "22ce2bcc094d8f409d67ab4489cb420b8f797c408c865846483f63283d54d942",
+    "normalArchive": {
+      "path": "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/independent-oracle-v1/full-format-v2/normal.stdout.gz",
+      "sha256": "636fbfdcb593429a09dc9fc79dd9e065532d77d9ab151340df5500bec94a60e8",
+      "rawBytes": 1323096,
+      "rawSHA256": "4f81597227d0f5341a4653fde10a108ab224f685ebbc93b34ce9f8d3ddc87b97"
+    },
+    "applicability": "Current 32 ordered Spec tuples match full-format-v3 steps by schema/case/operation/name/mode/input/seed. Collector order is preserved by one final reverse. Current application.bend change is adapter plumbing: it passes the same runner closure and emits the same InstanceView projection. Pure String result; no project IO effect calls. Compiler String escaping/newline snippets match the pinned unmodified printer."
+  },
+  "oracleSourceSnapshot": {
+    "historicalPath": "/workspace/formal-proofs/bendvy/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/application.bend",
+    "historicalSHA256": "70062e5640a4828a41d81bc2f5fcb12d9cc8a3021140c3e18baab66ca6154848",
+    "currentSourceSHA256": "4b6a2d27fff2ff549bcbbd43f951f7b168b9151218fbce470ee2adacc28e36ed",
+    "historicalBodyCommit": "213b459f84b80cb46bfb2f5c796b21669dcb36a7",
+    "archiveRow": "/workspace/formal-proofs/bendvy/.portable-source-snapshots/70062e5640a4828a41d81bc2f5fcb12d9cc8a3021140c3e18baab66ca6154848/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/application.bend",
+    "contentObject": "objects/70062e5640a4828a41d81bc2f5fcb12d9cc8a3021140c3e18baab66ca6154848",
+    "reason": "The full-format-v3 source basis pins the pre-adapter application body; the current 50-file source inventory separately binds the current adapter body. Both exact bodies are retained in the portable object store."
+  },
+  "executions": {
+    "javascript": {
+      "plan": "plan-js-v1.json",
+      "planSHA256": "d333df3a51a685b7e0b6bb50fd3657544893dd480f3178a8817ce21e6a63dcb1",
+      "receipt": "receipt.json",
+      "receiptSHA256": "c68f44d9f4f01ed928f35e9c6df8c892dcf5634aa3abbc55987f1e569646b3fb",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "guardsPassed": 7,
+      "wholeOutput": {
+        "path": "consumer.stdout",
+        "bytes": 1323096,
+        "sha256": "4f81597227d0f5341a4653fde10a108ab224f685ebbc93b34ce9f8d3ddc87b97"
+      },
+      "emittedArtifactSHA256": "81f9381d13aba6a48376b5776315eaffbbcd3e82e1099ea39d709594d01fa05e"
+    },
+    "native": {
+      "plan": "guarded-run-v2/plan-build-fixed.json",
+      "planSHA256": "8f2ba42ef0aa20dcd1885cdc64d22a1342b0470cf34a9096f7d8fa1dffa20931",
+      "receipt": "guarded-run-v2/receipt.json",
+      "receiptSHA256": "95c4043cccbbea9d8a0aa0ec6c445b2c07c69cf68e437406ba8176a143a2a9e9",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "guardsPassed": 10,
+      "wholeOutput": {
+        "path": "guarded-run-v2/consumer.stdout",
+        "bytes": 1323096,
+        "sha256": "4f81597227d0f5341a4653fde10a108ab224f685ebbc93b34ce9f8d3ddc87b97"
+      },
+      "emittedCArtifactSHA256": "f6ba6e16fccbdef48e2398656d1b1903c44cdcbee6877531a3df90103af80838",
+      "nativeArtifactSHA256": "d56efbcc0169ba32681c37fd93f45132ad4e9a4533ae68597cf4ff8961776811"
+    }
+  },
+  "portability": {
+    "committedBodies": "The 50 current source bodies, candidate implementation/freeze/plan, and independent oracle model/source basis/derivation dependencies are retained in the current portable content-addressed archive and bound to their distinct authoring/content commits above.",
+    "executionEnvironment": "Frozen plans and candidate freeze retain absolute tool, Base, and resource-root paths and hashes. Installed and private-environment tool binaries/resource roots are hash-only exclusions; the generated Native executable is included. The packet is not a self-contained cross-host tool bundle.",
+    "runtimeOutputsUsedToBuildOracle": false
+  },
+  "remainingIssueGates": [
+    "Source-current malformed-input/error and refusal-preservation coverage, plus a reached skipped-validator or partial-write mutant at the public construction/consuming callsite.",
+    "Operation-boundary authority negatives, including undeclared/cross-schema/read-only/affine-owner misuse and actual same-schema foreign-world handle provenance.",
+    "A current-source actual Node/TypeScript comparison; this pair compares JS and Native output with a source-derived independent oracle, not a TS runtime output.",
+    "Equivalent feature timing/scaling evidence and the unchanged protected #28 paired regression gate before executable shared-core delivery.",
+    "Full #46 public declaration/access/registration integration, independent final review, and issue completion."
+  ],
+  "limits": [
+    "This is a bounded current-source application32 consumer result, not full #46 acceptance or universal refinement.",
+    "No performance, installed-compiler adoption, new contract, or law approval is claimed.",
+    "Standard Schema host-adapter scope is not decided by this result."
+  ]
+}

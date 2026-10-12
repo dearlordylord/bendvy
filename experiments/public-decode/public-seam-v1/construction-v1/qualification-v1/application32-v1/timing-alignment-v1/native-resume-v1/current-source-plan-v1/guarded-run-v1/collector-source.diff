@@ -1,0 +1,194 @@
+--- /workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py
++++ /workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/current-source-plan-v1/guarded-run-v1/guarded-collector.py
+@@ -1,8 +1,8 @@
+ #!/usr/bin/env python3
+-"""Focused direct development: prepare only, then a separately admitted guarded run.
+-
+-No relocated imports, installed resolver discovery, or performance work.
+-This does not establish complete installed-tool/resolver qualification.
++"""Current-source copy of the existing guarded backend collector for #46.
++
++Only its plan source-entry/oracle bindings differ; guarded run implementation
++and receipt/lock/resource/freshness behavior are copied unchanged.
+ """
+ import argparse
+ import fcntl
+@@ -16,11 +16,8 @@
+ import sys
+ from pathlib import Path
+ 
+-ROOT = Path(__file__).resolve().parents[4]
+-REFERENCE_ROOT = Path('/workspace/formal-proofs/bendvy')
+-HERE = Path(__file__).resolve().parent
+-NORMAL_SHA = '810259f78227f2b3d158c02644978b6c7ecf58b40a4b2fb398a816005b2867e2'
+-
++ROOT = Path('/workspace/formal-proofs/bendvy')
++VERIFIED_SOURCES={}
+ 
+ def sha(path):
+     path=Path(path)
+@@ -30,8 +27,6 @@
+         if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):raise ValueError('regular descriptor required')
+         return hashlib.sha256(stream.read()).hexdigest()
+ 
+-
+-VERIFIED_SOURCES={}
+ def load(name,path):
+     path=Path(path).resolve(strict=True)
+     source=VERIFIED_SOURCES[str(path)] if VERIFIED_SOURCES else path.read_bytes()
+@@ -39,7 +34,6 @@
+     module.__dict__['VERIFIED_SOURCES']=VERIFIED_SOURCES
+     exec(compile(source,str(path),'exec'),module.__dict__)
+     return module
+-
+ 
+ def write_raw(target, value):
+     target = Path(target)
+@@ -50,14 +44,12 @@
+         if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):raise ValueError('regular raw descriptor required')
+         stream.write(value);stream.flush();os.fsync(stream.fileno())
+ 
+-
+ def verify_raw(target, expected):
+     target = Path(target)
+     if target.is_symlink() or not target.is_file():
+         raise ValueError('Raw stream must be a regular non-symlink file')
+     if sha(target) != expected:
+         raise ValueError('Raw stream changed')
+-
+ 
+ def validate_imports(stage, inventory, entries=None):
+     reached = set()
+@@ -76,73 +68,6 @@
+     if {str(path) for path in reached} != set(inventory):
+         raise ValueError('Full consuming inventory has missing or unused entries')
+     return sorted(str(path) for path in reached)
+-
+-
+-def prepare(out, role, subject):
+-    out = Path(out).resolve()
+-    catalogue = json.loads((HERE / 'ORACLES-v2.json').read_text())
+-    selection = catalogue[subject]
+-    expected_path = Path(selection['path']).resolve(strict=True)
+-    expected = gzip.decompress(expected_path.read_bytes())
+-    if len(expected) != selection['bytes'] or hashlib.sha256(expected).hexdigest() != selection['sha256']:
+-        raise ValueError('Independent complete oracle changed')
+-    baseline_path = Path(catalogue['normal']['path']).resolve(strict=True)
+-    baseline = gzip.decompress(baseline_path.read_bytes())
+-    if len(baseline) != 5077477 or hashlib.sha256(baseline).hexdigest() != NORMAL_SHA:
+-        raise ValueError('Original whole baseline changed')
+-    if subject == 'reader' and expected == baseline:
+-        raise ValueError('Reader countermodel must reject the complete normal baseline')
+-    stage = HERE / ('mutant-reader' if subject == 'reader' else 'stage')
+-    inventory = json.loads((HERE / 'source-inventory-v2.json').read_text())[subject]
+-    if {path: sha(path) for path in inventory} != inventory:
+-        raise ValueError('Complete canonical consuming source changed')
+-    import_closure = validate_imports(stage, inventory)
+-    source_dir = HERE / 'source-attempt01'
+-    # Retained direct source observations are inputs, not portable source acceptance.
+-    source_result = json.loads((source_dir / 'RESULT.json').read_text())
+-    for case in source_result['cases']:
+-        if case['exit'] != 1 or sha(HERE / 'negatives' / case['file']) != case['sourceSha256']:
+-            raise ValueError('Canonical negative source evidence changed')
+-        for stream in ('stdout', 'stderr'):
+-            if sha(source_dir / (Path(case['file']).stem + '.' + stream)) != case[stream+'Sha256']:
+-                raise ValueError('Canonical negative raw evidence changed')
+-    tools = {'bend': '/home/node/.bend/bin/bend-2.0.35', 'node':'/home/node/.local/share/mise/installs/node/24.20.0/bin/node', 'python': str(Path(sys.executable).resolve()), 'taskset': '/usr/bin/taskset',
+-             'clangWrapper': '/tmp/bendvy-clang19-diagnostic/clang19',
+-             'clangBinary': '/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/bin/clang'}
+-    config = REFERENCE_ROOT / 'experiments/public-simulation/delivery-v1/installed-config.py'
+-    configuration = load('installed_configuration', config)
+-    helper = load('preparation_runner', ROOT / 'scripts/task_runner.py')
+-    pins = dict(inventory)
+-    extra = [config, Path(__file__), HERE / 'source-inventory-v2.json', HERE / 'ORACLES-v2.json', expected_path, baseline_path,
+-             HERE / 'MIGRATION.json', HERE / 'READER-MIGRATION.json', HERE / 'test-preparation-v2.py', source_dir / 'RESULT.json',
+-             ROOT / 'scripts/task_runner.py', ROOT / 'scripts/evidence_boundary.py', *map(Path, tools.values())]
+-    extra.extend(source_dir / (Path(case['file']).stem + '.' + stream) for case in source_result['cases'] for stream in ('stdout','stderr'))
+-    extra.extend(HERE / 'negatives' / case['file'] for case in source_result['cases'])
+-    extra.extend(Path(path) for path in selection['basisInputs'])
+-    pins.update({str(path.resolve(strict=True)): sha(path) for path in extra})
+-    resources = helper.Inputs(directories=configuration.RESOURCE_ROOTS).expected
+-    env = configuration.environment()
+-    generated = out / ('scenario.c' if role=='native' else 'scenario.js')
+-    native = out / 'scenario.native'
+-    entry = str(stage / 'output-io-main.bend')
+-    plan = {'scope': 'Complete23-grant ordinary binding '+subject+' '+role+' development; no closed resolver/performance/public closure', 'role':role, 'subject':subject,
+-            'entrypoint': entry, 'stage': str(stage), 'sourceInventory': inventory, 'importClosure': import_closure,
+-            'pins': pins, 'resourceRoots': resources, 'environment': env, 'cwd': str(HERE),
+-            'oracle': str(expected_path), 'oracleSHA256': selection['sha256'], 'oracleBytes': selection['bytes'],
+-            'normalOracle': str(baseline_path), 'normalOracleSHA256': NORMAL_SHA,
+-            'generated': str(generated), 'native': str(native),
+-            'tools': tools, 'commands': (
+-                [{'label':'emit','argv':[tools['taskset'],'-c','5',tools['bend'],entry,'-o',str(generated)],'capSeconds':30},
+-                 {'label':'build','argv':[tools['taskset'],'-c','5',tools['clangWrapper'],'-O3',str(generated),'-o',str(native),'-pthread','-lm'],'capSeconds':120},
+-                 {'label':'consumer','argv':[tools['taskset'],'-c','5',str(native),'--threads','1','--gpu','off'],'capSeconds':5}]
+-                if role=='native' else
+-                [{'label':'emit','argv':[tools['taskset'],'-c','5',tools['bend'],entry,'-o',str(generated)],'capSeconds':30},
+-                 {'label':'consumer','argv':[tools['taskset'],'-c','5',tools['node'],str(generated)],'capSeconds':5}]),
+-            'postConsumer': 'Complete byte equality with independently corrected5057139B reader oracle; reject entire normal baseline; empty runtime stderr' if subject=='reader' else 'Complete byte equality with original5077477B oracle; empty runtime stderr'}
+-    out.mkdir(parents=True, exist_ok=False)
+-    (out / 'plan.json').write_text(json.dumps(plan, indent=2) + '\n')
+-    print(sha(out / 'plan.json'))
+-
+ 
+ def run(plan_path, expected_sha):
+     plan_path = Path(plan_path).resolve(strict=True)
+@@ -272,54 +197,13 @@
+                         record['completeNormalBaselineRejected'] = True
+         record['status'] = 'COMPLETE_SOURCE_CONTROL_PASS' if all(command['label'].startswith('source-') for command in plan['commands']) else 'COMPLETE_CONSUMER_DEVELOPMENT_PASS'
+ 
+-
+-def prepare_source(out):
+-    prepare(out, 'js', 'normal')
+-    out = Path(out).resolve()
+-    plan_path = out / 'plan.json'
+-    plan = json.loads(plan_path.read_text())
+-    inventories = json.loads((HERE / 'source-inventory-v2.json').read_text())
+-    inventory = {path:digest for path,digest in inventories['controls'].items() if path not in inventories['reader']}
+-    entries = [HERE / 'stage/output-io-main.bend', *sorted((HERE / 'negatives').glob('*.bend'))]
+-    plan['sourceEntries'] = [str(path) for path in entries]
+-    plan['sourceInventory'] = inventory
+-    plan['importClosure'] = validate_imports(HERE / 'stage', inventory, entries)
+-    plan['pins'].update(inventory)
+-    diagnostic = {
+-        'cross-schema-grant': ['SOME PROOFS FAIL','- expected : D.DeclaredSelection<Carrier.InspectOwner<F.Garden','- observed : D.DeclaredSelection<Carrier.InspectOwner<F.Workshop'],
+-        'opaque-owner-escape': ['SOME PROOFS FAIL','- expected : Carrier.InspectOwner<F.Workshop','- observed : bad~H'],
+-        'owner-duplication': ['SOME PROOFS FAIL','owner (consumed more than once)'],
+-        'undeclared-selection': ['SOME PROOFS FAIL','- expected : D.DeclaredSelection<bad~H','- observed : Q.ComposedReadQuery<bad~H'],
+-        'write-through-read': ['SOME PROOFS FAIL','- expected : W.World<F.Workshop','- observed : bad~H'],
+-    }
+-    plan['commands'] = [{'label': 'source-' + ('normal' if n==0 else entry.stem),
+-                         'argv': [plan['tools']['taskset'],'-c','5',plan['tools']['bend'],str(entry),'--check-only'],
+-                         'capSeconds': 5, 'expectedExit': 0 if n==0 else 1,
+-                         'stderrContains': [] if n==0 else diagnostic[entry.stem]} for n,entry in enumerate(entries)]
+-    plan['scope'] = 'Canonical complete23 normal positive source plus five current API intended authority refusals; exact pre/post closure'
+-    plan['postConsumer'] = 'No runtime claim; six source command exits and intended diagnostics with unchanged52-file closure'
+-    plan_path.write_text(json.dumps(plan,indent=2)+'\n')
+-    print('final-source-plan',sha(plan_path))
+-
+ def main():
+     parser = argparse.ArgumentParser()
+-    sub = parser.add_subparsers(dest='command', required=True)
+-    preparation = sub.add_parser('prepare')
+-    preparation.add_argument('output')
+-    preparation.add_argument('role',choices=('js','native'))
+-    preparation.add_argument('subject',choices=('normal','reader'))
+-    source_preparation = sub.add_parser('prepare-source')
+-    source_preparation.add_argument('output')
+-    execution = sub.add_parser('run')
+-    execution.add_argument('plan')
+-    execution.add_argument('admitted_sha256')
++    parser.add_argument('command', choices=('run',))
++    parser.add_argument('plan')
++    parser.add_argument('admitted_sha256')
+     args = parser.parse_args()
+-    if args.command == 'prepare':
+-        prepare(args.output,args.role,args.subject)
+-    elif args.command == 'prepare-source':
+-        prepare_source(args.output)
+-    else:
+-        run(args.plan, args.admitted_sha256)
++    run(args.plan, args.admitted_sha256)
+ 
+ 
+ if __name__ == '__main__':
