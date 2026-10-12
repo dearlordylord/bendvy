@@ -1,0 +1,53 @@
+"""Outer source cohort only; existing collectors retain command ownership/caps."""
+from pathlib import Path
+import fcntl,hashlib,json,subprocess,sys,time,signal
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+CONFIG=HERE/'OUTER-PLAN.json'
+def main():
+ config=json.loads(CONFIG.read_text());record={'planSHA256':sha(CONFIG),'commands':[],'status':'INCOMPLETE','restored':False}
+ out=HERE/'outer01';out.mkdir(exist_ok=False)
+ def command(label,argv):
+  started=time.monotonic()
+  with (out/(label+'.stdout')).open('xb') as stdout,(out/(label+'.stderr')).open('xb') as stderr:
+   result=subprocess.run(argv,stdout=stdout,stderr=stderr)
+  row={'label':label,'argv':argv,'exit':result.returncode,'elapsedSeconds':time.monotonic()-started}
+  for key in ['stdout','stderr']:
+   q=out/(label+'.'+key);row[key]={'path':str(q),'sha256':sha(q),'bytes':q.stat().st_size}
+  record['commands'].append(row);return result.returncode
+ def stop(signum,frame):raise RuntimeError('outer interrupted by signal '+str(signum))
+ signal.signal(signal.SIGTERM,stop)
+ with open(config['outerLock'],'a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX)
+  try:
+   assert all(sha(p)==h for p,h in config['pins'].items())
+   assert command('activate',config['activate'])==0
+   for row in config['roles']:
+    assert command(row['role']+'-delivery-preflight',row['deliveryPreflight'])==0
+    assert command(row['role']+'-boundary-preflight',row['boundaryPreflight'])==0
+   for row in config['roles']:
+    assert command(row['role']+'-collector',row['execute'])==0
+    receipt=json.loads((Path(row['plan']).parent/'receipt.json').read_text())
+    record.setdefault('roleReceipts',[]).append({'role':row['role'],'path':str(Path(row['plan']).parent/'receipt.json'),'sha256':sha(Path(row['plan']).parent/'receipt.json'),'status':receipt['status']})
+    assert receipt['status']==('COMPLETE_SOURCE_CONTROL_PASS' if row['role']=='source' else 'COMPLETE_CONSUMER_DEVELOPMENT_PASS')
+    if row['role']!='source':assert receipt['wholeOracleSHA256']==config['oracleSHA256']
+   record['status']='COMPLETE_CANDIDATE_DIAGNOSTIC_PASS'
+  except BaseException as error:
+   record['error']=type(error).__name__+': '+str(error)
+  finally:
+   # This is the first finally action, including activation/preflight failures.
+   restore_exit=command('restore',config['restore'])
+   activation=json.loads(Path(config['activationConfiguration']).read_text())
+   actual={p:sha(p) for p in activation['changed']}
+   record['restoration']={'exit':restore_exit,'actual':actual,'expected':{p:r['current'] for p,r in activation['changed'].items()}}
+   record['restored']=restore_exit==0 and record['restoration']['actual']==record['restoration']['expected']
+   remaining={p:h for p,h in activation['inventory'].items() if p not in activation['changed']}
+   record['restoration']['remaining48Actual']={p:sha(p) for p in remaining}
+   record['restoration']['remaining48Expected']=remaining
+   record['restored']=record['restored'] and record['restoration']['remaining48Actual']==remaining
+   if not record['restored']:record['status']='RESTORATION_FAILED'
+   (out/'receipt.json').write_text(json.dumps(record,indent=2)+'\n')
+   if record['restored']:fcntl.flock(lock,fcntl.LOCK_UN)
+ print(json.dumps(record,indent=2))
+ return 0 if record['status']=='COMPLETE_CANDIDATE_DIAGNOSTIC_PASS' and record['restored'] else 1
+if __name__=='__main__':sys.exit(main())
