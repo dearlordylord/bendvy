@@ -1,0 +1,55 @@
+--- repeated-pass.mjs
++++ postpass.mjs
+@@ -5246,6 +5246,7 @@
+     diagnostic_phase("end");
+     if (was === facts()) traces.clear();
+   } while (was !== facts() || !full);
++  diagnostic_phase("post-reach-begin");
+   const edges = [...fl.segs, ...fl.spins].flatMap((s) => [...s.refs].map((r) => [s.fid, r]));
+   const reach = (from) => graph_close(new Set(from), edges);
+   const live = reach([seg_fid("main")]);
+@@ -5253,6 +5254,8 @@
+   const dev = reach([...[...fl.bangs].map(seg_fid), ...wide ? fl.clos : []]);
+   fl.segs = fl.segs.filter((s) => live.has(s.fid));
+   fl.spins = fl.spins.filter((s) => live.has(s.fid));
++  diagnostic_phase("post-reach-end");
++  diagnostic_phase("post-sections-begin");
+   const desc = show === null ? [] : [
+     "#if !DEVICE",
+     `static const u32 SHOW_DESC[] = { ${show.map((c) => typeof c === "string" ? cid_mac(c) : c).join(", ")} };`,
+@@ -5328,9 +5331,16 @@
+ `))) {
+     die("an unbound name in the emitted C");
+   }
+-  return c_ids(fl, runtime_c([tabs, ...desc].join(`
+-
+-`), spins, segs, reqs));
++  diagnostic_phase("post-sections-end");
++  diagnostic_phase("runtime-c-begin");
++  const diagnostic_c = runtime_c([tabs, ...desc].join(`
++
++`), spins, segs, reqs);
++  diagnostic_phase("runtime-c-end");
++  diagnostic_phase("c-ids-begin");
++  const diagnostic_result = c_ids(fl, diagnostic_c);
++  diagnostic_phase("c-ids-end");
++  return diagnostic_result;
+ }
+ function js_sat(k) {
+   return `$${k.replace(/\W/g, (c) => c === "." ? "$" : "$" + String(c.charCodeAt(0)).padStart(3, "0"))}$`;
+@@ -10209,7 +10219,14 @@
+   } else if (/\.c?js$/.test(out)) {
+     fs4.writeFileSync(out, js_book(book));
+   } else if (out.endsWith(".c")) {
+-    fs4.writeFileSync(out, compile_book(book));
++    const diagnostic_text = compile_book(book);
++    const diagnostic_write = (phase) => {
++      const cpu = process.cpuUsage();
++      fs4.writeSync(2, "INSPECTOR54_POSTWRITE " + JSON.stringify({phase, cpuSeconds: (cpu.user + cpu.system) / 1e6}) + "\n");
++    };
++    diagnostic_write("write-begin");
++    fs4.writeFileSync(out, diagnostic_text);
++    diagnostic_write("write-end");
+   } else if (out.endsWith(".bendtt")) {
+     const oos2 = safe_emit(book, out);
+     if (oos2.length !== 0) {
