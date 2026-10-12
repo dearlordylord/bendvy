@@ -31,11 +31,12 @@ class Execution(unittest.TestCase):
 
     def test_current_entrypoints_use_one_process_implementation(self):
         root = Path(__file__).resolve().parents[1]
-        tracked = set(subprocess.check_output(['git', 'ls-files', '-z'], cwd=root).decode().split('\0'))
-        paths=list(root.glob('experiments/public-*/**/*.py'))
-        paths += [p for folder in ('benchmarks','docs','examples','scripts') for p in (root/folder).rglob('*.py') if p.name!='task_runner.py' and not p.name.startswith('test-')]
-        for path in paths:
-            if str(path.relative_to(root)) not in tracked:
+        tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=root).decode().split('\0')
+        for name in tracked:
+            if not name or not python_source.entrypoint_scope(name):
+                continue
+            path = root / name
+            if not path.is_file():
                 continue
             self.assertTrue(python_source.check(str(path), path.read_bytes()), str(path))
 
