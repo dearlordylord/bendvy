@@ -1,0 +1,15 @@
+# Combined #28 actual205 — final Spec/Standards review
+
+PASS: retained actual evidence supports NO_CONFIRMED_REGRESSION for the unchanged whole-process Workshop contract. This is no general speed, pure ECS hot-path or full-feature qualification.
+
+Bound preparation fa84fbd54, launch review d4ad7e72fd82c786583add3fa6d465a83462b9680c6e78bbbd09524feeee4f3e, actual237836fed and PLAN3310935af83bf98bcb30f6fdc0399dc49e4109c6c7ff4ed1ed5659ebe2e3bee0. Archive385 bodies SHA256 1d2746fbe072edc25f1750cd9f6c2c1b18450a7c254728b5113c49c2e578ec3c; receipt SHA256 3d2e3e7f9ebae43d087ef0bc7d58331e6ef710dc9da02ce5528306527ac9065e. Root original77887 terminal0.
+
+Verified all385 archive body lengths/hashes, exact214 staged candidate bodies,29 frozen baseline bodies and current211 monitored inputs. Prior launch review covers unchanged eight tools,33 TS references, installed environment/configuration, workload/limits/runner/statistics and reviewed additive source adoption; POST retains exact211/214/8/33 with drift[]. Actual source/artifacts and command operands remain joined to the admitted subject. All123 commands exit0. All110 full retained warmup/pair stdout bodies validate exactly ten complete22-checkpoint applications using the existing runner's oracle projection (historical foreign-collision-reference excluded unchanged); stream hashes match receipts. No reduced output or tolerance was added.
+
+Seed20261007 reproduces all20 balanced paired orders,10 baseline-first/10 candidate-first per backend, with20 TS observations and two warmups per role. Independently recomputed candidate/frozen median paired ratios: JS0.91576530852692, slower1/20, one-sided exact p0.9999990463256836; Native1.0016591913782629, slower10/20, p0.5880985260009766. Neither passes the unchanged Holm regression rejection thresholds (.025 first, .05 second). Existing alpha.05/zero confirmed slowdown criterion is unchanged; this does not prove equal speed or absence of smaller slowdowns.
+
+Descriptive median whole-process Workshop candidate/TS ratios are JS0.3970199502672084 and Native0.10056198787064526. They include startup, output and this finite workload, not comprehensive feature parity or an ECS-only causal claim.
+
+Admission retains exact external flock/env-i command, explicit root-exclusive queue grant and fresh five-second CPU11 observation500 idle/0 busy before launch. Outer stdout/stderr/terminal and exact post bindings are archived. Past quiet observation and holds support this protected cohort, not continuously idle host assurance. No nested runner lock or new framework/criteria is introduced; source/tool drift or failed outputs would remain failures. Reused unchanged statistics-control applicability stays the prior exact scope, not newly executed tests.
+
+The four added modules' bounded functional reviews remain finite; unresolved Native reached, broader issue acceptance, enabled overhead, trusted callback/lens purity, universal proofs and feature performance are not waived. No all-feature parity or ticket closure. Review used archive/hash, complete JSON-output and arithmetic/order verification only; no runtime/compiler/hook/profiler/host rerun.

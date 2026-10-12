@@ -205,3 +205,38 @@ The [opaque classified composition](../../experiments/public-inspect/promotion-s
 The [machine value snapshot](../../src/ecs/ordinary-app-machine-value-dump.bend) derives the name and full Data slot from the same operational machine declaration, preserves the affine App owners and returns `None` before projection when debug is disabled. [Final review](../../experiments/public-inspect/promotion-stage/ordinary-machine-value-dump-v1/FINAL-REVIEW.md) accepts complete 7,287-byte JS/Native observations of queued state, failed-queue rollback, structural flush and a separate transition marker, plus the actual API's positive and three authority controls. Both backends detect the reached enabled-output omission against the full normal baseline; exact normal source was restored.
 
 Executed TS reuse covers only named current/pending/previous fields and marker/pending separation. Trusted resource lenses, enabled overhead, approved proofs, source-current combined #28 and full #56/performance remain open.
+
+### Source-current acceptance reconciliation after machine values
+
+The older “unqualified operations” table above records the gaps at that stage;
+it must not be read as absence of the subsequently integrated public entries.
+The following reconciliation separates actual missing interfaces from finite
+qualification and policy gates. It does not close the unchecked acceptance list.
+
+| Category | Current ordinary declaration/API and qualified evidence | Precise remaining scope |
+| --- | --- | --- |
+| Description and classification | Schema/Binding provisioning supplies classified identities and projections; relation, machine, typed event and service leaves derive their own operational names and inventory. Common composition, registered mixed readers, opaque Transient/Plain payloads and the named full machine snapshot are qualified in the deliveries linked above. | No single universal detached all-category formatter or arbitrary backend/value enumeration is claimed. Existing finite graph/machine/classification observations are present and should not be replayed merely as missing formats. |
+| Access index | `ordinary-app-access.index` folds the actual retained owner Fields, including component/resource and Data-event uses. Same-World evidence and typed-reader composition are integrated. | A named multi-schedule placement-filtered index is not qualified. Current App-wide Fields are not a promise that every registered system occurs in every attached schedule. |
+| Lints | Actual operational access/Plan facts are retained; there is no public lint producer in `src/ecs`. | TS `Debug.ts:175–185` lists five diagnostics, while pinned Bevy `schedule.rs:1393–1410` diagnoses unordered conflicting access with configurable handling. Those are different semantics. Adopting lint triggers, severity or messages requires an explicit native contract; a TS label port would invent one. |
+| Population and filtered dump | Column/Product and Binding-derived aggregate-store population/dump are qualified. The common mixed-reader dump preserves actual readers; its opaque classified successor displays both payload arrays and tag. Machine values now include the full native current/pending/previous/skipSame/changed Slot. | Non-Column storage remains unqualified. Mixed-reader zero-limit reached Native emission remains an unmet gate despite accepted normal Native output; the machine-value control does not transfer credit to that subject. |
+| Names and placements | Actual schema, Registry, machine, service and schedule names derive from ordinary setup; schedule-description and closed-condition declarations provide ordered per-placement names without a user metadata map. | A replacement/renaming table has no adopted native policy. Closed guards do not qualify registered stateful/read-grant condition ownership, retained reader state or failure behavior; those remain #34/#55 boundaries. |
+| Disabled work and preservation | Qualified entries return `None` before their production descriptions/projections; complete enabled/repeated/disabled observations and reached controls retain the stated owners/readers/pending work. | Trusted lenses/presenters/raw callbacks and forged closed Program provenance are not universal noninterference proofs. Combined205 now passes the unchanged protected #28 gate after independent review; enabled overhead and full feature timing/scaling remain unqualified. |
+
+Rust Bevy retains operational system access and names, rather than requiring the
+TS debug DTO or its lint/renaming policy. Bend's closed declaration indices and
+ordinary owner folds provide the implemented derivation; function reflection or
+a second debug-only metadata adapter is unnecessary for those slices. The named
+machine snapshot's executed TS reuse is only current/pending/previous format and
+marker/pending separation, not native skipSame/changed or physical-scene equality.
+
+No further policy-free format fixture is identified with sufficient confidence
+from this reconciliation. The concrete missing multi-schedule index requires an
+ordinary retained multi-schedule setup/placement scope before aggregation; lint
+and renaming rules require their existing contract decisions. Stateful conditions,
+non-Column adaptation, unresolved reached Native qualification, combined regression
+and performance remain concrete owning gates. None is evidence of technical
+impossibility, and #56 remains open.
+
+### Combined205 protected regression
+
+[Independent final review](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt205-01/FINAL-REVIEW.md) accepts the source-current 205-module integration under the unchanged Workshop gate: 20 paired samples per backend, complete outputs and no statistically confirmed regression. Descriptive candidate/TS time ratios are JS 0.3970 and Native 0.1006. This covers the protected workload; full debug feature timing, overhead and remaining contracts are still open.

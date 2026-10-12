@@ -1,0 +1,91 @@
+{
+  "status": "PREPARED_NOT_EXECUTED",
+  "planSHA256": "3310935af83bf98bcb30f6fdc0399dc49e4109c6c7ff4ed1ed5659ebe2e3bee0",
+  "predecessorSHA256": "6c136219a6c079c4d090a3a4d3d220aab8c499e07fba62ed2bbc12dc602f7ef2",
+  "coreModules": 205,
+  "staged": 214,
+  "monitored": 211,
+  "addedModules": [
+    "src/ecs/ordinary-app-condition-schedule.bend",
+    "src/ecs/ordinary-app-event-family-dump.bend",
+    "src/ecs/ordinary-app-machine-value-dump.bend",
+    "src/ecs/ordinary-condition-declaration.bend"
+  ],
+  "unchangedMonitoredPredecessorPins": 207,
+  "unchangedStagedPredecessorFiles": 210,
+  "unchangedFields": [
+    "baselineMembers",
+    "baselineArchiveSHA256",
+    "contract",
+    "reference",
+    "tools",
+    "resources",
+    "environment",
+    "limits",
+    "statisticsControl",
+    "queue"
+  ],
+  "historical201and203Preserved": true,
+  "sourceCurrentHEAD": "8aca56286b99cf00ac51c817d9d08fc85c20bb3e",
+  "quietProbe": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/integration-gates/combined-ordinary-app-v1/HOST-OBSERVATION-205.json",
+    "sha256": "c8121fd9ad2587ec70f1860993f97c0218cd54df0a681f4aa83d285e7c8decf3",
+    "scope": "Read-only5sec observation only; fresh quiet/exclusive admission still required"
+  },
+  "scope": "Existing combined #28 workload only; no new feature performance or tolerances; current functional reviews need exact final joins before launch.",
+  "current205AdoptionReviews": [
+    {
+      "capability": "namedConditions",
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/promotion-stage/ordinary-condition-declaration-v1/FINAL-REVIEW.md",
+      "sha256": "9a3d907fa3fed2d0bc1c473921568e56a881dd474085e78264bb3f9ad799c9e2",
+      "scope": "Bounded functional Spec/Standards review only; no full issue or feature performance qualification."
+    },
+    {
+      "capability": "mixedFamilyDump",
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/FINAL-REVIEW.md",
+      "sha256": "9dc727c4ec7f459b182a012ed747e0a038e08072940c6b9c273fc625f2b677f2",
+      "scope": "Bounded functional Spec/Standards review only; no full issue or feature performance qualification."
+    },
+    {
+      "capability": "opaqueClassifiedDump",
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/opaque-classified-v1/FINAL-REVIEW.md",
+      "sha256": "5351db3a99f40618f0e5b7d38973ec747896c1e95340d1eb6b43d7e97202e97a",
+      "scope": "Bounded functional Spec/Standards review only; no full issue or feature performance qualification."
+    },
+    {
+      "capability": "machineValueDump",
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/promotion-stage/ordinary-machine-value-dump-v1/FINAL-REVIEW.md",
+      "sha256": "a6df7fdb616ef48510aae35d020ecf0e6f9b67c7f6a8b33b1a5207b940345a1c",
+      "scope": "Bounded functional Spec/Standards review only; no full issue or feature performance qualification."
+    }
+  ],
+  "currentBindingAudit": {
+    "drift": [],
+    "tools": 8,
+    "referenceSources": 33,
+    "monitored": 211,
+    "staged": 214,
+    "outputAbsent": true,
+    "hostAdmission": false
+  },
+  "execute": [
+    "/usr/bin/flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "/usr/bin/env",
+    "-i",
+    "HOME=/home/node",
+    "PATH=/tmp/bendvy-regression-pinned-tools-d8eu0w5d:/usr/bin:/bin",
+    "LANG=C",
+    "LC_ALL=C",
+    "TZ=UTC",
+    "BEND_NO_TELEMETRY=1",
+    "BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root",
+    "LD_LIBRARY_PATH=/tmp/bendvy-clang19-diagnostic/root/usr/lib/aarch64-linux-gnu:/tmp/bendvy-clang19-diagnostic/root/usr/lib/llvm-19/lib:/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu",
+    "/usr/bin/python3.11",
+    "/workspace/formal-proofs/bendvy/benchmarks/run.py",
+    "--output",
+    "/tmp/bendvy-combined-ordinary-app-regression205-01",
+    "--cpu",
+    "11"
+  ]
+}
