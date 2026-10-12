@@ -1,0 +1,7 @@
+# Stack plus disable-CGP diagnostic v1 launch review
+
+**Verdict: APPROVE this exact prospective bounded snapshot attempt.** It is not approval of a passing compiler result; no compiler or signal was run during review.
+
+Plan, freeze, and launch bind to `537beedf4dcb072915f27e61c4a405c5a6c90f1407b7c519f74d641ece918500`, `d738cf5fcf6365615ff119ce981759d9ebcb209ff099c7d8835d3ef8476863b2`, and `7eae73a25d95b44a6cbb9c4973f7bccc27626a3812d7cfd47153faaa72aeb7ec`. All 48 pins and five resource-root snapshots are current. Against the previously reviewed stack command, the only compiler-argv addition is `-mllvm -disable-cgp`; the original 43,550,580-byte C, CPU 3, QUIT-at-90/KILL-after-5 wrapper, core limit zero, and outer 120-second cap remain fixed. The pinned LLVM 19.1.7 source supports skipping CodeGenPrepare; this is source inference, not binary proof. The corrected source coordinates are recorded in SOURCE-SCOPE.
+
+The prior same-wrapper attempt exited `-9` but was explicitly `INCOMPLETE` because the collector detected owned descendants; its captured stack sample showed CodeGen Prepare. That limitation remains: the new attempt may preserve raw output and final guards but cannot claim a pass if cleanup refuses it. A single stack is not bottleneck or cost attribution. Prospective output, receipt, raw-stream, and guard paths are absent; no Native acceptance, performance, or adoption claim is made.
