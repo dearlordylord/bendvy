@@ -1,0 +1,22 @@
+"""Source-only same-Factory foreign reorder matrix, full two-App owners."""
+class World:
+    def __init__(self,namespace):
+        self.namespace=namespace;self.resource=[17,18] if namespace==1 else [27,28];self.owners=[901,902] if namespace==1 else [1901,1902]
+    def physical(self):
+        cells=''.join((f'{i},{i},{10*i},' if i<=4 else 'absent')+';' for i in range(1,9))
+        live=''.join('1,' if 1<=i<=4 else '0,' for i in range(16))
+        return cells+f'|stamps=|events=|meta={self.namespace},5,4,8,3,{self.resource[0]},,1,0|registrations=|pending=0|edges=graph-edges=|graph-inverses=|live='+live+'|resource-all='+''.join(str(x)+',' for x in self.resource)
+    def snapshot(self,label):
+        rows=[self.physical(),'Relation{key=1|name=Parent|inverse=Children|kind=Hierarchy}']+[f'{self.namespace}:{id}:[Parent:Outgoing:Missing, Children:Incoming:Missing]' for id in range(1,5)]
+        return label+'|owners='+''.join(str(x)+',' for x in self.owners)+'\n'+'\n'.join(rows)+'\n'
+def same_world(namespace,parent,children):return parent[0]==namespace and all(ns==namespace for ns,id in children)
+def scene():
+    local,peer=World(1),World(2);rows=['FOREIGN']
+    for label,parent,children in [('foreign-parent',(2,1),[(1,1)]),('foreign-child',(1,1),[(2,1)])]:
+        assert not same_world(1,parent,children)
+        rows.extend([local.snapshot(label+'.BEFORE.LOCAL'),peer.snapshot(label+'.BEFORE.PEER'),label+'.QUEUE:MissingEntity:Success',local.snapshot(label+'.QUEUED.LOCAL'),peer.snapshot(label+'.QUEUED.PEER'),local.snapshot(label+'.APPLIED.LOCAL'),peer.snapshot(label+'.APPLIED.PEER')])
+    return '\n'.join(rows)
+def expected():return ('ReorderForeignAlpha\n'+scene()+'\nReorderForeignBeta\n'+scene()+'\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(expected())

@@ -1,0 +1,48 @@
+"""Finite source-only ordinary hierarchy rejection matrix, complete String."""
+DESCRIPTOR='1:Parent:Children:hierarchy'
+ACTIONS=[('self','relate',1,1),('cycle','relate',1,4),('missing-child','reorderChildren',1,[5,3,2]),('duplicate-child','reorderChildren',1,[3,3,2]),('unrelated-child','reorderChildren',1,[4,3,2]),('child-set','reorderChildren',1,[3])]
+class World:
+    def __init__(self):
+        self.edges=[];self.inverses=[];self.events=[];self.pending=0;self.live={1,2,3,4}
+    def rejection(self,operation,source,target):
+        if operation=='relate':
+            if source==target:return target,f'SelfRelationNotAllowed:{source}:Parent'
+            parents=dict(self.edges);node=target
+            while node in parents:
+                node=parents[node]
+                if node==source:return target,f'HierarchyCycle:{source}:{target}:Parent'
+            raise AssertionError('Fixture must reach cycle')
+        seen=[];parents=dict(self.edges)
+        for child in target:
+            if child not in self.live:return child,f'MissingChildEntity:{source}:{child}:Parent'
+            if child in seen:return child,f'DuplicateChild:{source}:{child}:Parent'
+            if parents.get(child)!=source:return child,f'ChildNotRelatedToParent:{source}:{child}:Parent'
+            seen.append(child)
+        assert set(dict(self.inverses)[source])!=set(target)
+        return source,f'ChildSetMismatch:{source}:Parent'
+    def apply_rejection(self,operation,source,target):
+        diagnostic,error=self.rejection(operation,source,target)
+        self.events.append(f'Failure:1:Parent:Children:hierarchy:{operation}:{source}:{diagnostic}:{error}')
+        self.pending=0
+    def physical(self):
+        columns=''.join((f'{i},{i},{10*i},' if i<=4 else 'absent')+';' for i in range(1,9))
+        graph='graph-edges='+''.join(DESCRIPTOR+f':{a}:{b};' for a,b in self.edges)+'|graph-inverses='+''.join(DESCRIPTOR+':'+str(t)+':['+''.join(str(i)+',' for i in cs)+'];' for t,cs in self.inverses)
+        live=''.join('1,' if i in self.live else '0,' for i in range(16))
+        return columns+'|stamps=|events='+''.join(e+';' for e in self.events)+'|meta=1,6,5,8,3,17,,1,0|registrations=|pending='+str(self.pending)+'|edges='+graph+'|live='+live+'|resource-all=17,18,'
+    def snapshot(self,label):
+        parents=dict(self.edges);children=dict(self.inverses);rows=[self.physical(),'Relation{key=1|name=Parent|inverse=Children|kind=Hierarchy}']
+        for i in range(1,5):
+            outgoing='Missing' if i not in parents else 'Target:1:'+str(parents[i])
+            incoming='Missing' if not children.get(i) else 'Sources:['+', '.join('1:'+str(c) for c in children[i])+']'
+            rows.append(f'1:{i}:[Parent:Outgoing:{outgoing}, Children:Incoming:{incoming}]')
+        return label+'|owners=901,902,\n'+'\n'.join(rows)+'\n'
+def scene():
+    w=World();rows=[w.snapshot('INITIAL_BEFORE')];w.pending=3;rows.append(w.snapshot('INITIAL_PENDING'))
+    w.pending=0;w.edges=[(2,1),(3,1),(4,2)];w.inverses=[(1,[2,3]),(2,[4])];rows.append(w.snapshot('INITIAL_APPLIED'))
+    for label,operation,source,target in ACTIONS:
+        rows.append(w.snapshot(label+'.BEFORE'));rows.append(label+'.QUEUE:Queued:Success');w.pending=1;rows.append(w.snapshot(label+'.QUEUED'));w.apply_rejection(operation,source,target);rows.append(w.snapshot(label+'.APPLIED'))
+    rows.append(w.snapshot('FINAL'));return '\n'.join(rows)
+def expected():return ('RejectionsAlpha\n'+scene()+'\nRejectionsBeta\n'+scene()+'\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(expected())

@@ -1,0 +1,25 @@
+"""Regenerate finite foreign authority transcript from exact pinned sources."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    freeze=HERE.parent/'FREEZE.json';assert sha(freeze)=='781efcd5731e6f8f632e5a56f45bc646a26ff18e0d7e2035919d00924bbfe02c'
+    capture=json.loads(freeze.read_text());pins=capture['sourceInventory'].copy();assert len(pins)==76
+    for p,h in pins.items():assert sha(p)==h,p
+    m=runpy.run_path(str(HERE/'model.py.source'));assert not m['same_world'](1,(2,1),[(1,1)]) and not m['same_world'](1,(1,1),[(2,1)])
+    assert m['same_world'](1,(1,1),[(1,1)])
+    raw=m['expected']();text=raw.decode();assert text.count('|meta=')==24
+    assert text.count('.QUEUE:MissingEntity:Success')==4 and text.count('|pending=0')==24 and text.count('|stamps=|events=')==24
+    assert text.count('|owners=901,902,')==12 and text.count('|owners=1901,1902,')==12
+    assert text.count('|resource-all=17,18,')==12 and text.count('|resource-all=27,28,')==12
+    assert text.count('|meta=1,5,4,8,3,17,,1,0|')==12 and text.count('|meta=2,5,4,8,3,27,,1,0|')==12
+    assert text.count('|live=0,1,1,1,1,0,')==24 and text.count('2:1:[Parent:Outgoing:Missing, Children:Incoming:Missing]')==12
+    for p in [freeze,HERE/'model.py.source',HERE/'regenerate.py.source',Path('/home/node/.bend/bend2/base.bend'),Path('/home/node/.bend/bend2/effs/print.js'),Path('/home/node/.bend/bend2/effs/print.c')]:pins[str(p)]=sha(p)
+    basis={'producerCommit':'a41c73957','sourcePins':pins,'entry':str(HERE.parent/'consumer.bend'),'sourcePositive':capture['sourcePositive'],'derivation':'Source-only two actual Apps from ONE Factory: returned creation cursor produces namespace1 then2, each Seed.spawn returns actualh1 from nested listtail. Foreignparent uses actualpeerh1 withactual localh1 child; foreignchild uses actuallocalh1 parent with actualpeerh1 child. Existing Reorder.same_world requires parentnamespace and everychildnamespace equal actual localWorldnamespace. Both fail before X.stage; ordinary Relation.queued/txfinish returns MissingEntity:Success, preserving world/owners and scheduling no callback. Barrier therefore changes no field/no grapherrornotice. Eachcase before/queued/applied observes both Apps, twelve complete snapshots per schema. Namespace-aware observer obtainsactual W.namespace for sixteen liveprobes, so peer1..4 remainTrue. Both metadata next5/high4/cap8/depth3, affine taggedpayloads1..4, resourceslocal17/18vspeer27/28 andownerslocal901/902vspeer1901/1902 retained. Installed Parent recipe descriptor andfouroptional relation rows peractualnamespace remain emptygraph. Empty lifecycle/events/registrations/pending/clock0 retained. Helper string joins append pairlocal+peer withLF and history FOREIGN; mainlabels/LFs andIO.print terminalLF source-derived. Standalone stdlib; no runtimeoutputs inputs.','limits':['Finite two schemas/twocases/twenty-four fullowner snapshots, not proof/law/full44.','Namespace rejection is queue boundary MissingEntity:Success, not deferred semanticRelationFailed.','No missingparent/deadchild/cleanup/finalizer/TS/performance claim.','Final Factory object not observed; only source-derived namespacecontinuity.']}
+    b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle},indent=2)+'\n')
+    result={'sourcePins':len(pins),'physicalSnapshots':24,**oracle};(HERE/'SELFTEST.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+if __name__=='__main__':regenerate()
