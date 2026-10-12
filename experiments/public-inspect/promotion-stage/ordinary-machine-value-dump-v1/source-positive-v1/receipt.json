@@ -1,0 +1,56 @@
+{
+  "scope": "Two nominal ordinary machine Apps: same declaration named full Data slot, actual queue/structuralflush/marker and full affine World owners",
+  "planSHA256": "8f182b20bb883deeb6c83ce0927737fc320d8ecf0622e1f6b7caa4f60329a790",
+  "commands": [
+    {
+      "label": "source-machine-value-dump",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-inspect/promotion-stage/ordinary-machine-value-dump-v1/entry.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy56-machine-value-dump-source02/source-machine-value-dump.stdout",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy56-machine-value-dump-source02/source-machine-value-dump.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy56-machine-value-dump-source02/source-machine-value-dump-pre.guard.json",
+      "sha256": "4adfd1aea34e07845263057ece4549072766c424594642dff1592d7d7c66eefb"
+    },
+    {
+      "path": "/tmp/bendvy56-machine-value-dump-source02/source-machine-value-dump-acquired.guard.json",
+      "sha256": "109e015b423f48ad58657cb42af470dd5bff2d20af0f8dd4230d18e835eaf642"
+    },
+    {
+      "path": "/tmp/bendvy56-machine-value-dump-source02/source-machine-value-dump-post.guard.json",
+      "sha256": "2cbf9de5a679643fd4b60aac2a51268b25c19bca55138eb237ee2e8f069de21f"
+    },
+    {
+      "path": "/tmp/bendvy56-machine-value-dump-source02/final.guard.json",
+      "sha256": "fe34ee7d01c1fcfae7719c3b4a4a75b52c930b1d9f1a8c7e4a62306c6758cc84"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}
