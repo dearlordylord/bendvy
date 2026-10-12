@@ -1,8 +1,18 @@
 #!/bin/sh
-# Development type-check only; delivery uses the governing task's receipt gate.
+# Lightweight development check; acceptance retains its frozen runner.
 set -eu
-if [ "$#" -ne 1 ]; then
-  echo 'usage: scripts/bend-check source.bend' >&2
-  exit 2
-fi
-exec timeout --signal=KILL 5s bend "$1" --check-only
+[ "$#" -eq 1 ] || { echo 'usage: scripts/bend-check source.bend' >&2; exit 2; }
+BENDVY_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+BENDVY_COMPILER=$(python3 - "$BENDVY_ROOT" <<'PYTHON'
+import ast, pathlib, sys
+source = pathlib.Path(sys.argv[1], 'experiments/public-simulation/delivery-v1/installed-config.py').read_text()
+for node in ast.parse(source).body:
+    if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == 'TOOL_PATHS' for t in node.targets):
+        for key, value in zip(node.value.keys, node.value.values):
+            if isinstance(key, ast.Constant) and key.value == 'bend':
+                print(ast.literal_eval(value)); raise SystemExit(0)
+raise SystemExit('Missing pinned Bend compiler')
+PYTHON
+)
+[ -x "$BENDVY_COMPILER" ] || { echo "Missing pinned compiler: $BENDVY_COMPILER" >&2; exit 127; }
+exec timeout --signal=KILL 5s "$BENDVY_COMPILER" "$1" --check-only

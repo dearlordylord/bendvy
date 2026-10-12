@@ -45,6 +45,7 @@ class Selection(unittest.TestCase):
         calls = self.check_paths(['docs/parity/README.md', 'evidence/receipt.json',
                                   'src/ecs/component.bend'])
         self.assertEqual(calls, ['scripts/check-python-source.py --staged',
+                                 'scripts/check-coordination.py /dev/stdin',
                                  'scripts/run-admission-controls.py'])
 
     def test_python_callers_and_shared_infrastructure(self):

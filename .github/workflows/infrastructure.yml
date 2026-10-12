@@ -1,0 +1,28 @@
+name: Infrastructure checks
+on:
+  push:
+    branches: [master]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  functional:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Runner, logs, tool pins and statistics
+        run: |
+          sh .githooks/pre-commit
+          python3 scripts/check-coordination.py
+          python3 scripts/test-task-runner.py
+          python3 scripts/test-evidence-boundary.py
+          python3 scripts/test-receipt-logs.py
+          python3 scripts/test-owned-tool-pins.py
+          python3 scripts/test-check-preflight.py
+          python3 scripts/test-staged-bend-imports.py
+          python3 scripts/test-selected-reference.py
+          python3 benchmarks/test-statistics.py
+          python3 scripts/test-retro-controls.py
+          python3 scripts/test-pre-commit.py
+          python3 scripts/test-retro-v1plus1.py
