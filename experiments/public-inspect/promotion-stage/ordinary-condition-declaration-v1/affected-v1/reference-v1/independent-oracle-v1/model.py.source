@@ -1,0 +1,63 @@
+"""Finite source-derived model of the six pinned public schedule scenarios."""
+
+def scenario(mode):
+    if mode in ("duplicate", "unknown"):
+        return ["invalid"]
+    counter = 0
+    queued = 0
+    live = []
+    published = []
+    next_entity = 1
+    lines = []
+    def observe():
+        return f"{counter}:" + "".join(f"{v}," for v in published) + ":" + "".join(f"{v}," for v in live)
+    def barrier():
+        nonlocal queued, next_entity
+        for _ in range(queued):
+            live.append(next_entity)
+            next_entity += 1
+        queued = 0
+    for _ in range(2):
+        # A commits before B. No implicit flush occurs at schedule end.
+        queued += 1
+        if mode == "failure":
+            counter = counter * 10 + 2
+            published.append(2)
+            # B's 777, event 7 and spawn are discarded by its failed Tx.
+            trace = "phase:failure;run:1;run:2;"
+            lines.append("fail:planned:" + trace)
+        elif mode == "skip":
+            barrier()
+            lines.append("ok:run:1;skip:2;barrier;")
+        else:
+            if mode == "barrier":
+                barrier()
+            counter = counter * 10 + 2 + len(live)
+            published.append(2)
+            trace = "phase:before;run:1;" + ("barrier;" if mode == "barrier" else "") + "phase:after;run:2;"
+            lines.append("ok:" + trace)
+        # Persistent event reader sees each committed 2 once; host accumulates it.
+        lines.append(observe())
+    barrier()
+    lines.append("flush:" + observe())
+    return lines
+
+def output():
+    lines = [line for mode in ("plain", "barrier", "skip", "duplicate", "unknown", "failure") for line in scenario(mode)]
+    # Fixture adds LF inside console.log; console.log adds the second terminal LF.
+    return ("\n".join(lines) + "\n\n").encode()
+
+def selftest():
+    assert scenario("plain")[1::2] == ["2:2,:", "22:2,2,:"]
+    assert scenario("plain")[-1] == "flush:22:2,2,:1,2,"
+    assert scenario("barrier")[1::2] == ["3:2,:1,", "34:2,2,:1,2,"]
+    assert scenario("skip")[-1] == "flush:0::1,2,"
+    assert scenario("failure")[1::2] == ["2:2,:", "22:2,2,:"]
+    assert scenario("failure")[-1] == "flush:22:2,2,:1,2,"
+    assert b"777" not in output() and b"7," not in output()
+    assert len(output().splitlines()) == 23
+
+if __name__ == "__main__":
+    import sys
+    selftest()
+    sys.stdout.buffer.write(output())

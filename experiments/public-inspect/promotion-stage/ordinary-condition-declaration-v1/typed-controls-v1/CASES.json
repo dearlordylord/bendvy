@@ -1,0 +1,31 @@
+{
+  "scope": "Finite source controls at ordinary condition declaration/scheduled Application APIs; no purity or capture-policy claim.",
+  "producer": "181f2e3a5",
+  "cases": {
+    "positive": {
+      "file": "positive.bend",
+      "expected": "PASS",
+      "boundary": "Actual enabled, materialize and closed attach with matching Alpha schema/Ids."
+    },
+    "cross-schema": {
+      "file": "cross-schema.bend",
+      "expected": "REFUSAL",
+      "boundary": "Alpha affine scheduled Application passed to actual Beta enabled API."
+    },
+    "cross-ids": {
+      "file": "cross-ids.bend",
+      "expected": "REFUSAL",
+      "boundary": "Beta nominal Ids passed to Alpha Program materialize."
+    },
+    "duplicate-app": {
+      "file": "duplicate-app.bend",
+      "expected": "REFUSAL",
+      "boundary": "Same affine scheduled Application consumed by two actual enabled calls."
+    },
+    "runtime-program": {
+      "file": "runtime-program.bend",
+      "expected": "REFUSAL",
+      "boundary": "Runtime affine Program supplied as erased closed declaration to actual attach; no guard-purity claim."
+    }
+  }
+}

@@ -1,0 +1,64 @@
+import Base
+import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W
+import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch
+import /workspace/formal-proofs/bendvy/src/ecs/schedule-provision.bend as SP
+# Each ordinary leaf owns both its name and the actual closed predicate index.
+# No reflection, captured condition owner or purity/read grant is introduced.
+type Declaration<-S:Data,-C:Type,-R:Type,-E:Data,-predicate:W.World<S,C,R,E> -> W.World<S,C,R,E> & Bool> is Data:
+  Declaration{name:String}
+type Program<-S:Data,-C:Type,-R:Type,-E:Data,-width:Nat,-evaluate:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool> is Data:
+  Program{plan:SP.Plan<S>,names:List<&2,String>}
+def named(~S:Data,~C:Type,~R:Type,~E:Data,~predicate:W.World<S,C,R,E> -> W.World<S,C,R,E> & Bool,name:String) -> Declaration<S,C,R,E,predicate>:Declaration{name}
+def name(~S:Data,~C:Type,~R:Type,~E:Data,~predicate:W.World<S,C,R,E> -> W.World<S,C,R,E> & Bool,declaration:Declaration<S,C,R,E,predicate>) -> String:
+  match declaration:
+    case Declaration{name}:name
+# Valid generated plans never call this zero-width placeholder: they contain
+# only phase/barrier steps. Its result is not an unknown-slot policy.
+def no_predicate(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,C,R,E>,_:U32) -> W.World<S,C,R,E> & Bool:(world,False{})
+def leaf_run(~S:Data,~C:Type,~R:Type,~E:Data,~predicate:W.World<S,C,R,E> -> W.World<S,C,R,E> & Bool,world:W.World<S,C,R,E>,_:U32) -> W.World<S,C,R,E> & Bool:predicate(world)
+def system(~S:Data,~C:Type,~R:Type,~E:Data,~predicate:W.World<S,C,R,E> -> W.World<S,C,R,E> & Bool,id:U32,requirements:List<&2,SP.Requirement<S>>,declaration:Declaration<S,C,R,E,predicate>) -> Program<S,C,R,E,1n,leaf_run(~S,~C,~R,~E,~predicate)>:
+  Program{SP.Entry{Sch.System{id,0},requirements},[name(~S,~C,~R,~E,~predicate,declaration)]}
+def phase(~S:Data,~C:Type,~R:Type,~E:Data,name:String,requirements:List<&2,SP.Requirement<S>>) -> Program<S,C,R,E,0n,no_predicate(~S,~C,~R,~E)>:
+  Program{SP.Entry{Sch.Phase{name},requirements},[]}
+def barrier(~S:Data,~C:Type,~R:Type,~E:Data,requirements:List<&2,SP.Requirement<S>>) -> Program<S,C,R,E,0n,no_predicate(~S,~C,~R,~E)>:
+  Program{SP.Entry{Sch.Barrier{},requirements},[]}
+def shifted(~S:Data,plan:SP.Plan<S>,+offset:U32) -> SP.Plan<S>:
+  match plan:
+    case SP.Empty{}:SP.Empty{}
+    case SP.Entry{Sch.System{id,slot},requirements}:SP.Entry{Sch.System{id,(slot+offset:U32)},requirements}
+    case SP.Entry{Sch.Phase{name},requirements}:SP.Entry{Sch.Phase{name},requirements}
+    case SP.Entry{Sch.Barrier{},requirements}:SP.Entry{Sch.Barrier{},requirements}
+    case SP.Sequence{left,right}:SP.Sequence{shifted(~S,left,offset),shifted(~S,right,offset)}
+def selected(~S:Data,~C:Type,~R:Type,~E:Data,~leftWidth:Nat,~left:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~right:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,leftSelected:Bool,world:W.World<S,C,R,E>,slot:U32) -> W.World<S,C,R,E> & Bool:
+  match leftSelected:
+    case True{}:left(world,slot)
+    case False{}:right(world,(slot-Nat.to_u32(leftWidth):U32))
+def paired(~S:Data,~C:Type,~R:Type,~E:Data,~leftWidth:Nat,~left:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~right:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,world:W.World<S,C,R,E>,+slot:U32) -> W.World<S,C,R,E> & Bool:
+  selected(~S,~C,~R,~E,~leftWidth,~left,~right,Nat.is_lt(U32.to_nat(slot),leftWidth),world,slot)
+def sequence(~S:Data,~C:Type,~R:Type,~E:Data,~leftWidth:Nat,~rightWidth:Nat,~left:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~right:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,first:Program<S,C,R,E,leftWidth,left>,second:Program<S,C,R,E,rightWidth,right>) -> Program<S,C,R,E,leftWidth+rightWidth,paired(~S,~C,~R,~E,~leftWidth,~left,~right)>:
+  match first second:
+    case Program{firstPlan,firstNames} Program{secondPlan,secondNames}:Program{SP.Sequence{firstPlan,shifted(~S,secondPlan,Nat.to_u32(leftWidth))},List.append(&2,String,firstNames,secondNames)}
+def slots(~S:Data,plan:SP.Plan<S>,+width:Nat) -> Bool:
+  match plan:
+    case SP.Empty{}:True{}
+    case SP.Entry{Sch.System{_,slot},_}:Nat.is_lt(U32.to_nat(slot),width)
+    case SP.Entry{Sch.Phase{_},_}:True{}
+    case SP.Entry{Sch.Barrier{},_}:True{}
+    case SP.Sequence{left,right}:Bool.and(slots(~S,left,width),slots(~S,right,width))
+# Attachment checks the closed generated structure before any predicate or work.
+# Width must fit the existing U32 slot domain, and each slot must have a name.
+def valid(~S:Data,~C:Type,~R:Type,~E:Data,~width:Nat,~evaluate:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,program:Program<S,C,R,E,width,evaluate>) -> Bool:
+  match program:
+    case Program{plan,names}:Bool.and(Nat.is_eq(List.length(&2,String,names),width),Bool.and(Nat.is_le(width,1n+U32.to_nat(4294967295)),slots(~S,plan,width)))
+def plan(~S:Data,~C:Type,~R:Type,~E:Data,~width:Nat,~evaluate:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,program:Program<S,C,R,E,width,evaluate>) -> SP.Plan<S>:
+  match program:
+    case Program{plan,_}:plan
+# Names are selected only during enabled descriptions, from the retained leaves.
+def lookup(names:List<&2,String>,index:Nat) -> Maybe<&2,String>:
+  match names index:
+    case [] _:None{}
+    case first <> _ 0n:Some{first}
+    case _ <> rest 1n+prior:lookup(rest,prior)
+def condition_name(~S:Data,~C:Type,~R:Type,~E:Data,~width:Nat,~evaluate:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,program:Program<S,C,R,E,width,evaluate>,slot:U32) -> Maybe<&2,String>:
+  match program:
+    case Program{_,names}:lookup(names,U32.to_nat(slot))

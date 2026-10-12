@@ -1,0 +1,100 @@
+"""Complete composed public consumer model derived from source, no stdout inputs."""
+from pathlib import Path
+import os,json
+TOP=Path('/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-inspect/promotion-stage/ordinary-condition-declaration-v1')
+LOCAL='alpha'
+# UNBOUND source-only draft; no checks or runtime observation inputs.
+# Current closed Program binds actual Registry IDs through selectors; Entries
+# retains the same plan/names. Neither Program nor Entries is printed by Report.
+CORE=Path('/workspace/formal-proofs/bendvy/src/ecs')
+class Term:
+    def __init__(self,name,*fields):self.name=name;self.fields=fields
+
+def ctor(module,name,*fields):
+    path=(CORE/module) if module.endswith('.bend') else TOP/LOCAL/(module+'.bend')
+    ns=os.path.relpath(path,TOP).removesuffix('.bend')
+    return Term(ns+'.'+name,*fields)
+def base(name,*fields):return Term(name,*fields)
+def show(x):
+    if isinstance(x,Term):return x.name+'{'+', '.join(show(y) for y in x.fields)+'}'
+    if isinstance(x,str):return json.dumps(x,ensure_ascii=False)
+    if isinstance(x,list):return '['+', '.join(show(y) for y in x)+']'
+    if isinstance(x,bool):return 'True{}' if x else 'False{}'
+    return str(x)
+def some(x):return base('Some',x)
+def product(a,b):return ctor('ordinary-app-observation-data.bend','Product',a,b)
+def arr(a,b):return f'node(leaf:{a},leaf:{b})'
+def registration_operations():
+    return [(1,'ClockSystem',['Clock']),(2,'FirstRead',['First']),(3,'InventoryRead',['Inventory'])]
+def stored_registrations():
+    stored=[]
+    for operation in registration_operations():
+        stored=[operation]+stored
+    return stored
+def physical(after=False):
+    live='node(node(node(leaf:False,leaf:True),node(leaf:True,leaf:False)),node(node(leaf:False,leaf:False),node(leaf:False,leaf:False)))'
+    first='Column{values=node(node(leaf:some(leaf:11),leaf:none),node(leaf:some(leaf:33),leaf:none));stamps=[]}'
+    second='Column{values=node(node(leaf:none,leaf:some(leaf:22)),node(leaf:none,leaf:some(leaf:44)));stamps=[]}'
+    events='[Publication([Pair([First:7];[])];[]), Publication([Pair([];[Second:True])];[])]'
+    regs='['+', '.join(str(i)+':'+name+':['+', '.join(access)+']' for i,name,access in stored_registrations())+']'
+    resources='resources{Ready:'+arr(12 if after else 11,12)+';machine=3:NoPending:None:False;inventory='+arr(81,82)+';sibling='+arr(71,72)+';barriers='+str(int(after))+'}'
+    world='world{1;next=5;high=4;live='+live+';capacity=8;depth=3;store{'+first+';'+second+';sibling='+arr(91,92)+'};'+resources+';events='+events+';pending='+str(0 if after else 1)+';registrations='+regs+';nextSystem=4;clock=0}'
+    def stream(key,values):return key+';batches='+values+';positions=[];nextReader=1;frameStart=0;boundary=0;capacity=2;dropped=0'
+    family='family{'+stream('Signal','[1:[First:7]]')+';'+stream('Signal','[1:[Second:True]]')+';'+stream('Source.UnusedEvent','[]')+'}'
+    return world+';'+family+';eventOwners='+arr(31,32)+';journal=[1:'+events+'];frameStart=0;tick=1'
+def clauses(key):return [ctor('ordinary-query-declaration.bend','Clause',key,ctor('ordinary-query-declaration.bend','Read'))]
+def fields():
+    return [ctor('ordinary-app-registration-fields.bend','Fields',1,1,'ClockSystem',['Clock'],0,'Clock',[],ctor('ordinary-app-registration-fields.bend','ServiceKind')),
+            ctor('ordinary-app-registration-fields.bend','Fields',1,2,'FirstRead',['First'],0,'First',clauses('First'),ctor('ordinary-app-registration-fields.bend','ComponentKind')),
+            ctor('ordinary-app-registration-fields.bend','Fields',1,3,'InventoryRead',['Inventory'],0,'Inventory',clauses('Inventory'),ctor('ordinary-app-registration-fields.bend','FieldKind'))]
+def description():
+    schema=[ctor('schema-fragments.bend','Classified',ctor('schema-fragments.bend','Component'),'First','First',ctor('schema-fragments.bend','Plain')),
+            ctor('schema-fragments.bend','Classified',ctor('schema-fragments.bend','Component'),'Second','Second',ctor('schema-fragments.bend','Transient')),
+            ctor('schema-fragments.bend','Classified',ctor('schema-fragments.bend','Resource'),'Inventory','Inventory',ctor('schema-fragments.bend','Constructed'))]
+    binds=[ctor('ordinary-app-observation-data.bend','Binding',1,i,name,[key],0,key,clause) for i,name,key,clause in [(1,'ClockSystem','Clock',[]),(2,'FirstRead','First',clauses('First')),(3,'InventoryRead','Inventory',clauses('Inventory'))]]
+    service=ctor('ordinary-app-service-registration.bend','View',[ctor('ordinary-service-declaration.bend','Status',1,'Clock',True)],[ctor('schedule-provision.bend','Service',1)])
+    query=product(base('Unit'),[ctor('inspector-query.bend','ProjectedRow',ctor('world.bend','Handle',1,1),ctor('component.bend','Found',11))])
+    rows=product(product(product(product(base('Unit'),ctor('machine.bend','Current',3)),service),query),81)
+    rendered=['Mode:Current:3','Mode:Vocabulary=[3, 4]','services=[Clock:1:True]','requires=Service:1','[1:1:Present:11]','Inventory=81']
+    observed=ctor('ordinary-app-observation-data.bend','Observation',rows,rendered)
+    return ctor('ordinary-app-schema.bend','Description',schema,product(binds,observed))
+class Nat:
+    def __init__(self,value):self.value=value
+    def __str__(self):return str(self.value)+'n'
+def nat(x):return Nat(x)
+def service_requirement():return ctor('schedule-provision.bend','Service',1)
+def step_data():
+    return [(ctor('schedule.bend','Phase','Queries'),[]),(ctor('schedule.bend','System',2,0),[]),(ctor('schedule.bend','System',3,1),[]),(ctor('schedule.bend','System',1,2),[service_requirement()]),(ctor('schedule.bend','Barrier'),[])]
+def plan():
+    pairs=step_data();value=ctor('schedule-provision.bend','Entry',*pairs[0])
+    for pair in pairs[1:]:value=ctor('schedule-provision.bend','Sequence',value,ctor('schedule-provision.bend','Entry',*pair))
+    return value
+def named_description():
+    steps=[ctor('ordinary-app-schedule.bend','PlannedStep',s,needs) for s,needs in step_data()]
+    original=ctor('ordinary-app-schedule.bend','Description',description(),1,'Composed',steps)
+    placements=[]
+    conditions=[]
+    for position,(s,needs) in enumerate(step_data()):
+        kind=s.name.split('.')[-1]
+        if kind=='System':
+            id,condition=s.fields;name={1:'ClockSystem',2:'FirstRead',3:'InventoryRead'}[id]
+            placements.append(ctor('ordinary-app-schedule-description.bend','System',nat(position),1,id,some(name),condition,needs))
+            guard=['RunComponents','SkipResources','RunService'][condition]
+            conditions.append(ctor('ordinary-app-condition-schedule.bend','ConditionPlacement',nat(position),condition,some(guard)))
+        elif kind=='Phase':placements.append(ctor('ordinary-app-schedule-description.bend','Phase',nat(position),s.fields[0],needs))
+        else:placements.append(ctor('ordinary-app-schedule-description.bend','Barrier',nat(position),needs))
+    return ctor('ordinary-app-condition-schedule.bend','Description',ctor('ordinary-app-schedule-description.bend','Description',original,placements),conditions)
+def report():
+    cps=[]
+    for enabled,after in [(True,False),(True,False),(False,False),(True,True),(True,True),(False,True)]:
+        cps.append(ctor('consumer','Checkpoint',some(named_description()) if enabled else base('None'),plan(),1,'Composed',[s for s,_ in step_data()],[service_requirement()],fields(),physical(after)))
+    observations=[ctor('schedule.bend','Entered','Queries'),ctor('schedule.bend','Ran',2),ctor('schedule.bend','Skipped',3),ctor('schedule.bend','Ran',1),ctor('schedule.bend','Applied')]
+    return some(ctor('consumer','Report',2,cps,ctor('application','Finished',observations)))
+def full_output():
+    global LOCAL
+    LOCAL='alpha';a=report()
+    LOCAL='beta';b=report()
+    return ('('+show(a)+', '+show(b)+')\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(full_output())

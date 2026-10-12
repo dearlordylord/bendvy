@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : \{Package: (predicate => predicate(Unit{}))}
+Location: opened
+6 |   match package:
+7>|     case Package{predicate}:invoke(~predicate,Unit{})
+  |          ^^^^^^^^^^^^^^^^^^
+8 | def truth(unit:Unit) -> Bool:True{}

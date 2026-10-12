@@ -1,0 +1,56 @@
+{
+  "scope": "Individual ordinary condition leaves: generated operative routing and enabled descriptions, two nominal schemas",
+  "planSHA256": "571df9282b4bd56fafe64d487912795cd7b7694ae55354f56f537ad4b97e5f71",
+  "commands": [
+    {
+      "label": "source-individual-conditions",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-inspect/promotion-stage/ordinary-condition-declaration-v1/entry.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy56-individual-conditions-source03/source-individual-conditions.stdout",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy56-individual-conditions-source03/source-individual-conditions.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy56-individual-conditions-source03/source-individual-conditions-pre.guard.json",
+      "sha256": "a1327c60928697cd55559e360a302abf711c34d20abb764a404322101e443320"
+    },
+    {
+      "path": "/tmp/bendvy56-individual-conditions-source03/source-individual-conditions-acquired.guard.json",
+      "sha256": "591e09a47bc6fa0a5d019f602bf960997143e3b60e2020e71162804bbec70415"
+    },
+    {
+      "path": "/tmp/bendvy56-individual-conditions-source03/source-individual-conditions-post.guard.json",
+      "sha256": "4f5dbca1f9180baf4e02a7b145cd71def49a64d9d995085a06f14770be4fb799"
+    },
+    {
+      "path": "/tmp/bendvy56-individual-conditions-source03/final.guard.json",
+      "sha256": "63a7254c75bd5c32034bdce92a736e08c50b5ec51ac866d83c7902733c0fb5cc"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}

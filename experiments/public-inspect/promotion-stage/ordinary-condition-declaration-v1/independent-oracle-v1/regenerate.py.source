@@ -1,0 +1,45 @@
+"""Source-only full named-condition oracle; no runtime output inputs."""
+from pathlib import Path
+import gzip,hashlib,json,runpy
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def main():
+    basis=json.loads((HERE/'SOURCE-BASIS.json').read_text())
+    for path,digest in basis['inputs'].items():assert sha(path)==digest,path
+    top=Path(basis['consumerRoot'])
+    for variant in ('alpha','beta'):
+        app=(top/variant/'application.bend').read_text()
+        assert 'type Ids is Data:' in app and 'def program()' in app
+        assert 'def route' not in app
+        for text in ['~always,"RunComponents"','~never,"SkipResources"','~always,"RunService"']:assert text in app,text
+        assert app.count('Condition.sequence(')==4
+        assert '~component_id' in app and '~resource_id' in app and '~service_id' in app
+    model=runpy.run_path(str(HERE/'model.py.source'))
+    for variant in ('alpha','beta'):
+        model['report'].__globals__['LOCAL']=variant
+        report=model['report']();cps=report.fields[0].fields[1]
+        assert len(cps)==6
+        assert [cp.fields[0].name for cp in cps]==['Some','Some','None','Some','Some','None']
+        assert cps[0].fields[-1]==cps[1].fields[-1]==cps[2].fields[-1]
+        assert cps[3].fields[-1]==cps[4].fields[-1]==cps[5].fields[-1]
+        assert 'pending=1;' in cps[0].fields[-1] and 'pending=0;' in cps[3].fields[-1]
+        assert 'Ready:node(leaf:11,leaf:12)' in cps[0].fields[-1]
+        assert 'Ready:node(leaf:12,leaf:12)' in cps[3].fields[-1]
+        assert all('clock=0}' in cp.fields[-1] for cp in cps)
+        for cp in cps:
+            assert len(cp.fields[-2])==3 and all(field.fields[4]==0 for field in cp.fields[-2])
+            assert len(cp.fields[4])==5
+        observations=report.fields[0].fields[2].fields[0]
+        assert [o.name.split('.')[-1] for o in observations]==['Entered','Ran','Skipped','Ran','Applied']
+        assert observations[2].fields==(3,)
+    raw=model['full_output']()
+    assert raw.startswith(b'(Some{alpha/consumer.Report{') and b'Some{beta/consumer.Report{' in raw
+    assert raw.count(b'consumer.Checkpoint{')==12
+    assert raw.count(b'ConditionPlacement{')==24
+    assert raw.count(b'"RunComponents"')==8 and raw.count(b'"SkipResources"')==8 and raw.count(b'"RunService"')==8
+    (HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    oracle={'normal':{'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(HERE/'SOURCE-BASIS.json'),'sourceBasisSHA256':sha(HERE/'SOURCE-BASIS.json')}}
+    (HERE/'ORACLES.json').write_text(json.dumps(oracle,indent=2)+'\n')
+    (HERE/'CHECKS.json').write_text(json.dumps({'status':'SOURCE_DERIVED_COMPLETE_ORACLE_PASS','sourcePins':basis['sourcePins'],'basisPins':len(basis['inputs']),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'checks':['Two nominal schemas/twelve complete checkpoints','Single generated closed program actual Registry ID selectors/True False True predicates','Full World/affine owners/event family/registration cursors/pending/barrier state','Named placements from retained leaves; no manual metadata map','Disabled/repeated snapshots unchanged; resource skipped; service increments once','Pinned installed tuple/constructor/String printer geometry'],'limits':['No runtime outputs read','Finite closed stateless predicates only','Stateful guards/read grants/captured condition owner semantics and full56 remain open']},indent=2)+'\n')
+    print(len(raw),hashlib.sha256(raw).hexdigest())
+if __name__=='__main__':main()

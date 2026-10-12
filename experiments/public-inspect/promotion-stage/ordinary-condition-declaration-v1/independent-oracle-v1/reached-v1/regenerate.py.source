@@ -1,0 +1,29 @@
+from pathlib import Path
+import hashlib,json,gzip,runpy
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def main():
+    basis=json.loads((HERE/'SOURCE-BASIS.json').read_text())
+    for p,h in basis['inputs'].items():assert sha(p)==h,p
+    normal=runpy.run_path(basis['normalModel'])['full_output']()
+    mutant=runpy.run_path(str(HERE/'model.py.source'))['full_output']()
+    assert normal==gzip.decompress(Path(basis['normalOracle']).read_bytes())
+    assert normal.count(b'schedule.Skipped{3}')==2
+    assert mutant==normal.replace(b'schedule.Skipped{3}',b'schedule.Ran{3}')
+    assert mutant.count(b'consumer.Checkpoint{')==12
+    states=json.loads(Path(basis['mutationManifest']).read_text())
+    # Prepared replacement inverse is checked independently of root application.
+    target=Path(states['target']);source=target.read_text()
+    replacement=states['replacement'];before=replacement['before'];after=replacement['after']
+    assert source.count(before)==1
+    assert states['state']=='PREPARED_NOT_APPLIED'
+    assert sha(target)==states['normalSHA256']
+    assert source==Path(states['normalSourcePath']).read_text()
+    assert source.replace(before,after)==Path(states['mutantSourcePath']).read_text()
+    assert hashlib.sha256(source.replace(before,after).encode()).hexdigest()==states['mutantSHA256']
+    (HERE/'expected.stdout.gz').write_bytes(gzip.compress(mutant,mtime=0))
+    o={'prepared-mutant':{'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(mutant),'sha256':hashlib.sha256(mutant).hexdigest(),'sourceBasisPath':str(HERE/'SOURCE-BASIS.json'),'sourceBasisSHA256':sha(HERE/'SOURCE-BASIS.json')},'normalBaseline':{'stdout':basis['normalOracle'],'bytes':len(normal),'sha256':hashlib.sha256(normal).hexdigest()}}
+    (HERE/'ORACLES.json').write_text(json.dumps(o,indent=2)+'\n')
+    (HERE/'CHECKS.json').write_text(json.dumps({'status':'PREPARED_SOURCE_DERIVED_COUNTER_PASS','bytes':len(mutant),'sha256':hashlib.sha256(mutant).hexdigest(),'difference':'Exactly two completion Skipped3→Ran3; all twelve checkpoint bytes unchanged','mutationState':'NOT_APPLIED','sourcePins':basis['sourcePins'],'basisPins':len(basis['inputs']),'limits':['No runtime output inputs','No applied-source/runtime qualification','Resource read Success does not advance Worldclock, Registrycursor stays0','No stateful condition/full56 claim']},indent=2)+'\n')
+    print(len(mutant),hashlib.sha256(mutant).hexdigest())
+if __name__=='__main__':main()

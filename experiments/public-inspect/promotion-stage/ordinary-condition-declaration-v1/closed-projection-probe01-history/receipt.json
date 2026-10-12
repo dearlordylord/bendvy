@@ -1,0 +1,56 @@
+{
+  "scope": "Development diagnostic: ordinary projection of closed Type package used as template expression; no feature/runtime qualification",
+  "planSHA256": "26d445be72f1c3c57eb61f4dc414ce2ebca79358805992821c1ae499c656f7df",
+  "commands": [
+    {
+      "label": "source-closed-projection-probe",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-inspect/promotion-stage/ordinary-condition-declaration-v1/probe-closed-projection.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy56-condition-closed-projection-probe01/source-closed-projection-probe.stdout",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy56-condition-closed-projection-probe01/source-closed-projection-probe.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy56-condition-closed-projection-probe01/source-closed-projection-probe-pre.guard.json",
+      "sha256": "f2b48e463a2d3bc6ba7ef8af9fff5167ce3a01c5185429d62fd92deda4205d7a"
+    },
+    {
+      "path": "/tmp/bendvy56-condition-closed-projection-probe01/source-closed-projection-probe-acquired.guard.json",
+      "sha256": "63cccf495d523436118a0b65972ce79175f018f051fd1d1884f2d7c1ba97f6ee"
+    },
+    {
+      "path": "/tmp/bendvy56-condition-closed-projection-probe01/source-closed-projection-probe-post.guard.json",
+      "sha256": "c2eeb893b41b778071cc88b02e6d648f22b1ca4af32517d88d1a638a84a598b0"
+    },
+    {
+      "path": "/tmp/bendvy56-condition-closed-projection-probe01/final.guard.json",
+      "sha256": "e63f9124f79c3afe58226b276a645b74c3383190561fe1a345ebe1350f34af10"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}
