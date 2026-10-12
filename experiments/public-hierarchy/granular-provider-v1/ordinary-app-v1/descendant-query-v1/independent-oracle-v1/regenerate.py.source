@@ -1,0 +1,35 @@
+"""Regenerate the finite source-only descendant visitor transcript."""
+import gzip, hashlib, json, runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    freeze=HERE.parent/'FREEZE.json'
+    assert sha(freeze)=='6e19dc2103649f33e3b6dc3223ae0a996721487cf73f4ab975975bbf70ab2185'
+    pins=json.loads(freeze.read_text())['sourceInventory'].copy()
+    assert len(pins)==74
+    for path,digest in pins.items():assert sha(path)==digest,path
+    m=runpy.run_path(str(HERE/'model.py.source'));w=m['World']()
+    assert w.visit()==([], 'Success', []) and w.clock==0
+    w.applied=True
+    assert w.visit(fail=True)==([2,4,3],'UserError:4',[])
+    assert w.clock==2 and w.payloads=={2:[2,20],4:[4,40]} and w.stamps==[(2,(0,0)),(4,(0,0))]
+    assert w.visit()==([2,4,3],'Success',['2:before=2,20,','4:before=4,40,'])
+    assert w.clock==4 and w.stamps==[(4,(0,4)),(2,(0,3))]
+    assert w.visit(True)==([2,3,4],'Success',['2:before=102,202,','4:before=104,204,'])
+    assert w.clock==6 and w.stamps==[(4,(0,6)),(2,(0,5))]
+    raw=m['expected']();text=raw.decode()
+    assert text.count('|meta=')==12 and text.count('|owners=901,902,')==12
+    assert text.count('|resource-all=17,18,')==12 and text.count('|pending=3')==2
+    assert text.count('FAILED_DEPTH|path=1:2,1:4,1:3,|UserError:4|values=[]')==2
+    assert text.count('PENDING_DEPTH|path=|Success|values=[]')==2
+    assert text.count('BREADTH|path=1:2,1:3,1:4,|Success|values=[2:before=102,202,, 4:before=104,204,]')==2
+    for p in [freeze,HERE/'model.py.source',HERE/'regenerate.py.source',Path('/home/node/.bend/bend2/base.bend'),Path('/home/node/.bend/bend2/effs/print.js'),Path('/home/node/.bend/bend2/effs/print.c')]:pins[str(p)]=sha(p)
+    basis={'producerCommit':'cc4be9c4c','sourcePins':pins,'entry':str(HERE.parent/'consumer.bend'),'sourcePositive':json.loads(freeze.read_text())['sourcePositive'],'derivation':'Source only. App installs SAME Parent declaration and retained query.pair(write Cells,handle_read). Complete raw paths preserve Depth [2,4,3] and Breadth [2,3,4]; W.valid retains live handles, required Cells filters absent3 before body. Pending graph gives Complete empty path and Success with no callbacks. Failed writes2/4 increment clock twice; compose failure drops all returned values and transaction undo restores arrays/stamps without rewinding clock, materializing zero stamp entries2 then4. Retry writes ticks3/4; Breadth ticks5/6. Lifecycle set prepends current id, preserving added0. Source observer emits all eight column positions, lifecycle entries, complete World metadata/graph/live/pending/registrations/events, both resource cells and retained owners901/902. Recipe scans World.handles ascending1..4; Parent outgoing precedes Children incoming. Six snapshots and four visit results per nominal schema. Base List.show bracket/comma-space preserves raw trailing commas; helper concatenations preserve snapshot terminal LF and separator LF; IO.print adds final LF. Actual DTO.Product Data transport and affine Ops parameter projections inspected in source05. No runtime output inputs.','limits':['Finite two-schema 12-snapshot and eight-visit transcript; not a proof.','Only2/4 carry components, so matched callback relative order is identical for Depth/Breadth; no generic callback-order qualification.','No None/Incomplete callback execution, missing resource, cleanup, TS, performance or full44 credit.','Earlier parser/type failures remain preserved; only source05 actual consumer closure is source-positive.']}
+    b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle},indent=2)+'\n')
+    result={'sourcePins':len(pins),'physicalSnapshots':12,'visitResults':8,**oracle}
+    (HERE/'SELFTEST.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+if __name__=='__main__':regenerate()

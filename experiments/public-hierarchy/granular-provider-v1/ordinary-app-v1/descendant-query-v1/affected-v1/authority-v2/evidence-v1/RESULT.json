@@ -1,0 +1,124 @@
+{
+  "scope": "Minimal public descendant visitor source authority controls",
+  "results": [
+    {
+      "subject": "v1-affine-app-dup",
+      "original": 49282,
+      "terminal": 1,
+      "sourceControlCredit": false,
+      "childExit": null,
+      "childFailure": "child deadline",
+      "planSHA256": "b4e91359c350549f75368cd8b3e7b8382ef7beda7792f3d598db8b58ca3cd46f",
+      "status": "INCOMPLETE"
+    },
+    {
+      "subject": "v2-support-label",
+      "original": 5968,
+      "terminal": 1,
+      "sourceControlCredit": false,
+      "childExit": 0,
+      "childFailure": null,
+      "planSHA256": "0be3184c586b2f365370594ca8edd51d2a84be878ac6912aa0dd5006871016c3",
+      "status": "INCOMPLETE"
+    },
+    {
+      "subject": "support",
+      "original": 39054,
+      "terminal": 0,
+      "sourceControlCredit": true,
+      "childExit": 0,
+      "childFailure": null,
+      "planSHA256": "bec59b11ee4d9e1b4ed75a70e159dbe08da1d3a73576921af3c81594e7705969",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS"
+    },
+    {
+      "subject": "affine-app-dup",
+      "original": 96923,
+      "terminal": 0,
+      "sourceControlCredit": true,
+      "childExit": 1,
+      "childFailure": null,
+      "planSHA256": "3ce57cfd5356931e761103a053185506e728ea228f1d10de6e859961af03e2bf",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS"
+    },
+    {
+      "subject": "write-through-read",
+      "original": 63499,
+      "terminal": 0,
+      "sourceControlCredit": true,
+      "childExit": 1,
+      "childFailure": null,
+      "planSHA256": "c2329655e203b151ee38be3b7e9797bfc838cdb18c0790a4fc2bbc26651ad4b7",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS"
+    },
+    {
+      "subject": "abstract-owner-escape",
+      "original": 86349,
+      "terminal": 0,
+      "sourceControlCredit": true,
+      "childExit": 1,
+      "childFailure": null,
+      "planSHA256": "5175c33b58821375a822e64f22910620e90d8279fbb08c789188d1ba96030a13",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS"
+    },
+    {
+      "subject": "abstract-owner-dup",
+      "original": 85214,
+      "terminal": 0,
+      "sourceControlCredit": true,
+      "childExit": 1,
+      "childFailure": null,
+      "planSHA256": "a8ad0c7704b925d7264e4822bfe17dd6f86319cd0b1a15266cd5fb7520c9cbb4",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS"
+    },
+    {
+      "subject": "query-cross-schema",
+      "original": 22365,
+      "terminal": 0,
+      "sourceControlCredit": true,
+      "childExit": 1,
+      "childFailure": null,
+      "planSHA256": "7f41bfb0da3f9cbaab421d68244a5ea9b9d7375534f27059802f33e57dbef789",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS"
+    },
+    {
+      "subject": "undeclared-literal",
+      "original": 66326,
+      "terminal": 1,
+      "sourceControlCredit": false,
+      "childExit": 0,
+      "childFailure": null,
+      "planSHA256": "5224b42d4dfffa21a80cfadba04c2c1db981389e3b126e0cce2ad3c2812ad873",
+      "status": "INCOMPLETE"
+    },
+    {
+      "subject": "undeclared-hierarchy",
+      "original": 86180,
+      "terminal": 0,
+      "sourceControlCredit": true,
+      "childExit": 1,
+      "childFailure": null,
+      "planSHA256": "fd368ffe5c1c19cc7a17f5ac5e867dcb8632700eaaf171a24b679e37cd23ef75",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS"
+    }
+  ],
+  "intendedNegatives": 6,
+  "positiveSupport": 1,
+  "externalToolPins": {
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/generic-check-wrapper-v1/README.md": "6673f83915b8ea46718ca9679319497b966a5e7e1b77448fb197f9d1de5b6d9d",
+    "/home/node/.bend/bin/bend-2.0.35": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "/home/node/.local/share/mise/installs/node/24.20.0/bin/node": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477",
+    "/usr/bin/python3.11": "9a070c8a36e16c152dae21b66aeb707f4d21b506c875e9b15edf4387fca7dcf8",
+    "/usr/bin/taskset": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5",
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/recursive-match-tree-v2/caller-source01/source-check-caller.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/recursive-match-tree-v2/caller-source01/source-check-caller.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/recursive-match-tree-v2/caller-source01/source-inspector-caller.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/workspace/formal-proofs/bendvy-worktrees/canonical-native-fanout/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/native-fanout-v1/recursive-match-tree-v2/caller-source01/source-inspector-caller.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "/workspace/formal-proofs/bendvy-worktrees/native54-matching-tree-v1/experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/expected.stdout.gz": "2cbbc539d1945855313ceef52544b6fcf5fe311af483b206498ae9c94c206a60",
+    "/home/node/.bend/bend2/effs/print.js": "814ceba4efbaa291b7b6a9ff29aa20e3a23c06eb4fa165c69ee0bd22878adaa9",
+    "/home/node/.bend/bend2/effs/print.c": "28552d3b56aee6f6cdb66326aaa49ad0df35e4476e08c548c908efcbfafbd3e7",
+    "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-granular-provider-v1/experiments/public-hierarchy/granular-provider-v1/independent-oracle-v1/expected.stdout": "3470c0aec7c419825128d34f3936a46b2a58b7f8e6501911d302604bb942c6e2",
+    "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-granular-provider-v1/experiments/public-hierarchy/granular-provider-v1/independent-oracle-v1/expected.stdout.gz": "30cd18afe0d36eb222ee4d652d09d9e7a6c90c6789fbca8b8504580777942945"
+  },
+  "limits": "Finite source type/affine controls only. Initial deadline, dispatch-label failure and inferred-literal non-refusal explicitly uncredited. No runtime/timing/proof claim."
+}

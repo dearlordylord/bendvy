@@ -1,0 +1,42 @@
+"""Finite all-query model regeneration and source/current owner assertions."""
+import gzip,hashlib,json,runpy
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def regenerate():
+    freeze=HERE.parent/'FREEZE.json';assert sha(freeze)=='1db1e4b464477fffe23d9064419907d0822bba710eae109cf985e336360e082a'
+    capture=json.loads(freeze.read_text());pins=capture['sourceInventory'].copy();assert len(pins)==75
+    for p,h in pins.items():assert sha(p)==h,p
+    m=runpy.run_path(str(HERE/'model.py.source'));w=m['World']();before=w.physical()
+    assert w.visit_all('LIVE_DEPTH')=='LIVE_DEPTH|path=1:2,1:4,1:3,|Success|values=[2, 4, 3]'
+    assert w.visit_all('LIVE_BREADTH',True)=='LIVE_BREADTH|path=1:2,1:3,1:4,|Success|values=[2, 3, 4]'
+    assert w.physical()==before
+    w.live.remove(4)
+    assert w.visit_all('DEAD_DEPTH')=='DEAD_DEPTH|path=1:2,1:4,1:3,|Success|values=[2, 3]'
+    assert w.visit_all('DEAD_BREADTH',True)=='DEAD_BREADTH|path=1:2,1:3,1:4,|Success|values=[2, 3]'
+    assert w.clock==0 and w.stamps==[] and w.payloads=={2:[2,20],4:[4,40]}
+    snapshot=w.snapshot('DEACTIVATED');assert '1:4:[Parent:' not in snapshot
+    assert '1:2:[Parent:Outgoing:Target:1:1, Children:Incoming:Sources:[1:4]]' in snapshot
+    assert before.split('|live=',1)[0]==w.physical().split('|live=',1)[0]
+    raw=m['expected']();text=raw.decode()
+    assert text.count('|meta=')==6 and text.count('|resource-all=17,18,')==6 and text.count('|owners=901,902,')==6
+    assert text.count('|Success|values=')==8 and text.count('DEACTIVATE:Accepted')==2
+    assert text.count('LIVE_DEPTH|path=1:2,1:4,1:3,|Success|values=[2, 4, 3]')==2
+    assert text.count('LIVE_BREADTH|path=1:2,1:3,1:4,|Success|values=[2, 3, 4]')==2
+    assert text.count('DEAD_DEPTH|path=1:2,1:4,1:3,|Success|values=[2, 3]')==2
+    assert text.count('DEAD_BREADTH|path=1:2,1:3,1:4,|Success|values=[2, 3]')==2
+    historical=HERE/'model.initial.py.source'
+    old=runpy.run_path(str(historical))['expected']().decode().splitlines();new=text.splitlines()
+    changed=[(a,b) for a,b in zip(old,new) if a!=b]
+    assert len(old)==len(new) and len(changed)==4
+    assert all(a.startswith(('LIVE_BREADTH|','DEAD_BREADTH|')) and b.startswith(('LIVE_BREADTH|','DEAD_BREADTH|')) for a,b in changed)
+    assert text.count('|pending=0')==6 and text.count('|stamps=|events=')==6
+    dependency=m['DEPENDENCY']
+    for p in [freeze,dependency,HERE/'model.initial.py.source',HERE/'model.py.source',HERE/'regenerate.py.source',Path('/home/node/.bend/bend2/base.bend'),Path('/home/node/.bend/bend2/effs/print.js'),Path('/home/node/.bend/bend2/effs/print.c')]:pins[str(p)]=sha(p)
+    basis={'producerCommit':'7ab702c85','modelRepairHistory':'Original f4a06093d expected scene omitted Breadth argument and failed comparison40014; Native skipped. Source-derived successor supplies actual Traversal.Breadth mode in both whole-scene calls; exactly four Breadth lines differ, all other complete lines identical. Historical model retained; no runtime stdout input.','sourcePins':pins,'entry':str(HERE.parent/'consumer.bend'),'sourcePositive':capture['sourcePositive'],'derivation':'Source-only all-query declaration is Q.handle_read with Q.all and no component requirements. Installed hierarchy raw Depth path2,4,3 and Breadth2,3,4 are preserved; complete path W.valid filters invocation handles. Live callbacks return raw id strings in those distinct orders, including absent-component id3. Actual W.deactivate4 clears only live4, retains component4 and graph/inverses; both post-deactivation callback vectors2,3 omit4 while raw paths still include4. Reads and deactivation preserve World clock0, empty stamps/events/registrations, pending0, resource17/18 and owner901/902. Recipe traverses current live World.handles ascending1,2,3 after deactivation; target row4 disappears but row2 inverse still reports source4. Three complete physical/recipe snapshots and four actual visits per nominal schema. Immutable source-only original model supplies physical/recipe formatting algorithm, never observed outputs. Base List.show bracket/comma-space applies raw id strings; snapshot terminal LF plus helper separators preserved, main labels concatenate APPLIED directly, IO.print adds final LF.','limits':['Finite two schemas, six complete snapshots, eight visit results; no universal proof.','Direct deactivate is not cleanup: no disposal, graph removal or stamp/event mutation credit.','No None/Incomplete branch, forged cycle, missing-resource, TS or performance credit.','Original component-filtered8537 packet and source01 formatter failure preserved.']}
+    b=HERE/'SOURCE-BASIS.json';b.write_text(json.dumps(basis,indent=2)+'\n')
+    (HERE/'expected.stdout').write_bytes(raw);(HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    oracle={'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'sourceBasisPath':str(b),'sourceBasisSHA256':sha(b)}
+    (HERE/'ORACLES.json').write_text(json.dumps({'normal':oracle},indent=2)+'\n')
+    result={'sourcePins':len(pins),'physicalSnapshots':6,'visitResults':8,**oracle};(HERE/'SELFTEST.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))
+if __name__=='__main__':regenerate()

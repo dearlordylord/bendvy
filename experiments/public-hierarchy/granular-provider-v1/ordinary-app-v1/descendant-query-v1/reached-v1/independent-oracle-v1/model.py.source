@@ -1,0 +1,36 @@
+"""Unbound prepared adapter countermodel. PREPARED_NOT_APPLIED only."""
+import runpy
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2]
+NORMAL_DEPENDENCY=ROOT/'independent-oracle-v1/model.py.source'
+ALL_DEPENDENCY=ROOT/'affected-v1/all-query-v1/independent-oracle-v1/model.py.source'
+NORMAL=runpy.run_path(str(NORMAL_DEPENDENCY))
+ALL=runpy.run_path(str(ALL_DEPENDENCY))
+class World(NORMAL['World']):
+    def visit(self,breadth=False,fail=False):
+        raw=([2,3,4] if breadth else [2,4,3]) if self.applied else []
+        invocation=list(reversed(raw));undo=[];values=[]
+        for id in invocation:
+            if id not in self.payloads:continue
+            previous=list(self.payloads[id]);stamp=self.stamp(id);undo.append((id,previous,stamp))
+            self.clock+=1;self.payloads[id]=[id+100,id+200];self.set_stamp(id,(stamp[0],self.clock))
+            if fail and id==4:
+                for k,v,st in reversed(undo):self.payloads[k]=v;self.set_stamp(k,st)
+                return raw,'UserError:4',[]
+            values.append(str(id)+':before='+''.join(str(x)+',' for x in previous))
+        return raw,'Success',values
+class AllWorld(ALL['World']):
+    def visit_all(self,label,breadth=False):
+        raw=[2,3,4] if breadth else [2,4,3]
+        selected=list(reversed([id for id in raw if id in self.live]))
+        return label+'|path='+''.join('1:'+str(id)+',' for id in raw)+'|Success|values=['+', '.join(str(id) for id in selected)+']'
+def scene():
+    w=World();rows=[w.snapshot('BEFORE')];w.pending=3;rows.append(w.snapshot('PENDING'));rows.append(NORMAL['visit_text'](w,'PENDING_DEPTH'))
+    w.pending=0;w.applied=True;rows.append(w.snapshot('APPLIED'));rows.append(NORMAL['visit_text'](w,'FAILED_DEPTH',fail=True));rows.append(w.snapshot('AFTER_FAILURE'));rows.append(NORMAL['visit_text'](w,'RETRY_DEPTH'));rows.append(w.snapshot('AFTER_RETRY'));rows.append(NORMAL['visit_text'](w,'BREADTH',True));rows.append(w.snapshot('FINAL'))
+    return '\n'+'\n'.join(rows)
+def all_scene():
+    w=AllWorld();rows=[w.snapshot('APPLIED'),w.visit_all('LIVE_DEPTH'),w.visit_all('LIVE_BREADTH',breadth=True),'DEACTIVATE:Accepted']
+    w.live.remove(4);rows.extend([w.snapshot('DEACTIVATED'),w.visit_all('DEAD_DEPTH'),w.visit_all('DEAD_BREADTH',breadth=True),w.snapshot('FINAL')])
+    return '\n'.join(rows)
+def expected():return ('DescendantQueryAlpha'+scene()+'\nDescendantQueryBeta'+scene()+'\n').encode()
+def expected_all():return ('AllQueryAlpha'+all_scene()+'\nAllQueryBeta'+all_scene()+'\n').encode()

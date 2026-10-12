@@ -1,0 +1,76 @@
+"""Source-only public TS reference model; no feature execution or output inputs."""
+import copy,json
+ok=lambda value=None: {'ok':True} if value is None else {'ok':True,'value':value}
+def error(tag,id,relation=None):
+    value={'_tag':tag,'entityId':id}
+    if relation is not None:value['relation']=relation
+    return {'ok':False,'error':value}
+class Runtime:
+    def __init__(self,kind):
+        self.kind=kind;self.frame=0;self.tick=0;self.live={1,2,3,4}
+        self.cells={i:({'cells':[i,i*10],'tag':i} if kind=='root-repeat' else [i,i*10]) for i in range(1,5) if kind=='root-repeat' or i in(2,4)}
+        self.parent={};self.link={};self.pending=[];self.removed=[];self.despawned=[];self.reader=0;self.records=[];self.attempts=[]
+    def step(self,systems=0,flush=False):
+        self.frame+=1;self.tick+=systems
+        if flush:
+            self.tick+=1
+            for tag,target in self.pending:
+                if tag=='relate':self.parent={2:1,3:1,4:2};self.link={3:2} if self.kind=='root-repeat' else {}
+                else:self.destroy(target)
+            self.pending=[]
+    def sources(self,m,id):return [s for s,t in m.items() if t==id]
+    def descendants(self,id,breadth=False):
+        pending=self.sources(self.parent,id);result=[]
+        while pending:
+            node=pending.pop(0);result.append(node)
+            children=self.sources(self.parent,node)
+            pending=pending+children if breadth else children+pending
+        return result
+    def traversal(self,id):
+        if id not in self.live:
+            return {'id':id,**{k:error('MissingEntity',id) for k in ('root','ancestors','depth','breadth','children','link','incoming')}}
+        ancestors=[];node=id
+        while node in self.parent:node=self.parent[node];ancestors.append(node)
+        return {'id':id,'root':ok(node),'ancestors':ok(ancestors),'depth':ok(self.descendants(id)),'breadth':ok(self.descendants(id,True)),'children':ok(self.sources(self.parent,id)),'link':ok(self.link[id]) if id in self.link else error('MissingRelation',id,'Link'),'incoming':ok(self.sources(self.link,id))}
+    def dump(self):
+        entities=[]
+        for id in sorted(self.live):
+            relations={}
+            if id in self.parent:relations['Parent']=self.parent[id]
+            if id in self.link:relations['Link']=self.link[id]
+            entities.append({'id':id,'components':{'Cells':copy.deepcopy(self.cells[id])} if id in self.cells else {},'relations':relations})
+        return {'version':1,'frame':self.frame,'tick':self.tick,'entityCount':len(self.live),'entities':entities,'resources':{'Owned':[17,18] if self.kind=='descendant-query' else [[17],[18]],'Owners':[901,902] if self.kind=='descendant-query' else [19]},'machines':{},'pendingCommands':[{'tag':tag,'system':'Seed' if tag=='relate' else 'Cleanup'} for tag,_ in self.pending]}
+    def snapshot(self,label):
+        since=self.reader;self.step(1);self.reader=self.tick
+        logical={'rows':[{'id':i,'cells':copy.deepcopy(self.cells[i])} for i in sorted(self.cells) if i in self.live],'traversal':[self.traversal(i) for i in range(1,5)],'removed':[i for t,i in self.removed if t>since],'despawned':[i for t,i in self.despawned if t>since]}
+        self.records.append({'logical':logical,'label':label,'physical':self.dump(),'streams':[]})
+    def destroy(self,id):
+        if id not in self.live:return
+        for child in list(self.sources(self.parent,id)):self.destroy(child)
+        self.parent={s:t for s,t in self.parent.items() if s!=id}
+        self.link={s:t for s,t in self.link.items() if s!=id and t!=id}
+        if id in self.cells:del self.cells[id];self.removed.append((self.tick,id))
+        self.live.remove(id);self.despawned.append((self.tick,id))
+    def visit(self,label,breadth=False,fail=False):
+        self.step(1);path=self.descendants(1,breadth);selected=[i for i in path if i in self.cells and i in self.live];rows=[]
+        self.attempts.append({'order':'breadth' if breadth else 'depth','fail':fail,'path':ok([{'kind':'EntityId','value':id} for id in path]),'selected':selected,'rows':rows})
+        original=copy.deepcopy(self.cells);failed=False
+        for id in selected:
+            rows.append({'id':id,'before':copy.deepcopy(self.cells[id])});self.cells[id]=[id+100,id+200]
+            if fail and id==4:failed=True;self.cells=original;break
+        self.attempts.append({'label':label,'outcome':{'ok':False,'error':{'kind':'SystemFailure','system':'Visit','error':4}} if failed else ok()})
+    def cleanup(self,label,target,fail=False):
+        self.step(1)
+        if not fail:self.pending.append(('despawn',target))
+        self.attempts.append({'label':label,'outcome':{'ok':False,'error':{'kind':'SystemFailure','system':'Cleanup','error':77}} if fail else ok()})
+def scenario(kind):
+    r=Runtime(kind);r.step(1,True)
+    if kind=='descendant-query':
+        r.snapshot('BEFORE');r.step(1);r.pending=[('relate',None)]*3;r.snapshot('PENDING');r.visit('PENDING_DEPTH');r.step(flush=True);r.snapshot('APPLIED');r.visit('FAILED_DEPTH',fail=True);r.snapshot('AFTER_FAILURE');r.visit('RETRY_DEPTH');r.snapshot('AFTER_RETRY');r.visit('BREADTH',True);r.snapshot('FINAL')
+    else:
+        r.pending=[('relate',None)]*4;r.step(1,True);r.snapshot('INITIAL');r.cleanup('ABORT',2,True);r.step(flush=True);r.snapshot('ABORTED');r.cleanup('QUEUE',2);r.snapshot('PENDING');r.step(flush=True);r.snapshot('APPLIED');r.cleanup('ROOT_QUEUE',1);r.snapshot('ROOT_PENDING');r.cleanup('DUPLICATE_QUEUE',1);r.snapshot('DUPLICATE_PENDING');r.step(flush=True);r.snapshot('ROOT_APPLIED');r.cleanup('DEAD_REPEAT_QUEUE',1);r.snapshot('DEAD_REPEAT_PENDING');r.step(flush=True);r.snapshot('DEAD_REPEAT_APPLIED')
+    return {'kind':kind,'records':r.records,'attempts':r.attempts}
+def expected():return (json.dumps([{'schema':name,'scenarios':[scenario('descendant-query'),scenario('root-repeat')]} for name in ('HierarchyAlpha','HierarchyBeta')],separators=(',',':'),ensure_ascii=False)+'\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(expected())

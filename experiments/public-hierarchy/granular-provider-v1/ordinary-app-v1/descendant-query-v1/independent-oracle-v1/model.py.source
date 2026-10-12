@@ -1,0 +1,49 @@
+"""Unbound source-only descendant query transaction model."""
+import copy
+DESCRIPTOR='1:Parent:Children:hierarchy'
+def recipe(edges,inverses):
+    parents=dict(edges);children=dict(inverses)
+    lines=['Relation{key=1|name=Parent|inverse=Children|kind=Hierarchy}']
+    for i in range(1,5):
+        outgoing='Missing' if i not in parents else 'Target:1:'+str(parents[i])
+        incoming='Missing' if not children.get(i) else 'Sources:['+', '.join('1:'+str(c) for c in children[i])+']'
+        lines.append(f'1:{i}:[Parent:Outgoing:{outgoing}, Children:Incoming:{incoming}]')
+    return lines
+class World:
+    def __init__(self):
+        self.payloads={2:[2,20],4:[4,40]};self.stamps=[];self.clock=0;self.pending=0;self.applied=False
+    def stamp(self,id):return next((v for k,v in self.stamps if k==id),(0,0))
+    def set_stamp(self,id,stamp):self.stamps=[(id,stamp)]+[(k,v) for k,v in self.stamps if k!=id]
+    def visit(self,breadth=False,fail=False):
+        path=([2,3,4] if breadth else [2,4,3]) if self.applied else []
+        undo=[];values=[]
+        for id in path:
+            if id not in self.payloads:continue
+            previous=list(self.payloads[id]);stamp=self.stamp(id);undo.append((id,previous,stamp))
+            self.clock+=1;self.payloads[id]=[id+100,id+200];self.set_stamp(id,(stamp[0],self.clock))
+            if fail and id==4:
+                for k,v,st in reversed(undo):self.payloads[k]=v;self.set_stamp(k,st)
+                return path,'UserError:4',[]
+            values.append(str(id)+':before='+''.join(str(x)+',' for x in previous))
+        return path,'Success',values
+    def physical(self):
+        owners=''.join((''.join(str(x)+',' for x in self.payloads[i]) if i in self.payloads else 'absent')+';' for i in range(1,9))
+        stamps=''.join(f'{i}:{a}:{c};' for i,(a,c) in self.stamps)
+        edges=[(2,1),(3,1),(4,2)] if self.applied else [];inverses=[(1,[2,3]),(2,[4])] if self.applied else []
+        graph='graph-edges='+''.join(DESCRIPTOR+f':{a}:{b};' for a,b in edges)+'|graph-inverses='+''.join(DESCRIPTOR+':'+str(t)+':['+''.join(str(x)+',' for x in xs)+'];' for t,xs in inverses)
+        live=''.join('1,' if 1<=i<=4 else '0,' for i in range(16))
+        return owners+'|stamps='+stamps+f'|events=|meta=1,5,4,8,3,17,18,,1,{self.clock}|registrations=|pending={self.pending}|edges='+graph+'|live='+live+'|resource-all=17,18,'
+    def snapshot(self,label):
+        edges=[(2,1),(3,1),(4,2)] if self.applied else [];inverses=[(1,[2,3]),(2,[4])] if self.applied else []
+        return label+'|owners=901,902,\n'+'\n'.join([self.physical()]+recipe(edges,inverses))+'\n'
+def visit_text(w,label,breadth=False,fail=False):
+    path,status,values=w.visit(breadth,fail)
+    return label+'|path='+''.join('1:'+str(i)+',' for i in path)+'|'+status+'|values=['+', '.join(values)+']'
+def scene():
+    w=World();rows=[w.snapshot('BEFORE')];w.pending=3;rows.append(w.snapshot('PENDING'));rows.append(visit_text(w,'PENDING_DEPTH'))
+    w.pending=0;w.applied=True;rows.append(w.snapshot('APPLIED'));rows.append(visit_text(w,'FAILED_DEPTH',fail=True));rows.append(w.snapshot('AFTER_FAILURE'));rows.append(visit_text(w,'RETRY_DEPTH'));rows.append(w.snapshot('AFTER_RETRY'));rows.append(visit_text(w,'BREADTH',True));rows.append(w.snapshot('FINAL'))
+    return '\n'+'\n'.join(rows)
+def expected():return ('DescendantQueryAlpha'+scene()+'\nDescendantQueryBeta'+scene()+'\n').encode()
+if __name__=='__main__':
+    import sys
+    sys.stdout.buffer.write(expected())
