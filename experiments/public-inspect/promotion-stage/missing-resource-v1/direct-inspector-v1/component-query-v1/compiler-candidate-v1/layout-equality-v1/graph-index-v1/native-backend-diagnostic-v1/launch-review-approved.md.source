@@ -1,0 +1,9 @@
+# Native backend diagnostic v1 launch review
+
+**Verdict: APPROVE this exact prospective one-command diagnostic.** This is a bounded launch approval only; it is not an execution result or Native acceptance.
+
+The plan, freeze, source-scope, and launch packet bind respectively to `7c496d44f1c9ad99f03bb65f685fb1073fe128f2df06eac31206f97e7126ce5e`, `62c8d8a933bbe56f62da5b240997cdf6702984ce85f8eb15a2a27f5ebe40053d`, `612635931d6a9bc20fe7dd8430b291bb23cf8b3bb0b15029af9e8fce377be46d`, and `74fe10ddc76fd3b924d1b134339cb75160d1fc899c218a44fa0e5997ea2b63e7`. All 29 pinned inputs and the five current compiler/resource-root inventories match the frozen packet. The source is the exact archived 43,550,580-byte C entry (`24b6ef6a…58465`).
+
+The unchanged collector runs one command with CPU affinity 3 and a 120-second cap: Clang 19 `-O3 -Xclang -disable-llvm-passes -c … -o /dev/null -pthread`. This discards the object and does not link. Existing runner guards, raw-stream capture, receipt, and lock remain in scope; no Bend preflight/activation is claimed. Output and receipt paths were absent at review time.
+
+The frozen LLVM 19 source supports the narrow interpretation: `DisableLLVMPasses` skips the IR optimization pipeline, while the object path still invokes the code-generation pipeline and target machine; `-c` omits linking. This is source-based inference, not proof that the pinned binary implements those paths identically. The packet makes no Native acceptance, runtime, performance, or retained-object claim. No compiler command was executed during this review.
