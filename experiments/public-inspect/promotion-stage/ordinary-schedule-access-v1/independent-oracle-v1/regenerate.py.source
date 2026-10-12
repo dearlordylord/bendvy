@@ -1,0 +1,31 @@
+from pathlib import Path
+import json,hashlib,runpy,gzip
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def main():
+ b=json.loads((HERE/'SOURCE-BASIS.json').read_text())
+ for p,h in b['inputs'].items():assert sha(p)==h,p
+ m=runpy.run_path(str(HERE/'model.py.source'));top=Path(b['consumerPrefix'])
+ for local in ['alpha','beta']:
+  src=(top/local/'application.bend').read_text();consumer=(top/local/'consumer.bend').read_text()
+  assert 'Sch.Phase{"Prepare"}' in src and 'Sch.System{rid,0}' in src and 'Sch.System{cid,0}' in src and 'Sch.System{sid' not in src
+  assert 'Global.grouped(Global.fields(~F.S,fields),[])' in consumer
+  m['report'].__globals__['LOCAL']=local;cps=m['report']().fields[0].fields[1];assert len(cps)==6
+  for i,cp in enumerate(cps):
+   view,plan,ns,name,steps,needs,fields,globalIndex,physical=cp.fields
+   assert ns==1 and name=='Selected' and needs==[] and len(fields)==3 and len(globalIndex)==3
+   assert globalIndex[0].fields[0].name.endswith('Services') and globalIndex[0].fields[2]==[]
+   assert (view.name=='None')==(i in [2,5])
+   if i not in [2,5]:
+    entries=view.fields[0].fields[2];assert [e.fields[1] for e in entries]==['Inventory','First']
+    assert [e.fields[2][0].fields[1] for e in entries]==[3,2]
+   assert 'Ready:node(leaf:11,leaf:12)' in physical and 'clock=0}' in physical
+   assert ('pending=0;' in physical)==(i>=3)
+  assert m['show'](cps[0])==m['show'](cps[1]) and m['show'](cps[3])==m['show'](cps[4])
+ src=Path(b['accessSource']).read_text();assert 'Bool.and(U32.is_eq(namespace,otherNamespace),U32.is_eq(id,otherId))' in src
+ assert 'Access.grouped(Access.fields(~S,placed(~S,Schedule.planned(~S,plan),namespace,records)),[])' in src
+ raw=m['full_output']();assert raw.count(b'consumer.Checkpoint{')==12 and raw.count(b'ordinary-app-schedule-access.Index{')==8
+ (HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0));digest=hashlib.sha256(raw).hexdigest()
+ (HERE/'ORACLES.json').write_text(json.dumps({'normal':{'stdout':str(HERE/'expected.stdout.gz'),'bytes':len(raw),'sha256':digest,'sourceBasisPath':str(HERE/'SOURCE-BASIS.json'),'sourceBasisSHA256':sha(HERE/'SOURCE-BASIS.json')}},indent=2)+'\n')
+ (HERE/'CHECKS.json').write_text(json.dumps({'status':'SOURCE_DERIVED_COMPLETE_ORACLE_PASS','sourcePins':107,'basisPins':len(b['inputs']),'bytes':len(raw),'sha256':digest,'checks':['Plan-order selectedresource3 thencomponent2 withnamespace+id match','Globalgrouped retains unrelatedClockservice as emptyuse entry','Two nominal schemas/sixcompletecheckpoints/disabledNone/repeatequality','FullphysicalArrays/owners/Registrycursors/events/pendingbarrier retained'],'limits':['No runtime output inputs','Service1 unrelated to plan; retained globally, no serviceexecution claim','Finite consumer not universal multi-container contract','No full56/performance claim']},indent=2)+'\n');print(len(raw),digest)
+if __name__=='__main__':main()

@@ -240,3 +240,9 @@ impossibility, and #56 remains open.
 ### Combined205 protected regression
 
 [Independent final review](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt205-01/FINAL-REVIEW.md) accepts the source-current 205-module integration under the unchanged Workshop gate: 20 paired samples per backend, complete outputs and no statistically confirmed regression. Descriptive candidate/TS time ratios are JS 0.3970 and Native 0.1006. This covers the protected workload; full debug feature timing, overhead and remaining contracts are still open.
+
+### Retained single-Schedule access index
+
+[Bounded final review](../../experiments/public-inspect/promotion-stage/ordinary-schedule-access-v1/FINAL-REVIEW.md) accepts [the public index](../../src/ecs/ordinary-app-schedule-access.bend): the retained operational Plan selects registrations by namespace and Registry ID, in placement order, from ordinary declaration-derived Fields. Disabled debug returns before folding owners. Complete two-schema JS/Native observations match 53,843 bytes; the actual filtering omission matches the independent 58,307-byte counter on both backends and rejects the complete normal result. All 107 source inputs are restored. Actual API nominal/affine refusals and a scoped, executed 3,669-byte TS reference pass.
+
+This covers one retained Schedule. TS empty descriptor entries and name deduplication remain explicit reference differences. Multi-Schedule ownership, enabled overhead, universal proofs and full #56 remain open. Combined205 predates this module; the unchanged #28 gate must run on the next combined batch.

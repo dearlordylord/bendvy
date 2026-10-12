@@ -1,0 +1,30 @@
+from pathlib import Path
+import json,hashlib,runpy,gzip
+HERE=Path(__file__).resolve().parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def main():
+ b=json.loads((HERE/'SOURCE-BASIS.json').read_text())
+ for p,h in b['inputs'].items():assert sha(p)==h,p
+ c=json.loads(Path(b['context']).read_text());assert c['state']=='PREPARED_NOT_APPLIED' and sha(c['target'])==c['normalSHA256']
+ a=Path(b['normalSource']).read_text();z=Path(b['mutantSource']).read_text();assert a.replace(c['before'],c['after'],1)==z
+ m=runpy.run_path(str(HERE/'model.py.source'));normal=runpy.run_path(b['normalModel']);changed=0
+ for local in ['alpha','beta']:
+  m['report'].__globals__['LOCAL']=local;normal['report'].__globals__['LOCAL']=local
+  a=m['report']().fields[0];z=normal['report']().fields[0]
+  assert m['show'](a.fields[0])==normal['show'](z.fields[0]) and m['show'](a.fields[2])==normal['show'](z.fields[2])
+  for cp,np in zip(a.fields[1],z.fields[1]):
+   assert [m['show'](x) for x in cp.fields[1:]]==[normal['show'](x) for x in np.fields[1:]]
+   if cp.fields[0].name=='None':assert np.fields[0].name=='None'
+   else:
+    entries=cp.fields[0].fields[0].fields[2]
+    assert [e.fields[1] for e in entries]==['Clock','First','Inventory']
+    assert [len(e.fields[2]) for e in entries]==[0,2,2]
+    for e in entries[1:]:assert m['show'](e.fields[2][0])==m['show'](e.fields[2][1])
+    changed+=1
+ assert changed==8
+ raw=m['full_output']();baseline=normal['full_output']();assert len(baseline)==53843 and hashlib.sha256(baseline).hexdigest()=='95ff13eba7ac78491548f89997ccca3d7b0fc3781a11cc3df95903cc0588bb24' and raw!=baseline
+ (HERE/'expected.stdout.gz').write_bytes(gzip.compress(raw,mtime=0));(HERE/'normal.stdout.gz').write_bytes(gzip.compress(baseline,mtime=0))
+ def entry(data,path):return {'stdout':str(HERE/path),'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'sourceBasisPath':str(HERE/'SOURCE-BASIS.json'),'sourceBasisSHA256':sha(HERE/'SOURCE-BASIS.json')}
+ (HERE/'ORACLES.json').write_text(json.dumps({'prepared-mutant':entry(raw,'expected.stdout.gz'),'normalBaseline':entry(baseline,'normal.stdout.gz')},indent=2)+'\n')
+ (HERE/'CHECKS.json').write_text(json.dumps({'status':'PREPARED_NOT_APPLIED_SOURCE_MODEL_PASS','sourcePins':107,'basisPins':len(b['inputs']),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'changedEnabledIndices':8,'checks':['UniqueSystemselection-to-allrecords source delta','Existinggrouped stablefirstoccurrence Clock/First/Inventory,duplicateUses retained','Full12states/allotherfields/completion exact,disabled4Noneunchanged','Fullnormal independentlyreproduced'],'limits':['No runtime output inputs','Appliedsourcefreeze required before actualcredit','No full56/performance claim']},indent=2)+'\n');print(len(raw),hashlib.sha256(raw).hexdigest())
+if __name__=='__main__':main()

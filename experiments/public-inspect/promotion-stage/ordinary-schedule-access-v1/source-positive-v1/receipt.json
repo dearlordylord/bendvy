@@ -1,0 +1,56 @@
+{
+  "scope": "Two nominal retained ordinary schedule access indexes, actual Plan identity/order and unrelated Registry exclusion with full owner state",
+  "planSHA256": "bec53cd5e1fd285d2f11bdb705eac6fa3f12ab95e0d21828accc0a6cbdc6edb1",
+  "commands": [
+    {
+      "label": "source-schedule-access",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-inspect/promotion-stage/ordinary-schedule-access-v1/entry.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy56-schedule-access-source01/source-schedule-access.stdout",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy56-schedule-access-source01/source-schedule-access.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy56-schedule-access-source01/source-schedule-access-pre.guard.json",
+      "sha256": "49bcb8432ed493053865b57fd1a05be16a26a1710fada7aae7f97740445a0eba"
+    },
+    {
+      "path": "/tmp/bendvy56-schedule-access-source01/source-schedule-access-acquired.guard.json",
+      "sha256": "a038bde599d9eb2c55c058574b9598774a7a11292a4a7a68e6cbad7e097b86ed"
+    },
+    {
+      "path": "/tmp/bendvy56-schedule-access-source01/source-schedule-access-post.guard.json",
+      "sha256": "0d0549c1e78c8fceabdb77b1967ab6e78f78f0adae580e2a99e8804278688d94"
+    },
+    {
+      "path": "/tmp/bendvy56-schedule-access-source01/final.guard.json",
+      "sha256": "781ba7e19e389aaaaf6e778d9c504d686a611677801598f991596994ca471bdd"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}
