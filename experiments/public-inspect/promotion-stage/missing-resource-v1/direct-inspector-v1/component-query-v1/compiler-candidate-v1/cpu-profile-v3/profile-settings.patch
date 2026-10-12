@@ -1,0 +1,11 @@
+--- profiled-v2.mjs
++++ profiled-v3.mjs
+@@ -5186,7 +5186,7 @@
+   let full;
+   let diagnostic_pass = 0;
+   const diagnostic_profile = (stage, fields = {}) => {
+-    if (Date.now() - DIAGNOSTIC_PROFILE_START > 25000) {
++    if (Date.now() - DIAGNOSTIC_PROFILE_START > 20000) {
+       fs2.writeSync(2, "DIAGNOSTIC_PROFILE_STOP\n");
+       process.exit(77);
+     }
