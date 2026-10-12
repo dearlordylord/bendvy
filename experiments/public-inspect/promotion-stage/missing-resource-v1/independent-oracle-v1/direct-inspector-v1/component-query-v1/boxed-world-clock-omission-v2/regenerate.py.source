@@ -1,0 +1,403 @@
+"""Regenerate the v2 source-only all-schema clock-omission model."""
+from pathlib import Path
+import gzip
+import hashlib
+import json
+import runpy
+import zipfile
+
+HERE = Path(__file__).resolve().parent
+MODEL = HERE / "model.py.source"
+SOURCE = Path(
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/"
+    "experiments/public-inspect/promotion-stage/missing-resource-v1/"
+    "direct-inspector-v1/component-query-v1"
+)
+CANDIDATE_DIR = SOURCE / "boxed-world-clock-omission-v2"
+FREEZE = CANDIDATE_DIR / "FREEZE.json"
+ARCHIVE = SOURCE / "SOURCE03.zip"
+NORMAL_FREEZE = SOURCE / "FREEZE03.json"
+NORMAL_C = SOURCE / "compiler-candidate-v1/layout-equality-v1/graph-index-v1/inline-layout31-v1/native/scenario.c"
+CANDIDATE_C = CANDIDATE_DIR / "candidate.c"
+MUTATION = CANDIDATE_DIR / "MUTATION.diff"
+PROPOSAL = CANDIDATE_DIR / "PROPOSED-MUTATION.json"
+NOMINAL_MAPPING = CANDIDATE_DIR / "NOMINAL-MAPPING.json"
+CONTEXT_1 = CANDIDATE_DIR / "FID_WORLD_OBSERVER_JOINED_1_K12643.c.source"
+CONTEXT_0 = CANDIDATE_DIR / "FID_WORLD_OBSERVER_JOINED_0_K12793.c.source"
+NORMAL_ORACLE = HERE.parent / "successor-v3" / "expected.stdout.gz"
+NORMAL_MODEL = HERE.parent / "successor-v3" / "model.py.source"
+NORMAL_BASIS = HERE.parent / "successor-v3" / "SOURCE-BASIS.json"
+
+PINS = {
+    str(FREEZE): "a54d12625171912a862ee78b92bda48ccf68dafd783c8712137de997b87a7612",
+    str(ARCHIVE): "1bad45b47df384360c494e8e0ebe1ca8f587282bd3d3981bad93f4289e3185ef",
+    str(NORMAL_FREEZE): "61a41beac48858fee0fbb88e3bb3575114160a23c479410334c9921fd268d31f",
+    str(NORMAL_C): "da2ccfc70e99519923f407eabc8b1fc6a30caccf92747f3c32af7c3b4792b1f0",
+    str(CANDIDATE_C): "a26935fb4b8ce58553aa8e5dfbd9b8270464c6ce793ab88388269cd9f4ef776e",
+    str(MUTATION): "9affc813f176c1f8e63003a9590350dba4e00ed461584c52fda2abc3145ac2b7",
+    str(PROPOSAL): "21f3db8ad690d5bf6b00efc6447be1eb7c7b624095deb69301c57e8858fd304c",
+    str(NOMINAL_MAPPING): "015c713138a8de46302b773e322ae1d5d495872b47401e444eb43748e04d7606",
+    str(CONTEXT_1): "727d5956bd023e90ef5366c66f9611355f66c329ad31854ede9abdb28cb00611",
+    str(CONTEXT_0): "858c7d08bd1bd500cd06c862402fcbce9755c9bce670c09914f508fffec0b15a",
+    str(NORMAL_ORACLE): "455752f01484f7e3a8e9745ce9cff26dc2fc1db6b8b3919888e4dedd7158b59e",
+    str(NORMAL_MODEL): "998b31ecf464408fa15c23243bb49afaae4ffb2d78f057f11efb992ad96e0aa0",
+    str(NORMAL_BASIS): "75a997b86e7e2e79c4d4984a570c882d53ae6e25ff1bbbae0afde0abe7d1c3ec",
+}
+NORMAL_BYTES = 207834
+NORMAL_SHA256 = "14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d"
+COUNTER_BYTES = 217304
+COUNTER_SHA256 = "94c84156df10cd969db592bc36b200ad14893986bfa2407aa2b58a46f1cdd21a"
+COUNTER_GZIP_BYTES = 4673
+COUNTER_GZIP_SHA256 = "82998ff62c31dfdac1f6971a45fd63da8c69675d997b88d718097db95a0cca6d"
+OLD_LINE = b"    e.mem[_nd_2 + 12] = rfc_seal(e, _clock_35);"
+NEW_LINE = b"    e.mem[_nd_2 + 12] = rfc_seal(e, (u32)0);"
+LABELS = [
+    "registered", "bootstrap", "repeat", "retry-failed", "retry-success",
+    "retry-repeat", "writer-first", "changed", "changed-repeat",
+    "writer-second", "changed-again",
+]
+
+
+def sha_bytes(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def sha_path(path):
+    return sha_bytes(Path(path).read_bytes())
+
+
+def write_json(path, value):
+    path.write_text(json.dumps(value, indent=2) + "\n")
+
+
+def case_body(text, name):
+    start = text.index(f"WL_CASE({name})")
+    end = text.index("#endif", start)
+    return text[start:end]
+
+
+for path, expected in PINS.items():
+    assert sha_path(path) == expected, f"pinned input changed: {path}"
+
+freeze = json.loads(FREEZE.read_text())
+normal_freeze = json.loads(NORMAL_FREEZE.read_text())
+inventory = freeze["sourceInventory"]
+assert len(inventory) == len(normal_freeze["sourceInventory"]) == 53
+assert inventory == normal_freeze["sourceInventory"]
+for path, expected in freeze["pins"].items():
+    assert sha_path(path) == expected, f"candidate freeze pin changed: {path}"
+with zipfile.ZipFile(ARCHIVE) as archive:
+    bodies = {"/" + name: archive.read(name) for name in archive.namelist()}
+assert set(bodies) == set(inventory)
+for source_path, expected_hash in inventory.items():
+    assert sha_bytes(bodies[source_path]) == expected_hash, source_path
+    assert sha_path(source_path) == expected_hash, source_path
+
+# Candidate C differs from normal C at exactly both schema-specific World boxes.
+normal_c = NORMAL_C.read_bytes()
+candidate_c = CANDIDATE_C.read_bytes()
+assert normal_c.count(OLD_LINE) == 2
+assert candidate_c.count(OLD_LINE) == 0
+assert candidate_c.count(NEW_LINE) == 2
+assert candidate_c == normal_c.replace(OLD_LINE, NEW_LINE)
+assert len(normal_c) == 21470090
+assert len(candidate_c) == 21470084
+assert sha_bytes(normal_c) == freeze["normalCSHA256"] == PINS[str(NORMAL_C)]
+assert sha_bytes(candidate_c) == freeze["candidateCSHA256"] == PINS[str(CANDIDATE_C)]
+
+context_1 = CONTEXT_1.read_bytes()
+context_0 = CONTEXT_0.read_bytes()
+assert b"WL_CASE(FID_WORLD_OBSERVER_JOINED_1_K12643)" in context_1
+assert b"WL_CASE(FID_WORLD_OBSERVER_JOINED_0_K12793)" in context_0
+assert context_1.count(OLD_LINE) == context_0.count(OLD_LINE) == 1
+assert NEW_LINE in MUTATION.read_bytes()
+assert MUTATION.read_bytes().count(NEW_LINE) == 2
+assert MUTATION.read_bytes().count(OLD_LINE) == 2
+
+source_by_name = {
+    Path(path).name: bodies[path].decode("utf-8") for path in inventory
+}
+observer = source_by_name["world-observer.bend"]
+consumer = source_by_name["consumer.bend"]
+joined_start = observer.index("def joined(")
+joined_end = observer.index("\ndef world(", joined_start)
+joined_body = observer[joined_start:joined_end]
+assert "W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock}" in joined_body
+assert '"|clock=" ++ U32.show(clock)' in joined_body
+assert "Dump.world(~S,world)" in consumer
+snapshot_start = consumer.index("def snapshot_join(")
+snapshot_end = consumer.index("\ndef snapshot(", snapshot_start)
+snapshot_join = consumer[snapshot_start:snapshot_end]
+assert "snapshot_final(~S,label" in snapshot_join and "targets,world,writer,factory" in snapshot_join
+snapshot_start = consumer.index("def snapshot(")
+snapshot_end = consumer.index("\ndef ", snapshot_start + 5)
+snapshot_body = consumer[snapshot_start:snapshot_end]
+assert "Dump.world(~S,world)" in snapshot_body
+
+# Bind both C paths to the two nominal fixture branches and common consumer.
+nominal = json.loads(NOMINAL_MAPPING.read_text())
+assert nominal == {
+    "Workshop": "BUILT_0/COMPLETE_0→SNAPSHOT_0→WORLD_0_K12902→JOINED_0_K12793",
+    "Garden": "BUILT_1/COMPLETE_1→SNAPSHOT_1→WORLD_1_K12865→JOINED_1_K12643",
+    "source": "consumer.main typed Workshop/Garden branches +normalC explicit callchains",
+    "checkpointsPerSchema": 11,
+}
+normal_c_text = normal_c.decode("utf-8")
+world_1_caller = case_body(normal_c_text, "FID_WORLD_OBSERVER_WORLD_1_K12865")
+world_0_caller = case_body(normal_c_text, "FID_WORLD_OBSERVER_WORLD_0_K12902")
+snapshot_1_caller = case_body(normal_c_text, "FID_CONSUMER_SNAPSHOT_1")
+snapshot_0_caller = case_body(normal_c_text, "FID_CONSUMER_SNAPSHOT_0")
+assert "fid_nofk(FID_WORLD_OBSERVER_JOINED_1)" in world_1_caller
+assert "fid_nofk(FID_WORLD_OBSERVER_JOINED_0)" in world_0_caller
+assert "fid_nofk(FID_WORLD_OBSERVER_WORLD_1)" in snapshot_1_caller
+assert "fid_nofk(FID_WORLD_OBSERVER_WORLD_0)" in snapshot_0_caller
+joined_1_box = case_body(normal_c_text, "FID_WORLD_OBSERVER_JOINED_1_K12643")
+joined_0_box = case_body(normal_c_text, "FID_WORLD_OBSERVER_JOINED_0_K12793")
+assert joined_1_box.count(OLD_LINE.decode()) == 1
+assert joined_0_box.count(OLD_LINE.decode()) == 1
+main_start = normal_c_text.index("WL_CASE(FID_CONSUMER_MAIN)")
+main_end = normal_c_text.index("WL_CASE(FID_MAIN)", main_start)
+main_callgraph = normal_c_text[main_start:main_end]
+ordered_calls = [
+    "FID_FIXTURE_WORKSHOP", "FID_CONSUMER_BUILT_0", "FID_CONSUMER_COMPLETE_0",
+    "FID_CONSUMER_DETACHED_0", "FID_FIXTURE_GARDEN", "FID_CONSUMER_BUILT_1",
+    "FID_CONSUMER_COMPLETE_1", "FID_CONSUMER_DETACHED_1",
+]
+call_positions = [main_callgraph.index(name) for name in ordered_calls]
+assert call_positions == sorted(call_positions)
+assert '"Workshop=" ++ detached(~D.Workshop' in consumer
+assert '"|Garden=" ++ detached(~D.Garden' in consumer
+action_start = consumer.index("def actions(")
+action_end = consumer.index("\ndef action(", action_start)
+action_body = consumer[action_start:action_end]
+assert action_body.count("Round{") == 5
+assert action_body.count("Retry{") == 3
+assert action_body.count("Schedule{") == 2
+assert 'snapshot(~S,"registered"' in consumer
+
+# The normal model and complete output remain independently pinned.
+normal_model = runpy.run_path(str(NORMAL_MODEL))
+normal_output = normal_model["stdout_bytes"]()
+assert len(normal_output) == NORMAL_BYTES
+assert sha_bytes(normal_output) == NORMAL_SHA256
+assert gzip.decompress(NORMAL_ORACLE.read_bytes()) == normal_output
+
+# Both schema-specific returned World payloads are omitted. Each schema uses
+# the same 11-label consumer sequence, so this unchanged model resets at all 22
+# source-level Dump.world boundaries. No runtime stdout is read.
+model = runpy.run_path(str(MODEL))
+counter_output = model["stdout_bytes"]()
+assert counter_output != normal_output
+assert len(counter_output) == COUNTER_BYTES
+assert sha_bytes(counter_output) == COUNTER_SHA256
+assert counter_output.count(b"|factory=2|physical=") == 22
+assert counter_output.count(b"schedule=Finished|observations=[Ran{1}]") == 4
+assert counter_output.count(b"|checks=[True,True,True,True,True,True,True,True,False]") == 20
+assert model["PHYSICAL_CLOCKS"] == [33, 14, 14, 0, 1, 1, 8, 14, 14, 8, 14]
+first_difference = next(
+    index for index, (normal, counter) in enumerate(zip(normal_output, counter_output))
+    if normal != counter
+)
+assert first_difference == 5335
+context_start = max(0, first_difference - 48)
+context_end = first_difference + 128
+normal_context = normal_output[context_start:context_end].decode("ascii")
+counter_context = counter_output[context_start:context_end].decode("ascii")
+assert "clock=47" in normal_context and "clock=14" in counter_context
+
+compressed = gzip.compress(counter_output, mtime=0)
+assert len(compressed) == COUNTER_GZIP_BYTES
+assert sha_bytes(compressed) == COUNTER_GZIP_SHA256
+assert gzip.decompress(compressed) == counter_output
+counter_path = HERE / "counter.stdout.gz"
+counter_path.write_bytes(compressed)
+
+source_basis_path = HERE / "SOURCE-BASIS.json"
+oracles_path = HERE / "ORACLES.json"
+checks_path = HERE / "CHECKS.json"
+model_sha = sha_path(MODEL)
+regenerator_sha = sha_path(__file__)
+source_basis = {
+    "state": "SOURCE_DERIVED_BOTH_SCHEMA_NATIVE_COUNTERMODEL",
+    "sourceCount": len(inventory),
+    "sourceFreeze": {
+        "path": str(NORMAL_FREEZE),
+        "sha256": PINS[str(NORMAL_FREEZE)],
+        "sourceArchivePath": str(ARCHIVE),
+        "sourceArchiveSHA256": PINS[str(ARCHIVE)],
+        "entrypoint": normal_freeze.get("entrypoint"),
+        "sourceOnlyEntrypoint": normal_freeze.get("sourceOnlyEntrypoint"),
+        "queryKindCount": len(normal_freeze.get("queryKinds", [])),
+        "checkKindCount": len(normal_freeze.get("checkKinds", [])),
+        "checkpointCount": len(normal_freeze.get("checkpoints", [])),
+    },
+    "candidateFreeze": {"path": str(FREEZE), "sha256": PINS[str(FREEZE)]},
+    "candidateC": {
+        "path": str(CANDIDATE_C),
+        "sha256": PINS[str(CANDIDATE_C)],
+        "normalPath": str(NORMAL_C),
+        "normalSHA256": PINS[str(NORMAL_C)],
+        "normalBytes": len(normal_c),
+        "candidateBytes": len(candidate_c),
+        "mutations": [
+            {
+                "function": "FID_WORLD_OBSERVER_JOINED_0_K12793",
+                "nominalSchema": "Workshop",
+                "field": "WorldCID32 physical slot 12 (clock)",
+                "from": OLD_LINE.decode().strip(),
+                "to": NEW_LINE.decode().strip(),
+                "contextPath": str(CONTEXT_0),
+                "contextSHA256": PINS[str(CONTEXT_0)],
+            },
+            {
+                "function": "FID_WORLD_OBSERVER_JOINED_1_K12643",
+                "nominalSchema": "Garden",
+                "field": "WorldCID32 physical slot 12 (clock)",
+                "from": OLD_LINE.decode().strip(),
+                "to": NEW_LINE.decode().strip(),
+                "contextPath": str(CONTEXT_1),
+                "contextSHA256": PINS[str(CONTEXT_1)],
+            },
+        ],
+        "diffPath": str(MUTATION),
+        "diffSHA256": PINS[str(MUTATION)],
+        "proposalPath": str(PROPOSAL),
+        "proposalSHA256": PINS[str(PROPOSAL)],
+    },
+    "callGraph": {
+        "mappingPath": str(NOMINAL_MAPPING),
+        "mappingSHA256": PINS[str(NOMINAL_MAPPING)],
+        "mapping": nominal,
+        "sourceWitness": (
+            "consumer.main constructs Workshop first through BUILT_0/COMPLETE_0 and "
+            "Garden second through BUILT_1/COMPLETE_1. Normal C routes snapshot_0 to "
+            "WORLD_0 then WORLD_0_K12902/JOINED_0_K12793 and snapshot_1 to "
+            "WORLD_1 then WORLD_1_K12865/JOINED_1_K12643."
+        ),
+        "consumerSnapshotLabels": LABELS,
+        "bothSpecializationsCoverAllLabels": True,
+    },
+    "sourceSemantics": {
+        "observer": (
+            "world-observer.joined carries the input clock in both returned Worlds and "
+            "renders that same clock in the accompanying String. The two frozen C edits "
+            "change only the corresponding returned World clock payloads; both String "
+            "payloads remain intact."
+        ),
+        "consumer": (
+            "consumer.snapshot passes Dump.world(~S,world) into snapshot_join; snapshot_join "
+            "passes its returned World to snapshot_final, which stores it back into Carry."
+        ),
+        "nativeEffect": (
+            "Both schema branches therefore retain the pre-mutation physical text and carry "
+            "a zero-clock World into the next action after each snapshot."
+        ),
+    },
+    "trace": {
+        "schemas": ["Workshop", "Garden"],
+        "physicalCheckpointLabels": LABELS,
+        "displayedWorldClocksPerSchema": model["PHYSICAL_CLOCKS"],
+        "setupClockBeforeFirstCheckpoint": 33,
+        "ordinaryInspectorQueries": 14,
+        "cursorFreeChecks": 9,
+        "physicalCheckpointsPerSchema": 11,
+        "scheduleObservationsPerSchema": 2,
+        "retainedPhysicalOwners": ["World", "Arrays", "resource", "events", "pending"],
+    },
+    "canonicalOutput": {
+        "normalBytes": NORMAL_BYTES,
+        "normalSHA256": NORMAL_SHA256,
+        "normalOraclePath": str(NORMAL_ORACLE),
+        "normalOracleSHA256": PINS[str(NORMAL_ORACLE)],
+        "normalModelPath": str(NORMAL_MODEL),
+        "normalModelSHA256": PINS[str(NORMAL_MODEL)],
+        "normalBasisPath": str(NORMAL_BASIS),
+        "normalBasisSHA256": PINS[str(NORMAL_BASIS)],
+    },
+    "model": {"path": str(MODEL), "sha256": model_sha},
+    "regenerator": {"path": str(Path(__file__)), "sha256": regenerator_sha},
+    "runtimeOutputInputs": [],
+    "limits": [
+        "This is a finite source-derived countermodel of the exact two-schema consumer and two C payload substitutions.",
+        "No Native or JavaScript runtime stdout is an input to the model.",
+        "The output is specific to this fixture and does not prove a universal property of all World observers.",
+    ],
+}
+write_json(source_basis_path, source_basis)
+
+oracles = {
+    "countermodel": {
+        "stdout": str(counter_path),
+        "bytes": len(counter_output),
+        "sha256": sha_bytes(counter_output),
+        "gzipBytes": len(compressed),
+        "gzipSHA256": sha_bytes(compressed),
+        "sourceBasisPath": str(source_basis_path),
+        "sourceBasisSHA256": sha_path(source_basis_path),
+        "normalFirstDifference": {
+            "offset": first_difference,
+            "normalContext": normal_context,
+            "counterContext": counter_context,
+        },
+    },
+    "normal": {
+        "stdout": str(NORMAL_ORACLE),
+        "bytes": NORMAL_BYTES,
+        "sha256": NORMAL_SHA256,
+        "gzipBytes": len(NORMAL_ORACLE.read_bytes()),
+        "gzipSHA256": PINS[str(NORMAL_ORACLE)],
+        "sourceBasisPath": str(NORMAL_BASIS),
+        "sourceBasisSHA256": PINS[str(NORMAL_BASIS)],
+    },
+}
+write_json(oracles_path, oracles)
+
+checks = {
+    "status": "PASS",
+    "candidateFreezeSHA256": PINS[str(FREEZE)],
+    "sourceFreezeSHA256": PINS[str(NORMAL_FREEZE)],
+    "sourceArchiveSHA256": PINS[str(ARCHIVE)],
+    "sourceCount": len(inventory),
+    "candidateCSHA256": PINS[str(CANDIDATE_C)],
+    "normalCSHA256": PINS[str(NORMAL_C)],
+    "clockSlotMutations": 2,
+    "nominalSchemas": ["Workshop", "Garden"],
+    "queryKinds": len(normal_freeze.get("queryKinds", [])),
+    "checkKinds": len(normal_freeze.get("checkKinds", [])),
+    "physicalCheckpointsPerSchema": len(normal_freeze.get("checkpoints", [])),
+    "displayedWorldClocksPerSchema": model["PHYSICAL_CLOCKS"],
+    "physicalSnapshots": counter_output.count(b"|factory=2|physical="),
+    "scheduleObservations": counter_output.count(b"schedule=Finished|observations=[Ran{1}]"),
+    "checkTuples": counter_output.count(b"|checks=[True,True,True,True,True,True,True,True,False]"),
+    "runtimeOutputInputs": [],
+    "normal": {"bytes": NORMAL_BYTES, "sha256": NORMAL_SHA256},
+    "countermodel": {
+        "bytes": len(counter_output),
+        "sha256": sha_bytes(counter_output),
+        "gzipBytes": len(compressed),
+        "gzipSHA256": sha_bytes(compressed),
+        "firstDifferenceOffset": first_difference,
+    },
+    "assertions": [
+        "all 53 source bodies match the exact shared FREEZE03 and SOURCE03 pins",
+        "candidate C is exactly normal C with the two frozen schema-specific clock-field mutations",
+        "normal C maps the Workshop and Garden branches to their separate world observer call chains",
+        "each consumer snapshot specialization calls its matching world observer specialization",
+        "both branches carry the returned Dump.world World through the same 11 snapshot labels",
+        "the untouched source-derived normal model reproduces its archived oracle exactly",
+        "the full 217304-byte countermodel matches its fixed source-derived digest without runtime inputs",
+        "countermodel includes 22 physical snapshots, four schedule observations and 20 check tuples",
+        "the countermodel first differs from normal at byte 5335 and deterministic gzip round-trips",
+    ],
+}
+write_json(checks_path, checks)
+print(json.dumps({
+    "status": "PASS",
+    "rawBytes": len(counter_output),
+    "rawSHA256": sha_bytes(counter_output),
+    "gzipBytes": len(compressed),
+    "gzipSHA256": sha_bytes(compressed),
+    "firstDifferenceOffset": first_difference,
+    "sourceCount": len(inventory),
+    "clockSlotMutations": 2,
+}, sort_keys=True))

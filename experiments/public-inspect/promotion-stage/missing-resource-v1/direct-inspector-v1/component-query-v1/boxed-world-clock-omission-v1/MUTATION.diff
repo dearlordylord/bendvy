@@ -1,0 +1,11 @@
+--- qualified-normal.c
++++ candidate.c
+@@ -569469,7 +569469,7 @@
+     e.mem[_nd_2 + 9] = rfc_seal(e, _observedPending_42);
+     e.mem[_nd_2 + 10] = rfc_seal(e, _registrations_35);
+     e.mem[_nd_2 + 11] = rfc_seal(e, _nextSystemId_35);
+-    e.mem[_nd_2 + 12] = rfc_seal(e, _clock_35);
++    e.mem[_nd_2 + 12] = rfc_seal(e, (u32)0);
+     r0 = term_ctr(CID_________________________BENDVY_SRC_ECS_WORLD_WORLD, _nd_2);
+     r1 = _h_186;
+     WL_RETN(2);

@@ -1,0 +1,509 @@
+"""Independent source-derived renderer for boxed World-clock omission.
+
+This finite model follows the frozen two-schema consumer and the pinned ECS
+implementation. It does not read or compare against Bend runtime output.
+"""
+import json
+
+
+SCHEMAS = ("Workshop", "Garden")
+QUERY_ORDER = (
+    "empty",
+    "optionalFour",
+    "requiredPair",
+    "fiveAlias",
+    "withWithout",
+    "multipleWith",
+    "multipleWithout",
+    "repeated",
+    "contradictory",
+    "addedBoth",
+    "changedBoth",
+    "mixedFilters",
+    "repeatedAdded",
+    "optionalUnselectedFilter",
+)
+CHECK_ORDER = QUERY_ORDER[:9]
+COMPONENTS = ("stock", "title", "active", "count")
+INITIAL_FILTER_IDS = [
+    [4, 8, 12, 16], [4, 8, 12, 16], [4, 8, 12, 16],
+    [2, 4, 6, 8, 10, 12, 14, 16], [5, 6, 7, 8, 13, 14, 15, 16],
+]
+REPEAT_FILTER_IDS = [
+    [8, 12, 16], [12, 16], [12, 16], [10, 12, 14, 16], [13, 14, 15, 16],
+]
+AFTER_WRITER_FILTER_IDS = [
+    [8, 12, 16], [], [], [10, 12, 14, 16], [13, 14, 15, 16],
+]
+PHYSICAL_CLOCKS = [33, 14, 14, 0, 1, 1, 8, 14, 14, 8, 14]
+
+
+def comma_list(values, *, spaces=False):
+    return "[" + (", " if spaces else ",").join(values) + "]"
+
+
+def tree(values, render):
+    """Render the balanced Array tree shown by world-observer.bend."""
+    if len(values) == 1:
+        return "leaf:" + render(values[0])
+    middle = len(values) // 2
+    return "node(" + tree(values[:middle], render) + "," + tree(values[middle:], render) + ")"
+
+
+def has_component(component, entity):
+    bit = {"stock": 1, "title": 2, "active": 4, "count": 8}[component]
+    return bool((entity - 1) & bit)
+
+
+def fresh_world():
+    """Run the source fixture's accepted preloads in their declared order."""
+    world = {
+        "clock": 1,  # create() followed by the fixture's explicit advance_clock
+        "values": {component: {} for component in COMPONENTS},
+        "stamps": {component: {} for component in COMPONENTS},
+        "stamp_order": {component: [] for component in COMPONENTS},
+        "pending": 1,
+        "writer_cursor": 0,
+        "writer_value": 700,
+        "writer_out": None,
+        "dumped_clock_values": [],
+    }
+    for entity in range(1, 17):
+        for component in COMPONENTS:
+            if not has_component(component, entity):
+                continue
+            payload = {
+                "stock": entity * 10 + 1,
+                "title": entity * 10 + 2,
+                "active": 1 - entity % 2,
+                "count": entity * 10 + 4,
+            }[component]
+            write(world, component, entity, payload)
+    assert world["clock"] == 33
+    return world
+
+
+def write(world, component, entity, payload):
+    """Model component.replace's clock and lifecycle.after_write updates."""
+    world["clock"] += 1
+    tick = world["clock"]
+    old = world["stamps"][component].get(entity)
+    added = tick if old is None else old[0]
+    world["values"][component][entity] = payload
+    world["stamps"][component][entity] = (added, tick)
+    order = world["stamp_order"][component]
+    world["stamp_order"][component] = [entity] + [old_entity for old_entity in order if old_entity != entity]
+
+
+def stamp_matches(world, component, entity, mode, cursor):
+    stamp = world["stamps"][component].get(entity)
+    if stamp is None:
+        return False
+    tick = stamp[0] if mode == "added" else stamp[1]
+    return tick > cursor
+
+
+def selected(world, query, entity, cursor):
+    present = lambda name: entity in world["values"][name]
+    if query in ("empty", "optionalFour"):
+        return True
+    if query in ("requiredPair", "fiveAlias"):
+        return present("stock") and (query != "requiredPair" or present("title"))
+    if query == "withWithout":
+        return present("stock") and present("title") and not present("active") and not present("count")
+    if query == "multipleWith":
+        return present("stock") and present("title") and present("active")
+    if query == "multipleWithout":
+        return not present("stock") and not present("title") and not present("active")
+    if query == "repeated":
+        return present("stock") and not present("active")
+    if query == "contradictory":
+        return present("stock") and not present("stock")
+    if query == "addedBoth":
+        return (
+            present("stock")
+            and stamp_matches(world, "stock", entity, "added", cursor)
+            and present("title")
+            and stamp_matches(world, "title", entity, "added", cursor)
+        )
+    if query == "changedBoth":
+        return (
+            present("stock")
+            and stamp_matches(world, "stock", entity, "changed", cursor)
+            and present("title")
+            and stamp_matches(world, "title", entity, "changed", cursor)
+        )
+    if query == "mixedFilters":
+        return (
+            present("stock")
+            and stamp_matches(world, "stock", entity, "added", cursor)
+            and present("title")
+            and stamp_matches(world, "title", entity, "changed", cursor)
+        )
+    if query == "repeatedAdded":
+        return present("stock") and stamp_matches(world, "stock", entity, "added", cursor)
+    if query == "optionalUnselectedFilter":
+        return present("active") and stamp_matches(world, "active", entity, "changed", cursor)
+    raise AssertionError(f"unmodeled query: {query}")
+
+
+def optional(world, component, entity):
+    if entity not in world["values"][component]:
+        return {"present": False}
+    value = world["values"][component][entity]
+    if component == "title":
+        value = str(value)
+    elif component == "active":
+        value = value == 1
+    elif component == "count":
+        value = [value]
+    return {"present": True, "value": value}
+
+
+def data_for(world, query, entity):
+    def required(component):
+        value = world["values"][component][entity]
+        return str(value) if component == "title" else value
+
+    def opt(component):
+        return optional(world, component, entity)
+
+    fields = {
+        "empty": (),
+        "optionalFour": (("stock", "stock"), ("title", "title"), ("active", "active"), ("count", "count")),
+        "requiredPair": (("stock", "stock!"), ("title", "title!"), ("active", "active"), ("count", "count")),
+        "fiveAlias": (("stock", "stock!"), ("title", "title"), ("active", "active"), ("count", "count"), ("stockAlias", "stock")),
+        "withWithout": (),
+        "multipleWith": (),
+        "multipleWithout": (),
+        "repeated": (),
+        "contradictory": (),
+        "addedBoth": (),
+        "changedBoth": (),
+        "mixedFilters": (("active", "active"),),
+        "repeatedAdded": (),
+        "optionalUnselectedFilter": (("title", "title"),),
+    }[query]
+    result = {}
+    for output_name, source in fields:
+        if source.endswith("!"):
+            component = source[:-1]
+            result[output_name] = required(component)
+        else:
+            result[output_name] = opt(source)
+    return result
+
+
+def query_rows(world, query, cursor):
+    rows = []
+    for entity in range(1, 17):
+        if selected(world, query, entity, cursor):
+            row = {"entityId": entity, "data": data_for(world, query, entity)}
+            rows.append(json.dumps(row, separators=(",", ":"), ensure_ascii=False))
+    return rows
+
+
+def query_ids(world, query, cursor):
+    return [entity for entity in range(1, 17) if selected(world, query, entity, cursor)]
+
+
+def query_record(world, query, cursor):
+    return query + "=" + comma_list(query_rows(world, query, cursor))
+
+
+def record_ids(record):
+    return [row["entityId"] for row in json.loads(record.split("=", 1)[1])]
+
+
+def record_filter_ids(records):
+    return [record_ids(records[index]) for index in range(9, 14)]
+
+
+def instance_text(instance):
+    if instance is None:
+        return "Fresh"
+    cursor, registered_at = instance
+    return f"Active:{cursor}:{registered_at}"
+
+
+def inspect(world, query, instance):
+    before = world["clock"]
+    before_instance = instance_text(instance)
+    cursor = 0 if instance is None else instance[0]
+    record = query_record(world, query, cursor)
+    registered_at = before if instance is None else instance[1]
+    # Every Inspector body in this closed fixture returns Done. inspector.finished
+    # advances World.clock once on Done; failure keeps both the world and cursor.
+    world["clock"] += 1
+    returned = (world["clock"], registered_at)
+    boundary = (
+        f"clock={before}->{world['clock']};instance={before_instance}->"
+        f"{instance_text(returned)}"
+    )
+    return record, returned, boundary
+
+
+def run_round(world, prior_instances, queries=QUERY_ORDER):
+    assert len(prior_instances) == len(queries) == 14
+    records, boundaries, returned = [], [], []
+    for query, instance in zip(queries, prior_instances):
+        record, instance_after, boundary = inspect(world, query, instance)
+        records.append(record)
+        boundaries.append(boundary)
+        returned.append(instance_after)
+    checks = []
+    for query, record in zip(CHECK_ORDER, records):
+        # Check.run is cursorless and requires both a nonempty result and exact
+        # equality with the source-generated canonical record passed as args.
+        expected = query_record(world, query, 0)
+        checks.append(record == expected and bool(query_rows(world, query, 0)))
+    assert checks == [True] * 8 + [False]
+    assert [query_ids(world, q, 0) for q in QUERY_ORDER[:9]] == [
+        list(range(1, 17)),
+        list(range(1, 17)),
+        [4, 8, 12, 16],
+        [2, 4, 6, 8, 10, 12, 14, 16],
+        [4],
+        [8, 16],
+        [1, 9],
+        [2, 4, 10, 12],
+        [],
+    ]
+    return returned, records, boundaries, checks
+
+
+def instance_list(instances):
+    return comma_list([instance_text(value) for value in instances])
+
+
+def fmt_checks(checks):
+    return comma_list(["True" if value else "False" for value in checks])
+
+
+def resource_text():
+    return (
+        "node(node(leaf:101,leaf:101),node(leaf:101,leaf:101));"
+        "node(leaf:201,leaf:201);node(leaf:301,leaf:301);"
+        "targets=[]|record=|before=|after=|same=False|allowed=False|checks=0|ran=0"
+    )
+
+
+def column_text(world, component):
+    values = []
+    for entity in range(1, 17):
+        payload = world["values"][component].get(entity)
+        if payload is None:
+            values.append("none")
+        else:
+            values.append("some(leaf:" + str(payload) + ")")
+    array = tree(values, lambda value: value)
+    rendered_stamps = [
+        f"{entity}:{world['stamps'][component][entity][0]}:{world['stamps'][component][entity][1]}"
+        for entity in world["stamp_order"][component]
+    ]
+    return array + ";stamps=" + comma_list(rendered_stamps, spaces=True)
+
+
+def store_text(world):
+    return "|".join(
+        f"{component}={column_text(world, component)}" for component in COMPONENTS
+    )
+
+
+def world_text(world):
+    live = [0 <= entity <= 16 for entity in range(32)]
+    live[0] = False
+    live_text = tree(live, lambda value: "True" if value else "False")
+    return (
+        "namespace=1|nextId=18|highWater=17|live="
+        + live_text
+        + "|capacity=32|depth=5|store="
+        + store_text(world)
+        + "|resource="
+        + resource_text()
+        + "|events=[]|pending="
+        + str(world["pending"])
+        + "|registrations=[1:PairedWriter:[stock, title]]|nextSystemId=2|clock="
+        + str(world["clock"])
+    )
+
+
+def writer_text(world):
+    registry = (
+        "Registry:1:1:PairedWriter:[stock, title]:" + str(world["writer_cursor"])
+    )
+    if world["writer_out"] is None:
+        out = "None"
+    else:
+        out = "Some(" + comma_list(["Unit"] * world["writer_out"], spaces=True) + ")"
+    return (
+        registry
+        + "|writerValue="
+        + str(world["writer_value"])
+        + "|writerOut="
+        + out
+    )
+
+
+def snapshot(label, world, instances, retry, records, boundaries, errors, retry_boundaries, checks):
+    rendered = (
+        label
+        + "|factory=2|physical="
+        + world_text(world)
+        + "|writer="
+        + writer_text(world)
+        + "|instances="
+        + instance_list(instances)
+        + "|retry="
+        + instance_text(retry)
+        + "|queries="
+        + comma_list(records)
+        + "|queryBoundaries="
+        + comma_list(boundaries)
+        + "|checks="
+        + fmt_checks(checks)
+        + "|retryBoundaries="
+        + comma_list(retry_boundaries)
+        + "|errors="
+        + errors
+    )
+    # world-observer.joined renders the input World into `physical` first, then
+    # returns its boxed World. The frozen Native-only payload omission leaves
+    # that rendered clock intact but replaces the returned World.clock with 0.
+    world["dumped_clock_values"].append(world["clock"])
+    world["clock"] = 0
+    return rendered
+
+
+def writer_run(world):
+    """Execute one source-defined paired writer pass over four matched rows."""
+    for entity in (4, 8, 12, 16):
+        assert entity in world["values"]["stock"] and entity in world["values"]["title"]
+        write(world, "stock", entity, world["writer_value"])
+        write(world, "title", entity, world["writer_value"] + 1)
+    world["writer_cursor"] = world["clock"]
+    world["writer_value"] += 100
+    world["writer_out"] = 4
+
+
+def make_report():
+    world = fresh_world()
+    world["pending"] = 1  # W.enqueue retains the +100 command; no Barrier step runs.
+    instances = [None] * 14
+    retry = None
+    records, boundaries, checks, retry_boundaries = [], [], [], []
+    output = [snapshot("registered", world, instances, retry, records, boundaries, "", retry_boundaries, checks)]
+
+    instances, records, boundaries, checks = run_round(world, instances)
+    assert world["clock"] == 14
+    assert [instances[index][0] for index in range(14)] == list(range(1, 15))
+    assert [instances[index][1] for index in range(14)] == list(range(0, 14))
+    assert [query_ids(world, q, 0) for q in QUERY_ORDER[9:]] == [
+        [4, 8, 12, 16],
+        [4, 8, 12, 16],
+        [4, 8, 12, 16],
+        [2, 4, 6, 8, 10, 12, 14, 16],
+        [5, 6, 7, 8, 13, 14, 15, 16],
+    ]
+    assert record_filter_ids(records) == INITIAL_FILTER_IDS
+    output.append(snapshot("bootstrap", world, instances, retry, records, boundaries, "", retry_boundaries, checks))
+
+    instances, records, boundaries, checks = run_round(world, instances)
+    assert world["clock"] == 14
+    assert record_filter_ids(records) == REPEAT_FILTER_IDS
+    output.append(snapshot("repeat", world, instances, retry, records, boundaries, "", retry_boundaries, checks))
+
+    # A Fresh retry registers at the present clock and starts with cursor zero.
+    retry_before = world["clock"]
+    retry_record = query_record(world, "addedBoth", 0)
+    retry_after_fail = (0, retry_before)
+    retry_boundaries.append(
+        f"clock={retry_before}->{world['clock']};instance=Fresh->"
+        f"{instance_text(retry_after_fail)};failed=True;rows={retry_record}"
+    )
+    assert retry_before == world["clock"] == 0
+    assert query_ids(world, "addedBoth", 0) == [4, 8, 12, 16]
+    retry = retry_after_fail
+    output.append(snapshot("retry-failed", world, instances, retry, records, boundaries, "", retry_boundaries, checks))
+
+    retry_before = world["clock"]
+    retry_record, retry, _ = inspect(world, "addedBoth", retry)
+    retry_boundaries.append(
+        f"clock={retry_before}->{world['clock']};instance=Active:0:{retry_before}->"
+        f"{instance_text(retry)};failed=False;rows={retry_record}"
+    )
+    assert world["clock"] == 1 and retry == (1, 0)
+    assert record_ids(retry_record) == [4, 8, 12, 16]
+    assert retry_record == "addedBoth=[" + ",".join(
+        json.dumps({"entityId": entity, "data": {}}, separators=(",", ":"))
+        for entity in (4, 8, 12, 16)
+    ) + "]"
+    output.append(snapshot("retry-success", world, instances, retry, records, boundaries, "", retry_boundaries, checks))
+
+    retry_before = world["clock"]
+    retry_cursor_before = retry[0]
+    retry_record, retry, _ = inspect(world, "addedBoth", retry)
+    retry_boundaries.append(
+        f"clock={retry_before}->{world['clock']};instance="
+        f"Active:{retry_cursor_before}:{retry[1]}->{instance_text(retry)};failed=False;rows={retry_record}"
+    )
+    assert world["clock"] == 1 and retry == (1, 0)
+    output.append(snapshot("retry-repeat", world, instances, retry, records, boundaries, "", retry_boundaries, checks))
+
+    # Sch.build uses the registration catalog's actual id; one registered
+    # system runs, with no schedule Barrier step. Its tracked cursor follows the
+    # final component-write clock.
+    writer_run(world)
+    assert world["clock"] == 8 and world["writer_cursor"] == 8
+    assert world["writer_value"] == 800 and world["writer_out"] == 4
+    assert all(world["values"]["stock"][entity] == 700 for entity in (4, 8, 12, 16))
+    assert all(world["values"]["title"][entity] == 701 for entity in (4, 8, 12, 16))
+    output.append("schedule=Finished|observations=[Ran{1}]")
+    output.append(snapshot("writer-first", world, instances, retry, records, boundaries, "", retry_boundaries, checks))
+
+    instances, records, boundaries, checks = run_round(world, instances)
+    assert world["clock"] == 14
+    assert record_filter_ids(records) == AFTER_WRITER_FILTER_IDS
+    output.append(snapshot("changed", world, instances, retry, records, boundaries, "", retry_boundaries, checks))
+
+    instances, records, boundaries, checks = run_round(world, instances)
+    assert world["clock"] == 14
+    assert record_filter_ids(records) == AFTER_WRITER_FILTER_IDS
+    output.append(snapshot("changed-repeat", world, instances, retry, records, boundaries, "", retry_boundaries, checks))
+
+    writer_run(world)
+    assert world["clock"] == 8 and world["writer_cursor"] == 8
+    assert world["writer_value"] == 900
+    output.append("schedule=Finished|observations=[Ran{1}]")
+    output.append(snapshot("writer-second", world, instances, retry, records, boundaries, "", retry_boundaries, checks))
+
+    instances, records, boundaries, checks = run_round(world, instances)
+    assert world["clock"] == 14
+    assert record_filter_ids(records) == AFTER_WRITER_FILTER_IDS
+    output.append(snapshot("changed-again", world, instances, retry, records, boundaries, "", retry_boundaries, checks))
+
+    assert world["clock"] == 0
+    assert world["writer_cursor"] == 8
+    assert [item[0] for item in instances] == list(range(1, 15))
+    assert [item[1] for item in instances] == list(range(0, 14))
+    assert world["dumped_clock_values"] == PHYSICAL_CLOCKS
+    return comma_list(output)
+
+
+def main_report():
+    workshop = make_report()
+    garden = make_report()
+    return "Workshop=" + workshop + "|Garden=" + garden
+
+
+def stdout_bytes():
+    # The pinned CLI show_val printer surrounds a top-level String with quotes
+    # and escapes quote/backslash characters; IO adds one newline. This model's
+    # payload is ASCII and has no other control characters, so JSON quoting is
+    # byte-for-byte equivalent for this value.
+    return (json.dumps(main_report(), ensure_ascii=False) + "\n").encode("utf-8")
+
+
+if __name__ == "__main__":
+    data = stdout_bytes()
+    print(len(data), __import__("hashlib").sha256(data).hexdigest())

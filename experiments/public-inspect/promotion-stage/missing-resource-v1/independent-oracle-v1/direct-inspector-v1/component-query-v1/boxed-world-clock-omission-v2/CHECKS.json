@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "candidateFreezeSHA256": "a54d12625171912a862ee78b92bda48ccf68dafd783c8712137de997b87a7612",
+  "sourceFreezeSHA256": "61a41beac48858fee0fbb88e3bb3575114160a23c479410334c9921fd268d31f",
+  "sourceArchiveSHA256": "1bad45b47df384360c494e8e0ebe1ca8f587282bd3d3981bad93f4289e3185ef",
+  "sourceCount": 53,
+  "candidateCSHA256": "a26935fb4b8ce58553aa8e5dfbd9b8270464c6ce793ab88388269cd9f4ef776e",
+  "normalCSHA256": "da2ccfc70e99519923f407eabc8b1fc6a30caccf92747f3c32af7c3b4792b1f0",
+  "clockSlotMutations": 2,
+  "nominalSchemas": [
+    "Workshop",
+    "Garden"
+  ],
+  "queryKinds": 14,
+  "checkKinds": 9,
+  "physicalCheckpointsPerSchema": 11,
+  "displayedWorldClocksPerSchema": [
+    33,
+    14,
+    14,
+    0,
+    1,
+    1,
+    8,
+    14,
+    14,
+    8,
+    14
+  ],
+  "physicalSnapshots": 22,
+  "scheduleObservations": 4,
+  "checkTuples": 20,
+  "runtimeOutputInputs": [],
+  "normal": {
+    "bytes": 207834,
+    "sha256": "14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d"
+  },
+  "countermodel": {
+    "bytes": 217304,
+    "sha256": "94c84156df10cd969db592bc36b200ad14893986bfa2407aa2b58a46f1cdd21a",
+    "gzipBytes": 4673,
+    "gzipSHA256": "82998ff62c31dfdac1f6971a45fd63da8c69675d997b88d718097db95a0cca6d",
+    "firstDifferenceOffset": 5335
+  },
+  "assertions": [
+    "all 53 source bodies match the exact shared FREEZE03 and SOURCE03 pins",
+    "candidate C is exactly normal C with the two frozen schema-specific clock-field mutations",
+    "normal C maps the Workshop and Garden branches to their separate world observer call chains",
+    "each consumer snapshot specialization calls its matching world observer specialization",
+    "both branches carry the returned Dump.world World through the same 11 snapshot labels",
+    "the untouched source-derived normal model reproduces its archived oracle exactly",
+    "the full 217304-byte countermodel matches its fixed source-derived digest without runtime inputs",
+    "countermodel includes 22 physical snapshots, four schedule observations and 20 check tuples",
+    "the countermodel first differs from normal at byte 5335 and deterministic gzip round-trips"
+  ]
+}
