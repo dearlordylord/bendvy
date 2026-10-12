@@ -1,0 +1,65 @@
+{
+  "scope": "Original fullC default-backend diagnostic adds only -mllvm -disable-cgp; CPU3cap120, no signal wrapper/fast allocator/artifact/Native acceptance.",
+  "planSHA256": "61355956fa34a86e4b86957f6d567fa9eb44e1d06d4ed685d36ba73839edd306",
+  "commands": [
+    {
+      "label": "source-clang-backend-disable-cgp",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "-mllvm",
+        "-disable-cgp",
+        "-Xclang",
+        "-disable-llvm-passes",
+        "-c",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/graph-index-v1/native/scenario.c",
+        "-o",
+        "/dev/null",
+        "-pthread"
+      ],
+      "capSeconds": 120,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": null,
+      "failure": "child deadline",
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/graph-index-v1/native-backend-disable-cgp-v1/source-clang-backend-disable-cgp.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/graph-index-v1/native-backend-disable-cgp-v1/source-clang-backend-disable-cgp.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/graph-index-v1/native-backend-disable-cgp-v1/source-clang-backend-disable-cgp-pre.guard.json",
+      "sha256": "94eda14f313c44c612d8fd39b57fe606a48d4c83e1a2dcf5a3e6ae1d1ea77dd4"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/graph-index-v1/native-backend-disable-cgp-v1/source-clang-backend-disable-cgp-acquired.guard.json",
+      "sha256": "fe810f7483e77a789ea1a8ee6332131aa3917495a0bfd5c0e19102815570508b"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/graph-index-v1/native-backend-disable-cgp-v1/source-clang-backend-disable-cgp-post.guard.json",
+      "sha256": "97b7a1e319d9eaf3f32cc08943a34238581228f559e84c2908b23706104c1e6e"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/layout-equality-v1/graph-index-v1/native-backend-disable-cgp-v1/final.guard.json",
+      "sha256": "8279e2e32cf50d21f16cec42445cbbe2f2e08d47de9c680ec1c14e7e7e266436"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Source control exit differs: source-clang-backend-disable-cgp",
+  "guardFailures": []
+}
