@@ -1,0 +1,303 @@
+"""Regenerate the independent public-getter reader-consumption counteroracle."""
+from pathlib import Path
+import gzip
+import hashlib
+import json
+import runpy
+import zipfile
+
+HERE = Path(__file__).resolve().parent
+SOURCE = Path(
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/"
+    "experiments/public-inspect/promotion-stage/missing-resource-v1/"
+    "direct-inspector-v1/event-schedule-v1/reached-v1"
+)
+NORMAL_SOURCE = SOURCE.parent
+FREEZE_SHA256 = "3a69ac4c3676061b4eaeb0f7f26baf67a1c18cced358f07ad69e4d4ea3180be7"
+NORMAL_FREEZE_SHA256 = "bdc06cebb0351f83f243e24d4adb3372b17f790b2698f1349603aad010bec786"
+SOURCE_ARCHIVE_SHA256 = "29df6152a98ab41051bcf87e111200e3edfb3294f88aba6558a40f576a59089e"
+CANDIDATE_SHA256 = "1f4e8ed6d8af9931beae9b6b1084d8b4543b49bd03eb489e6e875910640b7401"
+NORMAL_OUTPUT_BYTES = 211157
+NORMAL_OUTPUT_SHA256 = "0e6fcb31d1506605b1ce21db020dc657e4fa39abfb51761a824b46a5b69ab4b8"
+NORMAL_BASIS_SHA256 = "eddf263c2fc186c1f395e9192eba5dca356974cc52a55e7a19fa3a5e16531022"
+
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def file_sha(path):
+    return digest(Path(path).read_bytes())
+
+
+freeze_path = SOURCE / "FREEZE.json"
+archive_path = SOURCE / "SOURCE.zip"
+candidate_path = SOURCE / "candidate.bend.source"
+normal_freeze_path = NORMAL_SOURCE / "FREEZE.json"
+normal_model_path = HERE.parent / "model.py.source"
+normal_basis_path = HERE.parent / "SOURCE-BASIS.json"
+model_path = HERE / "model.py.source"
+generator_path = HERE / "regenerate.py.source"
+
+freeze_bytes = freeze_path.read_bytes()
+assert digest(freeze_bytes) == FREEZE_SHA256, "candidate source freeze changed"
+freeze = json.loads(freeze_bytes)
+normal_freeze_bytes = normal_freeze_path.read_bytes()
+assert digest(normal_freeze_bytes) == NORMAL_FREEZE_SHA256
+normal_freeze = json.loads(normal_freeze_bytes)
+assert freeze["normalFreezeSHA256"] == NORMAL_FREEZE_SHA256
+assert freeze["normalSourceInventory"] == normal_freeze["sourceInventory"]
+source_inventory = freeze["sourceInventory"]
+assert len(source_inventory) == 105
+
+archive_bytes = archive_path.read_bytes()
+assert digest(archive_bytes) == SOURCE_ARCHIVE_SHA256
+archive = zipfile.ZipFile(archive_path)
+archive_names = set(archive.namelist())
+assert len(archive_names) == len(source_inventory) + 1
+assert archive.read("FREEZE.json") == freeze_bytes
+for source_path, expected_hash in source_inventory.items():
+    archive_name = source_path.lstrip("/")
+    assert archive_name in archive_names, f"archive source missing: {source_path}"
+    assert digest(archive.read(archive_name)) == expected_hash, source_path
+
+# The sole overlay is the currently imported public Getter module. Its frozen
+# body is present at the imported module's path in SOURCE.zip and separately
+# pinned as candidate.bend.source in the source worktree.
+getter_path = "/workspace/formal-proofs/bendvy/src/ecs/inspector-event-value.bend"
+overlay = freeze["candidateOverlay"][getter_path]
+candidate_bytes = candidate_path.read_bytes()
+assert overlay["path"] == str(candidate_path)
+assert digest(candidate_bytes) == CANDIDATE_SHA256 == overlay["sha256"]
+assert source_inventory[getter_path] == CANDIDATE_SHA256
+assert normal_freeze["sourceInventory"][getter_path] == overlay["normalSHA256"]
+assert archive.read(getter_path.lstrip("/")) == candidate_bytes
+
+normal_basis_bytes = normal_basis_path.read_bytes()
+assert digest(normal_basis_bytes) == NORMAL_BASIS_SHA256
+normal_basis = json.loads(normal_basis_bytes)
+assert normal_basis["sourceFreeze"]["sha256"] == NORMAL_FREEZE_SHA256
+assert normal_basis["runtimeOutputInputs"] == []
+
+# Every frozen source body is authenticated through the archive. This lets
+# regeneration remain stable while the separately owned live getter is later
+# temporarily materialized and restored for an admitted consumer run.
+inputs = dict(source_inventory)
+inputs[str(freeze_path)] = FREEZE_SHA256
+inputs[str(archive_path)] = SOURCE_ARCHIVE_SHA256
+inputs[str(candidate_path)] = CANDIDATE_SHA256
+inputs[str(normal_freeze_path)] = NORMAL_FREEZE_SHA256
+inputs[str(normal_basis_path)] = NORMAL_BASIS_SHA256
+inputs[str(normal_model_path)] = file_sha(normal_model_path)
+inputs[str(model_path)] = file_sha(model_path)
+inputs[str(generator_path)] = file_sha(generator_path)
+
+basis = {
+    "state": "SOURCE_FROZEN_COUNTERMODEL_ONLY",
+    "sourceCount": len(source_inventory),
+    "sourceFreeze": {
+        "path": str(freeze_path),
+        "sha256": FREEZE_SHA256,
+        "entrypoint": freeze["entrypoint"],
+        "sourceOnlyEntrypoint": freeze["sourceOnlyEntrypoint"],
+        "normalFreezePath": str(normal_freeze_path),
+        "normalFreezeSHA256": NORMAL_FREEZE_SHA256,
+    },
+    "candidateOverlay": {
+        "sourceModule": getter_path,
+        "candidatePath": str(candidate_path),
+        "candidateSHA256": CANDIDATE_SHA256,
+        "normalSHA256": overlay["normalSHA256"],
+    },
+    "sourceArchive": {"path": str(archive_path), "sha256": SOURCE_ARCHIVE_SHA256},
+    "inputs": inputs,
+    "executionDependencies": [
+        {"path": str(model_path), "sha256": file_sha(model_path)},
+        {"path": str(generator_path), "sha256": file_sha(generator_path)},
+        {"path": str(normal_model_path), "sha256": file_sha(normal_model_path)},
+        {"path": str(normal_basis_path), "sha256": NORMAL_BASIS_SHA256},
+    ],
+    "runtimeOutputInputs": [],
+    "limits": [
+        "Finite source-derived two-schema, fourteen-checkpoint consumer trace; no runtime stdout is an input.",
+        "The candidate Getter returns the retained typed values before Leaf.advance updates reader id 1 to the current route tick.",
+        "Both public Inspector gets at each checkpoint preserve the returned event-owner update; tick 1 is consumed before the fast scheduled read.",
+        "The slow scheduled reader id 2 remains independent, reads tick 1, and holds that batch through the first typed frame; the second typed frame drops it.",
+        "Typed event reads use Sys.run and leave System Registry cursors and World.clock unchanged; failure-reader tracking remains a separate path.",
+        "Schedule observations cover only the three successful registered dispatches in this fixture.",
+    ],
+}
+(HERE / "SOURCE-BASIS.json").write_text(json.dumps(basis, indent=2) + "\n")
+
+candidate_model = runpy.run_path(str(model_path))
+normal_model = runpy.run_path(str(normal_model_path))
+counter_root = candidate_model["complete"]()
+normal_root = normal_model["complete"]()
+counter = candidate_model["expected"]()
+normal = normal_model["expected"]()
+assert len(normal) == NORMAL_OUTPUT_BYTES
+assert digest(normal) == NORMAL_OUTPUT_SHA256
+assert counter != normal
+assert counter.endswith(b"\n")
+
+# Verify the exact source-derived deltas while pinning every other physical and
+# consumer observation to the unchanged normal model.
+changed_positions = 0
+changed_fast_results = 0
+for schema, counter_wrapped, normal_wrapped in zip(
+    ("workshop", "garden"), counter_root.fields, normal_root.fields
+):
+    assert counter_wrapped.name == normal_wrapped.name == "Some"
+    (counter_report,) = counter_wrapped.fields
+    (normal_report,) = normal_wrapped.fields
+    assert counter_report.name == normal_report.name == f"{schema}/consumer.Report"
+    cm, ccps, cfirst, csecond, cfailures, cschedules = counter_report.fields
+    nm, ncps, nfirst, nsecond, nfailures, nschedules = normal_report.fields
+    assert candidate_model["show"](cm) == normal_model["show"](nm)
+    assert len(ccps) == len(ncps) == 14
+    assert len(cfirst) == len(nfirst) == 2
+    assert candidate_model["show"](cfirst[0]) != normal_model["show"](nfirst[0])
+    assert candidate_model["show"](cfirst[1]) == normal_model["show"](nfirst[1])
+    assert cfirst[0].fields[0] == []
+    assert [x.fields[0] for x in cfirst[1].fields[0]] == [7]
+    assert candidate_model["show"](csecond) == normal_model["show"](nsecond)
+    assert candidate_model["show"](cfailures) == normal_model["show"](nfailures)
+    assert candidate_model["show"](cschedules) == normal_model["show"](nschedules)
+    for phase, (cp, np) in enumerate(zip(ccps, ncps)):
+        cdesc, cinventory, cphysical, creaders, cargs, cinspection = cp.fields
+        ndesc, ninventory, nphysical, nreaders, nargs, ninspection = np.fields
+        assert candidate_model["show"](cdesc) == normal_model["show"](ndesc)
+        assert candidate_model["show"](cinventory) == normal_model["show"](ninventory)
+        assert cargs == nargs
+        assert candidate_model["show"](creaders) == normal_model["show"](nreaders)
+        assert candidate_model["show"](cinspection) == normal_model["show"](ninspection)
+        cworld, cfirst_stream, csecond_stream, cunused, cowners, cjournal, cframe, cfailed, ctick = cphysical.fields
+        nworld, nfirst_stream, nsecond_stream, nunused, nowners, njournal, nframe, nfailed, ntick = nphysical.fields
+        assert candidate_model["show"](cworld) == normal_model["show"](nworld)
+        assert candidate_model["show"](csecond_stream) == normal_model["show"](nsecond_stream)
+        assert candidate_model["show"](cunused) == normal_model["show"](nunused)
+        assert cowners == nowners and candidate_model["show"](cjournal) == normal_model["show"](njournal)
+        assert cframe.value == nframe.value
+        assert candidate_model["show"](cfailed) == normal_model["show"](nfailed)
+        assert ctick.value == ntick.value
+        # Only the first typed stream's Position list can differ. Its other
+        # fields, and the rest of Physical.View, remain equal.
+        for index, (cv, nv) in enumerate(zip(cfirst_stream.fields, nfirst_stream.fields)):
+            if index == 2:
+                assert candidate_model["show"](cv) != normal_model["show"](nv)
+                changed_positions += 1
+            else:
+                assert candidate_model["show"](cv) == normal_model["show"](nv), (schema, phase, index)
+        cpositions = cfirst_stream.fields[2]
+        expected_tick = candidate_model["route_tick"](phase)
+        expected_positions = [
+            candidate_model["core"]("event-runtime", "Position", 1,
+                                     candidate_model["nat"](expected_tick),
+                                     candidate_model["nat"](0))
+        ]
+        if phase >= 5:
+            expected_positions = [
+                candidate_model["core"]("event-runtime", "Position", 2,
+                                         candidate_model["nat"](3),
+                                         candidate_model["nat"](2))
+            ] + expected_positions
+        assert candidate_model["show"](cpositions) == candidate_model["show"](expected_positions)
+        if phase == 4:
+            assert len(cfirst_stream.fields[2]) == 1
+            assert cfirst_stream.fields[2][0].fields[0] == 1
+            assert cfirst_stream.fields[2][0].fields[1].value == 2
+            assert cfirst_stream.fields[2][0].fields[2].value == 0
+        if phase >= 5:
+            assert cfirst_stream.fields[2][0].fields[0] == 2
+            assert cfirst_stream.fields[2][0].fields[1].value == 3
+            assert cfirst_stream.fields[2][1].fields[0] == 1
+            assert cfirst_stream.fields[2][1].fields[1].value == expected_tick
+            assert cfirst_stream.fields[2][1].fields[2].value == 0
+        assert cfirst_stream.fields[3] == 3
+        if phase >= 11:
+            assert cfirst_stream.fields[5].value == 5
+            assert cfirst_stream.fields[7].value == 1
+        else:
+            assert cfirst_stream.fields[5].value == 0
+            assert cfirst_stream.fields[7].value == 0
+        inspected_first, inspected_second = cinspection.fields
+        assert candidate_model["show"](inspected_first) == candidate_model["show"](inspected_second)
+        assert inspected_first.name == "Some"
+        if phase == 0:
+            assert inspected_first.fields[0] == []
+        elif phase < 7:
+            assert [v.fields[0] for v in inspected_first.fields[0]] == [7]
+        elif phase < 11:
+            assert [v.fields[0] for v in inspected_first.fields[0]] == [7, 8]
+        else:
+            assert [v.fields[0] for v in inspected_first.fields[0]] == [8]
+    changed_fast_results += 1
+
+assert changed_positions == 28
+assert changed_fast_results == 2
+
+# The first public get of every pair carries reader id 1 to that checkpoint's
+# route tick. The second get observes the same retained values and rewrites the
+# same cursor; no separate registry cursor or World.clock increment is modeled.
+assert len(counter_root.fields) == 2
+assert all(len(report.fields[1]) == 14 for report in [x.fields[0] for x in counter_root.fields])
+
+counter_gzip = gzip.compress(counter, mtime=0)
+normal_gzip = gzip.compress(normal, mtime=0)
+assert gzip.decompress(counter_gzip) == counter
+assert gzip.decompress(normal_gzip) == normal
+(HERE / "expected.stdout.gz").write_bytes(counter_gzip)
+(HERE / "normal.stdout.gz").write_bytes(normal_gzip)
+
+basis_path = HERE / "SOURCE-BASIS.json"
+basis_hash = file_sha(basis_path)
+catalogue = {}
+for key, name, raw in [
+    ("mutant", "expected.stdout.gz", counter),
+    ("normalBaseline", "normal.stdout.gz", normal),
+]:
+    output_path = HERE / name
+    catalogue[key] = {
+        "stdout": str(output_path),
+        "bytes": len(raw),
+        "sha256": digest(raw),
+        "sourceBasisPath": str(basis_path),
+        "sourceBasisSHA256": basis_hash,
+    }
+(HERE / "ORACLES.json").write_text(json.dumps(catalogue, indent=2) + "\n")
+
+checks = {
+    "status": "PASS",
+    "sourceFreezeSHA256": FREEZE_SHA256,
+    "normalSourceFreezeSHA256": NORMAL_FREEZE_SHA256,
+    "candidateSHA256": CANDIDATE_SHA256,
+    "sourceCount": len(source_inventory),
+    "basisPins": len(inputs),
+    "nominalSchemas": ["workshop", "garden"],
+    "reports": 2,
+    "checkpointsPerReport": 14,
+    "checkpoints": 28,
+    "inspectorReadPairs": 28,
+    "inspectorReads": 56,
+    "firstStreamPositionChangedCheckpoints": changed_positions,
+    "fastScheduleReadResultChanges": changed_fast_results,
+    "slowScheduleReadRemains": [7],
+    "scheduleRunsPerReport": 3,
+    "runtimeOutputInputs": [],
+    "mutantBytes": len(counter),
+    "mutantSHA256": digest(counter),
+    "normalBaselineBytes": len(normal),
+    "normalBaselineSHA256": digest(normal),
+    "assertions": [
+        "the candidate 105-entry source closure is hash-matched through SOURCE.zip",
+        "the exact public Getter overlay body and normal getter lineage are pinned",
+        "all checkpoints preserve complete physical state and two equal pre-advance Inspector values",
+        "getter consumption advances first-stream reader id 1 to each current route tick",
+        "the fast id-1 schedule read receives no tick-1 batch while the independent slow id-2 read receives [7]",
+        "typed-frame retention remains held by reader id 2 until the second typed frame; retained Inspector extent then contains only tick 5",
+        "the only report deltas against the unchanged normal model are the two fast-read results and 28 first-stream Position lists",
+        "candidate and normal model stdout are deterministic gzip round-trips; runtime output inputs are empty",
+    ],
+}
+(HERE / "CHECKS.json").write_text(json.dumps(checks, indent=2) + "\n")
+print(json.dumps(catalogue, indent=2))
