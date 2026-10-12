@@ -1,0 +1,10 @@
+# Done-cursor omission launch review
+
+**Verdict: HOLD; do not launch this frozen packet.** Both JS and Native plans bind the same source mutation, full consumer, independently derived counteroracle, and existing development-v2.py collector. The mutant changes only successful inspection: it retains the input cursor while returning the advanced world; registration time, Done payload, and Fail behavior are preserved. The independent model predicts the full 230,664-byte counter output (SHA-256 dcf16bb44f656a232bad4c162c4397cc47a1a5fdf47a7f4e74543f2d5a1172ee), which differs from the normal 207,834-byte output at byte 5,437. This supports the proposed full-consumer comparison without hardcoding the mutant result into the runner.
+
+The blocker is stale frozen inputs. Both plans and the 147-pin runtime freeze expect:
+
+- docs/parity/README.md: 23311738995e177aa124c642908a127e075d1224e6f1f9af2f52da927846cf6c; live SHA-256 is 18ad9da1aba253394d77ac0a1f5b1775ed24b4e90dcdb733c0e95dd882f7a977.
+- experiments/native-compiler-diagnostics/inspector54-v1/README.md: 13bcb04daaa547eb9e2249d1bbddb75d615dcc26470f955fc1a7efe1be1c19ad; live SHA-256 is e71cd84d0156ee2360b7cdda9ff32973c5c619cd8b96574666e33aafa99b4397.
+
+All other 145 pins are current. The existing collector checks the complete pin map before importing helpers and raises on either mismatch, so this packet cannot reach its guards or commands. Refresh these bindings and re-freeze the dependent plan/launch hashes for a narrow recheck. No execution was performed; this is not runtime or Native acceptance evidence.
