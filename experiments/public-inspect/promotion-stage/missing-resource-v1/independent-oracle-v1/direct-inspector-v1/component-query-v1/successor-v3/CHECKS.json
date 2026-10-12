@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "successorFreezeSHA256": "61a41beac48858fee0fbb88e3bb3575114160a23c479410334c9921fd268d31f",
+  "successorArchiveSHA256": "1bad45b47df384360c494e8e0ebe1ca8f587282bd3d3981bad93f4289e3185ef",
+  "predecessorFreezeSHA256": "4a6f9228b7069f17722f038fca4bea4d5adbee40e833cb9e9ce0d6a344b4f0a8",
+  "predecessorArchiveSHA256": "404df7dfd9d252d94e44efac0eda017c02e40d0dd65eccd6cdc8415db54192ab",
+  "sourceCount": 53,
+  "changedPathHashes": {
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/format.bend": {
+      "before": "414391aa5062588b5cff6703d80cf633bcc5f192ca238d94fc973b6b1decff17",
+      "after": "0a4e1cdae7263c673a62aa7212534f500b01931e48feeafed4bea9ab1f687e00"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/runtime-named-declarations.bend": {
+      "before": "6557ec6387fec86befdeeb5ce096755027eb71ef97dfb53caf5c9c47944800de",
+      "after": "6e3236a9fa0b46e9e7fc4cc00c513657e47de1908d8f6b7df6da73a1017beafb"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/retry-driver.bend": {
+      "before": "9862ee6ddd656d8a7f1c9dc42d9ab5373f8c7323ac8fa5ae81ac5b35a654dbd9",
+      "after": "58a95340ea7fe2e28b75d9aa599c35065d76ca2085a23246245ef2184ff26981"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/execution.bend": {
+      "before": "d988f0dd8fcb5e876f7356eba4908c0099deafc118feea7ea6875e90b69edfdc",
+      "after": "05a6c544d126c2695f8bf26fb7b8c168cde7f798e77fdb8e98c89db6a751c97d"
+    },
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/check-execution.bend": {
+      "before": "c6b7a270ca09b68f1d9fb73f8ddd5eff5ff1e07dd809673152b99754917e1ce1",
+      "after": "4d5de9060b4ce5df0050aa1b7a4e0f0f84f978fa441c9d47109bea5d3f9453e9"
+    }
+  },
+  "queryKinds": 14,
+  "checkKinds": 9,
+  "physicalCheckpoints": 11,
+  "runtimeOutputInputs": [],
+  "stdoutBytes": 207834,
+  "stdoutSHA256": "14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d",
+  "gzipBytes": 6704,
+  "gzipSHA256": "455752f01484f7e3a8e9745ce9cff26dc2fc1db6b8b3919888e4dedd7158b59e",
+  "predecessorOracleByteEqual": true,
+  "assertions": [
+    "both archives contain the same exact 53 paths and match every sourceInventory hash",
+    "the only changed source bodies versus SOURCE02 are the five expected Unit-repair modules",
+    "14 query kinds, nine check kinds, eleven checkpoints and the action list are unchanged",
+    "direct Unit selections preserve matching and owner threading while removing only empty DTO mapping",
+    "all former filter DTOs and the shared Unit formatter produce the same {} value",
+    "typed grants, check predicates, row serialization, retry body and physical state producers are unchanged",
+    "all five edited modules pass source-level equivalence assertions",
+    "the complete independent 207834-byte stdout equals successor-v2 oracle byte-for-byte",
+    "the stdout digest, physical snapshots, rows, checks and schedule observations are pinned",
+    "gzip round-trips with deterministic metadata"
+  ]
+}

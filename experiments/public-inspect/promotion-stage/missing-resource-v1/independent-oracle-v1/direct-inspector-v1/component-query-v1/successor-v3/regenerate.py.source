@@ -1,0 +1,441 @@
+"""Independent source-only rebind of the finite component-query oracle."""
+
+from pathlib import Path
+import gzip
+import hashlib
+import json
+import re
+import runpy
+import zipfile
+
+HERE = Path(__file__).resolve().parent
+PARENT = HERE.parent
+SOURCE = Path(
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/"
+    "experiments/public-inspect/promotion-stage/missing-resource-v1/"
+    "direct-inspector-v1/component-query-v1"
+)
+FREEZE02 = SOURCE / "FREEZE02.json"
+ARCHIVE02 = SOURCE / "SOURCE02.zip"
+FREEZE03 = SOURCE / "FREEZE03.json"
+ARCHIVE03 = SOURCE / "SOURCE03.zip"
+FREEZE02_SHA256 = "4a6f9228b7069f17722f038fca4bea4d5adbee40e833cb9e9ce0d6a344b4f0a8"
+ARCHIVE02_SHA256 = "404df7dfd9d252d94e44efac0eda017c02e40d0dd65eccd6cdc8415db54192ab"
+FREEZE03_SHA256 = "61a41beac48858fee0fbb88e3bb3575114160a23c479410334c9921fd268d31f"
+ARCHIVE03_SHA256 = "1bad45b47df384360c494e8e0ebe1ca8f587282bd3d3981bad93f4289e3185ef"
+PRINTER = Path(
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/public-seam-v1/"
+    "construction-v1/qualification-v1/application32-v1/timing-alignment-v1/"
+    "native-resume-v1/phase-copy-v1/compiler/installed-cli-unmodified.mjs"
+)
+PRINTER_SHA256 = "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62"
+EXPECTED_BYTES = 207834
+EXPECTED_SHA256 = "14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d"
+
+EXPECTED_CHANGES = {
+    "format.bend": (
+        "414391aa5062588b5cff6703d80cf633bcc5f192ca238d94fc973b6b1decff17",
+        "0a4e1cdae7263c673a62aa7212534f500b01931e48feeafed4bea9ab1f687e00",
+    ),
+    "runtime-named-declarations.bend": (
+        "6557ec6387fec86befdeeb5ce096755027eb71ef97dfb53caf5c9c47944800de",
+        "6e3236a9fa0b46e9e7fc4cc00c513657e47de1908d8f6b7df6da73a1017beafb",
+    ),
+    "retry-driver.bend": (
+        "9862ee6ddd656d8a7f1c9dc42d9ab5373f8c7323ac8fa5ae81ac5b35a654dbd9",
+        "58a95340ea7fe2e28b75d9aa599c35065d76ca2085a23246245ef2184ff26981",
+    ),
+    "execution.bend": (
+        "d988f0dd8fcb5e876f7356eba4908c0099deafc118feea7ea6875e90b69edfdc",
+        "05a6c544d126c2695f8bf26fb7b8c168cde7f798e77fdb8e98c89db6a751c97d",
+    ),
+    "check-execution.bend": (
+        "c6b7a270ca09b68f1d9fb73f8ddd5eff5ff1e07dd809673152b99754917e1ce1",
+        "4d5de9060b4ce5df0050aa1b7a4e0f0f84f978fa441c9d47109bea5d3f9453e9",
+    ),
+}
+FILTER_NAMES = (
+    "withWithout",
+    "multipleWith",
+    "multipleWithout",
+    "repeated",
+    "contradictory",
+    "addedBoth",
+    "changedBoth",
+    "repeatedAdded",
+)
+CHECK_FILTER_NAMES = FILTER_NAMES[:5]
+VALUE_TYPES = {
+    "withWithout": "ValueWithWithout",
+    "multipleWith": "ValueMultipleWith",
+    "multipleWithout": "ValueMultipleWithout",
+    "repeated": "ValueRepeated",
+    "contradictory": "ValueContradictory",
+    "addedBoth": "ValueAddedBoth",
+    "changedBoth": "ValueChangedBoth",
+    "repeatedAdded": "ValueRepeatedAdded",
+}
+
+
+def sha_bytes(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def sha_path(path):
+    return sha_bytes(Path(path).read_bytes())
+
+
+def archive_files(path):
+    with zipfile.ZipFile(path) as archive:
+        return {"/" + name: archive.read(name) for name in archive.namelist()}
+
+
+def top_blocks(text):
+    lines = text.splitlines(keepends=True)
+    starts = [
+        i for i, line in enumerate(lines)
+        if re.match(r"^(?:type|def) [A-Za-z0-9_]+", line)
+    ]
+    if not starts:
+        return "".join(lines), []
+    prefix = "".join(lines[:starts[0]])
+    blocks = []
+    for pos, start in enumerate(starts):
+        end = starts[pos + 1] if pos + 1 < len(starts) else len(lines)
+        line = lines[start]
+        match = re.match(r"^(type|def) ([A-Za-z0-9_]+)", line)
+        blocks.append(((match.group(1), match.group(2)), "".join(lines[start:end]).rstrip()))
+    return prefix, blocks
+
+
+def without_blocks(text, omitted):
+    prefix, blocks = top_blocks(text)
+    return prefix, [block for key, block in blocks if key not in omitted]
+
+
+def function(text, name):
+    _, blocks = top_blocks(text)
+    found = [block for (kind, current), block in blocks if kind == "def" and current == name]
+    assert len(found) == 1, (name, len(found))
+    return found[0]
+
+
+def read_source(files, path):
+    key = str(path)
+    assert key in files, key
+    return files[key].decode()
+
+
+assert sha_path(FREEZE02) == FREEZE02_SHA256
+assert sha_path(ARCHIVE02) == ARCHIVE02_SHA256
+assert sha_path(FREEZE03) == FREEZE03_SHA256
+assert sha_path(ARCHIVE03) == ARCHIVE03_SHA256
+assert sha_path(PRINTER) == PRINTER_SHA256
+
+old_freeze = json.loads(FREEZE02.read_text())
+new_freeze = json.loads(FREEZE03.read_text())
+old_inventory = old_freeze["sourceInventory"]
+new_inventory = new_freeze["sourceInventory"]
+assert len(old_inventory) == len(new_inventory) == 53
+assert set(old_inventory) == set(new_inventory)
+for key in (
+    "entrypoint", "sourceOnlyEntrypoint", "scope", "operationScope",
+    "queryKinds", "checkKinds", "checkpoints",
+):
+    assert old_freeze[key] == new_freeze[key], key
+assert len(new_freeze["queryKinds"]) == 14
+assert len(new_freeze["checkKinds"]) == 9
+assert len(new_freeze["checkpoints"]) == 11
+
+old_archive = archive_files(ARCHIVE02)
+new_archive = archive_files(ARCHIVE03)
+assert set(old_archive) == set(new_archive) == set(new_inventory)
+changed_paths = [
+    path for path in old_inventory
+    if old_inventory[path] != new_inventory[path]
+]
+expected_changed_paths = {
+    path for path in new_inventory
+    if Path(path).name in EXPECTED_CHANGES
+}
+assert set(changed_paths) == expected_changed_paths
+assert len(changed_paths) == 5
+
+changed_hashes = {}
+for path in changed_paths:
+    old_hash, new_hash = old_inventory[path], new_inventory[path]
+    assert (old_hash, new_hash) == EXPECTED_CHANGES[Path(path).name]
+    assert sha_bytes(old_archive[path]) == old_hash
+    assert sha_bytes(new_archive[path]) == new_hash
+    changed_hashes[path] = {"before": old_hash, "after": new_hash}
+
+for path, expected in new_inventory.items():
+    assert sha_bytes(new_archive[path]) == expected, f"archive hash mismatch: {path}"
+    assert sha_path(path) == expected, f"live source hash mismatch: {path}"
+    if path in changed_paths:
+        assert old_archive[path] != new_archive[path]
+    else:
+        assert old_archive[path] == new_archive[path]
+
+old_sources = {path: read_source(old_archive, path) for path in old_inventory}
+new_sources = {path: read_source(new_archive, path) for path in new_inventory}
+old_by_name = {Path(path).name: text for path, text in old_sources.items()}
+new_by_name = {Path(path).name: text for path, text in new_sources.items()}
+
+# Every source outside the five Unit-repair modules remains byte-identical.
+for name in set(old_by_name) - set(EXPECTED_CHANGES):
+    assert old_by_name[name] == new_by_name[name], name
+
+# Removing a map from Unit changes only the projected empty value. It keeps the
+# same matches function; map_project returns the source owner unchanged.
+old_named = old_by_name["runtime-named-declarations.bend"]
+new_named = new_by_name["runtime-named-declarations.bend"]
+removed_old = {
+    ("type", value_type) for value_type in VALUE_TYPES.values()
+}
+removed_old |= {("def", "name_" + name) for name in FILTER_NAMES}
+changed_selection_keys = {
+    ("def", prefix + "_" + name)
+    for name in FILTER_NAMES
+    for prefix in (("inspect", "check") if name in CHECK_FILTER_NAMES else ("inspect",))
+}
+assert without_blocks(old_named, removed_old | changed_selection_keys) == without_blocks(
+    new_named, changed_selection_keys
+)
+for name in FILTER_NAMES:
+    value_type = VALUE_TYPES[name]
+    assert f"type {value_type} is Data:" in old_named
+    assert f"{value_type}{{}}" in old_named
+    assert f"def name_{name}(" in old_named
+    assert f"type {value_type} is Data:" not in new_named
+    assert f"def name_{name}(" not in new_named
+    old_inspect = function(old_named, "inspect_" + name)
+    new_inspect = function(new_named, "inspect_" + name)
+    assert "Q.map(" in old_inspect and f"~D.inspect_{name}(~S,~Resource)" in old_inspect
+    assert ",S,Unit>:" in new_inspect
+    assert new_inspect.splitlines()[-1] == f"  D.inspect_{name}(~S,~Resource)"
+    if name in CHECK_FILTER_NAMES:
+        old_check = function(old_named, "check_" + name)
+        new_check = function(new_named, "check_" + name)
+        assert "Q.map(" in old_check and f"~D.check_{name}(~S,~Resource)" in old_check
+        assert ",S,Unit>:" in new_check
+        assert new_check.splitlines()[-1] == f"  D.check_{name}(~S,~Resource)"
+
+old_declarations = old_by_name["runtime-declarations.bend"]
+new_declarations = new_by_name["runtime-declarations.bend"]
+assert old_declarations == new_declarations
+for name in FILTER_NAMES:
+    assert f"def inspect_{name}(" in new_declarations
+    if name in CHECK_FILTER_NAMES:
+        assert f"def check_{name}(" in new_declarations
+
+# The operation bodies are exact after substituting Unit and its shared printer.
+old_execution = old_by_name["execution.bend"]
+new_execution = new_by_name["execution.bend"]
+normalized_execution = old_execution
+for name, value_type in sorted(VALUE_TYPES.items(), key=lambda item: len(item[1]), reverse=True):
+    normalized_execution = normalized_execution.replace("D." + value_type, "Unit")
+    normalized_execution = normalized_execution.replace("Format.value_" + name, "Format.value_unit")
+assert normalized_execution == new_execution
+assert function(old_execution, "run") == function(new_execution, "run")
+for name in FILTER_NAMES:
+    plan = function(new_execution, name + "_plan")
+    body = function(new_execution, name + "_body")
+    assert "Q.grant_composed(" in plan and f"~Unit,~D.inspect_{name}" in plan
+    assert "Q.each_composed(" in body and "~Format.value_unit" in body
+
+old_checks = old_by_name["check-execution.bend"]
+new_checks = new_by_name["check-execution.bend"]
+normalized_checks = old_checks
+for name in sorted(CHECK_FILTER_NAMES, key=len, reverse=True):
+    normalized_checks = normalized_checks.replace("D." + VALUE_TYPES[name], "Unit")
+    normalized_checks = normalized_checks.replace("Format.value_" + name, "Format.value_unit")
+assert normalized_checks == new_checks
+assert function(old_checks, "run") == function(new_checks, "run")
+for name in CHECK_FILTER_NAMES:
+    plan = function(new_checks, name + "_plan")
+    body = function(new_checks, name + "_body")
+    assert "Q.grant_composed(" in plan and f"~Unit,~D.check_{name}" in plan
+    assert "Format.value_unit" in body
+
+# The prior eight formatters all emitted {}, while the shared formatter returns
+# the same literal. Empty baseline and payload formatters remain unchanged.
+old_format = old_by_name["format.bend"]
+new_format = new_by_name["format.bend"]
+old_format_removed = {("def", "value_" + name) for name in FILTER_NAMES}
+assert without_blocks(old_format, old_format_removed) == without_blocks(
+    new_format, {("def", "value_unit")}
+)
+for name in FILTER_NAMES:
+    assert '"{" ++ "}"' in function(old_format, "value_" + name)
+assert function(new_format, "value_unit") == (
+    'def value_unit(value:Unit) -> String:\n'
+    '  match value:\n'
+    '    case Unit{}:"{}"'
+)
+assert function(old_format, "value_empty") == function(new_format, "value_empty")
+assert function(old_format, "row") == function(new_format, "row")
+
+# Retry still runs the same addedBoth body and forces a failure; only its cap
+# phantom type is now the declaration's actual Unit projection.
+old_retry = old_by_name["retry-driver.bend"]
+new_retry = new_by_name["retry-driver.bend"]
+assert old_retry.replace(
+    "Caps.Reads<H,S,Decl.ValueAddedBoth>", "Caps.Reads<H,S,Unit>"
+) == new_retry
+assert "Execution.addedBoth_body(~S,~H,~caps,targets,owner)" in function(
+    new_retry, "failing_body"
+)
+assert "case (owner,Done{record}):(owner,Fail{record})" in new_retry
+
+# The action list and every output/snapshot producer are source-identical.
+consumer_path = next(path for path in new_inventory if Path(path).name == "consumer.bend")
+assert old_sources[consumer_path] == new_sources[consumer_path]
+for name in ("actions", "action", "sequence", "complete", "detached", "main"):
+    assert function(old_sources[consumer_path], name) == function(
+        new_sources[consumer_path], name
+    )
+
+model_path = HERE / "model.py.source"
+generator_path = HERE / "regenerate.py.source"
+inputs = dict(new_inventory)
+inputs.update({
+    str(FREEZE02): FREEZE02_SHA256,
+    str(ARCHIVE02): ARCHIVE02_SHA256,
+    str(FREEZE03): FREEZE03_SHA256,
+    str(ARCHIVE03): ARCHIVE03_SHA256,
+    str(PRINTER): PRINTER_SHA256,
+    str(model_path): sha_path(model_path),
+    str(generator_path): sha_path(generator_path),
+})
+
+basis = {
+    "state": "SUCCESSOR_SOURCE_ONLY_REBIND",
+    "sourceCount": len(new_inventory),
+    "sourceFreeze": {
+        "path": str(FREEZE03),
+        "sha256": FREEZE03_SHA256,
+        "entrypoint": new_freeze["entrypoint"],
+        "sourceOnlyEntrypoint": new_freeze["sourceOnlyEntrypoint"],
+        "queryKindCount": len(new_freeze["queryKinds"]),
+        "checkKindCount": len(new_freeze["checkKinds"]),
+        "checkpointCount": len(new_freeze["checkpoints"]),
+    },
+    "sourceArchive": {"path": str(ARCHIVE03), "sha256": ARCHIVE03_SHA256},
+    "predecessorSource": {
+        "freezePath": str(FREEZE02),
+        "freezeSHA256": FREEZE02_SHA256,
+        "archivePath": str(ARCHIVE02),
+        "archiveSHA256": ARCHIVE02_SHA256,
+        "changedPaths": changed_hashes,
+    },
+    "unitRepairAudit": {
+        "filterOnlyQueryKinds": list(FILTER_NAMES),
+        "filterOnlyCheckKinds": list(CHECK_FILTER_NAMES),
+        "predicatesAndUnitSelectionsUnchanged": True,
+        "directUnitDeclarations": True,
+        "qMapMembershipAndOwnerBehavior": (
+            "Q.map reuses source matches; map_project returns the same owner after "
+            "the pure name function, so removing an empty DTO mapping preserves "
+            "membership and owner threading."
+        ),
+        "filterRowValue": (
+            "Each old empty DTO formatter emitted {}; the shared Unit formatter "
+            "emits the same literal."
+        ),
+        "typedQueryAndCheckGrantsRetained": True,
+        "dispatchAndQueryOrderRetained": True,
+        "retryBehaviorRetained": (
+            "The cap type changes to Unit; the same addedBoth body is called and "
+            "its Done result is converted to Fail."
+        ),
+        "payloadBearingValuesAndEmptyBaselineRetained": True,
+        "fixtureWriterObserversAndConsumerUnchanged": True,
+        "fullPhysicalSnapshotsUnchanged": True,
+    },
+    "canonicalPrinter": {
+        "path": str(PRINTER),
+        "sha256": PRINTER_SHA256,
+        "behavior": "top-level pure String is quoted and escaped; IO appends one newline",
+    },
+    "inputs": inputs,
+    "executionDependencies": [
+        {"path": str(model_path), "sha256": sha_path(model_path)},
+        {"path": str(generator_path), "sha256": sha_path(generator_path)},
+    ],
+    "runtimeOutputInputs": [],
+    "derivation": [
+        "The predecessor and successor closures each have 53 source paths; exactly five Unit-repair files change, and the archived bodies match all sourceInventory pins.",
+        "The fixture, writer, observers, phase driver, action-list consumer and all other frozen source bodies are byte-identical to SOURCE02.",
+        "The eight removed wrappers mapped already-Unit filter selections to fieldless DTOs; Q.map retains the source predicate and returns the same owner after its pure projection mapper.",
+        "The successor retains the same filter selections, typed grants, dispatches, query/check ordering, and retries. Its only projection value is Unit.",
+        "Old empty-value formatters and the shared Unit formatter each return the same {} value; row formatting and payload-bearing formatters are unchanged.",
+        "The independent finite model regenerates the same full stdout as the untouched successor-v2 source-derived oracle; no runtime output is read.",
+    ],
+    "limits": [
+        "This is a source-level equivalence review of the exact 53-body closure and finite two-schema fixture, not a universal theorem over arbitrary queries or worlds.",
+        "The oracle describes only the finite Workshop/Garden trace.",
+    ],
+}
+(HERE / "SOURCE-BASIS.json").write_text(json.dumps(basis, indent=2) + "\n")
+
+model = runpy.run_path(str(model_path))
+expected = model["stdout_bytes"]()
+assert len(expected) == EXPECTED_BYTES
+assert sha_bytes(expected) == EXPECTED_SHA256
+predecessor_path = PARENT / "successor-v2" / "expected.stdout.gz"
+predecessor = gzip.decompress(predecessor_path.read_bytes())
+assert predecessor == expected, "Unit repair changed the independent full oracle"
+assert expected.count(b"schedule=Finished|observations=[Ran{1}]") == 4
+assert expected.count(b"|factory=2|physical=") == 22
+assert expected.count(b"|checks=[True,True,True,True,True,True,True,True,False]") == 20
+
+compressed = gzip.compress(expected, mtime=0)
+assert gzip.decompress(compressed) == expected
+oracle_path = HERE / "expected.stdout.gz"
+oracle_path.write_bytes(compressed)
+basis_path = HERE / "SOURCE-BASIS.json"
+oracles = {
+    "normal": {
+        "stdout": str(oracle_path),
+        "bytes": len(expected),
+        "sha256": sha_bytes(expected),
+        "gzipBytes": len(compressed),
+        "gzipSHA256": sha_bytes(compressed),
+        "sourceBasisPath": str(basis_path),
+        "sourceBasisSHA256": sha_path(basis_path),
+    }
+}
+(HERE / "ORACLES.json").write_text(json.dumps(oracles, indent=2) + "\n")
+
+checks = {
+    "status": "PASS",
+    "successorFreezeSHA256": FREEZE03_SHA256,
+    "successorArchiveSHA256": ARCHIVE03_SHA256,
+    "predecessorFreezeSHA256": FREEZE02_SHA256,
+    "predecessorArchiveSHA256": ARCHIVE02_SHA256,
+    "sourceCount": len(new_inventory),
+    "changedPathHashes": changed_hashes,
+    "queryKinds": len(new_freeze["queryKinds"]),
+    "checkKinds": len(new_freeze["checkKinds"]),
+    "physicalCheckpoints": len(new_freeze["checkpoints"]),
+    "runtimeOutputInputs": [],
+    "stdoutBytes": len(expected),
+    "stdoutSHA256": sha_bytes(expected),
+    "gzipBytes": len(compressed),
+    "gzipSHA256": sha_bytes(compressed),
+    "predecessorOracleByteEqual": True,
+    "assertions": [
+        "both archives contain the same exact 53 paths and match every sourceInventory hash",
+        "the only changed source bodies versus SOURCE02 are the five expected Unit-repair modules",
+        "14 query kinds, nine check kinds, eleven checkpoints and the action list are unchanged",
+        "direct Unit selections preserve matching and owner threading while removing only empty DTO mapping",
+        "all former filter DTOs and the shared Unit formatter produce the same {} value",
+        "typed grants, check predicates, row serialization, retry body and physical state producers are unchanged",
+        "all five edited modules pass source-level equivalence assertions",
+        "the complete independent 207834-byte stdout equals successor-v2 oracle byte-for-byte",
+        "the stdout digest, physical snapshots, rows, checks and schedule observations are pinned",
+        "gzip round-trips with deterministic metadata",
+    ],
+}
+(HERE / "CHECKS.json").write_text(json.dumps(checks, indent=2) + "\n")

@@ -1,0 +1,113 @@
+{
+  "status": "INCOMPLETE_STOCK_NATIVE_EMIT_THIRD_DEADLINE",
+  "sourceCount": 53,
+  "freeze": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/FREEZE03.json",
+    "sha256": "61a41beac48858fee0fbb88e3bb3575114160a23c479410334c9921fd268d31f"
+  },
+  "sourceArchive": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/SOURCE03.zip",
+    "sha256": "1bad45b47df384360c494e8e0ebe1ca8f587282bd3d3981bad93f4289e3185ef"
+  },
+  "developerSourcePositive": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/diagnostics/source-16.log",
+    "sha256": "8517c333d80f899ab52eff3cb7e07cf947fafcb671f8c43d653a985db143e500",
+    "exit": 0,
+    "compiler": "/home/node/.bend/bin/bend-2.0.35",
+    "capSeconds": 5,
+    "cpu": 3,
+    "claim": "law-free source typing only"
+  },
+  "currentReceipts": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/source03/receipt.json",
+      "sha256": "696063c82f01e48df7008cf9a031d9da5412a4803784e951789e24f6211a8ebe",
+      "status": "COMPLETE_SOURCE_CONTROL_PASS",
+      "commands": [
+        {
+          "label": "source-component-query",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/runtime03/js/receipt.json",
+      "sha256": "f23a7021de529cc342332a32a67182f6273c0135b06596b81a77834b37a6d5b9",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "exit": 0,
+          "failure": null,
+          "capSeconds": 5
+        }
+      ]
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/runtime03/native/receipt.json",
+      "sha256": "796c26c570ffa42d4edc71b27aec141cb40fd20eb945540e072bb90c88f23876",
+      "status": "INCOMPLETE",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": null,
+          "failure": "child deadline",
+          "capSeconds": 30
+        }
+      ]
+    }
+  ],
+  "stockHistory": [
+    {
+      "attempt": 1,
+      "jsReceipt": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/runtime01/js/receipt.json",
+      "jsReceiptSHA256": "88ff60063543ea18bd165792cfaa0e81a335e4cf675c7d7edd81757700c28b65",
+      "jsStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "wholeOracleSHA256": "14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d",
+      "nativeReceipt": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/runtime01/native/receipt.json",
+      "nativeReceiptSHA256": "f7f098e28397899c1b735b03f078727b4005a29d44ea44f351477de61efe9d04",
+      "nativeStatus": "INCOMPLETE",
+      "nativeEmitExit": null,
+      "nativeEmitFailure": "child deadline",
+      "nativeEmitCapSeconds": 30
+    },
+    {
+      "attempt": 2,
+      "jsReceipt": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/runtime02/js/receipt.json",
+      "jsReceiptSHA256": "ab75571341b687b0500cbbf87d47e090d0247bc6633caa57d14cd5a77792a0ae",
+      "jsStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "wholeOracleSHA256": "14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d",
+      "nativeReceipt": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/runtime02/native/receipt.json",
+      "nativeReceiptSHA256": "ef3f3bdb750a2d0fa5143d28a66cd78ecd0c8ffdce990bad0f44ed0ccc89265a",
+      "nativeStatus": "INCOMPLETE",
+      "nativeEmitExit": null,
+      "nativeEmitFailure": "child deadline",
+      "nativeEmitCapSeconds": 30
+    },
+    {
+      "attempt": 3,
+      "jsReceipt": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/runtime03/js/receipt.json",
+      "jsReceiptSHA256": "f23a7021de529cc342332a32a67182f6273c0135b06596b81a77834b37a6d5b9",
+      "jsStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "wholeOracleSHA256": "14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d",
+      "nativeReceipt": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/runtime03/native/receipt.json",
+      "nativeReceiptSHA256": "796c26c570ffa42d4edc71b27aec141cb40fd20eb945540e072bb90c88f23876",
+      "nativeStatus": "INCOMPLETE",
+      "nativeEmitExit": null,
+      "nativeEmitFailure": "child deadline",
+      "nativeEmitCapSeconds": 30
+    }
+  ],
+  "claims": "Three distinct frozen stock source shapes each pass full independent JS207834/SHA14565; each Nativeemitcap30 deadline before C/build/runtime. First action-list and later eight Unit-filter refactors preserve operations/output, but did not resolve Native blocker. No identical retry, capincrease, API/core/compiler installation, fullNative acceptance, proof or performance claim. Consumer is a bounded fixture candidate, not adopted ECS core.",
+  "oracleBytes": 207834,
+  "oracleSHA256": "14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d",
+  "queueReleased": true
+}

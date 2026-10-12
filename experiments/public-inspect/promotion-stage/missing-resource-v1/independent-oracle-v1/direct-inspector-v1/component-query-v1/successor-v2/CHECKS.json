@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "successorFreezeSHA256": "4a6f9228b7069f17722f038fca4bea4d5adbee40e833cb9e9ce0d6a344b4f0a8",
+  "successorArchiveSHA256": "404df7dfd9d252d94e44efac0eda017c02e40d0dd65eccd6cdc8415db54192ab",
+  "predecessorFreezeSHA256": "f0fafb872d77965062ce940fa18fabaec20821c03378f071f6bf74a5fcc8fd76",
+  "predecessorArchiveSHA256": "49ad8c9cc0e12395a7bcca22af222723c5c461693e0be34a5f67581c3060d216",
+  "sourceCount": 53,
+  "changedInventoryPaths": [
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/consumer.bend"
+  ],
+  "transitionActionOrder": [
+    "Round{bootstrap}",
+    "Round{repeat}",
+    "Retry{retry-failed,True}",
+    "Retry{retry-success,False}",
+    "Retry{retry-repeat,False}",
+    "Schedule{writer-first}",
+    "Round{changed}",
+    "Round{changed-repeat}",
+    "Schedule{writer-second}",
+    "Round{changed-again}"
+  ],
+  "carryThreading": "each action result is passed as the next sequence input; terminal Carry is wrapped in the same Some branch",
+  "serializationMainUnchanged": true,
+  "runtimeOutputInputs": [],
+  "stdoutBytes": 207834,
+  "stdoutSHA256": "14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d",
+  "predecessorOracleByteEqual": true,
+  "assertions": [
+    "both exact source archives and all 53 successor sourceInventory hashes verify",
+    "the only predecessor-to-successor source hash change is the expected consumer.bend",
+    "the old nested ten-operation order equals the new Data action list's execution order",
+    "Round, Retry and Schedule actions call the same unchanged transition bodies with identical arguments",
+    "sequence threads the affine Carry through all ten actions and preserves the Maybe branch behavior",
+    "detached and main serialization composition are byte-identical between source versions",
+    "the complete independent 207834-byte stdout is byte-equal to the predecessor source-derived oracle",
+    "both schemas retain eleven full snapshots, four schedule observations and the same checks and clocks",
+    "gzip output round-trips with deterministic metadata"
+  ]
+}

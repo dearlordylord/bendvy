@@ -1,0 +1,261 @@
+"""Rebind the unchanged finite oracle to component-query source successor 2."""
+from pathlib import Path
+import gzip
+import hashlib
+import json
+import re
+import runpy
+import zipfile
+
+
+HERE = Path(__file__).resolve().parent
+PARENT = HERE.parent
+SOURCE = Path(
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/"
+    "experiments/public-inspect/promotion-stage/missing-resource-v1/"
+    "direct-inspector-v1/component-query-v1"
+)
+OLD_FREEZE = SOURCE / "FREEZE.json"
+OLD_ARCHIVE = SOURCE / "SOURCE.zip"
+FREEZE_PATH = SOURCE / "FREEZE02.json"
+ARCHIVE_PATH = SOURCE / "SOURCE02.zip"
+FREEZE_SHA256 = "4a6f9228b7069f17722f038fca4bea4d5adbee40e833cb9e9ce0d6a344b4f0a8"
+ARCHIVE_SHA256 = "404df7dfd9d252d94e44efac0eda017c02e40d0dd65eccd6cdc8415db54192ab"
+OLD_FREEZE_SHA256 = "f0fafb872d77965062ce940fa18fabaec20821c03378f071f6bf74a5fcc8fd76"
+OLD_ARCHIVE_SHA256 = "49ad8c9cc0e12395a7bcca22af222723c5c461693e0be34a5f67581c3060d216"
+CONSUMER = str(SOURCE / "consumer.bend")
+OLD_CONSUMER_SHA256 = "5dc47f2ee73114d5a90951e6a31d7b3163d744ad92b12310e4b095d260d2b0a1"
+NEW_CONSUMER_SHA256 = "6693b4e98985c6861211a3eb70c5323cd7a10f531f1d201048ef1f64e97c4b4e"
+PRINTER = Path(
+    "/workspace/formal-proofs/bendvy/experiments/public-decode/public-seam-v1/"
+    "construction-v1/qualification-v1/application32-v1/timing-alignment-v1/"
+    "native-resume-v1/phase-copy-v1/compiler/installed-cli-unmodified.mjs"
+)
+PRINTER_SHA256 = "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62"
+EXPECTED_BYTES = 207834
+EXPECTED_SHA256 = "14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d"
+
+
+def sha256(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def archive_file(path, suffix):
+    with zipfile.ZipFile(path) as archive:
+        names = [name for name in archive.namelist() if name.endswith(suffix)]
+        assert len(names) == 1, (path, suffix, names)
+        return archive.read(names[0])
+
+
+def function_block(text, signature):
+    start = text.index(signature)
+    end = text.find("\ndef ", start + len(signature))
+    if end < 0:
+        end = len(text)
+    return text[start:end].rstrip()
+
+
+assert sha256(OLD_FREEZE) == OLD_FREEZE_SHA256
+assert sha256(OLD_ARCHIVE) == OLD_ARCHIVE_SHA256
+assert sha256(FREEZE_PATH) == FREEZE_SHA256
+assert sha256(ARCHIVE_PATH) == ARCHIVE_SHA256
+old_freeze = json.loads(OLD_FREEZE.read_text())
+new_freeze = json.loads(FREEZE_PATH.read_text())
+old_inventory = old_freeze["sourceInventory"]
+new_inventory = new_freeze["sourceInventory"]
+assert len(old_inventory) == len(new_inventory) == 53
+assert set(old_inventory) == set(new_inventory)
+changed_paths = [path for path in old_inventory if old_inventory[path] != new_inventory[path]]
+assert changed_paths == [CONSUMER], changed_paths
+assert old_inventory[CONSUMER] == OLD_CONSUMER_SHA256
+assert new_inventory[CONSUMER] == NEW_CONSUMER_SHA256
+assert sha256(SOURCE / "consumer.bend") == NEW_CONSUMER_SHA256
+assert sha256(PRINTER) == PRINTER_SHA256
+
+old_consumer = archive_file(OLD_ARCHIVE, "/consumer.bend").decode()
+new_consumer = archive_file(ARCHIVE_PATH, "/consumer.bend").decode()
+assert hashlib.sha256(old_consumer.encode()).hexdigest() == OLD_CONSUMER_SHA256
+assert hashlib.sha256(new_consumer.encode()).hexdigest() == NEW_CONSUMER_SHA256
+assert (SOURCE / "consumer.bend").read_text() == new_consumer
+
+old_complete = function_block(old_consumer, "def complete(")
+assert old_complete == '''def complete(~S:Data,value:Maybe<&1,Carry<S>>) -> Maybe<&1,Carry<S>>:
+  match value:
+    case None{}:None{}
+    case Some{value}:Some{round(~S,"changed-again",schedule(~S,"writer-second",round(~S,"changed-repeat",round(~S,"changed",schedule(~S,"writer-first",retry(~S,"retry-repeat",False{},retry(~S,"retry-success",False{},retry(~S,"retry-failed",True{},round(~S,"repeat",round(~S,"bootstrap",value))))))))))}'''
+legacy_outer_to_inner = re.findall(
+    r'(round|retry|schedule)\(~S,"([^\"]+)"(?:,(True|False)\{\})?',
+    old_complete,
+)
+legacy_steps = [
+    (kind.capitalize(), label, fail if kind == "retry" else None)
+    for kind, label, fail in reversed(legacy_outer_to_inner)
+]
+
+actions = function_block(new_consumer, "def actions()")
+assert actions == '''def actions() -> List<&2,Action>:
+  [Round{"bootstrap"},Round{"repeat"},Retry{"retry-failed",True{}},Retry{"retry-success",False{}},Retry{"retry-repeat",False{}},Schedule{"writer-first"},Round{"changed"},Round{"changed-repeat"},Schedule{"writer-second"},Round{"changed-again"}]'''
+action_steps = re.findall(
+    r'(Round|Retry|Schedule)\{"([^\"]+)"(?:,(True|False)\{\})?\}', actions
+)
+normalized_steps = [
+    (kind, label, fail if kind == "Retry" else None)
+    for kind, label, fail in action_steps
+]
+expected_steps = [
+    ("Round", "bootstrap", None),
+    ("Round", "repeat", None),
+    ("Retry", "retry-failed", "True"),
+    ("Retry", "retry-success", "False"),
+    ("Retry", "retry-repeat", "False"),
+    ("Schedule", "writer-first", None),
+    ("Round", "changed", None),
+    ("Round", "changed-repeat", None),
+    ("Schedule", "writer-second", None),
+    ("Round", "changed-again", None),
+]
+assert normalized_steps == expected_steps, normalized_steps
+assert legacy_steps == expected_steps, legacy_steps
+assert function_block(new_consumer, "def action(") == '''def action(~S:Data,step:Action,value:Carry<S>) -> Carry<S>:
+  match step:
+    case Round{label}:round(~S,label,value)
+    case Retry{label,fail}:retry(~S,label,fail,value)
+    case Schedule{label}:schedule(~S,label,value)'''
+assert function_block(new_consumer, "def sequence(") == '''def sequence(~S:Data,steps:List<&2,Action>,value:Carry<S>) -> Carry<S>:
+  match steps:
+    case []:value
+    case step <> rest:sequence(~S,rest,action(~S,step,value))'''
+assert function_block(new_consumer, "def complete(") == '''def complete(~S:Data,value:Maybe<&1,Carry<S>>) -> Maybe<&1,Carry<S>>:
+  match value:
+    case None{}:None{}
+    case Some{value}:Some{sequence(~S,actions(),value)}'''
+assert function_block(new_consumer, "def detached(") == function_block(
+    old_consumer, "def detached("
+)
+assert function_block(new_consumer, "def main(") == function_block(old_consumer, "def main(")
+
+for path, expected in new_inventory.items():
+    assert sha256(path) == expected, f"successor source hash changed: {path}"
+
+model_path = HERE / "model.py.source"
+generator_path = HERE / "regenerate.py.source"
+inputs = dict(new_inventory)
+inputs[str(FREEZE_PATH)] = FREEZE_SHA256
+inputs[str(ARCHIVE_PATH)] = ARCHIVE_SHA256
+inputs[str(OLD_FREEZE)] = OLD_FREEZE_SHA256
+inputs[str(OLD_ARCHIVE)] = OLD_ARCHIVE_SHA256
+inputs[str(PRINTER)] = PRINTER_SHA256
+inputs[str(model_path)] = sha256(model_path)
+inputs[str(generator_path)] = sha256(generator_path)
+
+basis = {
+    "state": "SUCCESSOR_SOURCE_ONLY_REBIND",
+    "sourceCount": len(new_inventory),
+    "sourceFreeze": {
+        "path": str(FREEZE_PATH),
+        "sha256": FREEZE_SHA256,
+        "entrypoint": new_freeze["entrypoint"],
+        "sourceOnlyEntrypoint": new_freeze["sourceOnlyEntrypoint"],
+    },
+    "sourceArchive": {"path": str(ARCHIVE_PATH), "sha256": ARCHIVE_SHA256},
+    "predecessorSource": {
+        "freezePath": str(OLD_FREEZE),
+        "freezeSHA256": OLD_FREEZE_SHA256,
+        "archivePath": str(OLD_ARCHIVE),
+        "archiveSHA256": OLD_ARCHIVE_SHA256,
+        "changedInventoryPaths": changed_paths,
+        "oldConsumerSHA256": OLD_CONSUMER_SHA256,
+        "newConsumerSHA256": NEW_CONSUMER_SHA256,
+    },
+    "transitionEquivalence": {
+        "legacyNestedOperationOrder": [
+            f"{kind}{{{label}{',' + fail if fail else ''}}}"
+            for kind, label, fail in legacy_steps
+        ],
+        "successorActionOrder": [
+            f"{kind}{{{label}{',' + fail if fail else ''}}}"
+            for kind, label, fail in normalized_steps
+        ],
+        "sequenceConsumesAndReturnsCarry": True,
+        "roundRetryScheduleDispatchBodiesUnchanged": True,
+        "detachedAndMainSerializerCompositionUnchanged": True,
+    },
+    "canonicalPrinter": {
+        "path": str(PRINTER),
+        "sha256": PRINTER_SHA256,
+        "behavior": "top-level pure String is quoted and escaped; IO appends one newline",
+    },
+    "inputs": inputs,
+    "executionDependencies": [
+        {"path": str(model_path), "sha256": sha256(model_path)},
+        {"path": str(generator_path), "sha256": sha256(generator_path)},
+    ],
+    "runtimeOutputInputs": [],
+    "derivation": [
+        "The predecessor and successor frozen closures each contain 53 paths, with only consumer.bend changed; all 52 other source bodies have identical SHA-256 pins.",
+        "The predecessor complete function nests ten calls; source-extracted labels and retry flags reversed from outer-to-inner give the execution order recorded here.",
+        "The successor actions() list has that same order. sequence applies its head to the affine Carry, then recurses on the rest, so it has the same state-threading order and terminal Carry as the predecessor nesting.",
+        "Each action dispatches to the unchanged round, retry, or schedule function with the same label/failure flag; detached and main are byte-identical to the predecessor source.",
+        "Therefore the complete report String is unchanged for each nominal schema; the independent source model regenerates the same full stdout bytes and SHA-256 as the predecessor catalogue.",
+        "No JavaScript or native runtime output is an input to the derivation.",
+    ],
+    "limits": [
+        "This is a source-level equivalence review for the exact frozen finite consumer; it is not a universal theorem about arbitrary action sequences.",
+        "The complete stdout remains the finite Workshop/Garden trace, not a universal proof over worlds or arbitrary schemas.",
+    ],
+}
+(HERE / "SOURCE-BASIS.json").write_text(json.dumps(basis, indent=2) + "\n")
+
+model = runpy.run_path(str(model_path))
+expected = model["stdout_bytes"]()
+assert len(expected) == EXPECTED_BYTES
+assert hashlib.sha256(expected).hexdigest() == EXPECTED_SHA256
+predecessor = gzip.decompress((PARENT / "expected.stdout.gz").read_bytes())
+assert predecessor == expected, "successor source changed the modeled full stdout"
+assert expected.count(b"schedule=Finished|observations=[Ran{1}]") == 4
+assert expected.count(b"|factory=2|physical=") == 22
+assert expected.count(b"|checks=[True,True,True,True,True,True,True,True,False]") == 20
+compressed = gzip.compress(expected, mtime=0)
+assert gzip.decompress(compressed) == expected
+oracle_path = HERE / "expected.stdout.gz"
+oracle_path.write_bytes(compressed)
+basis_path = HERE / "SOURCE-BASIS.json"
+oracles = {
+    "normal": {
+        "stdout": str(oracle_path),
+        "bytes": len(expected),
+        "sha256": hashlib.sha256(expected).hexdigest(),
+        "sourceBasisPath": str(basis_path),
+        "sourceBasisSHA256": sha256(basis_path),
+    }
+}
+(HERE / "ORACLES.json").write_text(json.dumps(oracles, indent=2) + "\n")
+checks = {
+    "status": "PASS",
+    "successorFreezeSHA256": FREEZE_SHA256,
+    "successorArchiveSHA256": ARCHIVE_SHA256,
+    "predecessorFreezeSHA256": OLD_FREEZE_SHA256,
+    "predecessorArchiveSHA256": OLD_ARCHIVE_SHA256,
+    "sourceCount": len(new_inventory),
+    "changedInventoryPaths": changed_paths,
+    "transitionActionOrder": basis["transitionEquivalence"]["successorActionOrder"],
+    "carryThreading": "each action result is passed as the next sequence input; terminal Carry is wrapped in the same Some branch",
+    "serializationMainUnchanged": True,
+    "runtimeOutputInputs": [],
+    "stdoutBytes": len(expected),
+    "stdoutSHA256": hashlib.sha256(expected).hexdigest(),
+    "predecessorOracleByteEqual": True,
+    "assertions": [
+        "both exact source archives and all 53 successor sourceInventory hashes verify",
+        "the only predecessor-to-successor source hash change is the expected consumer.bend",
+        "the old nested ten-operation order equals the new Data action list's execution order",
+        "Round, Retry and Schedule actions call the same unchanged transition bodies with identical arguments",
+        "sequence threads the affine Carry through all ten actions and preserves the Maybe branch behavior",
+        "detached and main serialization composition are byte-identical between source versions",
+        "the complete independent 207834-byte stdout is byte-equal to the predecessor source-derived oracle",
+        "both schemas retain eleven full snapshots, four schedule observations and the same checks and clocks",
+        "gzip output round-trips with deterministic metadata",
+    ],
+}
+(HERE / "CHECKS.json").write_text(json.dumps(checks, indent=2) + "\n")
+print(f"{len(expected)} {hashlib.sha256(expected).hexdigest()}")
