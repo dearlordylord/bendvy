@@ -1,0 +1,1 @@
+The original full C backend diagnostic with forced fast register allocation reached its 120-second child deadline. Both compiler streams were empty; all four guards passed. No object artifact or runtime result was claimed. The flag also suppresses conditional AArch64 A57 FP load balancing, so this comparison cannot attribute cost solely to register allocation.

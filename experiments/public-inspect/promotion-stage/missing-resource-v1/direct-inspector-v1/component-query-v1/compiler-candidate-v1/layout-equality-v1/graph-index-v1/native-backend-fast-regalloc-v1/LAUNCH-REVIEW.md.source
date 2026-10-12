@@ -1,0 +1,7 @@
+# Fast-regalloc backend diagnostic v1 launch review
+
+**Verdict: APPROVE this exact prospective one-command diagnostic.** This is launch approval only; the compiler was not run.
+
+The plan, freeze, and launch packet bind to `d8a6232d0e3f41a37e1fe8e7a48df47c4ff959b20190ae5d2fb0353a97c324ae`, `a17aac4fd9e76b2a5fa8f761a03845382bbff637645cd924ff57b8197ddcab6c`, and `fef5fcccb6b35ef2b8e8ff144c094f88bb111462348406921b9a83d71373deb7`. The freeze binds all 33 pins; all pins and five resource-root inventories are current. The C input is unchanged at 43,550,580 bytes (SHA256 `24b6ef6a…58465`). Relative to the prior backend diagnostic, the command adds only `-mllvm -regalloc=fast`; source, compiler, environment, headers, CPU 3, 120-second cap, `-O3 -Xclang -disable-llvm-passes -c`, `/dev/null` output, and `-pthread` remain fixed. The prior default-allocator command receipt records a child deadline.
+
+The pinned LLVM 19 AArch64 source supports this as a bounded backend diagnostic, with the packet’s explicit caveat: forcing fast allocation also disables conditional A57 FP load balancing. This cannot attribute any time difference solely to register allocation and provides no pinned-binary proof, Native acceptance, runtime-quality, performance, or adoption claim. The command uses the original C diagnostic input, separate from the current Unit consumer. Fresh output, receipt, raw-stream, and guard paths are absent; the existing collector retains its source/resource guards and receipt boundaries.

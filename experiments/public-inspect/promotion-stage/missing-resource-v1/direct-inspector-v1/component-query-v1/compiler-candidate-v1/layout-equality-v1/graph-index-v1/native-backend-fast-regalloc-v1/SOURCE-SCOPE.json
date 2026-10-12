@@ -1,0 +1,16 @@
+{
+  "status": "SOURCE_SUPPORTED_DIAGNOSTIC_NOT_BINARY_PROOF",
+  "references": [
+    {
+      "url": "https://github.com/llvm/llvm-project/blob/release/19.x/llvm/lib/Target/AArch64/AArch64TargetMachine.cpp#L733",
+      "body": "AArch64TargetMachine.cpp.source",
+      "sha256": "1135a3aca1adf9c451ca7e90cec5285f729146966f73a9b8a44cd4ddcf8fec6e",
+      "lines": "733-742,809-812"
+    }
+  ],
+  "inference": "AArch64 target regalloc override delegates generic registry; forced fast allocator supported under NoPHIs upstream prerequisite. Existing DisableLLVMPasses inference retained from baseline SOURCE-SCOPE.",
+  "limits": [
+    "-regalloc=fast also suppresses conditional AArch64A57FPLoadBalancing via usingDefaultRegAlloc(); this is not literally allocator-only and cannot attribute all cost solely to allocation.",
+    "Source inference is not pinned binary proof; no Native acceptance, performance or adoption credit."
+  ]
+}
