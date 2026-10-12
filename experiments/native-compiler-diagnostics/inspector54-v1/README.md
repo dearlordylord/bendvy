@@ -49,3 +49,11 @@ The [independently reviewed inline-layout31 candidate](../../public-inspect/prom
 Fresh JS and Native both match the entire207,834-byte oracle. Native emission, standard Clang19 `-O3` build and runtime pass the unchanged30/120/5s caps. The full C artifact is21,470,090 bytes; size alone is no speedup claim. Current53 source files remain unchanged. Review verifies actual Inspector/Check/query/schedule/retry/owner scope and complete artifacts.
 
 This resolves the ordinary-consumer blocker for this copied compiler candidate, not installed-tool adoption or universal compiler correctness. Next: finish existing affected authority/error/reached and representation/ownership controls, then measure runtime/performance on the accepted scope and resolve adoption. #54 remains open.
+
+## Affected controls and reference qualification
+
+Current-public source authority positive/five intended refusals are reviewed and integrated (`3cc0f9f74`). The public Inspector Done-cursor omission is reached on JS and Native: both full230,664-byte counter outputs match the independently authored model and reject the complete normal baseline (`710662b97`).
+
+The Native-only boxed World clock omission now covers both Workshop/Garden constructor continuations (`3e8e70a94`). Both physical clock stores change, all other fields/Type owners remain; the full217,304-byte runtime matches the independent source-derived countermodel and rejects normal207,834 bytes. V1's Garden-only mutation/model mismatch is retained as a failed attempt, with its compiled call-path correction documented in the same final review.
+
+Pinned Node/bevy-ts public paired writers,14 queries and9 stateless Checks across two schemas pass their full shared expected JSON (`981e3678d`); this gives no Bend physical clock/owner/registry equivalence. These finite controls do not establish universal compiler correctness or adoption. Next: unchanged default #28 regression with explicit copied-tool bindings and applicable runtime CPU/allocation evidence; installed Bend remains authoritative.
