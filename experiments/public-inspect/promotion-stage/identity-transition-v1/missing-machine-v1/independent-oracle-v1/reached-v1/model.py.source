@@ -1,0 +1,37 @@
+"""Prepared finite missing-requirement omission scene; no runtime inputs."""
+def world(missing=False, ran=0):
+    flow = 'missing' if missing else 'slot(7,none,none,False)'
+    return ('world(1,1,0,L(False),1,0,N(L(31),L(32));graph=[];[],N(L(11),L(12));'
+            + flow + ';slot(11,next(12,True),10,False);ran=' + str(ran)
+            + ';stream([],[1:0:0],0,0);stream([],[],0,0),events=[],pending=1,'
+              'regs=[1:RequiredFlowCallback:[Flow]],nextSystem=2,clock=0)')
+def rows():
+    absent = world(True)
+    return ['world0:' + world(), 'detached:held=slot(7,none,none,False):' + absent,
+            'missing-first:cursor=19:Unavailable', 'world3:' + absent,
+            'missing-second:cursor=19:Unavailable', 'world5:' + absent,
+            'missing-matches:False', 'world7:' + absent,
+            'missing-required:id=1:cursor=0:Succeeded:False',
+            'world9:' + absent, 'restored:' + world(),
+            'restored-inspect:cursor=19:Current:7', 'restored-matches:True',
+            'restored-required:id=1:cursor=0:Succeeded:True', 'world14:' + world(ran=1)]
+def quoted(value):
+    assert all(32 <= ord(c) < 127 and c not in ('"', chr(92)) for c in value)
+    return '"' + value + '"'
+def expected():
+    values = '[' + ', '.join(quoted(row) for row in rows()) + ']'
+    return ('(' + values + ', ' + values + ')\n').encode()
+def selftest():
+    values = rows()
+    assert len(values) == 15
+    assert values[2].split(':', 1)[1] == values[4].split(':', 1)[1] == 'cursor=19:Unavailable'
+    assert all(values[i].split(':', 1)[1] == world(True) for i in (3,5,7,9))
+    assert values[0].split(':', 1)[1] == values[10].split(':', 1)[1]
+    assert values[6] == 'missing-matches:False'
+    assert values[8].endswith('Succeeded:False')
+    assert values[12] == 'restored-matches:True'
+    assert values[13].endswith('cursor=0:Succeeded:True')
+    assert world(ran=1) == world().replace('ran=0;', 'ran=1;')
+    assert all('pending=1' in value and 'clock=0' in value and '[1:0:0]' in value
+               for value in values if 'world(' in value)
+    assert expected().count(b'"') == 60

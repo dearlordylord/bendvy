@@ -1,0 +1,35 @@
+from pathlib import Path
+import gzip, hashlib, json
+HERE = Path(__file__).resolve().parent
+sha = lambda path: hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def load(path):
+    model = {'__name__': 'source_model'}
+    exec(compile(Path(path).read_text(), str(path), 'exec'), model)
+    model['selftest']()
+    return model
+def main():
+    basis = json.loads((HERE / 'SOURCE-BASIS.json').read_text())
+    for path, digest in basis['sourcePins'].items():
+        assert sha(path) == digest, path
+    context = json.loads(Path(basis['preparedContext']).read_text())
+    normal = Path(basis['normalTarget']).read_text()
+    prepared = Path(basis['preparedTarget']).read_text()
+    assert normal.count(context['old']) == 1
+    assert normal.replace(context['old'],context['new']) == prepared
+    assert sha(context['target']) == context['normalSHA256'], 'required unapplied normal precondition'
+    model = load(HERE / 'model.py.source')
+    baseline = load(HERE.parent / 'model.py.source')
+    a,b = baseline['rows'](),model['rows']()
+    assert [i for i in range(15) if a[i] != b[i]] == [8]
+    assert b[8] == 'missing-required:id=1:cursor=0:Succeeded:False'
+    assert b[9] == a[9] and b[14] == a[14]
+    raw,normalRaw = model['expected'](),baseline['expected']()
+    assert normalRaw == gzip.decompress((HERE.parent / 'normal.stdout.gz').read_bytes())
+    (HERE / 'mutant.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
+    catalogue = {'mutant': {'stdout': str(HERE / 'mutant.stdout.gz'),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),
+        'normalBaseline':str(HERE.parent / 'normal.stdout.gz'),'normalBaselineBytes':len(normalRaw),'normalBaselineSHA256':hashlib.sha256(normalRaw).hexdigest(),
+        'sourceBasisSHA256':sha(HERE / 'SOURCE-BASIS.json')}}
+    (HERE / 'ORACLES.json').write_text(json.dumps(catalogue,indent=2)+'\n')
+    print(len(raw),hashlib.sha256(raw).hexdigest())
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,56 @@
+{
+  "scope": "Two nominal schemas actual Missing MD.inspect/matches and registered required preflight with no operational callback; heldslot restored positive; completeowners/pending",
+  "planSHA256": "e259daefbdc4954893078d26d42cc11a987070027f3d57431888385461930c6b",
+  "commands": [
+    {
+      "label": "source-identity",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/missing-machine-v1/main.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "stderrContains": [],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/missing-machine-v1/source04/source-identity.stdout",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/missing-machine-v1/source04/source-identity.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/missing-machine-v1/source04/source-identity-pre.guard.json",
+      "sha256": "72c09deccb80ca95dfe508f54322237c98fa0c447b44398296b222dc97995d37"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/missing-machine-v1/source04/source-identity-acquired.guard.json",
+      "sha256": "5cabc0cbfac84dfad832636f22827476ba8bfa46b0635dae9d2e4be93f98b021"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/missing-machine-v1/source04/source-identity-post.guard.json",
+      "sha256": "1108209fb4a023a310a555aa29b3bb76277312a6a43f9e6b164087d3f441ab5d"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/identity-transition-v1/missing-machine-v1/source04/final.guard.json",
+      "sha256": "8e78992c858b3427a6b4cab45856b2506e83cbc1ad8f07785c690e067b93142c"
+    }
+  ],
+  "status": "COMPLETE_SOURCE_CONTROL_PASS"
+}
