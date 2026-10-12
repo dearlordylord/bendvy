@@ -1,0 +1,9 @@
+# Inspector #54 IR generation diagnostic launch review
+
+**Verdict: APPROVE this exact one-command IR diagnostic prospectively.**
+
+Plan `71790a0e2c17bf9183238e6814cf2de06a599f0addb75780580d9e0f62105cac`, freeze `2eed4e29c8cb1f213a89029946b51de2667109ce4ee2afcfcc1ce77368c31779`, launch review `9e5f336af29f7e0836ba1356a773dc3921d8e0ac933da5bd9310ce6af33345a9`, and help binding `caf171689d1599280fecd7c370bfa2ff06ecdd302b2c11ccebca91e08308c879` match current files. All 22 explicit pins match, including the exact archived C input and the retained raw `clang -cc1 --help` output. That help explicitly documents `-disable-llvm-passes` for use with `-emit-llvm`; the five resource-root snapshots match current inputs.
+
+The unchanged collector runs one CPU-3 command: pinned Clang wrapper, `-O3 -S -emit-llvm -Xclang -disable-llvm-passes`, exact C input, `-o /dev/null -pthread -lm`, with a 120-second child cap and expected exit 0. Existing pre/post/terminal guards, resource checks, owned child runner, heavy lock, and split raw-stream capture remain in force. The command’s IR is deliberately discarded; no generated IR artifact or duration claim is made. This is not Bend check, native build/runtime, acceptance, or performance evidence.
+
+I verified all bindings, resource snapshots, flag help evidence, archive equality, and fresh raw/receipt/guard paths read-only. No compiler, runner, test, or hook was executed.
