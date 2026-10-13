@@ -1,0 +1,31 @@
+--- /workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/compiler/candidate.mjs
++++ /workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/runtime-selector-profile-v1/compiler/candidate.mjs
+@@ -1,4 +1,5 @@
+ #!/usr/bin/env bun
++var DIAGNOSTIC_PROFILE_START = Date.now();
+ // @bun
+ 
+ // ../bend2-core/.claude/worktrees/rel-2035/bend2/main.ts
+@@ -5231,7 +5232,14 @@
+   const traces = new Map();
+   let full;
+   let diagnostic_pass = 0;
++  const diagnostic_profile_stop = () => {
++    if (Date.now() - DIAGNOSTIC_PROFILE_START > 20000) {
++      fs2.writeSync(2,"DIAGNOSTIC_PROFILE_STOP\n");
++      process.exit(77);
++    }
++  };
+   const diagnostic_phase = (phase) => {
++    diagnostic_profile_stop();
+     const cpu = process.cpuUsage();
+     fs2.writeSync(2, "INSPECTOR54_PHASE " + JSON.stringify({phase, pass: diagnostic_pass, facts: facts(), cpuSeconds: (cpu.user + cpu.system) / 1e6}) + "\n");
+   };
+@@ -5245,6 +5253,7 @@
+     fl.spins = [];
+     fl.img = [];
+     for (const [k, tld] of done_defs(fl).reverse()) {
++      diagnostic_profile_stop();
+       const prior = traces.get(k);
+       if (prior && !prior.miss.some((f) => f())) {
+         prior.asks.forEach((key) => brw_of(fl, key));

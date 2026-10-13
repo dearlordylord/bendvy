@@ -1,0 +1,61 @@
+{
+  "scope": "One bounded purefactor current63source Native emitter profile; diagnose setup/firstpass cost before mandatoryfullpass. Cooperative20/outer30CPU3; expected77/deadline INCOMPLETE; no Nativeacceptance or speedup.",
+  "planSHA256": "22006b470add5619d4c7930d2201191fcfc98d8d437c5dba4a230662b6e7adf1",
+  "commands": [
+    {
+      "label": "emit",
+      "capSeconds": 30,
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.local/share/mise/installs/bun/1.3.14/bin/bun",
+        "--cpu-prof",
+        "--cpu-prof-interval=10000",
+        "--cpu-prof-name=emitter.cpuprofile",
+        "--cpu-prof-dir=/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/profile-v2/native-output",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/runtime-selector-profile-v1/compiler/candidate.mjs",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/bend/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/profile-v2/native-output/scenario.c"
+      ],
+      "exit": 77,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/profile-v2/native-output/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/profile-v2/native-output/emit.stderr",
+        "sha256": "70c0a628ca8f0bc55267123e7a3762a5f2a6bf9f4c0a6bb85bae02b8014ff50d",
+        "bytes": 261,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/profile-v2/native-output/emit-pre.guard.json",
+      "sha256": "dcc587239ec960e19dd2e5949b6ae7739576cc4f865fbac6e860e25b681d5742"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/profile-v2/native-output/emit-acquired.guard.json",
+      "sha256": "9bf315817240228f290755f8286da5b9ff2f8c155ee201f91ac895b7df1616a3"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/profile-v2/native-output/emit-post.guard.json",
+      "sha256": "d78cf78d1945ca1c15761c8bfc538bd2d3ba19d1d479b6aff54896805fe9c6a0"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/profile-v2/native-output/final.guard.json",
+      "sha256": "2538675b1822f5ef1c2b70b1056dfa59da9dee1ee8fc0cb7c7d2952b442d2047"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Owned child failed: emit",
+  "guardFailures": []
+}

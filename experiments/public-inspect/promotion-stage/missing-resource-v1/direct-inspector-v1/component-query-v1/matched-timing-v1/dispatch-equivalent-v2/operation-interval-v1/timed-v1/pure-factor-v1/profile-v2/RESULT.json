@@ -1,0 +1,38 @@
+{
+  "status": "INCOMPLETE_DIAGNOSTIC_VALID_PROFILE",
+  "originalSession": 5566,
+  "outerReceiptSHA256": "0bf6ca07afb8a3e3ae2a22c7a72d3c6ffd9b0c91bc843f1f2b8e661feca4a069",
+  "roleReceiptSHA256": "f45b636a569437f9042915cefbdbc50d88eac338221e10768deea95a5e484840",
+  "childExit": 77,
+  "childFailure": null,
+  "profile": {
+    "role": "native",
+    "status": "PROFILE_RETAINED_VALID",
+    "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/profile-v2/native-output/emitter.cpuprofile",
+    "bytes": 13320035,
+    "profileSHA256": "99ababf7d103c188967c37459ffb07fab8e588d0ad5a6a0041a6b560f2fa1f66",
+    "nodeCount": 31797,
+    "sampleCount": 1469,
+    "timeDeltaCount": 1469,
+    "sampledMicroseconds": 20079010,
+    "startTime": 1791916355512251.5,
+    "endTime": 1791916375591806.2
+  },
+  "sourceInputsUnchanged": true,
+  "guardFailures": [],
+  "generatedCExists": false,
+  "phaseWindow": "setup/pass1/partialpass2;pass1CPU7.343882\u219213.918201;pass2begin13.920787,thencooperativeSTOP",
+  "sampleTiming": "20.079010 sampled seconds;different quantity from processCPU and collectorwall36.781792",
+  "observations": "Inclusive name union overlaps;stringify self2.306416s,nearestlay_of2.045237s;memo inclusive4.994302s,emit_match9.337513s. No universalhotspot/causalcomparison.",
+  "sourceAudit": "lay_of f259line3689 computes term_key(term_lower(t)) before LAYS lookup;bind_usesline4403 calls it despite existing v.lay because actual expectedtype/dynamicunboxing checks need its value. Mutable HOAS/typecells forbid identitycache assumption; prior dedicatedkeycandidate abandoned.",
+  "next": "Read-only prove whether repeated lay_of calls have already available exact context/type-key at current emit sites before any patch;thisprofiledoesnotjustify skippingmandatoryfullpass or retryingoldkeycandidate",
+  "NativeAcceptance": "NOT ESTABLISHED;noC/O3/runtime",
+  "fullIssue": "OPEN",
+  "layoutAudit": {
+    "functions": "All/function normalizedhead already returnsBOX beforekey;closurecapturesvariablewordsbutvalueoneBOX. No newfunctionfastpath needed",
+    "counterexample": "ADTwithmultiplefunctionfields canhaveinlineks [box,box] and constructorarms;cannotcollapseallfunctioncontainingADTs toBOX",
+    "recursiveFamily": "ActualdirectselfrecursiveADT guaranteedBOX byexistingctr_doms/ty_holds check;BaseList elementtypeirrelevanttovalueBOX, notnodefieldlayouts. Listnamealoneunsafe:unprotecteduserADTmaybenonrecursive",
+    "fullKeyReuse": "No existing stablefullkey atbind_uses/emit_body/emit_native;printerkeyatshow_mainbelongsdifferentidentitygraph",
+    "conclusion": "No newsafe measured-family fastpath established. Typefamilyattribution absent;no compilerpatch/retry authorized bythisaudit."
+  }
+}

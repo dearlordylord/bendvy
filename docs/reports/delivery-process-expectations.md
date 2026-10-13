@@ -342,3 +342,22 @@ verification, exact ownership, whitespace, configured hook and final review pass
 Ignored runtime artifacts were staged with the exact ownership manifest only.
 The helper remains experimental; original harness, core and installed tools are
 unchanged. Neither this bounded success nor host contention waives full delivery.
+
+### Current Native emission profile — 2026-10-13 UTC
+
+One diagnostic reuses the existing outer controller and guarded collector.
+Launch review catches mismatched artifact parents and compiler metadata before
+execution; the preserved successor repairs only those bindings. Actual profile
+is valid (1,469 samples/20,079,010 sampled microseconds) and covers setup/pass1/
+partial2. Layout-key stringify contributes2.045 sampled seconds under its nearest
+parent; inclusive totals overlap. No matched before/after, fullpass8 cause,
+Native acceptance or speedup follows. Producer `357724bd` owns26 paths;133 archive
+members, receipts/guards, selected checks, ownership, configured hook and final
+review pass for diagnostic scope. Raw profile is archived without tracked duplication;
+raw diff whitespace is retained under the configured evidence scope.
+
+#46 provenance audit reuses current handle-admission's22-row JS/Native oracle
+and41 exact source joins: both same-schema worlds reserve/populate live ID1,
+and foreign targets/nested payloads originate from the second reservation.
+This avoids another fixture; it does not establish independent-root/process-wide
+namespace uniqueness or foreign resource replacement.
