@@ -1,0 +1,29 @@
+from pathlib import Path
+import re,json,hashlib
+p=Path('/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1');o=p/'unused-incoming-names-v1'
+c=(p/'runtime01/derived.c').read_text();args=re.search(r'^#define WL_SIG (.*)$',c,re.M).group(1).split(', ');assert len(args)==46
+anchor='#define WL_SPIN     for (;;) { if (err_spun(e.mem, &wpoll)) { return 0; }\n'
+extra='#if DEVICE\n#define WL_CASE_SIG(F, ...) WL_CASE(F)\n#else\n#define WL_CASE_SIG(F, ...) WL_FN WL_##F(__VA_ARGS__)\n#endif\n'
+pat=re.compile(r'(?m)^(  WL_CASE\(([^\n]+)\)\n  \{\n)(.*?)(?=    WL_OPEN)',re.S);rows=[]
+def transform(m):
+ if m.group(2) in ['FID_EXIT','FID_ENTER']:return m.group(0)
+ prefix=m.group(3);uses=[]
+ for line in prefix.splitlines():
+  line=line.strip()
+  if not line:continue
+  if re.fullmatch(r'WL_POPN\(\d+\);',line):continue
+  field=re.fullmatch(r'(Term|u32|u64) [A-Za-z_][A-Za-z_0-9]* = (r(\d+)|STK\(\d+\));',line);assert field,line
+  if field.group(3) is not None:uses.append(int(field.group(3)))
+ assert uses==list(range(len(uses))) and len(uses)<=41
+ named=[('Term' if (w:=re.fullmatch(r'Term r(\d+)',arg)) and int(w.group(1))>=len(uses) else arg) for arg in args]
+ assert [re.sub(r' r\d+$','',a) for a in args]==[re.sub(r' r\d+$','',a) for a in named]
+ old=m.group(1).splitlines()[0];new='  WL_CASE_SIG('+m.group(2)+', '+', '.join(named)+')'
+ rows.append({'fid':m.group(2),'consumedIncomingRegisters':len(uses),'unnamedIncomingRegisters':41-len(uses),'old':old,'new':new})
+ return new+'\n  {\n'+prefix
+out=pat.sub(transform,c);assert len(rows)==9552;assert out.count(anchor)==1;out=out.replace(anchor,extra+anchor)
+restore=out.replace(extra+anchor,anchor)
+# Linear line-wise reversal avoids repeated full-file replacement.
+reverse={r['new']:r['old'] for r in rows};restore=''.join(reverse.get(line.rstrip('\n'),line.rstrip('\n'))+('\n' if line.endswith('\n') else '') for line in restore.splitlines(True));assert restore==c
+(o/'derived.c').write_text(out);sha=lambda b:hashlib.sha256(b).hexdigest();s=(p/'compiler/candidate.mjs').read_bytes();n=(o/'compiler/candidate.mjs').read_bytes()
+r={'baselineCompilerSHA256':sha(s),'candidateSHA256':sha(n),'baselineC':str(p/'runtime01/derived.c'),'baselineCSHA256':sha(c.encode()),'derivedCSHA256':sha(out.encode()),'derivedBytes':len(out.encode()),'changedCases':len(rows),'removedIncomingNames':sum(r['unnamedIncomingRegisters'] for r in rows),'unchangedABIArguments':len(args),'sourceReverse':True,'cReverse':True,'rows':rows}
+(o/'DERIVATION.json').write_text(json.dumps(r,indent=2)+'\n');print({k:v for k,v in r.items() if k!='rows'})

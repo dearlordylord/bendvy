@@ -545,3 +545,10 @@ ordinary run and existing collector were used; no unchanged retry or broader
 qualification was started. This does not establish relative compile speed or
 identify the dominant remaining cost. Retention review and source-backed next
 factor selection continue under #54.
+
+Unused incoming parameter names passed HOST/DEVICE finite ABI controls. The
+HOST control retained C23-extension warnings; the source-only `__extension__`
+successor also retained them. The prospective stop condition prevented both
+full runs, avoiding warning-heavy qualification. This is observed runner use,
+not evidence of faster delivery or Native qualification. A narrowly scoped
+source diagnostic pragma is the next #54 candidate.
