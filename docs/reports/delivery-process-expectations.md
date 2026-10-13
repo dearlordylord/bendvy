@@ -328,3 +328,17 @@ enum failure. Producer `fe8808eaf` owns10 files; ownership, whitespace, configur
 hook and79-member archive verification pass. Independent review accepts the
 failure record, not the source gate. No source edit, cap increase, repeated
 checker run or overall delivery-speed claim follows.
+
+### Private source factor — 2026-10-13 UTC
+
+One private helper replaces three identical nested query tails; all24 original
+declarations remain. Its three expansions reproduce the original source bytes.
+The candidate current pure check passes the unchanged5s cap, and one existing
+JS collector passes the full226,096-byte oracle. Native emit-only reaches its
+unchanged30s deadline before producing C; pass markers are retained, without
+convergence/cause or speedup claims. No -O3 build/runtime occurs for this source.
+Producer `b7ae10e1f` owns67 paths; selected checks, source expansion/archive
+verification, exact ownership, whitespace, configured hook and final review pass.
+Ignored runtime artifacts were staged with the exact ownership manifest only.
+The helper remains experimental; original harness, core and installed tools are
+unchanged. Neither this bounded success nor host contention waives full delivery.
