@@ -382,3 +382,21 @@ Current source inspection also finds host task_node/ctr_take already FAR/noinlin
 FORMAT_ROW_1 calls no ctr_take or term_keep. The old pre-outline task_node-inlining
 explanation cannot be applied directly to this generated row. Current-stage
 compiler/CPU evidence is needed before choosing another patch.
+
+### Current-C compiler snapshot — 2026-10-13 UTC
+
+The existing bounded SIGQUIT diagnostic executes once on current emitted C;
+launch review repairs stale inherited provenance before execution. Raw stack
+samples cc1 per-file LLVM IR generation at a composed query constructor,
+ConvertType/CreateIRTemp/StartFunction, not the earlier SelectionDAG formatter.
+Two same-process observations retain14.52 CPU seconds at20.88 wall and28.15 at
+79.76 wall; no complete compilation CPU or scheduling/IO cause is inferred.
+The runner refuses the killed command/owned descendants; all named processes
+are absent afterward. No passing binary/runtime or ordinary build acceptance.
+Producer `d098b6b65` owns29 paths;149 archive members, portable verifier, source
+checks, exact ownership, configured hook and final review pass for diagnostics.
+
+Source inspection finds a shared46-parameter WL ABI for9,554 functions, with
+max41 live arguments in two joined world observers and31 result words. This
+supports testing representation cost; neither the stack nor these counts prove
+a dominant bottleneck or justify changing acceptance limits.
