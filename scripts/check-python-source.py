@@ -54,13 +54,14 @@ def check(name, source):
         return False
     valid = True
     entrypoint = entrypoint_scope(name)
+    source_bound = source_bound_loader_scope(name)
     for node in ast.walk(tree):
         if (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
                 and isinstance(node.func.value, ast.Tuple)
                 and node.func.attr in PATH_METHODS):
             print(f'{name}:{node.lineno}: tuple has no {node.func.attr} method')
             valid = False
-        if (source_bound_loader_scope(name) and isinstance(node, ast.Call)
+        if (source_bound and isinstance(node, ast.Call)
                 and isinstance(node.func, ast.Attribute) and node.func.attr == 'exec_module'
                 and isinstance(node.func.value, ast.Attribute) and node.func.value.attr == 'loader'):
             print(f'{name}:{node.lineno}: compile pinned source bytes; loader.exec_module may read unpinned bytecode')
