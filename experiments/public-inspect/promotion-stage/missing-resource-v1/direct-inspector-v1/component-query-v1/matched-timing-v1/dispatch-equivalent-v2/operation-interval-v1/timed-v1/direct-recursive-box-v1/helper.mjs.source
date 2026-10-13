@@ -1,0 +1,17 @@
+function lay_direct_self(book, t) {
+  const tld = book.tlds[t.k];
+  if (tld?.$ !== "ADT") return false;
+  for (const c of tld.c) {
+    const tel = TELES.get(c.T);
+    if (tel === undefined) return false;
+    for (const [q, , F] of tel.doms.slice(tel.doms.length - c.n)) {
+      if (!quant_live(q)) continue;
+      if (F.$ === "ADT" && F.k === t.k) return true;
+      if (F.$ === "ADT" && WORDS[F.k] !== undefined) continue;
+      if (F.$ === "Var" && F.v === undefined) continue;
+      if (F.$ === "All" || F.$ === "Typ" || F.$ === "Qua") continue;
+      return false;
+    }
+  }
+  return false;
+}

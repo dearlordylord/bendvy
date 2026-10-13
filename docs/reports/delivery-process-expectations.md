@@ -361,3 +361,24 @@ and41 exact source joins: both same-schema worlds reserve/populate live ID1,
 and foreign targets/nested payloads originate from the second reservation.
 This avoids another fixture; it does not establish independent-root/process-wide
 namespace uniqueness or foreign resource replacement.
+
+### Direct recursive BOX candidate — 2026-10-13 UTC
+
+One private compiler helper reads only warm constructor metadata and returns the
+existing BOX for a direct self-ADT witness; uncertain preceding fields retain the
+old path. Eleven independent actual-function differential cases and seven owner
+controls pass. The reviewed conditional batch executes full JS first:226,096 bytes
+match the unchanged oracle. Native emission completes all8 passes and writes
+23,882,225-byte C; standard Clang19 -O3 build reaches the existing120s deadline.
+No binary/runtime or speedup/adoption evidence follows. Producer `7c923440b` owns
+46 paths;156 archive members, portable verifier, selected checks, ownership,
+configured hook and final review pass for partial scope. No repeated build.
+
+A source-only census finds9,554 generated WL_CASE blocks; FORMAT_ROW_1 is49 lines
+before macro expansion. This is not LLVM function size or build-cost attribution.
+The earlier stack snapshot therefore remains a hypothesis: inspect runtime-helper
+inlining and aggregate code before another compiler experiment.
+Current source inspection also finds host task_node/ctr_take already FAR/noinline;
+FORMAT_ROW_1 calls no ctr_take or term_keep. The old pre-outline task_node-inlining
+explanation cannot be applied directly to this generated row. Current-stage
+compiler/CPU evidence is needed before choosing another patch.
