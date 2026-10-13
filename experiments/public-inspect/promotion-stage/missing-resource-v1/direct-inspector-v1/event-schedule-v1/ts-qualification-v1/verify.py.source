@@ -1,0 +1,23 @@
+"""Verify retained full58 TS qualification without runtime execution."""
+from pathlib import Path
+import hashlib,json,zipfile
+HERE=Path(__file__).resolve().parent
+sha=lambda raw:hashlib.sha256(raw).hexdigest()
+def main():
+ d=json.loads((HERE/'DELIVERY.json').read_text())
+ assert sha((HERE/'EVIDENCE.zip').read_bytes())==d['archiveSHA256']
+ with zipfile.ZipFile(HERE/'EVIDENCE.zip') as z:
+  assert z.testzip() is None
+  assert sorted(z.namelist())==sorted(r['path'] for r in d['members'])
+  assert not any('environment.private' in name for name in z.namelist())
+  for r in d['members']:
+   raw=z.read(r['path']);assert len(raw)==r['bytes'] and sha(raw)==r['sha256']
+  p=json.loads(z.read('qualification/plan.json'));r=json.loads(z.read('qualification/receipt.json'))
+  assert r['planSHA256']==sha(z.read('qualification/plan.json')) and r['exit']==0 and r['failure'] is None
+  raw=z.read('qualification/stdout.raw');expected=z.read('qualification/oracle-v1/expected.stdout')
+  assert raw==expected and len(raw)==9584 and len(json.loads(raw)['observations'])==58
+  assert json.loads(raw)==json.loads(z.read('qualification/oracle-v1/expected.json'))
+  assert z.read('qualification/stderr.raw')==b''
+  for name,digest in r['logs'].items():assert sha(z.read('qualification/'+name))==digest
+ print(json.dumps({'status':'PASS_RETAINED_TS_FULL58','members':len(d['members']),'bytes':9584}))
+if __name__=='__main__':main()

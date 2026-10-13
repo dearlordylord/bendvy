@@ -1,0 +1,30 @@
+{
+  "status": "PASS_SOURCE_MODEL_ONLY",
+  "parentSourceSHA256": "70022fef818d8121860f0c585b2c3b3662fc1c82f5e29e1174b366f0ac16b7f5",
+  "referenceSHA256": "282daa36fd382d29348bce8bc31fedfdd7eca769ac7dda34bf8ce5fabe028a6c",
+  "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+  "referenceSourceCount": 33,
+  "observationCount": 58,
+  "observationsPerSchema": {
+    "Workshop": 29,
+    "Garden": 29
+  },
+  "modelSHA256": "3883fe1cf518855c408c3a4957af050e2a3de49cb9c9b7c8aa45c6d518ff266a",
+  "regeneratorSHA256": "58bcc7b50a3a79676dc55827d2d673e7b334179b34072979039137bef6b20d00",
+  "sourceBasisSHA256": "98f2cb4b7734e82e05ac064cf4808635576d8b31cb2f0e7bf0e5fcb1883ac901",
+  "stdoutBytes": 9584,
+  "stdoutSHA256": "a95cdb55b711b4e94c47d9d41471af6ff9784fc4fa9163a55d41a1b05fdca09b",
+  "gzipBytes": 915,
+  "gzipSHA256": "4bef2de25637159b8314b59e8669060d4b5acd19997933028ec1d62d3ae38fe0",
+  "runtimeOutputInputs": [],
+  "assertions": [
+    "all 33 pinned bevy-ts source hashes and the fixed reference hash match",
+    "the Python model produces exactly 29 ordered observations per nominal schema",
+    "Schedule.when evaluates the check twice, preserving both check observations",
+    "held cells, lookup mismatch/missing errors, undefined resource read, and resource requirement Symbol are source-defined values",
+    "the lag runtime drops its event batch after two empty frames and reports lagged=true",
+    "canonical JSON parses to the model value and has exactly one terminal LF",
+    "deterministic gzip round-trips the canonical bytes",
+    "no historical, candidate, or runtime output is read"
+  ]
+}

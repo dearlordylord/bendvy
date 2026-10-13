@@ -1,0 +1,33 @@
+{
+  "status": "TS_PUBLIC_INSPECT_SCHEDULE_FULL58_PASS",
+  "originalSession": 72267,
+  "collectorStatus": "COMPLETE_PINNED_TS_PUBLIC_COMPONENT_PASS",
+  "receiptSHA256": "422e0772b71244759e9d91d197d5cd6c341890ef62e808b031f0d77c723552c1",
+  "planSHA256": "5610f22b6e8c7bcb19fa99c8a340be4fdfbe3c9a7e7188949fa7474266c386e4",
+  "observations": 58,
+  "observationsPerSchema": 29,
+  "stdoutBytes": 9584,
+  "stdoutSHA256": "a95cdb55b711b4e94c47d9d41471af6ff9784fc4fa9163a55d41a1b05fdca09b",
+  "completeJSONEquality": true,
+  "completeCanonicalByteEquality": true,
+  "stderrBytes": 0,
+  "oracleFrozenBeforeRuntime": true,
+  "sourceBasisSHA256": "98f2cb4b7734e82e05ac064cf4808635576d8b31cb2f0e7bf0e5fcb1883ac901",
+  "limits": [
+    "TS inspector advances its own cursor/world tick; no Bend physical-owner equality claim",
+    "No Bend rebuild, performance measurement, compiler adoption or full issue closure"
+  ],
+  "queueReleased": true,
+  "correspondence": {
+    "sharedOperations": "Both use two nominal schemas, repeated public inspection around ordinary writer/reader schedules, event observations and failure/retry paths. TS has 29 ordered observations/schema; qualified Bend has 14 complete checkpoints/schema. Counts are not relabeled equal.",
+    "qualifiedBendNormalBytes": 211157,
+    "qualifiedBendNormalSHA256": "0e6fcb31d1506605b1ce21db020dc657e4fa39abfb51761a824b46a5b69ab4b8",
+    "currentBendSourceJoin": "Existing event-schedule-v1 79-file source-current join reused; no rebuild.",
+    "differences": "TS inspect completes by advancing its own cursor/world tick; Bend getter returns affine owners without that advancement. TS held-cell aliases do not prove Bend ownership."
+  },
+  "remainingGates": [
+    "Full timed source cap5 remains unresolved",
+    "Native repetition full acceptance deferred after baseline also missed build120",
+    "Equivalent complete feature timing and affected compiler qualification/adoption remain open"
+  ]
+}
