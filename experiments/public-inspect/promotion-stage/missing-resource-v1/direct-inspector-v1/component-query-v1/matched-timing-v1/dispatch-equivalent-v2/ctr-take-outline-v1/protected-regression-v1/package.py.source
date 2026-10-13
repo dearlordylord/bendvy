@@ -1,0 +1,59 @@
+"""Retain the unchanged protected cohort with the existing ZIP/member convention."""
+import hashlib
+import json
+from pathlib import Path
+import zipfile
+
+HERE = Path(__file__).resolve().parent
+ROOT = Path('/workspace/formal-proofs/bendvy')
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def main():
+    excluded = {'EVIDENCE.zip', 'DELIVERY.json', 'VERIFICATION.json', 'OWNED-MANIFEST.json'}
+    contents = {}
+    for path in sorted(HERE.rglob('*')):
+        if not path.is_file() or path.is_symlink() or path.name in excluded:
+            continue
+        if '__pycache__' in path.parts or '.private.' in path.name:
+            continue
+        contents[path.relative_to(HERE).as_posix()] = path.read_bytes()
+    plan = json.loads((HERE / 'plan.json').read_text())
+    for name, expected in plan['pins'].items():
+        path = Path(name)
+        if not path.is_relative_to(ROOT) or path.suffix not in {'.py', '.md', '.json', '.bend', '.source'}:
+            continue
+        if '.references' in path.parts:
+            continue
+        data = path.read_bytes()
+        assert sha(data) == expected, name
+        contents['dependencies/' + path.relative_to(ROOT).as_posix()] = data
+    # The actual launched worktree wrapper is pinned separately from ROOT copies.
+    launched = Path(json.loads((HERE / 'LAUNCH.json').read_text())['argv'][1])
+    wrapper = launched.read_bytes()
+    assert sha(wrapper) == plan['pins'][str(launched)]
+    contents['dependencies/benchmark-boundary.py.source'] = wrapper
+    cohort = json.loads((HERE / 'cohort/receipt.json').read_text())
+    reference = ROOT / '.references/bevy-ts'
+    for name, expected in cohort['referenceHashes'].items():
+        data = (reference / name).read_bytes()
+        assert sha(data) == expected, name
+        contents['dependencies/reference/' + name] = data
+    rows = []
+    with zipfile.ZipFile(HERE / 'EVIDENCE.zip', 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
+        for name, data in sorted(contents.items()):
+            archive.writestr(name, data)
+            rows.append({'path': name, 'bytes': len(data), 'sha256': sha(data)})
+    record = {'status': 'UNCHANGED_BENCHMARK_NO_CONFIRMED_REGRESSION',
+              'archiveSHA256': sha((HERE / 'EVIDENCE.zip').read_bytes()), 'members': rows,
+              'scope': 'Protected source regression under the same copied compiler in both roles; no isolated compiler-overhead, full-feature timing or adoption claim.',
+              'verification': 'Run python3 verify.py.source; no benchmark rerun.'}
+    (HERE / 'DELIVERY.json').write_text(json.dumps(record, indent=2) + '\n')
+    print(json.dumps({'archiveSHA256': record['archiveSHA256'], 'members': len(rows)}))
+
+
+if __name__ == '__main__':
+    main()

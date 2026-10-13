@@ -1,0 +1,48 @@
+{
+  "status": "NO_CONFIRMED_REGRESSION",
+  "session": 54717,
+  "scope": "Protected frozen Workshop source regression with BOTHroles newlybuilt by copiedf259; wholeprocess startup/outputincluded. No isolatedcompiler-overhead/fullInspectorinterval/adoption/speedupqualification.",
+  "outerReceiptSHA256": "f00306ed43f001c072c2f1e65210736e622573741435155375dbb07abdb55ce9",
+  "cohortReceiptSHA256": "35b7fc3f2acd9b75c9d3fa54614e2081bc368dc52c792adbc51ad1e7ffc30f4f",
+  "planSHA256": "423142d82f0a69a1c3a6995ebd1ae7afecea770469ec1ae8b12cb40cb79eb60e",
+  "launchSHA256": "62cce0e347c8c1eb6870c1b757c78f8df65ffaa3939c89c69167d84a1b834b54",
+  "candidateSHA256": "f259cbf588ee7db87cd07821bfce7e652ff73e2fa964aa9c7096dce81f1c8f81",
+  "pairsPerBackend": {
+    "JS": 20,
+    "Native": 20
+  },
+  "endpoints": {
+    "JS": {
+      "nonTiePairs": 20,
+      "slowerPairs": 4,
+      "pValue": 0.9987115859985352,
+      "medianPairedRatio": 0.8805230205778194,
+      "confirmedRegression": false,
+      "holmCutoff": 0.025
+    },
+    "Native": {
+      "nonTiePairs": 20,
+      "slowerPairs": 4,
+      "pValue": 0.9987115859985352,
+      "medianPairedRatio": 0.923028712140922,
+      "confirmedRegression": false
+    }
+  },
+  "mediansMs": {
+    "TS": 309.2526845,
+    "baseline-JS": 138.954159,
+    "baseline-Native": 35.6515055,
+    "candidate-JS": 125.577944,
+    "candidate-Native": 33.446237499999995
+  },
+  "descriptiveTargets": {
+    "JS/TS": 0.4060690506309898,
+    "Native/TS": 0.10815180975413649
+  },
+  "baselineArchiveSHA256": "567e1e0e7d27a4c111791fcd89f9afc84e301c008741a323de258b5ca1e793e3",
+  "quietnessSHA256": "de15b748f36f6995104f67d0cccd684813b840138bb07b640766b82d2c5ad82e",
+  "allCommandsSucceeded": true,
+  "rawRetention": "All warmups/timed fullstdout gzip and all pair observations retained by unchangedbenchmarkrunner.",
+  "remaining": "Complete matchedInspector timing/scaling and compiler qualification/adoption; #28not compiler-overhead comparison.",
+  "queue": "RELEASED"
+}
