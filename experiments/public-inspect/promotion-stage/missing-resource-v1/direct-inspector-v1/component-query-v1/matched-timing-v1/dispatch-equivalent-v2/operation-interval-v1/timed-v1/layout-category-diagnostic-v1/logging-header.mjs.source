@@ -1,0 +1,58 @@
+var DIAGNOSTIC_LAYOUT_ROWS = new Map();
+var DIAGNOSTIC_LAYOUT_COUNTER_FAILURES = 0;
+var DIAGNOSTIC_LAYOUT_FLUSHED = false;
+function diagnostic_layout_now() {
+  try { const n = performance.now(); return Number.isFinite(n) ? n : null; }
+  catch (_) { return null; }
+}
+function diagnostic_layout_row(t) {
+  try {
+    const name = t.k;
+    let row = DIAGNOSTIC_LAYOUT_ROWS.get(name);
+    if (row === undefined) {
+      row = {name, calls:0, keyChars:0, cacheHits:0, lowerMs:0, keyMs:0, lowerFailures:0, keyFailures:0, timingMissing:0};
+      DIAGNOSTIC_LAYOUT_ROWS.set(name,row);
+    }
+    row.calls++;
+    return row;
+  } catch (_) { DIAGNOSTIC_LAYOUT_COUNTER_FAILURES++; return null; }
+}
+function diagnostic_layout_increment(row, field) {
+  try { if (row !== null) row[field]++; }
+  catch (_) { DIAGNOSTIC_LAYOUT_COUNTER_FAILURES++; }
+}
+function diagnostic_layout_time(row, field, began) {
+  try {
+    if (row === null) return;
+    const ended = diagnostic_layout_now();
+    if (began === null || ended === null || ended < began) row.timingMissing++;
+    else row[field] += ended - began;
+  } catch (_) { DIAGNOSTIC_LAYOUT_COUNTER_FAILURES++; }
+}
+function diagnostic_layout_key(t) {
+  const row = diagnostic_layout_row(t);
+  let lower;
+  let began = diagnostic_layout_now();
+  try { lower = term_lower(t); }
+  catch (error) { diagnostic_layout_increment(row,"lowerFailures"); throw error; }
+  finally { diagnostic_layout_time(row,"lowerMs",began); }
+  let key;
+  began = diagnostic_layout_now();
+  try { key = term_key(lower); }
+  catch (error) { diagnostic_layout_increment(row,"keyFailures"); throw error; }
+  finally { diagnostic_layout_time(row,"keyMs",began); }
+  try {
+    if (row !== null) {
+      row.keyChars += key.length;
+      row.cacheHits += Number(LAYS.has(key));
+    }
+  } catch (_) { DIAGNOSTIC_LAYOUT_COUNTER_FAILURES++; }
+  return key;
+}
+function diagnostic_layout_flush() {
+  if (DIAGNOSTIC_LAYOUT_FLUSHED) return;
+  DIAGNOSTIC_LAYOUT_FLUSHED = true;
+  try {
+    fs2.writeSync(2,"DIAGNOSTIC_LAYOUT_SUMMARY " + JSON.stringify({rows:[...DIAGNOSTIC_LAYOUT_ROWS.values()],counterFailures:DIAGNOSTIC_LAYOUT_COUNTER_FAILURES}) + "\n");
+  } catch (_) { /* Missing summary is inconclusive; preserve the compiler result. */ }
+}

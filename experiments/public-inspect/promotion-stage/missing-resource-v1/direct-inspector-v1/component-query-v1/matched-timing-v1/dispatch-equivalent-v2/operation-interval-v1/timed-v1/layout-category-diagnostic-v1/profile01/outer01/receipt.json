@@ -1,0 +1,92 @@
+{
+  "planSHA256": "3eee95a9a703353f7918a829961d76def39b0a1e5ce775553753514436e7bb14",
+  "commands": [
+    {
+      "label": "native-collector",
+      "argv": [
+        "/usr/bin/python3.11",
+        "/workspace/formal-proofs/bendvy/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/current-source-plan-v1/guarded-run-v2/guarded-collector.py",
+        "run",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-category-diagnostic-v1/profile01/native-output/plan.json",
+        "bed335499282e374722d413e47eac6339eca1d65766f43015cc732372b2de4ca"
+      ],
+      "exit": 1,
+      "elapsedSeconds": 39.24143926706165,
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-category-diagnostic-v1/profile01/outer01/native-collector.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-category-diagnostic-v1/profile01/outer01/native-collector.stderr",
+        "sha256": "9e93a9149587a9855a7cfcc7158eb3c0d9b53921172c51d1059b53285bf88098",
+        "bytes": 921
+      }
+    }
+  ],
+  "status": "INCOMPLETE",
+  "scope": "CPU sampling only, no Native acceptance or performance claim; no source activation.",
+  "profileFreshness": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-category-diagnostic-v1/profile01/native-output/emitter.cpuprofile",
+    "allAbsentBeforeExecution": true
+  },
+  "collectorExit": 1,
+  "roleReceipt": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-category-diagnostic-v1/profile01/native-output/receipt.json",
+    "sha256": "73fac9723ac76ad024173a48ec9ae9f7a932e31b875940f6a52e073d0504d510",
+    "status": "INCOMPLETE",
+    "commands": [
+      {
+        "label": "emit",
+        "capSeconds": 30,
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "3",
+          "/home/node/.local/share/mise/installs/bun/1.3.14/bin/bun",
+          "--cpu-prof",
+          "--cpu-prof-interval=10000",
+          "--cpu-prof-name=emitter.cpuprofile",
+          "--cpu-prof-dir=/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-category-diagnostic-v1/profile01/native-output",
+          "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-category-diagnostic-v1/compiler/candidate.mjs",
+          "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/bend/main.bend",
+          "-o",
+          "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-category-diagnostic-v1/profile01/native-output/scenario.c"
+        ],
+        "exit": 77,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-category-diagnostic-v1/profile01/native-output/emit.stdout",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "published": true
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-category-diagnostic-v1/profile01/native-output/emit.stderr",
+          "sha256": "dbc96ebebaff1974e30afb0486f7db05807812b9c8882a77216993a4ea4922e1",
+          "bytes": 31312,
+          "published": true
+        }
+      }
+    ]
+  },
+  "sourceInputsUnchanged": true,
+  "diagnosticCPUProfiles": [
+    {
+      "role": "native",
+      "status": "PROFILE_RETAINED_VALID",
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-category-diagnostic-v1/profile01/native-output/emitter.cpuprofile",
+      "bytes": 11118970,
+      "profileSHA256": "290f23821efdd1e39a8bba739cfe71bf45425fb5c0bbb6ff61c6a80c6dfe5447",
+      "nodeCount": 26666,
+      "sampleCount": 1655,
+      "timeDeltaCount": 1655,
+      "sampledMicroseconds": 20083035,
+      "startTime": 1791918521759343.2,
+      "endTime": 1791918541842998
+    }
+  ],
+  "diagnosticOutcome": "PROFILE_RETAINED_VALID"
+}

@@ -1,0 +1,82 @@
+--- /workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/runtime-selector-profile-v1/compiler/candidate.mjs
++++ /workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-category-diagnostic-v1/candidate.draft.mjs
+@@ -1,5 +1,46 @@
+ #!/usr/bin/env bun
+ var DIAGNOSTIC_PROFILE_START = Date.now();
++var DIAGNOSTIC_LAYOUT_ROWS = new Map();
++var DIAGNOSTIC_LAYOUT_FLUSHED = false;
++function diagnostic_layout_now() {
++  try { return performance.now(); }
++  catch (_) { return null; }
++}
++function diagnostic_layout_time(row, field, began) {
++  try {
++    const ended = diagnostic_layout_now();
++    if (began === null || ended === null) row.timingMissing++;
++    else row[field] += ended - began;
++  } catch (_) { /* Measurement failure must not replace the compiler result. */ }
++}
++function diagnostic_layout_key(t) {
++  const name = t.k;
++  let row = DIAGNOSTIC_LAYOUT_ROWS.get(name);
++  if (row === undefined) {
++    row = {name, calls:0, keyChars:0, cacheHits:0, lowerMs:0, keyMs:0, lowerFailures:0, keyFailures:0, timingMissing:0};
++    DIAGNOSTIC_LAYOUT_ROWS.set(name,row);
++  }
++  row.calls++;
++  let lower;
++  let began = diagnostic_layout_now();
++  try { lower = term_lower(t); }
++  catch (error) { row.lowerFailures++; throw error; }
++  finally { diagnostic_layout_time(row,"lowerMs",began); }
++  let key;
++  began = diagnostic_layout_now();
++  try { key = term_key(lower); }
++  catch (error) { row.keyFailures++; throw error; }
++  finally { diagnostic_layout_time(row,"keyMs",began); }
++  row.keyChars += key.length;
++  row.cacheHits += Number(LAYS.has(key));
++  return key;
++}
++function diagnostic_layout_flush() {
++  if (DIAGNOSTIC_LAYOUT_FLUSHED) return;
++  DIAGNOSTIC_LAYOUT_FLUSHED = true;
++  try { fs2.writeSync(2,"DIAGNOSTIC_LAYOUT_SUMMARY " + JSON.stringify([...DIAGNOSTIC_LAYOUT_ROWS.values()]) + "\n"); }
++  catch (_) { /* Missing summary is inconclusive; preserve the compiler result. */ }
++}
+ // @bun
+ 
+ // ../bend2-core/.claude/worktrees/rel-2035/bend2/main.ts
+@@ -3693,7 +3734,7 @@
+   const word = WORDS[t.k];
+   if (word != null) return word;
+   if (t.k === "Array" || t.k === "IO.OP") return BOX;
+-  return memo(LAYS, term_key(term_lower(t)), (key) => {
++  return memo(LAYS, diagnostic_layout_key(t), (key) => {
+     const tld = book.tlds[t.k];
+     if (tld?.$ !== "ADT" || tld.c.some((c) => ctr_doms(book, c).some((F) => ty_holds(book, F, (u) => u?.$ !== "ADT" || WORDS[u.k] ? false : u.k === t.k || null)))) {
+       return BOX;
+@@ -5223,6 +5264,7 @@
+   return true;
+ }
+ function compile_book(book) {
++  try {
+   const show = show_main(book);
+   const fams = (show ?? []).flatMap((c) => typeof c === "string" ? [book_fam(book, c)] : []);
+   const fl = file_book(book, ["main", ...RUNTIME_ADTS, ...fams], false);
+@@ -5234,6 +5276,7 @@
+   let diagnostic_pass = 0;
+   const diagnostic_profile_stop = () => {
+     if (Date.now() - DIAGNOSTIC_PROFILE_START > 20000) {
++      diagnostic_layout_flush();
+       fs2.writeSync(2,"DIAGNOSTIC_PROFILE_STOP\n");
+       process.exit(77);
+     }
+@@ -5397,6 +5440,7 @@
+   const diagnostic_result = c_ids(fl, diagnostic_c);
+   diagnostic_phase("c-ids-end");
+   return diagnostic_result;
++  } finally { diagnostic_layout_flush(); }
+ }
+ function js_sat(k) {
+   return `$${k.replace(/\W/g, (c) => c === "." ? "$" : "$" + String(c.charCodeAt(0)).padStart(3, "0"))}$`;

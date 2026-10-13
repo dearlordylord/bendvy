@@ -1,0 +1,22 @@
+"""Verify retained categorized compiler diagnostic without rerunning it."""
+from pathlib import Path
+import hashlib,json,zipfile
+HERE=Path(__file__).resolve().parent
+sha=lambda raw:hashlib.sha256(raw).hexdigest()
+def main():
+ d=json.loads((HERE/'DELIVERY.json').read_text());assert sha((HERE/'EVIDENCE.zip').read_bytes())==d['archiveSHA256']
+ with zipfile.ZipFile(HERE/'EVIDENCE.zip') as z:
+  assert z.testzip() is None and set(z.namelist())=={r['path'] for r in d['members']}
+  for row in d['members']:assert sha(z.read(row['path']))==row['sha256']
+  role=json.loads(z.read('diagnostic/profile01/native-output/receipt.json'));outer=json.loads(z.read('diagnostic/profile01/outer01/receipt.json'))
+  assert role['status']==outer['status']=='INCOMPLETE' and outer['sourceInputsUnchanged']
+  assert role['commands'][0]['exit']==77 and role['commands'][0]['failure'] is None
+  raw=z.read('diagnostic/profile01/native-output/emit.stderr').decode();rows=[json.loads(x.removeprefix('DIAGNOSTIC_LAYOUT_SUMMARY ')) for x in raw.splitlines() if x.startswith('DIAGNOSTIC_LAYOUT_SUMMARY ')];assert len(rows)==1
+  s=rows[0];assert s['counterFailures']==0 and len(s['rows'])==140
+  assert all(r['timingMissing']==r['lowerFailures']==r['keyFailures']==0 and 0<=r['cacheHits']<=r['calls'] for r in s['rows'])
+  assert sum(r['calls'] for r in s['rows'])==173436 and sum(r['keyChars'] for r in s['rows'])==51990934
+  p=json.loads(z.read('diagnostic/profile01/native-output/emitter.cpuprofile'));ids={n['id'] for n in p['nodes']}
+  assert len(p['samples'])==len(p['timeDeltas'])==1655 and all(n in ids for n in p['samples']) and all(x>=0 for x in p['timeDeltas'])
+  assert sum(p['timeDeltas'])==20083035 and not any(n.endswith('scenario.c') for n in z.namelist())
+ print(json.dumps({'status':'PASS_RETAINED_DIAGNOSTIC_ONLY','members':len(d['members']),'categories':140,'samples':1655,'Native':'INCOMPLETE'}))
+if __name__=='__main__':main()
