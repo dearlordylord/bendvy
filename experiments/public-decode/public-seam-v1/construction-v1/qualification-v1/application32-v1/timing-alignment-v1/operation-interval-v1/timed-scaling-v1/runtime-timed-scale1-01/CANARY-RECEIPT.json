@@ -1,0 +1,312 @@
+{
+  "status": "COMPLETE_SCALE_ONE_JS_TS_NATIVE_PASS",
+  "plan": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/CANARY-PLAN.json",
+  "planSHA256": "d34e8a38962a63a80276c6c17e06577e61f29a68f72a8da7c9f9fac356f4c790",
+  "sourceBasis": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/SOURCE-BASIS.json",
+  "sourceBasisSHA256": "185fd4e7627c1d8ae649497e8cf8b034041564088e28584f98821fe97a1550ad",
+  "controller": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/run-canary.py",
+  "controllerSHA256": "86aa1bd4d960515ac70a873014579742cb1f5510d67be9266dabf4cabad27a14",
+  "runner": "/workspace/formal-proofs/bendvy/scripts/task_runner.py",
+  "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+  "commands": [
+    {
+      "label": "emission-js",
+      "kind": "emission-js",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/bend/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/generated/timed.js"
+      ],
+      "cwd": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/bend",
+      "capSeconds": 30,
+      "elapsedWallSeconds": 3.5410796239739284,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/emission-js.stdout.gz",
+        "bytes": 0,
+        "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/emission-js.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "artifact": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/generated/timed.js",
+        "bytes": 1084921,
+        "sha256": "05ff6809de1def540252ce48d788b0fa07743a17fb5ead26eb60cd05998222cc"
+      }
+    },
+    {
+      "label": "emission-native-c",
+      "kind": "emission-nativeC",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/bend/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/generated/timed.c"
+      ],
+      "cwd": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/bend",
+      "capSeconds": 30,
+      "elapsedWallSeconds": 22.94954522594344,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/emission-native-c.stdout.gz",
+        "bytes": 0,
+        "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/emission-native-c.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "artifact": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/generated/timed.c",
+        "bytes": 7597908,
+        "sha256": "c3dd5ddc4816e115ac5374a226fd63e3afdb8daefd3ab2b20d1ae1a858d4431d"
+      }
+    },
+    {
+      "label": "js-consumer",
+      "kind": "timed-consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/generated/timed.js",
+        "1"
+      ],
+      "cwd": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/bend",
+      "capSeconds": 5,
+      "elapsedWallSeconds": 0.44029903796035796,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/js-consumer.stdout.gz",
+        "bytes": 501886,
+        "sha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/js-consumer.stderr",
+        "bytes": 74,
+        "sha256": "9e848b33e7c72e49b6b7646e43604a5e65e4ea93055472941daf23fffef29c6e"
+      },
+      "validation": {
+        "status": "COMPLETE_REPEATED_REPORT_AND_INTERVAL_PROTOCOL_PASS",
+        "applications": 1,
+        "records": 32,
+        "stdoutBytes": 501886,
+        "stdoutSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+        "fnv1a32": 909256459,
+        "metrics": {
+          "elapsedNs": "359603181",
+          "bytes": 501886,
+          "digest": 909256459,
+          "intervals": 1
+        },
+        "timingScope": "One fresh complete application and full report capture per interval; elapsed time is telemetry only."
+      }
+    },
+    {
+      "label": "ts-consumer",
+      "kind": "timed-consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/ts/main.mjs",
+        "1"
+      ],
+      "cwd": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/ts",
+      "capSeconds": 5,
+      "elapsedWallSeconds": 0.7413610829971731,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/ts-consumer.stdout.gz",
+        "bytes": 501886,
+        "sha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/ts-consumer.stderr",
+        "bytes": 73,
+        "sha256": "d09f72a08d522298ba1d804ed0586c769f8863483e12ce7dc4cc99772649aef9"
+      },
+      "validation": {
+        "status": "COMPLETE_REPEATED_REPORT_AND_INTERVAL_PROTOCOL_PASS",
+        "applications": 1,
+        "records": 32,
+        "stdoutBytes": 501886,
+        "stdoutSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+        "fnv1a32": 909256459,
+        "metrics": {
+          "elapsedNs": "40532659",
+          "bytes": 501886,
+          "digest": 909256459,
+          "intervals": 1
+        },
+        "timingScope": "One fresh complete application and full report capture per interval; elapsed time is telemetry only."
+      }
+    },
+    {
+      "label": "native-build",
+      "kind": "artifact",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/generated/timed.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/timed.native",
+        "-pthread",
+        "-lm"
+      ],
+      "cwd": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/bend",
+      "capSeconds": 120,
+      "elapsedWallSeconds": 61.786323930020444,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/native-build.stdout.gz",
+        "bytes": 0,
+        "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/native-build.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "artifact": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/timed.native",
+        "bytes": 3214800,
+        "sha256": "aaee96233f1cf80068e9fcbe1eface48a88f7e3f9c573dfc64067dd90d030ad2"
+      }
+    },
+    {
+      "label": "native-consumer",
+      "kind": "timed-consumer",
+      "argv": [
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/timed.native",
+        "--threads",
+        "1",
+        "--gpu",
+        "off",
+        "1"
+      ],
+      "cwd": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/bend",
+      "capSeconds": 5,
+      "elapsedWallSeconds": 0.0618849879829213,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/native-consumer.stdout.gz",
+        "bytes": 501886,
+        "sha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/native-consumer.stderr",
+        "bytes": 73,
+        "sha256": "b9b4662fc156888967215fe2a14ea391059d857a2777b748a23abdd7103d6ee6"
+      },
+      "validation": {
+        "status": "COMPLETE_REPEATED_REPORT_AND_INTERVAL_PROTOCOL_PASS",
+        "applications": 1,
+        "records": 32,
+        "stdoutBytes": 501886,
+        "stdoutSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+        "fnv1a32": 909256459,
+        "metrics": {
+          "elapsedNs": "45924195",
+          "bytes": 501886,
+          "digest": 909256459,
+          "intervals": 1
+        },
+        "timingScope": "One fresh complete application and full report capture per interval; elapsed time is telemetry only."
+      }
+    }
+  ],
+  "outputs": {
+    "generated-barrier": {
+      "status": "SCALE_ONE_SOURCE_AND_GENERATED_TIMER_BOUNDARY_PASS",
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/GENERATED-BARRIER.json",
+      "sha256": "5f186a585aaf9448eb4cc3e3576db89ba48f762155e5f810869788c3ce255ba3"
+    },
+    "js-consumer": {
+      "status": "COMPLETE_REPEATED_REPORT_AND_INTERVAL_PROTOCOL_PASS",
+      "applications": 1,
+      "records": 32,
+      "stdoutBytes": 501886,
+      "stdoutSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+      "fnv1a32": 909256459,
+      "metrics": {
+        "elapsedNs": "359603181",
+        "bytes": 501886,
+        "digest": 909256459,
+        "intervals": 1
+      },
+      "timingScope": "One fresh complete application and full report capture per interval; elapsed time is telemetry only."
+    },
+    "ts-consumer": {
+      "status": "COMPLETE_REPEATED_REPORT_AND_INTERVAL_PROTOCOL_PASS",
+      "applications": 1,
+      "records": 32,
+      "stdoutBytes": 501886,
+      "stdoutSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+      "fnv1a32": 909256459,
+      "metrics": {
+        "elapsedNs": "40532659",
+        "bytes": 501886,
+        "digest": 909256459,
+        "intervals": 1
+      },
+      "timingScope": "One fresh complete application and full report capture per interval; elapsed time is telemetry only."
+    },
+    "native-build": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/timed.native",
+      "bytes": 3214800,
+      "sha256": "aaee96233f1cf80068e9fcbe1eface48a88f7e3f9c573dfc64067dd90d030ad2"
+    },
+    "native-consumer": {
+      "status": "COMPLETE_REPEATED_REPORT_AND_INTERVAL_PROTOCOL_PASS",
+      "applications": 1,
+      "records": 32,
+      "stdoutBytes": 501886,
+      "stdoutSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+      "fnv1a32": 909256459,
+      "metrics": {
+        "elapsedNs": "45924195",
+        "bytes": 501886,
+        "digest": 909256459,
+        "intervals": 1
+      },
+      "timingScope": "One fresh complete application and full report capture per interval; elapsed time is telemetry only."
+    }
+  },
+  "scope": "One fresh 32-case application per implementation and process. Setup, operations, full report materialization and timer capture are inside its interval; stdout flush follows end. Elapsed values are telemetry only.",
+  "timingInterpretation": "Elapsed nanoseconds are descriptive telemetry only; no threshold or ratio is applied."
+}

@@ -1,0 +1,334 @@
+{
+  "status": "COMPLETE_SCALE_TWO_FOUR_JS_TS_NATIVE_PASS",
+  "scope": {
+    "applicationsPerConsumer": [
+      2,
+      4
+    ],
+    "freshApplications": 6,
+    "implementations": [
+      "JS",
+      "TypeScript",
+      "Native"
+    ],
+    "inputFixture": "the already source-derived ordinary32 fixture; unchanged emitted JS/C and compiled Native executable reused from the scale-one full-lifecycle pass",
+    "interpretation": "The elapsed nanoseconds in the receipt are telemetry only. These correctness canaries make no performance ratio, threshold, or acceptance claim."
+  },
+  "planHistory": {
+    "supersededUnexecutedPlan": {
+      "path": "SCALE-2-4-PLAN.json",
+      "sha256": "92518a5d22c57d6e608d4910763cfe9bf41408d8913f55fd65dd0bdf2a00624e",
+      "note": "Preserved unchanged; its duplicate oracle gzipPath strings were malformed, so it was not used for execution."
+    },
+    "executedPlan": {
+      "path": "SCALE-2-4-PLAN-v2.json",
+      "sha256": "b65d1dd10623190a04ce6480d61c6d408e3368e52a92aab6cee8ce32cec7733d",
+      "sourceBasisSHA256": "185fd4e7627c1d8ae649497e8cf8b034041564088e28584f98821fe97a1550ad",
+      "sourcePinsCount": 322
+    },
+    "controller": {
+      "path": "run-repeated-scale.py",
+      "sha256": "58a0c22c00edcf78e443ce19822d6e3dd2eb373bb6aa56f398d1cbc0e41c5aac"
+    },
+    "scaleOneReceipt": {
+      "path": "runtime-timed-scale1-01/CANARY-RECEIPT.json",
+      "sha256": "476b4457fa6514d985755818a7046b9d468dad123ed11304a2fa7a626d65543b"
+    },
+    "scaleOneReuseGuard": "SCALE_ONE_SOURCE_EMIT_BUILD_AND_RUNTIME_CHAIN_REUSED_AND_GUARDED"
+  },
+  "receipt": {
+    "path": "runtime-timed-scale2-4-01/SCALE-CANARY-RECEIPT.json",
+    "sha256": "3a78faf2b98fdf10af61f909231c2e8d0b77fc3bfb845fd404b053fdb10a0386"
+  },
+  "commands": [
+    {
+      "label": "js-consumer-scale2",
+      "scale": 2,
+      "implementation": "js",
+      "exit": 0,
+      "failure": null,
+      "capSeconds": 5,
+      "stdoutGzip": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale2-4-01/js-consumer-scale2.stdout.gz",
+        "bytes": 1003772,
+        "sha256": "02df207f6dee5a523dd43a88f03184511c13e2fd553dd1335b15532c518752cf"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale2-4-01/js-consumer-scale2.stderr",
+        "bytes": 76,
+        "sha256": "17edfd7bd3b83a8f2b85912e357bacd064e915df2f58abc72efbaad0e6ec6c3f"
+      },
+      "validation": {
+        "status": "COMPLETE_REPEATED_REPORT_AND_INTERVAL_PROTOCOL_PASS",
+        "applications": 2,
+        "records": 64,
+        "stdoutBytes": 1003772,
+        "stdoutSHA256": "1bc22787bbb8d5e89eb5ef914c34f668f77ba38b36a853f4617a129402a9856e",
+        "fnv1a32": 2611934457,
+        "metrics": {
+          "elapsedNs": "868704256",
+          "bytes": 1003772,
+          "digest": 2611934457,
+          "intervals": 2
+        },
+        "timingScope": "One fresh complete application and full report capture per interval; elapsed time is telemetry only."
+      }
+    },
+    {
+      "label": "ts-consumer-scale2",
+      "scale": 2,
+      "implementation": "ts",
+      "exit": 0,
+      "failure": null,
+      "capSeconds": 5,
+      "stdoutGzip": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale2-4-01/ts-consumer-scale2.stdout.gz",
+        "bytes": 1003772,
+        "sha256": "02df207f6dee5a523dd43a88f03184511c13e2fd553dd1335b15532c518752cf"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale2-4-01/ts-consumer-scale2.stderr",
+        "bytes": 75,
+        "sha256": "93168aae4da1be7d7a70cde97d07f9f35fc496043960d93cc698f6afa94033ea"
+      },
+      "validation": {
+        "status": "COMPLETE_REPEATED_REPORT_AND_INTERVAL_PROTOCOL_PASS",
+        "applications": 2,
+        "records": 64,
+        "stdoutBytes": 1003772,
+        "stdoutSHA256": "1bc22787bbb8d5e89eb5ef914c34f668f77ba38b36a853f4617a129402a9856e",
+        "fnv1a32": 2611934457,
+        "metrics": {
+          "elapsedNs": "75894722",
+          "bytes": 1003772,
+          "digest": 2611934457,
+          "intervals": 2
+        },
+        "timingScope": "One fresh complete application and full report capture per interval; elapsed time is telemetry only."
+      }
+    },
+    {
+      "label": "native-consumer-scale2",
+      "scale": 2,
+      "implementation": "native",
+      "exit": 0,
+      "failure": null,
+      "capSeconds": 5,
+      "stdoutGzip": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale2-4-01/native-consumer-scale2.stdout.gz",
+        "bytes": 1003772,
+        "sha256": "02df207f6dee5a523dd43a88f03184511c13e2fd553dd1335b15532c518752cf"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale2-4-01/native-consumer-scale2.stderr",
+        "bytes": 76,
+        "sha256": "fc617fd3a6aa24dfd5b8e5e66566c470424498e4c40b3dabc5c3cad574ae09b1"
+      },
+      "validation": {
+        "status": "COMPLETE_REPEATED_REPORT_AND_INTERVAL_PROTOCOL_PASS",
+        "applications": 2,
+        "records": 64,
+        "stdoutBytes": 1003772,
+        "stdoutSHA256": "1bc22787bbb8d5e89eb5ef914c34f668f77ba38b36a853f4617a129402a9856e",
+        "fnv1a32": 2611934457,
+        "metrics": {
+          "elapsedNs": "181049883",
+          "bytes": 1003772,
+          "digest": 2611934457,
+          "intervals": 2
+        },
+        "timingScope": "One fresh complete application and full report capture per interval; elapsed time is telemetry only."
+      }
+    },
+    {
+      "label": "js-consumer-scale4",
+      "scale": 4,
+      "implementation": "js",
+      "exit": 0,
+      "failure": null,
+      "capSeconds": 5,
+      "stdoutGzip": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale2-4-01/js-consumer-scale4.stdout.gz",
+        "bytes": 2007544,
+        "sha256": "1ce0d44176b2f81294791466ef6d80df3716967e833f2520e04475182e85b5e9"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale2-4-01/js-consumer-scale4.stderr",
+        "bytes": 76,
+        "sha256": "76ce7c11d009411b64fa3a9e6cce332db054203d3fefe7dba7780f74793997c5"
+      },
+      "validation": {
+        "status": "COMPLETE_REPEATED_REPORT_AND_INTERVAL_PROTOCOL_PASS",
+        "applications": 4,
+        "records": 128,
+        "stdoutBytes": 2007544,
+        "stdoutSHA256": "93728ca11a54504ea29c105caa3536b860633bbfaa8c82ae27dc1e6171cb563e",
+        "fnv1a32": 3796014733,
+        "metrics": {
+          "elapsedNs": "832302052",
+          "bytes": 2007544,
+          "digest": 3796014733,
+          "intervals": 4
+        },
+        "timingScope": "One fresh complete application and full report capture per interval; elapsed time is telemetry only."
+      }
+    },
+    {
+      "label": "ts-consumer-scale4",
+      "scale": 4,
+      "implementation": "ts",
+      "exit": 0,
+      "failure": null,
+      "capSeconds": 5,
+      "stdoutGzip": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale2-4-01/ts-consumer-scale4.stdout.gz",
+        "bytes": 2007544,
+        "sha256": "1ce0d44176b2f81294791466ef6d80df3716967e833f2520e04475182e85b5e9"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale2-4-01/ts-consumer-scale4.stderr",
+        "bytes": 76,
+        "sha256": "4cc24aacaf5200cc1bc99a353d09011b132ada2317cc515ee3d5abd8369e18c6"
+      },
+      "validation": {
+        "status": "COMPLETE_REPEATED_REPORT_AND_INTERVAL_PROTOCOL_PASS",
+        "applications": 4,
+        "records": 128,
+        "stdoutBytes": 2007544,
+        "stdoutSHA256": "93728ca11a54504ea29c105caa3536b860633bbfaa8c82ae27dc1e6171cb563e",
+        "fnv1a32": 3796014733,
+        "metrics": {
+          "elapsedNs": "321278822",
+          "bytes": 2007544,
+          "digest": 3796014733,
+          "intervals": 4
+        },
+        "timingScope": "One fresh complete application and full report capture per interval; elapsed time is telemetry only."
+      }
+    },
+    {
+      "label": "native-consumer-scale4",
+      "scale": 4,
+      "implementation": "native",
+      "exit": 0,
+      "failure": null,
+      "capSeconds": 5,
+      "stdoutGzip": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale2-4-01/native-consumer-scale4.stdout.gz",
+        "bytes": 2007544,
+        "sha256": "1ce0d44176b2f81294791466ef6d80df3716967e833f2520e04475182e85b5e9"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale2-4-01/native-consumer-scale4.stderr",
+        "bytes": 76,
+        "sha256": "a24c8b248680ae5ac907389b356d86bb61f04494f6d6f5084490c6e6795b673e"
+      },
+      "validation": {
+        "status": "COMPLETE_REPEATED_REPORT_AND_INTERVAL_PROTOCOL_PASS",
+        "applications": 4,
+        "records": 128,
+        "stdoutBytes": 2007544,
+        "stdoutSHA256": "93728ca11a54504ea29c105caa3536b860633bbfaa8c82ae27dc1e6171cb563e",
+        "fnv1a32": 3796014733,
+        "metrics": {
+          "elapsedNs": "302685215",
+          "bytes": 2007544,
+          "digest": 3796014733,
+          "intervals": 4
+        },
+        "timingScope": "One fresh complete application and full report capture per interval; elapsed time is telemetry only."
+      }
+    }
+  ],
+  "toolChecks": {
+    "pinnedPythonSourceCheck": {
+      "exit": 0,
+      "stdout": {
+        "path": "tool-checks/sourcecheck-controller.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "tool-checks/sourcecheck-controller.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "scaleOneReuseAndScaleTwoFourPlanPreflight": {
+      "exit": 0,
+      "stdout": {
+        "path": "tool-checks/preflight.stdout",
+        "bytes": 2159,
+        "sha256": "fd56eb68f3c8494912fc25b8eab54dc9715bd3ddaa54244c18274eb65864a902"
+      },
+      "stderr": {
+        "path": "tool-checks/preflight.stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "initialCliPathMistake": {
+      "status": "PRE_CONTROLLER_PLAN_PATH_FAILURE_NO_RECEIPT",
+      "exit": 1,
+      "metadata": {
+        "path": "tool-checks/initial-cli-startup.json",
+        "sha256": "423a33c41dbe432fabd7d6219dfcc798f9a8888b54e9c0479ce697fdfedc886a"
+      },
+      "stderr": {
+        "path": "tool-checks/initial-cli-startup.stderr",
+        "bytes": 1412,
+        "sha256": "d47d2779288c129024cd8c6d2cfa8a3cc88a197075d16e5de471feb00e7894c6"
+      }
+    },
+    "scenarioControls": {
+      "applied": false,
+      "reason": "This canary has no negative controls and exposes complete JSON-array report streams, not named scenario DTOs; run-repeated-scale.py verified exact full-byte outputs and timer records against the independent source oracle."
+    },
+    "postrunReceiptSourceAndOutputJoin": {
+      "status": "POSTRUN_RECEIPT_SOURCE_AND_OUTPUT_JOIN_PASS",
+      "path": "tool-checks/postrun-join.json",
+      "sha256": "5a77cdb150e39dcbf98fdd0a5f43d336d53a594b0ad80b7627832cd47dfdb4d3"
+    }
+  },
+  "limits": [
+    "This finite scale-2/4 consumer evidence does not establish a performance improvement or a full issue-level decision.",
+    "No new emission or Native build was run for scales 2/4; those runs used artifacts rechecked against the exact successful scale-one receipt, barrier, and source pins."
+  ],
+  "postRunSourcePackaging": {
+    "status": "HISTORICAL_EXECUTION_BYTES_PRESERVED_AFTER_EOF_WHITESPACE_NORMALIZATION",
+    "note": "The execution plan and source basis remain unchanged and bind the original barrier-check.py bytes. The checked-in barrier checker has one extra terminal LF removed solely to satisfy the repository whitespace hook. No source semantics or consumer input changed; the original executed checker is recoverable byte-for-byte from the gzip member below. Do not treat the normalized working copy as satisfying the frozen plan hash during a new live preflight.",
+    "executedBarrierSource": {
+      "historicalPath": "barrier-check.py",
+      "rawBytes": 5303,
+      "rawSHA256": "f1e61f357a2ed61f657020edab950df929bebc8b7a3b94b02ffaebca5771f1be",
+      "archivePath": "tool-checks/barrier-check.py.pre-normalization.source.gz",
+      "archiveBytes": 1712,
+      "archiveSHA256": "7ea9b4a4b18b220147248474b639e5076727a69eded03bb5dca765d5c35df2bf"
+    },
+    "normalizedWorkingCopy": {
+      "path": "barrier-check.py",
+      "bytes": 5302,
+      "sha256": "2af6082ddb2a47f7d8415983704c6e1f1b07d19bbd88a146328287ce19612875",
+      "change": "removed exactly one terminal LF; retained one terminal LF"
+    },
+    "historicalSourceCheckStderr": [
+      {
+        "historicalPath": "sourcecheck-02.stderr",
+        "rawBytes": 223,
+        "rawSHA256": "34918d6c1a4c4589cdb772872465dc39002dbdbc417108703eedb72b5eb3e8ba",
+        "archivePath": "tool-checks/historical-sourcecheck-stderr/sourcecheck-02.stderr.gz",
+        "archiveBytes": 181,
+        "archiveSHA256": "685fd7b75b4307144f55ef266aedd32a8057a104f71e8c2da47d71407db56c3e"
+      },
+      {
+        "historicalPath": "sourcecheck-03.stderr",
+        "rawBytes": 279,
+        "rawSHA256": "aec3a895e515baf11d9b6546332f090c7f535dcbe43af405cf3a5e6dd2346719",
+        "archivePath": "tool-checks/historical-sourcecheck-stderr/sourcecheck-03.stderr.gz",
+        "archiveBytes": 197,
+        "archiveSHA256": "143aefed3afe0aab3a5e7433ccca461b774fe54ad9e0bcef013138f93ac0c0c1"
+      }
+    ],
+    "captureHandling": "The two raw stderr streams remain byte-exact in deterministic gzip archives; their historical sourcecheck JSON receipts are unchanged and retain the original logical .stderr paths and raw SHA-256 values."
+  }
+}

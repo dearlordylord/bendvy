@@ -1,0 +1,8 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+20 | def repetitions(text: String) -> Maybe<&2, Nat>:
+21>|   match String.eq(text, "1"):
+   |         ^^^^^^^^^^^^^^^^^^^^
+22 |     case True{}: Some{1n}

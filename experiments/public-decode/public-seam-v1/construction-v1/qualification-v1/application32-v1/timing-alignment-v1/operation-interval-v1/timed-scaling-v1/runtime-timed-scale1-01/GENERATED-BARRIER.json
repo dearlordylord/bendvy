@@ -1,0 +1,43 @@
+{
+  "status": "SCALE_ONE_SOURCE_AND_GENERATED_TIMER_BOUNDARY_PASS",
+  "source": {
+    "bendEntry": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/bend/main.bend",
+    "bendEntrySHA256": "abef20ed0347ce6657e05b3693b0631763cfd6e590d9e2c6458e4e1c6642cd63",
+    "typescriptEntry": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/ts/main.mjs",
+    "typescriptEntrySHA256": "fed1967a1daefe43db11acd196179f73c29a30c2d85f1d077ca6ddd6067283ea",
+    "bendIntervalTokenPositions": [
+      160,
+      216,
+      281,
+      311
+    ],
+    "typescriptIntervalTokenPositions": [
+      57,
+      79,
+      112
+    ]
+  },
+  "generated": {
+    "js": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/generated/timed.js",
+      "bytes": 1084921,
+      "sha256": "05ff6809de1def540252ce48d788b0fa07743a17fb5ead26eb60cd05998222cc"
+    },
+    "nativeC": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/generated/timed.c",
+      "bytes": 7597908,
+      "sha256": "c3dd5ddc4816e115ac5374a226fd63e3afdb8daefd3ab2b20d1ae1a858d4431d"
+    },
+    "emissionReceipt": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/runtime-timed-scale1-01/EMIT-RECEIPT.json",
+      "sha256": "482161f31812aa79d3e3202114b62387f41f1e061399e5b25be5a664318385cb"
+    }
+  },
+  "timer": {
+    "typescriptCaptureBuffersWhileActive": "export function capture(text){require(ready&&active);if(typeof text!=='string')throw Error('full output must be materialized');const b=Buffer.from(text+'\\n','utf8');for(const x of b)digest=Math.imul(digest^x,16777619)>>>0;bytes+=b.length;chunks.push(b);}",
+    "typescriptFinishChecksThenFlushes": "export function finish(expected){require(ready&&!active&&count===expected);process.stderr.write(JSON.stringify({elapsedNs:elapsed.toString(),bytes,digest,intervals:count})+'\\n');for(const b of chunks)process.stdout.write(b);ready=false;chunks=[];}",
+    "nativeCaptureBuffersWhileActive": "Term io_feature_capture_run(Env e, Term *f, IoWork *w) {\n  feature_require(interval_ready && feature_active);\n  uint64_t length = 0;\n  char *text = io_cstr(e, f[0], &length);\n  FeatureChunk *chunk = malloc(sizeof(FeatureChunk)); feature_require(chunk != NULL);\n  chunk->text = text; chunk->length = length; chunk->next = NULL;\n  for (uint64_t i = 0; i < length; ++i) feature_digest = (feature_digest ^ (uint8_t)text[i]) * UINT32_C(16777619);\n  feature_digest = (feature_digest ^ UINT32_C(10)) * UINT32_C(16777619);\n  feature_bytes += length + 1;\n  if (feature_tail) feature_tail->next = chunk; else feature_head = chunk;\n  feature_tail = chunk;\n  return term_pak(CID(Unit), 0);\n}\n",
+    "nativeFinishChecksThenFlushes": "Term io_interval_finish_run(Env e, Term *f, IoWork *w) {\n  feature_require(interval_ready && !feature_active && interval_count == (uint32_t)f[0]);\n  fprintf(stderr, \"{\\\"elapsedNs\\\":\\\"%\" PRIi64 \"\\\",\\\"bytes\\\":%\" PRIu64 \",\\\"digest\\\":%\" PRIu32 \",\\\"intervals\\\":%\" PRIu32 \"}\\n\", interval_elapsed, feature_bytes, feature_digest, interval_count);\n  while (feature_head) {\n    FeatureChunk *chunk = feature_head; feature_head = chunk->next;\n    io_out(stdout, chunk->text, chunk->length); io_out(stdout, \"\\n\", 1);\n    free(chunk->text); free(chunk);\n  }\n  feature_tail = NULL; interval_ready=false;\n  return term_pak(CID(Unit), 0);\n}\n"
+  },
+  "scope": "Static source/generated path checks only. Runtime acceptance requires complete stdout and timer summary equality at each selected scale."
+}

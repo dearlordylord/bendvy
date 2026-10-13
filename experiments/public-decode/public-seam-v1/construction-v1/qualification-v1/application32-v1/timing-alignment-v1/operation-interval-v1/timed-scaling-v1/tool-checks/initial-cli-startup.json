@@ -1,0 +1,20 @@
+{
+  "status": "PRE_CONTROLLER_PLAN_PATH_FAILURE_NO_RECEIPT",
+  "argv": [
+    "/usr/bin/taskset",
+    "-c",
+    "3",
+    "/usr/bin/python3.11",
+    "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/run-repeated-scale.py",
+    "--plan",
+    "experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/SCALE-2-4-PLAN-v2.json",
+    "--plan-sha256",
+    "b65d1dd10623190a04ce6480d61c6d408e3368e52a92aab6cee8ce32cec7733d"
+  ],
+  "exit": 1,
+  "stdoutBytes": 0,
+  "failure": "The plan argument duplicated timing-alignment-v1/operation-interval-v1 and failed before the controller could read its plan or write a receipt.",
+  "rawStderrPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-scaling-v1/tool-checks/initial-cli-startup.stderr",
+  "correctedRerun": "The reviewed controller then ran once with the correct plan path; its receipt is SCALE-CANARY-RECEIPT.json.",
+  "cwd": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1"
+}

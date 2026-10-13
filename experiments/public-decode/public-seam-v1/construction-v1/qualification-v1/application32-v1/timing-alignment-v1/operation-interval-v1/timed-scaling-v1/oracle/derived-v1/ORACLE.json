@@ -1,0 +1,52 @@
+{
+  "status": "SOURCE_DERIVED_REPETITION_OF_COMPLETE_FRESH_APPLICATION_ORACLE",
+  "method": "Repeat the independently derived complete one-application UTF-8 String plus its output LF; no runtime output is read.",
+  "baseOracle": {
+    "archive": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/oracle-v1/derived-v5/expected.timed.stdout.gz",
+    "archiveSha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45",
+    "metadata": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/oracle-v1/derived-v5/ORACLE.json",
+    "metadataSha256": "8f393a8cd70d13c654b38b4de2049c2aeac13aac1a771737a3f57572eb389363",
+    "rawBytes": 501886,
+    "rawSha256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+    "records": 32
+  },
+  "repetitions": {
+    "1": {
+      "applications": 1,
+      "completeRecords": 32,
+      "bytes": 501886,
+      "sha256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+      "fnv1a32": 909256459,
+      "gzipPath": "oracle/derived-v1/expected-1.stdout.gz",
+      "gzipBytes": 7424,
+      "gzipSha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45"
+    },
+    "2": {
+      "applications": 2,
+      "completeRecords": 64,
+      "bytes": 1003772,
+      "sha256": "1bc22787bbb8d5e89eb5ef914c34f668f77ba38b36a853f4617a129402a9856e",
+      "fnv1a32": 2611934457,
+      "gzipPath": "oracle/derived-v1/expected-2.stdout.gz",
+      "gzipBytes": 14408,
+      "gzipSha256": "02df207f6dee5a523dd43a88f03184511c13e2fd553dd1335b15532c518752cf"
+    },
+    "4": {
+      "applications": 4,
+      "completeRecords": 128,
+      "bytes": 2007544,
+      "sha256": "93728ca11a54504ea29c105caa3536b860633bbfaa8c82ae27dc1e6171cb563e",
+      "fnv1a32": 3796014733,
+      "gzipPath": "oracle/derived-v1/expected-4.stdout.gz",
+      "gzipBytes": 28438,
+      "gzipSha256": "1ce0d44176b2f81294791466ef6d80df3716967e833f2520e04475182e85b5e9"
+    }
+  },
+  "timingProtocol": [
+    "one process per selected repetition count",
+    "one fresh complete application and one interval per repetition",
+    "full report String construction and byte capture occur before each interval ends",
+    "final buffered output occurs after the final interval ends",
+    "elapsed values are telemetry only; this oracle defines no threshold or ratio"
+  ]
+}
