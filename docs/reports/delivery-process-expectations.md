@@ -296,3 +296,22 @@ selected source checks, the read-only verifier, ownership staging, whitespace an
 the configured hook pass. One final independent review accepts diagnostic scope.
 The root batches these retained outcomes with #46, without rerunning compiler
 experiments or changing shared runners.
+
+### Source applicability and reference completion — 2026-10-13 UTC
+
+#54 current public reader-consumption mutation was already reached by qualified
+JS/Native event/Schedule consumers; reusing it avoided a duplicate fixture. The
+actual gap was TS discovery-only scope. An independent source-only oracle author
+derived58 observations before one existing Node collector executed. Full9,584-byte
+equality passes, the21-path producer hook and separate final review pass, and root
+integration `2ef73499c` has successful CI `38438370405`. Trace-shape differences
+are explicit; this is no universal or full-feature speed claim.
+
+#46 applicability review identified one changed source body in the45-file handle
+consumer closure. Reusing its22-case80,800-byte oracle, the current pinned check
+and both JS/standard -O3 Native consumers pass. Existing schema-classification
+evidence stays separately scoped: the changed provisioning branch is not called
+by these22 cases. Producer `e73060c98` owns52 paths; ownership, whitespace, the
+configured hook and one final review pass for108 manifest rows/99 archive objects.
+A missing sparse-checkout leaf was fixed by including only that assigned path;
+no source or contract changed. No general delivery acceleration is inferred.
