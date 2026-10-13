@@ -196,3 +196,13 @@ sequence plus one earlier fail-stop; comparative delivery time remains unmeasure
 its 90 owned leaf paths. Its unchanged legacy configured hook exited 0; current
 ownership-aware integration hook is the next check. The independent review covers
 the finalized package, including the two scenario checks and ownership manifest.
+
+Integration `af7832abdf860cf65cb12c4b59060d7b5de957ef` preserved the observations
+above. Current hook with `BENDVY_OWNED_PATHS` validated exactly 93 staged paths
+(90 producer files, final review, existing coordination table and this report),
+and all 123 selected infrastructure tests passed. No unrelated paths were staged.
+Master CI [38346105776](https://github.com/dearlordylord/bendvy/actions/runs/38346105776)
+**SUCCESS**: functional job 04:22:14–04:24:01 UTC (107 seconds), including
+checkout and cleanup under the unchanged five-minute limit. This confirms remote
+integration checks; different hosts/conditions still preclude an overall delivery
+speedup claim.
