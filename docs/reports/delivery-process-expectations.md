@@ -444,3 +444,14 @@ causal speedups. Next source-only candidate interns names in layout cache keys
 while preserving normalization and distinguishing all selected names. Actual AST
 collision/mutation/epoch controls precede the existing full consumer batch.
 No acceptance, runtime performance or compiler adoption is established.
+
+### Layout-name key candidate outcome — 2026-10-13 UTC
+
+Producer `1dfa0de9` retains23 owned paths and198 archive members. Actual
+55-term/3,025-pair controls cover reserved names, mutation, epoch reset through
+file_book and nested/recursive physical layouts; full226,096-byte JS passes.
+Native emits no C before unchanged30s child deadline, with clean guards. Numeric
+stages correctly remain NOT_RUN. Configured hook, selected checks, portable
+verifier and final independent review pass for partial evidence only. No identical
+retry, speedup or adoption claim. Next source-only transplant keeps budget31
+to isolate the key change from the blocked budget15 representation.

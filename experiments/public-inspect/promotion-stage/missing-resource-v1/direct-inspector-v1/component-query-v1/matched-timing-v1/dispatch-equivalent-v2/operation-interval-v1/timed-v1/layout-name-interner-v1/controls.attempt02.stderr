@@ -1,0 +1,17 @@
+evalmachine.<anonymous>:692
+  return JSON.stringify(tm, (k, v) => k === "s" ? undefined : v);
+              ^
+
+TypeError: Do not know how to serialize a BigInt
+    at JSON.stringify (<anonymous>)
+    at term_key (evalmachine.<anonymous>:692:15)
+    at lay_of (evalmachine.<anonymous>:3712:21)
+    at evalmachine.<anonymous>:1:274
+    at Array.map (<anonymous>)
+    at evalmachine.<anonymous>:1:252
+    at evalmachine.<anonymous>:1:293
+    at Script.runInContext (node:vm:149:12)
+    at Object.runInContext (node:vm:301:6)
+    at Object.<anonymous> (/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-name-interner-v1/key-controls.cjs:33:207)
+
+Node.js v24.20.0

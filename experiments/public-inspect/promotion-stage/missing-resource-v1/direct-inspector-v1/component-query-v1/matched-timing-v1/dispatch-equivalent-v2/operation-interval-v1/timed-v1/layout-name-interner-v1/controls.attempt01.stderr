@@ -1,0 +1,17 @@
+evalmachine.<anonymous>:1
+(()=>{const book=book_nil();parse_book(book,'',baseSource,'',Object.create(null));TELES.clear();LAYS.clear();const cases=[ADT('U32',[]),ADT('F32',[]),ADT('Nat',[]),ADT('Bool',[]),ADT('Word',[Nat(15n)]),ADT('Word',[Nat(16n)])];return cases.map(t=>JSON.stringify(lay_of(book,t)));})()
+                                                                                                                                                                    ^
+
+ReferenceError: Nat is not defined
+    at evalmachine.<anonymous>:1:165
+    at evalmachine.<anonymous>:1:281
+    at Script.runInContext (node:vm:149:12)
+    at Object.runInContext (node:vm:301:6)
+    at Object.<anonymous> (/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/layout-name-interner-v1/key-controls.cjs:33:207)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+
+Node.js v24.20.0
