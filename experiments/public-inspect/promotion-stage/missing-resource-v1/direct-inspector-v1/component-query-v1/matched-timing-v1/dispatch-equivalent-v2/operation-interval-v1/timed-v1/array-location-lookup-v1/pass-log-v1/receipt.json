@@ -1,0 +1,61 @@
+{
+  "scope": "Diagnostic standardO3 currentderivedC with LLVMpass-managerlogging, build120CPU3 only; no consumer/adoption/regeneration/performance credit.",
+  "planSHA256": "18fb300a9aff0690167f0f3cdab48f981febf3d0e314fc79e3f2604103a3efc7",
+  "commands": [
+    {
+      "label": "build",
+      "capSeconds": 120,
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "-Xclang",
+        "-fdebug-pass-manager",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/runtime01/derived.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/pass-log-v1/diagnostic.native",
+        "-pthread",
+        "-lm"
+      ],
+      "exit": null,
+      "failure": "child deadline",
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/pass-log-v1/build.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/pass-log-v1/build.stderr",
+        "sha256": "c8d1d681a8de3bd2effff87d8d3a3f39e5a8a2c91932a84ac68e10ddaa871ea7",
+        "bytes": 70136619,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/pass-log-v1/build-pre.guard.json",
+      "sha256": "49b4e0c3fd1dae96974a6c73bdde9e59111def917efe4597150123e5b2b89484"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/pass-log-v1/build-acquired.guard.json",
+      "sha256": "20e082d57e7ca740ce27275d23d7ad8bd7b0025143be98dd6ba3335fb7d99428"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/pass-log-v1/build-post.guard.json",
+      "sha256": "50af00c58400f394d772035ffe32bef894adad95068d10f92afd9c9008c15bc9"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/pass-log-v1/final.guard.json",
+      "sha256": "f7375be95ada745c97324f7442e77c4136fc85cc9a61cd05336310b0bcc0bb6c"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Owned child failed: build",
+  "guardFailures": []
+}

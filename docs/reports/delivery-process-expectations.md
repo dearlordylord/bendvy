@@ -507,3 +507,34 @@ Selected checks, configured hook, portable reversal verifier and independent
 final review pass for partial evidence. No regenerated pipeline/adoption credit.
 Pinned cc1 help supports fdebug-pass-manager; next bounded diagnostic logs reached
 LLVM passes on the derived C, preserving ordinary acceptance gates.
+
+### Retrospective actions — 2026-10-13 (side-thread handoff)
+
+This assessment is not an implementation or a replacement for the active #54
+experiment. Preserve current owners, live runs and their frozen inputs.
+
+| Priority | Concrete action | Completion evidence |
+|---|---|---|
+| 1 | Inspect existing preflight coverage for the retained artifact-parent, inherited compiler-provenance and import-order mistakes. Extend the existing validator only for uncovered deterministic invariants; reuse its tests and CI. | Each retained malformed plan is rejected before compiler launch; the corresponding valid successor passes. No new approval stage. |
+| 2 | Reconcile current coordination rows: state the actual remaining blocker and executable next action; link accepted history. Mark earlier pending retrospective observations as historical where later evidence supersedes them. | Current entries agree with terminal receipts and owning issues; existing table guard passes. Preserve original expectations and historical measurements. |
+| 3 | Reconcile draft A–H against integrated acceptance evidence and present only remaining coherent child tasks for the existing approval. | Each proposed task names missing acceptance, dependencies and reusable evidence; accepted work is not duplicated. |
+
+Infrastructure changes above have not been implemented by this handoff. The main
+thread owns runner/table changes and schedules them around its active delivery.
+Use the current LLVM-pass diagnostic to choose the next #54 experiment; require
+an observation that distinguishes its hypothesis, rather than another unchanged
+timeout. Do not infer delivery acceleration or Native acceptance from diagnostic
+packaging. This side thread changed only this report and ran no checks or compilers.
+
+### LLVM pass-manager trace — 2026-10-13 UTC
+
+Producer `4d37847d` retains20 owned paths and148 archive members. Logged O3
+build reaches the120s deadline, with clean guards and no binary/consumer. Raw
+stderr70,136,619 bytes contains656,610 lines and261,853 pass starts across59
+names; last entry begins MemCpyOptPass on a178-instruction query function.
+This establishes reached optimization context, not individual cost or causation.
+Configured hook, selected checks, streaming verifier and independent final review
+pass for diagnostic scope only. Supplemental source mapping `a49009296` shows
+spin817317→4611 instructions across Inliner with four incoming callees absorbed.
+INLINE is ordinary static inline, not always_inline. Next factor introduces a
+HOST-only ordinary-spin boundary; performance/acceptance remain unproved.
