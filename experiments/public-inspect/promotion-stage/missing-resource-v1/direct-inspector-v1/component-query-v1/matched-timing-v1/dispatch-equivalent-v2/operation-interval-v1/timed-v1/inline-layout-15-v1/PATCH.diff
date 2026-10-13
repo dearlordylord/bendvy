@@ -1,0 +1,11 @@
+--- direct-recursive-box-f686
++++ inline-layout-15
+@@ -3048,7 +3048,7 @@
+ var W64 = { ks: ["w64"], arms: null };
+ var WORDS = Object.setPrototypeOf({ U32: W32, F32: W32, Nat: W64 }, null);
+ var WIDE = 247;
+-var INLINE_LAYOUT_LIMIT = 31;
++var INLINE_LAYOUT_LIMIT = 15;
+ var ERRS = ("|*|*|out of memory: run again with a bigger span, as in" + " --gpu 8GB|a function the device does not hold|a Nat past the" + " largest immediate 2^48-1|*|memory fault (machine stack overflow?)|an" + " array past the deepest block class 31").replaceAll("*", "runtime fail-stop").split("|");
+ var CMPS = "is_eq:==:=== is_ne:!=:!== is_lt:< is_le:<= is_gt:> is_ge:>=";
+ var OPERATIONS = Object.setPrototypeOf({

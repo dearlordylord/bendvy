@@ -400,3 +400,20 @@ Source inspection finds a shared46-parameter WL ABI for9,554 functions, with
 max41 live arguments in two joined world observers and31 result words. This
 supports testing representation cost; neither the stack nor these counts prove
 a dominant bottleneck or justify changing acceptance limits.
+
+### Rejected inline-layout15 trial — 2026-10-13 UTC
+
+One-literal private candidate31→15 passes finite layout boundaries and unchanged
+full226,096-byte JS oracle. Native emit fails with an explicit null-layout-arms
+TypeError; it is not a timeout. No C/ABI/build/runtime output; conditional numeric
+roles remain NOT_RUN. Producer `fca09b1e3` owns43 paths;190 archive members,
+portable verifier, selected checks, exact ownership, configured hook and final
+review pass for retaining the rejected candidate only. Failed synthetic control
+metadata was corrected with actual All telescopes before launch; logs retained.
+
+A separate actual-parser/pinned-Base reproducer executes in0.37s within5s cap: old
+virtual Word spine widths32→31→30 have arms, while budget15 produces TOP2 then
+BOX1 and the next val_arm throws the same error. It proves this helper regression,
+not a stack attribution for the complete consumer or a corrected implementation.
+The next proposal must preserve virtual numeric bits until the existing physical
+conversion boundary; no fake-pointer unboxing or budget/gate relaxation.
