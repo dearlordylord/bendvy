@@ -315,3 +315,16 @@ by these22 cases. Producer `e73060c98` owns52 paths; ownership, whitespace, the
 configured hook and one final review pass for108 manifest rows/99 archive objects.
 A missing sparse-checkout leaf was fixed by including only that assigned path;
 no source or contract changed. No general delivery acceleration is inferred.
+
+### Current pure-source gate — 2026-10-13 UTC
+
+#54 source applicability investigation distinguishes old timed source05 from the
+current enum and pure complete consumer. Historical pure source03 lacks sufficient
+command/input/environment provenance for reuse. One actual current pure check
+therefore uses the existing pinned wrapper and unchanged5s compiler cap; it is
+INCOMPLETE with child-9/owned-descendant refusal, empty raw streams and unchanged
+75 input guards. No timed FFI refusal is presented as a source success or current
+enum failure. Producer `fe8808eaf` owns10 files; ownership, whitespace, configured
+hook and79-member archive verification pass. Independent review accepts the
+failure record, not the source gate. No source edit, cap increase, repeated
+checker run or overall delivery-speed claim follows.
