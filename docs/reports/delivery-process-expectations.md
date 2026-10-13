@@ -481,3 +481,16 @@ Owner read-only reconciliation reports all63 old successful f686 source pins
 still match, and all63 staged pins match. Relocating the private source paths
 leaves62 files identical, including shared core; only world-observer changes.
 This rules out unnoticed source drift in that comparison, not the deadline cause.
+
+### Full-C frontend IR diagnostic — 2026-10-13 UTC
+
+Producer `f08a5ae44` retains21 owned paths and106 archive members. Exact saved
+23,882,225-byte C emits296,816,109-byte LLVM IR through Clang19 -O3 with LLVM
+passes disabled; command exits0, guards unchanged. No command timing/CPU was
+recorded. Collector generic success is explicitly FRONTEND_IR_ONLY, with no
+consumer, optimizer/backend, full Native build/runtime or causal speed credit.
+The IR has5,940,518 opcode starts:1,113,664 alloca,1,466,718 load,973,547 store.
+These are syntactic pre-optimization counts, not runtime heap allocations. Largest
+spin functions are mapped next to exact C before choosing a patch. The full IR
+is retained inside the33.6MB compressed archive; selected checks, configured
+hook, streaming verifier and independent final review pass.

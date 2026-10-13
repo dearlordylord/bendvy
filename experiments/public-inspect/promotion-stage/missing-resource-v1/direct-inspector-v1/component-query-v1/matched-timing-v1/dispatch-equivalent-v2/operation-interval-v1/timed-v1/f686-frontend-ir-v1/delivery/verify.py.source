@@ -1,0 +1,30 @@
+"""Verify compressed retained frontend IR evidence without compiler execution."""
+from pathlib import Path
+import hashlib,json,zipfile
+HERE=Path(__file__).resolve().parent
+def sha_file(path):
+ h=hashlib.sha256()
+ with path.open('rb') as f:
+  while chunk:=f.read(1024*1024):h.update(chunk)
+ return h.hexdigest()
+def main():
+ d=json.loads((HERE/'DELIVERY.json').read_text());assert sha_file(HERE/'EVIDENCE.zip')==d['archiveSHA256']
+ with zipfile.ZipFile(HERE/'EVIDENCE.zip') as z:
+  assert set(z.namelist())=={r['path'] for r in d['members']}
+  for row in d['members']:
+   h=hashlib.sha256();count=0
+   with z.open(row['path']) as f:
+    while chunk:=f.read(1024*1024):h.update(chunk);count+=len(chunk)
+   assert count==row['bytes'] and h.hexdigest()==row['sha256']
+  p=json.loads(z.read('diagnostic/plan.json'));f=json.loads(z.read('diagnostic/FREEZE.json'));l=json.loads(z.read('diagnostic/LAUNCH.json'));r=json.loads(z.read('diagnostic/receipt.json'))
+  assert hashlib.sha256(z.read('diagnostic/plan.json')).hexdigest()==f['planSHA256']==l['planSHA256']==r['planSHA256']
+  assert hashlib.sha256(z.read('diagnostic/FREEZE.json')).hexdigest()==l['freezeSHA256']
+  assert len(r['commands'])==1 and r['commands'][0]['label']=='build' and r['commands'][0]['exit']==0 and r['commands'][0]['failure'] is None
+  rows={row['path']:row for row in d['members']};ir=rows['diagnostic/frontend.ll'];assert ir['bytes']==296816109 and ir['sha256']==r['buildArtifactSHA256']
+  assert ir['sha256']=='c0dbb210ecbd283b445f9ac82b21cfedc35e3cc84ae1c2c03eebbf0aa20e8cba'
+  with z.open('diagnostic/frontend.ll') as raw:assert b'; ModuleID =' in raw.read(1024)
+  b=json.loads(z.read('diagnostic/SOURCE-BASIS.json'));assert len(b['fullSourceInventory'])==63
+  for path,v in b['fullSourceInventory'].items():assert hashlib.sha256(z.read('dependencies/'+path.lstrip('/'))).hexdigest()==v
+  assert rows['dependencies/'+p['entrypoint'].lstrip('/')]['sha256']==b['currentCSHA256']=='47860766951e7f10329e7512dc40b06d8de1aeb16a4539d09ebace652564f2f9'
+ print(json.dumps({'status':'PASS_RETAINED_FRONTEND_IR_ONLY','members':len(d['members']),'Native':'INCOMPLETE'}))
+if __name__=='__main__':main()
