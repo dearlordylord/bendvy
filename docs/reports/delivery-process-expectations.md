@@ -431,3 +431,16 @@ reproducer and corrected controls. Portable verifier, selected checks, exact
 ownership, configured hook and final review pass for unqualified evidence.
 No identical retry or causal/runtime-performance claim. Profile current setup
 and emission before selecting another representation change.
+
+### Source-current CPU profile retained — 2026-10-13 UTC
+
+Producer `955bc9e26` retains21 owned paths and153 archive members; configured
+hook, portable verifier and independent final review pass for diagnostic scope.
+The child exits77 at the cooperative cutoff: collector INCOMPLETE, no C/native
+artifact. Valid profile has1,747 samples across20.067517 sampled wall seconds.
+Layout-key stringify under lay_of accounts for2.583458s; virtual word spine43.037ms
+and val_box79.046ms are overlapping sampled-wall attributions, not CPU totals or
+causal speedups. Next source-only candidate interns names in layout cache keys
+while preserving normalization and distinguishing all selected names. Actual AST
+collision/mutation/epoch controls precede the existing full consumer batch.
+No acceptance, runtime performance or compiler adoption is established.

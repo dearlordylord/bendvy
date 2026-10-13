@@ -1,0 +1,25 @@
+"""Verify retained bounded profile evidence without executing the subject."""
+from pathlib import Path
+import hashlib,json,zipfile
+HERE=Path(__file__).resolve().parent
+sha=lambda b:hashlib.sha256(b).hexdigest()
+def main():
+ d=json.loads((HERE/'DELIVERY.json').read_text())
+ assert sha((HERE/'EVIDENCE.zip').read_bytes())==d['archiveSHA256']
+ with zipfile.ZipFile(HERE/'EVIDENCE.zip') as z:
+  assert z.testzip() is None and set(z.namelist())=={r['path'] for r in d['members']}
+  for row in d['members']:
+   b=z.read(row['path']);assert len(b)==row['bytes'] and sha(b)==row['sha256']
+  p=json.loads(z.read('diagnostic/native-output/plan.json'));r=json.loads(z.read('diagnostic/native-output/receipt.json'))
+  assert sha(z.read('diagnostic/native-output/plan.json'))==r['planSHA256']
+  assert r['status']=='INCOMPLETE' and not r['guardFailures']
+  c=r['commands'][0];assert c['exit']==77 and c['failure'] is None
+  assert sha(z.read('diagnostic/native-output/emit.stderr'))==c['stderr']['sha256']
+  q=json.loads(z.read('diagnostic/native-output/emitter.cpuprofile'))
+  assert len(q['samples'])==len(q['timeDeltas'])==1747 and sum(q['timeDeltas'])==20067517
+  assert all(v>=0 for v in q['timeDeltas'])
+  for path,v in p['sourceInventory'].items():assert sha(z.read('dependencies/'+path.lstrip('/')))==v
+  assert len(p['sourceInventory'])==63
+  assert 'diagnostic/native-output/scenario.c' not in z.namelist()
+ print(json.dumps({'status':'PASS_RETAINED_PROFILE_ONLY','members':len(d['members']),'Native':'INCOMPLETE'}))
+if __name__=='__main__':main()
