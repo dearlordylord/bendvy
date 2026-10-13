@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : ../../../../../../../../../../../../bendvy/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/application.Report<Owner.First>
+- observed : application.Report<Owner.First>
+Context:
+- operation : String
+- name      : String
+- value     : application.Report<Owner.First>
+Location: observe
+11 |   match item:
+12>|     case Cases.Workshop{operation,name,value}:Workshop{operation,name,Public.whole(~Owner.First,value)}
+   |                                                                                                 ^^^^^
+13 |     case Cases.Garden{operation,name,value}:Garden{operation,name,Public.whole(~Owner.Second,value)}
+bend 2.0.36 is available: run bend update

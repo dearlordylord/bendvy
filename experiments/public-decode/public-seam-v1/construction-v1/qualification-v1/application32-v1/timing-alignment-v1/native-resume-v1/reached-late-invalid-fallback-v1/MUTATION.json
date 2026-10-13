@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "status": "SOURCE_ONLY_ONE_CASE_MUTANT",
+  "name": "late-invalid validation-guard bypass",
+  "description": "The decoder runs and rejects the late-invalid array. The private checked function ignores that exact refusal and supplies valid empty-array input to the declared builder, resulting in an accepted constructed owner.",
+  "notClaimed": "The decoder is not bypassed or never called; validation still returns the exact Invalid receipt before the narrow fallback branch.",
+  "originalSource": {
+    "path": "/workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend",
+    "sha256": "39518ef0d17aa1b55ef09ee87b12b485eb63c0900064d52206ca4ebabb0d335b"
+  },
+  "mutantSource": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/reached-late-invalid-fallback-v1/source/decode-construction-mutant.bend",
+    "sha256": "1a57d03c65e4fb4fa767377c3653fca0039e86c49e7c7d3d2362175163b865fb"
+  },
+  "normalizedSemanticDiff": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/reached-late-invalid-fallback-v1/MUTATION.diff",
+    "sha256": "8132ed3cd67ee3366fabf5e1bef7df1daf03e0b0f10a0cc77daf6e2869323cff"
+  },
+  "exactError": {
+    "tag": "D.Invalid",
+    "path": "$[127]",
+    "expected": "integer",
+    "actual": {
+      "tag": "D.Text",
+      "value": "late-invalid"
+    }
+  },
+  "fallbackCall": "build(owner,D.Array{[]})",
+  "otherRefusals": "Preserved as Build.Invalid{owner,error}",
+  "typedPublicClosure": [
+    "Constructed request Insert",
+    "Constructed request Spawn",
+    "constructed ResourceWrite"
+  ],
+  "privateIdentityClosure": [
+    "decode-construction-mutant.bend",
+    "decode-constructed-requests-mutant.bend",
+    "decode-constructed-resource-mutant.bend",
+    "application.bend",
+    "main.bend",
+    "public.bend",
+    "serialize.bend",
+    "full-format.bend",
+    "observation-main.bend"
+  ],
+  "counterRows": [
+    "Workshop/insert/lateInvalid",
+    "Workshop/spawn/lateInvalid",
+    "Workshop/resource/lateInvalid",
+    "Garden/insert/lateInvalid"
+  ],
+  "counterModelPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/reached-late-invalid-fallback-v1/model.py.source",
+  "counterModelSHA256": "14dcb15473bfb807e9840e96103431c823763f135816cbc827ca92355adfc409",
+  "sourceBasisSHA256": "d9bb622fd426e37edc1a893d17d495865e52c968f56db351d2c555ba8918ba2a",
+  "fullOutputObservation": "The source-derived full 32-row wire preserves original malformed input and complete physical World/store/resource/receipt/queue/payload/report state; only the four lateInvalid rows change.",
+  "sourceDerived": true,
+  "runtimeOutputsUsed": false
+}
