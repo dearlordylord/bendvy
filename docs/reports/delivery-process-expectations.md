@@ -466,3 +466,18 @@ byte-identity comparison, build/runtime or numeric results exist. This experimen
 does not establish improvement or regression under current host contention.
 No unchanged retry. Source investigation now checks existing frame lowering and
 the shared Native ABI; acceptance limits and installed compiler remain unchanged.
+
+### Sequential private observer outcome — 2026-10-13 UTC
+
+Producer `1230bdd8` retains34 owned paths and184 archive members. Pinned source
+check03 passes63 files after two retained parser repairs; full226,096-byte JS
+passes. Each original Dump call remains once, with all13 World fields restored.
+Native emit reaches pass3 before the unchanged30s child deadline; no C/build/runtime
+or measured bank/ABI exists. Additional reconstruction allocation cost remains
+unmeasured. Selected checks, configured hook, portable verifier and independent
+final review pass for partial evidence only. No unchanged retry.
+
+Owner read-only reconciliation reports all63 old successful f686 source pins
+still match, and all63 staged pins match. Relocating the private source paths
+leaves62 files identical, including shared core; only world-observer changes.
+This rules out unnoticed source drift in that comparison, not the deadline cause.

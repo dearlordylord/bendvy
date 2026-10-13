@@ -1,0 +1,16 @@
+{
+  "scope": "Private world-observer sequencing only; engineoperations/declarations63sourceclosure retained; no publicAPI/compiler change.",
+  "changedFiles": [
+    "world-observer.bend"
+  ],
+  "renderExpressionByteIdentical": true,
+  "callsIdentical": [
+    "Dump.bool_array(live)",
+    "Dump.store(~S,store)",
+    "Dump.resource(~S,resource)",
+    "pending(~W.World<S,D.Store<S>,Consumer.Resource(~S),U32>,queued)"
+  ],
+  "ownership": "Everystage reconstructs all13Worldfields after exactlyone observation and threads original owners. Originaljoined replacedwithnarrowaccumulatorstages and parameterhead helpers; no placeholders.",
+  "tradeoff": "ExtraWorldreconstruction/allocation outside engine operations; actualC ABI needed, predicted38params not31. No cost/adoption claim.",
+  "sourceCheck": "source-check03 exit0 cap5, fullprivatecompleteentry; priorparserfailuresretained."
+}
