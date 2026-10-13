@@ -417,3 +417,17 @@ BOX1 and the next val_arm throws the same error. It proves this helper regressio
 not a stack attribution for the complete consumer or a corrected implementation.
 The next proposal must preserve virtual numeric bits until the existing physical
 conversion boundary; no fake-pointer unboxing or budget/gate relaxation.
+
+### Virtual word-spine correction trial — 2026-10-13 UTC
+
+Only lay_match_word changes atop rejected budget15. Actual pinned-Base controls
+compare all33 U32/F32 virtual levels and physical conversion with old31 behavior;
+no fake BOX-pointer unboxing. Full226,096-byte JS oracle passes. Native emission
+reaches its unchanged30s deadline with owned-descendant/pipes cleanup refusal;
+raw pass1 begins at22.235752 CPU seconds. No C/ABI/build/runtime; numeric NOT_RUN.
+Later no-process observation does not clear the recorded refusal.
+Producer `cd9ed1def` owns51 paths;214 archive members retain the original Base
+reproducer and corrected controls. Portable verifier, selected checks, exact
+ownership, configured hook and final review pass for unqualified evidence.
+No identical retry or causal/runtime-performance claim. Profile current setup
+and emission before selecting another representation change.
