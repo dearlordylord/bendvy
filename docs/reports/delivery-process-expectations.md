@@ -257,3 +257,19 @@ pass; deterministic gzip preserves original source/stderr bytes, the next staged
 whitespace check and configured hook pass. One final independent review accepts
 the bounded packet. No repeated emit/build was needed; no general delivery
 speedup or comparative performance result is asserted.
+
+### Inspector enum / JS-TS delivery — 2026-10-13 UTC
+
+#54 original private compiler emits the enum entry on both backends and the strict
+generated barrier passes. The unchanged120s -O3 cap stops Native build, so Native
+runtime remains untested. Reusing emitted JS gives six complete JS/TS1/2/4 oracle
+passes without repeating emit/build. Existing staging/whitespace checks and
+configured scoped hooks pass for82 +9 owned paths; separate final reviews accept
+those bounded scopes. No shared runner changes trigger the full infrastructure
+suite. Earlier layout-key experiments are rejected, not adopted.
+
+#46 source/controller review accepts the258-command equivalent paired plan, but
+its5s CPU11 probe alone does not establish quiet admission: target CPU is idle
+while host load is10–11/12 cores and pressure data is unavailable. Comparative
+execution is held; current codec-variant semantic coverage continues. No new
+noise threshold, full delivery speedup or feature performance verdict is claimed.

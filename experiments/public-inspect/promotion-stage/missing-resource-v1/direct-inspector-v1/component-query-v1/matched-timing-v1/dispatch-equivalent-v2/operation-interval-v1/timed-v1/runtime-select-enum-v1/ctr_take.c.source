@@ -1,0 +1,24 @@
+INLINE u64 ctr_take(Env e, Term t, u32 n, THR Term* out) {
+#else
+FAR u64 ctr_take(Env e, Term t, u32 n, THR Term* out) {
+#endif
+  DEV u64* H = e.mem;
+  if (!term_rfc(t)) {
+    for (u32 j = 0; j < n; j += 1) {
+      out[j] = H[term_loc(t) + j];
+    }
+    return term_loc(t);
+  }
+  u64 r    = term_loc(t);
+  u64 cell = rfc_view(H, r);
+  u64 src  = cell >> 24;
+  for (u32 j = 0; j < n; j += 1) {
+    out[j] = H[src + j];
+  }
+  if ((cell & RFC_CNT) == 1) {
+    heap_free(e, 0, r);
+    return src;
+  }
+  span_fade(e, t, src, n);
+  return 0;
+}

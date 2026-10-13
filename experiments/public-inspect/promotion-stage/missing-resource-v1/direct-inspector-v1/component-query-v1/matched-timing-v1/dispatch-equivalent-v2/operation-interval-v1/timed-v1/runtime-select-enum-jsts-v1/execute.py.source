@@ -1,0 +1,87 @@
+"""#71 Harness sequence for #54 interval canaries; explicit copied compiler commands."""
+from pathlib import Path
+import argparse,hashlib,importlib.util,importlib.machinery,json,sys
+ROOT=Path('/workspace/formal-proofs/bendvy');sys.path.insert(0,str(ROOT/'benchmarks/parity-features'))
+import execute,preflight
+from evidence_boundary import GuardBoundary,ReceiptBoundary
+HERE=Path(__file__).resolve().parent.parent
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+def load(name,path):
+ spec=importlib.util.spec_from_loader(name,importlib.machinery.SourceFileLoader(name,str(path)));module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
+def main():
+ parser=argparse.ArgumentParser();parser.add_argument('--plan',type=Path,required=True);parser.add_argument('--plan-sha',required=True);args=parser.parse_args()
+ assert sha(args.plan)==args.plan_sha
+ plan=json.loads(args.plan.read_text());stage=Path(plan['stage']);output=Path(plan['output']);terminal=Path(plan['terminalRecord']);assert not terminal.exists()
+ actual=Path(sys.executable).resolve(strict=True);assert str(actual)==plan['tools']['python'] and sha(actual)==plan['pins'][str(actual)]
+ h=None
+ runner=load('interval_task_runner',ROOT/'scripts/task_runner.py')
+ def binding():
+  drift=[p for p,v in plan['pins'].items() if not Path(p).is_file() or sha(p)!=v]
+  assert runner.Inputs(directories=plan['resourceRoots']).expected==plan['resourceRoots'],'Exact tool/header resources drift'
+  return {'planSHA256':sha(args.plan),'drift':drift}
+ try:
+  initial=binding();assert initial['planSHA256']==args.plan_sha and not initial['drift'];assert not output.exists()
+  record=json.loads((stage/'stage.json').read_text())
+  preflight.snapshot=lambda:{k:preflight.digest(ROOT/k) for k in record['sources']}
+  def external():
+   for directory,members in record['externalMembership'].items():
+    d=Path(directory);assert sorted(str(f.relative_to(d)) for f in d.rglob('*') if f.is_file())==members,'Consumed external membership drift'
+   return {k:preflight.digest(Path(k)) for k in record['external']}
+  preflight.external=external
+  class CapturingHarness(execute.Harness):
+   def run(self,label,command,cap,good=True):
+    self.guard()
+    with ReceiptBoundary(self.receipt,self.output/'receipt.json',[('harness inputs/artifacts/logs',self.guard)]):
+     result=runner.execute_result(list(map(str,command)),cap,dict(__import__('os').environ,BEND_NO_TELEMETRY='1',BENDVY_CLANG19_ROOT='/tmp/bendvy-clang19-diagnostic/root'),capture='split')
+     row={'label':label,'command':list(map(str,command)),'cap':cap,'exit':result['exit'],'failure':result['failure']}
+     self.receipt['commands'].append(row)
+     for stream in ['stdout','stderr']:
+      raw=result[stream];target=self.output/(label+'.'+stream)
+      row[stream]={'path':str(target),'bytes':len(raw),'sha256':hashlib.sha256(raw).hexdigest(),'published':False,'unpublishedHex':raw.hex()}
+     for stream in ['stdout','stderr']:
+      raw=result[stream];target=self.output/(label+'.'+stream)
+      with target.open('xb') as file:file.write(raw)
+      self.receipt['logs'][target.name]=sha(target);row[stream]['published']=True;del row[stream]['unpublishedHex']
+     if result['failure'] is not None:raise RuntimeError('Owned child failed: '+label)
+     if result['exit']!=(0 if good else 1):raise RuntimeError('Unexpected command exit: '+label)
+    return __import__('types').SimpleNamespace(stdout=result['stdout'],stderr=result['stderr'],returncode=result['exit'])
+  h=CapturingHarness(stage,output)
+  assert str(h.tools['node'])==plan['tools']['node'] and str(h.tools['taskset'])==plan['tools']['taskset']
+  validator=load('inspector_interval_validator',HERE/'canary-v4/validate.py.source');evaluation=load('inspector_interval_evaluation',HERE/'canary-v3/evaluation-check.py.source')
+  assert plan['canaryCPU']==3
+  h.receipt.update(scope=plan['scope'],actualCopiedCompiler={'path':plan['compiler'],'sha256':plan['pins'][plan['compiler']]},cpu=3,scales=plan['scales'],ordinarySemantics=[])
+  def run(label,argv,cap,good=True):
+   now=binding();assert not now['drift'] and now['planSHA256']==args.plan_sha
+   return h.run(label,[plan['tools']['taskset'],'-c',str(plan['canaryCPU']),*argv],cap,good)
+  js=Path(plan['reusedJS']['path'])
+  origin=json.loads(Path(plan['reusedJS']['receipt']).read_text())
+  assert origin['commands'][-1]['failure']=='child deadline'
+  assert any(row['label']=='inspectors-runtime-emit-JS' and row['exit']==0 for row in origin['commands'])
+  assert sha(js)==plan['reusedJS']['sha256']
+  for count in plan['scales']:
+   commands={'JS':[plan['tools']['node'],js,str(count)],'TS':[plan['tools']['node'],HERE/'runtime-select-v1/ts/interval-runtime.mjs',str(count)]}
+   for backend in ['JS','TS']:
+    result=run('inspectors-'+str(count)+'-'+backend,commands[backend],5);region=validator.validate(backend,result.stdout,result.stderr,plan,count)
+    h.receipt['ordinarySemantics'].append({'repetitions':count,'backend':backend,'wholeOutputSHA256':hashlib.sha256(result.stdout).hexdigest(),'bytes':len(result.stdout),'region':region});h.save()
+  h.guard();h.receipt['status']='COMPLETE_JS_TS_REPETITION_CANARIES';h.save()
+ finally:
+  primary=sys.exc_info()[1]
+  post={'planSHA256':args.plan_sha,'primaryError':repr(primary) if primary else None}
+  def frozen_post():
+   current=binding();post.update(current)
+   if current['drift'] or current['planSHA256']!=args.plan_sha:raise RuntimeError('Terminal frozen input drift')
+  def harness_post():
+   if h:
+    h.guard();post['harnessPostguard']='UNCHANGED'
+  def publish_harness():
+   if h:
+    if primary or terminal_boundary.failures:h.receipt['status']='INCOMPLETE'
+    h.receipt['terminalPostguard']=dict(post);h.save()
+  terminal_boundary=ReceiptBoundary(post,terminal,[('frozen input binding',frozen_post),('harness inputs/artifacts/logs',harness_post),('harness receipt',publish_harness)])
+  # Re-raise the original failure INSIDE the existing boundary so postguard and
+  # write faults become notes/guardFailures rather than replacing it.
+  with terminal_boundary:
+   if primary is not None:raise primary
+   post['status']='COMPLETE_INSPECTOR_RUNTIME_SELECTOR_1_2_4_SEMANTICS'
+ print(h.receipt['status'])
+if __name__=='__main__':main()
