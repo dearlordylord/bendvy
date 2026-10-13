@@ -1,0 +1,56 @@
+{
+  "scope": "Current source-bound codec variant consumer: 40 public constructor/resource rows across First and Second schemas, with exact complete stdout equality only.",
+  "planSHA256": "de38d0855e7982b00c601e9529030b0ad4adc24a33fd399703551010800bf2ab",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/runtime-native01/complete.c"
+      ],
+      "capSeconds": 30,
+      "exit": 1,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/runtime-native01/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/runtime-native01/emit.stderr",
+        "sha256": "af95b9da24ddec47e7afcca065f867efc7a546fa2c9716cde785df0ab6541bab",
+        "bytes": 25,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/runtime-native01/emit-pre.guard.json",
+      "sha256": "13933532b2d87cbdb60b936a88e8d7910728bdb082a8c4397c08493650be9b55"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/runtime-native01/emit-acquired.guard.json",
+      "sha256": "a269d08217181b595fb4e874063f307ddf8bcead67a4d36b7339704ab88b39f2"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/runtime-native01/emit-post.guard.json",
+      "sha256": "866af69de2c4c51ca92a9a67c8aac7cecbfe94f94f67889c703f02966c185ed4"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/runtime-native01/final.guard.json",
+      "sha256": "c6ac8cafedd51d9010c3e4079cf6dbad045f47d9829f996c2c1cc45b804dd8d9"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Owned child failed: emit",
+  "guardFailures": []
+}

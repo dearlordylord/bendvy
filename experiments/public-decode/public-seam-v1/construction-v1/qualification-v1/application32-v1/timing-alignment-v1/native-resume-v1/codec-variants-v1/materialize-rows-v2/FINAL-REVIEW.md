@@ -1,0 +1,15 @@
+# #46 codec-variants-v1 / materialize-rows-v2 final review
+
+Verdict: PASS for the bounded finite consumer slice, with the declared limits retained.
+
+I reviewed commit `667645b1defbf4d7bf7889eea03b9bfafdf0afa1` and its 101 owned paths. `OWNED-PATHS.json` contains 101 unique paths and exactly matches the commit path set. The current packet is `materialize-rows-v2`: `CURRENT-RESULT.json` SHA-256 `5e94a97c15ac4e4b9d5adb803cb0d9d9de22eecc5b92ef4a0cba57c29e4e9fa9`, `DELIVERY.json` `7207f45125db93a38a2ac89017453b3fd5e55d055848588765d1c2459b05da05`, `ACTUAL-MANIFEST.json` `f03ae64d813057c2bcf4c833ce9899045457f3f0a5457b6288773bc53d568605`, and `PORTABLE.zip` `0100670d3dcb6751a47752f5995f3c5d55243e9053c368d8561ccb699dda12b5` (5,234,861 bytes, 135 members).
+
+The archive integrity joins pass: the manifest has 158 rows, 8 external pinned binaries/libraries, and 150 archived rows; all 135 content-addressed archive members hash to their object names, exactly match the manifest object set, and match the local files. No local or archived row had a size or SHA mismatch. The external tools remain hash-pinned and intentionally unembedded.
+
+The source closure is 50 files with source-check01 exit 0, matching pre/post source pins. The successor changes only the aggregate representation: each of the 14 constructor and 6 resource operations per `First` and `Second` schema is completed and serialized as a row before joining the 40 rows; resource replacement, before/after, and rollback observations remain represented. The independent model used no candidate runtime output. The expected output is 21,488 bytes, SHA-256 `071c4634a7f0db985878d70587b7967a6e371eeb70e0ef6dde5f38e24dcd064b` (compressed oracle `f5e591075f7b07d4b18231b2a03b167bfeaddba84996b7bb147bf3b3e9a7ac82`).
+
+The corrected JS03 consumer and Native02 consumer both completed with exit 0, empty stderr, guard receipts, and unchanged final pins. JS used emit/consumer caps 30/5; Native used emit/build/consumer caps 30/120/5. Both stdout streams are exactly the independent oracle. Artifact joins are: JS `complete.js` SHA-256 `8bc65aff25b98eb0160b450dba4f27709cc59c2677e010cff41d62299dd801d7`; Native generated C `3b04a9e585ef4965b6bbcfb688bc9efe70b8f09cbf714785d9a40b89bcaf4177`; Native executable `bfd238680da2deb2ebd98543769ea83792ee4605a222742556b3cc3f36e64d5b`.
+
+The earlier JS02 generated-path mismatch is preserved as history; JS03 is the corrected plan. The v1 Native arity-over-247 emitter failure and incomplete receipt are also preserved. Source checks 01–03 are historical parser/affinity development-repair diagnostics, not planted negative controls; source-check04 and the materialized-row source check passed.
+
+This evidence qualifies only the finite 40-row JS/Native consumer slice. The pinned per-row `J.encode` fuel cap of 100,000 does not establish arbitrary aggregate-size behavior. It provides no universal #46 closure, descriptor/constructor/error/decode coverage, performance or scaling result, or policy/core acceptance.

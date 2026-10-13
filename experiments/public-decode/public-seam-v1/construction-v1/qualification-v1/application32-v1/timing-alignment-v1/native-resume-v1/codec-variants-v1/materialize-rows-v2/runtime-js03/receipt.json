@@ -1,0 +1,95 @@
+{
+  "scope": "Materialize each complete public row as a JSON String before aggregating the 40-row output, preserving all operations and observations.",
+  "planSHA256": "a8a93f3f5c046b4209302dd9803a2dd6f443dadce71c42c021249f2989d5afa2",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/source/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/complete.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/complete.js"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/consumer.stdout",
+        "sha256": "071c4634a7f0db985878d70587b7967a6e371eeb70e0ef6dde5f38e24dcd064b",
+        "bytes": 21488,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/emit-pre.guard.json",
+      "sha256": "881f25de1760eefc7bfd439461ff1ad3beef5c48bd0056906a74f94114af310a"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/emit-acquired.guard.json",
+      "sha256": "c98b2b726ec6bbb754daaba680c90a43fdc3170b4080b4c8fa1cd1100597a184"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/emit-post.guard.json",
+      "sha256": "2a5ed6163001159429b1bfe698d89f9bd75faeecd74d667448a45a72dac122d7"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/consumer-pre.guard.json",
+      "sha256": "a7b5aa30d46dc6a4c58d4eba8b1bb31a8fa1737aca3762990d622213d990f9b6"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/consumer-acquired.guard.json",
+      "sha256": "3a95394ecdb7449c8b2717a7076a38bfd44b031ba3d09b9e48e27512f344a65b"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/consumer-post.guard.json",
+      "sha256": "d786e724a2e7b08d3573ff532dcfef687d2a116ac68a7436a87a633147b2497c"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/final.guard.json",
+      "sha256": "34a12c8874b2292430ca329d7999af4ec2c603c54f380659dcc23eb819ad56b6"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "8bc65aff25b98eb0160b450dba4f27709cc59c2677e010cff41d62299dd801d7",
+  "wholeOracleSHA256": "071c4634a7f0db985878d70587b7967a6e371eeb70e0ef6dde5f38e24dcd064b"
+}

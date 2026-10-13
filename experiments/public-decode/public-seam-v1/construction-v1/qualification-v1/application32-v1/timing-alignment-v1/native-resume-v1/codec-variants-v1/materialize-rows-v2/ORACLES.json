@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "scope": "Successor row-materialization source consumer; 40 constructor/resource rows, complete stdout equality only.",
+  "entries": {
+    "total": 40,
+    "ConstructedCase": 28,
+    "ResourceCase": 12,
+    "schemaOrder": [
+      "First",
+      "Second"
+    ],
+    "perSchema": {
+      "ConstructedCase": 14,
+      "ResourceCase": 6
+    }
+  },
+  "model": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/oracle/model.py",
+    "sha256": "3bfe519a506611fd45c2b14c858ef692402ecfffcab9c7511bf5c61b1721aa4f",
+    "runtimeOutputsUsed": false,
+    "parentPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/oracle/model.py",
+    "parentSHA256": "3bfe519a506611fd45c2b14c858ef692402ecfffcab9c7511bf5c61b1721aa4f"
+  },
+  "stdout": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/oracle/expected.stdout",
+    "bytes": 21488,
+    "sha256": "071c4634a7f0db985878d70587b7967a6e371eeb70e0ef6dde5f38e24dcd064b"
+  },
+  "compressedStdout": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/oracle/expected.stdout.gz",
+    "bytes": 1237,
+    "sha256": "f5e591075f7b07d4b18231b2a03b167bfeaddba84996b7bb147bf3b3e9a7ac82",
+    "mtime": 0
+  },
+  "sourceEquivalence": {
+    "status": "SOURCE_REVIEW_REQUIRED_BEFORE_BACKEND",
+    "operations": "All 40 public constructor/resource calls, arguments, error cases, row order, world mutation, resource replacement, and rollback are unchanged; only the aggregate result representation changes.",
+    "rowMaterialization": "The former ConstructedCase and ResourceCase record expressions are moved into constructed_entry/resource_entry. Each Input.construct or Input.resource returns the complete value/report before that row is serialized. Resource before/after/rollback observations are retained through serialization.",
+    "aggregateRepresentation": "Former output encoded a J.Items list, whose pinned serializer emits brackets and comma-delimited items. The successor joins complete JSON row Strings with the same commas and brackets. There remains one final IO.print.",
+    "order": "First then Second schema; 14 constructor rows then 6 resource rows per schema; 40 rows total.",
+    "oracle": "Copied model and expected bytes are byte-identical to immutable v1. The source model replay matched the 21,488-byte expected output without reading candidate runtime output.",
+    "candidateRuntimeOutputUsed": false
+  }
+}

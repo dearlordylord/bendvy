@@ -273,3 +273,26 @@ its5s CPU11 probe alone does not establish quiet admission: target CPU is idle
 while host load is10–11/12 cores and pressure data is unavailable. Comparative
 execution is held; current codec-variant semantic coverage continues. No new
 noise threshold, full delivery speedup or feature performance verdict is claimed.
+
+### Codec variants and Native build control — 2026-10-13 UTC
+
+#46 producer `667645b1` owns exactly101 paths. Ownership staging, whitespace and
+the configured producer hook pass; one independent final review validates complete
+40-row public constructor/resource observations on JS and standard -O3 Native.
+Both match the21,488-byte independent oracle. Earlier failed Native arity emission
+and source diagnostics are preserved. No shared core change or comparative
+performance result is claimed.
+
+#54 reuses the existing collector for one baseline C build control. Launch review
+catches a source-label branch that bypasses artifact verification; the preserved
+successor uses the existing build label and passes focused review. Previously
+accepted C also hits the unchanged120s -O3 deadline with no fresh binary and
+unchanged guards. The current host/build context is therefore inconclusive; no
+causal claim about enum ownership differences or overall delivery speed follows.
+Further Native builds are deferred pending meaningful conditions change.
+
+#54 producer `cfc31dc13` retains31 owned paths and a62-member portable archive;
+selected source checks, the read-only verifier, ownership staging, whitespace and
+the configured hook pass. One final independent review accepts diagnostic scope.
+The root batches these retained outcomes with #46, without rerunning compiler
+experiments or changing shared runners.

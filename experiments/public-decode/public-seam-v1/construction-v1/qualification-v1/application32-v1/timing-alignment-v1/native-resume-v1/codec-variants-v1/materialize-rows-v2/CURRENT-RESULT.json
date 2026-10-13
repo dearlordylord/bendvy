@@ -1,0 +1,214 @@
+{
+  "JS": {
+    "artifactBytes": 295503,
+    "artifactPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/complete.js",
+    "artifactSHA256": "8bc65aff25b98eb0160b450dba4f27709cc59c2677e010cff41d62299dd801d7",
+    "commands": [
+      {
+        "capSeconds": 30,
+        "exit": 0,
+        "failure": null,
+        "label": "emit"
+      },
+      {
+        "capSeconds": 5,
+        "exit": 0,
+        "failure": null,
+        "label": "consumer"
+      }
+    ],
+    "finalGuardSHA256": "34a12c8874b2292430ca329d7999af4ec2c603c54f380659dcc23eb819ad56b6",
+    "finalPinsUnchanged": true,
+    "guardCount": 7,
+    "planPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/plan.json",
+    "planSHA256": "a8a93f3f5c046b4209302dd9803a2dd6f443dadce71c42c021249f2989d5afa2",
+    "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js03/receipt.json",
+    "receiptSHA256": "be3afcac99af3d984393e773cc3d88cfee756d247c4d80ceba322eae1552eca6",
+    "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+    "stdoutBytes": 21488,
+    "stdoutSHA256": "071c4634a7f0db985878d70587b7967a6e371eeb70e0ef6dde5f38e24dcd064b",
+    "wholeOracleSHA256": "071c4634a7f0db985878d70587b7967a6e371eeb70e0ef6dde5f38e24dcd064b"
+  },
+  "Native": {
+    "commands": [
+      {
+        "capSeconds": 30,
+        "exit": 0,
+        "failure": null,
+        "label": "emit"
+      },
+      {
+        "capSeconds": 120,
+        "exit": 0,
+        "failure": null,
+        "label": "build"
+      },
+      {
+        "capSeconds": 5,
+        "exit": 0,
+        "failure": null,
+        "label": "consumer"
+      }
+    ],
+    "executable": {
+      "bytes": 1569832,
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-native02/complete.native",
+      "sha256": "bfd238680da2deb2ebd98543769ea83792ee4605a222742556b3cc3f36e64d5b"
+    },
+    "finalGuardSHA256": "9e2dad1fea280c7fbb06a4930991d2d9f033ee2a16e956eff1a17ce89b0a0d19",
+    "finalPinsUnchanged": true,
+    "generatedC": {
+      "bytes": 1519782,
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-native02/complete.c",
+      "sha256": "3b04a9e585ef4965b6bbcfb688bc9efe70b8f09cbf714785d9a40b89bcaf4177"
+    },
+    "guardCount": 10,
+    "planPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-native02/plan.json",
+    "planSHA256": "308dfbc8a431d4c516366b58a02c4f4bc8e6b0db259eab7928d5ff71b695b6ec",
+    "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-native02/receipt.json",
+    "receiptSHA256": "0fc2089cc5a0fff1ed5a72d1c684b3c40657a04c43c4852831d8ab91a4f6effa",
+    "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+    "stdoutBytes": 21488,
+    "stdoutSHA256": "071c4634a7f0db985878d70587b7967a6e371eeb70e0ef6dde5f38e24dcd064b",
+    "wholeOracleSHA256": "071c4634a7f0db985878d70587b7967a6e371eeb70e0ef6dde5f38e24dcd064b"
+  },
+  "coverageAndLimitations": [
+    "40 rows: 28 ConstructedCase and 12 ResourceCase; 14 constructor and 6 resource rows for each of First and Second schemas.",
+    "Each row keeps its operation result and the complete resource/world observations, including replacement and rollback; the independently derived 21488-byte oracle is byte-identical in JS and Native.",
+    "This finite consumer does not prove universal behavior or close all issue #46 descriptor, constructor-precedence, error and decode callsites.",
+    "The pinned J.encode fuel cap 100000 is applied per row; arbitrary aggregate sizes are not qualified.",
+    "Save/restore transient semantics and related identity policies remain in the existing #58/#59 scope.",
+    "Comparative performance/scaling remains HOLD pending quiet CPU11 admission; no timing or speedup claim is made here."
+  ],
+  "externalRuntimeAndToolBinaries": "Hash-pinned by the frozen plans, not embedded in the source archive. Exact source closure, compiler helper/collector bodies, base/effect sources, plans, receipts, guards, generated artifacts and outputs are archived.",
+  "history": {
+    "compressedRawDiagnostics": [
+      {
+        "gzipBytes": 262,
+        "gzipPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check01/stderr.gz",
+        "gzipSHA256": "84a90b4cf23e0057bffb2bdd72309c7bb2562f7f7f1341a82853cc3a1d610cbe",
+        "mtime": 0,
+        "rawBytes": 376,
+        "rawPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check01/stderr",
+        "rawSHA256": "3af5bbaebcc09b50294a476f0e26a88174b6befbbca3279e9afe896a15a64246"
+      },
+      {
+        "gzipBytes": 197,
+        "gzipPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check02/stderr.gz",
+        "gzipSHA256": "1d98d875a577c9537e5d46f6f2275c7055057d9673e87235113785679caaf70f",
+        "mtime": 0,
+        "rawBytes": 260,
+        "rawPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check02/stderr",
+        "rawSHA256": "4090d4018db94b29dc4b80d947849bfa7424379bb50986ce1bda0c6ee4f5bd2d"
+      },
+      {
+        "gzipBytes": 212,
+        "gzipPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check03/stderr.gz",
+        "gzipSHA256": "a800240b682d8affc52e084ea0169fb7e120a30dc83e8f4299938505bc5fd99b",
+        "mtime": 0,
+        "rawBytes": 271,
+        "rawPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check03/stderr",
+        "rawSHA256": "2067c201436c7fdc28549047c124b509a55767c2ef1914ed8155136364e25d1c"
+      }
+    ],
+    "sourceCheckAttempts": [
+      {
+        "exit": 1,
+        "planPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check01/plan.json",
+        "planSHA256": "c890703bff3b0713e8a3c20fa9d27299873d977a754cd8edc63a2714f20b8ebf",
+        "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check01/receipt.json",
+        "receiptSHA256": "7c36d6dcdb045ef54323950ce690b942decbe6b0f1beb1609fc04510f63de399",
+        "status": null,
+        "stderrGzip": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check01/stderr.gz",
+        "timeoutSeconds": null
+      },
+      {
+        "exit": 1,
+        "planPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check02/plan.json",
+        "planSHA256": "913158aa60370a67f2c1f82107b88044f217d1d4ed7a2e0e88ad021cc8282404",
+        "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check02/receipt.json",
+        "receiptSHA256": "4ce0e39ed091814ae586ebd2ebc2fd2bf5aacde999511876d4c5010c3ab5263a",
+        "status": null,
+        "stderrGzip": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check02/stderr.gz",
+        "timeoutSeconds": null
+      },
+      {
+        "exit": 1,
+        "planPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check03/plan.json",
+        "planSHA256": "d8493131d806a268f1122b5092fdb13902938fddf3c363ad942c16e7d8749d5e",
+        "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check03/receipt.json",
+        "receiptSHA256": "072ecafecfcc454bd4ac74c5b98f0e08fc170bf662debdb0acf9cf3d0d468469",
+        "status": null,
+        "stderrGzip": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check03/stderr.gz",
+        "timeoutSeconds": null
+      },
+      {
+        "exit": 0,
+        "planPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check04/plan.json",
+        "planSHA256": "b9d93695334d2b00abe9d661f60b6c5110c0f844f14f51dc3887d2d557dbedee",
+        "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/source-check04/receipt.json",
+        "receiptSHA256": "cef64dbbae797161478ee67d8d656069634df2172f4c49a6ebe4c09523f24a8b",
+        "status": null,
+        "stderrGzip": null,
+        "timeoutSeconds": null
+      },
+      {
+        "exit": 0,
+        "planPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/source-check01/plan.json",
+        "planSHA256": "0aaaddfa9ee665ce643c92a21e93caeb384515be872951c143c72304d6a2cfa4",
+        "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/source-check01/receipt.json",
+        "receiptSHA256": "6afdb9e90bb4b26121c686f47a20223524b44df1bbaa66705ec02a2a514fd794",
+        "status": null,
+        "stderrGzip": null,
+        "timeoutSeconds": 5
+      }
+    ],
+    "staleJS02PlanPreserved": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/runtime-js02/plan.json",
+      "sha256": "2e1bcc30640455d4d2b8ea4ce3a872af5612817fea22e833ddd7a2184645ff42"
+    },
+    "v1FreezeSHA256": "53fcee2a20ed0cd8a2b8f376b815b7c1e22fb1f2e819fbab6f55851780d5d83b",
+    "v1JSReceiptSHA256": "7a28e9f9615873a984c4b4564a1b304ba84d4aaf3aa67d31e1361a1aee338b3b",
+    "v1JSStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+    "v1NativeEmitDiagnostic": {
+      "bytes": 25,
+      "classification": "Historical native emitter arity-over-247 failure; preserved as observed.",
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/runtime-native01/emit.stderr",
+      "sha256": "af95b9da24ddec47e7afcca065f867efc7a546fa2c9716cde785df0ab6541bab"
+    },
+    "v1NativeReceiptSHA256": "8294f1ea9fd6e52fd4555c7619726896a2f3faa785e1e05bb8812644ca4a3cd7",
+    "v1NativeStatus": "INCOMPLETE"
+  },
+  "independentOracle": {
+    "JSNativeWholeOutputEqual": true,
+    "bytes": 21488,
+    "candidateOutputsUsedForDerivation": false,
+    "compressedPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/oracle/expected.stdout.gz",
+    "compressedSHA256": "f5e591075f7b07d4b18231b2a03b167bfeaddba84996b7bb147bf3b3e9a7ac82",
+    "expectedPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/oracle/expected.stdout",
+    "modelPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/oracle/model.py",
+    "modelSHA256": "3bfe519a506611fd45c2b14c858ef692402ecfffcab9c7511bf5c61b1721aa4f",
+    "replayExit": 0,
+    "replaySHA256": "071c4634a7f0db985878d70587b7967a6e371eeb70e0ef6dde5f38e24dcd064b",
+    "sha256": "071c4634a7f0db985878d70587b7967a6e371eeb70e0ef6dde5f38e24dcd064b"
+  },
+  "noSharedCoreOrPolicyChanges": true,
+  "repositoryHeads": {
+    "rootRepository": "e111a354456882fbf5d15a5ba22f9f0b7e47fd66",
+    "sourceWorktree": "d80c7c195c253792d8c4e932d65cca3b2b9e6a9e"
+  },
+  "schema": "bendvy-codec-variants-current-result-v1",
+  "scope": "Bounded current-source public construction/resource consumer: 40 rows in two nominal schemas; not whole issue #46 closure.",
+  "sourceCheck": {
+    "compiler": "/home/node/.bend/bin/bend-2.0.35",
+    "compilerSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "exit": 0,
+    "planPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/source-check01/plan.json",
+    "planSHA256": "0aaaddfa9ee665ce643c92a21e93caeb384515be872951c143c72304d6a2cfa4",
+    "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/codec-variants-v1/materialize-rows-v2/source-check01/receipt.json",
+    "receiptSHA256": "6afdb9e90bb4b26121c686f47a20223524b44df1bbaa66705ec02a2a514fd794",
+    "sourceClosureCanonicalSHA256": "1ac688a217659fdfa1ad0a661413354731dfaa4967d03b6006b5c596ac5d4b6b",
+    "sourceClosureFiles": 50
+  },
+  "status": "JS_AND_NATIVE_COMPLETE_CONSUMER_DEVELOPMENT_PASS"
+}
