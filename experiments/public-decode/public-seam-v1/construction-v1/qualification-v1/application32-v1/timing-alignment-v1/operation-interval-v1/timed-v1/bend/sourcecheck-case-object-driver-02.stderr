@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a match heading this case (this case is orphaned)
+- observed : 'case'
+Location:
+10 | def workshop_item(operation:String,mode:Gameplay.Mode,entry:Cases.Case) -> Item:
+11>|   match case:
+   |         ^^^^
+12 |     case Cases.Case{name,codec,input,seed}:Workshop{operation,name,Public.view(~Owner.First,Gameplay.run(~Owner.First,~codec,mode,input,seed))}
+bend 2.0.36 is available: run bend update

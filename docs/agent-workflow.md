@@ -15,6 +15,7 @@ then bevy-ts inventory govern implementation choices.
    consumers before adapting dependent capabilities to its interface.
 2. Implement the agreed contract. Follow bend-ldd for Bend; use
    `scripts/bend-check source.bend` for parser/type/affine repairs. Use the lightweight pinned check for development repairs, retaining diagnostics;
+   older worktrees invoke the current master wrapper by absolute path;
    freeze acceptance plans after source success. API changes require undeclared-access, cross-schema, write-through-read and relevant
    abstract-handle confinement controls with arbitrary affine `Type` payloads.
 3. Before preparing a multi-scenario qualification package, execute one complete

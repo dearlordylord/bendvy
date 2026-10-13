@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a name (got the keyword 'case')
+- observed : 'case'
+Location:
+7 | type Schema is Data:WorkshopSchema{} GardenSchema{}
+8>| type Spec is Data:Spec{schema:Schema,case:Cases.Case,operation:String,mode:Gameplay.Mode}
+  |                                      ^^^^
+9 | type Item is Data:Workshop{operation:String,name:String,value:Public.View} Garden{operation:String,name:String,value:Public.View}
+bend 2.0.36 is available: run bend update

@@ -1,0 +1,265 @@
+{
+  "schemaVersion": 1,
+  "status": "COMPLETE_TIMED_LIFECYCLE_JS_TS_NATIVE_PASS",
+  "scope": {
+    "issue": "#46 full lifecycle timing evidence",
+    "consumer": "ordinary32 fresh lifecycle through current timing-alignment consumer",
+    "operations": 32,
+    "nominalSchemas": 2,
+    "intervalsPerImplementation": 1,
+    "measuredWork": "One active interval begins before Common.main(), includes the complete fresh 32-case lifecycle and complete public String materialization, then ends before metrics and buffered stdout flush.",
+    "result": "JS, TypeScript, and optimized Native execution completed, and each full output plus one-interval timer record matches the source-derived independent oracle."
+  },
+  "source": {
+    "rootRepository": "/workspace/formal-proofs/bendvy",
+    "rootCommit": "45129efdf93deb00a54755d55af88974db32ac4c",
+    "worktree": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1",
+    "worktreeCommit": "6fb739056e687503b3d58b3d33ae00964a48472c",
+    "entryBend": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/bend/main.bend",
+    "entryTypeScript": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/ts/main.mjs",
+    "bendImportFiles": 51,
+    "foreignTimerModules": 2,
+    "typescriptImportFiles": 6,
+    "sourceBasis": {
+      "path": "SOURCE-BASIS.json",
+      "sha256": "24a0f4eabdd5eed70f57176dd81ecf7912a6eeaab0eceb38b14963cc8c2cac08"
+    },
+    "sourceChange": {
+      "path": "SOURCE-CHANGE.json",
+      "sha256": "dbc65d5ed59c57814ac857c533e7494eb2183a481e05a3dc9c3af260307092ab"
+    },
+    "sourceCheck": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v2/bend/stock-sourcecheck-01.json",
+      "sha256": "ef15a919663900eb22e0a6b9012193c504ac68ddc1be1f926ac6e5c7504f96b8",
+      "exit": 1,
+      "classification": "Expected bounded --check-only FFI/unsafe IO refusal on byte-identical Bend closure; not a proof or consumer pass."
+    }
+  },
+  "independentOracle": {
+    "derivation": "Decode accepted complete ordinary32 Bend String wire with the pinned wire decoder and append the timer’s single output LF. No runtime output was used for expectation derivation.",
+    "derivationScript": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/oracle-v1/derive.py",
+      "sha256": "60cae561b61c6044d91820ea3cfbf28819d4ffa552a381dddac3a1abadcaab2c"
+    },
+    "sourceBasisMetadata": {
+      "path": "oracle-v1/derived-v5/ORACLE.json",
+      "sha256": "8f393a8cd70d13c654b38b4de2049c2aeac13aac1a771737a3f57572eb389363"
+    },
+    "expectedGzip": {
+      "path": "oracle-v1/derived-v5/expected.timed.stdout.gz",
+      "bytes": 7424,
+      "sha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45"
+    },
+    "records": 32,
+    "rawBytes": 501886,
+    "rawSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+    "fnv1a32": 909256459
+  },
+  "generatedArtifacts": {
+    "emissionWasReused": true,
+    "sourceEquivalence": "All 51 Bend import files and two foreign C/JS timer modules are byte-identical to the already barrier-checked v3 emission; v5 only normalizes the host validator and binds the freshly derived oracle.",
+    "v3EmissionReceipt": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v3/runtime-timed-emit01/EMIT-RECEIPT.json",
+      "sha256": "2b99bdd7e77b7ad4ab8ca3959ae359a7f6467fde762d2448b4fbbb3dcd5e2777"
+    },
+    "v3StaticBarrier": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v3/runtime-timed-emit01/GENERATED-BARRIER.json",
+      "sha256": "1154c99f37ae0cdd646fee729a0be76c9ba1a4df258ef6919d7b6d8744d852ea"
+    },
+    "javascript": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v3/runtime-timed-emit01/timed.js",
+      "bytes": 1072544,
+      "sha256": "629b079b3b86e9c94d8a642072fe4543c824aa22247588f35defc262328cd3ef"
+    },
+    "nativeC": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v3/runtime-timed-emit01/timed.c",
+      "bytes": 7562035,
+      "sha256": "8c6059a2886f8c930559dabc7d95ed921baa71048a2c5d9dc42f185b14199836"
+    }
+  },
+  "execution": {
+    "plan": {
+      "path": "TIMED-RUN-PLAN.json",
+      "sha256": "48a844e7a6581bfbacc53a50ee928dc0f539655b0b40d7f5405174ff4a3a8d6f",
+      "pinCount": 285
+    },
+    "receipt": {
+      "path": "runtime-timed-full01/RUNTIME-RECEIPT.json",
+      "sha256": "5cb45eb20a5e244e81eb9c3f8f33ddc034871db1c354c69c189383e7c703353a",
+      "status": "COMPLETE_TIMED_LIFECYCLE_JS_TS_NATIVE_PASS"
+    },
+    "commands": {
+      "js-consumer": {
+        "exit": 0,
+        "failure": null,
+        "capSeconds": 5,
+        "elapsedWallSeconds": 0.24924001703038812,
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/runtime-timed-full01/js-consumer.stdout.gz",
+          "bytes": 501886,
+          "sha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45"
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/runtime-timed-full01/js-consumer.stderr",
+          "bytes": 74,
+          "sha256": "f0d218eca38be51c411966f2f0925492eccc57d465beada0accc2091cfafcd11"
+        },
+        "timerAndOutputValidation": {
+          "status": "COMPLETE_TIMED_STRING_AND_INTERVAL_PROTOCOL_PASS",
+          "rows": 32,
+          "stdoutBytes": 501886,
+          "stdoutSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+          "fnv1a32": 909256459,
+          "metrics": {
+            "elapsedNs": "206686255",
+            "bytes": 501886,
+            "digest": 909256459,
+            "intervals": 1
+          },
+          "timingScope": "Elapsed nanoseconds are telemetry only; no threshold or ratio is applied."
+        }
+      },
+      "ts-consumer": {
+        "exit": 0,
+        "failure": null,
+        "capSeconds": 5,
+        "elapsedWallSeconds": 0.30280919990036637,
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/runtime-timed-full01/ts-consumer.stdout.gz",
+          "bytes": 501886,
+          "sha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45"
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/runtime-timed-full01/ts-consumer.stderr",
+          "bytes": 73,
+          "sha256": "a9b4e0b90417fe1bd7099b3622175835a87cf95edf9c52926f0fa18647e508ba"
+        },
+        "timerAndOutputValidation": {
+          "status": "COMPLETE_TIMED_STRING_AND_INTERVAL_PROTOCOL_PASS",
+          "rows": 32,
+          "stdoutBytes": 501886,
+          "stdoutSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+          "fnv1a32": 909256459,
+          "metrics": {
+            "elapsedNs": "35387078",
+            "bytes": 501886,
+            "digest": 909256459,
+            "intervals": 1
+          },
+          "timingScope": "Elapsed nanoseconds are telemetry only; no threshold or ratio is applied."
+        }
+      },
+      "native-build": {
+        "exit": 0,
+        "failure": null,
+        "capSeconds": 120,
+        "elapsedWallSeconds": 22.740100798080675,
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/runtime-timed-full01/native-build.stdout.gz",
+          "bytes": 0,
+          "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/runtime-timed-full01/native-build.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "nativeArtifact": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/runtime-timed-full01/timed.native",
+          "bytes": 3210752,
+          "sha256": "71edf62f0cda91c8ad971d4efc09f3ec301d9267d41633c608b898ff22cb9ef6"
+        }
+      },
+      "native-consumer": {
+        "exit": 0,
+        "failure": null,
+        "capSeconds": 5,
+        "elapsedWallSeconds": 0.05046145000960678,
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/runtime-timed-full01/native-consumer.stdout.gz",
+          "bytes": 501886,
+          "sha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45"
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/runtime-timed-full01/native-consumer.stderr",
+          "bytes": 73,
+          "sha256": "a0a9959d9a137116028437791060ba4ae8c6a76f23abb8e92676310ddc987a05"
+        },
+        "timerAndOutputValidation": {
+          "status": "COMPLETE_TIMED_STRING_AND_INTERVAL_PROTOCOL_PASS",
+          "rows": 32,
+          "stdoutBytes": 501886,
+          "stdoutSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+          "fnv1a32": 909256459,
+          "metrics": {
+            "elapsedNs": "40284700",
+            "bytes": 501886,
+            "digest": 909256459,
+            "intervals": 1
+          },
+          "timingScope": "Elapsed nanoseconds are telemetry only; no threshold or ratio is applied."
+        }
+      }
+    },
+    "timingInterpretation": "elapsedNs is descriptive telemetry for this single interval only; no cutoff, ratio, speedup, or comparative performance verdict is applied."
+  },
+  "priorAttempts": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-timed-full01/RUNTIME-RECEIPT.json",
+      "sha256": "bb23fa0cd8c193a2003943aa7f55445012d1234770c6342a4cf6417c972ec1cd",
+      "status": "STOPPED_ON_FIRST_COMMAND_FAILURE",
+      "scope": "Preserved historical attempt/result, not a substituted current run."
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v2/runtime-timed-full01/RUNTIME-RECEIPT.json",
+      "sha256": "cc1ac9d6cce9583641cd82dfa1809deef69b2be8ebff5270af0be1a460145231",
+      "status": "STOPPED_ON_FIRST_COMMAND_FAILURE",
+      "scope": "Preserved historical attempt/result, not a substituted current run."
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v3/runtime-timed-full01/RUNTIME-RECEIPT.json",
+      "sha256": "07c5829d759a9e23f03637e7104e5179d05e1fb0102496058d6c0a8b4e3e2271",
+      "status": "INCOMPLETE_TIMED_LIFECYCLE",
+      "scope": "Preserved historical attempt/result, not a substituted current run."
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/runtime-timed-full01/RUNTIME-RECEIPT.json",
+      "sha256": "67e18821f24b3db6e69c849b761334b2fa90c0f235d26c3ed02bc3a49e82d051",
+      "status": "COMPLETE_TIMED_LIFECYCLE_JS_TS_NATIVE_PASS",
+      "scope": "Preserved historical attempt/result, not a substituted current run."
+    }
+  ],
+  "hookRepairHistory": {
+    "v4HookRefusal": "The configured hook passed its source/admission tests and rejected only surplus blank EOFs in the four archived v1-v4 validator sources. They remain immutable in the portable archive; v5 normalizes its current validator, reruns the full guarded lifecycle, and is the current delivery."
+  },
+  "remainingGates": [
+    "One full-lifecycle timing sample per implementation is not repeated/scaling evidence or an issue-level performance decision.",
+    "The bounded Bend source --check-only result is an expected FFI/unsafe IO refusal and establishes no proof result.",
+    "No universal refinement claim, compiler adoption, or full #46 issue completion is made."
+  ],
+  "limits": [
+    "All three output streams were checked against the same independent source-derived complete32 oracle; elapsed times are not performance acceptance.",
+    "The generated Native binary is bound to the pinned private Clang 19 environment; no cross-host replay claim is made.",
+    "No core, compiler source, contract, law, or acceptance threshold changed in this timing slice."
+  ],
+  "toolingChecks": {
+    "scenarioControls": {
+      "helperPath": "/workspace/formal-proofs/bendvy/scripts/scenario_controls.py",
+      "helperSHA256": "d661bb73ec69035428af5e107f38f7897c75f11c7e79b9b8352ca0e83f82e8b7",
+      "applicability": "The delivery has no gameplay-negative scenario. Applied the existing negative-result helper only to the captured bounded --check-only compiler refusal, to check expected diagnostic vs timeout/success; this is not a proof or behavior result.",
+      "failedInitialInvocation": {
+        "path": "tool-checks/scenario-controls-sourcecheck.json",
+        "exit": 2,
+        "reason": "The first command had an incorrectly derived helper path; its invocation and empty streams are retained.",
+        "sha256": "25d1e2b433795038b1e9ea3ced13fa1f51ccd0f225285831bf9c22df69d0962f"
+      },
+      "correctedInvocation": {
+        "path": "tool-checks/scenario-control-02/result.json",
+        "exit": 0,
+        "status": "PASS",
+        "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  }
+}

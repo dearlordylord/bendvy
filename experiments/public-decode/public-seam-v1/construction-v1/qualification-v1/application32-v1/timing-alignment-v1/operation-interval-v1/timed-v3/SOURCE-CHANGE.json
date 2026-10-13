@@ -1,0 +1,47 @@
+{
+  "status": "SOURCE_SUCCESSOR_TS_CAPTURE_ACTIVE_ONLY",
+  "priorAttempt": {
+    "directory": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v2/runtime-timed-full01",
+    "plan": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v2/TIMED-RUN-PLAN.json",
+    "planSHA256": "ff514695c21f0fa2d12e207af89cec694aaeb2a86cb6ba1499c7dfc24006e49c",
+    "terminal": "v2 JS consumer matched the source-derived full output and timer protocol; TS rejected capture because it required an inactive interval although main captures before end; Native was not run."
+  },
+  "change": "Correct the TS timing mirror to accept capture while the interval is active, matching the existing JS/C timing boundary. Capture still buffers stdout; end closes the interval; finish checks the closed interval and emits after timing.",
+  "timingTypeScript": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v3/ts/timing.mjs",
+    "beforeSHA256": "482d5a13235c495417c26fa740b35109a87ab36e74fb12917c42343a7fcc5c33",
+    "afterSHA256": "2e648f1454cca0ef16e72af2d766cedcc2e1ddbbbf311a64e153650705794498",
+    "oldCondition": "ready&&!active",
+    "newCondition": "ready&&active"
+  },
+  "barrierChecker": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v3/barrier-check.py",
+    "beforeSHA256": "b7c7f5a2ccfd2377d76b4c8f1b0bba04a90f42c118f185a522727f432ed93fbc",
+    "afterSHA256": "c34aa569f2b143119bdcd212ce6758ed1f204f9dcf22fb316280cca37fc307c5",
+    "change": "Add static assertions for TS main reset\u2192begin\u2192capture(commonReport())\u2192end\u2192finish order and active capture buffering without stdout."
+  },
+  "unchangedBendAndTransport": {
+    "bend/main.bend": "af8e5708052b34959ac7d6ee9ccc91c86d9bf87dc1e8ccaeccce5322bf0cda37",
+    "bend/common-main.bend": "d4d7d56efcae8241998900eef58c51e4b4377bc794b7eac0373d1c7ec944edce",
+    "bend/direct-cases.bend": "faf592de196f80df9ab54fa026ca0c4c93dcbe98987c2a54dcad8b7204a7632d",
+    "bend/serialize.bend": "4cd33c7e5c5155f8917c0acb955699f15634d1e38fc57e8a5d02a54ec65e924d",
+    "bend/timing.bend": "98d91fb4c9b3a145220f59f57823e9faf48744386d9b49b320fc7cce909e49eb",
+    "bend/timing.c": "0aa7f2950206bca5f5510924202d4f5f30ffd67d96b253bde1fbb20f2026ec82",
+    "bend/timing.js": "ce8cee79395f6c818adaf0f18459350f78726cb77756cc4a12290a1a0dde8f67",
+    "ts/main.mjs": "cbe3da8b7fb457700d2e46b3094e0931e39e9d4ae578e802fc37c16c0225849d",
+    "emit-only.py": "b8aed9dbfd833edef4c055edfd1063d4eff6e14406be99973849859df73ccb6f",
+    "run-timed.py": "c73929c147c79af291d1e6af55249ff8711c31cf034a7081bb694145106e356f",
+    "validate-runtime.py": "008724613c5b4b0c0c1fdc819b140221a76c6cc233fd9606f54df6e08e9cfd6a",
+    "oracle-v1/derive.py": "60cae561b61c6044d91820ea3cfbf28819d4ffa552a381dddac3a1abadcaab2c"
+  },
+  "unchangedOracle": {
+    "basis": "accepted ordinary common-v1 full String oracle, decoded from Bend display wire and followed by the one timer output LF",
+    "v2Oracle": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v2/oracle-v1/derived-v2/ORACLE.json",
+    "v2OracleSHA256": "2f7992db34213c43a1796d13ee260e3989acba92642f8c82503eee88bca97c79",
+    "rawBytes": 501886,
+    "rawSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+    "fnv1a32": 909256459,
+    "records": 32,
+    "runtimeInputsUsedForExpectation": false
+  }
+}

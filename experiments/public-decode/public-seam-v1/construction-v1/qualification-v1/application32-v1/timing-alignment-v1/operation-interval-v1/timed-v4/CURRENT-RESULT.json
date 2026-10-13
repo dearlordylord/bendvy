@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "status": "COMPLETE_TIMED_LIFECYCLE_JS_TS_NATIVE_PASS",
+  "scope": {
+    "issue": "#46 full lifecycle timing evidence",
+    "consumer": "ordinary32 fresh lifecycle through current timing-alignment consumer",
+    "operations": 32,
+    "nominalSchemas": 2,
+    "intervalsPerImplementation": 1,
+    "measuredWork": "One active interval begins before Common.main(), includes its complete fresh 32-case lifecycle and complete public String materialization, then ends before metrics and buffered stdout flush.",
+    "result": "JS, TypeScript, and optimized Native execution all completed, and each complete output plus one-interval timer record matches the independent source-derived oracle."
+  },
+  "source": {
+    "rootRepository": "/workspace/formal-proofs/bendvy",
+    "rootCommit": "45129efdf93deb00a54755d55af88974db32ac4c",
+    "worktree": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1",
+    "worktreeCommit": "6fb739056e687503b3d58b3d33ae00964a48472c",
+    "entryBend": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/bend/main.bend",
+    "entryTypeScript": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/ts/main.mjs",
+    "bendImportFiles": 51,
+    "foreignTimerModules": 2,
+    "typescriptImportFiles": 6,
+    "sourceBasis": {
+      "path": "SOURCE-BASIS.json",
+      "sha256": "76a36fae8135152f47687b5656ae02350b329091f5b1f5f12212e782e60eaf7a"
+    },
+    "sourceChange": {
+      "path": "SOURCE-CHANGE.json",
+      "sha256": "b2aee244da04abc14ca51c0af8598c0cc1d2d27b5e3c8b1519af7022ab512109"
+    },
+    "sourceCheck": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v2/bend/stock-sourcecheck-01.json",
+      "sha256": "ef15a919663900eb22e0a6b9012193c504ac68ddc1be1f926ac6e5c7504f96b8",
+      "exit": 1,
+      "classification": "Expected bounded --check-only FFI/unsafe IO refusal on the byte-identical Bend closure; not a proof or consumer pass."
+    }
+  },
+  "independentOracle": {
+    "derivation": "Decode the accepted complete ordinary32 Bend String wire using the pinned wire decoder; append the timer\u2019s single output LF. No runtime output was used to derive expected bytes.",
+    "derivationScript": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/oracle-v1/derive.py",
+      "sha256": "60cae561b61c6044d91820ea3cfbf28819d4ffa552a381dddac3a1abadcaab2c"
+    },
+    "sourceBasisMetadata": {
+      "path": "oracle-v1/derived-v4/ORACLE.json",
+      "sha256": "733401f78ce9afd24c9ad847a47d79879fa16bd39eb35d47eb0fc3cace0d43d3"
+    },
+    "expectedGzip": {
+      "path": "oracle-v1/derived-v4/expected.timed.stdout.gz",
+      "bytes": 7424,
+      "sha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45"
+    },
+    "records": 32,
+    "rawBytes": 501886,
+    "rawSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+    "fnv1a32": 909256459
+  },
+  "generatedArtifacts": {
+    "emissionWasReused": true,
+    "sourceEquivalence": "All 51 Bend closure files and both foreign C/JS timer files used for emission are byte-identical between v3 and v4. V4 changes only the host validator oracle path.",
+    "v3EmissionReceipt": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v3/runtime-timed-emit01/EMIT-RECEIPT.json",
+      "sha256": "2b99bdd7e77b7ad4ab8ca3959ae359a7f6467fde762d2448b4fbbb3dcd5e2777"
+    },
+    "v3StaticBarrier": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v3/runtime-timed-emit01/GENERATED-BARRIER.json",
+      "sha256": "1154c99f37ae0cdd646fee729a0be76c9ba1a4df258ef6919d7b6d8744d852ea"
+    },
+    "javascript": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v3/runtime-timed-emit01/timed.js",
+      "bytes": 1072544,
+      "sha256": "629b079b3b86e9c94d8a642072fe4543c824aa22247588f35defc262328cd3ef"
+    },
+    "nativeC": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v3/runtime-timed-emit01/timed.c",
+      "bytes": 7562035,
+      "sha256": "8c6059a2886f8c930559dabc7d95ed921baa71048a2c5d9dc42f185b14199836"
+    }
+  },
+  "execution": {
+    "plan": {
+      "path": "TIMED-RUN-PLAN.json",
+      "sha256": "55c88a7c668f37bbb71e6643b5ab74713a522dac6cb95a71e72b3719789a2957",
+      "pinCount": 252
+    },
+    "receipt": {
+      "path": "runtime-timed-full01/RUNTIME-RECEIPT.json",
+      "sha256": "67e18821f24b3db6e69c849b761334b2fa90c0f235d26c3ed02bc3a49e82d051",
+      "status": "COMPLETE_TIMED_LIFECYCLE_JS_TS_NATIVE_PASS"
+    },
+    "commands": {
+      "js-consumer": {
+        "exit": 0,
+        "failure": null,
+        "capSeconds": 5,
+        "elapsedWallSeconds": 0.24220692599192262,
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/runtime-timed-full01/js-consumer.stdout.gz",
+          "bytes": 501886,
+          "sha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45"
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/runtime-timed-full01/js-consumer.stderr",
+          "bytes": 74,
+          "sha256": "4e6f38f68dba689658934c1f26e44883e7f7c57e37fc338366deb82500c5f005"
+        },
+        "timerAndOutputValidation": {
+          "status": "COMPLETE_TIMED_STRING_AND_INTERVAL_PROTOCOL_PASS",
+          "rows": 32,
+          "stdoutBytes": 501886,
+          "stdoutSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+          "fnv1a32": 909256459,
+          "metrics": {
+            "elapsedNs": "205462712",
+            "bytes": 501886,
+            "digest": 909256459,
+            "intervals": 1
+          },
+          "timingScope": "Elapsed nanoseconds are telemetry only; no threshold or ratio is applied."
+        }
+      },
+      "ts-consumer": {
+        "exit": 0,
+        "failure": null,
+        "capSeconds": 5,
+        "elapsedWallSeconds": 0.26054736704099923,
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/runtime-timed-full01/ts-consumer.stdout.gz",
+          "bytes": 501886,
+          "sha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45"
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/runtime-timed-full01/ts-consumer.stderr",
+          "bytes": 73,
+          "sha256": "dbdd7faf1abd9674adffef12e4c8730ddfab88a95bce43d2329166742065892f"
+        },
+        "timerAndOutputValidation": {
+          "status": "COMPLETE_TIMED_STRING_AND_INTERVAL_PROTOCOL_PASS",
+          "rows": 32,
+          "stdoutBytes": 501886,
+          "stdoutSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+          "fnv1a32": 909256459,
+          "metrics": {
+            "elapsedNs": "31341963",
+            "bytes": 501886,
+            "digest": 909256459,
+            "intervals": 1
+          },
+          "timingScope": "Elapsed nanoseconds are telemetry only; no threshold or ratio is applied."
+        }
+      },
+      "native-build": {
+        "exit": 0,
+        "failure": null,
+        "capSeconds": 120,
+        "elapsedWallSeconds": 23.591276185004972,
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/runtime-timed-full01/native-build.stdout.gz",
+          "bytes": 0,
+          "sha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/runtime-timed-full01/native-build.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "nativeArtifact": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/runtime-timed-full01/timed.native",
+          "bytes": 3210752,
+          "sha256": "71edf62f0cda91c8ad971d4efc09f3ec301d9267d41633c608b898ff22cb9ef6"
+        }
+      },
+      "native-consumer": {
+        "exit": 0,
+        "failure": null,
+        "capSeconds": 5,
+        "elapsedWallSeconds": 0.048266767989844084,
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/runtime-timed-full01/native-consumer.stdout.gz",
+          "bytes": 501886,
+          "sha256": "7813d65b2bb2804eb3e432040437816bc72f526aa69d83b175bb1a5a89a69c45"
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v4/runtime-timed-full01/native-consumer.stderr",
+          "bytes": 73,
+          "sha256": "9b66b1d18219ace0ea7a2ea6c5f488e53b9288eb842eb0200700f2957b939b05"
+        },
+        "timerAndOutputValidation": {
+          "status": "COMPLETE_TIMED_STRING_AND_INTERVAL_PROTOCOL_PASS",
+          "rows": 32,
+          "stdoutBytes": 501886,
+          "stdoutSHA256": "d5c1e6d70d03842985a7fb6ebc6b41614a82a74f24a50e6833ac7207be8fe96d",
+          "fnv1a32": 909256459,
+          "metrics": {
+            "elapsedNs": "39718197",
+            "bytes": 501886,
+            "digest": 909256459,
+            "intervals": 1
+          },
+          "timingScope": "Elapsed nanoseconds are telemetry only; no threshold or ratio is applied."
+        }
+      }
+    },
+    "timingInterpretation": "elapsedNs is descriptive telemetry for this single interval only. No cutoff, ratio, speedup, or comparative performance verdict is applied."
+  },
+  "priorAttempts": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-timed-full01/RUNTIME-RECEIPT.json",
+      "sha256": "bb23fa0cd8c193a2003943aa7f55445012d1234770c6342a4cf6417c972ec1cd",
+      "status": "STOPPED_ON_FIRST_COMMAND_FAILURE",
+      "scope": "Preserved prior attempt; not current pass evidence."
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v2/runtime-timed-full01/RUNTIME-RECEIPT.json",
+      "sha256": "cc1ac9d6cce9583641cd82dfa1809deef69b2be8ebff5270af0be1a460145231",
+      "status": "STOPPED_ON_FIRST_COMMAND_FAILURE",
+      "scope": "Preserved prior attempt; not current pass evidence."
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v3/runtime-timed-full01/RUNTIME-RECEIPT.json",
+      "sha256": "07c5829d759a9e23f03637e7104e5179d05e1fb0102496058d6c0a8b4e3e2271",
+      "status": "INCOMPLETE_TIMED_LIFECYCLE",
+      "scope": "Preserved prior attempt; not current pass evidence."
+    }
+  ],
+  "remainingGates": [
+    "This is one full-lifecycle sample per implementation; repeated/scaling evidence and any issue-level performance decision remain open.",
+    "The bounded source-check result is an expected FFI/unsafe IO refusal and establishes no proof result.",
+    "No universal correctness/refinement claim, compiler adoption, or full #46 issue completion is made."
+  ],
+  "limits": [
+    "All three runtime outputs are checked against the same source-derived complete32 oracle; elapsed values are not performance acceptance.",
+    "The generated Native binary is bound to the pinned private Clang 19 toolchain and host resource pins; no cross-host replay claim is made.",
+    "No core/compiler/contracts/laws were changed by this timing slice."
+  ]
+}

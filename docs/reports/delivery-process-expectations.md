@@ -206,3 +206,43 @@ Master CI [38346105776](https://github.com/dearlordylord/bendvy/actions/runs/383
 checkout and cleanup under the unchanged five-minute limit. This confirms remote
 integration checks; different hosts/conditions still preclude an overall delivery
 speedup claim.
+
+### Inspector timing-canary blocker — 2026-10-13 UTC
+
+The first #54 timing canary completed INCOMPLETE: timer protocol exit 0, then
+`inspectors-1-check` hit its unchanged five-second child deadline. No emit, build
+or consumer ran. The unconditional terminal record reports no pin drift and an
+unchanged Harness postguard. This was a real terminal failure, not an observation
+timeout or cancellation. The legacy `execute_completed` path retains the exception
+but does not publish raw child streams on deadline; no missing output is fabricated.
+
+Before that failure, the parent had read 6.43 GB logically / 3.80 GB physically
+(`/proc` observation at 12 minutes). Source inspection shows overlapping complete
+resource/tool snapshots around each command; 22 commands would entail about 66
+such traversals. This is a concrete runner-cost candidate, not proof of the
+source-check timeout's cause. A scoped successor will reuse existing PinnedTools
+and split-result publication, preserving all hash/membership/resolver checks and
+all stage caps. No speedup or successful feature timing is established yet.
+
+The #54 scoped successor caller passes five actual focused failure controls
+(success, supervised deadline with both raw streams, combined child/postguard,
+publication collision, receipt-write failure) plus a separate postguard-only
+control. Both exercise the real caller class extracted from its AST. Selected
+Python checks pass. Independent review found one remaining plan mismatch:
+`scales: [1,2,4]` while this first ordinary probe runs only `[1]`; the probe plan
+must match its actual commands. No successful timed consumer is claimed.
+
+### Current lifecycle/scaling outcomes — 2026-10-13 UTC
+
+#46 producer `0cca016b` contains exactly 283 owned paths. Existing ownership staging
+and validation and the configured producer hook passed. Existing scenario controls
+classify the retained expected FFI refusal; they do not establish a gameplay
+negative or a proof. Independent final review accepts the complete 32-case
+JS/TS/Native lifecycle oracle. Repeated/scaling performance remains open.
+
+#54 scoped raw publication and barrier repairs produced a successful full scale1
+timed consumer on JS, TS and standard -O3 Native. The scale2 build then reached
+the unchanged 120-second deadline, with raw outputs and terminal receipt retained.
+One runtime-selected repetition entry is under development; separate processes
+are not substituted for the planned one-process scaling check. No overall delivery
+speedup or full-feature performance qualification is claimed.

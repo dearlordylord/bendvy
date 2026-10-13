@@ -1,0 +1,95 @@
+{
+  "scope": "Current operation-interval timed-v1 common entry; complete 32-case direct public-view String observer against independent full wire oracle",
+  "planSHA256": "f1af5efaee65dff9d5b03eaffd783c391cbb7ff2120afa733d25c3fff58ec356",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/bend/common-main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/common.js"
+      ],
+      "capSeconds": 30,
+      "label": "emit",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/common.js"
+      ],
+      "capSeconds": 5,
+      "label": "consumer",
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/consumer.stdout",
+        "sha256": "ac4be8d768a1b64def3fe8ea2608830a45d5565bd4f18cf742605576b92f5221",
+        "bytes": 624328,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/emit-pre.guard.json",
+      "sha256": "1b9c77ca76f61b0e38e8a7260a659c949d1dfadbc92264efeac8b122ab86ea39"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/emit-acquired.guard.json",
+      "sha256": "07c92c8b62429d7d75eee29e98e138e77cfdc52377e11fd681034fc2fdab40c8"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/emit-post.guard.json",
+      "sha256": "bf94a52773a4d403f0920213ac5a6206683c62e32e5d5d6f9872b2c1069ca8a9"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/consumer-pre.guard.json",
+      "sha256": "7f3224a88195aa8dd884b8bcf685c2a36a480a64f3ac16161893f2475bc2e5fc"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/consumer-acquired.guard.json",
+      "sha256": "152f93f0e653a31de3e9132f9a27df8b2e803e3fb4a08f329416bdb10e8a01fd"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/consumer-post.guard.json",
+      "sha256": "f44e8ad07a916d9d157caace4beb3553083269bc25c87c3c3cdde85f0d605d03"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v1/runtime-common-js01/final.guard.json",
+      "sha256": "623431b291ea392a7c92962dc83aa0e0b42e4e411c162be6d582f840bd42180f"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "ad6ebbbc2df039b25e8479bdbfe66ee3007597b7aa88d134b18cbcb9232af0f0",
+  "wholeOracleSHA256": "ac4be8d768a1b64def3fe8ea2608830a45d5565bd4f18cf742605576b92f5221"
+}

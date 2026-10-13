@@ -1,0 +1,29 @@
+{
+  "status": "FAIL",
+  "command": [
+    "python3",
+    "/bendvy/scripts/scenario_controls.py",
+    "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v2/bend/stock-sourcecheck-01.json",
+    "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/tool-checks/scenario-control-expected.json",
+    "--stderr",
+    "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v2/bend/stock-sourcecheck-01.stderr"
+  ],
+  "cwd": "/workspace/formal-proofs/bendvy",
+  "exit": 2,
+  "inputs": {
+    "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v2/bend/stock-sourcecheck-01.json": "ef15a919663900eb22e0a6b9012193c504ac68ddc1be1f926ac6e5c7504f96b8",
+    "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v5/tool-checks/scenario-control-expected.json": "72a75596aad418fea69d8f906bd1d4d82376346da590e5d7724af56c32fc6954",
+    "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/operation-interval-v1/timed-v2/bend/stock-sourcecheck-01.stderr": "e67aa6b6275b3783ed08e29c96c825a84271fc00553d2faaee1ced25453c29e7"
+  },
+  "stdout": {
+    "path": "scenario-controls-sourcecheck.stdout",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderrOutput": {
+    "path": "scenario-controls-sourcecheck.stderr",
+    "bytes": 101,
+    "sha256": "93d97102de6e1e882c9f7ff7f9cd44e4f12627f172b25fdd29263865143f6ceb"
+  },
+  "scope": "Checks that the retained bounded --check-only refusal is the expected FFI/unsafe-code diagnostic rather than timeout or success; this does not establish a proof result or scenario behavior."
+}
