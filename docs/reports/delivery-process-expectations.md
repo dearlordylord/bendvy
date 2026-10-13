@@ -552,3 +552,10 @@ successor also retained them. The prospective stop condition prevented both
 full runs, avoiding warning-heavy qualification. This is observed runner use,
 not evidence of faster delivery or Native qualification. A narrowly scoped
 source diagnostic pragma is the next #54 candidate.
+
+The scoped HOST C23 pragma passed its finite ABI consumer with empty stderr,
+then the ordinary full O3 build reached build120 (receipt `c024abdc`, clean
+guards, empty streams, no binary/consumer). The existing serialized sequence
+was used without another admission or unchanged retry. Next evidence must test
+whether unnamed parameters reduce frontend IR operations; compile speed and
+full Native qualification remain unproved.
