@@ -1,0 +1,45 @@
+"""Source-only control expectation: U32 integers and IEEE-754 binary32 bits.
+
+No compiler or runtime outputs are inputs. Word.to_nat interprets little-endian
+Bool head + doubled tail; List.show separates raw rendered fields by ', '.
+The pure String executable printer JSON-quotes the result and appends one LF.
+"""
+import gzip
+import hashlib
+import json
+import struct
+from pathlib import Path
+
+
+def uint_record(value):
+    literal = {0: 'zero', 7: 'seven', 4294967295: 'max'}.get(value, 'other')
+    wildcard = 77 if value == 7 else value
+    head = 'True' if value & 1 else 'False'
+    tail = value >> 1
+    remaining_tail = value if value & 1 else tail
+    return f'{value}:{literal}:{wildcard}:{value}:{head}:{tail}:{remaining_tail}'
+
+
+def float_record(value):
+    bits = struct.unpack('<I', struct.pack('<f', value))[0]
+    literal = 'zero' if value == 0.0 else 'one' if value == 1.0 else 'other'
+    wildcard = 2.0 if value == 1.0 else value
+    head = 'True' if bits & 1 else 'False'
+    tail = bits >> 1
+    remaining_tail = bits if bits & 1 else tail
+    return f'{literal}:{int(wildcard)}:{bits}:{head}:{tail}:{remaining_tail}'
+
+
+def main():
+    values = [0, 7, 8, 2147483648, 4294967295]
+    floats = [0.0, 1.0, 2.0, 1.0000001192092896]
+    text = 'U32=[' + ', '.join(map(uint_record, values)) + ']|F32=[' + ', '.join(map(float_record, floats)) + ']'
+    raw = (json.dumps(text, ensure_ascii=True) + '\n').encode()
+    path = Path(__file__).resolve().parent
+    (path / 'expected.stdout.gz').write_bytes(gzip.compress(raw, mtime=0))
+    (path / 'EXPECTED.json').write_text(json.dumps({'scope': 'Finite valid-language numeric matching/capture controls, source-derived expected output only; no universal refinement or runtime input.', 'stdoutBytes': len(raw), 'stdoutSHA256': hashlib.sha256(raw).hexdigest(), 'u32Inputs': values, 'f32Inputs': floats, 'f32Bits': [struct.unpack('<I', struct.pack('<f', v))[0] for v in floats], 'sourceSHA256': hashlib.sha256((path / 'main.bend').read_bytes()).hexdigest(), 'derivationSHA256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(), 'runtimeOutputInputs': []}, indent=2) + '\n')
+    print(len(raw), hashlib.sha256(raw).hexdigest())
+
+
+if __name__ == '__main__':
+    main()

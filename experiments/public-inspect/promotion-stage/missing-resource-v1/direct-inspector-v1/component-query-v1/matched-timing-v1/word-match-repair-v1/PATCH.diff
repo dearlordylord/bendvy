@@ -1,0 +1,25 @@
+--- a28692cd/candidate.mjs
++++ word-match-repair-v1/candidate.mjs
+@@ -5111,6 +5111,12 @@
+   const tab = "TAB_" + memo(fl.tabs, key, () => fl.tabs.size);
+   return fl.js ? `${tab}[Math.min(${s}, ${ls.length - 1})]` : `TAB_AT(${tab}, ${s}, ${ls.length - 1})`;
+ }
++function lay_match_word(book, adt) {
++  const field = ctr_doms(book, book.ctrs[adt.k])[0];
++  const spine = ty_adt(book, field);
++  const tld = book.tlds[spine.k];
++  return lay_pack(tld.c.map((c) => [c.k, ctr_doms(book, c, spine.x).map((A) => lay_of(book, A))]));
++}
+ function emit_match(fl, x, ty, ers, args, dst) {
+   if (x.$ === "Efq") {
+     file_push(fl, "err_post(e.mem, ERR_TAGS);");
+@@ -5130,7 +5136,8 @@
+     if (!word) {
+       return [val_new([`(${sw} - ${n})`], lay)].slice(0, e);
+     }
+-    let v = val_new(lay.ks.map((_, i) => `((${sw} >> ${i}) & 1)`), lay.arms[adt.k][0]);
++    const spine = lay_match_word(fl.book, adt);
++    let v = val_new(spine.ks.map((_, i) => `((${sw} >> ${i}) & 1)`), spine);
+     for (let i = 0;i < j; i++) {
+       v = val_arm(v)[1];
+     }
