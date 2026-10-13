@@ -1,0 +1,96 @@
+{
+  "scope": "Complete controls-js correctness with copied compiler candidate; no speedup/adoption/timing claim.",
+  "planSHA256": "117490880448c74c21971e686efbc6c730c3c6af62f8745f085f3a57bc74a819",
+  "commands": [
+    {
+      "label": "emit",
+      "capSeconds": 30,
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.local/share/mise/installs/bun/1.3.14/bin/bun",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/compiler/candidate.mjs",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/word-match-repair-v1/controls/main.bend",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/scenario.js"
+      ],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "capSeconds": 5,
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/scenario.js"
+      ],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/consumer.stdout",
+        "sha256": "71e233f202a1fd99f9b705d3fa40921808070313ee98a4a695a087bc2c03b6ab",
+        "bytes": 369,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/emit-pre.guard.json",
+      "sha256": "f0a2b1421eff0e7ef6a5e11cb77fc61c23abc97998348de61a67c405691b8a2b"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/emit-acquired.guard.json",
+      "sha256": "b5ed1b6af963f85ccfccacbea17d55b30253d72a9a677e23ca638107f6a5e110"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/emit-post.guard.json",
+      "sha256": "89ba09720d65b7d5a64bf8e04e970b1db79b6f5e289fb45446f1605a4c452f02"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/consumer-pre.guard.json",
+      "sha256": "89d0e1b56d0d700ba931c913182fb39b50bb231062b1377c7b373f8a6f2fc19b"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/consumer-acquired.guard.json",
+      "sha256": "a0dab266ce17168652caf720eb0dfad13127847c96286ab04c50a8e25708bb49"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/consumer-post.guard.json",
+      "sha256": "5dfd45b3bb941f6a812341a3c9fad802467789df25eaac8fb23ed13345d686a4"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/ctr-take-outline-v1/controls/js/final.guard.json",
+      "sha256": "c1a5e41c92207eacd6b7e96dac4ba705eac11270c7ba48e485b0a1db947e626f"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "0aa0b1520da6a98e82b71dd972fe7b6aa17c5435a650bec7c1e2f637a31902a0",
+  "wholeOracleSHA256": "71e233f202a1fd99f9b705d3fa40921808070313ee98a4a695a087bc2c03b6ab"
+}

@@ -1,0 +1,14 @@
+--- task-node-outline-v1/candidate.mjs
++++ ctr-take-outline-v1/candidate.mjs
+@@ -6494,7 +6494,11 @@
+   term_drop(e, t);
+ }
+ 
++#if DEVICE
+ INLINE u64 ctr_take(Env e, Term t, u32 n, THR Term* out) {
++#else
++FAR u64 ctr_take(Env e, Term t, u32 n, THR Term* out) {
++#endif
+   DEV u64* H = e.mem;
+   if (!term_rfc(t)) {
+     for (u32 j = 0; j < n; j += 1) {

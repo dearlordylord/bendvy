@@ -1,0 +1,11 @@
+{
+  "base": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/task-node-outline-v1/compiler/candidate.mjs",
+  "baseSHA256": "46300bcabc094d0884da6d93b339b36729fc24d9080a609305951416b11ff952",
+  "candidateSHA256": "f259cbf588ee7db87cd07821bfce7e652ff73e2fa964aa9c7096dce81f1c8f81",
+  "change": "Only runtime_c ctr_take declaration: DEVICE retains INLINE; host uses existing FAR static noinline. task_node host boundary retained unchanged.",
+  "bodyUnchanged": true,
+  "semantics": "Signature, mutable outputbuffer, result allocation location, atomic refcount/acquire/free/span_fade branches and order unchanged. No ECS API or sourceworkload changes.",
+  "ABI": "Normal C helper ABI; WL preserve_none/musttail signatures untouched.",
+  "tradeoff": "Extra host call and lost constant-n specialization; runtime/performance unmeasured, no adoption/speedup claim.",
+  "basis": "Actual standardO3 SIGQUIT sampled InstCombine on small INPUT_WRITER_START_1_C13393 extracting4boxedwords via INLINE ctr_take; not guaranteed cause or unblock."
+}
