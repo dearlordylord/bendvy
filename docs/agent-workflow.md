@@ -7,9 +7,11 @@ then bevy-ts inventory govern implementation choices.
 ## Delivery
 
 1. Read the current consumer and evidence; identify the exact missing acceptance
-   gate. For automatic features, verify the ordinary user entry supplies the behavior
-   before preparing large backend evidence. Reuse qualified scenarios and assigned
-   worktrees/file ownership. Stabilize the ordinary entry with concrete independent
+   gate. Before freezing backend plans, trace each operation to its changed state,
+   complete observation and independently derived oracle, including IO effects.
+   Reuse qualified evidence. For automatic features, verify the ordinary user
+   entry supplies the behavior before preparing large backend evidence. Reuse
+   qualified scenarios and assigned worktrees/file ownership. Stabilize the ordinary entry with concrete independent
    consumers before adapting dependent capabilities to its interface.
 2. Implement the agreed contract. Follow bend-ldd for Bend; use
    `scripts/bend-check source.bend` for parser/type/affine repairs. Use the lightweight pinned check for development repairs, retaining diagnostics;
