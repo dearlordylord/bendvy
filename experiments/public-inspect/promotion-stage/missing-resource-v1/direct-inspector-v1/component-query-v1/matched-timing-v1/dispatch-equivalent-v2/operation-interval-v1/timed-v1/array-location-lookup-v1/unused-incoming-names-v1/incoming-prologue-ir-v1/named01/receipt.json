@@ -1,0 +1,62 @@
+{
+  "scope": "Tinypaired frontendIR only; unusednames onlydifference, sameABI/body/pragmas/defaultdialect. No optimization/runtime/Native/performance qualification.",
+  "planSHA256": "2a4656b5fdd4935d5a025c8832359588ff1924786645ba6b0169af2fb74ddbd8",
+  "commands": [
+    {
+      "label": "build",
+      "capSeconds": 5,
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "-Xclang",
+        "-disable-llvm-passes",
+        "-emit-llvm",
+        "-S",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/unused-incoming-names-v1/incoming-prologue-ir-v1/named.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/unused-incoming-names-v1/incoming-prologue-ir-v1/named01/frontend.ll",
+        "-pthread",
+        "-lm"
+      ],
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/unused-incoming-names-v1/incoming-prologue-ir-v1/named01/build.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/unused-incoming-names-v1/incoming-prologue-ir-v1/named01/build.stderr",
+        "sha256": "61212d58b0e9510a7e14f93b1fa827e06e35cb3620b898c08be60af5c760f012",
+        "bytes": 76,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/unused-incoming-names-v1/incoming-prologue-ir-v1/named01/build-pre.guard.json",
+      "sha256": "3181a2448bb45e6c86b66ec4d22a86e3e79e31442a2868d05fb6e59bf62e4382"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/unused-incoming-names-v1/incoming-prologue-ir-v1/named01/build-acquired.guard.json",
+      "sha256": "d439bcbe801cbf109fb91b4937127b3f17051513b7857bde77908ca898289bc9"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/unused-incoming-names-v1/incoming-prologue-ir-v1/named01/build-post.guard.json",
+      "sha256": "4ab5b6a97c53020e65859b54939f65d623e95a06fb40890a296cc1d7ec590c51"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/unused-incoming-names-v1/incoming-prologue-ir-v1/named01/final.guard.json",
+      "sha256": "d279bd2d1c63ad8fba28a7dbd6135ce89628e05e1f1fae5c97c73ea36b2cc87f"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "buildArtifactSHA256": "0139c66ca706d1de389d1c47fd0af1e2955f5286acaf4c490587fbdb8af8d9ce"
+}

@@ -559,3 +559,9 @@ guards, empty streams, no binary/consumer). The existing serialized sequence
 was used without another admission or unchanged retry. Next evidence must test
 whether unnamed parameters reduce frontend IR operations; compile speed and
 full Native qualification remain unproved.
+
+The tiny named/unnamed frontend IR pair completed through two bounded cap5
+commands. Direct, frame and bridge instruction hashes/counts are identical;
+removing names does not remove their prologue allocas/stores. This finite
+mechanism test rejects the unused-name factor and prevents another unchanged
+whole-world attempt. It does not establish general compile-time causation.
