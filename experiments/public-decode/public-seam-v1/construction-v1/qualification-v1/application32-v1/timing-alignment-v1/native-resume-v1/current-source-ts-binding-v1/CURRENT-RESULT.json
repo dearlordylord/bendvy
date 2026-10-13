@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "status": "CURRENT_SOURCE_TS_PUBLIC_PROJECTION_PASS",
+  "scope": {
+    "issue": "#46 complete decoding",
+    "comparison": "One unchanged pinned TypeScript reference trace, aligned by ordered 32-row public projection against the current source-derived normal oracle.",
+    "notClaimed": [
+      "Native execution",
+      "complete Bend consumer qualification",
+      "timing or performance"
+    ]
+  },
+  "source": {
+    "repository": "/workspace/formal-proofs/bendvy",
+    "commit": "af14109613de424f0aee9067dea9dc37ca3d8c03",
+    "entrypoint": "/workspace/formal-proofs/bendvy/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/observation-main.bend",
+    "projectSourceFiles": 50,
+    "sourceInventoryVerifiedAgainstCurrentBytes": true,
+    "currentSourceBasis": {
+      "path": "CURRENT-SOURCE-BASIS.json",
+      "bytes": 45157,
+      "sha256": "0dee5e025aa170be88119eff53c5f48ea96ecaa0a6d77735238cc5633d6fb1b6"
+    }
+  },
+  "binding": {
+    "path": "BINDING.json",
+    "bytes": 30807,
+    "sha256": "62f1a8c0c5246883512a28edb88a5ae111abdb9539e8369625c71e5fc825e75d",
+    "commonCurrentNormal": {
+      "path": "common-current-normal.json",
+      "bytes": 1841169,
+      "sha256": "5b39fc0cb561eeacb10f92a820824d0c990d110145cd1e238ceb76a5d5fd539b"
+    }
+  },
+  "execution": {
+    "runner": "/workspace/formal-proofs/bendvy-worktrees/parity-46-timing-alignment/experiments/public-decode/complete-v1/oracle-v1/run-reference.py",
+    "runnerSha256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+    "cwd": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1",
+    "plan": {
+      "path": "ts-run-v1/plan.json",
+      "bytes": 35438,
+      "sha256": "5a5e8c85512a1fb5b17f30ece9fce01c0219e09870f0dad10d00fc6b32e9e727",
+      "agreedSha256": "5a5e8c85512a1fb5b17f30ece9fce01c0219e09870f0dad10d00fc6b32e9e727"
+    },
+    "command": [
+      {
+        "label": "aligned-trace",
+        "argv": [
+          "/usr/bin/taskset",
+          "-c",
+          "5",
+          "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+          "/workspace/formal-proofs/bendvy-worktrees/parity-46-timing-alignment/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/trace-entry.mjs"
+        ],
+        "capSeconds": 5,
+        "exit": 0,
+        "failure": null,
+        "capture": "split",
+        "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+      }
+    ],
+    "receipt": {
+      "path": "ts-run-v1/receipt.json",
+      "bytes": 938,
+      "sha256": "fd01d338cae0b71d00f4e75e0fee93e0b80c09b677f87ac5e8c4cf283aff31e2"
+    },
+    "stdout": {
+      "path": "ts-run-v1/raw/aligned-trace.stdout",
+      "bytes": 643624,
+      "sha256": "816e9b55ed9bbb5775535321888343694ac33905bcaceb0648903b779d7c9ac1"
+    },
+    "stderr": {
+      "path": "ts-run-v1/raw/aligned-trace.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "historicalTraceRawMatchesByteForByte": true
+  },
+  "normalOracle": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/ordinary-schedule-debug-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/independent-oracle-v1/full-format-v2/normal.stdout.gz",
+    "gzipSha256": "636fbfdcb593429a09dc9fc79dd9e065532d77d9ab151340df5500bec94a60e8",
+    "rawBytes": 1323096,
+    "rawSha256": "4f81597227d0f5341a4653fde10a108ab224f685ebbc93b34ce9f8d3ddc87b97",
+    "sourceDerived": true,
+    "projection": {
+      "rows": 32,
+      "fields": [
+        "$",
+        "operation",
+        "name",
+        "value.public"
+      ],
+      "allRowsMatch": true
+    }
+  },
+  "counterModel": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/reached-late-invalid-fallback-v1/counter.semantic.json.gz",
+    "gzipSha256": "1f9cb52f1599f44f53743f30586ed3fe78c5e73ffee4d1014f3dfcb39020973a",
+    "rawBytes": 1090936,
+    "rawSha256": "60ee80f8daa12a6165cc40c4a8bbae9561f5165dc5be0a2d5df823dade344368",
+    "sourceDerived": true,
+    "publicProjectionDifferencesFromNormal": [
+      {
+        "index": 3,
+        "schema": "Workshop",
+        "operation": "insert",
+        "name": "lateInvalid"
+      },
+      {
+        "index": 11,
+        "schema": "Workshop",
+        "operation": "spawn",
+        "name": "lateInvalid"
+      },
+      {
+        "index": 19,
+        "schema": "Workshop",
+        "operation": "resource",
+        "name": "lateInvalid"
+      },
+      {
+        "index": 27,
+        "schema": "Garden",
+        "operation": "insert",
+        "name": "lateInvalid"
+      }
+    ],
+    "interpretation": "This is a separately derived countermodel. These four expected mutations are not TS mismatches."
+  }
+}
