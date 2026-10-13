@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : @-H:Type -> @-cap:Cap.Read<H, D.Raw> -> @_:Unit -> @_:H -> Sigma<&1, &1, H, _ => String>
+- observed : @-Owner:Type -> @cap:Cap.Read<Owner, D.Raw> -> @unit:Unit -> @owner:Owner -> Sigma<&1, &1, Owner, _ => String>
+Context:
+- frame : F.Frame<invoke_readonly~S, ../../../../../../../../../../../../bendvy/src/ecs/column.Column<invoke_readonly~S, H.Payload<invoke_readonly~S>>, H.Payload<invoke_readonly~S>, U32, H.Payload<invoke_readonly~S>, Unit, Identity.Declaration{"HandlePayload"}, H.project(invoke_readonly~S)>
+Location: invoke_readonly
+49 | def invoke_readonly(~S:Data,frame:H.Frame(~S)) -> H.Frame(~S) & String:
+50>|   Declaration.invoke_readonly(~S,~H.Store(~S),~H.Payload<S>,~U32,~H.Payload<S>,~Unit,~D.Raw,~Unit,~H.Token,~H.identity(~S),~H.project(~S),~H.project(~S),~H.take(~S),~H.put(~S),~install_refused(~S),~Unit,~String,read_body,frame,Unit{})
+   |                                                                                                                                                                                                                    ^^^^^^^^^
+51 | 

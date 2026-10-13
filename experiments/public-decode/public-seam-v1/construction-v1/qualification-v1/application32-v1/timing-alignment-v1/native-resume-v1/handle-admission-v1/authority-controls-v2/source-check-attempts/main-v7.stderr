@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : handle
+- observed : handle (consumed more than once)
+Context:
+- world : W.World<reserve_and_read~S, ../../../../../../../../../../../../bendvy/src/ecs/column.Column<reserve_and_read~S, H.Payload<reserve_and_read~S>>, H.Payload<reserve_and_read~S>, U32>
+- world : W.World<reserve_and_read~S, ../../../../../../../../../../../../bendvy/src/ecs/column.Column<reserve_and_read~S, H.Payload<reserve_and_read~S>>, H.Payload<reserve_and_read~S>, U32>
+Location: reserve_and_read
+71 |   match reserved:
+72>|     case (world,W.Reserved{handle}):
+   |                            ^^^^^^
+73 |       spawn_handle = duplicate_handle(~S,handle)

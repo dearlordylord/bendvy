@@ -134,3 +134,65 @@ Integrated merge: `3ad9371949a56ad8a9158385c9fd3fd8cd72b757`. GitHub marked #72 
 Master CI follow-up: run 38255941653 completed `cancelled` at the five-minute job deadline; checkout and coordination guard passed, the first infrastructure suite had not completed. Existing workspace repair to `test_current_entrypoints_use_one_process_implementation` replaces filesystem recursion with `git ls-files -z` and the same `entrypoint_scope` predicate. Independent Spec review confirmed exact tracked-file scope, unusual-filename handling and sparse absent-file behavior. This is a targeted inventory-discovery repair; test coverage and timeout remain unchanged. Runtime cause is provisional until successor CI completes.
 
 Final master result: [run 38256910663](https://github.com/dearlordylord/bendvy/actions/runs/38256910663), commit `d4c4a8227b754a23a40c8134109062bc10331313`, **SUCCESS**, functional job 2026-10-12 13:36:52–13:41:30 UTC. Checkout, complete infrastructure sequence and cleanup all passed under the unchanged five-minute job limit. This establishes active master CI after the inventory repair, not a quantified causal speedup; the earlier cancelled run remains linked above. This documentation-only recording reuses the exact qualified infrastructure source.
+
+### Confirmed observations — 2026-10-13 UTC
+
+Read-only assessment of retained evidence and GitHub job metadata; no new compiler,
+benchmark or test runs. Original expectations remain unchanged.
+
+| Item | Confirmed result | Evidence and limits |
+|---|---|---|
+| #1 delivery preflight | Six real invocations completed successfully in the inspected compiler-candidate subtree. Historical replay rejects the Native plan with a `.js` artifact. | `experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/compiler-candidate-v1/` contains 27 inspected receipt files and six recorded `scripts/delivery_preflight.py` commands, all exit 0 without failure. `experiments/delivery-process-controls/preflight-controls.json` records the historical rejection. This establishes use and replay detection, not newly prevented errors or time saved; counts cover this subtree only. |
+| 1+1.1 pinned development check | Actual #46/#54 repairs use installed 2.0.35 source checks before frozen backend plans. | Retained observations in the 1+1.1 row include #46 checks at 0.527s/1.448s and #54 setter source07. Development-tool consistency and workflow use are established; comparative repair speed remains unmeasured. |
+| 1+1.2 coordination table | Current table has 21 data rows, 8,740 characters total and a maximum row length of 896. Approximately 81% fewer characters than the original approximate 45,700-character baseline. | Direct measurement of `docs/parity/README.md`, excluding header/separator. The earlier 7,966-character observation remains historical. Reduced document size is established; navigation time is unmeasured. |
+| 1+1.4 infrastructure CI | Two subsequent master jobs completed successfully within the unchanged five-minute limit: 84s and 88s. | [38330369008](https://github.com/dearlordylord/bendvy/actions/runs/38330369008): 01:04:32–01:05:56 UTC; [38331207282](https://github.com/dearlordylord/bendvy/actions/runs/38331207282): 01:14:56–01:16:24 UTC. Earlier successful job [38327219219](https://github.com/dearlordylord/bendvy/actions/runs/38327219219) took 275s. These are whole-job durations including checkout; different hosts and uncontrolled conditions prevent causal speedup attribution. |
+
+No overall delivery-speed improvement is established by these observations.
+Real adoption/effect of #2 batching, #3 ownership staging and #4 scenario helper
+remains unverified; #5 has no demonstrated blocker fix and 1+1.3 remains a draft.
+
+### Nearest delivery assessment — 2026-10-13 UTC (in progress)
+
+The #54 operation-interval consumer has a frozen ordinary JS → Native batch
+through existing `scripts/delivery_batch.py`; the first actual invocation terminated with exit 1 (0.590 seconds for the recorded JS wrapper), before
+emission: the JS collector rejected an import-closure mismatch. Native remained
+pending and did not run. Raw wrapper stderr and terminal receipt are retained in
+`operation-interval-v1/runtime01/batch-output/` in the #54 worktree. Its collectors retain their own lock and full-byte oracle
+checks; the batch stops on JS failure. A manual queue handoff was still needed:
+#46 released its reservation because package authoring had no live heavy stage.
+The observed effect is fail-stop sequencing on a real pre-execution refusal;
+a successful automatic JS → Native sequence and any time saving remain unverified.
+
+`scenario_controls` scene mode is not applicable to #54's plain String output:
+there is no JSON scenario-map DTO. Complete 226,096-byte oracle equality remains
+the primary check; no duplicate DTO layer is added. Actual #46 negative-control
+helper checks and exact owned staging are being checked for this delivery.
+
+The #54 refusal was a plan-ordering mismatch: the same 63 absolute import paths
+were in insertion order, while the existing collector compares sorted paths.
+Coordinator compared both successor plans to the failed plans: only sorting and
+fresh output paths changed; source/tool/oracle/resource bindings and stage caps
+were identical. The failed packet remains immutable; no guard was weakened.
+
+#46 used current committed `owned_stage.py --root <worktree> --add` for its
+90-path leaf manifest; coordinator validation of the actual staged set also
+exited 0. The older worktree hook remains unchanged; current-hook ownership
+validation will run on integration. Two actual `scenario_controls.py --stderr`
+invocations exited 0 for the retained request/resource read-capability compiler
+refusals, with explicit expected diagnostics and empty helper stderr. Inputs,
+commands and outputs are retained in `authority-controls-v2/scenario-controls-v1/`.
+This demonstrates bounded real adoption; no caught accidental staging error,
+newly prevented semantic error or time saving is claimed.
+
+The preserved runtime02 successor completed `WRAPPERS_PASS`: JS then Native
+advanced automatically, with no manual release between jobs. Both actual consumer
+receipts report complete pass and outputs match the independent 226,096-byte
+oracle (SHA256 `fea8df01c26bf7141798bd2b45b4e4139e5bbe2b54af9c53674117be662245a9`).
+Native used standard `-O3` within existing caps. Coordinator checked the terminal
+batch receipt and both actual output files. This establishes one real successful
+sequence plus one earlier fail-stop; comparative delivery time remains unmeasured.
+
+#46 producer commit `6fb739056e687503b3d58b3d33ae00964a48472c` contains exactly
+its 90 owned leaf paths. Its unchanged legacy configured hook exited 0; current
+ownership-aware integration hook is the next check. The independent review covers
+the finalized package, including the two scenario checks and ownership manifest.

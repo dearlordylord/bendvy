@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : W.Handle{namespace, id}
+Context:
+- world     : W.World<spawn_and_read~S, ../../../../../../../../../../../../bendvy/src/ecs/column.Column<spawn_and_read~S, H.Payload<spawn_and_read~S>>, H.Payload<spawn_and_read~S>, U32>
+- namespace : U32
+- id        : U32
+- payload   : H.Payload<spawn_and_read~S>
+Location: spawn_and_read
+68 |     case W.Handle{namespace,id}:
+69>|       spawn_handle = W.Handle{namespace,id}
+   |                      ^^^^^^^^^^^^^^^^^^^^^^
+70 |       read_handle = W.Handle{namespace,id}

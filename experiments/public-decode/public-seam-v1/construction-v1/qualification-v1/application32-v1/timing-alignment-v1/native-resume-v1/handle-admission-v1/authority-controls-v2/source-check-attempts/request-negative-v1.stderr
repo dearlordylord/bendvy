@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.OwnedRequest<invalid_body~Owner, DecodeRequest.Input<H.First, H.Payload<H.First>>, DecodeRequest.Output<H.First, H.Payload<H.First>>>
+- observed : Cap.Read<invalid_body~Owner, D.Raw>
+Context:
+- unit  : Unit
+- owner : invalid_body~Owner
+Location: invalid_body
+16 | def invalid_body(~Owner:Type,~cap:Cap.Read<Owner,D.Raw>,unit:Unit,owner:Owner) -> Owner & Unit:
+17>|   invalid_result(~Owner,Constructed.apply(~H.First,~H.Payload<H.First>,~H.Payload<H.First>,~H.identity(~H.First),~H.project(~H.First),~H.incoming(~H.First),~H.build(~H.First),~H.component_factory(~H.First,1),~Owner,~cap,owner,Constructed.Input{Request.Spawn{},H.Payload{ALeaf{1},"input",None{}}}))
+   |                                                                                                                                                                                                                         ^^^
+18 | 
