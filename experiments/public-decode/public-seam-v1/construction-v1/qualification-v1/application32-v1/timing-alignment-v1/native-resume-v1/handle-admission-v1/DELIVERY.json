@@ -1,0 +1,59 @@
+{
+  "JS": {
+    "bytes": 8167,
+    "commands": 2,
+    "guards": 7,
+    "planSHA256": "118488fbee0b8f52ff4184ce80570101aba7735036a822dd40e7df6d8019d286",
+    "receiptSHA256": "34d8a753aecf471614c0f785889bc9d5f12dba78f7c2103544a920dfa2967bb4",
+    "sha256": "db443068c8c462067b3612720c3e8e07966433cb12581c8b2150a8bea5375109",
+    "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS"
+  },
+  "Native": {
+    "bytes": 8167,
+    "commands": 3,
+    "guards": 10,
+    "planSHA256": "d64ae367b5edf086e3c89da4eab23c595b37498c19617abce1785310977901e4",
+    "receiptSHA256": "b61bc10259fee7bc9e560623039c2c8c223c6aceb1b85f8a05bdeedb91293fc8",
+    "sha256": "db443068c8c462067b3612720c3e8e07966433cb12581c8b2150a8bea5375109",
+    "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS"
+  },
+  "oracle": {
+    "bytes": 8167,
+    "runtimeOutputsUsedForDerivation": false,
+    "sha256": "db443068c8c462067b3612720c3e8e07966433cb12581c8b2150a8bea5375109"
+  },
+  "portable": {
+    "archiveSHA256": "ebdc2dbed6928a7485acdae7c29911e17c17caa4961aa666083a5c1bf745fa11",
+    "currentResultSHA256": "a6109e2536b38ff91567c55776dddd8fb3a05735a3fc57651ca88f0ccbf751e4",
+    "manifestPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/handle-admission-v1/ACTUAL-MANIFEST.json",
+    "manifestSHA256": "7f25536c19dfe81ec9c3ed3c03a0c285cafdf80b35f787ab529a2f5747bd59bc",
+    "objects": 106,
+    "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/handle-admission-v1/PORTABLE.zip",
+    "rows": 121
+  },
+  "preservedV1Attempt": {
+    "actualJSBytes": 8167,
+    "actualJSSHA256": "db443068c8c462067b3612720c3e8e07966433cb12581c8b2150a8bea5375109",
+    "oldExpectedBytes": 8166,
+    "oldExpectedSHA256": "321d382d0b380caa09d8ff43e8876e6a763d5e453db9d954848d475d4a384ead",
+    "reason": "The first JS wrapper compared against an oracle missing the IO.print-added final LF; its raw output/error remain preserved. Its Native plan was NOTRUN."
+  },
+  "remainingGates": [
+    "Full Issue #46 acceptance remains open; this pass qualifies only the finite 22-row same-schema handle-admission consumer.",
+    "Complete authority/refusal coverage across the remaining current public construction and decoding callsites is still required.",
+    "Feature timing and scaling remain unqualified; no timing comparison or performance result was run.",
+    "The existing #38 and #59 identity/authority choices remain unresolved and were not changed here."
+  ],
+  "reusedExistingEvidence": {
+    "currentTypeScriptProjectionResultSHA256": "5c53c23935d7f7bbf41940405dc1ccc049b107e75e937a083f42e398321fd387",
+    "reachedCounterResultSHA256": "a953745bab61e420173203c4e2842ea950b1a0ff020bf099c3aacfb581647a48",
+    "scope": "These existing 32-row normal/projection and four-row counter results remain separate evidence, not rows in this 22-row consumer."
+  },
+  "schemaVersion": 1,
+  "scope": "Finite current-source typed handle-admission consumer; 11 selectors for each of two nominal schemas, 22 complete rows. This is a bounded #46 result, not issue closure.",
+  "sourceCheck": {
+    "receiptSHA256": "4ca80ff949e3695ff8c453cf28d59d2af6d26cf39f8c38c0b6ccd8d124bf23a3",
+    "status": "PASS"
+  },
+  "status": "CURRENT_TYPED_HANDLE_ADMISSION_JS_NATIVE_PASS"
+}
