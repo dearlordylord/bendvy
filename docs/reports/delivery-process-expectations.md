@@ -494,3 +494,16 @@ These are syntactic pre-optimization counts, not runtime heap allocations. Large
 spin functions are mapped next to exact C before choosing a patch. The full IR
 is retained inside the33.6MB compressed archive; selected checks, configured
 hook, streaming verifier and independent final review pass.
+
+### Borrow-location helper experiment — 2026-10-13 UTC
+
+Producer `0808b9f04` retains33 owned paths and187 archive members. Saved C has
+6114 reversible lookup-chain replacements; host and DEVICE-macro controls each
+pass48 cases, including q=0 and lazy fallback. Full ordinary Clang19 -O3 reaches
+the unchanged120s deadline with clean guards and no binary/consumer. Two raw
+same-PID/start observations report compiler CPU40.65→106.37s and RSS1,822,868→
+2,833,112kB; these are not ECS heap allocations or a performance comparison.
+Selected checks, configured hook, portable reversal verifier and independent
+final review pass for partial evidence. No regenerated pipeline/adoption credit.
+Pinned cc1 help supports fdebug-pass-manager; next bounded diagnostic logs reached
+LLVM passes on the derived C, preserving ordinary acceptance gates.

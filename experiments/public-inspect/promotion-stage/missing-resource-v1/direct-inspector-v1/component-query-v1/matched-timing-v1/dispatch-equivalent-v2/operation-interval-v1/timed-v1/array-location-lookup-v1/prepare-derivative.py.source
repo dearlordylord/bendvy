@@ -1,0 +1,40 @@
+"""Derive host lookup calls from exact retained C with reversible assertions."""
+from pathlib import Path
+import bisect,hashlib,json,re
+HERE=Path(__file__).resolve().parent
+sha=lambda b:hashlib.sha256(b).hexdigest()
+def main():
+ original=HERE.parent/'direct-recursive-box-v1/runtime01/native/scenario.c'
+ raw=original.read_bytes();assert sha(raw)=='47860766951e7f10329e7512dc40b06d8de1aeb16a4539d09ebace652564f2f9'
+ text=raw.decode();helper=(HERE/'helper.c.source').read_text()
+ functions=[]
+ for m in re.finditer(r'^(?:INLINE|FAR) Term (spin_\d+)\([^\n]+\) \{\n',text,re.M):
+  end=text.index('\n}\n',m.end())+3;functions.append((m.start(),end,m.group(1),m.group()))
+ starts=[x[0] for x in functions]
+ pattern=re.compile(r'(?P<a>\b[A-Za-z_][A-Za-z0-9_]*) == h(?P<first>\d+) \? q(?P=first) : (?:(?P=a) == h\d+ \? q\d+ : )*blk_loc\(e.mem, (?P=a)\)')
+ replacements=[];counts={}
+ def replace(m):
+  a=m.group('a');index=bisect.bisect_right(starts,m.start())-1;assert index>=0
+  begin,end,fn,header=functions[index];assert m.end()<end
+  rows=re.findall(r'== h(\d+) \? q(\d+) : ',m.group());assert rows
+  assert all(i==j for i,j in rows);ids=[int(i) for i,_ in rows];assert ids==sorted(set(ids),reverse=True)
+  prior=text[begin:m.start()]
+  parameter=any(re.fullmatch(r'(?:Term|u32|u64) '+re.escape(a),item.strip()) for item in header.split('(',1)[1].rsplit(')',1)[0].split(','))
+  initialized_local=re.search(r'^\s*(?:Term|u32|u64) '+re.escape(a)+r'\s*=\s*[^;]+;',prior,re.M)
+  assert parameter or initialized_local,a
+  for i in ids:
+   assert any(item.strip()=='u64 q'+str(i) for item in header.split('(',1)[1].rsplit(')',1)[0].split(','))
+   assert 'Term h'+str(i)+' = r'+str(i)+';' in prior
+  hs=', '.join('h'+str(i) for i in ids);qs=', '.join('q'+str(i) for i in ids)
+  new=f'WL_ARRAY_LOCATION({a}, ((Term[]){{{hs}}}), ((u64[]){{{qs}}}), {len(ids)}, ({m.group()}))'
+  replacements.append((new,m.group()));counts[fn]=counts.get(fn,0)+1;return new
+ derived=pattern.sub(replace,text);assert replacements
+ marker='INLINE u32 blk_cls(Term t) {';assert derived.count(marker)==1;derived=derived.replace(marker,helper+marker)
+ recovered=derived.replace(helper,'',1)
+ # Distinct expressions may repeat; reversing longest macro tokens avoids partial replacement.
+ for new,old in sorted(set(replacements),key=lambda x:len(x[0]),reverse=True):recovered=recovered.replace(new,old)
+ assert recovered==text
+ out=HERE/'runtime01';out.mkdir(exist_ok=True);(out/'derived.c').write_text(derived)
+ (HERE/'DERIVATION.json').write_text(json.dumps({'original':str(original),'originalSHA256':sha(raw),'derivedSHA256':sha(derived.encode()),'helperSHA256':sha(helper.encode()),'compilerSHA256':sha((HERE/'compiler/candidate.mjs').read_bytes()),'reversible':True,'replacements':len(replacements),'distinctExpressions':len(set(replacements)),'perSpin':counts,'invariants':'Every replacement in a spin body; a is declared nonvolatile scalar identifier; every h_i initialized from scalar r_i, q_i typed u64 parameter; descending original priority; exact original fallback preserved in DEVICE macro. Fresh stack snapshots at each call.','scope':'Experimental derivative; no regenerated compiler pipeline or adoption credit.'},indent=2)+'\n')
+ print(json.dumps({'replacements':len(replacements),'derivedBytes':len(derived.encode()),'derivedSHA256':sha(derived.encode())}))
+if __name__=='__main__':main()

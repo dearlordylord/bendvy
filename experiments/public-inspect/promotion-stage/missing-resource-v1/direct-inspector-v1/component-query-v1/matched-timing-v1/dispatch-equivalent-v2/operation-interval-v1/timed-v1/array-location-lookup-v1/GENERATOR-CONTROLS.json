@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "oldCompilerSHA256": "f686d14a08a7f1b6621c7d10184f0f9f53bd5e934855272f90a28596d5454a41",
+  "newCompilerSHA256": "00172637875e41874e5ac0353450d922d1215cee35e62ab74017330ca38a3583",
+  "scope": "Actualarr_locfunctions; finiteexpressionordering/unchangedfallback/JSdevicebranches. Cteststubblk_loconlyobservesfallbackcalls, productionfunctionunchanged.",
+  "results": [
+    {
+      "name": "all-hot",
+      "old": "v == h3 ? q3 : v == h2 ? q2 : v == h0 ? q0 : blk_loc(e.mem, v)",
+      "new": "WL_ARRAY_LOCATION(v, ((Term[]){h3, h2, h0}), ((u64[]){q3, q2, q0}), 3, (v == h3 ? q3 : v == h2 ? q2 : v == h0 ? q0 : blk_loc(e.mem, v)))"
+    },
+    {
+      "name": "exact-param",
+      "old": "r2 == h2 ? q2 : blk_loc(e.mem, r2)",
+      "new": "WL_ARRAY_LOCATION(r2, ((Term[]){h2}), ((u64[]){q2}), 1, (r2 == h2 ? q2 : blk_loc(e.mem, r2)))"
+    },
+    {
+      "name": "empty",
+      "old": "blk_loc(e.mem, v)",
+      "new": "blk_loc(e.mem, v)"
+    },
+    {
+      "name": "nonhot",
+      "old": "blk_loc(e.mem, v)",
+      "new": "blk_loc(e.mem, v)"
+    },
+    {
+      "name": "nonspin",
+      "old": "blk_loc(e.mem, v)",
+      "new": "blk_loc(e.mem, v)"
+    },
+    {
+      "name": "expression",
+      "old": "v + 1 == h3 ? q3 : v + 1 == h2 ? q2 : v + 1 == h0 ? q0 : blk_loc(e.mem, v + 1)",
+      "new": "v + 1 == h3 ? q3 : v + 1 == h2 ? q2 : v + 1 == h0 ? q0 : blk_loc(e.mem, v + 1)"
+    },
+    {
+      "name": "js-path",
+      "old": "v == h3 ? q3 : v == h2 ? q2 : v == h0 ? q0 : blk_loc(e.mem, v)",
+      "new": "v == h3 ? q3 : v == h2 ? q2 : v == h0 ? q0 : blk_loc(e.mem, v)"
+    }
+  ]
+}

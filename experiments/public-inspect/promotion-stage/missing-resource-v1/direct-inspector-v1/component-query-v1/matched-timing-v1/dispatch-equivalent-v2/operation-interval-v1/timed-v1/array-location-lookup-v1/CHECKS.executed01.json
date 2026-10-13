@@ -1,0 +1,78 @@
+{
+  "status": "PASS_FINITE_HELPER_CONTROLS",
+  "rows": [
+    {
+      "label": "compile-host",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/helper-controls.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/controls-host"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "run-host",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/controls-host"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "stdoutSHA256": "e6d3aeeb7934b76d00cd2cafc505758e175fef1fc7d840b6dc898937737e8b03",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "compile-device-macro",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/tmp/bendvy-clang19-diagnostic/clang19",
+        "-O3",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/helper-controls.c",
+        "-o",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/controls-device-macro",
+        "-DDEVICE=1"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "run-device-macro",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "3",
+        "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/controls-device-macro"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "stdoutSHA256": "479cc450c5c205c2fb2bea34a9e673d455a74ef44cda8ee43dd1d34c63af86da",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "inputPins": {
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/helper-controls.c": "c662877fef816ef0f3e96a2f263323a8cf82276380363aec873c53a63b0fa772",
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/helper.c.source": "bc9997c0e8e0ccdf204a831577877065f3936ea6005047070cfa8b74dca0d1e1",
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/compiler/candidate.mjs": "00172637875e41874e5ac0353450d922d1215cee35e62ab74017330ca38a3583",
+    "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/generator-controls.cjs": "6bf232b85bb5f6042d95a5928d0041bf2a7947b73eee07753752539fa3e11d8e"
+  },
+  "inputsUnchanged": true,
+  "scope": "Exacthelper andactualold/newgenerator sevenfixtures; duplicatekeypriority, lazyfallbackcount, freshh/qmutations, emptyhotset/nonhot/nonspin/nonidentifier/JS/devicefallback. No fullconsumerqualification."
+}
