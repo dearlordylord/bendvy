@@ -455,3 +455,14 @@ stages correctly remain NOT_RUN. Configured hook, selected checks, portable
 verifier and final independent review pass for partial evidence only. No identical
 retry, speedup or adoption claim. Next source-only transplant keeps budget31
 to isolate the key change from the blocked budget15 representation.
+
+### Budget31 key-factor outcome — 2026-10-13 UTC
+
+Producer `c41c648d` retains19 owned paths and194 archive members; selected checks,
+configured hook, portable verifier and independent final review pass. The same
+key-only change atop original budget31 passes the full226,096-byte JS oracle,
+but Native again reaches emit30 child deadline at pass1 with clean guards. No C,
+byte-identity comparison, build/runtime or numeric results exist. This experiment
+does not establish improvement or regression under current host contention.
+No unchanged retry. Source investigation now checks existing frame lowering and
+the shared Native ABI; acceptance limits and installed compiler remain unchanged.
