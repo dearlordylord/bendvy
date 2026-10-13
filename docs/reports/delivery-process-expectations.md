@@ -538,3 +538,10 @@ pass for diagnostic scope only. Supplemental source mapping `a49009296` shows
 spin817317→4611 instructions across Inliner with four incoming callees absorbed.
 INLINE is ordinary static inline, not always_inline. Next factor introduces a
 HOST-only ordinary-spin boundary; performance/acceptance remain unproved.
+
+The admitted HOST-only ordinary-spin factor reached the same build120 deadline
+(receipt `e4323971`, clean guards, no binary/consumer). The single serialized
+ordinary run and existing collector were used; no unchanged retry or broader
+qualification was started. This does not establish relative compile speed or
+identify the dominant remaining cost. Retention review and source-backed next
+factor selection continue under #54.

@@ -1,0 +1,27 @@
+import hashlib
+import json
+import re
+from pathlib import Path
+
+root = Path(__file__).resolve().parent
+baseline = root.parent
+record = json.loads((root / "DERIVATION.json").read_text())
+old = (baseline / "compiler/candidate.mjs").read_text()
+new = (root / "compiler/candidate.mjs").read_text()
+anchor = "#define FAR static __attribute__((noinline))\n"
+extra = "\n#if DEVICE\n#define SPIN_INLINE INLINE\n#else\n#define SPIN_INLINE FAR\n#endif\n"
+old_selection = '${seg.lines.length < SPIN_FAR ? "INLINE" : "FAR"} Term ${name}'
+new_selection = '${seg.lines.length < SPIN_FAR ? "SPIN_INLINE" : "FAR"} Term ${name}'
+assert new.count(extra) == 1
+assert new.replace(anchor + extra, anchor).replace(new_selection, old_selection) == old
+original = (baseline / "runtime01/derived.c").read_text()
+derived = (root / "derived.c").read_text()
+assert hashlib.sha256(original.encode()).hexdigest() == record["sourceCSHA256"]
+assert hashlib.sha256(derived.encode()).hexdigest() == record["derivedCSHA256"]
+restored = derived.replace(anchor + extra, anchor)
+restored, count = re.subn(r"^SPIN_INLINE(?= Term spin_\d+\(Env e, THR Term\* o)", "INLINE", restored, flags=re.M)
+assert count == record["replacedSmallSpinDefinitions"] == 1778
+assert restored == original
+assert "#define SPIN_INLINE INLINE" in extra
+assert "#define SPIN_INLINE FAR" in extra
+print(json.dumps({"status": "PASS_ATTRIBUTE_ONLY_FACTOR", "smallSpins": count, "unchangedLargeSpins": record["remainingLargeFARSpinDefinitions"], "sourceAndCReverseExact": True, "deviceOriginalInline": True, "hostNoInline": True}))
