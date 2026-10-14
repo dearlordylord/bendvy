@@ -89,3 +89,13 @@ undeclared-handle test. Stock 2.0.35 remains the ordinary checker, and historica
 stock backend/mutant results retain that tool identity. The project-local
 private emitter has separate qualified runtime evidence; these source checks
 do not grant backend, mutant or production-adoption credit.
+
+The two existing canonical composed-query controls also pass f1a check-only:
+a same-Unit-payload attempt to recover undeclared selection capability and an
+opaque-owner escape both receive their intended refusals with clean guards.
+Independent final packet review passes. The first plan was stopped before any compiler
+command because its old union inventory had unused entries; the preserved
+successor binds the exact 19-file import closure while retaining all 52 body
+pins. Current each/get calls take a granted query and owner/entity handle, with
+no runtime family/name selector. These checks do not establish arbitrary trusted
+lens honesty, runtime undeclared-family lookup behavior or tool adoption.
