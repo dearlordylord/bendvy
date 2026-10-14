@@ -41,4 +41,24 @@ The smallest creation decision is whether the advertised independent-world creat
 
 Logical-ID reuse is a separate unresolved choice. Monotonic IDs with explicit exhaustion retain current stale-handle safety but do not recycle physical slots as Bevy does. Namespace+index+generation with a freelist is closer to Bevy: old handles fail after reuse, capacity can be recycled, and generation exhaustion needs an explicit refusal/retirement policy if indefinite stale safety is required. A monotonic external logical ID over recycled physical slots preserves old public handles but adds mapping/storage and differs from Bevy's reused index. No generation wrap policy, failed reservation reuse or snapshot rebinding is selected here. TS is comparison inventory and cannot decide these policies.
 
-Proposed next approval: select the independent-world creation authority/domain first; then explicitly choose public logical-ID reuse and generation-exhaustion behavior before implementation. Existing #38 reservation/cancellation/growth/clock exhaustion, caller-fabricated authority, reached bounds/namespace controls and complete backend/regression gates remain required. No new law or executable contract is adopted by this context.
+Ordinary IO creation is approved below. The next approval is public entity-slot reuse and generation-exhaustion behavior before implementation. Existing #38 reservation/cancellation/growth/clock exhaustion, caller-fabricated authority, reached bounds/namespace controls and complete backend/regression gates remain required. No new law or executable contract is adopted by this context.
+
+## Approved ordinary creation — 2026-10-14
+
+The user approved ordinary World creation through IO, following Bevy: allocate
+a unique process-local namespace, refuse exhaustion without wrap or reuse, and
+return incoming owners on refusal. Pure Factory/raw construction remains trusted
+explicit setup. This selects creation authority only; entity ID reuse, generation
+exhaustion, supported capacity and candidate laws remain undecided.
+
+Implement through a host IO module over the pure World core. Reuse existing
+owner/foreign-world controls and qualify the supported JS/Native runtime and
+module/link boundaries explicitly; shared JS realms and single linked executables
+do not by themselves establish uniqueness across workers, VM realms or DSOs.
+Do not silently replace the approved process-local target with a narrower claim.
+
+The [current-public host packet](../../experiments/public-identity/approved-io-creation-v1/README.md)
+is integrated at `07a70564f`: complete owner, foreign-handle, rollback and
+exhaustion controls pass at their documented host scopes. Shared-realm JS
+allocator adoption still requires current #28 regression; the old receipt does
+not match all current executor/input bytes. No speed regression is established.
