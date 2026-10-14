@@ -73,3 +73,22 @@ Inspector performance. The runtime08 timer remains
 scaling and relevant runtime CPU/allocation profiles remain open. Earlier
 category/control evidence keeps its original source/tool scope; no new full-#55
 acceptance, TS execution or universal refinement follows from this finite run.
+
+The matched-workflow audit subsequently exposed an ordinary-entry composition
+gap: `I.Plan` owns a World frame, while transition/failure grants own an event
+Runtime frame. Existing fixture `Cap.invoke` calls qualify their primitives, not
+an ordinary union Inspector entry. The existing #55 contract therefore needs a
+runtime-owned sibling entry with the same fresh/success/failure cursor behavior
+as `I.run`, preserving all event-runtime metadata and operational readers. This
+is current acceptance work, not a new stream policy. The earlier no-additional-
+implementation conclusion was limited to the previously exercised callsites.
+
+The sibling entry accepts the actual Runtime and existing Inspector instance;
+its body remains rank-polymorphic over opaque H. Fresh starts at cursor0 and
+reads registeredAt from the actual World clock. Success advances that clock
+once; failure retains the prior Inspector cursor and does not advance it.
+Runtime batches, positions, retention, pending work and all affine owners are
+preserved; `Ev.with_world` is not an observational implementation. Acceptance
+requires ordinary-entry success/failure/repeated reads and authority controls,
+then a matched lifecycle consumer. Only two streams own this work: the runtime
+entry and its lifecycle fixture; shared core integration stays with root.
