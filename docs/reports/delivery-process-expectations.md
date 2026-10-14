@@ -581,3 +581,10 @@ derivative exactly; all 226,096 output bytes matched the unchanged oracle.
 Independent final review accepted this current pipeline scope. Numeric, JS,
 repetition/composition, performance and adoption gates remain separate; no
 overall delivery-speed or full #54 completion claim is made.
+
+The ordered current-candidate batch completed full JS and numeric JS/Native
+through the existing serialized runner. Full output matched 226,096 oracle
+bytes; both numeric outputs matched the existing 369 bytes. Portable evidence
+verification passed 215 archive members. The prior full Native receipt was
+reused rather than rerun; final review and single-process repetition remain
+separate. This records batch/evidence reuse, not a speed or adoption claim.

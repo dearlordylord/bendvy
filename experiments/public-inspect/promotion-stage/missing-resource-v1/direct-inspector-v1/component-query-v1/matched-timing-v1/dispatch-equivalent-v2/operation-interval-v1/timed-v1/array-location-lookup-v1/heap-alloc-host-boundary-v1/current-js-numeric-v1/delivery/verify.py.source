@@ -1,0 +1,45 @@
+"""Verify retained current JS/numeric evidence; no execution."""
+from pathlib import Path
+import gzip
+import hashlib
+import json
+import zipfile
+
+HERE = Path(__file__).resolve().parent
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+def main():
+    d = json.loads((HERE / "DELIVERY.json").read_text())
+    assert sha((HERE / "EVIDENCE.zip").read_bytes()) == d["archiveSHA256"]
+    with zipfile.ZipFile(HERE / "EVIDENCE.zip") as z:
+        assert set(z.namelist()) == {r["path"] for r in d["members"]}
+        for row in d["members"]:
+            raw = z.read(row["path"])
+            assert len(raw) == row["bytes"] and sha(raw) == row["sha256"]
+        get = lambda p: z.read("candidate/" + p)
+        launch = json.loads(get("LAUNCH.json"))
+        assert sha(get("FREEZE.json")) == launch["freezeSHA256"]
+        assert [r["role"] for r in launch["order"]] == ["full-js", "numeric-js", "numeric-native"]
+        for row in launch["order"]:
+            role = row["role"]
+            assert sha(get(role + "/plan.json")) == row["sha256"]
+            p = json.loads(get(role + "/plan.json"))
+            r = json.loads(get(role + "/receipt.json"))
+            assert r["planSHA256"] == row["sha256"] and not r.get("guardFailures", [])
+            assert all(c["exit"] == 0 and c["failure"] is None for c in r["commands"])
+            for guard in r["guards"]:
+                assert sha(get(role + "/" + Path(guard["path"]).name)) == guard["sha256"]
+            raw = get(role + "/consumer.stdout")
+            assert raw == gzip.decompress(z.read("dependencies/" + p["oracle"].lstrip("/")))
+            assert len(raw) == (226096 if role == "full-js" else 369)
+            assert sha(raw) == p["oracleSHA256"]
+            if role == "numeric-native":
+                assert sha(get(role + "/scenario.native")) == r["buildArtifactSHA256"]
+            assert sha(z.read("dependencies/" + p["tools"]["bend"].lstrip("/"))) == "f1a2288f512f3bed37199bd463a8bc57126377a65b2e9e2924a3110f4156e28f"
+        assert sha(get("RESULT.json")) == d["resultSHA256"]
+    print(json.dumps({"status": "PASS_RETAINED_CURRENT_JS_NUMERIC", "members": len(d["members"])}))
+
+if __name__ == "__main__":
+    main()
