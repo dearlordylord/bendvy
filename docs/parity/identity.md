@@ -62,3 +62,9 @@ is integrated at `07a70564f`: complete owner, foreign-handle, rollback and
 exhaustion controls pass at their documented host scopes. Shared-realm JS
 allocator adoption still requires current #28 regression; the old receipt does
 not match all current executor/input bytes. No speed regression is established.
+
+Native near-maximum saturation is now verified in the [retained successor](../../experiments/public-identity/approved-io-creation-v1/public-exhaustion-native01/delivery/RESULT.json):
+one initializer-only trusted C seed, ordinary `-O3`, two last-valid namespaces
+then two refusals, and exact 158-byte owner observations. This is sequential
+single-executable evidence, not concurrency or cross-DSO qualification. The
+original archive remains historical; no fresh Bend emission is claimed.

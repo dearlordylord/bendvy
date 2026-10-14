@@ -1,0 +1,12 @@
+import pathlib,hashlib,sys
+source,out=map(pathlib.Path,sys.argv[1:3])
+expected=sys.argv[3]
+if source.is_symlink() or not source.is_file(): raise ValueError("source must be regular")
+raw=source.read_bytes()
+if hashlib.sha256(raw).hexdigest()!=expected: raise ValueError("normal artifact drift")
+before=b"static _Atomic uint32_t bendvy_namespace_next = 1;"
+after=b"static _Atomic uint32_t bendvy_namespace_next = UINT32_MAX - 2;"
+if raw.count(before)!=1: raise ValueError("initializer must be unique")
+changed=raw.replace(before,after)
+if changed.replace(after,before)!=raw: raise ValueError("reversal failed")
+with out.open("xb") as f:f.write(changed)
