@@ -684,3 +684,18 @@ was revalidated separately, preserving the original INCOMPLETE receipt; only
 the pending Native emit/O3/consumer ran. Native matched all2328 bytes. The
 frontend also uses canonical lifecycle insertion and an actual survivor query.
 These are bounded semantic results and observed reuse, not full #45 acceptance.
+
+The matched #45 scope adapter used exact owned staging (32 paths), the existing
+feature Harness and independent source oracles. Review caught noncompact JSON;
+the first actual check then caught an import-alias collision. Both were repaired
+without weakening validation. The successor passed all52 records/12932 bytes on
+TS, JS and ordinary O3 Native. Generic batch/scenario helpers were not invoked;
+this establishes bounded correctness, not comparative speed or faster delivery.
+
+#55 also exposed a launch-review gap: plans pinned the policy-aware collector,
+but execution called an older collector that rejected its declared telemetry.
+Preserve the failed receipts; the successor review must trace the actual launcher
+through the selected collector and strict stderr validator, not only plan hashes.
+That successor passed all147180 JS oracle bytes and seven guards. Native then
+reached its unchanged emit30 deadline with empty diagnostics and clean guards;
+no O3 build or Native consumer ran. Compiler-source diagnosis is the next action.
