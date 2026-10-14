@@ -29,10 +29,11 @@ def main():
     stage = args.stage / 'stage'
     source = stage / 'benchmarks/parity-features'
     args.output.mkdir(parents=True)
-    tools = {name: pathlib.Path(shutil.which(name)).resolve() for name in ['bend', 'node', 'python3']}
-    tools['clang'] = pathlib.Path('/tmp/bendvy-clang19-diagnostic/clang19').resolve()
     spec = importlib.util.spec_from_file_location('feature_tool_pins', HERE / 'tool-pins.py')
     tool_pins = importlib.util.module_from_spec(spec); spec.loader.exec_module(tool_pins)
+    tools = {name: tool_pins.SELECTED_TOOLS[name] for name in ['bend', 'node']}
+    tools['python3'] = pathlib.Path(_runner_sys.executable).resolve()
+    tools['clang'] = tool_pins.SELECTED_TOOLS['clangWrapper']
     installed = tool_pins.snapshot()
     tool_hashes = {str(p): preflight.digest(p) for p in tools.values()}
     artifacts = {}

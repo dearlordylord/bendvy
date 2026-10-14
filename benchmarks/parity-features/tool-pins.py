@@ -1,6 +1,6 @@
 """Read-only prospective installed-tool, resource and resolved-library pins."""
 from pathlib import Path
-import hashlib,os,re,shutil,subprocess,sys
+import hashlib,importlib.util,os,re,shutil,subprocess,sys
 
 from pathlib import Path as _runner_Path
 import sys as _runner_sys
@@ -8,12 +8,17 @@ _runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'s
 _runner_sys.path.insert(0, str(_runner_root/'scripts'))
 import task_runner
 
+CONFIG_PATH=_runner_root/'experiments/public-simulation/delivery-v1/installed-config.py'
+_config_spec=importlib.util.spec_from_file_location('feature_installed_config',CONFIG_PATH)
+_config=importlib.util.module_from_spec(_config_spec);_config_spec.loader.exec_module(_config)
+SELECTED_TOOLS={name:Path(path).resolve() for name,path in _config.TOOL_PATHS.items()}
+
 sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
-CLANG_ROOT=Path('/tmp/bendvy-clang19-diagnostic/root')
-WRAPPER=Path('/tmp/bendvy-clang19-diagnostic/clang19')
+CLANG_ROOT=Path(_config.CLANG_ROOT)
+WRAPPER=SELECTED_TOOLS['clangWrapper']
 LIBPATH=':'.join(map(str,[CLANG_ROOT/'usr/lib/aarch64-linux-gnu',CLANG_ROOT/'usr/lib/llvm-19/lib',Path('/home/node/.local/opt/dnd-clang14/usr/lib/aarch64-linux-gnu')]))
 def snapshot():
- files=set();binaries=[Path(shutil.which('bend')).resolve(),Path(shutil.which('node')).resolve(),Path(sys.executable).resolve(),Path(shutil.which('taskset')).resolve(),WRAPPER.resolve(),(CLANG_ROOT/'usr/lib/llvm-19/bin/clang').resolve()]
+ files={CONFIG_PATH};binaries=[SELECTED_TOOLS['bend'],SELECTED_TOOLS['node'],Path(sys.executable).resolve(),SELECTED_TOOLS['taskset'],WRAPPER.resolve(),SELECTED_TOOLS['clang']]
  files.update(binaries)
  for root in [Path('/home/node/.bend/bend2'),CLANG_ROOT/'usr/lib/llvm-19/lib/clang/19']:
   assert root.is_dir(),root

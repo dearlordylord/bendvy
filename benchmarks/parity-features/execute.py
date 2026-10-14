@@ -18,10 +18,11 @@ class Harness:
         self.staged = json.loads((stage_path/'stage.json').read_text())
         self.stage = stage_path/'stage'
         output.mkdir(parents=True)
-        self.tools = {name:pathlib.Path(shutil.which(name)).resolve() for name in ['bend','node','python3','taskset']}
-        self.tools['clang'] = pathlib.Path('/tmp/bendvy-clang19-diagnostic/clang19').resolve()
         spec = importlib.util.spec_from_file_location('feature_tools',HERE/'tool-pins.py')
         self.pins = importlib.util.module_from_spec(spec); spec.loader.exec_module(self.pins)
+        self.tools = {name:self.pins.SELECTED_TOOLS[name] for name in ('bend','node','taskset')}
+        self.tools['python3'] = pathlib.Path(_runner_sys.executable).resolve()
+        self.tools['clang'] = self.pins.SELECTED_TOOLS['clangWrapper']
         self.installed = self.pins.snapshot()
         self.receipt = {'status':'INCOMPLETE','stageReceiptSHA':preflight.digest(stage_path/'stage.json'),'installedTools':self.installed,'childEnvironmentFixed':{'BEND_NO_TELEMETRY':'1'},'noticeCacheObserved':preflight.notice_cache(),'commands':[],'artifacts':{},'logs':{}}
         self.guard()
