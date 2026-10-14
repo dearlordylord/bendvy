@@ -233,8 +233,7 @@ No further policy-free format fixture is identified with sufficient confidence
 from this reconciliation. The concrete missing multi-schedule index requires an
 ordinary retained multi-schedule setup/placement scope before aggregation; lint
 and renaming rules require their existing contract decisions. Stateful conditions,
-non-Column adaptation, unresolved reached Native qualification
-and feature performance remain concrete owning gates. None is evidence of technical
+non-Column adaptation and feature performance remain concrete owning gates. None is evidence of technical
 impossibility, and #56 remains open.
 
 ### Combined213 protected regression
