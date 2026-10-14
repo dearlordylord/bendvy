@@ -1,0 +1,50 @@
+"""Verify retained evidence only; no compiler or consumer execution."""
+from pathlib import Path
+import gzip
+import hashlib
+import json
+import zipfile
+
+HERE = Path(__file__).resolve().parent
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+def main():
+    delivery = json.loads((HERE / "DELIVERY.json").read_text())
+    assert sha((HERE / "EVIDENCE.zip").read_bytes()) == delivery["archiveSHA256"]
+    with zipfile.ZipFile(HERE / "EVIDENCE.zip") as z:
+        assert set(z.namelist()) == {r["path"] for r in delivery["members"]}
+        for r in delivery["members"]:
+            raw = z.read(r["path"])
+            assert len(raw) == r["bytes"] and sha(raw) == r["sha256"]
+        get = lambda p: z.read("candidate/" + p)
+        launch = json.loads(get("LAUNCH.json"))
+        assert sha(get("FREEZE.json")) == launch["freezeSHA256"]
+        for row in launch["order"]:
+            relative = str(Path(row["plan"]).parent.name) + "/plan.json"
+            assert sha(get(relative)) == row["sha256"]
+            receipt = json.loads(get(relative.replace("plan.json", "receipt.json")))
+            assert receipt["planSHA256"] == row["sha256"]
+            assert not receipt.get("guardFailures", [])
+            assert all(c["exit"] == 0 and c["failure"] is None for c in receipt["commands"])
+        original = "INLINE u64 heap_alloc(Env e, u32 cls) {"
+        changed = "#if DEVICE\n" + original + "\n#else\nFAR u64 heap_alloc(Env e, u32 cls) {\n#endif"
+        for current, baseline in [("derived.c", "baseline.c"), ("compiler/candidate.mjs", "baseline-compiler.mjs")]:
+            text = get(current).decode()
+            assert text.count(changed) == 1
+            assert text.replace(changed, original).encode() == z.read("dependencies/" + baseline)
+        for role in ["inline-control01", "far-control01"]:
+            assert get(role + "/consumer.stdout") == get("expected.stdout")
+        plan = json.loads(get("full-native01/plan.json"))
+        raw = get("full-native01/consumer.stdout")
+        assert raw == gzip.decompress(z.read("dependencies/" + plan["oracle"].lstrip("/")))
+        assert len(raw) == 226096 and sha(raw) == plan["oracleSHA256"]
+        result = json.loads(get("RESULT.json"))
+        assert sha(get("RESULT.json")) == delivery["resultSHA256"]
+        assert sha(get("full-native01/scenario.native")) == result["binarySHA256"]
+        assert result["status"] == "DERIVED_C_FULL_NATIVE_ORACLE_PASS"
+    print(json.dumps({"status": "PASS_RETAINED_DERIVED_C_NATIVE_ONLY", "members": len(delivery["members"])}))
+
+if __name__ == "__main__":
+    main()

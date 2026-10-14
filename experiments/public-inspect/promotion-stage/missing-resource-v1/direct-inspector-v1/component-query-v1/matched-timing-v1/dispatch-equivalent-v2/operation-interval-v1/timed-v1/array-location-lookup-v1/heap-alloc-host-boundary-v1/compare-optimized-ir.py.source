@@ -1,0 +1,46 @@
+"""Gate the finite heap helper inlining mechanism, not a speed estimate."""
+from pathlib import Path
+from collections import Counter
+import hashlib
+import json
+import re
+
+HERE = Path(__file__).resolve().parent
+
+def inspect(path):
+    functions = {}
+    active = None
+    for line in path.read_text().splitlines():
+        if line.startswith("define "):
+            name = re.search(r"@([A-Za-z_][A-Za-z_0-9.]*)\(", line).group(1)
+            active = {"opcodes": Counter(), "heapAllocCalls": 0, "lines": []}
+            functions[name] = active
+        elif active is not None and line == "}":
+            active["instructionSHA256"] = hashlib.sha256("\n".join(active.pop("lines")).encode()).hexdigest()
+            active["opcodes"] = dict(sorted(active["opcodes"].items()))
+            active = None
+        elif active is not None:
+            text = re.sub(r"^%[^ ]+ = ", "", line.strip())
+            match = re.match(r"(?:musttail |tail |notail )?([a-z][a-z0-9_]*)\b", text)
+            if match:
+                active["opcodes"][match.group(1)] += 1
+                active["lines"].append(line)
+                if re.search(r"@heap_alloc(?:\.[A-Za-z_0-9.]+)?\(", line):
+                    active["heapAllocCalls"] += 1
+    for name in ["case_fixed", "case_dynamic"]:
+        assert name in functions
+    return {name: row for name, row in functions.items() if name in ["case_fixed", "case_dynamic"] or name.startswith("heap_alloc")}
+
+def main():
+    rows = {role: inspect(HERE / (role + "-ir01") / "frontend.ll") for role in ["inline", "far"]}
+    reached = all(rows["inline"][name]["heapAllocCalls"] == 0 and rows["far"][name]["heapAllocCalls"] > 0
+                  for name in ["case_fixed", "case_dynamic"])
+    result = {"status": "MECHANISM_PASS" if reached else "MECHANISM_NOT_ESTABLISHED",
+              "functions": rows, "scope": "Actualoptimized tinyIR only: constant/dynamicclass fastpath inlining boundary. No wholeworld dominance, CPU timing, speed, allocation or Nativeacceptance claim."}
+    (HERE / "MECHANISM.json").write_text(json.dumps(result, indent=2) + "\n")
+    print(json.dumps(result))
+    if not reached:
+        raise SystemExit(1)
+
+if __name__ == "__main__":
+    main()

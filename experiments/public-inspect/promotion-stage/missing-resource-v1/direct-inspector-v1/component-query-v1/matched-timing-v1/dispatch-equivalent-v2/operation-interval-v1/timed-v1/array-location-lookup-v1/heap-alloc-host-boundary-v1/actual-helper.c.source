@@ -1,0 +1,9 @@
+INLINE u64 heap_alloc(Env e, u32 cls) {
+  u64 h = ALC_AT(e, cls);
+  if (h) {
+    ALC_AT(e, cls)   = e.mem[h];
+    ALC_LEN(e, cls) -= 1ull << cls;
+    return h;
+  }
+  return heap_alloc_miss(e, cls);
+}
