@@ -29,3 +29,18 @@ A reproducible console simulation spawns entities, moves them toward a goal, app
 - Use before/after JS call and allocation profiles for a consequential performance change; report allocation sampling separately from physical/RSS memory. Optimize demonstrated bottlenecks while completing features. The scoped #30 amendment is not a global gate waiver; full performance remains under #21/#23/#24.
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
+
+## Current retained delivery — 2026-10-14
+
+[Ordinary v7 evidence](../../experiments/public-simulation/delivery-v1/ordinary-evidence-v7/evidence-v7/README.md)
+is integrated at `c003fcd91`: actual TS/JS/ordinary Native consumers, complete
+two-schema fourteen-phase reports, and reached hit/death omission controls pass.
+The 871-member portable verifier and independent final Spec/Standards review pass.
+Original failed collectors remain INCOMPLETE; hit is separately validated from
+retained output, while the corrected death successor completed its consumer.
+
+The unchanged current-source Workshop #28 gate passes, but does not establish
+simulation speed. V7 JS/C artifacts are byte-identical to the earlier qualified
+timer artifacts. Historical scale1 simulation timing shows JS/TS median 3.371
+and Native/TS 0.0624; these remain scoped observations, not full performance
+acceptance. Timing/scaling and complete issue acceptance remain open.
