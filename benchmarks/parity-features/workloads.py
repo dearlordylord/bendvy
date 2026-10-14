@@ -50,12 +50,14 @@ def nested_ts(source):
 
 def bend_entry(feature, batches):
     imports = 'import Base\nimport ./timing.bend as Bench\n'
-    if feature == 'scopes':
-        imports += 'import ../experiments/public-scopes/feature-timing-v1/main.bend as ScopeScenario\n'
+    if feature in {'scopes', 'inspect-runtime'}:
+        directory = {'scopes': 'public-scopes/feature-timing-v1', 'inspect-runtime': 'public-inspect/graph-stream-public-bridge-v1/feature-timing-v1'}[feature]
+        alias = 'ScopeScenario' if feature == 'scopes' else 'InspectorScenario'
+        imports += f'import ../experiments/{directory}/main.bend as {alias}\n'
         return imports + f'''def captured(text:String) -> IO(Unit):
   IO.bind(Unit,Unit,Bench.capture(text),u => Bench.end())
 def main() -> IO(Unit):
-  IO.bind(Unit,Unit,Bench.begin(),u => IO.bind(String,Unit,ScopeScenario.run({batches}n),captured))
+  IO.bind(Unit,Unit,Bench.begin(),u => IO.bind(String,Unit,{alias}.run({batches}n),captured))
 '''
     if feature == 'nested':
         imports += 'import ../experiments/public-nested-provision/app.bend as A\nimport ../experiments/public-nested-provision/other.bend as B\n'

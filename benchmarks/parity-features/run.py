@@ -16,7 +16,7 @@ def telemetry(cpu):
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--features',nargs='+',choices=['nested','readers','fragments','scopes'],default=['nested','readers','fragments']);parser.add_argument('--stage',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True)
+    parser.add_argument('--features',nargs='+',choices=['nested','readers','fragments','scopes','inspect-runtime'],default=['nested','readers','fragments']);parser.add_argument('--stage',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True)
     parser.add_argument('--semantic-receipt',type=pathlib.Path,required=True)
     parser.add_argument('--quiet-window',required=True,help='Integrator-established quiet-window evidence/context; not an automatic noise threshold')
     parser.add_argument('--cpu',type=int,required=True)
@@ -36,6 +36,7 @@ def main():
         return region
     try:
         assert 'scopes' not in args.features or harness.staged.get('scopes',False), 'Scope suite was not staged'
+        assert 'inspect-runtime' not in args.features or harness.staged.get('inspectRuntime',False), 'Runtime Inspector suite was not staged'
         for feature in args.features:
             for batches in [1,2,4]:
                 name=feature+'-'+str(batches);commands=harness.build(name)

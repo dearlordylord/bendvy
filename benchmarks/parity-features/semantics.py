@@ -8,11 +8,12 @@ fnv=timer_preflight.fnv
 from validate import validate
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--features',nargs='+',choices=['nested','readers','fragments','scopes'],default=['nested','readers','fragments']);parser.add_argument('--stage',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--features',nargs='+',choices=['nested','readers','fragments','scopes','inspect-runtime'],default=['nested','readers','fragments']);parser.add_argument('--stage',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args()
     harness=Harness(args.stage,args.output)
     harness.receipt['scope']='Full repeated feature observations; timer fields validate protocol only, no comparative timing or performance verdict'
     try:
         assert 'scopes' not in args.features or harness.staged.get('scopes',False), 'Scope suite was not staged'
+        assert 'inspect-runtime' not in args.features or harness.staged.get('inspectRuntime',False), 'Runtime Inspector suite was not staged'
         for feature in args.features:
             # Two successive lifecycles exercise fresh output/registration/cursor state.
             name=feature+'-2';commands=harness.build(name)

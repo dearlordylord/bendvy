@@ -13,9 +13,15 @@ def main():
     parser.add_argument('--output', type=pathlib.Path, required=True)
     parser.add_argument('--nested-spawn', action='store_true', help='Reviewed actual spawn+public allocator probe+barrier observations')
     parser.add_argument('--scopes', action='store_true', help='Include the complete matched lifetime-scope IO suite')
+    parser.add_argument('--inspect-runtime', action='store_true', help='Include the complete matched runtime Inspector IO suite')
     args = parser.parse_args()
     assert not args.output.exists(), 'Stage must be fresh'
     sources, external = preflight.snapshot(), preflight.external()
+    if args.inspect_runtime:
+        directory = 'experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1'
+        required = [f'{directory}/main.bend', f'{directory}/reference.mjs']
+        required += [f'{directory}/independent-oracle-v1/expected-scale-{scale}.stdout' for scale in [1, 2, 4]]
+        assert all(name in sources for name in required), 'Runtime Inspector fixture and complete scale oracles must be frozen before staging'
     args.output.mkdir(parents=True)
     stage = args.output / 'stage'
     stage.mkdir()
@@ -81,8 +87,21 @@ def main():
             name = f'scopes-{batches}'
             (harness / (name + '.bend')).write_text(workloads.bend_entry('scopes', batches))
             (harness / (name + '.mjs')).write_text(f"import {{timed}} from './capture.mjs';\nimport {{run}} from '../experiments/public-scopes/feature-timing-v1/reference.mjs';\nawait timed(async()=>{{console.log(run({batches}));}});\n")
+    if args.inspect_runtime:
+        directory = 'public-inspect/graph-stream-public-bridge-v1/feature-timing-v1'
+        reference = stage / 'experiments' / directory / 'reference.mjs'
+        assert reference.is_file(), 'Runtime Inspector adapter must be integrated before staging'
+        before = preflight.digest(reference)
+        old = "'" + str(ROOT / '.references/bevy-ts/packages/core/src/index.ts') + "'"
+        # The integrated reference already resolves the pinned canonical API.
+        assert reference.read_text().count(old) == 1, 'Runtime Inspector canonical TS import drift'
+        changes[str(reference.relative_to(stage))] = {'before': before, 'after': before, 'purpose': 'Retain pinned canonical TS API and complete callable lifecycle'}
+        for batches in [1, 2, 4]:
+            name = f'inspect-runtime-{batches}'
+            (harness / (name + '.bend')).write_text(workloads.bend_entry('inspect-runtime', batches))
+            (harness / (name + '.mjs')).write_text(f"import {{timed}} from './capture.mjs';\nimport {{run}} from '../experiments/{directory}/reference.mjs';\nawait timed(async()=>{{console.log(run({batches}));}});\n")
     assert sources == preflight.snapshot() and external == preflight.external(), 'Live source drift'
-    receipt = {'status': 'STAGED_REVIEW_REQUIRED_NO_EXECUTION', 'sources': sources, 'external': external, 'intentionalAdaptations': changes, 'stageInventory': inventory(stage), 'scales': [1, 2, 4], 'nestedSpawn':args.nested_spawn, 'scopes':args.scopes, 'noticeCacheObserved':preflight.notice_cache(), 'timingScope': 'Full callable lifecycle; static imports/process startup and output flush excluded; no performance verdict'}
+    receipt = {'status': 'STAGED_REVIEW_REQUIRED_NO_EXECUTION', 'sources': sources, 'external': external, 'intentionalAdaptations': changes, 'stageInventory': inventory(stage), 'scales': [1, 2, 4], 'nestedSpawn':args.nested_spawn, 'scopes':args.scopes, 'inspectRuntime':args.inspect_runtime, 'noticeCacheObserved':preflight.notice_cache(), 'timingScope': 'Full callable lifecycle; static imports/process startup and output flush excluded; no performance verdict'}
     (args.output / 'stage.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps({'status': receipt['status'], 'output': str(args.output)}))
 

@@ -44,6 +44,11 @@ def supplement(block):
     return expected
 
 def validate(feature, backend, text, batches,nested_spawn=False):
+    if feature == 'inspect-runtime':
+        assert batches in {1,2,4}, 'Unsupported runtime Inspector scale'
+        expected = ROOT / 'experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/independent-oracle-v1' / f'expected-scale-{batches}.stdout'
+        assert text == expected.read_text(), 'Complete matched runtime Inspector observation mismatch'
+        return
     if feature == 'scopes':
         assert batches in {1,2,4}, 'Unsupported scope scale'
         expected = ROOT / 'experiments/public-scopes/feature-timing-v1/independent-oracle-v1' / f'expected-scale-{batches}.stdout'
