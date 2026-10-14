@@ -565,3 +565,12 @@ commands. Direct, frame and bridge instruction hashes/counts are identical;
 removing names does not remove their prologue allocas/stores. This finite
 mechanism test rejects the unused-name factor and prevents another unchanged
 whole-world attempt. It does not establish general compile-time causation.
+
+The heap_alloc mechanism controls passed hot/miss state/output equality and
+showed optimized caller IR reductions (21→3 and 26→4 instructions), with a
+shared 24-instruction helper. The conditional full ordinary O3 build/runtime
+then passed the unchanged 226,096-byte oracle (`693d1158`). This qualifies saved
+derived C, not regeneration or runtime speed. Tiny TU split/monolithic outputs
+also match; its configured hook required static sparse-fixture reconciliation
+after two missing-input failures. Broader TU work is held while the simpler
+source-regeneration path is pursued. No overall delivery-speed claim follows.

@@ -1,0 +1,11 @@
+97:   && defined(__OPTIMIZE__)
+98: #define PRESERVE(A) __attribute__((A))
+99: #else
+100: #define PRESERVE(A)
+101: #endif
+120: #define WL_FN      static PRESERVE(preserve_none) __attribute__((noinline)) Term
+123: #define WL_JMP(F)  __attribute__((musttail)) return WL_##F(WL_ALL)
+124: #define WL_DYN(F)  __attribute__((musttail)) return wl_tab[F](WL_ALL)
+10251: #define WL_SIG Env e, DEV Term* sp, u32 seq, u32 rn, Term r0, Term r1, Term r2, Term r3, Term r4, Term r5, Term rp, Term r6, Term r7, Term r8, Term r9, Term r10, Term r11, Term r12, Term r13, Term r14, Term r15, Term r16, Term r17, Term r18, Term r19, Term r20, Term r21, Term r22, Term r23, Term r24, Term r25, Term r26, Term r27, Term r28, Term r29, Term r30, Term r31, Term r32, Term r33, Term r34, Term r35, Term r36, Term r37, Term r38, Term r39, Term r40
+10253: #define WL_ALL e, sp, seq, rn, r0, r1, r2, r3, r4, r5, rp, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15, r16, r17, r18, r19, r20, r21, r22, r23, r24, r25, r26, r27, r28, r29, r30, r31, r32, r33, r34, r35, r36, r37, r38, r39, r40
+126641: typedef Term (PRESERVE(preserve_none) *WlFn)(WL_SIG);
