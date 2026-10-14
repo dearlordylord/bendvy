@@ -1,0 +1,12 @@
+"""Deterministically materialize expected.json from model.py.source."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent
+namespace: dict[str, object] = {}
+source = (ROOT / "model.py.source").read_text(encoding="utf-8")
+exec(compile(source, str(ROOT / "model.py.source"), "exec"), namespace)
+(ROOT / "expected.json").write_bytes(namespace["expected_bytes"]())

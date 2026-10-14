@@ -1,0 +1,17 @@
+{
+  "schema": "Scene",
+  "creation": "Actual canonical WorldIO through current scoped provision",
+  "sequence": [
+    "spawn unscoped Payload2 as id1; commit/barrier; observe baseline",
+    "reserve scoped Payload99 as id2, then finish transaction Failure; observe aborted world with no active membership/pending payload",
+    "in same new transaction reserve scoped Payload3 as id3 THEN stage scope cleanup; commit; observe after-pending",
+    "barrier executes scoped activation/population before cleanup; cleanup resolves membership at actual queue position and removes id3; observe after-cleaned",
+    "canonical query reads unscoped survivor id1 Payload2 and full returned query World/registry"
+  ],
+  "oracle": "Complete current frontend fixture/Front.query_defined renderer and exact transaction allocator/cancel semantics, not assumed reset of nextId",
+  "limits": [
+    "Abort uses existing command/transaction ownership disposition, not payload recovery/finalizer claim",
+    "No ID reuse/generation adoption; aborted exposed reservation remains historical allocator behavior",
+    "No performance/universal proof claim"
+  ]
+}

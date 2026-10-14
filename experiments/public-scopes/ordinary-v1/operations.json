@@ -1,0 +1,156 @@
+{
+  "contract": "Issue45 ordinary deferred scope cleanup using approved Issue44 linked closure; no immunity/finalizer policy",
+  "schema": "Scene",
+  "worldCreation": "trusted pure setup namespace1; actual IO independent-world authority follows after initial consumer",
+  "resource": [
+    77,
+    88
+  ],
+  "scope": {
+    "namespace": 1,
+    "name": "scene"
+  },
+  "spawns": [
+    {
+      "id": 1,
+      "scope": "scene",
+      "payload": {
+        "first": [
+          1
+        ],
+        "second": [
+          11,
+          21
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "scope": null,
+      "payload": {
+        "first": [
+          2
+        ],
+        "second": [
+          12,
+          22
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "scope": null,
+      "payload": {
+        "first": [
+          3
+        ],
+        "second": [
+          13,
+          23
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "scope": null,
+      "payload": {
+        "first": [
+          4
+        ],
+        "second": [
+          14,
+          24
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "scope": "scene",
+      "payload": {
+        "first": [
+          5
+        ],
+        "second": [
+          15,
+          25
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "scope": null,
+      "payload": {
+        "first": [
+          6
+        ],
+        "second": [
+          16,
+          26
+        ]
+      }
+    }
+  ],
+  "relations": [
+    {
+      "key": 2,
+      "name": "Parent",
+      "inverseName": "Children",
+      "kind": "Hierarchy",
+      "source": 2,
+      "target": 1
+    },
+    {
+      "key": 2,
+      "name": "Parent",
+      "inverseName": "Children",
+      "kind": "Hierarchy",
+      "source": 4,
+      "target": 2
+    },
+    {
+      "key": 1,
+      "name": "Link",
+      "inverseName": "LinkedBy",
+      "kind": "Ordinary",
+      "source": 3,
+      "target": 1
+    }
+  ],
+  "steps": [
+    "queueSixSpawnsAndThreeRelations",
+    "observePendingSpawn",
+    "barrier",
+    "observeSpawned",
+    "queueSceneCleanup",
+    "observePendingCleanup",
+    "barrier",
+    "observeCleaned",
+    "queueSceneCleanupAgain",
+    "barrier",
+    "observeRepeated"
+  ],
+  "observed": [
+    "label",
+    "namespace",
+    "nextId",
+    "highWater",
+    "capacity",
+    "depth",
+    "liveIds",
+    "allComponentPayloadRows",
+    "scopeMembers",
+    "fullRelationEdges",
+    "fullInverseRows",
+    "resource",
+    "completeRemovalAndDespawnEvents",
+    "pendingCount",
+    "registrations",
+    "nextSystemId",
+    "clock"
+  ],
+  "eventContract": "Existing #44 F.clear retires actual affine Payload exactly once in reverse removal order; emits ComponentRemoved{id}, then F.record emits Original{id} as despawn marker; linked postorder4,2,1 then unlinked5. Repeated/stale selected IDs publish nothing. No Rust Drop claim.",
+  "output": "JSON array five {label,world} rows; world is exact full existing #44 physical observer string with appended /scopes= List of name:id; complete binary arrays/live/store/removed/graph/inverses/resources/events/pending/registrations/clock retained. F.show_* unchanged except wrapping Sc.Store and adding scopes.",
+  "registration": [],
+  "nextSystemId": 1,
+  "clock": 0
+}

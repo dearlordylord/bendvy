@@ -1,0 +1,190 @@
+"""Source-derived Issue #45 ordinary-scope oracle.
+
+This model is deliberately independent of the future consumer. It derives the
+five observations from operations.json and the existing World, transaction,
+relation-graph, and linked-cleanup rules. No runtime output is read.
+"""
+
+from __future__ import annotations
+
+import json
+from typing import Iterable
+
+
+NAMESPACE = 1
+NEXT_ID = 7
+HIGH_WATER = 6
+CAPACITY = 8
+DEPTH = 3
+RESOURCE = [77, 88]
+NEXT_SYSTEM_ID = 1
+CLOCK = 0
+
+ALL_IDS = tuple(range(1, 7))
+SLOT_IDS = tuple(range(1, 9))
+LIVE_SCAN_IDS = tuple(range(16))
+
+PARENT = "2:Parent:Children:hierarchy"
+LINK = "1:Link:LinkedBy:ordinary"
+
+
+def payload_values(entity: int) -> list[int]:
+    """Flatten the two payload arrays in the #44 observer order."""
+
+    return [entity, entity + 10, entity + 20]
+
+
+def show_values(values: Iterable[int]) -> str:
+    return "".join(f"{value}," for value in values)
+
+
+def owner_slots(live_ids: Iterable[int]) -> str:
+    live = set(live_ids)
+    rows: list[str] = []
+    for entity in SLOT_IDS:
+        rows.append(show_values(payload_values(entity)) if entity in live else "absent")
+    return ";".join(rows) + ";"
+
+
+def removed_slots(removed_ids: Iterable[int]) -> str:
+    return "".join(f"{show_values(payload_values(entity))};" for entity in removed_ids)
+
+
+def show_sources(sources: Iterable[int]) -> str:
+    return show_values(sources)
+
+
+def graph_text(has_edges: bool) -> str:
+    if not has_edges:
+        return "graph-edges=|graph-inverses="
+    edges = (
+        f"{PARENT}:2:1;"
+        f"{PARENT}:4:2;"
+        f"{LINK}:3:1;"
+    )
+    inverses = (
+        f"{PARENT}:1:[{show_sources([2])}];"
+        f"{PARENT}:2:[{show_sources([4])}];"
+        f"{LINK}:1:[{show_sources([3])}];"
+    )
+    return f"graph-edges={edges}|graph-inverses={inverses}"
+
+
+def live_text(live_ids: Iterable[int]) -> str:
+    live = set(live_ids)
+    return "".join("1," if entity in live else "0," for entity in LIVE_SCAN_IDS)
+
+
+def event_text(removed_ids: Iterable[int]) -> str:
+    events: list[str] = []
+    for entity in removed_ids:
+        events.extend((f"Removed:{entity}", f"Original:{entity}"))
+    return ";".join(events) + (";" if events else "")
+
+
+def scope_text(scope_ids: Iterable[int]) -> str:
+    return "".join(f"scene:{entity}," for entity in scope_ids)
+
+
+def world(
+    *,
+    live_ids: Iterable[int],
+    removed_ids: Iterable[int],
+    has_edges: bool,
+    pending: int,
+    scope_ids: Iterable[int],
+    events_from: Iterable[int],
+) -> str:
+    """Render the physical #44 observer string plus the scope projection.
+
+    The owner-specific store wrapper places its retained removed-owner list
+    immediately after the ordinary component slots. The remaining segments
+    retain #44 ordering; ``scopes`` is the final wrapper segment.
+    """
+
+    return (
+        f"{owner_slots(live_ids)}"
+        f"|removed={removed_slots(removed_ids)}"
+        "|stamps="
+        f"|events={event_text(events_from)}"
+        f"|meta={NAMESPACE},{NEXT_ID},{HIGH_WATER},{CAPACITY},{DEPTH},"
+        f"{show_values(RESOURCE)},{NEXT_SYSTEM_ID},{CLOCK}"
+        "|registrations="
+        f"|pending={pending}"
+        f"|edges={graph_text(has_edges)}"
+        f"|live={live_text(live_ids)}"
+        f"|resource-all={show_values(RESOURCE)}"
+        f"|scopes={scope_text(scope_ids)}"
+    )
+
+
+def expected_rows() -> list[dict[str, str]]:
+    """Return the complete five-state JSON array in operation order."""
+
+    return [
+        {
+            "label": "pending-spawn",
+            "world": world(
+                live_ids=(),
+                removed_ids=(),
+                has_edges=False,
+                pending=9,
+                scope_ids=(),
+                events_from=(),
+            ),
+        },
+        {
+            "label": "spawned",
+            "world": world(
+                live_ids=ALL_IDS,
+                removed_ids=(),
+                has_edges=True,
+                pending=0,
+                scope_ids=(1, 5),
+                events_from=(),
+            ),
+        },
+        {
+            "label": "pending-cleanup",
+            "world": world(
+                live_ids=ALL_IDS,
+                removed_ids=(),
+                has_edges=True,
+                pending=1,
+                scope_ids=(1, 5),
+                events_from=(),
+            ),
+        },
+        {
+            "label": "cleaned",
+            "world": world(
+                live_ids=(3, 6),
+                removed_ids=(5, 1, 2, 4),
+                has_edges=False,
+                pending=0,
+                scope_ids=(),
+                events_from=(4, 2, 1, 5),
+            ),
+        },
+        {
+            "label": "repeated",
+            "world": world(
+                live_ids=(3, 6),
+                removed_ids=(5, 1, 2, 4),
+                has_edges=False,
+                pending=0,
+                scope_ids=(),
+                events_from=(4, 2, 1, 5),
+            ),
+        },
+    ]
+
+
+def expected_bytes() -> bytes:
+    return (json.dumps(expected_rows(), ensure_ascii=False, indent=2) + "\n").encode()
+
+
+if __name__ == "__main__":
+    import sys
+
+    sys.stdout.buffer.write(expected_bytes())

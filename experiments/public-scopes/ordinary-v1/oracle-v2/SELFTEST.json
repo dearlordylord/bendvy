@@ -1,0 +1,16 @@
+{
+  "model": "model.py.source",
+  "regenerator": "regenerate.py.source",
+  "expected": "expected.json",
+  "transport": "expected.stdout.gz",
+  "checks": [
+    "operations.json is loaded and its six spawn payloads, two scoped members, three relations, and resource are asserted",
+    "allocator translation yields nextId=7, highWater=6, capacity=8, depth=3",
+    "exact labels are pending-spawn, spawned, pending-clean, cleaned, repeated-clean",
+    "each row contains the source fixture world= namespace/allocator/live-tree/capacity/depth/store/resource/events/pending/regs/nextSystem/clock ordering",
+    "fixture List.show comma-space formatting, binary Array L/N trees, graph/inverse rows, removed payload order, and event order are self-checked",
+    "expected.json and expected.stdout are regenerated only from model.py.source and source-pinned operations",
+    "expected.stdout.gz is deterministic gzip of expected.stdout",
+    "no consumer output, runtime output, backend execution, or candidate output was consulted"
+  ]
+}

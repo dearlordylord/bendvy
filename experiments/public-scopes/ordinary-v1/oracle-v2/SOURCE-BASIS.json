@@ -1,0 +1,72 @@
+{
+  "scope": "Issue45 ordinary-v1 source-matched physical renderer oracle successor",
+  "sourceOnly": true,
+  "runtimeOutputConsulted": false,
+  "predecessor": {
+    "path": "experiments/public-scopes/ordinary-v1/oracle",
+    "commit": "bd2b5b6aeaa6309eb027acd74fca92091906311c",
+    "status": "preserved historical proposal; not used as this model's output basis"
+  },
+  "sourcePins": {
+    "experiments/public-scopes/ordinary-v1/main.bend": "718da0733785f0e1e2f76b7f5536aa15afe33b7ee14b9abdafcc10a5555ff774",
+    "experiments/public-scopes/ordinary-v1/fixture.bend": "5916d4afc35d2d4be4251ec71d17d507c258b146cea98e73d6c1628b77f98d81",
+    "experiments/public-scopes/ordinary-v1/operations.json": "599790bbeb768d24e18991d46ebf61be929a3067f59ace10a3587feb50100372",
+    "src/ecs/lifetime-scope.bend": "d33d25f960bdfc6a30c06588f755c9f4229376a051fe5e5c580206eb25983bb5",
+    "src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/relation-types.bend": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+    "src/ecs/relation-graph.bend": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+    "src/ecs/relation-commands.bend": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+    "src/ecs/relation-cleanup.bend": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3",
+    "src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723"
+  },
+  "externalImports": {
+    "Base": {
+      "resolution": "Pinned Bend standard library resolved by the configured Bend compiler; no repository Base file is imported by this consumer",
+      "sourceIdentity": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+      "relevantDefinitions": ["Array.new", "Array.swap", "Array.set", "Bool.show", "List.show", "Nat.show", "U32.show"]
+    }
+  },
+  "importClosure": {
+    "directConsumer": [
+      "Base",
+      "src/ecs/lifetime-scope.bend",
+      "src/ecs/world.bend",
+      "src/ecs/commands.bend",
+      "src/ecs/transaction.bend",
+      "src/ecs/relation-commands.bend",
+      "experiments/public-scopes/ordinary-v1/fixture.bend"
+    ],
+    "renderer": [
+      "fixture.tree/leaf/tree_left/tree_right",
+      "fixture.show_payload/show_slot/show_removed/show_components",
+      "fixture.show_graph/show_edge/show_inverse/show_store",
+      "fixture.live_done/live_observe/resource_observed/store_observed/pending_observed/observe"
+    ],
+    "transitiveSourceFiles": [
+      "src/ecs/relation-types.bend",
+      "src/ecs/relation-graph.bend",
+      "src/ecs/relation-cleanup.bend",
+      "src/ecs/string-equality.bend"
+    ]
+  },
+  "derivation": {
+    "allocation": "World.create starts namespace 1, nextId 1, capacity 1, depth 0. Six reserve_id calls grow capacity 1->2->4->8 and depth 0->3, yielding nextId 7 and highWater 6; Array.set indexes retain slot/live index 0 as the sentinel.",
+    "pendingSpawn": "main.bend stages six spawn commands and three relation commands before the first observation; tx_finish enqueues the commands and pending_count therefore renders 9. The first barrier activates the six spawns and then the three relations.",
+    "renderer": "fixture.tree preserves the source binary array shape and uses L(value)/N(left,right). Base.List.show supplies comma-space separators. show_store appends /removed, /graph, and /scopes; live_done then appends resource, events, pending, regs, nextSystem, and clock in source order.",
+    "relations": "relation-graph appends the three edges in operation order and creates inverse rows for Parent target 1, Parent target 2, and Link target 1. Linked cleanup traverses the hierarchy postorder 4,2,1 before the second scoped member 5; unrelating the ordinary edge leaves no graph rows.",
+    "owners": "F.clear swaps each selected component slot to None, prepends the actual Payload to Components.removed, and emits ComponentRemoved. F.record then emits Original. The resulting removed list is [5,1,2,4] and event order is removed/original for 4,2,1,5.",
+    "labels": "main.bend observes pending-spawn, spawned, pending-clean, cleaned, and repeated-clean. The repeated cleanup queues one no-op command against the now-empty scope and leaves the cleaned world unchanged.",
+    "transport": "main.bend calls IO.print exactly once, so expected.stdout is the compact JSON array followed by one terminal LF; expected.stdout.gz is deterministic gzip of those bytes."
+  },
+  "generatedArtifacts": {
+    "model.py.source": "23254faba51625a0525a64f75ebe47fd13d759cc50e98ee6f7d0db21eb9479ea",
+    "regenerate.py.source": "a647f3b2fcfc0da951d131bdaa0582c4ed6bf79eeb18c1b057a4aa8733b60ee6",
+    "selftest.py.source": "45591b7ec65f598dc5b8c5c5a21b31f73f0bcec1373b00d99164001e3ae3a554",
+    "expected.json": "e0bb2a098f424ecfb154817525379caeec54e98720728fcbeb4d5d6783d8b2b0",
+    "expected.stdout": "e0bb2a098f424ecfb154817525379caeec54e98720728fcbeb4d5d6783d8b2b0",
+    "expected.stdout.gz": "5b5395506025eb1916a26ef24e741aa51cea2a0ff2e410ec669d469381c1c9bd"
+  },
+  "limitations": "Finite six-entity source translation only. It does not claim runtime/compiler equivalence, foreign-world behavior, Rust Drop behavior, IO authority beyond the source call shape, or any broader lifetime policy."
+}

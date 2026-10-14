@@ -1,0 +1,20 @@
+{
+  "schema": "Scene",
+  "worldCreation": "canonical WorldIO via adapted canonical schema provision",
+  "sequence": [
+    "register scoped spawn P1; commit",
+    "enqueue unscoped P2 using canonical World-facing Cmp.replace population; commit",
+    "observe pending-spawn",
+    "barrier; observe spawned",
+    "register cleanup; execute failure; observe actual failed World and retained registry cursor",
+    "barrier; retry same cleanup registry success; observe pending-cleanup",
+    "barrier; observe cleaned",
+    "register canonical component survivor query; execute; observe values plus full returned World and registry"
+  ],
+  "boundaries": [
+    "spawn registry owner not retained; no disposal/unregister claim",
+    "cleanup failure output is Data QueueStatus; no failed arbitrary-Out recovery claim",
+    "canonical Clear disposition not IO/RustDrop",
+    "one schema/one actual IO-created world; second schema/foreign/order/mutant/type gates remain"
+  ]
+}

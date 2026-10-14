@@ -1,0 +1,50 @@
+"""Deterministic source-only self-test for deferred-after-v1."""
+
+from __future__ import annotations
+
+import gzip
+import io
+import json
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent
+model_path = ROOT / "model.py.source"
+namespace: dict[str, object] = {"__file__": str(model_path)}
+source = model_path.read_text(encoding="utf-8")
+exec(compile(source, str(model_path), "exec"), namespace)
+
+document = namespace["expected_document"]()
+payload = namespace["expected_bytes"]()
+assert [row["label"] for row in document["snapshots"]] == [
+    "baseline",
+    "aborted",
+    "after-pending",
+    "after-cleaned",
+]
+assert len(document["snapshots"]) == 4
+assert set(document) == {"snapshots", "query", "after-query"}
+assert document["query"] == ["P(L(2),N(L(12),L(22)))"]
+assert document["snapshots"][0]["world"].startswith("world=1,2,1,N(L(False),L(True)),2,1/")
+assert "/pending=0/regs=[]/nextSystem=1/clock=1" in document["snapshots"][0]["world"]
+assert document["snapshots"][1]["world"].startswith("world=1,3,2,N(N(L(False),L(True)),N(L(False),L(False))),4,2/")
+assert "/pending=0/regs=[]/nextSystem=1/clock=1" in document["snapshots"][1]["world"]
+assert document["snapshots"][2]["world"].startswith("world=1,4,3,N(N(L(False),L(True)),N(L(False),L(False))),4,2/")
+assert "/pending=2/regs=[]/nextSystem=1/clock=1" in document["snapshots"][2]["world"]
+assert "N(N(L(P(L(2),N(L(12),L(22)))),L(absent)),N(L(absent),L(absent)))" in document["snapshots"][3]["world"]
+assert "/scopes=[]/resource=Unit/events=[removed:3, original:3]/pending=0/" in document["snapshots"][3]["world"]
+assert "/stamps=[1:1:1]/" in document["snapshots"][3]["world"]
+assert document["after-query"]["owner"] == "1:1:survivors:[Payload]:2"
+assert "/regs=[1:survivors:[Payload]]/nextSystem=2/clock=2" in document["after-query"]["world"]
+assert json.loads(payload) == document
+assert payload.endswith(b"\n")
+assert (ROOT / "expected.json").read_bytes() == payload
+assert (ROOT / "expected.stdout").read_bytes() == payload
+assert gzip.decompress((ROOT / "expected.stdout.gz").read_bytes()) == payload
+
+compressed = io.BytesIO()
+with gzip.GzipFile(fileobj=compressed, mode="wb", filename="", mtime=0) as stream:
+    stream.write(payload)
+assert compressed.getvalue() == (ROOT / "expected.stdout.gz").read_bytes()
+
+print(json.dumps({"status": "PASS", "snapshots": 4, "bytes": len(payload), "runtimeOutputConsulted": False}, separators=(",", ":")))

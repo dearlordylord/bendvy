@@ -1,0 +1,37 @@
+{
+  "scope": "Issue45 ordinary deferred scope cleanup",
+  "sourceOnly": true,
+  "runtimeOutputConsulted": false,
+  "operations": {
+    "path": "experiments/public-scopes/ordinary-v1/operations.json",
+    "sha256": "599790bbeb768d24e18991d46ebf61be929a3067f59ace10a3587feb50100372"
+  },
+  "sourcePins": {
+    "src/ecs/lifetime-scope.bend": "d33d25f960bdfc6a30c06588f755c9f4229376a051fe5e5c580206eb25983bb5",
+    "src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+    "src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "src/ecs/relation-types.bend": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+    "src/ecs/relation-graph.bend": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+    "src/ecs/relation-commands.bend": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+    "src/ecs/relation-cleanup.bend": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3",
+    "src/ecs/ordinary-app-linked-cleanup.bend": "496ecd9cac2a1a706464b01534872e8d2ab38299a5def89a00462d5cbbd4355d",
+    "/workspace/formal-proofs/bendvy/experiments/public-hierarchy/public-delivery-v1/observer.bend": "75f33eed3e867a11948ce448f998693a570cd949312c426e7efd4e8a8fc48043",
+    "/workspace/formal-proofs/bendvy/experiments/public-hierarchy/public-delivery-v1/owners.bend": "aa3791a6d8694f9b21e9694aaff4e1401b19c1d101103a98cce34622ea474de9"
+  },
+  "derivation": {
+    "allocation": "Six transaction reservations advance nextId/highWater to 7/6; capacity grows 1->2->4->8 and depth 0->3 before the first observation. IDs remain reserved while spawn commands are pending.",
+    "pendingSpawn": "The first transaction stages six spawn commands and three relation commands, so pendingCount is 9; transaction FIFO executes spawns before relations at the barrier.",
+    "graph": "Edges and inverse rows follow relation-graph append order: Parent 2->1, Parent 4->2, then ordinary Link 3->1. Approved linked cleanup removes hierarchy descendants 4,2,1 and then scoped owner 5, clearing the surviving ordinary Link.",
+    "owners": "The component projection flattens first=[id] followed by second=[id+10,id+20], matching the approved #44 payload projection convention. Cleared slots become absent while the scope wrapper retains removed payloads in reverse clear order [5,1,2,4].",
+    "events": "Each successful clear publishes ComponentRemoved as Removed:id before the record callback publishes Original:id; event history is retained through the repeated observation.",
+    "metadata": "The frozen operation contract fixes resource=[77,88], registrations=[], nextSystemId=1, and clock=0. The observer scans 16 live positions, as in #44, while the component column has eight slots at depth 3."
+  },
+  "assumptionsToReconcileWithConsumerDTO": [
+    "The retained removed-owner projection is rendered as |removed=<flattened payload rows> immediately after the live owner slots.",
+    "The scope wrapper is rendered as the final |scopes=scene:id, list segment.",
+    "pendingCount includes all six spawn and three relation commands staged by the first transaction.",
+    "No registration or explicit clock advance is performed by the frozen pure setup/observation steps."
+  ],
+  "limitations": "This is a finite six-entity, two-relation-family source oracle. It does not claim IO authority, Rust Drop behavior, foreign-world behavior, or runtime/compiler equivalence."
+}

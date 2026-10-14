@@ -1,0 +1,11 @@
+{
+  "normalJS": "/workspace/formal-proofs/bendvy-worktrees/scopes45-lifetime/experiments/public-scopes/frontend-v1/js01/scope.js",
+  "normalJSSHA256": "bee055f6a5fd177cf3c3fe887789cb639f0a73efb574dd951b0abd3038f8016d",
+  "normalReceipt": "/workspace/formal-proofs/bendvy-worktrees/scopes45-lifetime/experiments/public-scopes/frontend-v1/js01/receipt.json",
+  "source": "src/ecs/lifetime-scope.bend:cleanup_observed",
+  "sourceExpression": "cleanup_members(...,members,world,namespace)",
+  "faultExpression": "cleanup_members(...,List.append(&2,U32,members,[2]),world,namespace)",
+  "generatedAnchor": "  return $$$$047$$$047$$$047src$047ecs$047lifetime$045scope$058cleanup_members$1260$(_members_0, _world_0, _namespace_0);",
+  "generatedFault": "  return $$$$047$$$047$$$047src$047ecs$047lifetime$045scope$058cleanup_members$1260$($List$append$(_members_0, {$: \"Cons\", \"head\": 2, \"tail\": {$: \"Nil\"}}), _world_0, _namespace_0);",
+  "boundedScope": "Append known unscoped survivor2 in first frontend fixture to active scope cleanup list; must be caught by complete output/control; no Native or general mutation completeness claim"
+}

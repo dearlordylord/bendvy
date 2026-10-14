@@ -1,0 +1,23 @@
+{
+  "schemas": [
+    "Scene",
+    "Garden"
+  ],
+  "creation": "Three actual canonical WorldIO creations sequentially, two same-schema Scene worlds and Garden",
+  "sequence": [
+    "create Scene world1; obtain scope(scene); observe first-world untouched",
+    "create Scene world2; attempt scope1 spawn with Payload99; require SpawnRejected MissingEntity returning original payload",
+    "attempt scope1 cleanup in same world2 transaction; require A.MissingEntity; finish success and observe unchanged world2 with full returned Payload99",
+    "create Garden; obtain scene scope; stage cleanup first, then scoped Payload1 spawn, then unscoped Payload2 spawn; commit",
+    "observe order-pending; barrier executes FIFO and initial cleanup sees no active membership; observe order-spawned",
+    "stage cleanup now; commit/barrier removes scoped1 only; observe order-cleaned",
+    "canonical ordinary query reads surviving Payload2; full returned post-query World/registry observed"
+  ],
+  "observations": "Complete current frontend fixture renderer and Front.query_defined result, not DTO summaries",
+  "limits": [
+    "no unsafe cross-schema cast; nominal schema is Garden ordinary execution plus separate negative source gate later",
+    "foreign payload explicitly returned from scope request; no general failed body-Out recovery",
+    "one Node realm / linked Native executable; no wrap/concurrent/DSO claim",
+    "no disposal/unregister/IO-finalizer claim"
+  ]
+}

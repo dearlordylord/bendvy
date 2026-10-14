@@ -1,0 +1,242 @@
+"""Source-derived oracle for the authority-order-v1 public-scopes consumer.
+
+This model translates the frozen authority-order source, the reused frontend
+renderer, and the reached WorldIO/lifetime operations.  It does not read
+runtime output or execute a Bend backend.  The first frontend-v1 and its
+bare-access oracle-v2 remain separate historical predecessors.
+"""
+
+from __future__ import annotations
+
+import json
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Iterable
+
+
+ORACLE_ROOT = Path(__file__).resolve().parent
+SOURCE_ROOT = ORACLE_ROOT.parent
+OPERATIONS_PATH = SOURCE_ROOT / "operations.json"
+
+PAYLOAD_ACCESS = ["Payload:write", "LifetimeScope:write"]
+QUERY_ACCESS = ["Payload"]
+
+
+def list_show(values: Iterable[str]) -> str:
+    """Translate Base.List.show's source renderer."""
+
+    return "[" + ", ".join(values) + "]"
+
+
+def array_tree(values: Iterable[object], render) -> str:
+    """Translate the fixture's binary Array tree renderer."""
+
+    items = list(values)
+    assert items and (len(items) & (len(items) - 1)) == 0
+    if len(items) == 1:
+        return f"L({render(items[0])})"
+    midpoint = len(items) // 2
+    return f"N({array_tree(items[:midpoint], render)},{array_tree(items[midpoint:], render)})"
+
+
+def payload_text(entity_id: int) -> str:
+    """Translate Values.payload and Values.show_payload for one entity."""
+
+    return f"P({array_tree([entity_id], str)},{array_tree([entity_id + 10, entity_id + 20], str)})"
+
+
+def operations() -> dict:
+    """Load and check the source operation contract."""
+
+    spec = json.loads(OPERATIONS_PATH.read_text(encoding="utf-8"))
+    assert spec["schemas"] == ["Scene", "Garden"]
+    assert spec["creation"] == "Three actual canonical WorldIO creations sequentially, two same-schema Scene worlds and Garden"
+    assert spec["sequence"] == [
+        "create Scene world1; obtain scope(scene); observe first-world untouched",
+        "create Scene world2; attempt scope1 spawn with Payload99; require SpawnRejected MissingEntity returning original payload",
+        "attempt scope1 cleanup in same world2 transaction; require A.MissingEntity; finish success and observe unchanged world2 with full returned Payload99",
+        "create Garden; obtain scene scope; stage cleanup first, then scoped Payload1 spawn, then unscoped Payload2 spawn; commit",
+        "observe order-pending; barrier executes FIFO and initial cleanup sees no active membership; observe order-spawned",
+        "stage cleanup now; commit/barrier removes scoped1 only; observe order-cleaned",
+        "canonical ordinary query reads surviving Payload2; full returned post-query World/registry observed",
+    ]
+    assert spec["observations"] == "Complete current frontend fixture renderer and Front.query_defined result, not DTO summaries"
+    return spec
+
+
+@dataclass
+class World:
+    """Source-visible World fields rendered by frontend-v1/fixture.bend."""
+
+    namespace: int
+    next_id: int = 1
+    high_water: int = 0
+    live: list[bool] = field(default_factory=lambda: [False])
+    capacity: int = 1
+    depth: int = 0
+    values: list[int | None] = field(default_factory=lambda: [None])
+    stamps: list[tuple[int, int, int]] = field(default_factory=list)
+    scopes: list[int] = field(default_factory=list)
+    events: list[str] = field(default_factory=list)
+    pending: int = 0
+    registrations: list[tuple[int, str, list[str]]] = field(default_factory=list)
+    next_system: int = 1
+    clock: int = 0
+
+    def reserve_id(self) -> int:
+        """Translate World.reserve_id/grow_live, retaining the sentinel leaf."""
+
+        if self.next_id >= self.capacity:
+            self.live.extend([False] * self.capacity)
+            self.capacity *= 2
+            self.depth += 1
+        entity_id = self.next_id
+        self.high_water = entity_id
+        self.next_id += 1
+        return entity_id
+
+    def register(self, name: str, access: list[str]) -> int:
+        """Translate World.register and System.register's prepended metadata."""
+
+        system_id = self.next_system
+        self.registrations.insert(0, (system_id, name, list(access)))
+        self.next_system += 1
+        return system_id
+
+    def populate(self, entity_id: int, payload: int) -> None:
+        """Translate F.populate_world's Cmp.replace clock/stamp behavior."""
+
+        assert entity_id < len(self.live)
+        self.live[entity_id] = True
+        if entity_id > len(self.values):
+            self.values.extend([None] * len(self.values))
+        self.values[entity_id - 1] = payload
+        self.clock += 1
+        self.stamps = [row for row in self.stamps if row[0] != entity_id]
+        self.stamps.insert(0, (entity_id, self.clock, self.clock))
+
+    def assign_scope(self, entity_id: int) -> None:
+        self.scopes = [value for value in self.scopes if value != entity_id]
+        self.scopes.append(entity_id)
+
+    def cleanup_entity(self, entity_id: int) -> None:
+        """Translate Clear.leaf plus lifetime cleanup finalization."""
+
+        assert self.live[entity_id]
+        self.live[entity_id] = False
+        self.values[entity_id - 1] = None
+        self.stamps = [row for row in self.stamps if row[0] != entity_id]
+        self.scopes = [value for value in self.scopes if value != entity_id]
+        self.events.extend([f"removed:{entity_id}", f"original:{entity_id}"])
+
+
+def bool_text(value: object) -> str:
+    return "True" if bool(value) else "False"
+
+
+def slot_text(value: int | None) -> str:
+    return "absent" if value is None else payload_text(value)
+
+
+def world_text(world: World) -> str:
+    """Translate frontend-v1/fixture.bend's complete physical renderer."""
+
+    live = array_tree(world.live, bool_text)
+    values = array_tree(world.values, slot_text)
+    stamps = list_show(f"{entity}:{added}:{changed}" for entity, added, changed in world.stamps)
+    store = values + "/stamps=" + stamps + "/graph=[]/[]/scopes=" + list_show(
+        f"scene:{entity}" for entity in world.scopes
+    )
+    registrations = list_show(
+        f"{system_id}:{name}:{list_show(access)}"
+        for system_id, name, access in world.registrations
+    )
+    events = list_show(world.events)
+    return (
+        f"world={world.namespace},{world.next_id},{world.high_water},{live},"
+        f"{world.capacity},{world.depth}/{store}/resource=Unit/events={events}"
+        f"/pending={world.pending}/regs={registrations}/nextSystem={world.next_system}"
+        f"/clock={world.clock}"
+    )
+
+
+def record(label: str, text: str) -> dict[str, str]:
+    """Translate authority-order-v1/main.bend's record helper."""
+
+    return {"label": label, "world": text}
+
+
+def observed(label: str, world: World) -> dict[str, str]:
+    return record(label, world_text(world))
+
+
+def owner_text(namespace: int, system_id: int, name: str, cursor: int) -> str:
+    return f"{namespace}:{system_id}:{name}:{list_show(QUERY_ACCESS)}:{cursor}"
+
+
+def expected_document() -> dict:
+    """Derive the one authority-order IO.print document from source order."""
+
+    operations()
+
+    # WorldIO.fresh allocates namespaces 1, 2, and 3 in this one process.
+    first = World(namespace=1)
+    first_observation = observed("first-world", first)
+
+    # The world-1 scope is deliberately reused against world 2. Both the
+    # namespace-checked spawn and cleanup return their original transaction;
+    # tx_finish(Success) therefore leaves world 2 completely unchanged.
+    second = World(namespace=2)
+    foreign_payload = payload_text(99)
+    foreign_observation = observed("foreign-refused:" + foreign_payload, second)
+
+    garden = World(namespace=3)
+    scope_entity = garden.reserve_id()
+    plain_entity = garden.reserve_id()
+
+    # tx_cleanup is staged first, then Spawn.tx_spawn_in and Cmd.tx_spawn
+    # prepend their commands. tx_finish reverses that accumulator; World's
+    # pending queue and drain_fifo therefore execute cleanup, scoped spawn,
+    # then unscoped spawn. The initial cleanup sees no active membership.
+    garden.pending = 3
+    pending = observed("order-pending", garden)
+
+    garden.pending = 0
+    garden.populate(scope_entity, 1)
+    garden.assign_scope(scope_entity)
+    garden.populate(plain_entity, 2)
+    spawned = observed("order-spawned", garden)
+
+    # The second cleanup runs after membership scene:1 exists.
+    garden.pending = 1
+    garden.pending = 0
+    garden.cleanup_entity(scope_entity)
+    cleaned = observed("order-cleaned", garden)
+
+    query_id = garden.register("survivors", QUERY_ACCESS)
+    assert query_id == 1
+    query_values = [payload_text(plain_entity)]
+    query_owner = owner_text(garden.namespace, query_id, "survivors", garden.clock)
+    after_query = {
+        "label": "after-query",
+        "world": world_text(garden),
+        "owner": query_owner,
+    }
+
+    return {
+        "snapshots": [first_observation, foreign_observation, pending, spawned, cleaned],
+        "query": query_values,
+        "after-query": after_query,
+    }
+
+
+def expected_bytes() -> bytes:
+    """Exact bytes produced by authority-order-v1/main.bend's IO.print."""
+
+    return (json.dumps(expected_document(), ensure_ascii=False, separators=(",", ":")) + "\n").encode("utf-8")
+
+
+if __name__ == "__main__":
+    import sys
+
+    sys.stdout.buffer.write(expected_bytes())

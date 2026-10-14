@@ -1,0 +1,17 @@
+# #45 delivery final review
+
+**Verdict: PASS for the bounded retained delivery.** This review is bound to commit `27521d7950a031aa8c9f8d0c5a276a9635066631` in `/workspace/formal-proofs/bendvy-worktrees/scopes45-lifetime`.
+
+The package bindings match the supplied hashes: DELIVERY `14f28380309af3099a1009c0488e14a0904de8988a1ee9affabd1f0c03d851d9`; OWNERSHIP `c342dfad50028bef9ce6907ba47d072ebfa6f25324ef0d16c650e24ef0df497d`; MANIFEST `7a6996c32d02ca515f0c4dc5b4de684d7a5e746800db39ff580331baef3c1a4b`; EVIDENCE.zip `a212223ec8511b1e43f0c5d4978e4640a45435d0487a534970188284531de572`; RESULT `f3e0ed11763fdae30d7f36c98667dd275763ccfc351b5cac0ba161b996e826e3`; PRODUCTION.patch `e3c4d199b051f33cae524ac56750c1d0ac7ead99e6cd430b6da274f1ad527aea`.
+
+The commit contains 31 changed paths, all in the 82-path ownership list (four additive production modules plus 78 evidence paths); the remaining 51 historical/oracle paths are all indexed in the archive manifest. The archive has 373 members, each matching its manifest byte count and SHA. All ten DELIVERY file hashes match. The four modules are absent at ownership base `fef737165` and are the only `src/ecs` additions; existing shared core bodies are untouched.
+
+I ran the retained verifier and its finite verifier controls: `PASS_RETAINED_SCOPE_CAPABILITY` (373 members, nine roles, four modules, zero comparisons, no adoption) and `PASS_SCOPE_VERIFIER_CONTROLS` (12 malformed receipt/guard cases rejected, zero backend executions). The retained outcomes distinguish eight fresh complete JS/Native roles from the original frontend-JS `INCOMPLETE` receipt. Its separate posthoc revalidation matches the corrected 2,328-byte normal oracle without calling it a fresh run. The reached counter control is a reversible one-site mutation of the generated JS artifact that adds unscoped survivor ID 2 to cleanup; its complete 2,310-byte output matches the independent source-derived counter oracle and differs from the normal output. This provides a bounded reached JS counterexample only, not source-level or Native mutant coverage.
+
+The authority boundary is accurately described: population receives a trusted full `World` callback; registered bodies receive opaque affine `Ops` capabilities. The fixture uses the canonical component binding for population and clear, while the two negative source controls cover an undeclared body World access and wrong-schema scope. This does not establish arbitrary callback honesty.
+
+The one-time affine disposition reuses #44’s approved clear/retirement callback behavior: removed Array payload owners are returned once in postorder, and repeated cleanup adds none. It does not imply Rust `Drop`, effectful IO finalization, or unregister-on-owner-drop. No new finalizer policy is needed.
+
+The #28 applicability record pins the existing accepted unchanged Workshop gate (6,924 live plan pins, no mismatch) and explicitly says the new modules are outside that gate’s source closure. This delivery ran no comparison. Matched scope-feature performance/scaling, production adoption, and full #45 acceptance remain open; this result is not an issue-closure claim.
+
+Validation performed: read-only source/contract and commit review; `python3 experiments/public-scopes/delivery-v1/verify.py`; `python3 experiments/public-scopes/delivery-v1/verify-controls.py`; independent hashes for all DELIVERY files; ownership/commit/archive membership joins. No compiler or backend was rerun.

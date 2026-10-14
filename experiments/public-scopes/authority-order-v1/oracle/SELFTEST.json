@@ -1,0 +1,45 @@
+{
+  "scope": "authority-order-v1 source-derived oracle",
+  "model": "model.py.source",
+  "regenerator": "regenerate.py.source",
+  "expected": "expected.json",
+  "transport": "expected.stdout.gz",
+  "checks": [
+    "operations.json schemas, three WorldIO creations, exact foreign rejection sequence, Garden FIFO ordering, cleanup, query, observations, and declared limits are asserted",
+    "namespace sequence 1/2/3 and empty Scene worlds are asserted",
+    "foreign Payload99 is retained as source-returned text while both foreign commands leave world 2 unchanged",
+    "Garden pending count 3, FIFO cleanup-before-spawns, Cmp.replace ticks 1/2, scope membership, full arrays/stamps/events, and final survivor query are asserted",
+    "bare [Payload] query registry access, exact five snapshot labels, JSON structure, terminal LF, and deterministic gzip are asserted",
+    "no consumer output, runtime output, backend execution, or candidate output was consulted"
+  ],
+  "runtimeOutputConsulted": false,
+  "status": "PASS",
+  "snapshots": 5,
+  "bytes": 1456,
+  "artifactHashes": {
+    "model": {
+      "path": "model.py.source",
+      "sha256": "4ef9bb67deb6077f09bcd85b1df6acb2954809c87e00ac3275062024b0943859"
+    },
+    "regenerator": {
+      "path": "regenerate.py.source",
+      "sha256": "cfc679cdf8aa9550df79212782fa462de3778b8f699c30f18db91ec9d9e1aff0"
+    },
+    "selftest": {
+      "path": "selftest.py.source",
+      "sha256": "5cecea824cfa10cca08b8446b5b7757ee416a0ab0dc5dc76e8fde0d0be9016df"
+    },
+    "expected": {
+      "path": "expected.json",
+      "sha256": "2632c5841af49e7bcdc4f9881d9a2c2a9422709d1242d186d1d79b2c1273fb97"
+    },
+    "transport": {
+      "path": "expected.stdout.gz",
+      "sha256": "d22c3e77c18eaf6eeec08e389480015c00331347ea3e2cb99c83d99986dbd5b4"
+    },
+    "sourceBasis": {
+      "path": "SOURCE-BASIS.json",
+      "sha256": "f3a16ef4ca9abedeef04b561ef9c1b23e737a7d2b00ee818c56f79bf67ce07eb"
+    }
+  }
+}

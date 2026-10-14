@@ -1,0 +1,22 @@
+"""Regenerate frontend-v1 source-derived oracle artifacts deterministically."""
+
+from __future__ import annotations
+
+import gzip
+import io
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent
+model_path = ROOT / "model.py.source"
+namespace: dict[str, object] = {"__file__": str(model_path)}
+source = model_path.read_text(encoding="utf-8")
+exec(compile(source, str(model_path), "exec"), namespace)
+payload = namespace["expected_bytes"]()
+
+(ROOT / "expected.json").write_bytes(payload)
+(ROOT / "expected.stdout").write_bytes(payload)
+compressed = io.BytesIO()
+with gzip.GzipFile(fileobj=compressed, mode="wb", filename="", mtime=0) as stream:
+    stream.write(payload)
+(ROOT / "expected.stdout.gz").write_bytes(compressed.getvalue())

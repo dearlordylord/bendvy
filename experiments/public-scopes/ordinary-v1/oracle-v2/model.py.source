@@ -1,0 +1,278 @@
+"""Source-matched oracle for the current Issue #45 ordinary consumer.
+
+The first oracle in ``../oracle`` is retained as historical evidence.  This
+successor follows the current ``main.bend`` and ``fixture.bend`` renderer:
+the world string contains the full Bool/live tree, component slot tree,
+removed owner payloads, graph and inverse rows, scope members, resource,
+events, and world metadata.  It is a source translation only; it never reads
+consumer output or executes the Bend backend.
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Callable, Iterable
+
+
+ORACLE_ROOT = Path(__file__).resolve().parent
+SOURCE_ROOT = ORACLE_ROOT.parent
+OPERATIONS_PATH = SOURCE_ROOT / "operations.json"
+
+
+def operations() -> dict:
+    """Load the frozen operation contract used by the current consumer."""
+
+    spec = json.loads(OPERATIONS_PATH.read_text(encoding="utf-8"))
+    assert spec["schema"] == "Scene"
+    assert spec["resource"] == [77, 88]
+    assert spec["scope"] == {"namespace": 1, "name": "scene"}
+    assert [row["id"] for row in spec["spawns"]] == [1, 2, 3, 4, 5, 6]
+    assert [row["scope"] for row in spec["spawns"]] == ["scene", None, None, None, "scene", None]
+    assert len(spec["relations"]) == 3
+    assert spec["relations"][0]["source"] == 2 and spec["relations"][0]["target"] == 1
+    assert spec["relations"][1]["source"] == 4 and spec["relations"][1]["target"] == 2
+    assert spec["relations"][2]["source"] == 3 and spec["relations"][2]["target"] == 1
+    return spec
+
+
+def list_show(values: Iterable[str]) -> str:
+    """Translate Base.List.show: bracketed values separated by ``, ``."""
+
+    return "[" + ", ".join(values) + "]"
+
+
+def array_tree(values: Iterable[object], render: Callable[[object], str]) -> str:
+    """Translate fixture.tree for the power-of-two arrays used by the app."""
+
+    items = list(values)
+    assert items and (len(items) & (len(items) - 1)) == 0
+    if len(items) == 1:
+        return f"L({render(items[0])})"
+    midpoint = len(items) // 2
+    return f"N({array_tree(items[:midpoint], render)},{array_tree(items[midpoint:], render)})"
+
+
+def u32(value: object) -> str:
+    return str(int(value))
+
+
+def bool_text(value: object) -> str:
+    return "True" if bool(value) else "False"
+
+
+def descriptor_text(relation: dict) -> str:
+    kind = relation["kind"].lower()
+    return f"{relation['key']}:{relation['name']}:{relation['inverseName']}:{kind}"
+
+
+def payload_rows(spec: dict) -> dict[int, dict[str, list[int]]]:
+    rows: dict[int, dict[str, list[int]]] = {}
+    for row in spec["spawns"]:
+        payload = row["payload"]
+        rows[int(row["id"])] = {
+            "first": list(payload["first"]),
+            "second": list(payload["second"]),
+        }
+    assert rows == {
+        1: {"first": [1], "second": [11, 21]},
+        2: {"first": [2], "second": [12, 22]},
+        3: {"first": [3], "second": [13, 23]},
+        4: {"first": [4], "second": [14, 24]},
+        5: {"first": [5], "second": [15, 25]},
+        6: {"first": [6], "second": [16, 26]},
+    }
+    return rows
+
+
+def payload_text(payload: dict[str, list[int]]) -> str:
+    first = array_tree(payload["first"], u32)
+    second = array_tree(payload["second"], u32)
+    return f"P({first},{second})"
+
+
+def allocator(spec: dict) -> tuple[int, int, int, int]:
+    """Translate World.reserve_id/grow_live for the six queued spawns."""
+
+    next_id = 1
+    high_water = 0
+    capacity = 1
+    depth = 0
+    for row in spec["spawns"]:
+        if next_id >= capacity:
+            capacity *= 2
+            depth += 1
+        high_water = next_id
+        next_id += 1
+    return next_id, high_water, capacity, depth
+
+
+def relation_rows(spec: dict) -> tuple[list[str], list[str]]:
+    """Translate relation-graph edge and inverse append order."""
+
+    edges: list[str] = []
+    inverse_order: list[tuple[tuple[object, ...], int, list[int]]] = []
+    for relation in spec["relations"]:
+        descriptor = descriptor_text(relation)
+        edges.append(f"{descriptor}:{relation['source']}>{relation['target']}")
+        key = (
+            relation["key"],
+            relation["name"],
+            relation["inverseName"],
+            relation["kind"].lower(),
+            relation["target"],
+        )
+        for index, (known, _, sources) in enumerate(inverse_order):
+            if known == key:
+                sources.append(int(relation["source"]))
+                break
+        else:
+            inverse_order.append((key, int(relation["target"]), [int(relation["source"])]))
+    inverses = [
+        f"{key[0]}:{key[1]}:{key[2]}:{key[3]}:{target}:{list_show(u32(x) for x in sources)}"
+        for key, target, sources in inverse_order
+    ]
+    return edges, inverses
+
+
+def live_tree(live_ids: Iterable[int], capacity: int) -> str:
+    live = set(live_ids)
+    return array_tree((index in live for index in range(capacity)), bool_text)
+
+
+def slot_tree(live_ids: Iterable[int], capacity: int, payloads: dict[int, dict[str, list[int]]]) -> str:
+    live = set(live_ids)
+
+    def render(index: object) -> str:
+        if index is None:
+            return "absent"
+        return payload_text(payloads[int(index)])
+
+    return array_tree((index if index in live else None for index in range(capacity)), render)
+
+
+def removed_text(removed_ids: Iterable[int], payloads: dict[int, dict[str, list[int]]]) -> str:
+    return "".join(payload_text(payloads[index]) + ";" for index in removed_ids)
+
+
+def event_text(removed_ids: Iterable[int]) -> str:
+    events: list[str] = []
+    for index in removed_ids:
+        events.extend((f"removed:{index}", f"original:{index}"))
+    return list_show(events)
+
+
+def world_text(
+    spec: dict,
+    *,
+    live_ids: Iterable[int],
+    removed_ids: Iterable[int],
+    pending: int,
+    scope_ids: Iterable[int],
+    events_from: Iterable[int],
+    has_graph: bool,
+) -> str:
+    next_id, high_water, capacity, depth = allocator(spec)
+    payloads = payload_rows(spec)
+    edges, inverses = relation_rows(spec)
+    graph = f"{list_show(edges)}/{list_show(inverses)}" if has_graph else "[]/[]"
+    store = (
+        f"{slot_tree(live_ids, capacity, payloads)}"
+        f"/removed={removed_text(removed_ids, payloads)}"
+        f"/graph={graph}"
+        f"/scopes={list_show(f'scene:{index}' for index in scope_ids)}"
+    )
+    live = live_tree(live_ids, capacity)
+    resource = array_tree(spec["resource"], u32)
+    events = event_text(events_from)
+    return (
+        f"world={spec['scope']['namespace']},{next_id},{high_water},{live},{capacity},{depth}/"
+        f"{store}/resource={resource}/events={events}/pending={pending}"
+        f"/regs=[]/nextSystem=1/clock=0"
+    )
+
+
+def expected_rows() -> list[dict[str, str]]:
+    spec = operations()
+    # Cleanup's hierarchy postorder is 4,2,1; the second scoped member is 5.
+    cleanup_order = [4, 2, 1, 5]
+    assert cleanup_order == [4, 2, 1, 5]
+    removed_order = list(reversed(cleanup_order))
+    scopes = [int(row["id"]) for row in spec["spawns"] if row["scope"] == "scene"]
+    all_ids = [int(row["id"]) for row in spec["spawns"]]
+    pending_first = len(spec["spawns"]) + len(spec["relations"])
+    common = dict(spec=spec)
+    return [
+        {
+            "label": "pending-spawn",
+            "world": world_text(
+                **common,
+                live_ids=[],
+                removed_ids=[],
+                pending=pending_first,
+                scope_ids=[],
+                events_from=[],
+                has_graph=False,
+            ),
+        },
+        {
+            "label": "spawned",
+            "world": world_text(
+                **common,
+                live_ids=all_ids,
+                removed_ids=[],
+                pending=0,
+                scope_ids=scopes,
+                events_from=[],
+                has_graph=True,
+            ),
+        },
+        {
+            "label": "pending-clean",
+            "world": world_text(
+                **common,
+                live_ids=all_ids,
+                removed_ids=[],
+                pending=1,
+                scope_ids=scopes,
+                events_from=[],
+                has_graph=True,
+            ),
+        },
+        {
+            "label": "cleaned",
+            "world": world_text(
+                **common,
+                live_ids=[3, 6],
+                removed_ids=removed_order,
+                pending=0,
+                scope_ids=[],
+                events_from=cleanup_order,
+                has_graph=False,
+            ),
+        },
+        {
+            "label": "repeated-clean",
+            "world": world_text(
+                **common,
+                live_ids=[3, 6],
+                removed_ids=removed_order,
+                pending=0,
+                scope_ids=[],
+                events_from=cleanup_order,
+                has_graph=False,
+            ),
+        },
+    ]
+
+
+def expected_bytes() -> bytes:
+    """Exact bytes produced by main.bend's one IO.print call."""
+
+    return (json.dumps(expected_rows(), ensure_ascii=False, separators=(",", ":")) + "\n").encode("utf-8")
+
+
+if __name__ == "__main__":
+    import sys
+
+    sys.stdout.buffer.write(expected_bytes())

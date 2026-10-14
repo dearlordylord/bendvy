@@ -1,0 +1,12 @@
+"""Derive one reached JS survivor-deletion fault; no core/source adoption."""
+import hashlib,json,sys
+from pathlib import Path
+source=Path(sys.argv[1]);out=Path(sys.argv[2]);expected='bee055f6a5fd177cf3c3fe887789cb639f0a73efb574dd951b0abd3038f8016d'
+raw=source.read_bytes();assert hashlib.sha256(raw).hexdigest()==expected
+needle='  return $$$$047$$$047$$$047src$047ecs$047lifetime$045scope$058cleanup_members$1260$(_members_0, _world_0, _namespace_0);'
+replacement='  return $$$$047$$$047$$$047src$047ecs$047lifetime$045scope$058cleanup_members$1260$($List$append$(_members_0, {$: "Cons", "head": 2, "tail": {$: "Nil"}}), _world_0, _namespace_0);'
+text=raw.decode();assert text.count(needle)==1 and replacement not in text
+assert 'function $List$append$(' in text
+mutant=text.replace(needle,replacement);assert mutant.replace(replacement,needle).encode()==raw
+with out.open('xb') as f:f.write(mutant.encode())
+print(json.dumps({'scope':'Reached JS artifact counter only, not fresh Bend emission','inputSHA256':expected,'outputSHA256':hashlib.sha256(mutant.encode()).hexdigest(),'anchors':1,'reversible':True}))
