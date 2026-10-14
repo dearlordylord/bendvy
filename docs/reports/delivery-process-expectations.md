@@ -515,16 +515,49 @@ experiment. Preserve current owners, live runs and their frozen inputs.
 
 | Priority | Concrete action | Completion evidence |
 |---|---|---|
-| 1 | Inspect existing preflight coverage for the retained artifact-parent, inherited compiler-provenance and import-order mistakes. Extend the existing validator only for uncovered deterministic invariants; reuse its tests and CI. | Each retained malformed plan is rejected before compiler launch; the corresponding valid successor passes. No new approval stage. |
-| 2 | Reconcile current coordination rows: state the actual remaining blocker and executable next action; link accepted history. Mark earlier pending retrospective observations as historical where later evidence supersedes them. | Current entries agree with terminal receipts and owning issues; existing table guard passes. Preserve original expectations and historical measurements. |
-| 3 | Reconcile draft A–H against integrated acceptance evidence and present only remaining coherent child tasks for the existing approval. | Each proposed task names missing acceptance, dependencies and reusable evidence; accepted work is not duplicated. |
+| 1 | Inspect existing preflight coverage for the retained artifact-parent, inherited compiler-provenance and import-order mistakes. Extend the existing validator only for uncovered deterministic invariants; reuse its tests and CI. | Integrated from reviewed implementation `ea866de668`; 23 focused metadata/control tests pass. Malformed artifact-parent, current-C/compiler provenance and importClosure-order fixtures reject before batch output or child execution; valid successor fixtures pass. The saved emit-only profile successor passes metadata validation but remains outside ordinary runtime-role admission. Generic provenance and ordinary unpinned fresh outputs remain accepted. No compiler or new approval stage. |
+| 2 | Reconcile current coordination rows: state the actual remaining blocker and executable next action; link accepted history. Mark earlier pending retrospective observations as historical where later evidence supersedes them. | Reviewed against the current coordination rows. #54 still holds comparisons for a quiet host and leaves #38 identity/adoption open; #56 retains its full-contract/coverage/overhead gates, and its original mixed-reader collector receipt remains INCOMPLETE. The shared table stays with the main-thread integrator. |
+| 3 | Reconcile draft A–H against integrated acceptance evidence and present only remaining coherent child tasks for the existing approval. | The dated reconciliation below reuses accepted bounded evidence for A, B and D, retains C and E–G only with their existing contract dependencies, and keeps H on performance HOLD. Draft only; no child issue is published. |
 
-Infrastructure changes above have not been implemented by this handoff. The main
-thread owns runner/table changes and schedules them around its active delivery.
-Use the current LLVM-pass diagnostic to choose the next #54 experiment; require
-an observation that distinguishes its hypothesis, rather than another unchanged
-timeout. Do not infer delivery acceleration or Native acceptance from diagnostic
-packaging. This side thread changed only this report and ran no checks or compilers.
+The preflight change and focused tests are integrated from `ea866de668`. They
+validate declared metadata bindings; actual bytes, runtime and terminal guards
+remain the collector’s responsibility. Acceptance gates and live runs are
+unchanged. Do not infer delivery acceleration or Native acceptance from these
+controls.
+
+Saved-plan replay anchors are retained under `experiments/public-inspect/promotion-stage/`
+in the `observable-query-boundaries` worktree. Committed tests use isolated
+deterministic reductions; manual metadata replay matched these exact originals:
+
+| Saved plan below that prefix | SHA-256 | Metadata result |
+|---|---|---|
+| `missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/profile-v1/PLAN.json` | `8f6f41e68397b01456ece7f9da4eb41587f9d83009e084448f2b2d0f6bf70dbb` | Reject artifact root |
+| `missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/pure-factor-v1/profile-v2/native-output/plan.json` | `22006b470add5619d4c7930d2201191fcfc98d8d437c5dba4a230662b6e7adf1` | Pass bindings; emit-only runtime role rejected |
+| `missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/direct-recursive-box-v1/current-o3-stack-v1/plan.json.provenance-predecessor` | `a669b3a2634f774090d6d7c9a2ea268b447a013b8e7b528f041510ce49eece53` | Reject incomplete compiler provenance |
+| `missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/direct-recursive-box-v1/current-o3-stack-v1/plan.json` | `21d84ebc05f11ebcfc3a9d8d2072b2462e2881ab4d62314752dfdcba6eed05af` | Pass bindings |
+| `missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/runtime01/js/plan.json` | `947b06abf02d2f1627d871a4e6db8fd28e6590cf80e6a3b86b1ee32133eb90ae` | Reject import order |
+| `missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/runtime02/js/plan.json` | `c6405cccac0afe763fccb6268c0a474cddfece1f5d4004e9a64998c6277384e1` | Pass bindings |
+
+### A–H reconciliation — 2026-10-14 (proposed, not published)
+
+This updates the draft's current disposition without creating child issues or
+changing parent acceptance. Rows already covered at an accepted bounded scope
+are recorded for reuse rather than repeated as work items.
+
+| Draft item | Current disposition | Remaining action or boundary |
+|---|---|---|
+| A. Optional/required resource absence | Reuse the accepted ordinary missing-resource registration and direct Inspector/Check observations. They cover optional and required execution in the recorded worlds, including refusal before the callback. | No new absence policy or duplicate child task. Broader #54 composition, proofs and performance remain open. |
+| B. Detached inspection observations | Reuse the current Data-projection evidence: calls return affine owners and retained observations are detached Data. | No held-view contract applies to this API. Arbitrary borrowed Type views would be a separate capability proposal. |
+| C. Multiple retained Schedule access indexes | Still open under #56. The accepted result covers one retained Schedule. | Obtain the existing ordinary multi-Schedule ownership/composition contract before extending the consumer. |
+| D. Mixed-reader dump Native reached control | The complete retained Native output has a separately reviewed source-derived QName presentation rebase: all 228,202 counter bytes match and the 234,338-byte normal output is rejected at byte 355. | Preserve the original collector receipt as INCOMPLETE; do not call it a collector PASS or repeat the unchanged build. This closes only the bounded reached-output control. |
+| E. Non-Column population and dump | Still unqualified; current accepted population/dump evidence is scoped to the supported Column/Product and aggregate-store bindings. | Agree the supported storage/iteration contract before adding another backend. |
+| F. Native debug lint contract and execution | Remaining diagnostics and handling depend on an approved lint contract. | Resolve triggers, severity and handling through the existing SPEC process before implementation. |
+| G. Native naming/replacement contract and execution | Remaining behavior depends on an approved naming/replacement contract. | Resolve the contract before adding a new consumer or implementation. |
+| H. Inspector/debug performance qualification | Still on HOLD for the existing same-pipeline comparisons; host contention prevents comparative execution. | Reuse current semantic evidence and run only under the existing measurement criteria and a quiet admission window. No speed or adoption claim follows from the bounded functional packets. |
+
+No issue is published by this reconciliation. Parent #54/#56 requirements,
+existing approval boundaries, #38 independent-identity work, and #21/#23/#24
+performance gates are unchanged.
 
 ### LLVM pass-manager trace — 2026-10-13 UTC
 

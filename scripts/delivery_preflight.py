@@ -4,7 +4,114 @@ import json
 from pathlib import Path
 
 
-def validate(plan):
+_ARTIFACT_PARENT_GUARD = 'Existing collector guards both generated and native parents before/acquired/post/final.'
+_CURRENT_COMPILER_PROVENANCE_FIELDS = {
+    'currentC', 'currentCSHA256', 'currentCompilerSHA256',
+}
+
+
+def _is_sha256(value):
+    return (isinstance(value, str) and len(value) == 64 and
+            all(character in '0123456789abcdef' for character in value))
+
+
+def _validate_import_closure(plan):
+    # This optional field belongs to the current source-consuming collector
+    # dialect.  sourceInventory remains a mapping in its authored order; the
+    # collector's separate importClosure value is the sorted path list.
+    if 'importClosure' not in plan:
+        return
+    closure = plan['importClosure']
+    inventory = plan.get('sourceInventory')
+    if not isinstance(closure, list) or any(not isinstance(path, str) for path in closure):
+        raise ValueError('importClosure must be a list of source paths')
+    if not isinstance(inventory, dict) or any(not isinstance(path, str) for path in inventory):
+        raise ValueError('importClosure requires a sourceInventory mapping')
+    if closure != sorted(inventory):
+        raise ValueError('importClosure must be the sorted exact sourceInventory path list')
+
+
+def _validate_current_compiler_provenance(plan):
+    provenance = plan.get('provenance')
+    if not isinstance(provenance, dict):
+        return
+
+    # Generic provenance summaries are used by ordinary plans too.  Opt in
+    # only when a plan declares the exact current-C/compiler provenance shape.
+    declared = _CURRENT_COMPILER_PROVENANCE_FIELDS.intersection(provenance)
+    if not declared:
+        return
+    if not _CURRENT_COMPILER_PROVENANCE_FIELDS.issubset(provenance):
+        raise ValueError('current compiler provenance fields must be declared together')
+
+    current_c = provenance['currentC']
+    generated = plan.get('generated')
+    pins = plan.get('pins')
+    tools = plan.get('tools')
+    if not isinstance(current_c, str) or current_c != generated:
+        raise ValueError('currentC must identify the planned generated C artifact')
+    if not isinstance(pins, dict) or not isinstance(tools, dict):
+        raise ValueError('current compiler provenance requires plan pins and tools')
+    current_c_sha = provenance['currentCSHA256']
+    if (not _is_sha256(current_c_sha) or pins.get(current_c) != current_c_sha):
+        raise ValueError('currentC digest must match its exact plan pin')
+
+    compiler = tools.get('bend')
+    compiler_sha = provenance['currentCompilerSHA256']
+    if (not isinstance(compiler, str) or not _is_sha256(compiler_sha) or
+            pins.get(compiler) != compiler_sha):
+        raise ValueError('current compiler digest must match the planned Bend tool pin')
+
+    receipt_path = provenance.get('currentEmitReceipt')
+    receipt_sha = provenance.get('currentEmitReceiptSHA256')
+    if receipt_path is not None or receipt_sha is not None:
+        if (not isinstance(receipt_path, str) or not _is_sha256(receipt_sha) or
+                pins.get(receipt_path) != receipt_sha):
+            raise ValueError('current emit receipt digest must match its exact plan pin')
+
+
+def _validate_artifact_parent_guard(plan, plan_path):
+    if 'artifactParentGuard' not in plan:
+        return
+    if plan['artifactParentGuard'] != _ARTIFACT_PARENT_GUARD:
+        raise ValueError('unsupported artifact parent guard dialect')
+    if plan_path is None:
+        raise ValueError('artifact parent guard requires the plan path')
+
+    plan_parent = Path(plan_path).resolve(strict=True).parent
+    declared_root = plan.get('artifactOutputRoot')
+    if not isinstance(declared_root, str):
+        raise ValueError('artifact parent guard requires artifactOutputRoot')
+    root_path = Path(declared_root)
+    if root_path.resolve(strict=True) != plan_parent:
+        raise ValueError('artifactOutputRoot must be the captured plan output directory')
+
+    for key in ('generated', 'native'):
+        artifact_path = plan.get(key)
+        if not isinstance(artifact_path, str):
+            raise ValueError('artifact parent guard requires planned ' + key + ' artifact')
+        parent = Path(artifact_path).parent
+        if parent.is_symlink() or parent.resolve(strict=True) != plan_parent:
+            raise ValueError('planned artifact parent escaped captured plan output root')
+
+
+def validate_bindings(plan, plan_path=None):
+    """Validate opt-in bindings without admitting a command-role dialect.
+
+    Callers may use this for metadata-only inspection of a saved plan. The
+    ordinary ``validate`` entry point still performs role and command-shape
+    admission separately.
+    """
+    _validate_import_closure(plan)
+    _validate_current_compiler_provenance(plan)
+    _validate_artifact_parent_guard(plan, plan_path)
+
+
+def validate(plan, plan_path=None):
+    # Run the exact optional metadata dialect guards before dispatch. This
+    # catches stale bindings even when the command-role shape is unsupported;
+    # passing them does not make an unsupported role executable.
+    validate_bindings(plan, plan_path)
     commands = plan.get('commands', [])
     labels = [c.get('label') for c in commands]
     if not commands or any(not isinstance(x, str) or not x for x in labels):
@@ -57,7 +164,7 @@ def main():
     if not plans:
         raise ValueError('nonempty candidate plan selection required')
     for path in plans:
-        print(str(path) + ': ' + validate(json.loads(path.read_text())))
+        print(str(path) + ': ' + validate(json.loads(path.read_text()), plan_path=path))
 
 
 if __name__ == '__main__':

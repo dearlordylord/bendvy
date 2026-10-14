@@ -1,6 +1,8 @@
 """Regress delivery-process failure classes using temporary, noncompiler fixtures."""
 import copy
+from contextlib import redirect_stdout
 import hashlib
+import io
 import json
 import os
 from pathlib import Path
@@ -59,6 +61,212 @@ class Plans(unittest.TestCase):
         value['commands'][1]['argv'].append('--check-only')
         with self.assertRaises(ValueError):
             preflight.validate(value)
+
+
+class SavedPreflightRegressions(unittest.TestCase):
+    artifact_guard = 'Existing collector guards both generated and native parents before/acquired/post/final.'
+
+    def write_batch(self, root, plan_value, plan_path=None):
+        plan_path = plan_path or (root / 'plan.json')
+        plan_path.parent.mkdir(parents=True, exist_ok=True)
+        plan_path.write_text(json.dumps(plan_value))
+        manifest_path = root / 'batch.json'
+        manifest_path.write_text(json.dumps({'jobs': [{
+            'id': 'guarded', 'kind': 'ordinary', 'plan': str(plan_path),
+            'planSHA256': hashlib.sha256(plan_path.read_bytes()).hexdigest(),
+            'argv': ['recorded-child'], 'cwd': str(root), 'capSeconds': 1,
+        }]}))
+        return plan_path, manifest_path
+
+    def guarded_native_plan(self, root, artifact_parent):
+        generated = str(artifact_parent / 'scenario.c')
+        native = str(artifact_parent / 'scenario.native')
+        value = plan(native=True)
+        value['generated'] = generated
+        value['native'] = native
+        value['commands'][0]['argv'][-1] = generated
+        value['commands'][1]['argv'] = ['clang', generated, '-o', native]
+        value['commands'][2]['argv'] = [native]
+        value['artifactOutputRoot'] = str(artifact_parent)
+        value['artifactParentGuard'] = self.artifact_guard
+        return value
+
+    def test_saved_artifact_parent_refusal_and_valid_successor(self):
+        # Replays profile-v1's plan-above-native-output parent mismatch and
+        # profile-v2's matching plan/output-directory successor.
+        fake_result = {'exit': 0, 'failure': None, 'stdout': b'', 'stderr': b''}
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            profile = root / 'profile-v1'
+            nested = profile / 'native-output'
+            nested.mkdir(parents=True)
+            malformed = self.guarded_native_plan(profile, nested)
+            historical_plan = profile / 'PLAN.json'
+            historical_plan.write_text(json.dumps(malformed))
+            with self.assertRaisesRegex(ValueError, 'artifactOutputRoot'):
+                preflight.validate(malformed, plan_path=historical_plan)
+            # Isolate the collector's actual artifact-parent invariant from
+            # the metadata mismatch in the saved predecessor.
+            parent_mismatch = copy.deepcopy(malformed)
+            parent_mismatch['artifactOutputRoot'] = str(profile)
+            _, manifest = self.write_batch(root, parent_mismatch, historical_plan)
+            output = root / 'rejected-output'
+            with patch.object(delivery_batch.task_runner, 'execute_result') as execute:
+                with self.assertRaisesRegex(ValueError, 'artifact parent escaped'):
+                    delivery_batch.run_batch(manifest, output)
+                execute.assert_not_called()
+            self.assertFalse(output.exists())
+
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            output_parent = root / 'profile-v2' / 'native-output'
+            output_parent.mkdir(parents=True)
+            valid = self.guarded_native_plan(output_parent, output_parent)
+            valid_plan = output_parent / 'plan.json'
+            _, manifest = self.write_batch(root, valid, valid_plan)
+            output = root / 'accepted-output'
+            with patch.object(delivery_batch.task_runner, 'execute_result', return_value=fake_result) as execute:
+                receipt = delivery_batch.run_batch(manifest, output)
+            self.assertEqual(receipt['status'], 'WRAPPERS_PASS')
+            execute.assert_called_once()
+
+    def test_saved_emit_only_profile_metadata_does_not_admit_runtime_role(self):
+        # The two saved profiling plans use the metadata guard but have an
+        # emit-only collector dialect. Replay that distinction: metadata-only
+        # validation diagnoses the old parent, accepts the direct-parent
+        # successor, and ordinary preflight still rejects its unsupported role.
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            old_profile = root / 'profile-v1'
+            old_output = old_profile / 'native-output'
+            old_output.mkdir(parents=True)
+            old_plan_path = old_profile / 'PLAN.json'
+            old_plan = {
+                'commands': [{'label': 'emit', 'argv': ['bend', 'entry.bend', '-o',
+                                                        str(old_output / 'scenario.c')]}],
+                'generated': str(old_output / 'scenario.c'),
+                'native': str(old_output / 'scenario.native'),
+                'artifactOutputRoot': str(old_output),
+                'artifactParentGuard': self.artifact_guard,
+            }
+            old_plan_path.write_text(json.dumps(old_plan))
+            with self.assertRaisesRegex(ValueError, 'artifactOutputRoot'):
+                preflight.validate_bindings(old_plan, old_plan_path)
+
+            new_output = root / 'profile-v2' / 'native-output'
+            new_output.mkdir(parents=True)
+            new_plan_path = new_output / 'plan.json'
+            new_plan = {
+                'commands': [{'label': 'emit', 'argv': ['bend', 'entry.bend', '-o',
+                                                        str(new_output / 'scenario.c')]}],
+                'generated': str(new_output / 'scenario.c'),
+                'native': str(new_output / 'scenario.native'),
+                'artifactOutputRoot': str(new_output),
+                'artifactParentGuard': self.artifact_guard,
+            }
+            new_plan_path.write_text(json.dumps(new_plan))
+            preflight.validate_bindings(new_plan, new_plan_path)
+            with self.assertRaisesRegex(ValueError, 'runtime command order'):
+                preflight.validate(new_plan, plan_path=new_plan_path)
+
+    def test_manifest_cli_supplies_plan_path_to_opt_in_guard(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            value = self.guarded_native_plan(root, root)
+            plan_path = root / 'plan.json'
+            plan_path.write_text(json.dumps(value))
+            manifest_path = root / 'plans.json'
+            manifest_path.write_text(json.dumps({'plans': [str(plan_path)]}))
+            with patch.object(sys, 'argv', ['delivery_preflight', '--manifest', str(manifest_path)]):
+                with redirect_stdout(io.StringIO()):
+                    preflight.main()
+
+    def current_provenance_plan(self):
+        value = plan(native=True)
+        generated = value['generated']
+        compiler = '/tmp/pinned-candidate.mjs'
+        receipt = '/tmp/emit-receipt.json'
+        c_sha = '47860766951e7f10329e7512dc40b06d8de1aeb16a4539d09ebace652564f2f9'
+        compiler_sha = 'f686d14a08a7f1b6621c7d10184f0f9f53bd5e934855272f90a28596d5454a41'
+        receipt_sha = '4040bf32e6a0bae69790c1279fb2e248818e06e20bb14e6ff20e05faf58bfd71'
+        value['tools'] = {'bend': compiler}
+        value['pins'] = {generated: c_sha, compiler: compiler_sha, receipt: receipt_sha}
+        value['provenance'] = {
+            'currentC': generated,
+            'currentCSHA256': c_sha,
+            'currentCompilerSHA256': compiler_sha,
+            'currentEmitReceipt': receipt,
+            'currentEmitReceiptSHA256': receipt_sha,
+        }
+        return value
+
+    def test_saved_stale_current_compiler_provenance_and_valid_successor(self):
+        # Replays current-o3-stack-v1's stale currentC/compiler lineage and its
+        # successor's current generated-C, compiler, and emit-receipt bindings.
+        stale = self.current_provenance_plan()
+        old_c = '/tmp/canary-enum01/inspectors-runtime.c'
+        stale['provenance'].pop('currentCompilerSHA256')
+        stale['provenance'].pop('currentEmitReceipt')
+        stale['provenance'].pop('currentEmitReceiptSHA256')
+        stale['provenance']['currentC'] = old_c
+        stale['provenance']['currentCSHA256'] = 'c7ae6a5cd33ae99455ce41d58f3aeb0b06438cf5e7d1f3944215c493370c34e7'
+        stale['pins'][old_c] = stale['provenance']['currentCSHA256']
+        with self.assertRaisesRegex(ValueError, 'fields must be declared together'):
+            preflight.validate(stale)
+
+        stale_path = self.current_provenance_plan()
+        stale_path['provenance']['currentC'] = old_c
+        with self.assertRaisesRegex(ValueError, 'currentC must identify'):
+            preflight.validate(stale_path)
+
+        successor = self.current_provenance_plan()
+        self.assertEqual(preflight.validate(successor), 'native')
+
+        stale_compiler = self.current_provenance_plan()
+        stale_compiler['provenance']['currentCompilerSHA256'] = 'd' * 64
+        with self.assertRaisesRegex(ValueError, 'compiler digest'):
+            preflight.validate(stale_compiler)
+
+        stale_receipt = self.current_provenance_plan()
+        stale_receipt['provenance']['currentEmitReceiptSHA256'] = 'd' * 64
+        with self.assertRaisesRegex(ValueError, 'emit receipt digest'):
+            preflight.validate(stale_receipt)
+
+    def test_generic_provenance_and_unpinned_fresh_output_remain_accepted(self):
+        # Ordinary #56 plans summarize source/oracle lineage without the
+        # current-C/compiler dialect. Fresh emit outputs are not pre-pinned.
+        ordinary = plan(native=True)
+        ordinary['provenance'] = {
+            'parentPlanSHA256': 'a' * 64,
+            'normalOracleSHA256': 'b' * 64,
+        }
+        self.assertEqual(preflight.validate(ordinary), 'native')
+
+    def test_saved_import_closure_order_and_valid_successor(self):
+        # runtime01's sourceInventory mapping order is intentionally retained;
+        # the collector contract requires only the separate importClosure list
+        # to be sorted and set-equal. runtime02 sorts that list only.
+        value = plan()
+        inventory = {'/tmp/zeta.bend': 'a' * 64, '/tmp/alpha.bend': 'b' * 64}
+        value['sourceInventory'] = inventory
+        value['importClosure'] = sorted(inventory)
+        self.assertEqual(preflight.validate(value), 'js')
+        self.assertEqual(list(value['sourceInventory']), ['/tmp/zeta.bend', '/tmp/alpha.bend'])
+
+        malformed = copy.deepcopy(value)
+        malformed['importClosure'].reverse()
+        with self.assertRaisesRegex(ValueError, 'sorted exact'):
+            preflight.validate(malformed)
+
+        missing_path = copy.deepcopy(value)
+        missing_path['importClosure'].pop()
+        with self.assertRaisesRegex(ValueError, 'sorted exact'):
+            preflight.validate(missing_path)
+
+        wrong_type = copy.deepcopy(value)
+        wrong_type['importClosure'] = {'/tmp/alpha.bend': True, '/tmp/zeta.bend': True}
+        with self.assertRaisesRegex(ValueError, 'must be a list'):
+            preflight.validate(wrong_type)
 
 
 class Queue(unittest.TestCase):

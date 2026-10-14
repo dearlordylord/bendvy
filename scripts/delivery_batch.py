@@ -28,7 +28,7 @@ def run_batch(manifest_path, output):
         plan_bytes = Path(job['plan']).read_bytes()
         if hashlib.sha256(plan_bytes).hexdigest() != job['planSHA256']:
             raise ValueError('job plan digest mismatch')
-        validate(json.loads(plan_bytes))
+        validate(json.loads(plan_bytes), plan_path=Path(job['plan']))
     # This is not an outer heavy lock: frozen collectors acquire theirs themselves.
     # The shared command owner handles cancellation, descendants and deadlines.
     output.mkdir(parents=True, exist_ok=False)
