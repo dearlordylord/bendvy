@@ -1,0 +1,22 @@
+--- existing interval measure
++++ qualified enum artifact selection
+@@ -5,8 +5,8 @@
+ import argparse,hashlib,importlib.util,importlib.machinery,json,random,shutil,statistics,sys
+ ROOT=Path('/workspace/formal-proofs/bendvy');sys.path.insert(0,str(ROOT/'benchmarks/parity-features'))
+ import execute,preflight,run as feature_loop
+-HERE=Path(__file__).resolve().parent
+-spec=importlib.util.spec_from_loader('interval_validator',importlib.machinery.SourceFileLoader('interval_validator',str(HERE/'validate.py.source')));validator=importlib.util.module_from_spec(spec);spec.loader.exec_module(validator)
++HERE=Path('/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1')
++spec=importlib.util.spec_from_loader('interval_validator',importlib.machinery.SourceFileLoader('interval_validator',str(HERE/'canary-v4/validate.py.source')));validator=importlib.util.module_from_spec(spec);spec.loader.exec_module(validator)
+ def main():
+  parser=argparse.ArgumentParser();parser.add_argument('--plan',type=Path,required=True);parser.add_argument('--plan-sha',required=True);parser.add_argument('--quiet-window',required=True);args=parser.parse_args()
+  sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+@@ -43,7 +43,7 @@
+    return json.loads(result.stderr)
+   for repetitions in plan['scales']:
+    name='inspectors-'+str(repetitions)
+-   commands={'TS':[h.tools['node'],HERE/'ts'/('interval-'+str(repetitions)+'.mjs')],'JS':[h.tools['node'],artifacts[name+'.js']],'Native':[artifacts[name],'--threads','1','--gpu','off']}
++   commands={'TS':[h.tools['node'],HERE/'runtime-select-v1/ts/interval-runtime.mjs',str(repetitions)],'JS':[h.tools['node'],artifacts['inspectors-runtime.js'],str(repetitions)],'Native':[artifacts['inspectors-runtime'],'--threads','1','--gpu','off',str(repetitions)]}
+    for backend,command in commands.items():
+     for warmup in range(contract['warmups']):sample(backend,command,f'{name}-{backend}-warmup{warmup}',repetitions)
+    for backend in ['JS','Native']:

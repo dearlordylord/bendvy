@@ -1,0 +1,43 @@
+"""Verify source-only performance readiness; execute no tool/probe/comparison."""
+from pathlib import Path
+import hashlib
+import json
+import zipfile
+HERE = Path(__file__).resolve().parent
+sha = lambda raw: hashlib.sha256(raw).hexdigest()
+def main():
+    d = json.loads((HERE / "DELIVERY.json").read_text())
+    assert sha((HERE / "EVIDENCE.zip").read_bytes()) == d["archiveSHA256"]
+    with zipfile.ZipFile(HERE / "EVIDENCE.zip") as z:
+        assert set(z.namelist()) == {r["path"] for r in d["members"]}
+        for row in d["members"]:
+            raw = z.read(row["path"])
+            assert len(raw) == row["bytes"] and sha(raw) == row["sha256"]
+        get = lambda name: z.read("candidate/" + name)
+        freeze = json.loads(get("FREEZE.json"))
+        launch = json.loads(get("LAUNCH.json"))
+        assert launch["status"] == "PREPARATION_ONLY_NOT_ADMITTED"
+        assert sha(get("FREEZE.json")) == launch["freezeSHA256"]
+        reg = json.loads(get("regression01/plan.json"))
+        feature = json.loads(get("FEATURE-PLAN.json"))
+        assert sha(get("regression01/plan.json")) == freeze["regressionPlanSHA256"] == launch["order"][0]["planSHA256"]
+        assert sha(get("FEATURE-PLAN.json")) == freeze["featurePlanSHA256"] == launch["order"][1]["planSHA256"]
+        assert reg["baselineCommit"] == reg["contract"]["baselineCommit"] == "327bec49d41f00f88950343dea1edc1e0ec97dc4"
+        assert reg["contract"]["pairs"] == 20 and reg["contract"]["warmups"] == 2 and reg["outerCapSeconds"] == 900
+        assert sha(get("TOOL-SNAPSHOT.json")) == freeze["toolSnapshotSHA256"]
+        snapshot = json.loads(get("TOOL-SNAPSHOT.json"))
+        assert len(snapshot["resolved_libraries"]) == 8 and snapshot["cap_seconds"] == 5
+        assert sha(get("measure.unfrozen.py.source")) == freeze["measureSHA256"]
+        assert feature["scales"] == [1, 2, 4] and feature["pairs"] == 20 and feature["warmups"] == 2
+        for plan in [reg, feature]:
+            for path, digest in plan["pins"].items():
+                member = "dependencies/" + path.lstrip("/")
+                if member in z.namelist():
+                    assert sha(z.read(member)) == digest
+        prior = json.loads(get("proposal01/REGRESSION-PLAN.json"))
+        doc = "/workspace/formal-proofs/bendvy/docs/parity/README.md"
+        assert sha(z.read("history/pinned-root-README.md")) == prior["pins"][doc]
+        assert sha(get("RESULT.json")) == d["resultSHA256"]
+    print(json.dumps({"status": "PASS_RETAINED_SOURCE_ONLY_PERFORMANCE_SELECTION", "members": len(d["members"]), "comparisonsRun": 0}))
+if __name__ == "__main__":
+    main()
