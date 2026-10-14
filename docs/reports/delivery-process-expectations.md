@@ -676,3 +676,11 @@ source basis omitted its entry and renderer. No backend ran; the proposal stays
 preserved while a source-only successor binds the actual consumer and renderer.
 This is observed early manual coverage, not an automated preflight check or a
 measured delivery-speed improvement.
+
+The ordinary #45 frontend qualification exposed an oracle access-name assumption:
+`ordinary-system.access` uses the bare declaration name. The independent author
+corrected that source assumption without consulting output. Full retained JS
+was revalidated separately, preserving the original INCOMPLETE receipt; only
+the pending Native emit/O3/consumer ran. Native matched all2328 bytes. The
+frontend also uses canonical lifecycle insertion and an actual survivor query.
+These are bounded semantic results and observed reuse, not full #45 acceptance.
