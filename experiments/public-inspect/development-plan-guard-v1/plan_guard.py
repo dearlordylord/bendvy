@@ -1,5 +1,6 @@
 """Read-only pre-child command/artifact joins for detached-v2 development plans."""
 import hashlib
+import json
 import os
 from pathlib import Path
 import re
@@ -8,6 +9,53 @@ import stat
 
 class InvalidPlan(ValueError):
     pass
+
+
+def validate_stderr_policy(plan):
+    if 'consumerStderrPolicy' not in plan:
+        return None
+    policy = plan['consumerStderrPolicy']
+    keys = {'kind', 'elapsedNs', 'bytes', 'digest', 'intervals'}
+    if not isinstance(policy, dict) or set(policy) != keys:
+        raise InvalidPlan('invalid consumer telemetry policy fields')
+    if policy['kind'] != 'interval-telemetry-v1' or policy['elapsedNs'] != 'decimal-string':
+        raise InvalidPlan('unsupported consumer telemetry policy')
+    if any(type(policy[key]) is not int for key in ('bytes', 'digest', 'intervals')):
+        raise InvalidPlan('telemetry expectations must be integers')
+    if policy['bytes'] < 0 or not 0 <= policy['digest'] <= 0xffffffff or policy['intervals'] <= 0:
+        raise InvalidPlan('invalid telemetry expectation bounds')
+    if type(plan.get('oracleBytes')) is not int or policy['bytes'] != plan['oracleBytes']:
+        raise InvalidPlan('telemetry byte count differs from full oracle')
+    return policy
+
+
+def validate_consumer_stderr(plan, stdout, stderr):
+    policy = validate_stderr_policy(plan)
+    if policy is None:
+        if stderr:
+            raise InvalidPlan('Consumer stderr is not empty')
+        return None
+    if not stderr.endswith(b'\n') or stderr.count(b'\n') != 1:
+        raise InvalidPlan('telemetry must be exactly one LF-terminated JSON line')
+    try:
+        pairs = json.loads(stderr.decode('ascii'), object_pairs_hook=list)
+        if not isinstance(pairs, list) or [key for key, _ in pairs] != ['elapsedNs', 'bytes', 'digest', 'intervals']:
+            raise InvalidPlan('unexpected or duplicate telemetry keys')
+        value = dict(pairs)
+    except (UnicodeError, ValueError, TypeError) as error:
+        raise InvalidPlan('invalid telemetry JSON') from error
+    if stderr != (json.dumps(value, separators=(',', ':')) + '\n').encode('ascii'):
+        raise InvalidPlan('telemetry JSON must use the declared compact encoding')
+    if not isinstance(value['elapsedNs'], str) or re.fullmatch('[0-9]+', value['elapsedNs']) is None:
+        raise InvalidPlan('elapsedNs must be an ASCII decimal string')
+    if any(type(value[key]) is not int or value[key] != policy[key] for key in ('bytes', 'digest', 'intervals')):
+        raise InvalidPlan('telemetry expectations differ')
+    digest = 2166136261
+    for byte in stdout:
+        digest = ((digest ^ byte) * 16777619) & 0xffffffff
+    if len(stdout) != value['bytes'] or digest != value['digest'] or len(stdout.splitlines()) != value['intervals']:
+        raise InvalidPlan('telemetry differs from complete captured stdout')
+    return value
 
 
 def _path(value):
@@ -37,6 +85,7 @@ def validate(plan, *, output_dir):
     Existing guards remain responsible for complete pin/import/resource checks.
     """
     try:
+        validate_stderr_policy(plan)
         if not isinstance(plan['scope'], str):
             raise InvalidPlan('scope must be a string')
         environment = plan['environment']

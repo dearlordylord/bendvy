@@ -11,7 +11,7 @@ from test_plan_guard import CommandJoins
 
 COLLECTOR = Path('/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-adoption-v1/detached-v2/development.py')
 GUARD = Path(__file__).parent / 'plan_guard.py'
-CALL = "    load('development_plan_guard', PLAN_GUARD).validate(plan, output_dir=out)\n"
+CALL = "    plan_guard.validate(plan, output_dir=out)\n"
 
 
 class RunnerImportReached(Exception):
@@ -86,7 +86,7 @@ class Integration(CommandJoins):
         module, path, digest, loaded = self.harness(plan, enforcement=False)
         with self.assertRaisesRegex(RunnerImportReached, 'task_runner'):
             module.run(path, digest)
-        self.assertEqual(loaded, ['task_runner'])
+        self.assertEqual(loaded, ['development_plan_guard', 'task_runner'])
         self.assertEqual(json.loads(path.read_text())['commands'][0]['argv'][4], str(self.old))
 
 

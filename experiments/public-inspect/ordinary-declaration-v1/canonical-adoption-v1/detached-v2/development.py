@@ -146,7 +146,8 @@ def run(plan_path, expected_sha):
     VERIFIED_SOURCES={name:Path(name).read_bytes()for name in plan['pins']if name.endswith('.py')}
     if any(hashlib.sha256(raw).hexdigest()!=plan['pins'][name]for name,raw in VERIFIED_SOURCES.items()):raise ValueError('captured helper source drift')
     out = plan_path.parent
-    load('development_plan_guard', PLAN_GUARD).validate(plan, output_dir=out)
+    plan_guard = load('development_plan_guard', PLAN_GUARD)
+    plan_guard.validate(plan, output_dir=out)
     runner = load('task_runner', ROOT / 'scripts/task_runner.py')
     boundary = load('evidence_boundary', ROOT / 'scripts/evidence_boundary.py')
     pins = dict(plan['pins'])
@@ -239,8 +240,10 @@ def run(plan_path, expected_sha):
                     pins[str(artifact)] = sha(artifact)
                     record[label + 'ArtifactSHA256'] = pins[str(artifact)]
                 else:
-                    if result['stderr']:
-                        raise ValueError('Consumer stderr is not empty')
+                    telemetry = plan_guard.validate_consumer_stderr(plan, result['stdout'], result['stderr'])
+                    if telemetry is not None:
+                        record['consumerTelemetry'] = telemetry
+                        record['timingQualification'] = 'UNQUALIFIED_OPERATION_TO_RESULT_HANDOFF'
                     expected_bytes = gzip.decompress(Path(plan['oracle']).read_bytes())
                     if len(expected_bytes) != plan['oracleBytes'] or hashlib.sha256(expected_bytes).hexdigest() != plan['oracleSHA256']:
                         raise ValueError('Whole oracle changed')

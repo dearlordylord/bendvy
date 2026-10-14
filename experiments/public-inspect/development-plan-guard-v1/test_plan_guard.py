@@ -6,7 +6,7 @@ import tempfile
 from pathlib import Path
 import unittest
 
-from plan_guard import InvalidPlan, validate
+from plan_guard import InvalidPlan, validate, validate_consumer_stderr, validate_stderr_policy
 
 
 class CommandJoins(unittest.TestCase):
@@ -187,6 +187,60 @@ class CommandJoins(unittest.TestCase):
         with self.assertRaises(InvalidPlan):
             validate(plan, output_dir=self.root)
         validate(plan, output_dir=out)
+
+
+class ConsumerTelemetry(unittest.TestCase):
+    def setUp(self):
+        self.stdout = b'first\nsecond\n'
+        digest = 2166136261
+        for byte in self.stdout:
+            digest = ((digest ^ byte) * 16777619) & 0xffffffff
+        self.value = {'elapsedNs':'123', 'bytes':len(self.stdout), 'digest':digest, 'intervals':2}
+        self.plan = {'oracleBytes':len(self.stdout), 'consumerStderrPolicy':
+                     dict(self.value, kind='interval-telemetry-v1', elapsedNs='decimal-string')}
+
+    def encoded(self, value=None):
+        return (json.dumps(self.value if value is None else value, separators=(',', ':'))+'\n').encode()
+
+    def test_default_requires_empty_stderr(self):
+        self.assertIsNone(validate_consumer_stderr({}, self.stdout, b''))
+        with self.assertRaises(InvalidPlan):
+            validate_consumer_stderr({}, self.stdout, self.encoded())
+
+    def test_complete_declared_telemetry(self):
+        self.assertEqual(validate_consumer_stderr(self.plan, self.stdout, self.encoded()), self.value)
+
+    def test_rejects_malformed_policy_before_child(self):
+        for key, value in [('kind','unknown'), ('elapsedNs','number'), ('bytes',True),
+                           ('bytes',1), ('digest',-1), ('intervals',0)]:
+            plan = copy.deepcopy(self.plan)
+            plan['consumerStderrPolicy'][key] = value
+            with self.subTest(key=key, value=value), self.assertRaises(InvalidPlan):
+                validate_stderr_policy(plan)
+        plan = copy.deepcopy(self.plan)
+        plan['consumerStderrPolicy']['extra'] = 1
+        with self.assertRaises(InvalidPlan):
+            validate_stderr_policy(plan)
+
+    def test_rejects_log_noise_duplicate_and_noncanonical_json(self):
+        raw = self.encoded()
+        candidates = [b'', raw[:-1], raw+b'\n', b'noise\n'+raw,
+                      raw.replace(b'"bytes":', b'"elapsedNs":"0","bytes":'),
+                      raw.replace(b'"bytes":', b'"extra":0,"bytes":'),
+                      json.dumps(self.value).encode()+b'\n']
+        for candidate in candidates:
+            with self.subTest(candidate=candidate), self.assertRaises(InvalidPlan):
+                validate_consumer_stderr(self.plan, self.stdout, candidate)
+
+    def test_rejects_wrong_types_values_and_captured_output(self):
+        for key, value in [('elapsedNs',123), ('elapsedNs','-1'), ('elapsedNs','١'),
+                           ('bytes',True), ('digest',0), ('intervals',1)]:
+            telemetry = dict(self.value)
+            telemetry[key] = value
+            with self.subTest(key=key), self.assertRaises(InvalidPlan):
+                validate_consumer_stderr(self.plan, self.stdout, self.encoded(telemetry))
+        with self.assertRaises(InvalidPlan):
+            validate_consumer_stderr(self.plan, b'other\nsecond\n', self.encoded())
 
 
 if __name__ == '__main__':
