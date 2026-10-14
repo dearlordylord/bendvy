@@ -588,3 +588,10 @@ bytes; both numeric outputs matched the existing 369 bytes. Portable evidence
 verification passed 215 archive members. The prior full Native receipt was
 reused rather than rerun; final review and single-process repetition remain
 separate. This records batch/evidence reuse, not a speed or adoption claim.
+
+The admitted existing enum repetition batch passed all 12 selector controls,
+the timer protocol, full JS/C emission and generated boxed-barrier checks.
+Ordinary Native O3 reached build120 with empty raw streams and clean guards
+(receipt `b579b40a`); the runner stopped and did not execute any 1/2/4 runtime.
+No unchanged retry is authorized by this result. The next work compares the
+failed enum source/generated C with the qualified pure consumer.
