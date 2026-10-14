@@ -1,0 +1,48 @@
+{
+  "status": "ENUM_EMIT_BARRIER_PASS_BUILD_DEADLINE_RUNTIME_NOT_RUN",
+  "originalSession": 67877,
+  "receiptSHA256": "b579b40a7edf5ab2b9d32348c6defb0a90fba991c1b944ced6643194512035d1",
+  "terminalSHA256": "f8373838bedc6f492689d2061dbee46597fc2a3b964f9f3d23708d45351c5e2e",
+  "argvControls": {
+    "total": 12,
+    "passed": 12
+  },
+  "protocol": "PASS",
+  "fullEmits": "JS/Native exit0",
+  "boxedBarrier": "PASS",
+  "generatedCBytes": 25692440,
+  "generatedCSHA256": "b6a5522b724955e990481a84042f26c198c3c21cd2039a994f63fbd9432e3fa6",
+  "build": {
+    "label": "inspectors-runtime-compile",
+    "command": [
+      "/usr/bin/taskset",
+      "-c",
+      "3",
+      "/tmp/bendvy-clang19-diagnostic/clang19",
+      "-O3",
+      "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/heap-alloc-host-boundary-v1/enum-repetitions-v1/runtime01/inspectors-runtime.c",
+      "-o",
+      "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/heap-alloc-host-boundary-v1/enum-repetitions-v1/runtime01/inspectors-runtime",
+      "-pthread",
+      "-lm"
+    ],
+    "cap": 120,
+    "exit": null,
+    "failure": "child deadline",
+    "stdout": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/heap-alloc-host-boundary-v1/enum-repetitions-v1/runtime01/inspectors-runtime-compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published": true
+    },
+    "stderr": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/observable-query-boundaries/experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/matched-timing-v1/dispatch-equivalent-v2/operation-interval-v1/timed-v1/array-location-lookup-v1/heap-alloc-host-boundary-v1/enum-repetitions-v1/runtime01/inspectors-runtime-compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published": true
+    }
+  },
+  "runtime1_2_4": "NOT_RUN; stop-first-failure",
+  "guards": "UNCHANGED",
+  "scope": "Actual current f1a enum compiler emissions and existing control/barrier scope only; full Native repetition qualification remains incomplete. No semantic failure, speed, optimization cause or adoption claim. Historical timedFFI source05 deadline distinct and not waived."
+}
