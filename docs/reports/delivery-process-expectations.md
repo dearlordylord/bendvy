@@ -668,3 +668,11 @@ These deliveries used their existing runners and full scenario validators;
 The generic preflight runtime dialect does not admit the combined simulation
 plan, so this is not evidence of generic preflight coverage for that dialect.
 No overall delivery-speed improvement is inferred.
+
+Before the first #45 backend launch, manual operation/state/observation/oracle
+reconciliation caught an independent oracle using the old observer DTO. The
+current consumer renders different complete Array/World strings, and the oracle
+source basis omitted its entry and renderer. No backend ran; the proposal stays
+preserved while a source-only successor binds the actual consumer and renderer.
+This is observed early manual coverage, not an automated preflight check or a
+measured delivery-speed improvement.
