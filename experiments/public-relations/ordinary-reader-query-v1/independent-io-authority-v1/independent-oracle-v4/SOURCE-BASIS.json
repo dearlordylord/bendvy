@@ -1,0 +1,342 @@
+{
+  "backendInvocations": [],
+  "counts": {
+    "deliveriesPerReport": 1,
+    "foreignSnapshotsPerReport": 11,
+    "foreignWritesPerReport": 4,
+    "positiveWritesPerReport": 2,
+    "queriesPerReport": 2,
+    "receiverSnapshotsPerReport": 11,
+    "reports": 2,
+    "schemas": 2,
+    "seededWorlds": 4,
+    "worldIoCreations": 4,
+    "writesPerReport": 6
+  },
+  "cursorCorrection": {
+    "rule": "The inverse reader is run through run_tracked; successful runs set its cursor to the resulting world clock, while failed/rejected runs preserve the cursor.",
+    "runtimeOutputConsulted": false,
+    "snapshotCursors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      10,
+      10,
+      13
+    ],
+    "source": [
+      "src/ecs/system.bend:75-92",
+      "mutation-composition-v1/consumer.bend:83-94",
+      "independent-io-authority-v1/consumer.bend:positive query stages"
+    ]
+  },
+  "developmentSourceCheck": {
+    "note": "Adjacent development check is provenance only; it has no runtime output and does not replace the deterministic oracle self-check.",
+    "path": "SOURCE-CHECK02.json"
+  },
+  "expectedOutput": {
+    "bytes": 18196,
+    "gzipBytes": 808,
+    "gzipPath": "expected.stdout.gz",
+    "gzipSha256": "629a1883b2dd52c653007f8e97c65eddaf7dbea155d8269638552d2c07b8a7be",
+    "lines": 2,
+    "path": "expected.stdout",
+    "reports": 2,
+    "sha256": "232b154aef6b3158349b45c6b183a1755bb72edf762df432fd63b568ead255a2"
+  },
+  "foreignPrefix": {
+    "failureDelivery": "The missing Parent domain yields Reading{Key{2},[],False}; the tracked failure reader creates Position{3,7,5} and advances its cursor to 7.",
+    "reason": "ForeignSource and ForeignTarget each include the peer namespace, while both ForeignClear operations target the peer handle. relation-commands.queue_namespaced rejects before staging.",
+    "writerResults": [
+      "MissingEntity",
+      "MissingEntity",
+      "MissingEntity",
+      "MissingEntity"
+    ]
+  },
+  "format": "bendvy-source-derived-oracle/v4",
+  "historicalPredecessors": [
+    "independent-oracle-v1",
+    "independent-oracle-v2",
+    "independent-oracle-v3"
+  ],
+  "issue": "#42 IO-authority ordinary-reader query",
+  "namespaceDerivation": {
+    "allocation": "The shared host allocator starts at 1 and increments across both nominal schema executions: Workshop uses receiver/peer 1/2, Garden uses receiver/peer 3/4.",
+    "source": [
+      "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.c",
+      "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.js",
+      "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend"
+    ]
+  },
+  "operationReceiverBinding": {
+    "binding": "The target own_lookup passes the canonical WorldIO-created receiver to W.enqueue before the copied writer_registered/inverse_registered/failure_registered helpers. The imported mutation consumer start(F.fixture(~S,1)) is unreachable from this target entrypoint.",
+    "effect": "The receiver state is namespace 1 for Workshop and namespace 3 for Garden, with the target-created empty store, resource [77,88], pending tick, and registrations ForeignParentWriter id 1, ParentInverse id 2, and ParentFailures id 3.",
+    "source": "independent-io-authority-v1/consumer.bend:own_lookup and ../mutation-composition-v1/consumer.bend:writer_registered"
+  },
+  "positiveSuffix": {
+    "eventObservations": "No positive relation error is published; events and failure domains remain empty after the foreign-prefix delivery.",
+    "failureCursors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      7,
+      7,
+      7,
+      7,
+      7
+    ],
+    "graphAfterClearBarrier": "[]/[]",
+    "graphAfterRelateBarrier": "[2:Parent:Children:hierarchy:1>2]/[2:Parent:Children:hierarchy:2:[1]]",
+    "handles": "local Handle{receiverNamespace,1}; target Handle{receiverNamespace,2}; alien Handle{peerNamespace,1}.",
+    "inverseCursors": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      10,
+      10,
+      13
+    ],
+    "pendingCounts": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      1,
+      0,
+      1,
+      0
+    ],
+    "queryResults": [
+      "Some([Handle{receiverNamespace,1}])",
+      "Some([])"
+    ],
+    "runtimeTicks": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      10,
+      11,
+      13
+    ],
+    "snapshotClocks": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      6,
+      7,
+      8,
+      10,
+      11,
+      13
+    ],
+    "source": [
+      "independent-io-authority-v1/consumer.bend:Operation,request,positive_relate_barrier,positive_clear,positive_clear_barrier,positive_finished",
+      "mutation-composition-v1/operations.bend:writer/reader transaction adapters",
+      "src/ecs/relation-commands.bend:queue_relate/queue_unrelate",
+      "src/ecs/transaction.bend:finish and src/ecs/world.bend:enqueue/barrier",
+      "src/ecs/system.bend:75-92: a successful run_tracked result replaces the reader cursor with the resulting world clock; failed/rejected runs preserve it."
+    ],
+    "writerCursors": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      4,
+      4,
+      8,
+      8,
+      11,
+      11
+    ],
+    "writerResults": [
+      "MissingEntity",
+      "MissingEntity",
+      "MissingEntity",
+      "MissingEntity",
+      "Queued",
+      "Queued"
+    ]
+  },
+  "programOrder": [
+    "WorldIO.create Workshop receiver",
+    "seed receiver IDs 1,2,3",
+    "WorldIO.create Workshop peer",
+    "seed peer IDs 1,2,3",
+    "register copied mutation writer, inverse reader, and failure reader on the canonical WorldIO receiver via own_lookup",
+    "checkpoint, ForeignSource, checkpoint, ForeignTarget, checkpoint, ForeignClear, checkpoint, ForeignClear, checkpoint, barrier, checkpoint, failure delivery",
+    "checkpoint, LocalRelate, checkpoint, relation barrier, inverse query, checkpoint, LocalClear, checkpoint, clear barrier, inverse query, final checkpoint",
+    "repeat the same complete sequence for Garden after the shared host namespace allocator returns namespaces 3 and 4"
+  ],
+  "rendererCorrection": {
+    "nestedLayers": "Payload first/second arrays, live booleans, resource numbers, graph/list values, notices, domains, positions, registration views, snapshot arrays, argument arrays, and report Maybe/list layers were independently checked against their source composition and retain their v3 forms.",
+    "outerSlotTree": "show_components passes show_slot to the generic tree; each ALeaf calls leaf(show_slot(value)), so the four slot texts are L(absent), L(P(...)), L(P(...)), and L(P(...)).",
+    "runtimeOutputConsulted": false,
+    "source": [
+      "mutation-composition-v1/fixture.bend:44-56",
+      "mutation-composition-v1/fixture.bend:65-80",
+      "mutation-composition-v1/fixture.bend:91-99",
+      "mutation-composition-v1/fixture.bend:131-145",
+      "independent-io-authority-v1/render.bend:79-96"
+    ]
+  },
+  "runtimeOutputConsulted": false,
+  "sourceClosure": {
+    "additionalHostAllocatorFiles": 2,
+    "baseModule": "Base is the installed language base and is not duplicated in this leaf.",
+    "bendImportFiles": 33,
+    "pinnedFiles": 35
+  },
+  "sourcePins": {
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/consumer.bend": "9b39d5fa18449935b605a493910a3111fcbd0465b322e1886af8f5c75beda790",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/main.bend": "3160664a5c6bc17b34c38d2ea331d15460d573bcd22ff55c882521ce330fe4d9",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/render.bend": "ba292d2f88178e7564b5a37cd2bf0813e455a8427f71971c572bbd33a9099096",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/consumer.bend": "b5aa3a508fd82ee1e67ca3db2636812d97415186a0b4a006f9120a07b46d9903",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/fixture.bend": "e8f413e4add7fcdc2e09bd1d9367c0b153046d3599b435c3adbc47f2cddf85b3",
+    "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/operations.bend": "2b64fbe65eb968aac8bdc5c046b556f10311e5758d9ef9e88debd80852accf86",
+    "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "/workspace/formal-proofs/bendvy/src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+    "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+    "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+    "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/barrier.bend": "78f61ec8cd251f8362f738f264c313ec3ed15246c5227d8a90c43fbada967752",
+    "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/domains.bend": "38821350d2565c576067bb4f9e2ba03cbe1b65da47258555c0c2b213eaafd379",
+    "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/queue.bend": "ca7363dac7df55b46fc06e42b123a874fbeae3181abe0c8da37d99ae9da524df",
+    "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/readings.bend": "09bcc21e95fbedef0c3f48025e93bc3088e7a89edfd2011d33d96884bc3d4a0e",
+    "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/routing.bend": "928a41657992d49110836caa4d7dd0349e14b003f8cf9112c413206c9b9df693",
+    "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+    "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-cleanup.bend": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-failure-reader.bend": "6c355ea7f29297ee96172c39364b97cbf0f8223b7cce7f46d85636919a36c75e",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-failure-runtime.bend": "11df4128184ea27bd9f87993235ef9459342c17c5165858814fea1f62c460ac9",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-graph.bend": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-providers.bend": "6a69de7d29d0a150446689228878f19df5b6d2fdefdfcb2eb1ce1048246ac594",
+    "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+    "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+    "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend": "1be0fcd577ecf177af89136f77e5c8e67894304a89adefaf0565591f641a63e9",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.c": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+    "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.js": "f463bf328c4232fec85c67e328d93309e2191d80b7377be64355b6c1edd4f815",
+    "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+  },
+  "stateTransitionTrace": [
+    {
+      "checkpoint": 0,
+      "failureCursor": 0,
+      "inverseCursor": 0,
+      "pending": 1,
+      "runtimeTick": 0,
+      "transition": "initial C.start state; F.tick pending",
+      "worldClock": 0,
+      "writerCursor": 0
+    },
+    {
+      "checkpoint": "1-4",
+      "failureCursor": 0,
+      "inverseCursor": 0,
+      "pending": 1,
+      "runtimeTick": "1-4",
+      "transition": "four foreign successful tracked writes",
+      "worldClock": "1-4",
+      "writerCursor": "1-4"
+    },
+    {
+      "checkpoint": 5,
+      "failureCursor": 0,
+      "inverseCursor": 0,
+      "pending": 0,
+      "runtimeTick": 5,
+      "transition": "B.barrier advances to tick 5; FIFO F.tick advances observed world to 6",
+      "worldClock": 6,
+      "writerCursor": 4
+    },
+    {
+      "checkpoint": 6,
+      "failureCursor": 7,
+      "inverseCursor": 0,
+      "pending": 0,
+      "runtimeTick": 7,
+      "transition": "K.run tracked failure-reader delivery",
+      "worldClock": 7,
+      "writerCursor": 4
+    },
+    {
+      "checkpoint": 7,
+      "failureCursor": 7,
+      "inverseCursor": 0,
+      "pending": 1,
+      "runtimeTick": 8,
+      "transition": "local relation write through K.with_world",
+      "worldClock": 8,
+      "writerCursor": 8
+    },
+    {
+      "checkpoint": 8,
+      "failureCursor": 7,
+      "inverseCursor": 10,
+      "pending": 0,
+      "runtimeTick": 10,
+      "transition": "relation barrier to 9, then inverse query through K.with_world",
+      "worldClock": 10,
+      "writerCursor": 8
+    },
+    {
+      "checkpoint": 9,
+      "failureCursor": 7,
+      "inverseCursor": 10,
+      "pending": 1,
+      "runtimeTick": 11,
+      "transition": "local clear write through K.with_world",
+      "worldClock": 11,
+      "writerCursor": 11
+    },
+    {
+      "checkpoint": 10,
+      "failureCursor": 7,
+      "inverseCursor": 13,
+      "pending": 0,
+      "runtimeTick": 13,
+      "transition": "clear barrier to 12, then inverse query through K.with_world",
+      "worldClock": 13,
+      "writerCursor": 11
+    }
+  ],
+  "stateTransitionTraceSource": [
+    "independent-io-authority-v1/consumer.bend:checkpoint and positive stages",
+    "src/ecs/relation-failure-runtime.bend:132-134 (K.with_world advances before effect)",
+    "src/ecs/relation-failure-runtime.bend:80-88 (K.run advances and uses Sy.run_tracked)",
+    "src/ecs/internal/relation-failures/barrier.bend:22-30 (barrier tick and FIFO drain)",
+    "mutation-composition-v1/fixture.bend:36-37 (F.tick advances the world clock)",
+    "src/ecs/system.bend:62-92 (successful tracked cursor adopts resulting world clock)",
+    "independent-io-authority-v1/consumer.bend:53-70 (snapshot captures all views)"
+  ]
+}

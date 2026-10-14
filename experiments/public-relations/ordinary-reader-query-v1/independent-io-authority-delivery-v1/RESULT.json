@@ -1,0 +1,62 @@
+{
+  "status": "BOUNDED_IO_RELATION_AUTHORITY_QUALIFIED_NOT_FULL_42_OR_PERFORMANCE",
+  "roles": [
+    {
+      "name": "js-retained",
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/runtime02/js/plan.json",
+      "planSHA256": "bb970382d35274d13bcacf4fb761c367c2e3f4c92533c1f18c90803172cbebc9",
+      "receipt": "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/runtime02/js/receipt.json",
+      "receiptSHA256": "97829a315e3e27d9e06ee80c1d05fd050d7be52e1edaf7fc0d4a7ebd2ed269c3",
+      "freshRun": false,
+      "expectedReceiptStatus": "INCOMPLETE",
+      "oracle": "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/independent-oracle-v5/expected.stdout.gz",
+      "oracleTransportSHA256": "2d6e60a57b80464bde7bf70c7b44888eecc66cf9c913b663c924be8813554054"
+    },
+    {
+      "name": "native",
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/runtime03/native/plan.json",
+      "planSHA256": "d5d82b3d8adaa3014e691dc97f9905edcd87ee9868f8669e96081e0ff5a1acc3",
+      "receipt": "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/runtime03/native/receipt.json",
+      "receiptSHA256": "fd68e990505e3c80969b05970c3d2061e713180b8160e15a1db6a812bdade80b",
+      "freshRun": true,
+      "expectedReceiptStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "oracle": "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/independent-oracle-v5/expected.stdout.gz",
+      "oracleTransportSHA256": "2d6e60a57b80464bde7bf70c7b44888eecc66cf9c913b663c924be8813554054"
+    }
+  ],
+  "jsRecovery": "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/JS-REVALIDATION.json",
+  "oracleBasis": "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/independent-oracle-v5/SOURCE-BASIS.json",
+  "sourceCommit": "6451086ef6285911ead8b06a5b50db9eced1faa7",
+  "nativeSelectionCommit": "ba5617be828309b29b42dc7ba1182c0e48655162",
+  "independentOracleCommit": "6ceeaa983",
+  "originalJSSession": 13414,
+  "originalJSExit": 1,
+  "freshNativeSession": 55443,
+  "freshNativeExit": 0,
+  "wholeOutputBytes": 18546,
+  "wholeOutputSHA256": "155c71f9cea0f03d5adf2c7eaea9f0f9c830526150e57bd2abab4a1ed257ff8d",
+  "reports": 2,
+  "snapshotsPerWorldPerSchema": 11,
+  "writesPerSchema": 6,
+  "queriesPerSchema": 2,
+  "namespacePairs": [
+    [
+      1,
+      2
+    ],
+    [
+      3,
+      4
+    ]
+  ],
+  "comparisons": 0,
+  "sourceCoreChanges": 0,
+  "productionAdoption": false,
+  "historicalScope": "Oracles v1/v2 and runtime01 were never run; runtime02 JS original INCOMPLETE preserved, v3/v4 corrections source-derived before retained revalidation; runtime02 Native not run",
+  "tsReuse": {
+    "path": "/workspace/formal-proofs/bendvy/experiments/public-relations/ordinary-reader-query-v1/TS-REUSE.json",
+    "sha256": "5e4df5f6998417e82a3601f5c5533d26fcca0f1dae92f0e37b979a93b6f4f2ad",
+    "scope": "Exact prior shared relation operations only; numeric-ID foreign behavior differs; no TS WorldIO allocator or transcript identity claim"
+  },
+  "remaining": "Full #42 source-current delivery reconciliation and equivalent whole-feature TS/JS/Native timing/scaling; no new owner/identity policy or universal proof"
+}
