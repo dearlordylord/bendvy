@@ -1,0 +1,63 @@
+{
+  "status": "CURRENT_F1A_NINE_EXISTING_SOURCE_CONTROLS_PASS",
+  "outcomes": {
+    "inspector-authority": {
+      "receiptSHA256": "713e18a5a14fe6d9111d3eec79644de51eef11a9385048e4741864336a30a2e6",
+      "commands": [
+        [
+          "source-positive",
+          0
+        ],
+        [
+          "source-write-read",
+          1
+        ],
+        [
+          "source-undeclared-read",
+          1
+        ],
+        [
+          "source-escape-owner",
+          1
+        ]
+      ]
+    },
+    "resource-authority": {
+      "receiptSHA256": "484f00bfcb18efe7b908e48bc7769b5cbd0a59685f1e2381b620b0e2963e884a",
+      "commands": [
+        [
+          "source-positive",
+          0
+        ],
+        [
+          "source-cross-schema",
+          1
+        ],
+        [
+          "source-wrong-identity",
+          1
+        ],
+        [
+          "source-duplicate-app",
+          1
+        ]
+      ]
+    },
+    "storage-authority": {
+      "receiptSHA256": "42cdf24f3ce99a8b598bf7aa88afdbeb9f53f16b39109a71ac23338c234c68fc",
+      "commands": [
+        [
+          "source-wrong-storage-index",
+          1
+        ]
+      ]
+    }
+  },
+  "originalSessions": [
+    19870,
+    36486,
+    52492
+  ],
+  "scope": "Two positive and seven intended source/type/affine refusals with actual matching diagnostics under f1a. Bool-vs-ListU32 ValueRead mismatch does not establish independent runtime undeclared-handle refusal. No backend/mutant/performance/adoption credit. Stock reachedgetter capsule retains original tool scope.",
+  "toolSelection": "Existing stock scripts/bend-check plus exact project-local Bun/f1a emission CLI; no installedreplacement. Proposed selection is reviewable/reproducible but not adopted; required production/regression/performance gates remain."
+}

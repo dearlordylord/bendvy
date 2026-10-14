@@ -1,0 +1,48 @@
+"""Verify retained nine source-control outcomes without execution."""
+from pathlib import Path
+import hashlib
+import json
+import zipfile
+
+HERE = Path(__file__).resolve().parent
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+def main():
+    d = json.loads((HERE / "DELIVERY.json").read_text())
+    assert sha((HERE / "EVIDENCE.zip").read_bytes()) == d["archiveSHA256"]
+    with zipfile.ZipFile(HERE / "EVIDENCE.zip") as z:
+        assert set(z.namelist()) == {r["path"] for r in d["members"]}
+        for row in d["members"]:
+            raw = z.read(row["path"])
+            assert len(raw) == row["bytes"] and sha(raw) == row["sha256"]
+        get = lambda p: z.read("candidate/" + p)
+        launch = json.loads(get("LAUNCH.json"))
+        assert sha(get("FREEZE.json")) == launch["freezeSHA256"]
+        count = 0
+        for row in launch["order"]:
+            role = row["role"]
+            assert sha(get(role + "/plan.json")) == row["sha256"]
+            p = json.loads(get(role + "/plan.json"))
+            r = json.loads(get(role + "/receipt.json"))
+            assert r["planSHA256"] == row["sha256"] and not r.get("guardFailures", [])
+            assert len(r["commands"]) == len(p["commands"])
+            for actual, expected in zip(r["commands"], p["commands"]):
+                count += 1
+                assert actual["exit"] == expected["expectedExit"] and actual["failure"] is None
+                stderr = get(role + "/" + actual["label"] + ".stderr").decode()
+                assert all(pattern in stderr for pattern in expected["stderrContains"])
+                for stream in ["stdout", "stderr"]:
+                    raw = get(role + "/" + actual["label"] + "." + stream)
+                    assert sha(raw) == actual[stream]["sha256"]
+            for guard in r["guards"]:
+                assert sha(get(role + "/" + Path(guard["path"]).name)) == guard["sha256"]
+            assert sha(z.read("dependencies/" + p["tools"]["bend"].lstrip("/"))) == "f1a2288f512f3bed37199bd463a8bc57126377a65b2e9e2924a3110f4156e28f"
+        assert count == 9
+        assert sha(get("RESULT.json")) == d["resultSHA256"]
+        assert json.loads(get("PROJECT-INVOCATION.json"))["status"] == "REPRODUCIBLE_PROJECT_LOCAL_CLI_NOT_ADOPTED"
+    print(json.dumps({"status": "PASS_RETAINED_NINE_F1A_SOURCE_CONTROLS", "members": len(d["members"]), "controls": count}))
+
+if __name__ == "__main__":
+    main()

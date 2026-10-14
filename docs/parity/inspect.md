@@ -77,3 +77,15 @@ there is no borrowed held-view API whose ownership needs a new approval. Query
 capabilities accept compatible same-schema frames rather than binding one World
 identity. Existing foreign-handle checks compare namespaces; independently
 started factory roots can collide, leaving the concrete identity decision in #38.
+
+### Current private-emitter type controls
+
+The existing nine source controls were executed with pinned f1a check-only:
+two positives pass and seven intended rejections match their retained semantic
+diagnostics, with clean guards. Independent final packet review passes. The read-control
+fixture named undeclared-read supplies a List<U32> capability where Bool is
+required; this is a type-mismatch refusal, not an independent runtime
+undeclared-handle test. Stock 2.0.35 remains the ordinary checker, and historical
+stock backend/mutant results retain that tool identity. The project-local
+private emitter has separate qualified runtime evidence; these source checks
+do not grant backend, mutant or production-adoption credit.
