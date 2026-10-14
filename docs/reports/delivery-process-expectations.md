@@ -98,7 +98,7 @@ remain blocked until the native contract is approved.
 | Candidate | Parent | Blocked by | Complete result |
 |---|---|---|---|
 | A. Optional/required resource absence | #54 | None; existing work underway | An ordinary registered application observes absence safely; required execution refuses before callback, preserving affine owners and pending work. Complete qualification and integration of the current candidate. |
-| B. Held inspection views | #54 | Approved held-view ownership/invalidation contract | Host retains the agreed detached inspection value across actual subsequent ECS operations; the value obeys the approved lifetime/aliasing semantics on both backends. |
+| B. Detached inspection observations | #54 | No new held-view contract for the current Data projection API; reconcile existing evidence | Host retains detached Data observations across subsequent ECS operations while each call returns affine owners. Reuse current preservation evidence; arbitrary borrowed Type views would be a separate proposed capability. |
 | C. Multiple retained Schedule access indexes | #56 | Approved ordinary multi-Schedule ownership/composition contract | One ordinary App retains and executes multiple schedules, deriving each access index from actual placements without user metadata duplication. |
 | D. Mixed-reader dump Native reached control | #56 | None; qualified normal adapter exists | The actual public filtering defect is detected by a complete Native counter trace, with exact source restoration; preserve existing normal JS/Native and reached JS evidence. |
 | E. Non-Column population and dump | #56 | Approved supported storage/iteration contract | An ordinary application using the agreed non-Column storage derives population and filtered dump from its operational binding, preserving affine owners and order. |
@@ -595,3 +595,10 @@ Ordinary Native O3 reached build120 with empty raw streams and clean guards
 (receipt `b579b40a`); the runner stopped and did not execute any 1/2/4 runtime.
 No unchanged retry is authorized by this result. The next work compares the
 failed enum source/generated C with the qualified pure consumer.
+
+The minimal enum query-helper successor completed the existing 28-command
+batch, including ordinary O3 and all nine JS/Native/TS single-process 1/2/4
+full-oracle runs (`1330c298`, clean guards). Source expansion was independently
+checked against the unchanged original declaration. This is observed reuse of
+a qualified source factor and unchanged runner, not a comparative speed or
+compiler-cost attribution. Independent final evidence review passes.

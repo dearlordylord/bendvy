@@ -32,7 +32,7 @@ Host code repeatedly inspects components, resources and event/removal streams wh
 
 The ordinary present-resource binder is integrated with [bounded JS/Native review](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/present-resource-v1/public-relocation-v1/FINAL-REVIEW.md). Missing-resource lowering remains an actual #54 gap: pinned bevy-ts `Runtime.ts` uses partial resources (line147), skips absent constructed inputs (498–510), inserts only supplied values (477–490), and preflights schedule requirements before advancing the frame (1674–1687). Rust Bevy validates absent `Res`/`ResMut` in `system_param.rs` (904/955). Bend’s current ordinary resource provision requires a supplied owner. A `Maybe` payload is not resource absence; no new absence or ownership policy is adopted here. References: TS3040a3b2a3f28fa8554d856f9ccb6bf5433fa334; Bevy ad678262ce53b5d142fe49ee5e08caff6f00ab60.
 
-The [two-present-resource TS comparison](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/present-resource-v1/ts-common-v1/FINAL-REVIEW.md) passes its complete independent 10,876-byte oracle. TS cursor/tick advancement and JS aliases remain explicit reference differences; this does not resolve resource absence or held-view contracts.
+The [two-present-resource TS comparison](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/present-resource-v1/ts-common-v1/FINAL-REVIEW.md) passes its complete independent 10,876-byte oracle. TS cursor/tick advancement and JS aliases remain explicit reference differences; resource absence is addressed by the later ordinary missing-resource slice below. Current Inspector returns detached Data with affine owners; it proposes no held-view contract.
 
 The [ordinary query method slice](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/ordinary-query-errors-v1/FINAL-REVIEW.md) qualifies real handle2 `QueryMismatch`, required single success, optional `MultipleEntities`, and Changed/cursor1 zero-row `NoEntities` versus successful `None`. Both schemas and full returned App owners pass on JS/Native. Historical TS query evidence is current and reused as complete parsed JSON equality; no fresh TS run or affine ownership transfer is claimed. Earlier checks of the wrong consumer and an emitter failure remain explicitly uncredited. Full47 Native and broader composition remain separate gates.
 
@@ -59,3 +59,21 @@ A compiling mutation of the actual public getter advances reader1. Both backends
 ### Component-query retained Inspector lifecycle — current blocked stock attempt
 
 The [Unit-filter attempt](../../experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/stock-unit-attempt-v3/RESULT.json) preserves the exact current 53-source fixture and source-only [independent model chain](../../experiments/public-inspect/promotion-stage/missing-resource-v1/independent-oracle-v1/direct-inspector-v1/component-query-v1/ORACLES.json). Stock source03 passes; JS matches all 207,834 bytes (14 query kinds, 9 Checks, 11 full checkpoints/schema, retained instances, failure/retry and registered writers). Stock Native emit again hits 30 seconds without C, build or runtime. [Final review](../../experiments/public-inspect/promotion-stage/missing-resource-v1/direct-inspector-v1/component-query-v1/stock-unit-attempt-v3/FINAL-REVIEW.md) accepts bounded retention only. The archive retains predecessor attempts; none establishes Native acceptance or full #54 completion. Unit consolidation changes private consumer projection wrappers, not public core/API.
+
+### Current enum repetition qualification
+
+The minimal successor transplants the already qualified query helper into the
+existing timed enum consumer. Expanding its three calls restores the original
+declaration source byte-for-byte; other enum bodies, timer/IO/argument handling
+and complete oracles are unchanged. The ordinary Native O3 build and all nine
+single-process JS/Native/TS repetitions (1/2/4, 20/40/80 intervals) pass. All 28
+commands exit zero with clean guards (`1330c298`). Independent final evidence
+review passes; no comparative speed, compiler adoption or full #54 closure
+is established. Historical stock/enum failures above remain retained failures.
+
+Current read projections require Data and return the supplied affine owner.
+Arbitrary Type payloads remain behind trusted owner-preserving presenters;
+there is no borrowed held-view API whose ownership needs a new approval. Query
+capabilities accept compatible same-schema frames rather than binding one World
+identity. Existing foreign-handle checks compare namespaces; independently
+started factory roots can collide, leaving the concrete identity decision in #38.

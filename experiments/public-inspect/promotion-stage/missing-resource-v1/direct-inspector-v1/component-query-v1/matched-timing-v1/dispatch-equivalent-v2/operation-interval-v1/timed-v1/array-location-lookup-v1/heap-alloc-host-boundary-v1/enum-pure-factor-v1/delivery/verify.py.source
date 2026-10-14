@@ -1,0 +1,81 @@
+"""Verify retained full enum semantics without compiler/runtime execution."""
+from pathlib import Path
+import hashlib
+import json
+import re
+import tempfile
+import zipfile
+
+HERE = Path(__file__).resolve().parent
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+def end(text, start):
+    depth = 0
+    for i in range(start, len(text)):
+        if text[i] == "(":
+            depth += 1
+        elif text[i] == ")":
+            depth -= 1
+            if depth == 0:
+                return i + 1
+    raise AssertionError("unclosed call")
+
+def main():
+    d = json.loads((HERE / "DELIVERY.json").read_text())
+    assert sha((HERE / "EVIDENCE.zip").read_bytes()) == d["archiveSHA256"]
+    with zipfile.ZipFile(HERE / "EVIDENCE.zip") as z:
+        assert set(z.namelist()) == {r["path"] for r in d["members"]}
+        for row in d["members"]:
+            raw = z.read(row["path"])
+            assert len(raw) == row["bytes"] and sha(raw) == row["sha256"]
+        get = lambda p: z.read("candidate/" + p)
+        launch = json.loads(get("LAUNCH.json"))
+        assert sha(get("FREEZE.json")) == launch["freezeSHA256"]
+        assert sha(get("PLAN.json")) == launch["planSHA256"]
+        p = json.loads(get("PLAN.json"))
+        r = json.loads(get("runtime01/receipt.json"))
+        t = json.loads(get("terminal.json"))
+        assert t["planSHA256"] == launch["planSHA256"] and t["primaryError"] is None
+        assert not t["drift"] and not t.get("guardFailures", []) and t["harnessPostguard"] == "UNCHANGED"
+        assert len(r["commands"]) == 28 and len(r["ordinarySemantics"]) == 9
+        assert all(c["exit"] == 0 and c["failure"] is None for c in r["commands"])
+        for name, digest in dict(r["artifacts"], **r["logs"]).items():
+            assert sha(get("runtime01/" + name)) == digest
+        assert sha(get("runtime01/inspectors-runtime")) == json.loads(get("RESULT.json"))["binarySHA256"]
+        validator_path = next(k for k in p["pins"] if k.endswith("canary-v4/validate.py.source"))
+        namespace = {}
+        exec(compile(z.read("dependencies/" + validator_path.lstrip("/")), validator_path, "exec"), namespace)
+        with tempfile.TemporaryDirectory() as folder:
+            copy = json.loads(json.dumps(p))
+            for platform, row in copy["oracles"].items():
+                f = Path(folder) / (platform + ".gz")
+                f.write_bytes(z.read("dependencies/" + row["gzip"].lstrip("/")))
+                row["gzip"] = str(f)
+            for count in [1, 2, 4]:
+                for backend in ["JS", "Native", "TS"]:
+                    label = "inspectors-" + str(count) + "-" + backend
+                    region = namespace["validate"](backend, get("runtime01/" + label + ".stdout"), get("runtime01/" + label + ".stderr"), copy, count)
+                    row = next(x for x in r["ordinarySemantics"] if x["repetitions"] == count and x["backend"] == backend)
+                    assert row["region"] == region
+        new = get("bend/runtime-declarations.bend").decode()
+        helper = re.search(r"^def inspect_finish_optional_four[^\n]*\n  ([^\n]*)\n", new, re.M)
+        assert helper
+        body = helper.group(1)
+        expanded = new[:helper.start()] + new[helper.end():]
+        count = 0
+        while "inspect_finish_optional_four(" in expanded:
+            start = expanded.index("inspect_finish_optional_four(")
+            stop = end(expanded, start + len("inspect_finish_optional_four"))
+            call = expanded[start:stop]
+            prefix = "inspect_finish_optional_four(~S,~Resource,"
+            assert call.startswith(prefix)
+            expanded = expanded[:start] + body.replace("~head", call[len(prefix):-1], 1) + expanded[stop:]
+            count += 1
+        assert count == 3 and expanded.encode() == z.read("dependencies/original-runtime-declarations.bend")
+        assert sha(get("RESULT.json")) == d["resultSHA256"]
+    print(json.dumps({"status": "PASS_RETAINED_FULL_ENUM_SEMANTICS", "members": len(d["members"]), "runtimeRoles": 9}))
+
+if __name__ == "__main__":
+    main()

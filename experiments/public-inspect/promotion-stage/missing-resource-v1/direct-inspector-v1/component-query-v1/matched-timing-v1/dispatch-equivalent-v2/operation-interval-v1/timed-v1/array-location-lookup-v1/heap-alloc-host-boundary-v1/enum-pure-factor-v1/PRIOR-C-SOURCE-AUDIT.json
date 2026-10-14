@@ -1,0 +1,54 @@
+{
+  "scope": "Rawmacro-block census before expansion/LLVM, not IR size/cost. Final FID_EXIT trailing runtime excluded; family names match actual private symbol prefixes.",
+  "subjects": {
+    "pure": {
+      "CBytes": 24335127,
+      "caseCount": 9554,
+      "spinCount": 1787,
+      "families": {
+        "other shared/runtime workers": {
+          "blocks": 8991,
+          "bytes": 17331635
+        },
+        "formatter": {
+          "blocks": 352,
+          "bytes": 306934
+        },
+        "consumer": {
+          "blocks": 210,
+          "bytes": 590968
+        }
+      }
+    },
+    "enum": {
+      "CBytes": 25692440,
+      "caseCount": 9602,
+      "spinCount": 1796,
+      "families": {
+        "other shared/runtime workers": {
+          "blocks": 8996,
+          "bytes": 18091418
+        },
+        "formatter": {
+          "blocks": 352,
+          "bytes": 384106
+        },
+        "consumer": {
+          "blocks": 189,
+          "bytes": 590588
+        },
+        "interval-main timer/application wrapper": {
+          "blocks": 59,
+          "bytes": 101155
+        },
+        "timing IO wrapper": {
+          "blocks": 5,
+          "bytes": 1758
+        }
+      }
+    }
+  },
+  "sameBank": "Both WL_RESW31,46orderedABIarguments",
+  "sourceDifference": "Only runtime-declarations among common consumer files. Original enum lacks qualified pure erased grouping; timerIO wrappers additional and preserved.",
+  "limitations": "Raw byte census includes different private identifier/path lengths and does not establish IR/body growth or optimizer cost.48additionalcases/9spins include timer/application handling; no dominant cause inferred."
+}
