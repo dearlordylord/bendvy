@@ -1,0 +1,34 @@
+diff --git a/src/ecs/component.bend b/src/ecs/component.bend
+index 9b4886723..224f68e70 100644
+--- a/src/ecs/component.bend
++++ b/src/ecs/component.bend
+@@ -214,6 +214,20 @@ def restore_stamp(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~
+   match handle:
+     case W.Handle{_,+id}: restore_stamp_done(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,restore_stamp_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,stamp,world))
+ 
++def tx_get_store_finish(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,observed: Store & Access<V>,live: Array<Bool>,+namespace: U32,+nextId: U32,+highWater: U32,+capacity: U32,+depth: Nat,resource: R,+events: List<&2,E>,pending: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,+registrations: List<&2,W.RegistrationMeta>,+nextSystemId: U32,+clock: U32,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,txEvents: List<&2,E>) -> T.Tx<W.World<S,Store,R,E>,E> & Access<V>:
++  (store,value) = observed
++  (T.Tx{W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},undo,commands,txEvents},value)
++
++def tx_get_live_owned(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,observed: Array<Bool> & Bool,+namespace: U32,+nextId: U32,+highWater: U32,+capacity: U32,+depth: Nat,store: Store,resource: R,+events: List<&2,E>,pending: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,+registrations: List<&2,W.RegistrationMeta>,+nextSystemId: U32,+clock: U32,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,txEvents: List<&2,E>) -> T.Tx<W.World<S,Store,R,E>,E> & Access<V>:
++  match observed:
++    case (live,False{}): (T.Tx{W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},undo,commands,txEvents},MissingEntity{})
++    case (live,True{}): tx_get_store_finish(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,get_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,take(store)),live,namespace,nextId,highWater,capacity,depth,resource,events,pending,registrations,nextSystemId,clock,undo,commands,txEvents)
++
++def tx_get_world(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,+handle: W.Handle<S>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,txEvents: List<&2,E>) -> T.Tx<W.World<S,Store,R,E>,E> & Access<V>:
++  match world handle:
++    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock} W.Handle{+ns,+id}:
++      tx_get_live_owned(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,get_live_read(Bool.and(U32.is_eq(namespace,ns),Bool.and(U32.is_lt(0,id),U32.is_lt(id,nextId))),id,live),namespace,nextId,highWater,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock,undo,commands,txEvents)
++
+ def tx_get_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,observed: W.World<S,Store,R,E> & Access<V>) -> T.Tx<W.World<S,Store,R,E>,E> & Access<V>:
+   (world,value) = observed
+   (T.Tx{world,undo,commands,events},value)
+@@ -221,7 +235,7 @@ def tx_get_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V:
+ def tx_get(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,handle: W.Handle<S>) -> T.Tx<W.World<S,Store,R,E>,E> & Access<V>:
+   match tx:
+     case T.Tx{world,undo,commands,events}:
+-      tx_get_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,undo,commands,events,get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle))
++      tx_get_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle,undo,commands,events)
+ 
+ def tx_written(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,+handle: W.Handle<S>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,+stamp: L.Stamp,result: Replacement<W.World<S,Store,R,E>,C>) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
+   match result:

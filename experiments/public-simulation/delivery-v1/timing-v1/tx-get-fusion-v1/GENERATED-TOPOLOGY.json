@@ -1,0 +1,42 @@
+{
+  "scope": "Static actual-emitted JS topology only; not dynamic allocation count, JIT scalar replacement or performance",
+  "baselineJS": "/tmp/bendvy63-ordinary-delivery-v7/simulation.js",
+  "baselineSHA256": "16e1e0eb9b9ff6a5fdb10e3c4281c12dbc178ad8b7a7ac729809626bfbf7d5ab",
+  "candidateJS": "/workspace/formal-proofs/bendvy-worktrees/identity38-io-creation/experiments/public-simulation/delivery-v1/timing-v1/tx-get-fusion-v1/binding-repair-v2/actual02/simulation.js",
+  "candidateSHA256": "2416da73bc4eded2414fff148b66b8ba1a7c5fd0699d6b4119edaf90566bb68d",
+  "baselineBytes": 740378,
+  "candidateBytes": 743256,
+  "functionGroups": {
+    "tx_get": {
+      "before": 6,
+      "after": 6
+    },
+    "tx_get_join": {
+      "before": 6,
+      "after": 0
+    },
+    "tx_get_world": {
+      "before": 0,
+      "after": 6
+    },
+    "tx_get_live_owned": {
+      "before": 0,
+      "after": 6
+    },
+    "tx_get_store_finish": {
+      "before": 0,
+      "after": 6
+    }
+  },
+  "txGetCallsWorldHelperDirectly": true,
+  "livePathUsesOriginalGetStore": true,
+  "finalWorldBuiltInsideTx": true,
+  "WorldAndAccessIntermediateRemovedFromTxGetPath": true,
+  "retainedTuples": [
+    "live array/Bool",
+    "store/Access",
+    "column/Maybe view",
+    "final Tx/Access"
+  ],
+  "noClaimOfRemovingAllReadAllocations": true
+}
