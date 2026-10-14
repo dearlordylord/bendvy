@@ -54,3 +54,22 @@ Repeated inspection, full retained World/graph/slot/stream observations, operati
 The relation, machine and selected transition/failure categories added by #55 are qualified within the current Data-valued and declaration-bound scope; full #55 and the broader pinned Inspector inventory remain incomplete. No additional existing-contract #55 implementation is justified by this reconciliation. The next acceptance work is the source-current unchanged #28 regression and complete feature timing/scaling on an exclusive quiet lane, alongside #54 performance qualification and #38 independent-world identity, #34 registered-guard work and any independently justified #50/#51 capture or #53 Type-event extension. The source review does not establish these separate tickets as blockers for every current #55 read. New finite fixtures without a named missing acceptance would not close these gates. No comparative timing, proof, full #55 completion or new policy is claimed here.
 
 The [combined205 review](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt205-01/FINAL-REVIEW.md) subsequently passes the unchanged protected Workshop gate on the current 205-module integration. This resolves that accumulated regression gate; equivalent full-feature timing/scaling and dependent capability acceptance remain open.
+
+## Runtime08 compiler-blocker resolution
+
+The [runtime08 result](../../experiments/public-inspect/graph-stream-public-bridge-v1/operation-interval-v1/runtime08/RESULT.md)
+and [independent review](../../experiments/public-inspect/graph-stream-public-bridge-v1/operation-interval-v1/runtime08/delivery-v1/FINAL-REVIEW.md)
+bind the three-module fix integrated at `dd54c5d68`. Relation specs are ordinary
+Data inside a shared kernel; public signatures and static affine capabilities
+remain unchanged. Both fresh backends match all136 observations/147180 oracle
+bytes; Native completes stock C emission, ordinary O3 and execution under the
+unchanged30/120/5 caps. This resolves the observed emission blocker.
+
+The retained #28 audit binds accepted `9a39b2d9e`: its actual23-source Workshop
+closure excludes all three changed modules, with232 pins and four tools exact.
+This qualifies protected-gate applicability for the exact transplant, not
+Inspector performance. The runtime08 timer remains
+`UNQUALIFIED_OPERATION_TO_RESULT_HANDOFF`; equivalent complete feature timing,
+scaling and relevant runtime CPU/allocation profiles remain open. Earlier
+category/control evidence keeps its original source/tool scope; no new full-#55
+acceptance, TS execution or universal refinement follows from this finite run.
