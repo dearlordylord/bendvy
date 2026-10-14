@@ -1,0 +1,43 @@
+{
+  "status": "PASS_UNCHANGED_STOCK28_NO_CONFIRMED_REGRESSION",
+  "originalSession": 59579,
+  "terminalExit": 0,
+  "cohortPairsPerBackend": 20,
+  "warmups": 2,
+  "toolScope": "Stock Bend2.0.35, Node24.20,Clang19.1.7; no f1a qualification.",
+  "endpoints": {
+    "JS": {
+      "nonTiePairs": 20,
+      "slowerPairs": 3,
+      "pValue": 0.9997987747192383,
+      "medianPairedRatio": 0.8865965078540965,
+      "confirmedRegression": false
+    },
+    "Native": {
+      "nonTiePairs": 20,
+      "slowerPairs": 10,
+      "pValue": 0.5880985260009766,
+      "medianPairedRatio": 1.001470509338798,
+      "confirmedRegression": false,
+      "holmCutoff": 0.025
+    }
+  },
+  "contract": {
+    "baselineCommit": "327bec49d41f00f88950343dea1edc1e0ec97dc4",
+    "workload": "Workshop: ten complete 22-checkpoint applications per process",
+    "scope": "Whole-process API regression; startup and output included, not qualified hot-path acceptance",
+    "pairs": 20,
+    "warmups": 2,
+    "seed": 20261007,
+    "alpha": 0.05,
+    "method": "One-sided exact paired sign tests, Holm correction across JS and Native",
+    "allowedSlowdown": 0,
+    "approval": "User: no statistically confirmed slowdown, 2026-10-06",
+    "iterations": 10,
+    "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334"
+  },
+  "scope": "Whole-process unchanged Workshop regression; no speedup or full#38 closure.",
+  "sourceAdoption": "Two root-owned qualified WorldIO comment/world-namespaceJS bytes unchanged; finalreview pending.",
+  "history": "First baseline Cemit30 deadline preserved; successful emit-only exact-C diagnostic retained separately; neither relabeled.",
+  "hostLimits": "Fresh quietCPU11 admission and sole internalreservation; unrelated build conflict observed beforelaunch and processesended. No enforcedhostisolation; available end snapshot had no pinnedCPU11process."
+}

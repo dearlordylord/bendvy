@@ -2,7 +2,8 @@ import Base
 import ./world.bend as W
 import ./world-namespace.bend as F
 
-# Application create uses the shared emitted-program IO namespace effect.
+# Ordinary creation uses the checked host IO namespace allocator.
+# Canonical linked Native execution and a shared JS realm are qualified separately.
 # with_namespace/convert and raw World construction are trusted integration helpers.
 # No language-wide constructor/authority confinement is claimed.
 # Concrete World constructors remain a trusted schema/admin boundary.

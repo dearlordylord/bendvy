@@ -59,9 +59,11 @@ Do not silently replace the approved process-local target with a narrower claim.
 
 The [current-public host packet](../../experiments/public-identity/approved-io-creation-v1/README.md)
 is integrated at `07a70564f`: complete owner, foreign-handle, rollback and
-exhaustion controls pass at their documented host scopes. Shared-realm JS
-allocator adoption still requires current #28 regression; the old receipt does
-not match all current executor/input bytes. No speed regression is established.
+exhaustion controls pass at their documented host scopes. The shared-realm JS
+allocator is adopted after independent final review and the [fresh unchanged #28 gate](../../experiments/public-identity/approved-io-creation-v1/regression-current-v1/fresh-gate-v2/delivery/DELIVERY.json):
+20 pairs per backend, 110 complete checked outputs, no confirmed regression.
+This Workshop gate does not exercise allocator IO or establish its hot-path performance.
+Historical failed emission and the separate successful diagnostic remain distinct.
 
 Native near-maximum saturation is now verified in the [retained successor](../../experiments/public-identity/approved-io-creation-v1/public-exhaustion-native01/delivery/RESULT.json):
 one initializer-only trusted C seed, ordinary `-O3`, two last-valid namespaces
