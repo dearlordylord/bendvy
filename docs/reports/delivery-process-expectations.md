@@ -610,3 +610,12 @@ one oracle-digest mismatch remain preserved. The exact source with a final
 blank line is archive-bound rather than normalized. The real recovered wrapper
 also completes stock-check/private-emitter/full-JS observation. These are bounded
 delivery results, not overall delivery-speed or comparative performance claims.
+
+The existing #56 reached zero-limit Native control completed emit, ordinary O3
+build and consumer with exit0 and ten clean guards. Its original collector
+receipt remains INCOMPLETE because fixture relocation changed QName printing.
+Independent review accepts a separately labelled retained-output qualification:
+a source-path-derived reversible transform of both full independent oracles
+matches all228202 counter bytes and rejects full234338-byte normal at byte355.
+Reusing the preserved output avoids repeating identical compilation; no
+collector PASS, comparative speed or complete #56 acceptance is claimed.

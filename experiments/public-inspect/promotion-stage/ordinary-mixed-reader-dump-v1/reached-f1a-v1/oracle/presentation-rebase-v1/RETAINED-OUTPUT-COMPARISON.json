@@ -1,0 +1,32 @@
+{
+  "actualRetainedStdout": {
+    "bytes": 228202,
+    "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/reached-f1a-v1/native01/consumer.stdout",
+    "sha256": "b813d64156ce0d03b9c3e469af8f28a448f89d2dc0585fc4bac351c6f3ba7151"
+  },
+  "classification": "Post hoc exact-byte validation of retained output against source-derived path-relocated independent oracles; this does not rewrite or upgrade the original collector receipt.",
+  "comparison": {
+    "firstDifferingByteAgainstRebasedNormal": 355,
+    "firstDifferingByteBetweenRebasedOracles": 355,
+    "rebaseCounterRejectsNormal": true,
+    "retainedOutputEqualsRebasedCompleteNormalBaseline": false,
+    "retainedOutputEqualsRebasedIndependentCounter": true
+  },
+  "interpretation": "The retained program output is byte-identical to the original independent counter oracle after the path-derived QName relocation and differs from the full relocated normal baseline. The original native01 status remains INCOMPLETE because its frozen plan expected the old presentation bytes; reviewer must decide whether the retained-output check satisfies the existing gate or requires a fresh collector run.",
+  "originalCollectorReceipt": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/reached-f1a-v1/native01/receipt.json",
+    "planSHA256": "e4b4d1a985f3b2961640c6daca4cce52010e0b8bfb705f8daab141fe03c2adcc",
+    "sha256": "9dc57b866452da1c2475d8853bd1d963ba4fad80563f8f0303df73eb2abcd816",
+    "status": "INCOMPLETE"
+  },
+  "sourceDerivedOracleRebase": {
+    "counterBytes": 228202,
+    "counterOraclePath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/reached-f1a-v1/oracle/presentation-rebase-v1/counter.stdout.gz",
+    "counterSHA256": "b813d64156ce0d03b9c3e469af8f28a448f89d2dc0585fc4bac351c6f3ba7151",
+    "manifestPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/reached-f1a-v1/oracle/presentation-rebase-v1/PRESENTATION-REBASE.json",
+    "manifestSHA256": "22d74ed3486241998e4a13d98a85946223f8fb38b5e4b83efdc481b783f4b0c5",
+    "normalBytes": 234338,
+    "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/reached-f1a-v1/oracle/presentation-rebase-v1/normal.stdout.gz",
+    "normalSHA256": "cccb7752214655b1f6acf6de0740407f30718d74d6f01463e86a71c7ade14e26"
+  }
+}
