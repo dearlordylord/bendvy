@@ -1,0 +1,42 @@
+{
+  "freezeSHA256": "352ecdb97d86e5cfa743bf433857ddee6c78e9a3cea8cbdc31533df8b9a28767",
+  "order": [
+    "primary-plan.json",
+    "baseline-profile-plan.json",
+    "candidate-profile-plan.json"
+  ],
+  "commands": {
+    "primary-plan.json": [
+      "taskset",
+      "-c",
+      "0",
+      "/usr/bin/python3.11",
+      "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/run-delivery.py",
+      "/workspace/formal-proofs/bendvy-worktrees/identity38-io-creation/experiments/public-simulation/delivery-v1/timing-v1/tx-get-fusion-v1/paired-v1/primary-plan.json",
+      "fa20c352dc91e110a01bae1c9c8e93465edbfeca4689cc7e1ac5c29f89301dd6"
+    ],
+    "baseline-profile-plan.json": [
+      "taskset",
+      "-c",
+      "0",
+      "/usr/bin/python3.11",
+      "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/run-delivery.py",
+      "/workspace/formal-proofs/bendvy-worktrees/identity38-io-creation/experiments/public-simulation/delivery-v1/timing-v1/tx-get-fusion-v1/paired-v1/baseline-profile-plan.json",
+      "70f82b3e6c7b2eba6af1a1c3c3499113561074a9e25c21b335cc98a4bc4034c3"
+    ],
+    "candidate-profile-plan.json": [
+      "taskset",
+      "-c",
+      "0",
+      "/usr/bin/python3.11",
+      "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/run-delivery.py",
+      "/workspace/formal-proofs/bendvy-worktrees/identity38-io-creation/experiments/public-simulation/delivery-v1/timing-v1/tx-get-fusion-v1/paired-v1/candidate-profile-plan.json",
+      "cd7bdf97f08a015543cfeaa6b1a8d010d06451d6baa3948ccab5fa9c63c7252e"
+    ]
+  },
+  "condition": "Preparation only. Independent focused review plus fresh qualitative quiet/exclusive CPU5 reservation before any execution. Primary quietWindowContext must be replaced with the actual admitted observation; rehash only changed host-context binding before launch.",
+  "qualification": "Same primary collector runs both O3 builds and full timed oracles before warmups/pairs, records actual binary hashes and repeated generated-artifact/tool guards; no guessed binary pins",
+  "profiles": "After successful unprofiled primary only, original JS full outputs required, CPU100us and sampled allocation8192 are separate whole-process diagnostics including startup/JIT/printing, not RSS/causal evidence",
+  "stopOnFirstFailure": true,
+  "execution": "HOLD; primary118 superseded, no repeated baseline qualification"
+}
