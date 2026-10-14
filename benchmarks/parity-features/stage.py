@@ -12,6 +12,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output', type=pathlib.Path, required=True)
     parser.add_argument('--nested-spawn', action='store_true', help='Reviewed actual spawn+public allocator probe+barrier observations')
+    parser.add_argument('--scopes', action='store_true', help='Include the complete matched lifetime-scope IO suite')
     args = parser.parse_args()
     assert not args.output.exists(), 'Stage must be fresh'
     sources, external = preflight.snapshot(), preflight.external()
@@ -68,8 +69,20 @@ def main():
             imports = "\n".join(f"import {{run as R{i}}} from './{ref[0]}';" for i, ref in enumerate(refs))
             calls = "".join(f"R{i}();" for i in range(len(refs)))
             (harness / (name + '.mjs')).write_text(f"import {{timed}} from './capture.mjs';\n{imports}\nawait timed(async()=>{{for(let batch=0;batch<{batches};batch++){{{calls}}}}});\n")
+    if args.scopes:
+        reference = stage / 'experiments/public-scopes/feature-timing-v1/reference.mjs'
+        assert reference.is_file(), 'Scope adapter must be integrated before staging'
+        before = preflight.digest(reference)
+        old = "'../../../.references/bevy-ts/packages/core/src/index.ts'"
+        new = json.dumps(str(ROOT / '.references/bevy-ts/packages/core/src/index.ts'))
+        reference.write_text(workloads.replace_once(reference.read_text(), old, new))
+        changes[str(reference.relative_to(stage))] = {'before': before, 'after': preflight.digest(reference), 'purpose': 'Resolve the pinned canonical TS API; unchanged callable lifecycle'}
+        for batches in [1, 2, 4]:
+            name = f'scopes-{batches}'
+            (harness / (name + '.bend')).write_text(workloads.bend_entry('scopes', batches))
+            (harness / (name + '.mjs')).write_text(f"import {{timed}} from './capture.mjs';\nimport {{run}} from '../experiments/public-scopes/feature-timing-v1/reference.mjs';\nawait timed(async()=>{{console.log(run({batches}));}});\n")
     assert sources == preflight.snapshot() and external == preflight.external(), 'Live source drift'
-    receipt = {'status': 'STAGED_REVIEW_REQUIRED_NO_EXECUTION', 'sources': sources, 'external': external, 'intentionalAdaptations': changes, 'stageInventory': inventory(stage), 'scales': [1, 2, 4], 'nestedSpawn':args.nested_spawn, 'noticeCacheObserved':preflight.notice_cache(), 'timingScope': 'Full callable lifecycle; static imports/process startup and output flush excluded; no performance verdict'}
+    receipt = {'status': 'STAGED_REVIEW_REQUIRED_NO_EXECUTION', 'sources': sources, 'external': external, 'intentionalAdaptations': changes, 'stageInventory': inventory(stage), 'scales': [1, 2, 4], 'nestedSpawn':args.nested_spawn, 'scopes':args.scopes, 'noticeCacheObserved':preflight.notice_cache(), 'timingScope': 'Full callable lifecycle; static imports/process startup and output flush excluded; no performance verdict'}
     (args.output / 'stage.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps({'status': receipt['status'], 'output': str(args.output)}))
 

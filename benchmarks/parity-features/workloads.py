@@ -50,6 +50,13 @@ def nested_ts(source):
 
 def bend_entry(feature, batches):
     imports = 'import Base\nimport ./timing.bend as Bench\n'
+    if feature == 'scopes':
+        imports += 'import ../experiments/public-scopes/feature-timing-v1/main.bend as App\n'
+        return imports + f'''def captured(text:String) -> IO(Unit):
+  IO.bind(Unit,Unit,Bench.capture(text),u => Bench.end())
+def main() -> IO(Unit):
+  IO.bind(Unit,Unit,Bench.begin(),u => IO.bind(String,Unit,App.run({batches}n),captured))
+'''
     if feature == 'nested':
         imports += 'import ../experiments/public-nested-provision/app.bend as A\nimport ../experiments/public-nested-provision/other.bend as B\n'
         selected = [0, 1, 3, 7, 8, 9, 11]
