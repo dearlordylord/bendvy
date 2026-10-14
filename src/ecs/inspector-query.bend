@@ -163,3 +163,53 @@ def composed_enumerate(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,
   composed_scanned(~H,~S,~V,~selection,composed_handles_field(~H,~S,world)(owner))
 def grant_composed(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,~world:WorldRead<H,S>) -> ComposedReadQuery<H,S,V>:
   ComposedReadQuery{owner => composed_enumerate(~H,~S,~V,~selection,~world,owner),owner => target => composed_lookup(~H,~S,~V,~selection,~world,owner,target)}
+
+# Runtime-data composed relation path. Static component authority remains a
+# DeclaredSelection Type, while a Data relation argument is shared by the
+# query's enumeration and lookup closures. The two static relation workers
+# preserve the existing short-circuit and projection order without storing or
+# duplicating affine closures.
+def composed_runtime_match_right(~H:Type,~S:Data,~A:Data,~Arg:Data,~relation_matches:Arg -> H -> W.Handle<S> -> H & Bool,+target:W.Handle<S>,argument:Arg,observed:H & Bool) -> H & Bool:
+  match observed:
+    case (owner,False{}):(owner,False{})
+    case (owner,True{}):relation_matches(argument,owner,target)
+def composed_runtime_matches_target(~H:Type,~S:Data,~A:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~relation_matches:Arg -> H -> W.Handle<S> -> H & Bool,+target:W.Handle<S>,argument:Arg,owner:H) -> H & Bool:
+  composed_runtime_match_right(~H,~S,~A,~Arg,~relation_matches,target,argument,Q.matches_field(~H,~S,~A,component)(owner,target))
+def composed_runtime_projected_right(~H:Type,~A:Data,~B:Data,left:A,observed:H & B) -> H & Q.Product<A,B>:
+  (owner,right)=observed
+  (owner,Q.Product{left,right})
+def composed_runtime_projected_left(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~relation_project:Arg -> H -> W.Handle<S> -> H & B,+target:W.Handle<S>,argument:Arg,observed:H & A) -> H & Q.Product<A,B>:
+  (owner,left)=observed
+  composed_runtime_projected_right(~H,~A,~B,left,relation_project(argument,owner,target))
+def composed_runtime_project(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~relation_project:Arg -> H -> W.Handle<S> -> H & B,+target:W.Handle<S>,argument:Arg,owner:H) -> H & Q.Product<A,B>:
+  composed_runtime_projected_left(~H,~S,~A,~B,~Arg,~relation_project,target,argument,Q.project_field(~H,~S,~A,component)(owner,target))
+def composed_runtime_scan_projected(~H:Type,~S:Data,~A:Data,~B:Data,+target:W.Handle<S>,rows:List<&2,ProjectedRow<S,Q.Product<A,B>>>,continue:H -> List<&2,ProjectedRow<S,Q.Product<A,B>>> -> ScanResult<H,S,Q.Product<A,B>>,observed:H & Q.Product<A,B>) -> ScanResult<H,S,Q.Product<A,B>>:
+  (owner,value)=observed
+  continue(owner,ProjectedRow{target,value} <> rows)
+def composed_runtime_scan_matched(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~relation_matches:Arg -> H -> W.Handle<S> -> H & Bool,~relation_project:Arg -> H -> W.Handle<S> -> H & B,+target:W.Handle<S>,rows:List<&2,ProjectedRow<S,Q.Product<A,B>>>,continue:H -> List<&2,ProjectedRow<S,Q.Product<A,B>>> -> ScanResult<H,S,Q.Product<A,B>>,argument:Arg,observed:H & Bool) -> ScanResult<H,S,Q.Product<A,B>>:
+  match observed:
+    case (owner,False{}):continue(owner,rows)
+    case (owner,True{}):composed_runtime_scan_projected(~H,~S,~A,~B,target,rows,continue,composed_runtime_project(~H,~S,~A,~B,~Arg,~component,~relation_project,target,argument,owner))
+def composed_runtime_scan(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~relation_matches:Arg -> H -> W.Handle<S> -> H & Bool,~relation_project:Arg -> H -> W.Handle<S> -> H & B,targets:List<&2,W.Handle<S>>,+argument:Arg,owner:H,rows:List<&2,ProjectedRow<S,Q.Product<A,B>>>) -> ScanResult<H,S,Q.Product<A,B>>:
+  match targets:
+    case []:ScanResult{owner,List.reverse(&2,ProjectedRow<S,Q.Product<A,B>>,rows)}
+    case +target <> rest:composed_runtime_scan_matched(~H,~S,~A,~B,~Arg,~component,~relation_matches,~relation_project,target,rows,(owner => rows => composed_runtime_scan(~H,~S,~A,~B,~Arg,~component,~relation_matches,~relation_project,rest,argument,owner,rows)),argument,composed_runtime_matches_target(~H,~S,~A,~Arg,~component,~relation_matches,target,argument,owner))
+def composed_runtime_scanned(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~relation_matches:Arg -> H -> W.Handle<S> -> H & Bool,~relation_project:Arg -> H -> W.Handle<S> -> H & B,observed:H & List<&2,W.Handle<S>>,+argument:Arg) -> H & List<&2,ProjectedRow<S,Q.Product<A,B>>>:
+  (owner,targets)=observed
+  composed_unwrap_scan(~H,~S,~Q.Product<A,B>,composed_runtime_scan(~H,~S,~A,~B,~Arg,~component,~relation_matches,~relation_project,targets,argument,owner,[]))
+def composed_runtime_enumerate(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~relation_matches:Arg -> H -> W.Handle<S> -> H & Bool,~relation_project:Arg -> H -> W.Handle<S> -> H & B,~world:WorldRead<H,S>,argument:Arg,owner:H) -> H & List<&2,ProjectedRow<S,Q.Product<A,B>>>:
+  composed_runtime_scanned(~H,~S,~A,~B,~Arg,~component,~relation_matches,~relation_project,composed_handles_field(~H,~S,world)(owner),argument)
+def composed_runtime_lookup_selected(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~relation_project:Arg -> H -> W.Handle<S> -> H & B,+target:W.Handle<S>,argument:Arg,observed:H & Bool) -> H & Result<&2,&2,LookupError,ProjectedRow<S,Q.Product<A,B>>>:
+  match observed:
+    case (owner,False{}):composed_mismatched(~H,~S,~Q.Product<A,B>,target,owner)
+    case (owner,True{}):composed_lookup_projected(~H,~S,~Q.Product<A,B>,target,composed_runtime_project(~H,~S,~A,~B,~Arg,~component,~relation_project,target,argument,owner))
+def composed_runtime_lookup_valid(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~relation_matches:Arg -> H -> W.Handle<S> -> H & Bool,~relation_project:Arg -> H -> W.Handle<S> -> H & B,+target:W.Handle<S>,+argument:Arg,observed:H & Bool) -> H & Result<&2,&2,LookupError,ProjectedRow<S,Q.Product<A,B>>>:
+  match observed:
+    case (owner,False{}):composed_missing(~H,~S,~Q.Product<A,B>,target,owner)
+    case (owner,True{}):composed_runtime_lookup_selected(~H,~S,~A,~B,~Arg,~component,~relation_project,target,argument,composed_runtime_matches_target(~H,~S,~A,~Arg,~component,~relation_matches,target,argument,owner))
+def composed_runtime_lookup_target(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~relation_matches:Arg -> H -> W.Handle<S> -> H & Bool,~relation_project:Arg -> H -> W.Handle<S> -> H & B,~world:WorldRead<H,S>,owner:H,+target:W.Handle<S>,argument:Arg) -> H & Result<&2,&2,LookupError,ProjectedRow<S,Q.Product<A,B>>>:
+  composed_runtime_lookup_valid(~H,~S,~A,~B,~Arg,~component,~relation_matches,~relation_project,target,argument,composed_valid_field(~H,~S,world)(owner,target))
+def composed_runtime_lookup(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~relation_matches:Arg -> H -> W.Handle<S> -> H & Bool,~relation_project:Arg -> H -> W.Handle<S> -> H & B,~world:WorldRead<H,S>,owner:H,target:W.Handle<S>,argument:Arg) -> H & Result<&2,&2,LookupError,ProjectedRow<S,Q.Product<A,B>>>:
+  composed_runtime_lookup_target(~H,~S,~A,~B,~Arg,~component,~relation_matches,~relation_project,~world,owner,target,argument)
+def grant_composed_runtime(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~world:WorldRead<H,S>,~relation_matches:Arg -> H -> W.Handle<S> -> H & Bool,~relation_project:Arg -> H -> W.Handle<S> -> H & B,+argument:Arg) -> ComposedReadQuery<H,S,Q.Product<A,B>>:
+  ComposedReadQuery{owner => composed_runtime_enumerate(~H,~S,~A,~B,~Arg,~component,~relation_matches,~relation_project,~world,argument,owner),owner => target => composed_runtime_lookup(~H,~S,~A,~B,~Arg,~component,~relation_matches,~relation_project,~world,owner,target,argument)}

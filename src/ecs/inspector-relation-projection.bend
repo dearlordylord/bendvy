@@ -32,6 +32,18 @@ def projected(~S:Data,~C:Type,~R:Type,~E:Data,~spec:RQ.Spec<S>,target:W.Handle<S
   (frame,cells(~S,RQ.spec_rows(~S,~Unit,spec,graph,target,Unit{})))
 def project(~S:Data,~C:Type,~R:Type,~E:Data,~spec:RQ.Spec<S>,frame:I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,target:W.Handle<S>) -> I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,RQ.Cell<S>>:
   projected(~S,~C,~R,~E,~spec,target,graph(~S,~C,~R,~E,frame))
+# Runtime-data counterparts let composed query kernels share code across
+# immutable relation specs without changing graph access or row semantics.
+def matched_runtime(~S:Data,~C:Type,~R:Type,~E:Data,spec:RQ.Spec<S>,target:W.Handle<S>,observed:I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>> & G.Graph<S>) -> I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>> & Bool:
+  (frame,graph)=observed
+  (frame,accepted(~S,RQ.spec_rows(~S,~Unit,spec,graph,target,Unit{})))
+def matches_runtime(~S:Data,~C:Type,~R:Type,~E:Data,spec:RQ.Spec<S>,frame:I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,target:W.Handle<S>) -> I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>> & Bool:
+  matched_runtime(~S,~C,~R,~E,spec,target,graph(~S,~C,~R,~E,frame))
+def projected_runtime(~S:Data,~C:Type,~R:Type,~E:Data,spec:RQ.Spec<S>,target:W.Handle<S>,observed:I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>> & G.Graph<S>) -> I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,RQ.Cell<S>>:
+  (frame,graph)=observed
+  (frame,cells(~S,RQ.spec_rows(~S,~Unit,spec,graph,target,Unit{})))
+def project_runtime(~S:Data,~C:Type,~R:Type,~E:Data,spec:RQ.Spec<S>,frame:I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,target:W.Handle<S>) -> I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,RQ.Cell<S>>:
+  projected_runtime(~S,~C,~R,~E,spec,target,graph(~S,~C,~R,~E,frame))
 # Closed relation requirement list supports both directions, required/optional,
 # presence/absence filters and every declared projection key/order unchanged.
 def relations(~S:Data,~C:Type,~R:Type,~E:Data,~spec:RQ.Spec<S>) -> Select.DeclaredSelection<I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,S,List<&2,RQ.Cell<S>>>:
@@ -39,4 +51,4 @@ def relations(~S:Data,~C:Type,~R:Type,~E:Data,~spec:RQ.Spec<S>) -> Select.Declar
 # Recursive Product/map component providers are reused, not reimplemented.
 # Query.grant_composed performs World namespace/liveness checks before public lookup.
 def grant(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~component:Select.DeclaredSelection<I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,S,V>,~spec:RQ.Spec<S>) -> Query.ComposedReadQuery<I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,S,Select.Product<V,List<&2,RQ.Cell<S>>>>:
-  Query.grant_composed(~I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,~S,~Select.Product<V,List<&2,RQ.Cell<S>>>,~Select.pair(~I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,~S,~V,~List<&2,RQ.Cell<S>>,~component,~relations(~S,~C,~R,~E,~spec)),~Traverse.inspect_world(~S,~A.Store<S,C>,~R,~A.Notice<S,E>))
+  Query.grant_composed_runtime(~I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,~S,~V,~List<&2,RQ.Cell<S>>,~RQ.Spec<S>,~component,~Traverse.inspect_world(~S,~A.Store<S,C>,~R,~A.Notice<S,E>),~matches_runtime(~S,~C,~R,~E),~project_runtime(~S,~C,~R,~E),spec)

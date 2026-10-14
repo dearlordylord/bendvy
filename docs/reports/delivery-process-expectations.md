@@ -699,3 +699,20 @@ through the selected collector and strict stderr validator, not only plan hashes
 That successor passed all147180 JS oracle bytes and seven guards. Native then
 reached its unchanged emit30 deadline with empty diagnostics and clean guards;
 no O3 build or Native consumer ran. Compiler-source diagnosis is the next action.
+
+The #42 IO-origin delivery used exact owned staging (58 integration paths), the
+existing collector, a 122-member retained packet and independent final review.
+A source-only oracle correction enabled separately labelled full retained-JS
+revalidation; only Native needed a fresh emit/O3/consumer run. Both match all
+18546 bytes. Integration CI `38636917989` passed. Subsequent source/tool/resource
+joins reused existing relation and cleanup controls rather than adding fixtures.
+Batch/scenario helpers were not invoked; no delivery-speed gain is measured.
+
+The #55 source-profile diagnostic localized repeated query specialization. A
+three-module runtime-Data-spec candidate then passed the unchanged full136-call
+JS/Native consumer, including stock C emission and ordinary O3 under30/120/5 caps.
+Reachability review caught root imports before candidate execution; the coherent
+83-module stage and independent review bind the actual replacement. The compact
+master selection retains raw data only in its archive. Protected #28 reuse is
+bound to its unchanged23-source workload; no overall delivery-speed or Inspector
+runtime-performance improvement is established.
