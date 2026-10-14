@@ -1,0 +1,95 @@
+{
+  "scope": "Posthoc validation of the retained omit-hit JS output against the independent full counter oracle. This does not change or upgrade the original collector receipt.",
+  "originalCollector": {
+    "status": "INCOMPLETE",
+    "planPath": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/ordinary-evidence-v7/reached-hit-death-v1/plan.json",
+    "planSha256": "de303c94e974a1612b59662ef5c14a4cfbb600e49d470abba9c013ce1f46f56e",
+    "receiptPath": "/tmp/bendvy63-reached-hit-death-v1/receipt.json",
+    "receiptSha256": "8129e9f6dcc046510973d2cd82ab43f1a17a5931fde2ca90e6e34473fc265adb",
+    "receiptError": "ValueError: full two-schema/fourteen-phase report shape changed",
+    "completedCommands": [
+      {
+        "label": "omit-hit-source",
+        "exit": 0,
+        "stdoutBytes": 58,
+        "stdoutSha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+      },
+      {
+        "label": "omit-hit-JS-emit",
+        "exit": 0,
+        "stdoutBytes": 0,
+        "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "omit-hit-JS-run",
+        "exit": 0,
+        "stdoutBytes": 37888,
+        "stdoutSha256": "6929e7876d6439598a9378302232fc7bc712a1308cbec2fd9c0eaf2105038686"
+      }
+    ],
+    "unrunCommands": [
+      "omit-death-source",
+      "omit-death-JS-emit",
+      "omit-death-JS-run"
+    ]
+  },
+  "retainedHitOutput": {
+    "path": "/tmp/bendvy63-reached-hit-death-v1/omit-hit-JS-run.stdout",
+    "bytes": 37888,
+    "sha256": "6929e7876d6439598a9378302232fc7bc712a1308cbec2fd9c0eaf2105038686",
+    "stderrPath": "/tmp/bendvy63-reached-hit-death-v1/omit-hit-JS-run.stderr",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "generatedJsPath": "/tmp/bendvy63-reached-hit-death-v1/omit-hit.js",
+    "generatedJsSha256": "14f4f358dbeb1585a0c294929a2990108ead17a1299f2251f1d357079d7e3026"
+  },
+  "validatorSource": {
+    "frozenLogicalPath": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/ordinary-evidence-v7/reached-hit-death-v1/validate-reached-controls.py",
+    "de303FrozenSha256": "10fb1bd5209553ca14e739be474a3ac5b3129461f38f85ca26108300b6c10ffc",
+    "preservedExactBytesPath": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/ordinary-evidence-v7/reached-hit-death-v1/validator-history/de303/validate-reached-controls.py.source",
+    "preservedExactBytesSha256": "10fb1bd5209553ca14e739be474a3ac5b3129461f38f85ca26108300b6c10ffc",
+    "repairedPath": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/ordinary-evidence-v7/reached-hit-death-v1/validate-reached-controls.py",
+    "repairedSha256": "9c4021c67e424e914a75de6f069d9c76064503b2bed7997ca4e1c9b57e145807",
+    "repair": "Root validation maps the parsed root literal through the frozen constructorJoins entry and checks the normalized root equals main.bend::TwoSchemaReport; the raw literal remains TwoSchemaReport."
+  },
+  "independentOracleBindings": {
+    "normalPath": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/independent-expected.json",
+    "normalSha256": "f821c68264eb25c33a674841d0f2abcf466a9d6372e888cfc40b7ae691ae071a",
+    "mutationMapPath": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/ordinary-evidence-v7/reached-hit-death-v1/mutation-source-map.json",
+    "mutationMapSha256": "b80c41b85937f86a5d88ddc5afcb6334b6a49ea41d0f561be4db234ab8a37134",
+    "hitCounterSha256": "f89a2e54ff45b7fbcb5e894eed76cab9a24452d780371dec1ab94b9277672807",
+    "deathCounterSha256": "32003d7cb331707538069e08fa3820f7b12b261d19e84e8e618ab0b1d8b8822e",
+    "constructorJoinCount": 32,
+    "reportParserPath": "/workspace/formal-proofs/bendvy/experiments/public-simulation/bend-v1/parse-report.py",
+    "reportParserSha256": "b9366c499da4cb11360464d068bce653972c3a50b6c6042e92f54f3a6e487110"
+  },
+  "focusedControls": {
+    "testPath": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/ordinary-evidence-v7/reached-hit-death-v1/test-reached-controls.py",
+    "testSha256": "e1b5638aed1b165f66e1514a35eab96b5c974ada8ec2cc07ebb4734b3912bdc5",
+    "stdoutPath": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/ordinary-evidence-v7/reached-hit-death-v1/posthoc-retained-hit-controls.stdout",
+    "stdoutSha256": "36dc97cf13cc850eca3ca310ecf67a0eb8f77445e3ccb7c806bf938cd5b117de",
+    "result": {
+      "death_counter_independent_derivation": true,
+      "malformed_root_rejected": "full two-schema/fourteen-phase report shape changed",
+      "missing_phase_rejected": "full two-schema/fourteen-phase report shape changed",
+      "normal_rejected_for_mutant_reason": "mutation did not reject the normal full oracle: omit-hit",
+      "original_collector_receipt_unchanged": true,
+      "retained_hit_counter_match": true,
+      "retained_normal_js_native_positive": true,
+      "retained_plan": "de303c94e974a1612b59662ef5c14a4cfbb600e49d470abba9c013ce1f46f56e",
+      "wrong_oracle_rejected": "materialized counter is not derived from the independent normal oracle: omit-hit",
+      "wrong_stream_rejected": "full mutation report differs from the independent counter oracle: omit-hit"
+    }
+  },
+  "claimBoundary": "The hit output is separately posthoc-validated; original de303 collector remains INCOMPLETE. No death backend was run by that attempt. No timing claim.",
+  "successorDeathPlan": {
+    "path": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/ordinary-evidence-v7/reached-hit-death-v1/death-only-plan-v1.json",
+    "sha256": "c6e45e26cb4d0c4c1dd9a7100143a6cfa8b107219bf8f21c1769e6cb3de87431",
+    "freezePath": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/ordinary-evidence-v7/reached-hit-death-v1/death-only-FREEZE-v1.json",
+    "remainingCommands": [
+      "omit-death-source",
+      "omit-death-JS-emit",
+      "omit-death-JS-run"
+    ],
+    "scope": "Only omit-death source check, JS emit, and JS full consumer remain for the fresh successor; no hit backend rerun."
+  }
+}

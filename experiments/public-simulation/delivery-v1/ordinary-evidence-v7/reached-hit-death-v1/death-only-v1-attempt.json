@@ -1,0 +1,66 @@
+{
+  "status": "INCOMPLETE",
+  "scope": "Preserve the first death-only successor attempt. Source check and JS emit exited 0; collector stopped before consumer because the frozen emit argv wrote outside this attempt output root.",
+  "planPath": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/ordinary-evidence-v7/reached-hit-death-v1/death-only-plan-v1.json",
+  "planSha256": "c6e45e26cb4d0c4c1dd9a7100143a6cfa8b107219bf8f21c1769e6cb3de87431",
+  "receiptPath": "/tmp/bendvy63-reached-hit-death-death-v1/receipt.json",
+  "receiptSha256": "fea38a5b9fa2312ed35f8e7ac8a373fe6aedebdddedcb43e8d0d253ffc9ec7a1",
+  "receiptError": "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/bendvy63-reached-hit-death-death-v1/omit-death.js'",
+  "completedCommands": [
+    {
+      "label": "omit-death-source",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/tmp/bendvy63-reached-hit-death-source-v1/omit-death/experiments/public-simulation/bend-v1/main.bend",
+        "--check-only"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "stdout": {
+        "rawHex": "414c4c2050524f4f465320434845434b0a557365202d2d7665726469637420666f72206d617468656d61746963616c2076616c69646974792e0a",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "bytes": 58
+      },
+      "stderr": {
+        "rawHex": "",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    {
+      "label": "omit-death-JS-emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "5",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/tmp/bendvy63-reached-hit-death-source-v1/omit-death/experiments/public-simulation/bend-v1/main.bend",
+        "-o",
+        "/tmp/bendvy63-reached-hit-death-v1/omit-death.js"
+      ],
+      "capSeconds": 30,
+      "exit": 0,
+      "failure": null,
+      "stdout": {
+        "rawHex": ""
+      },
+      "stderr": {
+        "rawHex": ""
+      }
+    }
+  ],
+  "consumerCommand": "omit-death-JS-run",
+  "consumerRan": false,
+  "plannedOutputRoot": "/tmp/bendvy63-reached-hit-death-death-v1",
+  "emitterActuallyTargeted": "/tmp/bendvy63-reached-hit-death-v1/omit-death.js",
+  "misdirectedEmittedArtifact": {
+    "path": "/tmp/bendvy63-reached-hit-death-v1/omit-death.js",
+    "bytes": 740148,
+    "sha256": "a6f0d1c172aeda17baad5a128f62ecf92e53a2151e42716250767a924c9ef089"
+  },
+  "correction": "Successor v2 changes only the JS emitter/consumer artifact target to its fresh outputRoot and preserves this attempt unchanged."
+}

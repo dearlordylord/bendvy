@@ -1,0 +1,172 @@
+"""Validate complete hit/death mutation reports against independent counters."""
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+
+PLAN_BOUND = True
+
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def read_regular(path):
+    path = Path(path)
+    if path.is_symlink() or not path.is_file():
+        raise ValueError(f"expected regular control input: {path}")
+    return path.read_bytes()
+
+
+def strict(value):
+    if isinstance(value, dict):
+        return ("dict", tuple((key, strict(item)) for key, item in sorted(value.items())))
+    if isinstance(value, list):
+        return ("list", tuple(strict(item) for item in value))
+    return (type(value).__name__, value)
+
+
+def constructor(value):
+    return value.get("constructor") if isinstance(value, dict) and set(value) == {"constructor", "fields"} else None
+
+
+def omit_event(value, target):
+    if isinstance(value, list):
+        return [omit_event(item, target) for item in value if constructor(item) != target]
+    if isinstance(value, dict):
+        return {key: omit_event(item, target) for key, item in value.items()}
+    return value
+
+
+def count_constructor(value, target):
+    if isinstance(value, list):
+        return sum(count_constructor(item, target) for item in value)
+    if isinstance(value, dict):
+        return int(constructor(value) == target) + sum(count_constructor(item, target) for item in value.values())
+    return 0
+
+
+def normalize(value, literal_to_neutral):
+    if isinstance(value, list):
+        return [normalize(item, literal_to_neutral) for item in value]
+    if isinstance(value, dict):
+        if set(value) == {"constructor", "fields"}:
+            literal = value["constructor"]
+            if literal not in literal_to_neutral:
+                raise ValueError(f"unjoined constructor in full report: {literal}")
+            return {"constructor": literal_to_neutral[literal], "fields": normalize(value["fields"], literal_to_neutral)}
+        if set(value) == {"nat"}:
+            return {"nat": value["nat"]}
+        raise ValueError("unexpected parsed report object")
+    return value
+
+
+def load_parser(path, pins):
+    path = Path(path).resolve()
+    raw = read_regular(path)
+    if sha(raw) != pins.get(str(path)):
+        raise ValueError("report parser binding changed")
+    namespace = {"__name__": "reached_hit_death_report_parser"}
+    exec(compile(raw, str(path), "exec"), namespace)
+    return namespace
+
+
+def parse_complete(raw, parser):
+    text = raw.decode("utf-8")
+    parsed = parser["parse"](text)
+    if parser["render"](parsed) != text.strip():
+        raise ValueError("full report failed canonical parse/render roundtrip")
+    if constructor(parsed) != "main.bend::TwoSchemaReport" or len(parsed["fields"]) != 2 or any(len(schema) != 14 for schema in parsed["fields"]):
+        raise ValueError("full two-schema/fourteen-phase report shape changed")
+    return parsed
+
+
+def verify_mutation(role, mutation, pins):
+    base_path = Path(mutation["baselineSourcePath"]).resolve()
+    mutant_path = Path(mutation["mutantSourcePath"]).resolve()
+    base = read_regular(base_path)
+    mutant = read_regular(mutant_path)
+    if sha(base) != mutation["baselineSourceSha256"] or sha(mutant) != mutation["mutantSourceSha256"]:
+        raise ValueError(f"mutation source digest changed: {role}")
+    if pins.get(str(base_path)) != sha(base) or pins.get(str(mutant_path)) != sha(mutant):
+        raise ValueError(f"mutation source is not in frozen input pins: {role}")
+    old = mutation["old"].encode()
+    new = mutation["new"].encode()
+    if base.count(old) != 1 or base.replace(old, new, 1) != mutant:
+        raise ValueError(f"mutation is not its exact one-expression source edit: {role}")
+    manifest_path = Path(mutation["mutantStageManifestPath"]).resolve()
+    manifest_raw = read_regular(manifest_path)
+    if sha(manifest_raw) != mutation["mutantStageManifestSha256"] or pins.get(str(manifest_path)) != sha(manifest_raw):
+        raise ValueError(f"mutant source manifest changed: {role}")
+    manifest = json.loads(manifest_raw)
+    row = manifest["sources"][mutation["sourceRelativePath"]]
+    if row["stagedSha256"] != sha(mutant) or manifest["mutation"]["role"] != role:
+        raise ValueError(f"mutant manifest source binding changed: {role}")
+
+
+def validate(role, stdout, stderr, *, plan):
+    if role not in ("omit-hit", "omit-death"):
+        raise ValueError(f"unexpected reached-control role: {role}")
+    if stderr:
+        raise ValueError(f"mutation consumer wrote stderr: {role}")
+    binding = plan["reachedHitDeath"]
+    map_path = Path(binding["mutationMap"]).resolve()
+    map_raw = read_regular(map_path)
+    if sha(map_raw) != binding["mutationMapSha256"] or plan["pins"].get(str(map_path)) != sha(map_raw):
+        raise ValueError("source mutation map binding changed")
+    mutation_map = json.loads(map_raw)
+    mutation = mutation_map["mutations"][role]
+    if mutation["target"] not in ("events.bend::SimulationHit", "events.bend::SimulationDeath"):
+        raise ValueError("unexpected event target in mutation map")
+    verify_mutation(role, mutation, plan["pins"])
+
+    normal_path = Path(plan["independentNormalOraclePath"]).resolve()
+    normal_raw = read_regular(normal_path)
+    if sha(normal_raw) != plan["oracleSHA256"] or sha(normal_raw) != mutation_map["independentNormalOracleSha256"]:
+        raise ValueError("independent normal oracle binding changed")
+    normal = json.loads(normal_raw)
+    target = mutation["target"]
+    event_count = count_constructor(normal, target)
+    if event_count != mutation["exactSourceOccurrencesRemoved"] or event_count == 0:
+        raise ValueError(f"normal oracle target-event count changed: {role}")
+    counter = omit_event(normal, target)
+    if count_constructor(counter, target) != 0:
+        raise ValueError(f"counter oracle retained the omitted event: {role}")
+    other_event = mutation["otherEventConstructor"]
+    if count_constructor(counter, other_event) != mutation["otherEventOccurrencesPreserved"]:
+        raise ValueError(f"counter oracle changed the other event stream: {role}")
+
+    counter_path = Path(mutation["counterOraclePath"]).resolve()
+    counter_raw = read_regular(counter_path)
+    if sha(counter_raw) != mutation["counterOracleSha256"] or plan["pins"].get(str(counter_path)) != sha(counter_raw):
+        raise ValueError(f"counter oracle file binding changed: {role}")
+    stored_counter = json.loads(counter_raw)
+    if strict(stored_counter) != strict(counter):
+        raise ValueError(f"materialized counter is not derived from the independent normal oracle: {role}")
+
+    literal_to_neutral = plan["constructorJoins"]
+    if len(literal_to_neutral) != 32 or len(set(literal_to_neutral.values())) != 32:
+        raise ValueError("full constructor join changed")
+    parser = load_parser(plan["parser"], plan["pins"])
+    parsed = parse_complete(stdout, parser)
+    observed = normalize(parsed, literal_to_neutral)
+    if strict(observed) == strict(normal):
+        raise ValueError(f"mutation did not reject the normal full oracle: {role}")
+    if strict(observed) != strict(counter):
+        raise ValueError(f"full mutation report differs from the independent counter oracle: {role}")
+    if count_constructor(observed, target) != 0:
+        raise ValueError(f"omitted event remains in the observed full report: {role}")
+    if count_constructor(observed, other_event) != count_constructor(normal, other_event):
+        raise ValueError(f"unmutated event stream differs from normal: {role}")
+
+    normal_outputs = plan["normalBaseline"]["outputs"]
+    for label in ("JS-run", "Native-run"):
+        output = normal_outputs[label]
+        raw = read_regular(output["path"])
+        if len(raw) != output["bytes"] or sha(raw) != output["sha256"]:
+            raise ValueError(f"retained ordinary v7 stdout binding changed: {label}")
+        normal_parsed = parse_complete(raw, parser)
+        if strict(normalize(normal_parsed, literal_to_neutral)) != strict(normal):
+            raise ValueError(f"retained ordinary v7 output is not the independent normal oracle: {label}")
+
+    return True
