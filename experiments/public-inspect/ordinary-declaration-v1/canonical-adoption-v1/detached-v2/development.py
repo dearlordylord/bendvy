@@ -166,7 +166,7 @@ def run(plan_path, expected_sha):
                     verify_raw(row[key]['path'],row[key]['sha256'])
                 elif key in row and 'partialSHA256' in row[key]:
                     verify_raw(row[key]['path'],row[key]['partialSHA256'])
-        if validate_imports(plan['entrypoint'], plan['sourceInventory']) != plan['importClosure']:
+        if (plan_guard.validate_ts_imports(plan['entrypoint'], plan['sourceInventory']) if plan['role'] == 'ts' else validate_imports(plan['entrypoint'], plan['sourceInventory'])) != plan['importClosure']:
             raise ValueError('Import closure changed')
         for previous in record['guards']:
             verify_raw(previous['path'],previous['sha256'])

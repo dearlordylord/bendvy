@@ -77,6 +77,91 @@ def _pinned(path, pins):
     return digest
 
 
+def _ts_code(source):
+    """Mask comments and strings for keyword detection; keep module literals separately."""
+    clean = list(source)
+    code = list(source)
+    token = re.compile(r"//[^\n]*|/\*[\s\S]*?\*/|'(?:\\.|[^'\\])*'|\"(?:\\.|[^\"\\])*\"|`(?:\\.|[^`\\])*`")
+    for match in token.finditer(source):
+        value = match.group()
+        for index in range(match.start(), match.end()):
+            if source[index] != '\n':
+                code[index] = ' '
+                if value.startswith('//') or value.startswith('/*'):
+                    clean[index] = ' '
+        # This bounded syntax does not admit loading modules in template expressions.
+        if value.startswith('`') and re.search(r'\bimport\b[\s\S]*\(', value):
+            raise InvalidPlan('unsupported import in template expression')
+    return ''.join(clean), ''.join(code)
+
+
+def _ts_specifiers(source):
+    clean, code = _ts_code(source)
+    found, covered = [], []
+    # Actual reference uses multiline named/type imports and barrel re-exports.
+    static = re.compile(r"\b(?:import|export)\b\s*(?:type\s+)?[\w\s{},*$]+?\bfrom\s*(['\"])([^'\"\n]+)\1|\bimport\s*(['\"])([^'\"\n]+)\3")
+    for match in static.finditer(clean):
+        if not re.match(r'(?:import|export)\b', code[match.start():]):
+            continue
+        found.append(match.group(2) or match.group(4))
+        covered.append((match.start(), match.end()))
+    # Quoted export names and any other unsupported re-export clause must not
+    # silently turn into a local export with no dependency edge.
+    for match in re.finditer(r'\bexport\b\s*(?:type\s*)?(\*|\{)', code):
+        if any(start <= match.start() < end for start, end in covered):
+            continue
+        if match.group(1) == '*':
+            raise InvalidPlan('unsupported star re-export syntax')
+        end = code.find('}', match.end())
+        if end < 0 or re.match(r'\s*from\b', code[end + 1:]):
+            raise InvalidPlan('unsupported named re-export syntax')
+    # Literal import() edges include erased TS type queries. No type/runtime
+    # classification is needed: every literal target must be inventoried.
+    query = re.compile(r"\bimport\s*\(\s*(['\"])([^'\"\n]+)\1\s*\)")
+    for match in query.finditer(clean):
+        if not code[match.start():].startswith('import'):
+            continue
+        found.append(match.group(2))
+        covered.append((match.start(), match.end()))
+    for match in re.finditer(r'\bimport\b', code):
+        if not any(start <= match.start() < end for start, end in covered):
+            raise InvalidPlan('unsupported dynamic/computed/import syntax')
+    return found
+
+
+def validate_ts_imports(entry, inventory):
+    """Exact source-bound TS/ESM closure; no package resolver or general TS parser."""
+    reached = set()
+    def visit(path):
+        path = _path(str(path)).resolve(strict=True)
+        if str(path) not in inventory:
+            raise InvalidPlan('TS import escapes exact frozen source inventory')
+        if not path.is_file():
+            raise InvalidPlan('TS source must be a regular file')
+        if path in reached:
+            return
+        if path.suffix not in ('.ts', '.mjs', '.js'):
+            raise InvalidPlan('unsupported TS source extension')
+        if hashlib.sha256(path.read_bytes()).hexdigest() != inventory[str(path)]:
+            raise InvalidPlan('TS source bytes differ from frozen inventory')
+        reached.add(path)
+        for target in _ts_specifiers(path.read_text()):
+            if not (target.startswith('./') or target.startswith('../') or target.startswith('/')):
+                raise InvalidPlan('bare/package TS import is not admitted')
+            if any(char in target for char in ('\\', '?', '#', '%')):
+                raise InvalidPlan('unsupported TS module selector')
+            # Relative ../ is legitimate inside the pinned graph; the resolved
+            # target must still be regular, non-symlink and exactly inventoried.
+            literal = path.parent / target
+            if any(item.is_symlink() for item in (literal, *literal.parents)):
+                raise InvalidPlan('symlink TS dependency')
+            visit(literal.resolve(strict=True))
+    visit(Path(entry))
+    if {str(path) for path in reached} != set(inventory):
+        raise InvalidPlan('TS consuming inventory has missing or unused entries')
+    return sorted(str(path) for path in reached)
+
+
 def validate(plan, *, output_dir):
     """Raise InvalidPlan before any child; return fixed fresh output paths.
 
@@ -99,7 +184,7 @@ def validate(plan, *, output_dir):
             if not isinstance(entries, dict) or any(not isinstance(k, str) or not isinstance(v, str) for k, v in entries.items()):
                 raise InvalidPlan('resource inventory must map strings to strings')
         role = plan['role']
-        if role not in ('js', 'native'):
+        if role not in ('ts', 'js', 'native'):
             raise InvalidPlan('unsupported development role')
         entry = _path(plan['entrypoint'])
         if not _path(plan['stage']).is_dir() or not _path(plan['cwd']).is_dir():
@@ -125,33 +210,36 @@ def validate(plan, *, output_dir):
             if hashlib.sha256(stream.read()).hexdigest() != inventory[str(entry)]:
                 raise InvalidPlan('entrypoint bytes differ from pin')
         generated = _path(plan['generated'])
-        expected_generated = out / ('scenario.js' if role == 'js' else 'scenario.c')
+        expected_generated = out / ('scenario.js' if role in ('ts', 'js') else 'scenario.c')
         if generated != expected_generated:
             raise InvalidPlan('generated output differs from fixed cohort path')
         native = _path(plan['native'])
         if native != out / 'scenario.native':
             raise InvalidPlan('native output differs from fixed cohort path')
-        labels = ['emit', 'consumer'] if role == 'js' else ['emit', 'build', 'consumer']
+        labels = ['consumer'] if role == 'ts' else (['emit', 'consumer'] if role == 'js' else ['emit', 'build', 'consumer'])
         commands = plan['commands']
         if [command['label'] for command in commands] != labels:
             raise InvalidPlan('unexpected command stages/order')
         tools = plan['tools']
-        required = ['python', 'taskset', 'bend', 'node'] if role == 'js' else ['python', 'taskset', 'bend', 'clangWrapper']
+        required = ['python', 'taskset', 'node'] if role == 'ts' else (['python', 'taskset', 'bend', 'node'] if role == 'js' else ['python', 'taskset', 'bend', 'clangWrapper'])
         for tool in required:
             _pinned(_path(tools[tool]), pins)
-        expected_caps = [30, 5] if role == 'js' else [30, 120, 5]
+        expected_caps = [5] if role == 'ts' else ([30, 5] if role == 'js' else [30, 120, 5])
         if any(type(command['capSeconds']) is not int for command in commands) or [command['capSeconds'] for command in commands] != expected_caps:
             raise InvalidPlan('development command caps differ from existing schema')
         first = commands[0]['argv']
         if not isinstance(first, list) or len(first) < 3 or first[:2] != [tools['taskset'], '-c'] or not isinstance(first[2], str) or re.fullmatch('[0-9]+', first[2]) is None:
             raise InvalidPlan('unsupported taskset prefix')
         prefix = first[:3]
-        expected = [prefix + [tools['bend'], str(entry), '-o', str(generated)]]
-        if role == 'js':
-            expected += [prefix + [tools['node'], str(generated)]]
+        if role == 'ts':
+            expected = [prefix + [tools['node'], str(entry)]]
         else:
-            expected += [prefix + [tools['clangWrapper'], '-O3', str(generated), '-o', str(native), '-pthread', '-lm'],
-                         prefix + [str(native), '--threads', '1', '--gpu', 'off']]
+            expected = [prefix + [tools['bend'], str(entry), '-o', str(generated)]]
+            if role == 'js':
+                expected += [prefix + [tools['node'], str(generated)]]
+            else:
+                expected += [prefix + [tools['clangWrapper'], '-O3', str(generated), '-o', str(native), '-pthread', '-lm'],
+                             prefix + [str(native), '--threads', '1', '--gpu', 'off']]
         if [command['argv'] for command in commands] != expected:
             raise InvalidPlan('actual argv differs from pinned entry/artifact/tool joins')
         outputs = [generated, native]
