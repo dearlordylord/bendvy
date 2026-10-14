@@ -99,3 +99,12 @@ successor binds the exact 19-file import closure while retaining all 52 body
 pins. Current each/get calls take a granted query and owner/entity handle, with
 no runtime family/name selector. These checks do not establish arbitrary trusted
 lens honesty, runtime undeclared-family lookup behavior or tool adoption.
+
+### Recovered project-local wrapper
+
+The actual recovered wrapper completes version, stock 2.0.35 check-only, f1a
+JS emission and the full 226,096-byte independent oracle with thirteen clean
+guards (`fb8e59e7`). Independent final review passes. Native retains its separately
+qualified exact-emitter scope; no wrapper Native rerun, comparison, performance
+result or production adoption is claimed. The earlier finite dispatch control
+used mocked execution only; its unexecuted loader successor remains distinct.

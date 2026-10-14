@@ -602,3 +602,11 @@ full-oracle runs (`1330c298`, clean guards). Source expansion was independently
 checked against the unchanged original declaration. This is observed reuse of
 a qualified source factor and unchanged runner, not a comparative speed or
 compiler-cost attribution. Independent final evidence review passes.
+
+The two-schema constructor precedence consumer passes complete JS/Native
+observations; its copied fallible guard-bypass counter passes both backends and
+rejects the structurally rebased normal term. Metadata preflight failures and
+one oracle-digest mismatch remain preserved. The exact source with a final
+blank line is archive-bound rather than normalized. The real recovered wrapper
+also completes stock-check/private-emitter/full-JS observation. These are bounded
+delivery results, not overall delivery-speed or comparative performance claims.

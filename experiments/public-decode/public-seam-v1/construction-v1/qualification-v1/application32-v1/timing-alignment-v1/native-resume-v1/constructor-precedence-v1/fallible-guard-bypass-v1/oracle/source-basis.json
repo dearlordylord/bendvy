@@ -1,0 +1,54 @@
+{
+  "files": {
+    "ORACLES.json": {
+      "bytes": 4360,
+      "sha256": "49927c5da1ae684591eeb58eee20f11eed93a52fc4bd1d13ec1f39bab98ae3a1"
+    },
+    "counter.json": {
+      "bytes": 22567,
+      "sha256": "08183a4c8ee5abd1c8448e282344a7d4cac017a7c7f8ab4ab8ae2f2ca8338af4"
+    },
+    "counter.stdout": {
+      "bytes": 2940,
+      "sha256": "1c9dac04ff21dc18badd8a2ec4fd8918de4f294a38528e43256e4b856e05a936"
+    },
+    "counter.stdout.gz": {
+      "bytes": 329,
+      "sha256": "06a806e0c87ed378d1482691f9aefdc045bb35a304c8fe697d6426ebdf8cc7be"
+    },
+    "normal.json": {
+      "bytes": 23099,
+      "sha256": "800e18ecdb6bbb6f7afe992f9c4c002a01ceca495200e53b2e4466f5d6a7233f"
+    },
+    "normal.stdout": {
+      "bytes": 2990,
+      "sha256": "f0b07c53d9b1b9cac29105c762fed136cad47a7f6fe3eba905339608f12f76e8"
+    },
+    "normal.stdout.gz": {
+      "bytes": 362,
+      "sha256": "758d9595120da83f4ebbfb74daaed27ecea572f62b813a62d964fea78f33fe6c"
+    }
+  },
+  "modelPath": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/constructor-precedence-v1/fallible-guard-bypass-v1/oracle/model.py",
+  "modelSHA256": "e7a02b13960faa4110a44983721d1386909c99a024213d8e5ca04fe58ff60f27",
+  "mutation": {
+    "diffSHA256": "aa89b6b441e16ed35aeaee2557b9dd1f795379fb6501e3e16a39eded4050b96a",
+    "path": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/constructor-precedence-v1/fallible-guard-bypass-v1/MUTATION.json",
+    "sha256": "3e2acef3e8527245e87b51e1537f40104ed4c4bee7ee555fb95a008b2e00e9c1"
+  },
+  "parser": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-simulation/bend-v1/parse-report.py",
+  "parserSHA256": "b9366c499da4cb11360464d068bce653972c3a50b6c6042e92f54f3a6e487110",
+  "priorNormalModel": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/constructor-precedence-v1/oracle/expected.py",
+  "priorNormalModelSHA256": "ef73e479dc47ddf5cd097275d99b6da32b8172450c7dfeb4b76d24a22894467a",
+  "priorNormalTerm": "/workspace/formal-proofs/bendvy-worktrees/decode46-native-resume-v1/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1/native-resume-v1/constructor-precedence-v1/oracle/expected.json",
+  "priorNormalTermSHA256": "abf66adeee3e655cb62083373e03371e5f759a444f699aab0bac748abbaa9b5f",
+  "runtimeOutputsUsed": false,
+  "schema": "fallible-guard-bypass-oracle-source-basis-v1",
+  "sourceClosureSHA256": "6d5593896e103ab33a9ed4ca71ca165f0f7588546d03423f0d58724985f0d1ca",
+  "sourceDerivation": [
+    "D.Integer decode of D.Text{\"wrong\"} yields D.Rejected with exact D.Invalid; baseline fallible_checked returns Validation and preserves the owner without invoking the builder.",
+    "The one mutant rejected branch invokes the same copied custom builder with D.Array{[]}; that builder always returns Build.Invalid{input,Denied{403}}, and custom_result wraps it as Constructor error.",
+    "D.Number{7} under D.Integer remains accepted; both ordinary and mutant accepted branches invoke the same builder and yield Constructor(Denied(403)).",
+    "Two schema instantiations repeat the same four complete report observations; only the invalid-case result error changes. All snapshot, resource, payload-owner, queue, transaction and retained-input fields are modeled from the unchanged source."
+  ]
+}
