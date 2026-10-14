@@ -27,3 +27,14 @@ A scene-style lifetime scope owns a group of spawned entities and queues cleanup
 - Use before/after JS call and allocation profiles for a consequential performance change; report allocation sampling separately from physical/RSS memory. Optimize demonstrated bottlenecks while completing features. The scoped #30 amendment is not a global gate waiver; full performance remains under #21/#23/#24.
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
+
+## Linked cleanup boundary
+
+Rust Bevy queues state-scoped despawns (`bevy_state/src/state_scoped.rs:177`) and
+despawns a parent’s linked descendants (`bevy_ecs/src/hierarchy.rs:50`, pinned
+`ad678262ce53b5d142fe49ee5e08caff6f00ab60`). The existing #44 cleanup follows
+that boundary. An unscoped entity survives scope cleanup when it is outside the
+linked deletion closure; an ordinary relation to a deleted target is cleared.
+An unscoped linked descendant is still deleted. These are the survivor and
+linked cases for the ordinary #45 consumer; affine cleanup uses the existing
+#44 callback contract.
