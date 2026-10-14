@@ -103,8 +103,16 @@ mutation suppressing successful World-clock advancement matches the independent
 counter-oracle and rejects the full normal oracle. This establishes the reached
 callsite within this finite scope; it is not a universal ownership proof.
 
-Compact evidence retention, independent final review and core integration remain
-pending. The matched lifecycle fixture separately has a source-derived oracle
-and an actual 24,298-byte TS scale-1 pass; its Bend ordinary-backend runs and
-full feature timing/scaling remain open. These are distinct consumers and their
-outputs are not a cross-backend equality claim.
+The [runtime-entry packet and independent final review](../../experiments/public-inspect/inspector-runtime-entry-v1/delivery-v1/FINAL-REVIEW.md)
+retain 162 members; offline verification and malformed-record controls pass.
+The additive `src/ecs/inspector-runtime.bend` is integrated with the exact reviewed
+body. The protected Workshop's 23 reached sources and four tools still match
+its applicability audit; this reuses that workload's accepted gate without
+claiming new timings or Inspector performance.
+
+The matched lifecycle fixture separately has a source-derived oracle and actual
+TS/JS scale-1 passes against all 24,298 bytes. Native C emission reached its
+30-second deadline with empty logs; no C artifact, O3 build or Native consumer
+is qualified. Diagnose that blocker before another attempt. These lifecycle
+outputs are distinct from the 2,205-byte runtime-entry consumer; full feature
+timing/scaling and full #55 acceptance remain open.

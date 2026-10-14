@@ -1,0 +1,98 @@
+{
+  "format": "bounded-inspector-runtime-entry-result-v1",
+  "candidate": {
+    "path": "src/ecs/inspector-runtime.bend",
+    "sha256": "bbfca9f7cfd4d838bdc3af19941fb70baf7a7f4727c079c70435c7669b6db573",
+    "executedStageSha256": "2f94155cae78160b7feed404e7a6a4be02c43cfcf6198fc24e251bc07d74256b",
+    "stageRelation": "Only six dependency import lines are rebound to the current root modules; executable lines match the candidate. The root-dependency prototype is preserved as history but was not executed."
+  },
+  "ordinaryConsumer": {
+    "scope": "One finite two-schema runtime-entry trace, four worlds/two independent world pairs, preserving runtime metadata, explicit failure behavior, repeated reads, and the registered reader observation.",
+    "oracleV3": {
+      "sourceDerived": true,
+      "runtimeOutputInputs": [],
+      "bytes": 2205,
+      "sha256": "f32d6203ac65b896ffccb6c885be80a05f390ddf99b0301c5a975def638d098a"
+    },
+    "javascript": {
+      "planSha256": "64c0866cea7def33a248e0548501704e1596d9fc065ef494b7468c391d852c30",
+      "receiptSha256": "b1b377d9ccc000ac372677bcf1491f3585cf08398bf3c3c1fe78685823288eba",
+      "originalStatus": "INCOMPLETE",
+      "originalFrozenOracleBytes": 2189,
+      "originalFrozenOracleSha256": "06cce9e3f7b9cb964199366c20bf23f8b120521324976cff07570fe87bff2c7c",
+      "retainedStdoutBytes": 2205,
+      "retainedStdoutSha256": "f32d6203ac65b896ffccb6c885be80a05f390ddf99b0301c5a975def638d098a",
+      "posthocRecordSha256": "eca2019e056254a0ac5b8a96530dbc6b8b6c23b1fd8ee5acfbb21269c3572368",
+      "posthocStatus": "PASS_RETAINED_JS_NOT_FRESH_RUN",
+      "freshExecutionPerformed": false
+    },
+    "native": {
+      "planSha256": "b50f7499979e43d531c1146fda56c3d786997e2e8c2859211d12375ebba49a0c",
+      "receiptSha256": "4eab13ca9c5df10cee9bb703fb5a84427643ec94d5068abd3b504e1c28d028a5",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        {"label": "emit", "exit": 0, "capSeconds": 30},
+        {"label": "build", "exit": 0, "capSeconds": 120, "optimization": "-O3"},
+        {"label": "consumer", "exit": 0, "capSeconds": 5}
+      ],
+      "guardCount": 10,
+      "consumerStdoutBytes": 2205,
+      "consumerStdoutSha256": "f32d6203ac65b896ffccb6c885be80a05f390ddf99b0301c5a975def638d098a"
+    },
+    "limits": [
+      "The JavaScript receipt is not upgraded by its post-hoc retained-output comparison.",
+      "No TypeScript execution of this runtime-entry fixture is claimed.",
+      "No timing, performance, universal refinement, concurrency, or broad adoption claim is made."
+    ]
+  },
+  "sourceCheck": {
+    "status": "TERMINAL_SOURCE_CHECK_EXPECTED_FOREIGN_REFUSAL",
+    "exit": 1,
+    "expectedForeignReferenceCount": 6,
+    "classification": "The full staged main check refused at six unsafe/foreign definitions; it is not a complete type or proof pass."
+  },
+  "reachedClockMutation": {
+    "mutation": "Exactly one W.advance_clock call in IR.advance_runtime is replaced with W.clock.",
+    "planSha256": "ade0bfe76f6bcbc07e09d00a999fa0423f659720574852d8cf33efbc925505d8",
+    "receiptSha256": "d14b11f0d25394c3c9683f4a57c0389c4adc966874c1d42b28b045126a632e64",
+    "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+    "counterOracle": {
+      "sourceDerived": true,
+      "runtimeOutputInputs": [],
+      "bytes": 2205,
+      "sha256": "58124a67b8615dc5ff960b7f0b8354917b40dda20bb75746ca82bbfc5d5f5fa7"
+    },
+    "normalBaselineRejected": true,
+    "guardCount": 7
+  },
+  "oracleHistory": [
+    {"version": "normal-v1", "bytes": 2189, "sha256": "06cce9e3f7b9cb964199366c20bf23f8b120521324976cff07570fe87bff2c7c", "classification": "superseded source-derived attempt; preserved, not accepted as final"},
+    {"version": "normal-v2", "bytes": 2201, "sha256": "30d5cb408e8df3741f4c21147514aa7916e55ea508ce36b142da76fdb105e261", "classification": "superseded source-derived attempt; preserved, not accepted as final"},
+    {"version": "normal-v3", "bytes": 2205, "sha256": "f32d6203ac65b896ffccb6c885be80a05f390ddf99b0301c5a975def638d098a", "classification": "source-derived complete normal oracle used for retained JS comparison and Native run"},
+    {"version": "clock-counter-v1", "bytes": 2205, "sha256": "58124a67b8615dc5ff960b7f0b8354917b40dda20bb75746ca82bbfc5d5f5fa7", "classification": "source-derived complete counter oracle for the single-call mutation"}
+  ],
+  "authorityControls": {
+    "positive": 1,
+    "intendedNegative": 4,
+    "sourceOnly": true,
+    "scope": "Generic opaque-owner and typed read authority checks; no preservation theorem or runtime proof."
+  },
+  "typescriptRetention": {
+    "kind": "retention-input handoff only",
+    "path": "evidence/ts-retention/RETENTION-INPUTS.json",
+    "sha256": "adebfae03af484fc379e29b58a71ed5fa4d4dfebabb1588885eb49651eac536d",
+    "archiveInputRows": 59,
+    "bytes": 720908,
+    "separateFixture": true,
+    "crossFixtureParityClaim": false
+  },
+  "protectedWorkshopApplicability": {
+    "basisAuditSha256": "f3d5b8dd6e41ba1ebf82fcd25012a8c754e73ab091d4add7d3ffb2370e185252",
+    "candidateAuditSha256": "b8ee369862c9a029fb21eb99ee0126c0216485f7c9759a2d44b510829ea683d",
+    "actualTimingClosureSources": 23,
+    "actualTimingClosureCoreSources": 15,
+    "candidateRuntimeModuleReached": false,
+    "scope": "Read-only applicability to the unchanged protected Workshop gate; no new timing and no whole-feature performance claim."
+  },
+  "toolAndResourceRetention": "The original plans retain exact installed-tool/resource hashes. Large binaries and resource trees are not copied into this packet."
+}

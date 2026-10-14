@@ -1,0 +1,15 @@
+# Inspector runtime-entry bounded evidence review
+
+Verdict: PASS for the retained, bounded evidence packet at commit `447553a4edd8c620351fb64ad783256d58219ca8` (parent `be7a5808694497428785e4b3254f611a8962ce71)). The commit selects exactly eight owned paths; it adds the candidate `src/ecs/inspector-runtime.bend` and the six delivery artifacts plus ownership manifest. The candidate SHA-256 is `bbfca9f7cfd4d838bdc3af19941fb70baf7a7f4727c079c70435c7669b6db573`.
+
+The portable archive has 162 members and 5,769,857 uncompressed bytes. Delivery SHA-256 is `b699fde3cfbd14fa89bf367f942d2bf3f223773a62f58d22ad70601d1a085d3e`; manifest `eda1dff80b9b6662ba626e1bc7e9ead7de45d61125cd142e287753684367e2a5`; owned-paths `6a0b7e5384f7ebe511791ff508439e5317ebf586c0523832c99103cad4a3526c`; archive `e35328fa5aa9a99808d75d65e314235d849a1181bd0b3732e4e6bc9aceb767fd`; verifier `6bac23f39e490c1d0e37f5a18026f3f54a9bbe04d4116d5e649bc1d485bcea9f`.
+
+I ran the retained `verify.py` and `verify.py --selftest`; both passed. The verifier now joins every command's stdout/stderr receipt path, byte count, and SHA-256 to its archived stream and manifest entry. The self-test rejects mismatched stream path, size, and digest. A separate in-memory mutation of the Native emit stdout digest was also rejected.
+
+The bounded source/evidence claims are internally consistent. The executed Native role completed emit, ordinary `-O3` build, and consumer under 30/120/5-second caps, with ten clean guards and exact equality to the 2,205-byte source-derived v3 oracle (`f32d6203ac65b896ffccb6c885be80a05f390ddf99b0301c5a975def638d098a`). The original JavaScript receipt stays `INCOMPLETE`; its saved stdout matches v3 only in a separate post-hoc comparison, not a fresh collector pass. The normal source check is an expected refusal at six unsafe/foreign definitions, not a full type or proof pass. Five source-only authority controls (one positive, four intended negative) do not establish a general preservation theorem.
+
+The candidate retains the actual event runtime in the frame and restores its metadata around Inspector reads/lookups. Fresh invocation takes the registration clock; successful completion advances it once; explicit failure returns the observed runtime without that extra advance. This preserves the supplied grant under the existing trusted setup boundary; arbitrary caller-built capability functions are not sandboxed or type-enforced read-only.
+
+The reached clock mutation changes one `W.advance_clock` call to `W.clock`; its full counter output matches the independent 2,205-byte counter oracle and rejects the normal oracle. This is a finite reached-callsite falsification. The protected Workshop audit covers the unchanged 23-file/15-core reached closure and shows the candidate runtime module is not reached. The TypeScript records are retention inputs for a distinct fixture, not cross-fixture parity.
+
+No performance, universal refinement, concurrency, broad adoption, or full type/proof claim is supported by this packet. No backend or runtime was rerun for this review.
