@@ -574,3 +574,10 @@ derived C, not regeneration or runtime speed. Tiny TU split/monolithic outputs
 also match; its configured hook required static sparse-fixture reconciliation
 after two missing-input failures. Broader TU work is held while the simpler
 source-regeneration path is pursued. No overall delivery-speed claim follows.
+
+The same candidate then completed regeneration from the pinned 63-file Bend
+closure, ordinary O3 build and full consumer. Emitted C matched the qualified
+derivative exactly; all 226,096 output bytes matched the unchanged oracle.
+Independent final review accepted this current pipeline scope. Numeric, JS,
+repetition/composition, performance and adoption gates remain separate; no
+overall delivery-speed or full #54 completion claim is made.
