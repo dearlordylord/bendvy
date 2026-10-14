@@ -92,3 +92,19 @@ preserved; `Ev.with_world` is not an observational implementation. Acceptance
 requires ordinary-entry success/failure/repeated reads and authority controls,
 then a matched lifecycle consumer. Only two streams own this work: the runtime
 entry and its lifecycle fixture; shared core integration stays with root.
+
+The runtime-owned candidate now has a complete two-schema ordinary consumer:
+retained JS output matches the independently corrected v3 oracle (the original
+JS receipt remains incomplete), and a fresh Native emission/O3/consumer run
+matches all 2,205 bytes under the unchanged limits. Canonical-stage controls
+accept the affine-resource positive case and reject undeclared access,
+cross-schema use, write-through-read and opaque-handle escape. A reached JS
+mutation suppressing successful World-clock advancement matches the independent
+counter-oracle and rejects the full normal oracle. This establishes the reached
+callsite within this finite scope; it is not a universal ownership proof.
+
+Compact evidence retention, independent final review and core integration remain
+pending. The matched lifecycle fixture separately has a source-derived oracle
+and an actual 24,298-byte TS scale-1 pass; its Bend ordinary-backend runs and
+full feature timing/scaling remain open. These are distinct consumers and their
+outputs are not a cross-backend equality claim.
