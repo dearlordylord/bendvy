@@ -1,0 +1,171 @@
+{
+  "format": "bendvy-source-controls-v1",
+  "checker": {
+    "command": "taskset -c 0 flock /tmp/bendvy-parity-heavy.lock /workspace/formal-proofs/bendvy/scripts/bend-check <absolute-source-path>",
+    "compiler": "/home/node/.bend/bin/bend-2.0.35",
+    "compiler_sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a"
+  },
+  "source_snapshot": {
+    "path": "/tmp/bendvy43-disposal-source01",
+    "files": 63,
+    "tree_sha256": "4e06bc76a808b44605da416390e0410bfca68e3f7977c4f251a060004a6b9c91",
+    "all_files_match_worktree": true
+  },
+  "direct_dependency_sha256": {
+    "src/ecs/event-stream.bend": "04e9a2b39454171f0b5e88b2b01eaaf9bbbdc9c4eaf9882a8987bece0f696c40",
+    "src/ecs/event-family-routing.bend": "93084e08221742c73557ff6a8b4c4d981ee9fa94defcf208e0d806db479e7749",
+    "src/ecs/reader-parameter.bend": "bf22e617e52e4335b1ffed946537a3f26c46038183d5864a1ce6cad14b905603",
+    "src/ecs/ordinary-reader-query-parameter.bend": "abdbf52292feea984b174869684c9cf42190086f15d1715799d39833b234dc1f",
+    "src/ecs/ordinary-reader-stream-parameter.bend": "3cbb45cc68dc9ba74fe2e1d68b4f6b436defb8645a70cbc6c6f84bbe52b1b58a"
+  },
+  "controls": [
+    {
+      "path": "positive.bend",
+      "exit_code": 0,
+      "header": "ALL PROOFS CHECK",
+      "pairs_with": [
+        "negative-cross-schema.bend",
+        "negative-undeclared-component.bend",
+        "negative-write-through-read.bend",
+        "negative-provider-duplication.bend",
+        "negative-reader-owner-duplication.bend"
+      ],
+      "stdout_bytes": 100,
+      "stdout_sha256": "48d58a54e1587cae27b4ceeac11961b7f2476fad525d149bfb36bf93531ca0db"
+    },
+    {
+      "path": "negative-cross-schema.bend",
+      "exit_code": 1,
+      "header": "SOME PROOFS FAIL",
+      "location": "bad_cross_schema",
+      "expected_diagnostic": {
+        "kind": "type mismatch",
+        "expected": {
+          "constructor": "RP.Param",
+          "context_schema": "SchemaB",
+          "rows_schema": "SchemaB",
+          "view": "ViewA"
+        },
+        "observed": {
+          "constructor": "RP.Param",
+          "context_schema": "SchemaA",
+          "rows_schema": "SchemaA",
+          "view": "ViewA"
+        }
+      },
+      "paired_positive": "positive.bend#positive_schema_b_query",
+      "stdout_bytes": 28022,
+      "stdout_sha256": "6c0dd3020809cda55aacae90d68e7cca144e876cc8bce101e1a05d7573703a0b"
+    },
+    {
+      "path": "negative-undeclared-component.bend",
+      "exit_code": 1,
+      "header": "SOME PROOFS FAIL",
+      "location": "bad_undeclared_component",
+      "expected_diagnostic": {
+        "kind": "type mismatch",
+        "expected": {
+          "constructor": "RP.Param",
+          "context_schema": "SchemaA",
+          "rows_schema": "SchemaA",
+          "view": "ViewB"
+        },
+        "observed": {
+          "constructor": "RP.Param",
+          "context_schema": "SchemaA",
+          "rows_schema": "SchemaA",
+          "view": "ViewA"
+        }
+      },
+      "paired_positive": "positive.bend#positive_other_declared_query",
+      "stdout_bytes": 28040,
+      "stdout_sha256": "8f2b1d4c49cd73823991c6d4811d3bb0d4e6c3cc4f3901a956592e5380b12e81"
+    },
+    {
+      "path": "negative-provider-duplication.bend",
+      "exit_code": 1,
+      "header": "SOME PROOFS FAIL",
+      "location": "bad_duplicate_provider",
+      "expected_diagnostic": {
+        "expected": "provider",
+        "observed": "provider (consumed more than once)"
+      },
+      "paired_positive": "positive.bend#positive_provider_once",
+      "stdout_bytes": 437,
+      "stdout_sha256": "01c2b2f437991f119fb063361f695b7156b9dfa90256ea95d7a5f3d19b248e26"
+    },
+    {
+      "path": "negative-reader-owner-duplication.bend",
+      "exit_code": 1,
+      "header": "SOME PROOFS FAIL",
+      "location": "bad_duplicate_reader_owner",
+      "expected_diagnostic": {
+        "expected": "owner",
+        "observed": "owner (consumed more than once)"
+      },
+      "paired_positive": "positive.bend#positive_reader_owner_once",
+      "stdout_bytes": 440,
+      "stdout_sha256": "7906f644cacb85cbef6f1d70b3d51066e7c542591611f1ed3943b381bd0586e0",
+      "attempt_history": [
+        {
+          "phase": "initial_sequential_attempt",
+          "exit_code": 137,
+          "wrapper": "5s timeout --signal=KILL",
+          "stdout_bytes": 440,
+          "stdout_sha256": "7906f644cacb85cbef6f1d70b3d51066e7c542591611f1ed3943b381bd0586e0",
+          "note": "Expected affine diagnostic was printed before timeout; isolated rerun completed."
+        },
+        {
+          "phase": "isolated_rerun",
+          "exit_code": 1,
+          "stdout_bytes": 440,
+          "stdout_sha256": "7906f644cacb85cbef6f1d70b3d51066e7c542591611f1ed3943b381bd0586e0",
+          "note": "Same configured 5s cap and pinned compiler; intended refusal completed."
+        }
+      ]
+    },
+    {
+      "path": "negative-write-through-read.bend",
+      "exit_code": 1,
+      "header": "SOME PROOFS FAIL",
+      "location": "bad_write_through_read",
+      "expected_diagnostic": {
+        "kind": "type mismatch",
+        "expected": {
+          "constructor": "Cap.Write",
+          "payload": "PayloadA",
+          "view": "ViewA"
+        },
+        "observed": {
+          "constructor": "Cap.Read",
+          "view": "ViewA"
+        }
+      },
+      "paired_positive": [
+        "positive.bend#positive_read_grant",
+        "positive.bend#positive_write_grant"
+      ],
+      "stdout_bytes": 1162,
+      "stdout_sha256": "497e54cf09bad85703b3538fa3df1758a54e89dbfa668b0a2a5c20c604de7c7d",
+      "attempt_history": [
+        {
+          "phase": "initial_sequential_attempt",
+          "exit_code": 137,
+          "wrapper": "5s timeout --signal=KILL",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "note": "Timeout produced no stdout; isolated rerun completed."
+        },
+        {
+          "phase": "isolated_rerun",
+          "exit_code": 1,
+          "stdout_bytes": 1162,
+          "stdout_sha256": "497e54cf09bad85703b3538fa3df1758a54e89dbfa668b0a2a5c20c604de7c7d",
+          "note": "Same configured 5s cap and pinned compiler; intended Cap.Write versus Cap.Read refusal completed."
+        }
+      ]
+    }
+  ],
+  "scope": "Source type-check controls only; compile-time nominal and affine refusals. No runtime, backend, consumer execution, or performance result is claimed.",
+  "retry_policy": "The configured 5s cap was unchanged. Only the two 137 outcomes were rerun individually under the same external lock; both ended with their intended exit-1 refusal."
+}

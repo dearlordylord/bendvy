@@ -174,10 +174,15 @@ def event_prepared(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~H:Type,
   world:W.World<S,C,R,Notice.Notice<S,P>>,+tick:Nat,
   owner:EventOwner<S,C,R,P,E,F,H,take,put>,
   selected:Mixed.State<S,P,F,H> & (Stream.Stream<S,E> & Ev.Reading<E>)) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & (EventOwner<S,C,R,P,E,F,H,take,put> & (EventView<S,E> & Nat)):
-  match selected:
-    case (state,(stream,reading)):
-      (Route.Runtime{world,Mixed.put(~S,~E,~P,~F,~H,~put,state,stream),tick},
-       (owner,(EventView{reading},Nat.sub(tick,1n))))
+  # A first attempted read owns retention even if its callback fails. Keep
+  # cursor zero until commit; completed(False) only activates the position.
+  match owner:
+    case EventOwner{facts,Route.Reader{namespace,+id,registryId}}:
+      match selected:
+        case (state,(stream,reading)):
+          (Route.Runtime{world,Mixed.put(~S,~E,~P,~F,~H,~put,state,
+            Stream.completed(~S,~E,stream,id,Nat.sub(tick,1n),False{})),tick},
+           (EventOwner{facts,Route.Reader{namespace,id,registryId}},(EventView{reading},Nat.sub(tick,1n))))
 
 def prepare_event(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~H:Type,
   ~take:F -> F & Stream.Stream<S,E>,
@@ -600,7 +605,11 @@ def relation_prepared(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,
           +position=K.position_or(Ev.lookup(positions,readerId),readerId,tick)
           +readings=KRead.all(~S,~Notice.Notice<S,P>,keys,domains,position)
           +readThrough=tick
-          (Route.Runtime{world,Mixed.State{typed,Mixed.Failures{domains,positions,tick,frameStart,boundary,capacity,nextReader}},routeTick},
+          # Match standalone failed reads: activation retains unread input,
+          # while only the successful commit advances its cursor.
+          (Route.Runtime{world,Mixed.State{typed,Mixed.Failures{
+            KRead.activate(~S,~Notice.Notice<S,P>,keys,domains,readerId),
+            Ev.activate(positions,readerId,tick),tick,frameStart,boundary,capacity,nextReader}},routeTick},
             (RelationOwner{facts,id,keys},(RelationView{readings},RelationDelta{id,readThrough})))
 
 def prepare_relation(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,
