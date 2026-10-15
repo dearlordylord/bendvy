@@ -247,6 +247,18 @@ TS renaming map nor general stateful predicates is an automatic prerequisite.
 The current finite supported declarations must still be traversed completely;
 existing gates are unchanged and #56 remains open.
 
+Mixed-reader evidence applicability: its retained source map has 84 direct core
+dependencies; 82 remain byte-exact. The two changed dependencies are
+`inspector-query` and `inspector-relation-projection` at `dd54c5d68`; the changed
+`grant` is reached by `ordinary-app-relation.observe`. The [runtime08 review](../../experiments/public-inspect/graph-stream-public-bridge-v1/operation-interval-v1/runtime08/delivery-v1/FINAL-REVIEW.md)
+checks the replacement kernel's component-first matching, component-then-relation
+projection, graph/spec operations and affine owner path, with actual current
+JS/Native full 147,180-byte observations. This is a reviewed source-equivalence
+bridge for those dependencies, alongside the [retained full counter qualification](../../experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/reached-f1a-v1/FINAL-REVIEW.md).
+It is not byte-exact whole-closure reuse, a fresh mixed-reader run or an upgrade
+of its historical INCOMPLETE collector receipt. The zero-limit filter and its
+reached defect are unchanged; no new semantic operation was found in this audit.
+
 ### Combined213 protected regression
 
 [Independent final review](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt213-01/FINAL-REVIEW.md) accepts the current 213-module integration under the unchanged Workshop gate: 20 paired samples per backend, all 123 commands and 110 complete outputs pass with no statistically confirmed regression. Descriptive candidate/TS time ratios are JS 0.4021 and Native 0.0965. This covers the protected workload, including retained single-Schedule access and optional-resource registration; full debug feature timing, overhead and remaining contracts are still open.
@@ -269,3 +281,5 @@ The next matched ordinary named-schedule consumer has now actually passed TS, em
 Source reconciliation for diagnostics: pinned Bevy `schedule/node.rs:591–639` checks disconnected pairs against initialized access, including explicit ambiguity exclusions; `schedule/schedule.rs:1883–1953` fixes ambiguity Ignore and hierarchy Warn defaults, and `schedule/error.rs:19–74` separates build errors from configurable warnings. These are order/determinism diagnostics, not an access-safety failure. Bend `schedule-provision.bend:13–16,51–69` flattens Empty/Entry/Sequence into an ordered list; `schedule.bend:66–76` executes that list head-to-tail. No unordered pair or redundant hierarchy edge is represented. Adding a dependency graph solely to imitate a TS lint label is not required by this source comparison; public diagnostics and their represented scope still need #56 acceptance evidence. No new contract or runtime behavior is introduced here.
 
 Scope check against the pinned implementations: TS `Debug.ts:87–105` classifies constructed/transient/plain values, not selectable component storage backends; its World stores dense ordinal records. Bend `ordinary-component-binding.bend:6–11` supplies Column leaves over generic stores, composed by Schema.product. TS `Condition.ts:1–70`/`Machine.ts:142–224` supplies a closed repeatable AST, whereas Bevy stateful SystemCondition is a broader API. These observations apply the existing SPEC scope; they do not waive full supported-binding traversal, arbitrary affine payloads, noninterference or performance gates.
+
+Owner-worktree scaling qualification now passes through the existing feature Harness: enabled/disabled scale1 and aggregate/enabled/disabled scales2/4, each on TS, emitted JS and ordinary Native -O3. The two terminal receipts pass all 56 planned commands (including expected FFI check refusals) and 24 complete independently derived outputs. The source/harness adapter is committed separately at `9a76a86b4`; compact delivery/integration and comparative timing remain pending. Timer fields were validated as protocol only; no speed or overhead verdict follows from these ordinary runs.
