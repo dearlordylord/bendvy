@@ -341,9 +341,9 @@ def seeded_column(graph:Relations.Graph<Schema>,result:Col.SwapOutcome<Schema,U3
 def seed_column(store:store_type(),id:U32) -> store_type() & Bool:
   match store:
     case Notice.Store{components,+graph}:seeded_column(graph,Col.swap(~Schema,~U32,components,id,Some{42}))
-def seed_column_value(store:store_type(),id:U32,value:U32) -> store_type() & Bool:
+def seed_column_value(store:store_type(),+id:U32,value:U32) -> store_type() & Bool:
   match store:
-    case Notice.Store{components,+graph}:seeded_column(graph,Col.swap(~Schema,~U32,components,id,Some{value}))
+    case Notice.Store{components,+graph}:seeded_column(graph,Col.swap(~Schema,~U32,Col.ensure(~Schema,~U32,components,id),id,Some{value}))
 def entity_id(entity:W.Handle<Schema>) -> U32:
   match entity:
     case W.Handle{_,id}:id
