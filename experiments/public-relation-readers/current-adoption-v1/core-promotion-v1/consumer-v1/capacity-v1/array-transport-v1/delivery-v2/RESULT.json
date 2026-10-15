@@ -1,0 +1,185 @@
+{
+  "history": {
+    "historicalSourceAttemptTranscripts": "source-01 through source-12 and source-v2 are retained byte-for-byte; they are not generalized into proof or backend claims.",
+    "v1Candidate": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/transport-main.bend",
+    "v1CandidateSHA256": "9be40acb5d5b40b0cf6644ee1c3bc8909c7a08833533807b48d1245779c2e649",
+    "v1JsPlanSHA256": "4664bd6a2f01576c7e110d2deae339a06d199f7b329e4f8d7bb55ff162c2a244",
+    "v1JsReceiptSHA256": "4bb71cb81d35dc4a324acc434d36e67951929b42439a56915109e791157490b3",
+    "v1JsStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+    "v1NativeEmitterStderr": "Error: an arity over 247\n",
+    "v1NativePlanSHA256": "f9d7e16784ddfb8f74eed0d48a6bab23d0418c4548a11cab6b3ae5cfca54bc36",
+    "v1NativeReceiptSHA256": "fd098e39528b9675015c39d9f7a4da9cbf28efe8f68ceb5938a609f5136c53fb",
+    "v1NativeStatus": "INCOMPLETE"
+  },
+  "issue": "#43 independent registered relation-failure readers and bounded retention",
+  "oracle": {
+    "commit": "e462d132e1bebf8a33fe2b8fd6907d40384d37e3",
+    "directory": "/workspace/formal-proofs/bendvy-worktrees/readers43-array-transport-oracle-v2/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/independent-oracle-v2",
+    "gzipBytes": 2883785,
+    "gzipSha256": "21ea1574b9572c47b5c30a56474308c7f5d1a8c1f9396b3c6fc8c76a0e549f9a",
+    "inheritedConstructorIdentities": 107,
+    "losslessInverse": {
+      "bytes": 244722906,
+      "matchesPredecessorWire": true,
+      "sha256": "aab843ba201e4514a51737be82f960d38feb912bc37bfda099cd63eafc14fcc9"
+    },
+    "newDataConstructors": 1,
+    "newTypeConstructors": 10,
+    "predecessorSourceWire": {
+      "gzipBytes": 2883498,
+      "gzipSHA256": "4c3c3c56d22605bb0676702b6a7b5b703bde80464c378d104fb347e3d64345e4",
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/transport-v1/synthetic.stdout.gz",
+      "rawBytes": 244722906,
+      "rawSHA256": "aab843ba201e4514a51737be82f960d38feb912bc37bfda099cd63eafc14fcc9"
+    },
+    "rawBytes": 252206150,
+    "rawSha256": "68690efc7af836ff49eebc6e4dd99f73f09f106430571ea919a507920ec4823f",
+    "runtimeOutputConsulted": false,
+    "transportDeclarations": 18
+  },
+  "remaining": [
+    "Full #43 issue acceptance remains open.",
+    "Equivalent complete TS/JS/Native feature timing/scaling and default #28 regression remain separate gates.",
+    "No universal proof/refinement, production adoption, performance conclusion, or global identity/affine claim is made."
+  ],
+  "reusedForeignOperation": {
+    "consumerPath": "independent-io-authority-v1/consumer.bend",
+    "consumerSourcePath": "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/consumer.bend",
+    "consumerSourceSHA256": "9b39d5fa18449935b605a493910a3111fcbd0465b322e1886af8f5c75beda790",
+    "differenceFromOlder43ForeignFixture": "The older #43 helper formed worlds via W.create and reconstituted W.Handle{namespace,1}, then called A.queue under K.with_world. This #42 evidence executes the actual independently returned peer handle through the registered writer and is the exact public foreign-operation reuse; it is not a new #43 backend run.",
+    "foreignBoundary": {
+      "operations": [
+        "ForeignSource relate",
+        "ForeignTarget relate",
+        "ForeignClear source-unrelate"
+      ],
+      "outcome": "four MissingEntity requests preserve complete receiver/peer state, pending queue, owners, registrations/cursors, domains and failure-reader observations",
+      "registeredPublicPath": "IO-created receiver -> real Sy registration -> C.write -> Sy.run_tracked -> O.writer -> P.invoke_write -> relation-commands queue_relate/queue_unrelate -> queue_namespaced",
+      "worldCreation": "two actual WI.create calls per nominal schema; returned receiver and peer handles are reserved/activated and retained"
+    },
+    "integratedCommit": "54ce441e907038f499979ff4596b3ae55974c2ff",
+    "issue": "#42 bounded IO-origin relation authority",
+    "packetArchiveSha256": "864131acb5a0004386c9828f9a1bc3528630abb64de0b2616a9d64ac0eb9f777",
+    "packetFinalReviewSha256": "3a23da66692ca4eb141bbb969e59d06621c5d949b95c75f29ce22ad4ef6b6bfb",
+    "packetManifestSha256": "7f2cfb6f0524dd9cf9bcb0c5b2b349ee49ed6c3f60aca6aa1403f992728d6f6e",
+    "packetPath": "experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-delivery-v1",
+    "packetStatus": "BOUNDED_IO_RELATION_AUTHORITY_QUALIFIED_NOT_FULL_42_OR_PERFORMANCE",
+    "qualifiedNativeRole": {
+      "planPath": "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/runtime03/native/plan.json",
+      "planSHA256": "d5d82b3d8adaa3014e691dc97f9905edcd87ee9868f8669e96081e0ff5a1acc3",
+      "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/runtime03/native/receipt.json",
+      "receiptSHA256": "fd68e990505e3c80969b05970c3d2061e713180b8160e15a1db6a812bdade80b",
+      "sourceCount": 33,
+      "sourceInventory": {
+        "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/consumer.bend": "9b39d5fa18449935b605a493910a3111fcbd0465b322e1886af8f5c75beda790",
+        "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/main.bend": "3160664a5c6bc17b34c38d2ea331d15460d573bcd22ff55c882521ce330fe4d9",
+        "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/independent-io-authority-v1/render.bend": "ba292d2f88178e7564b5a37cd2bf0813e455a8427f71971c572bbd33a9099096",
+        "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/consumer.bend": "b5aa3a508fd82ee1e67ca3db2636812d97415186a0b4a006f9120a07b46d9903",
+        "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/fixture.bend": "e8f413e4add7fcdc2e09bd1d9367c0b153046d3599b435c3adbc47f2cddf85b3",
+        "/workspace/formal-proofs/bendvy-worktrees/relations42-io-authority-v1/experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/operations.bend": "2b64fbe65eb968aac8bdc5c046b556f10311e5758d9ef9e88debd80852accf86",
+        "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+        "/workspace/formal-proofs/bendvy/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+        "/workspace/formal-proofs/bendvy/src/ecs/commands.bend": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+        "/workspace/formal-proofs/bendvy/src/ecs/component.bend": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+        "/workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+        "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+        "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/barrier.bend": "78f61ec8cd251f8362f738f264c313ec3ed15246c5227d8a90c43fbada967752",
+        "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/domains.bend": "38821350d2565c576067bb4f9e2ba03cbe1b65da47258555c0c2b213eaafd379",
+        "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/queue.bend": "ca7363dac7df55b46fc06e42b123a874fbeae3181abe0c8da37d99ae9da524df",
+        "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/readings.bend": "09bcc21e95fbedef0c3f48025e93bc3088e7a89edfd2011d33d96884bc3d4a0e",
+        "/workspace/formal-proofs/bendvy/src/ecs/internal/relation-failures/routing.bend": "928a41657992d49110836caa4d7dd0349e14b003f8cf9112c413206c9b9df693",
+        "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+        "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+        "/workspace/formal-proofs/bendvy/src/ecs/registration.bend": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+        "/workspace/formal-proofs/bendvy/src/ecs/relation-cleanup.bend": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3",
+        "/workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+        "/workspace/formal-proofs/bendvy/src/ecs/relation-failure-reader.bend": "6c355ea7f29297ee96172c39364b97cbf0f8223b7cce7f46d85636919a36c75e",
+        "/workspace/formal-proofs/bendvy/src/ecs/relation-failure-runtime.bend": "11df4128184ea27bd9f87993235ef9459342c17c5165858814fea1f62c460ac9",
+        "/workspace/formal-proofs/bendvy/src/ecs/relation-graph.bend": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+        "/workspace/formal-proofs/bendvy/src/ecs/relation-providers.bend": "6a69de7d29d0a150446689228878f19df5b6d2fdefdfcb2eb1ce1048246ac594",
+        "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+        "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+        "/workspace/formal-proofs/bendvy/src/ecs/system.bend": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+        "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+        "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend": "1be0fcd577ecf177af89136f77e5c8e67894304a89adefaf0565591f641a63e9",
+        "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+        "/workspace/formal-proofs/bendvy/src/ecs/world.bend": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+      }
+    },
+    "reuseScope": "Discharges only the concrete independently-created same-schema foreign-operation/queue-preservation boundary. It is not full #42 or #43 acceptance.",
+    "sourceCurrentCommit": "4c3546098758c969f9630e46f16e3d085ee0adfa"
+  },
+  "roles": {
+    "js": {
+      "commandLabels": [
+        "emit",
+        "consumer"
+      ],
+      "exits": [
+        0,
+        0
+      ],
+      "freshRun": true,
+      "generatedArtifactSHA256": "9ee646dae261c34cf756190fccb69279f15d5ee8f4703e20d9090880afaf6bec",
+      "guards": 7,
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/runtime-js-capacity-v2/plan.json",
+      "planSHA256": "9692592079ae814dd1dd5cd2fe6641a24134348e9a8b44e73e6dcee22fbf3dfb",
+      "receipt": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/runtime-js-capacity-v2/receipt.json",
+      "receiptSHA256": "f3c766cb0332f3b043e53bc73cff1d9b86e6bbed60207c59097547a7124ec1c5",
+      "receiptStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "stdoutBytes": 252206150,
+      "stdoutSHA256": "68690efc7af836ff49eebc6e4dd99f73f09f106430571ea919a507920ec4823f"
+    },
+    "limits": "Exact original CPU5 commands/caps: emit30; Native O3 build120; consumer5. No cap or tool changed. Elapsed time is not used as performance evidence.",
+    "native": {
+      "buildArtifactSHA256": "0aa62f6ab6802bb777d14661abc2f2f9cf65d423652c2b3ce0778e996d4de700",
+      "commandLabels": [
+        "emit",
+        "build",
+        "consumer"
+      ],
+      "emitArtifactSHA256": "0b83b3b2a05b46d65bd83b78a9821f94d11318e2bc89e72d30ed2f9bc8a0253f",
+      "exits": [
+        0,
+        0,
+        0
+      ],
+      "freshRun": true,
+      "guards": 10,
+      "plan": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/runtime-native-capacity-v2/plan.json",
+      "planSHA256": "ee38538810c096c2de0407b4759ba4721cf66b69f36fc3b8a9bfcbf3f33fe38b",
+      "receipt": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/runtime-native-capacity-v2/receipt.json",
+      "receiptSHA256": "1e9921fb8b234e2175facae023f65780ca572746f31bb812bf0685b647742727",
+      "receiptStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "stdoutBytes": 252206150,
+      "stdoutSHA256": "68690efc7af836ff49eebc6e4dd99f73f09f106430571ea919a507920ec4823f"
+    }
+  },
+  "scope": "One source-current fullcapacity ordinary consumer after lossless transport-shape adaptation; two normal backends match one independent source-derived complete wire. This is not full #43 acceptance.",
+  "source": {
+    "candidate": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/transport-main-v2.bend",
+    "exactSourceClosure": 41,
+    "losslessMap": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/transport-lossless-map-v2.json",
+      "sha256": "0351298b9b81ef6bf3a214b5710c7a4ce89effcedfa8156c2d61d768dc190647"
+    },
+    "sha256": "4b13026586880b4a9144ae7183f8cf683c0ec821e78f18bf79dd3150bc5615f1",
+    "sourceCheckTranscript": {
+      "classification": "retained source-check transcript only; not a universal proof or backend result",
+      "exit": "0",
+      "stderr": "bend 2.0.37 is available: run bend update\n",
+      "stdout": "ALL PROOFS CHECK\nUse --verdict for mathematical validity.\n"
+    },
+    "sourceDiff": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/transport-source-diff-v2.patch",
+      "sha256": "d64cf53da1cb2dbd6375a7dac3b78692242287325b6c8783599c16a299eeb5d0"
+    },
+    "sourceIdentityMap": {
+      "entries": 41,
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/transport-identities-v2.json",
+      "sha256": "9717c3a2cf1aeb62cfa0ccfaf035fe12013ed01b51c3a82a31dc85dde0d33980"
+    },
+    "transport": "The report fields and row/order are unchanged. A single Array<LifecycleMixed<S>> contains the complete lifecycle/mixed observation pair, preserving every observation while avoiding the stock recursive printer's oversized constructor argument."
+  },
+  "status": "BOUNDED_FULLCAPACITY_JS_NATIVE_DEVELOPMENT_PASS"
+}

@@ -1,0 +1,140 @@
+{
+  "diff": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/transport-source-diff-v2.patch",
+    "sha256": "d64cf53da1cb2dbd6375a7dac3b78692242287325b6c8783599c16a299eeb5d0"
+  },
+  "identityInventory": {
+    "constructorIdentityCount": 107,
+    "path": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/transport-identities-v2.json",
+    "sha256": "9717c3a2cf1aeb62cfa0ccfaf035fe12013ed01b51c3a82a31dc85dde0d33980",
+    "sourceCount": 41
+  },
+  "losslessTransport": {
+    "addedType": {
+      "fields": [
+        {
+          "field": "lifecycle",
+          "index": 0,
+          "type": "Lifecycle.Cases<S>"
+        },
+        {
+          "field": "mixed",
+          "index": 1,
+          "type": "Maybe<&2,Mixed.Final<S>>"
+        }
+      ],
+      "kind": "Data",
+      "name": "LifecycleMixed",
+      "typeParameters": [
+        "S: Data"
+      ]
+    },
+    "forward": [
+      "Copy old report retry to new retry.",
+      "Copy old report foreign to new foreign.",
+      "Build one LifecycleMixed{lifecycle,mixed} from the complete old fields and store it in a depth-0 Array (one element) as new observed.",
+      "Copy the existing capacity transport unchanged."
+    ],
+    "inverse": [
+      "Require the new observed array to contain exactly its constructed singleton element at index 0.",
+      "Destructure that element as LifecycleMixed{lifecycle,mixed}.",
+      "Rebuild the old five-field Report in its original field order: retry, foreign, lifecycle, mixed, capacity.",
+      "Apply the existing inverse for CapacityTransport and every nested Sequence unchanged."
+    ],
+    "newTransportReport": [
+      {
+        "field": "retry",
+        "index": 0,
+        "inverse": "identity",
+        "type": "Maybe<&2,Retry.Final<S>>"
+      },
+      {
+        "field": "foreign",
+        "index": 1,
+        "inverse": "identity",
+        "type": "Maybe<&2,Foreign.ForeignResult<S>>"
+      },
+      {
+        "constructedBy": "Array.new(LifecycleMixed<S>,0n,LifecycleMixed{lifecycle,mixed})",
+        "field": "observed",
+        "index": 2,
+        "type": "Array<LifecycleMixed<S>>"
+      },
+      {
+        "field": "capacity",
+        "index": 3,
+        "inverse": "identity",
+        "type": "Maybe<&1,CapacityTransport<S>>"
+      }
+    ],
+    "oldTransportReport": [
+      {
+        "field": "retry",
+        "index": 0,
+        "type": "Maybe<&2,Retry.Final<S>>"
+      },
+      {
+        "field": "foreign",
+        "index": 1,
+        "type": "Maybe<&2,Foreign.ForeignResult<S>>"
+      },
+      {
+        "field": "lifecycle",
+        "index": 2,
+        "type": "Lifecycle.Cases<S>"
+      },
+      {
+        "field": "mixed",
+        "index": 3,
+        "type": "Maybe<&2,Mixed.Final<S>>"
+      },
+      {
+        "field": "capacity",
+        "index": 4,
+        "type": "Maybe<&1,CapacityTransport<S>>"
+      }
+    ],
+    "scope": "Structural source mapping only. A source-derived independent oracle must confirm exact printed representation before runtime qualification.",
+    "unchanged": [
+      "Output alpha/beta ordering and Candidate wrapper.",
+      "Retry and foreign observations.",
+      "All lifecycle and mixed observation fields and ordering.",
+      "CapacityTransport definitions and conversion functions.",
+      "All six previously identified deep array carriers and their complete contents."
+    ]
+  },
+  "predecessor": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/transport-main.bend",
+    "sha256": "9be40acb5d5b40b0cf6644ee1c3bc8909c7a08833533807b48d1245779c2e649"
+  },
+  "predecessorImmutable": true,
+  "runtimeQualified": false,
+  "sourceCheck": {
+    "classification": "Pinned development source check only; no backend/runtime execution.",
+    "command": [
+      "bash",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/transport-main-v2.bend"
+    ],
+    "exit": 0,
+    "exitFile": {
+      "bytes": 2,
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/source-v2.exit",
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "stderr": {
+      "bytes": 42,
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/source-v2.stderr",
+      "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+    },
+    "stdout": {
+      "bytes": 58,
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/source-v2.stdout",
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    }
+  },
+  "successor": {
+    "path": "/workspace/formal-proofs/bendvy-worktrees/parity-43-js-array-transport-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/transport-main-v2.bend",
+    "sha256": "4b13026586880b4a9144ae7183f8cf683c0ec821e78f18bf79dd3150bc5615f1"
+  }
+}

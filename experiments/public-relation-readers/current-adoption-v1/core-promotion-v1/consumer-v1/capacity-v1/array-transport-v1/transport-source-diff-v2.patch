@@ -1,0 +1,47 @@
+--- transport-main.bend
++++ transport-main-v2.bend
+@@ -34,8 +34,14 @@
+ type CapacityTransport<S: Data> is Type:
+   Final{deliveries: List<&1,List<&1,ReadingTransport<S,RC.Notice<S,U32>>>>,domains: List<&1,DomainTransport<S,RC.Notice<S,U32>>>,positions: List<&2,Ev.Position>,tick: Nat,frameStart: Nat,boundary: Nat,retentionCapacity: Nat,namespace: U32,nextId: U32,highWater: U32,live: List<&2,Bool>,capacity: U32,depth: Nat,left: List<&2,U32>,right: List<&2,U32>,graph: G.Graph<S>,baseline: List<&2,U32>,returned: List<&2,List<&2,U32>>,events: List<&2,RC.Notice<S,U32>>,pendingCount: Nat,registrations: List<&2,W.RegistrationMeta>,nextSystemId: U32,clock: U32,alphaPrivate: List<&2,U32>,betaPrivate: List<&2,U32>,bothPrivate: List<&2,U32>}
+ 
++# The two existing observation families together can exceed the stock C
++# continuation width. The singleton Array is an explicit box; the inverse
++# removes exactly that box and the one grouping constructor.
++type LifecycleMixed<S: Data> is Data:
++  LifecycleMixed{lifecycle: Lifecycle.Cases<S>,mixed: Maybe<&2,Mixed.Final<S>>}
++
+ type Report<S: Data> is Type:
+-  Report{retry: Maybe<&2,Retry.Final<S>>,foreign: Maybe<&2,Foreign.ForeignResult<S>>,lifecycle: Lifecycle.Cases<S>,mixed: Maybe<&2,Mixed.Final<S>>,capacity: Maybe<&1,CapacityTransport<S>>}
++  Report{retry: Maybe<&2,Retry.Final<S>>,foreign: Maybe<&2,Foreign.ForeignResult<S>>,observed: Array<LifecycleMixed<S>>,capacity: Maybe<&1,CapacityTransport<S>>}
+ 
+ type Output is Type:
+   Output{alpha: Report<Schema.ReadersAlpha>,beta: Report<Schema.ReadersBeta>}
+@@ -125,10 +131,25 @@
+     case None{}: None{}
+     case Some{capacity}: Some{capacity_transport(~S,capacity)}
+ 
+-def report_transport(~S: Data,item: Full.Report<S>) -> Report<S>:
++def report_retry(~S: Data,item: Full.Report<S>) -> Maybe<&2,Retry.Final<S>>:
+   match item:
+-    case Full.Report{retry,foreign,lifecycle,mixed,capacity}:
+-      Report{retry,foreign,lifecycle,mixed,maybe_capacity(~S,capacity)}
++    case Full.Report{retry,_,_,_,_}: retry
++
++def report_foreign(~S: Data,item: Full.Report<S>) -> Maybe<&2,Foreign.ForeignResult<S>>:
++  match item:
++    case Full.Report{_,foreign,_,_,_}: foreign
++
++def report_observed(~S: Data,item: Full.Report<S>) -> Array<LifecycleMixed<S>>:
++  match item:
++    case Full.Report{_,_,lifecycle,mixed,_}:
++      Array.new(LifecycleMixed<S>,0n,LifecycleMixed{lifecycle,mixed})
++
++def report_capacity(~S: Data,item: Full.Report<S>) -> Maybe<&1,CapacityTransport<S>>:
++  match item:
++    case Full.Report{_,_,_,_,capacity}: maybe_capacity(~S,capacity)
++
++def report_transport(~S: Data,+item: Full.Report<S>) -> Report<S>:
++  Report{report_retry(~S,item),report_foreign(~S,item),report_observed(~S,item),report_capacity(~S,item)}
+ 
+ def output_transport(item: Full.Output) -> Output:
+   match item:
