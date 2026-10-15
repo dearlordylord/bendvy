@@ -940,3 +940,12 @@ were not modified. All eleven local suites PASS; selected Python policy and
 owned-diff whitespace checks PASS. Independent agent review remains for the main
 thread: side-thread instructions prohibit subagents. CI publication outcome will
 be appended after the exact pushed commit is checked.
+
+Publication follow-up:218b5b548 was pushed and all27 remote issue clauses were
+read back successfully. Initial CI38791219738 exposed an unnecessary full-history
+checkout while still in checkout; local Git packs total2.93GiB (not a measured
+network transfer). Corrected checkout to depth2 and fetch the base commit at
+depth1 only if absent. Push comparisons need endpoint trees; GitHub pull_request
+runs use the synthetic merge commit with its base parent available at depth2.
+A failed required base fetch fails CI; zero/absent base retains the explicit
+full-tree validation fallback. No full-history transfer is required.
