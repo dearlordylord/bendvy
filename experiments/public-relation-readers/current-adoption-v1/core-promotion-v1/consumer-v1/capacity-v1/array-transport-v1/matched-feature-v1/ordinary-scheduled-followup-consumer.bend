@@ -1374,12 +1374,14 @@ def follow_slow_repeat(state:FollowState) -> FollowState:
 def follow_final_image(trace:List<&2,JsonDoc>,observed:context_type() & JsonDoc) -> List<&2,String>:
   match observed:
     case (_,image):json_output(json_parts([JsonText{"{\"scenario\":\"ordinary-scheduled-failure-retry\",\"trace\":"},json_list_trace(trace),JsonText{",\"final\":"},image,JsonText{"}"}]))
-def follow_after_slow_repeat(state:FollowState) -> List<&2,String>:
+def follow_finish(state:FollowState) -> List<&2,String>:
   match state:
     case FollowState{world,owners}:
       match owners:
         case ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}:
           follow_final_image(trace,json_context_image(context_from(world,metadata)))
+def follow_after_slow_repeat(state:FollowState) -> List<&2,String>:
+  follow_finish(follow_slow_repeat(state))
 def follow_after_fast_repeat(state:FollowState) -> List<&2,String>:
   follow_after_slow_repeat(follow_fast_repeat(state))
 def follow_after_slow_read(state:FollowState) -> List<&2,String>:
