@@ -428,14 +428,27 @@ def acemr_initialize(context:context_type(),facts:RP.RegistrationFacts) -> conte
   RP.initialize_pair(~context_type(),~RP.RegistrationFacts,~a_owner(),~a_parameter_type(),~cemr_owner(),~cemr_parameter_type(),~acemr_parameter_type(),~a_initialize,~cemr_initialize,~pair_acemr,context,facts)
 def all_owner() -> Type:
   q_owner() & acemr_owner()
+type AllView is Data:
+  AllView{query:QParam.Rows<Schema,Cmp.Access<U32>>,added:QParam.Rows<Schema,Unit>,changed:QParam.Rows<Schema,Unit>,event:Stream.EventView<Schema,event_type()>,removals:Stream.RemovalView<Schema,U32>,relations:Stream.RelationView<Schema,Publication>}
 def all_view() -> Data:
+  AllView
+def all_nested_view() -> Data:
   RP.ViewPair<q_view(),acemr_view()>
+def pack_all_view(nested:all_nested_view()) -> all_view():
+  match nested:
+    case RP.ViewPair{query,RP.ViewPair{added,RP.ViewPair{changed,RP.ViewPair{event,RP.ViewPair{removals,relations}}}}}:
+      AllView{query,added,changed,event,removals,relations}
 def all_delta() -> Type:
   q_delta() & acemr_delta()
 def validate_all(context:context_type(),owner:all_owner()) -> context_type() & (all_owner() & Bool):
   RP.pair_validate_fn(~context_type(),~q_owner(),~acemr_owner(),~q_validate,~acemr_validate)(context,owner)
-def prepare_all(context:context_type(),+cursor:U32,owner:all_owner()) -> context_type() & (all_owner() & (all_view() & all_delta())):
+def prepare_all_nested(context:context_type(),+cursor:U32,owner:all_owner()) -> context_type() & (all_owner() & (all_nested_view() & all_delta())):
   RP.pair_prepare_fn(~context_type(),~q_owner(),~acemr_owner(),~q_view(),~acemr_view(),~q_delta(),~acemr_delta(),~q_prepare,~acemr_prepare)(context,cursor,owner)
+def pack_all_prepare(prepared:context_type() & (all_owner() & (all_nested_view() & all_delta()))) -> context_type() & (all_owner() & (all_view() & all_delta())):
+  match prepared:
+    case (context,(owner,(nested,delta))):(context,(owner,(pack_all_view(nested),delta)))
+def prepare_all(context:context_type(),+cursor:U32,owner:all_owner()) -> context_type() & (all_owner() & (all_view() & all_delta())):
+  pack_all_prepare(prepare_all_nested(context,cursor,owner))
 def commit_all(context:context_type(),owner:all_owner(),delta:all_delta(),+cursor:U32) -> context_type() & all_owner():
   RP.pair_commit_fn(~context_type(),~q_owner(),~acemr_owner(),~q_delta(),~acemr_delta(),~q_commit,~acemr_commit)(context,owner,delta,cursor)
 def release_all(context:context_type(),owner:all_owner()) -> context_type():
@@ -810,8 +823,8 @@ def relations_json(value:r_view()) -> String:
     case Stream.RelationView{readings}:list_json(~KRead.KeyReading<Schema,event_type()>,~key_reading_json,readings)
 def view_json(value:all_view()) -> String:
   match value:
-    case RP.ViewPair{query,RP.ViewPair{added,RP.ViewPair{changed,RP.ViewPair{eventA,RP.ViewPair{removals,relations}}}}}:
-      "{\"query\":"++query_json(query)++",\"eventA\":"++event_json(eventA)++",\"added\":"++filter_query_json(added)++",\"changed\":"++filter_query_json(changed)++",\"removals\":"++removals_json(removals)++",\"relations\":"++relations_json(relations)++"}"
+    case AllView{query,added,changed,event,removals,relations}:
+      "{\"query\":"++query_json(query)++",\"eventA\":"++event_json(event)++",\"added\":"++filter_query_json(added)++",\"changed\":"++filter_query_json(changed)++",\"removals\":"++removals_json(removals)++",\"relations\":"++relations_json(relations)++"}"
 
 # Direct retained-state image. Reader results alone do not show batch boundaries,
 # dormant positions, per-descriptor isolation, or whole-batch drop watermarks.
@@ -1025,7 +1038,7 @@ def json_relation_view(value:r_view()) -> JsonDoc:
     case Stream.RelationView{readings}:json_array(~KRead.KeyReading<Schema,event_type()>,~json_key_reading,readings)
 def json_view(value:all_view()) -> JsonDoc:
   match value:
-    case RP.ViewPair{query,RP.ViewPair{added,RP.ViewPair{changed,RP.ViewPair{eventA,RP.ViewPair{removals,relations}}}}}:json_parts([JsonText{"{\"query\":"},json_query_view(query),JsonText{",\"eventA\":"},json_event_view(eventA),JsonText{",\"added\":"},JsonText{filter_query_json(added)},JsonText{",\"changed\":"},JsonText{filter_query_json(changed)},JsonText{",\"removals\":"},json_removal_view(removals),JsonText{",\"relations\":"},json_relation_view(relations),JsonText{"}"}])
+    case AllView{query,added,changed,event,removals,relations}:json_parts([JsonText{"{\"query\":"},json_query_view(query),JsonText{",\"eventA\":"},json_event_view(event),JsonText{",\"added\":"},JsonText{filter_query_json(added)},JsonText{",\"changed\":"},JsonText{filter_query_json(changed)},JsonText{",\"removals\":"},json_removal_view(removals),JsonText{",\"relations\":"},json_relation_view(relations),JsonText{"}"}])
 
 def registry_type() -> Type:
   Sys.Registry<Schema,store_type(),Unit,event_type(),Ordinary.Invocation<metadata_type(),all_owner(),all_parameter_type(),Unit,Bool>,Empty,Ordinary.Envelope<metadata_type(),all_owner(),all_parameter_type(),Unit,U32,all_view()>,Ordinary.shared_runner(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~all_owner(),~all_view(),~all_delta(),~Bool,~Unit,~U32,~all_view(),~validate_all,~prepare_all,~commit_all,~release_all,~no_caps,~callback,~no_grant(),~sync_events,~classify)>
