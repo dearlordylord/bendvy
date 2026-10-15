@@ -1,0 +1,72 @@
+{
+  "sourcePins": 77,
+  "bytes": 26254,
+  "sha256": "fd4316f0b089ccdd0bec3c06faba92b9096c08e3fd4c4d1d7054e24e505de926",
+  "scheduleCalls": [
+    "follow_warm",
+    "follow_link",
+    "follow_failures",
+    "follow_fast_failure",
+    "follow_active_skip",
+    "follow_fast_retry",
+    "follow_slow_read",
+    "follow_fast_repeat",
+    "follow_slow_repeat"
+  ],
+  "io": {
+    "fuel": 10671,
+    "loopVisits": 8379,
+    "chunks": 7,
+    "terminalLfWrites": 1
+  },
+  "negativeControls": [
+    {
+      "control": "omitted-fast",
+      "bytes": 24765,
+      "sha256": "26d7d8d8c488439fde3fcfc407eb269905af380e32f7d0c70ae91a717f3d0509",
+      "clock": 10,
+      "query": {
+        "writer": 5,
+        "fast": 8,
+        "slow": 10
+      },
+      "scheduleCalls": [
+        "follow_warm",
+        "follow_link",
+        "follow_failures",
+        "follow_fast_failure",
+        "follow_active_skip",
+        "follow_fast_retry",
+        "follow_slow_read",
+        "follow_slow_repeat"
+      ]
+    },
+    {
+      "control": "omitted-slow",
+      "bytes": 24765,
+      "sha256": "a9da828292064af1c1b9786809214ef2b3548ce671deb141d6fa32f178ef6c22",
+      "clock": 10,
+      "query": {
+        "writer": 5,
+        "fast": 10,
+        "slow": 9
+      },
+      "scheduleCalls": [
+        "follow_warm",
+        "follow_link",
+        "follow_failures",
+        "follow_fast_failure",
+        "follow_active_skip",
+        "follow_fast_retry",
+        "follow_slow_read",
+        "follow_fast_repeat"
+      ]
+    }
+  ],
+  "setupControl": {
+    "originalAccepted": false,
+    "successorAccepted": true,
+    "sourceDerivedRejectedWire": "setup-failed\n"
+  },
+  "invariants": "passed"
+}
