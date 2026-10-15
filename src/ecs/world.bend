@@ -253,10 +253,13 @@ def pending_prepend(~S: Data,~C: Type,~R: Type,~E: Data,command: World<S,C,R,E> 
   (commands,count) = counted
   (command <> commands,(count + 1 : U32))
 
-def pending_length(~S: Data,~C: Type,~R: Type,~E: Data,commands: List<(World<S,C,R,E> -> World<S,C,R,E>)>) -> List<(World<S,C,R,E> -> World<S,C,R,E>)> & U32:
+def pending_length_acc(~S: Data,~C: Type,~R: Type,~E: Data,commands: List<(World<S,C,R,E> -> World<S,C,R,E>)>,reversed: List<(World<S,C,R,E> -> World<S,C,R,E>)>,count: U32) -> List<(World<S,C,R,E> -> World<S,C,R,E>)> & U32:
   match commands:
-    case []: ([],0)
-    case command <> rest: pending_prepend(~S,~C,~R,~E,command,pending_length(~S,~C,~R,~E,rest))
+    case []: (List.reverse(&1,(World<S,C,R,E> -> World<S,C,R,E>),reversed),count)
+    case command <> rest: pending_length_acc(~S,~C,~R,~E,rest,command <> reversed,(count + 1 : U32))
+
+def pending_length(~S: Data,~C: Type,~R: Type,~E: Data,commands: List<(World<S,C,R,E> -> World<S,C,R,E>)>) -> List<(World<S,C,R,E> -> World<S,C,R,E>)> & U32:
+  pending_length_acc(~S,~C,~R,~E,commands,[],0)
 
 def pending_count_join(~S: Data,~C: Type,~R: Type,~E: Data,+namespace: U32,+nextId: U32,+highWater: U32,live: Array<Bool>,+capacity: U32,+depth: Nat,store: C,resource: R,+events: List<&2,E>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32,counted: List<(World<S,C,R,E> -> World<S,C,R,E>)> & U32) -> World<S,C,R,E> & U32:
   (pending,count) = counted
