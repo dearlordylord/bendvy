@@ -1,0 +1,9 @@
+# Matched named-plan ordinary qualification
+
+Fresh TS, JS and ordinary O3 Native each matched the complete independent 30,216-byte scale-1 output: four fresh scenes, 104 records. The existing batch actually launched all three pinned collectors in order, with no outer lock; all six commands and 21 guards passed. Inner caps remain 5 / 30+5 / 30+120+5 seconds. Outer caps are orchestration limits only.
+
+This is the common business workflow: named plan insertion/replacement/removal/lookup/refusal, shared retained state versus independent registration, Local/capture failure and skip behavior, resource mode writes via ordinary declared systems, and actual automatic descriptions/grouped access with debug disabled/enabled. TS uses a fixture Map of ordinary Schedule values and ordinary System captures, not a TS Local or native named-collection API. Full affine owners, namespaces, registry/cursor conventions and unplaced inventory retain the separate integrated physical qualification; no fabricated TS ownership fields are used.
+
+Run `python3 experiments/public-schedules/named-app-v1/matched-feature-delivery-v1/verify.py` from a checkout containing the OWNERSHIP paths. Verification reads archived full-path/hash identities, exact commands/caps/streams/artifacts/guard progression, actual batch launcher bindings, and the independent model; it starts no Node, Bend or native consumer. Installed tool binaries and resource trees are hash metadata, not duplicated. Original producer paths identify historical runtime inputs; owned files are resolved only relative to this checkout.
+
+Scale 2/4 model outputs are retained for the next existing harness gate. Runtime scaling, matched timing and the remaining full #56 public diagnostics acceptance stay open. No timing/profile/comparative run or new numerical criterion is claimed. Existing protected Workshop regression evidence is separate, reused only under its actual source/tool/workload applicability.
