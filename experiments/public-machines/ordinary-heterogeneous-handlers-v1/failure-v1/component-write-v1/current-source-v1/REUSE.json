@@ -1,0 +1,618 @@
+{
+  "claim": "Source applicability bridge for finite existing handler failure/requirement/shared-reference evidence; not historical receipt relabeling or universal refinement.",
+  "qualifiedCurrentFirstTransition": {
+    "sourceCommit": "137f83971",
+    "entry": {
+      "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/current-source-v1/main.bend",
+      "sha256": "0872fba885b7e00ed0054b4443eb225a385d47380bf8cb96b0654084aa36ecaf"
+    },
+    "sourceFreeze": {
+      "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/current-source-v1/SOURCE-FREEZE.json",
+      "sha256": "e61b46a96ca3014ae04190b0073bc51af8c6d11c4cf26394060177360e5d5ac8"
+    },
+    "oracleBytes": 24422,
+    "oracleSHA256": "dfa63c0ed3b258d70c6622b4befd51a6ed1f1b319e718cf96f68b080fc2ff66d",
+    "execution": "Root reports current JS+Native full oracle pass; runtime receipt retention belongs to delivery packet."
+  },
+  "publicCorePins": [
+    {
+      "path": "src/ecs/capabilities.bend",
+      "historicalSHA256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "currentSHA256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/column.bend",
+      "historicalSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "currentSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/component.bend",
+      "historicalSHA256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "currentSHA256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/event-runtime.bend",
+      "historicalSHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "currentSHA256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/indexed-lifecycle.bend",
+      "historicalSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "currentSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/lifecycle.bend",
+      "historicalSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "currentSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/local.bend",
+      "historicalSHA256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+      "currentSHA256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/machine-handler-bundle.bend",
+      "historicalSHA256": "04003a6575f7d478111062d83af0839bd402bfe1d2118c56fab0a609cd8173a8",
+      "currentSHA256": "23f5bb47006785613e5ce818d621747b47979629d50285469f1dc0bfd58d274f",
+      "exact": false
+    },
+    {
+      "path": "src/ecs/machine-handlers.bend",
+      "historicalSHA256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+      "currentSHA256": "9bf3c235897f534ebac7b7c5823160b5e32b75f1c77f539451711ad8f269f109",
+      "exact": false
+    },
+    {
+      "path": "src/ecs/machine-stream.bend",
+      "historicalSHA256": "c47ff38671eb67b4369311408c81a2ef388ed971923419625c36f92219eb0fe4",
+      "currentSHA256": "83e15821537607a37ddf94b6a63119f8b1ee3fa098d3cfbf4311f689ada706a7",
+      "exact": false
+    },
+    {
+      "path": "src/ecs/machine.bend",
+      "historicalSHA256": "b1668cce1617bd9ef1e77c7b8ddec7179702020a1a93bfa61d0f0de5a1f8aeed",
+      "currentSHA256": "4b5fa3e946206e909ec525d2d99e5e068aca1f65a6b0695b6b0e1b4d5f321d72",
+      "exact": false
+    },
+    {
+      "path": "src/ecs/ordinary-machine-schedule.bend",
+      "historicalSHA256": "2fce580736002319e902316dd98e47d4466140c86ef3add43b146b0077efd8bd",
+      "currentSHA256": "2fce580736002319e902316dd98e47d4466140c86ef3add43b146b0077efd8bd",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/owner-handoff.bend",
+      "historicalSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "currentSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/registration.bend",
+      "historicalSHA256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "currentSHA256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/schedule.bend",
+      "historicalSHA256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "currentSHA256": "e7c1f18bcb27ba6b5d6c7de88e81d0fe41c000b8d16fcd4d500d72655de86da3",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/string-equality.bend",
+      "historicalSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "currentSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/system.bend",
+      "historicalSHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "currentSHA256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/transaction.bend",
+      "historicalSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "currentSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "exact": true
+    },
+    {
+      "path": "src/ecs/world.bend",
+      "historicalSHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "currentSHA256": "4e191783000df87279190cdd5c74d419de88a1bae8d7ebaf0c3ed8600ad80d1a",
+      "exact": false
+    }
+  ],
+  "reachedHandlerBodyChecks": [
+    {
+      "module": "src/ecs/machine-handlers.bend",
+      "historicalSHA256": "a63c3847277c69e1513346f35f43c9a482bd3af25373858b2e8df957f75e5fd8",
+      "currentSHA256": "9bf3c235897f534ebac7b7c5823160b5e32b75f1c77f539451711ad8f269f109",
+      "checkedBodies": [
+        {
+          "function": "prepare",
+          "bodySHA256": "6c2f27ef1b465d57cc3202269a31256096fadd425631868419b82e474292ff7c",
+          "currentBodySHA256": "6c2f27ef1b465d57cc3202269a31256096fadd425631868419b82e474292ff7c",
+          "equal": true
+        },
+        {
+          "function": "choose",
+          "bodySHA256": "32644fcc8539e81e938a2c41d2b96e87283040d9bad8f34ebc6c3682713f2441",
+          "currentBodySHA256": "32644fcc8539e81e938a2c41d2b96e87283040d9bad8f34ebc6c3682713f2441",
+          "equal": true
+        },
+        {
+          "function": "run_phase",
+          "bodySHA256": "a7090dc1b5c1edad595f1e576d3d50c85bd2c3aad14fa6d2c16ce33c559323a1",
+          "currentBodySHA256": "a7090dc1b5c1edad595f1e576d3d50c85bd2c3aad14fa6d2c16ce33c559323a1",
+          "equal": true
+        },
+        {
+          "function": "entry_result",
+          "bodySHA256": "19b7c6c3d2e7515e26c4859ac2193fed0e6de5c1cffa733f62a86e740a26ec07",
+          "currentBodySHA256": "19b7c6c3d2e7515e26c4859ac2193fed0e6de5c1cffa733f62a86e740a26ec07",
+          "equal": true
+        },
+        {
+          "function": "after_exit",
+          "bodySHA256": "5553e119d6288d94301c4c664dd7dbf2b3817106f651d43ddfbd96491ea3b392",
+          "currentBodySHA256": "5553e119d6288d94301c4c664dd7dbf2b3817106f651d43ddfbd96491ea3b392",
+          "equal": true
+        },
+        {
+          "function": "after_transition",
+          "bodySHA256": "c1dadcd1433f079a1c281c5822281ba541909dd883b9b8dd027061a5101f48a8",
+          "currentBodySHA256": "c1dadcd1433f079a1c281c5822281ba541909dd883b9b8dd027061a5101f48a8",
+          "equal": true
+        },
+        {
+          "function": "after_enter",
+          "bodySHA256": "d92352b0f20b53a031fa5d68a47275d47659d660b9f62eceff42bfee11398aeb",
+          "currentBodySHA256": "d92352b0f20b53a031fa5d68a47275d47659d660b9f62eceff42bfee11398aeb",
+          "equal": true
+        },
+        {
+          "function": "taken",
+          "bodySHA256": "4799efb39ed49aea87f38bf92638edc38a6bb546fc2a3bafa10196737589bda7",
+          "currentBodySHA256": "4799efb39ed49aea87f38bf92638edc38a6bb546fc2a3bafa10196737589bda7",
+          "equal": true
+        }
+      ]
+    },
+    {
+      "module": "src/ecs/machine-handler-bundle.bend",
+      "historicalSHA256": "04003a6575f7d478111062d83af0839bd402bfe1d2118c56fab0a609cd8173a8",
+      "currentSHA256": "23f5bb47006785613e5ce818d621747b47979629d50285469f1dc0bfd58d274f",
+      "checkedBodies": [
+        {
+          "function": "requirements",
+          "bodySHA256": "88f63fb2b63949c27078b06947ea0af202dea434baa1fc5045153c94ebd95523",
+          "currentBodySHA256": "88f63fb2b63949c27078b06947ea0af202dea434baa1fc5045153c94ebd95523",
+          "equal": true
+        },
+        {
+          "function": "partition",
+          "bodySHA256": "a8acfb5f325dc9f072f5dbb21841b4cd9a3c3381183feedd8f99ea5eea45cea5",
+          "currentBodySHA256": "a8acfb5f325dc9f072f5dbb21841b4cd9a3c3381183feedd8f99ea5eea45cea5",
+          "equal": true
+        },
+        {
+          "function": "choose",
+          "bodySHA256": "f34d573e55a2615636b9e09e95ef2324a900b779e75e2a6115f579d86601a212",
+          "currentBodySHA256": "f34d573e55a2615636b9e09e95ef2324a900b779e75e2a6115f579d86601a212",
+          "equal": true
+        },
+        {
+          "function": "recover",
+          "bodySHA256": "b4ed48f05662adcd616a6fda065d134838dc7e9abc09239fb950357e61c91318",
+          "currentBodySHA256": "b4ed48f05662adcd616a6fda065d134838dc7e9abc09239fb950357e61c91318",
+          "equal": true
+        },
+        {
+          "function": "run",
+          "bodySHA256": "b53d95fa568f63d3bf99101c3792a8a543e6bf17c1c0620972715b0363981ada",
+          "currentBodySHA256": "b53d95fa568f63d3bf99101c3792a8a543e6bf17c1c0620972715b0363981ada",
+          "equal": true
+        }
+      ]
+    }
+  ],
+  "changedModuleAnalysis": {
+    "machine.bend": "Adds Initial constructor to Transition sum. These fixtures start Present and queue changes; H.prepare produces M.Transition. No initializer called, so Initial unreachable.",
+    "machine-handlers.bend": "InitialEnter/run_initial/Initial prepared branch additive. Existing pending-transition choose/prepare/run_phase/after_exit/after_transition/after_enter remain identical; actual component failure/retry path uses them.",
+    "machine-handler-bundle.bend": "choose_initial/partition_initial additive; existing requirement gathering, partition and recovery unchanged. Ordinary Operation path uses existing partition for pending state transitions.",
+    "machine-stream.bend": "Physical queue changed. St.snapshot retains full logical batches/positions/dropped/frameStart; current FirstTransition exact24422 qualifies adapted observer and read/finish path. Canonical capacity packet separately covers trim/whole-batch/empty/arbitrary-tick/Initial/skip/disposal; these handler fixtures do not frame/expire.",
+    "world.bend": "pending_length tail helper changes implementation only; counts/order preserved. Actual component Tx undo and World namespace/registry behavior bodies unchanged."
+  },
+  "sixComponentCases": {
+    "historicalFullMatrix": {
+      "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/FINAL-MATRIX.json",
+      "sha256": "47e388085592b65e184cb58f967ef104bcd958ab9be234c9965b1ac1456ba845"
+    },
+    "historicalReview": {
+      "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/FINAL-REVIEW.md",
+      "sha256": "1f191a366856289dccc14480e6081bf8882245f86d6d8621ab903ad7086c28fc"
+    },
+    "variants": [
+      {
+        "case": "first-enter",
+        "sourceBodies": [
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/first-enter/application.bend",
+            "sha256": "13711e24896b276ce64b34df9049498b7efe500882de76f7d50f1856251c5895",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/first-enter/lenses.bend",
+            "sha256": "cf466448e74f4dfe9aff265087b456443a500b91725c78c31e8b695c8ab43945",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/first-enter/main.bend",
+            "sha256": "9acd771e91e3db6b7f55d997734eae62c95cff712eef071f3f6f7a0815d8cd39",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/first-enter/observe.bend",
+            "sha256": "f87227f9e209a8df04b1f9efbdcdb0f39dc99b0ed0346d8329cccc4f26338993",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/first-enter/systems.bend",
+            "sha256": "47ff5a9026bd6a136e4f63ef3e04d905d52bbfc17547605dde95a1998cb49ca6",
+            "nonImportEqualToFirstTransition": false
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/first-enter/types.bend",
+            "sha256": "9edf636d52257c5fc74b44a7b5e9ad1ef995daa62d99da2c0560dec2069de717",
+            "nonImportEqualToFirstTransition": true
+          }
+        ],
+        "delta": "Only systems.bend selects another failure position. First Exit/Enter change first_outcome. Second positions disable first_outcome and add second_outcome/second_selected using actual second Local. Main/operations/observations/order unchanged."
+      },
+      {
+        "case": "first-exit",
+        "sourceBodies": [
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/first-exit/application.bend",
+            "sha256": "13711e24896b276ce64b34df9049498b7efe500882de76f7d50f1856251c5895",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/first-exit/lenses.bend",
+            "sha256": "cf466448e74f4dfe9aff265087b456443a500b91725c78c31e8b695c8ab43945",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/first-exit/main.bend",
+            "sha256": "9acd771e91e3db6b7f55d997734eae62c95cff712eef071f3f6f7a0815d8cd39",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/first-exit/observe.bend",
+            "sha256": "f87227f9e209a8df04b1f9efbdcdb0f39dc99b0ed0346d8329cccc4f26338993",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/first-exit/systems.bend",
+            "sha256": "a2c9ff75a6b56ca1348ccffd86265478ccb0e3b99bc426109b1d2f3692eec681",
+            "nonImportEqualToFirstTransition": false
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/first-exit/types.bend",
+            "sha256": "9edf636d52257c5fc74b44a7b5e9ad1ef995daa62d99da2c0560dec2069de717",
+            "nonImportEqualToFirstTransition": true
+          }
+        ],
+        "delta": "Only systems.bend selects another failure position. First Exit/Enter change first_outcome. Second positions disable first_outcome and add second_outcome/second_selected using actual second Local. Main/operations/observations/order unchanged."
+      },
+      {
+        "case": "second-enter",
+        "sourceBodies": [
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-enter/application.bend",
+            "sha256": "13711e24896b276ce64b34df9049498b7efe500882de76f7d50f1856251c5895",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-enter/lenses.bend",
+            "sha256": "cf466448e74f4dfe9aff265087b456443a500b91725c78c31e8b695c8ab43945",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-enter/main.bend",
+            "sha256": "9acd771e91e3db6b7f55d997734eae62c95cff712eef071f3f6f7a0815d8cd39",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-enter/observe.bend",
+            "sha256": "f87227f9e209a8df04b1f9efbdcdb0f39dc99b0ed0346d8329cccc4f26338993",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-enter/systems.bend",
+            "sha256": "99136578d20aefc08ccbfa879edf8b408ee1503a2b62a11fdaf735c3d2b12320",
+            "nonImportEqualToFirstTransition": false
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-enter/types.bend",
+            "sha256": "9edf636d52257c5fc74b44a7b5e9ad1ef995daa62d99da2c0560dec2069de717",
+            "nonImportEqualToFirstTransition": true
+          }
+        ],
+        "delta": "Only systems.bend selects another failure position. First Exit/Enter change first_outcome. Second positions disable first_outcome and add second_outcome/second_selected using actual second Local. Main/operations/observations/order unchanged."
+      },
+      {
+        "case": "second-exit",
+        "sourceBodies": [
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-exit/application.bend",
+            "sha256": "13711e24896b276ce64b34df9049498b7efe500882de76f7d50f1856251c5895",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-exit/lenses.bend",
+            "sha256": "cf466448e74f4dfe9aff265087b456443a500b91725c78c31e8b695c8ab43945",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-exit/main.bend",
+            "sha256": "9acd771e91e3db6b7f55d997734eae62c95cff712eef071f3f6f7a0815d8cd39",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-exit/observe.bend",
+            "sha256": "f87227f9e209a8df04b1f9efbdcdb0f39dc99b0ed0346d8329cccc4f26338993",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-exit/systems.bend",
+            "sha256": "6b9b29074eff81edb004432b0db306a3cd5183b811d5432fd08aba4254debada",
+            "nonImportEqualToFirstTransition": false
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-exit/types.bend",
+            "sha256": "9edf636d52257c5fc74b44a7b5e9ad1ef995daa62d99da2c0560dec2069de717",
+            "nonImportEqualToFirstTransition": true
+          }
+        ],
+        "delta": "Only systems.bend selects another failure position. First Exit/Enter change first_outcome. Second positions disable first_outcome and add second_outcome/second_selected using actual second Local. Main/operations/observations/order unchanged."
+      },
+      {
+        "case": "second-transition",
+        "sourceBodies": [
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-transition/application.bend",
+            "sha256": "13711e24896b276ce64b34df9049498b7efe500882de76f7d50f1856251c5895",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-transition/lenses.bend",
+            "sha256": "cf466448e74f4dfe9aff265087b456443a500b91725c78c31e8b695c8ab43945",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-transition/main.bend",
+            "sha256": "9acd771e91e3db6b7f55d997734eae62c95cff712eef071f3f6f7a0815d8cd39",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-transition/observe.bend",
+            "sha256": "f87227f9e209a8df04b1f9efbdcdb0f39dc99b0ed0346d8329cccc4f26338993",
+            "nonImportEqualToFirstTransition": true
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-transition/systems.bend",
+            "sha256": "59387c9dc8ee6280d4ef23696f432e9f115bcf779434b6063a7e90dc62dbe5af",
+            "nonImportEqualToFirstTransition": false
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/affected-v1/second-transition/types.bend",
+            "sha256": "9edf636d52257c5fc74b44a7b5e9ad1ef995daa62d99da2c0560dec2069de717",
+            "nonImportEqualToFirstTransition": true
+          }
+        ],
+        "delta": "Only systems.bend selects another failure position. First Exit/Enter change first_outcome. Second positions disable first_outcome and add second_outcome/second_selected using actual second Local. Main/operations/observations/order unchanged."
+      }
+    ],
+    "observationJoin": "All six use same observer body before import-only relocation. New observer snapshot wrapper and exhaustive Initial arm preserve old Transition serialization; source-only oracle1ae54db20 and current pair establish full output for FirstTransition. Other cases retain their actual historical receipts and individual oracle bodies; no new receipts invented."
+  },
+  "namedMutants": {
+    "historicalMatrix": {
+      "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/FINAL-MATRIX.json",
+      "sha256": "86b710f89b3c6a9508036c3b1bfad6d49e002bab58d342886342b8405d3656e4"
+    },
+    "historicalReview": {
+      "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/FINAL-REVIEW.md",
+      "sha256": "6fd585637830397d01dda7c65e8062f0d5de7e0d0d94a9c311b632e4a9a5d14b"
+    },
+    "subjects": [
+      {
+        "name": "lost-retry",
+        "deltaRecord": {
+          "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/DELTA.json",
+          "sha256": "7ad9a94d4a451bf6b385fa0620340f49551cacd3aef20d99b1fa7f4c0af77024"
+        },
+        "historicalSourceBodies": [
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/application.bend",
+            "sha256": "7138e03f70716e6bed93ae5de2aa9301ff06650c1e737a766701588b3dbf77e2"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/lenses.bend",
+            "sha256": "cf466448e74f4dfe9aff265087b456443a500b91725c78c31e8b695c8ab43945"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/main.bend",
+            "sha256": "9acd771e91e3db6b7f55d997734eae62c95cff712eef071f3f6f7a0815d8cd39"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/observe.bend",
+            "sha256": "f87227f9e209a8df04b1f9efbdcdb0f39dc99b0ed0346d8329cccc4f26338993"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/operation.bend",
+            "sha256": "c397fec98ec4e65950e1775f3909efe9b3f6f87fed2ad53c7a0fe9dda614cdab"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/phase.bend",
+            "sha256": "fd2e28d936caed9753303c995c4f5000078334f08bf11f811a5908c087f8648f"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/systems.bend",
+            "sha256": "bc96504c9320654cdbf466cdb989381783d89307ba171188b32ede72a0b853d6"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/lost-retry/types.bend",
+            "sha256": "9edf636d52257c5fc74b44a7b5e9ad1ef995daa62d99da2c0560dec2069de717"
+          }
+        ],
+        "alteredSubjects": [
+          {
+            "file": "phase.bend",
+            "baselineSHA256": "ff6350547a0814217312d37f92b0b6cb924b93a7c646e1a721eaeaf405c34000",
+            "mutantSHA256": "fd2e28d936caed9753303c995c4f5000078334f08bf11f811a5908c087f8648f",
+            "diff": "--- \n+++ \n@@ -13,7 +13,7 @@\n def published(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,~rewind:W.World<S,C,R,E> -> W.World<S,C,R,E>,world:W.World<S,C,R,E>,event:M.Transition<V>) -> W.World<S,C,R,E>:publish(world,event)\n def requeued(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,~rewind:W.World<S,C,R,E> -> W.World<S,C,R,E>,to:V,skipSame:Bool,pair:W.World<S,C,R,E> & M.Slot<S,K,V>) -> W.World<S,C,R,E>:\n   (world,slot)=pair\n-  put(world,M.queue(~S,~K,~V,slot,to,skipSame))\n+  put(world,slot)\n def committed(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,~rewind:W.World<S,C,R,E> -> W.World<S,C,R,E>,+from:V,+to:V,pair:W.World<S,C,R,E> & M.Slot<S,K,V>) -> W.World<S,C,R,E>:\n   (world,slot)=pair\n   published(~S,~K,~V,~C,~R,~E,~runner,~take,~put,~publish,~same,~frame,~rewind,put(world,H.committed(~S,~K,~V,slot,from,to)),M.Transition{from,to})\n"
+          }
+        ],
+        "reachedPath": "application.marker_first -> operation -> Phase.transition -> transitioned(Failed) -> requeued; mutant removes retry request, subsequent marker cannot retry",
+        "scope": "Historical executed same finite resource/event/pending countertrace; not a fresh current-source execution or Component.tx_set-undo-specific mutation."
+      },
+      {
+        "name": "premature-publication",
+        "deltaRecord": {
+          "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/premature-publication/DELTA.json",
+          "sha256": "b12604608f1b6155aaa76a56138a0bb69b73b3033cf497286be37e2d1fc7c514"
+        },
+        "historicalSourceBodies": [
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/premature-publication/application.bend",
+            "sha256": "7138e03f70716e6bed93ae5de2aa9301ff06650c1e737a766701588b3dbf77e2"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/premature-publication/lenses.bend",
+            "sha256": "cf466448e74f4dfe9aff265087b456443a500b91725c78c31e8b695c8ab43945"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/premature-publication/main.bend",
+            "sha256": "9acd771e91e3db6b7f55d997734eae62c95cff712eef071f3f6f7a0815d8cd39"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/premature-publication/observe.bend",
+            "sha256": "f87227f9e209a8df04b1f9efbdcdb0f39dc99b0ed0346d8329cccc4f26338993"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/premature-publication/operation.bend",
+            "sha256": "c397fec98ec4e65950e1775f3909efe9b3f6f87fed2ad53c7a0fe9dda614cdab"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/premature-publication/phase.bend",
+            "sha256": "6fc83e2b6aba70a6ec2fae4ae0d7072d0d571c22c8089f21f01d4f28828c15fa"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/premature-publication/systems.bend",
+            "sha256": "bc96504c9320654cdbf466cdb989381783d89307ba171188b32ede72a0b853d6"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/premature-publication/types.bend",
+            "sha256": "9edf636d52257c5fc74b44a7b5e9ad1ef995daa62d99da2c0560dec2069de717"
+          }
+        ],
+        "alteredSubjects": [
+          {
+            "file": "phase.bend",
+            "baselineSHA256": "ff6350547a0814217312d37f92b0b6cb924b93a7c646e1a721eaeaf405c34000",
+            "mutantSHA256": "6fc83e2b6aba70a6ec2fae4ae0d7072d0d571c22c8089f21f01d4f28828c15fa",
+            "diff": "--- \n+++ \n@@ -20,7 +20,7 @@\n def prepared(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,~rewind:W.World<S,C,R,E> -> W.World<S,C,R,E>,handlers:H.Owners<S,C,R,E,V,runner>,world:W.World<S,C,R,E>,value:H.Prepared<S,K,V>) -> Owners<S,K,V,C,R,E,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:\n   match value:\n     case H.Idle{slot}:(Owners{handlers,Idle{}},Sys.Succeeded{put(world,slot),Unit{}})\n-    case H.Ready{slot,M.Transition{from,to},skipSame}:(Owners{handlers,Ready{from,to,skipSame}},Sys.Succeeded{put(world,slot),Unit{}})\n+    case H.Ready{slot,M.Transition{+from,+to},skipSame}:(Owners{handlers,Ready{from,to,skipSame}},Sys.Succeeded{publish(put(world,slot),M.Transition{from,to}),Unit{}})\n def captured(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,~rewind:W.World<S,C,R,E> -> W.World<S,C,R,E>,handlers:H.Owners<S,C,R,E,V,runner>,pair:W.World<S,C,R,E> & M.Slot<S,K,V>) -> Owners<S,K,V,C,R,E,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:\n   (world,+slot)=pair\n   prepared(~S,~K,~V,~C,~R,~E,~runner,~take,~put,~publish,~same,~frame,~rewind,handlers,world,H.prepare(~S,~K,~V,~same,slot,M.snapshot(~S,~K,~V,slot)))\n"
+          }
+        ],
+        "reachedPath": "application.marker_first -> operation -> Phase.apply/prepared; mutant publishes captured transition before Exit/Transition success, exposing it on failure",
+        "scope": "Historical executed same finite resource/event/pending countertrace; not a fresh current-source execution or Component.tx_set-undo-specific mutation."
+      },
+      {
+        "name": "whole-marker-rewind",
+        "deltaRecord": {
+          "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/whole-marker-rewind/DELTA.json",
+          "sha256": "b7221c16ed117d26d1528a417876e14abede84bfdc6ec2af268fd7f13b9e9504"
+        },
+        "historicalSourceBodies": [
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/whole-marker-rewind/application.bend",
+            "sha256": "e813f478ed836162d854418b19f6591434329a37e3bbc517b7021f369044910a"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/whole-marker-rewind/lenses.bend",
+            "sha256": "cf466448e74f4dfe9aff265087b456443a500b91725c78c31e8b695c8ab43945"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/whole-marker-rewind/main.bend",
+            "sha256": "9acd771e91e3db6b7f55d997734eae62c95cff712eef071f3f6f7a0815d8cd39"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/whole-marker-rewind/observe.bend",
+            "sha256": "f87227f9e209a8df04b1f9efbdcdb0f39dc99b0ed0346d8329cccc4f26338993"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/whole-marker-rewind/operation.bend",
+            "sha256": "c397fec98ec4e65950e1775f3909efe9b3f6f87fed2ad53c7a0fe9dda614cdab"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/whole-marker-rewind/phase.bend",
+            "sha256": "ff6350547a0814217312d37f92b0b6cb924b93a7c646e1a721eaeaf405c34000"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/whole-marker-rewind/systems.bend",
+            "sha256": "bc96504c9320654cdbf466cdb989381783d89307ba171188b32ede72a0b853d6"
+          },
+          {
+            "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/affected-v1/whole-marker-rewind/types.bend",
+            "sha256": "9edf636d52257c5fc74b44a7b5e9ad1ef995daa62d99da2c0560dec2069de717"
+          }
+        ],
+        "alteredSubjects": [
+          {
+            "file": "application.bend",
+            "baselineSHA256": "7138e03f70716e6bed93ae5de2aa9301ff06650c1e737a766701588b3dbf77e2",
+            "mutantSHA256": "e813f478ed836162d854418b19f6591434329a37e3bbc517b7021f369044910a",
+            "diff": "--- \n+++ \n@@ -122,7 +122,9 @@\n   match result:\n     case Operation.MarkerResult{B.Returned{first,world,outcome},_,_}:Application{world,first,second,firstReader,secondReader,List.append(&2,String,prior,[\"first:\" ++ status(outcome)])}\n     case result:RecoveringFirst{result,second,firstReader,secondReader,prior}\n-def rewind(~S:Data,world:W.World<S,T.Store<S>,T.Resources<S>,T.Pulse>) -> W.World<S,T.Store<S>,T.Resources<S>,T.Pulse>:world\n+def rewind(~S:Data,world:W.World<S,T.Store<S>,T.Resources<S>,T.Pulse>) -> W.World<S,T.Store<S>,T.Resources<S>,T.Pulse>:\n+  match world:\n+    case W.World{ns,next,high,live,capacity,depth,store,T.Resources{owned,sibling,first,second,firstStream,secondStream,firstReader,secondReader,locals,firstTick,secondTick,_,firstDelivered,secondDelivered,applied},_,_,registrations,nextSystem,clock}:W.World{ns,next,high,live,capacity,depth,store,T.Resources{Array.set(U32,owned,0,11),sibling,first,second,firstStream,secondStream,firstReader,secondReader,locals,firstTick,secondTick,[],firstDelivered,secondDelivered,applied},[],[],registrations,nextSystem,clock}\n def marker_first(~S:Data,app:Application<S>) -> Application<S>:\n   match app:\n     case Application{world,first,second,firstReader,secondReader,prior}:first_returned(~S,second,firstReader,secondReader,prior,Operation.run(~S,~T.FirstKey,~T.First,~U32,~T.Store<S>,~T.Resources<S>,~T.Pulse,~SysBody.first_runner(~S),~Lens.take_first(~S),~Lens.put_first(~S),~Lens.publish_first(~S),~T.same_first,~U32.is_eq,~has_first(~S),~Lens.frame_first(~S),~rewind(~S),Ordinary.declare(~S,\"first-marker\"),first,world))\n"
+          }
+        ],
+        "reachedPath": "application.marker_first -> operation -> Phase.transition failure -> rewind callback; deliberately clears previously committed resource/event/pending effects",
+        "scope": "Historical executed same finite resource/event/pending countertrace; not a fresh current-source execution or Component.tx_set-undo-specific mutation."
+      }
+    ],
+    "sharedReach": "Identity phase/operation copies retain old pending route; imported H.run_phase and B.partition are unchanged bodies. New Initial branches never reached. Current raw observer incompatibility does not erase the historical reached defect sensitivity; it prevents claiming those old source entries freshly compiled against current Stream."
+  },
+  "requirements": {
+    "review": {
+      "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/requirements-v1/FINAL-REVIEW.md",
+      "sha256": "b2587215ba410af99fbe9bfe9324decba49562b574f5b7200dbec55a185c32ef"
+    },
+    "scope": "Actual missing unselected Second Slot checked through declared availability before ordinary barrier; pending1/applied0 and owned Slot retained, then exact restoration+continuation. Requirement-gather/check/partition bodies unchanged; new Initial selection not used. Historical23245 output retains bounded source bridge, not a new run."
+  },
+  "TSsharedReference": {
+    "historicalBroadReference": {
+      "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/ts-shared-v1/FINAL-REVIEW.md",
+      "sha256": "f753e784bce7d4f4c32627eb47fa0b5f80a3a4cb0b53c79e61c9422941d7c2a7"
+    },
+    "explicitCommonWork": {
+      "path": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/shared-round-v1/FINAL-REVIEW.md",
+      "sha256": "a1f3f85be01dde83584f041aa38a8a2832fb97224dd59578ae7f1da96c41d03f"
+    },
+    "scope": "Actually executed TS377471/96checkpoints/12apps reference preserves global-apply vs selected-marker difference. Shared-round actualTS82877 and Bend27101 include explicit515-byte full common effect ledger. No exact physical clock/cursor/affine Local equivalence or blanket TS authority asserted."
+  },
+  "limits": [
+    "No new runtime/checker run in this reconciliation.",
+    "No public source changed.",
+    "No claim that historical full closures are byte-identical: five changed core modules listed exactly.",
+    "Named controls test required lost-retry/premature-publication/finite-whole-marker rollback; they do not prove every component undo defect.",
+    "Comparative timing is deferred/nonblocking per amended #49; no numerical goal relaxed."
+  ]
+}

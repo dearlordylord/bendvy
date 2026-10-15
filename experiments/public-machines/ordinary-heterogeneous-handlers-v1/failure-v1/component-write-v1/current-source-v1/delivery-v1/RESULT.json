@@ -1,0 +1,87 @@
+{
+  "fullIssueAcceptance": "OPEN",
+  "independentOracle": {
+    "commit": "1ae54db20bb281db6dc248ca59757d46e89f59f0",
+    "expectedGzipPath": "/workspace/formal-proofs/bendvy-worktrees/machines48-ordinary-transition-reader-oracle/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/current-source-v1/independent-oracle-v1/expected.stdout.gz",
+    "expectedGzipSHA256": "e76fe761fb598f9b75d89ad7b73e7022135b719b3124d7212378044f50fb3185",
+    "historicalOracleGzipSHA256": "e76fe761fb598f9b75d89ad7b73e7022135b719b3124d7212378044f50fb3185",
+    "historicalOraclePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/independent-oracle-v1/tracked-cursors-v2/bend.stdout.gz",
+    "outputBytes": 24422,
+    "outputSHA256": "dfa63c0ed3b258d70c6622b4befd51a6ed1f1b319e718cf96f68b080fc2ff66d",
+    "sourceCount": 29,
+    "sourceFreezePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-ordinary-transition-reader-oracle/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/current-source-v1/independent-oracle-v1/source-freeze.json",
+    "sourceFreezeSHA256": "50a4f05894ca821d866fc3c5b73d34b426d501b971482b2c1cef0d53f9d60337"
+  },
+  "notes": [
+    "All output bytes are checked against the full source-derived oracle, not a normalized projection.",
+    "The independent oracle reconstructs and matches the historical tracked-cursors-v2 bytes exactly; this is a source-adoption bridge, not a separate behavior claim.",
+    "The consumer reaches real component writes and failed transition rollback as described by the oracle derivation; this packet does not qualify a component-undo mutant.",
+    "No performance measurement or full issue acceptance is claimed."
+  ],
+  "oracleCommit": "1ae54db20bb281db6dc248ca59757d46e89f59f0",
+  "oracleWorktree": "/workspace/formal-proofs/bendvy-worktrees/machines48-ordinary-transition-reader-oracle",
+  "performanceClaim": false,
+  "producerCommit": "137f83971b2100fbf46fbc3ca85c3753f47c09eb",
+  "producerHead": "7e15cf82761b69ed661610d8ab9b782447f1e871",
+  "producerWorktree": "/workspace/formal-proofs/bendvy-worktrees/handlers49-component-write-current",
+  "roles": [
+    {
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "component-write-js",
+      "outputBytes": 24422,
+      "outputSHA256": "dfa63c0ed3b258d70c6622b4befd51a6ed1f1b319e718cf96f68b080fc2ff66d",
+      "planPath": "/tmp/bendvy49-component-write-current-actual01/js/plan.json",
+      "planSHA256": "fff7c3c8e371c17fc3dabc30db899c058911758b2766068dcbf0576e8ed8bd9a",
+      "receiptPath": "/tmp/bendvy49-component-write-current-actual01/js/receipt.json",
+      "receiptSHA256": "c3f63a7ed0c59fb0205aae2de54d48a3481237a713fcdb13275bf0c58d46c327",
+      "scenarioKind": "pass",
+      "streamRoot": "/tmp/bendvy49-component-write-current-actual01/js"
+    },
+    {
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "component-write-native",
+      "outputBytes": 24422,
+      "outputSHA256": "dfa63c0ed3b258d70c6622b4befd51a6ed1f1b319e718cf96f68b080fc2ff66d",
+      "planPath": "/tmp/bendvy49-component-write-current-actual01/native/plan.json",
+      "planSHA256": "ea5b8c655fd505366440fab5431ca98949c1175297e1aeabf9b63ee3cb21e900",
+      "receiptPath": "/tmp/bendvy49-component-write-current-actual01/native/receipt.json",
+      "receiptSHA256": "ad48b7e2af9ab381ab3f227afeb5f6e40453c7557975c29682d8da345fe666a1",
+      "scenarioKind": "pass",
+      "streamRoot": "/tmp/bendvy49-component-write-current-actual01/native"
+    }
+  ],
+  "scope": "First Transition current-source component-write fixture only. Both JS and Native match the independently source-derived complete output and its retained historical oracle bridge. This does not claim initialization behavior, two schemas, or component-undo mutant coverage.",
+  "sourceFreeze": {
+    "adaptationDiff": {
+      "bytes": 12747,
+      "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-component-write-current/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/current-source-v1/ADAPTATION.diff",
+      "sha256": "96216cf2513ef51c39c0b68ff74af2aa3a46d5322d491656c4969136f92c4a1f"
+    },
+    "check": {
+      "argv": [
+        "flock",
+        "/tmp/bendvy-parity-heavy.lock",
+        "taskset",
+        "-c",
+        "0-11",
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/current-source-v1/main.bend"
+      ],
+      "capSeconds": 5,
+      "exitCode": 0,
+      "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-component-write-current/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/current-source-v1/CHECKS.json",
+      "runtimeExecuted": false,
+      "sha256": "b61ca28450fa512ff683d7cd5bd62781ae4ffe45148dec0c467c4bf6524b7a9c",
+      "sourcePassed": true,
+      "stderrSHA256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    "entry": "experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/current-source-v1/main.bend",
+    "path": "/workspace/formal-proofs/bendvy-worktrees/handlers49-component-write-current/experiments/public-machines/ordinary-heterogeneous-handlers-v1/failure-v1/component-write-v1/current-source-v1/SOURCE-FREEZE.json",
+    "sha256": "e61b46a96ca3014ae04190b0073bc51af8c6d11c4cf26394060177360e5d5ac8",
+    "sourceCount": 29
+  },
+  "status": "PASS_BOUNDED_CURRENT_COMPONENT_WRITE_DELIVERY"
+}

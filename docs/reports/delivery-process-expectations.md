@@ -1020,3 +1020,16 @@ review-discovered first-use skip case subsequently passed complete JS/Native
 13,717-byte observations using the same collector and limits; no core repair
 was needed. Only those two new roles were executed; the five qualified roles
 are reused in the selected packet. Overall delivery acceleration remains unmeasured.
+
+#48 semantic acceptance is integrated at `4b2d1bc1b` after seven-role packet
+verification and independent issue-level review. CI 38823080584 passed in 2m02s.
+The final first-use case reused the implementation unchanged; two new backend
+roles completed the specific gap without repeating the previous five. #49 now
+has a complete current-source component-write JS/Native pair (24,422 bytes each);
+its wider acceptance reconciliation continues. No comparative speed claim.
+
+#49 acceptance reconciliation reused the six historical failure positions and
+three named controls through exact reached-source bridges, plus retained TS and
+requirements evidence. Only the current-source First-Transition JS/Native pair
+was rerun; complete 24,422-byte outputs and independent final review pass. No ECS
+core code, runner, cap, performance threshold or historical receipt was changed.
