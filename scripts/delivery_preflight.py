@@ -107,6 +107,47 @@ def validate_bindings(plan, plan_path=None):
     _validate_artifact_parent_guard(plan, plan_path)
 
 
+def _validate_ts_consumer(plan, labels, commands):
+    """Admit the existing consumer-only TypeScript plan role.
+
+    TS plans do not emit a local JS artifact. They run the pinned Node tool on
+    the explicitly inventoried entrypoint, through the same transparent
+    taskset prefix as the development-plan guard.
+    """
+    if labels != ['consumer']:
+        raise ValueError('TS role requires exactly one consumer command')
+
+    tools = plan.get('tools')
+    entrypoint = plan.get('entrypoint')
+    if not isinstance(tools, dict):
+        raise ValueError('TS role requires declared Node and taskset tools')
+    node, taskset = tools.get('node'), tools.get('taskset')
+    if not isinstance(node, str) or not node or not isinstance(taskset, str) or not taskset:
+        raise ValueError('TS role requires declared Node and taskset tools')
+
+    def canonical_absolute(value):
+        if not isinstance(value, str) or not value:
+            return False
+        path = Path(value)
+        return (path.is_absolute() and str(path) == value and
+                '..' not in path.parts)
+
+    if not all(canonical_absolute(value) for value in (node, taskset, entrypoint)):
+        raise ValueError('TS role requires canonical absolute Node, taskset, and entrypoint paths')
+
+    command = commands[0]
+    if type(command.get('capSeconds')) is not int or command['capSeconds'] != 5:
+        raise ValueError('TS consumer cap must be 5 seconds')
+    argv = command.get('argv')
+    if (not isinstance(argv, list) or len(argv) != 5 or
+            argv[:2] != [taskset, '-c'] or
+            not isinstance(argv[2], str) or not argv[2] or
+            any(character < '0' or character > '9' for character in argv[2]) or
+            argv[3:] != [node, entrypoint]):
+        raise ValueError('TS consumer must bind the declared Node tool and entrypoint')
+    return 'ts'
+
+
 def validate(plan, plan_path=None):
     # Run the exact optional metadata dialect guards before dispatch. This
     # catches stale bindings even when the command-role shape is unsupported;
@@ -118,6 +159,8 @@ def validate(plan, plan_path=None):
         raise ValueError('nonempty command labels required')
     if len(set(labels)) != len(labels):
         raise ValueError('duplicate command label')
+    if plan.get('role') == 'ts':
+        return _validate_ts_consumer(plan, labels, commands)
     source = all('--check-only' in c.get('argv', []) for c in commands)
     if source:
         if any(not x.startswith('source-') or x == 'source-' for x in labels):

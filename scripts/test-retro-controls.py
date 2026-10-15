@@ -27,6 +27,19 @@ def plan(native=False):
     return {'generated': generated, 'native': '/tmp/candidate.native', 'commands': commands}
 
 
+def ts_plan():
+    taskset = '/usr/bin/taskset'
+    node = '/usr/bin/node'
+    entrypoint = '/tmp/consumer.mjs'
+    return {
+        'role': 'ts',
+        'entrypoint': entrypoint,
+        'tools': {'taskset': taskset, 'node': node},
+        'commands': [{'label': 'consumer', 'capSeconds': 5,
+                      'argv': [taskset, '-c', '3', node, entrypoint]}],
+    }
+
+
 class Plans(unittest.TestCase):
     def test_valid_backend_plans(self):
         self.assertEqual(preflight.validate(plan()), 'js')
@@ -51,6 +64,39 @@ class Plans(unittest.TestCase):
             preflight.validate(value)
         value['commands'][0]['label'] = 'source-support'
         self.assertEqual(preflight.validate(value), 'source')
+
+    def test_ts_consumer_only_node_entry_binding(self):
+        self.assertEqual(preflight.validate(ts_plan()), 'ts')
+
+    def test_ts_requires_explicit_role_and_exact_single_consumer(self):
+        value = ts_plan()
+        value.pop('role')
+        with self.assertRaisesRegex(ValueError, 'runtime command order'):
+            preflight.validate(value)
+
+        for mutate, message in (
+                (lambda p: p['commands'][0].__setitem__('label', 'emit'), 'exactly one consumer'),
+                (lambda p: p['commands'].append(copy.deepcopy(p['commands'][0])), 'duplicate command'),
+                (lambda p: p['commands'][0].__setitem__('capSeconds', 30), 'cap must be 5'),
+                (lambda p: p['commands'][0]['argv'].__setitem__(3, '/tmp/other-node'), 'bind'),
+                (lambda p: p['commands'][0]['argv'].__setitem__(4, '/tmp/other-entry.mjs'), 'bind'),
+                (lambda p: p['commands'][0]['argv'].__setitem__(2, '3,4'), 'bind'),
+                (lambda p: p['tools'].pop('node'), 'declared Node'),
+                (lambda p: p['tools'].__setitem__('node', 'node'), 'canonical absolute'),
+                (lambda p: p.__setitem__('entrypoint', '/tmp/../consumer.mjs'), 'canonical absolute'),
+                (lambda p: p['commands'][0]['argv'].append('--check-only'), 'bind'),
+        ):
+            with self.subTest(message=message):
+                malformed = ts_plan()
+                mutate(malformed)
+                with self.assertRaisesRegex(ValueError, message):
+                    preflight.validate(malformed)
+
+    def test_ts_role_does_not_dispatch_source_check_only_plan(self):
+        value = ts_plan()
+        value['commands'] = [{'label': 'source-entry', 'argv': ['bend', 'entry.ts', '--check-only']}]
+        with self.assertRaisesRegex(ValueError, 'exactly one consumer'):
+            preflight.validate(value)
 
     def test_duplicates_and_mixed_modes(self):
         value = plan()
