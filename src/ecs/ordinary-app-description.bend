@@ -7,12 +7,17 @@ def resource_clauses(~S:Data,+mode:Query.Mode,access:List<&2,String>) -> List<&2
   match access:
     case []:[]
     case name <> rest:Query.Clause{name,mode} <> resource_clauses(~S,mode,rest)
+def mixed_clauses(~S:Data,uses:List<&2,Records.DeclaredUse>) -> List<&2,Query.Clause<S>>:
+  match uses:
+    case []:[]
+    case Records.DeclaredUse{_,_,key,mode} <> rest:Query.Clause{key,mode} <> mixed_clauses(~S,rest)
 def clauses(~S:Data,kind:Records.RegistrationKind,access:List<&2,String>,retained:List<&2,Query.Clause<S>>) -> List<&2,Query.Clause<S>>:
   match kind:
     case Records.ComponentKind{}:retained
     case Records.FieldKind{}:retained
     case Records.ServiceKind{}:[]
     case Records.EventKind{}:retained
+    case Records.MixedKind{uses}:mixed_clauses(~S,uses)
     case Records.ResourceKind{mode}:resource_clauses(~S,mode,access)
 def binding(~S:Data,fields:Records.Fields<S>) -> DTO.Binding<S>:
   match fields:

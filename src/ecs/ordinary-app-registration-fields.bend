@@ -6,12 +6,25 @@ import ./ordinary-resource-system.bend as Resource
 import ./ordinary-query-declaration.bend as Query
 # Sole ordinary registration fields; no detached debug Binding or cached description.
 # The private trusted token holds the actual registration's erased runner authority.
+# Mixed readers retain each operational source rather than inferring modes from access strings.
+type UseCategory is Data:
+  ComponentUse{}
+  ResourceUse{}
+  EventUse{}
+type ReaderSource is Data:
+  QuerySource{}
+  MessageSource{}
+  RemovalSource{}
+  RelationFailureSource{}
+type DeclaredUse is Data:
+  DeclaredUse{category:UseCategory,source:ReaderSource,key:String,mode:Query.Mode}
 type RegistrationKind is Data:
   ComponentKind{}
   ResourceKind{mode:Query.Mode}
   FieldKind{}
   ServiceKind{}
   EventKind{}
+  MixedKind{uses:List<&2,DeclaredUse>}
 type Fields<S:Data> is Data:
   Fields{namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:U32,slot:String,clauses:List<&2,Query.Clause<S>>,kind:RegistrationKind}
 type Token<-Registry:Type> is Type:

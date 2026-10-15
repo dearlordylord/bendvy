@@ -7,6 +7,7 @@ import ./ordinary-query-declaration.bend as Query
 import ./ordinary-app-composer.bend as App
 import ./ordinary-app-recipe.bend as Tree
 import ./ordinary-app-observation-data.bend as DTO
+import ./ordinary-app-description.bend as Description
 
 type Category is Data:
   Components{}
@@ -22,13 +23,6 @@ type Use is Data:
 type Entry is Data:
   Entry{category:Category,key:String,uses:List<&2,Use>}
 # Typed modes retain the exact operational declaration, including filter-only modes.
-def category(kind:Records.RegistrationKind) -> Category:
-  match kind:
-    case Records.ComponentKind{}:Components{}
-    case Records.FieldKind{}:Resources{}
-    case Records.ServiceKind{}:Services{}
-    case Records.EventKind{}:Events{}
-    case Records.ResourceKind{_}:Resources{}
 def resource_fields(~S:Data,+mode:Query.Mode,access:List<&2,String>) -> List<&2,Query.Clause<S>>:
   match access:
     case []:[]
@@ -39,6 +33,7 @@ def clauses(~S:Data,kind:Records.RegistrationKind,access:List<&2,String>,retaine
     case Records.FieldKind{}:retained
     case Records.ServiceKind{}:[]
     case Records.EventKind{}:retained
+    case Records.MixedKind{uses}:Description.mixed_clauses(~S,uses)
     case Records.ResourceKind{mode}:resource_fields(~S,mode,access)
 def role(mode:Query.Mode) -> Role:
   match mode:
@@ -53,11 +48,27 @@ def entries(~S:Data,+category:Category,+namespace:U32,+id:U32,+name:String,claus
   match clauses:
     case []:[]
     case Query.Clause{key,+mode} <> rest:Entry{category,key,[Use{namespace,id,name,mode,role(mode)}]} <> entries(~S,category,namespace,id,name,rest)
+def mixed_category(category:Records.UseCategory) -> Category:
+  match category:
+    case Records.ComponentUse{}:Components{}
+    case Records.ResourceUse{}:Resources{}
+    case Records.EventUse{}:Events{}
+def mixed_entries(~S:Data,+namespace:U32,+id:U32,+name:String,uses:List<&2,Records.DeclaredUse>) -> List<&2,Entry>:
+  match uses:
+    case []:[]
+    case Records.DeclaredUse{category,_,key,+mode} <> rest:Entry{mixed_category(category),key,[Use{namespace,id,name,mode,role(mode)}]} <> mixed_entries(~S,namespace,id,name,rest)
+def kind_entries(~S:Data,+namespace:U32,+id:U32,+name:String,slot:String,access:List<&2,String>,retained:List<&2,Query.Clause<S>>,kind:Records.RegistrationKind) -> List<&2,Entry>:
+  match kind:
+    case Records.ComponentKind{}:entries(~S,Components{},namespace,id,name,retained)
+    case Records.FieldKind{}:entries(~S,Resources{},namespace,id,name,retained)
+    case Records.ServiceKind{}:[Entry{Services{},slot,[]}]
+    case Records.EventKind{}:entries(~S,Events{},namespace,id,name,retained)
+    case Records.ResourceKind{mode}:entries(~S,Resources{},namespace,id,name,resource_fields(~S,mode,access))
+    case Records.MixedKind{uses}:mixed_entries(~S,namespace,id,name,uses)
 def fields(~S:Data,records:List<&2,Records.Fields<S>>) -> List<&2,Entry>:
   match records:
     case []:[]
-    case Records.Fields{_,_,_,_,_,slot,_,Records.ServiceKind{}} <> rest:Entry{Services{},slot,[]} <> fields(~S,rest)
-    case Records.Fields{namespace,id,name,access,_,_,retained,+kind} <> rest:List.append(&2,Entry,entries(~S,category(kind),namespace,id,name,clauses(~S,kind,access,retained)),fields(~S,rest))
+    case Records.Fields{namespace,id,name,access,_,slot,retained,kind} <> rest:List.append(&2,Entry,kind_entries(~S,namespace,id,name,slot,access,retained,kind),fields(~S,rest))
 def same_category(left:Category,right:Category) -> Bool:
   match left right:
     case Components{} Components{}:True{}
