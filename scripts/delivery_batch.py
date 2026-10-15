@@ -10,6 +10,54 @@ from evidence_boundary import ReceiptBoundary
 from delivery_preflight import validate
 
 
+def collector_launch(job, plan):
+    """Bind declared collectors; plans without this binding keep generic wrappers."""
+    binding = plan.get('collectorBinding')
+    if binding is None:
+        return {}
+    if not isinstance(binding, dict) or not Path(job['plan']).is_absolute():
+        raise ValueError('collector binding requires an absolute plan path')
+    pins = plan.get('pins', {})
+    if not isinstance(pins, dict):
+        raise ValueError('collector binding requires plan pins')
+    selected = {}
+
+    def reference(ref):
+        if not isinstance(ref, dict):
+            raise ValueError('collector binding requires path/digest references')
+        path, digest = ref.get('path'), ref.get('sha256')
+        if (not isinstance(path, str) or not Path(path).is_absolute() or
+                not isinstance(digest, str) or len(digest) != 64 or
+                any(c not in '0123456789abcdef' for c in digest) or
+                pins.get(path) != digest):
+            raise ValueError('collector binding differs from plan pins')
+        selected[path] = digest
+        return path
+
+    interpreter = reference(binding.get('interpreter'))
+    collector = reference(binding.get('collector'))
+    if binding.get('entrypoint', Path(collector).name + ':run') != Path(collector).name + ':run':
+        raise ValueError('unsupported collector entrypoint binding')
+    support = binding.get('support', [])
+    if not isinstance(support, list):
+        raise ValueError('collector support must be a reference list')
+    for ref in support:
+        reference(ref)
+    if 'strictTelemetryValidator' in binding:
+        reference(binding['strictTelemetryValidator'])
+
+    expected = [interpreter, collector, 'run', job['plan'], job['planSHA256']]
+    if job['argv'] != expected:
+        # taskset is a transparent exec wrapper already declared by these plans.
+        prefix = plan['commands'][0]['argv'][:3]
+        taskset = plan.get('tools', {}).get('taskset')
+        if (len(prefix) != 3 or prefix[:2] != [taskset, '-c'] or
+                job['argv'] != prefix + expected):
+            raise ValueError('actual collector argv differs from declared launch binding')
+        reference({'path': taskset, 'sha256': pins.get(taskset)})
+    return selected
+
+
 def run_batch(manifest_path, output):
     manifest_path, output = Path(manifest_path), Path(output)
     frozen = manifest_path.read_bytes()
@@ -18,6 +66,7 @@ def run_batch(manifest_path, output):
     ids = [j['id'] for j in jobs]
     if not jobs or len(set(ids)) != len(ids):
         raise ValueError('nonempty unique jobs required')
+    launch_pins = {}
     for job in jobs:
         if not job['id'] or Path(job['id']).name != job['id'] or job['id'] in ('.', '..'):
             raise ValueError('job id must be a filename')
@@ -28,7 +77,17 @@ def run_batch(manifest_path, output):
         plan_bytes = Path(job['plan']).read_bytes()
         if hashlib.sha256(plan_bytes).hexdigest() != job['planSHA256']:
             raise ValueError('job plan digest mismatch')
-        validate(json.loads(plan_bytes), plan_path=Path(job['plan']))
+        plan = json.loads(plan_bytes)
+        validate(plan, plan_path=Path(job['plan']))
+        for path, digest in collector_launch(job, plan).items():
+            if path in launch_pins and launch_pins[path] != digest:
+                raise ValueError('conflicting collector launch dependency: ' + path)
+            launch_pins[path] = digest
+    def guard_launch():
+        for path, digest in launch_pins.items():
+            if hashlib.sha256(Path(path).read_bytes()).hexdigest() != digest:
+                raise ValueError('collector launch dependency changed: ' + path)
+    guard_launch()
     # This is not an outer heavy lock: frozen collectors acquire theirs themselves.
     # The shared command owner handles cancellation, descendants and deadlines.
     output.mkdir(parents=True, exist_ok=False)
@@ -40,6 +99,7 @@ def run_batch(manifest_path, output):
         for job in jobs:
             if hashlib.sha256(Path(job['plan']).read_bytes()).hexdigest() != job['planSHA256']:
                 raise ValueError('batch job plan changed')
+        guard_launch()
         for row in receipt['commands']:
             for stream in ('stdout', 'stderr'):
                 captured = row.get(stream, {})
@@ -53,7 +113,9 @@ def run_batch(manifest_path, output):
             started = time.monotonic()
             result = task_runner.execute_result(job['argv'], job['capSeconds'],
                                                 cwd=job['cwd'], capture='split')
-            row = {'id': job['id'], 'exit': result['exit'], 'failure': result['failure'],
+            row = {'id': job['id'], 'argv': job['argv'], 'cwd': job['cwd'],
+                   'capSeconds': job['capSeconds'],
+                   'exit': result['exit'], 'failure': result['failure'],
                    'seconds': time.monotonic() - started}
             # Retain the terminal result even if raw publication subsequently fails.
             receipt['commands'].append(row)

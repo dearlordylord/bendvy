@@ -760,8 +760,20 @@ unchanged.
 | Runtime08 stream path identity | The verifier locates command streams with `PurePosixPath(ref["path"]).name`, then checks publication, bytes and SHA. An in-memory control executed that exact existing AST loop against the archived JS receipt after changing only one stdout parent directory; it still passed. Archive and receipt files were not changed. | Concrete missing semantic check: bind the full receipt path to the selected manifest member's `sourcePath`. Contents are verified; this is not evidence of corrupt output or a forged archive passing all integrity gates. A future reviewed verifier successor should add the path join and a same-basename/wrong-parent refusal, preserving the historical verifier and its pinned identity. |
 | Generic batch launcher binding | `scripts/delivery_batch.py:run_batch` validates each plan digest and role shape, then executes independently supplied `job["argv"]`. Its guard freezes manifest/plan bytes and published streams; it does not compare selected wrapper/collector/interpreter bytes with a declared launch binding. Existing tests intentionally allow generic wrapper commands. | A frozen plan alone does not establish which collector is invoked. For collector-backed jobs, reuse the existing launch binding in review and any focused check; generic wrappers need not be banned. This is a bounded code-inspection finding, not a demonstrated wrong launch in the current packet or a reason to rewrite historical runners. |
 
-Next implementation belongs to the owning main-thread delivery: one reviewed
-runtime08 verifier successor if that packet is maintained, and a focused actual
-launcher/binding control for the applicable collector-backed job. Do not change
-archive-bound verifier bytes in place, add another approval layer, or infer
-comparative speed or complete capability acceptance from these offline checks.
+Main-thread batch follow-up (2026-10-15 UTC): `delivery_batch.py` now checks the
+existing opt-in `collectorBinding` against the actual interpreter/collector/run/
+plan/digest argv, including the declared transparent taskset prefix. Referenced
+interpreter, collector and support bytes are guarded before output creation,
+between jobs and at finalization; wrapper receipts retain argv/cwd/cap. Generic
+plans without that binding retain their existing arbitrary wrappers. All 28
+focused retro controls pass, including same-basename/copied-byte substitutions,
+dependency drift and terminal-receipt preservation. Independent Spec/Standards
+review passes (`5c7beb85c481d0222901b517cbb300f96212741867e55a6311821ac3e4b477c6`).
+These controls establish bounded refusal behavior; the bound-child tests stub
+execution, so live collector adoption and delivery-speed improvement remain
+unmeasured. No compiler or benchmark is used by these targeted checks.
+
+The full Runtime08 stream-path join and wrong-parent control remain required in
+its next maintained, reviewed verifier successor. Preserve the historical
+archive-bound verifier identity. Do not add another approval layer or infer
+complete capability acceptance from these offline checks.

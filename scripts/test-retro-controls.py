@@ -331,6 +331,120 @@ class Queue(unittest.TestCase):
                 delivery_batch.run_batch(manifest, root / 'output')
 
 
+class CollectorLaunch(unittest.TestCase):
+    def fixture(self, root, wrapped=False):
+        files = {name: root / name for name in ('python', 'collector.py', 'support.py', 'taskset')}
+        for name, path in files.items():
+            path.write_text('pinned ' + name)
+        def ref(name):
+            path = files[name]
+            return {'path': str(path), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+        value = plan()
+        value['pins'] = {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in files.values()}
+        value['tools'] = {'python': str(files['python']), 'taskset': str(files['taskset'])}
+        value['collectorBinding'] = {
+            'collector': ref('collector.py'), 'interpreter': ref('python'),
+            'entrypoint': 'collector.py:run', 'support': [ref('support.py')],
+        }
+        prefix = [str(files['taskset']), '-c', '5'] if wrapped else []
+        if wrapped:
+            for command in value['commands']:
+                command['argv'] = prefix + command['argv']
+        p = root / 'plan.json'
+        p.write_text(json.dumps(value))
+        digest = hashlib.sha256(p.read_bytes()).hexdigest()
+        job = {'id': 'bound', 'kind': 'ordinary', 'plan': str(p), 'planSHA256': digest,
+               'argv': prefix + [str(files['python']), str(files['collector.py']), 'run', str(p), digest],
+               'cwd': str(root), 'capSeconds': 1}
+        manifest = root / 'batch.json'
+        manifest.write_text(json.dumps({'jobs': [job]}))
+        return manifest, value, job, files
+
+    def test_wrong_actual_launch_refused_before_child_or_output(self):
+        # Reproduce a correct frozen collector declaration with a different
+        # actual launcher, including a same-basename/copy-of-bytes substitution.
+        for index in range(5):
+            with self.subTest(argument=index), tempfile.TemporaryDirectory() as d:
+                root = Path(d)
+                manifest, _, job, files = self.fixture(root)
+                if index in (0, 1, 3):
+                    old = Path(job['argv'][index])
+                    other = root / 'other' / old.name
+                    other.parent.mkdir()
+                    other.write_bytes(old.read_bytes())
+                    job['argv'][index] = str(other)
+                else:
+                    job['argv'][index] = 'prepare' if index == 2 else '0' * 64
+                manifest.write_text(json.dumps({'jobs': [job]}))
+                with patch.object(delivery_batch.task_runner, 'execute_result') as execute:
+                    with self.assertRaisesRegex(ValueError, 'actual collector argv'):
+                        delivery_batch.run_batch(manifest, root / 'output')
+                    execute.assert_not_called()
+                self.assertFalse((root / 'output').exists())
+
+    def test_correct_direct_and_transparent_taskset_launch_recorded(self):
+        for wrapped in (False, True):
+            with self.subTest(wrapped=wrapped), tempfile.TemporaryDirectory() as d:
+                root = Path(d)
+                manifest, _, job, _ = self.fixture(root, wrapped)
+                result = {'exit': 0, 'failure': None, 'stdout': b'complete\n', 'stderr': b''}
+                with patch.object(delivery_batch.task_runner, 'execute_result', return_value=result) as execute:
+                    receipt = delivery_batch.run_batch(manifest, root / 'output')
+                self.assertEqual(receipt['status'], 'WRAPPERS_PASS')
+                self.assertEqual(execute.call_args.args[0], job['argv'])
+                self.assertEqual(receipt['commands'][0]['argv'], job['argv'])
+                self.assertEqual(receipt['commands'][0]['cwd'], job['cwd'])
+                self.assertEqual(receipt['commands'][0]['capSeconds'], job['capSeconds'])
+
+    def test_selected_launch_dependency_drift_refused_before_output(self):
+        for name in ('python', 'collector.py', 'support.py'):
+            with self.subTest(dependency=name), tempfile.TemporaryDirectory() as d:
+                root = Path(d)
+                manifest, _, _, files = self.fixture(root)
+                files[name].write_text('changed')
+                with patch.object(delivery_batch.task_runner, 'execute_result') as execute:
+                    with self.assertRaisesRegex(ValueError, 'launch dependency changed'):
+                        delivery_batch.run_batch(manifest, root / 'output')
+                    execute.assert_not_called()
+                self.assertFalse((root / 'output').exists())
+
+    def test_dependency_drift_retains_terminal_result_and_incomplete_receipt(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            manifest, _, job, files = self.fixture(root)
+            def changed(*args, **kwargs):
+                files['collector.py'].write_text('changed during child')
+                return {'exit': 0, 'failure': None, 'stdout': b'retained\n', 'stderr': b''}
+            with patch.object(delivery_batch.task_runner, 'execute_result', side_effect=changed):
+                with self.assertRaisesRegex(ValueError, 'launch dependency changed'):
+                    delivery_batch.run_batch(manifest, root / 'output')
+            receipt = json.loads((root / 'output/receipt.json').read_text())
+            self.assertEqual(receipt['status'], 'INCOMPLETE')
+            self.assertEqual(receipt['commands'][0]['exit'], 0)
+            self.assertEqual(receipt['commands'][0]['argv'], job['argv'])
+            self.assertEqual((root / 'output/bound.stdout').read_bytes(), b'retained\n')
+
+    def test_conflicting_dependency_bindings_are_not_overwritten_by_later_job(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            manifest, value, first, files = self.fixture(root)
+            files['collector.py'].write_text('second collector version')
+            digest = hashlib.sha256(files['collector.py'].read_bytes()).hexdigest()
+            value['pins'][str(files['collector.py'])] = digest
+            value['collectorBinding']['collector']['sha256'] = digest
+            second_plan = root / 'second-plan.json'
+            second_plan.write_text(json.dumps(value))
+            second = dict(first, id='second', plan=str(second_plan),
+                          planSHA256=hashlib.sha256(second_plan.read_bytes()).hexdigest())
+            second['argv'] = first['argv'][:3] + [second['plan'], second['planSHA256']]
+            manifest.write_text(json.dumps({'jobs': [first, second]}))
+            with patch.object(delivery_batch.task_runner, 'execute_result') as execute:
+                with self.assertRaisesRegex(ValueError, 'conflicting collector launch dependency'):
+                    delivery_batch.run_batch(manifest, root / 'output')
+                execute.assert_not_called()
+            self.assertFalse((root / 'output').exists())
+
+
 class Ownership(unittest.TestCase):
     def test_foreign_independent_model_is_rejected(self):
         with self.assertRaisesRegex(ValueError, 'outside ownership'):
