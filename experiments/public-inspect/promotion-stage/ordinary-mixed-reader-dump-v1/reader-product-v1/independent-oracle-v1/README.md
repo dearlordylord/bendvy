@@ -1,0 +1,5 @@
+# Independent public-dump source oracle
+
+This oracle reconstructs the seven record(...) lines from the pinned Bend source and formatter definitions, then models the pinned `IO.print` effect's final LF. It checks all 87 source-inventory hashes plus the pinned Base/C/JavaScript IO.print sources before emitting or self-testing. The historical `expected.stdout` remains the pure String; the corrected raw CLI bytes are stored as deterministic `expected.stdout.gz` and verified after decompression. It does not read runtime outputs, candidate artifacts, or receipts.
+
+The fixture covers one Schema, one live entity with value=42, Unit resources, the retained initial event history, one provider registration, and one deferred-but-unexecuted Value(999) command. The seven records are before, all, repeat, filtered, zero-limit, disabled, and reenabled. Their pure String ends in one LF; `IO.print` adds one more, so expected raw stdout ends in two LFs. This is a finite public dump witness; it makes no broader inspector, runtime, or performance claim.

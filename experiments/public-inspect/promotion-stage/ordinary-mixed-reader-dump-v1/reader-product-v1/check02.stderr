@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:U32 -> Sigma<&1, &1, U32, _ => U32>
+- observed : @+value:U32 -> Sigma<&1, &1, U32, _ => U32>
+Location: values
+28 | def values() -> F.store_type() -> U32 -> F.store_type() & List<&2,Maybe<&2,String>>:
+29>|   Provision.values(~F.Schema,~F.store_type(),~Unit,~U32,~U32,~F.take_values,~F.put_values,~value_view,~U32.show)
+   |                                                                                            ^^^^^^^^^^
+30 | def schema() -> Schema.Schema<F.Schema,F.store_type(),Unit>:
+bend 2.0.37 is available: run bend update

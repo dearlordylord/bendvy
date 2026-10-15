@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : List<&2, Notice.Notice<F.Schema, F.Publication>>
+- observed : Notice.Notice
+Context:
+- world : W.World<F.Schema, ../../../../../src/ecs/column.Column<F.Schema, U32>, Unit, Notice.Notice<F.Schema, F.Publication>>
+Location: deferred
+105 | def deferred(world:F.world_type()) -> F.world_type():
+106>|   W.event_publish(~F.Schema,~F.store_type(),~Unit,~F.event_type(),world,Notice.Original{F.Value{999}})
+    |                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+107 | def queued(parts:F.world_type() & P.metadata_type()) -> F.context_type():
+bend 2.0.37 is available: run bend update

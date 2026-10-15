@@ -1,0 +1,18 @@
+{
+  "noRuntimeInputs": true,
+  "ioPrintBoundary": [
+    "pure seven-record String ends with one LF",
+    "pinned IO.print C and JavaScript effects append one LF",
+    "raw stdout ends with two LFs",
+    "gzip expected stdout is deterministic and decompresses to the modeled raw bytes"
+  ],
+  "historicalPureString": "expected.stdout remains 10,997 bytes with SHA-256 82d8408278a971c3f79f24c27e47683e190537ea6e556022b2e23b0b48b93d30",
+  "sourceOnlyInvariants": [
+    "seven checkpoint labels in main.bend order",
+    "same physical world/provider/context at every checkpoint",
+    "one pending command retained and Value(999) absent from published World events",
+    "query dump count remains one when output limit is zero",
+    "disabled dump is none; reenabled dump reproduces the full row",
+    "two registered message-reader owners and initialized relation/removal owners remain unchanged"
+  ]
+}

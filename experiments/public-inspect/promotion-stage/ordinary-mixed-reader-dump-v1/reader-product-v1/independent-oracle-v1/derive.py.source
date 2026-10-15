@@ -1,0 +1,214 @@
+#!/usr/bin/env python3
+"""Source-pinned independent renderer for the one-world public dump witness."""
+from __future__ import annotations
+import hashlib
+import gzip
+import io
+import json
+from pathlib import Path
+import subprocess
+import sys
+
+HERE = Path(__file__).resolve().parent
+BASIS_PATH = HERE / "SOURCE-BASIS.json"
+PURE_STRING_PATH = HERE / "expected.stdout"
+EXPECTED_PATH = HERE / "expected.stdout.gz"
+
+def sha(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+def q(value: str) -> str:
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+
+def compact_list(values: list[str]) -> str:
+    return "[" + ",".join(values) + "]"
+
+def call(name: str, *args: object) -> str:
+    return name + "(" + ",".join(map(str, args)) + ")"
+
+def source_pins_ok(basis: dict) -> None:
+    freeze_path = Path(basis["sourceFreezePath"])
+    freeze_raw = freeze_path.read_bytes()
+    assert sha(freeze_raw) == basis["sourceFreezeSha256"], "source freeze drift"
+    freeze = json.loads(freeze_raw)
+    assert freeze["main"] == basis["mainPath"]
+    assert freeze["sourceInventory"] == basis["sourceInventory"], "source inventory mismatch"
+    producer = Path(basis["producerWorktree"])
+    actual_commit = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=producer, text=True
+    ).strip()
+    assert actual_commit == basis["producerCommit"], "producer commit drift"
+    checked = 0
+    for absolute, expected in basis["sourceInventory"].items():
+        raw = Path(absolute).read_bytes()
+        assert sha(raw) == expected, f"source pin drift: {absolute}"
+        checked += 1
+    assert checked == 87, f"unexpected source closure size: {checked}"
+    assert basis["mainSha256"] == basis["sourceInventory"][basis["mainPath"]]
+    main_text = Path(basis["mainPath"]).read_text(encoding="utf-8")
+    assert '"record("++label++"|"++dump++"|"++text++")\\n"' in main_text
+    assert "def finish(rows:String,result:app_type() & String) -> String:" in main_text
+    assert "case (_,text):rows++text" in main_text
+    assert "def main() -> IO(Unit):IO.print(ready(F.setup()))" in main_text
+
+    io_print = basis["ioPrint"]
+    assert set(io_print["implementationPins"]) == {
+        "base", "c", "js"
+    }, "IO.print implementation pins changed"
+    for name, pin in io_print["implementationPins"].items():
+        raw = Path(pin["path"]).read_bytes()
+        assert sha(raw) == pin["sha256"], f"IO.print source pin drift: {name}"
+    base_text = Path(io_print["implementationPins"]["base"]["path"]).read_text(encoding="utf-8")
+    c_text = Path(io_print["implementationPins"]["c"]["path"]).read_text(encoding="utf-8")
+    js_text = Path(io_print["implementationPins"]["js"]["path"]).read_text(encoding="utf-8")
+    assert "def IO.print(text: String) -> IO(Unit):" in base_text
+    assert 'import "./effs/print.c"' in base_text
+    assert 'import "./effs/print.js"' in base_text
+    assert 'io_bytes(text + "\\n")' in js_text
+    assert 'io_out(stdout, "\\n", 1);' in c_text
+
+def build_output() -> bytes:
+    access = ["value", "values:read", "values:read", "removal", "value", "Parent:read"]
+    access_text = compact_list([q(x) for x in access])
+
+    uses = [
+        call("use", "component", "query", q("value"), "with"),
+        call("use", "event", "message", q("values"), "read"),
+        call("use", "event", "message", q("values"), "read"),
+        call("use", "event", "removal", q("value"), "read"),
+        call("use", "event", "relation-failure", q("Parent"), "read"),
+    ]
+    facts = call("facts", 1, 1, q("public-dump-reader"), access_text)
+    owners = call(
+        "owners",
+        "unit",
+        call("event-owner", facts, 1, 1, 1),
+        call("event-owner", facts, 1, 2, 1),
+        call("removal-owner", facts, 1, 1, q("value"), 0),
+        call("relation-owner", facts, "some(1)", "[1]"),
+    )
+    provider = call(
+        "provider", 1, 1, q("public-dump-reader"), access_text, 0,
+        access_text, compact_list(uses), owners,
+    )
+
+    value_notice = '{"kind":"original","event":{"kind":"value","value":11}}'
+    removal_notice = (
+        '{"kind":"original","event":{"kind":"removed","record":'
+        '{"entity":{"namespace":1,"id":1},"component":"value"}}}'
+    )
+    relation_notice = (
+        '{"kind":"relationFailure","failure":{"relation":{"key":1,"name":"Parent",'
+        '"inverse":"Children","kind":"hierarchy"},"operation":"relate","source":1,'
+        '"target":1,"error":{"kind":"self","source":1,"relation":"Parent"}}}'
+    )
+    events = compact_list([value_notice, removal_notice, relation_notice])
+    registration = call("registration", 1, q("public-dump-reader"), access_text)
+    world = call(
+        "world", 1, 2, 1, "[false, true]", 2, 1, "column(L(some(42)),[])",
+        "unit", events, 1, compact_list([registration]), 2, 0,
+    )
+    typed_stream = call("stream", q("values"), "[]", "[]", 3, 0, 0, 65536, 0)
+    failures = call("failures", "[]", "[]", 0, 0, 0, 65536, 2)
+    state = call("state", typed_stream, "[]", 0, failures)
+    context = call("context", world, state, 0)
+    physical = provider + "|" + context
+
+    row = 'row({"namespace":1,"id":1},[value("value","42")])'
+    all_dump = "dump(1,[" + row + "],[])"
+    empty_dump = "dump(1,[],[])"
+    records = [
+        "record(before|no-dump|" + physical + ")\n",
+        "record(all|" + all_dump + "|" + physical + ")\n",
+        "record(repeat|" + all_dump + "|" + physical + ")\n",
+        "record(filtered|" + all_dump + "|" + physical + ")\n",
+        "record(zero-limit|" + empty_dump + "|" + physical + ")\n",
+        "record(disabled|none|" + physical + ")\n",
+        "record(reenabled|" + all_dump + "|" + physical + ")\n",
+    ]
+    output = "".join(records).encode("utf-8")
+    assert output.endswith(b"\n")
+    return output
+
+def io_print_output(pure_string: bytes) -> bytes:
+    # The pinned IO.print effect writes the complete String and one extra LF.
+    assert pure_string.endswith(b"\n"), "main's last record must retain its LF"
+    return pure_string + b"\n"
+
+def gzip_output(raw: bytes) -> bytes:
+    buffer = io.BytesIO()
+    with gzip.GzipFile(filename="", mode="wb", compresslevel=9, mtime=0, fileobj=buffer) as stream:
+        stream.write(raw)
+    return buffer.getvalue()
+
+def selftest(*, check_expected: bool = True) -> bytes:
+    basis = json.loads(BASIS_PATH.read_text(encoding="utf-8"))
+    source_pins_ok(basis)
+    pure_string = build_output()
+    output = io_print_output(pure_string)
+    historical_pure = PURE_STRING_PATH.read_bytes()
+    assert historical_pure == pure_string, "historical pure-string oracle changed"
+    assert sha(historical_pure) == basis["historicalPureString"]["sha256"]
+    assert len(historical_pure) == basis["historicalPureString"]["byteLength"]
+    lines = pure_string.splitlines()
+    assert len(lines) == 7
+    labels = [line.split(b"|", 1)[0] for line in lines]
+    assert labels == [
+        b"record(before", b"record(all", b"record(repeat", b"record(filtered",
+        b"record(zero-limit", b"record(disabled", b"record(reenabled",
+    ]
+    assert output.count(b"record(") == 7
+    assert b"999" not in output
+    assert b'world(1,2,1,[false, true],2,1,column(L(some(42)),[]),unit,' in output
+    assert output.count(b',1,[registration(') == 7
+    assert lines[1].split(b"|", 2)[1] == lines[2].split(b"|", 2)[1]
+    assert lines[2].split(b"|", 2)[1] == lines[3].split(b"|", 2)[1]
+    assert lines[4].split(b"|", 2)[1] == b"dump(1,[],[])"
+    assert lines[5].split(b"|", 2)[1] == b"none"
+    assert lines[6].split(b"|", 2)[1] == lines[1].split(b"|", 2)[1]
+    assert output == pure_string + b"\n"
+    assert output.endswith(b"\n\n"), "IO.print must add the extra terminal LF"
+    if "pureStringSha256" in basis:
+        assert sha(pure_string) == basis["pureStringSha256"], "pure String model drift"
+        assert len(pure_string) == basis["pureStringByteLength"], "pure String length drift"
+    if check_expected and "expectedSha256" in basis:
+        assert sha(output) == basis["expectedSha256"], "modeled output digest mismatch"
+        assert len(output) == basis["expectedByteLength"], "modeled output length mismatch"
+        compressed = EXPECTED_PATH.read_bytes()
+        assert sha(compressed) == basis["expectedGzipSha256"], "compressed stdout digest mismatch"
+        assert len(compressed) == basis["expectedGzipByteLength"], "compressed stdout length mismatch"
+        assert gzip_output(output) == compressed, "compressed stdout is not deterministic"
+        assert gzip.decompress(compressed) == output, "decompressed stdout mismatch"
+    return output
+
+def main() -> int:
+    args = sys.argv[1:]
+    if args == ["--write"]:
+        output = selftest(check_expected=False)
+        pure_string = build_output()
+        PURE_STRING_PATH.write_bytes(pure_string)
+        compressed = gzip_output(output)
+        EXPECTED_PATH.write_bytes(compressed)
+        basis = json.loads(BASIS_PATH.read_text(encoding="utf-8"))
+        basis["pureStringSha256"] = sha(pure_string)
+        basis["pureStringByteLength"] = len(pure_string)
+        basis["expectedSha256"] = sha(output)
+        basis["expectedByteLength"] = len(output)
+        basis["expectedGzipSha256"] = sha(compressed)
+        basis["expectedGzipByteLength"] = len(compressed)
+        basis["expectedGzipPath"] = "expected.stdout.gz"
+        BASIS_PATH.write_text(json.dumps(basis, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return 0
+    if args == ["--selftest"]:
+        output = selftest()
+        expected = gzip.decompress(EXPECTED_PATH.read_bytes())
+        assert expected == output, "decompressed expected.stdout.gz mismatch"
+        print(f"PASS_SOURCE_ONLY_PUBLIC_DUMP_ORACLE bytes={len(output)} sha256={sha(output)}")
+        return 0
+    if args == ["--emit"]:
+        sys.stdout.buffer.write(selftest())
+        return 0
+    raise SystemExit("usage: derive.py.source --write|--selftest|--emit")
+
+if __name__ == "__main__":
+    raise SystemExit(main())
