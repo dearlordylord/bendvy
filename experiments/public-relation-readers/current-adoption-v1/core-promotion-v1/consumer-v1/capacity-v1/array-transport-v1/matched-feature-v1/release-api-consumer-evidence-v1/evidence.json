@@ -1,0 +1,45 @@
+{
+  "scope": "Release-aware typed API migration, ordinary five-parameter shared-reader product (disposal not invoked): independent providers, repeated event domain, failure/retry and repeated reads; not full #43/#56 or performance acceptance",
+  "archive": "evidence.tar.gz",
+  "archiveSHA256": "d6d5ca3efd656fe5321ebb1c6f0d01e3ce0d4734cdead0d6b7efa646ddf77c90",
+  "members": 111,
+  "sourceFiles": 62,
+  "oracleBytes": 2560,
+  "oracleSHA256": "a3422628ba8fb190244bc07b0dc9f2a9b76a59a15b999cf1edd80655caec671c",
+  "roles": {
+    "js": {
+      "receipt": "execution/js/receipt.json",
+      "sha256": "23e12e3f9c59b012347190f38e370be169507ea5e457cd4aefde7c396307dde0",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0
+        },
+        {
+          "label": "consumer",
+          "exit": 0
+        }
+      ]
+    },
+    "native": {
+      "receipt": "execution/native/receipt.json",
+      "sha256": "73c579ed1746f972fd66eb6310432f3bb75a1903ac5572cc3f887a2c223a1051",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0
+        },
+        {
+          "label": "build",
+          "exit": 0
+        },
+        {
+          "label": "consumer",
+          "exit": 0
+        }
+      ]
+    }
+  }
+}

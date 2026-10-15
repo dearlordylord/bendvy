@@ -21,10 +21,14 @@ def registration_result(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,
   match result:
     case Sys.RegistrationFailed{world}:RegistrationFailed{Runtime{world,put(family,stream),tick}}
     case Sys.Registered{world,registry}:registration_identity(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,world,family,tick,namespace,Leaf.registered(~S,~E,stream,tick),Sys.identity(~S,~C,~R,~P,~Ev.Input<E,A>,~Error,~O,~runner,registry))
-def registration_namespace(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~O:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>,family:F,stream:Leaf.Stream<S,E>,tick:Nat,declaration:Event.Declaration<S,E>,+name:String,world:W.World<S,C,R,P>,namespace:U32) -> Registration<S,C,R,P,E,F,A,Error,O,take,put,runner>:
+def registration_read_checked(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~O:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>,available:Bool,family:F,stream:Leaf.Stream<S,E>,tick:Nat,domain:Event.Domain<S,E>,+name:String,world:W.World<S,C,R,P>,namespace:U32) -> Registration<S,C,R,P,E,F,A,Error,O,take,put,runner>:
+  match available:
+    case False{}:RegistrationFailed{Runtime{world,put(family,stream),tick}}
+    case True{}:registration_result(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,family,stream,tick,namespace,Sys.register(~S,~C,~R,~P,~Ev.Input<E,A>,~Error,~O,~runner,world,name,[Event.access(~S,~E,Event.Declaration{domain,Event.Read{}})]))
+def registration_namespace(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~O:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>,family:F,+stream:Leaf.Stream<S,E>,tick:Nat,declaration:Event.Declaration<S,E>,+name:String,world:W.World<S,C,R,P>,namespace:U32) -> Registration<S,C,R,P,E,F,A,Error,O,take,put,runner>:
   match declaration:
     case Event.Declaration{_,Event.Write{}}:RegistrationFailed{Runtime{world,put(family,stream),tick}}
-    case Event.Declaration{+domain,Event.Read{}}:registration_result(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,family,stream,tick,namespace,Sys.register(~S,~C,~R,~P,~Ev.Input<E,A>,~Error,~O,~runner,world,name,[Event.access(~S,~E,Event.Declaration{domain,Event.Read{}})]))
+    case Event.Declaration{+domain,Event.Read{}}:registration_read_checked(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,Leaf.can_register(~S,~E,stream),family,stream,tick,domain,name,world,namespace)
 def registration_named(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~O:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>,family:F,stream:Leaf.Stream<S,E>,tick:Nat,declaration:Event.Declaration<S,E>,name:String,named:W.World<S,C,R,P> & U32) -> Registration<S,C,R,P,E,F,A,Error,O,take,put,runner>:
   match named:
     case (world,namespace):registration_namespace(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,family,stream,tick,declaration,name,world,namespace)

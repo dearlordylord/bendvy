@@ -1,0 +1,45 @@
+{
+  "scope": "First actual ordinary five-parameter shared-reader product: independent providers, repeated event domain, failure/retry and repeated reads; not full #43/#56 or performance acceptance",
+  "archive": "evidence.tar.gz",
+  "archiveSHA256": "7ddd7cb668c558ce84b2d86f3659941aed79a291baaa4513be88071c97aafab0",
+  "members": 110,
+  "sourceFiles": 61,
+  "oracleBytes": 2560,
+  "oracleSHA256": "a3422628ba8fb190244bc07b0dc9f2a9b76a59a15b999cf1edd80655caec671c",
+  "roles": {
+    "js": {
+      "receipt": "execution/js/receipt.json",
+      "sha256": "4bf9ddc696f9836ce8b0299e7ccad50055659cacb02ba75e846e16582adef123",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0
+        },
+        {
+          "label": "consumer",
+          "exit": 0
+        }
+      ]
+    },
+    "native": {
+      "receipt": "execution/native/receipt.json",
+      "sha256": "0338d65090429860cd35a22535d199f9f87855390a504f391efeaa746660fad5",
+      "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "commands": [
+        {
+          "label": "emit",
+          "exit": 0
+        },
+        {
+          "label": "build",
+          "exit": 0
+        },
+        {
+          "label": "consumer",
+          "exit": 0
+        }
+      ]
+    }
+  }
+}

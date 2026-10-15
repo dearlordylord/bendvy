@@ -7,12 +7,21 @@ type Stream<S:Data,E:Data> is Data:
   Stream{domain:Event.Domain<S,E>,batches:List<&2,Ev.Batch<E>>,positions:List<&2,Ev.Position>,nextReader:U32,frameStart:Nat,boundary:Nat,capacity:Nat,dropped:Nat}
 def provision(~S:Data,~E:Data,domain:Event.Domain<S,E>,capacity:Nat) -> Stream<S,E>:
   Stream{domain,[],[],1,0n,0n,capacity,0n}
+def can_register(~S:Data,~E:Data,stream:Stream<S,E>) -> Bool:
+  match stream:
+    case Stream{_,_,_,nextReader,_,_,_,_}:U32.is_lt(nextReader,4294967295)
+def increment_reader(~S:Data,~E:Data,stream:Stream<S,E>,+tick:Nat) -> Stream<S,E> & U32:
+  match stream:
+    case Stream{domain,batches,positions,+nextReader,frameStart,boundary,capacity,dropped}:(Stream{domain,batches,positions,(nextReader+1:U32),frameStart,boundary,capacity,dropped},nextReader)
+def registered_checked(~S:Data,~E:Data,available:Bool,stream:Stream<S,E>,+tick:Nat) -> Stream<S,E> & U32:
+  match available:
+    case False{}:(stream,0)
+    case True{}:increment_reader(~S,~E,stream,tick)
 def append(~S:Data,~E:Data,stream:Stream<S,E>,tick:Nat,+values:List<&2,E>) -> Stream<S,E>:
   match stream:
     case Stream{domain,+batches,positions,nextReader,frameStart,boundary,capacity,dropped}:Stream{domain,Ev.sync_checked(~E,Nat.is_lt(0n,Ev.count(~E,values)),batches,tick,values),positions,nextReader,frameStart,boundary,capacity,dropped}
-def registered(~S:Data,~E:Data,stream:Stream<S,E>,+tick:Nat) -> Stream<S,E> & U32:
-  match stream:
-    case Stream{domain,batches,positions,+nextReader,frameStart,boundary,capacity,dropped}:(Stream{domain,batches,positions,(nextReader+1:U32),frameStart,boundary,capacity,dropped},nextReader)
+def registered(~S:Data,~E:Data,+stream:Stream<S,E>,+tick:Nat) -> Stream<S,E> & U32:
+  registered_checked(~S,~E,can_register(~S,~E,stream),stream,tick)
 def read_position(~S:Data,~E:Data,stream:Stream<S,E>,+id:U32,+tick:Nat,position:Maybe<Ev.Position>) -> Stream<S,E> & Ev.Reading<E>:
   match stream position:
     case Stream{domain,+batches,positions,nextReader,frameStart,boundary,capacity,+dropped} Some{position}:(Stream{domain,batches,positions,nextReader,frameStart,boundary,capacity,dropped},Ev.reading(~E,position,batches,dropped))

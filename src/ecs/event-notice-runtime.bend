@@ -4,6 +4,7 @@ import ./world.bend as W
 import ./relation-commands.bend as Notice
 import ./relation-failure-runtime.bend as K
 import ./internal/relation-failures/domains.bend as D
+import ./internal/relation-failures/routing.bend as FailureRoute
 import ./event-runtime.bend as Ev
 import ./event-family-runtime.bend as Family
 import ./event-family-routing.bend as Route
@@ -123,3 +124,49 @@ def reserve_failure_reader_detached(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:T
     case (runtime,held):reserved_failure_reader(~S,~C,~R,~P,~F,~H,held,K.reserve_reader(~S,~C,~R,~Notice.Notice<S,P>,runtime))
 def reserve_failure_reader(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,runtime:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>> & Maybe<&2,U32>:
   reserve_failure_reader_detached(~S,~C,~R,~P,~F,~H,failure_runtime(~S,~C,~R,~P,~F,~H,runtime))
+
+
+# One outer ingestion boundary, shared by every parameter in an invocation.
+def ingested_failures(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,typed:Family.State<P,F,H>,positions:List<&2,Ev.Position>,+tick:Nat,start:Nat,boundary:Nat,capacity:Nat,nextReader:U32,returned:W.World<S,C,R,Notice.Notice<S,P>> & List<&2,D.Domain<S,Notice.Notice<S,P>>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+  match returned:
+    case (world,domains):Route.Runtime{world,State{typed,Failures{domains,positions,tick,start,boundary,capacity,nextReader}},tick}
+def ingested_typed(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,+tick:Nat,returned:W.World<S,C,R,Notice.Notice<S,P>> & State<S,P,F,H>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+  match returned:
+    case (world,State{typed,Failures{domains,positions,_,start,boundary,capacity,nextReader}}):
+      ingested_failures(~S,~C,~R,~P,~F,~H,typed,positions,tick,start,boundary,capacity,nextReader,FailureRoute.collect(~S,~C,~R,~Notice.Notice<S,P>,~classify,world,tick,domains))
+def ingest(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~sync:F -> Nat -> List<&2,P> -> F,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,+tick:Nat,runtime:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+  match runtime:
+    case Route.Runtime{world,state,_}:ingested_typed(~S,~C,~R,~P,~F,~H,~classify,tick,synchronize(~S,~C,~R,~P,~F,~H,~sync,world,state,tick))
+def attempt_clocked(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,state:State<S,P,F,H>,tick:Nat,clocked:W.World<S,C,R,Notice.Notice<S,P>> & U32) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+  match clocked:
+    case (world,_):Route.Runtime{world,state,1n+tick}
+def attempt_ingested(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,runtime:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+  match runtime:
+    case Route.Runtime{world,state,tick}:attempt_clocked(~S,~C,~R,~P,~F,~H,state,tick,W.advance_clock(~S,~C,~R,~Notice.Notice<S,P>,world))
+# Standalone and composed operations share histories but may advance different
+# administrative clocks. Never publish below any already observed boundary.
+def before_state(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~sync:F -> Nat -> List<&2,P> -> F,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,state:State<S,P,F,H>,+tick:Nat,world:W.World<S,C,R,Notice.Notice<S,P>>,clock:U32) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+  match state:
+    case State{typed,Failures{domains,positions,+failureTick,start,boundary,capacity,nextReader}}:
+      attempt_ingested(~S,~C,~R,~P,~F,~H,ingest(~S,~C,~R,~P,~F,~H,~sync,~classify,Nat.max(1n,Nat.max(tick,Nat.max(failureTick,U32.to_nat(clock)))),Route.Runtime{world,State{typed,Failures{domains,positions,failureTick,start,boundary,capacity,nextReader}},tick}))
+def before_clocked(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~sync:F -> Nat -> List<&2,P> -> F,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,state:State<S,P,F,H>,tick:Nat,clocked:W.World<S,C,R,Notice.Notice<S,P>> & U32) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+  match clocked:
+    case (world,clock):before_state(~S,~C,~R,~P,~F,~H,~sync,~classify,state,tick,world,clock)
+# Zero is the initial unread cursor, so startup publications need a positive epoch.
+# Called only after registration/parameter validation; preparation follows it.
+def before_attempt(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~sync:F -> Nat -> List<&2,P> -> F,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,runtime:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+  match runtime:
+    case Route.Runtime{world,state,tick}:before_clocked(~S,~C,~R,~P,~F,~H,~sync,~classify,state,tick,W.clock(~S,~C,~R,~Notice.Notice<S,P>,world))
+# Called once after successful cursor commits, without another clock advance.
+def after_success(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~sync:F -> Nat -> List<&2,P> -> F,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,runtime:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+  match runtime:
+    case Route.Runtime{world,state,+tick}:ingest(~S,~C,~R,~P,~F,~H,~sync,~classify,tick,Route.Runtime{world,state,tick})
+
+
+# Internal invocation transport: detached metadata retains all shared owners.
+def split(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,runtime:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> W.World<S,C,R,Notice.Notice<S,P>> & (State<S,P,F,H> & Nat):
+  match runtime:
+    case Route.Runtime{world,state,tick}:(world,(state,tick))
+def join(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,world:W.World<S,C,R,Notice.Notice<S,P>>,metadata:State<S,P,F,H> & Nat) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+  match metadata:
+    case (state,tick):Route.Runtime{world,state,tick}
