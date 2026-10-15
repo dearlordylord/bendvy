@@ -36,6 +36,7 @@ for (const root of ['ReadersAlpha','ReadersBeta']) {
   step('read-removed',fast,slow);
   step('reinsert-target',G.System('reinsert-target',{},({commands})=>{commands.insert(target,[Stock,44]);}),flush);
   step('read-reinserted',fast,slow);
+  step('successful-link',G.System('successful-link',{},({commands})=>{commands.relate(source,Parent,target);}),flush);
   step('spawn-doomed',G.System('spawn-doomed',{},({commands})=>{doomed=commands.spawn(G.Command.spawn());}),flush);
   step('despawn-doomed',G.System('despawn-doomed',{},({commands})=>{commands.despawn(doomed);}),flush);
   step('writer-queued',G.System('writer',{events:{ping:G.System.writeEvent(Ping)}},({commands,events})=>{commands.relate(source,Parent,source);commands.relate(source,Parent,doomed);events.ping.emit(31);events.ping.emit(32);}));
