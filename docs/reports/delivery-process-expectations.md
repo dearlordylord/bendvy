@@ -1033,3 +1033,21 @@ three named controls through exact reached-source bridges, plus retained TS and
 requirements evidence. Only the current-source First-Transition JS/Native pair
 was rerun; complete 24,422-byte outputs and independent final review pass. No ECS
 core code, runner, cap, performance threshold or historical receipt was changed.
+
+#49 integration `b78be08c4` passed CI 38823741359 and the semantic issue closed.
+#54 reconciliation identified a genuine remaining stock-Native gate: the full
+23-grant consumer's stock emit timeout is not superseded by the smaller stock
+formatter case or the later private-compiler run. Work continues on preserving
+the full consumer while applying the already qualified source-only formatter.
+
+The formatter and subsequent one-use Frame-thunk attempts each match the full
+5,077,477-byte independent oracle on stock JS; each stock Native emit reaches
+the existing 30-second deadline without C output. No retry with unchanged source,
+limit increase or partial consumer is counted as acceptance. The next source
+candidate targets query callback specialization. No delivery-speed gain is claimed.
+
+#46 acceptance reconciliation reuses the stock 32-case TS/JS/Native public views
+and complementary 92/22/40 state/owner controls. Independent review found no
+missing native operation requiring another backend run. The documentation keeps
+private compiler evidence and archived JavaScript host interop separate; combined
+performance remains required. This checkpoint changes documentation only.

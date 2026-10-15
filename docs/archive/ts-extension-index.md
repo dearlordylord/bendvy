@@ -22,7 +22,7 @@ checks so a future tooling project can establish its own acceptance evidence.
 | --- | --- | --- |
 | TS interface to Bend ECS | `standard-schema-v1/runtime-v1/host-wire.mjs`, `runtime-v2`, typed Raw DTOs and full observation encoding | Experimental JS/Native CLI bridge. Source checks only; no generated runtime interoperability qualification. A future TS facade should expose Bend-native ECS contracts. |
 | Standard Schema adapter | `standard-schema-v1/adapter.mjs`, `fixture.mjs`, host comparison/controls and shared runner's former host branch | Host conversion work can become an optional integration library. User callbacks remain in JS; this does not add reflection to arbitrary Bend Type. |
-| Raw wire/codec tools | `runtime-v1` and `runtime-v2`: token parser, serializer, bit/scalar/UTF16 representations | Two source-checked entries and six authority negatives. V2 fixes malformed embedded-count overflow; 20 positive and 9 malformed draft cases. Large-input/runtime behavior remains unqualified. |
+| Raw wire/codec tools | `runtime-v1` and `runtime-v2`: token parser, serializer, bit/scalar/UTF16 representations | Two source-checked entries and six authority negatives. V2 fixes malformed embedded-count overflow; 20 positive and 9 malformed draft cases. Large-input/runtime behavior remains unqualified. JavaScript object-key/path preservation, including lone UTF-16 surrogates, is host-interop research rather than native #46 acceptance. |
 | Testing a TS facade | `runtime-v1/oracle-v1`, V2 raw source-check attempts/receipts | Complete 28 host/ECS draft models, transport models and seven Python controls. Final source binding unfinished; no backend-output qualification. Reuse as test research, not acceptance receipts. |
 | TS helper libraries | Historical `Fx`, `Result`, `Definition`, Inspector facade and schema mechanisms in the census | Inventory/research leads. Existing native rollback, Local, typed declarations and read-only inspection remain approved ECS work; standalone TS helper API parity is pending. |
 | Porting/reference research | [23-module census](ts-port/core-export-inventory.json) and its lossless gzip payload | Pinned TS symbols/signatures/usages/errors, not a required-export checklist. See [capability classification](../parity/coverage.md#capability-scope-reconciliation--61-preparation) for native capability versus TS mechanism. |
@@ -30,6 +30,24 @@ checks so a future tooling project can establish its own acceptance evidence.
 All paths in the first four rows are relative to
 `experiments/public-decode/public-seam-v1/construction-v1/` in the preservation tag.
 The census and its embedded regeneration/source records remain in this archive.
+
+## Native field names and JavaScript object keys
+
+Pinned Rust Bevy represents reflected struct field names as Rust `str` values
+(`&'static str` for static metadata, `&str` for lookup, and `Cow<str>` for
+dynamic fields). Rust `str` is UTF-8, so a lone UTF-16 surrogate is not a native
+reflected field name. The pinned TypeScript decoder instead enumerates
+JavaScript object keys and builds error paths from those keys; JavaScript can
+preserve lone surrogates in that host domain. That round-trip belongs to the
+archived JS adapter/tooling scope and is not a native ECS acceptance gate unless
+separately approved.
+
+This classification does not add a restriction to Bend's public `Char` or
+`String` constructors: `Char.Chr{code: U32}` and `Char.from_u32` do not establish
+a global Unicode-scalar invariant. It only distinguishes JavaScript's UTF-16
+object-key/path interop from Bevy's native field-name type. Ordinary Unicode
+string field names and nested native error paths remain within the native
+decoder's scope; no new Unicode-key runtime qualification is claimed here.
 
 ## Recovery
 
