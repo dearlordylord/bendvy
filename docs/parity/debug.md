@@ -236,9 +236,10 @@ identity already fixes ownership: one affine App retains World and H once;
 Data plans reference registered IDs. Using one ID in two plans preserves that
 instance's Local/cursor state; independent instances require separate registrations.
 Replacing a Data plan does not itself dispose registrations. Label lookup and
-collision behavior are the new contract. Bevy `Schedules::insert` replaces and
-returns the previous schedule; returning the previous Data plan while retaining
-App owners is the proposed Bend counterpart, pending approval. Lint and renaming
+collision behavior follow Bevy: `Schedules::insert` replaces and returns the
+previous schedule. The named Bend collection therefore returns the previous Data
+plan while retaining App owners, registered system state, Local and cursors.
+This is the approved behavior; placement does not clone or reset registrations. Lint and renaming
 rules require their existing contract decisions. Stateful conditions,
 non-Column adaptation and feature performance remain concrete owning gates. None is evidence of technical
 impossibility, and #56 remains open.
