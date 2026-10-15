@@ -231,8 +231,15 @@ marker/pending separation, not native skipSame/changed or physical-scene equalit
 
 No further policy-free format fixture is identified with sufficient confidence
 from this reconciliation. The concrete missing multi-schedule index requires an
-ordinary retained multi-schedule setup/placement scope before aggregation; lint
-and renaming rules require their existing contract decisions. Stateful conditions,
+ordinary retained named-plan collection before aggregation. Existing registration
+identity already fixes ownership: one affine App retains World and H once;
+Data plans reference registered IDs. Using one ID in two plans preserves that
+instance's Local/cursor state; independent instances require separate registrations.
+Replacing a Data plan does not itself dispose registrations. Label lookup and
+collision behavior are the new contract. Bevy `Schedules::insert` replaces and
+returns the previous schedule; returning the previous Data plan while retaining
+App owners is the proposed Bend counterpart, pending approval. Lint and renaming
+rules require their existing contract decisions. Stateful conditions,
 non-Column adaptation and feature performance remain concrete owning gates. None is evidence of technical
 impossibility, and #56 remains open.
 
@@ -244,4 +251,4 @@ impossibility, and #56 remains open.
 
 [Bounded final review](../../experiments/public-inspect/promotion-stage/ordinary-schedule-access-v1/FINAL-REVIEW.md) accepts [the public index](../../src/ecs/ordinary-app-schedule-access.bend): the retained operational Plan selects registrations by namespace and Registry ID, in placement order, from ordinary declaration-derived Fields. Disabled debug returns before folding owners. Complete two-schema JS/Native observations match 53,843 bytes; the actual filtering omission matches the independent 58,307-byte counter on both backends and rejects the complete normal result. All 107 source inputs are restored. Actual API nominal/affine refusals and a scoped, executed 3,669-byte TS reference pass.
 
-This covers one retained Schedule. TS empty descriptor entries and name deduplication remain explicit reference differences. Multi-Schedule ownership, enabled overhead, universal proofs and full #56 remain open. Combined213 passes the unchanged #28 gate for this module in the current combined core.
+This covers one retained Schedule. TS empty descriptor entries and name deduplication remain explicit reference differences. The multi-schedule label/collection contract, enabled overhead, universal proofs and full #56 remain open. Combined213 passes the unchanged #28 gate for this module in the current combined core.
