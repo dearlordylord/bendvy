@@ -1,11 +1,33 @@
 # Independent final review: ordinary machine transition reader
 
-**Verdict: PASS for the bounded adapter delivery; #48 remains open.** Reviewed producer core `b2a577253`, source freeze `79905daa5`, authority fixture `bae0ed70d`, controls `f3dba2fb3`, and packet rooted at `experiments/public-machines/ordinary-initialization-v1/ordinary-reader-v1/delivery-v1`.
+**PASS for the seven-role delivery and the joined #48 semantic acceptance.**
+Reviewer: `pr72_spec_review`; packet commit `ed2604a477185a0567a1142ce1fcab2e0123ef92`.
 
-The adapter derives its stream declaration from the existing machine initialization declaration and exposes registration, read, skip and disposal through the existing managed-system owner. Reads validate namespace and registration before stream activation; failures retain the cursor, successful reads finish against the consumed pre-callback boundary, and disposal removes the selected reader. Generic schema/value/resource parameters and affine owners remain intact. The two-schema normal outputs, actual-WorldIO local/foreign authority and retry outputs, affine/nominal controls, and reached wrong-reader-disposal counterfactual are bound to complete independent outputs. The counterfactual differs from and rejects the normal authority oracle.
+The independent reviewer ran the offline verifier and its self-test: seven roles,
+454 logical paths, 202 objects and two path-integrity negative controls pass.
+The initial five plan/receipt bindings are unchanged. Current root relocation
+verification also passes; all 38 cold-skip source bodies match their frozen pins.
 
-The retained packet is `DELIVERY.json` SHA-256 `29b82b809c8f187ba833b5f6fb6d8ae57d5d1638a61f6c46356580b2b6c0b0f8`, `MANIFEST.json` `2bc010b0f395c8108bfc7a3ee1f92a9b02548e4eacb0e2fcd8689c5dccdeb016`, `EVIDENCE.zip` `164aa1a8ea87b575bddee3957ce8b4346f60466e441e1e8f211f9d8a5f9d8f31`, and `RESULT.json` `b75e150837e25cd9f305c33615c447520d872ed8fafd298ff7025216d2331799`. I ran `python3 verify.py` and `python3 verify.py --selftest`; both pass (five roles, 362 logical paths, 164 objects, including wrong-parent and relocated-file-drift controls).
+The cold-skip consumer closes the identified first-use gap in both schemas: a
+reader skips before its first open, then reads the retained Initial notification
+once; an independent reader can still read it. JS and Native each match all
+13,717 independent bytes (`fc061b6ba91bda51c9bf6eb41bf9864fdb631d3b69f6532d9df838d218c83d1c`).
+The source check's exit 1 remains an IO/foreign-definition limitation, not a pass.
+The prior authority/disposal, retry, affine/nominal and reached disposal-mutation
+findings remain valid. The stream cursor and component-change cursor have
+separate purposes; the administrative callback is not a restricted gameplay grant.
 
-One concrete #48 case remains unqualified: the scenario reads the fast reader before its condition-false skip, so it proves preservation of an already activated cursor only. `Reader.skip` is a no-op, and the stream position is first created by `St.open` on `read`; there is no observation of a registered reader skipped before its first read and then resumed while an earlier transition is still retained. This needs an explicit source-backed decision or a focused scenario before claiming full skip/retention acceptance. Bevy's pinned `MessageCursor` defaults to count zero and advances on read, so first-use backlog behavior must not be inferred from the active-reader case.
+The reviewer accepts the joined semantic checklist in
+[the capability reconciliation](../../../../../docs/parity/machines.md#issue-level-semantic-reconciliation),
+including the reached queue-drop mutant, failed-writer bridge, current Bundle,
+capacity/condition evidence and executed shared TS reference. No semantic blocker
+to closing #48 remains after integration/reporting. Comparative performance
+remains under #21/#23/#24; finite observations are not a universal proof.
+Byte-exact raw oracle/checker outputs retain intentional whitespace.
 
-The packet makes no performance or full-issue claim. The deliberately retained raw stdout/checker diagnostic bytes include whitespace-sensitive lines; this review does not claim blanket `git diff --check` cleanliness.
+Packet hashes:
+
+- `DELIVERY.json`: `ca4e597f1d60fefd92f6326851a0fbd3053cd69cbbcf47e2279547499624287e`
+- `MANIFEST.json`: `95641093002d7f75c78612db118dfb3ab7c94656066c6fd925e2ce48ea1a5ec2`
+- `EVIDENCE.zip`: `dd2ba38da7cb8ebb7f60060f9956267ae4d223b175f6f945caee4f5fb007d8a8`
+- `RESULT.json`: `a480b3e5e0bd77cfff94e4ffb32c7a025e9797e416fdc2f31e7eef0f014f483b`

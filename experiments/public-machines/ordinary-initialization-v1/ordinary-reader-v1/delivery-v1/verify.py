@@ -104,6 +104,15 @@ def verify_source_checks(rows, archive):
     require("no source-pass claim" in foreign["result"].lower() or "no source pass claim" in foreign["result"].lower(), "foreign source-check limitation missing")
     for attempt in foreign["attempts"]:
         for stream in attempt["streams"].values(): check_recorded_stream(rows,archive,stream["path"],stream)
+    cold=parse(archive.read(source_row(rows,(LEAF/"COLD-SKIP-SOURCE.json").as_posix())["member"]),"cold-skip source check")
+    require(cold.get("entry")== (LEAF_REL/"cold-skip.bend").as_posix(), "cold-skip source-check entry differs")
+    cold_check=cold.get("check",{})
+    require(cold_check.get("exitCode")==1 and cold_check.get("capSeconds")==5, "cold-skip source-check result differs")
+    require("no source-pass claim" in cold_check.get("scope", "").lower(), "cold-skip checker limitation missing")
+    cold_stdout=check_recorded_stream(rows,archive,"sourcechecks/cold-skip.stdout",source_row(rows,(LEAF/"sourcechecks/cold-skip.stdout").as_posix()))
+    cold_stderr=check_recorded_stream(rows,archive,"sourcechecks/cold-skip.stderr",source_row(rows,(LEAF/"sourcechecks/cold-skip.stderr").as_posix()))
+    require(not cold_stdout and b"SOME PROOFS FAIL" in cold_stderr and b"5 defs rely on unsafe or foreign code" in cold_stderr, "cold-skip raw checker diagnostic differs")
+    require(all(token in cold_stderr for token in (b"world-namespace.fresh",b"world-io.create",b"first",b"run",b"main")), "cold-skip checker dependency diagnostic is incomplete")
     controls=parse(archive.read(source_row(rows,(LEAF/"controls-v1/CHECKS.json").as_posix())["member"]),"type controls")
     expected={"affine-positive.bend":0,"negative-cross-schema.bend":1,"negative-affine-duplicate.bend":1}
     require({x["file"]:x["exitCode"] for x in controls["controls"]}==expected, "type-control results differ")
@@ -136,7 +145,10 @@ def verify_role_sources(rows, archive, plans):
     normal_body=archive.read(source_row(rows,str(PurePosixPath(base_freeze["snapshot"])/changed[0]),before[changed[0]])["member"]).decode()
     mutant_body=archive.read(source_row(rows,str(PurePosixPath(mutant_freeze["snapshot"])/changed[0]),after[changed[0]])["member"]).decode()
     require("St.dispose(~V,stream,id)" in normal_body and "St.dispose(~V,stream,U32.add(id,1))" in mutant_body, "wrong-reader disposal mutation expression differs")
-    return normal,authority
+    cold=verify_freeze(rows,archive,plans["cold-skip-js"],(LEAF/"COLD-SKIP-SOURCE.json").as_posix(),38,(LEAF_REL/"cold-skip.bend").as_posix())
+    require(plans["cold-skip-native"]["sourceInventory"]==plans["cold-skip-js"]["sourceInventory"], "cold-skip JS/Native source inventories differ")
+    require(plans["cold-skip-native"]["importClosure"]==plans["cold-skip-js"]["importClosure"], "cold-skip JS/Native literal closures differ")
+    return normal,authority,cold
 def verify_evidence(here: Path, negative=None):
     delivery, owner, root=verify_local(here)
     result=parse((here/"RESULT.json").read_bytes(),"RESULT.json")
@@ -162,7 +174,7 @@ def verify_evidence(here: Path, negative=None):
             raw=archive.read(obj["member"]); require((len(raw),digest(raw))==(obj["bytes"],h), f"archive object corrupt: {h}")
         helper=load_helper(rows,archive)
         roles={x["name"]:x for x in result.get("roles",[])}
-        expected_names={"primary-js","primary-native","authority-js","authority-native","wrong-reader-disposal-mutant-js"}
+        expected_names={"primary-js","primary-native","authority-js","authority-native","wrong-reader-disposal-mutant-js","cold-skip-js","cold-skip-native"}
         require(len(roles)==len(result.get("roles",[])) and set(roles)==expected_names, "runtime role inventory differs")
         verified={name:helper.verify_role(role,rows,manifest,archive) for name,role in roles.items()}
         expected={
@@ -171,7 +183,18 @@ def verify_evidence(here: Path, negative=None):
             "authority-js":(17347,"70fe4679f1cbb93404e85785f476e8e4b359623a1b02ffda7dac83dd0feae2d4"),
             "authority-native":(17347,"70fe4679f1cbb93404e85785f476e8e4b359623a1b02ffda7dac83dd0feae2d4"),
             "wrong-reader-disposal-mutant-js":(17433,"5ec129da26837e8e48bc0f8c6a0f98ea88eece237d452a0318f1d24d8896bef2"),
+            "cold-skip-js":(13717,"fc061b6ba91bda51c9bf6eb41bf9864fdb631d3b69f6532d9df838d218c83d1c"),
+            "cold-skip-native":(13717,"fc061b6ba91bda51c9bf6eb41bf9864fdb631d3b69f6532d9df838d218c83d1c"),
         }
+        historical={
+            "primary-js":("d9c911f1dc9debe378bd98f71b932f344246b9c6fa7aad29467c603e8b8d8904","6bdec63f7cbff4849a41e6978275054c30f14b21622ec2b46b8e45dabd8985e8"),
+            "primary-native":("bc980fc80995f21d1d1b4d8707a8e257215598d88798f730405e05f6247fed3a","ee0cd3fd17d32250c7bf05a5ffb7bd62f2dc3ac59b8e05922967adf6a686e6ac"),
+            "authority-js":("8625099d3cc5f8c3a61fb305add38780e83730e4b63961869cb6c6d90768ea1a","3b6a0b46e9d269f8f8666655764c47b55eab2e26658e7b4bffcd355bb06cbc55"),
+            "authority-native":("ada0bf1e9d2e6891e6b45ecd1d3f6f464c5529e99cb81619f238dd5a12d054cb","07d19a718c5e9bd14ed928ab17ffd7bfd3e0fccc1291fe33fd10080ac2905c4f"),
+            "wrong-reader-disposal-mutant-js":("89b0f36f3603395f1d57698b5a74280e37ed064e1c2be2e9e64c1e15c5e5b9a1","309c27c376eb2776e58021063088b7682850a54ac784b270270a95e1f7bface7"),
+        }
+        for name,(plan_hash,receipt_hash) in historical.items():
+            require((roles[name]["planSHA256"],roles[name]["receiptSHA256"])==(plan_hash,receipt_hash), f"historical role binding changed: {name}")
         for name,meta in expected.items():
             role=roles[name]; plan,receipt=verified[name]
             require((role["outputBytes"],role["outputSHA256"])==meta, f"{name} result metadata differs")
@@ -180,7 +203,7 @@ def verify_evidence(here: Path, negative=None):
             helper.compare_gzip(archive,rows[plan["oracle"]],rows[consumer["stdout"]["path"]],meta[0],meta[1],name)
             require(consumer["stderr"]["bytes"]==0, f"{name} consumer stderr is nonempty")
             require(receipt["status"]=="COMPLETE_CONSUMER_DEVELOPMENT_PASS", f"{name} did not complete")
-        for left,right in (("primary-js","primary-native"),("authority-js","authority-native")):
+        for left,right in (("primary-js","primary-native"),("authority-js","authority-native"),("cold-skip-js","cold-skip-native")):
             _,lr=verified[left]; _,rr=verified[right]
             lc=next(c for c in lr["commands"] if c["label"]=="consumer"); rc=next(c for c in rr["commands"] if c["label"]=="consumer")
             require(lc["stdout"]["sha256"]==rc["stdout"]["sha256"], f"{left}/{right} outputs differ")
@@ -190,7 +213,7 @@ def verify_evidence(here: Path, negative=None):
         try: helper.compare_gzip(archive,rows[mutant_plan["normalOracle"]],rows[mc["stdout"]["path"]],mutant_plan["normalOracleBytes"],mutant_plan["normalOracleSHA256"],"normal authority baseline")
         except VerificationError: pass
         else: raise VerificationError("wrong-reader mutant unexpectedly matches normal authority output")
-        normal,authority=verify_role_sources(rows,archive,{n:v[0] for n,v in verified.items()})
+        normal,authority,cold=verify_role_sources(rows,archive,{n:v[0] for n,v in verified.items()})
         verify_source_checks(rows,archive)
         js=roles["primary-js"]; native=roles["primary-native"]
         jsreceipt=verified["primary-js"][1]; natreceipt=verified["primary-native"][1]
@@ -201,7 +224,7 @@ def verify_evidence(here: Path, negative=None):
         if negative=="wrong-parent-manifest":
             altered=dict(rows); altered.pop(jsc["stdout"]["path"],None)
             helper.verify_stream(jsc["stdout"],"consumer.stdout",js["streamRoot"],altered,archive)
-    return {"status":status,"roles":len(roles),"sourceClosureEntries":{"primary":35,"authority":38},"logicalPaths":len(rows),"objects":len(objects),"fullPathNegativeControls":2,"performanceClaim":False,"fullIssueAcceptance":"OPEN"}
+    return {"status":status,"roles":len(roles),"sourceClosureEntries":{"primary":35,"authority":38,"coldSkip":38},"logicalPaths":len(rows),"objects":len(objects),"fullPathNegativeControls":2,"performanceClaim":False,"fullIssueAcceptance":"OPEN"}
 def selftest():
     verify_evidence(HERE)
     for mode in ("wrong-parent-receipt","wrong-parent-manifest"):

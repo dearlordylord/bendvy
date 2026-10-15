@@ -10,9 +10,9 @@ An application declares finite machines, reads committed states, queues changes 
 
 ## Acceptance criteria
 
-- [ ] Observe pinned initial provisioning, missing/invalid machine values, queued overwrite, same-state/skip behavior, definition order and inState/stateChanged/not/and/or conditions.
-- [ ] Apply transitions through actual schedules with explicit structural flush semantics. Failed publishing systems discard their machine changes; changes created during a marker remain for the next marker.
-- [ ] Execute independent transition-event readers with exact retention/cursor rules and complete machine/world/queue observations. Reject undeclared/cross-schema writes and detect a reached early-commit or queue-loss mutant.
+- [x] Observe pinned initial provisioning, missing/invalid machine values, queued overwrite, same-state/skip behavior, definition order and inState/stateChanged/not/and/or conditions.
+- [x] Apply transitions through actual schedules with explicit structural flush semantics. Failed publishing systems discard their machine changes; changes created during a marker remain for the next marker.
+- [x] Execute independent transition-event readers with exact retention/cursor rules and complete machine/world/queue observations. Reject undeclared/cross-schema writes and detect a reached early-commit or queue-loss mutant.
 
 ## Blocked by
 
@@ -42,7 +42,7 @@ Implementation owner: `missing_resource_direct_consumer`; shared-core integratio
 
 The public declaration-bound `init_state`/`insert_state` and App marker wrappers are integrated with initial Enter notification, occupied-init idempotence, pending/previous preservation and registered change observation. The [consumer and retained evidence](../../experiments/public-machines/ordinary-initialization-v1/current-delivery-v1/README.md) pass full JS/Native observations (105,004 bytes), an independently predicted reached idempotence mutant, affine `Type` admission and nominal-schema refusal. Independent Spec/Standards review passed; unchanged protected #28 source bindings are reused only for that workload. No new performance claim is made.
 
-Full #48 remains open for issue-level reconciliation of capacity/retention frames, broader conditions/marker combinations, disposal and foreign-authority applicability. Condition-false noninvocation preserves readers; this slice does not introduce a reader `run_if` API. Mirror checker recaptures hit the five-second deadline and remain inconclusive, separately from its successful full mutant execution.
+This bounded slice is complemented by the issue-level semantic reconciliation below. Condition-false noninvocation preserves readers; this slice does not introduce a reader `run_if` API. Mirror checker recaptures hit the five-second deadline and remain inconclusive, separately from its successful full mutant execution.
 
 ### Stateful condition composition acceptance
 
@@ -60,10 +60,9 @@ oracle. Independent Spec/Standards review passed. Backend evidence binds the
 and the relocated entry, with only a recorded trailing-newline normalization.
 Unchanged protected #28 bindings are reused for that workload only.
 
-Full #48 remains open. The historical 65,537-record run selected an experimental
+The historical 65,537-record run selected an experimental
 queue; current canonical execution is covered separately below.
-Marker-retention and foreign/disposal evidence still need exact current-source
-joins. This slice does not establish arbitrary fallible custom-condition parity,
+Marker-retention and foreign/disposal applicability are reconciled below. This slice does not establish arbitrary fallible custom-condition parity,
 all refusal branches, or combined performance acceptance.
 
 ### Canonical stream capacity
@@ -87,8 +86,8 @@ totals or comparative speed qualification. The protected #28 workload’s curren
 and this stream representation are unreachable from that workload; reuse covers
 only the existing workload.
 
-Marker-retention, failed-publisher and foreign/disposal applicability still need
-exact current-source reconciliation before closing #48. Combined performance
+Marker-retention, failed-publisher and foreign/disposal applicability are
+reconciled below. Combined performance
 qualification remains under #21/#23/#24.
 
 Remaining source reconciliation can reuse
@@ -120,8 +119,8 @@ by the ordinary initialization/condition consumers rather than claimed as their
 replacement. No production API or core changed.
 
 All 34 relocated source bodies match the qualified producer and the root entry
-passes the pinned check. Full #48 still requires the explicit reference and
-failed-publisher/reader-cleanup applicability joins described above.
+passes the pinned check. The explicit reference and failed-publisher/reader-cleanup joins are
+recorded in the semantic reconciliation below.
 
 Current reconciliation confirms failed-publisher rollback through
 `ordinary-frontend-v1/public-successor-v1`: a failed writer rolls back pending
@@ -131,15 +130,13 @@ reference remains `ordinary-heterogeneous-handlers-v1/ts-shared-v1`: 96 checkpoi
 12 applications and complete 377,471-byte output, with the recorded global-apply
 versus selected-marker difference retained.
 
-The remaining ordinary API gap is machine-reader lifecycle wiring: consumers
-currently provide registration create/validate/remove callbacks and open/finish
-stream handling themselves. An additive ordinary adapter must bind that existing
-wiring once, retaining Managed ownership, foreign-world refusal, cursor rules and
-accepted disposal through `machine-stream.dispose`. Existing generic cleanup and
+The ordinary reader adapter replaces fixture-owned registration create/validate/
+remove callbacks and open/finish handling, retaining Managed ownership,
+foreign-world refusal, cursor rules and accepted `machine-stream.dispose`. Existing generic cleanup and
 fixture evidence establishes the behavior basis, not an integrated ordinary
 machine-reader API. Engine-marker/whole-Bundle disposal is separate ownership scope.
 
-The current adapter candidate derives its stream declaration from the ordinary
+The integrated adapter derives its stream declaration from the ordinary
 initialization declaration and supplies `register`, `read`, `skip` and `dispose`.
 Its two-schema initialization consumer replaces manual callbacks and passes
 complete JS/Native output against all 105,004 independently derived bytes.
@@ -150,8 +147,7 @@ reads once before returning an empty result. The reached wrong-reader-disposal
 mutation produces the independent 17,433-byte counter-output and rejects normal.
 Affine-positive, owner-duplication and cross-schema controls pass their intended
 outcomes. Root adoption matches all 35/38 source bodies. The [portable packet](../../experiments/public-machines/ordinary-initialization-v1/ordinary-reader-v1/delivery-v1/README.md)
-and independent bounded review pass. Full #48 remains open for the first-use
-skip/retention observation described below.
+and independent bounded review pass. The first-use skip/retention observation below completes the remaining semantic gate.
 
 The stream cursor records the consumed transition boundary before the callback;
 the registry cursor records component freshness after successful execution.
@@ -160,7 +156,8 @@ fixture; these finite observations are not a universal proof.
 
 ### Issue-level semantic reconciliation
 
-Independent review accepts the bounded adapter. The current acceptance joins are:
+**Semantic acceptance complete.** Independent final review accepts the joined
+checklist below. Combined performance remains under #21/#23/#24.
 
 | Required behavior | Current evidence and applicability |
 | --- | --- |
@@ -178,8 +175,9 @@ is administrative; existing ValueRead/ValueWrite controls cover the separate
 gameplay grant boundary. No universal proof or whole-Bundle disposal contract
 is claimed by this delivery.
 
-Remaining semantic gate: register a reader, skip it before its first read, then
-read a transition that is still retained. The current skip fixture first activates
-the reader, so it does not cover this first-use cursor rule. Bevy's default
-MessageCursor starts before existing messages; reconcile that behavior with the
-Bend stream's lazy activation and execute the ordinary consumer before closing #48.
+The first-use skip/retention gap is now runtime-qualified: the ordinary consumer
+registers a reader over a retained Initial batch, skips before any activation,
+then reads that notification once. Repeat is empty; an independent reader still
+receives the same notification. Both schemas and final disposal are observed.
+JS and Native match all 13,717 independently derived bytes. This follows Bevy's
+zero-initialized MessageCursor using Bend's lazy stream activation. The updated seven-role packet and independent final issue-level review pass.

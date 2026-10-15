@@ -1,0 +1,1170 @@
+{
+  "A": [
+    {
+      "label": "registered-before-open",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [
+        [
+          1,
+          "first",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ],
+        [
+          2,
+          "survivor",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ]
+      ],
+      "owners": [
+        {
+          "identity": 1,
+          "name": "first",
+          "cursor": 0
+        },
+        {
+          "identity": 2,
+          "name": "survivor",
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "label": "cold-skip-before-first-open",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [
+        [
+          1,
+          "first",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ],
+        [
+          2,
+          "survivor",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ]
+      ],
+      "owners": [
+        {
+          "identity": 1,
+          "name": "first",
+          "cursor": 0
+        },
+        {
+          "identity": 2,
+          "name": "survivor",
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "label": "first-read-after-cold-skip;callback=success;values=[initial:A];lagged=false",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [
+        [
+          1,
+          "first",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ],
+        [
+          2,
+          "survivor",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ]
+      ],
+      "owners": [
+        {
+          "identity": 1,
+          "name": "first",
+          "cursor": 1
+        },
+        {
+          "identity": 2,
+          "name": "survivor",
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "label": "first-repeat;callback=success;values=[];lagged=false",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [
+        [
+          1,
+          "first",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ],
+        [
+          2,
+          "survivor",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ]
+      ],
+      "owners": [
+        {
+          "identity": 1,
+          "name": "first",
+          "cursor": 1
+        },
+        {
+          "identity": 2,
+          "name": "survivor",
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "label": "local-dispose;accepted",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [
+        [
+          2,
+          "survivor",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ]
+      ],
+      "owners": [
+        null,
+        {
+          "identity": 2,
+          "name": "survivor",
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "label": "independent-survivor;callback=success;values=[initial:A];lagged=false",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [
+          [
+            2,
+            1,
+            1
+          ]
+        ],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [
+        [
+          2,
+          "survivor",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ]
+      ],
+      "owners": [
+        {
+          "identity": 2,
+          "name": "survivor",
+          "cursor": 1
+        },
+        null
+      ]
+    },
+    {
+      "label": "local-dispose;accepted",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [],
+      "owners": [
+        null,
+        null
+      ]
+    }
+  ],
+  "B": [
+    {
+      "label": "registered-before-open",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [
+        [
+          1,
+          "first",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ],
+        [
+          2,
+          "survivor",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ]
+      ],
+      "owners": [
+        {
+          "identity": 1,
+          "name": "first",
+          "cursor": 0
+        },
+        {
+          "identity": 2,
+          "name": "survivor",
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "label": "cold-skip-before-first-open",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [
+        [
+          1,
+          "first",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ],
+        [
+          2,
+          "survivor",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ]
+      ],
+      "owners": [
+        {
+          "identity": 1,
+          "name": "first",
+          "cursor": 0
+        },
+        {
+          "identity": 2,
+          "name": "survivor",
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "label": "first-read-after-cold-skip;callback=success;values=[initial:A];lagged=false",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [
+        [
+          1,
+          "first",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ],
+        [
+          2,
+          "survivor",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ]
+      ],
+      "owners": [
+        {
+          "identity": 1,
+          "name": "first",
+          "cursor": 1
+        },
+        {
+          "identity": 2,
+          "name": "survivor",
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "label": "first-repeat;callback=success;values=[];lagged=false",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [
+          [
+            1,
+            1,
+            1
+          ]
+        ],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [
+        [
+          1,
+          "first",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ],
+        [
+          2,
+          "survivor",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ]
+      ],
+      "owners": [
+        {
+          "identity": 1,
+          "name": "first",
+          "cursor": 1
+        },
+        {
+          "identity": 2,
+          "name": "survivor",
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "label": "local-dispose;accepted",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [
+        [
+          2,
+          "survivor",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ]
+      ],
+      "owners": [
+        null,
+        {
+          "identity": 2,
+          "name": "survivor",
+          "cursor": 0
+        }
+      ]
+    },
+    {
+      "label": "independent-survivor;callback=success;values=[initial:A];lagged=false",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [
+          [
+            2,
+            1,
+            1
+          ]
+        ],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [
+        [
+          2,
+          "survivor",
+          [
+            "machine.machine.state.transition.read"
+          ]
+        ]
+      ],
+      "owners": [
+        {
+          "identity": 2,
+          "name": "survivor",
+          "cursor": 1
+        },
+        null
+      ]
+    },
+    {
+      "label": "local-dispose;accepted",
+      "local": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "foreign": {
+        "clock": 1,
+        "current": "A",
+        "pending": null,
+        "previous": null,
+        "changed": true,
+        "revision": 1,
+        "defaults": 1,
+        "failure": false,
+        "events": [],
+        "batches": [
+          [
+            1,
+            "initial:A"
+          ]
+        ],
+        "positions": [],
+        "dropped": 0,
+        "frame_start": 0,
+        "watch_cursors": [
+          0,
+          0
+        ],
+        "watch_revisions": [
+          0,
+          0
+        ]
+      },
+      "registrations": [],
+      "owners": [
+        null,
+        null
+      ]
+    }
+  ]
+}

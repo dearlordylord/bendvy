@@ -1014,3 +1014,9 @@ reconciled instead of rerun; all 23 protected #28 source pins remain unchanged.
 Portable retention and bounded final review pass. Review identified one precise
 remaining scenario: a registered reader skipped before its first activation.
 These are observed avoided reruns, not a measured aggregate delivery-speed improvement.
+
+Reader integration `5e83795b3` passed CI 38822275712 (functional 2m15s). The
+review-discovered first-use skip case subsequently passed complete JS/Native
+13,717-byte observations using the same collector and limits; no core repair
+was needed. Only those two new roles were executed; the five qualified roles
+are reused in the selected packet. Overall delivery acceleration remains unmeasured.

@@ -9,21 +9,24 @@
   },
   "notes": [
     "The foreign standalone checker remains a recorded exit 1 for five IO-dependent definitions; its JS and Native roles are separate complete runtime passes.",
+    "The cold-skip source check is also recorded as exit 1 for expected IO/foreign definitions and is not described as a source pass; both runtime roles pass the independent source-derived oracle.",
     "A mutant pass means exact mutant-counteroracle equality and expected difference from the normal authority oracle.",
     "All oracle bytes were source-derived; this builder only validated hashes and bound retained receipts."
   ],
   "oracleCommits": [
     "e7f6fd964",
-    "39f77b95d"
+    "39f77b95d",
+    "3883b941b"
   ],
   "performanceClaim": false,
   "producerCommits": [
     "b2a577253",
     "79905daa5",
     "bae0ed70d",
-    "f3dba2fb3"
+    "f3dba2fb3",
+    "15eb2dab8"
   ],
-  "producerHead": "f3dba2fb32e5bb71934d783e53e59f347bf73df3",
+  "producerHead": "15eb2dab8d299b1e44b51bf7e1d2d634cdf6fb61",
   "producerWorktree": "/workspace/formal-proofs/bendvy-worktrees/machines48-ordinary-transition-reader",
   "roles": [
     {
@@ -90,10 +93,38 @@
       "receiptSHA256": "309c27c376eb2776e58021063088b7682850a54ac784b270270a95e1f7bface7",
       "scenarioKind": "mutant",
       "streamRoot": "/tmp/bendvy48-ordinary-reader-mutant-actual01/js"
+    },
+    {
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "cold-skip-js",
+      "outputBytes": 13717,
+      "outputSHA256": "fc061b6ba91bda51c9bf6eb41bf9864fdb631d3b69f6532d9df838d218c83d1c",
+      "planPath": "/tmp/bendvy48-ordinary-reader-cold-skip-actual01/js/plan.json",
+      "planSHA256": "06ab8b78addbde26c021b571e4603fc51db7b8f35d05278bbf8fad5d6e28d201",
+      "receiptPath": "/tmp/bendvy48-ordinary-reader-cold-skip-actual01/js/receipt.json",
+      "receiptSHA256": "1af13151cb289f8c3cce04b6872576170f361487e571503c15c5805a359e2a56",
+      "scenarioKind": "pass",
+      "streamRoot": "/tmp/bendvy48-ordinary-reader-cold-skip-actual01/js"
+    },
+    {
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "cold-skip-native",
+      "outputBytes": 13717,
+      "outputSHA256": "fc061b6ba91bda51c9bf6eb41bf9864fdb631d3b69f6532d9df838d218c83d1c",
+      "planPath": "/tmp/bendvy48-ordinary-reader-cold-skip-actual01/native/plan.json",
+      "planSHA256": "598ce51c5611197ff1fb33d722be85673f7286d5a078fc5ef3446cfd9f5a30bd",
+      "receiptPath": "/tmp/bendvy48-ordinary-reader-cold-skip-actual01/native/receipt.json",
+      "receiptSHA256": "65f2bc8c112a83f29a2b2979640af734e4775f0db83304a35a10a5bd76f8d50a",
+      "scenarioKind": "pass",
+      "streamRoot": "/tmp/bendvy48-ordinary-reader-cold-skip-actual01/native"
     }
   ],
-  "scope": "Ordinary machine transition-reader normal two-schema adoption, IO-created foreign World authority/refusal/disposal, retry, and one reached wrong-reader-disposal mutant. No performance or full-issue claim.",
+  "scope": "Ordinary machine transition-reader normal two-schema adoption, IO-created foreign World authority/refusal/disposal, retry, wrong-reader-disposal mutation control, and first-use cold skip with retained Initial notification and independent survivor. No performance or full-issue claim.",
   "sourceChecks": {
+    "coldSkipCheckScope": "Only expected foreign/IO dependency diagnostics; no source-pass claim. Raw stdout/stderr retained sourcechecks/cold-skip.*",
+    "coldSkipExit": 1,
     "foreignAttempts": 5,
     "foreignFinalExit": 1,
     "foreignStatement": "Final checker exit1 solely five foreign/IO dependent definitions; no type/parser/affine errors. Earlier repair failures retained. Shell display commands did not propagate checker exit; raw final diagnostic establishes no source-pass claim. Ordinary JS/Native required.",
@@ -121,6 +152,12 @@
       "entry": "experiments/public-machines/ordinary-initialization-v1/ordinary-reader-v1/foreign-disposal.bend",
       "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-ordinary-transition-reader/experiments/public-machines/ordinary-initialization-v1/ordinary-reader-v1/FOREIGN-SOURCE-FREEZE.json",
       "sha256": "47893ff8963c3cf9f3ce6df5e201e40e15ba0f873577cca3dca7450b54e367c7",
+      "sourceCount": 38
+    },
+    {
+      "entry": "experiments/public-machines/ordinary-initialization-v1/ordinary-reader-v1/cold-skip.bend",
+      "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-ordinary-transition-reader/experiments/public-machines/ordinary-initialization-v1/ordinary-reader-v1/COLD-SKIP-SOURCE.json",
+      "sha256": "2415c5862f9cfd9e6c06163c49a4a9168fb92e70d98b76bd1309b30a7efe3e14",
       "sourceCount": 38
     }
   ],
