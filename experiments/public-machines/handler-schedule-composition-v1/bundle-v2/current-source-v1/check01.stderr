@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a ../../../../../src/ecs/machine-stream.Stream pattern with 3 fields
+Location:
+92 |   match rest owner:
+93>|     case T.Resources{_,+slotValue,Stream.Stream{+batches,positions,dropped,start},readerOwner,locals,+tick,+prefix,+delivered,+applied}, (owned,text):
+   |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+94 |       (T.Resources{owned,slotValue,Stream.Stream{batches,positions,dropped,start},readerOwner,locals,tick,prefix,delivered,applied},"\"resource\":" ++ text ++ ",\"locals\":" ++ List.show(&2,U32,U32.show,localValues) ++ "," ++ slot(~S,slotValue) ++ ",\"streamReader\":" ++ readerText ++ ",\"publications\":" ++ List.show(&2,M.Transition<T.State>,transition,batch_values(batches)) ++ ",\"publicationTicks\":" ++ List.show(&2,Nat,Nat.show,batch_ticks(batches)) ++ ",\"deliveries\":" ++ List.show(&2,M.Transition<T.State>,transition,delivered) ++ ",\"tick\":" ++ Nat.show(tick) ++ ",\"structuralApplied\":" ++ U32.show(applied) ++ ",\"prefix\":" ++ List.show(&2,String,quote,prefix))
+bend 2.0.37 is available: run bend update

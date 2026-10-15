@@ -96,7 +96,8 @@ Remaining source reconciliation can reuse
 (registered callback pending retention, no stream reached) and
 `remaining-core-v1/ordinary-frontend-v1/PROMOTION.json` (failed publisher rollback,
 no stream reached). The existing `handler-schedule-composition-v1/bundle-v2`
-consumer needs exhaustive initial-notification cases and snapshot observers.
+consumer now has a current-source successor with exhaustive initial-notification
+cases and snapshot observers; see its bounded acceptance below.
 For cleanup, use the terminal `native-readiness-v1/ACTUAL-NATIVE-v3.md` and
 `INDEPENDENT-JS-ACTUAL-v2.md` under the existing stream-opt production-adoption
 packet: actual foreign invocation rejects in System before reader activation,
@@ -105,3 +106,35 @@ reader positions. Its failed-batch case is a failed reader, not a failed publish
 neither selected cleanup scenario executes skip. Compare the selected nested
 `current-core/ecs` sources, not the unused staging copies. These are bounded
 reached-body reuse candidates, not a claim of identical full source closures.
+
+### Current scheduled Bundle acceptance
+
+The existing [scheduled Bundle consumer](../../experiments/public-machines/handler-schedule-composition-v1/bundle-v2/current-source-v1/delivery-v1/README.md)
+executes unchanged operations through current canonical sources on JS and Native
+-O3. Both full 21,569-byte outputs match the independently revalidated old oracle.
+The retained three phase failure/retry lanes observe transaction rollback,
+previously committed work, persistent Local and a transition queued during Enter
+for the next marker. Initial-notification cases are exhaustive but unreachable in
+this pending-transition scenario. This is one schema and one machine, complemented
+by the ordinary initialization/condition consumers rather than claimed as their
+replacement. No production API or core changed.
+
+All 34 relocated source bodies match the qualified producer and the root entry
+passes the pinned check. Full #48 still requires the explicit reference and
+failed-publisher/reader-cleanup applicability joins described above.
+
+Current reconciliation confirms failed-publisher rollback through
+`ordinary-frontend-v1/public-successor-v1`: a failed writer rolls back pending
+machine state before any marker publication. Direct stream publication inside
+that failing transaction is not a required operation. The actual shared Node
+reference remains `ordinary-heterogeneous-handlers-v1/ts-shared-v1`: 96 checkpoints,
+12 applications and complete 377,471-byte output, with the recorded global-apply
+versus selected-marker difference retained.
+
+The remaining ordinary API gap is machine-reader lifecycle wiring: consumers
+currently provide registration create/validate/remove callbacks and open/finish
+stream handling themselves. An additive ordinary adapter must bind that existing
+wiring once, retaining Managed ownership, foreign-world refusal, cursor rules and
+accepted disposal through `machine-stream.dispose`. Existing generic cleanup and
+fixture evidence establishes the behavior basis, not an integrated ordinary
+machine-reader API. Engine-marker/whole-Bundle disposal is separate ownership scope.
