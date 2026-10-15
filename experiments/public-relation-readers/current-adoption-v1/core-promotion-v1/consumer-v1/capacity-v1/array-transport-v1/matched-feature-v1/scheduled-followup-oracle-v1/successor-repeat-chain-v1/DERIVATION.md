@@ -35,6 +35,8 @@ The resulting schedule sequence is exactly:
 8. fast repeat: System2;
 9. slow repeat: System3, then final rendering.
 
+Sch.System dispatch key4 selects the existing fast provider, whose actual World registry ID is2. It is a supplied schedule dispatch key, not a fourth registered system. World retains exactly writer1/fast2/slow3 and nextSystemId4; Sch.build validates the supplied dispatch catalog [1,2,3,4].
+
 The model executes this extracted finite plan using the existing source-derived operation/state helpers, stops immediately at a failed dispatch within its schedule, and records the real outcome before the next separately built schedule. Warm activation, failure cursor preservation, full active-skip identity, retry equality, independent slow view, both empty repeats, graph/stamp/allocator/shared-history observations and all terminal effects remain checked. Final query cursors are writer5/fast10/slow11 and final World clock11; there are 21 trace rows and nine schedule outcomes. The original setup failure is separately rejected: a one-slot column's raw target swap2 fails, whereas the selected source's ensure makes it fit.
 
 ## Finite negative controls and complete wire
