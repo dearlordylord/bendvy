@@ -1,0 +1,779 @@
+{
+  "scope": "Exact inverse import-only root-facing rebase; no fresh backend claim",
+  "normalSourceCommit": "21e785d9790b9eb30aa8c52019860b4e0fdee77b",
+  "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/consumer-io.bend",
+  "rows": [
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/admission.bend",
+      "qualifiedSHA256": "7782b2d83ece0e21ed57c0c7479fff09d02361a6eda7383821301b3fb1f14c10",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/admission.bend",
+      "rootSHA256": "c096b56bd385d095425fd4a6ecb2caf235d4ef0eafa0b392eadd0b1a8c7aacda",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend as Constructor\n",
+          "to": "import ../../../../src/ecs/decode-construction.bend as Constructor\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend as Build\n",
+          "to": "import ../../../../src/ecs/bundle-construction.bend as Build\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Decl\n",
+          "to": "import ../../../../src/ecs/persistence-declaration.bend as Decl\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col\n",
+          "to": "import ../../../../src/ecs/column.bend as Col\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Canonical\n",
+          "to": "import ../../../../src/ecs/ordinary-declaration.bend as Canonical\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/consumer-io.bend",
+      "qualifiedSHA256": "6b00a543b73805b21eb0ad39f929c30d63c261bae629f456f4d8db56ace27727",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/consumer-io.bend",
+      "rootSHA256": "6b00a543b73805b21eb0ad39f929c30d63c261bae629f456f4d8db56ace27727",
+      "importOnlyRewrites": []
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/consumer.bend",
+      "qualifiedSHA256": "82aa80846aa3ecce1479a2adf186833bcfa1d8bcf2d6e2a35d18065c7c57b2b1",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/consumer.bend",
+      "rootSHA256": "865c95da0729651e52dca39b2e84a1c852aa8b8dbdb488a820d97031dba23f68",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-leaf.bend as Leaf\n",
+          "to": "import ../../../../src/ecs/snapshot-leaf.bend as Leaf\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Decl\n",
+          "to": "import ../../../../src/ecs/persistence-declaration.bend as Decl\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/owner-product.bend as Product\n",
+          "to": "import ../../../../src/ecs/owner-product.bend as Product\n"
+        },
+        {
+          "line": 10,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-data.bend as Export\n",
+          "to": "import ../../../../src/ecs/snapshot-data.bend as Export\n"
+        },
+        {
+          "line": 12,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 13,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col\n",
+          "to": "import ../../../../src/ecs/column.bend as Col\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/driver.bend",
+      "qualifiedSHA256": "71cd9ededa57bb3d0172cacbf8a454e5415330ba49b941fde181732d66fd6a69",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/driver.bend",
+      "rootSHA256": "339ae46c79e951cce01f909f9e75c09b0b928f0bca6ac6b2b5b041c1285f1f94",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world-io.bend as WI\n",
+          "to": "import ../../../../src/ecs/world-io.bend as WI\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-leaf.bend as Leaf\n",
+          "to": "import ../../../../src/ecs/snapshot-leaf.bend as Leaf\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Decl\n",
+          "to": "import ../../../../src/ecs/persistence-declaration.bend as Decl\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/owner-product.bend as Product\n",
+          "to": "import ../../../../src/ecs/owner-product.bend as Product\n"
+        },
+        {
+          "line": 10,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-data.bend as Export\n",
+          "to": "import ../../../../src/ecs/snapshot-data.bend as Export\n"
+        },
+        {
+          "line": 13,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 14,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/format.bend",
+      "qualifiedSHA256": "f48fb7c0a32e74b7184f3b3f5300a70becb35a6b888054487bee62c7960686d8",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/format.bend",
+      "rootSHA256": "61b45acd843b386a5c6331abe39b287df176004193aeee95768151a4fbae2a87",
+      "importOnlyRewrites": [
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Declaration\n",
+          "to": "import ../../../../src/ecs/ordinary-declaration.bend as Declaration\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-leaf.bend as Leaf\n",
+          "to": "import ../../../../src/ecs/snapshot-leaf.bend as Leaf\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Decl\n",
+          "to": "import ../../../../src/ecs/persistence-declaration.bend as Decl\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-gate.bend as Gate\n",
+          "to": "import ../../../../src/ecs/snapshot-gate.bend as Gate\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-data.bend as Export\n",
+          "to": "import ../../../../src/ecs/snapshot-data.bend as Export\n"
+        },
+        {
+          "line": 13,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 14,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend as L\n",
+          "to": "import ../../../../src/ecs/lifecycle.bend as L\n"
+        },
+        {
+          "line": 15,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/game.bend",
+      "qualifiedSHA256": "0c33aaa3e2ffaf3f8f7090b0534504099facfb936a9aec3d244dc521be8cb3f1",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/game.bend",
+      "rootSHA256": "87f8bcd38e1a0a1fae832fed1641c797bd37042c07e1a821982c99aa347bd0ed",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/declared-family.bend as Family\n",
+          "to": "import ../../../../src/ecs/declared-family.bend as Family\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/component.bend as Cmp\n",
+          "to": "import ../../../../src/ecs/component.bend as Cmp\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Decl\n",
+          "to": "import ../../../../src/ecs/persistence-declaration.bend as Decl\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-leaf.bend as Leaf\n",
+          "to": "import ../../../../src/ecs/snapshot-leaf.bend as Leaf\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-schema.bend as Schema\n",
+          "to": "import ../../../../src/ecs/snapshot-schema.bend as Schema\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-product.bend as Join\n",
+          "to": "import ../../../../src/ecs/snapshot-product.bend as Join\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot.bend as Save\n",
+          "to": "import ../../../../src/ecs/snapshot.bend as Save\n"
+        },
+        {
+          "line": 10,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-data.bend as Export\n",
+          "to": "import ../../../../src/ecs/snapshot-data.bend as Export\n"
+        },
+        {
+          "line": 11,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        },
+        {
+          "line": 12,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 13,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col\n",
+          "to": "import ../../../../src/ecs/column.bend as Col\n"
+        },
+        {
+          "line": 14,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Canonical\n",
+          "to": "import ../../../../src/ecs/ordinary-declaration.bend as Canonical\n"
+        },
+        {
+          "line": 15,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/owner-product.bend as Product\n",
+          "to": "import ../../../../src/ecs/owner-product.bend as Product\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/legacy-column-provider.bend",
+      "qualifiedSHA256": "86e93ed567a4afb31b90a2ecf5eaf13dad1bb6dece4f7e8c2ef1c5425237663f",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/legacy-column-provider.bend",
+      "rootSHA256": "a938ca4d6b9c4aa437b989ebbbcd6029563ed41b0e7a89fbdd0cf820c7c05ae6",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col\n",
+          "to": "import ../../../../src/ecs/column.bend as Col\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-data.bend as Export\n",
+          "to": "import ../../../../src/ecs/snapshot-data.bend as Export\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/legacy-fixture.bend",
+      "qualifiedSHA256": "ba628fd2def5e085fd18e5007fa979277d36eda25090f54ae797f144ecb2a3b5",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/legacy-fixture.bend",
+      "rootSHA256": "f33bac3e463d6b5cddd3cfba4bfc38965bbbb4107d9002795c899bdaaa7e830e",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col\n",
+          "to": "import ../../../../src/ecs/column.bend as Col\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-data.bend as Export\n",
+          "to": "import ../../../../src/ecs/snapshot-data.bend as Export\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Definition\n",
+          "to": "import ../../../../src/ecs/ordinary-declaration.bend as Definition\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/legacy-owner.bend",
+      "qualifiedSHA256": "c1e49a760ad05a43ff0a32b1aba857d749f68f7aeb7015bb94fb9021ea6bddab",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/legacy-owner.bend",
+      "rootSHA256": "33a3c3cdf6d9d4b94f2aabb7fde8b5d2b58b86ad9544c0a4b93036f386b30926",
+      "importOnlyRewrites": [
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-data.bend as Export\n",
+          "to": "import ../../../../src/ecs/snapshot-data.bend as Export\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col\n",
+          "to": "import ../../../../src/ecs/column.bend as Col\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend as L\n",
+          "to": "import ../../../../src/ecs/lifecycle.bend as L\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/legacy-setup.bend",
+      "qualifiedSHA256": "7ba1bccc625df2a74811a8f94d752f1cac7d754cfe9a08adad3ba1905458f119",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/legacy-setup.bend",
+      "rootSHA256": "cb6f631d17ffc15b8df2ff159912160bd34f9141171b98d5c656c8e3042732d3",
+      "importOnlyRewrites": [
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col\n",
+          "to": "import ../../../../src/ecs/column.bend as Col\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/output.bend",
+      "qualifiedSHA256": "682e59aed1aab9120dfcf8f06eb60dbb773d79a600640044cb4d45471be257af",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/output.bend",
+      "rootSHA256": "d5cc87f6b5725f15bbdd9d23840747aa95b913a86b6d0e0726ef007fbfb9c157",
+      "importOnlyRewrites": [
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/owner.bend",
+      "qualifiedSHA256": "03c801e4e08b252e2c608e511fb2fef03a51701f31cba9cd210434a6ef7dea67",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/owner.bend",
+      "rootSHA256": "453226984224bf594dc31cb4bb7e93c62d77bd98ccb5b1c67656af82f3b6db99",
+      "importOnlyRewrites": [
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Decl\n",
+          "to": "import ../../../../src/ecs/persistence-declaration.bend as Decl\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-leaf.bend as Leaf\n",
+          "to": "import ../../../../src/ecs/snapshot-leaf.bend as Leaf\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col\n",
+          "to": "import ../../../../src/ecs/column.bend as Col\n"
+        },
+        {
+          "line": 9,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        },
+        {
+          "line": 10,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/owner-product.bend as Product\n",
+          "to": "import ../../../../src/ecs/owner-product.bend as Product\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/setup.bend",
+      "qualifiedSHA256": "34e1cad9ce01f1939f0602fc0198e0ff9341a6ef9280fe89568b7bbf605a78b1",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/setup.bend",
+      "rootSHA256": "c20fea35dc90b224ef61996737e91bed2257a75be9f7091bef5c4b4612cd2727",
+      "importOnlyRewrites": [
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Decl\n",
+          "to": "import ../../../../src/ecs/persistence-declaration.bend as Decl\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-leaf.bend as Leaf\n",
+          "to": "import ../../../../src/ecs/snapshot-leaf.bend as Leaf\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 9,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col\n",
+          "to": "import ../../../../src/ecs/column.bend as Col\n"
+        },
+        {
+          "line": 10,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        },
+        {
+          "line": 11,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/owner-product.bend as Product\n",
+          "to": "import ../../../../src/ecs/owner-product.bend as Product\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/supplement.bend",
+      "qualifiedSHA256": "8d19afe7bfbc26221556d689523f0347a05e56c004d3d0b9e938dc11bb792fca",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/supplement.bend",
+      "rootSHA256": "9258a1c4dab749e7f136beb1635259ef1b27be5e4b0907ddbe0e812acaba89f0",
+      "importOnlyRewrites": [
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend as Decl\n",
+          "to": "import ../../../../src/ecs/persistence-declaration.bend as Decl\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-schema.bend as Schema\n",
+          "to": "import ../../../../src/ecs/snapshot-schema.bend as Schema\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        },
+        {
+          "line": 9,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/column.bend as Col\n",
+          "to": "import ../../../../src/ecs/column.bend as Col\n"
+        },
+        {
+          "line": 10,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend as L\n",
+          "to": "import ../../../../src/ecs/lifecycle.bend as L\n"
+        },
+        {
+          "line": 11,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend as Fragment\n",
+          "to": "import ../../../../src/ecs/schema-fragments.bend as Fragment\n"
+        },
+        {
+          "line": 12,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Canonical\n",
+          "to": "import ../../../../src/ecs/ordinary-declaration.bend as Canonical\n"
+        },
+        {
+          "line": 13,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend as Ordinary\n",
+          "to": "import ../../../../src/ecs/ordinary-schema.bend as Ordinary\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/validation.bend",
+      "qualifiedSHA256": "571c9f25c8940ba019ac76c6c597b3eb32967deb77b1bda4e308645ed4ed3bb3",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/validation.bend",
+      "rootSHA256": "f6b785646927cfadea76f4340e4f8dec430e7605a3bd12740e605c5f9b3aa853",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend as Declaration\n",
+          "to": "import ../../../../src/ecs/ordinary-declaration.bend as Declaration\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-leaf.bend as Leaf\n",
+          "to": "import ../../../../src/ecs/snapshot-leaf.bend as Leaf\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/owner-product.bend as Product\n",
+          "to": "import ../../../../src/ecs/owner-product.bend as Product\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode.bend as Complete\n",
+          "to": "import ../../../../src/ecs/decode.bend as Complete\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-gate.bend as Gate\n",
+          "to": "import ../../../../src/ecs/snapshot-gate.bend as Gate\n"
+        },
+        {
+          "line": 9,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/snapshot-data.bend as Export\n",
+          "to": "import ../../../../src/ecs/snapshot-data.bend as Export\n"
+        },
+        {
+          "line": 10,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 11,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/decode-data.bend as D\n",
+          "to": "import ../../../../src/ecs/decode-data.bend as D\n"
+        }
+      ]
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/world-owner.bend",
+      "qualifiedSHA256": "7752326db8b0771d3dd73d19147993610e27b814b6cdab13d742b16ddb5d2a7b",
+      "rootPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/world-owner.bend",
+      "rootSHA256": "93b1f362903db83a5f689ecb20bf1bb2c444bd98244df5158fcfc7a6f26c3a5c",
+      "importOnlyRewrites": [
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        }
+      ]
+    }
+  ],
+  "canonicalDependencyJoins": [
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/bundle-construction.bend",
+      "rootRelativePath": "src/ecs/bundle-construction.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/bundle-construction.bend",
+      "sha256": "659fbf766f2d4d3768a0342ab30925c52b83fd28e79facc9868b5382a5048a59"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/bundle-pack.bend",
+      "rootRelativePath": "src/ecs/bundle-pack.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/bundle-pack.bend",
+      "sha256": "a900386d18d9e741ec9001dee0c8203366e6feac706b15db9db755a95e96f8f0"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/capabilities.bend",
+      "rootRelativePath": "src/ecs/capabilities.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/capabilities.bend",
+      "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/column.bend",
+      "rootRelativePath": "src/ecs/column.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/column.bend",
+      "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/component.bend",
+      "rootRelativePath": "src/ecs/component.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/component.bend",
+      "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/declared-family.bend",
+      "rootRelativePath": "src/ecs/declared-family.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/declared-family.bend",
+      "sha256": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/decode-capabilities.bend",
+      "rootRelativePath": "src/ecs/decode-capabilities.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/decode-capabilities.bend",
+      "sha256": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/decode-construction.bend",
+      "rootRelativePath": "src/ecs/decode-construction.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/decode-construction.bend",
+      "sha256": "39518ef0d17aa1b55ef09ee87b12b485eb63c0900064d52206ca4ebabb0d335b"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/decode-data.bend",
+      "rootRelativePath": "src/ecs/decode-data.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/decode-data.bend",
+      "sha256": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/decode-size.bend",
+      "rootRelativePath": "src/ecs/decode-size.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/decode-size.bend",
+      "sha256": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/decode-utf16.bend",
+      "rootRelativePath": "src/ecs/decode-utf16.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/decode-utf16.bend",
+      "sha256": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/decode.bend",
+      "rootRelativePath": "src/ecs/decode.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/decode.bend",
+      "sha256": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/indexed-lifecycle.bend",
+      "rootRelativePath": "src/ecs/indexed-lifecycle.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/indexed-lifecycle.bend",
+      "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/lifecycle.bend",
+      "rootRelativePath": "src/ecs/lifecycle.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/lifecycle.bend",
+      "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-declaration.bend",
+      "rootRelativePath": "src/ecs/ordinary-declaration.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/ordinary-declaration.bend",
+      "sha256": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.bend",
+      "rootRelativePath": "src/ecs/ordinary-schema.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/ordinary-schema.bend",
+      "sha256": "a694d2570202141ec906fd89fb0306d2ad8a55b2279a98b963daefe2b8f19ffc"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/owner-handoff.bend",
+      "rootRelativePath": "src/ecs/owner-handoff.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/owner-handoff.bend",
+      "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/owner-product.bend",
+      "rootRelativePath": "src/ecs/owner-product.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/owner-product.bend",
+      "sha256": "5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/persistence-declaration.bend",
+      "rootRelativePath": "src/ecs/persistence-declaration.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/persistence-declaration.bend",
+      "sha256": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend",
+      "rootRelativePath": "src/ecs/schema-fragments.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/schema-fragments.bend",
+      "sha256": "e161ff13196cd40b2218efc7734c2e1e661e74e09a754e6ff60cbe2b525d65ca"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/snapshot-data.bend",
+      "rootRelativePath": "src/ecs/snapshot-data.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/snapshot-data.bend",
+      "sha256": "9d86378d30177b9412a8443ca21cbc4c0181ed3e09c72001c638522bf1d4489e"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/snapshot-gate.bend",
+      "rootRelativePath": "src/ecs/snapshot-gate.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/snapshot-gate.bend",
+      "sha256": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/snapshot-leaf.bend",
+      "rootRelativePath": "src/ecs/snapshot-leaf.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/snapshot-leaf.bend",
+      "sha256": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/snapshot-product.bend",
+      "rootRelativePath": "src/ecs/snapshot-product.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/snapshot-product.bend",
+      "sha256": "7bea0f24bfb3051f5349494307364707a19a916bbfe684d5cb02da7c9fa7b999"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/snapshot-schema.bend",
+      "rootRelativePath": "src/ecs/snapshot-schema.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/snapshot-schema.bend",
+      "sha256": "c5eb06160ceb018b7d820a10164f83e53f54894e654db55a62d6dbca21bf4298"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/snapshot.bend",
+      "rootRelativePath": "src/ecs/snapshot.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/snapshot.bend",
+      "sha256": "cd10bf6002f09c377e084faa2a303e38446384f4cdd658f054dc6486dac2ebcf"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+      "rootRelativePath": "src/ecs/string-equality.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/string-equality.bend",
+      "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+      "rootRelativePath": "src/ecs/transaction.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/transaction.bend",
+      "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend",
+      "rootRelativePath": "src/ecs/world-io.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/world-io.bend",
+      "sha256": "1be0fcd577ecf177af89136f77e5c8e67894304a89adefaf0565591f641a63e9"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.bend",
+      "rootRelativePath": "src/ecs/world-namespace.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/world-namespace.bend",
+      "sha256": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7"
+    },
+    {
+      "qualifiedPath": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+      "rootRelativePath": "src/ecs/world.bend",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/world.bend",
+      "sha256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+    }
+  ],
+  "foreignSidecarJoins": [
+    {
+      "canonicalPath": "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.c",
+      "sha256": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/world-namespace.c"
+    },
+    {
+      "canonicalPath": "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.js",
+      "sha256": "f463bf328c4232fec85c67e328d93309e2191d80b7377be64355b6c1edd4f815",
+      "developmentCopy": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/src/ecs/world-namespace.js"
+    }
+  ],
+  "selectedDevelopmentTools": {
+    "/workspace/formal-proofs/bendvy/scripts/bend-check": "ba86c4a6eb9fd8482167bd07999d0d5aa01f697e02fd3cea50edf9c84b3791e4",
+    "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347",
+    "/home/node/.bend/bin/bend-2.0.35": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a"
+  }
+}
