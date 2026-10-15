@@ -111,8 +111,23 @@ its applicability audit; this reuses that workload's accepted gate without
 claiming new timings or Inspector performance.
 
 The matched lifecycle fixture separately has a source-derived oracle and actual
-TS/JS scale-1 passes against all 24,298 bytes. Native C emission reached its
-30-second deadline with empty logs; no C artifact, O3 build or Native consumer
-is qualified. Diagnose that blocker before another attempt. These lifecycle
-outputs are distinct from the 2,205-byte runtime-entry consumer; full feature
-timing/scaling and full #55 acceptance remain open.
+TS/JS/Native scale-1 passes against all 24,298 bytes. The first stock Native
+attempt reached its 30-second emission deadline on CPU3. A diagnostic source
+compiler completed all phases; a subsequent stock CPU5 attempt passed emission,
+ordinary O3 and the full consumer under the unchanged 30/120/5 limits, with ten
+clean guards. No source repair or workload reduction was needed. The lane and
+compiler differences prevent a causal timing claim about the first timeout.
+
+Repository-relative fixture imports have a reversible mapping to those executed
+sources and pass the five-second source check. They qualify the local-world
+logical Inspector lifecycle, not the process-wide allocator or independent-world
+guarantees of WorldIO. These lifecycle outputs are distinct from the 2,205-byte
+runtime-entry consumer; full feature timing/scaling and full #55 acceptance
+remain open.
+
+The [matched lifecycle packet](../../experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/ordinary-delivery-v1/README.md)
+retains all three scale-1 backend traces, the earlier Native timeout, the diagnostic
+profile and the root import mapping. Its 227-member offline verifier and fourteen
+malformed controls pass. The fixture, three independently derived scale oracles
+and the minimal TS staging import adapter are integrated; the stage preview is
+source-only and is not a performance result.

@@ -92,10 +92,10 @@ def main():
         reference = stage / 'experiments' / directory / 'reference.mjs'
         assert reference.is_file(), 'Runtime Inspector adapter must be integrated before staging'
         before = preflight.digest(reference)
-        old = "'" + str(ROOT / '.references/bevy-ts/packages/core/src/index.ts') + "'"
-        # The integrated reference already resolves the pinned canonical API.
-        assert reference.read_text().count(old) == 1, 'Runtime Inspector canonical TS import drift'
-        changes[str(reference.relative_to(stage))] = {'before': before, 'after': before, 'purpose': 'Retain pinned canonical TS API and complete callable lifecycle'}
+        old = "'../../../../.references/bevy-ts/packages/core/src/index.ts'"
+        new = json.dumps(str(ROOT / '.references/bevy-ts/packages/core/src/index.ts'))
+        reference.write_text(workloads.replace_once(reference.read_text(), old, new))
+        changes[str(reference.relative_to(stage))] = {'before': before, 'after': preflight.digest(reference), 'purpose': 'Resolve pinned canonical TS API; unchanged complete callable lifecycle'}
         for batches in [1, 2, 4]:
             name = f'inspect-runtime-{batches}'
             (harness / (name + '.bend')).write_text(workloads.bend_entry('inspect-runtime', batches))

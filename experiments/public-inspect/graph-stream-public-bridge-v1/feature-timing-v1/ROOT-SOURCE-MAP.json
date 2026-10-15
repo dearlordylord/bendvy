@@ -1,0 +1,573 @@
+{
+  "scope": "Import-only relocation of qualified scale1 source; not fresh backend execution",
+  "canonicalCoreSHA256": "bbfca9f7cfd4d838bdc3af19941fb70baf7a7f4727c079c70435c7669b6db573",
+  "rows": [
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/app.bend",
+      "qualifiedSHA256": "ce7fac28ac9c0d5b1644e1b60d17c612a669ae45a47fa52d2b95b4772b8862b8",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/app.bend",
+      "rootSHA256": "dc2ab563159536cc3b6ef887eb2bbb5076e2ea0ce876185ae81fbc97247bf9e5",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I\n",
+          "to": "import ../../../../src/ecs/inspector.bend as I\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend as Ev\n",
+          "to": "import ../../../../src/ecs/event-runtime.bend as Ev\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys\n",
+          "to": "import ../../../../src/ecs/system.bend as Sys\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A\n",
+          "to": "import ../../../../src/ecs/relation-commands.bend as A\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy-worktrees/inspector55-runtime-entry/experiments/public-inspect/inspector-runtime-entry-v1/ordinary-input-v2/stage/src/ecs/inspector-runtime.bend as IR\n",
+          "to": "import ../../../../src/ecs/inspector-runtime.bend as IR\n"
+        }
+      ]
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/category-run.bend",
+      "qualifiedSHA256": "ebee8b23cda8e62f7a5fdd5ae3c34b65ed982e6ba4f0b3a05593b4bc8e655355",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/category-run.bend",
+      "rootSHA256": "a82b958fc037734093a4f9906bccf0e080cd3a16e8db579585eb1b3134234f0c",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A\n",
+          "to": "import ../../../../src/ecs/relation-commands.bend as A\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-inspector-relation.bend as Decl\n",
+          "to": "import ../../../../src/ecs/ordinary-inspector-relation.bend as Decl\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I\n",
+          "to": "import ../../../../src/ecs/inspector.bend as I\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/check.bend as K\n",
+          "to": "import ../../../../src/ecs/check.bend as K\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys\n",
+          "to": "import ../../../../src/ecs/system.bend as Sys\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch\n",
+          "to": "import ../../../../src/ecs/schedule.bend as Sch\n"
+        },
+        {
+          "line": 9,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/schedule-checked.bend as Checked\n",
+          "to": "import ../../../../src/ecs/schedule-checked.bend as Checked\n"
+        }
+      ]
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/category.bend",
+      "qualifiedSHA256": "1f21abb86af09809bdb490b9698a10c6b9ca74b42b0633d88c6c1e679b12036a",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/category.bend",
+      "rootSHA256": "59fb04bd15206298387e21ab855525f99bd4c2d4a3642e70c39b0e80126da672",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A\n",
+          "to": "import ../../../../src/ecs/relation-commands.bend as A\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-query.bend as RQ\n",
+          "to": "import ../../../../src/ecs/relation-query.bend as RQ\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I\n",
+          "to": "import ../../../../src/ecs/inspector.bend as I\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/check.bend as K\n",
+          "to": "import ../../../../src/ecs/check.bend as K\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend as IQ\n",
+          "to": "import ../../../../src/ecs/inspector-query.bend as IQ\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Q\n",
+          "to": "import ../../../../src/ecs/inspector-query-projection.bend as Q\n"
+        },
+        {
+          "line": 9,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-app-relation.bend as Relation\n",
+          "to": "import ../../../../src/ecs/ordinary-app-relation.bend as Relation\n"
+        },
+        {
+          "line": 10,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-inspector-relation.bend as Decl\n",
+          "to": "import ../../../../src/ecs/ordinary-inspector-relation.bend as Decl\n"
+        }
+      ]
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/declarations.bend",
+      "qualifiedSHA256": "d35d21fdc8460f2717b208500d5e5acc6b968e31136575f7f8904c42ee6932cf",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/declarations.bend",
+      "rootSHA256": "1ae443c2913d10b2d477712b9328d433288da24db18e75b1cbced23f06c033f2",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-types.bend as G\n",
+          "to": "import ../../../../src/ecs/relation-types.bend as G\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-failure-reader.bend as Ord\n",
+          "to": "import ../../../../src/ecs/relation-failure-reader.bend as Ord\n"
+        }
+      ]
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/dump.bend",
+      "qualifiedSHA256": "bc9bc2f1e0f532eec58eef38b44a770d7b18f830854a1d23a90a11feebc31ef1",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/dump.bend",
+      "rootSHA256": "7b2a09ebf362bd839118f42523494d50b2bfbf816d72dd8e7025af2de8eef92d",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A\n",
+          "to": "import ../../../../src/ecs/relation-commands.bend as A\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-types.bend as G\n",
+          "to": "import ../../../../src/ecs/relation-types.bend as G\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M\n",
+          "to": "import ../../../../src/ecs/machine.bend as M\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend as St\n",
+          "to": "import ../../../../src/ecs/machine-stream.bend as St\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend as Ev\n",
+          "to": "import ../../../../src/ecs/event-runtime.bend as Ev\n"
+        }
+      ]
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/guard.bend",
+      "qualifiedSHA256": "dd454e72364a2855792a8e5d39cca453dd0ae0a9340d13f2a9f78273d16f0869",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/guard.bend",
+      "rootSHA256": "066470d23296f174724b538cf1d389df7e62c1e6820e00f50d110780b2a28852",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A\n",
+          "to": "import ../../../../src/ecs/relation-commands.bend as A\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/check.bend as K\n",
+          "to": "import ../../../../src/ecs/check.bend as K\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys\n",
+          "to": "import ../../../../src/ecs/system.bend as Sys\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/schedule.bend as Sch\n",
+          "to": "import ../../../../src/ecs/schedule.bend as Sch\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/schedule-checked.bend as Checked\n",
+          "to": "import ../../../../src/ecs/schedule-checked.bend as Checked\n"
+        }
+      ]
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/logical-main.bend",
+      "qualifiedSHA256": "f328b30d77d03c0a4c969707906e3471040bbddb557d23533c8261cde344ef57",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/logical-main.bend",
+      "rootSHA256": "f328b30d77d03c0a4c969707906e3471040bbddb557d23533c8261cde344ef57",
+      "importOnlyRewrites": []
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/machine-condition.bend",
+      "qualifiedSHA256": "2c3c8a33e7c28bc17ea8d79f87f99bca2f309a018f6c0efe1829af6804c1bf87",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/machine-condition.bend",
+      "rootSHA256": "988291a31a073f75c572b0e91c49c49d16b8d26ea75603e3057723749db5d5ce",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I\n",
+          "to": "import ../../../../src/ecs/inspector.bend as I\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/check.bend as K\n",
+          "to": "import ../../../../src/ecs/check.bend as K\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M\n",
+          "to": "import ../../../../src/ecs/machine.bend as M\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-declaration.bend as MD\n",
+          "to": "import ../../../../src/ecs/ordinary-machine-declaration.bend as MD\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-inspector-relation.bend as Decl\n",
+          "to": "import ../../../../src/ecs/ordinary-inspector-relation.bend as Decl\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A\n",
+          "to": "import ../../../../src/ecs/relation-commands.bend as A\n"
+        },
+        {
+          "line": 9,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap\n",
+          "to": "import ../../../../src/ecs/capabilities.bend as Cap\n"
+        }
+      ]
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/main.bend",
+      "qualifiedSHA256": "4d9a1c213d48a6e243d613cd91ab16a6ed6c421cc047393ab510fdf50a413137",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/main.bend",
+      "rootSHA256": "4d9a1c213d48a6e243d613cd91ab16a6ed6c421cc047393ab510fdf50a413137",
+      "importOnlyRewrites": []
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/reader-types.bend",
+      "qualifiedSHA256": "3dea697a5faada0407f0d089751a491f20d50cf58081db85761c9418cc3f3eac",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/reader-types.bend",
+      "rootSHA256": "a461f5b031ca29e2e8e1389e34fe7bed6f110d693d114d07bcc77d9cd8b020bb",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M\n",
+          "to": "import ../../../../src/ecs/machine.bend as M\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend as Ev\n",
+          "to": "import ../../../../src/ecs/event-runtime.bend as Ev\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-types.bend as G\n",
+          "to": "import ../../../../src/ecs/relation-types.bend as G\n"
+        }
+      ]
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/reader.bend",
+      "qualifiedSHA256": "31f14163623a5b72f9268b2222dd6cbfd86bbeab238f8c6eebb4c8a860da68e1",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/reader.bend",
+      "rootSHA256": "30e4f8f86a8cb73c8c63006b0f5e18d25bafbc5587d6ceb1b3ac30f48f73b52c",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys\n",
+          "to": "import ../../../../src/ecs/system.bend as Sys\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A\n",
+          "to": "import ../../../../src/ecs/relation-commands.bend as A\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-types.bend as G\n",
+          "to": "import ../../../../src/ecs/relation-types.bend as G\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M\n",
+          "to": "import ../../../../src/ecs/machine.bend as M\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend as St\n",
+          "to": "import ../../../../src/ecs/machine-stream.bend as St\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend as Ev\n",
+          "to": "import ../../../../src/ecs/event-runtime.bend as Ev\n"
+        },
+        {
+          "line": 9,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend as Failure\n",
+          "to": "import ../../../../src/ecs/inspector-failure-projection.bend as Failure\n"
+        }
+      ]
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/render.bend",
+      "qualifiedSHA256": "f03e8bae47838b1bf902fcf831a78ebf6e7c685e3c6aaf6554bd00c53308c850",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/render.bend",
+      "rootSHA256": "98356b1e8b01a842a9cb1615a7cdd03c4fa881f9373747b65714890e98b14117",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-query.bend as RQ\n",
+          "to": "import ../../../../src/ecs/relation-query.bend as RQ\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend as IQ\n",
+          "to": "import ../../../../src/ecs/inspector-query.bend as IQ\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Q\n",
+          "to": "import ../../../../src/ecs/inspector-query-projection.bend as Q\n"
+        }
+      ]
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/setup.bend",
+      "qualifiedSHA256": "29044750b4ecb3998c41caae212eaf10fef6b68ad62db7f653c88a3f9734e2d4",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/setup.bend",
+      "rootSHA256": "fb471db0d465bd61b1c8641e5d348ac6a79cb2c61dca30b6920cb1104edbfcbe",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A\n",
+          "to": "import ../../../../src/ecs/relation-commands.bend as A\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-types.bend as G\n",
+          "to": "import ../../../../src/ecs/relation-types.bend as G\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/transaction.bend as Tx\n",
+          "to": "import ../../../../src/ecs/transaction.bend as Tx\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M\n",
+          "to": "import ../../../../src/ecs/machine.bend as M\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend as St\n",
+          "to": "import ../../../../src/ecs/machine-stream.bend as St\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-operations.bend as MO\n",
+          "to": "import ../../../../src/ecs/ordinary-machine-operations.bend as MO\n"
+        },
+        {
+          "line": 9,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-declaration.bend as MD\n",
+          "to": "import ../../../../src/ecs/ordinary-machine-declaration.bend as MD\n"
+        },
+        {
+          "line": 10,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/system.bend as Sys\n",
+          "to": "import ../../../../src/ecs/system.bend as Sys\n"
+        }
+      ]
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/state.bend",
+      "qualifiedSHA256": "b658873a71f51a3046518a4450290f5b0468afe9323d0dee7a8988cc4203b10a",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/state.bend",
+      "rootSHA256": "7d3022fc388dd526ba2b992736855bbff44108fe2cb7506fa2daf08ff1c83fae",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M\n",
+          "to": "import ../../../../src/ecs/machine.bend as M\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend as St\n",
+          "to": "import ../../../../src/ecs/machine-stream.bend as St\n"
+        }
+      ]
+    },
+    {
+      "qualifiedInput": "/workspace/formal-proofs/bendvy-worktrees/inspector55-feature-timing/experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/canonical-input-v1/stage/union.bend",
+      "qualifiedSHA256": "5871340d1a7df345c73aeea413b5d0b0cefa86721b4ac61a54fa8d266dceebf8",
+      "rootRelativePath": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/union.bend",
+      "rootSHA256": "8c09e506a9ec4eb95c1033e49d647dd6437c1ed35075290c68c87530a58a0430",
+      "importOnlyRewrites": [
+        {
+          "line": 2,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/world.bend as W\n",
+          "to": "import ../../../../src/ecs/world.bend as W\n"
+        },
+        {
+          "line": 3,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector.bend as I\n",
+          "to": "import ../../../../src/ecs/inspector.bend as I\n"
+        },
+        {
+          "line": 4,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-stream-frame.bend as F\n",
+          "to": "import ../../../../src/ecs/inspector-stream-frame.bend as F\n"
+        },
+        {
+          "line": 5,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/event-runtime.bend as Ev\n",
+          "to": "import ../../../../src/ecs/event-runtime.bend as Ev\n"
+        },
+        {
+          "line": 6,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine.bend as M\n",
+          "to": "import ../../../../src/ecs/machine.bend as M\n"
+        },
+        {
+          "line": 7,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend as St\n",
+          "to": "import ../../../../src/ecs/machine-stream.bend as St\n"
+        },
+        {
+          "line": 8,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend as A\n",
+          "to": "import ../../../../src/ecs/relation-commands.bend as A\n"
+        },
+        {
+          "line": 9,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-types.bend as G\n",
+          "to": "import ../../../../src/ecs/relation-types.bend as G\n"
+        },
+        {
+          "line": 10,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/relation-query.bend as RQ\n",
+          "to": "import ../../../../src/ecs/relation-query.bend as RQ\n"
+        },
+        {
+          "line": 11,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query.bend as IQ\n",
+          "to": "import ../../../../src/ecs/inspector-query.bend as IQ\n"
+        },
+        {
+          "line": 12,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-query-projection.bend as Q\n",
+          "to": "import ../../../../src/ecs/inspector-query-projection.bend as Q\n"
+        },
+        {
+          "line": 13,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-relation-projection.bend as RP\n",
+          "to": "import ../../../../src/ecs/inspector-relation-projection.bend as RP\n"
+        },
+        {
+          "line": 14,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/inspector-failure-projection.bend as Fail\n",
+          "to": "import ../../../../src/ecs/inspector-failure-projection.bend as Fail\n"
+        },
+        {
+          "line": 15,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/ordinary-machine-declaration.bend as MD\n",
+          "to": "import ../../../../src/ecs/ordinary-machine-declaration.bend as MD\n"
+        },
+        {
+          "line": 16,
+          "from": "import /workspace/formal-proofs/bendvy/src/ecs/capabilities.bend as Cap\n",
+          "to": "import ../../../../src/ecs/capabilities.bend as Cap\n"
+        },
+        {
+          "line": 17,
+          "from": "import /workspace/formal-proofs/bendvy-worktrees/inspector55-runtime-entry/experiments/public-inspect/inspector-runtime-entry-v1/ordinary-input-v2/stage/src/ecs/inspector-runtime.bend as IR\n",
+          "to": "import ../../../../src/ecs/inspector-runtime.bend as IR\n"
+        }
+      ]
+    }
+  ],
+  "typescriptImportOnly": {
+    "qualifiedSHA256": "7df83064315b31b18a0a46b91bea7d292cef9ed60a816a85e8f37f457c9db961",
+    "rootSHA256": "667c5d8a798039be6c86c2b8f706b99995786f841c43c49668e13a386bdded15",
+    "from": "/workspace/formal-proofs/bendvy/.references/",
+    "to": "../../../../.references/",
+    "inverseRestoresQualifiedBytes": true
+  },
+  "sourceCheck": {
+    "path": "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/root-source-check-v1/receipt.json",
+    "sha256": "3142b31eab8709589b5209dd14416f3459880180558f8d7bf6b6b75abbd09712",
+    "exit": 0,
+    "capSeconds": 5,
+    "proofClaim": false
+  }
+}
