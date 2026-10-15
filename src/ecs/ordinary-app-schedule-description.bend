@@ -1,4 +1,5 @@
 import Base
+import ./ordinary-condition-composition.bend as Comp
 import ./ordinary-app-schedule.bend as Schedule
 import ./ordinary-app-schema.bend as SchemaApp
 import ./ordinary-app-observation-data.bend as DTO
@@ -42,3 +43,34 @@ def returned(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World
 # this adapter derives any placements. No new observation callback is accepted.
 def snapshot(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Fields.Fields<S>>,app:Schedule.Application<S,C,R,E,H,Rows,observe,fold>) -> Schedule.Application<S,C,R,E,H,Rows,observe,fold> & Maybe<&2,Description<S,Rows>>:
   returned(~S,~C,~R,~E,~H,~Rows,~observe,~fold,Schedule.snapshot(~S,~C,~R,~E,~H,~Rows,~observe,~fold,app))
+
+type ConditionPlacement is Data:
+  ConditionPlacement{position:Nat,namespace:U32,id:U32,slot:U32,condition:Maybe<&2,Comp.Description>}
+type ConditionedDescription<S:Data,Rows:Data> is Data:
+  ConditionedDescription{original:Description<S,Rows>,bindings:List<&2,Comp.BindingDescription>,placements:List<&2,ConditionPlacement>}
+def condition_selected(chosen:Bool,facts:Comp.Description,rest:Maybe<&2,Comp.Description>) -> Maybe<&2,Comp.Description>:
+  match chosen:
+    case True{}:Some{facts}
+    case False{}:rest
+def condition_for(bindings:List<&2,Comp.BindingDescription>,+id:U32) -> Maybe<&2,Comp.Description>:
+  match bindings:
+    case []:None{}
+    case Comp.BindingDescription{other,facts} <> rest:condition_selected(U32.is_eq(other,id),facts,condition_for(rest,id))
+def condition_step(~S:Data,namespace:U32,bindings:List<&2,Comp.BindingDescription>,position:Nat,planned:Schedule.PlannedStep<S>) -> List<&2,ConditionPlacement>:
+  match planned:
+    case Schedule.PlannedStep{Sch.System{+id,slot},_}:[ConditionPlacement{position,namespace,id,slot,condition_for(bindings,id)}]
+    case _ :[]
+def condition_placements(~S:Data,steps:List<&2,Schedule.PlannedStep<S>>,+namespace:U32,+bindings:List<&2,Comp.BindingDescription>,+position:Nat) -> List<&2,ConditionPlacement>:
+  match steps:
+    case []:[]
+    case first <> rest:List.append(&2,ConditionPlacement,condition_step(~S,namespace,bindings,position,first),condition_placements(~S,rest,namespace,bindings,1n+position))
+def with_conditions(~S:Data,~Rows:Data,+original:Schedule.Description<S,Rows>,+bindings:List<&2,Comp.BindingDescription>) -> ConditionedDescription<S,Rows>:
+  match original:
+    case Schedule.Description{_,namespace,_,steps}:ConditionedDescription{described(~S,~Rows,original),bindings,condition_placements(~S,steps,namespace,bindings,0n)}
+def conditions_returned(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Fields.Fields<S>>,~B:Type,~select:B -> W.World<S,C,R,E> -> U32 -> Comp.Evaluation<W.World<S,C,R,E>,B>,observed:Schedule.ConditionedApplication<S,C,R,E,H,Rows,observe,fold,B,select> & Maybe<&2,Schedule.ConditionDescription<S,Rows>>) -> Schedule.ConditionedApplication<S,C,R,E,H,Rows,observe,fold,B,select> & Maybe<&2,ConditionedDescription<S,Rows>>:
+  match observed:
+    case (app,None{}):(app,None{})
+    case (app,Some{Schedule.ConditionDescription{original,bindings}}):(app,Some{with_conditions(~S,~Rows,original,bindings)})
+# The standard App snapshot decides debug before any condition placement work.
+def snapshot_conditions(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Fields.Fields<S>>,~B:Type,~select:B -> W.World<S,C,R,E> -> U32 -> Comp.Evaluation<W.World<S,C,R,E>,B>,app:Schedule.ConditionedApplication<S,C,R,E,H,Rows,observe,fold,B,select>) -> Schedule.ConditionedApplication<S,C,R,E,H,Rows,observe,fold,B,select> & Maybe<&2,ConditionedDescription<S,Rows>>:
+  conditions_returned(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~B,~select,Schedule.snapshot_conditions(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~B,~select,app))

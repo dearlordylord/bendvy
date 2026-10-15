@@ -964,3 +964,13 @@ main-thread handoff; no independent reviewer was invoked in this side thread.
 Main-thread independent review of `ca436d224..fad6e9c5d` found no blocking process/CI regression: staged checks and selected admission remain local, all eleven infrastructure suites remain in CI. Clarified the umbrella remaining-core specification to match the approved consolidated-performance policy. On the next #43 acceptance reconciliation, existing complete observations and source/artifact applicability were reused without another compiler or benchmark run; a timing-only administrative blocker was removed after independent semantic audit. This is an observed acceptance effect, not a measured delivery-speed improvement. #48 development continues through the ordinary consumer path; its oracle worktree now uses the reduced hook.
 
 Next ordinary delivery (#48 initialization) used the existing collector and reduced hook: complete JS/Native correctness and a reached semantic mutant passed before integration review, without a separate comparative timing/scaling campaign. Existing #28 evidence was reused after checking all 23 protected source bindings. Missing type-check logs required focused recapture; deadlines under contention were retained as inconclusive, and successful type-boundary diagnostics were preserved. This records actual use of the shortened path, not a measured delivery-speed improvement.
+
+
+The next #48 condition-composition delivery used one complete JS/Native consumer,
+then one reached eager-RHS mutation and independent review through the existing
+collector. The 82-path producer graph was adopted through a 68-body source join
+and a successful relocated entry check; review found duplicate backend runs
+unnecessary for this path-only adoption. The protected #28 inventory still
+matches. Capacity evidence from a different experimental representation was
+explicitly excluded from canonical acceptance. No comparative campaign or new
+runner was added, and no delivery-speed improvement is claimed.

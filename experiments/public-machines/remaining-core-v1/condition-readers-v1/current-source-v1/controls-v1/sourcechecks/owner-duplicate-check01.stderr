@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : condition
+- observed : condition (consumed more than once)
+Location: rejected
+3 | 
+4>| def rejected(condition:F.guard_type(~F.SchemaA),world:F.world_type(~F.SchemaA)) -> Comp.Returned<F.world_type(~F.SchemaA),F.changed_type(~F.SchemaA),Comp.changed_run(~F.SchemaA,~F.MachineKey<F.SchemaA>,~U32,~F.Resources<F.SchemaA>,~F.take(~F.SchemaA),~F.put(~F.SchemaA),~Array<U32>,~String)> & F.guard_type(~F.SchemaA):
+  |              ^^^^^^^^^
+5 |   (Comp.run(~F.world_type(~F.SchemaA),~F.changed_type(~F.SchemaA),~Comp.changed_run(~F.SchemaA,~F.MachineKey<F.SchemaA>,~U32,~F.Resources<F.SchemaA>,~F.take(~F.SchemaA),~F.put(~F.SchemaA),~Array<U32>,~String),condition,world),condition)
+bend 2.0.37 is available: run bend update

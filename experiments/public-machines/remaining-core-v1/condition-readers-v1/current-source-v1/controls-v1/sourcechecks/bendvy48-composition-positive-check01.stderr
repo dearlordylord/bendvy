@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh constructor name (duplicate declaration: Key)
+- observed : 'Key'
+Location:
+12 | type SchemaB is Data: SchemaB{}
+13>| type Key<-S:Data> is Data: Key{}
+   |                            ^^^
+14 | type Resources<S:Data> is Type:
+bend 2.0.37 is available: run bend update

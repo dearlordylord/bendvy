@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : slowId
+- observed : slowId (consumed more than once)
+Context:
+- world  : W.World<assembled~S, P.Store<assembled~S>, F.Resources<assembled~S>, Unit>
+- owners : Systems.Owners<assembled~S>
+- fastId : U32
+Location: assembled
+100 |   match start:
+101>|     case StartReady{world,owners,fastId,slowId,level,flow}:
+    |                                         ^^^^^^
+102 |       scheduled_app(~S,fastId,slowId,plain_app(~S,world,owners),G.bindings(~S,fastId,slowId,level,flow))
+bend 2.0.37 is available: run bend update

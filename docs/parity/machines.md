@@ -43,3 +43,26 @@ Implementation owner: `missing_resource_direct_consumer`; shared-core integratio
 The public declaration-bound `init_state`/`insert_state` and App marker wrappers are integrated with initial Enter notification, occupied-init idempotence, pending/previous preservation and registered change observation. The [consumer and retained evidence](../../experiments/public-machines/ordinary-initialization-v1/current-delivery-v1/README.md) pass full JS/Native observations (105,004 bytes), an independently predicted reached idempotence mutant, affine `Type` admission and nominal-schema refusal. Independent Spec/Standards review passed; unchanged protected #28 source bindings are reused only for that workload. No new performance claim is made.
 
 Full #48 remains open for issue-level reconciliation of capacity/retention frames, broader conditions/marker combinations, disposal and foreign-authority applicability. Condition-false noninvocation preserves readers; this slice does not introduce a reader `run_if` API. Mirror checker recaptures hit the five-second deadline and remain inconclusive, separately from its successful full mutant execution.
+
+### Stateful condition composition acceptance
+
+The ordinary App schedule now accepts affine `in_state`/registered `state_changed`
+conditions composed with `not`, lazy `and_then` and lazy `or_else`. Bindings target
+actual scheduled system IDs; an unbound system runs unconditionally. A skipped
+right-hand condition retains its owner and cursor. Debug descriptions derive the
+condition structure and accesses from these same declarations.
+
+The [current consumer packet](../../experiments/public-machines/remaining-core-v1/condition-readers-v1/current-source-v1/delivery-v1/README.md)
+retains complete two-schema JS/Native observations (17,373 bytes), affine and
+cross-schema controls, and a reached eager-RHS mutant that rejects the normal
+oracle. Independent Spec/Standards review passed. Backend evidence binds the
+82-path producer import graph; adoption checks all 68 canonical source bodies
+and the relocated entry, with only a recorded trailing-newline normalization.
+Unchanged protected #28 bindings are reused for that workload only.
+
+Full #48 remains open. The retained 65,537-record capacity run selected an
+experimental queue-backed stream, not the canonical batch-list stream: it cannot
+qualify current capacity without a representation bridge or current execution.
+Marker-retention and foreign/disposal evidence still need exact current-source
+joins. This slice does not establish arbitrary fallible custom-condition parity,
+all refusal branches, or combined performance acceptance.

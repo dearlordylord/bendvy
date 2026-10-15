@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : '>' or ',' (a compound type argument takes parens: F<(A & B)>)
+- observed : '&'
+Location:
+27 | def composed_type(~S:Data) -> Type:Comp.Condition<world_type(~S),U32 & changed_type(~S),Comp.and_run(~world_type(~S),~U32,~changed_type(~S),~Comp.current_run(~S,~MachineKey<S>,~U32,~Resources<S>,~Init.take_slot(~S,~MachineKey<S>,~U32,~Resources<S>,~take(~S),~put(~S)),~Array<U32>,~String,~U32.is_eq),~Comp.changed_run(~S,~MachineKey<S>,~U32,~Resources<S>,~take(~S),~put(~S),~Array<U32>,~String))>
+28>| def binding_owner(~S:Data) -> Type:Comp.BoundOwner<U32 & changed_type(~S)>
+   |                                                        ^
+29 | def bindings_type(~S:Data) -> Type:Comp.Bindings<world_type(~S),Comp.BoundOwner<U32 & changed_type(~S)>,Comp.bound_run(~world_type(~S),~(U32 & changed_type(~S)),~Comp.and_run(~world_type(~S),~U32,~changed_type(~S),~Comp.current_run(~S,~MachineKey<S>,~U32,~Resources<S>,~Init.take_slot(~S,~MachineKey<S>,~U32,~Resources<S>,~take(~S),~put(~S)),~Array<U32>,~String,~U32.is_eq),~Comp.changed_run(~S,~MachineKey<S>,~U32,~Resources<S>,~take(~S),~put(~S),~Array<U32>,~String)))>
+bend 2.0.37 is available: run bend update
