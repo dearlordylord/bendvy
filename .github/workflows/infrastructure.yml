@@ -11,10 +11,21 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check committed sources and whitespace
+        env:
+          DIFF_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          DIFF_HEAD: ${{ github.sha }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" = pull_request ]; then
+            python3 scripts/check-python-source.py --diff-base "$DIFF_BASE" --diff-head "$DIFF_HEAD" --merge-base
+          else
+            python3 scripts/check-python-source.py --diff-base "$DIFF_BASE" --diff-head "$DIFF_HEAD"
+          fi
       - name: Runner, logs, tool pins and statistics
         run: |
-          sh .githooks/pre-commit
-          python3 scripts/check-coordination.py
           python3 scripts/test-task-runner.py
           python3 scripts/test-evidence-boundary.py
           python3 scripts/test-receipt-logs.py

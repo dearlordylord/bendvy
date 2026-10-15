@@ -44,6 +44,11 @@ Existing declared gates remain binding; this shorter policy adds no tolerance.
 Use existing verifiers for exact plan/receipt/source/raw-output joins and complete
 oracle equality. Deliver one evidence package and final review per capability or
 integrated slice; receipts retain intermediate stages without separate manual reports.
+Maintain the selected current packet and prerequisites actually reused by it.
+Historical packets remain immutable references, not a rolling compatibility suite.
+When a current packet needs repair, change that packet; migrate older verifiers
+only when their evidence is required for the delivery. Remove a redundant live
+check only after identifying its surviving failure detector and callers.
 See [verification details](reference/evidence-runner-details.md#portable-evidence-verification)
 when changing a verifier.
 

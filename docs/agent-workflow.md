@@ -21,8 +21,9 @@ then bevy-ts inventory govern implementation choices.
 3. Before preparing a multi-scenario qualification package, execute one complete
    ordinary consumer on every required backend against its full oracle, or reuse
    matching qualified evidence under [check policy](check-policy.md). If a backend
-   is blocked, resolve that blocker; prepare additional scenarios only when needed
-   to diagnose it. After all required backends pass, prepare the remaining affected
+   is blocked, resolve that blocker within this capability; continue independent
+   capabilities. Prepare additional scenarios only when needed to diagnose it.
+   After all required backends pass, prepare the remaining affected
    gates through an existing runner. Batch changes for the unchanged
    [regression gate](../benchmarks/README.md) on the integrated result.
 4. Deliver exact commit, owned files, source-bound receipts, complete outputs and

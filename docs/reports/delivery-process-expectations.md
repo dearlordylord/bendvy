@@ -787,3 +787,156 @@ The next #56 three-role batch exposed one concrete preflight gap: the existing c
 2026-10-15 next adoption: the #43 full-capacity successor applies full receipt-path/manifest joins and same-basename/wrong-parent refusal to 942 logical paths and 21 retained roles. Relocated-copy and source-drift controls, independent final Spec/Standards reviews and 137 infrastructure tests pass. Existing runtime outputs were reused without compilation or benchmarks. Historical Runtime08 remains unchanged and its successor obligation remains open; no aggregate delivery-speed gain is established.
 
 2026-10-15 scheduled-reader delivery: `ca17e431a` reuses the ordinary collector for four JS/Native success roles and two current-source JS mutant controls. The single retained packet checks 583 full paths, 263 objects and ten roles including failed/unexecuted history; same-basename/wrong-parent, relocation and drift controls pass. Independent final Spec/Standards review, eleven infrastructure scripts and CI 38762806597 (functional 2m04s) pass. All 77 unrelated tracked workspace states were preserved. This confirms another concrete application of bounded staging and stream joins; it does not measure aggregate delivery acceleration or repair the historical Runtime08 verifier.
+
+## Delivery-cost reduction — 2026-10-15 execution checklist
+
+User-requested follow-up to the side-thread retrospective. This section is today's
+execution reference in the existing report; it adds no separate plan or reporting
+system. Preserve earlier observations. The user requested coverage of every
+identified source of work, including deletion of checks with no incremental value.
+The rows below are implementation candidates, not claims of completed changes.
+Main-thread owners and live frozen runs retain their assignments and inputs.
+
+Inspection baseline: `.githooks/pre-commit` runs eleven infrastructure test scripts
+for any staged Python file or change under scripts/benchmarks/hooks/workflows.
+CI explicitly runs those suites, and also invokes a staged-only hook after clean
+checkout. That hook invocation does not inspect the PR diff. This is NOT eleven
+duplicate CI suite executions: the hook's broad branch normally skips on an empty
+index. Coordination validation is duplicated by the explicit CI command and
+`test-retro-v1plus1.py:test_current_table`. Seven experimental admission suites
+share broad helper triggers. Tracked experiments/scripts contain 1,955 Python
+paths, 157 `verify.py` paths and 239 `FINAL-REVIEW.md` paths, including historical
+copies; these counts are an inventory signal, not proof that those files are
+redundant or actively maintained. No runtime costs were measured in this audit.
+
+| ID / priority | Files and source of work | Change / removal candidate | Expected saving and retained protection | Completion / current status |
+|---|---|---|---|---|
+| R1 / first | `.githooks/pre-commit`, `scripts/test-pre-commit.py`; eleven suite commands also listed in `.github/workflows/infrastructure.yml` | Remove the all-Python => all-infrastructure-suite local trigger. Keep staged syntax/policy, whitespace, explicit ownership/preflight, and affected controls. Keep complete infrastructure suites in CI; exercise changed shared infrastructure locally where useful. Update tests that currently require broad dispatch. | Fewer unrelated suites per oracle/fixture edit. Full infrastructure coverage still runs before delivery through CI. Local feedback moves later for unrelated failures; do not call this zero tradeoff. | Implemented locally; focused selection controls pass. Demonstrate experiment-only, core-only, shared-helper and hook edits select intended checks; preserve complete CI suite membership. Record skipped invocations and one real commit's duration. |
+| R2 / first | `.github/workflows/infrastructure.yml`, `scripts/check-python-source.py`, `.githooks/pre-commit`, `scripts/test-pre-commit.py` | Replace CI's staged-only hook invocation with checks against actual changed committed files. Use PR merge-base and push before/after with sufficient fetched history; define initial/missing-base fallback. Reuse the existing Python checker and whitespace check. | Removes a misleading no-op and validates the submitted change without rerunning the local hook. This improves coverage; time saving is not assumed. | Implemented locally; focused controls pass for changed Python rejection from a clean index, valid changes, deletions, unusual filenames, and base fallback. Preserve the AST source policy and explicit infrastructure suite run. |
+| R3 / first | `scripts/run-admission-controls.py`, `scripts/test-pre-commit.py`, every `CONTROL_SETS` entry and its declared dependencies | Audit all seven groups: chunked-output preservation, lowering-cost source, Inspector preparation, TS fullcapacity admission, simulation sampling, timing and after-profile. Remove unrelated shared-helper triggers; keep real execution/import dependencies. Retire a historical group from routine dispatch only after locating current consumers and retained evidence users. | Fewer historical experiments run for unrelated helper changes; active caller compatibility and exact staged-byte checks remain. | Partially implemented locally (two groups); account for each existing dependency edge as kept/removed with its source reason. In particular inspect receipt-helper triggers for pure source-preservation checks. Selection controls must demonstrate both affected execution and unrelated omission. No blanket removal of all seven groups. |
+| R4 / small | `.github/workflows/infrastructure.yml`, `scripts/test-retro-v1plus1.py`, `scripts/check-coordination.py` | Remove the separate CI table-validation command; retain `test_current_table`, malformed/sprawl controls and the staged table check. | One redundant CI invocation removed; same current-table predicate remains. Small saving only. | Implemented locally; retained test invokes the same `check` on the current table; confirm malformed table remains rejected. |
+| R5 / high | `experiments/**/verify.py`, `**/FINAL-REVIEW.md`, `**/LAUNCH-REVIEW.md`, packet builders/manifests and their callers; `docs/parity/*.md`, `docs/reference/core-map.md`, `docs/check-policy.md` | Classify selected current evidence, actively reused prerequisites, and historical attempts through existing capability links. Stop updating historical verifiers to today's infrastructure by default. Delete redundant live copies only after checking imports, manifests, CLI entrypoints and source pins. Preserve historical content in Git/archive and its existing reference. Reuse existing verifier primitives when touching a current verifier. | Less packet/version maintenance and repeated review. Current evidence must still establish source, execution and full oracle equality. Preserve original failed outcomes. | Pending inventory, not permission for bulk deletion. For every proposed deletion identify its surviving check and users, or mark the missing coverage. Do not build a new evidence framework or migrate all 157 verifiers. |
+| R6 / high | `docs/agent-workflow.md`, `docs/check-policy.md`, `docs/reference/evidence-runner-details.md`, current capability consumer/oracle/serializer files and linked review packets | Apply existing small ordinary-consumer-first workflow. Keep complete relevant observation; separate semantic fixtures from capacity/scaling volume. Freeze acceptance packaging after the consumer works. One final review/package per integrated slice; remove extra manual stage admissions for unchanged reviewed runners. Reuse valid outputs after documentation-only changes. | Fewer serializer repairs, frozen-plan successors and review handoffs before a useful feature lands. Small fixtures do not substitute for explicitly required capacity gates. | Pending next-delivery observation. Name the public operation delivered, reused evidence, actual new checks and final integration. Do not add another report per intermediate stage. |
+| R7 / high, acceptance amendment | `docs/parity/relation-readers.md` delivery requirements and other feature specs with timing/scaling clauses; governing GitHub issues; `docs/SPEC.md`, `benchmarks/README.md`, #21/#23/#24 and #28 references | Prepare one coherent amendment moving mandatory per-feature comparative timing/scaling to combined full-feature qualification. Keep functional boundary/scaling correctness where contract-sensitive, targeted measurements for hot-path changes/regressions, and existing combined #28 regression. Align all affected issue/spec requirements before treating a feature as accepted under the new boundary. | Removes repeated timing campaigns as a barrier to each semantic delivery. Final JS <= TS and Native <= 0.5 * TS goals and statistical criteria remain. Tradeoff: some feature-specific performance defects are discovered at combined qualification. | Approved by the user’s subsequent "Ну давай, вперед" after presentation of the exact amendment. Applied to27 feature specifications, SPEC and benchmark policy; issue synchronization is recorded below. |
+| R8 / medium | `scripts/check_preflight.py`, `scripts/owned-tool-pins.py`, existing collectors using them, `docs/reference/evidence-runner-details.md` | Inspect repeated full environment/resource discovery and avoid incidental-shell invalidation by using the same explicit execution environment for preparation and execution. Reuse existing PinnedTools only where its closed inventory is already justified. Remove duplicate probes only after tracing their inputs; avoid a new resolver-inventory project without measured benefit. | Fewer repeated probes and avoidable receipt invalidations. Compiler, resolver inputs, generated artifacts and meaningful environment changes still invalidate evidence. | Investigation pending. Identify an actual current caller and probe counts first; preserve drift/refusal controls. Never merely drop environment keys from a receipt while allowing those keys to affect execution. |
+| R9 / high operational | `docs/parity/README.md`, linked capability status/issue requirements, `docs/agent-workflow.md`; existing batch manifests and `scripts/delivery_batch.py` | Keep contention HOLD local to comparative measurements; continue independent semantics/features. Use existing sequencing for ready ordinary jobs. Reconcile old A–H drafts with current accepted work before creating tasks; keep remaining gates visible in existing rows. | Fewer idle handoffs and repeated planning. Preserve heavy-run serialization, owners and failed-stage stops. | Existing mechanisms; next delivery must show actual use. Record a concrete delivered capability while timing waits. No new scheduler, tracking layer or broad task fan-out. |
+| R10 / medium | `scripts/test-retro-controls.py`, `scripts/test-retro-v1plus1.py`, shared validators and current packet negative controls | Distinguish duplicate checks from checks at different trust boundaries. Consolidate repeated same-input/same-predicate tests where the surviving test covers the actual caller. Keep real wrong-path, wrong-collector, stale-source, affine/authority, rollback and reached semantic-defect controls. | Lower maintenance without deleting unique failure detection. A unit test alone does not replace a caller integration test. | Pending targeted review alongside R1–R5, not a new exhaustive testing project. Each deletion records the surviving failure detector; tests solely asserting obsolete broad dispatch change with R1/R3. |
+| R11 / continuous | This report, `docs/parity/README.md`, capability docs, `docs/agent-workflow.md`, `docs/check-policy.md` | Keep implementation result and review requirements in their existing homes. Replace repeated historical narration in active status with links. Remove duplicate instructions where one authoritative rule suffices. Report product capability and remaining gate before receipt/archive counts. | Less reading, rewriting and context recovery. History remains accessible; existing acceptance status remains truthful. | Pending edits only where touched by this work. No new global instructions, document split or recurring reporting obligation. |
+
+Execution order: R1–R4 as one focused infrastructure change with existing tests;
+R5/R6/R8/R10 only against the next selected live delivery, so cleanup does not
+become a replacement product; R7 as one explicit requirements amendment; R9/R11
+apply during ordinary delivery. Shared infrastructure edits must be coordinated
+with the main-thread owner before modifying frozen inputs or a live execution.
+The side thread currently owns only this appended report section.
+
+For every row update this table in place with the actual files changed/deleted,
+commit, retained failure coverage, focused check result and observed effect.
+Use existing logs/CI durations to record elapsed time, suite/probe invocations,
+manual handoffs and useful integrated result. Record unmeasured savings as
+unmeasured; do not infer speedup from file counts or compare contended runs as a
+controlled experiment. No new telemetry runner or benchmark is needed for this
+cleanup. An item may finish as "keep" with a concrete reason; no source of work
+above should disappear merely because deletion was unsafe.
+
+Implementation update (2026-10-15, side thread; local, not committed):
+
+- R1 implemented in `.githooks/pre-commit` and `scripts/test-pre-commit.py`:
+  eleven broad infrastructure-suite invocations removed from local commits.
+  Staged policy/whitespace, ownership/preflight and selected admission controls
+  remain. All eleven infrastructure suites remain explicit in CI.
+- R2 implemented in `.github/workflows/infrastructure.yml` and
+  `scripts/check-python-source.py`: CI checks committed Python bytes and whitespace
+  using PR merge-base or push before/after, with full history checkout. A missing
+  base conservatively checks the full tree; an invalid head fails. The old
+  staged-only CI hook invocation is removed. Full-tree fallback may expose
+  historical policy violations; it fails visibly rather than skipping checks.
+- R3 partially implemented in `scripts/run-admission-controls.py`: source
+  preservation and lowering-cost controls no longer depend on receipt logging or
+  evidence-boundary helpers. Their actual task-runner dependency remains. Those
+  two helper edits select five suites instead of seven. The other five groups
+  remain unchanged pending dependency inspection; no historical test was deleted.
+- R4 implemented: remove the separate CI coordination command; the existing
+  `test-retro-v1plus1.py:test_current_table` and staged check retain validation.
+- Focused controls in `scripts/test-pre-commit.py` cover clean-index committed
+  syntax failure, unusual filename, deletion, missing-base fallback, merge-base,
+  invalid head, and working-tree repair failing to conceal bad committed bytes.
+  Selection controls cover omitted source suites and retained task-runner fanout.
+- R5–R11 remain as listed above. Acceptance amendments are not applied. No
+  compiler, benchmark, live queue, staging or commit was invoked. Counts removed
+  are established from dispatch; end-to-end delivery savings are unmeasured.
+
+Validation: 16 hook/diff/selection tests and four pinned-wrapper/table tests PASS;
+selected Python source-policy checks PASS. Whitespace check PASS after removing
+a trailing blank line. GitHub CI has not run for these uncommitted changes.
+
+### R1–R11 disposition after implementation and dependency inspection
+
+Side-thread continuation: the preceding final message did not start background
+work. The interval before this continuation contained no side-thread execution.
+
+| Item | Concrete outcome / remaining boundary |
+|---|---|
+| R1/R2/R4 | Implemented locally in the files listed above. All eleven configured infrastructure suites were executed once and PASS. Committed-diff/hook controls:16 PASS; table/pinned-wrapper controls:4 PASS. CI still needs to run after main-thread integration. |
+| R3 | All seven groups inspected. Preserve task-runner dependency for chunked-source and lowering-cost callers; remove their unrelated boundary/log dependencies. Inspector preparation loads task_runner and evidence_boundary, not receipt-logs: remove the latter. Sampling receipt control evaluates a pure admission predicate from prepare-sampling: remove all three runtime-helper triggers. TS fullcapacity actually loads runner/boundary/logs/comparator: retain them. Timing dispatch covers run-delivery, and after-profile remains coupled to that collector's output: retain those conservative caller triggers. Result: task_runner edits select6 groups, evidence_boundary4, receipt-logs3, previously7 each. All groups still run for selector edits; direct collector/validator triggers remain. Historical test bodies are unchanged. |
+| R5 | Inspected selected #43 scheduled-followup delivery README and verifier. It checks current normal, independent-world and two semantic-mutant evidence; predecessor outcomes and disposal applicability have distinct roles. No whole verifier or archive was established redundant. Keep this selected verifier. check-policy now limits maintenance to selected current packets and actually reused prerequisites; no bulk historical migration. Historical files remain recoverable and unchanged. |
+| R6 | Existing workflow already requires a small ordinary consumer before large packages and one final review. Retain those rules rather than invent another admission. The selected #43 small consumer is26,254 bytes; the current packet reuses a disposal bridge instead of replaying it. No reason to rewrite that consumer/serializer or remove its full observation. Future capacity checks remain separate where required. |
+| R7 | Approved and applied to the27 matching feature specifications, SPEC and benchmark policy; corresponding issue bodies are synchronized before publication. Retains correctness, #28 and final performance criteria; no issue is automatically closed. |
+| R8 | `experiments/public-simulation/delivery-v1/installed-config.py:environment` already provides an explicit stable mapping. No shell-variable fix is needed there. Its candidate explicitly says the installed resolver inventory is unadmitted; `run-delivery.py:ordinary_guard` therefore keeps ordinary tools.verify discovery. Retain it; do not delete guards or launch a resolver inventory project without measured cost/benefit. This is a keep decision, not an unimplemented promised optimization. |
+| R9 | agent-workflow now makes backend blockers local to their capability and directs independent work to continue. Keep existing delivery_batch and its stop-on-failure/locking behavior. Current semantic delivery and queue operation remain owned by the main thread; no new batch service or duplicate task inventory. |
+| R10 | Removed duplicate CI table invocation and obsolete broad-hook assertions. Preserve wrong-parent, wrong-collector, source drift and runtime semantic negatives: they exercise different boundaries. The selected #43 packet's wrong-reader and premature-publication mutants detect different defects; no safe merger demonstrated. |
+| R11 | Removed stale17-line "Adoption by #48" instructions from evidence-runner-details (historical PR/worktree state, imperative after-pull steps and repeated gate prose). Generic opt-in PinnedTools guidance remains. Corrected the failure-injection description from commit hook to CI. Existing coordination assignments and A–H drafts were not rewritten from stale side-thread knowledge. |
+
+One local full infrastructure pass took about16.6s total suite wall time:
+runner11.04s, hook controls3.94s, remaining suites about1.6s. This is a single
+uncontrolled observation, not an end-to-end delivery speedup or CI prediction.
+For a local Python-only commit that previously ran all eleven suites, those
+suite invocations are now absent; selected admission and staged checks remain.
+No benchmark, compiler, profiler or heavy-run lock was invoked.
+
+### R7 approved acceptance replacement
+
+Replace the repeated requirement "Add equivalent complete feature-specific
+TS/JS/Native observations and timing/scaling evidence without dropping work" with:
+
+> Add equivalent complete feature-specific TS/JS/Native correctness observations
+> without dropping work. Keep feature boundary and capacity correctness checks.
+> Qualify comparative timing/scaling on the combined feature workload under
+> #21/#23/#24; individual semantic delivery need not repeat that campaign.
+> Consequential hot-path changes and detected regressions still require targeted
+> performance investigation. The combined #28 regression, final JS <= TS and
+> Native <= 0.5 * TS goals, and agreed statistical criteria remain unchanged.
+
+The original clause is present in these27 files under `docs/parity/`:
+`affine-events.md`, `bundles.md`, `captured-schedules.md`, `captures.md`,
+`component-state.md`, `coverage.md`, `debug-trace.md`, `debug.md`, `defense-plan.md`,
+`features.md`, `fragments.md`, `handlers.md`, `hierarchy.md`, `identity.md`,
+`inspect-extended.md`, `inspect.md`, `laws.md`, `machines.md`, `recovery.md`,
+`relation-readers.md`, `relations.md`, `restore-basic.md`, `restore-graph.md`,
+`scopes.md`, `simulation.md`, `snapshot-export.md`, `validation.md`.
+
+After accepting this placement change, reconcile their linked issue bodies,
+`docs/SPEC.md`, `benchmarks/README.md` and remaining-gate status text; preserve
+historical measurement claims and explicit exceptions. Semantic completion must
+not be reported as full-project performance acceptance. The user subsequently approved this amendment; the changed placement now governs
+individual semantic delivery. No new numerical tolerance is proposed.
+
+### Publication checkpoint — 2026-10-15
+
+User approved proceeding after the exact R7 proposal. The27 repeated clauses in
+feature docs and GitHub issues #38–#64 are now amended; each remote issue body
+was fetched again immediately before replacement, preserving other content.
+SPEC and benchmarks/README record the same scope. No issues were closed and no
+historical measurements relabelled. Remaining status text referring to full
+feature timing denotes combined qualification, not a prerequisite to individual
+semantic delivery under this dated amendment.
+
+Source/Spec self-review: local hook retains staged policy, whitespace, ownership,
+preflight and actual caller admission; all eleven infrastructure suites remain in
+CI. New committed-diff checks validate committed bytes with clean index and fail
+on invalid head. Removed helper edges have source-backed non-use; reached defect
+controls remain. Runtime/ECS code, benchmark tolerances and frozen experiments
+were not modified. All eleven local suites PASS; selected Python policy and
+owned-diff whitespace checks PASS. Independent agent review remains for the main
+thread: side-thread instructions prohibit subagents. CI publication outcome will
+be appended after the exact pushed commit is checked.

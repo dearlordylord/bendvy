@@ -12,24 +12,6 @@ if [ -n "${BENDVY_DELIVERY_PLANS:-}" ]; then
   python3 scripts/delivery_preflight.py --manifest "$BENDVY_DELIVERY_PLANS"
 fi
 python3 scripts/run-admission-controls.py
-# Shared runner tests qualify changes to their implementation and callers.
-# Documentation and retained data still receive staged-source/whitespace checks.
-if git diff --cached --quiet -- '*.py' scripts benchmarks .githooks .github; then
-  :
-else
-  status=$?
-  [ "$status" -eq 1 ] || exit "$status"
-  python3 scripts/test-task-runner.py
-  python3 scripts/test-evidence-boundary.py
-  python3 scripts/test-receipt-logs.py
-  python3 scripts/test-owned-tool-pins.py
-  python3 scripts/test-check-preflight.py
-  python3 scripts/test-staged-bend-imports.py
-  python3 scripts/test-selected-reference.py
-  python3 benchmarks/test-statistics.py
-  python3 scripts/test-retro-controls.py
-  python3 scripts/test-retro-v1plus1.py
-  python3 scripts/test-pre-commit.py
-fi
+# Full infrastructure suites run in CI; local admission controls select affected callers.
 # Raw evidence retains compiler whitespace and complete output terminators.
 git diff --cached --check -- '*.bend' '*.py' '*.md' '*.c' '*.js' '*.json' '.githooks/*'

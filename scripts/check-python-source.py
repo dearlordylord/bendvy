@@ -80,12 +80,36 @@ def check(name, source):
     return valid
 
 
+def committed_sources(base, head, merge_base=False):
+    """Read committed bytes; a missing base conservatively selects the full tree."""
+    def git(*args, check=True):
+        return run(['git', *args], timeout=30, capture_output=True, check=check)
+    git('rev-parse', '--verify', head + '^{commit}')
+    valid = git('rev-parse', '--verify', base + '^{commit}', check=False)
+    if valid.returncode:
+        base = git('hash-object', '-t', 'tree', '/dev/null').stdout.decode().strip()
+    elif merge_base:
+        base = git('merge-base', base, head).stdout.decode().strip()
+    git('diff', '--check', base, head, '--', '*.bend', '*.py', '*.md',
+        '*.c', '*.js', '*.json', '.githooks/*')
+    names = git('diff', '--name-only', '--diff-filter=ACMR', '-z',
+                base, head, '--', '*.py').stdout.decode().split('\0')
+    return [(name, git('show', head + ':' + name).stdout)
+            for name in names if name]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--staged', action='store_true')
+    modes = parser.add_mutually_exclusive_group()
+    modes.add_argument('--staged', action='store_true')
+    modes.add_argument('--diff-base')
+    parser.add_argument('--diff-head', default='HEAD')
+    parser.add_argument('--merge-base', action='store_true')
     parser.add_argument('files', nargs='*')
     args = parser.parse_args()
-    if args.staged:
+    if args.diff_base is not None:
+        sources = committed_sources(args.diff_base, args.diff_head, args.merge_base)
+    elif args.staged:
         names = run([
             'git', 'diff', '--cached', '--name-only', '--diff-filter=ACMR',
             '-z', '--', '*.py'], timeout=5, capture_output=True, check=True).stdout.decode().split('\0')

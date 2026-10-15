@@ -25,21 +25,22 @@ INSPECTOR_LEAF = ('experiments/public-inspect/closed-owner-carrier-v1/'
                   'recursive-owner-v1/layout-followup-v1/leaf-lift-v1/')
 LOWERING_COST = INSPECTOR_LEAF + 'lowering-cost-v1/'
 CHUNKED_OUTPUT = INSPECTOR_LEAF + 'chunked-output-v1/'
+SOURCE_CONTROL_HELPERS = {'scripts/run-admission-controls.py', 'scripts/task_runner.py'}
 CONTROL_SETS = (
-    (CHUNKED_OUTPUT + 'test-source-preservation.py', SHARED | {
+    (CHUNKED_OUTPUT + 'test-source-preservation.py', SOURCE_CONTROL_HELPERS | {
         CHUNKED_OUTPUT + 'check-source.py',
         CHUNKED_OUTPUT + 'test-source-preservation.py'}),
-    (LOWERING_COST + 'test-source.py', SHARED | {
+    (LOWERING_COST + 'test-source.py', SOURCE_CONTROL_HELPERS | {
         LOWERING_COST + name for name in (
             'test-source.py', 'cost-comp.ts', 'COPY.json',
             'clean-comp.ts.gz', 'cache-comp.ts.gz', 'cache.patch',
             'observational.patch', 'controls.mjs', 'cost.mjs')}),
-    (INSPECTOR_LEAF + 'test-preparation.py', SHARED | {
+    (INSPECTOR_LEAF + 'test-preparation.py', (SHARED - {'scripts/receipt-logs.py'}) | {
         INSPECTOR_LEAF + 'development.py',
         INSPECTOR_LEAF + 'test-preparation.py',
         INSPECTOR_LEAF + 'complete-expected.txt.gz'}),
     (CONTROL, DEPENDENCIES),
-    (OPTIMIZATION + 'test-sampling-receipt.py', SHARED | {
+    (OPTIMIZATION + 'test-sampling-receipt.py', {'scripts/run-admission-controls.py',
         OPTIMIZATION + 'test-sampling-receipt.py',
         OPTIMIZATION + 'prepare-sampling.py'}),
     (OPTIMIZATION + 'test-timing.py', SHARED | {

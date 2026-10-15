@@ -66,3 +66,10 @@ measures the prepared route against the original ordinary baseline; it does not
 replace the default current-source gate. Do not supply an unreviewed adapter or
 claim equal work from equal observations alone; review every provider diff and
 retain actual gameplay/route controls. The baseline is never advanced by this mode.
+
+Feature delivery policy (approved 2026-10-15): comparative feature timing/scaling
+is qualified on the combined full-feature workload under #21/#23/#24, rather than
+repeated as a prerequisite for each semantic delivery. Feature correctness and
+boundary/capacity checks remain, as does targeted investigation of consequential
+hot-path changes or detected regressions. This #28 gate and final JS <= TS /
+Native <= 0.5 * TS goals are unchanged.

@@ -56,12 +56,12 @@ class Selection(unittest.TestCase):
             with self.subTest(name=name):
                 calls = self.check_paths([name])
                 self.assertEqual(calls[0], 'scripts/check-python-source.py --staged')
-                self.assertIn('scripts/test-task-runner.py', calls)
-                self.assertIn('scripts/test-receipt-logs.py', calls)
+                self.assertNotIn('scripts/test-task-runner.py', calls)
+                self.assertNotIn('scripts/test-receipt-logs.py', calls)
                 self.assertIn('scripts/run-admission-controls.py', calls)
-                self.assertIn('benchmarks/test-statistics.py', calls)
-                self.assertEqual(calls[-1], 'scripts/test-pre-commit.py')
-                self.assertIn('scripts/test-retro-controls.py', calls)
+                self.assertNotIn('benchmarks/test-statistics.py', calls)
+                self.assertEqual(calls[-1], 'scripts/run-admission-controls.py')
+                self.assertNotIn('scripts/test-retro-controls.py', calls)
 
     def test_explicit_ownership_and_candidate_plan_selection(self):
         calls = self.check_paths(['docs/change.md'], {
@@ -73,7 +73,7 @@ class Selection(unittest.TestCase):
     def test_mixed_paths_and_quoted_names(self):
         calls = self.check_paths(['docs/notes with spaces.md',
                                   'experiments/public-debug/odd\nname.py'])
-        self.assertIn('scripts/test-task-runner.py', calls)
+        self.assertNotIn('scripts/test-task-runner.py', calls)
 
     def test_inherited_repository_environment_is_isolated(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -93,6 +93,43 @@ class Selection(unittest.TestCase):
                                  'scripts/run-admission-controls.py'])
             self.assertEqual(index.read_bytes(), before)
 
+    def test_committed_diff_checks_clean_index_and_missing_base(self):
+        checker = HOOK.parent.parent / 'scripts/check-python-source.py'
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            env = {k: v for k, v in os.environ.items() if not k.startswith('GIT_')}
+            env.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull,
+                       PYTHONDONTWRITEBYTECODE='1')
+            def git(*args):
+                return subprocess.run(['git', *args], cwd=root, env=env,
+                                      check=True, capture_output=True).stdout.decode().strip()
+            def check(base, *extra):
+                return subprocess.run([sys.executable, str(checker),
+                    '--diff-base', base, *extra], cwd=root, env=env, capture_output=True)
+            def commit():
+                git('add', '.')
+                git('-c', 'user.name=Fixture', '-c', 'user.email=f@example.invalid',
+                    '-c', 'core.hooksPath=/dev/null', 'commit', '-qm', 'fixture')
+            git('init', '-q')
+            path = root / 'odd name\nfile.py'
+            path.write_text('value = 1\n')
+            commit()
+            base = git('rev-parse', 'HEAD')
+            self.assertEqual(check('0' * 40).returncode, 0)
+            path.write_text('value = (\n')
+            commit()
+            self.assertEqual(git('diff', '--cached', '--name-only'), '')
+            self.assertNotEqual(check(base).returncode, 0)
+            self.assertNotEqual(check(base, '--merge-base').returncode, 0)
+            self.assertNotEqual(check('missing-base').returncode, 0)
+            # Working-tree repairs cannot conceal a broken committed file.
+            path.write_text('value = 2\n')
+            self.assertNotEqual(check(base).returncode, 0)
+            path.unlink()
+            commit()
+            self.assertEqual(check(base).returncode, 0)
+            self.assertNotEqual(check(base, '--diff-head', 'missing-head').returncode, 0)
+
     def test_registered_simulation_controls(self):
         selected = REGISTRY['selected']
         prefix = 'experiments/public-simulation/delivery-v1/optimization-v1/'
@@ -101,7 +138,16 @@ class Selection(unittest.TestCase):
                                  ('validate-after-profile.py','test-after-profile.py')]:
             self.assertEqual(selected({prefix + changed}), [prefix + control])
         self.assertEqual(selected({'docs/notes.md'}), [])
-        self.assertEqual(len(selected({'scripts/task_runner.py'})), 7)
+        self.assertEqual(len(selected({'scripts/task_runner.py'})), 6)
+
+    def test_receipt_changes_skip_independent_source_controls(self):
+        for helper in ('scripts/evidence_boundary.py', 'scripts/receipt-logs.py'):
+            controls = REGISTRY['selected']({helper})
+            self.assertEqual(len(controls), 4 if helper.endswith('evidence_boundary.py') else 3)
+            self.assertNotIn(REGISTRY['OPTIMIZATION'] + 'test-sampling-receipt.py', controls)
+            self.assertNotIn(REGISTRY['CHUNKED_OUTPUT'] + 'test-source-preservation.py', controls)
+            self.assertNotIn(REGISTRY['LOWERING_COST'] + 'test-source.py', controls)
+        self.assertEqual(len(REGISTRY['selected']({'scripts/task_runner.py'})), 6)
 
     def test_registered_source_attempt_preservation(self):
         prefix = REGISTRY['CHUNKED_OUTPUT']
