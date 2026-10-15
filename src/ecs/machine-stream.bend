@@ -16,6 +16,11 @@ def publish(~V: Data,stream: Stream<V>,tick: Nat,event: M.Transition<V>) -> Stre
   match stream:
     case Stream{batches,positions,dropped,frameStart}: Stream{Ev.append(~Ev.Batch<M.Transition<V>>,batches,[Ev.Batch{tick,[event]}]),positions,dropped,frameStart}
 
+# Bevy insert_state replaces queued transition messages without moving readers.
+def initial(~V:Data,stream:Stream<V>,tick:Nat,value:V) -> Stream<V>:
+  match stream:
+    case Stream{_,positions,dropped,frameStart}:Stream{[Ev.Batch{tick,[M.Initial{value}]}],positions,dropped,frameStart}
+
 def activate(~V: Data,stream: Stream<V>,id: U32,tick: Nat) -> Stream<V>:
   match stream:
     case Stream{batches,positions,dropped,frameStart}: Stream{batches,Ev.activate(positions,id,tick),dropped,frameStart}
@@ -25,10 +30,9 @@ def complete(~V: Data,stream: Stream<V>,id: U32,tick: Nat,success: Bool) -> Stre
     case Stream{batches,positions,dropped,frameStart} True{}: Stream{batches,Ev.update(positions,id,tick,False{}),dropped,frameStart}
     case stream False{}: stream
 
-# Registered skips advance; a never-activated skipped reader remains absent.
+# A condition-false system never executes its reader parameter.
 def skip(~V: Data,stream: Stream<V>,id: U32,tick: Nat) -> Stream<V>:
-  match stream:
-    case Stream{batches,positions,dropped,frameStart}: Stream{batches,Ev.update(positions,id,tick,False{}),dropped,frameStart}
+  stream
 
 def observe_position(~V: Data,position: Maybe<Ev.Position>,batches: List<&2,Ev.Batch<M.Transition<V>>>,dropped: Nat,id: U32,tick: Nat) -> Ev.Reading<M.Transition<V>>:
   match position:

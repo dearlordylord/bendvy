@@ -8,6 +8,7 @@ import ./machine-handlers.bend as H
 type Intent<V:Data> is Data:
   Idle{}
   Ready{from:V,to:V,skipSame:Bool}
+  InitialReady{to:V}
 type Owners<S:Data,K:Data,V:Data,C:Type,R:Type,E:Data,-runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>> is Type:
   Owners{handlers:H.Owners<S,C,R,E,V,runner>,intent:Intent<V>}
 def published(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,world:W.World<S,C,R,E>,event:M.Transition<V>) -> W.World<S,C,R,E>:publish(world,event)
@@ -20,6 +21,7 @@ def committed(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,
 def prepared(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,handlers:H.Owners<S,C,R,E,V,runner>,world:W.World<S,C,R,E>,value:H.Prepared<S,K,V>) -> Owners<S,K,V,C,R,E,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:
   match value:
     case H.Idle{slot}:(Owners{handlers,Idle{}},Sys.Succeeded{put(world,slot),Unit{}})
+    case H.Ready{slot,M.Initial{to},_}:(Owners{handlers,InitialReady{to}},Sys.Succeeded{put(world,slot),Unit{}})
     case H.Ready{slot,M.Transition{from,to},skipSame}:(Owners{handlers,Ready{from,to,skipSame}},Sys.Succeeded{put(world,slot),Unit{}})
 def captured(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,handlers:H.Owners<S,C,R,E,V,runner>,pair:W.World<S,C,R,E> & M.Slot<S,K,V>) -> Owners<S,K,V,C,R,E,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:
   (world,+slot)=pair
@@ -34,6 +36,7 @@ def exited(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R
 def exit(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,owners:Owners<S,K,V,C,R,E,runner>,world:W.World<S,C,R,E>) -> Owners<S,K,V,C,R,E,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:
   match owners:
     case Owners{handlers,Idle{}}:(Owners{handlers,Idle{}},Sys.Succeeded{world,Unit{}})
+    case Owners{handlers,InitialReady{to}}:(Owners{handlers,InitialReady{to}},Sys.Succeeded{world,Unit{}})
     case Owners{H.Owners{exit,transition,enter},Ready{+from,+to,+skipSame}}:exited(~S,~K,~V,~C,~R,~E,~runner,~take,~put,~publish,~same,~frame,transition,enter,from,to,skipSame,H.run_phase(~S,~C,~R,~E,~V,~runner,exit,world,H.Exit{},from,to,None{}))
 def transitioned(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,exit:List<&1,H.Entry<S,C,R,E,V,runner>>,enter:List<&1,H.Entry<S,C,R,E,V,runner>>,+from:V,+to:V,+skipSame:Bool,result:H.PhaseResult<S,C,R,E,V,runner>) -> Owners<S,K,V,C,R,E,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:
   match result:
@@ -42,6 +45,7 @@ def transitioned(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World
 def transition(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,owners:Owners<S,K,V,C,R,E,runner>,world:W.World<S,C,R,E>) -> Owners<S,K,V,C,R,E,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:
   match owners:
     case Owners{handlers,Idle{}}:(Owners{handlers,Idle{}},Sys.Succeeded{world,Unit{}})
+    case Owners{handlers,InitialReady{to}}:(Owners{handlers,InitialReady{to}},Sys.Succeeded{world,Unit{}})
     case Owners{H.Owners{exit,transition,enter},Ready{+from,+to,+skipSame}}:transitioned(~S,~K,~V,~C,~R,~E,~runner,~take,~put,~publish,~same,~frame,exit,enter,from,to,skipSame,H.run_phase(~S,~C,~R,~E,~V,~runner,transition,world,H.Transition{},from,to,None{}))
 def entered(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,exit:List<&1,H.Entry<S,C,R,E,V,runner>>,transition:List<&1,H.Entry<S,C,R,E,V,runner>>,intent:Intent<V>,result:H.PhaseResult<S,C,R,E,V,runner>) -> Owners<S,K,V,C,R,E,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:
   match result:
@@ -50,4 +54,5 @@ def entered(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,
 def enter(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~frame:W.World<S,C,R,E> -> W.World<S,C,R,E>,owners:Owners<S,K,V,C,R,E,runner>,world:W.World<S,C,R,E>) -> Owners<S,K,V,C,R,E,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:
   match owners:
     case Owners{handlers,Idle{}}:(Owners{handlers,Idle{}},Sys.Succeeded{world,Unit{}})
+    case Owners{H.Owners{exit,transition,enter},InitialReady{+to}}:entered(~S,~K,~V,~C,~R,~E,~runner,~take,~put,~publish,~same,~frame,exit,transition,InitialReady{to},H.run_initial(~S,~C,~R,~E,~V,~runner,enter,world,to,None{}))
     case Owners{H.Owners{exit,transition,enter},Ready{+from,+to,+skipSame}}:entered(~S,~K,~V,~C,~R,~E,~runner,~take,~put,~publish,~same,~frame,exit,transition,Ready{from,to,skipSame},H.run_phase(~S,~C,~R,~E,~V,~runner,enter,world,H.Enter{},from,to,None{}))

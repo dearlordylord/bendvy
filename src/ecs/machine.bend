@@ -10,6 +10,7 @@ type Pending<V: Data> is Data:
 
 type Transition<V: Data> is Data:
   Transition{from: V, to: V}
+  Initial{to: V}
 
 type Slot<S: Data, M: Data, V: Data> is Data:
   Missing{}

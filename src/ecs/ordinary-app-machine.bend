@@ -1,4 +1,5 @@
 import Base
+import ./ordinary-machine-initialization.bend as Init
 import ./ordinary-app-composer.bend as Build
 import ./ordinary-app-recipe.bend as Tree
 import ./ordinary-app-observation-data.bend as DTO
@@ -68,3 +69,13 @@ def Recipe(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~take:R -> R & M.Slot
   Tree.Recipe<W.World<S,C,R,E>,DTO.Product<Rows,M.CurrentView<S,K,V>>,Tree.observe_pair(~W.World<S,C,R,E>,~Rows,~M.CurrentView<S,K,V>,~prior,~observe(~S,~K,~V,~C,~R,~E,~take,~declaration,~render))>
 def snapshot_app(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~take:R -> R & M.Slot<S,K,V>,~put:R -> M.Slot<S,K,V> -> R,~same:V -> V -> Bool,~declaration:OD.Declaration<S,K,V,R,take>,~render:V -> String,~Owners:Type,~Rows:Data,~prior:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Fields.Fields<S>>,app:Application(~S,~K,~V,~C,~R,~E,~take,~put,~same,~declaration,~render,~Owners,~Rows,~prior,~fold),flag:Bool) -> Application(~S,~K,~V,~C,~R,~E,~take,~put,~same,~declaration,~render,~Owners,~Rows,~prior,~fold) & Maybe<&2,DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<DTO.Product<Rows,M.CurrentView<S,K,V>>>>>:
   Build.snapshot(~S,~W.World<S,C,R,E>,~Owners,~DTO.Product<Rows,M.CurrentView<S,K,V>>,~Tree.observe_pair(~W.World<S,C,R,E>,~Rows,~M.CurrentView<S,K,V>,~prior,~observe(~S,~K,~V,~C,~R,~E,~take,~declaration,~render)),~fold,Build.enabled(~S,~W.World<S,C,R,E>,~Owners,~DTO.Product<Rows,M.CurrentView<S,K,V>>,~Tree.observe_pair(~W.World<S,C,R,E>,~Rows,~M.CurrentView<S,K,V>,~prior,~observe(~S,~K,~V,~C,~R,~E,~take,~declaration,~render)),~fold,app,flag))
+
+# Ordinary initialization preserves the existing app's sole owners and debug recipe.
+def initialized_app(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,~Owners:Type,~Rows:Data,~prior:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Fields.Fields<S>>,owners:Owners,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,prior>,debug:Bool,world:W.World<S,C,R,E>) -> Build.Registered<S,W.World<S,C,R,E>,Owners,Rows,prior,fold>:
+  Build.Registered{world,owners,recipe,debug}
+def init_app(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,~declaration:OD.Declaration<S,K,V,R,Init.take_slot(~S,~K,~V,~R,~take,~put)>,~make:W.World<S,C,R,E> -> W.World<S,C,R,E> & V,~Owners:Type,~Rows:Data,~prior:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Fields.Fields<S>>,app:Build.Registered<S,W.World<S,C,R,E>,Owners,Rows,prior,fold>) -> Build.Registered<S,W.World<S,C,R,E>,Owners,Rows,prior,fold>:
+  match app:
+    case Build.Registered{world,owners,recipe,debug}:initialized_app(~S,~K,~V,~R,~take,~put,~C,~E,~Owners,~Rows,~prior,~fold,owners,recipe,debug,Init.init_state(~S,~K,~V,~R,~take,~put,~C,~E,~declaration,~make,world))
+def insert_app(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,~declaration:OD.Declaration<S,K,V,R,Init.take_slot(~S,~K,~V,~R,~take,~put)>,~Owners:Type,~Rows:Data,~prior:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Fields.Fields<S>>,app:Build.Registered<S,W.World<S,C,R,E>,Owners,Rows,prior,fold>,value:V) -> Build.Registered<S,W.World<S,C,R,E>,Owners,Rows,prior,fold>:
+  match app:
+    case Build.Registered{world,owners,recipe,debug}:initialized_app(~S,~K,~V,~R,~take,~put,~C,~E,~Owners,~Rows,~prior,~fold,owners,recipe,debug,Init.insert_state(~S,~K,~V,~R,~take,~put,~C,~E,~declaration,world,value))

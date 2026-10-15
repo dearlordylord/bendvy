@@ -15,6 +15,7 @@ type Phase is Data:
 
 type Invocation<V:Data> is Data:
   Invocation{phase:Phase,ordinal:U32,from:V,to:V}
+  InitialEnter{ordinal:U32,to:V}
 
 type Entry<S:Data,C:Type,R:Type,E:Data,V:Data,-runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>> is Type:
   Entry{ordinal:U32,registry:Sys.Registry<S,C,R,E,Invocation<V>,String,Unit,runner>}
@@ -54,6 +55,12 @@ def run_phase(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -
     case entries Some{error}: Failed{entries,world,error}
     case [] None{}: Complete{[],world}
     case Entry{+ordinal,registry} <> rest None{}: entry_result(~S,~C,~R,~E,~V,~runner,ordinal,Sys.run_tracked(~S,~C,~R,~E,~Invocation<V>,~String,~Unit,~runner,registry,world,Invocation{phase,ordinal,from,to}),world => error => run_phase(~S,~C,~R,~E,~V,~runner,rest,world,phase,from,to,error))
+
+def run_initial(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,entries:List<&1,Entry<S,C,R,E,V,runner>>,world:W.World<S,C,R,E>,+to:V,error:Maybe<&2,String>) -> PhaseResult<S,C,R,E,V,runner>:
+  match entries error:
+    case entries Some{error}: Failed{entries,world,error}
+    case [] None{}: Complete{[],world}
+    case Entry{+ordinal,registry} <> rest None{}: entry_result(~S,~C,~R,~E,~V,~runner,ordinal,Sys.run_tracked(~S,~C,~R,~E,~Invocation<V>,~String,~Unit,~runner,registry,world,InitialEnter{ordinal,to}),world => error => run_initial(~S,~C,~R,~E,~V,~runner,rest,world,to,error))
 
 def choose(~S:Data,~K:Data,~V:Data,skip:Bool,+current:V,+value:V,previous:Maybe<&2,V>,+skipSame:Bool) -> Prepared<S,K,V>:
   match skip:
@@ -97,6 +104,7 @@ def after_exit(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> 
 def prepared(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,owners:Owners<S,C,R,E,V,runner>,world:W.World<S,C,R,E>,prepared:Prepared<S,K,V>) -> HandlerResult<S,C,R,E,V,runner>:
   match owners prepared:
     case owners Idle{slot}: Completed{owners,put(world,slot)}
+    case Owners{exit,transition,enter} Ready{slot,M.Initial{to},_}:after_enter(~S,~C,~R,~E,~V,~runner,exit,transition,run_initial(~S,~C,~R,~E,~V,~runner,enter,put(world,slot),to,None{}))
     case Owners{exit,transition,enter} Ready{slot,M.Transition{+from,+to},skipSame}: after_exit(~S,~C,~R,~E,~V,~runner,~K,~take,~put,~publish,transition,enter,run_phase(~S,~C,~R,~E,~V,~runner,exit,put(world,slot),Exit{},from,to,None{}),from,to,skipSame)
 
 def taken(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,owners:Owners<S,C,R,E,V,runner>,observed:W.World<S,C,R,E> & M.Slot<S,K,V>,captured:M.Snapshot<V>) -> HandlerResult<S,C,R,E,V,runner>:

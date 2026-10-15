@@ -83,6 +83,15 @@ def partition(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.
     case []: Partition{[],[],H.Owners{[],[],[]}}
     case Scheduled{+selector,needs,entry} <> tail: placed(~S,~K,~V,~Q,~C,~R,~E,~runner,choose(~S,~K,~V,~same,selector,from,to),selector,needs,entry,partition(~S,~K,~V,~Q,~C,~R,~E,~runner,~same,tail,from,to))
 
+def choose_initial(~S:Data,~K:Data,~V:Data,~same:V -> V -> Bool,selector:Selector<S,K,V>,to:V) -> Choice:
+  match selector:
+    case EnterTo{value}:enter_choice(same(value,to))
+    case _:Kept{}
+def partition_initial(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~same:V -> V -> Bool,entries:List<&1,Scheduled<S,K,V,Q,C,R,E,runner>>,+to:V) -> Partition<S,K,V,Q,C,R,E,runner>:
+  match entries:
+    case []: Partition{[],[],H.Owners{[],[],[]}}
+    case Scheduled{+selector,needs,entry} <> tail: placed(~S,~K,~V,~Q,~C,~R,~E,~runner,choose_initial(~S,~K,~V,~same,selector,to),selector,needs,entry,partition_initial(~S,~K,~V,~Q,~C,~R,~E,~runner,~same,tail,to))
+
 # Recovery explicitly retains all owners even for malformed internal zippers.
 # Normal public execution constructs its own partition and never accepts a zipper.
 type Recovery<S:Data,K:Data,V:Data,Q:Data,C:Type,R:Type,E:Data,-runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>> is Type:

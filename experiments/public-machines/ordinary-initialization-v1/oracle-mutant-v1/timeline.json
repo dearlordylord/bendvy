@@ -1,0 +1,2296 @@
+[
+  {
+    "action": "Snapshot",
+    "label": "missing/default-zero",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      0,
+      0
+    ],
+    "state": {
+      "clock": 0,
+      "current": null,
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 0,
+      "defaults": 0,
+      "failure": false,
+      "events": [],
+      "batches": [],
+      "positions": [],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        0,
+        0
+      ],
+      "watch_revisions": [
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "action": "Initialize",
+    "label": "init/default-A",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      0,
+      0
+    ],
+    "state": {
+      "clock": 1,
+      "current": "A",
+      "pending": null,
+      "previous": null,
+      "changed": true,
+      "revision": 1,
+      "defaults": 1,
+      "failure": false,
+      "events": [],
+      "batches": [
+        [
+          1,
+          "initial:A"
+        ]
+      ],
+      "positions": [],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        0,
+        0
+      ],
+      "watch_revisions": [
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "action": "Marker",
+    "label": "initial-marker",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      0,
+      0
+    ],
+    "state": {
+      "clock": 2,
+      "current": "A",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 1,
+      "defaults": 1,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          1,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          4,
+          2,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        0,
+        0
+      ],
+      "watch_revisions": [
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "action": "ReadFast",
+    "label": "fast-reader-warm-initial-A",
+    "argument": "False{}",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      0
+    ],
+    "state": {
+      "clock": 2,
+      "current": "A",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 1,
+      "defaults": 1,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          1,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          2,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        0,
+        0
+      ],
+      "watch_revisions": [
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "action": "ReadSlow",
+    "label": "slow-reader-warm-initial-A",
+    "argument": "False{}",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 2,
+      "current": "A",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 1,
+      "defaults": 1,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          1,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          2,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        0,
+        0
+      ],
+      "watch_revisions": [
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "action": "Initialize",
+    "label": "duplicate-init-still-A",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 3,
+      "current": "A",
+      "pending": null,
+      "previous": null,
+      "changed": true,
+      "revision": 2,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          3,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          2,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        0,
+        0
+      ],
+      "watch_revisions": [
+        0,
+        0
+      ]
+    }
+  },
+  {
+    "action": "Conditions",
+    "label": "initial-change-fast-and-slow",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 3,
+      "current": "A",
+      "pending": null,
+      "previous": null,
+      "changed": true,
+      "revision": 2,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          3,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          2,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        3,
+        3
+      ],
+      "watch_revisions": [
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "action": "Queue",
+    "label": "queue-B",
+    "argument": "Fixture.B{}",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 3,
+      "current": "A",
+      "pending": "B",
+      "previous": null,
+      "changed": true,
+      "revision": 2,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          3,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          2,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        3,
+        3
+      ],
+      "watch_revisions": [
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "action": "Insert",
+    "label": "occupied-insert-C-preserves-pending-B",
+    "argument": "Fixture.C{}",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 4,
+      "current": "C",
+      "pending": "B",
+      "previous": null,
+      "changed": true,
+      "revision": 3,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          4,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          2,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        3,
+        3
+      ],
+      "watch_revisions": [
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "action": "Marker",
+    "label": "initial-C-marker",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 6,
+      "current": "B",
+      "pending": null,
+      "previous": "C",
+      "changed": true,
+      "revision": 4,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B"
+      ],
+      "batches": [
+        [
+          4,
+          "initial:C"
+        ],
+        [
+          6,
+          "C->B"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          6,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        3,
+        3
+      ],
+      "watch_revisions": [
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "action": "Marker",
+    "label": "queued-C-to-B-transition",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 7,
+      "current": "B",
+      "pending": null,
+      "previous": "C",
+      "changed": false,
+      "revision": 4,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B"
+      ],
+      "batches": [
+        [
+          4,
+          "initial:C"
+        ],
+        [
+          6,
+          "C->B"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          7,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        3,
+        3
+      ],
+      "watch_revisions": [
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "action": "Marker",
+    "label": "quiet-marker-after-queued-transition",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 8,
+      "current": "B",
+      "pending": null,
+      "previous": "C",
+      "changed": false,
+      "revision": 4,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B"
+      ],
+      "batches": [
+        [
+          4,
+          "initial:C"
+        ],
+        [
+          6,
+          "C->B"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          8,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        3,
+        3
+      ],
+      "watch_revisions": [
+        2,
+        2
+      ]
+    }
+  },
+  {
+    "action": "Conditions",
+    "label": "changed-after-C-to-B",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 8,
+      "current": "B",
+      "pending": null,
+      "previous": "C",
+      "changed": false,
+      "revision": 4,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B"
+      ],
+      "batches": [
+        [
+          4,
+          "initial:C"
+        ],
+        [
+          6,
+          "C->B"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          8,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        8,
+        8
+      ],
+      "watch_revisions": [
+        4,
+        4
+      ]
+    }
+  },
+  {
+    "action": "Insert",
+    "label": "repeated-insert-A",
+    "argument": "Fixture.A{}",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 9,
+      "current": "A",
+      "pending": null,
+      "previous": "C",
+      "changed": true,
+      "revision": 5,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B"
+      ],
+      "batches": [
+        [
+          9,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          8,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        8,
+        8
+      ],
+      "watch_revisions": [
+        4,
+        4
+      ]
+    }
+  },
+  {
+    "action": "Insert",
+    "label": "repeated-insert-C-latest-only",
+    "argument": "Fixture.C{}",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 10,
+      "current": "C",
+      "pending": null,
+      "previous": "C",
+      "changed": true,
+      "revision": 6,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B"
+      ],
+      "batches": [
+        [
+          10,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          8,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        8,
+        8
+      ],
+      "watch_revisions": [
+        4,
+        4
+      ]
+    }
+  },
+  {
+    "action": "Marker",
+    "label": "latest-initial-C",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 11,
+      "current": "C",
+      "pending": null,
+      "previous": "C",
+      "changed": false,
+      "revision": 6,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          10,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        8,
+        8
+      ],
+      "watch_revisions": [
+        4,
+        4
+      ]
+    }
+  },
+  {
+    "action": "SkipFast",
+    "label": "active-fast-condition-false",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 11,
+      "current": "C",
+      "pending": null,
+      "previous": "C",
+      "changed": false,
+      "revision": 6,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          10,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        8,
+        8
+      ],
+      "watch_revisions": [
+        4,
+        4
+      ]
+    }
+  },
+  {
+    "action": "ReadSlow",
+    "label": "slow-reader-fails-on-unread-initial-C",
+    "argument": "True{}",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      2
+    ],
+    "state": {
+      "clock": 11,
+      "current": "C",
+      "pending": null,
+      "previous": "C",
+      "changed": false,
+      "revision": 6,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          10,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          2,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        8,
+        8
+      ],
+      "watch_revisions": [
+        4,
+        4
+      ]
+    }
+  },
+  {
+    "action": "ReadSlow",
+    "label": "slow-reader-retries-same-initial-C",
+    "argument": "False{}",
+    "status": "Completed",
+    "userCursors": [
+      2,
+      11
+    ],
+    "state": {
+      "clock": 11,
+      "current": "C",
+      "pending": null,
+      "previous": "C",
+      "changed": false,
+      "revision": 6,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          10,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          11,
+          2
+        ],
+        [
+          7,
+          2,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        8,
+        8
+      ],
+      "watch_revisions": [
+        4,
+        4
+      ]
+    }
+  },
+  {
+    "action": "ReadFast",
+    "label": "fast-reader-reads-initial-C-after-skip",
+    "argument": "False{}",
+    "status": "Completed",
+    "userCursors": [
+      11,
+      11
+    ],
+    "state": {
+      "clock": 11,
+      "current": "C",
+      "pending": null,
+      "previous": "C",
+      "changed": false,
+      "revision": 6,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          10,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          11,
+          2
+        ],
+        [
+          7,
+          11,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        8,
+        8
+      ],
+      "watch_revisions": [
+        4,
+        4
+      ]
+    }
+  },
+  {
+    "action": "Conditions",
+    "label": "condition-read-after-fast-skip",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      11,
+      11
+    ],
+    "state": {
+      "clock": 11,
+      "current": "C",
+      "pending": null,
+      "previous": "C",
+      "changed": false,
+      "revision": 6,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          10,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          11,
+          2
+        ],
+        [
+          7,
+          11,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        11,
+        11
+      ],
+      "watch_revisions": [
+        6,
+        6
+      ]
+    }
+  },
+  {
+    "action": "Insert",
+    "label": "equal-insert-C-is-new-change",
+    "argument": "Fixture.C{}",
+    "status": "Completed",
+    "userCursors": [
+      11,
+      11
+    ],
+    "state": {
+      "clock": 12,
+      "current": "C",
+      "pending": null,
+      "previous": "C",
+      "changed": true,
+      "revision": 7,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          12,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          11,
+          2
+        ],
+        [
+          7,
+          11,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        11,
+        11
+      ],
+      "watch_revisions": [
+        6,
+        6
+      ]
+    }
+  },
+  {
+    "action": "Conditions",
+    "label": "equal-insert-change-read",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      11,
+      11
+    ],
+    "state": {
+      "clock": 12,
+      "current": "C",
+      "pending": null,
+      "previous": "C",
+      "changed": true,
+      "revision": 7,
+      "defaults": 2,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          12,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          11,
+          2
+        ],
+        [
+          7,
+          11,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        12,
+        12
+      ],
+      "watch_revisions": [
+        7,
+        7
+      ]
+    }
+  },
+  {
+    "action": "Initialize",
+    "label": "init-occupied-no-change",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      11,
+      11
+    ],
+    "state": {
+      "clock": 13,
+      "current": "A",
+      "pending": null,
+      "previous": "C",
+      "changed": true,
+      "revision": 8,
+      "defaults": 3,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          13,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          11,
+          2
+        ],
+        [
+          7,
+          11,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        12,
+        12
+      ],
+      "watch_revisions": [
+        7,
+        7
+      ]
+    }
+  },
+  {
+    "action": "Conditions",
+    "label": "occupied-init-no-change",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      11,
+      11
+    ],
+    "state": {
+      "clock": 13,
+      "current": "A",
+      "pending": null,
+      "previous": "C",
+      "changed": true,
+      "revision": 8,
+      "defaults": 3,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          13,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          11,
+          2
+        ],
+        [
+          7,
+          11,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        13,
+        13
+      ],
+      "watch_revisions": [
+        8,
+        8
+      ]
+    }
+  },
+  {
+    "action": "Remove",
+    "label": "remove-slot",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      11,
+      11
+    ],
+    "state": {
+      "clock": 13,
+      "current": null,
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 9,
+      "defaults": 3,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          13,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          11,
+          2
+        ],
+        [
+          7,
+          11,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        13,
+        13
+      ],
+      "watch_revisions": [
+        8,
+        8
+      ]
+    }
+  },
+  {
+    "action": "Conditions",
+    "label": "missing-slot-condition-false",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      11,
+      11
+    ],
+    "state": {
+      "clock": 13,
+      "current": null,
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 9,
+      "defaults": 3,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          13,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          11,
+          2
+        ],
+        [
+          7,
+          11,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        13,
+        13
+      ],
+      "watch_revisions": [
+        9,
+        9
+      ]
+    }
+  },
+  {
+    "action": "Initialize",
+    "label": "reinitialize-missing-default-A",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      11,
+      11
+    ],
+    "state": {
+      "clock": 14,
+      "current": "A",
+      "pending": null,
+      "previous": null,
+      "changed": true,
+      "revision": 10,
+      "defaults": 4,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          13,
+          "initial:A"
+        ],
+        [
+          14,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          11,
+          2
+        ],
+        [
+          7,
+          11,
+          2
+        ],
+        [
+          4,
+          11,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        13,
+        13
+      ],
+      "watch_revisions": [
+        9,
+        9
+      ]
+    }
+  },
+  {
+    "action": "Marker",
+    "label": "reinitialized-initial-A",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      11,
+      11
+    ],
+    "state": {
+      "clock": 15,
+      "current": "A",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 10,
+      "defaults": 4,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C",
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          13,
+          "initial:A"
+        ],
+        [
+          14,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          11,
+          2
+        ],
+        [
+          7,
+          11,
+          2
+        ],
+        [
+          4,
+          15,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        13,
+        13
+      ],
+      "watch_revisions": [
+        9,
+        9
+      ]
+    }
+  },
+  {
+    "action": "ReadFast",
+    "label": "fast-reader-reads-appended-initial-after-prior-cursor",
+    "argument": "False{}",
+    "status": "Completed",
+    "userCursors": [
+      15,
+      11
+    ],
+    "state": {
+      "clock": 15,
+      "current": "A",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 10,
+      "defaults": 4,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C",
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          13,
+          "initial:A"
+        ],
+        [
+          14,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          11,
+          2
+        ],
+        [
+          7,
+          15,
+          2
+        ],
+        [
+          4,
+          15,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        13,
+        13
+      ],
+      "watch_revisions": [
+        9,
+        9
+      ]
+    }
+  },
+  {
+    "action": "ReadSlow",
+    "label": "slow-reader-reads-appended-initial-after-prior-cursor",
+    "argument": "False{}",
+    "status": "Completed",
+    "userCursors": [
+      15,
+      15
+    ],
+    "state": {
+      "clock": 15,
+      "current": "A",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 10,
+      "defaults": 4,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C",
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          13,
+          "initial:A"
+        ],
+        [
+          14,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          15,
+          2
+        ],
+        [
+          7,
+          15,
+          2
+        ],
+        [
+          4,
+          15,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        13,
+        13
+      ],
+      "watch_revisions": [
+        9,
+        9
+      ]
+    }
+  },
+  {
+    "action": "Conditions",
+    "label": "reinitialized-change-read",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      15,
+      15
+    ],
+    "state": {
+      "clock": 15,
+      "current": "A",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 10,
+      "defaults": 4,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C",
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          13,
+          "initial:A"
+        ],
+        [
+          14,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          15,
+          2
+        ],
+        [
+          7,
+          15,
+          2
+        ],
+        [
+          4,
+          15,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        15,
+        15
+      ],
+      "watch_revisions": [
+        10,
+        10
+      ]
+    }
+  },
+  {
+    "action": "Failure",
+    "label": "enable-initial-enter-failure",
+    "argument": "True{}",
+    "status": "Completed",
+    "userCursors": [
+      15,
+      15
+    ],
+    "state": {
+      "clock": 15,
+      "current": "A",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 10,
+      "defaults": 4,
+      "failure": true,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C",
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          13,
+          "initial:A"
+        ],
+        [
+          14,
+          "initial:A"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          15,
+          2
+        ],
+        [
+          7,
+          15,
+          2
+        ],
+        [
+          4,
+          15,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        15,
+        15
+      ],
+      "watch_revisions": [
+        10,
+        10
+      ]
+    }
+  },
+  {
+    "action": "Insert",
+    "label": "republish-initial-C-for-failure",
+    "argument": "Fixture.C{}",
+    "status": "Completed",
+    "userCursors": [
+      15,
+      15
+    ],
+    "state": {
+      "clock": 16,
+      "current": "C",
+      "pending": null,
+      "previous": null,
+      "changed": true,
+      "revision": 11,
+      "defaults": 4,
+      "failure": true,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C",
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          16,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          15,
+          2
+        ],
+        [
+          7,
+          15,
+          2
+        ],
+        [
+          4,
+          15,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        15,
+        15
+      ],
+      "watch_revisions": [
+        10,
+        10
+      ]
+    }
+  },
+  {
+    "action": "Marker",
+    "label": "failed-initial-enter",
+    "argument": "",
+    "status": "HandlerFailed:enter:injected-enter-failure",
+    "userCursors": [
+      15,
+      15
+    ],
+    "state": {
+      "clock": 17,
+      "current": "C",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 11,
+      "defaults": 4,
+      "failure": true,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C",
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          16,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          15,
+          2
+        ],
+        [
+          7,
+          15,
+          2
+        ],
+        [
+          4,
+          17,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        15,
+        15
+      ],
+      "watch_revisions": [
+        10,
+        10
+      ]
+    }
+  },
+  {
+    "action": "Failure",
+    "label": "disable-initial-enter-failure",
+    "argument": "False{}",
+    "status": "Completed",
+    "userCursors": [
+      15,
+      15
+    ],
+    "state": {
+      "clock": 17,
+      "current": "C",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 11,
+      "defaults": 4,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C",
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          16,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          15,
+          2
+        ],
+        [
+          7,
+          15,
+          2
+        ],
+        [
+          4,
+          17,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        15,
+        15
+      ],
+      "watch_revisions": [
+        10,
+        10
+      ]
+    }
+  },
+  {
+    "action": "Marker",
+    "label": "quiet-retry-does-not-replay",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      15,
+      15
+    ],
+    "state": {
+      "clock": 18,
+      "current": "C",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 11,
+      "defaults": 4,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C",
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          16,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          15,
+          2
+        ],
+        [
+          7,
+          15,
+          2
+        ],
+        [
+          4,
+          18,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        15,
+        15
+      ],
+      "watch_revisions": [
+        10,
+        10
+      ]
+    }
+  },
+  {
+    "action": "Insert",
+    "label": "republish-initial-C-for-retry",
+    "argument": "Fixture.C{}",
+    "status": "Completed",
+    "userCursors": [
+      15,
+      15
+    ],
+    "state": {
+      "clock": 19,
+      "current": "C",
+      "pending": null,
+      "previous": null,
+      "changed": true,
+      "revision": 12,
+      "defaults": 4,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C",
+        "initial-enter#1:A"
+      ],
+      "batches": [
+        [
+          19,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          15,
+          2
+        ],
+        [
+          7,
+          15,
+          2
+        ],
+        [
+          4,
+          18,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        15,
+        15
+      ],
+      "watch_revisions": [
+        10,
+        10
+      ]
+    }
+  },
+  {
+    "action": "Marker",
+    "label": "retry-same-owners-after-republish",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      15,
+      15
+    ],
+    "state": {
+      "clock": 20,
+      "current": "C",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 12,
+      "defaults": 4,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C",
+        "initial-enter#1:A",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          19,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          15,
+          2
+        ],
+        [
+          7,
+          15,
+          2
+        ],
+        [
+          4,
+          20,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        15,
+        15
+      ],
+      "watch_revisions": [
+        10,
+        10
+      ]
+    }
+  },
+  {
+    "action": "Conditions",
+    "label": "final-condition-read",
+    "argument": "",
+    "status": "Completed",
+    "userCursors": [
+      15,
+      15
+    ],
+    "state": {
+      "clock": 20,
+      "current": "C",
+      "pending": null,
+      "previous": null,
+      "changed": false,
+      "revision": 12,
+      "defaults": 4,
+      "failure": false,
+      "events": [
+        "initial-enter#1:A",
+        "enter#2:C->B",
+        "initial-enter#3:C",
+        "initial-enter#1:A",
+        "initial-enter#3:C"
+      ],
+      "batches": [
+        [
+          19,
+          "initial:C"
+        ]
+      ],
+      "positions": [
+        [
+          8,
+          15,
+          2
+        ],
+        [
+          7,
+          15,
+          2
+        ],
+        [
+          4,
+          20,
+          2
+        ]
+      ],
+      "dropped": 0,
+      "frame_start": 0,
+      "watch_cursors": [
+        20,
+        20
+      ],
+      "watch_revisions": [
+        12,
+        12
+      ]
+    }
+  }
+]
