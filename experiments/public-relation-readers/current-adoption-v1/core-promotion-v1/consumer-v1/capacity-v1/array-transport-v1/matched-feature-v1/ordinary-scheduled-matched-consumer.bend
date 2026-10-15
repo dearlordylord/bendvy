@@ -470,58 +470,20 @@ def callback(~H:Type,~caps:no_caps(H),input:all_view() & Bool,owner:H) -> H & (T
 # full-capacity consumer. The setup keeps one reserved, inactive handle for a
 # genuine MissingTargetEntity write outcome.
 type Setup is Type:
-  Ready{context:context_type(),entity:W.Handle<Schema>,target:W.Handle<Schema>,missing:W.Handle<Schema>}
+  Ready{context:context_type()}
   SetupFailed{}
 def seeded_column(graph:Relations.Graph<Schema>,result:Col.SwapOutcome<Schema,U32>) -> store_type() & Bool:
   match result:
     case Col.Accepted{column,_}:(Notice.Store{column,graph},True{})
     case Col.Rejected{column,_}:(Notice.Store{column,graph},False{})
-def seed_column(store:store_type(),id:U32) -> store_type() & Bool:
-  match store:
-    case Notice.Store{components,+graph}:seeded_column(graph,Col.swap(~Schema,~U32,components,id,Some{42}))
-def seed_column_value(store:store_type(),+id:U32,value:U32) -> store_type() & Bool:
-  match store:
-    case Notice.Store{components,+graph}:seeded_column(graph,Col.swap(~Schema,~U32,Col.ensure(~Schema,~U32,components,id),id,Some{value}))
-def entity_id(entity:W.Handle<Schema>) -> U32:
-  match entity:
-    case W.Handle{_,id}:id
-def setup_missing_reserved(source:W.Handle<Schema>,target:W.Handle<Schema>,result:world_type() & W.Reservation<Schema>) -> Setup:
-  match result:
-    case (_,W.ReservationRejected{_}):SetupFailed{}
-    case (world,W.Reserved{+missing}):Ready{Mixed.start(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,world,Leaf.provision(~Schema,~event_type(),Event.domain(~Schema,~event_type(),"values"),65536n),Unit{}),source,target,missing}
-def setup_target_seeded(source:W.Handle<Schema>,target:W.Handle<Schema>,result:world_type() & Bool) -> Setup:
-  match result:
-    case (world,False{}):SetupFailed{}
-    case (world,True{}):setup_missing_reserved(source,target,W.reserve_id(~Schema,~store_type(),~Unit,~event_type(),world))
-def setup_target_activated(source:W.Handle<Schema>,+target:W.Handle<Schema>,result:world_type() & W.Status) -> Setup:
-  match result:
-    case (_,W.Rejected{_}):SetupFailed{}
-    case (world,W.Accepted{}):setup_target_seeded(source,target,W.with_store(~Schema,~store_type(),~Unit,~event_type(),~Bool,(store => seed_column_value(store,entity_id(target),43)),world))
-def setup_target_reserved(source:W.Handle<Schema>,result:world_type() & W.Reservation<Schema>) -> Setup:
-  match result:
-    case (_,W.ReservationRejected{_}):SetupFailed{}
-    case (world,W.Reserved{+target}):setup_target_activated(source,target,W.activate(~Schema,~store_type(),~Unit,~event_type(),world,target))
-def setup_stored(+entity:W.Handle<Schema>,stored:world_type() & Bool) -> Setup:
-  match stored:
-    case (world,False{}):SetupFailed{}
-    case (world,True{}):
-      setup_target_reserved(entity,W.reserve_id(~Schema,~store_type(),~Unit,~event_type(),
-        W.event_publish(~Schema,~store_type(),~Unit,~event_type(),world,
-          [Notice.Original{Value{11}},inject_removal(Identity.component(~Schema,~U32,"value"),entity)])))
-def setup_activated(+entity:W.Handle<Schema>,activated:world_type() & W.Status) -> Setup:
-  match activated:
-    case (_,W.Rejected{_}):SetupFailed{}
-    case (world,W.Accepted{}):setup_stored(entity,W.with_store(~Schema,~store_type(),~Unit,~event_type(),~Bool,(store => seed_column(store,entity_id(entity))),world))
-def setup_reserved(reserved:world_type() & W.Reservation<Schema>) -> Setup:
-  match reserved:
-    case (_,W.ReservationRejected{_}):SetupFailed{}
-    case (world,W.Reserved{+entity}):setup_activated(entity,W.activate(~Schema,~store_type(),~Unit,~event_type(),world,entity))
 def setup_created(created:W.Creation<Schema,store_type(),Unit,event_type()>) -> Setup:
   match created:
     case W.CreateRejected{_,_}:SetupFailed{}
-    case W.Created{_,world}:setup_reserved(W.reserve_id(~Schema,~store_type(),~Unit,~event_type(),world))
+    case W.Created{_,world}:Ready{Mixed.start(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,world,Leaf.provision(~Schema,~event_type(),Event.domain(~Schema,~event_type(),"values"),65536n),Unit{})}
+def setup_with_factory(factory:W.Factory) -> Setup:
+  setup_created(W.create(~Schema,~store_type(),~Unit,~event_type(),~empty_store,factory,Unit{}))
 def setup() -> Setup:
-  setup_created(W.create(~Schema,~store_type(),~Unit,~event_type(),~empty_store,W.factory(),Unit{}))
+  setup_with_factory(W.factory())
 
 # JSON strings here are the frozen ASCII declaration names of this consumer.
 def quoted(value:String) -> String:
@@ -1131,46 +1093,25 @@ def mutation_json(value:MutationReport) -> String:
     case MutationReport{committedStatus,committedOutcome,rolledBackStatus,rolledBackOutcome}:"{\"committedQueue\":"++queue_status_json(committedStatus)++",\"committedOutcome\":"++outcome_json(committedOutcome)++",\"rolledBackQueue\":"++queue_status_json(rolledBackStatus)++",\"rolledBackOutcome\":"++outcome_json(rolledBackOutcome)++"}"
 def after_barrier(context:context_type(),first:provider_type(),second:provider_type(),report:MutationReport,prefix:String) -> String:
   "{\"mutation\":"++mutation_json(report)++",\"observations\":"++drive([Step{True{},True{},"A-fail-after-barrier"},Step{True{},False{},"A-retry"},Step{True{},False{},"A-repeat"},Step{False{},False{},"B-first"},Step{False{},False{},"B-repeat"}],context,first,second,prefix,",")++"}"
-def barrier_after_first(context:context_type(),first:provider_type(),second:provider_type(),report:MutationReport,prefix:String) -> String:
-  after_barrier(barrier_context(context),first,second,report,prefix)
-def before_barrier(context:context_type(),first:provider_type(),second:provider_type(),report:MutationReport) -> String:
-  observe_result((context => provider => row => barrier_after_first(context,provider,second,report,row)),"pre-barrier-fast",run_all(first,context,False{}))
-def scheduled_observers_report(first:provider_type(),second:provider_type(),scheduled:context_type() & MutationReport) -> String:
-  match scheduled:
-    case (context,report):before_barrier(context,first,second,report)
-def scheduled_observers(context:context_type(),first:provider_type(),second:provider_type(),entity:W.Handle<Schema>) -> String:
-  scheduled_observers_report(first,second,schedule_relation(context,entity))
-def second_defined(entity:W.Handle<Schema>,first:provider_type(),defined:definition_type()) -> String:
-  match defined:
-    case Ordinary.DefinitionRejected{_,_,_}:"unexpected-second-registration-rejection"
-    case Ordinary.DefinitionDisposalRejected{_,_,_}:"unexpected-second-initialization-cleanup-rejection"
-    case Ordinary.DefinitionRegistered{context,second}:scheduled_observers(context,first,second,entity)
-def first_defined(entity:W.Handle<Schema>,defined:definition_type()) -> String:
-  match defined:
-    case Ordinary.DefinitionRejected{_,_,_}:"unexpected-first-registration-rejection"
-    case Ordinary.DefinitionDisposalRejected{_,_,_}:"unexpected-first-initialization-cleanup-rejection"
-    case Ordinary.DefinitionRegistered{context,first}:second_defined(entity,first,define_all(context,"B"))
-def started(state:Setup) -> String:
-  match state:
-    case SetupFailed{}:"unexpected-setup-failure"
-    case Ready{context,entity,_,_}:first_defined(entity,define_all(context,"A"))
-
 # The ordinary writer and readers share the declared relation descriptors.
 type StructuralCommand is Data:
+  SeedPair{}
   RemoveValue{handle:W.Handle<Schema>}
   InsertValue{handle:W.Handle<Schema>,value:U32}
   SpawnEmpty{}
   DespawnEmpty{handle:W.Handle<Schema>}
 type StructuralResult is Data:
-  StructuralResult{accepted:Bool,spawned:Maybe<&2,W.Handle<Schema>>}
+  StructuralResult{accepted:Bool,spawned:Maybe<&2,W.Handle<Schema>>,also:Maybe<&2,W.Handle<Schema>>}
 type StructuralOps<H:Type> is Type:
   StructuralOps{apply:Cap.OwnedRequest<H,StructuralCommand,StructuralResult>}
+type EventOps<H:Type> is Type:
+  EventOps{emit:Cap.Send<H,List<&2,Publication>>}
 type RelationOps<H:Type> is Type:
   RelationOps{apply:Cap.OwnedRequest<H,List<&2,RelationProvider.Targets<Schema>>,WriteCounts>}
 type WriteOps<H:Type> is Type:
-  WriteOps{relations:RelationOps<H>,structural:StructuralOps<H>}
+  WriteOps{events:EventOps<H>,relations:RelationOps<H>,structural:StructuralOps<H>}
 type WriteArgs is Data:
-  WriteArgs{source:W.Handle<Schema>,target:W.Handle<Schema>,doomed:Maybe<&2,W.Handle<Schema>>,operation:Maybe<&2,StructuralCommand>,targets:List<&2,RelationProvider.Targets<Schema>>}
+  WriteArgs{source:Maybe<&2,W.Handle<Schema>>,target:Maybe<&2,W.Handle<Schema>>,doomed:Maybe<&2,W.Handle<Schema>>,emitValues:Bool,operation:Maybe<&2,StructuralCommand>,targets:List<&2,RelationProvider.Targets<Schema>>}
 type WriteReport is Data:
   WriteReport{queued:U32,refused:U32,operations:List<&2,StructuralResult>}
 type WriteCounts is Data:
@@ -1183,39 +1124,63 @@ def write_ops(H:Type) -> Type:
   WriteOps<H>
 def insert_structural_result(queued:Structural.Queued<Tx.Tx<world_type(),event_type()>,U32>) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
   match queued:
-    case Structural.Queued{tx}:(tx,StructuralResult{True{},None{}})
-    case Structural.QueueRejected{tx,_,_}:(tx,StructuralResult{False{},None{}})
+    case Structural.Queued{tx}:(tx,StructuralResult{True{},None{},None{}})
+    case Structural.QueueRejected{tx,_,_}:(tx,StructuralResult{False{},None{},None{}})
 def insert_structural(tx:Tx.Tx<world_type(),event_type()>,handle:W.Handle<Schema>,value:U32) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
   insert_structural_result(Structural.tx_insert(~Schema,~store_type(),~Unit,~event_type(),~Relations.Graph<Schema>,~U32,~Unit,~Unit,~take_values,~put_values,~presence,Binding.family(~Schema,~store_type(),~Relations.Graph<Schema>,~U32,~Unit,~Unit,~take_values,~put_values,~presence,binding()),tx,handle,value))
 def remove_structural_result(queued:Structural.Queued<Tx.Tx<world_type(),event_type()>,U32>) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
   match queued:
-    case Structural.Queued{tx}:(tx,StructuralResult{True{},None{}})
-    case Structural.QueueRejected{tx,_,_}:(tx,StructuralResult{False{},None{}})
+    case Structural.Queued{tx}:(tx,StructuralResult{True{},None{},None{}})
+    case Structural.QueueRejected{tx,_,_}:(tx,StructuralResult{False{},None{},None{}})
 def remove_structural(tx:Tx.Tx<world_type(),event_type()>,handle:W.Handle<Schema>) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
   remove_structural_result(OrdinaryRemoval.remove(~Schema,~store_type(),~Unit,~event_type(),~Relations.Graph<Schema>,~U32,~Unit,~Unit,~take_values,~put_values,~presence,~inject_removal,~binding(),tx,handle))
+def populate_value(world:world_type(),handle:W.Handle<Schema>,value:U32) -> world_type():
+  Structural.apply(~Schema,~store_type(),~Unit,~event_type(),~Relations.Graph<Schema>,~U32,~Unit,~Unit,~take_values,~put_values,~presence,Binding.family(~Schema,~store_type(),~Relations.Graph<Schema>,~U32,~Unit,~Unit,~take_values,~put_values,~presence,binding()),world,handle,Some{value})
+def structural_spawn_value_result(observed:Tx.Tx<world_type(),event_type()> & W.Reservation<Schema>) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
+  match observed:
+    case (tx,W.Reserved{+handle}):(tx,StructuralResult{True{},Some{handle},None{}})
+    case (tx,W.ReservationRejected{_}):(tx,StructuralResult{False{},None{},None{}})
+def structural_spawn_value(tx:Tx.Tx<world_type(),event_type()>,value:U32) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
+  structural_spawn_value_result(Commands.tx_spawn(~Schema,~store_type(),~Unit,~event_type(),~U32,~populate_value,tx,value))
+def structural_seed_second_result(source:W.Handle<Schema>,observed:Tx.Tx<world_type(),event_type()> & W.Reservation<Schema>) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
+  match observed:
+    case (tx,W.Reserved{+target}):(tx,StructuralResult{True{},Some{source},Some{target}})
+    case (tx,W.ReservationRejected{_}):(tx,StructuralResult{False{},Some{source},None{}})
+def structural_seed_second(tx:Tx.Tx<world_type(),event_type()>,source:W.Handle<Schema>) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
+  structural_seed_second_result(source,Commands.tx_spawn(~Schema,~store_type(),~Unit,~event_type(),~U32,~populate_value,tx,43))
+def structural_seed_first_result(observed:Tx.Tx<world_type(),event_type()> & W.Reservation<Schema>) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
+  match observed:
+    case (tx,W.Reserved{+source}):structural_seed_second(tx,source)
+    case (tx,W.ReservationRejected{_}):(tx,StructuralResult{False{},None{},None{}})
+def structural_seed_first(tx:Tx.Tx<world_type(),event_type()>) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
+  structural_seed_first_result(Commands.tx_spawn(~Schema,~store_type(),~Unit,~event_type(),~U32,~populate_value,tx,42))
 def empty_population(world:world_type(),_:W.Handle<Schema>,_:Unit) -> world_type():
   world
 def structural_despawn_result(observed:Tx.Tx<world_type(),event_type()> & W.Status) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
   match observed:
-    case (tx,W.Accepted{}):(tx,StructuralResult{True{},None{}})
-    case (tx,W.Rejected{_}):(tx,StructuralResult{False{},None{}})
+    case (tx,W.Accepted{}):(tx,StructuralResult{True{},None{},None{}})
+    case (tx,W.Rejected{_}):(tx,StructuralResult{False{},None{},None{}})
 def structural_despawn(tx:Tx.Tx<world_type(),event_type()>,handle:W.Handle<Schema>) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
   structural_despawn_result(Commands.tx_despawn(~Schema,~store_type(),~Unit,~event_type(),tx,handle))
 def structural_spawn_result(observed:Tx.Tx<world_type(),event_type()> & W.Reservation<Schema>) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
   match observed:
-    case (tx,W.Reserved{+handle}):(tx,StructuralResult{True{},Some{handle}})
-    case (tx,W.ReservationRejected{_}):(tx,StructuralResult{False{},None{}})
+    case (tx,W.Reserved{+handle}):(tx,StructuralResult{True{},Some{handle},None{}})
+    case (tx,W.ReservationRejected{_}):(tx,StructuralResult{False{},None{},None{}})
 def structural_spawn(tx:Tx.Tx<world_type(),event_type()>) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
   structural_spawn_result(Commands.tx_spawn(~Schema,~store_type(),~Unit,~event_type(),~Unit,~empty_population,tx,Unit{}))
 def apply_structural(tx:Tx.Tx<world_type(),event_type()>,command:StructuralCommand) -> Tx.Tx<world_type(),event_type()> & StructuralResult:
   match command:
+    case SeedPair{}:structural_seed_first(tx)
     case RemoveValue{handle}:remove_structural(tx,handle)
     case InsertValue{handle,value}:insert_structural(tx,handle,value)
     case SpawnEmpty{}:structural_spawn(tx)
     case DespawnEmpty{handle}:structural_despawn(tx,handle)
 def structural_finished(~H:Type,result:H & StructuralResult) -> H & (Tx.Outcome<U32> & WriteReport):
   match result:
-    case (owner,operation):(owner,(Tx.Success{},WriteReport{0,0,[operation]}))
+    case (owner,operation):
+      match operation:
+        case StructuralResult{True{},_,_}:(owner,(Tx.Success{},WriteReport{0,0,[operation]}))
+        case StructuralResult{False{},_,_}:(owner,(Tx.Failure{90},WriteReport{0,0,[operation]}))
 def write_fold_queued(~H:Type,counts:WriteCounts,owner:H) -> H & WriteCounts:
   match counts:
     case WriteCounts{queued,refused}:(owner,WriteCounts{(queued+1:U32),refused})
@@ -1244,23 +1209,38 @@ def write_targets_from(+source:W.Handle<Schema>,+namespace:U32,+firstTarget:U32,
     case 1n+rest:write_targets_from(source,namespace,firstTarget,rest,Nat.add(index,1n),write_target(source,namespace,firstTarget,index) <> reversed)
 def write_targets(source:W.Handle<Schema>,namespace:U32,firstTarget:U32,count:U32) -> List<&2,RelationProvider.Targets<Schema>>:
   write_targets_from(source,namespace,firstTarget,U32.to_nat(count),0n,[])
+def write_publications(values:List<&2,Publication>,tx:Tx.Tx<world_type(),event_type()>) -> Tx.Tx<world_type(),event_type()>:
+  match values:
+    case []:tx
+    case value <> rest:write_publications(rest,Tx.emit(~world_type(),~event_type(),tx,Notice.Original{value}))
+def writer_send_values(~H:Type,emit:Cap.Send<H,List<&2,Publication>>,owner:H) -> H:
+  match emit:
+    case Cap.Send{send}:send(owner,[Value{31},Value{32}])
 def write_finished(~H:Type,folded:H & WriteCounts,operations:List<&2,StructuralResult>) -> H & (Tx.Outcome<U32> & WriteReport):
   match folded:
     case (owner,WriteCounts{queued,refused}):(owner,(Tx.Success{},WriteReport{queued,refused,operations}))
 def write_finished_targets(~H:Type,counts:H & WriteCounts) -> H & (Tx.Outcome<U32> & WriteReport):
   write_finished(~H,counts,[])
+def write_callback_command(~H:Type,apply_relations:Cap.OwnedRequest<H,List<&2,RelationProvider.Targets<Schema>>,WriteCounts>,apply_structural:Cap.OwnedRequest<H,StructuralCommand,StructuralResult>,input:WriteArgs,owner:H) -> H & (Tx.Outcome<U32> & WriteReport):
+  match input:
+    case WriteArgs{_,_,_,_,operation,targets}:
+      match operation:
+        case None{}:write_finished_targets(~H,Cap.owned_request_field(~H,~List<&2,RelationProvider.Targets<Schema>>,~WriteCounts,apply_relations)(owner,targets))
+        case Some{command}:structural_finished(~H,Cap.owned_request_field(~H,~StructuralCommand,~StructuralResult,apply_structural)(owner,command))
 def write_callback_with_caps(~H:Type,caps:write_ops(H),input:Unit & WriteArgs,owner:H) -> H & (Tx.Outcome<U32> & WriteReport):
   match caps:
-    case WriteOps{RelationOps{apply_relations},StructuralOps{apply}}:
+    case WriteOps{EventOps{emit},RelationOps{apply_relations},StructuralOps{apply}}:
       match input:
-        case (Unit{},WriteArgs{source,target,doomed,operation,targets}):
-          match operation:
-            case None{}:write_finished_targets(~H,Cap.owned_request_field(~H,~List<&2,RelationProvider.Targets<Schema>>,~WriteCounts,apply_relations)(owner,targets))
-            case Some{command}:structural_finished(~H,Cap.owned_request_field(~H,~StructuralCommand,~StructuralResult,apply)(owner,command))
+        case (Unit{},args):
+          match args:
+            case WriteArgs{_,_,_,emitValues,_,_}:
+              match emitValues:
+                case False{}:write_callback_command(~H,apply_relations,apply,args,owner)
+                case True{}:write_callback_command(~H,apply_relations,apply,args,writer_send_values(~H,emit,owner))
 def write_callback(~H:Type,~caps:write_ops(H),input:Unit & WriteArgs,owner:H) -> H & (Tx.Outcome<U32> & WriteReport):
   write_callback_with_caps(~H,caps,input,owner)
 def write_grant() -> write_ops(Tx.Tx<world_type(),event_type()>):
-  WriteOps{RelationOps{Cap.OwnedRequest{owner => targets => write_targets_fold(targets,(owner,WriteCounts{0,0}))}},StructuralOps{Cap.OwnedRequest{apply_structural}}}
+  WriteOps{EventOps{Cap.Send{owner => values => write_publications(values,owner)}},RelationOps{Cap.OwnedRequest{owner => targets => write_targets_fold(targets,(owner,WriteCounts{0,0}))}},StructuralOps{Cap.OwnedRequest{apply_structural}}}
 def write_parameter_type() -> Data:
   RP.Param<context_type(),Unit,Unit,Unit,RP.unit_validate(~context_type()),RP.unit_prepare(~context_type()),RP.unit_commit(~context_type()),RP.unit_release(~context_type())>
 def write_parameter() -> write_parameter_type():
@@ -1333,9 +1313,6 @@ def trace_append(trace:List<&2,JsonDoc>,entry:JsonDoc) -> List<&2,JsonDoc>:
   List.append(&2,JsonDoc,trace,[entry])
 def json_writer_trace(queued:U32,refused:U32,image:WorldObservation) -> JsonDoc:
   json_parts([JsonText{"{\"kind\":\"writer\",\"queued\":"},JsonText{U32.show(queued)},JsonText{",\"refused\":"},JsonText{U32.show(refused)},JsonText{",\"world\":"},json_world_observation(image),JsonText{"}"}])
-def write_args_source(args:write_args_type()) -> write_args_type() & W.Handle<Schema>:
-  match args:
-    case WriteArgs{+source,target,doomed,operation,targets}:(WriteArgs{source,target,doomed,operation,targets},source)
 def writer_success_observed(fast:provider_type(),slow:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,provider:write_provider_type(),queued:U32,refused:U32,metadata:metadata_type(),observed:world_type() & WorldObservation) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
   match observed:
     case (world,image):(ScheduleOwners{metadata,provider,fast,slow,args,trace_append(trace,json_writer_trace(queued,refused,image))},Sys.Succeeded{world,Unit{}})
@@ -1347,23 +1324,51 @@ def writer_success_controlled_context(fast:provider_type(),slow:provider_type(),
 def writer_success_controlled(fast:provider_type(),slow:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,provider:write_provider_type(),queued:U32,refused:U32,observed:context_type() & WorldObservation) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
   match observed:
     case (context,image):writer_success_controlled_context(fast,slow,args,trace,provider,queued,refused,context,image)
-def writer_success_reserved(fast:provider_type(),slow:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,provider:write_provider_type(),queued:U32,refused:U32,source:W.Handle<Schema>,metadata:metadata_type(),targets:ControlTargets) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
-  match targets:
-    case TargetsReady{world,targets}:writer_success_controlled(fast,slow,args,trace,provider,queued,refused,context_snapshot(enqueue_control_context(metadata,source,targets,world)))
-    case TargetsRejected{world}:(ScheduleOwners{metadata,provider,fast,slow,args,trace},Sys.Failed{world,DispatchFailed{}})
-def writer_success_parts(fast:provider_type(),slow:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,provider:write_provider_type(),source:W.Handle<Schema>,report:WriteReport,split:world_type() & metadata_type()) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
-  match report:
-    case WriteReport{queued,refused,operations}:
-      match split:
-        case (world,metadata):writer_success_reserved(fast,slow,args,trace,provider,queued,refused,source,metadata,reserve_control_targets(world))
-def writer_success_args(fast:provider_type(),slow:provider_type(),trace:List<&2,JsonDoc>,provider:write_provider_type(),report:WriteReport,sourceResult:write_args_type() & W.Handle<Schema>,split:world_type() & metadata_type()) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
-  match sourceResult:
-    case (args,source):writer_success_parts(fast,slow,args,trace,provider,source,report,split)
-def writer_success(fast:provider_type(),slow:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,context:context_type(),provider:write_provider_type(),report:WriteReport) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
-  writer_success_args(fast,slow,trace,provider,report,write_args_source(args),Mixed.split(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,context))
+def first_spawned(operations:List<&2,StructuralResult>) -> Maybe<&2,W.Handle<Schema>>:
+  match operations:
+    case []:None{}
+    case StructuralResult{_,Some{handle},_} <> _:Some{handle}
+    case _ <> rest:first_spawned(rest)
+def first_also_spawned(operations:List<&2,StructuralResult>) -> Maybe<&2,W.Handle<Schema>>:
+  match operations:
+    case []:None{}
+    case StructuralResult{_,_,Some{handle}} <> _:Some{handle}
+    case _ <> rest:first_also_spawned(rest)
+def choose_handle(current:Maybe<&2,W.Handle<Schema>>,candidate:Maybe<&2,W.Handle<Schema>>) -> Maybe<&2,W.Handle<Schema>>:
+  match current:
+    case Some{handle}:Some{handle}
+    case None{}:candidate
+type SeededHandles is Data:
+  SeededHandles{source:Maybe<&2,W.Handle<Schema>>,target:Maybe<&2,W.Handle<Schema>>}
+def collect_seeded_handles_cons(source:Maybe<&2,W.Handle<Schema>>,target:Maybe<&2,W.Handle<Schema>>,later:SeededHandles) -> SeededHandles:
+  match later:
+    case SeededHandles{laterSource,laterTarget}:SeededHandles{choose_handle(source,laterSource),choose_handle(target,laterTarget)}
+def collect_seeded_handles(operations:List<&2,StructuralResult>) -> SeededHandles:
+  match operations:
+    case []:SeededHandles{None{},None{}}
+    case StructuralResult{_,source,target} <> rest:collect_seeded_handles_cons(source,target,collect_seeded_handles(rest))
+def completed_seed_args(args:write_args_type(),first:Maybe<&2,W.Handle<Schema>>,second:Maybe<&2,W.Handle<Schema>>) -> write_args_type():
+  match args:
+    case WriteArgs{source,target,doomed,_,_,_}:
+      WriteArgs{choose_handle(source,first),choose_handle(target,second),doomed,False{},None{},[]}
+def completed_seed_args_from_handles(args:write_args_type(),handles:SeededHandles) -> write_args_type():
+  match handles:
+    case SeededHandles{source,target}:completed_seed_args(args,source,target)
+def completed_doomed_args(args:write_args_type(),spawned:Maybe<&2,W.Handle<Schema>>) -> write_args_type():
+  match args:
+    case WriteArgs{source,target,doomed,_,_,_}:
+      WriteArgs{source,target,choose_handle(doomed,spawned),False{},None{},[]}
+def completed_write_args(args:write_args_type(),operations:List<&2,StructuralResult>) -> write_args_type():
+  match args:
+    case WriteArgs{source,target,doomed,emitValues,operation,targets}:
+      match operation:
+        case Some{SeedPair{}}:completed_seed_args_from_handles(args,collect_seeded_handles(operations))
+        case Some{SpawnEmpty{}}:completed_doomed_args(args,first_spawned(operations))
+        case _:WriteArgs{source,target,doomed,False{},None{},[]}
 def writer_success_direct(fast:provider_type(),slow:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,context:context_type(),provider:write_provider_type(),report:WriteReport) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
   match report:
-    case WriteReport{queued,refused,_}:writer_success_controlled(fast,slow,args,trace,provider,queued,refused,context_snapshot(context))
+    case WriteReport{queued,refused,operations}:
+      writer_success_controlled(fast,slow,completed_write_args(args,operations),trace,provider,queued,refused,context_snapshot(context))
 def writer_fault_split(fast:provider_type(),slow:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,provider:write_provider_type(),split:world_type() & metadata_type()) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
   match split:
     case (world,metadata):(ScheduleOwners{metadata,provider,fast,slow,args,trace},Sys.Failed{world,DispatchFailed{}})
@@ -1501,29 +1506,9 @@ def smoke_ready(initialized:world_type() & ScheduleOwners) -> List<&2,String>:
   match initialized:
     case (world,owners):schedule_built(schedule_plan(owners,world))
 def empty_write_args(+source:W.Handle<Schema>) -> write_args_type():
-  WriteArgs{source,source,None{},None{},[]}
+  WriteArgs{Some{source},Some{source},None{},False{},None{},[]}
 def run_smoke(context:context_type(),writer:write_provider_type(),fast:provider_type(),slow:provider_type(),+source:W.Handle<Schema>) -> List<&2,String>:
   smoke_ready(metadata_after(context,writer,fast,slow,empty_write_args(source),[]))
-def slow_defined(source:W.Handle<Schema>,writer:write_provider_type(),fast:provider_type(),defined:definition_type()) -> List<&2,String>:
-  match defined:
-    case Ordinary.DefinitionRejected{_,_,_}:output_one("slow-reader-registration-rejected")
-    case Ordinary.DefinitionDisposalRejected{_,_,_}:output_one("slow-reader-initialization-disposal-rejected")
-    case Ordinary.DefinitionRegistered{context,slow}:run_smoke(context,writer,fast,slow,source)
-def fast_defined(source:W.Handle<Schema>,writer:write_provider_type(),defined:definition_type()) -> List<&2,String>:
-  match defined:
-    case Ordinary.DefinitionRejected{_,_,_}:output_one("fast-reader-registration-rejected")
-    case Ordinary.DefinitionDisposalRejected{_,_,_}:output_one("fast-reader-initialization-disposal-rejected")
-    case Ordinary.DefinitionRegistered{context,fast}:slow_defined(source,writer,fast,define_all(context,"slow"))
-def writer_defined(source:W.Handle<Schema>,defined:write_definition_type()) -> List<&2,String>:
-  match defined:
-    case Ordinary.DefinitionRejected{_,_,_}:output_one("writer-registration-rejected")
-    case Ordinary.DefinitionDisposalRejected{_,_,_}:output_one("writer-initialization-disposal-rejected")
-    case Ordinary.DefinitionRegistered{context,writer}:fast_defined(source,writer,define_all(context,"fast"))
-def scheduled_start(state:Setup) -> List<&2,String>:
-  match state:
-    case SetupFailed{}:output_one("unexpected-setup-failure")
-    case Ready{context,entity,_,_}:writer_defined(entity,define_writer(context,"relation-writer"))
-
 type FollowState is Type:
   FollowState{world:world_type(),owners:ScheduleOwners}
 
@@ -1549,31 +1534,99 @@ def follow_schedule_namespace(+name:String,+steps:List<&2,Sch.Step>,owners:Sched
     case (world,+namespace):follow_build_result(world,Sch.build(~Schema,~store_type(),~Unit,~event_type(),~ScheduleOwners,namespace,name,steps,[1,2,3,4],owners))
 def follow_schedule(+name:String,+steps:List<&2,Sch.Step>,owners:ScheduleOwners,world:world_type()) -> FollowState:
   follow_schedule_namespace(name,steps,owners,W.namespace(~Schema,~store_type(),~Unit,~event_type(),world))
+def follow_scenario_error(state:FollowState,reason:String) -> FollowState:
+  match state:
+    case FollowState{world,owners}:
+      match owners:
+        case ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}:
+          FollowState{world,ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace_append(trace,json_parts([JsonText{"{\"kind\":\"scenarioError\",\"reason\":"},JsonText{quoted(reason)},JsonText{"}"}]))}}
+type FailureTargetState is Data:
+  FailureTargetState{doomed:Maybe<&2,W.Handle<Schema>>,targets:List<&2,RelationProvider.Targets<Schema>>,valid:Bool}
+def failure_targets(+source:W.Handle<Schema>,doomed:Maybe<&2,W.Handle<Schema>>) -> FailureTargetState:
+  match doomed:
+    case None{}:FailureTargetState{None{},[],False{}}
+    case Some{+handle}:FailureTargetState{Some{handle},[RelationProvider.Targets{source,source},RelationProvider.Targets{source,handle}],True{}}
+def follow_failure_targets(world:world_type(),metadata:metadata_type(),writer:write_provider_type(),fast:provider_type(),slow:provider_type(),source:Maybe<&2,W.Handle<Schema>>,target:Maybe<&2,W.Handle<Schema>>,trace:List<&2,JsonDoc>,prepared:FailureTargetState) -> FollowState:
+  match prepared:
+    case FailureTargetState{doomed,_,False{}}:follow_scenario_error(FollowState{world,ScheduleOwners{metadata,writer,fast,slow,WriteArgs{source,target,doomed,False{},None{},[]},trace}},"missing-doomed-handle-before-relation-failure")
+    case FailureTargetState{doomed,targets,True{}}:FollowState{world,ScheduleOwners{metadata,writer,fast,slow,WriteArgs{source,target,doomed,True{},None{},targets},trace}}
 def follow_set_write_args(state:FollowState,failure:Bool) -> FollowState:
   match state:
     case FollowState{world,owners}:
       match owners:
         case ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}:
           match writeArgs:
-            case WriteArgs{+source,+target,+doomed,_,_}:
-              match failure:
-                case False{}:FollowState{world,ScheduleOwners{metadata,writer,fast,slow,WriteArgs{source,target,doomed,None{},[RelationProvider.Targets{source,target}]},trace}}
-                case True{}:FollowState{world,ScheduleOwners{metadata,writer,fast,slow,WriteArgs{source,target,doomed,None{},[RelationProvider.Targets{source,source},RelationProvider.Targets{source,target}]},trace}}
+            case WriteArgs{source,target,doomed,emitValues,_,_}:
+              match source:
+                case None{}:follow_scenario_error(FollowState{world,ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}},"missing-source-handle")
+                case Some{+sourceHandle}:
+                  match target:
+                    case None{}:follow_scenario_error(FollowState{world,ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}},"missing-target-handle")
+                    case Some{+targetHandle}:
+                      match failure:
+                        case False{}:FollowState{world,ScheduleOwners{metadata,writer,fast,slow,WriteArgs{source,target,doomed,False{},None{},[RelationProvider.Targets{sourceHandle,targetHandle}]},trace}}
+                        case True{}:follow_failure_targets(world,metadata,writer,fast,slow,source,target,trace,failure_targets(sourceHandle,doomed))
+def follow_set_structural(state:FollowState,command:StructuralCommand) -> FollowState:
+  match state:
+    case FollowState{world,owners}:
+      match owners:
+        case ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}:
+          match writeArgs:
+            case WriteArgs{source,target,doomed,emitValues,_,_}:FollowState{world,ScheduleOwners{metadata,writer,fast,slow,WriteArgs{source,target,doomed,emitValues,Some{command},[]},trace}}
 def follow_run(state:FollowState,+name:String,+steps:List<&2,Sch.Step>) -> FollowState:
   match state:
     case FollowState{world,owners}:follow_schedule(name,steps,owners,world)
 def follow_warm(state:FollowState) -> FollowState:
   follow_run(state,"warm-readers",[Sch.System{2,0},Sch.System{3,0}])
+def follow_command(state:FollowState,+name:String,command:StructuralCommand) -> FollowState:
+  follow_run(follow_set_structural(state,command),name,[Sch.System{1,0},Sch.Barrier{}])
+def follow_removed(state:FollowState) -> FollowState:
+  follow_run(state,"read-after-actual-remove",[Sch.System{2,0},Sch.System{3,0}])
+def follow_reinserted(state:FollowState) -> FollowState:
+  follow_run(state,"read-after-actual-reinsert",[Sch.System{2,0},Sch.System{3,0}])
+def follow_actual_remove(state:FollowState) -> FollowState:
+  match state:
+    case FollowState{world,owners}:
+      match owners:
+        case ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}:
+          match writeArgs:
+            case WriteArgs{source,Some{+target},doomed,emitValues,_,_}:
+              follow_removed(follow_run(FollowState{world,ScheduleOwners{metadata,writer,fast,slow,WriteArgs{source,Some{target},doomed,emitValues,Some{RemoveValue{target}},[]},trace}},"ordinary-remove-target-value",[Sch.System{1,0},Sch.Barrier{}]))
+            case _:follow_scenario_error(FollowState{world,ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}},"missing-target-before-remove")
+def follow_actual_reinsert(state:FollowState) -> FollowState:
+  match state:
+    case FollowState{world,owners}:
+      match owners:
+        case ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}:
+          match writeArgs:
+            case WriteArgs{source,Some{+target},doomed,emitValues,_,_}:
+              follow_reinserted(follow_run(FollowState{world,ScheduleOwners{metadata,writer,fast,slow,WriteArgs{source,Some{target},doomed,emitValues,Some{InsertValue{target,44}},[]},trace}},"ordinary-reinsert-target-value",[Sch.System{1,0},Sch.Barrier{}]))
+            case _:follow_scenario_error(FollowState{world,ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}},"missing-target-before-reinsert")
 def follow_link(state:FollowState) -> FollowState:
   follow_run(follow_set_write_args(state,False{}),"writer-link-then-barrier",[Sch.System{1,0},Sch.Barrier{}])
 def follow_failures(state:FollowState) -> FollowState:
-  follow_run(follow_set_write_args(state,True{}),"writer-self-and-missing-then-barrier",[Sch.System{1,0},Sch.Barrier{}])
-def follow_fast_failure(state:FollowState) -> FollowState:
-  follow_run(state,"fast-reader-callback-failure",[Sch.System{4,0}])
+  follow_run(follow_set_write_args(state,True{}),"writer-self-and-missing-queued",[Sch.System{1,0}])
+def follow_failure_barrier(state:FollowState) -> FollowState:
+  follow_run(state,"writer-self-and-missing-published",[Sch.Barrier{}])
+def follow_spawn(state:FollowState) -> FollowState:
+  follow_command(state,"ordinary-spawn-empty",SpawnEmpty{})
+def follow_despawn_args(world:world_type(),metadata:metadata_type(),writer:write_provider_type(),fast:provider_type(),slow:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>) -> FollowState:
+  match args:
+    case WriteArgs{source,target,Some{+handle},emitValues,_,_}:
+      follow_command(FollowState{world,ScheduleOwners{metadata,writer,fast,slow,WriteArgs{source,target,Some{handle},emitValues,None{},[]},trace}},"ordinary-despawn-returned-spawn",DespawnEmpty{handle})
+    case _ : follow_scenario_error(FollowState{world,ScheduleOwners{metadata,writer,fast,slow,args,trace}},"missing-actual-spawn-handle")
+def follow_despawn(state:FollowState) -> FollowState:
+  match state:
+    case FollowState{world,owners}:
+      match owners:
+        case ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}:
+          follow_despawn_args(world,metadata,writer,fast,slow,writeArgs,trace)
+def follow_slow_failure(state:FollowState) -> FollowState:
+  follow_run(state,"slow-reader-callback-failure",[Sch.System{4,0}])
 def follow_active_skip(state:FollowState) -> FollowState:
   follow_run(state,"active-fast-reader-condition-false",[Sch.System{2,2}])
-def follow_fast_retry(state:FollowState) -> FollowState:
-  follow_run(state,"fast-reader-retry",[Sch.System{2,0}])
+def follow_slow_retry(state:FollowState) -> FollowState:
+  follow_run(state,"slow-reader-retry",[Sch.System{3,0}])
 def follow_slow_read(state:FollowState) -> FollowState:
   follow_run(state,"slow-reader-independent-read",[Sch.System{3,0}])
 def follow_fast_repeat(state:FollowState) -> FollowState:
@@ -1593,43 +1646,52 @@ def follow_after_slow_repeat(state:FollowState) -> List<&2,String>:
   follow_finish(follow_slow_repeat(state))
 def follow_after_fast_repeat(state:FollowState) -> List<&2,String>:
   follow_after_slow_repeat(follow_fast_repeat(state))
-def follow_after_slow_read(state:FollowState) -> List<&2,String>:
-  follow_after_fast_repeat(follow_slow_read(state))
+def follow_fast_read(state:FollowState) -> FollowState:
+  follow_run(state,"fast-reader-independent-read",[Sch.System{2,0}])
 def follow_after_retry(state:FollowState) -> List<&2,String>:
-  follow_after_slow_read(follow_fast_retry(state))
-def follow_after_skip(state:FollowState) -> List<&2,String>:
-  follow_after_retry(follow_active_skip(state))
+  follow_after_fast_repeat(follow_fast_read(follow_slow_retry(state)))
 def follow_after_failure(state:FollowState) -> List<&2,String>:
-  follow_after_skip(follow_fast_failure(state))
+  follow_after_retry(follow_slow_failure(state))
 def follow_after_link(state:FollowState) -> List<&2,String>:
-  follow_after_failure(follow_failures(state))
+  follow_after_failure(follow_active_skip(follow_failure_barrier(follow_failures(follow_despawn(follow_spawn(state))))))
 def follow_after_warm(state:FollowState) -> List<&2,String>:
-  follow_after_link(follow_link(state))
+  follow_after_link(follow_link(follow_actual_reinsert(follow_actual_remove(state))))
+def follow_after_seed(state:FollowState) -> List<&2,String>:
+  match state:
+    case FollowState{world,owners}:
+      match owners:
+        case ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}:
+          match writeArgs:
+            case WriteArgs{Some{_},Some{_},_,_,_,_}:follow_after_warm(follow_warm(FollowState{world,ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}}))
+            case _:follow_finish(follow_scenario_error(FollowState{world,ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}},"ordinary-seed-did-not-return-two-live-handles"))
 def follow_initial(initialized:world_type() & ScheduleOwners) -> List<&2,String>:
   match initialized:
-    case (world,owners):follow_after_warm(follow_warm(FollowState{world,owners}))
-def run_followup(context:context_type(),writer:write_provider_type(),fast:provider_type(),slow:provider_type(),source:W.Handle<Schema>,target:W.Handle<Schema>,missing:W.Handle<Schema>) -> List<&2,String>:
-  follow_initial(metadata_after(context,writer,fast,slow,WriteArgs{source,target,None{},None{},[]},[]))
+    case (world,owners):follow_after_seed(follow_command(FollowState{world,owners},"ordinary-seed-two-values",SeedPair{}))
+def run_followup(context:context_type(),writer:write_provider_type(),fast:provider_type(),slow:provider_type()) -> List<&2,String>:
+  follow_initial(metadata_after(context,writer,fast,slow,WriteArgs{None{},None{},None{},False{},None{},[]},[]))
 
-def followup_slow_defined(source:W.Handle<Schema>,target:W.Handle<Schema>,missing:W.Handle<Schema>,writer:write_provider_type(),fast:provider_type(),defined:definition_type()) -> List<&2,String>:
+def followup_slow_defined(writer:write_provider_type(),fast:provider_type(),defined:definition_type()) -> List<&2,String>:
   match defined:
     case Ordinary.DefinitionRejected{_,_,_}:output_one("slow-reader-registration-rejected")
     case Ordinary.DefinitionDisposalRejected{_,_,_}:output_one("slow-reader-initialization-disposal-rejected")
-    case Ordinary.DefinitionRegistered{context,slow}:run_followup(context,writer,fast,slow,source,target,missing)
-def followup_fast_defined(source:W.Handle<Schema>,target:W.Handle<Schema>,missing:W.Handle<Schema>,writer:write_provider_type(),defined:definition_type()) -> List<&2,String>:
+    case Ordinary.DefinitionRegistered{context,slow}:run_followup(context,writer,fast,slow)
+def followup_fast_defined(writer:write_provider_type(),defined:definition_type()) -> List<&2,String>:
   match defined:
     case Ordinary.DefinitionRejected{_,_,_}:output_one("fast-reader-registration-rejected")
     case Ordinary.DefinitionDisposalRejected{_,_,_}:output_one("fast-reader-initialization-disposal-rejected")
-    case Ordinary.DefinitionRegistered{context,fast}:followup_slow_defined(source,target,missing,writer,fast,define_all(context,"slow"))
-def followup_writer_defined(source:W.Handle<Schema>,target:W.Handle<Schema>,missing:W.Handle<Schema>,defined:write_definition_type()) -> List<&2,String>:
+    case Ordinary.DefinitionRegistered{context,fast}:followup_slow_defined(writer,fast,define_all(context,"slow"))
+def followup_writer_defined(defined:write_definition_type()) -> List<&2,String>:
   match defined:
     case Ordinary.DefinitionRejected{_,_,_}:output_one("writer-registration-rejected")
     case Ordinary.DefinitionDisposalRejected{_,_,_}:output_one("writer-initialization-disposal-rejected")
-    case Ordinary.DefinitionRegistered{context,writer}:followup_fast_defined(source,target,missing,writer,define_all(context,"fast"))
+    case Ordinary.DefinitionRegistered{context,writer}:followup_fast_defined(writer,define_all(context,"fast"))
 def followup_start(state:Setup) -> List<&2,String>:
   match state:
-    case SetupFailed{}:output_one("setup-failed")
-    case Ready{context,entity,target,missing}:followup_writer_defined(entity,target,missing,define_writer(context,"relation-writer"))
+    case SetupFailed{}:output_one("\"setup-failed\"")
+    case Ready{context}:followup_writer_defined(define_writer(context,"relation-writer"))
+
+def both_root_outputs(first:List<&2,String>,second:List<&2,String>) -> List<&2,String>:
+  List.append(&2,String,["["],List.append(&2,String,first,List.append(&2,String,[","],List.append(&2,String,second,["]"]))))
 
 def main() -> IO(Unit):
-  write_output_chunks(followup_start(setup()))
+  write_output_chunks(both_root_outputs(followup_start(setup_with_factory(W.Factory{1})),followup_start(setup_with_factory(W.Factory{2}))))
