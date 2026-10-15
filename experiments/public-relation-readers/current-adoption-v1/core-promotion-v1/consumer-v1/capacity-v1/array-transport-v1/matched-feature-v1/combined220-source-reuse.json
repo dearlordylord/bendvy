@@ -1,6 +1,6 @@
 {
-  "scope": "Source-identical unchanged combined220 Workshop closure only; all 23 archived source bodies rechecked after reader and automatic-debug merge. No full-feature timing waiver.",
-  "candidateCommit": "5015b9d54e855c629cc515f80a47d5a66c17172e",
+  "scope": "Protected #28 combined220 Workshop only: 22 archived source bodies remain identical; World pending-count implementation differs but is unreached from timing-main -> run(10n) -> D.equivalent. Fresh emitted JS/C are byte-identical to the qualified archive. No full-feature timing waiver.",
+  "candidateCommit": "fda2f868a625461f4f7e291a16bc4c4ad1565a14",
   "archive": "/workspace/formal-proofs/bendvy/experiments/integration-gates/combined-ordinary-app-v1/actual-attempt220-01/evidence.tar.gz",
   "reachableBendFiles": [
     {
@@ -93,8 +93,32 @@
     },
     {
       "path": "src/ecs/world.bend",
-      "sha256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
+      "sha256": "4e191783000df87279190cdd5c74d419de88a1bae8d7ebaf0c3ed8600ad80d1a",
+      "archivedSHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310"
     }
   ],
-  "count": 23
+  "count": 23,
+  "sourceIdenticalCount": 22,
+  "artifactIdentity": {
+    "planPath": "/tmp/bendvy28-pending-artifact-identity01/PLAN.json",
+    "planSHA256": "729e9bd39790741e7c3399944500741876eddfd894919d084b79bff359b472b6",
+    "receiptPath": "/tmp/bendvy28-pending-artifact-identity01/receipt.json",
+    "receiptSHA256": "0a3f7f598378687400f77377e8b679274bef3e456d08a6b77289839cb223a4d0",
+    "status": "IDENTICAL",
+    "artifacts": {
+      "js": {
+        "path": "/tmp/bendvy28-pending-artifact-identity01/workshop.js",
+        "bytes": 669036,
+        "sha256": "ca22d6b8b91ba06a4a91ffcfb43682ce1722132f880dff52ee31475ae2c913e6",
+        "identical": true
+      },
+      "c": {
+        "path": "/tmp/bendvy28-pending-artifact-identity01/workshop.c",
+        "bytes": 6138933,
+        "sha256": "217789331517d25dcb479c1d036ed1ad138ff9088c41df51e8430b29f70f74a5",
+        "identical": true
+      }
+    }
+  },
+  "nativeReuse": "The exact retained qualified Native binary remains the reused artifact under its original conditions. This emitted-C identity audit does not claim a fresh Native build/binary identity or new timing; no comparison cohort was rerun."
 }
