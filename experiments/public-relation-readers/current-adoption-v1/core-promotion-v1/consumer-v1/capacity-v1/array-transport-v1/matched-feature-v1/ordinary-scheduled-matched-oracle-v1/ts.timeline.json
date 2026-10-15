@@ -1,0 +1,636 @@
+[
+  {
+    "root": "ReadersAlpha",
+    "timeline": [
+      {
+        "phase": "seed",
+        "tick": 2,
+        "frame": 1,
+        "boundary": 0,
+        "frameStart": 0,
+        "readerCursors": {}
+      },
+      {
+        "phase": "warm-readers",
+        "tick": 4,
+        "frame": 2,
+        "boundary": 0,
+        "frameStart": 2,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 3,
+            "streamLastRun": 3,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 4,
+            "streamLastRun": 4,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "remove-target",
+        "tick": 6,
+        "frame": 3,
+        "boundary": 2,
+        "frameStart": 4,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 3,
+            "streamLastRun": 3,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 4,
+            "streamLastRun": 4,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "read-removed",
+        "tick": 8,
+        "frame": 4,
+        "boundary": 4,
+        "frameStart": 6,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 7,
+            "streamLastRun": 7,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 8,
+            "streamLastRun": 8,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "reinsert-target",
+        "tick": 10,
+        "frame": 5,
+        "boundary": 6,
+        "frameStart": 8,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 7,
+            "streamLastRun": 7,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 8,
+            "streamLastRun": 8,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "read-reinserted",
+        "tick": 12,
+        "frame": 6,
+        "boundary": 8,
+        "frameStart": 10,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 11,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "successful-link",
+        "tick": 14,
+        "frame": 7,
+        "boundary": 10,
+        "frameStart": 12,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 11,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "spawn-doomed",
+        "tick": 16,
+        "frame": 8,
+        "boundary": 12,
+        "frameStart": 14,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 11,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "despawn-doomed",
+        "tick": 18,
+        "frame": 9,
+        "boundary": 14,
+        "frameStart": 16,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 11,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "writer-queued",
+        "tick": 20,
+        "frame": 10,
+        "boundary": 16,
+        "frameStart": 18,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 11,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "writer-published",
+        "tick": 21,
+        "frame": 11,
+        "boundary": 18,
+        "frameStart": 20,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 11,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "fast-active-skip",
+        "tick": 21,
+        "frame": 12,
+        "boundary": 20,
+        "frameStart": 21,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 21,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "slow-failed",
+        "tick": 22,
+        "frame": 13,
+        "boundary": 21,
+        "frameStart": 21,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 21,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "slow-retry",
+        "tick": 23,
+        "frame": 14,
+        "boundary": 21,
+        "frameStart": 22,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 21,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 23,
+            "streamLastRun": 23,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "fast-success",
+        "tick": 24,
+        "frame": 15,
+        "boundary": 22,
+        "frameStart": 23,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 24,
+            "streamLastRun": 24,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 23,
+            "streamLastRun": 23,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "fast-repeat",
+        "tick": 25,
+        "frame": 16,
+        "boundary": 23,
+        "frameStart": 24,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 25,
+            "streamLastRun": 25,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 23,
+            "streamLastRun": 23,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "slow-repeat",
+        "tick": 26,
+        "frame": 17,
+        "boundary": 24,
+        "frameStart": 25,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 25,
+            "streamLastRun": 25,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 26,
+            "streamLastRun": 26,
+            "registeredAt": 3
+          }
+        }
+      }
+    ]
+  },
+  {
+    "root": "ReadersBeta",
+    "timeline": [
+      {
+        "phase": "seed",
+        "tick": 2,
+        "frame": 1,
+        "boundary": 0,
+        "frameStart": 0,
+        "readerCursors": {}
+      },
+      {
+        "phase": "warm-readers",
+        "tick": 4,
+        "frame": 2,
+        "boundary": 0,
+        "frameStart": 2,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 3,
+            "streamLastRun": 3,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 4,
+            "streamLastRun": 4,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "remove-target",
+        "tick": 6,
+        "frame": 3,
+        "boundary": 2,
+        "frameStart": 4,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 3,
+            "streamLastRun": 3,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 4,
+            "streamLastRun": 4,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "read-removed",
+        "tick": 8,
+        "frame": 4,
+        "boundary": 4,
+        "frameStart": 6,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 7,
+            "streamLastRun": 7,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 8,
+            "streamLastRun": 8,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "reinsert-target",
+        "tick": 10,
+        "frame": 5,
+        "boundary": 6,
+        "frameStart": 8,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 7,
+            "streamLastRun": 7,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 8,
+            "streamLastRun": 8,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "read-reinserted",
+        "tick": 12,
+        "frame": 6,
+        "boundary": 8,
+        "frameStart": 10,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 11,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "successful-link",
+        "tick": 14,
+        "frame": 7,
+        "boundary": 10,
+        "frameStart": 12,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 11,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "spawn-doomed",
+        "tick": 16,
+        "frame": 8,
+        "boundary": 12,
+        "frameStart": 14,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 11,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "despawn-doomed",
+        "tick": 18,
+        "frame": 9,
+        "boundary": 14,
+        "frameStart": 16,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 11,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "writer-queued",
+        "tick": 20,
+        "frame": 10,
+        "boundary": 16,
+        "frameStart": 18,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 11,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "writer-published",
+        "tick": 21,
+        "frame": 11,
+        "boundary": 18,
+        "frameStart": 20,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 11,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "fast-active-skip",
+        "tick": 21,
+        "frame": 12,
+        "boundary": 20,
+        "frameStart": 21,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 21,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "slow-failed",
+        "tick": 22,
+        "frame": 13,
+        "boundary": 21,
+        "frameStart": 21,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 21,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 12,
+            "streamLastRun": 12,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "slow-retry",
+        "tick": 23,
+        "frame": 14,
+        "boundary": 21,
+        "frameStart": 22,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 11,
+            "streamLastRun": 21,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 23,
+            "streamLastRun": 23,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "fast-success",
+        "tick": 24,
+        "frame": 15,
+        "boundary": 22,
+        "frameStart": 23,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 24,
+            "streamLastRun": 24,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 23,
+            "streamLastRun": 23,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "fast-repeat",
+        "tick": 25,
+        "frame": 16,
+        "boundary": 23,
+        "frameStart": 24,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 25,
+            "streamLastRun": 25,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 23,
+            "streamLastRun": 23,
+            "registeredAt": 3
+          }
+        }
+      },
+      {
+        "phase": "slow-repeat",
+        "tick": 26,
+        "frame": 17,
+        "boundary": 24,
+        "frameStart": 25,
+        "readerCursors": {
+          "fast": {
+            "lastRun": 25,
+            "streamLastRun": 25,
+            "registeredAt": 2
+          },
+          "slow": {
+            "lastRun": 26,
+            "streamLastRun": 26,
+            "registeredAt": 3
+          }
+        }
+      }
+    ]
+  }
+]
