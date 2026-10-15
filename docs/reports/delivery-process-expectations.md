@@ -54,15 +54,16 @@ Initial expectations commit: `01fd5b2b5`. Changes were developed in an isolated 
 Light verification: 17 retrofit controls and 14 hook tests pass. The configured commit hook also passed
 all ten lightweight suites (119 tests), admission selection and whitespace checks. No benchmark or profiler was run.
 
-Later session assessment: **pending**. Record actual usage, rejected mistakes,
-missed mistakes and manual handoffs before judging whether these changes helped.
+Later session assessment: recorded below in the dated delivery observations and
+retrospective reconciliation. Real use is established for several controls;
+overall delivery-speed improvement remains unmeasured.
 
 ## Version 1+1 — additional improvements
 
 Added 2026-10-12 from the session retrospective. These additions are approved for
 implementation; they are not implemented by this table. Preserve the original
-expectations above. Sequential batching remains original item #2, with adoption
-and real-session assessment still to check; it is not a new item here.
+expectations above. Sequential batching remains original item #2; its later
+real-session adoption is recorded below, not introduced as a new item here.
 
 | # | Planned change | Expected result | Implementation | Effect observed |
 |---|---|---|---|---|
@@ -148,8 +149,10 @@ benchmark or test runs. Original expectations remain unchanged.
 | 1+1.4 infrastructure CI | Two subsequent master jobs completed successfully within the unchanged five-minute limit: 84s and 88s. | [38330369008](https://github.com/dearlordylord/bendvy/actions/runs/38330369008): 01:04:32–01:05:56 UTC; [38331207282](https://github.com/dearlordylord/bendvy/actions/runs/38331207282): 01:14:56–01:16:24 UTC. Earlier successful job [38327219219](https://github.com/dearlordylord/bendvy/actions/runs/38327219219) took 275s. These are whole-job durations including checkout; different hosts and uncontrolled conditions prevent causal speedup attribution. |
 
 No overall delivery-speed improvement is established by these observations.
-Real adoption/effect of #2 batching, #3 ownership staging and #4 scenario helper
-remains unverified; #5 has no demonstrated blocker fix and 1+1.3 remains a draft.
+At this observation point, real adoption/effect of #2 batching, #3 ownership
+staging and #4 scenario helper was still unverified. Later delivery observations
+below establish bounded adoption; this is a historical status, not the current
+summary. #5 had no demonstrated blocker fix and 1+1.3 remained a draft.
 
 ### Nearest delivery assessment — 2026-10-13 UTC (in progress)
 
@@ -716,3 +719,49 @@ Reachability review caught root imports before candidate execution; the coherent
 master selection retains raw data only in its archive. Protected #28 reuse is
 bound to its unchanged23-source workload; no overall delivery-speed or Inspector
 runtime-performance improvement is established.
+
+
+### Retrospective reconciliation — 2026-10-14 local session
+
+This reconciles the existing tables with later delivery observations and the
+session conversation. It adds no runner, approval stage or acceptance criterion.
+Distinguish a mechanism that failed, one not invoked, and an unmeasured benefit.
+
+| Existing improvement or practice | Observed outcome | Remaining limitation / next action |
+|---|---|---|
+| #1 preflight | Works for covered invariants: the integrated 23 focused controls reject artifact-parent, compiler-provenance and import-order mistakes. | Coverage is not universal: the combined simulation dialect is unsupported, and #55 review pinned one collector while its launcher invoked another. Trace the actual execution chain and extend existing checks only for a concrete uncovered invariant. |
+| #2 sequential batches | Real runtime02 JS → Native sequencing completed automatically; later deliveries also used existing serialized runners. | Whole-queue manual handoffs remain. A delivery using another runner is not a failure of `delivery_batch.py`, nor evidence that it was used. Reuse the appropriate existing runner; time saved is unmeasured. |
+| #3 exact ownership staging | Applied to real #46, #38, #63 and #42 integrations with exact owned sets and configured hooks. | No accidental staging error caught in these deliveries or comparative time saving is established. This is demonstrated adoption, not pending implementation. |
+| #4 scenario controls | Two real #46 expected-diagnostic checks passed. Other consumers used their existing full-output validators. | Plain String output does not require a duplicate scenario DTO. Non-use of this helper is not missing validation when the existing oracle covers the complete observation. |
+| Evidence reuse | Retained JS, Native and reached-control outputs were revalidated without repeating unchanged compilation; original INCOMPLETE receipts remained intact. | Reuse is demonstrated. Total avoided compiler time and overall delivery acceleration remain unmeasured. |
+| Independent final review | Runtime Inspector packet review caught missing joins between command stream metadata and archived raw streams; the successor added path/size/digest rejection controls before integration `654863f3f`. | Check whether the existing verifier primitives can cover the same joins elsewhere; do not invent another evidence framework or repeat an already fixed defect as an open implementation task. |
+| Bevy-first guidance | Did not prevent a redundant user question about duplicate Schedule names, despite the existing Bevy-first policy. | Apply the existing priority: ask only when sources leave a real choice or Bend requires an observable divergence. New API surface alone is not a new semantic decision. |
+| Task-local blockers | Did not prevent stopping the whole goal while comparative measurements waited on CPU contention; the user had to intervene. | Keep that measurement lane on hold and continue independent semantic/implementation work. Reconcile the executable frontier before treating the whole objective as blocked. |
+
+The pinned development check, reduced coordination table and active infrastructure
+CI also have demonstrated use, as recorded above. No new generic tooling is
+justified solely by the remaining failures. Prioritize task-local blocker handling,
+correct use of Bevy authority, and concrete gaps in existing checks. The initial
+retrospective overlooked some later observations and proposed work already done;
+future assessments must reconcile this document before recommending replacements.
+
+
+### Targeted follow-up — launcher and raw-stream joins
+
+Read-only inspection and offline checks following the local 2026-10-14 retro;
+no compiler, benchmark, collector child or live queue was launched. Only this
+report is updated. Historical packets, verifier identities and receipts remain
+unchanged.
+
+| Subject | Checked result | Disposition |
+|---|---|---|
+| Runtime-entry stream joins | `experiments/public-inspect/inspector-runtime-entry-v1/delivery-v1/verify.py --selftest` passes. `verify_command_join` compares the complete receipt stream path with manifest `sourcePath`, byte count and SHA against decoded archive bytes; malformed path/count/digest controls reject. | Already fixed and tested; no new task to repair this packet. |
+| Runtime08 retained qualification | Its existing offline `delivery-v1/verify.py` passes. The archived `LAUNCH.json` collector object equals the JS plan's `collectorBinding.collector`; the command template selects that collector path. | The inspected successor declarations are consistent. This comparison does not independently reconstruct the OS-level historical invocation or prove the old launcher mistake cannot recur. |
+| Runtime08 stream path identity | The verifier locates command streams with `PurePosixPath(ref["path"]).name`, then checks publication, bytes and SHA. An in-memory control executed that exact existing AST loop against the archived JS receipt after changing only one stdout parent directory; it still passed. Archive and receipt files were not changed. | Concrete missing semantic check: bind the full receipt path to the selected manifest member's `sourcePath`. Contents are verified; this is not evidence of corrupt output or a forged archive passing all integrity gates. A future reviewed verifier successor should add the path join and a same-basename/wrong-parent refusal, preserving the historical verifier and its pinned identity. |
+| Generic batch launcher binding | `scripts/delivery_batch.py:run_batch` validates each plan digest and role shape, then executes independently supplied `job["argv"]`. Its guard freezes manifest/plan bytes and published streams; it does not compare selected wrapper/collector/interpreter bytes with a declared launch binding. Existing tests intentionally allow generic wrapper commands. | A frozen plan alone does not establish which collector is invoked. For collector-backed jobs, reuse the existing launch binding in review and any focused check; generic wrappers need not be banned. This is a bounded code-inspection finding, not a demonstrated wrong launch in the current packet or a reason to rewrite historical runners. |
+
+Next implementation belongs to the owning main-thread delivery: one reviewed
+runtime08 verifier successor if that packet is maintained, and a focused actual
+launcher/binding control for the applicable collector-backed job. Do not change
+archive-bound verifier bytes in place, add another approval layer, or infer
+comparative speed or complete capability acceptance from these offline checks.
