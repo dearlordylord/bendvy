@@ -1,0 +1,186 @@
+{
+  "schema": "bendvy.ordinary-reader-current-source-variant-independent-oracles.v1",
+  "sourceWorktreeCommit": "8f52ea4be77f53c52cb98a598687ce4743d7edfa",
+  "sourceFreeze": {
+    "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/SOURCE-FREEZE.json",
+    "sha256": "c344b6b23ad0f228f418c88e29f5bcf0ee2c3a2eae070f7a88feefb9351998fc",
+    "sourceClosureRows": 37,
+    "verification": "variant_model.py and variant_selftest.py rehash every frozen source row before deriving each output"
+  },
+  "identityMapping": {
+    "writerSystemRegistryId": 2,
+    "inverseSystemRegistryId": 3,
+    "failureSystemRegistryId": 4,
+    "failureReaderId": 1,
+    "nextReaderAfterRegistration": 2,
+    "domainAndEventPositionReaderId": 1,
+    "basis": [
+      "The checked current consumer registers ParentWriter, ParentInverse, then ParentFailures after the existing system; the World registry cursor therefore gives those system IDs 2, 3, and 4.",
+      "K.start seeds the failure-reader allocator at 1. K.register stores the registered system Registry with the Reader but puts the allocator value in Reader.id and increments nextReader; the consumer observes both FailureView fields and Snapshot.nextReader.",
+      "The failure Domain membership and event Position use the allocated Reader.id, independently from the system Registry ID."
+    ]
+  },
+  "scenarios": {
+    "replacement": {
+      "entrypoint": {
+        "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/replacement-unrelate/entry-garden.bend",
+        "sha256": "6cd762c835c21fd66f0e8ecf56380938f03166204aca8492f09ec7a0844a9c5c",
+        "bytes": 121
+      },
+      "currentFixture": {
+        "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/replacement-unrelate/fixture.bend",
+        "sha256": "f00d8efcda945533b737a1c320da550f50d69153e8b38480be10e20abb63fd49",
+        "bytes": 10418
+      },
+      "currentOperations": {
+        "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/replacement-unrelate/operations.bend",
+        "sha256": "87c0798be55e4cec277b76f2a1e885f5e051faac32365e52b3e67a9252261706",
+        "bytes": 3749
+      },
+      "currentConsumer": {
+        "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/replacement-unrelate/consumer.bend",
+        "sha256": "c53022cfd51977f377c912834dd5df60ed95cec85d4a2d36b6ead1077521e619",
+        "bytes": 26326
+      },
+      "legacyInputs": {
+        "model": {
+          "path": "experiments/public-relations/ordinary-reader-query-mutation-oracle-v1/model.py.source",
+          "sha256": "771d3dbdbf2420d590f832029e3af878b91d2f644a4ca162e61c771a4c2dd3b5",
+          "bytes": 4753
+        },
+        "golden": {
+          "path": "experiments/public-relations/ordinary-reader-query-mutation-oracle-v1/workshop-expected.stdout",
+          "sha256": "1ce022e4998752e065c16c35934a6090fa9e019ccf05d6f6cf7b4f5ef6641b26",
+          "bytes": 14197
+        },
+        "scenarioEntry": {
+          "path": "experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/entry-workshop.bend",
+          "sha256": "b7669cfb1de60ef2a95c61f9454ffc35a12e1b1d6962a1bec9ebdb11f6373b2a",
+          "bytes": 125
+        },
+        "fixture": {
+          "path": "experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/fixture.bend",
+          "sha256": "e8f413e4add7fcdc2e09bd1d9367c0b153046d3599b435c3adbc47f2cddf85b3",
+          "bytes": 10486
+        },
+        "operations": {
+          "path": "experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/operations.bend",
+          "sha256": "2b64fbe65eb968aac8bdc5c046b556f10311e5758d9ef9e88debd80852accf86",
+          "bytes": 3885
+        },
+        "consumer": {
+          "path": "experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/consumer.bend",
+          "sha256": "b5aa3a508fd82ee1e67ca3db2636812d97415186a0b4a006f9120a07b46d9903",
+          "bytes": 26201
+        },
+        "unchangedConsumerSuffixSha256": "d299edd8e104bfb7b5aba2fffccf9d774bf1aa2bc28625a57287871eaf4d1788",
+        "sourceRelation": "fixture and operations match after import-only removal; complete consumer execution suffix beginning at def write_result is byte-identical."
+      },
+      "expected": {
+        "rawPath": "replacement-expected.stdout",
+        "rawBytes": 14303,
+        "rawSha256": "0aeb7963538144904ec630f6031ae26e3f0732d6028ec6a08003b8001519b124",
+        "gzipPath": "replacement-expected.stdout.gz",
+        "gzipSha256": "1d8adb1f9ffd96060ba9dfeec03aa47087fd74dd02cd1cdf1ea39795473a858e",
+        "generation": "Python source model only; no candidate/runtime stdout is an input."
+      },
+      "identityCounts": {
+        "snapshotCount": 17,
+        "failureViewCount": 17,
+        "activeDomainAndPositionCount": 2,
+        "nextReaderTwoCount": 17
+      }
+    },
+    "system-failure": {
+      "entrypoint": {
+        "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/system-failure/entry-garden.bend",
+        "sha256": "a4e626257f80654e029f4bcb2e5468f05e48e05b830a81e28ee31d377fd1ea1c",
+        "bytes": 120
+      },
+      "currentFixture": {
+        "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/system-failure/fixture.bend",
+        "sha256": "f00d8efcda945533b737a1c320da550f50d69153e8b38480be10e20abb63fd49",
+        "bytes": 10418
+      },
+      "currentOperations": {
+        "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/system-failure/operations.bend",
+        "sha256": "701da6176d14d1826087aeecca591b268648265c143200666554be2804706091",
+        "bytes": 4684
+      },
+      "currentConsumer": {
+        "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/system-failure/consumer.bend",
+        "sha256": "6aa7b21d250aa54ba8b66576001d82e27ec188256a834e44f7a21ea901f43d78",
+        "bytes": 24394
+      },
+      "legacyInputs": {
+        "model": {
+          "path": "experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/model.py.source",
+          "sha256": "79cbb826fef3228a480c82f7b2a55b744f33c1e46a111d9089bebf02f800af48",
+          "bytes": 4247
+        },
+        "golden": {
+          "path": "experiments/public-relations/ordinary-reader-query-system-failure-oracle-v1/workshop-expected.stdout",
+          "sha256": "34006c516f9583846dc1b671046f08af4ac69d252ac3237c80acb61c9d6881cf",
+          "bytes": 17728
+        },
+        "scenarioEntry": {
+          "path": "experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/entry-workshop.bend",
+          "sha256": "2b13bade4e2ea09b331cbe3e40eae1e4e126817b9d0223fb14a6eb0ff768dc4d",
+          "bytes": 151
+        },
+        "fixture": {
+          "path": "experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/fixture.bend",
+          "sha256": "e8f413e4add7fcdc2e09bd1d9367c0b153046d3599b435c3adbc47f2cddf85b3",
+          "bytes": 10486
+        },
+        "operations": {
+          "path": "experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/operations.bend",
+          "sha256": "63674c8203ac977065997f20299fc32bac0bbb11f9e2c4abbaafccd1bfe96eb9",
+          "bytes": 4820
+        },
+        "consumer": {
+          "path": "experiments/public-relations/ordinary-reader-query-v1/system-failure-v1/consumer.bend",
+          "sha256": "de657bb58706de3749891f0bceaf4a504761766e160ee6dc4d9d7d3db5a6a275",
+          "bytes": 24296
+        },
+        "unchangedConsumerSuffixSha256": "d8977c3856c85720585b395b662a7be87854de129528be26214842e828a7eafb",
+        "sourceRelation": "fixture and operations match after import-only removal; complete consumer execution suffix beginning at def write_result is byte-identical."
+      },
+      "expected": {
+        "rawPath": "system-failure-expected.stdout",
+        "rawBytes": 16488,
+        "rawSha256": "287068cd850bf985a2ac21fde9c2e898c03f2d1480b08d222b2a0ea50eeab955",
+        "gzipPath": "system-failure-expected.stdout.gz",
+        "gzipSha256": "6bca786adc6c81f32dff529b0a2dc8e75a4222ee4f5dfd26b0322e56867d4940",
+        "generation": "Python source model only; no candidate/runtime stdout is an input."
+      },
+      "identityCounts": {
+        "snapshotCount": 10,
+        "failureViewCount": 10,
+        "activeDomainAndPositionCount": 7,
+        "nextReaderTwoCount": 10
+      }
+    }
+  },
+  "reachedMutantApplicability": {
+    "priorDelta": {
+      "path": "experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/controls-v1/DELTA.json",
+      "sha256": "f1c54979f5cea56d261152d11cbaea18f29494d176b27ca7f65f2fd2a2d266bf",
+      "bytes": 475
+    },
+    "priorReadme": {
+      "path": "experiments/public-relations/ordinary-reader-query-v1/mutation-composition-v1/controls-v1/README.md",
+      "sha256": "015013c3ac6d70b1ea3d0f4a2d662b2e173ac1ef15fd759b7f63ea6319f4a5cd",
+      "bytes": 696
+    },
+    "mutatedOperation": "case P.Writable{_,_,Cap.Request{clear}}:clear(owner,source)",
+    "replacementCurrentOperationReachability": "The current replacement/unrelate operation body is byte-equal after import-line removal to the selected prior operation module; the actual granted clear callback site targeted by the reached clear-omitted mutation is present. The current-source transform is therefore source-applicable at that call site.",
+    "systemFailureCurrentOperationReachability": "The same callback form exists in the current SystemFailure operation module, but this packet does not claim that the current SystemFailure sequence reaches a corresponding mutant behavior.",
+    "currentSourceMutantOracle": "NOT_DERIVED. The prior reached output and mutation delta do not bind a current-source output with readerId=1/nextReader=2; current-source mutant kill is not claimed."
+  },
+  "limits": [
+    "The outputs are source-derived finite replacement/unrelate and SystemFailure scenario expectations.",
+    "No current-source runtime output, compiler execution, TypeScript reader-ID parity, or issue-level acceptance is claimed.",
+    "Existing clear-omitted evidence is applicable to the replacement operation source site, but a current-source mutant expected output remains unbound."
+  ]
+}

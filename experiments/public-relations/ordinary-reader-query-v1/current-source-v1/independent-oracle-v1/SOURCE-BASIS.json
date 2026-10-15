@@ -1,0 +1,55 @@
+{
+  "schema": "bendvy.ordinary-reader-current-source-independent-oracle.v1",
+  "sourceWorktreeCommit": "8f52ea4be77f53c52cb98a598687ce4743d7edfa",
+  "sourceFreeze": {
+    "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/SOURCE-FREEZE.json",
+    "sha256": "c344b6b23ad0f228f418c88e29f5bcf0ee2c3a2eae070f7a88feefb9351998fc",
+    "sourceClosureRows": 37,
+    "verification": "Every listed source path, byte count and SHA-256 checked by model.py and selftest.py."
+  },
+  "selectedScenario": {
+    "entry": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/normal/entry-workshop.bend",
+    "consumer": {
+      "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/normal/consumer.bend",
+      "sha256": "281e64e28dd59a421487d286b979028a701ca926a0cd224614cd2a8e8af52503"
+    },
+    "operations": {
+      "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/normal/operations.bend",
+      "sha256": "676479b47e07b8f0d631b56b9858cfd8ee47f178689be8fe7b71b65507606457"
+    },
+    "unchangedScenarioSuffixSha256": "9f1bdba85ebbbff881eb8e7f268675fe6cc3c635c8de6f06205ad5bd6f2d36bb"
+  },
+  "reusedModel": {
+    "path": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/independent-oracle-v1/base-model.py.source",
+    "sha256": "5d930f0cf5a6e98a7e3e05061cee413fb65c9764143be84198d1e6e91c589ec7",
+    "originalGoldenPath": "experiments/public-relations/ordinary-reader-query-oracle-v1/workshop-expected.stdout",
+    "originalGoldenBytes": 15356,
+    "originalGoldenSha256": "0e61dbb4d63953254e186e6bfae7035abfb360a27eafc38a6702dc5d13b2d519",
+    "selftest": "The unmodified base model reproduces the original raw golden byte-for-byte before current-source mapping is applied."
+  },
+  "identityMapping": {
+    "writerSystemRegistryId": 2,
+    "inverseSystemRegistryId": 3,
+    "failureSystemRegistryId": 4,
+    "failureReaderId": 1,
+    "nextReaderAfterRegistration": 2,
+    "domainAndEventPositionReaderId": 1,
+    "basis": [
+      "The normal consumer registers ParentWriter, ParentInverse, then ParentFailures, after the existing system; World registration allocates system registry IDs in that order.",
+      "K.start initializes the failure runtime nextReader to 1; K.register keeps the system registry identity in Reader.registry, records nextReader separately as Reader.id, and increments nextReader after successful registration.",
+      "The consumer's FailureView serializes both RegistryView and readerId; Domain membership and event Position use the reader identity."
+    ]
+  },
+  "expected": {
+    "rawPath": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/independent-oracle-v1/normal-expected.stdout",
+    "rawBytes": 14880,
+    "rawSha256": "14e5248e1410fc0792b489ce615bda4263d0bac0a12d917d3749dc4db74b9d56",
+    "gzipPath": "experiments/public-relations/ordinary-reader-query-v1/current-source-v1/independent-oracle-v1/normal-expected.stdout.gz",
+    "gzipSha256": "caea1a8b7694d895865b0aea71bb706833417dc569c3bd29f1e52a5bbd4b7fde",
+    "generation": "Python source model only; no current-source runtime stdout was read."
+  },
+  "limits": [
+    "This is the current normal Workshop source-derived finite oracle only; replacement/unrelate and SystemFailure models are not yet rebound.",
+    "It models the selected finite scenario and does not claim a universal proof, runtime pass, TypeScript reader-ID parity or issue-level acceptance."
+  ]
+}

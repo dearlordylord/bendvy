@@ -10,10 +10,10 @@ Systems create, replace and remove typed directed entity links and query both en
 
 ## Acceptance criteria
 
-- [ ] Observe pinned relation definitions, self-link policies, missing-source/target errors, source replacement and inverse iteration order; compare Rust Bevy relationship source-of-truth and protected target collection architecture.
-- [ ] Execute actual deferred relate/unrelate and query operations, preserving pre-barrier visibility and exact post-barrier inverse consistency. Direct inverse mutation must not bypass the declared relation API.
-- [ ] Cover source/target deletion and exact ordered structural failure publication. Separate relation mutation failures from SystemFailure; registered failure-reader composition is a dependent slice.
-- [ ] Test foreign handles and schema/access controls; detect a reached stale-inverse or failed-publication mutant and preserve arbitrary component owners.
+- [x] Observe pinned relation definitions, self-link policies, missing-source/target errors, source replacement and inverse iteration order; compare Rust Bevy relationship source-of-truth and protected target collection architecture.
+- [x] Execute actual deferred relate/unrelate and query operations, preserving pre-barrier visibility and exact post-barrier inverse consistency. Direct inverse mutation must not bypass the declared relation API.
+- [x] Cover source/target deletion and exact ordered structural failure publication. Separate relation mutation failures from SystemFailure; registered failure-reader composition is a dependent slice.
+- [x] Test foreign handles and schema/access controls; detect a reached stale-inverse or failed-publication mutant and preserve arbitrary component owners.
 
 ## Blocked by
 
@@ -28,3 +28,9 @@ None (can start immediately; explicit unresolved contract gates still apply).
 - Use before/after JS call and allocation profiles for a consequential performance change; report allocation sampling separately from physical/RSS memory. Optimize demonstrated bottlenecks while completing features. The scoped #30 amendment is not a global gate waiver; full performance remains under #21/#23/#24.
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
+
+## Semantic acceptance reconciliation
+
+The [current-source delivery](../../experiments/public-relations/ordinary-reader-query-v1/current-source-v1/current-delivery-v1/README.md) closes the reader-identity applicability gap: Registry 4 is distinct from Reader 1, with `nextReader=2`. Complete independent normal, replacement/unrelate and SystemFailure outputs pass on JS and Native (14,880 / 14,303 / 16,488 bytes). A reached clear-omitted mutant matches its full 14,728-byte counter oracle and rejects the normal result. Historical receipts, including the first pre-emit inventory rejection, remain unchanged.
+
+Independent final Spec/Standards review passed for retained packet `cb196f40b`. Combined with previously qualified definitions/policies, inverse/deferred operations, cleanup, actual foreign IO worlds, two-schema/access/affine controls, full-capacity correctness and executed TS reference, no semantic acceptance gate remains. #43 separately supplies registered-reader composition. The older `ACCEPTANCE-JOINS.json` remains historical; this source repair supplies the current reader/runtime join. Protected #28 reuse retains its qualified scope; comparative timing/scaling and final combined targets remain under #21/#23/#24.
