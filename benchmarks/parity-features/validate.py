@@ -44,6 +44,13 @@ def supplement(block):
     return expected
 
 def validate(feature, backend, text, batches,nested_spawn=False):
+    if feature in {'named-schedules', 'named-schedules-enabled', 'named-schedules-disabled'}:
+        assert batches in {1, 2, 4}, 'Unsupported named-plan scale'
+        directory = 'matched-feature-v1' if feature == 'named-schedules' else 'debug-overhead-v1'
+        filename = f'expected-scale-{batches}.stdout' if feature == 'named-schedules' else f'expected-{feature.removeprefix("named-schedules-")}-scale-{batches}.stdout'
+        expected = ROOT / 'experiments/public-schedules/named-app-v1' / directory / 'independent-oracle-v1' / filename
+        assert text == expected.read_text(), 'Complete matched named-plan observation mismatch'
+        return
     if feature == 'inspect-runtime':
         assert batches in {1,2,4}, 'Unsupported runtime Inspector scale'
         expected = ROOT / 'experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/independent-oracle-v1' / f'expected-scale-{batches}.stdout'

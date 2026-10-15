@@ -1,0 +1,303 @@
+#!/usr/bin/env python3
+"""Independent source-derived per-mode model for #56 named plans.
+
+The model follows only the frozen debug-overhead-v1 entrypoint, matched scene,
+fixture, observer, and ordinary schedule/access sources.  It does not invoke
+Bend, Node, C, or a candidate consumer.  It emits the complete compact JSON
+transport produced by run_mode(N, debug) followed by the pinned IO.print
+terminal LF.
+"""
+from __future__ import annotations
+
+import gzip
+import hashlib
+import io
+import json
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any
+
+
+FREEZE_SHA256 = "bb025b2d3a965cecb574d84185a161f7f7c4d89d71f2774e10421d1504337d50"
+PRODUCER_COMMIT = "1c73c4eb4bba761ed2dfd6a19798380eb703fddb"
+SOURCE_INVENTORY_SHA256 = "8b0f21333cafc83235452fce77ee01ebdee2aea7e2e72045ef86010e18055cdb"
+
+SYSTEM_NAMES = {1: "Shared", 2: "Independent", 3: "Reader"}
+
+
+def compact(value: Any) -> str:
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+
+
+@dataclass(frozen=True)
+class Plan:
+    """The finite SP.Plan shapes used by main.actions."""
+
+    system_ids: tuple[int, ...]
+    conditions: tuple[int, ...]
+    barrier: bool
+
+    @property
+    def skip(self) -> bool:
+        return any(condition != 0 for condition in self.conditions)
+
+
+def one(system_id: int) -> Plan:
+    # main.one is System{id,0}; System{3,0}; Barrier.
+    return Plan((system_id, 3), (0, 0), True)
+
+
+def skip_plan() -> Plan:
+    # main's Skip plan has System{1,1}; System{3,0}; no barrier.
+    return Plan((1, 3), (1, 0), False)
+
+
+def valid(plan: Plan) -> bool:
+    # Sch.valid rejects unknown IDs and repeated System IDs.  Barriers and
+    # conditions do not change the catalog or duplicate check.
+    return (
+        all(system_id in SYSTEM_NAMES for system_id in plan.system_ids)
+        and len(set(plan.system_ids)) == len(plan.system_ids)
+    )
+
+
+def plan_json(plan: Plan) -> dict[str, Any]:
+    return {
+        "ids": list(plan.system_ids),
+        "skip": plan.skip,
+        "barrier": plan.barrier,
+    }
+
+
+@dataclass
+class State:
+    namespace: int
+    debug: bool
+    resource: int = 9
+    shared: int = 0
+    independent: int = 0
+    plans: list[tuple[str, Plan]] = field(default_factory=list)
+
+    def find(self, label: str) -> Plan | None:
+        for current, plan in self.plans:
+            if current == label:
+                return plan
+        return None
+
+    def put(self, label: str, plan: Plan) -> Plan | None:
+        previous = self.find(label)
+        for index, (current, _) in enumerate(self.plans):
+            if current == label:
+                self.plans[index] = (label, plan)
+                return previous
+        self.plans.append((label, plan))
+        return previous
+
+    def remove(self, label: str) -> Plan | None:
+        previous = self.find(label)
+        self.plans = [(current, plan) for current, plan in self.plans if current != label]
+        return previous
+
+
+def outcome(status: str, observations: list[tuple[str, int | None]]) -> dict[str, Any]:
+    ran = [SYSTEM_NAMES[ident] for kind, ident in observations if kind == "ran"]
+    skipped = [SYSTEM_NAMES[ident] for kind, ident in observations if kind == "skipped"]
+    barrier = any(kind == "barrier" for kind, _ in observations)
+    return {"status": status, "ran": ran, "skipped": skipped, "barrier": barrier}
+
+
+def run_plan(state: State, plan: Plan) -> tuple[str, list[tuple[str, int | None]]]:
+    observations: list[tuple[str, int | None]] = []
+    for ident, condition in zip(plan.system_ids, plan.conditions):
+        if condition != 0:
+            observations.append(("skipped", ident))
+            continue
+        if ident == 1:
+            state.shared += 1
+        elif ident == 2:
+            state.independent += 1
+        elif ident != 3:
+            raise AssertionError(f"unknown system {ident}")
+        observations.append(("ran", ident))
+        # fixture.local_observed reads the resource and turns value 99 into a
+        # planned transaction failure.  The local increment is returned even
+        # on that failure; schedule execution stops before Reader/barrier.
+        if ident in (1, 2) and state.resource == 99:
+            return "failed:planned", observations
+    if plan.barrier:
+        observations.append(("barrier", None))
+    return "finished", observations
+
+
+def system_name(system_id: int) -> str:
+    return SYSTEM_NAMES[system_id]
+
+
+def schedule_debug(state: State, label: str, plan: Plan) -> dict[str, Any]:
+    steps = [system_name(system_id) for system_id in plan.system_ids]
+    if plan.barrier:
+        steps.append("barrier")
+    reads: list[dict[str, Any]] = []
+    for system_id in plan.system_ids:
+        name = system_name(system_id)
+        if system_id in (1, 2):
+            reads.append({"name": name, "resources": ["Counter"], "writes": []})
+        elif system_id == 3:
+            reads.append({"name": name, "resources": [], "writes": ["Counter"]})
+    return {"label": label, "steps": steps, "reads": reads}
+
+
+def access_debug(state: State, label: str, plan: Plan) -> dict[str, Any]:
+    # Access.fields groups the three ResourceKind entries by Counter, then
+    # SelectedAccess.placed selects the actual plan's registrations.  Local
+    # declarations are Readers and the resource declaration is a Writer.
+    readers = [system_name(system_id) for system_id in plan.system_ids if system_id in (1, 2)]
+    writers = ["Reader"] if 3 in plan.system_ids else []
+    resources = [{"name": "Counter", "readers": readers, "writers": writers}]
+    return {"label": label, "resources": resources}
+
+
+def view(state: State) -> dict[str, Any] | None:
+    if not state.debug:
+        return None
+    schedules = [schedule_debug(state, label, plan) for label, plan in state.plans]
+    access = [access_debug(state, label, plan) for label, plan in state.plans]
+    return {"schedules": schedules, "access": access}
+
+
+def observed_counter(state: State) -> int:
+    """Project Counter through the ordinary F.observe reader DTO.
+
+    The final observer source no longer pattern-matches the raw resource
+    field.  F.observe returns the current Counter in DTO.Observation, while
+    preserving the same logical value used by this model.
+    """
+    return state.resource
+
+
+def record(
+    state: State,
+    operation: str,
+    result: Any,
+    *,
+    snapshot: bool = False,
+) -> dict[str, Any]:
+    return {
+        "op": operation,
+        "result": result,
+        "view": view(state) if snapshot else None,
+        "memory": [state.shared, state.independent],
+        "counter": observed_counter(state),
+        "plans": [
+            {"label": label, **plan_json(plan)} for label, plan in state.plans
+        ],
+    }
+
+
+def actions() -> list[tuple[Any, ...]]:
+    # Exact order from main.bend actions(~S).
+    return [
+        ("insert", "First", one(1)),
+        ("insert", "Second", one(1)),
+        ("insert", "Separate", one(2)),
+        ("insert", "First", one(99)),
+        ("insert", "Separate", Plan((2, 3, 2, 3), (0, 0, 0, 0), True)),
+        ("run", "First"),
+        ("run", "Second"),
+        ("run", "First"),
+        ("run", "Separate"),
+        ("failure", True),
+        ("run", "First"),
+        ("failure", False),
+        ("run", "Second"),
+        ("insert", "First", one(2)),
+        ("run", "First"),
+        ("remove", "Second"),
+        ("run", "Second"),
+        ("get", "First"),
+        ("get", "Missing"),
+        ("remove", "Missing"),
+        ("insert", "Skip", skip_plan()),
+        ("run", "Skip"),
+        ("remove", "Skip"),
+        ("snapshot",),
+        ("run", "First"),
+        ("snapshot",),
+    ]
+
+
+def scene(schema: str, debug: bool, namespace: int) -> dict[str, Any]:
+    state = State(namespace=namespace, debug=debug)
+    records: list[dict[str, Any]] = []
+    for action in actions():
+        kind = action[0]
+        if kind == "insert":
+            label, plan = action[1], action[2]
+            if not valid(plan):
+                records.append(record(state, f"insert:{label}", "invalid"))
+            else:
+                previous = state.put(label, plan)
+                records.append(record(state, f"insert:{label}", None if previous is None else plan_json(previous)))
+        elif kind == "remove":
+            label = action[1]
+            previous = state.remove(label)
+            records.append(record(state, f"remove:{label}", None if previous is None else plan_json(previous)))
+        elif kind == "get":
+            label = action[1]
+            current = state.find(label)
+            records.append(record(state, f"get:{label}", None if current is None else plan_json(current)))
+        elif kind == "run":
+            label = action[1]
+            current = state.find(label)
+            if current is None:
+                records.append(record(state, f"run:{label}", "unknown"))
+            else:
+                status, observations = run_plan(state, current)
+                records.append(record(state, f"run:{label}", outcome(status, observations)))
+        elif kind == "failure":
+            enabled = bool(action[1])
+            state.resource = 99 if enabled else 9
+            records.append(record(state, "failure-mode", "true" if enabled else "false"))
+        elif kind == "snapshot":
+            records.append(record(state, "snapshot", None, snapshot=True))
+        else:
+            raise AssertionError(action)
+    assert len(records) == 26
+    return {"schema": schema, "debug": debug, "records": records}
+
+
+def generate_mode(scale: int, debug: bool) -> bytes:
+    if scale not in (1, 2, 4):
+        raise ValueError(scale)
+    scenes: list[dict[str, Any]] = []
+    namespace = 1
+    for _ in range(scale):
+        for schema in ("Workshop", "Garden"):
+            scenes.append(scene(schema, debug, namespace))
+            namespace += 1
+    # run_mode returns compact JSON; main.main sends it through IO.print, whose
+    # pinned C/JS effects append exactly one LF.  Mode selection precedes each
+    # fresh scene/runtime, so all records use one stable debug setting.
+    return (compact(scenes) + "\n").encode("utf-8")
+
+
+def deterministic_gzip(data: bytes) -> bytes:
+    target = io.BytesIO()
+    with gzip.GzipFile(fileobj=target, mode="wb", filename="", mtime=0) as stream:
+        stream.write(data)
+    return target.getvalue()
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("scale", type=int, choices=(1, 2, 4))
+    parser.add_argument("mode", choices=("enabled", "disabled"))
+    args = parser.parse_args()
+    data = generate_mode(args.scale, args.mode == "enabled")
+    print(json.dumps({
+        "scale": args.scale,
+        "bytes": len(data),
+        "sha256": hashlib.sha256(data).hexdigest(),
+    }, sort_keys=True))

@@ -50,6 +50,16 @@ def nested_ts(source):
 
 def bend_entry(feature, batches):
     imports = 'import Base\nimport ./timing.bend as Bench\n'
+    if feature in {'named-schedules', 'named-schedules-enabled', 'named-schedules-disabled'}:
+        mode = feature.removeprefix('named-schedules-')
+        directory = 'matched-feature-v1' if feature == 'named-schedules' else 'debug-overhead-v1'
+        imports += f'import ../experiments/public-schedules/named-app-v1/{directory}/main.bend as NamedScenario\n'
+        call = f'NamedScenario.run({batches}n)' if feature == 'named-schedules' else f'NamedScenario.run_mode({batches}n,{"True{}" if mode == "enabled" else "False{}"})'
+        return imports + f'''def captured(text:String) -> IO(Unit):
+  IO.bind(Unit,Unit,Bench.capture(text),u => Bench.end())
+def main() -> IO(Unit):
+  IO.bind(Unit,Unit,Bench.begin(),u => IO.bind(String,Unit,{call},captured))
+'''
     if feature in {'scopes', 'inspect-runtime'}:
         directory = {'scopes': 'public-scopes/feature-timing-v1', 'inspect-runtime': 'public-inspect/graph-stream-public-bridge-v1/feature-timing-v1'}[feature]
         alias = 'ScopeScenario' if feature == 'scopes' else 'InspectorScenario'

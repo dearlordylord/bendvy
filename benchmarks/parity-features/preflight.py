@@ -54,6 +54,17 @@ def snapshot():
         authored = {p for p in inspectors.rglob('*') if p.is_file() and p.suffix in {'.bend', '.mjs', '.json', '.py', '.md', '.stdout', '.source', '.gz'}}
         inputs |= authored
         inputs |= closure(p for p in authored if p.suffix == '.bend')
+    # Exact authored named-plan inputs only: sibling retained packets and producer
+    # histories are not recursive benchmark inputs.
+    for relative in ['experiments/public-schedules/named-app-v1/matched-feature-v1',
+                     'experiments/public-schedules/named-app-v1/debug-overhead-v1']:
+        directory = ROOT / relative
+        if directory.is_dir():
+            authored = {p for p in directory.iterdir() if p.is_file() and p.suffix in {'.bend', '.mjs'}}
+            oracle = directory / 'independent-oracle-v1'
+            authored |= {p for p in oracle.glob('*') if p.is_file() and p.suffix in {'.stdout', '.gz', '.source', '.py', '.json', '.md'}}
+            inputs |= authored
+            inputs |= closure(p for p in authored if p.suffix == '.bend')
     inputs |= {ROOT / p for p in ['docs/SPEC.md', 'docs/tickets/32-p-schedule-provide.md', 'docs/tickets/33-p-schedule-readers.md', 'docs/parity/fragments.md', 'docs/parity/inspect-extended.md', 'benchmarks/README.md', 'benchmarks/contract.json', '.references/sources.json']}
     return {str(p.relative_to(ROOT)): digest(p) for p in sorted(inputs) if p.is_file()}
 
