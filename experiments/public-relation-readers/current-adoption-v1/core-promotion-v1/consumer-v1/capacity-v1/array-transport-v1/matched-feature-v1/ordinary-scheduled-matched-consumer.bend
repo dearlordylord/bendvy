@@ -1,4 +1,5 @@
 import Base
+import ../../../../../../../../src/ecs/component.bend as Cmp
 import ../../../../../../../../src/ecs/inspector-query.bend as IQ
 import ../../../../../../../../src/ecs/internal/relation-failures/readings.bend as KRead
 import ../../../../../../../../src/ecs/world.bend as W
@@ -73,8 +74,17 @@ def presence(value:U32) -> U32 & Unit:
   (value,Unit{})
 def binding() -> Binding.Binding<Schema,store_type(),Relations.Graph<Schema>,U32,Unit,Unit,take_values,put_values,presence>:
   Binding.bind(~Schema,~store_type(),~Relations.Graph<Schema>,~U32,~Unit,~Unit,~take_values,~put_values,~presence,Identity.component(~Schema,~U32,"value"))
-def query_declaration() -> Observable.Declaration<Schema,Compose.Frame<Schema,store_type(),Unit,event_type()>,Unit,Inspector.Frame<Schema,store_type(),Unit,event_type()>,Unit>:
-  Observable.with_component(~Schema,~store_type(),~Relations.Graph<Schema>,~U32,~Unit,~Unit,~take_values,~put_values,~presence,~Unit,~event_type(),~binding())
+def query_projection(value:U32) -> U32 & U32:
+  match value:
+    case +found:(found,found)
+def query_binding() -> Binding.Binding<Schema,store_type(),Relations.Graph<Schema>,U32,U32,Unit,take_values,put_values,query_projection>:
+  Binding.bind(~Schema,~store_type(),~Relations.Graph<Schema>,~U32,~U32,~Unit,~take_values,~put_values,~query_projection,Identity.component(~Schema,~U32,"value"))
+def query_declaration() -> Observable.Declaration<Schema,Compose.Frame<Schema,store_type(),Unit,event_type()>,Cap.Read<Compose.Frame<Schema,store_type(),Unit,event_type()>,U32>,Inspector.Frame<Schema,store_type(),Unit,event_type()>,Cmp.Access<U32>>:
+  Observable.read(~Schema,~store_type(),~Relations.Graph<Schema>,~U32,~U32,~Unit,~take_values,~put_values,~query_projection,~Unit,~event_type(),~query_binding())
+def added_declaration() -> Observable.Declaration<Schema,Compose.Frame<Schema,store_type(),Unit,event_type()>,Unit,Inspector.Frame<Schema,store_type(),Unit,event_type()>,Unit>:
+  Observable.added(~Schema,~store_type(),~Relations.Graph<Schema>,~U32,~U32,~Unit,~take_values,~put_values,~query_projection,~Unit,~event_type(),~query_binding())
+def changed_declaration() -> Observable.Declaration<Schema,Compose.Frame<Schema,store_type(),Unit,event_type()>,Unit,Inspector.Frame<Schema,store_type(),Unit,event_type()>,Unit>:
+  Observable.changed(~Schema,~store_type(),~Relations.Graph<Schema>,~U32,~U32,~Unit,~take_values,~put_values,~query_projection,~Unit,~event_type(),~query_binding())
 def event_declaration() -> Event.Declaration<Schema,event_type()>:
   Event.read(~Schema,~event_type(),Event.domain(~Schema,~event_type(),"values"))
 def copy_events(+family:family_type()) -> family_type() & family_type():
@@ -204,14 +214,63 @@ def barrier_context(context:context_type()) -> context_type():
 def q_owner() -> Type:
   Unit
 def q_view() -> Data:
-  QParam.Rows<Schema,Unit>
+  QParam.Rows<Schema,Cmp.Access<U32>>
 def q_delta() -> Type:
   Unit
+def q_validate(context:context_type(),owner:q_owner()) -> context_type() & (q_owner() & Bool):
+  QParam.validate_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Cap.Read<Compose.Frame<Schema,store_type(),Unit,event_type()>,U32>,~Cmp.Access<U32>,~query_declaration())(context,owner)
+def q_prepare(context:context_type(),+cursor:U32,owner:q_owner()) -> context_type() & (q_owner() & (q_view() & q_delta())):
+  QParam.prepare_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Cap.Read<Compose.Frame<Schema,store_type(),Unit,event_type()>,U32>,~Cmp.Access<U32>,~query_declaration())(context,cursor,owner)
+def q_commit(context:context_type(),owner:q_owner(),delta:q_delta(),+cursor:U32) -> context_type() & q_owner():
+  QParam.commit_context(~context_type())(context,owner,delta,cursor)
+def q_release(context:context_type(),owner:q_owner()) -> context_type():
+  QParam.release_context(~context_type())(context,owner)
 def q_parameter_type() -> Data:
-  RP.Param<context_type(),q_owner(),q_view(),q_delta(),QParam.validate_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~query_declaration()),QParam.prepare_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~query_declaration()),QParam.commit_context(~context_type()),QParam.release_context(~context_type())>
+  RP.Param<context_type(),q_owner(),q_view(),q_delta(),QParam.validate_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Cap.Read<Compose.Frame<Schema,store_type(),Unit,event_type()>,U32>,~Cmp.Access<U32>,~query_declaration()),QParam.prepare_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Cap.Read<Compose.Frame<Schema,store_type(),Unit,event_type()>,U32>,~Cmp.Access<U32>,~query_declaration()),QParam.commit_context(~context_type()),QParam.release_context(~context_type())>
 def q_parameter() -> q_parameter_type():
-  QParam.from_observable(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~query_declaration())
-
+  QParam.from_observable(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Cap.Read<Compose.Frame<Schema,store_type(),Unit,event_type()>,U32>,~Cmp.Access<U32>,~query_declaration())
+def q_initialize(context:context_type(),_:RP.RegistrationFacts) -> context_type() & (q_owner() & q_parameter_type()):
+  (context,(Unit{},q_parameter()))
+def a_owner() -> Type:
+  Unit
+def a_view() -> Data:
+  QParam.Rows<Schema,Unit>
+def a_delta() -> Type:
+  Unit
+def a_validate(context:context_type(),owner:a_owner()) -> context_type() & (a_owner() & Bool):
+  QParam.validate_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~added_declaration())(context,owner)
+def a_prepare(context:context_type(),+cursor:U32,owner:a_owner()) -> context_type() & (a_owner() & (a_view() & a_delta())):
+  QParam.prepare_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~added_declaration())(context,cursor,owner)
+def a_commit(context:context_type(),owner:a_owner(),delta:a_delta(),+cursor:U32) -> context_type() & a_owner():
+  QParam.commit_context(~context_type())(context,owner,delta,cursor)
+def a_release(context:context_type(),owner:a_owner()) -> context_type():
+  QParam.release_context(~context_type())(context,owner)
+def a_parameter_type() -> Data:
+  RP.Param<context_type(),a_owner(),a_view(),a_delta(),QParam.validate_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~added_declaration()),QParam.prepare_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~added_declaration()),QParam.commit_context(~context_type()),QParam.release_context(~context_type())>
+def a_parameter() -> a_parameter_type():
+  QParam.from_observable(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~added_declaration())
+def a_initialize(context:context_type(),_:RP.RegistrationFacts) -> context_type() & (a_owner() & a_parameter_type()):
+  (context,(Unit{},a_parameter()))
+def c_owner() -> Type:
+  Unit
+def c_view() -> Data:
+  QParam.Rows<Schema,Unit>
+def c_delta() -> Type:
+  Unit
+def c_validate(context:context_type(),owner:c_owner()) -> context_type() & (c_owner() & Bool):
+  QParam.validate_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~changed_declaration())(context,owner)
+def c_prepare(context:context_type(),+cursor:U32,owner:c_owner()) -> context_type() & (c_owner() & (c_view() & c_delta())):
+  QParam.prepare_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~changed_declaration())(context,cursor,owner)
+def c_commit(context:context_type(),owner:c_owner(),delta:c_delta(),+cursor:U32) -> context_type() & c_owner():
+  QParam.commit_context(~context_type())(context,owner,delta,cursor)
+def c_release(context:context_type(),owner:c_owner()) -> context_type():
+  QParam.release_context(~context_type())(context,owner)
+def c_parameter_type() -> Data:
+  RP.Param<context_type(),c_owner(),c_view(),c_delta(),QParam.validate_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~changed_declaration()),QParam.prepare_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~changed_declaration()),QParam.commit_context(~context_type()),QParam.release_context(~context_type())>
+def c_parameter() -> c_parameter_type():
+  QParam.from_observable(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~changed_declaration())
+def c_initialize(context:context_type(),_:RP.RegistrationFacts) -> context_type() & (c_owner() & c_parameter_type()):
+  (context,(Unit{},c_parameter()))
 def e_owner() -> Type:
   Stream.EventOwner<Schema,store_type(),Unit,Publication,event_type(),family_type(),Unit,take_events,put_events>
 def e_view() -> Data:
@@ -223,6 +282,16 @@ def e_parameter_type() -> Data:
 def e_parameter() -> e_parameter_type():
   Stream.event_param(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,event_declaration())
 
+def e_validate(context:context_type(),owner:e_owner()) -> context_type() & (e_owner() & Bool):
+  Stream.validate_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration())(context,owner)
+def e_prepare(context:context_type(),+cursor:U32,owner:e_owner()) -> context_type() & (e_owner() & (e_view() & e_delta())):
+  Stream.prepare_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration())(context,cursor,owner)
+def e_commit(context:context_type(),owner:e_owner(),delta:e_delta(),+cursor:U32) -> context_type() & e_owner():
+  Stream.commit_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events)(context,owner,delta,cursor)
+def e_release(context:context_type(),owner:e_owner()) -> context_type():
+  Stream.release_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events)(context,owner)
+def e_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (e_owner() & e_parameter_type()):
+  Stream.initialize_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration(),context,facts)
 def m_owner() -> Type:
   Stream.RemovalOwner<Schema,U32,event_type(),select_removal>
 def m_view() -> Data:
@@ -234,6 +303,16 @@ def m_parameter_type() -> Data:
 def m_parameter() -> m_parameter_type():
   Stream.removal_param(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection())
 
+def m_validate(context:context_type(),owner:m_owner()) -> context_type() & (m_owner() & Bool):
+  Stream.validate_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection())(context,owner)
+def m_prepare(context:context_type(),+cursor:U32,owner:m_owner()) -> context_type() & (m_owner() & (m_view() & m_delta())):
+  Stream.prepare_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal)(context,cursor,owner)
+def m_commit(context:context_type(),owner:m_owner(),delta:m_delta(),+cursor:U32) -> context_type() & m_owner():
+  Stream.commit_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal)(context,owner,delta,cursor)
+def m_release(context:context_type(),owner:m_owner()) -> context_type():
+  Stream.release_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal)(context,owner)
+def m_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (m_owner() & m_parameter_type()):
+  Stream.initialize_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection(),context,facts)
 def r_owner() -> Type:
   Stream.RelationOwner<Schema,Publication>
 def r_view() -> Data:
@@ -245,84 +324,131 @@ def r_parameter_type() -> Data:
 def r_parameter() -> r_parameter_type():
   Stream.relation_param(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())
 
+def r_validate(context:context_type(),owner:r_owner()) -> context_type() & (r_owner() & Bool):
+  Stream.validate_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())(context,owner)
+def r_prepare(context:context_type(),+cursor:U32,owner:r_owner()) -> context_type() & (r_owner() & (r_view() & r_delta())):
+  Stream.prepare_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())(context,cursor,owner)
+def r_commit(context:context_type(),owner:r_owner(),delta:r_delta(),+cursor:U32) -> context_type() & r_owner():
+  Stream.commit_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit)(context,owner,delta,cursor)
+def r_release(context:context_type(),owner:r_owner()) -> context_type():
+  Stream.release_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit)(context,owner)
+def r_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (r_owner() & r_parameter_type()):
+  Stream.initialize_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations(),context,facts)
 def mr_owner() -> Type:
   m_owner() & r_owner()
 def mr_view() -> Data:
   RP.ViewPair<m_view(),r_view()>
 def mr_delta() -> Type:
   m_delta() & r_delta()
+def mr_validate(context:context_type(),owner:mr_owner()) -> context_type() & (mr_owner() & Bool):
+  RP.pair_validate_fn(~context_type(),~m_owner(),~r_owner(),~m_validate,~r_validate)(context,owner)
+def mr_prepare(context:context_type(),+cursor:U32,owner:mr_owner()) -> context_type() & (mr_owner() & (mr_view() & mr_delta())):
+  RP.pair_prepare_fn(~context_type(),~m_owner(),~r_owner(),~m_view(),~r_view(),~m_delta(),~r_delta(),~m_prepare,~r_prepare)(context,cursor,owner)
+def mr_commit(context:context_type(),owner:mr_owner(),delta:mr_delta(),+cursor:U32) -> context_type() & mr_owner():
+  RP.pair_commit_fn(~context_type(),~m_owner(),~r_owner(),~m_delta(),~r_delta(),~m_commit,~r_commit)(context,owner,delta,cursor)
+def mr_release(context:context_type(),owner:mr_owner()) -> context_type():
+  RP.pair_release_fn(~context_type(),~m_owner(),~r_owner(),~m_release,~r_release)(context,owner)
 def mr_parameter_type() -> Data:
-  RP.Param<context_type(),mr_owner(),mr_view(),mr_delta(),RP.pair_validate_fn(~context_type(),~m_owner(),~r_owner(),~Stream.validate_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection()),~Stream.validate_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())),RP.pair_prepare_fn(~context_type(),~m_owner(),~r_owner(),~m_view(),~r_view(),~m_delta(),~r_delta(),~Stream.prepare_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.prepare_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())),RP.pair_commit_fn(~context_type(),~m_owner(),~r_owner(),~m_delta(),~r_delta(),~Stream.commit_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.commit_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit)),RP.pair_release_fn(~context_type(),~m_owner(),~r_owner(),~Stream.release_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.release_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit))>
-def mr_parameter() -> mr_parameter_type():
-  RP.pair(~context_type(),~m_owner(),~m_view(),~m_delta(),~Stream.validate_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection()),~Stream.prepare_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.commit_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.release_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~r_owner(),~r_view(),~r_delta(),~Stream.validate_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations()),~Stream.prepare_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations()),~Stream.commit_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit),~Stream.release_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit),m_parameter(),r_parameter())
+  RP.Param<context_type(),mr_owner(),mr_view(),mr_delta(),mr_validate,mr_prepare,mr_commit,mr_release>
 def pair_mr(left:m_parameter_type(),right:r_parameter_type()) -> mr_parameter_type():
-  RP.pair(~context_type(),~m_owner(),~m_view(),~m_delta(),~Stream.validate_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection()),~Stream.prepare_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.commit_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.release_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~r_owner(),~r_view(),~r_delta(),~Stream.validate_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations()),~Stream.prepare_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations()),~Stream.commit_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit),~Stream.release_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit),left,right)
-
+  match left right:
+    case RP.Param{a} RP.Param{b}:RP.Param{List.append(&2,String,a,b)}
+def mr_parameter() -> mr_parameter_type():
+  pair_mr(m_parameter(),r_parameter())
+def mr_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (mr_owner() & mr_parameter_type()):
+  RP.initialize_pair(~context_type(),~RP.RegistrationFacts,~m_owner(),~m_parameter_type(),~r_owner(),~r_parameter_type(),~mr_parameter_type(),~m_initialize,~r_initialize,~pair_mr,context,facts)
 def emr_owner() -> Type:
   e_owner() & mr_owner()
 def emr_view() -> Data:
   RP.ViewPair<e_view(),mr_view()>
 def emr_delta() -> Type:
   e_delta() & mr_delta()
+def emr_validate(context:context_type(),owner:emr_owner()) -> context_type() & (emr_owner() & Bool):
+  RP.pair_validate_fn(~context_type(),~e_owner(),~mr_owner(),~e_validate,~mr_validate)(context,owner)
+def emr_prepare(context:context_type(),+cursor:U32,owner:emr_owner()) -> context_type() & (emr_owner() & (emr_view() & emr_delta())):
+  RP.pair_prepare_fn(~context_type(),~e_owner(),~mr_owner(),~e_view(),~mr_view(),~e_delta(),~mr_delta(),~e_prepare,~mr_prepare)(context,cursor,owner)
+def emr_commit(context:context_type(),owner:emr_owner(),delta:emr_delta(),+cursor:U32) -> context_type() & emr_owner():
+  RP.pair_commit_fn(~context_type(),~e_owner(),~mr_owner(),~e_delta(),~mr_delta(),~e_commit,~mr_commit)(context,owner,delta,cursor)
+def emr_release(context:context_type(),owner:emr_owner()) -> context_type():
+  RP.pair_release_fn(~context_type(),~e_owner(),~mr_owner(),~e_release,~mr_release)(context,owner)
 def emr_parameter_type() -> Data:
-  RP.Param<context_type(),emr_owner(),emr_view(),emr_delta(),RP.pair_validate_fn(~context_type(),~e_owner(),~mr_owner(),~Stream.validate_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_validate_fn(~context_type(),~m_owner(),~r_owner(),~Stream.validate_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection()),~Stream.validate_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations()))),RP.pair_prepare_fn(~context_type(),~e_owner(),~mr_owner(),~e_view(),~mr_view(),~e_delta(),~mr_delta(),~Stream.prepare_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_prepare_fn(~context_type(),~m_owner(),~r_owner(),~m_view(),~r_view(),~m_delta(),~r_delta(),~Stream.prepare_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.prepare_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations()))),RP.pair_commit_fn(~context_type(),~e_owner(),~mr_owner(),~e_delta(),~mr_delta(),~Stream.commit_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_commit_fn(~context_type(),~m_owner(),~r_owner(),~m_delta(),~r_delta(),~Stream.commit_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.commit_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit))),RP.pair_release_fn(~context_type(),~e_owner(),~mr_owner(),~Stream.release_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_release_fn(~context_type(),~m_owner(),~r_owner(),~Stream.release_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.release_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit)))>
-def emr_parameter() -> emr_parameter_type():
-  RP.pair(~context_type(),~e_owner(),~e_view(),~e_delta(),~Stream.validate_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~Stream.prepare_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~Stream.commit_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~Stream.release_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~mr_owner(),~mr_view(),~mr_delta(),~RP.pair_validate_fn(~context_type(),~m_owner(),~r_owner(),~Stream.validate_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection()),~Stream.validate_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())),~RP.pair_prepare_fn(~context_type(),~m_owner(),~r_owner(),~m_view(),~r_view(),~m_delta(),~r_delta(),~Stream.prepare_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.prepare_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())),~RP.pair_commit_fn(~context_type(),~m_owner(),~r_owner(),~m_delta(),~r_delta(),~Stream.commit_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.commit_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit)),~RP.pair_release_fn(~context_type(),~m_owner(),~r_owner(),~Stream.release_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.release_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit)),e_parameter(),mr_parameter())
+  RP.Param<context_type(),emr_owner(),emr_view(),emr_delta(),emr_validate,emr_prepare,emr_commit,emr_release>
 def pair_emr(left:e_parameter_type(),right:mr_parameter_type()) -> emr_parameter_type():
-  RP.pair(~context_type(),~e_owner(),~e_view(),~e_delta(),~Stream.validate_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~Stream.prepare_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~Stream.commit_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~Stream.release_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~mr_owner(),~mr_view(),~mr_delta(),~RP.pair_validate_fn(~context_type(),~m_owner(),~r_owner(),~Stream.validate_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection()),~Stream.validate_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())),~RP.pair_prepare_fn(~context_type(),~m_owner(),~r_owner(),~m_view(),~r_view(),~m_delta(),~r_delta(),~Stream.prepare_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.prepare_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())),~RP.pair_commit_fn(~context_type(),~m_owner(),~r_owner(),~m_delta(),~r_delta(),~Stream.commit_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.commit_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit)),~RP.pair_release_fn(~context_type(),~m_owner(),~r_owner(),~Stream.release_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.release_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit)),left,right)
-
-def eemr_owner() -> Type:
-  e_owner() & emr_owner()
-def eemr_view() -> Data:
-  RP.ViewPair<e_view(),emr_view()>
-def eemr_delta() -> Type:
-  e_delta() & emr_delta()
-def eemr_parameter_type() -> Data:
-  RP.Param<context_type(),eemr_owner(),eemr_view(),eemr_delta(),RP.pair_validate_fn(~context_type(),~e_owner(),~emr_owner(),~Stream.validate_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_validate_fn(~context_type(),~e_owner(),~mr_owner(),~Stream.validate_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_validate_fn(~context_type(),~m_owner(),~r_owner(),~Stream.validate_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection()),~Stream.validate_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())))),RP.pair_prepare_fn(~context_type(),~e_owner(),~emr_owner(),~e_view(),~emr_view(),~e_delta(),~emr_delta(),~Stream.prepare_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_prepare_fn(~context_type(),~e_owner(),~mr_owner(),~e_view(),~mr_view(),~e_delta(),~mr_delta(),~Stream.prepare_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_prepare_fn(~context_type(),~m_owner(),~r_owner(),~m_view(),~r_view(),~m_delta(),~r_delta(),~Stream.prepare_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.prepare_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())))),RP.pair_commit_fn(~context_type(),~e_owner(),~emr_owner(),~e_delta(),~emr_delta(),~Stream.commit_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_commit_fn(~context_type(),~e_owner(),~mr_owner(),~e_delta(),~mr_delta(),~Stream.commit_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_commit_fn(~context_type(),~m_owner(),~r_owner(),~m_delta(),~r_delta(),~Stream.commit_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.commit_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit)))),RP.pair_release_fn(~context_type(),~e_owner(),~emr_owner(),~Stream.release_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_release_fn(~context_type(),~e_owner(),~mr_owner(),~Stream.release_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_release_fn(~context_type(),~m_owner(),~r_owner(),~Stream.release_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.release_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit))))>
-def eemr_parameter() -> eemr_parameter_type():
-  RP.pair(~context_type(),~e_owner(),~e_view(),~e_delta(),~Stream.validate_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~Stream.prepare_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~Stream.commit_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~Stream.release_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~emr_owner(),~emr_view(),~emr_delta(),~RP.pair_validate_fn(~context_type(),~e_owner(),~mr_owner(),~Stream.validate_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_validate_fn(~context_type(),~m_owner(),~r_owner(),~Stream.validate_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection()),~Stream.validate_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations()))),~RP.pair_prepare_fn(~context_type(),~e_owner(),~mr_owner(),~e_view(),~mr_view(),~e_delta(),~mr_delta(),~Stream.prepare_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_prepare_fn(~context_type(),~m_owner(),~r_owner(),~m_view(),~r_view(),~m_delta(),~r_delta(),~Stream.prepare_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.prepare_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations()))),~RP.pair_commit_fn(~context_type(),~e_owner(),~mr_owner(),~e_delta(),~mr_delta(),~Stream.commit_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_commit_fn(~context_type(),~m_owner(),~r_owner(),~m_delta(),~r_delta(),~Stream.commit_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.commit_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit))),~RP.pair_release_fn(~context_type(),~e_owner(),~mr_owner(),~Stream.release_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_release_fn(~context_type(),~m_owner(),~r_owner(),~Stream.release_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.release_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit))),e_parameter(),emr_parameter())
-def pair_eemr(left:e_parameter_type(),right:emr_parameter_type()) -> eemr_parameter_type():
-  RP.pair(~context_type(),~e_owner(),~e_view(),~e_delta(),~Stream.validate_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~Stream.prepare_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~Stream.commit_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~Stream.release_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~emr_owner(),~emr_view(),~emr_delta(),~RP.pair_validate_fn(~context_type(),~e_owner(),~mr_owner(),~Stream.validate_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_validate_fn(~context_type(),~m_owner(),~r_owner(),~Stream.validate_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection()),~Stream.validate_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations()))),~RP.pair_prepare_fn(~context_type(),~e_owner(),~mr_owner(),~e_view(),~mr_view(),~e_delta(),~mr_delta(),~Stream.prepare_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_prepare_fn(~context_type(),~m_owner(),~r_owner(),~m_view(),~r_view(),~m_delta(),~r_delta(),~Stream.prepare_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.prepare_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations()))),~RP.pair_commit_fn(~context_type(),~e_owner(),~mr_owner(),~e_delta(),~mr_delta(),~Stream.commit_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_commit_fn(~context_type(),~m_owner(),~r_owner(),~m_delta(),~r_delta(),~Stream.commit_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.commit_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit))),~RP.pair_release_fn(~context_type(),~e_owner(),~mr_owner(),~Stream.release_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_release_fn(~context_type(),~m_owner(),~r_owner(),~Stream.release_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.release_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit))),left,right)
-
+  match left right:
+    case RP.Param{a} RP.Param{b}:RP.Param{List.append(&2,String,a,b)}
+def emr_parameter() -> emr_parameter_type():
+  pair_emr(e_parameter(),mr_parameter())
+def emr_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (emr_owner() & emr_parameter_type()):
+  RP.initialize_pair(~context_type(),~RP.RegistrationFacts,~e_owner(),~e_parameter_type(),~mr_owner(),~mr_parameter_type(),~emr_parameter_type(),~e_initialize,~mr_initialize,~pair_emr,context,facts)
+def cemr_owner() -> Type:
+  c_owner() & emr_owner()
+def cemr_view() -> Data:
+  RP.ViewPair<c_view(),emr_view()>
+def cemr_delta() -> Type:
+  c_delta() & emr_delta()
+def cemr_validate(context:context_type(),owner:cemr_owner()) -> context_type() & (cemr_owner() & Bool):
+  RP.pair_validate_fn(~context_type(),~c_owner(),~emr_owner(),~c_validate,~emr_validate)(context,owner)
+def cemr_prepare(context:context_type(),+cursor:U32,owner:cemr_owner()) -> context_type() & (cemr_owner() & (cemr_view() & cemr_delta())):
+  RP.pair_prepare_fn(~context_type(),~c_owner(),~emr_owner(),~c_view(),~emr_view(),~c_delta(),~emr_delta(),~c_prepare,~emr_prepare)(context,cursor,owner)
+def cemr_commit(context:context_type(),owner:cemr_owner(),delta:cemr_delta(),+cursor:U32) -> context_type() & cemr_owner():
+  RP.pair_commit_fn(~context_type(),~c_owner(),~emr_owner(),~c_delta(),~emr_delta(),~c_commit,~emr_commit)(context,owner,delta,cursor)
+def cemr_release(context:context_type(),owner:cemr_owner()) -> context_type():
+  RP.pair_release_fn(~context_type(),~c_owner(),~emr_owner(),~c_release,~emr_release)(context,owner)
+def cemr_parameter_type() -> Data:
+  RP.Param<context_type(),cemr_owner(),cemr_view(),cemr_delta(),cemr_validate,cemr_prepare,cemr_commit,cemr_release>
+def pair_cemr(left:c_parameter_type(),right:emr_parameter_type()) -> cemr_parameter_type():
+  match left right:
+    case RP.Param{a} RP.Param{b}:RP.Param{List.append(&2,String,a,b)}
+def cemr_parameter() -> cemr_parameter_type():
+  pair_cemr(c_parameter(),emr_parameter())
+def cemr_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (cemr_owner() & cemr_parameter_type()):
+  RP.initialize_pair(~context_type(),~RP.RegistrationFacts,~c_owner(),~c_parameter_type(),~emr_owner(),~emr_parameter_type(),~cemr_parameter_type(),~c_initialize,~emr_initialize,~pair_cemr,context,facts)
+def acemr_owner() -> Type:
+  a_owner() & cemr_owner()
+def acemr_view() -> Data:
+  RP.ViewPair<a_view(),cemr_view()>
+def acemr_delta() -> Type:
+  a_delta() & cemr_delta()
+def acemr_validate(context:context_type(),owner:acemr_owner()) -> context_type() & (acemr_owner() & Bool):
+  RP.pair_validate_fn(~context_type(),~a_owner(),~cemr_owner(),~a_validate,~cemr_validate)(context,owner)
+def acemr_prepare(context:context_type(),+cursor:U32,owner:acemr_owner()) -> context_type() & (acemr_owner() & (acemr_view() & acemr_delta())):
+  RP.pair_prepare_fn(~context_type(),~a_owner(),~cemr_owner(),~a_view(),~cemr_view(),~a_delta(),~cemr_delta(),~a_prepare,~cemr_prepare)(context,cursor,owner)
+def acemr_commit(context:context_type(),owner:acemr_owner(),delta:acemr_delta(),+cursor:U32) -> context_type() & acemr_owner():
+  RP.pair_commit_fn(~context_type(),~a_owner(),~cemr_owner(),~a_delta(),~cemr_delta(),~a_commit,~cemr_commit)(context,owner,delta,cursor)
+def acemr_release(context:context_type(),owner:acemr_owner()) -> context_type():
+  RP.pair_release_fn(~context_type(),~a_owner(),~cemr_owner(),~a_release,~cemr_release)(context,owner)
+def acemr_parameter_type() -> Data:
+  RP.Param<context_type(),acemr_owner(),acemr_view(),acemr_delta(),acemr_validate,acemr_prepare,acemr_commit,acemr_release>
+def pair_acemr(left:a_parameter_type(),right:cemr_parameter_type()) -> acemr_parameter_type():
+  match left right:
+    case RP.Param{a} RP.Param{b}:RP.Param{List.append(&2,String,a,b)}
+def acemr_parameter() -> acemr_parameter_type():
+  pair_acemr(a_parameter(),cemr_parameter())
+def acemr_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (acemr_owner() & acemr_parameter_type()):
+  RP.initialize_pair(~context_type(),~RP.RegistrationFacts,~a_owner(),~a_parameter_type(),~cemr_owner(),~cemr_parameter_type(),~acemr_parameter_type(),~a_initialize,~cemr_initialize,~pair_acemr,context,facts)
 def all_owner() -> Type:
-  q_owner() & eemr_owner()
+  q_owner() & acemr_owner()
 def all_view() -> Data:
-  RP.ViewPair<q_view(),eemr_view()>
+  RP.ViewPair<q_view(),acemr_view()>
 def all_delta() -> Type:
-  q_delta() & eemr_delta()
+  q_delta() & acemr_delta()
 def validate_all(context:context_type(),owner:all_owner()) -> context_type() & (all_owner() & Bool):
-  RP.pair_validate_fn(~context_type(),~q_owner(),~eemr_owner(),~QParam.validate_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~query_declaration()),~RP.pair_validate_fn(~context_type(),~e_owner(),~emr_owner(),~Stream.validate_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_validate_fn(~context_type(),~e_owner(),~mr_owner(),~Stream.validate_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_validate_fn(~context_type(),~m_owner(),~r_owner(),~Stream.validate_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection()),~Stream.validate_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())))),context,owner)
+  RP.pair_validate_fn(~context_type(),~q_owner(),~acemr_owner(),~q_validate,~acemr_validate)(context,owner)
 def prepare_all(context:context_type(),+cursor:U32,owner:all_owner()) -> context_type() & (all_owner() & (all_view() & all_delta())):
-  RP.pair_prepare_fn(~context_type(),~q_owner(),~eemr_owner(),~q_view(),~eemr_view(),~q_delta(),~eemr_delta(),~QParam.prepare_context(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~Unit,~Unit,~query_declaration()),~RP.pair_prepare_fn(~context_type(),~e_owner(),~emr_owner(),~e_view(),~emr_view(),~e_delta(),~emr_delta(),~Stream.prepare_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_prepare_fn(~context_type(),~e_owner(),~mr_owner(),~e_view(),~mr_view(),~e_delta(),~mr_delta(),~Stream.prepare_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration()),~RP.pair_prepare_fn(~context_type(),~m_owner(),~r_owner(),~m_view(),~r_view(),~m_delta(),~r_delta(),~Stream.prepare_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.prepare_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations())))),context,cursor,owner)
+  RP.pair_prepare_fn(~context_type(),~q_owner(),~acemr_owner(),~q_view(),~acemr_view(),~q_delta(),~acemr_delta(),~q_prepare,~acemr_prepare)(context,cursor,owner)
 def commit_all(context:context_type(),owner:all_owner(),delta:all_delta(),+cursor:U32) -> context_type() & all_owner():
-  RP.pair_commit_fn(~context_type(),~q_owner(),~eemr_owner(),~q_delta(),~eemr_delta(),~QParam.commit_context(~context_type()),~RP.pair_commit_fn(~context_type(),~e_owner(),~emr_owner(),~e_delta(),~emr_delta(),~Stream.commit_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_commit_fn(~context_type(),~e_owner(),~mr_owner(),~e_delta(),~mr_delta(),~Stream.commit_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_commit_fn(~context_type(),~m_owner(),~r_owner(),~m_delta(),~r_delta(),~Stream.commit_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.commit_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit)))),context,owner,delta,cursor)
+  RP.pair_commit_fn(~context_type(),~q_owner(),~acemr_owner(),~q_delta(),~acemr_delta(),~q_commit,~acemr_commit)(context,owner,delta,cursor)
 def release_all(context:context_type(),owner:all_owner()) -> context_type():
-  RP.pair_release_fn(~context_type(),~q_owner(),~eemr_owner(),~QParam.release_context(~context_type()),~RP.pair_release_fn(~context_type(),~e_owner(),~emr_owner(),~Stream.release_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_release_fn(~context_type(),~e_owner(),~mr_owner(),~Stream.release_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events),~RP.pair_release_fn(~context_type(),~m_owner(),~r_owner(),~Stream.release_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~select_removal),~Stream.release_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit)))),context,owner)
+  RP.pair_release_fn(~context_type(),~q_owner(),~acemr_owner(),~q_release,~acemr_release)(context,owner)
 def all_parameter_type() -> Data:
   RP.Param<context_type(),all_owner(),all_view(),all_delta(),validate_all,prepare_all,commit_all,release_all>
-def pair_all(left:q_parameter_type(),right:eemr_parameter_type()) -> all_parameter_type():
+def pair_all(left:q_parameter_type(),right:acemr_parameter_type()) -> all_parameter_type():
   match left right:
     case RP.Param{a} RP.Param{b}:RP.Param{List.append(&2,String,a,b)}
 def all_parameter() -> all_parameter_type():
-  pair_all(q_parameter(),eemr_parameter())
-
-def q_initialize(context:context_type(),_:RP.RegistrationFacts) -> context_type() & (q_owner() & q_parameter_type()):
-  (context,(Unit{},q_parameter()))
-def e_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (e_owner() & e_parameter_type()):
-  Stream.initialize_event(~Schema,~store_type(),~Unit,~Publication,~event_type(),~family_type(),~Unit,~take_events,~put_events,~event_declaration(),context,facts)
-def m_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (m_owner() & m_parameter_type()):
-  Stream.initialize_removal(~Schema,~store_type(),~Unit,~Publication,~U32,~family_type(),~Unit,~inject_removal,~select_removal,~removal_selection(),context,facts)
-def r_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (r_owner() & r_parameter_type()):
-  Stream.initialize_relation(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~relation_declarations(),context,facts)
-def mr_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (mr_owner() & mr_parameter_type()):
-  RP.initialize_pair(~context_type(),~RP.RegistrationFacts,~m_owner(),~m_parameter_type(),~r_owner(),~r_parameter_type(),~mr_parameter_type(),~m_initialize,~r_initialize,~pair_mr,context,facts)
-def emr_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (emr_owner() & emr_parameter_type()):
-  RP.initialize_pair(~context_type(),~RP.RegistrationFacts,~e_owner(),~e_parameter_type(),~mr_owner(),~mr_parameter_type(),~emr_parameter_type(),~e_initialize,~mr_initialize,~pair_emr,context,facts)
-def eemr_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (eemr_owner() & eemr_parameter_type()):
-  RP.initialize_pair(~context_type(),~RP.RegistrationFacts,~e_owner(),~e_parameter_type(),~emr_owner(),~emr_parameter_type(),~eemr_parameter_type(),~e_initialize,~emr_initialize,~pair_eemr,context,facts)
+  pair_all(q_parameter(),acemr_parameter())
 def all_initialize(context:context_type(),facts:RP.RegistrationFacts) -> context_type() & (all_owner() & all_parameter_type()):
-  RP.initialize_pair(~context_type(),~RP.RegistrationFacts,~q_owner(),~q_parameter_type(),~eemr_owner(),~eemr_parameter_type(),~all_parameter_type(),~q_initialize,~eemr_initialize,~pair_all,context,facts)
-
+  RP.initialize_pair(~context_type(),~RP.RegistrationFacts,~q_owner(),~q_parameter_type(),~acemr_owner(),~acemr_parameter_type(),~all_parameter_type(),~q_initialize,~acemr_initialize,~pair_all,context,facts)
 
 def callback_outcome(fail:Bool) -> Tx.Outcome<U32>:
   match fail:
@@ -691,12 +817,23 @@ def resource_json(value:Unit) -> String:
 def world_observation_json(value:WorldObservation) -> String:
   match value:
     case WorldObservation{namespace,nextId,highWater,live,inactiveReservations,capacity,depth,components,resource,registrations,nextSystemId,clock,pending,graph,events}:"{\"namespace\":"++U32.show(namespace)++",\"nextId\":"++U32.show(nextId)++",\"highWater\":"++U32.show(highWater)++",\"live\":"++list_json(~Bool,~boolean,live)++",\"inactiveReservations\":"++list_json(~W.Handle<Schema>,~handle_json,inactiveReservations)++",\"capacity\":"++U32.show(capacity)++",\"depth\":"++Nat.show(depth)++",\"components\":"++list_json(~ComponentObservation,~component_observation_json,components)++",\"resource\":\""++resource_json(resource)++"\",\"registrations\":"++list_json(~W.RegistrationMeta,~registration_json,registrations)++",\"nextSystemId\":"++U32.show(nextSystemId)++",\"clock\":"++U32.show(clock)++",\"pending\":"++U32.show(pending)++",\"graph\":"++graph_json(graph)++",\"events\":"++list_json(~event_type(),~notice_json,events)++"}"
-def row_json(value:IQ.ProjectedRow<Schema,Unit>) -> String:
+def component_access_json(value:Cmp.Access<U32>) -> String:
   match value:
-    case IQ.ProjectedRow{entity,data}:"{\"entity\":"++handle_json(entity)++"}"
+    case Cmp.Found{value}:"{\"found\":"++U32.show(value)++"}"
+    case Cmp.ComponentAbsent{}:"{\"componentAbsent\":true}"
+    case Cmp.MissingEntity{}:"{\"missingEntity\":true}"
+def filter_row_json(value:IQ.ProjectedRow<Schema,Unit>) -> String:
+  match value:
+    case IQ.ProjectedRow{entity,_}:handle_json(entity)
+def filter_query_json(value:a_view()) -> String:
+  match value:
+    case QParam.Rows{rows}:list_json(~IQ.ProjectedRow<Schema,Unit>,~filter_row_json,rows)
+def row_json(value:IQ.ProjectedRow<Schema,Cmp.Access<U32>>) -> String:
+  match value:
+    case IQ.ProjectedRow{entity,data}:"{\"entity\":"++handle_json(entity)++",\"data\":"++component_access_json(data)++"}"
 def query_json(value:q_view()) -> String:
   match value:
-    case QParam.Rows{rows}:list_json(~IQ.ProjectedRow<Schema,Unit>,~row_json,rows)
+    case QParam.Rows{rows}:list_json(~IQ.ProjectedRow<Schema,Cmp.Access<U32>>,~row_json,rows)
 def event_json(value:e_view()) -> String:
   match value:
     case Stream.EventView{Ev.Reading{values,lagged}}:"{\"values\":"++list_json(~event_type(),~notice_json,values)++",\"lagged\":"++boolean(lagged)++"}"
@@ -711,8 +848,8 @@ def relations_json(value:r_view()) -> String:
     case Stream.RelationView{readings}:list_json(~KRead.KeyReading<Schema,event_type()>,~key_reading_json,readings)
 def view_json(value:all_view()) -> String:
   match value:
-    case RP.ViewPair{query,RP.ViewPair{eventA,RP.ViewPair{eventB,RP.ViewPair{removals,relations}}}}:
-      "{\"query\":"++query_json(query)++",\"eventA\":"++event_json(eventA)++",\"eventB\":"++event_json(eventB)++",\"removals\":"++removals_json(removals)++",\"relations\":"++relations_json(relations)++"}"
+    case RP.ViewPair{query,RP.ViewPair{added,RP.ViewPair{changed,RP.ViewPair{eventA,RP.ViewPair{removals,relations}}}}}:
+      "{\"query\":"++query_json(query)++",\"eventA\":"++event_json(eventA)++",\"added\":"++filter_query_json(added)++",\"changed\":"++filter_query_json(changed)++",\"removals\":"++removals_json(removals)++",\"relations\":"++relations_json(relations)++"}"
 
 # Direct retained-state image. Reader results alone do not show batch boundaries,
 # dormant positions, per-descriptor isolation, or whole-batch drop watermarks.
@@ -911,7 +1048,7 @@ def json_context_image(context:context_type()) -> context_type() & JsonDoc:
   json_context_image_parts(Mixed.split(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,context))
 def json_query_view(value:q_view()) -> JsonDoc:
   match value:
-    case QParam.Rows{rows}:json_array_strings(~IQ.ProjectedRow<Schema,Unit>,~row_json,rows)
+    case QParam.Rows{rows}:json_array_strings(~IQ.ProjectedRow<Schema,Cmp.Access<U32>>,~row_json,rows)
 def json_event_view(value:e_view()) -> JsonDoc:
   match value:
     case Stream.EventView{Ev.Reading{values,lagged}}:json_parts([JsonText{"{\"values\":"},json_list_notices(values),JsonText{",\"lagged\":"},JsonText{boolean(lagged)},JsonText{"}"}])
@@ -926,7 +1063,7 @@ def json_relation_view(value:r_view()) -> JsonDoc:
     case Stream.RelationView{readings}:json_array(~KRead.KeyReading<Schema,event_type()>,~json_key_reading,readings)
 def json_view(value:all_view()) -> JsonDoc:
   match value:
-    case RP.ViewPair{query,RP.ViewPair{eventA,RP.ViewPair{eventB,RP.ViewPair{removals,relations}}}}:json_parts([JsonText{"{\"query\":"},json_query_view(query),JsonText{",\"eventA\":"},json_event_view(eventA),JsonText{",\"eventB\":"},json_event_view(eventB),JsonText{",\"removals\":"},json_removal_view(removals),JsonText{",\"relations\":"},json_relation_view(relations),JsonText{"}"}])
+    case RP.ViewPair{query,RP.ViewPair{added,RP.ViewPair{changed,RP.ViewPair{eventA,RP.ViewPair{removals,relations}}}}}:json_parts([JsonText{"{\"query\":"},json_query_view(query),JsonText{",\"eventA\":"},json_event_view(eventA),JsonText{",\"added\":"},JsonText{filter_query_json(added)},JsonText{",\"changed\":"},JsonText{filter_query_json(changed)},JsonText{",\"removals\":"},json_removal_view(removals),JsonText{",\"relations\":"},json_relation_view(relations),JsonText{"}"}])
 
 def registry_type() -> Type:
   Sys.Registry<Schema,store_type(),Unit,event_type(),Ordinary.Invocation<metadata_type(),all_owner(),all_parameter_type(),Unit,Bool>,Empty,Ordinary.Envelope<metadata_type(),all_owner(),all_parameter_type(),Unit,U32,all_view()>,Ordinary.shared_runner(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~all_owner(),~all_view(),~all_delta(),~Bool,~Unit,~U32,~all_view(),~validate_all,~prepare_all,~commit_all,~release_all,~no_caps,~callback,~no_grant(),~sync_events,~classify)>
