@@ -1,0 +1,668 @@
+[
+  {
+    "namespace": 1,
+    "deliveries": [
+      {
+        "phase": "follow_warm",
+        "reader": "fast",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 43
+          }
+        ],
+        "added": [
+          1,
+          2
+        ],
+        "changed": [
+          1,
+          2
+        ],
+        "removed": [],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_warm",
+        "reader": "slow",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 43
+          }
+        ],
+        "added": [
+          1,
+          2
+        ],
+        "changed": [
+          1,
+          2
+        ],
+        "removed": [],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_removed",
+        "reader": "fast",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [
+          2
+        ],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_removed",
+        "reader": "slow",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [
+          2
+        ],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_reinserted",
+        "reader": "fast",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [
+          2
+        ],
+        "changed": [
+          2
+        ],
+        "removed": [],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_reinserted",
+        "reader": "slow",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [
+          2
+        ],
+        "changed": [
+          2
+        ],
+        "removed": [],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_slow_failure",
+        "reader": "slow",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [],
+        "events": [
+          31,
+          32
+        ],
+        "eventLag": false,
+        "failures": [
+          {
+            "operation": "relate",
+            "relation": "Parent",
+            "source": 1,
+            "target": 1,
+            "error": {
+              "_tag": "SelfRelationNotAllowed",
+              "entityId": 1,
+              "relation": "Parent"
+            }
+          },
+          {
+            "operation": "relate",
+            "relation": "Parent",
+            "source": 1,
+            "target": 3,
+            "error": {
+              "_tag": "MissingTargetEntity",
+              "entityId": 1,
+              "targetId": 3,
+              "relation": "Parent"
+            }
+          }
+        ],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_slow_retry",
+        "reader": "slow",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [],
+        "events": [
+          31,
+          32
+        ],
+        "eventLag": false,
+        "failures": [
+          {
+            "operation": "relate",
+            "relation": "Parent",
+            "source": 1,
+            "target": 1,
+            "error": {
+              "_tag": "SelfRelationNotAllowed",
+              "entityId": 1,
+              "relation": "Parent"
+            }
+          },
+          {
+            "operation": "relate",
+            "relation": "Parent",
+            "source": 1,
+            "target": 3,
+            "error": {
+              "_tag": "MissingTargetEntity",
+              "entityId": 1,
+              "targetId": 3,
+              "relation": "Parent"
+            }
+          }
+        ],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_fast_read",
+        "reader": "fast",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [],
+        "events": [
+          31,
+          32
+        ],
+        "eventLag": false,
+        "failures": [
+          {
+            "operation": "relate",
+            "relation": "Parent",
+            "source": 1,
+            "target": 1,
+            "error": {
+              "_tag": "SelfRelationNotAllowed",
+              "entityId": 1,
+              "relation": "Parent"
+            }
+          },
+          {
+            "operation": "relate",
+            "relation": "Parent",
+            "source": 1,
+            "target": 3,
+            "error": {
+              "_tag": "MissingTargetEntity",
+              "entityId": 1,
+              "targetId": 3,
+              "relation": "Parent"
+            }
+          }
+        ],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_fast_repeat",
+        "reader": "fast",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_slow_repeat",
+        "reader": "slow",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      }
+    ]
+  },
+  {
+    "namespace": 2,
+    "deliveries": [
+      {
+        "phase": "follow_warm",
+        "reader": "fast",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 43
+          }
+        ],
+        "added": [
+          1,
+          2
+        ],
+        "changed": [
+          1,
+          2
+        ],
+        "removed": [],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_warm",
+        "reader": "slow",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 43
+          }
+        ],
+        "added": [
+          1,
+          2
+        ],
+        "changed": [
+          1,
+          2
+        ],
+        "removed": [],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_removed",
+        "reader": "fast",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [
+          2
+        ],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_removed",
+        "reader": "slow",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [
+          2
+        ],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_reinserted",
+        "reader": "fast",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [
+          2
+        ],
+        "changed": [
+          2
+        ],
+        "removed": [],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_reinserted",
+        "reader": "slow",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [
+          2
+        ],
+        "changed": [
+          2
+        ],
+        "removed": [],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_slow_failure",
+        "reader": "slow",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [],
+        "events": [
+          31,
+          32
+        ],
+        "eventLag": false,
+        "failures": [
+          {
+            "operation": "relate",
+            "relation": "Parent",
+            "source": 1,
+            "target": 1,
+            "error": {
+              "_tag": "SelfRelationNotAllowed",
+              "entityId": 1,
+              "relation": "Parent"
+            }
+          },
+          {
+            "operation": "relate",
+            "relation": "Parent",
+            "source": 1,
+            "target": 3,
+            "error": {
+              "_tag": "MissingTargetEntity",
+              "entityId": 1,
+              "targetId": 3,
+              "relation": "Parent"
+            }
+          }
+        ],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_slow_retry",
+        "reader": "slow",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [],
+        "events": [
+          31,
+          32
+        ],
+        "eventLag": false,
+        "failures": [
+          {
+            "operation": "relate",
+            "relation": "Parent",
+            "source": 1,
+            "target": 1,
+            "error": {
+              "_tag": "SelfRelationNotAllowed",
+              "entityId": 1,
+              "relation": "Parent"
+            }
+          },
+          {
+            "operation": "relate",
+            "relation": "Parent",
+            "source": 1,
+            "target": 3,
+            "error": {
+              "_tag": "MissingTargetEntity",
+              "entityId": 1,
+              "targetId": 3,
+              "relation": "Parent"
+            }
+          }
+        ],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_fast_read",
+        "reader": "fast",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [],
+        "events": [
+          31,
+          32
+        ],
+        "eventLag": false,
+        "failures": [
+          {
+            "operation": "relate",
+            "relation": "Parent",
+            "source": 1,
+            "target": 1,
+            "error": {
+              "_tag": "SelfRelationNotAllowed",
+              "entityId": 1,
+              "relation": "Parent"
+            }
+          },
+          {
+            "operation": "relate",
+            "relation": "Parent",
+            "source": 1,
+            "target": 3,
+            "error": {
+              "_tag": "MissingTargetEntity",
+              "entityId": 1,
+              "targetId": 3,
+              "relation": "Parent"
+            }
+          }
+        ],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_fast_repeat",
+        "reader": "fast",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      },
+      {
+        "phase": "follow_slow_repeat",
+        "reader": "slow",
+        "rows": [
+          {
+            "id": 1,
+            "payload": 42
+          },
+          {
+            "id": 2,
+            "payload": 44
+          }
+        ],
+        "added": [],
+        "changed": [],
+        "removed": [],
+        "events": [],
+        "eventLag": false,
+        "failures": [],
+        "relationLag": false
+      }
+    ]
+  }
+]
