@@ -32,6 +32,6 @@ def snapshot():
    if 'warning: setlocale:' in line:continue
    for name in re.findall(r'(/[^\s()]+)',line):
     p=Path(name);assert p.is_file(),p;files.add(p.resolve())
- return {'scope':'Prospective consumed installed binaries, installed Bend Base/effects, Clang resources and resolved ELF libraries; compiled Bend compiler is embedded in pinned executable, no separate installed TS compiler claimed','pins':{str(p):sha(p) for p in sorted(files)},'resolvedLibraries':logs,'environment':{'BENDVY_CLANG19_ROOT':str(CLANG_ROOT),'wrapperLD_LIBRARY_PATH':LIBPATH,'clangResourceDir':str(CLANG_ROOT/'usr/lib/llvm-19/lib/clang/19'),'gccToolchain':'/usr','CPU':10}}
+ return {'scope':'Prospective consumed installed binaries, installed Bend Base/effects, Clang resources and resolved ELF libraries; compiled Bend compiler is embedded in pinned executable, no separate installed TS compiler claimed','pins':{str(p):sha(p) for p in sorted(files)},'resolvedLibraries':logs,'environment':{'BENDVY_CLANG19_ROOT':str(CLANG_ROOT),'wrapperLD_LIBRARY_PATH':LIBPATH,'clangResourceDir':str(CLANG_ROOT/'usr/lib/llvm-19/lib/clang/19'),'gccToolchain':'/usr','processAffinity':sorted(os.sched_getaffinity(0))}}
 def verify(s):
  assert snapshot()['pins']==s['pins'],'installed tool/resource/library set or bytes changed'
