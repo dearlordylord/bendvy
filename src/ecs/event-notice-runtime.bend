@@ -10,7 +10,7 @@ import ./event-family-routing.bend as Route
 
 # Descriptor metadata owns no second World. Typed publication ticks remain separate.
 type Failures<S:Data,P:Data> is Data:
-  Failures{domains:List<&2,D.Domain<S,Notice.Notice<S,P>>>,positions:List<&2,Ev.Position>,tick:Nat,frameStart:Nat,boundary:Nat,capacity:Nat}
+  Failures{domains:List<&2,D.Domain<S,Notice.Notice<S,P>>>,positions:List<&2,Ev.Position>,tick:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,nextReader:U32}
 type State<S:Data,P:Data,F:Type,H:Type> is Type:
   State{typed:Family.State<P,F,H>,failures:Failures<S,P>}
 
@@ -24,7 +24,7 @@ def originals(~S:Data,~P:Data,records:List<&2,Notice.Notice<S,P>>) -> List<&2,P>
 
 def started(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,typed:Family.State<P,F,H>,runtime:K.Runtime<S,C,R,Notice.Notice<S,P>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
   match runtime:
-    case K.Runtime{world,domains,positions,tick,frameStart,boundary,capacity}:Route.Runtime{world,State{typed,Failures{domains,positions,tick,frameStart,boundary,capacity}},0n}
+    case K.Runtime{world,domains,positions,tick,frameStart,boundary,capacity,nextReader}:Route.Runtime{world,State{typed,Failures{domains,positions,tick,frameStart,boundary,capacity,nextReader}},0n}
 
 def start(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,world:W.World<S,C,R,Notice.Notice<S,P>>,family:F,owners:H) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
   started(~S,~C,~R,~P,~F,~H,Family.State{family,owners,[],0n},K.start(~S,~C,~R,~Notice.Notice<S,P>,world))
@@ -42,11 +42,11 @@ def synchronize(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~sync:F -> Nat -
 # The detached typed owner contains no World; K operations receive the sole World.
 def failure_runtime(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,runtime:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> K.Runtime<S,C,R,Notice.Notice<S,P>> & (Family.State<P,F,H> & Nat):
   match runtime:
-    case Route.Runtime{world,State{typed,Failures{domains,positions,tick,frameStart,boundary,capacity}},typedTick}:(K.Runtime{world,domains,positions,tick,frameStart,boundary,capacity},(typed,typedTick))
+    case Route.Runtime{world,State{typed,Failures{domains,positions,tick,frameStart,boundary,capacity,nextReader}},typedTick}:(K.Runtime{world,domains,positions,tick,frameStart,boundary,capacity,nextReader},(typed,typedTick))
 def failure_returned(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,held:Family.State<P,F,H> & Nat,runtime:K.Runtime<S,C,R,Notice.Notice<S,P>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
   match held runtime:
-    case (typed,typedTick) K.Runtime{world,domains,positions,tick,frameStart,boundary,capacity}:
-      Route.Runtime{world,State{typed,Failures{domains,positions,tick,frameStart,boundary,capacity}},typedTick}
+    case (typed,typedTick) K.Runtime{world,domains,positions,tick,frameStart,boundary,capacity,nextReader}:
+      Route.Runtime{world,State{typed,Failures{domains,positions,tick,frameStart,boundary,capacity,nextReader}},typedTick}
 
 # Slots preserve the original mixed-log positions, including partially retained Publications.
 type Retention<P:Data,F:Type> is Type:
@@ -113,3 +113,13 @@ def take(~S:Data,~E:Data,~P:Data,~F:Type,~H:Type,~take:F -> F & Leaf.Stream<S,E>
 def put(~S:Data,~E:Data,~P:Data,~F:Type,~H:Type,~put:F -> Leaf.Stream<S,E> -> F,state:State<S,P,F,H>,stream:Leaf.Stream<S,E>) -> State<S,P,F,H>:
   match state:
     case State{typed,failures}:State{Family.put(~S,~E,~P,~F,~H,~put,typed,stream),failures}
+
+# Reserve from the same failure-reader pool used by standalone K.register.
+def reserved_failure_reader(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,held:Family.State<P,F,H> & Nat,result:K.Runtime<S,C,R,Notice.Notice<S,P>> & Maybe<&2,U32>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>> & Maybe<&2,U32>:
+  match result:
+    case (runtime,id):(failure_returned(~S,~C,~R,~P,~F,~H,held,runtime),id)
+def reserve_failure_reader_detached(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,detached:K.Runtime<S,C,R,Notice.Notice<S,P>> & (Family.State<P,F,H> & Nat)) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>> & Maybe<&2,U32>:
+  match detached:
+    case (runtime,held):reserved_failure_reader(~S,~C,~R,~P,~F,~H,held,K.reserve_reader(~S,~C,~R,~Notice.Notice<S,P>,runtime))
+def reserve_failure_reader(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,runtime:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>> & Maybe<&2,U32>:
+  reserve_failure_reader_detached(~S,~C,~R,~P,~F,~H,failure_runtime(~S,~C,~R,~P,~F,~H,runtime))

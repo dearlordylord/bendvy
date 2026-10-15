@@ -26,17 +26,17 @@ def release(~S: Data,~E: Data,domains: List<&2,D.Domain<S,E>>,+id: U32) -> List<
     case []: []
     case D.Domain{key,queue,ids} <> rest: D.Domain{key,queue,remove(ids,id)} <> release(~S,~E,rest,id)
 
-def completed(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> K.Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,result: Sy.Disposal<S,C,R,E,K.Input<S,E,A>,Error,O,runner>,keys: List<&2,D.DescriptorKey<S>>,domains: List<&2,D.Domain<S,E>>,positions: List<&2,Ev.Position>,+id: U32,+tick: Nat,frameStart: Nat,boundary: Nat,capacity: Nat) -> Disposal<S,C,R,E,A,Error,O,runner>:
+def completed(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> K.Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,result: Sy.Disposal<S,C,R,E,K.Input<S,E,A>,Error,O,runner>,keys: List<&2,D.DescriptorKey<S>>,domains: List<&2,D.Domain<S,E>>,positions: List<&2,Ev.Position>,+id: U32,+tick: Nat,frameStart: Nat,boundary: Nat,capacity: Nat,+nextReader: U32) -> Disposal<S,C,R,E,A,Error,O,runner>:
   match result:
-    case Sy.Disposed{world}: ReaderDisposed{K.Runtime{world,release(~S,~E,domains,id),Ev.update(positions,id,tick,True{}),tick,frameStart,boundary,capacity}}
-    case Sy.DisposalRejected{world,registry}: ReaderDisposalRejected{K.Runtime{world,domains,positions,tick,frameStart,boundary,capacity},K.Reader{registry,keys}}
+    case Sy.Disposed{world}: ReaderDisposed{K.Runtime{world,release(~S,~E,domains,id),Ev.update(positions,id,tick,True{}),tick,frameStart,boundary,capacity,nextReader}}
+    case Sy.DisposalRejected{world,registry}: ReaderDisposalRejected{K.Runtime{world,domains,positions,tick,frameStart,boundary,capacity,nextReader},K.Reader{registry,keys,id}}
 
 def identified(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> K.Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,runtime: K.Runtime<S,C,R,E>,identity: Sy.Registry<S,C,R,E,K.Input<S,E,A>,Error,O,runner> & U32,keys: List<&2,D.DescriptorKey<S>>) -> Disposal<S,C,R,E,A,Error,O,runner>:
   match runtime:
-    case K.Runtime{world,domains,positions,tick,frameStart,boundary,capacity}:
+    case K.Runtime{world,domains,positions,tick,frameStart,boundary,capacity,nextReader}:
       (registry,+id) = identity
-      completed(~S,~C,~R,~E,~A,~Error,~O,~runner,Sy.dispose(~S,~C,~R,~E,~K.Input<S,E,A>,~Error,~O,~runner,registry,world),keys,domains,positions,id,tick,frameStart,boundary,capacity)
+      completed(~S,~C,~R,~E,~A,~Error,~O,~runner,Sy.dispose(~S,~C,~R,~E,~K.Input<S,E,A>,~Error,~O,~runner,registry,world),keys,domains,positions,id,tick,frameStart,boundary,capacity,nextReader)
 
 def dispose(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> K.Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,runtime: K.Runtime<S,C,R,E>,reader: K.Reader<S,C,R,E,A,Error,O,runner>) -> Disposal<S,C,R,E,A,Error,O,runner>:
   match reader:
-    case K.Reader{registry,keys}: identified(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,Sy.identity(~S,~C,~R,~E,~K.Input<S,E,A>,~Error,~O,~runner,registry),keys)
+    case K.Reader{registry,keys,id}: identified(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,(registry,id),keys)
