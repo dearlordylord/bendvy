@@ -1494,10 +1494,12 @@ def strings_json(values:List<&2,String>) -> String:
   list_json(~String,~quoted,values)
 def output_one(value:String) -> List<&2,String>:
   [value]
-def write_output_chunks(chunks:List<&2,String>) -> IO(Unit):
+def write_raw_chunks(chunks:List<&2,String>) -> IO(Unit):
   match chunks:
-    case []:IO.write("\n")
-    case chunk <> rest:IO.bind(Unit,Unit,IO.write(chunk),_ => write_output_chunks(rest))
+    case []:IO.pure(Unit,Unit{})
+    case chunk <> rest:IO.bind(Unit,Unit,IO.write(chunk),_ => write_raw_chunks(rest))
+def write_output_chunks(chunks:List<&2,String>) -> IO(Unit):
+  IO.bind(Unit,Unit,write_raw_chunks(chunks),_ => IO.write("\n"))
 def schedule_finished_state(trace:List<&2,JsonDoc>,observations:List<&2,Sch.Observation>,observed:context_type() & JsonDoc) -> List<&2,String>:
   match observed:
     case (_,image):
@@ -1707,5 +1709,9 @@ def followup_start(state:Setup) -> List<&2,String>:
 def both_root_outputs(first:List<&2,String>,second:List<&2,String>) -> List<&2,String>:
   List.append(&2,String,["["],List.append(&2,String,first,List.append(&2,String,[","],List.append(&2,String,second,["]"]))))
 
+def write_second_root() -> IO(Unit):
+  IO.bind(Unit,Unit,IO.write(","),_ => IO.bind(Unit,Unit,write_raw_chunks(followup_start(setup_with_factory(W.Factory{2}))),_ => IO.bind(Unit,Unit,IO.write("]"),_ => IO.write("\n"))))
+def write_first_root() -> IO(Unit):
+  IO.bind(Unit,Unit,IO.write("["),_ => IO.bind(Unit,Unit,write_raw_chunks(followup_start(setup_with_factory(W.Factory{1}))),_ => write_second_root()))
 def main() -> IO(Unit):
-  write_output_chunks(both_root_outputs(followup_start(setup_with_factory(W.Factory{1})),followup_start(setup_with_factory(W.Factory{2}))))
+  write_first_root()
