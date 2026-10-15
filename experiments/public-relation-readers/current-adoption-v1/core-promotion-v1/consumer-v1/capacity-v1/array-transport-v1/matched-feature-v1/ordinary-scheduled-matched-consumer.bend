@@ -57,9 +57,11 @@ def context_type() -> Type:
 def metadata_type() -> Type:
   Mixed.State<Schema,Publication,family_type(),Unit> & Nat
 def no_caps(H:Type) -> Type:
-  Unit
-def no_grant(~H:Type) -> Unit:
-  Unit{}
+  Cap.Send<H,U32>
+def reader_publish(tx:Tx.Tx<world_type(),event_type()>,value:U32) -> Tx.Tx<world_type(),event_type()>:
+  Tx.emit(~world_type(),~event_type(),tx,Notice.Original{Value{value}})
+def no_grant() -> Cap.Send<Tx.Tx<world_type(),event_type()>,U32>:
+  Cap.Send{reader_publish}
 def empty_store(_:Unit) -> store_type():
   Notice.Store{Col.empty(~Schema,~U32),Relations.Graph{[],[]}}
 def take_values(store:store_type()) -> Relations.Graph<Schema> & Col.Column<Schema,U32>:
@@ -326,9 +328,17 @@ def callback_outcome(fail:Bool) -> Tx.Outcome<U32>:
   match fail:
     case True{}:Tx.Failure{7}
     case False{}:Tx.Success{}
+def callback_sent(~H:Type,view:all_view(),owner:H) -> H & (Tx.Outcome<U32> & all_view()):
+  (owner,(Tx.Failure{77},view))
+def callback_selected(~H:Type,send:H -> U32 -> H,view:all_view(),fail:Bool,owner:H) -> H & (Tx.Outcome<U32> & all_view()):
+  match fail:
+    case False{}:(owner,(Tx.Success{},view))
+    case True{}:callback_sent(~H,view,send(owner,999))
+def callback_granted(~H:Type,caps:Cap.Send<H,U32>,input:all_view() & Bool,owner:H) -> H & (Tx.Outcome<U32> & all_view()):
+  match caps input:
+    case Cap.Send{send}, (view,fail):callback_selected(~H,send,view,fail,owner)
 def callback(~H:Type,~caps:no_caps(H),input:all_view() & Bool,owner:H) -> H & (Tx.Outcome<U32> & all_view()):
-  match input:
-    case (view,fail):(owner,(callback_outcome(fail),view))
+  callback_granted(~H,caps,input,owner)
 
 # A small actual scheduled lifecycle over the same provider composition as the
 # full-capacity consumer. The setup keeps one reserved, inactive handle for a
@@ -919,7 +929,7 @@ def json_view(value:all_view()) -> JsonDoc:
     case RP.ViewPair{query,RP.ViewPair{eventA,RP.ViewPair{eventB,RP.ViewPair{removals,relations}}}}:json_parts([JsonText{"{\"query\":"},json_query_view(query),JsonText{",\"eventA\":"},json_event_view(eventA),JsonText{",\"eventB\":"},json_event_view(eventB),JsonText{",\"removals\":"},json_removal_view(removals),JsonText{",\"relations\":"},json_relation_view(relations),JsonText{"}"}])
 
 def registry_type() -> Type:
-  Sys.Registry<Schema,store_type(),Unit,event_type(),Ordinary.Invocation<metadata_type(),all_owner(),all_parameter_type(),Unit,Bool>,Empty,Ordinary.Envelope<metadata_type(),all_owner(),all_parameter_type(),Unit,U32,all_view()>,Ordinary.shared_runner(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~all_owner(),~all_view(),~all_delta(),~Bool,~Unit,~U32,~all_view(),~validate_all,~prepare_all,~commit_all,~release_all,~no_caps,~callback,~no_grant(~Tx.Tx<world_type(),event_type()>),~sync_events,~classify)>
+  Sys.Registry<Schema,store_type(),Unit,event_type(),Ordinary.Invocation<metadata_type(),all_owner(),all_parameter_type(),Unit,Bool>,Empty,Ordinary.Envelope<metadata_type(),all_owner(),all_parameter_type(),Unit,U32,all_view()>,Ordinary.shared_runner(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~all_owner(),~all_view(),~all_delta(),~Bool,~Unit,~U32,~all_view(),~validate_all,~prepare_all,~commit_all,~release_all,~no_caps,~callback,~no_grant(),~sync_events,~classify)>
 def provider_type() -> Type:
   Ordinary.Provider<registry_type(),all_owner(),all_parameter_type(),Unit>
 def definition_type() -> Type:
@@ -927,9 +937,9 @@ def definition_type() -> Type:
 def run_type() -> Type:
   Ordinary.RunResult<context_type(),provider_type(),Bool,U32,all_view()>
 def define_all(context:context_type(),name:String) -> definition_type():
-  Ordinary.define_mixed(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~all_owner(),~all_view(),~all_delta(),~Bool,~Unit,~U32,~all_view(),~validate_all,~prepare_all,~commit_all,~release_all,~no_caps,~callback,~no_grant(~Tx.Tx<world_type(),event_type()>),~sync_events,~classify,~all_initialize,all_parameter(),Unit{},context,name)
+  Ordinary.define_mixed(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~all_owner(),~all_view(),~all_delta(),~Bool,~Unit,~U32,~all_view(),~validate_all,~prepare_all,~commit_all,~release_all,~no_caps,~callback,~no_grant(),~sync_events,~classify,~all_initialize,all_parameter(),Unit{},context,name)
 def run_all(provider:provider_type(),context:context_type(),fail:Bool) -> run_type():
-  Ordinary.run_mixed(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~all_owner(),~all_view(),~all_delta(),~Bool,~Unit,~U32,~all_view(),~validate_all,~prepare_all,~commit_all,~release_all,~no_caps,~callback,~no_grant(~Tx.Tx<world_type(),event_type()>),~sync_events,~classify,provider,context,fail)
+  Ordinary.run_mixed(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,~all_owner(),~all_view(),~all_delta(),~Bool,~Unit,~U32,~all_view(),~validate_all,~prepare_all,~commit_all,~release_all,~no_caps,~callback,~no_grant(),~sync_events,~classify,provider,context,fail)
 
 def context_clocked(metadata:metadata_type(),clocked:world_type() & U32) -> context_type() & U32:
   match clocked:
