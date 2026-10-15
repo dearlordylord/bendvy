@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : 'SI.Instance{Cleanup.Instance{registry,ports}} (world,stream)'
+Location:
+64 |   match reader result:
+65>|     case SI.Instance{Cleanup.Instance{registry,ports}} (world,stream):finished(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback,registry,world,reading,completion,St.finish(~S,~K,~V,ports,stream,tick,success))
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+66 | def finish(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~Out:Type,~take:R -> R & St.Stream<V>,~put:R -> St.Stream<V> -> R,~callback:W.World<S,C,R,E> -> Input<V,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,reader:instance_type(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback),world:W.World<S,C,R,E>,reading:Ev.Reading<M.Transition<V>>,tick:Nat,success:Bool,completion:Completion<Error,Out>) -> ReadResult<W.World<S,C,R,E>,instance_type(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback),A,Error,Out,V>:
+bend 2.0.37 is available: run bend update

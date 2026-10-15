@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : reader
+- observed : reader (consumed more than once)
+Location: rejected
+6 | def world_type() -> Type:W.World<Fixture.SchemaA,Array<U32>,Fixture.Resources<Fixture.SchemaA>,String>
+7>| def rejected(reader:reader_type()) -> reader_type() & reader_type():
+  |              ^^^^^^
+8 |   (reader,reader)
+bend 2.0.37 is available: run bend update

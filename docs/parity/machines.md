@@ -138,3 +138,48 @@ wiring once, retaining Managed ownership, foreign-world refusal, cursor rules an
 accepted disposal through `machine-stream.dispose`. Existing generic cleanup and
 fixture evidence establishes the behavior basis, not an integrated ordinary
 machine-reader API. Engine-marker/whole-Bundle disposal is separate ownership scope.
+
+The current adapter candidate derives its stream declaration from the ordinary
+initialization declaration and supplies `register`, `read`, `skip` and `dispose`.
+Its two-schema initialization consumer replaces manual callbacks and passes
+complete JS/Native output against all 105,004 independently derived bytes.
+The actual WorldIO foreign-reader/disposal consumer also passes JS/Native against
+all 17,347 independent bytes: foreign operations preserve both owners, failed
+reads can retry, accepted disposal removes only its reader, and the survivor
+reads once before returning an empty result. The reached wrong-reader-disposal
+mutation produces the independent 17,433-byte counter-output and rejects normal.
+Affine-positive, owner-duplication and cross-schema controls pass their intended
+outcomes. Root adoption matches all 35/38 source bodies. The [portable packet](../../experiments/public-machines/ordinary-initialization-v1/ordinary-reader-v1/delivery-v1/README.md)
+and independent bounded review pass. Full #48 remains open for the first-use
+skip/retention observation described below.
+
+The stream cursor records the consumed transition boundary before the callback;
+the registry cursor records component freshness after successful execution.
+They intentionally differ. Callback-created transitions are not covered by this
+fixture; these finite observations are not a universal proof.
+
+### Issue-level semantic reconciliation
+
+Independent review accepts the bounded adapter. The current acceptance joins are:
+
+| Required behavior | Current evidence and applicability |
+| --- | --- |
+| Initial/occupied provisioning, overwrite, missing values, initial and later ordering, independent/skip readers | Ordinary initialization and the public reader successor: complete 105,004-byte two-schema JS/Native observations. |
+| `in_state`, registered `state_changed`, negation and lazy conjunction/disjunction | Current condition-reader packet: 17,373 bytes on JS/Native and a reached eager-RHS mutant. |
+| Scheduled phases, structural barrier, failure/retry and changes queued during Enter | Current-source Bundle packet: 21,569 bytes on both backends; all 34 source bodies match, including 22 canonical core bodies. |
+| Failed writer discards pending machine change | `remaining-core-v1/ordinary-frontend-v1/public-successor-v1`: full 1,323-byte two-schema output. The reached `operate`/`Cap.invoke`/`Tx.finish` queue-rollback path is unchanged. Source differences add Initial handling, declaration Vocabulary and World pending-length bookkeeping; no new Initial or stream path is reached by this fixture. This is a reached-path bridge, not identical full source closures. |
+| Retention, capacity, order and complete queue observation | Canonical FIFO packet: 65,537 publications per schema, 19,367,810-byte JS/Native outputs, no-eviction mutation and 1,760-byte boundary/lifecycle controls. |
+| Ordinary reader authority, retry and disposal | Public reader successor: actual independent WorldIO worlds, 17,347-byte JS/Native outputs, 17,433-byte wrong-reader-disposal mutant, nominal/affine controls. |
+| Executed shared TS scenarios | `ordinary-heterogeneous-handlers-v1/ts-shared-v1`: 377,471 bytes, 96 checkpoints across 12 applications. The documented TS global apply versus selected Bend marker difference remains explicit. |
+| Protected regression | The additive reader is outside the protected workload; all 23 current source pins remain unchanged. Reuse is limited to that workload. |
+
+Combined performance remains under #21/#23/#24. The transition-reader callback
+is administrative; existing ValueRead/ValueWrite controls cover the separate
+gameplay grant boundary. No universal proof or whole-Bundle disposal contract
+is claimed by this delivery.
+
+Remaining semantic gate: register a reader, skip it before its first read, then
+read a transition that is still retained. The current skip fixture first activates
+the reader, so it does not cover this first-use cursor rule. Bevy's default
+MessageCursor starts before existing messages; reconcile that behavior with the
+Bend stream's lazy activation and execute the ordinary consumer before closing #48.

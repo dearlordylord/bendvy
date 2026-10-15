@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh constructor name (duplicate declaration: Done)
+- observed : 'Done'
+Location:
+16 | type Completion<Error:Data,Out:Type> is Type:
+17>|   Done{output:Out}
+   |   ^^^^
+18 |   Failed{error:Error}
+bend 2.0.37 is available: run bend update

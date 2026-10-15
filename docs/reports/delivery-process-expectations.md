@@ -998,3 +998,19 @@ changed. Root adopted identical bodies and reused protected #28 applicability;
 no production core change or comparative campaign was needed. Reconciliation
 identified an actual missing ordinary machine-reader lifecycle adapter, rather
 than treating additional repeated verification as feature delivery.
+
+Bundle integration `4e5f945a5`: CI38816522497 attempt1 reached the full
+infrastructure job but an unchanged Node lowering-cost control hit its five-second
+cap. The same focused five-test suite passed locally in 0.052s; a single unchanged
+CI retry passed (attempt2, functional job 1m55s). No limit or test was changed, and the original failure remains
+in the CI history. This is not an ECS runtime failure or a delivery-speed claim.
+
+2026-10-15 ordinary machine-reader delivery: the existing collector completed
+the primary two-schema consumer on JS/Native (105,004 bytes each), actual
+WorldIO foreign/disposal on JS/Native (17,347 each), and a reached JS disposal
+mutation (17,433 bytes, rejected by the normal oracle). No runner or limit was
+changed. Existing marker, failed-writer, capacity and executed TS evidence was
+reconciled instead of rerun; all 23 protected #28 source pins remain unchanged.
+Portable retention and bounded final review pass. Review identified one precise
+remaining scenario: a registered reader skipped before its first activation.
+These are observed avoided reruns, not a measured aggregate delivery-speed improvement.

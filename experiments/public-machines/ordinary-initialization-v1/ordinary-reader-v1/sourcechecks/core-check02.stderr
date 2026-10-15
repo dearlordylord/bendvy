@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: Result)
+- observed : 'Result'
+Location:
+18 |   CallbackFailed{error:Error}
+19>| type Result<-World:Type,-Reader:Type,-Args:Type,-Error:Data,-Out:Type,-V:Data> is Type:
+   |      ^^^^^^
+20 |   ReadSucceeded{world:World,reader:Reader,output:Out,reading:Ev.Reading<M.Transition<V>>}
+bend 2.0.37 is available: run bend update

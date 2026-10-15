@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+14 |     case None{}:(None{},"disposed")
+15>|     case Some{reader}:view_returned(~S,App.user_view_returned(~S,reader))
+   |                                     ^
+16 | def view_returned(~S:Data,pair:App.UserReader<S> & App.UserReaderView) -> Maybe<&1,App.UserReader<S>> & String:
+bend 2.0.37 is available: run bend update

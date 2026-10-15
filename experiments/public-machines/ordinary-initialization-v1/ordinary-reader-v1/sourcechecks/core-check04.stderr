@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:St.Reader<instance_type~S, instance_type~K> -> @_:U32 -> @_:U32 -> Sigma<&1, &1, St.Reader<instance_type~S, instance_type~K>, _ => Bool>
+- observed : @reader:St.Reader<instance_type~S, instance_type~K> -> @+namespace:U32 -> @+id:U32 -> Sigma<&1, &1, St.Reader<instance_type~S, instance_type~K>, _ => Bool>
+Location: instance_type
+42 | 
+43>| def instance_type(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~Out:Type,~take:R -> R & St.Stream<V>,~put:R -> St.Stream<V> -> R,~callback:W.World<S,C,R,E> -> Input<V,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>) -> Type:SI.Instance<S,C,R,E,Input<V,A>,Error,Out,callback,St.Reader<S,K>,validate(~S,~K),remove(~S,~K,~V,~C,~R,~E,~take,~put)>
+   |                                                                                                                                                                                                                                                                                                                       ^^^^^^^^^^^^^^^
+44 | def registration_type(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~Out:Type,~take:R -> R & St.Stream<V>,~put:R -> St.Stream<V> -> R,~callback:W.World<S,C,R,E> -> Input<V,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>) -> Type:SI.Registration<S,C,R,E,Input<V,A>,Error,Out,callback,St.Reader<S,K>,validate(~S,~K),remove(~S,~K,~V,~C,~R,~E,~take,~put)>
+bend 2.0.37 is available: run bend update
