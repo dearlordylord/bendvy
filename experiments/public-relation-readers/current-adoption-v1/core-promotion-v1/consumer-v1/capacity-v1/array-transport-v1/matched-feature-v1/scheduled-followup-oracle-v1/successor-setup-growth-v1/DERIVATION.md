@@ -1,0 +1,17 @@
+# Setup-growth source applicability successor
+
+Producer `cf72e7a07`; entry SHA-256 `563378f7452509f4a4ad031d1404cb54de572a3ce02bfe54126ed33e8574d97d`. Frozen 65-body source root: `/tmp/bendvy43-scheduled-followup-oracle-source02`. All 64 core bodies remain byte-identical. The 74 pins include the complete selected closure, original references and the original intended-trace model.
+
+## Corrected source assumption
+
+The preceding c8a3aa701 oracle was **not applicable to its bound source**. I incorrectly assumed that storing target entity2 with Col.swap grew the column. Pinned column.bend says otherwise: Col.empty is Column{ALeaf{None},[]}; swap_sized rejects an ID greater than the current array size. Activating World entity2 grows the World live allocator, independently of the component column. Source entity1's first swap succeeds in slot1, but the old seed_column_value's raw swap2 fails against size1, returning False and then SetupFailed. Therefore the original source cannot reach the intended scheduled trace. Its original source, oracle bytes, model and failed first runtime attempt remain historical and unchanged. Candidate output was used only to locate the early setup branch; the rejection is derived from these source operations.
+
+The source successor changes only seed_column_value: id is marked reusable and the actual components owner passes through Col.ensure(components,id) before Col.swap. The selftest checks the complete entry equals precisely that two-line transformation; all other operations and serializers are unchanged. For returned target handle2, ensure doubles the one-slot column once, appending an absent slot. It preserves value42 and empty stamp metadata. The ensuing swap2 then succeeds and yields slots [42,43]. This pure store operation advances no World clock, adds no events, registrations or live slots, and changes no scenario contract.
+
+## Intended trace is now source-reachable
+
+verify.py independently reduces the setup column operations, explicitly checks predecessor swap2 rejection and successor growth/acceptance, then runs the complete intended scenario model and ordered-fragment IO reconstruction. This establishes source applicability of both observed component payloads and the subsequent warm/commit/barrier/refusal/failure/active-skip/retry/read/repeat trace. The retained actual source/target/missing handle flow, startup publications, component stamps, full physical World/shared state, 21 trace rows and nine real schedule outcomes are unchanged from the intended derivation.
+
+The entire raw wire is still **26,254 bytes**, SHA-256 `fd4316f0b089ccdd0bec3c06faba92b9096c08e3fd4c4d1d7054e24e505de926`. Reuse the parent's expected.stdout or expected.stdout.gz without rewriting either file. Seven ordered chunks plus exactly one LF remain verified; structural fuel10671 exceeds8379 loop visits. The successor creates no new golden and does not normalize or drop any field.
+
+Run `python3 verify.py` for all selected source/reference pins, exact entry diff, setup accept/reject semantics, complete model invariants and full expected-wire equality. Python source check passes. No runtime or generated backend was invoked or inspected by this oracle author. The unchanged collector must still establish actual JS success before Native; this source-only correction is not backend acceptance. The original one-schema scope and uncovered gates remain unchanged.
