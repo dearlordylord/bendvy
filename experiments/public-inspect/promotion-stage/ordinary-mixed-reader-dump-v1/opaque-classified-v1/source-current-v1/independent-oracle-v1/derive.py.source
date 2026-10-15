@@ -1,0 +1,376 @@
+"""Regenerate/check the current source-derived opaque-classified oracle.
+
+This script reads only the frozen source inventory, the prior independent
+model/oracle for provenance, and the deterministic model in this directory.
+It never reads a candidate executable, generated output, receipt, or runtime
+log.
+"""
+from __future__ import annotations
+
+import gzip
+import hashlib
+import json
+import runpy
+import subprocess
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+BASIS_PATH = HERE / "SOURCE-BASIS.json"
+EXPECTED_PATH = HERE / "expected.stdout.gz"
+ORACLES_PATH = HERE / "ORACLES.json"
+CHECKS_PATH = HERE / "CHECKS.json"
+
+
+def sha256_bytes(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def sha256_path(path: Path) -> str:
+    return sha256_bytes(path.read_bytes())
+
+
+def read_basis() -> dict:
+    return json.loads(BASIS_PATH.read_text())
+
+
+def producer_path(basis: dict, relative: str) -> Path:
+    return Path(basis["producerWorktree"]) / relative
+
+
+def check_source_basis(basis: dict) -> None:
+    freeze_path = Path(basis["sourceFreezePath"])
+    assert sha256_path(freeze_path) == basis["sourceFreezeSHA256"]
+    freeze = json.loads(freeze_path.read_text())
+    assert freeze["main"] == basis["entry"]
+    assert freeze["sourceInventory"] == basis["sourceInventory"]
+    assert len(basis["sourceInventory"]) == 106
+
+    head = subprocess.check_output(
+        ["git", "-C", basis["producerWorktree"], "rev-parse", "HEAD"],
+        text=True,
+    ).strip()
+    assert head == basis["producerCommit"]
+
+    for raw_path, expected_hash in basis["sourceInventory"].items():
+        path = Path(raw_path)
+        assert path.is_file(), f"missing frozen source: {raw_path}"
+        actual_hash = sha256_path(path)
+        assert actual_hash == expected_hash, (raw_path, expected_hash, actual_hash)
+
+    model_path = HERE / basis["modelPath"]
+    assert sha256_path(model_path) == basis["modelSHA256"]
+
+    predecessor_model = Path(basis["inheritedIndependentModel"])
+    predecessor_gzip = Path(basis["historicalOracleGzip"])
+    assert sha256_path(predecessor_model) == basis["inheritedIndependentModelSHA256"]
+    assert sha256_path(predecessor_gzip) == basis["historicalOracleGzipSHA256"]
+    predecessor_raw = gzip.decompress(predecessor_gzip.read_bytes())
+    assert len(predecessor_raw) == basis["historicalOracleRawBytes"]
+    assert sha256_bytes(predecessor_raw) == basis["historicalOracleRawSHA256"]
+
+    # Reuse the prior independently derived state model. Its only changes are
+    # the current source-root namespace, the newly exposed reader ID, and the
+    # corresponding source-provenance fields below.
+    prior_model = predecessor_model.read_text()
+    current_model = (HERE / basis["modelPath"]).read_text()
+    substitutions = (
+        (
+            "'/workspace/formal-proofs/bendvy-worktrees/hierarchy44-public-traversal-v1/experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/opaque-classified-v1'",
+            repr(basis["entry"].rsplit("/", 1)[0]),
+        ),
+        (
+            "'/workspace/formal-proofs/bendvy/src/ecs'",
+            repr(str(Path(basis["producerWorktree"]) / "src/ecs")),
+        ),
+        (
+            "# Source-derived corrected-slot successor bound4b16a12c4; no output inputs.",
+            "# The current source uses the same opaque/plain/transient payload model and\n# exposes the separately allocated relation-failure reader identity.",
+        ),
+        (
+            "failure=ctor('reader-observer','FailureView',descriptor(),1,4,'ParentFailures',['Parent:read'],2 if phase>=3 else 0,[key()])",
+            "failure=ctor('reader-observer','FailureView',descriptor(),1,4,'ParentFailures',['Parent:read'],2 if phase>=3 else 0,[key()],1)",
+        ),
+        (
+            "q,[4] if phase>=3 else [])",
+            "q,[1] if phase>=3 else [])",
+        ),
+        (
+            "'Position',4,nat(2),nat(1)",
+            "'Position',1,nat(2),nat(1)",
+        ),
+        (
+            "nat(65536))\n    return ctor('physical','View'",
+            "nat(65536),2)\n    return ctor('physical','View'",
+        ),
+    )
+    for before, after in substitutions:
+        assert before in prior_model, f"missing predecessor model anchor: {before}"
+        prior_model = prior_model.replace(before, after, 1)
+    assert prior_model == current_model, "model contains an unreviewed delta from predecessor"
+
+    format_runtime = basis["formatRuntime"]
+    for path_key, hash_key in (
+        ("basePath", "baseSHA256"),
+        ("printCPath", "printCSHA256"),
+        ("printJSPath", "printJSSHA256"),
+    ):
+        assert sha256_path(Path(format_runtime[path_key])) == format_runtime[hash_key]
+
+    # This entry returns a Data tuple. It does not call IO.print; preserve the
+    # established one-LF CLI Data-result convention, not IO.print's extra LF.
+    entry = Path(basis["entry"]).read_text()
+    assert "def main() -> Maybe<&2,A.Report> & Maybe<&2,B.Report>:(A.run(),B.run())" in entry
+    assert "IO.print" not in entry
+
+    # Check the source-derived identity chain rather than accepting the IDs as
+    # unexplained literals in the model.
+    observer = producer_path(
+        basis,
+        "experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/opaque-classified-v1/source-current-v1/alpha/reader-observer.bend",
+    ).read_text()
+    assert "readerId:U32" in observer
+    assert "K.Reader{Sys.Registry{+namespace,+id,+name,+access,+cursor},+keys,+readerId}" in observer
+    assert "FailureView{descriptor,namespace,id,name,access,cursor,keys,readerId}" in observer
+
+    runtime_path = producer_path(basis, "src/ecs/relation-failure-runtime.bend")
+    runtime = runtime_path.read_text()
+    assert "Runtime{world,[],[],U32.to_nat(clock),0n,0n,65536n,1}" in runtime
+    assert "Reader{registry,keys,nextReader}" in runtime
+    assert "(nextReader+1 : U32)" in runtime
+    assert "Read.activate(~S,~E,keys,domains,id)" in runtime
+    assert "Ev.activate(positions,id,previous)" in runtime
+    assert "Ev.update(Ev.activate(positions,id,previous),id,U32.to_nat(clock),False{})" in runtime
+
+    adapter_path = producer_path(basis, "src/ecs/ordinary-app-relation-failure-reader.bend")
+    adapter = adapter_path.read_text()
+    assert "K.Reader{Sys.Registry{+namespace,+id,+systemName,+access,+cursor},+keys,readerId}" in adapter
+    assert "[Fields.Fields{namespace,id,systemName,access,cursor,name" in adapter
+
+    # The fixture retains the same complete opaque/plain/transient input path
+    # as the predecessor source model.
+    for schema in ("alpha", "beta"):
+        schema_root = producer_path(
+            basis,
+            f"experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/opaque-classified-v1/source-current-v1/{schema}",
+        )
+        consumer = (schema_root / "consumer.bend").read_text()
+        application = (schema_root / "application.bend").read_text()
+        state = (schema_root / "state.bend").read_text()
+        provision = (schema_root / "provision.bend").read_text()
+        observer = (schema_root / "reader-observer.bend").read_text()
+        assert "Checkpoint{dump:Maybe" in consumer
+        assert consumer.count("dump:Maybe<&2,Dump.Dump<F.S>>") == 2
+        assert "Common.dump(app)" in consumer
+        assert "Provision.criteria()" in application
+        assert "Filter.component(~F.S,~F.Payload,Binding.identity(" in provision
+        assert "Some{[1]}" in provision and "Some{1n}" in provision
+        assert "type Payload is Type:Payload{left:Array<U32>,right:Array<U32>,tag:U32}" in state
+        assert "Payload{ANode{ALeaf{41},ALeaf{42}},ANode{ALeaf{51},ALeaf{52}},61}" in state
+        assert "Payload{left,right,tag}" in state
+        assert "Owner.u32_array(left),Owner.u32_array(right)" in state
+        assert "Provision.component_transient" in provision
+        assert "Provision.with_resource_plain" in provision
+        assert "binding()" in provision and "Provision.with_resource" in provision
+        assert "readerId:U32" in observer
+        assert "K.Reader{Sys.Registry{+namespace,+id,+name,+access,+cursor},+keys,+readerId}" in observer
+        assert "FailureView{descriptor,namespace,id,name,access,cursor,keys,readerId}" in observer
+
+        bindings_path = producer_path(
+            basis,
+            f"experiments/public-inspect/promotion-stage/ordinary-mixed-reader-dump-v1/opaque-classified-v1/source-current-v1/{schema}/bindings.bend",
+        )
+        bindings = bindings_path.read_text()
+        assert bindings.count("FailureReader.register") == 1
+
+    column = producer_path(basis, "src/ecs/column.bend").read_text()
+    assert "Array.swap(Maybe<&1,C>, values, U32.sub(id, 1), incoming)" in column
+
+
+def check_model(model: dict) -> bytes:
+    # Each schema owns one relation-failure reader. It receives ID 1 from K's
+    # independent allocator; the System.Registry identity is still 4.
+    for phase in range(14):
+        readers = model["reader_views"](phase)
+        failure_view = readers.fields[3]
+        assert failure_view.fields[1] == 1  # world namespace
+        assert failure_view.fields[2] == 4  # system/Registry ID
+        assert failure_view.fields[-1] == 1  # independent reader ID
+
+        physical = model["physical"](phase)
+        failure_runtime = physical.fields[-2]
+        assert failure_runtime.fields[-1] == 2  # next reader after registration
+        if phase < 2:
+            assert failure_runtime.fields[0] == []
+            assert failure_runtime.fields[1] == []
+        else:
+            assert len(failure_runtime.fields[0]) == 1
+            domain = failure_runtime.fields[0][0]
+            if phase == 2:
+                assert domain.fields[-1] == []
+                assert failure_runtime.fields[1] == []
+            else:
+                assert domain.fields[-1] == [1]
+                assert len(failure_runtime.fields[1]) == 1
+                assert failure_runtime.fields[1][0].fields[0] == 1
+
+    assert model["COLUMN_SLOTS"] == [
+        {"left": [41, 42], "right": [51, 52], "tag": 61},
+        None,
+    ]
+    assert model["LIVE_IDS"] == [1]
+    assert model["FILTER_IDS"] == [1] and model["FILTER_LIMIT"] == 1
+
+    for schema in ("alpha", "beta"):
+        model["report"].__globals__["LOCAL"] = schema
+        report_option = model["report"]()
+        assert report_option.name == "Some"
+        report = report_option.fields[0]
+        checkpoints = report.fields[1]
+        assert len(checkpoints) == 14
+        for index, checkpoint in enumerate(checkpoints):
+            dump, description, inventory, physical, readers, args = checkpoint.fields
+            assert args == "node(leaf:101,leaf:102)"
+            assert len(readers.fields) == 4
+            assert readers.fields[3].fields[-1] == 1
+            assert (dump.name == "None") == (index == 9)
+            assert (description.name == "None") == (index == 9)
+            assert (inventory.name == "None") == (index == 9)
+            assert physical.fields[0].fields[6] == (
+                "Column{values=node(leaf:some(Payload{left=node(leaf:41,leaf:42);"
+                "right=node(leaf:51,leaf:52);tag=61}),leaf:none);stamps=[]};"
+                "sibling=node(leaf:11,leaf:12)"
+            )
+            world = physical.fields[0]
+            assert world.fields[7].name.endswith("relation-types.Graph")
+            assert world.fields[7].fields == ([], [])
+            assert world.fields[8] == "node(leaf:81,leaf:82)"
+            assert [registration.fields[0] for registration in world.fields[11]] == [4, 3, 2, 1]
+            assert world.fields[12] == 5
+            if index != 9:
+                dump_value = dump.fields[0]
+                assert dump_value.fields[0] == 1
+                assert len(dump_value.fields[1]) == 1
+                row = dump_value.fields[1][0]
+                assert row.fields[0].fields == (1, 1)
+                assert row.fields[1][0].fields == (
+                    "Payload",
+                    "Payload{left=node(leaf:41,leaf:42);right=node(leaf:51,leaf:52);tag=61}",
+                )
+                assert dump_value.fields[2][0].fields == (
+                    "Resources",
+                    "node(leaf:81,leaf:82)",
+                )
+        assert model["show"](checkpoints[7].fields[3]) == model["show"](checkpoints[8].fields[3])
+        assert model["show"](checkpoints[8].fields[3]) == model["show"](checkpoints[9].fields[3])
+
+    raw = model["full_output"]()
+    assert raw.endswith(b"\n") and not raw.endswith(b"\n\n")
+    assert raw.count(b"consumer.Checkpoint{") == 28
+    assert raw.count(b"ordinary-app-dump.Dump{") == 26
+    assert raw.count(b"reader-observer.FailureView{") == 28
+    assert raw.count(b'"ParentFailures", ["Parent:read"], 2, [') == 22
+    assert raw.count(b'"ParentFailures", ["Parent:read"], 0, [') == 6
+    # The actual K.Reader ID now identifies all three exposed physical
+    # references: FailureView, failure-domain membership, and event position.
+    assert b"FailureView{" in raw and b"readerId" not in raw
+    assert raw.count(b"internal/relation-failures/domains.Domain{") == 24
+    # The same textual position also occurs in typed event-stream readers;
+    # object-level checks above isolate the 22 failure-runtime observations.
+    assert raw.count(b"event-runtime.Position{1, 2n, 1n}") == 42
+    assert b"event-runtime.Position{4, 2n, 1n}" not in raw
+    assert b"[1]" in raw
+    assert raw.count(b"event-notice-runtime.Failures{") == 28
+    assert raw.count(b"65536n, 2}") == 28
+    # Opaque graph, transient component payload, and plain resource data remain
+    # fully represented in every enabled dump.
+    assert raw.count(b"schema-fragments.Transient{}") == 26
+    assert raw.count(b"schema-fragments.Plain{}") == 26
+    assert raw.count(b"right=node(leaf:51,leaf:52);tag=61") == 54
+    return raw
+
+
+def deterministic_gzip(raw: bytes) -> bytes:
+    import io
+
+    target = io.BytesIO()
+    with gzip.GzipFile(filename="", mode="wb", fileobj=target, mtime=0) as out:
+        out.write(raw)
+    return target.getvalue()
+
+
+def generated_metadata(basis: dict, raw: bytes, packed: bytes) -> tuple[dict, dict]:
+    model_sha = sha256_path(HERE / basis["modelPath"])
+    basis_sha = sha256_path(BASIS_PATH)
+    oracles = {
+        "sourceBasisPath": "SOURCE-BASIS.json",
+        "sourceBasisSHA256": basis_sha,
+        "modelPath": basis["modelPath"],
+        "modelSHA256": model_sha,
+        "normal": {
+            "path": "expected.stdout.gz",
+            "gzipBytes": len(packed),
+            "gzipSHA256": sha256_bytes(packed),
+            "rawBytes": len(raw),
+            "rawSHA256": sha256_bytes(raw),
+            "terminator": "one final LF",
+        },
+    }
+    checks = {
+        "status": "SOURCE_DERIVED_COMPLETE_CURRENT_ORACLE_PASS",
+        "producerCommit": basis["producerCommit"],
+        "sourcePins": len(basis["sourceInventory"]),
+        "entrySHA256": basis["entrySHA256"],
+        "sourceFreezeSHA256": basis["sourceFreezeSHA256"],
+        "modelSHA256": model_sha,
+        "generatorSHA256": sha256_path(HERE / "derive.py.source"),
+        "basisSHA256": basis_sha,
+        "rawBytes": len(raw),
+        "rawSHA256": sha256_bytes(raw),
+        "gzipBytes": len(packed),
+        "gzipSHA256": sha256_bytes(packed),
+        "checks": [
+            "All 106 current source-inventory files match SOURCE-FREEZE.json",
+            "Current model is the prior independent model plus only reviewed source-root and reader-identity edits",
+            "Current entry returns the two complete schema reports as a Data tuple",
+            "Current relation-failure adapter exposes Registry identity and K.Reader identity separately",
+            "One relation-failure registration allocates reader ID 1 and leaves nextReader at 2 per schema",
+            "Failure domain membership and Ev.Position use K.Reader ID 1, not System.Registry ID 4",
+            "All 28 checkpoints retain current opaque/plain/transient and physical-owner observations",
+            "Current relative-import namespace paths and one-LF Data CLI result formatting are modeled",
+        ],
+        "runtimeOutputInputs": [],
+        "limits": [
+            "Source-derived oracle for this finite 2-schema/14-checkpoint consumer only",
+            "No candidate runtime or compiler output was read",
+            "No full #56, universal observer-purity, or performance claim",
+        ],
+    }
+    return oracles, checks
+
+
+def main() -> None:
+    basis = read_basis()
+    check_source_basis(basis)
+    model = runpy.run_path(str(HERE / basis["modelPath"]))
+    raw = check_model(model)
+    packed = deterministic_gzip(raw)
+    oracles, checks = generated_metadata(basis, raw, packed)
+
+    if "--check" in sys.argv:
+        assert EXPECTED_PATH.is_file()
+        assert EXPECTED_PATH.read_bytes() == packed
+        assert json.loads(ORACLES_PATH.read_text()) == oracles
+        assert json.loads(CHECKS_PATH.read_text()) == checks
+        assert gzip.decompress(EXPECTED_PATH.read_bytes()) == raw
+        print(f"SOURCE_MODEL_PASS bytes={len(raw)} sha256={sha256_bytes(raw)}")
+        return
+
+    EXPECTED_PATH.write_bytes(packed)
+    ORACLES_PATH.write_text(json.dumps(oracles, indent=2) + "\n")
+    CHECKS_PATH.write_text(json.dumps(checks, indent=2) + "\n")
+    print(f"WROTE bytes={len(raw)} sha256={sha256_bytes(raw)} gzip={len(packed)} sha256={sha256_bytes(packed)}")
+
+
+if __name__ == "__main__":
+    main()
