@@ -1381,7 +1381,7 @@ def follow_after_slow_repeat(state:FollowState) -> List<&2,String>:
         case ScheduleOwners{metadata,writer,fast,slow,writeArgs,trace}:
           follow_final_image(trace,json_context_image(context_from(world,metadata)))
 def follow_after_fast_repeat(state:FollowState) -> List<&2,String>:
-  follow_after_slow_repeat(follow_slow_repeat(state))
+  follow_after_slow_repeat(follow_fast_repeat(state))
 def follow_after_slow_read(state:FollowState) -> List<&2,String>:
   follow_after_fast_repeat(follow_slow_read(state))
 def follow_after_retry(state:FollowState) -> List<&2,String>:
