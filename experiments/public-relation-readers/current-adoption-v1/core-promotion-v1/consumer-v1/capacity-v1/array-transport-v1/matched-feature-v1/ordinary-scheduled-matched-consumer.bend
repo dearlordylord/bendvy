@@ -1436,10 +1436,24 @@ def reader_result_fast(writer:write_provider_type(),slow:provider_type(),args:wr
     case Ordinary.RunInvalidReader{context,provider}:reader_fault_fast(writer,slow,args,trace,context,provider)
     case Ordinary.RunRegistrationRejected{context,provider,_}:reader_fault_fast(writer,slow,args,trace,context,provider)
     case Ordinary.RunSkipped{context,provider}:reader_fault_fast(writer,slow,args,trace,context,provider)
+def reader_failed_slow_observed(writer:write_provider_type(),fast:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,metadata:metadata_type(),provider:provider_type(),cursor:U32,error:U32,view:all_view(),observed:world_type() & WorldObservation) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
+  match observed:
+    case (world,image):
+      (ScheduleOwners{metadata,writer,fast,provider,args,trace_append(trace,json_parts([JsonText{"{\"kind\":\"reader\",\"reader\":\"slow\",\"status\":\"failed\",\"error\":"},JsonText{U32.show(error)},JsonText{",\"cursor\":"},JsonText{U32.show(cursor)},JsonText{",\"view\":"},json_view(view),JsonText{",\"world\":"},json_world_observation(image),JsonText{"}"}]))},Sys.Failed{world,DispatchFailed{}})
+def reader_failed_slow_split(writer:write_provider_type(),fast:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,provider:provider_type(),cursor:U32,error:U32,view:all_view(),split:world_type() & metadata_type()) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
+  match split:
+    case (world,metadata):reader_failed_slow_observed(writer,fast,args,trace,metadata,provider,cursor,error,view,world_snapshot(world))
+def reader_failed_slow_context(writer:write_provider_type(),fast:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,provider:provider_type(),cursor:U32,error:U32,view:all_view(),context:context_type()) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
+  reader_failed_slow_split(writer,fast,args,trace,provider,cursor,error,view,Mixed.split(~Schema,~store_type(),~Unit,~Publication,~family_type(),~Unit,context))
+def reader_failed_slow_cursor(writer:write_provider_type(),fast:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,context:context_type(),error:U32,view:all_view(),withCursor:provider_type() & U32) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
+  match withCursor:
+    case (provider,cursor):reader_failed_slow_context(writer,fast,args,trace,provider,cursor,error,view,context)
+def reader_failed_slow(writer:write_provider_type(),fast:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,context:context_type(),provider:provider_type(),error:U32,view:all_view()) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
+  reader_failed_slow_cursor(writer,fast,args,trace,context,error,view,provider_cursor(provider))
 def reader_result_slow(writer:write_provider_type(),fast:provider_type(),args:write_args_type(),trace:List<&2,JsonDoc>,result:run_type()) -> ScheduleOwners & Sys.Outcome<world_type(),ScheduleError,Unit>:
   match result:
     case Ordinary.RunCompleted{context,provider,view}:reader_success_slow(writer,fast,args,trace,context,provider,view)
-    case Ordinary.RunFailed{context,provider,_,_}:reader_fault_slow(writer,fast,args,trace,context,provider)
+    case Ordinary.RunFailed{context,provider,error,view}:reader_failed_slow(writer,fast,args,trace,context,provider,error,view)
     case Ordinary.RunInvalidReader{context,provider}:reader_fault_slow(writer,fast,args,trace,context,provider)
     case Ordinary.RunRegistrationRejected{context,provider,_}:reader_fault_slow(writer,fast,args,trace,context,provider)
     case Ordinary.RunSkipped{context,provider}:reader_fault_slow(writer,fast,args,trace,context,provider)
@@ -1450,7 +1464,7 @@ def dispatch_ordinary(owners:ScheduleOwners,world:world_type(),id:U32) -> Schedu
         case 1:writer_result(fast,slow,args,trace,run_writer(writer,context_from(world,metadata),args))
         case 2:reader_result_fast(writer,slow,args,trace,run_all(fast,context_from(world,metadata),False{}))
         case 3:reader_result_slow(writer,fast,args,trace,run_all(slow,context_from(world,metadata),False{}))
-        case 4:reader_result_fast(writer,slow,args,trace,run_all(fast,context_from(world,metadata),True{}))
+        case 4:reader_result_slow(writer,fast,args,trace,run_all(slow,context_from(world,metadata),True{}))
         case 5:reader_result_fast(writer,slow,args,trace,run_all(fast,context_from(world,metadata),False{}))
         case 6:reader_result_slow(writer,fast,args,trace,run_all(slow,context_from(world,metadata),False{}))
         case _:(ScheduleOwners{metadata,writer,fast,slow,args,trace},Sys.Failed{world,DispatchFailed{}})
