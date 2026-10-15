@@ -1,0 +1,120 @@
+{
+  "wrapper": {
+    "path": "/workspace/formal-proofs/bendvy/scripts/bend-check",
+    "bytes": 1000,
+    "sha256": "ba86c4a6eb9fd8482167bd07999d0d5aa01f697e02fd3cea50edf9c84b3791e4"
+  },
+  "argvPrefix": [
+    "flock",
+    "/tmp/bendvy-parity-heavy.lock",
+    "taskset",
+    "-c",
+    "0-11",
+    "/workspace/formal-proofs/bendvy/scripts/bend-check"
+  ],
+  "capSeconds": 5,
+  "sources": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/overflow.bend",
+      "bytes": 1722,
+      "sha256": "e0ebb2b2e11f59a23330170b2b9c7fa0a00099f066d0c2c1658b004c3eab06f9"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/overflow-core.bend",
+      "bytes": 26651,
+      "sha256": "13a635a6572b21350b9097db49431de72939d2e9162c9630e4539d9715344567"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/observe.bend",
+      "bytes": 5459,
+      "sha256": "26b9278149a903b4daf862eee9e58051c3175faa21b468d467bc7355272206f2"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/format.bend",
+      "bytes": 905,
+      "sha256": "0d3e530f1d336eef6f163d1c1808eb24cbebd0a558451e2a17c1f30f1983ddf7"
+    }
+  ],
+  "checks": [
+    {
+      "subject": "overflow.bend",
+      "exitCode": 1,
+      "streams": {
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-check01.stdout",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-check01.stderr",
+          "bytes": 232,
+          "sha256": "5842ea7b089140d7bbeb13115285d01e6d795f90f3ca5a2e49afa7e71620cea2"
+        }
+      },
+      "scope": "IO entry foreign-dependency refusal only; no parser/type/affine diagnostics"
+    },
+    {
+      "subject": "overflow-core.bend",
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-core-check01.stdout",
+          "bytes": 58,
+          "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-core-check01.stderr",
+          "bytes": 42,
+          "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+        }
+      },
+      "scope": "finite parser/type/affine check, not mathematical validity"
+    },
+    {
+      "subject": "overflow-core.bend",
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-core-check02.stdout",
+          "bytes": 58,
+          "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-core-check02.stderr",
+          "bytes": 42,
+          "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+        }
+      },
+      "scope": "finite parser/type/affine check, not mathematical validity"
+    },
+    {
+      "subject": "overflow.bend",
+      "exitCode": 1,
+      "streams": {
+        "stdout": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-check02.stdout",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-check02.stderr",
+          "bytes": 232,
+          "sha256": "5842ea7b089140d7bbeb13115285d01e6d795f90f3ca5a2e49afa7e71620cea2"
+        }
+      },
+      "scope": "IO entry foreign-dependency refusal only; no parser/type/affine diagnostics"
+    }
+  ],
+  "historicalBasis": {
+    "path": "/workspace/formal-proofs/bendvy/.artifacts/machines-stream-opt-linear-format-development-v1/stage/experiments/public-machines/followup/overflow-core.bend",
+    "bytes": 26591,
+    "sha256": "0c54f26201d894c2b859a426ed26feb07a045f129ee1ef25c56fd16d5e561bd9"
+  },
+  "scope": "Fixture-only canonical stream successor. Same 65537 actual publications, per-publication frames, 2 nominal schemas, registered failure/retry/repeat and 7 complete checkpoints. No backend execution or independent oracle applicability yet. First checks precede restoration of qualified Fmt formatting; final check02 subjects bind selected sources.",
+  "eofOnlySuccessor": {
+    "oldSha256": "e9e93cf0dd4334a7d822da91fe934ca33db8da91ae45e2d8238b228d337a418f",
+    "newSha256": "26b9278149a903b4daf862eee9e58051c3175faa21b468d467bc7355272206f2",
+    "rule": "newBytes == oldBytes.rstrip(b'\\n') + b'\\n'",
+    "scope": "Only trailing blank lines removed after direct check; no body or indentation change."
+  }
+}

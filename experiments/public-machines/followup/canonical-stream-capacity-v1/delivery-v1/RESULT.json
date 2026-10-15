@@ -1,0 +1,775 @@
+{
+  "adoptionSourceCheck": {
+    "baseCommit": "4ec00cd43ef095660b74e84501aab4067b4eb576",
+    "checksPath": "/workspace/formal-proofs/bendvy-worktrees/machines48-stream-snapshot-adoption/experiments/public-machines/followup/canonical-stream-capacity-v1/adoption-v1/CHECKS.json",
+    "checksSHA256": "becfee7cef5dab9a4ba5a12d0ca57d7bf7a561ad587e4dca598675b285bc90e1",
+    "compilerSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "conditionsExit": 0,
+    "dependencySourceCommit": "0d2da72c5",
+    "initExit": 0,
+    "wrapperSHA256": "ba86c4a6eb9fd8482167bd07999d0d5aa01f697e02fd3cea50edf9c84b3791e4"
+  },
+  "fullIssueAcceptance": "OPEN",
+  "limitations": [
+    "The bounded queue oracle qualifies canonical FIFO capacity, selected stream controls, and unchanged initialization/condition consumers only.",
+    "Full issue #48 remains open; marker retention and foreign cleanup joins are not covered by this delivery.",
+    "1024-publication baseline/candidate runs are semantic prerequisites for bounded diagnostics; they are not comparative timing evidence.",
+    "No performance, scaling, or benchmark conclusion is claimed."
+  ],
+  "performanceClaim": false,
+  "preflightHistory": [
+    {
+      "backend": "js",
+      "commands": 0,
+      "error": "ValueError: Full consuming inventory has missing or unused entries",
+      "planPath": "/tmp/bendvy48-canonical-capacity-actual01/js/plan.json",
+      "planSHA256": "3d948ce2037e5c3df4c6ecf5d088dbf7e0920bbd47634cbfc12bf111460a23e1",
+      "receiptPath": "/tmp/bendvy48-canonical-capacity-actual01/js/receipt.json",
+      "receiptSHA256": "0c284a576a7d2b60560b91cdb9fcb9c1b7776241a9deb1b7bae375ca9b00ccaf",
+      "scope": "preflight inventory failure; no emit/build/consumer command ran",
+      "status": "INCOMPLETE"
+    },
+    {
+      "backend": "native",
+      "commands": 0,
+      "planPath": "/tmp/bendvy48-canonical-capacity-actual01/native/plan.json",
+      "planSHA256": "3e892ae4acc046b7bd4a0b58fc838e2dfa04dfe643e41eb6c735e2d887c31b47",
+      "receiptPath": null,
+      "receiptSHA256": null,
+      "scope": "plan prepared; no receipt/backend command ran",
+      "status": "NOT_EXECUTED"
+    }
+  ],
+  "profileDiagnostics": {
+    "analysisPath": "/tmp/bendvy48-queue-profile-captures01/analysis.json",
+    "analysisSHA256": "98dec14f40ade6545a493df4b32783df388b914bdb80ec954b58c834200b72df",
+    "coordinatorReceiptPath": "/tmp/bendvy48-queue-profile-captures01/coordinator-receipt.json",
+    "coordinatorReceiptSHA256": "b634508fa3a08678c2ca4172cd007fd1cd36c2a5d16eccfdf6dfa6f55f8af591",
+    "cpuSamples": {
+      "baseline": 465,
+      "candidate": 302
+    },
+    "expectedRawBytes": 33072,
+    "expectedRawSHA256": "c9f4249293942059ddcb3acbad7d65e9279d2de464d06adf9b902a3f7aee6c43",
+    "launchReviewPath": "/tmp/bendvy48-queue-profile-captures01/LAUNCH-REVIEW.md",
+    "launchReviewSHA256": "e0eb4be4030a39bbff07f0de547e0d2a0b3cbea254fd1c099c7eca291323a2ea",
+    "orchestrationPath": "/tmp/run48-profile-captures01.py",
+    "orchestrationSHA256": "0468218d7fd8f51107cb9ab869382c50fb7f1c590a91a7edd6563882e3716143",
+    "planPath": "/tmp/bendvy48-queue-profile-captures01/plan-final.json",
+    "planSHA256": "0da063ec7fdedbab4207a321d5325d3cc7f884969bf75747d9b29f34ac166118",
+    "profileReceipts": {
+      "baseline": {
+        "path": "/tmp/bendvy48-queue-profile-captures01/baseline/receipt.json",
+        "sha256": "db4c0807ae516d0ae55271b2f5296f9183170c90d08afbbd8bff3063d9b91dfe"
+      },
+      "candidate": {
+        "path": "/tmp/bendvy48-queue-profile-captures01/candidate/receipt.json",
+        "sha256": "32822abc8039774b51995a006ada1b45f7cb862a0091c42b8cbdc72824c50337"
+      }
+    },
+    "sampledAllocationBytes": {
+      "baseline": 136924608,
+      "candidate": 32824456
+    },
+    "timeoutLimitation": "The unchanged inner profiler retains an INCOMPLETE receipt and outer logs but does not persist partial inner Node stdout/stderr if its five-second Node timeout fires. No timeout occurred in this cohort; all four complete raw outputs were retained. This is not timing acceptance and is not a physical allocation/RSS measurement."
+  },
+  "roles": [
+    {
+      "backend": "js",
+      "category": "capacity",
+      "completeNormalBaselineRejected": false,
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "canonical-capacity-js",
+      "normalOracleBytes": 19367810,
+      "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-capacity-oracle/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/expected.stdout.gz",
+      "normalOracleSHA256": "6e89e6755cc5fddeb5bd992add71012ee0cd37e702c90071d1497bf4133051da",
+      "oracleBytes": 19367810,
+      "oraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-capacity-oracle/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/expected.stdout.gz",
+      "oracleSHA256": "6e89e6755cc5fddeb5bd992add71012ee0cd37e702c90071d1497bf4133051da",
+      "outputBytes": 19367810,
+      "outputSHA256": "6e89e6755cc5fddeb5bd992add71012ee0cd37e702c90071d1497bf4133051da",
+      "planPath": "/tmp/bendvy48-canonical-capacity-actual02/js/plan.json",
+      "planSHA256": "1b7eb0954a76f11bded7bf341be7f88dd561ef5f7c380cb4216e5f22ca6ba264",
+      "receiptPath": "/tmp/bendvy48-canonical-capacity-actual02/js/receipt.json",
+      "receiptSHA256": "c5d1b445829fac5b3cc7352f3ed513297ab643676e56057676c9673da2c7b202",
+      "scope": "Canonical machine stream capacity: 65537 real publications per schema, two nominal schemas, seven complete checkpoints, real reader failure/retry and full retained payloads. Independent source-derived oracle; no timing claim.",
+      "streamRoot": "/tmp/bendvy48-canonical-capacity-actual02/js"
+    },
+    {
+      "backend": "native",
+      "category": "capacity",
+      "completeNormalBaselineRejected": false,
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "canonical-capacity-native",
+      "normalOracleBytes": 19367810,
+      "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-capacity-oracle/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/expected.stdout.gz",
+      "normalOracleSHA256": "6e89e6755cc5fddeb5bd992add71012ee0cd37e702c90071d1497bf4133051da",
+      "oracleBytes": 19367810,
+      "oraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-capacity-oracle/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/expected.stdout.gz",
+      "oracleSHA256": "6e89e6755cc5fddeb5bd992add71012ee0cd37e702c90071d1497bf4133051da",
+      "outputBytes": 19367810,
+      "outputSHA256": "6e89e6755cc5fddeb5bd992add71012ee0cd37e702c90071d1497bf4133051da",
+      "planPath": "/tmp/bendvy48-canonical-capacity-actual02/native/plan.json",
+      "planSHA256": "25f0c3281e0eb493d25db517c3c31101ab80accf6abe9969ec831e36bcd2a911",
+      "receiptPath": "/tmp/bendvy48-canonical-capacity-actual02/native/receipt.json",
+      "receiptSHA256": "6bc64e571c0c2248f5b5639974622b04fc79d93f3ce6e92f0cfb7e0460b59e75",
+      "scope": "Canonical machine stream capacity: 65537 real publications per schema, two nominal schemas, seven complete checkpoints, real reader failure/retry and full retained payloads. Independent source-derived oracle; no timing claim.",
+      "streamRoot": "/tmp/bendvy48-canonical-capacity-actual02/native"
+    },
+    {
+      "backend": "js",
+      "category": "mutant",
+      "completeNormalBaselineRejected": true,
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "no-eviction-mutant-js",
+      "normalOracleBytes": 19367810,
+      "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-capacity-oracle/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/expected.stdout.gz",
+      "normalOracleSHA256": "6e89e6755cc5fddeb5bd992add71012ee0cd37e702c90071d1497bf4133051da",
+      "oracleBytes": 19367924,
+      "oraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-capacity-oracle/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-mutant-v1/expected.stdout.gz",
+      "oracleSHA256": "886aa6f2a99eb132b2dbe376156b4578f7ca445553a59693f5012a092c79ece9",
+      "outputBytes": 19367924,
+      "outputSHA256": "886aa6f2a99eb132b2dbe376156b4578f7ca445553a59693f5012a092c79ece9",
+      "planPath": "/tmp/bendvy48-canonical-capacity-mutant-actual01/js/plan.json",
+      "planSHA256": "62c54f9a373c4a8737ae9a817d86ebc5e57fa4d189422164fc77e6e7aabda536",
+      "receiptPath": "/tmp/bendvy48-canonical-capacity-mutant-actual01/js/receipt.json",
+      "receiptSHA256": "ea820c3199fbca5fa3d61bf66174ceb96b8eaf2a53883658f1f220605c050a60",
+      "scope": "Reached disabled-capacity-eviction mutant of canonical machine stream: 65537 real publications per schema, two nominal schemas, seven complete checkpoints, real reader failure/retry and full retained payloads. Independent source-derived oracle; no timing claim.",
+      "streamRoot": "/tmp/bendvy48-canonical-capacity-mutant-actual01/js"
+    },
+    {
+      "backend": "js",
+      "category": "controls",
+      "completeNormalBaselineRejected": false,
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "capacity-controls-js",
+      "normalOracleBytes": 1760,
+      "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-capacity-oracle/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-oracle-v1/expected.stdout.gz",
+      "normalOracleSHA256": "90b9066fe6169b855e771fc9e7fe10a3188ea585ea6baa5a8fb185a636717bb9",
+      "oracleBytes": 1760,
+      "oraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-capacity-oracle/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-oracle-v1/expected.stdout.gz",
+      "oracleSHA256": "90b9066fe6169b855e771fc9e7fe10a3188ea585ea6baa5a8fb185a636717bb9",
+      "outputBytes": 1760,
+      "outputSHA256": "90b9066fe6169b855e771fc9e7fe10a3188ea585ea6baa5a8fb185a636717bb9",
+      "planPath": "/tmp/bendvy48-canonical-capacity-controls-actual01/js/plan.json",
+      "planSHA256": "488d2a74dd40d6326e725aae7b2ec089b0ad8063981aad9d92eb78ec5f2a89a5",
+      "receiptPath": "/tmp/bendvy48-canonical-capacity-controls-actual01/js/receipt.json",
+      "receiptSHA256": "9d570fc6d256145156bb0965c64f87b512b9e9dc854af92efa1a3e3248834fb3",
+      "scope": "Affected canonical queue controls: full arbitrary-tick and empty/multievent batch comparisons against the existing list reference; Initial, skip, completion and disposal observations. Raw metadata scope, no World authority claim.",
+      "streamRoot": "/tmp/bendvy48-canonical-capacity-controls-actual01/js"
+    },
+    {
+      "backend": "native",
+      "category": "controls",
+      "completeNormalBaselineRejected": false,
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "capacity-controls-native",
+      "normalOracleBytes": 1760,
+      "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-capacity-oracle/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-oracle-v1/expected.stdout.gz",
+      "normalOracleSHA256": "90b9066fe6169b855e771fc9e7fe10a3188ea585ea6baa5a8fb185a636717bb9",
+      "oracleBytes": 1760,
+      "oraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-capacity-oracle/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-oracle-v1/expected.stdout.gz",
+      "oracleSHA256": "90b9066fe6169b855e771fc9e7fe10a3188ea585ea6baa5a8fb185a636717bb9",
+      "outputBytes": 1760,
+      "outputSHA256": "90b9066fe6169b855e771fc9e7fe10a3188ea585ea6baa5a8fb185a636717bb9",
+      "planPath": "/tmp/bendvy48-canonical-capacity-controls-actual01/native/plan.json",
+      "planSHA256": "9dd2cd61a472a5533f2fb9d2021734c71a9fcab6a3e1580b7278ede371ce0296",
+      "receiptPath": "/tmp/bendvy48-canonical-capacity-controls-actual01/native/receipt.json",
+      "receiptSHA256": "cf8b4b943a69a524d30d7e051dfe52d3fdb202fa42aa538c436e0fa17af4c55d",
+      "scope": "Affected canonical queue controls: full arbitrary-tick and empty/multievent batch comparisons against the existing list reference; Initial, skip, completion and disposal observations. Raw metadata scope, no World authority claim.",
+      "streamRoot": "/tmp/bendvy48-canonical-capacity-controls-actual01/native"
+    },
+    {
+      "backend": "js",
+      "category": "adoption-initialization",
+      "completeNormalBaselineRejected": false,
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "adoption-initialization-js",
+      "normalOracleBytes": 105004,
+      "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/opaque-current-integration-v1/experiments/public-machines/ordinary-initialization-v1/oracle-v2/expected.stdout.gz",
+      "normalOracleSHA256": "f0d566ba6fa6c74efc28470d0ec3e406dcdc19ccd894a8b75e1329c6752089d6",
+      "oracleBytes": 105004,
+      "oraclePath": "/workspace/formal-proofs/bendvy-worktrees/opaque-current-integration-v1/experiments/public-machines/ordinary-initialization-v1/oracle-v2/expected.stdout.gz",
+      "oracleSHA256": "f0d566ba6fa6c74efc28470d0ec3e406dcdc19ccd894a8b75e1329c6752089d6",
+      "outputBytes": 105004,
+      "outputSHA256": "f0d566ba6fa6c74efc28470d0ec3e406dcdc19ccd894a8b75e1329c6752089d6",
+      "planPath": "/tmp/bendvy48-queue-adoption-initialization-actual01/js/plan.json",
+      "planSHA256": "d7bb13c381d0746b42ce3af32cae697c04932f30a7116449d7c6b25aeebd50d2",
+      "receiptPath": "/tmp/bendvy48-queue-adoption-initialization-actual01/js/receipt.json",
+      "receiptSHA256": "077fc28ff41c500a8798c220d7323779aa2e7455380301fd49ad0e3b5de0302c",
+      "scope": "Canonical FIFO stream adoption in ordinary initialization: unchanged application operations and complete independent established oracle, source-bound snapshot observer adaptation; no timing claim.",
+      "streamRoot": "/tmp/bendvy48-queue-adoption-initialization-actual01/js"
+    },
+    {
+      "backend": "native",
+      "category": "adoption-initialization",
+      "completeNormalBaselineRejected": false,
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "adoption-initialization-native",
+      "normalOracleBytes": 105004,
+      "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/opaque-current-integration-v1/experiments/public-machines/ordinary-initialization-v1/oracle-v2/expected.stdout.gz",
+      "normalOracleSHA256": "f0d566ba6fa6c74efc28470d0ec3e406dcdc19ccd894a8b75e1329c6752089d6",
+      "oracleBytes": 105004,
+      "oraclePath": "/workspace/formal-proofs/bendvy-worktrees/opaque-current-integration-v1/experiments/public-machines/ordinary-initialization-v1/oracle-v2/expected.stdout.gz",
+      "oracleSHA256": "f0d566ba6fa6c74efc28470d0ec3e406dcdc19ccd894a8b75e1329c6752089d6",
+      "outputBytes": 105004,
+      "outputSHA256": "f0d566ba6fa6c74efc28470d0ec3e406dcdc19ccd894a8b75e1329c6752089d6",
+      "planPath": "/tmp/bendvy48-queue-adoption-initialization-actual01/native/plan.json",
+      "planSHA256": "035e5f55dbb6db92a2b7db5c722e1136cfcf2ee489b80fa984f69c3d4e25c2ca",
+      "receiptPath": "/tmp/bendvy48-queue-adoption-initialization-actual01/native/receipt.json",
+      "receiptSHA256": "dcb113672245ffb319b572a7489882e66502235523ff293438fa1bd6f871a71a",
+      "scope": "Canonical FIFO stream adoption in ordinary initialization: unchanged application operations and complete independent established oracle, source-bound snapshot observer adaptation; no timing claim.",
+      "streamRoot": "/tmp/bendvy48-queue-adoption-initialization-actual01/native"
+    },
+    {
+      "backend": "js",
+      "category": "adoption-conditions",
+      "completeNormalBaselineRejected": false,
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "adoption-conditions-js",
+      "normalOracleBytes": 17373,
+      "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-condition-reader-oracle/experiments/public-machines/remaining-core-v1/condition-readers-v1/current-source-v1/independent-oracle-v1/expected.stdout.gz",
+      "normalOracleSHA256": "7d8b3b10c2668436d0dcbe9e8f00ebbb54ba3e4290132c8198692e29774b932f",
+      "oracleBytes": 17373,
+      "oraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-condition-reader-oracle/experiments/public-machines/remaining-core-v1/condition-readers-v1/current-source-v1/independent-oracle-v1/expected.stdout.gz",
+      "oracleSHA256": "7d8b3b10c2668436d0dcbe9e8f00ebbb54ba3e4290132c8198692e29774b932f",
+      "outputBytes": 17373,
+      "outputSHA256": "7d8b3b10c2668436d0dcbe9e8f00ebbb54ba3e4290132c8198692e29774b932f",
+      "planPath": "/tmp/bendvy48-queue-adoption-conditions-actual01/js/plan.json",
+      "planSHA256": "9ec7fc2aeebbca1f07fb2d0cc16781bec268ec786316fc798773585ab4aacf91",
+      "receiptPath": "/tmp/bendvy48-queue-adoption-conditions-actual01/js/receipt.json",
+      "receiptSHA256": "9056c2fb3fd619a08c8c5a8d8c4bfcb6a9e48091b2fe3cdc5a8f97cba68ed776",
+      "scope": "Canonical FIFO stream adoption in ordinary conditions: unchanged application operations and complete independent established oracle, source-bound snapshot observer adaptation; no timing claim.",
+      "streamRoot": "/tmp/bendvy48-queue-adoption-conditions-actual01/js"
+    },
+    {
+      "backend": "native",
+      "category": "adoption-conditions",
+      "completeNormalBaselineRejected": false,
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "adoption-conditions-native",
+      "normalOracleBytes": 17373,
+      "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-condition-reader-oracle/experiments/public-machines/remaining-core-v1/condition-readers-v1/current-source-v1/independent-oracle-v1/expected.stdout.gz",
+      "normalOracleSHA256": "7d8b3b10c2668436d0dcbe9e8f00ebbb54ba3e4290132c8198692e29774b932f",
+      "oracleBytes": 17373,
+      "oraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-condition-reader-oracle/experiments/public-machines/remaining-core-v1/condition-readers-v1/current-source-v1/independent-oracle-v1/expected.stdout.gz",
+      "oracleSHA256": "7d8b3b10c2668436d0dcbe9e8f00ebbb54ba3e4290132c8198692e29774b932f",
+      "outputBytes": 17373,
+      "outputSHA256": "7d8b3b10c2668436d0dcbe9e8f00ebbb54ba3e4290132c8198692e29774b932f",
+      "planPath": "/tmp/bendvy48-queue-adoption-conditions-actual01/native/plan.json",
+      "planSHA256": "f5b51d0cf6514200d3d64054cbb254307352b96d0cbf0732154d988c297b9070",
+      "receiptPath": "/tmp/bendvy48-queue-adoption-conditions-actual01/native/receipt.json",
+      "receiptSHA256": "a662cbd956992d6151d913f2bae21e2aa0cf36823a1d4f48b90c19a91789bcee",
+      "scope": "Canonical FIFO stream adoption in ordinary conditions: unchanged application operations and complete independent established oracle, source-bound snapshot observer adaptation; no timing claim.",
+      "streamRoot": "/tmp/bendvy48-queue-adoption-conditions-actual01/native"
+    },
+    {
+      "backend": "js",
+      "category": "profile-semantic-prerequisite",
+      "completeNormalBaselineRejected": false,
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "profile-prerequisite-baseline-js",
+      "normalOracleBytes": 33072,
+      "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/expected.stdout.gz",
+      "normalOracleSHA256": "c9f4249293942059ddcb3acbad7d65e9279d2de464d06adf9b902a3f7aee6c43",
+      "oracleBytes": 33072,
+      "oraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/expected.stdout.gz",
+      "oracleSHA256": "c9f4249293942059ddcb3acbad7d65e9279d2de464d06adf9b902a3f7aee6c43",
+      "outputBytes": 33072,
+      "outputSHA256": "c9f4249293942059ddcb3acbad7d65e9279d2de464d06adf9b902a3f7aee6c43",
+      "planPath": "/tmp/bendvy48-bounded-profile-baseline-actual01/js/plan.json",
+      "planSHA256": "aecaf6e0ca9c0309fb40876b44e73398d9eeb8f72128ae242f44a03a498702e9",
+      "receiptPath": "/tmp/bendvy48-bounded-profile-baseline-actual01/js/receipt.json",
+      "receiptSHA256": "eeb94633504a1c1fb65c68f4ece06acc9c18e54f4a911766e8220220aab79007",
+      "scope": "Bounded baseline semantic prerequisite for CPU/allocation diagnostics: 1024 actual publications per schema, complete source-derived terminal observations. No capacity or timing qualification.",
+      "streamRoot": "/tmp/bendvy48-bounded-profile-baseline-actual01/js"
+    },
+    {
+      "backend": "js",
+      "category": "profile-semantic-prerequisite",
+      "completeNormalBaselineRejected": false,
+      "expectedStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "kind": "pass",
+      "name": "profile-prerequisite-candidate-js",
+      "normalOracleBytes": 33072,
+      "normalOraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/expected.stdout.gz",
+      "normalOracleSHA256": "c9f4249293942059ddcb3acbad7d65e9279d2de464d06adf9b902a3f7aee6c43",
+      "oracleBytes": 33072,
+      "oraclePath": "/workspace/formal-proofs/bendvy-worktrees/machines48-canonical-stream-capacity/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/expected.stdout.gz",
+      "oracleSHA256": "c9f4249293942059ddcb3acbad7d65e9279d2de464d06adf9b902a3f7aee6c43",
+      "outputBytes": 33072,
+      "outputSHA256": "c9f4249293942059ddcb3acbad7d65e9279d2de464d06adf9b902a3f7aee6c43",
+      "planPath": "/tmp/bendvy48-bounded-profile-candidate-actual01/js/plan.json",
+      "planSHA256": "59d573d4ae584b521a8e59646df7d264f39bb4371dbc706b4275be5b95d346d8",
+      "receiptPath": "/tmp/bendvy48-bounded-profile-candidate-actual01/js/receipt.json",
+      "receiptSHA256": "08c8ee329cdfcfed06c0345fbbfb39c7c2d24e4d1840650071ec419ae1932f97",
+      "scope": "Bounded candidate semantic prerequisite for CPU/allocation diagnostics: 1024 actual publications per schema, complete source-derived terminal observations. No capacity or timing qualification.",
+      "streamRoot": "/tmp/bendvy48-bounded-profile-candidate-actual01/js"
+    }
+  ],
+  "rootAdoptionRecheck": {
+    "currentSourceOwnershipPath": "/tmp/bendvy48-queue-root-source-ownership.json",
+    "currentSourceOwnershipSHA256": "9655908c153f14b45a88b9085a80b02ae125b63c1fbd161c236b678f97ad2032",
+    "materializedPathCount": 80,
+    "materializedPathsPath": "/tmp/bendvy48-queue-owned-paths.json",
+    "materializedPathsSHA256": "462b19413b02a477275a758b211c8792f591176a4124d44eac9e212ece9d52f6",
+    "materializedSources": [
+      {
+        "bytes": 6207,
+        "sha256": "b393691e43f461d5b004968151c9f47c729241323d798b08331ac148ea529bfd",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/CHECKS.json"
+      },
+      {
+        "bytes": 1570,
+        "sha256": "3eb62cf6e9821615e803c67b10e1b4eceb24593a41db692c8fa01164a9471c92",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/FULL-CHECK.json"
+      },
+      {
+        "bytes": 6968,
+        "sha256": "c1afd43e22e3878592fb9277b783dd842ff5bfbf37ba9885c95f0237434781f3",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/QUEUE-SOURCE-JOIN.json"
+      },
+      {
+        "bytes": 232,
+        "sha256": "5842ea7b089140d7bbeb13115285d01e6d795f90f3ca5a2e49afa7e71620cea2",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-check01.stderr"
+      },
+      {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-check01.stdout"
+      },
+      {
+        "bytes": 232,
+        "sha256": "5842ea7b089140d7bbeb13115285d01e6d795f90f3ca5a2e49afa7e71620cea2",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-check02.stderr"
+      },
+      {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-check02.stdout"
+      },
+      {
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-core-check01.stderr"
+      },
+      {
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-core-check01.stdout"
+      },
+      {
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-core-check02.stderr"
+      },
+      {
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-canonical-capacity-core-check02.stdout"
+      },
+      {
+        "bytes": 284,
+        "sha256": "8ca66010c25b682a7af3a0a7437aea2a85d8b29411def3666af837778903fbc0",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-capacity-full-check01.stderr"
+      },
+      {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-capacity-full-check01.stdout"
+      },
+      {
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-capacity-queue-core-check01.stderr"
+      },
+      {
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-capacity-queue-core-check01.stdout"
+      },
+      {
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-capacity-queue-core-check02.stderr"
+      },
+      {
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-capacity-queue-core-check02.stdout"
+      },
+      {
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-capacity-queue-core-check03.stderr"
+      },
+      {
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-capacity-queue-core-check03.stdout"
+      },
+      {
+        "bytes": 232,
+        "sha256": "5842ea7b089140d7bbeb13115285d01e6d795f90f3ca5a2e49afa7e71620cea2",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-capacity-queue-entry-check01.stderr"
+      },
+      {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/checks/bendvy48-capacity-queue-entry-check01.stdout"
+      },
+      {
+        "bytes": 4903,
+        "sha256": "02a6c9970c209d26685ab3ca1af81e3cb851fe72a7ec1763c035b0ea1cfb3e03",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-v1/CHECKS.json"
+      },
+      {
+        "bytes": 427,
+        "sha256": "1bd2e89c54883996b76bcebe28ebb776d6867812bb3bf6abed343dcfc4cca691",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-v1/checks/bendvy48-capacity-controls-check01.stderr"
+      },
+      {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-v1/checks/bendvy48-capacity-controls-check01.stdout"
+      },
+      {
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-v1/checks/bendvy48-capacity-controls-check02.stderr"
+      },
+      {
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-v1/checks/bendvy48-capacity-controls-check02.stdout"
+      },
+      {
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-v1/checks/bendvy48-capacity-controls-check03.stderr"
+      },
+      {
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-v1/checks/bendvy48-capacity-controls-check03.stdout"
+      },
+      {
+        "bytes": 4953,
+        "sha256": "f8ba2aba3cde448c50c14c2815eeaf6294dffa21261efb8c51b798ef6a256a5b",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-v1/main.bend"
+      },
+      {
+        "bytes": 905,
+        "sha256": "0d3e530f1d336eef6f163d1c1808eb24cbebd0a558451e2a17c1f30f1983ddf7",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/format.bend"
+      },
+      {
+        "bytes": 101,
+        "sha256": "fa5e5bc733bd90a275b5b125302bd165f54406be7bff56ae330ba3e3992415ec",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/full.bend"
+      },
+      {
+        "bytes": 5639,
+        "sha256": "286fa5aac0aa990ff01d0ce54951872c956edfa0abce801ea86a81f3f35fc7bf",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/observe.bend"
+      },
+      {
+        "bytes": 26651,
+        "sha256": "13a635a6572b21350b9097db49431de72939d2e9162c9630e4539d9715344567",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/overflow-core.bend"
+      },
+      {
+        "bytes": 1722,
+        "sha256": "e0ebb2b2e11f59a23330170b2b9c7fa0a00099f066d0c2c1658b004c3eab06f9",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/overflow.bend"
+      },
+      {
+        "bytes": 596,
+        "sha256": "65838d3b2cd6cf639b70068436ef03e9c1342b9142ad1205750c69830371e8c3",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/CHECK.json"
+      },
+      {
+        "bytes": 2070,
+        "sha256": "e93bfc4aab9922132ab91e99922b1bbd1918f94a29fd26847d4e4ab5898aca95",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/README.md"
+      },
+      {
+        "bytes": 12004,
+        "sha256": "3fb276f30fbe7214acdb62408b43697b869691344b2276aa170da2b89c68c6ee",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/SOURCE.json"
+      },
+      {
+        "bytes": 11773,
+        "sha256": "e14630a5c464f1349c662a25cd23b258ac96601039e972e013680f16ed070b3e",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/capacity-model.py.source"
+      },
+      {
+        "bytes": 211,
+        "sha256": "0f3efdce8a94ca5b8073693332e51e6262b6bd933385f4da72141813a9a0cb96",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/check.stderr"
+      },
+      {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/check.stdout"
+      },
+      {
+        "bytes": 3043,
+        "sha256": "d02c7d6d46e6ea36cbb0233b6276a52063d752b401c13ea368f38aaf9eaf2128",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/derive.py"
+      },
+      {
+        "bytes": 82,
+        "sha256": "c92726120d37e565897bac2e98234cc3c65af9dc3b19a1fc950d3338e976504a",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/expected.sha256"
+      },
+      {
+        "bytes": 33072,
+        "sha256": "c9f4249293942059ddcb3acbad7d65e9279d2de464d06adf9b902a3f7aee6c43",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/expected.stdout"
+      },
+      {
+        "bytes": 6872,
+        "sha256": "95db5a7f00ac098925172c26a976150311b8f12beb959fa73d31877164cfadee",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/expected.stdout.gz"
+      },
+      {
+        "bytes": 1265,
+        "sha256": "6d300f4580e1de4c83a3bd25b14f7f91a0302036d93c01898a2d6e076ee4eb0f",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/main.bend"
+      },
+      {
+        "bytes": 419,
+        "sha256": "a6eb782ef85abdd4ec589a90a20c3df44c70fc50bdc8930877b5bcf02826ac79",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/profile-v1/timeline.json"
+      },
+      {
+        "bytes": 4821,
+        "sha256": "9c98ee906e752e640b7bb4cdfb7193081d0d8310c1eeff5c51075400b2176136",
+        "sourcePath": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream-queue.bend"
+      },
+      {
+        "bytes": 6377,
+        "sha256": "83e15821537607a37ddf94b6a63119f8b1ee3fa098d3cfbf4311f689ada706a7",
+        "sourcePath": "/workspace/formal-proofs/bendvy/src/ecs/machine-stream.bend"
+      },
+      {
+        "bytes": 29,
+        "sha256": "223553193ac3aaeb65f0039bb582b07c3d00f186169f013fdae7ca02696d634a",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/.gitignore"
+      },
+      {
+        "bytes": 7216,
+        "sha256": "bf55577e3eebc6011e192f5f507cd6df7eb4a86a4a9c4a32f387a8fcc050071b",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/DERIVATION.md"
+      },
+      {
+        "bytes": 82,
+        "sha256": "5ce53cf7b8a41ebfd096701072fc69f2cefc96d34e7a39f24ded60e412903585",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/expected.sha256"
+      },
+      {
+        "bytes": 6757397,
+        "sha256": "ae7576cff019e1feffc57663798288a11ae89c8d009dff21479dde4fcfa23787",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/expected.stdout.gz"
+      },
+      {
+        "bytes": 11773,
+        "sha256": "e14630a5c464f1349c662a25cd23b258ac96601039e972e013680f16ed070b3e",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/model.py"
+      },
+      {
+        "bytes": 7501,
+        "sha256": "69845b7655608b34738d01811a03d51e1f46e38a9b3c3393080b7e7fe9efe435",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/source-freeze.json"
+      },
+      {
+        "bytes": 1447,
+        "sha256": "2273f6ff787ffd9888d423e9981c44b25f0a85bc0e021654e0c6012aeb2ad92a",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/source-join.json"
+      },
+      {
+        "bytes": 12507,
+        "sha256": "9a06d23f8d85a9f99cb6770dbce00a629b075f7a926d951b1d3dbe575dcbc36c",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/source-pins.json"
+      },
+      {
+        "bytes": 2667,
+        "sha256": "9914f46c465756cc8691b86a1e510edeb907389bbda846ca3fdbd66a6aa3287b",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-v1/timeline.json"
+      },
+      {
+        "bytes": 29,
+        "sha256": "223553193ac3aaeb65f0039bb582b07c3d00f186169f013fdae7ca02696d634a",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-mutant-v1/.gitignore"
+      },
+      {
+        "bytes": 3870,
+        "sha256": "4c03fc587f7881e042f316d8bf6e1263e5bee737fe1245f38d29a4d5a6b687b1",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-mutant-v1/DERIVATION.md"
+      },
+      {
+        "bytes": 82,
+        "sha256": "deebd54ecc274f85121113cf6ef69c95be845a36e129bfc1e653085e3efcde23",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-mutant-v1/expected.sha256"
+      },
+      {
+        "bytes": 6757405,
+        "sha256": "597c1a1e67fad50a80ca733187fdd169caaf386667d63c6032db9fa449343703",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-mutant-v1/expected.stdout.gz"
+      },
+      {
+        "bytes": 12050,
+        "sha256": "cfc4afd40b3e4605fe24cd4b2088fce95e86da973c3198a270b149d01bd7577a",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-mutant-v1/model.py"
+      },
+      {
+        "bytes": 7426,
+        "sha256": "334d9410eb5765ee72364da4912a834b64d2c6571bcbf130ab9293e38a344547",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-mutant-v1/source-freeze.json"
+      },
+      {
+        "bytes": 1447,
+        "sha256": "2273f6ff787ffd9888d423e9981c44b25f0a85bc0e021654e0c6012aeb2ad92a",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-mutant-v1/source-join.json"
+      },
+      {
+        "bytes": 7198,
+        "sha256": "a49ea04fe6f3346e6a0fe24959d1862cb72203ad83058c2542546477823d3722",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-mutant-v1/source-pins.json"
+      },
+      {
+        "bytes": 2672,
+        "sha256": "1b1f3c38858c50c501da6bc7e52977dff74557a196715ce33123098cce156be1",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/independent-oracle-mutant-v1/timeline.json"
+      },
+      {
+        "bytes": 4499,
+        "sha256": "1ff04c4a8386af63d369ada15aff482ffefb06b7c2ada1fa9b70419bc3633f43",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-oracle-v1/DERIVATION.md"
+      },
+      {
+        "bytes": 82,
+        "sha256": "bd0b85373a0a84f08d777aeeaa9402964bebcf837bed29d09ad842fb80566f65",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-oracle-v1/expected.sha256"
+      },
+      {
+        "bytes": 1760,
+        "sha256": "90b9066fe6169b855e771fc9e7fe10a3188ea585ea6baa5a8fb185a636717bb9",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-oracle-v1/expected.stdout"
+      },
+      {
+        "bytes": 437,
+        "sha256": "9d685a363b8f77d35238159578bbc9615f033d664753fd6def37bcb770af348b",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-oracle-v1/expected.stdout.gz"
+      },
+      {
+        "bytes": 8550,
+        "sha256": "479413f210cf8efd80ad1f75b0f6a76a4af0cdb6cda1e2b7c97af1a8e6613878",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-oracle-v1/model.py"
+      },
+      {
+        "bytes": 2597,
+        "sha256": "fce4ea4c9ab71b00739b84ebda6d49a3a8d068c20c03825fcb0df18a87a715c2",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-oracle-v1/source-freeze.json"
+      },
+      {
+        "bytes": 3792,
+        "sha256": "8bfc3d4d37774a6934e99334944896df8f11448b247068cb8971a803cf2c1c27",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/controls-oracle-v1/source-pins.json"
+      },
+      {
+        "bytes": 35626,
+        "sha256": "becfee7cef5dab9a4ba5a12d0ca57d7bf7a561ad587e4dca598675b285bc90e1",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/adoption-v1/CHECKS.json"
+      },
+      {
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/adoption-v1/condition.stderr"
+      },
+      {
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/adoption-v1/condition.stdout"
+      },
+      {
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/adoption-v1/init.stderr"
+      },
+      {
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/followup/canonical-stream-capacity-v1/adoption-v1/init.stdout"
+      },
+      {
+        "bytes": 19785,
+        "sha256": "00587d412a8433df823caabacdf53435be71aec754fb3ba0459fdfa9bf3708dc",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/remaining-core-v1/condition-readers-v1/current-source-v1/observer.bend"
+      },
+      {
+        "bytes": 11652,
+        "sha256": "93be1a20359b9cec5a3b460cd14eb85c75d6a28008273fc4791db6c0cf4ffcc7",
+        "sourcePath": "/workspace/formal-proofs/bendvy/experiments/public-machines/ordinary-initialization-v1/schema.bend"
+      }
+    ],
+    "protected28CheckedSourceCount": 23,
+    "protected28InventoryPath": "/workspace/formal-proofs/bendvy/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/matched-feature-v1/combined220-source-reuse.json",
+    "protected28InventorySHA256": "aa906799d42ca911a4e597e8ab2133a2ce99bea7300b2f4d00e40c7af6e60c5d",
+    "protected28Path": "/tmp/bendvy48-queue-protected28-reuse.json",
+    "protected28SHA256": "ea1bad4f5829bb7ec6931e94d062ca8292e3d67cece688c70bf47843e431b5a3",
+    "sourceCheckExit": 0,
+    "sourceCheckStderrPath": "/tmp/bendvy48-queue-root-check.stderr",
+    "sourceCheckStderrSHA256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+    "sourceCheckStdoutPath": "/tmp/bendvy48-queue-root-check.stdout",
+    "sourceCheckStdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "sourceSelectors": {
+      "adoption": "485a2f375",
+      "capacity": "fc97f4e22",
+      "controlsOracle": "73ecc7ae6",
+      "mutantOracle": "87239af1c",
+      "normalOracle": "df3845cce"
+    }
+  },
+  "sourceBinding": {
+    "adoptionWorktreeCommit": "485a2f37552795551a2f3864a9f808810674df6a",
+    "candidateWorktreeHead": "fc97f4e2204eba2c4c6d1900786e4796f60c0568",
+    "canonicalQueueDependencyCommit": "0d2da72c5",
+    "capacityOracleCommits": {
+      "controls": "73ecc7ae6",
+      "disabled-eviction-mutant": "87239af1c",
+      "normal": "df3845cce"
+    },
+    "capacitySourceCommits": [
+      "d907d363e",
+      "0d2da72c5",
+      "247b73fa3",
+      "a3f3e799a",
+      "fc97f4e22"
+    ],
+    "mutantBytes": 19367924,
+    "mutantSHA256": "886aa6f2a99eb132b2dbe376156b4578f7ca445553a59693f5012a092c79ece9",
+    "normalCapacityBytes": 19367810,
+    "normalCapacitySHA256": "6e89e6755cc5fddeb5bd992add71012ee0cd37e702c90071d1497bf4133051da",
+    "profilePrerequisiteBytes": 33072,
+    "profilePrerequisiteSHA256": "c9f4249293942059ddcb3acbad7d65e9279d2de464d06adf9b902a3f7aee6c43"
+  },
+  "status": "PASS_BOUNDED_CANONICAL_STREAM_CAPACITY_AND_ADOPTION_DELIVERY",
+  "verificationDependency": {
+    "scope": "reuses the existing scheduled-followup verifier for plan, receipt, exact source pins, command and full-path stream joins, and gzip oracle comparisons.",
+    "sha256": "71d569e8726adf44c3a58051a4b48a5823fe4f2d771558e5f5ea8a58ab394504",
+    "sourcePath": "/workspace/formal-proofs/bendvy-worktrees/parity43-ordinary-full-lifecycle-sparse/experiments/public-relation-readers/current-adoption-v1/core-promotion-v1/consumer-v1/capacity-v1/array-transport-v1/matched-feature-v1/scheduled-followup-delivery-v1/verify.py"
+  }
+}

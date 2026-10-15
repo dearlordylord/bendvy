@@ -974,3 +974,13 @@ unnecessary for this path-only adoption. The protected #28 inventory still
 matches. Capacity evidence from a different experimental representation was
 explicitly excluded from canonical acceptance. No comparative campaign or new
 runner was added, and no delivery-speed improvement is claimed.
+
+
+The #48 canonical FIFO delivery reused the existing collector for complete
+capacity, boundary and ordinary-adoption observations. A reached no-eviction
+mutation rejected the normal oracle. Focused before/after CPU and allocation
+profiles used the existing profiler after independent launch review; all four
+outputs matched. The protected #28 source inventory still matches, so unchanged
+Workshop compilation and timing were not repeated. The earlier CI outcome and
+process review were already committed and were reused. This records actual
+application of the reduced path, not measured delivery acceleration.

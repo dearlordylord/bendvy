@@ -106,14 +106,15 @@ def failure_mode(~S:Data,resource:Resources<S>) -> Resources<S> & Bool:
   match resource:
     case Resources{machine,defaultEffects,callbackLog,+failEnter}:(Resources{machine,defaultEffects,callbackLog,failEnter},failEnter)
 
+def stream_snapshot(~S:Data,value:List<&2,Ev.Batch<M.Transition<MachineState>>> & (List<&2,Ev.Position> & (Nat & Nat))) -> StreamSnapshot<S>:
+  match value:
+    case (batches,(positions,(dropped,frameStart))):StreamSnapshot{batches,positions,dropped,frameStart}
 def snapshot_resource(~S:Data,resource:Resources<S>) -> Resources<S> & Snapshot<S>:
   match resource:
     case Resources{+machine,+defaultEffects,+callbackLog,+failEnter}:
       match machine:
         case Init.State{+slot,+stream,+revision}:
-          match stream:
-            case St.Stream{+batches,+positions,+dropped,+frameStart}:
-              (Resources{Init.State{slot,stream,revision},defaultEffects,callbackLog,failEnter},Snapshot{slot,StreamSnapshot{batches,positions,dropped,frameStart},revision,defaultEffects,callbackLog,failEnter})
+          (Resources{Init.State{slot,stream,revision},defaultEffects,callbackLog,failEnter},Snapshot{slot,stream_snapshot(~S,St.snapshot(~MachineState,stream)),revision,defaultEffects,callbackLog,failEnter})
 
 def default_finished(~S:Data,observed:W.World<S,Array<U32>,Resources<S>,String> & Nat) -> W.World<S,Array<U32>,Resources<S>,String> & MachineState:
   match observed:

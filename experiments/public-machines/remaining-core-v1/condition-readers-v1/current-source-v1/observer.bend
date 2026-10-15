@@ -59,9 +59,11 @@ def batch(~V: Data,~show: V -> String,value: Ev.Batch<M.Transition<V>>) -> Strin
 def position(value: Ev.Position) -> String:
   match value:
     case Ev.Position{id,cursor,registered}: U32.show(id) ++ ":" ++ Nat.show(cursor) ++ ":" ++ Nat.show(registered)
-def stream(~V: Data,~show: V -> String,value: St.Stream<V>) -> String:
+def stream_snapshot(~V:Data,~show:V -> String,value:List<&2,Ev.Batch<M.Transition<V>>> & (List<&2,Ev.Position> & (Nat & Nat))) -> String:
   match value:
-    case St.Stream{batches,positions,dropped,frameStart}: "batches=" ++ List.show(&2,Ev.Batch<M.Transition<V>>,value => batch(~V,~show,value),batches) ++ ",positions=" ++ List.show(&2,Ev.Position,position,positions) ++ ",dropped=" ++ Nat.show(dropped) ++ ",frameStart=" ++ Nat.show(frameStart)
+    case (batches,(positions,(dropped,frameStart))): "batches=" ++ List.show(&2,Ev.Batch<M.Transition<V>>,value => batch(~V,~show,value),batches) ++ ",positions=" ++ List.show(&2,Ev.Position,position,positions) ++ ",dropped=" ++ Nat.show(dropped) ++ ",frameStart=" ++ Nat.show(frameStart)
+def stream(~V:Data,~show:V -> String,value:St.Stream<V>) -> String:
+  stream_snapshot(~V,~show,St.snapshot(~V,value))
 def entry(value: L.Entry) -> String:
   match value:
     case L.Entry{id,L.Stamp{added,changed}}: U32.show(id) ++ ":" ++ U32.show(added) ++ ":" ++ U32.show(changed)

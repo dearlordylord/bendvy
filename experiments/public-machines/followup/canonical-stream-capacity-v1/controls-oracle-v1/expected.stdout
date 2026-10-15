@@ -1,0 +1,15 @@
+nonmonotonic|input=[10:[1], 2:[2], 9:[3]];boundary=3;capacity=2;dropped=0
+reference|batches=[2:[2], 9:[3]];size=2;batchCount=2;dropped=10
+actual|front=[2:1:[2], 9:1:[3]];back=[];size=2;batchCount=2;dropped=10;values=[2, 3]
+empty-prefix|input=[2:[], 1:[], 3:[], 7:[70]];boundary=3;capacity=5;dropped=0
+reference|batches=[7:[70]];size=1;batchCount=1;dropped=3
+actual|front=[7:1:[70]];back=[];size=1;batchCount=1;dropped=3;values=[70]
+whole-multievent|input=[4:[1, 2], 9:[3, 4, 5], 7:[]];boundary=0;capacity=3;dropped=1
+reference|batches=[9:[3, 4, 5], 7:[]];size=3;batchCount=2;dropped=4
+actual|front=[9:3:[3, 4, 5], 7:0:[]];back=[];size=3;batchCount=2;dropped=4;values=[3, 4, 5]
+seed|batches=[20:[0>1], 21:[initial>2]];positions=[7:3:2, 9:5:4];dropped=5;frameStart=12;size=2;batchCount=2;queueDropped=5;read7=[0>1, initial>2]:lagged=true;read9=[0>1, initial>2]:lagged=false
+initial|batches=[30:[initial>9]];positions=[7:3:2, 9:5:4];dropped=5;frameStart=12;size=1;batchCount=1;queueDropped=5;read7=[initial>9]:lagged=true;read9=[initial>9]:lagged=false
+skip|batches=[30:[initial>9]];positions=[7:3:2, 9:5:4];dropped=5;frameStart=12;size=1;batchCount=1;queueDropped=5;read7=[initial>9]:lagged=true;read9=[initial>9]:lagged=false
+complete-false|batches=[30:[initial>9]];positions=[7:3:2, 9:5:4];dropped=5;frameStart=12;size=1;batchCount=1;queueDropped=5;read7=[initial>9]:lagged=true;read9=[initial>9]:lagged=false
+complete-true|batches=[30:[initial>9]];positions=[7:32:2, 9:5:4];dropped=5;frameStart=12;size=1;batchCount=1;queueDropped=5;read7=[]:lagged=false;read9=[initial>9]:lagged=false
+disposed|batches=[30:[initial>9]];positions=[9:5:4];dropped=5;frameStart=12;size=1;batchCount=1;queueDropped=5;read7=[initial>9]:lagged=false;read9=[initial>9]:lagged=false

@@ -60,9 +60,48 @@ oracle. Independent Spec/Standards review passed. Backend evidence binds the
 and the relocated entry, with only a recorded trailing-newline normalization.
 Unchanged protected #28 bindings are reused for that workload only.
 
-Full #48 remains open. The retained 65,537-record capacity run selected an
-experimental queue-backed stream, not the canonical batch-list stream: it cannot
-qualify current capacity without a representation bridge or current execution.
+Full #48 remains open. The historical 65,537-record run selected an experimental
+queue; current canonical execution is covered separately below.
 Marker-retention and foreign/disposal evidence still need exact current-source
 joins. This slice does not establish arbitrary fallible custom-condition parity,
 all refusal branches, or combined performance acceptance.
+
+### Canonical stream capacity
+
+The FIFO representation caches retained event and batch counts, avoiding growing
+list copies on publication and repeated full counts at each frame. It preserves
+ordered expiry then capacity eviction, whole-batch removal, empty batches,
+reader positions, dropped ticks, initial replacement and skipped-reader identity.
+
+The [current packet](../../experiments/public-machines/followup/canonical-stream-capacity-v1/delivery-v1/README.md)
+retains complete JS/Native output for 65,537 publications per nominal schema
+(19,367,810 bytes), a reached no-eviction mutant, boundary/lifecycle controls,
+and both ordinary initialization and condition consumers using snapshots.
+Independent Spec/Standards review and root adoption verification pass.
+The focused 1,024-publication-per-schema profile preserves all 33,072 output
+bytes. Sampled allocation estimates were 136,924,608 bytes for the old list and
+32,824,456 for the FIFO; old append/reverse stacks dominate the removed costs.
+These are allocation samples under contention, not RSS, physical allocation
+totals or comparative speed qualification. The protected #28 workload’s current
+23 source pins remain unchanged. Its recorded World pending-count difference
+and this stream representation are unreachable from that workload; reuse covers
+only the existing workload.
+
+Marker-retention, failed-publisher and foreign/disposal applicability still need
+exact current-source reconciliation before closing #48. Combined performance
+qualification remains under #21/#23/#24.
+
+Remaining source reconciliation can reuse
+`remaining-core-v1/marker-phases-v1/apply-retention-v1/EVIDENCE.json`
+(registered callback pending retention, no stream reached) and
+`remaining-core-v1/ordinary-frontend-v1/PROMOTION.json` (failed publisher rollback,
+no stream reached). The existing `handler-schedule-composition-v1/bundle-v2`
+consumer needs exhaustive initial-notification cases and snapshot observers.
+For cleanup, use the terminal `native-readiness-v1/ACTUAL-NATIVE-v3.md` and
+`INDEPENDENT-JS-ACTUAL-v2.md` under the existing stream-opt production-adoption
+packet: actual foreign invocation rejects in System before reader activation,
+foreign disposal rejects before port removal, and accepted disposal removes
+reader positions. Its failed-batch case is a failed reader, not a failed publisher;
+neither selected cleanup scenario executes skip. Compare the selected nested
+`current-core/ecs` sources, not the unused staging copies. These are bounded
+reached-body reuse candidates, not a claim of identical full source closures.
