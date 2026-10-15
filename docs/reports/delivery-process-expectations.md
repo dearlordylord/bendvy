@@ -949,3 +949,16 @@ depth1 only if absent. Push comparisons need endpoint trees; GitHub pull_request
 runs use the synthetic merge commit with its base parent available at depth2.
 A failed required base fetch fails CI; zero/absent base retains the explicit
 full-tree validation fallback. No full-history transfer is required.
+
+CI outcome: code/policy commits `218b5b548` and `fad6e9c5d` are on origin/master.
+[Run38791374316](https://github.com/dearlordylord/bendvy/actions/runs/38791374316)
+passes the committed-source/whitespace step and all infrastructure suites for exact
+head `fad6e9c5dda611364270f54a58f614efd7d51832`; functional job took3m13s.
+Superseded full-history run38791219738 was explicitly cancelled. The shallow
+checkout/older-base fetch was also exercised in a disposable local repository.
+This establishes successful integration checks, not faster whole-job delivery.
+This result note is left for the main thread's next documentation commit; it does
+not require another identical code qualification. Independent review remains a
+main-thread handoff; no independent reviewer was invoked in this side thread.
+
+Main-thread independent review of `ca436d224..fad6e9c5d` found no blocking process/CI regression: staged checks and selected admission remain local, all eleven infrastructure suites remain in CI. Clarified the umbrella remaining-core specification to match the approved consolidated-performance policy. On the next #43 acceptance reconciliation, existing complete observations and source/artifact applicability were reused without another compiler or benchmark run; a timing-only administrative blocker was removed after independent semantic audit. This is an observed acceptance effect, not a measured delivery-speed improvement. #48 development continues through the ordinary consumer path; its oracle worktree now uses the reduced hook.

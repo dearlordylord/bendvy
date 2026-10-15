@@ -61,7 +61,7 @@ Extend the existing full-core specification with executable vertical slices for 
 - Prefer the highest existing seam: independently authored application -> public world/system/schedule/command/reader API -> complete observable world/stream/owner results. Extend source-bound negative and mutation controls from the delivered Workshop/query/event/removal/schedule/Local work.
 - Observe pinned TS tests/checkpoints with Node before declaring parity. Compare complete ordered outputs with only explicit approved divergence normalization. Do not normalize away missing values, queue changes or order.
 - Extend authority boundaries with two nominal schemas, actual independent runtime worlds, undeclared access, writes-through-read and affine duplication negatives. Preserve complete payloads and one-time disposal on every success/failure/refusal/retry path.
-- Run unchanged baseline regression before executable delivery; retain full receipts. New features receive equivalent-work timing/scaling evidence, without inventing historical baselines. Full connected and five-workload/three-size qualification is separate.
+- Run unchanged baseline regression before executable delivery; retain full receipts. Equivalent-work timing/scaling evidence belongs to combined #21/#23/#24 qualification and does not block each feature's semantic delivery; no historical baseline is invented. Full connected and five-workload/three-size qualification and the final JS/Native targets remain required.
 - Use CPU/allocation profiling before/after a selected consequential optimization. Avoid timing under known CPU contention and report sampled allocations independently from physical memory. Preserve failed experiments.
 
 ## Out of Scope
