@@ -1435,3 +1435,15 @@ matched retained JS bytes, so JS was not replayed. Original failures remain
 immutable. Existing runners/caps were reused without added infrastructure. Full
 #53 still requires family isolation, query/resource composition and authority/loss
 controls; this first slice is not full acceptance or measured delivery speedup.
+
+The #53 query/resource+publication consumer passed both stock backends against
+its full 6,877-byte independent oracle on the first attempt. The next three-family
+consumer hit Bend’s 32,768-character specialization-key guard. Removing unused
+row/plan template arguments repaired the concrete source check (0.91 s) without
+changing behavior, compiler identity or limits. Source `e1b1023b5` then passed both stock backends against the corrected
+21,529-byte source-derived oracle. Retained JS output was reused without replay;
+the original failed-oracle attempt remains immutable. Per-family reader source
+`21ddb0860` and final-family blind app `aed70b746` pass concrete source checks
+and await independent oracle/backend qualification. Reader/query/resource
+composition, authority and mutation remain acceptance gates. These
+are observed delivery steps and preserved checks, not an overall speedup measure.
