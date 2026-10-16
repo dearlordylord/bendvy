@@ -296,3 +296,10 @@ Boolean operators. `ordinary-checked-bindings` targets registered system IDs;
 `ordinary-app-checked-schedule` retains actual App owners and derives debug
 descriptions while `checked-condition-schedule` preserves reached errors and
 existing schedule preflight. See [API and scope](../../docs/parity/inspect.md#ordinary-checked-resource-predicates).
+
+`ordinary-check-query` derives Required/Optional and With/Without selections
+from component bindings and composes arbitrary nested read-only queries with
+`pair`, `both`, `constrain`, `map` and membership-only `empty`. Its declaration
+and detached read share the same typed description. `ordinary-check-declaration.both`
+combines these queries and resource reads in one Check; required components
+filter rows rather than preflight the World. See [API and scope](../../docs/parity/inspect.md#ordinary-component-query-check-declarations).

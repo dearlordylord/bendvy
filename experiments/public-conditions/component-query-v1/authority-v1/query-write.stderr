@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueWrite<rejected~H, Array<U32>, U32>
+- observed : CQ.Read<rejected~S, F.RowView, rejected~H>
+Context:
+- owner : rejected~H
+- value : Array<U32>
+Location: rejected
+13 | 
+14>| def rejected(~S:Data,~H:Type,~caps:F.JoinOps(~S)(H),owner:H,value:Array<U32>) -> H:Cap.value_write_field(~H,~Array<U32>,~U32,caps)(owner,value)
+   |                                                                                                                              ^^^^
+15 | 
+bend 2.0.37 is available: run bend update

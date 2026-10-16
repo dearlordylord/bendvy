@@ -260,6 +260,13 @@ adds canonical resource Check leaves joined to lazy App schedules, existing
 registered machine conditions, actual unbound dispatch and automatic descriptions.
 Full stock/TS observations, affected authority controls and a reached eager-RHS
 defect qualify that route; TS eager requirements remain an explicit difference.
+The [component-query Check slice](inspect.md#ordinary-component-query-check-declarations)
+adds canonical Required/Optional/With/Without composition and membership-only
+queries, including a query and required resource in one predicate. Complete
+first stock normal and reached filtering-mutation pairs, affected authority
+controls and current resource compatibility pass; actual TS execution matches
+its independent full oracle. [Independent final review](../../experiments/public-conditions/component-query-v1/FINAL-REVIEW.md)
+passes; integration/CI remain.
 Those are finite current public consumers, not a
 whole matrix or another independent schema. Remaining #61 work is to join the
 unmatched required predicates and cross-feature combinations to their direct

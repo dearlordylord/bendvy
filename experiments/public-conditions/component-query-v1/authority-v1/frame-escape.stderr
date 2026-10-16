@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : K.Frame<rejected~S, Model.Columns<rejected~S>, ../../../../../../workspace/formal-proofs/bendvy/src/ecs/owner-product.Owner<Array<U32>, ../../../../../../workspace/formal-proofs/bendvy/src/ecs/owner-product.Owner<../../../../../../workspace/formal-proofs/bendvy/src/ecs/ordinary-optional-resource.Slot<rejected~S, Array<U32>, ../../../../../../workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.Resource{"Threshold"}>, Array<U32>>>, Unit>
+- observed : rejected~H
+Context:
+- owner : rejected~H
+Location: rejected
+13 | 
+14>| def rejected(~S:Data,~H:Type,~caps:F.JoinOps(~S)(H),owner:H) -> K.Frame<S,Model.Store(~S),F.Resources(~S),Unit>:owner
+   |                                                                                                                 ^^^^^
+15 | 
+bend 2.0.37 is available: run bend update

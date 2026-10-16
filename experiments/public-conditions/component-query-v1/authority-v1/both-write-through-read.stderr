@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueWrite<rejected~H, Array<U32>, U32>
+- observed : D.ResourceRead<rejected~S, Array<U32>, ../../../../../../workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.Resource{"Threshold"}, rejected~H, U32>
+Context:
+- owner : rejected~H
+- value : Array<U32>
+Location: rejected
+13 | 
+14>| def rejected(~S:Data,~H:Type,~caps:F.MixedOps(~S)(H),owner:H,value:Array<U32>) -> H:Cap.value_write_field(~H,~Array<U32>,~U32,Cap.second(~F.JoinOps(~S)(H),~F.ThresholdOps(~S)(H),caps))(owner,value)
+   |                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+15 | 
+bend 2.0.37 is available: run bend update

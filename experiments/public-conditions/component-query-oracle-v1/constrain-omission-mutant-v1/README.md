@@ -1,0 +1,9 @@
+# Independent operational constrain omission counteroracle
+
+Derived before mutant execution from frozen8e32c28d7, actual freeze1b022a9eda8faae5c4cc107cbfcd10c3454f81306280563356c9ae56a73cf34a. All132 consuming modules/203 pins are checked. model.py/state_model.py reproduce every expected byte; --selftest verifies boundary rows, ordinary effects and framing. Python whitespace is clean and only expected.stdout permits its intentional terminal blank line.
+
+The sole operational mutation makes CQ.constrain select its source without Q.constrain. Predicate metadata remains authored and unchanged. Presence CQ.empty therefore traverses all five actual live handles rather than only Active1..4. Joined RequiredPrimary/OptionalBonus still enforces required Primary, excluding4, but loses WithActive and WithoutHidden: actual joined rows are1,2,3,5. Row3 exposes Found30/Found300 and row5 Found50/ComponentAbsent. This is a reached query-membership defect, not merely a metadata edit.
+
+The first joined row remains entity1/Primary10, so complete ordinary behavior remains Threshold50false, restored5true twice, missing-required refusal, restored5true once. Final Counter13/cursor12/clock12 and all setup owners, stamps, actual returned ThresholdSlot owners, registrations, metadata and snapshots remain unchanged. Empty initial World still has no live rows and its guard skips. Full finite comparison against immutable normal verifies exactly18 changed lines, all complete post-setup readouts; every other complete line is byte-identical. No state or owner observation is dropped to obtain that comparison.
+
+The source-only countermodel was sealed before any backend output and adds no contracts, performance or universal-proof claims. Main retains the same five expected foreign-dependent source diagnostics; it is not labeled blanket checker/proof PASS.

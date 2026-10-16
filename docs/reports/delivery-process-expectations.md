@@ -1566,3 +1566,17 @@ received the existing changed-portion launch review. No backend replay, new
 runner, comparative campaign or extra tracking layer was required. Integrated
 `bd1e2f67c`; CI38898093454 PASS. Full #61 remains open and delivery-speed
 improvement is unmeasured.
+
+The canonical component-query Check delivery used the existing collector and
+unchanged caps: first stock JS/Native normal96,029, reached constrain-omission
+98,819 (normal rejected), and current resource-compatibility104,475-byte pairs
+all pass. Five positive/ten intended authority controls cover the new API; the
+actual TS reference matches23,512 independently derived bytes. Complete
+observation and API review preceded backend freeze, and the existing #28
+applicability was checked against all23 unchanged protected bodies. The sole
+TS adapter prose change received changed-portion launch review. No new runner,
+comparative campaign or unchanged-process rerun was needed. Final review caught two arity failures
+miscounted as write-through-read refusals; only those controls were corrected
+and rerun, retaining the predecessor diagnostics and exact applicability of the
+other thirteen checks. Independent final review now passes; integration/CI remain.
+This is actual use of the shorter path, not measured delivery-speed improvement.

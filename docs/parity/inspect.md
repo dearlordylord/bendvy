@@ -218,3 +218,31 @@ path. The machine witness reaches supported missing-as-false and stale actual
 registration refusal; generic lifted NoValue/NoBinding transport is source/type
 coverage here. Full Inspector Native acceptance and the complete #61 matrix
 remain open; final product performance stays in #21/#23/#24.
+
+## Ordinary component-query Check declarations
+
+`ordinary-check-query` derives required/optional reads and With/Without predicates
+from ordinary component bindings. Compose them with `pair`, `both`, `constrain`
+and `map`; `empty` supports membership-only queries. `declaration` supplies the
+confined Check read and its description together. Component payloads remain
+arbitrary affine Type; query results are detached Data.
+
+`ordinary-check-declaration.both` combines declared reads, including a query and
+a resource in one Check. Its existing requirement checks thread World left to
+right and append returned missing names. Required components select rows; they
+do not require a component somewhere in the World. Typed Component selection
+metadata distinguishes Required/Optional/With/Without; the existing `required`
+flag denotes resource preflight only. Exhaustive description renderers handle
+the new Component category explicitly. Ordinary debug snapshots carry these
+uses without a caller adapter.
+
+The first stock JS/Native consumer pair matches all 96,029 independent oracle
+bytes. Five positive and ten intended authority controls cover the new entry.
+The reached constrain-omission mutant matches all 98,819 counteroracle bytes on
+both backends and rejects the complete normal result. The current resource
+compatibility pair retains all 104,475 original oracle bytes. Actual TS execution
+matches its full 23,512-byte independent oracle; fresh missing-resource admission
+is explicitly distinct from Bend's reached validation and returned-owner restore.
+The [independent final review](../../experiments/public-conditions/component-query-v1/FINAL-REVIEW.md)
+passes; integration and CI remain. This bounded join does not close #61 or the full #54 workload;
+combined regression and final performance requirements are unchanged.

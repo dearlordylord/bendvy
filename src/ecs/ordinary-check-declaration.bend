@@ -8,7 +8,14 @@ import ./optional-resource-binding.bend as B
 import ./owner-product.bend as Product
 
 # Metadata belongs to the same operational read; no caller-authored access list.
-type Category is Data:Resource{}
+type ComponentSelection is Data:
+  Required{}
+  Optional{}
+  With{}
+  Without{}
+type Category is Data:
+  Resource{}
+  Component{selection:ComponentSelection}
 type Mode is Data:Read{}
 type Use is Data:Use{category:Category,key:String,mode:Mode,required:Bool}
 type Declaration<-S:Data,-C:Type,-R:Type,-E:Data,-Ops:Type -> Type> is Type:
@@ -32,3 +39,16 @@ def plan(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,value:Declaration<S,C
 def uses(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,value:Declaration<S,C,R,E,Ops>) -> List<&2,Use>:
   match value:
     case Declaration{_,uses}:uses
+
+# A single reached predicate may request several declared reads. Validation
+# threads the original World in authored order and retains each returned name.
+def PairOps(~L:Type -> Type,~R:Type -> Type,H:Type) -> Type:Cap.Bundle<L(H),R(H)>
+def required_join(~S:Data,~C:Type,~R:Type,~E:Data,before:List<&2,String>,observed:W.World<S,C,R,E> & List<&2,String>) -> W.World<S,C,R,E> & List<&2,String>:
+  match observed:
+    case (world,after):(world,List.append(&2,String,before,after))
+def required_right(~S:Data,~C:Type,~R:Type,~E:Data,~right:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,String>,observed:W.World<S,C,R,E> & List<&2,String>) -> W.World<S,C,R,E> & List<&2,String>:
+  match observed:
+    case (world,before):required_join(~S,~C,~R,~E,before,right(world))
+def required_pair(~S:Data,~C:Type,~R:Type,~E:Data,~left:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,String>,~right:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,String>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & List<&2,String>:required_right(~S,~C,~R,~E,~right,left(world))
+def both(~S:Data,~C:Type,~R:Type,~E:Data,~LOps:Type -> Type,~ROps:Type -> Type,~left:Declaration<S,C,R,E,LOps>,~right:Declaration<S,C,R,E,ROps>) -> Declaration<S,C,R,E,PairOps(~LOps,~ROps)>:
+  Declaration{K.Plan{required_pair(~S,~C,~R,~E,~K.required_field(~S,~C,~R,~E,~LOps,plan(~S,~C,~R,~E,~LOps,left)),~K.required_field(~S,~C,~R,~E,~ROps,plan(~S,~C,~R,~E,~ROps,right))),Cap.Bundle{K.caps_field(~S,~C,~R,~E,~LOps,plan(~S,~C,~R,~E,~LOps,left)),K.caps_field(~S,~C,~R,~E,~ROps,plan(~S,~C,~R,~E,~ROps,right))}},List.append(&2,Use,uses(~S,~C,~R,~E,~LOps,left),uses(~S,~C,~R,~E,~ROps,right))}

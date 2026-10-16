@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : '(setup,st) (slots,sl)'
+Location:
+44 |   match a b:
+45>|     case (setup,st) (slots,sl):state_snapshot(~S,setup,slots,text ++ "\nsetup=" ++ st ++ "\nreturnedThresholdSlots=" ++ sl,F.snapshot(~S,app))
+   |          ^^^^^^^^^^^^^^^^^^^^^
+46 | def state_app(~S:Data,setup:Maybe<&1,Setup.Owned<S>>,slots:List<F.Input(~S)>,text:String,value:F.Application(~S) & String) -> Session<S> & String:
+bend 2.0.37 is available: run bend update

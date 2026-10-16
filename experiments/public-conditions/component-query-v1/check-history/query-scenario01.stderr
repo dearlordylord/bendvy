@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a plain binder (only leading binders take ~)
+- observed : '~'
+Location:
+25 |     case (tail,more):(head <> tail,text ++ ";" ++ more)
+26>| def slots_head(~S:Data,rest:List<F.Input(~S)>,value:F.Input(~S) & String,~next:List<F.Input(~S)> -> List<F.Input(~S)> & String) -> List<F.Input(~S)> & String:
+   |                                                                          ^
+27 |   match value:
+bend 2.0.37 is available: run bend update

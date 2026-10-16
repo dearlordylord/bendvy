@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'session' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+85 | def action(~S:Data,session:Session<S>,step:Action) -> Session<S> & String:
+86>|   match step session:
+   |              ^^^^^^^
+87 |     case Checkpoint{label} session:state(~S,session,label)
+bend 2.0.37 is available: run bend update
