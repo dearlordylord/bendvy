@@ -79,7 +79,8 @@ source-current classic compatibility, 30,283-byte reached category defect
 (normal output rejected) and 5,447-byte repeated opaque rejection. Four entry
 positives, legacy support and eight intended authority refusals qualify the
 actual ordinary boundary. Existing #28 source/artifact applicability is reused;
-full #61 and final product performance remain open.
+full #61 and final product performance remain open. Integrated `85cf9aa2c`,
+CI38894048915 PASS.
 
 | Evidence | Stock JS / Native full oracle | Scope |
 | --- | --- | --- |

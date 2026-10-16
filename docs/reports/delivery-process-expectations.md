@@ -1549,6 +1549,6 @@ oracles. Eight intended authority refusals and positive entries retain the actua
 API boundary. Existing collector, caps, full #28 applicability and retained evidence
 were reused; no comparative campaign or new runner was required. One formatting-only
 canonical oracle-copy repair preserved all frozen bytes in the evidence and
-reproduced the complete outputs without backend replay. Integration/CI follow;
-full #61 remains open. This is a concrete semantic delivery under the shorter
+reproduced the complete outputs without backend replay. Integrated `85cf9aa2c`;
+CI38894048915 PASS. Full #61 remains open. This is a concrete semantic delivery under the shorter
 checks policy, not a measured delivery-speed improvement.
