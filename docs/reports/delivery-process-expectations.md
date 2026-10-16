@@ -1265,3 +1265,14 @@ fresh qualitative CPU11 admissions; one retained packet preserves 220 complete
 outputs. This resolves the earlier protected regression-pending checkpoint,
 not compiler adoption or full-feature performance. No delivery-speed estimate
 is inferred. CI38847248022 for `83d40b939` also passed.
+
+The combined candidate-evidence/AppA failure delivery integrated at `68efe3f98`;
+CI38848592760 passed. English bounded reports were posted to #54 and #61; both
+issues remain open. Shared ECS and the selected compiler pin are unchanged.
+
+The next delivery removes an unnecessary #50 general ownership question:
+pinned Bevy retains FunctionSystem captures and returns RemovedSystem on
+unregister. The existing approved Bevy-first direction therefore selects explicit
+affine capture persistence and owner-returning unregister without inventing
+automatic finalizers. Implementation proceeds via existing Local machinery;
+#52 arbitrary inverse trust remains a separate observable boundary.
