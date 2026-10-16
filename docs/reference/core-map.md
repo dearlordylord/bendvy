@@ -1,6 +1,6 @@
 # T02 — полный core: catalogue и gates
 
-For current implementation status, use the [current parity checkpoint](#current-parity-checkpoint--2026-10-06) below. The T02 catalogue is historical.
+For current implementation status, use the [current parity checkpoint](#current-parity-checkpoint--2026-10-16) below. The T02 catalogue is historical.
 
 Источники требований: [parent #1](https://github.com/dearlordylord/bendvy/issues/1), [SPEC](../SPEC.md), [T02/#3](https://github.com/dearlordylord/bendvy/issues/3). Это карта всей цели, не сокращённая спецификация первого среза. Числа US ниже — User Stories parent. Статус каждой строки относится к T02: **catalogued / runtime unverified**; исходник не подтверждает Bend capability. «Позже» означает сохранённое обязательство. Platform вынесен отдельно.
 
@@ -66,9 +66,14 @@ Relations/scopes, states, validation/restore/tooling и copied canonical-defense
 сохраняют return conditions выше, дополненные [F07–F11](../follow-ups.md).
 Runtime refinement и mandatory final native/JS performance остаются отдельными gates.
 
-## Current parity checkpoint — 2026-10-06
+## Current parity checkpoint — 2026-10-16
 
-This section supersedes the historical status columns above for current planning; the [integrated update](#integrated-capability-update--aea31827) below supersedes its older bundle/handler/Inspector status where explicitly stated.
+Current implementation reconciliation at `ef1cc7bf9`, including accepted #53
+integration `32539b721`. This section supersedes historical absence/pending claims
+in the T02 catalogue and dated overlays below. The
+[current coverage reconciliation](../parity/coverage.md#current-implementation-reconciliation--2026-10-16)
+records direct evidence and limits; closed issues mean their accepted semantic
+scope, not complete arbitrary composition or full product qualification.
 The full contract remains [SPEC](../SPEC.md) / GitHub #1. **No full-core row is
 accepted merely because a historical probe or a bounded ticket closed.**
 
@@ -81,30 +86,30 @@ or full performance qualification.
 
 | Core capability / parent user stories | Current status and evidence | Remaining acceptance work |
 | --- | --- | --- |
-| Identity, reservation, liveness (1–2,15) | Public bounded: shared affine Factory, pending/dead/foreign rejection; foreign commands leave queue unchanged [#26](../reports/user-system-api.md) | Independent-root authority, capacity/growth, exhaustion and restore identity policy; current monotonic IDs stop at131072 |
-| Components, tags, bundles (3,31–32) | Public bounded: independent typed families, Data and affine Array owners; nine generic bundle modules and OwnedRequest integrated at12710fab, with current full22/20 and core-only runtime evidence [update](#integrated-capability-update--aea31827) | Feature timing/scaling, delayed activation/cancellation/recovery policy and complete cross-feature qualification remain #41/#38/#46/#47/#52/#61. |
-| Schemas and features (4–5,33) | Public bounded nominal schema separation and caller-defined stores; fragments/features not delivered | Feature composition, requirement dependencies and duplicate rejection through public application use; ergonomics decisions use independent applications |
-| Queries and order (6,16) | Public bounded heterogeneous queries, required/optional/with/without combinations, aliases and ascending order [#27](../reports/query-composition.md); count/single/entity lookup and exact diagnostics delivered [#29](../reports/public-query-contract.md) | Selected optimized storage delivered [#30](../reports/p-compose-storage-completion.md); scaling, qualified performance and broader full-core contracts remain |
-| Declared access (7–8) | Public bounded: actual undeclared access, cross-schema and writes-through-read negatives [#26/#27](../reports/query-composition.md) | Preserve these controls on every extension; trusted provisioning is not universal malicious-root authority |
-| Resources and Local (9) | Public transactional resources and isolated affine per-instance Local [#36](../reports/public-local-owner.md), including approved persistence on failure, skip and disposal | General runtime captures, destructive Type/IO recovery and broader integration |
-| Host services and provisioning (10) | Experimental requirement/service traces [T09](../../experiments/t09/README.md), joined host [#19](../reports/s-integrate-completion.md) | General public requirements, nested unions and pre-execution rejection; services remain outside ECS rollback |
-| Repeatable systems (11) | Public bounded closed rank2 runners with affine indexed Registry, retry and namespace checks [#26](../reports/user-system-api.md) | Ownership-preserving runtime affine captures and registration/disposal lifecycle; general extensible schedules Owning published slices: #50/#51. |
-| Schedules/phases/conditions/nesting (12) | Public static typed phases, authored order, conditions, explicit barriers, failure/repeated runs and identity checks [#33](../reports/public-schedules.md) | Nested schedules and requirement unions (#34), transactional reader composition (#35), runtime heterogeneous captures |
-| Deferred commands/barriers (13–14) | Public bounded explicit World.barrier, queued spawn/insert/remove/despawn and cleanup [#26/#27](../reports/query-composition.md) | Preserve full contracts across schedules, relations, states and restore; generic bundle and allocation policies |
-| Added/changed (17) | Public bounded typed stamps, composable lifecycle selection, independent transactional post-success reader cursors [#27](../reports/query-composition.md) | Reader disposal/epochs, broader integrated schedules and scalable indexes; full reference lifecycle coverage |
-| Removed/despawned streams (18) | Public registered ordered removal/despawn streams after barriers, independent slow readers, skip/failure backlog, disposal and affine cleanup [#32](../reports/public-removal-readers.md) | Composition through schedules (#35), broader lifecycle/identity coverage and full-core qualification |
-| Events/retention/lag (19–21) | Public registered Data event readers, bounded retention/lag, lazy registration, disposal, exact skip/failure/retry semantics and stored values [#31](../reports/public-event-readers.md) | Composed reader scheduling (#35), affine message fan-out and full-core qualification; no final Data-only restriction Owning published slices: #53. |
-| Transactions/publications (22–24) | Public bounded whole-query transaction, full Array replacement rollback, earlier commits and retry retained [#26/#27](../reports/query-composition.md); Experimental joined trace [#19](../reports/s-integrate-completion.md) | General recoverable Type operations, Local/allocation/lifecycle integration, machine queues, source-current complete connected gates and universal refinement |
-| Relations/inverses/hierarchy (25) | Not delivered | Public source/target links, inverse consistency, deferred failure publication, deletion cleanup, cycles and observable order Owning published slices: #42/#43/#44. |
-| Lifetime scopes (26) | Not delivered | Scene/group cleanup with persistent entity preservation and relation/lifecycle consistency Owning published slices: #45. |
-| States/machines/transitions (27) | Component-state finite #47 evidence; four machine/stream/handler modules integrated at12710fab with full96/12 JS/Native and three reached mutants [update](#integrated-capability-update--aea31827) | General machine-stream ownership/skip policy #48, handler feature timing and full combinations #49/#61; reusable affine captures #50 remain. |
-| Validation/typed input errors (28) | Not delivered as general public boundary | Reject malformed constructed/raw inputs without partial mutations; payload ownership and typed diagnostics Owning published slices: #46. |
-| Snapshots/restore (29) | Not delivered; reference boundary documented in D4 above | Save supported fields, validate before restore, preserve explicit omissions; identity, allocator, streams/queues/cursor effects Owning published slices: #58/#59/#60. |
-| Inspectors/debug (30) | Experimental Inspector promotion and closed declaration eight-row JS/Native evidence integrated in repository at21ff8196 with reached routing/order controls at856fe561; no production Inspector/check module adoption [update](#integrated-capability-update--aea31827) | Source-current full #54 promotion/authority/nonretention acceptance, wider categories #55, descriptions #56 and debug overhead/subscriptions #57 remain. |
+| Identity, reservation, liveness (1–2,15) | Public bounded: Factory handles plus approved IO-created authority and fork/join ownership handoff; [identity evidence](../parity/identity.md). #38 remains open. | Reuse/generation and capacity decisions, wider runtime-domain qualification and restore identity remain #38/#59/#60; Factory-root identity alone is not global authority. |
+| Components, tags, bundles (3,31–32) | Integrated typed heterogeneous affine bundles; #41 closed for its accepted semantic scope; [bundle contract/evidence](../parity/bundles.md). | Cross-feature audit #61, identity decisions #38, restore #59/#60; combined feature performance #21/#23/#24. |
+| Schemas and features (4–5,33) | Integrated typed fragment composition and reusable features with checked dependencies/collisions; #39/#40 closed; [fragments](../parity/fragments.md), [features](../parity/features.md). | Complete source-current cross-feature mapping and independently authored application combinations #61; trusted schema provisioning remains explicit. |
+| Queries and order (6,16) | Public bounded heterogeneous queries, required/optional/with/without combinations, aliases and ascending order [#27](../reports/query-composition.md); count/single/entity lookup and exact diagnostics delivered [#29](../reports/public-query-contract.md) | Selected optimized storage delivered [#30](../reports/p-compose-storage-completion.md); complete capability/application reconciliation remains #61, and combined timing/scaling and numeric qualification remain #21/#23/#24. |
+| Declared access (7–8) | Public bounded: actual undeclared access, cross-schema and writes-through-read negatives [#26/#27](../reports/query-composition.md) | Current [#52/#53 authority extensions](../parity/coverage.md#current-implementation-reconciliation--2026-10-16) retain their intended boundary controls; complete cross-feature authority reconciliation remains #61. Trusted provisioning is not universal malicious-root authority. |
+| Resources and Local (9) | Integrated transactional resources, affine Local #36, reusable arbitrary affine captures #50 and explicit recovery #52; [captures](../parity/captures.md), [recovery](../parity/recovery.md). | Arbitrary host IO and automatic external finalization are outside selected rollback grants; complete combinations #61, combined performance #21/#23/#24. |
+| Host services and provisioning (10) | Integrated checked nested requirement unions and pre-execution rejection; #34 closed; [nested provision report](../reports/nested-provision-completion.md). Services remain outside ECS rollback. | Preserve actual provisioning/authority boundaries on extensions; full capability/application reconciliation #61. |
+| Repeatable systems (11) | Integrated arbitrary affine resource/query captures with returned owners and lifecycle #50; heterogeneous captured systems and registered conditions #51; [captured schedules](../parity/captured-schedules.md). Both issues closed. | No arbitrary IO rollback or mandatory external finalizer; exact new NoBinding branch remains source-reviewed rather than executed in #51; complete combinations #61. |
+| Schedules/phases/conditions/nesting (12) | Integrated authored phases/conditions/barriers #33, nested provisioning #34 and transactional reader composition #35; [schedule readers](../reports/schedule-readers-completion.md); captured composition #51 closed. | Full independent application/capability reconciliation #61 and combined feature performance #21/#23/#24. |
+| Deferred commands/barriers (13–14) | Public bounded explicit World.barrier, queued spawn/insert/remove/despawn and cleanup [#26/#27](../reports/query-composition.md) | Pending reservation/exhaustion decisions remain #38, restore effects #59/#60 and complete cross-feature qualification #61; accepted #41 bundle semantics are retained. |
+| Added/changed (17) | Public bounded typed stamps, composable lifecycle selection, independent transactional post-success reader cursors [#27](../reports/query-composition.md) | Clock/exhaustion decisions remain #38, restore lifecycle effects #59 and complete capability/application coverage #61; accepted #35 schedule-reader and #36 Local lifecycle semantics are retained. |
+| Removed/despawned streams (18) | Integrated registered ordered streams #32 and transactional schedule composition #35; [schedule readers](../reports/schedule-readers-completion.md). | Broader lifecycle/identity/restore combinations #38/#59/#60/#61; no unlimited retention claim. |
+| Events/retention/lag (19–21) | Integrated Data readers #31/#35 and canonical owned families #53, including independent reader/query transactions, retention/lag and owned retirement; [selected contract and final evidence](../parity/affine-events.md#semantic-acceptance--2026-10-16). #53 closed. | Trusted projections/providers are explicit; no automatic IO finalizer or arbitrary owner extraction. Complete audit #61, combined feature performance #21/#23/#24. |
+| Transactions/publications (22–24) | Integrated query/resource rollback and explicit arbitrary affine recovery #52; #53 canonical publication/readers share one transaction; [recovery acceptance](../parity/recovery.md#semantic-acceptance-reconciliation--2026-10-16). | External IO and arbitrary destructive callbacks remain outside reversible grants; restore #59/#60, full combinations #61 and universal refinement are separate. |
+| Relations/inverses/hierarchy (25) | Integrated directed/inverse links #42, registered failure readers #43 and ordered hierarchy/cycle/linked cleanup #44; [relations](../parity/relations.md#semantic-acceptance-reconciliation), [hierarchy](../parity/hierarchy.md#semantic-acceptance-reconciliation). All three closed. | Graph restore #60, complete cross-feature audit #61, combined performance #21/#23/#24. |
+| Lifetime scopes (26) | Integrated scope cleanup, persistent survivors and relation/lifecycle ownership; #45 closed; [accepted evidence](../parity/scopes.md#semantic-acceptance-reconciliation). | Restore and complete cross-feature qualification #59/#60/#61; no universal physical finalization claim. |
+| States/machines/transitions (27) | Integrated typed component state #47, machines/conditions #48 and exit/transition/enter failure boundaries #49; [machines](../parity/machines.md), [handlers](../parity/handlers.md). All three closed. | Committed graph/machine restore #60; exact cross-feature audit #61 and combined performance #21/#23/#24. |
+| Validation/typed input errors (28) | Integrated constructed/transient validation and affine-owner-preserving admission; #46 closed; [bounded evidence map](../parity/validation.md#current-bounded-evidence-map-2026-10-15). | Restore validate-before-mutate remains #59/#60; host interoperability outside selected native scope is not silently adopted; full combinations #61. |
+| Snapshots/restore (29) | Integrated independent basic snapshot export #58 closed; [save acceptance](../parity/snapshot-export.md#semantic-acceptance-reconciliation). | Basic atomic restore #59 and ordered graph/committed-machine restore #60 remain open; allocator/handle policy #38. Save is not a runtime checkpoint. |
+| Inspectors/debug (30) | Integrated finite Inspector/Check and graph/stream inspection #55; ordinary declaration-derived descriptions/dumps #56 closed; [current evidence](../parity/coverage.md#current-implementation-reconciliation--2026-10-16). | Full #54 compiler/source adoption decision remains pending; #57 subscriber ownership/delivery/IO requirement unresolved. Neither candidate compiler execution nor #56 closure closes #54/#57/#61. |
 | Performance/memory/scaling (35–37) | Experimental optimized Dense cohorts [latest Native1024](../reports/native1024-continuation.md); Public bounded Workshop baseline gate [#28](../reports/performance-regression.md) | #21/#23/#24: full source-current connected gates, five workloads×three sizes, equal timed work/forcing, occupancy, memory, noise/resolution; JS/TS<=1 and Native/TS<=0.5 |
 | Laws/proofs/refinement (38–40) | Seven exact approved observation subjects delivered with proof/mutation gates [#18](../reports/p-observe-completion.md); older proposal withdrawn | 22 supporting candidates remain unapproved; broader exact laws require drafting/falsification/approval before proof. Current general API and backend refinement are not proved by #18 Owning published slices: #62. |
-| Fixed-step console simulation (41) | Experimental integrated traces; public movement/damage/rollback Workshop and independent consumer [#26/#27](../reports/query-composition.md) | Complete intended spawn/move/damage/removal/hit/death simulation through integrated public contracts; proof and performance prerequisites remain explicit Owning published slices: #63. |
-| Copied Canonical Defense (42–43) | Not started; canonical jev unchanged | Establish required capabilities, run a separate copy preserving authoritative reducer, compare fixed-step behavior/order/links/cleanup Owning published slices: #64. |
+| Fixed-step console simulation (41) | Complete deterministic public simulation #63 closed; [semantic acceptance](../parity/simulation.md#semantic-acceptance-reconciliation). | Finite simulation is not full-core #61 acceptance or universal proof; copied integration planning #64 and numeric product qualification #21/#23/#24 remain. |
+| Copied Canonical Defense (42–43) | Source-backed [#64 plan preparation](../parity/defense-plan.md) records canonical reducer/host requirements and complete observation boundaries; no copied execution is qualified, and canonical jev remains unchanged. | #64 retains stable snapshot selection, ECS storage extent, host/platform adapters and actual original/copy trace prerequisites, plus #61 and selected #62 proof subjects; no blanket #59/#60 prerequisite is inferred for input-journal replay. |
 | Follow-up completeness (34) | Historical [follow-ups](../follow-ups.md) and current evidence retained | Reviewed tracer-bullet tickets with true blockers for remaining rows; no postponed row disappears from #1 Owning published slices: #61. |
 
 ### Performance preservation for parity work
@@ -115,17 +120,20 @@ user separately permits up to10% aggregate loss at full parity, with final
 JS<=TS and Native<=0.5TS; this does not change the bounded gate. Run the
 [#28 paired gate](../../benchmarks/README.md) for executable public-core changes.
 This protects existing work, including process startup/output, and does not cover
-new capabilities or the optimized five-by-three matrix. New feature slices must
-add exact equal-work TS/JS/Native observations and representative feature timings;
-no historical baseline is invented for functionality that did not exist. New
-numerical thresholds, dependencies and specific laws require their own approvals.
+new capabilities or the optimized five-by-three matrix. Feature delivery retains
+complete equivalent-work TS/JS/Native correctness observations and the unchanged
+#28 gate. Under approved R7, comparative feature timing/scaling belongs to the
+combined #21/#23/#24 workload and is not a prerequisite for individual semantic
+delivery. Consequential hot-path changes and detected regressions still require
+targeted investigation. No historical baseline is invented for new functionality;
+new numerical thresholds, dependencies and specific laws require their own approvals.
 
 The fast public Workshop ratios are not interchangeable with large optimized
 Dense ratios. The latest reviewed concrete-v3 Native1024 raw cohort is about1.92×
 faster than TS and therefore misses the approved2× target. No favorable subset
 or timing-control run closes #21/#24 or full-core #1.
 
-### Published implementation frontier
+### Historical published implementation frontier — 2026-10-06
 
 The user approved publication on 2026-10-06 after Astra review. See the
 [breakdown and retained later scope](../design/parity-ticket-breakdown.md).
@@ -137,13 +145,13 @@ The user approved publication on 2026-10-06 after Astra review. See the
 | #31 | Registered event readers, retention and lag | Closed; delivered on master in [bfb4360d](https://github.com/dearlordylord/bendvy/commit/bfb4360d), with fresh semantic/timing evidence and independent review |
 | #32 | Registered removal/despawn readers | Closed; delivered on master in [bfb4360d](https://github.com/dearlordylord/bendvy/commit/bfb4360d), with fresh semantic/timing evidence and independent review |
 | #33 | Basic deterministic phases/conditions/barriers | Closed; delivered on master in [bfb4360d](https://github.com/dearlordylord/bendvy/commit/bfb4360d), with fresh semantic/timing evidence and independent review |
-| #34 | Nested schedules and checked requirement unions | Prerequisite #33 delivered; not started |
-| #35 | Transactional reader visibility in schedules | Prerequisites #31/#32/#33 delivered; not started |
+| #34 | Nested schedules and checked requirement unions | Closed; [nested provision delivery](../reports/nested-provision-completion.md) |
+| #35 | Transactional reader visibility in schedules | Closed; [schedule-reader delivery](../reports/schedule-readers-completion.md) |
 | #36 | Per-system affine Local lifetime/retry/disposal | Closed; delivered on master in [bfb4360d](https://github.com/dearlordylord/bendvy/commit/bfb4360d), with fresh semantic/timing evidence and independent review |
 
 Six bounded slices (#29/#30/#31/#32/#33/#36) are delivered and closed. #30 retains complete indexed owner/capture/provider controls and the unchanged default regression pass. Under the explicitly amended bounded TS criterion, selected Workshop JS/TS is 0.548940 and Native/TS is 0.072534. Historical failed Bend comparisons remain unchanged. See [completion](../reports/p-compose-storage-completion.md) and [acceptance ledger](../reports/parity-frontier-implementation.md).
 
-#34/#35 are ready next slices. Remaining full-core capabilities now have [published vertical slices #38–#64](../parity/README.md) under [remaining-core specification #37](../parity/remaining-core-spec.md): features/bundles, relations/hierarchy, lifetime scopes, states/machines, validation, snapshots/restore, inspectors, allocator/root policies and general payload/capture recovery. Specific proof and copied-integration execution tickets follow their explicit subject/requirements decisions; those obligations are retained. Full parity is not reached by completing the immediate eight-ticket frontier.
+At publication #34/#35 were next; both are now closed. Remaining full-core capabilities have [published vertical slices #38–#64](../parity/README.md) under [remaining-core specification #37](../parity/remaining-core-spec.md): features/bundles, relations/hierarchy, lifetime scopes, states/machines, validation, snapshots/restore, inspectors, allocator/root policies and general payload/capture recovery. Specific proof and copied-integration execution tickets follow their explicit subject/requirements decisions; those obligations are retained. Full parity is not reached by completing the immediate eight-ticket frontier.
 
 Existing #21/#23/#24 retain optimization/qualification responsibility; feature
 slices do not duplicate those tasks or blanket-block independent feature work on

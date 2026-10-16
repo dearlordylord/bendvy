@@ -41,7 +41,27 @@ The smallest creation decision is whether the advertised independent-world creat
 
 Logical-ID reuse is a separate unresolved choice. Monotonic IDs with explicit exhaustion retain current stale-handle safety but do not recycle physical slots as Bevy does. Namespace+index+generation with a freelist is closer to Bevy: old handles fail after reuse, capacity can be recycled, and generation exhaustion needs an explicit refusal/retirement policy if indefinite stale safety is required. A monotonic external logical ID over recycled physical slots preserves old public handles but adds mapping/storage and differs from Bevy's reused index. No generation wrap policy, failed reservation reuse or snapshot rebinding is selected here. TS is comparison inventory and cannot decide these policies.
 
-Ordinary IO creation is approved below. The next approval is public entity-slot reuse and generation-exhaustion behavior before implementation. Existing #38 reservation/cancellation/growth/clock exhaustion, caller-fabricated authority, reached bounds/namespace controls and complete backend/regression gates remain required. No new law or executable contract is adopted by this context.
+Ordinary IO creation is approved below. SPEC treats ID reuse and physical layout as technical choices constrained by observable contracts; a generation field or freelist alone is not a separate approval gate. A changed observable contract, including the finite generation-wrap/retirement or exhaustion boundary, still requires its explicit decision before adoption. Existing #38 reservation/cancellation/growth/clock exhaustion, caller-fabricated authority, reached bounds/namespace controls and complete backend/regression gates remain required. No new law or executable contract is adopted by this context.
+
+## Current allocator facts — 2026-10-16
+
+The integrated [World allocator](../../src/ecs/world.bend) has namespace/id handles,
+no generation or freelist, and a bounded 131072-ID reservation domain. Reservation
+consumes an ID immediately; despawn clears liveness without returning that ID.
+[Command staging](../../src/ecs/commands.bend) does not rewind reservation on failed
+publication. Clock advancement currently saturates at U32 maximum; registration
+allocation instead refuses at its own maximum. These are distinct from the
+approved namespace nonwrap policy.
+
+The [core README](../../src/ecs/README.md) calls the allocator bounded;
+[SPEC](../SPEC.md#implementation-decisions) leaves reuse/layout technical, and the
+[arithmetic approval scope](../archive/recovered/reviews/delegated-owned-law-approval.md)
+does not freeze allocator policy. The implementation constant is not an approved
+production-capacity requirement. Preserve the qualified failed-reservation handle
+and query-order observations while reconciling raw-ID consumers with a concrete
+generational representation. Finite-domain wrap/alias versus slot retirement and
+owner-preserving refusal remains an actual observable boundary, not a choice
+settled by the current constant or the TS inventory.
 
 ## Approved ordinary creation — 2026-10-14
 
