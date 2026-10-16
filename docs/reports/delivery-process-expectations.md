@@ -1210,3 +1210,13 @@ fork/join handoff received one JS/Native pair through the ordinary collector;
 both full outputs passed on the first attempt. Anonymous-task ordering is handled
 by moving complete sessions, and the report excludes physical allocator races.
 This records targeted new coverage and avoided duplicate work, not timed savings.
+
+#71 semantic acceptance reused complete normal, second-schema, affine, capacity,
+authority and mutation evidence after checking 171 current input bindings and
+independent final review. No compiler or comparative campaign was repeated for
+this documentation-only reconciliation. Historical feature slowdowns remain
+visible under the approved combined-performance policy. This is concrete evidence
+reuse, not a measured delivery-speed improvement.
+
+The #38 fork/join integration CI38841376108 passed on rerun; its first attempt
+was cancelled during checkout before tests executed. Code and limits were unchanged.
