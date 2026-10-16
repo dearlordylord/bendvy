@@ -1,0 +1,531 @@
+{
+  "scope": "Current source applicability of retained basic-save evidence; no new backend/proof/timing or imported-checkpoint semantics.",
+  "sourceBase": "975c8f5cd46105d01d484c9da9f0af2408afc2e5",
+  "retainedPacket": {
+    "experiments/public-snapshot/ordinary-constructor-save-delivery-v1/DELIVERY.json": "81a3bcb86b2bbb0473ca510174c0e3a4212b754d65ca5c2582154e52f46d8f42",
+    "experiments/public-snapshot/ordinary-constructor-save-delivery-v1/EVIDENCE.zip": "91bc00f91354f0b8b442d5995bd089c62e76a971b357ae5b51e61e3df79d3fdf",
+    "experiments/public-snapshot/ordinary-constructor-save-delivery-v1/MANIFEST.json": "6c69e57fd3fba8ba50ea90572ee3bbc82dce8b1d5002d2ed34bfd2523dad3c13",
+    "experiments/public-snapshot/ordinary-constructor-save-delivery-v1/verify.py": "2f02056c7277a9804946ba9a8255b1a99ee551d3943ffb22400b7cdb4636b531",
+    "experiments/public-snapshot/ordinary-constructor-save-delivery-v1/FINAL-REVIEW.md": "c74dc213375487c51ceb696f08bc8ebc2ecc0ff6f5bb3342c36da908958c3e1b"
+  },
+  "sourceMap": "Exact inverse import-only root-facing rebase; no fresh backend claim",
+  "fixtureBodies": [
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/admission.bend",
+      "qualifiedSHA256": "7782b2d83ece0e21ed57c0c7479fff09d02361a6eda7383821301b3fb1f14c10",
+      "currentSHA256": "c096b56bd385d095425fd4a6ecb2caf235d4ef0eafa0b392eadd0b1a8c7aacda",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/consumer-io.bend",
+      "qualifiedSHA256": "6b00a543b73805b21eb0ad39f929c30d63c261bae629f456f4d8db56ace27727",
+      "currentSHA256": "6b00a543b73805b21eb0ad39f929c30d63c261bae629f456f4d8db56ace27727",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/consumer.bend",
+      "qualifiedSHA256": "82aa80846aa3ecce1479a2adf186833bcfa1d8bcf2d6e2a35d18065c7c57b2b1",
+      "currentSHA256": "865c95da0729651e52dca39b2e84a1c852aa8b8dbdb488a820d97031dba23f68",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/driver.bend",
+      "qualifiedSHA256": "71cd9ededa57bb3d0172cacbf8a454e5415330ba49b941fde181732d66fd6a69",
+      "currentSHA256": "339ae46c79e951cce01f909f9e75c09b0b928f0bca6ac6b2b5b041c1285f1f94",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/format.bend",
+      "qualifiedSHA256": "f48fb7c0a32e74b7184f3b3f5300a70becb35a6b888054487bee62c7960686d8",
+      "currentSHA256": "61b45acd843b386a5c6331abe39b287df176004193aeee95768151a4fbae2a87",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/game.bend",
+      "qualifiedSHA256": "0c33aaa3e2ffaf3f8f7090b0534504099facfb936a9aec3d244dc521be8cb3f1",
+      "currentSHA256": "87f8bcd38e1a0a1fae832fed1641c797bd37042c07e1a821982c99aa347bd0ed",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/legacy-column-provider.bend",
+      "qualifiedSHA256": "86e93ed567a4afb31b90a2ecf5eaf13dad1bb6dece4f7e8c2ef1c5425237663f",
+      "currentSHA256": "a938ca4d6b9c4aa437b989ebbbcd6029563ed41b0e7a89fbdd0cf820c7c05ae6",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/legacy-fixture.bend",
+      "qualifiedSHA256": "ba628fd2def5e085fd18e5007fa979277d36eda25090f54ae797f144ecb2a3b5",
+      "currentSHA256": "f33bac3e463d6b5cddd3cfba4bfc38965bbbb4107d9002795c899bdaaa7e830e",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/legacy-owner.bend",
+      "qualifiedSHA256": "c1e49a760ad05a43ff0a32b1aba857d749f68f7aeb7015bb94fb9021ea6bddab",
+      "currentSHA256": "33a3c3cdf6d9d4b94f2aabb7fde8b5d2b58b86ad9544c0a4b93036f386b30926",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/legacy-setup.bend",
+      "qualifiedSHA256": "7ba1bccc625df2a74811a8f94d752f1cac7d754cfe9a08adad3ba1905458f119",
+      "currentSHA256": "cb6f631d17ffc15b8df2ff159912160bd34f9141171b98d5c656c8e3042732d3",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/output.bend",
+      "qualifiedSHA256": "682e59aed1aab9120dfcf8f06eb60dbb773d79a600640044cb4d45471be257af",
+      "currentSHA256": "d5cc87f6b5725f15bbdd9d23840747aa95b913a86b6d0e0726ef007fbfb9c157",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/owner.bend",
+      "qualifiedSHA256": "03c801e4e08b252e2c608e511fb2fef03a51701f31cba9cd210434a6ef7dea67",
+      "currentSHA256": "453226984224bf594dc31cb4bb7e93c62d77bd98ccb5b1c67656af82f3b6db99",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/setup.bend",
+      "qualifiedSHA256": "34e1cad9ce01f1939f0602fc0198e0ff9341a6ef9280fe89568b7bbf605a78b1",
+      "currentSHA256": "c20fea35dc90b224ef61996737e91bed2257a75be9f7091bef5c4b4612cd2727",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/supplement.bend",
+      "qualifiedSHA256": "8d19afe7bfbc26221556d689523f0347a05e56c004d3d0b9e938dc11bb792fca",
+      "currentSHA256": "9258a1c4dab749e7f136beb1635259ef1b27be5e4b0907ddbe0e812acaba89f0",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/validation.bend",
+      "qualifiedSHA256": "571c9f25c8940ba019ac76c6c597b3eb32967deb77b1bda4e308645ed4ed3bb3",
+      "currentSHA256": "f6b785646927cfadea76f4340e4f8dec430e7605a3bd12740e605c5f9b3aa853",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    },
+    {
+      "path": "experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/world-owner.bend",
+      "qualifiedSHA256": "7752326db8b0771d3dd73d19147993610e27b814b6cdab13d742b16ddb5d2a7b",
+      "currentSHA256": "93b1f362903db83a5f689ecb20bf1bb2c444bd98244df5158fcfc7a6f26c3a5c",
+      "scope": "Exact archived root-facing import-only inverse; qualified runtime remains bound to producer input paths."
+    }
+  ],
+  "canonicalBodies": [
+    {
+      "path": "src/ecs/bundle-construction.bend",
+      "qualifiedSHA256": "659fbf766f2d4d3768a0342ab30925c52b83fd28e79facc9868b5382a5048a59",
+      "currentSHA256": "659fbf766f2d4d3768a0342ab30925c52b83fd28e79facc9868b5382a5048a59",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/bundle-pack.bend",
+      "qualifiedSHA256": "a900386d18d9e741ec9001dee0c8203366e6feac706b15db9db755a95e96f8f0",
+      "currentSHA256": "a900386d18d9e741ec9001dee0c8203366e6feac706b15db9db755a95e96f8f0",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/capabilities.bend",
+      "qualifiedSHA256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "currentSHA256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/column.bend",
+      "qualifiedSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "currentSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/component.bend",
+      "qualifiedSHA256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "currentSHA256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/declared-family.bend",
+      "qualifiedSHA256": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2",
+      "currentSHA256": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/decode-capabilities.bend",
+      "qualifiedSHA256": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65",
+      "currentSHA256": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/decode-construction.bend",
+      "qualifiedSHA256": "39518ef0d17aa1b55ef09ee87b12b485eb63c0900064d52206ca4ebabb0d335b",
+      "currentSHA256": "39518ef0d17aa1b55ef09ee87b12b485eb63c0900064d52206ca4ebabb0d335b",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/decode-data.bend",
+      "qualifiedSHA256": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4",
+      "currentSHA256": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/decode-size.bend",
+      "qualifiedSHA256": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281",
+      "currentSHA256": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/decode-utf16.bend",
+      "qualifiedSHA256": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+      "currentSHA256": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/decode.bend",
+      "qualifiedSHA256": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+      "currentSHA256": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/indexed-lifecycle.bend",
+      "qualifiedSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "currentSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/lifecycle.bend",
+      "qualifiedSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "currentSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/ordinary-declaration.bend",
+      "qualifiedSHA256": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+      "currentSHA256": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/ordinary-schema.bend",
+      "qualifiedSHA256": "a694d2570202141ec906fd89fb0306d2ad8a55b2279a98b963daefe2b8f19ffc",
+      "currentSHA256": "a694d2570202141ec906fd89fb0306d2ad8a55b2279a98b963daefe2b8f19ffc",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/owner-handoff.bend",
+      "qualifiedSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "currentSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/owner-product.bend",
+      "qualifiedSHA256": "5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f",
+      "currentSHA256": "5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/persistence-declaration.bend",
+      "qualifiedSHA256": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+      "currentSHA256": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/schema-fragments.bend",
+      "qualifiedSHA256": "e161ff13196cd40b2218efc7734c2e1e661e74e09a754e6ff60cbe2b525d65ca",
+      "currentSHA256": "e161ff13196cd40b2218efc7734c2e1e661e74e09a754e6ff60cbe2b525d65ca",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/snapshot-data.bend",
+      "qualifiedSHA256": "9d86378d30177b9412a8443ca21cbc4c0181ed3e09c72001c638522bf1d4489e",
+      "currentSHA256": "9d86378d30177b9412a8443ca21cbc4c0181ed3e09c72001c638522bf1d4489e",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/snapshot-gate.bend",
+      "qualifiedSHA256": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128",
+      "currentSHA256": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/snapshot-leaf.bend",
+      "qualifiedSHA256": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f",
+      "currentSHA256": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/snapshot-product.bend",
+      "qualifiedSHA256": "7bea0f24bfb3051f5349494307364707a19a916bbfe684d5cb02da7c9fa7b999",
+      "currentSHA256": "7bea0f24bfb3051f5349494307364707a19a916bbfe684d5cb02da7c9fa7b999",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/snapshot-schema.bend",
+      "qualifiedSHA256": "c5eb06160ceb018b7d820a10164f83e53f54894e654db55a62d6dbca21bf4298",
+      "currentSHA256": "c5eb06160ceb018b7d820a10164f83e53f54894e654db55a62d6dbca21bf4298",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/snapshot.bend",
+      "qualifiedSHA256": "cd10bf6002f09c377e084faa2a303e38446384f4cdd658f054dc6486dac2ebcf",
+      "currentSHA256": "cd10bf6002f09c377e084faa2a303e38446384f4cdd658f054dc6486dac2ebcf",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/string-equality.bend",
+      "qualifiedSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "currentSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/transaction.bend",
+      "qualifiedSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "currentSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/world-io.bend",
+      "qualifiedSHA256": "1be0fcd577ecf177af89136f77e5c8e67894304a89adefaf0565591f641a63e9",
+      "currentSHA256": "1be0fcd577ecf177af89136f77e5c8e67894304a89adefaf0565591f641a63e9",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/world-namespace.bend",
+      "qualifiedSHA256": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+      "currentSHA256": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+      "classification": "byte-identical"
+    },
+    {
+      "path": "src/ecs/world.bend",
+      "qualifiedSHA256": "f03b45d2349b24467a4b5b604a9416ca1a504bba36fddcb75d06fb8146d9f310",
+      "currentSHA256": "4e191783000df87279190cdd5c74d419de88a1bae8d7ebaf0c3ed8600ad80d1a",
+      "classification": "Reached only on empty pending list: old pending_length([]) and current pending_length_acc([],[],0) both return([],0), preserving all World fields. No new queue-order/runtime claim."
+    }
+  ],
+  "foreignSidecars": [
+    {
+      "path": "src/ecs/world-namespace.c",
+      "sha256": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+      "byteIdentity": true
+    },
+    {
+      "path": "src/ecs/world-namespace.js",
+      "sha256": "f463bf328c4232fec85c67e328d93309e2191d80b7377be64355b6c1edd4f815",
+      "byteIdentity": true
+    }
+  ],
+  "actualTSReuse": {
+    "sourcePins": [
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Brand.ts",
+        "sha256": "85090ad2253694526dda4e2e54802158cf229d98477169bc25e77396bdc963b9"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Command.ts",
+        "sha256": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Condition.ts",
+        "sha256": "1b4c8c906cab11745535ffe84f169a48767c88c26336f3b46f45cf7d59f08083"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Debug.ts",
+        "sha256": "942fc7e3bdf1b15f31708bad0ab02c0789a037b707a566e2cb860b43f9b5c3ff"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Decode.ts",
+        "sha256": "a8e8e91e5dffc15718ba8d3ecbea1007b386117af12764df4238356600bd82df"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Definition.ts",
+        "sha256": "96054da50280f6dca44fd97dbd126e597f1492c9737e34329adf3f1cda1b325f"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Descriptor.ts",
+        "sha256": "03e7339516d9f6bd455763a8dcdf7244d0c11f7165e493aa895aaa64225acab7"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Entity.ts",
+        "sha256": "05d724f241b2d662a7a03ce82da5f133c4b587df92e5e22fdfdb7484edbca68e"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/EntityScope.ts",
+        "sha256": "3241a13ed0c337434e193e80a790498a9130ea31d4aca1f73294a5af2c50b04a"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Feature.ts",
+        "sha256": "bf3be7437c63c1f12d8b0ff0f1a4965408331fad7a279669ef7c9b2cb29140a8"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Fx.ts",
+        "sha256": "75242b8513225601589f4658d59c86100351557fef39cc8d17506c958dd2c5b3"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Inspector.ts",
+        "sha256": "21757eb340c0ae192a36726538d0a87aefbd455859d196dab36aa3515c1addb3"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Machine.ts",
+        "sha256": "a0007e841e07afb10a40ab8f3056691a3555cd6815b4564f5f1326e0e956ceb3"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Query.ts",
+        "sha256": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Relation.ts",
+        "sha256": "7c2cbe93d90c6ca4f173932c9bb7e4536323d6b5bf17dc64c1c8fda83c3a7aa4"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Requirement.ts",
+        "sha256": "0397bbf69285e1f50edafdceab81b48208c0127fe53ff0305e52d6a1b4766783"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Result.ts",
+        "sha256": "96b098025e5e84b26bc97355ed1c463fe17f652954d2f83a83058e9817f7766c"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts",
+        "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Schedule.ts",
+        "sha256": "ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Schema.ts",
+        "sha256": "26e7c140a6f3c2a98ea4e43c1f067a18e47c03ff6f56939c8139f1535ae1a0ec"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Snapshot.ts",
+        "sha256": "249f57c429d97e57088ebb1e959b6258dd97ca71c9cc66a0a4ed6ac35ad04a3b"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/System.ts",
+        "sha256": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts",
+        "sha256": "a74d79748f5eff6e9f732b54ed6efc0a42826e4cf8ffc7ab9504d11257e6d61f"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/brand.ts",
+        "sha256": "7b888113edd48ea9777880fa85fc159428b78ac82587ca43eda8f1bbec4cc1b0"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/cells.ts",
+        "sha256": "adbf5e99cb1d40e284aee9ce3b1ddeefdcb10e0e1420be5bda91f58a96afe41e"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/debug.ts",
+        "sha256": "944a9858586dcf8ad58e66efd92b05c437c0be23afe517fabe00642d7bf4e338"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/definition.ts",
+        "sha256": "543dee934661802fb57cb75a8faec653112433a566ce31231fca33ffa8d36f92"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/fragments.ts",
+        "sha256": "4220e09fcc78e50cecd05ec373f57a278a5c33fbd51c53cbb2f7d57c6593ba68"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/game.ts",
+        "sha256": "b1584dbe4c579783e4b2fae802a25e6af95384972e15ffccd2b868d6ba879773"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/queries.ts",
+        "sha256": "382ce3b334df1bb7f4d0c4c19c17827b2343cae8a68ba7f562e9e732b6a5a4ab"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/result.ts",
+        "sha256": "87570330858b0b41bed22be9661bd9e3b04f67e7004998082e6a83cbb1ce1c89"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/streams.ts",
+        "sha256": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e"
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/world.ts",
+        "sha256": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7"
+      }
+    ],
+    "reference": {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/parity-58-snapshot-research/experiments/public-snapshot/persistence-gate-v1/basic-world-v1/reference.mjs",
+      "sha256": "3f634b7410d0dc32a0076f5a23e2d1da232a23daba4f4313808cafb2e46d1da6"
+    },
+    "node": {
+      "path": "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+      "sha256": "23a5637c2470fde09fcc1acc77c1b92e04e3d7e3e6e80ff7df6f5831958d1477"
+    },
+    "scope": "Historical accepted TS basic-save execution only; no fresh run/current collector or whole physical-report parity claim",
+    "aliasDifference": "TS retained snapshots alias live arrays; Bend retained Data snapshots stay unchanged. This difference is explicit, not normalized away."
+  },
+  "retainedRoles": {
+    "normal-js": {
+      "planPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/runtime-js01/plan.json",
+      "planSHA256": "a6b7642882f322fce906579ac508a2c3bb172f8961aee7ba1f72c2eee3cafe76",
+      "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/runtime-js01/receipt.json",
+      "receiptSHA256": "58e90c578a46c20c01e4af19eb25c06c2e99d32efbfc65f395707ace05bb31af",
+      "originalStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "posthoc": false,
+      "freshExecutionForCorrectedOracle": true,
+      "expectedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save-oracle/experiments/public-snapshot/ordinary-constructor-save-v1/independent-oracle-v1/expected.stdout",
+      "expectedSHA256": "c381bdeab1e75d6ecbe893baabc2e901ee162499c2e59d838f7cdaa0a9a201dc",
+      "expectedBytes": 9605,
+      "expectedGzipPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save-oracle/experiments/public-snapshot/ordinary-constructor-save-v1/independent-oracle-v1/expected.stdout.gz",
+      "expectedGzipSHA256": "35e7ce122c67bedea48d357a9a731d74a2da11951dad2371cbe9d80c4906ec55"
+    },
+    "normal-native": {
+      "planPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/runtime-native01/plan.json",
+      "planSHA256": "a75eb296735db9d5eb76df0da24ef92bac31885e001f3d0f6a03a1ef5eae0897",
+      "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/runtime-native01/receipt.json",
+      "receiptSHA256": "2782e333bf53faa3f12489b1214049c50fc18de5e19079a6f35f5ad6890e497e",
+      "originalStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "posthoc": false,
+      "freshExecutionForCorrectedOracle": true,
+      "expectedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save-oracle/experiments/public-snapshot/ordinary-constructor-save-v1/independent-oracle-v1/expected.stdout",
+      "expectedSHA256": "c381bdeab1e75d6ecbe893baabc2e901ee162499c2e59d838f7cdaa0a9a201dc",
+      "expectedBytes": 9605,
+      "expectedGzipPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save-oracle/experiments/public-snapshot/ordinary-constructor-save-v1/independent-oracle-v1/expected.stdout.gz",
+      "expectedGzipSHA256": "35e7ce122c67bedea48d357a9a731d74a2da11951dad2371cbe9d80c4906ec55"
+    },
+    "admission-bypass-js": {
+      "planPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/admission-bypass-v1/runtime-js01/plan.json",
+      "planSHA256": "da51c6d946b1174eb7a61e75144d0edf85ab25ef665aa1e7cac4c231691e6505",
+      "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/admission-bypass-v1/runtime-js01/receipt.json",
+      "receiptSHA256": "873d88141f104095b4bbdf472df3b48b857db8235aa3a5b145679e708a3b844b",
+      "originalStatus": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+      "posthoc": false,
+      "freshExecutionForCorrectedOracle": true,
+      "expectedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save-oracle/experiments/public-snapshot/ordinary-constructor-save-v1/admission-bypass-v1/independent-counter-oracle-v1/expected.stdout",
+      "expectedSHA256": "a1fa43c7e45b0ffcfcb89fe5d76e2946b1b1462a47a452d2791f95137166317b",
+      "expectedBytes": 9286,
+      "expectedGzipPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save-oracle/experiments/public-snapshot/ordinary-constructor-save-v1/admission-bypass-v1/independent-counter-oracle-v1/expected.stdout.gz",
+      "expectedGzipSHA256": "66e14b6756865c87826aea4c280723d25391a22284ec6bc708cf8ee93e9698d4"
+    },
+    "included-transient-retained-js": {
+      "planPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/included-transient-v1/runtime-js01/plan.json",
+      "planSHA256": "386abf82ca1dbe42de39c4344f03d8a8483ba998e866bc526efe9ec87e170cfb",
+      "receiptPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save/experiments/public-snapshot/ordinary-constructor-save-v1/included-transient-v1/runtime-js01/receipt.json",
+      "receiptSHA256": "379806a18c599044021b18343467b75c29ab0b670b1327c42519b4bb91e999d3",
+      "originalStatus": "INCOMPLETE",
+      "posthoc": true,
+      "freshExecutionForCorrectedOracle": false,
+      "expectedPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save-oracle/experiments/public-snapshot/ordinary-constructor-save-v1/included-transient-v1/independent-counter-oracle-v2/expected.stdout",
+      "expectedSHA256": "d661d6387d5c51fa6d52317b5e40258af116a764f453f023c1a7f0a668344e71",
+      "expectedBytes": 10217,
+      "expectedGzipPath": "/workspace/formal-proofs/bendvy-worktrees/snapshot58-ordinary-constructor-save-oracle/experiments/public-snapshot/ordinary-constructor-save-v1/included-transient-v1/independent-counter-oracle-v2/expected.stdout.gz",
+      "expectedGzipSHA256": "c63d8079bbf05b471ffbd8e3412e2b4f60ffed2cd16a39ede7fa4e750bce7790"
+    }
+  },
+  "offlineVerification": {
+    "command": "python3 experiments/public-snapshot/ordinary-constructor-save-delivery-v1/verify.py",
+    "exit": 0,
+    "result": "PASS_RETAINED_BASIC_SNAPSHOT 208 members; 4 roles; 10 malformed controls; 4 source models; transient posthoc NOT_FRESH_RUN",
+    "compilerBackendExecutions": 0
+  },
+  "currentTailJoinReferences": [
+    "docs/parity/bundles.md",
+    "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/current-source-v1/README.md",
+    "experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/current-source-v1/independent-review-v2/FINAL-REVIEW.md"
+  ],
+  "uncoveredClaims": [
+    "No fresh relocated backend execution",
+    "Original included-transient receipt remains INCOMPLETE; independently corrected full-output validation is posthoc",
+    "No cross-world handle argument exists in Save.save; no foreign-save invocation invented",
+    "No graph/machine snapshot, runtime checkpoint, restore, universal ownership proof or performance qualification"
+  ]
+}

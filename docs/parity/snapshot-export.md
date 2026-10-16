@@ -10,10 +10,10 @@ An application exports basic entities, components, resources and allocator progr
 
 ## Acceptance criteria
 
-- [ ] Observe pinned snapshot version/name keys, descriptor validation gate, transient omissions and basic field coverage. Publish the exact snapshot contract and explicit difference between world save and runtime checkpoint.
-- [ ] Implement an ownership-safe independent representation using explicit codecs/projections for affine payloads; test post-save live mutation and save lifetime without relying on TS shared object aliases.
-- [ ] Reject unvalidated saved descriptors at the advertised boundary; preserve transient resources and live owners. Basic save may precede graph/machine extension but is not full snapshot parity.
-- [ ] Detect a reached included-transient/aliased-save mutant; serializer/JSON host integration must not assume a new dependency.
+- [x] Observe pinned snapshot version/name keys, descriptor validation gate, transient omissions and basic field coverage. Publish the exact snapshot contract and explicit difference between world save and runtime checkpoint.
+- [x] Implement an ownership-safe independent representation using explicit codecs/projections for affine payloads; test post-save live mutation and save lifetime without relying on TS shared object aliases.
+- [x] Reject unvalidated saved descriptors at the advertised boundary; preserve transient resources and live owners. Basic save may precede graph/machine extension but is not full snapshot parity.
+- [x] Detect a reached included-transient/aliased-save mutant; serializer/JSON host integration must not assume a new dependency.
 
 ## Blocked by
 
@@ -32,4 +32,19 @@ An application exports basic entities, components, resources and allocator progr
 
 ## Current evidence
 
-The qualified producer of the [ordinary constructor/save consumer](../../experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/README.md) passes the complete 9,605-byte two-schema report on JS and stock Native O3. Its repository-relative successor is source-checked and import-inverse matched, without a backend replay. It observes affine owners, independent repeated saves and post-save live mutation. The [retained delivery](../../experiments/public-snapshot/ordinary-constructor-save-delivery-v1/README.md) detects constructor bypass and included-transient defects; the latter uses independently corrected full-output revalidation while preserving its original INCOMPLETE receipt. Historical executed TS evidence matches all six shared snapshots under its documented scope. Feature timing/scaling and full #58 acceptance remain open; no restore or checkpoint policy is adopted here.
+The qualified producer of the [ordinary constructor/save consumer](../../experiments/public-snapshot/ordinary-constructor-save-v1/root-input-v1/README.md) passes the complete 9,605-byte two-schema report on JS and stock Native O3. Its repository-relative successor is source-checked and import-inverse matched, without a backend replay. It observes affine owners, independent repeated saves and post-save live mutation. The [retained delivery](../../experiments/public-snapshot/ordinary-constructor-save-delivery-v1/README.md) detects constructor bypass and included-transient defects; the latter uses independently corrected full-output revalidation while preserving its original INCOMPLETE receipt. Historical executed TS evidence matches all six shared snapshots under its documented scope. The current-source reconciliation below resolves basic-save semantic acceptance; no restore or checkpoint policy is adopted here.
+
+## Semantic acceptance reconciliation
+
+The [current source join and criterion ledger](../../experiments/public-snapshot/ordinary-constructor-save-delivery-v1/current-source-reconciliation-v1/README.md)
+and [independent final review](../../experiments/public-snapshot/ordinary-constructor-save-delivery-v1/current-source-reconciliation-v1/FINAL-REVIEW.md)
+cover all four basic-save criteria. Complete two-schema JS/Native reports, actual
+TS shared snapshots, typed eligibility refusals, independent retained saves and
+reached defects are qualified within their recorded scope. The included-transient
+correction remains posthoc; its original INCOMPLETE receipt is unchanged.
+
+Thirty canonical dependencies, sixteen fixture bodies and both namespace
+sidecars match exactly; the remaining World change preserves the always-empty
+pending-list path reached here. No new execution is inferred from this join.
+Integration/CI publication is pending. Combined #21/#23/#24 performance and
+separate #59/#60 restore/extended save obligations remain open.
