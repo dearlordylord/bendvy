@@ -1199,3 +1199,7 @@ pre-freeze review. The existing ordinary collector and portable verifier were
 reused; no production core, new runner or comparative campaign was needed.
 This demonstrates a concrete missing-observation repair before backend execution,
 not a measured overall delivery-speed improvement.
+
+The #38 authority/rollback packet integrated at `831c9b332`; CI38839909825
+passed and the governing issue received the bounded completion report. The issue
+remains open for its other criteria and unresolved identity policies.
