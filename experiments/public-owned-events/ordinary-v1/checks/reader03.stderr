@@ -1,0 +1,18 @@
+SOME PROOFS FAIL
+Error:
+- expected : a decreasing self-call (arguments are read left to right: each passed unchanged until one shrinks)
+- observed : fold_rows
+Context:
+- world     : W.World<fold_rows~S, fold_rows~C, Storage.Resources<fold_rows~R, fold_rows~P>, Nat>
+- key       : Nat
+- remaining : List<&2, Nat>
+- args      : fold_rows~Args
+- lagged    : Bool
+- nextWorld : W.World<fold_rows~S, fold_rows~C, Storage.Resources<fold_rows~R, fold_rows~P>, Nat>
+- nextArgs  : fold_rows~Args
+Location: fold_rows
+27 |     case []:stopped(~S,~C,~R,~P,~Args,~Error,world,args,T.Success{},lagged)
+28>|     case key <> remaining:visited(~S,~C,~R,~P,~Args,~Error,lagged,nextWorld => nextArgs => fold_rows(~S,~C,~R,~P,~Request,~Projection,~Args,~Error,~identity,~at,~body,nextWorld,remaining,nextArgs,lagged),Storage.read(~S,~C,~R,~P,~Request,~Projection,~Args,~(T.Outcome<Error> & Args),~at,~body,world,key,args))
+   |                                                                                            ^^^^^^^^^
+29 | def transported(~S:Data,~C:Type,~R:Type,~P:Type,~Args:Type,~Error:Data,result:W.World<S,C,Storage.Resources<R,P>,Nat> & Reply<Error,Args>) -> Sys.Outcome<W.World<S,C,Storage.Resources<R,P>,Nat>,Unit,Reply<Error,Args>>:
+bend 2.0.37 is available: run bend update

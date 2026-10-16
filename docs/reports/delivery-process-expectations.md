@@ -1447,3 +1447,38 @@ the original failed-oracle attempt remains immutable. Per-family reader source
 and await independent oracle/backend qualification. Reader/query/resource
 composition, authority and mutation remain acceptance gates. These
 are observed delivery steps and preserved checks, not an overall speedup measure.
+
+The final-family blind application `aed70b746` passed stock JS and Native on
+the first attempts against its complete independent 10,193-byte oracle
+`b42f24158`. Packet `68a1d9f3f` preserves both results; no output/model repair
+or replay was needed. Actual-entry authority controls `4538fedbe` passed two
+positives and rejected nine intended misuse cases. The unchanged collector and
+focused pinned checks were reused; combined reader/query/resource delivery and
+final acceptance remain pending, with no measured process-speedup claim.
+
+Combined reader/query/resource source `edc8fb566` passed stock JS and Native
+first attempts against all 48,711 independently derived bytes (`4ce4d58be`);
+portable packet `a4561ad39` retains both results. Direct nominal IO chains removed
+a development-only template-depth failure without changing the compiler, limits
+or scenario; original diagnostics remain preserved. Combined-grant controls
+`cc2fa3125` pass two positives and reject eight intended misuses. Independent
+review confirms the unchanged 23-source protected regression closure and reuse
+applicability. Full reader lifecycle and reached-retirement-loss checks remain.
+
+The independent final review found source/model mismatches in the first normal
+family-reader oracle `53ce7a6d9` before execution: capacity units, retention
+boundary and nested projection (lag and line framing were also flagged for
+recheck). Plans `09a0d6173` were sealed but held without launching either backend.
+The original model/plans remain immutable; correction follows frozen source,
+not runtime output. This is a concrete defect found by the existing review,
+not evidence of measured overall delivery acceleration.
+
+The corrected reader oracle `1a117f417` passed its first actual JS/Native
+executions (90,973 complete bytes); the reached retirement-loss variant
+`465683a90` passed both 90,719-byte counters and rejected the complete normal
+result. Packets `022650a66` and `0a18bc059` retain all raw joins. The single
+independent final Spec/Standards review is PASS with no unresolved finding.
+No compiler, runner, acceptance cap or performance threshold changed. Exact
+owned integration preserves unrelated WIP; configured integration CI follows.
+These outcomes show actual use of focused checks, batching and source-bound
+scenario controls; overall delivery speedup remains unmeasured.

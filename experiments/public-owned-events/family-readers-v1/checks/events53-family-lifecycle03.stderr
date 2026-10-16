@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : tick
+- observed : tick (consumed more than once)
+Context:
+- world : W.World<positioned~S, positioned~C, positioned~R, positioned~E>
+Location: positioned
+12 |     case Stream.Stream{domain,batches,positions,nextReader,frameStart,boundary,capacity,dropped}:Stream.Stream{domain,batches,Ev.update(positions,id,tick,dispose),nextReader,frameStart,boundary,capacity,dropped}
+13>| def positioned(~S:Data,~C:Type,~R:Type,~E:Data,~F:Type,~take:F -> F & Stream.Stream<S,Nat>,~put:F -> Stream.Stream<S,Nat> -> F,world:W.World<S,C,R,E>,tick:Nat,id:U32,dispose:Bool,returned:F & Stream.Stream<S,Nat>) -> Route.Runtime<S,C,R,E,F>:
+   |                                                                                                                                                       ^^^^
+14 |   match returned:
+bend 2.0.37 is available: run bend update

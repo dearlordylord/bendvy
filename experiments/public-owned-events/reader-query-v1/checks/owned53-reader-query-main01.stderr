@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template that stops instantiating itself (64 levels at most)
+- observed : indexed_ensure_sized
+Context:
+- target   : U32
+- values   : Array<Maybe<&1, U32>>
+- metadata : M.Metadata
+Location: indexed_ensure_state~0
+68 |   match state:
+69>|     case IndexedOrdinaryState{values,metadata}: indexed_ensure_sized(~S,~C,target,metadata,Array.size(Maybe<&1,C>,values))
+   |                                                 ^^^^^^^^^^^^^^^^^^^^
+70 | def unseal(~S:Data,~C:Type,carrier:Carrier<S,C>) -> State<S,C>:
+bend 2.0.37 is available: run bend update

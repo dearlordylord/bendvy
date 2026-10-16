@@ -1,0 +1,11 @@
+--- a/src/ecs/owned-event-log.bend
++++ b/src/ecs/owned-event-log.bend
+@@ -30,7 +30,7 @@
+ def partitioned(~P:Type,keep:Bool,row:Row<P>,result:List<Row<P>> & List<Row<P>>) -> List<Row<P>> & List<Row<P>>:
+   match keep result:
+     case True{}, (retained,retired):(row <> retained,retired)
+-    case False{}, (retained,retired):(retained,row <> retired)
++    case False{}, (retained,retired):(retained,retired)
+ def partition(~P:Type,rows:List<Row<P>>,+ids:List<&2,Nat>) -> List<Row<P>> & List<Row<P>>:
+   match rows:
+     case []:([],[])

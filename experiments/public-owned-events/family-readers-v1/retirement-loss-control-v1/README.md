@@ -1,0 +1,7 @@
+# Retirement receipt owner-loss control
+
+Base `21ddb0860`. `source/` and deterministic `source.tar.gz` retain the complete reader subject: 89 Bend bodies plus the namespace C/JS sidecars. `SOURCE-FREEZE.json` joins every normal SHA to the copied body. Only `src/ecs/owned-event-log.bend` changes: `partitioned` False returns `(retained,retired)` instead of `(retained,row <> retired)`. The inverse is exact; `mutation.patch` records the sole expression. Normal sources and observers are unchanged.
+
+The declared frame path is scenario `step_frame1/step_frame2` → `Fixture.frame` → canonical ordinary reader `frame` → maintenance `FR.frame` then `collect(False)` → actual catalog `pair_retain` → `Log.retain/retire/partition/partitioned`. The altered False arm discards an actual retiring row's payload instead of returning it in the receipt; the retained log and other arms remain unchanged. Scenario `frame_returned` passes the actual receipt to `View.retired` in the full trace. No expected output is authored here; independent model/runtime must qualify reached divergence.
+
+Pinned stock 5-second checks on CPU 5: concrete `source-control.bend` exit 0 (`ALL PROOFS CHECK`); real IO `main.bend` exit 1 with exactly six foreign-dependent defs (`world-namespace.fresh`, `world-io.create`, `first`, `run`, `workshop`, `main`). These foreign diagnostics are not a complete source PASS. Commands, hashes and complete raw logs are retained under `checks/` and `CHECKS.json`. No backend was launched.

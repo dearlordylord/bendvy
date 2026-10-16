@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : code
+- observed : code (consumed more than once)
+Location: at
+43 | def at(payload:Manifest,_:Unit) -> Manifest & List<&2,U32>:
+44>|   Manifest{code,slots} = payload
+   |            ^^^^
+45 |   bind(Array<U32>,List<&2,U32>,Manifest & List<&2,U32>,projected(slots),slots => values => (
+bend 2.0.37 is available: run bend update

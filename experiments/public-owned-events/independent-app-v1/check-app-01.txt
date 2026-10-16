@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'result' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+57 |   M.bind(M.Runtime(),M.Publisher() & String,State,Ev.with_world(~M.Schema,~Unit,~Store.Resources<Array<U32>,M.Manifest>,~Nat,~M.Publisher() & String,pub_effect(publisher,M.PublishArgs{fail,M.Manifest{code,M.array(seed)}}),runtime),runtime => result => (
+58>|     (publisher,text) = result
+   |                        ^^^^^^
+59 |     State{runtime,publisher,fast,fr,slow,sr,fa,sa,report ++ text ++ "\n"}))
+bend 2.0.37 is available: run bend update

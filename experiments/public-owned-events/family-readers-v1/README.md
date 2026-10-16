@@ -1,0 +1,11 @@
+# Ordinary owned event family readers
+
+The ordinary Setup derives the payload-log path, publication route, declared domain, complete Data stream provision and selected stream together. This consumer has independent Cargo readers, an Alerts reader with the same affine payload type, and a Crates reader with a different affine payload type. A complete leaf/both Catalog derives retirement for every log and stream; selected-reader metadata cannot substitute for that catalog.
+
+The sequence publishes through the qualified standalone ordinary publisher, reads through confined request grants, fails an entered reader and retries with its actual returned Args, checks foreign-world refusal, skips an existing reader, advances frames and bounded retention, returns all retired owners, shuts down twice, then disposes the real reader registrations. Snapshots retain complete runtime streams and ordered journal, World/log/resource owners, all reader and Registry fields, Args and typed retired payload trees. The four physical component slots are observed through logical IDs 1–4. No component mutations or pending commands occur in this fixture.
+
+Source checks: the concrete pure Workshop entry passes. The actual WorldIO entry has only the six expected foreign-dependent definitions; this is not a whole-entry proof. Runtime/oracle qualification is pending. Historical repair diagnostics remain under checks; they are not current-source failures.
+
+Raw Setup/Catalog/World constructors and direct engine callbacks remain trusted administration. Ordinary leaf/left/right/under_resource and Catalog leaf/both derive the paired paths and maintenance functions. Semantic reader failure preserves its affine Args and restores the established Data reader-position behavior; payload owners remain in their routed logs. The transport-failure fallback is visibly marked UNEXPECTED and is not an ordinary reachable semantic failure claim.
+
+This fixture does not establish simultaneous reader/query/resource gameplay grants, arbitrary user callback preservation, automatic IO finalization, scaling, or whole #53 acceptance. Those remain separate acceptance work. Existing frozen publisher and single-family evidence is unchanged.

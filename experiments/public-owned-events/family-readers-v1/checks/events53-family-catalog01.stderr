@@ -1,0 +1,27 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Product.Owner<LA, LB> -> @_:List<&2, Publication.Publication<EA, EB>> -> Sigma<&1, &1, Product.Owner<LA, LB>, _ => Product.Owner<RA, RB>>
+- observed : @logs:Product.Owner<LA, LB> -> @+records:List<&2, Publication.Publication<EA, EB>> -> Sigma<&1, &1, Product.Owner<LA, LB>, _ => Product.Owner<RA, RB>>
+Context:
+- EA           : Data
+- LA           : Type
+- FA           : Type
+- RA           : Type
+- retainA      : @_:LA -> @_:List<&2, EA> -> Sigma<&1, &1, LA, _ => RA>
+- drainA       : @_:LA -> Sigma<&1, &1, LA, _ => RA>
+- clearA       : @_:FA -> FA
+- EB           : Data
+- LB           : Type
+- FB           : Type
+- RB           : Type
+- retainB      : @_:LB -> @_:List<&2, EB> -> Sigma<&1, &1, LB, _ => RB>
+- drainB       : @_:LB -> Sigma<&1, &1, LB, _ => RB>
+- clearB       : @_:FB -> FB
+- leftCatalog  : Catalog<EA, LA, FA, RA, retainA, drainA, clearA>
+- rightCatalog : Catalog<EB, LB, FB, RB, retainB, drainB, clearB>
+Location: both
+25 |     case Product.Owner{first,second}:Product.Owner{clearA(first),clearB(second)}
+26>| def both(~EA:Data,~LA:Type,~FA:Type,~RA:Type,~retainA:LA -> List<&2,EA> -> LA & RA,~drainA:LA -> LA & RA,~clearA:FA -> FA,~EB:Data,~LB:Type,~FB:Type,~RB:Type,~retainB:LB -> List<&2,EB> -> LB & RB,~drainB:LB -> LB & RB,~clearB:FB -> FB,~leftCatalog:Catalog<EA,LA,FA,RA,retainA,drainA,clearA>,~rightCatalog:Catalog<EB,LB,FB,RB,retainB,drainB,clearB>) -> Catalog<Publication.Publication<EA,EB>,Product.Owner<LA,LB>,Product.Owner<FA,FB>,Product.Owner<RA,RB>,pair_retain(~EA,~EB,~LA,~LB,~RA,~RB,~retainA,~retainB),pair_drain(~LA,~LB,~RA,~RB,~drainA,~drainB),pair_clear(~FA,~FB,~clearA,~clearB)>:Catalog{}
+   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+27 | 
+bend 2.0.37 is available: run bend update

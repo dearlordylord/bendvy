@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : '(left,lview) (right,rview)'
+Location:
+22 |   match left right:
+23>|     case (left,lview) (right,rview):(ANode{left,right},Node{lview,rview})
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+24 | def projected(markers:List<&2,U32>,result:Array<U32> & U32) -> Array<U32> & Projection:
+bend 2.0.37 is available: run bend update

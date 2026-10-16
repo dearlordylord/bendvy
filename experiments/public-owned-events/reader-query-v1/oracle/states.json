@@ -1,0 +1,938 @@
+[
+  [
+    {
+      "label": "registered",
+      "tick": 0,
+      "clock": 2,
+      "values": [
+        10,
+        20
+      ],
+      "stamps": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "user": [
+        100,
+        101
+      ],
+      "position": null,
+      "registry": 0,
+      "scratch": [
+        1,
+        2
+      ],
+      "fail": 0,
+      "observations": [],
+      "logCounts": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "label": "empty",
+      "tick": 1,
+      "clock": 2,
+      "values": [
+        10,
+        20
+      ],
+      "stamps": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "user": [
+        100,
+        101
+      ],
+      "position": [
+        1,
+        1,
+        0
+      ],
+      "registry": 2,
+      "scratch": [
+        1,
+        2
+      ],
+      "fail": 0,
+      "observations": [],
+      "logCounts": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "label": "publish1",
+      "tick": 2,
+      "clock": 2,
+      "values": [
+        10,
+        20
+      ],
+      "stamps": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "user": [
+        100,
+        101
+      ],
+      "position": [
+        1,
+        1,
+        0
+      ],
+      "registry": 2,
+      "scratch": [
+        1,
+        2
+      ],
+      "fail": 0,
+      "observations": [],
+      "logCounts": [
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "label": "committed",
+      "tick": 3,
+      "clock": 6,
+      "values": [
+        12,
+        22
+      ],
+      "stamps": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "user": [
+        104,
+        105
+      ],
+      "position": [
+        1,
+        3,
+        0
+      ],
+      "registry": 6,
+      "scratch": [
+        5,
+        2
+      ],
+      "fail": 0,
+      "observations": [
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ]
+      ],
+      "logCounts": [
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "label": "publish2",
+      "tick": 4,
+      "clock": 6,
+      "values": [
+        12,
+        22
+      ],
+      "stamps": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "user": [
+        104,
+        105
+      ],
+      "position": [
+        1,
+        3,
+        0
+      ],
+      "registry": 6,
+      "scratch": [
+        5,
+        2
+      ],
+      "fail": 0,
+      "observations": [
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ]
+      ],
+      "logCounts": [
+        4,
+        2,
+        2
+      ]
+    },
+    {
+      "label": "latefailed",
+      "tick": 5,
+      "clock": 10,
+      "values": [
+        12,
+        22
+      ],
+      "stamps": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "user": [
+        104,
+        105
+      ],
+      "position": [
+        1,
+        3,
+        0
+      ],
+      "registry": 6,
+      "scratch": [
+        9,
+        2
+      ],
+      "fail": 23,
+      "observations": [
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ]
+      ],
+      "logCounts": [
+        4,
+        2,
+        2
+      ]
+    },
+    {
+      "label": "retry",
+      "tick": 6,
+      "clock": 14,
+      "values": [
+        14,
+        24
+      ],
+      "stamps": [
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          14
+        ]
+      ],
+      "user": [
+        108,
+        109
+      ],
+      "position": [
+        1,
+        6,
+        0
+      ],
+      "registry": 14,
+      "scratch": [
+        13,
+        2
+      ],
+      "fail": 0,
+      "observations": [
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ]
+      ],
+      "logCounts": [
+        4,
+        2,
+        2
+      ]
+    },
+    {
+      "label": "nochange",
+      "tick": 7,
+      "clock": 14,
+      "values": [
+        14,
+        24
+      ],
+      "stamps": [
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          14
+        ]
+      ],
+      "user": [
+        108,
+        109
+      ],
+      "position": [
+        1,
+        7,
+        0
+      ],
+      "registry": 14,
+      "scratch": [
+        13,
+        2
+      ],
+      "fail": 0,
+      "observations": [
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ]
+      ],
+      "logCounts": [
+        4,
+        2,
+        2
+      ]
+    },
+    {
+      "label": "foreign",
+      "tick": 7,
+      "clock": 14,
+      "values": [
+        14,
+        24
+      ],
+      "stamps": [
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          14
+        ]
+      ],
+      "user": [
+        108,
+        109
+      ],
+      "position": [
+        1,
+        7,
+        0
+      ],
+      "registry": 14,
+      "scratch": [
+        13,
+        2
+      ],
+      "fail": 0,
+      "observations": [
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ]
+      ],
+      "logCounts": [
+        4,
+        2,
+        2
+      ]
+    }
+  ],
+  [
+    {
+      "label": "registered",
+      "tick": 0,
+      "clock": 2,
+      "values": [
+        10,
+        20
+      ],
+      "stamps": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "user": [
+        100,
+        101
+      ],
+      "position": null,
+      "registry": 0,
+      "scratch": [
+        1,
+        2
+      ],
+      "fail": 0,
+      "observations": [],
+      "logCounts": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "label": "empty",
+      "tick": 1,
+      "clock": 2,
+      "values": [
+        10,
+        20
+      ],
+      "stamps": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "user": [
+        100,
+        101
+      ],
+      "position": [
+        1,
+        1,
+        0
+      ],
+      "registry": 2,
+      "scratch": [
+        1,
+        2
+      ],
+      "fail": 0,
+      "observations": [],
+      "logCounts": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "label": "publish1",
+      "tick": 2,
+      "clock": 2,
+      "values": [
+        10,
+        20
+      ],
+      "stamps": [
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "user": [
+        100,
+        101
+      ],
+      "position": [
+        1,
+        1,
+        0
+      ],
+      "registry": 2,
+      "scratch": [
+        1,
+        2
+      ],
+      "fail": 0,
+      "observations": [],
+      "logCounts": [
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "label": "committed",
+      "tick": 3,
+      "clock": 6,
+      "values": [
+        12,
+        22
+      ],
+      "stamps": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "user": [
+        104,
+        105
+      ],
+      "position": [
+        1,
+        3,
+        0
+      ],
+      "registry": 6,
+      "scratch": [
+        5,
+        2
+      ],
+      "fail": 0,
+      "observations": [
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ]
+      ],
+      "logCounts": [
+        2,
+        1,
+        1
+      ]
+    },
+    {
+      "label": "publish2",
+      "tick": 4,
+      "clock": 6,
+      "values": [
+        12,
+        22
+      ],
+      "stamps": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "user": [
+        104,
+        105
+      ],
+      "position": [
+        1,
+        3,
+        0
+      ],
+      "registry": 6,
+      "scratch": [
+        5,
+        2
+      ],
+      "fail": 0,
+      "observations": [
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ]
+      ],
+      "logCounts": [
+        4,
+        2,
+        2
+      ]
+    },
+    {
+      "label": "latefailed",
+      "tick": 5,
+      "clock": 10,
+      "values": [
+        12,
+        22
+      ],
+      "stamps": [
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "user": [
+        104,
+        105
+      ],
+      "position": [
+        1,
+        3,
+        0
+      ],
+      "registry": 6,
+      "scratch": [
+        9,
+        2
+      ],
+      "fail": 23,
+      "observations": [
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ]
+      ],
+      "logCounts": [
+        4,
+        2,
+        2
+      ]
+    },
+    {
+      "label": "retry",
+      "tick": 6,
+      "clock": 14,
+      "values": [
+        14,
+        24
+      ],
+      "stamps": [
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          14
+        ]
+      ],
+      "user": [
+        108,
+        109
+      ],
+      "position": [
+        1,
+        6,
+        0
+      ],
+      "registry": 14,
+      "scratch": [
+        13,
+        2
+      ],
+      "fail": 0,
+      "observations": [
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ]
+      ],
+      "logCounts": [
+        4,
+        2,
+        2
+      ]
+    },
+    {
+      "label": "nochange",
+      "tick": 7,
+      "clock": 14,
+      "values": [
+        14,
+        24
+      ],
+      "stamps": [
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          14
+        ]
+      ],
+      "user": [
+        108,
+        109
+      ],
+      "position": [
+        1,
+        7,
+        0
+      ],
+      "registry": 14,
+      "scratch": [
+        13,
+        2
+      ],
+      "fail": 0,
+      "observations": [
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ]
+      ],
+      "logCounts": [
+        4,
+        2,
+        2
+      ]
+    },
+    {
+      "label": "foreign",
+      "tick": 7,
+      "clock": 14,
+      "values": [
+        14,
+        24
+      ],
+      "stamps": [
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          14
+        ]
+      ],
+      "user": [
+        108,
+        109
+      ],
+      "position": [
+        1,
+        7,
+        0
+      ],
+      "registry": 14,
+      "scratch": [
+        13,
+        2
+      ],
+      "fail": 0,
+      "observations": [
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ],
+        [
+          900,
+          2
+        ],
+        [
+          901,
+          2
+        ]
+      ],
+      "logCounts": [
+        4,
+        2,
+        2
+      ]
+    }
+  ]
+]

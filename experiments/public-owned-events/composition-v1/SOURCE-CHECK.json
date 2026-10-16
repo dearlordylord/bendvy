@@ -1,0 +1,77 @@
+{
+  "compiler": "/home/node/.bend/bin/bend-2.0.35",
+  "compilerSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "checks": [
+    {
+      "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/src/ecs/ordinary-owned-event-query.bend",
+      "sourceSHA256": "03780a834d4817032ed2ffe87ed59343a007816383a448d604d7dc47a4c7fe20",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/src/ecs/ordinary-owned-event-query.bend"
+      ],
+      "capSeconds": 5,
+      "exitCode": 0,
+      "raw": {
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/checks/module01.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/checks/module01.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+      }
+    },
+    {
+      "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/fixture.bend",
+      "sourceSHA256": "a4bb51f605c27b7f90ea40ffaa100d3cc194a8c5505017810f152b360730fb9c",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/fixture.bend"
+      ],
+      "capSeconds": 5,
+      "exitCode": 0,
+      "raw": {
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/checks/fixture03.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/checks/fixture03.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+      }
+    },
+    {
+      "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/scenario.bend",
+      "sourceSHA256": "d5d0b7fd1a85839a3f6b77bfb148d4ca567cac15896478297bac31cbfe0cb3d8",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/scenario.bend"
+      ],
+      "capSeconds": 5,
+      "exitCode": 0,
+      "raw": {
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/checks/scenario01.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/checks/scenario01.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+      }
+    },
+    {
+      "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/main.bend",
+      "sourceSHA256": "93aa0aa44660029d8ed6f9be9d8b5aec3a129a9f81a9f86acdc10e628419ed89",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/main.bend"
+      ],
+      "capSeconds": 5,
+      "exitCode": 1,
+      "raw": {
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/checks/main01.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/checks/main01.stderr": "85dd0387ed78dfe8e32fe3ba3390a0eac22eb8e3fba96c36eefa8fb134e4fbcc"
+      }
+    },
+    {
+      "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/source-control.bend",
+      "sourceSHA256": "ae75851f4fd73738f083339e0d309b54264fb1abd8ae9e188d2c7dd0dd9ad1cd",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/source-control.bend"
+      ],
+      "capSeconds": 5,
+      "exitCode": 0,
+      "raw": {
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/checks/concrete01.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/composition-v1/checks/concrete01.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+      }
+    }
+  ],
+  "limitation": "IO main exits1 only six foreign-dependent definitions; no parser/type/affine failures. Pure concrete source-control main PASS0. Finite source checks are not universal proofs."
+}

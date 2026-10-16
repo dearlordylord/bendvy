@@ -81,10 +81,10 @@ callbacks, permanent key ledgers and fixture namespace corruption are not adopte
 
 ## Acceptance criteria
 
-- [ ] Observe pinned event-value aliasing and identify where it is incompatible with Bend ownership. Specify storage-owner/projection, independent reader, retention and disposal contracts; seek approval for any behavioral divergence before implementation.
-- [ ] Execute actual publication with owned Array payloads and independent fast/slow/skipped/failed readers. Preserve complete payload contents, cursor rules, lag and one-time disposal without duplicating Type.
-- [ ] Do not restrict every event to Data merely to make fan-out easy; no-copy shared mutation is not implied. Demonstrate the supported public contract in an independently authored application.
-- [ ] Detect a reached payload loss/early disposal mutation and retain the existing Data event API. An expressibility report alone does not pass.
+- [x] Observe pinned event-value aliasing and identify where it is incompatible with Bend ownership. Specify storage-owner/projection, independent reader, retention and disposal contracts; seek approval for any behavioral divergence before implementation.
+- [x] Execute actual publication with owned Array payloads and independent fast/slow/skipped/failed readers. Preserve complete payload contents, cursor rules, lag and one-time disposal without duplicating Type.
+- [x] Do not restrict every event to Data merely to make fan-out easy; no-copy shared mutation is not implied. Demonstrate the supported public contract in an independently authored application.
+- [x] Detect a reached payload loss/early disposal mutation and retain the existing Data event API. An expressibility report alone does not pass.
 
 ## Blocked by
 
@@ -99,6 +99,31 @@ callbacks, permanent key ledgers and fixture namespace corruption are not adopte
 - Use before/after JS call and allocation profiles for a consequential performance change; report allocation sampling separately from physical/RSS memory. Optimize demonstrated bottlenecks while completing features. The scoped #30 amendment is not a global gate waiver; full performance remains under #21/#23/#24.
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
+
+## Semantic acceptance — 2026-10-16
+
+[Independent final Spec/Standards review](../../experiments/public-owned-events/ordinary-v1/FINAL-REVIEW.md)
+passes the complete selected owned-event contract. Canonical declarations derive
+family routing, grants and stream selection; arbitrary affine payloads and
+independent readers compose with query/resource gameplay in one transaction.
+
+Stock JS and Native match complete independently derived outputs for three-family
+publication (21,529 bytes), blind application adoption (10,193), combined
+reader/query rollback (48,711) and full reader lifecycle (90,973). The reached
+retirement-owner-loss variant matches its 90,719-byte counter and rejects the
+complete normal result on both backends. Actual-entry authority controls and
+source-bound TS applicability are included in the review.
+
+The first reader oracle and held plans remain unexecuted history. Six source-only
+review findings were corrected before either reader backend ran. Existing Data
+APIs and all 23 protected #28 source bodies remain unchanged; qualified stock
+artifact evidence is reused. No full-feature timing, universal proof, physical
+finalization or provider-purity claim follows. Combined performance remains
+#21/#23/#24 with the existing final JS/Native targets. Integration CI and issue
+reporting follow this semantic acceptance.
+
+The preparation sections below are preserved history; the selected ownership
+boundary and joined final review above govern current delivery.
 
 ## Detached staging implementation preparation
 

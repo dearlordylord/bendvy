@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a declared constructor (unknown: ../../../src/ecs/component.Present)
+Location:
+46 |   match result:
+47>|     case (owner,Cmp.Present{value}):counted(~H,~caps,observation,args,value,Cap.value_get(~H,~Array<U32>,~U32,~Pair.snd(Cap.Write<H,U32,U32>,Cap.ValueWrite<H,Array<U32>,U32>,caps),owner))
+   |                 ^^^^^^^^^^^^^^^^^^
+48 |     case (owner,_):(owner,(observation,(args,(T.Failure{Missing{}},0))))
+bend 2.0.37 is available: run bend update

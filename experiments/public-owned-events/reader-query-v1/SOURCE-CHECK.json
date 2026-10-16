@@ -1,0 +1,35 @@
+{
+  "compiler": "/home/node/.bend/bin/bend-2.0.35",
+  "compilerSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "checks": [
+    {
+      "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/reader-query-v1/source-control.bend",
+      "sourceSHA256": "116f21242399ae3becd3eb639a3943a1607f82e6c8dc3df5062f42e5f3c2eead",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/reader-query-v1/source-control.bend"
+      ],
+      "capSeconds": 5,
+      "exitCode": 0,
+      "raw": {
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/reader-query-v1/checks/owned53-reader-query-concrete01.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/reader-query-v1/checks/owned53-reader-query-concrete01.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+      }
+    },
+    {
+      "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/reader-query-v1/main.bend",
+      "sourceSHA256": "9b7de12a7a3f3b120fa5c156564e332f79a2f416c7a10c151ad5b7299d8603a0",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/reader-query-v1/main.bend"
+      ],
+      "capSeconds": 5,
+      "exitCode": 1,
+      "raw": {
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/reader-query-v1/checks/owned53-reader-query-main02.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/reader-query-v1/checks/owned53-reader-query-main02.stderr": "738c346137bf10768855df371b2455851eb4ea9d436c3c48bb917ec9f538e07d"
+      }
+    }
+  ],
+  "limitation": "IO main exits1 only six foreign-dependent definitions; no parser/type/affine failures. Pure concrete source-control main PASS0. Finite source checks are not universal proofs. Other retained diagnostics are authoring history, not current-source PASS claims."
+}

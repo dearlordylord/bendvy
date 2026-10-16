@@ -1,0 +1,35 @@
+{
+  "compiler": "/home/node/.bend/bin/bend-2.0.35",
+  "compilerSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "checks": [
+    {
+      "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/families-v1/source-control.bend",
+      "sourceSHA256": "6b4d812146cea50239afcd4c8050abd042df35ec2783aa8f05e204b32a778d79",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/families-v1/source-control.bend"
+      ],
+      "capSeconds": 5,
+      "exitCode": 0,
+      "raw": {
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/families-v1/checks/owned-event-families-concrete03.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/families-v1/checks/owned-event-families-concrete03.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+      }
+    },
+    {
+      "entrypoint": "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/families-v1/main.bend",
+      "sourceSHA256": "ae32a07e1e88fa471b15532ed26b3a09efebd8f3b7d7e867d3a02d9caa038a01",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/families-v1/main.bend"
+      ],
+      "capSeconds": 5,
+      "exitCode": 1,
+      "raw": {
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/families-v1/checks/owned-event-families-main01.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/families-v1/checks/owned-event-families-main01.stderr": "85dd0387ed78dfe8e32fe3ba3390a0eac22eb8e3fba96c36eefa8fb134e4fbcc"
+      }
+    }
+  ],
+  "limitation": "IO main exits1 only six foreign-dependent definitions; no parser/type/affine failures. Pure concrete source-control main PASS0. Finite source checks are not universal proofs. Other retained diagnostics are authoring history, not current-source PASS claims."
+}

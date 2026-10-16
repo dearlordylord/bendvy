@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (H is a variable here, not comptime: pass it at run time)
+- observed : Pub.emit
+Context:
+- H       : Type
+- grant   : Pub.Write<Schema, Manifest, Pub.Domain{"cargo:manifest"}, H>
+- fail    : Bool
+- payload : Manifest
+- h       : H
+Location: publish
+55 |   PublishArgs{fail,payload} = args
+56>|   h = Pub.emit(~Schema,~Manifest,~identity(),~H,~grant,h,payload)
+   |       ^^^^^^^^
+57 |   (h,(semantic(fail),Unit{}))
+bend 2.0.37 is available: run bend update

@@ -1,0 +1,53 @@
+{
+  "derivation": {
+    "affectedObservation": "the two frame return receipts only",
+    "backendExecuted": false,
+    "method": "Run the corrected source-derived state transitions. At each actual frame call, apply the mutant's source-level empty retired-accumulator return while preserving the retained log, stream, journal and world state; render the complete two-schema trace.",
+    "runtimeOutputConsulted": false,
+    "unaffectedObservation": "all complete snapshots, later state, and shutdown/drain receipts"
+  },
+  "model": {
+    "normalModelSha256": "5e14a67ae7880bc96effccec16a3733fccef5b6e6b27cdd177fd9c41c482c2ad",
+    "path": "counter_model.py",
+    "sha256": "20b71ea2e66e148c00f8ea8d0068f17a8e329c610a702c34d681c5a07f93d918",
+    "usesCorrectedNormalStateModel": "/workspace/formal-proofs/bendvy-worktrees/events53-independent-full-oracle/experiments/public-owned-events/family-readers-v1/oracle-successor-v2/model.py"
+  },
+  "mutation": {
+    "changedMember": "src/ecs/owned-event-log.bend",
+    "commit": "66150ce05",
+    "effect": "partitioned(False) preserves retained rows but returns the prior retired accumulator; the frame's owned-log state matches normal while every frame retirement receipt is empty. Shutdown uses drain and retains its actual receipt.",
+    "freezePath": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/retirement-loss-control-v1/SOURCE-FREEZE.json",
+    "freezeSha256": "bd411331bd6b45819f57cb7d7e4671d9d36a4cf5e6504bf62a03e25a5ee94a12",
+    "mutantMemberSha256": "aaccc23c75ec020335c2bb8bb62ee63ed1e20909914a36be8e5922272e4245f3",
+    "normalMemberSha256": "f643f00d20f1c14aad4c75481ecb628bf8d50f11c14aab8c4899ce67d7abf408",
+    "patchPath": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/retirement-loss-control-v1/mutation.patch",
+    "patchSha256": "d8021bcea66c7b3def5158d3852542fde4248ec4a1856ccb57f43a6af19a7792",
+    "sourceCount": 91,
+    "sourceJoin": {
+      "additionalMutantOnly": [
+        "experiments/public-owned-events/family-readers-v1/source-control.bend",
+        "src/ecs/world-namespace.c",
+        "src/ecs/world-namespace.js"
+      ],
+      "changed": [
+        "src/ecs/owned-event-log.bend"
+      ],
+      "commonUnchanged": 87,
+      "normalMembers": 88
+    },
+    "sourceTarSha256": "43440359cde5a0cd7f1ad9db5e534c15986146d01538dfab12fc4979f691e833"
+  },
+  "normalOracle": {
+    "basisPath": "/workspace/formal-proofs/bendvy-worktrees/events53-independent-full-oracle/experiments/public-owned-events/family-readers-v1/oracle-successor-v2/SOURCE-BASIS.json",
+    "basisSha256": "1f761e84fb81cb24423f799fcf1a2496ae5d449860b6d2439f4cbd31c78d12b1",
+    "commit": "1a117f417",
+    "rawBytes": 90973,
+    "rawSha256": "98107a0f330aeae49e55ac96403f8bb2462791206b61d3b9afb60c8884049e30"
+  },
+  "normalSource": {
+    "freezePath": "/workspace/formal-proofs/bendvy-worktrees/events53-ordinary/experiments/public-owned-events/family-readers-v1/SOURCE-FREEZE.json",
+    "freezeSha256": "927b9906ab930de3b55f94841e0b06440061f455de803adc4b286f9d31fd049a",
+    "sourceCount": 88
+  },
+  "schema": "bendvy-events53-family-readers-retirement-loss-counter-v1"
+}

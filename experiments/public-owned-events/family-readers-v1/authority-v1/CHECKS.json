@@ -1,0 +1,693 @@
+{
+  "baseCommit": "21ddb0860",
+  "scope": "Source-only intended-boundary controls; no runtime qualification",
+  "wrapperCapSeconds": 5,
+  "cpu": 5,
+  "tools": [
+    {
+      "path": "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "bytes": 1000,
+      "sha256": "ba86c4a6eb9fd8482167bd07999d0d5aa01f697e02fd3cea50edf9c84b3791e4"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-simulation/delivery-v1/installed-config.py",
+      "bytes": 5567,
+      "sha256": "fce37f7993990c9d233eced8b0ae7a3687cd7657416a713101d5de1d74f2a347"
+    },
+    {
+      "path": "/home/node/.bend/bin/bend-2.0.35",
+      "bytes": 82823160,
+      "sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a"
+    },
+    {
+      "path": "/home/node/.bend/bend2/base.bend",
+      "bytes": 71530,
+      "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+    },
+    {
+      "path": "/usr/bin/taskset",
+      "bytes": 133288,
+      "sha256": "73fd987f9cdb44d56025aec83b53f9c5f4e9a1dbc9f06679a9f2b59ea75c63a5"
+    },
+    {
+      "path": "/usr/bin/timeout",
+      "bytes": 69040,
+      "sha256": "3629fa180f625d4de2e3fd3b15b12c5d42315e5733ecae6d1550b306abd7d482"
+    },
+    {
+      "path": "/bin/sh",
+      "bytes": 133640,
+      "sha256": "15fc4c72f49c86639a383121eec6fbdbcd32ec9d03db915cb3096928295e1a17"
+    }
+  ],
+  "sources": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/families-v1/fixture.bend",
+      "bytes": 62803,
+      "sha256": "acd50239280382d6bcac3eaa5bd8ece49309dff819444463a27be35b5664e7bb"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/families-v1/schema.bend",
+      "bytes": 6316,
+      "sha256": "b7d804ebe10d75ca288e76b2e443a372cac98dfe0af6131f35878fe7bd7e5b88"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/cross-schema.bend",
+      "bytes": 465,
+      "sha256": "5bcfb3bd088fc2154cd2b3b6bff99512401da33e7af39271209b394791d32026"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/duplicate-args.bend",
+      "bytes": 487,
+      "sha256": "fbe7ad73a383c496fee8fa7937ccf9226c369b41440beb2a670c4d7163637ae6"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/duplicate-reader.bend",
+      "bytes": 497,
+      "sha256": "23253e52beb74a6846b4a84693e463815dd35c9cadf2b98bd49f41742c5519ec"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/duplicate-registry.bend",
+      "bytes": 501,
+      "sha256": "7ef0201dc87342440583767481f7c513ad5611298f7be27969ef6b1dbd2e7cf3"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/opaque-payload.bend",
+      "bytes": 2719,
+      "sha256": "4d6f1c4b8cba9598165c92ff61a6774a47b8d4d4a1ff8509d28e7c1d21c853c5"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/opaque-world.bend",
+      "bytes": 2736,
+      "sha256": "2d737c82b0944de975f51705151cf9aefec7552247e05daceb849630ecfe1aaf"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/positive-scoped.bend",
+      "bytes": 2767,
+      "sha256": "59d4228ce50f0227e9850eb1e01900b8d573176eab91793bb2743d20e5f2adf1"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/positive.bend",
+      "bytes": 465,
+      "sha256": "51a2727b6b2c816824a1b7408e9d83dd274e6868608762c188fe5b916a79993f"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/wrong-family-reader.bend",
+      "bytes": 465,
+      "sha256": "76a165a132a005e28530100d7140fc63e113349ea9b50abd97d4e4c168e972ed"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/wrong-projection.bend",
+      "bytes": 2752,
+      "sha256": "b7600136a36391a36f51265ea7df59da3b53c841dde721c357327293f6ffbd2c"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/wrong-request.bend",
+      "bytes": 2736,
+      "sha256": "979ddececc4b24669601df8c919546c38ccc58135e37e870e04cbde4db971ee7"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/catalog.bend",
+      "bytes": 4187,
+      "sha256": "06bbde39b5042414b4751c230f1b607fa5aca722133ce6f612bc99f384e1aee6"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/fixture.bend",
+      "bytes": 18446,
+      "sha256": "520f78cab6a083588ec13918aa24aa541933ed76173debc143eb111b17516782"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/schema.bend",
+      "bytes": 40286,
+      "sha256": "adc7c39ed40442625d4f01ee06ff531ffd4d7378e80354e21b8730e29ce2285b"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/ordinary-v1/payload.bend",
+      "bytes": 2215,
+      "sha256": "5dc6a1269e6e10a1b70d618b6d45ccc99ffc0abce9d32158e89b8710101fb986"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/capabilities.bend",
+      "bytes": 4096,
+      "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/capture-query.bend",
+      "bytes": 4760,
+      "sha256": "23f2439e8204194f7753d4bc432cc10976a2567fb93488ab767a64740c16d829"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/check.bend",
+      "bytes": 4757,
+      "sha256": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/column.bend",
+      "bytes": 45638,
+      "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/commands.bend",
+      "bytes": 9870,
+      "sha256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/component.bend",
+      "bytes": 31351,
+      "sha256": "0e41557cc6b8101490eaa7f4bf5fbdf896a2646e9b2359d7daf41db6de45988c"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/compose.bend",
+      "bytes": 19598,
+      "sha256": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/declared-family.bend",
+      "bytes": 2042,
+      "sha256": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/decode-capabilities.bend",
+      "bytes": 1987,
+      "sha256": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/decode-data.bend",
+      "bytes": 11497,
+      "sha256": "1d1891b034450c041125027bd04f902418378787852864147b1bccb9f58b95d4"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/decode-size.bend",
+      "bytes": 771,
+      "sha256": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/decode-utf16.bend",
+      "bytes": 1307,
+      "sha256": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/decode.bend",
+      "bytes": 855,
+      "sha256": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/event-family-routing.bend",
+      "bytes": 13494,
+      "sha256": "93084e08221742c73557ff6a8b4c4d981ee9fa94defcf208e0d806db479e7749"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/event-family-runtime.bend",
+      "bytes": 5346,
+      "sha256": "7279f4cb106ec1fccceb0ff69644c48d572d86f0ba7ca8909e2d24af2ea4e942"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/event-publication.bend",
+      "bytes": 8730,
+      "sha256": "1979d71f1857b6ff8c4dd524b4787e4c149171dcaa7c5e9e175e4dc91731a5b7"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/event-runtime.bend",
+      "bytes": 25508,
+      "sha256": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/event-stream.bend",
+      "bytes": 4753,
+      "sha256": "04e9a2b39454171f0b5e88b2b01eaaf9bbbdc9c4eaf9882a8987bece0f696c40"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/indexed-lifecycle.bend",
+      "bytes": 3862,
+      "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/inspector-query-families.bend",
+      "bytes": 9373,
+      "sha256": "020a8de48df12369c8709d10d15f0c3d22dcf8a9fb76f3af238ea4a4304edeb8"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/inspector-query-projection.bend",
+      "bytes": 8590,
+      "sha256": "422efbb7c19e8091a77f7e90e7f4e3d95474ae41d46e934b270b89638cd5f561"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/inspector-query-world.bend",
+      "bytes": 2288,
+      "sha256": "1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/inspector-query.bend",
+      "bytes": 19092,
+      "sha256": "46929a9a01669db3d4a88b4a53b7956683be504a7685eed2b3a33658eda4f9af"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/inspector.bend",
+      "bytes": 6011,
+      "sha256": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/lifecycle.bend",
+      "bytes": 1591,
+      "sha256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-component-binding.bend",
+      "bytes": 1402,
+      "sha256": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-declaration.bend",
+      "bytes": 424,
+      "sha256": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-event-declaration.bend",
+      "bytes": 2586,
+      "sha256": "e168b856cf35273713117364a83723e168d695c2437f86e4f838baac807ef55b"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-event-family.bend",
+      "bytes": 11410,
+      "sha256": "6ef58a4c5ea29bfb0f23e38c22e686d7f1e88d0121217a252eb2af88e635d203"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-owned-event-binding.bend",
+      "bytes": 2823,
+      "sha256": "2edc04b2a8e33b7803984c7418508384e6ce2fda50ea028265c5467419876399"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-owned-event-declaration.bend",
+      "bytes": 2991,
+      "sha256": "3f022e8851fd5be22f46b1944c139d3c369ff358d77d10e45480668d9b043fb4"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-owned-event-family-publisher.bend",
+      "bytes": 4059,
+      "sha256": "a3acf2fd632a1d5c1528c2c78443189059b9315ab593330537d7e09c0af817c0"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-owned-event-family-query.bend",
+      "bytes": 9501,
+      "sha256": "247efd2fd1870ae39e4bd26df99d18d8c3f4ea7079ed21cf8cf9fa720197707f"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-owned-event-family-reader-binding.bend",
+      "bytes": 6872,
+      "sha256": "90f59107388d9002f1201108b65831145b5dbe43f4ad194a60f2aec37c698fa6"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-owned-event-family-reader.bend",
+      "bytes": 11672,
+      "sha256": "f76c1a0c2cf854ee0a0ccac43f4366d67ced5ea85d44f5c8dd176e729dca167f"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-owned-event-family-resource.bend",
+      "bytes": 2123,
+      "sha256": "45e325a987043763f09568958004c591c70fbf2a1dfb3fedee2f21d25233d5b6"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-owned-event-family-write.bend",
+      "bytes": 1420,
+      "sha256": "ced7c072e361f573513d534d2704ce5729fe01f305e2ef847f6c52d36f672042"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-owned-event.bend",
+      "bytes": 4576,
+      "sha256": "62edb4cef1cb4b59b031223bd326b79e34451376a4229129b8cea8a76915698a"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-query-declaration.bend",
+      "bytes": 11956,
+      "sha256": "bbb77a38ebe83f27edf4d1ec7be7b56d6360687a088046ac2dc3c45ca6f73a32"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-query-observable.bend",
+      "bytes": 6756,
+      "sha256": "826ff50600b6b789cbe53ea717f316ca7edbad4e8cb68f63ea8db29e2e6b12b5"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-query-selections.bend",
+      "bytes": 3821,
+      "sha256": "57ee96b72d098d0b3abf0504a166c3a0846c817fcc4cb2f77a9629be501bc755"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-schema.bend",
+      "bytes": 3320,
+      "sha256": "a694d2570202141ec906fd89fb0306d2ad8a55b2279a98b963daefe2b8f19ffc"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/ordinary-system.bend",
+      "bytes": 9857,
+      "sha256": "2b3aee3fd7550492c00fd27aa1ce8f74e0a94407c4c73d3425e81d1b1ec54810"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/owned-event-family-catalog.bend",
+      "bytes": 2658,
+      "sha256": "98c452e4f6d25885b457349ae7250811dd2d99a14dc33d8fed62dfd9197c31ac"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/owned-event-family-lifecycle.bend",
+      "bytes": 7045,
+      "sha256": "41155036bd931ce2475cbe2a485f7d8095023c9e9f1a5ba4191a314167eb8ba9"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/owned-event-family-maintenance.bend",
+      "bytes": 4478,
+      "sha256": "e688943aa14133b1c859acd49dff90dec0f12acb142976f3df35a86d0d4eea01"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/owned-event-family-reader-runtime.bend",
+      "bytes": 8848,
+      "sha256": "6d1d1a7122213edd6a89d4982b019a69700a30f8603450a42586f971a3209a53"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/owned-event-family-storage.bend",
+      "bytes": 4586,
+      "sha256": "a227341273dec32959ffba5f0cb7d940199d7d72315648e7d8ffceb4aee7fb3f"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/owned-event-journal.bend",
+      "bytes": 2324,
+      "sha256": "eb6fb7051c46ea66cfcde31b2855d89c0c2cff010a0198fb39e33f81712bcc46"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/owned-event-key-route.bend",
+      "bytes": 1092,
+      "sha256": "3e6d825e4a7d437b8f6034adbe257d0a7ec2e67a79817d3415569ecf5230f6a6"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/owned-event-log.bend",
+      "bytes": 5545,
+      "sha256": "f643f00d20f1c14aad4c75481ecb628bf8d50f11c14aab8c4899ce67d7abf408"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/owned-event-scope.bend",
+      "bytes": 700,
+      "sha256": "43c569c3de4eb497e3774b427edd2eb09abead6674ce3be9a9b4894e364f7820"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/owned-event-storage.bend",
+      "bytes": 6686,
+      "sha256": "23bd63856d01655cff3e744e566b46c7045d50ab4ec788dad64bf36718993e0b"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/owner-handoff.bend",
+      "bytes": 6475,
+      "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/owner-product.bend",
+      "bytes": 2429,
+      "sha256": "5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/persistence-declaration.bend",
+      "bytes": 3205,
+      "sha256": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/recovery-journal.bend",
+      "bytes": 776,
+      "sha256": "a512716dfb898d1f2966afd90516388f13ba18802f679d29e3be51a049e34677"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/registration.bend",
+      "bytes": 1768,
+      "sha256": "34a78022a38c297b49680acecbfeb675532eb9f32bfad7aceb2a854dc35d31a5"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/resource-field.bend",
+      "bytes": 3555,
+      "sha256": "c8652e2bb394c94e52f34a079b4eae6591495e3dfad4e76f1a40fd5d0558d6d3"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/resource.bend",
+      "bytes": 1612,
+      "sha256": "bd43e19d53c05cbb4d0a24cc2de282f734dad5710980150fcc018d4eaef283d3"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/schema-fragments.bend",
+      "bytes": 9220,
+      "sha256": "e161ff13196cd40b2218efc7734c2e1e661e74e09a754e6ff60cbe2b525d65ca"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/snapshot-gate.bend",
+      "bytes": 1336,
+      "sha256": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/snapshot-leaf.bend",
+      "bytes": 4111,
+      "sha256": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/string-equality.bend",
+      "bytes": 897,
+      "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/system.bend",
+      "bytes": 12147,
+      "sha256": "e1a7e54cfd862a440bb2d2277045c0d861a4806e17015f901cfe4ab3f776d113"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/transaction.bend",
+      "bytes": 2199,
+      "sha256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/world-resource-owner.bend",
+      "bytes": 1138,
+      "sha256": "1a8f02609c919dc6f76cd2d3c7f22bd75c123cca8d2230d5652caeaa7ae90108"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/src/ecs/world.bend",
+      "bytes": 22744,
+      "sha256": "4e191783000df87279190cdd5c74d419de88a1bae8d7ebaf0c3ed8600ad80d1a"
+    }
+  ],
+  "results": [
+    {
+      "name": "cross-schema",
+      "exit": 1,
+      "sourceSha256": "5bcfb3bd088fc2154cd2b3b6bff99512401da33e7af39271209b394791d32026",
+      "receipt": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/cross-schema.json",
+        "bytes": 914,
+        "sha256": "bbaec743f03ba7543c42d85b5a0d3b6de6d9c1a81155db6b23a514a1d1edd14f"
+      },
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/cross-schema.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/cross-schema.stderr",
+        "bytes": 14187,
+        "sha256": "a8c6c39ebcd5ed6415b7ad606fe21ef24d073649e3b459843bcbab5c7580381f"
+      }
+    },
+    {
+      "name": "duplicate-args",
+      "exit": 1,
+      "sourceSha256": "fbe7ad73a383c496fee8fa7937ccf9226c369b41440beb2a670c4d7163637ae6",
+      "receipt": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/duplicate-args.json",
+        "bytes": 918,
+        "sha256": "606107e8556c919903d71e8150fce217cd7e435791df3e8f93e8623865042ddb"
+      },
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/duplicate-args.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/duplicate-args.stderr",
+        "bytes": 12333,
+        "sha256": "b66fb4ef276889849338fda5a5f35c972627554f7eab17bbfb5de0205d1af424"
+      }
+    },
+    {
+      "name": "duplicate-reader",
+      "exit": 1,
+      "sourceSha256": "23253e52beb74a6846b4a84693e463815dd35c9cadf2b98bd49f41742c5519ec",
+      "receipt": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/duplicate-reader.json",
+        "bytes": 921,
+        "sha256": "fa4bbb4d86f9a78ba85654400749fe76e584816e09ee7dcf8bec3eabad4d60d8"
+      },
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/duplicate-reader.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/duplicate-reader.stderr",
+        "bytes": 1393,
+        "sha256": "80971a6d8ad40249a4bb9f7ae494b4289826e0ee18bee05039dde093f77502b2"
+      }
+    },
+    {
+      "name": "duplicate-registry",
+      "exit": 1,
+      "sourceSha256": "7ef0201dc87342440583767481f7c513ad5611298f7be27969ef6b1dbd2e7cf3",
+      "receipt": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/duplicate-registry.json",
+        "bytes": 925,
+        "sha256": "4007826cfa5e25008ced88819b3c931c408f355b1d7bb82dfcfb2d4fe239ab27"
+      },
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/duplicate-registry.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/duplicate-registry.stderr",
+        "bytes": 3339,
+        "sha256": "55115e2f389d05b6ab9dcb601aafaf75893b7292657b51d1c4bbbb394ff99581"
+      }
+    },
+    {
+      "name": "opaque-payload",
+      "exit": 1,
+      "sourceSha256": "4d6f1c4b8cba9598165c92ff61a6774a47b8d4d4a1ff8509d28e7c1d21c853c5",
+      "receipt": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/opaque-payload.json",
+        "bytes": 917,
+        "sha256": "ed43e0a1a5c83003a98f4ff59a3e53836c43e478d32d135fa794cde38c707737"
+      },
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/opaque-payload.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/opaque-payload.stderr",
+        "bytes": 1045,
+        "sha256": "fca6628c5aec1fc84feddc2b59201129cc5ee07f89ae61e99711b752cb81f2f2"
+      }
+    },
+    {
+      "name": "opaque-world",
+      "exit": 1,
+      "sourceSha256": "2d737c82b0944de975f51705151cf9aefec7552247e05daceb849630ecfe1aaf",
+      "receipt": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/opaque-world.json",
+        "bytes": 913,
+        "sha256": "2db4b448dcbb78850fd46825d7cf7d1329974aba2fcd126860bd6b4245381064"
+      },
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/opaque-world.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/opaque-world.stderr",
+        "bytes": 1381,
+        "sha256": "7ee146832dd7e2372bfb31844013c268b5b363de142e60d93a4398efa396c3f2"
+      }
+    },
+    {
+      "name": "positive-scoped",
+      "exit": 0,
+      "sourceSha256": "59d4228ce50f0227e9850eb1e01900b8d573176eab91793bb2743d20e5f2adf1",
+      "receipt": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/positive-scoped.json",
+        "bytes": 918,
+        "sha256": "730ac23e228f3c427ac50cbbcc62c931bbd700fefda4a07311afe2a845761713"
+      },
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/positive-scoped.stdout",
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/positive-scoped.stderr",
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+      }
+    },
+    {
+      "name": "positive",
+      "exit": 0,
+      "sourceSha256": "51a2727b6b2c816824a1b7408e9d83dd274e6868608762c188fe5b916a79993f",
+      "receipt": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/positive.json",
+        "bytes": 904,
+        "sha256": "5154ff3aea71178fe720714441e1dace79ce611f15102fd0dad1125379534f11"
+      },
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/positive.stdout",
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/positive.stderr",
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+      }
+    },
+    {
+      "name": "wrong-family-reader",
+      "exit": 1,
+      "sourceSha256": "76a165a132a005e28530100d7140fc63e113349ea9b50abd97d4e4c168e972ed",
+      "receipt": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/wrong-family-reader.json",
+        "bytes": 928,
+        "sha256": "812e10f14343b42668f77234b9bc135df6a9341cb50a322712d63c684c6dbb9f"
+      },
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/wrong-family-reader.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/wrong-family-reader.stderr",
+        "bytes": 16798,
+        "sha256": "f5235c4d5afb6545b5e3f241d0cd21a8cf432fa20b8065341f7418b7e1be4739"
+      }
+    },
+    {
+      "name": "wrong-projection",
+      "exit": 1,
+      "sourceSha256": "b7600136a36391a36f51265ea7df59da3b53c841dde721c357327293f6ffbd2c",
+      "receipt": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/wrong-projection.json",
+        "bytes": 921,
+        "sha256": "85ca600d828a8ddf41bf2b51b148dc656196a5d2cd20d66739aaa56157183ca4"
+      },
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/wrong-projection.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/wrong-projection.stderr",
+        "bytes": 1186,
+        "sha256": "46b1024c35e231fd6f1aa8deb2a9e4c0208766d4671562a1857feaa41eb28fcb"
+      }
+    },
+    {
+      "name": "wrong-request",
+      "exit": 1,
+      "sourceSha256": "979ddececc4b24669601df8c919546c38ccc58135e37e870e04cbde4db971ee7",
+      "receipt": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/wrong-request.json",
+        "bytes": 915,
+        "sha256": "00bc653c98901f87f7c8218d7fa88a6f222fcffdfa3924d7f9ada4229b8be32b"
+      },
+      "stdout": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/wrong-request.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/workspace/formal-proofs/bendvy-worktrees/events53-family-reader-authority/experiments/public-owned-events/family-readers-v1/authority-v1/checks/wrong-request.stderr",
+        "bytes": 1120,
+        "sha256": "762f1ebe8e406fdcca13c9de2e75f61126239845cdb1af1a8e47fe81da1ddc51"
+      }
+    }
+  ],
+  "history": "checks/draft01 preserves preliminary undefined State alias syntax failures; these are not intended-boundary results."
+}

@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'logs' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+18 |   +shared=records
+19>|   match logs:
+   |         ^^^^
+20 |     case Product.Owner{first,second}:joined(~LA,~LB,~RA,~RB,retainA(first,Publication.first_values(~EA,~EB,shared)),retainB(second,Publication.second_values(~EA,~EB,shared)))
+bend 2.0.37 is available: run bend update

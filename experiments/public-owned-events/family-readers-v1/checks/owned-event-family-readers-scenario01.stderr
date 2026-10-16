@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+111 |   match result:
+112>|     case Life.Disposed{runtime}:disposal_observed(~S,runtime => dispose_slow(~S,alerts,alertsRegistry,crates,cratesRegistry,F.dispose_a(~S,runtime,slow,slowRegistry)),View.runtime(~S,runtime))
+    |                                                                              ^
+113 |     case _:"DISPOSAL_REJECTED\n"
+bend 2.0.37 is available: run bend update

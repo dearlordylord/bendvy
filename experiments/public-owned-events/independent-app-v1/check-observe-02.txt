@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+34 | def projected(a:Array<U32>) -> Array<U32> & List<&2,U32>:
+35>|   (a,x0) = a[0]
+   |            ^^^^
+36 |   (a,x1) = a[1]
+bend 2.0.37 is available: run bend update

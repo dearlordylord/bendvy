@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'reader' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+20 | def skip_named(~S:Data,~C:Type,~R:Type,~E:Data,~F:Type,~take:F -> F & Stream.Stream<S,Nat>,~put:F -> Stream.Stream<S,Nat> -> F,family:F,tick:Nat,reader:Route.Reader<S,Nat,F,take,put>,named:W.World<S,C,R,E> & U32) -> Route.Runtime<S,C,R,E,F> & Route.Reader<S,Nat,F,take,put>:
+21>|   match named reader:
+   |               ^^^^^^
+22 |     case (world,+actual) Route.Reader{+namespace,+id,+registryId}:skip_checked(~S,~C,~R,~E,~F,~take,~put,U32.is_eq(actual,namespace),Route.Runtime{world,family,tick},Route.Reader{namespace,id,registryId},id)
+bend 2.0.37 is available: run bend update
