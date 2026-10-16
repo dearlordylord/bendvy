@@ -147,3 +147,32 @@ traversal matches the qualified helpers after constructor renaming; Store,
 Resource and pending closures remain outside size-dependent recursion and pass
 through the same finish operation. Joined large traversal and owner controls are
 finite evidence; no additional combined-large-owner run was needed.
+
+
+## Pending spawn cancellation — qualified delivery
+
+Canonical deferred spawn followed by despawn must execute both callbacks in FIFO
+order, including population and cleanup. The four-file implementation is retained in
+[the source packet](../../experiments/public-identity/pending-cancellation-v1/DELIVERY.md).
+It records genuine pending authority separately from visible liveness, preserves
+public constructors and rejects foreign or failed reservations. Transaction undo
+clears new marks at the current capacity after growth; prior committed pending
+work survives a later failed transaction.
+
+The first complete 22,406-byte consumer, reached live-only admission counter
+(22,120 bytes), actual WorldIO foreign-handle consumer (2,618 bytes), and both
+lifetime producer compatibility consumer (2,491 bytes) each pass stock JS/Native
+against independent complete oracles. Pending cancellation is runtime-reached
+through `tx_despawn_with`; plain and observed pending variants reuse the identical
+admission helper and unchanged apply bodies. Scope cleanup separately executes
+the live observed path. These are finite observations, not universal proofs or
+three independently executed pending variants.
+
+Both existing AppA/AppB entrypoints also pass their current complete JS/Native
+oracles (47,464/13,475 bytes), with all physical pending metadata retained.
+The unchanged default #28 passes 123 commands and 110 full outputs; paired
+JS/Native tests show no confirmed regression against the frozen Bend baseline.
+This is Workshop qualification, not final full-feature performance. Independent
+final review and integration are tracked in the source packet.
+Reuse/generation/exhaustion/domain choices
+and complete #38 acceptance remain separate; this implementation selects none.

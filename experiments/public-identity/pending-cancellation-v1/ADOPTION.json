@@ -1,0 +1,1126 @@
+{
+  "scope": "Source-current adoption bridge only; executed subject remains exact candidate worktree freeze. No root backend replay/compiler artifact identity inferred.",
+  "promotedCoreManifest": {
+    "path": "/tmp/bendvy38-pending-working-core.json",
+    "sha256": "53cceff017529f68e3b1fc501dc6d7db1703b15fe653fa687cb0e275a51ad560",
+    "coreCopies": [
+      {
+        "path": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+        "sha256": "784919bd80945a47614419f8b197af0b6982351874af1dd21ec6e7093589eea0",
+        "beforeSHA256": "4e191783000df87279190cdd5c74d419de88a1bae8d7ebaf0c3ed8600ad80d1a",
+        "sourceCommit": "7eb6c90e5f255aa4e34b1996e7f4291ece7e27c9",
+        "producerPath": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+        "byteExact": true
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+        "sha256": "e52fa5988848811a254ef485ab43904dadeb4aacc0d4923552aea2f1fab1845b",
+        "beforeSHA256": "f62a8a7efb24ee7307bc180774c67067e1d95100a47fa4ac7a8384150047dc1d",
+        "sourceCommit": "7eb6c90e5f255aa4e34b1996e7f4291ece7e27c9",
+        "producerPath": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+        "byteExact": true
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/src/ecs/lifetime-scope.bend",
+        "sha256": "ee8a3f233ec65e814185e7c4d3ecdf99a62b77f5af8d7551948a55ab68fbb356",
+        "beforeSHA256": "d33d25f960bdfc6a30c06588f755c9f4229376a051fe5e5c580206eb25983bb5",
+        "sourceCommit": "7eb6c90e5f255aa4e34b1996e7f4291ece7e27c9",
+        "producerPath": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+        "byteExact": true
+      },
+      {
+        "path": "/workspace/formal-proofs/bendvy/src/ecs/lifetime-scope-world-spawn.bend",
+        "sha256": "5ab003ad946c2d941474e8d8443a72eeae54490de46f8c506e9c8a2aac9b4138",
+        "beforeSHA256": "152ca05ab3be4ba3fce94ac079ed525ef834074c461be4e3fe50a375aaa3808a",
+        "sourceCommit": "7eb6c90e5f255aa4e34b1996e7f4291ece7e27c9",
+        "producerPath": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope-world-spawn.bend",
+        "byteExact": true
+      }
+    ]
+  },
+  "subjects": [
+    {
+      "leaf": "first-consumer",
+      "freezePath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/SOURCE-FREEZE.json",
+      "freezeSHA256": "ba37daccc1cb4bbb1ff89025cc99026f52bfc5da67027a7e0f2c90359ce6b671",
+      "sourceCount": 7,
+      "allSourcePinsCount": 76,
+      "mappings": [
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "sourceSHA256": "e5678d966eabf4e2d0967367983975a7425e022d984a2910cb6bc87ee28658b5",
+          "rootPath": "/workspace/formal-proofs/bendvy/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "rootSHA256": "e5678d966eabf4e2d0967367983975a7425e022d984a2910cb6bc87ee28658b5",
+          "classification": "frozen consumer/control exact, same relative file path"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "sourceSHA256": "784919bd80945a47614419f8b197af0b6982351874af1dd21ec6e7093589eea0",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "rootSHA256": "784919bd80945a47614419f8b197af0b6982351874af1dd21ec6e7093589eea0",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/string-equality.bend",
+          "sourceSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+          "rootSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "sourceSHA256": "e52fa5988848811a254ef485ab43904dadeb4aacc0d4923552aea2f1fab1845b",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "rootSHA256": "e52fa5988848811a254ef485ab43904dadeb4aacc0d4923552aea2f1fab1845b",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "sourceSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "rootSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "sourceSHA256": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/bundle-batch.bend",
+          "rootSHA256": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "sourceSHA256": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+          "rootSHA256": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+          "classification": "production dependency exact"
+        }
+      ],
+      "literalEdges": [
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/bundle-batch.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-batch.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/bundle-delivery.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "literal": "string-equality.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/string-equality.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "literal": "./world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "literal": "./transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "bundle-delivery.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "literal": "world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "literal": "transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        }
+      ],
+      "allOriginalPinsStillExact": true,
+      "oracleCommit": "ffe64e9347a20ed0a4df6c45c6abc2a0d9e193ca",
+      "oracleBasis": "/workspace/formal-proofs/bendvy-worktrees/audit61-app-a-captured-oracle/experiments/public-identity/pending-cancellation-oracle-v1/SOURCE-BASIS.json",
+      "oracleBasisSHA256": "f8c2a9ad9254909b3691ed3fcb18917f44dbebbc32f0625baaa1236c1e951263",
+      "expected": {
+        "bytes": 22406,
+        "sha256": "9bb243df7d81dec354357eb2966a564aecc677a7d2b1788abe2aab611692ebe0",
+        "gzipSHA256": "dcd3d4ad12c53ef8ebef04df8e2c46aece47417a69a105e9334132e167e6dd26"
+      },
+      "packetManifest": "/workspace/formal-proofs/bendvy-worktrees/audit61-app-a-captured-oracle/experiments/public-identity/pending-cancellation-v1/runtime-v1/actual-attempt01/manifest.json",
+      "packetManifestSHA256": "be4b79225936b1e2a5eb89cff533e9502892aee9291dc0a80a2931bf3462aab3"
+    },
+    {
+      "leaf": "live-only-mutant-v1",
+      "freezePath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/SOURCE-FREEZE.json",
+      "freezeSHA256": "dba0eee444421a035ea3efd9918336b5dd3556773f1c5d57f13d43eda4261850",
+      "sourceCount": 8,
+      "allSourcePinsCount": 77,
+      "mappings": [
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/main.bend",
+          "sourceSHA256": "8849858325854f455e047f75f66ea369dc27a360afe23849ceee51d8daf9c8a5",
+          "rootPath": "/workspace/formal-proofs/bendvy/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/main.bend",
+          "rootSHA256": "8849858325854f455e047f75f66ea369dc27a360afe23849ceee51d8daf9c8a5",
+          "classification": "frozen consumer/control exact, same relative file path"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "sourceSHA256": "784919bd80945a47614419f8b197af0b6982351874af1dd21ec6e7093589eea0",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "rootSHA256": "784919bd80945a47614419f8b197af0b6982351874af1dd21ec6e7093589eea0",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/string-equality.bend",
+          "sourceSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+          "rootSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/commands.bend",
+          "sourceSHA256": "7deb8a4b6667bf37c3eda4433780bfd8bad2b61a25d81006b7496eea72855c98",
+          "rootPath": "/workspace/formal-proofs/bendvy/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/commands.bend",
+          "rootSHA256": "7deb8a4b6667bf37c3eda4433780bfd8bad2b61a25d81006b7496eea72855c98",
+          "classification": "frozen consumer/control exact, same relative file path"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "sourceSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "rootSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "sourceSHA256": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/bundle-batch.bend",
+          "rootSHA256": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "sourceSHA256": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+          "rootSHA256": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "sourceSHA256": "e52fa5988848811a254ef485ab43904dadeb4aacc0d4923552aea2f1fab1845b",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "rootSHA256": "e52fa5988848811a254ef485ab43904dadeb4aacc0d4923552aea2f1fab1845b",
+          "classification": "production dependency exact"
+        }
+      ],
+      "literalEdges": [
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-batch.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "literal": "string-equality.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/string-equality.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/commands.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/commands.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "bundle-delivery.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "literal": "world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "literal": "transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "literal": "./world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "literal": "./transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        }
+      ],
+      "allOriginalPinsStillExact": true,
+      "oracleCommit": "e2c0f278b91352dd94f8581634bbe797445984bd",
+      "oracleBasis": "/workspace/formal-proofs/bendvy-worktrees/audit61-app-a-captured-oracle/experiments/public-identity/pending-cancellation-oracle-v1/live-only-mutant-v1/SOURCE-BASIS.json",
+      "oracleBasisSHA256": "82df1637008556114df53893195265514ba409789495f16eb2d97cab04826448",
+      "expected": {
+        "bytes": 22120,
+        "sha256": "10c75d59268145bfefe805cf68eb5db9622f904c47222ab8b0a00d97f1ab4109",
+        "gzipSHA256": "5d6ea07fa866976951ce13af8c2add33a79e6425c840a189ae17fe970e7e4b0f"
+      },
+      "packetManifest": "/workspace/formal-proofs/bendvy-worktrees/audit61-app-a-captured-oracle/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/runtime-v1/actual-attempt01/manifest.json",
+      "packetManifestSHA256": "df5a8d9bdfccca66c21373f0d6c88f598e5f891e9a2c45319ee2c11b9bc3517b"
+    },
+    {
+      "leaf": "foreign-pending-v1",
+      "freezePath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/foreign-pending-v1/SOURCE-FREEZE.json",
+      "freezeSHA256": "728db94295ed9cf9825067d609ed53c46b5f9f088cc1220b52c7314e9ecfc432",
+      "sourceCount": 10,
+      "allSourcePinsCount": 81,
+      "mappings": [
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/foreign-pending-v1/main.bend",
+          "sourceSHA256": "35ec39ca1d8f0e15b1ba6372d805f0601d4a877aa1dbe38085698f3b5d65fbc7",
+          "rootPath": "/workspace/formal-proofs/bendvy/experiments/public-identity/pending-cancellation-v1/foreign-pending-v1/main.bend",
+          "rootSHA256": "35ec39ca1d8f0e15b1ba6372d805f0601d4a877aa1dbe38085698f3b5d65fbc7",
+          "classification": "frozen consumer/control exact, same relative file path"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "sourceSHA256": "e5678d966eabf4e2d0967367983975a7425e022d984a2910cb6bc87ee28658b5",
+          "rootPath": "/workspace/formal-proofs/bendvy/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "rootSHA256": "e5678d966eabf4e2d0967367983975a7425e022d984a2910cb6bc87ee28658b5",
+          "classification": "frozen consumer/control exact, same relative file path"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "sourceSHA256": "784919bd80945a47614419f8b197af0b6982351874af1dd21ec6e7093589eea0",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "rootSHA256": "784919bd80945a47614419f8b197af0b6982351874af1dd21ec6e7093589eea0",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/string-equality.bend",
+          "sourceSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+          "rootSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "sourceSHA256": "e52fa5988848811a254ef485ab43904dadeb4aacc0d4923552aea2f1fab1845b",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "rootSHA256": "e52fa5988848811a254ef485ab43904dadeb4aacc0d4923552aea2f1fab1845b",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "sourceSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "rootSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "sourceSHA256": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/bundle-batch.bend",
+          "rootSHA256": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "sourceSHA256": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+          "rootSHA256": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/world-io.bend",
+          "sourceSHA256": "1be0fcd577ecf177af89136f77e5c8e67894304a89adefaf0565591f641a63e9",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend",
+          "rootSHA256": "1be0fcd577ecf177af89136f77e5c8e67894304a89adefaf0565591f641a63e9",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/world-namespace.bend",
+          "sourceSHA256": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.bend",
+          "rootSHA256": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+          "classification": "production dependency exact"
+        }
+      ],
+      "literalEdges": [
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/foreign-pending-v1/main.bend",
+          "literal": "../main.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/foreign-pending-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/foreign-pending-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/world-io.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world-io.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world-io.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/foreign-pending-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/foreign-pending-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/bundle-batch.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-batch.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/bundle-delivery.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "literal": "string-equality.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/string-equality.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "literal": "./world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "literal": "./transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "bundle-delivery.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "literal": "world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "literal": "transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/world-io.bend",
+          "literal": "./world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/world-io.bend",
+          "literal": "./world-namespace.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world-namespace.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world-namespace.bend",
+          "byteExact": true
+        }
+      ],
+      "allOriginalPinsStillExact": true,
+      "oracleCommit": "a531a1c532305519bf21f852372e8813e4e235a0",
+      "oracleBasis": "/workspace/formal-proofs/bendvy-worktrees/audit61-app-a-captured-oracle/experiments/public-identity/pending-cancellation-oracle-v1/foreign-pending-v1/SOURCE-BASIS.json",
+      "oracleBasisSHA256": "9ccff0c40243d62536162f7b547315ca451c566117996fa15cd3d0c2b1c4b7b3",
+      "expected": {
+        "bytes": 2618,
+        "sha256": "3757c2f2338823e6cbfd6bb5ef4ee24542fda1fe663052f79d3dd3c53d886d6f",
+        "gzipSHA256": "9c23ebcf4cab2673a8e32201748422b39883d8c3bedb37fdd44d48e1b59028b2"
+      },
+      "packetManifest": "/workspace/formal-proofs/bendvy-worktrees/audit61-app-a-captured-oracle/experiments/public-identity/pending-cancellation-v1/foreign-pending-v1/runtime-v1/actual-attempt01/manifest.json",
+      "packetManifestSHA256": "929406871a23f76bedceb37ca0f37645353ba81d5405e403902be41f2ff639da"
+    },
+    {
+      "leaf": "scope-compat-v1",
+      "freezePath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/SOURCE-FREEZE.json",
+      "freezeSHA256": "64491f00efe32ae2b40ef46bbdbefff8a65d0a4b90268014d7e890a07660f6e0",
+      "sourceCount": 15,
+      "allSourcePinsCount": 84,
+      "mappings": [
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/main.bend",
+          "sourceSHA256": "55f14fdfa47f33ed748634a1757f0446ac94a7179a2bd45fecc05721c1e857d5",
+          "rootPath": "/workspace/formal-proofs/bendvy/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/main.bend",
+          "rootSHA256": "55f14fdfa47f33ed748634a1757f0446ac94a7179a2bd45fecc05721c1e857d5",
+          "classification": "frozen consumer/control exact, same relative file path"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/fixture.bend",
+          "sourceSHA256": "d51906073a8dd44d7287cdc0bce578e48d183eeef21e7008af41d407991443d5",
+          "rootPath": "/workspace/formal-proofs/bendvy/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/fixture.bend",
+          "rootSHA256": "d51906073a8dd44d7287cdc0bce578e48d183eeef21e7008af41d407991443d5",
+          "classification": "frozen consumer/control exact, same relative file path"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "sourceSHA256": "ee8a3f233ec65e814185e7c4d3ecdf99a62b77f5af8d7551948a55ab68fbb356",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/lifetime-scope.bend",
+          "rootSHA256": "ee8a3f233ec65e814185e7c4d3ecdf99a62b77f5af8d7551948a55ab68fbb356",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "sourceSHA256": "784919bd80945a47614419f8b197af0b6982351874af1dd21ec6e7093589eea0",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "rootSHA256": "784919bd80945a47614419f8b197af0b6982351874af1dd21ec6e7093589eea0",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/string-equality.bend",
+          "sourceSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+          "rootSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "sourceSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "rootSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "sourceSHA256": "e52fa5988848811a254ef485ab43904dadeb4aacc0d4923552aea2f1fab1845b",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "rootSHA256": "e52fa5988848811a254ef485ab43904dadeb4aacc0d4923552aea2f1fab1845b",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/relation-commands.bend",
+          "sourceSHA256": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend",
+          "rootSHA256": "941d8f3b11dfad4088ac324cd2d07759c6650f108c584f34bdac80e5c96403bb",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/relation-types.bend",
+          "sourceSHA256": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend",
+          "rootSHA256": "63f433974a2650c34c84fbab359b0301a91b96f7bf3ff5d19f3f05911e869057",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/relation-graph.bend",
+          "sourceSHA256": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/relation-graph.bend",
+          "rootSHA256": "61a67454a456969463a68b4571bcc3426a5df8016dca8889cd26acaf1fc22e8d",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/relation-cleanup.bend",
+          "sourceSHA256": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/relation-cleanup.bend",
+          "rootSHA256": "88ebedf43b8cde2d8e4effd7413ec49bdb213352de72dd8815274935eaa1a5f3",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "sourceSHA256": "e5678d966eabf4e2d0967367983975a7425e022d984a2910cb6bc87ee28658b5",
+          "rootPath": "/workspace/formal-proofs/bendvy/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "rootSHA256": "e5678d966eabf4e2d0967367983975a7425e022d984a2910cb6bc87ee28658b5",
+          "classification": "frozen consumer/control exact, same relative file path"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "sourceSHA256": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/bundle-batch.bend",
+          "rootSHA256": "613f148063fe8f3411acdc828a12377394e465868f197bfccf9ef877d4aba12d",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "sourceSHA256": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+          "rootSHA256": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+          "classification": "production dependency exact"
+        },
+        {
+          "frozenPath": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope-world-spawn.bend",
+          "sourceSHA256": "5ab003ad946c2d941474e8d8443a72eeae54490de46f8c506e9c8a2aac9b4138",
+          "rootPath": "/workspace/formal-proofs/bendvy/src/ecs/lifetime-scope-world-spawn.bend",
+          "rootSHA256": "5ab003ad946c2d941474e8d8443a72eeae54490de46f8c506e9c8a2aac9b4138",
+          "classification": "production dependency exact"
+        }
+      ],
+      "literalEdges": [
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/main.bend",
+          "literal": "./fixture.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/fixture.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/fixture.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/main.bend",
+          "literal": "../main.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/lifetime-scope.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope-world-spawn.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope-world-spawn.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/lifetime-scope-world-spawn.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/relation-commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/main.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/relation-types.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-types.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/fixture.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/lifetime-scope.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/fixture.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/fixture.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/relation-types.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-types.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/fixture.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/relation-commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/fixture.bend",
+          "literal": "/tmp/bendvy-pending-cancellation/src/ecs/relation-cleanup.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-cleanup.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-cleanup.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "literal": "./world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "literal": "./transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "literal": "./commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "literal": "./relation-commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "literal": "./relation-types.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-types.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "literal": "./relation-cleanup.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-cleanup.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-cleanup.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "literal": "./string-equality.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/string-equality.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "literal": "string-equality.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/string-equality.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/string-equality.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "literal": "./world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "literal": "./transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/relation-commands.bend",
+          "literal": "relation-types.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-types.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/relation-commands.bend",
+          "literal": "relation-graph.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-graph.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-graph.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/relation-commands.bend",
+          "literal": "world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/relation-commands.bend",
+          "literal": "transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/relation-graph.bend",
+          "literal": "relation-types.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-types.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/relation-cleanup.bend",
+          "literal": "relation-types.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-types.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-types.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/relation-cleanup.bend",
+          "literal": "relation-graph.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-graph.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-graph.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/relation-cleanup.bend",
+          "literal": "relation-commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/relation-cleanup.bend",
+          "literal": "world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/bundle-batch.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-batch.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/main.bend",
+          "literal": "../../../src/ecs/bundle-delivery.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "bundle-delivery.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/bundle-delivery.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-batch.bend",
+          "literal": "commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "literal": "world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/bundle-delivery.bend",
+          "literal": "transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope-world-spawn.bend",
+          "literal": "./commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/commands.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope-world-spawn.bend",
+          "literal": "./lifetime-scope.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/lifetime-scope.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope-world-spawn.bend",
+          "literal": "./world.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/world.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/world.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope-world-spawn.bend",
+          "literal": "./transaction.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/transaction.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/transaction.bend",
+          "byteExact": true
+        },
+        {
+          "importer": "/tmp/bendvy-pending-cancellation/src/ecs/lifetime-scope-world-spawn.bend",
+          "literal": "./relation-commands.bend",
+          "frozenTarget": "/tmp/bendvy-pending-cancellation/src/ecs/relation-commands.bend",
+          "rootCorrespondingTarget": "/workspace/formal-proofs/bendvy/src/ecs/relation-commands.bend",
+          "byteExact": true
+        }
+      ],
+      "allOriginalPinsStillExact": true,
+      "oracleCommit": "60d6ae14663b958f895fce396265872941209c46",
+      "oracleBasis": "/workspace/formal-proofs/bendvy-worktrees/audit61-app-a-captured-oracle/experiments/public-identity/pending-cancellation-oracle-v1/scope-compat-v1/SOURCE-BASIS.json",
+      "oracleBasisSHA256": "872faa5e70a67096bb314c986b64a009ed1cb28f98f822dfc851b158e785b30b",
+      "expected": {
+        "bytes": 2491,
+        "sha256": "34cc7478e20fefe926350a1b00b8b1093cf1cbc6a627bf77deb02d3833fac70d",
+        "gzipSHA256": "651b8e6401e183409e8e436e87c3c21bc95a73ac1e1d5777c6cc8c2acd423b53"
+      },
+      "packetManifest": "/workspace/formal-proofs/bendvy-worktrees/audit61-app-a-captured-oracle/experiments/public-identity/pending-cancellation-v1/scope-compat-v1/runtime-v1/actual-attempt01/manifest.json",
+      "packetManifestSHA256": "29b707b55f8c6d7f6f5b1056d523ac4a9e6c0e68f3d8ac6e63feafa236468269"
+    }
+  ],
+  "negativeControl": {
+    "leaf": "live-only-mutant-v1",
+    "intentionalVariantPath": "/tmp/bendvy-pending-cancellation/experiments/public-identity/pending-cancellation-v1/live-only-mutant-v1/commands.bend",
+    "rootCopyIsExperimentalControlNotProductionCmd": true,
+    "normalizedSameTargetImportsAndExactly3PredicateInverse": true,
+    "normalCoreSHA256": "e52fa5988848811a254ef485ab43904dadeb4aacc0d4923552aea2f1fab1845b",
+    "mutantSHA256": "7deb8a4b6667bf37c3eda4433780bfd8bad2b61a25d81006b7496eea72855c98"
+  },
+  "limits": [
+    "Literal reference dependencies and sidecars are bound by original sourcePins unchanged; current root counterpart bodies are exact.",
+    "Absolute candidate imports stay absolute frozen subject paths. Mappings do not pretend a nominal-path relocation or replay occurred.",
+    "Only source-current applicability is transferred. Generated JS/C/native artifacts remain tied to original executed plan/environment, not root artifact identity.",
+    "Scope producers gain actual runtime credit only through scope-compat pair, not first consumer.",
+    "AppA/AppB full physical-observer successors and unchanged protected regression remain separately owned gates."
+  ]
+}

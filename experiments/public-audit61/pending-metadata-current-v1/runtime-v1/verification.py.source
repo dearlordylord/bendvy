@@ -1,0 +1,46 @@
+from pathlib import Path
+import json,gzip,hashlib,tempfile,shutil,subprocess,re,sys,os
+LABEL=sys.argv[1];P=Path('/tmp/bendvy-constructed-field/experiments/public-audit61/pending-metadata-current-v1/runtime-v1')/LABEL/'actual-attempt01'
+sha=lambda b:hashlib.sha256(b).hexdigest()
+with tempfile.TemporaryDirectory() as tmp:
+ q=Path(tmp)/'packet';shutil.copytree(P,q);m=json.loads((q/'manifest.json').read_text());data={};external={}
+ for row in m['members']:
+  if 'object' in row:
+   packed=(q/row['object']).read_bytes();assert sha(packed)==row['compressedSHA256'];raw=gzip.decompress(packed);assert sha(raw)==row['sha256'] and len(raw)==row['bytes'];data[row['path']]=raw
+  else:assert sha(Path(row['path']).read_bytes())==row['sha256'];external[row['path']]=row
+ def check(path,h):
+  if path in data:assert sha(data[path])==h,path
+  else:assert external[path]['sha256']==h;assert sha(Path(path).read_bytes())==h
+ evolving=0;commands=0;guards=0
+ for role in m['roles']:
+  check(role['plan'],role['planSHA256']);check(role['receipt'],role['receiptSHA256']);plan=json.loads(data[role['plan']]);receipt=json.loads(data[role['receipt']]);assert receipt['planSHA256']==sha(data[role['plan']]);assert receipt['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS'
+  for path,h in plan['pins'].items():check(path,h)
+  for root,entries in plan['resourceRoots'].items():
+   for path,h in entries.items():check(str(Path(root)/path),h)
+  for g in receipt['guards']:
+   check(g['path'],g['sha256']);guard=json.loads(data[g['path']]);assert guard['unchanged']
+   for p,h in guard['actualPins'].items():check(p,h)
+   evolving+=len(guard['actualPins']);guards+=1
+  seen=set()
+  def visit(p):
+   if p in seen:return
+   seen.add(p);check(p,plan['sourceInventory'][p])
+   for target in re.findall(r'^import\s+(\S+)',data[p].decode(),re.M):
+    if target!='Base':visit(str((Path(p).parent/target).resolve()))
+  visit(plan['entrypoint']);assert seen==set(plan['sourceInventory'])
+  suffix='/pending-metadata-current-v1/'+LABEL+'/SOURCE-BASIS.json';basis=next(p for p in plan['pins'] if p.endswith(suffix));b=json.loads(data[basis]);check(b['freeze']['path'],b['freeze']['sha256']);freeze=json.loads(data[b['freeze']['path']]);assert freeze['sourceInventory']==plan['sourceInventory']
+  check(b['sourceCheck']['path'],b['sourceCheck']['sha256']);sc=json.loads(data[b['sourceCheck']['path']]);assert sc['exitCode']==0 and sc['cpu']==5 and sc['wallCapSeconds']==5 and sc['pinsUnchanged'];assert sc['prePins']==sc['postPins']
+  for path,h in sc['prePins'].items():check(path,h)
+  for path,h in {**b['sourcePins'],**b['toolPins'],**b['modelPins']}.items():check(path,h)
+  for c in receipt['commands']:
+   assert c['exit']==0 and c['failure'] is None;commands+=1
+   for stream in ['stdout','stderr']:
+    row=c[stream];check(row['path'],row['sha256']);assert len(data[row['path']])==row['bytes']
+   if c['label']=='consumer':assert not data[c['stderr']['path']];assert data[c['stdout']['path']]==gzip.decompress(data[plan['oracle']])
+  oracle_dir=Path(plan['oracle']).parent
+  for name in ['model.py','base_model.py']:
+   key=str(oracle_dir/name)
+   if key in data:(Path(tmp)/name).write_bytes(data[key])
+  rendered=subprocess.run(['/usr/bin/python3.11',str(Path(tmp)/'model.py')],cwd=tmp,capture_output=True,check=True,env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'));assert not rendered.stderr;assert rendered.stdout==gzip.decompress(data[plan['oracle']])
+ result={'status':'PASS','isolatedRelocation':True,'allEvolvingGuardPinBindings':evolving,'exactReachedImportsPerRole':len(seen),'sourceCheckPrePostSourceAndToolJoins':True,'wholeConsumerEqualityWithoutNormalization':True,'commands':commands,'guards':guards,'retainedModelReproduction':{'bytes':len(rendered.stdout),'sha256':sha(rendered.stdout)},'backendReplay':False,'externalInstalledElfIdentitiesRechecked':len(external)}
+ print(json.dumps(result,indent=2));(P/'FULL-JOIN-VERIFICATION.json').write_text(json.dumps(result,indent=2)+'\n')

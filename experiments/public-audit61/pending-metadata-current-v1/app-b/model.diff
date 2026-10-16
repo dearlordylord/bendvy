@@ -1,0 +1,20 @@
+--- historical/model.py
++++ current/model.py
+@@ -1,7 +1,7 @@
+ """Full AppB model derived from e0920cbc5 source, before any backend output."""
+ import json, os
+ from pathlib import Path
+-ROOT=Path('/tmp/bendvy-app-b-current/experiments/public-audit61/app-b-current-v1')
++ROOT=Path('/workspace/formal-proofs/bendvy/experiments/public-audit61/app-b-current-v1')
+ CORE=Path('/workspace/formal-proofs/bendvy/src/ecs')
+ def q(s): return json.dumps(s,ensure_ascii=False)
+ def c(name,*fields): return name+'{'+', '.join(fields)+'}'
+@@ -35,7 +35,7 @@
+         else:entries.append((key,target,[source]))
+         self.inverses=entries
+     def world(self):
+-        live=tree(['False']+['True' if self.flushed else 'False']*3) if self.reserved else 'leaf:False'
++        live='node('+tree(['False']+['True' if self.flushed else 'False']*3)+','+tree(['False']+['False' if self.flushed else 'True']*3)+')' if self.reserved else 'leaf:False'
+         arrays=column('node(leaf:7,leaf:9)',[1,3,5,0] if self.flushed else [0])
+         scalars=column('11',[2,4,6,0] if self.flushed else [0])
+         graph=ls([desc(k)+f':{s}>{t}' for k,s,t in self.edges])+';'+ls([desc(k)+f':{t}:'+ls(map(str,ids)) for k,t,ids in self.inverses])

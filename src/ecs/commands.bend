@@ -25,10 +25,16 @@ def spawned(~S: Data,~C: Type,~R: Type,~E: Data,~P: Type,~populate: W.World<S,C,
 def spawn_apply(~S: Data,~C: Type,~R: Type,~E: Data,~P: Type,~populate: W.World<S,C,R,E> -> W.Handle<S> -> P -> W.World<S,C,R,E>,world: W.World<S,C,R,E>,+handle: W.Handle<S>,payload: P) -> W.World<S,C,R,E>:
   spawned(~S,~C,~R,~E,~P,~populate,W.activate(~S,~C,~R,~E,world,handle),handle,payload)
 
+# Only successful actual deferred spawns establish pending authority. The inverse
+# clears at the World's current capacity after any intervening growth.
+def track_pending(~S:Data,~C:Type,~R:Type,~E:Data,tx:T.Tx<W.World<S,C,R,E>,E>,+handle:W.Handle<S>) -> T.Tx<W.World<S,C,R,E>,E>:
+  match tx:
+    case T.Tx{world,undo,commands,events}:T.Tx{W.mark_pending(~S,~C,~R,~E,world,handle),(w => W.clear_pending(~S,~C,~R,~E,w,handle)) <> undo,commands,events}
+
 def spawn_reserved(~S: Data,~C: Type,~R: Type,~E: Data,~P: Type,~populate: W.World<S,C,R,E> -> W.Handle<S> -> P -> W.World<S,C,R,E>,reservation: W.Reservation<S>,world: W.World<S,C,R,E>,undo: List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,commands: List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,events: List<&2,E>,payload: P) -> T.Tx<W.World<S,C,R,E>,E> & W.Reservation<S>:
   match reservation:
     case W.ReservationRejected{error}: (T.Tx{world,undo,commands,events},W.ReservationRejected{error})
-    case W.Reserved{+handle}: (T.Tx{world,undo,(w => spawn_apply(~S,~C,~R,~E,~P,~populate,w,handle,payload)) <> commands,events},W.Reserved{handle})
+    case W.Reserved{+handle}: (track_pending(~S,~C,~R,~E,T.Tx{world,undo,(w => spawn_apply(~S,~C,~R,~E,~P,~populate,w,handle,payload)) <> commands,events},handle),W.Reserved{handle})
 
 def spawn_join(~S: Data,~C: Type,~R: Type,~E: Data,~P: Type,~populate: W.World<S,C,R,E> -> W.Handle<S> -> P -> W.World<S,C,R,E>,reserved: W.World<S,C,R,E> & W.Reservation<S>,undo: List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,commands: List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,events: List<&2,E>,payload: P) -> T.Tx<W.World<S,C,R,E>,E> & W.Reservation<S>:
   (world,reservation) = reserved
@@ -58,7 +64,7 @@ def despawn_join(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,C,R,E> &
 # Low-level liveness-only operation retains component storage. Gameplay uses tx_despawn_with.
 def tx_despawn(~S: Data,~C: Type,~R: Type,~E: Data,tx: T.Tx<W.World<S,C,R,E>,E>,+handle: W.Handle<S>) -> T.Tx<W.World<S,C,R,E>,E> & W.Status:
   match tx:
-    case T.Tx{world,undo,commands,events}: despawn_join(~S,~C,~R,~E,W.valid(~S,~C,~R,~E,world,handle),undo,commands,events,handle)
+    case T.Tx{world,undo,commands,events}: despawn_join(~S,~C,~R,~E,W.command_valid(~S,~C,~R,~E,world,handle),undo,commands,events,handle)
 
 # Schema-owned clear releases every component family after accepted deactivation.
 def clear_join(~S: Data,~C: Type,~R: Type,~E: Data,cleared: W.World<S,C,R,E> & Unit) -> W.World<S,C,R,E>:
@@ -84,7 +90,7 @@ def despawn_join_with(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<
 
 def tx_despawn_with(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C,tx: T.Tx<W.World<S,C,R,E>,E>,+handle: W.Handle<S>) -> T.Tx<W.World<S,C,R,E>,E> & W.Status:
   match tx:
-    case T.Tx{world,undo,commands,events}: despawn_join_with(~S,~C,~R,~E,~clear,W.valid(~S,~C,~R,~E,world,handle),undo,commands,events,handle)
+    case T.Tx{world,undo,commands,events}: despawn_join_with(~S,~C,~R,~E,~clear,W.command_valid(~S,~C,~R,~E,world,handle),undo,commands,events,handle)
 
 # Cleanup owns actual removed payloads; its typed metadata is published only on success.
 def clear_observed_join(~S: Data,~C: Type,~R: Type,~E: Data,~record: W.Handle<S> -> E,handle: W.Handle<S>,cleared: W.World<S,C,R,E> & List<&2,E>) -> W.World<S,C,R,E>:
@@ -115,4 +121,4 @@ def despawn_join_observed(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Han
 
 def tx_despawn_observed(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C & List<&2,E>,~record: W.Handle<S> -> E,tx: T.Tx<W.World<S,C,R,E>,E>,+handle: W.Handle<S>) -> T.Tx<W.World<S,C,R,E>,E> & W.Status:
   match tx:
-    case T.Tx{world,undo,commands,events}: despawn_join_observed(~S,~C,~R,~E,~clear,~record,W.valid(~S,~C,~R,~E,world,handle),undo,commands,events,handle)
+    case T.Tx{world,undo,commands,events}: despawn_join_observed(~S,~C,~R,~E,~clear,~record,W.command_valid(~S,~C,~R,~E,world,handle),undo,commands,events,handle)

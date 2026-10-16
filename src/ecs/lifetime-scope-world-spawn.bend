@@ -1,4 +1,5 @@
 import Base
+import ./commands.bend as Cmd
 import ./lifetime-scope.bend as Sc
 import ./world.bend as W
 import ./transaction.bend as T
@@ -21,7 +22,7 @@ def apply(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:W.World<S,A.Store<S,
 def reserved(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>> -> W.Handle<S> -> P -> W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>,seen:W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>> & W.Reservation<S>,undo:List<(W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>)>,commands:List<(W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>)>,events:List<&2,A.Notice<S,E>>,payload:P,name:String) -> T.Tx<W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & Sc.SpawnResult<S,P>:
   match seen:
     case (world,W.ReservationRejected{error}):(T.Tx{world,undo,commands,events},Sc.SpawnRejected{payload,error})
-    case (world,W.Reserved{+handle}):(T.Tx{world,undo,(world => apply(~S,~C,~R,~E,~P,~populate,world,handle,payload,name)) <> commands,events},Sc.Spawned{handle})
+    case (world,W.Reserved{+handle}):(Cmd.track_pending(~S,~A.Store<S,Sc.Store<S,C>>,~R,~A.Notice<S,E>,T.Tx{world,undo,(world => apply(~S,~C,~R,~E,~P,~populate,world,handle,payload,name)) <> commands,events},handle),Sc.Spawned{handle})
 def checked(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>> -> W.Handle<S> -> P -> W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>,same:Bool,world:W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>,undo:List<(W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>)>,commands:List<(W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>)>,events:List<&2,A.Notice<S,E>>,payload:P,name:String) -> T.Tx<W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & Sc.SpawnResult<S,P>:
   match same:
     case False{}:(T.Tx{world,undo,commands,events},Sc.SpawnRejected{payload,W.MissingEntity{}})

@@ -335,7 +335,15 @@ explain the difference from the historical 14,582-byte oracle. Eight existing co
 dependency deltas and a new queue dependency are explicitly joined and exercised
 by the current pair; all ten World snapshots and three selected observations remain. Historical
 reparent/authority controls retain exact operation-boundary applicability. Independent [final review](../../experiments/public-audit61/app-b-current-v1/FINAL-REVIEW.md)
-passes; integrated `0ee4562f4`, CI38921620111 PASS. Neither application must duplicate every
+passes; integrated `0ee4562f4`, CI38921620111 PASS. The #38 pending-metadata successor now re-executes both unchanged application
+entrypoints against independently derived full physical observations:
+[AppA/AppB successor](../../experiments/public-audit61/pending-metadata-current-v1/runtime-v1/README.md).
+AppA matches 47,464 bytes and AppB 13,475 bytes on stock JS/Native. The smaller
+AppB output reflects literal root-path QNames; no stripping or normalization is
+applied. World/commands bodies change in both closures; every other 134/72
+imported body remains exact. The preceding byte-identity applicability is
+historical, rather than a claim that these changed bodies are unchanged.
+Neither application must duplicate every
 feature of the other. New two-schema subsystem consumers do not substitute for
 independent authorship. Restore #59/#60, identity #38,
 broad Inspector/compiler #54 and subscriber requirements #57 retain their exact

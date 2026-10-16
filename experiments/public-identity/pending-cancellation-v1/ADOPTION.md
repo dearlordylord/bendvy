@@ -1,0 +1,7 @@
+Pending cancellation: source-current adoption bridge
+
+ADOPTION.json verifies all four promoted root core copies byte-for-byte against source7eb6c90e5 and the root working manifest. For each first/control/foreign/scope subject, every reached module maps by the same repository-relative path to an exact root body; every literal nonBase import target and every original source pin remains exact. Original source freeze/oracle basis/whole expected and portable manifest hashes are joined. Counts are7/8/10/15 importing modules and76/77/81/84 pins respectively.
+
+The live-only commands file is an intentional experimental negative control, not the promoted production Cmd. Same-target import resolution verifies that precisely three command_valid calls become valid; all other body bytes are unchanged. Production Cmd is mapped separately and remains the approved pending-aware body. Genuine WorldIO sidecars/reference dependencies retain their original pinned bytes.
+
+Executed subjects remain candidate-worktree sources with their original absolute imports and exact immutable receipts. This bridge establishes source-current applicability of identical root copies; it does not claim a root backend replay, nominal relocation equivalence or generated artifact identity. Existing packets, source freezes, source READMEs and oracle notes are untouched. Scope compatibility, AppA/AppB physical-observer successors and protected regression retain their separately qualified scopes.

@@ -42,10 +42,26 @@ def create(~S: Data,~C: Type,~R: Type,~E: Data,~empty: Unit -> C,factory: Factor
   match factory:
     case Factory{+namespace}: create_checked(~S,~C,~R,~E,~empty,U32.is_lt(namespace,4294967295),namespace,resource)
 
-def grow_live(remaining: Nat,+capacity: U32,+depth: Nat,live: Array<Bool>) -> Growth:
-  match remaining:
-    case 0n: Growth{live,capacity,depth}
-    case 1n+rest: grow_live(rest,(capacity * 2 : U32),1n+depth,ANode{live,Array.new(Bool,depth,False{})})
+# Logical capacity/depth describe plane0. A lazy second plane records only
+# accepted deferred spawns; legacy raw Worlds retain the single live plane.
+def grow_planes(+capacity:U32,+depth:Nat,live:Array<Bool>) -> Growth:
+  match live:
+    case ANode{visible,pending}:Growth{ANode{ANode{visible,Array.new(Bool,depth,False{})},ANode{pending,Array.new(Bool,depth,False{})}},(capacity * 2 : U32),1n+depth}
+    case ALeaf{value}:Growth{ALeaf{value},capacity,depth}
+def grow_selected(dual:Bool,+capacity:U32,+depth:Nat,live:Array<Bool>) -> Growth:
+  match dual:
+    case True{}:grow_planes(capacity,depth,live)
+    case False{}:Growth{ANode{live,Array.new(Bool,depth,False{})},(capacity * 2 : U32),1n+depth}
+def grow_measured(+capacity:U32,+depth:Nat,measured:Array<Bool> & U32) -> Growth:
+  match measured:
+    case (live,size):grow_selected(U32.is_eq(size,(capacity * 2 : U32)),capacity,depth,live)
+
+def grow_continue(remaining:Nat,grown:Growth) -> Growth:
+  match remaining grown:
+    case 0n grown:grown
+    case 1n+rest Growth{live,+capacity,+depth}:grow_continue(rest,grow_measured(capacity,depth,Array.size(Bool,live)))
+def grow_live(remaining:Nat,capacity:U32,depth:Nat,live:Array<Bool>) -> Growth:
+  grow_continue(remaining,Growth{live,capacity,depth})
 
 def reserve_finish(~S: Data,~C: Type,~R: Type,~E: Data,grown: Growth,+namespace: U32,+nextId: U32,+highWater: U32,store: C,resource: R,+events: List<&2,E>,pending: List<(World<S,C,R,E> -> World<S,C,R,E>)>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32) -> World<S,C,R,E> & Reservation<S>:
   match grown:
@@ -65,6 +81,33 @@ def metadata_valid(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>,han
   match world handle:
     case World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock} Handle{+ns,+id}: (World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},Bool.and(U32.is_eq(namespace,ns),Bool.and(U32.is_lt(0,id),U32.is_lt(id,nextId))))
 
+def pending_write_dual(allowed:Bool,live:Array<Bool>,index:U32,value:Bool) -> Array<Bool>:
+  match allowed:
+    case False{}:live
+    case True{}:Array.set(Bool,live,index,value)
+def pending_write_shape(legacy:Bool,dual:Bool,+capacity:U32,depth:Nat,+id:U32,value:Bool,live:Array<Bool>) -> Array<Bool>:
+  match legacy value:
+    case True{} True{}:pending_write_dual(U32.is_lt(id,capacity),ANode{live,Array.new(Bool,depth,False{})},(capacity + id : U32),True{})
+    case True{} False{}:live
+    case False{} value:pending_write_dual(Bool.and(dual,U32.is_lt(id,capacity)),live,(capacity + id : U32),value)
+
+def pending_write_measured(+capacity:U32,+depth:Nat,+id:U32,value:Bool,measured:Array<Bool> & U32) -> Array<Bool>:
+  match measured:
+    case (live,+size):pending_write_shape(U32.is_eq(size,capacity),U32.is_eq(size,(capacity * 2 : U32)),capacity,depth,id,value,live)
+def pending_write_world(~S:Data,~C:Type,~R:Type,~E:Data,+ns:U32,+next:U32,+high:U32,+capacity:U32,+depth:Nat,store:C,resource:R,+events:List<&2,E>,commands:List<(World<S,C,R,E> -> World<S,C,R,E>)>,+regs:List<&2,RegistrationMeta>,+sid:U32,+clock:U32,live:Array<Bool>) -> World<S,C,R,E>:
+  World{ns,next,high,live,capacity,depth,store,resource,events,commands,regs,sid,clock}
+def pending_write_checked(~S:Data,~C:Type,~R:Type,~E:Data,value:Bool,allowed:Bool,world:World<S,C,R,E>,handle:Handle<S>) -> World<S,C,R,E>:
+  match allowed world handle:
+    case False{} world _:world
+    case True{} World{ns,next,high,live,+capacity,+depth,store,resource,events,commands,regs,sid,clock} Handle{_,id}:pending_write_world(~S,~C,~R,~E,ns,next,high,capacity,depth,store,resource,events,commands,regs,sid,clock,pending_write_measured(capacity,depth,id,value,Array.size(Bool,live)))
+def pending_write_returned(~S:Data,~C:Type,~R:Type,~E:Data,value:Bool,handle:Handle<S>,checked:World<S,C,R,E> & Bool) -> World<S,C,R,E>:
+  match checked:
+    case (world,allowed):pending_write_checked(~S,~C,~R,~E,value,allowed,world,handle)
+def mark_pending(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>,+handle:Handle<S>) -> World<S,C,R,E>:
+  pending_write_returned(~S,~C,~R,~E,True{},handle,metadata_valid(~S,~C,~R,~E,world,handle))
+def clear_pending(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>,+handle:Handle<S>) -> World<S,C,R,E>:
+  pending_write_returned(~S,~C,~R,~E,False{},handle,metadata_valid(~S,~C,~R,~E,world,handle))
+
 def set_live_checked(~S: Data,~C: Type,~R: Type,~E: Data,allowed: Bool,value: Bool,world: World<S,C,R,E>,handle: Handle<S>) -> World<S,C,R,E> & Status:
   match allowed world handle:
     case False{} world _: (world,Rejected{MissingEntity{}})
@@ -75,7 +118,7 @@ def set_live_join(~S: Data,~C: Type,~R: Type,~E: Data,value: Bool,handle: Handle
   set_live_checked(~S,~C,~R,~E,allowed,value,world,handle)
 
 def activate(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>,+handle: Handle<S>) -> World<S,C,R,E> & Status:
-  set_live_join(~S,~C,~R,~E,True{},handle,metadata_valid(~S,~C,~R,~E,world,handle))
+  set_live_join(~S,~C,~R,~E,True{},handle,metadata_valid(~S,~C,~R,~E,clear_pending(~S,~C,~R,~E,world,handle),handle))
 
 def deactivate(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>,+handle: Handle<S>) -> World<S,C,R,E> & Status:
   set_live_join(~S,~C,~R,~E,False{},handle,metadata_valid(~S,~C,~R,~E,world,handle))
@@ -83,6 +126,23 @@ def deactivate(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>,+handle
 def live_join(~S: Data,~C: Type,~R: Type,~E: Data,checked: Array<Bool> & Bool,+namespace: U32,+nextId: U32,+highWater: U32,+capacity: U32,+depth: Nat,store: C,resource: R,+events: List<&2,E>,pending: List<(World<S,C,R,E> -> World<S,C,R,E>)>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32) -> World<S,C,R,E> & Bool:
   (live,+found) = checked
   (World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},found)
+
+def pending_read_shape(allowed:Bool,live:Array<Bool>,index:U32) -> Array<Bool> & Bool:
+  match allowed:
+    case False{}:(live,False{})
+    case True{}:Array.get(Bool,live,index)
+def pending_read(+capacity:U32,+id:U32,measured:Array<Bool> & U32) -> Array<Bool> & Bool:
+  match measured:
+    case (live,size):pending_read_shape(Bool.and(U32.is_eq(size,(capacity * 2 : U32)),U32.is_lt(id,capacity)),live,(capacity + id : U32))
+def pending_checked(~S:Data,~C:Type,~R:Type,~E:Data,allowed:Bool,world:World<S,C,R,E>,handle:Handle<S>) -> World<S,C,R,E> & Bool:
+  match allowed world handle:
+    case False{} world _:(world,False{})
+    case True{} World{ns,next,high,live,+capacity,depth,store,resource,events,commands,regs,sid,clock} Handle{_,id}:live_join(~S,~C,~R,~E,pending_read(capacity,id,Array.size(Bool,live)),ns,next,high,capacity,depth,store,resource,events,commands,regs,sid,clock)
+def pending_join(~S:Data,~C:Type,~R:Type,~E:Data,handle:Handle<S>,checked:World<S,C,R,E> & Bool) -> World<S,C,R,E> & Bool:
+  match checked:
+    case (world,allowed):pending_checked(~S,~C,~R,~E,allowed,world,handle)
+def pending_valid(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>,+handle:Handle<S>) -> World<S,C,R,E> & Bool:
+  pending_join(~S,~C,~R,~E,handle,metadata_valid(~S,~C,~R,~E,world,handle))
 
 def valid_checked(~S: Data,~C: Type,~R: Type,~E: Data,allowed: Bool,world: World<S,C,R,E>,handle: Handle<S>) -> World<S,C,R,E> & Bool:
   match allowed world handle:
@@ -95,6 +155,13 @@ def valid_join(~S: Data,~C: Type,~R: Type,~E: Data,handle: Handle<S>,checked: Wo
 
 def valid(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>,+handle: Handle<S>) -> World<S,C,R,E> & Bool:
   valid_join(~S,~C,~R,~E,handle,metadata_valid(~S,~C,~R,~E,world,handle))
+
+def command_live(~S:Data,~C:Type,~R:Type,~E:Data,handle:Handle<S>,checked:World<S,C,R,E> & Bool) -> World<S,C,R,E> & Bool:
+  match checked:
+    case (world,True{}):(world,True{})
+    case (world,False{}):pending_valid(~S,~C,~R,~E,world,handle)
+def command_valid(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>,+handle:Handle<S>) -> World<S,C,R,E> & Bool:
+  command_live(~S,~C,~R,~E,handle,valid(~S,~C,~R,~E,world,handle))
 
 def enqueue(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>,command: World<S,C,R,E> -> World<S,C,R,E>) -> World<S,C,R,E>:
   match world:

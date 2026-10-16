@@ -1632,3 +1632,25 @@ The #61 selected-resource consumer composes existing public APIs without a core 
 ### Two-application current-source checkpoint
 
 The next #61 gap was current applicability, not a missing cross-feature operation. AppA reuses its complete owned-handoff observations after exact metadata-only reconciliation; AppB repairs unused renderer APIs and passes one current JS/Native pair against its full independent source-derived oracle. Historical mutation/authority controls retain explicit unchanged-boundary joins. No additional Cartesian scenarios, benchmark, runner or approval stage was introduced. Independent final review passes; integrated `0ee4562f4`, CI38921620111 PASS. Existing lossless inventory/group routes also reconcile every frozen key/case/marker without another fixture or tracking layer. No delivery-speed improvement is measured.
+
+
+### Pending-spawn cancellation delivery checkpoint
+
+The first complete ordinary consumer passed stock JS/Native before three
+addressed controls were expanded: reached live-only admission, actual foreign
+pending authority and both lifetime producers. Independent oracle authoring and
+portable retention ran alongside implementation/review. Existing AppA/AppB
+entrypoints were re-executed because World/commands changed their physical
+observations; historical byte-identity reuse was not claimed. All six semantic
+pairs pass through the existing collector and unchanged limits. One unchanged
+combined #28 run passes on the four-file integration (123 commands/110 complete
+outputs, no confirmed regression on either backend); no separate comparative
+timing/scaling campaign or additional runner was added. The earlier successful
+CI38791374316 note remains preserved. Delivery acceleration is not measured.
+
+The normal staged-source check rejected two direct subprocess calls in the new
+offline model self-check. The targeted repair evaluates the already pinned pure
+models in-process; both complete reproductions and the staged-source check pass.
+No ECS, frozen oracle, backend receipt or regression input changed, so those
+executions were reused rather than repeated. This is a concrete local detector
+effect, not a measured end-to-end delivery gain.
