@@ -69,5 +69,6 @@ combined full-feature performance stays under #21/#23/#24.
 [Independent joined Spec/Standards review](../../experiments/public-captured-schedules/ordinary-v1/FINAL-REVIEW.md)
 accepts the stated #51 semantic criteria. Composition owner duplication and
 cross-schema checks reject at the actual new entry; unchanged grant-confinement
-evidence is source-bound in authority-v1. Integration, CI and the issue report
-remain the delivery checkpoint.
+evidence is source-bound in authority-v1. Integrated at `1bcf107fa`; CI38859172838 passed. The
+[English acceptance report](https://github.com/dearlordylord/bendvy/issues/51#issuecomment-6209257212)
+was posted before closing #51.

@@ -1346,3 +1346,8 @@ complete consumer oracle equality. This reused the completed runs; no backend
 was repeated for retention or review. One coordination delay came from sending
 messages to a completed helper; resuming it with followup_task resolved it.
 No new process document or check stage was introduced.
+
+#51 integrated at `1bcf107fa`; CI38859172838 passed, its English acceptance
+report was posted and the issue closed. The next owner proceeds to #52 with the
+existing exact-recovery requirement and host-IO boundary; ordinary #50 capture
+persistence is preserved. No numerical performance criterion changed.
