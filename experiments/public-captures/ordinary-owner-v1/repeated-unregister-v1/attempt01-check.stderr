@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'metadata' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+27 | def second_result(~S:Data,metadata:Metadata,prefix:String,result:L.Disposal<S,Unit,U32,Unit,P.Pack,Sys.Args,Sys.Error,Unit,Ord.runner(~S,~Unit,~U32,~Unit,~P.Pack,~Sys.Args,~Sys.Error,~Unit,~Sys.Ops,~Sys.declaration(~S),~Sys.body),P.Pack>) -> String:
+28>|   match result metadata:
+   |                ^^^^^^^^
+29 |     case L.DisposalRejected{world,instance} metadata:final(~S,prefix,snapshot(~S,"second-refused",world,instance))
+bend 2.0.37 is available: run bend update

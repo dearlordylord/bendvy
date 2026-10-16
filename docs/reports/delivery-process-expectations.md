@@ -1291,3 +1291,15 @@ The first #50 API integration `ea88404fa` passed CI38850872625. Its scheduled
 successor then matched all 6,169 oracle bytes on both stock backends. Scope review
 identified the remaining ordinary query capture accumulator, so #50 remains open
 and the work stays in that issue rather than moving it to composition #51.
+
+The scheduled/authority batch integrated at `79e50c731`; CI38851950845 passed.
+Its ten normal/control backend commands used the existing collector and full
+independent oracles; protected regression and actual TS evidence were reused.
+Independent final review preserved the query-capture gap in #50.
+
+The #50 repeated-unregister delivery uses four existing-collector roles and one
+independent final review. Both normal and reached-defect outputs match their
+complete oracles on JS/Native. No production source changed; protected #28
+evidence remains applicable. Query JS also matches its complete oracle, but its
+Native runtime timed out after a successful build under heavy host contention;
+that result remains inconclusive and is preserved for artifact-only diagnosis.
