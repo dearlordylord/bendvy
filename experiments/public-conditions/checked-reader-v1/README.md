@@ -43,5 +43,6 @@ Product<Stream,Held>, not FamilyRuntime.State: no journal synchronization or fai
 callback/retry claim is made. Run Rejected/Missing are source-equivalent mappings,
 not executed new cases. The final unused snapshot tail is unprinted; preceding
 returned snapshots are observed at the next checkpoint. Pure checks PASS; IO main
-has five expected foreign refusals. Final retention/review, root integration and CI
-are pending; this bounded delivery does not close full #61 or add a reader policy.
+has five expected foreign refusals. All three retained packets and independent
+Spec/Standards review PASS; integrated `77beba95a`, CI38914934433 PASS.
+This bounded delivery does not close full #61 or add a reader policy.

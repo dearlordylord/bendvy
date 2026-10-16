@@ -290,7 +290,7 @@ arrays, physical stream state and separate World/Family clocks. Its generic
 Product family is not another canonical journal qualification. The full59,039-byte
 fold-tick counter and32,103-byte attachment controls also pass on both backends;
 independent [final review](../../experiments/public-conditions/checked-reader-v1/FINAL-REVIEW.md)
-passes; integration and CI remain pending.
+passes; integrated `77beba95a`, CI38914934433 PASS.
 Those are finite current public consumers, not a
 whole matrix or another independent schema. Remaining #61 work is to join the
 unmatched required predicates and cross-feature combinations to their direct

@@ -308,4 +308,4 @@ reference difference is retained. A reached fold-tick defect matches59,039 bytes
 and rejects normal on both backends; focused attachment refusals preserve all
 32,103 independent bytes. Four positive/six intended authority refusals pass.
 Independent [Spec/Standards review](../../experiments/public-conditions/checked-reader-v1/FINAL-REVIEW.md)
-passes; integration and CI remain pending.
+passes; integrated `77beba95a`, CI38914934433 PASS.

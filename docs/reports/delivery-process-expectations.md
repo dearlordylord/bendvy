@@ -1622,4 +1622,5 @@ and explicitly separated source-only never-activated behavior. No new runner,
 limits or measured delivery-speed improvement is claimed. Normal59,015, reached
 fold-tick59,039 (normal rejected) and attachment32,103-byte pairs all pass on
 JS/Native, along with four positive/six intended transport refusals. Independent
-Spec/Standards review passes; integration/CI remain pending at this checkpoint.
+Spec/Standards review passes; integrated `77beba95a` with normal pre-commit PASS,
+CI38914934433 PASS.
