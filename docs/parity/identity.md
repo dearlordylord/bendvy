@@ -70,3 +70,24 @@ one initializer-only trusted C seed, ordinary `-O3`, two last-valid namespaces
 then two refusals, and exact 158-byte owner observations. This is sequential
 single-executable evidence, not concurrency or cross-DSO qualification. The
 original archive remains historical; no fresh Bend emission is claimed.
+
+## Current authority and rollback backend qualification
+
+The [complete public successor](../../experiments/public-identity/approved-io-creation-v1/native-authority-v1/delivery-v1/README.md)
+now exercises independently created same-schema WorldIO worlds on stock JS and
+Native. Colliding foreign handles return MissingEntity without changing the
+transaction queue. Both backends match the full 1,829-byte successful-commit
+oracle and 1,819-byte rollback oracle, including all five component families and
+lifecycle stamps. Rollback restores the prior payload and stamp while retaining
+the already advanced World clock. Production ECS sources are unchanged.
+
+The previous JS-only observations omitted stamps and remain historical. The
+successor retains all prior operations and adds their missing observations;
+ten commands and 34 guards pass. The pinned checker retains its four expected
+foreign-IO-dependent refusals, so this is backend evidence rather than a proof
+checker PASS. The portable packet supports offline and relocated verification.
+
+This fills a specific backend/observation gap, not complete #38 acceptance.
+Reuse/generation/capacity decisions, broader host-domain uniqueness and the
+remaining criterion-level source reconciliation still belong to this issue.
+No fresh performance qualification is claimed; combined gates remain unchanged.
