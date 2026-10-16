@@ -1,0 +1,18 @@
+--- normal/fixture.bend
++++ mutant/fixture.bend
+@@ -92,10 +92,14 @@
+   match value:
+     case D.Receipt{cooked,D.Rejected{error}}:(owner,(T.Success{},AdmissionRefused{cooked,undo,error}))
+     case D.Receipt{cooked,D.Accepted{canonical}}:(Field.set(~S,~Payload<S>,~target_identity(~S),~H,~U32,~caps,owner,cooked),(T.Success{},Applied{canonical,undo}))
++# Mutant: project the cooked owner but omit ONLY its final codec admission.
++def unchecked(~S:Data,~H:Type,~caps:Ops(~S)(H),owner:H,undo:Payload<S> -> Input<S>,value:Payload<S> & D.Raw) -> H & (T.Outcome<Unit> & Output<S>):
++  match value:
++    case (cooked,canonical):admitted(~S,~H,~caps,owner,undo,D.Receipt{cooked,D.Accepted{canonical}})
+ def constructed(~S:Data,~H:Type,~caps:Ops(~S)(H),owner:H,context:Context<S>,value:Construction.Construction<Input<S>,Payload<S>,Ctor.Error<Custom>>) -> H & (T.Outcome<Unit> & Output<S>):
+   match value:
+     case Construction.Invalid{input,error}:(owner,(T.Success{},Refused{input,error}))
+-    case Construction.Constructed{cooked,undo}:admitted(~S,~H,~caps,owner,undo,Persist.validate(~S,~Payload<S>,~identity(~S),~project(~S),retained_declaration(~S,context),cooked))
++    case Construction.Constructed{cooked,undo}:unchecked(~S,~H,~caps,owner,undo,project(~S,cooked))
+ def retained_factory(~S:Data,value:Context<S>) -> Factory(~S):
+   match value:
+     case Context{_,factory}:factory

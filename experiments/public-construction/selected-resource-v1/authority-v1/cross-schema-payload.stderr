@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : F.Payload<F.Workshop>
+- observed : F.Payload<F.Garden>
+Context:
+- owner : rejected~H
+- value : F.Payload<F.Garden>
+Location: rejected
+4 | 
+5>| def rejected(~H:Type,~caps:F.Ops(~F.Workshop)(H),owner:H,value:F.Payload<F.Garden>) -> H:Field.set(~F.Workshop,~F.Payload<F.Workshop>,~F.target_identity(~F.Workshop),~H,~U32,~caps,owner,value)
+  |                                                                                                                                                                                           ^^^^^
+6 | 
+bend 2.0.37 is available: run bend update

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : context
+- observed : context (consumed more than once)
+Location: state_app
+37 |     case (inputs,rendered):state_outputs(~S,app,context,inputs,text ++ "\ninputs=" ++ rendered,observe_outputs(~S,outputs))
+38>| def state_app(~S:Data,context:F.Context<S>,inputs:List<F.Input<S>>,outputs:List<F.Output<S>>,label:String,value:F.Application(~S) & String) -> Session<S> & String:
+   |                       ^^^^^^^
+39 |   match value:
+bend 2.0.37 is available: run bend update

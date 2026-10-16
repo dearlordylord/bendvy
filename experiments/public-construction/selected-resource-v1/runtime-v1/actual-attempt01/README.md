@@ -1,0 +1,7 @@
+Selected constructed resource: complete retained stock pair
+
+Both first stock JS and Native executions matched all 26,673 independent source-derived bytes. The ordinary consumer retains input-decoder refusal, custom-constructor refusal and cooked-admission refusal, then applies the actual returned undo and retries the same returned input owner with only Mode changed. The selected Target becomes30; same-payload Sibling800 and unlike Bool Array remain unchanged. All raw fields, errors, codecs, physical Array owners, output/input lists, World metadata and automatic snapshots are compared.
+
+All four calls per schema return handled T.Success. Source tracing and full output establish clock0/cursor0 with the actual queued callback pending1; no barrier executes it. HandleValue validates namespace and positive ID, without entity-liveness or genuine foreign-handle authority claims. Opaque retained undo is exercised by actual routing; no arbitrary function identity proof is claimed.
+
+The manifest binds executed plans, complete raw streams, generated artifacts, source checks, immutable oracle and evolving guards. Five commands/seventeen guards passed. Isolated verification checks 4,448 evolving pins, both154-module import closures, source pre/post pins and raw diagnostic joins, and exact retained Python model reproduction. Installed ELF tools retain external identities; generated executable bytes are archived. Main checks retain five expected foreign-IO diagnostics. No backend replay, new core/API, comparative performance result or universal proof.

@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : List<&2, D.Field>
+- observed : D.Raw
+Context:
+- canonical : D.Raw
+Location: stored_bad
+54 |     case Payload{_,origin,mode,owned}:Input{origin,mode,owned}
+55>| def stored_bad(+canonical:D.Raw) -> D.Raw:D.Object{[D.Field{"value",D.Text{"invalid-stored"}},D.Field{"handle",D.field("handle",canonical)}]}
+   |                                                                                                                                 ^^^^^^^^^
+56 | def construct_mode(~S:Data,raw:D.Raw,mode:Mode,owned:Array<U32>,canonical:D.Raw) -> Construction.Construction<Input<S>,Payload<S>,Custom>:
+bend 2.0.37 is available: run bend update

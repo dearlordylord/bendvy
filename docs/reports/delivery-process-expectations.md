@@ -1624,3 +1624,7 @@ fold-tick59,039 (normal rejected) and attachment32,103-byte pairs all pass on
 JS/Native, along with four positive/six intended transport refusals. Independent
 Spec/Standards review passes; integrated `77beba95a` with normal pre-commit PASS,
 CI38914934433 PASS.
+
+### Selected constructed-resource delivery checkpoint
+
+The #61 selected-resource consumer composes existing public APIs without a core bridge. Both normal JS/Native outputs match the complete 26,673-byte independent oracle; the reached admission-omission pair matches 26,453 bytes and rejects normal. An independently authored observer and oracle exposed and corrected an observation assumption before execution: the actual clock/cursor stay zero and pending count stays one. Current authority controls, exact unchanged-core reuse and separately scoped actual TS evidence avoid redundant compatibility/reference runs. Independent final review passes; integration/CI is next. No new runner, limits or approval stage was added. Delivery acceleration has not been measured.

@@ -1,0 +1,7 @@
+Final stored admission omission: retained counter pair
+
+Both stock JS and Native matched the complete independent 26,453-byte counter oracle and rejected the complete 26,673-byte normal oracle. The sole fixture mutation bypasses final stored Persist.validate, retaining the actual cooked owner/projection through the existing selected field grant. Input validation and custom constructor refusal stay unchanged.
+
+The malformed cooked Payload30 becomes Target, with original Raw30, AdmissionReject and actual Array30/31 fully observed. Applied replaces AdmissionRefused, so unchanged scenario Undo takes UnexpectedUndoShape and Retry takes UnexpectedRetryShape; neither a returned input nor fourth system call is fabricated. Complete subsequent snapshots retain malformed Target, scalar view0, clock0/cursor0/pending1, intact siblings/Context/registration metadata and all outputs.
+
+The manifest binds exact source freeze, independent pre-execution model, executed plans, all command streams/generated artifacts and evolving guards. Five commands/seventeen guards passed. Isolated verification checks 4,601 evolving pin joins, both154-module literal closures, source-check pre/post/raw bindings, complete counter equality/normal inequality and exact retained Python model reproduction. Installed ELF tools retain external identities; generated executable bytes are archived. Main checks retain five expected foreign-IO diagnostics. No backend replay, new engine/API, comparative performance or universal proof claim.

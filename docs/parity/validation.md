@@ -70,3 +70,29 @@ under two schemas and actual foreign handles; retained affine input and complete
 rejected world/queue; reached validator/partial-write controls. The adopted core
 already passed the [unchanged #28 gate](../../experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/canonical-v1/CORE-DELIVERY.md).
 This reconciliation changes no executable source and introduces no new proof claim.
+
+## Selected constructed resource — existing API composition
+
+A Product-backed World can construct one declared resource without replacing its
+siblings. Use `decode-construction.fallible_construct`, validate the cooked owner
+with `persistence-declaration.validate` on the same retained Constructed declaration,
+then call `ordinary-resource-field-system.set` only for Accepted. Input admission
+alone does not establish cooked-value admission. On refusal, retain the actual
+input or cooked owner plus undo; the [ordinary public callback](../../experiments/public-construction/selected-resource-v1/fixture.bend)
+uses the existing field grant, without a new provider or raw World access.
+
+The [complete consumer](../../experiments/public-construction/selected-resource-v1/scenario.bend)
+passes stock JS/Native against26,673 independent bytes. Two nominal WorldIO schemas
+retain Target, a same-payload sibling and an unlike affine owner; the cooked
+refusal is observed before actual undo and retry of the returned input. Trusted
+setup derives expected namespace from the actual World, separately from raw input.
+Clock/cursor remain0 and pending1 throughout this finite trace. Refusals are handled
+operation results, not new failed-system rollback cases. Handle validation checks
+namespace and positive ID, not entity liveness. Undo closures are opaque until
+actually invoked; bounded rendering reports exhaustion explicitly (absent here).
+
+This is a source-current #61 composition witness using unchanged core APIs; #46's
+closed whole-resource evidence keeps its existing scope. Retained TS constructor
+and keyed-sibling observations are complementary subsets, not a new combined
+TS/Bend wire comparison; see [exact applicability](../../experiments/public-construction/selected-resource-v1/TS-APPLICABILITY.md).
+Both backend mutation outputs match the independent 26,453-byte counter oracle and reject the complete normal output. One positive and four intended authority/affine refusals pass; seven applicable read controls are reused. All 135 imported core bodies remain unchanged. [Independent final review](../../experiments/public-construction/selected-resource-v1/FINAL-REVIEW.md) passes. Root integration and CI remain pending; this does not close full #61.

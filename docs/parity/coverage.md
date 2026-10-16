@@ -291,6 +291,11 @@ Product family is not another canonical journal qualification. The full59,039-by
 fold-tick counter and32,103-byte attachment controls also pass on both backends;
 independent [final review](../../experiments/public-conditions/checked-reader-v1/FINAL-REVIEW.md)
 passes; integrated `77beba95a`, CI38914934433 PASS.
+The [selected constructed-resource witness](validation.md#selected-constructed-resource--existing-api-composition)
+joins existing input construction, final cooked-owner admission and a canonical
+Product field write. Both backends match26,673 independent bytes, including actual
+refused cooked owner→undo→returned input retry and untouched sibling owners.
+This adds no core API; affected authority controls and the reached admission-omission JS/Native pair pass, as does independent final review.
 Those are finite current public consumers, not a
 whole matrix or another independent schema. Remaining #61 work is to join the
 unmatched required predicates and cross-feature combinations to their direct

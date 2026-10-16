@@ -321,3 +321,8 @@ to an ordinary family App, retaining its World, family/tick, reader owners and
 existing generated debug fold. The static administration dispatch can invoke the
 ordinary reader API after the guard; gameplay keeps its existing confined inputs.
 See [API and scope](../../docs/parity/inspect.md#ordinary-checked-reader-schedules).
+
+For constructed input to a selected resource field, [the ordinary callback](../../experiments/public-construction/selected-resource-v1/fixture.bend)
+composes public construction, final cooked-owner validation and the existing field
+write grant. It retains refused owners/undo while sibling resources stay separate.
+See [validation scope](../../docs/parity/validation.md#selected-constructed-resource--existing-api-composition).
