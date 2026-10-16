@@ -31,8 +31,9 @@ None (can start immediately; explicit unresolved contract gates still apply).
 ## Semantic acceptance reconciliation
 
 The current-source audit and independent final Spec/Standards review by
-`scopes45_source_control` confirm all three native semantic criteria. Publication
-and CI remain pending.
+`scopes45_source_control` confirm all three native semantic criteria. Integration
+`76c1735b8` passed [CI 38829653048](https://github.com/dearlordylord/bendvy/actions/runs/38829653048);
+[#41 closed](https://github.com/dearlordylord/bendvy/issues/41#issuecomment-6205287884).
 
 | Criterion | Retained evidence |
 | --- | --- |

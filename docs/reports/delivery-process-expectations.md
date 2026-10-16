@@ -1099,3 +1099,8 @@ Independent review confirms current source applicability and all three semantic
 criteria. Inventory publication predates production adoption; chronology before
 initial experiments is not claimed. No backend, performance or private compiler
 experiment was rerun to close this documentation checkpoint.
+
+#41 reconciliation `76c1735b8` passed CI 38829653048 and the issue closed.
+Qualified execution evidence and independent source review sufficed; no unchanged
+compiler/benchmark run was repeated. This records fewer required runs, not a
+measured end-to-end speedup.
