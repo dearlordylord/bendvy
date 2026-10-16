@@ -1286,3 +1286,8 @@ and imports neither new capture module. The existing stock artifact identity
 bridge applies; the copied-compiler cohort is not substituted. No new runner,
 unchanged infrastructure rerun or comparative campaign was added. These are
 observed avoided checks, not measured delivery acceleration or capture performance.
+
+The first #50 API integration `ea88404fa` passed CI38850872625. Its scheduled
+successor then matched all 6,169 oracle bytes on both stock backends. Scope review
+identified the remaining ordinary query capture accumulator, so #50 remains open
+and the work stays in that issue rather than moving it to composition #51.

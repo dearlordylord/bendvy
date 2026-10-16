@@ -1,0 +1,73 @@
+{
+  "checks": [
+    {
+      "source": "abstract-owner-escape.bend",
+      "sourceSHA256": "b5c5803d0b2769f779e384bab144d46b0ca3bd122a767493a8a0594be3ae1251",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captures/ordinary-owner-v1/authority-v1/abstract-owner-escape.bend"
+      ],
+      "exitCode": 1,
+      "stdout": "abstract-owner-escape.stdout",
+      "stderr": "abstract-owner-escape.stderr"
+    },
+    {
+      "source": "cross-schema.bend",
+      "sourceSHA256": "768a138abd1d2570573f1fa6520caf63ea9cf0c5590c057e44a8580ab4db8fcb",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captures/ordinary-owner-v1/authority-v1/cross-schema.bend"
+      ],
+      "exitCode": 1,
+      "stdout": "cross-schema.stdout",
+      "stderr": "cross-schema.stderr"
+    },
+    {
+      "source": "duplicate-owner.bend",
+      "sourceSHA256": "0bbf3500302c82374cfb0d086b22b46b9cf0244288763c9dffa74c03a9a612ce",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captures/ordinary-owner-v1/authority-v1/duplicate-owner.bend"
+      ],
+      "exitCode": 1,
+      "stdout": "duplicate-owner.stdout",
+      "stderr": "duplicate-owner.stderr"
+    },
+    {
+      "source": "positive.bend",
+      "sourceSHA256": "0252bfada95fde19b43eb71bc12457b1102156288d8966aa3b3acb2bcc09fe6c",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captures/ordinary-owner-v1/authority-v1/positive.bend"
+      ],
+      "exitCode": 0,
+      "stdout": "positive.stdout",
+      "stderr": "positive.stderr"
+    },
+    {
+      "source": "undeclared.bend",
+      "sourceSHA256": "f145589b10de0a8af7f7c8dfe3f54926823969b9b07c2f01b81c57bb3fc9d9e0",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captures/ordinary-owner-v1/authority-v1/undeclared.bend"
+      ],
+      "exitCode": 1,
+      "stdout": "undeclared.stdout",
+      "stderr": "undeclared.stderr"
+    },
+    {
+      "source": "write-through-read.bend",
+      "sourceSHA256": "52f472bf23662dca1f3f418ba0b9dfee7d0852857b41465cbe3eb9c7b44e7820",
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captures/ordinary-owner-v1/authority-v1/write-through-read.bend"
+      ],
+      "exitCode": 1,
+      "stdout": "write-through-read.stdout",
+      "stderr": "write-through-read.stderr"
+    }
+  ],
+  "secondsPerCheck": 5,
+  "positiveConsumer": "../main.bend",
+  "scope": "Actual ordinary capture declaration and arbitrary affine registration owner; negative diagnostics, not proofs."
+}

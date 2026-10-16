@@ -1,0 +1,26 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captures/ordinary-owner-v1/scheduled-v1/schedule.bend"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "747f0c190b24e46414c5cb381a97bbd5e364a4516e8ee06ff915a1764f75bee1",
+      "stdout": "schedule.check.stdout",
+      "stderr": "schedule.check.stderr"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captures/ordinary-owner-v1/scheduled-v1/main.bend"
+      ],
+      "exitCode": 1,
+      "sourceSha256": "ffe81a4aa36499eabbfc698e67d0360f3726fb4cde3ad8226ace5786b90060ac",
+      "stdout": "main.check.stdout",
+      "stderr": "main.check.stderr"
+    }
+  ],
+  "secondsPerCheck": 5,
+  "claim": "Schedule pure module PASS; IO main foreign-only six definitions, not checker PASS."
+}

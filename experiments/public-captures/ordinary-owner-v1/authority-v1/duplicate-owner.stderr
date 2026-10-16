@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : instance
+- observed : instance (consumed more than once)
+Location: duplicate
+16 |   Other{}
+17>| def duplicate(instance:L.Instance<First,Unit,U32,Unit,P.Pack,Sys.Args,Sys.Error,Unit,Ord.runner(~First,~Unit,~U32,~Unit,~P.Pack,~Sys.Args,~Sys.Error,~Unit,~Sys.Ops,~Sys.declaration(~First),~Sys.body)>) -> L.Instance<First,Unit,U32,Unit,P.Pack,Sys.Args,Sys.Error,Unit,Ord.runner(~First,~Unit,~U32,~Unit,~P.Pack,~Sys.Args,~Sys.Error,~Unit,~Sys.Ops,~Sys.declaration(~First),~Sys.body)> & L.Instance<First,Unit,U32,Unit,P.Pack,Sys.Args,Sys.Error,Unit,Ord.runner(~First,~Unit,~U32,~Unit,~P.Pack,~Sys.Args,~Sys.Error,~Unit,~Sys.Ops,~Sys.declaration(~First),~Sys.body)>:
+   |               ^^^^^^^^
+18 |   (instance,instance)
+bend 2.0.37 is available: run bend update

@@ -47,8 +47,12 @@ rank-2 body; access metadata and transaction completion are derived. The raw
 not complete acceptance: full JS/Native, authority negatives, reached capture-loss
 control, TS comparison and combined regression/final review remain required.
 
-## First ordinary entry — bounded delivery
+## Resource capture lifecycle — bounded delivery
 
-The [first consumer and retained evidence](../../experiments/public-captures/ordinary-owner-v1/runtime-v1/README.md) pass stock JS and Native against the complete independent 3,749-byte oracle. Two schemas exercise two affine Arrays per instance, success, skip, failure persistence with resource rollback, foreign refusal and unregister/re-register. [Independent review](../../experiments/public-captures/ordinary-owner-v1/runtime-v1/FINAL-REVIEW.md) accepts this slice; the existing stock #28 gate applies through the recorded unchanged protected-source/artifact bridge.
+The [ordinary entry](../../experiments/public-captures/ordinary-owner-v1/runtime-v1/README.md) passes stock JS/Native against all 3,749 independent oracle bytes. The [scheduled successor](../../experiments/public-captures/ordinary-owner-v1/scheduled-v1/README.md) adds repeated public schedules, genuine colliding foreign registrations and recovery of all three capture packs; both backends match all 6,169 bytes. Five intended type/affine refusals accompany a positive ordinary declaration check. The reached unregister-removal omission matches its 6,277-byte counter on both backends and rejects the normal trace; it tests retained registration authority, not an observed second disposal or external finalizer.
 
-#50 remains open: repeated schedule execution, colliding foreign registration refusal, final owner recovery, affected authority negatives, a reached capture-loss mutation and the explicit current-source TS applicability join remain. No automatic external finalization, query-family entry or general heterogeneous composition is claimed.
+[Independent review](../../experiments/public-captures/ordinary-owner-v1/scheduled-v1/runtime-v1/FINAL-REVIEW.md) accepts the bounded scheduled/authority batch.
+
+The [TS crosswalk](../../experiments/public-captures/ordinary-owner-v1/TS-APPLICABILITY.md) reuses actual pinned reference observations for shared capture behavior. Bevy governs unregister; TS has no equivalent public operation. Existing stock #28 evidence applies through the unchanged protected-source/artifact bridge, without a new timing claim.
+
+#50 remains open for the ordinary component-query capture entry and full acceptance reconciliation. The existing row traversal constrains its accumulator to Data; the additive adapter must thread arbitrary affine capture state across rows while preserving query ordering, ECS rollback and reader cursors. The exact lost-capture/double-disposal mutation criterion also remains for final reconciliation; the unregister-omission result is not relabeled to satisfy it. No automatic external finalization or general heterogeneous composition is claimed; the latter remains #51.

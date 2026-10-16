@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : T.Tx<W.World<First, Unit, U32, Unit>, Unit>
+- observed : undeclared~H
+Context:
+- pack  : P.Pack
+- args  : Sys.Args
+- owner : undeclared~H
+Location: undeclared
+17 | def undeclared(~H:Type,~caps:Sys.Ops(H),pack:P.Pack,args:Sys.Args,owner:H) -> H & (P.Pack & (T.Outcome<Sys.Error> & Unit)):
+18>|   (Raw.tx_replace(~First,~Unit,~U32,~Unit,owner,99),(pack,(T.Success{},Unit{})))
+   |                                           ^^^^^
+19 | 
+bend 2.0.37 is available: run bend update
