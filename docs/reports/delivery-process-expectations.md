@@ -1111,3 +1111,30 @@ complete JS oracle (5,077,477 bytes) passes; stock Native emission still exceeds
 30 seconds with clean source guards and no generated C. Further representation
 guesses stop pending per-pass specialization/layout attribution. No acceptance
 limit changed, no speedup claimed, and #55 fixture/oracle work continues independently.
+
+The #54 per-pass diagnostic reached its cooperative cutoff and retained the CPU
+profile, but its validator rejected a truncated 1,376,256-byte summary line. The
+copied diagnostic logger ignored `writeSync` partial-write counts; the failed
+receipt stays INCOMPLETE. A focused durable-write repair and actual pipe control
+are required before retrying. Complete preceding phase events and the separately
+parsed profile support only partial analysis; counter totals are not accepted.
+
+The focused logger successor passed synthetic short-write/error controls and a
+4,200,112-byte real Bun pipe capture. Reviewed diagnostic attempt02 then passed
+with a complete summary: 3,185 family rows, no attribution overflow, and exact
+global/pass/family reconciliation. Three complete emission passes each visited
+5,646 definitions and made 146,315 body calls before a partial fourth pass.
+This supports targeting the Inspector lookup/scan execution boundary; it does
+not establish stock timing, a dominant CPU bottleneck or Native acceptance.
+
+The resulting #54 private execution-callback experiment reduces complete-pass
+emitter visits by 8.58% (146,315 to 133,765), but leaves 5,646 definitions and
+2,260 new native-cache entries per pass unchanged. Full JS remains correct;
+stock Native still misses emit30. This is measured compiler-work reduction,
+not delivered Native acceptance or a runtime speedup.
+
+The first #55 full physical JS comparison caught source-model errors omitted
+by the earlier logical-only oracle: Base boolean spelling and Array backing-tree
+capacity. All 136 logical records match, but physical acceptance remains failed
+until an independently source-justified oracle successor and full comparison.
+Native was not launched against the known-invalid physical expectation.
