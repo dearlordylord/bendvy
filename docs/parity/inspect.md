@@ -266,5 +266,5 @@ defect matches119,371 independent bytes on both backends and rejects normal;
 the current query/resource compatibility pair retains96,029 bytes. Actual TS
 execution matches36,126 independent bytes; its fresh missing-machine admission
 difference is explicit. [Independent final review](../../experiments/public-conditions/machine-query-check-v1/FINAL-REVIEW.md)
-passes; integration/CI remain. Existing
+passes; integrated `88645bf21`, CI38906069050 PASS. Existing
 #61/#54 and final combined product requirements remain open.

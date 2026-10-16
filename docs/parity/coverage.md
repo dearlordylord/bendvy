@@ -273,7 +273,7 @@ first stock119,419-byte normal, reached119,371-byte availability defect and
 current96,029-byte query/resource compatibility pairs pass; actual TS comparison
 matches36,126 independently derived bytes. Five positive/ten intended authority
 controls pass. [Independent final review](../../experiments/public-conditions/machine-query-check-v1/FINAL-REVIEW.md)
-passes; integration/CI remain. Host-driven transitions
+passes; integrated `88645bf21`, CI38906069050 PASS. Host-driven transitions
 are not another registered-handler qualification.
 Those are finite current public consumers, not a
 whole matrix or another independent schema. Remaining #61 work is to join the

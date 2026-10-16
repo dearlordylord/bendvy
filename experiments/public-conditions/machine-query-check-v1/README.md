@@ -82,8 +82,8 @@ Root reports both stock JS and Native equality with that counteroracle and
 rejection against the normal oracle. All runtime and evidence gates are PASS: the
 normal pair, affected current compatibility pair, reached mutant pair and normal
 oracle rejection, authority controls, scoped actual TS comparison and portable
-source/evidence joins. Final independent review, integration and CI remain pending
-at this checkpoint. No additional capability or broad #54/#61 acceptance is claimed.
+source/evidence joins. [Independent final review](FINAL-REVIEW.md) passes; integrated
+`88645bf21`, CI38906069050 PASS. No additional capability or broad #54/#61 acceptance is claimed.
 
 Initial overlapping CPU5 checks in the two successor prefixes hit existing caps;
 their exact raw streams remain under check-history/contention01 as unqualified

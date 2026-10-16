@@ -1590,6 +1590,11 @@ runners/caps and exact source reuse are retained. Several source checks initiall
 competed on CPU5 and hit the unchanged five-second cap; those attempts are retained
 unqualified, and only the affected checks were recaptured serially without a
 source or limit change. The TS adapter's scope-only change received the existing
-launch review. Independent final review passes; integration/CI remain.
+launch review. Independent final review passes; integrated `88645bf21`, CI38906069050 PASS.
 No new runner, comparative campaign
 or measured delivery-speed improvement is claimed.
+
+The machine delivery's pre-commit table guard rejected an overlong coordination
+row. The row was shortened using existing API/review links, then committed with
+the normal hook; no contract, evidence or assignment was removed. CI38906069050
+passed. This is an observed guard effect, not a measured delivery-speed gain.
