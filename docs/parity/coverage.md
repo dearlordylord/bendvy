@@ -10,8 +10,8 @@ An independent public consumer verifies the whole pinned core surface and report
 
 ## Acceptance criteria
 
-- [ ] Inventory every pinned core public export, bound Game/Runtime capability, source test and static rejection case. Map each to source-current executable evidence, approved divergence or a concrete owning ticket; no unowned core gap may remain.
-- [ ] Run two independently authored schemas/apps covering cross-feature combinations, complete observations and ownership/access controls through the public API. Historical miniature probes and closed child issues alone do not pass.
+- [x] Inventory every pinned core public export, bound Game/Runtime capability, source test and static rejection case. Map each to source-current executable evidence, approved divergence or a concrete owning ticket; no unowned core gap may remain.
+- [x] Run two independently authored schemas/apps covering cross-feature combinations, complete observations and ownership/access controls through the public API. Historical miniature probes and closed child issues alone do not pass.
 - [ ] Check ergonomic ECS use against Rust Bevy and correct Bend kind/runtime use against compiler/Base; review fragmentation, hardcoded arity, fabricated authority and unsupported payload boundaries.
 - [ ] Publish and resolve discovered gaps as executable dependent tasks; do not close this audit as full parity while any required behavior is absent. Full numeric product qualification stays in existing #21/#23/#24.
 
@@ -118,6 +118,18 @@ public APIs. There are **67 bound operation/metadata keys, 55 callable**;
 15 static sources, plus one helper source; and **133 explicit rejection markers**.
 All these sets are routed below. A type alias, overload, alias export or TS
 mapped-type helper does not create an additional Bend runtime requirement.
+
+Criterion 1 routing is complete for this finite frozen universe: all 687 library
+export keys (including 223 root keys), all 67 bound keys (55 callable), all 251
+cases and 133 rejection markers resolve through the lossless index to the existing
+module/source-group evidence, approved mechanism differences or concrete owning
+tickets below. Exact bound-key sets and all 210 expanded root aliases were
+reconciled; all 68 pinned source hashes match. This is route-only PASS, not
+execution of every case or 133 Bend refusals. Current independently authored
+AppA/AppB source joins are separately accepted at `0ee4562f4` (CI38921620111 PASS).
+Required identity #38, Inspector/compiler #54, subscribers #57 and restore #59/#60
+remain open; criterion 4 and full #61 are incomplete while those required
+behaviors/decisions remain unresolved.
 
 ### Public module/export routing
 
@@ -313,7 +325,7 @@ explain the difference from the historical 14,582-byte oracle. Eight existing co
 dependency deltas and a new queue dependency are explicitly joined and exercised
 by the current pair; all ten World snapshots and three selected observations remain. Historical
 reparent/authority controls retain exact operation-boundary applicability. Independent [final review](../../experiments/public-audit61/app-b-current-v1/FINAL-REVIEW.md)
-passes; integration/CI remain pending. Neither application must duplicate every
+passes; integrated `0ee4562f4`, CI38921620111 PASS. Neither application must duplicate every
 feature of the other. New two-schema subsystem consumers do not substitute for
 independent authorship. Restore #59/#60, identity #38,
 broad Inspector/compiler #54 and subscriber requirements #57 retain their exact
