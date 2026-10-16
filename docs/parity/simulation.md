@@ -10,10 +10,10 @@ A reproducible console simulation spawns entities, moves them toward a goal, app
 
 ## Acceptance criteria
 
-- [ ] Freeze inputs, seed, fixed-step/system order and complete reference checkpoints; implement actual spawn/move/damage/removal/hit/death work without a bypassing custom state loop.
-- [ ] Include failure/retry and explicit barriers, independent readers, affine payload cleanup and deterministic complete output on JS/Native/observed TS.
-- [ ] Run the unchanged regression gate and scoped equal-work timing evidence. Maintain explicit proof and full-performance prerequisite status; this demo does not establish full parity or qualified product speed.
-- [ ] Detect a reached omitted-hit/death or implicit-flush mutant and document running the application without internal provider knowledge.
+- [x] Freeze inputs, seed, fixed-step/system order and complete reference checkpoints; implement actual spawn/move/damage/removal/hit/death work without a bypassing custom state loop.
+- [x] Include failure/retry and explicit barriers, independent readers, affine payload cleanup and deterministic complete output on JS/Native/observed TS.
+- [x] Run the unchanged regression gate and scoped equal-work timing evidence. Maintain explicit proof and full-performance prerequisite status; this demo does not establish full parity or qualified product speed.
+- [x] Detect a reached omitted-hit/death or implicit-flush mutant and document running the application without internal provider knowledge.
 
 ## Blocked by
 
@@ -39,8 +39,25 @@ The 871-member portable verifier and independent final Spec/Standards review pas
 Original failed collectors remain INCOMPLETE; hit is separately validated from
 retained output, while the corrected death successor completed its consumer.
 
-The unchanged current-source Workshop #28 gate passes, but does not establish
-simulation speed. V7 JS/C artifacts are byte-identical to the earlier qualified
-timer artifacts. Historical scale1 simulation timing shows JS/TS median 3.371
-and Native/TS 0.0624; these remain scoped observations, not full performance
-acceptance. Timing/scaling and complete issue acceptance remain open.
+The retained Workshop #28 gate is historical measured evidence. Independent
+source review found a later World pending-length implementation delta; semantic
+equivalence does not establish timing identity. This observer-only delivery
+changes no production ECS hot path. Combined #28 and #21/#23/#24 qualification
+remain required under their existing contracts; no fresh speed claim is made.
+
+## Semantic acceptance reconciliation
+
+The [current-source delivery](../../experiments/public-simulation/delivery-v1/current-source-v1/delivery-v1/README.md)
+adds complete lifecycle and registration observations to the ordinary gameplay.
+Stock JS and Native both match the independent 97,054-byte model across two
+schemas and fourteen phases. A reached compiling changed-stamp omission produces
+its independently derived 96,998-byte counter and rejects the normal expectation.
+Existing actual TS, hit/death, failure/retry and authority controls remain qualified
+through explicit source-applicability joins; original failed receipts stay labeled.
+
+[Independent final review](../../experiments/public-simulation/delivery-v1/current-source-v1/delivery-v1/FINAL-REVIEW.md)
+passes all four semantic criteria under the approved R7 policy. The portable
+484-object packet passes offline and relocated verification with ten malformed
+controls. These finite observations establish this application delivery, not
+universal proofs, WorldIO coverage, private backing-array identity or full parity.
+The private tuple-fusion timer candidate is not adopted or used to qualify speed.

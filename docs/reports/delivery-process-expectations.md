@@ -1179,3 +1179,10 @@ support bounded copied-compiler observations only; they do not repair the outer
 launch provenance or qualify stock compilation. The next hypothesis is the
 existing isolated order-preserving graph-index optimization, not another ECS
 representation change or a relaxed deadline.
+
+The #63 ordinary simulation now passes full stock JS/Native observations and an
+independently modeled lifecycle mutation. One portable packet and final review
+reuse the prior TS, hit/death and authority controls through source joins, without
+repeating those backends or a comparative campaign. Historical #28 evidence has
+an explicit World-source timing limitation; this batch changes no production
+hot path. This records actual use of the shortened path, not measured acceleration.
