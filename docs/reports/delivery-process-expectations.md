@@ -1654,3 +1654,8 @@ models in-process; both complete reproductions and the staged-source check pass.
 No ECS, frozen oracle, backend receipt or regression input changed, so those
 executions were reused rather than repeated. This is a concrete local detector
 effect, not a measured end-to-end delivery gain.
+
+The reviewed four-core fix integrated at `f1fac4e90`; CI38929736000 passed.
+English bounded reports were posted to #38/#61 without closing either issue.
+The existing full infrastructure suite stayed in CI; local acceptance reused
+the exact backend evidence after the offline-only verifier repair.
