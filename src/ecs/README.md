@@ -276,3 +276,9 @@ Ordinary [machine declarations](ordinary-machine-declaration.bend) may retain an
 `ordinary-inspector-relation` derives required, optional, presence and absence clauses in either direction from the retained ordinary relation declaration. `inspect` and `condition` delegate to existing Inspector/Check projections; presence/absence filter entities without adding a relation cell. [Bounded review](../../experiments/public-inspect/graph-stream-public-bridge-v1/ordinary-category-v1/FINAL-REVIEW.md) covers all sixteen Link/Parent categories on two schemas, complete JS/Native and actual TS outputs, three new typed boundaries and a reached public routing defect. Combined regression and full #55 acceptance remain pending.
 
 `ordinary-inspector-resource.bind` derives a read capability and resource Read clause from the same generated `ResourceFieldBinding` identity and lens. `get` returns the affine owner and its detached view. [Bounded review](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/present-resource-v1/public-relocation-v1/FINAL-REVIEW.md) verifies two distinct present resources of the same affine payload type, two schemas, complete JS/Native observations, four typed boundaries and a reached metadata defect. Closed projections remain trusted; missing resources, held views, the current two-resource TS comparison, combined regression and full #54 remain open.
+
+`ordinary-recovery-resource-field.declaration` uses the ordinary resource-field
+binding to select an affine Array inside Product resources. Replacement and
+element exchange use the existing recovery journal and generated inverse,
+preserving sibling owners and returning displaced payloads for actual retry.
+See the [API and complete qualification](../../docs/parity/recovery.md#selected-resource-fields).

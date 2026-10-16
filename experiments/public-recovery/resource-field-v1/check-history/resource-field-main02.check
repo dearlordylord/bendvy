@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : 'F.Output{[],[rejected]} (A.Replaced{second} <> A.Swapped{1,element} <> A.Replaced{first} <> [])'
+Location:
+32 |   match output recovery:
+33>|     case F.Output{[],[rejected]} (A.Replaced{second} <> A.Swapped{1,element} <> A.Replaced{first} <> []):retry_observed(~S,label,text,world,owner,Obs.args(F.Args{first,element,second,rejected,True{}}))
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+34 |     case _ _:stop(~S,label ++ ":BUG-retry-shape",text,Obs.world(~S,world),Obs.owned(~S,owner))
+bend 2.0.37 is available: run bend update

@@ -1512,3 +1512,14 @@ current combined220 source/artifact bridge, including the already reviewed
 unreached pending-length helper difference; no raw whole-source identity with
 historical combined185 is claimed. No new runner, comparative campaign or replay
 was needed. Delivery-speed improvement remains unmeasured.
+Owned-handoff integration `637e87135` passed CI38888837157.
+
+The concrete Product-field recovery gap is now implemented through the existing
+canonical binding and inverse/journal path. Normal stock JS/Native match all
+10,339 bytes on their first pair; only then were affected authority controls
+and the compiling owner-loss variant prepared. Both variant backends match the
+9,763-byte countermodel and reject normal. Source/model review corrected the
+returned-record order before execution; actual returned payloads feed retries.
+One final independent review joins normal/control/mutant evidence and existing
+protected #28 applicability. No shared runner or comparative campaign changed;
+no overall delivery-speed improvement is inferred.

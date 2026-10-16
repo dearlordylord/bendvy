@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : O.Write<First, Array<U32>, ../../../../../../workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.Resource{"Target"}, rejected~H>
+- observed : Read.Read<First, Array<Array<U32>>, ../../../../../../workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.Resource{"Target"}, rejected~H, U32>
+Context:
+- owner    : rejected~H
+- incoming : Array<Array<U32>>
+Location: rejected
+12 | def rejected(~H:Type,~caps:Read.Read<First,Array<Array<U32>>,F.identity(~First),H,U32>,owner:H,incoming:Array<Array<U32>>) -> H:
+13>|   O.replace(~First,~Array<U32>,~F.identity(~First),~H,~caps,owner,incoming)
+   |                                                        ^^^^
+14 | 
+bend 2.0.37 is available: run bend update

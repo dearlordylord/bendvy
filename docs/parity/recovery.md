@@ -39,6 +39,26 @@ and stamps and returns displaced replacements. World clock stays monotonic,
 failed/rejected calls preserve the registered cursor, and normal #50 captures
 retain their existing persistence behavior.
 
+### Selected resource fields
+
+[`ordinary-recovery-resource-field`](../../src/ecs/ordinary-recovery-resource-field.bend)
+derives reversible Array replacement and bounds-checked element exchange from
+an ordinary `resource-field-binding.Binding`. Its canonical lens selects one
+field inside Product resources; the same binding supplies the resource identity
+and access entry. Payload elements remain arbitrary affine `Type`. Sibling
+resources and the runtime capture remain threaded through the generated inverse.
+Applications do not author the inverse or journal route.
+
+The [ordinary two-schema consumer](../../experiments/public-recovery/resource-field-v1/README.md)
+checks complete owners and actual returned-input retry: stock JS/Native match all
+10,339 independent bytes. A compiling replacement-owner-loss variant matches
+9,763 countermodel bytes and rejects the complete normal output on both backends.
+The [independent final review](../../experiments/public-recovery/resource-field-v1/FINAL-REVIEW.md)
+joins two positive/eight intended authority controls for the actual declaration
+and grants. Pure source checks pass; the IO entry retains its five expected
+foreign-code refusals, not a mathematical proof verdict. This closes the specific
+Product-field composition gap found by #61; full core qualification remains open.
+
 | Evidence | Stock JS / Native full oracle | Scope |
 | --- | --- | --- |
 | [Resource](../../experiments/public-recovery/ordinary-array-v1/runtime-v1/README.md) | 6,951 bytes each | Whole replacement, affine elements, refusal, earlier commit and retry |

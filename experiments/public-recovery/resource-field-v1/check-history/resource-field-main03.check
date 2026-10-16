@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : label
+- observed : label (consumed more than once)
+Location: completed
+39 | # Returned owners are fully observed before either reconstruction or explicit release.
+40>| def completed(~S:Data,label:String,text:String,world:F.World(~S),owner:F.Owned(~S),outcome:T.Outcome<F.Error>,observedOutput:F.Output & String,observedRecords:F.Recovery() & String) -> State<S>:
+   |                       ^^^^^
+41 |   (output,ot)=observedOutput
+bend 2.0.37 is available: run bend update
