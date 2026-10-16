@@ -305,9 +305,17 @@ Those are finite current public consumers, not a
 whole matrix or another independently authored application. Remaining #61 work is to join the
 unmatched required predicates to their direct receipts, approved differences or
 existing owners. A missing import or arbitrary Cartesian combination is not an
-additional requirement. Independently authored AppA/AppB coverage still requires
-its source-current receipt/applicability reconciliation; new two-schema subsystem
-consumers do not substitute for that criterion. Restore #59/#60, identity #38,
+additional requirement. The [two-app current-source join](../../experiments/public-audit61/two-app-current-reuse-v1/README.md) preserves AppA
+owned-handoff evidence through metadata-only changes (135 historical sources mapped;
+136 current imports), and the [AppB successor](../../experiments/public-audit61/app-b-current-v1/README.md)
+passes both complete 17,750-byte current-source observations. Local application edits repair unused renderer APIs; literal path-derived QNames
+explain the difference from the historical 14,582-byte oracle. Eight existing core
+dependency deltas and a new queue dependency are explicitly joined and exercised
+by the current pair; all ten World snapshots and three selected observations remain. Historical
+reparent/authority controls retain exact operation-boundary applicability. Independent [final review](../../experiments/public-audit61/app-b-current-v1/FINAL-REVIEW.md)
+passes; integration/CI remain pending. Neither application must duplicate every
+feature of the other. New two-schema subsystem consumers do not substitute for
+independent authorship. Restore #59/#60, identity #38,
 broad Inspector/compiler #54 and subscriber requirements #57 retain their exact
 unresolved operations/decisions; none is selected by this documentation update. This
 census gives every inventory set a route and existing owner; it does not tick

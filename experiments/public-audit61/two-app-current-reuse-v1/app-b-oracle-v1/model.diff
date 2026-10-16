@@ -1,0 +1,11 @@
+--- historical/model.py
++++ current/model.py
+@@ -1,7 +1,7 @@
+ """Full AppB model derived from e0920cbc5 source, before any backend output."""
+ import json, os
+ from pathlib import Path
+-ROOT=Path('/workspace/formal-proofs/bendvy-worktrees/public-audit61-app-b/experiments/public-audit61/app-b-v1')
++ROOT=Path('/tmp/bendvy-app-b-current/experiments/public-audit61/app-b-current-v1')
+ CORE=Path('/workspace/formal-proofs/bendvy/src/ecs')
+ def q(s): return json.dumps(s,ensure_ascii=False)
+ def c(name,*fields): return name+'{'+', '.join(fields)+'}'

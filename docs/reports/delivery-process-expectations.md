@@ -1628,3 +1628,7 @@ CI38914934433 PASS.
 ### Selected constructed-resource delivery checkpoint
 
 The #61 selected-resource consumer composes existing public APIs without a core bridge. Both normal JS/Native outputs match the complete 26,673-byte independent oracle; the reached admission-omission pair matches 26,453 bytes and rejects normal. An independently authored observer and oracle exposed and corrected an observation assumption before execution: the actual clock/cursor stay zero and pending count stays one. Current authority controls, exact unchanged-core reuse and separately scoped actual TS evidence avoid redundant compatibility/reference runs. Independent final review passes; integrated `0b025defe`, CI38919912200 PASS. No new runner, limits or approval stage was added. Delivery acceleration has not been measured.
+
+### Two-application current-source checkpoint
+
+The next #61 gap was current applicability, not a missing cross-feature operation. AppA reuses its complete owned-handoff observations after exact metadata-only reconciliation; AppB repairs unused renderer APIs and passes one current JS/Native pair against its full independent source-derived oracle. Historical mutation/authority controls retain explicit unchanged-boundary joins. No additional Cartesian scenarios, benchmark, runner or approval stage was introduced. Independent final review passes; integration/CI is next. No delivery-speed improvement is measured.
