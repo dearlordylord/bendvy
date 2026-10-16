@@ -1234,3 +1234,12 @@ failure remains. Corrected normal and defect pairs pass stock JS/Native. One
 portable packet reuses the existing verifier pattern and independently checks
 complete owners; root offline verification passes without recompilation. No
 comparative campaign or measured delivery-speed claim accompanies this slice.
+
+#59 prerequisite integrated at `c96a86676`; CI38844439235 passed and the
+bounded English report was posted without closing full restore. #54 current
+Clang evidence redirected investigation from the old formatter sample to lazy
+call-graph traversal. An isolated host function-table lookup boundary passed
+the full consumer under unchanged caps. The copied generator then emitted the
+identical qualified C, allowing reviewed build/runtime reuse instead of another
+compilation. This is a concrete candidate result, not measured acceleration,
+stock acceptance or compiler adoption.

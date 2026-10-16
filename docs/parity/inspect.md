@@ -108,3 +108,36 @@ guards (`fb8e59e7`). Independent final review passes. Native retains its separat
 qualified exact-emitter scope; no wrapper Native rerun, comparison, performance
 result or production adoption is claimed. The earlier finite dispatch control
 used mocked execution only; its unexecuted loader successor remains distinct.
+
+### Unadopted full23 compiler remedy
+
+The copied compiler in `b33d723e7` emits C byte-identical to the passed
+host-lookup experiment: 33,749,160 bytes, SHA-256
+`72f19590b07af441414acc172db039ef67adabe88903f1237f37266561e9c7d1`.
+The explicit source→compiler→C→build→oracle join is retained in
+`compiler-lookup-v1/RESULT.json` under the full23 `graph-only-v1/execution-source-v1`
+experiment. It reuses the exact Clang19-O3 build120/full-oracle runtime5 result;
+the copied-tool emit passed within30. No identical build is repeated.
+
+The frozen `d0b687371` source changes only `inspector-query-projection.bend` and
+`inspector-query.bend` against compared master `c96a86676` (those two master bodies
+are unchanged from `f597c09d9`). Runtime callback forwarding retains the selected
+ordinary signatures, constructor layouts, authority, evaluation and owner order.
+Undocumented exported helpers change signatures, including `pair_matches`,
+`projected_left`, `mapped`, `composed_lookup_matched` and `composed_scan_matched`;
+direct trusted callers need compatibility review. No FrameLink is selected.
+
+Compiler composition is exact ELF-derived2.0.35 plus the order-preserving graph
+patch and two host lookup-template changes only. The device path and musttail
+signature remain unchanged. No budget, boxing, instrumentation or installation
+change is included. This qualifies a candidate; it does not change the selected
+compiler pin or establish stock full-Native acceptance.
+
+Independent full-consumer and exact-artifact reuse reviews pass (`8e3c449f3`,
+`1f78ba01e`). Remaining gates are current-dependency joins
+for existing composed-query authority/type controls and direct helper callers,
+and an explicit compiler adoption/upstream decision. The two ECS modules are
+outside #28's protected23-source closure; compiler dispatch changes globally,
+so the existing affected regression or approved artifact bridge is still needed.
+Existing reader-consumption evidence needs its reached-body join. Runtime
+CPU/allocation effects are unmeasured; no speedup follows from this single pass.
