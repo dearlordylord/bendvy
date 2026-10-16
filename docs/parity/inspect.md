@@ -134,10 +134,51 @@ change is included. This qualifies a candidate; it does not change the selected
 compiler pin or establish stock full-Native acceptance.
 
 Independent full-consumer and exact-artifact reuse reviews pass (`8e3c449f3`,
-`1f78ba01e`). Remaining gates are current-dependency joins
-for existing composed-query authority/type controls and direct helper callers,
-and an explicit compiler adoption/upstream decision. The two ECS modules are
-outside #28's protected23-source closure; compiler dispatch changes globally,
-so the existing affected regression or approved artifact bridge is still needed.
-Existing reader-consumption evidence needs its reached-body join. Runtime
-CPU/allocation effects are unmeasured; no speedup follows from this single pass.
+`1f78ba01e`). Current-dependency authority controls, helper compatibility and
+the reached reader-consumption body join pass bounded review `3d15de773`.
+The protected23 workload emits byte-identical JS (669,036 bytes, `ca22d6b8…`),
+independently reviewed in `2caddb28d`, so its existing JS artifact evidence is
+reusable. Its C differs by 84 bytes. The protected Native build and complete
+231,190-byte correctness observation pass under the original caps; the resulting
+ELF differs from the historical artifact, so the affected Native #28 regression
+gate remains unqualified. Compiler dispatch changes globally even though the two
+ECS modules are outside the protected source closure. Native qualification, an
+explicit compiler adoption/upstream decision and final source integration remain
+open. Runtime CPU/allocation effects are unmeasured; no speedup follows from
+this single pass.
+
+#### Independent helper compatibility review
+
+Compared `d0b687371` with master `49fc6ca10` (same two production bodies as
+`c96a86676`). Source-only review found sixteen changed helper signatures:
+projection `matched_right`, `pair_matches_target`, `pair_matches`,
+`projected_left`, `pair_project_target`, `pair_project`, `predicate_right`,
+`predicate_both_target`, `predicate_both`, `constrained_target`, `constrained`,
+`mapped`, `map_project`; query `composed_lookup_matched`,
+`composed_lookup_valid`, `composed_scan_matched`.
+
+A tracked-source import/call audit found no external qualified references to
+these helpers: 390 projection-module and 577 query-module import occurrences
+were inspected, including experimental copies. Unqualified matching calls are
+inside their defining implementation/copies. Existing docs/contracts promise
+the ordinary composition/query surface, not these worker signatures; the
+only helper-name documentation is the explicit compatibility caveat above.
+`pair`, `both`, `constrain`, `map`, outer composed-query entry signatures and
+constructor layouts are unchanged. No compatibility wrapper is necessary for
+the evidenced repo callers or documented API. This is not a guarantee for
+unknown external callers: these helpers are importable, and direct users of
+the old signatures must adapt. Do not describe the entire exported surface as
+unchanged.
+
+Runtime forwarding extracts the same closed declaration fields without calling
+them early. Matching remains left then right only on True; constraints test the
+selection before the predicate; paired projection passes the returned H owner
+from left to right; mapping runs after projection. Lookup validates before
+matching and projects only on a valid match. Scan keeps static recursion and
+creates one runtime project callback per item, preserving target/row order and
+threading the returned owner into its continuation. False branches omit the
+same work and retain their incoming owner. No callback is duplicated or given
+new authority; dropping an unused callback on a false branch is affine and
+introduces no finalizer contract. This joins the prior callback/full-consumer
+reviews; it is not a new runtime/proof result. The source owner's affected
+authority controls and compiler adoption/regression gates remain separate.

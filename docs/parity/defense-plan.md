@@ -30,75 +30,142 @@ A concrete integration plan identifies the exact ECS contracts needed by a separ
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
 
-## Source-backed preparation — integrated root c15eaf11
+## Current read-only requirements — 2026-10-15
 
-This is a read-only requirements snapshot for #64, not copied integration, a reducer migration decision or #61/#63/#64 completion. Source roles follow [SPEC](../SPEC.md#implementation-decisions): Rust Bevy supplies architecture/ECS semantics, pinned bevy-ts supplies feature scope and shared agreed comparison scenarios, and Bend supplies types, ownership and runtime authority. Canonical application behavior remains owned by Jev's shared reducer and game rules.
+Planning preparation only: #63 is accepted; **#61 remains a dependency**. No
+copy, adapter implementation, dependency installation, canonical execution or
+new ticket is delivered. Earlier inventory/pins are retained in git revision
+`49fc6ca100fc7ed6a44d0ff4008b2777acbf84dd:docs/parity/defense-plan.md`;
+the mapping below supersedes its October 8–9 application assumptions.
 
-At initial inspection, the canonical checkout `/workspace/typescript/jev` had HEAD `7e2be112cbb165e247dc8023e0d4813d305aba0d` and was not globally clean: `.github/workflows/native-inputs.yml`, `docs/advicing-target-contract.md`, `docs/agents/navigation.md`, `packages/cli-entry/src/cli.ts` and `src/onboarding/interactive.test.ts` are modified, and `docs/update-context.md` is untracked. None was changed here. The inspected game/shared-Bend package paths and `simulation-adapter.ts` have no Git status changes; hashes below bind the actual files rather than treating HEAD as a blanket working-tree identity. Canonical README qualification belongs to its named historical receipts, not this preparation or Bendvy integration. During read-only validation its HEAD advanced externally to `9cace54ecfa5c9c04beecddd16eb59644f5d1d6b`; all fifteen named canonical source hashes remained identical. The later unrelated status also included `packages/administration/src/onboarding/verification-conversation.ts` instead of the workflow modification. This record does not freeze the whole evolving external checkout.
+Canonical checkout `/workspace/typescript/jev` reports HEAD
+`a0773f79ffa4babdba219c773832fa3a61cc803c`, but relevant application files are
+modified and new transport/live-motion/tower modules are untracked. **HEAD is
+provenance, not the inspected source identity.** The 26 hashes below identify
+working-tree bytes read without modification. This is a selected-source
+inventory, not a frozen transitive executable closure or qualification of the
+canonical team's unfinished work. Freeze their chosen stable snapshot before
+copying; do not discard those local changes or silently copy HEAD instead.
 
-Read-only revalidation (2026-10-09), canonical HEAD `749eff6f1ea90299ed24ef9f396063bb8c612191`: 13 of the 15 named source hashes still match. README and the shared reducer changed; the historical pins below remain unchanged. The reducer adds `SourceCacheCheck` and `SourceCacheDrop/Retain` decisions, so future copy execution must inspect and freeze its current complete dependency closure rather than reuse the old snapshot. No canonical files or reducer behavior were changed here.
+The actual chain remains `DefenseMain → DefenseHost → NativeRun → Engine.step
+→ Canonical.step`. The final reducer calls `check_step(state,
+step_unchecked(state,event))`; preserve this authoritative reducer and its
+business dependencies byte-for-byte. Moving reducer logic into ECS requires a
+separate explicit decision. Rust Bevy governs ECS architecture, Bend governs
+ownership/runtime constraints, and bevy-ts supplies feature inventory/shared
+comparison cases; the game's reducer and Host own game behavior. Reference
+HEADs remain Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60`, Bend
+`a950fd683c0d76f09794078e6174fe98a1492876`, bevy-ts
+`3040a3b2a3f28fa8554d856f9ccb6bf5433fa334`.
 
-- `prototypes/canonical-defense/README.md` current SHA-256: `1fe354f746f64178f4302879aa2c957127bc0a34b552fd6999699e637799470d`.
-- `packages/agent-flow-bend/Canonical.bend` current SHA-256: `c5b08371df7f6ce42938b61f6f871ab08f720264225017eb947f13feee7d51fe`.
+### Required seams and evidence boundaries
 
-### Required behavior and owning boundaries
+Canonical names below are under `prototypes/canonical-defense/` unless qualified.
+Evidence links are current accepted capability joins, **not execution of this
+game in Bendvy**. Optional ECS representations do not become required new APIs.
 
-The actual native entry is `prototypes/canonical-defense/DefenseMain.bend`, not an assumed TypeScript-only game. Its import chain is `DefenseHost` → `monkey-business-bend/NativeRun` → `Engine` → `agent-flow-bend/Canonical.step`. The TypeScript simulation adapter carries shared projections; it does not authorize replacing the reducer with a new ECS business loop.
-
-| Required canonical behavior and source | Existing integrated evidence and exact limits | Remaining owning ticket |
+| Required behavior / exact source seam | Existing capability evidence | Remaining work / owner |
 | --- | --- | --- |
-| Fixed step: `DefenseMain:50–68` accumulates elapsed time into carry, executes at most eight 20 ms steps per frame and retains the remainder; inactive/paused state clears carry. `DefenseHost:249–275` uses budget256 and endpoint `time*20+20`, returns actual frames/physical deliveries. Do not confuse the host's frame batch with engine work/event budget. | [Public schedules](../reports/public-schedules.md) covers authored phases/conditions/barriers, and [nested provisioning](../reports/nested-provision-completion.md) covers bounded nested requirements. Neither receipt executes the defense clock or proves time-budget equivalence. | **#63** complete public fixed-step simulation; **#34/#35** schedule/reader composition; **#64** canonical clock/input replay. |
-| Exact order: `DefenseMain:114–161` renders the current view, receives ordered events from `Window.frame`, records each supported event before applying it, then records/applies clock ticks. `DefenseHost:227–255` consumes actual engine advance, ingests captured rule counts, ingests presentation frames, ticks rules/actors and computes damage in the authored order. | [Explicit command/transaction observations](../reports/query-composition.md) cover committed earlier work, rollback and barriers; current [bundle full22/20 JS](../../experiments/public-bundles/owned-public-result-v1/production-js-v1/RESULT.md) and [Native](../../experiments/public-bundles/owned-public-result-v1/production-native-v1/RESULT.md) preserve physical owner observations. These are their fixed consumers, not this ordered sequence. | **#63/#64**, cross-feature **#61**; no implicit flush/reordering or independently replayed phases. |
-| Links and identities: `DefenseMotionTypes:7–10` retains full `WorkIdentity`/predecessor paths; `DefenseMotion:509–516` orders by phase/lane/request/operation. These are game causal links, not automatically Entity hierarchy. Core graphs/ledger/dispatch remain inside the shared engine. | Adopted relation query source plus [current relation qualification](../../experiments/public-relations/timing/current-qualification-v1/phase2/delivery-files.json) has a finite graph/order scope. [Inspector extension map](../../experiments/public-relations/inspector-extension-study-v1/DELIVERY-GAPS-SNAPSHOT-v1.md) separates its experimental readonly bridges. No receipt establishes a mapping from these compound game identities to ECS entity handles. | **#42/#43/#44**, identity **#38**, **#64** exact causal-identity association. Do not infer numeric equality or discard predecessor history. |
-| Cleanup/lifetime: `DefenseMotion:501–508,601–616` uses actual path/presentation eligibility and removes only actors rejected by `alive`; `DefenseOutput` exposes retained/ready/pending result facts. A completed visual route and retained business finding are different states. | [Removal readers](../reports/public-removal-readers.md) retain ordered slow-reader/failure/disposal behavior. [Cleanup consumed-closure correction](../../experiments/public-machines/followup/stream-opt/cleanup-controls-v1/public-cleanup-v1/SCOPE-CORRECTION.md) explicitly limits newer runtime output to the previous implementation; generic adapter execution is not accepted. | **#45** scopes/persistence, **#48/#50/#53** cleanup/capture/event ownership, **#64** presentation-vs-business retention; **#63** actual death/hit removal. |
-| Authoritative engine state/output: `Engine:311` calls `Canonical.step`, whose checked boundary at `Canonical:4325–4326` remains the reducer. `DefenseHost.TickObserved` returns full World, ordered frames and physical deliveries. `DefenseConsumerObserved:9–23` retains config/seeds/original inputs, full before/after worlds and each tick's private engine states/frames/physical outputs. | No current Bendvy receipt executes that canonical reducer inside a copied public ECS application. Generic component/resource/transaction evidence supplies building blocks, not a substitute state machine. Canonical original local proofs/performance remain source-bound external evidence. | **#64** exact copied-game equivalence, **#61** cross-feature public applications, **#62** specifically approved proof subjects; migration requires a separate explicit decision. |
-| Host input/render/file seams: `DefenseMain` owns `Window`, `Image`, clock and `File`; image/free and close paths remain explicit. `DefenseRender` is readonly projection. `DefenseRecording:5–34` encodes ordered controls and exact tick batches, and replays them through actual `Host`; resume validates build identity and record completeness as described by canonical README. | The [platform inventory](../reference/core-map.md#platform-tracking-не-core-parity) keeps browser/input/Pixi/render adapters deferred. Bend Base has native Window/Image/File primitives, but source availability is not a qualified ECS adapter. Existing public ECS evidence does not cover graphics, journal crash prefixes or external IO rollback. | **#64** isolated host adapter requirements; **#63** headless prerequisite, **#58/#59/#60** only if an independent save/restore mechanism is later proposed. Input journal replay is not automatically ECS snapshot/restore. |
+| `DefenseMain.clock_enabled/clock_record`: accumulate carry, at most eight 20ms ticks/frame, retain remainder; inactive/paused clears carry. Playback consumes recorded batches, not fresh wall time. | [#63 simulation](simulation.md#semantic-acceptance-reconciliation): two schemas, fourteen phases, full 97,054-byte JS/Native state plus retained TS/control joins. | #64 must replay the actual clock/input boundary; #61 cross-feature audit. #63 does not prove this clock's equivalence. |
+| `DefenseHost.tick_when → bounded_observed → begin_transport → event_loop → finish_transport`: automatic tower intervention and initial transport synchronization; bounded 256-event loop calls `Run.advance(...,1n,until)` at endpoint `time*20+20`; each micro-result ingests rules/actors and synchronizes transport before the next event. Final accounting/movement/damage depends on actual horizon/time advance. | [Schedules](../reports/public-schedules.md), [#63](simulation.md), [bundles #41](bundles.md#semantic-acceptance-reconciliation) establish ordinary ordering/explicit barriers and complete owners in their consumers. | #64 preserve this call order. The old coarse advance-then-render description is insufficient. Do not parallelize/reorder micro-events or add an implicit barrier. |
+| `DefenseTransport.synchronize/delay` uses exact `CB.Target`, callback source, `Controls.apply(...,CB.Transport{at},...)`; records `Change{eventCount,target,at}`. Physical arrival can delay callbacks; the transport journal is replay input. `DefenseTowerFire` intervenes in eligible current work without inspecting its captured outcome. | [#71 typed Data events](typed-data-events.md#current-semantic-acceptance--2026-10-15) supports typed streams/readers; [resource confinement #70](https://github.com/dearlordylord/bendvy/issues/70) support ordinary owned state. These do not qualify the game's callback scheduler. | #64 keep canonical callback/transport machinery intact. #50/#53 are conditional blockers only if the adapter introduces affine captures/events; current game records are Data, not permission to narrow generic ECS Type support. |
+| `DefenseMotionTypes.WorkIdentity{partition,lifetime,round,operation}` plus full predecessor list; `DefenseMotion.before` orders the complete four fields (old local parameter names are not domain meanings). `DefenseLiveMotion` joins exact callback targets to actual actor/fragment geometry. | [Relations #42](relations.md#semantic-acceptance-reconciliation), [readers #43](relation-readers.md), [hierarchy #44](hierarchy.md#semantic-acceptance-reconciliation) retain qualified finite order/cleanup behavior. [Identity #38](identity.md) includes real WorldIO authority. | #64 maintain complete identity association if entities mirror actors; no numeric-ID equivalence, reduced identity key or automatic hierarchy reinterpretation. #38 remaining allocation/domain questions apply if that mapping needs them. |
+| `DefenseMotion.tick/alive`, rule fragments, live-mob reconciliation and `DefenseOutput` distinguish completed/retired visuals, pending findings, ready outputs and collection leases. Arrivals/Finish captured-member assembly affect eligibility. | [Scopes #45](scopes.md#semantic-acceptance-reconciliation), #44 and #63 cover ordinary persistent survivors/removal and hit/death controls. | #64 compare full presentation and business retention separately; neither visual despawn nor an ECS scope may delete retained business state. Game cleanup is not inferred from generic scope evidence. |
+| `DefenseConsumerObserved.Envelope` retains config/seeds/original inputs, every checkpoint World, and per-tick full engine before/after, ordered frames, physical deliveries **and transport changes**. `Engine.step` delegates to `Canonical.step`. | #63 and [#55](inspect-extended.md#semantic-acceptance-reconciliation) provide patterns for complete logical/ownership observations; no copied-game receipt exists. | #64 actual original/copy full-observation equivalence; #61 audit. TS `simulation-adapter.ts` imports shared generated Engine; it is not an independent replacement reducer or native host oracle. |
+| `DefenseMain.events_fold` records supported events before applying them; suppresses X11 stop-key repeat pairs, threads stop-held state, renders before receiving ordered Window events, then records/applies clock batches. `DefenseRecording.apply` replays reset/key/click/move/ticks through Host. | Existing ECS pure scheduling does not cover native Window/File/Image/clock or journal failure semantics. [Platform inventory](../reference/core-map.md#platform-tracking-не-core-parity) remains separate. | #64 host adapter/recording requirements; preserve write-before-state and actual image/free/file/window ownership. No implicit IO rollback. Mouse/move and clock/repeat cases exceed the existing GameKey/Ticks/JevProfile headless consumer. |
+| `DefenseRender.view/diagnostics` and `DefenseTowerPreview` read the real geometry/eligibility; preview must not advance time, fire a shot or alter gameplay. | #54 full23 stock Native is still open; #55/#56 finite inspection/debug delivery does not qualify game rendering. | #64 separate native window/input and emitted-JS headless adapters. Browser/render backend is not assumed; missing platform adapter stays owned here until a concrete execution ticket is authorized. |
 
-The source world is currently Data; this does not approve Data-only ECS components, affine event fan-out or a new capture/recovery contract. A future ECS adapter must preserve arbitrary Type and actual owner returns where the public API permits them. Rust Bevy's initialized SystemParam access/state and relationship/lifetime architecture guide storage boundaries; they do not replace the canonical game's sequencing, geometry, numeric rules or reducer outputs. TS API resemblance and source accidents are not new contracts.
+### Isolated copy and equivalence prerequisites
 
-### Isolated-copy proposal and exact execution prerequisites
+Destination remains `/workspace/formal-proofs/bendvy-copies/canonical-defense-64-v1/jev/`
+(absent at inspection). Preserve `prototypes/../../packages` layout and the exact
+chosen complete imports/foreign resources/tools/configuration, including
+untracked files **if** they belong to the selected snapshot. Keep builds and
+recordings under that copy; never run the original launcher. Bind
+`HAPSLAND_GAME_RECORDING` to the copy explicitly: new launch and reset replace
+its journal. No directory or dependency installation was created here.
 
-Proposed destination only: `/workspace/formal-proofs/bendvy-copies/canonical-defense-64-v1/jev/` (absent when inspected). No directory, copy, dependencies or external repository edits were made. A later approved copy must retain the source tree layout for `prototypes/canonical-defense/../../packages/...` imports, record the full consumed import/package/tool/resource closure and canonical source hashes, and use a separate build/output/recording directory. Never run canonical `run.sh` against the original recording: normal/new launches overwrite it. Explicitly bind copied recording path and prohibit write paths into `/workspace/typescript/jev`.
+The initial integration boundary is the ordinary ECS application invoking the
+unchanged Host/reducer over its complete game World, with explicit input and
+observation phases. Host IO remains outside pure transactions. Moving actors or
+towers into independent ECS storage must preserve the full identity association
+and have its own complete-state equivalence; merely wrapping the reducer is not
+claimed to validate a full entity-storage migration. Select that storage extent
+in the future execution ticket, after #61, rather than silently duplicating
+business authority or declaring every outstanding parity feature necessary.
 
-Before selecting a storage or adapter implementation, complete #61/#63's actual public combinations and freeze required canonical controls, seeds/config, map, event/tick order and full observation schema. Use `DefenseConsumerObserved`'s existing envelope as the source-backed checkpoint basis: all control before/after Worlds and each tick's engine state, returned frames and physical deliveries; additionally retain full game towers/investment/health/rules/actor paths/causal identities and cleanup outcomes. Compare original and isolated copy at identical logical boundaries. Do not replace observations with count/checksum summaries, sort ordered outputs, substitute expected results or normalize business timestamps/IDs. No original/copy or TS execution was performed here.
+Before any copy launch:
 
-The headless trace must include ordinary controls, burst/start/pause/resume/reset, map/settings, repair/outage, causal handoff, retained finding and clear cleanup; record exact actual expectations before Bend outputs. The shared agreed TS engine scenario is an additional comparator, not a substitute for the native game's Host/recording/render behavior. Initial comparison can preserve the reducer byte-for-byte; any relocation/import change must be tracked, and reducer migration remains a separate explicit decision. These are preparation scenarios, not newly approved laws or a frozen executable plan.
+1. Reinspect/freeze the stable canonical closure and tool/platform requirements.
+   The current working tree is evolving; historical README receipts (including
+   the 82,121,538-byte native/JS comparison) do not qualify today's changed Host,
+   transport, callback controls or codecs. Establish source applicability or
+   capture the actual new reference before comparing the copy.
+2. Extend/reuse the actual full consumer observation at identical logical
+   boundaries: complete World and engine state, ordered frames/physical outputs,
+   transport journal, actor paths/predecessors, rules, towers/health/investment,
+   callback targets/queues, live poses/beams and retained business output. Add
+   frame carry/playback/held-key and record-write observations for host cases.
+   Derived counts/checksums or sorted output are insufficient; observe ECS owners,
+   stamps, registrations/readers additionally where the adapter changes them.
+3. Exercise original controls and all three maps; pause/resume/reset, burst,
+   outage/repair, exact-target tower acceleration, zero-time callback issuance,
+   physical arrival/Finish assembly, retained finding and cleanup. Include ordered
+   key/mouse/move batches, stop repeat, catch-up carry and journal resume/replay
+   refusal/prefix cases. Obtain actual complete original traces and an independent
+   source-derived operation/state oracle before accepting copy outputs; preserve
+   timestamps/identities and numeric encoding. A shared TS engine comparison is
+   additional evidence, not a replacement for the native game's host behavior.
+4. Run the copied complete headless JS/Native consumer and the separately scoped
+   interactive host checks through existing runners. Reach a concrete dropped or
+   reordered transport update/identity association/cleanup mutation, plus affected
+   public schema/authority/owner refusals. No new cap or compiler is selected here.
+   Source checks retain the existing five-second cap. Approve new dependencies,
+   contracts and specific laws before use; #62 proof subjects and #61 audit remain
+   prerequisites, not implied by source inspection or canonical proof filenames.
+5. Preserve unchanged #28 for executable core changes and combined #21/#23/#24
+   equal-work qualification (JS ≤ TS, Native ≤ 0.5×TS). R7 does not require a new
+   comparative campaign for this documentation or each semantic slice. No timing
+   was measured here; CPU contention is not grounds to weaken correctness.
 
-Only after source/requirements and public owner/access/refusal/mutation boundaries are reviewed should concrete execution plans be admitted: cheapest source checks first, actual complete reference/JS/Native observations, reached omitted-hit/death/implicit-flush and association/order/cleanup controls, and source-current tool/config/environment/raw guards. Keep disabled/render-only and headless workloads explicit. The unchanged #28 gate, specifically approved proof subjects (#62) and full product performance (#21/#23/#24) remain prerequisites; canonical local timing or a headless demo cannot waive them. No numerical target, compiler modification, dependency or migration decision is selected. Publish actual copy/adapter integration tickets only after these requirements are settled; existing #64 owns this preparation meanwhile.
+Open execution choices: selected stable canonical snapshot, extent of ECS
+entity storage, host/platform adapter availability and exact original/copy
+trace entry. #59/#60 are **not** automatically prerequisites for existing input
+journal replay; they become relevant only if a different ECS snapshot/restore
+mechanism is proposed. Full #54 Native adoption and #38 ownership/identity scope
+must be checked against the chosen consuming APIs. No copy/integration tickets
+are created until these prerequisites and #61 are settled; #64 remains open.
 
-### Exact read-only source pins
+### Inspected working-tree source pins
 
-Canonical paths below are relative to `/workspace/typescript/jev` at the state above. Only named source portions were inspected; a later execution must independently freeze its complete transitive closure.
+All paths below are relative to `/workspace/typescript/jev`. Hashes were checked
+again after inspection; these selected files stayed unchanged during this review.
 
-| Canonical source | SHA-256 |
+| Source | SHA-256 |
 | --- | --- |
-| `prototypes/canonical-defense/README.md` | `c1b3922f15c77b62acec259ceb7bdfe468c3f01aa01461c173956ec10b66cc72` |
-| `prototypes/canonical-defense/DefenseMain.bend` | `f1a15778e64bc1ed51a22b89a187c94a2f727ea6ab7a141ed9e080f8c39bd7c4` |
-| `prototypes/canonical-defense/DefenseHost.bend` | `a48ea9481b8ac8d7929341efc32f05232df4f14654b57d09c9880bc9bd00af41` |
-| `prototypes/canonical-defense/DefenseModel.bend` | `5f8d32e6a4952ec112baeb7d7b9eefac962878fee1c5f44e5c5d23e470d83e1f` |
-| `prototypes/canonical-defense/DefenseMotion.bend` | `a5e2fe4a8221447548ee90693ee6682ba27eb4239bec736c1c4c629d4d5c080c` |
-| `prototypes/canonical-defense/DefenseMotionTypes.bend` | `6ca50e25e4c0fc76ecbf8f05b50c4d973aba70c999e2688681c69c7938db4322` |
-| `prototypes/canonical-defense/DefenseRules.bend` | `1404a6579840d7d8a2538918ba53910604f2e41437b140a25516e48756f593b7` |
+| `prototypes/canonical-defense/DefenseMain.bend` | `57cc150e51c81c9dfb05afbd93c41e6e596f9567f57337de42748ed1e742da14` |
+| `prototypes/canonical-defense/DefenseHost.bend` | `1b38db00d919d966fec9d4cd132f3943924dbf3dc61aaaea638ee62f01c20f33` |
+| `prototypes/canonical-defense/DefenseModel.bend` | `64249a997c8136adc17975a1ed03f7a9d969529e7dabf91b3cf8f287705cad9e` |
+| `prototypes/canonical-defense/DefenseMotion.bend` | `65e6ff05db7ce12161a9223da076ad33e730ceb26b7385d3a331ff6166fecec9` |
+| `prototypes/canonical-defense/DefenseMotionTypes.bend` | `0cdb303b0efc40a66d81cac455b1dd8222a535f1d1e84a58122c401f3356a0dd` |
+| `prototypes/canonical-defense/DefenseRules.bend` | `a46f5ff00920adbc31a95159cd6b2ae19ce57d957fccf377001195cb14e541e4` |
+| `prototypes/canonical-defense/DefenseTransport.bend` | `b37bbdd133cae4f0ca37930b8f9381aa9c01bef4dc85d17e609a10450af36a94` |
+| `prototypes/canonical-defense/DefenseLiveMotion.bend` | `9f9d613eade8d39a65a512057b4f0124c7e1e24b363a9a2d457992e4cef3b3a4` |
+| `prototypes/canonical-defense/DefenseLiveMotionTypes.bend` | `8a75c426d72b06d3bb3029b750ec6c096cee864c2e5a8018cb79c222ff454305` |
+| `prototypes/canonical-defense/DefenseTowerFire.bend` | `b585bb2457ab77a17e66176c55efea4857606bbc4e04e78bfeaa204e08c1bd20` |
+| `prototypes/canonical-defense/DefenseTowerPreview.bend` | `1942e8cc2635ea8b23bf0fdcd8cd12d826a3c25c5683c098af6289e706f5cac8` |
 | `prototypes/canonical-defense/DefenseRecording.bend` | `69dda2af16fcec9639783e9b0153c81f043fda78e25d99ccd88b58adbea65e24` |
-| `prototypes/canonical-defense/DefenseRender.bend` | `bb60985110b9bef37a754808376f6c6aa852db13bbf16e7e55b6b5e6523437ca` |
+| `prototypes/canonical-defense/DefenseRender.bend` | `623dfa59c16f55c232a50a8153d0a04edbbb7bc5053bf181810028df768eb2e8` |
 | `prototypes/canonical-defense/DefenseOutput.bend` | `ee8903089e5cb73a5d3d1c0f7f74be1b8d76052934391755f5b4bef74a9c1ed3` |
-| `prototypes/canonical-defense/DefenseConsumerObserved.bend` | `5ac26e633bf2f8d619de3ea2091c3f260ab750402567f361c9edc62e12d71290` |
+| `prototypes/canonical-defense/DefenseConsumerObserved.bend` | `236de3b289609e70385419071e4c086c0725a20c789e1e6097231cca924bdf0b` |
+| `prototypes/canonical-defense/DefenseConsumerCodec.bend` | `20e69bd1a63ad325b0c2325ab5f3182d6912c77ee8820eb66801e155b70e8a16` |
+| `prototypes/canonical-defense/README.md` | `b49ffbbbe166cc748fd2eef43e25dfab33c3875996cf09572e077e0625e3269a` |
+| `prototypes/canonical-defense/run.sh` | `d77a2535c5beab3f9227789d7de5955a7a6d07d2eafd2728ed09daef93853e67` |
+| `prototypes/canonical-defense/recording-launch.mjs` | `a14afc4c0a04cfc6eabfbad189ca5b7503c642c4e5149ce2f3f5f2edc614f4d4` |
+| `prototypes/canonical-defense/cached-build.mjs` | `3050525ce57f4377f3fe59d37d403d65387a4b3225fee454a1abebd9540e1a16` |
+| `packages/agent-flow-bend/Canonical.bend` | `c5b08371df7f6ce42938b61f6f871ab08f720264225017eb947f13feee7d51fe` |
 | `packages/monkey-business-bend/NativeRun.bend` | `ace7fcc5938334edf7814cfac607c5ae881513cd64142274475370682368a005` |
 | `packages/monkey-business-bend/Engine.bend` | `1392c9d269bd0284d9e6621189b2ce5c2aa69ab09961bda73150a48609624fd3` |
-| `packages/agent-flow-bend/Canonical.bend` | `05e6e2367d3112c3cd0614acabf71ffa5bc247a4cdd53a2f6916f734e1c3610b` |
+| `packages/monkey-business-bend/Callbacks.bend` | `e27ac3b261b04e12f0452a27f0af279b65bdf42b92529cbca11ab571bc1e1bcf` |
+| `packages/monkey-business-bend/NativeRunCallbackControls.bend` | `d113cb72219049a087389526483e53051457c8de27a5c86b80998d5e07cfe615` |
 | `packages/monkey-business/src/simulation-adapter.ts` | `da6108649f69d7970e32e57b41809e2f6fc53dc27ac27d266db33382e51f15cf` |
-
-Reference checkouts were read only at the tracked exact commits: bevy-ts `3040a3b2a3f28fa8554d856f9ccb6bf5433fa334`, Rust Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60`, Bend `a950fd683c0d76f09794078e6174fe98a1492876`. Authority and executable-evidence pointers below bind the inspected root snapshot; none is transferred as copied-defense acceptance.
-
-| Existing authority/evidence | SHA-256 |
-| --- | --- |
-| `.references/bevy-ts/packages/core/src/Schedule.ts` | `ab1610c356bfbcedf6ac85758e04c7032cda1f2458ff13c8a483c53d94b55c2a` |
-| `.references/bevy-ts/packages/core/src/Runtime.ts` | `c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4` |
-| `.references/bevy/crates/bevy_ecs/src/system/system_param.rs` | `e7c04fb01eebff746876ab65a5db9e3e36184a872057408f2e8ac11b694a3d26` |
-| `.references/bevy/crates/bevy_ecs/src/relationship/mod.rs` | `08ea0566a6c3104bd4433754260cf474fec38ef162a3d572cbaa5ff48493a6e0` |
-| `.references/bend2/bend2/base.bend` | `c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661` |
-| `docs/reports/public-schedules.md` | `bcc1ac32ba395dfbae20e8a0355882e4b517e4c9cd17c2ef60d3d9f479f212e6` |
-| `docs/reports/query-composition.md` | `6bedf75bc65bba631bfdb21f989e362c72bc403ac7572788c6ddb506b5e4629d` |
-| `experiments/public-bundles/owned-public-result-v1/production-js-v1/RESULT.md` | `8472467fe1fc79dcd5b4fbfd303b3daf48b9ef4a3610170a00d1c80f9321d7e0` |
-| `experiments/public-bundles/owned-public-result-v1/production-native-v1/RESULT.md` | `dacec44d29856bb30329773289916192c0234ecc2d30522ebb4cef0af929fbc3` |
-| `experiments/public-relations/timing/current-qualification-v1/phase2/delivery-files.json` | `41dfa6419955deeffe0ad151e78773d78cadc0caed683f698685dcfa8786fbb5` |

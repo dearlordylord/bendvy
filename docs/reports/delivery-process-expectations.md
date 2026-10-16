@@ -1243,3 +1243,10 @@ the full consumer under unchanged caps. The copied generator then emitted the
 identical qualified C, allowing reviewed build/runtime reuse instead of another
 compilation. This is a concrete candidate result, not measured acceleration,
 stock acceptance or compiler adoption.
+
+The #54 protected-workload bridge reused byte-identical JS instead of another
+regression cohort. Changed Native C received one build and full 231,190-byte
+correctness observation through the existing collector; both passed under the
+original caps. The ELF differs, so old Native timing evidence is not reused.
+Comparative measurements remain deferred under CPU contention. This records
+actual avoided duplicate work, not measured delivery acceleration.
