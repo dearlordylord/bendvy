@@ -1158,3 +1158,9 @@ pass without compiler or benchmark repetition: the only changed dependency
 preserves the empty pending-list path actually reached by this consumer. Original
 failed receipts and posthoc mutant validation retain their recorded limits. This
 is another observed evidence-reuse outcome, not a measured delivery-speed gain.
+
+The #58 reconciliation integrated at `b8c7cde5b`; CI38835649996 passed and
+issue #58 closed after its English completion report. #54 remains open: actual
+Frame transport preserves full JS but still exceeds stock Native emit30. Its
+separate diagnostic reached four complete passes before an uncovered cooperative
+cutoff path; no full counter or profile comparison is claimed from that failure.

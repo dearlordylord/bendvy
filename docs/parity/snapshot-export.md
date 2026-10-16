@@ -46,5 +46,6 @@ correction remains posthoc; its original INCOMPLETE receipt is unchanged.
 Thirty canonical dependencies, sixteen fixture bodies and both namespace
 sidecars match exactly; the remaining World change preserves the always-empty
 pending-list path reached here. No new execution is inferred from this join.
-Integration/CI publication is pending. Combined #21/#23/#24 performance and
+Integrated at `b8c7cde5b`; CI38835649996 passed and #58 closed.
+Combined #21/#23/#24 performance and
 separate #59/#60 restore/extended save obligations remain open.
