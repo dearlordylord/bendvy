@@ -1,0 +1,9 @@
+# Final review: source-level scope survivor control
+
+Independent reviewer `pr72_spec_review`: PASS for source `01b5a5d409`, independent oracle `bfac339b94`, and packet `617dd8b329`. The one-expression Bend mutation appends the actual unscoped survivor ID 2 to cleanup membership. Normal JS/Native match all 2,328 bytes; mutated JS/Native match all 2,310 counter bytes and reject the normal oracle. All commands and guards pass. Pure module checks pass; complete IO entry checks retain their expected foreign-effect proof limitation.
+
+The packet verifier and negative controls pass; the producer also verified relocation. Root verified the retained packet and all 80 normal plus 80 mutant source/sidecar hashes before retaining the exact sources in the archive. The integrated packet is self-contained; duplicate loose source snapshots are omitted to preserve their original whitespace in the archive. REUSE pins four unchanged scope modules, six dependency applicability joins and the existing #28 evidence; no fresh regression or timing run is claimed.
+
+Joined issue-level semantic acceptance: PASS for all three #45 criteria. Existing integrated consumers supply membership, persistence, repeated/deferred cleanup, linked/unlinked survivors, pending work, failed/retried systems, independent WorldIO worlds, relation/inverse cleanup, removal/despawn, affine disposition and scope/schema refusals. The matched application supplies actual TS/JS/Native equality across 52 records. This supplement supplies the reached compiling Bend mutation on both backends. The required #44 subset is already qualified; its open issue is not a missing scope operation.
+
+Comparative performance remains under #21/#23/#24. These finite observations are not universal refinement. Remaining delivery steps are publication, CI and issue reporting.

@@ -35,7 +35,7 @@ Independent Spec/Standards and documentation review by
 `debug56_reader_product_oracle` reports PASS for the joined native acceptance
 criteria and source-bound evidence below (documentation `31341df9a`, archive
 classification `aaa61d991`). The stock 32-case workload includes the TypeScript
-comparison. Publication, the issue report and CI remain pending. R7 assigns
+comparison. Integrated at `a2442d48d`; CI 38825895705 and the issue completion report passed, and #46 is closed. R7 assigns
 comparative timing/scaling to the combined #21/#23/#24 workload, not as a separate
 #46 gate.
 Reference order is Rust Bevy
@@ -61,10 +61,8 @@ handles and authority observations. The existing
 [native reconciliation](../../experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/NATIVE-COMPLETION.md)
 identifies no uncovered generic native construction API from these joins; the
 joined native semantic acceptance review reports PASS. R7 assigns comparative
-timing/scaling to combined #21/#23/#24. #46 remains open pending integration, the
-issue report and CI. #58/#59 save/restore remains separate. This map does not
-convert archived Standard Schema/JS-host mechanisms into native acceptance or
-close #46 early.
+timing/scaling to combined #21/#23/#24. #46 is closed after integration, independent review, the issue report and CI. #58/#59 save/restore remains separate. This map does not
+convert archived Standard Schema/JS-host mechanisms into native acceptance or claim universal coverage.
 
 The four checked criteria above are supported by the joined evidence: descriptor
 and primitive inventory with constructor precedence; public typed construction

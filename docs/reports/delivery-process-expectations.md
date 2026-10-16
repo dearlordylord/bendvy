@@ -1051,3 +1051,27 @@ and complementary 92/22/40 state/owner controls. Independent review found no
 missing native operation requiring another backend run. The documentation keeps
 private compiler evidence and archived JavaScript host interop separate; combined
 performance remains required. This checkpoint changes documentation only.
+
+#46 reconciliation `a2442d48d` passed CI 38825895705 (functional job 1m58s);
+the English criterion-level report was posted and #46 closed. This checkpoint
+reused existing execution evidence; CI duration is not an overall delivery-speed
+measurement.
+
+During #54 callback preparation an oracle pin file was amended after readiness
+while the collector was acquiring its lock. The guard refused before compiler
+execution; the failed receipt is retained and a fresh successor binds the final
+oracle commit. No backend result is attributed to that rejected attempt.
+
+The callback successor reached the stock Native emit deadline, but its final
+guard also refused: a parallel oracle owner reapplied sparse-checkout patterns
+in the shared worktree, removing 63 pinned oracle files. Root restored their
+exact committed bytes without rewriting the INCOMPLETE receipt. The producer
+closure was unchanged; no clean Native qualification is claimed. This is an
+observed coordination failure, not an acceptance or delivery-speed improvement.
+
+#45 delivery adds only the missing source-level survivor-deletion control: four
+stock JS/Native normal/counter runs match complete independent oracles. Existing
+ordinary, foreign-world, affine, reference and #28 evidence is reused through
+exact applicability joins. Independent joined semantic review passes; no
+production source or performance threshold changed. Root verified the retained
+packet and all normal/mutant source bytes, without replaying backends.

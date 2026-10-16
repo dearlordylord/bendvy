@@ -10,9 +10,9 @@ A scene-style lifetime scope owns a group of spawned entities and queues cleanup
 
 ## Acceptance criteria
 
-- [ ] Observe pinned scope membership, persistence, repeated cleanup and deferred visibility; a lifetime token is neither a component nor proof of liveness.
-- [ ] Run scoped spawn/cleanup across linked and unlinked entities, including references from persistent survivors, pending work, failed/retried systems and independently created worlds.
-- [ ] Verify relation/inverse cleanup, removal/despawn visibility and one-time affine disposal. Detect a reached persistent-entity deletion mutant and reject foreign scope/schema misuse.
+- [x] Observe pinned scope membership, persistence, repeated cleanup and deferred visibility; a lifetime token is neither a component nor proof of liveness.
+- [x] Run scoped spawn/cleanup across linked and unlinked entities, including references from persistent survivors, pending work, failed/retried systems and independently created worlds.
+- [x] Verify relation/inverse cleanup, removal/despawn visibility and one-time affine disposal. Detect a reached persistent-entity deletion mutant and reject foreign scope/schema misuse.
 
 ## Blocked by
 
@@ -38,3 +38,32 @@ linked deletion closure; an ordinary relation to a deleted target is cleared.
 An unscoped linked descendant is still deleted. These are the survivor and
 linked cases for the ordinary #45 consumer; affine cleanup uses the existing
 #44 callback contract.
+
+## Semantic acceptance reconciliation
+
+The [integrated delivery review](../../experiments/public-scopes/delivery-v1/FINAL-REVIEW.md)
+qualifies membership, repeated/deferred cleanup, linked descendants and ordinary
+survivors, relation/inverse cleanup, removal/despawn visibility, failed/retried
+registered systems, actual independent worlds, affine owner disposition and
+scope/schema refusals. Its generated-JS-only mutation remains historical.
+The [matched application review](../../experiments/public-scopes/feature-timing-delivery-v1/FINAL-REVIEW.md)
+qualifies the actual TS/JS/Native reference comparison: all 52 records and 12,932
+bytes. The four production lifetime-scope modules remain byte-identical to the
+qualified delivery. Reached dependency changes and their applicability are
+reviewed separately; the open #44 label does not leave a missing scope operation.
+
+The [source-level survivor control](../../experiments/public-scopes/source-survivor-control-v1/delivery-v1/FINAL-REVIEW.md) passes stock JS and ordinary Native -O3:
+normal 2,328 bytes (`f146322d…`), mutated 2,310 bytes (`c93a6c31…`). The sole Bend
+change appends the unscoped survivor to cleanup membership; both backends reject
+the normal oracle and match the independent countermodel. The original ordinary
+consumer and complete observation are preserved. This supplement executes Scene
+only; broader two-schema coverage belongs to the joined delivery, not this run.
+The pure normal/mutant modules pass their pinned checks. Full IO entries retain
+the expected foreign-effect proof limitation; actual runtime passes are separate.
+
+Independent final Spec/Standards review confirms all three native semantic
+criteria are satisfied by the joined evidence. Publication and CI remain pending.
+This qualification changes no
+production core. The existing #28 evidence remains scoped to its protected
+workload; combined comparative performance remains under #21/#23/#24. Finite
+observations do not establish universal refinement.
