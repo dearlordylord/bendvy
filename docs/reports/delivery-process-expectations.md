@@ -1425,3 +1425,13 @@ was required; correctness, independent application, reached mutation, current TS
 applicability and protected #28 evidence remained binding. #53 is the next active
 implementation. This is a completed delivery under the shorter policy, not a
 measured speedup or final performance qualification.
+
+#53 first ordinary and independently authored applications execute on both stock
+backends with complete 24,875/9,107-byte observations. The existing import guard
+refused an incomplete independent-app inventory before any child; a metadata-only
+successor added six unchanged transitive sources. The ordinary oracle confused
+reported boundary with effective retention cutoff; its source-derived successor
+matched retained JS bytes, so JS was not replayed. Original failures remain
+immutable. Existing runners/caps were reused without added infrastructure. Full
+#53 still requires family isolation, query/resource composition and authority/loss
+controls; this first slice is not full acceptance or measured delivery speedup.
