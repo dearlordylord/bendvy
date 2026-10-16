@@ -281,7 +281,8 @@ reads, deriving operational access and automatic descriptions from one input.
 Its full ordinary App, incoming-routing defect and previous machine compatibility
 pairs pass; actual TS execution matches its independent complete oracle.
 All eight modes match the current-source complete117,959-byte JS/Native oracle;
-acceptance is tracked by the [delivery review](../../experiments/public-conditions/relation-query-check-v1/FINAL-REVIEW.md).
+[delivery review](../../experiments/public-conditions/relation-query-check-v1/FINAL-REVIEW.md)
+passes; integrated `521b7dec5`, CI38910846706 PASS.
 Those are finite current public consumers, not a
 whole matrix or another independent schema. Remaining #61 work is to join the
 unmatched required predicates and cross-feature combinations to their direct

@@ -1607,3 +1607,7 @@ and complete physical queue observations added at entry and exit. Independent
 oracles distinguish routing direction and preserve the different RequiredOut and
 RequiredIn historical subjects. No new runner or comparative timing campaign was
 introduced; no delivery-speed improvement has been measured.
+
+Relation Check integrated `521b7dec5` with independent Spec/Standards PASS and
+normal pre-commit PASS; CI38910846706 PASS. The unchanged protected23-source
+closure permits exact combined220 reuse without another benchmark run.

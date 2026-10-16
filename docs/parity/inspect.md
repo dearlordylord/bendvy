@@ -286,3 +286,6 @@ all117,959 independent bytes on JS/Native. Actual TS matches77,808 independent
 bytes; five positive/eleven intended authority controls pass. These are
 finite semantic witnesses, not universal provider guarantees or final performance
 qualification. See the [delivery evidence](../../experiments/public-conditions/relation-query-check-v1/README.md).
+
+Independent [Spec/Standards review](../../experiments/public-conditions/relation-query-check-v1/FINAL-REVIEW.md)
+passes; integrated `521b7dec5`, CI38910846706 PASS.
