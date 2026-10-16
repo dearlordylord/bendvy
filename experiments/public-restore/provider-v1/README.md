@@ -48,3 +48,14 @@ The first source check rejected the reusable `+raw` function argument annotation
 against the affine callback type. The correction copies Data only inside its
 match; source attempt2 PASS, cap5/telemetry off. Both raw attempts are retained.
 No World transaction, allocation rollback, release or capture policy is added.
+
+## Executed detached witness
+
+The [runtime witness](runtime-witness-v1/README.md) now qualifies the existing
+constructor on stock JS and Native against a complete independent 513-byte
+owner observation. A reached Context-cell corruption matches its independent
+countermodel and rejects the full normal output on both backends. The first
+QName-formatting oracle failure is retained with its source-grounded correction.
+The provider and original witness remain unchanged; World restore and its
+remaining contracts are still incomplete. Earlier source-only notes above
+describe their historical checkpoints.

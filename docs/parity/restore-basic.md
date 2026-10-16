@@ -164,3 +164,17 @@ Refusal carries original Raw, unchanged affine Context, exact decoder error and
 owned Issues sentinel. Both paths source-check; this is concrete constructor
 preparation rather than transport of a prebuilt owner. Executed application
 controls, transaction recovery/release and public restore remain outstanding.
+
+## Detached constructor runtime qualification
+
+The existing Boolean-cell constructor now passes complete stock JS/Native
+observations of the accepted payload, declaration roundtrip and Context, and
+refused original Raw, exact decoder error, Issues and Context. The full 513-byte
+models match; a compiling Context-cell corruption is detected on both backends.
+[Retained evidence](../../experiments/public-restore/provider-v1/runtime-witness-v1/delivery-v1/README.md)
+preserves the first oracle-formatting failure and its compiler-source correction.
+
+This qualifies one constructor prerequisite, not World restore. Multi-entry
+staging/release, atomic application, lifecycle/queue/reader behavior, allocator
+restoration and stale-handle decisions remain open under the criteria above.
+No production core, ownership contract, law or performance gate changed.

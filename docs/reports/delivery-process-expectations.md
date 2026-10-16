@@ -1226,3 +1226,11 @@ English issue report closed semantic acceptance. The #54 budget0 discriminator
 used one reviewed emission-only run: C grew 8.18%, so no speculative build was
 added. Independent review `1fadd0009` verifies artifact difference only; budget
 permutations stop pending current Clang-cost evidence. No speedup is claimed.
+
+#59 used the ordinary collector for one complete detached constructor before
+expanding to a reached preservation defect. A first JS oracle-rendering mismatch
+was corrected from compiler source without changing the consumer; the original
+failure remains. Corrected normal and defect pairs pass stock JS/Native. One
+portable packet reuses the existing verifier pattern and independently checks
+complete owners; root offline verification passes without recompilation. No
+comparative campaign or measured delivery-speed claim accompanies this slice.

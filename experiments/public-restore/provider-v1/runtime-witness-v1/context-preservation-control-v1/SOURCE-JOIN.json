@@ -1,0 +1,9 @@
+{
+  "scope": "Reached actual Context Array cell corruption; observer unchanged except nominal witness import. No output QName changes: entry-defined Data names unqualified and D root import from same parent.",
+  "normalWitnessSha256": "dcfd20c41b61c6cda02ade9e539af0c4ff9cb2d2975710f32f629dd25c556e72",
+  "mutantWitnessSha256": "9f004c52d6b077c42e7e0d7e0480cf4779848d2cb6fc39969167bc881a2f58ce",
+  "helper": "def corrupted(context:Context) -> Context:\n  match context:\n    case Context{sentinel}: Context{Array.set(U32,sentinel,0,112)}\n",
+  "before": "constructed(context,Complete.decode_owner",
+  "after": "constructed(corrupted(context),Complete.decode_owner",
+  "mainImportOnly": "./witness.bend -> ./witness-mutant.bend"
+}
