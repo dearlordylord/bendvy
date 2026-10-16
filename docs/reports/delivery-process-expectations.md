@@ -1186,3 +1186,9 @@ reuse the prior TS, hit/death and authority controls through source joins, witho
 repeating those backends or a comparative campaign. Historical #28 evidence has
 an explicit World-source timing limitation; this batch changes no production
 hot path. This records actual use of the shortened path, not measured acceleration.
+
+#63 integrated at `687abb043`; CI38839033849 passed before the English completion
+report and issue closure. Early operation/state/observation review on the next
+#38 delivery found absent changed-stamp observations before freezing backend
+plans. Fixture-only observers and an independent model are being completed;
+no new runner or process layer is needed to address that concrete gap.
