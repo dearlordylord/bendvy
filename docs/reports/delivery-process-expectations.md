@@ -1104,3 +1104,10 @@ experiment was rerun to close this documentation checkpoint.
 Qualified execution evidence and independent source review sufficed; no unchanged
 compiler/benchmark run was repeated. This records fewer required runs, not a
 measured end-to-end speedup.
+
+#54 coherent runtime-callback candidate `cc617c302` preserves all 47 frozen
+inputs except the composition kernel, with independent join `9e9d51785`. The
+complete JS oracle (5,077,477 bytes) passes; stock Native emission still exceeds
+30 seconds with clean source guards and no generated C. Further representation
+guesses stop pending per-pass specialization/layout attribution. No acceptance
+limit changed, no speedup claimed, and #55 fixture/oracle work continues independently.
