@@ -22,11 +22,13 @@ Systems perform recoverable operations on caller-owned affine component/resource
 ## Semantic acceptance reconciliation — 2026-10-16
 
 All four semantic criteria pass the [independent joined review](../../experiments/public-recovery/mixed-v1/FINAL-REVIEW.md).
-Integration `d38025142` and CI38865825685 pass. The literal independently
-authored application requirement remains a delivery gate: the existing oracle
-is independent, while the original consumer and core share an implementation
-owner. A fresh application owner is validating present-component removal through
-None, rollback and commit using only ordinary APIs before public closure.
+Integration `d38025142` and CI38865825685 pass. The independently authored
+[application](../../experiments/public-recovery/independent-app-v1/successor-v2/README.md)
+now executes present-component removal through None, rollback and commit on stock
+JS and Native. Both complete 2,276-byte observations match a separately authored
+oracle (`364251ef221f6089fe7e1dfba37f98b54b8d2e8de4a2317469d271803fa5f822`).
+The first fixture’s ID/index error and failed JS attempt are preserved. [Independent review addendum](../../experiments/public-recovery/independent-app-v1/successor-v2/FINAL-REVIEW.md)
+passes; integration/CI and the English completion report remain delivery steps.
 
 The ordinary API composes canonical Component, Resource and explicit Capture
 operations with `ordinary-recovery-declaration.both`, then registers/runs them

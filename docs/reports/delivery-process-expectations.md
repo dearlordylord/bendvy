@@ -1397,3 +1397,24 @@ consumer and core shared an implementation owner, although the oracle was
 independent. One fresh no-history application owner now exercises the ordinary
 API, including present-component None removal with rollback/commit. This focused
 gate preserves the existing matrix and is not a core defect or a new campaign.
+
+The independent #52 application's first stock JS execution found a fixture
+indexing error before Native was launched: canonical Column access maps a
+positive entity ID to physical index id-1; the seed and oracle had assumed
+id-padding. The failure did not exercise present removal. A source successor
+will correct the seed and enumerate all physical slots through valid IDs. The
+failed source, oracle and receipt are retained; no acceptance gate is relaxed.
+The reduced local checks and existing collector were used; delivery-speed
+improvement remains unmeasured.
+
+The corrected independent consumer passed both stock backends against the fresh
+complete 2,276-byte oracle, with unchanged compiler/caps and no production source
+repair. The first failed JS attempt remains historical; its Native run was
+avoided. Existing #52 authority, reached owner-loss, TS applicability and #28
+evidence remain reusable. This records actual use of the shorter delivery path;
+it does not measure total delivery-speed improvement.
+
+Independent final addendum accepts the #52 writer/removal evidence. The requested
+checkpoint review also confirms prior reviews apply to `218b5b548`/`fad6e9c5d`: all
+eleven infrastructure suites remain in CI, with correctness/#28/final performance
+goals preserved. No unchanged process tests or benchmarks were repeated.
