@@ -28,3 +28,27 @@ Independently authored systems retain runtime affine capture state across repeat
 - Use before/after JS call and allocation profiles for a consequential performance change; report allocation sampling separately from physical/RSS memory. Optimize demonstrated bottlenecks while completing features. The scoped #30 amendment is not a global gate waiver; full performance remains under #21/#23/#24.
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
+
+## Implementation direction — registered capture owners
+
+Bevy's persistent `FunctionSystem.func` and owner-returning
+`World::unregister_system` govern #50. A closed runner threads the actual affine
+capture pack; entered-call changes persist on ordinary failure while the existing
+ECS transaction rolls back. Skip preserves capture state; refusal returns the
+actual instance and arguments. Unregister removes registration authority and
+returns the capture; registering it again obtains a new registration ID. This
+reuses Local transport without changing Local's behavior. It adds no mandatory
+finalizer, cross-world transfer or #52 destructive inverse policy.
+
+`ordinary-captures.define` accepts the existing resource declaration and authored
+rank-2 body; access metadata and transaction completion are derived. The raw
+`captures.register` runner remains a trusted integration seam. Initial consumer:
+`experiments/public-captures/ordinary-owner-v1/main.bend`. Source checks alone do
+not complete acceptance: full JS/Native, authority negatives, reached capture-loss
+control, TS comparison and combined regression/final review remain required.
+
+## First ordinary entry — bounded delivery
+
+The [first consumer and retained evidence](../../experiments/public-captures/ordinary-owner-v1/runtime-v1/README.md) pass stock JS and Native against the complete independent 3,749-byte oracle. Two schemas exercise two affine Arrays per instance, success, skip, failure persistence with resource rollback, foreign refusal and unregister/re-register. [Independent review](../../experiments/public-captures/ordinary-owner-v1/runtime-v1/FINAL-REVIEW.md) accepts this slice; the existing stock #28 gate applies through the recorded unchanged protected-source/artifact bridge.
+
+#50 remains open: repeated schedule execution, colliding foreign registration refusal, final owner recovery, affected authority negatives, a reached capture-loss mutation and the explicit current-source TS applicability join remain. No automatic external finalization, query-family entry or general heterogeneous composition is claimed.

@@ -1276,3 +1276,13 @@ unregister. The existing approved Bevy-first direction therefore selects explici
 affine capture persistence and owner-returning unregister without inventing
 automatic finalizers. Implementation proceeds via existing Local machinery;
 #52 arbitrary inverse trust remains a separate observable boundary.
+
+Checkpoint `ee12c1687` passed CI38849444025. The #50 ordinary consumer passed
+stock JS/Native on its first pair: five commands, all 3,749 oracle bytes equal,
+original limits and existing collector. This precedes expanded schedule and
+authority controls. Verified source/tool bindings allow reuse of the actual TS
+reference and stock combined220 #28 evidence: its 23-source closure is unchanged
+and imports neither new capture module. The existing stock artifact identity
+bridge applies; the copied-compiler cohort is not substituted. No new runner,
+unchanged infrastructure rerun or comparative campaign was added. These are
+observed avoided checks, not measured delivery acceleration or capture performance.

@@ -8,6 +8,8 @@ TS observations below describe TS; they do not choose Bendvy behavior.
 
 ## #50 — instance-owned captures and explicit recovery
 
+**Superseded for #50:** the [registered-capture implementation direction](captures.md#implementation-direction--registered-capture-owners) follows the existing Bevy-first decision. Persistent captures and owner-returning unregister are selected; the older mandatory-finalizer/sharing proposal below is not. This section remains historical design context.
+
 **Trigger:** a registered system changes an owned capture, fails, runs again, or
 is unregistered. The [actual TS trace](../../experiments/public-captures/README.md)
 observes persistent changes, skipped calls and the same host callback shared by

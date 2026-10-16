@@ -1,0 +1,50 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "src/ecs/captures.bend"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "983c1f205766293dd8b4922058add95bc416334fe305b1984eda96bd7bd1e07b",
+      "stdout": "captures.check.stdout",
+      "stderr": "captures.check.stderr",
+      "scope": "source check"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "src/ecs/ordinary-captures.bend"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "1d5523b4ee282e1675c100c37f4ff84c078cfe6c281dac5dd912d0e10ee14bf7",
+      "stdout": "ordinary-captures.check.stdout",
+      "stderr": "ordinary-captures.check.stderr",
+      "scope": "source check"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captures/ordinary-owner-v1/format.bend"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "6b3d6598a0a9f73e5c258b2480a06cd13c71041ce54963a133cec02f9f36299f",
+      "stdout": "format.check.stdout",
+      "stderr": "format.check.stderr",
+      "scope": "source check"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captures/ordinary-owner-v1/main.bend"
+      ],
+      "exitCode": 1,
+      "sourceSha256": "c1c13dde1e962f3c5ea654d98e72f63f4437cd7a2b2377b263ad74d00c949ced",
+      "stdout": "main.check.stdout",
+      "stderr": "main.check.stderr",
+      "scope": "foreign-only limitation"
+    }
+  ],
+  "secondsPerCheck": 5,
+  "claim": "Pure source modules pass; IO entry reports only six foreign-dependent definitions, not a proof PASS."
+}
