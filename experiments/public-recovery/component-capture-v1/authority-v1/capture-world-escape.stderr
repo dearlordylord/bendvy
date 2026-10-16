@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.World<First, Col.Column<First, Array<Array<U32>>>, Unit, Unit>
+- observed : escaped~H
+Context:
+- owner : escaped~H
+Location: escaped
+14 | def escaped(~H:Type,~cap:O.CaptureWrite<Array<U32>,H>,owner:H) -> F.World(~First):
+15>|   owner
+   |   ^^^^^
+16 | 
+bend 2.0.37 is available: run bend update

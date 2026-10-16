@@ -55,3 +55,35 @@ deferred effects, external IO rollback or component lifecycle restoration.
 The resource slice is integrated at `c8f5b4c5c`; CI38861304008 passed.
 [Shared executed TS applicability](../../experiments/public-recovery/ordinary-array-v1/TS-APPLICABILITY.md)
 records the qualified value-level comparisons and their ownership/runtime limits.
+
+## Component and explicit capture recovery slice
+
+Source `f7e221791` with canonical component primitive `931cb3b86` executes a
+registered component/capture system on two nominal schemas. Stock JS and Native
+-O3 match the independent complete 13,009-byte oracle `404dd9de8`, including
+multiple writes, earlier commit, failure/retries, rollback of an absent component,
+actual foreign-entity refusal and colliding foreign registration refusal. The
+observer preserves every affine payload, returned record and capture; it reports
+component stamps, monotonic World clock and success-only system cursor.
+
+Opt-in capture operations restore their payload on failure; normal #50 capture
+persistence is unchanged. Component inverses restore the old payload and stamp
+and return the displaced payload with its actual pre-undo stamp. The journal
+runs every action on both outcomes. The closed ordinary runner always uses a
+successful transport envelope so semantic failure cannot discard recovered owners.
+Its defensive TransportFailed case is unreachable through that closed runner,
+not a general guarantee about arbitrary trusted transport code.
+
+See the [complete packet](../../experiments/public-recovery/component-capture-v1/README.md)
+and [affected authority controls](../../experiments/public-recovery/component-capture-v1/authority-v1/README.md).
+The first resource [owner-loss control](../../experiments/public-recovery/ordinary-array-v1/owner-loss-mutant-v1/README.md)
+drops displaced owners in the actual commit inverse. Both backends match the
+independent 6,631-byte counter-oracle and reject the complete normal 6,951-byte
+trace. This establishes reached finite owner-loss detection, not physical memory
+identity, automatic finalizers or a universal proof.
+
+The current component entry uses a canonical single Column. Ordinary
+heterogeneous-family composition and the joined issue review remain in #52;
+these slices do not close or narrow that obligation. External IO and arbitrary
+destructive callbacks are outside the recoverable grants. The unchanged protected
+23-source #28 closure retains its existing reviewed stock applicability.

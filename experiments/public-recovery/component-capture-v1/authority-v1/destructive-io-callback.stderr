@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Array<Array<U32>>
+- observed : @value:Array<Array<U32>> -> @-R:Type -> @k:(@_:Unit -> IO.OP<R>) -> IO.OP<R>
+Context:
+- owner : rejected~H
+Location: rejected
+16 | def rejected(~H:Type,~cap:O.CaptureWrite<Array<U32>,H>,owner:H) -> H:
+17>|   O.capture_replace(~Array<U32>,~H,~cap,owner,destructive)
+   |                                               ^^^^^^^^^^^
+18 | 
+bend 2.0.37 is available: run bend update

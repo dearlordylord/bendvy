@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '!'
+Location:
+30 |     case O.RegistrationRejected{world,owner,args}:refused(~S,label ++ ":refused",State{world,foreign,owner,foreignOwner,target,absent,other,text},Obs.args(~S,args))
+31>|     case O.TransportFailed{_}:!
+   |                               ^
+32 | def arguments(~S:Data,+label:String,state:State<S>,args:F.Args<S> & String) -> State<S>:
+bend 2.0.37 is available: run bend update

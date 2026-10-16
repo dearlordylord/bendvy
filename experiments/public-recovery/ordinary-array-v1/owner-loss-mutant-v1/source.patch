@@ -1,0 +1,11 @@
+--- baseline/src/ecs/recoverable-array-owner.bend
++++ mutant/src/ecs/recoverable-array-owner.bend
+@@ -15,7 +15,7 @@
+     case (rest,array):restored(~State,~P,~Rest,~lens,~Recovery,~ReleasedRest,~release,rest,recovery,A.undo(~P,old,array))
+ def inverse(~State:Type,~P:Type,~Rest:Type,~lens:Product.Lens<State,Array<P>,Rest>,~Recovery:Type,~ReleasedRest:Type,~release:Product.Lens<Recovery,List<A.Record<P>>,ReleasedRest>,old:A.Record<P>,success:Bool,state:State,recovery:Recovery) -> State & Recovery:
+   match success:
+-    case True{}:(state,Owner.append(~Recovery,~A.Record<P>,~ReleasedRest,~release,recovery,old))
++    case True{}:(state,recovery)
+     case False{}:restore(~State,~P,~Rest,~lens,~Recovery,~ReleasedRest,~release,old,recovery,Product.get_field(~State,~Array<P>,~Rest,lens)(state))
+ def record(~State:Type,~P:Type,~Rest:Type,~lens:Product.Lens<State,Array<P>,Rest>,~Recovery:Type,~ReleasedRest:Type,~release:Product.Lens<Recovery,List<A.Record<P>>,ReleasedRest>,state:State,journal:List<Journal.Action(~State,~Recovery)>,old:A.Record<P>) -> State & List<Journal.Action(~State,~Recovery)>:
+   (state,(success => s => r => inverse(~State,~P,~Rest,~lens,~Recovery,~ReleasedRest,~release,old,success,s,r)) <> journal)

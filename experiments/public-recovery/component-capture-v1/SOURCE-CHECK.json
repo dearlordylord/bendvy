@@ -1,0 +1,75 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "src/ecs/ordinary-recoverable-component-capture.bend"
+      ],
+      "exitCode": 0,
+      "combinedOutput": "combined02.check.combined",
+      "sourceSha256": "a967ad99661aaccef608b5f9b4825a13fe69e5b99cabbf6ee1cc9bea8bd4e468",
+      "historicalRepair": false
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-recovery/component-capture-v1/fixture.bend"
+      ],
+      "exitCode": 0,
+      "combinedOutput": "combined-fixture01.check.combined",
+      "sourceSha256": "72abe4faf896600e4e623b6a45e4d2b7b3bb2eb8478f4273e958f31148836b2c",
+      "historicalRepair": false
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-recovery/component-capture-v1/scenario.bend"
+      ],
+      "exitCode": 1,
+      "combinedOutput": "combined-scenario01.check.combined",
+      "sourceSha256": null,
+      "historicalRepair": true
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-recovery/component-capture-v1/scenario.bend"
+      ],
+      "exitCode": 1,
+      "combinedOutput": "combined-scenario02.check.combined",
+      "sourceSha256": null,
+      "historicalRepair": true
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-recovery/component-capture-v1/scenario.bend"
+      ],
+      "exitCode": 0,
+      "combinedOutput": "combined-scenario03.check.combined",
+      "sourceSha256": null,
+      "historicalRepair": true
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-recovery/component-capture-v1/scenario.bend"
+      ],
+      "exitCode": 0,
+      "combinedOutput": "combined-scenario04.check.combined",
+      "sourceSha256": "8a7331bc9f422cbddac776c6984546fe1a024b7d677430da9d8b953b8571e0f7",
+      "historicalRepair": false
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-recovery/component-capture-v1/main.bend"
+      ],
+      "exitCode": 1,
+      "combinedOutput": "combined-main01.check.combined",
+      "sourceSha256": "d0c3a20afe322fbda24baf138c37a1dc301142a7432d93798580fd8979819991",
+      "historicalRepair": false
+    }
+  ],
+  "limitation": "Final pure scenario PASS0; full main exit1 ONLY six foreign/IO dependent definitions. No full main PASS claimed. Historical repair bodies are not frozen."
+}

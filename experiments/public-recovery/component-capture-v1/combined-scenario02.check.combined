@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'useAbsent' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+38 | def run(~S:Data,label:String,seed:U32,fail:Bool,useAbsent:Bool,state:State<S>) -> State<S>:
+39>|   match state useAbsent:
+   |               ^^^^^^^^^
+40 |     case State{world,foreign,owner,foreignOwner,+target,+absent,+other,text},False{}:arguments(~S,label,State{world,foreign,owner,foreignOwner,target,absent,other,text},Obs.args(~S,F.args(~S,target,other,seed,fail)))
+bend 2.0.37 is available: run bend update

@@ -1370,3 +1370,12 @@ The reviewed first #52 resource slice integrated at `c8f5b4c5c`; CI38861304008
 passed and an English bounded report was posted without closing the issue.
 The TS applicability note reuses existing actual executions with explicit runner
 and ownership limits, avoiding another unchanged reference run.
+
+The next #52 consumer passed stock JS and Native against all 13,009 independent
+bytes on its first backend pair, covering component stamps, affine owners and
+explicit capture rollback. The isolated commit-owner-loss defect also passed
+its full 6,631-byte countermodel and rejected the normal trace on both backends.
+Both use the existing collector and unchanged caps; new authority checks cover
+the affected boundaries while unchanged resource controls are source-bound reuse.
+The protected23-source regression closure remains unchanged. Heterogeneous
+ordinary-family composition remains within #52; no delivery-speed claim follows.
