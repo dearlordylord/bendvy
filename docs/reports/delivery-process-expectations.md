@@ -1530,3 +1530,14 @@ census review also accepted the existing coverage document's counted routing:
 (251 test cases, 40 suites, 133 rejection markers). The archive's 688th semantic
 key is a test helper; it is not a new Bend requirement. Counts and classified
 routes do not close unexecuted predicates, full #61 or product qualification.
+
+The automatic Recovery-to-App/debug composition passed its first stock JS and
+Native consumer pair against all 30,271 independent oracle bytes, using the
+existing collector and unchanged caps. Affected authority, metadata mutation,
+compatibility and final review remain; this is not integrated acceptance. The
+checkpoint review reused the prior independent review of `218b5b548`/`fad6e9c5d`:
+all five executable process files are unchanged, all eleven infrastructure suites
+remain in CI, and correctness/#28/final performance criteria remain binding.
+The CI38791374316 success note was already committed and is preserved. No unchanged
+process tests or timing/scaling campaign were repeated. This records actual use
+of the shorter path, not a measured delivery-speed improvement.
