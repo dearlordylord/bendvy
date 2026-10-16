@@ -534,9 +534,81 @@ class Scenarios(unittest.TestCase):
                                ({'exit': 1, 'failure': 'child deadline'}, 'Cap.Write'),
                                ({'exit': 1, 'failure': None}, 'syntax error')]:
             with self.assertRaises(ValueError):
-                scenario_controls.negative(result, stderr, ['Cap.Write', 'Cap.ValueRead'])
+                scenario_controls.negative(result, stderr, {'kind': 'type-mismatch', 'expected': 'Cap.Write', 'observed': 'Cap.ValueRead'})
         scenario_controls.negative({'exit': 1, 'failure': None},
-                                   'expected Cap.Write observed Cap.ValueRead', ['Cap.Write', 'Cap.ValueRead'])
+                                   'Error:\n- expected : Cap.Write<Owner>\n- observed : Cap.ValueRead<Owner>', {'kind': 'type-mismatch', 'expected': 'Cap.Write', 'observed': 'Cap.ValueRead'})
+
+
+    def test_broad_legacy_marker_cannot_qualify_a_refusal(self):
+        with self.assertRaisesRegex(ValueError, 'type-mismatch'):
+            scenario_controls.negative({'exit': 1, 'failure': None},
+                                       'Error: parser stopped', ['Error:'])
+
+    def retained_refusal(self, packet, subject):
+        checks = json.loads((packet/'CHECKS.json').read_text())['checks']
+        record = next(row for row in checks if row['subject'] == subject + '.bend')
+        raw = (packet/(subject + '.stderr')).read_bytes()
+        self.assertEqual(hashlib.sha256(raw).hexdigest(), record['stderrSha256'])
+        self.assertEqual(hashlib.sha256((packet/(subject + '.bend')).read_bytes()).hexdigest(),
+                         record['sourceSha256'])
+        self.assertTrue(record['prePinsMatched'] and record['postPinsMatched'])
+        self.assertEqual(record['exitCode'], 1)
+        return raw.decode(), {'exit': record['exitCode'], 'failure': None}
+
+    def test_actual_arity_predecessors_and_repaired_type_refusals(self):
+        retained = Path(__file__).resolve().parents[1] / 'experiments/public-conditions/component-query-v1/authority-v1'
+        for subject, observed in [('query-write', 'CQ.Read'),
+                                  ('both-write-through-read', 'D.ResourceRead')]:
+            expectation = {'kind': 'type-mismatch', 'expected': 'Cap.ValueWrite', 'observed': observed}
+            with self.subTest(subject=subject, variant='arity-predecessor'):
+                packet = retained / 'history/arity-predecessor01'
+                raw, result = self.retained_refusal(packet, subject)
+                with self.assertRaisesRegex(ValueError, 'intended type mismatch'):
+                    scenario_controls.negative(result, raw, expectation)
+            with self.subTest(subject=subject, variant='corrected'):
+                raw, result = self.retained_refusal(retained, subject)
+                scenario_controls.negative(result, raw, expectation)
+
+    def test_type_names_in_source_context_do_not_qualify(self):
+        expectation = {'kind': 'type-mismatch', 'expected': 'Cap.Write', 'observed': 'Cap.Read'}
+        for raw in [
+                "Error:\n- expected : a term (takes 3 ~)\n- observed : '~'\nLocation:\nCap.Write Cap.Read",
+                'Error:\n- expected : List<Cap.Write<H>>\n- observed : Maybe<Cap.Read<H>>',
+                'Error:\n- expected : Cap.WriteExtra<H>\n- observed : Cap.Read<H>',
+                'Error:\nLocation:\n- expected : Cap.Write<H>\n- observed : Cap.Read<H>',
+                'Error:\n- expected : Cap.Read<H>\n- observed : Cap.Write<H>']:
+            with self.subTest(raw=raw), self.assertRaisesRegex(ValueError, 'intended type mismatch'):
+                scenario_controls.negative({'exit': 1, 'failure': None}, raw, expectation)
+
+    def test_multiple_errors_are_unqualified(self):
+        raw = ('Error:\n- expected : Cap.Write<H>\n- observed : Cap.Read<H>\n'
+               'Error:\n- expected : a term\n- observed : missing')
+        with self.assertRaisesRegex(ValueError, 'intended type mismatch'):
+            scenario_controls.negative({'exit': 1, 'failure': None}, raw,
+                                       {'kind': 'type-mismatch', 'expected': 'Cap.Write', 'observed': 'Cap.Read'})
+
+    def test_malformed_diagnostic_expectations_name_the_supported_format(self):
+        for expectation in [None, [], ['Error:'], {},
+                            {'kind': 'type-mismatch', 'expected': 'Cap.Write'},
+                            {'kind': 'type-mismatch', 'expected': '', 'observed': 'Cap.Read'},
+                            {'kind': 'type-mismatch', 'expected': 'Cap.Write.*', 'observed': 'Cap.Read'},
+                            {'kind': 'anything', 'expected': 'Cap.Write', 'observed': 'Cap.Read'},
+                            {'kind': 'type-mismatch', 'expected': 'Cap.Write', 'observed': 'Cap.Write'},
+                            {'kind': 'type-mismatch', 'expected': 'Cap.Write', 'observed': 'Cap.Read', 'matched': True}]:
+            with self.subTest(expectation=expectation), self.assertRaisesRegex(ValueError, 'type-mismatch'):
+                scenario_controls.negative({'exit': 1, 'failure': None}, 'Error:', expectation)
+
+    def test_cli_uses_the_same_diagnostic_contract(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root/'actual.json').write_text(json.dumps({'exit': 1, 'failure': None}))
+            (root/'expected.json').write_text(json.dumps({'diagnostic': {
+                'kind': 'type-mismatch', 'expected': 'Cap.Write', 'observed': 'Cap.Read'}}))
+            (root/'stderr.txt').write_text('Error:\n- expected : Cap.Write<H>\n- observed : Cap.Read<H>')
+            result = task_runner.run([sys.executable, str(Path(scenario_controls.__file__)),
+                                      str(root/'actual.json'), str(root/'expected.json'),
+                                      '--stderr', str(root/'stderr.txt')], timeout=5, capture_output=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
 
 
 class Reduction(unittest.TestCase):
