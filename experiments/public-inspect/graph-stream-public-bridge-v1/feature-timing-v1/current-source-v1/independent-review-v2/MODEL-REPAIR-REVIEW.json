@@ -1,0 +1,24 @@
+{
+  "verdict": "PASS source-grounded model repair; fresh backend qualification pending",
+  "oracleCommit": "ba2fcef634ea724db3f16f7ffcfcecf7c97f199e",
+  "sourceBasisSHA256": "ec59281cfa9c15149b0e52d0018b68a7201a1156ae50c25a4810fc539ac9d3a0",
+  "deriveSHA256": "eeca3d0a4d21435c979663f6e784dd1a1a9765fc6c992efb8c51b773f7579c93",
+  "fixtureCommit": "cbde916f450209d9e2c0565a6ec76b254572a818",
+  "verifiedSources": 92,
+  "baseSHA256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "corrections": [
+    "Bool.show emits True/False for live and machine bits.",
+    "Array.new(T,4n,v) builds16 leaves; setup initializes three entries, leaving13 empty leaves per component. Physical tree observes every leaf.",
+    "Base.List.show inserts comma-space for graph/inverses/notices/registrations/stream batches; fixture u32_list remains comma-only.",
+    "dump.batch renders tick plus List.show(items); machine batch requires nested brackets [4:[4>7]] and [4:[10>11]]."
+  ],
+  "verification": "Read frozen setup/dump and pinned Base definitions; independently runpy reconstructed271299 bytes SHA83c78b0e9a8944516ca101b604468cee3af05a9509af0b64bc37bed8ac982b8a equal raw/gzip; all136 logical records unchanged; built-in source/model check PASS from oracle worktree.",
+  "history": {
+    "v1Bytes": 237711,
+    "v1SHA256": "e5c0f46f05fdaff62676c09dd89376e9a7ee67e58ef1e3a8159ad2edd9b0c1ee",
+    "firstReceiptStatus": "INCOMPLETE",
+    "firstReceiptSHA256": "50fb5d405fc1129ac9ab19f3f9e55418d9bae325c61399508421a6ac6c6aaba7",
+    "provenance": "Mismatch-informed repair explicitly disclosed. Generator does not read runtime output; every correction has source premise. Original oracle and failed receipt preserved; equality audit is not independent derivation evidence."
+  },
+  "limits": "No backend launched; no new ECS semantics, runner or acceptance waiver. Corrected finite oracle does not establish full55 completion alone."
+}

@@ -1138,3 +1138,10 @@ by the earlier logical-only oracle: Base boolean spelling and Array backing-tree
 capacity. All 136 logical records match, but physical acceptance remains failed
 until an independently source-justified oracle successor and full comparison.
 Native was not launched against the known-invalid physical expectation.
+
+The #55 successor now passes the complete 271,299-byte physical oracle on stock
+JS and Native. Independent review verified all three semantic criteria and the
+relocated 493-object packet, including ten malformed controls and preserved
+failed-model history. The existing collector, reduced hook and source-applicability
+joins avoid another comparative campaign or backend rerun for packaging. This
+records actual use of the shortened path, not measured delivery acceleration.

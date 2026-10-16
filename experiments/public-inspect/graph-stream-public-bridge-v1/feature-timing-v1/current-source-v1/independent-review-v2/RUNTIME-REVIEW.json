@@ -1,0 +1,32 @@
+{
+  "verdict": "PASS full current physical JS and stock Native pair",
+  "sourceCommit": "cbde916f450209d9e2c0565a6ec76b254572a818",
+  "oracleCommit": "ba2fcef634ea724db3f16f7ffcfcecf7c97f199e",
+  "sourceInputs": 92,
+  "currentMasterCoreInputsExact": 78,
+  "baseSHA256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+  "roles": [
+    {
+      "backend": "js",
+      "planPath": "/tmp/bendvy55-current-physical-actual02/js/plan.json",
+      "planSHA256": "8c0a5555ffc13e6d9ea134be39a559d050ff0e4d1ead580f6784adecffdc9dc1",
+      "receiptSHA256": "a8300be8930a1a86cfc46639b5156fc8b3685a2429e1d28a1aff13c60fb97943",
+      "commands": 2,
+      "guards": 7,
+      "bytes": 271299,
+      "sha256": "83c78b0e9a8944516ca101b604468cee3af05a9509af0b64bc37bed8ac982b8a"
+    },
+    {
+      "backend": "native",
+      "planPath": "/tmp/bendvy55-current-physical-actual02/native/plan.json",
+      "planSHA256": "0b09fd2c00167fe2ec66cd565e15efd6d29bab483afea154e6fdbf117042c3ce",
+      "receiptSHA256": "474588f6861a669b708081733369fffcdf74b81df9e496b090d32a961cfc465b",
+      "commands": 3,
+      "guards": 10,
+      "bytes": 271299,
+      "sha256": "83c78b0e9a8944516ca101b604468cee3af05a9509af0b64bc37bed8ac982b8a"
+    }
+  ],
+  "verification": "Actual plan/source/raw/argv/cap/guard joins checked; all commands exit0/failure-null, stock Native ordinary-O3. Whole output equals independently reconstructed oracle; no prefix equality or model repairs from this fresh pair.",
+  "limits": "Finite full lifecycle evidence; no comparative timing or universal ownership claim. Prior incorrect-model receipt remains INCOMPLETE."
+}

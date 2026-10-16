@@ -10,9 +10,9 @@ Read-only inspectors observe hierarchy, machine states, transition events and re
 
 ## Acceptance criteria
 
-- [ ] Inventory and execute all newly enabled pinned inspector categories through public projections and condition checks where permitted.
-- [ ] Compare complete graph/machine/stream observations before and after repeated inspection; no cursor or retention change, mutable escape or implicit barrier is permitted.
-- [ ] Test undeclared machine/relation reads, schema misuse and reached stream-consumption/order mutations; preserve baseline inspector consumers.
+- [x] Inventory and execute all newly enabled pinned inspector categories through public projections and condition checks where permitted.
+- [x] Compare complete graph/machine/stream observations before and after repeated inspection; no cursor or retention change, mutable escape or implicit barrier is permitted.
+- [x] Test undeclared machine/relation reads, schema misuse and reached stream-consumption/order mutations; preserve baseline inspector consumers.
 
 ## Blocked by
 
@@ -131,3 +131,36 @@ profile and the root import mapping. Its 227-member offline verifier and fourtee
 malformed controls pass. The fixture, three independently derived scale oracles
 and the minimal TS staging import adapter are integrated; the stage preview is
 source-only and is not a performance result.
+
+
+## Semantic acceptance reconciliation
+
+Independent [Spec/Standards review](../../experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/current-source-v1/independent-review-v2/FINAL-REVIEW.md)
+confirms all three #55 semantic criteria. Integration and CI publication remain
+pending. The complete #54 23-grant Native obligation remains separate.
+
+The current [ordinary lifecycle](../../experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/current-source-v1/README.md)
+adapts only fixtures to the canonical machine stream snapshot and exhaustive
+Initial rendering. Its 92-body closure includes 78 unchanged production modules.
+Fresh JS and ordinary Native `-O3` both match the complete 271,299-byte oracle:
+136 logical and physical records across Workshop and Garden, including full
+World/component/resource/graph/pending state, registrations, retention, reader
+positions and separate operational-reader state. There is no implicit barrier.
+
+The retained category, machine, public-stream and runtime-entry evidence supplies
+all permitted Inspector/Check categories, actual TS comparisons, authority
+refusals and reached consumption/order controls. Current dependency applicability
+is explicit in the lifecycle README and final review; it does not assert that
+historical closures were rerun. Streams have no Check grant. This lifecycle's
+Initial arms are exhaustive but unreached; existing #48 initialization evidence
+retains that scope. Independent-world allocation remains #38.
+
+The original physical oracle and failed first comparison are retained. The
+[source-derived successor](../../experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/current-source-v1/independent-oracle-v2/DERIVATION.md)
+corrects Base boolean spelling, full array backing trees, list separators and
+nested stream-batch brackets. Its mismatch-informed provenance is explicit;
+independent reconstruction and both backend comparisons cover the entire output.
+
+This delivery changes no production core. The unchanged #28 evidence retains
+its source-applicability scope; comparative timing/scaling and final performance
+qualification remain #21/#23/#24. Finite observations are not universal proofs.
