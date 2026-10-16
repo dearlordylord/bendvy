@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh alias (P names an earlier import)
+- observed : 'import capture.bend as P'
+Location:
+3 | import /workspace/formal-proofs/bendvy/src/ecs/ordinary-capture-query.bend as O
+4>| import capture.bend as P
+  |        ^
+5 | import /workspace/formal-proofs/bendvy/src/ecs/ordinary-capture-query.bend as O
+bend 2.0.37 is available: run bend update

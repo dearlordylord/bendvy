@@ -1490,3 +1490,14 @@ criteria checked and English completion report
 https://github.com/dearlordylord/bendvy/issues/53#issuecomment-6212941919.
 The final status-only documentation update reuses the unchanged source/backend
 evidence; no compiler or benchmark rerun is needed for this CI note.
+
+The next #61 AppA cross-feature successor uses the same shortened path: ordinary
+main/IO entry source checks pass at stock five seconds; the complete independently
+derived 18,892-byte oracle matches stock JS and Native on their first pair
+(five successful commands, seventeen unchanged guards). Only after that pair was
+the portable packet retained for the single final review. All eighty imported
+ECS bodies are unchanged from master; protected #28 applicability is reused and
+no per-feature comparative campaign is needed. This records actual first-pair
+delivery and reuse, not a measured overall delivery-speed improvement.
+Independent final Spec/Standards review accepts this bounded AppA pair and its
+complete portable joins. Full #61 and combined product qualification remain open.

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a quantified datatype after + (+D<..> sets D's leading quantities to &2)
+- observed : ':'
+Location:
+25 |     case []:0
+26>|     case head <> tail:(head+sum(tail):U32)
+   |                                      ^
+27 | def observed(capture:Array<U32>,result:H & List<&2,U32>,~H:Type) -> H & (Array<U32> & (T.Outcome<Unit> & Unit)):
+bend 2.0.37 is available: run bend update

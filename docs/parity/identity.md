@@ -63,6 +63,23 @@ generational representation. Finite-domain wrap/alias versus slot retirement and
 owner-preserving refusal remains an actual observable boundary, not a choice
 settled by the current constant or the TS inventory.
 
+### Generational migration dependencies
+
+A World-only change is insufficient. [Component](../../src/ecs/component.bend)
+and [owned-family](../../src/ecs/owned-family.bend) duplicate validation;
+[relations](../../src/ecs/relation-types.bend),
+[lifetime scopes](../../src/ecs/lifetime-scope.bend), snapshots and debug views
+currently retain/reconstruct raw IDs. Preserve complete identities through these
+paths, clean payloads/stamps before reuse, and preserve logical query order when
+physical slots recycle. Deferred despawn must not free a slot before application.
+
+The frozen [Workshop consumers](../../examples/query-composition/scenario-ops.bend)
+construct two-field Handles; a third positional field breaks unchanged #28 source
+compatibility. Reconcile that seam without rewriting historical workload/oracles.
+Its despawn-and-reserve-before-barrier sequence does not itself demonstrate reuse:
+the queued despawn has not released a slot yet. These are implementation migration
+constraints, not adoption of a generation representation or exhaustion policy.
+
 ## Approved ordinary creation — 2026-10-14
 
 The user approved ordinary World creation through IO, following Bevy: allocate
