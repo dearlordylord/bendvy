@@ -46,10 +46,38 @@ reused or released, and the implementation needs allocation/profile evidence.
 Effectful cleanup needs an IO-aware protocol. Affine typing alone supplies
 neither automatic cleanup nor exactly-once finalization.
 
-This records the user's business preference and design direction, not approval
-of a particular public recovery signature, cleanup protocol, law or proof. The
-implementation should validate the smallest generic ownership transport before
-introducing per-event modes, mandatory finalizers or a second event framework.
+The user's instruction to prefer recovery softly and choose the simpler,
+elegant solution delegates this ownership choice. Under that direction, the
+selected ordinary behavior is one owned-receipt protocol, reusing the already
+executed staging/read transport and #52 recovery pattern. This does not approve
+new laws, effectful finalizers, arbitrary storage extraction or unrelated rules.
+
+### Selected ownership boundary — 2026-10-16
+
+- One schema-owned log holds each Payload:Type once. Ordinary declarations derive
+  publisher/read grants; gameplay gets neither raw World nor payload ownership.
+- Immediate admission refusal returns the incoming owner. Commit transfers staged
+  owners into the log. Failed systems publish nothing; after required ECS rollback,
+  available independently staged owners return in an owned abort receipt. An owner
+  restored into ECS storage never also appears in that receipt.
+- Maintenance returns removed owners in an owned retirement receipt; shutdown
+  drains the remaining owners once. Application code chooses reuse or release.
+  There is no automatic IO finalizer or separate recovery mode.
+- Readers use scoped capabilities with generic requests and detached Data
+  projections; independently owned Type observations remain possible. Projection
+  providers are trusted schema provisioning. Reader confinement is not a proof
+  that an arbitrary custom provider preserves its owner.
+- Existing approved Data-event retention, lag, cursor failure/retry and explicit
+  skip rules remain unchanged. These rules differ from Bevy's update windows and
+  cursor advancement during iteration; do not present them as Bevy-identical.
+
+Pinned Bevy provides owned retirement through `Messages::update_drain` and
+`drain` (crates/bevy_ecs/src/message/messages.rs:208,247), while readers borrow
+payloads. Bend uses the already demonstrated opaque-owner transport instead of
+copying arbitrary Type or exposing a duplicable mutable payload alias. Bevy
+semantics and Bend constraints govern this choice; TS alias identity is inventory,
+not a reason for a separate approval gate. Per-event modes, mandatory cleanup
+callbacks, permanent key ledgers and fixture namespace corruption are not adopted.
 
 ## Acceptance criteria
 

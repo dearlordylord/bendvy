@@ -22,7 +22,11 @@ Systems perform recoverable operations on caller-owned affine component/resource
 ## Semantic acceptance reconciliation — 2026-10-16
 
 All four semantic criteria pass the [independent joined review](../../experiments/public-recovery/mixed-v1/FINAL-REVIEW.md).
-Integration, CI, push and the English issue report remain delivery steps until recorded.
+Integration `d38025142` and CI38865825685 pass. The literal independently
+authored application requirement remains a delivery gate: the existing oracle
+is independent, while the original consumer and core share an implementation
+owner. A fresh application owner is validating present-component removal through
+None, rollback and commit using only ordinary APIs before public closure.
 
 The ordinary API composes canonical Component, Resource and explicit Capture
 operations with `ordinary-recovery-declaration.both`, then registers/runs them
@@ -55,6 +59,18 @@ Family/Frame/Journal provisioning are trusted engine administration. The rollbac
 promise covers the canonical leaves and their library-derived composition, not
 arbitrary custom inverse builders. Gameplay receives only opaque H and declared
 grants. External IO and arbitrary destructive callbacks are outside these grants.
+
+Ordinary callback shape: declare erased capability specialization with template
+parameters, then pass the callback through the runner's erased body index:
+
+```bend
+def body(~S:Data,~H:Type,~caps:Ops(~S)(H),args:Args<S>,owner:H) -> H & (T.Outcome<Error> & Output):
+  ...
+```
+
+Keep runtime Args/owner affine. Replacing ~H/~caps with ordinary erased -H/-caps
+makes them runtime parameters that cannot be passed to canonical ~H/~cap calls.
+The runner supplies the closed Frame and grants before executable materialization.
 
 Pinned references: Rust Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60`,
 Bend `a950fd683c0d76f09794078e6174fe98a1492876`, bevy-ts

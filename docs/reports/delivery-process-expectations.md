@@ -1390,3 +1390,10 @@ change, higher cap or runtime Lens duplication was needed. Both first backend
 pairs passed without source/model repairs after freeze. The current report
 records successful CI38862946527 for `f818fa192`; final integration CI remains
 pending. This is observed semantic delivery/evidence reuse, not measured speed.
+
+The general #52 integration `d38025142` passed CI38865825685. Before closure,
+the literal independent-application requirement exposed a provenance gap: the
+consumer and core shared an implementation owner, although the oracle was
+independent. One fresh no-history application owner now exercises the ordinary
+API, including present-component None removal with rollback/commit. This focused
+gate preserves the existing matrix and is not a core defect or a new campaign.
