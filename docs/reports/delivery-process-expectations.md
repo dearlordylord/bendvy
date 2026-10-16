@@ -1523,3 +1523,10 @@ returned-record order before execution; actual returned payloads feed retries.
 One final independent review joins normal/control/mutant evidence and existing
 protected #28 applicability. No shared runner or comparative campaign changed;
 no overall delivery-speed improvement is inferred.
+
+Resource-field integration `88dcbb68e` passed CI38890020198. Independent source
+census review also accepted the existing coverage document's counted routing:
+687 library export-path keys, 67 bound keys and 35 test/static/helper files
+(251 test cases, 40 suites, 133 rejection markers). The archive's 688th semantic
+key is a test helper; it is not a new Bend requirement. Counts and classified
+routes do not close unexecuted predicates, full #61 or product qualification.

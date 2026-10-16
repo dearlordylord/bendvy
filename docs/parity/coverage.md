@@ -79,6 +79,187 @@ full #61 acceptance is claimed. #28 protects its existing workload; full numeric
 qualification, profiles/scaling and final JS <= TS / Native <= 0.5 * TS remain
 #21/#23/#24.
 
+## Counted core census — source `88dcbb68e`, 2026-10-16
+
+This is the current criterion-1 routing census, not a declaration that every
+routed capability has passed its acceptance gates. Independent Spec/Standards
+review verified the counts, exact archived source bindings and capability routes. Rust Bevy and existing Bendvy
+contracts govern the rows; TS is the third-priority inventory. The
+[approved archive classification](../archive/ts-extension-index.md) applies to
+TS-only mechanisms, without reopening their implementation. No new extension,
+policy, law, backend run or issue is proposed here.
+
+The three reference checkouts match `.references/sources.json`: Bevy
+`ad678262ce53b5d142fe49ee5e08caff6f00ab60`, Bend
+`a950fd683c0d76f09794078e6174fe98a1492876`, TS
+`3040a3b2a3f28fa8554d856f9ccb6bf5433fa334`. Inspection covered the actual TS
+`packages/core/package.json` export map, all 33 `src/**/*.ts` bodies, all 35
+`test`/`dtslint` bodies, and especially `Schema.ts:479` (Game), `Runtime.ts:539`
+(Runtime) and `System.ts:530` (query handles). All 68 file hashes match the
+[lossless source census](../archive/ts-port/core-export-inventory.json), whose
+embedded exact names, signatures, source lines, cases, marker boundaries and
+call-resolution records remain the exhaustive key index. Its historical Bend
+implementation/gap strings are superseded by the routing below.
+
+The counted universe is **23 public modules** (22 deep modules plus `index`),
+**687 library export-path keys**: 464 deep keys plus 223 root keys (13 namespace
+objects and 210 expanded aliases). The archived semantic total 688 additionally
+includes `test/utils/fixtures.ts`'s **`fixtures.readResourceValue`**, which is a
+test helper, not a library export. The 493 declaration occurrences, 477 canonical
+targets and 808 member occurrences use different syntactic/semantic units and
+must not be added to the export count. Package `./internal/*` is explicitly
+blocked; the ten internal source files are inspected implementation, not new
+public APIs. There are **67 bound operation/metadata keys, 55 callable**;
+**251 `it` cases + 40 suite declarations**, in 19 executable-test sources and
+15 static sources, plus one helper source; and **133 explicit rejection markers**.
+All these sets are routed below. A type alias, overload, alias export or TS
+mapped-type helper does not create an additional Bend runtime requirement.
+
+### Public module/export routing
+
+Each row includes **every export key and nested member in the named frozen
+module**, including its type-only keys; names are resolved by the lossless index,
+not by a heuristic search. Root `index` exposes exactly `Brand`, `Decode`,
+`Debug`, `Descriptor`, `Definition`, `Entity`, `EntityScope`, `Fx`, `Inspector`,
+`Result`, `Requirement`, `Snapshot`, `Schema`; each expanded alias inherits its
+deep-module row. Deep imports also expose Command/Condition/Feature/Machine/
+Query/Relation/Runtime/Schedule/System. This describes the TS package, not a
+requirement for a Bend barrel or Game object.
+
+“Accepted” below means the cited **finite native capability** and its recorded
+source applicability, not every TS helper or arbitrary type instantiation.
+Ordinary grants are the gameplay boundary; World constructors, schema lenses,
+projection callbacks and raw builder/catalog operations are trusted
+administration. Existing whole-oracle reviews and source joins are reused;
+this census executes no new body. There is no new universal proof claim. Source
+module names in the table mean `.bend` files under `src/ecs/`; wildcard groups
+mean that existing module family, not a proposed API.
+
+| TS module (deep keys) | Bevy/native contract → current Bend source | Evidence and exact remaining mapping |
+| --- | --- | --- |
+| Brand (5), Entity (19) | Typed identities, entity lookup/liveness; `world`, `world-io`, `component`, `ordinary-query-selections` | [#38 identity](identity.md) has actual independently created worlds and fork/join evidence; AppA uses its actual Bundle return. Root/generation/reuse/exhaustion and arbitrary fabricated-authority policy remain **#38**. Structural phantom brands, `refine/all` package algebra and JS symbols are archived tooling, not missing ECS exports; ambiguous extra use stays **#61** scope decision. |
+| Command (19), Definition (7) | Bevy Bundle/Commands and explicit deferred application; `ordinary-bundle`, `bundle-batch`, `decode-constructed-requests`, `decode-fallible-constructed-requests` | [#41 accepted Bundle semantics](bundles.md#semantic-acceptance-reconciliation), [#46 native construction](validation.md), actual AppA reserve→commit→queued observation→flush, current empty-Bundle review. Exact TS tuple/result helper shapes and `InternalWorld` are language/admin mechanisms. Arbitrary application combinations are **#61**; constructors remain schema-authored, with external IO/finalizer policy outside the inverse contract. |
+| Condition (4), Inspector (9) | Bevy run conditions, read-only SystemParams and detached projection; `ordinary-condition-declaration`, `ordinary-condition-composition`, `ordinary-inspector-*` | [#55 graph/stream acceptance](inspect-extended.md); actual AppA repeated selected reads and A-only condition, registered machine conditions. Full general Inspector stock-source/compiler adoption remains **#54**; arbitrary noninterference is not inferred from a trusted projection. Exact source-test predicate combinations not joined below remain **#61**. |
+| Debug (42) | Existing opt-in diagnostics contract, `ordinary-app-*`, `ordinary-app-schedule-description`, `ordinary-app-access` | [#56 ordinary description/dump acceptance](debug.md), [#55 projections](inspect-extended.md). `ComponentWrite` through `TraceEvent`, listener/subscriber delivery and failure/disposal observations route to **#57**, whose contract is unresolved; they are not delivered by a read-only dump. Exact TS DTO layout/JS subscription interface is not approved wholesale. |
+| Decode (12), Descriptor (42) | Native typed registration, validation/construction and State/NextState; `ordinary-declaration`, `ordinary-schema`, `decode-*`, `state`, `ordinary-machine-declaration` | [#46 accepted bounded native construction](validation.md), [component State](component-state.md), [#48 state machines](machines.md), [#58 transient omission/save](snapshot-export.md). `StandardSchema`, `.Result`, `.Issue`, `fromStandardSchema` and JS unknown/object/UTF16 host conversion are **archived**, not native gaps. Ordinary Unicode names/native error paths stay native. Full validated restore **#59**, ordered graph/machine persistence **#60**; unclassified extras **#61**. |
+| EntityScope (5) | Existing grouped cleanup contract, `ordinary-lifetime-scope`, `lifetime-scope-*` | [#45 accepted cleanup/returned-owner/foreign-world controls](scopes.md); restoration of scoped relationships/persistent runtime state remains **#60**. Exact named TS scope brands are mechanisms; no automatic general IO destructor is inferred. |
+| Feature (7), Schema (33) | Typed registration/composition, `schema-fragments`, `feature`, `ordinary-app-schema-product`, `ordinary-app-schema`, `ordinary-app-composer` | Existing [#39 fragments](fragments.md), [#40 features](features.md) and accepted ordinary mixed schema/debug consumers. Structural JS record/type-map merging and pre-bind Game factory are archived mechanisms. Exact required native cross-feature composition not evidenced by the two finite apps stays **#61**, not an automatic requirement to duplicate TS factory arities. |
+| Fx (14), Result (12) | Explicit typed outcomes; existing automatic ECS failure rollback plus persistent Local; `transaction`, `ordinary-recovery-system`, `ordinary-captures`, `ordinary-capture-query` | [#50 captures](captures.md), [#51 composition](captured-schedules.md), [#52 affine recovery](recovery.md). TS `Fx` environment/map/flatMap/provide/runSync and Result helper-library algebra are archived tooling; Base outcomes/IO and declared grants supply native use. Host exceptions and arbitrary IO rollback are not silently modeled; unresolved native needs **#61**. |
+| Machine (40) | Bevy State/NextState, conditions and transition events; `ordinary-machine-operations`, `machine-world`, `machine-conditions`, `ordinary-machine-transition-reader` | [#48 joined semantic acceptance](machines.md#issue-level-semantic-reconciliation), [#49 handlers](handlers.md), actual AppB hierarchy/machine application. Native initialisation, forced/comparator-equal updates, failed writers and lazy conditions retain their exact reviews. Graph/committed-machine restore **#60**; additional application joins **#61**. TS finite values-array/type-union facade is not a new state-universe contract. |
+| Query (43) | Bevy QueryData/QueryFilter and lookup; `query`, `ordinary-query-selections`, `ordinary-query-declaration`, `ordinary-query-observable`, `component` | Accepted query/lifecycle, [current query/Inspector consumer](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-public-consumer-v1/FINAL-REVIEW.md), [actual ordinary query errors](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/ordinary-query-errors-v1/FINAL-REVIEW.md) and actual AppA scalar query. Read-only/write/optional/absent/multiplicity errors adapt to Bend results, not JS alias cells. Full Inspector **#54**; precise unmatched combinations of filters, access and exceptional/prepared stores remain **#61** inventory work, not a claim that ordinary query support is absent. |
+| Relation (42) | Bevy relationships, inverse edges, hierarchy ordering/cleanup; `ordinary-app-relation`, `relation-graph`, `relation-query`, `relation-failure-runtime` | [#42 current reader/query join](relations.md#semantic-acceptance-reconciliation), [#43 independent failure readers](relation-readers.md), [#44 hierarchy](hierarchy.md), actual AppB traversal/graph controls. Accepted finite cycle/refusal/order/cleanup/capacity cases remain qualified; graph restore **#60**, wider app combinations **#61**. Exact branded TS error constructors are mechanisms. |
+| Requirement (4), Runtime (23) | Bevy SystemParam availability/initialisation plus selected checked admission, `schedule-provision`, `ordinary-schema-provision`, `ordinary-app-service-registration`, `ordinary-machine-initialization-marker`, `world` | [#34 schedule/provisioning](README.md), [native admission and component-state distinction](../reference/core-map.md#current-parity-checkpoint--2026-10-16), #46 constructors and #48 machine initialization; AppA reaches actual registrations and ordered schedule. JS host service objects are not required core representation. Unresolved independent-world numeric authority **#38**, basic restore **#59**, graph/checkpoint **#60**, full native composition **#61**. `streamCapacity` is a reference constant; native selected boundary tests retain their actual contract, not an inferred universal capacity. |
+| Schedule (28) | Bevy ordered schedules, run conditions, deferred/state markers; `schedule`, `captured-schedule`, `captured-schedule-composition`, `ordinary-machine-handler-bundle` | Accepted #34/#35 scheduling, [#51 heterogeneous captured schedules](captured-schedules.md), [#49 handler phases](handlers.md); actual AppA true/false/true and retained B while A skips. TS arrays and marker token representation are mechanisms. General combinations and exact rejection predicate matches **#61**; no implicit flush or whole-tick rollback is introduced. |
+| Snapshot (6) | Existing bounded persistence contract, related to Bevy reflection/scenes; `snapshot`, `snapshot-product`, `snapshot-leaf`, `snapshot-gate`, native construction codecs | [#58 independent save and current-source join](snapshot-export.md#semantic-acceptance-reconciliation) accepted; **#59** validate-before-mutate basic restore and **#60** ordered graph/machine save/restore remain open. TS `unknown`/JSON DTO/parse interface and shallow shared-value aliasing are archived host mechanisms, not permission to alias affine owners. |
+| System (48) | Bevy typed SystemParams/Local and selected failures; ordinary component/resource/query/capture/event declarations, captured composition | [#50/#51](captured-schedules.md), [#52 selected-field recovery](recovery.md#selected-resource-fields), [#53 owned publication/query/resource](affine-events.md#selected-ownership-boundary--2026-10-16), [Data events](typed-data-events.md), lifecycle/failure readers. AppA's 46,717-byte handoff reaches these distinct boundaries sequentially. Declared grants, reader identity and affine Type preservation are accepted finite witnesses; custom providers/builders remain trusted, arbitrary host effects/disposal are not inferred. Full combinations **#61**, subscribers **#57**, restore **#59/#60**. |
+| index (223 root keys) | Reexports only | Exactly the thirteen namespace rows above and their 210 aliases; no independent capability or missing runtime. The fixture helper is excluded. |
+
+Source anchors for the native interpretation are pinned Bevy
+`world/mod.rs`/`entity/mod.rs`/`world/identifier.rs` (identity and storage),
+`bundle/mod.rs` and `system/commands/mod.rs` (structural changes),
+`system/system_param.rs` (`Local`, resource/system authority),
+`query/{fetch,filter}.rs`, `schedule/condition.rs`, `relationship/mod.rs`,
+`message/messages.rs` (`drain`/`update_drain` return owned values),
+`bevy_state/src/state/{resources,transitions}.rs` (NextState and ordered
+OnExit/OnTransition/OnEnter), and `bevy_scene` (scene/reflection infrastructure).
+Bevy does not itself select Bendvy's automatic failed-call inverse rollback or
+whole-runtime checkpoint policy; those remain the approved SPEC adaptation and
+open persistence decisions respectively.
+
+### All 67 bound Game/Runtime keys
+
+Prefixes are exactly `Schema.Schema.Game` (“Game”) and `Runtime.Runtime`
+(“Runtime”) in the frozen census. Container keys are counted once alongside
+their callable children; a TS namespace object is not an affine runtime owner.
+Each row maps every named key to the public-module evidence/remaining owner above.
+
+| Exact relative keys | Count | Contract/evidence route |
+| --- | ---: | --- |
+| Game `schema`, `EntityScope`, `Inspector`, `StateMachine` | 4 | Schema, EntityScope, Inspector, Machine rows respectively |
+| Game `Entity`, `Entity.handle` | 2 | Entity; actual returned-handle application provenance, #38 remaining policy |
+| Game `Query`, `Query.read`, `.write`, `.optional`, `.added`, `.changed`, `.readRelation`, `.optionalRelation`, `.readRelated`, `.optionalRelated` | 10 | Query; last four also Relation; exact combined query/graph predicates #61 |
+| Game `Command`, `Command.spawn`, `.insert`, `.entry`, `.entryResult`, `.entryRaw`, `.relate` | 7 | Command/Definition, Decode for raw input, Relation for relate |
+| Game `Condition`, `Condition.inState`, `.stateChanged`, `.not`, `.and`, `.or`, `.check` | 7 | Condition/Inspector and Machine; immutable reads/requirements, lazy composition |
+| Game `System`, `System.readResource`, `.writeResource`, `.readEvent`, `.writeEvent`, `.service`, `.machine`, `.nextState`, `.readTransitionEvent`, `.transition`, `.readRemoved`, `.readDespawned`, `.readRelationFailures` | 13 | System; service→Requirement/Runtime, machine/transition→Machine, failure→Relation; actual current-call event/query/resource atomicity stays distinct from AppA's sequential recovery/publication |
+| Game `Schedule`, `Schedule.transitions`, `.onEnter`, `.onExit`, `.onTransition`, `.when`, `.applyDeferred`, `.applyStateTransitions` | 8 | Schedule/Machine; marker timing, failure/retry and nested handler evidence |
+| Game `Runtime`, `Runtime.make`, `.service`, `.services`, `.machine`, `.machines` | 6 | Runtime/Requirement; declared service and machine initialisation, native validation |
+| Runtime `schema`, `services`, `resourceValues`, `machineValues`, `__schemaRoot` | 5 | Schema/Runtime metadata; TS object-property/brand shapes are mechanisms |
+| Runtime `tick`, `tryTick` | 2 | Schedule and checked provisioning; first-failure stop/earlier commits, explicit barriers |
+| Runtime `snapshot`, `restore`, `inspect` | 3 | Snapshot (#58/#59/#60), Inspector (#54/#55); a bound method's presence is not full restore acceptance |
+
+### Source tests and static rejection boundaries
+
+The following partition includes **every case and marker in each named file**;
+there are no excluded test files. Exact titles, start/end lines and each marker's
+following operation are retained in the hash-matched lossless census, so this
+summary does not copy their 25 MB type graph into a live contract. Counts are
+`it / suite / explicit rejection marker`. Runtime tests are TS reference-source
+scenarios, **not newly executed TS evidence**. Cited native reviews establish
+only their actual matching predicates/observations. A named test containing
+several operations does not become qualified merely because its module is
+accepted: remaining exact combined-predicate joins are owned by **#61**, with
+specific open feature gates below. Historical static TypeScript assertions are
+not Bend negative transcripts.
+
+| Pinned source under `packages/core/` | Counts | Every scenario → native evidence/remaining owner; explicit exceptions |
+| --- | ---: | --- |
+| `test/Concepts.test.ts` | 1 / 1 / 0 | Guide application → ordinary Schema/Command/System/Schedule routes; full guide's combined correspondence #61. |
+| `test/Condition.check.test.ts` | 8 / 1 / 0 | Read-only resource/query gating, previous writes, lazy machine combinations, requirements, naming → Condition/Machine/Debug. Predicate-thrown JS exception is host behavior, not a Bend exception contract. Exact no-consumption predicate comparison and uncited joined cases #61; full Inspector #54. |
+| `test/Decode.test.ts`, `test/Descriptor.State.test.ts` | 3 / 1 / 0; 4 / 1 / 0 | Native validation/path/handle and component compare-and-set/change/rollback → Decode/Entity/Machine; unknown state on restore #59/#60. |
+| `test/Feature.test.ts` | 3 / 1 / 0 | Typed composition/order/collision → Feature/Schema; erased-JS throw style is mechanism, native deterministic refusal remains required. Exact combined correspondence #61. |
+| `test/Runtime.commands.test.ts` | 7 / 1 / 0 | Ordered insert/remove/despawn/deferred visibility and plain/validated entries → Command/Decode; accepted Bundle evidence and actual AppA. Exact operation combinations not present in those consumers #61. |
+| `test/Runtime.debug.test.ts` | 13 / 2 / 0 | Opt-in absence/population/description/access/lints/stream state → Debug (#56/#55). Cases at lines **120,169,191,276,296,320** require write/rollback/skip/missed/listener observations → #57; read-only dump evidence cannot satisfy them. |
+| `test/Runtime.events.test.ts` | 12 / 1 / 0 | Order, independent readers, failure/retry, skip, late activation, retention/capacity and Inspector lag → Data-event/System/Inspector rows; [full Data capacity evidence](typed-data-events.md#complete-capacity-boundary-and-stack-repair), #53 owner-specific differences explicit. Remaining exact app predicates #61, full Inspector #54. |
+| `test/Runtime.lifecycle.test.ts` | 7 / 1 / 0 | Added/changed, independent/failed/skipped readers and removed/despawned retention → Query/System lifecycle routes; retained native lifecycle/control evidence, combinations #61. Retained removal records do not prove IO cleanup. |
+| `test/Runtime.query-lookup.test.ts` | 13 / 1 / 0 | Zero/one/multiple, optional/with/without, mutable cells, missing/mismatch, stored handles → Query/Entity; actual current query consumers, #38 stale/reuse domain policy, #61 unmatched filter/lookup combinations. |
+| `test/Runtime.relations.test.ts` | 10 / 1 / 0 | General cycles, inverse/hierarchy cleanup, deferred relate/unrelate/reorder and failure readers → Relation; accepted #42/#43/#44 finite predicates, #61 application joins. |
+| `test/Runtime.requirements.test.ts` | 1 / 1 / 0 | Erased-schedule preflight before effects → Runtime/Requirement; selected checked admission, exact missing-needs matrix #61. |
+| `test/Runtime.resources.test.ts` | 11 / 1 / 0 | Seed/persist/union/read-write, constructed success-only writes, descriptor provisioning/service identity → Runtime/Decode/System; #46/#34 accepted finite use, whole combined cases #61. Descriptor-name versus JS property-key layout is mechanism. |
+| `test/Runtime.scheduling.test.ts` | 8 / 1 / 0 | Selected schedules, order, markers, flattening/duplicate/invalid entries → Schedule; source-level invalid arbitrary JS entries have no direct typed Bend value counterpart; native duplicate/refusal cases retain their own evidence, exact joins #61. |
+| `test/Runtime.snapshot.test.ts` | 7 / 1 / 0 | Save/transient omission → #58; cases at **64,93,108,138,194** include restore/allocator/validation/change notification → #59/#60/#38 as applicable. **175** Standard Schema is archived host adapter; no new native gate. JSON serialization shape is host tooling. |
+| `test/Runtime.stability.test.ts` | 4 / 1 / 0 | ECS rollback, scope cleanup, Inspector preservation, failed transitions → System/EntityScope/Inspector/Machine; #52/current AppA return-owner retry adds stronger affine observation, combinations #61; general Inspector #54. |
+| `test/Runtime.state-machine.test.ts` | 20 / 1 / 0 | State/queued writes/conditions/order/transition readers/handler attachment/duplicate/nested marker/comparator identity → Machine/Schedule; accepted #48/#49 predicates, actual AppB, remaining combined type/handler mappings #61; persistence #60. |
+| `test/Runtime.storage.test.ts` | 8 / 1 / 0 | Deferred queues, spawn ordering, live query values, stale command target, staged relations, identity-vs-display-name/erased collisions → Command/Query/Schema; #38 numeric/generation decisions and #61 exact combined witness joins. No TS borrowed-alias promise for affine Type. |
+| `test/Schedule.when.test.ts` | 6 / 1 / 0 | Group/nested conditions, markers despite skip, shared reader identity, duplicate systems and machine needs → Schedule/Machine/System; accepted conditional/captured schedule evidence, #61 complete group-reader correspondence. |
+| `test/utils/fixtures.ts` | 0 / 0 / 0 | Test setup and `readResourceValue`; helper calls are attributed to their underlying native operations, not a public export or another scenario. |
+| `dtslint/Architecture.tst.ts` | 1 / 1 / 1 | Wide composed schedule + missing resource → Requirement/Schedule; TS map-normalisation/compile-cost mechanism archived; intended native absence-before-effects predicate #61. |
+| `dtslint/Cells.tst.ts` | 6 / 2 / 4 | Read/write/constructed/optional/schema/slot proofs → Query/Decode/Command; intended write-through-read/cross-schema/undeclared negatives reuse their actual native controls only; unmatched static predicates #61. |
+| `dtslint/Command.tst.ts`, `dtslint/CommandEntries.tst.ts` | 9 / 1 / 2; 3 / 1 / 5 | Descriptor-bound heterogeneous entry values, raw constructor eligibility, retained draft ownership → Command/Definition/Decode; Bundle/native construction controls; TS inferred tuple shapes archived; exact remaining type predicates #61. |
+| `dtslint/Condition.tst.ts` | 5 / 1 / 19 | Read-only exact context, no cursor-consuming access/services/writes/change filters, schema/Bool and propagated needs → Condition/Inspector/Requirement; native intended grant refusals, exact unmatched context predicates #61/#54. |
+| `dtslint/Debug.tst.ts` | 5 / 1 / 0 | Enabled-only handle, fallible construction, literal options, schema-bound dump/name → Debug/Decode; zero markers does not mean zero static assertions. Literal TS flag/conditional property mechanics archived; native enabled-only/confined evidence #56, exact other predicates #61. |
+| `dtslint/Identity.tst.ts` | 7 / 1 / 7 | Descriptor/key/name collision, look-alike type, distinct system display names, fragment collisions → Schema/Feature/Entity; native #39/#40 controls and #38 authority scope; unmatched static predicate joins #61. |
+| `dtslint/Runtime.tst.ts` | 19 / 3 / 17 | Initialization, constructed failure, service/resource/machine requirements and composed app propagation → Runtime/Requirement/Decode/Feature. Cases **438,456** gate persistence #58/#59; **474** Standard Schema archived; **490** native codec eligibility #46. JS record key/old tuple syntax is facade classification, not missing native API. Other exact predicates #61. |
+| `dtslint/Schedule.tst.ts` | 4 / 1 / 2 | Explicit reusable fragments/phases/nested composition → Schedule; native nominal/owner/order controls, exact TS inference assertions archived and unmatched native predicates #61. |
+| `dtslint/Schema.tst.ts` | 15 / 1 / 43 | All fragment/collision/schema/access/lifecycle/lookup/relations/feature predicates → Schema/Query/Relation/Feature/Entity. **18** barrel topology is TS facade; **599** durable-handle generation boundary includes #38. Existing native refusals remain bounded; all unjoined type assertions #61. |
+| `dtslint/Stability.tst.ts` | 6 / 1 / 3 | Failure propagation, scopes, Inspector projection and transition failures → System/EntityScope/Inspector/Machine. Fx inference/void facade mechanics archived; native exact outcome/ownership controls reused, #54/#61 remainder. |
+| `dtslint/State.tst.ts` | 3 / 1 / 9 | State values, graph transitions/exact graph → component State/Decode; native accepted graph/state controls; TS union exactness is language mechanism, remaining predicate correspondence #61. |
+| `dtslint/StateMachine.tst.ts` | 14 / 1 / 14 | Machine value/schema/initialisation/conditions, context confinement, bundle requirements and nested-marker refusal → Machine/Schedule/Requirement; native #48/#49 controls, exact multivariate predicate correspondence #61. |
+| `dtslint/System.tst.ts` | 3 / 1 / 5 | Declared context, reusable access fragments, unknown categories → System/Schema; ordinary grants and two-schema/undeclared/write/affine controls; TS open-object representation archived, exact remaining native predicates #61. |
+| `dtslint/Values.tst.ts` | 5 / 3 / 2 | Codec/constructed eligibility → Decode (#46); Result/Fx narrowing/error/requirement combinator algebra is archived helper tooling, not a new ECS gate. Native typed outcome/declared needs route System/Requirement; ambiguous extra #61. |
+
+Static mapping is deliberately predicate-based: declaration-derived access
+refusal, cross-schema use, write-through-read, abstract-handle escape and affine
+owner duplication are separate failure paths. Accepted #41/#46/#50/#51/#52/#53
+controls and AppA/AppB actual controls supply finite native witnesses at their
+reached boundaries. They do not prove every one of the 133 TS markers is an
+executed Bend refusal, nor do TS compile failures establish affine preservation.
+The 133 marker boundaries and remaining non-marker `.type` assertions are now
+assigned by exact source group; **#61 owns the remaining scenario-to-intended-
+Bend-diagnostic correspondence**, with #38/#54/#57/#59/#60's explicit feature
+and policy gates above. No absent implementation is inferred solely from a
+missing transcript or a TS-only helper.
+
+The actual application additions close the previously concrete gaps of entered
+unbound captured B while A skips, component failure→returned-owner retry→owned
+publication→scoped query handoff, and selected Product resource-field recovery
+with sibling preservation. Those are finite current public consumers, not a
+whole matrix or another independent schema. Remaining #61 work is to join the
+unmatched required predicates and cross-feature combinations to their direct
+receipts/approved decisions, then reconcile the open feature owners. This
+census gives every inventory set a route and existing owner; it does not tick
+full #61 delivery, approve an ambiguous extension, or turn historical/private
+candidate evidence into stock execution.
+
 ## #61 preparation materials — 2026-10-07
 
 Additive **PREPARATION** evidence only; the existing coverage contract and acceptance gates above remain unchanged. The [public-core preparation checkpoint](../reference/core-map.md#61-public-core-audit-preparation--2026-10-07) and [source inventory](../archive/ts-port/core-export-inventory.json) freeze audit base `2296bb5ef5281db4ed78ea8cf6b8b791d2a0ec5e`, all three manifest-matching reference commits, 33 TS source files and the exact current `src/ecs` hashes. Package wildcard exports, public low-level names and the root barrel are distinguished.
