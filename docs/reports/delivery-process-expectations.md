@@ -1563,5 +1563,6 @@ interoperability with existing conditions; actual registered StateChanged and
 unbound-system execution now qualify it. Existing collectors/caps and #28
 applicability were reused. The TS adapter changed only its scope prose and
 received the existing changed-portion launch review. No backend replay, new
-runner, comparative campaign or extra tracking layer was required. Integration
-and CI follow; full #61 remains open and delivery-speed improvement is unmeasured.
+runner, comparative campaign or extra tracking layer was required. Integrated
+`bd1e2f67c`; CI38898093454 PASS. Full #61 remains open and delivery-speed
+improvement is unmeasured.
