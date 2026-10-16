@@ -91,3 +91,22 @@ This fills a specific backend/observation gap, not complete #38 acceptance.
 Reuse/generation/capacity decisions, broader host-domain uniqueness and the
 remaining criterion-level source reconciliation still belong to this issue.
 No fresh performance qualification is claimed; combined gates remain unchanged.
+
+The [fork/join successor](../../experiments/public-identity/approved-io-creation-v1/native-authority-v1/fork-v1/delivery-v1/README.md)
+adds two public IO tasks, both forked before joining their complete affine
+World/Handle sessions. Whole-session namespace ordering makes the observations
+of identical anonymous tasks deterministic. Stock JS and Native each match the
+complete 1,829-byte independent oracle, including the unchanged authority and
+lifecycle checks. This qualifies logical IO handoff, not distinct task-origin
+routing or simultaneous native allocator contention: the nonblocking namespace
+effect executes on Bend's IO loop. Cross-worker/realm/DSO qualification remains
+separate. No identity policy or production core changed.
+
+The earlier large-scan owner gap is superseded by the retained
+[owner-extension evidence](../../experiments/public-identity/production-plan/OWNERS-REPORT.md).
+Review of the actual JS/Native repeated-scan, payload/resource owner, dropped
+pending-command and reversed-FIFO observations confirms reuse. Current tail
+traversal matches the qualified helpers after constructor renaming; Store,
+Resource and pending closures remain outside size-dependent recursion and pass
+through the same finish operation. Joined large traversal and owner controls are
+finite evidence; no additional combined-large-owner run was needed.

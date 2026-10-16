@@ -1203,3 +1203,10 @@ not a measured overall delivery-speed improvement.
 The #38 authority/rollback packet integrated at `831c9b332`; CI38839909825
 passed and the governing issue received the bounded completion report. The issue
 remains open for its other criteria and unresolved identity policies.
+
+The #38 scan-owner audit reused the superseding owner-extension evidence instead
+of repeating a large run for a stale report. The genuinely missing public
+fork/join handoff received one JS/Native pair through the ordinary collector;
+both full outputs passed on the first attempt. Anonymous-task ordering is handled
+by moving complete sessions, and the report excludes physical allocator races.
+This records targeted new coverage and avoided duplicate work, not timed savings.
