@@ -28,7 +28,7 @@ now executes present-component removal through None, rollback and commit on stoc
 JS and Native. Both complete 2,276-byte observations match a separately authored
 oracle (`364251ef221f6089fe7e1dfba37f98b54b8d2e8de4a2317469d271803fa5f822`).
 The first fixture’s ID/index error and failed JS attempt are preserved. [Independent review addendum](../../experiments/public-recovery/independent-app-v1/successor-v2/FINAL-REVIEW.md)
-passes; integration/CI and the English completion report remain delivery steps.
+passes. Integrated at `8b80a21ba`, CI38868650606 PASS; [English acceptance report](https://github.com/dearlordylord/bendvy/issues/52#issuecomment-6210619998) posted and #52 closed.
 
 The ordinary API composes canonical Component, Resource and explicit Capture
 operations with `ordinary-recovery-declaration.both`, then registers/runs them

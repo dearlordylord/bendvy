@@ -1418,3 +1418,10 @@ Independent final addendum accepts the #52 writer/removal evidence. The requeste
 checkpoint review also confirms prior reviews apply to `218b5b548`/`fad6e9c5d`: all
 eleven infrastructure suites remain in CI, with correctness/#28/final performance
 goals preserved. No unchanged process tests or benchmarks were repeated.
+
+#52 closed after combined integration `8b80a21ba`, successful CI38868650606 and
+the English acceptance report. No per-feature comparative timing/scaling campaign
+was required; correctness, independent application, reached mutation, current TS
+applicability and protected #28 evidence remained binding. #53 is the next active
+implementation. This is a completed delivery under the shorter policy, not a
+measured speedup or final performance qualification.
