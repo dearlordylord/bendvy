@@ -1164,3 +1164,18 @@ issue #58 closed after its English completion report. #54 remains open: actual
 Frame transport preserves full JS but still exceeds stock Native emit30. Its
 separate diagnostic reached four complete passes before an uncovered cooperative
 cutoff path; no full counter or profile comparison is claimed from that failure.
+
+The #54 tail diagnostic captured complete counters/profile, but root invoked
+the pinned collector directly instead of the reviewed collect wrapper. The
+wrapper-only artifact sidecar is absent; original receipts remain unchanged and
+independent review evaluates actual retained evidence separately. Subsequent
+launches must execute the existing LAUNCH.launchArgv verbatim. No rerun solely
+to manufacture missing historical metadata is credited.
+
+Independent review `77e138efb` joins the actual direct invocation: all 159 plan
+pins, eight guards, exact child argv, complete raw summary and captured profile
+match. A reconstructed profile inventory is explicitly posthoc. These records
+support bounded copied-compiler observations only; they do not repair the outer
+launch provenance or qualify stock compilation. The next hypothesis is the
+existing isolated order-preserving graph-index optimization, not another ECS
+representation change or a relaxed deadline.
