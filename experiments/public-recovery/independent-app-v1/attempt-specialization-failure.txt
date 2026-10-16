@@ -1,0 +1,18 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (H is a variable here, not comptime: pass it at run time)
+- observed : after_removal
+Context:
+- H        : Type
+- caps     : Cap.Bundle<Existing.ComponentWrite<Scene, Array<Array<U32>>, ../../../src/ecs/ordinary-declaration.Declaration{"Payload"}, H>, Cap.Bundle<Existing.ComponentWrite<Scene, Array<U32>, ../../../src/ecs/ordinary-declaration.Declaration{"Flags"}, H>, Cap.Bundle<Existing.CaptureWrite<Array<U32>, H>, ArrayEntry.Write<Scene, Array<U32>, Ordinary.Resource{"Resource"}, H>>>>
+- target   : W.Handle<Scene>
+- resource : Array<Array<U32>>
+- capture  : Array<Array<U32>>
+- abort    : Bool
+- owner    : H
+Location: body~0
+61 |     case Args{target,resource,capture,abort}:
+62>|       after_removal(~S,~H,~caps,resource,capture,abort,Existing.component_replace(~S,~Array<Array<U32>>,~Schema.first_identity(~S),~H,~first_cap(~S,~H,~caps),owner,target,None{}))
+   |       ^^^^^^^^^^^^^
+63 | def Instance(~S:Data) -> Type:System.Owned(~S,~Schema.Store(~S),~Array<Array<U32>>,~Unit,~Array<Array<U32>>,~Recovery(~S),~Ops(~S),~Args<S>,~Error,~Output,~D.pair_grant(~S,~State(~S),~List<RC.Record<S,Array<Array<U32>>>>,~Product.Owner<List<RC.Record<S,Array<U32>>>,Product.Owner<List<RA.Record<Array<U32>>>,List<RA.Record<Array<U32>>>>>,~FirstOps(~S),~TailOps(~S),~Component.grant(~S,~Schema.Store(~S),~Array<Array<U32>>,~Unit,~Array<Array<U32>>,~Col.Column<S,Array<U32>>,~Array<Array<U32>>,~Unit,~Schema.FirstToken,~Schema.first_take(~S),~Schema.first_put(~S),~Schema.first_view,~Schema.first_binding(~S)),~D.pair_grant(~S,~State(~S),~List<RC.Record<S,Array<U32>>>,~Product.Owner<List<RA.Record<Array<U32>>>,List<RA.Record<Array<U32>>>>,~SecondOps(~S),~FinalOps(~S),~Component.grant(~S,~Schema.Store(~S),~Array<Array<U32>>,~Unit,~Array<Array<U32>>,~Col.Column<S,Array<Array<U32>>>,~Array<U32>,~Unit,~Schema.SecondToken,~Schema.second_take(~S),~Schema.second_put(~S),~Schema.second_view,~Schema.second_binding(~S)),~D.pair_grant(~S,~State(~S),~List<RA.Record<Array<U32>>>,~List<RA.Record<Array<U32>>>,~CaptureOps(),~ResourceOps(~S),~Capture.grant(~S,~Schema.Store(~S),~Array<Array<U32>>,~Unit,~Array<U32>),~Resource.grant(~S,~Schema.Store(~S),~Unit,~Array<Array<U32>>,~Array<U32>,~resource_identity(~S))))),~declaration(~S),~body(~S))
+bend 2.0.37 is available: run bend update

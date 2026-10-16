@@ -1,0 +1,48 @@
+{
+  "compiler": "/home/node/.bend/bin/bend-2.0.35",
+  "compiler_sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "timeout_seconds": 5,
+  "mode": "source-only --check-only; no backend launch",
+  "checks": [
+    {
+      "source": "experiments/public-recovery/independent-app-v1/application.bend",
+      "command": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/recovery52-independent-application/experiments/public-recovery/independent-app-v1/application.bend"
+      ],
+      "exit_code": 0,
+      "diagnostic_file": "application-check.txt",
+      "source_sha256": "8cf417164e7d3834ff5d623157eeedb01a940e95749099c2c4c34762a7dc8203"
+    },
+    {
+      "source": "experiments/public-recovery/independent-app-v1/observe.bend",
+      "command": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/recovery52-independent-application/experiments/public-recovery/independent-app-v1/observe.bend"
+      ],
+      "exit_code": 0,
+      "diagnostic_file": "observe-check.txt",
+      "source_sha256": "ee1969337fd06c1771e486bf216dc88b0bfd117acef9a5ce4b65ba5241617ffa"
+    },
+    {
+      "source": "experiments/public-recovery/independent-app-v1/scenario.bend",
+      "command": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/recovery52-independent-application/experiments/public-recovery/independent-app-v1/scenario.bend"
+      ],
+      "exit_code": 0,
+      "diagnostic_file": "scenario-check.txt",
+      "source_sha256": "e0529264b25ae75f7c1286fdc39fdd85d0cf04991e7dc2690d55fdb2d0731492"
+    },
+    {
+      "source": "experiments/public-recovery/independent-app-v1/main.bend",
+      "command": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/recovery52-independent-application/experiments/public-recovery/independent-app-v1/main.bend"
+      ],
+      "exit_code": 0,
+      "diagnostic_file": "main-check.txt",
+      "source_sha256": "744705f0b1792f2345029e94e7526088a01988b9edec55c125ded2634e2d33a4"
+    }
+  ]
+}
