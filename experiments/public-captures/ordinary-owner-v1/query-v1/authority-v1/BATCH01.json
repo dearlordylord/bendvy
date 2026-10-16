@@ -1,0 +1,62 @@
+[
+  {
+    "subject": "positive",
+    "argv": [
+      "taskset",
+      "-c",
+      "0-11",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/captures50-query-authority/experiments/public-captures/ordinary-owner-v1/query-v1/authority-v1/positive.bend"
+    ],
+    "exitCode": 0,
+    "elapsedSeconds": 2.22469609498512,
+    "sourceSHA256": "eabcde7fd9e1a8badd1e20b4895fcdbd15e57d5efb27350bc177cfe0b3e8f5c2",
+    "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "stderrSHA256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+  },
+  {
+    "subject": "duplicate-owner",
+    "argv": [
+      "taskset",
+      "-c",
+      "0-11",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/captures50-query-authority/experiments/public-captures/ordinary-owner-v1/query-v1/authority-v1/duplicate-owner.bend"
+    ],
+    "exitCode": 1,
+    "elapsedSeconds": 2.877495754044503,
+    "sourceSHA256": "f21cae5d5c142c383247c16b70ef3c1d48f869260c8892e057c84d748ba0d037",
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "6e9aeb7db75d4fed22bd34432e74a6651cd53a8a0cf5cdedc83c348ff563a27a"
+  },
+  {
+    "subject": "cross-schema",
+    "argv": [
+      "taskset",
+      "-c",
+      "0-11",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/captures50-query-authority/experiments/public-captures/ordinary-owner-v1/query-v1/authority-v1/cross-schema.bend"
+    ],
+    "exitCode": 1,
+    "elapsedSeconds": 1.5181914269924164,
+    "sourceSHA256": "9bd0135f0ed261fad8d7f0f24939a2260a1fb4742f98ab7a96f02a5a643b33a5",
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "381ba4d40c94ec8494347032fc9d90cb3d687ee2db8f0fe0dd1e70b4c015f434"
+  },
+  {
+    "subject": "write-through-read",
+    "argv": [
+      "taskset",
+      "-c",
+      "0-11",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "/workspace/formal-proofs/bendvy-worktrees/captures50-query-authority/experiments/public-captures/ordinary-owner-v1/query-v1/authority-v1/write-through-read.bend"
+    ],
+    "exitCode": 1,
+    "elapsedSeconds": 2.7402584109222516,
+    "sourceSHA256": "a9a10b4afc4d2a285a8691124b7cefbf33c5822b1d1830fea64a86556effe13c",
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "5971a1ff63a6125c8246ba241ccc96573ed6c6c3831f0a53f6ed61d0f7216cc2"
+  }
+]

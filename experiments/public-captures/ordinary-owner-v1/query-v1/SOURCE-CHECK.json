@@ -1,0 +1,45 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "src/ecs/capture-query.bend"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "23f2439e8204194f7753d4bc432cc10976a2567fb93488ab767a64740c16d829",
+      "stdout": "fold.check.stdout",
+      "stderr": "fold.check.stderr"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "src/ecs/ordinary-capture-query.bend"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "733592e4f7c1b016e744222a5701240a1341a91baa7f3390c2cbab5ca5d6adbf",
+      "stdout": "entry.check.stdout",
+      "stderr": "entry.check.stderr"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captures/ordinary-owner-v1/query-v1/scenario.bend"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "571a5477a0716029b5043c5da80693f522d705de7c810836ee4aca4486aa954e",
+      "stdout": "scenario.check.stdout",
+      "stderr": "scenario.check.stderr"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captures/ordinary-owner-v1/query-v1/main.bend"
+      ],
+      "exitCode": 1,
+      "sourceSha256": "b6235f90bc2e87ee00bd859f7eecacef7033434071970dd34f255d06d7e04df4",
+      "stdout": "main.check.stdout",
+      "stderr": "main.check.stderr"
+    }
+  ],
+  "limitation": "main exit1 solely six foreign-dependent IO definitions; not a full checker PASS"
+}

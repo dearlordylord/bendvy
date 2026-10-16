@@ -1303,3 +1303,18 @@ complete oracles on JS/Native. No production source changed; protected #28
 evidence remains applicable. Query JS also matches its complete oracle, but its
 Native runtime timed out after a successful build under heavy host contention;
 that result remains inconclusive and is preserved for artifact-only diagnosis.
+
+Repeated-unregister integrated at `be9156014`; CI38853899329 passed. A reviewed
+Native runtime-only successor reused the exact query ELF and passed all 7,441
+oracle bytes under the unchanged 5s cap, avoiding another emit/build. The
+original timeout remains INCOMPLETE. The actual TS query witness passed all 8,785
+bytes after repairing a callback return-value mistake; its failed predecessor
+is preserved. These results establish scoped correctness, not comparative speed.
+
+The #50 App successor used the existing collector for five successful commands
+and 17 unchanged guards; both full4,961-byte outputs match its independently
+authored model. Automatic debug bindings and separate cursors are observed. The
+joined independent review accepts #50 semantics. The protected23-source workload
+is unchanged, so its qualified regression evidence is reused. No broad local
+infrastructure or comparative timing campaign was added; delivery acceleration
+remains unmeasured.

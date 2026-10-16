@@ -10,10 +10,10 @@ Independently authored systems retain runtime affine capture state across repeat
 
 ## Acceptance criteria
 
-- [ ] Define the reusable runner contract from Bend single-use closure semantics and Bevy persistent FunctionSystem state; consume and return the actual capture owner each run rather than copying a closure.
-- [ ] Freeze the public capture failure/skip/disposal contract separately from ECS rollback and Local. Obtain approval for any new ownership-visible decision before implementation; feasibility alone is not delivery.
-- [ ] Execute two captured affine Arrays and distinct instances across repeated schedules, refusal/retry and one-time disposal; reject owner duplication and undeclared access.
-- [ ] Preserve existing closed-template consumers and detect a reached lost-capture/double-disposal mutant. No claim of rewinding arbitrary host IO.
+- [x] Define the reusable runner contract from Bend single-use closure semantics and Bevy persistent FunctionSystem state; consume and return the actual capture owner each run rather than copying a closure.
+- [x] Freeze the public capture failure/skip/disposal contract separately from ECS rollback and Local. Obtain approval for any new ownership-visible decision before implementation; feasibility alone is not delivery.
+- [x] Execute two captured affine Arrays and distinct instances across repeated schedules, refusal/retry and one-time disposal; reject owner duplication and undeclared access.
+- [x] Preserve existing closed-template consumers and detect a reached lost-capture/double-disposal mutant. No claim of rewinding arbitrary host IO.
 
 ## Blocked by
 
@@ -43,9 +43,8 @@ finalizer, cross-world transfer or #52 destructive inverse policy.
 `ordinary-captures.define` accepts the existing resource declaration and authored
 rank-2 body; access metadata and transaction completion are derived. The raw
 `captures.register` runner remains a trusted integration seam. Initial consumer:
-`experiments/public-captures/ordinary-owner-v1/main.bend`. Source checks alone do
-not complete acceptance: full JS/Native, authority negatives, reached capture-loss
-control, TS comparison and combined regression/final review remain required.
+`experiments/public-captures/ordinary-owner-v1/main.bend`. The linked runtime packets retain complete backend observations, authority
+controls, reached lifecycle mutations, actual TS references and regression reuse.
 
 ## Resource capture lifecycle — bounded delivery
 
@@ -55,4 +54,36 @@ The [ordinary entry](../../experiments/public-captures/ordinary-owner-v1/runtime
 
 The [TS crosswalk](../../experiments/public-captures/ordinary-owner-v1/TS-APPLICABILITY.md) reuses actual pinned reference observations for shared capture behavior. Bevy governs unregister; TS has no equivalent public operation. Existing stock #28 evidence applies through the unchanged protected-source/artifact bridge, without a new timing claim.
 
-#50 remains open for the ordinary component-query capture entry and full acceptance reconciliation. The existing row traversal constrains its accumulator to Data; the additive adapter must thread arbitrary affine capture state across rows while preserving query ordering, ECS rollback and reader cursors. The [actual repeated-unregister control](../../experiments/public-captures/ordinary-owner-v1/repeated-unregister-v1/runtime-v1/FINAL-REVIEW.md) now exercises a second unregister with the original registration identity and the actual returned affine pack. Both stock backends reject it normally; the reached omission mutant incorrectly accepts it. This satisfies the bounded repeated-unregister mutation criterion, not external Drop or double-free behavior. No automatic external finalization or general heterogeneous composition is claimed; the latter remains #51.
+## Ordinary query capture delivery
+
+`ordinary-capture-query.define` threads arbitrary affine capture state across
+matching rows through the existing query capabilities. Entered-row capture
+changes persist on failure; component payloads/stamps roll back, the monotonic
+World clock is retained, and the query cursor advances only on success.
+The [first query packet](../../experiments/public-captures/ordinary-owner-v1/query-v1/runtime-v1/README.md)
+retains all 7,441 independent oracle bytes on stock JS/Native, including the
+original Native timeout and successful unchanged-ELF retry under the same cap.
+Five intended query authority refusals accompany a positive two-Array check.
+
+`ordinary-app-capture-query-fields.register` derives debug bindings, clauses and
+modes from the ordinary declaration and retains each owner's actual cursor.
+The [App consumer](../../experiments/public-captures/ordinary-owner-v1/query-v1/app-v1/README.md)
+uses ordinary registration and enables the existing debug flag; it supplies no
+metadata adapter. Both backends match the full 4,961-byte independent oracle,
+including separate query cursors, all World/capture state and unregister recovery.
+The [actual TS query crosswalk](../../experiments/public-captures/ordinary-owner-v1/query-v1/reference-delivery-v1/README.md)
+retains its complete 8,785-byte shared-behavior trace and explicit tick/API differences.
+
+The [actual repeated-unregister control](../../experiments/public-captures/ordinary-owner-v1/repeated-unregister-v1/runtime-v1/FINAL-REVIEW.md)
+executes a second unregister with genuine original registration metadata and the
+actual returned affine pack. Both stock backends reject it normally; the reached
+omission mutant incorrectly accepts it. This meets the bounded repeated-unregister
+mutation criterion. External finalization and general heterogeneous composition
+remain outside #50; composition belongs to #51.
+
+[Independent joined review](../../experiments/public-captures/ordinary-owner-v1/query-v1/FINAL-REVIEW.md)
+accepts #50 semantic delivery. Integration, CI and the governing issue report
+complete its delivery checkpoint.
+No new law/proof or capture-specific performance claim follows from these finite
+traces. Stock #28 evidence is reused through the unchanged 23-source protected
+closure; combined feature performance remains under #21/#23/#24.

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : D.Declaration<First, Q.Frame<First, Col.Column<First, U32>, Unit, Unit>, Sigma<&1, &1, Cap.Write<Q.Frame<First, Col.Column<First, U32>, Unit, Unit>, U32, U32>, _ => Unit>>
+- observed : D.Declaration<First, Q.Frame<First, Col.Column<First, U32>, Unit, Unit>, Unit>
+Location: positive
+15 | def positive(world:W.World<First,Col.Column<First,U32>,Unit,Unit>,capture:P.Pack) -> O.Registration<W.World<First,Col.Column<First,U32>,Unit,Unit>,F.Owned(First),P.Pack>:
+16>|   O.define(~First,~Col.Column<First,U32>,~Unit,~Unit,~P.Pack,~F.Ops,~F.Args,~F.Error,~U32,~D.with_component(~First,~U32,~Col.Column<First,U32>,~Unit,~Unit,~Unit,~U32,~F.Token,~F.identity(~First),~F.view,~F.take(~First),~F.put(~First)),~F.body,world,"query",capture)
+   |                                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+17 | 
+bend 2.0.37 is available: run bend update

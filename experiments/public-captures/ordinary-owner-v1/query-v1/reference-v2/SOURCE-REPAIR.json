@@ -1,0 +1,14 @@
+{
+  "originalCommit": "a8b1ac6ac",
+  "preservedAttempt": "/tmp/bendvy50-query-ts-actual01",
+  "failure": "Actual consumer exit1 TypeError effect.run is not a function at external callback; no final trace output",
+  "cause": "Command.insert returns EntityId (Command.ts432-435,528-538), while System.run accepts Fx or void (System.ts1049,Runtime.ts1410). Implicit expression callback returned EntityId, not a valid system result.",
+  "before": "const External = G.System('external', {}, ({ commands }) => commands.insert(first, [Value, 30]));",
+  "after": "const External = G.System('external', {}, ({ commands }) => { commands.insert(first, [Value, 30]); });",
+  "originalSourceSHA256": "7cd490d22ed2557af2d7b81a14670f46d56ee5080a7efc52f9bf4b82434a0f86",
+  "successorSourceSHA256": "aec8adae99a0652376309a6aad3c8ec0ec7e27805565655683b8d9e42baf1a12",
+  "inverseExact": true,
+  "expectedUnchangedSHA256": "966e589e12bed2d0a0b55fbb9d5cb823a3dc42fd02d8add843e68b8525767e9c",
+  "justification": "Block-body callback deliberately discards actual insert return value. Same actual insert command/handle/payload is queued; callback now returns undefined, so existing Runtime commits it and following explicit applyDeferred executes. Source-derived timeline/model already represents precisely that sequence; no new expected values were inferred from failed output.",
+  "scope": "Fixture API usage repair only; no upstream TS or Bend/model semantic change"
+}

@@ -1,0 +1,21 @@
+# Actual shared TS captured query
+
+The corrected actual public reference (`a2c9bebc1`, reference-v2) completed through the unchanged detached-v2 collector on pinned Node24.20.0, CPU3, cap5, exit0 and empty stderr. Its entire 8,785-byte stdout matches the independently source-derived oracle SHA-256 `966e589e12bed2d0a0b55fbb9d5cb823a3dc42fd02d8add843e68b8525767e9c`: eighteen complete checkpoints across two nominal schema roots. No output normalization or expected-value repair was applied.
+
+The original reference (`a8b1ac6ac`, reference-v1) and actual01 remain INCOMPLETE: consumer exit1, empty stdout, TypeError effect.run is not a function. Its External expression callback returned Command.insert's EntityId rather than Fx or void. The preserved source-only correction wraps that same command in a void block body; actual02 then reaches its explicit deferred marker. The preauthored expected model/values are byte-identical across the source repair. SOURCE-REPAIR.json in reference-v2 retains exact source anchors and API references. This package does not rewrite the original receipt or count it as success.
+
+| Shared operation | Current Bend query correspondence | Actual TS observation |
+| --- | --- | --- |
+| Empty actual query | empty:success:[] | Callback enters without rows; both captured Arrays unchanged. |
+| Two matching rows and one live absent component | populated | Full World dump includes entities1,2 with Value10/20 and empty entity3; Required selection omits3. |
+| Later-row failure | late-failure:failure:20 | Both writes precede failure on old20; both capture-array updates persist while both component values roll back. |
+| Same-reader retry | retry:success:[10,20] | Actual Changed query sees both restored rows again and commits12/22. |
+| Successful change consumption | no-changes:success:[] | Same query sees no rows after its successful completion; captured Arrays unchanged. |
+| External change of actual first handle | external, changed-one:success:[30] | Actual command insert + deferred marker updates first only; query commits33/22 with one capture update. |
+| Actual condition-false skip | Bend explicit O.skip identity | Schedule.when(false) does not invoke callback or change capture. |
+
+TS's two Arrays are mutated inside the actual query-row loop, including the failing row. Every capture field/read history/outcome is retained, as are unfiltered public World dumps (all entities/components/relations/resources/machines/pending/frame/tick), population and streams. The source-based expected model reproduces all these observations after relocation. Full source/import membership is34 (33 pinned upstream TS bodies + actual entry); both source versions and each emitted raw/guard/receipt are retained.
+
+TS advances ticks once per entered system and deferred marker; Bend advances the current component clock per write, retains it through rollback and stores its successful query cursor separately. TS callback call count includes empty and no-change invocations; Bend body-entry count is per matching row. These differences are retained, not forced into byte-equal cross-language clocks/IDs. Matching order, payload effects, per-entered-row captured state, rollback/retry and change consumption are the common comparison. Bend's complete physical component stamps and cursor observations remain qualified separately. Pinned TS exposes no unregister API, and a shared JS closure may run in another Runtime; no foreign-refusal/unregister/Drop comparator is invented.
+
+`actual-attempt01/manifest.json` uses the existing ordinary-owner-v1/runtime-v1 path/object archive shape. It binds both complete attempt trees, exact plans/commands, all raw streams and guards, model/oracles, source/import/resource/tool pins and the source repair. Installed ELF tools remain external exact identities, as in the existing pattern. Every retained object's compressed and decompressed hash/length was checked offline, together with receipt/output/guard joins and isolated full-model reproduction. No runner, verifier, backend rerun or benchmark was added. This establishes the TS common-query reference only, not Native query success, arbitrary closure semantics, performance or full #50 acceptance.
