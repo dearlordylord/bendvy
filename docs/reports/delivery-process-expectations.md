@@ -1220,3 +1220,9 @@ reuse, not a measured delivery-speed improvement.
 
 The #38 fork/join integration CI38841376108 passed on rerun; its first attempt
 was cancelled during checkout before tests executed. Code and limits were unchanged.
+
+#71 reconciliation integrated at `4ffa0a9a5`; CI38842756621 passed and the
+English issue report closed semantic acceptance. The #54 budget0 discriminator
+used one reviewed emission-only run: C grew 8.18%, so no speculative build was
+added. Independent review `1fadd0009` verifies artifact difference only; budget
+permutations stop pending current Clang-cost evidence. No speedup is claimed.
