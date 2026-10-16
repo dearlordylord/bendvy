@@ -1379,3 +1379,14 @@ Both use the existing collector and unchanged caps; new authority checks cover
 the affected boundaries while unchanged resource controls are source-bound reuse.
 The protected23-source regression closure remains unchanged. Heterogeneous
 ordinary-family composition remains within #52; no delivery-speed claim follows.
+
+#52 now passes joined semantic review after the general heterogeneous and mixed
+consumers. Stock JS/Native match all 13,523 and 16,673 independent bytes; mixed
+includes nine interleaved operations in one journal. Actual run plus ten intended
+authority negatives pass, and earlier owner-loss/TS/stock #28 applicability is
+reused with explicit limits. The real builder specialization blocker was fixed
+with an erased type index supported by the pinned Bend compiler; no compiler
+change, higher cap or runtime Lens duplication was needed. Both first backend
+pairs passed without source/model repairs after freeze. The current report
+records successful CI38862946527 for `f818fa192`; final integration CI remains
+pending. This is observed semantic delivery/evidence reuse, not measured speed.

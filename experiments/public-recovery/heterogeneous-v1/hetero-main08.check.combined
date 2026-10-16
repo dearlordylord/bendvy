@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (a def parameter is not comptime)
+- observed : D.pair_grant
+Location: builder~0
+31 | def tail_declaration(~S:Data) -> D.Declaration<S,State(~S),Product.Owner<List<RC.Record<S,Array<U32>>>,List<RA.Record<Array<U32>>>>,TailOps(~S),tail_builder(~S)>:D.both(~S,~State(~S),~List<RC.Record<S,Array<U32>>>,~List<RA.Record<Array<U32>>>,~SecondOps(~S),~CaptureOps(),~second_builder(~S),~capture_builder(~S),~second_declaration(~S),~capture_declaration(~S))
+32>| def builder(~S:Data) -> D.Builder(~State(~S),~Recovery(~S),~Ops(~S)):D.pair_grant(~S,~State(~S),~List<RC.Record<S,Array<Array<U32>>>>,~Product.Owner<List<RC.Record<S,Array<U32>>>,List<RA.Record<Array<U32>>>>,~FirstOps(~S),~TailOps(~S),~first_builder(~S),~tail_builder(~S))
+   |                                                                      ^^^^^^^^^^^^
+33 | def declaration(~S:Data) -> D.Declaration<S,State(~S),Recovery(~S),Ops(~S),builder(~S)>:D.both(~S,~State(~S),~List<RC.Record<S,Array<Array<U32>>>>,~Product.Owner<List<RC.Record<S,Array<U32>>>,List<RA.Record<Array<U32>>>>,~FirstOps(~S),~TailOps(~S),~first_builder(~S),~tail_builder(~S),~first_declaration(~S),~tail_declaration(~S))
+bend 2.0.37 is available: run bend update

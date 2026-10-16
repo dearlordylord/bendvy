@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : O.ComponentWrite<First, Array<Array<U32>>, D.Declaration{"Wrong"}, rejected~H>
+- observed : O.ComponentWrite<First, Array<Array<U32>>, D.Declaration{"Payload"}, rejected~H>
+Context:
+- owner    : rejected~H
+- handle   : W.Handle<First>
+- incoming : Maybe<&1, Array<Array<U32>>>
+Location: rejected
+11 | def rejected(~H:Type,~caps:F.Ops(~First)(H),owner:H,handle:W.Handle<First>,incoming:Maybe<Array<Array<U32>>>) -> O.ComponentAttempt<H,Array<Array<U32>>>:
+12>|   O.component_replace(~First,~Array<Array<U32>>,~D.component(~First,~Array<Array<U32>>,"Wrong"),~H,~F.first_cap(~First,~H,~caps),owner,handle,incoming)
+   |                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13 | 
+bend 2.0.37 is available: run bend update

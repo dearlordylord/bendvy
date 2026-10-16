@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : owner
+- observed : owner (consumed more than once)
+Location: duplicate
+10 | type Other is Data:Other{}
+11>| def duplicate(owner:F.Instance(~First)) -> F.Instance(~First) & F.Instance(~First):
+   |               ^^^^^
+12 |   (owner,owner)
+bend 2.0.37 is available: run bend update

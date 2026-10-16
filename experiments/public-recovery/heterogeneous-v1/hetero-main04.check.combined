@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : -path
+- observed : path
+Context:
+- All          : Type
+- ReleasedRest : Type
+Location: released
+16 | def empty(~S:Data,~P:Type,unit:Unit) -> List<RC.Record<S,P>>:[]
+17>| def released(~S:Data,~C:Type,~R:Type,~E:Data,~Capture:Type,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:C -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> C,~view:P -> P & V,~binding:B.Binding<S,C,Rest,P,V,Token,take,put,view>,-All:Type,-ReleasedRest:Type,-path:Product.Lens<All,List<RC.Record<S,P>>,ReleasedRest>,capture:Capture,recovery:All,result:W.World<S,C,R,E> & RC.Record<S,P>) -> Product.Owner<W.World<S,C,R,E>,Capture> & All:
+   |                                                                                                                                                                                                                                                                           ^^^^
+18 |   match result:
+bend 2.0.37 is available: run bend update

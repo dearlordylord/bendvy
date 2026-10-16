@@ -10,14 +10,57 @@ Systems perform recoverable operations on caller-owned affine component/resource
 
 ## Acceptance criteria
 
-- [ ] Specify an explicit recoverable operation/inverse interface for destructive Type operations; identify which external IO effects remain outside rollback. Obtain approval for unresolved public contracts before implementation.
-- [ ] Exercise affine elements, complete Array replacement and captured payload operations through actual public systems, with multiple writes, refusal, earlier commits and failed retry. Return every original/replacement/inverse owner exactly once.
-- [ ] Reject irreversible operations from any API that promises rollback rather than silently accepting incomplete recovery; retain supported unrestricted Type storage without a Data-only component rule.
-- [ ] Detect a reached incomplete-inverse/owner-loss mutant and retain existing scalar/Array rollback consumers. Record supported and unsupported effect domains explicitly.
+- [x] Specify an explicit recoverable operation/inverse interface for destructive Type operations; identify which external IO effects remain outside rollback. Obtain approval for unresolved public contracts before implementation.
+- [x] Exercise affine elements, complete Array replacement and captured payload operations through actual public systems, with multiple writes, refusal, earlier commits and failed retry. Return every original/replacement/inverse owner exactly once.
+- [x] Reject irreversible operations from any API that promises rollback rather than silently accepting incomplete recovery; retain supported unrestricted Type storage without a Data-only component rule.
+- [x] Detect a reached incomplete-inverse/owner-loss mutant and retain existing scalar/Array rollback consumers. Record supported and unsupported effect domains explicitly.
 
-## Blocked by
+## Dependencies
 
-- #50
+- #50 — accepted; normal capture persistence remains unchanged.
+
+## Semantic acceptance reconciliation — 2026-10-16
+
+All four semantic criteria pass the [independent joined review](../../experiments/public-recovery/mixed-v1/FINAL-REVIEW.md).
+Integration, CI, push and the English issue report remain delivery steps until recorded.
+
+The ordinary API composes canonical Component, Resource and explicit Capture
+operations with `ordinary-recovery-declaration.both`, then registers/runs them
+through `ordinary-recovery-system`. One global LIFO journal spans all leaves;
+recovery is a statically typed product. Arbitrary affine Type payloads remain
+supported. Commit returns displaced originals; rollback restores old payloads
+and stamps and returns displaced replacements. World clock stays monotonic,
+failed/rejected calls preserve the registered cursor, and normal #50 captures
+retain their existing persistence behavior.
+
+| Evidence | Stock JS / Native full oracle | Scope |
+| --- | --- | --- |
+| [Resource](../../experiments/public-recovery/ordinary-array-v1/runtime-v1/README.md) | 6,951 bytes each | Whole replacement, affine elements, refusal, earlier commit and retry |
+| [Component / opt-in capture](../../experiments/public-recovery/component-capture-v1/runtime-v1/README.md) | 13,009 bytes each | Payload/stamp restoration, returned owners, absent component and foreign entity |
+| [Unlike families](../../experiments/public-recovery/heterogeneous-v1/runtime-v1/README.md) | 13,523 bytes each | Ordinary product Store, two different payload types, shared journal |
+| [Mixed](../../experiments/public-recovery/mixed-v1/runtime-v1/README.md) | 16,673 bytes each | Nine interleaved component/resource/capture operations, complete owners, both schemas/worlds |
+| [Reached owner-loss control](../../experiments/public-recovery/ordinary-array-v1/owner-loss-mutant-v1/runtime-v1/README.md) | 6,631 bytes each; normal 6,951 rejected | Actual commit inverse omits recovery append; failure inverse unchanged |
+
+[Final authority controls](../../experiments/public-recovery/mixed-v1/authority-v1/README.md)
+retain one actual mixed-run positive and ten intended type/affine negatives,
+including nested identity/grant boundaries and raw World/Frame/mutation refusal.
+Unchanged scalar/Array rollback paths and the protected 23-source #28 workload
+retain their reviewed source/artifact applicability; the new modules are additive.
+[Executed TS comparisons](../../experiments/public-recovery/ordinary-array-v1/TS-APPLICABILITY.md)
+cover shared value semantics, not Bend affine inverses. No comparative timing,
+universal law, physical identity or automatic finalization is claimed.
+
+Raw Declaration constructors, custom Builder/Ops, direct engine runners and
+Family/Frame/Journal provisioning are trusted engine administration. The rollback
+promise covers the canonical leaves and their library-derived composition, not
+arbitrary custom inverse builders. Gameplay receives only opaque H and declared
+grants. External IO and arbitrary destructive callbacks are outside these grants.
+
+Pinned references: Rust Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60`,
+Bend `a950fd683c0d76f09794078e6174fe98a1492876`, bevy-ts
+`3040a3b2a3f28fa8554d856f9ccb6bf5433fa334`. Bevy supplies the architectural
+reference, Bend the ownership/runtime constraints, and TS the shared subset.
+Bevy component ownership does not imply an automatic transaction rollback API.
 
 ## Delivery and evidence
 
@@ -82,8 +125,8 @@ independent 6,631-byte counter-oracle and reject the complete normal 6,951-byte
 trace. This establishes reached finite owner-loss detection, not physical memory
 identity, automatic finalizers or a universal proof.
 
-The current component entry uses a canonical single Column. Ordinary
-heterogeneous-family composition and the joined issue review remain in #52;
-these slices do not close or narrow that obligation. External IO and arbitrary
+The current component entry uses a canonical single Column. At that checkpoint, ordinary
+heterogeneous-family composition and joined review remained; the reconciliation
+above records their subsequent completion without narrowing the obligation. External IO and arbitrary
 destructive callbacks are outside the recoverable grants. The unchanged protected
 23-source #28 closure retains its existing reviewed stock applicability.

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : \{Declaration: (grant => _ => _ => grant)}
+Location: grant
+10 |   match value:
+11>|     case Declaration{grant,_,_}:grant
+   |          ^^^^^^^^^^^^^^^^^^^^^^
+12 | def empty(~S:Data,~State:Type,~Recovery:Type,~Ops:Type -> Type,value:Declaration<S,State,Recovery,Ops>) -> Unit -> Recovery:
+bend 2.0.37 is available: run bend update

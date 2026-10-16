@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : -grant
+- observed : grant
+Location: grant
+ 9 | def grant(~S:Data,~State:Type,~Recovery:Type,~Ops:Type -> Type,~value:Declaration<S,State,Recovery,Ops>) -> @-All:Type -> @-Rest:Type -> @-path:Product.Lens<All,Recovery,Rest> -> Unit -> Ops(Frame.Frame<State,All>):
+10>|   ({\{Declaration: grant => _ => _ => grant} : Declaration<S,State,Recovery,Ops> -> (@-All:Type -> @-Rest:Type -> @-path:Product.Lens<All,Recovery,Rest> -> Unit -> Ops(Frame.Frame<State,All>))})(value)
+   |                    ^^^^^
+11 | def empty(~S:Data,~State:Type,~Recovery:Type,~Ops:Type -> Type,value:Declaration<S,State,Recovery,Ops>) -> Unit -> Recovery:
+bend 2.0.37 is available: run bend update

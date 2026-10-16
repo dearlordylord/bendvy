@@ -1,0 +1,35 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-recovery/mixed-v1/fixture.bend"
+      ],
+      "exitCode": 0,
+      "combinedOutput": "mixed-fixture01.check.combined",
+      "sourceSha256": "5ce0464fdbe8d7d70ba226b0541394486a5859d38744dc1c40cc815018654800",
+      "historicalRepair": false
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-recovery/mixed-v1/scenario.bend"
+      ],
+      "exitCode": 0,
+      "combinedOutput": "mixed-scenario01.check.combined",
+      "sourceSha256": "37d51204a3e6522b1f32a302dc691fd3972aabe93d1b4d83e393ddd64b27d17b",
+      "historicalRepair": false
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-recovery/mixed-v1/main.bend"
+      ],
+      "exitCode": 1,
+      "combinedOutput": "mixed-main01.check.combined",
+      "sourceSha256": "f55fdbc4b455d069509585d4b3521b1a1d089e794ba18564d58eab02e4c2ce5a",
+      "historicalRepair": false
+    }
+  ],
+  "limitation": "Final pure scenario PASS0; concrete main only six expected foreign/IO definitions, no parser/type/affine errors. No full main PASS claim."
+}
