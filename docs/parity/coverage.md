@@ -267,6 +267,14 @@ first stock normal and reached filtering-mutation pairs, affected authority
 controls and current resource compatibility pass; actual TS execution matches
 its independent full oracle. [Independent final review](../../experiments/public-conditions/component-query-v1/FINAL-REVIEW.md)
 passes; integrated `c524034d2`, CI38901764699 PASS.
+The [described machine Check slice](inspect.md#ordinary-machine-check-declarations)
+joins a nominal machine read with query/resource grants in one predicate. Its
+first stock119,419-byte normal, reached119,371-byte availability defect and
+current96,029-byte query/resource compatibility pairs pass; actual TS comparison
+matches36,126 independently derived bytes. Five positive/ten intended authority
+controls pass. [Independent final review](../../experiments/public-conditions/machine-query-check-v1/FINAL-REVIEW.md)
+passes; integration/CI remain. Host-driven transitions
+are not another registered-handler qualification.
 Those are finite current public consumers, not a
 whole matrix or another independent schema. Remaining #61 work is to join the
 unmatched required predicates and cross-feature combinations to their direct

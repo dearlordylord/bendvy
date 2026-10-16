@@ -232,7 +232,7 @@ a resource in one Check. Its existing requirement checks thread World left to
 right and append returned missing names. Required components select rows; they
 do not require a component somewhere in the World. Typed Component selection
 metadata distinguishes Required/Optional/With/Without; the existing `required`
-flag denotes resource preflight only. Exhaustive description renderers handle
+flag denotes required World-owned resource or machine availability. Exhaustive description renderers handle
 the new Component category explicitly. Ordinary debug snapshots carry these
 uses without a caller adapter.
 
@@ -246,3 +246,25 @@ is explicitly distinct from Bend's reached validation and returned-owner restore
 The [independent final review](../../experiments/public-conditions/component-query-v1/FINAL-REVIEW.md)
 passes; integrated `c524034d2`, CI38901764699 PASS. This bounded join does not close #61 or the full #54 workload;
 combined regression and final performance requirements are unchanged.
+
+## Ordinary machine Check declarations
+
+`ordinary-check-machine.optional` and `required` derive their read, availability
+check and typed Machine description from the existing nominal machine declaration.
+`read` returns the affine owner and the existing detached CurrentView. Optional
+absence is `Unavailable`; a reached required read retains the existing
+`MissingRuntimeRequirements` names. No Resource identity is fabricated for a
+machine. `ordinary-check-declaration.both` combines machine, query and resource
+grants in one confined Check; App debug snapshots derive those uses automatically.
+
+The first stock JS/Native pair matches all 119,419 independent oracle bytes,
+including current versus queued state, actual transition application and restoration
+from the returned machine-state owner. This is a host-driven use of the existing
+transition runner, not another registered-handler qualification. Affected authority
+controls pass (five positive/ten intended refusals). The reached availability
+defect matches119,371 independent bytes on both backends and rejects normal;
+the current query/resource compatibility pair retains96,029 bytes. Actual TS
+execution matches36,126 independent bytes; its fresh missing-machine admission
+difference is explicit. [Independent final review](../../experiments/public-conditions/machine-query-check-v1/FINAL-REVIEW.md)
+passes; integration/CI remain. Existing
+#61/#54 and final combined product requirements remain open.

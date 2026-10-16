@@ -1,0 +1,3 @@
+Isolated reached mutant: MC.required substitutes D.provided for MD.required; grant, required=True metadata, consumer operations and observer bodies remain unchanged. SOURCE-DIFF.json records the sole semantic edit and import-only consumer copies. Pure fixture/setup/observer/scenario checks pass; main has exactly five existing foreign IO refusals. Independent countermodel and root-controlled backend qualification remain required.
+
+Raw initial overlapping CPU5 checks, where present, are retained under check-history/contention01 and are unqualified cap diagnostics. Final checks ran serially with unchanged five-second limits.

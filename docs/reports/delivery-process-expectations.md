@@ -1580,3 +1580,16 @@ miscounted as write-through-read refusals; only those controls were corrected
 and rerun, retaining the predecessor diagnostics and exact applicability of the
 other thirteen checks. Independent final review passes; integrated `c524034d2`, CI38901764699 PASS.
 This is actual use of the shorter path, not measured delivery-speed improvement.
+
+The described machine/query/resource Check delivery again ran the complete
+ordinary consumer before expanding controls: first stock normal119,419 bytes,
+current query/resource compatibility96,029 and reached availability defect119,371
+(normal rejected) match on both backends. The actual TS reference matches36,126
+independent bytes; five positive/ten actual type-or-affine refusals pass. Existing
+runners/caps and exact source reuse are retained. Several source checks initially
+competed on CPU5 and hit the unchanged five-second cap; those attempts are retained
+unqualified, and only the affected checks were recaptured serially without a
+source or limit change. The TS adapter's scope-only change received the existing
+launch review. Independent final review passes; integration/CI remain.
+No new runner, comparative campaign
+or measured delivery-speed improvement is claimed.

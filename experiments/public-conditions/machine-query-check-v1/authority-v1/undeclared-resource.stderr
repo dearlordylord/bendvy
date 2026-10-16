@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : D.ResourceRead<rejected~S, Array<U32>, ../../../../../../workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.Resource{"Threshold"}, rejected~H, U32>
+- observed : MC.Read<rejected~S, F.FlowToken, U32, rejected~H>
+Context:
+- owner : rejected~H
+Location: rejected
+12 | 
+13>| def rejected(~S:Data,~H:Type,~caps:F.MachineReadOps(~S)(H),owner:H) -> H & Maybe<&2,U32>:D.read(~S,~Array<U32>,~F.input_identity(~S),~H,~U32,~caps,owner)
+   |                                                                                                                                               ^^^^
+14 | 
+bend 2.0.37 is available: run bend update

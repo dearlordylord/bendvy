@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.ValueWrite<rejected~H, M.QueueInput<U32>, M.CurrentView<rejected~S, F.FlowToken, U32>>
+- observed : MC.Read<rejected~S, F.FlowToken, U32, rejected~H>
+Context:
+- owner : rejected~H
+Location: rejected
+12 | 
+13>| def rejected(~S:Data,~H:Type,~caps:F.MachineReadOps(~S)(H),owner:H) -> H:Cap.value_write_field(~H,~M.QueueInput<U32>,~M.CurrentView<S,F.FlowToken,U32>,caps)(owner,M.Set{1,False{}})
+   |                                                                                                                                                        ^^^^
+14 | 
+bend 2.0.37 is available: run bend update

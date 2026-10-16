@@ -16,6 +16,7 @@ type ComponentSelection is Data:
 type Category is Data:
   Resource{}
   Component{selection:ComponentSelection}
+  Machine{}
 type Mode is Data:Read{}
 type Use is Data:Use{category:Category,key:String,mode:Mode,required:Bool}
 type Declaration<-S:Data,-C:Type,-R:Type,-E:Data,-Ops:Type -> Type> is Type:

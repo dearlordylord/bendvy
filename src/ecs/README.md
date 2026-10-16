@@ -303,3 +303,9 @@ from component bindings and composes arbitrary nested read-only queries with
 and detached read share the same typed description. `ordinary-check-declaration.both`
 combines these queries and resource reads in one Check; required components
 filter rows rather than preflight the World. See [API and scope](../../docs/parity/inspect.md#ordinary-component-query-check-declarations).
+
+`ordinary-check-machine.optional` / `required` reuse the nominal machine
+declaration's read and availability operations. Their Machine description and
+`read` grant compose with query/resource declarations through `both`; optional
+absence stays `Unavailable`, and required access retains existing Check errors.
+See [API and scope](../../docs/parity/inspect.md#ordinary-machine-check-declarations).

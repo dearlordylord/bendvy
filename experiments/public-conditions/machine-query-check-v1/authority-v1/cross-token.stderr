@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : MC.Read<rejected~S, OtherToken, U32, rejected~H>
+- observed : MC.Read<rejected~S, F.FlowToken, U32, rejected~H>
+Context:
+- owner : rejected~H
+Location: rejected
+13 | type OtherToken is Data:OtherToken{}
+14>| def rejected(~S:Data,~H:Type,~caps:MC.Ops(~S,~F.FlowToken,~U32)(H),owner:H) -> H & M.CurrentView<S,OtherToken,U32>:MC.read(~S,~OtherToken,~U32,~H,~caps,owner)
+   |                                                                                                                                                    ^^^^
+15 | 
+bend 2.0.37 is available: run bend update
