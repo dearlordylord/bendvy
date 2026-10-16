@@ -51,3 +51,7 @@ captured recovery, reached semantic mutation, shared TS reconciliation and joine
 acceptance remain in this issue. Normal #50 capture persistence is unchanged.
 Empty pending queues and zero clocks in this resource fixture do not qualify
 deferred effects, external IO rollback or component lifecycle restoration.
+
+The resource slice is integrated at `c8f5b4c5c`; CI38861304008 passed.
+[Shared executed TS applicability](../../experiments/public-recovery/ordinary-array-v1/TS-APPLICABILITY.md)
+records the qualified value-level comparisons and their ownership/runtime limits.

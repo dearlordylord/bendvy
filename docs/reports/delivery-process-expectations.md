@@ -1365,3 +1365,8 @@ The requested checkpoint review of `218b5b548`/`fad6e9c5d` again finds no remain
 Spec/Standards blocker. Follow-up `804554913` already repaired the umbrella
 remaining-core timing clause. CI38791374316 and its earlier report note remain
 valid without reruns; correctness, #28 and final performance goals are unchanged.
+
+The reviewed first #52 resource slice integrated at `c8f5b4c5c`; CI38861304008
+passed and an English bounded report was posted without closing the issue.
+The TS applicability note reuses existing actual executions with explicit runner
+and ownership limits, avoiding another unchanged reference run.
