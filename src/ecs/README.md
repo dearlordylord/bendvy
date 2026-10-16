@@ -315,3 +315,9 @@ existing relation declaration, deriving read authority and debug metadata from
 the same operational input. All eight outgoing/incoming relation modes preserve
 row selection and compose with resource/machine Check grants through `both`.
 See [API and scope](../../docs/parity/inspect.md#ordinary-relation-check-declarations).
+
+`ordinary-app-checked-family-schedule` attaches existing Check bindings and a plan
+to an ordinary family App, retaining its World, family/tick, reader owners and
+existing generated debug fold. The static administration dispatch can invoke the
+ordinary reader API after the guard; gameplay keeps its existing confined inputs.
+See [API and scope](../../docs/parity/inspect.md#ordinary-checked-reader-schedules).

@@ -1611,3 +1611,15 @@ introduced; no delivery-speed improvement has been measured.
 Relation Check integrated `521b7dec5` with independent Spec/Standards PASS and
 normal pre-commit PASS; CI38910846706 PASS. The unchanged protected23-source
 closure permits exact combined220 reuse without another benchmark run.
+
+For checked ordinary readers, the first full59,015-byte normal consumer passed
+JS and Native before affected controls were expanded. Observer preparation ran
+in a separate worktree while the owner completed the scenario. The new transport
+is the only core addition, allowing unchanged prior API evidence to be reused
+through exact closure checks rather than another compatibility backend cohort.
+The TS evidence review retained its actual registered-reader discard behavior
+and explicitly separated source-only never-activated behavior. No new runner,
+limits or measured delivery-speed improvement is claimed. Normal59,015, reached
+fold-tick59,039 (normal rejected) and attachment32,103-byte pairs all pass on
+JS/Native, along with four positive/six intended transport refusals. Independent
+Spec/Standards review passes; integration/CI remain pending at this checkpoint.

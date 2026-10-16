@@ -283,6 +283,14 @@ pairs pass; actual TS execution matches its independent complete oracle.
 All eight modes match the current-source complete117,959-byte JS/Native oracle;
 [delivery review](../../experiments/public-conditions/relation-query-check-v1/FINAL-REVIEW.md)
 passes; integrated `521b7dec5`, CI38910846706 PASS.
+The [checked reader transport](inspect.md#ordinary-checked-reader-schedules)
+adds a reached lazy-Check-before-reader join: both stock backends match59,015
+independent bytes with staggered fast/slow reader history, retained completion
+arrays, physical stream state and separate World/Family clocks. Its generic
+Product family is not another canonical journal qualification. The full59,039-byte
+fold-tick counter and32,103-byte attachment controls also pass on both backends;
+independent [final review](../../experiments/public-conditions/checked-reader-v1/FINAL-REVIEW.md)
+passes; integration and CI remain pending.
 Those are finite current public consumers, not a
 whole matrix or another independent schema. Remaining #61 work is to join the
 unmatched required predicates and cross-feature combinations to their direct

@@ -289,3 +289,23 @@ qualification. See the [delivery evidence](../../experiments/public-conditions/r
 
 Independent [Spec/Standards review](../../experiments/public-conditions/relation-query-check-v1/FINAL-REVIEW.md)
 passes; integrated `521b7dec5`, CI38910846706 PASS.
+
+## Ordinary checked reader schedules
+
+`ordinary-app-checked-family-schedule.attach` installs an existing schedule and
+Check bindings on an ordinary family App. It retains the same World, family,
+tick, registered readers and generated debug fold. `run` uses the existing checked
+scheduler; a false guard leaves the unentered reader alone, while a reached Check
+error stops before later dispatch/barriers. Existing barriers still apply pending
+World commands. Invalid attachment returns the original App and bindings.
+
+The first complete JS/Native consumer matches59,015 independently derived bytes,
+with separately admitted fast/slow readers and retained affine callback values.
+It uses a generic Product-backed stream family, not the canonical journal provider;
+failed-callback retry and universal provider purity are outside this witness.
+Pinned TS discards an activated reader's backlog on false conditions; that scoped
+reference difference is retained. A reached fold-tick defect matches59,039 bytes
+and rejects normal on both backends; focused attachment refusals preserve all
+32,103 independent bytes. Four positive/six intended authority refusals pass.
+Independent [Spec/Standards review](../../experiments/public-conditions/checked-reader-v1/FINAL-REVIEW.md)
+passes; integration and CI remain pending.
