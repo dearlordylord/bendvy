@@ -1088,3 +1088,14 @@ identify an uncovered execution risk. The historical later child-set timeout
 remains failed and is covered only by its existing successor. No new backend or
 performance cohort ran for this documentation checkpoint; all three native
 semantic criteria pass.
+
+#44 reconciliation `a8090c7e8` passed CI 38829031368; the English completion
+report was posted and the issue closed. No backend or benchmark was rerun for
+this checkpoint. Total delivery-speed improvement remains unmeasured.
+
+#41 reconciliation joins qualified heterogeneous bundles, ordinary duplicate
+admission, constructor/retry, WorldIO and complete matched application evidence.
+Independent review confirms current source applicability and all three semantic
+criteria. Inventory publication predates production adoption; chronology before
+initial experiments is not claimed. No backend, performance or private compiler
+experiment was rerun to close this documentation checkpoint.

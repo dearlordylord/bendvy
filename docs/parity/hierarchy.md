@@ -31,8 +31,8 @@ An application reparents an ordered hierarchy, traverses it and removes linked s
 ## Semantic acceptance reconciliation
 
 The current-source audit and independent final Spec/Standards review by
-`scopes45_source_control` confirm all three native semantic criteria. Publication
-and CI remain pending. Evidence is joined by
+`scopes45_source_control` confirm all three native semantic criteria. Integrated
+at `a8090c7e8`; CI 38829031368 passed and the English completion report closed #44. Evidence is joined by
 operation and observation, rather than by treating one bounded packet as the
 whole feature:
 
