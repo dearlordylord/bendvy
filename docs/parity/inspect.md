@@ -268,3 +268,21 @@ execution matches36,126 independent bytes; its fresh missing-machine admission
 difference is explicit. [Independent final review](../../experiments/public-conditions/machine-query-check-v1/FINAL-REVIEW.md)
 passes; integrated `88645bf21`, CI38906069050 PASS. Existing
 #61/#54 and final combined product requirements remain open.
+
+## Ordinary relation Check declarations
+
+`ordinary-check-relation.declaration` joins a component selection and the existing
+closed relation declaration in one read-only Check. It derives relation identity,
+direction, selection and optional cell alias from that same declaration; all eight
+outgoing/incoming Required/Optional/Present/Absent modes are supported. Required
+relations filter rows rather than adding World-level requirements. Resource and
+machine reads compose through `ordinary-check-declaration.both`.
+
+The first ordinary App consumer qualifies lazy conditions, deferred links/unlinks,
+resource restoration and automatic debug descriptions. Separate full-output
+controls distinguish incoming from outgoing routing; the eight-mode consumer
+observes physical stream state before and after Check/Inspector reads, matching
+all117,959 independent bytes on JS/Native. Actual TS matches77,808 independent
+bytes; five positive/eleven intended authority controls pass. These are
+finite semantic witnesses, not universal provider guarantees or final performance
+qualification. See the [delivery evidence](../../experiments/public-conditions/relation-query-check-v1/README.md).

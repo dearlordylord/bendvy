@@ -1,0 +1,43 @@
+{
+  "copiedSources": {
+    "schema": {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-conditions/machine-query-check-v1/schema.bend",
+      "sha256": "a9720e084853962e382c655296f055b1a1d75845274faec605c687c85e7d9a6a",
+      "byteIdentical": true
+    },
+    "fixture": {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-conditions/machine-query-check-v1/fixture.bend",
+      "sha256": "a3d99c2a4dc0de518ae58647c6741d817e0ab776504408aec138e4d8d82495d8",
+      "byteIdentical": true
+    },
+    "setup": {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-conditions/machine-query-check-v1/setup.bend",
+      "sha256": "6bc9758c9b8b8051a0d03637809f61f107287c495a676b3206ebbae10d55529b",
+      "byteIdentical": true
+    },
+    "scenario": {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-conditions/machine-query-check-v1/scenario.bend",
+      "sha256": "0a97bff76a6029b98e20a9a3d45bd4f362666afd0d7b42cfe8a2de3a42ddb16c",
+      "byteIdentical": true
+    },
+    "main": {
+      "path": "/workspace/formal-proofs/bendvy/experiments/public-conditions/machine-query-check-v1/main.bend",
+      "sha256": "b075298e3d9075a92b371a502ba071fec87abe49770261ea54fe7426239f2c2a",
+      "byteIdentical": true
+    }
+  },
+  "observer": {
+    "oldPath": "/workspace/formal-proofs/bendvy/experiments/public-conditions/machine-query-check-v1/observe.bend",
+    "oldSha256": "778583a3d3650195c1c830a190f51cb8c4f9cc9e682d5f43b06d1e16777e1a94",
+    "newSha256": "a0f22c38707e55bb2bd541d51b40b59e826749d0dd2b0fb463abc8258b7f40f9",
+    "onlyUnusedRelationRendererHelpersAndArm": true,
+    "helpers": [
+      "def metadata_kind(value:CD.RelationKind) -> String:\n  match value:\n    case CD.Ordinary{}:\"Ordinary\"\n    case CD.Hierarchy{}:\"Hierarchy\"\n",
+      "def relation_identity(value:CD.RelationIdentity) -> String:\n  match value:\n    case CD.RelationIdentity{id,name,inverseName,kind}:\"identity{id=\" ++ U32.show(id) ++ \";name=\" ++ name ++ \";inverseName=\" ++ inverseName ++ \";kind=\" ++ metadata_kind(kind) ++ \"}\"\n",
+      "def direction_view(value:CD.RelationDirection) -> String:\n  match value:\n    case CD.Outgoing{}:\"Outgoing\"\n    case CD.Incoming{}:\"Incoming\"\n",
+      "def selection_view(value:CD.RelationSelection) -> String:\n  match value:\n    case CD.RelationRequired{}:\"Required\"\n    case CD.RelationOptional{}:\"Optional\"\n    case CD.RelationPresent{}:\"Present\"\n    case CD.RelationAbsent{}:\"Absent\"\n",
+      "def optional_string(value:Maybe<&2,String>) -> String:\n  match value:\n    case None{}:\"None\"\n    case Some{value}:\"Some{\" ++ value ++ \"}\"\n"
+    ],
+    "arm": "    case CD.Use{CD.Relation{identity,direction,selection,cellKey},key,CD.Read{},required}:\"Relation{\" ++ relation_identity(identity) ++ \";direction=\" ++ direction_view(direction) ++ \";selection=\" ++ selection_view(selection) ++ \";cellKey=\" ++ optional_string(cellKey) ++ \";key=\" ++ key ++ \";mode=Read;required=\" ++ Bool.show(required) ++ \"}\"\n"
+  }
+}

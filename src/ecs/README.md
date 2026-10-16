@@ -309,3 +309,9 @@ declaration's read and availability operations. Their Machine description and
 `read` grant compose with query/resource declarations through `both`; optional
 absence stays `Unavailable`, and required access retains existing Check errors.
 See [API and scope](../../docs/parity/inspect.md#ordinary-machine-check-declarations).
+
+`ordinary-check-relation.declaration` combines a component selection with the
+existing relation declaration, deriving read authority and debug metadata from
+the same operational input. All eight outgoing/incoming relation modes preserve
+row selection and compose with resource/machine Check grants through `both`.
+See [API and scope](../../docs/parity/inspect.md#ordinary-relation-check-declarations).

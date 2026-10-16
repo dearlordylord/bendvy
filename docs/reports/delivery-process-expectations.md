@@ -1598,3 +1598,12 @@ The machine delivery's pre-commit table guard rejected an overlong coordination
 row. The row was shortened using existing API/review links, then committed with
 the normal hook; no contract, evidence or assignment was removed. CI38906069050
 passed. This is an observed guard effect, not a measured delivery-speed gain.
+
+The described relation Check delivery reused the existing collectors, unchanged
+limits and full machine/query/resource compatibility oracle. The complete ordinary
+consumer ran before expanding to eight modes. The historical mode fixture needed
+migration to the current stream representation; logical observations were retained
+and complete physical queue observations added at entry and exit. Independent
+oracles distinguish routing direction and preserve the different RequiredOut and
+RequiredIn historical subjects. No new runner or comparative timing campaign was
+introduced; no delivery-speed improvement has been measured.

@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)
+- observed : row_view
+Context:
+- row   : F.RowView
+- cells : List<&2, RQ.Cell<relation_row~S>>
+Location: relation_row
+123 |   match value:
+124>|     case Projection.Product{row,cells}:"Product{" ++ row_view(row) ++ ";cells=" ++ List.show(&2,RQ.Cell<S>,cell(~S),cells) ++ "}"
+    |                                                      ^^^^^^^^
+125 | def metadata_kind(value:CD.RelationKind) -> String:
+bend 2.0.37 is available: run bend update

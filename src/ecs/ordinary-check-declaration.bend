@@ -13,10 +13,24 @@ type ComponentSelection is Data:
   Optional{}
   With{}
   Without{}
+type RelationKind is Data:
+  Ordinary{}
+  Hierarchy{}
+type RelationDirection is Data:
+  Outgoing{}
+  Incoming{}
+type RelationSelection is Data:
+  RelationRequired{}
+  RelationOptional{}
+  RelationPresent{}
+  RelationAbsent{}
+type RelationIdentity is Data:
+  RelationIdentity{id:U32,name:String,inverseName:String,kind:RelationKind}
 type Category is Data:
   Resource{}
   Component{selection:ComponentSelection}
   Machine{}
+  Relation{identity:RelationIdentity,direction:RelationDirection,selection:RelationSelection,cellKey:Maybe<&2,String>}
 type Mode is Data:Read{}
 type Use is Data:Use{category:Category,key:String,mode:Mode,required:Bool}
 type Declaration<-S:Data,-C:Type,-R:Type,-E:Data,-Ops:Type -> Type> is Type:

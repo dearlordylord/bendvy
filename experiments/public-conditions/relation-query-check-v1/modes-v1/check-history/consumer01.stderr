@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a ../../../../../../workspace/formal-proofs/bendvy/src/ecs/machine-stream.Stream pattern with 3 fields
+Location:
+53 |   match value:
+54>|     case St.Stream{batches,positions,dropped,start}:"stream(" ++ List.show(&2,Ev.Batch<M.Transition<U32>>,batch,batches) ++ "," ++ List.show(&2,Ev.Position,position,positions) ++ "," ++ Nat.show(dropped) ++ "," ++ Nat.show(start) ++ ")"
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+55 | def resource_done(~S:Data,+flow:M.Slot<S,State.FlowToken,U32>,+level:M.Slot<S,State.LevelToken,U32>,+ran:U32,+flowStream:St.Stream<U32>,+levelStream:St.Stream<U32>,result:Array<U32> & String) -> State.Resources<S> & String:
+bend 2.0.37 is available: run bend update

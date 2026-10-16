@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : a filled definition (an unfilled law is a dead claim: live code cannot use it)
+- observed : use
+Context:
+- h : CD.Use
+- t : List<&2, CD.Use>
+Location: List.show~10
+153 |     case Some{value}:"Some{" ++ value ++ "}"
+154>| def uses(values:List<&2,CD.Use>) -> String:List.show(&2,CD.Use,use,values)
+    |                                                                ^^^
+155 | def mode_uses(values:List<&2,List<&2,CD.Use>>) -> String:List.show(&2,List<&2,CD.Use>,uses,values)
+bend 2.0.37 is available: run bend update

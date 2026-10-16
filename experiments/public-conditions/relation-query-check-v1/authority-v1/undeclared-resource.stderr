@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : CD.ResourceRead<rejected~S, Array<U32>, ../../../../../../workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.Resource{"Threshold"}, rejected~H, U32>
+- observed : CQ.Read<rejected~S, Q.Product<F.RowView, List<&2, RQ.Cell<rejected~S>>>, rejected~H>
+Context:
+- owner : rejected~H
+Location: rejected
+15 | 
+16>| def rejected(~S:Data,~H:Type,~caps:F.JoinOps(~S)(H),owner:H) -> H & Maybe<&2,U32>:CD.read(~S,~Array<U32>,~F.input_identity(~S),~H,~U32,~caps,owner)
+   |                                                                                                                                         ^^^^
+17 | 
+bend 2.0.37 is available: run bend update

@@ -1,0 +1,38 @@
+{
+  "soleSemanticEdit": {
+    "normalPath": "/workspace/formal-proofs/bendvy/src/ecs/ordinary-check-relation.bend",
+    "normalSha256": "d2e8ee0297dc1f8298f53a17e7c1a4ddd7e4cbf03b2ef839cba751428801e6b2",
+    "variantSha256": "003525f1c4232b0143260bc0dc2223f496d2915dad9a4ba77e3ed1a3c71dca78",
+    "helper": "# Isolated reached defect: operation routes RequiredOut through RequiredIn.\n# Description still comes from the original ordinary declaration.\ndef routed(~S:Data,value:Decl.Declaration<S>) -> Decl.Declaration<S>:\n  match value:\n    case Decl.Declaration{source,Decl.RequiredOut{key}}:Decl.Declaration{source,Decl.RequiredIn{key}}\n    case value:value\n",
+    "operationOperandBefore": "~CQ.selected(~K.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,~S,~V,component),~relation)",
+    "operationOperandAfter": "~CQ.selected(~K.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,~S,~V,component),~routed(~S,relation))",
+    "normalBodyRestoredExactly": true
+  },
+  "consumerBodies": {
+    "fixture": {
+      "normalSha256": "214d1937c3234188b7d7a5d91913ee490289eb0e54d969fdedb73b174d97be4b",
+      "variantSha256": "dc0eba09b00e204e160368ef22e3ad86afe61e7d68d72393130719837a2e7f5b",
+      "bodyIdenticalExceptImports": true
+    },
+    "setup": {
+      "normalSha256": "fa11a7beeca099fc0df10b5cfebb08bbfcf48f211959f004b07ea4937a508c82",
+      "variantSha256": "469466bb7f6a9723d86586d9fdd5e02f67b4b7cbc87d1adebf04d667fac187cc",
+      "bodyIdenticalExceptImports": true
+    },
+    "observe": {
+      "normalSha256": "b7762760ff93e8f4567bd06556212652b0dee366f5fc58c278cedacda43d7250",
+      "variantSha256": "7affa5a5538977adad69b3a52513f0ab9c3e03cb2d69b12ede88df4d4f225313",
+      "bodyIdenticalExceptImports": true
+    },
+    "scenario": {
+      "normalSha256": "2103a4466fc15deee935a3083d0ff438d69329a95a334201c43b962878958e5a",
+      "variantSha256": "e4b64aa393023653d89442bcc8349d23e063c358db1f9a3f9d18522e6d9fc5bd",
+      "bodyIdenticalExceptImports": true
+    },
+    "main": {
+      "normalSha256": "e16d759653e59aabbde1173670f84af4bd1fc6003898504036ea30bc9243d5a8",
+      "variantSha256": "6abdd211e775783b14a287fcaaed4e96a02d9b1b58ad8f6fa7501109ed915ed1",
+      "bodyIdenticalExceptImports": true
+    }
+  }
+}

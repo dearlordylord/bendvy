@@ -275,6 +275,13 @@ matches36,126 independently derived bytes. Five positive/ten intended authority
 controls pass. [Independent final review](../../experiments/public-conditions/machine-query-check-v1/FINAL-REVIEW.md)
 passes; integrated `88645bf21`, CI38906069050 PASS. Host-driven transitions
 are not another registered-handler qualification.
+The [described relation Check slice](inspect.md#ordinary-relation-check-declarations)
+joins the existing relation declaration with component selections and resource
+reads, deriving operational access and automatic descriptions from one input.
+Its full ordinary App, incoming-routing defect and previous machine compatibility
+pairs pass; actual TS execution matches its independent complete oracle.
+All eight modes match the current-source complete117,959-byte JS/Native oracle;
+acceptance is tracked by the [delivery review](../../experiments/public-conditions/relation-query-check-v1/FINAL-REVIEW.md).
 Those are finite current public consumers, not a
 whole matrix or another independent schema. Remaining #61 work is to join the
 unmatched required predicates and cross-feature combinations to their direct
