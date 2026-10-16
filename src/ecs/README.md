@@ -81,7 +81,14 @@ Bind a closed query runner to a caller-authored rank2 gameplay body, then call
 `System.register`. Registration returns the World and an affine
 `Registry<...,runner>` owner. `System.run` threads that exact owner through each
 invocation and retry; changing its runner index is a type mismatch. Namespace
-and exact metadata are checked before execution. Runtime captured affine callbacks remain a follow-up. `Schedule` provides authored static heterogeneous steps, read-only conditions, phases and explicit barriers; closed dispatch retains the registered instance owners.
+and exact metadata are checked before execution.
+For runtime affine capture state, use `ordinary-captures.define` or
+`ordinary-capture-query.define`. Entered-call capture changes persist on system
+failure while ECS writes roll back; unregister returns the capture owner.
+See the [accepted capture contracts](../../docs/parity/captures.md) and
+[heterogeneous schedule composition](../../docs/parity/captured-schedules.md).
+`Schedule` provides authored static heterogeneous steps, read-only conditions,
+phases and explicit barriers; closed dispatch retains registered instance owners.
 
 The query executor owns one transaction across its selected callbacks.
 Success publishes events and queues commands; failure restores its own writes
@@ -103,7 +110,12 @@ the actual World event log. Reader failure preserves its position; an accepted
 condition skip advances to the current tick without reading. `Removals` uses a
 separate typed removal domain, preserves its cursor on skip and retains backlog until reader disposal;
 observed Structural/Commands hooks publish metadata at the explicit barrier.
-Affine event fan-out and composed event/removal provisioning remain follow-ups.
+For affine Type payloads, use the [owned event API](../../docs/parity/affine-events.md):
+the log retains one payload owner and independent readers receive detached Data
+projections. This does not copy affine payloads between readers. See the
+[accepted ordinary consumer review](../../experiments/public-owned-events/ordinary-v1/FINAL-REVIEW.md)
+for family readers and combined query/resource transactions. Composed removal
+provisioning is separate from this owned event contract.
 
 `QueryContract` adds count/single/get and exact typed error diagnostics over
 caller-defined Compose selections. `OptimizedCompose` optionally prepares typed
@@ -253,9 +265,9 @@ stream App; their integrated regression remains pending in the next batch.
 
 Its [independent review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-access-index-v1/FINAL-REVIEW.md) verifies twelve complete JS/Native outputs, all seven query modes and authority controls. Integrated regression and full #56 remain pending.
 
-`ordinary-event-declaration.bend` names a typed Data event domain once for ordinary read/write grants and registration. `ordinary-app-event-runtime.bend` starts from an existing schema App, moves its sole World into the event Runtime, and retains its registered owners and recipe. Writer/reader registration composes common access entries automatically, using actual system Registry IDs independently of Reader IDs. Enable debug and call `index` for grouped component/resource/event access without payload reads or cursor advancement; disabled indexing skips both folds. `with_previous` threads ordinary schema operations through the same Runtime World and retains existing `Ev.with_world` behavior; World pending events remain distinct from Runtime batches. [Independent review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/FINAL-REVIEW.md) qualifies two finite nominal consumers, Data event failure/retry, authority boundaries and a reached category defect: six full JS/Native outputs, 15 commands/51 guards. Type events (#53), full #56 and integrated regression remain open.
+`ordinary-event-declaration.bend` names a typed Data event domain once for ordinary read/write grants and registration. `ordinary-app-event-runtime.bend` starts from an existing schema App, moves its sole World into the event Runtime, and retains its registered owners and recipe. Writer/reader registration composes common access entries automatically, using actual system Registry IDs independently of Reader IDs. Enable debug and call `index` for grouped component/resource/event access without payload reads or cursor advancement; disabled indexing skips both folds. `with_previous` threads ordinary schema operations through the same Runtime World and retains existing `Ev.with_world` behavior; World pending events remain distinct from Runtime batches. [Independent review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/FINAL-REVIEW.md) qualifies two finite nominal consumers, Data event failure/retry, authority boundaries and a reached category defect: six full JS/Native outputs, 15 commands/51 guards. This packet qualifies Data events only; the accepted Type event contract is linked above. Full #56 and integrated regression are outside this packet.
 
-`ordinary-inspector-event.bind` combines an ordinary read declaration with its provision-generated `Selection`; `lift_notice` supports the retained notice owner wrapper. The resulting `ValueRead` returns the same Runtime and detached retained Data event values, without an operational reader, registration, cursor advancement or retention participation. `inspector-event-value` checks the selected leaf's domain key and Read mode; refusal returns `None`, while a valid empty stream returns `Some([])`. [Public consumer and boundary checks](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-event-getter-v1/runtime-only-v2/public-relocation-v1/RESULT.md) pass JS/Native. The unchanged [combined186 regression](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt186-01/FINAL-REVIEW.md) passes independent review. Affine Type events remain under #53; full #54 acceptance remains pending.
+`ordinary-inspector-event.bind` combines an ordinary read declaration with its provision-generated `Selection`; `lift_notice` supports the retained notice owner wrapper. The resulting `ValueRead` returns the same Runtime and detached retained Data event values, without an operational reader, registration, cursor advancement or retention participation. `inspector-event-value` checks the selected leaf's domain key and Read mode; refusal returns `None`, while a valid empty stream returns `Some([])`. [Public consumer and boundary checks](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-event-getter-v1/runtime-only-v2/public-relocation-v1/RESULT.md) pass JS/Native. The unchanged [combined186 regression](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt186-01/FINAL-REVIEW.md) passes independent review. This Inspector getter qualifies Data events only; it does not establish Type event inspection. Full #54 acceptance remains pending.
 
 Ordinary [schema provisioning](ordinary-schema-provision.bend) generates population traversal from component/resource/product declarations. [App population](ordinary-app-population.bend) reports live totals and all declared component counts while returning affine owners; resources are excluded and disabled debug skips the scan. The [bounded review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-population-v1/FINAL-REVIEW.md) covers Column/Product storage; custom stores and integrated performance gates remain open.
 
