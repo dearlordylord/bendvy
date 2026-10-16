@@ -1250,3 +1250,8 @@ correctness observation through the existing collector; both passed under the
 original caps. The ELF differs, so old Native timing evidence is not reused.
 Comparative measurements remain deferred under CPU contention. This records
 actual avoided duplicate work, not measured delivery acceleration.
+
+Checkpoint `3772334a1` passed CI38846886015. Independent review `e2d24f3b3`
+confirms the protected Native correctness/ELF distinction and source-derived
+full54 JS reuse, and accepts the current #64 requirements as planning only.
+No compiler or workload run was repeated for these reviews.
