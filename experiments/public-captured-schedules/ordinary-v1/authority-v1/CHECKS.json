@@ -1,0 +1,44 @@
+{
+  "secondsPerCheck": 5,
+  "results": [
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "0-11",
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/captured51-admission/experiments/public-captured-schedules/ordinary-v1/authority-v1/positive.bend"
+      ],
+      "exitCode": 0,
+      "sourceSHA256": "ac431d98ee36717004cc59b1e31fd5e34ca70cf80e972d9f6f25de412271f124",
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderrSHA256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "0-11",
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/captured51-admission/experiments/public-captured-schedules/ordinary-v1/authority-v1/duplicate-owner.bend"
+      ],
+      "exitCode": 1,
+      "sourceSHA256": "ef4eb53d76ec0ac394c283ab9c7a9f53fb8d89c96240d2671ee0863348b5b2fc",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "f4193cf11df4ea6912834cc44c1b534243bd4f52e0fc62af27df4d4769d37032"
+    },
+    {
+      "argv": [
+        "taskset",
+        "-c",
+        "0-11",
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy-worktrees/captured51-admission/experiments/public-captured-schedules/ordinary-v1/authority-v1/cross-schema.bend"
+      ],
+      "exitCode": 1,
+      "sourceSHA256": "90b1fd76a31ec82951bb9029b0c3a92e917704ea5ad7803f2865c4ec4d4b840c",
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "5e09b16a8121a36faf10261031bca774bc340faa12d0de5a74413fa7cf6ab38a"
+    }
+  ]
+}

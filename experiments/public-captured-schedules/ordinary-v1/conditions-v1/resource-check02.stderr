@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:State.Resources<declaration~S> -> Sigma<&1, &1, State.Resources<declaration~S>, _ => State.Resources<declaration~S>>
+- observed : @+value:State.Resources<declaration~S> -> Sigma<&1, &1, State.Resources<declaration~S>, _ => State.Resources<declaration~S>>
+Location: declaration
+37 | def declaration(~S:Data) -> Resource.Declaration<S,State.Resources<S>,T.Tx<W.World<S,Col.Column<S,U32>,State.Resources<S>,Unit>,Unit>,Ops(~S,T.Tx<W.World<S,Col.Column<S,U32>,State.Resources<S>,Unit>,Unit>)>:
+38>|   Resource.write(~S,~Col.Column<S,U32>,~State.Resources<S>,~Unit,~State.Resources<S>,~project(~S),Schema.resource(~S,~State.Resources<S>,"Counter"))
+   |                                                                                       ^^^^^^^^^^^
+39 | def Instance(S:Data) -> Type:
+bend 2.0.37 is available: run bend update

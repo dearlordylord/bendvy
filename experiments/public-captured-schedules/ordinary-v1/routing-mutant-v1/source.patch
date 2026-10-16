@@ -1,0 +1,11 @@
+--- baseline/src/ecs/captured-schedule-composition.bend
++++ mutant/src/ecs/captured-schedule-composition.bend
+@@ -53,7 +53,7 @@
+     case False{}:right_returned(~World,~L,~R,~LE,~RE,a,right(b,world,id))
+ def pair_cataloged(~World:Type,~L:Type,~R:Type,~LE:Data,~RE:Data,~left:L -> World -> U32 -> Outcome<World,L,LE>,~right:R -> World -> U32 -> Outcome<World,R,RE>,b:R,world:World,+id:U32,result:L & List<&2,Identity>) -> Outcome<World,L & R,Choice<LE,RE>>:
+   match result:
+-    case (a,entries):pair_selected(~World,~L,~R,~LE,~RE,~left,~right,member(entries,id),a,b,world,id)
++    case (a,entries):pair_selected(~World,~L,~R,~LE,~RE,~left,~right,Bool.not(member(entries,id)),a,b,world,id)
+ def pair_dispatch(~World:Type,~L:Type,~R:Type,~LE:Data,~RE:Data,~catalog:L -> L & List<&2,Identity>,~left:L -> World -> U32 -> Outcome<World,L,LE>,~right:R -> World -> U32 -> Outcome<World,R,RE>,owners:L & R,world:World,id:U32) -> Outcome<World,L & R,Choice<LE,RE>>:
+   match owners:
+     case (a,b):pair_cataloged(~World,~L,~R,~LE,~RE,~left,~right,b,world,id,catalog(a))

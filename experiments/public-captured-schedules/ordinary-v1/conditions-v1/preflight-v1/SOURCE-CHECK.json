@@ -1,0 +1,23 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captured-schedules/ordinary-v1/conditions-v1/preflight-v1/scenario.bend"
+      ],
+      "exitCode": 0,
+      "sourceSha256": "0bf82c345aec51f9206c7c8211f35134dac6f5ef337e680d217984602f4abad5",
+      "combinedOutput": "scenario.check.combined"
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captured-schedules/ordinary-v1/conditions-v1/preflight-v1/main.bend"
+      ],
+      "exitCode": 1,
+      "sourceSha256": "3e326fd196e21daf679950ed40f8c091d782775dc42178d13216d9ca3d1bfbfb",
+      "combinedOutput": "main.check.combined"
+    }
+  ],
+  "limitation": "Main exit1 only six foreign-dependent IO definitions; scenario PASS0. No backend execution yet."
+}

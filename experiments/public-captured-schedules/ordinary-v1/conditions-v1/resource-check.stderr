@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+24 | def changed(~S:Data,resources:State.Resources<S>,+delta:U32) -> State.Resources<S>:
+25>|   (resources,value) = State.counter_read(~S,resources)
+   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+26 |   State.counter_write(~S,resources,(value + delta : U32))
+bend 2.0.37 is available: run bend update

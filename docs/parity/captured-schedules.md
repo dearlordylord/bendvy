@@ -10,9 +10,9 @@ An application reuses typed heterogeneous captured systems across nested schedul
 
 ## Acceptance criteria
 
-- [ ] Compose independently authored instances with different affine capture types, resources and conditions; do not require a fixed closed dispatcher enumeration or copying single-use closures.
-- [ ] Validate registration identity, duplicate rules and requirements before work. Preserve capture owners on skip/refusal and the approved per-instance failure contract on retry.
-- [ ] Execute repeated runs, disposal/re-registration and foreign-world refusal with complete captures/world/queue observations; detect a reached instance mix-up/lost-owner mutant.
+- [x] Compose independently authored instances with different affine capture types, resources and conditions; do not require a fixed closed dispatcher enumeration or copying single-use closures.
+- [x] Validate registration identity, duplicate rules and requirements before work. Preserve capture owners on skip/refusal and the approved per-instance failure contract on retry.
+- [x] Execute repeated runs, disposal/re-registration and foreign-world refusal with complete captures/world/queue observations; detect a reached instance mix-up/lost-owner mutant.
 
 ## Blocked by
 
@@ -29,3 +29,45 @@ An application reuses typed heterogeneous captured systems across nested schedul
 - Use before/after JS call and allocation profiles for a consequential performance change; report allocation sampling separately from physical/RSS memory. Optimize demonstrated bottlenecks while completing features. The scoped #30 amendment is not a global gate waiver; full performance remains under #21/#23/#24.
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
+
+## Current implementation and evidence
+
+`captured-schedule-composition` derives routing and identity catalogs from typed
+owner products; applications compose independently authored owners without a
+fixed dispatcher enum. Resource and query leaf adapters retain their actual
+captures. `captured-schedule` validates exact live registrations, duplicates,
+canonical steps and requirements before any phase, condition, callback or barrier.
+Nested plans reuse the existing #34 flatten/requirement rules.
+
+`captured-schedule-condition` retains ordinary #35 condition owners alongside
+system owners. Condition registrations are checked separately and never enter
+the executable system catalog. Actual stateful `StateChanged` revisions and
+Registry cursors are independent of captured query cursors. Condition false
+preserves system owners; condition and body errors retain their existing distinct
+journal prefixes. The default `NoBinding` mapping is source-reviewed; that exact
+constructor is not an executed case in the new consumer. Existing #35 evidence
+qualifies mixed conditional/unconditional public behavior.
+
+Current complete independent observations on stock JS and Native:
+
+| Consumer | Full output | Checked behavior |
+| --- | --- | --- |
+| [Ordinary composition](../../experiments/public-captured-schedules/ordinary-v1/README.md) | 6,161 bytes | Different query Pack/resource Array types, nested order, repeat, skip, failure/retry and foreign refusal. |
+| [Admission](../../experiments/public-captured-schedules/ordinary-v1/admission-v1/README.md) | 15,793 bytes | Genuine foreign collisions, stale owner, invalid nested plans and missing requirements before work; deferred Counter+37 survives and is drained. |
+| [Lifecycle](../../experiments/public-captured-schedules/ordinary-v1/lifecycle-v1/README.md) | 4,217 bytes | Actual unregister returns heterogeneous packs, re-registration uses those values and new IDs, and a rebuilt plan runs again. |
+| [Ordinary stateful conditions](../../experiments/public-captured-schedules/ordinary-v1/conditions-v1/README.md) | 13,895 bytes | Actual machine state/stream, condition revisions and Registry cursor, distinct captured owners, false skip and body failure/retry. |
+| [Condition preflight](../../experiments/public-captured-schedules/ordinary-v1/conditions-v1/preflight-v1/README.md) | 16,957 bytes | Missing state is false; missing need preserves cursors; condition IDs are not executable systems; stale condition refuses before the prefix. |
+| [Reached routing defect](../../experiments/public-captured-schedules/ordinary-v1/routing-mutant-v1/runtime-v1/README.md) | 5,831 bytes | Negated membership selects the wrong typed leaf; its unchanged guard refuses. Both backends reject the complete normal trace. |
+
+The [actual TS comparison](../../experiments/public-captured-schedules/ordinary-v1/reference-delivery-v1/README.md)
+retains all 7,079 independent oracle bytes for shared heterogeneous nested
+execution. Tick/phase/API differences remain explicit; TS supplies no unregister
+comparison. Finite traces do not prove universal refinement or host-IO rollback.
+Protected #28 evidence is reusable through the unchanged 23-source workload;
+combined full-feature performance stays under #21/#23/#24.
+
+[Independent joined Spec/Standards review](../../experiments/public-captured-schedules/ordinary-v1/FINAL-REVIEW.md)
+accepts the stated #51 semantic criteria. Composition owner duplication and
+cross-schema checks reject at the actual new entry; unchanged grant-confinement
+evidence is source-bound in authority-v1. Integration, CI and the issue report
+remain the delivery checkpoint.

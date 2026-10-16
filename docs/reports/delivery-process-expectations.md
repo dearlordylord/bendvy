@@ -1323,3 +1323,26 @@ remains unmeasured.
 The next implementation is #51, reusing the delivered capture lifecycle and
 existing schedule/requirements machinery. CI38855954288 passed and #50 was closed after its English acceptance report; no compiler
 or benchmark is repeated for this status note.
+
+#51 first consumer `28b1a2e9b` passed stock JS/Native against all 6,161
+independent oracle bytes on its first pair: five successful commands under the
+existing limits. It composes distinct query Pack/resource Array capture types
+through generic products and observes every changed state before expanded
+conditions/admission/disposal checks. No new runner or preliminary review stage
+was added; this is a bounded feature result, not full #51 or measured speed.
+
+#51 expanded consumers passed their full independent oracles on both stock
+backends: admission 15,793 bytes, lifecycle 4,217 and stateful conditions 13,895.
+The admission consumer retains a real deferred Counter+37 operation and observes
+its terminal drain, so pending preservation is checked by effect as well as count.
+Stateful conditions reuse #35 semantics and observe machine state, queues and
+separate cursors. Existing collectors and limits were reused; no comparative
+performance or overall delivery-speed claim follows.
+
+#51 final review accepts its semantic criteria. Root also checked all seven
+portable packets offline: 3,099 per-packet compressed objects, 31 successful
+commands and 106 unchanged guards, including exact full-path raw joins and
+complete consumer oracle equality. This reused the completed runs; no backend
+was repeated for retention or review. One coordination delay came from sending
+messages to a completed helper; resuming it with followup_task resolved it.
+No new process document or check stage was introduced.

@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'resource' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+59 |   (alive,ltext) = observed
+60>|   St.Resources{+counter,+resource_state} = resource
+   |                                            ^^^^^^^^
+61 |   (W.World{ns,next,high,alive,capacity,depth,column,St.Resources{counter,resource_state},events,pending,regs,sid,clock},"W{" ++ U32.show(ns) ++ "," ++ U32.show(next) ++ "," ++ U32.show(high) ++ "," ++ ltext ++ "," ++ U32.show(capacity) ++ "," ++ Nat.show(depth) ++ "," ++ ctext ++ "," ++ U32.show(counter) ++ ":" ++ St.state_text(~S,resource_state) ++ "," ++ List.show(~&2,~Unit,~unit,events) ++ "," ++ "pending=" ++ U32.show(pendingCount) ++ "," ++ List.show(~&2,~W.RegistrationMeta,~registration,regs) ++ "," ++ U32.show(sid) ++ "," ++ U32.show(clock) ++ "}")
+bend 2.0.37 is available: run bend update

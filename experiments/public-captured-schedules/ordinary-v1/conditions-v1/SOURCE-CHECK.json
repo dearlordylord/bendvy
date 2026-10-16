@@ -1,0 +1,45 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captured-schedules/ordinary-v1/conditions-v1/scenario.bend"
+      ],
+      "exitCode": 1,
+      "combinedOutput": "scenario01.check.combined",
+      "sourceSha256": null,
+      "historicalRepair": true
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captured-schedules/ordinary-v1/conditions-v1/scenario.bend"
+      ],
+      "exitCode": 1,
+      "combinedOutput": "scenario02.check.combined",
+      "sourceSha256": null,
+      "historicalRepair": true
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captured-schedules/ordinary-v1/conditions-v1/scenario.bend"
+      ],
+      "exitCode": 0,
+      "combinedOutput": "scenario03.check.combined",
+      "sourceSha256": "299a6f4a455339d6dd6aa32e7afe7327cc25d012cd2ee5a968eca5775a334f6f",
+      "historicalRepair": false
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-captured-schedules/ordinary-v1/conditions-v1/main.bend"
+      ],
+      "exitCode": 1,
+      "combinedOutput": "main01.check.combined",
+      "sourceSha256": "1706e26afde6d032ec3306f180ebaa6379ca52da115636167ca55e0b68aa540e",
+      "historicalRepair": false
+    }
+  ],
+  "limitation": "Final scenario PASS0; concrete main exit1 ONLY six foreign-dependent IO definitions. No full main check PASS claimed. Earlier fixture diagnostics retained; their source hashes were not frozen."
+}

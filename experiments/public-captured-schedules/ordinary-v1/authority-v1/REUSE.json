@@ -1,0 +1,81 @@
+{
+  "scope": "Reuse only unchanged per-body grant and opaque-H boundaries; new composed owner/schema boundaries have fresh controls. No whole-source identity claim for fixture: ordinary #51 resource R is U32 instead of Unit.",
+  "priorCommit": "05bdcb596",
+  "priorCheckRecord": {
+    "sourcePath": "/workspace/formal-proofs/bendvy-worktrees/captures50-query-authority/experiments/public-captures/ordinary-owner-v1/query-v1/authority-v1/CHECKS.json",
+    "sha256": "2a747834cd23183764b9ad159ba88149f5c6e9f8336005a5972c9a4648bf0f24"
+  },
+  "reusedControls": [
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/captures50-query-authority/experiments/public-captures/ordinary-owner-v1/query-v1/authority-v1/write-through-read.bend",
+      "sha256": "a9a10b4afc4d2a285a8691124b7cefbf33c5822b1d1830fea64a86556effe13c",
+      "stderrPath": "/workspace/formal-proofs/bendvy-worktrees/captures50-query-authority/experiments/public-captures/ordinary-owner-v1/query-v1/authority-v1/write-through-read.stderr",
+      "stderrSHA256": "5971a1ff63a6125c8246ba241ccc96573ed6c6c3831f0a53f6ed61d0f7216cc2"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/captures50-query-authority/experiments/public-captures/ordinary-owner-v1/query-v1/authority-v1/undeclared.bend",
+      "sha256": "beae812a3edbe35bf7fbd8da54781121325f109b574947cc273f5a916aeb7fe9",
+      "stderrPath": "/workspace/formal-proofs/bendvy-worktrees/captures50-query-authority/experiments/public-captures/ordinary-owner-v1/query-v1/authority-v1/undeclared.stderr",
+      "stderrSHA256": "67ba2e42f5f65a98b88b9672289df026f45fbc616548690b50b2240c3ab1ea29"
+    },
+    {
+      "path": "/workspace/formal-proofs/bendvy-worktrees/captures50-query-authority/experiments/public-captures/ordinary-owner-v1/query-v1/authority-v1/abstract-owner-escape.bend",
+      "sha256": "7619c7282b1cdfde328b115428f287026c3838a79cda38cb20def9b5d88eea1a",
+      "stderrPath": "/workspace/formal-proofs/bendvy-worktrees/captures50-query-authority/experiments/public-captures/ordinary-owner-v1/query-v1/authority-v1/abstract-owner-escape.stderr",
+      "stderrSHA256": "0cba4e72186f0f028f4d0391bb0382d8721650808b0d31a3581e7d1ddae15ff0"
+    }
+  ],
+  "exactSharedModules": [
+    {
+      "path": "src/ecs/ordinary-capture-query.bend",
+      "sha256": "733592e4f7c1b016e744222a5701240a1341a91baa7f3390c2cbab5ca5d6adbf"
+    },
+    {
+      "path": "src/ecs/capture-query.bend",
+      "sha256": "23f2439e8204194f7753d4bc432cc10976a2567fb93488ab767a64740c16d829"
+    },
+    {
+      "path": "src/ecs/ordinary-query-declaration.bend",
+      "sha256": "bbb77a38ebe83f27edf4d1ec7be7b56d6360687a088046ac2dc3c45ca6f73a32"
+    },
+    {
+      "path": "src/ecs/compose.bend",
+      "sha256": "8f9a88f873d515b4e7174de52af04502db130bcb28eb3a8a1fae8316c19933ca"
+    },
+    {
+      "path": "src/ecs/capabilities.bend",
+      "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe"
+    },
+    {
+      "path": "src/ecs/local.bend",
+      "sha256": "8cc5b3c9d3597c60d8a1b9b7fd206a92b289669c3cd9a8575db65ce9af37bd47"
+    },
+    {
+      "path": "src/ecs/ordinary-app-local-fields.bend",
+      "sha256": "844f476e001d73bd741409f32f67420805a95c371d9f1f495f43e396190e7239"
+    },
+    {
+      "path": "src/ecs/ordinary-resource-system.bend",
+      "sha256": "463a51c5a5996c86be5e08c23741b3e575241033962e669115c5a0b215de04af"
+    }
+  ],
+  "exactQueryCallbackDefinitions": [
+    {
+      "function": "Ops",
+      "sha256": "71a605dcb7848315137c825fff095bd489e701418dd6a83ebf6ee699b8f1f81c"
+    },
+    {
+      "function": "got",
+      "sha256": "1c504a75e31edb4b9618116a5bd9dcffb232209eb5e346f912cc3a6b5c785cb1"
+    },
+    {
+      "function": "body",
+      "sha256": "ee770b53c72922e681a522910a652755870481ed085bffeccd5a5aaed0c8df3a"
+    },
+    {
+      "function": "decision",
+      "sha256": "a10c3b51310b5790e541bfdb2fee46c27998ec4d531d23bc354503ab588269e2"
+    }
+  ],
+  "callchain": "QLeaf.dispatch -> O.run -> Capture.run -> Local.run -> O.runner -> Fold.each_since -> Cap.invoke_owned(closed body); actual Ops and abstract H remain unchanged. Resource R is threaded only inside concrete opaque Frame and does not widen the callback grant."
+}

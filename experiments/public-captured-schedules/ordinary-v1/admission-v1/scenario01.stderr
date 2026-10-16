@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : label
+- observed : label (consumed more than once)
+Location: selected
+82 |     case State{world,foreign,Run.Owned{name,_,owners},text}:State{world,foreign,Run.Owned{name,newplan,owners},text}
+83>| def selected(~S:Data,label:String,newplan:SP.Plan<S>,state:State<S>) -> State<S>:
+   |                      ^^^^^
+84 |   run(~S,label,F.Args{1,0},R.Args{10,False{}},False{},snapshot(~S,label ++ ":before",replan(~S,newplan,state)))
+bend 2.0.37 is available: run bend update

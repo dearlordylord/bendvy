@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.World<First, Col.Column<First, U32>, U32, Unit>
+- observed : W.World<Other, Col.Column<Other, U32>, U32, Unit>
+Context:
+- owner : Run.Owned<First, Col.Column<First, U32>, U32, Unit, Sigma<&1, &1, ../../../../src/ecs/captured-schedule-query.Leaf<First, Col.Column<First, U32>, U32, Unit, ../../../public-captures/ordinary-owner-v1/payload.Pack, F.Ops, F.Args, F.Error, U32, ../../../../src/ecs/ordinary-query-declaration.Declaration{(../../../../src/ecs/capabilities.Write{Q.get(First, Col.Column<First, U32>, U32, Unit, Unit, U32, U32, F.Token, F.take(First), F.put(First), F.view, ../../../../src/ecs/component.Family{"Value"}), Q.set(First, Col.Column<First, U32>, U32, Unit, Unit, U32, U32, F.Token, F.take(First), F.put(First), F.view, ../../../../src/ecs/component.Family{"Value"})}, Unit{}), ../../../../src/ecs/ordinary-query-declaration.both(Q.Frame<First, Col.Column<First, U32>, U32, Unit>, Q.family_match(First, Col.Column<First, U32>, U32, Unit, Unit, U32, U32, F.Token, F.take(First), F.put(First), F.view, ../../../../src/ecs/component.Family{"Value"}, Q.Required{}), Q.lifecycle_match(First, Col.Column<First, U32>, U32, Unit, Unit, U32, U32, F.Token, F.take(First), F.put(First), F.view, ../../../../src/ecs/component.Family{"Value"}, Q.Changed{})), [../../../../src/ecs/ordinary-query-declaration.Clause{"Value", ../../../../src/ecs/ordinary-query-declaration.Write{}}, ../../../../src/ecs/ordinary-query-declaration.Clause{"Value", ../../../../src/ecs/ordinary-query-declaration.Changed{}}]}, F.body>, _ => ../../../../src/ecs/captured-schedule-local.Leaf<First, Col.Column<First, U32>, U32, Unit, Array<U32>, R.Args, R.Error, Unit, ../../../../src/ecs/ordinary-app-local-fields.runner(First, Col.Column<First, U32>, U32, Unit, Array<U32>, R.Args, R.Error, Unit, R.Ops, ../../../../src/ecs/ordinary-resource-system.Declaration{../../../../src/ecs/ordinary-schema.Resource{"Counter"}, ../../../../src/ecs/ordinary-query-declaration.Write{}, ../../../../src/ecs/capabilities.ValueWrite{../../../../src/ecs/resource.tx_get(First, Col.Column<First, U32>, U32, Unit, U32, R.project), ../../../../src/ecs/resource.tx_replace(First, Col.Column<First, U32>, U32, Unit)}}, R.body)>>, Comp.Choice<Q.Error<F.Error>, R.Error>, Bind.catalog(First), Bind.dispatch(First)>
+- world : W.World<Other, Col.Column<Other, U32>, U32, Unit>
+Location: rejected
+14 | def rejected(owner:Bind.Schedule(~First),world:W.World<Other,Col.Column<Other,U32>,U32,Unit>) -> Run.Run<W.World<First,Col.Column<First,U32>,U32,Unit>,Bind.Schedule(~First),First,Comp.Choice<Q.Error<F.Error>,R.Error>>:
+15>|   Bind.run(~First,owner,world)
+   |                         ^^^^^
+16 | 
+bend 2.0.37 is available: run bend update

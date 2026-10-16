@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : Data
+- observed : Type
+Location: Instance
+40 |   Resource.write(~S,~Col.Column<S,U32>,~State.Resources<S>,~Unit,~State.Resources<S>,~project(~S),Schema.resource(~S,~State.Resources<S>,"Counter"))
+41>| def Instance(+S:Data) -> Type:
+   |                 ^^^^
+42 |   L.Instance<S,Col.Column<S,U32>,State.Resources<S>,Unit,Array<U32>,Args,Error,Unit,Ordinary.runner(~S,~Col.Column<S,U32>,~State.Resources<S>,~Unit,~Array<U32>,~Args,~Error,~Unit,~Ops(~S),~declaration(~S),~body(~S))>
+Note: +S can be used many times, so its type must be Data.
+bend 2.0.37 is available: run bend update
