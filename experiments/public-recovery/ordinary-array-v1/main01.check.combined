@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Unit -> Unit
+- observed : Unit
+Context:
+- world : W.World<first~S, Unit, Array<Array<U32>>, Unit>
+Location: first
+13 |   match created:
+14>|     case WI.Created{world}:IO.bind(WI.Creation<S,Unit,Array<Array<U32>>,Unit>,String,WI.create(~S,~Unit,~Array<Array<U32>>,~Unit,~Unit{},F.array(900)),value => foreign(~S,world,value))
+   |                                                                                                                                   ^^^^^^
+15 |     case _:IO.die(String,1,"creation failed")
+bend 2.0.37 is available: run bend update

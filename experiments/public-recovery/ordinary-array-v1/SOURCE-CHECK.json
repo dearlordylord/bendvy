@@ -1,0 +1,65 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "src/ecs/recoverable-array.bend"
+      ],
+      "exitCode": 1,
+      "combinedOutput": "array01.check.combined",
+      "sourceSha256": null,
+      "historicalRepair": true
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "src/ecs/recoverable-array.bend"
+      ],
+      "exitCode": 1,
+      "combinedOutput": "array02.check.combined",
+      "sourceSha256": null,
+      "historicalRepair": true
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "src/ecs/ordinary-recoverable-array-resource.bend"
+      ],
+      "exitCode": 1,
+      "combinedOutput": "ordinary01.check.combined",
+      "sourceSha256": null,
+      "historicalRepair": true
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-recovery/ordinary-array-v1/scenario.bend"
+      ],
+      "exitCode": 0,
+      "combinedOutput": "scenario01.check.combined",
+      "sourceSha256": "ee88e1046255e1f40887052dad0b6bb6cdb53cc4a090a1e39dd28711de969a57",
+      "historicalRepair": false
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-recovery/ordinary-array-v1/main.bend"
+      ],
+      "exitCode": 1,
+      "combinedOutput": "main01.check.combined",
+      "sourceSha256": null,
+      "historicalRepair": true
+    },
+    {
+      "argv": [
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "experiments/public-recovery/ordinary-array-v1/main.bend"
+      ],
+      "exitCode": 1,
+      "combinedOutput": "main02.check.combined",
+      "sourceSha256": "498d741c863922a01a971dff43507727b6395cbffa9b80b65e2b7f89680720ef",
+      "historicalRepair": false
+    }
+  ],
+  "limitation": "Final scenario PASS0; full main exit1 ONLY six expected foreign/IO dependent definitions. No full main PASS claimed. Historical repair source bytes not frozen."
+}

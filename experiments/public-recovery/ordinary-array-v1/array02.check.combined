@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : a decreasing self-call (arguments are read left to right: each passed unchanged until one shrinks)
+- observed : rollback
+Context:
+- record   : Record<rollback~P>
+- rest     : List<&1, Record<rollback~P>>
+- array    : Array<rollback~P>
+- released : List<&1, Record<rollback~P>>
+Location: rollback
+38 |     case []:(array,released)
+39>|     case record <> rest:recovered(~P,rest,released,rollback(~P),undo(~P,record,array))
+   |                                                    ^^^^^^^^
+40 | # In both outcomes returned records are in authored operation order.
+bend 2.0.37 is available: run bend update

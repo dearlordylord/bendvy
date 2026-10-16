@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : registry
+- observed : registry (consumed more than once)
+Location: duplicate
+12 |   Other{}
+13>| def duplicate(registry:F.Registry(~First)) -> F.Registry(~First) & F.Registry(~First):
+   |               ^^^^^^^^
+14 |   (registry,registry)
+bend 2.0.37 is available: run bend update

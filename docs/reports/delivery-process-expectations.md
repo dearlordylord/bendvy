@@ -1351,3 +1351,17 @@ No new process document or check stage was introduced.
 report was posted and the issue closed. The next owner proceeds to #52 with the
 existing exact-recovery requirement and host-IO boundary; ordinary #50 capture
 persistence is preserved. No numerical performance criterion changed.
+
+The first #52 ordinary resource consumer passes stock JS and Native -O3 against
+the independently derived complete 6,951-byte owner trace. Five commands and 17
+guards use the existing collector; source-current checks reuse the unchanged
+23-body protected #28 closure and its reviewed stock artifact bridge. No extra
+benchmark or infrastructure campaign was run for this additive slice. Actual
+rank-2 authority controls pass/reject at their intended boundaries. Component and
+opt-in capture recovery remain in #52; this is another observed reuse of the
+shortened delivery path, not measured delivery acceleration.
+
+The requested checkpoint review of `218b5b548`/`fad6e9c5d` again finds no remaining
+Spec/Standards blocker. Follow-up `804554913` already repaired the umbrella
+remaining-core timing clause. CI38791374316 and its earlier report note remain
+valid without reruns; correctness, #28 and final performance goals are unchanged.

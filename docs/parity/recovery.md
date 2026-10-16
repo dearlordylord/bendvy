@@ -28,3 +28,26 @@ Systems perform recoverable operations on caller-owned affine component/resource
 - Use before/after JS call and allocation profiles for a consequential performance change; report allocation sampling separately from physical/RSS memory. Optimize demonstrated bottlenecks while completing features. The scoped #30 amendment is not a global gate waiver; full performance remains under #21/#23/#24.
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
+
+## First ordinary resource slice
+
+Source `ea3383ab1`, plans `f2e5f4fe8` and independent oracle `692e42caa`
+qualify canonical whole-resource Array replacement and affine element exchange
+through a registered public system. Stock JS and Native -O3 both match all 6,951
+bytes, including earlier commit, rollback, failed/successful retry, invalid-index
+refusal and a genuine colliding foreign registration on two nominal schemas.
+Displaced originals on commit and replacements on rollback are returned in authored
+order; every nested affine owner is observed before caller release.
+
+See the [retained backend packet](../../experiments/public-recovery/ordinary-array-v1/runtime-v1/README.md)
+and [actual authority controls](../../experiments/public-recovery/ordinary-array-v1/authority-v1/README.md).
+The ordinary constructor derives its canonical inverse and recovery collector; raw
+World, Frame, journal and Lens helpers remain trusted engine administration.
+The positive actual run checks; seven negative programs reject misuse. These are
+finite checks, not approved laws or universal runtime proofs.
+
+This does not complete #52: component payload/stamp recovery, explicit opt-in
+captured recovery, reached semantic mutation, shared TS reconciliation and joined
+acceptance remain in this issue. Normal #50 capture persistence is unchanged.
+Empty pending queues and zero clocks in this resource fixture do not qualify
+deferred effects, external IO rollback or component lifecycle restoration.

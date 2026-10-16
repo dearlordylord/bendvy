@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : O.Write<First, Array<U32>, Schema.Resource{"OtherPayload"}, rejected~H>
+- observed : O.Write<First, Array<U32>, Schema.Resource{"Payload"}, rejected~H>
+Context:
+- owner       : rejected~H
+- replacement : Array<Array<U32>>
+Location: rejected
+13 | def rejected(~H:Type,~caps:F.Ops(~First,H),owner:H,replacement:Array<Array<U32>>) -> H:
+14>|   O.replace(~First,~Array<U32>,~Schema.resource(~First,~Array<Array<U32>>,"OtherPayload"),~H,~caps,owner,replacement)
+   |                                                                                               ^^^^
+15 | 
+bend 2.0.37 is available: run bend update
