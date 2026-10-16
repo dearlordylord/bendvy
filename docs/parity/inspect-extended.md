@@ -136,8 +136,8 @@ source-only and is not a performance result.
 ## Semantic acceptance reconciliation
 
 Independent [Spec/Standards review](../../experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/current-source-v1/independent-review-v2/FINAL-REVIEW.md)
-confirms all three #55 semantic criteria. Integration and CI publication remain
-pending. The complete #54 23-grant Native obligation remains separate.
+confirms all three #55 semantic criteria. Integrated at `3a0d0e26d`;
+CI38834835781 passed and #55 closed with its English completion report. The complete #54 23-grant Native obligation remains separate.
 
 The current [ordinary lifecycle](../../experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/current-source-v1/README.md)
 adapts only fixtures to the canonical machine stream snapshot and exhaustive
