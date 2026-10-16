@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:W.WorldError -> Sigma<&1, &1, W.WorldError, _ => String>
+- observed : @+value:W.WorldError -> Sigma<&1, &1, W.WorldError, _ => String>
+Location: output
+88 |   match value:
+89>|     case F.Output{a,b,c,d}:output_join(items(~Maybe<Array<Array<U32>>>,~Dump.optional(~Array<Array<U32>>,~array),a),items(~Array<Array<U32>>,~array,b),items(~Array<U32>,~element,c),items(~W.WorldError,~error_owner,d))
+   |                                                                                                                                                                                                           ^^^^^^^^^^^
+90 | def component_join(~S:Data,+target:W.Handle<S>,+stamp:Life.Stamp,observed:Maybe<Array<Array<U32>>> & String) -> RC.Record<S,Array<Array<U32>>> & String:
+bend 2.0.37 is available: run bend update

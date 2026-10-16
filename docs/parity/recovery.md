@@ -59,6 +59,28 @@ and grants. Pure source checks pass; the IO entry retains its five expected
 foreign-code refusals, not a mathematical proof verdict. This closes the specific
 Product-field composition gap found by #61; full core qualification remains open.
 
+### Automatic App metadata
+
+`ordinary-app-recovery.register` appends canonical recovery systems to the
+ordinary typed App. Component/resource write categories come from the same
+bindings that supply operational grants; opted-in capture remains private state.
+Enabling App debug supplies descriptions and the access index without a caller
+metadata adapter. `run` returns the updated App, outcome, output and recovery
+owners through its typed result; previous App owners remain threaded through it.
+
+Legacy/custom `Declaration{empty,access}` remains available to the classic
+recovery runner. Its metadata is opaque: automatic App registration rejects it
+before registering anything and returns the original App and incoming capture.
+Canonical composition retains typed descriptions without parsing access strings.
+The current consumer exercises direct registered invocation; scheduled recovery
+dispatch is not established by this slice. The [independent final review](../../experiments/public-recovery/automatic-app-v1/FINAL-REVIEW.md)
+accepts the complete 30,271-byte stock JS/Native consumer, 16,673-byte
+source-current classic compatibility, 30,283-byte reached category defect
+(normal output rejected) and 5,447-byte repeated opaque rejection. Four entry
+positives, legacy support and eight intended authority refusals qualify the
+actual ordinary boundary. Existing #28 source/artifact applicability is reused;
+full #61 and final product performance remain open.
+
 | Evidence | Stock JS / Native full oracle | Scope |
 | --- | --- | --- |
 | [Resource](../../experiments/public-recovery/ordinary-array-v1/runtime-v1/README.md) | 6,951 bytes each | Whole replacement, affine elements, refusal, earlier commit and retry |

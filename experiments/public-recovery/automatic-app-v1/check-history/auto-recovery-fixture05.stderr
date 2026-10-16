@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: Empty)
+- observed : 'Empty'
+Location:
+ 98 | def Previous(~S:Data) -> Type:Unit & PriorOwned(~S)
+ 99>| def Empty(~S:Data) -> Type:Build.Registered<S,World(~S),Unit,Unit,Build.empty_observe(~World(~S)),Pair.empty(~S)>
+    |     ^^^^^
+100 | def previous_register(~S:Data,app:Empty(~S),capture:Array<U32>) -> PriorApp.Appended<Empty(~S),Build.Registered<S,World(~S),Previous(~S),Unit,Build.empty_observe(~World(~S)),Pair.fold_pair(~S,~Unit,~PriorOwner.Owner<S,Store(~S),Resources(),Unit,Array<U32>,PriorOps,Unit,Unit,Unit,prior_query(~S),prior_body>,~Pair.empty(~S),~PriorApp.fold(~S,~Store(~S),~Resources(),~Unit,~Array<U32>,~PriorOps,~Unit,~Unit,~Unit,~prior_query(~S),~prior_body))>,Array<U32>>:
+bend 2.0.37 is available: run bend update

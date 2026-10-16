@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : ArrayEntry.Write<First, Array<U32>, ../../../../../../workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.Resource{"SamePayloadSibling"}, rejected~H>
+- observed : ArrayEntry.Write<First, Array<U32>, ../../../../../../workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.Resource{"Target"}, rejected~H>
+Context:
+- owner    : rejected~H
+- incoming : Array<Array<U32>>
+Location: rejected
+21 | def rejected(~H:Type,~caps:F.Ops(~First)(H),owner:H,incoming:Array<Array<U32>>) -> H:
+22>|   ArrayEntry.replace(~First,~Array<U32>,~F.sibling_identity(~First),~H,~F.resource_cap(~First,~H,~caps),owner,incoming)
+   |                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+23 | 
+bend 2.0.37 is available: run bend update

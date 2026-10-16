@@ -282,3 +282,9 @@ binding to select an affine Array inside Product resources. Replacement and
 element exchange use the existing recovery journal and generated inverse,
 preserving sibling owners and returning displaced payloads for actual retry.
 See the [API and complete qualification](../../docs/parity/recovery.md#selected-resource-fields).
+
+`ordinary-app-recovery` composes canonical recovery declarations with the ordinary
+App owner. The same declarations derive component/resource write metadata for
+enable-debug snapshots and the access index; opted-in capture stays private.
+Registration rejects opaque legacy declarations while returning the original App
+and capture. See the [API scope](../../docs/parity/recovery.md#automatic-app-metadata).

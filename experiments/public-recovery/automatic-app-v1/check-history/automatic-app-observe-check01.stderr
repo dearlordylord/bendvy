@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+62 |   match value:
+63>|     case Build.Registered{world,(Unit{},owner),Tree.Recipe{},debug}:app_join(~S,debug,world(~S,world),owned(~S,owner))
+   |                                                                                             ^
+64 | def args_join(~S:Data,+target:W.Handle<S>,+fail:Bool,a:Array<Array<U32>> & String,b:Array<Array<U32>> & String,c:Array<U32> & String,d:Array<Array<U32>> & String,e:Array<U32> & String) -> F.Args<S> & String:
+bend 2.0.37 is available: run bend update

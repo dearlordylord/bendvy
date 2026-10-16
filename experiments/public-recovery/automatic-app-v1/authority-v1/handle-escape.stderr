@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.Handle<First>
+- observed : rejected~H
+Context:
+- owner : rejected~H
+Location: rejected
+20 | type Other is Data:Other{}
+21>| def rejected(~H:Type,~caps:F.Ops(~First)(H),owner:H) -> W.Handle<First>:owner
+   |                                                                         ^^^^^
+22 | 
+bend 2.0.37 is available: run bend update

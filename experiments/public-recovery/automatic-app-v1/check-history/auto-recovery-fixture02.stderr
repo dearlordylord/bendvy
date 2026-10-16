@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+88 | def Before(~S:Data) -> Type:Build.Registered<S,World(~S),Unit,Unit,Build.empty_observe(~World(~S)),Pair.empty(~S)>
+89>| def Application(~S:Data) -> Type:Bridge.After(~S,~Store(~S),~Resources(),~Unit,~Array<Array<U32>>,~Recovery(~S),~Ops(~S),~Args<S>,~Error,~Output,~D.pair_grant(~S,~State(~S),~List<RC.Record<S,Array<Array<U32>>>>,~TailRecovery(),~ComponentOps(~S),~TailOps(~S),~Component.grant(~S,~Store(~S),~Resources(),~Unit,~Array<Array<U32>>,~Unit,~Array<Array<U32>>,~Unit,~RC.Tag,~RC.take(~S,~Array<Array<U32>>),~RC.put(~S,~Array<Array<U32>>),~RC.project(~Array<Array<U32>>),~component_binding(~S)),~D.pair_grant(~S,~State(~S),~List<RA.Record<Array<U32>>>,~List<RA.Record<Array<U32>>>,~ResourceOps(~S),~CaptureOps(),~Resource.grant(~S,~Store(~S),~Unit,~Array<Array<U32>>,~Resources(),~Array<U32>,~(Unit & Siblings()),~lens(),~identity(~S)),~Capture.grant(~S,~Store(~S),~Resources(),~Unit,~Array<U32>))),~declaration(~S),~body(~S),~Unit,~Unit,~Build.empty_observe(~World(~S)),~Pair.empty(~S))
+   |                                               ^
+90 | def define(~S:Data,app:Before(~S),capture:Array<Array<U32>>) -> Bridge.Appended<Before(~S),Application(~S),Array<Array<U32>>>:
+bend 2.0.37 is available: run bend update

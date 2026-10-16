@@ -1541,3 +1541,14 @@ remain in CI, and correctness/#28/final performance criteria remain binding.
 The CI38791374316 success note was already committed and is preserved. No unchanged
 process tests or timing/scaling campaign were repeated. This records actual use
 of the shorter path, not a measured delivery-speed improvement.
+
+Automatic Recovery-to-App/debug now passes independent semantic review: the first
+stock JS/Native pairs match complete 30,271-byte normal, 16,673-byte current classic
+compatibility, 30,283-byte reached metadata defect and 5,447-byte opaque-refusal
+oracles. Eight intended authority refusals and positive entries retain the actual
+API boundary. Existing collector, caps, full #28 applicability and retained evidence
+were reused; no comparative campaign or new runner was required. One formatting-only
+canonical oracle-copy repair preserved all frozen bytes in the evidence and
+reproduced the complete outputs without backend replay. Integration/CI follow;
+full #61 remains open. This is a concrete semantic delivery under the shorter
+checks policy, not a measured delivery-speed improvement.

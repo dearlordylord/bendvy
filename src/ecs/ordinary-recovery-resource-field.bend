@@ -1,4 +1,5 @@
 import Base
+import ./recovery-use.bend as Use
 import ./resource-field-binding.bend as Binding
 import ./world.bend as W
 import ./owner-product.bend as Product
@@ -33,4 +34,4 @@ def swap(~S:Data,~C:Type,~E:Data,~Capture:Type,~R:Type,~P:Type,~FieldRest:Type,~
 def grant(~S:Data,~C:Type,~E:Data,~Capture:Type,~R:Type,~P:Type,~FieldRest:Type,~fieldLens:Product.Lens<R,Array<P>,FieldRest>,~identity:Schema.Resource<S,Array<P>>,~All:Type,~Rest:Type,~path:Product.Lens<All,List<A.Record<P>>,Rest>,unit:Unit) -> F.Write<S,P,identity,F.Frame<Product.Owner<W.World<S,C,R,E>,Capture>,All>>:
   F.Write{replace(~S,~C,~E,~Capture,~R,~P,~FieldRest,~fieldLens,~All,~Rest,~path),swap(~S,~C,~E,~Capture,~R,~P,~FieldRest,~fieldLens,~All,~Rest,~path)}
 def declaration(~S:Data,~C:Type,~E:Data,~Capture:Type,~R:Type,~P:Type,~FieldRest:Type,~fieldLens:Product.Lens<R,Array<P>,FieldRest>,~identity:Schema.Resource<S,Array<P>>,~binding:Binding.Binding<S,R,Array<P>,FieldRest,fieldLens,identity>) -> D.Declaration<S,Product.Owner<W.World<S,C,R,E>,Capture>,List<A.Record<P>>,Ops(~S,~P,~identity),grant(~S,~C,~E,~Capture,~R,~P,~FieldRest,~fieldLens,~identity)>:
-  D.Declaration{empty(~Capture,~R,~P,~FieldRest,~fieldLens),[Schema.resource_key(~S,~Array<P>,identity)]}
+  D.Described{empty(~Capture,~R,~P,~FieldRest,~fieldLens),[Schema.resource_key(~S,~Array<P>,identity)],Use.known([Use.Use{Use.Resource{Schema.resource_key(~S,~Array<P>,identity)},Use.Write{}}])}
