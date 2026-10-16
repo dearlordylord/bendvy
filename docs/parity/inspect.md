@@ -244,5 +244,5 @@ compatibility pair retains all 104,475 original oracle bytes. Actual TS executio
 matches its full 23,512-byte independent oracle; fresh missing-resource admission
 is explicitly distinct from Bend's reached validation and returned-owner restore.
 The [independent final review](../../experiments/public-conditions/component-query-v1/FINAL-REVIEW.md)
-passes; integration and CI remain. This bounded join does not close #61 or the full #54 workload;
+passes; integrated `c524034d2`, CI38901764699 PASS. This bounded join does not close #61 or the full #54 workload;
 combined regression and final performance requirements are unchanged.

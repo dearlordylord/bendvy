@@ -1578,5 +1578,5 @@ TS adapter prose change received changed-portion launch review. No new runner,
 comparative campaign or unchanged-process rerun was needed. Final review caught two arity failures
 miscounted as write-through-read refusals; only those controls were corrected
 and rerun, retaining the predecessor diagnostics and exact applicability of the
-other thirteen checks. Independent final review now passes; integration/CI remain.
+other thirteen checks. Independent final review passes; integrated `c524034d2`, CI38901764699 PASS.
 This is actual use of the shorter path, not measured delivery-speed improvement.

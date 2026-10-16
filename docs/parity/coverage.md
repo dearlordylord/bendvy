@@ -266,7 +266,7 @@ queries, including a query and required resource in one predicate. Complete
 first stock normal and reached filtering-mutation pairs, affected authority
 controls and current resource compatibility pass; actual TS execution matches
 its independent full oracle. [Independent final review](../../experiments/public-conditions/component-query-v1/FINAL-REVIEW.md)
-passes; integration/CI remain.
+passes; integrated `c524034d2`, CI38901764699 PASS.
 Those are finite current public consumers, not a
 whole matrix or another independent schema. Remaining #61 work is to join the
 unmatched required predicates and cross-feature combinations to their direct
