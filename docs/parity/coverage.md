@@ -12,7 +12,7 @@ An independent public consumer verifies the whole pinned core surface and report
 
 - [x] Inventory every pinned core public export, bound Game/Runtime capability, source test and static rejection case. Map each to source-current executable evidence, approved divergence or a concrete owning ticket; no unowned core gap may remain.
 - [x] Run two independently authored schemas/apps covering cross-feature combinations, complete observations and ownership/access controls through the public API. Historical miniature probes and closed child issues alone do not pass.
-- [ ] Check ergonomic ECS use against Rust Bevy and correct Bend kind/runtime use against compiler/Base; review fragmentation, hardcoded arity, fabricated authority and unsupported payload boundaries.
+- [x] Check ergonomic ECS use against Rust Bevy and correct Bend kind/runtime use against compiler/Base; review fragmentation, hardcoded arity, fabricated authority and unsupported payload boundaries.
 - [ ] Publish and resolve discovered gaps as executable dependent tasks; do not close this audit as full parity while any required behavior is absent. Full numeric product qualification stays in existing #21/#23/#24.
 
 ## Blocked by
@@ -130,6 +130,16 @@ AppA/AppB source joins are separately accepted at `0ee4562f4` (CI38921620111 PAS
 Required identity #38, Inspector/compiler #54, subscribers #57 and restore #59/#60
 remain open; criterion 4 and full #61 are incomplete while those required
 behaviors/decisions remain unresolved.
+
+Criterion 3 review is complete through the accepted [two-app review](../../experiments/public-audit61/app-b-current-v1/FINAL-REVIEW.md),
+[generic Check review](../../experiments/public-conditions/component-query-v1/FINAL-REVIEW.md),
+[checked readers](../../experiments/public-conditions/checked-reader-v1/FINAL-REVIEW.md)
+and [affine construction](../../experiments/public-construction/selected-resource-v1/FINAL-REVIEW.md).
+These assess ordinary composition, generic arity, Bend kinds/runtime and actual
+authority/payload boundaries. Both independent apps use bounded administrative
+Factory creation; separate IO-world qualifications retain their own scopes.
+Review completion does not resolve its findings: the existing #38/#54/#57/#59/#60
+implementation and decision gates keep criterion 4 and full #61 open.
 
 ### Public module/export routing
 
