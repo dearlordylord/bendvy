@@ -148,6 +148,8 @@ benchmark or test runs. Original expectations remain unchanged.
 | 1+1.2 coordination table | Current table has 21 data rows, 8,740 characters total and a maximum row length of 896. Approximately 81% fewer characters than the original approximate 45,700-character baseline. | Direct measurement of `docs/parity/README.md`, excluding header/separator. The earlier 7,966-character observation remains historical. Reduced document size is established; navigation time is unmeasured. On 2026-10-15 the guard refused an over-1,200-character #56 integration row; a concise current row plus the existing history link passed. This is an actual bounded refusal, not a navigation-speed measurement. |
 | 1+1.4 infrastructure CI | Two subsequent master jobs completed successfully within the unchanged five-minute limit: 84s and 88s. | [38330369008](https://github.com/dearlordylord/bendvy/actions/runs/38330369008): 01:04:32–01:05:56 UTC; [38331207282](https://github.com/dearlordylord/bendvy/actions/runs/38331207282): 01:14:56–01:16:24 UTC. Earlier successful job [38327219219](https://github.com/dearlordylord/bendvy/actions/runs/38327219219) took 275s. These are whole-job durations including checkout; different hosts and uncontrolled conditions prevent causal speedup attribution. |
 
+| 2026-10-16 #53 delivery: #2 batching, #3 ownership, #4 scenario controls and 1+1.4 CI | One exact 4,172-file owned integration delivers 24 new ECS modules; unrelated WIP is excluded. Five canonical consumer/control pairs qualify stock JS/Native; integration CI passes. | [32539b721](https://github.com/dearlordylord/bendvy/commit/32539b7210aaff94fb956edda8abe0040e3c644f), [CI38883496921](https://github.com/dearlordylord/bendvy/actions/runs/38883496921), and the existing final-review artifact retain the evidence. Focused checks and reached scenario controls were used; six oracle defects were fixed before reader execution. Protected #28 evidence was reused without another benchmark. Overall delivery acceleration is unmeasured. |
+
 No overall delivery-speed improvement is established by these observations.
 At this observation point, real adoption/effect of #2 batching, #3 ownership
 staging and #4 scenario helper was still unverified. Later delivery observations
@@ -1482,3 +1484,9 @@ No compiler, runner, acceptance cap or performance threshold changed. Exact
 owned integration preserves unrelated WIP; configured integration CI follows.
 These outcomes show actual use of focused checks, batching and source-bound
 scenario controls; overall delivery speedup remains unmeasured.
+
+Integration `32539b721` passed CI38883496921; #53 is closed with all four
+criteria checked and English completion report
+https://github.com/dearlordylord/bendvy/issues/53#issuecomment-6212941919.
+The final status-only documentation update reuses the unchanged source/backend
+evidence; no compiler or benchmark rerun is needed for this CI note.

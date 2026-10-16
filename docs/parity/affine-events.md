@@ -119,8 +119,8 @@ review findings were corrected before either reader backend ran. Existing Data
 APIs and all 23 protected #28 source bodies remain unchanged; qualified stock
 artifact evidence is reused. No full-feature timing, universal proof, physical
 finalization or provider-purity claim follows. Combined performance remains
-#21/#23/#24 with the existing final JS/Native targets. Integration CI and issue
-reporting follow this semantic acceptance.
+#21/#23/#24 with the existing final JS/Native targets. Integrated at `32539b721`; CI38883496921 passes and #53 is closed after the
+English acceptance report.
 
 The preparation sections below are preserved history; the selected ownership
 boundary and joined final review above govern current delivery.
