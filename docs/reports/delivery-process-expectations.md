@@ -1255,3 +1255,13 @@ Checkpoint `3772334a1` passed CI38846886015. Independent review `e2d24f3b3`
 confirms the protected Native correctness/ELF distinction and source-derived
 full54 JS reuse, and accepts the current #64 requirements as planning only.
 No compiler or workload run was repeated for these reviews.
+
+The next #61 delivery used one source check and one stock JS/Native pair through
+the existing collector; all 5,281 bytes matched the independently derived
+failure oracle on the first attempt. The complete rollback/cursor/error
+observation was fixed before execution. Independent final review passes.
+The #54 protected default and targeted compiler comparisons both passed after
+fresh qualitative CPU11 admissions; one retained packet preserves 220 complete
+outputs. This resolves the earlier protected regression-pending checkpoint,
+not compiler adoption or full-feature performance. No delivery-speed estimate
+is inferred. CI38847248022 for `83d40b939` also passed.

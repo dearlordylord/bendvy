@@ -140,12 +140,14 @@ The protected23 workload emits byte-identical JS (669,036 bytes, `ca22d6b8…`),
 independently reviewed in `2caddb28d`, so its existing JS artifact evidence is
 reusable. Its C differs by 84 bytes. The protected Native build and complete
 231,190-byte correctness observation pass under the original caps; the resulting
-ELF differs from the historical artifact, so the affected Native #28 regression
-gate remains unqualified. Compiler dispatch changes globally even though the two
-ECS modules are outside the protected source closure. Native qualification, an
-explicit compiler adoption/upstream decision and final source integration remain
-open. Runtime CPU/allocation effects are unmeasured; no speedup follows from
-this single pass.
+ELF differs from the historical artifact, so Native was measured rather than
+reused. Both the unchanged default #28 and a separate same-source old/new compiler
+comparison pass the existing statistical rule (result `577e9f295`, independent
+final review retained with that result). The targeted Native median paired ratio
+is 0.9597; this is scoped Workshop evidence, not full-feature performance. Compiler dispatch changes globally even though the two
+ECS modules are outside the protected source closure. An explicit compiler adoption/upstream decision and final source integration
+remain open; the installed-stock full Native gate has not passed. Full Inspector CPU/allocation profiles remain unmeasured; the protected
+Workshop measurements do not establish its performance.
 
 #### Independent helper compatibility review
 
@@ -182,3 +184,9 @@ new authority; dropping an unused callback on a false branch is affine and
 introduces no finalizer contract. This joins the prior callback/full-consumer
 reviews; it is not a new runtime/proof result. The source owner's affected
 authority controls and compiler adoption/regression gates remain separate.
+
+The portable candidate packet is retained at
+`experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/stock-format-owner-v1/callback-forwarding-v1/owner-forwarding-v1/boxed-diagnostic-v1/coherent-callback-v1/execution-callback-v1/actual-frame-v1/graph-only-v1/execution-source-v1/compiler-lookup-v1/candidate-delivery-v1/`.
+Its offline verifier and independent review pass 524 full paths / 325 objects.
+Its pre-cohort regression-pending status is superseded only by the bounded
+`compiler-lookup-artifact-identity-v1/regression-result-v1` evidence above.
