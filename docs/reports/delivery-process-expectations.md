@@ -1075,3 +1075,16 @@ ordinary, foreign-world, affine, reference and #28 evidence is reused through
 exact applicability joins. Independent joined semantic review passes; no
 production source or performance threshold changed. Root verified the retained
 packet and all normal/mutant source bytes, without replaying backends.
+
+#45 integration `05dd2b753` passed CI 38828003993; the English criterion-level
+report was posted and the issue closed. The self-contained eight-file evidence
+packet retains exact source snapshots; duplicate loose copies were omitted
+rather than normalizing their historical whitespace or bypassing the hook.
+
+#44 reconciliation reuses retained complete traversal/reorder/cleanup results and
+compiling controls. Independent review verified their current source joins and
+actual executable identities; an old per-command version-probe note does not
+identify an uncovered execution risk. The historical later child-set timeout
+remains failed and is covered only by its existing successor. No new backend or
+performance cohort ran for this documentation checkpoint; all three native
+semantic criteria pass.

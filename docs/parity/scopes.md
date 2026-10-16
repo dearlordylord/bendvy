@@ -62,7 +62,8 @@ The pure normal/mutant modules pass their pinned checks. Full IO entries retain
 the expected foreign-effect proof limitation; actual runtime passes are separate.
 
 Independent final Spec/Standards review confirms all three native semantic
-criteria are satisfied by the joined evidence. Publication and CI remain pending.
+criteria are satisfied by the joined evidence. Integrated at `05dd2b753`;
+CI 38828003993 passed and the English completion report closed #45.
 This qualification changes no
 production core. The existing #28 evidence remains scoped to its protected
 workload; combined comparative performance remains under #21/#23/#24. Finite
