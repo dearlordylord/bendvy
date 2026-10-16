@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : handle
+- observed : handle (consumed more than once)
+Context:
+- label   : String
+- fail    : Bool
+- runtime : Route.Runtime<B.AuditWorkshop, B.Store, ../../../../../workspace/formal-proofs/bendvy/src/ecs/owner-product.Owner<../../../../../workspace/formal-proofs/bendvy/src/ecs/owner-product.Owner<Array<U32>, ../../../../../workspace/formal-proofs/bendvy/src/ecs/owner-product.Owner<Array<U32>, R.Receipts>>, ../../../../../workspace/formal-proofs/bendvy/src/ecs/owned-event-log.Log<Array<U32>>>, Nat, ../../../../../workspace/formal-proofs/bendvy/src/ecs/event-family-runtime.State<Nat, ../../../../../workspace/formal-proofs/bendvy/src/ecs/event-stream.Stream<B.AuditWorkshop, Nat>, Unit>>
+Location: recover
+88 |   match state:
+89>|     case Host{runtime,handle,schedule,recovery,publisher,reader,registry,scratch,records,output,returned,Some{incoming},history,readings,values,lagged,status,text}:recovered(label,handle,schedule,publisher,reader,registry,scratch,returned,history,readings,values,lagged,text,Events.with_world(~RecoveryReply,w => recovery_reply(Recovery.run(recovery,w,Recovery.Args{handle,incoming,fail})),runtime))
+   |                       ^^^^^^
+90 |     case Host{runtime,handle,schedule,recovery,publisher,reader,registry,scratch,records,output,returned,None{},history,readings,values,lagged,status,text}:snapshot(label ++ ":missing-incoming",Host{runtime,handle,schedule,recovery,publisher,reader,registry,scratch,records,output,returned,None{},history,readings,values,lagged,status,text})
+bend 2.0.37 is available: run bend update

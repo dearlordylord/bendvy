@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a template applied to closed ~ arguments (a def parameter is not comptime)
+- observed : Publisher.Registry
+Location: PublisherRegistry
+51 | def PublisherRegistry() -> Type:
+52>|   Publisher.Registry(~B.AuditWorkshop,~B.Store,~R.Resources(),~List<Array<U32>>,~PublishOps(),~Write.grant(~B.AuditWorkshop,~B.Store,~R.Resources(),~Array<U32>,~(R.User() & Unit),~Nat,~path(),~Key.inject_leaf,~domain()),~declaration(),~Array<U32>,~Unit,~Unit,~publish_body)
+   |   ^^^^^^^^^^^^^^^^^^
+53 | def define_publisher(world:B.World(R.Resources())) -> Sys.RegistrationResult<B.AuditWorkshop,B.Store,R.Resources(),Nat,Array<U32>,Unit,Publisher.Reply<Unit,Unit,List<Array<U32>>>,Publisher.runner(~B.AuditWorkshop,~B.Store,~R.Resources(),~List<Array<U32>>,~PublishOps(),~Write.grant(~B.AuditWorkshop,~B.Store,~R.Resources(),~Array<U32>,~(R.User() & Unit),~Nat,~path(),~Key.inject_leaf,~domain()),~declaration(),~Array<U32>,~Unit,~Unit,~publish_body)>:
+bend 2.0.37 is available: run bend update

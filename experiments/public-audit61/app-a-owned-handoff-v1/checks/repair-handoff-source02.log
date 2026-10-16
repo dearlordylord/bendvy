@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : Field.Declaration<Bundle.AuditWorkshop, T.Tx<W.World<Bundle.AuditWorkshop, Bundle.Store, Product.Owner<Product.Owner<Array<U32>, Product.Owner<Array<U32>, Receipts>>, Log.Log<Array<U32>>>, Nat>, U32>, Field.Write<Bundle.AuditWorkshop, Array<U32>, Schema.Resource{"Counter"}, T.Tx<W.World<Bundle.AuditWorkshop, Bundle.Store, Product.Owner<Product.Owner<Array<U32>, Product.Owner<Array<U32>, Receipts>>, Log.Log<Array<U32>>>, Nat>, U32>, List<&2, U32>>>
+- observed : Field.Declaration<Bundle.AuditWorkshop, T.Tx<W.World<Bundle.AuditWorkshop, Bundle.Store, Product.Owner<Product.Owner<Array<U32>, Product.Owner<Array<U32>, Receipts>>, Log.Log<Array<U32>>>, Nat>, Nat>, Field.Write<Bundle.AuditWorkshop, Array<U32>, Schema.Resource{"Counter"}, T.Tx<W.World<Bundle.AuditWorkshop, Bundle.Store, Product.Owner<Product.Owner<Array<U32>, Product.Owner<Array<U32>, Receipts>>, Log.Log<Array<U32>>>, Nat>, Nat>, List<&2, U32>>>
+Location: declaration
+57 | def declaration() -> Field.Declaration<Bundle.AuditWorkshop,T.Tx<W.World<Bundle.AuditWorkshop,Bundle.Store,Resources(),Nat>,U32>,Ops(T.Tx<W.World<Bundle.AuditWorkshop,Bundle.Store,Resources(),Nat>,U32>)>:
+58>|   Field.write(~Bundle.AuditWorkshop,~Bundle.Store,~Resources(),~Nat,~Array<U32>,~Rest(),~List<&2,U32>,~lens(),~Counter(),~binding(),~project)
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+59 | def body(~H:Type,~cap:Ops(H),unit:Unit,owner:H) -> H & (T.Outcome<Unit> & Unit):
+bend 2.0.37 is available: run bend update

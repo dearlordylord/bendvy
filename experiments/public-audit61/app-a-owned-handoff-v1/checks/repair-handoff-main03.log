@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : T.Tx<W.World<B.AuditWorkshop, B.Store, Product.Owner<Product.Owner<Array<U32>, Product.Owner<Array<U32>, R.Receipts>>, ../../../../../workspace/formal-proofs/bendvy/src/ecs/owned-event-log.Log<Array<U32>>>, Nat>, Nat>
+- observed : T.Tx<W.World<B.AuditWorkshop, B.Store, Product.Owner<Product.Owner<Array<U32>, Product.Owner<Array<U32>, R.Receipts>>, ../../../../../workspace/formal-proofs/bendvy/src/ecs/owned-event-log.Log<Array<U32>>>, Nat>, U32>
+Context:
+- world : W.World<B.AuditWorkshop, B.Store, Product.Owner<Product.Owner<Array<U32>, Product.Owner<Array<U32>, R.Receipts>>, ../../../../../workspace/formal-proofs/bendvy/src/ecs/owned-event-log.Log<Array<U32>>>, Nat>
+Location: seed
+50 | def seed(world:B.World(R.Resources())) -> Seeded:
+51>|   requested(B.run(~R.Resources(),B.owner(~R.Resources(),T.begin(~B.World(R.Resources()),~U32,world)),Requests.Input{Requests.Spawn{},B.sample()}))
+   |                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+52 | 
+bend 2.0.37 is available: run bend update

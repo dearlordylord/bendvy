@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : T.Tx<W.World<AuditWorkshop, Store, owner~Resource, Nat>, Nat>
+- observed : T.Tx<W.World<AuditWorkshop, Store, owner~Resource, Nat>, U32>
+Context:
+- tx : T.Tx<W.World<AuditWorkshop, Store, owner~Resource, Nat>, U32>
+Location: owner
+92 |     case Packet{cooked,undo}: undo(cooked)
+93>| def owner(~Resource:Type,tx:T.Tx<World(Resource),U32>) -> Owner(Resource): AD.Owner{BT.Batch{tx,[]},Unit{}}
+   |                                                                                              ^^
+94 | def request(~Resource:Type,ctx:Owner(Resource),input:Input()) -> Owner(Resource) & Output():
+bend 2.0.37 is available: run bend update
