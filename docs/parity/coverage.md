@@ -255,6 +255,11 @@ publication→scoped query handoff, and selected Product resource-field recovery
 with sibling preservation. The [automatic recovery App review](../../experiments/public-recovery/automatic-app-v1/FINAL-REVIEW.md)
 also joins canonical declaration-derived debug/access metadata, prior-owner
 preservation, current classic compatibility and repeated opaque rejection.
+The [ordinary checked predicate review](../../experiments/public-conditions/checked-predicate-v1/FINAL-REVIEW.md)
+adds canonical resource Check leaves joined to lazy App schedules, existing
+registered machine conditions, actual unbound dispatch and automatic descriptions.
+Full stock/TS observations, affected authority controls and a reached eager-RHS
+defect qualify that route; TS eager requirements remain an explicit difference.
 Those are finite current public consumers, not a
 whole matrix or another independent schema. Remaining #61 work is to join the
 unmatched required predicates and cross-feature combinations to their direct

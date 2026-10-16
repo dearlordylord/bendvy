@@ -190,3 +190,31 @@ The portable candidate packet is retained at
 Its offline verifier and independent review pass 524 full paths / 325 objects.
 Its pre-cohort regression-pending status is superseded only by the bounded
 `compiler-lookup-artifact-identity-v1/regression-result-v1` evidence above.
+
+## Ordinary checked resource predicates
+
+`ordinary-check-declaration.optional_resource` / `required_resource` derive
+read grants, requirement validation and typed descriptions from the same binding.
+`ordinary-checked-condition.check` builds a confined Bool predicate; `lift` accepts
+existing conditions without replacing their owners or descriptions. `not`,
+`and_then` and `or_else` compose both. Detached views and Check arguments are
+Data; resource payloads, Worlds and App owners remain arbitrary affine Type.
+
+Bind to an actual system ID with `ordinary-checked-bindings.bind`, then attach
+to an ordinary schedule through `ordinary-app-checked-schedule`. Enable-debug
+snapshots derive the condition tree and reads without caller metadata adapters.
+Each reached Check leaf validates its own required resource. Lazy skipping does
+not validate an unreached RHS; existing authored schedule-needs preflight stays
+unchanged. Reached Check errors and existing registration failures remain distinct.
+Raw selectors, numeric IDs and providers retain their trusted administrative scope.
+
+The [independent final review](../../experiments/public-conditions/checked-predicate-v1/FINAL-REVIEW.md)
+accepts complete stock JS/Native normal (104,475 bytes), machine/unbound-system
+interoperability (48,757) and eager-RHS mutation (105,097, normal rejected) pairs,
+plus three positive/ten intended authority controls. Actual TS execution matches
+its complete 38,458-byte independent oracle. TS preflights combined requirements
+eagerly; missing-resource outcomes explicitly differ from the Bevy-style lazy
+path. The machine witness reaches supported missing-as-false and stale actual
+registration refusal; generic lifted NoValue/NoBinding transport is source/type
+coverage here. Full Inspector Native acceptance and the complete #61 matrix
+remain open; final product performance stays in #21/#23/#24.

@@ -1,0 +1,19 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Sigma<&1, &1, Left, _ => Right> -> @_:World -> @_:U32 -> Selection<World, Sigma<&1, &1, Left, _ => Right>>
+- observed : @owners:Sigma<&1, &1, Left, _ => Right> -> @world:World -> @+id:U32 -> Selection<World, Sigma<&1, &1, Left, _ => Right>>
+Context:
+- World             : Type
+- Left              : Type
+- Right             : Type
+- left_select       : @_:Left -> @_:World -> @_:U32 -> Selection<World, Left>
+- right_select      : @_:Right -> @_:World -> @_:U32 -> Selection<World, Right>
+- left_descriptions : List<&2, Description>
+- left              : Bindings<World, Left, left_select>
+- right             : Bindings<World, Right, right_select>
+Location: pair
+44 |     case (left,right):pair_selected(~World,~Left,~Right,~left_select,~right_select,includes(left_descriptions,id),left,right,world,id)
+45>| def pair(~World:Type,~Left:Type,~Right:Type,~left_select:Left -> World -> U32 -> Selection<World,Left>,~right_select:Right -> World -> U32 -> Selection<World,Right>,~left_descriptions:List<&2,Description>,left:Bindings<World,Left,left_select>,right:Bindings<World,Right,right_select>) -> Bindings<World,Left & Right,pair_select(~World,~Left,~Right,~left_select,~right_select,~left_descriptions)>:
+   |                                                                                                                                                                                                                                                                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+46 |   match left right:
+bend 2.0.37 is available: run bend update

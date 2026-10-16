@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : value
+- observed : value (consumed more than once)
+Location: insert
+28 |     case State{app,text}:ran(~S,label,text,F.run(~S,app))
+29>| def insert(~S:Data,value:U32,state:State<S>) -> State<S>:
+   |                    ^^^^^
+30 |   match state:
+bend 2.0.37 is available: run bend update

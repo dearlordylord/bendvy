@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : app
+- observed : app (consumed more than once)
+Location: rejected
+ 8 | 
+ 9>| def rejected(~S:Data,app:F.Application(~S)) -> F.Application(~S) & F.Application(~S):(app,app)
+   |                      ^^^
+10 | 
+bend 2.0.37 is available: run bend update

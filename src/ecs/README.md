@@ -288,3 +288,11 @@ App owner. The same declarations derive component/resource write metadata for
 enable-debug snapshots and the access index; opted-in capture stays private.
 Registration rejects opaque legacy declarations while returning the original App
 and capture. See the [API scope](../../docs/parity/recovery.md#automatic-app-metadata).
+
+`ordinary-check-declaration` derives optional/required resource Check grants and
+requirements from canonical bindings. `ordinary-checked-condition` composes
+confined predicates with existing machine conditions through `lift` and lazy
+Boolean operators. `ordinary-checked-bindings` targets registered system IDs;
+`ordinary-app-checked-schedule` retains actual App owners and derives debug
+descriptions while `checked-condition-schedule` preserves reached errors and
+existing schedule preflight. See [API and scope](../../docs/parity/inspect.md#ordinary-checked-resource-predicates).

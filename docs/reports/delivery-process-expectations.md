@@ -1552,3 +1552,16 @@ canonical oracle-copy repair preserved all frozen bytes in the evidence and
 reproduced the complete outputs without backend replay. Integrated `85cf9aa2c`;
 CI38894048915 PASS. Full #61 remains open. This is a concrete semantic delivery under the shorter
 checks policy, not a measured delivery-speed improvement.
+
+The next ordinary Check-to-condition/App delivery passes independent semantic
+review. All first stock JS/Native pairs match complete normal104,475,
+interoperability48,757 and reached eager-RHS105,097-byte oracles; the normal
+mutant baseline is rejected. The narrow actual TS reference matches38,458 bytes
+and retains its eager-preflight difference. Three positive/ten intended authority
+checks pass. Before backend freeze, API review found and repaired missing
+interoperability with existing conditions; actual registered StateChanged and
+unbound-system execution now qualify it. Existing collectors/caps and #28
+applicability were reused. The TS adapter changed only its scope prose and
+received the existing changed-portion launch review. No backend replay, new
+runner, comparative campaign or extra tracking layer was required. Integration
+and CI follow; full #61 remains open and delivery-speed improvement is unmeasured.

@@ -1,0 +1,102 @@
+"""Independent TS shared checked-query workload, from public reference sources."""
+import json
+
+
+def run_case(schema, label, value, bypass):
+    counter = [10, 11]
+    trace = []
+    frame = 0
+    tick = 0
+
+    def point():
+        resources = {}
+        if value is not None:
+            resources[schema + '/Input'] = [value, value + 1]
+        resources[schema + '/Counter'] = list(counter)
+        resources[schema + '/Sentinel'] = [900, 901]
+        return {'world': {'version': 1, 'frame': frame, 'tick': tick,
+                          'entityCount': 0, 'entities': [], 'resources': resources,
+                          'machines': {}, 'pendingCommands': []},
+                'streams': [], 'trace': list(trace)}
+
+    rows = [{'label': 'initial', **point()}]
+
+    def execute(name, selected):
+        nonlocal frame, tick, counter
+        # Runtime.tryRunSchedule checks the union of declarations first.
+        if value is None:
+            result = {'ok': False, 'error': {'kind': 'MissingRuntimeRequirements',
+                                           'requirements': [{'kind': 'resource', 'name': schema + '/Input'}]}}
+        else:
+            frame += 1
+            allowed = False
+            if selected == 'not(exists)':
+                trace.append('left')
+                allowed = False
+            elif selected == 'true.or(required)':
+                trace.append('constant:true')
+                allowed = True
+            elif selected == 'false.or(required)':
+                trace.extend(['constant:false', 'right'])
+                allowed = value > 0
+            elif selected == 'guard':
+                trace.extend(['constant:true', 'left', 'right'])
+                allowed = value > 0
+            else:
+                raise AssertionError(selected)
+            if allowed:
+                tick += 1
+                if selected == 'guard':
+                    trace.append('counter')
+                    counter = [counter[0] + 1, counter[0] + 2]
+                else:
+                    trace.append('probe:' + selected)
+            # Result.success(undefined) serializes without the undefined value.
+            result = {'ok': True}
+        rows.append({'label': name, 'result': result, **point()})
+
+    def probes(stage):
+        for name in ['not(exists)', 'true.or(required)', 'false.or(required)']:
+            execute(stage + '/' + name, name)
+
+    probes('initial-probe')
+    execute('run1', 'guard')
+    probes('after-run1-probe')
+    execute('run2', 'guard')
+    probes('final-probe')
+    return {'schema': schema, 'label': label, 'input': value, 'bypass': bypass, 'rows': rows}
+
+
+def values():
+    return [run_case(schema, label, value, bypass)
+            for schema in ['Workshop', 'Garden']
+            for label, value, bypass in [('missing-skipped', None, False), ('zero', 0, False),
+                                         ('positive', 5, False), ('missing-reached', None, True)]]
+
+
+def render():
+    return (json.dumps(values(), separators=(',', ':'), ensure_ascii=False) + '\n').encode()
+
+
+def selftest():
+    cases = values()
+    assert len(cases) == 8 and all(len(case['rows']) == 12 for case in cases)
+    for case in cases:
+        final = case['rows'][-1]
+        if case['input'] is None:
+            assert final['world']['frame'] == final['world']['tick'] == 0
+            assert final['trace'] == []
+            assert all(not row['result']['ok'] for row in case['rows'][1:])
+        elif case['input'] == 0:
+            assert (final['world']['frame'], final['world']['tick']) == (11, 3)
+            assert final['world']['resources'][case['schema'] + '/Counter'] == [10, 11]
+        else:
+            assert (final['world']['frame'], final['world']['tick']) == (11, 8)
+            assert final['world']['resources'][case['schema'] + '/Counter'] == [12, 13]
+
+
+if __name__ == '__main__':
+    import sys
+    selftest()
+    if '--selftest' not in sys.argv:
+        sys.stdout.buffer.write(render())

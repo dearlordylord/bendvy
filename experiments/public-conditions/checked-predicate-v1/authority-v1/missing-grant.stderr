@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : D.ResourceRead<rejected~S, Array<U32>, ../../../../../../workspace/formal-proofs/bendvy/src/ecs/ordinary-schema.Resource{"Input"}, rejected~H, U32>
+- observed : Unit
+Context:
+- owner : rejected~H
+Location: rejected
+ 8 | 
+ 9>| def rejected(~S:Data,~H:Type,owner:H) -> H & Maybe<&2,U32>:D.read(~S,~Array<U32>,~F.input_identity(~S),~H,~U32,~Unit{},owner)
+   |                                                                                                                 ^^^^^^
+10 | 
+bend 2.0.37 is available: run bend update
