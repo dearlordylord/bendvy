@@ -82,8 +82,9 @@ mutation criterion. External finalization and general heterogeneous composition
 remain outside #50; composition belongs to #51.
 
 [Independent joined review](../../experiments/public-captures/ordinary-owner-v1/query-v1/FINAL-REVIEW.md)
-accepts #50 semantic delivery. Integration, CI and the governing issue report
-complete its delivery checkpoint.
+accepts #50 semantic delivery. Integrated at `34d7712cd`; CI38855954288
+passed and the [English acceptance report](https://github.com/dearlordylord/bendvy/issues/50#issuecomment-6208802630)
+was posted before closing #50.
 No new law/proof or capture-specific performance claim follows from these finite
 traces. Stock #28 evidence is reused through the unchanged 23-source protected
 closure; combined feature performance remains under #21/#23/#24.

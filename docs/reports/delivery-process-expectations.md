@@ -1318,3 +1318,8 @@ joined independent review accepts #50 semantics. The protected23-source workload
 is unchanged, so its qualified regression evidence is reused. No broad local
 infrastructure or comparative timing campaign was added; delivery acceleration
 remains unmeasured.
+
+#50 query completion integrated at `34d7712cd` after independent joined review.
+The next implementation is #51, reusing the delivered capture lifecycle and
+existing schedule/requirements machinery. CI38855954288 passed and #50 was closed after its English acceptance report; no compiler
+or benchmark is repeated for this status note.
