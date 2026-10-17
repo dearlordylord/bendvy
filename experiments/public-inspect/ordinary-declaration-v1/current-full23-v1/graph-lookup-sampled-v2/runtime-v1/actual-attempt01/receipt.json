@@ -1,0 +1,140 @@
+{
+  "scope": "SAME installedELF/Bun VM cooperative CPU sample. May publish after15s at next completed definition; absence on deadline not attribution. Sample overhead/instrumentation changes runtime; no Native acceptance or speed claim.",
+  "planSHA256": "95ad8811286beba0b749a967a414c3a5ecfae069b596aaf55a7f49a7dfdf1f1a",
+  "commands": [
+    {
+      "label": "source-lineage-control",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/graph-lookup-sampled-v2/check-lineage.mjs"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy54-current-graph-lookup-sampled02/source-lineage-control.stdout",
+        "sha256": "c4a0f21092e46c9d9805e0a996f667272d58cb2039f06cd7ccf43adbdaa1285e",
+        "bytes": 98,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy54-current-graph-lookup-sampled02/source-lineage-control.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    },
+    {
+      "label": "source-profile-api-control",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/graph-lookup-sampled-v2/check-api.mjs",
+        "/tmp/bendvy54-current-graph-lookup-sampled02/api-control.cpuprofile"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy54-current-graph-lookup-sampled02/source-profile-api-control.stdout",
+        "sha256": "aaf8039144ef14b51387ca3cc3dac03842adf86db3f21d0f6d9a6ebb9dc349ca",
+        "bytes": 194,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy54-current-graph-lookup-sampled02/source-profile-api-control.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "sourceControlPassed": true
+    },
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/graph-lookup-sampled-v2/compiler/installed-cli-coarse.mjs",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/output-io-main.bend",
+        "-o",
+        "/tmp/bendvy54-current-graph-lookup-sampled02/scenario.c"
+      ],
+      "capSeconds": 30,
+      "exit": null,
+      "failure": "child deadline",
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy54-current-graph-lookup-sampled02/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy54-current-graph-lookup-sampled02/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy54-current-graph-lookup-sampled02/source-lineage-control-pre.guard.json",
+      "sha256": "b61d8491f223c356b7cebd4414fa8d0ef693c6388ebbfd7a97368388a108357a"
+    },
+    {
+      "path": "/tmp/bendvy54-current-graph-lookup-sampled02/source-lineage-control-acquired.guard.json",
+      "sha256": "5e41d789985e6b6e4d11374a6ebcd23b232397ce0cad2ebedd0c8e66c46d2fd9"
+    },
+    {
+      "path": "/tmp/bendvy54-current-graph-lookup-sampled02/source-lineage-control-post.guard.json",
+      "sha256": "24b2a3a36ad42043c02b2a34a24d51f51665ef807e9dc6e4447d89f9beb15f08"
+    },
+    {
+      "path": "/tmp/bendvy54-current-graph-lookup-sampled02/source-profile-api-control-pre.guard.json",
+      "sha256": "a1928687918e71df3b56ac2e59a884016a44b8d2c54bd55261da55bd1048a223"
+    },
+    {
+      "path": "/tmp/bendvy54-current-graph-lookup-sampled02/source-profile-api-control-acquired.guard.json",
+      "sha256": "24d77bbedbd475a7153b7abadd8a4858fa5f49a7931543645f950ca5136179c8"
+    },
+    {
+      "path": "/tmp/bendvy54-current-graph-lookup-sampled02/source-profile-api-control-post.guard.json",
+      "sha256": "4e66fc3d526c1c0cdf2d65ea8058cf000762d635e2bf6f9db4bedb13a1700cef"
+    },
+    {
+      "path": "/tmp/bendvy54-current-graph-lookup-sampled02/emit-pre.guard.json",
+      "sha256": "ad86d7b46e1425bd9a4a92ee48cd701084cac62c48517eb9becfd9a12ca6ce25"
+    },
+    {
+      "path": "/tmp/bendvy54-current-graph-lookup-sampled02/emit-acquired.guard.json",
+      "sha256": "9cebc9125c882cb9322d2ba148ec00f025cd50dc5857e4855b9e32e68d9355a6"
+    },
+    {
+      "path": "/tmp/bendvy54-current-graph-lookup-sampled02/emit-post.guard.json",
+      "sha256": "f0a3c91dfb94f67a3d5ca204cda156bcfcd83156d22c3f17d7c6e2b8a1072317"
+    },
+    {
+      "path": "/tmp/bendvy54-current-graph-lookup-sampled02/final.guard.json",
+      "sha256": "c9b132873ec2d2e6475f19176298f7cd57d346d4d421ac441189c7215387face"
+    }
+  ],
+  "status": "INCOMPLETE",
+  "error": "ValueError: Owned child failed: emit",
+  "guardFailures": []
+}

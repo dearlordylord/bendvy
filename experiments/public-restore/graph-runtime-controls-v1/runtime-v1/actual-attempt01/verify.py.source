@@ -1,0 +1,74 @@
+from pathlib import Path
+import json,gzip,hashlib,tempfile,shutil,subprocess,re
+sha=lambda b:hashlib.sha256(b).hexdigest();OUT=Path('/tmp/bendvy-restore60-controls/experiments/public-restore/graph-runtime-controls-v1/runtime-v1/actual-attempt01');MODEL=Path('/tmp/bendvy-restore59-oracle/experiments/public-restore/graph-runtime-controls-oracle-v1')
+m=json.loads((OUT/'manifest.json').read_text());rows=m['members'];roles=m['roles'];external={r['path']for r in rows if 'object'not in r}
+with tempfile.TemporaryDirectory() as tmp:
+ q=Path(tmp)/'packet';shutil.copytree(OUT,q);data={}
+ for row in rows:
+  if 'object'in row:
+   packed=(q/row['object']).read_bytes();assert sha(packed)==row['compressedSHA256'];b=gzip.decompress(packed)
+  else:b=Path(row['path']).read_bytes()
+  assert sha(b)==row['sha256'] and len(b)==row['bytes'];data[row['path']]=b
+ count=0;actuals={};generated=[]
+ for role in roles:
+  plan=json.loads(data[role['plan']]);r=json.loads(data[role['receipt']]);assert r['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS';assert r['planSHA256']==sha(data[role['plan']]);seen=set()
+  for p,h in plan['pins'].items():assert sha(data[p])==h
+  for root,entries in plan['resourceRoots'].items():
+   for p,h in entries.items():assert sha(data[str(Path(root)/p)])==h
+  for g in r['guards']:
+   assert sha(data[g['path']])==g['sha256'];v=json.loads(data[g['path']]);assert v['unchanged']
+   for p,h in v['actualPins'].items():assert sha(data[p])==h;count+=1
+  def visit(p):
+   if p in seen:return
+   seen.add(p);assert sha(data[p])==plan['sourceInventory'][p]
+   for imp in re.findall(r'^import\s+(\S+)',data[p].decode(),re.M):
+    if imp!='Base':visit(str((Path(p).parent/imp).resolve()))
+  visit(plan['entrypoint']);assert seen==set(plan['sourceInventory'])
+  for p in plan['pins']:
+   if 'SOURCE-FREEZE'in Path(p).name and p.endswith('.json'):
+    f=json.loads(data[p])
+    for section in ['sourceInventory','sourcePins']:
+     for x,h in f.get(section,{}).items():assert sha(data[x])==h
+  for c in r['commands']:
+   assert c['exit']==0 and c['failure'] is None
+   for stream in ['stdout','stderr']:
+    x=c[stream];assert sha(data[x['path']])==x['sha256'] and len(data[x['path']])==x['bytes']
+  consumer=next(c for c in r['commands']if c['label']=='consumer');expected=gzip.decompress(data[role['expected']]);assert data[consumer['stdout']['path']]==expected and not data[consumer['stderr']['path']]
+  if plan['subject']=='mutant':assert r['completeNormalBaselineRejected'] and expected!=gzip.decompress(data[role['normal']])
+  if role['role']=='native':assert plan['native']in data and plan['native']not in external;generated.append(plan['native'])
+  actuals[role['case']+'/'+role['role']]=dict(bytes=len(expected),sha256=sha(expected),normalRejected=plan['subject']=='mutant')
+ reproduced={}
+ for kind in ['room-false-v1','acceptance-mutants-v1']:
+  base=MODEL/kind;dest=Path(tmp)/kind;dest.mkdir()
+  for name in ['model.py.source','runtime_model.py.source','graph_model.py.source','base_model.py.source']:
+   if str(base/name)in data:(dest/name).write_bytes(data[str(base/name)])
+  cases=['workshop']if kind=='room-false-v1'else['graph-order','cycle','queue-clear']
+  for case in cases:
+   args=['--schema',case]if kind=='room-false-v1'else['--mutant',case]
+   result=subprocess.run(['/usr/bin/python3.11',str(dest/'model.py.source'),*args,'--render-stdout'],capture_output=True,check=True);assert not result.stderr;expected=gzip.decompress(data[str(base/case/'expected.stdout.gz')]);assert result.stdout==expected;reproduced[kind+'/'+case]=dict(bytes=len(expected),sha256=sha(expected))
+  subprocess.run(['/usr/bin/python3.11',str(dest/'model.py.source'),'--self-test'],capture_output=True,check=True)
+ for name in m['historyReceipts']:
+  hr=json.loads(data[name]);assert hr['status']=='INCOMPLETE';hp=str(Path(name).with_name('plan.json'));assert hr['planSHA256']==sha(data[hp])
+  for c in hr['commands']:
+   for stream in ['stdout','stderr']:
+    x=c[stream];assert sha(data[x['path']])==x['sha256'] and len(data[x['path']])==x['bytes']
+  for guard in hr['guards']:assert sha(data[guard['path']])==guard['sha256'] and json.loads(data[guard['path']])['unchanged']
+ authority=Path('/tmp/bendvy-restore60-controls/experiments/public-restore/graph-runtime-controls-v1/authority-v1');a=json.loads(data[str(authority/'SOURCE-CHECK.json')])
+ for p,h in a['sourceInventory'].items():assert sha(data[p])==h
+ for case,result in a['results'].items():
+  for stream in ['stdout','stderr']:assert sha(data[str(authority/'checks'/(case+'.'+stream))])==result[stream+'SHA256']
+ assert data[str(authority/'checks/positive.stdout')].startswith(b'ALL PROOFS CHECK\n')
+ assert b'consumed more than once'in data[str(authority/'checks/owner-duplicate.stderr')]
+ assert b'Owner<Factory.Garden'in data[str(authority/'checks/cross-schema.stderr')] and b'Owner<Factory.Workshop'in data[str(authority/'checks/cross-schema.stderr')]
+ assert b'observed : wrong~H'in data[str(authority/'checks/abstract-owner.stderr')]
+ reuse=json.loads(data['/tmp/bendvy60-basic-current-reuse.json']);basic=Path(m['basicPacket']);bm=json.loads(data[str(basic/'manifest.json')]);assert sha(data[str(basic/'manifest.json')])==reuse['portablePacketSHA256'];bd={}
+ for row in bm['members']:
+  if 'object'in row:
+   packed=data[str(basic/row['object'])];assert sha(packed)==row['compressedSHA256'];b=gzip.decompress(packed)
+  else:b=Path(row['path']).read_bytes()
+  assert sha(b)==row['sha256'] and len(b)==row['bytes'];bd[row['path']]=b
+ assert sha(bd[reuse['qualifiedPlan']])==reuse['qualifiedPlanSHA256']
+ for row in reuse['qualifiedReceipts']:assert sha(bd[row['path']])==row['sha256'] and json.loads(bd[row['path']])['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS'
+ for row in reuse['sourceJoins']:assert sha(bd[row['qualifiedPath']])==row['sha256']==sha(data[row['currentPath']])
+ result=dict(status='PASS',isolatedRelocation=True,bindings=len(rows),objects=len(set(x['object']for x in rows if 'object'in x)),externalELFs=len(external),commands=sum(x['commands']for x in roles),guards=sum(x['guards']for x in roles),evolvingPinJoins=count,importsPerRole=[len(json.loads(data[r['plan']])['sourceInventory'])for r in roles],models=reproduced,actuals=actuals,generatedNativeELFObjects=generated,inconclusiveHistoryReceipts=len(m['historyReceipts']),authorityCases=len(a['results']),unchangedBasicImportJoins=len(reuse['sourceJoins']),backendReplay=False,scope=m['scope'])
+ (OUT/'FULL-JOIN-VERIFICATION.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))

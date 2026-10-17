@@ -1,4 +1,5 @@
 import Base
+import ./deferred-command.bend as Deferred
 import ./event-stream.bend as Leaf
 import ./world.bend as W
 import ./relation-commands.bend as Notice
@@ -182,7 +183,7 @@ def barrier_advanced(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~classify:N
   match advanced:
     case (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},actual):
       barrier_drained(~S,~C,~R,~P,~F,~H,typed,positions,frameStart,boundary,capacity,nextReader,
-        FailureBarrier.drain(~S,~C,~R,~Notice.Notice<S,P>,~classify,List.reverse(&1,(W.World<S,C,R,Notice.Notice<S,P>> -> W.World<S,C,R,Notice.Notice<S,P>>),pending),
+        FailureBarrier.drain(~S,~C,~R,~Notice.Notice<S,P>,~classify,List.reverse(&1,Deferred.Command<W.World<S,C,R,Notice.Notice<S,P>>>,pending),
           FailureBarrier.BarrierState{W.World{namespace,allocator,store,resource,events,[],registrations,nextSystemId,clock},domains,Nat.max(previous,U32.to_nat(actual))}))
 
 def barrier(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,context:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:

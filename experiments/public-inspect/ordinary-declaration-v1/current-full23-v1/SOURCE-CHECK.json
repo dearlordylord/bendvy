@@ -1,0 +1,73 @@
+{
+  "scope": "Two candidate core modules only; not fullconsumer or universalproof qualification. Existing rootwrapper/default5 CPU8 serial. No automatic pre/post fullpin capture for these development checks; no source edits during invocation.",
+  "checks": [
+    {
+      "entrypoint": "/tmp/bendvy-inspector54-current/src/ecs/inspector-query-projection.bend",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "8",
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/tmp/bendvy-inspector54-current/src/ecs/inspector-query-projection.bend"
+      ],
+      "exitCode": 0,
+      "defaultWallCapSeconds": 5,
+      "stdout": "checks/projection-source01.stdout",
+      "stderr": "checks/projection-source01.stderr"
+    },
+    {
+      "entrypoint": "/tmp/bendvy-inspector54-current/src/ecs/inspector-query.bend",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "8",
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/tmp/bendvy-inspector54-current/src/ecs/inspector-query.bend"
+      ],
+      "exitCode": 0,
+      "defaultWallCapSeconds": 5,
+      "stdout": "checks/query-source01.stdout",
+      "stderr": "checks/query-source01.stderr"
+    }
+  ],
+  "backendByAuthor": false,
+  "finalConsumerChecks": [
+    {
+      "entrypoint": "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/output-adapter.bend",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "8",
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/output-adapter.bend"
+      ],
+      "exitCode": 0,
+      "defaultWallCapSeconds": 5,
+      "prePins": "checks/whole-pure-final01.pre.json",
+      "postPins": "checks/whole-pure-final01.post.json",
+      "stdout": "checks/whole-pure-final01.stdout",
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": "checks/whole-pure-final01.stderr",
+      "stderrSHA256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+    },
+    {
+      "entrypoint": "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/output-io-main.bend",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "8",
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/output-io-main.bend"
+      ],
+      "exitCode": 0,
+      "defaultWallCapSeconds": 5,
+      "prePins": "checks/host-final01.pre.json",
+      "postPins": "checks/host-final01.post.json",
+      "stdout": "checks/host-final01.stdout",
+      "stdoutSHA256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "stderr": "checks/host-final01.stderr",
+      "stderrSHA256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+    }
+  ],
+  "finalPinScope": "Actual full literal consuming closure+Base/sidecars hashed before and after each finalcheck; exact equality. Both joinedpure andIOhost actualexit0 ALLPROOFSCHECK; no foreignIO refusal invented."
+}

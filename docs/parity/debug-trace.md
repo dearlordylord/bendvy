@@ -123,7 +123,7 @@ not an isolated hook-cost measurement. No threshold or baseline changes here.
 Independent final source/evidence review found no blocking implementation defect.
 The passing unchanged default #28 gate has a portable archive; its verification
 is included in the same independent final review, which reports no blocking
-implementation/evidence defect. Full #57 still requires master commit hooks and CI. The completed gate reports NO_CONFIRMED_REGRESSION
+implementation/evidence defect. Master delivery e9096051b passed actual commit hooks and CI39003777004; #57 is closed. The completed gate reports NO_CONFIRMED_REGRESSION
 for both backends (20 pairs each); this is scoped to its frozen Workshop workload,
 not full-feature performance equivalence.
 Feature-wide performance goals remain #21/#23/#24. No issue checkbox or closure

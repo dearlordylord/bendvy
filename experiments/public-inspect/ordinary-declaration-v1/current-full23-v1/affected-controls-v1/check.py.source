@@ -1,0 +1,19 @@
+from pathlib import Path
+import json,hashlib,re,subprocess
+S=Path('/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1');L=S/'affected-controls-v1';L.mkdir(exist_ok=True);old=Path('/workspace/formal-proofs/bendvy-worktrees/inspector54-coherent-cost-diagnostic/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/stock-format-owner-v1/callback-forwarding-v1/owner-forwarding-v1/boxed-diagnostic-v1/coherent-callback-v1/execution-callback-v1/actual-frame-v1/graph-only-v1/execution-source-v1/compiler-lookup-v1/affected-controls-v1/canonical-v1/mirror/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/negatives');sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();base={p:h for p,h in json.load(open(S/'SOURCE-FREEZE.json'))['sourcePins'].items() if p.startswith('/home/node/.bend/bend2/')}
+def pins(p):
+ got={}
+ def visit(f):
+  f=f.resolve();
+  if str(f) in got:return
+  got[str(f)]=sha(f)
+  for imp in re.findall(r'^import\s+(\S+)',f.read_text(),re.M):
+   if imp!='Base':visit(f.parent/imp)
+ visit(p);return dict(sorted({**base,**got}.items()))
+rows=[]
+for name in ['undeclared-selection','cross-schema-grant','opaque-owner-escape','owner-duplication','write-through-read']:
+ src=old/(name+'.bend');dest=L/(name+'.bend');text=src.read_text().replace('../stage/','../');dest.write_text(text);strip=lambda s:'\n'.join(l for l in s.splitlines() if not l.startswith('import '));assert strip(src.read_text())==strip(text)
+ pre=pins(dest);(L/(name+'.pre.json')).write_text(json.dumps(pre,indent=2)+'\n');argv=['/usr/bin/taskset','-c','8','/workspace/formal-proofs/bendvy/scripts/bend-check',str(dest)]
+ with (L/(name+'.stdout')).open('wb') as out,(L/(name+'.stderr')).open('wb') as err:r=subprocess.run(argv,stdout=out,stderr=err)
+ post=pins(dest);assert pre==post;(L/(name+'.post.json')).write_text(json.dumps(post,indent=2)+'\n');rows.append({'name':name,'oldSource':str(src),'oldSHA256':sha(src),'sourceSHA256':sha(dest),'nonImportBodyExact':True,'argv':argv,'exitCode':r.returncode,'pins':len(pre),'stdoutSHA256':sha(L/(name+'.stdout')),'stderrSHA256':sha(L/(name+'.stderr'))});print(name,r.returncode,(L/(name+'.stderr')).read_text()[-600:],flush=True)
+(L/'CHECKS.json').write_text(json.dumps({'scope':'Five existing canonical authority bodies import-only rehomed onto currentcandidate. Stock pinned2.0.35 default5CPU8 actual diagnostics; intendedreason assessment separate, no exit-only qualification.','rows':rows},indent=2)+'\n')

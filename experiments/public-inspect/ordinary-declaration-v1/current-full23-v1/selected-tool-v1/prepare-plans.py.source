@@ -1,0 +1,16 @@
+from pathlib import Path
+import json,hashlib,copy,shutil
+S=Path('/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1');L=S/'selected-tool-v1';O=Path('/tmp/bendvy54-current-selected-tool-actual01/normal');sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();old=json.load(open('/tmp/bendvy54-current-layout-key-actual01/plan.json'));config=json.load(open(L/'SUCCESSOR-CONFIG.json'));wrapper=str(L/'bend');rows=[]
+for role in ['js','native']:
+ D=O/role;D.mkdir(parents=True,exist_ok=True);p=copy.deepcopy(old);p['role']=role;p['scope']='Explicitprojectlocal selectedwrapper toolcompat+fullcurrent53 ordinaryconsumer. No systeminstallation or sharedconfigselection. SameELF/resources9reviewedpatches; fullmodel/caps unchanged.';p['tools']['bend']=wrapper;p['tools']['bendElf']=config['tools']['bendElf'];p['generated']=str(D/('scenario.js' if role=='js' else 'scenario.c'));p['native']=str(D/'scenario.native');p['diagnosticLauncher']['argvTemplate'][-2:]=[str(D/'plan.json'),'<SEALED_PLAN_SHA256>'];base=[p['tools']['taskset'],'-c','11'];p['commands']=[{'label':'source-selection-control','argv':base+[p['tools']['node'],str(L/'check-selection.mjs')],'capSeconds':5,'expectedExit':0},{'label':'tool-version','argv':base+[wrapper,'version'],'capSeconds':5,'expectedExit':0},{'label':'source-selected-check','argv':base+[wrapper,p['entrypoint'],'--check-only'],'capSeconds':5,'expectedExit':0},{'label':'emit','argv':base+[wrapper,p['entrypoint'],'-o',p['generated']],'capSeconds':30}]
+ if role=='native':p['commands']+=[{'label':'build','argv':base+[old['commands'][3]['argv'][3],'-O3',p['generated'],'-o',p['native'],'-pthread','-lm'],'capSeconds':120},{'label':'consumer','argv':base+[p['native'],'--threads','1','--gpu','off'],'capSeconds':5}]
+ else:p['commands']+=[{'label':'consumer','argv':base+[p['tools']['node'],p['generated']],'capSeconds':5}]
+ # Current isolated wrapper config explicitly identifies script vs underlying ELF.
+ for f in [L/'bend',L/'RECIPE.json',L/'prepare.py',L/'selected-config.py',L/'check-selection.mjs',L/'SUCCESSOR-CONFIG.json',L/'prepared/PREPARED.json',L/'prepared/compiler/cli.mjs']:
+  p['pins'][str(f)]=sha(f)
+ for b in config['toolAndReachedLinkBindings']:p['pins'][b['resolved']]=b['sha256']
+ p['resourceRoots'][str(L/'prepared/compiler')]={str(f.relative_to(L/'prepared/compiler')):sha(f) for f in sorted((L/'prepared/compiler').rglob('*')) if f.is_file()}
+ p['pins'][str(S/'README.md')]=sha(S/'README.md')
+ for f,h in p['pins'].items():assert sha(f)==h,f
+ (D/'plan.json').write_text(json.dumps(p,indent=2)+'\n');(L/('plan-'+role+'.json')).write_bytes((D/'plan.json').read_bytes());h=sha(D/'plan.json');argv=p['diagnosticLauncher']['argvTemplate'][:];argv[-1]=h;rows.append({'role':role,'plan':str(D/'plan.json'),'planSHA256':h,'argv':argv,'pins':len(p['pins']),'commandsExecuted':False})
+(L/'PREPARED-PLANS.json').write_text(json.dumps(rows,indent=2)+'\n');shutil.copy2(__file__,L/'prepare-plans.py.source');print(json.dumps(rows,indent=2))

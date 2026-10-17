@@ -10,10 +10,18 @@ A complete public save restores ordered relation graphs and committed machine va
 
 ## Acceptance criteria
 
-- [ ] Observe pinned relation group ordering, missing endpoints, duplicate source, self policy, hierarchy cycle, unknown machine and illegal-state validation before any live mutation.
-- [ ] Save/restore all supported fields with explicit codecs and full observations. Clear pending machines, transition events and relation failures as observed; keep services, registered slots/captures/Local outside the save contract.
-- [ ] Validate partial resource/machine entries and retained omitted values without assuming a full reset; preserve allocator/identity and lifecycle reader contracts from basic restore.
-- [ ] Detect reached graph-order/cycle/queue-clear mutations and run basic save consumers unchanged. Distinguish successful validation from universal recovery proof.
+- [x] Observe pinned relation group ordering, missing endpoints, duplicate source, self policy, hierarchy cycle, unknown machine and illegal-state validation before any live mutation.
+- [x] Save/restore all supported fields with explicit codecs and full observations. Clear pending machines, transition events and relation failures as observed; keep services, registered slots/captures/Local outside the save contract.
+- [x] Validate partial resource/machine entries and retained omitted values without assuming a full reset; preserve allocator/identity and lifecycle reader contracts from basic restore.
+- [x] Detect reached graph-order/cycle/queue-clear mutations and run basic save consumers unchanged. Distinguish successful validation from universal recovery proof.
+
+## Current implementation
+
+The ordinary frontend composes the existing constructed basic schema with declared relations and explicit machine codecs. `restore-graph-save.save` writes the six-field detached snapshot; `restore-graph-raw.parse` and `restore-graph-raw-owner.run` preserve the original Raw on refusal. `restore-graph-runtime.run` operates on the existing mixed Runtime and a catalog derived from actual event-family declarations. Callers do not supply a cleanup callback or duplicate gameplay metadata.
+
+Validation, constructor staging, graph/machine checks and capacity admission precede live cleanup. Successful restore uses canonical entity cleanup and fresh generational handles, returns the saved-key mapping and owned drain receipts, clears pending/transition/failure batches, and preserves omitted committed values and registered owners. Saved full keys are opaque remapping tokens; no runtime-index bound or new Raw duplicate-property policy is imposed on them.
+
+The [ordinary Runtime consumer](../../experiments/public-restore/graph-runtime-v1/README.md) links the complete two-schema observations, genuine room refusal, reached mutants, authority checks, unchanged basic-save reuse and executed TS shared projection. These finite roles passed independently modeled whole-output comparisons. Source-current integration review, unchanged #28 regression and CI remain required before issue delivery.
 
 ## Blocked by
 

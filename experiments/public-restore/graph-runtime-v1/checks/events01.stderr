@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+20 | def setup(~S:Data,world:F.World(~S),owner:Array<U32>) -> F.RuntimeType(~S):
+21>|   match Old.descriptor(~S):
+   |         ^^^^^^^^^^^^^^^^^^
+22 |     case Setup.Setup{_,provision,_}:started(~S,world,owner,provision)
+bend 2.0.37 is available: run bend update

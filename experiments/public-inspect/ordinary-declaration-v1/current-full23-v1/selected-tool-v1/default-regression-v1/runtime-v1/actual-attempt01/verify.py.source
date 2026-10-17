@@ -1,0 +1,47 @@
+from pathlib import Path
+import json,hashlib,zipfile,gzip,tempfile,shutil,runpy,statistics,random
+HERE=Path('/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/selected-tool-v1/default-regression-v1/runtime-v1/actual-attempt01');sha=lambda b:hashlib.sha256(b).hexdigest()
+with tempfile.TemporaryDirectory() as temporary:
+ packet=Path(temporary)/'packet';shutil.copytree(HERE,packet);m=json.loads((packet/'MANIFEST.json').read_text());assert sha((packet/'EVIDENCE.zip').read_bytes())==m['archiveSHA256']
+ with zipfile.ZipFile(packet/'EVIDENCE.zip') as z:
+  assert len(z.namelist())==len(set(z.namelist())) and set(z.namelist())==set(m['members'])
+  data={name:z.read(name) for name in z.namelist()}
+  for name,row in m['members'].items():assert len(data[name])==row['bytes'] and sha(data[name])==row['sha256']
+ r=json.loads(data['cohort/receipt.json']);assert (packet/'receipt.json').read_bytes()==data['cohort/receipt.json'];assert r['status']=='NO_CONFIRMED_REGRESSION';assert r['cpu']==11 and len(r['commands'])==123 and all(c['exit']==0 for c in r['commands']);assert len(r['pairs'])==40 and r['injectedSlowdownMs']==0
+ assert json.loads(data['current/benchmarks/contract.json'])==r['contract'];assert r['contract']['baselineCommit']=='327bec49d41f00f88950343dea1edc1e0ec97dc4' and r['contract']['pairs']==20 and r['contract']['iterations']==10 and r['contract']['allowedSlowdown']==0
+ for role,rows in r['sources'].items():
+  for path,h in rows.items():assert sha(data['cohort/'+role+'/'+path])==h
+ for path,h in r['artifacts'].items():assert sha(data['cohort/'+path])==h
+ for path,h in r['currentSourceHashes'].items():assert sha(data['current/'+path])==h
+ for path,h in r['referenceHashes'].items():assert sha(data['reference/'+path])==h
+ decision=Path(temporary)/'decision.py';decision.write_bytes(data['current/benchmarks/decision.py']);assess=runpy.run_path(str(decision))['assess'];answer=assess(r['pairs'],r['contract']['pairs'],r['contract']['alpha']);assert answer['status']==r['status'] and answer['endpoints']==r['endpoints']
+ fixture=Path(temporary)/'generational_fixture.py';fixture.write_bytes(data['current/benchmarks/generational_fixture.py']);migration=runpy.run_path(str(fixture));changes=[]
+ for name,h in migration['WORKLOAD_SHA256'].items():
+  before=data['cohort/baseline/examples/query-composition/'+name];assert sha(before)==h
+  text=before.decode()
+  for old,new in migration['REPLACEMENTS'].get(name,()):assert text.count(old)==1;text=text.replace(old,new)
+  after=text.encode();assert after==data['cohort/candidate/examples/query-composition/'+name]
+  if name in migration['REPLACEMENTS']:changes.append(dict(path='examples/query-composition/'+name,beforeSHA256=sha(before),afterSHA256=sha(after),replacements=len(migration['REPLACEMENTS'][name])))
+ changes.sort(key=lambda row:list(migration['REPLACEMENTS']).index(Path(row['path']).name))
+ assert r['candidateFixtureAdaptation']==dict(baselineCommit=migration['BASELINE_COMMIT'],providerFilesTransformed=False,files=changes)
+ expected=json.loads(data['cohort/baseline/examples/query-composition/expected.json']);expected['checkpoints']=[x for x in expected['checkpoints']if x['label']!='foreign-collision-reference'];assert len(expected['checkpoints'])==22
+ outputs=[n for n in data if n.startswith('cohort/')and n.endswith('.stdout.gz')];assert len(outputs)==110
+ commands={c['label']:c for c in r['commands']}
+ for name in outputs:
+  raw=gzip.decompress(data[name]);lines=raw.splitlines();assert len(lines)==10 and all(json.loads(line)==expected for line in lines);label=Path(name).name[:-10];assert sha(raw)==commands[label]['stdoutSHA256']
+ rng=random.Random(r['contract']['seed']);orders={}
+ for backend in ['JS','Native']:
+  orders[backend]=[False,True]*10;rng.shuffle(orders[backend]);assert sum(orders[backend])==10
+ for pair,row in enumerate(r['timings']):
+  groups=[['TS']]
+  for backend in ['JS','Native']:
+   sides=['baseline-'+backend,'candidate-'+backend];groups.append(list(reversed(sides)) if orders[backend][pair] else sides)
+  rng.shuffle(groups);assert row['pair']==pair and row['order']==[side for group in groups for side in group]
+  for role,elapsed in row['milliseconds'].items():assert elapsed==commands[f'pair-{pair}-{role}']['elapsedMs']
+  for backend in ['JS','Native']:
+   actual=next(v for v in r['pairs']if v['pair']==pair and v['backend']==backend);assert actual['baselineMs']==row['milliseconds']['baseline-'+backend] and actual['candidateMs']==row['milliseconds']['candidate-'+backend]
+ for role,median in r['mediansMs'].items():assert statistics.median(row['milliseconds'][role]for row in r['timings'])==median
+ assert 'cohort/candidate/workshop.native'in data and 'cohort/baseline/workshop.native'in data
+ pre=json.loads(data['context/root-launch-pre.json']);post=json.loads(data['context/root-launch-post.json']);assert post['receiptSHA256']==sha(data['cohort/receipt.json']);assert pre['pinsMatched']==post['pinsMatched']==383;assert sum(pre['resourcesMatched'].values())==sum(post['resourceCounts'].values())==349;assert post['commandsZero']==123;assert m['members']['selection/bend']['mode']=='0o755'
+ result=dict(status='PASS',isolatedRelocation=True,cohortStatus=r['status'],archiveMembers=len(data),commands=123,fullCompressedOutputs=110,fullApplicationObservations=1100,checkpointCount=22,balancedPairsPerBackend=20,currentSourceBindings=len(r['currentSourceHashes']),referenceBindings=len(r['referenceHashes']),sourceBindings={k:len(v)for k,v in r['sources'].items()},artifactBindings=len(r['artifacts']),generatedNativeELFsArchived=2,allFourMigrationFilesAndFiveSyntaxEditsVerified=True,decisionRecomputed=answer,scope='Default sourcebaseline/current selectedtool Workshop contract only; one-secondpregateCPUcontext not sustainedquiet. Not same-sourcecompilerimpact/speed/equivalence/fullparity verdict.',backendReplay=False)
+ print(json.dumps(result,indent=2));(HERE/'OFFLINE-VERIFICATION.json').write_text(json.dumps(result,indent=2)+'\n')

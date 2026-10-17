@@ -1,0 +1,46 @@
+from pathlib import Path
+import json,gzip,hashlib
+WT=Path('/tmp/bendvy60-graph-ts-reference');LEAF=WT/'experiments/public-restore/graph-reference-successor-v2';OUT=LEAF/'runtime-v1/actual-attempt01'
+sha=lambda b:hashlib.sha256(b).hexdigest()
+files={};external=set();attempts=[]
+def add(path,digest=None,tool=False,private=False):
+ p=Path(path);b=p.read_bytes();h=sha(b);assert digest is None or h==digest,str(p)
+ assert str(p)not in files or files[str(p)]==b;files[str(p)]=b
+ if private or (tool and b.startswith(b'\x7fELF')):external.add(str(p))
+def configuration(value):
+ kind=value['kind']
+ if kind=='file':add(value['resolvedPath'],value['sha256'],True,Path(value['resolvedPath']).name=='.npmrc')
+ elif kind=='symlink':configuration(value['resolved'])
+ elif kind=='directory':
+  for child in value['inventory'].values():configuration(child)
+for attempt in ['01','02']:
+ d=Path('/tmp/bendvy60-graph-reference-actual'+attempt);r=json.loads((d/'receipt.json').read_text())
+ assert r['status']==('INCOMPLETE'if attempt=='01'else'DEVELOPMENT_PASS')
+ for f in d.iterdir():
+  if f.is_file():add(f)
+ for path,value in r['inputs'].items():
+  if isinstance(value,dict):
+   for rel,h in value.items():add(Path(path)/rel,h)
+  else:add(path,value,True)
+ for value in r['configuration'].values():configuration(value)
+ for name,h in r['rawHashes'].items():add(d/name,h)
+ attempts.append(dict(receipt=str(d/'receipt.json'),status=r['status'],scope='prestdout scheduling API failure'if attempt=='01'else'full source-derived shared projection equality'))
+for name in ['graph-reference-v1','graph-reference-successor-v2']:
+ for f in (LEAF.parent/name).rglob('*'):
+  if f.is_file()and 'runtime-v1'not in f.relative_to(LEAF.parent/name).parts and '__pycache__'not in f.parts:add(f)
+add('/tmp/prepare60-graph-reference.py');add('/tmp/prepare60-graph-reference02.py')
+for path,body in list(files.items()):
+ if Path(path).name=='SOURCE-BASIS.json':
+  basis=json.loads(body)
+  for section in ['sourceInventory','sourcePins']:
+   for x,h in basis[section].items():add(x,h,True)
+
+OUT.mkdir(parents=True,exist_ok=True);(OUT/'objects').mkdir(exist_ok=True);rows=[]
+for path,b in sorted(files.items()):
+ h=sha(b);row=dict(path=path,bytes=len(b),sha256=h)
+ if path in external:row['retention']='external installed ELF or private configuration identity only'
+ else:
+  packed=gzip.compress(b,mtime=0);obj='objects/'+h+'.gz';(OUT/obj).write_bytes(packed);row.update(object=obj,compressedSHA256=sha(packed))
+ rows.append(row)
+manifest=dict(scope='Third-reference finite graph/machine restore shared projection; no Bend ownership/identity equivalence or full issue60 acceptance. Original prestdout failure and same-frame public scheduling repair retained; no subject replay.',attempts=attempts,sourceCommit='703c5d53afa3a0c6fba38462e951863c46c195f7',priorCommit='f7dcac04606df8f7d2369f8452f55c69a91504fb',members=rows)
+(OUT/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n');print(json.dumps(dict(bindings=len(rows),objects=len(set(r['object']for r in rows if 'object'in r)),externalIdentities=len(external))))

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : value
+- observed : value (consumed more than once)
+Location: publish
+105 |       restored(~S,held,saved,input,report,Observe.raw_returned(~S,F.restore_raw(~S,owner,runtime,input)))
+106>| def publish(~S:Data,value:U32,session:Session<S>) -> Step<S>:
+    |                     ^^^^^
+107 |   match session:
+bend 2.0.37 is available: run bend update

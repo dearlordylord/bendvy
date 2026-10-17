@@ -1,0 +1,28 @@
+from pathlib import Path
+import json,gzip,hashlib,shutil
+S=Path('/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1');L=S/'runtime-v1/actual-attempt01';assert not L.exists();(L/'objects').mkdir(parents=True);sha=lambda b:hashlib.sha256(b).hexdigest();dirs=[Path('/tmp/bendvy54-current-full23-first-actual01/normal/js'),Path('/tmp/bendvy54-current-layout-key-actual01')];paths=set();roles=[];toolOnly=set()
+for d in dirs:
+ p=json.load(open(d/'plan.json'));r=json.load(open(d/'receipt.json'));assert r['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS';assert all(c['exit']==0 and c['failure'] is None for c in r['commands'])
+ for f,h in p['pins'].items():assert sha(Path(f).read_bytes())==h,f
+ for root,fs in p['resourceRoots'].items():
+  for f,h in fs.items():name=str(Path(root)/f);assert sha(Path(name).read_bytes())==h,name;paths.add(name);toolOnly.add(name)
+ for g in r['guards']:assert sha(Path(g['path']).read_bytes())==g['sha256'];assert json.loads(Path(g['path']).read_text())['unchanged']
+ for c in r['commands']:
+  for k in ['stdout','stderr']:
+   v=c[k];assert sha(Path(v['path']).read_bytes())==v['sha256']
+ out=d/'consumer.stdout';assert out.stat().st_size==6731751 and sha(out.read_bytes())=='9a0c40434386a57ff2f29cdd0853c110fb1a7e84575914649e8bb8892f550159';assert gzip.decompress(Path(p['oracle']).read_bytes())==out.read_bytes()
+ paths.update(p['pins']);toolOnly.update(str(v) for v in p['tools'].values());paths.update(str(f) for f in d.iterdir() if f.is_file());roles.append({'directory':str(d),'planSHA256':sha((d/'plan.json').read_bytes()),'receiptSHA256':sha((d/'receipt.json').read_bytes()),'status':r['status'],'outputBytes':out.stat().st_size,'outputSHA256':sha(out.read_bytes()),'commands':[{k:c[k] for k in ['label','exit','failure','capSeconds']} for c in r['commands']]})
+# Keep all preceding actual verdicts as history, without promoting diagnostics/aborts.
+for d in [Path('/tmp/bendvy54-current-full23-first-actual01/normal/native'),Path('/tmp/bendvy54-current-graph-lookup-actual01'),Path('/tmp/bendvy54-current-graph-lookup-actual02'),Path('/tmp/bendvy54-current-graph-lookup-actual03'),Path('/tmp/bendvy54-current-graph-lookup-diagnostic01')]:paths.update(str(f) for f in d.iterdir() if f.is_file())
+rows=[];objects={}
+for name in sorted(paths):
+ f=Path(name);raw=f.read_bytes();h=sha(raw);r={'actualPath':name,'actualRealpath':str(f.resolve()),'bytes':len(raw),'sha256':h}
+ if raw.startswith(b'\x7fELF') and name in toolOnly:r['hashOnly']='Installed tool/shared-library identity; distribution not copied.'
+ else:
+  obj=L/'objects'/(h+'.gz')
+  if not obj.exists():obj.write_bytes(gzip.compress(raw,mtime=0))
+  assert gzip.decompress(obj.read_bytes())==raw;r['object']='objects/'+obj.name;r['objectSHA256']=sha(obj.read_bytes());objects[h]=len(raw)
+ rows.append(r)
+for row in rows:
+ if 'object' in row:assert sha(gzip.decompress((L/row['object']).read_bytes()))==row['sha256']
+record={'scope':'Lossless actual current53/full23 stockJS and selected-unadoptedcacheCLI NativeO3 evidence; input/source/resource/hash joins verified. Installed ELF/shared-library identities hash-only per existing retention pattern, not redistributed. Source paths honestly remain original execution paths, not master execution.','sourceCommit':'7def7f9f5','oracleCommit':'32d05a7d7937559c2b92e1fdcd87d887c07fc630','candidateCommit':'b5ec256c8','roles':roles,'members':rows,'objects':len(objects),'limits':['SelectedNativeCLI is unadopted; installedstock Native failed.','JS result is actualstockJS fullmatch; candidateJS sourcebranch reuse only, no freshcandidateJS.','History includes compilerdeadlines, coordinatorabort and instrumented diagnostic; no normalization or upgraded verdict.','No comparative performance or universal semantic proof claim.']};(L/'RETENTION.json').write_text(json.dumps(record,indent=2)+'\n');shutil.copy2(__file__,L/'retain.py.source');print(len(rows),len(objects))

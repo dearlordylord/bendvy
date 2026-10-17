@@ -1,0 +1,185 @@
+"""Independent current full23 oracle; source/observer adaptation, never runtime output.
+
+The historical source model and public literal records are preserved unchanged.
+Only the actual full-key wire and physical allocator representation are adapted.
+"""
+import copy
+import hashlib
+import pathlib
+
+HERE = pathlib.Path(__file__).resolve().parent
+PRIOR = HERE / 'prior-model.py.source'
+LITERAL = HERE / 'COMPONENT-ORACLE-v2.json'
+assert hashlib.sha256(PRIOR.read_bytes()).hexdigest() == '3382b6545521ba895f9525fa3f138bc14853211d9f4038ba56c0b073f251af6d'
+assert hashlib.sha256(LITERAL.read_bytes()).hexdigest() == '73d269167d7bffa03843b62eb179121a72d6386794a55e5ff9fcd8cf2b0b38fa'
+# Resolve the exact preserved literal locally; no historical model edit is made.
+source = PRIOR.read_text()
+old_root = "HERE=pathlib.Path('/workspace/formal-proofs/bendvy/experiments/public-inspect/promotion-stage/component-query-v1')"
+assert source.count(old_root) == 1
+basis = {'__file__': str(PRIOR), '__name__': 'preserved_source_model'}
+exec(compile(source.replace(old_root, 'HERE=pathlib.Path(__file__).resolve().parent'), str(PRIOR), 'exec'), basis)
+
+
+def key(index):
+    return {'index': index, 'generation': 0}
+
+
+def handle(index):
+    return {'namespace': 1, **key(index)}
+
+
+def full_keys(value):
+    """Match format.row/get/lookup: errors carry keys, rows/targets full handles."""
+    if isinstance(value, list):
+        return [full_keys(x) for x in value]
+    if not isinstance(value, dict):
+        return value
+    result = {}
+    for name, child in value.items():
+        if name == 'target':
+            result[name] = handle(child)
+        elif name == 'entityId':
+            result[name] = key(child) if '_tag' in value else handle(child)
+        else:
+            result[name] = full_keys(child)
+    return result
+
+
+# Public row membership, order, fields, values, exact errors, and filters come
+# from the preserved source-derived literal, with no cuts or stdout input.
+M = copy.deepcopy(basis['M'])
+for phase in M['phases']:
+    phase['completeQueryRecords'] = full_keys(phase['completeQueryRecords'])
+basis['M'] = M
+
+
+prior_diagnostic = basis['diag']
+
+
+def diagnostic(value):
+    result = dict(value)
+    result['targets'] = [target + ':0' for target in value['targets']]
+    return prior_diagnostic(result)
+
+
+class World(basis['World']):
+    """Actual allocator state; ordinary column/resource transitions reuse basis."""
+
+    def __init__(self, schema, registered):
+        super().__init__(schema, registered)
+        self.slots = [(0, 'Consumed')] + [(0, 'Live')] * 16 + [(0, 'DeadRetained')] + [(0, 'Consumed')] * 14
+        self.free = []
+        self.order = list(range(1, 18))
+
+    def structural(self):
+        super().structural()
+        self.slots[16] = (1, 'Free')
+        self.free = [16]
+        self.order.remove(16)
+
+    def dump(self):
+        tree = basis['tree']
+        show = basis['show']
+        columns = []
+        for family in basis['FAMILIES']:
+            values = ['none' if value is None else 'some(leaf:' + str(value) + ')' for value in self.values[family]]
+            stamps = show(str(i) + ':' + str(a) + ':' + str(c) for i, a, c in self.stamps[family])
+            columns.append(family + '=' + tree(values) + ';stamps=' + stamps)
+        slots = tree([str(generation) + ':' + phase for generation, phase in self.slots])
+        order = show(str(index) + ':0' for index in self.order)
+        allocator = 'allocator{next=18;high=17;capacity=32;depth=5;slots=' + slots + ';free=' + show(self.free) + ';order=' + order + '}'
+        registrations = show(str(i + 1) + ':' + self.schema + '/ComponentQueryGate/' + basis['NAMES'][i] + ':[]' for i in reversed(range(9))) if self.registered else '[]'
+        resource = basis['repeated'](4, 101) + ';' + basis['repeated'](2, 201) + ';' + basis['repeated'](2, 301) + ';' + diagnostic(self.d)
+        return 'namespace=1|allocator=' + allocator + '|store=' + '|'.join(columns) + '|resource=' + resource + '|events=[]|pending=0|pendingKinds=end|registrations=' + registrations + '|nextSystemId=' + ('10' if self.registered else '1') + '|clock=' + str(self.clock)
+
+
+basis['World'] = World
+# Preserve the build sequence's actual diagnostic state; only its presenter
+# includes the newly explicit generation in targets.
+basis['diag'] = diagnostic
+
+
+def complete(omit_reader=False):
+    return basis['complete'](omit_reader)
+
+
+def derive_record(world, query, cursor):
+    """Enumerate the actual finite source state, independently of literal rows."""
+    def present(family, entity):
+        return world.values[family][entity - 1] is not None
+
+    def matches(entity):
+        for _, family, mode in query['selection']:
+            if mode == 'required' and not present(family, entity):
+                return False
+        if any(not present(f, entity) for f in query.get('with', [])):
+            return False
+        if any(present(f, entity) for f in query.get('without', [])):
+            return False
+        for filter_kind, family in query.get('filters', []):
+            stamp = next(((a, c) for i, a, c in world.stamps[family] if i == entity), (0, 0))
+            if not present(family, entity) or stamp[0 if filter_kind == 'added' else 1] <= cursor:
+                return False
+        return True
+
+    def projected(entity):
+        fields = {}
+        for name, family, mode in query['selection']:
+            value = world.values[family][entity - 1]
+            if value is not None:
+                value = str(value) if family == 'title' else bool(value) if family == 'active' else [value] if family == 'count' else value
+            fields[name] = value if mode == 'required' else {'present': False} if value is None else {'present': True, 'value': value}
+        return {'entityId': entity, 'data': fields}
+
+    rows = [projected(i) for i in range(1, 17) if world.live[i] and matches(i)]
+    gets = []
+    for i in range(1, 18):
+        if i == 17 or not world.live[i]:
+            result = {'ok': False, 'error': {'_tag': 'MissingEntity', 'entityId': i}}
+        elif not matches(i):
+            result = {'ok': False, 'error': {'_tag': 'QueryMismatch', 'entityId': i}}
+        else:
+            result = {'ok': True, 'value': projected(i)}
+        gets.append({'target': i, 'result': result})
+    if not rows:
+        one = {'ok': False, 'error': {'_tag': 'NoEntities'}}
+        optional = {'ok': True, 'value': None}
+    elif len(rows) == 1:
+        one = optional = {'ok': True, 'value': rows[0]}
+    else:
+        one = optional = {'ok': False, 'error': {'_tag': 'MultipleEntities', 'count': len(rows)}}
+    return {'query': query['name'], 'each': rows, 'get': gets, 'single': one, 'singleOptional': optional}
+
+
+def validate_public_records():
+    world = World('Workshop', True)
+    cursors = [0] * 14
+    for phase in M['phases']:
+        if phase['name'] == 'independentLifecycle':
+            world.independent()
+        if phase['name'] == 'structuralMutations':
+            world.structural()
+        for i, query in enumerate(M['queries']):
+            actual = full_keys(derive_record(world, query, cursors[i]))
+            assert actual == phase['completeQueryRecords'][i], (phase['name'], query['name'])
+            world.clock += 1
+            cursors[i] = world.clock
+    assert world.slots[17] == (0, 'DeadRetained')
+    assert world.slots[16] == (1, 'Free') and world.free == [16]
+    assert world.order == list(range(1, 16)) + [17]
+    return 70
+
+
+if __name__ == '__main__':
+    import argparse
+    import sys
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--render-stdout', action='store_true')
+    parser.add_argument('--omit-projection', action='store_true')
+    options = parser.parse_args()
+    validate_public_records()
+    raw = complete(options.omit_projection)
+    if options.render_stdout:
+        sys.stdout.buffer.write(raw)
+    else:
+        print(len(raw), hashlib.sha256(raw).hexdigest())

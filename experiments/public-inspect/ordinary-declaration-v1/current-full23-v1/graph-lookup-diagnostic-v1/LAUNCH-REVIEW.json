@@ -1,0 +1,64 @@
+{
+  "verdict": "PASS_CONDITIONAL_LAUNCH_REVIEW",
+  "authorCommit": "2fddda2c6",
+  "plan": "/tmp/bendvy54-current-graph-lookup-diagnostic01/plan.json",
+  "planSHA256": "0b50dedfa8e494fac0771cef7160a58a093bd6da3547ecf434527e16a0ba2bc8",
+  "scope": "Instrumentation and current-subject binding only. Unadopted copied graph+lookup compiler diagnostic; no Native qualification, adoption, speed or bottleneck/cause claim.",
+  "priorCandidateReviewCommit": "c59076828",
+  "priorCoarseReviewCommit": "591054875",
+  "launcher": {
+    "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+    "sha256": "1d8467f5c3e035e1c5d711986b30e1c4df9d507de4c7c61adea9b5c23fdcc124",
+    "argvTemplate": [
+      "/usr/bin/python3.11",
+      "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+      "run",
+      "/tmp/bendvy54-current-native-diagnostic01/plan.json",
+      "<SEALED_PLAN_SHA256>"
+    ],
+    "scope": "Existing canonical fullconsumer diagnostic collector, not detached normalcollector. No changed runner."
+  },
+  "commands": [
+    {
+      "label": "source-lineage-control",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/graph-lookup-diagnostic-v1/check-lineage.mjs"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0
+    },
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/graph-lookup-diagnostic-v1/compiler/installed-cli-coarse.mjs",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/output-io-main.bend",
+        "-o",
+        "/tmp/bendvy54-current-graph-lookup-diagnostic01/scenario.c"
+      ],
+      "capSeconds": 30
+    }
+  ],
+  "instrumentedSHA256": "3cb4fcaf76f5802f97694c833bcf38747d781562e523b6c5dc3c2bb446847acc",
+  "checks": [
+    "All204 literal filepins rehashed offlineCPU8; same53sourceinventory/importclosure/tools/environment/resourceRoots/full6731751 model hash identity as prior reviewed current diagnostic.",
+    "Exact23 forward and inverse replacements checked against literal original CLI embedded in hash-verified installedELF. First3 equal previously reviewed graph+hostlookup transforms; next15 equal reviewed coarse instrumentation.",
+    "Last5 replacements preserve exact original expression text/order, adding only synchronous enter/exit logging around edges construction/live reach/wide predicate/dev reach/live filters. Each anchor unique; no new algorithm/cache/type traversal or probes into recursion.",
+    "Logging may perturb diagnostic timing; bounded phase evidence only, not performance or causal equivalence to stock. Missing exit on interrupted operation is retained evidence, not a success label.",
+    "Actual existingdevelopment-v2 launcher hash pinned1d8467f5 and PREPARED exactargv/planhash verified; no runnerchange. Existing guard/rawstream/artifact/terminalfailure handling inherited from direct review.",
+    "Only source-lineage5 and emit30CPU11 commands, BUN_BE_BUN1; no build/runtime command. Fresh generated/native outputs absent at review. Generic COMPLETE label does not qualify Native execution."
+  ],
+  "conditions": [
+    "Root solelauncher after fresh queue/CPU11 availability; unchanged source/tool/resource guards required, no repinning.",
+    "Preserve candidate failure and prior stock/coarse diagnostics unchanged.",
+    "No full resource-directory sweep repeated; resourceRoots equality and pinned file checks performed."
+  ],
+  "execution": "OfflinePython/source checks only. No Node/compiler/control/backend/consumer executed by reviewer."
+}

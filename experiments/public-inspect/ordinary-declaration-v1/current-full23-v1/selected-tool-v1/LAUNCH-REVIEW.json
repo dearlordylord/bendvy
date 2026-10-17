@@ -1,0 +1,209 @@
+{
+  "verdict": "PASS_CONDITIONAL_LAUNCH_REVIEW",
+  "authorCommit": "ff22a0af0",
+  "metadataSuccessorCommit": "9bee67a6f",
+  "plans": {
+    "js": {
+      "path": "/tmp/bendvy54-current-selected-tool-actual02/normal/js/plan.json",
+      "sha256": "b3dd4f2068542671e5b40ac2bdca95dee6d84cd2ff7c74f89b62e25e066aa5c8",
+      "pins": 257,
+      "commands": [
+        {
+          "label": "source-selection-control",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/selected-tool-v1/check-selection.mjs"
+          ],
+          "capSeconds": 5,
+          "expectedExit": 0
+        },
+        {
+          "label": "source-tool-version",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/selected-tool-v1/bend",
+            "version"
+          ],
+          "capSeconds": 5,
+          "expectedExit": 0
+        },
+        {
+          "label": "source-selected-check",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/selected-tool-v1/bend",
+            "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/output-io-main.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "expectedExit": 0
+        },
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/selected-tool-v1/bend",
+            "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/output-io-main.bend",
+            "-o",
+            "/tmp/bendvy54-current-selected-tool-actual02/normal/js/scenario.js"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy54-current-selected-tool-actual02/normal/js/scenario.js"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "launcher": {
+        "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+        "sha256": "1d8467f5c3e035e1c5d711986b30e1c4df9d507de4c7c61adea9b5c23fdcc124",
+        "argvTemplate": [
+          "/usr/bin/python3.11",
+          "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+          "run",
+          "/tmp/bendvy54-current-selected-tool-actual02/normal/js/plan.json",
+          "<SEALED_PLAN_SHA256>"
+        ],
+        "scope": "Existing canonicalfullconsumer collector handles source controls +freshartifact +fullmodel. No runnerchange."
+      }
+    },
+    "native": {
+      "path": "/tmp/bendvy54-current-selected-tool-actual02/normal/native/plan.json",
+      "sha256": "083ce5366e9974a9aa1dcfc30cc83efa8ef960d205e75cdc904fc1a4679e0a60",
+      "pins": 257,
+      "commands": [
+        {
+          "label": "source-selection-control",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+            "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/selected-tool-v1/check-selection.mjs"
+          ],
+          "capSeconds": 5,
+          "expectedExit": 0
+        },
+        {
+          "label": "source-tool-version",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/selected-tool-v1/bend",
+            "version"
+          ],
+          "capSeconds": 5,
+          "expectedExit": 0
+        },
+        {
+          "label": "source-selected-check",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/selected-tool-v1/bend",
+            "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/output-io-main.bend",
+            "--check-only"
+          ],
+          "capSeconds": 5,
+          "expectedExit": 0
+        },
+        {
+          "label": "emit",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/selected-tool-v1/bend",
+            "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/output-io-main.bend",
+            "-o",
+            "/tmp/bendvy54-current-selected-tool-actual02/normal/native/scenario.c"
+          ],
+          "capSeconds": 30
+        },
+        {
+          "label": "build",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy-clang19-diagnostic/clang19",
+            "-O3",
+            "/tmp/bendvy54-current-selected-tool-actual02/normal/native/scenario.c",
+            "-o",
+            "/tmp/bendvy54-current-selected-tool-actual02/normal/native/scenario.native",
+            "-pthread",
+            "-lm"
+          ],
+          "capSeconds": 120
+        },
+        {
+          "label": "consumer",
+          "argv": [
+            "/usr/bin/taskset",
+            "-c",
+            "11",
+            "/tmp/bendvy54-current-selected-tool-actual02/normal/native/scenario.native",
+            "--threads",
+            "1",
+            "--gpu",
+            "off"
+          ],
+          "capSeconds": 5
+        }
+      ],
+      "launcher": {
+        "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+        "sha256": "1d8467f5c3e035e1c5d711986b30e1c4df9d507de4c7c61adea9b5c23fdcc124",
+        "argvTemplate": [
+          "/usr/bin/python3.11",
+          "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+          "run",
+          "/tmp/bendvy54-current-selected-tool-actual02/normal/native/plan.json",
+          "<SEALED_PLAN_SHA256>"
+        ],
+        "scope": "Existing canonicalfullconsumer collector handles source controls +freshartifact +fullmodel. No runnerchange."
+      }
+    }
+  },
+  "scope": "Explicit project-local selectedtool wrapper/CLI/config/guard wiring and full currentconsumer execution. No package/systeminstallation, sharedconfiguration adoption, finalfeature or performance claim.",
+  "priorCompilerReviewCommit": "50c702060",
+  "selectedCLI_SHA256": "ddb0fd6ead0d442a19c257f15628af8b91cd083439c1b7ca02d0e656171d408f",
+  "checks": [
+    "Pinned installedELF hash verified; unique160byteprefix locates exact333165byteoriginalCLI. Nine exact forward/inverse patches reproduce previously reviewedddb0 graph+lookup+layoutkeycache CLI. No instrumentation included.",
+    "All70 installedBase/effectresource bytes and complete membership checked. Prepared3aliases resolve installedresources; this differs from earlierplaincandidate identity and therefore needs actualselectedJS+Native pair, not source-only reuse.",
+    "Wrapper computes preparedCLI path relative to its own directory, unsets BUN_OPTIONS/BUN_BE_BUN, delegates version/--version to stockELF, exportsBUN_BE_BUN1 only for ELF+selectedCLI route. No globaltool modification.",
+    "selected-config imports unchangedprojectrelativeinstalled-config, reports wrapper asbend and pinned underlyingELF asbendElf/discoverybend; scriptDiscovery explicitly skipswrapper ldd and bindsunderlyingELF. Existingtool/reachedlink bindings retained plus wrapper/recipe/preparer/config/generatedCLI/preparedmetadata.",
+    "ActualSUCCESSOR-CONFIG tool/reachedlink bindings and all257 literal pins per successorplan rehashed. Same53source/importclosure/full6731751oracle/toolsenvironmentresources except intendedwrapper/selectionbinding retained.",
+    "Existingdevelopment-v2 launcher pinned; fullconsumer branch checks completeindependentoracle and emptystderr, with inheritedpre/acquired/post/final guards, canonicalinternalheavylock and fullraw/failure/artifactretention.",
+    "Exact actual01\u219202 diff: source-tool-version label/freshoutputpaths/templates and two additionalprovenance/priorplanpins only; no oldpin changes/removals. FreshC/native outputs absent."
+  ],
+  "resolvedFinding": {
+    "originalPlans": "actual01 preservedunlaunched",
+    "finding": "tool-version fell through existingrunner consumer branch, causing versionbytes comparison to fulloracle.",
+    "resolution": "Metadata successor uses source-tool-version/expectedExit0, so existing sourcecontrol route is reached; no runnerchange."
+  },
+  "conditions": [
+    "Root solelauncher after freshqueue/CPU11 availability and unchanged completepins/resourceguards; no repinning.",
+    "Bothactualselectedroles required for claimed selectedtool portability; sourcewiring alone is notexecutionqualification.",
+    "Selectedtool remains explicit project-local successor; originalstockELF/sharedconfiguration unchanged."
+  ],
+  "execution": "OfflinePython/source/hash assertions only; no wrapper/version/Node/compiler/check/control/backend/consumer executed by reviewer."
+}

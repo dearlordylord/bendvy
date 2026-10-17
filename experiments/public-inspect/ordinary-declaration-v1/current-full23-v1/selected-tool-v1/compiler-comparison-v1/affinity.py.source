@@ -1,0 +1,33 @@
+from pathlib import Path
+import json,hashlib,re,subprocess,runpy,tarfile
+R=Path('/workspace/formal-proofs/bendvy');C=Path('/tmp/bendvy-graph60-integration');S=Path('/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1');L=S/'selected-tool-v1/compiler-comparison-v1';L.mkdir(exist_ok=True);old=R/'.artifacts/trace57-regression-v1';sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();receipt=json.load(open(old/'receipt.json'));assert sha(old/'receipt.json')=='980cc973372467249119ed4ad0b8641848c65a154d040f68a1c8b401bc4a697b';assert len(receipt['commands'])==123 and all(c['exit']==0 for c in receipt['commands']);contract=json.load(open(C/'benchmarks/contract.json'));assert contract==receipt['contract'];legacy=old/'candidate';closure={}
+def visit(p):
+ p=p.resolve()
+ if p in closure:return
+ closure[p]=sha(p)
+ for imp in re.findall(r'^import\s+(\S+)',p.read_text(),re.M):
+  if imp!='Base':visit(p.parent/imp)
+visit(legacy/'examples/query-composition/timing-main.bend');rows=[]
+for p,h in closure.items():
+ rel=p.relative_to(legacy)
+ if str(rel).startswith('src/ecs/'):
+  current=C/rel;assert sha(current)==h,rel;rows.append({'path':str(rel),'oldStageSHA256':h,'currentCombinedSHA256':sha(current)})
+# Verify ALL14 workloadbytes are exactly current canonical candidate migration.
+adapter=runpy.run_path(str(C/'benchmarks/generational_fixture.py'));base=contract['baselineCommit'];work=[]
+for name,h in adapter['WORKLOAD_SHA256'].items():
+ body=subprocess.check_output(['git','show',base+':examples/query-composition/'+name],cwd=C);assert hashlib.sha256(body).hexdigest()==h
+ for before,after in adapter['REPLACEMENTS'].get(name,()):assert body.decode().count(before)==1;body=body.decode().replace(before,after).encode()
+ target=legacy/'examples/query-composition'/name;assert target.read_bytes()==body;work.append({'path':name,'oldStageSHA256':sha(target),'currentMigratedSHA256':hashlib.sha256(body).hexdigest()})
+for source in ['run.py','contract.json','decision.py','generational_fixture.py']:
+ assert (C/'benchmarks'/source).read_bytes()==(R/'benchmarks'/source).read_bytes()
+# Record actual current and old runtime artifacts. Complete selected-side join followsdefaultcohort.
+artifacts={}
+for ext in ['js','c','native']:
+ f=legacy/('workshop.'+ext);artifacts[ext]={'path':str(f),'sha256':sha(f),'bytes':f.stat().st_size}
+# Exact existing selector/compileblock remains available unchanged exceptROOT/pathhashmetadata.
+archive=R/'experiments/integration-gates/combined-ordinary-app-v1/compiler-lookup-artifact-identity-v1/regression-result-v1/evidence.tar.gz'
+with tarfile.open(archive) as t:
+ for name in ['retained-artifacts.py','compile-block.txt']:
+  b=t.extractfile('inputs/preparation/targeted/'+name).read();(L/(name+'.historical.source' if name.endswith('.py') else name)).write_bytes(b)
+block=(L/'compile-block.txt').read_text();assert (C/'benchmarks/run.py').read_text().count(block)==1
+record={'scope':'Current protectedworkload sourceaffinity for existing same-source stock→selected compiler artifactcomparison; NOTdefault#28 sourcebaseline/current comparison. No execution or performanceclaim.','combinedCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=C).decode().strip(),'stockReceipt':str(old/'receipt.json'),'stockReceiptSHA256':sha(old/'receipt.json'),'stockStatus':receipt['status'],'stockCommandsAll0':123,'currentAndOldCoreClosureExact':rows,'fullRecursiveClosureModules':len(closure),'all14WorkloadInputsMigrationExact':work,'oldStockArtifacts':artifacts,'sameFlags':'Actualstockreceipt candidatechecker5/jsEmit30/cEmit30/Clang19-O3build120/runtime5; prospectivedefaultselected usesSAMEexistingrun.py/contract/flags.','toolDifference':'OldstockELF pinned2.0.35 versus selectedwrapper overSAMEELF+9patchCLI; runtimehostlookup cost mustbecompared separately.','existingSelector':'Historical577e9f295 retained-artifacts.py exact algorithm replacescompileblockonly; currentcompileblock byteexact and currentdecision/statistics fullobservationloop unchanged. Currentselector adaptation mayonlybindRUNNER path/hash and ARTIFACTSJSON; rootreview required, no newrunner.','selectedArtifactPrerequisite':'Afteractualdefaultselectedcohort, comparecandidate/workshop.js byteexactoldstockJS and candidate/workshop.c byteexactoldstockC after ONLYtwoexistinghostlookupanchors. Then useoldstockNativeELF asbaseline and actualselectedNativeELF ascandidate in existing20pairperbackend retained-artifact comparison. No freshstockbuild required ifbothartifactjoins hold.','limitations':'Old577observedratios notcurrentqualification. Same29reachedclosure means neither13graphmodulesnortwoInspectorfiles contribute protectedruntime; no fullInspector/globalcompiler performanceclaim.'};(L/'SOURCE-AFFINITY.json').write_text(json.dumps(record,indent=2)+'\n');print(len(closure),len(rows),len(work),sha(L/'SOURCE-AFFINITY.json'))

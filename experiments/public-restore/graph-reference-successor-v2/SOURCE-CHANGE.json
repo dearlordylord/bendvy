@@ -1,0 +1,16 @@
+{
+  "scope": "Scheduling API repair only; no output-derived oracle change",
+  "beforeSource": "f7dcac04606df8f7d2369f8452f55c69a91504fb",
+  "change": {
+    "before": "runtime.tick(G.Schedule(...steps))",
+    "after": "runtime.tick(...steps.map(step => G.Schedule(step)))"
+  },
+  "sameTickFrame": true,
+  "sameStepOrder": true,
+  "sameModelSHA256": "651adf0434a3f8c8b184354a2ccd562c82bcca94caaeef40ee0b1841981a9ca0",
+  "sameExpectedSHA256": "c171cb6b4383fe22d5497542d06ac72bc03fc94ecc8b00624eae77289cdbe269",
+  "sources": {
+    "Schedule.ts": "validateUniqueSystemSteps:392-404",
+    "Runtime.ts": "tickUnsafe:1650-1659 / runtime.tick:1849-1851"
+  }
+}

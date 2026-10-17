@@ -1,0 +1,13 @@
+from pathlib import Path
+import json,hashlib,copy
+S=Path('/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1');L=S/'layout-key-cache-v1';O=Path('/tmp/bendvy54-current-layout-key-actual01');sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();p=copy.deepcopy(json.load(open('/tmp/bendvy54-current-graph-lookup-actual03/plan.json')));before='/tmp/bendvy54-current-graph-lookup-actual03'
+p['scope']='Unadopted mutation-invalidated layoutkey cache on exact6abc. Fullcurrent53/fulloracle unchanged. Focused controls then emit30/buildO3-120/runtime5. No adoption/performance claim.'
+for k in ['generated','native']:p[k]=p[k].replace(before,str(O))
+for c in p['commands']:c['argv']=[v.replace(before,str(O)) if v.startswith(before+'/scenario.') else v for v in c['argv']]
+p['commands'][0]={'label':'source-cache-control','argv':[p['tools']['taskset'],'-c','11',p['tools']['node'],str(L/'check-cache.mjs')],'capSeconds':5,'expectedExit':0}
+p['commands'][2]['argv']=[p['tools']['taskset'],'-c','11',p['tools']['bend'],str(L/'compiler/candidate.mjs'),p['entrypoint'],'-o',p['generated']]
+p['environment']['BUN_BE_BUN']='1';p['diagnosticLauncher']['argvTemplate'][-2:]=[str(O/'plan.json'),'<SEALED_PLAN_SHA256>']
+b={'sourceCommit':'7def7f9f5','oracleCommit':'32d05a7d7937559c2b92e1fdcd87d887c07fc630','sampleProfileSHA256':'ad87ff91cef9676234240bf12780cbd1bed491dba8bbfb1d868e97092200f605','scope':'Only six reversible cachepatches beyond6abc; cache stores EXACToriginal key and invalidates on both possible live termcellmutations. No consumer/core/API changes. Cachehit/miss and improvement unknown.','commandsExecuted':False};(L/'SOURCE-BINDING.json').write_text(json.dumps(b,indent=2)+'\n')
+for f in [L/'LINEAGE.json',L/'SOURCE-BINDING.json',L/'check-cache.mjs',L/'prepare.py.source',L/'compiler/candidate.mjs']:p['pins'][str(f)]=sha(f)
+for f,h in p['pins'].items():assert sha(f)==h,f
+(O/'plan.json').write_text(json.dumps(p,indent=2)+'\n');(L/'plan.json').write_bytes((O/'plan.json').read_bytes());h=sha(O/'plan.json');argv=p['diagnosticLauncher']['argvTemplate'][:];argv[-1]=h;(L/'PREPARED.json').write_text(json.dumps({'plan':str(O/'plan.json'),'planSHA256':h,'argv':argv,'pins':len(p['pins']),'commandsExecuted':False},indent=2)+'\n');print(h)

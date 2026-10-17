@@ -1,0 +1,94 @@
+{
+  "verdict": "PASS_CONDITIONAL_LAUNCH_REVIEW",
+  "sourceCommit": "136015e00",
+  "plan": "/tmp/bendvy54-current-graph-lookup-sampled02/plan.json",
+  "planSHA256": "95ad8811286beba0b749a967a414c3a5ecfae069b596aaf55a7f49a7dfdf1f1a",
+  "priorBlockedReviewCommit": "b617aa0b3",
+  "resolvedFinding": "All three resource aliases now resolve exactly to actual plain6abc candidate physical Base/effs/bendtt.lean resources, removing installed-versus-candidate Base identity discrepancy.",
+  "resourceRoot": "/workspace/formal-proofs/bendvy-worktrees/inspector54-coherent-cost-diagnostic/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/stock-format-owner-v1/callback-forwarding-v1/owner-forwarding-v1/boxed-diagnostic-v1/coherent-callback-v1/execution-callback-v1/actual-frame-v1/graph-only-v1/execution-source-v1/compiler-lookup-v1/compiler",
+  "launcher": {
+    "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+    "sha256": "1d8467f5c3e035e1c5d711986b30e1c4df9d507de4c7c61adea9b5c23fdcc124",
+    "argvTemplate": [
+      "/usr/bin/python3.11",
+      "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+      "run",
+      "/tmp/bendvy54-current-graph-lookup-sampled02/plan.json",
+      "<SEALED_PLAN_SHA256>"
+    ],
+    "scope": "Existing canonical fullconsumer diagnostic collector, not detached normalcollector. No changed runner."
+  },
+  "commands": [
+    {
+      "label": "source-lineage-control",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/graph-lookup-sampled-v2/check-lineage.mjs"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0
+    },
+    {
+      "label": "source-profile-api-control",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/graph-lookup-sampled-v2/check-api.mjs",
+        "/tmp/bendvy54-current-graph-lookup-sampled02/api-control.cpuprofile"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0
+    },
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/graph-lookup-sampled-v2/compiler/installed-cli-coarse.mjs",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/output-io-main.bend",
+        "-o",
+        "/tmp/bendvy54-current-graph-lookup-sampled02/scenario.c"
+      ],
+      "capSeconds": 30
+    },
+    {
+      "label": "source-profile-schema",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/usr/bin/python3.11",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/graph-lookup-sampled-v2/validate-profile.py.source",
+        "/tmp/bendvy54-current-graph-lookup-sampled02/compiler.cpuprofile"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0
+    }
+  ],
+  "checks": [
+    "All216 filepins verified; candidate71-resource map equals previously reviewed plaincandidate map.",
+    "Same instrumentedCLI/unmodifiedCLI/LINEAGE/helper/API/schema byte-for-byte as sampledv1; inherited exact4hookinverse\u21926abc and all7inverse\u2192ELF original checks retained.",
+    "check-lineage differs by exactly one resource-root string literal replacement; all other source bytes unchanged. Three actual symlink realpath targets verified against plaincandidate root.",
+    "Same53sourceinventory/importclosure/tools/fullmodel identity; sameenvironment except freshabsoluteprofilepath, samecaps5/5/30/5CPU11.",
+    "PREPARED exact existingdevelopment-v2 launcher and planhash argv verified; no runnerchanges. AllC/native/profile/APIcontrol/metadata outputs absent."
+  ],
+  "scope": "Exact sameVM candidate-resource route with historical cooperative CPU sampler instrumentation; no stockcompiler adoption, Nativeconsumer qualification, speed or cause claim.",
+  "limits": [
+    "Reviewer ran offlinePython/source assertions only; no Node/compiler/APIcontrol/backend/sampler executed.",
+    "Profile sampling is cooperative: stalleddefinition may prevent flush. Additional hooks/sampler perturb timing.",
+    "If emitdeadline occurs, schema child is unreached; profile remains unvalidated until actual existingvalidator completes and result is retained.",
+    "Original blocked actual01 plan/unlaunched history preserved.",
+    "No full inherited resource-directory sweep repeated; launchguards must verify unchanged complete roots."
+  ],
+  "conditions": [
+    "Root solelauncher after fresh CPU11/queue availability and unchanged guards; no repinning.",
+    "Retain rawprofile, descriptor/hash metadata and terminalfailure receipts; distinguish valid partialprofile from compiler/Native success."
+  ]
+}

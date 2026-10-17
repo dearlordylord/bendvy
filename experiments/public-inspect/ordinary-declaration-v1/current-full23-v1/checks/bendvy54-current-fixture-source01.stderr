@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : Key.Key
+- observed : U32
+Context:
+- target : W.Handle<populate_2~S>
+- id     : U32
+- errors : String
+- world  : W.World<populate_2~S, D.Store<populate_2~S>, Consumer.Resource<populate_2~S>, U32>
+- error  : String
+Location: populate_2
+63 |   (world,error)=observed
+64>|   populate_3(~S,target,id,errors ++ error,count_selected(~S,Bool.not(U32.is_eq(U32.and((Key.index(id) - 1 : U32),8),0)),world,target,(id * 10 + 4 : U32)))
+   |                                                                                                   ^^
+65 | def populate_1(~S:Data,+target:W.Handle<S>,+id:U32,errors:String,observed:W.World<S,D.Store<S>,Consumer.Resource<S>,U32> & String) -> W.World<S,D.Store<S>,Consumer.Resource<S>,U32> & String:
+bend 2.0.37 is available: run bend update

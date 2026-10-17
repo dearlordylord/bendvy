@@ -1,0 +1,42 @@
+{
+  "original": "/tmp/bendvy-restore59-opaque/experiments/public-restore/basic-world-statefree-v1/native-emission-diagnostic-v1/compiler/installed-cli-unmodified.mjs",
+  "originalSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+  "instrumentedSHA256": "e76c683f694cd8086575d4cab584ec290a7f00e7b0235e475a42dff8a429e93d",
+  "elf": "/home/node/.bend/bin/bend-2.0.35",
+  "elfSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "patches": [
+    {
+      "original": "function graph_close(set, edges) {\n  for (const k of set) {\n    edges.forEach(([a, b]) => a === k && set.add(b));\n  }\n  return set;\n}",
+      "replacement": "function graph_close(set, edges) {\n  const next = new Map();\n  edges.forEach(([a, b]) => {\n    if (a !== a) return;\n    let row = next.get(a);\n    if (row === undefined) next.set(a, row = []);\n    row.push(b);\n  });\n  for (const k of set) {\n    for (const b of next.get(k) || []) set.add(b);\n  }\n  return set;\n}"
+    },
+    {
+      "original": "#define WL_DYN(F)  __attribute__((musttail)) return wl_tab[F](WL_ALL)",
+      "replacement": "#define WL_DYN(F)  __attribute__((musttail)) return wl_lookup(F)(WL_ALL)"
+    },
+    {
+      "original": "static const WlFn wl_tab[] = { WL_TABLE };\n#undef WL_X",
+      "replacement": "static const WlFn wl_tab[] = { WL_TABLE };\nstatic __attribute__((noinline)) WlFn wl_lookup(u32 fid) { return wl_tab[fid]; }\n#undef WL_X"
+    },
+    {
+      "label": "helper-import",
+      "original": "#!/usr/bin/env bun\n",
+      "replacement": "#!/usr/bin/env bun\nimport {start as BVY_N54P_START,checkpoint as BVY_N54P_CHECKPOINT,compile as BVY_N54P_COMPILE} from \"../sample-helper.mjs\";\n"
+    },
+    {
+      "label": "sampler-start",
+      "original": "function compile_book(book) {",
+      "replacement": "function compile_book(book) {\n  BVY_N54P_START();"
+    },
+    {
+      "label": "completed-definition-checkpoint",
+      "original": "      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);",
+      "replacement": "      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);\n      BVY_N54P_CHECKPOINT();"
+    },
+    {
+      "label": "normal-exit-fallback",
+      "original": "    fs4.writeFileSync(out, compile_book(book));",
+      "replacement": "    fs4.writeFileSync(out, BVY_N54P_COMPILE(book,compile_book));"
+    }
+  ],
+  "scope": "Exact6abc candidate plus FOUR existing sampled-cli hooks; exact historical sampler/API/schema helpers. No layout attribution, coarse logs, algorithm/cache or recursive traversal changes."
+}

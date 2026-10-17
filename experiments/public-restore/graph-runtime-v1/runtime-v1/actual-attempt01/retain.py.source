@@ -1,0 +1,61 @@
+from pathlib import Path
+import json,gzip,hashlib
+WT=Path('/tmp/bendvy60-runtime-observer')
+OUT=WT/'experiments/public-restore/graph-runtime-v1/runtime-v1/actual-attempt01'
+BASE=Path('/tmp/bendvy-restore59-oracle/experiments/public-restore/graph-runtime-oracle-v2')
+sha=lambda b:hashlib.sha256(b).hexdigest()
+files={};external=set();roles=[]
+def add(path,digest=None,tool=False):
+ p=Path(path);b=p.read_bytes();h=sha(b)
+ assert digest is None or h==digest,str(p)
+ assert str(p) not in files or files[str(p)]==b,str(p)
+ files[str(p)]=b
+ if tool and b.startswith(b'\x7fELF'):external.add(str(p))
+config=[('Workshop','js','/tmp/bendvy60-runtime-workshop-first-actual01/normal/js'),('Workshop','native','/tmp/bendvy60-runtime-workshop-first-actual02/normal/native'),('Garden','js','/tmp/bendvy60-runtime-garden-first-actual02/normal/js'),('Garden','native','/tmp/bendvy60-runtime-garden-first-actual02/normal/native')]
+for schema,role,directory in config:
+ d=Path(directory);p=d/'plan.json';r=json.loads((d/'receipt.json').read_text());plan=json.loads(p.read_text())
+ offline=schema=='Workshop' and role=='js'
+ assert r['status']==('INCOMPLETE' if offline else 'COMPLETE_CONSUMER_DEVELOPMENT_PASS')
+ assert r['planSHA256']==sha(p.read_bytes())
+ for x,h in plan['pins'].items():add(x,h,True)
+ for root,entries in plan['resourceRoots'].items():
+  for x,h in entries.items():add(Path(root)/x,h,True)
+ for f in d.iterdir():
+  if f.is_file():add(f)
+ for c in r['commands']:
+  assert c['exit']==0 and c['failure'] is None
+  for stream in ['stdout','stderr']:
+   x=c[stream];add(x['path'],x['sha256']);assert len(files[x['path']])==x['bytes']
+ for g in r['guards']:
+  add(g['path'],g['sha256']);v=json.loads(files[g['path']]);assert v['unchanged']
+  for x,h in v['actualPins'].items():add(x,h,True)
+ expected=BASE/schema.lower()/'expected.stdout.gz';add(expected)
+ output=next(c for c in r['commands'] if c['label']=='consumer');assert files[output['stdout']['path']]==gzip.decompress(files[str(expected)]);assert not files[output['stderr']['path']]
+ roles.append(dict(schema=schema,role=role,plan=str(p),receipt=str(d/'receipt.json'),commands=len(r['commands']),guards=len(r['guards']),expected=str(expected),qualification='source-derived corrected oracle offline comparison; original receipt INCOMPLETE preserved' if offline else 'stock COMPLETE_CONSUMER_DEVELOPMENT_PASS'))
+ external.discard(plan.get('native',''))
+for base in [BASE,BASE.with_name('graph-runtime-oracle-v1')]:
+ for f in base.rglob('*'):
+  if f.is_file() and '__pycache__' not in f.parts:add(f)
+add('/tmp/bendvy60-runtime-corrected-oracle-comparison-v2.json')
+unexecuted=[]
+for root in ['/tmp/bendvy60-runtime-workshop-first-actual01','/tmp/bendvy60-runtime-garden-first-actual01']:
+ for p in Path(root).glob('normal/*/plan.json'):
+  if any(x['plan']==str(p) for x in roles):continue
+  assert not p.with_name('receipt.json').exists(),str(p)
+  add(p);unexecuted.append(str(p))
+for path,body in list(files.items()):
+ if 'SOURCE-FREEZE' in Path(path).name and path.endswith('.json'):
+  frozen=json.loads(body)
+  for section in ['sourceInventory','sourcePins']:
+   for x,h in frozen.get(section,{}).items():add(x,h)
+OUT.mkdir(parents=True,exist_ok=True);(OUT/'objects').mkdir(exist_ok=True)
+rows=[]
+for p,b in sorted(files.items()):
+ h=sha(b);row=dict(path=p,bytes=len(b),sha256=h)
+ if p in external:row['retention']='external installed ELF identity only'
+ else:
+  packed=gzip.compress(b,mtime=0);obj='objects/'+h+'.gz';(OUT/obj).write_bytes(packed);row.update(object=obj,compressedSHA256=sha(packed))
+ rows.append(row)
+m=dict(scope='Frozen nineteen-checkpoint full mixed graph Runtime consumer. Workshop JS original oracle mismatch remains INCOMPLETE, separately qualified offline against source-derived corrected oracle without replay. Three remaining stock roles COMPLETE. Finite delivery evidence, not full issue60 acceptance or root-current applicability.',sourceCommit='24e0fbca86e4eb5641525d8cef6ceba55aab2aa0',oracleCommit='75484df52',roles=roles,unexecutedPlans=unexecuted,members=rows)
+(OUT/'manifest.json').write_text(json.dumps(m,indent=2)+'\n')
+print(json.dumps(dict(bindings=len(rows),objects=len(set(r['object'] for r in rows if 'object'in r)),externalELFs=len(external))))

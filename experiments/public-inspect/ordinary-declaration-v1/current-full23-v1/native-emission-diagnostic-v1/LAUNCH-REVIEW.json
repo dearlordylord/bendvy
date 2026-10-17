@@ -1,0 +1,72 @@
+{
+  "verdict": "PASS_CONDITIONAL_LAUNCH_REVIEW",
+  "reviewedAuthorCommit": "e39ccab5c",
+  "plan": "/tmp/bendvy54-current-native-diagnostic01/plan.json",
+  "planSHA256": "47b0e37e3f9e03fad27fc4981768a6df99f1ac1849a089c08526950a6a7451c7",
+  "scope": "Changed #54 subject/source/model/path binding to unchanged copied-CLI coarse diagnostic. No Native consumer qualification, installed compiler adoption, stock bottleneck equivalence or feature acceptance.",
+  "priorDirectReviewCommit": "f9d9a53e2",
+  "launcher": {
+    "path": "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+    "sha256": "1d8467f5c3e035e1c5d711986b30e1c4df9d507de4c7c61adea9b5c23fdcc124",
+    "argvTemplate": [
+      "/usr/bin/python3.11",
+      "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py",
+      "run",
+      "/tmp/bendvy54-current-native-diagnostic01/plan.json",
+      "<SEALED_PLAN_SHA256>"
+    ],
+    "scope": "Existing canonical fullconsumer diagnostic collector, not detached normalcollector. No changed runner."
+  },
+  "commands": [
+    {
+      "label": "source-lineage-control",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/native-emission-diagnostic-v1/check-lineage.mjs"
+      ],
+      "capSeconds": 5,
+      "expectedExit": 0
+    },
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "11",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/native-emission-diagnostic-v1/compiler/installed-cli-coarse.mjs",
+        "/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1/output-io-main.bend",
+        "-o",
+        "/tmp/bendvy54-current-native-diagnostic01/scenario.c"
+      ],
+      "capSeconds": 30
+    }
+  ],
+  "sourceCount": 53,
+  "pinsCount": 195,
+  "sourceFreezeSHA256": "9c4a24a3d6be0ee216008f381033c85a3faba46bf4ec95a721969e4b6f2be21e",
+  "fullIndependentOracle": {
+    "commit": "32d05a7d7937559c2b92e1fdcd87d887c07fc630",
+    "bytes": 6731751,
+    "sha256": "9a0c40434386a57ff2f29cdd0853c110fb1a7e84575914649e8bb8892f550159"
+  },
+  "verified": [
+    "Exact plan hash and all195 literal file pins rehashed offline CPU8. No resource directory sweep.",
+    "Exact53-source entry-derived import closure and frozen source inventory/hash match.",
+    "All four diagnostic machinery files byte-identical to prior60 coarse v1;15 inverse patches recover exact original CLI; original literal bytes embedded in same hash-verified installed ELF.",
+    "Compiler resource symlink targets equal installed runtime targets; same tools, environment and resourceRoots as prior reviewed diagnostic. BUN_BE_BUN=1 retained for same VM route.",
+    "Actual canonical-full-consumer-v1/development-v2.py launcher pinned1d8467f5 and PREPARED exact executable argv/plan hash verified. No detached runner substitution.",
+    "Full compressed oracle integrity independently checked (decompressed6731751 exact SHA); no subject output used. Diagnostic recipe does not run or compare consumer.",
+    "Only source-lineage expected0 cap5 and emit cap30 commands, both CPU11. OutputC/native absent at review, no build/runtime command.",
+    "Inherited runner source reviewed previously: admitted plan/Python/pins before captured helper import, exact closure and pre/acquired/post/final guards, single internal canonical heavy lock, complete raw streams, artifact hashes and terminal failure receipts."
+  ],
+  "conditions": [
+    "Root sole launcher after fresh queue/CPU11 availability and unchanged launch guards; no repinning.",
+    "Existing generic COMPLETE_CONSUMER_DEVELOPMENT_PASS label must remain interpreted as diagnostic-only for this two-command recipe.",
+    "Retain all raw diagnostics and failure receipts; no timing/performance or cause claim from copied CLI."
+  ],
+  "execution": "Reviewer ran offline Python assertions only; no compiler, Node lineage child, backend or subject execution."
+}

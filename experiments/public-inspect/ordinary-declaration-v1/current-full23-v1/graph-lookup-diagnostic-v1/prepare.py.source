@@ -1,0 +1,24 @@
+from pathlib import Path
+import json,hashlib,copy,shutil
+W=Path('/tmp/bendvy-inspector54-current');S=W/'experiments/public-inspect/ordinary-declaration-v1/current-full23-v1';L=S/'graph-lookup-diagnostic-v1';O=Path('/tmp/bendvy54-current-graph-lookup-diagnostic01');old=S/'native-emission-diagnostic-v1';g=S/'graph-lookup-candidate-v1';sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+assert not L.exists() and not O.exists();(L/'compiler').mkdir(parents=True)
+a=json.load(open(g/'LINEAGE.json'));c=json.load(open(old/'LINEAGE.json'));original=Path(a['original']).read_text();text=original;patches=[]
+for x in a['transforms']:patches.append({'original':x['before'],'replacement':x['after']})
+patches+=c['patches']
+for p in patches:assert text.count(p['original'])==1;text=text.replace(p['original'],p['replacement'])
+# Synchronous coarse markers around only existing reachability expressions.
+anchors=[('native-edges','  const edges = [...fl.segs, ...fl.spins].flatMap((s) => [...s.refs].map((r) => [s.fid, r]));'),('native-live-reach','  const live = reach([seg_fid("main")]);'),('native-wide','  const wide = [...fl.bangs].some((k) => fun_of(fl, k).live.some(([, , A]) => ty_clo(book, A)));'),('native-dev-reach','  const dev = reach([...[...fl.bangs].map(seg_fid), ...wide ? fl.clos : []]);'),('native-live-filter','  fl.segs = fl.segs.filter((s) => live.has(s.fid));\n  fl.spins = fl.spins.filter((s) => live.has(s.fid));')]
+for name,before in anchors:
+ p={'original':before,'replacement':'  bendvy_phase59("'+name+'-enter");\n'+before+'\n  bendvy_phase59("'+name+'-exit");'};assert text.count(before)==1;text=text.replace(before,p['replacement']);patches.append(p)
+(L/'compiler/installed-cli-unmodified.mjs').write_text(original);(L/'compiler/installed-cli-coarse.mjs').write_text(text)
+for name in ['base.bend','bendtt.lean','effs']:(L/'compiler'/name).symlink_to(Path('/home/node/.bend/bend2')/name,target_is_directory=name=='effs')
+lineage={**c,'instrumentedSHA256':sha(L/'compiler/installed-cli-coarse.mjs'),'patches':patches,'scope':'Exact three existing graph+hostlookup transforms plus fifteen existing coarse patches and five paired reachability expression boundaries. No algorithm/cache changes, term serialization or recursive probes.'};(L/'LINEAGE.json').write_text(json.dumps(lineage,indent=2)+'\n');shutil.copy2(old/'check-lineage.mjs',L/'check-lineage.mjs')
+back=text
+for p in reversed(patches):assert back.count(p['replacement'])==1;back=back.replace(p['replacement'],p['original'])
+assert back==original and original.encode() in Path(c['elf']).read_bytes()
+binding={'sourceCommit':'7def7f9f5','oracleCommit':'32d05a7d7937559c2b92e1fdcd87d887c07fc630','sourceFreezeSHA256':sha(S/'SOURCE-FREEZE.json'),'candidateCommit':'a71cfe790','candidateSHA256':a['candidateSHA256'],'candidateFailedReceipt':'/tmp/bendvy54-current-graph-lookup-actual01/receipt.json','scope':lineage['scope'],'patchCounts':{'candidate':3,'existingCoarse':15,'pairedExpressionBoundaries':5},'priorCoarsePlanSHA256':sha(old/'plan.json'),'candidatePlanSHA256':sha(g/'plan.json'),'commandsExecuted':False};(L/'SOURCE-BINDING.json').write_text(json.dumps(binding,indent=2)+'\n');shutil.copy2(__file__,L/'prepare.py.source')
+p=copy.deepcopy(json.load(open(old/'plan.json')));p['scope']='Diagnostic only: exact failed6abc graph+lookup candidate, existing coarse phases plus five paired reachability boundaries. No Native acceptance/adoption or performance claim.';p['generated']=str(O/'scenario.c');p['native']=str(O/'scenario.native');p['commands'][0]['argv'][-1]=str(L/'check-lineage.mjs');p['commands'][1]['argv'][-4]=str(L/'compiler/installed-cli-coarse.mjs');p['commands'][1]['argv'][-1]=p['generated']
+# Keep predecessor pins, adding exact changed machinery and failed candidate provenance.
+for f in [*L.glob('*.json'),L/'check-lineage.mjs',L/'prepare.py.source',*L.glob('compiler/*.mjs'),g/'LINEAGE.json',g/'plan.json',Path(binding['candidateFailedReceipt'])]:p['pins'][str(f)]=sha(f)
+for f,h in p['pins'].items():assert sha(f)==h,f
+O.mkdir();(O/'plan.json').write_text(json.dumps(p,indent=2)+'\n');(L/'plan.json').write_bytes((O/'plan.json').read_bytes());digest=sha(O/'plan.json');argv=p['diagnosticLauncher']['argvTemplate'][:];argv[-2:]=[str(O/'plan.json'),digest];r={'plan':str(O/'plan.json'),'planSHA256':digest,'argv':argv,'pins':len(p['pins']),'sourceCount':53,'commandsExecuted':False};(L/'PREPARED.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r,indent=2));print(p['commands'])

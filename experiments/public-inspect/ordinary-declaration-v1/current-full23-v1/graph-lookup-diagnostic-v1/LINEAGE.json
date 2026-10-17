@@ -1,0 +1,102 @@
+{
+  "original": "/tmp/bendvy-restore59-opaque/experiments/public-restore/basic-world-statefree-v1/native-emission-diagnostic-v1/compiler/installed-cli-unmodified.mjs",
+  "originalSHA256": "015d68644efcd3ed53a5dbf17f5672c3f4fcb70c8c64cd2c895b4955e1f78e62",
+  "instrumentedSHA256": "3cb4fcaf76f5802f97694c833bcf38747d781562e523b6c5dc3c2bb446847acc",
+  "elf": "/home/node/.bend/bin/bend-2.0.35",
+  "elfSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "patches": [
+    {
+      "original": "function graph_close(set, edges) {\n  for (const k of set) {\n    edges.forEach(([a, b]) => a === k && set.add(b));\n  }\n  return set;\n}",
+      "replacement": "function graph_close(set, edges) {\n  const next = new Map();\n  edges.forEach(([a, b]) => {\n    if (a !== a) return;\n    let row = next.get(a);\n    if (row === undefined) next.set(a, row = []);\n    row.push(b);\n  });\n  for (const k of set) {\n    for (const b of next.get(k) || []) set.add(b);\n  }\n  return set;\n}"
+    },
+    {
+      "original": "#define WL_DYN(F)  __attribute__((musttail)) return wl_tab[F](WL_ALL)",
+      "replacement": "#define WL_DYN(F)  __attribute__((musttail)) return wl_lookup(F)(WL_ALL)"
+    },
+    {
+      "original": "static const WlFn wl_tab[] = { WL_TABLE };\n#undef WL_X",
+      "replacement": "static const WlFn wl_tab[] = { WL_TABLE };\nstatic __attribute__((noinline)) WlFn wl_lookup(u32 fid) { return wl_tab[fid]; }\n#undef WL_X"
+    },
+    {
+      "original": "function compile_book(book) {",
+      "replacement": "function bendvy_phase59(name) {\n  const cpu = process.cpuUsage();\n  fs4.writeSync(2, JSON.stringify({kind:\"bendvy59-compiler-boundary-v1\",name,wallMs:performance.now(),userMicros:cpu.user,systemMicros:cpu.system}) + \"\\n\");\n}\nfunction compile_book(book) {"
+    },
+    {
+      "original": "  const fl = file_book(book, [\"main\", ...RUNTIME_ADTS, ...fams], false);",
+      "replacement": "  bendvy_phase59(\"native-file-book-enter\");\n  const fl = file_book(book, [\"main\", ...RUNTIME_ADTS, ...fams], false);\n  bendvy_phase59(\"native-file-book-exit\");"
+    },
+    {
+      "original": "    book_valid(book, base?.order.length ?? 0);",
+      "replacement": "    bendvy_phase59(\"book-valid-enter\");\n    book_valid(book, base?.order.length ?? 0);\n    bendvy_phase59(\"book-valid-exit\");"
+    },
+    {
+      "original": "    fs4.writeFileSync(out, compile_book(book));",
+      "replacement": "    bendvy_phase59(\"native-compile-enter\");\n    const bendvyNative59 = compile_book(book);\n    bendvy_phase59(\"native-compile-exit\");\n    fs4.writeFileSync(out, bendvyNative59);\n    bendvy_phase59(\"native-write-exit\");"
+    },
+    {
+      "original": "  await cli();\n  process.exit();",
+      "replacement": "  await cli();\n  bendvy_phase59(\"cli-exit\");\n  process.exit();"
+    },
+    {
+      "original": "function bendvy_phase59(name) {",
+      "replacement": "function bendvy_phase59(name, details = {}) {"
+    },
+    {
+      "original": "systemMicros:cpu.system}) +",
+      "replacement": "systemMicros:cpu.system,...details}) +"
+    },
+    {
+      "original": "  let reqs;\n  do {",
+      "replacement": "  let reqs;\n  let bendvyPass59 = 0;\n  do {"
+    },
+    {
+      "original": "    was = facts();\n    [fl.lend",
+      "replacement": "    was = facts();\n    bendvyPass59++;\n    let bendvyCount59 = 0;\n    let bendvyMax59 = {key:\"\",ms:0};\n    bendvy_phase59(\"native-pass-enter\",{pass:bendvyPass59,facts:was});\n    [fl.lend"
+    },
+    {
+      "original": "    for (const [k, tld] of done_defs(fl).reverse()) {\n      memo_gc();",
+      "replacement": "    for (const [k, tld] of done_defs(fl).reverse()) {\n      const bendvyStart59 = performance.now();\n      memo_gc();"
+    },
+    {
+      "original": "      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);\n    }\n    reqs =",
+      "replacement": "      emit_body(dl, fun_of(fl, k).h, tld.T, [], vals, null);\n      const bendvyElapsed59 = performance.now() - bendvyStart59;\n      bendvyCount59++;\n      if (bendvyElapsed59 > bendvyMax59.ms) bendvyMax59 = {key:k,ms:bendvyElapsed59};\n      if (bendvyCount59 % 50 === 0) bendvy_phase59(\"native-def-checkpoint\",{pass:bendvyPass59,count:bendvyCount59,last:k,max:bendvyMax59});\n    }\n    bendvy_phase59(\"native-defs-exit\",{pass:bendvyPass59,count:bendvyCount59,max:bendvyMax59});\n    reqs ="
+    },
+    {
+      "original": "  } while (was !== facts());\n  const edges =",
+      "replacement": "    bendvy_phase59(\"native-pass-exit\",{pass:bendvyPass59,facts:facts()});\n  } while (was !== facts());\n  bendvy_phase59(\"native-fixed-point-exit\");\n  const edges ="
+    },
+    {
+      "original": "  for (const k of SRCS.keys()) {\n    for (const c of book.tlds[k].c ?? []) {",
+      "replacement": "  bendvy_phase59(\"native-cids-enter\");\n  for (const k of SRCS.keys()) {\n    for (const c of book.tlds[k].c ?? []) {"
+    },
+    {
+      "original": "  const forky = graph_close(new Set(fl.segs.filter((s) => s.fork)",
+      "replacement": "  bendvy_phase59(\"native-cids-exit\");\n  const forky = graph_close(new Set(fl.segs.filter((s) => s.fork)"
+    },
+    {
+      "original": "  return c_ids(fl, runtime_c([tabs, ...desc].join(`",
+      "replacement": "  bendvy_phase59(\"native-final-text-enter\");\n  return c_ids(fl, runtime_c([tabs, ...desc].join(`"
+    },
+    {
+      "original": "  const edges = [...fl.segs, ...fl.spins].flatMap((s) => [...s.refs].map((r) => [s.fid, r]));",
+      "replacement": "  bendvy_phase59(\"native-edges-enter\");\n  const edges = [...fl.segs, ...fl.spins].flatMap((s) => [...s.refs].map((r) => [s.fid, r]));\n  bendvy_phase59(\"native-edges-exit\");"
+    },
+    {
+      "original": "  const live = reach([seg_fid(\"main\")]);",
+      "replacement": "  bendvy_phase59(\"native-live-reach-enter\");\n  const live = reach([seg_fid(\"main\")]);\n  bendvy_phase59(\"native-live-reach-exit\");"
+    },
+    {
+      "original": "  const wide = [...fl.bangs].some((k) => fun_of(fl, k).live.some(([, , A]) => ty_clo(book, A)));",
+      "replacement": "  bendvy_phase59(\"native-wide-enter\");\n  const wide = [...fl.bangs].some((k) => fun_of(fl, k).live.some(([, , A]) => ty_clo(book, A)));\n  bendvy_phase59(\"native-wide-exit\");"
+    },
+    {
+      "original": "  const dev = reach([...[...fl.bangs].map(seg_fid), ...wide ? fl.clos : []]);",
+      "replacement": "  bendvy_phase59(\"native-dev-reach-enter\");\n  const dev = reach([...[...fl.bangs].map(seg_fid), ...wide ? fl.clos : []]);\n  bendvy_phase59(\"native-dev-reach-exit\");"
+    },
+    {
+      "original": "  fl.segs = fl.segs.filter((s) => live.has(s.fid));\n  fl.spins = fl.spins.filter((s) => live.has(s.fid));",
+      "replacement": "  bendvy_phase59(\"native-live-filter-enter\");\n  fl.segs = fl.segs.filter((s) => live.has(s.fid));\n  fl.spins = fl.spins.filter((s) => live.has(s.fid));\n  bendvy_phase59(\"native-live-filter-exit\");"
+    }
+  ],
+  "scope": "Exact three existing graph+hostlookup transforms plus fifteen existing coarse patches and five paired reachability expression boundaries. No algorithm/cache changes, term serialization or recursive probes."
+}

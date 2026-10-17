@@ -1,0 +1,18 @@
+from pathlib import Path
+import json,hashlib,copy,shutil
+S=Path('/tmp/bendvy-inspector54-current/experiments/public-inspect/ordinary-declaration-v1/current-full23-v1');OLD=S/'graph-lookup-sampled-v1';L=S/'graph-lookup-sampled-v2';O=Path('/tmp/bendvy54-current-graph-lookup-sampled02');sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();assert not L.exists() and not O.exists();(L/'compiler').mkdir(parents=True);O.mkdir();a=json.load(open(S/'graph-lookup-candidate-v1/LINEAGE.json'))
+for n in ['LINEAGE.json','sample-helper.mjs','check-api.mjs','validate-profile.py.source','compiler/installed-cli-unmodified.mjs','compiler/installed-cli-coarse.mjs']:shutil.copy2(OLD/n,L/n)
+for n in ['base.bend','bendtt.lean','effs']:
+ target=Path(a['resourceRoot'])/n;(L/'compiler'/n).symlink_to(target,target_is_directory=n=='effs');assert (L/'compiler'/n).resolve()==target.resolve()
+control=(OLD/'check-lineage.mjs').read_text();before="fs.realpathSync('/home/node/.bend/bend2/'+name)";after='fs.realpathSync('+json.dumps(a['resourceRoot']+'/')+'+name)';assert control.count(before)==1;(L/'check-lineage.mjs').write_text(control.replace(before,after))
+b={'scope':'Resource-identity-only successor to unlaunched sampled01. Four existing sampler hooks/compiler/helper bodies EXACT. Alias controls now assert actual plaincandidate Base/bendtt/effs realpaths, not installed aliases.','priorPlanSHA256':sha(OLD/'plan.json'),'resourceRoot':a['resourceRoot'],'exactPlainResourceRealpaths':True,'compilerBodyExactPrior':sha(L/'compiler/installed-cli-coarse.mjs')==sha(OLD/'compiler/installed-cli-coarse.mjs'),'commandsExecuted':False};(L/'SOURCE-BINDING.json').write_text(json.dumps(b,indent=2)+'\n');shutil.copy2(__file__,L/'prepare.py.source')
+p=copy.deepcopy(json.load(open(OLD/'plan.json')));oldOut=Path('/tmp/bendvy54-current-graph-lookup-sampled01')
+for k in ['generated','native']:p[k]=p[k].replace(str(oldOut),str(O))
+p['environment']['BENDVY_CPU_PROFILE_PATH']=str(O/'compiler.cpuprofile')
+for c in p['commands']:c['argv']=[arg.replace(str(OLD),str(L)).replace(str(oldOut),str(O)) for arg in c['argv']]
+p['diagnosticLauncher']['argvTemplate'][-2:]=[str(O/'plan.json'),'<SEALED_PLAN_SHA256>']
+# Exact physical plaincandidate resources retained in original candidate resource map.
+prior=json.load(open(S/'graph-lookup-candidate-v1/plan.json'));p['resourceRoots']=prior['resourceRoots']
+for f in [*L.glob('*.json'),*L.glob('*.mjs'),L/'validate-profile.py.source',L/'prepare.py.source',*L.glob('compiler/*.mjs'),OLD/'plan.json']:p['pins'][str(f)]=sha(f)
+for f,h in p['pins'].items():assert sha(f)==h,f
+(O/'plan.json').write_text(json.dumps(p,indent=2)+'\n');(L/'plan.json').write_bytes((O/'plan.json').read_bytes());h=sha(O/'plan.json');argv=p['diagnosticLauncher']['argvTemplate'][:];argv[-1]=h;r={'plan':str(O/'plan.json'),'planSHA256':h,'argv':argv,'pins':len(p['pins']),'commandsExecuted':False};(L/'PREPARED.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r,indent=2))

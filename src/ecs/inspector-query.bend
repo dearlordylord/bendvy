@@ -124,16 +124,16 @@ def composed_mismatched(~H:Type,~S:Data,~V:Data,target:W.Handle<S>,owner:H) -> H
 def composed_missing(~H:Type,~S:Data,~V:Data,target:W.Handle<S>,owner:H) -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:
   match target:
     case W.Handle{_,id}:(owner,Fail{MissingEntity{id}})
-def composed_lookup_matched(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,+target:W.Handle<S>,observed:H & Bool) -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:
+def composed_lookup_matched(~H:Type,~S:Data,~V:Data,project:H -> W.Handle<S> -> H & V,+target:W.Handle<S>,observed:H & Bool) -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:
   match observed:
     case (owner,False{}):composed_mismatched(~H,~S,~V,target,owner)
-    case (owner,True{}):composed_lookup_projected(~H,~S,~V,target,Q.project_field(~H,~S,~V,selection)(owner,target))
-def composed_lookup_valid(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,+target:W.Handle<S>,observed:H & Bool) -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:
+    case (owner,True{}):composed_lookup_projected(~H,~S,~V,target,project(owner,target))
+def composed_lookup_valid(~H:Type,~S:Data,~V:Data,matches:H -> W.Handle<S> -> H & Bool,project:H -> W.Handle<S> -> H & V,+target:W.Handle<S>,observed:H & Bool) -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:
   match observed:
     case (owner,False{}):composed_missing(~H,~S,~V,target,owner)
-    case (owner,True{}):composed_lookup_matched(~H,~S,~V,~selection,target,Q.matches_field(~H,~S,~V,selection)(owner,target))
+    case (owner,True{}):composed_lookup_matched(~H,~S,~V,project,target,matches(owner,target))
 def composed_lookup_target(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,~world:WorldRead<H,S>,owner:H,+target:W.Handle<S>) -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:
-  composed_lookup_valid(~H,~S,~V,~selection,target,composed_valid_field(~H,~S,world)(owner,target))
+  composed_lookup_valid(~H,~S,~V,Q.matches_field(~H,~S,~V,selection),Q.project_field(~H,~S,~V,selection),target,composed_valid_field(~H,~S,world)(owner,target))
 def composed_lookup(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,~world:WorldRead<H,S>,owner:H,target:W.Handle<S>) -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:
   composed_lookup_target(~H,~S,~V,~selection,~world,owner,target)
 
@@ -149,14 +149,14 @@ def composed_unwrap_scan(~H:Type,~S:Data,~V:Data,result:ScanResult<H,S,V>) -> H 
 def composed_scan_projected(~H:Type,~S:Data,~V:Data,target:W.Handle<S>,rows:List<&2,ProjectedRow<S,V>>,continue:H -> List<&2,ProjectedRow<S,V>> -> ScanResult<H,S,V>,observed:H & V) -> ScanResult<H,S,V>:
   (owner,value)=observed
   continue(owner,ProjectedRow{target,value} <> rows)
-def composed_scan_matched(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,+target:W.Handle<S>,rows:List<&2,ProjectedRow<S,V>>,continue:H -> List<&2,ProjectedRow<S,V>> -> ScanResult<H,S,V>,observed:H & Bool) -> ScanResult<H,S,V>:
+def composed_scan_matched(~H:Type,~S:Data,~V:Data,project:H -> W.Handle<S> -> H & V,+target:W.Handle<S>,rows:List<&2,ProjectedRow<S,V>>,continue:H -> List<&2,ProjectedRow<S,V>> -> ScanResult<H,S,V>,observed:H & Bool) -> ScanResult<H,S,V>:
   match observed:
     case (owner,False{}):continue(owner,rows)
-    case (owner,True{}):composed_scan_projected(~H,~S,~V,target,rows,continue,Q.project_field(~H,~S,~V,selection)(owner,target))
+    case (owner,True{}):composed_scan_projected(~H,~S,~V,target,rows,continue,project(owner,target))
 def composed_scan(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,targets:List<&2,W.Handle<S>>,owner:H,rows:List<&2,ProjectedRow<S,V>>) -> ScanResult<H,S,V>:
   match targets:
     case []:ScanResult{owner,List.reverse(&2,ProjectedRow<S,V>,rows)}
-    case +target <> rest:composed_scan_matched(~H,~S,~V,~selection,target,rows,(owner => rows => composed_scan(~H,~S,~V,~selection,rest,owner,rows)),Q.matches_field(~H,~S,~V,selection)(owner,target))
+    case +target <> rest:composed_scan_matched(~H,~S,~V,Q.project_field(~H,~S,~V,selection),target,rows,(owner => rows => composed_scan(~H,~S,~V,~selection,rest,owner,rows)),Q.matches_field(~H,~S,~V,selection)(owner,target))
 def composed_scanned(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,observed:H & List<&2,W.Handle<S>>) -> H & List<&2,ProjectedRow<S,V>>:
   (owner,targets)=observed
   composed_unwrap_scan(~H,~S,~V,composed_scan(~H,~S,~V,~selection,targets,owner,[]))

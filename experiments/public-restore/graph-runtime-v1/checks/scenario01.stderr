@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a declared constructor (unknown: ../../../src/ecs/ordinary-app-local-fields.RegistrationFailed)
+Location:
+174 |   match result:
+175>|     case Ordinary.RegistrationFailed{_,_}:"local-registration-refused\n"
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+176 |     case Ordinary.Registered{world,local}:lifecycle_registered(~S,foreign,foreignHandle,local,machine,Readers.register(~S,Events.setup(~S,world,ANode{ALeaf{800},ALeaf{801}})))
+bend 2.0.37 is available: run bend update

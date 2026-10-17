@@ -1,0 +1,56 @@
+from pathlib import Path
+import json,gzip,hashlib,tempfile,shutil,subprocess,re
+sha=lambda b:hashlib.sha256(b).hexdigest()
+OUT=Path('/tmp/bendvy60-runtime-observer/experiments/public-restore/graph-runtime-v1/runtime-v1/actual-attempt01')
+BASE=Path('/tmp/bendvy-restore59-oracle/experiments/public-restore/graph-runtime-oracle-v2')
+m=json.loads((OUT/'manifest.json').read_text());rows=m['members'];roles=m['roles'];external={r['path']for r in rows if 'object'not in r}
+with tempfile.TemporaryDirectory() as tmp:
+ q=Path(tmp)/'packet';shutil.copytree(OUT,q);data={}
+ for row in rows:
+  if 'object'in row:
+   packed=(q/row['object']).read_bytes();assert sha(packed)==row['compressedSHA256'];b=gzip.decompress(packed)
+  else:b=Path(row['path']).read_bytes()
+  assert sha(b)==row['sha256'] and len(b)==row['bytes'];data[row['path']]=b
+ count=0;models={};generated=[]
+ for role in roles:
+  plan=json.loads(data[role['plan']]);r=json.loads(data[role['receipt']]);assert r['planSHA256']==sha(data[role['plan']]);seen=set()
+  for p,h in plan['pins'].items():assert sha(data[p])==h
+  for root,entries in plan['resourceRoots'].items():
+   for p,h in entries.items():assert sha(data[str(Path(root)/p)])==h
+  for g in r['guards']:
+   assert sha(data[g['path']])==g['sha256'];v=json.loads(data[g['path']]);assert v['unchanged']
+   for p,h in v['actualPins'].items():assert sha(data[p])==h;count+=1
+  def visit(p):
+   if p in seen:return
+   seen.add(p);assert sha(data[p])==plan['sourceInventory'][p]
+   for imp in re.findall(r'^import\s+(\S+)',data[p].decode(),re.M):
+    if imp!='Base':visit(str((Path(p).parent/imp).resolve()))
+  visit(plan['entrypoint']);assert seen==set(plan['sourceInventory'])
+  for p in plan['pins']:
+   if 'SOURCE-FREEZE'in Path(p).name and p.endswith('.json'):
+    f=json.loads(data[p])
+    for section in ['sourceInventory','sourcePins']:
+     for x,h in f.get(section,{}).items():assert sha(data[x])==h
+  for c in r['commands']:
+   assert c['exit']==0 and c['failure'] is None
+   for stream in ['stdout','stderr']:
+    x=c[stream];assert sha(data[x['path']])==x['sha256'] and len(data[x['path']])==x['bytes']
+  consumer=next(c for c in r['commands']if c['label']=='consumer');expected=gzip.decompress(data[role['expected']]);assert data[consumer['stdout']['path']]==expected and not data[consumer['stderr']['path']]
+  if role['role']=='native':assert plan['native']in data and plan['native']not in external;generated.append(plan['native'])
+  models[role['schema']+'/'+role['role']]=dict(bytes=len(expected),sha256=sha(expected),originalReceiptStatus=r['status'])
+ reproduced={}
+ for version in ['graph-runtime-oracle-v1','graph-runtime-oracle-v2']:
+  base=BASE.with_name(version);dest=Path(tmp)/version;dest.mkdir()
+  for name in ['model.py.source','graph_model.py.source','base_model.py.source']:(dest/name).write_bytes(data[str(base/name)])
+  for schema in ['workshop','garden']:
+   result=subprocess.run(['/usr/bin/python3.11',str(dest/'model.py.source'),'--schema',schema,'--render-stdout'],capture_output=True,check=True);assert not result.stderr
+   expected=gzip.decompress(data[str(base/schema/'expected.stdout.gz')]);assert result.stdout==expected
+   reproduced[version+'/'+schema]=dict(bytes=len(expected),sha256=sha(expected))
+  if version=='graph-runtime-oracle-v2':subprocess.run(['/usr/bin/python3.11',str(dest/'model.py.source'),'--self-test'],capture_output=True,check=True)
+ comp=json.loads(data['/tmp/bendvy60-runtime-corrected-oracle-comparison-v2.json'])
+ for field,hfield in [('sourceFreeze','sourceFreezeSHA256'),('originalPlan','originalPlanSHA256'),('originalReceipt','originalReceiptSHA256'),('correctedOracle','correctedOracleSHA256'),('actualStdout','actualStdoutSHA256')]:assert sha(data[comp[field]])==comp[hfield]
+ assert json.loads(data[comp['originalReceipt']])['status']=='INCOMPLETE'
+ assert data[comp['actualStdout']]==gzip.decompress(data[comp['correctedOracle']]);assert data[comp['actualStdout']]!=gzip.decompress(data[json.loads(data[comp['originalPlan']])['oracle']])
+ for p in m['unexecutedPlans']:assert str(Path(p).with_name('receipt.json'))not in data
+ result=dict(status='PASS',isolatedRelocation=True,bindings=len(rows),objects=len(set(x['object']for x in rows if 'object'in x)),externalELFs=len(external),commands=sum(x['commands']for x in roles),guards=sum(x['guards']for x in roles),evolvingPinJoins=count,importsPerRole=[len(json.loads(data[r['plan']])['sourceInventory'])for r in roles],models=reproduced,actuals=models,generatedNativeELFObjects=generated,originalMismatchPreserved=True,offlineCorrectedWholeEquality=True,unexecutedPlans=len(m['unexecutedPlans']),backendReplay=False,scope=m['scope'])
+ (OUT/'FULL-JOIN-VERIFICATION.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))

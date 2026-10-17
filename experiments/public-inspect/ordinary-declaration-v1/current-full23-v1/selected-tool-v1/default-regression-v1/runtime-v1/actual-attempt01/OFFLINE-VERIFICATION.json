@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "isolatedRelocation": true,
+  "cohortStatus": "NO_CONFIRMED_REGRESSION",
+  "archiveMembers": 909,
+  "commands": 123,
+  "fullCompressedOutputs": 110,
+  "fullApplicationObservations": 1100,
+  "checkpointCount": 22,
+  "balancedPairsPerBackend": 20,
+  "currentSourceBindings": 351,
+  "referenceBindings": 33,
+  "sourceBindings": {
+    "baseline": 29,
+    "candidate": 366
+  },
+  "artifactBindings": 12,
+  "generatedNativeELFsArchived": 2,
+  "allFourMigrationFilesAndFiveSyntaxEditsVerified": true,
+  "decisionRecomputed": {
+    "status": "NO_CONFIRMED_REGRESSION",
+    "endpoints": {
+      "JS": {
+        "nonTiePairs": 20,
+        "slowerPairs": 13,
+        "pValue": 0.13158798217773438,
+        "medianPairedRatio": 1.0366128310828018,
+        "confirmedRegression": false,
+        "holmCutoff": 0.025
+      },
+      "Native": {
+        "nonTiePairs": 20,
+        "slowerPairs": 8,
+        "pValue": 0.8684120178222656,
+        "medianPairedRatio": 0.9542760743827187,
+        "confirmedRegression": false
+      }
+    }
+  },
+  "scope": "Default sourcebaseline/current selectedtool Workshop contract only; one-secondpregateCPUcontext not sustainedquiet. Not same-sourcecompilerimpact/speed/equivalence/fullparity verdict.",
+  "backendReplay": false
+}
