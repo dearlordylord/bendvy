@@ -34,9 +34,13 @@ def advanced(before:Stamp,after:Stamp) -> Bool:
 def position(value:Stamp) -> U32:
   match value:
     case Stamp{_,_,cursor}:cursor
+def boolean(value:Bool) -> String:
+  match value:
+    case True{}:"true"
+    case False{}:"false"
 def counted(+before:Stamp,+after:Stamp,health:String,value:Core.Scheduled() & String) -> String:
   match value:
-    case (_,counter):"repaired health=" ++ health ++ " " ++ counter ++ " same-registration=" ++ Bool.show(same(before,after)) ++ " cursor-advanced=" ++ Bool.show(advanced(before,after))
+    case (_,counter):"repaired health=" ++ health ++ " " ++ counter ++ " same-registration=" ++ boolean(same(before,after)) ++ " cursor-advanced=" ++ boolean(advanced(before,after))
 def after_view(+before:Stamp,app:Core.Scheduled(),+view:Maybe<&2,Schedule.Description<S.Schema,Core.Rows()>>,found:Maybe<&2,Stamp>) -> String:
   match found:
     case Some{after}:counted(before,after,Observe.snapshot_text(view),Core.counter(app))
