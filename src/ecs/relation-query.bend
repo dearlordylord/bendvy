@@ -1,4 +1,6 @@
 import Base
+import ./deferred-command.bend as Deferred
+import ./trace-facts.bend as TraceFacts
 import entity-key.bend as Key
 import relation-types.bend as G
 import relation-graph.bend as Graph
@@ -81,12 +83,12 @@ def spec_rows(~S:Data,~V:Data,spec:Spec<S>,graph:G.Graph<S>,handle:W.Handle<S>,c
 def graph_read(~S:Data,~C:Type,store:A.Store<S,C>) -> A.Store<S,C> & G.Graph<S>:
   match store:
     case A.Store{components,+graph}: (A.Store{components,graph},graph)
-def inspect_done(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~spec:Spec<S>,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & G.Graph<S>,handle:W.Handle<S>,component:V,undo:List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,commands:List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,events:List<&2,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & (Bool & Row<S,V>):
+def inspect_done(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~spec:Spec<S>,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & G.Graph<S>,handle:W.Handle<S>,component:V,undo:List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,commands:List<Deferred.Command<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>>>,events:List<&2,A.Notice<S,E>>,trace:TraceFacts.State) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & (Bool & Row<S,V>):
   (world,graph) = observed
-  (X.Tx{world,undo,commands,events},spec_rows(~S,~V,spec,graph,handle,component))
+  (X.Tx{world,undo,commands,events,trace},spec_rows(~S,~V,spec,graph,handle,component))
 def inspect(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~spec:Spec<S>,tx:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,handle:W.Handle<S>,component:V) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & (Bool & Row<S,V>):
   match tx:
-    case X.Tx{world,undo,commands,events}: inspect_done(~S,~V,~C,~R,~E,~spec,W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~G.Graph<S>,graph_read(~S,~C),world),handle,component,undo,commands,events)
+    case X.Tx{world,undo,commands,events,trace}: inspect_done(~S,~V,~C,~R,~E,~spec,W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~G.Graph<S>,graph_read(~S,~C),world),handle,component,undo,commands,events,trace)
 def row_get(~S:Data,~V:Data,~H:Type,+row:Row<S,V>,owner:H) -> H & Row<S,V>:
   (owner,row)
 def invoke(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~Out:Data,~body:@-H:Type -> Cap.ValueRead<H,Row<S,V>> -> H -> H & Out,row:Row<S,V>,tx:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & Out:
@@ -111,7 +113,7 @@ def scan(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~Out:Data,~spec:Spec<S>,~compon
     case +handle <> rest: component_join(~S,~V,~C,~R,~E,~Out,~spec,~body,handle,component_selected(tx,handle),tx => scan(~S,~V,~C,~R,~E,~Out,~spec,~component_selected,~body,rest,tx))
 def finish(~S:Data,~C:Type,~R:Type,~E:Data,~Out:Data,observed:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & List<&2,Out>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,Out>:
   match observed:
-    case (X.Tx{world,_,_,_},values): (world,values)
+    case (X.Tx{world,_,_,_,_},values): (world,values)
 def reserved(~S:Data,~V:Data,~C:Type,~R:Type,~E:Data,~Out:Data,~spec:Spec<S>,~component_selected:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> -> W.Handle<S> -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & (Bool & V),~body:@-H:Type -> Cap.ValueRead<H,Row<S,V>> -> H -> H & Out,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,W.Handle<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,Out>:
   (world,handles) = observed
   finish(~S,~C,~R,~E,~Out,scan(~S,~V,~C,~R,~E,~Out,~spec,~component_selected,~body,handles,X.begin(~W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,~A.Notice<S,E>,world)))

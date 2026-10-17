@@ -1,4 +1,6 @@
 import Base
+import ./deferred-command.bend as Deferred
+import ./trace-facts.bend as TraceFacts
 import entity-key.bend as Key
 import ./world.bend as W
 import ./transaction.bend as T
@@ -64,12 +66,12 @@ def cleanup_checked(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C
   match same:
     case False{}:(tx,A.MissingEntity{})
     case True{}:(T.stage(~W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,~A.Notice<S,E>,tx,world => cleanup_apply(~S,~C,~R,~E,~clear,~record,~descriptors,world,scope)),A.Queued{})
-def cleanup_namespaced(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,~descriptors:List<&2,G.Descriptor<S>>,seen:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> & U32,scope:Scope<S>,undo:List<(W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>)>,commands:List<(W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>)>,events:List<&2,A.Notice<S,E>>) -> T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
+def cleanup_namespaced(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,~descriptors:List<&2,G.Descriptor<S>>,seen:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> & U32,scope:Scope<S>,undo:List<(W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>)>,commands:List<Deferred.Command<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>>>,events:List<&2,A.Notice<S,E>>,trace:TraceFacts.State) -> T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
   match seen scope:
-    case (world,current) Scope{+namespace,+name}:cleanup_checked(~S,~C,~R,~E,~clear,~record,~descriptors,U32.is_eq(namespace,current),T.Tx{world,undo,commands,events},Scope{namespace,name})
+    case (world,current) Scope{+namespace,+name}:cleanup_checked(~S,~C,~R,~E,~clear,~record,~descriptors,U32.is_eq(namespace,current),T.Tx{world,undo,commands,events,trace},Scope{namespace,name})
 def tx_cleanup(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,~descriptors:List<&2,G.Descriptor<S>>,tx:T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>>,scope:Scope<S>) -> T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
   match tx:
-    case T.Tx{world,undo,commands,events}:cleanup_namespaced(~S,~C,~R,~E,~clear,~record,~descriptors,W.namespace(~S,~A.Store<S,Store<S,C>>,~R,~A.Notice<S,E>,world),scope,undo,commands,events)
+    case T.Tx{world,undo,commands,events,trace}:cleanup_namespaced(~S,~C,~R,~E,~clear,~record,~descriptors,W.namespace(~S,~A.Store<S,Store<S,C>>,~R,~A.Notice<S,E>,world),scope,undo,commands,events,trace)
 type SpawnResult<S:Data,P:Type> is Type:
   Spawned{handle:W.Handle<S>}
   SpawnRejected{payload:P,error:W.WorldError}
@@ -87,17 +89,17 @@ def spawn_activated(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:C -> W.Han
     case (world,W.Rejected{_}):world
 def spawn_apply(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:C -> W.Handle<S> -> P -> C,world:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,+handle:W.Handle<S>,payload:P,name:String) -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>:
   spawn_activated(~S,~C,~R,~E,~P,~populate,W.activate(~S,~A.Store<S,Store<S,C>>,~R,~A.Notice<S,E>,world,handle),handle,payload,name)
-def spawn_reserved(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:C -> W.Handle<S> -> P -> C,seen:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> & W.Reservation<S>,undo:List<(W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>)>,commands:List<(W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>)>,events:List<&2,A.Notice<S,E>>,payload:P,name:String) -> T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & SpawnResult<S,P>:
+def spawn_reserved(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:C -> W.Handle<S> -> P -> C,seen:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> & W.Reservation<S>,undo:List<(W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>)>,commands:List<Deferred.Command<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>>>,events:List<&2,A.Notice<S,E>>,trace:TraceFacts.State,payload:P,name:String) -> T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & SpawnResult<S,P>:
   match seen:
-    case (world,W.ReservationRejected{error}):(T.Tx{world,undo,commands,events},SpawnRejected{payload,error})
-    case (world,W.Reserved{+handle}):(Cmd.track_pending(~S,~A.Store<S,Store<S,C>>,~R,~A.Notice<S,E>,T.Tx{world,undo,(world => spawn_apply(~S,~C,~R,~E,~P,~populate,world,handle,payload,name)) <> commands,events},handle),Spawned{handle})
-def spawn_checked(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:C -> W.Handle<S> -> P -> C,same:Bool,world:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,undo:List<(W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>)>,commands:List<(W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>)>,events:List<&2,A.Notice<S,E>>,payload:P,name:String) -> T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & SpawnResult<S,P>:
+    case (world,W.ReservationRejected{error}):(T.Tx{world,undo,commands,events,trace},SpawnRejected{payload,error})
+    case (world,W.Reserved{+handle}):(Cmd.track_pending(~S,~A.Store<S,Store<S,C>>,~R,~A.Notice<S,E>,T.Tx{world,undo,Deferred.Raw{(world => spawn_apply(~S,~C,~R,~E,~P,~populate,world,handle,payload,name))} <> commands,events,trace},handle),Spawned{handle})
+def spawn_checked(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:C -> W.Handle<S> -> P -> C,same:Bool,world:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,undo:List<(W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>)>,commands:List<Deferred.Command<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>>>,events:List<&2,A.Notice<S,E>>,trace:TraceFacts.State,payload:P,name:String) -> T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & SpawnResult<S,P>:
   match same:
-    case False{}:(T.Tx{world,undo,commands,events},SpawnRejected{payload,W.MissingEntity{}})
-    case True{}:spawn_reserved(~S,~C,~R,~E,~P,~populate,W.reserve_id(~S,~A.Store<S,Store<S,C>>,~R,~A.Notice<S,E>,world),undo,commands,events,payload,name)
-def spawn_namespaced(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:C -> W.Handle<S> -> P -> C,seen:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> & U32,scope:Scope<S>,undo:List<(W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>)>,commands:List<(W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>)>,events:List<&2,A.Notice<S,E>>,payload:P) -> T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & SpawnResult<S,P>:
+    case False{}:(T.Tx{world,undo,commands,events,trace},SpawnRejected{payload,W.MissingEntity{}})
+    case True{}:spawn_reserved(~S,~C,~R,~E,~P,~populate,W.reserve_id(~S,~A.Store<S,Store<S,C>>,~R,~A.Notice<S,E>,world),undo,commands,events,trace,payload,name)
+def spawn_namespaced(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:C -> W.Handle<S> -> P -> C,seen:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> & U32,scope:Scope<S>,undo:List<(W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>)>,commands:List<Deferred.Command<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>>>,events:List<&2,A.Notice<S,E>>,trace:TraceFacts.State,payload:P) -> T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & SpawnResult<S,P>:
   match seen scope:
-    case (world,current) Scope{namespace,name}:spawn_checked(~S,~C,~R,~E,~P,~populate,U32.is_eq(current,namespace),world,undo,commands,events,payload,name)
+    case (world,current) Scope{namespace,name}:spawn_checked(~S,~C,~R,~E,~P,~populate,U32.is_eq(current,namespace),world,undo,commands,events,trace,payload,name)
 def tx_spawn_in(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:C -> W.Handle<S> -> P -> C,tx:T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>>,scope:Scope<S>,payload:P) -> T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & SpawnResult<S,P>:
   match tx:
-    case T.Tx{world,undo,commands,events}:spawn_namespaced(~S,~C,~R,~E,~P,~populate,W.namespace(~S,~A.Store<S,Store<S,C>>,~R,~A.Notice<S,E>,world),scope,undo,commands,events,payload)
+    case T.Tx{world,undo,commands,events,trace}:spawn_namespaced(~S,~C,~R,~E,~P,~populate,W.namespace(~S,~A.Store<S,Store<S,C>>,~R,~A.Notice<S,E>,world),scope,undo,commands,events,trace,payload)

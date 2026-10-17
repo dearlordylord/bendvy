@@ -1,0 +1,101 @@
+"""Independent source-derived opaque/partial owned-publisher admission consumer."""
+import argparse
+from dataclasses import dataclass, field
+import sys
+
+
+@dataclass(frozen=True)
+class Description:
+    keys: tuple
+    opaque: bool
+
+
+def canonical():
+    return Description(('Cargo',), False)
+
+
+def raw_declaration():
+    # D.Declaration deliberately has no retained classified Description.
+    return Description((), True)
+
+
+def paired(left, right):
+    return Description(left.keys + right.keys, left.opaque or right.opaque)
+
+
+@dataclass
+class App:
+    prior: list = field(default_factory=lambda: [600, 601])
+    debug: bool = True
+    queued: int = 1
+    next_system: int = 1
+    clock: int = 0
+    registrations: list = field(default_factory=list)
+
+    def show(self):
+        assert self.queued == 1 and self.next_system == 1 and self.clock == 0 and not self.registrations
+        world = ('World{namespace=1;allocator{next=1;high=0;capacity=1;depth=0;slots=leaf:0:Consumed;free=[];order=[]};'
+                 + 'store=Indexed{Owned{IndexedState{values=leaf:None;Metadata{added=leaf:0;changed=leaf:0;capacity=1;depth=0;exceptional=[]}}}};'
+                 + 'resources=Log{next=1;rows=end};events=[];pending=Raw(opaque),end;registrations=[];nextSystemId=1;clock=0}')
+        return ('Registered{debug=' + str(self.debug) + ';world=' + world
+                + f';prior=node(leaf:{self.prior[0]},leaf:{self.prior[1]});recipe=Recipe' + '}')
+
+
+def register(app, description):
+    # Public App.register -> admitted checks completeness before destructuring App
+    # or invoking Publisher.define. Neither hidden registration nor body runs.
+    if description.opaque:
+        return app, 'AppendRejected'
+    raise ValueError('canonical positive registration is outside this finite entry')
+
+
+def report():
+    app = App()
+    lines = ['before=' + app.show()]
+    app, status = register(app, raw_declaration())
+    lines.append('raw=' + status + ';' + app.show())
+    app, status = register(app, paired(canonical(), raw_declaration()))
+    lines.append('partial=' + status + ';' + app.show())
+    return '\n'.join(lines) + '\n'
+
+
+def render(schema):
+    if schema not in ('Workshop', 'Garden'):
+        raise ValueError(schema)
+    return (schema + '\n' + report() + '\n').encode()
+
+
+def self_test():
+    app = App()
+    before = app.show()
+    owner = app.prior
+    assert not canonical().opaque
+    assert raw_declaration().opaque
+    partial = paired(canonical(), raw_declaration())
+    assert partial.keys == ('Cargo',) and partial.opaque
+    for description in [raw_declaration(), partial]:
+        returned, status = register(app, description)
+        assert returned is app and returned.prior is owner and status == 'AppendRejected'
+        assert returned.show() == before
+    assert app.clock == 0 and app.next_system == 1 and app.queued == 1 and not app.registrations
+    assert report().count('Raw(opaque),end') == 3
+    assert report().count('leaf:600,leaf:601') == 3
+    assert 'UnexpectedAppended' not in report()
+    assert render('Workshop').startswith(b'Workshop\nbefore=Registered{')
+    assert render('Workshop').endswith(b'\n\n')
+    assert render('Workshop')[len(b'Workshop\n'):] == render('Garden')[len(b'Garden\n'):]
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--schema', choices=['Workshop', 'Garden'])
+    parser.add_argument('--self-test', action='store_true')
+    parser.add_argument('--render-stdout', action='store_true')
+    options = parser.parse_args()
+    if options.self_test:
+        self_test()
+        print('independent opaque publisher admission model: PASS', file=sys.stderr)
+    if options.render_stdout:
+        if options.schema is None:
+            parser.error('--render-stdout requires --schema')
+        sys.stdout.buffer.write(render(options.schema))

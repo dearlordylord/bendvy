@@ -1,0 +1,251 @@
+"""Independent source-derived checked owned-reader context state and full renderer."""
+import argparse
+import copy
+from dataclasses import dataclass, field
+import sys
+
+
+def ls(items):
+    return '[' + ', '.join(map(str, items)) + ']'
+
+
+def nested(items):
+    out = '[]'
+    for item in reversed(items):
+        out = '[' + str(item) + ';' + out + ']'
+    return out
+
+
+STEPS = ['Phase{reader}', 'System{1;condition=0}', 'Barrier']
+# Canonical source plan association is pinned with the final source closure.
+PLAN = 'Sequence{Entry{Phase{reader};needs=[]},Sequence{Entry{System{1;condition=0};needs=[]},Sequence{Entry{Barrier;needs=[]},Empty}}}'
+
+
+@dataclass
+class Collector:
+    first: int
+    second: int
+    events: list = field(default_factory=list)
+
+    def show(self):
+        return f'collector{{calls={len(self.events)};events=' + ls(self.events) + f';owned=node(leaf:{self.first},leaf:{self.second})' + '}'
+
+    def deliver(self, events):
+        self.events.extend(events)
+        self.first += len(events)
+
+
+class State:
+    def __init__(self):
+        self.debug, self.guard, self.fail = False, False, False
+        self.clock, self.tick, self.pending = 0, 0, True
+        self.rows, self.events, self.batches, self.journal = [], [], [], []
+        self.position, self.registered = None, None
+        self.frame_start, self.boundary, self.dropped, self.family_frame = 0, 0, 0, 0
+        self.values, self.semantic, self.lagged = [], 'Success', False
+        self.ids, self.statuses, self.returned = [], [], []
+        self.collector = Collector(100, 200)
+        self.output, self.states, self.run_batches = [], {}, []
+
+    def world(self):
+        rows = ''.join(f'Row{{id={i};payload=node(leaf:{v},leaf:{v + 1})}},' for i, v in self.rows) + 'end'
+        return ('World{namespace=1;allocator{next=1;high=0;capacity=1;depth=0;slots=leaf:0:Consumed;free=[];order=[]}'
+                + f';store=Unit;resources=Log{{next={len(self.rows) + 1};rows=' + rows + '};events=' + ls(self.events)
+                + ';pending=' + ('Raw(opaque),end' if self.pending else 'end')
+                + ';registrations=[1:owned-reader:[Cargo:read]];nextSystemId=2;clock=' + str(self.clock) + '}')
+
+    def family(self):
+        def batches(items):
+            return ls([f'Batch{{tick={t};values=' + ls(v) + '}' for t, v in items])
+        positions = [] if self.position is None else [f'Position{{id=1;cursor={self.position};registeredAt={self.registered}}}']
+        return ('Family{stream=Stream{domain=Cargo;batches=' + batches(self.batches)
+                + ';positions=' + ls(positions) + f';nextReader=2;frameStart={self.frame_start};boundary={self.boundary}'
+                + f';capacity=1;dropped={self.dropped}' + '};owners=Unit;journal=' + batches(self.journal)
+                + f';frameStart={self.family_frame}' + '}')
+
+    def reader(self):
+        return ('ReaderOwner{domain=Cargo;mode=Read;readerNamespace=1;readerId=1;registryId=1;registryNamespace=1;systemId=1;'
+                + 'name=owned-reader;access=[Cargo:read];cursor=0}')
+
+    def descriptions(self):
+        return '[binding{systemId=1;description{shape=Constant{' + str(self.guard) + '};uses=[]}}]'
+
+    def app(self):
+        held = ('Held{args{scratch=node(leaf:600,leaf:601);values=' + ls(self.values)
+                + ';fail=' + str(self.fail) + '};status=' + self.semantic + ';lagged=' + str(self.lagged) + '}')
+        return ('App{schema=[Entry{Event:Cargo:Cargo}];recipe=Recipe;debug=' + str(self.debug) + ';plan=' + PLAN
+                + ';namespace=1;name=checked-owned-reader;steps=' + ls(STEPS) + ';needs=[];' + self.world()
+                + ';Owners{' + held + ';' + self.reader() + f'}};tick={self.tick};' + self.family()
+                + ';guards{systemId=1;owner=' + str(self.guard) + ';descriptions=' + self.descriptions() + '}}')
+
+    def snapshot(self):
+        if not self.debug:
+            return 'None'
+        binding = ('Binding{namespace=1;id=1;name=owned-reader;access=[Cargo:read];cursor=0;slot=Cargo;clauses=[Cargo:Read]}')
+        return ('Some{schema=[Entry{Event:Cargo:Cargo}];bindings=[' + binding + '];rows=Product{Unit,Unit};rendered=[];'
+                + 'namespace=1;name=checked-owned-reader;steps=' + ls(['planned{' + s + ';needs=[]}' for s in STEPS])
+                + ';checkedBindings=' + self.descriptions() + '}')
+
+    def checkpoint(self, label):
+        app, snapshot = self.app(), self.snapshot()
+        self.output.append('checkpoint=' + label + '\nappBeforeSnapshot=' + app + '\nsnapshot=' + snapshot
+                           + '\nappAfterSnapshot=' + app + '\nsnapshotRepeated=' + snapshot
+                           + '\nappAfterRepeatedSnapshot=' + app + '\nsubscriber=subscriber{' + self.collector.show()
+                           + '}\nreturned=' + nested([x.show() for x in self.returned])
+                           + ';statuses=' + nested(self.statuses) + ';ids=' + nested(self.ids) + '\n')
+        self.states[label] = copy.deepcopy({k: v for k, v in vars(self).items() if k not in ('output', 'states')})
+
+    def synchronize(self):
+        published = self.events[sum(len(v) for _, v in self.journal):]
+        if published:
+            self.batches.append((self.tick, published[:]))
+            self.journal.append((self.tick, published[:]))
+
+    def publish(self, value, label):
+        identity = len(self.rows) + 1
+        self.rows.append((identity, value))
+        self.events.append(identity)
+        self.ids.append(identity)
+        self.tick += 1
+        self.synchronize()
+        self.checkpoint(label)
+
+    def frame(self, label):
+        hold = self.frame_start if self.position is None else min(self.frame_start, self.position)
+        while self.batches and self.batches[0][0] <= hold:
+            self.dropped = max(self.dropped, self.batches.pop(0)[0])
+        while sum(len(v) for _, v in self.batches) > 1:
+            self.dropped = max(self.dropped, self.batches.pop(0)[0])
+        self.boundary, self.frame_start = self.frame_start, self.tick
+        self.journal = [(t, v) for t, v in self.journal if t > self.dropped]
+        self.events = [i for _, items in self.journal for i in items]
+        self.family_frame = self.tick
+        self.checkpoint(label)
+
+    def perform(self, label):
+        events = ['ScheduleStarted{namespace=1;name=checked-owned-reader}', 'PhaseEntered{name=reader}']
+        if not self.guard:
+            events.append('SystemSkipped{id=1}')
+            observation = 'Skipped{1}'
+        else:
+            cursor = self.position or 0
+            registered = self.registered if self.registered is not None else self.tick
+            self.lagged = max(cursor, registered) < self.dropped
+            keys = [i for t, items in self.batches if t > cursor for i in items]
+            self.semantic = 'Success'
+            for identity in keys:
+                self.values.append(next(v for i, v in self.rows if i == identity))
+                if self.fail:
+                    self.semantic = 'Failure{BodyFailed{reader-body-failed}}'
+                    break
+            self.tick += 1
+            if self.position is None:
+                self.position, self.registered = 0, self.tick - 1
+            if self.semantic == 'Success':
+                self.position = self.tick
+            self.synchronize()
+            identity = 'identity{namespace=1;id=1;name=Some{owned-reader}}'
+            fact = ('ReaderFact{namespace=1;id=1;name=owned-reader;readerId=1;domain=Cargo;lagged=' + str(self.lagged) + '}')
+            events.extend(['OperationObserved{' + identity + ';fact=' + fact + '}',
+                           'SystemCompleted{' + identity + f';before={self.clock};after={self.clock};status=SystemOk' + '}'])
+            observation = 'Ran{1}'
+        if self.pending:
+            self.pending = False
+            self.clock += 1
+        events.extend(['DeferredApplied', 'ScheduleEnded{outcome=EndOk}'])
+        self.statuses.append('Finished{' + ls(['Entered{reader}', observation, 'Applied']) + '}')
+        actual = events if self.debug else []
+        self.run_batches.append(actual)
+        self.checkpoint(label + ':after-execution')
+        self.output.append('batch=' + ('Ready{events=' + ls(actual) + '}' if self.debug else 'Disabled') + '\n')
+        self.collector.deliver(actual)
+        self.checkpoint(label + ':after-delivery')
+
+    def run(self):
+        self.checkpoint('initial')
+        self.debug = True
+        self.checkpoint('enabled')
+        self.publish(10, 'publish-ten')
+        self.perform('false-before-read')
+        self.guard = True
+        self.perform('first-read')
+        self.guard = False
+        self.publish(20, 'publish-twenty')
+        self.frame('frame-twenty')
+        self.publish(30, 'publish-thirty')
+        self.frame('frame-thirty')
+        self.perform('false-unread')
+        self.guard = True
+        self.perform('lagged-read')
+        self.publish(40, 'publish-forty')
+        self.fail = True
+        self.perform('semantic-failure')
+        self.fail = False
+        self.perform('retry-returned-args')
+        self.debug = False
+        self.checkpoint('disabled')
+        self.guard = False
+        self.publish(50, 'publish-fifty')
+        self.perform('disabled-skip')
+        self.guard = True
+        self.perform('disabled-read')
+        self.debug = True
+        self.perform('enabled-empty-read')
+        self.returned.insert(0, self.collector)
+        self.collector = Collector(300, 400)
+        self.checkpoint('reset')
+        self.perform('after-reset-empty-read')
+        self.output.append('terminalApp=' + self.app() + '\nstatuses=' + nested(self.statuses) + ';ids=' + nested(self.ids)
+                           + '\nreturnedAndUnsubscribed=' + nested([self.collector.show()] + [x.show() for x in self.returned]) + '\n')
+        return ''.join(self.output)
+
+
+def render(schema):
+    if schema not in ('Workshop', 'Garden'):
+        raise ValueError(schema)
+    return (schema + '\n' + State().run() + '\n').encode()
+
+
+def self_test():
+    state = State()
+    state.run()
+    s = state.states
+    assert s['publish-ten']['pending'] and s['publish-ten']['clock'] == 0
+    assert s['false-before-read:after-execution']['tick'] == 1
+    assert not s['false-before-read:after-execution']['pending']
+    assert s['first-read:after-execution']['values'] == [10]
+    assert s['first-read:after-execution']['position'] == 2
+    assert s['first-read:after-execution']['registered'] == 1
+    assert s['frame-thirty']['batches'] == [(4, [3])] and s['frame-thirty']['dropped'] == 3
+    assert s['lagged-read:after-execution']['lagged']
+    fail = s['semantic-failure:after-execution']
+    assert fail['semantic'] == 'Failure{BodyFailed{reader-body-failed}}' and fail['position'] == 5
+    assert fail['values'] == [10, 30, 40] and fail['tick'] == 7
+    retry = s['retry-returned-args:after-execution']
+    assert retry['values'] == [10, 30, 40, 40] and retry['position'] == 8
+    assert state.values == [10, 30, 40, 40, 50] and state.tick == state.position == 12
+    assert state.clock == 1 and state.rows == [(1, 10), (2, 20), (3, 30), (4, 40), (5, 50)]
+    assert len(state.statuses) == 10 and len(state.states) == 31
+    assert [len(x) for x in state.run_batches] == [5, 6, 5, 6, 6, 6, 0, 0, 6, 6]
+    assert all('BoundaryFact' not in event for batch in state.run_batches for event in batch)
+    assert s['disabled-read:after-execution']['values'] == [10, 30, 40, 40, 50]
+    assert len(state.collector.events) == 6 and len(state.returned[0].events) == 40
+    assert all('Finished{' in status for status in state.statuses)
+    assert not any('SystemError' in event for batch in state.run_batches for event in batch)
+    assert render('Workshop')[len(b'Workshop\n'):] == render('Garden')[len(b'Garden\n'):]
+    assert render('Workshop').endswith(b'\n\n')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--schema', choices=['Workshop', 'Garden'])
+    parser.add_argument('--self-test', action='store_true')
+    parser.add_argument('--render-stdout', action='store_true')
+    options = parser.parse_args()
+    if options.self_test:
+        self_test()
+        print('independent reader-context model: PASS', file=sys.stderr)
+    if options.render_stdout:
+        if options.schema is None:
+            parser.error('--render-stdout requires --schema')
+        sys.stdout.buffer.write(render(options.schema))

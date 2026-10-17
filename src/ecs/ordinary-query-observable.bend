@@ -51,3 +51,6 @@ def pair(~S:Data,~H:Type,~L:Type,~R:Type,~IH:Type,~LV:Data,~RV:Data,~left:Declar
   Declaration{N.pair(~S,~H,~L,~R,~operational(~S,~H,~L,~IH,~LV,left),~operational(~S,~H,~R,~IH,~RV,right)),P.pair(~IH,~S,~LV,~RV,~inspection(~S,~H,~L,~IH,~LV,left),~inspection(~S,~H,~R,~IH,~RV,right))}
 def inspect_query(~S:Data,~Store:Type,~R:Type,~E:Data,~H:Type,~G:Type,~V:Data,~declaration:Declaration<S,H,G,I.Frame<S,Store,R,E>,V>) -> IQ.ComposedReadQuery<I.Frame<S,Store,R,E>,S,V>:
   IQ.grant_composed(~I.Frame<S,Store,R,E>,~S,~V,~inspection(~S,~H,~G,~I.Frame<S,Store,R,E>,~V,declaration),~IW.inspect_world(~S,~Store,~R,~E))
+
+def write_displayed(~S:Data,~Store:Type,~Rest:Type,~Payload:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,Payload>,~put:Rest -> Col.Column<S,Payload> -> Store,~view:Payload -> Payload & V,~R:Type,~E:Data,~display:V -> String,~binding:B.Binding<S,Store,Rest,Payload,V,Token,take,put,view>) -> Declaration<S,Q.Frame<S,Store,R,E>,Cap.Write<Q.Frame<S,Store,R,E>,Payload,V>,I.Frame<S,Store,R,E>,C.Access<V>>:
+  Declaration{N.write_displayed(~S,~Payload,~Store,~R,~E,~Rest,~V,~Token,~B.identity(~S,~Store,~Rest,~Payload,~V,~Token,~take,~put,~view,binding),~view,~display,~take,~put),F.inspect_slot(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~view,~binding,~Families.Required{})}

@@ -1,0 +1,43 @@
+"""Current-source applicability wrapper over byte-identical independent models."""
+import argparse
+from pathlib import Path
+import sys
+
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+import lifecycle_model as Lifecycle
+
+
+def render(schema):
+    if schema not in ('Workshop', 'Garden'):
+        raise ValueError(schema)
+    # Both source entries create one actual World in a fresh process namespace1.
+    return (schema + '\n' + Lifecycle.schema(1) + '\n').encode()
+
+
+def self_test():
+    Lifecycle.selftest()
+    for schema in ['Workshop', 'Garden']:
+        raw = render(schema)
+        assert raw.count(b'\napp=') == 14
+        assert raw.count(b'RunCompleted\n') == 3
+        assert raw.count(b'HandlersCompleted\n') == 3
+        assert raw.startswith((schema + '\n').encode()) and raw.endswith(b'\n\n')
+        assert b'UNSUPPORTED_PREPARED_COLUMN' not in raw
+        assert all(line.count(b'{') == line.count(b'}') for line in raw.splitlines())
+    assert render('Workshop')[len(b'Workshop\n'):] == render('Garden')[len(b'Garden\n'):]
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--schema', choices=['Workshop', 'Garden'])
+    parser.add_argument('--self-test', action='store_true')
+    parser.add_argument('--render-stdout', action='store_true')
+    options = parser.parse_args()
+    if options.self_test:
+        self_test()
+        print('independent current public-operation model reuse: PASS', file=sys.stderr)
+    if options.render_stdout:
+        if options.schema is None:
+            parser.error('--render-stdout requires --schema')
+        sys.stdout.buffer.write(render(options.schema))

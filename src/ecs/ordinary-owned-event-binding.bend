@@ -1,4 +1,5 @@
 import Base
+import ./relation-commands.bend as Relation
 import ./owner-product.bend as Product
 import ./owned-event-log.bend as Log
 import ./owned-event-key-route.bend as Route
@@ -25,4 +26,16 @@ def left(~S:Data,~A:Type,~B:Type,~P:Type,~Rest:Type,~EA:Data,~EB:Data,~path:Prod
 def right(~S:Data,~A:Type,~B:Type,~P:Type,~Rest:Type,~EA:Data,~EB:Data,~path:Product.Lens<B,Log.Log<P>,Rest>,~inject:Nat -> EB,~select:List<&2,EB> -> List<&2,Nat>,~identity:Pub.Domain<S,P>,binding:Binding<S,B,P,Rest,EB,path,inject,select,identity>) -> Binding<S,Product.Owner<A,B>,P,A & Rest,Publication.Publication<EA,EB>,right_path(~A,~B,~P,~Rest,~path),Route.inject_right(~EA,~EB,~inject),Route.select_right(~EA,~EB,~select),identity>:
   Binding{}
 def under_resource(~S:Data,~User:Type,~R:Type,~P:Type,~Rest:Type,~E:Data,~path:Product.Lens<R,Log.Log<P>,Rest>,~inject:Nat -> E,~select:List<&2,E> -> List<&2,Nat>,~identity:Pub.Domain<S,P>,binding:Binding<S,R,P,Rest,E,path,inject,select,identity>) -> Binding<S,Product.Owner<User,R>,P,User & Rest,E,right_path(~User,~R,~P,~Rest,~path),inject,select,identity>:
+  Binding{}
+
+# Relation notice transport preserves the canonical log path and payload domain.
+def notice_inject(~S:Data,~E:Data,~inject:Nat -> E,id:Nat) -> Relation.Notice<S,E>:Relation.Original{inject(id)}
+def notice_originals(~S:Data,~E:Data,records:List<&2,Relation.Notice<S,E>>) -> List<&2,E>:
+  match records:
+    case []:[]
+    case Relation.Original{event} <> rest:event <> notice_originals(~S,~E,rest)
+    case _ <> rest:notice_originals(~S,~E,rest)
+def notice_select(~S:Data,~E:Data,~select:List<&2,E> -> List<&2,Nat>,records:List<&2,Relation.Notice<S,E>>) -> List<&2,Nat>:
+  select(notice_originals(~S,~E,records))
+def under_notice(~S:Data,~R:Type,~P:Type,~Rest:Type,~E:Data,~path:Product.Lens<R,Log.Log<P>,Rest>,~inject:Nat -> E,~select:List<&2,E> -> List<&2,Nat>,~identity:Pub.Domain<S,P>,binding:Binding<S,R,P,Rest,E,path,inject,select,identity>) -> Binding<S,R,P,Rest,Relation.Notice<S,E>,path,notice_inject(~S,~E,~inject),notice_select(~S,~E,~select),identity>:
   Binding{}

@@ -1,0 +1,40 @@
+"""Correct frozen host framing: IO.print receives the scenario text directly."""
+import argparse
+from pathlib import Path
+import runpy
+import sys
+
+PREVIOUS = runpy.run_path(str(Path(__file__).resolve().parent.parent / 'initial-marker-v1/model.py.source'))
+
+
+def render(schema):
+    if schema not in ('Workshop', 'Garden'):
+        raise ValueError(schema)
+    # Both actual entry printed callbacks call IO.print(value), with no label.
+    # Recompute the complete state report, then account for IO.print's linefeed.
+    return (PREVIOUS['State']().run() + '\n').encode()
+
+
+def self_test():
+    PREVIOUS['self_test']()
+    workshop, garden = render('Workshop'), render('Garden')
+    assert workshop == garden
+    assert workshop.startswith(b'checkpoint=initial\n')
+    assert workshop.count(b'checkpoint=') == 25
+    assert workshop.endswith(b'\n\n') and not workshop.endswith(b'\n\n\n')
+    assert b'InitialApp{markerReader{namespace=1;id=7};' in workshop
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--schema', choices=['Workshop', 'Garden'])
+    parser.add_argument('--self-test', action='store_true')
+    parser.add_argument('--render-stdout', action='store_true')
+    options = parser.parse_args()
+    if options.self_test:
+        self_test()
+        print('independent initializer-marker host framing: PASS', file=sys.stderr)
+    if options.render_stdout:
+        if options.schema is None:
+            parser.error('--render-stdout requires --schema')
+        sys.stdout.buffer.write(render(options.schema))

@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Array<U32>
+- observed : @-R:Type -> @k:(@_:Array<U32> -> IO.OP<R>) -> IO.OP<R>
+Context:
+- state   : Array<U32>
+- ignored : Trace.TraceEvent<String>
+Location: denied
+3 | 
+4>| def denied(state:Array<U32>,ignored:Trace.TraceEvent<String>) -> Array<U32>:IO.pure(Array<U32>,state)
+  |                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+5 | 
+bend 2.0.37 is available: run bend update

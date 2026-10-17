@@ -1,0 +1,11 @@
+--- relocated-control/handler-trace.bend
++++ missing-failure/handler-trace.bend
+@@ -26,7 +26,7 @@
+   match status:
+     case B.ForeignBundle{}:Trace.Ready{[Trace.ScheduleAdmissionRefused{namespace,name,Trace.EndRejected{}}]}
+     case B.MissingRequirements{_}:Trace.Ready{[Trace.ScheduleAdmissionRefused{namespace,name,Trace.EndMissing{}}]}
+-    case B.HandlerFailed{_,error}:Trace.Ready{Trace.ScheduleStarted{namespace,name} <> List.append(&2,Trace.TraceEvent<String>,events(facts,False{},None{}),[Trace.ScheduleEnded{Trace.EndFailed{error}}])}
++    case B.HandlerFailed{_,error}:Trace.Ready{Trace.ScheduleStarted{namespace,name} <> List.append(&2,Trace.TraceEvent<String>,events(facts,False{},None{}),[Trace.ScheduleEnded{Trace.EndOk{}}])}
+     case _:Trace.Ready{Trace.ScheduleStarted{namespace,name} <> List.append(&2,Trace.TraceEvent<String>,events(facts,False{},None{}),[Trace.ScheduleEnded{Trace.EndOk{}}])}
+ def captured(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,name:String,value:Context.MarkerResult<S,K,V,Q,C,R,E,runner>) -> Classic.MarkerResult<S,K,V,Q,C,R,E,runner> & Trace.Batch<String>:
+   match value:

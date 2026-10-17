@@ -1,0 +1,17 @@
+{
+  "executionTraceSource": "/tmp/bendvy-trace57-controls/src/ecs/execution-trace.bend",
+  "executionTraceSHA256": "cb96f8ea455bac3e34daf463e6c50ec2aeb0aec4d62b59b459705caa1ff36e13",
+  "functions": {
+    "reset": {
+      "canonical": "def reset(~State:Type,~Error:Data,~step:State -> TraceEvent<Error> -> State,value:Subscriber<State,Error,step>,incoming:State) -> Subscriber<State,Error,step> & State:\n  match value:\n    case Subscriber{state}:(Subscriber{incoming},state)\n",
+      "qualified": "def reset(~State:Type,~Error:Data,~step:State -> Trace.TraceEvent<Error> -> State,value:Trace.Subscriber<State,Error,step>,incoming:State) -> Trace.Subscriber<State,Error,step> & State:\n  match value:\n    case Trace.Subscriber{state}:(Trace.Subscriber{incoming},state)\n"
+    },
+    "deliver": {
+      "canonical": "def deliver(~State:Type,~Error:Data,~step:State -> TraceEvent<Error> -> State,value:Subscriber<State,Error,step>,batch:Batch<Error>) -> Subscriber<State,Error,step>:\n  match value batch:\n    case subscriber Disabled{}:subscriber\n    case Subscriber{state} Ready{events}:Subscriber{delivered(~State,~Error,~step,events,state)}\n\n# Generic owner composition has no arity or subscriber-count bound. Order is\n# left then right; each reusable delivery function can itself be another pair.\n",
+      "qualified": "def deliver(~State:Type,~Error:Data,~step:State -> Trace.TraceEvent<Error> -> State,value:Trace.Subscriber<State,Error,step>,batch:Trace.Batch<Error>) -> Trace.Subscriber<State,Error,step>:\n  match value batch:\n    case subscriber Trace.Disabled{}:subscriber\n    case Trace.Subscriber{state} Trace.Ready{events}:Trace.Subscriber{Trace.delivered(~State,~Error,~step,events,state)}\n\n# Generic owner composition has no arity or subscriber-count bound. Order is\n# left then right; each reusable delivery function can itself be another pair.\n"
+    }
+  },
+  "inverse": "Remove Trace. qualification only from Subscriber/Batch/TraceEvent/delivered/Disabled/Ready identifiers. All other bytes of each relocated control function equal canonical block.",
+  "oldChronology": "/tmp/bendvy-trace57-selector-repair/.../selector-handlers-v1 at8ae434d5d, independently qualified full260631/260629; nonimport bodies unchanged except explicit delivery/reset callsite aliases.",
+  "scope": "One same canonical Sch/phase engine and rank2 body; no fixture state/operations/observer mutations. Relocated control first must match current canonical whole oracle; semantic variants independent countermodel before runtime."
+}

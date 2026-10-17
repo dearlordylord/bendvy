@@ -1,0 +1,18 @@
+--- historical/observe.bend
++++ current/observe.bend
+@@ -191,8 +191,15 @@
+     case Facts.TransitionPhase{}:"TransitionPhase"
+     case Facts.EnterPhase{}:"EnterPhase"
+     case Facts.InitialEnterPhase{}:"InitialEnterPhase"
++def boundary(value:Facts.Boundary) -> String:
++  match value:
++    case Facts.PhaseBoundary{name}:"PhaseBoundary{" ++ name ++ "}"
++    case Facts.BarrierEntered{}:"BarrierEntered"
++    case Facts.BarrierFinished{}:"BarrierFinished"
+ def fact(value:Facts.Fact) -> String:
+   match value:
++    case Facts.ReaderFact{ns,id,name,reader,domain,lagged}:"ReaderFact{namespace=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";readerId=" ++ U32.show(reader) ++ ";domain=" ++ domain ++ ";lagged=" ++ Bool.show(lagged) ++ "}"
++    case Facts.BoundaryFact{value}:"BoundaryFact{" ++ boundary(value) ++ "}"
+     case Facts.Fact{category,key,operation,subject,before,after,result}:"Fact{category=" ++ fact_category(category) ++ ";key=" ++ key ++ ";operation=" ++ fact_operation(operation) ++ ";subject=" ++ optional_name(subject) ++ ";before=" ++ fact_value(before) ++ ";after=" ++ fact_value(after) ++ ";result=" ++ fact_result(result) ++ "}"
+     case Facts.RelationFact{identity,operation,source,action,result}:"RelationFact{" ++ fact_relation(identity) ++ ";operation=" ++ fact_operation(operation) ++ ";source=" ++ fact_handle(source) ++ ";action=" ++ fact_action(action) ++ ";result=" ++ fact_result(result) ++ "}"
+     case Facts.HandlerFact{ns,id,name,ordinal,phase,from,to,result}:"HandlerFact{namespace=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";ordinal=" ++ U32.show(ordinal) ++ ";phase=" ++ fact_phase(phase) ++ ";from=" ++ fact_value(from) ++ ";to=" ++ fact_value(to) ++ ";result=" ++ fact_result(result) ++ "}"

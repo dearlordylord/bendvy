@@ -1,4 +1,6 @@
 import Base
+import ./deferred-command.bend as Deferred
+import ./trace-facts.bend as TraceFacts
 import ./column.bend as Col
 import ./component.bend as F
 import ./world.bend as W
@@ -17,18 +19,18 @@ def applied(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Dat
 def apply(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,handle: W.Handle<S>,incoming: Maybe<&1,C>) -> W.World<S,Store,R,E>:
   applied(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,F.replace(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle,incoming))
 
-def queue_checked(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,allowed: Bool,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
+def queue_checked(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,allowed: Bool,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
   match allowed:
-    case False{}: QueueRejected{T.Tx{world,undo,commands,events},incoming,W.MissingEntity{}}
-    case True{}: Queued{T.Tx{world,undo,(w => apply(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,w,handle,incoming)) <> commands,events}}
+    case False{}: QueueRejected{T.Tx{world,undo,commands,events,trace},incoming,W.MissingEntity{}}
+    case True{}: Queued{T.Tx{world,undo,Deferred.Raw{(w => apply(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,w,handle,incoming))} <> commands,events,trace}}
 
-def queue_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,checked: W.World<S,Store,R,E> & Bool,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
+def queue_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,checked: W.World<S,Store,R,E> & Bool,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
   (world,allowed) = checked
-  queue_checked(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,allowed,family,world,undo,commands,events,handle,incoming)
+  queue_checked(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,allowed,family,world,undo,commands,events,trace,handle,incoming)
 
 def tx_replace(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,+handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
   match tx:
-    case T.Tx{world,undo,commands,events}: queue_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,W.valid(~S,~Store,~R,~E,world,handle),undo,commands,events,handle,incoming)
+    case T.Tx{world,undo,commands,events,trace}: queue_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,W.valid(~S,~Store,~R,~E,world,handle),undo,commands,events,trace,handle,incoming)
 
 def tx_insert(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,handle: W.Handle<S>,incoming: C) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
   tx_replace(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle,Some{incoming})
@@ -46,15 +48,15 @@ def removal_published(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Ty
 def remove_apply_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~record: W.Handle<S> -> E,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,+handle: W.Handle<S>,incoming: Maybe<&1,C>) -> W.World<S,Store,R,E>:
   removal_published(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~record,handle,F.replace(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle,incoming))
 
-def removed_queue_checked(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~record: W.Handle<S> -> E,allowed: Bool,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
+def removed_queue_checked(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~record: W.Handle<S> -> E,allowed: Bool,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
   match allowed:
-    case False{}: QueueRejected{T.Tx{world,undo,commands,events},incoming,W.MissingEntity{}}
-    case True{}: Queued{T.Tx{world,undo,(w => remove_apply_observed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~record,family,w,handle,incoming)) <> commands,events}}
+    case False{}: QueueRejected{T.Tx{world,undo,commands,events,trace},incoming,W.MissingEntity{}}
+    case True{}: Queued{T.Tx{world,undo,Deferred.Raw{(w => remove_apply_observed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~record,family,w,handle,incoming))} <> commands,events,trace}}
 
-def removed_queue_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~record: W.Handle<S> -> E,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,checked: W.World<S,Store,R,E> & Bool,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
+def removed_queue_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~record: W.Handle<S> -> E,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,checked: W.World<S,Store,R,E> & Bool,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
   (world,allowed) = checked
-  removed_queue_checked(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~record,allowed,family,world,undo,commands,events,handle,incoming)
+  removed_queue_checked(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~record,allowed,family,world,undo,commands,events,trace,handle,incoming)
 
 def tx_remove_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~record: W.Handle<S> -> E,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,+handle: W.Handle<S>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
   match tx:
-    case T.Tx{world,undo,commands,events}: removed_queue_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~record,family,W.valid(~S,~Store,~R,~E,world,handle),undo,commands,events,handle,None{})
+    case T.Tx{world,undo,commands,events,trace}: removed_queue_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~record,family,W.valid(~S,~Store,~R,~E,world,handle),undo,commands,events,trace,handle,None{})

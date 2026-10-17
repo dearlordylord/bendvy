@@ -1,0 +1,114 @@
+"""Complete source-derived forced trace modes; no timing measurement or verdict."""
+import argparse
+from pathlib import Path
+import runpy
+import sys
+
+QUERY = runpy.run_path(str(Path(__file__).resolve().parent.parent / 'reader-query-context-v1/model.py.source'))
+
+
+class State(QUERY['State']):
+    def __init__(self, mode):
+        super().__init__()
+        self.mode = mode
+        self.debug = mode
+
+    def run(self):
+        self.checkpoint('initial')
+        self.debug = self.mode
+        self.checkpoint('enabled')
+        self.publish(10, 'publish-ten')
+        self.perform('false-before-read')
+        self.guard = True
+        self.perform('first-read')
+        self.guard = False
+        self.publish(20, 'publish-twenty')
+        self.frame('frame-twenty')
+        self.publish(30, 'publish-thirty')
+        self.frame('frame-thirty')
+        self.perform('false-unread')
+        self.guard = True
+        self.perform('lagged-read')
+        self.publish(40, 'publish-forty')
+        self.fail = True
+        self.perform('semantic-failure')
+        self.fail = False
+        self.perform('retry-returned-args')
+        self.debug = self.mode
+        self.checkpoint('disabled')
+        self.guard = False
+        self.publish(50, 'publish-fifty')
+        self.perform('disabled-skip')
+        self.guard = True
+        self.perform('disabled-read')
+        self.debug = self.mode
+        self.perform('enabled-empty-read')
+        self.returned.insert(0, self.collector)
+        self.collector = QUERY['PLAIN']['Collector'](300, 400)
+        self.checkpoint('reset')
+        self.perform('after-reset-empty-read')
+        self.output.append('terminalApp=' + self.app() + '\nstatuses=' + QUERY['nested'](self.statuses)
+                           + ';ids=' + QUERY['nested'](self.ids) + '\nreturnedAndUnsubscribed='
+                           + QUERY['nested']([self.collector.show()] + [x.show() for x in self.returned]) + '\n')
+        return ''.join(self.output)
+
+
+def render(mode):
+    if mode not in ('enabled', 'disabled'):
+        raise ValueError(mode)
+    return ('Workshop\n' + State(mode == 'enabled').run() + '\n').encode()
+
+
+def timer_fields(mode):
+    # Existing pinned JS/C capture hashes the full flushed UTF-8 including LF.
+    data = render(mode)
+    digest = 2166136261
+    for byte in data:
+        digest = ((digest ^ byte) * 16777619) % (2 ** 32)
+    return {'bytes': len(data), 'digest': digest}
+
+
+def self_test():
+    on, off = State(True), State(False)
+    on.run()
+    off.run()
+    assert list(on.states) == list(off.states) and len(on.states) == 31
+    ignored = {'debug', 'collector', 'returned', 'run_batches', 'mode'}
+    for label in on.states:
+        a, b = on.states[label], off.states[label]
+        assert {k: v for k, v in a.items() if k not in ignored} == {k: v for k, v in b.items() if k not in ignored}
+        assert a['debug'] and not b['debug']
+    assert on.world() == off.world() and on.family() == off.family()
+    assert on.history == off.history == [10, 30, 40, 40, 50]
+    assert on.values == off.values == [110, 130, 140, 140, 150]
+    assert on.outputs == off.outputs == [100] * 4
+    assert on.registry_cursor == off.registry_cursor == 2 and on.position == off.position == 12
+    assert on.statuses == off.statuses and len(on.statuses) == 10
+    assert [len(batch) for batch in on.run_batches] == [5, 6, 5, 6, 6, 6, 5, 6, 6, 6]
+    assert all(not batch for batch in off.run_batches)
+    assert len(on.returned[0].events) == 51 and len(on.collector.events) == 6
+    assert not off.returned[0].events and not off.collector.events
+    assert off.returned[0].first == 100 and off.collector.first == 300
+    assert on.returned[0].first == 151 and on.collector.first == 306
+    assert on.snapshot().startswith('Some{') and off.snapshot() == 'None'
+    assert render('enabled') != render('disabled')
+    for mode in ['enabled', 'disabled']:
+        data = render(mode)
+        assert data.startswith(b'Workshop\ncheckpoint=initial\n') and data.endswith(b'\n\n')
+        assert data.count(b'checkpoint=') == 31
+        assert timer_fields(mode)['bytes'] == len(data)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--mode', choices=['enabled', 'disabled'])
+    parser.add_argument('--self-test', action='store_true')
+    parser.add_argument('--render-stdout', action='store_true')
+    options = parser.parse_args()
+    if options.self_test:
+        self_test()
+        print('independent complete forced trace mode models: PASS', file=sys.stderr)
+    if options.render_stdout:
+        if options.mode is None:
+            parser.error('--render-stdout requires --mode')
+        sys.stdout.buffer.write(render(options.mode))

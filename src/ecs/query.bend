@@ -1,4 +1,5 @@
 import Base
+import ./trace-facts.bend as TraceFacts
 import world.bend as W
 import column.bend as Col
 import component.bend as Cmp
@@ -100,7 +101,7 @@ def read_handles(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V
 
 def read_world(~S: Data,~Store: Type,~R: Type,~E: Data,~Out: Data,observed: T.Tx<W.World<S,Store,R,E>,E> & List<&2,Out>) -> W.World<S,Store,R,E> & List<&2,Out>:
   match observed:
-    case (T.Tx{world,_,_,_},values): (world,values)
+    case (T.Tx{world,_,_,_,_},values): (world,values)
 
 def read_reserved(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~AuxRest: Type,~AuxC: Type,~AuxV: Data,~AuxToken: Data,~aux_take: Store -> AuxRest & Col.Column<S,AuxC>,~aux_put: AuxRest -> Col.Column<S,AuxC> -> Store,~aux_project: AuxC -> AuxC & AuxV,~RV: Data,~resource_project: R -> R & RV,~Payload: Type,~populate: W.World<S,Store,R,E> -> W.Handle<S> -> Payload -> W.World<S,Store,R,E>,~clear: Store -> W.Handle<S> -> Store,~A: Data,~Out: Data,~body: @-H: Type -> @-get: (H -> H & Cmp.Access<V>) -> @-aux: (H -> H & Cmp.Access<AuxV>) -> @-resource_get: (H -> H & RV) -> A -> W.Handle<S> -> H -> H & Out,mainFamily: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,auxFamily: Cmp.Family<S,Store,AuxRest,AuxC,AuxV,AuxToken,aux_take,aux_put,aux_project>,mode: Selection,args: A,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> W.World<S,Store,R,E> & List<&2,Out>:
   (world,handles) = observed

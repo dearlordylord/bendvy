@@ -1,4 +1,6 @@
 import Base
+import ./deferred-command.bend as Deferred
+import ./trace-facts.bend as TraceFacts
 import ./machine.bend as M
 import ./transaction.bend as Tx
 
@@ -20,15 +22,23 @@ def queue(~S:Data,~K:Data,~V:Data,~same:V -> V -> Bool,slot:M.Slot<S,K,V>,value:
   match skipSame:
     case False{}:M.queue(~S,~K,~V,slot,value,False{})
     case True{}:conditional(~S,~K,~V,~same,slot,value)
-def write_taken(~S:Data,~K:Data,~V:Data,~W:Type,~E:Data,~put:W -> M.Slot<S,K,V> -> W,~same:V -> V -> Bool,pair:W & M.Slot<S,K,V>,undo:List<&1,(W -> W)>,commands:List<&1,(W -> W)>,events:List<&2,E>,value:V,skipSame:Bool) -> Tx.Tx<W,E>:
+def write_taken(~S:Data,~K:Data,~V:Data,~W:Type,~E:Data,~put:W -> M.Slot<S,K,V> -> W,~same:V -> V -> Bool,pair:W & M.Slot<S,K,V>,undo:List<&1,(W -> W)>,commands:List<&1,Deferred.Command<W>>,events:List<&2,E>,trace:TraceFacts.State,value:V,skipSame:Bool) -> Tx.Tx<W,E>:
   match pair:
-    case (world,+old):Tx.Tx{put(world,queue(~S,~K,~V,~same,old,value,skipSame)),(world => put(world,old)) <> undo,commands,events}
+    case (world,+old):Tx.Tx{put(world,queue(~S,~K,~V,~same,old,value,skipSame)),(world => put(world,old)) <> undo,commands,events,trace}
 def write(~S:Data,~K:Data,~V:Data,~W:Type,~E:Data,~take:W -> W & M.Slot<S,K,V>,~put:W -> M.Slot<S,K,V> -> W,~same:V -> V -> Bool,tx:Tx.Tx<W,E>,value:V,skipSame:Bool) -> Tx.Tx<W,E>:
   match tx:
-    case Tx.Tx{world,undo,commands,events}:write_taken(~S,~K,~V,~W,~E,~put,~same,take(world),undo,commands,events,value,skipSame)
+    case Tx.Tx{world,undo,commands,events,trace}:write_taken(~S,~K,~V,~W,~E,~put,~same,take(world),undo,commands,events,trace,value,skipSame)
 def next(~S:Data,~K:Data,~V:Data,~W:Type,~E:Data,~take:W -> W & M.Slot<S,K,V>,~put:W -> M.Slot<S,K,V> -> W,~same:V -> V -> Bool,tx:Tx.Tx<W,E>,request:M.QueueInput<V>) -> Tx.Tx<W,E>:
   match request:
     case M.Set{value,skipSame}:write(~S,~K,~V,~W,~E,~take,~put,~same,tx,value,skipSame)
     case M.Reset{}:M.reset_tx(~S,~K,~V,~W,~E,~take,~put,tx)
-def next_declared(~S:Data,~K:Data,~V:Data,~W:Type,~E:Data,~take:W -> W & M.Slot<S,K,V>,~put:W -> M.Slot<S,K,V> -> W,~same:V -> V -> Bool,_:M.Family<S,K,V,W,take,put>,tx:Tx.Tx<W,E>,request:M.QueueInput<V>) -> Tx.Tx<W,E>:
-  next(~S,~K,~V,~W,~E,~take,~put,~same,tx,request)
+def declared_record(~W:Type,~E:Data,enabled:Bool,name:String,tx:Tx.Tx<W,E>) -> Tx.Tx<W,E>:
+  match enabled:
+    case False{}:tx
+    case True{}:Tx.record(~W,~E,tx,TraceFacts.Fact{TraceFacts.NextStateValue{},name,TraceFacts.StageOperation{},None{},TraceFacts.OpaqueValue{},TraceFacts.OpaqueValue{},TraceFacts.Attempted{}})
+def declared_named(~S:Data,~K:Data,~V:Data,~W:Type,~E:Data,~take:W -> W & M.Slot<S,K,V>,~put:W -> M.Slot<S,K,V> -> W,~same:V -> V -> Bool,name:String,request:M.QueueInput<V>,checked:Tx.Tx<W,E> & Bool) -> Tx.Tx<W,E>:
+  match checked:
+    case (tx,enabled):declared_record(~W,~E,enabled,name,next(~S,~K,~V,~W,~E,~take,~put,~same,tx,request))
+def next_declared(~S:Data,~K:Data,~V:Data,~W:Type,~E:Data,~take:W -> W & M.Slot<S,K,V>,~put:W -> M.Slot<S,K,V> -> W,~same:V -> V -> Bool,family:M.Family<S,K,V,W,take,put>,tx:Tx.Tx<W,E>,request:M.QueueInput<V>) -> Tx.Tx<W,E>:
+  match family:
+    case M.Family{name}:declared_named(~S,~K,~V,~W,~E,~take,~put,~same,name,request,Tx.trace_enabled(~W,~E,tx))

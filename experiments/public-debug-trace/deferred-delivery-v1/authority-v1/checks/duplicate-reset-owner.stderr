@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : incoming
+- observed : incoming (consumed more than once)
+Context:
+- subscriber : Trace.Subscriber<Array<U32>, String, Positive.step>
+Location: denied
+3 | 
+4>| def denied(subscriber:Trace.Subscriber<Array<U32>,String,Positive.step>,incoming:Array<U32>) -> (Trace.Subscriber<Array<U32>,String,Positive.step> & Array<U32>) & Array<U32>:(Trace.reset(~Array<U32>,~String,~Positive.step,subscriber,incoming),incoming)
+  |                                                                         ^^^^^^^^
+5 | 
+bend 2.0.37 is available: run bend update

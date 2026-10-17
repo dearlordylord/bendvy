@@ -1,0 +1,46 @@
+[
+  {
+    "name": "enabled",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "8",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "experiments/public-debug-trace/deferred-delivery-v1/timing-allocation-v1/enabled.bend"
+    ],
+    "exitCode": 1
+  },
+  {
+    "name": "disabled",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "8",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "experiments/public-debug-trace/deferred-delivery-v1/timing-allocation-v1/disabled.bend"
+    ],
+    "exitCode": 1
+  },
+  {
+    "name": "enabled-timing",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "8",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "experiments/public-debug-trace/deferred-delivery-v1/timing-allocation-v1/enabled-timing.bend"
+    ],
+    "exitCode": 1
+  },
+  {
+    "name": "disabled-timing",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "8",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "experiments/public-debug-trace/deferred-delivery-v1/timing-allocation-v1/disabled-timing.bend"
+    ],
+    "exitCode": 1
+  }
+]

@@ -1,4 +1,6 @@
 import Base
+import ./deferred-command.bend as Deferred
+import ./trace-facts.bend as TraceFacts
 import world.bend as W
 import column.bend as Col
 import component.bend as Cmp
@@ -167,13 +169,13 @@ type Insert<-S: Data,-C: Type> is Type:
 
 def insert_apply(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,+target: W.Handle<S>,value: C,world: W.World<S,Store,R,E>) -> W.World<S,Store,R,E>:
   Cmp.restore_done(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,Cmp.replace(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,target,Some{value}))
-def insert_checked(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,current: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: U32,+target: W.Handle<S>,value: C,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,observed: W.World<S,Store,R,E> & Bool) -> Frame<S,Store,R,E>:
+def insert_checked(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,current: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: U32,+target: W.Handle<S>,value: C,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,observed: W.World<S,Store,R,E> & Bool) -> Frame<S,Store,R,E>:
   match observed:
-    case (world,False{}): Frame{T.Tx{world,undo,commands,events},current,first_error(error,W.MissingEntity{}),cursor}
-    case (world,True{}): Frame{T.stage(~W.World<S,Store,R,E>,~E,T.Tx{world,undo,commands,events},(world => insert_apply(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family,target,value,world))),current,error,cursor}
+    case (world,False{}): Frame{T.Tx{world,undo,commands,events,trace},current,first_error(error,W.MissingEntity{}),cursor}
+    case (world,True{}): Frame{T.stage(~W.World<S,Store,R,E>,~E,T.Tx{world,undo,commands,events,trace},(world => insert_apply(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family,target,value,world))),current,error,cursor}
 def insert(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,frame: Frame<S,Store,R,E>,request: Insert<S,C>) -> Frame<S,Store,R,E>:
   match frame request:
-    case Frame{T.Tx{world,undo,commands,events},current,error,cursor} Insert{+target,value}: insert_checked(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family,current,error,cursor,target,value,undo,commands,events,W.valid(~S,~Store,~R,~E,world,target))
+    case Frame{T.Tx{world,undo,commands,events,trace},current,error,cursor} Insert{+target,value}: insert_checked(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family,current,error,cursor,target,value,undo,commands,events,trace,W.valid(~S,~Store,~R,~E,world,target))
 def command_insert(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>) -> Cap.Send<Frame<S,Store,R,E>,Insert<S,C>>:
   Cap.Send{insert(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family)}
 
@@ -188,17 +190,37 @@ def lifecycle_selected(mode: LifecycleSelection,stamp: L.Stamp,cursor: U32) -> B
   match mode:
     case Added{}: L.added(stamp,cursor)
     case Changed{}: L.changed(stamp,cursor)
-def lifecycle_join(~S: Data,~Store: Type,~R: Type,~E: Data,~mode: LifecycleSelection,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,+cursor: U32,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,observed: W.World<S,Store,R,E> & L.Stamp) -> Frame<S,Store,R,E> & Bool:
+def lifecycle_join(~S: Data,~Store: Type,~R: Type,~E: Data,~mode: LifecycleSelection,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,+cursor: U32,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,observed: W.World<S,Store,R,E> & L.Stamp) -> Frame<S,Store,R,E> & Bool:
   (world,stamp) = observed
-  (Frame{T.Tx{world,undo,commands,events},handle,error,cursor},lifecycle_selected(mode,stamp,cursor))
+  (Frame{T.Tx{world,undo,commands,events,trace},handle,error,cursor},lifecycle_selected(mode,stamp,cursor))
 def lifecycle_match(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,~mode: LifecycleSelection,frame: Frame<S,Store,R,E>) -> Frame<S,Store,R,E> & Bool:
   match frame:
-    case Frame{T.Tx{world,undo,commands,events},+handle,error,cursor}: lifecycle_join(~S,~Store,~R,~E,~mode,handle,error,cursor,undo,commands,events,Cmp.lifecycle(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle))
-def clock_join(~S: Data,~Store: Type,~R: Type,~E: Data,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: U32,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,observed: W.World<S,Store,R,E> & U32) -> Frame<S,Store,R,E> & U32:
+    case Frame{T.Tx{world,undo,commands,events,trace},+handle,error,cursor}: lifecycle_join(~S,~Store,~R,~E,~mode,handle,error,cursor,undo,commands,events,trace,Cmp.lifecycle(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle))
+def clock_join(~S: Data,~Store: Type,~R: Type,~E: Data,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: U32,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,observed: W.World<S,Store,R,E> & U32) -> Frame<S,Store,R,E> & U32:
   (world,clock) = observed
-  (Frame{T.Tx{world,undo,commands,events},handle,error,cursor},clock)
+  (Frame{T.Tx{world,undo,commands,events,trace},handle,error,cursor},clock)
 def clock_get(~S: Data,~Store: Type,~R: Type,~E: Data,frame: Frame<S,Store,R,E>) -> Frame<S,Store,R,E> & U32:
   match frame:
-    case Frame{T.Tx{world,undo,commands,events},handle,error,cursor}: clock_join(~S,~Store,~R,~E,handle,error,cursor,undo,commands,events,W.clock(~S,~Store,~R,~E,world))
+    case Frame{T.Tx{world,undo,commands,events,trace},handle,error,cursor}: clock_join(~S,~Store,~R,~E,handle,error,cursor,undo,commands,events,trace,W.clock(~S,~Store,~R,~E,world))
 def clock_read(~S: Data,~Store: Type,~R: Type,~E: Data) -> Cap.ValueRead<Frame<S,Store,R,E>,U32>:
   Cap.ValueRead{clock_get(~S,~Store,~R,~E)}
+
+def set_displayed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,~display:V -> String,frame: Frame<S,Store,R,E>,replacement: C) -> Frame<S,Store,R,E>:
+  match frame:
+    case Frame{tx,+handle,error,cursor}: written(~S,~Store,~R,~E,~C,handle,error,cursor,Cmp.tx_set_displayed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~display,family,tx,handle,replacement))
+def write_family_displayed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,~display:V -> String) -> Cap.Write<Frame<S,Store,R,E>,C,V>:
+  Cap.Write{get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family),set_displayed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family,~display)}
+
+def finish_returned_observed(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,values:List<&2,Out>,result:T.Returned<W.World<S,Store,R,E>,Error<U>> & TraceFacts.State) -> Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  match result:
+    case (returned,trace):(finish_returned(~S,~Store,~R,~E,~U,~Out,values,returned),trace)
+
+def finished_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~U: Data,~Out: Data,observed: T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>)) -> Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  match observed:
+    case (tx,(result,values)): finish_returned_observed(~S,~Store,~R,~E,~U,~Out,values,T.finish_observed(~W.World<S,Store,R,E>,~E,~Error<U>,~Cmd.enqueue(~S,~Store,~R,~E),~Cmd.publish(~S,~Store,~R,~E),tx,result))
+def reserved_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),trace:TraceFacts.State,args: A,cursor: U32,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  (world,handles) = observed
+  finished_observed(~S,~Store,~R,~E,~U,~Out,run_handles(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,handles,args,cursor,T.begin_with_trace(~W.World<S,Store,R,E>,~E,world,trace)))
+# Snapshot live handles in ascending order; deferred commands stay invisible.
+def each_since_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),trace:TraceFacts.State,args: A,world: W.World<S,Store,R,E>,cursor: U32) -> Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  reserved_observed(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,trace,args,cursor,W.handles(~S,~Store,~R,~E,world))

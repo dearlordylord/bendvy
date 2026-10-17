@@ -1,0 +1,148 @@
+"""Source-derived ordinary owned-event query-reader complete finite model."""
+import argparse
+from pathlib import Path
+import runpy
+import sys
+
+PLAIN = runpy.run_path(str(Path(__file__).resolve().parent.parent / 'reader-context-v1/model.py.source'))
+ls, nested = PLAIN['ls'], PLAIN['nested']
+SCHEMA = '[Entry{Component:Payload:Payload}, Entry{Event:Cargo:Cargo}]'
+ACCESS = '[Cargo:read, Payload]'
+
+
+class State(PLAIN['State']):
+    def __init__(self):
+        super().__init__()
+        # Actual reserve1:0 + activate, then ordinary component replacement ticks1.
+        self.clock = 1
+        self.registry_cursor = 0
+        self.history, self.outputs = [], []
+
+    def world(self):
+        rows = ''.join(f'Row{{id={i};payload=node(leaf:{v},leaf:{v + 1})}},' for i, v in self.rows) + 'end'
+        allocator = 'allocator{next=2;high=1;capacity=2;depth=1;slots=node(leaf:0:Consumed,leaf:0:Live);free=[];order=[1:0]}'
+        store = ('Indexed{Owned{IndexedState{values=leaf:Some{node(leaf:100,leaf:101)};'
+                 + 'Metadata{added=leaf:1;changed=leaf:1;capacity=1;depth=0;exceptional=[]}}}}')
+        return ('World{namespace=1;' + allocator + ';store=' + store
+                + f';resources=Log{{next={len(self.rows) + 1};rows=' + rows + '};events=' + ls(self.events)
+                + ';pending=' + ('Raw(opaque),end' if self.pending else 'end')
+                + ';registrations=[1:owned-reader:' + ACCESS + '];nextSystemId=2;clock=' + str(self.clock) + '}')
+
+    def reader(self):
+        return ('ReaderOwner{domain=Cargo;mode=Read;readerNamespace=1;readerId=1;registryId=1;registryNamespace=1;systemId=1;'
+                + 'name=owned-reader;access=' + ACCESS + ';cursor=' + str(self.registry_cursor) + '}')
+
+    def app(self):
+        history = ''.join(f'Observation{{event={event};owned=node(leaf:701,leaf:701)}},' for event in self.history) + 'end'
+        seed = 'Seed{handle=Some{handle{1:1:0}};activation=Accepted;previous=None;rejected=None}'
+        held = ('Held{args{scratch=node(leaf:600,leaf:601);values=' + ls(self.values)
+                + ';fail=' + str(self.fail) + '};status=' + self.semantic + ';lagged=' + str(self.lagged)
+                + ';history=' + history + ';outputs=' + ls(self.outputs) + ';seed=' + seed + '}')
+        return ('App{schema=' + SCHEMA + ';recipe=Recipe;debug=' + str(self.debug) + ';plan=' + PLAIN['PLAN']
+                + ';namespace=1;name=checked-owned-reader;steps=' + ls(PLAIN['STEPS']) + ';needs=[];' + self.world()
+                + ';Owners{' + held + ';' + self.reader() + f'}};tick={self.tick};' + self.family()
+                + ';guards{systemId=1;owner=' + str(self.guard) + ';descriptions=' + self.descriptions() + '}}')
+
+    def snapshot(self):
+        if not self.debug:
+            return 'None'
+        binding = ('Binding{namespace=1;id=1;name=owned-reader;access=' + ACCESS
+                   + ';cursor=' + str(self.registry_cursor) + ';slot=Cargo;clauses=[Cargo:Read, Payload:Read]}')
+        return ('Some{schema=' + SCHEMA + ';bindings=[' + binding + '];rows=Product{Unit,Unit};rendered=[];'
+                + 'namespace=1;name=checked-owned-reader;steps=' + ls(['planned{' + s + ';needs=[]}' for s in PLAIN['STEPS']])
+                + ';checkedBindings=' + self.descriptions() + '}')
+
+    def perform(self, label):
+        events = ['ScheduleStarted{namespace=1;name=checked-owned-reader}', 'PhaseEntered{name=reader}']
+        if not self.guard:
+            events.append('SystemSkipped{id=1}')
+            observation = 'Skipped{1}'
+        else:
+            cursor = self.position or 0
+            registered = self.registered if self.registered is not None else self.tick
+            self.lagged = max(cursor, registered) < self.dropped
+            keys = [i for tick, items in self.batches if tick > cursor for i in items]
+            self.semantic = 'Success'
+            current_outputs = []
+            for identity in keys:
+                event = next(v for i, v in self.rows if i == identity)
+                # Scoped event projection makes actual affine Observation700/701;
+                # the SAME declared query visits actual live entity1 with Payload100.
+                self.history.append(event)
+                self.values.append(event + 100)
+                if self.fail:
+                    self.semantic = 'Failure{QueryError{UserError{reader-body-failed}}}'
+                    current_outputs = []
+                    break
+                current_outputs.append(100)
+            self.outputs.extend(current_outputs)
+            self.tick += 1
+            if self.position is None:
+                self.position, self.registered = 0, self.tick - 1
+            if self.semantic == 'Success':
+                self.position = self.tick
+                # Query reader's explicit success reconciliation records Worldclock.
+                self.registry_cursor = self.clock
+            self.synchronize()
+            identity = 'identity{namespace=1;id=1;name=Some{owned-reader}}'
+            fact = ('ReaderFact{namespace=1;id=1;name=owned-reader;readerId=1;domain=Cargo;lagged=' + str(self.lagged) + '}')
+            events.extend(['OperationObserved{' + identity + ';fact=' + fact + '}',
+                           'SystemCompleted{' + identity + f';before={self.clock};after={self.clock};status=SystemOk' + '}'])
+            observation = 'Ran{1}'
+        if self.pending:
+            self.pending = False
+            self.clock += 1
+        events.extend(['DeferredApplied', 'ScheduleEnded{outcome=EndOk}'])
+        self.statuses.append('Finished{' + ls(['Entered{reader}', observation, 'Applied']) + '}')
+        actual = events if self.debug else []
+        self.run_batches.append(actual)
+        self.checkpoint(label + ':after-execution')
+        self.output.append('batch=' + ('Ready{events=' + ls(actual) + '}' if self.debug else 'Disabled') + '\n')
+        self.collector.deliver(actual)
+        self.checkpoint(label + ':after-delivery')
+
+
+def render(schema):
+    if schema not in ('Workshop', 'Garden'):
+        raise ValueError(schema)
+    return (schema + '\n' + State().run() + '\n').encode()
+
+
+def self_test():
+    state = State()
+    state.run()
+    s = state.states
+    assert len(s) == 31 and len(state.statuses) == 10
+    assert s['initial']['clock'] == 1 and s['initial']['registry_cursor'] == 0
+    assert s['false-before-read:after-execution']['clock'] == 2
+    assert s['first-read:after-execution']['registry_cursor'] == 2
+    assert s['first-read:after-execution']['values'] == [110]
+    assert s['lagged-read:after-execution']['values'] == [110, 130]
+    failure = s['semantic-failure:after-execution']
+    assert failure['values'] == [110, 130, 140] and failure['history'] == [10, 30, 40]
+    assert failure['outputs'] == [100, 100] and failure['position'] == 5 and failure['registry_cursor'] == 2
+    assert failure['semantic'] == 'Failure{QueryError{UserError{reader-body-failed}}}'
+    assert state.values == [110, 130, 140, 140, 150]
+    assert state.history == [10, 30, 40, 40, 50] and state.outputs == [100] * 4
+    assert state.tick == state.position == 12 and state.clock == state.registry_cursor == 2
+    assert len(state.collector.events) == 6 and len(state.returned[0].events) == 40
+    assert [len(batch) for batch in state.run_batches] == [5, 6, 5, 6, 6, 6, 0, 0, 6, 6]
+    assert 'UNSUPPORTED_PREPARED_COLUMN' not in state.app()
+    assert render('Workshop')[len(b'Workshop\n'):] == render('Garden')[len(b'Garden\n'):]
+    assert render('Workshop').startswith(b'Workshop\ncheckpoint=initial\n')
+    assert render('Workshop').endswith(b'\n\n')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--schema', choices=['Workshop', 'Garden'])
+    parser.add_argument('--self-test', action='store_true')
+    parser.add_argument('--render-stdout', action='store_true')
+    options = parser.parse_args()
+    if options.self_test:
+        self_test()
+        print('independent query-reader context model: PASS', file=sys.stderr)
+    if options.render_stdout:
+        if options.schema is None:
+            parser.error('--render-stdout requires --schema')
+        sys.stdout.buffer.write(render(options.schema))

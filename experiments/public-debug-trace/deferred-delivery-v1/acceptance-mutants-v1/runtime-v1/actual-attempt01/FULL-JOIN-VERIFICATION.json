@@ -1,0 +1,74 @@
+{
+  "status": "PASS",
+  "isolatedRelocation": true,
+  "canonicalRelocationInverse": true,
+  "soleLineMutationInverses": 3,
+  "historyEvolvingPinJoins": 0,
+  "generatedNativeELFObjects": [
+    "/tmp/bendvy57-relocated-control-first-actual01/normal/native/scenario.native",
+    "/tmp/bendvy57-missing-failure-first-actual01/mutant/native/scenario.native",
+    "/tmp/bendvy57-delivery-order-first-actual01/mutant/native/scenario.native",
+    "/tmp/bendvy57-reset-owner-first-actual01/mutant/native/scenario.native"
+  ],
+  "completeNormalBaselineRejected": [
+    "js",
+    "native",
+    "js",
+    "native",
+    "js",
+    "native"
+  ],
+  "bindings": 674,
+  "objects": 576,
+  "externalELFs": 22,
+  "successfulCommands": 20,
+  "guards": 68,
+  "evolvingPinJoins": 14375,
+  "importsPerRole": [
+    107,
+    107,
+    107,
+    107,
+    107,
+    107,
+    107,
+    107
+  ],
+  "retainedModels": {
+    "relocated-control/js/acceptance-mutants-v1": {
+      "bytes": 260631,
+      "sha256": "510cd431dd1a99e2a518f97b9eab31ac6b2fc48651f900564d7f2242900dfcd4"
+    },
+    "relocated-control/native/acceptance-mutants-v1": {
+      "bytes": 260631,
+      "sha256": "510cd431dd1a99e2a518f97b9eab31ac6b2fc48651f900564d7f2242900dfcd4"
+    },
+    "missing-failure/js/acceptance-mutants-v1": {
+      "bytes": 259461,
+      "sha256": "fbc0402d48425c96313b5a083ffbae83c8f9ed50464a1958556b72637d3d65a1"
+    },
+    "missing-failure/native/acceptance-mutants-v1": {
+      "bytes": 259461,
+      "sha256": "fbc0402d48425c96313b5a083ffbae83c8f9ed50464a1958556b72637d3d65a1"
+    },
+    "delivery-order/js/acceptance-mutants-v1": {
+      "bytes": 260631,
+      "sha256": "8d9e82820cf840a34eaaff3fe3ad4f1c7fd8610987c7f1cbfdc56881363c498d"
+    },
+    "delivery-order/native/acceptance-mutants-v1": {
+      "bytes": 260631,
+      "sha256": "8d9e82820cf840a34eaaff3fe3ad4f1c7fd8610987c7f1cbfdc56881363c498d"
+    },
+    "reset-owner/js/acceptance-mutants-v1": {
+      "bytes": 260635,
+      "sha256": "9ba9d1ef6b46189a1c791b8b7250a6f436ce589f769e2cff882d117014aba817"
+    },
+    "reset-owner/native/acceptance-mutants-v1": {
+      "bytes": 260635,
+      "sha256": "9ba9d1ef6b46189a1c791b8b7250a6f436ce589f769e2cff882d117014aba817"
+    }
+  },
+  "backendReplay": false,
+  "historyStatuses": {},
+  "scope": "Relocated canonical control and three reached trace/delivery/reset mutants, eight stock roles. Whole counter equality and normal rejection retained; bounded mutation evidence, not full issue57 acceptance"
+}

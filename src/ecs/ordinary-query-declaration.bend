@@ -93,3 +93,6 @@ def added(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:
 
 def changed(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Unit>:
   Declaration{Unit{},Q.lifecycle_match(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)},~Q.Changed{}),[Clause{Identity.key(~S,~P,identity),Changed{}}]}
+
+def write_displayed(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~view:P -> P & V,~display:V -> String,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Cap.Write<Q.Frame<S,Store,R,E>,P,V>>:
+  Declaration{Q.write_family_displayed(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)},~display),Q.family_match(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)},~Q.Required{}),[Clause{Identity.key(~S,~P,identity),Write{}}]}

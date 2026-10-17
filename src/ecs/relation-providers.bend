@@ -1,4 +1,6 @@
 import Base
+import ./deferred-command.bend as Deferred
+import ./trace-facts.bend as TraceFacts
 import entity-key.bend as Key
 import relation-types.bend as G
 import relation-commands.bend as A
@@ -45,12 +47,12 @@ def handle_snapshot(~S: Data,value: Maybe<&2,List<&2,Key.Key>>,namespace: U32) -
 def inverse_handles(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,List<&2,Key.Key>>,target: W.Handle<S>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>:
   match result target:
     case (world,value) W.Handle{ns,_}: (world,handle_snapshot(~S,value,ns))
-def inverse_tx_done(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>,undo: List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,commands: List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,events: List<&2,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>:
+def inverse_tx_done(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>,undo: List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,commands:List<Deferred.Command<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>>>,events: List<&2,A.Notice<S,E>>,trace:TraceFacts.State) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>:
   (world,value) = result
-  (X.Tx{world,undo,commands,events},value)
+  (X.Tx{world,undo,commands,events,trace},value)
 def inverse_tx(~S: Data,~C: Type,~R: Type,~E: Data,~descriptor: G.Descriptor<S>,tx: X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,target: W.Handle<S>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>:
   match tx target:
-    case X.Tx{world,undo,commands,events} W.Handle{+ns,+id}: inverse_tx_done(~S,~C,~R,~E,inverse_handles(~S,~C,~R,~E,A.inverse(~S,~C,~R,~E,world,descriptor,W.Handle{ns,id}),W.Handle{ns,id}),undo,commands,events)
+    case X.Tx{world,undo,commands,events,trace} W.Handle{+ns,+id}: inverse_tx_done(~S,~C,~R,~E,inverse_handles(~S,~C,~R,~E,A.inverse(~S,~C,~R,~E,world,descriptor,W.Handle{ns,id}),W.Handle{ns,id}),undo,commands,events,trace)
 def relate_tx(~S: Data,~C: Type,~R: Type,~E: Data,~descriptor: G.Descriptor<S>,tx: X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,targets: Targets<S>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
   match targets:
     case Targets{source,target}: A.queue_relate(~S,~C,~R,~E,tx,descriptor,source,target)

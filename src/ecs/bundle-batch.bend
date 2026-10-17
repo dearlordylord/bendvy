@@ -1,4 +1,6 @@
 import Base
+import ./deferred-command.bend as Deferred
+import ./trace-facts.bend as TraceFacts
 import entity-key.bend as K
 import bundle-delivery.bend as B
 import world.bend as W
@@ -24,16 +26,16 @@ type Finished<S:Data,Store:Type,R:Type,E:Data,P:Type,Error:Data> is Type:
 def begin(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,tx:T.Tx<W.World<S,Store,R,E>,E>) -> Batch<S,Store,R,E,P>:
   Batch{tx,[]}
 # Count returns the very same affine closures in the same reverse queue order.
-def counted(~World:Type,command:World -> World,result:List<(World -> World)> & Nat) -> List<(World -> World)> & Nat:
+def counted(~World:Type,command:Deferred.Command<World>,result:List<Deferred.Command<World>> & Nat) -> List<Deferred.Command<World>> & Nat:
   match result:
     case (commands,count): (command <> commands,1n+count)
-def count_commands(~World:Type,commands:List<(World -> World)>) -> List<(World -> World)> & Nat:
+def count_commands(~World:Type,commands:List<Deferred.Command<World>>) -> List<Deferred.Command<World>> & Nat:
   match commands:
     case []: ([],0n)
     case command <> tail: counted(~World,command,count_commands(~World,tail))
-def positioned(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,prepared:List<Prepared<S,P>>,world:W.World<S,Store,R,E>,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events:List<&2,E>,target:W.Handle<S>,payload:P,result:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)> & Nat) -> Inserted<S,Store,R,E,P>:
+def positioned(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,prepared:List<Prepared<S,P>>,world:W.World<S,Store,R,E>,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events:List<&2,E>,trace:TraceFacts.State,target:W.Handle<S>,payload:P,result:List<Deferred.Command<W.World<S,Store,R,E>>> & Nat) -> Inserted<S,Store,R,E,P>:
   match result:
-    case (commands,position): Inserted{Batch{T.Tx{world,undo,commands,events},Prepared{target,payload,position} <> prepared}}
+    case (commands,position): Inserted{Batch{T.Tx{world,undo,commands,events,trace},Prepared{target,payload,position} <> prepared}}
 # Receipt rows are created only from this Batch's actual Cmd.tx_spawn result.
 # Public gameplay cannot construct the opaque Batch; raw engine constructors
 # and provider callbacks remain explicitly trusted setup boundaries.
@@ -47,32 +49,32 @@ def receipt_find(~S:Data,~P:Type,prepared:List<Prepared<S,P>>,+target:W.Handle<S
     case ReservationReceipt{W.Handle{+ns,+id}} <> tail:
       match target:
         case W.Handle{+otherNs,+otherId}: receipt_join(~S,~P,ReservationReceipt{W.Handle{ns,id}},Bool.and(U32.is_eq(ns,otherNs),K.equal(id,otherId)),receipt_find(~S,~P,tail,W.Handle{otherNs,otherId}))
-def receipt_checked(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,world:W.World<S,Store,R,E>,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events:List<&2,E>,target:W.Handle<S>,payload:P,result:List<Prepared<S,P>> & Bool) -> Inserted<S,Store,R,E,P>:
+def receipt_checked(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,world:W.World<S,Store,R,E>,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events:List<&2,E>,trace:TraceFacts.State,target:W.Handle<S>,payload:P,result:List<Prepared<S,P>> & Bool) -> Inserted<S,Store,R,E,P>:
   match result:
-    case (prepared,False{}): Refused{Batch{T.Tx{world,undo,commands,events},prepared},payload,W.MissingEntity{}}
-    case (prepared,True{}): positioned(~S,~Store,~R,~E,~P,prepared,world,undo,events,target,payload,count_commands(~W.World<S,Store,R,E>,commands))
-def checked(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,prepared:List<Prepared<S,P>>,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events:List<&2,E>,+target:W.Handle<S>,payload:P,observed:W.World<S,Store,R,E> & Bool) -> Inserted<S,Store,R,E,P>:
+    case (prepared,False{}): Refused{Batch{T.Tx{world,undo,commands,events,trace},prepared},payload,W.MissingEntity{}}
+    case (prepared,True{}): positioned(~S,~Store,~R,~E,~P,prepared,world,undo,events,trace,target,payload,count_commands(~W.World<S,Store,R,E>,commands))
+def checked(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,prepared:List<Prepared<S,P>>,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events:List<&2,E>,trace:TraceFacts.State,+target:W.Handle<S>,payload:P,observed:W.World<S,Store,R,E> & Bool) -> Inserted<S,Store,R,E,P>:
   match observed:
-    case (world,False{}): receipt_checked(~S,~Store,~R,~E,~P,world,undo,commands,events,target,payload,receipt_find(~S,~P,prepared,target))
-    case (world,True{}): positioned(~S,~Store,~R,~E,~P,prepared,world,undo,events,target,payload,count_commands(~W.World<S,Store,R,E>,commands))
+    case (world,False{}): receipt_checked(~S,~Store,~R,~E,~P,world,undo,commands,events,trace,target,payload,receipt_find(~S,~P,prepared,target))
+    case (world,True{}): positioned(~S,~Store,~R,~E,~P,prepared,world,undo,events,trace,target,payload,count_commands(~W.World<S,Store,R,E>,commands))
 def insert(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,batch:Batch<S,Store,R,E,P>,+target:W.Handle<S>,payload:P) -> Inserted<S,Store,R,E,P>:
   match batch:
-    case Batch{T.Tx{world,undo,commands,events},prepared}: checked(~S,~Store,~R,~E,~P,prepared,undo,commands,events,target,payload,W.valid(~S,~Store,~R,~E,world,target))
+    case Batch{T.Tx{world,undo,commands,events,trace},prepared}: checked(~S,~Store,~R,~E,~P,prepared,undo,commands,events,trace,target,payload,W.valid(~S,~Store,~R,~E,world,target))
 # Replay only closures preceding this authored insertion. Position is generated
 # by count_commands, not supplied by gameplay; raw constructors remain trusted.
-def preceding(~World:Type,~E:Data,count:Nat,commands:List<(World -> World)>,tx:T.Tx<World,E>) -> List<(World -> World)> & T.Tx<World,E>:
+def preceding(~World:Type,~E:Data,count:Nat,commands:List<Deferred.Command<World>>,tx:T.Tx<World,E>) -> List<Deferred.Command<World>> & T.Tx<World,E>:
   match count commands:
     case 0n _: (commands,tx)
     case 1n+rest Nil{}: ([],tx)
-    case 1n+rest Con{command,tail}: preceding(~World,~E,rest,tail,T.stage(~World,~E,tx,command))
-def remaining(~World:Type,~E:Data,commands:List<(World -> World)>,tx:T.Tx<World,E>) -> T.Tx<World,E>:
+    case 1n+rest Con{command,tail}: preceding(~World,~E,rest,tail,T.stage_command(~World,~E,tx,command))
+def remaining(~World:Type,~E:Data,commands:List<Deferred.Command<World>>,tx:T.Tx<World,E>) -> T.Tx<World,E>:
   match commands:
     case []: tx
-    case command <> tail: remaining(~World,~E,tail,T.stage(~World,~E,tx,command))
-def staged_after(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~attempt:W.World<S,Store,R,E> -> W.Handle<S> -> P -> B.Delivery<W.World<S,Store,R,E>,P>,~recover:W.World<S,Store,R,E> -> P -> W.WorldError -> W.World<S,Store,R,E>,target:W.Handle<S>,payload:P,next:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)> -> T.Tx<W.World<S,Store,R,E>,E> -> T.Tx<W.World<S,Store,R,E>,E>,result:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)> & T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E>:
+    case command <> tail: remaining(~World,~E,tail,T.stage_command(~World,~E,tx,command))
+def staged_after(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~attempt:W.World<S,Store,R,E> -> W.Handle<S> -> P -> B.Delivery<W.World<S,Store,R,E>,P>,~recover:W.World<S,Store,R,E> -> P -> W.WorldError -> W.World<S,Store,R,E>,target:W.Handle<S>,payload:P,next:List<Deferred.Command<W.World<S,Store,R,E>>> -> T.Tx<W.World<S,Store,R,E>,E> -> T.Tx<W.World<S,Store,R,E>,E>,result:List<Deferred.Command<W.World<S,Store,R,E>>> & T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E>:
   match result:
     case (after,before): next(after,B.enqueue(~S,~Store,~R,~E,~P,~attempt,~recover,before,target,payload))
-def staged(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~attempt:W.World<S,Store,R,E> -> W.Handle<S> -> P -> B.Delivery<W.World<S,Store,R,E>,P>,~recover:W.World<S,Store,R,E> -> P -> W.WorldError -> W.World<S,Store,R,E>,prepared:List<Prepared<S,P>>,commands:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,+current:Nat,tx:T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E>:
+def staged(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~attempt:W.World<S,Store,R,E> -> W.Handle<S> -> P -> B.Delivery<W.World<S,Store,R,E>,P>,~recover:W.World<S,Store,R,E> -> P -> W.WorldError -> W.World<S,Store,R,E>,prepared:List<Prepared<S,P>>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,+current:Nat,tx:T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E>:
   match prepared:
     case []: remaining(~W.World<S,Store,R,E>,~E,commands,tx)
     case ReservationReceipt{target} <> tail: staged(~S,~Store,~R,~E,~P,~attempt,~recover,tail,commands,current,tx)
@@ -80,7 +82,7 @@ def staged(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~attempt:W.World<S,Store,
       staged_after(~S,~Store,~R,~E,~P,~attempt,~recover,target,payload,after => before => staged(~S,~Store,~R,~E,~P,~attempt,~recover,tail,after,position,before),preceding(~W.World<S,Store,R,E>,~E,Nat.sub(position,current),commands,tx))
 def stage(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~attempt:W.World<S,Store,R,E> -> W.Handle<S> -> P -> B.Delivery<W.World<S,Store,R,E>,P>,~recover:W.World<S,Store,R,E> -> P -> W.WorldError -> W.World<S,Store,R,E>,prepared:List<Prepared<S,P>>,tx:T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E>:
   match tx:
-    case T.Tx{world,undo,commands,events}: staged(~S,~Store,~R,~E,~P,~attempt,~recover,prepared,List.reverse(&1,(W.World<S,Store,R,E> -> W.World<S,Store,R,E>),commands),0n,T.Tx{world,undo,[],events})
+    case T.Tx{world,undo,commands,events,trace}: staged(~S,~Store,~R,~E,~P,~attempt,~recover,prepared,List.reverse(&1,Deferred.Command<W.World<S,Store,R,E>>,commands),0n,T.Tx{world,undo,[],events,trace})
 def originals(~S:Data,~P:Type,prepared:List<Prepared<S,P>>) -> List<P>:
   match prepared:
     case []: []
@@ -105,7 +107,7 @@ def spawn_positioned(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,target:W.Handle
     case Refused{batch,payload,error}: SpawnRefused{batch,payload,error}
 def spawn_reserved(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,prepared:List<Prepared<S,P>>,payload:P,result:T.Tx<W.World<S,Store,R,E>,E> & W.Reservation<S>) -> Spawned<S,Store,R,E,P>:
   match result:
-    case (T.Tx{world,undo,commands,events},W.Reserved{+target}): spawn_positioned(~S,~Store,~R,~E,~P,target,positioned(~S,~Store,~R,~E,~P,ReservationReceipt{target} <> prepared,world,undo,events,target,payload,count_commands(~W.World<S,Store,R,E>,commands)))
+    case (T.Tx{world,undo,commands,events,trace},W.Reserved{+target}): spawn_positioned(~S,~Store,~R,~E,~P,target,positioned(~S,~Store,~R,~E,~P,ReservationReceipt{target} <> prepared,world,undo,events,trace,target,payload,count_commands(~W.World<S,Store,R,E>,commands)))
     case (tx,W.ReservationRejected{error}): SpawnRefused{Batch{tx,prepared},payload,error}
 def spawn(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,batch:Batch<S,Store,R,E,P>,payload:P) -> Spawned<S,Store,R,E,P>:
   match batch:

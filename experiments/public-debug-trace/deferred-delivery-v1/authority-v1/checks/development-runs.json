@@ -1,0 +1,86 @@
+[
+  {
+    "name": "subscriber-positive",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "8",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "experiments/public-debug-trace/deferred-delivery-v1/authority-v1/subscriber-positive.bend"
+    ],
+    "exitCode": 0,
+    "sourceSHA256": "fff2f04e4a4058b577a341377b94ddea2c17de998db5152f21cf4179592f6329"
+  },
+  {
+    "name": "duplicate-state",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "8",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "experiments/public-debug-trace/deferred-delivery-v1/authority-v1/duplicate-state.bend"
+    ],
+    "exitCode": 1,
+    "sourceSHA256": "58d087165ab37f83443ccfd1cf4a8bb0c043d1094b07aed1e8040bd065d0dfa2"
+  },
+  {
+    "name": "duplicate-subscriber",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "8",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "experiments/public-debug-trace/deferred-delivery-v1/authority-v1/duplicate-subscriber.bend"
+    ],
+    "exitCode": 1,
+    "sourceSHA256": "a5658f8fd5d09c2357995bfe1deb5176dfa4e64293160fb222ae823f7c1de4da"
+  },
+  {
+    "name": "duplicate-reset-owner",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "8",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "experiments/public-debug-trace/deferred-delivery-v1/authority-v1/duplicate-reset-owner.bend"
+    ],
+    "exitCode": 1,
+    "sourceSHA256": "4d59c85a00ef9881513669429200469eea7206212b1e385ac9a0a235b37a3a3c"
+  },
+  {
+    "name": "io-step",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "8",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "experiments/public-debug-trace/deferred-delivery-v1/authority-v1/io-step.bend"
+    ],
+    "exitCode": 1,
+    "sourceSHA256": "62725f032da823006710ab62b37f621b6fb3a506e58e844f3af010c98b69bf64"
+  },
+  {
+    "name": "world-step",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "8",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "experiments/public-debug-trace/deferred-delivery-v1/authority-v1/world-step.bend"
+    ],
+    "exitCode": 1,
+    "sourceSHA256": "4a30a9f033993692b3eafea9fef6da7e1bfbf40c6338153e345cfed2b4a8ea98"
+  },
+  {
+    "name": "query-write",
+    "argv": [
+      "/usr/bin/taskset",
+      "-c",
+      "8",
+      "/workspace/formal-proofs/bendvy/scripts/bend-check",
+      "experiments/public-debug-trace/deferred-delivery-v1/authority-v1/query-write.bend"
+    ],
+    "exitCode": -9,
+    "sourceSHA256": "b42e1ee342e184def375fd319cb25479024b594515ca2aa6e32623f059742b0e"
+  }
+]

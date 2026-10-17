@@ -1,4 +1,5 @@
 import Base
+import ./deferred-command.bend as Deferred
 import entity-key.bend as Key
 import entity-allocator.bend as Alloc
 import ./world.bend as W
@@ -26,7 +27,7 @@ def enabled(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<
     case Application{schema,Build.Registered{world,owners,recipe,_}}:Application{schema,Build.Registered{world,owners,recipe,flag}}
 def create(~S:Data,~C:Type,~R:Type,~E:Data,~empty:Unit -> C,schema:Schema.Schema<S,C,R>,factory:W.Factory,resource:R) -> Schema.Schema<S,C,R> & W.Creation<S,C,R,E>:
   SchemaApp.create(~S,~C,~R,~E,~empty,schema,factory,resource)
-def resource_returned(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,allocator:Alloc.Allocator,store:C,events:List<&2,E>,pending:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32,result:R & List<&2,Maybe<&2,String>>) -> W.World<S,C,R,E> & List<&2,Maybe<&2,String>>:
+def resource_returned(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,allocator:Alloc.Allocator,store:C,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32,result:R & List<&2,Maybe<&2,String>>) -> W.World<S,C,R,E> & List<&2,Maybe<&2,String>>:
   match result:
     case (resource,slots):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},slots)
 def resource_world(~S:Data,~C:Type,~R:Type,~E:Data,~read:R -> R & List<&2,Maybe<&2,String>>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & List<&2,Maybe<&2,String>>:

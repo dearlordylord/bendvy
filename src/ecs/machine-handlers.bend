@@ -1,4 +1,5 @@
 import Base
+import ./machine-handler-engine.bend as Engine
 
 import world.bend as W
 
@@ -35,81 +36,38 @@ type Prepared<S:Data,K:Data,V:Data> is Data:
   Idle{slot:M.Slot<S,K,V>}
   Ready{slot:M.Slot<S,K,V>,transition:M.Transition<V>,skipSame:Bool}
 
-def prepend(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,head:Entry<S,C,R,E,V,runner>,tail:PhaseResult<S,C,R,E,V,runner>) -> PhaseResult<S,C,R,E,V,runner>:
-  match tail:
-    case Complete{entries,world}: Complete{head <> entries,world}
-    case Failed{entries,world,error}: Failed{head <> entries,world,error}
-
-def entry_outcome(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,ordinal:U32,registry:Sys.Registry<S,C,R,E,Invocation<V>,String,Unit,runner>,outcome:Sys.Outcome<W.World<S,C,R,E>,String,Unit>,next:W.World<S,C,R,E> -> Maybe<&2,String> -> PhaseResult<S,C,R,E,V,runner>) -> PhaseResult<S,C,R,E,V,runner>:
-  match outcome:
-    case Sys.Failed{world,error}: prepend(~S,~C,~R,~E,~V,~runner,Entry{ordinal,registry},next(world,Some{error}))
-    case Sys.Succeeded{world,_}: prepend(~S,~C,~R,~E,~V,~runner,Entry{ordinal,registry},next(world,None{}))
-
-def entry_result(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,ordinal:U32,observed:Sys.RunResult<S,C,R,E,Invocation<V>,String,Unit,runner>,next:W.World<S,C,R,E> -> Maybe<&2,String> -> PhaseResult<S,C,R,E,V,runner>) -> PhaseResult<S,C,R,E,V,runner>:
-  match observed:
-    case Sys.Completed{registry,outcome}: entry_outcome(~S,~C,~R,~E,~V,~runner,ordinal,registry,outcome,next)
-    case Sys.RegistrationRejected{registry,world,_}: prepend(~S,~C,~R,~E,~V,~runner,Entry{ordinal,registry},next(world,Some{"HandlerRegistrationRejected"}))
-
+def invoked(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,ordinal:U32,result:Sys.RunResult<S,C,R,E,Invocation<V>,String,Unit,runner>) -> Entry<S,C,R,E,V,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:
+  match result:
+    case Sys.Completed{registry,outcome}:(Entry{ordinal,registry},outcome)
+    case Sys.RegistrationRejected{registry,world,_}:(Entry{ordinal,registry},Sys.Failed{world,"HandlerRegistrationRejected"})
+def invoke_phase(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,entry:Entry<S,C,R,E,V,runner>,world:W.World<S,C,R,E>,phase:Phase,from:V,to:V) -> Entry<S,C,R,E,V,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:
+  match entry:
+    case Entry{+ordinal,registry}:invoked(~S,~C,~R,~E,~V,~runner,ordinal,Sys.run_tracked(~S,~C,~R,~E,~Invocation<V>,~String,~Unit,~runner,registry,world,Invocation{phase,ordinal,from,to}))
+def invoke_initial(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,entry:Entry<S,C,R,E,V,runner>,world:W.World<S,C,R,E>,to:V) -> Entry<S,C,R,E,V,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:
+  match entry:
+    case Entry{+ordinal,registry}:invoked(~S,~C,~R,~E,~V,~runner,ordinal,Sys.run_tracked(~S,~C,~R,~E,~Invocation<V>,~String,~Unit,~runner,registry,world,InitialEnter{ordinal,to}))
+def phase_result(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,result:Engine.PhaseResult<W.World<S,C,R,E>,Entry<S,C,R,E,V,runner>>) -> PhaseResult<S,C,R,E,V,runner>:
+  match result:
+    case Engine.Complete{entries,world}:Complete{entries,world}
+    case Engine.Failed{entries,world,error}:Failed{entries,world,error}
+def handler_result(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,result:Engine.HandlerResult<W.World<S,C,R,E>,Entry<S,C,R,E,V,runner>,Phase>) -> HandlerResult<S,C,R,E,V,runner>:
+  match result:
+    case Engine.Completed{Engine.Owners{exit,transition,enter},world}:Completed{Owners{exit,transition,enter},world}
+    case Engine.Stopped{Engine.Owners{exit,transition,enter},world,phase,error}:Stopped{Owners{exit,transition,enter},world,phase,error}
+def prepared_result(~S:Data,~K:Data,~V:Data,result:Engine.Prepared<S,K,V>) -> Prepared<S,K,V>:
+  match result:
+    case Engine.Idle{slot}:Idle{slot}
+    case Engine.Ready{slot,transition,skipSame}:Ready{slot,transition,skipSame}
 def run_phase(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,entries:List<&1,Entry<S,C,R,E,V,runner>>,world:W.World<S,C,R,E>,+phase:Phase,+from:V,+to:V,error:Maybe<&2,String>) -> PhaseResult<S,C,R,E,V,runner>:
-  match entries error:
-    case entries Some{error}: Failed{entries,world,error}
-    case [] None{}: Complete{[],world}
-    case Entry{+ordinal,registry} <> rest None{}: entry_result(~S,~C,~R,~E,~V,~runner,ordinal,Sys.run_tracked(~S,~C,~R,~E,~Invocation<V>,~String,~Unit,~runner,registry,world,Invocation{phase,ordinal,from,to}),world => error => run_phase(~S,~C,~R,~E,~V,~runner,rest,world,phase,from,to,error))
-
+  phase_result(~S,~C,~R,~E,~V,~runner,Engine.run_phase(~S,~W.World<S,C,R,E>,~Entry<S,C,R,E,V,runner>,~Phase,~V,~invoke_phase(~S,~C,~R,~E,~V,~runner),~invoke_initial(~S,~C,~R,~E,~V,~runner),~Exit{},~Transition{},~Enter{},entries,world,phase,from,to,error))
 def run_initial(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,entries:List<&1,Entry<S,C,R,E,V,runner>>,world:W.World<S,C,R,E>,+to:V,error:Maybe<&2,String>) -> PhaseResult<S,C,R,E,V,runner>:
-  match entries error:
-    case entries Some{error}: Failed{entries,world,error}
-    case [] None{}: Complete{[],world}
-    case Entry{+ordinal,registry} <> rest None{}: entry_result(~S,~C,~R,~E,~V,~runner,ordinal,Sys.run_tracked(~S,~C,~R,~E,~Invocation<V>,~String,~Unit,~runner,registry,world,InitialEnter{ordinal,to}),world => error => run_initial(~S,~C,~R,~E,~V,~runner,rest,world,to,error))
-
+  phase_result(~S,~C,~R,~E,~V,~runner,Engine.run_initial(~S,~W.World<S,C,R,E>,~Entry<S,C,R,E,V,runner>,~Phase,~V,~invoke_phase(~S,~C,~R,~E,~V,~runner),~invoke_initial(~S,~C,~R,~E,~V,~runner),~Exit{},~Transition{},~Enter{},entries,world,to,error))
 def choose(~S:Data,~K:Data,~V:Data,skip:Bool,+current:V,+value:V,previous:Maybe<&2,V>,+skipSame:Bool) -> Prepared<S,K,V>:
-  match skip:
-    case True{}: Idle{M.Present{current,M.NoPending{},previous,False{}}}
-    case False{}: Ready{M.Present{current,M.NoPending{},Some{current},False{}},M.Transition{current,value},skipSame}
-
+  prepared_result(~S,~K,~V,Engine.choose(~S,~K,~V,skip,current,value,previous,skipSame))
 def prepare(~S:Data,~K:Data,~V:Data,~same:V -> V -> Bool,slot:M.Slot<S,K,V>,captured:M.Snapshot<V>) -> Prepared<S,K,V>:
-  match slot captured:
-    case slot M.Unscheduled{}: Idle{M.clear_changed(~S,~K,~V,slot)}
-    case M.Missing{} M.Scheduled{_,_}: Idle{M.Missing{}}
-    case M.Present{+current,_,previous,_} M.Scheduled{+value,+skipSame}: choose(~S,~K,~V,Bool.and(skipSame,same(current,value)),current,value,previous,skipSame)
-
+  prepared_result(~S,~K,~V,Engine.prepare(~S,~K,~V,~same,slot,captured))
 def committed(~S:Data,~K:Data,~V:Data,slot:M.Slot<S,K,V>,from:V,to:V) -> M.Slot<S,K,V>:
-  match slot:
-    case M.Missing{}: M.Missing{}
-    case M.Present{_,pending,_,_}: M.Present{to,pending,Some{from},True{}}
-
-def requeued(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,observed:W.World<S,C,R,E> & M.Slot<S,K,V>,to:V,skipSame:Bool) -> W.World<S,C,R,E>:
-  (world,slot)=observed
-  put(world,M.queue(~S,~K,~V,slot,to,skipSame))
-
-def published(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,observed:W.World<S,C,R,E> & M.Slot<S,K,V>,+from:V,+to:V) -> W.World<S,C,R,E>:
-  (world,slot)=observed
-  publish(put(world,committed(~S,~K,~V,slot,from,to)),M.Transition{from,to})
-
-def after_enter(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,exit:List<&1,Entry<S,C,R,E,V,runner>>,transition:List<&1,Entry<S,C,R,E,V,runner>>,observed:PhaseResult<S,C,R,E,V,runner>) -> HandlerResult<S,C,R,E,V,runner>:
-  match observed:
-    case Complete{enter,world}: Completed{Owners{exit,transition,enter},world}
-    case Failed{enter,world,error}: Stopped{Owners{exit,transition,enter},world,Enter{},error}
-
-def after_transition(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,exit:List<&1,Entry<S,C,R,E,V,runner>>,enter:List<&1,Entry<S,C,R,E,V,runner>>,observed:PhaseResult<S,C,R,E,V,runner>,+from:V,+to:V,skipSame:Bool) -> HandlerResult<S,C,R,E,V,runner>:
-  match observed:
-    case Failed{transition,world,error}: Stopped{Owners{exit,transition,enter},requeued(~S,~C,~R,~E,~V,~runner,~K,~take,~put,~publish,take(world),to,skipSame),Transition{},error}
-    case Complete{transition,world}: after_enter(~S,~C,~R,~E,~V,~runner,exit,transition,run_phase(~S,~C,~R,~E,~V,~runner,enter,published(~S,~C,~R,~E,~V,~runner,~K,~take,~put,~publish,take(world),from,to),Enter{},from,to,None{}))
-
-def after_exit(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,transition:List<&1,Entry<S,C,R,E,V,runner>>,enter:List<&1,Entry<S,C,R,E,V,runner>>,observed:PhaseResult<S,C,R,E,V,runner>,+from:V,+to:V,skipSame:Bool) -> HandlerResult<S,C,R,E,V,runner>:
-  match observed:
-    case Failed{exit,world,error}: Stopped{Owners{exit,transition,enter},requeued(~S,~C,~R,~E,~V,~runner,~K,~take,~put,~publish,take(world),to,skipSame),Exit{},error}
-    case Complete{exit,world}: after_transition(~S,~C,~R,~E,~V,~runner,~K,~take,~put,~publish,exit,enter,run_phase(~S,~C,~R,~E,~V,~runner,transition,world,Transition{},from,to,None{}),from,to,skipSame)
-
-def prepared(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,owners:Owners<S,C,R,E,V,runner>,world:W.World<S,C,R,E>,prepared:Prepared<S,K,V>) -> HandlerResult<S,C,R,E,V,runner>:
-  match owners prepared:
-    case owners Idle{slot}: Completed{owners,put(world,slot)}
-    case Owners{exit,transition,enter} Ready{slot,M.Initial{to},_}:after_enter(~S,~C,~R,~E,~V,~runner,exit,transition,run_initial(~S,~C,~R,~E,~V,~runner,enter,put(world,slot),to,None{}))
-    case Owners{exit,transition,enter} Ready{slot,M.Transition{+from,+to},skipSame}: after_exit(~S,~C,~R,~E,~V,~runner,~K,~take,~put,~publish,transition,enter,run_phase(~S,~C,~R,~E,~V,~runner,exit,put(world,slot),Exit{},from,to,None{}),from,to,skipSame)
-
-def taken(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,owners:Owners<S,C,R,E,V,runner>,observed:W.World<S,C,R,E> & M.Slot<S,K,V>,captured:M.Snapshot<V>) -> HandlerResult<S,C,R,E,V,runner>:
-  (world,slot)=observed
-  prepared(~S,~C,~R,~E,~V,~runner,~K,~take,~put,~publish,owners,world,prepare(~S,~K,~V,~same,slot,captured))
-
+  Engine.committed(~S,~K,~V,slot,from,to)
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,owners:Owners<S,C,R,E,V,runner>,world:W.World<S,C,R,E>,captured:M.Snapshot<V>) -> HandlerResult<S,C,R,E,V,runner>:
-  taken(~S,~C,~R,~E,~V,~runner,~K,~take,~put,~publish,~same,owners,take(world),captured)
+  match owners:
+    case Owners{exit,transition,enter}:handler_result(~S,~C,~R,~E,~V,~runner,Engine.run(~S,~W.World<S,C,R,E>,~Entry<S,C,R,E,V,runner>,~Phase,~V,~invoke_phase(~S,~C,~R,~E,~V,~runner),~invoke_initial(~S,~C,~R,~E,~V,~runner),~Exit{},~Transition{},~Enter{},~K,~take,~put,~publish,~same,Engine.Owners{exit,transition,enter},world,captured))

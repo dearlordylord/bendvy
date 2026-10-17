@@ -130,6 +130,17 @@ def missing_selected(~Q:Data,allowed:Bool,value:Q,rest:List<&2,Q>) -> List<&2,Q>
   match allowed:
     case True{}: rest
     case False{}: value <> rest
+def missing_join_with(~State:Type,~Q:Data,allowed:Bool,value:Q,pair:State & List<&2,Q>) -> State & List<&2,Q>:
+  (world,rest)=pair
+  (world,missing_selected(~Q,allowed,value,rest))
+def missing_checked_with(~State:Type,~Q:Data,~has:State -> Q -> State & Bool,pair:State & Bool,+value:Q,next:State -> State & List<&2,Q>) -> State & List<&2,Q>:
+  (world,allowed)=pair
+  missing_join_with(~State,~Q,allowed,value,next(world))
+def missing_with(~State:Type,~Q:Data,~has:State -> Q -> State & Bool,needs:List<&2,Q>,world:State) -> State & List<&2,Q>:
+  match needs:
+    case []: (world,[])
+    case +value <> rest: missing_checked_with(~State,~Q,~has,has(world,value),value,w => missing_with(~State,~Q,~has,rest,w))
+
 def missing_join(~S:Data,~C:Type,~R:Type,~E:Data,~Q:Data,allowed:Bool,value:Q,pair:W.World<S,C,R,E> & List<&2,Q>) -> W.World<S,C,R,E> & List<&2,Q>:
   (world,rest)=pair
   (world,missing_selected(~Q,allowed,value,rest))
@@ -137,9 +148,7 @@ def missing_checked(~S:Data,~C:Type,~R:Type,~E:Data,~Q:Data,~has:W.World<S,C,R,E
   (world,allowed)=pair
   missing_join(~S,~C,~R,~E,~Q,allowed,value,next(world))
 def missing(~S:Data,~C:Type,~R:Type,~E:Data,~Q:Data,~has:W.World<S,C,R,E> -> Q -> W.World<S,C,R,E> & Bool,needs:List<&2,Q>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & List<&2,Q>:
-  match needs:
-    case []: (world,[])
-    case +value <> rest: missing_checked(~S,~C,~R,~E,~Q,~has,has(world,value),value,w => missing(~S,~C,~R,~E,~Q,~has,rest,w))
+  missing_with(~W.World<S,C,R,E>,~Q,~has,needs,world)
 
 def partitioned_run(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,namespace:U32,world:W.World<S,C,R,E>,captured:M.Snapshot<V>,selected:Partition<S,K,V,Q,C,R,E,runner>) -> BundleResult<S,K,V,Q,C,R,E,runner>:
   match selected:

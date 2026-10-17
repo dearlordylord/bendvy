@@ -1,0 +1,181 @@
+"""Independent initializer-marker consumer model, extending sealed selector mechanics."""
+import argparse
+from pathlib import Path
+import runpy
+import sys
+
+SELECTOR = runpy.run_path(str(Path(__file__).resolve().parent.parent / 'selector-handlers-v1/model.py.source'))
+ls, nested = SELECTOR['ls'], SELECTOR['nested']
+
+
+class State(SELECTOR['State']):
+    def __init__(self):
+        super().__init__(1)
+        self.marker_cursor = None
+        self.marker_registered = None
+
+    def app(self):
+        return 'InitialApp{markerReader{namespace=1;id=7};' + super().app() + '}'
+
+    def world(self):
+        value = super().world()
+        value = value.replace(';registrations=[', ';registrations=[7:machine.Mode.initial-marker:[machine.Mode.transition.read], ')
+        return value.replace(';nextSystemId=7;', ';nextSystemId=8;')
+
+    def machine(self):
+        value = super().machine()
+        positions = [] if self.marker_cursor is None else [f'Position{{id=7;cursor={self.marker_cursor};registered={self.marker_registered}}}']
+        return value.replace(';positions=[];', ';positions=' + ls(positions) + ';')
+
+    def checkpoint(self, label):
+        super().checkpoint(label)
+        self.checkpoints[label] += (self.marker_cursor, self.marker_registered)
+
+    def handler_fact(self, ordinal, phase, result):
+        value = super().handler_fact(ordinal, phase, result)
+        if phase == 'InitialEnter':
+            value = value.replace('from=OpaqueValue', 'from=UnavailableValue')
+        return value
+
+    def open_marker(self, events):
+        if self.marker_cursor is None:
+            self.marker_registered = self.clock
+        self.marker_cursor = self.clock
+        identity = 'identity{namespace=1;id=7;name=Some{machine.Mode.initial-marker}}'
+        fact = 'ReaderFact{namespace=1;id=7;name=machine.Mode.initial-marker;readerId=7;domain=machine.Mode.transition;lagged=False}'
+        events.append('OperationObserved{' + identity + ';fact=' + fact + '}')
+
+    def run_handlers(self):
+        if self.current is None:
+            return 'MissingRequirements{[ModeRequired]}', ([] if not self.debug else [
+                'ScheduleAdmissionRefused{namespace=1;name=selector-phases;outcome=EndMissing}'])
+        if self.pending:
+            self.pending = False
+            self.clock += 1
+        events = ['ScheduleStarted{namespace=1;name=selector-phases}', 'DeferredApplied']
+        target, current = self.target, self.current
+        self.target = None
+        self.changed = False
+        initial = False
+        if target is None:
+            latest = next((event for tick, event in self.back if self.marker_cursor is None or tick > self.marker_cursor), None)
+            initial = latest is not None and latest.startswith('Initial{')
+        else:
+            self.previous = current
+        for phase in ['apply', 'exit', 'transition', 'enter']:
+            events.append('PhaseEntered{name=' + phase + '}')
+            if phase == 'apply':
+                if target is None:
+                    self.open_marker(events)
+                continue
+            if target is None:
+                if initial and phase == 'enter':
+                    self.invoke(3, 'InitialEnter', current, events)
+                continue
+            if phase == 'exit' and current == 1:
+                self.invoke(4, 'Exit', target, events)
+            if phase == 'transition':
+                assert (current, target) == (1, 0)
+                self.current = target
+                self.changed = True
+                self.revision += 1
+                self.clock += 1
+                self.back.insert(0, (self.clock, f'Transition{{from={current};to={target}}}'))
+                events.append('ExecutionOperationObserved{fact=TransitionFact{key=Mode;from=OpaqueValue;to=OpaqueValue;result=Applied}}')
+                self.open_marker(events)
+        events.append('ScheduleEnded{outcome=EndOk}')
+        return 'Completed', events if self.debug else []
+
+    def initialize(self):
+        if self.current is None:
+            self.insert()
+
+    def insert(self):
+        occupied = self.current is not None
+        self.clock += 1
+        self.current = 1
+        self.changed = True
+        self.revision += 1
+        if occupied:
+            self.back = []
+        self.back.insert(0, (self.clock, 'Initial{1}'))
+
+    def run(self):
+        self.checkpoint('initial')
+        self.debug = True
+        self.checkpoint('enabled')
+        self.perform('missing-required')
+        self.initialize()
+        self.checkpoint('initialized')
+        self.perform('initial-enter')
+        self.perform('not-replayed')
+        self.initialize()
+        self.checkpoint('init-existing')
+        self.perform('init-existing-not-replayed')
+        self.debug = False
+        self.checkpoint('disabled')
+        self.insert()
+        self.checkpoint('insert-replacement')
+        self.perform('replacement-disabled')
+        self.debug = True
+        self.checkpoint('re-enabled')
+        self.perform('replacement-not-replayed')
+        self.queue('queued-zero', 0)
+        self.perform('transition-zero')
+        self.returned.append(self.collector)
+        self.collector = SELECTOR['Collector'](300, 400)
+        self.checkpoint('reset')
+        self.perform('idle-after-reset')
+        self.output.append('terminalApp=' + self.app() + ';terminalStatuses=' + nested(self.statuses)
+                           + ';terminalQueues=' + nested(self.queues) + '\n')
+        self.output.append('unsubscribedOwners=' + nested([x.show() for x in self.returned + [self.collector]]) + '\n')
+        return ''.join(self.output)
+
+
+def render(schema):
+    if schema not in ('Workshop', 'Garden'):
+        raise ValueError(schema)
+    return (schema + '\n' + State().run() + '\n').encode()
+
+
+def self_test():
+    state = State()
+    state.run()
+    c = state.checkpoints
+    assert len(c) == 25 and len(state.statuses) == 8
+    missing = c['missing-required:after-execution']
+    assert missing[0] == 0 and missing[1] and missing[-2:] == (None, None)
+    entered = c['initial-enter:after-execution']
+    assert entered[0] == 2 and entered[2] == [13, 3] and entered[9] == [0, 0, 2, 0, 0, 0]
+    assert entered[-2:] == (2, 2) and not entered[6] and entered[7] == 1
+    assert c['not-replayed:after-execution'][2] == [13, 3]
+    assert c['init-existing'][0] == 2 and c['init-existing'][7] == 1
+    replacement = c['replacement-disabled:after-execution']
+    assert replacement[0] == 3 and replacement[2] == [16, 3] and replacement[-2:] == (3, 2)
+    assert replacement[8] == [(3, 'Initial{1}')]
+    assert c['replacement-not-replayed:after-execution'][2] == [16, 3]
+    assert state.counter == [20, 4] and state.current == 0 and state.revision == 3
+    assert state.marker_cursor == 4 and state.marker_registered == 2
+    assert state.cursors == [0, 0, 3, 3, 0, 0]
+    assert [len(events) for _, _, events in state.batches] == [1, 11, 8, 8, 0, 8, 12, 8]
+    assert len(state.returned[0].events) == 48 and len(state.collector.events) == 8
+    reader_events = [event for _, _, events in state.batches for event in events if 'ReaderFact' in event]
+    assert len(reader_events) == 6
+    assert all('identity{namespace=1;id=7;name=Some{machine.Mode.initial-marker}}' in event for event in reader_events)
+    assert render('Workshop')[len(b'Workshop\n'):] == render('Garden')[len(b'Garden\n'):]
+    assert render('Workshop').endswith(b'\n\n')
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--schema', choices=['Workshop', 'Garden'])
+    parser.add_argument('--self-test', action='store_true')
+    parser.add_argument('--render-stdout', action='store_true')
+    options = parser.parse_args()
+    if options.self_test:
+        self_test()
+        print('independent initializer-marker model: PASS', file=sys.stderr)
+    if options.render_stdout:
+        if options.schema is None:
+            parser.error('--render-stdout requires --schema')
+        sys.stdout.buffer.write(render(options.schema))

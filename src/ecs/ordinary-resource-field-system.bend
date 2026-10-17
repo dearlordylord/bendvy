@@ -1,4 +1,5 @@
 import Base
+import ./trace-facts.bend as TraceFacts
 import ./resource-field-binding.bend as B
 import ./resource-field.bend as Field
 import ./ordinary-schema.bend as Schema
@@ -65,3 +66,6 @@ def define(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Args:Type,~Error:D
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~run:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~clauses:List<&2,Q.Clause<S>>,owner:Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,run>,clauses>,world:W.World<S,C,R,E>,args:Args) -> Sys.RunResult<S,C,R,E,Args,Error,Out,run>:
   match owner:
     case Owner{registry}:Sys.run_tracked(~S,~C,~R,~E,~Args,~Error,~Out,~run,registry,world,args)
+
+def runner_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Args:Type,~Error:Data,~Out:Type,~declaration:Declaration<S,T.Tx<W.World<S,C,R,E>,E>,Ops(T.Tx<W.World<S,C,R,E>,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> Args -> H -> H & (T.Outcome<Error> & Out),trace:TraceFacts.State,world:W.World<S,C,R,E>,args:Args) -> Sys.Outcome<W.World<S,C,R,E>,Error,Out> & TraceFacts.State:
+  Whole.finished_observed(~S,~C,~R,~E,~Error,~Out,Cap.invoke_owned(~Ops,~Args,~(T.Outcome<Error> & Out),~body,~T.Tx<W.World<S,C,R,E>,E>,~grant(~S,~T.Tx<W.World<S,C,R,E>,E>,~Ops(T.Tx<W.World<S,C,R,E>,E>),declaration),args,T.begin_with_trace(~W.World<S,C,R,E>,~E,world,trace)))

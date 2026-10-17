@@ -1,4 +1,6 @@
 import Base
+import ./deferred-command.bend as Deferred
+import ./trace-facts.bend as TraceFacts
 import ./ordinary-app-composer.bend as Build
 import ./ordinary-app-recipe.bend as Tree
 import ./ordinary-app-observation-data.bend as DTO
@@ -31,16 +33,16 @@ def result(~S:Data,~C:Type,~R:Type,~E:Data,result:Cleanup.CleanupResult<S,C,R,E>
     case Cleanup.Incomplete{world,frames}:W.event_publish(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,[A.CleanupPaused{frames}])
 def apply(~S:Data,~C:Type,~R:Type,~E:Data,~declarations:List<&2,Ord.Declaration<S>>,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,world:Relation.World(~S,~C,~R,~E),handle:W.Handle<S>) -> Relation.World(~S,~C,~R,~E):
   result(~S,~C,~R,~E,Cleanup.automatic(~S,~C,~R,~E,~clear,~record,world,handle,descriptors(~S,declarations)))
-def checked(~S:Data,~C:Type,~R:Type,~E:Data,~declarations:List<&2,Ord.Declaration<S>>,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,allowed:Bool,world:Relation.World(~S,~C,~R,~E),undo:List<(Relation.World(~S,~C,~R,~E) -> Relation.World(~S,~C,~R,~E))>,commands:List<(Relation.World(~S,~C,~R,~E) -> Relation.World(~S,~C,~R,~E))>,events:List<&2,A.Notice<S,E>>,handle:W.Handle<S>) -> T.Tx<Relation.World(~S,~C,~R,~E),A.Notice<S,E>> & A.QueueStatus:
+def checked(~S:Data,~C:Type,~R:Type,~E:Data,~declarations:List<&2,Ord.Declaration<S>>,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,allowed:Bool,world:Relation.World(~S,~C,~R,~E),undo:List<(Relation.World(~S,~C,~R,~E) -> Relation.World(~S,~C,~R,~E))>,commands:List<Deferred.Command<Relation.World(~S,~C,~R,~E)>>,events:List<&2,A.Notice<S,E>>,trace:TraceFacts.State,handle:W.Handle<S>) -> T.Tx<Relation.World(~S,~C,~R,~E),A.Notice<S,E>> & A.QueueStatus:
   match allowed:
-    case False{}:(T.Tx{world,undo,commands,events},A.MissingEntity{})
-    case True{}:(T.Tx{world,undo,(world => apply(~S,~C,~R,~E,~declarations,~clear,~record,world,handle)) <> commands,events},A.Queued{})
-def validated(~S:Data,~C:Type,~R:Type,~E:Data,~declarations:List<&2,Ord.Declaration<S>>,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,handle:W.Handle<S>,undo:List<(Relation.World(~S,~C,~R,~E) -> Relation.World(~S,~C,~R,~E))>,commands:List<(Relation.World(~S,~C,~R,~E) -> Relation.World(~S,~C,~R,~E))>,events:List<&2,A.Notice<S,E>>,seen:Relation.World(~S,~C,~R,~E) & Bool) -> T.Tx<Relation.World(~S,~C,~R,~E),A.Notice<S,E>> & A.QueueStatus:
+    case False{}:(T.Tx{world,undo,commands,events,trace},A.MissingEntity{})
+    case True{}:(T.Tx{world,undo,Deferred.Raw{(world => apply(~S,~C,~R,~E,~declarations,~clear,~record,world,handle))} <> commands,events,trace},A.Queued{})
+def validated(~S:Data,~C:Type,~R:Type,~E:Data,~declarations:List<&2,Ord.Declaration<S>>,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,handle:W.Handle<S>,undo:List<(Relation.World(~S,~C,~R,~E) -> Relation.World(~S,~C,~R,~E))>,commands:List<Deferred.Command<Relation.World(~S,~C,~R,~E)>>,events:List<&2,A.Notice<S,E>>,trace:TraceFacts.State,seen:Relation.World(~S,~C,~R,~E) & Bool) -> T.Tx<Relation.World(~S,~C,~R,~E),A.Notice<S,E>> & A.QueueStatus:
   match seen:
-    case (world,allowed):checked(~S,~C,~R,~E,~declarations,~clear,~record,allowed,world,undo,commands,events,handle)
+    case (world,allowed):checked(~S,~C,~R,~E,~declarations,~clear,~record,allowed,world,undo,commands,events,trace,handle)
 def queue(~S:Data,~C:Type,~R:Type,~E:Data,~declarations:List<&2,Ord.Declaration<S>>,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,tx:T.Tx<Relation.World(~S,~C,~R,~E),A.Notice<S,E>>,+handle:W.Handle<S>) -> T.Tx<Relation.World(~S,~C,~R,~E),A.Notice<S,E>> & A.QueueStatus:
   match tx:
-    case T.Tx{world,undo,commands,events}:validated(~S,~C,~R,~E,~declarations,~clear,~record,handle,undo,commands,events,W.valid(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,handle))
+    case T.Tx{world,undo,commands,events,trace}:validated(~S,~C,~R,~E,~declarations,~clear,~record,handle,undo,commands,events,trace,W.valid(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,handle))
 def returned(~S:Data,~C:Type,~R:Type,~E:Data,~Owners:Type,~Rows:Data,~observe:Relation.World(~S,~C,~R,~E) -> Relation.World(~S,~C,~R,~E) & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Fields.Fields<S>>,~declarations:List<&2,Ord.Declaration<S>>,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,~Error:Data,owners:Owners,recipe:Tree.Recipe<Relation.World(~S,~C,~R,~E),Rows,observe>,debug:Bool,status:A.QueueStatus,seen:T.Returned<Relation.World(~S,~C,~R,~E),Error>) -> Installed<S,C,R,E,Owners,Rows,observe,fold,declarations,clear,record> & DTO.Product<A.QueueStatus,T.Outcome<Error>>:
   match seen:
     case T.Returned{world,outcome}:(Installed{Build.Registered{world,owners,recipe,debug}},DTO.Product{status,outcome})

@@ -1,4 +1,7 @@
 import Base
+import ./trace-relation.bend as TraceRel
+import ./deferred-command.bend as Deferred
+import ./trace-facts.bend as TraceFacts
 import entity-key.bend as Key
 import relation-types.bend as G
 import relation-reorder-core.bend as C
@@ -37,15 +40,23 @@ def child_statuses(~S:Data,~C:Type,~R:Type,~E:Data,children:List<&2,W.Handle<S>>
   match children:
     case []: (world,[])
     case W.Handle{+ns,+id} <> rest: child_next(~S,~C,~R,~E,W.valid(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,W.Handle{ns,id}),id,world => child_statuses(~S,~C,~R,~E,rest,world))
-def apply_children(~S:Data,~C:Type,~R:Type,~E:Data,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>,+d:G.Descriptor<S>,+parent:Key.Key,parentLive:Bool) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
+def apply_children_result(~S:Data,~C:Type,~R:Type,~E:Data,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>,+d:G.Descriptor<S>,+parent:Key.Key,parentLive:Bool) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,G.Error>:
   (world,children) = observed
-  publish(~S,~C,~R,~E,W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~Maybe<&2,G.Error>,store => store_reorder(~S,~C,store,d,parent,children,parentLive),world),d,parent)
-def apply_parent(~S:Data,~C:Type,~R:Type,~E:Data,checked:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Bool,d:G.Descriptor<S>,parent:Key.Key,children:List<&2,W.Handle<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
+  W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~Maybe<&2,G.Error>,store => store_reorder(~S,~C,store,d,parent,children,parentLive),world)
+def apply_parent_result(~S:Data,~C:Type,~R:Type,~E:Data,checked:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Bool,d:G.Descriptor<S>,parent:Key.Key,children:List<&2,W.Handle<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,G.Error>:
   (world,live) = checked
-  apply_children(~S,~C,~R,~E,child_statuses(~S,~C,~R,~E,children,world),d,parent,live)
-def apply(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,args:Args<S>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
+  apply_children_result(~S,~C,~R,~E,child_statuses(~S,~C,~R,~E,children,world),d,parent,live)
+def apply_result(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,args:Args<S>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,G.Error>:
   match args:
-    case Args{W.Handle{+ns,+parent},children}: apply_parent(~S,~C,~R,~E,W.valid(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,W.Handle{ns,parent}),descriptor(~S,d),parent,children)
+    case Args{W.Handle{+ns,+parent},children}: apply_parent_result(~S,~C,~R,~E,W.valid(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,W.Handle{ns,parent}),descriptor(~S,d),parent,children)
+def apply_published(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,args:Args<S>,result:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,G.Error>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
+  match args:
+    case Args{parent,_}:publish(~S,~C,~R,~E,result,descriptor(~S,d),W.handle_key(~S,parent))
+def apply_traced(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,trace:TraceFacts.State,args:Args<S>,result:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,G.Error>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & TraceFacts.State:
+  match args result:
+    case Args{+parent,+children}, (world,+error):(publish(~S,~C,~R,~E,(world,error),descriptor(~S,d),W.handle_key(~S,parent)),TraceRel.reorder_applied(~S,trace,descriptor(~S,d),parent,children,error))
+def apply(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,+args:Args<S>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
+  apply_published(~S,~C,~R,~E,~d,args,apply_result(~S,~C,~R,~E,~d,world,args))
 def namespaces(~S:Data,children:List<&2,W.Handle<S>>,+namespace:U32) -> Bool:
   match children:
     case []: True{}
@@ -53,16 +64,26 @@ def namespaces(~S:Data,children:List<&2,W.Handle<S>>,+namespace:U32) -> Bool:
 def same_world(~S:Data,+args:Args<S>,+namespace:U32) -> Bool:
   match args:
     case Args{W.Handle{ns,_},children}: Bool.and(U32.is_eq(ns,namespace),namespaces(~S,children,namespace))
+def reorder_command(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,enabled:Bool,+args:Args<S>) -> Deferred.Command<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>>:
+  match enabled:
+    case False{}:Deferred.Raw{world=>apply(~S,~C,~R,~E,~d,world,args)}
+    case True{}:Deferred.Observed{trace=>world=>apply_traced(~S,~C,~R,~E,~d,trace,args,apply_result(~S,~C,~R,~E,~d,world,args))}
+def reordered_stage(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,+args:Args<S>,result:TraceFacts.FactResult,tx:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>:
+  match args tx:
+    case Args{parent,children} X.Tx{world,undo,commands,events,trace}:X.Tx{world,undo,commands,events,TraceRel.reorder(~S,trace,descriptor(~S,d),TraceFacts.StageOperation{},parent,children,result)}
+def reorder_staged(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,+args:Args<S>,tx:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>:
+  match tx:
+    case X.Tx{world,undo,commands,events,+trace}:reordered_stage(~S,~C,~R,~E,~d,args,TraceFacts.Attempted{},X.Tx{world,undo,reorder_command(~S,~C,~R,~E,~d,TraceFacts.enabled(trace),args) <> commands,events,trace})
 def queued(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,same:Bool,tx:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,args:Args<S>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
   match same:
-    case False{}: (tx,A.MissingEntity{})
-    case True{}: (X.stage(~W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,~A.Notice<S,E>,tx,world => apply(~S,~C,~R,~E,~d,world,args)),A.Queued{})
-def namespace_join(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & U32,undo:List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,commands:List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,events:List<&2,A.Notice<S,E>>,+args:Args<S>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
+    case False{}: (reordered_stage(~S,~C,~R,~E,~d,args,TraceFacts.Refused{"MissingEntity"},tx),A.MissingEntity{})
+    case True{}: (reorder_staged(~S,~C,~R,~E,~d,args,tx),A.Queued{})
+def namespace_join(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & U32,undo:List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,commands:List<Deferred.Command<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>>>,events:List<&2,A.Notice<S,E>>,trace:TraceFacts.State,+args:Args<S>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
   (world,namespace) = observed
-  queued(~S,~C,~R,~E,~d,same_world(~S,args,namespace),X.Tx{world,undo,commands,events},args)
+  queued(~S,~C,~R,~E,~d,same_world(~S,args,namespace),X.Tx{world,undo,commands,events,trace},args)
 def queue(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,tx:X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>>,args:Args<S>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
   match tx:
-    case X.Tx{world,undo,commands,events}: namespace_join(~S,~C,~R,~E,~d,W.namespace(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world),undo,commands,events,args)
+    case X.Tx{world,undo,commands,events,trace}: namespace_join(~S,~C,~R,~E,~d,W.namespace(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world),undo,commands,events,trace,args)
 def body(~S:Data,-H:Type,caps:Writable<H,S>,args:Args<S>,owner:H) -> H & A.QueueStatus:
   match caps:
     case Writable{Cap.Request{reorder}}: reorder(owner,args)

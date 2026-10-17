@@ -1,4 +1,5 @@
 import Base
+import ./deferred-command.bend as Deferred
 import entity-allocator.bend as Alloc
 import machine.bend as M
 import world.bend as W
@@ -7,7 +8,7 @@ import world.bend as W
 # No component store or affine resource is projected to Data or copied.
 def take_join(~S: Data,~K: Data,~V: Data,~C: Type,~R: Type,~E: Data,
   +ns: U32,allocator:Alloc.Allocator,
-  store: C,split: R & M.Slot<S,K,V>,+events: List<&2,E>,commands: List<&1,(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,
+  store: C,split: R & M.Slot<S,K,V>,+events: List<&2,E>,commands:List<&1,Deferred.Command<W.World<S,C,R,E>>>,
   +registrations: List<&2,W.RegistrationMeta>,+nextSystem: U32,+clock: U32
 ) -> W.World<S,C,R,E> & M.Slot<S,K,V>:
   (resources,slot)=split

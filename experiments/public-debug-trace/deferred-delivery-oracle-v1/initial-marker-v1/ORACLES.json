@@ -1,0 +1,40 @@
+{
+  "entries": {
+    "Garden": {
+      "checkpoints": 25,
+      "entrypoint": "/tmp/bendvy-trace57-initial/experiments/public-debug-trace/deferred-delivery-v1/initial-marker-v1/garden.bend",
+      "expectedStdout": "garden.expected.stdout",
+      "expectedStdoutGzip": "garden.expected.stdout.gz",
+      "gzipSHA256": "7eb914c7f997ec5a7bac6d807e3b28458d14cbe727565248200b37e7dde0d4b8",
+      "namespace": 1,
+      "runs": 8,
+      "sourceFreeze": "/tmp/bendvy-trace57-initial/experiments/public-debug-trace/deferred-delivery-v1/initial-marker-v1/SOURCE-FREEZE-garden.json",
+      "sourceFreezeSHA256": "d497c326b5bea666cd89f7dbf3c548fcd7cf64d5559ed271e9012db9859c3e12",
+      "stdoutBytes": 229101,
+      "stdoutSHA256": "5216b1c680b2042c31995ccd925133f88fc344eb4def8d58799bcf02cb5ad266"
+    },
+    "Workshop": {
+      "checkpoints": 25,
+      "entrypoint": "/tmp/bendvy-trace57-initial/experiments/public-debug-trace/deferred-delivery-v1/initial-marker-v1/workshop.bend",
+      "expectedStdout": "workshop.expected.stdout",
+      "expectedStdoutGzip": "workshop.expected.stdout.gz",
+      "gzipSHA256": "49297443ef1ada753d247475b985c2efb0250374e9bc83673a38909de0a14e9d",
+      "namespace": 1,
+      "runs": 8,
+      "sourceFreeze": "/tmp/bendvy-trace57-initial/experiments/public-debug-trace/deferred-delivery-v1/initial-marker-v1/SOURCE-FREEZE-workshop.json",
+      "sourceFreezeSHA256": "59a4fc83182e91c3edf0f6f70e1943c0bbf84ef1d35a03b9515263a64dc84b86",
+      "stdoutBytes": 229103,
+      "stdoutSHA256": "2a5b8cee7b1bcbf21ff625aca9035baa42654dd69e38b814423c723b0e5677c3"
+    }
+  },
+  "featureMatrix": "Both complete nominal entries are mandatory.",
+  "model": "model.py.source",
+  "modelSHA256": "80d0fe02ca215e5bfe1d531c6648b6e60c43fded878f029b63ee2cc75adeb6cb",
+  "reproduce": [
+    "python3 model.py.source --self-test",
+    "python3 model.py.source --schema Workshop --render-stdout",
+    "python3 model.py.source --schema Garden --render-stdout"
+  ],
+  "sourceBasis": "SOURCE-BASIS.json",
+  "sourceBasisSHA256": "1a25e296e40f1b6825cdeb61cb576a738552f6c2ea2521cf479bcf4073c42f31"
+}

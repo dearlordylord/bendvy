@@ -1,4 +1,5 @@
 import Base
+import ./trace-facts.bend as TraceFacts
 import ./ordinary-app-registration-fields.bend as Records
 import ./world.bend as W
 import ./system.bend as Sys
@@ -27,3 +28,13 @@ def restored(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~r
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,token:Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>,fields:Records.Fields<S>,world:W.World<S,C,R,E>,args:Args) -> TransportResult<S,W.World<S,C,R,E>,Args,Error,Out,Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>>:
   match token:
     case Records.Token{}:restored(~S,~C,~R,~E,~Args,~Error,~Out,~runner,fields,world,args)
+
+def captured_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,slot:String,clauses:List<&2,Query.Clause<S>>,kind:Records.RegistrationKind,result:Sys.RunResult<S,C,R,E,Args,Error,Out,runner> & TraceFacts.State) -> TransportResult<S,W.World<S,C,R,E>,Args,Error,Out,Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>> & TraceFacts.State:
+  match result:
+    case (result,trace):(captured(~S,~C,~R,~E,~Args,~Error,~Out,~runner,slot,clauses,kind,result),trace)
+def restored_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~observed:TraceFacts.State -> W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out> & TraceFacts.State,fields:Records.Fields<S>,trace:TraceFacts.State,world:W.World<S,C,R,E>,args:Args) -> TransportResult<S,W.World<S,C,R,E>,Args,Error,Out,Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>> & TraceFacts.State:
+  match fields:
+    case Records.Fields{namespace,id,name,access,cursor,slot,clauses,kind}:captured_observed(~S,~C,~R,~E,~Args,~Error,~Out,~runner,slot,clauses,kind,Sys.run_observed(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~observed,Sys.Registry{namespace,id,name,access,cursor},trace,world,args))
+def run_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~observed:TraceFacts.State -> W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out> & TraceFacts.State,token:Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>,fields:Records.Fields<S>,trace:TraceFacts.State,world:W.World<S,C,R,E>,args:Args) -> TransportResult<S,W.World<S,C,R,E>,Args,Error,Out,Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>> & TraceFacts.State:
+  match token:
+    case Records.Token{}:restored_observed(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~observed,fields,trace,world,args)

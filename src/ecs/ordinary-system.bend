@@ -1,4 +1,5 @@
 import Base
+import ./trace-facts.bend as TraceFacts
 import ./ordinary-query-declaration.bend as Query
 import ./compose.bend as Q
 import ./world.bend as W
@@ -62,3 +63,11 @@ def observable_run_cursor(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:D
 def observable_run(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),owner:Owner<S,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)>>,world:W.World<S,C,R,E>,args:A) -> Sys.RunResult<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body)> & (String & List<&2,Query.Clause<S>>):
   match owner:
     case Owner{registry,slot,clauses}:observable_run_cursor(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body,slot,clauses,Sys.cursor(~S,~C,~R,~E,~(A & U32),~Q.Error<U>,~List<&2,Out>,~observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body),registry),world,args)
+
+def completed_observed(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~Out:Data,result:Q.Executed<W.World<S,C,R,E>,Q.Error<U>,Out> & TraceFacts.State) -> Sys.Outcome<W.World<S,C,R,E>,Q.Error<U>,List<&2,Out>> & TraceFacts.State:
+  match result:
+    case (executed,trace):(completed(~S,~C,~R,~E,~U,~Out,executed),trace)
+
+def observable_runner_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),trace:TraceFacts.State,world:W.World<S,C,R,E>,args:A & U32) -> Sys.Outcome<W.World<S,C,R,E>,Q.Error<U>,List<&2,Out>> & TraceFacts.State:
+  match args:
+    case (args,cursor):completed_observed(~S,~C,~R,~E,~U,~Out,Q.each_since_observed(~S,~C,~R,~E,~Ops,~A,~U,~Out,~observable_plan(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body),~body,trace,args,world,cursor))

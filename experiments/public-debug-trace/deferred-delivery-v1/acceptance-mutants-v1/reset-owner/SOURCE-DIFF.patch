@@ -1,0 +1,11 @@
+--- relocated-control/delivery.bend
++++ reset-owner/delivery.bend
+@@ -3,7 +3,7 @@
+ 
+ def reset(~State:Type,~Error:Data,~step:State -> Trace.TraceEvent<Error> -> State,value:Trace.Subscriber<State,Error,step>,incoming:State) -> Trace.Subscriber<State,Error,step> & State:
+   match value:
+-    case Trace.Subscriber{state}:(Trace.Subscriber{incoming},state)
++    case Trace.Subscriber{state}:(Trace.Subscriber{state},incoming)
+ def deliver(~State:Type,~Error:Data,~step:State -> Trace.TraceEvent<Error> -> State,value:Trace.Subscriber<State,Error,step>,batch:Trace.Batch<Error>) -> Trace.Subscriber<State,Error,step>:
+   match value batch:
+     case subscriber Trace.Disabled{}:subscriber

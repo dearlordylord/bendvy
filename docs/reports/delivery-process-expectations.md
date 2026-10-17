@@ -1659,3 +1659,124 @@ The reviewed four-core fix integrated at `f1fac4e90`; CI38929736000 passed.
 English bounded reports were posted to #38/#61 without closing either issue.
 The existing full infrastructure suite stayed in CI; local acceptance reused
 the exact backend evidence after the offline-only verifier repair.
+
+
+### Ten-hour reassessment and next-check expectations — 2026-10-16
+
+Assessment window: approximately06:00–16:10 UTC; integration follow-up checked
+at16:59 UTC. This section records outcomes and proposed next-delivery practices,
+not new acceptance gates. Earlier expectations and observations remain historical.
+
+**Confirmed successes.** #51/#52/#53 closed during the window. Ordinary consumers
+preceded expanded controls; unchanged evidence was reused, and separate comparative
+timing/scaling campaigns did not block semantic delivery. Local hooks retain
+staged-source and affected checks while full infrastructure suites remain in CI.
+Independent review caught reader-oracle errors before execution; guards caught
+incomplete imports, table sprawl and prohibited subprocess calls. The pending
+spawn fix subsequently integrated at `f1fac4e90`, CI38929736000 PASS, after six
+complete semantic pairs and one unchanged #28 cohort. Its offline verifier repair
+required no backend replay. These establish delivery and actual detector/reuse
+effects, not a causal end-to-end speedup.
+
+**Incomplete or unsuccessful outcomes.** Fixture/oracle mistakes still caused
+avoidable rework (Column id-1 indexing, retention boundaries and physical state).
+Two arity refusals were incorrectly credited as write-through-read controls until
+review. Concurrent source checks on CPU5 timed out and needed serial recapture
+without code or limit changes. Evidence packaging remains substantial: roughly
+2,600 retained files for the four-core pending fix; file count alone does not
+establish redundant coverage. The report now exceeds1,600 lines; the coordination
+table measured27 rows/17,105 characters, about63% below its original45,700-character
+baseline, rather than the earlier81% reduction. Status-only commits still generate
+full CI runs. Automatic queue handoff and overall delivery acceleration are not
+established by this window's evidence.
+
+Rework should address these causes through existing tools and review, not another
+runner, tracking layer or approval stage. At the next check, assess the next two
+integrated deliveries; if a delivery stalls, record its actual blocker instead of
+waiting for two completions.
+
+| Area | Next-delivery expectation | Evidence to inspect at the next check |
+| --- | --- | --- |
+| Resource scheduling | Serialize source checks sharing one pinned CPU; parallelize authoring and checks only with genuinely separate resources. Keep existing caps and heavy-run locking. | Existing argv/receipts identify CPU assignments, contention timeouts and retries. Distinguish an external load change from self-contention. |
+| Models and negative controls | Before freezing plans, reconcile operations, physical layout, ownership and complete observations with the independent model. Verify that each intended refusal reaches its stated type/access boundary. | Count model/fixture repairs before versus after freeze; name unrelated refusals and any avoided backend runs. First-attempt success is an observation, not a mandatory gate. |
+| Evidence cost | Reuse qualified packets/helpers and maintain only the selected packet and used prerequisites. Before removing a live check, identify its surviving detector and callers. | Record new versus reused backend roles, packaging/review repairs and any safely removed duplicate. Explain necessary regeneration; do not target an arbitrary archive/file-count reduction. |
+| Queue handoff | Use the existing batch path when jobs are already frozen and independent of predecessor outcomes; retain manual decisions where later jobs depend on results. | Name the actual batch receipt or necessary manual handoffs. Do not infer automation from serialized execution alone. |
+| Documentation and CI | Fold status-only notes into the next suitable delivery commit where practical. Keep current coordination rows concise, with history behind links; retain full CI coverage. | Count standalone status-only commits/CI launches and remeasure current table size. Preserve useful history; keep the next assessment to one concise reconciliation here. |
+| Delivery cost | Use existing receipt/Git/CI timestamps to distinguish backend execution, packaging, review and waiting where available. | Report observed intervals and missing timing information. Do not sum overlapping jobs or claim a speedup without a comparable baseline. |
+
+Correctness, authority/ownership checks, independent final review, unchanged #28
+and final JS <= TS / Native <=0.5*TS requirements remain binding. Remaining #38,
+#54/#57/#59/#60 and full #61 contracts are not resolved by process improvements.
+
+
+Reassessment implementation follow-up: `docs/agent-workflow.md` now explicitly
+serializes source checks sharing a CPU across worktrees, calls for physical
+index/retention/owner reconciliation before plan freeze, and folds routine
+status-only notes into the next suitable delivery commit. `CODING_STANDARDS.md`
+explicitly rejects arity/parse/missing-symbol failures as evidence of an access
+or ownership boundary. These are working-instruction changes, not new gates or
+new evidence that the next delivery has improved. Runner/compiler files, active
+frozen inputs and CI coverage were not changed; next-delivery observations above
+still determine their practical effect.
+
+
+Concrete scheduling repair: `scripts/bend-check` now takes cross-worktree CPU
+locks before starting the existing pinned compiler/timeout. Overlapping affinity
+sets serialize; disjoint sets remain independent. Locks survive exec through
+compiler completion, acquire in sorted order and release on process exit. An
+unpinned invocation locks its full allowed set; external caller deadlines still
+include queue wait. Synthetic controls cover waiting before compiler entry,
+lock inheritance, disjoint execution, exit propagation and pinned alias selection.
+No Bend compilation/benchmark was launched for this repair. Independent review
+of the changed wrapper remains required before its first compiler launch under
+the existing check policy; historical frozen packets are not rewritten.
+
+
+User decision after the scheduling repair: waive the separate independent launch
+review for this specific CPU-locking development-wrapper change. This supersedes
+the pending-review requirement immediately above; it is not a general review or
+acceptance waiver. Seven synthetic controls, source-policy and shell-syntax checks
+pass. Continue ordinary ECS delivery and assess actual scheduling/retry, model,
+packaging and status-commit outcomes at the next retrospective in approximately
+eight hours. No deliberate idle period or demonstrated speedup is implied.
+
+Generational delivery checkpoint (2026-10-17 UTC): #38 closed after
+`6ad552b14` / `fe9a8f3c2`, independent joined review and CI38985163067 PASS
+(functional job 2m13s). Exact ownership staging selected 10,204 delivery paths;
+unrelated workspace edits stayed unstaged. Frozen semantic roles used the existing
+collector and serialized heavy queue; the short six-role orchestration did not
+use `delivery_batch.py`, so it establishes no adoption of that batch interface.
+Seven authority refusals reached their intended boundaries, and current AppA,
+AppB and snapshot successors retained complete prior observations. Source/model
+review caught the AppA host-entry mismatch before backend execution. A profile
+tool-guard CPU mismatch stopped before profiler children; a reviewed one-line
+successor passed all four complete runs. CI exposed copied historical EOF bytes;
+four exact-path attributes preserved frozen hashes and kept the ordinary-source
+control rejecting the same defect. Neither repair needed a Bend/benchmark replay.
+The unchanged #28 completed 123 commands and 110 full outputs. Packaging and CI
+cost remain observable work; no comparable end-to-end baseline or overall delivery
+speedup is established.
+
+Restore delivery work (2026-10-17 UTC): the unchanged ordinary collector reached
+its Native emission deadline for the combined two-schema fixture, including a
+CPU11 placement retry. Independent translation-unit entries `867c005fd` preserve
+all eleven checkpoints and complete owners in both schemas; their stock JS/Native
+-O3 pairs pass independent 38,882/38,880-byte oracles under the same stage caps.
+Garden's first deadline remains historical; its single fresh retry passes.
+Portable packet `90457949b` reproduces both models and retains their original
+parent dependency without relabeling executed plans. No runner or acceptance
+criterion changed. Raw restore and remaining #59 gates are still open; this is
+a resolved compilation blocker, not a measured delivery-speed or ECS speedup.
+
+
+Trace delivery checkpoint (2026-10-17 UTC): #57 reused complete qualified
+consumers through explicit current-source applicability maps, with a fresh
+merged-query JS/Native pair for each schema and an affected restore pair.
+The same independent final review covers implementation and retained evidence.
+The enabled/disabled measurement completed 98 commands; portable verification
+retains full outputs, separate CPU/heap profiles and recomputed summaries.
+The unchanged combined #28 completed 123 commands and 40 pairs with no nonzero
+exit or statistically confirmed regression; all 339 monitored source identities
+still match. Ownership staging, master hooks and CI remain pending. These facts
+show actual evidence reuse and combined gating, not an established reduction in
+end-to-end delivery time. No runner or acceptance limit changed for this batch.

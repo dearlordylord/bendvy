@@ -1,4 +1,5 @@
 import Base
+import ./deferred-command.bend as Deferred
 import entity-key.bend as Key
 import entity-allocator.bend as Alloc
 import ./world.bend as W
@@ -39,7 +40,7 @@ def undo_stamped(~S:Data,~P:Type,+handle:W.Handle<S>,stamp:Life.Stamp,payload:Ma
 def undo_column(~S:Data,~P:Type,+handle:W.Handle<S>,stamp:Life.Stamp,payload:Maybe<P>,column:Col.Column<S,P>) -> Col.Column<S,P> & Record<S,P>:
   match handle:
     case W.Handle{_,Key.EntityKey{id,_}}:undo_stamped(~S,~P,handle,stamp,payload,Col.lifecycle(~S,~P,column,id))
-def undone(~S:Data,~P:Type,~R:Type,~E:Data,ns:U32,allocator:Alloc.Allocator,resource:R,events:List<&2,E>,pending:List<(W.World<S,Col.Column<S,P>,R,E> -> W.World<S,Col.Column<S,P>,R,E>)>,regs:List<&2,W.RegistrationMeta>,sid:U32,clock:U32,result:Col.Column<S,P> & Record<S,P>) -> W.World<S,Col.Column<S,P>,R,E> & Record<S,P>:
+def undone(~S:Data,~P:Type,~R:Type,~E:Data,ns:U32,allocator:Alloc.Allocator,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,Col.Column<S,P>,R,E>>>,regs:List<&2,W.RegistrationMeta>,sid:U32,clock:U32,result:Col.Column<S,P> & Record<S,P>) -> W.World<S,Col.Column<S,P>,R,E> & Record<S,P>:
   match result:
     case (column,record):(W.World{ns,allocator,column,resource,events,pending,regs,sid,clock},record)
 # Trusted inverse: ordinary grants never alter allocation/live state or inject

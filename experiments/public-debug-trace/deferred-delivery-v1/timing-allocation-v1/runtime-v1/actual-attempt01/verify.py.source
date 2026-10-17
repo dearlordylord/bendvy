@@ -1,0 +1,137 @@
+from pathlib import Path
+import json,gzip,hashlib,tempfile,shutil,subprocess,re
+sha=lambda b:hashlib.sha256(b).hexdigest()
+OUT=Path('/tmp/bendvy-restore59-observer/experiments/public-debug-trace/deferred-delivery-v1/timing-allocation-v1/runtime-v1/actual-attempt01')
+m=json.loads((OUT/'manifest.json').read_text());rows=m['members'];roles=m['roles'];external={r['path'] for r in rows if 'object' not in r};histories=[Path(p).parent for p in m['historyReceipts']];base=Path('/tmp/bendvy-restore59-oracle/experiments/public-debug-trace/deferred-delivery-oracle-v1')
+with tempfile.TemporaryDirectory() as tmp:
+ q=Path(tmp)/'packet';shutil.copytree(OUT,q);data={}
+ for row in rows:
+  p=row['path']
+  if 'object' in row:
+   packed=(q/row['object']).read_bytes();assert sha(packed)==row['compressedSHA256'];b=gzip.decompress(packed)
+  else:b=Path(p).read_bytes()
+  assert sha(b)==row['sha256'] and len(b)==row['bytes'];data[p]=b
+ count=0;models={}
+ for role in roles:
+  plan=json.loads(data[role['plan']]);r=json.loads(data[role['receipt']]);seen=set()
+  for g in r['guards']:
+   v=json.loads(data[g['path']]);assert v['unchanged']
+   for p,h in v['actualPins'].items():assert sha(data[p])==h;count+=1
+  def visit(p):
+   if p in seen:return
+   seen.add(p);assert sha(data[p])==plan['sourceInventory'][p]
+   for imp in re.findall(r'^import\s+(\S+)',data[p].decode(),re.M):
+    if imp!='Base':visit(str((Path(p).parent/imp).resolve()))
+  visit(plan['entrypoint']);assert seen==set(plan['sourceInventory'])
+  for p in plan['pins']:
+   if ('SOURCE-FREEZE' in Path(p).name and p.endswith('.json')):
+    f=json.loads(data[p])
+    for section in ['sourceInventory','sourcePins']:
+     for x,h in f.get(section,{}).items():assert sha(data[x])==h
+  for c in r['commands']:
+   for stream in ['stdout','stderr']:
+    x=c[stream];assert sha(data[x['path']])==x['sha256'] and len(data[x['path']])==x['bytes']
+  oracle=Path(plan['oracle']);model=next(p for p in plan['pins'] if p.endswith('/model.py.source') or p.endswith('/model.py'))
+  if '/raw-boundary-v1/' in str(oracle):
+   dest=Path(tmp)/'boundary/model.py';dest.parent.mkdir(exist_ok=True);dest.write_bytes(data[model]);argv=['/usr/bin/python3.11',str(dest)]
+  else:
+   for p,body in data.items():
+    if p.startswith(str(base)+'/') and p.endswith('model.py.source'):
+     target=Path(tmp)/'oracle'/Path(p).relative_to(base);target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(body)
+   dest=Path(tmp)/'oracle'/Path(model).relative_to(base);argv=['/usr/bin/python3.11',str(dest),'--render-stdout'] if '/stored-validation-v1/' in str(oracle) else ['/usr/bin/python3.11',str(dest),'--mode',role['schema'],'--render-stdout']
+  rmodel=subprocess.run(argv,capture_output=True,check=True);assert not rmodel.stderr;assert rmodel.stdout==gzip.decompress(data[plan['oracle']]);models[role['schema']+'/'+role['role']+'/'+str(oracle.parent.name)]=dict(bytes=len(rmodel.stdout),sha256=sha(rmodel.stdout))
+  if plan.get('subject')=='mutant':assert rmodel.stdout!=gzip.decompress(data[plan['normalOracle']])
+ historyJoins=0
+ for history in histories:
+  hr=json.loads(data[str(history/'receipt.json')]);hp=json.loads(data[str(history/'plan.json')]);assert hr['planSHA256']==sha(data[str(history/'plan.json')])
+  for g in hr['guards']:
+   assert sha(data[g['path']])==g['sha256'];guard=json.loads(data[g['path']])
+   for p,h in guard['actualPins'].items():assert sha(data[p])==h;historyJoins+=1
+  for c in hr['commands']:
+   for stream in ['stdout','stderr']:
+    x=c[stream];assert sha(data[x['path']])==x['sha256'] and len(data[x['path']])==x['bytes']
+ generatedNative=[];counterRejected=[]
+ for role in roles:
+  plan=json.loads(data[role['plan']]);receipt=json.loads(data[role['receipt']])
+  if role['role']=='native':assert plan['native'] in data and plan['native'] not in external;generatedNative.append(plan['native'])
+  if plan.get('subject')=='mutant':
+   output=next(c['stdout']['path'] for c in receipt['commands'] if c['label']=='consumer');assert data[output]!=gzip.decompress(data[plan['normalOracle']]);counterRejected.append(role['role'])
+ measurementPlan=json.loads(data[m['measurementPlan']]);measurementReceipt=json.loads(data[m['measurementReceipt']]);measurement=Path(m['measurementPlan']).parent
+ assert measurementReceipt['planSHA256']==sha(data[m['measurementPlan']]);assert measurementReceipt['status']=='COMPLETE_FINITE_TIMING_AND_SAMPLED_PROFILES_NO_PERFORMANCE_VERDICT'
+ assert len(measurementPlan['commands'])==len(measurementReceipt['commands'])==98
+ def fnv(raw):
+  value=2166136261
+  for byte in raw:value=((value^byte)*16777619)&0xffffffff
+  return value
+ def timing_protocol(stderr,info):
+  t=json.loads(stderr)
+  assert list(t)==['elapsedNs','bytes','digest'] and stderr==(json.dumps(t,separators=(',',':'))+'\n').encode()
+  assert isinstance(t['elapsedNs'],str) and t['elapsedNs'].isascii() and t['elapsedNs'].isdecimal()
+  assert type(t['bytes']) is int and type(t['digest']) is int and t['bytes']==info['bytes'] and t['digest']==info['fnv1a32']
+  return t
+ def profile_protocol(raw,kind):
+  p=json.loads(raw);assert p['mode']==kind and p['zeroExits']==1
+  if kind=='cpu':assert p['profile'].get('nodes')
+  else:assert p['profile'].get('head') and p['profile'].get('samples')
+  return p
+ fullExpected={mode:gzip.decompress(data[info['path']]) for mode,info in measurementPlan['expected'].items()}
+ for mode,raw in fullExpected.items():
+  info=measurementPlan['expected'][mode];assert len(raw)==info['bytes'] and sha(raw)==info['sha256'] and fnv(raw)==info['fnv1a32']
+ measurementJoins=0
+ for path,h in measurementReceipt['guards'].items():
+  assert sha(data[path])==h;g=json.loads(data[path]);assert g['unchanged']
+  assert g['actualPins']=={m['measurementPlan']:sha(data[m['measurementPlan']]),**measurementPlan['pins'],**measurementPlan['resourceRoots']}
+  for p,h in g['actualPins'].items():
+   if isinstance(h,dict):
+    for entry,digest in h.items():assert sha(data[str(Path(p)/entry)])==digest;measurementJoins+=1
+   else:assert sha(data[p])==h;measurementJoins+=1
+  for p,h in g['artifacts'].items():assert sha(data[p])==h;measurementJoins+=1
+  for p,h in g['rawLogs'].items():assert sha(data[str(measurement/p)])==h;measurementJoins+=1
+ assert len(measurementReceipt['guards'])==197 and len(measurementReceipt['rawLogs'])==196
+ observations=[];profileCount=0;artifactCount=0
+ for command,actual in zip(measurementPlan['commands'],measurementReceipt['commands']):
+  assert all(actual[k]==v for k,v in command.items());assert actual['exit']==0 and actual['failure'] is None and actual['status']=='COMPLETE_FULL_OUTPUT_VALIDATED'
+  label=command['label'];stdout=data[str(measurement/(label+'.stdout'))];stderr=data[str(measurement/(label+'.stderr'))]
+  assert sha(stdout)==measurementReceipt['rawLogs'][label+'.stdout'] and sha(stderr)==measurementReceipt['rawLogs'][label+'.stderr']
+  before=json.loads(data[str(measurement/(label+'-pre.guard.json'))]);after=json.loads(data[str(measurement/(label+'-post.guard.json'))])
+  if command['kind']=='artifact':
+   artifactCount+=1;assert not stdout and not stderr;assert command['artifact'] not in before['artifacts'];assert after['artifacts'][command['artifact']]==sha(data[command['artifact']])
+   if command['label'].endswith('-build'):assert str(measurement/(command['label'].split('-')[0]+'.c')) in before['artifacts']
+  else:
+   assert stdout==fullExpected[command['mode']]
+   if command['kind']=='timing':
+    t=timing_protocol(stderr,measurementPlan['expected'][command['mode']]);observations.append(dict(label=label,mode=command['mode'],backend=command['backend'],warmup=command['warmup'],pair=command.get('pair'),**t))
+    artifact=str(measurement/(command['mode']+('.js' if command['backend']=='js' else '.native')));assert before['artifacts'][artifact]==sha(data[artifact])
+   else:
+    assert not stderr;profile_protocol(data[command['profile']],command['profileKind']);profileCount+=1;assert after['artifacts'][command['profile']]==sha(data[command['profile']])
+ assert observations==measurementReceipt['observations'] and len(observations)==88 and profileCount==4 and artifactCount==6
+ import statistics
+ summary=[]
+ for backend in ['js','native']:
+  for mode in ['enabled','disabled']:
+   values=[int(v['elapsedNs']) for v in observations if v['backend']==backend and v['mode']==mode and not v['warmup']];assert len(values)==20
+   summary.append(dict(backend=backend,mode=mode,count=20,medianNs=statistics.median(values),minimumNs=min(values),maximumNs=max(values)))
+ assert summary==measurementReceipt['summary']
+ for mode in ['enabled','disabled']:
+  artifact=str(measurement/(mode+'.native'));assert artifact in data and artifact not in external
+ oldPlan=json.loads(data[m['blockedUnexecutedPlan']]);assert sha(data[m['blockedUnexecutedPlan']])=='0f6b6ee7233e02ce6d886cc738bb92daeef6165aee28d8bca3ff3497ae81623e'
+ oldBinding='git:dea69eb62:experiments/public-debug-trace/deferred-delivery-v1/timing-allocation-v1/measurement-v1/binding.py';assert sha(data[oldBinding])==next(h for p,h in oldPlan['pins'].items() if p.endswith('/measurement-v1/binding.py'))
+ # Concrete selected binding risks: protocol digest, full-byte count and missing CPU/heap payloads.
+ info=measurementPlan['expected']['enabled'];valid={'elapsedNs':'1','bytes':info['bytes'],'digest':info['fnv1a32']};negativeControls=0
+ for change in [{'bytes':info['bytes']+1},{'digest':info['fnv1a32']^1}]:
+  bad=dict(valid,**change)
+  try:timing_protocol((json.dumps(bad,separators=(',',':'))+'\n').encode(),info)
+  except AssertionError:negativeControls+=1
+  else:raise AssertionError('Invalid timer accepted')
+ for kind,profile in [('cpu',{'nodes':[]}),('heap',{'head':{},'samples':[]})]:
+  try:profile_protocol(json.dumps({'mode':kind,'zeroExits':1,'profile':profile}).encode(),kind)
+  except AssertionError:negativeControls+=1
+  else:raise AssertionError('Missing profile accepted')
+ assert negativeControls==4
+ import types,dis
+ currentBinding=next(p for p in measurementPlan['pins'] if p.endswith('/measurement-v1/binding.py'))
+ def execute_code(raw):return next(c for c in compile(raw,'retained_binding','exec').co_consts if isinstance(c,types.CodeType) and c.co_name=='execute')
+ assert 'telemetry' in execute_code(data[oldBinding]).co_varnames
+ fixedCode=execute_code(data[currentBinding]);assert 'telemetry' not in fixedCode.co_varnames;assert [i.opname for i in dis.get_instructions(fixedCode) if i.argval=='telemetry']==['LOAD_GLOBAL']*3
+ result=dict(status='PASS',isolatedRelocation=True,measurementCommands=98,measurementGuards=197,measurementPinJoins=measurementJoins,fullTimerOutputs=88,profiles=4,focusedNegativeControls=negativeControls,originalShadowReproduced=True,fixedResourceTelemetryGlobal=True,blockedOriginalUnexecuted=True,historyEvolvingPinJoins=historyJoins,generatedNativeELFObjects=generatedNative,completeNormalBaselineRejected=counterRejected,bindings=len(rows),objects=len(set(x['object'] for x in rows if 'object'in x)),externalELFs=len(external),successfulCommands=sum(x['commands'] for x in roles),guards=sum(x['guards'] for x in roles),evolvingPinJoins=count,importsPerRole=[len(json.loads(data[r['plan']])['sourceInventory']) for r in roles],retainedModels=models,backendReplay=False,historyStatuses={str(h):json.loads(data[str(h/'receipt.json')])['status'] for h in histories},scope=m['scope'])
+ (OUT/'FULL-JOIN-VERIFICATION.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))

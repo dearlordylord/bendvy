@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : state
+- observed : state (consumed more than once)
+Location: denied
+3 | 
+4>| def denied(state:Array<U32>) -> Trace.Subscriber<Array<U32>,String,Positive.step> & Array<U32>:(Trace.subscribe(~Array<U32>,~String,~Positive.step,state),state)
+  |            ^^^^^
+5 | 
+bend 2.0.37 is available: run bend update

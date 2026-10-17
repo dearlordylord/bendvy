@@ -1,10 +1,11 @@
 import Base
+import ./deferred-command.bend as Deferred
 import entity-allocator.bend as Alloc
 import ./world.bend as W
 import ./owner-product.bend as Product
 # Canonical owner split, used only behind ordinary declaration providers.
 type Rest<S:Data,C:Type,R:Type,E:Data> is Type:
-  Rest{namespace:U32,allocator:Alloc.Allocator,store:C,events:List<&2,E>,pending:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32}
+  Rest{namespace:U32,allocator:Alloc.Allocator,store:C,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32}
 def take(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,C,R,E>) -> Rest<S,C,R,E> & R:
   match world:
     case W.World{ns,allocator,store,resource,events,pending,regs,sid,clock}:(Rest{ns,allocator,store,events,pending,regs,sid,clock},resource)

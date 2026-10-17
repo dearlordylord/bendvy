@@ -1,4 +1,6 @@
 import Base
+import ./trace-facts.bend as TraceFacts
+import ./deferred-command.bend as Deferred
 import string-equality.bend as SE
 import entity-key.bend as K
 import entity-allocator.bend as A
@@ -16,7 +18,7 @@ type WorldError is Data:
   NamespaceExhausted{}
   SystemIdExhausted{}
 type World<Schema: Data,Store: Type,Resource: Type,Event: Data> is Type:
-  World{namespace: U32,allocator: A.Allocator,store: Store,resource: Resource,events: List<&2,Event>,pending: List<(World<Schema,Store,Resource,Event> -> World<Schema,Store,Resource,Event>)>,registrations: List<&2,RegistrationMeta>,nextSystemId: U32,clock: U32}
+  World{namespace: U32,allocator: A.Allocator,store: Store,resource: Resource,events: List<&2,Event>,pending:List<Deferred.Command<World<Schema,Store,Resource,Event>>>,registrations: List<&2,RegistrationMeta>,nextSystemId: U32,clock: U32}
 type Creation<Schema: Data,Store: Type,Resource: Type,Event: Data> is Type:
   Created{factory: Factory,world: World<Schema,Store,Resource,Event>}
   CreateRejected{factory: Factory,resource: Resource}
@@ -46,17 +48,17 @@ def create_checked(~S:Data,~C:Type,~R:Type,~E:Data,~empty:Unit -> C,available:Bo
 def create(~S:Data,~C:Type,~R:Type,~E:Data,~empty:Unit -> C,factory:Factory,resource:R) -> Creation<S,C,R,E>:
   match factory:
     case Factory{+namespace}:create_checked(~S,~C,~R,~E,~empty,U32.is_lt(namespace,4294967295),namespace,resource)
-def reserve_result(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource:R,+events:List<&2,E>,pending:List<(World<S,C,R,E> -> World<S,C,R,E>)>,+registrations:List<&2,RegistrationMeta>,+nextSystemId:U32,+clock:U32,allocator:A.Allocator,reservation:A.Reservation) -> World<S,C,R,E> & Reservation<S>:
+def reserve_result(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource:R,+events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,+registrations:List<&2,RegistrationMeta>,+nextSystemId:U32,+clock:U32,allocator:A.Allocator,reservation:A.Reservation) -> World<S,C,R,E> & Reservation<S>:
   match reservation:
     case A.Exhausted{}:(World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},ReservationRejected{CapacityExceeded{}})
     case A.Reserved{key}:(World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},Reserved{Handle{namespace,key}})
-def reserve_join(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource:R,+events:List<&2,E>,pending:List<(World<S,C,R,E> -> World<S,C,R,E>)>,+registrations:List<&2,RegistrationMeta>,+nextSystemId:U32,+clock:U32,reserved:A.Allocator & A.Reservation) -> World<S,C,R,E> & Reservation<S>:
+def reserve_join(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource:R,+events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,+registrations:List<&2,RegistrationMeta>,+nextSystemId:U32,+clock:U32,reserved:A.Allocator & A.Reservation) -> World<S,C,R,E> & Reservation<S>:
   (allocator,reservation) = reserved
   reserve_result(~S,~C,~R,~E,namespace,store,resource,events,pending,registrations,nextSystemId,clock,allocator,reservation)
 def reserve_id(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>) -> World<S,C,R,E> & Reservation<S>:
   match world:
     case World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:reserve_join(~S,~C,~R,~E,namespace,store,resource,events,pending,registrations,nextSystemId,clock,A.reserve(allocator))
-def checked_join(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,store:C,resource:R,events:List<&2,E>,pending:List<(World<S,C,R,E> -> World<S,C,R,E>)>,registrations:List<&2,RegistrationMeta>,nextSystemId:U32,clock:U32,checked:A.Allocator & Bool) -> World<S,C,R,E> & Bool:
+def checked_join(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,store:C,resource:R,events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,registrations:List<&2,RegistrationMeta>,nextSystemId:U32,clock:U32,checked:A.Allocator & Bool) -> World<S,C,R,E> & Bool:
   match checked:
     case (allocator,valid):(World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},valid)
 def checked_namespace(~S:Data,~C:Type,~R:Type,~E:Data,allowed:Bool,mode:U32,world:World<S,C,R,E>,key:K.Key) -> World<S,C,R,E> & Bool:
@@ -103,18 +105,28 @@ def command_live(~S:Data,~C:Type,~R:Type,~E:Data,handle:Handle<S>,checked:World<
 def command_valid(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>,+handle:Handle<S>) -> World<S,C,R,E> & Bool:
   command_live(~S,~C,~R,~E,handle,valid(~S,~C,~R,~E,world,handle))
 
-def enqueue(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>,command: World<S,C,R,E> -> World<S,C,R,E>) -> World<S,C,R,E>:
+def enqueue_command(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>,command:Deferred.Command<World<S,C,R,E>>) -> World<S,C,R,E>:
   match world:
-    case World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: World{namespace,allocator,store,resource,events,command <> pending,registrations,nextSystemId,clock}
-
-def drain_fifo(~S: Data,~C: Type,~R: Type,~E: Data,commands: List<(World<S,C,R,E> -> World<S,C,R,E>)>,world: World<S,C,R,E>) -> World<S,C,R,E>:
+    case World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:World{namespace,allocator,store,resource,events,command <> pending,registrations,nextSystemId,clock}
+def enqueue(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>,command:World<S,C,R,E> -> World<S,C,R,E>) -> World<S,C,R,E>:
+  enqueue_command(~S,~C,~R,~E,world,Deferred.Raw{command})
+def drain_fifo(~S:Data,~C:Type,~R:Type,~E:Data,commands:List<Deferred.Command<World<S,C,R,E>>>,world:World<S,C,R,E>) -> World<S,C,R,E>:
   match commands:
-    case []: world
-    case command <> rest: command(drain_fifo(~S,~C,~R,~E,rest,world))
-
-def barrier(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>) -> World<S,C,R,E>:
+    case []:world
+    case command <> rest:Deferred.run_disabled(~World<S,C,R,E>,command,drain_fifo(~S,~C,~R,~E,rest,world))
+def drain_apply(~S:Data,~C:Type,~R:Type,~E:Data,command:Deferred.Command<World<S,C,R,E>>,result:World<S,C,R,E> & TraceFacts.State) -> World<S,C,R,E> & TraceFacts.State:
+  match result:
+    case (world,trace):Deferred.run(~World<S,C,R,E>,command,world,trace)
+def drain_fifo_traced(~S:Data,~C:Type,~R:Type,~E:Data,commands:List<Deferred.Command<World<S,C,R,E>>>,world:World<S,C,R,E>,trace:TraceFacts.State) -> World<S,C,R,E> & TraceFacts.State:
+  match commands:
+    case []:(world,trace)
+    case command <> rest:
+      drain_apply(~S,~C,~R,~E,command,drain_fifo_traced(~S,~C,~R,~E,rest,world,trace))
+def barrier_traced(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>,trace:TraceFacts.State) -> World<S,C,R,E> & TraceFacts.State:
   match world:
-    case World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: drain_fifo(~S,~C,~R,~E,pending,World{namespace,allocator,store,resource,events,[],registrations,nextSystemId,clock})
+    case World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:drain_fifo_traced(~S,~C,~R,~E,pending,World{namespace,allocator,store,resource,events,[],registrations,nextSystemId,clock},trace)
+def barrier(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>) -> World<S,C,R,E>:
+  Deferred.world_only(~World<S,C,R,E>,barrier_traced(~S,~C,~R,~E,world,TraceFacts.Off{}))
 
 def replace_resource(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>,replacement: R) -> World<S,C,R,E> & R:
   match world:
@@ -142,7 +154,7 @@ def events_view(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>) -> Wo
   match world:
     case World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},events)
 
-def observe_resource_finish(~S: Data,~C: Type,~R: Type,~E: Data,~V: Type,observed: R & V,+namespace: U32,allocator: A.Allocator,store: C,+events: List<&2,E>,pending: List<(World<S,C,R,E> -> World<S,C,R,E>)>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32) -> World<S,C,R,E> & V:
+def observe_resource_finish(~S: Data,~C: Type,~R: Type,~E: Data,~V: Type,observed: R & V,+namespace: U32,allocator: A.Allocator,store: C,+events: List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32) -> World<S,C,R,E> & V:
   (resource,value) = observed
   (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},value)
 
@@ -199,7 +211,7 @@ def registration_matches(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,
   match world:
     case World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},registration_list_matches(registrations,id,name,access))
 
-def with_store_finish(~S: Data,~C: Type,~R: Type,~E: Data,~Out: Type,observed: C & Out,+namespace: U32,allocator: A.Allocator,resource: R,+events: List<&2,E>,pending: List<(World<S,C,R,E> -> World<S,C,R,E>)>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32) -> World<S,C,R,E> & Out:
+def with_store_finish(~S: Data,~C: Type,~R: Type,~E: Data,~Out: Type,observed: C & Out,+namespace: U32,allocator: A.Allocator,resource: R,+events: List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32) -> World<S,C,R,E> & Out:
   (store,value) = observed
   (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},value)
 
@@ -211,15 +223,15 @@ def pending_prepend(~S: Data,~C: Type,~R: Type,~E: Data,command: World<S,C,R,E> 
   (commands,count) = counted
   (command <> commands,(count + 1 : U32))
 
-def pending_length_acc(~S: Data,~C: Type,~R: Type,~E: Data,commands: List<(World<S,C,R,E> -> World<S,C,R,E>)>,reversed: List<(World<S,C,R,E> -> World<S,C,R,E>)>,count: U32) -> List<(World<S,C,R,E> -> World<S,C,R,E>)> & U32:
+def pending_length_acc(~S: Data,~C: Type,~R: Type,~E: Data,commands:List<Deferred.Command<World<S,C,R,E>>>,reversed: List<Deferred.Command<World<S,C,R,E>>>,count: U32) -> List<Deferred.Command<World<S,C,R,E>>> & U32:
   match commands:
-    case []: (List.reverse(&1,(World<S,C,R,E> -> World<S,C,R,E>),reversed),count)
+    case []: (List.reverse(&1,Deferred.Command<World<S,C,R,E>>,reversed),count)
     case command <> rest: pending_length_acc(~S,~C,~R,~E,rest,command <> reversed,(count + 1 : U32))
 
-def pending_length(~S: Data,~C: Type,~R: Type,~E: Data,commands: List<(World<S,C,R,E> -> World<S,C,R,E>)>) -> List<(World<S,C,R,E> -> World<S,C,R,E>)> & U32:
+def pending_length(~S: Data,~C: Type,~R: Type,~E: Data,commands:List<Deferred.Command<World<S,C,R,E>>>) -> List<Deferred.Command<World<S,C,R,E>>> & U32:
   pending_length_acc(~S,~C,~R,~E,commands,[],0)
 
-def pending_count_join(~S: Data,~C: Type,~R: Type,~E: Data,+namespace: U32,allocator: A.Allocator,store: C,resource: R,+events: List<&2,E>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32,counted: List<(World<S,C,R,E> -> World<S,C,R,E>)> & U32) -> World<S,C,R,E> & U32:
+def pending_count_join(~S: Data,~C: Type,~R: Type,~E: Data,+namespace: U32,allocator: A.Allocator,store: C,resource: R,+events: List<&2,E>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32,counted: List<Deferred.Command<World<S,C,R,E>>> & U32) -> World<S,C,R,E> & U32:
   (pending,count) = counted
   (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},count)
 
@@ -251,7 +263,7 @@ def key_handles(~S:Data,+namespace:U32,keys:List<&2,K.Key>) -> List<&2,Handle<S>
   match keys:
     case []:[]
     case key <> rest:Handle{namespace,key} <> key_handles(~S,namespace,rest)
-def handles_join(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource:R,events:List<&2,E>,pending:List<(World<S,C,R,E> -> World<S,C,R,E>)>,registrations:List<&2,RegistrationMeta>,nextSystemId:U32,clock:U32,observed:A.Allocator & List<&2,K.Key>) -> World<S,C,R,E> & List<&2,Handle<S>>:
+def handles_join(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource:R,events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,registrations:List<&2,RegistrationMeta>,nextSystemId:U32,clock:U32,observed:A.Allocator & List<&2,K.Key>) -> World<S,C,R,E> & List<&2,Handle<S>>:
   match observed:
     case (allocator,keys):(World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},key_handles(~S,namespace,keys))
 def handles(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>) -> World<S,C,R,E> & List<&2,Handle<S>>:

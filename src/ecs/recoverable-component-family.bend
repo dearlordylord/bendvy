@@ -1,4 +1,5 @@
 import Base
+import ./deferred-command.bend as Deferred
 import entity-allocator.bend as Alloc
 import ./world.bend as W
 import ./column.bend as Col
@@ -22,7 +23,7 @@ def column_returned(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Da
 def column_taken(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,record:RC.Record<S,P>,taken:Rest & Col.Column<S,P>) -> Store & RC.Record<S,P>:
   match record taken:
     case RC.Record{handle,stamp,payload}, (rest,column):column_returned(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,rest,RC.undo_column(~S,~P,handle,stamp,payload,column))
-def undone(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,ns:U32,allocator:Alloc.Allocator,resource:R,events:List<&2,E>,pending:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,regs:List<&2,W.RegistrationMeta>,sid:U32,clock:U32,result:Store & RC.Record<S,P>) -> W.World<S,Store,R,E> & RC.Record<S,P>:
+def undone(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~P:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store,~view:P -> P & V,ns:U32,allocator:Alloc.Allocator,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,Store,R,E>>>,regs:List<&2,W.RegistrationMeta>,sid:U32,clock:U32,result:Store & RC.Record<S,P>) -> W.World<S,Store,R,E> & RC.Record<S,P>:
   match result:
     case (store,released):(W.World{ns,allocator,store,resource,events,pending,regs,sid,clock},released)
 # Canonical undo_column restores the saved stamp and returns the displaced

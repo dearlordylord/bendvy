@@ -1,4 +1,5 @@
 import Base
+import ./trace-facts.bend as Facts
 import ./world.bend as W
 import ./system.bend as Sys
 import ./event-runtime.bend as Ev
@@ -58,5 +59,14 @@ def run_taken(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~E:Data,~path:Product.L
 def run(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~E:Data,~path:Product.Lens<R,Log.Log<P>,Rest>,~Request:Type,~Projection:Data,~Args:Type,~Error:Data,~at:P -> Request -> P & Projection,~body:@-H:Type -> @-read:Cap.Request<H,Request,Projection> -> H -> Args -> H & (T.Outcome<Error> & Args),~F:Type,~take:F -> F & Stream.Stream<S,Nat>,~put:F -> Stream.Stream<S,Nat> -> F,~synchronize:W.World<S,C,R,E> -> F -> Nat -> W.World<S,C,R,E> & F,runtime:Route.Runtime<S,C,R,E,F>,reader:Route.Reader<S,Nat,F,take,put>,registry:Sys.Registry<S,C,R,E,Ev.Input<Nat,Args>,Unit,Reply<Error,Args>,runner(~S,~C,~R,~P,~Rest,~E,~path,~Request,~Projection,~Args,~Error,~at,~body)>,args:Args) -> Route.RunResult<S,C,R,E,Nat,F,Args,Unit,Reply<Error,Args>,take,put,runner(~S,~C,~R,~P,~Rest,~E,~path,~Request,~Projection,~Args,~Error,~at,~body)>:
   match runtime:
     case Route.Runtime{world,family,tick}:run_taken(~S,~C,~R,~P,~Rest,~E,~path,~Request,~Projection,~Args,~Error,~at,~body,~F,~take,~put,~synchronize,world,tick,reader,registry,args,take(family))
+def runner_observed(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~E:Data,~path:Product.Lens<R,Log.Log<P>,Rest>,~Request:Type,~Projection:Data,~Args:Type,~Error:Data,~at:P -> Request -> P & Projection,~body:@-H:Type -> @-read:Cap.Request<H,Request,Projection> -> H -> Args -> H & (T.Outcome<Error> & Args),trace:Facts.State,world:W.World<S,C,R,E>,input:Ev.Input<Nat,Args>) -> Sys.Outcome<W.World<S,C,R,E>,Unit,Reply<Error,Args>> & Facts.State:
+  (runner(~S,~C,~R,~P,~Rest,~E,~path,~Request,~Projection,~Args,~Error,~at,~body,world,input),trace)
+def accepted(~Error:Data,~Args:Type,value:Reply<Error,Args>) -> Reply<Error,Args> & Bool:
+  match value:
+    case Reply{T.Success{},args,lagged}:(Reply{T.Success{},args,lagged},True{})
+    case Reply{T.Failure{error},args,lagged}:(Reply{T.Failure{error},args,lagged},False{})
+def run_traced(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~E:Data,~path:Product.Lens<R,Log.Log<P>,Rest>,~Request:Type,~Projection:Data,~Args:Type,~Error:Data,~at:P -> Request -> P & Projection,~body:@-H:Type -> @-read:Cap.Request<H,Request,Projection> -> H -> Args -> H & (T.Outcome<Error> & Args),~F:Type,~take:F -> F & Stream.Stream<S,Nat>,~put:F -> Stream.Stream<S,Nat> -> F,~synchronize:W.World<S,C,R,E> -> F -> Nat -> W.World<S,C,R,E> & F,runtime:Route.Runtime<S,C,R,E,F>,reader:Route.Reader<S,Nat,F,take,put>,registry:Sys.Registry<S,C,R,E,Ev.Input<Nat,Args>,Unit,Reply<Error,Args>,runner(~S,~C,~R,~P,~Rest,~E,~path,~Request,~Projection,~Args,~Error,~at,~body)>,args:Args,trace:Facts.State) -> Route.RunResult<S,C,R,E,Nat,F,Args,Unit,Reply<Error,Args>,take,put,runner(~S,~C,~R,~P,~Rest,~E,~path,~Request,~Projection,~Args,~Error,~at,~body)> & Facts.State:
+  Route.run_traced(~S,~C,~R,~E,~Nat,~F,~Args,~Unit,~Reply<Error,Args>,~take,~put,~runner(~S,~C,~R,~P,~Rest,~E,~path,~Request,~Projection,~Args,~Error,~at,~body),~runner_observed(~S,~C,~R,~P,~Rest,~E,~path,~Request,~Projection,~Args,~Error,~at,~body),~accepted(~Error,~Args),~synchronize,runtime,reader,registry,args,trace)
+
 def register(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~E:Data,~path:Product.Lens<R,Log.Log<P>,Rest>,~Request:Type,~Projection:Data,~Args:Type,~Error:Data,~at:P -> Request -> P & Projection,~body:@-H:Type -> @-read:Cap.Request<H,Request,Projection> -> H -> Args -> H & (T.Outcome<Error> & Args),~F:Type,~take:F -> F & Stream.Stream<S,Nat>,~put:F -> Stream.Stream<S,Nat> -> F,runtime:Route.Runtime<S,C,R,E,F>,name:String) -> Route.Registration<S,C,R,E,Nat,F,Args,Unit,Reply<Error,Args>,take,put,runner(~S,~C,~R,~P,~Rest,~E,~path,~Request,~Projection,~Args,~Error,~at,~body)>:
   Route.register(~S,~C,~R,~E,~Nat,~F,~Args,~Unit,~Reply<Error,Args>,~take,~put,~runner(~S,~C,~R,~P,~Rest,~E,~path,~Request,~Projection,~Args,~Error,~at,~body),runtime,name)

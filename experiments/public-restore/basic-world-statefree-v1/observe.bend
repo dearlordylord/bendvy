@@ -1,3 +1,4 @@
+import ../../../src/ecs/deferred-command.bend as Deferred
 import Base
 import ../../../src/ecs/system.bend as Sys
 import ../../../src/ecs/event-runtime.bend as Ev
@@ -322,7 +323,16 @@ def allocator_join(+next:U32,+high:U32,+capacity:U32,+depth:Nat,+free:List<&2,U3
 def allocator(value:Alloc.Allocator) -> Alloc.Allocator & String:
   match value:
     case Alloc.Allocator{next,high,slots,capacity,depth,free,order}:allocator_join(next,high,capacity,depth,free,order,array(~Alloc.Slot,~slot,slots))
-def world_join(~S:Data,+ns:U32,+events:List<&2,Schema.Events(~S)>,+regs:List<&2,W.RegistrationMeta>,+sid:U32,+clock:U32,a:Alloc.Allocator & String,c:Schema.FullStore(~S) & String,r:Schema.FullResources(~S) & String,p:List<(Schema.World(~S) -> Schema.World(~S))> & Nat) -> Schema.World(~S) & String:
+def pending_count_join(~S:Data,head:Deferred.Command<Schema.World(~S)>,observed:List<Deferred.Command<Schema.World(~S)>> & Nat) -> List<Deferred.Command<Schema.World(~S)>> & Nat:
+  (rest,count)=observed
+  (head <> rest,1n+count)
+def pending_count(~S:Data,values:List<Deferred.Command<Schema.World(~S)>>) -> List<Deferred.Command<Schema.World(~S)>> & Nat:
+  match values:
+    case []:([],0n)
+    case head <> rest:pending_count_join(~S,head,pending_count(~S,rest))
+
+
+def world_join(~S:Data,+ns:U32,+events:List<&2,Schema.Events(~S)>,+regs:List<&2,W.RegistrationMeta>,+sid:U32,+clock:U32,a:Alloc.Allocator & String,c:Schema.FullStore(~S) & String,r:Schema.FullResources(~S) & String,p:List<Deferred.Command<Schema.World(~S)>> & Nat) -> Schema.World(~S) & String:
   (a,sa)=a
   (c,sc)=c
   (r,sr)=r
@@ -330,7 +340,7 @@ def world_join(~S:Data,+ns:U32,+events:List<&2,Schema.Events(~S)>,+regs:List<&2,
   (W.World{ns,a,c,r,events,p,regs,sid,clock},"world{namespace=" ++ U32.show(ns) ++ ";allocator={" ++ sa ++ "};store=" ++ sc ++ ";resources=" ++ sr ++ ";events=" ++ List.show(&2,Schema.Events(~S),event(~S),events) ++ ";pending=" ++ Nat.show(count) ++ ";registrations=" ++ List.show(&2,W.RegistrationMeta,registration,regs) ++ ";nextSystem=" ++ U32.show(sid) ++ ";clock=" ++ U32.show(clock) ++ "}")
 def world_raw(~S:Data,value:Schema.World(~S)) -> Schema.World(~S) & String:
   match value:
-    case W.World{ns,a,c,r,e,p,regs,sid,clock}:world_join(~S,ns,e,regs,sid,clock,allocator(a),store(~S,c),resources(~S,r),callbacks(~Schema.World(~S),~Schema.World(~S),p))
+    case W.World{ns,a,c,r,e,p,regs,sid,clock}:world_join(~S,ns,e,regs,sid,clock,allocator(a),store(~S,c),resources(~S,r),pending_count(~S,p))
 def world_visible(~S:Data,text:String,observed:Schema.World(~S) & List<&2,W.Handle<S>>) -> Schema.World(~S) & String:
   match observed:
     case (world,handles):(world,text ++ ";visible=" ++ List.show(&2,W.Handle<S>,handle(~S),handles))

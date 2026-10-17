@@ -78,15 +78,18 @@ def missing_requirements(~S: Data,needs: List<&2,Requirement<S>>,+available: Lis
     case []: []
     case +head <> rest: missing_next(~S,contains(~S,available,head),head,missing_requirements(~S,rest,available))
 
-def run_checked(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~dispatch: H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition: W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,missing: List<&2,Requirement<S>>,schedule: Sch.Schedule<S,C,R,E,H>,world: W.World<S,C,R,E>,needs: List<&2,Requirement<S>>) -> ProvisionResult<S,C,R,E,H,Error>:
+def run_checked(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~dispatch: H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition: W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~barrier:H -> W.World<S,C,R,E> -> H & W.World<S,C,R,E>,missing: List<&2,Requirement<S>>,schedule: Sch.Schedule<S,C,R,E,H>,world: W.World<S,C,R,E>,needs: List<&2,Requirement<S>>) -> ProvisionResult<S,C,R,E,H,Error>:
   match missing:
     case first <> rest: Missing{Provisioned{schedule,needs},world,first <> rest}
-    case []: Executed{Sch.run(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,schedule,world),needs}
+    case []: Executed{Sch.run_with_barrier(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,~barrier,schedule,world),needs}
 
-def run_available(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~dispatch: H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition: W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,observed: W.World<S,C,R,E> & List<&2,Requirement<S>>,schedule: Sch.Schedule<S,C,R,E,H>,+needs: List<&2,Requirement<S>>) -> ProvisionResult<S,C,R,E,H,Error>:
+def run_available(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~dispatch: H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition: W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~barrier:H -> W.World<S,C,R,E> -> H & W.World<S,C,R,E>,observed: W.World<S,C,R,E> & List<&2,Requirement<S>>,schedule: Sch.Schedule<S,C,R,E,H>,+needs: List<&2,Requirement<S>>) -> ProvisionResult<S,C,R,E,H,Error>:
   (world,available) = observed
-  run_checked(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,missing_requirements(~S,needs,available),schedule,world,needs)
+  run_checked(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,~barrier,missing_requirements(~S,needs,available),schedule,world,needs)
+
+def run_with_barrier(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~dispatch: H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition: W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~barrier:H -> W.World<S,C,R,E> -> H & W.World<S,C,R,E>,~provision: W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,Requirement<S>>,schedule: Provisioned<S,C,R,E,H>,world: W.World<S,C,R,E>) -> ProvisionResult<S,C,R,E,H,Error>:
+  match schedule:
+    case Provisioned{schedule,needs}: run_available(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,~barrier,provision(world),schedule,needs)
 
 def run(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~dispatch: H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition: W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~provision: W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,Requirement<S>>,schedule: Provisioned<S,C,R,E,H>,world: W.World<S,C,R,E>) -> ProvisionResult<S,C,R,E,H,Error>:
-  match schedule:
-    case Provisioned{schedule,needs}: run_available(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,provision(world),schedule,needs)
+  run_with_barrier(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,~Sch.default_barrier(~S,~C,~R,~E,~H),~provision,schedule,world)

@@ -1,0 +1,40 @@
+{
+  "entries": {
+    "Garden": {
+      "checkpoints": 31,
+      "entrypoint": "/tmp/bendvy-trace57-query-readers/experiments/public-debug-trace/deferred-delivery-v1/reader-query-context-v1/garden.bend",
+      "expectedStdout": "garden.expected.stdout",
+      "expectedStdoutGzip": "garden.expected.stdout.gz",
+      "gzipSHA256": "28d340f957c3e1f5b91a567842fb8bbee4c2c1a78b6dfc936828c89946741b2f",
+      "namespace": 1,
+      "runs": 10,
+      "sourceFreeze": "/tmp/bendvy-trace57-query-readers/experiments/public-debug-trace/deferred-delivery-v1/reader-query-context-v1/SOURCE-FREEZE-garden.json",
+      "sourceFreezeSHA256": "391a0a4b1704c5f90fb98cec05556d5c3071c09bf16321a90d1dd61c70ff17d1",
+      "stdoutBytes": 248160,
+      "stdoutSHA256": "fb40f38752d905196952ec48d5ed4b9aa747aab74d2014b95892bdbf87778998"
+    },
+    "Workshop": {
+      "checkpoints": 31,
+      "entrypoint": "/tmp/bendvy-trace57-query-readers/experiments/public-debug-trace/deferred-delivery-v1/reader-query-context-v1/workshop.bend",
+      "expectedStdout": "workshop.expected.stdout",
+      "expectedStdoutGzip": "workshop.expected.stdout.gz",
+      "gzipSHA256": "049c096e0e684be48199230eecedb72fe039892eed263f891df8171d86f52206",
+      "namespace": 1,
+      "runs": 10,
+      "sourceFreeze": "/tmp/bendvy-trace57-query-readers/experiments/public-debug-trace/deferred-delivery-v1/reader-query-context-v1/SOURCE-FREEZE-workshop.json",
+      "sourceFreezeSHA256": "afcaa996b1214861930f3598ed1997984592dcb6042479e2e2ab8dbf23bae78c",
+      "stdoutBytes": 248162,
+      "stdoutSHA256": "b4506e5d2c28c94b4ed692be6334746d4d8625f1516caf3eadb7cb52d4eb2f8c"
+    }
+  },
+  "featureMatrix": "Both complete nominal entries are mandatory.",
+  "model": "model.py.source",
+  "modelSHA256": "dda69b0e253dc0068ede047c9568ea6db10f341f529985abf025b93e294965a6",
+  "reproduce": [
+    "python3 model.py.source --self-test",
+    "python3 model.py.source --schema Workshop --render-stdout",
+    "python3 model.py.source --schema Garden --render-stdout"
+  ],
+  "sourceBasis": "SOURCE-BASIS.json",
+  "sourceBasisSHA256": "9c9d3c91b41dcff94429f2b170c2d9602903f8f09affe8fec7ee5fe583a0fb33"
+}

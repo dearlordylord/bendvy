@@ -1,4 +1,6 @@
 import Base
+import ./execution-context.bend as Ctx
+import ./ordinary-app-execution.bend as Execution
 import ./ordinary-app-event-family-runtime.bend as Family
 import ./event-family-routing.bend as Route
 import ./ordinary-app-checked-schedule.bend as Old
@@ -54,6 +56,14 @@ def returned(~S:Data,~C:Type,~R:Type,~E:Data,~F:Type,~H:Type,~Rows:Data,~observe
     case Single.Failed{app,error,observations}:Single.Failed{Application{app},error,observations}
     case Single.Rejected{app}:Single.Rejected{Application{app}}
     case Single.Missing{app,requirements}:Single.Missing{Application{app},requirements}
-def run(~S:Data,~C:Type,~R:Type,~E:Data,~F:Type,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Fields.Fields<S>>,~B:Type,~select:B -> W.World<S,C,R,E> -> U32 -> B.Selection<W.World<S,C,R,E>,B>,~Error:Data,~dispatch:(H & (F & Nat)) -> W.World<S,C,R,E> -> U32 -> (H & (F & Nat)) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~provision:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,SP.Requirement<S>>,value:Application<S,C,R,E,F,H,Rows,observe,fold,B,select>) -> Single.RunResult<Application<S,C,R,E,F,H,Rows,observe,fold,B,select>,S,Checked.Error<Error>>:
+def run_classic(~S:Data,~C:Type,~R:Type,~E:Data,~F:Type,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Fields.Fields<S>>,~B:Type,~select:B -> W.World<S,C,R,E> -> U32 -> B.Selection<W.World<S,C,R,E>,B>,~Error:Data,~dispatch:(H & (F & Nat)) -> W.World<S,C,R,E> -> U32 -> (H & (F & Nat)) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~provision:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,SP.Requirement<S>>,value:Application<S,C,R,E,F,H,Rows,observe,fold,B,select>) -> Single.RunResult<Application<S,C,R,E,F,H,Rows,observe,fold,B,select>,S,Checked.Error<Error>>:
   match value:
-    case Application{app}:returned(~S,~C,~R,~E,~F,~H,~Rows,~observe,~fold,~B,~select,~Error,Old.run(~S,~C,~R,~E,~(H & (F & Nat)),~Rows,~observe,~fold_family(~S,~H,~F,~fold),~B,~select,~Error,~dispatch,~provision,app))
+    case Application{app}:returned(~S,~C,~R,~E,~F,~H,~Rows,~observe,~fold,~B,~select,~Error,Old.run_classic(~S,~C,~R,~E,~(H & (F & Nat)),~Rows,~observe,~fold_family(~S,~H,~F,~fold),~B,~select,~Error,~dispatch,~provision,app))
+
+def returned_context(~S:Data,~C:Type,~R:Type,~E:Data,~F:Type,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Fields.Fields<S>>,~B:Type,~select:B -> W.World<S,C,R,E> -> U32 -> B.Selection<W.World<S,C,R,E>,B>,~Error:Data,value:Execution.Run<Old.Application<S,C,R,E,(H & (F & Nat)),Rows,observe,fold_family(~S,~H,~F,~fold),B,select>,S,Checked.Error<Error>>) -> Execution.Run<Application<S,C,R,E,F,H,Rows,observe,fold,B,select>,S,Checked.Error<Error>>:
+  match value:
+    case Execution.Run{result,batch}:Execution.Run{returned(~S,~C,~R,~E,~F,~H,~Rows,~observe,~fold,~B,~select,~Error,result),batch}
+
+def run(~S:Data,~C:Type,~R:Type,~E:Data,~F:Type,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Fields.Fields<S>>,~B:Type,~select:B -> W.World<S,C,R,E> -> U32 -> B.Selection<W.World<S,C,R,E>,B>,~Error:Data,~dispatch:(H & (F & Nat)) -> Ctx.Context<W.World<S,C,R,E>> -> U32 -> (H & (F & Nat)) & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>,~provision:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,SP.Requirement<S>>,value:Application<S,C,R,E,F,H,Rows,observe,fold,B,select>) -> Execution.Run<Application<S,C,R,E,F,H,Rows,observe,fold,B,select>,S,Checked.Error<Error>>:
+  match value:
+    case Application{app}:returned_context(~S,~C,~R,~E,~F,~H,~Rows,~observe,~fold,~B,~select,~Error,Old.run(~S,~C,~R,~E,~(H & (F & Nat)),~Rows,~observe,~fold_family(~S,~H,~F,~fold),~B,~select,~Error,~dispatch,~provision,app))

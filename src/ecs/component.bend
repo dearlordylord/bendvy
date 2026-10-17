@@ -1,4 +1,7 @@
 import Base
+import ./deferred-command.bend as Deferred
+import ./entity-key-render.bend as KeyRender
+import ./trace-facts.bend as TraceFacts
 import lifecycle.bend as L
 import column.bend as Col
 import world.bend as W
@@ -199,27 +202,47 @@ def restore_stamp(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~
   match handle:
     case W.Handle{_,K.EntityKey{+id,_}}: restore_stamp_done(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,restore_stamp_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,stamp,world))
 
-def tx_get_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,observed: W.World<S,Store,R,E> & Access<V>) -> T.Tx<W.World<S,Store,R,E>,E> & Access<V>:
+def tx_get_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,observed: W.World<S,Store,R,E> & Access<V>) -> T.Tx<W.World<S,Store,R,E>,E> & Access<V>:
   (world,value) = observed
-  (T.Tx{world,undo,commands,events},value)
+  (T.Tx{world,undo,commands,events,trace},value)
 
 def tx_get(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,handle: W.Handle<S>) -> T.Tx<W.World<S,Store,R,E>,E> & Access<V>:
   match tx:
-    case T.Tx{world,undo,commands,events}:
-      tx_get_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,undo,commands,events,get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle))
+    case T.Tx{world,undo,commands,events,trace}:
+      tx_get_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,undo,commands,events,trace,get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle))
 
-def tx_written(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,+handle: W.Handle<S>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,+stamp: L.Stamp,result: Replacement<W.World<S,Store,R,E>,C>) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
+def trace_error(error:W.WorldError) -> String:
+  match error:
+    case W.MissingEntity{}:"MissingEntity"
+    case W.CapacityExceeded{}:"CapacityExceeded"
+    case W.NamespaceExhausted{}:"NamespaceExhausted"
+    case W.SystemIdExhausted{}:"SystemIdExhausted"
+def trace_handle(~S:Data,handle:W.Handle<S>) -> String:
+  match handle:
+    case W.Handle{namespace,key}:U32.show(namespace) ++ ":" ++ KeyRender.show(key)
+def trace_write(~S:Data,state:TraceFacts.State,name:String,handle:W.Handle<S>,result:TraceFacts.FactResult) -> TraceFacts.State:
+  match state:
+    case TraceFacts.Off{}:TraceFacts.Off{}
+    case TraceFacts.On{facts}:TraceFacts.On{TraceFacts.Fact{TraceFacts.ComponentValue{},name,TraceFacts.WriteOperation{},Some{trace_handle(~S,handle)},TraceFacts.OpaqueValue{},TraceFacts.OpaqueValue{},result} <> facts}
+def trace_refusal(~S:Data,state:TraceFacts.State,name:String,handle:W.Handle<S>,error:W.WorldError) -> TraceFacts.State:
+  match state:
+    case TraceFacts.Off{}:TraceFacts.Off{}
+    case TraceFacts.On{facts}:TraceFacts.On{TraceFacts.Fact{TraceFacts.ComponentValue{},name,TraceFacts.WriteOperation{},Some{trace_handle(~S,handle)},TraceFacts.OpaqueValue{},TraceFacts.OpaqueValue{},TraceFacts.Refused{trace_error(error)}} <> facts}
+def family_name(~S:Data,~Store:Type,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,family:Family<S,Store,Rest,C,V,Token,take,put,project>) -> String:
+  match family:
+    case Family{name}:name
+def tx_written(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,+handle: W.Handle<S>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,+stamp: L.Stamp,result: Replacement<W.World<S,Store,R,E>,C>) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
   match result:
     case Replaced{world,previous}:
-      Written{T.Tx{world,(world => restore_stamp(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,handle,stamp,restore(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,previous,world))) <> undo,commands,events}}
-    case ReplaceRejected{world,Some{incoming},error}:
-      WriteRejected{T.Tx{world,undo,commands,events},incoming,error}
-    case ReplaceRejected{world,None{},error}:
-      WriteFailure{T.Tx{world,undo,commands,events},error}
+      Written{T.Tx{world,(world => restore_stamp(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,handle,stamp,restore(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,previous,world))) <> undo,commands,events,trace_write(~S,trace,family_name(~S,~Store,~Rest,~C,~V,~Token,~take,~put,~project,family),handle,TraceFacts.Attempted{})}}
+    case ReplaceRejected{world,Some{incoming},+error}:
+      WriteRejected{T.Tx{world,undo,commands,events,trace_refusal(~S,trace,family_name(~S,~Store,~Rest,~C,~V,~Token,~take,~put,~project,family),handle,error)},incoming,error}
+    case ReplaceRejected{world,None{},+error}:
+      WriteFailure{T.Tx{world,undo,commands,events,trace_refusal(~S,trace,family_name(~S,~Store,~Rest,~C,~V,~Token,~take,~put,~project,family),handle,error)},error}
 
-def tx_set_stamped(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,+handle: W.Handle<S>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,incoming: C,observed: W.World<S,Store,R,E> & L.Stamp) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
+def tx_set_stamped(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,+handle: W.Handle<S>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,incoming: C,observed: W.World<S,Store,R,E> & L.Stamp) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
   (world,stamp) = observed
-  tx_written(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,undo,commands,events,stamp,replace(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle,Some{incoming}))
+  tx_written(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,undo,commands,events,trace,stamp,replace(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle,Some{incoming}))
 
 def stamped_store_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,stamp:L.Stamp,result:Store & Swap<C>) -> Store & (Swap<C> & L.Stamp):
   match result:
@@ -254,27 +277,47 @@ def stamped_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type
     case (world,False{}) _: (ReplaceRejected{world,Some{incoming},W.MissingEntity{}},L.Stamp{0,0})
     case (world,True{}) W.Handle{_,K.EntityKey{+id,_}}: stamped_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,world)
 
-def tx_set_fused(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family:Family<S,Store,Rest,C,V,Token,take,put,project>,+handle:W.Handle<S>,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events:List<&2,E>,observed:Replacement<W.World<S,Store,R,E>,C> & L.Stamp) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
+def tx_set_fused(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family:Family<S,Store,Rest,C,V,Token,take,put,project>,+handle:W.Handle<S>,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events:List<&2,E>,trace:TraceFacts.State,observed:Replacement<W.World<S,Store,R,E>,C> & L.Stamp) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
   match observed:
-    case (result,stamp): tx_written(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,undo,commands,events,stamp,result)
+    case (result,stamp): tx_written(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,undo,commands,events,trace,stamp,result)
 
 def tx_set(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,+handle: W.Handle<S>,incoming: C) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
   match tx:
-    case T.Tx{world,undo,commands,events}:
-      tx_set_fused(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,undo,commands,events,stamped_allowed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.valid(~S,~Store,~R,~E,world,handle),handle,incoming))
+    case T.Tx{world,undo,commands,events,trace}:
+      tx_set_fused(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,undo,commands,events,trace,stamped_allowed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.valid(~S,~Store,~R,~E,world,handle),handle,incoming))
 
-def tx_removed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,+handle: W.Handle<S>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,+stamp: L.Stamp,result: Replacement<W.World<S,Store,R,E>,C>) -> RemoveResult<T.Tx<W.World<S,Store,R,E>,E>>:
+def tx_removed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,+handle: W.Handle<S>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,+stamp: L.Stamp,result: Replacement<W.World<S,Store,R,E>,C>) -> RemoveResult<T.Tx<W.World<S,Store,R,E>,E>>:
   match result:
     case Replaced{world,previous}:
-      Removed{T.Tx{world,(world => restore_stamp(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,handle,stamp,restore(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,previous,world))) <> undo,commands,events}}
+      Removed{T.Tx{world,(world => restore_stamp(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,handle,stamp,restore(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,previous,world))) <> undo,commands,events,trace}}
     case ReplaceRejected{world,_,error}:
-      RemoveRejected{T.Tx{world,undo,commands,events},error}
+      RemoveRejected{T.Tx{world,undo,commands,events,trace},error}
 
-def tx_remove_stamped(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,+handle: W.Handle<S>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,observed: W.World<S,Store,R,E> & L.Stamp) -> RemoveResult<T.Tx<W.World<S,Store,R,E>,E>>:
+def tx_remove_stamped(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,+handle: W.Handle<S>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,observed: W.World<S,Store,R,E> & L.Stamp) -> RemoveResult<T.Tx<W.World<S,Store,R,E>,E>>:
   (world,stamp) = observed
-  tx_removed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,undo,commands,events,stamp,replace(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle,None{}))
+  tx_removed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,undo,commands,events,trace,stamp,replace(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle,None{}))
 
 def tx_remove(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,+handle: W.Handle<S>) -> RemoveResult<T.Tx<W.World<S,Store,R,E>,E>>:
   match tx:
-    case T.Tx{world,undo,commands,events}:
-      tx_remove_stamped(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,undo,commands,events,lifecycle(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle))
+    case T.Tx{world,undo,commands,events,trace}:
+      tx_remove_stamped(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,undo,commands,events,trace,lifecycle(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle))
+
+def displayed_access(~V:Data,~display:V -> String,value:Access<V>) -> TraceFacts.Value:
+  match value:
+    case Found{value}:TraceFacts.DisplayedValue{display(value)}
+    case ComponentAbsent{}:TraceFacts.UnavailableValue{}
+    case MissingEntity{}:TraceFacts.UnavailableValue{}
+def displayed_written(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,before:TraceFacts.Value,after:TraceFacts.Value,result:SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
+  match result:
+    case Written{tx}:Written{T.annotate_newest(~W.World<S,Store,R,E>,~E,tx,before,after)}
+    case WriteRejected{tx,incoming,error}:WriteRejected{T.annotate_newest(~W.World<S,Store,R,E>,~E,tx,before,after),incoming,error}
+    case WriteFailure{tx,error}:WriteFailure{T.annotate_newest(~W.World<S,Store,R,E>,~E,tx,before,after),error}
+def displayed_viewed(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,~display:V -> String,family:Family<S,Store,Rest,C,V,Token,take,put,project>,handle:W.Handle<S>,incoming:C & V,observed:T.Tx<W.World<S,Store,R,E>,E> & Access<V>) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
+  match incoming observed:
+    case (incoming,after), (tx,before):displayed_written(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,displayed_access(~V,~display,before),TraceFacts.DisplayedValue{display(after)},tx_set(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle,incoming))
+def displayed_enabled(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,~display:V -> String,+family:Family<S,Store,Rest,C,V,Token,take,put,project>,+handle:W.Handle<S>,incoming:C,observed:T.Tx<W.World<S,Store,R,E>,E> & Bool) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
+  match observed:
+    case (tx,False{}):tx_set(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle,incoming)
+    case (tx,True{}):displayed_viewed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~display,family,handle,project(incoming),tx_get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle))
+def tx_set_displayed(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,~display:V -> String,family:Family<S,Store,Rest,C,V,Token,take,put,project>,tx:T.Tx<W.World<S,Store,R,E>,E>,handle:W.Handle<S>,incoming:C) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
+  displayed_enabled(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~display,family,handle,incoming,T.trace_enabled(~W.World<S,Store,R,E>,~E,tx))

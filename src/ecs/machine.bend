@@ -1,4 +1,6 @@
 import Base
+import ./deferred-command.bend as Deferred
+import ./trace-facts.bend as TraceFacts
 import transaction.bend as Tx
 
 # Experimental machine metadata. World and component owners remain arbitrary Type.
@@ -103,31 +105,31 @@ def apply_snapshot(~S: Data,~M: Data,~V: Data,~same: V -> V -> Bool,slot: Slot<S
 # world through the same affine transaction; no independent machine owner copy.
 def write_taken(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
   ~put: W -> Slot<S,M,V> -> W,
-  pair: W & Slot<S,M,V>,undo: List<&1,(W -> W)>,commands: List<&1,(W -> W)>,events: List<&2,E>,value: V,skipSame: Bool) -> Tx.Tx<W,E>:
+  pair: W & Slot<S,M,V>,undo: List<&1,(W -> W)>,commands:List<&1,Deferred.Command<W>>,events: List<&2,E>,trace:TraceFacts.State,value: V,skipSame: Bool) -> Tx.Tx<W,E>:
   match pair:
     case (world,+old):
-      Tx.Tx{put(world,queue(~S,~M,~V,old,value,skipSame)),(world => put(world,old)) <> undo,commands,events}
+      Tx.Tx{put(world,queue(~S,~M,~V,old,value,skipSame)),(world => put(world,old)) <> undo,commands,events,trace}
 
 def write(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
   ~take: W -> W & Slot<S,M,V>,~put: W -> Slot<S,M,V> -> W,
   tx: Tx.Tx<W,E>,value: V,skipSame: Bool) -> Tx.Tx<W,E>:
   match tx:
-    case Tx.Tx{world,undo,commands,events}:
-      write_taken(~S,~M,~V,~W,~E,~put,take(world),undo,commands,events,value,skipSame)
+    case Tx.Tx{world,undo,commands,events,trace}:
+      write_taken(~S,~M,~V,~W,~E,~put,take(world),undo,commands,events,trace,value,skipSame)
 
 def reset_taken(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
   ~put: W -> Slot<S,M,V> -> W,
-  pair: W & Slot<S,M,V>,undo: List<&1,(W -> W)>,commands: List<&1,(W -> W)>,events: List<&2,E>) -> Tx.Tx<W,E>:
+  pair: W & Slot<S,M,V>,undo: List<&1,(W -> W)>,commands:List<&1,Deferred.Command<W>>,events: List<&2,E>,trace:TraceFacts.State) -> Tx.Tx<W,E>:
   match pair:
     case (world,+old):
-      Tx.Tx{put(world,reset(~S,~M,~V,old)),(world => put(world,old)) <> undo,commands,events}
+      Tx.Tx{put(world,reset(~S,~M,~V,old)),(world => put(world,old)) <> undo,commands,events,trace}
 
 def reset_tx(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
   ~take: W -> W & Slot<S,M,V>,~put: W -> Slot<S,M,V> -> W,
   tx: Tx.Tx<W,E>) -> Tx.Tx<W,E>:
   match tx:
-    case Tx.Tx{world,undo,commands,events}:
-      reset_taken(~S,~M,~V,~W,~E,~put,take(world),undo,commands,events)
+    case Tx.Tx{world,undo,commands,events,trace}:
+      reset_taken(~S,~M,~V,~W,~E,~put,take(world),undo,commands,events,trace)
 
 def next(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
   ~take: W -> W & Slot<S,M,V>,~put: W -> Slot<S,M,V> -> W,
@@ -137,14 +139,14 @@ def next(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
     case Reset{}: reset_tx(~S,~M,~V,~W,~E,~take,~put,tx)
 
 def read_taken(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
-  pair: W & Slot<S,M,V>,undo: List<&1,(W -> W)>,commands: List<&1,(W -> W)>,events: List<&2,E>) -> Tx.Tx<W,E> & Slot<S,M,V>:
+  pair: W & Slot<S,M,V>,undo: List<&1,(W -> W)>,commands:List<&1,Deferred.Command<W>>,events: List<&2,E>,trace:TraceFacts.State) -> Tx.Tx<W,E> & Slot<S,M,V>:
   match pair:
-    case (world,slot): (Tx.Tx{world,undo,commands,events},slot)
+    case (world,slot): (Tx.Tx{world,undo,commands,events,trace},slot)
 
 def read(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
   ~take: W -> W & Slot<S,M,V>,tx: Tx.Tx<W,E>) -> Tx.Tx<W,E> & Slot<S,M,V>:
   match tx:
-    case Tx.Tx{world,undo,commands,events}: read_taken(~S,~M,~V,~W,~E,take(world),undo,commands,events)
+    case Tx.Tx{world,undo,commands,events,trace}: read_taken(~S,~M,~V,~W,~E,take(world),undo,commands,events,trace)
 
 def read_declared(~S: Data,~M: Data,~V: Data,~W: Type,~E: Data,
   ~take: W -> W & Slot<S,M,V>,~put: W -> Slot<S,M,V> -> W,

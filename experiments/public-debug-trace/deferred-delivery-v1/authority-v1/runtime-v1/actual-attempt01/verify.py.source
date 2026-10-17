@@ -1,0 +1,92 @@
+from pathlib import Path
+import json,gzip,hashlib,tempfile,shutil,subprocess,re
+sha=lambda b:hashlib.sha256(b).hexdigest()
+OUT=Path('/tmp/bendvy57-integrated-query-evidence/experiments/public-debug-trace/deferred-delivery-v1/authority-v1/runtime-v1/actual-attempt01')
+m=json.loads((OUT/'manifest.json').read_text());rows=m['members'];roles=m['roles'];external={r['path'] for r in rows if 'object' not in r};histories=[Path(p).parent for p in m['historyReceipts']];base=Path('/tmp/bendvy-restore59-oracle/experiments/public-debug-trace/deferred-delivery-oracle-v1')
+with tempfile.TemporaryDirectory() as tmp:
+ q=Path(tmp)/'packet';shutil.copytree(OUT,q);data={}
+ for row in rows:
+  p=row['path']
+  if 'object' in row:
+   packed=(q/row['object']).read_bytes();assert sha(packed)==row['compressedSHA256'];b=gzip.decompress(packed)
+  else:b=Path(p).read_bytes()
+  assert sha(b)==row['sha256'] and len(b)==row['bytes'];data[p]=b
+ count=0;models={}
+ for role in roles:
+  plan=json.loads(data[role['plan']]);r=json.loads(data[role['receipt']]);seen=set()
+  assert r['planSHA256']==sha(data[role['plan']]) and r['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS'
+  assert all(c['exit']==0 and c['failure'] is None for c in r['commands'])
+  consumer=next(c for c in r['commands'] if c['label']=='consumer')
+  assert data[consumer['stdout']['path']]==gzip.decompress(data[plan['oracle']]) and not data[consumer['stderr']['path']]
+  for g in r['guards']:
+   v=json.loads(data[g['path']]);assert v['unchanged']
+   for p,h in v['actualPins'].items():assert sha(data[p])==h;count+=1
+  def visit(p):
+   if p in seen:return
+   seen.add(p);assert sha(data[p])==plan['sourceInventory'][p]
+   for imp in re.findall(r'^import\s+(\S+)',data[p].decode(),re.M):
+    if imp!='Base':visit(str((Path(p).parent/imp).resolve()))
+  visit(plan['entrypoint']);assert seen==set(plan['sourceInventory'])
+  for p in plan['pins']:
+   if ('SOURCE-FREEZE' in Path(p).name and p.endswith('.json')):
+    f=json.loads(data[p])
+    for section in ['sourceInventory','sourcePins']:
+     for x,h in f.get(section,{}).items():assert sha(data[x])==h
+  for c in r['commands']:
+   for stream in ['stdout','stderr']:
+    x=c[stream];assert sha(data[x['path']])==x['sha256'] and len(data[x['path']])==x['bytes']
+  oracle=Path(plan['oracle']);model=next(p for p in plan['pins'] if p.endswith('/model.py.source') or p.endswith('/model.py'))
+  if '/raw-boundary-v1/' in str(oracle):
+   dest=Path(tmp)/'boundary/model.py';dest.parent.mkdir(exist_ok=True);dest.write_bytes(data[model]);argv=['/usr/bin/python3.11',str(dest)]
+  else:
+   for p,body in data.items():
+    if p.startswith(str(base)+'/') and p.endswith('model.py.source'):
+     target=Path(tmp)/'oracle'/Path(p).relative_to(base);target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(body)
+   dest=Path(tmp)/'oracle'/Path(model).relative_to(base);argv=['/usr/bin/python3.11',str(dest),'--render-stdout'] if '/stored-validation-v1/' in str(oracle) else ['/usr/bin/python3.11',str(dest),'--schema',role['schema'],'--render-stdout']
+  rmodel=subprocess.run(argv,capture_output=True,check=True);assert not rmodel.stderr;assert rmodel.stdout==gzip.decompress(data[plan['oracle']]);models[role['schema']+'/'+role['role']+'/'+str(oracle.parent.name)]=dict(bytes=len(rmodel.stdout),sha256=sha(rmodel.stdout))
+  if plan.get('subject')=='mutant':assert rmodel.stdout!=gzip.decompress(data[plan['normalOracle']])
+ historyJoins=0
+ for history in histories:
+  hr=json.loads(data[str(history/'receipt.json')]);hp=json.loads(data[str(history/'plan.json')]);assert hr['planSHA256']==sha(data[str(history/'plan.json')])
+  for g in hr['guards']:
+   assert sha(data[g['path']])==g['sha256'];guard=json.loads(data[g['path']])
+   for p,h in guard['actualPins'].items():assert sha(data[p])==h;historyJoins+=1
+  for c in hr['commands']:
+   for stream in ['stdout','stderr']:
+    x=c[stream];assert sha(data[x['path']])==x['sha256'] and len(data[x['path']])==x['bytes']
+ authority=Path('/tmp/bendvy-trace57-controls/experiments/public-debug-trace/deferred-delivery-v1/authority-v1')
+ checks=json.loads(data[str(authority/'CHECKS.json')]);runs=json.loads(data[str(authority/'checks/development-runs.json')]);byname={x['name']:x for x in runs}
+ for row in runs:
+  assert any(sha(body)==row['sourceSHA256'] for path,body in data.items() if path.startswith(str(authority)+'/') and path.endswith('.bend'))
+ assert checks['positive']['exitCode']==0 and byname['subscriber-positive']['exitCode']==0
+ assert b'ALL PROOFS CHECK' in data[str(authority/checks['positive']['stdout'])]
+ assert len(checks['negative'])==6
+ import types,sys
+ helpername='retained_authority_helper';module=types.ModuleType(helpername);previous=sys.modules.get(helpername);sys.modules[helpername]=module
+ try:
+  exec(compile(data['/workspace/formal-proofs/bendvy/scripts/scenario_controls.py'],'retained scenario_controls.py','exec'),module.__dict__)
+  quantities=0;types_checked=0
+  for row in checks['negative']:
+   assert row['exitCode']==1
+   assert sha(data[str(authority/row['source'])])==row['sourceSHA256']
+   for stream in ['stdout','stderr']:assert sha(data[str(authority/row[stream])])==row[stream+'SHA256']
+   diagnostic=data[str(authority/row['stderr'])].decode()
+   if row['diagnostic']['kind']=='affine-quantity':
+    variable=row['diagnostic']['variable'];head=diagnostic.split('Location:',1)[0]
+    assert re.search(r'^- expected\s*:\s*'+re.escape(variable)+r'\s*$',head,re.M) and re.search(r'^- observed\s*:\s*'+re.escape(variable)+r' \(consumed more than once\)\s*$',head,re.M)
+    assert 'no helper PASS claimed' in row['helper'];quantities+=1
+   else:
+    assert sha(data[row['helper']])==row['helperSHA256']
+    module.negative({'exit':1,'failure':None},diagnostic,row['diagnostic']);types_checked+=1
+  assert quantities==3 and types_checked==3
+ finally:
+  if previous is None:sys.modules.pop(helpername,None)
+  else:sys.modules[helpername]=previous
+ generatedNative=[];counterRejected=[]
+ for role in roles:
+  plan=json.loads(data[role['plan']]);receipt=json.loads(data[role['receipt']])
+  if role['role']=='native':assert plan['native'] in data and plan['native'] not in external;generatedNative.append(plan['native'])
+  if plan.get('subject')=='mutant':
+   output=next(c['stdout']['path'] for c in receipt['commands'] if c['label']=='consumer');assert data[output]!=gzip.decompress(data[plan['normalOracle']]);counterRejected.append(role['role'])
+ result=dict(status='PASS',isolatedRelocation=True,selectedAuthority={'positive':1,'quantityRefusalsWithoutNamedHelper':quantities,'primaryTypeHelperChecks':types_checked},historyEvolvingPinJoins=historyJoins,generatedNativeELFObjects=generatedNative,completeNormalBaselineRejected=counterRejected,bindings=len(rows),objects=len(set(x['object'] for x in rows if 'object'in x)),externalELFs=len(external),successfulCommands=sum(x['commands'] for x in roles),guards=sum(x['guards'] for x in roles),evolvingPinJoins=count,importsPerRole=[len(json.loads(data[r['plan']])['sourceInventory']) for r in roles],retainedModels=models,backendReplay=False,historyStatuses={str(h):json.loads(data[str(h/'receipt.json')])['status'] for h in histories},scope=m['scope'])
+ (OUT/'FULL-JOIN-VERIFICATION.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))

@@ -207,7 +207,7 @@ Root alone integrates shared src/ecs. Current integrated pending cancellation
 and its evidence above remain unchanged until a complete successor is qualified.
 No new mathematical laws or proofs are approved by this policy selection.
 
-## Generational acceptance — integration pending
+## Generational acceptance — integrated
 
 The candidate carries namespace plus full U32 index/generation through components,
 relations, scopes, commands and snapshot DTOs. Schema cleanup clears payloads and
@@ -233,4 +233,4 @@ reports no confirmed regression: 123 commands and 110 complete outputs. Candidat
 fixture adaptation changes identity syntax only. CPU/allocation profiles each
 validate full output; their single sampled captures establish neither a speed
 verdict nor physical memory totals. Final full-feature performance remains under
-#21/#23/#24. Final joined review, integration and CI still govern closing #38.
+#21/#23/#24. Independent [joined review](../../experiments/public-identity/generational-reuse-v1/FINAL-REVIEW.md) passed. Delivery `6ad552b14` plus frozen-source formatting fix `fe9a8f3c2` passed CI38985163067; #38 is closed.

@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "isolatedRelocation": true,
+  "cohortStatus": "NO_CONFIRMED_REGRESSION",
+  "archiveMembers": 882,
+  "commands": 123,
+  "fullCompressedOutputs": 110,
+  "fullApplicationObservations": 1100,
+  "checkpointCount": 22,
+  "balancedPairsPerBackend": 20,
+  "currentSourceBindings": 339,
+  "referenceBindings": 33,
+  "sourceBindings": {
+    "baseline": 29,
+    "candidate": 354
+  },
+  "artifactBindings": 12,
+  "generatedNativeELFsArchived": 2,
+  "allFourMigrationFilesAndFiveSyntaxEditsVerified": true,
+  "decisionRecomputed": {
+    "status": "NO_CONFIRMED_REGRESSION",
+    "endpoints": {
+      "JS": {
+        "nonTiePairs": 20,
+        "slowerPairs": 9,
+        "pValue": 0.7482776641845703,
+        "medianPairedRatio": 0.916189499257817,
+        "confirmedRegression": false,
+        "holmCutoff": 0.025
+      },
+      "Native": {
+        "nonTiePairs": 20,
+        "slowerPairs": 5,
+        "pValue": 0.9940910339355469,
+        "medianPairedRatio": 0.8543858291861305,
+        "confirmedRegression": false
+      }
+    }
+  },
+  "scope": "Whole-process Workshop contract only; external contention and no per-CPU quiet claim. Not a speed/equivalence/full parity verdict.",
+  "backendReplay": false
+}

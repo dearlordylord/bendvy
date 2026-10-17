@@ -1,4 +1,5 @@
 import Base
+import ./trace-facts.bend as TraceFacts
 import ./ordinary-schema.bend as Schema
 import ./ordinary-query-declaration.bend as Query
 import ./world.bend as W
@@ -62,3 +63,11 @@ def describe(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~k
   match owner:
     case Owner{Sys.Registry{namespace,id,name,+access,cursor},slot}:
       (Owner{Sys.Registry{namespace,id,name,access,cursor},slot},descriptions(~S,kind,access))
+
+def returned_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Type,output:Out,result:T.Returned<W.World<S,C,R,E>,Error> & TraceFacts.State) -> Sys.Outcome<W.World<S,C,R,E>,Error,Out> & TraceFacts.State:
+  match result:
+    case (value,trace):(returned(~S,~C,~R,~E,~Error,~Out,output,value),trace)
+# Same user body and grants, with detached transaction facts returned beside it.
+def finished_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Type,result:T.Tx<W.World<S,C,R,E>,E> & (T.Outcome<Error> & Out)) -> Sys.Outcome<W.World<S,C,R,E>,Error,Out> & TraceFacts.State:
+  match result:
+    case (tx,(outcome,output)):returned_observed(~S,~C,~R,~E,~Error,~Out,output,T.finish_observed(~W.World<S,C,R,E>,~E,~Error,~Cmd.enqueue(~S,~C,~R,~E),~Cmd.publish(~S,~C,~R,~E),tx,outcome))

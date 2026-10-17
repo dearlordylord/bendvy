@@ -10,6 +10,9 @@ import ./owned-event-storage.bend as Storage
 type Domain<-S:Data,-P:Type> is Data:
   Domain{key:String}
 def domain(~S:Data,~P:Type,key:String) -> Domain<S,P>:Domain{key}
+def name(~S:Data,~P:Type,domain:Domain<S,P>) -> String:
+  match domain:
+    case Domain{key}:key
 def access(~S:Data,~P:Type,domain:Domain<S,P>,suffix:String) -> String:
   match domain:
     case Domain{key}:String.concat([key,suffix])

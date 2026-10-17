@@ -1,4 +1,5 @@
 import Base
+import ./trace-facts.bend as TraceFacts
 import entity-key.bend as Key
 import compose.bend as Q
 import capabilities.bend as Cap
@@ -26,7 +27,7 @@ def add(~S: Data,selected: Bool,handle: W.Handle<S>,rest: List<&2,W.Handle<S>>) 
 # Selection is a read-only observation even if a trusted plan accidentally mutates.
 def unselect(~S: Data,~Store: Type,~R: Type,~E: Data,observed: Q.Frame<S,Store,R,E> & Bool) -> W.World<S,Store,R,E> & Bool:
   match observed:
-    case (Q.Frame{T.Tx{world,undo,_,_},_,_,_},selected): (T.rollback(~W.World<S,Store,R,E>,undo,world),selected)
+    case (Q.Frame{T.Tx{world,undo,_,_,_},_,_,_},selected): (T.rollback(~W.World<S,Store,R,E>,undo,world),selected)
 def prepend(~S: Data,~Store: Type,~R: Type,~E: Data,selected: Bool,handle: W.Handle<S>,observed: Scanned<S,Store,R,E>) -> Scanned<S,Store,R,E>:
   match observed:
     case Scanned{world,handles}: Scanned{world,add(~S,selected,handle,handles)}

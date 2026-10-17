@@ -5,7 +5,13 @@ import ./system.bend as Sys
 # Declaration lowering owns fixed group order; closed callbacks retain failure outcomes.
 type Declaration<-S:Data> is Data: Declaration{name:String}
 def declare(~S:Data,name:String) -> Declaration<S>:Declaration{name}
-def steps() -> List<&2,Sch.Step>:[Sch.Barrier{},Sch.Phase{"apply"},Sch.System{1,0},Sch.Phase{"exit"},Sch.System{2,0},Sch.Phase{"transition"},Sch.System{3,0},Sch.Phase{"enter"},Sch.System{4,0}]
+def phase_name(id:U32) -> String:
+  match id:
+    case 1:"apply"
+    case 2:"exit"
+    case 3:"transition"
+    case _:"enter"
+def steps() -> List<&2,Sch.Step>:[Sch.Barrier{},Sch.Phase{phase_name(1)},Sch.System{1,0},Sch.Phase{phase_name(2)},Sch.System{2,0},Sch.Phase{phase_name(3)},Sch.System{3,0},Sch.Phase{phase_name(4)},Sch.System{4,0}]
 def install(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,declaration:Declaration<S>,namespace:U32,owners:H) -> Sch.Build<S,C,R,E,H>:
   match declaration:
     case Declaration{name}:Sch.build(~S,~C,~R,~E,~H,namespace,name,steps(),[1,2,3,4],owners)

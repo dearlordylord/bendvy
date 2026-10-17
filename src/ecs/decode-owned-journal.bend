@@ -40,4 +40,4 @@ def counted(~World:Type,~P:Type,~Q:Type,receipts:List<Receipt<World,P,Q>>,world:
 
 def abort(~World:Type,~E:Data,~P:Type,~Q:Type,receipts:List<Receipt<World,P,Q>>,tx:T.Tx<World,E>) -> Returned<World,P,Q>:
   match tx:
-    case T.Tx{world,undo,_,_}:counted(~World,~P,~Q,receipts,world,Batch.count_commands(~World,undo))
+    case T.Tx{world,undo,_,_,_}:counted(~World,~P,~Q,receipts,world,Batch.count_commands(~World,undo))
