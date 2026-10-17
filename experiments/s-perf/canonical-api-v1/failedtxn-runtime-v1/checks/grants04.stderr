@@ -1,0 +1,15 @@
+SOME PROOFS FAIL
+Error:
+- expected : Tx.Tx<W.World<T.MotionSchema, Product.Owner<Col.Column<T.MotionSchema, T.Position>, Product.Owner<Col.Column<T.MotionSchema, T.Velocity>, Col.Column<T.MotionSchema, T.Selected>>>, Product.Owner<T.MotionLedger, ../../../../src/ecs/ordinary-service-declaration.Slot<R.Audit>>, ../../../../src/ecs/relation-commands.Notice<T.MotionSchema, Nat>>, ../../../../src/ecs/relation-commands.Notice<T.MotionSchema, Nat>>
+- observed : Tx.Tx<W.World<T.MotionSchema, Product.Owner<Col.Column<T.MotionSchema, T.Position>, Product.Owner<Col.Column<T.MotionSchema, T.Velocity>, Col.Column<T.MotionSchema, T.Selected>>>, Product.Owner<T.MotionLedger, ../../../../src/ecs/ordinary-service-declaration.Slot<R.Audit>>, ../../../../src/ecs/relation-commands.Notice<T.MotionSchema, Nat>>, Nat>
+Context:
+- rest         : Nat
+- index        : U32
+- tx           : Tx.Tx<W.World<T.MotionSchema, Product.Owner<Col.Column<T.MotionSchema, T.Position>, Product.Owner<Col.Column<T.MotionSchema, T.Velocity>, Col.Column<T.MotionSchema, T.Selected>>>, Product.Owner<T.MotionLedger, ../../../../src/ecs/ordinary-service-declaration.Slot<R.Audit>>, ../../../../src/ecs/relation-commands.Notice<T.MotionSchema, Nat>>, Nat>
+- reservations : List<&2, W.Reservation<T.MotionSchema>>
+Location: seed_rows
+77 |     case 0n state:state
+78>|     case 1n+rest Reserved{tx,reservations}:seed_next(state => seed_rows(rest,U32.add(index,1),state),reservations,Cmd.tx_spawn(~T.MotionSchema,~Store(),~Resources(),~E.event_type(),~Payload,~populate,tx,payload(index)))
+   |                                                                                                                                                                                                         ^^
+79 | type Seeded is Type:
+bend 2.0.37 is available: run bend update

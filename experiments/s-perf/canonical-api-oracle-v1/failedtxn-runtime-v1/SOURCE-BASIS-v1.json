@@ -1,0 +1,107 @@
+{
+  "arguments": {
+    "count": 64,
+    "iterations": 64
+  },
+  "expected": {
+    "bytes": 38459780,
+    "gzipBytes": 1773593,
+    "gzipPath": "motion64/expected.stdout.gz",
+    "gzipSha256": "92d625be9876edd184b0b697b219547cb3f0f261a74c4da9c2e02829d7c2f956",
+    "path": "motion64/expected.stdout",
+    "sha256": "28595ef3734a1b4772e43d01b63806120db6c452207c31caaddd3d50cb45e3f0"
+  },
+  "format": "bendvy-independent-expected-source-basis-v1",
+  "model": {
+    "baseCommit": "635089ce9f031380dd63f463ca64190cbdff63e8",
+    "branch": "oracle/failedtxn-runtime-v2",
+    "language": "Python 3 standard library only",
+    "notes": "MODEL-NOTES.md",
+    "notesSha256": "259ca28939ecfb6a3e818e3176150337c6d3c6481787906547bca28717f32a62",
+    "path": "model.py",
+    "sha256": "7fb0c085af8eaa4bb22570b8856b76b40802e6bd157d3904b22b906a4c3de943",
+    "verification": [
+      "py_compile",
+      "--self-check",
+      "two full renders byte-identical",
+      "existing JS complete-output exact comparison",
+      "existing Native prefix comparison"
+    ]
+  },
+  "process": {
+    "namespaceLineage": [
+      1,
+      2
+    ],
+    "order": [
+      "warmup",
+      "measured"
+    ],
+    "worldFactoryCalls": 2
+  },
+  "provenance": {
+    "candidateBackendsReadOrRunByModel": false,
+    "historicalEvidence": "Broad source search incidentally returned a few lines from historical evidence JSON; discarded and not used for expected derivation. No claim of blindness to all historical outputs.",
+    "subjectCompiledOrExecutedByThisOracleWorker": false,
+    "subjectOutputsReadAfterRenderForValidation": true,
+    "validation": {
+      "jsFullOutput": {
+        "comparedAfterRender": true,
+        "bytes": 38459780,
+        "sha256": "28595ef3734a1b4772e43d01b63806120db6c452207c31caaddd3d50cb45e3f0",
+        "result": "exact byte-for-byte match"
+      },
+      "nativeOutput": {
+        "comparedAfterRender": true,
+        "bytesCompared": 19226624,
+        "outputBytesAtRecordedTimeLimit": 19226624,
+        "sha256": "24a4f03754eb351d1ee28b24971e690f6a02d8555e14e61a39973c58cd06b0ab",
+        "result": "exact expected-stream prefix; full equality not claimed"
+      }
+    }
+  },
+  "scenario": "FailedTxn canonical Motion64 first full pair",
+  "semanticReferences": {
+    "approvedScenarioContract": {
+      "failureScenarioDraft": {
+        "path": "experiments/s-integrate/measurement-failure-DRAFT.md",
+        "sha256": "52cb730e444210b8899add6e9bf167d2d5a5a56c08c61b20856230af282207bf"
+      },
+      "failureScenarioReadme": {
+        "path": "experiments/s-integrate/measurement-failure-README.md",
+        "sha256": "ee5970c5bee75d0f8a6fc37dc433f5608ac7583ad2ac43e45765055dbe3d8a21"
+      }
+    },
+    "bendRuntime": {
+      "commit": "a950fd683c0d76f09794078e6174fe98a1492876",
+      "path": ".references/bend2",
+      "precedence": "second; runtime constraints and implementation semantics are pinned by the frozen Bend source closure"
+    },
+    "bevy": {
+      "commit": "ad678262ce53b5d142fe49ee5e08caff6f00ab60",
+      "path": ".references/bevy",
+      "primaryPaths": [
+        "crates/bevy_ecs/src/system/function_system.rs:845-855",
+        "crates/bevy_ecs/src/schedule/executor/single_threaded.rs:137-148,162-167"
+      ]
+    },
+    "typescriptInventory": {
+      "path": "experiments/s-integrate/measurement-reference.mjs",
+      "precedence": "third; workload inventory only",
+      "sha256": "039edf1ec9905ad39c94bf4fcd9850610615251bd8b72e044b93fb7aa7c90376"
+    },
+    "warmupContract": {
+      "path": "experiments/s-prep/warmup/README.md",
+      "sha256": "421861cbdc0ced1c76a9add069f05e67a15ccf79c63f47c35a60d114c4f225a8"
+    }
+  },
+  "sourceFreeze": {
+    "freezeCommit": "d76fab51368cb1f78e32ae5b7634b6d73a20d738",
+    "frozenWorktree": "/tmp/bendvy-canonical-failedtxn",
+    "manifest": "SOURCE-FREEZE.json",
+    "manifestSha256": "30176f2038a04d6feed68620795979c874b5befe00b7c4c6120c3538912230b2",
+    "sourceCommit": "e022abb1058caec73e67c3b1376416bf7ae1a845",
+    "sourceInventoryEntries": 116,
+    "sourcePinEntries": 232
+  }
+}

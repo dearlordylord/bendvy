@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:String -> String
+- observed : @+text:String -> String
+Location: audit
+56 |     case Service.Missing{}:(Service.Missing{},"Missing")
+57>|     case Service.Ready{R.Recorded{+effects}}:(Service.Ready{R.Recorded{effects}},"Recorded" ++ List.show(&2,String,audit_effect,effects))
+   |                                                                                                                    ^^^^^^^^^^^^
+58 | def resources_join(left:T.MotionLedger & String,right:Service.Slot<R.Audit> & String) -> F.Resources() & String:
+bend 2.0.37 is available: run bend update

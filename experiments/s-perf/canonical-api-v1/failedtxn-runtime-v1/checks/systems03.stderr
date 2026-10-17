@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a
+- observed : a (consumed more than once)
+Location: local_observed
+76 |     case Local.Refused{world,instance,L.Args{meta,tick,_,_,_,_}}:(Owners{rebuilt(a,instance,other,publications,meta,tick),dispose,frame_call(frame,None{},"LocalRefused")},Sys.Failed{world,Unit{}})
+77>| def local_observed(a:Bool,other:L.Instance(),publications:Publications.Provider(),dispose:Dispose.Registry(),+frame:Frame,meta:L.Meta(),tick:Nat,world:F.World(),observed:L.Instance() & String) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
+   |                    ^
+78 |   match observed:
+bend 2.0.37 is available: run bend update

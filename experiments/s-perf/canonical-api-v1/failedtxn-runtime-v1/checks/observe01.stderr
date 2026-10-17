@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a defined name
+- observed : String.show
+Location: audit
+55 |     case Service.Missing{}:(Service.Missing{},"Missing")
+56>|     case Service.Ready{R.Recorded{+effects}}:(Service.Ready{R.Recorded{effects}},"Recorded" ++ List.show(&2,String,String.show,effects))
+   |                                                                                                                    ^^^^^^^^^^^
+57 | def resources_join(left:T.MotionLedger & String,right:Service.Slot<R.Audit> & String) -> F.Resources() & String:
+bend 2.0.37 is available: run bend update

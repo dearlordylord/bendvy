@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : Service.Setup<T.MotionSchema, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<T.MotionSchema, T.Position>, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<T.MotionSchema, T.Velocity>, ../../../../src/ecs/column.Column<T.MotionSchema, T.Selected>>>, ../../../../src/ecs/owner-product.Owner<T.MotionLedger, Service.Slot<R.Audit>>, Nat, scan>
+- observed : Service.Setup<T.MotionSchema, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<T.MotionSchema, T.Position>, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<T.MotionSchema, T.Velocity>, ../../../../src/ecs/column.Column<T.MotionSchema, T.Selected>>>, ../../../../src/ecs/owner-product.Owner<T.MotionLedger, Service.Slot<R.Audit>>, Nat, Request.world_observed(../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<T.MotionSchema, T.Position>, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<T.MotionSchema, T.Velocity>, ../../../../src/ecs/column.Column<T.MotionSchema, T.Selected>>>, Nat, T.MotionSchema, ../../../../src/ecs/owner-product.Owner<T.MotionLedger, Service.Slot<R.Audit>>, R.Audit, T.MotionLedger, String, Unit, Request.Identity{1, "Audit"}, R.take_audit, R.put_audit, R.record, Request.Declaration{})>
+Location: setup
+23 | def setup() -> Service.Setup<T.MotionSchema,F.Store(),R.Resources(),Nat,scan>:
+24>|   Request.setup(~F.Store(),~Nat,~T.MotionSchema,~R.Resources(),~R.Audit,~T.MotionLedger,~String,~Unit,~Audit.identity(),~R.take_audit,~R.put_audit,~R.record,~Audit.declaration())
+   |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+25 | 
+bend 2.0.37 is available: run bend update

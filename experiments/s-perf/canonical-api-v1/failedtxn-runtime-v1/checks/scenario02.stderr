@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : iterations
+- observed : iterations (consumed more than once)
+Context:
+- count : U32
+Location: created
+95 |     case F.Seeded{world,+reservations,outcome}:seed_pending(prefix ++ "seedOutcome=" ++ seed_outcome(outcome) ++ ";reservations=" ++ List.show(&2,W.Reservation<T.MotionSchema>,O.reservation,reservations) ++ "\n",iterations,reservations,O.world(world))
+96>| def created(count:U32,iterations:U32,observed:F.World() & String) -> String:
+   |                       ^^^^^^^^^^
+97 |   match observed:
+bend 2.0.37 is available: run bend update

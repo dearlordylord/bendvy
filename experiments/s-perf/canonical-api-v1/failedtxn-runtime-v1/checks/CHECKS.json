@@ -1,0 +1,62 @@
+{
+  "cpu": 8,
+  "perCheckCapSeconds": 5,
+  "wrapper": "/workspace/formal-proofs/bendvy/scripts/bend-check",
+  "wrapperSHA256": "58b445584d2715e8631e7758358a09383f53b167527d2d89dcedb6f2d0798c55",
+  "pure": {
+    "entry": "motion-scenario.bend",
+    "stdout": "scenario06.stdout",
+    "stderr": "scenario06.stderr",
+    "result": "ALL PROOFS CHECK; source/type/quantity only"
+  },
+  "host": {
+    "entry": "motion-main.bend",
+    "stdout": "host03.stdout",
+    "stderr": "host03.stderr",
+    "result": "exact foreign dependency list only; no parser/type/quantity diagnostics",
+    "foreignDefinitions": [
+      "../../../../src/ecs/world-namespace.fresh",
+      "../../../../src/ecs/world-io.create",
+      "motion-driver.make",
+      "motion-driver.measured",
+      "motion-driver.warmup_created",
+      "motion-driver.run",
+      "parsed",
+      "args",
+      "main"
+    ]
+  },
+  "backendExecution": false,
+  "sourceBodies": {
+    "events.bend": "076d2480eae357d20325bf3297b6cb37111146a7058f0ae929e9c4a5a2dcff79",
+    "motion-access.bend": "6f9cc5837a7aefc952c09a2c8450a1533f751cc6f6d47f85b390ad4375ba4a25",
+    "motion-audit.bend": "d4effbe1058166097b068edc38ea82aa0fc8979c36cef73479a837e82d0f2f71",
+    "motion-boundary.bend": "b77efba84a058b5edbfc8474fb428396f7c0ee9b70ba38025c60c74149cc1dc9",
+    "motion-call.bend": "b3c2e9654ab089b955898c02572745ab137a57cc40819210a56b806544f9d620",
+    "motion-callbacks.bend": "09aea2aa1c3b4627f341e3c7bf126c9d279aa08cd5ea7b5ef8f15d0719f02054",
+    "motion-dispose.bend": "4ed297b16c294f6a19d80e4c46c6a6bf81533ee893ccc8265a7698bde7272bda",
+    "motion-driver.bend": "d94e2b3649f6fbe88aadc3499e37d47433ac0f4574d7f8ea3b4b4f6fd6a37117",
+    "motion-family.bend": "883ddb927b9e6fde959e3b36d8f68721a5ef0baec9f4d782ec337561b904c1e2",
+    "motion-grants.bend": "6f9d077619a9c20794a2826ed6d9fffd984a735f32a6146b82feeec158456dd4",
+    "motion-local.bend": "672154442032dbfe3a0c9b015bc41861b7c5ae601b4bda5aec419c71e4497228",
+    "motion-logical.bend": "51fca0adf874c35587d188dc1e3775b84a6a69ad5f86a4bb17ae2299bfe9a8ae",
+    "motion-main.bend": "83ae1ff730c7e3ec089ca76e3bbd534cd50e51b54edd3b145a09510db7eb6fc0",
+    "motion-observe.bend": "06f27b0fe4bb06feae5cf1743279ead29d7fabd443c3e08387ef302d4de57098",
+    "motion-owner-observe.bend": "a89cc59ac445a1e81c626e0c675c5ae69454cde2a13a732ac6a628c34eebad41",
+    "motion-parameters.bend": "8db4e6dbeb9b8a35ea4a2cb861f45d66245d9050bdac9f1bc4a3e77f2c44e1c0",
+    "motion-program.bend": "c09f527f3f97f6424805faa7db164909bcded481a8390ad52ef38aa5663f7f2a",
+    "motion-publications.bend": "7219a4a0966d219bdb3773410d42623470dda7d561ca51c04959584f9e76b7b7",
+    "motion-reader-owner-observe.bend": "4e4eb074134ebc5a6da0c6cb391ead772df0db4c7971f6cedc3eb7639b3cc989",
+    "motion-reader.bend": "8583344296e70eeb6e91fc7e46e3409f8722261bca047fa88f39722bea9987f3",
+    "motion-registration.bend": "52ca67f90939c51e4465a3ce75d95cb32707143cd626fcd4bb6992de5c39b783",
+    "motion-render.bend": "176915d2d6ab40e9ed912c45ffa52f379f0223b26038f2d7c12176d5cdeb6797",
+    "motion-resources.bend": "d1032a75bb04498710fe9bec07eb66056710ab5a4a499ff7f5a2771700a0f089",
+    "motion-runtime-observe.bend": "4826516d2582e7c53b0c4f2378b3a935ea42f7651091c5ff4a27052356105f16",
+    "motion-scenario.bend": "067ba632a387334990cead406ecd148ea26a690da3364cb2632d6eb8ca24e761",
+    "motion-schedule.bend": "b173e3cbd1663ffbb723a95af94674450c64126f1a125a46b4fb406d30e6cda9",
+    "motion-systems.bend": "3e595b6fc9f2649374b3228ac8bc22c9566ec04745004d493ff62f9b8fb5e453",
+    "motion-tx-observe.bend": "355a54f5be4a805c0f9404bc945daf7ead383d2d282789c6167989781698d579",
+    "motion.bend": "f0e508a33c1105659732ca269c5884e215de946fb2e871c9e44c80831bfa0a3e",
+    "trace-observe.bend": "5d96ab41e2d75c90e03b56cee48d3e2b11c3f19c44ab98c98ef7db14bec86c74"
+  }
+}

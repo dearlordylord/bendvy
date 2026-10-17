@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : a function type
+- observed : T.Boundary
+Context:
+- boundary : T.Boundary
+Location: fact
+78 |     case T.ReaderFact{namespace,id,name,readerId,domain,lagged}:"ReaderFact{" ++ U32.show(namespace) ++ ";" ++ U32.show(id) ++ ";" ++ O.audit_effect(name) ++ ";" ++ U32.show(readerId) ++ ";" ++ O.audit_effect(domain) ++ ";" ++ Bool.show(lagged) ++ "}"
+79>|     case T.BoundaryFact{boundary}:"BoundaryFact{" ++ boundary(boundary) ++ "}"
+   |                                                      ^^^^^^^^^^^^^^^^^^
+80 |     case T.Fact{category,key,operation,subject,before,after,result}:"Fact{" ++ category(category) ++ ";" ++ O.audit_effect(key) ++ ";" ++ operation(operation) ++ ";" ++ maybe_string(subject) ++ ";" ++ value(before) ++ ";" ++ value(after) ++ ";" ++ factresult(result) ++ "}"
+bend 2.0.37 is available: run bend update
