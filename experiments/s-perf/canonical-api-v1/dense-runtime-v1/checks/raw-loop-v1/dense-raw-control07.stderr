@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : _ => U32
+Context:
+- fail   : Bool
+- owner  : body_done~H
+- result : ../../../../src/ecs/transaction.Outcome<Unit>
+Location: body_done
+129 | def Pair(-A: Type, -B: Type) -> Type:
+130>|   Sigma<&1, &1, A, _ => B>
+    |                    ^
+131 | 
+bend 2.0.37 is available: run bend update

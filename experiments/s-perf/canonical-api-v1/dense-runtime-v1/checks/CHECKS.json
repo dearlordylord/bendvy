@@ -1,0 +1,15 @@
+{
+  "cpu": 8,
+  "capSeconds": 5,
+  "wrapper": "/workspace/formal-proofs/bendvy/scripts/bend-check",
+  "purePass": [
+    "motion-observe01",
+    "health-observe01"
+  ],
+  "hostChecks": [
+    "motion01",
+    "health01"
+  ],
+  "hostVerdict": "Only six actual foreign-dependent definitions: world-namespace.fresh, world-io.create, run, parsed, args, main. No parser/type/quantity error; no proof PASS claimed for IO.",
+  "scope": "Source-only correctness validation; no timing or backend execution."
+}

@@ -145,10 +145,20 @@ def selected(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data
   match observed:
     case (Frame{tx,_,_,_},False{}): next(tx)
     case (frame,True{}): body_returned(~S,~Store,~R,~E,~U,~Out,next,Cap.invoke(~Ops,~A,~(T.Outcome<U> & Out),~body,~Frame<S,Store,R,E>,~plan_caps(~S,~Store,~R,~E,~Ops,plan),args,frame))
-def run_handles(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),handles: List<&2,W.Handle<S>>,+args: A,+cursor: U32,tx: T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>):
-  match handles:
-    case []: (tx,(T.Success{},[]))
-    case handle <> rest: selected(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,args,(tx => run_handles(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,rest,args,cursor,tx)),plan_select(~S,~Store,~R,~E,~Ops,plan)(Frame{tx,handle,None{},cursor}))
+def row_end(~S: Data,~Store: Type,~R: Type,~E: Data,~U: Data,~Out: Data,tx: T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>):
+  (tx,(T.Success{},[]))
+def selected_row(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,observed: Frame<S,Store,R,E> & Bool) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>):
+  match observed:
+    case (Frame{tx,_,_,_},False{}): row_end(~S,~Store,~R,~E,~U,~Out,tx)
+    case (frame,True{}): body_returned(~S,~Store,~R,~E,~U,~Out,row_end(~S,~Store,~R,~E,~U,~Out),Cap.invoke(~Ops,~A,~(T.Outcome<U> & Out),~body,~Frame<S,Store,R,E>,~plan_caps(~S,~Store,~R,~E,~Ops,plan),args,frame))
+# Finish each row before the next; keep successful values in reverse order.
+def run_handles_acc(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),handles: List<&2,W.Handle<S>>,+args: A,+cursor: U32,values: List<&2,Out>,observed: T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>)) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>):
+  match handles observed:
+    case _ Tuple{tx,Tuple{T.Failure{error},_}}: (tx,(T.Failure{error},List.reverse(&2,Out,values)))
+    case Nil{} Tuple{tx,Tuple{T.Success{},current}}: (tx,(T.Success{},List.reverse(&2,Out,List.reverse.go(&2,Out,current,values))))
+    case Con{handle,rest} Tuple{tx,Tuple{T.Success{},current}}: run_handles_acc(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,rest,args,cursor,List.reverse.go(&2,Out,current,values),selected_row(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,args,plan_select(~S,~Store,~R,~E,~Ops,plan)(Frame{tx,handle,None{},cursor})))
+def run_handles(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),handles: List<&2,W.Handle<S>>,args: A,cursor: U32,tx: T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>):
+  run_handles_acc(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,handles,args,cursor,[],(tx,(T.Success{},[])))
 def finish_returned(~S: Data,~Store: Type,~R: Type,~E: Data,~U: Data,~Out: Data,values: List<&2,Out>,returned: T.Returned<W.World<S,Store,R,E>,Error<U>>) -> Executed<W.World<S,Store,R,E>,Error<U>,Out>:
   match returned:
     case T.Returned{world,T.Success{}}: Executed{world,T.Success{},values}

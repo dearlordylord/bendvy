@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+20 |     case (owner,(result,+value)):
+21>|       match Bool.and(fail,U32.is_eq(value,10)):
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+22 |         case False{}:(owner,(result,value))
+bend 2.0.37 is available: run bend update

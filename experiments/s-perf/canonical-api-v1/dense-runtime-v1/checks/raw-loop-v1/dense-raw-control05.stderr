@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : '(undo,uc) (commands,cc)'
+Location:
+44 |   match undos cmds:
+45>|     case (undo,uc) (commands,cc):raw_world("undo=" ++ U32.show(uc) ++ ";commands=" ++ U32.show(cc) ++ ";events=" ++ List.show(&2,Nat,Nat.show,events) ++ ";traceEnabled=" ++ Bool.show(Trace.enabled(trace)) ++ ";world=",undo,commands,events,trace,O.world(world))
+   |          ^^^^^^^^^^^^^^^^^^^^^^^
+46 | def raw_tx(tx:T.Tx<F.World(),Nat>) -> T.Tx<F.World(),Nat> & String:
+bend 2.0.37 is available: run bend update

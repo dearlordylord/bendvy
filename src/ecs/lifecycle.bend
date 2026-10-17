@@ -12,10 +12,14 @@ def choose(found: Bool,stamp: Stamp,other: Stamp) -> Stamp:
     case True{}: stamp
     case False{}: other
 
-def get(entries: List<&2,Entry>,+id: U32) -> Stamp:
-  match entries:
-    case []: Stamp{0,0}
-    case Entry{key,stamp} <> rest: choose(U32.is_eq(key,id),stamp,get(rest,id))
+def get_selected(entries: List<&2,Entry>,+id: U32,found: Bool,stamp: Stamp) -> Stamp:
+  match entries found:
+    case _ True{}: stamp
+    case Nil{} False{}: Stamp{0,0}
+    case Con{Entry{key,current},rest} False{}: get_selected(rest,id,U32.is_eq(key,id),current)
+
+def get(entries: List<&2,Entry>,id: U32) -> Stamp:
+  get_selected(entries,id,False{},Stamp{0,0})
 
 
 def keep(equal: Bool,entry: Entry,rest: List<&2,Entry>) -> List<&2,Entry>:
@@ -23,10 +27,13 @@ def keep(equal: Bool,entry: Entry,rest: List<&2,Entry>) -> List<&2,Entry>:
     case True{}: rest
     case False{}: entry <> rest
 
-def clear(entries: List<&2,Entry>,+id: U32) -> List<&2,Entry>:
+def clear_reversed(entries: List<&2,Entry>,+id: U32,acc: List<&2,Entry>) -> List<&2,Entry>:
   match entries:
-    case []: []
-    case Entry{+key,stamp} <> rest: keep(U32.is_eq(key,id),Entry{key,stamp},clear(rest,id))
+    case []: List.reverse(&2,Entry,acc)
+    case Entry{+key,stamp} <> rest: clear_reversed(rest,id,keep(U32.is_eq(key,id),Entry{key,stamp},acc))
+
+def clear(entries: List<&2,Entry>,id: U32) -> List<&2,Entry>:
+  clear_reversed(entries,id,[])
 
 def set(entries: List<&2,Entry>,+id: U32,stamp: Stamp) -> List<&2,Entry>:
   Entry{id,stamp} <> clear(entries,id)

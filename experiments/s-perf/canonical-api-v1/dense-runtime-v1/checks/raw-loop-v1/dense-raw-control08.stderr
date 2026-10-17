@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : trace
+- observed : trace (consumed more than once)
+Context:
+- world  : W.World<Types.MotionSchema, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<Types.MotionSchema, Types.Position>, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<Types.MotionSchema, Types.Velocity>, ../../../../src/ecs/column.Column<Types.MotionSchema, Types.Selected>>>, ../../../../src/ecs/owner-product.Owner<Types.MotionLedger, Unit>, Nat>
+- events : List<&2, Nat>
+Location: raw_counted
+45 |     case (world,text):(T.Tx{world,undo,commands,events,trace},prefix ++ text)
+46>| def raw_counted(world:F.World(),events:List<&2,Nat>,trace:Trace.State,undos:List<&1,F.World()->F.World()> & U32,cmds:List<&1,Deferred.Command<F.World()>> & U32) -> T.Tx<F.World(),Nat> & String:
+   |                                                     ^^^^^
+47 |   match undos cmds:
+bend 2.0.37 is available: run bend update
