@@ -1,0 +1,11 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.World<S.Schema, S.Store, Unit, Unit>
+- observed : denied~H
+Context:
+- owner : denied~H
+Location: denied
+6 | def denied(~H:Type,owner:H) -> H & U32:
+7>|   W.namespace(~S.Schema,~S.Store,~Unit,~Unit,owner)
+  |                                              ^^^^^
+8 | 

@@ -76,3 +76,10 @@ This is correctness evidence, not a performance measurement.
 The explicit dispatcher and column projections here are observations about this
 registered-ECS example, not proven mandatory user boilerplate. Compare the
 ordinary App composer before deciding whether a library change is needed.
+
+The completed [source-informed API investigation](../../experiments/public-api-usability/health-v1/README.md)
+compares the actual ordinary App route and a generic one-system helper on JS and
+Native, including refusal/rollback and type boundaries. It demonstrates that
+caller-authored dispatch is removable for that bounded case. General adoption is
+tracked in [#73](https://github.com/dearlordylord/bendvy/issues/73); the separate
+blind audit above is still outstanding.
