@@ -26,3 +26,17 @@ bounds controls. Preserve their frozen hashes and mutation inverses. For this
 audited staged set only, `git -c core.whitespace=-blank-at-eof commit` retains
 all other whitespace checks, hooks and admission controls. No persistent Git
 configuration or frozen source body is changed.
+
+Integration formatting successor (changed-portion review PASS): CI run
+6ad38984817706 rejected the same four frozen EOF blank lines because the local
+per-command configuration did not apply in CI. This supersedes the per-command-only
+workaround above. Four exact full-path `.gitattributes` entries now disable only
+`blank-at-eof` on those historical private copies. They use no glob and change no
+ordinary source policy, frozen body, runner, workflow or receipt. All four copies
+remain byte-identical to the retained normal `owner-handoff.bend`, SHA256
+`91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec`.
+The retained controls show the full historical diff passes while the identical
+ordinary `src/ecs/owner-handoff.bend` EOF defect still refuses (exit3). Preserve
+the original hook output and CI failure as historical integration evidence; the
+semantic review verdict and qualified backend results remain unchanged. No Bend,
+benchmark or backend rerun was required or performed for this formatting repair.
