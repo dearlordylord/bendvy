@@ -2,7 +2,7 @@
 
 Use the ordinary App entry to run typed registrations together. The library derives dispatch, registration identities, cursors, and the schedule from the registrations you retain. The existing SchemaApp, Schedule, and execution tracing still perform the work.
 
-World creation and component storage remain explicit. Create each World with [`world-io.create`](../../src/ecs/world-io.bend) and retain its returned handles. Define component bindings and resource or service declarations before registration.
+World creation and component storage remain explicit. Create each World with [`world-io.create`](../../src/ecs/world-io.bend). Obtain entity handles from actual reserve or spawn results and retain those handles. Define component bindings and resource or service declarations before registration.
 
 ## Build the registrations
 
