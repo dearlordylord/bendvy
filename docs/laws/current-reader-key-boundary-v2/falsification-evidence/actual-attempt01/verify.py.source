@@ -1,0 +1,41 @@
+from pathlib import Path
+import gzip,json,hashlib,tempfile,shutil,subprocess,re
+OUT=Path('/tmp/bendvy-laws62/docs/laws/current-reader-key-boundary-v2/falsification-evidence/actual-attempt01');sha=lambda b:hashlib.sha256(b).hexdigest();m=json.loads((OUT/'manifest.json').read_text())
+with tempfile.TemporaryDirectory() as temp:
+ q=Path(temp)/'packet';shutil.copytree(OUT,q);data={}
+ for r in m['members']:
+  if 'object' in r:
+   z=(q/r['object']).read_bytes();assert sha(z)==r['compressedSHA256'];b=gzip.decompress(z)
+  else:b=Path(r['path']).read_bytes()
+  assert sha(b)==r['sha256'] and len(b)==r['bytes'];data[r['path']]=b
+ counters={};commands=0
+ for role in m['roles']:
+  p=json.loads(data[role['plan']]);r=json.loads(data[role['receipt']]);assert r['planSHA256']==sha(data[role['plan']]);assert r['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS'
+  for x,h in p['pins'].items():assert sha(data[x])==h
+  for root,entries in p['resourceRoots'].items():
+   for x,h in entries.items():assert sha(data[str(Path(root)/x)])==h
+  for g in r['guards']:
+   assert sha(data[g['path']])==g['sha256'];v=json.loads(data[g['path']]);assert v['unchanged']
+   for x,h in v['actualPins'].items():assert sha(data[x])==h
+  seen=set()
+  def visit(x):
+   if x in seen:return
+   seen.add(x);assert sha(data[x])==p['sourceInventory'][x]
+   for imp in re.findall(r'^import\s+(\S+)',data[x].decode(),re.M):
+    if imp!='Base':visit(str((Path(x).parent/imp).resolve()))
+  visit(p['entrypoint']);assert seen==set(p['sourceInventory'])
+  for x in p['pins']:
+   if Path(x).name=='SOURCE-FREEZE.json':
+    f=json.loads(data[x])
+    for section in ['sourceInventory','sourcePins']:
+     for a,h in f.get(section,{}).items():assert sha(data[a])==h
+  for c in r['commands']:
+   assert c['exit']==0 and c['failure'] is None;commands+=1
+   for k in ['stdout','stderr']:
+    z=c[k];assert sha(data[z['path']])==z['sha256'] and len(data[z['path']])==z['bytes']
+  c=next(c for c in r['commands']if c['label']=='consumer');actual=data[c['stdout']['path']];assert actual==gzip.decompress(data[p['oracle']]);assert not data[c['stderr']['path']]
+  if role['variant']!='normal':assert r['completeNormalBaselineRejected'] and actual!=gzip.decompress(data[p['normalOracle']])
+  model=next(x for x in p['pins'] if x.endswith('/oracle-v1/model.py'));dest=Path(temp)/'model.py';dest.write_bytes(data[model]);result=subprocess.run(['/usr/bin/python3.11',str(dest),role['variant']],capture_output=True,check=True);assert result.stdout==actual and not result.stderr
+  rows=[z.split('|') for z in actual.decode().splitlines() if z];assert len(rows)==18 and all(len(z)==3 for z in rows);bad=[z[0]for z in rows if z[1]!=z[2]]
+  assert bool(bad)==(role['variant']!='normal');counters[role['variant']+'/'+role['role']]=bad
+ result={'status':'PASS','isolatedObjectRelocation':True,'backendReplay':False,'bindings':len(data),'roles':6,'commands':commands,'rowsPerRole':18,'fullIndependentModelReproduction':True,'normalDiscrimination':counters,'approval':'UNAPPROVED','proofs':False};(OUT/'FULL-JOIN-VERIFICATION.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result))

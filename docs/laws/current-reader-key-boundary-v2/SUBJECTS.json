@@ -1,0 +1,70 @@
+{
+  "status": "UNAPPROVED_SOURCE_FORMATION_ONLY",
+  "sourceBase": "a969f8c00b517cd4d2527db53aeb41c15e47421e",
+  "lawsSHA256": "b86435ad296308c3869ddf00d8603db83e7125aad6637bc203721a39ec43f6ed",
+  "specificationSHA256": "aea16de7c7f9912322178d2c2337d44c7e71b6acd92e9c3421499f53d07526ea",
+  "literalFixtureSHA256": "1c11d01af9882a109104e8d5d955943e7dc66fde03decd76a2a3b5a9e77a8cfc",
+  "subjects": [
+    {
+      "id": "full_key_equality",
+      "blockSHA256": "9c55560754d8e90c4698face7b59be5f8ae0b083b8ed74d01eb1a21b3eee5275"
+    },
+    {
+      "id": "selected_completion_positions",
+      "blockSHA256": "7fe1145541e7d7691c0bd476f343337253c7db4c6bc2d84bbbda95c382c7be21"
+    },
+    {
+      "id": "stream_completion_fields",
+      "blockSHA256": "5024731b8b328ae4d7671d7affa24912f5ac5c460119046aae15266a911c9fdc"
+    },
+    {
+      "id": "stream_explicit_advance",
+      "blockSHA256": "e05e36905a73010f4463390d17bb85ef5d8ce3749e8f688e7732818de29189cc"
+    }
+  ],
+  "coreSources": {
+    "src/ecs/entity-key.bend": "ff8cf964a493fe6122509f9cf0fdbadc2423d45bd2e4f7f7db72460bdcbc6ced",
+    "src/ecs/event-stream.bend": "04e9a2b39454171f0b5e88b2b01eaaf9bbbdc9c4eaf9882a8987bece0f696c40",
+    "src/ecs/event-runtime.bend": "2ef936d15f30d713c1cb9a69fdbcf2d52ec3f820cbc9e7f1895c1e49d6535557",
+    "src/ecs/ordinary-event-declaration.bend": "e168b856cf35273713117364a83723e168d695c2437f86e4f838baac807ef55b"
+  },
+  "sourceChecks": {
+    "cpu": 6,
+    "wrapper": "/workspace/formal-proofs/bendvy/scripts/bend-check",
+    "capSeconds": 5,
+    "draftExpectedOpenTODOs": 4,
+    "literalAndMutantChecks": 5
+  },
+  "backendExecuted": false,
+  "proofFiles": [],
+  "literalOracle": "pending independent source review; never captured from candidate execution",
+  "scope": "4 exact pure Data helper subjects;18 complete rows; no generic World/affine refinement or new policy",
+  "successorOf": "../current-reader-key-draft/SUBJECTS.json",
+  "addedWitnesses": [
+    {
+      "row": "selected_completion_positions/empty-success",
+      "success": true,
+      "positions": [],
+      "id": 7,
+      "tick": 4
+    },
+    {
+      "row": "selected_completion_positions/absent-zero-failure",
+      "success": false,
+      "positions": [
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          2,
+          4,
+          3
+        ]
+      ],
+      "id": 3,
+      "tick": 0
+    }
+  ]
+}

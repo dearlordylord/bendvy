@@ -1,0 +1,36 @@
+from pathlib import Path
+import gzip,json,hashlib
+WT=Path('/tmp/bendvy-laws62');RUN=Path('/tmp/bendvy62-falsification-first-actual01');OUT=WT/'docs/laws/current-reader-key-boundary-v2/falsification-evidence/actual-attempt01';sha=lambda b:hashlib.sha256(b).hexdigest();files={};external=set();roles=[]
+def add(p,h=None,tool=False):
+ p=Path(p);b=p.read_bytes();assert h is None or sha(b)==h,str(p);assert str(p) not in files or files[str(p)]==b;files[str(p)]=b
+ if tool and b.startswith(b'\x7fELF'):external.add(str(p))
+for name,role in [('normal','js'),('normal','native'),('generation-omission','js'),('failed-reader-advance','js'),('dropped-metadata-loss','js'),('explicit-advance-zero','js')]:
+ d=RUN/name/role;p=d/'plan.json';rpath=d/'receipt.json';plan=json.loads(p.read_text());r=json.loads(rpath.read_text());assert r['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS';assert r['planSHA256']==sha(p.read_bytes())
+ for x,h in plan['pins'].items():add(x,h,True)
+ for root,entries in plan['resourceRoots'].items():
+  for x,h in entries.items():add(Path(root)/x,h,True)
+ for x in d.iterdir():
+  if x.is_file():add(x)
+ for c in r['commands']:
+  assert c['exit']==0 and c['failure'] is None
+  for k in ['stdout','stderr']:
+   q=c[k];add(q['path'],q['sha256']);assert len(files[q['path']])==q['bytes']
+ for g in r['guards']:
+  add(g['path'],g['sha256']);v=json.loads(files[g['path']]);assert v['unchanged']
+  for x,h in v['actualPins'].items():add(x,h,True)
+ c=next(c for c in r['commands'] if c['label']=='consumer');actual=files[c['stdout']['path']];assert actual==gzip.decompress(files[plan['oracle']]);assert not files[c['stderr']['path']]
+ if name!='normal':assert r['completeNormalBaselineRejected'] and actual!=gzip.decompress(files[plan['normalOracle']])
+ external.discard(plan.get('native',''));roles.append({'variant':name,'role':role,'plan':str(p),'receipt':str(rpath),'commands':len(r['commands']),'stdoutBytes':len(actual),'stdoutSHA256':sha(actual)})
+for p,b in list(files.items()):
+ if Path(p).name=='SOURCE-FREEZE.json':
+  v=json.loads(b)
+  for k in ['sourceInventory','sourcePins']:
+   for x,h in v.get(k,{}).items():add(x,h)
+OUT.mkdir(parents=True,exist_ok=False);(OUT/'objects').mkdir();rows=[]
+for p,b in sorted(files.items()):
+ h=sha(b);row={'path':p,'bytes':len(b),'sha256':h}
+ if p in external:row['retention']='external installed ELF identity only'
+ else:
+  z=gzip.compress(b,mtime=0);obj='objects/'+h+'.gz';(OUT/obj).write_bytes(z);row.update(object=obj,compressedSHA256=sha(z))
+ rows.append(row)
+m={'scope':'18 finite complete rows; stockJS+Native normal, four JS planted defects; all four exact law proposals UNAPPROVED; no proof or universal backend guarantee','sourceCommit':'e4db99ddb','oracleCommit':'c4a3700ce','roles':roles,'members':rows};(OUT/'manifest.json').write_text(json.dumps(m,indent=2)+'\n');print(len(rows),len(external))

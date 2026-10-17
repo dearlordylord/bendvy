@@ -1,0 +1,59 @@
+{
+  "status": "SOURCE_DERIVED_UNEXECUTED_SUBJECTS",
+  "sourceFreezeCommit": "e4db99ddb",
+  "lawsSHA256": "b86435ad296308c3869ddf00d8603db83e7125aad6637bc203721a39ec43f6ed",
+  "outputs": {
+    "normal": {
+      "sha256": "cb1aca16b71ade0e6ecd87884b3c6ce7773a5f0d793f78d267bd6ee74d6d1f03",
+      "bytes": 2396,
+      "rows": 18,
+      "differentFromNormal": false,
+      "mismatchedRows": []
+    },
+    "generation-omission": {
+      "sha256": "45b35009d3c69865eda594533ce5e6c6e8ec3aefc23f42694dc408989d73f302",
+      "bytes": 2395,
+      "rows": 18,
+      "differentFromNormal": true,
+      "mismatchedRows": [
+        "full_key_equality/generation"
+      ]
+    },
+    "failed-reader-advance": {
+      "sha256": "d38c582f2d450d6515be2c61b712689bf32d9792bc81f8222087f8746631e010",
+      "bytes": 2396,
+      "rows": 18,
+      "differentFromNormal": true,
+      "mismatchedRows": [
+        "selected_completion_positions/existing-failure",
+        "selected_completion_positions/absent-failure",
+        "stream_completion_fields/existing-failure",
+        "stream_completion_fields/absent-failure"
+      ]
+    },
+    "dropped-metadata-loss": {
+      "sha256": "ea151429b7242411940bd67810057a5601262478eeb6ea4ba4ab4c245c8b0a9a",
+      "bytes": 2396,
+      "rows": 18,
+      "differentFromNormal": true,
+      "mismatchedRows": [
+        "stream_completion_fields/existing-failure",
+        "stream_completion_fields/existing-success",
+        "stream_completion_fields/absent-failure",
+        "stream_completion_fields/absent-success"
+      ]
+    },
+    "explicit-advance-zero": {
+      "sha256": "61687196f3f9d1ff8a52ce96e64fa195ae48d075dc87c953ca9be5cb0982a6bb",
+      "bytes": 2396,
+      "rows": 18,
+      "differentFromNormal": true,
+      "mismatchedRows": [
+        "stream_explicit_advance/existing",
+        "stream_explicit_advance/absent",
+        "stream_explicit_advance/duplicates"
+      ]
+    }
+  },
+  "modelSHA256": "9bcc36f0732b1a08c571b3d963b00337c0f1699f87bc842a9fb7872cc3287e6e"
+}
