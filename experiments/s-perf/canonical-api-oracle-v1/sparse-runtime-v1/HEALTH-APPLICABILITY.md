@@ -1,0 +1,7 @@
+# Health64 source specialization
+
+Source40e0cdee3 adds the Health counterpart while Motion52f8 and all its pinned model files remain unchanged. `health_model.py` reuses the same independently modeled operation chronology and physical state, specializing full Vitals/Armor/Tracked/HealthLedger fields and row scores. Main contributes all four levels plus reserve9 and class2; present Armor contributes four layers plus grade3 plus1. The same three fresh Main-required/optional-Aux/Flag scans precede detached inclusion scoring. No gameplay or scoring operation is removed.
+
+The source-bound complete expected report is428396 bytes. Independent formulas and operation evaluation give clock/cursor563, Ledger512 with all siblings preserved,64 audits and cumulative2090336. Every full scan row and subset row is serialized, not sampled. `health_shared.py` reproduces the existing pinned3040a3b TS Health Sparse64 full-final and audit hashes; its fold33 score remains distinct from the authored Bend weighted score. Source pins, all retained bodies, exact59-Bend/two-sidecar closure and isolated whole report reproduction are checked by `taskset -c 9 python3 verify-health.py.source`.
+
+No subject output or compiler execution informed this model. This addition qualifies only initial Health64×64 expected semantics, with no timing, larger-input or full #21 claim. Motion model files and immutable expected bytes are unchanged.

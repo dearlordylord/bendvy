@@ -1,0 +1,47 @@
+import ast
+import gzip
+import hashlib
+import json
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+
+here = Path(__file__).resolve().parent
+sha = lambda data: hashlib.sha256(data).hexdigest()
+basis = json.loads((here / 'motion/SOURCE-BASIS.json').read_text())
+for group in ['sourceInventory', 'sourcePins', 'formatResources', 'historicalAndTSInputs']:
+    for path, expected in basis[group].items():
+        assert sha(Path(path).read_bytes()) == expected, path
+for path, binding in basis['retainedBodies'].items():
+    assert sha((here / binding['retained']).read_bytes()) == binding['sha256'], path
+for name, expected in basis['modelPins'].items():
+    assert sha((here / name).read_bytes()) == expected
+assert sha(Path(basis['sourceFreeze']).read_bytes()) == basis['sourceFreezeSHA256']
+collector = Path('/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py')
+fn = next(node for node in ast.parse(collector.read_text()).body
+          if isinstance(node, ast.FunctionDef) and node.name == 'validate_imports')
+namespace = {'Path': Path, 're': re}
+exec(compile(ast.Module(body=[fn], type_ignores=[]), str(collector), 'exec'), namespace)
+bends = {path: value for path, value in basis['sourceInventory'].items() if path.endswith('.bend')}
+assert len(namespace['validate_imports']('.', bends, [basis['entrypoint']])) == 59
+raw = (here / 'motion/expected.stdout').read_bytes()
+compressed = (here / 'motion/expected.stdout.gz').read_bytes()
+assert len(raw) == basis['expectedBytes'] and sha(raw) == basis['expectedSHA256']
+assert len(compressed) == basis['expectedGzipBytes'] and sha(compressed) == basis['expectedGzipSHA256']
+assert gzip.decompress(compressed) == raw
+with tempfile.TemporaryDirectory(prefix='sparse-independent-model-') as tmp:
+    for name in basis['modelPins']:
+        shutil.copyfile(here / name, Path(tmp) / name)
+    subprocess.run([sys.executable, str(Path(tmp) / 'model.py'), '--self-test'], check=True)
+    assert subprocess.check_output([sys.executable, str(Path(tmp) / 'model.py')], cwd=tmp) == raw
+    sys.path.insert(0, tmp)
+    import shared
+    final, audits = shared.derived()
+    reference = basis['sharedTS']['result']
+    assert shared.digest(final) == reference['finalSha256'] == reference['oracleSha256']
+    assert shared.digest(audits) == reference['auditSha256']
+assert raw.endswith(b'\n\n') and b'UNSUPPORTED' not in raw
+print('PASS Motion64', len(raw), sha(raw), '59 Bend +2 sidecars; isolated reproduction; existing TS logical/audit hash join')
