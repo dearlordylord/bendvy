@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import ./persistence-declaration.bend as Persist
 import ./decode-data.bend as D
 import ./world.bend as W
@@ -17,7 +18,7 @@ def counted(~S:Data,~P:Type,total:U32,result:Col.Column<S,P> & Bool,ih:Col.Colum
 def column_count(~S:Data,~P:Type,handles:List<&2,W.Handle<S>>,column:Col.Column<S,P>,total:U32) -> Col.Column<S,P> & U32:
   match handles:
     case []:(column,total)
-    case W.Handle{_,id} <> rest:counted(~S,~P,total,Col.has(~S,~P,column,id),column => total => column_count(~S,~P,rest,column,total))
+    case W.Handle{_,Key.EntityKey{id,_}} <> rest:counted(~S,~P,total,Col.has(~S,~P,column,id),column => total => column_count(~S,~P,rest,column,total))
 def component_counted(~S:Data,~P:Type,result:Col.Column<S,P> & U32) -> Col.Column<S,P> & List<&2,Maybe<&2,U32>>:
   match result:
     case (column,count):(column,[Some{count}])

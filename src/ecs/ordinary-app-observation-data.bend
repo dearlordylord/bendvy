@@ -1,4 +1,5 @@
 import Base
+import entity-key-render.bend as KeyText
 import ./world.bend as W
 import ./compose.bend as Q
 import ./ordinary-query-observable.bend as O
@@ -17,7 +18,7 @@ def lowered(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,result:I.Frame<S,C,R,E> & Li
     case (I.Frame{world,_},rows):(world,rows)
 def render_row(~S:Data,~V:Data,~render:V -> String,row:IQ.ProjectedRow<S,V>) -> String:
   match row:
-    case IQ.ProjectedRow{W.Handle{namespace,id},data}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ render(data)
+    case IQ.ProjectedRow{W.Handle{namespace,id},data}:U32.show(namespace) ++ ":" ++ KeyText.show(id) ++ ":" ++ render(data)
 def appended(~S:Data,~C:Type,~R:Type,~E:Data,~Rows:Data,~V:Data,~render:V -> String,previous:Rows,summaries:List<&2,String>,result:W.World<S,C,R,E> & List<&2,IQ.ProjectedRow<S,V>>) -> W.World<S,C,R,E> & Observation<Product<Rows,List<&2,IQ.ProjectedRow<S,V>>>>:
   match result:
     case (world,+rows):(world,Observation{Product{previous,rows},List.append(&2,String,summaries,[List.show(&2,IQ.ProjectedRow<S,V>,render_row(~S,~V,~render),rows)])})

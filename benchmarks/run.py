@@ -16,6 +16,7 @@ import tarfile
 import time
 from pathlib import Path
 from decision import assess
+from generational_fixture import migrate_candidate
 
 from pathlib import Path as _runner_Path
 import sys as _runner_sys
@@ -124,6 +125,8 @@ def main():
             if role == "candidate":
                 shutil.rmtree(stage / "src/ecs")
                 shutil.copytree(ROOT / "src/ecs", stage / "src/ecs")
+                receipt["candidateFixtureAdaptation"] = migrate_candidate(
+                    stage, contract["baselineCommit"], provider_schema=bool(args.candidate_provider))
                 if args.candidate_provider:
                     for name in provider_names:
                         source = provider / name

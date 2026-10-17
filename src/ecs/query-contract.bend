@@ -1,12 +1,13 @@
 import Base
+import entity-key.bend as Key
 import compose.bend as Q
 import capabilities.bend as Cap
 import world.bend as W
 import transaction.bend as T
 
 type Error<U: Data> is Data:
-  MissingEntity{entityId: U32}
-  QueryMismatch{entityId: U32}
+  MissingEntity{entityId: Key.Key}
+  QueryMismatch{entityId: Key.Key}
   NoEntities{}
   MultipleEntities{count: U32}
   BodyError{error: Q.Error<U>}
@@ -15,7 +16,7 @@ type Scanned<-S: Data,-Store: Type,-R: Type,-E: Data> is Type:
 type Executed<-World: Type,U: Data,Out: Data> is Type:
   Executed{world: World,result: Result<&2,&2,Error<U>,Out>}
 
-def handle_id(~S: Data,handle: W.Handle<S>) -> U32:
+def handle_id(~S: Data,handle: W.Handle<S>) -> Key.Key:
   match handle:
     case W.Handle{_,id}: id
 def add(~S: Data,selected: Bool,handle: W.Handle<S>,rest: List<&2,W.Handle<S>>) -> List<&2,W.Handle<S>>:
@@ -50,7 +51,7 @@ def counted(~S: Data,~Store: Type,~R: Type,~E: Data,observed: Scanned<S,Store,R,
     case Scanned{world,handles}: (world,count_list(~S,handles,0))
 def count(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~plan: Q.Plan<S,Store,R,E,Ops>,world: W.World<S,Store,R,E>,cursor: U32) -> W.World<S,Store,R,E> & U32:
   counted(~S,~Store,~R,~E,scan(~S,~Store,~R,~E,~Ops,~plan,world,cursor))
-def executed(~World: Type,~U: Data,~Out: Data,+entityId: U32,observed: Q.Executed<World,Q.Error<U>,Out>) -> Executed<World,U,Out>:
+def executed(~World: Type,~U: Data,~Out: Data,+entityId: Key.Key,observed: Q.Executed<World,Q.Error<U>,Out>) -> Executed<World,U,Out>:
   match observed:
     case Q.Executed{world,T.Failure{error},_}: Executed{world,Fail{BodyError{error}}}
     case Q.Executed{world,T.Success{},value <> []}: Executed{world,Done{value}}

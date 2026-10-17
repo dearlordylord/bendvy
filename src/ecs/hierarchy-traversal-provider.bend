@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import ./relation-types.bend as G
 import ./relation-commands.bend as A
 import ./relation-reorder.bend as Reorder
@@ -16,7 +17,7 @@ type Read<H:Type,S:Data> is Type:
 type Selection is Data:
   Ancestors{}
   DescendantOrder{order:T.Order}
-def selected(~S:Data,graph:G.Graph<S>,descriptor:G.Descriptor<S>,id:U32,selection:Selection) -> T.Walk:
+def selected(~S:Data,graph:G.Graph<S>,descriptor:G.Descriptor<S>,id:Key.Key,selection:Selection) -> T.Walk:
   match selection:
     case Ancestors{}: T.ancestors(~S,graph,descriptor,id)
     case DescendantOrder{order}: T.descendants(~S,graph,descriptor,id,order)

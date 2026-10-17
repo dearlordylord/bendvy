@@ -1,10 +1,12 @@
 import Base
+import entity-key.bend as Key
+import entity-allocator.bend as Alloc
 import ./world.bend as W
 import ./decode-data.bend as D
 
 # Basic detached Data only; runtime checkpoint state is intentionally not encoded.
 type Entity is Data:
-  Entity{id:U32,components:List<&2,D.Field>}
+  Entity{key:Key.Key,components:List<&2,D.Field>}
 type Snapshot is Data:
   Snapshot{version:U32,nextEntity:U32,entities:List<&2,Entity>,resources:List<&2,D.Field>}
 
@@ -12,8 +14,8 @@ type Snapshot is Data:
 # Rebuild the SAME owner with every field returned unchanged.
 def allocator(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & U32:
   match world:
-    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
-      (W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},nextId)
+    case W.World{+namespace,Alloc.Allocator{+nextId,+high,slots,+capacity,+depth,+free,+order},store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
+      (W.World{namespace,Alloc.Allocator{nextId,high,slots,capacity,depth,free,order},store,resource,events,pending,registrations,nextSystemId,clock},nextId)
 
 # Closed schema providers must return the actual store/resource owners. Their
 # projections, transient omission and name bindings are trusted author inputs.

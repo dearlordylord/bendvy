@@ -16,8 +16,8 @@ def without(registrations: List<&2,W.RegistrationMeta>,+id: U32,+name: String,+a
 def remove_checked(~S: Data,~Store: Type,~R: Type,~E: Data,allowed: Bool,world: W.World<S,Store,R,E>,+id: U32,+name: String,+access: List<&2,String>) -> W.World<S,Store,R,E> & Bool:
   match allowed world:
     case False{} world: (world,False{})
-    case True{} W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock}: (W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,without(registrations,id,name,access),nextSystemId,clock},True{})
+    case True{} W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}: (W.World{namespace,allocator,store,resource,events,pending,without(registrations,id,name,access),nextSystemId,clock},True{})
 
 def remove(~S: Data,~Store: Type,~R: Type,~E: Data,world: W.World<S,Store,R,E>,namespace: U32,+id: U32,+name: String,+access: List<&2,String>) -> W.World<S,Store,R,E> & Bool:
   match world:
-    case W.World{+actual,nextId,highWater,live,capacity,depth,store,resource,events,pending,+registrations,nextSystemId,clock}: remove_checked(~S,~Store,~R,~E,Bool.and(U32.is_eq(namespace,actual),W.registration_list_matches(registrations,id,name,access)),W.World{actual,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},id,name,access)
+    case W.World{+actual,allocator,store,resource,events,pending,+registrations,nextSystemId,clock}: remove_checked(~S,~Store,~R,~E,Bool.and(U32.is_eq(namespace,actual),W.registration_list_matches(registrations,id,name,access)),W.World{actual,allocator,store,resource,events,pending,registrations,nextSystemId,clock},id,name,access)

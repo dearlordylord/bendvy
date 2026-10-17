@@ -180,10 +180,10 @@ def barrier_drained(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,typed:Family
 
 def barrier_advanced(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,typed:Family.State<P,F,H>,domains:List<&2,D.Domain<S,Notice.Notice<S,P>>>,positions:List<&2,Ev.Position>,previous:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,nextReader:U32,advanced:W.World<S,C,R,Notice.Notice<S,P>> & U32) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
   match advanced:
-    case (W.World{namespace,nextId,highWater,live,capacityWorld,depth,store,resource,events,pending,registrations,nextSystemId,clock},actual):
+    case (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},actual):
       barrier_drained(~S,~C,~R,~P,~F,~H,typed,positions,frameStart,boundary,capacity,nextReader,
         FailureBarrier.drain(~S,~C,~R,~Notice.Notice<S,P>,~classify,List.reverse(&1,(W.World<S,C,R,Notice.Notice<S,P>> -> W.World<S,C,R,Notice.Notice<S,P>>),pending),
-          FailureBarrier.BarrierState{W.World{namespace,nextId,highWater,live,capacityWorld,depth,store,resource,events,[],registrations,nextSystemId,clock},domains,Nat.max(previous,U32.to_nat(actual))}))
+          FailureBarrier.BarrierState{W.World{namespace,allocator,store,resource,events,[],registrations,nextSystemId,clock},domains,Nat.max(previous,U32.to_nat(actual))}))
 
 def barrier(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,context:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
   match context:

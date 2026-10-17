@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import ./world.bend as W
 import ./transaction.bend as T
 import ./commands.bend as Cmd
@@ -11,27 +12,27 @@ import ./string-equality.bend as Text
 type Scope<-S:Data> is Data:
   Scope{namespace:U32,name:String}
 type Member is Data:
-  Member{name:String,id:U32}
+  Member{name:String,id:Key.Key}
 type Store<-S:Data,C:Type> is Type:
   Store{components:C,members:List<&2,Member>}
 def empty(~S:Data,~C:Type,components:C) -> Store<S,C>:
   Store{components,[]}
-def without(members:List<&2,Member>,+id:U32) -> List<&2,Member>:
+def without(members:List<&2,Member>,+id:Key.Key) -> List<&2,Member>:
   match members:
     case []:[]
     case Member{+name,+mid} <> rest:
       +remaining = without(rest,id)
-      Bool.pick(List<&2,Member>,U32.is_eq(mid,id),remaining,Member{name,mid} <> remaining)
-def select(members:List<&2,Member>,+name:String) -> List<&2,U32>:
+      Bool.pick(List<&2,Member>,Key.equal(mid,id),remaining,Member{name,mid} <> remaining)
+def select(members:List<&2,Member>,+name:String) -> List<&2,Key.Key>:
   match members:
     case []:[]
     case Member{+key,+id} <> rest:
       +remaining = select(rest,name)
-      Bool.pick(List<&2,U32>,Text.equal(key,name),id <> remaining,remaining)
-def assigned(~S:Data,~C:Type,store:A.Store<S,Store<S,C>>,name:String,+id:U32) -> A.Store<S,Store<S,C>> & Unit:
+      Bool.pick(List<&2,Key.Key>,Text.equal(key,name),id <> remaining,remaining)
+def assigned(~S:Data,~C:Type,store:A.Store<S,Store<S,C>>,name:String,+id:Key.Key) -> A.Store<S,Store<S,C>> & Unit:
   match store:
     case A.Store{Store{components,members},graph}:(A.Store{Store{components,List.append(&2,Member,without(members,id),[Member{name,id}])},graph},Unit{})
-def observed(~S:Data,~C:Type,store:A.Store<S,Store<S,C>>,name:String) -> A.Store<S,Store<S,C>> & List<&2,U32>:
+def observed(~S:Data,~C:Type,store:A.Store<S,Store<S,C>>,name:String) -> A.Store<S,Store<S,C>> & List<&2,Key.Key>:
   match store:
     case A.Store{Store{components,+members},graph}:(A.Store{Store{components,members},graph},select(members,name))
 def scope_returned(~S:Data,~C:Type,~R:Type,~E:Data,name:String,seen:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> & U32) -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> & Scope<S>:
@@ -49,16 +50,16 @@ def cleanup_result(~S:Data,~C:Type,~R:Type,~E:Data,result:Cleanup.CleanupResult<
   match result:
     case Cleanup.Complete{world}:world
     case Cleanup.Incomplete{world,frames}:W.event_publish(~S,~A.Store<S,Store<S,C>>,~R,~A.Notice<S,E>,world,[A.CleanupPaused{frames}])
-def cleanup_members(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,~descriptors:List<&2,G.Descriptor<S>>,members:List<&2,U32>,world:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,+namespace:U32) -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>:
+def cleanup_members(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,~descriptors:List<&2,G.Descriptor<S>>,members:List<&2,Key.Key>,world:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,+namespace:U32) -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>:
   match members:
     case []:world
     case id <> rest:cleanup_members(~S,~C,~R,~E,~clear,~record,~descriptors,rest,cleanup_result(~S,~C,~R,~E,Cleanup.automatic(~S,~Store<S,C>,~R,~E,~clear_components(~S,~C,~E,~clear),~record,world,W.Handle{namespace,id},descriptors)),namespace)
-def cleanup_observed(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,~descriptors:List<&2,G.Descriptor<S>>,namespace:U32,seen:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> & List<&2,U32>) -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>:
+def cleanup_observed(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,~descriptors:List<&2,G.Descriptor<S>>,namespace:U32,seen:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>> & List<&2,Key.Key>) -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>:
   match seen:
     case (world,members):cleanup_members(~S,~C,~R,~E,~clear,~record,~descriptors,members,world,namespace)
 def cleanup_apply(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,~descriptors:List<&2,G.Descriptor<S>>,world:W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,scope:Scope<S>) -> W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>:
   match scope:
-    case Scope{namespace,name}:cleanup_observed(~S,~C,~R,~E,~clear,~record,~descriptors,namespace,W.with_store(~S,~A.Store<S,Store<S,C>>,~R,~A.Notice<S,E>,~List<&2,U32>,store => observed(~S,~C,store,name),world))
+    case Scope{namespace,name}:cleanup_observed(~S,~C,~R,~E,~clear,~record,~descriptors,namespace,W.with_store(~S,~A.Store<S,Store<S,C>>,~R,~A.Notice<S,E>,~List<&2,Key.Key>,store => observed(~S,~C,store,name),world))
 def cleanup_checked(~S:Data,~C:Type,~R:Type,~E:Data,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,~descriptors:List<&2,G.Descriptor<S>>,same:Bool,tx:T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>>,scope:Scope<S>) -> T.Tx<W.World<S,A.Store<S,Store<S,C>>,R,A.Notice<S,E>>,A.Notice<S,E>> & A.QueueStatus:
   match same:
     case False{}:(tx,A.MissingEntity{})

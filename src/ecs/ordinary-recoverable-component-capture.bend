@@ -100,8 +100,8 @@ type Run<World:Type,Owned:Type,Args:Type,Error:Data,Out:Type,Recovery:Type> is T
 def cursor(~S:Data,~P:Type,~Q:Type,~R:Type,~E:Data,~identity:Declaration.Declaration<S,P>,~Args:Type,~Error:Data,~Out:Type,~body:@-H:Type -> @-caps:Ops(~S,~P,~Q,~identity,H) -> Args -> H -> H & (T.Outcome<Error> & Out),success:Bool,world:W.World<S,Col.Column<S,P>,R,E>,registry:Sys.Registry<S,Col.Column<S,P>,R,E,Request<Args,Q>,Unit,Reply<S,P,Q,Error,Out>,runner(~S,~P,~Q,~R,~E,~identity,~Args,~Error,~Out,~body)>) -> W.World<S,Col.Column<S,P>,R,E> & Sys.Registry<S,Col.Column<S,P>,R,E,Request<Args,Q>,Unit,Reply<S,P,Q,Error,Out>,runner(~S,~P,~Q,~R,~E,~identity,~Args,~Error,~Out,~body)>:
   match success world registry:
     case False{} world registry:(world,registry)
-    case True{} W.World{ns,next,high,live,capacity,depth,store,resource,events,pending,regs,sid,+clock} Sys.Registry{rns,id,name,access,_}:
-      (W.World{ns,next,high,live,capacity,depth,store,resource,events,pending,regs,sid,clock},Sys.Registry{rns,id,name,access,clock})
+    case True{} W.World{ns,allocator,store,resource,events,pending,regs,sid,+clock} Sys.Registry{rns,id,name,access,_}:
+      (W.World{ns,allocator,store,resource,events,pending,regs,sid,clock},Sys.Registry{rns,id,name,access,clock})
 def done(~S:Data,~P:Type,~Q:Type,~R:Type,~E:Data,~identity:Declaration.Declaration<S,P>,~Args:Type,~Error:Data,~Out:Type,~body:@-H:Type -> @-caps:Ops(~S,~P,~Q,~identity,H) -> Args -> H -> H & (T.Outcome<Error> & Out),outcome:T.Outcome<Error>,output:Out,capture:Array<Q>,recovery:Product.Owner<List<RC.Record<S,P>>,List<A.Record<Q>>>,result:W.World<S,Col.Column<S,P>,R,E> & Sys.Registry<S,Col.Column<S,P>,R,E,Request<Args,Q>,Unit,Reply<S,P,Q,Error,Out>,runner(~S,~P,~Q,~R,~E,~identity,~Args,~Error,~Out,~body)>) -> Run<W.World<S,Col.Column<S,P>,R,E>,Owner<Sys.Registry<S,Col.Column<S,P>,R,E,Request<Args,Q>,Unit,Reply<S,P,Q,Error,Out>,runner(~S,~P,~Q,~R,~E,~identity,~Args,~Error,~Out,~body)>,Q>,Args,Error,Out,Product.Owner<List<RC.Record<S,P>>,List<A.Record<Q>>>>:
   match result:
     case (world,registry):Completed{world,Owner{registry,capture},outcome,output,recovery}

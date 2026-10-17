@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import relation-types.bend as G
 import relation-graph.bend as C
 import world.bend as W
@@ -11,7 +12,7 @@ type Store<S: Data,Components: Type> is Type:
 type Notice<S: Data,Original: Data> is Data:
   Original{event: Original}
   RelationFailed{failure: G.Failure<S>}
-  ComponentRemoved{id: U32}
+  ComponentRemoved{id:Key.Key}
   CleanupPaused{frames: List<&2,G.CleanupFrame<S>>}
 type QueueStatus is Data:
   Queued{}
@@ -27,17 +28,17 @@ def graph_replace(~S: Data,~C: Type,store: Store<S,C>,replacement: G.Graph<S>) -
 def relate_result(~S: Data,~C: Type,result: G.CoreResult<S>,components: C) -> Store<S,C> & Maybe<&2,G.Error>:
   match result:
     case G.CoreResult{graph,error}: (Store{components,graph},error)
-def store_relate(~S: Data,~C: Type,store: Store<S,C>,descriptor: G.Descriptor<S>,source: U32,target: U32,sourceLive: Bool,targetLive: Bool) -> Store<S,C> & Maybe<&2,G.Error>:
+def store_relate(~S: Data,~C: Type,store: Store<S,C>,descriptor: G.Descriptor<S>,source:Key.Key,target:Key.Key,sourceLive: Bool,targetLive: Bool) -> Store<S,C> & Maybe<&2,G.Error>:
   match store:
     case Store{components,graph}: relate_result(~S,~C,C.relate(~S,graph,descriptor,source,target,sourceLive,targetLive),components)
-def publish_relate(~S: Data,~C: Type,~R: Type,~E: Data,observed: W.World<S,Store<S,C>,R,Notice<S,E>> & Maybe<&2,G.Error>,descriptor: G.Descriptor<S>,source: U32,target: U32) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
+def publish_relate(~S: Data,~C: Type,~R: Type,~E: Data,observed: W.World<S,Store<S,C>,R,Notice<S,E>> & Maybe<&2,G.Error>,descriptor: G.Descriptor<S>,source:Key.Key,target:Key.Key) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
   match observed:
     case (world,None{}): world
     case (world,Some{error}): W.event_publish(~S,~Store<S,C>,~R,~Notice<S,E>,world,[RelationFailed{G.Failure{descriptor,G.Relate{},source,target,error}}])
-def apply_live(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,Store<S,C>,R,Notice<S,E>> & Bool,+descriptor: G.Descriptor<S>,+source: U32,+target: U32,sourceLive: Bool) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
+def apply_live(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,Store<S,C>,R,Notice<S,E>> & Bool,+descriptor: G.Descriptor<S>,+source:Key.Key,+target:Key.Key,sourceLive: Bool) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
   (world,targetLive) = checked
   publish_relate(~S,~C,~R,~E,W.with_store(~S,~Store<S,C>,~R,~Notice<S,E>,~Maybe<&2,G.Error>,store => store_relate(~S,~C,store,descriptor,source,target,sourceLive,targetLive),world),descriptor,source,target)
-def apply_source(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,Store<S,C>,R,Notice<S,E>> & Bool,descriptor: G.Descriptor<S>,source: U32,target: U32,targetHandle: W.Handle<S>) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
+def apply_source(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,Store<S,C>,R,Notice<S,E>> & Bool,descriptor: G.Descriptor<S>,source:Key.Key,target:Key.Key,targetHandle: W.Handle<S>) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
   (world,sourceLive) = checked
   apply_live(~S,~C,~R,~E,W.valid(~S,~Store<S,C>,~R,~Notice<S,E>,world,targetHandle),descriptor,source,target,sourceLive)
 def apply_relate(~S: Data,~C: Type,~R: Type,~E: Data,world: W.World<S,Store<S,C>,R,Notice<S,E>>,descriptor: G.Descriptor<S>,+source: W.Handle<S>,+target: W.Handle<S>) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
@@ -53,7 +54,7 @@ def queue_namespaced(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,Stor
 def queue_relate(~S: Data,~C: Type,~R: Type,~E: Data,tx: X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>>,descriptor: G.Descriptor<S>,source: W.Handle<S>,target: W.Handle<S>) -> X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>> & QueueStatus:
   match tx:
     case X.Tx{world,undo,commands,events}: queue_namespaced(~S,~C,~R,~E,W.namespace(~S,~Store<S,C>,~R,~Notice<S,E>,world),undo,commands,events,descriptor,source,target)
-def store_unrelate(~S: Data,~C: Type,store: Store<S,C>,descriptor: G.Descriptor<S>,source: U32) -> Store<S,C> & Unit:
+def store_unrelate(~S: Data,~C: Type,store: Store<S,C>,descriptor: G.Descriptor<S>,source:Key.Key) -> Store<S,C> & Unit:
   match store:
     case Store{components,graph}: (Store{components,C.unrelate(~S,graph,descriptor,source)},Unit{})
 def discard_unit(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,Store<S,C>,R,Notice<S,E>> & Unit) -> W.World<S,Store<S,C>,R,Notice<S,E>>:
@@ -72,15 +73,15 @@ def queue_clear_namespaced(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<
 def queue_unrelate(~S: Data,~C: Type,~R: Type,~E: Data,tx: X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>>,descriptor: G.Descriptor<S>,source: W.Handle<S>) -> X.Tx<W.World<S,Store<S,C>,R,Notice<S,E>>,Notice<S,E>> & QueueStatus:
   match tx:
     case X.Tx{world,undo,commands,events}: queue_clear_namespaced(~S,~C,~R,~E,W.namespace(~S,~Store<S,C>,~R,~Notice<S,E>,world),undo,commands,events,descriptor,source)
-def store_inverse(~S: Data,~C: Type,store: Store<S,C>,descriptor: G.Descriptor<S>,target: U32) -> Store<S,C> & List<&2,U32>:
+def store_inverse(~S: Data,~C: Type,store: Store<S,C>,descriptor: G.Descriptor<S>,target:Key.Key) -> Store<S,C> & List<&2,Key.Key>:
   match store:
     case Store{components,+graph}: (Store{components,graph},C.inverse(~S,graph,descriptor,target))
-def inverse_present(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,Store<S,C>,R,Notice<S,E>> & List<&2,U32>) -> W.World<S,Store<S,C>,R,Notice<S,E>> & Maybe<&2,List<&2,U32>>:
+def inverse_present(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,Store<S,C>,R,Notice<S,E>> & List<&2,Key.Key>) -> W.World<S,Store<S,C>,R,Notice<S,E>> & Maybe<&2,List<&2,Key.Key>>:
   (world,sources) = result
   (world,Some{sources})
-def inverse_checked(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,Store<S,C>,R,Notice<S,E>> & Bool,descriptor: G.Descriptor<S>,target: W.Handle<S>) -> W.World<S,Store<S,C>,R,Notice<S,E>> & Maybe<&2,List<&2,U32>>:
+def inverse_checked(~S: Data,~C: Type,~R: Type,~E: Data,checked: W.World<S,Store<S,C>,R,Notice<S,E>> & Bool,descriptor: G.Descriptor<S>,target: W.Handle<S>) -> W.World<S,Store<S,C>,R,Notice<S,E>> & Maybe<&2,List<&2,Key.Key>>:
   match checked target:
     case (world,False{}) _: (world,None{})
-    case (world,True{}) W.Handle{_,id}: inverse_present(~S,~C,~R,~E,W.with_store(~S,~Store<S,C>,~R,~Notice<S,E>,~List<&2,U32>,store => store_inverse(~S,~C,store,descriptor,id),world))
-def inverse(~S: Data,~C: Type,~R: Type,~E: Data,world: W.World<S,Store<S,C>,R,Notice<S,E>>,descriptor: G.Descriptor<S>,+target: W.Handle<S>) -> W.World<S,Store<S,C>,R,Notice<S,E>> & Maybe<&2,List<&2,U32>>:
+    case (world,True{}) W.Handle{_,id}: inverse_present(~S,~C,~R,~E,W.with_store(~S,~Store<S,C>,~R,~Notice<S,E>,~List<&2,Key.Key>,store => store_inverse(~S,~C,store,descriptor,id),world))
+def inverse(~S: Data,~C: Type,~R: Type,~E: Data,world: W.World<S,Store<S,C>,R,Notice<S,E>>,descriptor: G.Descriptor<S>,+target: W.Handle<S>) -> W.World<S,Store<S,C>,R,Notice<S,E>> & Maybe<&2,List<&2,Key.Key>>:
   inverse_checked(~S,~C,~R,~E,W.valid(~S,~Store<S,C>,~R,~Notice<S,E>,world,target),descriptor,target)

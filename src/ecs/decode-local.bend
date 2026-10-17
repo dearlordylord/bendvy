@@ -1,6 +1,7 @@
 import ./persistence-declaration.bend as Decl
 import ./bundle-delivery.bend as Delivery
 import Base
+import entity-key.bend as Key
 import ./decode-frame.bend as F
 import ./decode-requests.bend as Request
 import ./decode-owned-journal.bend as Journal
@@ -51,6 +52,6 @@ def deferred(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Error:Data,~L:Type,~Out:Ty
 def begin_owner(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,world:W.World<S,C,R,E>,codec:Decl.Constructed<S,P,identity,project>) -> Request.Owner<S,C,R,E,P,identity,project>:
   Request.Owner{Batch.begin(~S,~C,~R,~E,~Request.Packet<P>,T.begin(~W.World<S,C,R,E>,~E,world)),codec}
 def begin_frame(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,world:W.World<S,C,R,E>,codec:Decl.Constructed<S,P,identity,project>) -> F.Frame<S,C,R,E,P,Q,identity,project>:
-  F.Frame{begin_owner(~S,~C,~R,~E,~P,~identity,~project,world,codec),W.Handle{0,0},None{},0,[],[]}
+  F.Frame{begin_owner(~S,~C,~R,~E,~P,~identity,~project,world,codec),W.Handle{0,Key.EntityKey{0,0}},None{},0,[],[]}
 def finish_deferred(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Error:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~attempt:W.World<S,C,R,E> -> W.Handle<S> -> Request.Packet<P> -> Delivery.Delivery<W.World<S,C,R,E>,Request.Packet<P>>,~delivery_recover:W.World<S,C,R,E> -> Request.Packet<P> -> W.WorldError -> W.World<S,C,R,E>,~L:Type,~Out:Type,~recover:L -> Out -> List<Request.Packet<P>> -> L,local:L,output:Out,owner:Request.Owner<S,C,R,E,P,identity,project>,outcome:T.Outcome<Error>) -> Local.Outcome<W.World<S,C,R,E>,L,Error,Out>:
   deferred(~S,~C,~R,~E,~P,~Error,~L,~Out,~recover,local,output,Request.finish(~S,~C,~R,~E,~P,~Error,~identity,~project,~attempt,~delivery_recover,owner,outcome))

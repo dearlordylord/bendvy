@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/entity-key.bend as Key
 import ../../src/ecs/column.bend as Col
 import ../../src/ecs/component.bend as C
 import ../../src/ecs/world.bend as W
@@ -226,7 +227,7 @@ def clear_inner(store: Store,+id: U32) -> Store:
     case Store{stock,recipe,queue,enabled,locked}: Store{clear_column(~Stock,id,stock),clear_column(~Recipe,id,recipe),clear_column(~Queue,id,queue),clear_column(~Enabled,id,enabled),clear_column(~Locked,id,locked)}
 def clear(store: Store,handle: W.Handle<Schema>) -> Store:
   match handle:
-    case W.Handle{_,+id}: clear_inner(store,id)
+    case W.Handle{_,+id}: clear_inner(store,Key.index(id))
 def seed_1() -> Bundle:
   Bundle{Some{stock_payload(10)},Some{recipe_payload(20)},Some{queue_payload(30)},Some{Enabled{}},None{}}
 def seed_2() -> Bundle:

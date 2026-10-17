@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/entity-key.bend as Key
 import schema.bend as S
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/commands.bend as Cmd
@@ -17,7 +18,7 @@ def spawn(tx: S.Tx(),bundle: S.Bundle) -> S.Tx():
 def seed(world: S.World()) -> S.World():
   commit(spawn(spawn(spawn(spawn(spawn(spawn(T.begin(~S.World(),~Unit,world),S.seed_1()),S.seed_2()),S.seed_3()),S.seed_4()),S.seed_5()),S.seed_6()))
 def handle(+namespace: U32,+id: U32) -> W.Handle<S.Schema>:
-  W.Handle{namespace,id}
+  W.Handle{namespace,Key.EntityKey{id,0}}
 def insert_namespace(named: S.World() & U32) -> S.World():
   (world,+namespace) = named
   commit(S.queue_enabled(S.queue_recipe(T.begin(~S.World(),~Unit,world),handle(namespace,3),Some{S.recipe_payload(22)}),handle(namespace,5),Some{S.Enabled{}}))

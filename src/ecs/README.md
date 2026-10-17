@@ -42,16 +42,24 @@ recipes and closed builder/getter declarations are trusted authoring operations.
 Create application worlds with `WorldIO.create` from `world-io.bend`. Its IO
 allocator shares namespaces across canonical creations in one emitted program.
 `Created` returns the World; `Refused` returns the original affine resource.
-Handles carry the resulting namespace and local ID. Foreign handles reject
-before access/queue mutation even when local IDs coincide. Namespace allocation
+Handles carry that namespace and a full `EntityKey{index,generation}`. Keep the
+actual handle returned by creation or reservation; foreign handles reject before
+access/queue mutation even when index and generation coincide. Namespace allocation
 saturates: 1 through 4294967294 succeed, and exhaustion refuses without reuse.
 Separate programs, bundles, realms, workers and processes have no shared allocator.
 Raw World/Handle constructors, `World.create_checked`, legacy `World.Factory`
 and `World.create`, and `WorldIO.with_namespace/convert` remain trusted setup
 operations. They can bypass canonical provenance; this is not language-wide
 constructor confinement or a proved concurrent uniqueness guarantee.
-The bounded allocator uses monotonic IDs, no reuse and a 131072 entity limit.
-Production capacity/growth and exhaustion policy remain full-core follow-ups.
+The current allocator supports slot indices 1 through 131072. Schema-owned
+cleanup clears payloads and lifecycle stamps before recycling a slot and
+incrementing its full U32 generation. Generation wraps, as in Bevy: after a
+complete cycle an ancient same-world handle can alias a new entity. Failed
+reservations consume their IDs; queuing despawn does not release a slot. Plain
+liveness-only deactivation retains opaque storage and does not recycle it.
+`World.handles` preserves logical reservation order among live entities.
+`World.handle_index` is a physical column/display projection, not an identity
+or authority check. Boundary, retry and integration qualification is tracked in #38.
 
 Use `Compose.each` with a closed `Plan{caps,select}` and an ordinary caller-defined
 `Ops(H)` record. Each field selects an independently typed read/write/optional

@@ -24,7 +24,7 @@ def drain(~S: Data,~C: Type,~R: Type,~E: Data,~classify: E -> Maybe<D.Descriptor
 def opened(~S: Data,~C: Type,~R: Type,~E: Data,~classify: E -> Maybe<D.DescriptorKey<S>>,advanced: W.World<S,C,R,E> & U32,domains: List<&2,D.Domain<S,E>>) -> BarrierState<S,C,R,E>:
   (world,+tick) = advanced
   match world:
-    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: drain(~S,~C,~R,~E,~classify,List.reverse(&1,(W.World<S,C,R,E> -> W.World<S,C,R,E>),pending),BarrierState{W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,[],registrations,nextSystemId,clock},domains,U32.to_nat(tick)})
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: drain(~S,~C,~R,~E,~classify,List.reverse(&1,(W.World<S,C,R,E> -> W.World<S,C,R,E>),pending),BarrierState{W.World{namespace,allocator,store,resource,events,[],registrations,nextSystemId,clock},domains,U32.to_nat(tick)})
 
 def barrier(~S: Data,~C: Type,~R: Type,~E: Data,~classify: E -> Maybe<D.DescriptorKey<S>>,world: W.World<S,C,R,E>,domains: List<&2,D.Domain<S,E>>) -> BarrierState<S,C,R,E>:
   opened(~S,~C,~R,~E,~classify,W.advance_clock(~S,~C,~R,~E,world),domains)

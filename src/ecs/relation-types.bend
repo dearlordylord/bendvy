@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as K
 
 type RelationKind is Data:
   Ordinary{}
@@ -6,23 +7,23 @@ type RelationKind is Data:
 type Descriptor<S: Data> is Data:
   Descriptor{key: U32,name: String,inverseName: String,kind: RelationKind}
 type Edge<S: Data> is Data:
-  Edge{relation: Descriptor<S>,source: U32,target: U32}
+  Edge{relation: Descriptor<S>,source: K.Key,target: K.Key}
 type Error is Data:
-  MissingEntity{source: U32}
-  MissingTargetEntity{source: U32,target: U32,relation: String}
-  SelfRelationNotAllowed{source: U32,relation: String}
-  HierarchyCycle{source: U32,target: U32,relation: String}
-  MissingChildEntity{source: U32,child: U32,relation: String}
-  DuplicateChild{source: U32,child: U32,relation: String}
-  ChildNotRelatedToParent{source: U32,child: U32,relation: String}
-  ChildSetMismatch{source: U32,relation: String}
+  MissingEntity{source: K.Key}
+  MissingTargetEntity{source: K.Key,target: K.Key,relation: String}
+  SelfRelationNotAllowed{source: K.Key,relation: String}
+  HierarchyCycle{source: K.Key,target: K.Key,relation: String}
+  MissingChildEntity{source: K.Key,child: K.Key,relation: String}
+  DuplicateChild{source: K.Key,child: K.Key,relation: String}
+  ChildNotRelatedToParent{source: K.Key,child: K.Key,relation: String}
+  ChildSetMismatch{source: K.Key,relation: String}
 type Operation is Data:
   Relate{}
   ReorderChildren{}
 type Failure<S: Data> is Data:
-  Failure{relation: Descriptor<S>,operation: Operation,source: U32,target: U32,error: Error}
+  Failure{relation: Descriptor<S>,operation: Operation,source: K.Key,target: K.Key,error: Error}
 type Inverse<S: Data> is Data:
-  Inverse{relation: Descriptor<S>,target: U32,sources: List<&2,U32>}
+  Inverse{relation: Descriptor<S>,target: K.Key,sources: List<&2,K.Key>}
 type SpecGraph<S: Data> is Data:
   SpecGraph{edges: List<&2,Edge<S>>}
 type Graph<S: Data> is Data:
@@ -32,14 +33,14 @@ type SpecResult<S: Data> is Data:
 type CoreResult<S: Data> is Data:
   CoreResult{graph: Graph<S>,error: Maybe<&2,Error>}
 type ChildStatus is Data:
-  ChildStatus{id: U32,live: Bool}
+  ChildStatus{id: K.Key,live: Bool}
 
 # Diagnostic continuation, not a new relation rejection policy.
 type CleanupFrame<S:Data> is Data:
-  CleanupEnter{id:U32}
-  CleanupDescriptors{id:U32,remaining:List<&2,Descriptor<S>>}
-  CleanupChildren{id:U32,descriptor:Descriptor<S>,remainingDescriptors:List<&2,Descriptor<S>>,remainingChildren:List<&2,U32>}
-  CleanupFinish{id:U32}
+  CleanupEnter{id:K.Key}
+  CleanupDescriptors{id:K.Key,remaining:List<&2,Descriptor<S>>}
+  CleanupChildren{id:K.Key,descriptor:Descriptor<S>,remainingDescriptors:List<&2,Descriptor<S>>,remainingChildren:List<&2,K.Key>}
+  CleanupFinish{id:K.Key}
 # Public reorder provisioning accepts this nominal hierarchy family only.
 type HierarchyDescriptor<S:Data> is Data:
   HierarchyDescriptor{key:U32,name:String,inverseName:String}

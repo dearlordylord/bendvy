@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import ./relation-types.bend as G
 import ./relation-graph.bend as Graph
 import ./relation-commands.bend as A
@@ -19,7 +20,7 @@ def path(~S:Data,walk:T.Walk,+namespace:U32) -> Path<S>:
   match walk:
     case T.Complete{ids}: Complete{Relations.handle_ids(~S,ids,namespace)}
     case T.Incomplete{ids,pending}: Incomplete{Relations.handle_ids(~S,ids,namespace),Relations.handle_ids(~S,pending,namespace)}
-def handle(~S:Data,id:Maybe<&2,U32>,namespace:U32) -> Maybe<&2,W.Handle<S>>:
+def handle(~S:Data,id:Maybe<&2,Key.Key>,namespace:U32) -> Maybe<&2,W.Handle<S>>:
   match id:
     case None{}: None{}
     case Some{id}: Some{W.Handle{namespace,id}}

@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import world.bend as W
 import component.bend as C
 import column.bend as Col
@@ -22,7 +23,7 @@ def undo_checked(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,
     case (world,True{}): undo_present(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,handle,id,stamp,world,C.owner_present(~C,previous))
 def undo(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,recovery:Recovery<S,C>,world:W.World<S,Store,R,E>) -> F.Restore<W.World<S,Store,R,E>,Entry<S,C>,Recovery<S,C>>:
   match recovery:
-    case Recovery{Entry{W.Handle{+ns,+id},previous},stamp}: undo_checked(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.Handle{ns,id},id,stamp,previous,W.valid(~S,~Store,~R,~E,world,W.Handle{ns,id}))
+    case Recovery{Entry{W.Handle{+ns,+id},previous},stamp}: undo_checked(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.Handle{ns,id},Key.index(id),stamp,previous,W.valid(~S,~Store,~R,~E,world,W.Handle{ns,id}))
 def replaced(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,+handle:W.Handle<S>,+stamp:L.Stamp,result:C.Replacement<W.World<S,Store,R,E>,C>) -> F.Attempt<W.World<S,Store,R,E>,Entry<S,C>,Recovery<S,C>>:
   match result:
     case C.ReplaceRejected{world,incoming,error}: F.Refused{world,Entry{handle,incoming},error}

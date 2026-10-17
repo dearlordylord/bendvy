@@ -67,14 +67,14 @@ def tx_despawn(~S: Data,~C: Type,~R: Type,~E: Data,tx: T.Tx<W.World<S,C,R,E>,E>,
     case T.Tx{world,undo,commands,events}: despawn_join(~S,~C,~R,~E,W.command_valid(~S,~C,~R,~E,world,handle),undo,commands,events,handle)
 
 # Schema-owned clear releases every component family after accepted deactivation.
-def clear_join(~S: Data,~C: Type,~R: Type,~E: Data,cleared: W.World<S,C,R,E> & Unit) -> W.World<S,C,R,E>:
+def clear_join(~S: Data,~C: Type,~R: Type,~E: Data,+handle:W.Handle<S>,cleared: W.World<S,C,R,E> & Unit) -> W.World<S,C,R,E>:
   (world,unit) = cleared
-  world
+  W.release_cleared(~S,~C,~R,~E,world,handle)
 
-def clear_accepted(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C,activated: W.World<S,C,R,E> & W.Status,handle: W.Handle<S>) -> W.World<S,C,R,E>:
+def clear_accepted(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C,activated: W.World<S,C,R,E> & W.Status,+handle: W.Handle<S>) -> W.World<S,C,R,E>:
   match activated:
     case (world,W.Rejected{_}): world
-    case (world,W.Accepted{}): clear_join(~S,~C,~R,~E,W.with_store(~S,~C,~R,~E,~Unit,(store => (clear(store,handle),Unit{})),world))
+    case (world,W.Accepted{}): clear_join(~S,~C,~R,~E,handle,W.with_store(~S,~C,~R,~E,~Unit,(store => (clear(store,handle),Unit{})),world))
 
 def despawn_apply_with(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C,world: W.World<S,C,R,E>,+handle: W.Handle<S>) -> W.World<S,C,R,E>:
   clear_accepted(~S,~C,~R,~E,~clear,W.deactivate(~S,~C,~R,~E,world,handle),handle)
@@ -93,9 +93,9 @@ def tx_despawn_with(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S>
     case T.Tx{world,undo,commands,events}: despawn_join_with(~S,~C,~R,~E,~clear,W.command_valid(~S,~C,~R,~E,world,handle),undo,commands,events,handle)
 
 # Cleanup owns actual removed payloads; its typed metadata is published only on success.
-def clear_observed_join(~S: Data,~C: Type,~R: Type,~E: Data,~record: W.Handle<S> -> E,handle: W.Handle<S>,cleared: W.World<S,C,R,E> & List<&2,E>) -> W.World<S,C,R,E>:
+def clear_observed_join(~S: Data,~C: Type,~R: Type,~E: Data,~record: W.Handle<S> -> E,+handle: W.Handle<S>,cleared: W.World<S,C,R,E> & List<&2,E>) -> W.World<S,C,R,E>:
   (world,records) = cleared
-  W.event_publish(~S,~C,~R,~E,world,List.append(&2,E,records,[record(handle)]))
+  W.release_cleared(~S,~C,~R,~E,W.event_publish(~S,~C,~R,~E,world,List.append(&2,E,records,[record(handle)])),handle)
 
 def clear_observed_accepted(~S: Data,~C: Type,~R: Type,~E: Data,~clear: C -> W.Handle<S> -> C & List<&2,E>,~record: W.Handle<S> -> E,activated: W.World<S,C,R,E> & W.Status,+handle: W.Handle<S>) -> W.World<S,C,R,E>:
   match activated:

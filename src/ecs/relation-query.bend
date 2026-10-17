@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import relation-types.bend as G
 import relation-graph.bend as Graph
 import relation-commands.bend as A
@@ -41,19 +42,19 @@ def with_related(~S:Data,descriptor:G.Descriptor<S>) -> Requirement<S>:
   Requirement{"",descriptor,Incoming{},Q.Present{},False{}}
 def without_related(~S:Data,descriptor:G.Descriptor<S>) -> Requirement<S>:
   Requirement{"",descriptor,Incoming{},Q.Absent{},False{}}
-def handles_acc(~S:Data,ids:List<&2,U32>,+namespace:U32,acc:List<&2,W.Handle<S>>) -> List<&2,W.Handle<S>>:
+def handles_acc(~S:Data,ids:List<&2,Key.Key>,+namespace:U32,acc:List<&2,W.Handle<S>>) -> List<&2,W.Handle<S>>:
   match ids:
     case []: List.reverse(&2,W.Handle<S>,acc)
     case id <> rest: handles_acc(~S,rest,namespace,W.Handle{namespace,id} <> acc)
-def outgoing_value(~S:Data,value:Maybe<&2,U32>,namespace:U32) -> Value<S>:
+def outgoing_value(~S:Data,value:Maybe<&2,Key.Key>,namespace:U32) -> Value<S>:
   match value:
     case None{}: Missing{}
     case Some{id}: Target{W.Handle{namespace,id}}
-def incoming_value(~S:Data,ids:List<&2,U32>,namespace:U32) -> Value<S>:
+def incoming_value(~S:Data,ids:List<&2,Key.Key>,namespace:U32) -> Value<S>:
   match ids:
     case []: Missing{}
     case first <> rest: Sources{handles_acc(~S,first <> rest,namespace,[])}
-def value(~S:Data,graph:G.Graph<S>,descriptor:G.Descriptor<S>,end:End,+namespace:U32,id:U32) -> Value<S>:
+def value(~S:Data,graph:G.Graph<S>,descriptor:G.Descriptor<S>,end:End,+namespace:U32,id:Key.Key) -> Value<S>:
   match end:
     case Outgoing{}: outgoing_value(~S,Graph.target(~S,graph,descriptor,id),namespace)
     case Incoming{}: incoming_value(~S,Graph.inverse(~S,graph,descriptor,id),namespace)
@@ -65,7 +66,7 @@ def add_cell(~S:Data,project:Bool,key:String,end:End,value:Value<S>,cells:List<&
   match project:
     case False{}: cells
     case True{}: Cell{key,end,value} <> cells
-def requirements(~S:Data,remaining:List<&2,Requirement<S>>,+graph:G.Graph<S>,+namespace:U32,+id:U32,selected:Bool,acc:List<&2,Cell<S>>) -> Bool & List<&2,Cell<S>>:
+def requirements(~S:Data,remaining:List<&2,Requirement<S>>,+graph:G.Graph<S>,+namespace:U32,+id:Key.Key,selected:Bool,acc:List<&2,Cell<S>>) -> Bool & List<&2,Cell<S>>:
   match remaining:
     case []: (selected,List.reverse(&2,Cell<S>,acc))
     case Requirement{key,descriptor,+end,mode,project} <> rest:

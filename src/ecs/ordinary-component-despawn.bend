@@ -8,7 +8,7 @@ import ./transaction.bend as Tx
 
 def handle_id(~S:Data,handle:W.Handle<S>) -> U32:
   match handle:
-    case W.Handle{_,id}:id
+    case W.Handle{_,key}:W.handle_index(~S,W.Handle{0,key})
 def accepted(~S:Data,~Store:Type,~Rest:Type,~P:Type,~E:Data,~put:Rest -> Col.Column<S,P> -> Store,~emit:W.Handle<S> -> E,rest:Rest,+handle:W.Handle<S>,result:Col.SwapOutcome<S,P>) -> Store & List<&2,E>:
   match result:
     case Col.Accepted{column,Some{_}}:(put(rest,column),[emit(handle)])

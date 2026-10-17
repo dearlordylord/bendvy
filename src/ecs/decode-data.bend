@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import ./decode-utf16.bend as Utf16
 # Raw is a typed Data description. Arbitrary affine payload ownership is a
 # separate explicit receipt; this validator never invents an inverse Raw -> C.
@@ -12,7 +13,7 @@ type Raw is Data:
   Text{value:String}
   Utf16Text{units:List<&2,U32>}
   Boolean{value:Bool}
-  Handle{namespace:U32,id:U32}
+  Handle{namespace:U32,key:Key.Key}
   Array{items:List<&2,Raw>}
   Object{fields:List<&2,Field>}
 type Field is Data:
@@ -160,7 +161,7 @@ def expand(codec:Codec,+raw:Raw,+path:String,rest:List<&2,Work>) -> Step:
     case Nullable{inner} _: Continue{Work{inner,raw,path} <> rest}
     case ArrayValue{inner} Array{items}: Continue{array_work(inner,items,path,0,rest)}
     case Struct{fields} Object{values}: Continue{struct_work(fields,values,path,rest)}
-    case HandleValue{ns} Handle{actual,id}: choose_checked(U32.is_eq(ns,actual) && U32.is_gt(id,0),path,"same-world handle",raw,rest)
+    case HandleValue{ns} Handle{actual,id}: choose_checked(U32.is_eq(ns,actual) && U32.is_gt(Key.index(id),0),path,"same-world handle",raw,rest)
     case Integer{} _: Stop{Invalid{path,"integer",raw}}
     case FiniteNumber{} _: Stop{Invalid{path,"finite number",raw}}
     case StringValue{} _: Stop{Invalid{path,"string",raw}}

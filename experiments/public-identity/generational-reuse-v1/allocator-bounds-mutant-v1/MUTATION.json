@@ -1,0 +1,180 @@
+{
+  "normalFreezeSHA256": "54d16d512c69019f43ad79fba1fc576fd8119e5a8c28e8f3c7a56e417fddc4d1",
+  "change": {
+    "file": "src/ecs/entity-allocator.bend",
+    "function": "checked",
+    "normal": "checked_bounds(Bool.and(U32.is_lt(0,K.index(key)),Bool.and(U32.is_lt(K.index(key),next),U32.is_lt(K.index(key),capacity))),",
+    "mutant": "checked_bounds(True{},"
+  },
+  "bindings": [
+    {
+      "normal": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/failed-growth-v1/main.bend",
+      "normalSHA256": "65b55173105af3b8c0ecd16e1dc20ecbe41281d2bde2757b3110e60e0063f6c2",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/experiments/public-identity/generational-reuse-v1/failed-growth-v1/main.bend",
+      "privateSHA256": "65b55173105af3b8c0ecd16e1dc20ecbe41281d2bde2757b3110e60e0063f6c2",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/fixture.bend",
+      "normalSHA256": "4c004492e084deee23cd408ad5c2da1a1eea7282d3754c62907d3a0e1dfcd0da",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/experiments/public-identity/generational-reuse-v1/fixture.bend",
+      "privateSHA256": "4c004492e084deee23cd408ad5c2da1a1eea7282d3754c62907d3a0e1dfcd0da",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/observe.bend",
+      "normalSHA256": "e06650f843a57fa05b4368be0e8e21ac6fd1866495be480042270dcebc403587",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/experiments/public-identity/generational-reuse-v1/observe.bend",
+      "privateSHA256": "e06650f843a57fa05b4368be0e8e21ac6fd1866495be480042270dcebc403587",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/owner-observer.bend",
+      "normalSHA256": "99c44acc007d7c6fe19af8f5b0da3badcf0c5c951bdbcdda162350ef649aeafa",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/experiments/public-identity/generational-reuse-v1/owner-observer.bend",
+      "privateSHA256": "99c44acc007d7c6fe19af8f5b0da3badcf0c5c951bdbcdda162350ef649aeafa",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/bundle-batch.bend",
+      "normalSHA256": "312af24abeeaff91b382108311b51f1e05159d524ca032b77284959557073e4f",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/bundle-batch.bend",
+      "privateSHA256": "312af24abeeaff91b382108311b51f1e05159d524ca032b77284959557073e4f",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/bundle-delivery.bend",
+      "normalSHA256": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/bundle-delivery.bend",
+      "privateSHA256": "6b1be6a1b2ec3ad82914963fb20e2884f26006c8462cf492b0afc9604259e511",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/column.bend",
+      "normalSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/column.bend",
+      "privateSHA256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/commands.bend",
+      "normalSHA256": "9a632b1d8b46211c54596fad910fcf8b5353c74a6d23656ea37f97039909a721",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/commands.bend",
+      "privateSHA256": "9a632b1d8b46211c54596fad910fcf8b5353c74a6d23656ea37f97039909a721",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/component.bend",
+      "normalSHA256": "91dfc05ab68be6631ffd17e009d4f1a8f2c9a4047229333c64b364fff91be601",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/component.bend",
+      "privateSHA256": "91dfc05ab68be6631ffd17e009d4f1a8f2c9a4047229333c64b364fff91be601",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/entity-allocator.bend",
+      "normalSHA256": "4cf8bca68b0f12608b20c36d5a2874347cb427dcf34016ae0a3955b2dae849d5",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/entity-allocator.bend",
+      "privateSHA256": "08045f44b77a1fda6a58ce58fa6f1dfcaeacbed16bf6e4a53fb8f38249436aa3",
+      "changed": true
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/entity-key.bend",
+      "normalSHA256": "ff8cf964a493fe6122509f9cf0fdbadc2423d45bd2e4f7f7db72460bdcbc6ced",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/entity-key.bend",
+      "privateSHA256": "ff8cf964a493fe6122509f9cf0fdbadc2423d45bd2e4f7f7db72460bdcbc6ced",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/indexed-lifecycle.bend",
+      "normalSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/indexed-lifecycle.bend",
+      "privateSHA256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/lifecycle.bend",
+      "normalSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/lifecycle.bend",
+      "privateSHA256": "6585d64ff88a3985a663d42c5b9a82ff3d5067e6ad451f506fad146c4fbd09b0",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/ordinary-component-binding.bend",
+      "normalSHA256": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/ordinary-component-binding.bend",
+      "privateSHA256": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/ordinary-component-despawn.bend",
+      "normalSHA256": "896f2c2b9435e232b06f9701e6d74073f375b60a0811d5150cde15b22cc387b4",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/ordinary-component-despawn.bend",
+      "privateSHA256": "896f2c2b9435e232b06f9701e6d74073f375b60a0811d5150cde15b22cc387b4",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/ordinary-declaration.bend",
+      "normalSHA256": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/ordinary-declaration.bend",
+      "privateSHA256": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/owner-handoff.bend",
+      "normalSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/owner-handoff.bend",
+      "privateSHA256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/string-equality.bend",
+      "normalSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/string-equality.bend",
+      "privateSHA256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/transaction.bend",
+      "normalSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/transaction.bend",
+      "privateSHA256": "a27dcd99fec5de95256e810ace6c5540791969dbe1e0c99916ec38b5f7e3040b",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/world-io.bend",
+      "normalSHA256": "1be0fcd577ecf177af89136f77e5c8e67894304a89adefaf0565591f641a63e9",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/world-io.bend",
+      "privateSHA256": "1be0fcd577ecf177af89136f77e5c8e67894304a89adefaf0565591f641a63e9",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/world-namespace.bend",
+      "normalSHA256": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/world-namespace.bend",
+      "privateSHA256": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/world-namespace.c",
+      "normalSHA256": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/world-namespace.c",
+      "privateSHA256": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/world-namespace.js",
+      "normalSHA256": "f463bf328c4232fec85c67e328d93309e2191d80b7377be64355b6c1edd4f815",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/world-namespace.js",
+      "privateSHA256": "f463bf328c4232fec85c67e328d93309e2191d80b7377be64355b6c1edd4f815",
+      "changed": false
+    },
+    {
+      "normal": "/tmp/bendvy-generational38/src/ecs/world.bend",
+      "normalSHA256": "486ff5c5952a029a3aeaca5081154f577f5a29b493b260a9152277a9494a28b7",
+      "private": "/tmp/bendvy-generational38/experiments/public-identity/generational-reuse-v1/allocator-bounds-mutant-v1/private/src/ecs/world.bend",
+      "privateSHA256": "486ff5c5952a029a3aeaca5081154f577f5a29b493b260a9152277a9494a28b7",
+      "changed": false
+    }
+  ],
+  "subject": "Exact failed-growth consumer; only new allocator bounds before actual slot Array.get bypassed. Trusted malformed key3 aliases actual Pending slot1 at capacity2."
+}

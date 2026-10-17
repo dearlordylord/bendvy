@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import relation-types.bend as G
 import relation-reorder-core.bend as C
 import relation-commands.bend as A
@@ -13,33 +14,33 @@ type Writable<H:Type,S:Data> is Type:
 def descriptor(~S:Data,value:G.HierarchyDescriptor<S>) -> G.Descriptor<S>:
   match value:
     case G.HierarchyDescriptor{key,name,inverse}: G.Descriptor{key,name,inverse,G.Hierarchy{}}
-def store_reorder(~S:Data,~C:Type,store:A.Store<S,C>,d:G.Descriptor<S>,parent:U32,children:List<&2,G.ChildStatus>,parentLive:Bool) -> A.Store<S,C> & Maybe<&2,G.Error>:
+def store_reorder(~S:Data,~C:Type,store:A.Store<S,C>,d:G.Descriptor<S>,parent:Key.Key,children:List<&2,G.ChildStatus>,parentLive:Bool) -> A.Store<S,C> & Maybe<&2,G.Error>:
   match store:
     case A.Store{components,graph}: A.relate_result(~S,~C,C.reorder(~S,graph,d,parent,children,parentLive),components)
-def error_target(error:G.Error,parent:U32) -> U32:
+def error_target(error:G.Error,parent:Key.Key) -> Key.Key:
   match error:
     case G.MissingChildEntity{_,child,_}: child
     case G.DuplicateChild{_,child,_}: child
     case G.ChildNotRelatedToParent{_,child,_}: child
     case _: parent
-def publish(~S:Data,~C:Type,~R:Type,~E:Data,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,G.Error>,d:G.Descriptor<S>,+parent:U32) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
+def publish(~S:Data,~C:Type,~R:Type,~E:Data,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,G.Error>,d:G.Descriptor<S>,+parent:Key.Key) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
   match observed:
     case (world,None{}): world
     case (world,Some{+error}): W.event_publish(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,[A.RelationFailed{G.Failure{d,G.ReorderChildren{},parent,error_target(error,parent),error}}])
-def children_prepend(~S:Data,~C:Type,~R:Type,~E:Data,result:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>,id:U32,live:Bool) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>:
+def children_prepend(~S:Data,~C:Type,~R:Type,~E:Data,result:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>,id:Key.Key,live:Bool) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>:
   (world,rest) = result
   (world,G.ChildStatus{id,live} <> rest)
-def child_next(~S:Data,~C:Type,~R:Type,~E:Data,checked:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Bool,id:U32,next:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>:
+def child_next(~S:Data,~C:Type,~R:Type,~E:Data,checked:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Bool,id:Key.Key,next:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>:
   (world,live) = checked
   children_prepend(~S,~C,~R,~E,next(world),id,live)
 def child_statuses(~S:Data,~C:Type,~R:Type,~E:Data,children:List<&2,W.Handle<S>>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>:
   match children:
     case []: (world,[])
     case W.Handle{+ns,+id} <> rest: child_next(~S,~C,~R,~E,W.valid(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world,W.Handle{ns,id}),id,world => child_statuses(~S,~C,~R,~E,rest,world))
-def apply_children(~S:Data,~C:Type,~R:Type,~E:Data,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>,+d:G.Descriptor<S>,+parent:U32,parentLive:Bool) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
+def apply_children(~S:Data,~C:Type,~R:Type,~E:Data,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & List<&2,G.ChildStatus>,+d:G.Descriptor<S>,+parent:Key.Key,parentLive:Bool) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
   (world,children) = observed
   publish(~S,~C,~R,~E,W.with_store(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~Maybe<&2,G.Error>,store => store_reorder(~S,~C,store,d,parent,children,parentLive),world),d,parent)
-def apply_parent(~S:Data,~C:Type,~R:Type,~E:Data,checked:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Bool,d:G.Descriptor<S>,parent:U32,children:List<&2,W.Handle<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
+def apply_parent(~S:Data,~C:Type,~R:Type,~E:Data,checked:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Bool,d:G.Descriptor<S>,parent:Key.Key,children:List<&2,W.Handle<S>>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:
   (world,live) = checked
   apply_children(~S,~C,~R,~E,child_statuses(~S,~C,~R,~E,children,world),d,parent,live)
 def apply(~S:Data,~C:Type,~R:Type,~E:Data,~d:G.HierarchyDescriptor<S>,world:W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,args:Args<S>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>:

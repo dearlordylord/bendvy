@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/entity-key.bend as Key
 import schema.bend as S
 import json.bend as J
 import ../../src/ecs/world.bend as W
@@ -6,7 +7,7 @@ import ../../src/ecs/component.bend as C
 
 def handle_id(handle: W.Handle<S.Schema>) -> U32:
   match handle:
-    case W.Handle{_,id}: id
+    case W.Handle{_,id}: Key.index(id)
 
 def row_locked(+handle: W.Handle<S.Schema>,+stock: C.Access<S.StockView>,+recipe: C.Access<S.RecipeView>,+queue: C.Access<S.QueueView>,+enabled: C.Access<S.Enabled>,observed: S.World() & C.Access<S.Locked>) -> S.World() & String:
   (world,+locked) = observed

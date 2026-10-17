@@ -1,4 +1,5 @@
 import Base
+import entity-key-render.bend as KeyText
 import ./ordinary-app-composer.bend as Build
 import ./ordinary-app-recipe.bend as Tree
 import ./ordinary-app-observation-data.bend as DTO
@@ -43,7 +44,7 @@ def ObservedRows(~S:Data,~Rows:Data) -> Data:
   DTO.Product<Rows,View<S>>
 def handle(~S:Data,value:W.Handle<S>) -> String:
   match value:
-    case W.Handle{ns,id}:U32.show(ns) ++ ":" ++ U32.show(id)
+    case W.Handle{ns,id}:U32.show(ns) ++ ":" ++ KeyText.show(id)
 def relation_value(~S:Data,value:RQ.Value<S>) -> String:
   match value:
     case RQ.Missing{}:"Missing"

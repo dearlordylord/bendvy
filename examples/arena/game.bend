@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/entity-key.bend as Key
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/column.bend as Col
 import ../../src/ecs/component.bend as C
@@ -41,7 +42,7 @@ def cleared(result: Col.SwapOutcome<Schema,Body>) -> Store:
     case Col.Rejected{column,_}: Store{column}
 def clear(store: Store,handle: W.Handle<Schema>) -> Store:
   match store handle:
-    case Store{column} W.Handle{_,id}: cleared(Col.clear(~Schema,~Body,column,id))
+    case Store{column} W.Handle{_,id}: cleared(Col.clear(~Schema,~Body,column,Key.index(id)))
 def seed_x(+seed: U32) -> F32: U32.to_f32(((seed * 137 + 71) % 740 : U32))
 def seed_y(+seed: U32) -> F32: U32.to_f32(((seed * 83 + 29) % 440 : U32))
 # Only newborn enemies use the current count. Existing speeds remain unchanged.

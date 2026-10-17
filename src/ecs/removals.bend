@@ -75,12 +75,12 @@ def checked(~S: Data,~C: Type,~R: Type,~E: Data,~F: Data,~select: E -> Maybe<&2,
 
 def named(~S: Data,~C: Type,~R: Type,~E: Data,~F: Data,~select: E -> Maybe<&2,Record<S,F>>,~Error: Data,~Out: Type,~consume: List<&2,Record<S,F>> -> Result<&2,&1,Error,Out>,reader: Reader<S,E,F,select>,world: W.World<S,C,R,E>,actual: U32) -> Run<S,C,R,E,F,select,Error,Out>:
   match reader world:
-    case Reader{+namespace,+id,+name,+cursor} W.World{+ns,nextId,highWater,live,capacity,depth,store,resource,events,pending,+registrations,nextSystemId,clock}:
-      checked(~S,~C,~R,~E,~F,~select,~Error,~Out,~consume,Bool.and(U32.is_eq(namespace,actual),W.registration_list_matches(registrations,id,name,["removal",name])),Reader{namespace,id,name,cursor},W.World{ns,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},cursor)
+    case Reader{+namespace,+id,+name,+cursor} W.World{+ns,allocator,store,resource,events,pending,+registrations,nextSystemId,clock}:
+      checked(~S,~C,~R,~E,~F,~select,~Error,~Out,~consume,Bool.and(U32.is_eq(namespace,actual),W.registration_list_matches(registrations,id,name,["removal",name])),Reader{namespace,id,name,cursor},W.World{ns,allocator,store,resource,events,pending,registrations,nextSystemId,clock},cursor)
 
 def run(~S: Data,~C: Type,~R: Type,~E: Data,~F: Data,~select: E -> Maybe<&2,Record<S,F>>,~Error: Data,~Out: Type,~consume: List<&2,Record<S,F>> -> Result<&2,&1,Error,Out>,reader: Reader<S,E,F,select>,world: W.World<S,C,R,E>) -> Run<S,C,R,E,F,select,Error,Out>:
   match world:
-    case W.World{+ns,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock}: named(~S,~C,~R,~E,~F,~select,~Error,~Out,~consume,reader,W.World{ns,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},ns)
+    case W.World{+ns,allocator,store,resource,events,pending,registrations,nextSystemId,clock}: named(~S,~C,~R,~E,~F,~select,~Error,~Out,~consume,reader,W.World{ns,allocator,store,resource,events,pending,registrations,nextSystemId,clock},ns)
 
 # Skipped removal readers keep their original cursor; unlike ordinary events.
 def skip(~S: Data,~E: Data,~F: Data,~select: E -> Maybe<&2,Record<S,F>>,reader: Reader<S,E,F,select>) -> Reader<S,E,F,select>:
@@ -99,12 +99,12 @@ def readers_remain(entries: List<&2,W.RegistrationMeta>) -> Bool:
 def collect_checked(~S: Data,~C: Type,~R: Type,~E: Data,retain: Bool,world: W.World<S,C,R,E>) -> W.World<S,C,R,E>:
   match retain world:
     case True{} world: world
-    case False{} W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,_,pending,registrations,nextSystemId,clock}: W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,[],pending,registrations,nextSystemId,clock}
+    case False{} W.World{namespace,allocator,store,resource,_,pending,registrations,nextSystemId,clock}: W.World{namespace,allocator,store,resource,[],pending,registrations,nextSystemId,clock}
 
 def collected(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,C,R,E> & Bool) -> W.World<S,C,R,E> & Bool:
   match result:
     case (world,False{}): (world,False{})
-    case (W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,+registrations,nextSystemId,clock},True{}): (collect_checked(~S,~C,~R,~E,readers_remain(registrations),W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock}),True{})
+    case (W.World{namespace,allocator,store,resource,events,pending,+registrations,nextSystemId,clock},True{}): (collect_checked(~S,~C,~R,~E,readers_remain(registrations),W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}),True{})
 
 def disposal_collected(~S: Data,~C: Type,~R: Type,~E: Data,~F: Data,~select: E -> Maybe<&2,Record<S,F>>,result: W.World<S,C,R,E> & Bool) -> Disposal<S,C,R,E,F,select>:
   (world,removed) = result

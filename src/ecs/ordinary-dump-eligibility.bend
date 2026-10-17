@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import ./world.bend as W
 import ./schema-fragments.bend as Fragment
 import ./ordinary-dump-filter.bend as Filter
@@ -26,7 +27,7 @@ def included(~S:Data,~C:Type,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,May
   match include:
     case False{}:rest(store,limit)
     case True{}:selected(~S,~C,entries,criteria,handle,limit,rest,count(store,[handle]))
-def scan(~S:Data,~C:Type,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,handles:List<&2,W.Handle<S>>,+entries:List<&2,Fragment.Entry<S>>,+ids:Maybe<&2,List<&2,U32>>,+criteria:List<&2,Filter.Component<S>>,limit:Maybe<&2,Nat>,store:C) -> C & List<&2,W.Handle<S>>:
+def scan(~S:Data,~C:Type,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,handles:List<&2,W.Handle<S>>,+entries:List<&2,Fragment.Entry<S>>,+ids:Maybe<&2,List<&2,Key.Key>>,+criteria:List<&2,Filter.Component<S>>,limit:Maybe<&2,Nat>,store:C) -> C & List<&2,W.Handle<S>>:
   match handles limit:
     case _ Some{0n}:(store,[])
     case [] _:(store,[])

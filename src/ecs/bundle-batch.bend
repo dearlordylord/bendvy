@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as K
 import bundle-delivery.bend as B
 import world.bend as W
 import transaction.bend as T
@@ -45,7 +46,7 @@ def receipt_find(~S:Data,~P:Type,prepared:List<Prepared<S,P>>,+target:W.Handle<S
     case Prepared{handle,payload,position} <> tail: receipt_join(~S,~P,Prepared{handle,payload,position},False{},receipt_find(~S,~P,tail,target))
     case ReservationReceipt{W.Handle{+ns,+id}} <> tail:
       match target:
-        case W.Handle{+otherNs,+otherId}: receipt_join(~S,~P,ReservationReceipt{W.Handle{ns,id}},Bool.and(U32.is_eq(ns,otherNs),U32.is_eq(id,otherId)),receipt_find(~S,~P,tail,W.Handle{otherNs,otherId}))
+        case W.Handle{+otherNs,+otherId}: receipt_join(~S,~P,ReservationReceipt{W.Handle{ns,id}},Bool.and(U32.is_eq(ns,otherNs),K.equal(id,otherId)),receipt_find(~S,~P,tail,W.Handle{otherNs,otherId}))
 def receipt_checked(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,world:W.World<S,Store,R,E>,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events:List<&2,E>,target:W.Handle<S>,payload:P,result:List<Prepared<S,P>> & Bool) -> Inserted<S,Store,R,E,P>:
   match result:
     case (prepared,False{}): Refused{Batch{T.Tx{world,undo,commands,events},prepared},payload,W.MissingEntity{}}

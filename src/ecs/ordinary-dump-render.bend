@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import ./world.bend as W
 import ./schema-fragments.bend as Fragment
 import ./ordinary-dump-filter.bend as Filter
@@ -22,4 +23,4 @@ def rendered(~S:Data,~C:Type,entries:List<&2,Fragment.Entry<S>>,handle:W.Handle<
 def rows(~S:Data,~C:Type,~read:C -> U32 -> C & List<&2,Maybe<&2,String>>,handles:List<&2,W.Handle<S>>,+entries:List<&2,Fragment.Entry<S>>,store:C) -> C & List<&2,Filter.Row<S>>:
   match handles:
     case []:(store,[])
-    case W.Handle{+namespace,+id} <> rest:rendered(~S,~C,entries,W.Handle{namespace,id},next => rows(~S,~C,~read,rest,entries,next),read(store,id))
+    case W.Handle{+namespace,+id} <> rest:rendered(~S,~C,entries,W.Handle{namespace,id},next => rows(~S,~C,~read,rest,entries,next),read(store,Key.index(id)))

@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.Write<write~H, S.Payload, Unit>
+- observed : Cap.Read<write~H, Unit>
+Context:
+- owner   : write~H
+- payload : S.Payload
+Location: write
+5 | def write(~H:Type,~cap:Cap.Read<H,Unit>,owner:H,payload:S.Payload) -> H:
+6>|   Cap.set(~H,~S.Payload,~Unit,~cap,owner,payload)
+  |                                ^^^
+7 | 
+bend 2.0.37 is available: run bend update

@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import ./persistence-declaration.bend as Persist
 import ./decode-data.bend as D
 import ./ordinary-component-binding.bend as Binding
@@ -25,7 +26,7 @@ def has(~S:Data,~C:Type,~Rest:Type,~P:Type,~take:C -> Rest & Col.Column<S,P>,~pu
 def count_loop(~S:Data,~C:Type,~Rest:Type,~P:Type,~take:C -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> C,handles:List<&2,W.Handle<S>>,store:C,total:U32) -> C & U32:
   match handles:
     case []:(store,total)
-    case W.Handle{_,id} <> rest:counted(~C,total,store=>total=>count_loop(~S,~C,~Rest,~P,~take,~put,rest,store,total),has(~S,~C,~Rest,~P,~take,~put,store,id))
+    case W.Handle{_,Key.EntityKey{id,_}} <> rest:counted(~C,total,store=>total=>count_loop(~S,~C,~Rest,~P,~take,~put,rest,store,total),has(~S,~C,~Rest,~P,~take,~put,store,id))
 def count_returned(~C:Type,result:C & U32) -> C & List<&2,Maybe<&2,U32>>:
   match result:
     case (store,total):(store,[Some{total}])

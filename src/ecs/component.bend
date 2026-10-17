@@ -3,6 +3,8 @@ import lifecycle.bend as L
 import column.bend as Col
 import world.bend as W
 import transaction.bend as T
+import entity-key.bend as K
+import entity-allocator.bend as A
 
 # Caller-authored schema lenses are trusted provisioning. The gameplay callback
 # receives only universally quantified provider handles, never these owners.
@@ -44,34 +46,17 @@ def get_store(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: D
 
 def get_world(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,world: W.World<S,Store,R,E>) -> W.World<S,Store,R,E> & Access<V>:
   match world:
-    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
-      W.with_store_finish(~S,~Store,~R,~E,~Access<V>,get_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,take(store)),namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId,clock)
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
+      W.with_store_finish(~S,~Store,~R,~E,~Access<V>,get_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,take(store)),namespace,allocator,resource,events,pending,registrations,nextSystemId,clock)
 
 def get_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,checked: W.World<S,Store,R,E> & Bool,+handle: W.Handle<S>) -> W.World<S,Store,R,E> & Access<V>:
   match checked handle:
     case (world,False{}) _: (world,MissingEntity{})
-    case (world,True{}) W.Handle{_,+id}:
+    case (world,True{}) W.Handle{_,K.EntityKey{+id,_}}:
       get_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,world)
 
-def get_live_owned(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,observed: Array<Bool> & Bool,+namespace: U32,+nextId: U32,+highWater: U32,+capacity: U32,+depth: Nat,store: Store,resource: R,+events: List<&2,E>,pending: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,+registrations: List<&2,W.RegistrationMeta>,+nextSystemId: U32,+clock: U32) -> W.World<S,Store,R,E> & Access<V>:
-  match observed:
-    case (live,False{}): (W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},MissingEntity{})
-    case (live,True{}): W.with_store_finish(~S,~Store,~R,~E,~Access<V>,get_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,take(store)),namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId,clock)
-
-def get_metadata_owned(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,allowed: Bool,+id: U32,live: Array<Bool>,+namespace: U32,+nextId: U32,+highWater: U32,+capacity: U32,+depth: Nat,store: Store,resource: R,+events: List<&2,E>,pending: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,+registrations: List<&2,W.RegistrationMeta>,+nextSystemId: U32,+clock: U32) -> W.World<S,Store,R,E> & Access<V>:
-  match allowed:
-    case False{}: (W.World{namespace,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},MissingEntity{})
-    case True{}: get_live_owned(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,Array.get(Bool,live,id),namespace,nextId,highWater,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock)
-
-def get_live_read(allowed: Bool,+id: U32,live: Array<Bool>) -> Array<Bool> & Bool:
-  match allowed:
-    case False{}: (live,False{})
-    case True{}: Array.get(Bool,live,id)
-
 def get(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,+handle: W.Handle<S>) -> W.World<S,Store,R,E> & Access<V>:
-  match world handle:
-    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock} W.Handle{+ns,+id}:
-      get_live_owned(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,get_live_read(Bool.and(U32.is_eq(namespace,ns),Bool.and(U32.is_lt(0,id),U32.is_lt(id,nextId))),id,live),namespace,nextId,highWater,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock)
+  get_allowed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.valid(~S,~Store,~R,~E,world,handle),handle)
 
 def has_access(~V: Data,value: Access<V>) -> Access<Bool>:
   match value:
@@ -106,8 +91,8 @@ def swap_store(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: 
 
 def swap_world(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,incoming: Maybe<&1,C>,incomingPresent: Bool,tick: U32,world: W.World<S,Store,R,E>) -> W.World<S,Store,R,E> & Swap<C>:
   match world:
-    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
-      W.with_store_finish(~S,~Store,~R,~E,~Swap<C>,swap_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,incomingPresent,tick,take(store)),namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId,clock)
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
+      W.with_store_finish(~S,~Store,~R,~E,~Swap<C>,swap_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,incomingPresent,tick,take(store)),namespace,allocator,resource,events,pending,registrations,nextSystemId,clock)
 
 def replaced(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,result: W.World<S,Store,R,E> & Swap<C>) -> Replacement<W.World<S,Store,R,E>,C>:
   match result:
@@ -130,7 +115,7 @@ def replace_clock(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~
 def replace_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,checked: W.World<S,Store,R,E> & Bool,+handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Replacement<W.World<S,Store,R,E>,C>:
   match checked handle:
     case (world,False{}) _: ReplaceRejected{world,incoming,W.MissingEntity{}}
-    case (world,True{}) W.Handle{_,+id}:
+    case (world,True{}) W.Handle{_,K.EntityKey{+id,_}}:
       replace_clock(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,W.clock(~S,~Store,~R,~E,world))
 
 # Ordinary writes require a live entity. Foreign handles are rejected before
@@ -161,8 +146,8 @@ def restore_store(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~
 
 def restore_world(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,incoming: Maybe<&1,C>,world: W.World<S,Store,R,E>) -> W.World<S,Store,R,E> & Unit:
   match world:
-    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
-      W.with_store_finish(~S,~Store,~R,~E,~Unit,restore_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,take(store)),namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId,clock)
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
+      W.with_store_finish(~S,~Store,~R,~E,~Unit,restore_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,take(store)),namespace,allocator,resource,events,pending,registrations,nextSystemId,clock)
 
 def restore_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,observed: W.World<S,Store,R,E> & Unit) -> W.World<S,Store,R,E>:
   (world,_) = observed
@@ -171,7 +156,7 @@ def restore_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Typ
 def restore_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,checked: W.World<S,Store,R,E> & Bool,handle: W.Handle<S>,incoming: Maybe<&1,C>) -> W.World<S,Store,R,E>:
   match checked handle:
     case (world,False{}) _: world
-    case (world,True{}) W.Handle{_,+id}: restore_observed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,restore_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,world))
+    case (world,True{}) W.Handle{_,K.EntityKey{+id,_}}: restore_observed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,restore_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,world))
 
 def restore(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,+handle: W.Handle<S>,incoming: Maybe<&1,C>,world: W.World<S,Store,R,E>) -> W.World<S,Store,R,E>:
   restore_allowed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.metadata_valid(~S,~Store,~R,~E,world,handle),handle,incoming)
@@ -186,13 +171,13 @@ def lifecycle_store(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type
 
 def lifecycle_world(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,world: W.World<S,Store,R,E>) -> W.World<S,Store,R,E> & L.Stamp:
   match world:
-    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
-      W.with_store_finish(~S,~Store,~R,~E,~L.Stamp,lifecycle_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,take(store)),namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId,clock)
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
+      W.with_store_finish(~S,~Store,~R,~E,~L.Stamp,lifecycle_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,take(store)),namespace,allocator,resource,events,pending,registrations,nextSystemId,clock)
 
 def lifecycle_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,checked: W.World<S,Store,R,E> & Bool,handle: W.Handle<S>) -> W.World<S,Store,R,E> & L.Stamp:
   match checked handle:
     case (world,False{}) _: (world,L.Stamp{0,0})
-    case (world,True{}) W.Handle{_,+id}: lifecycle_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,world)
+    case (world,True{}) W.Handle{_,K.EntityKey{+id,_}}: lifecycle_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,world)
 
 def lifecycle(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,+handle: W.Handle<S>) -> W.World<S,Store,R,E> & L.Stamp:
   lifecycle_allowed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.valid(~S,~Store,~R,~E,world,handle),handle)
@@ -203,8 +188,8 @@ def restore_stamp_store(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: 
 
 def restore_stamp_world(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,stamp: L.Stamp,world: W.World<S,Store,R,E>) -> W.World<S,Store,R,E> & Unit:
   match world:
-    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
-      W.with_store_finish(~S,~Store,~R,~E,~Unit,restore_stamp_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,stamp,take(store)),namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId,clock)
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
+      W.with_store_finish(~S,~Store,~R,~E,~Unit,restore_stamp_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,stamp,take(store)),namespace,allocator,resource,events,pending,registrations,nextSystemId,clock)
 
 def restore_stamp_done(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,observed: W.World<S,Store,R,E> & Unit) -> W.World<S,Store,R,E>:
   (world,_) = observed
@@ -212,7 +197,7 @@ def restore_stamp_done(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: T
 
 def restore_stamp(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+handle: W.Handle<S>,stamp: L.Stamp,world: W.World<S,Store,R,E>) -> W.World<S,Store,R,E>:
   match handle:
-    case W.Handle{_,+id}: restore_stamp_done(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,restore_stamp_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,stamp,world))
+    case W.Handle{_,K.EntityKey{+id,_}}: restore_stamp_done(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,restore_stamp_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,stamp,world))
 
 def tx_get_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events: List<&2,E>,observed: W.World<S,Store,R,E> & Access<V>) -> T.Tx<W.World<S,Store,R,E>,E> & Access<V>:
   (world,value) = observed
@@ -261,13 +246,13 @@ def stamped_tick(+clock:U32,allowed:Bool) -> U32:
 
 def stamped_world(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id:U32,incoming:C,world:W.World<S,Store,R,E>) -> Replacement<W.World<S,Store,R,E>,C> & L.Stamp:
   match world:
-    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
-      stamped_replaced(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.with_store_finish(~S,~Store,~R,~E,~(Swap<C> & L.Stamp),stamped_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,stamped_tick(clock,U32.is_lt(clock,4294967295)),U32.is_lt(clock,4294967295),take(store)),namespace,nextId,highWater,live,capacity,depth,resource,events,pending,registrations,nextSystemId,stamped_tick(clock,U32.is_lt(clock,4294967295))))
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
+      stamped_replaced(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.with_store_finish(~S,~Store,~R,~E,~(Swap<C> & L.Stamp),stamped_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,stamped_tick(clock,U32.is_lt(clock,4294967295)),U32.is_lt(clock,4294967295),take(store)),namespace,allocator,resource,events,pending,registrations,nextSystemId,stamped_tick(clock,U32.is_lt(clock,4294967295))))
 
 def stamped_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,checked:W.World<S,Store,R,E> & Bool,handle:W.Handle<S>,incoming:C) -> Replacement<W.World<S,Store,R,E>,C> & L.Stamp:
   match checked handle:
     case (world,False{}) _: (ReplaceRejected{world,Some{incoming},W.MissingEntity{}},L.Stamp{0,0})
-    case (world,True{}) W.Handle{_,+id}: stamped_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,world)
+    case (world,True{}) W.Handle{_,K.EntityKey{+id,_}}: stamped_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,world)
 
 def tx_set_fused(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family:Family<S,Store,Rest,C,V,Token,take,put,project>,+handle:W.Handle<S>,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,events:List<&2,E>,observed:Replacement<W.World<S,Store,R,E>,C> & L.Stamp) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
   match observed:

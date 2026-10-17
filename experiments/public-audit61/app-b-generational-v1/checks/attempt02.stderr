@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : Key.Key
+- observed : U32
+Context:
+- id         : U32
+- cursor     : Nat
+- registered : Nat
+Location: position
+52 |   match value:
+53>|     case Ev.Position{id,cursor,registered}:Identity.key_text(id) ++ ":" ++ Nat.show(cursor) ++ ":" ++ Nat.show(registered)
+   |                                                              ^^
+54 | def stream_snapshot(value:List<&2,Ev.Batch<M.Transition<U32>>> & (List<&2,Ev.Position> & (Nat & Nat))) -> String:
+bend 2.0.37 is available: run bend update

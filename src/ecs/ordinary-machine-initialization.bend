@@ -7,7 +7,7 @@ import ./world.bend as W
 # Runtime constructor inputs remain runtime values, never erased closure captures.
 def with_resource(~S:Data,~C:Type,~R:Type,~E:Data,~Out:Type,effect:R -> R & Out,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & Out:
   match world:
-    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:W.observe_resource_finish(~S,~C,~R,~E,~Out,effect(resource),namespace,nextId,highWater,live,capacity,depth,store,events,pending,registrations,nextSystemId,clock)
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:W.observe_resource_finish(~S,~C,~R,~E,~Out,effect(resource),namespace,allocator,store,events,pending,registrations,nextSystemId,clock)
 
 # The operational slot, stream and change revision share one schema-owned cell.
 # Revisions are not Registry cursors; each registered condition owns its observation.

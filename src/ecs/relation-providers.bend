@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import relation-types.bend as G
 import relation-commands.bend as A
 import world.bend as W
@@ -33,15 +34,15 @@ def relate(~H: Type,~S: Data,~caps: Writable<H,S>,owner: H,targets: Targets<S>) 
   Cap.request(~H,~Targets<S>,~A.QueueStatus,~relate_field(~H,~S,caps),owner,targets)
 def unrelate(~H: Type,~S: Data,~caps: Writable<H,S>,owner: H,source: W.Handle<S>) -> H & A.QueueStatus:
   Cap.request(~H,~W.Handle<S>,~A.QueueStatus,~clear_field(~H,~S,caps),owner,source)
-def handle_ids(~S: Data,ids: List<&2,U32>,+namespace: U32) -> List<&2,W.Handle<S>>:
+def handle_ids(~S: Data,ids: List<&2,Key.Key>,+namespace: U32) -> List<&2,W.Handle<S>>:
   match ids:
     case []: []
     case id <> rest: W.Handle{namespace,id} <> handle_ids(~S,rest,namespace)
-def handle_snapshot(~S: Data,value: Maybe<&2,List<&2,U32>>,namespace: U32) -> Maybe<&2,List<&2,W.Handle<S>>>:
+def handle_snapshot(~S: Data,value: Maybe<&2,List<&2,Key.Key>>,namespace: U32) -> Maybe<&2,List<&2,W.Handle<S>>>:
   match value:
     case None{}: None{}
     case Some{ids}: Some{handle_ids(~S,ids,namespace)}
-def inverse_handles(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,List<&2,U32>>,target: W.Handle<S>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>:
+def inverse_handles(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,List<&2,Key.Key>>,target: W.Handle<S>) -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>:
   match result target:
     case (world,value) W.Handle{ns,_}: (world,handle_snapshot(~S,value,ns))
 def inverse_tx_done(~S: Data,~C: Type,~R: Type,~E: Data,result: W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>,undo: List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,commands: List<(W.World<S,A.Store<S,C>,R,A.Notice<S,E>> -> W.World<S,A.Store<S,C>,R,A.Notice<S,E>>)>,events: List<&2,A.Notice<S,E>>) -> X.Tx<W.World<S,A.Store<S,C>,R,A.Notice<S,E>>,A.Notice<S,E>> & Maybe<&2,List<&2,W.Handle<S>>>:

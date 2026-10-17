@@ -1,4 +1,6 @@
 import Base
+import entity-key.bend as Key
+import entity-allocator.bend as Alloc
 import ./world.bend as W
 import ./column.bend as Col
 import ./component.bend as C
@@ -26,28 +28,28 @@ def replace(~S:Data,~P:Type,~R:Type,~E:Data,+name:String,world:W.World<S,Col.Col
   stamped(~S,~P,~R,~E,name,handle,incoming,C.lifecycle(~S,~Col.Column<S,P>,~R,~E,~Unit,~P,~Unit,~Tag,~take(~S,~P),~put(~S,~P),~project(~P),family(~S,~P,~R,~E,name),world,handle))
 def restored(~S:Data,~P:Type,+handle:W.Handle<S>,stamp:Life.Stamp,released:Life.Stamp,result:Col.SwapOutcome<S,P>) -> Col.Column<S,P> & Record<S,P>:
   match handle result:
-    case W.Handle{_,id},Col.Accepted{column,payload}:(Col.restore_stamp(~S,~P,column,id,stamp),Record{handle,released,payload})
+    case W.Handle{_,Key.EntityKey{id,_}},Col.Accepted{column,payload}:(Col.restore_stamp(~S,~P,column,id,stamp),Record{handle,released,payload})
     # For a saved ordinary record, ensure covers its positive live id, hence
     # swap accepts. Raw rejection returns the untouched incoming owner/record;
     # it does not claim that a different payload was displaced.
-    case W.Handle{_,id},Col.Rejected{column,payload}:(column,Record{handle,stamp,payload})
+    case W.Handle{_,Key.EntityKey{id,_}},Col.Rejected{column,payload}:(column,Record{handle,stamp,payload})
 def undo_stamped(~S:Data,~P:Type,+handle:W.Handle<S>,stamp:Life.Stamp,payload:Maybe<P>,observed:Col.Column<S,P> & Life.Stamp) -> Col.Column<S,P> & Record<S,P>:
   match handle observed:
-    case W.Handle{_,+id}, (column,released):restored(~S,~P,handle,stamp,released,Col.swap(~S,~P,Col.ensure(~S,~P,column,id),id,payload))
+    case W.Handle{_,Key.EntityKey{+id,_}}, (column,released):restored(~S,~P,handle,stamp,released,Col.swap(~S,~P,Col.ensure(~S,~P,column,id),id,payload))
 def undo_column(~S:Data,~P:Type,+handle:W.Handle<S>,stamp:Life.Stamp,payload:Maybe<P>,column:Col.Column<S,P>) -> Col.Column<S,P> & Record<S,P>:
   match handle:
-    case W.Handle{_,id}:undo_stamped(~S,~P,handle,stamp,payload,Col.lifecycle(~S,~P,column,id))
-def undone(~S:Data,~P:Type,~R:Type,~E:Data,ns:U32,next:U32,high:U32,live:Array<Bool>,capacity:U32,depth:Nat,resource:R,events:List<&2,E>,pending:List<(W.World<S,Col.Column<S,P>,R,E> -> W.World<S,Col.Column<S,P>,R,E>)>,regs:List<&2,W.RegistrationMeta>,sid:U32,clock:U32,result:Col.Column<S,P> & Record<S,P>) -> W.World<S,Col.Column<S,P>,R,E> & Record<S,P>:
+    case W.Handle{_,Key.EntityKey{id,_}}:undo_stamped(~S,~P,handle,stamp,payload,Col.lifecycle(~S,~P,column,id))
+def undone(~S:Data,~P:Type,~R:Type,~E:Data,ns:U32,allocator:Alloc.Allocator,resource:R,events:List<&2,E>,pending:List<(W.World<S,Col.Column<S,P>,R,E> -> W.World<S,Col.Column<S,P>,R,E>)>,regs:List<&2,W.RegistrationMeta>,sid:U32,clock:U32,result:Col.Column<S,P> & Record<S,P>) -> W.World<S,Col.Column<S,P>,R,E> & Record<S,P>:
   match result:
-    case (column,record):(W.World{ns,next,high,live,capacity,depth,column,resource,events,pending,regs,sid,clock},record)
+    case (column,record):(W.World{ns,allocator,column,resource,events,pending,regs,sid,clock},record)
 # Trusted inverse: ordinary grants never alter allocation/live state or inject
 # records. Canonical ensure preserves every cell and covers the saved live id;
 # undo restores its exact stamp and returns the displaced owner with its own
 # pre-undo stamp. World clock and every unrelated owner remain unchanged.
 def undo_valid(~S:Data,~P:Type,~R:Type,~E:Data,record:Record<S,P>,world:W.World<S,Col.Column<S,P>,R,E>) -> W.World<S,Col.Column<S,P>,R,E> & Record<S,P>:
   match record world:
-    case Record{handle,stamp,payload},W.World{ns,next,high,live,capacity,depth,column,resource,events,pending,regs,sid,clock}:
-      undone(~S,~P,~R,~E,ns,next,high,live,capacity,depth,resource,events,pending,regs,sid,clock,undo_column(~S,~P,handle,stamp,payload,column))
+    case Record{handle,stamp,payload},W.World{ns,allocator,column,resource,events,pending,regs,sid,clock}:
+      undone(~S,~P,~R,~E,ns,allocator,resource,events,pending,regs,sid,clock,undo_column(~S,~P,handle,stamp,payload,column))
 
 # Invalid raw records remain intact; ordinary journal records use the accepted
 # path because component operations cannot change namespace or entity liveness.

@@ -1,4 +1,5 @@
 import Base
+import entity-key.bend as Key
 import inspector.bend as I
 import inspector-query-projection.bend as Q
 import world.bend as W
@@ -10,8 +11,8 @@ import capabilities.bend as Cap
 # This adapter adds the four methods of pinned System.QueryHandle. It does not
 # grant writes, construct a held mutable view, or choose foreign-instance policy.
 type LookupError is Data:
-  MissingEntity{entityId:U32}
-  QueryMismatch{entityId:U32}
+  MissingEntity{entityId:Key.Key}
+  QueryMismatch{entityId:Key.Key}
 type SingleError is Data:
   NoEntities{}
   MultipleEntities{count:Nat}

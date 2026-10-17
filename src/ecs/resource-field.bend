@@ -22,7 +22,7 @@ def replace(~R:Type,~P:Type,~Rest:Type,~lens:Product.Lens<R,P,Rest>,replacement:
 # Trusted engine boundary threads the same World fields through the core join.
 def replace_world(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Rest:Type,~lens:Product.Lens<R,P,Rest>,replacement:P,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & P:
   match world:
-    case W.World{+namespace,+nextId,+highWater,live,+capacity,+depth,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:W.observe_resource_finish(~S,~C,~R,~E,~P,replace(~R,~P,~Rest,~lens,replacement,resource),namespace,nextId,highWater,live,capacity,depth,store,events,pending,registrations,nextSystemId,clock)
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:W.observe_resource_finish(~S,~C,~R,~E,~P,replace(~R,~P,~Rest,~lens,replacement,resource),namespace,allocator,store,events,pending,registrations,nextSystemId,clock)
 def restored(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,result:W.World<S,C,R,E> & P) -> W.World<S,C,R,E>:
   match result:
     case (world,_):world

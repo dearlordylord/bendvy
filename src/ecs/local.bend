@@ -65,8 +65,8 @@ def checked(~S: Data,~C: Type,~R: Type,~E: Data,~L: Type,~Args: Type,~Error: Dat
     case True{} Instance{namespace,id,name,access,local}: completed(~S,~C,~R,~E,~L,~Args,~Error,~Out,~runner,namespace,id,name,access,runner(world,local,args))
 def run(~S: Data,~C: Type,~R: Type,~E: Data,~L: Type,~Args: Type,~Error: Data,~Out: Type,~runner: W.World<S,C,R,E> -> L -> Args -> Outcome<W.World<S,C,R,E>,L,Error,Out>,instance: Instance<S,C,R,E,L,Args,Error,Out,runner>,world: W.World<S,C,R,E>,args: Args) -> Run<S,C,R,E,L,Args,Error,Out,runner>:
   match instance world:
-    case Instance{+namespace,+id,+name,+access,local} W.World{+actual,nextId,highWater,live,capacity,depth,store,resource,events,pending,+registrations,nextSystemId,clock}:
-      checked(~S,~C,~R,~E,~L,~Args,~Error,~Out,~runner,Bool.and(U32.is_eq(namespace,actual),W.registration_list_matches(registrations,id,name,access)),Instance{namespace,id,name,access,local},W.World{actual,nextId,highWater,live,capacity,depth,store,resource,events,pending,registrations,nextSystemId,clock},args)
+    case Instance{+namespace,+id,+name,+access,local} W.World{+actual,allocator,store,resource,events,pending,+registrations,nextSystemId,clock}:
+      checked(~S,~C,~R,~E,~L,~Args,~Error,~Out,~runner,Bool.and(U32.is_eq(namespace,actual),W.registration_list_matches(registrations,id,name,access)),Instance{namespace,id,name,access,local},W.World{actual,allocator,store,resource,events,pending,registrations,nextSystemId,clock},args)
 def skip(~S: Data,~C: Type,~R: Type,~E: Data,~L: Type,~Args: Type,~Error: Data,~Out: Type,~runner: W.World<S,C,R,E> -> L -> Args -> Outcome<W.World<S,C,R,E>,L,Error,Out>,instance: Instance<S,C,R,E,L,Args,Error,Out,runner>) -> Instance<S,C,R,E,L,Args,Error,Out,runner>:
   instance
 

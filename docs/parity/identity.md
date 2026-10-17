@@ -29,7 +29,11 @@ None (can start immediately; explicit unresolved contract gates still apply).
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
 
-## Proposed decision context — not an adopted contract
+## Historical decision context — before ordinary creation and generation approvals
+
+This section preserves the alternatives considered before the decisions below.
+The approved ordinary IO creation and selected U32 generation-wrap policy govern
+current implementation; unresolved wording here describes that earlier state.
 
 Pinned Rust Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60` separates process-local WorldId allocation from entity index/generation allocation. [WorldId::new](../../.references/bevy/crates/bevy_ecs/src/world/identifier.rs) checks exhaustion and never reuses an allocated world id. [EntityAllocator](../../.references/bevy/crates/bevy_ecs/src/entity/mod.rs) can reuse freed indices; world despawn advances generations, invalidating older handles. Its generation is U32 and the pinned documentation explicitly permits eventual wrap/alias. Bevy Entity alone does not carry WorldId. Bend's approved foreign-handle MissingEntity behavior must remain stronger than that representation: namespace validation precedes lookup/queue effects and rejection preserves the receiving World and owners.
 
@@ -43,11 +47,11 @@ Logical-ID reuse is a separate unresolved choice. Monotonic IDs with explicit ex
 
 Ordinary IO creation is approved below. SPEC treats ID reuse and physical layout as technical choices constrained by observable contracts; a generation field or freelist alone is not a separate approval gate. A changed observable contract, including the finite generation-wrap/retirement or exhaustion boundary, still requires its explicit decision before adoption. Existing #38 reservation/cancellation/growth/clock exhaustion, caller-fabricated authority, reached bounds/namespace controls and complete backend/regression gates remain required. No new law or executable contract is adopted by this context.
 
-## Current allocator facts — 2026-10-16
+## Pre-generation allocator facts — 2026-10-16
 
-The integrated [World allocator](../../src/ecs/world.bend) has namespace/id handles,
+Before the generational migration, the integrated World allocator had namespace/id handles,
 no generation or freelist, and a bounded 131072-ID reservation domain. Reservation
-consumes an ID immediately; despawn clears liveness without returning that ID.
+consumed an ID immediately; despawn cleared liveness without returning that ID.
 [Command staging](../../src/ecs/commands.bend) does not rewind reservation on failed
 publication. Clock advancement currently saturates at U32 maximum; registration
 allocation instead refuses at its own maximum. These are distinct from the
@@ -176,3 +180,57 @@ This is Workshop qualification, not final full-feature performance. Independent
 final review and integration are tracked in the source packet.
 Reuse/generation/exhaustion/domain choices
 and complete #38 acceptance remain separate; this implementation selects none.
+
+
+## Selected generation policy — 2026-10-16
+
+User selected Bevy-style generation wrap: recycle physical slots and permit an
+ancient same-world handle to alias after a complete generation cycle. Pinned
+Bevy uses U32 generations; no reduced generation bit packing or slot-retirement
+policy is selected. The existing nonwrapping World namespace allocator and
+foreign-World MissingEntity result remain unchanged. This resolves the prior
+wrap-versus-retirement question, not all #38 acceptance gates.
+
+Full keys must survive components, deferred commands, relations, scopes and
+save/restore boundaries. Release occurs after actual schema-owned cleanup,
+not when despawn is queued. Low-level liveness-only deactivation retains opaque
+storage and cannot recycle that slot. Failed reservations remain consumed.
+The protected #28 baseline, workload operations, expected rows and statistical
+rule stay fixed; adapting the current candidate fixture to the new identity API
+requires the existing runner/launch review, not a parallel legacy allocator.
+
+Implementation owner: `identity38_gate_audit`, branch
+`feature/generational-identity-v1` in `/tmp/bendvy-generational38`. It owns entity-key/allocator semantics and identity consumers/controls. Existing
+core trace additions are owned by the #57 author on the full-key base; changes
+to shared cleanup are passed as isolated commits to the identity owner.
+Root alone integrates shared src/ecs. Current integrated pending cancellation
+and its evidence above remain unchanged until a complete successor is qualified.
+No new mathematical laws or proofs are approved by this policy selection.
+
+## Generational acceptance — integration pending
+
+The candidate carries namespace plus full U32 index/generation through components,
+relations, scopes, commands and snapshot DTOs. Schema cleanup clears payloads and
+stamps before recycling; resumed cleanup validates the original full key before
+touching storage. Failed reservations remain consumed, pending commands stay FIFO,
+and query iteration follows logical reservation order rather than recycled slots.
+
+Complete independent JS/Native observations qualify the ordinary
+[reuse consumer](../../experiments/public-identity/generational-reuse-v1/README.md),
+wrap, stale-generation and namespace defects, paused cleanup, foreign pending
+handles, capacity/growth, both bounds defects and
+[scope cleanup](../../experiments/public-identity/generational-scope-v1/main.bend).
+Current [AppA](../../experiments/public-audit61/app-a-generational-v1/host.bend),
+[AppB](../../experiments/public-audit61/app-b-generational-v1/main.bend) and
+[snapshot input](../../experiments/public-snapshot/ordinary-constructor-save-v1/generational-input-v1/consumer-io.bend)
+successors preserve their prior complete observations and add allocator/full-key
+state. AppA's pure gameplay check passes; its separate IO-host checker deadline
+is retained honestly and is not a proof PASS. Actual host execution passes both
+backends. Raw administrative boundary seeds do not establish constructor secrecy.
+
+The unchanged [combined #28 packet](../../experiments/public-identity/generational-reuse-v1/regression-v1/README.md)
+reports no confirmed regression: 123 commands and 110 complete outputs. Candidate
+fixture adaptation changes identity syntax only. CPU/allocation profiles each
+validate full output; their single sampled captures establish neither a speed
+verdict nor physical memory totals. Final full-feature performance remains under
+#21/#23/#24. Final joined review, integration and CI still govern closing #38.

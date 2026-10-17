@@ -73,8 +73,8 @@ type Run<World:Type,Registry:Type,Args:Type,Error:Data,Out:Type,P:Type> is Type:
 def cursor(~S:Data,~C:Type,~P:Type,~E:Data,~identity:Schema.Resource<S,Array<P>>,~Args:Type,~Error:Data,~Out:Type,~body:@-H:Type -> @-caps:Write<S,P,identity,H> -> Args -> H -> H & (T.Outcome<Error> & Out),success:Bool,world:W.World<S,C,Array<P>,E>,registry:Sys.Registry<S,C,Array<P>,E,Args,Unit,Reply<Error,Out,P>,runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body)>) -> W.World<S,C,Array<P>,E> & Sys.Registry<S,C,Array<P>,E,Args,Unit,Reply<Error,Out,P>,runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body)>:
   match success world registry:
     case False{} world registry:(world,registry)
-    case True{} W.World{ns,next,high,live,capacity,depth,store,resource,events,pending,regs,sid,+clock} Sys.Registry{rns,id,name,access,_}:
-      (W.World{ns,next,high,live,capacity,depth,store,resource,events,pending,regs,sid,clock},Sys.Registry{rns,id,name,access,clock})
+    case True{} W.World{ns,allocator,store,resource,events,pending,regs,sid,+clock} Sys.Registry{rns,id,name,access,_}:
+      (W.World{ns,allocator,store,resource,events,pending,regs,sid,clock},Sys.Registry{rns,id,name,access,clock})
 def done(~S:Data,~C:Type,~P:Type,~E:Data,~identity:Schema.Resource<S,Array<P>>,~Args:Type,~Error:Data,~Out:Type,~body:@-H:Type -> @-caps:Write<S,P,identity,H> -> Args -> H -> H & (T.Outcome<Error> & Out),outcome:T.Outcome<Error>,output:Out,recovered:List<A.Record<P>>,updated:W.World<S,C,Array<P>,E> & Sys.Registry<S,C,Array<P>,E,Args,Unit,Reply<Error,Out,P>,runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body)>) -> Run<W.World<S,C,Array<P>,E>,Sys.Registry<S,C,Array<P>,E,Args,Unit,Reply<Error,Out,P>,runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body)>,Args,Error,Out,P>:
   match updated:
     case (world,registry):Completed{world,registry,outcome,output,recovered}

@@ -17,6 +17,15 @@ Both execute the baseline's frozen Workshop workload: ten complete applications,
 churn. Every full JSON observation is checked; reduced work cannot pass by
 keeping a checksum. The foreign-world divergence is excluded identically.
 
+The candidate's full entity-key API requires a mechanical syntax migration of
+that archived fixture. `generational_fixture.py` verifies all 14 archived inputs
+before five exact edits: generation-zero handle construction and physical-index
+projections. This workload reserves all receiver IDs before releasing a slot,
+so those handles remain generation zero. The baseline archive, operations,
+expected rows and statistics stay fixed; receipt records retain both source
+hashes. Explicit provider files are overlaid afterward and are never rewritten
+by this adapter.
+
 Twenty adjacent pairs/backend have balanced randomized baseline/current order.
 The exact one-sided paired sign test detects a median paired slowdown against
 zero allowance; Holm controls family false-positive probability at0.05 across

@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : Col.Column<F.Workshop, S.Payload>
+- observed : Col.Column<F.Garden, S.Payload>
+Context:
+- column : Col.Column<F.Garden, S.Payload>
+Location: cross
+6 | def cross(column:Col.Column<F.Garden,S.Payload>) -> Col.Column<F.Workshop,S.Payload>:
+7>|   column
+  |   ^^^^^^
+8 | 
+bend 2.0.37 is available: run bend update

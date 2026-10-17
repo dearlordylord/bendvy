@@ -1,4 +1,5 @@
 import Base
+import ../../../src/ecs/entity-key.bend as Key
 import ../components.bend as D
 import ../schema.bend as S
 import ../../../src/ecs/column.bend as Col
@@ -20,7 +21,7 @@ def row(id: U32,health: D.Health,decay: C.Access<D.HealthDecay>) -> String:
     case _ _: "{\"error\":\"Invalid entity\"}"
 def entity_id(handle: W.Handle<S.Schema>) -> U32:
   match handle:
-    case W.Handle{_,id}: id
+    case W.Handle{_,id}: Key.index(id)
 def observed_decay(handle: W.Handle<S.Schema>,health: D.Health,result: S.World() & C.Access<D.HealthDecay>) -> S.World() & String:
   match result:
     case (world,decay): (world,row(entity_id(handle),health,decay))

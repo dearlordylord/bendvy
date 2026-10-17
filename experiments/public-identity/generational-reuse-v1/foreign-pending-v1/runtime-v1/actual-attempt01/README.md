@@ -1,0 +1,7 @@
+Both first stock roles passed the complete 4,245-byte independent oracle, SHA256 `796a6def4c01d834476d36232da1802014442deac9af1e5b842233f0178cd03c`, with empty consumer stderr. This packet retains 431 bindings, 395 compressed objects, 22 external installed ELF identities, five commands and seventeen unchanged guards.
+
+Two actual WorldIO worlds reserve the same index/generation while retaining distinct namespaces. Foreign pending despawn is refused without changing the receiver transaction; its own pending cancellation is accepted. FIFO barrier execution populates then clears/releases the receiver owner; the sender retains its own pending work and later activates its own owner.
+
+`python3 verify.py` checks all retained object hashes, 22 literal Bend modules per role, all 2,068 evolving guard-pin joins, exact receipts/command streams, source/model/sidecar bindings and full model reproduction using its retained local base-model dependency. Verification also passed after copying this packet to an isolated temporary directory. No backend was replayed.
+
+Source-check raw diagnostics and exact frozen entry/tool bindings are retained. No pre/post source-check inventories were produced; source main retains its actual foreign-IO diagnostics. Installed ELF bodies remain external identities. This finite namespace/pending witness does not close full issue #38 or assert a general restore policy, language-wide authority confinement, or performance.

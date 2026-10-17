@@ -1,4 +1,5 @@
 import Base
+import entity-allocator.bend as Alloc
 import ./world.bend as W
 import ./system.bend as Sys
 import ./schedule.bend as Sch
@@ -28,12 +29,12 @@ def slot_observed(~S:Data,~R:Type,~P:Type,~Rest:Type,~take:R -> Rest & Slot<P>,~
   match declaration value:
     case Declaration{+id,+key}, (rest,Missing{}):(put(rest,Missing{}),Status{id,key,False{}})
     case Declaration{+id,+key}, (rest,Ready{owner}):(put(rest,Ready{owner}),Status{id,key,True{}})
-def world_restored(~S:Data,~C:Type,~R:Type,~E:Data,+ns:U32,+next:U32,+high:U32,live:Array<Bool>,+cap:U32,+depth:Nat,store:C,+events:List<&2,E>,pending:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:U32,value:R & Status<S>) -> W.World<S,C,R,E> & List<&2,Status<S>>:
+def world_restored(~S:Data,~C:Type,~R:Type,~E:Data,+ns:U32,allocator:Alloc.Allocator,store:C,+events:List<&2,E>,pending:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:U32,value:R & Status<S>) -> W.World<S,C,R,E> & List<&2,Status<S>>:
   match value:
-    case (resource,status):(W.World{ns,next,high,live,cap,depth,store,resource,events,pending,registrations,nextSystem,clock},[status])
+    case (resource,status):(W.World{ns,allocator,store,resource,events,pending,registrations,nextSystem,clock},[status])
 def world_observed(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Rest:Type,~take:R -> Rest & Slot<P>,~put:Rest -> Slot<P> -> R,~call:P -> P,declaration:Declaration<S,R,P,Rest,take,put,call>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & List<&2,Status<S>>:
   match world:
-    case W.World{+ns,+next,+high,live,+cap,+depth,store,resource,+events,pending,+registrations,+nextSystem,+clock}:world_restored(~S,~C,~R,~E,ns,next,high,live,cap,depth,store,events,pending,registrations,nextSystem,clock,slot_observed(~S,~R,~P,~Rest,~take,~put,~call,declaration,take(resource)))
+    case W.World{+ns,allocator,store,resource,+events,pending,+registrations,+nextSystem,+clock}:world_restored(~S,~C,~R,~E,ns,allocator,store,events,pending,registrations,nextSystem,clock,slot_observed(~S,~R,~P,~Rest,~take,~put,~call,declaration,take(resource)))
 type Setup<S:Data,C:Type,R:Type,E:Data,-scan:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,Status<S>>> is Data:
   Setup{entries:List<&2,Fragment.Entry<S>>}
 def single(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Rest:Type,~take:R -> Rest & Slot<P>,~put:Rest -> Slot<P> -> R,~call:P -> P,~declaration:Declaration<S,R,P,Rest,take,put,call>) -> Setup<S,C,R,E,world_observed(~S,~C,~R,~E,~P,~Rest,~take,~put,~call,declaration)>:
@@ -68,6 +69,6 @@ def slot_called(~R:Type,~P:Type,~Rest:Type,~put:Rest -> Slot<P> -> R,~call:P -> 
     case (rest,Ready{owner}):put(rest,Ready{call(owner)})
 def runner(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Rest:Type,~take:R -> Rest & Slot<P>,~put:Rest -> Slot<P> -> R,~call:P -> P,~declaration:Declaration<S,R,P,Rest,take,put,call>,world:W.World<S,C,R,E>,_:Unit) -> Sys.Outcome<W.World<S,C,R,E>,Unit,Unit>:
   match world:
-    case W.World{+ns,+next,+high,live,+cap,+depth,store,resource,+events,pending,+registrations,+nextSystem,+clock}:Sys.Succeeded{W.World{ns,next,high,live,cap,depth,store,slot_called(~R,~P,~Rest,~put,~call,take(resource)),events,pending,registrations,nextSystem,clock},Unit{}}
+    case W.World{+ns,allocator,store,resource,+events,pending,+registrations,+nextSystem,+clock}:Sys.Succeeded{W.World{ns,allocator,store,slot_called(~R,~P,~Rest,~put,~call,take(resource)),events,pending,registrations,nextSystem,clock},Unit{}}
 def define(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Rest:Type,~take:R -> Rest & Slot<P>,~put:Rest -> Slot<P> -> R,~call:P -> P,~declaration:Declaration<S,R,P,Rest,take,put,call>,world:W.World<S,C,R,E>,name:String) -> Sys.RegistrationResult<S,C,R,E,Unit,Unit,Unit,runner(~S,~C,~R,~E,~P,~Rest,~take,~put,~call,~declaration)>:
   Sys.register(~S,~C,~R,~E,~Unit,~Unit,~Unit,~runner(~S,~C,~R,~E,~P,~Rest,~take,~put,~call,~declaration),world,name,[key(~S,~R,~P,~Rest,~take,~put,~call,declaration)])

@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/entity-key.bend as Key
 import schema.bend as S
 import gameplay.bend as G
 import declarations.bend as D
@@ -73,7 +74,7 @@ def step_retry_result(factory: W.Factory,work: WorkRegistry(),advanced: Advanced
     case Sys.RegistrationRejected{retry,world,_}: State{factory,world,work,retry,advanced,"{\"unexpectedRegistrationRefusal\":true}" <> checkpoints}
 def retry_named(factory: W.Factory,work: WorkRegistry(),retry: RetryRegistry(),advanced: AdvancedRegistry(),+checkpoints: List<&2,String>,+fail: Bool,named: S.World() & U32) -> State:
   (world,+namespace) = named
-  step_retry_result(factory,work,advanced,checkpoints,Sys.run(~S.Schema,~S.Store,~Unit,~Unit,~G.RetryArgs,~String,~Unit,~run_retry,retry,world,G.RetryArgs{fail,W.Handle{namespace,2}}))
+  step_retry_result(factory,work,advanced,checkpoints,Sys.run(~S.Schema,~S.Store,~Unit,~Unit,~G.RetryArgs,~String,~Unit,~run_retry,retry,world,G.RetryArgs{fail,W.Handle{namespace,Key.EntityKey{2,0}}}))
 def step_retry(state: State,+fail: Bool) -> State:
   match state:
     case State{factory,world,work,retry,advanced,+checkpoints}: retry_named(factory,work,retry,advanced,checkpoints,fail,W.namespace(~S.Schema,~S.Store,~Unit,~Unit,world))

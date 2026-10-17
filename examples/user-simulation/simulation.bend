@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/entity-key.bend as Key
 import schema.bend as S
 import ../../src/ecs/component.bend as C
 import ../../src/ecs/world.bend as W
@@ -13,7 +14,7 @@ type Snapshot is Data:
   Snapshot{rows: List<&2,Row>,dt: F32,events: List<&2,S.SimEvent>}
 def handle_id(handle: W.Handle<S.Schema>) -> U32:
   match handle:
-    case W.Handle{_,id}: id
+    case W.Handle{_,id}: Key.index(id)
 def row_tag(+handle: W.Handle<S.Schema>, +position: C.Access<S.PositionView>, +velocity: C.Access<S.VelocityView>, +health: C.Access<S.HealthView>, +armor: C.Access<S.Armor>,observed: W.World<S.Schema,S.Store,F32,S.SimEvent> & C.Access<S.Tag>) -> W.World<S.Schema,S.Store,F32,S.SimEvent> & Row:
   (world,+tag) = observed
   (world,Row{handle_id(handle),position,velocity,health,armor,tag})
@@ -136,7 +137,7 @@ type RetryArgs is Data:
   RetryArgs{fail: Bool,finalHandle: W.Handle<S.Schema>}
 def handle_equal(a: W.Handle<S.Schema>,b: W.Handle<S.Schema>) -> Bool:
   match a b:
-    case W.Handle{ans,aid} W.Handle{bns,bid}: Bool.and(U32.is_eq(ans,bns),U32.is_eq(aid,bid))
+    case W.Handle{ans,aid} W.Handle{bns,bid}: Bool.and(U32.is_eq(ans,bns),Key.equal(aid,bid))
 def retry_effects(~H: Type,~resource_set: H -> F32 -> H,~emit: H -> S.SimEvent -> H,~spawn: H -> S.Bundle -> H & W.Reservation<S.Schema>,final: Bool,ctx: H) -> H & T.Outcome<UserError>:
   match final:
     case False{}: (ctx,T.Success{})
