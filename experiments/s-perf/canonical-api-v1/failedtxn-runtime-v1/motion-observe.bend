@@ -144,9 +144,21 @@ def access(~V:Data,~show:V -> String,value:Cmp.Access<V>) -> String:
     case Cmp.Found{value}:"Found(" ++ show(value) ++ ")"
     case Cmp.ComponentAbsent{}:"ComponentAbsent"
     case Cmp.MissingEntity{}:"MissingEntity"
+def row_json_four(value:T.Four) -> String:
+  match value:
+    case T.Four{a,b,c,d}:String.append("{\"a\":",String.append(U32.show(a),String.append(",\"b\":",String.append(U32.show(b),String.append(",\"c\":",String.append(U32.show(c),String.append(",\"d\":",String.append(U32.show(d),"}"))))))))
+def row_json_position(value:T.PositionView) -> String:
+  match value:
+    case T.PositionView{coordinates,frame}:String.append("{\"coordinates\":",String.append(row_json_four(coordinates),String.append(",\"frame\":",String.append(U32.show(frame),"}"))))
+def row_json_velocity(value:T.VelocityView) -> String:
+  match value:
+    case T.VelocityView{rates,moving}:String.append("{\"rates\":",String.append(row_json_four(rates),String.append(",\"moving\":",String.append(JSON.render_boolean(moving),"}"))))
+def row_json_selected(value:T.Selected) -> String:
+  match value:
+    case T.Selected{group}:String.append("{\"group\":",String.append(U32.show(group),"}"))
 def row(value:IQ.ProjectedRow<T.MotionSchema,Logical.Value()>) -> String:
   match value:
-    case IQ.ProjectedRow{entity,Projection.Product{main,Projection.Product{aux,flag}}}:"handle=" ++ handle(entity) ++ ";main=" ++ access(~T.PositionView,~JSON.render_position,main) ++ ";aux=" ++ access(~T.VelocityView,~JSON.render_velocity,aux) ++ ";flag=" ++ access(~T.Selected,~JSON.render_selected,flag)
+    case IQ.ProjectedRow{entity,Projection.Product{main,Projection.Product{aux,flag}}}:"handle=" ++ handle(entity) ++ ";main=" ++ access(~T.PositionView,~row_json_position,main) ++ ";aux=" ++ access(~T.VelocityView,~row_json_velocity,aux) ++ ";flag=" ++ access(~T.Selected,~row_json_selected,flag)
 def rows_observed(observed:F.World() & Logical.Rows()) -> F.World() & String:
   match observed:
     case (world,rows):(world,List.show(&2,IQ.ProjectedRow<T.MotionSchema,Logical.Value()>,row,rows))
