@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : U32
+- observed : ../../../../src/ecs/entity-key.Key
+Context:
+- namespace : U32
+- id        : ../../../../src/ecs/entity-key.Key
+- data      : render_row~V
+Location: render_row
+36 |   match row:
+37>|     case IQ.ProjectedRow{W.Handle{namespace,id},data}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ render(data)
+   |                                                                                              ^^
+38 | def appended(~S:Data,~C:Type,~R:Type,~E:Data,~Rows:Data,~V:Data,~render:V -> String,previous:Rows,summaries:List<&2,String>,result:W.World<S,C,R,E> & List<&2,IQ.ProjectedRow<S,V>>) -> W.World<S,C,R,E> & Observation<Product<Rows,List<&2,IQ.ProjectedRow<S,V>>>>:
+bend 2.0.37 is available: run bend update

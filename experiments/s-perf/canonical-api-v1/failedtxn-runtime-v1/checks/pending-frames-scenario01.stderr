@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : count
+- observed : count (consumed more than once)
+Context:
+- rest      : Nat
+- _571      : List<&2, String> - Con{}
+- pieces    : List<&2, String>
+- remaining : Nat
+- value     : String
+Location: write_go
+94 |       write_go(rest,[],next,0,current,PendingClose{rights},next)
+95>|     case 1n+rest, [], _, 0, Text{value,count}, PendingRight{head,tail}:
+   |                                        ^^^^^
+96 |       +next=Buffer.known(value,count,original)
+bend 2.0.37 is available: run bend update

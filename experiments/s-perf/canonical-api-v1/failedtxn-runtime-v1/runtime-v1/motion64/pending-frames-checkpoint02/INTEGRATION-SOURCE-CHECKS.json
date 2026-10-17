@@ -1,0 +1,89 @@
+{
+  "classification": "SOURCE_TYPE_QUANTITY_ONLY",
+  "before": {
+    "src/ecs/ordinary-query-observable.bend": "48797a2e3194ae8739e0a93236d5ead869730c06bffd580fe80c69640de2fb3b",
+    "experiments/public-inspect/ordinary-declaration-v1/caller.bend": "e628a1cfb6109c9c934198867974467a03d7c57a1a30f5f3322b0ecb9cfa0c42",
+    "experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app-filter-mutant.bend": "6c81fa015cb31e548b086681a910580b39497660021be645f62777828dd31876"
+  },
+  "after": {
+    "src/ecs/ordinary-query-observable.bend": "48797a2e3194ae8739e0a93236d5ead869730c06bffd580fe80c69640de2fb3b",
+    "experiments/public-inspect/ordinary-declaration-v1/caller.bend": "e628a1cfb6109c9c934198867974467a03d7c57a1a30f5f3322b0ecb9cfa0c42",
+    "experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app-filter-mutant.bend": "6c81fa015cb31e548b086681a910580b39497660021be645f62777828dd31876"
+  },
+  "unchanged": true,
+  "rows": [
+    {
+      "source": "src/ecs/ordinary-query-observable.bend",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "8",
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy/src/ecs/ordinary-query-observable.bend"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "stdout": {
+        "path": "integration-checks/0.stdout",
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+      },
+      "stderr": {
+        "path": "integration-checks/0.stderr",
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+      }
+    },
+    {
+      "source": "experiments/public-inspect/ordinary-declaration-v1/caller.bend",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "8",
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/caller.bend"
+      ],
+      "capSeconds": 5,
+      "exit": 0,
+      "failure": null,
+      "stdout": {
+        "path": "integration-checks/1.stdout",
+        "bytes": 58,
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+      },
+      "stderr": {
+        "path": "integration-checks/1.stderr",
+        "bytes": 42,
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+      }
+    },
+    {
+      "source": "experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app-filter-mutant.bend",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "8",
+        "/workspace/formal-proofs/bendvy/scripts/bend-check",
+        "/workspace/formal-proofs/bendvy/experiments/public-inspect/ordinary-declaration-v1/automatic-app-observation-v1/app-filter-mutant.bend"
+      ],
+      "capSeconds": 5,
+      "exit": 1,
+      "failure": null,
+      "stdout": {
+        "path": "integration-checks/2.stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "integration-checks/2.stderr",
+        "bytes": 765,
+        "sha256": "01242b963c186bba0285403c99cd03fa928d129158338357fd7d33e122093ed3"
+      }
+    }
+  ],
+  "compiler": "/home/node/.bend/bin/bend-2.0.35",
+  "compilerSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "wrapperSHA256": "58b445584d2715e8631e7758358a09383f53b167527d2d89dcedb6f2d0798c55",
+  "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5"
+}

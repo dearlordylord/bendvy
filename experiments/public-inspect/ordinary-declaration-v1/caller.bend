@@ -1,5 +1,6 @@
 import Base
 import ../../../src/ecs/transaction.bend as Tx
+import ../../../src/ecs/deferred-command.bend as Deferred
 import ../../../src/ecs/world.bend as W
 import ../../../src/ecs/ordinary-component-binding.bend as B
 import ../../../src/ecs/ordinary-inspector-declaration.bend as D
@@ -39,17 +40,17 @@ def system_read(~S:Data,owner:Compose.Frame<S,Col.Column<S,Payload>,Array<U32>,U
 def inspector_read(~S:Data,owner:I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>) -> I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32> & (List<&2,Projection.Row<S,U32>> & List<&2,Normal.Clause<S>>):
   D.each(~S,~I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,~U32,~D.read(~S,~Col.Column<S,Payload>,~Unit,~Payload,~U32,~Token,~take(~S),~put(~S),~view,~Array<U32>,~U32,~binding(~S)),owner)
 type Delivery<-S:Data> is Type:
-  Delivered{factory:W.Factory,owner:I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,rows:List<&2,Projection.Row<S,U32>>,clauses:List<&2,Normal.Clause<S>>,access:C.Access<U32>,previous:Maybe<&1,Payload>,undo:List<&1,(W.World<S,Col.Column<S,Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Payload>,Array<U32>,U32>)>,commands:List<&1,(W.World<S,Col.Column<S,Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Payload>,Array<U32>,U32>)>,events:List<&2,U32>}
+  Delivered{factory:W.Factory,owner:I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32>,rows:List<&2,Projection.Row<S,U32>>,clauses:List<&2,Normal.Clause<S>>,access:C.Access<U32>,previous:Maybe<&1,Payload>,undo:List<&1,(W.World<S,Col.Column<S,Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Payload>,Array<U32>,U32>)>,commands:List<&1,Deferred.Command<W.World<S,Col.Column<S,Payload>,Array<U32>,U32>>>,events:List<&2,U32>}
   SetupRefused{factory:W.Factory,world:W.World<S,Col.Column<S,Payload>,Array<U32>,U32>,incoming:Maybe<&1,Payload>,error:W.WorldError}
   Refused{factory:W.Factory,resource:Array<U32>}
 def empty(~S:Data,unit:Unit) -> Col.Column<S,Payload>:
   Col.empty(~S,~Payload)
-def delivered(~S:Data,factory:W.Factory,access:C.Access<U32>,previous:Maybe<&1,Payload>,undo:List<&1,(W.World<S,Col.Column<S,Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Payload>,Array<U32>,U32>)>,commands:List<&1,(W.World<S,Col.Column<S,Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Payload>,Array<U32>,U32>)>,events:List<&2,U32>,result:I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32> & (List<&2,Projection.Row<S,U32>> & List<&2,Normal.Clause<S>>)) -> Delivery<S>:
+def delivered(~S:Data,factory:W.Factory,access:C.Access<U32>,previous:Maybe<&1,Payload>,undo:List<&1,(W.World<S,Col.Column<S,Payload>,Array<U32>,U32> -> W.World<S,Col.Column<S,Payload>,Array<U32>,U32>)>,commands:List<&1,Deferred.Command<W.World<S,Col.Column<S,Payload>,Array<U32>,U32>>>,events:List<&2,U32>,result:I.Frame<S,Col.Column<S,Payload>,Array<U32>,U32> & (List<&2,Projection.Row<S,U32>> & List<&2,Normal.Clause<S>>)) -> Delivery<S>:
   match result:
     case (owner,(rows,clauses)):Delivered{factory,owner,rows,clauses,access,previous,undo,commands,events}
 def observed_tx(~S:Data,factory:W.Factory,previous:Maybe<&1,Payload>,access:C.Access<U32>,tx:Tx.Tx<W.World<S,Col.Column<S,Payload>,Array<U32>,U32>,U32>) -> Delivery<S>:
   match tx:
-    case Tx.Tx{world,undo,commands,events}:delivered(~S,factory,access,previous,undo,commands,events,inspector_read(~S,I.Frame{world,0}))
+    case Tx.Tx{world,undo,commands,events,_}:delivered(~S,factory,access,previous,undo,commands,events,inspector_read(~S,I.Frame{world,0}))
 def observed_system(~S:Data,factory:W.Factory,previous:Maybe<&1,Payload>,observed:Compose.Frame<S,Col.Column<S,Payload>,Array<U32>,U32> & C.Access<U32>) -> Delivery<S>:
   match observed:
     case (Compose.Frame{tx,_,_,_},access):observed_tx(~S,factory,previous,access,tx)

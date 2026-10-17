@@ -1,6 +1,6 @@
 import Base
 
-type Buffer is Type:
+type Buffer is Data:
   Buffer{chunks:List<&2,String>,pieces:List<&2,String>,remaining:Nat}
 def empty() -> Buffer:Buffer{[],[],4096n}
 def join_rev(values:List<&2,String>,acc:String) -> String:
@@ -47,17 +47,14 @@ def text_next(+value:String,observed:Buffer & Nat) -> Buffer:
     case (buffer,+count):text_go(value,value,0n,allowance(count),count,buffer)
 def text(value:String,buffer:Buffer) -> Buffer:text_next(value,room(buffer))
 # Trusted private count is the exact actual Char count supplied by Doc smart constructors.
-def known_choice(value:String,count:Nat,buffer:Buffer,fits:Bool) -> Buffer:
+def known_fields(value:String,+count:Nat,chunks:List<&2,String>,pieces:List<&2,String>,+remaining:Nat,fits:Bool) -> Buffer:
   match fits:
-    case True{}:piece(value,count,buffer)
-    case False{}:text(value,buffer)
-def known_room(value:String,+count:Nat,observed:Buffer & Nat) -> Buffer:
-  match observed:
-    case (buffer,remaining):known_choice(value,count,buffer,Nat.is_le(count,allowance(remaining)))
+    case True{}:added(chunks,pieces,value,Nat.sub(remaining,count))
+    case False{}:text(value,Buffer{chunks,pieces,remaining})
 def known(value:String,count:Nat,buffer:Buffer) -> Buffer:
-  match count:
-    case 0n:buffer
-    case 1n+rest:known_room(value,1n+rest,room(buffer))
+  match count buffer:
+    case 0n,buffer:buffer
+    case 1n++rest,Buffer{chunks,pieces,+remaining}:known_fields(value,1n+rest,chunks,pieces,remaining,Nat.is_le(1n+rest,remaining))
 def write_chunks(chunks:List<&2,String>,last:String) -> IO(Unit):
   match chunks:
     case []:IO.write(last)
