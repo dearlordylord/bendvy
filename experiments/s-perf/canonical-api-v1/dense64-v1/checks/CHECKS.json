@@ -1,0 +1,20 @@
+{
+  "cpu": 8,
+  "capSeconds": 5,
+  "wrapper": "/workspace/formal-proofs/bendvy/scripts/bend-check",
+  "purePass": [
+    "motion01",
+    "health01",
+    "motion06",
+    "driver02",
+    "observe03",
+    "logical01",
+    "health-observe01"
+  ],
+  "hostFinal": [
+    "main02",
+    "health-main02"
+  ],
+  "hostVerdict": "Expected only three actual foreign-dependent definitions: world-namespace.fresh, world-io.create, main. No type/parser/quantity error; not a proof PASS for IO.",
+  "history": "Earlier source-repair diagnostics retained unchanged; no backend/timing commands."
+}

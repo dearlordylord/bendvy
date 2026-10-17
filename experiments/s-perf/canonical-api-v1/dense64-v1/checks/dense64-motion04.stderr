@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:W.World<T.MotionSchema, Product.Owner<Col.Column<T.MotionSchema, T.Position>, Product.Owner<Col.Column<T.MotionSchema, T.Velocity>, Col.Column<T.MotionSchema, T.Selected>>>, Product.Owner<T.MotionLedger, Unit>, Nat> -> @_:W.Handle<T.MotionSchema> -> @_:Payload -> W.World<T.MotionSchema, Product.Owner<Col.Column<T.MotionSchema, T.Position>, Product.Owner<Col.Column<T.MotionSchema, T.Velocity>, Col.Column<T.MotionSchema, T.Selected>>>, Product.Owner<T.MotionLedger, Unit>, Nat>
+- observed : @world:W.World<T.MotionSchema, Product.Owner<Col.Column<T.MotionSchema, T.Position>, Product.Owner<Col.Column<T.MotionSchema, T.Velocity>, Col.Column<T.MotionSchema, T.Selected>>>, Product.Owner<T.MotionLedger, Unit>, Nat> -> @+handle:W.Handle<T.MotionSchema> -> @payload:Payload -> W.World<T.MotionSchema, Product.Owner<Col.Column<T.MotionSchema, T.Position>, Product.Owner<Col.Column<T.MotionSchema, T.Velocity>, Col.Column<T.MotionSchema, T.Selected>>>, Product.Owner<T.MotionLedger, Unit>, Nat>
+Location: seed_rows
+118 |     case 0n state:state
+119>|     case 1n+rest Reserved{tx,reservations}:seed_next(state => seed_rows(rest,U32.add(index,1),state),reservations,Cmd.tx_spawn(~T.MotionSchema,~Store(),~Resources(),~Nat,~Payload,~populate,tx,payload(index)))
+    |                                                                                                                                                                                     ^^^^^^^^
+120 | type Seeded is Type:
+bend 2.0.37 is available: run bend update

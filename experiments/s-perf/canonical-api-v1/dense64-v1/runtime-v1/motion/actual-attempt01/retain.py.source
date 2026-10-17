@@ -1,0 +1,33 @@
+from pathlib import Path
+import json,gzip,hashlib,shutil,sys
+app=sys.argv[1];assert app in ('motion','health');S=Path('/tmp/bendvy-canonical-dense64/experiments/s-perf/canonical-api-v1/dense64-v1');L=S/'runtime-v1'/app/'actual-attempt01';assert not L.exists();(L/'objects').mkdir(parents=True);sha=lambda b:hashlib.sha256(b).hexdigest();paths=set();roles=[];toolOnly=set()
+for role in ['js','native']:
+ d=Path(f'/tmp/bendvy21-canonical-dense64-{app}-actual01/normal')/role;p=json.loads((d/'plan.json').read_text());r=json.loads((d/'receipt.json').read_text());assert r['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS';assert r['planSHA256']==sha((d/'plan.json').read_bytes());assert all(c['exit']==0 and c['failure'] is None for c in r['commands'])
+ for f,h in p['pins'].items():assert sha(Path(f).read_bytes())==h,f
+ for root,fs in p['resourceRoots'].items():
+  for f,h in fs.items():name=str(Path(root)/f);assert sha(Path(name).read_bytes())==h;paths.add(name);toolOnly.add(name)
+ for g in r['guards']:
+  assert sha(Path(g['path']).read_bytes())==g['sha256']
+  guard=json.loads(Path(g['path']).read_text());assert guard['unchanged']
+  for name,h in guard['actualPins'].items():
+   assert sha(Path(name).read_bytes())==h,name;paths.add(name)
+ assert len(r['commands'])==len(p['commands'])
+ for expected,actual in zip(p['commands'],r['commands']):
+  for key in ['label','argv','capSeconds']:assert actual[key]==expected[key]
+
+ for c in r['commands']:
+  for k in ['stdout','stderr']:
+   v=c[k];assert sha(Path(v['path']).read_bytes())==v['sha256'];assert Path(v['path']).stat().st_size==v['bytes']
+ raw=(d/'consumer.stdout').read_bytes();assert raw==gzip.decompress(Path(p['oracle']).read_bytes());assert (d/'consumer.stderr').read_bytes()==b''
+ paths.update(p['pins']);toolOnly.update(p['tools'].values());paths.update(str(f) for f in d.iterdir() if f.is_file());roles.append({'role':role,'actualDirectory':str(d),'planSHA256':sha((d/'plan.json').read_bytes()),'receiptSHA256':sha((d/'receipt.json').read_bytes()),'status':r['status'],'bytes':len(raw),'sha256':sha(raw),'commands':len(r['commands'])})
+rows=[]
+for name in sorted(paths):
+ f=Path(name);raw=f.read_bytes();h=sha(raw);row={'actualPath':name,'actualRealpath':str(f.resolve()),'mode':oct(f.lstat().st_mode & 0o7777),'symlinkTarget':str(f.readlink()) if f.is_symlink() else None,'bytes':len(raw),'sha256':h}
+ if raw.startswith(b'\x7fELF') and name in toolOnly:row['hashOnly']='Installed tool/shared-library identity only; not redistributed.'
+ else:
+  obj=L/'objects'/(h+'.gz')
+  if not obj.exists():obj.write_bytes(gzip.compress(raw,mtime=0))
+  assert gzip.decompress(obj.read_bytes())==raw;row.update(object='objects/'+obj.name,objectSHA256=sha(obj.read_bytes()))
+ rows.append(row)
+record={'scope':'Complete canonical Dense64 correctness stock JS/Native pair; unchanged authored logical callback work with complete physical and owner observations. Actual worktree execution paths retained honestly; no output normalization, timing or optimization claim.','sourceCommit':'c8e9ded18','oracleCommit':'bd59bd25e2fbe93468ec4945c7c245481430aa9a','roles':roles,'members':rows,'objects':len(list((L/'objects').iterdir()))}
+(L/'RETENTION.json').write_text(json.dumps(record,indent=2)+'\n');shutil.copyfile(__file__,L/'retain.py.source');print(app,len(rows),record['objects'])

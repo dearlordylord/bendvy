@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : index
+- observed : index (consumed more than once)
+Context:
+- rest : Nat
+Location: seed_rows
+116 |     case (tx,reservation):next(Reserved{tx,List.append(&2,W.Reservation<T.MotionSchema>,reservations,[reservation])})
+117>| def seed_rows(fuel:Nat,index:U32,state:Reserved) -> Reserved:
+    |                        ^^^^^
+118 |   match fuel state:
+bend 2.0.37 is available: run bend update
