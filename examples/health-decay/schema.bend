@@ -55,9 +55,9 @@ type Spawned is Type:
   SpawnRejected{world: World(),error: W.WorldError}
 def spawn_finished(result: T.Tx<World(),Unit> & W.Reservation<Schema>) -> Spawned:
   match result:
-    case (T.Tx{world,_,commands,_},W.Reserved{handle}): Spawned{Cmd.enqueue(~Schema,~Store,~Unit,~Unit,world,commands),handle}
-    case (T.Tx{world,_,_,_},W.ReservationRejected{error}): SpawnRejected{world,error}
+    case (T.Tx{world,_,commands,_,_},W.Reserved{handle}): Spawned{Cmd.enqueue(~Schema,~Store,~Unit,~Unit,world,commands),handle}
+    case (T.Tx{world,_,_,_,_},W.ReservationRejected{error}): SpawnRejected{world,error}
 # Reservation returns a handle immediately; components appear at the barrier.
 def spawn(world: World(),seed: D.EntitySeed) -> Spawned:
-  spawn_finished(Cmd.tx_spawn(~Schema,~Store,~Unit,~Unit,~D.EntitySeed,~populate,T.Tx{world,[],[],[]},seed))
+  spawn_finished(Cmd.tx_spawn(~Schema,~Store,~Unit,~Unit,~D.EntitySeed,~populate,T.begin(~World(),~Unit,world),seed))
 def barrier(world: World()) -> World(): W.barrier(~Schema,~Store,~Unit,~Unit,world)

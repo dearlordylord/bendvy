@@ -1,5 +1,9 @@
 # Browser demonstration
 
+This interactive adapter uses direct query execution. For ordinary declarations,
+registered systems and a schedule, see
+[Scheduled health](../../scheduled-health/README.md).
+
 This directory contains only display/host code. The ECS example lives one level above; its sources do not import the demo.
 
 From the repository root:
@@ -17,3 +21,6 @@ Generated modules in `dist/` are ignored. No browser framework or additional pac
 An optional UI smoke check can reuse an installed Playwright via
 `PLAYWRIGHT_MODULE=/absolute/path/to/playwright/index.mjs node examples/health-decay/demo/browser-smoke.mjs`.
 The standard build and Node check need no Playwright.
+
+Current-source compilation and Node smoke passed on 2026-10-17: initial state,
+two ticks, the skipped entity and reset. Real-browser smoke was not rerun.

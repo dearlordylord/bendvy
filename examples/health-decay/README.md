@@ -1,5 +1,9 @@
 # Health decay: a minimal ECS example
 
+For a runnable application with declaration-derived query access, a registered
+system and an explicit schedule, start with [Scheduled health](../scheduled-health/README.md).
+This lower-level example demonstrates direct query execution.
+
 Inspired by the two-component system in [Bevy's contiguous-query example](https://github.com/bevyengine/bevy/blob/ad678262ce53b5d142fe49ee5e08caff6f00ab60/examples/ecs/contiguous_query.rs). This example uses Bendvy's ordinary per-entity query; it does not implement Bevy's contiguous slice iteration.
 
 - Components: independent `Health` and `HealthDecay` values.

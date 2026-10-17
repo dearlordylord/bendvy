@@ -2,6 +2,10 @@
 
 ![Bendvy ECS swarm gameplay](arena.gif)
 
+For declaration-derived access, registered systems and an explicit schedule,
+start with [Scheduled health](../scheduled-health/README.md). This browser example
+uses direct query orchestration for its interactive host.
+
 A playable browser ECS example: enemies, pickups, bolts, area pulses and chains.
 Movement, targeting, damage and cleanup run through the ECS.
 WASD/arrows move, Space pauses, and R restarts. Keyboard required.
@@ -14,7 +18,7 @@ python3 -m http.server 8000 --directory examples/arena
 ```
 
 Open <http://localhost:8000>. No npm packages or external assets are needed.
-`dist/` is generated and ignored. The build is checked with Bend 2.0.36.
+`dist/` is generated and ignored. Use the project-pinned Bend compiler; checks below are rerun against current source.
 
 ## Components and entities
 
@@ -33,7 +37,7 @@ and queues a structural command; the explicit barrier makes it visible.
 
 ```bend
 def spawn(world: World(),body: Body) -> World():
-  spawn_finish(Cmd.tx_spawn(~Schema,~Store,~Unit,~Unit,~Body,~populate,T.Tx{world,[],[],[]},body))
+  spawn_finish(Cmd.tx_spawn(~Schema,~Store,~Unit,~Unit,~Body,~populate,T.begin(~World(),~Unit,world),body))
 ```
 
 The [populate helper](game.bend) installs `Body` on the reserved entity. Despawn
@@ -94,3 +98,7 @@ node examples/arena/browser-smoke.mjs
 Set `PLAYWRIGHT_MODULE` to its module path if installed elsewhere. Pass a
 screenshot filename as the first argument to save a preview. Current evidence
 and the Chromium environment limitation are in [CHECKS.md](CHECKS.md).
+
+Current-source checks passed on 2026-10-17 with Bend 2.0.35 and Node24.20.0:
+compiled game and fixtures, gameplay checks, and the Node host/renderer harness.
+This does not claim a new real-browser or Native run.

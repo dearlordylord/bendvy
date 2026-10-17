@@ -32,10 +32,10 @@ def populate(world: World(),handle: W.Handle<Schema>,body: Body) -> World():
   populate_result(C.structural_replace(~Schema,~Store,~Unit,~Unit,~Unit,~Body,~Body,~Token,~take,~put,~project,family(),world,handle,Some{body}))
 def spawn_finish(result: T.Tx<World(),Unit> & W.Reservation<Schema>) -> World():
   match result:
-    case (T.Tx{world,_,commands,_},W.Reserved{_}): Cmd.enqueue(~Schema,~Store,~Unit,~Unit,world,commands)
-    case (T.Tx{world,_,_,_},W.ReservationRejected{_}): world
+    case (T.Tx{world,_,commands,_,_},W.Reserved{_}): Cmd.enqueue(~Schema,~Store,~Unit,~Unit,world,commands)
+    case (T.Tx{world,_,_,_,_},W.ReservationRejected{_}): world
 def spawn(world: World(),body: Body) -> World():
-  spawn_finish(Cmd.tx_spawn(~Schema,~Store,~Unit,~Unit,~Body,~populate,T.Tx{world,[],[],[]},body))
+  spawn_finish(Cmd.tx_spawn(~Schema,~Store,~Unit,~Unit,~Body,~populate,T.begin(~World(),~Unit,world),body))
 def cleared(result: Col.SwapOutcome<Schema,Body>) -> Store:
   match result:
     case Col.Accepted{column,_}: Store{column}

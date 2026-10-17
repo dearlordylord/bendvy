@@ -19,6 +19,11 @@ These pieces have scoped tests and examples. They don't yet add up to complete p
 
 ## Code example
 
+See the [examples index](examples/README.md) for the purpose of each example.
+Start with [Scheduled health](examples/scheduled-health/README.md) for a complete
+CLI simulation using declaration-derived accesses, a registered system and a
+schedule. Its runner checks the full output on JS or Native.
+
 The runnable [health-decay example](examples/health-decay/README.md) creates
 entities with independent components and runs a system over a query.
 The excerpts below come from its source files; imports and column bindings
