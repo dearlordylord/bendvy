@@ -1,62 +1,70 @@
 import Base
-import schema.bend as S
+import registration.bend as Registration
 import components.bend as D
-import system.bend as Decay
-import ../../src/ecs/ordinary-system.bend as O
-import ../../src/ecs/system.bend as Sys
-import ../../src/ecs/schedule.bend as Sch
-import ../../src/ecs/compose.bend as Q
-import ../../src/ecs/world.bend as W
+import schema.bend as S
+import ../../src/ecs/ordinary-app-run.bend as Entry
+import ../../src/ecs/ordinary-app-execution.bend as Execution
+import ../../src/ecs/ordinary-app-schedule.bend as Schedule
+import ../../src/ecs/ordinary-app-schema.bend as App
+import ../../src/ecs/ordinary-app-composer.bend as Build
+import ../../src/ecs/ordinary-app-execution-recipe.bend as Exec
+import ../../src/ecs/ordinary-app-records.bend as Leaf
+import ../../src/ecs/ordinary-app-observation-data.bend as DTO
+import ../../src/ecs/inspector-query-projection.bend as P
+import ../../src/ecs/inspector-query.bend as IQ
 import ../../src/ecs/component.bend as C
 import ../../src/ecs/column.bend as Col
-import ../../src/ecs/ordinary-query-declaration.bend as Decl
-
-type Error is Data:
-  SystemError{error:Q.Error<Decay.Error>}
-  RegistrationRejected{}
-def Owners() -> Type:Decay.Owner() & List<&2,D.Health>
-def Schedule() -> Type:Sch.Schedule<S.Schema,S.Store,Unit,Unit,Owners()>
+import ../../src/ecs/world.bend as W
 def values(rows:List<&2,D.Health>) -> String:
   match rows:
     case []:""
     case D.Health{value} <> []:F32.show(value)
     case D.Health{value} <> rest:F32.show(value) ++ "," ++ values(rest)
-def returned(value:Sys.RunResult<S.Schema,S.Store,Unit,Unit,Unit & U32,Q.Error<Decay.Error>,List<&2,D.Health>,Decay.Runner()> & (String & List<&2,Decl.Clause<S.Schema>>)) -> Owners() & Sys.Outcome<S.World(),Error,Unit>:
-  match value:
-    case (Sys.Completed{registry,Sys.Succeeded{world,rows}},(slot,clauses)):((O.Owner{registry,slot,clauses},rows),Sys.Succeeded{world,Unit{}})
-    case (Sys.Completed{registry,Sys.Failed{world,error}},(slot,clauses)):((O.Owner{registry,slot,clauses},[]),Sys.Failed{world,SystemError{error}})
-    case (Sys.RegistrationRejected{registry,world,_},(slot,clauses)):((O.Owner{registry,slot,clauses},[]),Sys.Failed{world,RegistrationRejected{}})
-def dispatch(owners:Owners(),world:S.World(),_:U32) -> Owners() & Sys.Outcome<S.World(),Error,Unit>:
-  match owners:
-    case (owner,_):returned(Decay.tick(owner,world))
-def condition(world:S.World(),_:U32) -> S.World() & Bool:(world,True{})
 def sentinel(value:S.World() & C.Access<D.Health>) -> String:
   match value:
     case (_,C.Found{D.Health{value}}):"untouched=" ++ F32.show(value)
     case _:"ERROR: sentinel missing"
 def finished(world:S.World(),handle:W.Handle<S.Schema>) -> String:
   sentinel(C.get(~S.Schema,~S.Store,~Unit,~Unit,~Col.Column<S.Schema,D.HealthDecay>,~D.Health,~D.Health,~S.HealthToken,~S.take_health,~S.put_health,~S.project_health,S.health_family(),world,handle))
-def after_tick(next:Schedule() -> S.World() -> String,tick:U32,result:Sch.RunResult<S.Schema,S.Store,Unit,Unit,Owners(),Error>) -> String:
-  match result:
-    case Sch.Finished{Sch.Schedule{+ns,+name,+steps,(owner,+rows)},world,_}:"tick=" ++ U32.show(tick) ++ " health=" ++ values(rows) ++ "\n" ++ next(Sch.Schedule{ns,name,steps,(owner,rows)},world)
-    case _:"ERROR: schedule run"
-def ticks(left:Nat,+tick:U32,handle:W.Handle<S.Schema>,schedule:Schedule(),world:S.World()) -> String:
+def health(value:Registration.Value()) -> String:
+  match value:
+    case P.Product{C.Found{D.Health{h}},_}:F32.show(h)
+    case _:"ERROR"
+def rows(values:List<&2,IQ.ProjectedRow<S.Schema,Registration.Value()>>) -> String:
+  match values:
+    case []:""
+    case IQ.ProjectedRow{_,value} <> []:health(value)
+    case IQ.ProjectedRow{_,value} <> rest:health(value) ++ "," ++ rows(rest)
+def snapshot_text(value:Maybe<&2,Schedule.Description<S.Schema,Registration.Rows()>>) -> String:
+  match value:
+    case Some{Schedule.Description{App.Description{_,DTO.Product{_,DTO.Observation{DTO.Product{_,DTO.Product{_,values}},_}}},_,_,_}}:rows(values)
+    case None{}:"ERROR: disabled"
+def finish(app:Registration.Application(),handle:W.Handle<S.Schema>) -> String:
+  match app:
+    case Entry.Application{Schedule.Application{App.Application{_,Build.Registered{world,_,_,_}},_,_,_,_,_},_}:finished(world,handle)
+def observed(next:Registration.Application() -> String,heading:String,value:Registration.Application() & Maybe<&2,Schedule.Description<S.Schema,Registration.Rows()>>) -> String:
+  match value:
+    case (app,view):heading ++ snapshot_text(view) ++ "\n" ++ next(app)
+def ran(next:Registration.Application() -> String,heading:String,value:Execution.Run<Registration.Application(),S.Schema,Registration.Error()>) -> String:
+  match value:
+    case Execution.Run{Schedule.Finished{app,_},_}:observed(next,heading,Registration.snapshot(app))
+    case _:"ERROR: App run"
+def ticks(left:Nat,+tick:U32,handle:W.Handle<S.Schema>,app:Registration.Application()) -> String:
   match left:
-    case 0n:finished(world,handle)
-    case 1n++rest:after_tick(s => w => ticks(rest,(tick + 1:U32),handle,s,w),tick,Sch.run(~S.Schema,~S.Store,~Unit,~Unit,~Owners(),~Error,~dispatch,~condition,schedule,world))
-def built(world:S.World(),handle:W.Handle<S.Schema>,result:Sch.Build<S.Schema,S.Store,Unit,Unit,Owners()>) -> String:
-  match result:
-    case Sch.Built{schedule}:ticks(6n,1,handle,schedule,world)
-    case _:"ERROR: schedule build"
-def scheduled(world:S.World(),handle:W.Handle<S.Schema>,owner:Decay.Owner()) -> String:
-  match owner:
-    case O.Owner{Sys.Registry{+ns,+id,name,access,cursor},slot,clauses}:built(world,handle,Sch.build(~S.Schema,~S.Store,~Unit,~Unit,~Owners(),ns,"Health simulation",[Sch.Barrier{},Sch.System{id,0}],[id],(O.Owner{Sys.Registry{ns,id,name,access,cursor},slot,clauses},[])))
-def pending(handle:W.Handle<S.Schema>,result:Owners() & Sys.Outcome<S.World(),Error,Unit>) -> String:
-  match result:
-    case ((owner,rows),Sys.Succeeded{world,_}):"before-barrier=" ++ values(rows) ++ "\n" ++ scheduled(world,handle,owner)
-    case _:"ERROR: pending system"
-def registered(handle:W.Handle<S.Schema>,result:O.Defined<S.Schema,S.World(),Sys.Registry<S.Schema,S.Store,Unit,Unit,Unit & U32,Q.Error<Decay.Error>,List<&2,D.Health>,Decay.Runner()>>) -> String:
-  match result:
-    case O.Defined{world,owner}:pending(handle,dispatch((owner,[]),world,0))
-    case _:"ERROR: registration"
-def start(world:S.World(),handle:W.Handle<S.Schema>) -> String:registered(handle,Decay.define(world))
+    case 0n:finish(app,handle)
+    case 1n++rest:ran(a => ticks(rest,(tick + 1:U32),handle,a),"tick=" ++ U32.show(tick) ++ " health=",Registration.run(app))
+def replanned(handle:W.Handle<S.Schema>,value:Schedule.Attachment<Registration.Registered(),Registration.Application()>) -> String:
+  match value:
+    case Schedule.Attached{app}:ticks(6n,1,handle,app)
+    case _:"ERROR: replan"
+def replan(handle:W.Handle<S.Schema>,app:Registration.Application()) -> String:
+  replanned(handle,Registration.replan(app))
+def attached(handle:W.Handle<S.Schema>,value:Schedule.Attachment<Registration.Registered(),Registration.Application()>) -> String:
+  match value:
+    case Schedule.Attached{app}:ran(a => replan(handle,a),"before-barrier=",Registration.run(Registration.enabled(app)))
+    case _:"ERROR: attach"
+def registered(handle:W.Handle<S.Schema>,app:Registration.Registered()) -> String:
+  attached(handle,Registration.attach(app))
+def rejected(app:Exec.Registered<S.Schema,S.World(),Unit,Unit,Build.empty_observe(~S.World()),Leaf.empty(~S.Schema),Unit,Exec.empty_plan(~S.Schema),Exec.empty_dispatch(~S.World()),Exec.empty_provide(~S.Schema,~S.World())>) -> String:"ERROR: registration"
+def start(world:S.World(),handle:W.Handle<S.Schema>) -> String:
+  Registration.create(~String,a => registered(handle,a),rejected,world)
