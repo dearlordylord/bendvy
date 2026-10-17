@@ -9,6 +9,10 @@ def expected(kind='normal'):
     if kind == 'missing':
         # Admission precedes the barrier and both registered systems.
         return b'missing=Service:1 pending=3 query-cursor=0 service-ready=false\n'
+    if kind == 'local':
+        # Failure rolls back the resource, but preserves the actual Local owner.
+        # The retry consumes that returned App, including its cleared fail flag.
+        return b'failed resource=10 local=1,0\nretried resource=20 local=2,0\n'
     if kind != 'normal':
         raise ValueError(f'Unknown scenario: {kind}')
     # The empty query completes before the barrier, so the service still runs.
@@ -33,7 +37,7 @@ def validate(path, kind='normal'):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--kind', choices=('normal', 'missing'), default='normal')
+    parser.add_argument('--kind', choices=('normal', 'missing', 'local'), default='normal')
     parser.add_argument('outputs', nargs='+', type=Path)
     args = parser.parse_args()
     for path in args.outputs:
