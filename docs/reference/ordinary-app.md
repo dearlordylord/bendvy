@@ -4,6 +4,54 @@ Use the ordinary App entry to run typed registrations together. The library deri
 
 World creation and component storage remain explicit. Create each World with [`world-io.create`](../../src/ecs/world-io.bend). Obtain entity handles from actual reserve or spawn results and retain those handles. Define component bindings and resource or service declarations before registration.
 
+## Start from the checked two-system example
+
+The [independently authored consumer](../../audits/blind-user-73/consumer.bend) is a complete component-query and service-counter example. Its [IO entry](../../audits/blind-user-73/main.bend) creates the World and prints four observations. Both backends produce the [retained expected output](../../audits/blind-user-73/FINDINGS.md#result).
+
+Read the consumer in this order:
+
+1. `Game`, `Store`, `empty`, and `health_binding` define the nominal schema, actual columns, and owner-preserving projection. `health_query` grants writes; `decay_query` grants reads. `query` combines them with `O.pair`.
+2. `damage` uses the opaque owner and those capabilities. Template parameters use `~H` and `~caps` in an authored definition:
+
+```bend
+def damage(~H:Type,~caps:Ops(H),_:Unit,owner:H) -> H & (T.Outcome<Unit> & Unit):
+  damage_health(~H,~caps,Cap.get(~H,~Health,~U32,~write_cap(~H,caps),owner))
+```
+
+`damage_health` and `damage_decay` match the returned pairs before using the next capability. `changed` returns the actual updated owner. The body never receives a concrete World.
+
+3. `service`, `scan`, and `setup` derive provisioning from the same declaration. The resource is an actual `SD.Slot<U32>` initialized as `SD.Ready{0}` by the IO entry:
+
+```bend
+def scan() -> World -> World & List<&2,SD.Status<Game>>:
+  SD.world_observed(~Game,~Store,~Resources,~Unit,~U32,~Unit,~service_take,~service_put,~count_tick,service)
+def setup() -> SD.Setup<Game,Store,Resources,Unit,scan>:
+  SD.single(~Game,~Store,~Resources,~Unit,~U32,~Unit,~service_take,~service_put,~count_tick,~service)
+```
+
+4. `AOwners` through `A` call the component factory's derived aliases. `BOwners` through `BApp` extend them with the service factory's aliases. These are type annotations calling library implementations, not caller-authored execution logic. The scheduled alias and attachment then use those names:
+
+```bend
+def GameApp() -> Type:
+  Entry.Application<Game,Store,Resources,Unit,BOwners,BRows,BObserve,BFold,BError,BPlan,BDispatch,BProvide>
+def attach(app:BApp) -> List<&2,List<&2,U32>>:
+  attached(Entry.attach(~Game,~Store,~Resources,~Unit,~BOwners,~BRows,~BObserve,~BFold,~BError,~BPlan,~BDispatch,~BProvide,schema,app,"Update",False{}))
+```
+
+5. `register` starts from `Exec.empty`, calls `Comp.add`, then `Svc.add`. `ticks` feeds each returned `GameApp` into the next `Entry.run`. `observe` uses `Entry.inspect` to read actual retained owners.
+6. `spawned` matches actual `W.Reserved{handle}` results before activation and component replacement. The IO entry obtains the World from `WI.Created{world}`; it does not obtain entity handles from that factory.
+
+The source imports `ordinary-component-binding` as `B`, `ordinary-query-observable` as `O`, `capabilities` as `Cap`, and `transaction` as `T`. Its entry imports are:
+
+```bend
+import ../../src/ecs/ordinary-app-component.bend as Comp
+import ../../src/ecs/ordinary-app-service-registration.bend as Svc
+import ../../src/ecs/ordinary-app-execution-recipe.bend as Exec
+import ../../src/ecs/ordinary-app-run.bend as Entry
+```
+
+Paths above are relative to the checked consumer. Keep its complete import and alias declarations when adapting it; `App` alone conflicts with a Base name, so this example uses `GameApp`.
+
 ## Build the registrations
 
 Start with `ordinary-app-execution-recipe.empty(~S,~World,world)`. Register systems through these factories. Their declarations supply operational authority and metadata together.
@@ -14,7 +62,7 @@ Start with `ordinary-app-execution-recipe.empty(~S,~World,world)`. Register syst
 | [`ordinary-app-service-registration.add`](../../src/ecs/ordinary-app-service-registration.bend) | Service declaration, its Setup, and name | Calls `done` with the extended App, or `failed` with the original App |
 | [`ordinary-app-local-fields.add`](../../src/ecs/ordinary-app-local-fields.bend) | Resource declaration, body, actual Local owner, repeatable arguments, and name | `Appended{app}` or `AppendRejected{app,local}` |
 
-The component body keeps the existing rank-polymorphic shape:
+The component body keeps the existing rank-polymorphic function type. The checked definition above shows its `~H` and `~caps` authoring syntax:
 
 ```bend
 @-H:Type -> @-caps:Ops(H) -> Args -> H -> H & (T.Outcome<Error> & Out)
