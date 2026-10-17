@@ -1,9 +1,7 @@
 # Run a health simulation with registered systems
 
 This example creates three entities and runs six ticks on JS or Native.
-The query declares `write Health` and `read HealthDecay`. Its accesses and
-registration metadata come from those declarations. A registered system runs
-in an explicit schedule with a barrier before each tick.
+The query declares `write Health` and `read HealthDecay`. The ordinary App entry derives dispatch, registration identities, cursors, and the schedule from the retained registration. A barrier applies queued entities before each tick.
 
 From the repository root:
 
@@ -37,15 +35,10 @@ untouched=30
 - [components.bend](components.bend) defines independent Health and HealthDecay.
 - [main.bend](main.bend) creates the world through `world-io.create` and queues
   three entities. Change the starting health and decay factors here.
-- [system.bend](system.bend) declares the query using `ordinary-query-declaration`
-  and registers it using `ordinary-system.define`. `decay_body` receives an
-  opaque owner and only its declared component capabilities.
-- [application.bend](application.bend) runs the registered system before the
-  barrier, then builds a schedule from the actual registration namespace/ID.
-  Six runs of `[Barrier, System]` update the same world and registration owner.
-- [schema.bend](schema.bend) contains typed column storage and deferred spawn.
-  These explicit projections remain application setup; the example does not
-  hide them behind a new wrapper or manually duplicate query metadata.
+- [system.bend](system.bend) defines the opaque-owner `decay_body` and operational component identities.
+- [registration.bend](registration.bend) binds those identities to the observable query and calls `Component.add`. Its type aliases name the library-derived owners, observations, plan, dispatcher, and availability observer.
+- [application.bend](application.bend) calls the primary `Entry.attach`, `Entry.run`, and `Entry.replan` route. It retains each returned App for the next tick. It does not implement numeric-ID dispatch or cursor transport.
+- [schema.bend](schema.bend) contains typed column storage and deferred spawn. These explicit projections remain application setup.
 
 The third entity has no HealthDecay. The query skips it, and a final lookup
 using its actual returned handle confirms Health remains 30. The first empty
@@ -55,31 +48,12 @@ result confirms that queued entities are invisible before the barrier.
 output structure, including the excluded entity. Values are exact binary
 fractions, so the check needs no numerical tolerance.
 
-This covers registered query systems and the public `schedule` API. It does
-not demonstrate the larger SchemaApp composer, resources, events, failure
-rollback, or performance qualification. For direct query execution without
-registration, see [Health decay](../health-decay/README.md).
+The [ordinary App guide](../../docs/reference/ordinary-app.md) describes the primary entry without this simulation's solution. Standalone System and Schedule remain available as lower layers.
 
-Verified in this workspace on 2026-10-17: Bend 2.0.35, Node 24.20.0,
-Clang 19 with `-O3`; full JS and Native outputs agree and pass the independent
-finite model. Modified-tick and modified-sentinel controls are rejected.
-This is correctness evidence, not a performance measurement.
+The [heterogeneous qualification](../../experiments/public-api-usability/health-v2/README.md) adds a separately observed service system, a second nominal schema, affine component and Local owners, provisioning repair, failure, and authority controls. Those finite checks do not establish performance qualification or complete ECS parity.
 
 ## Remaining usability check
 
-- [ ] Run a separate blind API audit with a fresh reviewer who has not read this
-  example or the implementation. Give them the Bevy ECS model, Bend language
-  sources and the public usage documentation; ask them to build the same small
-  simulation and record where the documentation or API stops them. The current
-  example was adapted from existing source and does not satisfy this audit.
+- [ ] Run a separate blind API audit with a fresh reviewer who has not read this example or the implementation. Give the reviewer the Bevy ECS model, Bend language sources, and the public ordinary App guide. Ask them to build the simulation and record any API or documentation blockers. This source-informed example does not satisfy that audit.
 
-The explicit dispatcher and column projections here are observations about this
-registered-ECS example, not proven mandatory user boilerplate. Compare the
-ordinary App composer before deciding whether a library change is needed.
-
-The completed [source-informed API investigation](../../experiments/public-api-usability/health-v1/README.md)
-compares the actual ordinary App route and a generic one-system helper on JS and
-Native, including refusal/rollback and type boundaries. It demonstrates that
-caller-authored dispatch is removable for that bounded case. General adoption is
-tracked in [#73](https://github.com/dearlordylord/bendvy/issues/73); the separate
-blind audit above is still outstanding.
+The original [API investigation](../../experiments/public-api-usability/health-v1/README.md) remains historical prototype evidence. Ordinary entry adoption is tracked in [#73](https://github.com/dearlordylord/bendvy/issues/73).

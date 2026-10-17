@@ -79,5 +79,12 @@
       "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "stderrSHA256": "5d8946c75a246ba5d79e4db0c702e955508a6140f474f1a15e08f54070d98712"
     }
+  },
+  "matchingPositiveSources": {
+    "newOrdinaryRegistration": "experiments/public-api-usability/health-v2/core.bend::component_added/service_added",
+    "secondNominalSchema": "experiments/public-api-usability/health-v2/other-core.bend",
+    "opaqueBody": "examples/scheduled-health/system.bend::decay_body",
+    "affineOwners": "local-fixture.bend::body and type-core.bend::body declarations",
+    "registrationBodyBoundary": "src/ecs/ordinary-app-component.bend::add/register preserve the same rank-polymorphic body signature"
   }
 }
