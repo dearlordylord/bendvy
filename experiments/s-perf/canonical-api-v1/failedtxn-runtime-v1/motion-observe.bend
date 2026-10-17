@@ -11,8 +11,8 @@ import motion.bend as F
 import ../dense-runtime-v1/types.bend as T
 import motion-resources.bend as R
 import ../../../../src/ecs/ordinary-service-declaration.bend as Service
-import ../../../public-audit61/app-a-current-carrier-v1/owner-observer.bend as Dump
-import ../../../public-audit61/app-a-current-carrier-v1/allocator-observer.bend as Gen
+import physical-owner-observer.bend as Dump
+import physical-allocator-observer.bend as Gen
 import ../../../../src/ecs/world.bend as W
 import ../../../../src/ecs/owner-product.bend as Product
 import ../../../../src/ecs/ordinary-system.bend as Ordinary

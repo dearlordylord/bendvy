@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : @_:Doc.Doc -> Doc.Doc
+- observed : @+value:Doc.Doc -> Doc.Doc
+Location: frame
+35 |   match value:
+36>|     case S.Frame{first,second,iteration,phase,pending,retry,failed,calls}:Doc.concat([Doc.text("first="),Doc.text(O.handle(first)),Doc.text(";second="),Doc.text(O.handle(second)),Doc.text(";iteration="),Doc.text(U32.show(iteration)),Doc.text(";phase="),Doc.text(U32.show(phase)),Doc.text(";pendingA="),Doc.text(maybe_handle(pending)),Doc.text(";retryB="),Doc.text(maybe_handle(retry)),Doc.text(";failed="),Doc.text(List.show(&2,W.Handle<T.MotionSchema>,O.handle,failed)),Doc.text(";calls="),Doc.show(~Doc.Doc,~Doc.audit,calls)])
+   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ^^^^^^^^^
+37 | def joined(+state:S.Frame,left:Reg.Owners & String,right:D.Registry() & String) -> S.Owners & Doc.Doc:
+bend 2.0.37 is available: run bend update

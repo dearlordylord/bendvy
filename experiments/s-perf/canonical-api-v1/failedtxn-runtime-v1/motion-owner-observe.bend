@@ -1,4 +1,5 @@
 import Base
+import report-doc.bend as Doc
 import ../../../../src/ecs/world.bend as W
 import ../dense-runtime-v1/types.bend as T
 import motion.bend as F
@@ -30,13 +31,13 @@ def maybe_handle(value:Maybe<&2,W.Handle<T.MotionSchema>>) -> String:
   match value:
     case None{}:"None"
     case Some{value}:"Some{" ++ O.handle(value) ++ "}"
-def frame(value:S.Frame) -> String:
+def frame(value:S.Frame) -> Doc.Doc:
   match value:
-    case S.Frame{first,second,iteration,phase,pending,retry,failed,calls}:"first=" ++ O.handle(first) ++ ";second=" ++ O.handle(second) ++ ";iteration=" ++ U32.show(iteration) ++ ";phase=" ++ U32.show(phase) ++ ";pendingA=" ++ maybe_handle(pending) ++ ";retryB=" ++ maybe_handle(retry) ++ ";failed=" ++ List.show(&2,W.Handle<T.MotionSchema>,O.handle,failed) ++ ";calls=" ++ List.show(&2,String,O.audit_effect,calls)
-def joined(+state:S.Frame,left:Reg.Owners & String,right:D.Registry() & String) -> S.Owners & String:
+    case S.Frame{first,second,iteration,phase,pending,retry,failed,calls}:Doc.concat([Doc.text("first="),Doc.text(O.handle(first)),Doc.text(";second="),Doc.text(O.handle(second)),Doc.text(";iteration="),Doc.text(U32.show(iteration)),Doc.text(";phase="),Doc.text(U32.show(phase)),Doc.text(";pendingA="),Doc.text(maybe_handle(pending)),Doc.text(";retryB="),Doc.text(maybe_handle(retry)),Doc.text(";failed="),Doc.text(List.show(&2,W.Handle<T.MotionSchema>,O.handle,failed)),Doc.text(";calls="),Doc.show(~Doc.Doc,~Doc.audit_value,calls)])
+def joined(+state:S.Frame,left:Reg.Owners & String,right:D.Registry() & String) -> S.Owners & Doc.Doc:
   (registered,sr)=left
   (dispose,sd)=right
-  (S.Owners{registered,dispose,state},"registered={" ++ sr ++ "};dispose={" ++ sd ++ "};frame={" ++ frame(state) ++ "}")
-def owners(value:S.Owners) -> S.Owners & String:
+  (S.Owners{registered,dispose,state},Doc.concat([Doc.text("registered={"),Doc.text(sr),Doc.text("};dispose={"),Doc.text(sd),Doc.text("};frame={"),frame(state),Doc.text("}")]))
+def owners(value:S.Owners) -> S.Owners & Doc.Doc:
   match value:
     case S.Owners{owner,dispose,frame}:joined(frame,registered(owner),registry(dispose))

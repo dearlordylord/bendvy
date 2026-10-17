@@ -1,4 +1,5 @@
 import Base
+import report-doc.bend as Doc
 import ../dense-runtime-v1/types.bend as T
 import ../dense-runtime-v1/render.bend as J
 import motion.bend as F
@@ -12,7 +13,7 @@ import motion-tx-observe.bend as Inspect
 import motion-observe.bend as O
 import motion-reader-owner-observe.bend as RO
 import trace-observe.bend as Trace
-import ../../../public-audit61/app-a-current-carrier-v1/owner-observer.bend as Dump
+import physical-owner-observer.bend as Dump
 import ../../../../src/ecs/ordinary-reader-stream-parameter.bend as SP
 import ../../../../src/ecs/event-runtime.bend as Ev
 import ../../../../src/ecs/component.bend as Cmp
@@ -63,24 +64,24 @@ def unit(_:Unit) -> String:"Unit"
 def callback(~R:Data,~reading:R -> String,value:C.Output<R>) -> String:
   match value:
     case C.Output{result,read,reserved,saved,writes,resource,returned,reason,lookup}:"outcome=" ++ outcome(result) ++ ";reading={" ++ reading(read) ++ "};reservation=" ++ reservation(reserved) ++ ";payload=" ++ payload(saved) ++ ";writes=" ++ List.show(&2,Cmp.Access<T.PositionView>,access,writes) ++ ";ledger=" ++ ledger(resource) ++ ";rejected=" ++ rejected(returned) ++ ";error=" ++ error(reason) ++ ";pendingLookup=" ++ pending_lookup(lookup)
-def facts(value:Inspect.Facts) -> String:
+def facts(value:Inspect.Facts) -> Doc.Doc:
   match value:
-    case Inspect.Facts{undo,commands,kinds,events,trace,world}:"undo=" ++ Nat.show(undo) ++ ";commands=" ++ Nat.show(commands) ++ ";kinds=" ++ kinds ++ ";events=" ++ List.show(&2,E.event_type(),O.event,events) ++ ";trace=" ++ Trace.state(trace) ++ ";world={" ++ world ++ "}"
-def read(value:Reader.Read) -> String:
+    case Inspect.Facts{undo,commands,kinds,events,trace,world}:Doc.concat([Doc.text("undo="),Doc.text(Nat.show(undo)),Doc.text(";commands="),Doc.text(Nat.show(commands)),Doc.text(";kinds="),Doc.text(kinds),Doc.text(";events="),Doc.text(List.show(&2,E.event_type(),O.event,events)),Doc.text(";trace="),Doc.text(Trace.state(trace)),Doc.text(";world={"),world,Doc.text("}")])
+def read(value:Reader.Read) -> Doc.Doc:
   match value:
-    case Reader.Read{output,observed}:"callback={" ++ callback(~P.ping_view(),~ping_view,output) ++ "};facts={" ++ facts(observed) ++ "}"
-def maybe_read(value:Maybe<&1,Reader.Read>) -> String:
+    case Reader.Read{output,observed}:Doc.concat([Doc.text("callback={"),Doc.text(callback(~P.ping_view(),~ping_view,output)),Doc.text("};facts={"),facts(observed),Doc.text("}")])
+def maybe_read(value:Maybe<&1,Reader.Read>) -> Doc.Doc:
   match value:
-    case None{}:"None"
-    case Some{value}:"Some{" ++ read(value) ++ "}"
+    case None{}:Doc.text("None")
+    case Some{value}:Doc.concat([Doc.text("Some{"),read(value),Doc.text("}")])
 def maybe_u32(value:Maybe<&2,U32>) -> String:
   match value:
     case None{}:"None"
     case Some{code}:"Some{" ++ U32.show(code) ++ "}"
-def call(value:L.Call) -> String:
+def call(value:L.Call) -> Doc.Doc:
   match value:
-    case L.ACall{result,output,observed}:"A{outcome=" ++ outcome(result) ++ ";callback={" ++ callback(~Unit,~unit,output) ++ "};facts={" ++ facts(observed) ++ "}}"
-    case L.BCall{status,error,output}:"B{status=" ++ U32.show(status) ++ ";error=" ++ maybe_u32(error) ++ ";output=" ++ maybe_read(output) ++ "}"
+    case L.ACall{result,output,observed}:Doc.concat([Doc.text("A{outcome="),Doc.text(outcome(result)),Doc.text(";callback={"),Doc.text(callback(~Unit,~unit,output)),Doc.text("};facts={"),facts(observed),Doc.text("}}")])
+    case L.BCall{status,error,output}:Doc.concat([Doc.text("B{status="),Doc.text(U32.show(status)),Doc.text(";error="),Doc.text(maybe_u32(error)),Doc.text(";output="),maybe_read(output),Doc.text("}")])
 def local_a(observed:Array<U32> & String) -> L.State & String:
   match observed:
     case (capture,text):(L.A{capture},"A{capture=" ++ text ++ "}")

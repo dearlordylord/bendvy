@@ -1,0 +1,21 @@
+SOME PROOFS FAIL
+Error:
+- expected : String
+- observed : Doc.Doc
+Context:
+- iteration : U32
+- phase     : String
+- before    : Doc.Doc
+- rows      : String
+- pending   : String
+- failed    : String
+- owners    : String
+- handles   : List<&2, W.Handle<T.MotionSchema>>
+- world     : W.World<T.MotionSchema, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<T.MotionSchema, T.Position>, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<T.MotionSchema, T.Velocity>, ../../../../src/ecs/column.Column<T.MotionSchema, T.Selected>>>, ../../../../src/ecs/owner-product.Owner<T.MotionLedger, ../../../../src/ecs/ordinary-service-declaration.Slot<motion-resources.Audit>>, ../../../../src/ecs/relation-commands.Notice<T.MotionSchema, Nat>>
+- retry     : Doc.Doc
+Location: retry_seen
+45 |   match observed:
+46>|     case (world,retry):failed_all(iteration,phase,before,rows,pending,failed,retry,owners,all_failed(handles,(world,[])))
+   |                                                                              ^^^^^
+47 | def failed_seen(iteration:U32,phase:String,before:Doc.Doc,rows:String,pending:String,owners:String,retry:Maybe<&2,W.Handle<T.MotionSchema>>,handles:List<&2,W.Handle<T.MotionSchema>>,observed:F.World() & Doc.Doc) -> F.World() & Boundary:
+bend 2.0.37 is available: run bend update

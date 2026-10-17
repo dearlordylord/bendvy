@@ -1,4 +1,5 @@
 import Base
+import report-doc.bend as Doc
 import motion-stream.bend as Stream
 import ../dense-runtime-v1/types.bend as T
 import motion.bend as F
@@ -17,6 +18,7 @@ import motion-owner-observe.bend as Owners
 import motion-reader-owner-observe.bend as RO
 import motion-runtime-observe.bend as RT
 import motion-observe.bend as O
+import motion-doc-world.bend as DW
 import motion-family.bend as Family
 import ../../../../src/ecs/world.bend as W
 import ../../../../src/ecs/transaction.bend as Tx
@@ -27,33 +29,36 @@ import ../../../../src/ecs/event-family-routing.bend as Route
 def text(~A:Type,observed:A & String) -> String:
   match observed:
     case (_,value):value
+def doc(~A:Type,observed:A & Doc.Doc) -> Doc.Doc:
+  match observed:
+    case (_,value):value
 def status(value:Program.Status) -> String:
   match value:
     case Program.Complete{}:"Complete"
     case Program.Stopped{reason}:"Stopped{" ++ O.audit_effect(reason) ++ "}"
-def state_join(+ids:Schedule.IDs,+namespace:U32,+boundaries:List<&2,Boundary.Boundary>,+schedules:List<&2,String>,+result:Program.Status,left:F.World() & String,right:S.Owners & String) -> Program.State & String:
+def state_join(+ids:Schedule.IDs,+namespace:U32,+boundaries:List<&2,Boundary.Boundary>,+schedules:List<&2,String>,+result:Program.Status,left:F.World() & Doc.Doc,right:S.Owners & Doc.Doc) -> Program.State & Doc.Doc:
   (world,sw)=left
   (owners,so)=right
-  (Program.State{world,owners,ids,namespace,boundaries,schedules,result},"namespace=" ++ U32.show(namespace) ++ ";ids=" ++ List.show(&2,U32,U32.show,Schedule.ids(ids)) ++ ";world={" ++ sw ++ "};owners={" ++ so ++ "};boundaries=" ++ List.show(&2,Boundary.Boundary,Boundary.render,boundaries) ++ ";schedules=" ++ List.show(&2,String,O.audit_effect,schedules) ++ ";status=" ++ status(result))
-def state(value:Program.State) -> Program.State & String:
+  (Program.State{world,owners,ids,namespace,boundaries,schedules,result},Doc.concat([Doc.text("namespace="),Doc.text(U32.show(namespace)),Doc.text(";ids="),Doc.text(List.show(&2,U32,U32.show,Schedule.ids(ids))),Doc.text(";world={"),sw,Doc.text("};owners={"),so,Doc.text("};boundaries="),Doc.show(~Boundary.Boundary,~Boundary.render,boundaries),Doc.text(";schedules="),Doc.text(List.show(&2,String,O.audit_effect,schedules)),Doc.text(";status="),Doc.text(status(result))]))
+def state(value:Program.State) -> Program.State & Doc.Doc:
   match value:
-    case Program.State{world,owners,ids,namespace,boundaries,schedules,result}:state_join(ids,namespace,boundaries,schedules,result,O.world(world),Owners.owners(owners))
-def primed(prefix:String,iterations:U32,value:Program.State & String) -> List<&2,String>:
+    case Program.State{world,owners,ids,namespace,boundaries,schedules,result}:state_join(ids,namespace,boundaries,schedules,result,DW.world(world),Owners.owners(owners))
+def primed(prefix:Doc.Doc,iterations:U32,value:Program.State & Doc.Doc) -> Doc.Doc:
   match value:
-    case (owner,snapshot):Stream.final(prefix ++ "primed={" ++ snapshot ++ "}\n",Program.loops(U32.to_nat(iterations),0,owner))
-def registered(prefix:String,iterations:U32,value:Program.State & String) -> List<&2,String>:
+    case (owner,snapshot):Stream.final(Doc.concat([prefix,Doc.text("primed={"),snapshot,Doc.text("}\n")]),Program.loops(U32.to_nat(iterations),0,owner))
+def registered(prefix:Doc.Doc,iterations:U32,value:Program.State & Doc.Doc) -> Doc.Doc:
   match value:
-    case (owner,snapshot):primed(prefix ++ "registered={" ++ snapshot ++ "}\n",iterations,state(Program.run_phase(0,owner)))
-def catalogued(prefix:String,iterations:U32,namespace:U32,world:F.World(),value:S.Owners & Schedule.IDs) -> List<&2,String>:
+    case (owner,snapshot):primed(Doc.concat([prefix,Doc.text("registered={"),snapshot,Doc.text("}\n")]),iterations,state(Program.run_phase(0,owner)))
+def catalogued(prefix:Doc.Doc,iterations:U32,namespace:U32,world:F.World(),value:S.Owners & Schedule.IDs) -> Doc.Doc:
   match value:
     case (owners,ids):registered(prefix,iterations,state(Program.State{world,owners,ids,namespace,[],[],Program.Complete{}}))
-def named(prefix:String,iterations:U32,owners:Reg.Owners,dispose:Dispose.Registry(),first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,observed:F.World() & U32) -> List<&2,String>:
+def named(prefix:Doc.Doc,iterations:U32,owners:Reg.Owners,dispose:Dispose.Registry(),first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,observed:F.World() & U32) -> Doc.Doc:
   match observed:
     case (world,ns):catalogued(prefix,iterations,ns,world,Schedule.catalog(S.Owners{owners,dispose,S.Frame{first,second,0,0,None{},None{},[],[]}}))
-def dispose_registered(prefix:String,iterations:U32,owners:Reg.Owners,first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,value:Sys.RegistrationResult<T.MotionSchema,F.Store(),F.Resources(),E.event_type(),List<&2,W.Handle<T.MotionSchema>>,Empty,Dispose.Output,Dispose.runner>) -> List<&2,String>:
+def dispose_registered(prefix:Doc.Doc,iterations:U32,owners:Reg.Owners,first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,value:Sys.RegistrationResult<T.MotionSchema,F.Store(),F.Resources(),E.event_type(),List<&2,W.Handle<T.MotionSchema>>,Empty,Dispose.Output,Dispose.runner>) -> Doc.Doc:
   match value:
     case Sys.Registered{world,registry}:named(prefix,iterations,owners,registry,first,second,W.namespace(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),world))
-    case Sys.RegistrationFailed{world}:[prefix ++ "DisposeRegistrationFailed;world={" ++ text(~F.World(),O.world(world)) ++ "};owners={" ++ text(~Reg.Owners,Owners.registered(owners)) ++ "}\n"]
+    case Sys.RegistrationFailed{world}:Doc.concat([prefix,Doc.text("DisposeRegistrationFailed;world={"),doc(~F.World(),DW.world(world)),Doc.text("};owners={"),Doc.text(text(~Reg.Owners,Owners.registered(owners))),Doc.text("}\n")])
 def optional_instance(value:Maybe<&1,L.Instance()>) -> String:
   match value:
     case None{}:"None"
@@ -70,28 +75,28 @@ def optional_local(value:Maybe<&1,L.State>) -> String:
   match value:
     case None{}:"None"
     case Some{owner}:"Some{" ++ text(~L.State,Render.local(owner)) ++ "}"
-def setup(prefix:String,iterations:U32,first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,value:Reg.Registration) -> List<&2,String>:
+def setup(prefix:Doc.Doc,iterations:U32,first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,value:Reg.Registration) -> Doc.Doc:
   match value:
     case Reg.Ready{world,owners}:dispose_registered(prefix,iterations,owners,first,second,Sys.register(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),~List<&2,W.Handle<T.MotionSchema>>,~Empty,~Dispose.Output,~Dispose.runner,world,"FailedTxn/DisposeTransient",[Identity.key(~T.MotionSchema,~T.Position,F.main_identity()),Identity.key(~T.MotionSchema,~T.Velocity,F.aux_identity()),Identity.key(~T.MotionSchema,~T.Selected,F.flag_identity())]))
-    case Reg.Stopped{context,stage,a,reader,pub,local}:[prefix ++ "RegistrationStopped{stage=" ++ U32.show(stage) ++ ";context={" ++ text(~Family.Context(),RT.context(context)) ++ "};a=" ++ optional_instance(a) ++ ";reader=" ++ optional_reader(reader) ++ ";publications=" ++ optional_publications(pub) ++ ";local=" ++ optional_local(local) ++ "}\n"]
-def targets(prefix:String,iterations:U32,world:F.World(),reservations:List<&2,W.Reservation<T.MotionSchema>>) -> List<&2,String>:
+    case Reg.Stopped{context,stage,a,reader,pub,local}:Doc.concat([prefix,Doc.text("RegistrationStopped{stage="),Doc.text(U32.show(stage)),Doc.text(";context={"),Doc.text(text(~Family.Context(),RT.context(context))),Doc.text("};a="),Doc.text(optional_instance(a)),Doc.text(";reader="),Doc.text(optional_reader(reader)),Doc.text(";publications="),Doc.text(optional_publications(pub)),Doc.text(";local="),Doc.text(optional_local(local)),Doc.text("}\n")])
+def targets(prefix:Doc.Doc,iterations:U32,world:F.World(),reservations:List<&2,W.Reservation<T.MotionSchema>>) -> Doc.Doc:
   match reservations:
     case W.Reserved{first} <> W.Reserved{second} <> _:setup(prefix,iterations,first,second,Reg.run(world))
-    case _:[prefix ++ "MissingSeedTargets;world={" ++ text(~F.World(),O.world(world)) ++ "}\n"]
-def seed_applied(prefix:String,iterations:U32,reservations:List<&2,W.Reservation<T.MotionSchema>>,observed:F.World() & String) -> List<&2,String>:
+    case _:Doc.concat([prefix,Doc.text("MissingSeedTargets;world={"),doc(~F.World(),DW.world(world)),Doc.text("}\n")])
+def seed_applied(prefix:Doc.Doc,iterations:U32,reservations:List<&2,W.Reservation<T.MotionSchema>>,observed:F.World() & Doc.Doc) -> Doc.Doc:
   match observed:
-    case (world,snapshot):targets(prefix ++ "seedApplied={" ++ snapshot ++ "}\n",iterations,world,reservations)
-def seed_pending(prefix:String,iterations:U32,reservations:List<&2,W.Reservation<T.MotionSchema>>,observed:F.World() & String) -> List<&2,String>:
+    case (world,snapshot):targets(Doc.concat([prefix,Doc.text("seedApplied={"),snapshot,Doc.text("}\n")]),iterations,world,reservations)
+def seed_pending(prefix:Doc.Doc,iterations:U32,reservations:List<&2,W.Reservation<T.MotionSchema>>,observed:F.World() & Doc.Doc) -> Doc.Doc:
   match observed:
-    case (world,snapshot):seed_applied(prefix ++ "seedPending={" ++ snapshot ++ "}\n",iterations,reservations,O.world(W.barrier(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),world)))
+    case (world,snapshot):seed_applied(Doc.concat([prefix,Doc.text("seedPending={"),snapshot,Doc.text("}\n")]),iterations,reservations,DW.world(W.barrier(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),world)))
 def seed_outcome(value:Tx.Outcome<Unit>) -> String:
   match value:
     case Tx.Success{}:"Success"
     case Tx.Failure{_}:"Failure(Unit)"
-def seeded(prefix:String,iterations:U32,value:F.Seeded) -> List<&2,String>:
+def seeded(prefix:Doc.Doc,iterations:U32,value:F.Seeded) -> Doc.Doc:
   match value:
-    case F.Seeded{world,+reservations,outcome}:seed_pending(prefix ++ "seedOutcome=" ++ seed_outcome(outcome) ++ ";reservations=" ++ List.show(&2,W.Reservation<T.MotionSchema>,O.reservation,reservations) ++ "\n",iterations,reservations,O.world(world))
-def created(+count:U32,+iterations:U32,observed:F.World() & String) -> List<&2,String>:
+    case F.Seeded{world,+reservations,outcome}:seed_pending(Doc.concat([prefix,Doc.text("seedOutcome="),Doc.text(seed_outcome(outcome)),Doc.text(";reservations="),Doc.text(List.show(&2,W.Reservation<T.MotionSchema>,O.reservation,reservations)),Doc.text("\n")]),iterations,reservations,DW.world(world))
+def created(+count:U32,+iterations:U32,observed:F.World() & Doc.Doc) -> Doc.Doc:
   match observed:
-    case (world,snapshot):seeded("count=" ++ U32.show(count) ++ ";iterations=" ++ U32.show(iterations) ++ ";created={" ++ snapshot ++ "}\n",iterations,F.seed(count,world))
-def program(count:U32,iterations:U32,world:F.World()) -> List<&2,String>:created(count,iterations,O.world(world))
+    case (world,snapshot):seeded(Doc.concat([Doc.text("count="),Doc.text(U32.show(count)),Doc.text(";iterations="),Doc.text(U32.show(iterations)),Doc.text(";created={"),snapshot,Doc.text("}\n")]),iterations,F.seed(count,world))
+def program(count:U32,iterations:U32,world:F.World()) -> Doc.Doc:created(count,iterations,DW.world(world))
