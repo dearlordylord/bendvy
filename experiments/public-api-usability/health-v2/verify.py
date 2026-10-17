@@ -20,6 +20,12 @@ def expected(kind='normal'):
     if kind == 'failure':
         # Query writes roll back; schedule failure prevents the following service.
         return b'failed health=10,20 query-cursor=0 service=0 untouched=30\n'
+    if kind == 'repair':
+        return (b'missing pending=3 cursor=0\n'
+                b'repaired health=5,5 service=1 same-registration=true cursor-advanced=true\n')
+    if kind == 'type':
+        # The earlier system commits; only the later failing replacement rolls back.
+        return b'before=3,4\nrun=failed\nafter=11,12\n'
     if kind != 'normal':
         raise ValueError(f'Unknown scenario: {kind}')
     # The empty query completes before the barrier, so the service still runs.
@@ -44,7 +50,7 @@ def validate(path, kind='normal'):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--kind', choices=('normal', 'missing', 'local', 'foreign', 'failure'), default='normal')
+    parser.add_argument('--kind', choices=('normal', 'missing', 'local', 'foreign', 'failure', 'repair', 'type'), default='normal')
     parser.add_argument('outputs', nargs='+', type=Path)
     args = parser.parse_args()
     for path in args.outputs:

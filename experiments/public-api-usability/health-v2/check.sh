@@ -5,13 +5,13 @@ here=$(cd -- "$(dirname -- "$0")" && pwd)
 mkdir -p "$here/build"
 export BEND_NO_TELEMETRY=1
 scenarios=("$@")
-if [[ ${#scenarios[@]} == 0 ]]; then scenarios=(normal other missing local foreign failure); fi
+if [[ ${#scenarios[@]} == 0 ]]; then scenarios=(normal other missing local foreign failure repair); fi
 for scenario in "${scenarios[@]}"; do
   kind=$scenario
   case "$scenario" in
     normal) entry=main ;;
     other) entry=other-main; kind=normal ;;
-    missing|local|foreign|failure) entry="$scenario-main" ;;
+    missing|local|foreign|failure|repair) entry="$scenario-main" ;;
     *) echo "Unknown scenario: $scenario" >&2; exit 2 ;;
   esac
   example_emit "$here/$entry.bend" "$here/build/$scenario.js" > "$here/build/$scenario.emit-js.stdout" 2> "$here/build/$scenario.emit-js.stderr"
