@@ -9,7 +9,7 @@ import ../../../src/ecs/captured-schedule-composition.bend as Choice
 import ../../../src/ecs/ordinary-app-component.bend as Component
 
 def inspected(before:String,kind:String,after:String) -> String:
-  "before=" ++ before ++ "\nrun=" ++ kind ++ "\nafter=" ++ after ++ "\n"
+  "before=" ++ before ++ "\nrun=" ++ kind ++ "\nafter=" ++ after
 
 def failed_text(handle:W.Handle<S.Schema>,before:String,app:Core.Scheduled(),error:Core.ErrorType()) -> String:
   match error:
