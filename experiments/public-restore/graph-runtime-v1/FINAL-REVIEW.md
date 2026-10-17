@@ -1,6 +1,6 @@
 # Issue 60 independent final Spec and Standards review
 
-Code and supplied semantic evidence reviewed: no blocking defect found. The combined unchanged #28 run is reviewed in the addendum below. Final delivery remains pending actual master hooks, commit/push, CI, and the governing-issue report. This is one independent final review; later delivery results belong in an addendum to this file. It does not close #60 or establish universal recovery or full-core parity.
+Code, supplied semantic evidence, combined #28, and actual master integration reviewed: no blocking defect found. The addenda below record completed delivery checks; the coordinator owns the governing-issue report and closure. This is one independent final review; later delivery results belong in an addendum to this file. It does not close #60 or establish universal recovery or full-core parity.
 
 ## Subject and governing contract
 
@@ -81,3 +81,11 @@ Independently joined 351 monitored current-source hashes, 395 staged source hash
 Execution used the explicit project-local selected CLI from `current-full23-v1/selected-tool-v1`, backed by the pinned ELF/resources and deterministic CLI recipe. Its version command delegates to the underlying Bend 2.0.35 ELF; that version string alone does not identify the selected compiler or establish stock-compiler equivalence. The launch pre/post records bind this selection and report 383 matched launch pins and retained resource inventories. Same-source compiler compatibility remains a separate pending #54 result. No compiler or benchmark was executed by this reviewer.
 
 The #28 decision applies to its frozen whole-process Workshop workload, including startup and output. Host contention is retained, and a prelaunch one-second idle sample is not a quiet-cohort guarantee. The result does not establish a speedup, compiler equivalence, graph-feature scaling, or the combined JS/TS and Native/TS goals. Actual master hooks, commit/push, CI, and the governing-issue report remain open.
+
+## Same-review master integration assurance
+
+Master commit `81316652ee2568016ce72b5f01b576c7daa7fefd` contains exactly the 4,179 paths in the coordinator's owned-path inventory. Independently verified the committed path set and blob identities read-only. All sixteen changed core files and all 2,809 graph evidence paths equal the reviewed integration candidate `f968fb25c`; the four graph packet manifest hashes remain exactly those recorded above. The two ignored live Python cache files are absent from the commit and do not alter the reviewed source/packet inputs. Nineteen other candidate differences are separately reviewed #54 compiler/default-regression archives, #54 metadata/review/manifests, and documentation reconciliation; no #60 code or packet drift was found.
+
+The coordinator's actual master delivery record reports configured `.githooks` success with `BENDVY_OWNED_PATHS` bound to those 4,179 paths, without bypass. Push completed successfully. Independently confirmed the remote master ref equals this exact commit and [CI run 39010187646](https://github.com/dearlordylord/bendvy/actions/runs/39010187646) completed successfully on that head. Its functional job passed committed-source/whitespace checks and runner/log/tool-pin/statistics checks. No backend or performance workload was replayed for this addendum.
+
+This supersedes the earlier pending master-hook/push/CI statements, while preserving their historical scope. The separate #54 compiler compatibility result belongs to that capability's review; this note makes no new compiler-equivalence claim. No blocking supplied #60 implementation, semantic-evidence, or integration gate remains in this review. The coordinator still owns the governing-issue completion report and closure. Fold this note into the next planned documentation delivery; it does not require an extra CI-only cycle.

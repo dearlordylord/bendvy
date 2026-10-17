@@ -1,8 +1,8 @@
 # Independent #54 Spec / Standards review
 
-Status: **bounded semantic delivery reviewed; final acceptance remains open**.
-This is one review, to be appended with the combined regression, compiler-compatibility,
-integration and CI results. It does not close #54.
+Status: **reviewed #54 delivery and required integration gates pass**.
+This is one review with the combined regression, compiler-compatibility, integration
+and CI results appended. Issue closure remains the coordinator's action.
 
 ## Reviewed boundary
 
@@ -81,7 +81,7 @@ Git blob identity, executable modes and all 18 literal symlink targets. Root mus
 preserve those modes/targets when materializing; original execution paths remain
 provenance, not a claim that receipts ran in the destination checkout.
 
-## Open acceptance joins and remaining gates
+## Acceptance joins and integration gates
 
 1. **Shared TS and reached reader-consumption applicability: accepted within the
    retained primitive scope.** Applicability commit `624bd6fb7`, record SHA-256
@@ -157,11 +157,19 @@ provenance, not a claim that receipts ran in the destination checkout.
    seeded balanced orders, original decision recomputation and actual root
    pre/post guard bindings pass. Compiler capture includes the actual stock and
    selected source roots/ELFs and exact JS/two-anchor C join. No backend replay
-   occurred. Hooks/CI remain pending.
-4. **Final integration, hooks and CI:** materialize exact manifest inputs and this
-   review append, retain actual checks, then update the governing issue in English
-   before any closure. No successful destination execution is inferred from source
-   affinity alone.
+   occurred. Final integration gates are recorded below.
+4. **Final integration, hooks and CI: PASS.** Read-only inspection of master
+   `81316652ee2568016ce72b5f01b576c7daa7fefd` verified all1,349 manifest
+   members against committed Git blobs, modes, lengths, SHA-256 and literal symlink
+   targets, all30 qualified core affinities, and the exact integrated review note.
+   The commit contains4,179 owned paths; unrelated working-tree changes were not
+   edited or treated as delivered. Root reports actual configured hooks and owned
+   path checks passed, push exited zero, and GitHub Actions run
+   [39010187646](https://github.com/dearlordylord/bendvy/actions/runs/39010187646)
+   completed successfully with the functional gate passing for that commit.
+   These are actual destination integration results, distinct from prior source
+   affinity and retained execution provenance. This final prose append introduces
+   no source, tool, model or expected-output change.
 
 Full comparative feature timing/scaling remains under #21/#23/#24. Compilation
 samples are scoped instrumented-compiler evidence, not stock phase timing, JS
