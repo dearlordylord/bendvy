@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-cd "$(dirname "$0")/../../.."
-scripts/bend-check examples/health-decay/demo/api.bend
+source "$(dirname -- "$0")/../../common.sh"
+cd "$example_repo"
 mkdir -p examples/health-decay/demo/dist
-timeout --signal=KILL 30s bend examples/health-decay/demo/api.bend -o examples/health-decay/demo/dist/api.mjs
+example_emit examples/health-decay/demo/api.bend examples/health-decay/demo/dist/api.mjs

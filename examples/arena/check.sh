@@ -1,8 +1,8 @@
-#!/bin/sh
-set -eu
-cd "$(dirname "$0")/../.."
-examples/arena/build.sh
-scripts/bend-check examples/arena/fixtures.bend
-timeout --signal=KILL 30s bend examples/arena/fixtures.bend -o examples/arena/dist/fixtures.mjs
-node examples/arena/test.mjs
-node examples/arena/host-smoke.mjs
+#!/usr/bin/env bash
+set -euo pipefail
+source "$(dirname -- "$0")/../common.sh"
+cd "$example_repo"
+bash examples/arena/build.sh
+example_emit examples/arena/fixtures.bend examples/arena/dist/fixtures.mjs
+example_node examples/arena/test.mjs
+example_node examples/arena/host-smoke.mjs

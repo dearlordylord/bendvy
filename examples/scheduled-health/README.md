@@ -12,8 +12,10 @@ bash examples/scheduled-health/run.sh js
 bash examples/scheduled-health/run.sh native
 ```
 
-The script uses the installed Bend 2.0.35 and Node/Clang paths from this workspace.
-Set `BEND`, `NODE`, `CLANG` and `BENDVY_CLANG19_ROOT` for another installation.
+The script prefers the workspace Bend 2.0.35 if installed, otherwise `bend` on
+PATH. Node and Clang use PATH by default. Set `BEND`, `NODE` and `CLANG` to
+select other binaries. With the private workspace Clang wrapper, also export
+`BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root`.
 Generated files stay in ignored `build/`. If another backend check holds the
 shared lock, the script exits 75 without starting competing work.
 
@@ -62,3 +64,15 @@ Verified in this workspace on 2026-10-17: Bend 2.0.35, Node 24.20.0,
 Clang 19 with `-O3`; full JS and Native outputs agree and pass the independent
 finite model. Modified-tick and modified-sentinel controls are rejected.
 This is correctness evidence, not a performance measurement.
+
+## Remaining usability check
+
+- [ ] Run a separate blind API audit with a fresh reviewer who has not read this
+  example or the implementation. Give them the Bevy ECS model, Bend language
+  sources and the public usage documentation; ask them to build the same small
+  simulation and record where the documentation or API stops them. The current
+  example was adapted from existing source and does not satisfy this audit.
+
+The explicit dispatcher and column projections here are observations about this
+registered-ECS example, not proven mandatory user boilerplate. Compare the
+ordinary App composer before deciding whether a library change is needed.

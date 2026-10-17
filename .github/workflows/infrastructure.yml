@@ -42,3 +42,32 @@ jobs:
           python3 scripts/test-retro-controls.py
           python3 scripts/test-pre-commit.py
           python3 scripts/test-retro-v1plus1.py
+
+  examples:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.20.0'
+      - name: Install pinned Bend 2.0.35
+        shell: bash
+        run: |
+          archive="$RUNNER_TEMP/bend-2.0.35-linux-x64.tar.gz"
+          curl --proto '=https' --tlsv1.2 -fsSL --retry 3 \
+            https://github.com/bendlang/bend/releases/download/v2.0.35/bend-2.0.35-linux-x64.tar.gz \
+            -o "$archive"
+          echo "63039d1a119f716767ac5a7d8fe0717cfacf219c6c253c35192148e0dade722f  $archive" | sha256sum -c -
+          tar -xzf "$archive" -C "$RUNNER_TEMP"
+          echo "BEND=$RUNNER_TEMP/bend/bin/bend" >> "$GITHUB_ENV"
+          echo 'BEND_NO_TELEMETRY=1' >> "$GITHUB_ENV"
+      - name: Install Native compiler
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y clang-19
+          echo 'CLANG=clang-19' >> "$GITHUB_ENV"
+      - name: Compile and exercise every runnable example
+        env:
+          BENDVY_EXAMPLE_NATIVE: '1'
+        run: bash examples/check.sh
