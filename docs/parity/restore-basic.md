@@ -29,7 +29,109 @@ An application loads a basic save, rejects invalid input before mutation and res
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
 
-## Source-only readiness checkpoint (2026-10-08)
+## Current implementation basis — 2026-10-16
+
+#38 now supplies full U32 generations and actual cleanup-before-recycle. Restore
+must map complete saved keys to ordinary newly allocated handles, preserving the
+World namespace and actual allocator generations. Old handles become stale under
+the existing generation contract, with its approved full-wrap exception; no new
+Runtime or Local/capture reset is needed. Saved allocator progress is a checked
+monotonic floor, not permission to reinstall saved generations or rewind owners.
+Saved full entity keys are opaque remapping tokens; target slot-capacity checks
+apply to allocation and the requested progress floor, not to a saved key merely
+because its index exceeds the target physical domain. Zero is also a valid saved
+remapping token; it does not authorize a live target handle with index zero.
+Pinned Bevy SceneEntityMapper explicitly exercises source index zero. Duplicate
+detection uses the complete saved key.
+Canceling deferred work must abandon its Pending allocator marks as well as drop
+its callbacks, after complete input validation and typed payload staging.
+
+Current #46 declaration-bound factories supply canonical decoding and owned
+construction/undo; #58 supplies schema-derived persistence eligibility. Reuse
+these interfaces rather than the missing-factory assumptions of the historical
+checkpoint below. Pinned Rust Bevy uses `ResolvedSceneRoot` and
+`SceneEntityMapper`, whose opaque saved-ID mapping supports this separation.
+The task's remaining validation, owner preservation and executable gates remain
+binding. This basis selects no new law, numerical limit or identity contract.
+
+## Current public restore API — qualification in progress
+
+The implementation adds eighteen `restore-*.bend` modules and allocator helpers;
+it does not replace World, transaction, capability or Snapshot types.
+[`restore-schema.bend`](../../src/ecs/restore-schema.bend) combines the same
+constructed declarations, canonical codecs and reversible factories used by
+ordinary construction. Product composition derives field dispatch and cleanup;
+callers do not supply a second field-name registry or handwritten undo metadata.
+
+[`restore-public.bend`](../../src/ecs/restore-public.bend) retains the schema and
+constructor context in an affine `Owner`. `run` stages the complete input before
+modifying World, performs ordinary observed cleanup and spawn, and returns full
+saved-key-to-actual-handle bindings. Failure returns the rejected input and actual
+owned recovery. Success clears rollback-only records; it does not keep old live
+payloads or an old World hidden inside the persistent owner. Recovery receipts
+have an explicit closed disposal helper; no implicit destructor is assumed.
+
+[`restore-runtime.bend`](../../src/ecs/restore-runtime.bend) preserves existing
+system registrations, Local/capture owners, reader positions and Runtime progress.
+It drains actual affine event logs through the ordinary family catalog, drops
+pending work without executing it, abandons Pending allocator marks, and clears
+stream batches. Typed drain receipts remain owned return values. Ordinary
+lifecycle and component stamps are produced through canonical commands, including
+the transaction tick for resource-only restores with no live entities.
+
+[`restore-raw.bend`](../../src/ecs/restore-raw.bend) accepts `decode-data.Raw` with
+four fields: `version`, `nextEntity`, `entities` and `resources`. Each entity has
+`id: {index, generation}` and `components`. Saved indices and generations accept
+all U32 values, including zero; they are opaque tokens rather than target slot
+indices. Exact numeric conversion rejects fractions, non-finite values and values
+outside U32 before narrowing. `D.field` retains its existing first-match behavior;
+this API adds no blanket duplicate-property policy. Complete-key entity duplicates
+and schema names/values are checked in authored order after structural parsing.
+
+[`restore-raw-owner.bend`](../../src/ecs/restore-raw-owner.bend) calls the same
+closed typed restore operation after parsing. Parse rejection returns the actual
+unchanged owner and Runtime plus the original Raw/error. A delivered result keeps
+the original Raw beside the typed outcome and actual recovery. The ordinary
+consumer's application wrapper is [`Restore.restore`](../../experiments/public-restore/basic-world-statefree-v1/restore.bend):
+
+```bend
+Restore.restore(~S, owner, runtime, snapshot)
+```
+
+Its Raw caller uses that same wrapper rather than repeating schema metadata:
+
+```bend
+RawOwner.run(~F.Owned(~S), ~Event.Runtime(~S), ~Restore.Restored(~S),
+  ~Restore.restore(~S), owner, runtime, raw)
+```
+
+The current ordinary application observes complete physical state and actual
+affine owners for Workshop and Garden, with real independently created foreign
+Worlds. Its twenty-eight checkpoints include structural/name/value precedence,
+accepted-prefix rollback, capacity refusal, omitted resources, full-U32 and zero
+saved tokens, pending work, slow readers, retained Local/captures, a zero-live
+resource tick, and a later ordinary spawn. Separate nominal compilation entries
+preserve these operations; they do not share mutable state. Frozen combined-host
+and earlier failed attempts remain scoped history rather than acceptance output.
+The Garden sequencing successor changes only a closed operation list and its tail
+interpreter. Independent source applicability preserves the same complete
+twenty-eight-checkpoint oracle; diagnostic emission is not ordinary qualification.
+
+The focused stored-validation consumer uses the same actual payload and context
+types with one ordinary constructor that accepts valid input but returns an
+invalid stored value after an earlier component was staged. It targets the new
+stored-value validation/undo branch, retaining complete returned inputs and the
+live Runtime observations. All seven checkpoints passed both ordinary JS and
+Native execution against the independent 22,149-byte oracle, separately from the
+incoming-value refusal cases.
+
+All selected current normal, numeric, stored-validation and reached-mutant JS/Native
+roles now pass their complete independent oracles. Qualification remains open for
+integration/CI. The unchanged [default #28 gate](../../experiments/public-restore/opaque-token-v1/regression-v1/README.md) passes with no statistically confirmed slowdown on either backend. The [selected evidence](../../experiments/public-restore/opaque-token-v1/runtime-v1/actual-attempt02/manifest.json) and [independent functional review](../../experiments/public-restore/opaque-token-v1/FINAL-REVIEW.md) are retained; the review is conditional on those remaining gates.
+Basic restore does not include graph/machine save meaning (#60), a Runtime reset,
+or automatic arbitrary-Type construction without a declaration-bound factory.
+
+## Historical source-only readiness checkpoint (2026-10-08)
 
 This appendix refines the existing #59 dependency; it introduces no contract,
 law, wire format or second plan. Existing [snapshot readiness research](../research/basic-snapshot-readiness-v1.md)

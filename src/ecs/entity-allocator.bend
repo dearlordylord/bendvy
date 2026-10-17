@@ -107,3 +107,56 @@ def visible_loop(keys:List<&2,K.Key>,allocator:Allocator,reversed:List<&2,K.Key>
 def visible(allocator:Allocator) -> Allocator & List<&2,K.Key>:
   match allocator:
     case Allocator{next,high,slots,capacity,depth,free,+order}:visible_loop(order,Allocator{next,high,slots,capacity,depth,free,order},[])
+
+# Restore cancellation consumes queued reservations without freeing their IDs.
+def abandon_pending_kept(+key:K.Key,observed:Allocator & List<&2,K.Key>) -> Allocator & List<&2,K.Key>:
+  match observed:
+    case (allocator,keys):(allocator,key <> keys)
+def abandon_pending_checked(+key:K.Key,next:Allocator -> Allocator & List<&2,K.Key>,observed:Allocator & Bool) -> Allocator & List<&2,K.Key>:
+  match observed:
+    case (allocator,True{}):next(write_phase(allocator,key,Consumed{}))
+    case (allocator,False{}):abandon_pending_kept(key,next(allocator))
+def abandon_pending_loop(keys:List<&2,K.Key>,allocator:Allocator) -> Allocator & List<&2,K.Key>:
+  match keys:
+    case []:(allocator,[])
+    case +key <> rest:abandon_pending_checked(key,next => abandon_pending_loop(rest,next),checked(allocator,key,2))
+def abandon_pending_join(observed:Allocator & List<&2,K.Key>) -> Allocator:
+  match observed:
+    case (Allocator{next,high,slots,capacity,depth,free,_},order):Allocator{next,high,slots,capacity,depth,free,order}
+def abandon_pending(allocator:Allocator) -> Allocator:
+  match allocator:
+    case Allocator{+next,+high,slots,+capacity,+depth,+free,+order}:abandon_pending_join(abandon_pending_loop(order,Allocator{next,high,slots,capacity,depth,free,order}))
+
+# A file may advance fresh-index progress, never replace generations or owners.
+def floor_finish(+floor:U32,allocator:Allocator) -> Allocator:
+  match allocator:
+    case Allocator{next,high,slots,capacity,depth,free,order}:Allocator{U32.max(next,floor),U32.max(high,U32.sub(floor,1)),slots,capacity,depth,free,order}
+def floor_step(grow:Bool,+floor:U32,next:Allocator -> Allocator,allocator:Allocator) -> Allocator:
+  match grow allocator:
+    case False{} allocator:floor_finish(floor,allocator)
+    case True{} Allocator{n,high,slots,+capacity,+depth,free,order}:next(Allocator{n,high,ANode{slots,Array.new(Slot,depth,Slot{0,Consumed{}})},(capacity * 2 : U32),1n+depth,free,order})
+def floor_grow(fuel:Nat,+floor:U32,allocator:Allocator) -> Allocator:
+  match fuel allocator:
+    case 0n allocator:floor_finish(floor,allocator)
+    case 1n+rest Allocator{+next,+high,slots,+capacity,+depth,+free,+order}:floor_step(U32.is_lt(capacity,floor),floor,owner => floor_grow(rest,floor,owner),Allocator{next,high,slots,capacity,depth,free,order})
+def floor_checked(allowed:Bool,+floor:U32,allocator:Allocator) -> Allocator & Bool:
+  match allowed:
+    case False{}:(allocator,False{})
+    case True{}:(floor_grow(18n,floor,allocator),True{})
+def advance_floor(allocator:Allocator,+floor:U32) -> Allocator & Bool:
+  floor_checked(Bool.and(U32.is_lt(0,floor),U32.is_le(floor,131073)),floor,allocator)
+
+def count_keys(keys:List<&2,K.Key>) -> Nat:
+  match keys:
+    case []:0n
+    case _ <> rest:1n+count_keys(rest)
+def count_free(keys:List<&2,U32>) -> Nat:
+  match keys:
+    case []:0n
+    case _ <> rest:1n+count_free(rest)
+def restore_room_join(+floor:U32,needed:Nat,observed:Allocator & List<&2,K.Key>) -> Allocator & Bool:
+  match observed:
+    case (Allocator{+next,+high,slots,+capacity,+depth,+free,+order},live):
+      (Allocator{next,high,slots,capacity,depth,free,order},Bool.and(Bool.and(U32.is_lt(0,floor),U32.is_le(floor,131073)),Nat.is_le(needed,Nat.add(Nat.add(count_keys(live),count_free(free)),U32.to_nat(U32.sub(131073,U32.max(next,floor)))))))
+def restore_room(allocator:Allocator,floor:U32,needed:Nat) -> Allocator & Bool:
+  restore_room_join(floor,needed,visible(allocator))
