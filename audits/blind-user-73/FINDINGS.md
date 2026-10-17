@@ -28,10 +28,10 @@ Expected output, in live-handle order, is four rows: counter followed by the
 three Health values. Trailing spaces are emitted by the small printer.
 
 ```text
-0 40 70 90 
-1 37 65 90 
-2 34 60 90 
-3 31 55 90 
+0 40 70 90
+1 37 65 90
+2 34 60 90
+3 31 55 90
 ```
 
 This is a finite usability consumer, not a new contract or universal proof.
@@ -83,3 +83,11 @@ The IO entry reports only the expected three foreign-code dependencies:
 `world-namespace.fresh`, `world-io.create`, and `main`; see `io-source-check.txt`.
 No backend build or benchmark was run by this auditor. The coordinator owns
 serialized runtime execution and must qualify the output before claiming it ran.
+
+## Coordinator runtime verification
+
+Both JS and ordinary Native `-O3` completed within the existing limits and
+matched the independently calculated 48-byte full output, including trailing
+spaces and newlines. See `backend-evidence/RESULTS.json` and the retained
+source freeze, complete outputs and compressed generated artifacts. The
+auditor authored the consumer before this coordinator execution.
