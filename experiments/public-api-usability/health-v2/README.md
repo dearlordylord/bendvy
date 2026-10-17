@@ -43,6 +43,12 @@ Historical source freezes remain exact. `SOURCE-APPLICABILITY.json` records remo
 
 Scheduled Local arguments are repeatable Data. Local capture and output remain Type; output dropping follows the existing scheduled Local policy. Component row outputs retain only the latest Data list. No general host IO, cleanup policy, timing improvement, or bounded-memory claim is added.
 
-## Remaining delivery gates
+## Delivery evidence
 
-The migrated scheduled-health example also passes both backends against its unchanged 192-byte oracle. A fresh blind usability audit, independent final review, and the integrated unchanged regression gate remain required. Performance and wider parity issues remain open.
+The migrated scheduled-health example passes both backends against its unchanged 192-byte oracle. Independent final Spec/Standards review passed candidate `2a1ce30ba`, including all eight scenario pairs, 137 retained artifact joins and five intended authority refusals.
+
+The [fresh blind audit](../../../audits/blind-user-73/FINDINGS.md) independently authored a two-system consumer from public APIs, Bevy and Bend sources, without reading these fixtures or optimization history. Its complete 48-byte arithmetic oracle passes JS and Native. The guide now addresses its setup, callback syntax and World/handle findings. Explicit Bend type aliases remain visible; this does not claim TypeScript-style type inference.
+
+[Combined regression evidence](results-regression28/receipt.json) records 123 successful commands and 110 complete protected Workshop outputs. Twenty adjacent pairs per backend yielded `NO_CONFIRMED_REGRESSION` (JS p=0.5881, Native p=0.8684). The archive retains 908 source/output/artifact members. External CPU contention was present; this bounded whole-process gate does not qualify full-parity performance.
+
+Core and example integration `2a1ce30ba` passed both [CI jobs](https://github.com/dearlordylord/bendvy/actions/runs/39079114169). Subsequent audit, documentation and evidence commits leave core bytes unchanged. Wider parity/performance and pending law approval remain under their existing issues.
