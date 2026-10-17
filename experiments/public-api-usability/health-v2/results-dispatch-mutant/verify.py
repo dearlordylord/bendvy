@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""Independent full-output oracle for the heterogeneous health consumer."""
+import argparse
+from decimal import Decimal
+from pathlib import Path
+
+
+def expected(kind='normal'):
+    if kind == 'missing':
+        # Admission precedes the barrier and both registered systems.
+        return b'missing=Service:1 pending=3 query-cursor=0 service-ready=false\n'
+    if kind == 'local':
+        # Failure rolls back the resource, but preserves the actual Local owner.
+        # The retry consumes that returned App, including its cleared fail flag.
+        return b'failed resource=10 local=1,0\nretried resource=20 local=2,0\n'
+    if kind == 'foreign':
+        # Two actual IO creations in one fresh process receive namespaces 1, 2.
+        return (b'foreign-world=Rejected registration-world=1 actual-world=2 '
+                b'query-cursor=0 service-cursor=0 service=0\n')
+    if kind == 'failure':
+        # Query writes roll back; schedule failure prevents the following service.
+        return b'failed health=10,20 query-cursor=0 service=0 untouched=30\n'
+    if kind == 'repair':
+        return (b'missing pending=3 cursor=0\n'
+                b'repaired health=5,5 service=1 same-registration=true cursor-advanced=true\n')
+    if kind == 'type':
+        # The earlier system commits; only the later failing replacement rolls back.
+        return b'before=3,4\nrun=failed\nafter=11,12\n'
+    if kind != 'normal':
+        raise ValueError(f'Unknown scenario: {kind}')
+    # The empty query completes before the barrier, so the service still runs.
+    lines = ['before-barrier=', 'service=1']
+    first, second = Decimal(10), Decimal(20)
+    for tick in range(1, 7):
+        first /= 2
+        second /= 4
+        lines.extend([
+            f'tick={tick} health={first:f},{second:f}',
+            f'service={tick + 1}',
+        ])
+    lines.append('untouched=30')
+    return ('\n'.join(lines) + '\n').encode('ascii')
+
+
+def validate(path, kind='normal'):
+    actual = path.read_bytes()
+    if actual != expected(kind):
+        raise ValueError(f'{path}: complete health/service output differs')
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--kind', choices=('normal', 'missing', 'local', 'foreign', 'failure', 'repair', 'type'), default='normal')
+    parser.add_argument('outputs', nargs='+', type=Path)
+    args = parser.parse_args()
+    for path in args.outputs:
+        validate(path, args.kind)
+        print(f'PASS {args.kind}: {path}')
+
+
+if __name__ == '__main__':
+    main()

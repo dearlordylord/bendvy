@@ -7,7 +7,6 @@ import ../../../src/ecs/ordinary-service-declaration.bend as ServiceDecl
 import ../../../src/ecs/captured-schedule-composition.bend as Choice
 import ../../../src/ecs/execution-context.bend as Ctx
 import ../../../src/ecs/ordinary-app-execution.bend as Execution
-import ../../../examples/scheduled-health/application.bend as Original
 import ../../../src/ecs/schema-fragments.bend as Fragment
 import schema.bend as S
 import ../../../examples/scheduled-health/components.bend as D
