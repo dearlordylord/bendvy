@@ -1,0 +1,28 @@
+from pathlib import Path
+import json,hashlib,shutil,subprocess
+PLAN=Path('/tmp/bendvy21-lifecycle-selected-source-plan.json')
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+p=json.loads(PLAN.read_text());target=Path('/tmp/bendvy-canonical-lifecycle-delivery');master=Path('/workspace/formal-proofs/bendvy')
+# Root releases this existing source assembly only after the separate retention process is terminal.
+archive=Path(p['archiveManifestMustExist']);assert archive.is_file(),'Archive must finish before source assembly'
+r=json.loads(archive.read_text());assert len(r['current'])==11 and len(r['selectedIncomplete'])==1
+assert all(x['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS' for x in r['current'])
+assert r['selectedIncomplete'][0]['status']=='INCOMPLETE'
+rows=p['bendFiles']+p['metadataFiles'];assert len(rows)==p['copyFileCount'];assert len({x['relativePath'] for x in rows})==len(rows)
+for relative,h in p['productionMustRemainExact'].items():
+ assert sha(master/relative)==h,(relative,'master drift')
+ f=target/relative
+ raw=f.read_bytes() if f.exists() else subprocess.check_output(['git','-c','gc.auto=0','-C',str(target),'show','HEAD:'+relative])
+ assert hashlib.sha256(raw).hexdigest()==h,(relative,'delivery production drift; never overwrite')
+for row in rows:
+ assert sha(Path(row['source']))==row['sha256'],row
+ assert Path(row['destination'])==target/row['relativePath']
+ assert row['relativePath'].startswith('experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/')
+# All validation above is read-only. Only explicitly selected owned leaf files are written.
+for row in rows:
+ source=Path(row['source']);destination=Path(row['destination']);destination.parent.mkdir(parents=True,exist_ok=True)
+ shutil.copyfile(source,destination);assert sha(destination)==row['sha256']
+for relative,h in p['productionMustRemainExact'].items():
+ if (target/relative).exists():assert sha(target/relative)==h
+Path('/tmp/bendvy21-lifecycle-selected-source-paths.txt').write_text(''.join(x['relativePath']+'\n' for x in rows))
+print('SELECTED_SOURCE_ASSEMBLY_PASS',len(p['bendFiles']),'Bend',len(p['metadataFiles']),'metadata',len(p['productionMustRemainExact']),'production identities unchanged')

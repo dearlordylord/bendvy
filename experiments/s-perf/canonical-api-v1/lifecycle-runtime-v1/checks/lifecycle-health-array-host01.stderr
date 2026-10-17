@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : ../dense-runtime-v1/types.Vitals with 3 fields
+- observed : T.Vitals{[999, 1000, 1001, 1002], 7}
+Context:
+- prefix     : Rope.Rope
+- count      : U32
+- iterations : U32
+- world      : W.World<T.HealthSchema, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<T.HealthSchema, T.Vitals>, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<T.HealthSchema, T.Armor>, ../../../../src/ecs/column.Column<T.HealthSchema, T.Tracked>>>, ../../../../src/ecs/owner-product.Owner<T.HealthLedger, Unit>, Nat>
+- foreign    : W.World<T.HealthSchema, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<T.HealthSchema, T.Vitals>, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<T.HealthSchema, T.Armor>, ../../../../src/ecs/column.Column<T.HealthSchema, T.Tracked>>>, ../../../../src/ecs/owner-product.Owner<T.HealthLedger, Unit>, Nat>
+Location: foreign_seed
+57 |     case (tx,reservation):foreign_finished(prefix,count,iterations,world,reservation,Cmd.tx_finish(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,~Unit,tx,Tx.Success{}))
+58>| def foreign_seed(prefix:Rope.Rope,count:U32,iterations:U32,world:D.World(),foreign:D.World()) -> Prepared:foreign_reserved(prefix,count,iterations,world,Cmd.tx_spawn(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,~T.Vitals,~D.populate,Tx.begin(~D.World(),~Nat,foreign),T.Vitals{F.quad(999,1000,1001,1002),7}))
+   |                                                                                                                                                                                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+59 | def main_applied(prefix:Rope.Rope,count:U32,iterations:U32,foreign:D.World(),observed:D.World() & V.World) -> Prepared:
+bend 2.0.37 is available: run bend update
