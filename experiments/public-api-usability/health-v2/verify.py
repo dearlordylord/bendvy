@@ -13,6 +13,13 @@ def expected(kind='normal'):
         # Failure rolls back the resource, but preserves the actual Local owner.
         # The retry consumes that returned App, including its cleared fail flag.
         return b'failed resource=10 local=1,0\nretried resource=20 local=2,0\n'
+    if kind == 'foreign':
+        # Two actual IO creations in one fresh process receive namespaces 1, 2.
+        return (b'foreign-world=Rejected registration-world=1 actual-world=2 '
+                b'query-cursor=0 service-cursor=0 service=0\n')
+    if kind == 'failure':
+        # Query writes roll back; schedule failure prevents the following service.
+        return b'failed health=10,20 query-cursor=0 service=0 untouched=30\n'
     if kind != 'normal':
         raise ValueError(f'Unknown scenario: {kind}')
     # The empty query completes before the barrier, so the service still runs.
@@ -37,7 +44,7 @@ def validate(path, kind='normal'):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--kind', choices=('normal', 'missing', 'local'), default='normal')
+    parser.add_argument('--kind', choices=('normal', 'missing', 'local', 'foreign', 'failure'), default='normal')
     parser.add_argument('outputs', nargs='+', type=Path)
     args = parser.parse_args()
     for path in args.outputs:
