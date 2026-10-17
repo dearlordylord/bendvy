@@ -1,0 +1,23 @@
+{
+  "schema": "bendvy-indexed-optional-affine-control-basis-v1",
+  "purpose": "Exercise the indexed optional renderer with a genuinely affine Type payload and check that the projector returned owner is retained by the outer array.",
+  "input": {
+    "outerArray": "ANode( Some(AffineProbe{cells=[5,8],serial=3}), None )",
+    "capacity": 2,
+    "depth": 1
+  },
+  "payloadType": "AffineProbe is Type and owns Array<U32> cells; the test does not instantiate P with Data.",
+  "projector": "mutate reads cells[0], writes cells[0]+100, increments serial, and returns the updated AffineProbe together with its Doc.",
+  "ownerObservation": "The output includes the helper Doc and a second structural traversal of the helper-returned array with an identity renderer. Both must show first=105 and serial=4; the second line observes the actual returned owner.",
+  "expectedDerivation": "The helper visits the Some leaf once, wraps the projector Doc as leaf:some(...), preserves NoneLeaf for the second slot, and builds the two-slot root as node(left,right). The returned outer array is re-rendered using the mutated AffineProbe.",
+  "expectedFile": "expected.stdout",
+  "expectedBytes": 135,
+  "expectedText": "indexed=node(leaf:some(AffineProbe{first=105;serial=4}),leaf:none)\nreturned=node(leaf:some(AffineProbe{first=105;serial=4}),leaf:none)\n",
+  "sourceCheck": {
+    "command": "taskset -c 8 timeout 5s /workspace/formal-proofs/bendvy/scripts/bend-check controls/indexed-optional-affine-v1/main.bend",
+    "status": "ALL PROOFS CHECK",
+    "limitSeconds": 5
+  },
+  "baseBenchmarkFreeze": "MOTION-INDEXED-OPTIONAL-SOURCE-FREEZE.json; benchmark source and runtime inputs remain unchanged.",
+  "limitations": "This is a small direct helper control, not an ECS benchmark or proof of performance. No JS/native consumer has been run against this expected text yet."
+}
