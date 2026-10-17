@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'world' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+31 | def folded(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Error:Data,~plan:H -> H & SP.Plan<S>,~dispatch:H -> Ctx.Context<W.World<S,C,R,E>> -> U32 -> H & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>,~provide:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,SP.Requirement<S>>,schema:Schema.Schema<S,C,R>,world:W.World<S,C,R,E>,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,debug:Bool,selected:SP.Plan<S>,name:String,result:H & List<&2,Records.Fields<S>>) -> Single.Attachment<Recipe.Registered<S,W.World<S,C,R,E>,H,Rows,observe,fold,Error,plan,dispatch,provide>,Application<S,C,R,E,H,Rows,observe,fold,Error,plan,dispatch,provide>>:
+32>|   match result world:
+   |                ^^^^^
+33 |     case (owners,fields) W.World{+namespace,allocator,store,resource,events,pending,+registrations,nextSystemId,clock}:checked(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Error,~plan,~dispatch,~provide,Identity.identities_valid(namespace,registrations,Recipe.identities(~S,fields),[]),schema,W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},owners,recipe,debug,selected,namespace,name,Identity.ids(Recipe.identities(~S,fields)))
+bend 2.0.37 is available: run bend update

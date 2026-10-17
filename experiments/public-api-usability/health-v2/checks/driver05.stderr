@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : id
+- observed : id (consumed more than once)
+Context:
+- token   : Records.Token<Sys.Registry<execution_run~S, execution_run~C, execution_run~R, execution_run~E, Sigma<&1, &1, execution_run~Args, _ => U32>, Q.Error<execution_run~Error>, List<&2, execution_run~Out>, System.observable_runner(execution_run~S, execution_run~C, execution_run~R, execution_run~E, execution_run~Ops, execution_run~Args, execution_run~Error, execution_run~Out, execution_run~Value, execution_run~query, execution_run~body)>>
+- fields  : Records.Fields<execution_run~S>
+- args    : execution_run~Args
+- outputs : List<&2, execution_run~Out>
+- world   : Ctx.Context<W.World<execution_run~S, execution_run~C, execution_run~R, execution_run~E>>
+Location: execution_run
+44 |     case True{} Exec.Invocation{Leaf.Record{token,fields},+args,_}:execution_returned(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~Value,~query,~body,args,ExecuteRun.component(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~Value,~query,~body,token,fields,world,args))
+45>| def execution_run(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Args:Data,~Error:Data,~Out:Data,~Value:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,Value>,~body:@-H:Type -> @-caps:Ops(H) -> Args -> H -> H & (T.Outcome<Error> & Out),owner:Exec.Invocation<S,Records.Token<Sys.Registry<S,C,R,E,Args & U32,Q.Error<Error>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~Value,~query,~body)>>,Args,Out>,world:Ctx.Context<W.World<S,C,R,E>>,id:U32) -> Exec.Invocation<S,Records.Token<Sys.Registry<S,C,R,E,Args & U32,Q.Error<Error>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~Value,~query,~body)>>,Args,Out> & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,ExecutionError<Error>,Unit>:
+   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ^^
+46 |   match owner:
+bend 2.0.37 is available: run bend update

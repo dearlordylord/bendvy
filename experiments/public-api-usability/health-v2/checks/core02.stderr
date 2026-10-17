@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : Obs.Declaration<S.Schema, Q.Frame<S.Schema, S.Store, S.Resources, Unit>, Cap.Write<Q.Frame<S.Schema, S.Store, S.Resources, Unit>, D.Health, D.Health>, I.Frame<S.Schema, S.Store, Unit, Unit>, C.Access<D.Health>>
+- observed : Obs.Declaration<S.Schema, Q.Frame<S.Schema, S.Store, S.Resources, Unit>, Cap.Write<Q.Frame<S.Schema, S.Store, S.Resources, Unit>, D.Health, D.Health>, I.Frame<S.Schema, S.Store, S.Resources, Unit>, C.Access<D.Health>>
+Location: query
+49 | def query() -> Obs.Declaration<S.Schema,Frame(),Decay.PairOps(Frame()),I.Frame<S.Schema,S.Store,Unit,Unit>,Value()>:
+50>|   Obs.pair(~S.Schema,~Frame(),~Cap.Write<Frame(),D.Health,D.Health>,~Cap.Read<Frame(),D.HealthDecay>,~I.Frame<S.Schema,S.Store,Unit,Unit>,~C.Access<D.Health>,~C.Access<D.HealthDecay>,~Obs.write(~S.Schema,~S.Store,~Col.Column<S.Schema,D.HealthDecay>,~D.Health,~D.Health,~S.HealthToken,~S.take_health,~S.put_health,~S.project_health,~S.Resources,~Unit,~health_binding()),~Obs.read(~S.Schema,~S.Store,~Col.Column<S.Schema,D.Health>,~D.HealthDecay,~D.HealthDecay,~S.HealthDecayToken,~S.take_decay,~S.put_decay,~S.project_decay,~S.Resources,~Unit,~decay_binding()))
+   |                                                                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+51 | def render(value:Value()) -> String:
+bend 2.0.37 is available: run bend update

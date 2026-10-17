@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term (../../../src/ecs/ordinary-service-declaration.world_observed takes 9 ~)
+- observed : '~'
+Location:
+63 | def first_provide() -> S.World() -> S.World() & List<&2,SP.Requirement<S.Schema>>:Exec.provision_pair(~S.Schema,~S.World(),~Exec.empty_provide(~S.Schema,~S.World()),~Exec.empty_provide(~S.Schema,~S.World()))
+64>| def scan() -> S.World() -> S.World() & List<&2,ServiceDecl.Status<S.Schema>>:ServiceDecl.world_observed(~S.Schema,~S.Store,~S.Resources,~Unit,~Array<U32>,~Unit,~S.take_counter,~S.put_counter,~S.increment,~S.counter())
+   |                                                                                                                                                                                                             ^
+65 | def Registered() -> Type:Service.Executable(~S.Schema,~S.Store,~S.Resources,~Unit,~Array<U32>,~Unit,~S.take_counter,~S.put_counter,~S.increment,~S.counter(),~scan(),~FirstOwner(),~FirstRows(),~first_observe(),~first_fold(),~FirstError(),~first_plan(),~first_dispatch(),~first_provide())
+bend 2.0.37 is available: run bend update

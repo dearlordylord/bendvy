@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : ':'
+- observed : ','
+Location:
+44 |     case True{} Exec.Invocation{Leaf.Record{token,fields},+args,_}:execution_returned(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~Value,~query,~body,args,ExecuteRun.component(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~Value,~query,~body,token,fields,world,args))
+45>| def execution_run(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Args:Data,~Error:Data,~Out:Data,~Value:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,Value>,~body:@-H:Type -> @-caps:Ops(H) -> Args -> H -> H & (T.Outcome<Error> & Out),owner:Exec.Invocation<S,Records.Token<Sys.Registry<S,C,R,E,Args & U32,Q.Error<Error>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~Value,~query,~body)>>,Args,Out>,world:Ctx.Context<W.World<S,C,R,E>>,id:U32) -> Args -> H -> H & (T.Outcome<Error> & Out),owner:Exec.Invocation<S,Records.Token<Sys.Registry<S,C,R,E,Args & U32,Q.Error<Error>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~Value,~query,~body)>>,Args,Out>,world:Ctx.Context<W.World<S,C,R,E>>,id:U32) -> Exec.Invocation<S,Records.Token<Sys.Registry<S,C,R,E,Args & U32,Q.Error<Error>,List<&2,Out>,System.observable_runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~Value,~query,~body)>>,Args,Out> & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,ExecutionError<Error>,Unit>:
+   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ^
+46 |   match owner:
+bend 2.0.37 is available: run bend update
