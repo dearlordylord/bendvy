@@ -1,0 +1,31 @@
+{
+  "scope": "IndependentHealthoperation/HealthLC1/LC2/common/TS gold only; no subject/compiler/backend",
+  "command": [
+    "taskset",
+    "-c",
+    "7",
+    "timeout",
+    "120s",
+    "python3",
+    "seal_gold.py"
+  ],
+  "exitCode": 0,
+  "stderrBytes": 0,
+  "stdoutSHA256": "2eed4eab06b8210100c981670a920c13bc3b3a37dc654576dbec0e16daf29a99",
+  "resultSHA256": "5915b2de5275056def1733f0dd8312b955c1c152a3d80118396379066756a207",
+  "verification": {
+    "command": [
+      "taskset",
+      "-c",
+      "7",
+      "timeout",
+      "120s",
+      "python3",
+      "verify.py"
+    ],
+    "exitCode": 0,
+    "stderrBytes": 0,
+    "stdoutSHA256": "1cee0d21c3385a18c95429a4b55ed34b79f34ac3d2c8122728ce815de43900c9"
+  },
+  "scopeLimits": "No performance, equalforeigncarrier or generic arbitrarypayloadclaim; finitefullHealth fields retained, eachownrole/worldgold compared independently."
+}
