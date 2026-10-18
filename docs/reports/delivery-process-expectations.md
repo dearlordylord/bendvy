@@ -2040,3 +2040,24 @@ JS and Native oracles. Existing-registration authority and reached routing
 controls, final review, integration and combined #28 remain pending. No new
 Bend compilation or benchmark was needed to integrate the boundary archive.
 CI39099716969 passed for the checker/budget change `5d31908d6`.
+
+### 2026-10-18 — Ordinary existing-registration App delivered
+
+Integrated at `88611af9e`: registration-derived composition/routing, persistent
+ordinary App execution and the unchanged complete FailedTxn Motion64 observer.
+JS/Native both match the full 38,459,780-byte oracle. Actual affine Local/token
+normal/failure/refusal controls and a compiling library routing mutation pass
+on both backends. Independent final Spec/Standards review reports no findings.
+Portable packets pass: ordinary consumer 975/607/17; controls 739/548/50
+(members/referenced objects/guards). The earlier pre-emission runner binding
+error is retained; its successor adds the required expectedExit field.
+
+The unchanged combined #28 gate passes on the merged source:
+NO_CONFIRMED_REGRESSION, 20 pairs/backend, 123 successful commands and 110 complete
+Workshop observations. Results are retained in
+`experiments/public-api-usability/health-v2/existing-registration-controls/results/regression28/`.
+Pinned Bend 2.0.35, Node 24.20.0 and Clang 19.1.7 were used. External contention
+remains; this is the protected whole-process workload, not final full-parity
+performance qualification. No claim of overall delivery acceleration is made.
+Boundary integration CI 39100852005 passed. Ordinary Motion 256/1024, the second
+schema, remaining workload adaptations and full #21 qualification remain open.
