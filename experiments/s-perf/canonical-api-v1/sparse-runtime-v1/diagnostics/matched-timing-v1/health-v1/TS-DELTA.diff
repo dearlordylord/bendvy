@@ -1,0 +1,18 @@
+--- accepted Sparse Motion reference
++++ Health derivative
+@@ -100,13 +100,13 @@
+ const sized=(xs,f)=>natural(xs.length).concat(...xs.map(f));
+ const access=(x,f)=>x===null?[1]:[2,...f(x)];
+ function encode(x){
+- const row=r=>[...natural(r.rawId),2,...r.main.coordinates,r.main.frame,...access(r.aux,v=>[...v.rates,Number(v.moving)]),...access(r.flag,v=>[v.group])];
++ const row=r=>[...natural(r.rawId),2,...r.main.levels,r.main.reserve,r.main.class,...access(r.aux,v=>[...v.layers,v.grade]),...access(r.flag,v=>[v.group])];
+  const rows=sized(x.rows,row);const scan=s=>sized(s.rows,row).concat(sized(s.included,row),[s.score]);
+  const audits=sized(x.audits,a=>[...sized(a.values,v=>[v]),a.readsum,...natural(a.updated),...scan(a.scans.all),...scan(a.scans.present),...scan(a.scans.absent),a.scans.weighted,a.cumulative]);
+  const statuses=sized(x.statuses,s=>s.ok?[0]:[3,...natural(JSON.stringify(s.error).length),...Array.from(JSON.stringify(s.error),c=>c.codePointAt(0))]);
+  return rows.concat(x.ledger.totals,[x.ledger.epoch],audits,statuses,[x.cumulative]);
+ }
+-const schema='Motion',workload='sparse',count=Number(process.argv[2]);assert.equal(count,64);assert.equal(iterations,64);
++const schema='Health',workload='sparse',count=Number(process.argv[2]);assert.equal(count,64);assert.equal(iterations,64);
+ function one(path){const owner=execute(schema,workload,count);const start=performance.now();const tuple=owner.run();const end=performance.now();const full=owner.validate();writeFileSync(path,String(end-start)+'\n',{flag:'w'});console.log('TUPLE:'+JSON.stringify(tuple));console.log('FULL:'+JSON.stringify(full));}
+ const [warmupClock,sampleClock]=process.argv.slice(4);assert(warmupClock&&sampleClock);
+ console.log('WARMUP');one(warmupClock);console.log('SAMPLE');one(sampleClock);
