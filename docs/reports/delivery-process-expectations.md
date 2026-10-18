@@ -2629,3 +2629,22 @@ Matching primary-route CPU/allocation diagnostics pass their complete oracles. O
 Sparse Motion64 now registers once through Component.add and generated execution. Its original three fresh postcommit scans, ordered cumulative audits, statuses, actual invocation owners and physical observations remain. Both backends match all 1,071,136 oracle bytes (`d5539a7c…`) and two complete 35,061-cell tuples. Raw receipts: `/tmp/bendvy21-sparse-primary-normal-actual01/`. Historical TS strategy differences remain explicit; no new TS timing qualification, Health or wide-case claim.
 
 Root rejoined all 128 Dense and 140 Sparse imported source bindings to the integrated files; no mismatches. Core and protected benchmark inputs are unchanged, so passing #28 attempt06 is reused without another cohort. Existing runners/limits, two implementation owners, separate independent oracle, one integrator and serial heavy queue were used. No elapsed delivery acceleration is measured. CI follows; full workload/schema/size, comparative protocol, seven rotations and clean memory qualification remain open under #21/#23/#24.
+
+
+## Health primary consumers and TS correspondence — 2026-10-18
+
+Prior CI39151041252 passed. Integrated Dense Health source/model `4594188f8` at `c7956262e` and Sparse Health/TS bridge `13b4cff0b` at `3589bcb85`, after one independent final Spec/Standards GO. Both use genuine Health business definitions and one Component.add registration; all levels, reserve/class, Armor grade, actual affine invocation owners and Sparse's three fresh postcommit scans remain. The independent models were sealed before execution, reproduce historical Health canonical/TS streams and reuse current generic model helpers without changing Motion expectations.
+
+Seven actual roles pass complete independent outputs and two full logical tuples each:
+
+| Subject | Full bytes | Logical cells per world |
+| --- | ---: | ---: |
+| Dense Health JS / Native | 261,672 each | 5,512 |
+| Dense Health TS | 90,224 | 5,512 |
+| Sparse Health JS / Native | 1,115,471 each | 37,629 |
+| Sparse Motion TS | 695,984 | 35,061 |
+| Sparse Health TS | 736,456 | 37,629 |
+
+Raw receipts remain in `/tmp/bendvy21-{dense-health,sparse-health}-primary-normal-actual01/`, `/tmp/bendvy21-dense-health-primary-ts-actual02/` and `/tmp/bendvy21-sparse-ts-primary-normal-actual03/`. Source joins rechecked 128 Dense and 140 Sparse imported modules against integration with no mismatch. Sparse TS changes only the measured hrtime.bigint seam and the accepted synchronous writeAll loop; reverse-delta checks preserve all other reference bytes, setup clock, business queries and full output. Unexecuted drafts with missing git/manifest pins remain preserved; successors pin both actual dependencies before execution.
+
+Core/protected #28 inputs remain unchanged; passing attempt06 is reused. No limit increase, comparative timing, timer-accuracy, query-cost equivalence or memory claim follows. Existing runners, two implementation owners, independent oracle support and one serial heavy queue were used. CI follows. Dense/Sparse now have ordinary consumers at 64 entities for both schemas; larger sizes, the other three families and full comparative/memory qualification remain open. Overall delivery acceleration is unmeasured.
