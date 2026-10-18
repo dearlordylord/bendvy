@@ -1,0 +1,46 @@
+from pathlib import Path
+import json,gzip,hashlib,shutil,os,subprocess
+W=Path('/tmp/bendvy-sparse-motion-boundaries');D=W/'experiments/s-perf/current-tx-boundaries-v1/workload-boundaries-v1/sparse-v1/motion-v1';L=D/'results/actual-attempt01';assert not L.exists();(L/'objects').mkdir(parents=True)
+sha=lambda b:hashlib.sha256(b).hexdigest();versions={};historical={};tools=set();cases=[]
+def pin(name,h):
+ if (name,h) in versions:return
+ p=Path(name);raw=p.read_bytes()
+ assert sha(raw)==h,(name,h)
+ assert sha(raw)==h,(name,h);versions[name,h]=raw
+selected=[('normal',role,Path('/tmp/bendvy21-sparse-motion-boundaries-actual01/normal')/role)for role in ['js','native']]
+for kind,role,q in selected:
+ p=json.loads((q/'plan.json').read_text());r=json.loads((q/'receipt.json').read_text());assert r['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS';assert r['planSHA256']==sha((q/'plan.json').read_bytes());assert len(r['commands'])==len(p['commands'])
+ cases.append({'directory':str(q),'role':role,'kind':kind,'planSHA256':r['planSHA256'],'receiptSHA256':sha((q/'receipt.json').read_bytes())})
+ for name,h in p['pins'].items():pin(name,h)
+ for root,files in p['resourceRoots'].items():
+  for name,h in files.items():path=str(Path(root)/name);pin(path,h);tools.add(path)
+ tools.update(p['tools'].values())
+ for g in r['guards']:
+  pin(g['path'],g['sha256']);guard=json.loads(Path(g['path']).read_text());assert guard['unchanged']
+  for name,h in guard['actualPins'].items():pin(name,h)
+ for command in r['commands']:
+  for key in ['stdout','stderr']:v=command[key];pin(v['path'],v['sha256']);assert Path(v['path']).stat().st_size==v['bytes']
+ for f in q.iterdir():
+  if f.is_file():pin(str(f),sha(f.read_bytes()))
+for folder in [D,D/'checks',D/'oracle']:
+ for f in folder.iterdir():
+  if f.is_file():pin(str(f),sha(f.read_bytes()))
+for name in ['prepare21-sparse-motion-boundaries01.py','prepare21-sparse-motion-boundaries01.stdout','prepare21-sparse-motion-boundaries01.stderr']:
+ f=Path('/tmp')/name;pin(str(f),sha(f.read_bytes()))
+for f in [Path(__file__),Path('/tmp/verify21-sparse-motion-boundaries01.py')]:pin(str(f),sha(f.read_bytes()))
+reuse=json.loads((D/'checks/CONTROL-APPLICABILITY.json').read_text())
+for join in reuse['privateCoreNonImportBodyJoins'].values():
+ f=W/join['acceptedPath'];pin(str(f),join['acceptedSHA256'])
+old=W/'experiments/s-perf/current-tx-boundaries-v1/results/dense64-first01';assert sha((old/'RETENTION.json').read_bytes())==reuse['acceptedManifest']['sha256']
+shutil.copytree(old,L/'reused-dense')
+dependency={str(f.relative_to(old)):sha(f.read_bytes())for f in old.rglob('*')if f.is_file()}
+rows=[]
+for (name,h),raw in sorted(versions.items()):
+ row={'actualPath':name,'actualRealpath':str(Path(name).resolve()),'bytes':len(raw),'sha256':h};row.update(historical.get((name,h),{}))
+ if raw.startswith(b'\x7fELF') and name in tools:row['hashOnly']='Installed tool/shared library identity only; not redistributed'
+ else:
+  obj=L/'objects'/(h+'.gz')
+  if not obj.exists():obj.write_bytes(gzip.compress(raw,mtime=0))
+  row.update(object=os.path.relpath(obj,L),objectSHA256=sha(obj.read_bytes()))
+ rows.append(row)
+record={'scope':'Ordinary SparseMotion64 seed+64update Tx actual afterappend and beforefinish reports; original Main+Ledger work and three postcommit queries preserved. No invented scan Tx/discard or broader qualification. Exact accepted Dense generic missing-hook sensitivity reused under source-body/Meter joins.','cases':cases,'reusedDenseFiles':dependency,'members':rows,'objects':len(list((L/'objects').iterdir()))};(L/'RETENTION.json').write_text(json.dumps(record,indent=2)+'\n');shutil.copyfile(__file__,L/'retain.py.source');shutil.copyfile('/tmp/verify21-sparse-motion-boundaries01.py',L/'verify.py');print('RETAINED',len(rows),'members',record['objects'],'objects',sha((L/'RETENTION.json').read_bytes()))
