@@ -2163,3 +2163,40 @@ metadata record. The owner preserves historical packages and must bind exact
 framing and source provenance in the successor. Single-world correctness bytes
 cannot qualify a future separate warmup/sample comparison. No candidate Bend
 output is used to author oracle expectations; no new tracking layer was added.
+
+### 2026-10-18 — All ordinary workload families integrated
+
+Readers is accepted through `86cdfc00f`: both schemas at64/256/1024 on JS/Native
+match all twelve complete independent textual oracles. Independent final review
+passes source, provenance, plan/receipt joins and84 guards. One portable verifier
+passes1622 members/965 objects/84 guards. This completes the sixty ordinary
+correctness cases across FailedTxn, Dense, Sparse, Lifecycle and Readers; it does
+not complete the full performance/proof goal.
+
+Motion Native initially stopped at the30 s emission deadline. The same source
+completed emission, ordinary Clang-O3 build and full10,810,200-byte execution with
+the recorded60 s successor. Earlier failure remains unchanged. Health preserves
+String captures/append order; Motion preserves Doc captures/prepend order. The
+oracle successor binds the correct10,810,200-byte selected stream and preserves
+stale nested historical metadata explicitly. Two135-byte affine controls are
+reused only for their exact63-source semantic closure/tools/artifacts; the old
+unused checker-wrapper policy is not claimed current. The historical undo-counter
+run retains its original String representation scope. No LC2 decoder was invented
+for this plaintext family. No unchanged compiler/control matrix was rerun.
+
+The combined #28 receipt still matches all356 source hashes and the complete core
+inventory after integration; the new consumer sources do not change that core.
+CI39105574088 passed the budget checkpoint; Reader integration CI is next.
+Current code-generation budget60 s is recorded in `docs/limits.md`.
+
+A bounded source audit narrows #21 diagnostics: logical Tx lists grow until their
+terminal boundary in the reached workloads, so terminal observations can provide
+logical peaks without append-by-append meters. Missing nonzero boundaries include
+FailedTxn seed, Dense/Sparse seed and query loops, and Lifecycle command paths.
+Canonical lifecycle stamps are distinct from the old experimental staged-mark
+queue; logical lengths, stamp occupancy, allocation volume and RSS are separate.
+The next two isolated implementations start with one DenseMotion64 diagnostic
+consumer and one matched common-observer B1 method pilot. Existing prototypes do
+not approve a new observer grammar, longer batch, uncertainty margin or full
+comparative campaign. Four exact #62 law subjects remain pending human approval;
+no proof against them has begun.
