@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "scope": "Independent Readers Health64 B1 gold only; no subject/backend execution, timings, ratios or private TS cursor claims. No foreign workload/carrier exists.",
+  "sourceBasisSHA256": "646b5dd442cc2d7f627e8ec6fd18b6dd1cda163f4088a61432740d37900a9f8c",
+  "canonicalControl": {
+    "bytes": 8077591,
+    "sha256": "159139269b00038c4d1220a835c75adb65389446c5f61eb5b2dfce8db799a9e5"
+  },
+  "worlds": [
+    {
+      "label": "WARMUP",
+      "namespace": 1,
+      "fold": 2350201006,
+      "canonical": {
+        "bytes": 8077591,
+        "sha256": "159139269b00038c4d1220a835c75adb65389446c5f61eb5b2dfce8db799a9e5"
+      },
+      "counts": {
+        "reads": 84,
+        "stages": 194,
+        "localCalls": 192,
+        "txFacts": 193
+      },
+      "records": 280,
+      "tupleValues": 982498,
+      "actors": 128
+    },
+    {
+      "label": "SAMPLE",
+      "namespace": 2,
+      "fold": 2350201006,
+      "canonical": {
+        "bytes": 8077591,
+        "sha256": "aa41af7ef0e465873dcbb2d612256ccf46479e1501bf405c888398630da6cd84"
+      },
+      "counts": {
+        "reads": 84,
+        "stages": 194,
+        "localCalls": 192,
+        "txFacts": 193
+      },
+      "records": 280,
+      "tupleValues": 982498,
+      "actors": 128
+    }
+  ],
+  "oracles": {
+    "bend": {
+      "bytes": 24939472,
+      "sha256": "854bf1f61c6c8d720ca0e6c3aaf0670c9706e634263d167e805f9ea98558be15",
+      "gzipBytes": 580311,
+      "gzipSHA256": "ae5c0cfebdeb06753066e5602401e14807631693d0813ac874a660d00dace2a3"
+    },
+    "ts": {
+      "bytes": 9271522,
+      "sha256": "bf527dac2fc5309059ee6d33b7c75fbd43c6ca24fd9319ca496e386ed6bbec79",
+      "gzipBytes": 225095,
+      "gzipSHA256": "39d51d6e43b448a569d7ddf12a4033a8630e171534cb64c0f4c13dcbd17dad3c"
+    }
+  },
+  "modelPins": {
+    "operation_model.py": "24cdc8d77fa3d9d107ebc35b68d4168232fad2a74e2f486118401af76f7cf7d3",
+    "common_model.py": "77d2bdb352df45417e065d2317d19e38766cda235f24f93303412320fb3e9579",
+    "ts_model.py": "cdc97f87187b5b43c9ba78a542359364b0c950cb97db11174e9314d3750fce4f",
+    "seal_gold.py": "dd3a2cebcca5e8d4e9bf3e83f78c7167cdfc4476813f6f0367dd4826a3733a27",
+    "physical.py": "8f742bfe20c812c0160550ef0e641378f63e5fa2f06d3380d78aa54db971c868"
+  },
+  "scalarGrammar": "Exact compact JSON insertion keys, Unicode scalar counts: Natdecimal+NUL record count, then Natdecimal+NUL record scalar length then all JSON scalars; fold=(fold*33+scalar)mod2^32 from0.",
+  "rawRoleFraming": "WARMUP/SAMPLE LF FORCE:<fold> LF TUPLE:<cells> LF ACTORS:<map> LF; Bend CANONICAL-BEGIN LF originalstream CANONICAL-END LF; TS FULL:<original+supplement> LF. Bend tuple List.show uses comma-space; TS compact JSON."
+}

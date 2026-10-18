@@ -10,6 +10,8 @@ Motion and Health B1 method pilots for all five families now retain complete war
 
 Before comparative sampling, resolve the common timed-work correspondence, one enclosing interval or approved clock alternative, and the numerical uncertainty/decision margin. Seven rotations, separate fresh warmup/sample owners and independently reset child RSS remain existing requirements. Historical B16, 1%, noise/keep rules and deadlines below are not current approval. Final targets remain JS <= TS and Native <= 0.5 * TS.
 
+Current Lifecycle source audit: both pilots retain the original six-stage work and complete common/foreign forcing inside the interval. The extra foreign carrier differs: Bend encodes identity and lookup kind; TS can also encode the collided row. Equal common tuples therefore do not yet establish equivalent additional forcing. Before comparative sampling, use a shared semantic forcing shape for these probes while retaining the complete role-specific observations, original lookups and authored checks. Explicitly account for TS debug/snapshot work and Bend physical captures; do not remove original work or require identical algorithms. The ordinary ns clock integration is accepted, but no numerical accuracy or uncertainty margin follows from its units.
+
 Equivalent work requires matching operations and observable obligations, not
 identical algorithms, traversal counts or allocation costs. The unresolved
 observer issue is extra timed work on either role, not a requirement that Bend
