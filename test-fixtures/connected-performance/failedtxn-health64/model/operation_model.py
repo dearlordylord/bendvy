@@ -732,7 +732,7 @@ def seed_pending_world(ns: int, count: int = N) -> World:
     keys = []
     for _ in range(count):
         keys.append(w.reserve())
-    w.pending = ["Raw"] * N
+    w.pending = ["Raw"] * count
     return w
 
 

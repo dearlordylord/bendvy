@@ -10,7 +10,7 @@ def generate():
  parser=argparse.ArgumentParser();parser.add_argument("--count",type=int,choices=[64,256,1024],default=64);parser.add_argument("--iterations",type=int,choices=[64],default=64);parser.add_argument("--output",type=Path,required=True);args=parser.parse_args();P=args.output
  assert not P.exists(), "Use a fresh output directory"
  P.mkdir(parents=True)
- basis=json.loads((SOURCE/'SOURCE-BASIS.json').read_text());assert sha((SOURCE/'operation_model.py').read_bytes())==basis['healthOperationModelSHA256']=='62dce81d79630514c5c44eef915b5eb6b39240acd0b5e6894eb775f74a41b134'
+ basis=json.loads((SOURCE/'SOURCE-BASIS.json').read_text());assert sha((SOURCE/'operation_model.py').read_bytes())==basis['healthOperationModelSHA256']
  for name,h in basis['sourcePins'].items():assert sha((SOURCE/name).read_bytes())==h
  spool=P/'observer-tmp';spool.mkdir(exist_ok=True);realPath=Path;M.Path=lambda v:spool/realPath(v).name if str(v).startswith('/tmp/failedtxn-oracle-')else realPath(v)
  control=M.generate(P/'canonical-control',args.count,args.iterations);qualified=basis['qualifiedCanonical']

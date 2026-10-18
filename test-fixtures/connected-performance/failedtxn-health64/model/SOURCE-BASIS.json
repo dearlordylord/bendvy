@@ -1,7 +1,7 @@
 {
   "basisGit": "728110b98",
   "originalModelPath": "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/diagnostics/matched-timing-v1/health-v1/model/",
-  "healthOperationModelSHA256": "62dce81d79630514c5c44eef915b5eb6b39240acd0b5e6894eb775f74a41b134",
+  "healthOperationModelSHA256": "62324b16b7be53183a9c0ccc39ca0c6b5c9c379cb321491603ba66bb63574543",
   "qualifiedCanonical": {
     "bytes": 38400832,
     "sha256": "a20f7dccdf2efd66b44cb4dde507b0f7256ea493c1d3d5935d12f97db0ef5a95",
@@ -9,7 +9,7 @@
     "historicalPath": "/workspace/formal-proofs/bendvy/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health64-v1/health64/expected.stdout.gz"
   },
   "sourcePins": {
-    "operation_model.py": "62dce81d79630514c5c44eef915b5eb6b39240acd0b5e6894eb775f74a41b134",
+    "operation_model.py": "62324b16b7be53183a9c0ccc39ca0c6b5c9c379cb321491603ba66bb63574543",
     "common_model.py": "cc8bd9482007013df4c22f2d2b19cb57710beaf5b672ae09d07abf4d8cea425f",
     "ts_model.py": "b4e97da2101cfbb86bb62e59afb982286f23e63bf6b3330c72000d1072d07d94"
   },
@@ -28,5 +28,15 @@
       "basisGit": "728110b98",
       "origin": "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/runtime-v1/health1024/ordinary-app-boundary180-attempt01/RETENTION.json"
     }
+  },
+  "historicalHealthOperationModelSHA256": "62dce81d79630514c5c44eef915b5eb6b39240acd0b5e6894eb775f74a41b134",
+  "sizeCorrection": {
+    "function": "seed_pending_world",
+    "change": "pending Raw command count uses passed count rather than default N64",
+    "independentAuthority": "728110b98:experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/model.py",
+    "oldSourceSHA256": "62dce81d79630514c5c44eef915b5eb6b39240acd0b5e6894eb775f74a41b134",
+    "failedOutput": "/tmp/bendvy21-failedtxn-health-count256-independent-gold01",
+    "oldControlBytes": 118449956,
+    "oldControlSHA256": "c0c0165a7a4d1090f3bc82c1b714a533d951b130adb073a504e0666611458e2e"
   }
 }
