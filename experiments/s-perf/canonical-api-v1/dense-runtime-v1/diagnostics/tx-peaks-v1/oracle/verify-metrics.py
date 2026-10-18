@@ -17,4 +17,5 @@ gold = expected.read_bytes()
 matched = raw == gold
 receipt = {"status": "METRICS_PASS" if matched else "METRICS_REJECT", "actualPath": str(actual), "actualBytes": len(raw), "actualSHA256": hashlib.sha256(raw).hexdigest(), "expectedPath": str(expected), "expectedSHA256": hashlib.sha256(gold).hexdigest(), "stableRegularFile": True, "stats": value}
 print(json.dumps(receipt, separators=(",", ":")))
+print(receipt["status"], file=sys.stderr)
 sys.exit(0 if matched else 1)
