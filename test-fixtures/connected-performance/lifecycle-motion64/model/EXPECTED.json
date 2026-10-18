@@ -1,0 +1,83 @@
+{
+  "status": "PASS",
+  "scope": "Independent Lifecycle Motion64 B1 gold only; no subject execution or timing qualification. Shared tuples equal; foreign carriers compared only to their own role/world gold.",
+  "worlds": [
+    {
+      "label": "WARMUP",
+      "primaryNamespace": 1,
+      "foreignNamespace": 2,
+      "records": 578,
+      "tupleValues": 2044440,
+      "fold": 3945713710,
+      "canonical": {
+        "bytes": 3848488,
+        "sha256": "ff435edc418dbded9b6e76106da002fbe1058f919879f065fb6281c4f58cca05"
+      },
+      "foreign": {
+        "bend": {
+          "records": 192,
+          "tupleValues": 32998,
+          "fold": 2474567748
+        },
+        "ts": {
+          "records": 192,
+          "tupleValues": 26296,
+          "fold": 2140282094
+        }
+      }
+    },
+    {
+      "label": "SAMPLE",
+      "primaryNamespace": 3,
+      "foreignNamespace": 4,
+      "records": 578,
+      "tupleValues": 2044440,
+      "fold": 3945713710,
+      "canonical": {
+        "bytes": 3848487,
+        "sha256": "6d29f0e7740c8fe5c1d57933d0c1d5249cb9c781654c65f94548e8fcef4941d6"
+      },
+      "foreign": {
+        "bend": {
+          "records": 192,
+          "tupleValues": 32998,
+          "fold": 3854161156
+        },
+        "ts": {
+          "records": 192,
+          "tupleValues": 26296,
+          "fold": 2140282094
+        }
+      }
+    }
+  ],
+  "oracles": {
+    "bend": {
+      "bytes": 26249413,
+      "sha256": "a63887c33c37b50f9e7b9da609533d588ac1a439321cbce1e96f9ebe71b0b6e2",
+      "gzipBytes": 554662,
+      "gzipSHA256": "9b5ea27512f79d92fb5364cd8b3bc9161812f7c55d8366b5137758f30c64f966"
+    },
+    "ts": {
+      "bytes": 17437766,
+      "sha256": "eaff4dd3990ab9afd45d6befa3fd062db6ce4f5de3cfaa1370dbcea69b722b5e",
+      "gzipBytes": 458405,
+      "gzipSHA256": "0aa6b8d351f51ebc1b7dab05b9fb104151354a7163a837dd24dfefccbe9c0d41"
+    }
+  },
+  "sourceBasisSHA256": "ec1b6a10515cd5e1a6125602b6824387e14d3394dc6f35b027f23ef8940b2a93",
+  "modelPins": {
+    "common_model.py": "9210a37222e2b66165ab1a5f392a4fd95bd9489d7fa1f9fefa403b6070458ea5",
+    "ts_model.py": "ea846081d6fc7d91c893c62446b8ddfa36ee0cae5a42436cc70be4e0fc2f1cd5",
+    "seal_gold.py": "6b1f8cc3cd2e54c5046c2370d3b33f189497752134c7a5f8356ae903f749882e"
+  },
+  "compactJSON": {
+    "ensureAscii": false,
+    "separators": [
+      ",",
+      ":"
+    ],
+    "keyOrder": "Insertion order as in common_model.py and ts_model.py; records serialized individually before scalar tuple encoding.",
+    "scalarTuple": "record count decimal scalars+0; each record scalar length decimal scalars+0 then every JSON Unicode scalar. Fold=(fold*33+scalar) mod2^32 from0."
+  }
+}

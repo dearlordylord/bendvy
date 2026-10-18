@@ -1,0 +1,11 @@
+# Independent Lifecycle Motion64 source-state oracle
+
+Run `python3 test-fixtures/connected-performance/lifecycle-motion64/model/seal_gold.py --output /tmp/FRESH-DIRECTORY`. The output directory must not already exist. Complete canonical, observer fixtures and both role streams are generated there; large binary gold is not duplicated in the repository. `EXPECTED.json` pins the source-reproduced hashes and complete record counts.
+
+The runnable Python dependency chain is recovered byte-exact from immutable `728110b98`: operations/program/world state, additive typed captures, LC1 records/primitives/grammar, LC2 codec/varint, common observer and independent TS record model. No consumer, Bend core, reference runtime or execution archive is copied. `SOURCE-BASIS.json` checks all recovered Python bytes. The sealer adapts only output paths and direct immutable expected-hash assertions; it does not consult any runtime output.
+
+Each run preserves192 boundary observations,384 actual Local calls,384 schedule logs and all original Plain physical owners/payloads. Warmup uses primary/foreign namespaces1/2; sample uses3/4. The original first LC2 canonical must reproduce3,848,488 bytes/SHA256 `ff435edc418dbded9b6e76106da002fbe1058f919879f065fb6281c4f58cca05` before role gold is accepted. Source-derived reservation actor maps retain full identities; no ID formula or row sorting manufactures equality.
+
+Both worlds contain578 complete shared records and192 own-role foreign records. Full shared tuples are equal; each foreign tuple is checked against its own role/world expectations. Bend MissingEntity and TS receiver-local foreign lookup remain different. Original raw diagnostics, primary/foreign setup footprints, before/after captures, Local owners and full LC2 stream remain lossless.
+
+The complete two-world streams reproduce Bend26,249,413/SHA256 `a63887c33c37b50f9e7b9da609533d588ac1a439321cbce1e96f9ebe71b0b6e2` and TS17,437,766/SHA256 `eaff4dd3990ab9afd45d6befa3fd062db6ce4f5de3cfaa1370dbcea69b722b5e`. These are finite source-model correctness expectations, not timing, RSS, work-equivalence or wider-case qualification. Current App adoption preserves the original invokes/schedule/barriers; this model does not substitute a direct Local.run loop.
