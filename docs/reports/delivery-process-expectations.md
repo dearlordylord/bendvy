@@ -2313,5 +2313,32 @@ and 40 pairs. Verdict: NO_CONFIRMED_REGRESSION. JS has 14/20 slower pairs
 does not import the changed query-plan helper. The retained receipt matches
 all 356 current sources and the full core inventory.
 [Receipt and archive manifest](../../experiments/s-perf/canonical-api-v1/dense-runtime-v1/diagnostics/matched-timing-v1/plan-once-v1/results/regression28/MANIFEST.json).
-CI on the integrated delivery remains to be checked. Existing limits and final
-JS/TS and Native/TS targets are unchanged.
+CI39112377804 passed both functional checks and runnable examples on
+`dc5bfd392`. Existing limits and final JS/TS and Native/TS targets are unchanged.
+
+
+## 2026-10-18 — FailedTxn actual seed metrics integrated
+
+`4cf5d2238` integrates the twelve-case FailedTxn metric family after independent
+final Spec/Standards review. Both schemas at64/256/1024 pass full JS/Native
+canonical output, two actual pre-finish seed samples and a componentwise maximum
+join of reached callback facts. Repeated snapshots are not summed. Combined
+logical undo/commands/events maxima are N/N/1. The
+[packet](../../experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/diagnostics/tx-peaks-v1/results/family01/RETENTION.json)
+passes 1,485 members, 903 objects and 138 guards. Existing canonical archives
+are reused by exact content hash. No new runtime, compiler or benchmark limit
+was needed.
+
+Frozen receipts retain their3433 source epoch. The explicit
+[applicability record](../../experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/diagnostics/tx-peaks-v1/checks/CORE-APPLICABILITY.json)
+traces unchanged Local, mixed-reader, raw disposal and Inspector paths and
+separately binds the current query-plan controls. The reviewer accepted this
+reuse without relabeling old receipts as current-source executions. Protected
+#28 still binds all356 sources/full core inventory after integration; the exact
+CI source check passes. CI for this evidence-only integration remains pending.
+
+Readers already samples its reached seed. Lifecycle still lacks actual active
+Tx observations at seed, foreign seed, reserve and disposal. Its Select path
+creates and rolls back a real Tx: read-only zero applicability must be explicit,
+not described as absence of a transaction. No allocation, RSS, universal peak
+or full #21 performance qualification follows from these terminal metrics.
