@@ -1,0 +1,57 @@
+from pathlib import Path
+import json,gzip,hashlib,shutil,os
+WT=Path('/tmp/bendvy-readers-health-matched-method');D=WT/'experiments/s-perf/canonical-api-v1/readers-runtime-v1/diagnostics/matched-timing-v1/health-v1';L=D/'runtime-v1/actual-attempt01';OUT=Path('/tmp/bendvy21-readers-health-b1-method-pilot-actual01');assert not L.exists();(L/'objects').mkdir(parents=True)
+sha=lambda b:hashlib.sha256(b).hexdigest();paths=set();toolOnly=set();current=[]
+def pin(path,h):
+ p=Path(path);assert sha(p.read_bytes())==h,path;paths.add(str(p))
+index=json.loads((OUT/'ALL-ROLES-INDEX.json').read_text());validation=json.loads((OUT/'ALL-ROLES-VALIDATION.json').read_text());assert validation['status']=='B1_COMPLETE_COMMON_RECORDS_PASS'
+assert len(index['plans'])==len(validation['roles'])==3
+for selected,checked in zip(index['plans'],validation['roles']):
+ d=Path(selected['path']).parent;p=json.loads((d/'plan.json').read_text());r=json.loads((d/'receipt.json').read_text());assert sha((d/'plan.json').read_bytes())==selected['sha256']==r['planSHA256']==checked['planSHA256'];assert r['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS'
+ for name,h in p['pins'].items():pin(name,h)
+ for root,files in p['resourceRoots'].items():
+  for name,h in files.items():q=str(Path(root)/name);pin(q,h);toolOnly.add(q)
+ toolOnly.update(p['tools'].values())
+ for g in r['guards']:
+  pin(g['path'],g['sha256']);guard=json.loads(Path(g['path']).read_text());assert guard['unchanged']
+  for name,h in guard['actualPins'].items():pin(name,h)
+ assert len(r['commands'])==len(p['commands'])
+ for c,e in zip(r['commands'],p['commands']):
+  for k in ['label','argv','capSeconds']:assert c[k]==e[k]
+  assert c['exit']==0 and c['failure'] is None and c['stderr']['bytes']==0
+  for k in ['stdout','stderr']:
+   v=c[k];pin(v['path'],v['sha256']);assert Path(v['path']).stat().st_size==v['bytes']
+ raw=(d/'consumer.stdout').read_bytes();assert raw==gzip.decompress(Path(p['oracle']).read_bytes())
+ for clock in checked['clocks']:pin(clock['path'],clock['sha256']);assert Path(clock['path']).read_text()==clock['raw']
+ current.append({'role':selected['role'],'actualDirectory':str(d),'planSHA256':selected['sha256'],'receiptSHA256':sha((d/'receipt.json').read_bytes()),'bytes':len(raw),'sha256':sha(raw),'clocks':checked['clocks']})
+ for f in d.rglob('*'):
+  if f.is_file():paths.add(str(f))
+RSS=Path('/tmp/bendvy21-readers-health-b1-method-ts-actual01/RSS-VALIDATION.json');rss=json.loads(RSS.read_text());assert rss['status']=='RAW_RSS_TRANSPORT_PASS';paths.add(str(RSS))
+tsplan=json.loads(Path(index['plans'][2]['path']).read_text());assert index['plans'][2]['role']=='ts'
+assert len(tsplan['methodRSSSidecars'])==len(rss['sidecars'])==2
+for declared,actual in zip(tsplan['methodRSSSidecars'],rss['sidecars']):
+ assert declared['path']==actual['path'] and declared['phase']==actual['phase']
+ pin(actual['path'],actual['sha256']);assert Path(actual['path']).stat().st_size==actual['bytes']
+ assert json.loads(Path(actual['path']).read_bytes())==actual['value']
+ assert actual['value']['units']=='KiB' and actual['value']['platform']==declared['platform'] and actual['value']['scope']=='whole-process-highwater-including-warmup'
+for f in OUT.iterdir():
+ if f.is_file():paths.add(str(f))
+for f in (D/'checks').rglob('*'):
+ if f.is_file():paths.add(str(f))
+for name in ['README.md','SOURCE-METHOD-BASIS.json','METHOD-LIMITATIONS.json','validator.py','validator-all.py','rss-validator.py']:
+ paths.add(str(D/name))
+for name in ['all-validator01.stdout','all-validator01.stderr','rss-validator01.stderr']:
+ p=Path('/tmp/bendvy21-readers-health-method-'+name)
+ if p.exists():paths.add(str(p))
+paths.update([str(Path(__file__)),'/tmp/verify21-readers-health-b1-method01.py'])
+rows=[]
+for name in sorted(paths):
+ f=Path(name);raw=f.read_bytes();h=sha(raw);row={'actualPath':name,'actualRealpath':str(f.resolve()),'mode':oct(f.lstat().st_mode&0o7777),'symlinkTarget':str(f.readlink()) if f.is_symlink() else None,'bytes':len(raw),'sha256':h}
+ if raw.startswith(b'\x7fELF') and name in toolOnly:row['hashOnly']='Installed tool/shared library identity only; not redistributed'
+ else:
+  obj=L/'objects'/(h+'.gz')
+  if not obj.exists():obj.write_bytes(gzip.compress(raw,mtime=0))
+  assert gzip.decompress(obj.read_bytes())==raw;row.update(object=os.path.relpath(obj,L),objectSHA256=sha(obj.read_bytes()))
+ rows.append(row)
+record={'sourceCommit':json.loads((D/'SOURCE-FREEZE01.json').read_text())['sourceCommit'],'sourceEpochs':{'bend':json.loads((D/'SOURCE-FREEZE01.json').read_text())['sourceCommit'],'ts':json.loads((D/'SOURCE-FREEZE-TS01.json').read_text())['sourceCommit'],'combinedFreeze':'18fd8ab6c'},'rssValidation':str(RSS),'scope':'B1 ReadersHealth64 ordinaryApp METHOD/correctness feasibility only. Original192Localcalls,84fullreaderbefore/preparedrunning/afterStringcaptures,194schedules,193TxFacts andallpayload/privatecursor/streamstate remaincomplete. OriginalHealthStringcaptures andAPPENDchronology preserved, noMotionDocoptimization. Seed/Prime originalwork beforeclock;64originalsteps+Drain+Stream.state+sameoriginalLogical.rows andtext/afterWorldcapture+allsharedprojection/serialization/foldsyscallacceptance beforeend. Fulltuples/rawmaps/canonicaltransport afterend;6complete982498value tuples match. No TSprivatecursors or removed/despawnedlagged invented; commonPing hasactualflag, other2commonstreams valuesonly while rawBendallflags retained. Added TS debug.dump(limit0)/snapshotcopies andBendtypedLedgerread explicit. Rawclocks+TSwholeprocessRSS, no ratios/ranking/RSSqualification. NoV8ropeflattening/UTF8costlocation orcollectorflushclaim. Existing8keyreplacementenvironment clears absentNODE_OPTIONS/NODE_PATH; closestpackage/refsrcmembershipguarded. Externalcontention known; no completeprelaunchhostloadsnapshot claimed. Existingcollector unchanged.','current':current,'members':rows,'objects':len(list((L/'objects').iterdir())),'objectDependencies':[],'referencedObjects':0}
+(L/'RETENTION.json').write_text(json.dumps(record,indent=2)+'\n');shutil.copyfile(__file__,L/'retain.py.source');shutil.copyfile('/tmp/verify21-readers-health-b1-method01.py',L/'verify.py');print(len(current),len(rows),record['objects'])
