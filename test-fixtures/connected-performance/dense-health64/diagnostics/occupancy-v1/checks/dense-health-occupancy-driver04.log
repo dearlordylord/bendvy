@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a term
+- observed : '~'
+Location:
+82 |   match outcome:
+83>|     case Sy.Measured{outcome,_}:outcome(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,outcome,registry,keys,domains,positions,id,tick,frameStart,boundary,capacity,nextReader)
+   |                                         ^
+84 |     case Sy.Failed{world,error}: failed_clocked(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,W.clock(~S,~C,~R,~E,world),registry,keys,domains,positions,id,tick,frameStart,boundary,capacity,nextReader,error)
+bend 2.0.37 is available: run bend update

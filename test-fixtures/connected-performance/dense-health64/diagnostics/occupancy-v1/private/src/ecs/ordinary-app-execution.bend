@@ -74,6 +74,7 @@ def barrier_recorded(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,owners:
     case (owners,journal):barrier_returned(~S,~C,~R,~E,~H,~Error,owners,journal,W.barrier_traced(~S,~C,~R,~E,world,Facts.On{[]}))
 def dispatched(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,+fact:Trace.Identity,before:U32,journal:Journal<Error>,result:H & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>) -> (H & Journal<Error>) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:
   match result:
+    case (owners,Sys.Measured{inner,measurement}):Sys.measured_pair(~(H & Journal<Error>),~W.World<S,C,R,E>,~Error,~Unit,measurement,dispatched(~S,~C,~R,~E,~H,~Error,fact,before,journal,(owners,inner)))
     case (owners,Sys.Succeeded{Ctx.Context{world,trace},_}):succeeded(~S,~C,~R,~E,~H,~Error,owners,fact,before,record_operations(~Error,Facts.facts(trace),fact,journal),W.clock(~S,~C,~R,~E,world))
     case (owners,Sys.Failed{Ctx.Context{world,trace},error}):failed(~S,~C,~R,~E,~H,~Error,owners,fact,before,record_operations(~Error,Facts.facts(trace),fact,journal),error,W.clock(~S,~C,~R,~E,world))
 def identified(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,~dispatch:H -> Ctx.Context<W.World<S,C,R,E>> -> U32 -> H & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>,owners:H,journal:Journal<Error>,+id:U32,result:W.World<S,C,R,E> & (Trace.Identity & U32)) -> (H & Journal<Error>) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:
@@ -116,6 +117,7 @@ def restored(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World
   Single.Application{App.Application{schema,Build.Registered{world,owners,recipe,debug}},plan,namespace,name,steps,needs}
 def disabled_outcome(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,result:H & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>) -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:
   match result:
+    case (owners,Sys.Measured{inner,measurement}):Sys.measured_pair(~H,~W.World<S,C,R,E>,~Error,~Unit,measurement,disabled_outcome(~S,~C,~R,~E,~H,~Error,(owners,inner)))
     case (owners,Sys.Succeeded{Ctx.Context{world,_},output}):(owners,Sys.Succeeded{world,output})
     case (owners,Sys.Failed{Ctx.Context{world,_},error}):(owners,Sys.Failed{world,error})
 def dispatch_disabled(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,~dispatch:H -> Ctx.Context<W.World<S,C,R,E>> -> U32 -> H & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>,owners:H,world:W.World<S,C,R,E>,id:U32) -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:

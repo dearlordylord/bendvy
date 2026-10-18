@@ -1,3 +1,5 @@
+import ../../../../../report.bend as Report
+import ../../../../src/ecs/system.bend as Sys
 import Base
 import ../../../../benchmarks/connected-clock/clock.bend as Clock
 import common.bend as C
@@ -21,15 +23,15 @@ def defined(prefix:String,result:Driver.Defined) -> IO(Prepared):
   match result:
     case Driver.Defined{state}:IO.pure(Prepared,registered(prefix,Observe.state(state)))
     case Driver.Refused{_}:IO.die(Prepared,3,"registration refused")
-def applied(prefix:String,observed:F.World() & String) -> IO(Prepared):
+def applied(measurement:Sys.Measurement,prefix:String,observed:F.World() & String) -> IO(Prepared):
   match observed:
-    case (world,text):defined(prefix ++ "seedApplied=" ++ text ++ "\n",Driver.define(world))
-def pending(prefix:String,observed:F.World() & String) -> IO(Prepared):
+    case (world,text):defined(prefix ++ "seedApplied=" ++ text ++ "\n",Driver.define_measured(measurement,world))
+def pending(measurement:Sys.Measurement,prefix:String,observed:F.World() & String) -> IO(Prepared):
   match observed:
-    case (world,text):applied(prefix ++ "seedPending=" ++ text ++ "\n",Observe.world(W.barrier(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,world)))
+    case (world,text):applied(measurement,prefix ++ "seedPending=" ++ text ++ "\n",Observe.world(W.barrier(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,world)))
 def seeded(+count:U32,+iterations:U32,result:F.Seeded) -> IO(Prepared):
   match result:
-    case F.Seeded{world,reservations,outcome}:pending("DenseRuntime Health\ncount=" ++ U32.show(count) ++ ";iterations=" ++ U32.show(iterations) ++ "\nseedOutcome=" ++ Observe.outcome(outcome) ++ "|reservations=" ++ List.show(&2,W.Reservation<T.HealthSchema>,Observe.reservation,reservations) ++ "\n",Observe.world(world))
+    case F.Seeded{world,reservations,outcome,measurement}:pending(measurement,"DenseRuntime Health\ncount=" ++ U32.show(count) ++ ";iterations=" ++ U32.show(iterations) ++ "\nseedOutcome=" ++ Observe.outcome(outcome) ++ "|reservations=" ++ List.show(&2,W.Reservation<T.HealthSchema>,Observe.reservation,reservations) ++ "\n",Observe.world(world))
 def created(+count:U32,iterations:U32,result:WI.Creation<T.HealthSchema,F.Store(),F.Resources(),Nat>) -> IO(Prepared):
   match result:
     case WI.Created{world}:seeded(count,iterations,F.seed(count,world))
@@ -61,7 +63,7 @@ def clock_opened(text:String,result:Result<&1,&1,U32 & String,File>) -> IO(Unit)
     case Done{file}:IO.bind(File & Result<&1,&1,U32 & String,Unit>,Unit,File.write(file,text),clock_written)
     case Fail{(code,message)}:IO.die(Unit,code,message)
 def clock(path:String,value:Nat) -> IO(Unit):IO.bind(Result<&1,&1,U32 & String,File>,Unit,File.open(path,"w"),result => clock_opened(Nat.show(value) ++ "\n",result))
-def write(path:String,result:Completed) -> IO(Unit):
+def write_normal(path:String,result:Completed) -> IO(Unit):
   match result:
     case Completed{state,prefix,tuple,nanoseconds}:
       do IO<Unit>:
@@ -70,25 +72,32 @@ def write(path:String,result:Completed) -> IO(Unit):
         IO.print("CANONICAL-BEGIN")
         IO.print(Canonical.final_state(prefix,Observe.state(state)))
         IO.print("CANONICAL-END")
-def one(+count:U32,+iterations:U32,path:String) -> IO(Unit):
+def stats_opened(text:String,result:Result<&1,&1,U32 & String,File>) -> IO(Unit):
+  match result:
+    case Done{file}:IO.bind(File & Result<&1,&1,U32 & String,Unit>,Unit,File.write(file,text),clock_written)
+    case Fail{(code,message)}:IO.die(Unit,code,message)
+def write_observed(path:String,statsPath:String,prefix:String,tuple:List<&2,U32>,nanoseconds:Nat,observed:Driver.State & String) -> IO(Unit):
+  match observed:
+    case (state,stats):IO.bind(Unit,Unit,write_normal(path,Completed{state,prefix,tuple,nanoseconds}),_=>IO.bind(Result<&1,&1,U32 & String,File>,Unit,File.open(statsPath,"a"),stats_opened(stats)))
+def write(label:String,count:U32,iterations:U32,path:String,statsPath:String,result:Completed) -> IO(Unit):
+  match result:
+    case Completed{state,prefix,tuple,nanoseconds}:write_observed(path,statsPath,prefix,tuple,nanoseconds,Report.observe(label,count,iterations,state))
+def one(label:String,+count:U32,+iterations:U32,path:String,statsPath:String) -> IO(Unit):
   do IO<Unit>:
     prepared:Prepared <- prepare(count,iterations)
     completed:Completed <- timed(iterations,prepared)
-    write(path,completed)
-def parsed(count:Maybe<&2,U32>,iterations:Maybe<&2,U32>,warmup:String,sample:String) -> IO(Unit):
+    write(label,count,iterations,path,statsPath,completed)
+def parsed(count:Maybe<&2,U32>,iterations:Maybe<&2,U32>,warmup:String,sample:String,+statsPath:String) -> IO(Unit):
   match count iterations:
     case Some{+count} Some{+iterations}:
       do IO<Unit>:
         IO.print("WARMUP")
-        one(count,iterations,warmup)
+        one("warmup",count,iterations,warmup,statsPath)
         IO.print("SAMPLE")
-        one(count,iterations,sample)
+        one("sample",count,iterations,sample,statsPath)
     case _ _:IO.die(Unit,2,"count iterations must be U32")
 def args(values:List<String>) -> IO(Unit):
   match values:
-    case _ <> count <> iterations <> warmup <> sample <> _:parsed(U32.read(count),U32.read(iterations),warmup,sample)
-    case _:IO.die(Unit,2,"count iterations warmup-clock sample-clock required")
-def main() -> IO(Unit):
-  do IO<Unit>:
-    values:List<String> <- IO.args()
-    args(values)
+    case _ <> count <> iterations <> warmup <> sample <> stats <> _:parsed(U32.read(count),U32.read(iterations),warmup,sample,stats)
+    case _:IO.die(Unit,2,"count iterations warmup-clock sample-clock stats required")
+def main() -> IO(Unit):IO.bind(List<String>,Unit,IO.args(),args)

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : measurement
+- observed : measurement (consumed more than once)
+Location: applied
+24 |     case Driver.Refused{_}:IO.die(Prepared,3,"registration refused")
+25>| def applied(measurement:Sys.Measurement,prefix:String,observed:F.World() & String) -> IO(Prepared):
+   |             ^^^^^^^^^^^
+26 |   match observed:
+bend 2.0.37 is available: run bend update

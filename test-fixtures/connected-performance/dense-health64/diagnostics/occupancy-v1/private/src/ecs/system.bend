@@ -1,12 +1,16 @@
+import ../../../tx-metrics.bend as Metrics
 import Base
 import trace-facts.bend as TraceFacts
 import world.bend as W
 import registration.bend as Reg
 
 # Closed runner index is erased; the runtime registration owner remains affine.
+type Measurement is Data:
+  Measurement{sample:Metrics.Sample,metadata:String}
 type Outcome<World: Type,Error: Data,Output: Type> is Type:
   Succeeded{world: World,output: Output}
   Failed{world: World,error: Error}
+  Measured{outcome:Outcome<World,Error,Output>,measurement:Measurement}
 type Registry<S: Data,C: Type,R: Type,E: Data,Args: Type,Error: Data,Output: Type,-runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>> is Type:
   Registry{namespace: U32,id: U32,name: String,access: List<&2,String>,cursor: U32}
 type RegistrationResult<S: Data,C: Type,R: Type,E: Data,Args: Type,Error: Data,Output: Type,-runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>> is Type:
@@ -21,6 +25,9 @@ def register_meta(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~
     case W.RegistrationRejected{_}: RegistrationFailed{world}
     case W.Registered{id}: Registered{world,Registry{namespace,id,name,access,0}}
 
+def measured_pair(~A:Type,~World:Type,~Error:Data,~Out:Type,measurement:Measurement,result:A & Outcome<World,Error,Out>) -> A & Outcome<World,Error,Out>:
+  match result:
+    case (owner,outcome):(owner,Measured{outcome,measurement})
 def register_join(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registered: W.World<S,C,R,E> & W.Registration,+namespace: U32,+name: String,+access: List<&2,String>) -> RegistrationResult<S,C,R,E,Args,Error,Output,runner>:
   (world,result) = registered
   register_meta(~S,~C,~R,~E,~Args,~Error,~Output,~runner,world,result,namespace,name,access)
@@ -60,8 +67,13 @@ def run_namespace(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~
 def run(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>,world: W.World<S,C,R,E>,args: Args) -> RunResult<S,C,R,E,Args,Error,Output,runner>:
   run_namespace(~S,~C,~R,~E,~Args,~Error,~Output,~runner,registry,W.namespace(~S,~C,~R,~E,world),args)
 
+def measured_result(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Output:Type,~runner:W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,measurement:Measurement,result:RunResult<S,C,R,E,Args,Error,Output,runner>) -> RunResult<S,C,R,E,Args,Error,Output,runner>:
+  match result:
+    case Completed{registry,outcome}:Completed{registry,Measured{outcome,measurement}}
+    case RegistrationRejected{registry,world,args}:RegistrationRejected{registry,world,args}
 def cursor_outcome(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,outcome: Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>,+nextCursor: U32) -> RunResult<S,C,R,E,Args,Error,Output,runner>:
   match outcome registry:
+    case Measured{outcome,measurement} registry:measured_result(~S,~C,~R,~E,~Args,~Error,~Output,~runner,measurement,cursor_outcome(~S,~C,~R,~E,~Args,~Error,~Output,~runner,outcome,registry,nextCursor))
     case Failed{world,error} registry: Completed{registry,Failed{world,error}}
     case Succeeded{world,output} Registry{namespace,id,name,access,_}: Completed{Registry{namespace,id,name,access,nextCursor},Succeeded{world,output}}
 
@@ -81,6 +93,7 @@ def tracked_clock(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~
 
 def tracked_outcome(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>,outcome: Outcome<W.World<S,C,R,E>,Error,Output>) -> RunResult<S,C,R,E,Args,Error,Output,runner>:
   match outcome:
+    case Measured{outcome,measurement}:measured_result(~S,~C,~R,~E,~Args,~Error,~Output,~runner,measurement,tracked_outcome(~S,~C,~R,~E,~Args,~Error,~Output,~runner,registry,outcome))
     case Failed{world,error}: Completed{registry,Failed{world,error}}
     case Succeeded{world,output}: tracked_clock(~S,~C,~R,~E,~Args,~Error,~Output,~runner,registry,output,W.clock(~S,~C,~R,~E,world))
 

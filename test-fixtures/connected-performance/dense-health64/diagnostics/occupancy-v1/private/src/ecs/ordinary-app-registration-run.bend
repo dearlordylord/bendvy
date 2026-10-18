@@ -11,7 +11,10 @@ type TransportResult<S:Data,World:Type,Args:Type,Error:Data,Out:Type,Token:Type>
   RegistrationRejected{token:Token,fields:Records.Fields<S>,world:World,args:Args}
 def returned(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,slot:String,clauses:List<&2,Query.Clause<S>>,kind:Records.RegistrationKind,registry:Sys.Registry<S,C,R,E,Args,Error,Out,runner>) -> Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>> & Records.Fields<S>:
   match registry:
-    case Sys.Registry{namespace,id,name,access,cursor}:(Records.Token{},Records.Fields{namespace,id,name,access,cursor,slot,clauses,kind})
+    case Sys.Registry{namespace,id,name,access,cursor}:(Records.Token{[]},Records.Fields{namespace,id,name,access,cursor,slot,clauses,kind})
+def returned_measured(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,slot:String,clauses:List<&2,Query.Clause<S>>,kind:Records.RegistrationKind,measurement:Sys.Measurement,registry:Sys.Registry<S,C,R,E,Args,Error,Out,runner>) -> Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>> & Records.Fields<S>:
+  match registry:
+    case Sys.Registry{namespace,id,name,access,cursor}:(Records.Token{[measurement]},Records.Fields{namespace,id,name,access,cursor,slot,clauses,kind})
 def completed(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,outcome:Sys.Outcome<W.World<S,C,R,E>,Error,Out>,result:Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>> & Records.Fields<S>) -> TransportResult<S,W.World<S,C,R,E>,Args,Error,Out,Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>>:
   match result:
     case (token,fields):Completed{token,fields,outcome}
@@ -20,6 +23,7 @@ def rejected(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~r
     case (token,fields):RegistrationRejected{token,fields,world,args}
 def captured(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,slot:String,clauses:List<&2,Query.Clause<S>>,kind:Records.RegistrationKind,result:Sys.RunResult<S,C,R,E,Args,Error,Out,runner>) -> TransportResult<S,W.World<S,C,R,E>,Args,Error,Out,Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>>:
   match result:
+    case Sys.Completed{registry,Sys.Measured{outcome,measurement}}:completed(~S,~C,~R,~E,~Args,~Error,~Out,~runner,outcome,returned_measured(~S,~C,~R,~E,~Args,~Error,~Out,~runner,slot,clauses,kind,measurement,registry))
     case Sys.Completed{registry,outcome}:completed(~S,~C,~R,~E,~Args,~Error,~Out,~runner,outcome,returned(~S,~C,~R,~E,~Args,~Error,~Out,~runner,slot,clauses,kind,registry))
     case Sys.RegistrationRejected{registry,world,args}:rejected(~S,~C,~R,~E,~Args,~Error,~Out,~runner,world,args,returned(~S,~C,~R,~E,~Args,~Error,~Out,~runner,slot,clauses,kind,registry))
 def restored(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,fields:Records.Fields<S>,world:W.World<S,C,R,E>,args:Args) -> TransportResult<S,W.World<S,C,R,E>,Args,Error,Out,Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>>:
@@ -27,7 +31,7 @@ def restored(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~r
     case Records.Fields{namespace,id,name,access,cursor,slot,clauses,kind}:captured(~S,~C,~R,~E,~Args,~Error,~Out,~runner,slot,clauses,kind,Sys.run_tracked(~S,~C,~R,~E,~Args,~Error,~Out,~runner,Sys.Registry{namespace,id,name,access,cursor},world,args))
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,token:Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>,fields:Records.Fields<S>,world:W.World<S,C,R,E>,args:Args) -> TransportResult<S,W.World<S,C,R,E>,Args,Error,Out,Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>>:
   match token:
-    case Records.Token{}:restored(~S,~C,~R,~E,~Args,~Error,~Out,~runner,fields,world,args)
+    case Records.Token{_}:restored(~S,~C,~R,~E,~Args,~Error,~Out,~runner,fields,world,args)
 
 def captured_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,slot:String,clauses:List<&2,Query.Clause<S>>,kind:Records.RegistrationKind,result:Sys.RunResult<S,C,R,E,Args,Error,Out,runner> & TraceFacts.State) -> TransportResult<S,W.World<S,C,R,E>,Args,Error,Out,Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>> & TraceFacts.State:
   match result:
@@ -37,4 +41,4 @@ def restored_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Ou
     case Records.Fields{namespace,id,name,access,cursor,slot,clauses,kind}:captured_observed(~S,~C,~R,~E,~Args,~Error,~Out,~runner,slot,clauses,kind,Sys.run_observed(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~observed,Sys.Registry{namespace,id,name,access,cursor},trace,world,args))
 def run_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~observed:TraceFacts.State -> W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out> & TraceFacts.State,token:Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>,fields:Records.Fields<S>,trace:TraceFacts.State,world:W.World<S,C,R,E>,args:Args) -> TransportResult<S,W.World<S,C,R,E>,Args,Error,Out,Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>> & TraceFacts.State:
   match token:
-    case Records.Token{}:restored_observed(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~observed,fields,trace,world,args)
+    case Records.Token{_}:restored_observed(~S,~C,~R,~E,~Args,~Error,~Out,~runner,~observed,fields,trace,world,args)

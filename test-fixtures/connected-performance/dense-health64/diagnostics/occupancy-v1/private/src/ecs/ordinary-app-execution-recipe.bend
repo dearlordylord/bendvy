@@ -49,10 +49,12 @@ def provision_pair(~S:Data,~World:Type,~left:World -> World & List<&2,SP.Require
   provision_left(~S,~World,~right,left(world))
 def left_outcome(~World:Type,~LE:Data,~RE:Data,outcome:Sys.Outcome<Ctx.Context<World>,LE,Unit>) -> Sys.Outcome<Ctx.Context<World>,Identity.Choice<LE,RE>,Unit>:
   match outcome:
+    case Sys.Measured{outcome,measurement}:Sys.Measured{left_outcome(~World,~LE,~RE,outcome),measurement}
     case Sys.Succeeded{world,output}:Sys.Succeeded{world,output}
     case Sys.Failed{world,error}:Sys.Failed{world,Identity.LeftError{error}}
 def right_outcome(~World:Type,~LE:Data,~RE:Data,outcome:Sys.Outcome<Ctx.Context<World>,RE,Unit>) -> Sys.Outcome<Ctx.Context<World>,Identity.Choice<LE,RE>,Unit>:
   match outcome:
+    case Sys.Measured{outcome,measurement}:Sys.Measured{right_outcome(~World,~LE,~RE,outcome),measurement}
     case Sys.Succeeded{world,output}:Sys.Succeeded{world,output}
     case Sys.Failed{world,error}:Sys.Failed{world,Identity.RightError{error}}
 def left_returned(~World:Type,~L:Type,~R:Type,~LE:Data,~RE:Data,right:R,result:L & Sys.Outcome<Ctx.Context<World>,LE,Unit>) -> (L & R) & Sys.Outcome<Ctx.Context<World>,Identity.Choice<LE,RE>,Unit>:

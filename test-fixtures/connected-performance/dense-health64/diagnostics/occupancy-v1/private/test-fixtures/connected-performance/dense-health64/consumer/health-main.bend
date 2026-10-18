@@ -42,7 +42,7 @@ def pending_observed(iterations:U32,prefix:String,observed:F.World() & String) -
     case (world,text):barrier_observed(iterations,prefix ++ "seedPending=" ++ text ++ "\n",Observe.world(W.barrier(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,world)))
 def seeded(+count:U32,+iterations:U32,result:F.Seeded) -> String:
   match result:
-    case F.Seeded{world,reservations,outcome}:pending_observed(iterations,"DenseRuntime Health\ncount=" ++ U32.show(count) ++ ";iterations=" ++ U32.show(iterations) ++ "\nseedOutcome=" ++ Observe.outcome(outcome) ++ "|reservations=" ++ List.show(&2,W.Reservation<T.HealthSchema>,Observe.reservation,reservations) ++ "\n",Observe.world(world))
+    case F.Seeded{world,reservations,outcome,_}:pending_observed(iterations,"DenseRuntime Health\ncount=" ++ U32.show(count) ++ ";iterations=" ++ U32.show(iterations) ++ "\nseedOutcome=" ++ Observe.outcome(outcome) ++ "|reservations=" ++ List.show(&2,W.Reservation<T.HealthSchema>,Observe.reservation,reservations) ++ "\n",Observe.world(world))
 def refused(observed:F.Resources() & String) -> String:
   match observed:
     case (resources,text):"WorldCreationRefused|" ++ text ++ "\n"

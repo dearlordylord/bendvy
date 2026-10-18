@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : cases for ../../../../src/ecs/system.Measured
+- observed : \{}
+Context:
+- args   : execution_returned~Args
+- token  : Records.Token<Sys.Registry<execution_returned~S, execution_returned~C, execution_returned~R, execution_returned~E, Sigma<&1, &1, execution_returned~Args, _ => U32>, Q.Error<execution_returned~Error>, List<&2, execution_returned~Out>, System.profile_observable_runner(execution_returned~S, execution_returned~C, execution_returned~R, execution_returned~E, execution_returned~Ops, execution_returned~Args, execution_returned~Error, execution_returned~Out, execution_returned~Value, execution_returned~query, execution_returned~body, execution_returned~inspect)>>
+- fields : Records.Fields<execution_returned~S>
+Location: execution_returned
+36 | def execution_returned(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Args:Data,~Error:Data,~Out:Data,~Value:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,Value>,~body:@-H:Type -> @-caps:Ops(H) -> Args -> H -> H & (T.Outcome<Error> & Out),~inspect:W.World<S,C,R,E> -> W.World<S,C,R,E> & String,+args:Args,result:Transport.TransportResult<S,Ctx.Context<W.World<S,C,R,E>>,Args & U32,Q.Error<Error>,List<&2,Out>,Records.Token<Sys.Registry<S,C,R,E,Args & U32,Q.Error<Error>,List<&2,Out>,System.profile_observable_runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~Value,~query,~body,~inspect)>>>) -> Exec.Invocation<S,Records.Token<Sys.Registry<S,C,R,E,Args & U32,Q.Error<Error>,List<&2,Out>,System.profile_observable_runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~Value,~query,~body,~inspect)>>,Args,Out> & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,ExecutionError<Error>,Unit>:
+37>|   match result:
+   |   ^^^^^^^^^^^^^
+38 |     case Transport.Completed{token,fields,Sys.Succeeded{world,outputs}}:(Exec.Invocation{Leaf.Record{token,fields},args,outputs},Sys.Succeeded{world,Unit{}})
+bend 2.0.37 is available: run bend update

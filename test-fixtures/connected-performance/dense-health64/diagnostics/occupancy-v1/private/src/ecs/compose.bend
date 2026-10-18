@@ -1,3 +1,4 @@
+import ../../../tx-metrics.bend as Metrics
 import ../../../meter.bend as Meter
 import Base
 import deferred-command.bend as Deferred
@@ -235,3 +236,63 @@ def reserved_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type
 # Snapshot live handles in ascending order; deferred commands stay invisible.
 def each_since_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),trace:TraceFacts.State,args: A,world: W.World<S,Store,R,E>,cursor: U32) -> Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
   reserved_observed(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,trace,args,cursor,W.handles(~S,~Store,~R,~E,world))
+
+type Measured<-World:Type,Error:Data,Out:Data> is Type:
+  Measured{executed:Executed<World,Error,Out>,sample:Metrics.Sample,metadata:String}
+
+def profile_trace(~S:Data,~Store:Type,~R:Type,~E:Data,trace:TraceFacts.State,tx:T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E>:
+  match tx:
+    case T.Tx{world,undo,commands,events,_,meter}:T.Tx{world,undo,commands,events,trace,meter}
+def profile_begin_trace(~S:Data,~Store:Type,~R:Type,~E:Data,world:W.World<S,Store,R,E>,trace:TraceFacts.State) -> T.Tx<W.World<S,Store,R,E>,E>:profile_trace(~S,~Store,~R,~E,trace,Metrics.begin(~S,~Store,~R,~E,world))
+
+def profile_inspect_join(~S:Data,~Store:Type,~R:Type,~E:Data,undo:List<(W.World<S,Store,R,E>->W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events:List<&2,E>,trace:TraceFacts.State,meter:Meter.State,observed:W.World<S,Store,R,E> & String) -> T.Tx<W.World<S,Store,R,E>,E> & String:
+  match observed:
+    case (world,metadata):(T.Tx{world,undo,commands,events,trace,meter},metadata)
+def profile_inspect(~S:Data,~Store:Type,~R:Type,~E:Data,~inspect:W.World<S,Store,R,E> -> W.World<S,Store,R,E> & String,tx:T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E> & String:
+  match tx:
+    case T.Tx{world,undo,commands,events,trace,meter}:profile_inspect_join(~S,~Store,~R,~E,undo,commands,events,trace,meter,inspect(world))
+def profile_finish_counted(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,metadata:String,result:T.Outcome<Error<U>>,values:List<&2,Out>,counted:T.Tx<W.World<S,Store,R,E>,E> & Metrics.Sample) -> Measured<W.World<S,Store,R,E>,Error<U>,Out>:
+  match counted:
+    case (tx,sample):Measured{finish_returned(~S,~Store,~R,~E,~U,~Out,values,Cmd.tx_finish(~S,~Store,~R,~E,~Error<U>,tx,result)),sample,metadata}
+
+def profile_finished_inspected(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,result:T.Outcome<Error<U>>,values:List<&2,Out>,inspected:T.Tx<W.World<S,Store,R,E>,E> & String) -> Measured<W.World<S,Store,R,E>,Error<U>,Out>:
+  match inspected:
+    case (tx,metadata):profile_finish_counted(~S,~Store,~R,~E,~U,~Out,metadata,result,values,Metrics.observe_world(~S,~Store,~R,~E,"query-loop",tx))
+def profile_finished(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,~inspect:W.World<S,Store,R,E> -> W.World<S,Store,R,E> & String,observed:T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>)) -> Measured<W.World<S,Store,R,E>,Error<U>,Out>:
+  match observed:
+    case (tx,(result,values)):
+      profile_finished_inspected(~S,~Store,~R,~E,~U,~Out,result,values,profile_inspect(~S,~Store,~R,~E,~inspect,tx))
+
+def profile_executed_observed(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,metadata:String,sample:Metrics.Sample,observed:Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State) -> Measured<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  match observed:
+    case (executed,trace):(Measured{executed,sample,metadata},trace)
+def profile_finish_counted_observed(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,metadata:String,result:T.Outcome<Error<U>>,values:List<&2,Out>,counted:T.Tx<W.World<S,Store,R,E>,E> & Metrics.Sample) -> Measured<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  match counted:
+    case (tx,sample):
+      profile_executed_observed(~S,~Store,~R,~E,~U,~Out,metadata,sample,finish_returned_observed(~S,~Store,~R,~E,~U,~Out,values,T.finish_observed(~W.World<S,Store,R,E>,~E,~Error<U>,~Cmd.enqueue(~S,~Store,~R,~E),~Cmd.publish(~S,~Store,~R,~E),tx,result)))
+
+def profile_finished_inspected_observed(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,result:T.Outcome<Error<U>>,values:List<&2,Out>,inspected:T.Tx<W.World<S,Store,R,E>,E> & String) -> Measured<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  match inspected:
+    case (tx,metadata):profile_finish_counted_observed(~S,~Store,~R,~E,~U,~Out,metadata,result,values,Metrics.observe_world(~S,~Store,~R,~E,"query-loop",tx))
+def profile_finished_observed(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,~inspect:W.World<S,Store,R,E> -> W.World<S,Store,R,E> & String,observed:T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>)) -> Measured<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  match observed:
+    case (tx,(result,values)):
+      profile_finished_inspected_observed(~S,~Store,~R,~E,~U,~Out,result,values,profile_inspect(~S,~Store,~R,~E,~inspect,tx))
+
+def profile_reserved(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~inspect:W.World<S,Store,R,E> -> W.World<S,Store,R,E> & String,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,cursor: U32,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Measured<W.World<S,Store,R,E>,Error<U>,Out>:
+  (world,handles) = observed
+  profile_finished(~S,~Store,~R,~E,~U,~Out,~inspect,run_handles(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,handles,args,cursor,Metrics.begin(~S,~Store,~R,~E,world)))
+
+
+def profile_each_since(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~inspect:W.World<S,Store,R,E> -> W.World<S,Store,R,E> & String,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,world: W.World<S,Store,R,E>,cursor: U32) -> Measured<W.World<S,Store,R,E>,Error<U>,Out>:
+  profile_reserved(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~inspect,~plan,~body,args,cursor,W.handles(~S,~Store,~R,~E,world))
+
+
+
+def profile_reserved_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~inspect:W.World<S,Store,R,E> -> W.World<S,Store,R,E> & String,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),trace:TraceFacts.State,args: A,cursor: U32,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Measured<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  (world,handles) = observed
+  profile_finished_observed(~S,~Store,~R,~E,~U,~Out,~inspect,run_handles(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,handles,args,cursor,profile_begin_trace(~S,~Store,~R,~E,world,trace)))
+
+
+def profile_each_since_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~inspect:W.World<S,Store,R,E> -> W.World<S,Store,R,E> & String,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),trace:TraceFacts.State,args: A,world: W.World<S,Store,R,E>,cursor: U32) -> Measured<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  profile_reserved_observed(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~inspect,~plan,~body,trace,args,cursor,W.handles(~S,~Store,~R,~E,world))

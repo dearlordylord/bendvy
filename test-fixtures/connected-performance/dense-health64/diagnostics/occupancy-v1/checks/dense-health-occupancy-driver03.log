@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : cases for ../../../../src/ecs/system.Measured
+- observed : \{}
+Location: run_outcome
+192 | def run_outcome(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,outcome: Sy.Outcome<W.World<S,C,R,E>,Error,O>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>,+readerId: U32,+namespace: U32,+batches: List<&2,Batch<E>>,+positions: List<&2,Position>,+nextReader: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+dropped: Nat) -> RunResult<S,C,R,E,A,Error,O,runner>:
+193>|   match outcome:
+    |   ^^^^^^^^^^^^^^
+194 |     case Sy.Failed{world,error}: Ran{Runtime{world,namespace,batches,activate(positions,readerId,Nat.sub(tick,1n)),nextReader,tick,frameStart,boundary,capacity,dropped},reader,registry,Failed{error}}
+bend 2.0.37 is available: run bend update

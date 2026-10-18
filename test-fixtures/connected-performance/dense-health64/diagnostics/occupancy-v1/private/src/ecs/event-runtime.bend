@@ -191,6 +191,7 @@ def activate(+positions: List<&2,Position>,+id: U32,+registered: Nat) -> List<&2
 
 def run_outcome(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,outcome: Sy.Outcome<W.World<S,C,R,E>,Error,O>,reader: Reader<S>,registry: Sy.Registry<S,C,R,E,Input<E,A>,Error,O,runner>,+readerId: U32,+namespace: U32,+batches: List<&2,Batch<E>>,+positions: List<&2,Position>,+nextReader: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+dropped: Nat) -> RunResult<S,C,R,E,A,Error,O,runner>:
   match outcome:
+    case Sy.Measured{outcome,_}:run_outcome(~S,~C,~R,~E,~A,~Error,~O,~runner,outcome,reader,registry,readerId,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
     case Sy.Failed{world,error}: Ran{Runtime{world,namespace,batches,activate(positions,readerId,Nat.sub(tick,1n)),nextReader,tick,frameStart,boundary,capacity,dropped},reader,registry,Failed{error}}
     case Sy.Succeeded{world,output}: Ran{sync_values(~S,~C,~R,~E,W.events_view(~S,~C,~R,~E,world),namespace,batches,update(activate(positions,readerId,Nat.sub(tick,1n)),readerId,tick,False{}),nextReader,tick,frameStart,boundary,capacity,dropped),reader,registry,Succeeded{output}}
 

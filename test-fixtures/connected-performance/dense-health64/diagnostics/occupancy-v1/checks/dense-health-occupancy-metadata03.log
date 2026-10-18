@@ -1,0 +1,20 @@
+SOME PROOFS FAIL
+Error:
+- expected : a function type
+- observed : Product.Owner<Col.Column<T.HealthSchema, T.Vitals>, Product.Owner<Col.Column<T.HealthSchema, T.Armor>, Col.Column<T.HealthSchema, T.Tracked>>>
+Context:
+- namespace     : U32
+- allocator     : A.Allocator
+- store         : Product.Owner<Col.Column<T.HealthSchema, T.Vitals>, Product.Owner<Col.Column<T.HealthSchema, T.Armor>, Col.Column<T.HealthSchema, T.Tracked>>>
+- resource      : Product.Owner<T.HealthLedger, Unit>
+- events        : List<&2, Nat>
+- pending       : List<&1, Deferred.Command<W.World<T.HealthSchema, Product.Owner<Col.Column<T.HealthSchema, T.Vitals>, Product.Owner<Col.Column<T.HealthSchema, T.Armor>, Col.Column<T.HealthSchema, T.Tracked>>>, Product.Owner<T.HealthLedger, Unit>, Nat>>>
+- registrations : List<&2, W.RegistrationMeta>
+- nextSystemId  : U32
+- clock         : U32
+Location: world
+39 |   match value:
+40>|     case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:world_join(namespace,allocator,resource,events,pending,registrations,nextSystemId,clock,store(store))
+   |                                                                                                                                                                                              ^^^^^^^^^^^^
+41 | 
+bend 2.0.37 is available: run bend update

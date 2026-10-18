@@ -69,6 +69,3 @@ def prototype_handoff_recover_go(-Schema:Data,-M:Type,rows:PrototypeHandoffRows<
     case HandoffCon{+id,owner,rest}: prototype_handoff_recover_go(Schema,M,rest,Array.set(Maybe<M>,columns,U32.sub(id,1),Some{owner}),id <> ids)
 def prototype_handoff_recover(-Schema:Data,-M:Type,rows:PrototypeHandoffRows<Schema,M>,columns:Array<Maybe<M>>) -> Array<Maybe<M>> & List<&2,U32>:
   prototype_handoff_recover_go(Schema,M,rows,columns,[])
-
-
-

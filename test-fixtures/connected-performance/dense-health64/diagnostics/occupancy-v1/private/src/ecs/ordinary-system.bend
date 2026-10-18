@@ -1,3 +1,4 @@
+import ../../../tx-metrics.bend as Metrics
 import Base
 import trace-facts.bend as TraceFacts
 import ordinary-query-declaration.bend as Query
@@ -74,3 +75,24 @@ def completed_observed(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~Out:Data,result:
 def observable_runner_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),trace:TraceFacts.State,world:W.World<S,C,R,E>,args:A & U32) -> Sys.Outcome<W.World<S,C,R,E>,Q.Error<U>,List<&2,Out>> & TraceFacts.State:
   match args:
     case (args,cursor):completed_observed(~S,~C,~R,~E,~U,~Out,Q.each_since_observed(~S,~C,~R,~E,~Ops,~A,~U,~Out,~observable_plan(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body),~body,trace,args,world,cursor))
+
+def profile_completed(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~Out:Data,result:Q.Measured<W.World<S,C,R,E>,Q.Error<U>,Out>) -> Sys.Outcome<W.World<S,C,R,E>,Q.Error<U>,List<&2,Out>>:
+  match result:
+    case Q.Measured{Q.Executed{world,T.Success{},values},sample,metadata}:Sys.Measured{Sys.Succeeded{world,values},Sys.Measurement{Metrics.finished(sample,True{}),metadata}}
+    case Q.Measured{Q.Executed{world,T.Failure{error},_},sample,metadata}:Sys.Measured{Sys.Failed{world,error},Sys.Measurement{Metrics.finished(sample,False{}),metadata}}
+def profile_completed_observed(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~Out:Data,result:Q.Measured<W.World<S,C,R,E>,Q.Error<U>,Out> & TraceFacts.State) -> Sys.Outcome<W.World<S,C,R,E>,Q.Error<U>,List<&2,Out>> & TraceFacts.State:
+  match result:
+    case (measured,trace):(profile_completed(~S,~C,~R,~E,~U,~Out,measured),trace)
+
+def profile_observable_runner(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~inspect:W.World<S,C,R,E> -> W.World<S,C,R,E> & String,world:W.World<S,C,R,E>,args:A & U32) -> Sys.Outcome<W.World<S,C,R,E>,Q.Error<U>,List<&2,Out>>:
+  match args:
+    case (args,cursor):profile_completed(~S,~C,~R,~E,~U,~Out,Q.profile_each_since(~S,~C,~R,~E,~Ops,~A,~U,~Out,~inspect,~observable_plan(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body),~body,args,world,cursor))
+def profile_observable_registered(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~inspect:W.World<S,C,R,E> -> W.World<S,C,R,E> & String,slot:String,clauses:List<&2,Query.Clause<S>>,result:Sys.RegistrationResult<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,profile_observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body,~inspect)>) -> Defined<S,W.World<S,C,R,E>,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,profile_observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body,~inspect)>>:
+  match result:
+    case Sys.RegistrationFailed{world}:Rejected{world}
+    case Sys.Registered{world,registry}:Defined{world,Owner{registry,slot,clauses}}
+def profile_observable_define(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~inspect:W.World<S,C,R,E> -> W.World<S,C,R,E> & String,world:W.World<S,C,R,E>,name:String,slot:String) -> Defined<S,W.World<S,C,R,E>,Sys.Registry<S,C,R,E,A & U32,Q.Error<U>,List<&2,Out>,profile_observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body,~inspect)>>:
+  profile_observable_registered(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body,~inspect,slot,Query.clauses(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),O.operational(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query)),Sys.register(~S,~C,~R,~E,~(A & U32),~Q.Error<U>,~List<&2,Out>,~profile_observable_runner(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body,~inspect),world,name,access(~S,Query.clauses(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),O.operational(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query)))))
+def profile_observable_runner_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~inspect:W.World<S,C,R,E> -> W.World<S,C,R,E> & String,trace:TraceFacts.State,world:W.World<S,C,R,E>,args:A & U32) -> Sys.Outcome<W.World<S,C,R,E>,Q.Error<U>,List<&2,Out>> & TraceFacts.State:
+  match args:
+    case (args,cursor):profile_completed_observed(~S,~C,~R,~E,~U,~Out,Q.profile_each_since_observed(~S,~C,~R,~E,~Ops,~A,~U,~Out,~inspect,~observable_plan(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body),~body,trace,args,world,cursor))

@@ -47,6 +47,7 @@ def build(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,+namespace: U32,+name: St
 # than moving affine owners into runtime closures stored in the schedule.
 def after_outcome(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,next: H -> W.World<S,C,R,E> -> List<&2,Observation> -> RunResult<S,C,R,E,H,Error>,outcome: Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,owners: H,+namespace: U32,+name: String,+all: List<&2,Step>,+observations: List<&2,Observation>,+id: U32) -> RunResult<S,C,R,E,H,Error>:
   match outcome:
+    case Sys.Measured{outcome,measurement}:after_outcome(~S,~C,~R,~E,~H,~Error,next,outcome,owners,namespace,name,all,observations,id)
     case Sys.Failed{world,error}: Failed{Schedule{namespace,name,all,owners},world,error,List.append(&2,Observation,observations,[Ran{id}])}
     case Sys.Succeeded{world,_}: next(owners,world,List.append(&2,Observation,observations,[Ran{id}]))
 

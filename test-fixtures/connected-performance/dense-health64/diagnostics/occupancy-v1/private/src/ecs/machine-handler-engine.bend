@@ -20,6 +20,7 @@ def prepend(~S:Data,~State:Type,~Entry:Type,~Phase:Data,~V:Data,~invoke:Entry ->
 
 def entry_outcome(~S:Data,~State:Type,~Entry:Type,~Phase:Data,~V:Data,~invoke:Entry -> State -> Phase -> V -> V -> Entry & Sys.Outcome<State,String,Unit>,~initial:Entry -> State -> V -> Entry & Sys.Outcome<State,String,Unit>,~exitPhase:Phase,~transitionPhase:Phase,~enterPhase:Phase,entry:Entry,outcome:Sys.Outcome<State,String,Unit>,next:State -> Maybe<&2,String> -> PhaseResult<State,Entry>) -> PhaseResult<State,Entry>:
   match outcome:
+    case Sys.Measured{outcome,measurement}:entry_outcome(~S,~State,~Entry,~Phase,~V,~invoke,~initial,~exitPhase,~transitionPhase,~enterPhase,entry,outcome,next)
     case Sys.Failed{world,error}:prepend(~S,~State,~Entry,~Phase,~V,~invoke,~initial,~exitPhase,~transitionPhase,~enterPhase,entry,next(world,Some{error}))
     case Sys.Succeeded{world,_}:prepend(~S,~State,~Entry,~Phase,~V,~invoke,~initial,~exitPhase,~transitionPhase,~enterPhase,entry,next(world,None{}))
 def entry_result(~S:Data,~State:Type,~Entry:Type,~Phase:Data,~V:Data,~invoke:Entry -> State -> Phase -> V -> V -> Entry & Sys.Outcome<State,String,Unit>,~initial:Entry -> State -> V -> Entry & Sys.Outcome<State,String,Unit>,~exitPhase:Phase,~transitionPhase:Phase,~enterPhase:Phase,observed:Entry & Sys.Outcome<State,String,Unit>,next:State -> Maybe<&2,String> -> PhaseResult<State,Entry>) -> PhaseResult<State,Entry>:

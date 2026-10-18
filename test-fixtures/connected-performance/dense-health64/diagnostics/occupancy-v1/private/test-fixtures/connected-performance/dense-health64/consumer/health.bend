@@ -1,3 +1,5 @@
+import ../../../../../tx-metrics.bend as Metrics
+import ../../../../../metadata.bend as Metadata
 import Base
 import ../../../../src/ecs/commands.bend as Cmd
 import ../../dense-motion64/consumer/s-perf/canonical-api-v1/dense-runtime-v1/types.bend as T
@@ -119,11 +121,18 @@ def seed_rows(fuel:Nat,+index:U32,state:Reserved) -> Reserved:
     case 0n state:state
     case 1n+rest Reserved{tx,reservations}:seed_next(state => seed_rows(rest,U32.add(index,1),state),reservations,Cmd.tx_spawn(~T.HealthSchema,~Store(),~Resources(),~Nat,~Payload,~populate,tx,payload(index)))
 type Seeded is Type:
-  Seeded{world:World(),reservations:List<&2,W.Reservation<T.HealthSchema>>,outcome:Tx.Outcome<Unit>}
-def seeded(reservations:List<&2,W.Reservation<T.HealthSchema>>,result:Tx.Returned<World(),Unit>) -> Seeded:
+  Seeded{world:World(),reservations:List<&2,W.Reservation<T.HealthSchema>>,outcome:Tx.Outcome<Unit>,measurement:Sys.Measurement}
+def seeded(measurement:Sys.Measurement,reservations:List<&2,W.Reservation<T.HealthSchema>>,result:Tx.Returned<World(),Unit>) -> Seeded:
   match result:
-    case Tx.Returned{world,outcome}:Seeded{world,reservations,outcome}
+    case Tx.Returned{world,outcome}:Seeded{world,reservations,outcome,measurement}
+def seed_counted(reservations:List<&2,W.Reservation<T.HealthSchema>>,metadata:String,result:Tx.Tx<World(),Nat> & Metrics.Sample) -> Seeded:
+  match result:
+    case (tx,sample):seeded(Sys.Measurement{Metrics.finished(sample,True{}),metadata},reservations,Cmd.tx_finish(~T.HealthSchema,~Store(),~Resources(),~Nat,~Unit,tx,Tx.Success{}))
+def seed_inspected(reservations:List<&2,W.Reservation<T.HealthSchema>>,result:Tx.Tx<World(),Nat> & String) -> Seeded:
+  match result:
+    case (tx,metadata):seed_counted(reservations,metadata,Metrics.observe_world(~T.HealthSchema,~Store(),~Resources(),~Nat,"seed",tx))
 def seed_reserved(result:Reserved) -> Seeded:
   match result:
-    case Reserved{tx,reservations}:seeded(reservations,Cmd.tx_finish(~T.HealthSchema,~Store(),~Resources(),~Nat,~Unit,tx,Tx.Success{}))
-def seed(count:U32,world:World()) -> Seeded:seed_reserved(seed_rows(U32.to_nat(count),0,Reserved{Tx.begin(~World(),~Nat,world),[]}))
+    case Reserved{tx,reservations}:seed_inspected(reservations,Q.profile_inspect(~T.HealthSchema,~Store(),~Resources(),~Nat,~Metadata.world,tx))
+
+def seed(count:U32,world:World()) -> Seeded:seed_reserved(seed_rows(U32.to_nat(count),0,Reserved{Metrics.begin(~T.HealthSchema,~Store(),~Resources(),~Nat,world),[]}))

@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : index
+- observed : index (consumed more than once)
+Location: indexed_measurements
+120 |     case View{world,Exec.Invocation{Leaf.Record{Fields.Token{measurements},fields},args,outputs},audit,statuses}:(View{world,Exec.Invocation{Leaf.Record{Fields.Token{[]},fields},args,outputs},audit,statuses},measurements)
+121>| def indexed_measurements(index:Nat,values:List<&2,Sys.Measurement>) -> List<&2,Sys.Measurement>:
+    |                          ^^^^^
+122 |   match values:
+bend 2.0.37 is available: run bend update

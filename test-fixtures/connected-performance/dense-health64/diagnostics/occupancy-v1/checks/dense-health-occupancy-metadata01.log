@@ -1,0 +1,18 @@
+SOME PROOFS FAIL
+Error:
+- expected : clock
+- observed : clock (consumed more than once)
+Context:
+- namespace     : U32
+- allocator     : A.Allocator
+- resource      : Product.Owner<T.HealthLedger, Unit>
+- events        : List<&2, Nat>
+- pending       : List<&1, Deferred.Command<W.World<T.HealthSchema, Product.Owner<Col.Column<T.HealthSchema, T.Vitals>, Product.Owner<Col.Column<T.HealthSchema, T.Armor>, Col.Column<T.HealthSchema, T.Tracked>>>, Product.Owner<T.HealthLedger, Unit>, Nat>>>
+- registrations : List<&2, W.RegistrationMeta>
+- nextSystemId  : U32
+Location: world_join
+34 |     case Product.Owner{main,Product.Owner{aux,flag}}:joined(Col.occupancy_observe(~T.HealthSchema,~T.Vitals,main),Col.occupancy_observe(~T.HealthSchema,~T.Armor,aux),Col.occupancy_observe(~T.HealthSchema,~T.Tracked,flag))
+35>| def world_join(namespace:U32,allocator:A.Allocator,resource:Resources(),events:List<&2,Nat>,pending:List<Deferred.Command<World()>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32,result:Store() & String) -> World() & String:
+   |                                                                                                                                                                                                ^^^^^
+36 |   match result:
+bend 2.0.37 is available: run bend update

@@ -1,3 +1,4 @@
+import ../../../../../../occupancy.bend as Occupancy
 import Base
 import ../../../../../../src/ecs/deferred-command.bend as Deferred
 import ../../../../../../src/ecs/entity-allocator.bend as Alloc
@@ -70,10 +71,14 @@ def indexed_column(~S:Data,~P:Type,observed:Col.IndexedOrdinaryCarrier<S,P> & St
 def plain_column(~S:Data,~P:Type,+stamps:List<&2,L.Entry>,observed:Array<Maybe<&1,P>> & String) -> Col.Column<S,P> & String:
   (values,text)=observed
   (Col.Column{values,stamps},"Column{values=" ++ text ++ ";stamps=" ++ List.show(&2,L.Entry,entry,stamps) ++ "}")
+def monitored(~S:Data,~P:Type,samples:List<&2,Occupancy.Sample>,result:Col.Column<S,P> & String) -> Col.Column<S,P> & String:
+  match result:
+    case (inner,text):(Col.Monitored{inner,samples},text)
 def column(~S:Data,~P:Type,~project:P -> P & String,value:Col.Column<S,P>) -> Col.Column<S,P> & String:
   match value:
     case Col.Column{values,stamps}:plain_column(~S,~P,stamps,array(~Maybe<&1,P>,~optional(~P,~project),values))
     case Col.Indexed{state}:indexed_column(~S,~P,indexed(~S,~P,~project,state))
+    case Col.Monitored{inner,samples}:monitored(~S,~P,samples,column(~S,~P,~project,inner))
     case value:(value,"UNSUPPORTED_PREPARED_COLUMN")
 # Opaque callbacks are returned unchanged; this observer never executes them.
 def callbacks_count(~A:Type,head:Deferred.Command<A>,kind:String,observed:List<Deferred.Command<A>> & (Nat & String)) -> List<Deferred.Command<A>> & (Nat & String):

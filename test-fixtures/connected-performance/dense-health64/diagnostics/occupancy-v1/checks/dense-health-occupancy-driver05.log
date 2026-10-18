@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : cases for ../../../../src/ecs/system.Measured
+- observed : \{}
+Context:
+- prior    : Nat
+- registry : Sys.Registry<completed~S, completed~C, completed~R, completed~E, Nat, Unit, Sigma<&1, &1, Nat, _ => Bool>, runner(completed~S, completed~K, completed~V, completed~R, completed~take, completed~put, completed~C, completed~E)>
+Location: completed
+36 | def completed(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,prior:Nat,result:Sys.RunResult<S,C,R,E,Nat,Unit,Nat & Bool,runner(~S,~K,~V,~R,~take,~put,~C,~E)>) -> Observed<S,K,V,C,R,E,take,put>:
+37>|   match result:
+   |   ^^^^^^^^^^^^^
+38 |     case Sys.Completed{registry,Sys.Succeeded{world,(revision,value)}}:Observed{world,Instance{registry,revision},Some{value}}
+bend 2.0.37 is available: run bend update

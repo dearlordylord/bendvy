@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh alias (Meter names an earlier import)
+- observed : 'import ../../../meter.bend as Meter'
+Location:
+2 | import ../../../tx-metrics.bend as Metrics
+3>| import ../../../meter.bend as Meter
+  |        ^
+4 | import Base
+bend 2.0.37 is available: run bend update

@@ -78,15 +78,16 @@ def succeeded_clocked(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,
   (world,+clock) = clocked
   succeeded_collected(~S,~C,~R,~E,~A,~Error,~O,~runner,id,Route.collect(~S,~C,~R,~E,~classify,world,U32.to_nat(clock),Read.activate(~S,~E,keys,domains,id)),registry,keys,Ev.update(Ev.activate(positions,id,previous),id,U32.to_nat(clock),False{}),U32.to_nat(clock),frameStart,boundary,capacity,nextReader,output)
 
-def outcome(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,~classify: E -> Maybe<D.DescriptorKey<S>>,outcome: Sy.Outcome<W.World<S,C,R,E>,Error,O>,registry: Sy.Registry<S,C,R,E,Input<S,E,A>,Error,O,runner>,+keys: List<&2,D.DescriptorKey<S>>,+domains: List<&2,D.Domain<S,E>>,+positions: List<&2,Ev.Position>,+id: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+nextReader: U32) -> RunResult<S,C,R,E,A,Error,O,runner>:
+def settle_outcome(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,~classify: E -> Maybe<D.DescriptorKey<S>>,outcome: Sy.Outcome<W.World<S,C,R,E>,Error,O>,registry: Sy.Registry<S,C,R,E,Input<S,E,A>,Error,O,runner>,+keys: List<&2,D.DescriptorKey<S>>,+domains: List<&2,D.Domain<S,E>>,+positions: List<&2,Ev.Position>,+id: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+nextReader: U32) -> RunResult<S,C,R,E,A,Error,O,runner>:
   match outcome:
+    case Sy.Measured{outcome,_}:settle_outcome(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,outcome,registry,keys,domains,positions,id,tick,frameStart,boundary,capacity,nextReader)
     case Sy.Failed{world,error}: failed_clocked(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,W.clock(~S,~C,~R,~E,world),registry,keys,domains,positions,id,tick,frameStart,boundary,capacity,nextReader,error)
     case Sy.Succeeded{world,output}: succeeded_clocked(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,W.clock(~S,~C,~R,~E,world),registry,keys,domains,positions,id,tick,frameStart,boundary,capacity,nextReader,output)
 
 def run_result(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,~classify: E -> Maybe<D.DescriptorKey<S>>,result: Sy.RunResult<S,C,R,E,Input<S,E,A>,Error,O,runner>,+keys: List<&2,D.DescriptorKey<S>>,domains: List<&2,D.Domain<S,E>>,positions: List<&2,Ev.Position>,id: U32,tick: Nat,frameStart: Nat,boundary: Nat,capacity: Nat,+nextReader: U32) -> RunResult<S,C,R,E,A,Error,O,runner>:
   match result:
     case Sy.RegistrationRejected{registry,world,Input{_,args}}: Ran{Runtime{world,domains,positions,tick,frameStart,boundary,capacity,nextReader},Reader{registry,keys,id},Rejected{args}}
-    case Sy.Completed{registry,completed}: outcome(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,completed,registry,keys,domains,positions,id,tick,frameStart,boundary,capacity,nextReader)
+    case Sy.Completed{registry,completed}: settle_outcome(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,completed,registry,keys,domains,positions,id,tick,frameStart,boundary,capacity,nextReader)
 
 def run_clocked(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,registry: Sy.Registry<S,C,R,E,Input<S,E,A>,Error,O,runner>,advanced: W.World<S,C,R,E> & U32,input: Input<S,E,A>) -> Sy.RunResult<S,C,R,E,Input<S,E,A>,Error,O,runner>:
   (world,_) = advanced

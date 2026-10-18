@@ -35,6 +35,7 @@ type Observed<S:Data,K:Data,V:Data,C:Type,R:Type,E:Data,-take:R -> R & Init.Stat
   RegistrationRejected{world:W.World<S,C,R,E>,instance:Instance<S,K,V,C,R,E,take,put>}
 def completed(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,prior:Nat,result:Sys.RunResult<S,C,R,E,Nat,Unit,Nat & Bool,runner(~S,~K,~V,~R,~take,~put,~C,~E)>) -> Observed<S,K,V,C,R,E,take,put>:
   match result:
+    case Sys.Completed{registry,Sys.Measured{inner,_}}:completed(~S,~K,~V,~R,~take,~put,~C,~E,prior,Sys.Completed{registry,inner})
     case Sys.Completed{registry,Sys.Succeeded{world,(revision,value)}}:Observed{world,Instance{registry,revision},Some{value}}
     case Sys.Completed{registry,Sys.Failed{world,_}}:Observed{world,Instance{registry,prior},None{}}
     case Sys.RegistrationRejected{registry,world,_}:RegistrationRejected{world,Instance{registry,prior}}

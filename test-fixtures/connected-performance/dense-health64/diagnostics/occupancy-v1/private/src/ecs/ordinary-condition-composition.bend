@@ -182,6 +182,7 @@ def attach(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~B:Type,~select:B -> W.World<
 
 def body_outcome(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~B:Type,~select:B -> W.World<S,C,R,E> -> U32 -> Evaluation<W.World<S,C,R,E>,B>,~BodyError:Data,~dispatch:H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,BodyError,Unit>,bindings:Bindings<W.World<S,C,R,E>,B,select>,owners:H,outcome:Sys.Outcome<W.World<S,C,R,E>,BodyError,Unit>) -> (H & Bindings<W.World<S,C,R,E>,B,select>) & Sys.Outcome<W.World<S,C,R,E>,Error<BodyError>,Unit>:
   match outcome:
+    case Sys.Measured{outcome,measurement}:Sys.measured_pair(~(H & Bindings<W.World<S,C,R,E>,B,select>),~W.World<S,C,R,E>,~Error<BodyError>,~Unit,measurement,body_outcome(~S,~C,~R,~E,~H,~B,~select,~BodyError,~dispatch,bindings,owners,outcome))
     case Sys.Succeeded{world,value}:((owners,bindings),Sys.Succeeded{world,value})
     case Sys.Failed{world,error}:((owners,bindings),Sys.Failed{world,SystemError{error}})
 def body_returned(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~B:Type,~select:B -> W.World<S,C,R,E> -> U32 -> Evaluation<W.World<S,C,R,E>,B>,~BodyError:Data,~dispatch:H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,BodyError,Unit>,bindings:Bindings<W.World<S,C,R,E>,B,select>,returned:H & Sys.Outcome<W.World<S,C,R,E>,BodyError,Unit>) -> (H & Bindings<W.World<S,C,R,E>,B,select>) & Sys.Outcome<W.World<S,C,R,E>,Error<BodyError>,Unit>:
