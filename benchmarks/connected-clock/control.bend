@@ -1,10 +1,11 @@
 import Base
 import clock.bend as Clock
+import control-delay.bend as Delay
 
 def report(value:Nat) -> IO(Unit):IO.print(Nat.show(value))
 def slept(value:Nat) -> IO(Unit):
   do IO<Unit>:
-    IO.sleep(20)
+    Delay.wait()
     elapsed:Nat <- Clock.end()
     report(elapsed)
 def doubled(value:Nat) -> IO(Unit):IO.bind(Nat,Unit,Clock.begin(),report)

@@ -73,7 +73,7 @@ def main():
             if label == 'sleep':
                 assert result['stderr'] == b'' and re.fullmatch(rb'[0-9]+\n', result['stdout'])
                 value = int(result['stdout'])
-                # IO.sleep(20) means20ms: broad unit check, not a speed threshold.
+                # The control-only host delay waits20ms: unit check, not a speed threshold.
                 assert 20_000_000 <= value <= (1 << 48) - 1
                 actual['elapsedNs'] = value
             elif label in ['end-before-begin', 'double-begin']:
