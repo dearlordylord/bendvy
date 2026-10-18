@@ -39,6 +39,68 @@ class Column:
 
 
 @dataclass
+class IndexedMetadata:
+    """Factory-produced scalar trees, independent of payload-array capacity."""
+    added: list = field(default_factory=lambda: [0])
+    changed: list = field(default_factory=lambda: [0])
+    capacity: int = 1
+    depth: int = 0
+    exceptional: list = field(default_factory=list)
+
+    @staticmethod
+    def normal(entity):
+        return 0 < entity <= 131072
+
+    def get(self, entity):
+        if not self.normal(entity):
+            return next((stamp for key, stamp in self.exceptional if key == entity), (0, 0))
+        if entity > self.capacity:
+            return (0, 0)
+        return (self.added[entity - 1], self.changed[entity - 1])
+
+    def set(self, entity, stamp):
+        if not self.normal(entity):
+            self.exceptional = [(entity, stamp)] + [(key, old) for key, old in self.exceptional if key != entity]
+            return
+        while entity > self.capacity:
+            self.added += [0] * self.capacity
+            self.changed += [0] * self.capacity
+            self.capacity *= 2
+            self.depth += 1
+        self.added[entity - 1], self.changed[entity - 1] = stamp
+
+    def clear(self, entity):
+        if not self.normal(entity):
+            self.exceptional = [(key, old) for key, old in self.exceptional if key != entity]
+        elif entity <= self.capacity:
+            self.set(entity, (0, 0))
+
+    def show(self):
+        entries = [f"{key}:{stamp[0]}:{stamp[1]}" for key, stamp in self.exceptional]
+        return ("added=" + tree(self.added) + ";changed=" + tree(self.changed)
+                + f";capacity={self.capacity};depth={self.depth};exceptional=" + listing(entries))
+
+
+@dataclass
+class IndexedColumn(Column):
+    metadata: IndexedMetadata = field(default_factory=IndexedMetadata)
+
+    def write(self, entity, value, tick):
+        was_present = entity <= len(self.values) and self.values[entity - 1] is not None
+        previous = self.metadata.get(entity)
+        super().write(entity, value, tick)
+        # lifecycle.written: retained added stamp depends on actual presence.
+        stamp = (previous[0], tick) if was_present else (tick, tick)
+        self.metadata.set(entity, stamp)
+        self.stamps[entity] = stamp
+
+    def show(self, render):
+        values = ["none" if value is None else "some(" + render(value) + ")"
+                  for value in self.values]
+        return "Indexed{owned(values=" + tree(values) + ";metadata={" + self.metadata.show() + "})}"
+
+
+@dataclass
 class World:
     schema: str
     count: int = 64
@@ -53,6 +115,12 @@ class World:
     cursor: int = 0
     audit: list = field(default_factory=list)
     statuses: list = field(default_factory=list)
+
+    indexed: bool = False
+
+    def __post_init__(self):
+        if self.indexed:
+            self.columns = [IndexedColumn(), IndexedColumn(), IndexedColumn()]
 
     def reserve_all(self):
         for entity in range(1, self.count + 1):

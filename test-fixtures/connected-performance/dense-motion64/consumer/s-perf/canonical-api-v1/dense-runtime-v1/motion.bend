@@ -20,7 +20,7 @@ def Store() -> Type:Product.Owner<Col.Column<T.MotionSchema,T.Position>,Product.
 def Resources() -> Type:Product.Owner<T.MotionLedger,Unit>
 def World() -> Type:W.World<T.MotionSchema,Store(),Resources(),Nat>
 def Rest() -> Type:Product.Owner<Col.Column<T.MotionSchema,T.Velocity>,Col.Column<T.MotionSchema,T.Selected>>
-def empty(_:Unit) -> Store():Product.Owner{Col.empty(~T.MotionSchema,~T.Position),Product.Owner{Col.empty(~T.MotionSchema,~T.Velocity),Col.empty(~T.MotionSchema,~T.Selected)}}
+def empty(_:Unit) -> Store():Product.Owner{Col.empty_indexed(~T.MotionSchema,~T.Position),Product.Owner{Col.empty_indexed(~T.MotionSchema,~T.Velocity),Col.empty_indexed(~T.MotionSchema,~T.Selected)}}
 def take_main(value:Store()) -> Rest() & Col.Column<T.MotionSchema,T.Position>:
   match value:
     case Product.Owner{main,rest}:(rest,main)

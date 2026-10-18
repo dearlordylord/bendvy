@@ -5,8 +5,8 @@ import sys
 from state import World, derived_shared, expected_seed_writes, listing
 
 
-def report(schema, count=64, iterations=64, namespace=1):
-    world = World(schema, count, namespace)
+def report(schema, count=64, iterations=64, namespace=1, indexed=False):
+    world = World(schema, count, namespace, indexed=indexed)
     world.reserve_all()
     reservations = listing(f"Reserved({namespace}:{entity}:0)" for entity in world.order)
     text = (f"DenseRuntime {schema}\ncount={count};iterations={iterations}\n"
@@ -49,9 +49,10 @@ if __name__ == "__main__":
     parser.add_argument("count", nargs="?", type=int, default=64)
     parser.add_argument("iterations", nargs="?", type=int, default=64)
     parser.add_argument("--self-test", "--selftest", action="store_true")
+    parser.add_argument("--indexed", action="store_true")
     args = parser.parse_args()
     if args.self_test:
         assert selftest()
         print("PASS")
     else:
-        sys.stdout.buffer.write(report(args.schema, args.count, args.iterations)[0])
+        sys.stdout.buffer.write(report(args.schema, args.count, args.iterations, indexed=args.indexed)[0])
