@@ -1,0 +1,22 @@
+SOME PROOFS FAIL
+Error:
+- expected : a function type
+- observed : Maybe<&1, T.Position>
+Context:
+- args        : Args
+- state       : M.State
+- outcome     : Tx.Outcome<U32>
+- reading     : output~R
+- reservation : Maybe<&2, W.Reservation<T.MotionSchema>>
+- payload     : Maybe<&2, T.PositionView>
+- writes      : List<&2, Cmp.Access<T.PositionView>>
+- ledger      : Maybe<&2, T.LedgerView>
+- rejected    : Maybe<&1, T.Position>
+- error       : Maybe<&2, W.WorldError>
+- pending     : Maybe<&2, Cmp.Access<T.PositionView>>
+Location: output
+77 |   match value:
+78>|     case C.Output{outcome,reading,reservation,payload,writes,ledger,rejected,error,pending}:rebuilt(~R,~read,args,state,outcome,reading,reservation,payload,writes,ledger,error,pending,rejected(rejected))
+   |                                                                                                                                                                                         ^^^^^^^^^^^^^^^^^^
+79 | 
+bend 2.0.37 is available: run bend update

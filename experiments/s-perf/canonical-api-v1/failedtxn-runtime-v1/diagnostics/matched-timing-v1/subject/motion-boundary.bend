@@ -1,4 +1,5 @@
 import Base
+import ../method.bend as Method
 import report-doc.bend as Doc
 import /tmp/bendvy-failedtxn-matched-method/experiments/s-perf/canonical-api-v1/dense-runtime-v1/types.bend as T
 import /tmp/bendvy-failedtxn-matched-method/experiments/s-perf/canonical-api-v1/dense-runtime-v1/payload.bend as P
@@ -52,7 +53,7 @@ def pending_seen(iteration:U32,phase:String,before:Doc.Doc,rows:Doc.Doc,owners:S
     case (world,pending):failed_seen(iteration,phase,before,rows,pending,owners,retry,handles,optional(world,recent_go(handles,None{})))
 def rows_seen(phase:String,owners:String,frame:S.Frame,before:Doc.Doc,observed:F.World() & Doc.Doc) -> F.World() & Boundary:
   match frame observed:
-    case S.Frame{_,_,iteration,_,pending,retry,handles,_}, (world,rows):pending_seen(iteration,phase,before,rows,owners,retry,handles,optional(world,pending))
+    case S.Frame{_,_,iteration,_,pending,retry,handles,_,method}, (world,rows):pending_seen(iteration,phase,before,rows,owners,retry,handles,optional(world,pending))
 def before_seen(phase:String,owners:String,frame:S.Frame,observed:F.World() & Doc.Doc) -> F.World() & Boundary:
   match observed:
     case (world,before):rows_seen(phase,owners,frame,before,DW.rows(world))

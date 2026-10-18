@@ -1,4 +1,7 @@
 import Base
+import ../method.bend as Method
+import ../json.bend as J
+import ../capture-call.bend as Capture
 import /tmp/bendvy-failedtxn-matched-method/src/ecs/system.bend as Sys
 import motion-dispose.bend as Dispose
 import /tmp/bendvy-failedtxn-matched-method/experiments/s-perf/canonical-api-v1/dense-runtime-v1/types.bend as T
@@ -40,8 +43,8 @@ def status(phase:U32,failed:Bool) -> Status:
     case _, False{}:Complete{}
 def phase_frame(iteration:U32,phase:U32,frame:S.Frame) -> S.Frame:
   match phase frame:
-    case 1, S.Frame{first,second,_,_,_,_,failed,calls}:S.Frame{first,second,iteration,1,None{},None{},failed,calls}
-    case phase, S.Frame{first,second,_,_,pending,retry,failed,calls}:S.Frame{first,second,iteration,phase,pending,retry,failed,calls}
+    case 1, S.Frame{first,second,_,_,_,_,failed,calls,method}:S.Frame{first,second,iteration,1,None{},None{},failed,calls,method}
+    case phase, S.Frame{first,second,_,_,pending,retry,failed,calls,method}:S.Frame{first,second,iteration,phase,pending,retry,failed,calls,method}
 def update_frame(value:S.Runtime(),args:U32 & U32) -> S.Runtime():
   match value args:
     case (owners,S.Shared{meta,tick,frame}),(iteration,phase):(owners,S.Shared{meta,tick,phase_frame(iteration,phase,frame)})
@@ -67,9 +70,19 @@ def state_observed(namespace:U32,boundaries:List<&2,Boundary.Boundary>,schedules
 def observe(state:State) -> State & Snapshot:
   match state:
     case State{app,namespace,boundaries,schedules,status}:state_observed(namespace,boundaries,schedules,status,EntryApp.project(~Unit,~Snapshot,~snapshot,app,Unit{}))
+def phase_outcome(failed:Bool) -> String:
+  match failed:
+    case True{}:"Failure"
+    case False{}:"Success"
+def phase_record_frame(frame:S.Frame,failed:Bool) -> S.Frame:
+  match frame:
+    case S.Frame{first,second,+i,+phase,pending,retry,allFailed,calls,method}:S.Frame{first,second,i,phase,pending,retry,allFailed,calls,Method.append(method,J.object([J.Field{"kind",J.Text{"Phase"}},J.Field{"phase",Method.number(phase)},J.Field{"iteration",Capture.iteration(phase,i)},J.Field{"outcome",J.object([J.Field{"kind",J.Text{phase_outcome(failed)}}])}]))}
+def phase_record(value:S.Runtime(),failed:Bool) -> S.Runtime():
+  match value:
+    case (owners,S.Shared{meta,tick,+frame}):(owners,S.Shared{meta,tick,phase_record_frame(frame,failed)})
 def finished(phase:U32,namespace:U32,boundaries:List<&2,Boundary.Boundary>,schedules:List<&2,String>,+failed:Bool,observations:List<&2,Sch.Observation>,result:EntryApp.Application() & (U32 & (String & (List<&2,Sch.Step> & List<&2,SP.Requirement<T.MotionSchema>>)))) -> State:
   match result:
-    case (app,(ns,(name,(steps,requirements)))):State{Single.Attached{app},namespace,boundaries,List.append(&2,String,schedules,["namespace=" ++ U32.show(ns) ++ ";name=" ++ O.audit_effect(name) ++ ";steps=" ++ List.show(&2,Sch.Step,Schedule.step_text,steps) ++ ";requirements=" ++ List.show(&2,SP.Requirement<T.MotionSchema>,requirement,requirements) ++ ";failed=" ++ Bool.show(failed) ++ ";observations=" ++ List.show(&2,Sch.Observation,Schedule.observation,observations)]),status(phase,failed)}
+    case (app,(ns,(name,(steps,requirements)))):State{Single.Attached{EntryApp.update(~Bool,~phase_record,app,failed)},namespace,boundaries,List.append(&2,String,schedules,["namespace=" ++ U32.show(ns) ++ ";name=" ++ O.audit_effect(name) ++ ";steps=" ++ List.show(&2,Sch.Step,Schedule.step_text,steps) ++ ";requirements=" ++ List.show(&2,SP.Requirement<T.MotionSchema>,requirement,requirements) ++ ";failed=" ++ Bool.show(failed) ++ ";observations=" ++ List.show(&2,Sch.Observation,Schedule.observation,observations)]),status(phase,failed)}
 def executed(phase:U32,namespace:U32,boundaries:List<&2,Boundary.Boundary>,schedules:List<&2,String>,result:Single.RunResult<EntryApp.Application(),T.MotionSchema,Unit>) -> State:
   match result:
     case Single.Finished{app,observations}:finished(phase,namespace,boundaries,schedules,False{},observations,EntryApp.describe(app))

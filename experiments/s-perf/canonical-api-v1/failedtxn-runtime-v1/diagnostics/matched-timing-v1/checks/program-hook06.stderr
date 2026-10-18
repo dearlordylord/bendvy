@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : i
+- observed : i (consumed more than once)
+Context:
+- first  : W.Handle<T.MotionSchema>
+- second : W.Handle<T.MotionSchema>
+Location: phase_record_frame
+78 |   match frame:
+79>|     case S.Frame{first,second,i,+phase,pending,retry,allFailed,calls,method}:S.Frame{first,second,i,phase,pending,retry,allFailed,calls,Method.append(method,J.object([J.Field{"kind",J.Text{"Phase"}},J.Field{"phase",Method.number(phase)},J.Field{"iteration",Capture.iteration(phase,i)},J.Field{"outcome",J.object([J.Field{"kind",J.Text{phase_outcome(failed)}}])}]))}
+   |                               ^
+80 | def phase_record(value:S.Runtime(),failed:Bool) -> S.Runtime():
+bend 2.0.37 is available: run bend update

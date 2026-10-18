@@ -1,4 +1,5 @@
 import Base
+import ../method.bend as Method
 import report-doc.bend as Doc
 import motion-stream.bend as Stream
 import /tmp/bendvy-failedtxn-matched-method/experiments/s-perf/canonical-api-v1/dense-runtime-v1/types.bend as T
@@ -48,7 +49,7 @@ def registered(prefix:Doc.Doc,iterations:U32,value:Program.State & Doc.Doc) -> D
     case (owner,snapshot):primed(Doc.concat([prefix,Doc.text("registered={"),snapshot,Doc.text("}\n")]),iterations,state(Program.run_phase(0,owner)))
 def named(prefix:Doc.Doc,iterations:U32,owners:Reg.Owners,dispose:Dispose.Registry(),first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,observed:F.World() & U32) -> Doc.Doc:
   match observed:
-    case (world,ns):registered(prefix,iterations,state(Program.start(world,S.Owners{owners,dispose,S.Frame{first,second,0,0,None{},None{},[],[]}},ns)))
+    case (world,ns):registered(prefix,iterations,state(Program.start(world,S.Owners{owners,dispose,S.Frame{first,second,0,0,None{},None{},[],[],method}},ns)))
 def dispose_registered(prefix:Doc.Doc,iterations:U32,owners:Reg.Owners,first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,value:Sys.RegistrationResult<T.MotionSchema,F.Store(),F.Resources(),E.event_type(),List<&2,W.Handle<T.MotionSchema>>,Empty,Dispose.Output,Dispose.runner>) -> Doc.Doc:
   match value:
     case Sys.Registered{world,registry}:named(prefix,iterations,owners,registry,first,second,W.namespace(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),world))

@@ -1,4 +1,5 @@
 import Base
+import ../method.bend as Method
 import report-doc.bend as Doc
 import /tmp/bendvy-failedtxn-matched-method/src/ecs/world.bend as W
 import /tmp/bendvy-failedtxn-matched-method/experiments/s-perf/canonical-api-v1/dense-runtime-v1/types.bend as T
@@ -33,7 +34,7 @@ def maybe_handle(value:Maybe<&2,W.Handle<T.MotionSchema>>) -> String:
     case Some{value}:"Some{" ++ O.handle(value) ++ "}"
 def frame(value:S.Frame) -> Doc.Doc:
   match value:
-    case S.Frame{first,second,iteration,phase,pending,retry,failed,calls}:Doc.concat([Doc.text("first="),Doc.text(O.handle(first)),Doc.text(";second="),Doc.text(O.handle(second)),Doc.text(";iteration="),Doc.text(U32.show(iteration)),Doc.text(";phase="),Doc.text(U32.show(phase)),Doc.text(";pendingA="),Doc.text(maybe_handle(pending)),Doc.text(";retryB="),Doc.text(maybe_handle(retry)),Doc.text(";failed="),Doc.text(List.show(&2,W.Handle<T.MotionSchema>,O.handle,failed)),Doc.text(";calls="),Doc.show(~Doc.Doc,~Doc.audit_value,calls)])
+    case S.Frame{first,second,iteration,phase,pending,retry,failed,calls,method}:Doc.concat([Doc.text("first="),Doc.text(O.handle(first)),Doc.text(";second="),Doc.text(O.handle(second)),Doc.text(";iteration="),Doc.text(U32.show(iteration)),Doc.text(";phase="),Doc.text(U32.show(phase)),Doc.text(";pendingA="),Doc.text(maybe_handle(pending)),Doc.text(";retryB="),Doc.text(maybe_handle(retry)),Doc.text(";failed="),Doc.text(List.show(&2,W.Handle<T.MotionSchema>,O.handle,failed)),Doc.text(";calls="),Doc.show(~Doc.Doc,~Doc.audit_value,calls)])
 def joined(+state:S.Frame,left:Reg.Owners & String,right:D.Registry() & String) -> S.Owners & Doc.Doc:
   (registered,sr)=left
   (dispose,sd)=right

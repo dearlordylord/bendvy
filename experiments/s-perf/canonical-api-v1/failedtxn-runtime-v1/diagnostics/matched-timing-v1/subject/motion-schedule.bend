@@ -1,4 +1,5 @@
 import Base
+import ../method.bend as Method
 import /tmp/bendvy-failedtxn-matched-method/src/ecs/world.bend as World
 import /tmp/bendvy-failedtxn-matched-method/experiments/s-perf/canonical-api-v1/dense-runtime-v1/types.bend as T
 import motion.bend as F
@@ -58,7 +59,7 @@ def dispatch_all(value:(Locals() & Others()) & S.Shared,context:Ctx.Context<F.Wo
 def selected(shared:S.Shared,phase:U32) -> S.Shared & U32:(shared,phase)
 def phase(shared:S.Shared) -> S.Shared & U32:
   match shared:
-    case S.Shared{meta,tick,S.Frame{first,second,iteration,+phase,pending,retry,failed,calls}}:selected(S.Shared{meta,tick,S.Frame{first,second,iteration,phase,pending,retry,failed,calls}},phase)
+    case S.Shared{meta,tick,S.Frame{first,second,iteration,+phase,pending,retry,failed,calls,method}}:selected(S.Shared{meta,tick,S.Frame{first,second,iteration,phase,pending,retry,failed,calls,method}},phase)
 def selected_a(value:S.Shared & U32) -> S.Shared & Bool:
   match value:
     case (shared,+phase):(shared,U32.is_eq(phase,1))

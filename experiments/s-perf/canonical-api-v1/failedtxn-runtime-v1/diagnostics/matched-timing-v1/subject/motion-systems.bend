@@ -1,4 +1,7 @@
 import Base
+import ../method.bend as Method
+import ../capture-call.bend as Capture
+import ../json.bend as J
 import /tmp/bendvy-failedtxn-matched-method/src/ecs/execution-context.bend as Ctx
 import /tmp/bendvy-failedtxn-matched-method/src/ecs/trace-facts.bend as Facts
 import report-doc.bend as Doc
@@ -25,7 +28,7 @@ import /tmp/bendvy-failedtxn-matched-method/src/ecs/ordinary-reader-system.bend 
 import /tmp/bendvy-failedtxn-matched-method/src/ecs/event-family-routing.bend as Route
 
 type Frame is Data:
-  Frame{first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,iteration:U32,phase:U32,pendingA:Maybe<&2,W.Handle<T.MotionSchema>>,retryB:Maybe<&2,W.Handle<T.MotionSchema>>,failed:List<&2,W.Handle<T.MotionSchema>>,calls:List<&2,Doc.Doc>}
+  Frame{first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,iteration:U32,phase:U32,pendingA:Maybe<&2,W.Handle<T.MotionSchema>>,retryB:Maybe<&2,W.Handle<T.MotionSchema>>,failed:List<&2,W.Handle<T.MotionSchema>>,calls:List<&2,Doc.Doc>,method:Method.State}
 type Owners is Type:
   Owners{registered:Reg.Owners,dispose:Dispose.Registry(),frame:Frame}
 type Shared is Type:
@@ -52,19 +55,19 @@ def target(a:Bool,first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>
     case False{}:second
 def args(+a:Bool,meta:L.Meta(),tick:Nat,frame:Frame) -> L.Args:
   match frame:
-    case Frame{first,second,iteration,+phase,_,_,_,_}:L.Args{meta,tick,target(a,first,second),iteration,is_prime(phase),invocation_outcome(a,phase)}
+    case Frame{first,second,iteration,+phase,_,_,_,_,method}:L.Args{meta,tick,target(a,first,second),iteration,is_prime(phase),invocation_outcome(a,phase)}
 def append_failed(old:List<&2,W.Handle<T.MotionSchema>>,handle:Maybe<&2,W.Handle<T.MotionSchema>>) -> List<&2,W.Handle<T.MotionSchema>>:
   match handle:
     case None{}:old
     case Some{handle}:List.append(&2,W.Handle<T.MotionSchema>,old,[handle])
 def frame_call(frame:Frame,_:Maybe<&2,W.Handle<T.MotionSchema>>,text:Doc.Doc) -> Frame:
   match frame:
-    case Frame{first,second,iteration,phase,pending,retry,failed,calls}:Frame{first,second,iteration,phase,pending,retry,failed,List.append(&2,Doc.Doc,calls,[text])}
+    case Frame{first,second,iteration,phase,pending,retry,failed,calls,method}:Frame{first,second,iteration,phase,pending,retry,failed,List.append(&2,Doc.Doc,calls,[text]),method}
 def local_frame_call(a:Bool,frame:Frame,handle:Maybe<&2,W.Handle<T.MotionSchema>>,text:Doc.Doc) -> Frame:
   match a frame:
-    case True{}, Frame{first,second,iteration,phase,_,retry,failed,calls}:Frame{first,second,iteration,phase,handle,retry,failed,List.append(&2,Doc.Doc,calls,[text])}
-    case False{}, Frame{first,second,iteration,1,pending,retry,failed,calls}:Frame{first,second,iteration,1,pending,retry,append_failed(failed,handle),List.append(&2,Doc.Doc,calls,[text])}
-    case False{}, Frame{first,second,iteration,3,pending,_,failed,calls}:Frame{first,second,iteration,3,pending,handle,failed,List.append(&2,Doc.Doc,calls,[text])}
+    case True{}, Frame{first,second,iteration,phase,_,retry,failed,calls,method}:Frame{first,second,iteration,phase,handle,retry,failed,List.append(&2,Doc.Doc,calls,[text]),method}
+    case False{}, Frame{first,second,iteration,1,pending,retry,failed,calls,method}:Frame{first,second,iteration,1,pending,retry,append_failed(failed,handle),List.append(&2,Doc.Doc,calls,[text]),method}
+    case False{}, Frame{first,second,iteration,3,pending,_,failed,calls,method}:Frame{first,second,iteration,3,pending,handle,failed,List.append(&2,Doc.Doc,calls,[text]),method}
     case False{}, frame:frame_call(frame,handle,text)
 def status(value:L.Call) -> L.Call & Bool:
   match value:
@@ -77,10 +80,20 @@ def outcome(world:F.World(),ok:Bool) -> Sys.Outcome<F.World(),Unit,Unit>:
   match ok:
     case True{}:Sys.Succeeded{world,Unit{}}
     case False{}:Sys.Failed{world,Unit{}}
-def local_logged(+a:Bool,frame:Frame,meta:L.Meta(),tick:Nat,world:F.World(),before:String,after:L.Instance() & String,result:Bool & (L.Call & Maybe<&2,W.Handle<T.MotionSchema>>)) -> LocalResult():
+def local_logged_original(+a:Bool,frame:Frame,meta:L.Meta(),tick:Nat,world:F.World(),before:String,after:L.Instance() & String,result:Bool & (L.Call & Maybe<&2,W.Handle<T.MotionSchema>>)) -> LocalResult():
   (instance,after)=after
   (ok,(call,handle))=result
   (instance,(Shared{meta,tick,local_frame_call(a,frame,handle,Doc.concat([Doc.text("beforeLocal={"),Doc.text(before),Doc.text("};afterLocal={"),Doc.text(after),Doc.text("};call={"),Render.call(call),Doc.text("}")]))},outcome(world,ok)))
+def local_captured(a:Bool,frame:Frame,meta:L.Meta(),tick:Nat,world:F.World(),before:String,after:String,+ok:Bool,handle:Maybe<&2,W.Handle<T.MotionSchema>>,captured:L.Instance() & (L.Call & Method.State)) -> LocalResult():
+  match frame captured:
+    case Frame{first,second,i,phase,pending,retry,failed,calls,_}, (instance,(call,method)):local_logged_original(a,Frame{first,second,i,phase,pending,retry,failed,calls,method},meta,tick,world,before,(instance,after),(ok,(call,handle)))
+def local_capture_handle(+a:Bool,+frame:Frame,meta:L.Meta(),tick:Nat,world:F.World(),before:String,after:String,ok:Bool,call:L.Call,+handle:Maybe<&2,W.Handle<T.MotionSchema>>,instance:L.Instance()) -> LocalResult():
+  match frame:
+    case Frame{_,_,i,phase,_,_,_,_,method}:local_captured(a,frame,meta,tick,world,before,after,ok,handle,Capture.local(a,i,phase,method,handle,instance,call))
+def local_logged(a:Bool,frame:Frame,meta:L.Meta(),tick:Nat,world:F.World(),before:String,after:L.Instance() & String,result:Bool & (L.Call & Maybe<&2,W.Handle<T.MotionSchema>>)) -> LocalResult():
+  (instance,after)=after
+  (ok,(call,handle))=result
+  local_capture_handle(a,frame,meta,tick,world,before,after,ok,call,handle,instance)
 def local_returned(a:Bool,frame:Frame,before:String,result:Local.Run<T.MotionSchema,F.Store(),F.Resources(),E.event_type(),L.State,L.Args,Empty,L.Returned,L.runner>) -> LocalResult():
   match result:
     case Local.Completed{world,instance,Done{L.Returned{meta,tick,call}}}:local_logged(a,frame,meta,tick,world,before,Render.instance(instance),called(status(call)))
@@ -99,9 +112,14 @@ def maybe_publication(value:Maybe<&2,Publications.Read>) -> String:
   match value:
     case None{}:"None"
     case Some{value}:"Some{" ++ publication_text(value) ++ "}"
-def pub_restored(frame:Frame,before:String,+status:U32,value:Maybe<&2,Publications.Read>,world:F.World(),meta:L.Meta(),tick:Nat,observed:Publications.Provider() & String) -> PubResult():
+def pub_restored_original(frame:Frame,before:String,+status:U32,value:Maybe<&2,Publications.Read>,world:F.World(),meta:L.Meta(),tick:Nat,observed:Publications.Provider() & String) -> PubResult():
   match observed:
     case (publications,after):(publications,(Shared{meta,tick,frame_call(frame,None{},Doc.concat([Doc.text("Publications{before={"),Doc.text(before),Doc.text("};after={"),Doc.text(after),Doc.text("};status="),Doc.text(U32.show(status)),Doc.text(";read="),Doc.text(maybe_publication(value)),Doc.text("}")]))},outcome(world,U32.is_eq(status,0))))
+def frame_method(frame:Frame,record:J.Value) -> Frame:
+  match frame:
+    case Frame{first,second,i,phase,pending,retry,failed,calls,method}:Frame{first,second,i,phase,pending,retry,failed,calls,Method.append(method,record)}
+def pub_restored(frame:Frame,before:String,+status:U32,+value:Maybe<&2,Publications.Read>,world:F.World(),meta:L.Meta(),tick:Nat,observed:Publications.Provider() & String) -> PubResult():
+  pub_restored_original(frame_method(frame,Capture.publication(status,value)),before,status,value,world,meta,tick,observed)
 def pub_context(frame:Frame,before:String,+status:U32,value:Maybe<&2,Publications.Read>,provider:Publications.Provider(),context:Family.Context()) -> PubResult():
   match context:
     case Route.Runtime{world,meta,tick}:pub_restored(frame,before,status,value,world,meta,tick,RO.publications(provider))
@@ -114,7 +132,7 @@ def pub_returned(frame:Frame,before:String,result:Publications.Run()) -> PubResu
     case Ordinary.RunSkipped{context,provider}:pub_context(frame,before,4,None{},provider,context)
 def pub_args(frame:Frame) -> Publications.Args:
   match frame:
-    case Frame{_,_,iteration,phase,_,_,_,_}:Publications.Args{phase,iteration}
+    case Frame{_,_,iteration,phase,_,_,_,_,method}:Publications.Args{phase,iteration}
 def pub_observed(+frame:Frame,world:F.World(),meta:L.Meta(),tick:Nat,observed:Publications.Provider() & String) -> PubResult():
   match observed:
     case (provider,before):pub_returned(frame,before,Publications.run(provider,Route.Runtime{world,meta,tick},pub_args(frame)))
@@ -127,7 +145,7 @@ def optional_handle(value:Maybe<&2,W.Handle<T.MotionSchema>>) -> List<&2,W.Handl
     case Some{value}:[value]
 def transients(frame:Frame) -> List<&2,W.Handle<T.MotionSchema>>:
   match frame:
-    case Frame{_,_,_,_,pending,retry,_,_}:List.append(&2,W.Handle<T.MotionSchema>,optional_handle(pending),optional_handle(retry))
+    case Frame{_,_,_,_,pending,retry,_,_,method}:List.append(&2,W.Handle<T.MotionSchema>,optional_handle(pending),optional_handle(retry))
 def world_status(value:W.Status) -> String:
   match value:
     case W.Accepted{}:"Accepted"
