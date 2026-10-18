@@ -1,0 +1,16 @@
+SOME PROOFS FAIL
+Error:
+- expected : String
+- observed : List<&2, Sampler.Sample>
+Context:
+- token    : Array<U32>
+- returned : List<&1, Array<U32>>
+- before   : String
+- after    : String
+- reports  : List<&2, Sampler.Sample>
+Location: project
+43 |   match value:
+44>|     case State{token,returned,before,after,reports}:project_join(before,reports,Dump.u32_array(token),Observe.returned(returned))
+   |                                                                         ^^^^^^^
+45 | 
+bend 2.0.37 is available: run bend update

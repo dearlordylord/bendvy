@@ -1,0 +1,12 @@
+{
+  "scope": "Source accounting only; independent wrong model sealed before subject, actual canonical and traversed terminal counts unchanged. Zero-selector discard is bounded, nonempty raw discard remains outside slice.",
+  "name": "corrupt-counter",
+  "source": "meter.bend",
+  "beforeSHA256": "db2f50472c20a10b8252bd63824fbf331ffd9bbc630d55e4b4bdf7553905ad2d",
+  "afterSHA256": "cd0c2ab9ba7ddd2ba6ed9258bd1884f72c7e7e83c9a8b7f1751a157071896320",
+  "old": "Counts{Nat.add(u,du),Nat.add(c,dc),Nat.add(e,de)}",
+  "new": "Counts{Nat.add(Nat.add(u,du),1n),Nat.add(c,dc),Nat.add(e,de)}",
+  "normalModelSHA256": "27716dff142985deffe56ec88b11032686cb0ea771f9789370d33c21c025da77",
+  "wrongModelSHA256": "e8226f07bb8c9b5d9438938b629825730a4fa4ceb9160e59df73da13b017ad44",
+  "model": "Replay source-declared deltas from independent normal model with the exact accounting mutation; retain actual terminal traversal and compare cached current to it."
+}

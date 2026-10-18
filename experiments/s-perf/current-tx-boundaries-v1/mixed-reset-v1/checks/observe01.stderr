@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : a function type
+- observed : S.Packet
+Context:
+- target   : W.Handle<S.Schema>
+- packet   : S.Packet
+- position : Nat
+Location: prepared
+27 |   match value:
+28>|     case Batch.Prepared{target,packet,position}:prepared_join(target,position,packet(packet))
+   |                                                                               ^^^^^^^^^^^^^^
+29 |     case Batch.ReservationReceipt{+target}:(Batch.ReservationReceipt{target},"R(" ++ handle(target) ++ ")")
+bend 2.0.37 is available: run bend update
