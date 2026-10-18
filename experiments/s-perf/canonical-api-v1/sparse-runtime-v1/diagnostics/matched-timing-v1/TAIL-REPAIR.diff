@@ -1,0 +1,29 @@
+--- firstfailed codec
++++ tail-safe private codec
+@@ -17,7 +17,11 @@
+   match values:
+     case []:acc
+     case head <> tail:fold(tail,mix(acc,head))
+-def cat(left:List<&2,U32>,right:List<&2,U32>) -> List<&2,U32>:List.append(&2,U32,left,right)
++def prepend(values:List<&2,U32>,suffix:List<&2,U32>) -> List<&2,U32>:
++  match values:
++    case []:suffix
++    case head <> rest:prepend(rest,head <> suffix)
++def cat(left:List<&2,U32>,right:List<&2,U32>) -> List<&2,U32>:prepend(List.reverse(&2,U32,left),right)
+ def four(value:T.Four) -> List<&2,U32>:
+   match value:
+     case T.Four{a,b,c,d}:[a,b,c,d]
+@@ -110,4 +114,12 @@
+ def encode(value:C.Common) -> List<&2,U32>:
+   match value:
+     case C.Common{rows,resource,+audits,statuses,cumulative}:cat(list(~IQ.ProjectedRow<T.MotionSchema,Logical.Value()>,~row,rows),cat(ledger(resource),cat(cat(natural(List.length(&2,Driver.Audit,audits)),audit_body(audits,0)),cat(list(~Driver.Status,~status,statuses),[U32.sub(cumulative,all_delta(audits))]))))
+-def show(values:List<&2,U32>) -> String:List.show(&2,U32,U32.show,values)
++def show_prepend(values:List<&2,U32>,suffix:String) -> String:
++  match values:
++    case []:"[" ++ suffix
++    case head <> rest:show_prepend(rest,U32.show(head) ++ ", " ++ suffix)
++def show_reversed(values:List<&2,U32>) -> String:
++  match values:
++    case []:"[]"
++    case head <> rest:show_prepend(rest,U32.show(head) ++ "]")
++def show(values:List<&2,U32>) -> String:show_reversed(List.reverse(&2,U32,values))
