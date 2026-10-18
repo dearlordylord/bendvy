@@ -1,0 +1,95 @@
+{
+  "scope": "Blind #73 greenhouse public ordinary component plus affine captured Changed query; complete independent oracle; no performance claim",
+  "planSHA256": "ae7bc681764016d2da646f74799a8c32b23bae71b36ab63466761d40df105c17",
+  "commands": [
+    {
+      "label": "emit",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "9",
+        "/home/node/.bend/bin/bend-2.0.35",
+        "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/main.bend",
+        "-o",
+        "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/scenario.js"
+      ],
+      "capSeconds": 60,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/emit.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/emit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    },
+    {
+      "label": "consumer",
+      "argv": [
+        "/usr/bin/taskset",
+        "-c",
+        "9",
+        "/home/node/.local/share/mise/installs/node/24.20.0/bin/node",
+        "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/scenario.js"
+      ],
+      "capSeconds": 180,
+      "exit": 0,
+      "failure": null,
+      "capture": "split",
+      "runnerSHA256": "9d57188f7ba7112cd1f8910ff96e5af70b6d5bdd31aa474a70e4b9848bae88e5",
+      "stdout": {
+        "path": "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/consumer.stdout",
+        "sha256": "960ede2ea30a75b3c5dc4bac24715263cfda688b3379c45c9450d72f9157d33e",
+        "bytes": 126,
+        "published": true
+      },
+      "stderr": {
+        "path": "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/consumer.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0,
+        "published": true
+      }
+    }
+  ],
+  "guards": [
+    {
+      "path": "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/emit-pre.guard.json",
+      "sha256": "1f45ee940f97b0e43d9d7cfa58a20aba3ca2b34df25c6e6a48472bafa1373d09"
+    },
+    {
+      "path": "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/emit-acquired.guard.json",
+      "sha256": "b3abb686d8aee12fa67eae89112fd0ed174a9a967bf32358cdf9fd0164b7e40f"
+    },
+    {
+      "path": "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/emit-post.guard.json",
+      "sha256": "aa4dbba2cda6c89257291b0d7b5397f1b99b74a35796e2e104ac566fa15e697a"
+    },
+    {
+      "path": "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/consumer-pre.guard.json",
+      "sha256": "71a358250ea889780312aa2f06c66cb50379179e01b3a35cb3a838953313b62f"
+    },
+    {
+      "path": "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/consumer-acquired.guard.json",
+      "sha256": "1737e48a507b8d9d270147c255b4ff998d698f160b2d7e2d58d373b17177e1e2"
+    },
+    {
+      "path": "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/consumer-post.guard.json",
+      "sha256": "2678c2fa3aea2f4a7f4162ec1828cf63d4ae79233cbb44404de9b26cdcf9e51d"
+    },
+    {
+      "path": "/tmp/bendvy-captured-blind/experiments/public-api-usability/captured-query-blind-v1/js-attempt02/final.guard.json",
+      "sha256": "8950a5bd162ea36b372ac094dfcd68da413efc5dfc4e581f1586efbbd1c73975"
+    }
+  ],
+  "status": "COMPLETE_CONSUMER_DEVELOPMENT_PASS",
+  "emitArtifactSHA256": "d31d3ce2030282812b99599879109801984e81e985475713851bedef1456b1d2",
+  "wholeOracleSHA256": "960ede2ea30a75b3c5dc4bac24715263cfda688b3379c45c9450d72f9157d33e"
+}
