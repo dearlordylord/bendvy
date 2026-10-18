@@ -1,4 +1,6 @@
 import Base
+import ../../../../../metric-owner.bend as MO
+import ../../../../../profile.bend as Metrics
 import health-app.bend as EntryApp
 import motion-varint.bend as Var
 import health-registration.bend as Reg
@@ -214,19 +216,19 @@ def state_tagged(observed:Program.State & R.Rope) -> Program.State & R.Rope:
   (owner,value)=observed
   (owner,join(text("T"),value))
 def state(value:Program.State) -> Program.State & R.Rope:state_tagged(state_body(value))
-def rejected_first(observed:Array<U32> & V.Tree<U32>) -> Reg.RejectedOwners & R.Rope:
+def rejected_first(observed:MO.Owner & V.Tree<U32>) -> Reg.RejectedOwners & R.Rope:
   (capture,view)=observed
   (Reg.First{capture},cat([text("x"),u(0),tree(~U32,~u,view)]))
-def rejected_second(selected:S.Instance(~S.select_runner) & V.Local,captured:Array<U32> & V.Tree<U32>) -> Reg.RejectedOwners & R.Rope:
+def rejected_second(selected:S.Instance(~S.select_runner) & V.Local,captured:MO.Owner & V.Tree<U32>) -> Reg.RejectedOwners & R.Rope:
   (select,ss)=selected
   (capture,view)=captured
   (Reg.Second{select,capture},cat([text("x"),u(1),local(ss),tree(~U32,~u,view)]))
-def rejected_third(selected:S.Instance(~S.select_runner) & V.Local,reserved:S.Instance(~S.reserve_runner) & V.Local,captured:Array<U32> & V.Tree<U32>) -> Reg.RejectedOwners & R.Rope:
+def rejected_third(selected:S.Instance(~S.select_runner) & V.Local,reserved:S.Instance(~S.reserve_runner) & V.Local,captured:MO.Owner & V.Tree<U32>) -> Reg.RejectedOwners & R.Rope:
   (select,ss)=selected
   (reserve,sr)=reserved
   (capture,view)=captured
   (Reg.Third{select,reserve,capture},cat([text("x"),u(2),local(ss),local(sr),tree(~U32,~u,view)]))
-def rejected_fourth(selected:S.Instance(~S.select_runner) & V.Local,reserved:S.Instance(~S.reserve_runner) & V.Local,disposed:S.Instance(~S.dispose_runner) & V.Local,captured:Array<U32> & V.Tree<U32>) -> Reg.RejectedOwners & R.Rope:
+def rejected_fourth(selected:S.Instance(~S.select_runner) & V.Local,reserved:S.Instance(~S.reserve_runner) & V.Local,disposed:S.Instance(~S.dispose_runner) & V.Local,captured:MO.Owner & V.Tree<U32>) -> Reg.RejectedOwners & R.Rope:
   (select,ss)=selected
   (reserve,sr)=reserved
   (dispose,sd)=disposed
@@ -234,7 +236,7 @@ def rejected_fourth(selected:S.Instance(~S.select_runner) & V.Local,reserved:S.I
   (Reg.Fourth{select,reserve,dispose,capture},cat([text("x"),u(3),local(ss),local(sr),local(sd),tree(~U32,~u,view)]))
 def rejected(value:Reg.RejectedOwners) -> Reg.RejectedOwners & R.Rope:
   match value:
-    case Reg.First{capture}:rejected_first(V.tree(~U32,~U32,~V.u32_value,capture))
-    case Reg.Second{select,capture}:rejected_second(S.instance(~S.select_runner,select),V.tree(~U32,~U32,~V.u32_value,capture))
-    case Reg.Third{select,reserve,capture}:rejected_third(S.instance(~S.select_runner,select),S.instance(~S.reserve_runner,reserve),V.tree(~U32,~U32,~V.u32_value,capture))
-    case Reg.Fourth{select,reserve,dispose,capture}:rejected_fourth(S.instance(~S.select_runner,select),S.instance(~S.reserve_runner,reserve),S.instance(~S.dispose_runner,dispose),V.tree(~U32,~U32,~V.u32_value,capture))
+    case Reg.First{capture}:rejected_first(S.local_view(capture))
+    case Reg.Second{select,capture}:rejected_second(S.instance(~S.select_runner,select),S.local_view(capture))
+    case Reg.Third{select,reserve,capture}:rejected_third(S.instance(~S.select_runner,select),S.instance(~S.reserve_runner,reserve),S.local_view(capture))
+    case Reg.Fourth{select,reserve,dispose,capture}:rejected_fourth(S.instance(~S.select_runner,select),S.instance(~S.reserve_runner,reserve),S.instance(~S.dispose_runner,dispose),S.local_view(capture))

@@ -1,4 +1,5 @@
 import Base
+import ../../../../../profile.bend as Metrics
 import health-domain.bend as D
 import health-systems.bend as S
 import health-schedule.bend as Schedule
@@ -91,3 +92,14 @@ def initial_named(foreign:D.World(),owners:S.Owners,observed:D.World() & U32) ->
   match observed:
     case (world,namespace):initial_catalog(world,foreign,namespace,catalog(owners))
 def initial(world:D.World(),foreign:D.World(),owners:S.Owners) -> State:initial_named(foreign,owners,W.namespace(~Types.HealthSchema,~F.Store(),~F.Resources(),~Nat,world))
+
+def samples_joined(world:F.World(),observed:S.Runtime() & List<&2,Metrics.Sample>) -> F.World() & (S.Runtime() & List<&2,Metrics.Sample>):
+  match observed:
+    case (owners,samples):(world,(owners,samples))
+def project_samples(world:F.World(),owners:S.Runtime(),_:Unit) -> F.World() & (S.Runtime() & List<&2,Metrics.Sample>):samples_joined(world,S.samples(owners))
+def projected_samples(observed:EntryApp.Slot() & List<&2,Metrics.Sample>) -> List<&2,Metrics.Sample>:
+  match observed:
+    case (_,samples):samples
+def finish_samples(state:State) -> List<&2,Metrics.Sample>:
+  match state:
+    case State{app,_,_,_,_,_}:projected_samples(EntryApp.project(~Unit,~List<&2,Metrics.Sample>,~project_samples,app,Unit{}))

@@ -1,4 +1,6 @@
 import Base
+import ../../../../../metric-owner.bend as MO
+import ../../../../../profile.bend as Metrics
 import health-domain.bend as D
 import health-systems.bend as S
 import ../dense-runtime-v1/health.bend as F
@@ -21,7 +23,7 @@ def selected_select(value:S.Shared & U32) -> S.Shared & Bool:
     case (shared,+value):(shared,U32.is_eq(value,0))
 def enabled_select(shared:S.Shared) -> S.Shared & Bool:selected_select(stage(shared))
 def fields_select(owner:S.Instance(~S.select_runner)) -> S.Instance(~S.select_runner) & Fields.Fields<T.HealthSchema>:
-  Existing.local_fields(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,~Array<U32>,~D.Frame,~Unit,~D.Output,~S.select_runner,owner)
+  Existing.local_fields(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,~MO.Owner,~D.Frame,~Unit,~D.Output,~S.select_runner,owner)
 def fold_select(value:S.Instance(~S.select_runner) & S.Shared) -> (S.Instance(~S.select_runner) & S.Shared) & List<&2,Fields.Fields<T.HealthSchema>>:
   Existing.fold(~T.HealthSchema,~S.Instance(~S.select_runner),~S.Shared,~fields_select,value)
 def dispatch_select(value:S.Instance(~S.select_runner) & S.Shared,context:Ctx.Context<D.World()>,id:U32) -> (S.Instance(~S.select_runner) & S.Shared) & Sys.Outcome<Ctx.Context<D.World()>,Unit,Unit>:
@@ -33,7 +35,7 @@ def selected_reserve(value:S.Shared & U32) -> S.Shared & Bool:
     case (shared,+value):(shared,U32.is_eq(value,0))
 def enabled_reserve(shared:S.Shared) -> S.Shared & Bool:selected_reserve(stage(shared))
 def fields_reserve(owner:S.Instance(~S.reserve_runner)) -> S.Instance(~S.reserve_runner) & Fields.Fields<T.HealthSchema>:
-  Existing.local_fields(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,~Array<U32>,~D.Frame,~Unit,~D.Output,~S.reserve_runner,owner)
+  Existing.local_fields(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,~MO.Owner,~D.Frame,~Unit,~D.Output,~S.reserve_runner,owner)
 def fold_reserve(value:S.Instance(~S.reserve_runner) & S.Shared) -> (S.Instance(~S.reserve_runner) & S.Shared) & List<&2,Fields.Fields<T.HealthSchema>>:
   Existing.fold(~T.HealthSchema,~S.Instance(~S.reserve_runner),~S.Shared,~fields_reserve,value)
 def dispatch_reserve(value:S.Instance(~S.reserve_runner) & S.Shared,context:Ctx.Context<D.World()>,id:U32) -> (S.Instance(~S.reserve_runner) & S.Shared) & Sys.Outcome<Ctx.Context<D.World()>,Unit,Unit>:
@@ -45,7 +47,7 @@ def selected_dispose(value:S.Shared & U32) -> S.Shared & Bool:
     case (shared,+value):(shared,U32.is_eq(value,4))
 def enabled_dispose(shared:S.Shared) -> S.Shared & Bool:selected_dispose(stage(shared))
 def fields_dispose(owner:S.Instance(~S.dispose_runner)) -> S.Instance(~S.dispose_runner) & Fields.Fields<T.HealthSchema>:
-  Existing.local_fields(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,~Array<U32>,~D.Frame,~Unit,~D.Output,~S.dispose_runner,owner)
+  Existing.local_fields(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,~MO.Owner,~D.Frame,~Unit,~D.Output,~S.dispose_runner,owner)
 def fold_dispose(value:S.Instance(~S.dispose_runner) & S.Shared) -> (S.Instance(~S.dispose_runner) & S.Shared) & List<&2,Fields.Fields<T.HealthSchema>>:
   Existing.fold(~T.HealthSchema,~S.Instance(~S.dispose_runner),~S.Shared,~fields_dispose,value)
 def dispatch_dispose(value:S.Instance(~S.dispose_runner) & S.Shared,context:Ctx.Context<D.World()>,id:U32) -> (S.Instance(~S.dispose_runner) & S.Shared) & Sys.Outcome<Ctx.Context<D.World()>,Unit,Unit>:
@@ -57,7 +59,7 @@ def selected_observe(value:S.Shared & U32) -> S.Shared & Bool:
     case (shared,+value):(shared,Bool.or(U32.is_eq(value,1),Bool.or(U32.is_eq(value,3),U32.is_eq(value,5))))
 def enabled_observe(shared:S.Shared) -> S.Shared & Bool:selected_observe(stage(shared))
 def fields_observe(owner:S.Instance(~S.observe_runner)) -> S.Instance(~S.observe_runner) & Fields.Fields<T.HealthSchema>:
-  Existing.local_fields(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,~Array<U32>,~D.Frame,~Unit,~D.Output,~S.observe_runner,owner)
+  Existing.local_fields(~T.HealthSchema,~F.Store(),~F.Resources(),~Nat,~MO.Owner,~D.Frame,~Unit,~D.Output,~S.observe_runner,owner)
 def fold_observe(value:S.Instance(~S.observe_runner) & S.Shared) -> (S.Instance(~S.observe_runner) & S.Shared) & List<&2,Fields.Fields<T.HealthSchema>>:
   Existing.fold(~T.HealthSchema,~S.Instance(~S.observe_runner),~S.Shared,~fields_observe,value)
 def dispatch_observe(value:S.Instance(~S.observe_runner) & S.Shared,context:Ctx.Context<D.World()>,id:U32) -> (S.Instance(~S.observe_runner) & S.Shared) & Sys.Outcome<Ctx.Context<D.World()>,Unit,Unit>:
