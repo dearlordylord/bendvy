@@ -12,20 +12,20 @@ import ./ordinary-reader-system.bend as Reader
 import ./ordinary-app-recipe.bend as Tree
 import ./world.bend as W
 
-def folded(~S:Data,~O:Type,~Shared:Type,shared:Shared,result:O & List<&2,Fields.Fields<S>>) -> (O & Shared) & List<&2,Fields.Fields<S>>:
+def folded(~S:Data,~O:Type,~Shared:Type,shared:Shared,result:O & Fields.Fields<S>) -> (O & Shared) & List<&2,Fields.Fields<S>>:
   match result:
-    case (owner,fields):((owner,shared),fields)
-def fold(~S:Data,~O:Type,~Shared:Type,~catalog:O -> O & List<&2,Fields.Fields<S>>,value:O & Shared) -> (O & Shared) & List<&2,Fields.Fields<S>>:
+    case (owner,fields):((owner,shared),[fields])
+def fold(~S:Data,~O:Type,~Shared:Type,~catalog:O -> O & Fields.Fields<S>,value:O & Shared) -> (O & Shared) & List<&2,Fields.Fields<S>>:
   match value:
     case (owner,shared):folded(~S,~O,~Shared,shared,catalog(owner))
-def selected_plan(~S:Data,enabled:Bool,fields:List<&2,Fields.Fields<S>>,needs:List<&2,SP.Requirement<S>>) -> SP.Plan<S>:
-  match enabled fields:
-    case True{}, field <> _:SP.Entry{Sch.System{Exec.registration_id(~S,field),0},needs}
-    case _, _:SP.Empty{}
-def planned(~S:Data,~O:Type,~Shared:Type,needs:List<&2,SP.Requirement<S>>,result:O & List<&2,Fields.Fields<S>>,selection:Shared & Bool) -> (O & Shared) & SP.Plan<S>:
+def selected_plan(~S:Data,enabled:Bool,field:Fields.Fields<S>,needs:List<&2,SP.Requirement<S>>) -> SP.Plan<S>:
+  match enabled:
+    case True{}:SP.Entry{Sch.System{Exec.registration_id(~S,field),0},needs}
+    case False{}:SP.Empty{}
+def planned(~S:Data,~O:Type,~Shared:Type,needs:List<&2,SP.Requirement<S>>,result:O & Fields.Fields<S>,selection:Shared & Bool) -> (O & Shared) & SP.Plan<S>:
   match result selection:
     case (owner,fields),(shared,enabled):((owner,shared),selected_plan(~S,enabled,fields,needs))
-def plan(~S:Data,~O:Type,~Shared:Type,~catalog:O -> O & List<&2,Fields.Fields<S>>,~enabled:Shared -> Shared & Bool,~needs:List<&2,SP.Requirement<S>>,value:O & Shared) -> (O & Shared) & SP.Plan<S>:
+def plan(~S:Data,~O:Type,~Shared:Type,~catalog:O -> O & Fields.Fields<S>,~enabled:Shared -> Shared & Bool,~needs:List<&2,SP.Requirement<S>>,value:O & Shared) -> (O & Shared) & SP.Plan<S>:
   match value:
     case (owner,shared):planned(~S,~O,~Shared,needs,catalog(owner),enabled(shared))
 def returned(~World:Type,~O:Type,~Shared:Type,~Error:Data,result:O & (Shared & Sys.Outcome<Ctx.Context<World>,Error,Unit>)) -> (O & Shared) & Sys.Outcome<Ctx.Context<World>,Error,Unit>:
@@ -35,10 +35,10 @@ def invoked(~S:Data,~World:Type,~O:Type,~Shared:Type,~Error:Data,~invoke:O -> Sh
   match allowed:
     case False{}:((owner,shared),Sys.Failed{context,refused})
     case True{}:returned(~World,~O,~Shared,~Error,invoke(owner,shared,context))
-def catalogued(~S:Data,~World:Type,~O:Type,~Shared:Type,~Error:Data,~invoke:O -> Shared -> Ctx.Context<World> -> O & (Shared & Sys.Outcome<Ctx.Context<World>,Error,Unit>),~refused:Error,shared:Shared,context:Ctx.Context<World>,id:U32,result:O & List<&2,Fields.Fields<S>>) -> (O & Shared) & Sys.Outcome<Ctx.Context<World>,Error,Unit>:
+def catalogued(~S:Data,~World:Type,~O:Type,~Shared:Type,~Error:Data,~invoke:O -> Shared -> Ctx.Context<World> -> O & (Shared & Sys.Outcome<Ctx.Context<World>,Error,Unit>),~refused:Error,shared:Shared,context:Ctx.Context<World>,id:U32,result:O & Fields.Fields<S>) -> (O & Shared) & Sys.Outcome<Ctx.Context<World>,Error,Unit>:
   match result:
-    case (owner,fields):invoked(~S,~World,~O,~Shared,~Error,~invoke,~refused,Exec.member(~S,fields,id),owner,shared,context)
-def dispatch(~S:Data,~World:Type,~O:Type,~Shared:Type,~Error:Data,~catalog:O -> O & List<&2,Fields.Fields<S>>,~invoke:O -> Shared -> Ctx.Context<World> -> O & (Shared & Sys.Outcome<Ctx.Context<World>,Error,Unit>),~refused:Error,value:O & Shared,context:Ctx.Context<World>,id:U32) -> (O & Shared) & Sys.Outcome<Ctx.Context<World>,Error,Unit>:
+    case (owner,fields):invoked(~S,~World,~O,~Shared,~Error,~invoke,~refused,U32.is_eq(Exec.registration_id(~S,fields),id),owner,shared,context)
+def dispatch(~S:Data,~World:Type,~O:Type,~Shared:Type,~Error:Data,~catalog:O -> O & Fields.Fields<S>,~invoke:O -> Shared -> Ctx.Context<World> -> O & (Shared & Sys.Outcome<Ctx.Context<World>,Error,Unit>),~refused:Error,value:O & Shared,context:Ctx.Context<World>,id:U32) -> (O & Shared) & Sys.Outcome<Ctx.Context<World>,Error,Unit>:
   match value:
     case (owner,shared):catalogued(~S,~World,~O,~Shared,~Error,~invoke,~refused,shared,context,id,catalog(owner))
 def right_folded(~S:Data,~L:Type,~R:Type,~Shared:Type,left:L,first:List<&2,Fields.Fields<S>>,result:(R & Shared) & List<&2,Fields.Fields<S>>) -> ((L & R) & Shared) & List<&2,Fields.Fields<S>>:
@@ -87,15 +87,15 @@ def after_planned(~S:Data,~O:Type,~Shared:Type,~after:Shared -> Shared & Bool,re
     case ((owner,shared),before):after_selected(~S,~O,~Shared,owner,before,after(shared))
 def after(~S:Data,~O:Type,~Shared:Type,~plan:(O & Shared) -> (O & Shared) & SP.Plan<S>,~after:Shared -> Shared & Bool,value:O & Shared) -> (O & Shared) & SP.Plan<S>:
   after_planned(~S,~O,~Shared,~after,plan(value))
-def local_fields(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> L -> Args -> Local.Outcome<W.World<S,C,R,E>,L,Error,Out>,value:Local.Instance<S,C,R,E,L,Args,Error,Out,runner>) -> Local.Instance<S,C,R,E,L,Args,Error,Out,runner> & List<&2,Fields.Fields<S>>:
+def local_fields(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> L -> Args -> Local.Outcome<W.World<S,C,R,E>,L,Error,Out>,value:Local.Instance<S,C,R,E,L,Args,Error,Out,runner>) -> Local.Instance<S,C,R,E,L,Args,Error,Out,runner> & Fields.Fields<S>:
   match value:
-    case Local.Instance{+namespace,+id,+name,+access,local}:(Local.Instance{namespace,id,name,access,local},[Fields.Fields{namespace,id,name,access,0,name,[],Fields.MixedKind{[]}}])
-def system_fields(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,value:Sys.Registry<S,C,R,E,Args,Error,Out,runner>) -> Sys.Registry<S,C,R,E,Args,Error,Out,runner> & List<&2,Fields.Fields<S>>:
+    case Local.Instance{+namespace,+id,+name,+access,local}:(Local.Instance{namespace,id,name,access,local},Fields.Fields{namespace,id,name,access,0,name,[],Fields.MixedKind{[]}})
+def system_fields(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,value:Sys.Registry<S,C,R,E,Args,Error,Out,runner>) -> Sys.Registry<S,C,R,E,Args,Error,Out,runner> & Fields.Fields<S>:
   match value:
-    case Sys.Registry{+namespace,+id,+name,+access,+cursor}:(Sys.Registry{namespace,id,name,access,cursor},[Fields.Fields{namespace,id,name,access,cursor,name,[],Fields.MixedKind{[]}}])
-def reader_fields(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~Owner:Type,~Param:Type,~Decl:Type,value:Reader.Provider<Sys.Registry<S,C,R,E,Args,Error,Out,runner>,Owner,Param,Decl>) -> Reader.Provider<Sys.Registry<S,C,R,E,Args,Error,Out,runner>,Owner,Param,Decl> & List<&2,Fields.Fields<S>>:
+    case Sys.Registry{+namespace,+id,+name,+access,+cursor}:(Sys.Registry{namespace,id,name,access,cursor},Fields.Fields{namespace,id,name,access,cursor,name,[],Fields.MixedKind{[]}})
+def reader_fields(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~Owner:Type,~Param:Type,~Decl:Type,value:Reader.Provider<Sys.Registry<S,C,R,E,Args,Error,Out,runner>,Owner,Param,Decl>) -> Reader.Provider<Sys.Registry<S,C,R,E,Args,Error,Out,runner>,Owner,Param,Decl> & Fields.Fields<S>:
   match value:
-    case Reader.Provider{Sys.Registry{+namespace,+id,+name,+access,+cursor},owner,param,decl}:(Reader.Provider{Sys.Registry{namespace,id,name,access,cursor},owner,param,decl},[Fields.Fields{namespace,id,name,access,cursor,name,[],Fields.MixedKind{[]}}])
+    case Reader.Provider{Sys.Registry{+namespace,+id,+name,+access,+cursor},owner,param,decl}:(Reader.Provider{Sys.Registry{namespace,id,name,access,cursor},owner,param,decl},Fields.Fields{namespace,id,name,access,cursor,name,[],Fields.MixedKind{[]}})
 
 def registered(~S:Data,~World:Type,~H:Type,~fold:H -> H & List<&2,Fields.Fields<S>>,~Error:Data,~plan:H -> H & SP.Plan<S>,~dispatch:H -> Ctx.Context<World> -> U32 -> H & Sys.Outcome<Ctx.Context<World>,Error,Unit>,~provide:World -> World & List<&2,SP.Requirement<S>>,world:World,owners:H) -> Exec.Registered<S,World,H,Unit,Build.empty_observe(~World),fold,Error,plan,dispatch,provide>:
   Exec.Registered{Build.Registered{world,owners,Tree.Recipe{},False{}},Exec.Recipe{}}
