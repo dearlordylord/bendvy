@@ -4,6 +4,9 @@ Status: implementation contract for #20, not executed occupancy evidence. The cu
 
 ## Current representation — 2026-10-18
 
+New runs use the recorded [execution limits](../../docs/limits.md). The fixed
+timeouts and CPU assignments below describe the historical #20 protocol.
+
 The table below records the #20 representation. Current [Tx](../../src/ecs/transaction.bend#L7) owns `world`, `undo`, `commands`, `events` and `trace`; a separate staged mark journal is representation-N/A, not measured zero. Persistent added/changed metadata still exists in [component columns](../../src/ecs/column.bend) and [indexed lifecycle arrays](../../src/ecs/indexed-lifecycle.bend); its physical occupancy is separate from active journals and numerical timestamps.
 
 The selected current Lifecycle and Readers consumers do create transactions. Accepted finite observations are recorded in the [delivery report](../../docs/reports/delivery-process-expectations.md). Readers does not reach raw discard; observed Lifecycle unselect reaches empty-journal rollback. These are workload-specific results, not global absence claims. Required reachable measurements, wider cases, persistent retention and clean RSS remain open.
