@@ -2425,3 +2425,12 @@ RSS, full measurement protocols and product speed qualification remain separate.
 #62 is now closed as proposal/falsification delivery after CI 39114729049 passed
 and its English completion report was posted. The four laws remain unapproved;
 future proof/refinement is still gated under #1.
+
+
+## Health B1 complete-observation method — 2026-10-18
+
+Integrated `b849f9012` (worker `efd979353`) after independent launch and final reviews. The ordinary Health64 consumer passed on JS, Native and TS: complete Bend streams 226,886 bytes and TS record 90,224 bytes, both complete 5,512-value tuples per role, six raw clock sidecars. Portable packet [actual-attempt01](../../experiments/s-perf/canonical-api-v1/dense-runtime-v1/diagnostics/matched-timing-v1/health-v1/runtime-v1/actual-attempt01/RETENTION.json): 610 members, 572 objects, 21 guards; manifest `8ad0eed31de8301fd1af8cbb1f30dabd40b4fbab4a5f067046ce5260be57e9ef`.
+
+Independent gold preceded subject authoring; all original workload operations and full-field observations remain. Sixteen finite model sensitivity controls are not compiling mutants. Prelaunch environment/load snapshot is unavailable; no reconstruction, timing ratio, precision or RSS qualification is claimed. Offline verifier 1.85 seconds is not consumer runtime. Existing budgets sufficed; no backend reruns or new checks were added. Product core is unchanged, so the existing source-bound #28 evidence remains applicable. Previous combined CI39116724863 passed; new combined CI follows this integration.
+
+Actual delivery effect: the existing collector and byte-identical generic validator handled all three roles; one batched launch review and one final review sufficed. This demonstrates reuse on this delivery, not a measured overall delivery speedup.
