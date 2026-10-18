@@ -2085,3 +2085,28 @@ The unchanged-core #28 receipt remains applicable: all 356 recorded source hashe
 and the full core inventory match after integration. No duplicate benchmark or
 generic authority matrix was run. Larger Health and the Dense ordinary path
 are next; comparative performance remains unqualified.
+
+### 2026-10-18 — Dense ordinary App and larger Health checkpoint
+
+Dense Motion64 is integrated at `d037b06eb`: both backends match all 89,045
+independent oracle bytes with empty stderr. Final source/evidence review GO;
+portable packet PASS (944 members, 628 objects, 17 guards). A helper variable
+shadowed the declared oracle hash during preparation; root inspection caught
+this before any launch. The corrected helper uses semantic names and a final
+post-pin-loop oracle assertion. Incorrect unexecuted drafts remain historical.
+
+Health256 both backend passes are retained/integrated; unchanged Health64
+artifacts produced all 118,451,494 oracle bytes. Independent Health1024 oracle
+`105366bbc` reuses the qualified Python model and first reproduces the complete
+64/256 reference streams. Health1024 JS passes all 444,047,554 bytes; Native
+times out at 30 s with zero stdout and empty stderr. The timeout is preserved;
+shared consumer 60 s is recorded in `docs/limits.md`. The owner identified an
+unintended final-observer construction change (aggregate owner String versus
+original chunks); a narrow restoration is being checked. It is not yet proved
+to explain the timeout. Earlier successful outputs remain correctness evidence,
+not proof of equivalent construction cost or comparative performance.
+
+After Dense integration, all 356 protected #28 source hashes and the complete
+core inventory still match; no duplicate benchmark was needed. Health
+integration CI 39101829608 passed both jobs. No overall delivery speedup is
+claimed.
