@@ -30,7 +30,7 @@ function rowScore(schema,r){
  return out>>>0;
 }
 function execute(schema,workload,count){
-  const setupStart=process.hrtime.bigint();
+  const setupStart=performance.now();
   const Main=Descriptor.Component()(schema==='Motion'?'Position':'Vitals');
   const Aux=Descriptor.Component()(schema==='Motion'?'Velocity':'Armor');
   const Flag=Descriptor.Component()(schema==='Motion'?'Selected':'Tracked');
@@ -69,7 +69,7 @@ function execute(schema,workload,count){
   });
   let final;
   const Dump=G.System('Dump',{queries:{q:Q},resources:{ledger:G.System.readResource(Ledger)}},({queries,resources})=>{final={rows:queries.q.each().map(row),ledger:structuredClone(resources.ledger.get())};});
-  const setupMilliseconds=process.hrtime.bigint()-setupStart;
+  const setupMilliseconds=performance.now()-setupStart;
   return {run(){measured=true;for(let i=0;i<iterations;i++)tick(Update);measured=false;tick(Dump);
     const tuple=encode({rows:final.rows,ledger:final.ledger,audits,statuses,cumulative:worksum});writeAll('FORCE:'+commonFold(tuple)+'\n');return tuple;
   },validate(){
