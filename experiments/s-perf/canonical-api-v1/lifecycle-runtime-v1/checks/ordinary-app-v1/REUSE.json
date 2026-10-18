@@ -1,0 +1,16 @@
+{
+  "scope": "Qualified unchanged generic-core and decoder evidence reuse; no new lifecycle-specific mutation claim.",
+  "reachedRoute": {
+    "normalPath": "Program.run_phase -> EntryApp.run -> Schedule.dispatch -> Existing.pair_dispatch -> per-leaf S.invoke -> existing Local.run -> unchanged domain runner",
+    "mutant": "/workspace/formal-proofs/bendvy/experiments/public-api-usability/health-v2/existing-registration-controls/MUTANT.json",
+    "mutantSHA256": "e5c98f267890b7f9c4fa31b1cea5591164c400df2c0b843a22303529f30ec3e0",
+    "portablePacket": "/workspace/formal-proofs/bendvy/experiments/public-api-usability/health-v2/existing-registration-controls/results/ordinary01/RETENTION.json",
+    "portablePacketSHA256": "b5d376da59566e515aa189c567b777ab3f69f08fb7d604d42245e36c624cce4d",
+    "unchangedExistingCoreSHA256": "c4a8e27e533eeb21176d0bd70eab8c02795de6ca7cbb6ee201033ce1b840c6cd",
+    "applicability": "Same shared generic pair-dispatch source and ordinary Entry.run binding; existing microconsumer proves pair-routing inversion changes normal output on JS/Native with affine Shared/Args/Out. Lifecycle new per-leaf callbacks are qualified by full current family oracles, not by pretending that old microconsumer executed lifecycle bodies."
+  },
+  "decoder": {
+    "applicability": "All current LC2 bytes equal preserved independent qualified LC2 oracles. Their pinned SOURCE-BASIS/modelPins include exact decode.py and original complete LC2-to-LC1/verbose equality controls. Deterministic decoder receives exactly same full input; no new decoder/scans/grammar/encoder body or lifecycle oracle generation.",
+    "qualificationScope": "Complete wire equality and preserved qualified decoder input only; no new universal decoder proof or timing result."
+  }
+}
