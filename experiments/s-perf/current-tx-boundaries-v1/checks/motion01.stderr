@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : meter
+- observed : meter (consumed more than once)
+Context:
+- kind   : String
+- events : List<&2, joined~E>
+- trace  : Trace.State
+Location: joined
+16 |     case head <> tail:count_join(~A,head,count(~A,tail))
+17>| def joined(~World:Type,~E:Data,kind:String,+events:List<&2,E>,trace:Trace.State,meter:Meter.State,world:World,undo:List<(World->World)> & Nat,commands:List<Deferred.Command<World>> & Nat) -> Tx.Tx<World,E> & Sample:
+   |                                                                                 ^^^^^
+18 |   (undo,nu)=undo
+bend 2.0.37 is available: run bend update
