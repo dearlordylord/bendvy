@@ -1,0 +1,348 @@
+# Explicit typed ECS application API
+
+This is the explicit typed API extended in #26 and #27. It supports caller-authored component
+families and closed, repeatedly executable gameplay callbacks. It is not full
+Bevy parity or a qualified performance claim.
+
+Declare a nominal Data schema token and family tokens. Declare an ordinary
+affine Store containing `Column<Schema,Component>` fields. Components can be
+affine Type (including actual owned Arrays) or Data. Each family declaration
+supplies closed `take`, `put` and ownership-preserving Data `project` functions.
+`Family` indexes those functions and the component/view types. Schema-local
+wrappers can bind the repeated template arguments; no generator is required.
+Lenses and bundle population/cleanup are trusted provisioning declarations.
+
+`BundleRecovery.resume` (`bundle-recovery.bend`) explicitly retries a retained
+`HeadPending` or `TailPending` restoration. It threads the World and all pending
+owners through the existing reverse installation order. Repair the cause of a
+refusal before retrying; another refusal returns the recovery owner again.
+There is no automatic retry or disposal. The [independent recovery review](../../experiments/public-bundles/canonical-world-review-v1/RECOVERY-REVIEW.md)
+records both branches, the reached control and exact public-source evidence reuse.
+Combined156 protected regression passes; broader bundle acceptance remains #41.
+
+`ordinary-bundle` derives component keys from ordinary typed declarations and
+composes them into a recursive `Plan` matching the raw and cooked bundle types.
+`request` rejects duplicate component keys before construction or command
+queuing, returning the original owner and affine raw payload through the existing
+refusal result. A caller can repair the request and retry. Plans are metadata;
+they grant no World or storage access. The [independent review](../../experiments/public-bundles/owned-public-result-v1/canonical-world-v1/duplicate-admission-v1/FINAL-REVIEW.md) verifies two schemas, full refusal/retry observations and authority controls, with explicit public-source reuse of private runtime evidence. Combined156 protected regression passes; full #41 acceptance remains pending.
+
+`Feature` (`feature.bend`) composes recursively typed feature owners and builder
+callbacks using `FeatureOwner`, `recipe_empty` and `prepend`. `run_recipe`
+validates selected names, dependencies and fragment collisions before running
+builders in selected order. Refusal returns the original context and recipe;
+success returns arbitrary affine extras and separate bootstrap/update plans.
+Run these phases as separate schedules, threading returned World and registry
+owners between them. Repeated references to the same dependency are permitted.
+`FeatureProvision.bind_feature` (`feature-provision.bend`) checks declared needs
+against the feature's own fragment and dependency closure; identical descriptor
+entries collapse for grants, while conflicts remain errors. Raw metadata,
+recipes and closed builder/getter declarations are trusted authoring operations.
+
+Create application worlds with `WorldIO.create` from `world-io.bend`. Its IO
+allocator shares namespaces across canonical creations in one emitted program.
+`Created` returns the World; `Refused` returns the original affine resource.
+Handles carry that namespace and a full `EntityKey{index,generation}`. Keep the
+actual handle returned by creation or reservation; foreign handles reject before
+access/queue mutation even when index and generation coincide. Namespace allocation
+saturates: 1 through 4294967294 succeed, and exhaustion refuses without reuse.
+Separate programs, bundles, realms, workers and processes have no shared allocator.
+Raw World/Handle constructors, `World.create_checked`, legacy `World.Factory`
+and `World.create`, and `WorldIO.with_namespace/convert` remain trusted setup
+operations. They can bypass canonical provenance; this is not language-wide
+constructor confinement or a proved concurrent uniqueness guarantee.
+The current allocator supports slot indices 1 through 131072. Schema-owned
+cleanup clears payloads and lifecycle stamps before recycling a slot and
+incrementing its full U32 generation. Generation wraps, as in Bevy: after a
+complete cycle an ancient same-world handle can alias a new entity. Failed
+reservations consume their IDs; queuing despawn does not release a slot. Plain
+liveness-only deactivation retains opaque storage and does not recycle it.
+`World.handles` preserves logical reservation order among live entities.
+`World.handle_index` is a physical column/display projection, not an identity
+or authority check. Boundary, retry and integration qualification is tracked in #38.
+
+Use `Compose.each` with a closed `Plan{caps,select}` and an ordinary caller-defined
+`Ops(H)` record. Each field selects an independently typed read/write/optional
+capability; the library has no main/aux or fixed tuple-arity limit. `family_match`
+and recursive `both` compose required, presence and absence requirements
+independently of granted operations. `all` supports empty selection. Optional
+reads return `Component.Access` without requiring presence. The Workshop
+[declarations](../../examples/query-composition/declarations.bend) show reusable
+schema-local binding helpers and named capability records without a generator.
+
+Gameplay is checked for arbitrary affine H and receives only its declared
+operations. Thread H through every call; closed getters can run repeatedly.
+Aliases of the same component share the current storage through this one owner.
+Replacement consumes actual C: Type and journals its old owner for rollback.
+Read-only fields have no setter. Resource, event and command operations are
+separate opt-in fields. Caller-defined Ops and closed adapters are trusted
+provisioning; arbitrary type constructors are not a universal authority theorem.
+
+`Compose.each_since` combines `lifecycle_match(Added/Changed)` with structural
+predicates using a runtime reader cursor and authoritative typed column stamps.
+Reads leave stamps unchanged; equal-value writes count as changes. Transaction
+failure restores old payloads and stamps. The existing two-family `Query`
+entry points remain available for earlier consumers; use Compose for new general
+selections.
+
+Bind a closed query runner to a caller-authored rank2 gameplay body, then call
+`System.register`. Registration returns the World and an affine
+`Registry<...,runner>` owner. `System.run` threads that exact owner through each
+invocation and retry; changing its runner index is a type mismatch. Namespace
+and exact metadata are checked before execution.
+For runtime affine capture state, use `ordinary-captures.define` or
+`ordinary-capture-query.define`. Entered-call capture changes persist on system
+failure while ECS writes roll back; unregister returns the capture owner.
+See the [accepted capture contracts](../../docs/parity/captures.md) and
+[heterogeneous schedule composition](../../docs/parity/captured-schedules.md).
+`Schedule` provides authored static heterogeneous steps, read-only conditions,
+phases and explicit barriers; closed dispatch retains registered instance owners.
+
+The query executor owns one transaction across its selected callbacks.
+Success publishes events and queues commands; failure restores its own writes
+and discards its own tentative events/commands, preserving earlier commits.
+Spawn reservations consume IDs even on failure. `World.barrier` applies commands
+explicitly; schedule completion does not flush. Schema cleanup on public
+despawn releases all component owners. `Structural` queues independent family
+insert/remove operations with validation before queuing and at application.
+
+`System.cursor` reads the current cursor while returning its registry owner.
+Use `System.run_tracked` for lifecycle readers: success consumes the authoritative
+post-run clock, including the system's own writes; failure/refusal retains the
+old cursor. `System.run_to_cursor` remains an explicit caller-supplied cursor
+operation for existing consumers.
+
+`Events.create/read` retains its legacy append-only interface. `EventRuntime`
+adds registered readers, bounded whole-batch retention and lag reporting against
+the actual World event log. Reader failure preserves its position; an accepted
+condition skip advances to the current tick without reading. `Removals` uses a
+separate typed removal domain, preserves its cursor on skip and retains backlog until reader disposal;
+observed Structural/Commands hooks publish metadata at the explicit barrier.
+For affine Type payloads, use the [owned event API](../../docs/parity/affine-events.md):
+the log retains one payload owner and independent readers receive detached Data
+projections. This does not copy affine payloads between readers. See the
+[accepted ordinary consumer review](../../experiments/public-owned-events/ordinary-v1/FINAL-REVIEW.md)
+for family readers and combined query/resource transactions. Composed removal
+provisioning is separate from this owned event contract.
+
+`QueryContract` adds count/single/get and exact typed error diagnostics over
+caller-defined Compose selections. `OptimizedCompose` optionally prepares typed
+column owners and always recovers them after the transaction; reverse access and
+growth retain safe fallback. Caller-provided Store preparation/recovery is a
+trusted schema adapter, with generic Type component payloads preserved.
+
+`OwnedCompose` offers an additive provider for a caller-defined row owner `H`.
+Selection still runs on the original Frame; closed enter/leave adapters move and
+restore actual family owners around the same abstract gameplay body. Use its
+direct closed-field entrypoints to declare capabilities, selector and adapters
+without repeated runtime Plan projection. Existing Plan entrypoints remain usable.
+All owners return before transaction completion, including failure. Adapters and
+raw captured-row constructors are trusted provisioning, not opaque authority;
+rank2 gameplay retains its abstract context. Current finite controls pass, while
+the selected provider's performance acceptance remains pending.
+
+`System.identity/dispose` exposes instance identity and checked unregistration;
+rejected disposal returns the original owner. `Local` threads a separate affine
+state owner for each registered system instance. Skip preserves that state;
+changes returned by a failing system persist while its ECS transaction rolls back,
+as explicitly approved. Rejected foreign execution/disposal returns the original
+instance and argument owners. The bounded #36 delivery is accepted; its finite executable controls and
+independent review are recorded in `docs/reports/public-local-owner.md`. No universal proof/refinement or complete product
+performance qualification follows from these finite compiler/application tests.
+
+`SchemaFragments` (`schema-fragments.bend`) combines schema-indexed declaration
+metadata and recursive affine owner packs. `merge` validates the left fragment,
+the right fragment and then their combined declarations; conflicts remain local
+to component/resource/event/relation/service kind. Refusal returns both owner
+packs. `bind_declared` validates all initializer requirements before handing
+owners to the closed setup initializer. Manifests and initializers are trusted
+schema-author declarations; gameplay continues to receive abstract declared
+capabilities. See the two independent applications in
+[`public-schema-fragments`](../../experiments/public-schema-fragments/README.md).
+
+`ScheduleProvision` (`schedule-provision.bend`) adds nested metadata flattening,
+ordered requirement union and pre-execution provisioning checks. `ReaderDomains`
+(`reader-domains.bend`) transports ordinary event and removal logs separately
+while retaining real event ticks and reader cursors. Their composed public
+applications and current delivery limits are recorded in the #34/#35 experiments.
+Full-core performance qualification remains under #21/#23/#24.
+
+`State` (`state.bend`) provides generic component-state comparison, legal typed
+transitions and caller-defined raw decoding. Consumers declare their finite
+value/move vocabulary, equality and endpoints. The owner context remains
+arbitrary affine `Type`; neighboring components need not be Data. This is entity
+component state; global scheduled machines belong to #48.
+
+State writes require a `Cap.Request` returning `WriteAccepted` or the actual
+`WriteRejected` error. A `Cap.Write` returning its owner alone does not establish
+write success. `compare_set`/`transition` preserve mismatch, missing-entity and
+absent-component distinctions; raw setters return the supplied raw value with
+decoder/write refusal. Local acceptance still does not commit its surrounding
+transaction. Equality, endpoints, decoder and closed checked-write adapters are
+trusted consumer declarations. See
+[`public-component-state`](../../experiments/public-component-state/completion.md)
+for the accepted bounded #47 delivery and source-bound controls. Full numeric
+performance qualification remains under #21/#23/#24.
+
+`MachineHandlerBundle` (`machine-handler-bundle.bend`) assembles arbitrary nested
+typed exit/transition/enter registrations. It flattens authored order, validates
+the world namespace and the stable union of all authored requirements (including
+inactive entries), selects matching phases, and calls the existing handler kernel
+once. Every registry and affine Local owner is returned on success or refusal.
+Requirements, equality, frame adapters and transaction inverses remain trusted
+closed author declarations. Raw partitions are trusted constructors.
+The [current qualification](../../experiments/public-machine-handlers/candidate-v1/bundle-v1/delivery-relocated-v1/REPORT.md)
+and reached JS/Native mutations establish finite application coverage; full #49,
+#48 policy, universal bundle laws and feature-specific timing remain separate.
+
+`OrdinaryMachineSchedule` (`ordinary-machine-schedule.bend`) installs an explicit
+structural barrier followed by Apply, Exit, Transition and Enter groups. Closed
+typed callbacks thread arbitrary affine owners and return existing system
+outcomes; the schedule runner preserves its failure and world-rejection behavior.
+The four group IDs are schedule adapter IDs, not registered gameplay authorities.
+The finite installer does not supply machine initialization or handler lifecycle
+implementation: those remain governed by #48/#49 and the
+[current delivery index](../../docs/parity/README.md#current-delivery-coordination).
+
+[Ordinary transition readers](ordinary-machine-transition-reader.bend) derive their
+stream binding with `from_initialization`; use `register`, `read`, `skip` and
+`dispose` while threading the returned affine instance and World. Foreign-world
+reads and disposal preserve both owners. Failed reads retain their transition
+cursor for retry; successful reads consume the batch observed before the callback.
+Disposal removes only that reader. Callbacks receive administrative World access;
+this adapter does not provide a restricted gameplay read grant. See the
+[two-schema consumer](../../experiments/public-machines/ordinary-initialization-v1/ordinary-reader-v1/main.bend).
+
+`ordinary-app-schedule` retains an ordinary `schedule-provision.Plan` with the schema App that owns its World and registered systems. Attach the operational Plan once; enabling debug makes snapshots derive the ordered steps and their declared requirements from that same Plan, alongside the App’s declaration-derived schema, accesses and values. Disabled snapshots bypass presentation. Invalid attachment returns the original App. Running uses the existing owner-preserving dispatcher, conditions and provision callback; finished, failed, rejected and missing results return the owned App. Existing provision checks run before the Schedule namespace check. The finite ordinary examples qualify these paths with Unit-output scheduled systems; they do not establish every automatic-debug category or full #56 completion.
+
+`ordinary-app-machine.Application` binds an ordinary machine declaration and
+renderer to an App. Use `install`, `read_app` and `queue_app` for normal operations;
+reads and successful or failed transactions return the owned App. Enable debug
+with `snapshot_app(app, flag)`, supplying the same ordinary type indices. The
+library assembles the observer and rows; callers need no metadata list, separate
+attachment or `Tree.observe_pair` adapter. `Recipe`, `ObservedRows` and
+`observation` expose derived aliases for typed serializers. Disabled snapshots
+skip observation. The [independent review](../../experiments/public-inspect/ordinary-machine-review-v1/ENTRY-FINAL-REVIEW.md)
+qualifies direct CurrentView/read/queue paths and declaration association;
+transitions, stream readers, broader debug categories and full #56 remain open.
+Combined152 protected regression passes [independent review](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt152-01/FINAL-REVIEW.md); full-feature performance remains separate.
+
+`ordinary-app-relation.Application` uses one ordinary relation declaration for
+inverse reads, `relate_app`, `unrelate_app` and `snapshot_app`. The library derives
+query metadata and built-in direction/handle rendering; callers enable debug
+without a separate metadata adapter. Queued writes retain existing transactions
+and explicit barriers. The [independent review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-relation-app-v1/public-adoption-v1/FINAL-REVIEW.md)
+qualifies direct operations, two schemas and finite owner/World noninterference.
+Stream readers, full #56 and feature performance remain open.
+Combined156 protected regression passes.
+
+`ordinary-app-relation-system` registers a read-only inverse-relation system from
+its ordinary declaration and target. `ordinary-app-relation-schedule` attaches
+that actual Registry and World to their operational `schedule-provision.Plan`;
+`snapshot(app, flag)` derives the relation query, registered access, cursor and
+schedule phase without user metadata adapters. The finite entry uses Unit system
+arguments/output and built-in relation rendering. Attachment rejects a Registry
+from another World or with mismatched registration metadata. Dispatch rejects a
+requested system ID different from the held Registry. Both refusals retain the
+original owners. An unscheduled registration has an empty phase; disabled debug
+skips observation. Snapshots preserve pending commands, events and cursors.
+The [independent review](../../experiments/public-inspect/ordinary-relation-schedule-oracle-v1/FINAL-REVIEW.md) verifies the complete finite backend observations and authority boundaries.
+Combined156 [protected regression](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt156-01/FINAL-REVIEW.md) passes. Broader automatic-debug coverage and feature timing remain pending; this entry does not complete #56.
+
+`ordinary-app-stream` binds selected transition and relation-failure declarations once. `read_app` returns typed values with the same affine App; enabling debug makes `snapshot` derive their presentation from those declarations. Disabled snapshots bypass both projections. Frame/grant construction is internal; built-in values need no metadata adapter.
+
+The [independent review](../../experiments/public-inspect/ordinary-stream-app-oracle-v1/FINAL-REVIEW.md) qualifies complete Workshop/Garden and reached-control JS/Native outputs. The inspector cursor remains independent of preserved NoticeReader/Registry owners; no new consumption policy or cursor association is selected. Additional owner runtime coverage is Unit; arbitrary Type preservation is source-checked. This module is excluded from combined156; its integrated regression and full #56 remain pending.
+
+`ordinary-app-machine-handler` binds the operational handler Bundle, ordinary
+machine schedule declaration and World once. `enabled(app, flag)` controls
+`snapshot`: enabled snapshots derive typed entry names, access, requirements,
+cursors and phases from those actual owners; disabled snapshots bypass
+descriptions. Both Entry and Registry IDs are preserved separately. `run_app`
+uses the existing ordinary handler dispatcher and returns its owned result.
+Structural binding retains owners; execution rejects a foreign Bundle before
+accessing the World. No user metadata adapter is required.
+
+The [independent review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-machine-handler-app-v1/FINAL-REVIEW.md)
+qualifies ten complete JS/Native outcomes, nominal/authority refusals, actual
+foreign Worlds and a reached cursor mutation. Malformed-ID preservation is
+snapshot-only; generic Extra preservation is source-checked. Full #56 and feature
+performance remain open. Combined156 excludes this module and the later selected
+stream App; their integrated regression remains pending in the next batch.
+
+`ordinary-app-access.index` and `schema_index` derive an access index from the App’s sole operational registration fields when its existing debug flag is enabled. Disabled calls preserve App/World/owners without invoking the fold or value projection. Entries group by component/resource category and canonical key, retain real system namespace/id/name and original declared modes, and label Reader, Writer or Filter. Write denotes a declared write slot; With/Without are filter-only and Added/Changed are readers. Duplicate declared uses remain visible. Event origins, unique-system aggregates and a complete cross-schedule inventory remain separate coverage gaps.
+
+Its [independent review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-access-index-v1/FINAL-REVIEW.md) verifies twelve complete JS/Native outputs, all seven query modes and authority controls. Integrated regression and full #56 remain pending.
+
+`ordinary-event-declaration.bend` names a typed Data event domain once for ordinary read/write grants and registration. `ordinary-app-event-runtime.bend` starts from an existing schema App, moves its sole World into the event Runtime, and retains its registered owners and recipe. Writer/reader registration composes common access entries automatically, using actual system Registry IDs independently of Reader IDs. Enable debug and call `index` for grouped component/resource/event access without payload reads or cursor advancement; disabled indexing skips both folds. `with_previous` threads ordinary schema operations through the same Runtime World and retains existing `Ev.with_world` behavior; World pending events remain distinct from Runtime batches. [Independent review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-event-access-v1/unified-v1/FINAL-REVIEW.md) qualifies two finite nominal consumers, Data event failure/retry, authority boundaries and a reached category defect: six full JS/Native outputs, 15 commands/51 guards. This packet qualifies Data events only; the accepted Type event contract is linked above. Full #56 and integrated regression are outside this packet.
+
+`ordinary-inspector-event.bind` combines an ordinary read declaration with its provision-generated `Selection`; `lift_notice` supports the retained notice owner wrapper. The resulting `ValueRead` returns the same Runtime and detached retained Data event values, without an operational reader, registration, cursor advancement or retention participation. `inspector-event-value` checks the selected leaf's domain key and Read mode; refusal returns `None`, while a valid empty stream returns `Some([])`. [Public consumer and boundary checks](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-event-getter-v1/runtime-only-v2/public-relocation-v1/RESULT.md) pass JS/Native. The unchanged [combined186 regression](../../experiments/integration-gates/combined-ordinary-app-v1/actual-attempt186-01/FINAL-REVIEW.md) passes independent review. This Inspector getter qualifies Data events only; it does not establish Type event inspection. Full #54 acceptance remains pending.
+
+Ordinary [schema provisioning](ordinary-schema-provision.bend) generates population traversal from component/resource/product declarations. [App population](ordinary-app-population.bend) reports live totals and all declared component counts while returning affine owners; resources are excluded and disabled debug skips the scan. The [bounded review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-population-v1/FINAL-REVIEW.md) covers Column/Product storage; custom stores and integrated performance gates remain open.
+
+Ordinary [dump provisioning](ordinary-schema-dump.bend) generates presentation from the same declarations used by operational provisioning. Enable [Dump App](ordinary-app-dump.bend) and call `snapshot` with typed [criteria](ordinary-dump-filter.bend): alive IDs, component conjunction and optional native Nat limit are applied before component presentation. Resources remain global; disabled debug skips traversal. Built-in U32/Bool/Array<U32> presentation needs no metadata adapter; opaque values may provide a trusted presenter. [Bounded review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-filtered-dump-v1/FINAL-REVIEW.md) covers ordinary Column/Product storage; full runtime composition, custom stores and integrated performance remain open.
+
+The existing [event RuntimeApp](ordinary-app-event-runtime.bend) exposes `population` and `dump` using a metadata-free Recipe generated by [ordinary dump provisioning](ordinary-schema-dump.bend). Retain that normal setup token and enable debug. Observations preserve all Runtime fields without advancing ticks or synchronizing event logs; operational `with_previous` retains its existing behavior. [Bounded review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-dump-v1/FINAL-REVIEW.md) qualifies eighty repeated snapshots and six full JS/Native outcomes. The subsequent detached RuntimeView below qualifies actual batches/readers and U32 event presentation; opaque/general presentation, custom stores and integrated performance remain open.
+
+The same RuntimeApp exposes `runtime_view` after enabling debug, with no extra metadata declaration. It returns a detached Data view of actual event batches, Reader positions, retention/tick metadata and the unsynchronized World event log while restoring the App. `runtime_text_u32` provides built-in U32 presentation; Reader IDs are distinct from Registry IDs. [Bounded review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-runtime-view-v1/FINAL-REVIEW.md) qualifies six complete JS/Native outcomes and a reached state-changing defect. Opaque formatting, full static/composition/custom-store coverage and integrated performance remain open.
+
+Ordinary [schema provisioning](ordinary-schema-provision.bend) also derives Plain/Transient/Constructed debug entries from the same indexed operational persistence extension through six component/resource builders. Enable debug and use the existing schema App snapshot; bare provisioning remains unclassified. The additive `Fragment.Entry.Classified` variant requires exhaustive client matches to add a branch. [Bounded review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-classified-schema-v1/FINAL-REVIEW.md) verifies two nominal consumers, actual codec refusal/same-owner repair/retry, Fragment compatibility and a reached wrong-label defect on JS/Native. Full composition/custom stores and integrated performance remain open.
+
+Ordinary [machine declarations](ordinary-machine-declaration.bend) may retain an ordered finite vocabulary with `declared`; the same declaration drives installation, reads, queues and debug observation. Enabled snapshots show supplied values even when the current slot is unavailable. Legacy name-only declarations leave vocabulary unspecified; an explicitly empty list remains distinct. The vocabulary does not restrict queued values. The additive Vocabulary variant requires a branch in exhaustive Declaration matches. [Bounded review](../../experiments/public-inspect/ordinary-declaration-v1/compact-schedule-recipe-v1/ordinary-machine-vocabulary-v1/FINAL-REVIEW.md) verifies twelve complete JS/Native outcomes, successful unlisted queue, legacy/empty distinction and a reached omission control. Full #56 and integrated performance remain open.
+
+`ordinary-component-removal.remove` derives the operational family and removal metadata from the same static component Binding and returns existing `St.Queued`. `ordinary-removal-provision` composes typed publication routes; `ordinary-inspector-removal.bind` provides a Read/key-checked, cursor-free view of retained removal records without consuming affine component payloads. [Bounded review](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/public-relocation-v1/policy-free-v2/FINAL-REVIEW.md) covers two schemas, eight complete JS/Native outputs, authority boundaries and a reached selector defect. Declaration-derived despawn and the actual TS removal/despawn comparison are integrated with bounded reviews. Combined #28 regression on the accumulated new modules and full #54 remain pending.
+
+`ordinary-component-despawn` derives each leaf’s cleanup and removal record from the same static component Binding, combines leaves in declaration order and delegates to existing `Cmd.tx_despawn_observed`, returning its `Tx & Status`. Empty leaves publish no component record; aggregate despawn metadata remains separate. [Bounded review](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/removal-inspection-v1/despawn-v1/public-relocation-v1/FINAL-REVIEW.md) verifies two schemas, present/absent families, six full JS/Native outputs, genuine foreign-World rejection, Type authority controls and a reached product omission. It adds no finalizer contract. The actual TS comparison is integrated: complete removal/despawn outputs preserve genuine pre-publication operational registration and explicitly retain TS cursor/tick differences. The unchanged combined #28 gate on the new modules and full #54 remain pending.
+
+`ordinary-inspector-relation` derives required, optional, presence and absence clauses in either direction from the retained ordinary relation declaration. `inspect` and `condition` delegate to existing Inspector/Check projections; presence/absence filter entities without adding a relation cell. [Bounded review](../../experiments/public-inspect/graph-stream-public-bridge-v1/ordinary-category-v1/FINAL-REVIEW.md) covers all sixteen Link/Parent categories on two schemas, complete JS/Native and actual TS outputs, three new typed boundaries and a reached public routing defect. Combined regression and full #55 acceptance remain pending.
+
+`ordinary-inspector-resource.bind` derives a read capability and resource Read clause from the same generated `ResourceFieldBinding` identity and lens. `get` returns the affine owner and its detached view. [Bounded review](../../experiments/public-inspect/ordinary-declaration-v1/native54-matching-tree-v1/native-blocker-source-research-v1/current-repeat-schedule-v1/present-resource-v1/public-relocation-v1/FINAL-REVIEW.md) verifies two distinct present resources of the same affine payload type, two schemas, complete JS/Native observations, four typed boundaries and a reached metadata defect. Closed projections remain trusted; missing resources, held views, the current two-resource TS comparison, combined regression and full #54 remain open.
+
+`ordinary-recovery-resource-field.declaration` uses the ordinary resource-field
+binding to select an affine Array inside Product resources. Replacement and
+element exchange use the existing recovery journal and generated inverse,
+preserving sibling owners and returning displaced payloads for actual retry.
+See the [API and complete qualification](../../docs/parity/recovery.md#selected-resource-fields).
+
+`ordinary-app-recovery` composes canonical recovery declarations with the ordinary
+App owner. The same declarations derive component/resource write metadata for
+enable-debug snapshots and the access index; opted-in capture stays private.
+Registration rejects opaque legacy declarations while returning the original App
+and capture. See the [API scope](../../docs/parity/recovery.md#automatic-app-metadata).
+
+`ordinary-check-declaration` derives optional/required resource Check grants and
+requirements from canonical bindings. `ordinary-checked-condition` composes
+confined predicates with existing machine conditions through `lift` and lazy
+Boolean operators. `ordinary-checked-bindings` targets registered system IDs;
+`ordinary-app-checked-schedule` retains actual App owners and derives debug
+descriptions while `checked-condition-schedule` preserves reached errors and
+existing schedule preflight. See [API and scope](../../docs/parity/inspect.md#ordinary-checked-resource-predicates).
+
+`ordinary-check-query` derives Required/Optional and With/Without selections
+from component bindings and composes arbitrary nested read-only queries with
+`pair`, `both`, `constrain`, `map` and membership-only `empty`. Its declaration
+and detached read share the same typed description. `ordinary-check-declaration.both`
+combines these queries and resource reads in one Check; required components
+filter rows rather than preflight the World. See [API and scope](../../docs/parity/inspect.md#ordinary-component-query-check-declarations).
+
+`ordinary-check-machine.optional` / `required` reuse the nominal machine
+declaration's read and availability operations. Their Machine description and
+`read` grant compose with query/resource declarations through `both`; optional
+absence stays `Unavailable`, and required access retains existing Check errors.
+See [API and scope](../../docs/parity/inspect.md#ordinary-machine-check-declarations).
+
+`ordinary-check-relation.declaration` combines a component selection with the
+existing relation declaration, deriving read authority and debug metadata from
+the same operational input. All eight outgoing/incoming relation modes preserve
+row selection and compose with resource/machine Check grants through `both`.
+See [API and scope](../../docs/parity/inspect.md#ordinary-relation-check-declarations).
+
+`ordinary-app-checked-family-schedule` attaches existing Check bindings and a plan
+to an ordinary family App, retaining its World, family/tick, reader owners and
+existing generated debug fold. The static administration dispatch can invoke the
+ordinary reader API after the guard; gameplay keeps its existing confined inputs.
+See [API and scope](../../docs/parity/inspect.md#ordinary-checked-reader-schedules).
+
+For constructed input to a selected resource field, [the ordinary callback](../../experiments/public-construction/selected-resource-v1/fixture.bend)
+composes public construction, final cooked-owner validation and the existing field
+write grant. It retains refused owners/undo while sibling resources stay separate.
+See [validation scope](../../docs/parity/validation.md#selected-constructed-resource--existing-api-composition).
