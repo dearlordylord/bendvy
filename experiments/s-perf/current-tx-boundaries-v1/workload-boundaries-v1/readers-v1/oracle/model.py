@@ -3,7 +3,7 @@ from pathlib import Path
 import copy,json,gzip,hashlib
 import operation_model as O
 P=Path(__file__).parent;sha=lambda v:hashlib.sha256(v).hexdigest()
-DELTAS={'commands.spawn_reserved':[0,1,0],'commands.track_pending':[1,0,0],'component.tx_written':[1,0,0],'transaction.emit':[0,0,1],'structural.queue_checked':[0,1,0],'commands.despawn_checked_with':[0,1,0]}
+DELTAS={'commands.spawn_reserved':[0,1,0],'commands.track_pending':[1,0,0],'component.tx_written':[1,0,0],'transaction.emit':[0,0,1],'structural.removed_queue_checked':[0,1,0],'commands.despawn_checked_observed':[0,1,0]}
 def witness(w):return {'namespace':w.namespace,'tick':w.clock,'pending':len(w.pending),'events':len(w.events)}
 def report(kind,w,begin,sites):
  current=[0,0,0];boundaries=[]
@@ -27,7 +27,7 @@ class Observer(ProgramOriginal):
   super().prime()
  def mutation(self,operation):
   begin=self.world.clock;super().mutation(operation)
-  kind=['Spawn','Update','Dispose'][operation];sites=[['commands.spawn_reserved','commands.track_pending'],['component.tx_written','transaction.emit'],['structural.queue_checked','commands.despawn_checked_with']][operation]
+  kind=['Spawn','Update','Dispose'][operation];sites=[['commands.spawn_reserved','commands.track_pending'],['component.tx_written','transaction.emit'],['structural.removed_queue_checked','commands.despawn_checked_observed']][operation]
   self.domain.append(sample('domain',kind,self.frame.iteration,self.phase,None,len(self.domain),self.world,begin,sites))
  def read(self,provider):
   original_before=self.runtime.before;running=[]
@@ -64,6 +64,6 @@ def generate():
  assert all(x['tx']['terminal']==[0,0,0]and x['tx']['boundaries']==[]and x['tx']['beginTick']==x['tx']['endTick']for x in p.reader)
  assert all(x['cursor']is None for x in p.domain+p.reader)
  values=p.domain+p.reader;raw=(json.dumps(values,separators=(',',':'))+'\n').encode();(P/'expected.boundaries.json').write_bytes(raw);packed=gzip.compress(raw,mtime=0);(P/'expected.stdout.gz').write_bytes(packed)
- receipt={'status':'PASS','origin':'Independent unchanged indexedReaders operationmodel and actual source boundary semantics; no candidate/backend output input','modelSHA256':sha(Path(__file__).read_bytes()),'sourceBasisSHA256':sha((P/'SOURCE-BASIS.json').read_bytes()),'canonicalControl':{'bytes':len(control),'sha256':sha(control),'observedCanonicalIdentical':observed==control},'samples':len(values),'domain':len(p.domain),'reader':len(p.reader),'rawDiscardSamples':0,'originalTxFacts':193,'originalLocalCalls':len(p.locals),'originalReadCalls':len(p.reads),'bytes':len(raw),'sha256':sha(raw),'gzipBytes':len(packed),'gzipSHA256':sha(packed),'allConsistent':all(x['tx']['consistent']for x in values)}
+ receipt={'status':'PASS','amendment':'POSTOBSERVATION_SOURCE_BACKED_ORACLE_AMENDMENT','amendmentSHA256':sha((P/'SOURCE-AMENDMENT.json').read_bytes()),'origin':'Independent unchanged indexedReaders operationmodel and actual source boundary semantics; no candidate/backend output input','modelSHA256':sha(Path(__file__).read_bytes()),'sourceBasisSHA256':sha((P/'SOURCE-BASIS.json').read_bytes()),'canonicalControl':{'bytes':len(control),'sha256':sha(control),'observedCanonicalIdentical':observed==control},'samples':len(values),'domain':len(p.domain),'reader':len(p.reader),'rawDiscardSamples':0,'originalTxFacts':193,'originalLocalCalls':len(p.locals),'originalReadCalls':len(p.reads),'bytes':len(raw),'sha256':sha(raw),'gzipBytes':len(packed),'gzipSHA256':sha(packed),'allConsistent':all(x['tx']['consistent']for x in values)}
  (P/'GENERATION-RECEIPT.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt,sort_keys=True))
 if __name__=='__main__':generate()
