@@ -41,9 +41,10 @@ def owners(value:S.Owners) -> List<&2,String>:
 def world_text(value:F.World() & String) -> String:
   match value:
     case (_,text):text
-def final(prefix:String,value:P.State) -> List<&2,String>:
+def final_observed(prefix:String,value:P.State & P.Snapshot) -> List<&2,String>:
   match value:
-    case P.State{world,owner,ids,namespace,boundaries,schedules,result}:append([prefix ++ "final={namespace=" ++ U32.show(namespace) ++ ";ids=" ++ List.show(&2,U32,U32.show,Schedule.ids(ids)) ++ ";world={" ++ world_text(W.world(world)) ++ "};owners={"],append(owners(owner),append(["};boundaries=["],append(shown(~B.Boundary,~B.render,boundaries),append([";schedules=["],append(shown(~String,~W.audit_effect,schedules),[";status=" ++ status(result) ++ "}\n"]))))))
+    case (P.State{_,namespace,boundaries,schedules,result},P.Snapshot{world,owner,ids}):append([prefix ++ "final={namespace=" ++ U32.show(namespace) ++ ";ids=" ++ List.show(&2,U32,U32.show,ids) ++ ";world={" ++ world ++ "};owners={" ++ owner],append(["};boundaries=["],append(shown(~B.Boundary,~B.render,boundaries),append([";schedules=["],append(shown(~String,~W.audit_effect,schedules),[";status=" ++ status(result) ++ "}\n"])))))
+def final(prefix:String,value:P.State) -> List<&2,String>:final_observed(prefix,P.observe(value))
 def write(values:List<&2,String>) -> IO(Unit):
   match values:
     case []:IO.pure(Unit,Unit{})

@@ -31,25 +31,19 @@ def status(value:Program.Status) -> String:
   match value:
     case Program.Complete{}:"Complete"
     case Program.Stopped{reason}:"Stopped{" ++ O.audit_effect(reason) ++ "}"
-def state_join(+ids:Schedule.IDs,+namespace:U32,+boundaries:List<&2,Boundary.Boundary>,+schedules:List<&2,String>,+result:Program.Status,left:F.World() & String,right:S.Owners & String) -> Program.State & String:
-  (world,sw)=left
-  (owners,so)=right
-  (Program.State{world,owners,ids,namespace,boundaries,schedules,result},"namespace=" ++ U32.show(namespace) ++ ";ids=" ++ List.show(&2,U32,U32.show,Schedule.ids(ids)) ++ ";world={" ++ sw ++ "};owners={" ++ so ++ "};boundaries=" ++ List.show(&2,Boundary.Boundary,Boundary.render,boundaries) ++ ";schedules=" ++ List.show(&2,String,O.audit_effect,schedules) ++ ";status=" ++ status(result))
-def state(value:Program.State) -> Program.State & String:
+def state_view(value:Program.State & Program.Snapshot) -> Program.State & String:
   match value:
-    case Program.State{world,owners,ids,namespace,boundaries,schedules,result}:state_join(ids,namespace,boundaries,schedules,result,O.world(world),Owners.owners(owners))
+    case (Program.State{app,+namespace,+boundaries,+schedules,+result},Program.Snapshot{sw,so,ids}):(Program.State{app,namespace,boundaries,schedules,result},"namespace=" ++ U32.show(namespace) ++ ";ids=" ++ List.show(&2,U32,U32.show,ids) ++ ";world={" ++ sw ++ "};owners={" ++ so ++ "};boundaries=" ++ List.show(&2,Boundary.Boundary,Boundary.render,boundaries) ++ ";schedules=" ++ List.show(&2,String,O.audit_effect,schedules) ++ ";status=" ++ status(result))
+def state(value:Program.State) -> Program.State & String:state_view(Program.observe(value))
 def primed(prefix:String,iterations:U32,value:Program.State & String) -> List<&2,String>:
   match value:
     case (owner,snapshot):Stream.final(prefix ++ "primed={" ++ snapshot ++ "}\n",Program.loops(U32.to_nat(iterations),0,owner))
 def registered(prefix:String,iterations:U32,value:Program.State & String) -> List<&2,String>:
   match value:
     case (owner,snapshot):primed(prefix ++ "registered={" ++ snapshot ++ "}\n",iterations,state(Program.run_phase(0,owner)))
-def catalogued(prefix:String,iterations:U32,namespace:U32,world:F.World(),value:S.Owners & Schedule.IDs) -> List<&2,String>:
-  match value:
-    case (owners,ids):registered(prefix,iterations,state(Program.State{world,owners,ids,namespace,[],[],Program.Complete{}}))
 def named(prefix:String,iterations:U32,owners:Reg.Owners,dispose:Dispose.Registry(),first:W.Handle<T.HealthSchema>,second:W.Handle<T.HealthSchema>,observed:F.World() & U32) -> List<&2,String>:
   match observed:
-    case (world,ns):catalogued(prefix,iterations,ns,world,Schedule.catalog(S.Owners{owners,dispose,S.Frame{first,second,0,0,None{},None{},[],[]}}))
+    case (world,ns):registered(prefix,iterations,state(Program.start(world,S.Owners{owners,dispose,S.Frame{first,second,0,0,None{},None{},[],[]}},ns)))
 def dispose_registered(prefix:String,iterations:U32,owners:Reg.Owners,first:W.Handle<T.HealthSchema>,second:W.Handle<T.HealthSchema>,value:Sys.RegistrationResult<T.HealthSchema,F.Store(),F.Resources(),E.event_type(),List<&2,W.Handle<T.HealthSchema>>,Empty,Dispose.Output,Dispose.runner>) -> List<&2,String>:
   match value:
     case Sys.Registered{world,registry}:named(prefix,iterations,owners,registry,first,second,W.namespace(~T.HealthSchema,~F.Store(),~F.Resources(),~E.event_type(),world))
