@@ -1,0 +1,9 @@
+# Independent Dense Health64 oracle
+
+`pilot_oracle.py` imports the current generic Dense operation model from `dense-motion64/model` and selects its existing Health branch. The model retains complete Vitals levels/reserve/class, Armor layers/grade, Tracked group, Ledger totals/epoch, ordered row audits and statuses. No Motion golden text is renamed and no subject output is read.
+
+Run `python3 test-fixtures/connected-performance/dense-health64/model/pilot_oracle.py`. It first reproduces the qualified Plain Health canonical for namespace1 (88,801 bytes, SHA256 `d897dc6238a59570f38af2d4a30e6d78117f50b238329754bc6557529b1db131`) and namespace2. It then selects Indexed configuration and emits both complete physical reports and the complete two-world Bend stream. Each of seedPending, seedApplied, registered, final and afterLogicalRead retains all payload trees and added/changed metadata trees, zero slots, capacity/depth and exceptional list. Initial metadata is one zero leaf; later metadata is capacity64/depth6 with populated slots64/22/21.
+
+The independent Health tuple derives 5,512 cells and fold1833037185. Every modeled payload is cross-checked against the operation state's final columns, all audits retain actual per-row arithmetic, and the complete tuple fixture is byte-identical to the previously qualified Health fixture. The full TS Health stream is independently reconstructed and required to match its unchanged retained gold. Those Health-specific fixtures come from immutable `728110b98`, while the typed consumer's real Health source basis is `354fde58a45a22091ccc81fb89fc618f263bc45b`.
+
+The Indexed full Bend stream is261,672 bytes, SHA256 `de228fc26012d39be045adbaabcfd48ac5786a3ff8b5f861710d1eb940fd31d7`. This finite source-derived oracle supplies correctness expectations, not numerical performance qualification. The accepted Motion model and all Motion gold remain unchanged.
