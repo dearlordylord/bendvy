@@ -1,0 +1,75 @@
+{
+  "scope": "Independent oracle generation only; serial64/256 exact byte reproduction then1024. Not benchmark/subject execution. Hold until root queue release.",
+  "pins": {
+    "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/model.py": "5d4ef8b23e823a665e3dcc7b9f161f1e962dc448e1978df7c96a66d4e661c537",
+    "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/HEALTH-SOURCE-FREEZE.json": "64181dd3f2615de2960076f8835890e8916e05bd7bf8726acf846d5e7247d44a",
+    "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/HEALTH-MODEL-NOTES.md": "9c9f837b1ece457417fd9a28dd8ba90284d18dc897475a14cf16097fc978fd86",
+    "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/HEALTH256-SOURCE-BASIS.json": "817d2fc42886f341ec5c872c14ab88697b4dedf363afbba9f993693ce0aa25e7",
+    "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/HEALTH64-SOURCE-BASIS.json": "48c407108fb1556573701555c047f715bace9cfc9df6ac93d3efb08c029ce8e3",
+    "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/.gitignore": "6e837053774cc27ddaff9abe9a6468c04532c61ce8083c52f4cc389340f473a5",
+    "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/MODEL-NOTES.md": "b2c5e408899876986eb52d7314d335d4ee8dca87517255503ddbb41db8d4d499",
+    "/tmp/generate21-health1024-oracle.py": "5e3604c3eb880206078f8e9de3141b3d4878cf7481de1d9c9aa29ecbd95c4c0c",
+    "/usr/bin/python3": "9a070c8a36e16c152dae21b66aeb707f4d21b506c875e9b15edf4387fca7dcf8",
+    "/workspace/formal-proofs/bendvy/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health64-v1/health64/expected.stdout.gz": "915950288d77891767fdfcb6754ffcb1ce0542bc93898936f31a454ba92e89c7",
+    "/workspace/formal-proofs/bendvy-worktrees/oracle-failedtxn-wide256-v1/experiments/s-perf/canonical-api-oracle-v1/failedtxn-wide256-v1/health256/expected.stdout.gz": "ca1157869f175d3bbd745a296ca8bdcf09208d0fbe17c6a45d4ba66d31ad5a5d"
+  },
+  "modelSHA256": "5d4ef8b23e823a665e3dcc7b9f161f1e962dc448e1978df7c96a66d4e661c537",
+  "cases": [
+    {
+      "count": 64,
+      "iterations": 64,
+      "output": "controls64",
+      "argv": [
+        "/usr/bin/python3",
+        "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/model.py",
+        "--count",
+        "64",
+        "--iterations",
+        "64",
+        "--outdir",
+        "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/controls64"
+      ],
+      "reference": "/workspace/formal-proofs/bendvy/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health64-v1/health64/expected.stdout.gz",
+      "expectedBytes": 38400832,
+      "expectedSHA256": "a20f7dccdf2efd66b44cb4dde507b0f7256ea493c1d3d5935d12f97db0ef5a95"
+    },
+    {
+      "count": 256,
+      "iterations": 64,
+      "output": "controls256",
+      "argv": [
+        "/usr/bin/python3",
+        "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/model.py",
+        "--count",
+        "256",
+        "--iterations",
+        "64",
+        "--outdir",
+        "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/controls256"
+      ],
+      "reference": "/workspace/formal-proofs/bendvy-worktrees/oracle-failedtxn-wide256-v1/experiments/s-perf/canonical-api-oracle-v1/failedtxn-wide256-v1/health256/expected.stdout.gz",
+      "expectedBytes": 118451494,
+      "expectedSHA256": "a3cf1a10bf1d4211bd04337f7a541a746e5d8c73a5645c8295475fd1b14e9557"
+    },
+    {
+      "count": 1024,
+      "iterations": 64,
+      "output": "health1024",
+      "argv": [
+        "/usr/bin/python3",
+        "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/model.py",
+        "--count",
+        "1024",
+        "--iterations",
+        "64",
+        "--outdir",
+        "/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1/health1024"
+      ]
+    }
+  ],
+  "sourceBasis": [
+    "HEALTH64-SOURCE-BASIS.json",
+    "HEALTH256-SOURCE-BASIS.json"
+  ],
+  "CPU": 9
+}

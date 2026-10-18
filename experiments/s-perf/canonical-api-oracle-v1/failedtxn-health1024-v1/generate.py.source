@@ -1,0 +1,33 @@
+from pathlib import Path
+import subprocess,json,hashlib,gzip,sys,time
+P=Path('/tmp/bendvy-failedtxn-health1024-oracle/experiments/s-perf/canonical-api-oracle-v1/failedtxn-health1024-v1');sha=lambda b:hashlib.sha256(b).hexdigest();plan=json.loads((P/'GENERATION-PLAN.json').read_text());receipt={'planSHA256':sha((P/'GENERATION-PLAN.json').read_bytes()),'commands':[],'status':'RUNNING','origin':'Independent Python source-derived model; no Bend/generated backend outputs are read.'}
+def save(): (P/'GENERATION-RECEIPT.json').write_text(json.dumps(receipt,indent=2)+'\n')
+def pins():
+ for path,h in plan['pins'].items():assert sha(Path(path).read_bytes())==h,path
+pins();save()
+try:
+ for case in plan['cases']:
+  out=P/case['output'];assert not out.exists();out.mkdir();argv=case['argv'];start=time.monotonic()
+  with (out/'generation.stdout').open('wb') as stdout,(out/'generation.stderr').open('wb') as stderr:r=subprocess.run(argv,stdout=stdout,stderr=stderr)
+  row={'count':case['count'],'argv':argv,'exit':r.returncode,'elapsedSecondsDiagnosticOnly':time.monotonic()-start};receipt['commands'].append(row);save();assert r.returncode==0;assert (out/'generation.stderr').stat().st_size==0
+  actual=out/'expected.stdout';h=hashlib.sha256();n=0
+  with actual.open('rb') as stream,gzip.open(out/'expected.stdout.gz','rb') as packed:
+   reference=gzip.open(case['reference'],'rb') if case.get('reference') else None
+   try:
+    while chunk:=stream.read(1048576):
+     assert packed.read(len(chunk))==chunk
+     if reference:assert reference.read(len(chunk))==chunk
+     h.update(chunk);n+=len(chunk)
+    assert packed.read(1)==b''
+    if reference:assert reference.read(1)==b''
+   finally:
+    if reference:reference.close()
+  row.update(bytes=n,sha256=h.hexdigest(),gzipBytes=(out/'expected.stdout.gz').stat().st_size,gzipSHA256=sha((out/'expected.stdout.gz').read_bytes()),referenceByteEqual=bool(case.get('reference')))
+  if case.get('expectedSHA256'):assert h.hexdigest()==case['expectedSHA256'] and n==case['expectedBytes']
+  save()
+ pins();receipt['status']='PASS';save()
+ basis=json.loads((P/'HEALTH256-SOURCE-BASIS.json').read_text());basis.update(scenario='FailedTxn canonical Health1024 independent full stream',runtimeArguments=['1024','64'],actualConsumingBendCount=1024,qualifiedInputs='Finite same-process warmup and measured full stream;1024 seeds,64 iterations',method='Unchanged qualified256 independent Python model; full64/256 reproductions precede1024 generation. No backend output inputs.',modelPins={'model.py':plan['pins'][str(P/'model.py')]},generationPlanSHA256=receipt['planSHA256'],generationReceiptSHA256=sha((P/'GENERATION-RECEIPT.json').read_bytes()))
+ for stale in ['inputBinding','expectedFiles','modelValidation']:basis.pop(stale,None)
+ last=receipt['commands'][-1];basis.update(expectedBytes=last['bytes'],expectedSHA256=last['sha256'],expectedGzipBytes=last['gzipBytes'],expectedGzipSHA256=last['gzipSHA256']);(P/'health1024/SOURCE-BASIS.json').write_text(json.dumps(basis,indent=2)+'\n');print(json.dumps(last,sort_keys=True))
+except BaseException as e:
+ receipt['status']='FAILED';receipt['error']=repr(e);save();raise
