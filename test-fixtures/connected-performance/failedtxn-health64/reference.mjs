@@ -102,5 +102,5 @@ function transactions(schema,count,clockPath,rssPath){
   writeAll('TUPLE:'+JSON.stringify(tuple)+'\nFULL:'+JSON.stringify(full)+'\n');
 }
 
-const [countText,iterationText,warmupClock,sampleClock,warmupRss,sampleRss]=process.argv.slice(2);assert.equal(iterationText,'64');const count=Number(countText);assert.equal(count,64);for(const path of [warmupClock,sampleClock,warmupRss,sampleRss])assert.equal(typeof path,'string');
+const [countText,iterationText,warmupClock,sampleClock,warmupRss,sampleRss]=process.argv.slice(2);assert.equal(iterationText,'64');const count=Number(countText);assert.ok(counts.includes(count));for(const path of [warmupClock,sampleClock,warmupRss,sampleRss])assert.equal(typeof path,'string');
 writeAll('WARMUP\n');transactions('Health',count,warmupClock,warmupRss);writeAll('SAMPLE\n');transactions('Health',count,sampleClock,sampleRss);
