@@ -1,5 +1,0 @@
-from pathlib import Path
-import runpy
-def prior():return runpy.run_path(str(Path(__file__).resolve().parent.parent/"model.py.source"))
-def mutant():return prior()["control"]()
-def normal():return prior()["normal"]()

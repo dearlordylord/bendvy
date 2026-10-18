@@ -1,9 +1,0 @@
-# Ordinary typed service bounded delivery
-
-One retained operational service binding derives supplied (including unused) and required inventory, actual slot availability and registered Resource-owned callback. Public `Cap.ValueRead` is actually invoked through opaque H, not a detached unused helper. Missing preflight retains pending barrier, Registry and all Array owners; restore/retry uses the same owner.
-
-Five complete pairs: initial direct snapshot and read-positive 4711 bytes each; nominal Other and matched normal 4711, availability fault 4717. First two pairs are in public-v1/runtime-v1 and read-capability-v1/runtime-v1; final three are in affected-v1/runtime-v1 (total five pairs,25 commands85guards). Complete matched baseline comparisons reject the reached false availability defect on both backends. Six intended current authority refusals are in read-capability-v1/authority/SOURCE-COMPLETE.json. Owner-duplicate source01 syntax refusal is historical and excluded; source02 is consumed-more-than-once.
-
-Public targets are the original declaration f4b331ab and additive application37dd47a5 in PUBLIC-MANIFEST / read-capability-v1/PUBLIC-DELTA. Root owns both adoption. Original private/public source histories and initial Cap.get refusal remain failed historical records; runtime preparation other-runtime01 has no child and is not acceptance.
-
-This is finite native #34 Resource-owned service evidence: schema-author raw numeric tokens and take/put/call lenses are trusted, not universal identity or effect preservation. The wrapper is one Registry, Unit and explicit barrier, not an arbitrary schedule/Error plan. No external IO, sharing, cleanup, callback failure recovery, rollback policy, duplicate-token policy, full #56 or performance claim. Other is a nominal reuse, not an independent second app. Root comparative regression/public adoption and single final independent review remain pending.

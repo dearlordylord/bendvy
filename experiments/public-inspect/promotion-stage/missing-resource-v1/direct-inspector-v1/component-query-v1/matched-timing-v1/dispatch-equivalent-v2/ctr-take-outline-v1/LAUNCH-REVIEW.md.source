@@ -1,7 +1,0 @@
-# Focused recheck: ctr-take-outline-v1 Node pin
-
-**Verdict: PASS for the existing frozen five-role batch; no execution performed.** This supersedes the earlier HOLD report only for the identified stale Node pin; that history was preserved.
-
-The successor Node plan `352652406a47ba4c9d804185da8977fd6a53f18f43d581547388e2076f6a9321` now pins the actual candidate SHA `f259cbf588ee7db87cd07821bfce7e652ff73e2fa964aa9c7096dce81f1c8f81`. A semantic JSON comparison against the preserved stale plan confirms that this is its only input-map change. The dependent freeze is `1c4f0f06c9ed83bc6ea28fa6d7f39975380afbd990f1d52c643cce3e7096250b`; launch is `d1ff7680aca0e444f8acad33fa64fa238a3421373b5ee8a42c1ff9412389a191`. Both bind the new Node plan hash; the launch binds the current freeze hash and all five role-plan hashes. The previous stale Node plan, freeze, and launch remain preserved as `*.stale-node-pin-proposal.source` with their former hashes.
-
-No other plan, candidate, source, oracle, tool, command, cap, or resource binding changed in this repair. The earlier whole-batch review verified the exact two-hunk host/device declaration change and remaining four role plans. This approval remains limited to the proposed correctness sequence; it makes no execution, speedup, adoption, or issue-completion claim.

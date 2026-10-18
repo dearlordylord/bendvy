@@ -1,9 +1,0 @@
-SOME PROOFS FAIL
-Error:
-- message  : a ../../../../../../src/ecs/relation-failure-runtime.Reader pattern with 3 fields
-Location:
-23 |   match owner:
-24>|     case Owner{Decl.Declaration{G.Descriptor{+key,+name,+inverse,+kind}},K.Reader{Sys.Registry{+namespace,+id,+systemName,+access,+cursor},+keys}}:(Owner{Decl.Declaration{G.Descriptor{key,name,inverse,kind}},K.Reader{Sys.Registry{namespace,id,systemName,access,cursor},keys}},[Fields.Fields{namespace,id,systemName,access,cursor,name,[Query.Clause{name,Query.Read{}}],Fields.EventKind{}}])
-   |                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-25 | type Registration<S:Data,C:Type,R:Type,P:Data,F:Type,H:Type,Owner:Type> is Type:
-bend 2.0.37 is available: run bend update

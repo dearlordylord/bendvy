@@ -1,9 +1,0 @@
-SOME PROOFS FAIL
-Error:
-- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
-Location:
-10 |       +previous=U32.sub(index,1)
-11>|       (scratch,value)=Array.get(U32,scratch,previous)
-   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-12 |       materialize_go(rest,previous,scratch,SCon{Char.from_u32(value),acc})
-bend 2.0.37 is available: run bend update

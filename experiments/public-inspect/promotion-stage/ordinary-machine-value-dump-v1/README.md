@@ -1,5 +1,0 @@
-Two nominal ordinary machine Apps use the same operative declaration for the named full Data Slot dump. Fourteen operations per schema preserve arrays, World state and owners while distinguishing queue success, transaction failure rollback, structural flush and explicit marker application.
-
-JS and Native both matched the complete independent 7,287-byte normal oracle. Actual API authority checks passed: same App, schema/token refusals and affine duplication refusal. The root-applied enabled-output omission matched the complete independent 6,851-byte counter on both backends and rejected the entire normal output at byte 304. The exact normal module and all 55 dependencies were restored. Source01 refusal remains archived.
-
-Existing executed TS reference 602259 covers named current/pending/previous values after actual markers and pending requests. It does not establish equality of this scene, native skipSame/changed fields, clocks or affine ownership. The take lens remains trusted; no transition-event handler, universal proof, performance or full #56 completion claim is made.

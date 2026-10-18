@@ -1,7 +1,0 @@
-# Operational component-query constrain omission control pair
-
-Both stock backends match all98,819 independent counteroracle bytes, SHA-256 `c4b8c15832f073dd2fbd1e8e44a90abf88b2e59752ba1cc319ea40ad38dc61c5`, and reject the complete normal baseline. Five commands exit zero with seventeen unchanged evolving guards. Source8e32c28d7 and counteroracle6859e4e1 remain unchanged; countermodel was sealed before execution. No backend replay was performed.
-
-The manifest retains558 exact-path bindings in514 lossless gzip objects; twenty-two installed tool ELF identities remain external requirements. Isolated full joins verify4,244 evolving guard pin bindings including generated artifacts and earlier streams/guards, exact132-module closure per role, source-check pre/post pins/raw diagnostics, both whole-normal rejections and full retained model/state_model reproduction. Actual root/dependency bytes are preserved under frozen hashes, not attributed to an invented master commit.
-
-The reached mutation omits operational Q.constrain while retaining authored metadata. Presence rows expand to1..5; joined rows become1,2,3,5 while RequiredPrimary still excludes4. Exactly18 full readout lines differ; all physical state, owners, snapshots and dispatch effects remain unchanged. This is query membership defect detection rather than a metadata-only mutation. Main retains five foreign-dependent source diagnostics, not a blanket checker/proof PASS. No new contract, comparative performance or universal correctness claim is introduced.

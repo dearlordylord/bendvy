@@ -34,30 +34,30 @@ def closure(entries):
     return found
 
 def snapshot():
-    inputs = set(HERE.glob('*')) | {p for p in (HERE/'nested-candidate').glob('*') if p.is_file()} | {ROOT / 'scripts/task_runner.py', ROOT / '.references/bend2/bend2/main.ts', ROOT / 'experiments/public-simulation/delivery-v1/installed-config.py'}
+    inputs = set(HERE.glob('*')) | {p for p in (HERE/'nested-candidate').glob('*') if p.is_file()} | {ROOT / 'scripts/task_runner.py', ROOT / '.references/bend2/bend2/main.ts', ROOT / 'scripts/installed-config.py'}
     inputs |= set((ROOT/'src/ecs').rglob('*.bend'))
     # Foreign implementations are executable inputs even when their imports
     # occur inside Bend definitions rather than at module scope.
     inputs |= {p for p in (ROOT/'src/ecs').rglob('*') if p.is_file() and p.suffix in {'.c', '.js'}}
     for feature in FEATURES:
-        directory = ROOT / 'experiments' / feature
+        directory = ROOT / 'test-fixtures' / feature
         authored = {p for p in directory.iterdir() if p.is_file() and p.suffix in {'.bend', '.mjs', '.json', '.py', '.md'}}
         inputs |= authored
         inputs |= closure(p for p in authored if p.suffix == '.bend')
-    scopes = ROOT / 'experiments/public-scopes/feature-timing-v1'
+    scopes = ROOT / 'test-fixtures/public-scopes/feature-timing-v1'
     if scopes.is_dir():
         authored = {p for p in scopes.rglob('*') if p.is_file() and p.suffix in {'.bend', '.mjs', '.json', '.py', '.md', '.stdout', '.source', '.gz'}}
         inputs |= authored
         inputs |= closure(p for p in authored if p.suffix == '.bend')
-    inspectors = ROOT / 'experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1'
+    inspectors = ROOT / 'test-fixtures/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1'
     if inspectors.is_dir():
         authored = {p for p in inspectors.rglob('*') if p.is_file() and p.suffix in {'.bend', '.mjs', '.json', '.py', '.md', '.stdout', '.source', '.gz'}}
         inputs |= authored
         inputs |= closure(p for p in authored if p.suffix == '.bend')
     # Exact authored named-plan inputs only: sibling retained packets and producer
     # histories are not recursive benchmark inputs.
-    for relative in ['experiments/public-schedules/named-app-v1/matched-feature-v1',
-                     'experiments/public-schedules/named-app-v1/debug-overhead-v1']:
+    for relative in ['test-fixtures/public-schedules/named-app-v1/matched-feature-v1',
+                     'test-fixtures/public-schedules/named-app-v1/debug-overhead-v1']:
         directory = ROOT / relative
         if directory.is_dir():
             authored = {p for p in directory.iterdir() if p.is_file() and p.suffix in {'.bend', '.mjs'}}

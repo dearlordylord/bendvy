@@ -1,7 +1,0 @@
-# Disable-CGP backend diagnostic v1 launch review
-
-**Verdict: APPROVE this exact prospective bounded diagnostic.** No compiler command was run.
-
-Plan, freeze, and launch bind to `61355956fa34a86e4b86957f6d567fa9eb44e1d06d4ed685d36ba73839edd306`, `dcb2e25fb48a7e2ca0c61c43b4b32ccb66559c1dd235eb28493736d1205f0bc2`, and `8c61992e32b5613187ae6a3ae9c436e0fb0d0f989ee6cfc571440af4ae118913`. All 36 pins and five resource-root snapshots are current. The 43,550,580-byte C input is unchanged (SHA256 `24b6ef6a…58465`); the compiler command differs from the pinned default-backend baseline only by `-mllvm -disable-cgp`. CPU 3, 120-second cap, `-O3 -Xclang -disable-llvm-passes -c`, `/dev/null` output, and `-pthread` are unchanged. Existing collector guards and split raw capture remain bound; all prospective output/receipt/guard paths are absent.
-
-The pinned LLVM 19.1.7 source confirms the flag gates `addCodeGenPrepare()` and skips that stage when set; this is source inference, not pinned-binary proof. One metadata discrepancy: SOURCE-SCOPE lists lines `94-95,868-871`, but the pinned body defines `DisableCGP` at 98-99 and guards `addCodeGenPrepare()` at 942-944 (called at 1069). I verified the actual hash-pinned body directly; the line annotation should not be used as a supporting citation. The diagnostic makes no full-O3 acceptance, runtime, performance, or adoption claim.

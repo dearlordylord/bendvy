@@ -8,7 +8,7 @@ _runner_root = next(p for p in _runner_Path(__file__).resolve().parents if (p/'s
 _runner_sys.path.insert(0, str(_runner_root/'scripts'))
 import task_runner
 
-CONFIG_PATH=_runner_root/'experiments/public-simulation/delivery-v1/installed-config.py'
+CONFIG_PATH=_runner_root/'scripts/installed-config.py'
 _config_spec=importlib.util.spec_from_file_location('feature_installed_config',CONFIG_PATH)
 _config=importlib.util.module_from_spec(_config_spec);_config_spec.loader.exec_module(_config)
 SELECTED_TOOLS={name:Path(path).resolve() for name,path in _config.TOOL_PATHS.items()}

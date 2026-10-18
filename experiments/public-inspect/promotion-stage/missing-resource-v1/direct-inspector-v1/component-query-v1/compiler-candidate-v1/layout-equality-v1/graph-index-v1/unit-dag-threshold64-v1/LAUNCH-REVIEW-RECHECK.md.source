@@ -1,5 +1,0 @@
-# Unit DAG threshold 64 v1 launch review recheck
-
-**Verdict: APPROVE the corrected exact prospective sequence.** This recheck covers the corrected scope and dependent bindings only; no compiler or runtime command was run.
-
-The active plan hash is `46c9f0720fb7627ec662c86825630e56accc0a6d0222387996ae8561da2f5fd7`. Its scope now correctly says `dag-maps-huge-region64`, matching the command. FREEZE `952da337ca1468edda753ca2754df737e51f4d9f396cc72bdc2f49f7619431ad` binds that plan hash, and LAUNCH `af80f2f710e7460894a65c5aa9e13936d80542a4ce1ce34cff5612c424b87441` references the same plan hash. All 144 current file pins match. The existing threshold-128 review remains valid for unchanged source, runner, caps, and consumer evidence; only the setting and dependent plan bindings changed.

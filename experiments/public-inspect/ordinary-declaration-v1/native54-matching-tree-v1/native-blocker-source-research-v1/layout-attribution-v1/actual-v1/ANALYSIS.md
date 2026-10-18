@@ -1,7 +1,0 @@
-# Partial copied compiler layout attribution
-
-Actual70828 is INCOMPLETE: context and same-ELF API controls exited0; emit reached30-second child deadline. No C file, build, runtime, or planned schema command executed. Offline archive/schema/FD checks are separate from collector command evidence. Full47 original seek-view-delegation subject and205 input pins remain current; all captured guards unchanged.
-
-The completed-definition checkpoint retained1545 completed definitions and a15-second sampled prefix; bounded attribution overflow is0. Highest assigned term_key.stringify owner is core/inspector-query:composed_lookup_matched~8 (348 calls,130.192ms inclusive), followed by inspector-query-projection:constrained~15 (16,47.572ms) and pair~28 (76,44.988ms). Highest lay_eq.stringify owner is inspector-query-families:check_matches~33 (504 calls,66.235ms), then owner-carrier:inspect_predicate~23 (154,31.910ms). Complete top-ten rankings are in ATTRIBUTION.json. Outside-definition term_key.stringify is61112 calls/995.172ms and lay_of21792/891.553ms; these are explicitly unassigned, not charged to an emitted definition.
-
-Inclusive durations overlap recursive lay_of/stringify boundaries and include observer overhead, GC/scheduling and partial compilation. They identify reached diagnostic ownership, not stock cost, cause, optimization benefit or completed native correctness. Compilation remains blocked by unchanged30-second emission budget; no unchanged retry or compiler adoption follows.

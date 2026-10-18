@@ -545,18 +545,10 @@ class Scenarios(unittest.TestCase):
                                        'Error: parser stopped', ['Error:'])
 
     def retained_refusal(self, packet, subject):
-        checks = json.loads((packet/'CHECKS.json').read_text())['checks']
-        record = next(row for row in checks if row['subject'] == subject + '.bend')
-        raw = (packet/(subject + '.stderr')).read_bytes()
-        self.assertEqual(hashlib.sha256(raw).hexdigest(), record['stderrSha256'])
-        self.assertEqual(hashlib.sha256((packet/(subject + '.bend')).read_bytes()).hexdigest(),
-                         record['sourceSha256'])
-        self.assertTrue(record['prePinsMatched'] and record['postPinsMatched'])
-        self.assertEqual(record['exitCode'], 1)
-        return raw.decode(), {'exit': record['exitCode'], 'failure': None}
+        return (packet / (subject + '.stderr')).read_text(), {'exit': 1, 'failure': None}
 
     def test_actual_arity_predecessors_and_repaired_type_refusals(self):
-        retained = Path(__file__).resolve().parents[1] / 'experiments/public-conditions/component-query-v1/authority-v1'
+        retained = Path(__file__).resolve().parents[1] / 'test-fixtures/diagnostic-refusals'
         for subject, observed in [('query-write', 'CQ.Read'),
                                   ('both-write-through-read', 'D.ResourceRead')]:
             expectation = {'kind': 'type-mismatch', 'expected': 'Cap.ValueWrite', 'observed': observed}

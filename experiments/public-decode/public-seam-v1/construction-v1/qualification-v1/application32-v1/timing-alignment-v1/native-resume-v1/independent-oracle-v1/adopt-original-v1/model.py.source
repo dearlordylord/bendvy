@@ -1,7 +1,0 @@
-from pathlib import Path
-import runpy,json
-ALIGNED=Path('/workspace/formal-proofs/bendvy/experiments/public-decode/public-seam-v1/construction-v1/qualification-v1/application32-v1/timing-alignment-v1')
-def models():return runpy.run_path(str(ALIGNED/'oracle-v1/expected.py'))['expected']()
-def adapter():return runpy.run_path(str(ALIGNED/'model-adapter.py'))
-def whole():return adapter()['render_native'](models()['native'],ALIGNED/'observation-main.bend')
-def common():return (json.dumps(json.dumps(models()['common'],separators=(',',':'),ensure_ascii=False),ensure_ascii=False)+'\n').encode()

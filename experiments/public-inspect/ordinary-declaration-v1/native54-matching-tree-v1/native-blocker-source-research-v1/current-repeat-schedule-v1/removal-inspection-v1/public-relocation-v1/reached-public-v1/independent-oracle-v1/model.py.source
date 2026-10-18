@@ -1,8 +1,0 @@
-"""Actual root public selector omission, source-only state interpretation."""
-from pathlib import Path
-import runpy
-DEPENDENCY=Path(__file__).resolve().parents[3]/'affected-v1/independent-oracle-v1/model.py.source'
-def expected(case):return runpy.run_path(str(DEPENDENCY))['expected'](case)
-if __name__=='__main__':
-    import sys
-    sys.stdout.buffer.write(expected(sys.argv[1]))

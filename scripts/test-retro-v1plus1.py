@@ -22,7 +22,7 @@ class Controls(unittest.TestCase):
             (base/'scripts').mkdir(); (base/'experiments/public-simulation/delivery-v1').mkdir(parents=True)
             wrapper=base/'scripts/bend-check'; wrapper.write_bytes((ROOT/'scripts/bend-check').read_bytes())
             compiler=base/'pinned'; compiler.write_text('#!/bin/sh\n[ "$1" = sample.bend ] && [ "$2" = --check-only ]\n'); compiler.chmod(0o755)
-            (base/'experiments/public-simulation/delivery-v1/installed-config.py').write_text("TOOL_PATHS={'bend':"+repr(str(compiler))+"}\nraise RuntimeError('must not execute config')\n")
+            (base/'scripts/installed-config.py').write_text("TOOL_PATHS={'bend':"+repr(str(compiler))+"}\nraise RuntimeError('must not execute config')\n")
             result=run(['/bin/sh',str(wrapper),'sample.bend'],timeout=5,capture_output=True)
             self.assertEqual(result.returncode,0,result.stderr)
 

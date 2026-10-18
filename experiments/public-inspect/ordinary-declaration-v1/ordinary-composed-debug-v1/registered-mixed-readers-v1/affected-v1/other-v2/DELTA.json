@@ -1,8 +1,0 @@
-{
-  "predecessor": "other",
-  "file": "reader-observer.bend",
-  "original": "def typed2(owner:B.Owner2()) -> B.Owner2() & TypedView:\n  match owner:\n    case Reader.Owner{Event.Declaration{Event.Domain{+key},+mode},Route.Reader{+namespace,+readerId,+registryId},Sys.Registry{+registryNamespace,+systemId,+name,+access,+cursor}}:(Reader.Owner{Event.Declaration{Event.Domain{key},mode},Route.Reader{namespace,readerId,registryId},Sys.Registry{registryNamespace,systemId,name,access,cursor}},TypedView{key,mode,namespace,readerId,registryId,registryNamespace,systemId,name,access,cursor})\n",
-  "replacement": "def typed2(owner:B.Owner2()) -> B.Owner2() & TypedView:typed1(owner)\n",
-  "owners": "Owner1 and Owner2 operative type expressions identical",
-  "observations": "all14 full checkpoints and four callbacks unchanged"
-}

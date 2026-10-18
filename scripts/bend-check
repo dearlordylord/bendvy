@@ -5,7 +5,7 @@ set -eu
 BENDVY_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 BENDVY_COMPILER=$(python3 - "$BENDVY_ROOT" <<'PYTHON'
 import ast, pathlib, sys
-source = pathlib.Path(sys.argv[1], 'experiments/public-simulation/delivery-v1/installed-config.py').read_text()
+source = pathlib.Path(sys.argv[1], 'scripts/installed-config.py').read_text()
 for node in ast.parse(source).body:
     if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == 'TOOL_PATHS' for t in node.targets):
         for key, value in zip(node.value.keys, node.value.values):

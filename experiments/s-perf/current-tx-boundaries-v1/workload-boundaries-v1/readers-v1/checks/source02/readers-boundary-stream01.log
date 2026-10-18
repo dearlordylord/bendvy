@@ -1,9 +1,0 @@
-SOME PROOFS FAIL
-Error:
-- message  : a motion-systems.LocalCall pattern with 5 fields
-Location:
-42 |   match value:
-43>|     case S.LocalCall{id,operation,status,returned}:Doc.join(Doc.text("id=" ++ U32.show(id) ++ ";operation=" ++ U32.show(operation) ++ ";status=" ++ U32.show(status) ++ ";output="),doc_maybe_frame(returned))
-   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-44 | def local_call(value:S.LocalCall) -> String:Doc.flatten(doc_local_call(value))
-bend 2.0.37 is available: run bend update

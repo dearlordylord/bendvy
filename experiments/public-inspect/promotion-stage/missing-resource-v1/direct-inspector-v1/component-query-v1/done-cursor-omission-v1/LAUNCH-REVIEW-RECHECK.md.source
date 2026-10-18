@@ -1,9 +1,0 @@
-# Done-cursor omission launch review recheck
-
-**Verdict: APPROVE the exact prospective JS→Native sequence for launch under the previously reviewed scope.** This is a bounded pin-and-join recheck only; it is not a runtime result or Native acceptance.
-
-Both current plans pin the live README hashes: docs/parity/README.md = 18ad9da1aba253394d77ac0a1f5b1775ed24b4e90dcdb733c0e95dd882f7a977, and experiments/native-compiler-diagnostics/inspector54-v1/README.md = e71cd84d0156ee2360b7cdda9ff32973c5c619cd8b96574666e33aafa99b4397. All 147 runtime-freeze pins exist and match current bytes; no mismatches remain.
-
-Compared with the preserved held proposal, each plan changes only those two pin values. Current plan hashes join exactly: JS 3e67faa2d468338a04f5f7382686b38112edbbbe2de8c6bc593d86e713298011 and Native 529a85f0618db6ae98227321fe86b33efebf4d5470be80a39d6e6adda09d6b5a. RUNTIME-FREEZE joins those two hashes (freeze SHA-256 fb126db2387816e273ec14cd54b6a683cb0a54721abfebeed55ba453dbdc77e6); LAUNCH invokes each matching plan hash (launch SHA-256 8837e88a756f13baf77eac718e366bf4869e605a10471fcb06592a0109877796). Its command arguments and scope are unchanged from the held proposal.
-
-No model, source inventory, tool, command semantics, or runner changes were found in this successor. No collector was run.

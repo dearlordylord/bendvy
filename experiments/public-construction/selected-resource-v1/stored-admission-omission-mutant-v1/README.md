@@ -1,3 +1,0 @@
-This isolated consumer mutation omits only final cooked-owner admission. Input decoding and custom construction are unchanged. `constructed` projects the actual cooked owner and passes that same owner and Raw through `D.Accepted` to the existing field-write branch. The four other complete consumer/observer/setup/IO source bodies are byte-identical local copies; core engines are untouched.
-
-All four pure source checks pass under the pinned CPU5 five-second wrapper; the IO entry reports only the same five foreign-IO-dependent definitions. The full 154-module/225-pin closure is frozen. Independent full counter-oracle and stock backend qualification are pending; no output is inferred here.

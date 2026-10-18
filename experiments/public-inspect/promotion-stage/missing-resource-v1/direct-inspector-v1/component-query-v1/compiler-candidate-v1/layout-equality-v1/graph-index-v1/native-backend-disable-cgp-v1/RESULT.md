@@ -1,1 +1,0 @@
-The original-C backend diagnostic with `-disable-cgp` reached its 120-second child deadline with empty streams. All four guards passed. The preserved launch review corrects stale source line references to 98–99, 942–944 and call1069. This does not establish a total-cost attribution or full O3/Native acceptance.

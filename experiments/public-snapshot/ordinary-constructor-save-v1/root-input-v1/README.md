@@ -1,9 +1,0 @@
-# Runnable current basic-save consumer
-
-Run `consumer-io.bend` from this repository-relative source directory. Its sixteen source bodies are an exact inverse-checked import-only relocation of the qualified producer in the sibling retained delivery. All 31 canonical Bend dependencies and both namespace sidecars match the development copies. The pinned five-second development source check reports only seven expected foreign/IO dependencies; no proof or fresh relocated backend execution is claimed.
-
-Fresh producer JS and ordinary stock Native O3 each match the complete independent 9,605-byte report: two nominal IO-created Worlds, generic constructor admission with affine payloads, repeated independent saves, post-save live mutation, retained codecs, transient omission and complete physical World/owner observations. The 9,286-byte constructor-bypass counter is a fresh matched compiling control. The included-transient run's original receipt stays INCOMPLETE; a separate independently source-corrected 10,217-byte oracle matches all retained bytes including four downstream validation fields, with no replay.
-
-The sibling `ordinary-constructor-save-delivery-v1` packet retains all original plans, receipts, raw streams, source copies, mutations and source models. Its verifier starts no compiler/backend. Only this directory is the root-facing source successor; producer/private control copies remain archived provenance.
-
-The executed historical TS basic-save reference matches all six shared snapshots; its current 33 TS source hashes, entry and Node identity match. Its retained aliases still change while Bend's detached Data stays stable. This does not claim fresh TS execution, whole physical-report equality or a new literal-refusal TS case. Feature timing/scaling, broader graph/machine/checkpoint scope and full #58 remain open. No restore/generation/ownership policy, new dependency, proof or core API is adopted.

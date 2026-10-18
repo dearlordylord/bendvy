@@ -39,8 +39,7 @@ reviewed execution paths use final review without repeated stage admissions.
 
 Verify read-only `.references/{bevy-ts,bevy,bend2}` against the
 [manifest](../.references/sources.json); worktrees use absolute reference paths.
-For query/storage changes, read [R-A](../experiments/ra-provider/README.md) and
-[R-C1](../experiments/rc1-query/README.md). For TS execution, reuse the selected
+For TS execution, reuse the selected
 Node adapter and delivery receipt before discovering new tooling. Source-derived
 traces count as observations only after actual execution.
 
@@ -57,3 +56,7 @@ performance cohorts exclusively under current resource limits. Ordinary runs use
 the runner’s internal lock; a terminal result and release from the preceding
 owner suffice to start the next admitted run. Follow the
 [current coordination table](parity/README.md#current-delivery-coordination).
+
+Experiments are disposable: follow [temporary storage policy](../experiments/README.md).
+Keep only current runnable fixtures with an explicit consumer in test-fixtures;
+remove completed temporary work instead of committing execution archives.

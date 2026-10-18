@@ -31,6 +31,8 @@ jobs:
           fi
       - name: Runner, logs, tool pins and statistics
         run: |
+          python3 scripts/check-experiment-state.py
+          python3 scripts/test-experiment-state.py
           python3 scripts/test-task-runner.py
           python3 scripts/test-evidence-boundary.py
           python3 scripts/test-receipt-logs.py

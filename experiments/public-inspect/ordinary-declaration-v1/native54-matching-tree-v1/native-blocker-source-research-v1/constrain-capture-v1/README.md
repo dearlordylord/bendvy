@@ -1,1 +1,0 @@
-Private full47 constrain matches-only capture prototype. One constructor body changes; full source and historical metadata bindings in DELTA/plan files. Source-only preparation, no backend/adoption/performance claim.

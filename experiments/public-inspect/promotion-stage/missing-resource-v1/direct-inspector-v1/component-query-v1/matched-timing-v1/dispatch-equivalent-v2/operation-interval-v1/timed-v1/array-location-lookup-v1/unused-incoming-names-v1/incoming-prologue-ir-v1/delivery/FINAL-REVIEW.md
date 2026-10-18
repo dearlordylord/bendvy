@@ -1,9 +1,0 @@
-# Final retention review: incoming-prologue IR pair
-
-**Verdict: bounded result retained; unused-parameter-name factor rejected for the tested mechanism.** Reviewed commit `dee140c2b799a0190292e1f754a89fed015f16c5` (28 owned paths), with archive `EVIDENCE.zip` SHA-256 `d6404c10b9400844ce80e5fc6accb85cc9faf08576558839ef37173062723acf`, `DELIVERY.json` SHA-256 `e5adfa2741f6e430f3110e5f978d6943be26a110a56b53608bb94476747ddcb7`, and `RESULT.json` SHA-256 `3354d5a6c1667cf4eb7d214d7ae2dcfba018f68df00fb47a0d3ad15221f961a7`.
-
-The retained verifier passed: 164 archive members, with the frozen IR comparison recomputed from retained inputs. The named and unnamed commands both exited 0 under the 5-second CPU3 cap; receipts preserve four guards each and fresh IR outputs. The change only removes unused parameter names from `direct` and `frame`: each declaration retains 46 arguments with identical ordered types. Bodies, bridge/musttail, function-pointer type, pragmas, and device branch are unchanged. The frozen plans and launch record bind source pair `a1a9bcab…`, plans `2a4656b5…` and `b343075a…`, and the shared collector/tool inputs.
-
-The comparison found no prologue reduction. `direct` is 49 allocas / 49 stores / 45 scalar-argument stores for both variants; `frame` is 50 / 51 / 45; `bridge` is 46 / 46 / 45. The three per-function instruction hashes also match pairwise. Both stderr captures retain the same 76-byte `-lm` unused-linker-input warning; stdout is empty. The generic collector receipt status is interpreted only as command completion: the frozen plans say “No consumer,” and the result is frontend-IR-only.
-
-This rejects the proposed unused-name prologue-removal mechanism on this finite fixture. It provides no full-pipeline, runtime, Native-acceptance, or performance evidence and does not establish a universal result about all generated functions. No identical full Native retry is warranted by this comparison.

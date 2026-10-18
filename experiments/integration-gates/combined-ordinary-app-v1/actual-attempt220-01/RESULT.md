@@ -1,5 +1,0 @@
-Combined220 default #28: original session61115 exited0, NO_CONFIRMED_REGRESSION. All123 commands and110 complete outputs pass;20 balanced pairs per backend. JS median paired current/baseline ratio0.9302958244 (p0.998711586); Native0.9955085148 (p0.748277664). Baseline327bec49, workload, limits and sign/Holm zero-allowance policy are unchanged.
-
-Candidate/TS whole-process median ratios are descriptively JS0.413595 and Native0.099988. This protects Workshop; it does not qualify complete feature timing or full parity.
-
-Archive retains the exact run tree, sources, generated artifacts, all complete outputs, selected reference sources, executor/tool-snapshot metadata, plan/launch review, fresh quiet CPU11 observation and post-run validation. Installed binaries/resources remain pinned inventories, not duplicate installations. [Independent final actual review](FINAL-REVIEW.md) passes: all 6,935 pins, full outputs, command joins and unchanged statistical decision were verified without rerunning the workload.

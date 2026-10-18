@@ -11,7 +11,7 @@ fi
 if [ -n "${BENDVY_DELIVERY_PLANS:-}" ]; then
   python3 scripts/delivery_preflight.py --manifest "$BENDVY_DELIVERY_PLANS"
 fi
-python3 scripts/run-admission-controls.py
+python3 scripts/check-experiment-state.py
 # Full infrastructure suites run in CI; local admission controls select affected callers.
 # Raw evidence retains compiler whitespace and complete output terminators.
 git diff --cached --check -- '*.bend' '*.py' '*.md' '*.c' '*.js' '*.json' '.githooks/*'

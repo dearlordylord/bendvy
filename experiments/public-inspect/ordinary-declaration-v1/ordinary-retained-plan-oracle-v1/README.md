@@ -1,1 +1,0 @@
-Source-only complete Workshop zero/two retained-Plan oracle. Seven debug snapshots and two actual Sch.run traces, full physical World/actualFields, conditions13 then15, pending99 flushed only at barrier. No actual output input; no failure/arbitraryarity/full56 claim.

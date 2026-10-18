@@ -1,7 +1,0 @@
-# Ordinary component-query Check normal pair
-
-Both stock backends match all96,029 independent expected bytes, SHA-256 `902cb0c1804a5f867153aa274307abb73133f5b28528eba8d86e77c94fd5bb19`. Five commands exit zero with seventeen unchanged evolving guards. Source711de5abc/metadata48487e102 and independently sealed oracle5e74615f remain unchanged. No backend replay was performed.
-
-The manifest retains552 exact-path bindings in508 lossless gzip objects; twenty-two installed tool ELF identities remain external requirements. Isolated full joins verify4,142 evolving guard pin bindings including generated artifacts and earlier raw/guards, exact132-module closure per role, all source-check pre/post pins/raw diagnostics, and complete reproduction from retained model.py plus state_model.py. Actual root production/dependency bodies retain exact frozen hashes without an invented master commit.
-
-Scope is two real Worlds/nominal schemas and all five entity boundaries for Required/Optional/With/Without, presence-only lazy admission and the same reached Check's joined query plus required Threshold. Full physical columns/stamps/resources/live state, actual setup handles/receipts/facts, returned ThresholdSlot owners and actual restoration, system/condition owners, App debug/metadata and error prefixes remain observed. Pure source checks pass; main's five expected foreign-dependent diagnostics remain explicitly scoped, without blanket proof PASS, comparative performance or universal correctness claims.

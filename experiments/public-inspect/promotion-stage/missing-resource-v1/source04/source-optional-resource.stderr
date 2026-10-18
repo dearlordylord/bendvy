@@ -1,9 +1,0 @@
-SOME PROOFS FAIL
-Error:
-- expected : an annotated term (cannot infer)
-- observed : \{Cap.Bundle: (left => right => args => owner => read(body~S, body~H, right, Field.read_field(body~S, Array<U32>, Schema.Resource{"Payload"}, body~H, Maybe<&2, List<&2, U32>>, left, owner)))}
-Location: body
-79 |   match caps:
-80>|     case Cap.Bundle{left,right}:read(~S,~H,~right,Field.read_value(~S,~Array<U32>,~payload(~S),~H,~Maybe<&2,List<&2,U32>>,~left,owner))
-   |          ^^^^^^^^^^^^^^^^^^^^^^
-81 | def resource(~S:Data,present:Bool) -> Resource(~S):

@@ -1,7 +1,0 @@
-# Ordinary checked-predicate stock pair
-
-Both stock backends match all 104,475 independently derived bytes, SHA-256 `b1381be61d9840ebbebcb93978bbaa4fc4529482df301fa20bd9cede5622709f`. Five commands exit zero, with seventeen unchanged evolving guards. Source ab671b2ae and oracle f9ec4354 remain unchanged; no backend replay was performed.
-
-The manifest retains 544 exact-path bindings in 504 lossless gzip objects; twenty-two installed tool ELF identities remain external requirements. Isolated full joins verify 4,006 evolving guard pin bindings including generated artifacts and earlier streams/guards, exact 129-module import closure per role, source-check pre/post pins and raw diagnostics, and full reproduction from the retained independent Python model. Actual root production bytes are identified by frozen hashes without assigning them a fabricated master commit.
-
-Scope is eight real Worlds across two nominal schemas: missing/zero/positive/reached-missing required inputs, actual explicit-ID ordinary schedule, lifted existing condition, lazy checked composition and three retained direct probe owners across three rounds. Full physical resources, App owners/fields/metadata/debug and schedule prefixes/errors are observed. Existing authored SP requirements remain unchanged but are empty in this workload. Source checking retains fixture/observer/scenario PASS and IO main's nine foreign-dependent diagnostics, without a blanket main proof PASS. No comparative performance or universal proof claim is made.

@@ -1,9 +1,0 @@
-{
-  "originalPath": "/workspace/formal-proofs/bendvy/src/ecs/schema-fragments.bend",
-  "originalSHA256": "e161ff13196cd40b2218efc7734c2e1e661e74e09a754e6ff60cbe2b525d65ca",
-  "candidateSHA256": "20197d5214505462d258ca444a52c77a1c63956f05b38235714d5f45491f346f",
-  "oldDefinition": "def check_one_bare(~S: Data,+seen: List<&2,Entry<S>>,item: Entry<S>) -> Validation:\n  match item:\n    case Entry{+kind,+key,+name}: check_entry(key_exists(~S,seen,kind,key),name_exists(~S,seen,kind,name),kind,key,name)\n    case Classified{+kind,+key,+name,_}: check_entry(key_exists(~S,seen,kind,key),name_exists(~S,seen,kind,name),kind,key,name)\n",
-  "newDefinition": "def check_one_bare(~S: Data,+seen: List<&2,Entry<S>>,item: Entry<S>) -> Validation:\n  match item:\n    case Entry{+kind,+key,+name}: check_entry(key_exists_bare(~S,seen,kind,key),name_exists_bare(~S,seen,kind,name),kind,key,name)\n    case Classified{+kind,+key,+name,_}: check_entry(key_exists_bare(~S,seen,kind,key),name_exists_bare(~S,seen,kind,name),kind,key,name)\n",
-  "callsChanged": 4,
-  "scope": "Only check_one_bare; wrappers and normalization preserved; no measured speedup or universal proof."
-}

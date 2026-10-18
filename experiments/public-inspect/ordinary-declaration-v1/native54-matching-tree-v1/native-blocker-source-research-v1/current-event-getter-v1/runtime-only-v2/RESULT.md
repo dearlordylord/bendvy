@@ -1,9 +1,0 @@
-Runtime-only successor: source and JS PASS; Native BLOCKED at emit30.
-
-The capability accepts only the actual Runtime and an ordinary typed declaration with generated take/put indices. It preserves operational reader owners outside the getter. The complete consumer includes two publisher-only/unused checkpoints without reader registration and all fourteen existing mixed-reader checkpoints. It retains physical Arrays, resource owners, World, journal, leaf batches, positions, ticks and registration counters.
-
-Stock source original70296 passed. First JS original14782 ran successfully but failed its oracle: the independent model incorrectly qualified the root entry constructor as entry.Report. The pinned loader main.ts808 loads the main module with an empty qualifier; imported constructors retain their module qualifiers. A separate oracle-v2 corrects only that qualifier, leaving every physical observation unchanged. Both original model and failed attempt remain immutable. Corrected JS original2856 matched all149159 bytes, SHA8421b2cf910c8f4ee2d3e91f894f5c4cdba3314cd8ed62c6ff2efabd3dea3868.
-
-Native original40287 reached the unchanged emission deadline30 with empty raw streams, no C file, and stable guard bodies. Build/runtime were held. No unchanged retry, cap increase, public adoption, affected control, I.run clock, performance or full54 acceptance is claimed. The combined two-scene emission remains unqualified; any diagnostic partition must preserve each complete scene and qualify its own source/output.
-
-actual-v2 preserves147 logical rows/131 CAS objects, six executed commands and22 guards including the failed JS and Native attempts. All raw stream hashes, current89 source modules and guard actualPins were checked. Thirty external frozen tool/support bindings are explicit. Prior reader-bound packet181697944 and unexecuted affected drafts remain separate history.

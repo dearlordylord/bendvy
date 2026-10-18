@@ -1,7 +1,0 @@
-Both first stock roles passed the complete 4,230-byte independent oracle, SHA256 `16668fd4c537816e5be02289a688371eabcd19545b0d9f1d56fb288dd004b07b`, with empty consumer stderr. This packet retains 465 bindings, 403 compressed objects, 22 external installed ELF identities, five commands and seventeen unchanged guards.
-
-Counter bypasses only World.checked namespace equality; full-key generation/phase and all operation bodies remain unchanged. Exact mutation inverse is verified for the sole changed core file; all other declared copied bodies and both namespace sidecars are byte-identical. Both counter whole outputs differ from the retained normal oracle.
-
-`python3 verify.py` checks all retained object hashes, 23 literal Bend modules per role, all 2,238 evolving guard-pin joins, exact receipts/command streams, source/model/sidecar bindings and full model reproduction using its retained local base-model dependency. Verification also passed after copying this packet to an isolated temporary directory. No backend was replayed.
-
-Source-check raw diagnostics and exact frozen entry/tool bindings are retained. No pre/post source-check inventories were produced; source main retains its actual foreign-IO diagnostics. Installed ELF bodies remain external identities. This finite namespace/pending witness does not close full issue #38 or assert a general restore policy, language-wide authority confinement, or performance.

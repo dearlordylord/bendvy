@@ -1,9 +1,0 @@
-SOME PROOFS FAIL
-Error:
-- message  : 'schema' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
-Location:
-109 |   (bindings,bt)=c
-110>|   match schema:
-    |         ^^^^^^
-111 |     case Schema.Schema{+entries}:(F.put_world(~S,F.Rest{Schema.Schema{entries},owned,recipe,debug,plan,ns,name,steps,needs,bindings},current),"app{schema=" ++ List.show(&2,Fragment.Entry<S>,Prior.schema_entry(~S),entries) ++ ";debug=" ++ Bool.show(debug) ++ ";recipe=Recipe;plan=" ++ Prior.plan(~S,plan) ++ ";namespace=" ++ U32.show(ns) ++ ";name=" ++ name ++ ";steps=" ++ List.show(&2,Sch.Step,Prior.step,steps) ++ ";needs=" ++ List.show(&2,SP.Requirement<S>,Prior.requirement(~S),needs) ++ ";" ++ wt ++ ";" ++ ot ++ ";" ++ bt ++ "}")
-bend 2.0.37 is available: run bend update

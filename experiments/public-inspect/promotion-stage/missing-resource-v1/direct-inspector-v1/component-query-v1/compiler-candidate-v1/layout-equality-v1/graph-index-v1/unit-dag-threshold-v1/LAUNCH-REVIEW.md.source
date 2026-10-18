@@ -1,9 +1,0 @@
-# Unit DAG threshold v1 launch review
-
-**Verdict: APPROVE this exact prospective full-O3 build/runtime sequence.** No compiler or runtime command was run.
-
-The plan, freeze, and launch bind to `a36f89b2cf2ef433e908e731c1c60630a58dc7773afc0f9feaee8c378bad64f8`, `7e00fb8b078cf16ab0114fce9c6ee7606612873b3ca4fc8cc824714553632d03`, and `96b129895d15dc8fd033f9454439e970c8ed1ae009338bfb96a3ba5882186f79`. All 140 file pins and six resource-root inventories match. The plan retains all 53 current Unit source files and reuses the qualified emitted C at 40,265,217 bytes (SHA256 `1c612c481bf5a8fe6d897847af8a33c626c5f03b8161912efcba1f4ae2ebfe57`). Its complete runtime oracle decompresses to 207,834 bytes with SHA256 `14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d`.
-
-The existing collector runs build then consumer only (CPU 3, 120/5-second caps). The build command differs from the prior full-O3 baseline only by `-mllvm -dag-maps-huge-region=128`; source input, Clang, `-O3`, output flags, and linker libraries are otherwise unchanged. The generated C is a pinned reused input, not regenerated. The new native output, receipt, raw streams, and guards are absent. Existing pre/acquired/post/final guards and complete byte-for-byte oracle comparison remain in scope; no source activation is involved.
-
-Pinned LLVM 19.1.7 `ScheduleDAGInstrs.cpp` shows the threshold controls when memory-dependency and FP-exception maps are reduced (default 1000); lowering it to 128 is an experimental scheduling/quality tradeoff. This source inference does not establish performance, adoption, proof, or general output quality. Only a successful full-O3 build and exact consumer output would qualify this one run.

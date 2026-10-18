@@ -1,9 +1,0 @@
-SOME PROOFS FAIL
-Error:
-- expected : @_:T.Tx<W.World<provide~S, A.Store<provide~S, provide~C>, provide~R, A.Notice<provide~S, provide~E>>, A.Notice<provide~S, provide~E>> -> @_:W.Handle<provide~S> -> Sigma<&1, &1, T.Tx<W.World<provide~S, A.Store<provide~S, provide~C>, provide~R, A.Notice<provide~S, provide~E>>, A.Notice<provide~S, provide~E>>, _ => A.QueueStatus>
-- observed : @tx:T.Tx<W.World<provide~S, A.Store<provide~S, provide~C>, provide~R, A.Notice<provide~S, provide~E>>, A.Notice<provide~S, provide~E>> -> @+handle:W.Handle<provide~S> -> Sigma<&1, &1, T.Tx<W.World<provide~S, A.Store<provide~S, provide~C>, provide~R, A.Notice<provide~S, provide~E>>, A.Notice<provide~S, provide~E>>, _ => A.QueueStatus>
-Location: provide
-32 | def provide(~S:Data,~C:Type,~R:Type,~E:Data,~declarations:List<&2,Ord.Declaration<S>>,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>) -> Ops<T.Tx<Relation.World(~S,~C,~R,~E),A.Notice<S,E>>,S>:
-33>|   Ops{Cap.Request{LC.queue(~S,~C,~R,~E,~declarations,~clear,~record)}}
-   |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-34 | def returned(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~Out:Data,output:Out,result:T.Returned<Relation.World(~S,~C,~R,~E),U>) -> Sys.Outcome<Relation.World(~S,~C,~R,~E),U,Out>:

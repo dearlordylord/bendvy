@@ -1,7 +1,0 @@
-# Opaque automatic-App refusal ordinary pair
-
-Both stock backends match all 5,447 independent oracle bytes, SHA-256 `bad3258b9731d948161651c3e3cce0f064be70f7457dd729e69946d60a451134`. Five commands exit zero with empty runtime stderr; seventeen evolving guards preserve frozen bindings. Source 77bcf8cc6 and independently sealed oracle 8bb8dbcc remain unchanged. No backend replay was performed.
-
-The portable manifest retains 486 exact-path bindings in 450 lossless gzip objects, including complete raw streams, source checks, plans/receipts, guards, source/model/resources and generated artifacts. Twenty-two installed tool ELF identities remain external requirements. Isolated full joins verify 3,020 evolving guard pin bindings (including generated artifacts and earlier raw streams/guards), exact 77-module import closure per role, source-check pre/post pins and raw diagnostics, and full retained-model reproduction. See FULL-JOIN-VERIFICATION.json.
-
-Scope is the automatic bridge refusing the exact raw legacy declaration before registration/body twice, reusing actual returned BeforeApp and incoming capture. Each fresh real World remains empty and clock zero, with its sole prior readonly registration/capture/cursor, resources, recipe and enabled flag intact. This adds no raw administrative execution or universal rejection claim. Pure scenario checks pass; the IO main retains five foreign-dependent diagnostics and is not represented as a blanket checker/proof PASS. Actual root dependency bodies are bound by exact frozen hashes.

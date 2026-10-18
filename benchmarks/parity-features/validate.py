@@ -48,17 +48,17 @@ def validate(feature, backend, text, batches,nested_spawn=False):
         assert batches in {1, 2, 4}, 'Unsupported named-plan scale'
         directory = 'matched-feature-v1' if feature == 'named-schedules' else 'debug-overhead-v1'
         filename = f'expected-scale-{batches}.stdout' if feature == 'named-schedules' else f'expected-{feature.removeprefix("named-schedules-")}-scale-{batches}.stdout'
-        expected = ROOT / 'experiments/public-schedules/named-app-v1' / directory / 'independent-oracle-v1' / filename
+        expected = ROOT / 'test-fixtures/public-schedules/named-app-v1' / directory / 'independent-oracle-v1' / filename
         assert text == expected.read_text(), 'Complete matched named-plan observation mismatch'
         return
     if feature == 'inspect-runtime':
         assert batches in {1,2,4}, 'Unsupported runtime Inspector scale'
-        expected = ROOT / 'experiments/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/independent-oracle-v1' / f'expected-scale-{batches}.stdout'
+        expected = ROOT / 'test-fixtures/public-inspect/graph-stream-public-bridge-v1/feature-timing-v1/independent-oracle-v1' / f'expected-scale-{batches}.stdout'
         assert text == expected.read_text(), 'Complete matched runtime Inspector observation mismatch'
         return
     if feature == 'scopes':
         assert batches in {1,2,4}, 'Unsupported scope scale'
-        expected = ROOT / 'experiments/public-scopes/feature-timing-v1/independent-oracle-v1' / f'expected-scale-{batches}.stdout'
+        expected = ROOT / 'test-fixtures/public-scopes/feature-timing-v1/independent-oracle-v1' / f'expected-scale-{batches}.stdout'
         assert text == expected.read_text(), 'Complete matched scope observation mismatch'
         return
     lines = text.splitlines()
@@ -82,7 +82,7 @@ def validate(feature, backend, text, batches,nested_spawn=False):
             expected = (['schema-A']+block+['schema-B']+block)*batches
             assert lines==expected, 'Complete nested owner/metadata/checkpoint mismatch'
     elif feature == 'readers':
-        expected = [json.loads((ROOT/'experiments/public-schedule-readers'/name).read_text()) for name in ['expected.json','added-expected.json']]
+        expected = [json.loads((ROOT/'test-fixtures/public-schedule-readers'/name).read_text()) for name in ['expected.json','added-expected.json']]
         assert len(lines)==2*batches
         assert [json.loads(line) for line in lines] == expected*batches, 'Complete composed reader checkpoint mismatch'
     elif feature == 'fragments':

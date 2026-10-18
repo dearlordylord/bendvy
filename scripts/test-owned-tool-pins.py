@@ -18,7 +18,6 @@ ROOT = Path(__file__).resolve().parent.parent
 spec = importlib.util.spec_from_file_location('owned_pins', ROOT/'scripts/owned-tool-pins.py')
 pins = importlib.util.module_from_spec(spec); spec.loader.exec_module(pins)
 sys.path.insert(0, str(ROOT/'scripts'))
-sys.path.insert(0, str(ROOT/'experiments/public-relations/promotion-stage/current-core-replay/guarded-v2'))
 
 
 class Contract(unittest.TestCase):

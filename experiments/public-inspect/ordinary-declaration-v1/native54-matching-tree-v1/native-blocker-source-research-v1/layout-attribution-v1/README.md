@@ -1,5 +1,0 @@
-# Layout ownership diagnostic preparation
-
-Original sampled seek-view-delegation full47 closure, not world-text-helper. Copied CLI wraps each outer emitted definition (memo_gc, emit_open and emit_body) in synchronous try/finally ownership context. Only lay_of, lay_eq and their stringify boundaries aggregate bounded counters and inclusive durations. No layout/type walk, additional layout serialization, cache or compiler output changes. Nested times overlap and include diagnostic overhead; no stock timing or causal claim. Maximum8192 definition rows; overflow calls explicit.
-
-Existing completed-definition-after15s checkpoint publishes profile and bounded attribution using exclusive regular FD transport. Normal/error fallback retains original error identity. A process killed before checkpoint cannot publish; absence is inconclusive. Original compiler/profile history remains immutable. Source context/error/result/short-circuit control is lightweight only. Real same-ELF control, emit30/build120/consumer5 require focused independent launch review and root queue release. Whole5077477 oracle remains mandatory if emission completes.

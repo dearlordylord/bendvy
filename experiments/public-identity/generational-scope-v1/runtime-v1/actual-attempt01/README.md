@@ -1,5 +1,0 @@
-Both first stock roles passed with the complete 2,950-byte source-derived oracle, SHA256 `f585a69d6298051c03f08dab50fcc3cb36277b5784edf22d5ba09378e6849f6c`. Five commands and seventeen unchanged guards are retained. The manifest binds 433 paths to 396 compressed objects and 22 external installed ELF identities.
-
-`python3 verify.py` checks retained object hashes, all 28 literal modules per role, the repaired cleanup source/freeze, all 929 evolving guard-pin joins, command stream hashes, receipts, and complete model reproduction. Verification also passed after copying this packet to an isolated temporary location. No backend was replayed.
-
-This finite trusted-factory scope qualifies both deferred producers and actual current-key cleanup with complete allocator, nested owner, membership, notice, queue and transaction observations. It does not qualify stale cleanup, failed callbacks, actual WorldIO authority, or full issue #38/#61 closure. Source-check raw diagnostics and exact frozen entry/tool bindings are retained; source-check pre/post inventory snapshots were not produced. Installed ELF bodies remain external identities.

@@ -1,1 +1,0 @@
-Independent source-only full zero/two invalid-attach recovery. Exact before/after/disabled owner-preserving snapshots; no runtime output or partial projection. Root second sanity required before existing-runner pair.

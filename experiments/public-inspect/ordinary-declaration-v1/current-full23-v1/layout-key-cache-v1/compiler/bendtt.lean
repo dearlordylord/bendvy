@@ -1,1 +1,0 @@
-/workspace/formal-proofs/bendvy-worktrees/inspector54-coherent-cost-diagnostic/experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/stock-format-owner-v1/callback-forwarding-v1/owner-forwarding-v1/boxed-diagnostic-v1/coherent-callback-v1/execution-callback-v1/actual-frame-v1/graph-only-v1/execution-source-v1/compiler-lookup-v1/compiler/bendtt.lean

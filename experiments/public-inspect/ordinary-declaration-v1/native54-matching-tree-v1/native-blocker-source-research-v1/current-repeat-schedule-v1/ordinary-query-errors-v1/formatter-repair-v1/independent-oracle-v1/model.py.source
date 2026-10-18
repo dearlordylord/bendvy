@@ -1,8 +1,0 @@
-"""Source-only applicability successor; preserve historical oracle."""
-from pathlib import Path
-import runpy
-PRIOR=Path(__file__).resolve().parents[2]/"independent-oracle-v1/model.py.source"
-def expected():return runpy.run_path(str(PRIOR))["expected"]()
-if __name__=="__main__":
-    import sys
-    sys.stdout.buffer.write(expected())

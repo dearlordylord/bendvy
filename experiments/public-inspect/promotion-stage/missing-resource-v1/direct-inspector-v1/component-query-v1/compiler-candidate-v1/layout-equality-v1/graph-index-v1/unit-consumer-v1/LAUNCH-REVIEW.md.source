@@ -1,9 +1,0 @@
-# Unit consumer v1 launch review
-
-**Verdict: APPROVE the exact prospective full Native sequence.** This approval covers launch only; no Native command was executed.
-
-The binding plan, freeze, and launch packet match `522a24bdd38dcc11dbf605739d835746aa40ea6349e7591e7660fda956df33a0`, `199945f14eb86edcbd627e0dbe22dd04a7127c778dc843327c64ae6cd6d1281e`, and `07bc221452bfc81fa927d4497a0f6885547a7c329733e4b7367350764f354f39`. All 133 plan pins and six resource-root snapshots are current. The plan retains all 53 current SOURCE03 files; the five-file SOURCE02→SOURCE03 diff only replaces eight filter-only empty DTO result types with `Unit`. The 14 Inspector instances, nine Check kinds, two nominal schemas, 11 checkpoints, registered writers/Schedules, retry path, physical owners, and complete 207,834-byte consumer oracle remain in scope. The graph candidate remains pinned to `845c9b3711d0f11d445af465a3223ad1020a3498939aaf8f40f28dbbb3470de0`.
-
-The existing collector is bound to CPU 3 with emit/build/consumer caps of 30/120/5 seconds. It requires complete stdout equality and exact pre/post source guards; no activation or source writes are planned. Stock SOURCE03 and Unit JS receipt, raw-stream, and guard joins pass. The stock JS output and archived oracle both contain 207,834 bytes with SHA256 `14565a3635124edb3ba8ef53b76e2030c3b3698e5d7c4a31989bc3ca9fb54a2d`. Historical oracle dependencies match the pinned V3 evidence archive; three live metadata drifts are explicitly excluded from current claims. Generated C/binary, Native receipt, guard, and raw-output paths are absent.
-
-This does not establish Native acceptance or performance; those depend on the not-yet-run full consumer result.

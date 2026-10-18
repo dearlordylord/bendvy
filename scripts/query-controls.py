@@ -10,7 +10,7 @@ from task_runner import run, check_output
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OWNED = Path('experiments/query-composition/public-controls')
+OWNED = Path('test-fixtures/query-composition/public-controls')
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()

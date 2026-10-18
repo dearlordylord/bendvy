@@ -1,9 +1,0 @@
-SOME PROOFS FAIL
-Error:
-- expected : namespace
-- observed : namespace (consumed more than once)
-Location: operational_resource
-71 |     case St.ReaderRefused{_,stream}:(State.Resources{owned,flow,level,ran,stream,levelStream},"ReaderRefused")
-72>| def operational_resource(~S:Data,namespace:U32,resources:State.Resources<S>) -> State.Resources<S> & String:
-   |                                  ^^^^^^^^^
-73 |   match resources:

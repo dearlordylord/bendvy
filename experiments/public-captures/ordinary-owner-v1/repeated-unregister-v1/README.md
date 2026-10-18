@@ -1,7 +1,0 @@
-# Repeated unregister runtime control
-
-The ordinary `Entry.define` registration is removed through `Capture.unregister`. Its actual namespace/id/name/access are retained as Data. Only after successful removal, the exact returned affine `P.Pack` is threaded into a reconstructed stale `Local.Instance` using those original fields; a second actual `Capture.unregister` tests runtime invalidation. No live instance or array is duplicated, and no identity is invented. This is trusted stale-token reconstruction, not an ordinary gameplay constructor or an external-drop test.
-
-Workshop and Garden use real independently created World namespaces. Each emits complete World fields (including registrations and pending count) and full owner metadata plus both array trees at registration, after first disposal, and after the second refusal/acceptance. Both second-call result branches are observed; the accepted branch is the intended counter-observation for the existing registration-removal-omission mutant. Owners remain threaded until their final complete observation.
-
-`CHECK.json` and raw streams retain the pinned 5s source check: exit 1 solely for five expected foreign/IO dependency diagnostics, with no parser/type/affine error. Attempt01 preserves the repaired match-order diagnostic. No backend execution or expected wire is authored here. Independent oracle and ordinary execution remain required.

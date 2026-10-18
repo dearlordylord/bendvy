@@ -1,7 +1,0 @@
-# Reached eager checked-RHS ordinary pair
-
-Both stock backends match all 105,097 independent counteroracle bytes (SHA-256 `10192f80332212d49e62b38960ee91be47988c9b2badc3ec530f639fead3ca01`) and reject the complete normal baseline. Five commands exit zero; seventeen evolving guards preserve exact bindings. Countermodel 3b549773 was sealed before mutant execution; source291d0e753 remains unchanged. No backend replay was performed.
-
-The manifest retains 551 exact-path bindings in 510 lossless gzip objects; twenty-two installed tool ELF identities remain external requirements. Isolated full joins verify 4,125 evolving guard pin bindings including generated artifacts and earlier raw/guards, exact129-module closure per role, source-check pre/post pins and raw diagnostics, full normal-baseline rejection and retained countermodel reproduction. Actual root/dependency bytes remain bound by exact hashes. Main's nine expected foreign-dependent source diagnostics are preserved, not labeled a blanket checker/proof PASS.
-
-The sole reached mutation evaluates RHS on shortcut False. Missing optional-AND now reaches the required error and stops after phase prefix; true-OR now reaches required errors for missing and returns false for zero. All complete physical/owner/metadata snapshot rows stay unchanged. Scope is finite lazy-composition defect detection, without new contracts, comparative performance or universal proof claims.

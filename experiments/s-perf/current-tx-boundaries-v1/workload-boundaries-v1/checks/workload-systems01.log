@@ -1,9 +1,0 @@
-SOME PROOFS FAIL
-Error:
-- message  : a motion-local.Returned pattern with 4 fields
-Location:
-85 |   match result:
-86>|     case Local.Completed{world,instance,Done{L.Returned{meta,tick,call}}}:local_logged(a,frame,meta,tick,world,before,Render.instance(instance),called(status(call)))
-   |                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
-87 |     case Local.Completed{_,_,Fail{impossible}}:Empty.absurd(LocalResult(),impossible)
-bend 2.0.37 is available: run bend update

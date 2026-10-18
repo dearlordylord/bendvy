@@ -1,9 +1,0 @@
-# Disable-preRA Machine Scheduler diagnostic v1 launch review
-
-**Verdict: APPROVE this exact prospective bounded diagnostic.** No compiler command was run.
-
-The plan, freeze, and launch hashes are `caae76c3aa91ba2ef81ab69de8f27df77a1d38d4ade50c9d9972033b75841758`, `02ac509c8ed65a803c470112eafc12aa03e19d592e1bad65e2c21d5645c70f53`, and `a3720897828c22583202d420477529acf5126340fd1978702ef7cba261d44a2e`. All 43 file pins match, and the five resource-root snapshots match their recorded file hashes. The 43,550,580-byte C input remains SHA256 `24b6ef6a560bf170283ae0d8a5c6036a863ccc4a198dd7eeea3b21683cf58465`. Compared with the pinned disable-CGP diagnostic, the proposed argv adds only `-mllvm -enable-misched=false`; CPU 3, 120-second cap, `-O3`, `-mllvm -disable-cgp`, `-Xclang -disable-llvm-passes`, compile-only `/dev/null` output, and `-pthread` are unchanged.
-
-The pinned LLVM 19.1.7 `MachineScheduler.cpp` body checks an explicitly supplied false `EnableMachineSched` value and returns before running the pre-RA machine scheduler. It defines a separate `EnablePostRAMachineSched` option, which this flag does not disable. This is source inference, not proof of the pinned binary's behavior. The preceding incomplete stack sample names the Machine Instruction Scheduler and `ScheduleDAGMILive`; it motivates this diagnostic but does not establish a bottleneck or cost attribution.
-
-The existing `development-v2.py run` collector and pinned task-runner/evidence-boundary helpers remain in use. Its pre/acquired/post/final guards, exact child exit and split raw-stream capture are bound; prospective generated/native outputs are absent, and no signal wrapper or artifact output is introduced. This is compile-progress evidence only: output quality, full-O3 acceptance, runtime, performance, parity, and adoption remain unqualified.

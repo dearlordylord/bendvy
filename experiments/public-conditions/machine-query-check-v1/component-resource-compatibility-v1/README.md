@@ -1,3 +1,0 @@
-Current-source compatibility for the complete prior component/resource/query ordinary Check consumer. Five source files are byte-identical; observer only adds the unused Machine category arm. Existing resource/component output is unchanged. ORACLE-REUSE.json binds the independent complete 96,029-byte oracle (902cb0c1804a5f867153aa274307abb73133f5b28528eba8d86e77c94fd5bb19), without a new model. Current CD retains all prior definitions byte-identically. Pure checks pass; main retains its five expected foreign IO refusals. Root-controlled full pair remains required.
-
-Raw initial overlapping CPU5 checks, where present, are retained under check-history/contention01 and are unqualified cap diagnostics. Final checks ran serially with unchanged five-second limits.

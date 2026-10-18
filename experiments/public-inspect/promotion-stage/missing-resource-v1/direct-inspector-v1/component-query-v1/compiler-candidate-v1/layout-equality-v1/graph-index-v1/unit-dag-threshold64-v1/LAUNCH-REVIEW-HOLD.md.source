@@ -1,9 +1,0 @@
-# Unit DAG threshold 64 v1 launch review
-
-**Verdict: HOLD pending a metadata correction.** No compiler or runtime command was run.
-
-The plan, freeze, and launch hashes are `67ddd3cb909aec54b268d146b9aa7ce93e48179f009cc6b6b14f160315a1400e`, `d205e6f3e82f9a8a3ec2cdcfc7cad29c0f02e1bf099032a4ed1e7a9a046289b0`, and `5d0252daecead6ee7903eee5d6fd86562fbd3206d41aea8d0efeb5906f8cdbcc`. All 144 file pins and six resource-root inventories match. The plan retains all 53 Unit source files, the pinned 40,265,217-byte generated C input, and the 207,834-byte full consumer oracle. The new native binary, receipt, raw streams, and guard files are absent.
-
-The build command changes only the DAG threshold from 128 to 64 (apart from the per-sequence native output path); CPU 3, `-O3`, Clang, input C, libraries, and the 120/5-second build/runtime caps remain bound. Pinned LLVM 19.1.7 source shows `HugeRegion` triggers map reduction and the default reduction size is half that threshold, so 64 uses 32; this remains an experimental scheduling/quality tradeoff, not proof or a performance claim.
-
-The plan `scope` incorrectly still says “only experimental dag-maps-huge-region128 added,” although the command supplies 64. The existing collector copies this field into the receipt. Correct the current plan scope to 64 and freeze a successor before launch; no other blocker was found.

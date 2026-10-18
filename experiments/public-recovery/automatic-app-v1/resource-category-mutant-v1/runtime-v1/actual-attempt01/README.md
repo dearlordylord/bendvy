@@ -1,7 +1,0 @@
-# Automatic App resource-category mapping control
-
-Both stock backends match the complete independent 30,283-byte counteroracle (SHA-256 `9908a5a0f7930e70b4081bd73cc1e47a7625ac6b29d66dca0aa96da786444d2a`) and reject the complete normal oracle. Five commands exit zero and seventeen evolving guards preserve exact bindings. Source cc41acc846 and independent counteroracle da7225d8 remain unchanged; the countermodel was sealed before mutant output existed.
-
-The manifest retains 502 exact-path bindings in 457 lossless gzip objects; twenty-two installed tool ELF identities remain external requirements. Isolated full joins verify 3,292 evolving guard pin bindings including generated artifacts and earlier streams/guards, exact 76-module import closure per role, source-check pre/post pins/raw diagnostics, both normal-baseline rejections, and retained full countermodel/state_model reproduction. No backend replay was performed.
-
-The reached single source mapping reports Target's resource write as Components instead of Resources. Twelve index category labels differ; all actual World state, captures, recovery records, retry and DTO keys/clauses remain identical. This is a metadata categorization defect, not gameplay or owner loss. Source checks preserve the IO main's five foreign-dependent diagnostics, without a blanket main proof PASS. Actual root production/dependency bytes remain identified by frozen hashes rather than an invented master Git identity.
