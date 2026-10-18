@@ -9,7 +9,6 @@ import ../consumer/s-perf/canonical-api-v1/dense-runtime-v1/motion-main.bend as 
 import ../consumer/s-perf/canonical-api-v1/dense-runtime-v1/types.bend as T
 import ../../../../src/ecs/world.bend as W
 import ../../../../src/ecs/world-io.bend as WI
-import ../../../../src/ecs/ordinary-system.bend as Ordinary
 
 type Prepared is Type:
   Prepared{state:Driver.State,prefix:String}
@@ -18,13 +17,13 @@ type Completed is Type:
 def registered(prefix:String,observed:Driver.State & String) -> Prepared:
   match observed:
     case (state,text):Prepared{state,prefix ++ "registered=" ++ text ++ "\n"}
-def defined(prefix:String,result:Ordinary.Defined<T.MotionSchema,F.World(),F.Registry()>) -> IO(Prepared):
+def defined(prefix:String,result:Driver.Defined) -> IO(Prepared):
   match result:
-    case Ordinary.Defined{world,owner}:IO.pure(Prepared,registered(prefix,Observe.state(Driver.start(world,owner))))
-    case Ordinary.Rejected{_}:IO.die(Prepared,3,"registration refused")
+    case Driver.Defined{state}:IO.pure(Prepared,registered(prefix,Observe.state(state)))
+    case Driver.Refused{_}:IO.die(Prepared,3,"registration refused")
 def applied(prefix:String,observed:F.World() & String) -> IO(Prepared):
   match observed:
-    case (world,text):defined(prefix ++ "seedApplied=" ++ text ++ "\n",F.define(world))
+    case (world,text):defined(prefix ++ "seedApplied=" ++ text ++ "\n",Driver.define(world))
 def pending(prefix:String,observed:F.World() & String) -> IO(Prepared):
   match observed:
     case (world,text):applied(prefix ++ "seedPending=" ++ text ++ "\n",Observe.world(W.barrier(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,world)))

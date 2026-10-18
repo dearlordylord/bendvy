@@ -2,17 +2,13 @@ import Base
 import motion.bend as F
 import types.bend as T
 import ../../../../../../../src/ecs/ordinary-system.bend as Ordinary
-import ../../../../../../../src/ecs/ordinary-query-declaration.bend as Decl
 import ../../../../../../../src/ecs/compose.bend as Q
-import ../../../../../../../src/ecs/transaction.bend as Tx
 import ../../../../../../../src/ecs/system.bend as Sys
-import ../../../../../../../src/ecs/world.bend as W
 import ../../../../../../../src/ecs/ordinary-app-run.bend as EntryApp
 import ../../../../../../../src/ecs/ordinary-app-schedule.bend as Single
 import ../../../../../../../src/ecs/ordinary-app-schema.bend as SchemaApp
 import ../../../../../../../src/ecs/ordinary-app-composer.bend as Build
 import ../../../../../../../src/ecs/ordinary-app-execution-recipe.bend as Exec
-import ../../../../../../../src/ecs/ordinary-app-existing-execution.bend as Existing
 import ../../../../../../../src/ecs/ordinary-app-registration-fields.bend as Fields
 import ../../../../../../../src/ecs/ordinary-app-recipe.bend as Tree
 import ../../../../../../../src/ecs/ordinary-app-execution.bend as Execute
@@ -22,7 +18,14 @@ import ../../../../../../../src/ecs/column.bend as Col
 import ../../../../../../../src/ecs/schedule-provision.bend as SP
 import ../../../../../../../src/ecs/schedule.bend as Sch
 import ../../../../../../../src/ecs/execution-context.bend as Ctx
-import ../../../../../../../src/ecs/trace-facts.bend as Facts
+
+import motion-logical.bend as Logical
+import ../../../../../../../src/ecs/ordinary-query-observable.bend as Observable
+import ../../../../../../../src/ecs/ordinary-app-component.bend as Component
+import ../../../../../../../src/ecs/ordinary-app-records.bend as Leaf
+import ../../../../../../../src/ecs/ordinary-app-observation-data.bend as DTO
+import ../../../../../../../src/ecs/inspector.bend as Inspector
+import ../../../../../../../src/ecs/captured-schedule-composition.bend as Choice
 
 type Audit is Data:
   Audit{values:List<&2,U32>,readsum:U32,updated:Nat}
@@ -32,65 +35,84 @@ type Status is Data:
   Rejected{cursor:U32}
 type Shared is Type:
   Shared{audit:List<&2,Audit>,statuses:List<&2,Status>}
-def Runtime() -> Type:F.Owner() & Shared
-def Application() -> Type:EntryApp.Application<T.MotionSchema,F.Store(),F.Resources(),Nat,Runtime(),Unit,Build.empty_observe(~F.World()),fold,Q.Error<Unit>,plan,dispatch,provide>
-def Registered() -> Type:Exec.Registered<T.MotionSchema,F.World(),Runtime(),Unit,Build.empty_observe(~F.World()),fold,Q.Error<Unit>,plan,dispatch,provide>
+def query() -> Observable.Declaration<T.MotionSchema,Q.Frame<T.MotionSchema,F.Store(),F.Resources(),Nat>,F.Ops(Q.Frame<T.MotionSchema,F.Store(),F.Resources(),Nat>),Inspector.Frame<T.MotionSchema,F.Store(),F.Resources(),Nat>,Logical.Value()>:
+  Observable.Declaration{_=>F.declaration(),_=>Observable.inspection(~T.MotionSchema,~Logical.Frame(),~Logical.Ops(Logical.Frame()),~Logical.InspectFrame(),~Logical.Value(),Logical.declaration())}
+def render(value:Logical.Value()) -> String:"Dense row"
+def Registered() -> Type:Component.Application(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)
+def Runtime() -> Type:Component.execution_owners(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)
+def Rows() -> Data:Component.execution_rows(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)
+def ErrorType() -> Data:Choice.Choice<Unit,Component.ExecutionError<Unit>>
+def observe() -> F.World() -> F.World() & DTO.Observation<Rows()>:Component.execution_observe(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)
+def fold() -> Runtime() -> Runtime() & List<&2,Fields.Fields<T.MotionSchema>>:Component.execution_fold(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)
+def plan() -> Runtime() -> Runtime() & SP.Plan<T.MotionSchema>:Component.execution_plan(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)
+def dispatch() -> Runtime() -> Ctx.Context<F.World()> -> U32 -> Runtime() & Sys.Outcome<Ctx.Context<F.World()>,ErrorType(),Unit>:Component.execution_dispatch(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)
+def provide() -> F.World() -> F.World() & List<&2,SP.Requirement<T.MotionSchema>>:Component.execution_provide(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)
+def Registry() -> Type:Sys.Registry<T.MotionSchema,F.Store(),F.Resources(),Nat,Unit & U32,Q.Error<Unit>,List<&2,U32>,Ordinary.observable_runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body)>
+def Owner() -> Type:Exec.Invocation<T.MotionSchema,Fields.Token<Registry()>,Unit,U32>
+def Application() -> Type:EntryApp.Application<T.MotionSchema,F.Store(),F.Resources(),Nat,Runtime(),Rows(),observe(),fold(),ErrorType(),plan(),dispatch(),provide()>
 def Slot() -> Type:Single.Attachment<Registered(),Application()>
 type State is Type:
-  State{app:Slot()}
+  State{app:Slot(),shared:Shared}
 type View is Type:
-  View{world:F.World(),owner:F.Owner(),audit:List<&2,Audit>,statuses:List<&2,Status>}
+  View{world:F.World(),owner:Owner(),audit:List<&2,Audit>,statuses:List<&2,Status>}
+type Defined is Type:
+  Defined{state:State}
+  Refused{world:F.World()}
 def total(values:List<&2,U32>) -> U32:
   match values:
     case []:0
     case head <> tail:U32.add(head,total(tail))
-def catalogued(result:Fields.Token<F.Registry()> & Fields.Fields<T.MotionSchema>) -> F.Owner() & Fields.Fields<T.MotionSchema>:
-  match result:
-    case (token,+fields):(Fields.restore_component(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~(Unit & U32),~Q.Error<Unit>,~List<&2,U32>,~Ordinary.runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body),token,fields),fields)
-def catalog(owner:F.Owner()) -> F.Owner() & Fields.Fields<T.MotionSchema>:catalogued(Fields.component(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~(Unit & U32),~Q.Error<Unit>,~List<&2,U32>,~Ordinary.runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body),owner))
-def fold(value:Runtime()) -> Runtime() & List<&2,Fields.Fields<T.MotionSchema>>:Existing.fold(~T.MotionSchema,~F.Owner(),~Shared,~catalog,value)
-def enabled(shared:Shared) -> Shared & Bool:(shared,True{})
-def plan(value:Runtime()) -> Runtime() & SP.Plan<T.MotionSchema>:Existing.plan(~T.MotionSchema,~F.Owner(),~Shared,~catalog,~enabled,~[],value)
-def provide(world:F.World()) -> F.World() & List<&2,SP.Requirement<T.MotionSchema>>:(world,[])
-def completed(trace:Facts.State,shared:Shared,slot:String,clauses:List<&2,Decl.Clause<T.MotionSchema>>,result:Sys.RunResult<T.MotionSchema,F.Store(),F.Resources(),Nat,Unit & U32,Q.Error<Unit>,List<&2,U32>,Ordinary.runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body)>) -> F.Owner() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Q.Error<Unit>,Unit>):
-  match shared result:
-    case Shared{audit,statuses},Sys.Completed{registry,Sys.Succeeded{world,+values}}:(Ordinary.Owner{registry,slot,clauses},(Shared{List.append(&2,Audit,audit,[Audit{values,total(values),List.length(&2,U32,values)}]),List.append(&2,Status,statuses,[Succeeded{}])},Sys.Succeeded{Ctx.Context{world,trace},Unit{}}))
-    case Shared{audit,statuses},Sys.Completed{registry,Sys.Failed{world,+error}}:(Ordinary.Owner{registry,slot,clauses},(Shared{audit,List.append(&2,Status,statuses,[Failed{error}])},Sys.Failed{Ctx.Context{world,trace},error}))
-    case Shared{audit,statuses},Sys.RegistrationRejected{registry,world,(_,cursor)}:(Ordinary.Owner{registry,slot,clauses},(Shared{audit,List.append(&2,Status,statuses,[Rejected{cursor}])},Sys.Failed{Ctx.Context{world,trace},Q.UserError{Unit{}}}))
-def ran(trace:Facts.State,shared:Shared,observed:Sys.RunResult<T.MotionSchema,F.Store(),F.Resources(),Nat,Unit & U32,Q.Error<Unit>,List<&2,U32>,Ordinary.runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body)> & (String & List<&2,Decl.Clause<T.MotionSchema>>)) -> F.Owner() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Q.Error<Unit>,Unit>):
-  match observed:
-    case (result,(slot,clauses)):completed(trace,shared,slot,clauses,result)
-def invoke(owner:F.Owner(),shared:Shared,context:Ctx.Context<F.World()>) -> F.Owner() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Q.Error<Unit>,Unit>):
-  match context:
-    case Ctx.Context{world,trace}:ran(trace,shared,Ordinary.run(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body,owner,world,Unit{}))
-def dispatch(value:Runtime(),context:Ctx.Context<F.World()>,id:U32) -> Runtime() & Sys.Outcome<Ctx.Context<F.World()>,Q.Error<Unit>,Unit>:Existing.dispatch(~T.MotionSchema,~F.World(),~F.Owner(),~Shared,~Q.Error<Unit>,~catalog,~invoke,~Q.UserError{Unit{}},value,context,id)
 def schema() -> Schema.Schema<T.MotionSchema,F.Store(),F.Resources()>:
   Schema.Schema{List.append(&2,Fragment.Entry<T.MotionSchema>,Schema.entries(~T.MotionSchema,~Col.Column<T.MotionSchema,T.Position>,~Unit,Schema.component(~T.MotionSchema,~T.Position,F.main_identity())),List.append(&2,Fragment.Entry<T.MotionSchema>,Schema.entries(~T.MotionSchema,~Col.Column<T.MotionSchema,T.Velocity>,~Unit,Schema.component(~T.MotionSchema,~T.Velocity,F.aux_identity())),List.append(&2,Fragment.Entry<T.MotionSchema>,Schema.entries(~T.MotionSchema,~Col.Column<T.MotionSchema,T.Selected>,~Unit,Schema.component(~T.MotionSchema,~T.Selected,F.flag_identity())),Schema.entries(~T.MotionSchema,~Unit,~T.MotionLedger,Schema.resource_schema(~T.MotionSchema,~T.MotionLedger,F.ledger_identity())))))}
-def start(world:F.World(),owner:F.Owner()) -> State:State{EntryApp.attach(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Runtime(),~Unit,~Build.empty_observe(~F.World()),~fold,~Q.Error<Unit>,~plan,~dispatch,~provide,schema(),Existing.registered(~T.MotionSchema,~F.World(),~Runtime(),~fold,~Q.Error<Unit>,~plan,~dispatch,~provide,world,(owner,Shared{[],[]})),"Dense",False{})}
-def returned(result:Single.RunResult<Application(),T.MotionSchema,Q.Error<Unit>>) -> State:
+def attached(app:Registered()) -> Defined:Defined{State{EntryApp.attach(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Runtime(),~Rows(),~observe(),~fold(),~ErrorType(),~plan(),~dispatch(),~provide(),schema(),app,"Dense",False{}),Shared{[],[]}}}
+def refused(value:Exec.Registered<T.MotionSchema,F.World(),Unit,Unit,Build.empty_observe(~F.World()),Leaf.empty(~T.MotionSchema),Unit,Exec.empty_plan(~T.MotionSchema),Exec.empty_dispatch(~F.World()),Exec.empty_provide(~T.MotionSchema,~F.World())>) -> Defined:
+  match value:
+    case Exec.Registered{Build.Registered{world,_,_,_},_}:Refused{world}
+def define(world:F.World()) -> Defined:Component.add(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render,~Defined,attached,refused,Exec.empty(~T.MotionSchema,~F.World(),world),Unit{},"BenchUpdate","dense64")
+def live_view(~Output:Data,schema:Schema.Schema<T.MotionSchema,F.Store(),F.Resources()>,recipe:Tree.Recipe<F.World(),Rows(),observe()>,debug:Bool,plan:SP.Plan<T.MotionSchema>,namespace:U32,name:String,steps:List<&2,Sch.Step>,needs:List<&2,SP.Requirement<T.MotionSchema>>,result:View & Output) -> State & Output:
   match result:
-    case Single.Finished{app,_}:State{Single.Attached{app}}
-    case Single.Failed{app,_,_}:State{Single.Attached{app}}
-    case Single.Rejected{app}:State{Single.Attached{app}}
-    case Single.Missing{app,_}:State{Single.Attached{app}}
-def executed(result:Execute.Run<Application(),T.MotionSchema,Q.Error<Unit>>) -> State:
+    case (View{world,owner,audit,statuses},text):(State{Single.Attached{EntryApp.Application{Single.Application{SchemaApp.Application{schema,Build.Registered{world,(Unit{},owner),recipe,debug}},plan,namespace,name,steps,needs},Exec.Recipe{}}},Shared{audit,statuses}},text)
+def invalid_view(~Output:Data,recipe:Tree.Recipe<F.World(),Rows(),observe()>,debug:Bool,result:View & Output) -> State & Output:
   match result:
-    case Execute.Run{result,_}:returned(result)
+    case (View{world,owner,audit,statuses},text):(State{Single.Invalid{Exec.Registered{Build.Registered{world,(Unit{},owner),recipe,debug},Exec.Recipe{}}},Shared{audit,statuses}},text)
+def inspect(~Output:Data,project:View -> View & Output,state:State) -> State & Output:
+  match state:
+    case State{Single.Attached{EntryApp.Application{Single.Application{SchemaApp.Application{schema,Build.Registered{world,(_,owner),recipe,debug}},plan,namespace,name,steps,needs},_}},Shared{audit,statuses}}:live_view(~Output,schema,recipe,debug,plan,namespace,name,steps,needs,project(View{world,owner,audit,statuses}))
+    case State{Single.Invalid{Exec.Registered{Build.Registered{world,(_,owner),recipe,debug},_}},Shared{audit,statuses}}:invalid_view(~Output,recipe,debug,project(View{world,owner,audit,statuses}))
+def success_view(value:View) -> View & Unit:
+  match value:
+    case View{world,Exec.Invocation{record,args,+outputs},audit,statuses}:(View{world,Exec.Invocation{record,args,outputs},List.append(&2,Audit,audit,[Audit{outputs,total(outputs),List.length(&2,U32,outputs)}]),List.append(&2,Status,statuses,[Succeeded{}])},Unit{})
+def failed_view(error:Q.Error<Unit>,value:View) -> View & Unit:
+  match value:
+    case View{world,owner,audit,statuses}:(View{world,owner,audit,List.append(&2,Status,statuses,[Failed{error}])},Unit{})
+def field_cursor(fields:Fields.Fields<T.MotionSchema>) -> U32:
+  match fields:
+    case Fields.Fields{_,_,_,_,cursor,_,_,_}:cursor
+def rejected_view(value:View) -> View & Unit:
+  match value:
+    case View{world,Exec.Invocation{Leaf.Record{token,+fields},args,outputs},audit,statuses}:(View{world,Exec.Invocation{Leaf.Record{token,fields},args,outputs},audit,List.append(&2,Status,statuses,[Rejected{field_cursor(fields)}])},Unit{})
+def error_view(error:ErrorType(),value:View) -> View & Unit:
+  match error:
+    case Choice.LeftError{_}:failed_view(Q.UserError{Unit{}},value)
+    case Choice.RightError{Component.CallbackFailure{error}}:failed_view(error,value)
+    case Choice.RightError{Component.RegistrationRefused{}}:rejected_view(value)
+def finished_state(result:State & Unit) -> State:
+  match result:
+    case (state,_):state
+def returned(shared:Shared,result:Single.RunResult<Application(),T.MotionSchema,ErrorType()>) -> State:
+  match result:
+    case Single.Finished{app,_}:finished_state(inspect(~Unit,success_view,State{Single.Attached{app},shared}))
+    case Single.Failed{app,error,_}:finished_state(inspect(~Unit,error_view(error),State{Single.Attached{app},shared}))
+    case Single.Rejected{app}:State{Single.Attached{app},shared}
+    case Single.Missing{app,_}:State{Single.Attached{app},shared}
+def executed(shared:Shared,result:Execute.Run<Application(),T.MotionSchema,ErrorType()>) -> State:
+  match result:
+    case Execute.Run{result,_}:returned(shared,result)
 def step(state:State) -> State:
   match state:
-    case State{Single.Attached{app}}:executed(EntryApp.run(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Runtime(),~Unit,~Build.empty_observe(~F.World()),~fold,~Q.Error<Unit>,~plan,~dispatch,~provide,app))
+    case State{Single.Attached{app},shared}:executed(shared,EntryApp.run(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Runtime(),~Rows(),~observe(),~fold(),~ErrorType(),~plan(),~dispatch(),~provide(),app))
     case state:state
 def loops(fuel:Nat,state:State) -> State:
   match fuel:
     case 0n:state
     case 1n+rest:loops(rest,step(state))
-def live_view(schema:Schema.Schema<T.MotionSchema,F.Store(),F.Resources()>,recipe:Tree.Recipe<F.World(),Unit,Build.empty_observe(~F.World())>,debug:Bool,plan:SP.Plan<T.MotionSchema>,namespace:U32,name:String,steps:List<&2,Sch.Step>,needs:List<&2,SP.Requirement<T.MotionSchema>>,result:View & String) -> State & String:
-  match result:
-    case (View{world,owner,audit,statuses},text):(State{Single.Attached{EntryApp.Application{Single.Application{SchemaApp.Application{schema,Build.Registered{world,(owner,Shared{audit,statuses}),recipe,debug}},plan,namespace,name,steps,needs},Exec.Recipe{}}}},text)
-def invalid_view(recipe:Tree.Recipe<F.World(),Unit,Build.empty_observe(~F.World())>,debug:Bool,result:View & String) -> State & String:
-  match result:
-    case (View{world,owner,audit,statuses},text):(State{Single.Invalid{Exec.Registered{Build.Registered{world,(owner,Shared{audit,statuses}),recipe,debug},Exec.Recipe{}}}},text)
-def inspect(~observe:View -> View & String,state:State) -> State & String:
-  match state:
-    case State{Single.Attached{EntryApp.Application{Single.Application{SchemaApp.Application{schema,Build.Registered{world,(owner,Shared{audit,statuses}),recipe,debug}},plan,namespace,name,steps,needs},_}}}:live_view(schema,recipe,debug,plan,namespace,name,steps,needs,observe(View{world,owner,audit,statuses}))
-    case State{Single.Invalid{Exec.Registered{Build.Registered{world,(owner,Shared{audit,statuses}),recipe,debug},_}}}:invalid_view(recipe,debug,observe(View{world,owner,audit,statuses}))

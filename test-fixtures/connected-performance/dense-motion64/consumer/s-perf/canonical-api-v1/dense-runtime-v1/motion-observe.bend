@@ -1,4 +1,7 @@
 import Base
+import ../../../../../../../src/ecs/ordinary-app-execution-recipe.bend as Exec
+import ../../../../../../../src/ecs/ordinary-app-records.bend as Leaf
+import ../../../../../../../src/ecs/ordinary-app-registration-fields.bend as Fields
 import motion-logical.bend as Logical
 import render.bend as JSON
 import ../../../../../../../src/ecs/inspector-query-projection.bend as Projection
@@ -11,8 +14,6 @@ import ../../../public-audit61/app-a-current-carrier-v1/owner-observer.bend as D
 import ../../../public-audit61/app-a-current-carrier-v1/allocator-observer.bend as Gen
 import ../../../../../../../src/ecs/world.bend as W
 import ../../../../../../../src/ecs/owner-product.bend as Product
-import ../../../../../../../src/ecs/ordinary-system.bend as Ordinary
-import ../../../../../../../src/ecs/system.bend as Sys
 import ../../../../../../../src/ecs/ordinary-query-declaration.bend as Decl
 import ../../../../../../../src/ecs/compose.bend as Q
 import ../../../../../../../src/ecs/transaction.bend as Tx
@@ -77,9 +78,12 @@ def mode(value:Decl.Mode) -> String:
 def clause(value:Decl.Clause<T.MotionSchema>) -> String:
   match value:
     case Decl.Clause{key,value}:key ++ ":" ++ mode(value)
-def owner(value:F.Owner()) -> F.Owner() & String:
+def owner_fields(token:Fields.Token<Driver.Registry()>,args:Unit,outputs:List<&2,U32>,fields:Fields.Fields<T.MotionSchema>) -> Driver.Owner() & String:
+  match fields:
+    case Fields.Fields{+ns,+id,+name,+access,+cursor,+slot,+clauses,+kind}:(Exec.Invocation{Leaf.Record{token,Fields.Fields{ns,id,name,access,cursor,slot,clauses,kind}},args,outputs},"ns=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";access=" ++ List.show(&2,String,x=>x,access) ++ ";cursor=" ++ U32.show(cursor) ++ ";slot=" ++ slot ++ ";clauses=" ++ List.show(&2,Decl.Clause<T.MotionSchema>,clause,clauses))
+def owner(value:Driver.Owner()) -> Driver.Owner() & String:
   match value:
-    case Ordinary.Owner{Sys.Registry{+ns,+id,+name,+access,+cursor},+slot,+clauses}:(Ordinary.Owner{Sys.Registry{ns,id,name,access,cursor},slot,clauses},"ns=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";access=" ++ List.show(&2,String,x=>x,access) ++ ";cursor=" ++ U32.show(cursor) ++ ";slot=" ++ slot ++ ";clauses=" ++ List.show(&2,Decl.Clause<T.MotionSchema>,clause,clauses))
+    case Exec.Invocation{Leaf.Record{token,+fields},args,outputs}:owner_fields(token,args,outputs,fields)
 def error(value:W.WorldError) -> String:
   match value:
     case W.MissingEntity{}:"MissingEntity"
@@ -95,7 +99,7 @@ def status(value:Driver.Status) -> String:
 def audit(value:Driver.Audit) -> String:
   match value:
     case Driver.Audit{values,total,count}:"values=" ++ List.show(&2,U32,U32.show,values) ++ ";readsum=" ++ U32.show(total) ++ ";updated=" ++ Nat.show(count)
-def state_join(+audits:List<&2,Driver.Audit>,+statuses:List<&2,Driver.Status>,world:F.World() & String,owner:F.Owner() & String) -> Driver.View & String:
+def state_join(+audits:List<&2,Driver.Audit>,+statuses:List<&2,Driver.Status>,world:F.World() & String,owner:Driver.Owner() & String) -> Driver.View & String:
   (world,sw)=world
   (owner,so)=owner
   (Driver.View{world,owner,audits,statuses},"world={" ++ sw ++ "}|owner={" ++ so ++ "}|audit=" ++ List.show(&2,Driver.Audit,audit,audits) ++ "|statuses=" ++ List.show(&2,Driver.Status,status,statuses))
@@ -127,4 +131,4 @@ def rows_observed(observed:F.World() & Logical.Rows()) -> F.World() & String:
     case (world,rows):(world,List.show(&2,IQ.ProjectedRow<T.MotionSchema,Logical.Value()>,row,rows))
 def rows(world:F.World()) -> F.World() & String:rows_observed(Logical.rows(world))
 
-def state(value:Driver.State) -> Driver.State & String:Driver.inspect(~state_view,value)
+def state(value:Driver.State) -> Driver.State & String:Driver.inspect(~String,state_view,value)

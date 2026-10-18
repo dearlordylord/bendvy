@@ -5,7 +5,6 @@ import motion-driver.bend as Driver
 import motion-observe.bend as Observe
 import ../../../../../../../src/ecs/world.bend as W
 import ../../../../../../../src/ecs/world-io.bend as WI
-import ../../../../../../../src/ecs/ordinary-system.bend as Ordinary
 
 def final_physical(prefix:String,observed:F.World() & String) -> String:
   match observed:
@@ -13,10 +12,10 @@ def final_physical(prefix:String,observed:F.World() & String) -> String:
 def final_rows(prefix:String,observed:F.World() & String) -> String:
   match observed:
     case (world,text):final_physical(prefix ++ "logicalRows=" ++ text ++ "\n",Observe.world(world))
-def final_physical_view(owner:F.Owner(),audit:List<&2,Driver.Audit>,statuses:List<&2,Driver.Status>,prefix:String,observed:F.World() & String) -> Driver.View & String:
+def final_physical_view(owner:Driver.Owner(),audit:List<&2,Driver.Audit>,statuses:List<&2,Driver.Status>,prefix:String,observed:F.World() & String) -> Driver.View & String:
   match observed:
     case (world,text):(Driver.View{world,owner,audit,statuses},prefix ++ "afterLogicalRead=" ++ text ++ "\n")
-def final_rows_view(owner:F.Owner(),audit:List<&2,Driver.Audit>,statuses:List<&2,Driver.Status>,observed:F.World() & String) -> Driver.View & String:
+def final_rows_view(owner:Driver.Owner(),audit:List<&2,Driver.Audit>,statuses:List<&2,Driver.Status>,observed:F.World() & String) -> Driver.View & String:
   match observed:
     case (world,text):final_physical_view(owner,audit,statuses,"logicalRows=" ++ text ++ "\n",Observe.world(world))
 def final_observe(value:Driver.View) -> Driver.View & String:
@@ -27,17 +26,17 @@ def final_tail(prefix:String,result:Driver.State & String) -> String:
     case (_,text):prefix ++ text
 def final_state(prefix:String,observed:Driver.State & String) -> String:
   match observed:
-    case (state,text):final_tail(prefix ++ "final=" ++ text ++ "\n",Driver.inspect(~final_observe,state))
+    case (state,text):final_tail(prefix ++ "final=" ++ text ++ "\n",Driver.inspect(~String,final_observe,state))
 def initial_state(iterations:U32,prefix:String,observed:Driver.State & String) -> String:
   match observed:
     case (state,text):final_state(prefix ++ "registered=" ++ text ++ "\n",Observe.state(Driver.loops(U32.to_nat(iterations),state)))
-def registered(iterations:U32,prefix:String,result:Ordinary.Defined<T.MotionSchema,F.World(),F.Registry()>) -> String:
+def registered(iterations:U32,prefix:String,result:Driver.Defined) -> String:
   match result:
-    case Ordinary.Defined{world,owner}:initial_state(iterations,prefix,Observe.state(Driver.start(world,owner)))
-    case Ordinary.Rejected{world}:final_rows(prefix ++ "RegistrationRefused|",Observe.world(world))
+    case Driver.Defined{state}:initial_state(iterations,prefix,Observe.state(state))
+    case Driver.Refused{world}:final_rows(prefix ++ "RegistrationRefused|",Observe.world(world))
 def barrier_observed(iterations:U32,prefix:String,observed:F.World() & String) -> String:
   match observed:
-    case (world,text):registered(iterations,prefix ++ "seedApplied=" ++ text ++ "\n",F.define(world))
+    case (world,text):registered(iterations,prefix ++ "seedApplied=" ++ text ++ "\n",Driver.define(world))
 def pending_observed(iterations:U32,prefix:String,observed:F.World() & String) -> String:
   match observed:
     case (world,text):barrier_observed(iterations,prefix ++ "seedPending=" ++ text ++ "\n",Observe.world(W.barrier(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,world)))
