@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+32 |     case handle <> rest:
+33>|       (world,value)=lookup(state,world,handle)
+   |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+34 |       failed_all(state,rest,world,List.append(&2,J.Value,values,[value]))
+bend 2.0.37 is available: run bend update

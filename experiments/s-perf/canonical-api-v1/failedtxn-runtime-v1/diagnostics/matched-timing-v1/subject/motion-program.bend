@@ -2,6 +2,7 @@ import Base
 import ../method.bend as Method
 import ../json.bend as J
 import ../capture-call.bend as Capture
+import ../capture-state.bend as CaptureState
 import /tmp/bendvy-failedtxn-matched-method/src/ecs/system.bend as Sys
 import motion-dispose.bend as Dispose
 import /tmp/bendvy-failedtxn-matched-method/experiments/s-perf/canonical-api-v1/dense-runtime-v1/types.bend as T
@@ -104,9 +105,15 @@ def run_phase(phase:U32,state:State) -> State:
   match state:
     case State{app,namespace,boundaries,schedules,Complete{}}:run_slot(phase,namespace,boundaries,schedules,app)
     case state:state
+def boundary_name(value:Boundary.Boundary) -> String:
+  match value:
+    case Boundary.Boundary{_,phase,_,_,_,_,_,_,_,_}:phase
+def boundary_captured(boundary:Boundary.Boundary,observed:F.World() & S.Runtime()) -> F.World() & (S.Runtime() & Boundary.Boundary):
+  match observed:
+    case (world,owners):(world,(owners,boundary))
 def boundary_returned(dispose:Dispose.Registry(),frame:S.Frame,registered:Reg.Owners,observed:F.World() & Boundary.Boundary) -> F.World() & (S.Runtime() & Boundary.Boundary):
   match observed:
-    case (world,boundary):(world,(S.pack(S.Owners{registered,dispose,frame}),boundary))
+    case (world,+boundary):boundary_captured(boundary,CaptureState.boundary_runtime(boundary_name(boundary),world,S.pack(S.Owners{registered,dispose,frame})))
 def boundary_owners(name:String,world:F.World(),dispose:Dispose.Registry(),+frame:S.Frame,observed:Reg.Owners & String) -> F.World() & (S.Runtime() & Boundary.Boundary):
   match observed:
     case (registered,text):boundary_returned(dispose,frame,registered,Boundary.run(name,text,frame,world))
