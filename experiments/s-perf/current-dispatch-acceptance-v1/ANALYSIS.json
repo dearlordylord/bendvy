@@ -1,0 +1,52 @@
+{
+  "scope": "Bounded current ordinary dispatch source/authority/rollback-order evidence; no full22 aggregate or performance qualification",
+  "cases": [
+    {
+      "kind": "normal",
+      "role": "js",
+      "directory": "/tmp/bendvy21-current-dispatch-acceptance-actual02/normal/js",
+      "bytes": 3401,
+      "sha256": "8f972be7029025b4cb249031159fef31677978ae47790137cb719348581a6d96",
+      "normalOracleRejected": false,
+      "counterOracleMatched": false
+    },
+    {
+      "kind": "normal",
+      "role": "native",
+      "directory": "/tmp/bendvy21-current-dispatch-acceptance-actual02/normal/native",
+      "bytes": 3401,
+      "sha256": "8f972be7029025b4cb249031159fef31677978ae47790137cb719348581a6d96",
+      "normalOracleRejected": false,
+      "counterOracleMatched": false
+    },
+    {
+      "kind": "inverse",
+      "role": "js",
+      "directory": "/tmp/bendvy21-current-dispatch-controls-actual01/js",
+      "bytes": 3403,
+      "sha256": "c180f7bb0ab1e1c64bc8a95682f170c6f8a24ab3dbbb98079e22c85ebc1c798a",
+      "normalOracleRejected": true,
+      "counterOracleMatched": true
+    },
+    {
+      "kind": "inverse",
+      "role": "native",
+      "directory": "/tmp/bendvy21-current-dispatch-controls-actual01/native",
+      "bytes": 3403,
+      "sha256": "c180f7bb0ab1e1c64bc8a95682f170c6f8a24ab3dbbb98079e22c85ebc1c798a",
+      "normalOracleRejected": true,
+      "counterOracleMatched": true
+    }
+  ],
+  "sourceExpectedExits": [
+    0,
+    1,
+    1,
+    1
+  ],
+  "witness": {
+    "normalFailureMain": "Column{values=node(leaf:some(Position{node(node(leaf:0,leaf:1),node(leaf:2,leaf:3));7}),leaf:some(Position{node(node(leaf:1,leaf:2),node(leaf:3,leaf:4));7}));stamps=[1:1:1, 2:3:3]}",
+    "inverseFailureMain": "Column{values=node(leaf:some(Position{node(node(leaf:10,leaf:1),node(leaf:2,leaf:3));7}),leaf:some(Position{node(node(leaf:11,leaf:2),node(leaf:3,leaf:4));7}));stamps=[2:3:7, 1:1:5]}",
+    "explanation": "Oldest-first inverses leave intermediate +10 Position arrays and intermediate changed stamps after failure. The ordinary App callback is reached; same-owner retry and repeat consume that corrupted state. Unrelated owners/capture/identity remain fully included in both independently sealed streams."
+  }
+}

@@ -1,0 +1,39 @@
+from pathlib import Path
+import gzip,hashlib,json,shutil
+W=Path('/tmp/bendvy-current-dispatch-acceptance');D=W/'experiments/s-perf/current-dispatch-acceptance-v1';L=D/'evidence/actual-attempt01';assert not L.exists();(L/'objects').mkdir(parents=True);sha=lambda b:hashlib.sha256(b).hexdigest();versions={};tools=set();cases=[]
+def pin(name,h):
+ if(name,h)in versions:return
+ raw=Path(name).read_bytes();assert sha(raw)==h,(name,h);versions[name,h]=raw
+selected=[('normal',role,Path('/tmp/bendvy21-current-dispatch-acceptance-actual02/normal')/role)for role in ['js','native']]+[('authority','source',Path('/tmp/bendvy21-current-dispatch-controls-actual01/source'))]+[('inverse',role,Path('/tmp/bendvy21-current-dispatch-controls-actual01')/role)for role in ['js','native']]
+for kind,role,q in selected:
+ p=json.loads((q/'plan.json').read_text());r=json.loads((q/'receipt.json').read_text());assert r['status']==('COMPLETE_SOURCE_CONTROL_PASS'if kind=='authority'else'COMPLETE_CONSUMER_DEVELOPMENT_PASS');assert r['planSHA256']==sha((q/'plan.json').read_bytes())
+ cases.append({'kind':kind,'role':role,'directory':str(q),'planSHA256':r['planSHA256'],'receiptSHA256':sha((q/'receipt.json').read_bytes())})
+ for name,h in p['pins'].items():pin(name,h)
+ for root,files in p['resourceRoots'].items():
+  for rel,h in files.items():name=str(Path(root)/rel);pin(name,h);tools.add(name)
+ tools.update(p['tools'].values())
+ for g in r['guards']:
+  pin(g['path'],g['sha256']);guard=json.loads(Path(g['path']).read_text());assert guard['unchanged']
+  for name,h in guard['actualPins'].items():pin(name,h)
+ for command in r['commands']:
+  for key in ['stdout','stderr']:v=command[key];pin(v['path'],v['sha256']);assert len(versions[v['path'],v['sha256']])==v['bytes']
+ for f in q.iterdir():
+  if f.is_file():pin(str(f),sha(f.read_bytes()))
+for folder in [D,D/'checks',D/'oracle',D/'controls']:
+ for f in folder.iterdir():
+  if f.is_file()and not f.name.startswith('retain01.'):pin(str(f),sha(f.read_bytes()))
+for f in [Path(__file__),Path('/tmp/verify21-current-dispatch.py')]:pin(str(f),sha(f.read_bytes()))
+# Attempt01 stopped during preparation before any plan/subject, preserved truthfully.
+draft=Path('/tmp/bendvy21-current-dispatch-acceptance-actual01');assert not list(draft.rglob('receipt.json'))and not list(draft.rglob('plan.json'))
+for f in draft.iterdir():
+ if f.is_file():pin(str(f),sha(f.read_bytes()))
+rows=[]
+for(name,h),raw in sorted(versions.items()):
+ row={'actualPath':name,'actualRealpath':str(Path(name).resolve()),'bytes':len(raw),'sha256':h}
+ if raw.startswith(b'\x7fELF')and name in tools:row['hashOnly']='Installed tool/shared library identity only; not redistributed'
+ else:
+  obj=L/'objects'/(h+'.gz')
+  if not obj.exists():obj.write_bytes(gzip.compress(raw,mtime=0))
+  row.update(object='objects/'+obj.name,objectSHA256=sha(obj.read_bytes()))
+ rows.append(row)
+record={'scope':'Current ordinary App captured-query multiwrite failure/same-owner retry/repeat; full physical World/array component/sibling owners, actual capture/cursor/instance and outcome; three intended current-body authority refusals and reached private inverse-order defect. No staging/publication work, no cached Slot structure, no full22 or comparative performance acceptance.','cases':cases,'unexecutedPreparation':'actual01 failed before any plans/subjects due preparer worktree parent index; partial oracle retained. actual02 is first actual normal pair, no runtime retry.','members':rows,'objects':len(list((L/'objects').iterdir()))};(L/'RETENTION.json').write_text(json.dumps(record,indent=2)+'\n');shutil.copyfile(__file__,L/'retain.py.source');shutil.copyfile('/tmp/verify21-current-dispatch.py',L/'verify.py');print(json.dumps({'members':len(rows),'objects':record['objects'],'manifestSHA256':sha((L/'RETENTION.json').read_bytes())}))
