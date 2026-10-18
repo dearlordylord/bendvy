@@ -40,7 +40,7 @@ def doc_maybe_frame(value:Maybe<&2,D.Frame>) -> Doc.Doc:
 def maybe_frame(value:Maybe<&2,D.Frame>) -> String:Doc.flatten(doc_maybe_frame(value))
 def doc_local_call(value:S.LocalCall) -> Doc.Doc:
   match value:
-    case S.LocalCall{id,operation,status,returned}:Doc.join(Doc.text("id=" ++ U32.show(id) ++ ";operation=" ++ U32.show(operation) ++ ";status=" ++ U32.show(status) ++ ";output="),doc_maybe_frame(returned))
+    case S.LocalCall{id,operation,status,returned,_}:Doc.join(Doc.text("id=" ++ U32.show(id) ++ ";operation=" ++ U32.show(operation) ++ ";status=" ++ U32.show(status) ++ ";output="),doc_maybe_frame(returned))
 def local_call(value:S.LocalCall) -> String:Doc.flatten(doc_local_call(value))
 def doc_maybe_read(value:Maybe<&2,Reader.Read>) -> Doc.Doc:
   match value:
