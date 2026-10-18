@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : iterations
+- observed : iterations (consumed more than once)
+Context:
+- label : String
+- count : U32
+Location: created
+51 |         IO.print("CANONICAL-END")
+52>| def created(label:String,count:U32,iterations:U32,path:String,result:Driver.Creation()) -> IO(Unit):
+   |                                    ^^^^^^^^^^
+53 |   match result:
+bend 2.0.37 is available: run bend update

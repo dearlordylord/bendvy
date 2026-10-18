@@ -1,0 +1,25 @@
+{
+  "scope": "Finite complete-method correctness feasibility only; no speed ranking, ratio, precision, RSS acceptance or identical internal work claim",
+  "insideClock": [
+    "Original Bend per-step Doc, Local/reader/TxFacts and callback validation work remains inside",
+    "Bend complete common JSON record construction, scalar tuple/fold and synchronous FORCE IO acceptance are inside",
+    "Bend eager M.raw_map detached J.Value construction is inside checked(), its rendering/printing is after end",
+    "Original TS transaction callback operations, assertions and debug delivery remain inside the64-step loop; complete record/string/tuple/fold+sync FORCE acceptance inside",
+    "TS raw actor-map entries are built at actual spawn reservation calls: initial seed before clock, per-step reservations inside"
+  ],
+  "afterClock": [
+    "Raw perworld clock write",
+    "Complete tuple and raw actor-map rendering/serialization and output",
+    "Original final Bend canonical Doc construction/chunked writes",
+    "Actual TS process.resourceUsage().maxRSS to fresh RSS sidecar",
+    "Complete deterministic TS FULL serialization/output"
+  ],
+  "instrumentationAsymmetry": [
+    "Bend raw-map detached JSON representation is constructed eagerly at final capture; TS map entries are accumulated from actual reservations",
+    "Bend preserves all original boundary Doc/read/render work, then adds typed read-only common projections; TS supplements its original actual Observe rows/lookups",
+    "Original role-specific ECS query/debug/owner representation strategies differ; this is not qualification of comparison-work equivalence"
+  ],
+  "transport": "Synchronous write return establishes complete stdout acceptance before sample creation, not physical collector-flush completion",
+  "environment": "External CPU contention and nonexclusive host; no complete inherited environment reconstruction",
+  "rss": "Post-end whole-process highwater including warmup, not reset perworld independent memory"
+}

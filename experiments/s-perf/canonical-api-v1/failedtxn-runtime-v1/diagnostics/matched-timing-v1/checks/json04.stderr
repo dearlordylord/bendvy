@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : a defined name
+- observed : U32.lt
+Context:
+- value : Char
+- _71   : Bool<> - False{}
+- _72   : Word.Nil
+Location: escaped_code
+75 |     case 9:"\\t"
+76>|     case _:ordinary_char(value,U32.lt(Char.to_u32(value),32))
+   |                                ^^^^^^
+77 | def escaped(+value:Char) -> String:escaped_code(value,Char.to_u32(value))
+bend 2.0.37 is available: run bend update

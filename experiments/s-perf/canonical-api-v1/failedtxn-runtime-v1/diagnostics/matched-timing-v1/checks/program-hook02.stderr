@@ -1,0 +1,29 @@
+SOME PROOFS FAIL
+Error:
+- expected : an annotated term (cannot infer)
+- observed : _ => Maybe<&2, ../../../../../../../src/ecs/world.Handle<../../../../dense-runtime-v1/types.MotionSchema>>
+Context:
+- a        : Bool
+- _        : ../../../../../../../src/ecs/world.Handle<../../../../dense-runtime-v1/types.MotionSchema>
+- _        : ../../../../../../../src/ecs/world.Handle<../../../../dense-runtime-v1/types.MotionSchema>
+- i        : U32
+- phase    : U32
+- _        : Maybe<&2, ../../../../../../../src/ecs/world.Handle<../../../../dense-runtime-v1/types.MotionSchema>>
+- _        : Maybe<&2, ../../../../../../../src/ecs/world.Handle<../../../../dense-runtime-v1/types.MotionSchema>>
+- _        : List<&2, ../../../../../../../src/ecs/world.Handle<../../../../dense-runtime-v1/types.MotionSchema>>
+- _        : List<&2, report-doc.Doc>
+- method   : ../method.State
+- meta     : ../../../../../../../src/ecs/event-notice-runtime.State<../../../../dense-runtime-v1/types.MotionSchema, Nat, motion-family.Family, Unit>
+- tick     : Nat
+- world    : ../../../../../../../src/ecs/world.World<../../../../dense-runtime-v1/types.MotionSchema, ../../../../../../../src/ecs/owner-product.Owner<../../../../../../../src/ecs/column.Column<../../../../dense-runtime-v1/types.MotionSchema, ../../../../dense-runtime-v1/types.Position>, ../../../../../../../src/ecs/owner-product.Owner<../../../../../../../src/ecs/column.Column<../../../../dense-runtime-v1/types.MotionSchema, ../../../../dense-runtime-v1/types.Velocity>, ../../../../../../../src/ecs/column.Column<../../../../dense-runtime-v1/types.MotionSchema, ../../../../dense-runtime-v1/types.Selected>>>, ../../../../../../../src/ecs/owner-product.Owner<../../../../dense-runtime-v1/types.MotionLedger, ../../../../../../../src/ecs/ordinary-service-declaration.Slot<motion-resources.Audit>>, ../../../../../../../src/ecs/relation-commands.Notice<../../../../dense-runtime-v1/types.MotionSchema, Nat>>
+- before   : String
+- instance : ../../../../../../../src/ecs/local.Instance<../../../../dense-runtime-v1/types.MotionSchema, ../../../../../../../src/ecs/owner-product.Owner<../../../../../../../src/ecs/column.Column<../../../../dense-runtime-v1/types.MotionSchema, ../../../../dense-runtime-v1/types.Position>, ../../../../../../../src/ecs/owner-product.Owner<../../../../../../../src/ecs/column.Column<../../../../dense-runtime-v1/types.MotionSchema, ../../../../dense-runtime-v1/types.Velocity>, ../../../../../../../src/ecs/column.Column<../../../../dense-runtime-v1/types.MotionSchema, ../../../../dense-runtime-v1/types.Selected>>>, ../../../../../../../src/ecs/owner-product.Owner<../../../../dense-runtime-v1/types.MotionLedger, ../../../../../../../src/ecs/ordinary-service-declaration.Slot<motion-resources.Audit>>, ../../../../../../../src/ecs/relation-commands.Notice<../../../../dense-runtime-v1/types.MotionSchema, Nat>, motion-local.State, motion-local.Args, Empty, motion-local.Returned, motion-local.runner>
+- after    : String
+- ok       : Bool
+- call     : motion-local.Call
+Location: motion-systems.local_logged
+129 | def Pair(-A: Type, -B: Type) -> Type:
+130>|   Sigma<&1, &1, A, _ => B>
+    |                    ^
+131 | 
+bend 2.0.37 is available: run bend update

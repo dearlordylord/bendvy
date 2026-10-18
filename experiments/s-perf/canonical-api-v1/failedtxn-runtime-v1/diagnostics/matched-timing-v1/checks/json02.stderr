@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : 'first' can't be matched in this position (it is matched after a local statement or after a match on a later binder, it was already matched, or it is a def)
+Location:
+84 | def array_case(next:List<&2,Task> -> List<&2,String> -> String,rest:List<&2,Task>,pieces:List<&2,String>,first:Bool,values:List<&2,Value>) -> String:
+85>|   match values first:
+   |                ^^^^^
+86 |     case [],_:next(rest,"]" <> pieces)
+bend 2.0.37 is available: run bend update
