@@ -1,0 +1,17 @@
+SOME PROOFS FAIL
+Error:
+- expected : a decreasing self-call (arguments are read left to right: each passed unchanged until one shrinks)
+- observed : collect
+Context:
+- world  : W.World<collect~S, Col.Column<collect~S, Array<U32>>, Unit, Unit>
+- handle : W.Handle<collect~S>
+- rest   : List<&2, W.Handle<collect~S>>
+- texts  : List<&2, String>
+- world  : W.World<collect~S, Col.Column<collect~S, Array<U32>>, Unit, Unit>
+- texts  : List<&2, String>
+Location: collect
+50 |     case []:(world,texts)
+51>|     case handle <> rest:collected(~S,world=>texts=>collect(~S,world,rest,texts),texts,C.get(~S,~Store(~S),~Unit,~Unit,~Unit,~Array<U32>,~P.Tree,~Token,~take(~S),~put(~S),~P.observe,family(~S),world,handle))
+   |                                                    ^^^^^^^
+52 | def listed(~S:Data,result:World(~S) & List<&2,String>) -> World(~S) & String:
+bend 2.0.37 is available: run bend update

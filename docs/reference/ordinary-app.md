@@ -59,6 +59,7 @@ Start with `ordinary-app-execution-recipe.empty(~S,~World,world)`. Register syst
 | Factory | Operational inputs | Result |
 | --- | --- | --- |
 | [`ordinary-app-component.add`](../../src/ecs/ordinary-app-component.bend) | Observable query, renderer, opaque-owner body, repeatable arguments, name, and slot | Calls `done` with the extended registered App, or `failed` with the original App |
+| [`ordinary-app-capture-query.add`](../../src/ecs/ordinary-app-capture-query.bend) | Query declaration, opaque-owner body, affine capture, repeatable arguments, and name | Calls `done` with the extended App, or `failed` with the original App and capture |
 | [`ordinary-app-service-registration.add`](../../src/ecs/ordinary-app-service-registration.bend) | Service declaration, its Setup, and name | Calls `done` with the extended App, or `failed` with the original App |
 | [`ordinary-app-local-fields.add`](../../src/ecs/ordinary-app-local-fields.bend) | Resource declaration, body, actual Local owner, repeatable arguments, and name | `Appended{app}` or `AppendRejected{app,local}` |
 
@@ -74,9 +75,26 @@ Component queries keep their existing `Args:Data` and `Out:Data` limits. Compone
 
 The reusable scheduled Local factory uses `Args:Data`, as the existing captured Local schedule does. Its `L` and `Out` remain `Type`. The direct Local API still accepts `Args:Type`; the reusable factory adds no policy for generating fresh affine arguments on every run.
 
+## Retain an affine capture across query runs
+
+The [captured-query example](../../examples/captured-query/README.md) registers an ordinary read-only component system with `Component.add`, then an affine captured query with `Captured.add`. Both factories derive the registration, dispatch, schedule and cursor handling. The example's `app.bend` contains only aliases to those library implementations.
+
+Use `ordinary-app-capture-query` when the row body needs retained `Type` state, such as owned arrays. Its body has this shape:
+
+```bend
+def body(~H:Type,~caps:Ops(H),capture:Capture,args:Args,owner:H) -> H & (Capture & (T.Outcome<Error> & Out)):
+  ...
+```
+
+Return both the opaque capability owner and capture on every branch. The capture moves from row to row and remains in the registered invocation after a failed run. World writes roll back when the query fails; capture changes survive. The typed callback error is retained through `Captured.CallbackFailure{error}`. A successful run retains its complete Data row-output list; a failed run retains the callback error and clears that list, including outputs from earlier successful rows.
+
+`Captured.add` takes a query declaration, `Capture:Type`, `Args:Data`, `Error:Data` and `Out:Data`. Registration refusal returns the original App and the original capture to `failed`. The factory's `Application`, `execution_owners`, `execution_rows`, `execution_observe`, `execution_fold`, `execution_plan`, `execution_dispatch` and `execution_provide` aliases name the extended App's indices. Its registration fields are refreshed from the actual retained owner after execution.
+
+Retry the returned App. Use `Captured.with_arguments` through `Entry.update_owners` to change repeatable arguments without replacing the capture or registering another system. `Captured.outputs` observes the retained row-output list while returning the invocation owner. The example demonstrates failure, retry and an unchanged third run; it also prints actual component values and capture projections after each step.
+
 ## Name the derived Bend types
 
-Bend requires explicit erased indices. Give the returned App type a local alias with `Component.Application`, `Service.Executable`, or `LocalFields.Executable`. These aliases derive the owner product, observation, error choice, and execution recipe.
+Bend requires explicit erased indices. Give the returned App type a local alias with `Component.Application`, `Captured.Application`, `Service.Executable`, or `LocalFields.Executable`. These aliases derive the owner product, observation, error choice, and execution recipe.
 
 The factories also provide aliases for each derived index:
 
@@ -86,7 +104,7 @@ The factories also provide aliases for each derived index:
 | Observation type | `execution_rows(...)` |
 | World observer | `execution_observe(...)` |
 | Registration fold | `execution_fold(...)` |
-| Schedule plan | Component `execution_plan(...)`; Service and Local `composed_plan(...)` |
+| Schedule plan | Component and Captured `execution_plan(...)`; Service and Local `composed_plan(...)` |
 | Context dispatcher | `execution_dispatch(...)` |
 | Availability observer | `execution_provide(...)` |
 
