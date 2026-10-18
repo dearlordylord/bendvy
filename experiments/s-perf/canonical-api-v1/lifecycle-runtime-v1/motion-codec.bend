@@ -1,4 +1,5 @@
 import Base
+import motion-app.bend as EntryApp
 import motion-varint.bend as Var
 import motion-registration.bend as Reg
 import motion-domain.bend as D
@@ -193,14 +194,22 @@ def log(value:Program.Log) -> R.Rope:
 def ids(value:Program.Ids) -> R.Rope:
   match value:
     case Program.Ids{s,r,d,o}:cat([u(s),u(r),u(d),u(o)])
-def state_done(+identity:Program.Ids,+namespace:U32,+logs:List<&2,Program.Log>,+result:Program.Status,main:F.World() & V.World,foreign:F.World() & V.World,registered:S.Owners & R.Rope) -> Program.State & R.Rope:
-  (mainOwner,sw)=main
-  (foreign,sf)=foreign
+type StateSnapshot is Data:
+  StateSnapshot{world:V.World,owners:R.Rope}
+def state_snapshot_done(stage:U32,main:F.World() & V.World,registered:S.Owners & R.Rope) -> F.World() & (S.Runtime() & StateSnapshot):
+  (main,sw)=main
   (owners,so)=registered
-  (Program.State{mainOwner,foreign,owners,identity,namespace,logs,result},cat([u(namespace),ids(identity),status(result),world(sw),world(sf),so,list(~Program.Log,~log,logs)]))
+  (main,(S.with_stage(stage,S.pack(owners)),StateSnapshot{sw,so}))
+def state_snapshot(main:F.World(),runtime:S.Runtime(),_:Unit) -> F.World() & (S.Runtime() & StateSnapshot):
+  match runtime:
+    case (((select,reserve),(dispose,observe)),S.Shared{frame,digest,boundaries,calls,stage}):state_snapshot_done(stage,V.world(main),owners(S.Owners{select,reserve,dispose,observe,frame,digest,boundaries,calls}))
+def state_done(+identity:Program.Ids,+namespace:U32,+logs:List<&2,Program.Log>,+result:Program.Status,main:EntryApp.Slot() & StateSnapshot,foreign:F.World() & V.World) -> Program.State & R.Rope:
+  (app,StateSnapshot{sw,so})=main
+  (foreign,sf)=foreign
+  (Program.State{app,foreign,identity,namespace,logs,result},cat([u(namespace),ids(identity),status(result),world(sw),world(sf),so,list(~Program.Log,~log,logs)]))
 def state_body(value:Program.State) -> Program.State & R.Rope:
   match value:
-    case Program.State{main,foreign,registered,identity,namespace,logs,result}:state_done(identity,namespace,logs,result,V.world(main),V.world(foreign),owners(registered))
+    case Program.State{app,foreign,identity,namespace,logs,result}:state_done(identity,namespace,logs,result,EntryApp.project(~Unit,~StateSnapshot,~state_snapshot,app,Unit{}),V.world(foreign))
 def state_tagged(observed:Program.State & R.Rope) -> Program.State & R.Rope:
   (owner,value)=observed
   (owner,join(text("T"),value))
