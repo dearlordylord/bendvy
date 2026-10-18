@@ -4,6 +4,10 @@ Current defaults for new runs. The user authorized raising execution limits when
 useful on 2026-10-18; record each change here before launching its successor.
 Timeouts control resource use; they are not performance targets.
 
+Each increase records the UTC date and time, affected stage and workload, old and
+new limits, reason, and evidence. Update the current defaults when applicable.
+After the run, append its outcome to the same history entry.
+
 | Stage | Current limit | Scope |
 | --- | ---: | --- |
 | Bend source/proof check | 15 s | Current default; may increase with a recorded reason |
