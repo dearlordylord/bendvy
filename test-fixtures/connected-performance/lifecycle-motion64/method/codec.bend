@@ -17,13 +17,16 @@ def records(values:List<&2,J.Value>,out:List<&2,U32>) -> List<&2,U32>:
     case []:List.reverse(&2,U32,out)
     case value <> rest:records(rest,record(J.render(value),out))
 def encode(+values:List<&2,J.Value>) -> List<&2,U32>:records(values,natural_reverse(List.length(&2,J.Value,values),[]))
-def join_reverse(values:List<&2,String>,suffix:String) -> String:
+def write_chunk(reversed:List<&2,String>) -> IO(Unit):IO.write(String.concat(List.reverse(&2,String,reversed)))
+def write_piece(value:U32,first:Bool) -> String:
+  match first:
+    case True{}:U32.show(value)
+    case False{}:", " ++ U32.show(value)
+def write_go(values:List<&2,U32>,first:Bool,remaining:Nat,reversed:List<&2,String>) -> IO(Unit):
   match values:
-    case []:suffix
-    case value <> rest:join_reverse(rest,value ++ suffix)
-def pieces(values:List<&2,U32>,first:Bool,out:List<&2,String>) -> String:
-  match values first:
-    case [],_:"[" ++ join_reverse(out,"]")
-    case value <> rest,True{}:pieces(rest,False{},U32.show(value) <> out)
-    case value <> rest,False{}:pieces(rest,False{},U32.show(value) <> ", " <> out)
-def show(values:List<&2,U32>) -> String:pieces(values,True{},[])
+    case []:IO.bind(Unit,Unit,write_chunk(reversed),_=>IO.write("]\n"))
+    case value <> rest:
+      match remaining:
+        case 0n:IO.bind(Unit,Unit,write_chunk(reversed),_=>write_go(rest,False{},63n,[write_piece(value,first)]))
+        case 1n+next:write_go(rest,False{},next,write_piece(value,first) <> reversed)
+def write(prefix:String,values:List<&2,U32>) -> IO(Unit):IO.bind(Unit,Unit,IO.write(prefix ++ "["),_=>write_go(values,True{},64n,[]))

@@ -56,8 +56,8 @@ def write(path:String,result:Completed) -> IO(Unit):
     case Completed{prefix,state,tuple,foreign,actors,nanoseconds}:
       do IO<Unit>:
         clock(path,nanoseconds)
-        IO.print("TUPLE:" ++ Codec.show(tuple))
-        IO.print("FOREIGN-TUPLE:" ++ Codec.show(foreign))
+        Codec.write("TUPLE:",tuple)
+        Codec.write("FOREIGN-TUPLE:",foreign)
         IO.print("ACTORS:" ++ J.render(actors))
         IO.print("CANONICAL-BEGIN")
         canonical(prefix,state)

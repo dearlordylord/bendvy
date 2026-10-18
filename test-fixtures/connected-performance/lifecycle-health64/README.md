@@ -75,3 +75,12 @@ with two complete 8,204,399-cell shared tuples and full own-role foreign
 observations. Both schemas at 1024 remain unqualified (six roles). This
 updates the earlier nine-role pending checkpoint without changing its history.
 No emission, build, comparative timing or RSS qualification is added.
+
+Tuple transport now writes at most 64 rendered U32 pieces per output chunk
+after the clock has ended. Prefixes, brackets, comma-space separators and the
+final newline remain unchanged; both complete common and foreign tuples are
+retained. Encoding, forcing and all scheduled work stay inside their original
+clock boundaries. This bounds the additional text buffer, not the retained
+scalar lists or total process heap. The original Motion1024 JS attempt reached
+Node heap exhaustion during post-clock output; its outer collector deadline
+and incomplete raw outputs remain separate preserved evidence.
