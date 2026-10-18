@@ -10,6 +10,11 @@ Motion and Health B1 method pilots for all five families now retain complete war
 
 Before comparative sampling, resolve the common timed-work correspondence, one enclosing interval or approved clock alternative, and the numerical uncertainty/decision margin. Seven rotations, separate fresh warmup/sample owners and independently reset child RSS remain existing requirements. Historical B16, 1%, noise/keep rules and deadlines below are not current approval. Final targets remain JS <= TS and Native <= 0.5 * TS.
 
+Equivalent work requires matching operations and observable obligations, not
+identical algorithms, traversal counts or allocation costs. The unresolved
+observer issue is extra timed work on either role, not a requirement that Bend
+and TS implement an agreed observation at equal cost.
+
 ## Existing Dense/Sparse batch semantics
 
 The fourth Bend argument is the **number of fresh measured worlds**, after one fresh warmup. `measurement-samples-bend.bend:5–15` calls the complete `M.choose` once per world. Every call prints a full JSON record: all rows/payload fields, namespace/next/pending/Ledger/mode, read sum and dispatch counters (`candidate/measurement-bend.bend:353–355,373–375`). Native/JS stdout therefore retains **warmup plus every measured world**, not merely the last world or a checksum.
