@@ -2200,3 +2200,21 @@ consumer and one matched common-observer B1 method pilot. Existing prototypes do
 not approve a new observer grammar, longer batch, uncertainty margin or full
 comparative campaign. Four exact #62 law subjects remain pending human approval;
 no proof against them has begun.
+
+
+## 2026-10-18 — Actual Dense terminal transaction metrics
+
+Integrated `08c28343c` after independent final Spec/Standards GO. Normal JS and
+Native preserve the complete 89,045-byte canonical oracle and match all 65 actual
+terminal transaction samples: seed undo/commands/events = 64/64/0; each of the
+64 query loops = 128/0/0. Owner-preserving traversal observes before finish.
+A compiling reporter-only undo+1 defect keeps canonical output unchanged and is
+rejected by the metric oracle on both backends. The existing collector is unchanged.
+
+The [portable packet](../../experiments/s-perf/canonical-api-v1/dense-runtime-v1/diagnostics/tx-peaks-v1/results/ordinary01/RETENTION.json)
+passes 1,024 members, 679 objects and 46 guards, including produced sidefile paths,
+bytes, hashes and verifier results. This is DenseMotion64 logical-list occupancy,
+not allocation/RSS, lifecycle stamps, other workloads or universal peak proof.
+The unchanged #28 receipt still matches all 356 sources and the full core inventory;
+its existing scoped result is reused. No limits changed. Matched timing pilot,
+remaining workload metrics and final comparative qualification remain open.
