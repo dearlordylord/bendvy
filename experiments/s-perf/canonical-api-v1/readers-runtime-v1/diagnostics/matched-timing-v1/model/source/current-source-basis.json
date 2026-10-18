@@ -1,0 +1,75 @@
+{
+  "schema": "bendvy-indexed-optional-observation-source-basis-v1",
+  "predecessor": {
+    "commit": "41aa74580ba8ce4654db185f5604dc2f20faf546",
+    "freezePath": "/tmp/bendvy-readers-reverse-history/experiments/s-perf/canonical-api-v1/readers-runtime-v1/MOTION-INDEXED-DATA-IDENTITY-SOURCE-FREEZE.json",
+    "freezeSHA256": "279b5ab222ccec679cdacbb029c4a69c8a96f2a90314bcf733b7f03eb78fe398"
+  },
+  "entrypoint": "/tmp/bendvy-readers-reverse-history/experiments/s-perf/canonical-api-v1/readers-runtime-v1/motion-main.bend",
+  "runtimeArguments": [
+    "64",
+    "64"
+  ],
+  "scope": "The observer fast path applies only to the canonical IndexedOrdinaryOwned values reached by this Motion scenario. It replaces recursive Type-valued optional-array observation with indexed owner swaps and an exact physical Doc reconstruction. Reader execution, schedules, callbacks, captures, physical values, metadata, and output fields are unchanged.",
+  "change": {
+    "path": "/tmp/bendvy-readers-reverse-history/experiments/s-perf/canonical-api-v1/readers-runtime-v1/motion-doc-world.bend",
+    "sha256": "3326deef8951f847f6583d481b1c2bb5b17ced34588aa7a80ca1b3f160edc155",
+    "behavior": "For the owned indexed carrier, extract metadata capacity/depth, check actual Array.size equals capacity, require 1 <= capacity <= 131072, depth <= 17, and capacity == 1 << depth. On that path, scan logical slots with Array.swap; each Some value is projected exactly once and the returned P owner is restored with Array.set before the next slot. None uses Doc.NoneLeaf, Some uses Doc.wrapped_leaf, and carry builds parents with Doc.physical_node in original left-to-right order. Mismatched/unsupported metadata uses the prior optional_values structural observer. Plain/raw Column and other fallback branches remain untouched.",
+    "noTypeRestriction": true,
+    "projectorOwnerPreserved": true,
+    "shapeLimitation": "The metadata and Array.size checks do not by themselves prove an arbitrary raw array balanced. The indexed traversal is scoped to the source path below: all three scenario columns start at Col.empty_indexed and are updated through canonical indexed APIs. No claim is made for user-constructed unbalanced states with matching metadata."
+  },
+  "factoryProvenance": [
+    {
+      "path": "experiments/s-perf/canonical-api-v1/readers-runtime-v1/motion.bend",
+      "lines": "24",
+      "fact": "The scenario creates Position, Velocity, and Selected using Col.empty_indexed."
+    },
+    {
+      "path": "src/ecs/column.bend",
+      "lines": "47-54",
+      "fact": "empty_indexed creates a one-leaf None array and M.empty metadata; absent recursively creates balanced all-None arrays."
+    },
+    {
+      "path": "src/ecs/column.bend",
+      "lines": "57-69",
+      "fact": "indexed_ensure grows values by pairing the old complete array with absent children while doubling size and incrementing depth; standard indexed updates retain the array shape."
+    },
+    {
+      "path": "src/ecs/indexed-lifecycle.bend",
+      "lines": "8-9,30-42",
+      "fact": "Metadata starts with capacity 1/depth 0; write_grow pairs old arrays with same-sized zero arrays while doubling capacity and incrementing depth."
+    },
+    {
+      "path": "src/ecs/column.bend",
+      "lines": "79-91,112-132",
+      "fact": "The canonical indexed update/lifecycle paths use Array.swap/Array.set and metadata updates; these preserve the factory tree shape."
+    }
+  ],
+  "wire": "This preserves each original leaf and branch constructor: NoneLeaf, wrapped_leaf, physical_node. The carry combines the same complete balanced tree shape in the same left/right order. Full consumer oracle equality remains required.",
+  "independentExpected": {
+    "sourceBasis": "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/piece-direct-v1/motion64/SOURCE-BASIS.json",
+    "sourceBasisSHA256": "d9e22f49cd58ce313f3c7daef42620a74806327b3892367c4ca078b01ded173d",
+    "expectedGzip": "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/piece-direct-v1/motion64/expected.stdout.gz",
+    "expectedGzipSHA256": "627204ec51abb4125f13540608690219813d96ea254e3453c735190f727a22f8",
+    "expectedBytes": 10810200,
+    "expectedSHA256": "183936740ad2407530099198388cc87d872b121fa0681a3a7777ec42797b83ce"
+  },
+  "qualification": "Source/type-check evidence only until the unchanged full Motion64 JS and Native consumers compare byte-for-byte to the independent oracle. No performance claim.",
+  "checks": {
+    "cpu": 8,
+    "capSeconds": 5,
+    "checker": "/workspace/formal-proofs/bendvy/scripts/bend-check",
+    "observer": "checks/indexed-optional-v1/observer01.* ALL PROOFS CHECK",
+    "scenario": "checks/indexed-optional-v1/scenario01.* ALL PROOFS CHECK",
+    "host": "checks/indexed-optional-v1/main01.* exact six foreign IO definitions only",
+    "foreignDefinitions": [
+      "../../../../src/ecs/world-namespace.fresh",
+      "../../../../src/ecs/world-io.create",
+      "motion-driver.run",
+      "parsed",
+      "args",
+      "main"
+    ]
+  }
+}
