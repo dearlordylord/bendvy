@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a ../../../../src/ecs/transaction.Returned pattern with 3 fields
+Location:
+82 |   match result:
+83>|     case Tx.Returned{world,outcome}:Seeded{world,reservations,outcome}
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+84 | def seed_reserved(result:Reserved) -> Seeded:
+bend 2.0.37 is available: run bend update
