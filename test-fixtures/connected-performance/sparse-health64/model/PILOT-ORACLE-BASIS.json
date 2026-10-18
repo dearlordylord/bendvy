@@ -1,0 +1,21 @@
+{
+  "scope": "SparseHealth64 B1 method feasibility only; asymmetric original query strategies retained",
+  "tupleValues": 37629,
+  "fold": 2801527267,
+  "namespaceCorrespondence": "Delta=sum rank*(actualIncludedNamespace-1) mod2^32; logicalScore=rawScore-Delta, inverse rawScore=logicalScore+Delta. Weighted delta weights1/3/5. Each cumulative subtracts prior weighted deltas. Raw namespaces/scores retained canonical.",
+  "snapshotCorrespondence": "TS original optional full snapshot reused for common Scan.rows; original present/absent actual filtered results retained. No intervening writes; Bend still3fresh fullqueries+postfilters. Not identical internal query work.",
+  "oracles": {
+    "bend": {
+      "path": "/tmp/bendvy21-health-oracles/test-fixtures/connected-performance/sparse-health64/model/bend-expected.stdout.gz",
+      "bytes": 1115471,
+      "sha256": "b0e5cf1a1be82bb3834202730c45229d5ac2b819b99ce469be30689307dd6710",
+      "gzipSHA256": "b609056d55b2e38573ef7af10373d1289f5dafe258908bd2060b533142f2bd68"
+    },
+    "ts": {
+      "path": "/tmp/bendvy21-health-oracles/test-fixtures/connected-performance/sparse-health64/model/ts-expected.stdout.gz",
+      "bytes": 736456,
+      "sha256": "8256595d009757e48e6bb09e9b2c9816a0a14717a8f707b54c436e2285d2cb2a",
+      "gzipSHA256": "afa1fb742100ede0a1765709e5a109edb23cfbf1af7f25f0f82c2d9c2780cc16"
+    }
+  }
+}
