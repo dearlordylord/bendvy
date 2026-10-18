@@ -17,7 +17,7 @@ def workshop(allowed:Bool,mode:String) -> IO(Unit):
     case False{}:garden(String.eq(mode,"garden"))
 def args(values:List<String>) -> IO(Unit):
   match values:
-    case _ <> +mode <> []:workshop(String.eq(mode,"workshop"),mode)
+    case _ <> +mode <> _:workshop(String.eq(mode,"workshop"),mode)
     case _:IO.die(Unit,2,"Expected workshop or garden")
 def main() -> IO(Unit):
   do IO<Unit>:
