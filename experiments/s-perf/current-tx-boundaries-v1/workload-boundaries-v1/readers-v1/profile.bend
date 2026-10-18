@@ -8,7 +8,7 @@ def maybe(value:Maybe<&2,U32>) -> String:
     case Some{x}:U32.show(x)
 def render(value:Sample) -> String:
   match value:
-    case Sample{group,+kind,iteration,phase,who,cursor,ordinal,committed,tx}:"{\"group\":\"" ++ group ++ "\",\"kind\":\"" ++ kind ++ "\",\"iteration\":" ++ maybe(iteration) ++ ",\"phase\":" ++ maybe(phase) ++ ",\"who\":" ++ maybe(who) ++ ",\"cursor\":" ++ maybe(cursor) ++ ",\"ordinal\":" ++ Nat.show(ordinal) ++ ",\"committed\":" ++ Bool.show(committed) ++ ",\"tx\":" ++ Meter.render(kind,tx) ++ "}"
+    case Sample{group,+kind,iteration,phase,who,cursor,ordinal,committed,tx}:"{\"group\":\"" ++ group ++ "\",\"kind\":\"" ++ kind ++ "\",\"iteration\":" ++ maybe(iteration) ++ ",\"phase\":" ++ maybe(phase) ++ ",\"who\":" ++ maybe(who) ++ ",\"cursor\":" ++ maybe(cursor) ++ ",\"ordinal\":" ++ Nat.show(ordinal) ++ ",\"committed\":" ++ Meter.boolean(committed) ++ ",\"tx\":" ++ Meter.render(kind,tx) ++ "}"
 def tail(values:List<&2,Sample>) -> String:
   match values:
     case []:"]"
