@@ -2,6 +2,8 @@
 
 Status: **preparation delivered as the blocked-handoff outcome explicitly permitted by #22**. Capability/performance requirements remain incomplete. Parent #21 and S-LOOP #23 remain open; no accepted Autoresearch session or product performance decision exists. The user authorized a future3600-second segment followed by results. This delivery freezes the reviewed proposal and exact unresolved return conditions; it does not start or spend that segment.
 
+The table preserves the historical #22 handoff and its source-bound failures. For current successors, use the [delivery report](delivery-process-expectations.md), [execution limits](../limits.md) and [current occupancy representation](../../experiments/s-perf/occupancy-method.md#current-representation--2026-10-18). In particular, current ordinary Lifecycle reaches real transactions, and current Tx has no separate mark journal. Historical unavailable/deadline statements below do not override newer evidence or approvals; full parent qualification remains open.
+
 | #22 prerequisite | Actual evidence | Remaining gate / return condition |
 | --- | --- | --- |
 | Retained baseline | `experiments/s-prep/baseline.json`: 556 pinned inputs, three clean reference commits; positive verification and five adversarial freeze controls pass. | Future editable storage/query must be excluded from live unchanged-input enforcement while their retained baseline bytes remain pinned. |

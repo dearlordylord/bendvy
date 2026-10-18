@@ -2,6 +2,12 @@
 
 Status: implementation contract for #20, not executed occupancy evidence. The current Readers adapter reports physical occupancy and stored positions as unavailable. No S-INTEGRATE source or read-only TS reference is changed by this document. Instrumentation belongs in a separately frozen candidate overlay, with a matching diagnostic reference copy where private TS state must be observed. No universal proof, production API or threshold is approved.
 
+## Current representation — 2026-10-18
+
+The table below records the #20 representation. Current [Tx](../../src/ecs/transaction.bend#L7) owns `world`, `undo`, `commands`, `events` and `trace`; a separate staged mark journal is representation-N/A, not measured zero. Persistent added/changed metadata still exists in [component columns](../../src/ecs/column.bend) and [indexed lifecycle arrays](../../src/ecs/indexed-lifecycle.bend); its physical occupancy is separate from active journals and numerical timestamps.
+
+The selected current Lifecycle and Readers consumers do create transactions. Accepted finite observations are recorded in the [delivery report](../../docs/reports/delivery-process-expectations.md). Readers does not reach raw discard; observed Lifecycle unselect reaches empty-journal rollback. These are workload-specific results, not global absence claims. Required reachable measurements, wider cases, persistent retention and clean RSS remain open.
+
 ## Separate measurements
 
 1. **Functional/timing replay:** actual authored operations, complete observations and fresh reference checks; no additional reader invocations, drains, frame advances, barriers or skipped callbacks. Descriptor construction is outside the interval on both implementations. Seven fresh rotated repetitions require a fresh complete semantic gate for the same source closure and case first. A failed prerequisite or repetition gets an explicit failure, never a ratio filled from older evidence.
