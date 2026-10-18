@@ -1,0 +1,51 @@
+{
+  "schema": "ordinary-readers-health-source-rebind-v1",
+  "sourceCommit": "00d3813d5",
+  "sourceEntry": "/tmp/bendvy-readers-ordinary-app/experiments/s-perf/canonical-api-v1/readers-runtime-v1/health-main.bend",
+  "runtimeArguments": [
+    "64",
+    "64"
+  ],
+  "scope": "One fresh IO-created World namespace1, no warmup, exactly two trailingLF. Correctness entry, not TS warmup/sample comparison. Initial registration/seed/Prime/64iterations/Drain order retained, 84Read pairs and192Local calls; Fast/Slow distinct. Health String captures and APPEND local/read/schedule order remain exact historical Health, not Motion Doc/reverse-list topology.",
+  "expected": {
+    "path": "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/stream-report-v1/health64/expected.stdout.gz",
+    "bytes": 8077591,
+    "sha256": "159139269b00038c4d1220a835c75adb65389446c5f61eb5b2dfce8db799a9e5",
+    "gzipSHA256": "ad56e34370eb508014b22b75fe60aaf4f0f31b01c6e26d5639d3a81a20d28072"
+  },
+  "historicalStreamingBasis": {
+    "path": "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/stream-report-v1/health64/SOURCE-BASIS.json",
+    "sha256": "a7a083533d5406fa0b61c78e5c5008e8ada8230357b763c911150e34cd0ad8d0",
+    "sourceCommit": "55731d31047b27c3654e4825ed95e8d2c142279f",
+    "expected": {
+      "bytes": 8077591,
+      "sha256": "159139269b00038c4d1220a835c75adb65389446c5f61eb5b2dfce8db799a9e5",
+      "gzipSHA256": "ad56e34370eb508014b22b75fe60aaf4f0f31b01c6e26d5639d3a81a20d28072"
+    }
+  },
+  "originalIndependentBasis": {
+    "path": "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/health64/SOURCE-BASIS.json",
+    "sha256": "6330b67065d0c200371890f573e060e52c0832bf1e3d4ffb603c0db83bdae36f"
+  },
+  "sourceEquivalence": {
+    "path": "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/stream-report-v1/HEALTH-EQUIVALENCE.json",
+    "sha256": "7c46205ca74cb6c3c7e0ed173e21b6569a2edec4a027aba309132952bbf3ffec",
+    "status": "SOURCE_EQUIVALENCE_PASS_NO_CANDIDATE_EXECUTION",
+    "scope": "Historical streaming wire/capture equivalence; current ordinary orchestration separately source-rebound by ORDINARY-SOURCE-BASIS and actualbackend next."
+  },
+  "currentOrdinarySourceBasis": {
+    "path": "/tmp/bendvy-readers-ordinary-app/experiments/s-perf/canonical-api-v1/readers-runtime-v1/checks/ordinary-health-v1/ORDINARY-SOURCE-BASIS.json",
+    "sha256": "5761a7eeb73154b1fcc6173af3000bc818b2aa94a3b36ea83ecd42278f96cc7d",
+    "unchangedBusinessFiles": 13,
+    "captureOrderPreserved": true
+  },
+  "independentModelPins": {
+    "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/health-model.py": "3813586eaffa36aec3b40c27fcd5dbcfa9bb7f7c74a6a314429b1b3a66dbf7ba",
+    "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/physical.py": "2f47ee3685edf401a90bfd691ca972146a0c6cf486b9c82a3b7c895cd8eba130",
+    "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/HEALTH-MODEL-CHECKS.json": "4650e74a18043e4dedff9bbee8c088ca6b207c5a2740a22cb0cf150f1fc8299f",
+    "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/stream-report-v1/HEALTH-EQUIVALENCE.json": "7c46205ca74cb6c3c7e0ed173e21b6569a2edec4a027aba309132952bbf3ffec",
+    "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/stream-report-v1/HEALTH-README.md": "7ded09b4b0617de9ea6a5bf4238cdc16be5133dd0164177686b3174b4cfec7a2"
+  },
+  "candidateOutputsRead": false,
+  "remaining": "Actual ordinary Health64 complete JS/Native comparison, larger runtimes and independent final family review. No universal refinement or timing claim."
+}
