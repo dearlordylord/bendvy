@@ -1,0 +1,17 @@
+SOME PROOFS FAIL
+Error:
+- expected : List<&2, ../../../../../../../src/ecs/relation-commands.Notice<types.MotionSchema, E.Publication>>
+- observed : List<&2, ../../../../../../../src/ecs/relation-commands.Notice<types.HealthSchema, health-events.Publication>>
+Context:
+- operation : U32
+- undo      : Nat
+- commands  : Nat
+- events    : List<&2, ../../../../../../../src/ecs/relation-commands.Notice<types.HealthSchema, health-events.Publication>>
+- _         : Bool
+- _         : String
+Location: fact
+17 |   match value:
+18>|     case D.TxFacts{operation,undo,commands,events,_,_}:Metrics.Sample{kind(operation),undo,commands,List.length(&2,E.event_type(),events)}
+   |                                                                                                                                   ^^^^^^
+19 | def facts(values:List<&2,D.TxFacts>) -> List<&2,Metrics.Sample>:
+bend 2.0.37 is available: run bend update
