@@ -12,7 +12,7 @@ Maintainers receive a source-bound set of precise remaining laws with falsificat
 
 - [x] Retain the delivered seven #18 subjects and the withdrawn historical proposal boundary. Reconcile the 22 supporting candidates against final executable contracts without silently treating them as approved.
 - [x] For each proposed subject state exact results, preservation, bounds, helper/failure behavior and its model/executable/backend scope; provide meaningful planted-defect falsification and non-vacuity controls.
-- [ ] Present the exact candidates for human approval; no ECS proof against an unapproved subject. Record rejected/deferred subjects and owning follow-up rather than weakening them invisibly.
+- [x] Present the exact candidates for human approval; no ECS proof against an unapproved subject. Record rejected/deferred subjects and owning follow-up rather than weakening them invisibly.
 - [x] This ticket delivers proposals/falsification, not proof acceptance. Publish approved proof/mutation/refinement slices only after exact subjects exist; universal refinement is never inferred from finite traces.
 
 ## Blocked by
@@ -57,12 +57,12 @@ Type-encoder facts. Historical comments that say24 predate this decision.
 The table reconciles every remaining exact ID against source at `a969f8c00`.
 "Retain" preserves a historical mathematical subject and evidence; it does not
 request approval or claim that the production code implements that model.
-Deferred current refinement stays with #62, informed by #61's current API audit.
+Deferred refinement stays under #1, informed by #61's API audit; exact-subject approval precedes any future proof slice.
 No new ticket or public runtime policy is created.
 
 | Unapproved catalog ID | Exact historical result and domain | Current disposition and limit | Current seam |
 | --- | --- | --- | --- |
-| `admissibility_independent` | Total equality of the frozen Nat invariant and its independent count-based specification, including malformed inputs. | Retain model-only, unapproved. Current allocator phases, generation, free/order lists and generic store invariants are absent. A current invariant/representation relation remains #62 work after #61. | [`entity-allocator.bend`](../../src/ecs/entity-allocator.bend) |
+| `admissibility_independent` | Total equality of the frozen Nat invariant and its independent count-based specification, including malformed inputs. | Retain model-only, unapproved. Current allocator phases, generation, free/order lists and generic store invariants are absent. A current invariant/representation relation remains gated future work under #1, informed by #61. | [`entity-allocator.bend`](../../src/ecs/entity-allocator.bend) |
 | `namespace_creation_exact` | Experimental Nat factory creation uses next < limit, increments one threaded factory, starts local ID1, and preserves rejected factory. | Do not promote. Current WorldIO supplies independent-world authority and allocator capacity separately. This equation does not specify process-wide IO provenance. | [`world-io.bend`](../../src/ecs/world-io.bend) |
 | `namespace_two_created` | Two creations through one returned factory produce next and next+1 under next+1 < limit. | Retain as single-lineage model fact only. It neither proves uniqueness of independent roots nor constrains current global WorldIO. | [`world-namespace.bend`](../../src/ecs/world-namespace.bend) |
 | `reservation_exact` | Frozen reserve returns the next Nat ID, preserves raw rows and appends exactly one Spawn, or returns unchanged world on its bound. | Retire as a production allocator proposal. Current reserve may reuse an index at its current generation; deferred marking, failure consumption and cleanup-owned release are distinct operations. | [`entity-allocator.bend`](../../src/ecs/entity-allocator.bend) |
@@ -70,14 +70,14 @@ No new ticket or public runtime policy is created.
 | `publication_authorized_target` | Frozen publish appends a target/action on equal numeric namespace and otherwise returns unchanged world, without a result. | Retire as a public command proposal. Current command admission checks namespace, full generation and live/pending status, returns MissingEntity on refusal and preserves the receiver queue. | [`commands.bend`](../../src/ecs/commands.bend) |
 | `admissibility_preserved` | Every Nat primitive step preserves the model invariant under its independent admissibility premise. | Retain model-only. A no-op can satisfy it; it does not characterize current transactions, callbacks, allocation phases or runtime observations. | [`entity-allocator.bend`](../../src/ecs/entity-allocator.bend) |
 | `query_independent_physical_order` | Reversing the frozen model physical rows preserves the selected query under admissibility. | Retain model-only. Current visible iteration follows logical reservation order across recycled physical slots. Reversal alone is neither complete query semantics nor arbitrary permutation independence. | [`query.bend`](../../src/ecs/query.bend) |
-| `owned_runtime_creation_correspondence` | Experimental U32 factory/World observation equals its Nat creation result. | Defer a current replacement in #62. The historical factory is constructible, observes fixed value/tag cells and uses the old numeric policy; current WorldIO and generational allocation are different subjects. | [`world-io.bend`](../../src/ecs/world-io.bend) |
+| `owned_runtime_creation_correspondence` | Experimental U32 factory/World observation equals its Nat creation result. | Defer a current replacement under #1 until its exact subject is approved. The historical factory is constructible, observes fixed value/tag cells and uses the old numeric policy; current WorldIO and generational allocation are different subjects. | [`world-io.bend`](../../src/ecs/world-io.bend) |
 | `owned_runtime_projection_exact` | The prototype project result equals independent raw fields and element zero of each owned Array. | Retain only as prototype scope. A current observation must name every observable generic family; matching element zero is not full payload preservation. | [`column.bend`](../../src/ecs/column.bend) |
-| `owned_runtime_projection_preserves_owner` | The returned prototype owner has the same raw element-zero snapshot as its input. | Do not request as generic owner preservation. Array truncation or reconstruction can satisfy it. A representation-neutral relation for full observable owners remains #62 work. | [`capabilities.bend`](../../src/ecs/capabilities.bend) |
+| `owned_runtime_projection_preserves_owner` | The returned prototype owner has the same raw element-zero snapshot as its input. | Do not request as generic owner preservation. Array truncation or reconstruction can satisfy it. A representation-neutral relation for full observable owners remains gated future work under #1. | [`capabilities.bend`](../../src/ecs/capabilities.bend) |
 | `owned_runtime_step_correspondence` | A safe prototype primitive step agrees with independent Nat step observation; Bump excludes overflow. | Defer current refinement. Real system failure, prior commits, actual returned values, journal ownership and explicit deferred carriers are absent from the prototype. | [`transaction.bend`](../../src/ecs/transaction.bend) |
 | `message_failure_helper` | The old t07 complete(False,cursor,started) returns exactly the supplied two-field cursor. | Replace at the current pure metadata seam below. Current completed_positions activates an absent reader on failure but preserves existing cursors and registration metadata. It is not unconditional whole-list identity. | [`event-stream.bend`](../../src/ecs/event-stream.bend) |
 | `message_success_helper` | The t07 helper changes last to supplied started and preserves registered. | Replace with exact selected-position and full Stream metadata equations below. They expose activation, duplicate raw IDs, unrelated positions and supplied tick behavior without inventing a monotonicity premise. | [`event-stream.bend`](../../src/ecs/event-stream.bend) |
 | `message_skip_helper` | The t07 explicit skip helper advances its cursor to the supplied current boundary. | Replace with an exact explicit advance equation below. A false ordinary condition is a different path and preserves an unentered reader; this law must not select TS discard-on-false behavior. | [`event-stream.bend`](../../src/ecs/event-stream.bend) |
-| `lifecycle_failure_helper` | The t08 helper returns the supplied last/message/registered reader unchanged after failure. | Retire as a current lifecycle wrapper law. Current tracked Registry cursor and independently registered stream positions are separate owners; a correct helper alone cannot prove selected-reader rollback. #62 retains that proof obligation. | [`system.bend`](../../src/ecs/system.bend) |
+| `lifecycle_failure_helper` | The t08 helper returns the supplied last/message/registered reader unchanged after failure. | Retire as a current lifecycle wrapper law. Current tracked Registry cursor and independently registered stream positions are separate owners; a correct helper alone cannot prove selected-reader rollback. #1 retains that gated proof obligation. | [`system.bend`](../../src/ecs/system.bend) |
 | `lifecycle_success_helper` | The t08 helper sets both last and message to started while preserving registration. | Retire as a universal current cursor rule. Current tracked systems use actual completion clock; stream publication uses its own epoch. No equality between all domain clocks is proposed. | [`system.bend`](../../src/ecs/system.bend) |
 | `conditional_type_true` | Frozen S.When(True,claim) is exactly claim, for an erased Type claim. | Retain unapproved infrastructure only. This pins a proposition encoder, not an ECS behavior; an exact future proof must not silently fill this catalog statement as a renamed helper. | [`spec.bend`](../../experiments/t11-replacement/spec.bend) |
 | `conditional_type_false` | Frozen S.When(False,claim) is exactly Unit, for an erased Type claim. | Retain unapproved infrastructure only. Excluded Unit instances are not successful equality/non-vacuity evidence for another law. | [`spec.bend`](../../experiments/t11-replacement/spec.bend) |
@@ -111,7 +111,7 @@ remain finite falsification evidence, not human approval or proofs.
 All eleven remain **unapproved and deferred**. Their original law text,
 specifications, receipts and source pins stay unchanged. A later exact proposal
 must first reconcile its current helper body, domain, complete observation and
-backend scope under #62, informed by #61. No approval of this index promotes
+backend scope in a future gated slice under #1, informed by #61. No approval of this index promotes
 these drafts or extends their historical evidence to current executable APIs.
 
 ## Four concrete current helper proposals
@@ -142,7 +142,7 @@ it never calls production `equal`, `lookup`, `activate`, `update` or
 batches because these particular helpers do not perform retention trimming.
 Tick correctness at a real provider, reader selection, namespace rejection,
 rollback/publication ordering, retention/lag and arbitrary affine payload
-preservation remain separate #61/#62 obligations. Existing finite application
+preservation remain separate gated obligations under #1, informed by #61. Existing finite application
 receipts support those cases only within their stated source and backend scope.
 
 The source basis is Rust Bevy `ad678262ce53b5d142fe49ee5e08caff6f00ab60`,
@@ -180,3 +180,13 @@ Astra medium technical/launch/final review and Luna max source research found no
 Human approval is still pending for the four exact law blocks at SHA-256 `b86435ad296308c3869ddf00d8603db83e7125aad6637bc203721a39ec43f6ed` and independent specification `aea16de7c7f9912322178d2c2337d44c7e71b6acd92e9c3421499f53d07526ea`. The 22 legacy and 11 separate metadata drafts are excluded. No proof has been written against an unapproved subject.
 
 Proof sketches for approval: split key constructors and index-equality Bool; prove the positions equation by structural list induction with explicit lookup/existence and update-map relations; lift positions equality through the complete Stream constructor; unfold advance and use successful completion. No core-shape change is proposed, and no unapproved supporting subject is assumed. These are sketches, not proof definitions.
+
+
+Proposal/falsification delivery is complete. The exact four-subject approval
+request was [presented](https://github.com/dearlordylord/bendvy/issues/62#issuecomment-6231034442);
+that fulfills presentation, not approval. Independent completion review confirms
+all 13 law-source closure files remain byte-identical to `291704538`. Existing
+execution and final-review evidence therefore applies without another backend
+run. All four subjects remain unapproved. #1 owns the deferred proof/refinement
+work, including the separately indexed 22 legacy and 11 metadata drafts.
+Future proof slices require exact approval; this proposal delivery approves none.

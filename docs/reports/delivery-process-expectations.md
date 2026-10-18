@@ -2361,3 +2361,23 @@ not a clean-checkout replay or strict 356-file inventory equivalence: the strict
 checker would report the extra path absent from that checkout. No frozen
 receipt/archive was rewritten and no benchmark was repeated. Evidence remains
 in the existing [manifest](../../experiments/s-perf/canonical-api-v1/dense-runtime-v1/diagnostics/matched-timing-v1/plan-once-v1/results/regression28/MANIFEST.json).
+
+CI39114145854 passed both jobs on `75c739e75`; no unchanged benchmark rerun was needed for this provenance correction.
+
+
+## 2026-10-18 — #62 proposal delivery acceptance
+
+The governing ticket requires presentation of exact law candidates, not approval
+or proof acceptance. Presentation already occurred in its English
+[delivery report](https://github.com/dearlordylord/bendvy/issues/62#issuecomment-6231034442).
+Independent completion audit confirms all four proposal/falsification criteria
+are met and the full 13-file law-source closure is byte-identical to reviewed
+`291704538`. Existing normal JS/Native, four compiling JS defects, 519 bindings
+and CI evidence apply without a backend or benchmark rerun.
+
+The presentation checkbox is corrected. The four subjects remain UNAPPROVED;
+no proof is accepted or attempted. Existing seven subjects and two arithmetic
+approvals remain distinct from the 22 legacy and 11 separate metadata drafts.
+Deferred proof/refinement stays explicitly under #1 until exact approval and
+a separately scoped slice. No acceptance criterion or approval requirement
+changes. This resolves proposal delivery, not universal ECS refinement.
