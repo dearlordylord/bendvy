@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : id
+- observed : id (consumed more than once)
+Location: remaining_join
+70 | def past() -> C.History<T.MotionSchema,Payload>:C.HistoryCon{1,Some{payload(11)},C.HistoryNil{}}
+71>| def remaining_join(id:U32,owner:Payload,result:H.PrototypeHandoffRows<T.MotionSchema,Payload> & List<&2,String>) -> H.PrototypeHandoffRows<T.MotionSchema,Payload> & List<&2,String>:
+   |                    ^^
+72 |   match result:
+bend 2.0.37 is available: run bend update
