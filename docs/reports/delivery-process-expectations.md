@@ -2218,3 +2218,22 @@ not allocation/RSS, lifecycle stamps, other workloads or universal peak proof.
 The unchanged #28 receipt still matches all 356 sources and the full core inventory;
 its existing scoped result is reused. No limits changed. Matched timing pilot,
 remaining workload metrics and final comparative qualification remain open.
+
+
+## 2026-10-18 — First matched-method pilot integrated
+
+Integrated `0dd014f1d` after independent final review. TS, JS and Native each
+complete one same-process warmup and fresh sample. All six actual 5,448-value
+common tuples match the independently sealed model; full canonical records remain
+checked. The [packet](../../experiments/s-perf/canonical-api-v1/dense-runtime-v1/diagnostics/matched-timing-v1/runtime-v1/actual-attempt01/RETENTION.json)
+passes 627 members, 580 objects and 21 guards, including raw clock sidefile joins.
+The existing runner and public ECS are unchanged. Protected #28 remains exact
+for all 356 sources/full core inventory. Prior diagnostic integration CI39108569102
+passed both functional and runnable-example jobs.
+
+Raw warmup/sample clocks are JS 74/30 ms, Native 19/19 ms, TS 7.857237/4.175996 ms.
+These are one method pilot under external CPU contention, not qualified ratios,
+speed rankings, precision or final performance acceptance. Full repeated comparison,
+resolution/batch approval and clean-child RSS remain open. Next: CPU and allocation
+profiles of the same qualified JS artifact with unchanged full-output validation.
+No new limits or protocol tolerances were introduced.
