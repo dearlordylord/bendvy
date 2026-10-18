@@ -107,7 +107,7 @@ def attached(label:String,value:Schedule.Attachment<Registered(),Application()>)
     case _:"ERROR attach\n"
 def ordinary(label:String,value:Created) -> IO(Unit):
   match value:
-    case Created{world,owners}:IO.print(attached(label,attach(world,owners)))
+    case Created{world,owners}:IO.write(attached(label,attach(world,owners)))
     case _:IO.die(Unit,1,"creation refused")
 def normal(value:Created) -> IO(Unit):ordinary("normal",value)
 def failing(value:Created) -> IO(Unit):ordinary("failure",value)
@@ -117,7 +117,7 @@ def wrong_returned(right:R(),result:(L() & Shared) & Sys.Outcome<Ctx.Context<Wor
     case _:"ERROR wrong\n"
 def wrong(value:Created) -> IO(Unit):
   match value:
-    case Created{world,((left,Sys.Registry{ns,+id,name,access,cursor}),shared)}:IO.print(wrong_returned(Sys.Registry{ns,id,name,access,cursor},l_dispatch((left,shared),Ctx.Context{world,Facts.Off{}},id)))
+    case Created{world,((left,Sys.Registry{ns,+id,name,access,cursor}),shared)}:IO.write(wrong_returned(Sys.Registry{ns,id,name,access,cursor},l_dispatch((left,shared),Ctx.Context{world,Facts.Off{}},id)))
     case _:IO.die(Unit,1,"creation refused")
 def foreign_attached(distinct:Bool,colliding:Bool,value:Schedule.Attachment<Registered(),Application()>) -> String:
   match value:
@@ -125,5 +125,5 @@ def foreign_attached(distinct:Bool,colliding:Bool,value:Schedule.Attachment<Regi
     case _:"ERROR foreign\n"
 def foreign_pair(first:Created,second:Created) -> IO(Unit):
   match first second:
-    case Created{W.World{+ns,a,c,r,e,p,regs,n,k},((Local.Instance{ln,+li,lname,la,local},leftR),shared)},Created{W.World{+actual,ba,bc,br,be,bp,bregs,bn,bk},((Local.Instance{_,+bi,_,_,_},_),_)}:IO.print(foreign_attached(Bool.not(U32.is_eq(ns,actual)),U32.is_eq(li,bi),attach(W.World{actual,ba,bc,br,be,bp,bregs,bn,bk},((Local.Instance{ln,li,lname,la,local},leftR),shared))))
+    case Created{W.World{+ns,a,c,r,e,p,regs,n,k},((Local.Instance{ln,+li,lname,la,local},leftR),shared)},Created{W.World{+actual,ba,bc,br,be,bp,bregs,bn,bk},((Local.Instance{_,+bi,_,_,_},_),_)}:IO.write(foreign_attached(Bool.not(U32.is_eq(ns,actual)),U32.is_eq(li,bi),attach(W.World{actual,ba,bc,br,be,bp,bregs,bn,bk},((Local.Instance{ln,li,lname,la,local},leftR),shared))))
     case _,_:IO.die(Unit,1,"foreign creation refused")

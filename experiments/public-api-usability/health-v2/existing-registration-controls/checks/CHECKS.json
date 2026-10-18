@@ -5,19 +5,20 @@
   "cpu": 8,
   "capSeconds": 5,
   "normal": {
-    "attempt": "source04",
+    "attempt": "source05",
     "exitCode": 0,
     "stdout": "ALL PROOFS CHECK",
-    "sourceSHA256": "f5b897b002d2f65595225b72ed3126565263436a3a91aab26c15f7494bc36ca2"
+    "sourceSHA256": "a470be49db7a3ea83e15de97f053148e69d1a4ecadf845a4be0096c19a949fd1"
   },
   "mutant": {
-    "attempt": "mutant01",
+    "attempt": "mutant02",
     "exitCode": 0,
     "stdout": "ALL PROOFS CHECK"
   },
   "repairs": {
     "source01": "Duplicate Bool use in l_returned; repaired binder quantity.",
     "source02": "Full IO entry correctly reports accepted foreign namespace dependencies; split IO entry and pure core.",
-    "source03": "Pure core still imported WI; moved WI creation entirely to IO entry."
+    "source03": "Pure core still imported WI; moved WI creation entirely to IO entry.",
+    "source05": "Use IO.write for exactly one explicit newline per observation, instead of IO.print adding a second newline."
   }
 }
