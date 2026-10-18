@@ -1,0 +1,14 @@
+SOME PROOFS FAIL
+Error:
+- expected : Cap.Write<refused~H, T.Position, T.PositionView>
+- observed : Cap.Read<refused~H, T.PositionView>
+Context:
+- capture : P.Pack
+- args    : B.Args
+- owner   : refused~H
+Location: refused
+7 | def refused(~H:Type,~cap:Cap.Read<H,T.PositionView>,capture:P.Pack,args:B.Args,owner:H) -> H & (P.Pack & (Tx.Outcome<Unit> & U32)):
+8>|   B.body(~H,~cap,capture,args,owner)
+  |              ^^^
+9 | 
+bend 2.0.37 is available: run bend update

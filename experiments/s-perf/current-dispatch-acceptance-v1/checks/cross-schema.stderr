@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : W.World<../../canonical-api-v1/dense-runtime-v1/types.MotionSchema, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<../../canonical-api-v1/dense-runtime-v1/types.MotionSchema, ../../canonical-api-v1/dense-runtime-v1/types.Position>, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<../../canonical-api-v1/dense-runtime-v1/types.MotionSchema, ../../canonical-api-v1/dense-runtime-v1/types.Velocity>, ../../../../src/ecs/column.Column<../../canonical-api-v1/dense-runtime-v1/types.MotionSchema, ../../canonical-api-v1/dense-runtime-v1/types.Selected>>>, ../../../../src/ecs/owner-product.Owner<../../canonical-api-v1/dense-runtime-v1/types.MotionLedger, Unit>, Nat>
+- observed : W.World<Other, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<../../canonical-api-v1/dense-runtime-v1/types.MotionSchema, ../../canonical-api-v1/dense-runtime-v1/types.Position>, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<../../canonical-api-v1/dense-runtime-v1/types.MotionSchema, ../../canonical-api-v1/dense-runtime-v1/types.Velocity>, ../../../../src/ecs/column.Column<../../canonical-api-v1/dense-runtime-v1/types.MotionSchema, ../../canonical-api-v1/dense-runtime-v1/types.Selected>>>, ../../../../src/ecs/owner-product.Owner<../../canonical-api-v1/dense-runtime-v1/types.MotionLedger, Unit>, Nat>
+Context:
+- world : W.World<Other, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<../../canonical-api-v1/dense-runtime-v1/types.MotionSchema, ../../canonical-api-v1/dense-runtime-v1/types.Position>, ../../../../src/ecs/owner-product.Owner<../../../../src/ecs/column.Column<../../canonical-api-v1/dense-runtime-v1/types.MotionSchema, ../../canonical-api-v1/dense-runtime-v1/types.Velocity>, ../../../../src/ecs/column.Column<../../canonical-api-v1/dense-runtime-v1/types.MotionSchema, ../../canonical-api-v1/dense-runtime-v1/types.Selected>>>, ../../../../src/ecs/owner-product.Owner<../../canonical-api-v1/dense-runtime-v1/types.MotionLedger, Unit>, Nat>
+Location: refused
+ 8 |   Other{}
+ 9>| def refused(world:W.World<Other,F.Store(),F.Resources(),Nat>) -> O.Registration<F.World(),B.Owned(),P.Pack>:B.define(world)
+   |                                                                                                                      ^^^^^
+10 | 
+bend 2.0.37 is available: run bend update
