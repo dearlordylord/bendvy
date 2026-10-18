@@ -4,6 +4,7 @@ import gzip
 import hashlib
 import importlib.util
 import json
+import sys
 from pathlib import Path
 
 
@@ -13,6 +14,7 @@ def compact(value):
 
 def oracle(schema):
     path = Path(__file__).resolve().parents[2] / f'sparse-{schema.lower()}64/model/pilot_oracle.py'
+    sys.path.insert(0, str(path.parent))
     spec = importlib.util.spec_from_file_location('sparse_' + schema, path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
