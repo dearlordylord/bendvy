@@ -109,31 +109,25 @@ class World(S.World):
                     frame=None, reports=self.reports, columnHistories=histories)
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, required=True)
-    args = parser.parse_args()
-    assert not args.output.exists(), 'fresh output required'
-    basis = json.loads((HERE / 'SOURCE-BASIS.json').read_text())
-    for path, digest in basis['sourcePins'].items():
-        assert sha((ROOT / path).read_bytes()) == digest, path
-    for path, digest in basis['gitPins'].items():
-        raw = subprocess.check_output(['git', '-C', str(ROOT), 'show', basis['finalSubjectSourceCommit'] + ':' + path])
-        assert sha(raw) == digest, path
-    normal, phases = Streams.streams('Health', 64, 64)
+def render_records(records):
+    return ('[' + compact(records[0]) + '\n,\n' + compact(records[1]) + '\n]\n').encode()
+
+
+def derive(count, iterations):
+    normal, phases = Streams.streams('Health', count, iterations)
     health = ROOT / 'test-fixtures/connected-performance/dense-health64/model'
+    accepted = json.loads((health / 'COUNT-EXPECTED.json').read_text())[str(count)]
     for name, raw in normal.items():
-        retained = (health / name).read_bytes()
-        assert raw == (gzip.decompress(retained) if name.endswith('.gz') else retained)
+        assert dict(bytes=len(raw), sha256=sha(raw)) == accepted['outputs'][name]
     old_column, old_world = S.IndexedColumn, Dense.World
+    WORLD_RESULTS.clear()
     S.IndexedColumn, Dense.World = Column, World
     try:
-        observed, observed_phases = Streams.streams('Health', 64, 64)
+        observed, observed_phases = Streams.streams('Health', count, iterations)
     finally:
         S.IndexedColumn, Dense.World = old_column, old_world
     assert observed == normal and observed_phases == phases
-    # expected_common validates its projection with one independent ns1 report;
-    # streams then emits the actual warmup ns1 and sample ns2 reports in order.
+    # The independent common helper is not a third emitted method world.
     assert len(WORLD_RESULTS) == 3
     assert [w.namespace for w in WORLD_RESULTS] == [1, 1, 2]
     helper, warmup, sample = WORLD_RESULTS
@@ -146,15 +140,44 @@ def main():
         for report in record['reports']:
             report['prefinish']['columns']['populatedTotal'] += 1
             changed += 1
-    assert changed == sum(len(r['reports']) for r in records) == 130
+    assert changed == sum(len(r['reports']) for r in records) == 2 * (iterations + 1)
+    return normal, records, counter, changed
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--count', type=int, choices=[64, 256, 1024], default=64)
+    parser.add_argument('--iterations', type=int, choices=[64], default=64)
+    parser.add_argument('--output', type=Path, required=True)
+    args = parser.parse_args()
+    assert not args.output.exists(), 'fresh output required'
+    basis = json.loads((HERE / 'SOURCE-BASIS.json').read_text())
+    for path, digest in basis['sourcePins'].items():
+        assert sha((ROOT / path).read_bytes()) == digest, path
+    for path, digest in basis['gitPins'].items():
+        raw = subprocess.check_output(['git', '-C', str(ROOT), 'show', basis['finalSubjectSourceCommit'] + ':' + path])
+        assert sha(raw) == digest, path
+    preserved = derive(64, 64)
+    normal64, records64, counter64, _ = preserved
+    health = ROOT / 'test-fixtures/connected-performance/dense-health64/model'
+    for name, raw in normal64.items():
+        retained = (health / name).read_bytes()
+        assert raw == (gzip.decompress(retained) if name.endswith('.gz') else retained)
+    prior = json.loads((HERE / 'EXPECTED.json').read_text())
+    for name, rows in [('expected.stats.json', records64), ('counter.stats.json', counter64)]:
+        raw = render_records(rows)
+        assert dict(bytes=len(raw), sha256=sha(raw)) == prior['outputs'][name]
+    normal, records, counter, changed = preserved if args.count == 64 else derive(args.count, args.iterations)
     args.output.mkdir(parents=True)
     outputs = {}
     for name, rows in [('expected.stats.json', records), ('counter.stats.json', counter)]:
-        raw = ('[' + compact(rows[0]) + '\n,\n' + compact(rows[1]) + '\n]\n').encode()
+        raw = render_records(rows)
         (args.output / name).write_bytes(raw)
         outputs[name] = dict(bytes=len(raw), sha256=sha(raw))
-    receipt = dict(status='PASS', sourceBasisSHA256=sha((HERE / 'SOURCE-BASIS.json').read_bytes()),
-                   fullNormalIdentical=True, normalOutputs={k: dict(bytes=len(v), sha256=sha(v)) for k, v in normal.items()},
+    receipt = dict(status='PASS', count=args.count, iterations=args.iterations,
+                   sourceBasisSHA256=sha((HERE / 'SOURCE-BASIS.json').read_bytes()),
+                   fullNormalIdentical=True, preserved64='EXACT_NORMAL_AND_BOTH_SIDECARS',
+                   normalOutputs={k: dict(bytes=len(v), sha256=sha(v)) for k, v in normal.items()},
                    reportsPerWorld=[len(r['reports']) for r in records],
                    appendRecordsPerWorld=[sum(len(r['sample']['tx']['boundaries']) for r in w['reports']) for w in records],
                    columnHistoryCounts=[{k: len(v) for k, v in w['columnHistories']['columns'].items()} for w in records],
