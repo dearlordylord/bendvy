@@ -16,7 +16,11 @@ def fold(values:List<&2,U32>,acc:U32) -> U32:
   match values:
     case []:acc
     case head <> tail:fold(tail,mix(acc,head))
-def cat(left:List<&2,U32>,right:List<&2,U32>) -> List<&2,U32>:List.append(&2,U32,left,right)
+def cat_reversed(reversed:List<&2,U32>,right:List<&2,U32>) -> List<&2,U32>:
+  match reversed:
+    case []:right
+    case head <> rest:cat_reversed(rest,head <> right)
+def cat(left:List<&2,U32>,right:List<&2,U32>) -> List<&2,U32>:cat_reversed(List.reverse(&2,U32,left),right)
 def four(value:T.Four) -> List<&2,U32>:
   match value:
     case T.Four{a,b,c,d}:[a,b,c,d]
