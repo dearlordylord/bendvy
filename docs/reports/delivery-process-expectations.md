@@ -2573,3 +2573,10 @@ Integrated `77b82945e`, `1c83a602c` and `b72b0a0f7`: public captured-query regis
 The required combined #28 remains **failed**, so #73 remains open. Attempt01 mistakenly selected Bend 2.0.37 from PATH; its result is retained separately. Corrected attempt02 uses pinned 2.0.35 and confirms JS slowdown versus the frozen Bend baseline: 16/20 slower pairs, median paired ratio 1.0432622582, exact p=0.0059089661. Native has no confirmed regression. Both full runs are archived losslessly. No threshold, baseline, workload or source fix was substituted; exact-artifact CPU/allocation diagnosis follows. Root CI is pending. These are not final #21/#24 performance results.
 
 Existing batch/ownership practice was used: separate author, blind and docs worktrees, one shared-core integrator, sequential backend leases, then one final review and combined gate. The guide/example shell's missing `-o` was corrected before its successful successor; the failed invocation remains recorded. This checkpoint does not establish overall delivery acceleration.
+
+
+## Profiled validation follow-through — 2026-10-18
+
+Prior API delivery CI39140222295 passed both jobs. World-only field passing is integrated at `b043b3656` after four full JS/Native streams and independent final review. It removes the intermediate constructor without changing identity predicates or affine owners; sampled total allocation did not decrease. Required pinned #28 attempt03 still confirms JS regression (15/20, median paired ratio1.0242454458, p=0.0206947327); Native passes. The failed run is archived losslessly. #73 remains open; the next bounded candidate is the analogous allocator reconstruction already reached in the same profile. No unchanged gate repeat or threshold change.
+
+The concrete PATH-selection error is prevented in `51f818f1e`: the regression runner defaults to pinned2.0.35, records the resolved executable/hash and rejects another version before workload preparation. Independent launch review and a real2.0.37 rejection control pass. The next gate exercised the positive default and recorded2.0.35. No dependency upgrade, workload reduction or overall speedup claim.
