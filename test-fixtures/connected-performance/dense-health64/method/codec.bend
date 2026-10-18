@@ -78,4 +78,16 @@ def status(value:Driver.Status) -> List<&2,U32>:
 def encode(value:C.Common) -> List<&2,U32>:
   match value:
     case C.Common{rows,resource,audits,statuses}:cat(list(~IQ.ProjectedRow<T.HealthSchema,Logical.Value()>,~row,rows),cat(ledger(resource),cat(list(~Driver.Audit,~audit,audits),list(~Driver.Status,~status,statuses))))
-def show(values:List<&2,U32>) -> String:List.show(&2,U32,U32.show,values)
+def write_chunk(reversed:List<&2,String>) -> IO(Unit):IO.write(String.concat(List.reverse(&2,String,reversed)))
+def write_piece(value:U32,first:Bool) -> String:
+  match first:
+    case True{}:U32.show(value)
+    case False{}:", " ++ U32.show(value)
+def write_go(values:List<&2,U32>,first:Bool,remaining:Nat,reversed:List<&2,String>) -> IO(Unit):
+  match values:
+    case []:IO.bind(Unit,Unit,write_chunk(reversed),_=>IO.write("]\n"))
+    case value <> rest:
+      match remaining:
+        case 0n:IO.bind(Unit,Unit,write_chunk(reversed),_=>write_go(rest,False{},63n,[write_piece(value,first)]))
+        case 1n+next:write_go(rest,False{},next,write_piece(value,first) <> reversed)
+def write(prefix:String,values:List<&2,U32>) -> IO(Unit):IO.bind(Unit,Unit,IO.write(prefix ++ "["),_=>write_go(values,True{},64n,[]))

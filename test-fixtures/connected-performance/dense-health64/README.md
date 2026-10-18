@@ -11,3 +11,5 @@ The recovered domain source SHA256 is910f12ebf36f77918ba58305503778057cefc878e91
 The TS count guard now admits64/256/1024; the business body is unchanged. The shared Dense Motion `model/seal_gold.py --schema Health --count N --output FRESH` reproduces retained Health64 bytes before deriving wider common and complete physical/TS streams. Wider execution remains pending. A reached whole-String tuple formatter is not itself evidence that a transport repair is needed.
 
 `Codec.cat` uses the same local tail-recursive concatenation repair as Motion after its source-derived256 host-stack diagnosis. Health business operations, Indexed storage, fields and oracle remain unchanged; repaired-source execution is still required.
+
+The post-clock TUPLE call uses the same accepted64-piece writer as Motion after its actual List.show stack failure. This changes transport only; complete bytes and timing boundaries remain unchanged.

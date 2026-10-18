@@ -66,7 +66,7 @@ def write(path:String,result:Completed) -> IO(Unit):
     case Completed{state,prefix,tuple,nanoseconds}:
       do IO<Unit>:
         clock(path,nanoseconds)
-        IO.print("TUPLE:" ++ Codec.show(tuple))
+        Codec.write("TUPLE:",tuple)
         IO.print("CANONICAL-BEGIN")
         IO.print(Canonical.final_state(prefix,Observe.state(state)))
         IO.print("CANONICAL-END")
