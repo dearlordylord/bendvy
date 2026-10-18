@@ -1,0 +1,43 @@
+--- accepted Dense reference.mjs
++++ Sparse derivative reference.mjs
+@@ -59,17 +59,18 @@
+       r.data.main.set(schema==='Motion'?{coordinates:next,frame:old.frame}:{levels:next,reserve:old.reserve,class:old.class});
+       const resource=resources.ledger.get();resources.ledger.set({totals:[resource.totals[0]+1,...resource.totals.slice(1)],epoch:resource.epoch});updated++;
+     }
+-    let selectionSum=0;
++    let selectionSum=0;const capturedScans={};let fullScan;
+     if(workload==='sparse')for(const [name,weight] of [['optional',1],['present',3],['absent',5]]){
+-      let value=0,rank=1;for(const r of queries[name].each()){value=(value+rank*rowScore(schema,row(r)))>>>0;rank++;}selectionSum=(selectionSum+weight*(value+rank))>>>0;
++      const included=[];let value=0,rank=1;for(const r of queries[name].each()){const actual=row(r);included.push(actual);value=(value+rank*rowScore(schema,actual))>>>0;rank++;}selectionSum=(selectionSum+weight*(value+rank))>>>0;
++      if(name==='optional')fullScan=included;capturedScans[name]={rows:fullScan,included,score:(value+rank)>>>0};
+     }
+-    worksum=(worksum+readSum+selectionSum)>>>0;audits.push({values,readsum:readSum,updated});
++    worksum=(worksum+readSum+selectionSum)>>>0;audits.push({values,readsum:readSum,updated,scans:{all:capturedScans.optional,present:capturedScans.present,absent:capturedScans.absent,weighted:selectionSum},cumulative:worksum});
+   });
+   let final;
+   const Dump=G.System('Dump',{queries:{q:Q},resources:{ledger:G.System.readResource(Ledger)}},({queries,resources})=>{final={rows:queries.q.each().map(row),ledger:structuredClone(resources.ledger.get())};});
+   const setupMilliseconds=performance.now()-setupStart;
+   return {run(){measured=true;for(let i=0;i<iterations;i++)tick(Update);measured=false;tick(Dump);
+-    const tuple=encode({rows:final.rows,ledger:final.ledger,audits,statuses});console.log('FORCE:'+commonFold(tuple));return tuple;
++    const tuple=encode({rows:final.rows,ledger:final.ledger,audits,statuses,cumulative:worksum});console.log('FORCE:'+commonFold(tuple));return tuple;
+   },validate(){
+   const selected=Array.from({length:count},(_,j)=>j).filter(j=>workload==='dense'||j%8===0);
+   function expectedRows(delta){return selected.map(j=>({rawId:ids[j].value,main:main(schema,j,delta),aux:j%3===0?aux(schema):null,flag:j%3===1?{group:8}:null}));}
+@@ -99,12 +100,13 @@
+ const sized=(xs,f)=>natural(xs.length).concat(...xs.map(f));
+ const access=(x,f)=>x===null?[1]:[2,...f(x)];
+ function encode(x){
+- const rows=sized(x.rows,r=>[...natural(r.rawId),2,...r.main.coordinates,r.main.frame,...access(r.aux,v=>[...v.rates,Number(v.moving)]),...access(r.flag,v=>[v.group])]);
+- const audits=sized(x.audits,a=>[...sized(a.values,v=>[v]),a.readsum,...natural(a.updated)]);
++ const row=r=>[...natural(r.rawId),2,...r.main.coordinates,r.main.frame,...access(r.aux,v=>[...v.rates,Number(v.moving)]),...access(r.flag,v=>[v.group])];
++ const rows=sized(x.rows,row);const scan=s=>sized(s.rows,row).concat(sized(s.included,row),[s.score]);
++ const audits=sized(x.audits,a=>[...sized(a.values,v=>[v]),a.readsum,...natural(a.updated),...scan(a.scans.all),...scan(a.scans.present),...scan(a.scans.absent),a.scans.weighted,a.cumulative]);
+  const statuses=sized(x.statuses,s=>s.ok?[0]:[3,...natural(JSON.stringify(s.error).length),...Array.from(JSON.stringify(s.error),c=>c.codePointAt(0))]);
+- return rows.concat(x.ledger.totals,[x.ledger.epoch],audits,statuses);
++ return rows.concat(x.ledger.totals,[x.ledger.epoch],audits,statuses,[x.cumulative]);
+ }
+-const schema='Motion',workload='dense',count=Number(process.argv[2]);assert.equal(count,64);assert.equal(iterations,64);
++const schema='Motion',workload='sparse',count=Number(process.argv[2]);assert.equal(count,64);assert.equal(iterations,64);
+ function one(path){const owner=execute(schema,workload,count);const start=performance.now();const tuple=owner.run();const end=performance.now();const full=owner.validate();writeFileSync(path,String(end-start)+'\n',{flag:'w'});console.log('TUPLE:'+JSON.stringify(tuple));console.log('FULL:'+JSON.stringify(full));}
+ const [warmupClock,sampleClock]=process.argv.slice(4);assert(warmupClock&&sampleClock);
+ console.log('WARMUP');one(warmupClock);console.log('SAMPLE');one(sampleClock);
