@@ -76,25 +76,26 @@ def stats_opened(text:String,result:Result<&1,&1,U32 & String,File>) -> IO(Unit)
   match result:
     case Done{file}:IO.bind(File & Result<&1,&1,U32 & String,Unit>,Unit,File.write(file,text),clock_written)
     case Fail{(code,message)}:IO.die(Unit,code,message)
-def write_observed(path:String,statsPath:String,prefix:String,tuple:List<&2,U32>,nanoseconds:Nat,observed:Driver.State & String) -> IO(Unit):
+def write_observed(path:String,statsPath:String,suffix:String,prefix:String,tuple:List<&2,U32>,nanoseconds:Nat,observed:Driver.State & String) -> IO(Unit):
   match observed:
-    case (state,stats):IO.bind(Unit,Unit,write_normal(path,Completed{state,prefix,tuple,nanoseconds}),_=>IO.bind(Result<&1,&1,U32 & String,File>,Unit,File.open(statsPath,"a"),stats_opened(stats)))
-def write(label:String,count:U32,iterations:U32,path:String,statsPath:String,result:Completed) -> IO(Unit):
+    case (state,stats):IO.bind(Unit,Unit,write_normal(path,Completed{state,prefix,tuple,nanoseconds}),_=>IO.bind(Result<&1,&1,U32 & String,File>,Unit,File.open(statsPath,"a"),stats_opened(stats ++ suffix)))
+def write(label:String,count:U32,iterations:U32,path:String,statsPath:String,suffix:String,result:Completed) -> IO(Unit):
   match result:
-    case Completed{state,prefix,tuple,nanoseconds}:write_observed(path,statsPath,prefix,tuple,nanoseconds,Report.observe(label,count,iterations,state))
-def one(label:String,+count:U32,+iterations:U32,path:String,statsPath:String) -> IO(Unit):
+    case Completed{state,prefix,tuple,nanoseconds}:write_observed(path,statsPath,suffix,prefix,tuple,nanoseconds,Report.observe(label,count,iterations,state))
+def one(label:String,+count:U32,+iterations:U32,path:String,statsPath:String,suffix:String) -> IO(Unit):
   do IO<Unit>:
     prepared:Prepared <- prepare(count,iterations)
     completed:Completed <- timed(iterations,prepared)
-    write(label,count,iterations,path,statsPath,completed)
+    write(label,count,iterations,path,statsPath,suffix,completed)
 def parsed(count:Maybe<&2,U32>,iterations:Maybe<&2,U32>,warmup:String,sample:String,+statsPath:String) -> IO(Unit):
   match count iterations:
     case Some{+count} Some{+iterations}:
       do IO<Unit>:
+        IO.bind(Result<&1,&1,U32 & String,File>,Unit,File.open(statsPath,"w"),stats_opened("["))
         IO.print("WARMUP")
-        one("warmup",count,iterations,warmup,statsPath)
+        one("warmup",count,iterations,warmup,statsPath,",\n")
         IO.print("SAMPLE")
-        one("sample",count,iterations,sample,statsPath)
+        one("sample",count,iterations,sample,statsPath,"]\n")
     case _ _:IO.die(Unit,2,"count iterations must be U32")
 def args(values:List<String>) -> IO(Unit):
   match values:

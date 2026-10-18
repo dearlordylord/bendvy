@@ -1,8 +1,8 @@
 {
   "scope": "Private DenseHealth64 occupancy source only; no backend/gold yet",
   "entrypoint": "test-fixtures/connected-performance/dense-health64/diagnostics/occupancy-v1/private/test-fixtures/connected-performance/dense-health64/method/pilot.bend",
-  "entrypointSHA256": "596fac0a2bcc319ec4bed3cd313a921e3b4b7601939a4bc8d2bc53781fb5d471",
-  "passedFullEntryDiagnostic": "dense-health-occupancy-pilot06.log",
+  "entrypointSHA256": "54461cf2769aea74bbcf9fcc03fe4bcfdb2ba7528303b865b3d628e46ae85e04",
+  "passedFullEntryDiagnostic": "dense-health-occupancy-pilot07.log",
   "foreignDependencies": 16,
   "claims": [
     "Registry declaration byte-exact current",
@@ -10,5 +10,6 @@
     "Original force/captured/timed definitions byte-exact current",
     "Metadata sampler and compose profile path pure source checks pass"
   ],
-  "history": "Earlier diagnostics are repair history, not passing source qualification or semantic controls."
+  "history": "Earlier diagnostics are repair history, not passing source qualification or semantic controls.",
+  "sidecarFraming": "[ + compact warmup + newline comma newline + compact sample + newline ] newline"
 }
