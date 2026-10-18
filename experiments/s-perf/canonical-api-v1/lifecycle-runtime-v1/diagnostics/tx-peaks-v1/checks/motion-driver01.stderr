@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+ 98 |     case Local.Instance{ns,id,name,access,owner}:
+ 99>|       (owner,samples)=MO.peek(owner)
+    |                       ^^^^^^^^^^^^^^
+100 |       (Local.Instance{ns,id,name,access,owner},samples)
+bend 2.0.37 is available: run bend update
