@@ -2290,3 +2290,28 @@ old receipt pins are not claimed equal to it. The exact CI source/whitespace che
 now passes locally. No Bend recompile was needed for the EOF-only correction.
 Protected #28 still matches all 356 sources and full core inventory. Existing
 limits, contracts, proof approvals and final performance gates remain unchanged.
+
+
+## 2026-10-18 — Single-evaluation query plans integrated
+
+`caa2811dc` integrates ordinary and observable query-plan extraction without
+changing public signatures or affine ownership. The reached normal, arbitrary
+Type and failure consumers pass on JS/Native; five intended authority refusals
+and independent final review pass. Evidence `30e547948` preserves two actual
+source epochs: earlier regular-plan profiles and the amended observable-plan
+controls. Earlier unaffected sanity cases are not credited as affected checks.
+
+Whole-process sampled allocation estimates are 574,161,672 before and
+408,790,136 bytes after. These single instrumented observations under contention
+are neither exact allocations nor a qualified speedup. Full #21 qualification
+remains open.
+
+Fresh combined #28 `2e82d6fea` retains 123 completed commands, 110 full outputs
+and 40 pairs. Verdict: NO_CONFIRMED_REGRESSION. JS has 14/20 slower pairs
+(p=0.057659, median ratio 1.074284); Native has 9/20
+(p=0.748278, median ratio 0.981523). This protects Workshop only; its runtime
+does not import the changed query-plan helper. The retained receipt matches
+all 356 current sources and the full core inventory.
+[Receipt and archive manifest](../../experiments/s-perf/canonical-api-v1/dense-runtime-v1/diagnostics/matched-timing-v1/plan-once-v1/results/regression28/MANIFEST.json).
+CI on the integrated delivery remains to be checked. Existing limits and final
+JS/TS and Native/TS targets are unchanged.
