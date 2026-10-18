@@ -1,0 +1,8 @@
+{
+  "scope": "ONE reached reporter-only compiling defect; no core/state or canonical renderer mutation",
+  "normalSource": "subject/metadata-report.bend",
+  "counterSource": "controls/counter-subject/metadata-report.bend",
+  "change": "array(value:ArrayStats) emits 1+nonzero instead of nonzero for added and changed; actual snapshots and values remain intact",
+  "otherChanges": "Import paths rehomed to same private core/observers; all other function bodies byte-identical",
+  "expected": "Full normal canonical exact, normal metrics rejected, independently derived counter metrics exact"
+}
