@@ -41,6 +41,14 @@ Current entry hashes, with paths under the fixture prefix above:
 | readers-motion64 | `312879cb56a8f8e38ca03565c1331fbba0d22b1797df7ee42047852767ef5674` | `21e81b4bea3bf59ed0a683bb09d85ca91dbafc7f38e9fd2adf55f04aef461e22` |
 | readers-health64 | `1f1d1ec1ee7e83b201e34ea32195498b64959a30cf173f7947d18aa97c8404b0` | `e99938079fca6634651cdf2bacefd895b631c102ab9bfa7ce4422f1ef3b5e851` |
 
+## Comparative boundary — agreed direction, adapter qualification pending
+
+Keep the accepted 90-role semantic consumers and their complete checks unchanged. Prepare a separately versioned comparative adapter that reuses the same business callbacks, declarations, schedules, barriers, inputs and actual public reads. It must preserve all operation counts and the complete common observations, including actual outcome variants and payload fields. Approved foreign-world divergence remains explicit.
+
+Time the business execution and the agreed common observation/forcing on all three backends. Do not include expectation generation, independent assertions or role-private diagnostic formatting in that comparative interval. Preserve those diagnostics in the unchanged semantic consumers; do not invent TS private queues or Bend collided rows. Snapshot/capture work needed to retain intermediate common observations still belongs to the comparative work and must be traced to the original operation. Full output transport and independent validation follow the clock. A new adapter must first match full independent gold on JS, Native and TS before any comparative cohort.
+
+The user endorsed this direction on 2026-10-18 and requested an Astra review, which agreed with the boundary above. This changes the comparison boundary, not ECS behavior. Existing diagnostic-heavy intervals remain semantic evidence; their raw timing ratios do not establish equivalent-work performance. Each comparative adapter still needs source-bound correspondence and complete independent-gold acceptance through the existing review. Numerical uncertainty and decision margins remain a separate unaccepted choice.
+
 ## Historical evaluator and proposal
 
 Everything below describes retained historical sources or an unaccepted comparison proposal. Its millisecond clocks, fold-only warmup example, fixed batching, limits and expired global budget do not describe the accepted current fixtures or override current limits. The accepted ns seam and complete current warmup streams resolve those particular historical gaps, not equivalent timed work, uncertainty, seven rotations, reset child RSS or the final performance targets.
