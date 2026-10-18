@@ -1,0 +1,95 @@
+{
+  "scope": "FailedTxnMotion64 finite B1 method correctness; no ratios, performance rankings, RSS qualification, rotations or new protocol criteria",
+  "independentGoldCommit": "76377a6bac485618605da4f5cb4f67a0e1128937",
+  "canonicalBytes": 38459780,
+  "canonicalSHA256": "28595ef3734a1b4772e43d01b63806120db6c452207c31caaddd3d50cb45e3f0",
+  "recordsPerWorld": 965,
+  "tupleValuesPerWorld": 3504864,
+  "fold": 615269452,
+  "unchangedNonImportBodies": {
+    "motion-callbacks.bend": {
+      "originalSHA256": "09aea2aa1c3b4627f341e3c7bf126c9d279aa08cd5ea7b5ef8f15d0719f02054",
+      "subjectSHA256": "f1ce86604663530974cf14e2de96d90e8826628c651122f7e745c024ac4c2b7c",
+      "nonImportBytesEqual": true
+    },
+    "motion-local.bend": {
+      "originalSHA256": "672154442032dbfe3a0c9b015bc41861b7c5ae601b4bda5aec419c71e4497228",
+      "subjectSHA256": "4e58e43578a1c4e70b4e718b8a2c4750dfa1da7995a7e044da26ad87c3bdd30b",
+      "nonImportBytesEqual": true
+    },
+    "motion-reader.bend": {
+      "originalSHA256": "8583344296e70eeb6e91fc7e46e3409f8722261bca047fa88f39722bea9987f3",
+      "subjectSHA256": "34a2b0be4ac061716d5456605dc83fb62020b999a88c6c0e8080b61ab52a4412",
+      "nonImportBytesEqual": true
+    },
+    "motion-publications.bend": {
+      "originalSHA256": "7219a4a0966d219bdb3773410d42623470dda7d561ca51c04959584f9e76b7b7",
+      "subjectSHA256": "27dd75694105199cd83762b20a2b637b228e19a261256c1639d29a3d274910e2",
+      "nonImportBytesEqual": true
+    },
+    "motion-dispose.bend": {
+      "originalSHA256": "4ed297b16c294f6a19d80e4c46c6a6bf81533ee893ccc8265a7698bde7272bda",
+      "subjectSHA256": "bc0d8fdb9f0b870d56e6ba8c95e1f1381135a5ba8005c0ff597886e2f461d462",
+      "nonImportBytesEqual": true
+    },
+    "motion-grants.bend": {
+      "originalSHA256": "6f9d077619a9c20794a2826ed6d9fffd984a735f32a6146b82feeec158456dd4",
+      "subjectSHA256": "8812f2a80a956f5c2a364487113c9c669243ef1a529cfe8ad57b7b58540a470e",
+      "nonImportBytesEqual": true
+    },
+    "motion.bend": {
+      "originalSHA256": "f0e508a33c1105659732ca269c5884e215de946fb2e871c9e44c80831bfa0a3e",
+      "subjectSHA256": "9c717ab17ec0d9c5fa3a077560294158688ff3fdee9637935a1ea0d2e939669f",
+      "nonImportBytesEqual": true
+    },
+    "motion-logical.bend": {
+      "originalSHA256": "51fca0adf874c35587d188dc1e3775b84a6a69ad5f86a4bb17ae2299bfe9a8ae",
+      "subjectSHA256": "4d428c2aff40d36260fc18727b87290850d22aecfdc62717dde86988d64ed37f",
+      "nonImportBytesEqual": true
+    },
+    "motion-resources.bend": {
+      "originalSHA256": "d1032a75bb04498710fe9bec07eb66056710ab5a4a499ff7f5a2771700a0f089",
+      "subjectSHA256": "71e30db9e5e493eb44d72622e2369ab0084718bd1e85a958efb04aa0ea1e0350",
+      "nonImportBytesEqual": true
+    },
+    "motion-render.bend": {
+      "originalSHA256": "55609a3f1aee05d3a80347464815e7f6c555f900aed2d3e323e2f2ce1dd58ef7",
+      "subjectSHA256": "adb573facd7cc68deb6ab2048c73d52879bc07fbb7c8b3a4685155d2a4c63713",
+      "nonImportBytesEqual": true
+    },
+    "motion-doc-world.bend": {
+      "originalSHA256": "03b83ec95b1aa61ac3e76b07b3b2431cf7c5a21b2ec78f5bb4c00ab9cda97b67",
+      "subjectSHA256": "717219549251e4930b1e24dca90936e31f6511a317e86435c45d375c0eb4300e",
+      "nonImportBytesEqual": true
+    },
+    "report-doc.bend": {
+      "originalSHA256": "44266778318558315f005c84f1ab47e5983824fe10a68bc781c408abb6460251",
+      "subjectSHA256": "44266778318558315f005c84f1ab47e5983824fe10a68bc781c408abb6460251",
+      "nonImportBytesEqual": true
+    },
+    "report-buffer.bend": {
+      "originalSHA256": "9c0810fa59212e0b2440cca6943b6dfaf625750e4701b329c5ed317ec45c98bf",
+      "subjectSHA256": "9c0810fa59212e0b2440cca6943b6dfaf625750e4701b329c5ed317ec45c98bf",
+      "nonImportBytesEqual": true
+    }
+  },
+  "originalRenderingWrappersByteExact": [
+    "motion-systems.local_logged_original",
+    "motion-systems.pub_restored_original"
+  ],
+  "timing": {
+    "before": "actual fresh World, seed, barrier, register, registered+primed canonical Doc snapshots; B/Publications prime",
+    "inside": "64 original Program.steps, including actual callback validation, Local/reader snapshots, Doc/TxFacts construction, all four boundaries; typed complete common record capture, actual scalar tuple construction and complete tuple fold+IO.print forcing",
+    "after": "endclock; fresh raw clock file, complete tuple, actual raw actor map, original final full canonical Doc construction and chunked writes",
+    "worlds": "warmup serialization completes in the same process before creating distinct sample World; raw namespace1/2 retained"
+  },
+  "observerStrategy": "Bend original boundary Doc/read/render work is preserved first; additional typed owner-preserving read-only rows/resources/lookups/capture projections then form common records. TS supplements actual original Observe rows/lookups. Internal work is not claimed identical.",
+  "identity": "per-world actual reservation chronology starting actor1; full raw namespace/index/generation or TS rawId tables retained; no formula or query sorting in common observer",
+  "limitations": [
+    "source validation is not backend execution",
+    "pilot source checker reports existing WorldIO foreign dependency, not mathematical proof PASS",
+    "raw millisecond clocks may be resolution limited",
+    "external CPU contention; no host exclusivity or full inherited-environment capture claimed",
+    "TS maxRSS raw after endclock is whole-process highwater including warmup, not reset independent memory measurement"
+  ]
+}
