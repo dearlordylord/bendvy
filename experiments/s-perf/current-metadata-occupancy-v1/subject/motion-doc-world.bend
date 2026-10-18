@@ -196,8 +196,8 @@ def column(~P:Type,~project:P -> P & Doc.Doc,~legacy:P -> P & String,value:Col.C
   match value:
     case Col.Column{values,stamps}:plain(~P,stamps,optional_values(~P,~project,values))
     case Col.Indexed{carrier}:indexed_column(~P,indexed(~P,~project,carrier))
-    case other:lift(~Col.Column<T.MotionSchema,P>,Dump.column(~T.MotionSchema,~P,~legacy,other))
     case Col.Monitored{inner,samples}:monitored_column(~P,samples,column(~P,~project,~legacy,inner))
+    case other:lift(~Col.Column<T.MotionSchema,P>,Dump.column(~T.MotionSchema,~P,~legacy,other))
 
 def store_join(observedMain:Col.Column<T.MotionSchema,T.Position> & Doc.Doc,observedAux:Col.Column<T.MotionSchema,T.Velocity> & Doc.Doc,observedFlag:Col.Column<T.MotionSchema,T.Selected> & Doc.Doc) -> F.Store() & Doc.Doc:
   (main,sm)=observedMain

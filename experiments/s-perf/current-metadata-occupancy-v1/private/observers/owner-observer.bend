@@ -78,8 +78,8 @@ def column(~S:Data,~P:Type,~project:P -> P & String,value:Col.Column<S,P>) -> Co
   match value:
     case Col.Column{values,stamps}:plain_column(~S,~P,stamps,array(~Maybe<&1,P>,~optional(~P,~project),values))
     case Col.Indexed{state}:indexed_column(~S,~P,indexed(~S,~P,~project,state))
-    case value:(value,"UNSUPPORTED_PREPARED_COLUMN")
     case Col.Monitored{inner,samples}:monitored_column(~S,~P,samples,column(~S,~P,~project,inner))
+    case value:(value,"UNSUPPORTED_PREPARED_COLUMN")
 
 # Opaque callbacks are returned unchanged; this observer never executes them.
 def callbacks_count(~A:Type,head:Deferred.Command<A>,kind:String,observed:List<Deferred.Command<A>> & (Nat & String)) -> List<Deferred.Command<A>> & (Nat & String):

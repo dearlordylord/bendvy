@@ -2,11 +2,11 @@
   "base": "c9cc34fb9",
   "scope": "Private source checkpoint; NO subject/backend qualification",
   "sourceCheck": {
-    "pure": "checks/bendvy-metadata-consumer03.stdout",
+    "pure": "checks/bendvy-metadata-consumer04.stdout",
     "pureResult": "ALL PROOFS CHECK",
     "main": "checks/bendvy-metadata-main01.stderr",
     "mainResult": "Only six existing unsafe/foreign IO dependencies; not proof PASS",
-    "pureDiagnostics": "checks/bendvy-metadata-consumer03.stderr"
+    "pureDiagnostics": "checks/bendvy-metadata-consumer04.stderr"
   },
   "measurement": "per-column complete-state structural occurrences, not unique allocations/bytes or global world peak",
   "hookSites": [
@@ -375,5 +375,8 @@
   },
   "privateCoreChangedFromBase": [
     "column.bend"
-  ]
+  ],
+  "unexecutedDrafts": {
+    "actual01": "No subjects executed. Source-render Monitored cases moved before catch-all fallback to guarantee original Doc and legacy rendering paths."
+  }
 }
