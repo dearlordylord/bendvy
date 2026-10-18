@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : 2 patterns (one per scrutinee)
+- observed : '(left,ArrayStats{a,b,c}) (right,ArrayStats{x,y,z})'
+Location:
+19 |   match left right:
+20>|     case (left,ArrayStats{a,b,c}) (right,ArrayStats{x,y,z}):(ANode{left,right},ArrayStats{Nat.add(a,x),1n+Nat.add(b,y),Nat.add(c,z)})
+   |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+21 | def array(value:Array<U32>) -> Array<U32> & ArrayStats:
+bend 2.0.37 is available: run bend update

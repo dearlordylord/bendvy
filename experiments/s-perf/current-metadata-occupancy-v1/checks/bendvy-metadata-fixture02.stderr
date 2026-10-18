@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : a decreasing self-call (arguments are read left to right: each passed unchanged until one shrinks)
+- observed : prepared_state
+Context:
+- depth : Nat
+- inner : C.Carrier<T.MotionSchema, Payload>
+Location: prepared_state
+97 |   match value:
+98>|     case C.Wrapped{inner}:prepared_wrap(prepared_state(1n+depth,inner))
+   |                                         ^^^^^^^^^^^^^^
+99 |     case C.Owned{C.State{values,stamps,capacity,current,owner,remaining,past}}:prepared_join(depth,values,stamps,capacity,current,owner_presence(owner),remaining_ids(remaining),past_ids(past))
+bend 2.0.37 is available: run bend update
