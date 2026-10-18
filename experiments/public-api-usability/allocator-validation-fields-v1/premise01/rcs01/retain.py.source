@@ -1,0 +1,12 @@
+from pathlib import Path
+import zipfile,json,hashlib,io
+R=Path('/workspace/formal-proofs/bendvy');D=Path('/tmp/bendvy73-validation-rcs01');L=Path('/tmp/bendvy73-allocator-validation/experiments/public-api-usability/allocator-validation-fields-v1/premise01/rcs01');L.mkdir(exist_ok=True);sha=lambda b:hashlib.sha256(b).hexdigest();rows=[];oldzip=zipfile.ZipFile('/tmp/bendvy73-prior-protected-evidence.zip');
+for role in ['baseline','candidate']:
+ assert oldzip.read('cohort/'+role+'/workshop.js')==(Path('/tmp/bendvy73-regression-diagnosis01')/('prior-'+role+'.js')).read_bytes()
+files=list(D.iterdir())+[Path('/tmp/diagnose73-rcs.py')]
+for role in ['baseline','candidate']:
+ files += [R/'.artifacts/regression73-20261018-pinned02'/role/'workshop.js',R/'.artifacts/regression73-20261018-pinned02'/('pair-0-'+role+'-JS.stdout.gz'),Path('/tmp/bendvy73-regression-diagnosis01')/('prior-'+role+'.js')]
+with zipfile.ZipFile(L/'EVIDENCE.zip','w',zipfile.ZIP_DEFLATED,compresslevel=6)as z:
+ for i,f in enumerate(files):
+  b=f.read_bytes();name='members/'+str(i);z.writestr(name,b);rows.append({'origin':str(f),'member':name,'bytes':len(b),'sha256':sha(b)})
+protected=R/'experiments/s-perf/canonical-api-v1/dense-runtime-v1/diagnostics/matched-timing-v1/plan-once-v1/results/regression28/EVIDENCE.zip';m={'scope':'RCS flags accepted but no stats emitted. Stop, no zero-count inference, no performancequalification. Exact ten-application artifact outputs preserved.','members':rows,'zipSHA256':sha((L/'EVIDENCE.zip').read_bytes()),'priorProtectedArchive':{'origin':str(protected),'immutableGitCommit':'1336e5fdc','sha256':sha(Path('/tmp/bendvy73-prior-protected-evidence.zip').read_bytes()),'members':['cohort/baseline/workshop.js','cohort/candidate/workshop.js']}};(L/'MANIFEST.json').write_text(json.dumps(m,indent=2)+'\n');print(json.dumps({'members':len(rows),'zipSHA256':m['zipSHA256'],'manifestSHA256':sha((L/'MANIFEST.json').read_bytes())}))
