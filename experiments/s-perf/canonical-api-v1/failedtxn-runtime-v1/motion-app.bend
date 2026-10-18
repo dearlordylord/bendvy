@@ -1,4 +1,7 @@
 import Base
+import motion-audit.bend as Audit
+import motion-resources.bend as Resources
+import ../../../../src/ecs/ordinary-service-request.bend as Request
 import ../../../../src/ecs/schema-fragments.bend as Fragment
 import motion.bend as F
 import ../dense-runtime-v1/types.bend as T
@@ -21,8 +24,10 @@ import ../../../../src/ecs/ordinary-app-execution.bend as Execute
 def Application() -> Type:Entry.Application<T.MotionSchema,F.Store(),F.Resources(),E.event_type(),S.Runtime(),Unit,Build.empty_observe(~F.World()),Schedule.fold,Unit,Schedule.plan,Schedule.dispatch,Schedule.provision>
 def Registered() -> Type:Exec.Registered<T.MotionSchema,F.World(),S.Runtime(),Unit,Build.empty_observe(~F.World()),Schedule.fold,Unit,Schedule.plan,Schedule.dispatch,Schedule.provision>
 def Slot() -> Type:Single.Attachment<Registered(),Application()>
+def with_audit(entries:List<&2,Fragment.Entry<T.MotionSchema>>) -> List<&2,Fragment.Entry<T.MotionSchema>>:
+  List.append(&2,Fragment.Entry<T.MotionSchema>,entries,[Request.declaration_entry(~T.MotionSchema,~Resources.Resources(),~Resources.Audit,~T.MotionLedger,~String,~Unit,~Audit.identity(),~Resources.take_audit,~Resources.put_audit,~Resources.record,Audit.declaration())])
 def with_resources(entries:List<&2,Fragment.Entry<T.MotionSchema>>) -> Schema.Schema<T.MotionSchema,F.Store(),F.Resources()>:
-  Schema.Schema{List.append(&2,Fragment.Entry<T.MotionSchema>,entries,Schema.entries(~T.MotionSchema,~Unit,~T.MotionLedger,Schema.resource_schema(~T.MotionSchema,~T.MotionLedger,Schema.resource(~T.MotionSchema,~T.MotionLedger,"MotionLedger"))))}
+  Schema.Schema{List.append(&2,Fragment.Entry<T.MotionSchema>,entries,with_audit(Schema.entries(~T.MotionSchema,~Unit,~T.MotionLedger,Schema.resource_schema(~T.MotionSchema,~T.MotionLedger,Schema.resource(~T.MotionSchema,~T.MotionLedger,"MotionLedger")))))}
 def schema() -> Schema.Schema<T.MotionSchema,F.Store(),F.Resources()>:
   with_resources(List.append(&2,Fragment.Entry<T.MotionSchema>,Schema.entries(~T.MotionSchema,~Col.Column<T.MotionSchema,T.Position>,~Unit,Schema.component(~T.MotionSchema,~T.Position,F.main_identity())),List.append(&2,Fragment.Entry<T.MotionSchema>,Schema.entries(~T.MotionSchema,~Col.Column<T.MotionSchema,T.Velocity>,~Unit,Schema.component(~T.MotionSchema,~T.Velocity,F.aux_identity())),Schema.entries(~T.MotionSchema,~Col.Column<T.MotionSchema,T.Selected>,~Unit,Schema.component(~T.MotionSchema,~T.Selected,F.flag_identity())))))
 def registered(world:F.World(),owners:S.Runtime()) -> Registered():
