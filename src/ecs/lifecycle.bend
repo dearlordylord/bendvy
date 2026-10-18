@@ -27,10 +27,14 @@ def keep(equal: Bool,entry: Entry,rest: List<&2,Entry>) -> List<&2,Entry>:
     case True{}: rest
     case False{}: entry <> rest
 
+def entry_id(entry:Entry) -> U32:
+  match entry:
+    case Entry{id,_}:id
+
 def clear_reversed(entries: List<&2,Entry>,+id: U32,acc: List<&2,Entry>) -> List<&2,Entry>:
   match entries:
     case []: List.reverse(&2,Entry,acc)
-    case Entry{+key,stamp} <> rest: clear_reversed(rest,id,keep(U32.is_eq(key,id),Entry{key,stamp},acc))
+    case +entry <> rest: clear_reversed(rest,id,keep(U32.is_eq(entry_id(entry),id),entry,acc))
 
 def clear(entries: List<&2,Entry>,id: U32) -> List<&2,Entry>:
   clear_reversed(entries,id,[])
