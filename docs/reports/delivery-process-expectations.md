@@ -2073,3 +2073,15 @@ full-wire correctness only, not timing qualification. Matching earlier source
 and oracle evidence was reused; #28 is unchanged because executable sources
 did not change. Core/App integration CI 39101313702 passed both jobs. Health
 ordinary entry and Dense adaptation are the two active implementation directions.
+
+### 2026-10-18 — Ordinary Health64 delivered
+
+Health source and full two-backend evidence integrated at `8cf421057`. Both
+JS and Native match the unchanged 38,400,832-byte independent oracle with empty
+stderr; all source/emission/build/consumer stages pass their original limits.
+Portable verification passes (586 members, 546 objects, 23 guards); independent
+final review GO confirms owner/reader preservation and complete observation.
+The unchanged-core #28 receipt remains applicable: all 356 recorded source hashes
+and the full core inventory match after integration. No duplicate benchmark or
+generic authority matrix was run. Larger Health and the Dense ordinary path
+are next; comparative performance remains unqualified.
