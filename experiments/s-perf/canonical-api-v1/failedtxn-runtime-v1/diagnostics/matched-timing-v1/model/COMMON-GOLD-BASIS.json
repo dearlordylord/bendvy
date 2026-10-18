@@ -1,0 +1,106 @@
+{
+  "status": "PASS",
+  "scope": "Complete independent common-record/identity gold only; TS/B1 role-stream framing not yet sealed; no subject execution",
+  "sourceModelSHA256": "aa18cff4295fea9c94ff87d9c80518f7545021c3be5327270f108cb1443a96bb",
+  "observerSHA256": "17d4fa74e7b0bbddb9523894849de4a6101748430a055701e582e2a03885723b",
+  "generatorSHA256": "19b517497918847020da7b25696466760a330ade18917705be5919a278d3057f",
+  "fixtures": {
+    "path": "/tmp/bendvy-failedtxn-matched-method/experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/diagnostics/matched-timing-v1/model/observer-fixtures.json.gz",
+    "sha256": "61a63266731e9869f77fd57abe7dd2d53b007b32154091a9f5dfa0216eeaed99"
+  },
+  "canonicalBytes": 38459780,
+  "canonicalSHA256": "28595ef3734a1b4772e43d01b63806120db6c452207c31caaddd3d50cb45e3f0",
+  "worlds": [
+    {
+      "namespace": 1,
+      "records": 965,
+      "tupleValues": 3504864,
+      "fold": 615269452,
+      "actorCount": 256,
+      "counts": {
+        "callbacks": 193,
+        "publications": 129,
+        "boundaries": 256,
+        "phases": 385
+      }
+    },
+    {
+      "namespace": 2,
+      "records": 965,
+      "tupleValues": 3504864,
+      "fold": 615269452,
+      "actorCount": 256,
+      "counts": {
+        "callbacks": 193,
+        "publications": 129,
+        "boundaries": 256,
+        "phases": 385
+      }
+    }
+  ],
+  "jsonGrammar": {
+    "encoding": "Unicode scalar sequence; compact separators comma/colon; object key insertion order is exact wire order; no ASCII escaping except JSON-required quotes/backslashes/control characters",
+    "recordList": "natural(recordcount) followed by natural(scalarcount)+all scalar U32s for each full compact JSON record",
+    "natural": "decimal Unicode digits followed by U32zero, no narrowing",
+    "schemaKeys": {
+      "SeedActors": [
+        "kind",
+        "actors"
+      ],
+      "Callback": [
+        "kind",
+        "who",
+        "mode",
+        "iteration",
+        "capture",
+        "readerStatus",
+        "readerError",
+        "reading",
+        "outcome",
+        "reservation",
+        "payload",
+        "writes",
+        "ledger",
+        "rejected",
+        "error",
+        "pendingLookup"
+      ],
+      "Publications": [
+        "kind",
+        "mode",
+        "iteration",
+        "status",
+        "messages",
+        "lagged"
+      ],
+      "Phase": [
+        "kind",
+        "phase",
+        "iteration",
+        "outcome"
+      ],
+      "Boundary": [
+        "kind",
+        "iteration",
+        "phase",
+        "rows",
+        "ledger",
+        "pendingA",
+        "latestFailed",
+        "retryB",
+        "allFailed",
+        "captures"
+      ],
+      "Final": [
+        "kind",
+        "rows",
+        "ledger",
+        "captures",
+        "effects",
+        "status"
+      ]
+    },
+    "identity": "per-world actual reservation chronology, raw namespace/index/generation table preserved; no query sorting/ID formulas"
+  },
+  "rawTables": "lossless full table for both worlds included in fixtures"
+}
