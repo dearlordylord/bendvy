@@ -1,0 +1,37 @@
+{
+  "classification": "PREEXECUTION_SOURCE_PROVENANCE_AMENDMENT",
+  "historicalOracleCommit": "8fb4e9efc3be174a848a8fc9594a14641eff4af4",
+  "repairedSourceCommit": "3c48a5d151ead3ff3ecea65fc46d76bdd99e155f",
+  "existingOracleFilesUnchanged": true,
+  "retainedCopyVerifier": "verify.py sourcePins loop reads P/pin.copy, not mutable origin paths. Historical copies remain valid byte-bound provenance; current candidate is separately pinned by actual02 sourceInventory.",
+  "changes": [
+    {
+      "path": "experiments/s-perf/current-metadata-occupancy-v1/subject/motion-doc-world.bend",
+      "historicalCommit": "8fb4e9efc3be174a848a8fc9594a14641eff4af4",
+      "historicalSHA256": "b71f53626e02725d9cedd691b20c55d470a4de691915203ca15c5d44094a0a2b",
+      "repairedCommit": "3c48a5d151ead3ff3ecea65fc46d76bdd99e155f",
+      "repairedSHA256": "ad3fc3d82626bf4c1c3b3b40aa3b1beb8e55ec9177a64872ef6120fca9279df2",
+      "exactDelta": "Swap adjacent generic fallback and Col.Monitored branch: transparent wrapper branch now matches before fallback. All other file bytes identical.",
+      "repairedMonitoredLine": 199,
+      "retainedHistoricalCopy": "source/subject/motion-doc-world.bend"
+    },
+    {
+      "path": "experiments/s-perf/current-metadata-occupancy-v1/private/observers/owner-observer.bend",
+      "historicalCommit": "8fb4e9efc3be174a848a8fc9594a14641eff4af4",
+      "historicalSHA256": "4fb2d9b24a8d51e9443b88c81b95a184862cb398b52d984a4ef9f84118574868",
+      "repairedCommit": "3c48a5d151ead3ff3ecea65fc46d76bdd99e155f",
+      "repairedSHA256": "573f2478f0168dde7349a80bea318a8034d9f136940c6a18902e4e37bf48fe94",
+      "exactDelta": "Swap adjacent generic fallback and Col.Monitored branch: transparent wrapper branch now matches before fallback. All other file bytes identical.",
+      "repairedMonitoredLine": 81
+    }
+  ],
+  "semanticScope": "Repairs observer dispatch through transparent Monitored wrapper previously shadowed by generic fallback. ECS operations, metadata mutation hooks, snapshot schema, chronology and independent expected gold are unchanged. This is not a claim that old and repaired dispatch behave identically.",
+  "planHistory": "Sourceowner confirms actual01 plans UNEXECUTED. No qualification is attributed to those plans. Actual02 uses repaired source inventory; no gold regeneration or new verification run required.",
+  "gold": {
+    "path": "expected.stats.json",
+    "bytes": 67575,
+    "sha256": "09d1d2c794cd9893eae80ade652873caf4a94d588b4e4c19baeb2182b4bd03fa"
+  },
+  "sourceBasisSHA256": "45e7f02f7cc16a849a1ddfee9d2e607e15f659d323e90ffa44358e6a3de09f55",
+  "execution": "No subject, compiler, gold generation or verification execution in this follow-up; only source bytes and exact adjacent-line delta inspected."
+}
