@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : a fresh name (duplicate declaration: Result)
+- observed : 'Result'
+Location:
+6 | 
+7>| type Result is Type:Result{outcome:T.Outcome<Unit>,returned:List<Array<U32>>}
+  |      ^^^^^^
+8 | def outcome(fail:Bool) -> T.Outcome<Unit>:
+bend 2.0.37 is available: run bend update
