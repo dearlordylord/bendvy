@@ -95,13 +95,13 @@ def status(value:Driver.Status) -> String:
 def audit(value:Driver.Audit) -> String:
   match value:
     case Driver.Audit{values,total,count}:"values=" ++ List.show(&2,U32,U32.show,values) ++ ";readsum=" ++ U32.show(total) ++ ";updated=" ++ Nat.show(count)
-def state_join(+audits:List<&2,Driver.Audit>,+statuses:List<&2,Driver.Status>,world:F.World() & String,owner:F.Owner() & String) -> Driver.State & String:
+def state_join(+audits:List<&2,Driver.Audit>,+statuses:List<&2,Driver.Status>,world:F.World() & String,owner:F.Owner() & String) -> Driver.View & String:
   (world,sw)=world
   (owner,so)=owner
-  (Driver.State{world,owner,audits,statuses},"world={" ++ sw ++ "}|owner={" ++ so ++ "}|audit=" ++ List.show(&2,Driver.Audit,audit,audits) ++ "|statuses=" ++ List.show(&2,Driver.Status,status,statuses))
-def state(value:Driver.State) -> Driver.State & String:
+  (Driver.View{world,owner,audits,statuses},"world={" ++ sw ++ "}|owner={" ++ so ++ "}|audit=" ++ List.show(&2,Driver.Audit,audit,audits) ++ "|statuses=" ++ List.show(&2,Driver.Status,status,statuses))
+def state_view(value:Driver.View) -> Driver.View & String:
   match value:
-    case Driver.State{w,o,audit,statuses}:state_join(audit,statuses,world(w),owner(o))
+    case Driver.View{w,o,audit,statuses}:state_join(audit,statuses,world(w),owner(o))
 def handle(value:W.Handle<T.HealthSchema>) -> String:
   match value:
     case W.Handle{ns,Key.EntityKey{index,generation}}:U32.show(ns) ++ ":" ++ U32.show(index) ++ ":" ++ U32.show(generation)
@@ -126,3 +126,5 @@ def rows_observed(observed:F.World() & Logical.Rows()) -> F.World() & String:
   match observed:
     case (world,rows):(world,List.show(&2,IQ.ProjectedRow<T.HealthSchema,Logical.Value()>,row,rows))
 def rows(world:F.World()) -> F.World() & String:rows_observed(Logical.rows(world))
+
+def state(value:Driver.State) -> Driver.State & String:Driver.inspect(~state_view,value)
