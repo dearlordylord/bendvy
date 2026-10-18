@@ -18,9 +18,9 @@ def sized(values, encode):
     return natural(len(values)) + [cell for value in values for cell in encode(value)]
 
 
-def expected_common():
-    raw, world = report('Health', indexed=True)
-    final, summary = derived_shared('Health', 64)
+def expected_common(count=64, iterations=64):
+    raw, world = report('Health', count, iterations, indexed=True)
+    final, summary = derived_shared('Health', count, iterations)
     assert final['ledger']['totals'] == world.ledger
     for row in final['rows']:
         i = row['rawId'] - 1
@@ -43,8 +43,8 @@ def expected_common():
     return cells, fold, final, audits
 
 
-def canonical(namespace):
-    return report('Health', namespace=namespace, indexed=True)[0]
+def canonical(namespace, count=64, iterations=64):
+    return report('Health', count, iterations, namespace=namespace, indexed=True)[0]
 
 
 if __name__ == '__main__':

@@ -16,9 +16,9 @@ def sized(values, encode):
     return natural(len(values)) + [cell for value in values for cell in encode(value)]
 
 
-def expected_common():
-    raw, world = report('Motion', indexed=True)
-    final, summary = derived_shared('Motion', 64)
+def expected_common(count=64, iterations=64):
+    raw, world = report('Motion', count, iterations, indexed=True)
+    final, summary = derived_shared('Motion', count, iterations)
     assert final['ledger']['totals'] == world.ledger
     audits = [dict(values=values, readsum=sum(values), updated=len(values)) for values in world.audit]
     assert [a['readsum'] for a in audits] == [a['readSum'] for a in summary]
@@ -34,17 +34,17 @@ def expected_common():
     return cells, fold, final, audits
 
 
-def canonical(namespace, indexed=True):
-    return report('Motion', namespace=namespace, indexed=indexed)[0]
+def canonical(namespace, indexed=True, count=64, iterations=64):
+    return report('Motion', count, iterations, namespace=namespace, indexed=indexed)[0]
 
 
-def complete_stream(indexed):
-    cells, fold, _, _ = expected_common()
+def complete_stream(indexed, count=64, iterations=64):
+    cells, fold, _, _ = expected_common(count, iterations)
     tuple_text = '[' + ', '.join(map(str, cells)) + ']'
     result = bytearray()
     for label, namespace in [('WARMUP', 1), ('SAMPLE', 2)]:
         result += f'{label}\nFORCE:{fold}\nTUPLE:{tuple_text}\nCANONICAL-BEGIN\n'.encode()
-        result += canonical(namespace, indexed)
+        result += canonical(namespace, indexed, count, iterations)
         result += b'CANONICAL-END\n'
     return bytes(result)
 
