@@ -36,11 +36,22 @@ def main():
             for path, expected in files.items():
                 assert digest(Path(root) / path) == expected, (root, path)
     guard()
-    receipt = dict(planSHA256=args.sha256, commands=[], scope=plan['scope'])
+    receipt = dict(planSHA256=args.sha256, commands=[], artifactJoins=[], scope=plan['scope'])
+    produced = {}
     with modules['evidence_boundary'].ReceiptBoundary(receipt, directory / 'receipt.json', [('input bytes', guard)]):
         for command in plan['commands']:
             guard()
             label = command['label']
+            consumed = None
+            if label == 'build':
+                consumed = plan['artifacts']['emitted']
+                assert command['argv'][5] == consumed
+            elif label in ['sleep', 'end-before-begin', 'double-begin']:
+                consumed = plan['artifacts']['native' if plan['role'] == 'native' else 'emitted']
+                assert command['argv'][3 if plan['role'] == 'native' else 4] == consumed
+            if consumed is not None:
+                assert digest(consumed) == produced[consumed]['sha256']
+                receipt['artifactJoins'].append(dict(consumer=label, path=consumed, **produced[consumed]))
             paths = {s: directory / (label + '.' + s) for s in ['stdout', 'stderr']}
             assert all(not p.exists() and not p.is_symlink() for p in paths.values())
             result = modules['task_runner'].execute_result(command['argv'], command['capSeconds'], env=plan['environment'], cwd=plan['cwd'], capture='split')
@@ -52,6 +63,13 @@ def main():
             guard()
             assert result['failure'] is None
             assert result['exit'] == command['expectedExit']
+            if consumed is not None:
+                assert digest(consumed) == produced[consumed]['sha256']
+            if label in ['emit', 'build']:
+                artifact = plan['artifacts']['emitted' if label == 'emit' else 'native']
+                assert command['argv'][command['argv'].index('-o') + 1] == artifact
+                produced[artifact] = dict(producer=label, sha256=digest(artifact), bytes=Path(artifact).stat().st_size)
+                actual['producedArtifact'] = dict(path=artifact, **produced[artifact])
             if label == 'sleep':
                 assert result['stderr'] == b'' and re.fullmatch(rb'[0-9]+\n', result['stdout'])
                 value = int(result['stdout'])
