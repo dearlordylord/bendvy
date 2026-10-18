@@ -11,4 +11,6 @@ Private ordinary-consumer instrumentation; production ECS and the original runti
 
 Generic accounting/settlement and Motion raw-null outcome controls are external prerequisites under `checks/GENERIC-CONTROL-APPLICABILITY.json`; the two-case packet does not recursively reverify those packets. No duplicate counter campaign is claimed.
 
-Only Health64 is qualified here. Other sizes/workloads, nonempty raw discards, separate journals, marks, stamp peaks, RSS/allocation and comparative timing remain outside this slice. Original physical LC2 observations remain intact. Per-append ticks are unavailable; actual begin/end ticks remain separate.
+This packet covers Health64. Other sizes/workloads, nonempty raw discards, separate journals, marks, stamp peaks, RSS/allocation and comparative timing remain outside this slice. Original physical LC2 observations remain intact. Per-append ticks are unavailable; actual begin/end ticks remain separate.
+
+Canonical Tx has no separate mark journal (N/A). Persistent lifecycle stamp occupancy peaks remain a separate OPEN requirement; physical LC2 stamp observations do not close it.
