@@ -2061,3 +2061,15 @@ remains; this is the protected whole-process workload, not final full-parity
 performance qualification. No claim of overall delivery acceleration is made.
 Boundary integration CI 39100852005 passed. Ordinary Motion 256/1024, the second
 schema, remaining workload adaptations and full #21 qualification remain open.
+
+### 2026-10-18 — Ordinary Motion size coverage
+
+The exact qualified ordinary Motion64 artifacts also pass complete independent
+256 and 1024 oracles on JS and Native: 118,614,122 and 444,624,902 bytes respectively,
+with empty stderr. No source change, emission, Native build or budget increase
+was needed. Evidence integrated at `f93f8ecdb`; independent final review GO and
+portable verification PASS (1,024 members, 646 objects, 16 guards). This extends
+full-wire correctness only, not timing qualification. Matching earlier source
+and oracle evidence was reused; #28 is unchanged because executable sources
+did not change. Core/App integration CI 39101313702 passed both jobs. Health
+ordinary entry and Dense adaptation are the two active implementation directions.
