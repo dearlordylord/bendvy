@@ -1,0 +1,731 @@
+{
+  "sourceCommit": "cb856b693fee6835b5a39827c601b5fcfe0edfd8",
+  "coreBaseCommit": "cc951d346213c9a3d1cb2b557b2eafc8eefc972c",
+  "entrypoint": "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-main.bend",
+  "sourceFreeze": "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/MOTION-SOURCE-FREEZE.json",
+  "sourceFreezeSHA256": "54678ffbd95c65e0930c79b8d71b8ebc3be3f3513f7f694e4d05bc63b2f6ae21",
+  "sourceInventory": {
+    "/tmp/bendvy-canonical-lifecycle/experiments/public-audit61/app-a-current-carrier-v1/allocator-observer.bend": "ff1dcc924822b432ae503095388879571c4e6dd1d95384e4bd85de8111d47b68",
+    "/tmp/bendvy-canonical-lifecycle/experiments/public-audit61/app-a-current-carrier-v1/owner-observer.bend": "b93e0acc453027e5ec1d9b572c2a80978d16f30b83b3c4b2407d7666f3c23d2a",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/motion-driver.bend": "2825bfc77de34fcd80d1ab7a48838e228bd58cad567e64daeda056a42b21f8f7",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/motion-logical.bend": "4e96908f87ee662ad087ab4754c2073ba5561cc97ff671fa8b6d5fbd56d22092",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/motion-observe.bend": "086fe1f8e21204ebfa56ce2f8e071242966fc9e7eb5a995a53f9bc2e1d4c3fe0",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/motion.bend": "627a093a934dd3981491406b8b94d77d60821a429d18145f1fb9f3548e4f9779",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/payload.bend": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/render.bend": "2e8207503c59a16ce1c5d4c5491f6685690336e32d270c995af6108e53b97586",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/types.bend": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-domain.bend": "9ce03a1433ffe839df7332a3157c9aa6c7dd13caf4a1ca7969d3d7196ac95075",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-driver.bend": "b682092d925fbece1a3905a257ddce418441f5f65a6ca9cc3efcc844d53832b9",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-main.bend": "83ae1ff730c7e3ec089ca76e3bbd534cd50e51b54edd3b145a09510db7eb6fc0",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-observation.bend": "86c40f67be410603460182f04408894a6fe1cd655ebe45e80ba606e3f2661c61",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-program.bend": "37c24b040bae9a2d490783a14f6caa38185065b0ded2b3b49a33262e5d52e725",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-registration.bend": "4e2533c8c82b1bab8cf644070bcce7a1bea8f4b883622cbb186a9d8533c1bed2",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-render.bend": "40321af369987e6886b4b5fcbb4fd6b265b418926d9dc93abd5b315c37617b53",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-systems.bend": "402194e88d8c3e106b81fed98be5f508e68e6b4fa6288416c193138cc2a7704c",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/capabilities.bend": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/check.bend": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/column.bend": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/commands.bend": "221fe005797c386e7acb11589a48440d0068675957599d1a9ad7554642d3f3af",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/component.bend": "7defc891de475d04be063b6e7a641293854b21c06ffbd99a20bb28f6b56eeb5f",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/compose.bend": "9aa35fb6205b3b75a0ee5f97497d8ee6b7472e249266820c93d53928790520e0",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/declared-family.bend": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/decode-capabilities.bend": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/decode-data.bend": "f48cc81da5ada9085c821c2861ead72c35187828ee0698c4372abcd65efe8ebd",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/decode-size.bend": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/decode-utf16.bend": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/decode.bend": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/deferred-command.bend": "626f245e15b1fa75c17e80aa3de7eb05ffc8f0ee8345912cb005604c518e0cd3",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/entity-allocator.bend": "08a8f688cf8705ba380a83df5264b51727ec53b6ae9cf03370a4454bc883d30c",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/entity-key-render.bend": "b3c0f3bb1acda0d39ad8fffdb7730a781c9909f14add347017e0ae46cc0ceac3",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/entity-key.bend": "ff8cf964a493fe6122509f9cf0fdbadc2423d45bd2e4f7f7db72460bdcbc6ced",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/indexed-lifecycle.bend": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/inspector-query-families.bend": "020a8de48df12369c8709d10d15f0c3d22dcf8a9fb76f3af238ea4a4304edeb8",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/inspector-query-projection.bend": "b279bd011f53ce57de06af58ab89b9d0122d2c70eab434d5802960ea231e0f36",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/inspector-query-world.bend": "1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/inspector-query.bend": "285fba4840ee2243da7f41182b470dc77fe6eb56df93f649fd44d671e7137e07",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/inspector.bend": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/lifecycle.bend": "bb2f17e628995ce1c5f33ce734a2627f98b5c31a016e3ee2a686bab6ed84ccc5",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/local.bend": "133858f93cf4a2b795b8e02e85cddd66a725a026e7171ac2db0365dc1c3e7001",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-component-binding.bend": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-declaration.bend": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-owned-event-family-resource.bend": "45e325a987043763f09568958004c591c70fbf2a1dfb3fedee2f21d25233d5b6",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-query-declaration.bend": "11623354e8eaf3f13801f9e0825547cba5637e8e2170dfec5c9fe79cc3791277",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-query-observable.bend": "225fb89b7a63314e6bd1c7bcbfcf5490e4ebb3190e6373d04c50a0913fe24fa8",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-query-selections.bend": "57ee96b72d098d0b3abf0504a166c3a0846c817fcc4cb2f77a9629be501bc755",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-schema.bend": "a694d2570202141ec906fd89fb0306d2ad8a55b2279a98b963daefe2b8f19ffc",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-system.bend": "cd30b04301663b445f028c71fd7703c1365fc6e17a765c5382084adaa35e8865",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/owner-handoff.bend": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/owner-product.bend": "5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/persistence-declaration.bend": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/query-contract.bend": "f6d86aa7a499bce14861c70c205083c7e67c9209cba9391226f3c8cf816781b1",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/registration.bend": "e9656a377bc240241070e2065c6125674d0fa4dbdd277527ceb1a458f767cefd",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/resource-field.bend": "cfc567436ba8a74cb3a098a28307f73292c093a5811c22303ad97a34bfb93517",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/resource.bend": "6f6c34e883d880c9c9fcf50d3e97655067d3569de356130fe8f9bc5d62e3840a",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/schedule.bend": "df93606353650708db1cfe543d80beb85901fe0f945033af025627ebf51589b7",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/schema-fragments.bend": "e161ff13196cd40b2218efc7734c2e1e661e74e09a754e6ff60cbe2b525d65ca",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/snapshot-gate.bend": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/snapshot-leaf.bend": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/string-equality.bend": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/structural.bend": "66b5861a1e75b305939af0355b876ce31cae672f9833a6bff5aac32d61a864ee",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/system.bend": "d282c3cb9d580ebc196a21e241368557d94513aaa37189423f2902f905e2301e",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/trace-facts.bend": "50489bd2378ab8519f1c82d2ebc17def4c9c4298d76fd1509531e93c74d9ae8c",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/trace-world.bend": "c2249e285f614e1eb9bee368c805d7a2e52478c915faa5aa1565c0d1bf6d3fa9",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/transaction.bend": "7948296332645b7b94494a8cd6258b4f97a3de693820bc3345f28a1509fe47a8",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/world-io.bend": "1be0fcd577ecf177af89136f77e5c8e67894304a89adefaf0565591f641a63e9",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/world-namespace.c": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/world-namespace.js": "f463bf328c4232fec85c67e328d93309e2191d80b7377be64355b6c1edd4f815",
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/world.bend": "40516c2a49ad561d4b95ac5f5a0295ca1a20061c534969b6d7e13c4bdb1945f5"
+  },
+  "sourcePins": {
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain01.stderr": "93369f154962a68f3a71246b121c239385570a9784e26da474913ef49c70e997",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain01.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain02.stderr": "4702430a69e1bea6e12be3dab80bf834cbe1ea2b63571e8b190a1362905aa561",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain02.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain03.stderr": "31ba2c99f189119b073a13d027e4d4311b8b0e3cff88cd8fd88d8186960d822d",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain03.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain04.stderr": "3a756fb27e4d8513d6250c2c2ec9bf6b9fdf514f923e218e3c7a05531fa1ebfe",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain04.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain05.stderr": "ff641abdeec367125cbd26ddbe32224f93b344e4f897901b284d92ad3631bf6b",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain05.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain06.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain06.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-main01.stderr": "374e15d5d08e3bdb476c6746361cc03d8d8d1027e748725ef797f7d08ff1f18b",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-main01.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-main02.stderr": "374e15d5d08e3bdb476c6746361cc03d8d8d1027e748725ef797f7d08ff1f18b",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-main02.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-observation01.stderr": "7080a149d8462caec12c0d75bda9c27bf3128187fd600c4f723ea263832aa948",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-observation01.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-observation02.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-observation02.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-program01.stderr": "d0bdadbc0242bad160152a3aa7b84039c62402dd9849fa0aafc24d4030582175",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-program01.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-program02.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-program02.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-registration01.stderr": "e266826d9f5ab1a950af1fdffe704e4d54ce35002abce8ca928c01593dbb4911",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-registration01.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-registration02.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-registration02.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-render01.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-render01.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-render02.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-render02.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems01.stderr": "91ae7fda6c49476c0530ae53a3ebe16cba0d0f30ce3e6ccbfc0d2c983c504213",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems01.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems02.stderr": "91ae7fda6c49476c0530ae53a3ebe16cba0d0f30ce3e6ccbfc0d2c983c504213",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems02.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems03.stderr": "1335ce73db99abee6af307686048583dd0722590c4936e6da6a412264fc207e1",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems03.stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems04.stderr": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems04.stdout": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+  },
+  "formatResources": {
+    "/home/node/.bend/bend2/base.bend": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+    "/home/node/.bend/bend2/effs/print.js": "814ceba4efbaa291b7b6a9ff29aa20e3a23c06eb4fa165c69ee0bd22878adaa9",
+    "/home/node/.bend/bend2/effs/print.c": "28552d3b56aee6f6cdb66326aaa49ad0df35e4476e08c548c908efcbfafbd3e7",
+    "/home/node/.bend/bend2/effs/args.js": "ed1a7e7b73ae7fe58ac6d428d2762b66f223f4c70a165570fc5d68dc874ddc0b",
+    "/home/node/.bend/bend2/effs/args.c": "2635223ad1d401b07e1834b9341e3f0be254796f6de1d9a0e800ca59fb3000b4"
+  },
+  "historicalAndTSInputs": {
+    "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs": "f3fa4073ac04ddf362cf38bc32c9cf7df0d2ad9eb4dcd906517757ea1bef67fe",
+    "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-lifecycle-timed-frozen-evidence.json": "a1c9fa064d15dbfc51d54bef6d59b694a90eb20f152fab9f0a6b870450475405",
+    "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/measurement-lifecycle-timed.bend": "a184121050b0a2a29224337916e42068cf77bf2ad8811b7db0632f108656c19b",
+    "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/measurement-lifecycle.bend": "0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d",
+    "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/query.bend": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+    "/workspace/formal-proofs/bendvy/.references/sources.json": "5d4d89ca984a2eb21e21715344219bb9caa022b6bebca0c9f8959584cceb8b8f",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7",
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e"
+  },
+  "retainedBodies": {
+    "/tmp/bendvy-canonical-lifecycle/experiments/public-audit61/app-a-current-carrier-v1/allocator-observer.bend": {
+      "sha256": "ff1dcc924822b432ae503095388879571c4e6dd1d95384e4bd85de8111d47b68",
+      "retained": "basis-bodies/ff1dcc924822b432ae503095388879571c4e6dd1d95384e4bd85de8111d47b68"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/public-audit61/app-a-current-carrier-v1/owner-observer.bend": {
+      "sha256": "b93e0acc453027e5ec1d9b572c2a80978d16f30b83b3c4b2407d7666f3c23d2a",
+      "retained": "basis-bodies/b93e0acc453027e5ec1d9b572c2a80978d16f30b83b3c4b2407d7666f3c23d2a"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/motion-driver.bend": {
+      "sha256": "2825bfc77de34fcd80d1ab7a48838e228bd58cad567e64daeda056a42b21f8f7",
+      "retained": "basis-bodies/2825bfc77de34fcd80d1ab7a48838e228bd58cad567e64daeda056a42b21f8f7"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/motion-logical.bend": {
+      "sha256": "4e96908f87ee662ad087ab4754c2073ba5561cc97ff671fa8b6d5fbd56d22092",
+      "retained": "basis-bodies/4e96908f87ee662ad087ab4754c2073ba5561cc97ff671fa8b6d5fbd56d22092"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/motion-observe.bend": {
+      "sha256": "086fe1f8e21204ebfa56ce2f8e071242966fc9e7eb5a995a53f9bc2e1d4c3fe0",
+      "retained": "basis-bodies/086fe1f8e21204ebfa56ce2f8e071242966fc9e7eb5a995a53f9bc2e1d4c3fe0"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/motion.bend": {
+      "sha256": "627a093a934dd3981491406b8b94d77d60821a429d18145f1fb9f3548e4f9779",
+      "retained": "basis-bodies/627a093a934dd3981491406b8b94d77d60821a429d18145f1fb9f3548e4f9779"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/payload.bend": {
+      "sha256": "5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572",
+      "retained": "basis-bodies/5c52525ee9fad33d6697d71331e0aaf0b61ee528082c2a680ca390ac3a433572"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/render.bend": {
+      "sha256": "2e8207503c59a16ce1c5d4c5491f6685690336e32d270c995af6108e53b97586",
+      "retained": "basis-bodies/2e8207503c59a16ce1c5d4c5491f6685690336e32d270c995af6108e53b97586"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/dense-runtime-v1/types.bend": {
+      "sha256": "c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56",
+      "retained": "basis-bodies/c5ce242494b15de3112845fe3da15e394710032173e170c02b65b75bf94a3d56"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-domain.bend": {
+      "sha256": "9ce03a1433ffe839df7332a3157c9aa6c7dd13caf4a1ca7969d3d7196ac95075",
+      "retained": "basis-bodies/9ce03a1433ffe839df7332a3157c9aa6c7dd13caf4a1ca7969d3d7196ac95075"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-driver.bend": {
+      "sha256": "b682092d925fbece1a3905a257ddce418441f5f65a6ca9cc3efcc844d53832b9",
+      "retained": "basis-bodies/b682092d925fbece1a3905a257ddce418441f5f65a6ca9cc3efcc844d53832b9"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-main.bend": {
+      "sha256": "83ae1ff730c7e3ec089ca76e3bbd534cd50e51b54edd3b145a09510db7eb6fc0",
+      "retained": "basis-bodies/83ae1ff730c7e3ec089ca76e3bbd534cd50e51b54edd3b145a09510db7eb6fc0"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-observation.bend": {
+      "sha256": "86c40f67be410603460182f04408894a6fe1cd655ebe45e80ba606e3f2661c61",
+      "retained": "basis-bodies/86c40f67be410603460182f04408894a6fe1cd655ebe45e80ba606e3f2661c61"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-program.bend": {
+      "sha256": "37c24b040bae9a2d490783a14f6caa38185065b0ded2b3b49a33262e5d52e725",
+      "retained": "basis-bodies/37c24b040bae9a2d490783a14f6caa38185065b0ded2b3b49a33262e5d52e725"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-registration.bend": {
+      "sha256": "4e2533c8c82b1bab8cf644070bcce7a1bea8f4b883622cbb186a9d8533c1bed2",
+      "retained": "basis-bodies/4e2533c8c82b1bab8cf644070bcce7a1bea8f4b883622cbb186a9d8533c1bed2"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-render.bend": {
+      "sha256": "40321af369987e6886b4b5fcbb4fd6b265b418926d9dc93abd5b315c37617b53",
+      "retained": "basis-bodies/40321af369987e6886b4b5fcbb4fd6b265b418926d9dc93abd5b315c37617b53"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/motion-systems.bend": {
+      "sha256": "402194e88d8c3e106b81fed98be5f508e68e6b4fa6288416c193138cc2a7704c",
+      "retained": "basis-bodies/402194e88d8c3e106b81fed98be5f508e68e6b4fa6288416c193138cc2a7704c"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/capabilities.bend": {
+      "sha256": "bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe",
+      "retained": "basis-bodies/bc25cd83326709700de1f8ecc1fa53623883a4c3e423db67aa64eaffc3f1d6fe"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/check.bend": {
+      "sha256": "9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f",
+      "retained": "basis-bodies/9b0bef9ab0d3c4905138916d1c6a89cc7669b460c86c985d3dcc9d3424d7252f"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/column.bend": {
+      "sha256": "3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a",
+      "retained": "basis-bodies/3fec368b85fd1d43e53de3838ec32486c5d74b628a7069a82a83e60922b29f2a"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/commands.bend": {
+      "sha256": "221fe005797c386e7acb11589a48440d0068675957599d1a9ad7554642d3f3af",
+      "retained": "basis-bodies/221fe005797c386e7acb11589a48440d0068675957599d1a9ad7554642d3f3af"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/component.bend": {
+      "sha256": "7defc891de475d04be063b6e7a641293854b21c06ffbd99a20bb28f6b56eeb5f",
+      "retained": "basis-bodies/7defc891de475d04be063b6e7a641293854b21c06ffbd99a20bb28f6b56eeb5f"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/compose.bend": {
+      "sha256": "9aa35fb6205b3b75a0ee5f97497d8ee6b7472e249266820c93d53928790520e0",
+      "retained": "basis-bodies/9aa35fb6205b3b75a0ee5f97497d8ee6b7472e249266820c93d53928790520e0"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/declared-family.bend": {
+      "sha256": "e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2",
+      "retained": "basis-bodies/e7ca976eba58fcc0bb5f2fd98456a8d391c05a79511fe1860700b0c147bee5d2"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/decode-capabilities.bend": {
+      "sha256": "a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65",
+      "retained": "basis-bodies/a7ddbf52e79924dec4c31eaa2d6abacb015f612dce1b528f5b6e0e7812999d65"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/decode-data.bend": {
+      "sha256": "f48cc81da5ada9085c821c2861ead72c35187828ee0698c4372abcd65efe8ebd",
+      "retained": "basis-bodies/f48cc81da5ada9085c821c2861ead72c35187828ee0698c4372abcd65efe8ebd"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/decode-size.bend": {
+      "sha256": "dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281",
+      "retained": "basis-bodies/dbab191e20936ea5508dfb5ebdcaefa96790d6f73d0e8ed70bea78abcfbe8281"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/decode-utf16.bend": {
+      "sha256": "343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539",
+      "retained": "basis-bodies/343820522ad7d9724154d48266a3b6c30626cc62f83ec85038c96242c9d96539"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/decode.bend": {
+      "sha256": "13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793",
+      "retained": "basis-bodies/13761fdc9607f9e1873be01858da8517badea6dbfa58a116038fbb30afdeb793"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/deferred-command.bend": {
+      "sha256": "626f245e15b1fa75c17e80aa3de7eb05ffc8f0ee8345912cb005604c518e0cd3",
+      "retained": "basis-bodies/626f245e15b1fa75c17e80aa3de7eb05ffc8f0ee8345912cb005604c518e0cd3"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/entity-allocator.bend": {
+      "sha256": "08a8f688cf8705ba380a83df5264b51727ec53b6ae9cf03370a4454bc883d30c",
+      "retained": "basis-bodies/08a8f688cf8705ba380a83df5264b51727ec53b6ae9cf03370a4454bc883d30c"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/entity-key-render.bend": {
+      "sha256": "b3c0f3bb1acda0d39ad8fffdb7730a781c9909f14add347017e0ae46cc0ceac3",
+      "retained": "basis-bodies/b3c0f3bb1acda0d39ad8fffdb7730a781c9909f14add347017e0ae46cc0ceac3"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/entity-key.bend": {
+      "sha256": "ff8cf964a493fe6122509f9cf0fdbadc2423d45bd2e4f7f7db72460bdcbc6ced",
+      "retained": "basis-bodies/ff8cf964a493fe6122509f9cf0fdbadc2423d45bd2e4f7f7db72460bdcbc6ced"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/indexed-lifecycle.bend": {
+      "sha256": "e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5",
+      "retained": "basis-bodies/e997f3b089149a54afb6485fcb2167d1fd0e86979bfa16329473d3a235e8b8d5"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/inspector-query-families.bend": {
+      "sha256": "020a8de48df12369c8709d10d15f0c3d22dcf8a9fb76f3af238ea4a4304edeb8",
+      "retained": "basis-bodies/020a8de48df12369c8709d10d15f0c3d22dcf8a9fb76f3af238ea4a4304edeb8"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/inspector-query-projection.bend": {
+      "sha256": "b279bd011f53ce57de06af58ab89b9d0122d2c70eab434d5802960ea231e0f36",
+      "retained": "basis-bodies/b279bd011f53ce57de06af58ab89b9d0122d2c70eab434d5802960ea231e0f36"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/inspector-query-world.bend": {
+      "sha256": "1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a",
+      "retained": "basis-bodies/1c3e6f92ed30cd26ac96d11712ec28eea6099c5103fb153c617d92b68260e65a"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/inspector-query.bend": {
+      "sha256": "285fba4840ee2243da7f41182b470dc77fe6eb56df93f649fd44d671e7137e07",
+      "retained": "basis-bodies/285fba4840ee2243da7f41182b470dc77fe6eb56df93f649fd44d671e7137e07"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/inspector.bend": {
+      "sha256": "31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597",
+      "retained": "basis-bodies/31302fa8b9f68c560e744f613948613218c5ef1f4564c4236c5655a6bf2ab597"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/lifecycle.bend": {
+      "sha256": "bb2f17e628995ce1c5f33ce734a2627f98b5c31a016e3ee2a686bab6ed84ccc5",
+      "retained": "basis-bodies/bb2f17e628995ce1c5f33ce734a2627f98b5c31a016e3ee2a686bab6ed84ccc5"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/local.bend": {
+      "sha256": "133858f93cf4a2b795b8e02e85cddd66a725a026e7171ac2db0365dc1c3e7001",
+      "retained": "basis-bodies/133858f93cf4a2b795b8e02e85cddd66a725a026e7171ac2db0365dc1c3e7001"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-component-binding.bend": {
+      "sha256": "2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1",
+      "retained": "basis-bodies/2cab2c6545348f0a5fb5bf237195a36e913e6d9b5a4ce9a6240bdee4a83165e1"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-declaration.bend": {
+      "sha256": "6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5",
+      "retained": "basis-bodies/6912b9c2dd0d163fc7d9f73ed6d2374ddbc0fb05342a97fb4aac968c8e75ecd5"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-owned-event-family-resource.bend": {
+      "sha256": "45e325a987043763f09568958004c591c70fbf2a1dfb3fedee2f21d25233d5b6",
+      "retained": "basis-bodies/45e325a987043763f09568958004c591c70fbf2a1dfb3fedee2f21d25233d5b6"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-query-declaration.bend": {
+      "sha256": "11623354e8eaf3f13801f9e0825547cba5637e8e2170dfec5c9fe79cc3791277",
+      "retained": "basis-bodies/11623354e8eaf3f13801f9e0825547cba5637e8e2170dfec5c9fe79cc3791277"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-query-observable.bend": {
+      "sha256": "225fb89b7a63314e6bd1c7bcbfcf5490e4ebb3190e6373d04c50a0913fe24fa8",
+      "retained": "basis-bodies/225fb89b7a63314e6bd1c7bcbfcf5490e4ebb3190e6373d04c50a0913fe24fa8"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-query-selections.bend": {
+      "sha256": "57ee96b72d098d0b3abf0504a166c3a0846c817fcc4cb2f77a9629be501bc755",
+      "retained": "basis-bodies/57ee96b72d098d0b3abf0504a166c3a0846c817fcc4cb2f77a9629be501bc755"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-schema.bend": {
+      "sha256": "a694d2570202141ec906fd89fb0306d2ad8a55b2279a98b963daefe2b8f19ffc",
+      "retained": "basis-bodies/a694d2570202141ec906fd89fb0306d2ad8a55b2279a98b963daefe2b8f19ffc"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/ordinary-system.bend": {
+      "sha256": "cd30b04301663b445f028c71fd7703c1365fc6e17a765c5382084adaa35e8865",
+      "retained": "basis-bodies/cd30b04301663b445f028c71fd7703c1365fc6e17a765c5382084adaa35e8865"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/owner-handoff.bend": {
+      "sha256": "91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec",
+      "retained": "basis-bodies/91f7e7f40877da928bb64e64a87ffd218a15e982afbc24199b8778cd4e7effec"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/owner-product.bend": {
+      "sha256": "5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f",
+      "retained": "basis-bodies/5f5babe4c53da424a2ebaa8e61157b3bedd6dbbd49c93be5600a780833f1fb1f"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/persistence-declaration.bend": {
+      "sha256": "06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76",
+      "retained": "basis-bodies/06921c755feee8944f2a33b920dca5df00e9d693057a6842ffef4ebc5c9ddc76"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/query-contract.bend": {
+      "sha256": "f6d86aa7a499bce14861c70c205083c7e67c9209cba9391226f3c8cf816781b1",
+      "retained": "basis-bodies/f6d86aa7a499bce14861c70c205083c7e67c9209cba9391226f3c8cf816781b1"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/registration.bend": {
+      "sha256": "e9656a377bc240241070e2065c6125674d0fa4dbdd277527ceb1a458f767cefd",
+      "retained": "basis-bodies/e9656a377bc240241070e2065c6125674d0fa4dbdd277527ceb1a458f767cefd"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/resource-field.bend": {
+      "sha256": "cfc567436ba8a74cb3a098a28307f73292c093a5811c22303ad97a34bfb93517",
+      "retained": "basis-bodies/cfc567436ba8a74cb3a098a28307f73292c093a5811c22303ad97a34bfb93517"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/resource.bend": {
+      "sha256": "6f6c34e883d880c9c9fcf50d3e97655067d3569de356130fe8f9bc5d62e3840a",
+      "retained": "basis-bodies/6f6c34e883d880c9c9fcf50d3e97655067d3569de356130fe8f9bc5d62e3840a"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/schedule.bend": {
+      "sha256": "df93606353650708db1cfe543d80beb85901fe0f945033af025627ebf51589b7",
+      "retained": "basis-bodies/df93606353650708db1cfe543d80beb85901fe0f945033af025627ebf51589b7"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/schema-fragments.bend": {
+      "sha256": "e161ff13196cd40b2218efc7734c2e1e661e74e09a754e6ff60cbe2b525d65ca",
+      "retained": "basis-bodies/e161ff13196cd40b2218efc7734c2e1e661e74e09a754e6ff60cbe2b525d65ca"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/snapshot-gate.bend": {
+      "sha256": "60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128",
+      "retained": "basis-bodies/60bb2ad60f0e3c426e464097f4f992ea321533a5bbeb9dc27df9756b1f57a128"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/snapshot-leaf.bend": {
+      "sha256": "9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f",
+      "retained": "basis-bodies/9350b9e04ce8ad5c8ad0a24c1fe0bf65d3f5e054c95d1a3f33c64e33dfcc603f"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/string-equality.bend": {
+      "sha256": "2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723",
+      "retained": "basis-bodies/2f0f31d7ab0151d0619412b68cfd8304ae20905c147628e36d9dd2918cf27723"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/structural.bend": {
+      "sha256": "66b5861a1e75b305939af0355b876ce31cae672f9833a6bff5aac32d61a864ee",
+      "retained": "basis-bodies/66b5861a1e75b305939af0355b876ce31cae672f9833a6bff5aac32d61a864ee"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/system.bend": {
+      "sha256": "d282c3cb9d580ebc196a21e241368557d94513aaa37189423f2902f905e2301e",
+      "retained": "basis-bodies/d282c3cb9d580ebc196a21e241368557d94513aaa37189423f2902f905e2301e"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/trace-facts.bend": {
+      "sha256": "50489bd2378ab8519f1c82d2ebc17def4c9c4298d76fd1509531e93c74d9ae8c",
+      "retained": "basis-bodies/50489bd2378ab8519f1c82d2ebc17def4c9c4298d76fd1509531e93c74d9ae8c"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/trace-world.bend": {
+      "sha256": "c2249e285f614e1eb9bee368c805d7a2e52478c915faa5aa1565c0d1bf6d3fa9",
+      "retained": "basis-bodies/c2249e285f614e1eb9bee368c805d7a2e52478c915faa5aa1565c0d1bf6d3fa9"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/transaction.bend": {
+      "sha256": "7948296332645b7b94494a8cd6258b4f97a3de693820bc3345f28a1509fe47a8",
+      "retained": "basis-bodies/7948296332645b7b94494a8cd6258b4f97a3de693820bc3345f28a1509fe47a8"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/world-io.bend": {
+      "sha256": "1be0fcd577ecf177af89136f77e5c8e67894304a89adefaf0565591f641a63e9",
+      "retained": "basis-bodies/1be0fcd577ecf177af89136f77e5c8e67894304a89adefaf0565591f641a63e9"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/world-namespace.bend": {
+      "sha256": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
+      "retained": "basis-bodies/92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/world-namespace.c": {
+      "sha256": "b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521",
+      "retained": "basis-bodies/b218011c7738b7ac8ca94963b8c8cacd97006af6fa1c6ab6f4ac506c612b4521"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/world-namespace.js": {
+      "sha256": "f463bf328c4232fec85c67e328d93309e2191d80b7377be64355b6c1edd4f815",
+      "retained": "basis-bodies/f463bf328c4232fec85c67e328d93309e2191d80b7377be64355b6c1edd4f815"
+    },
+    "/tmp/bendvy-canonical-lifecycle/src/ecs/world.bend": {
+      "sha256": "40516c2a49ad561d4b95ac5f5a0295ca1a20061c534969b6d7e13c4bdb1945f5",
+      "retained": "basis-bodies/40516c2a49ad561d4b95ac5f5a0295ca1a20061c534969b6d7e13c4bdb1945f5"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain01.stderr": {
+      "sha256": "93369f154962a68f3a71246b121c239385570a9784e26da474913ef49c70e997",
+      "retained": "basis-bodies/93369f154962a68f3a71246b121c239385570a9784e26da474913ef49c70e997"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain01.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain02.stderr": {
+      "sha256": "4702430a69e1bea6e12be3dab80bf834cbe1ea2b63571e8b190a1362905aa561",
+      "retained": "basis-bodies/4702430a69e1bea6e12be3dab80bf834cbe1ea2b63571e8b190a1362905aa561"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain02.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain03.stderr": {
+      "sha256": "31ba2c99f189119b073a13d027e4d4311b8b0e3cff88cd8fd88d8186960d822d",
+      "retained": "basis-bodies/31ba2c99f189119b073a13d027e4d4311b8b0e3cff88cd8fd88d8186960d822d"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain03.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain04.stderr": {
+      "sha256": "3a756fb27e4d8513d6250c2c2ec9bf6b9fdf514f923e218e3c7a05531fa1ebfe",
+      "retained": "basis-bodies/3a756fb27e4d8513d6250c2c2ec9bf6b9fdf514f923e218e3c7a05531fa1ebfe"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain04.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain05.stderr": {
+      "sha256": "ff641abdeec367125cbd26ddbe32224f93b344e4f897901b284d92ad3631bf6b",
+      "retained": "basis-bodies/ff641abdeec367125cbd26ddbe32224f93b344e4f897901b284d92ad3631bf6b"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain05.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain06.stderr": {
+      "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+      "retained": "basis-bodies/2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-domain06.stdout": {
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "retained": "basis-bodies/931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-main01.stderr": {
+      "sha256": "374e15d5d08e3bdb476c6746361cc03d8d8d1027e748725ef797f7d08ff1f18b",
+      "retained": "basis-bodies/374e15d5d08e3bdb476c6746361cc03d8d8d1027e748725ef797f7d08ff1f18b"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-main01.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-main02.stderr": {
+      "sha256": "374e15d5d08e3bdb476c6746361cc03d8d8d1027e748725ef797f7d08ff1f18b",
+      "retained": "basis-bodies/374e15d5d08e3bdb476c6746361cc03d8d8d1027e748725ef797f7d08ff1f18b"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-main02.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-observation01.stderr": {
+      "sha256": "7080a149d8462caec12c0d75bda9c27bf3128187fd600c4f723ea263832aa948",
+      "retained": "basis-bodies/7080a149d8462caec12c0d75bda9c27bf3128187fd600c4f723ea263832aa948"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-observation01.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-observation02.stderr": {
+      "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+      "retained": "basis-bodies/2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-observation02.stdout": {
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "retained": "basis-bodies/931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-program01.stderr": {
+      "sha256": "d0bdadbc0242bad160152a3aa7b84039c62402dd9849fa0aafc24d4030582175",
+      "retained": "basis-bodies/d0bdadbc0242bad160152a3aa7b84039c62402dd9849fa0aafc24d4030582175"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-program01.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-program02.stderr": {
+      "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+      "retained": "basis-bodies/2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-program02.stdout": {
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "retained": "basis-bodies/931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-registration01.stderr": {
+      "sha256": "e266826d9f5ab1a950af1fdffe704e4d54ce35002abce8ca928c01593dbb4911",
+      "retained": "basis-bodies/e266826d9f5ab1a950af1fdffe704e4d54ce35002abce8ca928c01593dbb4911"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-registration01.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-registration02.stderr": {
+      "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+      "retained": "basis-bodies/2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-registration02.stdout": {
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "retained": "basis-bodies/931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-render01.stderr": {
+      "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+      "retained": "basis-bodies/2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-render01.stdout": {
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "retained": "basis-bodies/931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-render02.stderr": {
+      "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+      "retained": "basis-bodies/2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-render02.stdout": {
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "retained": "basis-bodies/931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems01.stderr": {
+      "sha256": "91ae7fda6c49476c0530ae53a3ebe16cba0d0f30ce3e6ccbfc0d2c983c504213",
+      "retained": "basis-bodies/91ae7fda6c49476c0530ae53a3ebe16cba0d0f30ce3e6ccbfc0d2c983c504213"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems01.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems02.stderr": {
+      "sha256": "91ae7fda6c49476c0530ae53a3ebe16cba0d0f30ce3e6ccbfc0d2c983c504213",
+      "retained": "basis-bodies/91ae7fda6c49476c0530ae53a3ebe16cba0d0f30ce3e6ccbfc0d2c983c504213"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems02.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems03.stderr": {
+      "sha256": "1335ce73db99abee6af307686048583dd0722590c4936e6da6a412264fc207e1",
+      "retained": "basis-bodies/1335ce73db99abee6af307686048583dd0722590c4936e6da6a412264fc207e1"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems03.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "retained": "basis-bodies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems04.stderr": {
+      "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d",
+      "retained": "basis-bodies/2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/checks/lifecycle-motion-systems04.stdout": {
+      "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1",
+      "retained": "basis-bodies/931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+    },
+    "/home/node/.bend/bend2/base.bend": {
+      "sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+      "retained": "basis-bodies/c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661"
+    },
+    "/home/node/.bend/bend2/effs/print.js": {
+      "sha256": "814ceba4efbaa291b7b6a9ff29aa20e3a23c06eb4fa165c69ee0bd22878adaa9",
+      "retained": "basis-bodies/814ceba4efbaa291b7b6a9ff29aa20e3a23c06eb4fa165c69ee0bd22878adaa9"
+    },
+    "/home/node/.bend/bend2/effs/print.c": {
+      "sha256": "28552d3b56aee6f6cdb66326aaa49ad0df35e4476e08c548c908efcbfafbd3e7",
+      "retained": "basis-bodies/28552d3b56aee6f6cdb66326aaa49ad0df35e4476e08c548c908efcbfafbd3e7"
+    },
+    "/home/node/.bend/bend2/effs/args.js": {
+      "sha256": "ed1a7e7b73ae7fe58ac6d428d2762b66f223f4c70a165570fc5d68dc874ddc0b",
+      "retained": "basis-bodies/ed1a7e7b73ae7fe58ac6d428d2762b66f223f4c70a165570fc5d68dc874ddc0b"
+    },
+    "/home/node/.bend/bend2/effs/args.c": {
+      "sha256": "2635223ad1d401b07e1834b9341e3f0be254796f6de1d9a0e800ca59fb3000b4",
+      "retained": "basis-bodies/2635223ad1d401b07e1834b9341e3f0be254796f6de1d9a0e800ca59fb3000b4"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-lifecycle-timing-reference.mjs": {
+      "sha256": "f3fa4073ac04ddf362cf38bc32c9cf7df0d2ad9eb4dcd906517757ea1bef67fe",
+      "retained": "basis-bodies/f3fa4073ac04ddf362cf38bc32c9cf7df0d2ad9eb4dcd906517757ea1bef67fe"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/s-integrate/measurement-lifecycle-timed-frozen-evidence.json": {
+      "sha256": "a1c9fa064d15dbfc51d54bef6d59b694a90eb20f152fab9f0a6b870450475405",
+      "retained": "basis-bodies/a1c9fa064d15dbfc51d54bef6d59b694a90eb20f152fab9f0a6b870450475405"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/measurement-lifecycle-timed.bend": {
+      "sha256": "a184121050b0a2a29224337916e42068cf77bf2ad8811b7db0632f108656c19b",
+      "retained": "basis-bodies/a184121050b0a2a29224337916e42068cf77bf2ad8811b7db0632f108656c19b"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/measurement-lifecycle.bend": {
+      "sha256": "0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d",
+      "retained": "basis-bodies/0b2690c7d56219411dd3a14876dda8fe0c2f757fcf3656cf404fbdf76524296d"
+    },
+    "/workspace/formal-proofs/bendvy/experiments/s-perf/candidate/query.bend": {
+      "sha256": "5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce",
+      "retained": "basis-bodies/5fb8447d34edc2260341341c36dc7970964318fa582cdd078da296c5f9e1a1ce"
+    },
+    "/workspace/formal-proofs/bendvy/.references/sources.json": {
+      "sha256": "5d4d89ca984a2eb21e21715344219bb9caa022b6bebca0c9f8959584cceb8b8f",
+      "retained": "basis-bodies/5d4d89ca984a2eb21e21715344219bb9caa022b6bebca0c9f8959584cceb8b8f"
+    },
+    "/tmp/bendvy-canonical-lifecycle/experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/MOTION-SOURCE-FREEZE.json": {
+      "sha256": "54678ffbd95c65e0930c79b8d71b8ebc3be3f3513f7f694e4d05bc63b2f6ae21",
+      "retained": "basis-bodies/54678ffbd95c65e0930c79b8d71b8ebc3be3f3513f7f694e4d05bc63b2f6ae21"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Runtime.ts": {
+      "sha256": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+      "retained": "basis-bodies/c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/System.ts": {
+      "sha256": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+      "retained": "basis-bodies/ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Query.ts": {
+      "sha256": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+      "retained": "basis-bodies/45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/Command.ts": {
+      "sha256": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+      "retained": "basis-bodies/de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/world.ts": {
+      "sha256": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7",
+      "retained": "basis-bodies/e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7"
+    },
+    "/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/internal/streams.ts": {
+      "sha256": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e",
+      "retained": "basis-bodies/3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e"
+    }
+  },
+  "modelPins": {
+    "operations.py": "2f47ee3685edf401a90bfd691ca972146a0c6cf486b9c82a3b7c895cd8eba130",
+    "program.py": "f824888fcd1ee5a417ea4e4e0b6f107e25aa77fe213b875f1061f96965209f45",
+    "model.py": "89a56d743ac6e52de674bb7ca2fc91dc04a6abff5e46168b8846e45e9f6fe505",
+    "shared.py": "cd33a8c64333a5cab54328d87202822144727af2c875a219e8a0df39ec76ae43"
+  },
+  "actualConsumingBendCount": 69,
+  "namespaceSidecarCount": 2,
+  "runtimeArguments": [
+    "64",
+    "64"
+  ],
+  "expectedBytes": 14774371,
+  "expectedSHA256": "cad24d935375352a1741d354c5ca4181a17141ae6054a80005c0f861d90993e9",
+  "expectedGzipBytes": 605666,
+  "expectedGzipSHA256": "d10dbc51fb44001239e13940f63989fe3ea032b292ea3fb5a6e1d2cacd1871da",
+  "method": "Independent source evaluation and full product observer serialization before subject backend execution; no output consulted.",
+  "framing": "ActualIOWorld namespaces1/2; source final LF plus IO.print LF, no QName-rendering callsite.",
+  "finiteScope": "Motion64entities x64cycles only; no timing/Health/largerinput/full21 acceptance. Ordinary columns remain ordinary; no Prepared or unsupported renderer path.",
+  "facts": {
+    "clock": 235,
+    "ledger": [
+      0,
+      101,
+      102,
+      103
+    ],
+    "locals": [
+      64,
+      64,
+      64,
+      192
+    ],
+    "boundaries": 192,
+    "calls": 384,
+    "scheduleSegments": 384,
+    "appliedLoopBarriers": 128,
+    "baseLookups": 576,
+    "staleLookups": 6112,
+    "allocatorNext": 66,
+    "allocatorHigh": 65,
+    "allocatorCapacity": 128,
+    "columnCapacities": [
+      128,
+      64,
+      64
+    ],
+    "digest": 2779408529
+  },
+  "sharedTS": {
+    "referenceCommit": "3040a3b2a3f28fa8554d856f9ccb6bf5433fa334",
+    "result": {
+      "status": "PASS",
+      "digest": 266848412,
+      "staleLookups": 6112,
+      "fullBoundaryCount": 192,
+      "rawReservations": 64,
+      "finalSha256": "06b3d207c39a5fcbb674200ee4b4c15aab18be8d2a7814f32b0dfb6ee931f7a7"
+    },
+    "method": "shared.py independently evaluates oldTS192complete boundaries and full finalrows, then relates every canonical row/stale through immutableissuedactor-to-fullkey map. No canonicalwire normalization.",
+    "limits": "TSbareIDs/monotonicrawID and receiverlocalforeigncollision differ fromBendgenuineforeignnamespace refusal and recycledindex/generationkeys. Physicalwire and digest staycanonical; TSdigest not asserted equal. ExistingTSsummary retains hashes/counts, not fullcanonicalreport; no timingcredit.",
+    "pinnedReferenceBodies": {
+      "Runtime.ts": "c744aa5c52845bd3323358c5085161b40a452c6802a1653e3851bfd34c69f5b4",
+      "System.ts": "ae53852dbd815ad441446cbcfc663d25aed6c2bd0afcfacbc3c20e0c40dc2ba7",
+      "Query.ts": "45e2fe513f66e336f97d40b41b3c866363a1af17ecbc90087086e00c08b28414",
+      "Command.ts": "de5db2093401e24ce54fae8166e7f686c153852094b6446dc0ee22cfa28cef28",
+      "internal/world.ts": "e71b4b060fec85fae690957104c14051e4bea0d857bacd648993ea69a6fe27d7",
+      "internal/streams.ts": "3e817555dddf937c51b51014ceb6422f068aeca4a40328281dbb774b8880168e"
+    }
+  }
+}

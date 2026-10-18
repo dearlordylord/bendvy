@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a declared constructor (unknown: ../../../../../../src/ecs/component.Absent)
+Location:
+20 |     case Cmp.Found{T.PositionView{cells,frame}}:J.object([J.Field{"kind",J.Text{"Found"}},J.Field{"value",J.object([J.Field{"coordinates",four(cells)},J.Field{"frame",u(frame)}])}])
+21>|     case Cmp.Absent{}:J.object([J.Field{"kind",J.Text{"Absent"}}])
+   |          ^^^^^^^^^^^^
+22 |     case Cmp.MissingEntity{}:J.object([J.Field{"kind",J.Text{"MissingEntity"}}])
+bend 2.0.37 is available: run bend update

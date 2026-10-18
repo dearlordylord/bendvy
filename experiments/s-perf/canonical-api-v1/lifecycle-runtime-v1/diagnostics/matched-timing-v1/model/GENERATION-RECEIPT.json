@@ -1,0 +1,31 @@
+{
+  "scope": "Independent Python model only; no subjects/compiler/backends",
+  "command": [
+    "taskset",
+    "-c",
+    "9",
+    "timeout",
+    "120s",
+    "python3",
+    "seal_gold.py"
+  ],
+  "exitCode": 0,
+  "stderrBytes": 0,
+  "stdoutSHA256": "66275bcca5c6a6c9e86a0b227e6c5d480c3b35941059b90fcd2665302c8e6306",
+  "resultSHA256": "b12411b4f3cdc41bc10d38e0f4a4b9720e718667c814f07ae45dfbff96b5ecee",
+  "verification": {
+    "command": [
+      "taskset",
+      "-c",
+      "9",
+      "timeout",
+      "120s",
+      "python3",
+      "verify.py"
+    ],
+    "exitCode": 0,
+    "stderrBytes": 0,
+    "stdoutSHA256": "1cee0d21c3385a18c95429a4b55ed34b79f34ac3d2c8122728ce815de43900c9"
+  },
+  "draftHistory": "DRAFT01-UNEXECUTED-ORACLE-BASIS.json is pre-subject model framing only; original TUPLE-before-FOREIGN-FORCE order corrected before subjects; no numerical oracle records changed."
+}
