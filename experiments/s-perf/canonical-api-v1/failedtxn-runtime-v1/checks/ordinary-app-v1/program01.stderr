@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : an unambiguous name (the alias App shadows App.run)
+- observed : '('
+Location:
+83 |   match slot:
+84>|     case Single.Attached{app}:run_returned(phase,namespace,boundaries,schedules,App.run(app))
+   |                                                                                        ^
+85 |     case slot:State{slot,namespace,boundaries,schedules,Stopped{"invalid schedule plan"}}
+bend 2.0.37 is available: run bend update

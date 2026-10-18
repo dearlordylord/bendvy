@@ -36,25 +36,19 @@ def status(value:Program.Status) -> String:
   match value:
     case Program.Complete{}:"Complete"
     case Program.Stopped{reason}:"Stopped{" ++ O.audit_effect(reason) ++ "}"
-def state_join(+ids:Schedule.IDs,+namespace:U32,+boundaries:List<&2,Boundary.Boundary>,+schedules:List<&2,String>,+result:Program.Status,left:F.World() & Doc.Doc,right:S.Owners & Doc.Doc) -> Program.State & Doc.Doc:
-  (world,sw)=left
-  (owners,so)=right
-  (Program.State{world,owners,ids,namespace,boundaries,schedules,result},Doc.concat([Doc.text("namespace="),Doc.text(U32.show(namespace)),Doc.text(";ids="),Doc.text(List.show(&2,U32,U32.show,Schedule.ids(ids))),Doc.text(";world={"),sw,Doc.text("};owners={"),so,Doc.text("};boundaries="),Doc.show(~Boundary.Boundary,~Boundary.render,boundaries),Doc.text(";schedules="),Doc.text(List.show(&2,String,O.audit_effect,schedules)),Doc.text(";status="),Doc.text(status(result))]))
-def state(value:Program.State) -> Program.State & Doc.Doc:
+def state_view(value:Program.State & Program.Snapshot) -> Program.State & Doc.Doc:
   match value:
-    case Program.State{world,owners,ids,namespace,boundaries,schedules,result}:state_join(ids,namespace,boundaries,schedules,result,DW.world(world),Owners.owners(owners))
+    case (Program.State{app,+namespace,+boundaries,+schedules,+result},Program.Snapshot{sw,so,ids}):(Program.State{app,namespace,boundaries,schedules,result},Doc.concat([Doc.text("namespace="),Doc.text(U32.show(namespace)),Doc.text(";ids="),Doc.text(List.show(&2,U32,U32.show,ids)),Doc.text(";world={"),sw,Doc.text("};owners={"),so,Doc.text("};boundaries="),Doc.show(~Boundary.Boundary,~Boundary.render,boundaries),Doc.text(";schedules="),Doc.text(List.show(&2,String,O.audit_effect,schedules)),Doc.text(";status="),Doc.text(status(result))]))
+def state(value:Program.State) -> Program.State & Doc.Doc:state_view(Program.observe(value))
 def primed(prefix:Doc.Doc,iterations:U32,value:Program.State & Doc.Doc) -> Doc.Doc:
   match value:
     case (owner,snapshot):Stream.final(Doc.concat([prefix,Doc.text("primed={"),snapshot,Doc.text("}\n")]),Program.loops(U32.to_nat(iterations),0,owner))
 def registered(prefix:Doc.Doc,iterations:U32,value:Program.State & Doc.Doc) -> Doc.Doc:
   match value:
     case (owner,snapshot):primed(Doc.concat([prefix,Doc.text("registered={"),snapshot,Doc.text("}\n")]),iterations,state(Program.run_phase(0,owner)))
-def catalogued(prefix:Doc.Doc,iterations:U32,namespace:U32,world:F.World(),value:S.Owners & Schedule.IDs) -> Doc.Doc:
-  match value:
-    case (owners,ids):registered(prefix,iterations,state(Program.State{world,owners,ids,namespace,[],[],Program.Complete{}}))
 def named(prefix:Doc.Doc,iterations:U32,owners:Reg.Owners,dispose:Dispose.Registry(),first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,observed:F.World() & U32) -> Doc.Doc:
   match observed:
-    case (world,ns):catalogued(prefix,iterations,ns,world,Schedule.catalog(S.Owners{owners,dispose,S.Frame{first,second,0,0,None{},None{},[],[]}}))
+    case (world,ns):registered(prefix,iterations,state(Program.start(world,S.Owners{owners,dispose,S.Frame{first,second,0,0,None{},None{},[],[]}},ns)))
 def dispose_registered(prefix:Doc.Doc,iterations:U32,owners:Reg.Owners,first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,value:Sys.RegistrationResult<T.MotionSchema,F.Store(),F.Resources(),E.event_type(),List<&2,W.Handle<T.MotionSchema>>,Empty,Dispose.Output,Dispose.runner>) -> Doc.Doc:
   match value:
     case Sys.Registered{world,registry}:named(prefix,iterations,owners,registry,first,second,W.namespace(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),world))

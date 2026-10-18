@@ -23,7 +23,8 @@ def world_text(value:F.World() & Doc.Doc) -> Doc.Doc:
 def owner_text(value:S.Owners & Doc.Doc) -> Doc.Doc:
   match value:
     case (_,text):text
-def final(prefix:Doc.Doc,value:P.State) -> Doc.Doc:
+def final_observed(prefix:Doc.Doc,value:P.State & P.Snapshot) -> Doc.Doc:
   match value:
-    case P.State{world,owner,ids,namespace,boundaries,schedules,result}:Doc.concat([prefix,Doc.text("final={namespace=" ++ U32.show(namespace) ++ ";ids=" ++ List.show(&2,U32,U32.show,Schedule.ids(ids)) ++ ";world={"),world_text(DW.world(world)),Doc.text("};owners={"),owner_text(O.owners(owner)),Doc.text("};boundaries="),Doc.show(~B.Boundary,~B.render,boundaries),Doc.text(";schedules=" ++ List.show(&2,String,W.audit_effect,schedules) ++ ";status=" ++ status(result) ++ "}\n")])
+    case (P.State{_,namespace,boundaries,schedules,result},P.Snapshot{world,owners,ids}):Doc.concat([prefix,Doc.text("final={namespace=" ++ U32.show(namespace) ++ ";ids=" ++ List.show(&2,U32,U32.show,ids) ++ ";world={"),world,Doc.text("};owners={"),owners,Doc.text("};boundaries="),Doc.show(~B.Boundary,~B.render,boundaries),Doc.text(";schedules=" ++ List.show(&2,String,W.audit_effect,schedules) ++ ";status=" ++ status(result) ++ "}\n")])
+def final(prefix:Doc.Doc,value:P.State) -> Doc.Doc:final_observed(prefix,P.observe(value))
 def write(value:Doc.Doc) -> IO(Unit):Doc.write(value)
