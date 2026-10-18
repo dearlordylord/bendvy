@@ -3,7 +3,7 @@ import hashlib
 from common_model import compact,raw_row
 sha=lambda v:hashlib.sha256(compact(v).encode()).hexdigest()
 def full(f):
- common=f['common'];boundaries=[r for r in common if r['kind']=='Boundary'];final=common[-1];audit=[];supplements=[]
+ count=f['common'][0]['count'];iterations=64;common=f['common'];boundaries=[r for r in common if r['kind']=='Boundary'];final=common[-1];audit=[];supplements=[]
  for r,foreign in zip(boundaries,f['foreign']['ts']):
   rows=[raw_row(x)for x in r['rows']];phase=r['phase'];pending=r['current']if phase==0 else None
   def lookup(actor):
@@ -25,4 +25,4 @@ def full(f):
    ticks.append({'frame':frame,'tick':tick,'outcome':ok})
  assert len(ticks)==385 and tick==450
  rows=[raw_row(x)for x in final['rows']]
- return {'schema':'Health','workload':'lifecycle','count':64,'iterations':64,'status':'PASS','fullBoundaryChecks':len(audit),'retainedLiveCount':len(rows),'rawReservationRange':[1,128],'finalSha256':sha(rows),'audit':audit,'scope':'Correctness only; no timings. Actual reserve, pending lookup/query, barriers, rotating first/middle/last remove/despawn, full surviving fields, stale and foreign lookup.','foreignLookup':'Pinned TS raw-ID collision behavior retained separately; Bend MissingEntity divergence is approved, not a TS parity expectation.','method':{'rawActorMap':[{'actor':i,'rawId':i}for i in range(1,129)],'foreignActorMap':[{'actor':1,'rawId':1}],'foreignSetup':{'rows':[raw_row(x)for x in common[0]['foreign']['rows']],'ledger':common[0]['foreign']['ledger']},'foreignTicks':[{'frame':1,'tick':2,'outcome':ok},{'frame':2,'tick':3,'outcome':ok}],'rawTickOutcomes':ticks,'observations':supplements,'finalRows':rows}}
+ return {'schema':'Health','workload':'lifecycle','count':count,'iterations':64,'status':'PASS','fullBoundaryChecks':len(audit),'retainedLiveCount':len(rows),'rawReservationRange':[1,count+iterations],'finalSha256':sha(rows),'audit':audit,'scope':'Correctness only; no timings. Actual reserve, pending lookup/query, barriers, rotating first/middle/last remove/despawn, full surviving fields, stale and foreign lookup.','foreignLookup':'Pinned TS raw-ID collision behavior retained separately; Bend MissingEntity divergence is approved, not a TS parity expectation.','method':{'rawActorMap':[{'actor':i,'rawId':i}for i in range(1,count+iterations+1)],'foreignActorMap':[{'actor':1,'rawId':1}],'foreignSetup':{'rows':[raw_row(x)for x in common[0]['foreign']['rows']],'ledger':common[0]['foreign']['ledger']},'foreignTicks':[{'frame':1,'tick':2,'outcome':ok},{'frame':2,'tick':3,'outcome':ok}],'rawTickOutcomes':ticks,'observations':supplements,'finalRows':rows}}

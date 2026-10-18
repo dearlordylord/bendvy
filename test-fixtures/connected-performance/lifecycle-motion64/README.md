@@ -51,3 +51,20 @@ The Bend entry is `method/pilot.bend`, with arguments
 and private. `model/EXPECTED.json` binds the complete shared and separate
 foreign-role streams. This fixture's semantic correspondence does not establish
 clock accuracy, performance ratios, full-matrix qualification or a new #28 result.
+
+Runtime inputs support counts `64`, `256`, and `1024`, with `64` iterations.
+The directory name retains the qualified 64-case baseline. Larger inputs require
+their independently sealed complete role oracles; accepting an input does not
+qualify that matrix case. The count guard is the only TS business-entry change;
+the admitted 64-case executes the same callbacks, observations and transport.
+
+The count-expansion checkpoint preserves both qualified 64-case gold hashes.
+Motion256 additionally passes complete JS, Native and TS role streams: Bend
+99,547,484 bytes (`794b4b9dd595df1818cac091dc310c2fb0017c66d255a529c6e3d42b2fab596c`)
+and TS 65,306,588 bytes (`94982aa8da9be0913c18668058ec121790184d9702b87f5220fdf4135ce44eb1`),
+with two complete 7,903,319-cell shared tuples and each role’s full foreign
+observations. These runs reuse the qualified Bend artifacts without emission
+or builds. Motion1024 and Health256/1024 (nine roles) remain unqualified at
+this checkpoint. The first Motion1024 independent-model process reached its
+120-second offline deadline; it produced no qualified gold or consumer result.
+That history is retained separately from the later authorized model budget.

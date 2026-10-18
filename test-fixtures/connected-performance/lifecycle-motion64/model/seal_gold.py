@@ -9,15 +9,15 @@ sha=lambda x:hashlib.sha256(x).hexdigest()
 def main():
  global P
  import argparse
- parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);args=parser.parse_args();P=args.output
+ parser=argparse.ArgumentParser();parser.add_argument('--count',type=int,choices=[64,256,1024],default=64);parser.add_argument('--iterations',type=int,choices=[64],default=64);parser.add_argument('--output',type=Path,required=True);args=parser.parse_args();P=args.output
  assert not P.exists(), 'Use a fresh output directory; frozen gold is immutable'
  P.mkdir(parents=True)
  basis=json.loads((SOURCE/'SOURCE-BASIS.json').read_text())
  for name,h in basis['sourcePins'].items():assert sha((SOURCE/name).read_bytes())==h
  worlds=[];canon=[];summaries=[]
  for label,ns,foreign in [('WARMUP',1,2),('SAMPLE',3,4)]:
-  f=C.derive(ns,foreign);raw=C.LC2.encode_report(f['typed'])
-  if ns==1:
+  f=C.derive(ns,foreign,args.count,args.iterations);raw=C.LC2.encode_report(f['typed'])
+  if ns==1 and args.count==64:
    assert len(raw)==3848488 and sha(raw)=='ff435edc418dbded9b6e76106da002fbe1058f919879f065fb6281c4f58cca05'
   canon.append(raw);(P/f'canonical-ns{ns}-{foreign}.stdout.gz').write_bytes(gzip.compress(raw,mtime=0))
   f.pop('captured');f.pop('typed');f['label']=label;f['namespace']=ns;f['foreignNamespace']=foreign
@@ -33,14 +33,16 @@ def main():
   pieces=[]
   for f,raw in zip(worlds,canon):
    array=lambda x:(json.dumps(x)if role=='bend'else C.compact(x)).encode()
-   pieces += [(f['label']+'\nFORCE:'+str(f['fold'])+'\nFOREIGN-FORCE:'+str(f['foreignFolds'][role])+'\nTUPLE:').encode(),array(f['tuple']),b'\nFOREIGN-TUPLE:',array(f['foreignTuples'][role]),b'\nACTORS:',C.compact(f['actors']if role=='bend'else [{'actor':i,'rawId':i}for i in range(1,129)]).encode(),b'\n']
+   pieces += [(f['label']+'\nFORCE:'+str(f['fold'])+'\nFOREIGN-FORCE:'+str(f['foreignFolds'][role])+'\nTUPLE:').encode(),array(f['tuple']),b'\nFOREIGN-TUPLE:',array(f['foreignTuples'][role]),b'\nACTORS:',C.compact(f['actors']if role=='bend'else [{'actor':i,'rawId':i}for i in range(1,args.count+args.iterations+1)]).encode(),b'\n']
    if role=='bend':pieces += [b'CANONICAL-BEGIN\n',raw,b'CANONICAL-END\n']
    else:pieces += [b'FULL:',C.compact(full(f)).encode(),b'\n']
   raw=b''.join(pieces);target=P/f'{role}-expected.stdout';target.write_bytes(raw);packed=gzip.compress(raw,mtime=0);target.with_suffix('.stdout.gz').write_bytes(packed)
   output[role]={'bytes':len(raw),'sha256':sha(raw),'gzipBytes':len(packed),'gzipSHA256':sha(packed)}
- assert output['bend']['bytes']==26249413 and output['bend']['sha256']=='a63887c33c37b50f9e7b9da609533d588ac1a439321cbce1e96f9ebe71b0b6e2'
- assert output['ts']['bytes']==17437766 and output['ts']['sha256']=='eaff4dd3990ab9afd45d6befa3fd062db6ce4f5de3cfaa1370dbcea69b722b5e'
+ if args.count==64:
+  assert output['bend']['bytes']==26249413 and output['bend']['sha256']=='a63887c33c37b50f9e7b9da609533d588ac1a439321cbce1e96f9ebe71b0b6e2'
+ if args.count==64:
+  assert output['ts']['bytes']==17437766 and output['ts']['sha256']=='eaff4dd3990ab9afd45d6befa3fd062db6ce4f5de3cfaa1370dbcea69b722b5e'
  assert all(w['records']==578 and all(x['records']==192 for x in w['foreign'].values()) for w in summaries)
- result={'status':'PASS','scope':'Independent Lifecycle Motion64 B1 gold only; no subject execution or timing qualification. Shared tuples equal; foreign carriers compared only to their own role/world gold.','worlds':summaries,'oracles':output,'sourceBasisSHA256':sha((SOURCE/'SOURCE-BASIS.json').read_bytes()),'modelPins':{n:sha((SOURCE/n).read_bytes())for n in ['common_model.py','ts_model.py','seal_gold.py']},'compactJSON':{'ensureAscii':False,'separators':[',',':'],'keyOrder':'Insertion order as in common_model.py and ts_model.py; records serialized individually before scalar tuple encoding.','scalarTuple':'record count decimal scalars+0; each record scalar length decimal scalars+0 then every JSON Unicode scalar. Fold=(fold*33+scalar) mod2^32 from0.'}}
+ result={'status':'PASS','count':args.count,'iterations':args.iterations,'scope':'Independent Lifecycle Motion B1 count matrix gold only; no subject execution or timing qualification. Shared tuples equal; foreign carriers compared only to their own role/world gold.','worlds':summaries,'oracles':output,'sourceBasisSHA256':sha((SOURCE/'SOURCE-BASIS.json').read_bytes()),'modelPins':{n:sha((SOURCE/n).read_bytes())for n in ['common_model.py','ts_model.py','seal_gold.py']},'compactJSON':{'ensureAscii':False,'separators':[',',':'],'keyOrder':'Insertion order as in common_model.py and ts_model.py; records serialized individually before scalar tuple encoding.','scalarTuple':'record count decimal scalars+0; each record scalar length decimal scalars+0 then every JSON Unicode scalar. Fold=(fold*33+scalar) mod2^32 from0.'}}
  (P/'PILOT-ORACLE-BASIS.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,sort_keys=True))
 if __name__=='__main__':main()

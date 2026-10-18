@@ -24,13 +24,14 @@ def row(value,actor):
  return {'actor':actor(h),'main':{'kind':'Found','value':{'coordinates':list(m),'frame':7}},'aux':{'kind':'Absent'}if a is None else {'kind':'Found','value':{'rates':list(a),'moving':True}},'flag':{'kind':'Absent'}if f is None else {'kind':'Found','value':{'group':f}}}
 def raw_row(value):
  return {'rawId':value['actor'],'main':value['main']['value'],'aux':None if value['aux']['kind']=='Absent'else value['aux']['value'],'flag':None if value['flag']['kind']=='Absent'else value['flag']['value']}
-def derive(primary,foreign):
- v=capture.run(64,64,primary,foreign);p=v['final'];logical=shared.compare_program(p);assert logical['captures']==[64,64,64,192];keys=list(p.initial_handles)+list(p.frame.reservations)
- assert len(keys)==len(set(keys))==128
+def derive(primary,foreign,count=64,iterations=64):
+ assert count in (64,256,1024) and iterations==64
+ v=capture.run(count,iterations,primary,foreign);p=v['final'];logical=shared.compare_program(p);assert logical['captures']==[64,64,64,192];keys=list(p.initial_handles)+list(p.frame.reservations)
+ assert len(keys)==len(set(keys))==count+iterations
  actor=lambda h:None if h is None else keys.index(h)+1
  foreign_handle=v['foreign_reservation'];foreign_actor=lambda h:1 if h==foreign_handle else (_ for _ in()).throw(AssertionError('foreign identity'))
  setup={'actor':foreign_actor(foreign_handle),'rows':[row(r,foreign_actor)for r in v['foreign_verified'].rows()],'ledger':ledger(v['foreign_verified'].ledger)}
- common=[{'kind':'Seed','count':64,'actors':[actor(h)for h in p.initial_handles],'foreign':setup}]
+ common=[{'kind':'Seed','count':count,'actors':[actor(h)for h in p.initial_handles],'foreign':setup}]
  carriers={'bend':[],'ts':[]};boundaries=[]
  for i in range(64):
   # Existing six real schedule results each Complete. Boundary occurs inside Observe,
@@ -54,4 +55,4 @@ def derive(primary,foreign):
  # Actual final world unchanged since last observer, including lookup read paths.
  assert p.world.wire()==p.boundaries[-1].after
  actor_map=[{'actor':i+1,'namespace':h.namespace,'index':h.key.index,'generation':h.key.generation}for i,h in enumerate(keys)]
- return {'common':common,'foreign':carriers,'actors':actor_map,'captured':v,'typed':records.report(64,64,primary,foreign)}
+ return {'common':common,'foreign':carriers,'actors':actor_map,'captured':v,'typed':records.report(count,iterations,primary,foreign)}

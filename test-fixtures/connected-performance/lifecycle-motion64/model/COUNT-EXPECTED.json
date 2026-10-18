@@ -1,0 +1,178 @@
+{
+  "64": {
+    "status": "PASS",
+    "count": 64,
+    "iterations": 64,
+    "scope": "Independent Lifecycle Motion B1 count matrix gold only; no subject execution or timing qualification. Shared tuples equal; foreign carriers compared only to their own role/world gold.",
+    "worlds": [
+      {
+        "label": "WARMUP",
+        "primaryNamespace": 1,
+        "foreignNamespace": 2,
+        "records": 578,
+        "tupleValues": 2044440,
+        "fold": 3945713710,
+        "canonical": {
+          "bytes": 3848488,
+          "sha256": "ff435edc418dbded9b6e76106da002fbe1058f919879f065fb6281c4f58cca05"
+        },
+        "foreign": {
+          "bend": {
+            "records": 192,
+            "tupleValues": 32998,
+            "fold": 2474567748
+          },
+          "ts": {
+            "records": 192,
+            "tupleValues": 26296,
+            "fold": 2140282094
+          }
+        }
+      },
+      {
+        "label": "SAMPLE",
+        "primaryNamespace": 3,
+        "foreignNamespace": 4,
+        "records": 578,
+        "tupleValues": 2044440,
+        "fold": 3945713710,
+        "canonical": {
+          "bytes": 3848487,
+          "sha256": "6d29f0e7740c8fe5c1d57933d0c1d5249cb9c781654c65f94548e8fcef4941d6"
+        },
+        "foreign": {
+          "bend": {
+            "records": 192,
+            "tupleValues": 32998,
+            "fold": 3854161156
+          },
+          "ts": {
+            "records": 192,
+            "tupleValues": 26296,
+            "fold": 2140282094
+          }
+        }
+      }
+    ],
+    "oracles": {
+      "bend": {
+        "bytes": 26249413,
+        "sha256": "a63887c33c37b50f9e7b9da609533d588ac1a439321cbce1e96f9ebe71b0b6e2",
+        "gzipBytes": 554662,
+        "gzipSHA256": "9b5ea27512f79d92fb5364cd8b3bc9161812f7c55d8366b5137758f30c64f966"
+      },
+      "ts": {
+        "bytes": 17437766,
+        "sha256": "eaff4dd3990ab9afd45d6befa3fd062db6ce4f5de3cfaa1370dbcea69b722b5e",
+        "gzipBytes": 458405,
+        "gzipSHA256": "0aa6b8d351f51ebc1b7dab05b9fb104151354a7163a837dd24dfefccbe9c0d41"
+      }
+    },
+    "sourceBasisSHA256": "a1ec400f73e5ff0585b2b606286dda51fb7f55225690b1606dcfed5883a0ba21",
+    "modelPins": {
+      "common_model.py": "8c18b0a6121d16944c652dcf73b6341ec374f0b777d2bf15d6a4713716b85284",
+      "ts_model.py": "8e2ec3abc274d70cb411fb11a34380079a4cba28fcfd439a77b2770e4204e960",
+      "seal_gold.py": "042cdb82030afa4fcb39ef9132d2c1542663646280c26f9c6ad28bc42c3a6fe0"
+    },
+    "compactJSON": {
+      "ensureAscii": false,
+      "separators": [
+        ",",
+        ":"
+      ],
+      "keyOrder": "Insertion order as in common_model.py and ts_model.py; records serialized individually before scalar tuple encoding.",
+      "scalarTuple": "record count decimal scalars+0; each record scalar length decimal scalars+0 then every JSON Unicode scalar. Fold=(fold*33+scalar) mod2^32 from0."
+    }
+  },
+  "256": {
+    "status": "PASS",
+    "count": 256,
+    "iterations": 64,
+    "scope": "Independent Lifecycle Motion B1 count matrix gold only; no subject execution or timing qualification. Shared tuples equal; foreign carriers compared only to their own role/world gold.",
+    "worlds": [
+      {
+        "label": "WARMUP",
+        "primaryNamespace": 1,
+        "foreignNamespace": 2,
+        "records": 578,
+        "tupleValues": 7903319,
+        "fold": 774534062,
+        "canonical": {
+          "bytes": 14372070,
+          "sha256": "8189f8014728da73657aea2ed95e56b5c80f30edc8cc2c34561b9ee2a145c62d"
+        },
+        "foreign": {
+          "bend": {
+            "records": 192,
+            "tupleValues": 32998,
+            "fold": 2474567748
+          },
+          "ts": {
+            "records": 192,
+            "tupleValues": 26296,
+            "fold": 2140282094
+          }
+        }
+      },
+      {
+        "label": "SAMPLE",
+        "primaryNamespace": 3,
+        "foreignNamespace": 4,
+        "records": 578,
+        "tupleValues": 7903319,
+        "fold": 774534062,
+        "canonical": {
+          "bytes": 14372070,
+          "sha256": "cf17785442b5fb2cc2fd094e49db458d636f032f7fcd7a5349e63bb5fb02e206"
+        },
+        "foreign": {
+          "bend": {
+            "records": 192,
+            "tupleValues": 32998,
+            "fold": 3854161156
+          },
+          "ts": {
+            "records": 192,
+            "tupleValues": 26296,
+            "fold": 2140282094
+          }
+        }
+      }
+    ],
+    "oracles": {
+      "bend": {
+        "bytes": 99547484,
+        "sha256": "794b4b9dd595df1818cac091dc310c2fb0017c66d255a529c6e3d42b2fab596c",
+        "gzipBytes": 3017945,
+        "gzipSHA256": "bca0ca24194ab0f574aeb902b00c10184c14957cf484040dc3a07306feeca320"
+      },
+      "ts": {
+        "bytes": 65306588,
+        "sha256": "94982aa8da9be0913c18668058ec121790184d9702b87f5220fdf4135ce44eb1",
+        "gzipBytes": 1389004,
+        "gzipSHA256": "9e030dcd391852677fdb04d36d522eb5e11d53edc6eac1612e75ab213e548ec3"
+      }
+    },
+    "sourceBasisSHA256": "a1ec400f73e5ff0585b2b606286dda51fb7f55225690b1606dcfed5883a0ba21",
+    "modelPins": {
+      "common_model.py": "8c18b0a6121d16944c652dcf73b6341ec374f0b777d2bf15d6a4713716b85284",
+      "ts_model.py": "8e2ec3abc274d70cb411fb11a34380079a4cba28fcfd439a77b2770e4204e960",
+      "seal_gold.py": "042cdb82030afa4fcb39ef9132d2c1542663646280c26f9c6ad28bc42c3a6fe0"
+    },
+    "compactJSON": {
+      "ensureAscii": false,
+      "separators": [
+        ",",
+        ":"
+      ],
+      "keyOrder": "Insertion order as in common_model.py and ts_model.py; records serialized individually before scalar tuple encoding.",
+      "scalarTuple": "record count decimal scalars+0; each record scalar length decimal scalars+0 then every JSON Unicode scalar. Fold=(fold*33+scalar) mod2^32 from0."
+    }
+  },
+  "1024": {
+    "status": "INCOMPLETE",
+    "exitCode": 124,
+    "processCapSeconds": 120,
+    "scope": "Independent source model generation timed out; no complete gold accepted. Fresh partial output and stdout/stderr preserved outside repository."
+  }
+}
