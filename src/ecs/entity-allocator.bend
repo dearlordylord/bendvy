@@ -45,13 +45,9 @@ def checked_bounds(allowed:Bool,allocator:Allocator,+key:K.Key,mode:U32) -> Allo
   match allowed allocator:
     case False{} allocator:(allocator,False{})
     case True{} Allocator{+next,+high,slots,+capacity,+depth,+free,+order}:checked_slot(key,mode,next,high,capacity,depth,free,order,Array.get(Slot,slots,K.index(key)))
-def checked_fields(allowed:Bool,+key:K.Key,mode:U32,+next:U32,+high:U32,slots:Array<Slot>,+capacity:U32,+depth:Nat,+free:List<&2,U32>,+order:List<&2,K.Key>) -> Allocator & Bool:
-  match allowed:
-    case False{}:(Allocator{next,high,slots,capacity,depth,free,order},False{})
-    case True{}:checked_slot(key,mode,next,high,capacity,depth,free,order,Array.get(Slot,slots,K.index(key)))
 def checked(allocator:Allocator,+key:K.Key,mode:U32) -> Allocator & Bool:
   match allocator:
-    case Allocator{+next,high,slots,+capacity,depth,free,order}:checked_fields(Bool.and(U32.is_lt(0,K.index(key)),Bool.and(U32.is_lt(K.index(key),next),U32.is_lt(K.index(key),capacity))),key,mode,next,high,slots,capacity,depth,free,order)
+    case Allocator{+next,high,slots,+capacity,depth,free,order}:checked_bounds(Bool.and(U32.is_lt(0,K.index(key)),Bool.and(U32.is_lt(K.index(key),next),U32.is_lt(K.index(key),capacity))),Allocator{next,high,slots,capacity,depth,free,order},key,mode)
 
 def keep(same:Bool,head:K.Key,rest:List<&2,K.Key>) -> List<&2,K.Key>:
   match same:

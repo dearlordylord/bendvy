@@ -65,13 +65,9 @@ def checked_namespace(~S:Data,~C:Type,~R:Type,~E:Data,allowed:Bool,mode:U32,worl
   match allowed world:
     case False{} world:(world,False{})
     case True{} World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:checked_join(~S,~C,~R,~E,namespace,store,resource,events,pending,registrations,nextSystemId,clock,A.checked(allocator,key,mode))
-def checked_fields(~S:Data,~C:Type,~R:Type,~E:Data,allowed:Bool,mode:U32,key:K.Key,namespace:U32,allocator:A.Allocator,store:C,resource:R,events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,registrations:List<&2,RegistrationMeta>,nextSystemId:U32,clock:U32) -> World<S,C,R,E> & Bool:
-  match allowed:
-    case False{}:(World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},False{})
-    case True{}:checked_join(~S,~C,~R,~E,namespace,store,resource,events,pending,registrations,nextSystemId,clock,A.checked(allocator,key,mode))
 def checked(~S:Data,~C:Type,~R:Type,~E:Data,mode:U32,world:World<S,C,R,E>,handle:Handle<S>) -> World<S,C,R,E> & Bool:
   match world handle:
-    case World{+namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock} Handle{ns,key}:checked_fields(~S,~C,~R,~E,U32.is_eq(namespace,ns),mode,key,namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock)
+    case World{+namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock} Handle{ns,key}:checked_namespace(~S,~C,~R,~E,U32.is_eq(namespace,ns),mode,World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},key)
 def metadata_valid(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>,handle:Handle<S>) -> World<S,C,R,E> & Bool:
   checked(~S,~C,~R,~E,0,world,handle)
 def valid(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>,handle:Handle<S>) -> World<S,C,R,E> & Bool:
