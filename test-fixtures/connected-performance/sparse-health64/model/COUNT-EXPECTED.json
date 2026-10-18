@@ -1,0 +1,146 @@
+{
+  "64": {
+    "schema": "Health",
+    "count": 64,
+    "iterations": 64,
+    "origin": "independent source model; no subject output",
+    "reproduced64": "BYTE_IDENTICAL",
+    "outputs": {
+      "bend-expected.stdout.gz": {
+        "bytes": 1115471,
+        "sha256": "b0e5cf1a1be82bb3834202730c45229d5ac2b819b99ce469be30689307dd6710"
+      },
+      "ts-expected.stdout.gz": {
+        "bytes": 736456,
+        "sha256": "8256595d009757e48e6bb09e9b2c9816a0a14717a8f707b54c436e2285d2cb2a"
+      },
+      "expected-common.json": {
+        "bytes": 366834,
+        "sha256": "e9d2b7ac997ef26826148199553f96fb204dec7162a992bf2e30e271664b0058"
+      }
+    },
+    "canonical": [
+      {
+        "namespace": 1,
+        "bytes": 428396,
+        "sha256": "d7393285db308541d8c56a6125ae955f9803652bf3bb4c043b3504418c253f5a"
+      },
+      {
+        "namespace": 2,
+        "bytes": 428397,
+        "sha256": "50b661382212652482c5d6e2d36b9f7597df6fa589136d6b5e46d79947453a0e"
+      }
+    ],
+    "tupleValues": 37629,
+    "fold": 2801527267,
+    "sourcePins": {
+      "connected-performance/sparse-motion64/model/base_state.py": "b1e73a61bdb98b75549b2b3db3e28def069e189fd5f82d3e98e7cedae5024aaf",
+      "connected-performance/sparse-motion64/model/model.py": "860fd13d5de1201d3665c14616883767edb9bee5e461e0ddab8c8afe4ee4b929",
+      "connected-performance/sparse-motion64/model/pilot_oracle.py": "46f2c992bd5ff50972b4559f505c111ee49b72fcc849ce0d2528e764cbaa474d",
+      "connected-performance/sparse-motion64/model/seal_gold.py": "2706a4dec56ec5bcc29a432049f54e1b65859264ea8c4eb6251f1a67a89ac67f",
+      "connected-performance/sparse-motion64/model/shared.py": "4dfaf5a7c08a0bc415c81e7d59c29fcf8215969793141b557a75a68565ed4bf4",
+      "connected-performance/sparse-health64/model/health_model.py": "65867046f2a03268bd4a044b814506ecdc3de4b001caf92acfd55cd2f2d15bd3",
+      "connected-performance/sparse-health64/model/health_shared.py": "388899abdf676bfa8f83f460f7d519badbd276bc55a00c229f79ad6ee6b39bf3",
+      "connected-performance/sparse-health64/model/pilot_oracle.py": "d86bf0ff7f3bb6dd75c0cd6cb5e72cd7565e8c20b2b416422eaa7790d8d8a3ae"
+    },
+    "namespaceCorrespondence": "RawScore=logicalScore+(namespace-1)*sum(included ranks) modulo2^32; weighted1/3/5, cumulative preserves each prior delta.",
+    "snapshotCorrespondence": "Original TS optional snapshot reused with no intervening writes; original Bend three fresh scans/postfilters retained. Different strategies, complete shared observations.",
+    "basisSHA256": "9f9a07663ce264c4e31300b19021f42b1a074fb54c9eecb005c22e735ac8ca4e"
+  },
+  "256": {
+    "schema": "Health",
+    "count": 256,
+    "iterations": 64,
+    "origin": "independent source model; no subject output",
+    "reproduced64": "BYTE_IDENTICAL",
+    "outputs": {
+      "bend-expected.stdout.gz": {
+        "bytes": 4521056,
+        "sha256": "9b10c3347cfa65eb7aa1c4287e5b34dac0b84cf515eb60f9ee6a781dd920dbae"
+      },
+      "ts-expected.stdout.gz": {
+        "bytes": 2999538,
+        "sha256": "d5fb8961ad53639611c90ab510d442b871e67e1fa7a1029b942896decb1e783f"
+      },
+      "expected-common.json": {
+        "bytes": 1497637,
+        "sha256": "7925a6f4b7c7959a5c9c6e70cf00cb01f800a4d9c6be56cb37d951c114aafa98"
+      }
+    },
+    "canonical": [
+      {
+        "namespace": 1,
+        "bytes": 1701031,
+        "sha256": "e83229491f2225f5756eaa3070cec55c7038d8e0b9d12a1f5a858fac8d11a46a"
+      },
+      {
+        "namespace": 2,
+        "bytes": 1701031,
+        "sha256": "d793ab6b37d6c4ba12b7c4189c41a58a82b7215f30c06b17bbf93e3f4a739691"
+      }
+    ],
+    "tupleValues": 153633,
+    "fold": 1699494921,
+    "sourcePins": {
+      "connected-performance/sparse-motion64/model/base_state.py": "b1e73a61bdb98b75549b2b3db3e28def069e189fd5f82d3e98e7cedae5024aaf",
+      "connected-performance/sparse-motion64/model/model.py": "860fd13d5de1201d3665c14616883767edb9bee5e461e0ddab8c8afe4ee4b929",
+      "connected-performance/sparse-motion64/model/pilot_oracle.py": "46f2c992bd5ff50972b4559f505c111ee49b72fcc849ce0d2528e764cbaa474d",
+      "connected-performance/sparse-motion64/model/seal_gold.py": "2706a4dec56ec5bcc29a432049f54e1b65859264ea8c4eb6251f1a67a89ac67f",
+      "connected-performance/sparse-motion64/model/shared.py": "4dfaf5a7c08a0bc415c81e7d59c29fcf8215969793141b557a75a68565ed4bf4",
+      "connected-performance/sparse-health64/model/health_model.py": "65867046f2a03268bd4a044b814506ecdc3de4b001caf92acfd55cd2f2d15bd3",
+      "connected-performance/sparse-health64/model/health_shared.py": "388899abdf676bfa8f83f460f7d519badbd276bc55a00c229f79ad6ee6b39bf3",
+      "connected-performance/sparse-health64/model/pilot_oracle.py": "d86bf0ff7f3bb6dd75c0cd6cb5e72cd7565e8c20b2b416422eaa7790d8d8a3ae"
+    },
+    "namespaceCorrespondence": "RawScore=logicalScore+(namespace-1)*sum(included ranks) modulo2^32; weighted1/3/5, cumulative preserves each prior delta.",
+    "snapshotCorrespondence": "Original TS optional snapshot reused with no intervening writes; original Bend three fresh scans/postfilters retained. Different strategies, complete shared observations.",
+    "basisSHA256": "cfefd2adb3d18432967e9f0a5d8f40ded9aa483fc191f6aab9060af855814911"
+  },
+  "1024": {
+    "schema": "Health",
+    "count": 1024,
+    "iterations": 64,
+    "origin": "independent source model; no subject output",
+    "reproduced64": "BYTE_IDENTICAL",
+    "outputs": {
+      "bend-expected.stdout.gz": {
+        "bytes": 18330598,
+        "sha256": "4c1c2236cc04c38c628106df133ab67b8df8fbc89db81bdd0bf2a216fc95a0a4"
+      },
+      "ts-expected.stdout.gz": {
+        "bytes": 12221494,
+        "sha256": "9b67452fab863037b3ebc1de21edc87643e632f345b12bb6946619a9e8af765e"
+      },
+      "expected-common.json": {
+        "bytes": 6105512,
+        "sha256": "d9f991b262c9e4d9c9e5bd3cdd508b7a2431ecdbf0e0561f0123da36b8adac69"
+      }
+    },
+    "canonical": [
+      {
+        "namespace": 1,
+        "bytes": 6832144,
+        "sha256": "41b7af0a005d73d4a30e8c9f6912e83db1cc497f595f6fb6102d77612a99d80a"
+      },
+      {
+        "namespace": 2,
+        "bytes": 6832144,
+        "sha256": "050389ab9fba74fe4ca9ca49bac6f2bff48b1dcc6495a29ec490aaa778fe9a98"
+      }
+    ],
+    "tupleValues": 623365,
+    "fold": 1979678901,
+    "sourcePins": {
+      "connected-performance/sparse-motion64/model/base_state.py": "b1e73a61bdb98b75549b2b3db3e28def069e189fd5f82d3e98e7cedae5024aaf",
+      "connected-performance/sparse-motion64/model/model.py": "860fd13d5de1201d3665c14616883767edb9bee5e461e0ddab8c8afe4ee4b929",
+      "connected-performance/sparse-motion64/model/pilot_oracle.py": "46f2c992bd5ff50972b4559f505c111ee49b72fcc849ce0d2528e764cbaa474d",
+      "connected-performance/sparse-motion64/model/seal_gold.py": "2706a4dec56ec5bcc29a432049f54e1b65859264ea8c4eb6251f1a67a89ac67f",
+      "connected-performance/sparse-motion64/model/shared.py": "4dfaf5a7c08a0bc415c81e7d59c29fcf8215969793141b557a75a68565ed4bf4",
+      "connected-performance/sparse-health64/model/health_model.py": "65867046f2a03268bd4a044b814506ecdc3de4b001caf92acfd55cd2f2d15bd3",
+      "connected-performance/sparse-health64/model/health_shared.py": "388899abdf676bfa8f83f460f7d519badbd276bc55a00c229f79ad6ee6b39bf3",
+      "connected-performance/sparse-health64/model/pilot_oracle.py": "d86bf0ff7f3bb6dd75c0cd6cb5e72cd7565e8c20b2b416422eaa7790d8d8a3ae"
+    },
+    "namespaceCorrespondence": "RawScore=logicalScore+(namespace-1)*sum(included ranks) modulo2^32; weighted1/3/5, cumulative preserves each prior delta.",
+    "snapshotCorrespondence": "Original TS optional snapshot reused with no intervening writes; original Bend three fresh scans/postfilters retained. Different strategies, complete shared observations.",
+    "basisSHA256": "852b67410d1daa37d148fda621a7a73de9616e8092b01e375ce1e5d7135ad003"
+  }
+}
