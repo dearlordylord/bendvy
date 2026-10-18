@@ -19,3 +19,11 @@ through the structural path.
 
 This is a bounded correctness checkpoint, not a speedup or full #21 acceptance.
 The 1024 gates and equivalent-work TS/JS/Native timing qualification remain open.
+
+## Ordinary App migration contract
+
+The candidate reuses the actual three Local and two composite Provider registrations. Library-owned catalogue/plan/dispatch replace manual schedule IDs and cursor plumbing. Shared meta/tick remain affine; Fast/Slow retain distinct actual owners/cursors. Business Local/Reader invocations, full Type outputs, before/after Doc captures, observation String/Doc/chunk construction and both barriers are preserved. Family.frame(Mixed.before_attempt(...)) keeps its exact position after Prime, each scheduled phase and Drain.
+
+Initial registered observations precede seeding as before; persistent App attaches once after seed. This correctness entry creates one fresh World and has no warmup; comparative warmup/sample qualification is separate. Source stream scenario checks pass; IO entry has only existing foreign mathematical refusals. Diagnostics/unchanged operation hashes are in checks/ordinary-app-v1. No new contract/law/core dependency is introduced.
+
+First gate is Motion64 JS/Native full selected10810200-byte stream, with corrected successor provenance for its exact oracle hash; the stale nested piece-direct basis remains historical. No backend pass is claimed at this source checkpoint. Existing returned-owner/decoder/mutation controls need exact applicability. Genuine Health ordinary execution and independently bound full oracle, both schemas256/1024, final independent review/integration and combined#28 remain; no comparative timing claim. Historical recovered Health code/oracles are references until current source-bound execution qualifies them.
