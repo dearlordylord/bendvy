@@ -1,0 +1,10 @@
+SOME PROOFS FAIL
+Error:
+- expected : value
+- observed : value (consumed more than once)
+Location: denied
+2 | 
+3>| def denied(value:Core.Scheduled()) -> Core.Scheduled() & Core.Scheduled():(value,value)
+  |            ^^^^^
+4 | 
+bend 2.0.37 is available: run bend update
