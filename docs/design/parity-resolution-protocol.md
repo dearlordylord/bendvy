@@ -1,4 +1,4 @@
-# Parity measurement resolution — unaccepted protocol proposal
+# Parity measurement resolution — current source audit and unaccepted comparison protocol
 
 No batching permission, numerical margin, timer change or evaluator transition is inferred. This is a source audit and minimal proposal; no benchmark was executed for it.
 
@@ -8,14 +8,42 @@ The source audit below describes the historical evaluator; its fixed deadlines a
 
 Motion and Health B1 method pilots for all five families now retain complete warmup/sample role streams and common scalar tuples. Their accepted packets are linked from the [delivery report](../reports/delivery-process-expectations.md). These correctness pilots do not implement the proposed enclosing batch. Original authored observation work stays inside its interval. Added TS observations, Sparse strategy differences and Lifecycle foreign lookup/footprint differences are retained limitations: matching shared tuples alone does not qualify equivalent timed work.
 
-Before comparative sampling, resolve the common timed-work correspondence, one enclosing interval or approved clock alternative, and the numerical uncertainty/decision margin. Seven rotations, separate fresh warmup/sample owners and independently reset child RSS remain existing requirements. Historical B16, 1%, noise/keep rules and deadlines below are not current approval. Final targets remain JS <= TS and Native <= 0.5 * TS.
+The ordinary fixtures now use the accepted common nanosecond clock seam. Before comparative sampling, resolve the common timed-work correspondence and the numerical uncertainty/decision margin. Seven rotations, separate fresh warmup/sample owners and independently reset child RSS remain existing requirements. Historical B16, 1%, noise/keep rules and deadlines below are not current approval. Final targets remain JS <= TS and Native <= 0.5 * TS.
 
-Current Lifecycle source audit: both pilots retain the original six-stage work and complete common/foreign forcing inside the interval. The extra foreign carrier differs: Bend encodes identity and lookup kind; TS can also encode the collided row. Equal common tuples therefore do not yet establish equivalent additional forcing. Before comparative sampling, use a shared semantic forcing shape for these probes while retaining the complete role-specific observations, original lookups and authored checks. Explicitly account for TS debug/snapshot work and Bend physical captures; do not remove original work or require identical algorithms. The ordinary ns clock integration is accepted, but no numerical accuracy or uncertainty margin follows from its units.
+## Current five-family source reconciliation
 
-Equivalent work requires matching operations and observable obligations, not
-identical algorithms, traversal counts or allocation costs. The unresolved
-observer issue is extra timed work on either role, not a requirement that Bend
-and TS implement an agreed observation at equal cost.
+This audit binds integrated source `5789949776d05012f1807e5e3f75ad8a33e1284b`. All five families retain separate fresh warmup and sample worlds, complete role streams and full common tuples. Bend `Clock.begin/end` and TS `process.hrtime.bigint()` supply integer nanoseconds. FORCE output acceptance remains inside each interval; full tuple transport follows it. These accepted semantic fixtures are not seven-rotation comparative qualification or independently reset child-RSS evidence.
+
+| Family | Current timed work and remaining correspondence |
+| --- | --- |
+| Dense | `dense-motion64/method/pilot.bend:53–54` runs the original updates, then `common.bend:captured_rows/capture_view` reads final logical rows and Ledger before encoding and FORCE. TS `reference.mjs:72–73` runs Update, Dump and the same common fields. TS `validate()` starts after end at `:109`; Bend final physical `Observe.state` rendering is also after end at pilot `:67`. Do not classify those final validations/renderings as timed extra work. |
+| Sparse | Bend `consumer/s-perf/canonical-api-v1/sparse-runtime-v1/motion-scans.bend:run/first/second/third` executes three logical-row queries and filters their rows. TS `reference.mjs:64–68` executes optional, present and absent queries and records full scans. The observed selection/score obligations match. Different query/filter strategies and traversal costs alone are not extra semantic work. |
+| FailedTxn | Pilot `:31–32` includes loops and `Program.method_final`. Original Local/provider before/after String renders remain reached at `consumer/motion-systems.bend:99,107,125,141`; `motion-program.bend:67` retains full world/owner snapshots and the boundary captures. TS `reference.mjs:62–97` retains expected-state assertions, debug observations, row SHA and clones inside its interval. Matching the common records does not establish correspondence for all this diagnostic work. Enumerate its public payload/status/rollback observations before adding only genuinely missing checks or captures. |
+| Lifecycle | Pilot `:19–21` forces both common and foreign tuples before end. `method/method.bend:78` encodes foreign identity plus numeric lookup kind; TS `reference.mjs:70,88` can encode a full receiver-local collided row. This is a concrete unequal forcing obligation. Resolve one semantic field/shape obligation for the 192 actual probes while retaining original lookups and complete own-role diagnostics. Adding another common tuple alone leaves the unequal timed forcing unresolved. |
+| Readers | `method/finish.bend:24–33` preserves Stream.state, Ledger, the original Logical.rows query/text renderer and afterLogicalWorld before pilot `:33` reaches FORCE/end. TS `reference.mjs:53–87` retains the real query/event/removal reads plus assertions, SHA, clones, debug checks and final Dump. Distinguish these observer obligations from implementation strategy. TS `:91–92` labels final unread arrays as logical post-Drain expectations and explicitly says subsequent empty reads are not performed. They are not actual public empty-read evidence or Bend private cursor/occupancy evidence. |
+
+Paths in the table are relative to `test-fixtures/connected-performance/<family>-motion64/`; Health retains the same boundaries with its genuine payload fields. A new actual empty-read probe would add callbacks, transactions and schedule work, changing the fixed Readers counts. It needs an explicit consumer/model successor rather than a fabricated empty result or an unnoticed observer addition.
+
+The smallest isolated next reconciliation is Lifecycle foreign forcing. FailedTxn and Readers need an explicit inventory of original diagnostic observations and their public semantic counterparts. Preserve original business callbacks, checks, physical observations and owner returns. Do not require equal traversal counts, algorithms or allocation costs. Any change to what is inside the interval must be stated in the existing comparison protocol; this audit approves no deletion, batching, numerical margin or new contract.
+
+Current entry hashes, with paths under the fixture prefix above:
+
+| Fixture | `method/pilot.bend` SHA256 | `reference.mjs` SHA256 |
+| --- | --- | --- |
+| dense-motion64 | `4a2bcb0c769d3375859eb27579523b37d45edfac3f8aeeed2fe32d45843ede02` | `6dbaf0a4c262fcf3089664d3237044452ae7e3f9e7b36a80edbc130a77360cbe` |
+| dense-health64 | `b2f9995e7edfccf10bd1f59e1b48f6a4c5a019fb14061efb4310825d2ea43c3e` | `515d9e067aa97980aa3250d24f67a58002980951e73b5c14218175f93cb40730` |
+| sparse-motion64 | `eb313f8e5f6d05d47ba8c554d0425b3aae7e311ee85a4d2f358b8dcdd8324b01` | `11bd82b4014bbd52269fffe07c46c494d3691006f21cf4229cbe611e90977a74` |
+| sparse-health64 | `d391050c6284ff38fb73fd7afa150e3eabe7e7b4fa49fa6fe3737dd698dec102` | `d80dc6e4fca2682cec8de1e3fc8852106f108b0189b9161622b3973b5b27e18f` |
+| failedtxn-motion64 | `658a429ad2224bb4780f894059baa12535b9fb55ccea3933e196ee3bbed6eb34` | `9f1ee934e7d1157abdfd1d0bea05fb869ab1ffedb26c43eba7b0f429ac4bee43` |
+| failedtxn-health64 | `abfa562d4e7c2b39f7fe3348122986e61e4e9c82bf8b3329ead5335a22be37d8` | `8916ab9c0a8606dca09c27c04991f99d08282c4979dcfc572cf87eee8a6c5ff9` |
+| lifecycle-motion64 | `64ced91407939b2c7b829750850a854c5ce429cc44e142f2fbb38c2246b03909` | `cf3fa3c3436405c5b0276a68f3a1ba8174903be5686d892a794ba5bd32ec7a80` |
+| lifecycle-health64 | `0a86910f17f5ccc66cc5860331b1c9eb2cb6b854996cfe6c2cb46f985e0f1d91` | `3d0a54f0d1737e8a326951f357d041be2a819537dc36005f03181f4c9a38732c` |
+| readers-motion64 | `312879cb56a8f8e38ca03565c1331fbba0d22b1797df7ee42047852767ef5674` | `21e81b4bea3bf59ed0a683bb09d85ca91dbafc7f38e9fd2adf55f04aef461e22` |
+| readers-health64 | `1f1d1ec1ee7e83b201e34ea32195498b64959a30cf173f7947d18aa97c8404b0` | `e99938079fca6634651cdf2bacefd895b631c102ab9bfa7ce4422f1ef3b5e851` |
+
+## Historical evaluator and proposal
+
+Everything below describes retained historical sources or an unaccepted comparison proposal. Its millisecond clocks, fold-only warmup example, fixed batching, limits and expired global budget do not describe the accepted current fixtures or override current limits. The accepted ns seam and complete current warmup streams resolve those particular historical gaps, not equivalent timed work, uncertainty, seven rotations, reset child RSS or the final performance targets.
 
 Source audit of the retained Dense single-plan artifacts: JS `io_now` floors
 `performance.now()`; Native `io_now_run` divides `CLOCK_MONOTONIC` nanoseconds by
