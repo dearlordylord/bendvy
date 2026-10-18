@@ -1,0 +1,68 @@
+{
+  "scope": "Source-derived both-schema Dense counts sealed before family diagnostic executions/Health subject implementation; same successful reservation and two-write body paths.",
+  "baselineCommit": "e6dbb3045",
+  "businessRuntimeArguments": {
+    "motion256": [
+      "256",
+      "64"
+    ],
+    "motion1024": [
+      "1024",
+      "64"
+    ],
+    "health64": [
+      "64",
+      "64"
+    ],
+    "health256": [
+      "256",
+      "64"
+    ],
+    "health1024": [
+      "1024",
+      "64"
+    ]
+  },
+  "sourcePins": {
+    "experiments/s-perf/canonical-api-v1/dense-runtime-v1/motion.bend": "627a093a934dd3981491406b8b94d77d60821a429d18145f1fb9f3548e4f9779",
+    "src/ecs/ordinary-system.bend": "cd30b04301663b445f028c71fd7703c1365fc6e17a765c5382084adaa35e8865",
+    "src/ecs/compose.bend": "9aa35fb6205b3b75a0ee5f97497d8ee6b7472e249266820c93d53928790520e0",
+    "src/ecs/component.bend": "7defc891de475d04be063b6e7a641293854b21c06ffbd99a20bb28f6b56eeb5f",
+    "src/ecs/resource-field.bend": "cfc567436ba8a74cb3a098a28307f73292c093a5811c22303ad97a34bfb93517",
+    "src/ecs/commands.bend": "221fe005797c386e7acb11589a48440d0068675957599d1a9ad7554642d3f3af",
+    "src/ecs/transaction.bend": "7948296332645b7b94494a8cd6258b4f97a3de693820bc3345f28a1509fe47a8",
+    "experiments/s-perf/canonical-api-v1/dense-runtime-v1/health.bend": "910f12ebf36f77918ba58305503778057cefc878e919be8e5dcbe1c0b268e613"
+  },
+  "derivation": {
+    "seed": "N successful tx_spawn operations each add one pending-state inverse and one deferred command; no emit.",
+    "query-loop": "Both declarations write exactly Main and Ledger per selected row. One Tx spans all N selected rows; each successful component/resource write prepends one inverse, no commands/events.",
+    "samples": "One seed terminal and64 query-loop terminals, N in64/256/1024. Existing independently authored fullwire oracles remain additional acceptance.",
+    "bounds": "Logical list counts only, not allocation volume/RSS or lifecycle stamp occupancy. No separate canonical Tx mark queue."
+  },
+  "modelSHA256": "4932eb0a60fe4839b25b2d5ce21744df613d8515335d98e05ef0cf726b2f32b2",
+  "expectedFile": "expected.stats.json",
+  "expectedBytes": 3713,
+  "expectedSHA256": "44535c6e289a6e10f3b6f023fb65f5cc3b88ff5048ae96c86fb574ae606a8483",
+  "cases": {
+    "motion256.stats.json": {
+      "sha256": "19c0f27420ddef6222c9a238808c00fa1b9c5465dea070cc3c3882976a882c5d",
+      "bytes": 3715
+    },
+    "motion1024.stats.json": {
+      "sha256": "d3795021c117b2b9d0976858552b63fc820b38abb2fa1b0831b98de7bdb908a4",
+      "bytes": 3781
+    },
+    "health64.stats.json": {
+      "sha256": "44535c6e289a6e10f3b6f023fb65f5cc3b88ff5048ae96c86fb574ae606a8483",
+      "bytes": 3713
+    },
+    "health256.stats.json": {
+      "sha256": "19c0f27420ddef6222c9a238808c00fa1b9c5465dea070cc3c3882976a882c5d",
+      "bytes": 3715
+    },
+    "health1024.stats.json": {
+      "sha256": "d3795021c117b2b9d0976858552b63fc820b38abb2fa1b0831b98de7bdb908a4",
+      "bytes": 3781
+    }
+  }
+}
