@@ -2,7 +2,7 @@
 // Pinned public bevy-ts measurement reference. No Bend or performance acceptance.
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
-import {readFileSync,writeFileSync} from 'node:fs';
+import {readFileSync,writeFileSync,writeSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {Descriptor,Schema,Fx} from '/workspace/formal-proofs/bendvy/.references/bevy-ts/packages/core/src/index.ts';
@@ -11,6 +11,7 @@ const pin='3040a3b2a3f28fa8554d856f9ccb6bf5433fa334';
 const self=fileURLToPath(import.meta.url), iterations=Number(process.argv[3]);
 const sha=x=>createHash('sha256').update(x).digest('hex');
 const hashFile=p=>sha(readFileSync(p));
+function writeAll(text){const bytes=Buffer.from(text);let offset=0;while(offset<bytes.length)offset+=writeSync(1,bytes,offset,bytes.length-offset);}
 assert.equal(execFileSync('git',['-C',reference,'rev-parse','HEAD'],{encoding:'utf8',timeout:5000}).trim(),pin);
 assert.equal(JSON.parse(readFileSync('/workspace/formal-proofs/bendvy/.references/sources.json')).sources['bevy-ts'].commit,pin);
 const schemas=['Motion','Health'],workloads=['dense','sparse','lifecycle','readers','failed-transaction'],counts=[64,256,1024];
@@ -29,7 +30,7 @@ function rowScore(schema,r){
  return out>>>0;
 }
 function execute(schema,workload,count){
-  const setupStart=performance.now();
+  const setupStart=process.hrtime.bigint();
   const Main=Descriptor.Component()(schema==='Motion'?'Position':'Vitals');
   const Aux=Descriptor.Component()(schema==='Motion'?'Velocity':'Armor');
   const Flag=Descriptor.Component()(schema==='Motion'?'Selected':'Tracked');
@@ -68,9 +69,9 @@ function execute(schema,workload,count){
   });
   let final;
   const Dump=G.System('Dump',{queries:{q:Q},resources:{ledger:G.System.readResource(Ledger)}},({queries,resources})=>{final={rows:queries.q.each().map(row),ledger:structuredClone(resources.ledger.get())};});
-  const setupMilliseconds=performance.now()-setupStart;
+  const setupMilliseconds=process.hrtime.bigint()-setupStart;
   return {run(){measured=true;for(let i=0;i<iterations;i++)tick(Update);measured=false;tick(Dump);
-    const tuple=encode({rows:final.rows,ledger:final.ledger,audits,statuses,cumulative:worksum});console.log('FORCE:'+commonFold(tuple));return tuple;
+    const tuple=encode({rows:final.rows,ledger:final.ledger,audits,statuses,cumulative:worksum});writeAll('FORCE:'+commonFold(tuple)+'\n');return tuple;
   },validate(){
   const selected=Array.from({length:count},(_,j)=>j).filter(j=>workload==='dense'||j%8===0);
   function expectedRows(delta){return selected.map(j=>({rawId:ids[j].value,main:main(schema,j,delta),aux:j%3===0?aux(schema):null,flag:j%3===1?{group:8}:null}));}
@@ -107,6 +108,6 @@ function encode(x){
  return rows.concat(x.ledger.totals,[x.ledger.epoch],audits,statuses,[x.cumulative]);
 }
 const schema='Health',workload='sparse',count=Number(process.argv[2]);assert.equal(count,64);assert.equal(iterations,64);
-function one(path){const owner=execute(schema,workload,count);const start=performance.now();const tuple=owner.run();const end=performance.now();const full=owner.validate();writeFileSync(path,String(end-start)+'\n',{flag:'w'});console.log('TUPLE:'+JSON.stringify(tuple));console.log('FULL:'+JSON.stringify(full));}
+function one(path){const owner=execute(schema,workload,count);const start=process.hrtime.bigint();const tuple=owner.run();const end=process.hrtime.bigint();const full=owner.validate();writeFileSync(path,String(end-start)+'\n',{flag:'w'});writeAll('TUPLE:'+JSON.stringify(tuple)+'\n');writeAll('FULL:'+JSON.stringify(full)+'\n');}
 const [warmupClock,sampleClock]=process.argv.slice(4);assert(warmupClock&&sampleClock);
-console.log('WARMUP');one(warmupClock);console.log('SAMPLE');one(sampleClock);
+writeAll('WARMUP'+'\n');one(warmupClock);writeAll('SAMPLE'+'\n');one(sampleClock);
