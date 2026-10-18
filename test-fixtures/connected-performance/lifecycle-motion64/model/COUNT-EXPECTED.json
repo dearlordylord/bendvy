@@ -180,6 +180,91 @@
       "processCapSeconds": 300,
       "output": "/tmp/bendvy21-lifecycle-motion-count1024-independent-gold02",
       "scope": "Same760cc algorithm/full fields; source-only generation timeout. No complete basis accepted."
+    },
+    "successor900": {
+      "status": "PASS",
+      "count": 1024,
+      "iterations": 64,
+      "scope": "Independent Lifecycle Motion B1 count matrix gold only; no subject execution or timing qualification. Shared tuples equal; foreign carriers compared only to their own role/world gold.",
+      "worlds": [
+        {
+          "label": "WARMUP",
+          "primaryNamespace": 1,
+          "foreignNamespace": 2,
+          "records": 578,
+          "tupleValues": 31511537,
+          "fold": 3227234445,
+          "canonical": {
+            "bytes": 57594965,
+            "sha256": "24c5b13acdd5ffd6cfa9181bb99f8c160b4899fba1f52a88183d2b5aba50966a"
+          },
+          "foreign": {
+            "bend": {
+              "records": 192,
+              "tupleValues": 32998,
+              "fold": 2474567748
+            },
+            "ts": {
+              "records": 192,
+              "tupleValues": 26296,
+              "fold": 2140282094
+            }
+          }
+        },
+        {
+          "label": "SAMPLE",
+          "primaryNamespace": 3,
+          "foreignNamespace": 4,
+          "records": 578,
+          "tupleValues": 31511537,
+          "fold": 3227234445,
+          "canonical": {
+            "bytes": 57594965,
+            "sha256": "213273ba4b8017aeb80d3890e9e5f4d68a3e10d123689b1e643a571e1b68f4f1"
+          },
+          "foreign": {
+            "bend": {
+              "records": 192,
+              "tupleValues": 32998,
+              "fold": 3854161156
+            },
+            "ts": {
+              "records": 192,
+              "tupleValues": 26296,
+              "fold": 2140282094
+            }
+          }
+        }
+      ],
+      "oracles": {
+        "bend": {
+          "bytes": 396386802,
+          "sha256": "63f9e984ec2b9a22ae4f1e426a84d8c2a8e6ff1fa16ecd0e00eca44bc1cd63a5",
+          "gzipBytes": 39592744,
+          "gzipSHA256": "79c2c6df8355e154d575f66c7a1c4ad87d60fe13b98938fa8a8b94641cce5912"
+        },
+        "ts": {
+          "bytes": 258187308,
+          "sha256": "379525e94d921180ae94b03115f6b83dbdb5fc8f7f5b3a8b095ad194d1170bff",
+          "gzipBytes": 7688131,
+          "gzipSHA256": "3da6cc112ae1b0f06e90e6aec7c9473712012bb24e5a65eaad09c72a851fde03"
+        }
+      },
+      "sourceBasisSHA256": "a1ec400f73e5ff0585b2b606286dda51fb7f55225690b1606dcfed5883a0ba21",
+      "modelPins": {
+        "common_model.py": "8c18b0a6121d16944c652dcf73b6341ec374f0b777d2bf15d6a4713716b85284",
+        "ts_model.py": "8e2ec3abc274d70cb411fb11a34380079a4cba28fcfd439a77b2770e4204e960",
+        "seal_gold.py": "042cdb82030afa4fcb39ef9132d2c1542663646280c26f9c6ad28bc42c3a6fe0"
+      },
+      "compactJSON": {
+        "ensureAscii": false,
+        "separators": [
+          ",",
+          ":"
+        ],
+        "keyOrder": "Insertion order as in common_model.py and ts_model.py; records serialized individually before scalar tuple encoding.",
+        "scalarTuple": "record count decimal scalars+0; each record scalar length decimal scalars+0 then every JSON Unicode scalar. Fold=(fold*33+scalar) mod2^32 from0."
+      }
     }
   }
 }
