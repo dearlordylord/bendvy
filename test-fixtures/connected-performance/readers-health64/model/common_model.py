@@ -27,7 +27,7 @@ class Observer(O.Program):
   if index==0:
    h=self.frame.transient;assert h not in self.actor_keys;self.actor_keys.append(h)
  def prime(self):
-  self.actor_keys=list(self.world.main_handles());assert len(self.actor_keys)==64
+  self.actor_keys=list(self.world.main_handles());assert len(self.actor_keys)==self.frame.count
   self.method_records.append({'kind':'SeedActors','actors':[self.actor(h)for h in self.actor_keys]});super().prime()
  def read(self,provider):
   super().read(provider);a=self.audit[-1]
