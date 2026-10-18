@@ -1,0 +1,7 @@
+# Clean-child DenseMotion64 RSS pilot
+
+The unchanged S-integrate C launcher measures `wait4` of a child forked after the launcher has exec-reset its address space. This excludes the outer observer's inherited floor. The child peak includes startup, imports, fresh warmup, setup, measured work, retained observations and serialization. It is not warmup-free, an allocation count, or isolated component storage.
+
+Reuse the accepted epoch8f B1 JS/Native artifacts and complete 226,988-byte oracle. Fresh clock paths are runtime inputs; business operations and full canonical output remain unchanged. `original-source-epoch8f` retains exact historical producer bytes, with ordinary-system recovered from Git641f7195. `source-epoch8f` changes only absolute import prefixes for source guards; it is not newly compiled. SOURCE-RECOVERY maps the two representations. Later observable-only f190 changes are outside this regular plan path; this is historical artifact qualification, not a byte-current whole closure claim.
+
+The first pair is a correctness/transport pilot. No RSS summary is qualified until the retained-192MiB observer, true, empty Node and page-touched allocation controls pass. Seven-sample qualification and other workload/schema/size combinations remain open. Launcher comment's historical five-second deadline is unchanged; the current frozen plan records the actual 180-second child cap.
