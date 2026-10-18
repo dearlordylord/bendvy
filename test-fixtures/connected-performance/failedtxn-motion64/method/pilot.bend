@@ -45,7 +45,7 @@ def write(label:String,path:String,result:Completed) -> IO(Unit):
     case Completed{prefix,state,tuple,actors,nanoseconds}:
       do IO<Unit>:
         clock(path,nanoseconds)
-        IO.print("TUPLE:" ++ Codec.show(tuple))
+        Codec.write("TUPLE:",tuple)
         IO.print("ACTORS:" ++ J.render(actors))
         IO.print("CANONICAL-BEGIN")
         Stream.write(Doc.wrap(label ++ "={",Stream.final(prefix,state),"}\n"))
