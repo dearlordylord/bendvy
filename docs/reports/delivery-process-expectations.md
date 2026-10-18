@@ -2255,3 +2255,38 @@ Shared core is unchanged; all 356 protected #28 sources/full inventory remain
 exact. Prior checkpoint CI39109064236 passed. Next: equivalent Sparse observations
 and the already-admitted CPU/allocation profiles of unchanged qualified JS.
 No limits or acceptance criteria changed.
+
+
+## 2026-10-18 — Sparse metrics and same-artifact profiles integrated
+
+Sparse `7e26c472a` passes all 12 complete canonical/metric cases, with independent
+final review. Actual seed undo/commands/events are N/N/0; 64 query transactions
+each contain 2*ceil(N/8)/0/0. Three fresh postcommit scans, filters, payloads,
+affine owners and cumulative observations remain intact. The
+[packet](../../experiments/s-perf/canonical-api-v1/sparse-runtime-v1/diagnostics/tx-peaks-v1/results/family01/RETENTION.json)
+passes 1,321 members, 805 objects and 102 guards; unchanged reporting code reuses
+the pinned compiling counter defect.
+
+Profiles `3433e78c5` use the identical qualified JS artifact and preserve complete
+outputs and all four actual common tuples. The
+[packet](../../experiments/s-perf/canonical-api-v1/dense-runtime-v1/diagnostics/matched-timing-v1/profiles-v1/runtime-v1/actual-attempt01/RETENTION.json)
+passes 632 members, 587 objects and 14 guards, accepted by independent review.
+CPU: 855 samples; allocation sampling estimate: 574,161,672 bytes. These are
+whole-process instrumented diagnostics, not exact allocation, live heap, RSS,
+timed-region costs or speed comparisons. Raw time deltas and phase ambiguity are
+retained. Generated JS confirms repeated declaration construction in actual
+per-row paths. The independently reviewed isolated candidate `8f7c658e5` consumes
+one declaration in `ordinary-system.plan`; its generic Type source check passes.
+It is not adopted in master; full consumers, authority checks and before/after
+profiles remain required. No speedup is established.
+
+CI39109350865 failed only on a new EOF blank line in the Dense Health readable
+fixture. `c72de1d47` removes exactly one final LF; independent applicability review
+passes. Original producer and frozen archived source remain unchanged:
+`af373e4ade371ca1143a0ab4310be93f9494f3d62fe6131719adc9e7adde6cc4`.
+The normalized readable copy is
+`fbd29b494009c51425607b2fb99b9b016e67312258c4aafd8f6e0c1b4d712569`;
+old receipt pins are not claimed equal to it. The exact CI source/whitespace check
+now passes locally. No Bend recompile was needed for the EOF-only correction.
+Protected #28 still matches all 356 sources and full core inventory. Existing
+limits, contracts, proof approvals and final performance gates remain unchanged.
