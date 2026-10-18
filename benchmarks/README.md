@@ -6,6 +6,9 @@ python3 benchmarks/run.py --output .artifacts/regression-$(date +%s) --cpu 0
 ```
 
 Uses the existing Bend/Node/private Clang19 installation; no new dependencies.
+The compiler defaults to `/home/node/.bend/bin/bend-2.0.35`; `--bend PATH`
+selects another location for that pinned version. The runner records its resolved
+path and hash and rejects a different version before checking or compiling.
 Choose a CPU allowed by the host (`--cpu` defaults to the lowest allowed CPU).
 Output must be a fresh directory. The receipt contains full inputs, source and
 artifact hashes, environment versions, command limits, all pair measurements and

@@ -37,6 +37,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--cpu", type=int, default=min(os.sched_getaffinity(0)))
+    parser.add_argument("--bend", type=Path,
+                        default=Path("/home/node/.bend/bin/bend-2.0.35"),
+                        help="Pinned Bend 2.0.35 executable; never selected from PATH")
     parser.add_argument("--inject-slowdown-ms", type=int, default=0,
                         help="Harness negative control only; delay both candidate processes")
     parser.add_argument("--candidate-provider", type=Path,
@@ -45,6 +48,7 @@ def main():
                         choices=("declarations.bend", "owned-declarations.bend"),
                         help="Select the reviewed declaration entry within the provider")
     args = parser.parse_args()
+    bend = args.bend.expanduser().resolve()
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
     os.sched_setaffinity(0, {args.cpu})
@@ -98,9 +102,12 @@ def main():
         return text, elapsed
 
     try:
-        for label, command in [("Bend", ["bend", "version"]), ("Node", ["node", "--version"]),
+        for label, command in [("Bend", [bend, "version"]), ("Node", ["node", "--version"]),
                                ("Clang", ["/tmp/bendvy-clang19-diagnostic/clang19", "--version"])]:
             receipt["versions"][label] = run(command, 5, "version-" + label)[0].strip()
+        if receipt["versions"]["Bend"] != "bend 2.0.35":
+            raise ValueError("Regression gate requires pinned Bend 2.0.35; select it with --bend")
+        receipt["compilerExecutable"] = {"path": str(bend), "sha256": sha(bend)}
         ref = ROOT / ".references/bevy-ts"
         if run(["git", "-C", ref, "rev-parse", "HEAD"], 5, "reference-head")[0].strip() != contract["referenceCommit"]:
             raise ValueError("Reference commit drift")
@@ -173,9 +180,9 @@ def main():
         for role in ("baseline", "candidate"):
             stage = output / role
             entry = stage / "examples/query-composition/timing-main.bend"
-            run(["bend", entry, "--check-only"], 5, role + "-checker")
-            run(["bend", entry, "-o", stage / "workshop.js"], 30, role + "-js-emit")
-            run(["bend", entry, "-o", stage / "workshop.c"], 30, role + "-c-emit")
+            run([bend, entry, "--check-only"], 5, role + "-checker")
+            run([bend, entry, "-o", stage / "workshop.js"], 30, role + "-js-emit")
+            run([bend, entry, "-o", stage / "workshop.c"], 30, role + "-c-emit")
             run(["/tmp/bendvy-clang19-diagnostic/clang19", "-O3", stage / "workshop.c",
                  "-o", stage / "workshop.native", "-pthread", "-lm"], 120, role + "-native-build")
             programs[role + "-JS"] = ["node", stage / "workshop.js"]
