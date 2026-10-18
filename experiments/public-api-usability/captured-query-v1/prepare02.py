@@ -1,0 +1,17 @@
+"""Preserved oracle-order successor: same JS emission, first Native emission."""
+from pathlib import Path
+import copy,gzip,hashlib,json,sys
+W=Path(__file__).resolve().parents[3];D=Path(__file__).parent;sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();oldparent=Path('/tmp/bendvy73-captured-query-workshop-actual01/normal');output=Path('/tmp/bendvy73-captured-query-workshop-actual02');assert not output.exists();output.mkdir();gold=D/'oracle/amendment01/workshop.stdout';oracle=output/'expected.stdout.gz';oracle.write_bytes(gzip.compress(gold.read_bytes(),mtime=0))
+sys.path.insert(0,str(W/'scripts'))
+from task_runner import run
+commit=run(['git','rev-parse','HEAD'],cwd=W,text=True,capture_output=True,timeout=15,check=True).stdout.strip()
+for role in ['js','native']:
+ base=oldparent/role/'plan.json';p=json.loads(base.read_text());q=output/'normal'/role;q.mkdir(parents=True);pins=dict(p['pins'])
+ for f in [Path(__file__),base,gold,oracle,*[f for f in (D/'oracle/amendment01').iterdir()if f.is_file()]]:pins[str(f)]=sha(f)
+ if role=='js':
+  receipt=oldparent/role/'receipt.json';r=json.loads(receipt.read_text());assert r['status']=='INCOMPLETE'and'whole independent oracle'in r['error'];assert r['commands'][0]['label']=='emit'and r['commands'][0]['exit']==0 and r['commands'][0]['failure']is None;generated=Path(p['generated']);assert sha(generated)==r['emitArtifactSHA256'];pins[str(receipt)]=sha(receipt);pins[str(generated)]=sha(generated);commands=[p['commands'][-1]];p['producer']={'plan':str(base),'planSHA256':sha(base),'receipt':str(receipt),'receiptSHA256':sha(receipt),'artifact':str(generated),'artifactSHA256':sha(generated),'scope':'Completed source-bound emission only; original consumer INCOMPLETE due incorrect registration-order oracle, not accepted as whole-run PASS'}
+ else:
+  assert not(oldparent/role/'receipt.json').exists();generated=q/'scenario.c';native=q/'scenario.native';commands=copy.deepcopy(p['commands']);commands[0]['argv'][-1]=str(generated);commands[1]['argv']=[str(native)if v==p['native']else str(generated)if v==p['generated']else v for v in commands[1]['argv']];commands[2]['argv']=[str(native)if v==p['native']else v for v in commands[2]['argv']];p.update(generated=str(generated),native=str(native))
+ p.update(scope='Public captured-query Workshop successor; source-backed registration-list oracle amendment, no library/body change; full typed error/outputs/affine owner/cursor equality',pins=pins,commands=commands,oracle=str(oracle),oracleBytes=gold.stat().st_size,oracleSHA256=sha(gold),normalOracle=str(oracle),normalOracleBytes=gold.stat().st_size,normalOracleSHA256=sha(gold),sourceCommit=commit,modelCommit='4fbb048dd',modelCorrection={'path':str(D/'oracle/amendment01/AMENDMENT.json'),'sha256':sha(D/'oracle/amendment01/AMENDMENT.json'),'scope':'Four registration-order fields only; old sourcefreeze/model/gold/failedJS and unexecutedNative retained unchanged'})
+ for f,h in pins.items():assert sha(f)==h,f
+ plan=q/'plan.json';plan.write_text(json.dumps(p,indent=2)+'\n');print(role,plan,sha(plan),flush=True)

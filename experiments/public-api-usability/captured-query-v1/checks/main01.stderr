@@ -1,0 +1,12 @@
+SOME PROOFS FAIL
+Error:
+- expected : a defined name
+- observed : String.is_eq
+Context:
+- mode : String
+Location: workshop
+16 |     case True{}:run(~S.Workshop,"Workshop")
+17>|     case False{}:garden(String.is_eq(mode,"garden"))
+   |                         ^^^^^^^^^^^^
+18 | def args(values:List<String>) -> IO(Unit):
+bend 2.0.37 is available: run bend update
