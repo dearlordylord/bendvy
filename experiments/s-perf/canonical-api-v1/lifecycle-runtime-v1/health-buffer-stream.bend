@@ -1,4 +1,5 @@
 import Base
+import health-app.bend as EntryApp
 import health-codec-values.bend as V
 import health-buffer-codec.bend as C
 import health-domain.bend as D
@@ -20,14 +21,22 @@ def owners_done(+args:D.Frame,+digest:U32,+boundaries:List<&2,D.Boundary>,+calls
 def owners(value:S.Owners) -> S.Owners & OwnerView:
   match value:
     case S.Owners{select,reserve,dispose,observe,args,digest,boundaries,calls}:owners_done(args,digest,boundaries,calls,S.instance(~S.select_runner,select),S.instance(~S.reserve_runner,reserve),S.instance(~S.dispose_runner,dispose),S.instance(~S.observe_runner,observe))
-def state_done(+identity:P.Ids,+namespace:U32,+logs:List<&2,P.Log>,+result:P.Status,main:F.World() & V.World,foreign:F.World() & V.World,registered:S.Owners & OwnerView) -> P.State & StateView:
+type StateSnapshot is Data:
+  StateSnapshot{world:V.World,owners:OwnerView}
+def state_snapshot_done(stage:U32,main:F.World() & V.World,registered:S.Owners & OwnerView) -> F.World() & (S.Runtime() & StateSnapshot):
   (main,sw)=main
-  (foreign,sf)=foreign
   (owners,so)=registered
-  (P.State{main,foreign,owners,identity,namespace,logs,result},StateView{namespace,identity,result,sw,sf,so,logs})
+  (main,(S.with_stage(stage,S.pack(owners)),StateSnapshot{sw,so}))
+def state_snapshot(main:F.World(),runtime:S.Runtime(),_:Unit) -> F.World() & (S.Runtime() & StateSnapshot):
+  match runtime:
+    case (((select,reserve),(dispose,observe)),S.Shared{frame,digest,boundaries,calls,stage}):state_snapshot_done(stage,V.world(main),owners(S.Owners{select,reserve,dispose,observe,frame,digest,boundaries,calls}))
+def state_done(+identity:P.Ids,+namespace:U32,+logs:List<&2,P.Log>,+result:P.Status,main:EntryApp.Slot() & StateSnapshot,foreign:F.World() & V.World) -> P.State & StateView:
+  (app,StateSnapshot{sw,so})=main
+  (foreign,sf)=foreign
+  (P.State{app,foreign,identity,namespace,logs,result},StateView{namespace,identity,result,sw,sf,so,logs})
 def state(value:P.State) -> P.State & StateView:
   match value:
-    case P.State{main,foreign,registered,identity,namespace,logs,result}:state_done(identity,namespace,logs,result,V.world(main),V.world(foreign),owners(registered))
+    case P.State{app,foreign,identity,namespace,logs,result}:state_done(identity,namespace,logs,result,EntryApp.project(~Unit,~StateSnapshot,~state_snapshot,app,Unit{}),V.world(foreign))
 def list_header(~A:Data,values:List<&2,A>,buffer:B.Buffer) -> B.Buffer:C.n(List.length(&2,A,values),C.text("q",buffer))
 def write_boundaries(values:List<&2,D.Boundary>) -> IO(Unit):
   match values:

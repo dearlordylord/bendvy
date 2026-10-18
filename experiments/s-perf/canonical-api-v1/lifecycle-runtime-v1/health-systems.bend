@@ -1,4 +1,6 @@
 import Base
+import ../../../../src/ecs/execution-context.bend as Ctx
+import ../../../../src/ecs/trace-facts.bend as Facts
 import health-codec-values.bend as V
 import health-domain.bend as D
 import health-observation.bend as Observation
@@ -52,69 +54,33 @@ def system_outcome(world:D.World(),status:CallStatus) -> Sys.Outcome<D.World(),U
   match status:
     case Succeeded{}:Sys.Succeeded{world,Unit{}}
     case _:Sys.Failed{world,Unit{}}
-def select_recorded(reserve:Instance(~reserve_runner),dispose:Instance(~dispose_runner),observe:Instance(~observe_runner),calls:List<&2,Call>,world:D.World(),+status:CallStatus,+id:U32,text:V.Local,+output:Maybe<&2,D.Output>,owner:Instance(~select_runner),updated:D.Frame & (U32 & List<&2,D.Boundary>)) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
+type Shared is Type:
+  Shared{frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,stage:U32}
+def Owned() -> Type:(Instance(~select_runner) & Instance(~reserve_runner)) & (Instance(~dispose_runner) & Instance(~observe_runner))
+def Runtime() -> Type:Owned() & Shared
+def pack(value:Owners) -> Runtime():
+  match value:
+    case Owners{s,r,d,o,frame,digest,boundaries,calls}:(((s,r),(d,o)),Shared{frame,digest,boundaries,calls,0})
+def with_stage(stage:U32,value:Runtime()) -> Runtime():
+  match value:
+    case (owned,Shared{frame,digest,boundaries,calls,_}):(owned,Shared{frame,digest,boundaries,calls,stage})
+def unpack(value:Runtime()) -> Owners:
+  match value:
+    case (((s,r),(d,o)),Shared{frame,digest,boundaries,calls,_}):Owners{s,r,d,o,frame,digest,boundaries,calls}
+def contextual(trace:Facts.State,outcome:Sys.Outcome<D.World(),Unit,Unit>) -> Sys.Outcome<Ctx.Context<D.World()>,Unit,Unit>:
+  match outcome:
+    case Sys.Succeeded{world,value}:Sys.Succeeded{Ctx.Context{world,trace},value}
+    case Sys.Failed{world,value}:Sys.Failed{Ctx.Context{world,trace},value}
+def harvested(~run:D.World() -> Array<U32> -> D.Frame -> Local.Outcome<D.World(),Array<U32>,Unit,D.Output>,+operation:D.Operation,trace:Facts.State,calls:List<&2,Call>,stage:U32,owner:Instance(~run),world:D.World(),+status:CallStatus,+id:U32,text:V.Local,+output:Maybe<&2,D.Output>,updated:D.Frame & (U32 & List<&2,D.Boundary>)) -> Instance(~run) & (Shared & Sys.Outcome<Ctx.Context<D.World()>,Unit,Unit>):
   match updated:
-    case (frame,(digest,boundaries)):(Owners{owner,reserve,dispose,observe,frame,digest,boundaries,List.append(&2,Call,calls,[Call{D.Select{},id,status,text,output}])},system_outcome(world,status))
-def select_done(reserve:Instance(~reserve_runner),dispose:Instance(~dispose_runner),observe:Instance(~observe_runner),frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,result:Called<select_runner>) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
+    case (frame,(digest,boundaries)):(owner,(Shared{frame,digest,boundaries,List.append(&2,Call,calls,[Call{operation,id,status,text,output}]),stage},contextual(trace,system_outcome(world,status))))
+def returned(~run:D.World() -> Array<U32> -> D.Frame -> Local.Outcome<D.World(),Array<U32>,Unit,D.Output>,operation:D.Operation,trace:Facts.State,frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,stage:U32,result:Called<run>) -> Instance(~run) & (Shared & Sys.Outcome<Ctx.Context<D.World()>,Unit,Unit>):
   match result:
-    case Called{owner,world,status,+output,id,text}:select_recorded(reserve,dispose,observe,calls,world,status,id,text,output,owner,updated_frame(frame,digest,boundaries,output))
-def reserve_recorded(select:Instance(~select_runner),dispose:Instance(~dispose_runner),observe:Instance(~observe_runner),calls:List<&2,Call>,world:D.World(),+status:CallStatus,+id:U32,text:V.Local,+output:Maybe<&2,D.Output>,owner:Instance(~reserve_runner),updated:D.Frame & (U32 & List<&2,D.Boundary>)) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match updated:
-    case (frame,(digest,boundaries)):(Owners{select,owner,dispose,observe,frame,digest,boundaries,List.append(&2,Call,calls,[Call{D.Reserve{},id,status,text,output}])},system_outcome(world,status))
-def reserve_done(select:Instance(~select_runner),dispose:Instance(~dispose_runner),observe:Instance(~observe_runner),frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,result:Called<reserve_runner>) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match result:
-    case Called{owner,world,status,+output,id,text}:reserve_recorded(select,dispose,observe,calls,world,status,id,text,output,owner,updated_frame(frame,digest,boundaries,output))
-def dispose_recorded(select:Instance(~select_runner),reserve:Instance(~reserve_runner),observe:Instance(~observe_runner),calls:List<&2,Call>,world:D.World(),+status:CallStatus,+id:U32,text:V.Local,+output:Maybe<&2,D.Output>,owner:Instance(~dispose_runner),updated:D.Frame & (U32 & List<&2,D.Boundary>)) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match updated:
-    case (frame,(digest,boundaries)):(Owners{select,reserve,owner,observe,frame,digest,boundaries,List.append(&2,Call,calls,[Call{D.Dispose{},id,status,text,output}])},system_outcome(world,status))
-def dispose_done(select:Instance(~select_runner),reserve:Instance(~reserve_runner),observe:Instance(~observe_runner),frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,result:Called<dispose_runner>) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match result:
-    case Called{owner,world,status,+output,id,text}:dispose_recorded(select,reserve,observe,calls,world,status,id,text,output,owner,updated_frame(frame,digest,boundaries,output))
-def observe_recorded(select:Instance(~select_runner),reserve:Instance(~reserve_runner),dispose:Instance(~dispose_runner),calls:List<&2,Call>,world:D.World(),+status:CallStatus,+id:U32,text:V.Local,+output:Maybe<&2,D.Output>,owner:Instance(~observe_runner),updated:D.Frame & (U32 & List<&2,D.Boundary>)) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match updated:
-    case (frame,(digest,boundaries)):(Owners{select,reserve,dispose,owner,frame,digest,boundaries,List.append(&2,Call,calls,[Call{D.Observe{},id,status,text,output}])},system_outcome(world,status))
-def observe_done(select:Instance(~select_runner),reserve:Instance(~reserve_runner),dispose:Instance(~dispose_runner),frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,result:Called<observe_runner>) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match result:
-    case Called{owner,world,status,+output,id,text}:observe_recorded(select,reserve,dispose,calls,world,status,id,text,output,owner,updated_frame(frame,digest,boundaries,output))
-def observe_allowed(allowed:Bool,select:Instance(~select_runner),reserve:Instance(~reserve_runner),dispose:Instance(~dispose_runner),observe:Instance(~observe_runner),+frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,world:D.World(),wanted:U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match allowed:
-    case True{}:observe_done(select,reserve,dispose,frame,digest,boundaries,calls,invoked(~observe_runner,observe,world,frame))
-    case False{}:(Owners{select,reserve,dispose,observe,frame,digest,boundaries,calls},Sys.Failed{world,Unit{}})
-def observe_id(select:Instance(~select_runner),reserve:Instance(~reserve_runner),dispose:Instance(~dispose_runner),frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,world:D.World(),+wanted:U32,observed:Instance(~observe_runner) & U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match observed:
-    case (observe,id):observe_allowed(U32.is_eq(id,wanted),select,reserve,dispose,observe,frame,digest,boundaries,calls,world,wanted)
-def dispatch_observe(owners:Owners,world:D.World(),wanted:U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match owners:
-    case Owners{select,reserve,dispose,observe,frame,digest,boundaries,calls}:observe_id(select,reserve,dispose,frame,digest,boundaries,calls,world,wanted,identity(~observe_runner,observe))
-def dispose_allowed(allowed:Bool,select:Instance(~select_runner),reserve:Instance(~reserve_runner),dispose:Instance(~dispose_runner),observe:Instance(~observe_runner),+frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,world:D.World(),wanted:U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match allowed:
-    case True{}:dispose_done(select,reserve,observe,frame,digest,boundaries,calls,invoked(~dispose_runner,dispose,world,frame))
-    case False{}:dispatch_observe(Owners{select,reserve,dispose,observe,frame,digest,boundaries,calls},world,wanted)
-def dispose_id(select:Instance(~select_runner),reserve:Instance(~reserve_runner),observe:Instance(~observe_runner),frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,world:D.World(),+wanted:U32,observed:Instance(~dispose_runner) & U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match observed:
-    case (dispose,id):dispose_allowed(U32.is_eq(id,wanted),select,reserve,dispose,observe,frame,digest,boundaries,calls,world,wanted)
-def dispatch_dispose(owners:Owners,world:D.World(),wanted:U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match owners:
-    case Owners{select,reserve,dispose,observe,frame,digest,boundaries,calls}:dispose_id(select,reserve,observe,frame,digest,boundaries,calls,world,wanted,identity(~dispose_runner,dispose))
-def reserve_allowed(allowed:Bool,select:Instance(~select_runner),reserve:Instance(~reserve_runner),dispose:Instance(~dispose_runner),observe:Instance(~observe_runner),+frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,world:D.World(),wanted:U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match allowed:
-    case True{}:reserve_done(select,dispose,observe,frame,digest,boundaries,calls,invoked(~reserve_runner,reserve,world,frame))
-    case False{}:dispatch_dispose(Owners{select,reserve,dispose,observe,frame,digest,boundaries,calls},world,wanted)
-def reserve_id(select:Instance(~select_runner),dispose:Instance(~dispose_runner),observe:Instance(~observe_runner),frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,world:D.World(),+wanted:U32,observed:Instance(~reserve_runner) & U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match observed:
-    case (reserve,id):reserve_allowed(U32.is_eq(id,wanted),select,reserve,dispose,observe,frame,digest,boundaries,calls,world,wanted)
-def dispatch_reserve(owners:Owners,world:D.World(),wanted:U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match owners:
-    case Owners{select,reserve,dispose,observe,frame,digest,boundaries,calls}:reserve_id(select,dispose,observe,frame,digest,boundaries,calls,world,wanted,identity(~reserve_runner,reserve))
-def select_allowed(allowed:Bool,select:Instance(~select_runner),reserve:Instance(~reserve_runner),dispose:Instance(~dispose_runner),observe:Instance(~observe_runner),+frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,world:D.World(),wanted:U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match allowed:
-    case True{}:select_done(reserve,dispose,observe,frame,digest,boundaries,calls,invoked(~select_runner,select,world,frame))
-    case False{}:dispatch_reserve(Owners{select,reserve,dispose,observe,frame,digest,boundaries,calls},world,wanted)
-def select_id(reserve:Instance(~reserve_runner),dispose:Instance(~dispose_runner),observe:Instance(~observe_runner),frame:D.Frame,digest:U32,boundaries:List<&2,D.Boundary>,calls:List<&2,Call>,world:D.World(),+wanted:U32,observed:Instance(~select_runner) & U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match observed:
-    case (select,id):select_allowed(U32.is_eq(id,wanted),select,reserve,dispose,observe,frame,digest,boundaries,calls,world,wanted)
-def dispatch_select(owners:Owners,world:D.World(),wanted:U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:
-  match owners:
-    case Owners{select,reserve,dispose,observe,frame,digest,boundaries,calls}:select_id(reserve,dispose,observe,frame,digest,boundaries,calls,world,wanted,identity(~select_runner,select))
-def dispatch(owners:Owners,world:D.World(),id:U32) -> Owners & Sys.Outcome<D.World(),Unit,Unit>:dispatch_select(owners,world,id)
-def condition(world:D.World(),slot:U32) -> D.World() & Bool:(world,U32.is_eq(slot,0))
+    case Called{owner,world,status,+output,id,text}:harvested(~run,operation,trace,calls,stage,owner,world,status,id,text,output,updated_frame(frame,digest,boundaries,output))
+def invoke(~run:D.World() -> Array<U32> -> D.Frame -> Local.Outcome<D.World(),Array<U32>,Unit,D.Output>,operation:D.Operation,owner:Instance(~run),shared:Shared,context:Ctx.Context<D.World()>) -> Instance(~run) & (Shared & Sys.Outcome<Ctx.Context<D.World()>,Unit,Unit>):
+  match shared context:
+    case Shared{+frame,digest,boundaries,calls,stage},Ctx.Context{world,trace}:returned(~run,operation,trace,frame,digest,boundaries,calls,stage,invoked(~run,owner,world,frame))
+def invoke_select(owner:Instance(~select_runner),shared:Shared,context:Ctx.Context<D.World()>) -> Instance(~select_runner) & (Shared & Sys.Outcome<Ctx.Context<D.World()>,Unit,Unit>):invoke(~select_runner,D.Select{},owner,shared,context)
+def invoke_reserve(owner:Instance(~reserve_runner),shared:Shared,context:Ctx.Context<D.World()>) -> Instance(~reserve_runner) & (Shared & Sys.Outcome<Ctx.Context<D.World()>,Unit,Unit>):invoke(~reserve_runner,D.Reserve{},owner,shared,context)
+def invoke_dispose(owner:Instance(~dispose_runner),shared:Shared,context:Ctx.Context<D.World()>) -> Instance(~dispose_runner) & (Shared & Sys.Outcome<Ctx.Context<D.World()>,Unit,Unit>):invoke(~dispose_runner,D.Dispose{},owner,shared,context)
+def invoke_observe(owner:Instance(~observe_runner),shared:Shared,context:Ctx.Context<D.World()>) -> Instance(~observe_runner) & (Shared & Sys.Outcome<Ctx.Context<D.World()>,Unit,Unit>):invoke(~observe_runner,D.Observe{},owner,shared,context)
