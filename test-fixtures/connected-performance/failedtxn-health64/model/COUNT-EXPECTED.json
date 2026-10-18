@@ -124,5 +124,68 @@
         "gzipSHA256": "e4a43f09f64c7d274c7b4bee28e06a9dc905ad652172f2b0eafc16ed511db411"
       }
     }
+  },
+  "1024": {
+    "status": "PASS",
+    "count": 1024,
+    "iterations": 64,
+    "scope": "Complete independent Health64 B1 gold only; no subject execution, ratios, timing precision, RSS or batching qualification",
+    "sourceBasisSHA256": "c3701bad1ea4ad9a0bc5563e62175900044296fce0f5d44d9125287f77fb0ebc",
+    "canonicalControl": {
+      "path": "/tmp/bendvy21-failedtxn-health-count1024-independent-gold01/canonical-control/expected.stdout",
+      "gzip": "/tmp/bendvy21-failedtxn-health-count1024-independent-gold01/canonical-control/expected.stdout.gz",
+      "sha256": "a97b57c6d4df37ecc96e2afe11eeb49770ef8530582046013bd75481afe22f75",
+      "bytes": 444047554
+    },
+    "worlds": [
+      {
+        "namespace": 1,
+        "records": 965,
+        "tupleValues": 49585179,
+        "fold": 1451642941,
+        "actorCount": 1216,
+        "counts": {
+          "callbacks": 193,
+          "publications": 129,
+          "boundaries": 256,
+          "phases": 385
+        }
+      },
+      {
+        "namespace": 2,
+        "records": 965,
+        "tupleValues": 49585179,
+        "fold": 1451642941,
+        "actorCount": 1216,
+        "counts": {
+          "callbacks": 193,
+          "publications": 129,
+          "boundaries": 256,
+          "phases": 385
+        }
+      }
+    ],
+    "modelPins": {
+      "operation_model.py": "62324b16b7be53183a9c0ccc39ca0c6b5c9c379cb321491603ba66bb63574543",
+      "common_model.py": "cc8bd9482007013df4c22f2d2b19cb57710beaf5b672ae09d07abf4d8cea425f",
+      "ts_model.py": "b4e97da2101cfbb86bb62e59afb982286f23e63bf6b3330c72000d1072d07d94",
+      "seal_gold.py": "c0202b434b33ae5e2df8367ef72cfdc8e8d35dfa9d1a8571926bc85f22263b55"
+    },
+    "oracles": {
+      "bend": {
+        "path": "/tmp/bendvy21-failedtxn-health-count1024-independent-gold01/bend-expected.stdout.gz",
+        "bytes": 882389984,
+        "sha256": "0cda26633ecb6153f09bb6db0ae6a1674ab24a07036d1b01c200ab4177f49db1",
+        "gzipBytes": 57643995,
+        "gzipSHA256": "59ea62976ac6c904e2043100b6c25a24c0c1b58754942777c87ce2ba302a04b2"
+      },
+      "ts": {
+        "path": "/tmp/bendvy21-failedtxn-health-count1024-independent-gold01/ts-expected.stdout.gz",
+        "bytes": 517350286,
+        "sha256": "6212c18f1d0c3bbdb7fe5ad56a11ef9765da35a1ccbe36ccf6e422dfc5a36df6",
+        "gzipBytes": 20868620,
+        "gzipSHA256": "393b3ae6c849424f377dc1e7abdffe2814011074f5d1d9560c6c9154f5565f19"
+      }
+    }
   }
 }
