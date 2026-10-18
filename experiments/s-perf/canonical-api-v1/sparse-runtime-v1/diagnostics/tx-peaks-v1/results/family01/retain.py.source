@@ -1,0 +1,33 @@
+from pathlib import Path
+import json,gzip,hashlib,shutil,os
+D=Path('/tmp/bendvy-sparse-tx-peaks/experiments/s-perf/canonical-api-v1/sparse-runtime-v1/diagnostics/tx-peaks-v1');L=D/'results/family01';assert not L.exists();(L/'objects').mkdir(parents=True);sha=lambda b:hashlib.sha256(b).hexdigest();versions={};tools=set();cases=[]
+def pin(name,h):
+ p=Path(name);raw=p.read_bytes()
+ assert sha(raw)==h,(name,h)
+ versions[(name,h)]=raw
+for schema,count in [(schema,n) for schema in ['motion','health'] for n in [64,256,1024]]:
+ for role in ['js','native']:
+  q=Path(f'/tmp/bendvy21-sparse-tx-peaks-{schema}{count}-actual01/normal')/role;p=json.loads((q/'plan.json').read_text());r=json.loads((q/'receipt.json').read_text());assert r['planSHA256']==sha((q/'plan.json').read_bytes());cases.append({'directory':str(q),'schema':schema,'count':count,'role':role,'planSHA256':r['planSHA256'],'receiptSHA256':sha((q/'receipt.json').read_bytes())})
+  for name,h in p['pins'].items():pin(name,h)
+  for root,files in p['resourceRoots'].items():
+   for name,h in files.items():path=str(Path(root)/name);pin(path,h);tools.add(path)
+  tools.update(p['tools'].values())
+  for g in r['guards']:
+   pin(g['path'],g['sha256']);guard=json.loads(Path(g['path']).read_text());assert guard['unchanged']
+   for name,h in guard['actualPins'].items():pin(name,h)
+  for c in r['commands']:
+   for key in ['stdout','stderr']:v=c[key];pin(v['path'],v['sha256']);assert Path(v['path']).stat().st_size==v['bytes']
+  for f in q.iterdir():
+   if f.is_file():pin(str(f),sha(f.read_bytes()))
+dependency=Path('/tmp/bendvy-dense-tx-peaks/experiments/s-perf/canonical-api-v1/dense-runtime-v1/diagnostics/tx-peaks-v1/results/ordinary01/RETENTION.json');pin(str(dependency),'6b5d3bee7113838a000d095342608bc9cd4fd0fd96ff5eb4dfd5bf920dbc803a')
+for f in [Path(__file__),Path('/tmp/verify21-sparse-tx-family.py')]:pin(str(f),sha(f.read_bytes()))
+rows=[]
+for (name,h),raw in sorted(versions.items()):
+ p=Path(name);row={'actualPath':name,'actualRealpath':str(p.resolve()),'bytes':len(raw),'sha256':h}
+ if raw.startswith(b'\x7fELF') and name in tools:row['hashOnly']='Installed tool/shared library identity only; not redistributed'
+ else:
+  obj=L/'objects'/(h+'.gz')
+  if not obj.exists():obj.write_bytes(gzip.compress(raw,mtime=0))
+  row.update(object=os.path.relpath(obj,L),objectSHA256=sha(obj.read_bytes()))
+ rows.append(row)
+record={'acceptedCounterDependency':{'manifest':str(dependency),'sha256':'6b5d3bee7113838a000d095342608bc9cd4fd0fd96ff5eb4dfd5bf920dbc803a'},'scope':'Sparse both-schema three-size terminal actual Tx logical counts: twelve full canonical+sealed metric PASS cases; accepted Dense compiling reporter defect manifest pinned with identical sampler/renderer. No allocation/RSS/timing/lifecycle stamps/universal claim.','cases':cases,'members':rows,'objects':len(list((L/'objects').iterdir()))};(L/'RETENTION.json').write_text(json.dumps(record,indent=2)+'\n');shutil.copyfile(__file__,L/'retain.py.source');shutil.copyfile('/tmp/verify21-sparse-tx-family.py',L/'verify.py');print(len(rows),record['objects'])
