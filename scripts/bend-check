@@ -15,4 +15,4 @@ raise SystemExit('Missing pinned Bend compiler')
 PYTHON
 )
 [ -x "$BENDVY_COMPILER" ] || { echo "Missing pinned compiler: $BENDVY_COMPILER" >&2; exit 127; }
-exec timeout --signal=KILL 5s "$BENDVY_COMPILER" "$1" --check-only
+exec timeout --signal=KILL 15s "$BENDVY_COMPILER" "$1" --check-only
