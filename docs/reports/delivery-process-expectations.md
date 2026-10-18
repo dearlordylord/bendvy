@@ -2381,3 +2381,47 @@ approvals remain distinct from the 22 legacy and 11 separate metadata drafts.
 Deferred proof/refinement stays explicitly under #1 until exact approval and
 a separately scoped slice. No acceptance criterion or approval requirement
 changes. This resolves proposal delivery, not universal ECS refinement.
+
+
+## 2026-10-18 — Lifecycle and Readers terminal diagnostics integrated
+
+`e3d1a8c57` integrates Lifecycle after independent final review: all 12 normal
+schema/size/backend cases and two compiling reporter defects pass their intended
+checks while retaining complete LC2 output. Each normal case has 130 grouped
+actual samples: main/foreign seeds, 64 reserves and 64 disposals. Terminal
+undo/commands/custom-events maxima are N/N/0. Group order is not chronological;
+real read-only Select transactions retain explicit zero source applicability.
+The [packet](../../experiments/s-perf/canonical-api-v1/lifecycle-runtime-v1/diagnostics/tx-peaks-v1/results/family01/RETENTION.json)
+passes 1,111 members, 791 objects and 125 guards. The undo+1 counter expectation
+was derived post-run from the presealed normal model and prefrozen mutation;
+its provenance is explicit, not retroactively called presealed.
+
+`aa10c246d` integrates Readers after independent final review: all 12 normal
+cases and two compiling reporter controls pass, preserving complete original
+streams. The 277 actual samples combine 193 existing domain facts with 84 real
+reader-callback Tx traversals. Before/prepared-running/after reader states,
+cursors, Local arrays, barriers and owners stay intact. Maxima are N/N/1.
+The [packet](../../experiments/s-perf/canonical-api-v1/readers-runtime-v1/diagnostics/tx-peaks-v1/results/family02/RETENTION.json)
+passes 1,336 members, 915 objects and 131 guards. Counter controls preserve full
+canonical output, reject normal metrics and exactly match the presealed wrong
+reporter oracle.
+
+The first Readers 30 s offline retention timeout is preserved. User-authorized
+120 s successors are recorded in [limits](../limits.md). The reviewed successor
+reuses already hash-verified identical pin keys; different source versions and
+all bindings remain checked. Retention completed within 120 s without an elapsed
+record. Portable verification measured 4.39 s. An unavailable optional external
+time wrapper failed before verification; that launcher diagnostic is retained.
+No backend replay or isolated performance claim follows from this repair.
+
+This batch changes private diagnostics, not production core. Current workspace
+#28 source binding still passes; tracked-master applicability retains the explicit
+355-file/unused archived-file exception above. Exact CI source checks pass.
+Combined CI remains to be checked. Actual after-append/transfer/discard records
+remain a #21 gate: source research found real command reset/replay in
+`bundle-batch.stage`, so terminal monotonicity must not be generalized. Stamps,
+RSS, full measurement protocols and product speed qualification remain separate.
+
+#62 is now closed as proposal/falsification delivery after CI 39114729049 passed
+and its English completion report was posted. The four laws remain unapproved;
+future proof/refinement is still gated under #1.
