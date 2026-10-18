@@ -2,6 +2,14 @@
 
 No batching permission, numerical margin, timer change or evaluator transition is inferred. This is a source audit and minimal proposal; no benchmark was executed for it.
 
+## Current status — 2026-10-18
+
+The source audit below describes the historical evaluator; its fixed deadlines and expired experiment budget are historical. New execution budgets follow [limits](../limits.md), including recorded increases. No renewed Autoresearch budget or numerical uncertainty margin is inferred.
+
+Current Motion B1 method pilots for all five families retain complete warmup/sample role streams and common scalar tuples; the remaining Health variants are separate. These correctness pilots do not implement the proposed enclosing batch. Original authored observation work stays inside its interval. Added TS observations, Sparse strategy differences and Lifecycle foreign lookup/footprint differences are retained limitations: matching shared tuples alone does not qualify equivalent timed work.
+
+Before comparative sampling, resolve the common timed-work correspondence, one enclosing interval or approved clock alternative, and the numerical uncertainty/decision margin. Seven rotations, separate fresh warmup/sample owners and independently reset child RSS remain existing requirements. Historical B16, 1%, noise/keep rules and deadlines below are not current approval. Final targets remain JS <= TS and Native <= 0.5 * TS.
+
 ## Existing Dense/Sparse batch semantics
 
 The fourth Bend argument is the **number of fresh measured worlds**, after one fresh warmup. `measurement-samples-bend.bend:5–15` calls the complete `M.choose` once per world. Every call prints a full JSON record: all rows/payload fields, namespace/next/pending/Ledger/mode, read sum and dispatch counters (`candidate/measurement-bend.bend:353–355,373–375`). Native/JS stdout therefore retains **warmup plus every measured world**, not merely the last world or a checksum.
