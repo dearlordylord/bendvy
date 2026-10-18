@@ -2237,3 +2237,21 @@ speed rankings, precision or final performance acceptance. Full repeated compari
 resolution/batch approval and clean-child RSS remain open. Next: CPU and allocation
 profiles of the same qualified JS artifact with unchanged full-output validation.
 No new limits or protocol tolerances were introduced.
+
+
+## 2026-10-18 — Dense transaction metrics cover both schemas and all sizes
+
+Integrated `41d4d2a6f` after independent final review. Ten new complete-output
+JS/Native cases join the original Motion64 pair: both schemas at 64/256/1024 now
+match independent actual-metric oracles. Seed undo/commands/events are N/N/0;
+each of 64 query transactions is 2N/0/0. Arbitrary affine owners, Health declarations,
+payloads and String observations are preserved. The unchanged reporting seam
+reuses the original compiling counter defect with exact source/dependency binding.
+
+The [family packet](../../experiments/s-perf/canonical-api-v1/dense-runtime-v1/diagnostics/tx-peaks-v1/results/family01/RETENTION.json)
+passes 1,171 members, 791 objects and 79 guards. Scope remains terminal logical
+list counts, excluding allocation/RSS, lifecycle stamps and universal peaks.
+Shared core is unchanged; all 356 protected #28 sources/full inventory remain
+exact. Prior checkpoint CI39109064236 passed. Next: equivalent Sparse observations
+and the already-admitted CPU/allocation profiles of unchanged qualified JS.
+No limits or acceptance criteria changed.
