@@ -32,6 +32,8 @@ def main():
     raw=b''.join(canonical)
     if args.count==64:
      assert len(raw)==38459780 and sha(raw)=='28595ef3734a1b4772e43d01b63806120db6c452207c31caaddd3d50cb45e3f0'
+    if args.count!=64:
+        q=basis['widerCanonicalControls'][str(args.count)];assert (len(b''.join(canonical)),sha(b''.join(canonical)))==(q['bytes'],q['sha256'])
     assert fixtures[0]['tuple']==fixtures[1]['tuple']
     (target/'observer-fixtures.json.gz').write_bytes(gzip.compress(C.compact(fixtures).encode(),mtime=0))
     (target/'expected-common.json.gz').write_bytes(gzip.compress(C.compact({'tuple':fixtures[0]['tuple'],'fold':fixtures[0]['fold']}).encode(),mtime=0))

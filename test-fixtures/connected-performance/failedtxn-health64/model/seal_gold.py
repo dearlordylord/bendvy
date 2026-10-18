@@ -15,6 +15,8 @@ def generate():
  spool=P/'observer-tmp';spool.mkdir(exist_ok=True);realPath=Path;M.Path=lambda v:spool/realPath(v).name if str(v).startswith('/tmp/failedtxn-oracle-')else realPath(v)
  control=M.generate(P/'canonical-control',args.count,args.iterations);qualified=basis['qualifiedCanonical']
  if args.count==64:assert(control['bytes'],control['sha256'])==(qualified['bytes'],qualified['sha256'])
+ if args.count!=64:
+  q=basis['widerCanonicalControls'][str(args.count)];assert(control['bytes'],control['sha256'])==(q['bytes'],q['sha256'])
  fixtures=[];canonical=[];originalClass=M.Model;M.Model=C.Observer
  try:
   for label,ns in [('warmup',1),('measured',2)]:
