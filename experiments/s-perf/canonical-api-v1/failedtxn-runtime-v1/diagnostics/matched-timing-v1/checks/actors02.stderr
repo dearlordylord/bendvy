@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : next
+- observed : next (consumed more than once)
+Context:
+- raw     : W.Handle<T.MotionSchema>
+- entries : List<&2, Entry>
+Location: recorded
+22 |     case Entry{key,ordinal} <> rest:found(equal(key,raw),ordinal,_ => find(rest,raw))
+23>| def recorded(raw:W.Handle<T.MotionSchema>,entries:List<&2,Entry>,next:Nat,valid:Bool,prior:Maybe<&2,Nat>) -> Actors:
+   |                                                                  ^^^^
+24 |   match prior:
+bend 2.0.37 is available: run bend update

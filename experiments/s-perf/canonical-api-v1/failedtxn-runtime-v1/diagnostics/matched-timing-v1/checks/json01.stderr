@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+65 | def escaped(value:Char) -> String:
+66>|   match Char.to_u32(value):
+   |         ^^^^^^^^^^^^^^^^^^
+67 |     case 34:"\\\""
+bend 2.0.37 is available: run bend update
