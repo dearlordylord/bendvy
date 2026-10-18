@@ -163,4 +163,3 @@ def seed_reserved(result:Reserved) -> Seeded:
   match result:
     case Reserved{tx,reservations}:seed_observed(reservations,Metrics.observe(~World(),~Nat,"seed",tx))
 def seed(count:U32,world:World()) -> Seeded:seed_reserved(seed_rows(U32.to_nat(count),0,Reserved{Tx.begin(~World(),~Nat,world),[]}))
-
