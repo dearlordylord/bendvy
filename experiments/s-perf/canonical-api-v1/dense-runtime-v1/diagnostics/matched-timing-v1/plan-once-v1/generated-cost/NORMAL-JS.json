@@ -1,0 +1,20 @@
+{
+  "scope": "Static emitted code mechanism only; no runtime frequency, allocation or speed claim",
+  "candidateArtifact": "/tmp/bendvy21-dense-plan-once-pilot-actual01/js/scenario.js",
+  "candidateSHA256": "d0697f5c23f8cfc99b7b6846a1ba78e3caa7dc044bde6b92bc741a002d08e1c6",
+  "baselineArtifact": "/tmp/bendvy21-dense-matched-timing-pilot-actual01/js/scenario.js",
+  "baselineSHA256": "860cb672eb5aad86b4677068ef1eae9b87f03b5c031cfc0df820d6739c21d6f4",
+  "baselinePlan": {
+    "line": 12208,
+    "text": "function $$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047ordinary$045system$058plan$1260$() {\n  return {$: \"../../../../../../src/ecs/compose.Plan\", \"caps\": ($$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047ordinary$045query$045declaration$058grant$1262$(($$$$047$$$047motion$058declaration$()))), \"select\": ($$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047ordinary$045query$045declaration$058selector$1262$(($$$$047$$$047motion$058declaration$())))};\n}"
+  },
+  "candidatePlan": {
+    "line": 12208,
+    "text": "function $$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047ordinary$045system$058plan$1260$() {\n  return $$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047ordinary$045system$058plan_parts$1260$(($$$$047$$$047$$$047motion$058declaration$()));\n}"
+  },
+  "candidateParts": {
+    "line": 12240,
+    "text": "function $$$$047$$$047$$$047$$$047$$$047$$$047$$$047src$047ecs$047ordinary$045system$058plan_parts$1260$(_declaration_0) {\n  const _grant_0 = _declaration_0[\"grant\"];\n  const _select_0 = _declaration_0[\"select\"];\n  return {$: \"../../../../../../../src/ecs/compose.Plan\", \"caps\": _grant_0, \"select\": _select_0};\n}"
+  },
+  "finding": "Reached plan factory now invokes actual Motion declaration once. Helper directly extracts grant/select into existing Plan. Neither shown candidate function contains an arrow or run_clo; existing declaration closures remain."
+}
