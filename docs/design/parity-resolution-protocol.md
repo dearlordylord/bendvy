@@ -49,6 +49,18 @@ Time the business execution and the agreed common observation/forcing on all thr
 
 The user endorsed this direction on 2026-10-18 and requested an Astra review, which agreed with the boundary above. This changes the comparison boundary, not ECS behavior. Existing diagnostic-heavy intervals remain semantic evidence; their raw timing ratios do not establish equivalent-work performance. Each comparative adapter still needs source-bound correspondence and complete independent-gold acceptance through the existing review. Numerical uncertainty and decision margins remain a separate unaccepted choice.
 
+## Clean child-RSS launcher control — 2026-10-18
+
+Recovered the unchanged launcher from `871ace3bb:experiments/s-integrate/measurement-samples-rss-launcher.c` (SHA256 `eaef512a2c5e25c571f846fa5ddb5bf2075f2dda71c33ad29cb270639f05f977`) and built it with the existing Clang19.1.7. Its small exec image forks the measured child; exec alone does not clear the launcher's inherited highwater. Three controlled invocations validate this isolation, not ECS memory use:
+
+| Parent allocation / child allocation | Parent highwater (KiB) | Launcher highwater (KiB) | Child highwater (KiB) |
+| --- | ---: | ---: | ---: |
+| 8 / 8 MiB | 22,364 | 22,536 | 16,888 |
+| 192 / 8 MiB | 210,812 | 210,984 | 16,876 |
+| 8 / 96 MiB | 22,388 | 22,560 | 106,992 |
+
+Every child independently reports the same own-process highwater as the launcher obtains from wait4. All three exit0 with empty stderr. Temporary source/control/raw output and `ISOLATION-CONTROL01.json` remain under `/tmp/bendvy21-clean-child-rss-reuse/`; launcher binary SHA256 is `0b7dd07b73129fbbd3037d2515bf1c0ec0f393c0204244bb32987463ea3be5d5`. This supports reuse of the existing measurement seam. It is not an ECS, allocation, phase-only RSS, maximum bound or comparative qualification. A real child measurement still includes startup, warmup, setup and output; do not subtract the parent or launcher highwater.
+
 ## Historical evaluator and proposal
 
 Everything below describes retained historical sources or an unaccepted comparison proposal. Its millisecond clocks, fold-only warmup example, fixed batching, limits and expired global budget do not describe the accepted current fixtures or override current limits. The accepted ns seam and complete current warmup streams resolve those particular historical gaps, not equivalent timed work, uncertainty, seven rotations, reset child RSS or the final performance targets.
