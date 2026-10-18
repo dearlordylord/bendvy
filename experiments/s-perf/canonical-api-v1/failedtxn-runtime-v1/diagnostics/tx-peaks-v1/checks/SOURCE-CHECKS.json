@@ -1,0 +1,18 @@
+{
+  "scope": "Both pure scenarios sourcePASS pinned2.0.35 CPU8 cap15; Motion IO main typechecks to existing10foreign/unsafe definitions only, not mathematical IOproof. Only8domain/Scenario/Driver/Main modules differ after import normalization; original Local/Reader/Program/Txobserve/dispose/stream/chunk/Doc and String construction modules unchanged.",
+  "changedAfterImportRebase": [
+    "health-driver.bend",
+    "health-main.bend",
+    "health-scenario.bend",
+    "health.bend",
+    "motion-driver.bend",
+    "motion-main.bend",
+    "motion-scenario.bend",
+    "motion.bend"
+  ],
+  "pureChecks": [
+    "motion-scenario01.stdout",
+    "health-scenario01.stdout"
+  ],
+  "hostCheck": "motion-main01.stderr"
+}
