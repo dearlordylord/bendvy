@@ -1,0 +1,52 @@
+from pathlib import Path
+import json,gzip,hashlib,os,shutil
+WT=Path('/tmp/bendvy-failedtxn-io-pieces');D=WT/'experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1';L=D/'runtime-v1/motion1024/runtime-boundary-attempt01'
+DEPS=[D/'runtime-v1/motion1024/io-pieces-attempt01',D/'runtime-v1/motion64/io-pieces-attempt01']
+sha=lambda x:hashlib.sha256(x).hexdigest()
+seed=json.loads(Path('/tmp/bendvy21-failedtxn-io-pieces-motion1024-limit30-actual01/normal/js/plan.json').read_text());historical=seed['boundaryTrial']['historicalPolicySnapshots'];paths={};tools=set();cases=[]
+def pin(path,h=None):
+ path=str(path)
+ if path in paths:
+  if h:assert paths[path][1]==h,(path,h,paths[path])
+  return
+ source=Path(path)
+ if path in historical and (h is None or h==historical[path]['sha256']):source=Path(historical[path]['snapshot'])
+ got=sha(source.read_bytes());assert h is None or got==h,(path,got,h);paths[path]=(source,got)
+def capture(q,kind):
+ p=json.loads((q/'plan.json').read_text());r=json.loads((q/'receipt.json').read_text());ph=sha((q/'plan.json').read_bytes());assert r['planSHA256']==ph
+ for path,h in p['pins'].items():pin(path,h)
+ for root,files in p['resourceRoots'].items():
+  for name,h in files.items():path=str(Path(root)/name);pin(path,h);tools.add(path)
+ tools.update(p['tools'].values())
+ for g in r['guards']:
+  pin(g['path'],g['sha256']);v=json.loads(Path(g['path']).read_text());assert v['unchanged']
+  for path,h in v['actualPins'].items():pin(path,h)
+ for c,e in zip(r['commands'],p['commands']):
+  for k in ['label','argv','capSeconds']:assert c[k]==e[k]
+  for k in ['stdout','stderr']:pin(c[k]['path'],c[k]['sha256'])
+ for f in q.rglob('*'):
+  if f.is_file():pin(f)
+ cases.append({'actualDirectory':str(q),'kind':kind,'planSHA256':ph,'receiptSHA256':sha((q/'receipt.json').read_bytes())})
+for name in ['success','exit7','signal','timeout']:capture(Path('/tmp/bendvy21-failedtxn-io-pieces-limit15-wrapper-controls02')/name,'control-'+name)
+for role in ['js','native']:capture(Path('/tmp/bendvy21-failedtxn-io-pieces-motion1024-limit15-actual02/normal')/role,'deadline15')
+for suffix in ['actual01','repeat01','repeat02','repeat03']:
+ for role in ['js','native']:capture(Path('/tmp/bendvy21-failedtxn-io-pieces-motion1024-limit30-'+suffix+'/normal')/role,'complete30')
+for name in ['prepare21-io-pieces-limit15.py','prepare21-io-pieces-limit15-controls.py','prepare21-io-pieces-limit15-v2.py','prepare21-io-pieces-limit15-controls02.py','prepare21-io-pieces-limit30.py','bendvy21-runtime-boundary30-summary.json','retain21-runtime-boundary.py','verify21-runtime-boundary.py']:pin('/tmp/'+name)
+for dirname in ['runtime-boundary15-v1','runtime-boundary30-v1']:
+ for f in (D/'diagnostics'/dirname).rglob('*'):
+  if f.is_file():pin(f)
+drafts=[]
+for root in ['/tmp/bendvy21-failedtxn-io-pieces-motion1024-limit15-actual01','/tmp/bendvy21-failedtxn-io-pieces-limit15-wrapper-controls01']:
+ for f in Path(root).rglob('plan.json'):pin(f);drafts.append({'path':str(f),'status':'UNEXECUTED_RAW_ONLY'})
+assert not (L/'RETENTION.json').exists();(L/'objects').mkdir(parents=True,exist_ok=True);rows=[]
+for name,(f,h) in sorted(paths.items()):
+ raw=f.read_bytes();assert sha(raw)==h;row={'actualPath':name,'bytes':len(raw),'sha256':h}
+ if str(f)!=name:row['historicalSourceSnapshot']=str(f)
+ if raw.startswith(b'\x7fELF') and name in tools:row['hashOnly']='Installed tool/shared library identity only; not redistributed'
+ else:
+  obj=next((dep/'objects'/(h+'.gz') for dep in DEPS if (dep/'objects'/(h+'.gz')).exists()),L/'objects'/(h+'.gz'))
+  if not obj.exists():obj.write_bytes(gzip.compress(raw,mtime=0))
+  row.update(object=os.path.relpath(obj,L),objectSHA256=sha(obj.read_bytes()))
+ rows.append(row)
+m={'scope':'Operational timeout boundary for whole frozen manual-schedule consumer including warmup/execution/full output. Four fresh processes per backend; not ordinary App qualification, ECS/TS speed, comparative speed, worst-case bound, or master source adoption. Initial pair had brief CPU0 preparation overlap; external contention remains possible. Original5s and15s failures remain failures.','cases':cases,'drafts':drafts,'historicalPolicySnapshots':historical,'summary':'/tmp/bendvy21-runtime-boundary30-summary.json','members':rows,'objects':len(list((L/'objects').iterdir())),'objectDependencies':[{'manifest':os.path.relpath(dep/'RETENTION.json',L),'sha256':sha((dep/'RETENTION.json').read_bytes())} for dep in DEPS]}
+(L/'RETENTION.json').write_text(json.dumps(m,indent=2)+'\n');shutil.copyfile(__file__,L/'retain.py.source');shutil.copyfile('/tmp/verify21-runtime-boundary.py',L/'verify.py');print('RETAINED',len(rows),m['objects'])
