@@ -75,6 +75,12 @@ Component queries keep their existing `Args:Data` and `Out:Data` limits. Compone
 
 The reusable scheduled Local factory uses `Args:Data`, as the existing captured Local schedule does. Its `L` and `Out` remain `Type`. The direct Local API still accepts `Args:Type`; the reusable factory adds no policy for generating fresh affine arguments on every run.
 
+## Adopt existing registrations
+
+For a registered Local, System or Reader whose invocation already manages its arguments and outputs, use [ordinary-app-existing-adoption](../../src/ecs/ordinary-app-existing-adoption.bend). Its `local_*`, `system_*` and `reader_*` factories derive `fold`, `plan` and `dispatch` from the actual registration. Arguments, outputs, captures and shared state retain their `Type` bounds.
+
+Name the derived functions explicitly, then compose them with `ordinary-app-existing-execution.pair_*` and `after`. The original invocation callback owns argument creation, output handling and failure recovery. It returns the retained registration, shared state and a unit schedule outcome. Phase predicates, requirements and barriers remain ordinary scheduling choices. The [Lifecycle example](../../test-fixtures/connected-performance/lifecycle-motion64/consumer/lifecycle-runtime-v1/motion-schedule.bend) and [FailedTxn example](../../test-fixtures/connected-performance/failedtxn-motion64/consumer/motion-schedule.bend) show both homogeneous and mixed registrations.
+
 ## Retain an affine capture across query runs
 
 The [captured-query example](../../examples/captured-query/README.md) registers an ordinary read-only component system with `Component.add`, then an affine captured query with `Captured.add`. Both factories derive the registration, dispatch, schedule and cursor handling. The example's `app.bend` contains only aliases to those library implementations.
