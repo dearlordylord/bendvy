@@ -1,0 +1,13 @@
+SOME PROOFS FAIL
+Error:
+- expected : statuses
+- observed : statuses (consumed more than once)
+Context:
+- trace : Facts.State
+- audit : List<&2, Audit>
+Location: completed
+63 |   match shared result:
+64>|     case Shared{audit,statuses,prior,samples},Sys.Completed{registry,Sys.Succeeded{world,F.ProfileOutput{+values,sample}}}:scanned(List.append(&2,Metrics.Sample,samples,[Metrics.at_iteration(sample,List.length(&2,Status,statuses))]),trace,audit,statuses,Ordinary.Owner{registry,slot,clauses},values,prior,Scans.run(world))
+   |                       ^^^^^^^^
+65 |     case Shared{audit,statuses,prior,samples},Sys.Completed{registry,Sys.Failed{world,F.ProfileFailure{+error,sample}}}:(Ordinary.Owner{registry,slot,clauses},(Shared{audit,List.append(&2,Status,statuses,[Failed{error}]),prior,List.append(&2,Metrics.Sample,samples,[Metrics.at_iteration(sample,List.length(&2,Status,statuses))])},Sys.Failed{Ctx.Context{world,trace},error}))
+bend 2.0.37 is available: run bend update
