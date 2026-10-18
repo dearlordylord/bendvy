@@ -40,7 +40,7 @@ def clocks():
  return diagnostics,outcomes
 
 def full(fixture):
- records=fixture['records'];callbacks=[r for r in records if r['kind']=='Callback'];boundaries=[r for r in records if r['kind']=='Boundary'];final=records[-1];assert final['kind']=='Final'
+ records=fixture['records'];count=len(records[0]['actors']);callbacks=[r for r in records if r['kind']=='Callback'];boundaries=[r for r in records if r['kind']=='Boundary'];final=records[-1];assert final['kind']=='Final'
  # Independent TS allocator: internal world starts its raw ID counter at1 and
  # increments at every actual commands.spawn reservation, including failed B.
  # Iterate the observed reservation chronology, not count+3*iteration formulas.
@@ -50,7 +50,7 @@ def full(fixture):
  for actor in records[0]['actors']:reserve(actor)
  for r in callbacks:
   if r['reservation']is not None:reserve(r['reservation']['actor'])
- assert len(ids)==256
+ assert len(ids)==count+192
  reservations=[]
  for i in range(64):
   selected=[r for r in callbacks if r['iteration']==i];assert len(selected)==3
@@ -64,4 +64,4 @@ def full(fixture):
   original.update(rows=actual_rows,fullLookups=lookups,allFailed=r['allFailed'])
   audit.append(original)
  actual_final=[row(x,ids)for x in final['rows']];diagnostics,outcomes=clocks()
- return {'schema':'Health','workload':'failed-transaction','count':64,'iterations':64,'status':'PASS','capacity':65536,'registration':'B and independent publication observer invoked after seed/barrier, before A publication; priming consumes one B capture','captures':final['captures'],'reservations':reservations,'reads':reads,'diagnostics':diagnostics,'audit':audit,'effects':[json.loads(x)for x in final['effects']],'retainedLiveCount':len(actual_final),'finalSha256':sha(compact(actual_final)),'ledger':ledger(final['ledger']),'scope':'Correctness only; same actual B instance fails/retries, earlier A survives, full inverse restoration/publication discard/pending and allocation observations checked; no timing.','method':{'rawActorMap':table,'records':[compact(x)for x in records],'rawTickOutcomes':outcomes,'finalRows':actual_final}}
+ return {'schema':'Health','workload':'failed-transaction','count':count,'iterations':64,'status':'PASS','capacity':65536,'registration':'B and independent publication observer invoked after seed/barrier, before A publication; priming consumes one B capture','captures':final['captures'],'reservations':reservations,'reads':reads,'diagnostics':diagnostics,'audit':audit,'effects':[json.loads(x)for x in final['effects']],'retainedLiveCount':len(actual_final),'finalSha256':sha(compact(actual_final)),'ledger':ledger(final['ledger']),'scope':'Correctness only; same actual B instance fails/retries, earlier A survives, full inverse restoration/publication discard/pending and allocation observations checked; no timing.','method':{'rawActorMap':table,'records':[compact(x)for x in records],'rawTickOutcomes':outcomes,'finalRows':actual_final}}

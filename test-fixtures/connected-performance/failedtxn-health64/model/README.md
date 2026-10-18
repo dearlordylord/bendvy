@@ -9,3 +9,5 @@ The output directory must not exist. Original operation, common-record and TS tr
 Each fresh world retains 965 records, 3,608,414 scalar cells, 193 callbacks, 129 publications, 256 boundaries, 385 phases and 256 actual actors. Full Vitals, Armor, Tracked and Ledger payload fields remain in ordered observations. Original callback failure semantics preserve both ingestion and tracked registry cursor: reader callback failure skips commit and the explicit CallbackCompleted-only cursor completion. An inner system success does not imply reader completion.
 
 This is finite method correctness evidence, without comparative timing, RSS, batching or precision qualification.
+
+The sealer also accepts `--count 256` or `--count 1024`, with `--iterations 64`; defaults remain64. Original operation/common-record algorithms are unchanged. TS actor-map bounds derive from the actual seed record plus192 authored reservation results; all965 records remain. Exact qualified64 canonical/Bend/TS hashes remain assertions, while larger full tuples and role streams must be independently generated before any consumer execution.
