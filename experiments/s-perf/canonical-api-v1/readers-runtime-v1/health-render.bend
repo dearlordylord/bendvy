@@ -85,10 +85,12 @@ def observations(value:Maybe<&2,List<&2,Sch.Observation>>) -> String:
 def log(value:P.Log) -> String:
   match value:
     case P.Log{name,steps,result,values}:"Log{" ++ name ++ ";steps=" ++ List.show(&2,Sch.Step,step,steps) ++ ";status=" ++ status_text(result) ++ ";observations=" ++ observations(values) ++ "}"
-def state_join(+namespace:U32,+logs:List<&2,P.Log>,+status:P.Status,world:F.World() & String,owner:S.Owners & String) -> P.State & String:
+def state_join(+namespace:U32,+logs:List<&2,P.Log>,+status:P.Status,world:F.World() & String,owner:S.Owners & String) -> P.View & String:
   (world,sw)=world
   (owner,so)=owner
-  (P.State{world,owner,namespace,logs,status},"namespace=" ++ U32.show(namespace) ++ ";status=" ++ status_text(status) ++ ";world={" ++ sw ++ "};owners={" ++ so ++ "};schedules=" ++ List.show(&2,P.Log,log,logs))
-def state(value:P.State) -> P.State & String:
+  (P.View{world,owner,namespace,logs,status},"namespace=" ++ U32.show(namespace) ++ ";status=" ++ status_text(status) ++ ";world={" ++ sw ++ "};owners={" ++ so ++ "};schedules=" ++ List.show(&2,P.Log,log,logs))
+def view(value:P.View) -> P.View & String:
   match value:
-    case P.State{world,owner,namespace,logs,status}:state_join(namespace,logs,status,O.world(world),owners(owner))
+    case P.View{world,owner,namespace,logs,status}:state_join(namespace,logs,status,O.world(world),owners(owner))
+
+def state(value:P.State) -> P.State & String:P.inspect(~String,~view,value)

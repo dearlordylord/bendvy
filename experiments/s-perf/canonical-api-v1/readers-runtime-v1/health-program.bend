@@ -11,6 +11,14 @@ import ../../../../src/ecs/schedule.bend as Sch
 import ../../../../src/ecs/world.bend as W
 import ../../../../src/ecs/event-family-routing.bend as Route
 
+import health-app.bend as EntryApp
+import ../../../../src/ecs/ordinary-app-run.bend as Entry
+import ../../../../src/ecs/ordinary-app-schedule.bend as Single
+import ../../../../src/ecs/ordinary-app-execution.bend as Execute
+import ../../../../src/ecs/ordinary-app-schema.bend as SchemaApp
+import ../../../../src/ecs/ordinary-app-composer.bend as Build
+import ../../../../src/ecs/ordinary-app-execution-recipe.bend as Exec
+import ../../../../src/ecs/schedule-provision.bend as SP
 type Status is Data:
   Complete{}
   BodyFailed{}
@@ -19,83 +27,91 @@ type Status is Data:
 type Log is Data:
   Log{name:String,steps:List<&2,Sch.Step>,status:Status,observations:Maybe<&2,List<&2,Sch.Observation>>}
 type State is Type:
-  State{world:F.World(),owners:S.Owners,+namespace:U32,logs:List<&2,Log>,status:Status}
-def condition(world:F.World(),slot:U32) -> F.World() & Bool:(world,U32.is_eq(slot,0))
-def ids(owners:S.Owners) -> S.Owners & S.IDs:
-  match owners:
-    case S.Owners{spawn,update,dispose,fast,slow,meta,tick,frame,phase,+ids,locals,reads}:(S.Owners{spawn,update,dispose,fast,slow,meta,tick,frame,phase,ids,locals,reads},ids)
-def catalog(value:S.IDs) -> List<&2,U32>:
+  State{app:EntryApp.Slot(),namespace:U32,logs:List<&2,Log>,status:Status}
+type View is Type:
+  View{world:F.World(),owners:S.Owners,namespace:U32,logs:List<&2,Log>,status:Status}
+type InspectionArgs is Data:
+  InspectionArgs{namespace:U32,logs:List<&2,Log>,status:Status}
+def start(world:F.World(),owners:S.Owners,namespace:U32) -> State:State{EntryApp.create(world,S.pack(0,owners)),namespace,[],Complete{}}
+def inspection_returned(~Value:Data,stage:U32,result:View & Value) -> F.World() & (S.Runtime() & Value):
+  match result:
+    case (View{world,owners,_,_,_},value):(world,(S.pack(stage,owners),value))
+def inspection_unpacked(~Value:Data,~observe:View -> View & Value,world:F.World(),args:InspectionArgs,result:S.Owners & U32) -> F.World() & (S.Runtime() & Value):
+  match args result:
+    case InspectionArgs{namespace,logs,status},(owners,stage):inspection_returned(~Value,stage,observe(View{world,owners,namespace,logs,status}))
+def inspection(~Value:Data,~observe:View -> View & Value,world:F.World(),owners:S.Runtime(),args:InspectionArgs) -> F.World() & (S.Runtime() & Value):inspection_unpacked(~Value,~observe,world,args,S.unpack(owners))
+def state_observed(~Value:Data,namespace:U32,logs:List<&2,Log>,status:Status,result:EntryApp.Slot() & Value) -> State & Value:
+  match result:
+    case (app,value):(State{app,namespace,logs,status},value)
+def inspect(~Value:Data,~observe:View -> View & Value,state:State) -> State & Value:
+  match state:
+    case State{app,+namespace,+logs,+status}:state_observed(~Value,namespace,logs,status,EntryApp.project(~InspectionArgs,~Value,~inspection(~Value,~observe),app,InspectionArgs{namespace,logs,status}))
+def finish_world(state:State) -> F.World():
+  match state:
+    case State{Single.Attached{Entry.Application{Single.Application{SchemaApp.Application{_,Build.Registered{world,_,_,_}},_,_,_,_,_},_}},_,_,_}:world
+    case State{Single.Invalid{Exec.Registered{Build.Registered{world,_,_,_},_}},_,_,_}:world
+
+def stage_owners(value:S.Runtime(),stage:U32) -> S.Runtime():
   match value:
-    case S.IDs{spawn,update,dispose,fast,slow}:[spawn,update,dispose,fast,slow]
-def scheduled(namespace:U32,logs:List<&2,Log>,result:Sch.RunResult<T.HealthSchema,F.Store(),F.Resources(),E.event_type(),S.Owners,Unit>) -> State:
-  match result:
-    case Sch.Finished{Sch.Schedule{_,+name,+steps,owners},world,observations}:State{world,owners,namespace,List.append(&2,Log,logs,[Log{name,steps,Complete{},Some{observations}}]),Complete{}}
-    case Sch.Failed{Sch.Schedule{_,+name,+steps,owners},world,_,observations}:State{world,owners,namespace,List.append(&2,Log,logs,[Log{name,steps,BodyFailed{},Some{observations}}]),BodyFailed{}}
-    case Sch.Rejected{Sch.Schedule{_,+name,+steps,owners},world}:State{world,owners,namespace,List.append(&2,Log,logs,[Log{name,steps,Refused{},None{}}]),Refused{}}
-def built(world:F.World(),+namespace:U32,logs:List<&2,Log>,result:Sch.Build<T.HealthSchema,F.Store(),F.Resources(),E.event_type(),S.Owners>) -> State:
-  match result:
-    case Sch.Built{schedule}:scheduled(namespace,logs,Sch.run(~T.HealthSchema,~F.Store(),~F.Resources(),~E.event_type(),~S.Owners,~Unit,~S.run,~condition,schedule,world))
-    case Sch.Invalid{owners}:State{world,owners,namespace,logs,Invalid{}}
-def run_catalog(name:String,steps:List<&2,Sch.Step>,world:F.World(),+namespace:U32,logs:List<&2,Log>,observed:S.Owners & S.IDs) -> State:
-  match observed:
-    case (owners,id):built(world,namespace,logs,Sch.build(~T.HealthSchema,~F.Store(),~F.Resources(),~E.event_type(),~S.Owners,namespace,name,steps,catalog(id),owners))
-def run_steps(name:String,steps:List<&2,Sch.Step>,state:State) -> State:
-  match state:
-    case State{world,owners,namespace,logs,Complete{}}:run_catalog(name,steps,world,namespace,logs,ids(owners))
-    case state:state
-def framed_owners(spawn:S.Instance(),update:S.Instance(),dispose:S.Instance(),fast:Reader.Provider(),slow:Reader.Provider(),frame:D.Frame,phase:U32,id:S.IDs,locals:List<&2,S.LocalCall>,reads:List<&2,S.ReadCall>,+namespace:U32,logs:List<&2,Log>,context:Family.Context()) -> State:
-  match context:
-    case Route.Runtime{world,meta,tick}:State{world,S.Owners{spawn,update,dispose,fast,slow,meta,tick,frame,phase,id,locals,reads},namespace,logs,Complete{}}
-def frame(state:State) -> State:
-  match state:
-    case State{world,S.Owners{spawn,update,dispose,fast,slow,meta,tick,frame,phase,id,locals,reads},namespace,logs,Complete{}}:framed_owners(spawn,update,dispose,fast,slow,frame,phase,id,locals,reads,namespace,logs,Family.frame(Mixed.before_attempt(~T.HealthSchema,~F.Store(),~F.Resources(),~E.Publication,~Family.Family,~Unit,~Family.sync,~Reader.classify,Route.Runtime{world,meta,tick})))
-    case state:state
-def phase_owners(phase:U32,owners:S.Owners) -> S.Owners:
-  match owners:
-    case S.Owners{spawn,update,dispose,fast,slow,meta,tick,frame,_,id,locals,reads}:S.Owners{spawn,update,dispose,fast,slow,meta,tick,frame,phase,id,locals,reads}
+    case (owners,S.Shared{meta,tick,frame,phase,locals,reads,_}):(owners,S.Shared{meta,tick,frame,phase,locals,reads,stage})
+def phase_owners(value:S.Runtime(),phase:U32) -> S.Runtime():
+  match value:
+    case (owners,S.Shared{meta,tick,frame,_,locals,reads,stage}):(owners,S.Shared{meta,tick,frame,phase,locals,reads,stage})
+def next_owners(value:S.Runtime(),_:Unit) -> S.Runtime():
+  match value:
+    case (owners,S.Shared{meta,tick,D.Frame{count,i,transient,reservations,facts},phase,locals,reads,stage}):(owners,S.Shared{meta,tick,D.Frame{count,U32.add(i,1),transient,reservations,facts},phase,locals,reads,stage})
+def update_slot(~Args:Type,~modify:S.Runtime() -> Args -> S.Runtime(),slot:EntryApp.Slot(),args:Args) -> EntryApp.Slot():
+  match slot:
+    case Single.Attached{app}:Single.Attached{EntryApp.update(~Args,~modify,app,args)}
+    case slot:slot
 def phase(value:U32,state:State) -> State:
   match state:
-    case State{world,owners,ns,logs,status}:State{world,phase_owners(value,owners),ns,logs,status}
-def next_owners(owners:S.Owners) -> S.Owners:
-  match owners:
-    case S.Owners{spawn,update,dispose,fast,slow,meta,tick,D.Frame{count,i,transient,reservations,facts},phase,id,locals,reads}:S.Owners{spawn,update,dispose,fast,slow,meta,tick,D.Frame{count,U32.add(i,1),transient,reservations,facts},phase,id,locals,reads}
+    case State{app,namespace,logs,status}:State{update_slot(~U32,~phase_owners,app,value),namespace,logs,status}
 def next(state:State) -> State:
   match state:
-    case State{world,owners,ns,logs,status}:State{world,next_owners(owners),ns,logs,status}
-def reader_steps(slow:Bool,update:U32,fast:U32,reader:U32) -> List<&2,Sch.Step>:
-  match slow:
-    case False{}:[Sch.System{update,0},Sch.System{fast,0}]
-    case True{}:[Sch.System{update,0},Sch.System{fast,0},Sch.System{reader,0}]
-def after_read(dispose:U32,state:State) -> State:next(frame(run_steps("DisposeBarrier",[Sch.System{dispose,0},Sch.Barrier{}],state)))
-def after_spawn(update:U32,fast:U32,slow:U32,dispose:U32,iteration:U32,state:State) -> State:
-  after_read(dispose,frame(run_steps("UpdateReaders",reader_steps(U32.is_eq(U32.mod(iteration,4),3),update,fast,slow),state)))
-def step_frame(spawn:U32,update:U32,dispose:U32,fast:U32,slow:U32,world:F.World(),+namespace:U32,logs:List<&2,Log>,status:Status,observed:S.Owners & U32) -> State:
-  match observed:
-    case (owners,i):after_spawn(update,fast,slow,dispose,i,frame(run_steps("SpawnBarrier",[Sch.System{spawn,0},Sch.Barrier{}],State{world,owners,namespace,logs,status})))
-def owners_iteration(owners:S.Owners) -> S.Owners & U32:
-  match owners:
-    case S.Owners{spawn,update,dispose,fast,slow,meta,tick,D.Frame{count,+i,transient,reservations,facts},phase,id,locals,reads}:(S.Owners{spawn,update,dispose,fast,slow,meta,tick,D.Frame{count,i,transient,reservations,facts},phase,id,locals,reads},i)
-def step_iteration(spawn:U32,update:U32,dispose:U32,fast:U32,slow:U32,state:State) -> State:
+    case State{app,namespace,logs,status}:State{update_slot(~Unit,~next_owners,app,Unit{}),namespace,logs,status}
+def framed(owners:S.Owned(),frame:D.Frame,phase:U32,locals:List<&2,S.LocalCall>,reads:List<&2,S.ReadCall>,stage:U32,context:Family.Context()) -> F.World() & (S.Runtime() & Unit):
+  match context:
+    case Route.Runtime{world,meta,tick}:(world,((owners,S.Shared{meta,tick,frame,phase,locals,reads,stage}),Unit{}))
+def framing(world:F.World(),value:S.Runtime(),_:Unit) -> F.World() & (S.Runtime() & Unit):
+  match value:
+    case (owners,S.Shared{meta,tick,frame,phase,locals,reads,stage}):framed(owners,frame,phase,locals,reads,stage,Family.frame(Mixed.before_attempt(~T.HealthSchema,~F.Store(),~F.Resources(),~E.Publication,~Family.Family,~Unit,~Family.sync,~Reader.classify,Route.Runtime{world,meta,tick})))
+def frame_returned(namespace:U32,logs:List<&2,Log>,result:EntryApp.Slot() & Unit) -> State:
+  match result:
+    case (app,_):State{app,namespace,logs,Complete{}}
+def frame(state:State) -> State:
   match state:
-    case State{world,owners,namespace,logs,status}:step_frame(spawn,update,dispose,fast,slow,world,namespace,logs,status,owners_iteration(owners))
-def step_catalog(world:F.World(),+namespace:U32,logs:List<&2,Log>,status:Status,observed:S.Owners & S.IDs) -> State:
-  match observed:
-    case (owners,S.IDs{spawn,update,dispose,fast,slow}):step_iteration(spawn,update,dispose,fast,slow,State{world,owners,namespace,logs,status})
-def step(state:State) -> State:
+    case State{app,namespace,logs,Complete{}}:frame_returned(namespace,logs,EntryApp.project(~Unit,~Unit,~framing,app,Unit{}))
+    case state:state
+
+def logged(namespace:U32,logs:List<&2,Log>,+status:Status,observations:Maybe<&2,List<&2,Sch.Observation>>,result:EntryApp.Application() & (U32 & (String & (List<&2,Sch.Step> & List<&2,SP.Requirement<T.HealthSchema>>)))) -> State:
+  match result:
+    case (app,(_,(name,(steps,_)))):State{Single.Attached{app},namespace,List.append(&2,Log,logs,[Log{name,steps,status,observations}]),status}
+def executed(namespace:U32,logs:List<&2,Log>,result:Single.RunResult<EntryApp.Application(),T.HealthSchema,Unit>) -> State:
+  match result:
+    case Single.Finished{app,observations}:logged(namespace,logs,Complete{},Some{observations},EntryApp.describe(app))
+    case Single.Failed{app,_,observations}:logged(namespace,logs,BodyFailed{},Some{observations},EntryApp.describe(app))
+    case Single.Rejected{app}:logged(namespace,logs,Refused{},None{},EntryApp.describe(app))
+    case Single.Missing{app,_}:State{Single.Attached{app},namespace,logs,Invalid{}}
+def run_returned(namespace:U32,logs:List<&2,Log>,result:Execute.Run<EntryApp.Application(),T.HealthSchema,Unit>) -> State:
+  match result:
+    case Execute.Run{result,_}:executed(namespace,logs,result)
+def replanned(namespace:U32,logs:List<&2,Log>,slot:EntryApp.Slot()) -> State:
+  match slot:
+    case Single.Attached{app}:run_returned(namespace,logs,EntryApp.run(app))
+    case slot:State{slot,namespace,logs,Invalid{}}
+def run_updated(name:String,namespace:U32,logs:List<&2,Log>,slot:EntryApp.Slot()) -> State:
+  match slot:
+    case Single.Attached{app}:replanned(namespace,logs,EntryApp.replan(app,name))
+    case slot:State{slot,namespace,logs,Invalid{}}
+def run_stage(stage:U32,name:String,state:State) -> State:
   match state:
-    case State{world,owners,namespace,logs,status}:step_catalog(world,namespace,logs,status,ids(owners))
+    case State{app,namespace,logs,Complete{}}:run_updated(name,namespace,logs,update_slot(~U32,~stage_owners,app,stage))
+    case state:state
+def step(state:State) -> State:next(frame(run_stage(3,"DisposeBarrier",frame(run_stage(2,"UpdateReaders",frame(run_stage(1,"SpawnBarrier",state)))))))
 def loops(fuel:Nat,state:State) -> State:
   match fuel:
     case 0n:state
     case 1n+rest:loops(rest,step(state))
-def read_pair_ids(label:String,state:State,ids:S.IDs) -> State:
-  match ids:
-    case S.IDs{_,_,_,fast,slow}:frame(run_steps(label,[Sch.System{fast,0},Sch.System{slow,0}],state))
-def read_pair_catalog(label:String,world:F.World(),+namespace:U32,logs:List<&2,Log>,status:Status,observed:S.Owners & S.IDs) -> State:
-  match observed:
-    case (owners,ids):read_pair_ids(label,State{world,owners,namespace,logs,status},ids)
-def read_pair(label:String,state:State) -> State:
-  match state:
-    case State{world,owners,namespace,logs,status}:read_pair_catalog(label,world,namespace,logs,status,ids(owners))
-def prime(state:State) -> State:read_pair("Prime",phase(0,state))
-def drain(state:State) -> State:read_pair("Drain",phase(2,state))
+def prime(state:State) -> State:frame(run_stage(0,"Prime",phase(0,state)))
+def drain(state:State) -> State:frame(run_stage(0,"Drain",phase(2,state)))

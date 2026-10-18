@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a health-program.State pattern with 4 fields
+Location:
+29 |   match observed:
+30>|     case (Program.State{world,_,_,_,_},text):logical(prefix ++ "final={" ++ text ++ "}",O.rows(world))
+   |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+31 | def initial_state(prefix:String,iterations:U32,observed:Program.State & String) -> String:
+bend 2.0.37 is available: run bend update

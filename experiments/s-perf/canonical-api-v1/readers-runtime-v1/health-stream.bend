@@ -27,13 +27,13 @@ def owners_join(+tick:Nat,+args:D.Frame,+phase:U32,+id:S.IDs,+locals:List<&2,S.L
 def owners(value:S.Owners) -> S.Owners & OwnerView:
   match value:
     case S.Owners{spawn,update,dispose,fast,slow,meta,tick,args,phase,id,locals,reads}:owners_join(tick,args,phase,id,locals,reads,R.local(spawn),R.local(update),R.local(dispose),RO.provider(fast),RO.provider(slow),RO.meta(meta))
-def state_join(+namespace:U32,+logs:List<&2,P.Log>,+status:P.Status,world:F.World() & String,owner:S.Owners & OwnerView) -> P.State & StateView:
+def state_join(+namespace:U32,+logs:List<&2,P.Log>,+status:P.Status,world:F.World() & String,owner:S.Owners & OwnerView) -> P.View & StateView:
   (world,sw)=world
   (owner,so)=owner
-  (P.State{world,owner,namespace,logs,status},StateView{namespace,status,sw,so,logs})
-def state(value:P.State) -> P.State & StateView:
+  (P.View{world,owner,namespace,logs,status},StateView{namespace,status,sw,so,logs})
+def view(value:P.View) -> P.View & StateView:
   match value:
-    case P.State{world,owner,namespace,logs,status}:state_join(namespace,logs,status,O.world(world),owners(owner))
+    case P.View{world,owner,namespace,logs,status}:state_join(namespace,logs,status,O.world(world),owners(owner))
 def locals_go(values:List<&2,S.LocalCall>) -> IO(Unit):
   match values:
     case []:IO.write("]")
@@ -68,3 +68,5 @@ def write_owners(value:OwnerView) -> IO(Unit):write_owners_observed(owners_prefi
 def write_state(value:StateView) -> IO(Unit):
   match value:
     case StateView{namespace,status,world,owners,logs}:IO.bind(Unit,Unit,IO.write("namespace=" ++ U32.show(namespace) ++ ";status=" ++ R.status_text(status) ++ ";world={" ++ world ++ "};owners={"),_=>IO.bind(Unit,Unit,write_owners(owners),_=>IO.bind(Unit,Unit,IO.write("};schedules="),_=>write_logs(logs))))
+
+def state(value:P.State) -> P.State & StateView:P.inspect(~StateView,~view,value)

@@ -14,6 +14,8 @@ import ../../../../src/ecs/event-family-routing.bend as Route
 import ../../../../src/ecs/event-notice-runtime.bend as Mixed
 import ../../../../src/ecs/ordinary-reader-system.bend as O
 
+import ../../../../src/ecs/execution-context.bend as Ctx
+import ../../../../src/ecs/trace-facts.bend as Facts
 type Args is Data:
   Args{operation:U32,frame:D.Frame}
 def local_runner(world:F.World(),capture:Array<U32>,args:Args) -> Local.Outcome<F.World(),Array<U32>,Unit,D.Frame>:
@@ -30,10 +32,20 @@ type ReadCall is Data:
   ReadCall{id:U32,status:U32,tick:Nat,output:Maybe<&2,Reader.Read>,before:String,after:String}
 type Owners is Type:
   Owners{spawn:Instance(),update:Instance(),dispose:Instance(),fast:Reader.Provider(),slow:Reader.Provider(),meta:Mixed.State<T.HealthSchema,E.Publication,Family.Family,Unit>,tick:Nat,frame:D.Frame,phase:U32,ids:IDs,locals:List<&2,LocalCall>,reads:List<&2,ReadCall>}
-def outcome(world:F.World(),status:U32) -> Sys.Outcome<F.World(),Unit,Unit>:
+type Shared is Type:
+  Shared{meta:Mixed.State<T.HealthSchema,E.Publication,Family.Family,Unit>,tick:Nat,frame:D.Frame,phase:U32,locals:List<&2,LocalCall>,reads:List<&2,ReadCall>,stage:U32}
+def Owned() -> Type:(Instance() & Instance()) & (Instance() & (Reader.Provider() & Reader.Provider()))
+def Runtime() -> Type:Owned() & Shared
+def pack(stage:U32,value:Owners) -> Runtime():
+  match value:
+    case Owners{spawn,update,dispose,fast,slow,meta,tick,frame,phase,_,locals,reads}:(((spawn,update),(dispose,(fast,slow))),Shared{meta,tick,frame,phase,locals,reads,stage})
+def unpack(value:Runtime()) -> Owners & U32:
+  match value:
+    case (((Local.Instance{ns0,+id0,name0,access0,cap0},Local.Instance{ns1,+id1,name1,access1,cap1}),(Local.Instance{ns2,+id2,name2,access2,cap2},(O.Provider{Sys.Registry{ns3,+id3,name3,access3,cursor3},reader3,param3,decl3},O.Provider{Sys.Registry{ns4,+id4,name4,access4,cursor4},reader4,param4,decl4}))),Shared{meta,tick,frame,phase,locals,reads,stage}):(Owners{Local.Instance{ns0,id0,name0,access0,cap0},Local.Instance{ns1,id1,name1,access1,cap1},Local.Instance{ns2,id2,name2,access2,cap2},O.Provider{Sys.Registry{ns3,id3,name3,access3,cursor3},reader3,param3,decl3},O.Provider{Sys.Registry{ns4,id4,name4,access4,cursor4},reader4,param4,decl4},meta,tick,frame,phase,IDs{id0,id1,id2,id3,id4},locals,reads},stage)
+def outcome(trace:Facts.State,world:F.World(),status:U32) -> Sys.Outcome<Ctx.Context<F.World()>,Unit,Unit>:
   match status:
-    case 0:Sys.Succeeded{world,Unit{}}
-    case _:Sys.Failed{world,Unit{}}
+    case 0:Sys.Succeeded{Ctx.Context{world,trace},Unit{}}
+    case _:Sys.Failed{Ctx.Context{world,trace},Unit{}}
 type LocalReturned is Type:
   LocalReturned{world:F.World(),instance:Instance(),status:U32,frame:Maybe<&2,D.Frame>}
 def local_returned(result:Local.Run<T.HealthSchema,F.Store(),F.Resources(),E.event_type(),Array<U32>,Args,Unit,D.Frame,local_runner>) -> LocalReturned:
@@ -47,24 +59,15 @@ def next_frame(old:D.Frame,returned:Maybe<&2,D.Frame>) -> D.Frame:
   match returned:
     case None{}:old
     case Some{frame}:frame
-def spawn_returned(update:Instance(),dispose:Instance(),fast:Reader.Provider(),slow:Reader.Provider(),meta:Mixed.State<T.HealthSchema,E.Publication,Family.Family,Unit>,tick:Nat,frame:D.Frame,+phase:U32,ids:IDs,locals:List<&2,LocalCall>,reads:List<&2,ReadCall>,+id:U32,result:LocalReturned) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match result:
-    case LocalReturned{world,instance,+status,+returned}:(Owners{instance,update,dispose,fast,slow,meta,tick,next_frame(frame,returned),phase,ids,List.append(&2,LocalCall,locals,[LocalCall{id,0,status,returned}]),reads},outcome(world,status))
-def spawn_run(owners:Owners,world:F.World(),id:U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match owners:
-    case Owners{spawn,update,dispose,fast,slow,meta,tick,+frame,phase,ids,locals,reads}:spawn_returned(update,dispose,fast,slow,meta,tick,frame,phase,ids,locals,reads,id,invoked(spawn,world,0,frame))
-def update_returned(spawn:Instance(),dispose:Instance(),fast:Reader.Provider(),slow:Reader.Provider(),meta:Mixed.State<T.HealthSchema,E.Publication,Family.Family,Unit>,tick:Nat,frame:D.Frame,+phase:U32,ids:IDs,locals:List<&2,LocalCall>,reads:List<&2,ReadCall>,+id:U32,result:LocalReturned) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match result:
-    case LocalReturned{world,instance,+status,+returned}:(Owners{spawn,instance,dispose,fast,slow,meta,tick,next_frame(frame,returned),phase,ids,List.append(&2,LocalCall,locals,[LocalCall{id,1,status,returned}]),reads},outcome(world,status))
-def update_run(owners:Owners,world:F.World(),id:U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match owners:
-    case Owners{spawn,update,dispose,fast,slow,meta,tick,+frame,phase,ids,locals,reads}:update_returned(spawn,dispose,fast,slow,meta,tick,frame,phase,ids,locals,reads,id,invoked(update,world,1,frame))
-def dispose_returned(spawn:Instance(),update:Instance(),fast:Reader.Provider(),slow:Reader.Provider(),meta:Mixed.State<T.HealthSchema,E.Publication,Family.Family,Unit>,tick:Nat,frame:D.Frame,+phase:U32,ids:IDs,locals:List<&2,LocalCall>,reads:List<&2,ReadCall>,+id:U32,result:LocalReturned) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match result:
-    case LocalReturned{world,instance,+status,+returned}:(Owners{spawn,update,instance,fast,slow,meta,tick,next_frame(frame,returned),phase,ids,List.append(&2,LocalCall,locals,[LocalCall{id,2,status,returned}]),reads},outcome(world,status))
-def dispose_run(owners:Owners,world:F.World(),id:U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match owners:
-    case Owners{spawn,update,dispose,fast,slow,meta,tick,+frame,phase,ids,locals,reads}:dispose_returned(spawn,update,fast,slow,meta,tick,frame,phase,ids,locals,reads,id,invoked(dispose,world,2,frame))
+def local_done(operation:U32,id:U32,trace:Facts.State,shared:Shared,result:LocalReturned) -> Instance() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Unit,Unit>):
+  match shared result:
+    case Shared{meta,tick,frame,phase,locals,reads,stage},LocalReturned{world,instance,+status,+returned}:(instance,(Shared{meta,tick,next_frame(frame,returned),phase,List.append(&2,LocalCall,locals,[LocalCall{id,operation,status,returned}]),reads,stage},outcome(trace,world,status)))
+def local_actual(~operation:U32,shared:Shared,context:Ctx.Context<F.World()>,instance:Instance()) -> Instance() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Unit,Unit>):
+  match shared context instance:
+    case Shared{meta,tick,+frame,phase,locals,reads,stage},Ctx.Context{world,trace},Local.Instance{namespace,+id,name,access,capture}:local_done(operation,id,trace,Shared{meta,tick,frame,phase,locals,reads,stage},invoked(Local.Instance{namespace,id,name,access,capture},world,operation,frame))
+def spawn_invoke(instance:Instance(),shared:Shared,context:Ctx.Context<F.World()>) -> Instance() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Unit,Unit>):local_actual(~0,shared,context,instance)
+def update_invoke(instance:Instance(),shared:Shared,context:Ctx.Context<F.World()>) -> Instance() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Unit,Unit>):local_actual(~1,shared,context,instance)
+def dispose_invoke(instance:Instance(),shared:Shared,context:Ctx.Context<F.World()>) -> Instance() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Unit,Unit>):local_actual(~2,shared,context,instance)
 type ReaderReturned is Type:
   ReaderReturned{context:Family.Context(),provider:Reader.Provider(),status:U32,output:Maybe<&2,Reader.Read>,before:String,after:String}
 def reader_captured(before:String,status:U32,output:Maybe<&2,Reader.Read>,observedProvider:Reader.Provider() & String,observedContext:Family.Context() & String) -> ReaderReturned:
@@ -86,47 +89,14 @@ def read_run(provider:Reader.Provider(),context:Family.Context(),args:Reader.Arg
 def iteration(frame:D.Frame) -> D.Frame & U32:
   match frame:
     case D.Frame{count,+i,transient,reservations,facts}:(D.Frame{count,i,transient,reservations,facts},i)
-def fast_returned(spawn:Instance(),update:Instance(),dispose:Instance(),slow:Reader.Provider(),frame:D.Frame,+phase:U32,ids:IDs,locals:List<&2,LocalCall>,reads:List<&2,ReadCall>,+id:U32,result:ReaderReturned) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
+def reader_done(id:U32,trace:Facts.State,frame:D.Frame,phase:U32,locals:List<&2,LocalCall>,reads:List<&2,ReadCall>,stage:U32,result:ReaderReturned) -> Reader.Provider() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Unit,Unit>):
   match result:
-    case ReaderReturned{Route.Runtime{world,meta,+tick},provider,+status,+output,before,after}:(Owners{spawn,update,dispose,provider,slow,meta,tick,frame,phase,ids,locals,List.append(&2,ReadCall,reads,[ReadCall{id,status,tick,output,before,after}])},outcome(world,status))
-def fast_iteration(spawn:Instance(),update:Instance(),dispose:Instance(),fast:Reader.Provider(),slow:Reader.Provider(),meta:Mixed.State<T.HealthSchema,E.Publication,Family.Family,Unit>,tick:Nat,+phase:U32,ids:IDs,locals:List<&2,LocalCall>,reads:List<&2,ReadCall>,world:F.World(),id:U32,observed:D.Frame & U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
+    case ReaderReturned{Route.Runtime{world,meta,+tick},provider,+status,+output,before,after}:(provider,(Shared{meta,tick,frame,phase,locals,List.append(&2,ReadCall,reads,[ReadCall{id,status,tick,output,before,after}]),stage},outcome(trace,world,status)))
+def reader_iteration(who:U32,id:U32,trace:Facts.State,provider:Reader.Provider(),meta:Mixed.State<T.HealthSchema,E.Publication,Family.Family,Unit>,tick:Nat,+phase:U32,locals:List<&2,LocalCall>,reads:List<&2,ReadCall>,stage:U32,world:F.World(),observed:D.Frame & U32) -> Reader.Provider() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Unit,Unit>):
   match observed:
-    case (frame,i):fast_returned(spawn,update,dispose,slow,frame,phase,ids,locals,reads,id,read_run(fast,Route.Runtime{world,meta,tick},Reader.Args{0,phase,i}))
-def fast_run(owners:Owners,world:F.World(),id:U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match owners:
-    case Owners{spawn,update,dispose,fast,slow,meta,tick,+frame,phase,ids,locals,reads}:fast_iteration(spawn,update,dispose,fast,slow,meta,tick,phase,ids,locals,reads,world,id,iteration(frame))
-def slow_returned(spawn:Instance(),update:Instance(),dispose:Instance(),fast:Reader.Provider(),frame:D.Frame,+phase:U32,ids:IDs,locals:List<&2,LocalCall>,reads:List<&2,ReadCall>,+id:U32,result:ReaderReturned) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match result:
-    case ReaderReturned{Route.Runtime{world,meta,+tick},provider,+status,+output,before,after}:(Owners{spawn,update,dispose,fast,provider,meta,tick,frame,phase,ids,locals,List.append(&2,ReadCall,reads,[ReadCall{id,status,tick,output,before,after}])},outcome(world,status))
-def slow_iteration(spawn:Instance(),update:Instance(),dispose:Instance(),fast:Reader.Provider(),slow:Reader.Provider(),meta:Mixed.State<T.HealthSchema,E.Publication,Family.Family,Unit>,tick:Nat,+phase:U32,ids:IDs,locals:List<&2,LocalCall>,reads:List<&2,ReadCall>,world:F.World(),id:U32,observed:D.Frame & U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match observed:
-    case (frame,i):slow_returned(spawn,update,dispose,fast,frame,phase,ids,locals,reads,id,read_run(slow,Route.Runtime{world,meta,tick},Reader.Args{1,phase,i}))
-def slow_run(owners:Owners,world:F.World(),id:U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match owners:
-    case Owners{spawn,update,dispose,fast,slow,meta,tick,+frame,phase,ids,locals,reads}:slow_iteration(spawn,update,dispose,fast,slow,meta,tick,phase,ids,locals,reads,world,id,iteration(frame))
-def dispatch_slow(allowed:Bool,owners:Owners,world:F.World(),+wanted:U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match allowed:
-    case True{}:slow_run(owners,world,wanted)
-    case False{}:(owners,Sys.Failed{world,Unit{}})
-def dispatch_fast(allowed:Bool,owners:Owners,world:F.World(),+wanted:U32,slow:U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match allowed:
-    case True{}:fast_run(owners,world,wanted)
-    case False{}:dispatch_slow(U32.is_eq(wanted,slow),owners,world,wanted)
-def dispatch_dispose(allowed:Bool,owners:Owners,world:F.World(),+wanted:U32,fast:U32,slow:U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match allowed:
-    case True{}:dispose_run(owners,world,wanted)
-    case False{}:dispatch_fast(U32.is_eq(wanted,fast),owners,world,wanted,slow)
-def dispatch_update(allowed:Bool,owners:Owners,world:F.World(),+wanted:U32,dispose:U32,fast:U32,slow:U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match allowed:
-    case True{}:update_run(owners,world,wanted)
-    case False{}:dispatch_dispose(U32.is_eq(wanted,dispose),owners,world,wanted,fast,slow)
-def dispatch_spawn(allowed:Bool,owners:Owners,world:F.World(),+wanted:U32,update:U32,dispose:U32,fast:U32,slow:U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match allowed:
-    case True{}:spawn_run(owners,world,wanted)
-    case False{}:dispatch_update(U32.is_eq(wanted,update),owners,world,wanted,dispose,fast,slow)
-def dispatch_ids(owners:Owners,world:F.World(),+wanted:U32,ids:IDs) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match ids:
-    case IDs{spawn,update,dispose,fast,slow}:dispatch_spawn(U32.is_eq(wanted,spawn),owners,world,wanted,update,dispose,fast,slow)
-def run(owners:Owners,world:F.World(),wanted:U32) -> Owners & Sys.Outcome<F.World(),Unit,Unit>:
-  match owners:
-    case Owners{spawn,update,dispose,fast,slow,meta,tick,frame,phase,+ids,locals,reads}:dispatch_ids(Owners{spawn,update,dispose,fast,slow,meta,tick,frame,phase,ids,locals,reads},world,wanted,ids)
+    case (frame,i):reader_done(id,trace,frame,phase,locals,reads,stage,read_run(provider,Route.Runtime{world,meta,tick},Reader.Args{who,phase,i}))
+def reader_actual(~who:U32,shared:Shared,context:Ctx.Context<F.World()>,provider:Reader.Provider()) -> Reader.Provider() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Unit,Unit>):
+  match shared context provider:
+    case Shared{meta,tick,frame,phase,locals,reads,stage},Ctx.Context{world,trace},O.Provider{Sys.Registry{namespace,+id,name,access,cursor},owner,param,decl}:reader_iteration(who,id,trace,O.Provider{Sys.Registry{namespace,id,name,access,cursor},owner,param,decl},meta,tick,phase,locals,reads,stage,world,iteration(frame))
+def fast_invoke(provider:Reader.Provider(),shared:Shared,context:Ctx.Context<F.World()>) -> Reader.Provider() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Unit,Unit>):reader_actual(~0,shared,context,provider)
+def slow_invoke(provider:Reader.Provider(),shared:Shared,context:Ctx.Context<F.World()>) -> Reader.Provider() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Unit,Unit>):reader_actual(~1,shared,context,provider)

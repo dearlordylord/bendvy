@@ -25,14 +25,14 @@ def logical(prefix:String,view:Stream.StateView,observed:F.World() & String) -> 
     case (world,rows):after_logical(prefix,view,rows,O.world(world))
 def final_state(prefix:String,observed:Program.State & Stream.StateView) -> Prepared:
   match observed:
-    case (Program.State{world,_,_,_,_},view):logical(prefix,view,O.rows(world))
+    case (state,view):logical(prefix,view,O.rows(Program.finish_world(state)))
 def initial_state(prefix:String,iterations:U32,observed:Program.State & String) -> Prepared:
   match observed:
     case (state,text):final_state(prefix ++ "seededRegistered={" ++ text ++ "}
 ",Stream.state(Program.drain(Program.loops(U32.to_nat(iterations),Program.phase(1,Program.prime(state))))))
 def initial_named(prefix:String,iterations:U32,owners:S.Owners,observed:F.World() & U32) -> Prepared:
   match observed:
-    case (world,namespace):initial_state(prefix,iterations,Render.state(Program.State{world,owners,namespace,[],Program.Complete{}}))
+    case (world,namespace):initial_state(prefix,iterations,Render.state(Program.start(world,owners,namespace)))
 def seed_applied(prefix:String,iterations:U32,owners:S.Owners,observed:F.World() & String) -> Prepared:
   match observed:
     case (world,text):initial_named(prefix ++ "seedApplied={" ++ text ++ "}
@@ -48,13 +48,13 @@ def seed_finished(prefix:String,iterations:U32,owners:S.Owners,result:D.Frame & 
 def seed_reserved(prefix:String,count:U32,iterations:U32,owners:S.Owners,result:F.Reserved) -> Prepared:
   match result:
     case F.Reserved{tx,reservations}:seed_finished(prefix,iterations,owners,D.finish(3,D.Frame{count,0,None{},reservations,[]},Tx.Success{},tx))
-def seed_registered(prefix:String,+count:U32,iterations:U32,observed:Program.State & String) -> Prepared:
+def seed_registered(prefix:String,+count:U32,iterations:U32,observed:Program.View & String) -> Prepared:
   match observed:
-    case (Program.State{world,owners,_,_,_},text):seed_reserved(prefix ++ "registered={" ++ text ++ "}
+    case (Program.View{world,owners,_,_,_},text):seed_reserved(prefix ++ "registered={" ++ text ++ "}
 ",count,iterations,owners,F.seed_rows(U32.to_nat(count),0,F.Reserved{Tx.begin(~F.World(),~E.event_type(),world),[]}))
 def registered_named(prefix:String,count:U32,iterations:U32,owners:S.Owners,observed:F.World() & U32) -> Prepared:
   match observed:
-    case (world,namespace):seed_registered(prefix,count,iterations,Render.state(Program.State{world,owners,namespace,[],Program.Complete{}}))
+    case (world,namespace):seed_registered(prefix,count,iterations,Render.view(Program.View{world,owners,namespace,[],Program.Complete{}}))
 def registered(prefix:String,count:U32,iterations:U32,result:Registration.Returned) -> Prepared:
   match result:
     case Registration.Ready{world,owners}:registered_named(prefix,count,iterations,owners,W.namespace(~T.HealthSchema,~F.Store(),~F.Resources(),~E.event_type(),world))
