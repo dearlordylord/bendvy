@@ -1,0 +1,30 @@
+from pathlib import Path
+import json,gzip,hashlib,shutil,copy,importlib.util,re
+W=Path('/tmp/bendvy73-allocator-validation');R=Path('/workspace/formal-proofs/bendvy');D=W/'experiments/public-api-usability/allocator-validation-fields-v1';O=Path('/tmp/bendvy73-allocator-validation-actual02');assert not O.exists();O.mkdir();stage=O/'source';oldstage=R/'.artifacts/regression73-20261018-world-fields03/candidate';shutil.copytree(oldstage/'src',stage/'src');shutil.copytree(oldstage/'examples',stage/'examples');shutil.copyfile(W/'src/ecs/entity-allocator.bend',stage/'src/ecs/entity-allocator.bend');sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+changes=[str(p.relative_to(stage))for p in stage.rglob('*')if p.is_file()and sha(p)!=sha(oldstage/p.relative_to(stage))];assert changes==['src/ecs/entity-allocator.bend'],changes
+expected=json.loads((oldstage/'examples/query-composition/expected.json').read_text());expected['checkpoints']=[p for p in expected['checkpoints']if p['label']!='foreign-collision-reference']
+def render(v):
+ if isinstance(v,dict):return '{'+','.join(json.dumps(k)+':'+render(x)for k,x in v.items())+'}'
+ if isinstance(v,list):return '['+', '.join(map(render,v))+']'
+ return json.dumps(v,separators=(',',':'))
+gold=((render(expected)+'\n')*10).encode();assert gold==gzip.decompress((R/'.artifacts/regression73-20261018-world-fields03/pair-0-candidate-JS.stdout.gz').read_bytes());oracle=D/'expected.stdout.gz';oracle.write_bytes(gzip.compress(gold,mtime=0));inv={str(p):sha(p)for p in stage.rglob('*.bend')};entry=stage/'examples/query-composition/timing-main.bend';base=json.loads(Path('/tmp/bendvy73-captured-query-controls-actual01/js/plan.json').read_text());collector=R/'experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py';spec=importlib.util.spec_from_file_location('collector',collector);c=importlib.util.module_from_spec(spec);spec.loader.exec_module(c);
+reached=set()
+def visit(p):
+ p=p.resolve()
+ if str(p)in reached:return
+ reached.add(str(p))
+ for target in re.findall(r'^import\s+(\S+)',p.read_text(),re.MULTILINE):
+  if target!='Base':visit(p.parent/target)
+visit(entry);inv={p:h for p,h in inv.items()if p in reached};closure=c.validate_imports(entry.parent,inv,[str(entry)])
+pins={k:h for k,h in base['pins'].items()if Path(k).is_file()and sha(k)==h and not k.startswith('/tmp/bendvy73')and not k.startswith('/tmp/bendvy-captured-query-app')};pins.update(inv)
+basis={'sourceCommit':'2c0fe21f3bac7fad555a8a4c923b0c6d71326293','parent':'b043b36569d225f822f11b06d0b7a6b6bf2bd4b2','changedSourceOnly':changes,'sourceInventory':inv,'oracleOrigin':'Frozen expected.json (baseline contract), remove only existing approved foreign-collision-reference as unchanged benchmark/run.py; recursive renderer mirrors json.bend dict compact/List.show comma-space, ten unchanged complete applications. Independent values, not subject output.','oracleBytes':len(gold),'oracleSHA256':hashlib.sha256(gold).hexdigest()};freeze=D/'SOURCE-FREEZE.json';freeze.write_text(json.dumps(basis,indent=2)+'\n')
+for f in [freeze,oracle,Path(__file__),W/'src/ecs/entity-allocator.bend',oldstage/'examples/query-composition/expected.json',R/'benchmarks/run.py']:pins[str(f)]=sha(f)
+for role in ['js','native']:
+ q=O/role;q.mkdir();p=copy.deepcopy(base);generated=q/('workshop.js'if role=='js'else'workshop.c');native=q/'workshop.native';rp=dict(pins);prefix=[p['tools']['taskset'],'-c','11'];commands=[{'label':'emit','argv':prefix+[p['tools']['bend'],str(entry),'-o',str(generated)],'capSeconds':60}]
+ if role=='native':commands.append({'label':'build','argv':prefix+[p['tools']['clangWrapper'],'-O3',str(generated),'-o',str(native),'-pthread','-lm'],'capSeconds':120});p.pop('moduleInterpretation',None)
+ else:
+  package=q/'package.json';package.write_text('{"type":"commonjs"}\n');rp[str(package)]=sha(package);p['moduleInterpretation']={'path':str(package),'sha256':sha(package),'type':'commonjs','scope':'Output-local CommonJS'}
+ commands.append({'label':'consumer','argv':prefix+([p['tools']['node'],str(generated)]if role=='js'else[str(native)]),'capSeconds':180})
+ p.update(scope='ALLOCATOR-only field passing correctness: unchanged full ten Workshop applications; not performance gate',role=role,subject='normal',runtimeArguments=[],entrypoint=str(entry),stage=str(entry.parent),cwd=str(entry.parent),sourceInventory=inv,sourceEntries=[str(entry)],importClosure=closure,pins=rp,commands=commands,oracle=str(oracle),oracleBytes=len(gold),oracleSHA256=hashlib.sha256(gold).hexdigest(),normalOracle=str(oracle),normalOracleBytes=len(gold),normalOracleSHA256=hashlib.sha256(gold).hexdigest(),generated=str(generated),native=str(native),sourceCommit=basis['sourceCommit'],sourceFreeze={'path':str(freeze),'sha256':sha(freeze)},foreignConsumption={'sidecars':{}},postConsumer='Complete unchanged independently rendered Workshop oracle and empty stderr; no timing claim.')
+ for f,h in rp.items():assert sha(f)==h,f
+ plan=q/'plan.json';plan.write_text(json.dumps(p,indent=2)+'\n');print(role,plan,sha(plan),flush=True)
