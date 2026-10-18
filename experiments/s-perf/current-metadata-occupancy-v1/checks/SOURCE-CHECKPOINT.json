@@ -2,10 +2,11 @@
   "base": "c9cc34fb9",
   "scope": "Private source checkpoint; NO subject/backend qualification",
   "sourceCheck": {
-    "pure": "checks/bendvy-metadata-consumer03.stderr",
+    "pure": "checks/bendvy-metadata-consumer03.stdout",
     "pureResult": "ALL PROOFS CHECK",
     "main": "checks/bendvy-metadata-main01.stderr",
-    "mainResult": "Only six existing unsafe/foreign IO dependencies; not proof PASS"
+    "mainResult": "Only six existing unsafe/foreign IO dependencies; not proof PASS",
+    "pureDiagnostics": "checks/bendvy-metadata-consumer03.stderr"
   },
   "measurement": "per-column complete-state structural occurrences, not unique allocations/bytes or global world peak",
   "hookSites": [
@@ -371,5 +372,8 @@
     "experiments/s-perf/current-metadata-occupancy-v1/private/src/ecs/world-namespace.bend": "92f7205a5d4d633289348960e139f5797354ff7dbfb0627b5d9435e17c5f48d7",
     "experiments/s-perf/current-metadata-occupancy-v1/private/src/ecs/world-resource-owner.bend": "3b8ec13ce3bfd19e3264e3111825f9a0287b1a9f2d8018b62e0dbe53ce8f42fc",
     "experiments/s-perf/current-metadata-occupancy-v1/private/src/ecs/world.bend": "40516c2a49ad561d4b95ac5f5a0295ca1a20061c534969b6d7e13c4bdb1945f5"
-  }
+  },
+  "privateCoreChangedFromBase": [
+    "column.bend"
+  ]
 }
