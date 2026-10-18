@@ -2110,3 +2110,32 @@ After Dense integration, all 356 protected #28 source hashes and the complete
 core inventory still match; no duplicate benchmark was needed. Health
 integration CI 39101829608 passed both jobs. No overall delivery speedup is
 claimed.
+
+### 2026-10-18 — Full ordinary FailedTxn/Dense and Sparse integration
+
+FailedTxn now has complete ordinary-entry correctness evidence for both schemas
+and all three sizes on JS and Native. The restored Health observer preserves
+its original chunks. At the recorded common 180 s cap, Health1024 completes its
+444,047,554-byte independent oracle in one fresh child per backend: JS 29.00 s,
+Native 83.28 s. Peak child RSS is 2,933,828 / 5,225,128 KiB respectively, not
+allocation volume. These full-output completion measurements do not establish
+comparative ECS performance or prove the cause of earlier timeouts. The old
+30/60 s failures remain unchanged. Source and packets were independently
+reviewed and integrated through `7b4e0492d`; dated limits are in `docs/limits.md`.
+
+Dense both schemas and all three sizes also pass full unchanged independent
+oracles on both backends, with final review and retained packets integrated
+through `80e0ad3ab`. Sparse Motion all three sizes and Health64 are accepted
+through `d5fdcbb2c`; final review confirms three fresh postcommit scans,
+postfilters and cumulative audit remain. Sparse Health256/1024 is next.
+Lifecycle first Motion64 and Health64 pairs pass full LC2 oracles; their family
+packet and larger cases remain pending, so this is not integration acceptance.
+
+The 1+1 effect is concrete reuse: larger cases consume qualified first-size
+artifacts, and the source-current #28 packet still matches all 356 hashes and
+the complete core inventory after the merged consumer changes. No unchanged
+Bend builds or comparative benchmark were repeated merely for documentation.
+CI 39102381112 passed both jobs; successor 39104659229 is running on the pushed
+integration `6eeb0ba5b`. Overall delivery acceleration and final #21 performance
+qualification remain unproven. Two implementation directions remain active:
+Sparse and Lifecycle; Readers follows completion of Sparse.
