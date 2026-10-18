@@ -2142,7 +2142,7 @@ Sparse and Lifecycle; Readers follows completion of Sparse.
 
 ### 2026-10-18 — Lifecycle ordinary family accepted
 
-Lifecycle is integrated through `97bd16f9a`: both schemas at64/256/1024 on JS
+Lifecycle is integrated through `97bd16f9a`: both schemas at 64/256/1024 on JS
 and Native match all twelve complete independent LC2 oracles. Independent final
 Spec/Standards review accepts the source and all retained plan/receipt/source/
 artifact joins and66 guards. Portable verification passes1001 members/735
@@ -2166,7 +2166,7 @@ output is used to author oracle expectations; no new tracking layer was added.
 
 ### 2026-10-18 — All ordinary workload families integrated
 
-Readers is accepted through `86cdfc00f`: both schemas at64/256/1024 on JS/Native
+Readers is accepted through `86cdfc00f`: both schemas at 64/256/1024 on JS/Native
 match all twelve complete independent textual oracles. Independent final review
 passes source, provenance, plan/receipt joins and84 guards. One portable verifier
 passes1622 members/965 objects/84 guards. This completes the sixty ordinary
@@ -2320,7 +2320,7 @@ CI39112377804 passed both functional checks and runnable examples on
 ## 2026-10-18 — FailedTxn actual seed metrics integrated
 
 `4cf5d2238` integrates the twelve-case FailedTxn metric family after independent
-final Spec/Standards review. Both schemas at64/256/1024 pass full JS/Native
+final Spec/Standards review. Both schemas at 64/256/1024 pass full JS/Native
 canonical output, two actual pre-finish seed samples and a componentwise maximum
 join of reached callback facts. Repeated snapshots are not summed. Combined
 logical undo/commands/events maxima are N/N/1. The
@@ -2329,16 +2329,35 @@ passes 1,485 members, 903 objects and 138 guards. Existing canonical archives
 are reused by exact content hash. No new runtime, compiler or benchmark limit
 was needed.
 
-Frozen receipts retain their3433 source epoch. The explicit
+Frozen receipts retain their 3433 source epoch. The explicit
 [applicability record](../../experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/diagnostics/tx-peaks-v1/checks/CORE-APPLICABILITY.json)
 traces unchanged Local, mixed-reader, raw disposal and Inspector paths and
 separately binds the current query-plan controls. The reviewer accepted this
 reuse without relabeling old receipts as current-source executions. Protected
-#28 still binds all356 sources/full core inventory after integration; the exact
-CI source check passes. CI for this evidence-only integration remains pending.
+#28 still binds all 356 sources/full core inventory after integration; the exact
+CI source check passes. CI39113003771 passed both jobs on `9cab47ca6`.
 
 Readers already samples its reached seed. Lifecycle still lacks actual active
 Tx observations at seed, foreign seed, reserve and disposal. Its Select path
 creates and rolls back a real Tx: read-only zero applicability must be explicit,
 not described as absence of a transaction. No allocation, RSS, universal peak
 or full #21 performance qualification follows from these terminal metrics.
+
+
+## 2026-10-18 — Protected #28 applicability to tracked master
+
+The immutable receipt `f6e4cfb8b748e81b63fe2a81f1f13e02d77edbb341946920af68412165b97110`
+records the actual 356-file workspace. Independent source review compared it
+with published `9cab47ca6`: all 355 tracked recorded paths are byte-identical.
+The sole extra is foreign, untracked work:
+`src/ecs/ordinary-execution-trace.bend`, SHA256
+`961967e42485d2774ba71055bd12541402a2e7cc9f8ec9c4c5beec572d7afdc7`.
+Its bytes are archived; the file remains untouched and is not published here.
+
+The reviewer reconstructed the actual retained timing entry's recursive import
+closure: 29 files, no unresolved imports, unchanged bytes, no dependency on the
+extra file. Scoped runtime reuse therefore applies to tracked master. This is
+not a clean-checkout replay or strict 356-file inventory equivalence: the strict
+checker would report the extra path absent from that checkout. No frozen
+receipt/archive was rewritten and no benchmark was repeated. Evidence remains
+in the existing [manifest](../../experiments/s-perf/canonical-api-v1/dense-runtime-v1/diagnostics/matched-timing-v1/plan-once-v1/results/regression28/MANIFEST.json).
