@@ -1,0 +1,51 @@
+from pathlib import Path
+import json,gzip,hashlib,shutil,os,subprocess
+W=Path('/tmp/bendvy-persistent-metadata-occupancy');D=W/'experiments/s-perf/current-metadata-occupancy-v1';L=D/'results/actual-attempt01';assert not L.exists();(L/'objects').mkdir(parents=True)
+sha=lambda b:hashlib.sha256(b).hexdigest();versions={};historical={};tools=set();cases=[]
+def pin(name,h):
+ if (name,h) in versions:return
+ p=Path(name);raw=p.read_bytes()
+ if sha(raw)!=h:
+  assert p.is_relative_to(D),name
+  rel=str(p.relative_to(W));raw=subprocess.check_output(['git','show','8fb4e9efc3be174a848a8fc9594a14641eff4af4:'+rel],cwd=W)
+  assert sha(raw)==h,(name,h)
+  historical[name,h]={'sourceEpoch':'Historical unexecuted actual01 source; recovered from immutable git object, not current filesystem validation','gitCommit':'8fb4e9efc3be174a848a8fc9594a14641eff4af4','gitPath':rel}
+ assert sha(raw)==h,(name,h);versions[name,h]=raw
+selected=[('normal',role,Path('/tmp/bendvy21-persistent-metadata-motion64-actual02/normal')/role)for role in ['js','native']]
+selected += [(kind,role,Path('/tmp/bendvy21-persistent-metadata-controls-actual01')/kind/role)for kind in ['fixture','counter']for role in ['js','native']]
+for kind,role,q in selected:
+ p=json.loads((q/'plan.json').read_text());r=json.loads((q/'receipt.json').read_text());assert r['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS';assert r['planSHA256']==sha((q/'plan.json').read_bytes());assert len(r['commands'])==len(p['commands'])
+ cases.append({'directory':str(q),'role':role,'kind':kind,'planSHA256':r['planSHA256'],'receiptSHA256':sha((q/'receipt.json').read_bytes())})
+ for name,h in p['pins'].items():pin(name,h)
+ for root,files in p['resourceRoots'].items():
+  for name,h in files.items():path=str(Path(root)/name);pin(path,h);tools.add(path)
+ tools.update(p['tools'].values())
+ for g in r['guards']:
+  pin(g['path'],g['sha256']);guard=json.loads(Path(g['path']).read_text());assert guard['unchanged']
+  for name,h in guard['actualPins'].items():pin(name,h)
+ for command in r['commands']:
+  for key in ['stdout','stderr']:v=command[key];pin(v['path'],v['sha256']);assert Path(v['path']).stat().st_size==v['bytes']
+ for f in q.iterdir():
+  if f.is_file():pin(str(f),sha(f.read_bytes()))
+drafts=[]
+for role in ['js','native']:
+ q=Path('/tmp/bendvy21-persistent-metadata-motion64-actual01/normal')/role;assert not (q/'receipt.json').exists();p=json.loads((q/'plan.json').read_text());drafts.append({'directory':str(q),'role':role,'status':'UNEXECUTED','planSHA256':sha((q/'plan.json').read_bytes())})
+ for name,h in p['pins'].items():pin(name,h)
+ for f in q.iterdir():
+  if f.is_file():pin(str(f),sha(f.read_bytes()))
+for folder in [D,D/'checks',D/'oracle',D/'controls']:
+ for f in folder.iterdir():
+  if f.is_file():pin(str(f),sha(f.read_bytes()))
+for name in ['prepare21-persistent-metadata-motion64-01.py','prepare21-persistent-metadata-motion64-02.py','prepare21-persistent-metadata-controls01.py','bendvy21-persistent-metadata-prepare01.stdout','bendvy21-persistent-metadata-prepare01.stderr','bendvy21-persistent-metadata-prepare02.stdout','bendvy21-persistent-metadata-prepare02.stderr','bendvy21-persistent-metadata-controls-prepare01.stdout','bendvy21-persistent-metadata-controls-prepare01.stderr']:
+ f=Path('/tmp')/name;pin(str(f),sha(f.read_bytes()))
+for f in [Path(__file__),Path('/tmp/verify21-persistent-metadata01.py')]:pin(str(f),sha(f.read_bytes()))
+rows=[]
+for (name,h),raw in sorted(versions.items()):
+ row={'actualPath':name,'actualRealpath':str(Path(name).resolve()),'bytes':len(raw),'sha256':h};row.update(historical.get((name,h),{}))
+ if raw.startswith(b'\x7fELF') and name in tools:row['hashOnly']='Installed tool/shared library identity only; not redistributed'
+ else:
+  obj=L/'objects'/(h+'.gz')
+  if not obj.exists():obj.write_bytes(gzip.compress(raw,mtime=0))
+  row.update(object=os.path.relpath(obj,L),objectSHA256=sha(obj.read_bytes()))
+ rows.append(row)
+record={'scope':'Ordinary ReadersMotion64 bothbackends fullcanonical and full ordered per-column completed-hook metadata observations; affine/raw/Prepared/actualrollback finite fixtures; one reached reporter defect with unchangedcanonical/intendednormalmetricREJECT/exactcounterMATCH. Structural occurrences, not uniqueallocatorcells/bytes, instantaneous internal growth or aggregate-world peak. valuesShape excludes evacuated owner/handoff/history storage.','cases':cases,'unexecutedDrafts':drafts,'members':rows,'objects':len(list((L/'objects').iterdir()))};(L/'RETENTION.json').write_text(json.dumps(record,indent=2)+'\n');shutil.copyfile(__file__,L/'retain.py.source');shutil.copyfile('/tmp/verify21-persistent-metadata01.py',L/'verify.py');print('RETAINED',len(rows),'members',record['objects'],'objects',sha((L/'RETENTION.json').read_bytes()))

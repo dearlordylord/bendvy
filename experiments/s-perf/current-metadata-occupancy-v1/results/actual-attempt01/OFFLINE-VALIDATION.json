@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "scope": "Offline retention and portable full evidence verification; no backend replay or timing claim",
+  "retention": {
+    "exit": 0,
+    "capSeconds": 120,
+    "helperSHA256": "04f3a42e0c84c9ecaacc4426a74bc400a51b7a254576579649ee0ba3cd95f3db"
+  },
+  "verification": {
+    "exit": 0,
+    "capSeconds": 120,
+    "helperSHA256": "a99a5c258f7c483ef6b6c2e97db5658d92c26a75996a2f90260eed31f5db0c1e",
+    "members": 1790,
+    "objects": 1155,
+    "guards": 69
+  },
+  "manifestSHA256": "4520aae4ff87c6adc22cd31adca477205e5b35329cfb8f09848b4608ae7b1e7c",
+  "outputs": [
+    {
+      "path": "retain01.stdout",
+      "bytes": 100,
+      "sha256": "898dcc470ec7565825abc278a90ff6feff9484c35aa40909c928519fb87e799f"
+    },
+    {
+      "path": "retain01.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verify01.stdout",
+      "bytes": 241,
+      "sha256": "840515228fcff5fe9287830dfa120da9977186f151c981420938bef1d70feb94"
+    },
+    {
+      "path": "verify01.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "elapsed": "Not recorded; not inferred from polling intervals",
+  "remaining": [
+    "Independent final review/integration",
+    "Aggregate world retained-owner peak, allocator bytes/RSS and comparative performance remain open #21 gates"
+  ]
+}
