@@ -100,10 +100,15 @@ def reserve(allocator:Allocator) -> Allocator & Reservation:
 def visible_join(+key:K.Key,next:Allocator -> List<&2,K.Key> -> Allocator & List<&2,K.Key>,reversed:List<&2,K.Key>,observed:Allocator & Bool) -> Allocator & List<&2,K.Key>:
   match observed:
     case (allocator,present):next(allocator,keep(Bool.not(present),key,reversed))
+def visible_state_join(+key:K.Key,reversed:List<&2,K.Key>,observed:Allocator & Bool) -> Allocator & List<&2,K.Key>:
+  match observed:
+    case (allocator,present):(allocator,keep(Bool.not(present),key,reversed))
+def visible_state_loop(keys:List<&2,K.Key>,state:Allocator & List<&2,K.Key>) -> Allocator & List<&2,K.Key>:
+  match keys state:
+    case [], (allocator,reversed):(allocator,List.reverse(&2,K.Key,reversed))
+    case +key <> rest, (allocator,reversed):visible_state_loop(rest,visible_state_join(key,reversed,checked(allocator,key,1)))
 def visible_loop(keys:List<&2,K.Key>,allocator:Allocator,reversed:List<&2,K.Key>) -> Allocator & List<&2,K.Key>:
-  match keys:
-    case []:(allocator,List.reverse(&2,K.Key,reversed))
-    case +key <> rest:visible_join(key,(allocator => reversed => visible_loop(rest,allocator,reversed)),reversed,checked(allocator,key,1))
+  visible_state_loop(keys,(allocator,reversed))
 def visible(allocator:Allocator) -> Allocator & List<&2,K.Key>:
   match allocator:
     case Allocator{next,high,slots,capacity,depth,free,+order}:visible_loop(order,Allocator{next,high,slots,capacity,depth,free,order},[])
