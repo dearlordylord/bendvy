@@ -2023,3 +2023,20 @@ Shared framing checkpoint: source6866e5bbd passes64 on both backends and256 JS w
 Readers bounded delivery: selected packet338c434ad retains1,016members/687objects, six complete oracle matches and two1024 exact-prefix deadlines. Both135-byte affine returned-owner controls pass. Final independent Spec/Standards review594c35d1 passes the complete25-file consumer plus control and current106-file dependency closure. Two plan preparation failures remain explicit; JS emission was reused for the corrected oracle successor. Root reused the exact353-source protected #28 evidence. This integrates correctness coverage and current consumer sources, not a performance keep or #21 closure;1024 and numerical qualification remain open.
 
 #73 delivery checkpoint (2026-10-17): reused the existing example runner for eight full JS/Native scenario pairs and the migrated user example, then qualified a separately authored blind consumer. One independent final review covered the implementation and retained evidence. The combined unchanged #28 gate ran once after core integration: 123 commands succeeded, 110 complete outputs matched, no confirmed regression. Core CI39079114169 passed both jobs. Unused-import removal and subsequent documentation changes reused applicable evidence; no unchanged backend campaign was repeated for status notes. This records actual reuse and delivery, not a measured overall delivery-speed improvement.
+
+### 2026-10-18 — Recorded execution budgets and ordinary App checkpoint
+
+The user authorized practical timeout increases, recorded in `docs/limits.md`.
+Checker15s and consumer30s replace the earlier5s defaults for new plans.
+The same frozen FailedTxn1024 artifacts complete eight full oracle-checked runs
+within30s (JS13.78–18.01s; Native13.60–15.44s). Evidence-only commits
+`c00761aff`, `1bcb9a3e6`, `93f55b13a` preserve the earlier failures and
+complete outputs; independent final review and integrated portable verification
+pass (1,225 members,802 referenced objects,56 guards). This establishes an
+operational budget, not comparative ECS performance or adoption of private IO.
+
+The ordinary App Motion64 successor separately passes complete38,459,780-byte
+JS and Native oracles. Existing-registration authority and reached routing
+controls, final review, integration and combined #28 remain pending. No new
+Bend compilation or benchmark was needed to integrate the boundary archive.
+CI39099716969 passed for the checker/budget change `5d31908d6`.

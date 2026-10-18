@@ -28,7 +28,9 @@ approve a law, prove a foreign function or establish a speedup.
 ## Measured consumer boundary
 
 FailedTxn1024, four fresh processes per backend, with warmup, execution and the
-complete 444,624,902-byte output. All eight runs match the independent oracle.
+complete 444,624,902-byte output. All eight runs match the independent oracle. Retained plans, receipts, outputs
+and the portable verifier are in the [boundary packet](../experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/runtime-v1/motion1024/runtime-boundary-attempt01/RETENTION.json)
+(integrated at `93f55b13a`; independent final review and portable verification pass).
 
 | Backend | Observed range |
 | --- | ---: |
