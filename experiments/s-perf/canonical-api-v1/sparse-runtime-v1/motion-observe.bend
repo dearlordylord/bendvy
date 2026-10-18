@@ -129,10 +129,12 @@ def audit(value:Driver.Audit) -> String:
   match value:
     case Driver.Audit{values,total,count,queries,cumulative}:"values=" ++ List.show(&2,U32,U32.show,values) ++ ";readsum=" ++ U32.show(total) ++ ";updated=" ++ Nat.show(count) ++ ";scans={" ++ scans(queries) ++ "};cumulative=" ++ U32.show(cumulative)
 
-def state_join(+cumulative:U32,+audits:List<&2,Driver.Audit>,+statuses:List<&2,Driver.Status>,world:F.World() & String,owner:F.Owner() & String) -> Driver.State & String:
+def state_join(+cumulative:U32,+audits:List<&2,Driver.Audit>,+statuses:List<&2,Driver.Status>,world:F.World() & String,owner:F.Owner() & String) -> Driver.View & String:
   (world,sw)=world
   (owner,so)=owner
-  (Driver.State{world,owner,audits,statuses,cumulative},"world={" ++ sw ++ "}|owner={" ++ so ++ "}|audit=" ++ List.show(&2,Driver.Audit,audit,audits) ++ "|statuses=" ++ List.show(&2,Driver.Status,status,statuses) ++ "|cumulative=" ++ U32.show(cumulative))
-def state(value:Driver.State) -> Driver.State & String:
+  (Driver.View{world,owner,audits,statuses,cumulative},"world={" ++ sw ++ "}|owner={" ++ so ++ "}|audit=" ++ List.show(&2,Driver.Audit,audit,audits) ++ "|statuses=" ++ List.show(&2,Driver.Status,status,statuses) ++ "|cumulative=" ++ U32.show(cumulative))
+def state_view(value:Driver.View) -> Driver.View & String:
   match value:
-    case Driver.State{w,o,audit,statuses,cumulative}:state_join(cumulative,audit,statuses,world(w),owner(o))
+    case Driver.View{w,o,audit,statuses,cumulative}:state_join(cumulative,audit,statuses,world(w),owner(o))
+
+def state(value:Driver.State) -> Driver.State & String:Driver.inspect(~state_view,value)
