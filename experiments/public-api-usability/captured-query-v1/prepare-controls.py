@@ -1,7 +1,10 @@
 """Existing-runner source controls and actual finite add-refusal pair."""
 from pathlib import Path
-import copy,gzip,hashlib,importlib.util,json,subprocess
-W=Path(__file__).resolve().parents[3];D=Path(__file__).parent;R=Path('/workspace/formal-proofs/bendvy');sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();base=Path('/tmp/bendvy73-captured-query-workshop-actual02/normal/js/plan.json');old=json.loads(base.read_text());basis=D/'CONTROLS-BASIS.json';b=json.loads(basis.read_text());collector=R/'experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py';sp=importlib.util.spec_from_file_location('collector',collector);c=importlib.util.module_from_spec(sp);sp.loader.exec_module(c);output=Path('/tmp/bendvy73-captured-query-controls-actual01');assert not output.exists();output.mkdir();gold=D/'oracle/refusal.stdout';oracle=output/'expected.refusal.stdout.gz';oracle.write_bytes(gzip.compress(gold.read_bytes(),mtime=0));commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=W,text=True).strip();pins=dict(old['pins'])
+import copy,gzip,hashlib,importlib.util,json,sys
+W=Path(__file__).resolve().parents[3];D=Path(__file__).parent;R=Path('/workspace/formal-proofs/bendvy');sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();base=Path('/tmp/bendvy73-captured-query-workshop-actual02/normal/js/plan.json');old=json.loads(base.read_text());basis=D/'CONTROLS-BASIS.json';b=json.loads(basis.read_text());collector=R/'experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py';sp=importlib.util.spec_from_file_location('collector',collector);c=importlib.util.module_from_spec(sp);sp.loader.exec_module(c);output=Path('/tmp/bendvy73-captured-query-controls-actual01');assert not output.exists();output.mkdir();gold=D/'oracle/refusal.stdout';oracle=output/'expected.refusal.stdout.gz';oracle.write_bytes(gzip.compress(gold.read_bytes(),mtime=0));pins=dict(old['pins'])
+sys.path.insert(0,str(W/'scripts'))
+from task_runner import run
+commit=run(['git','rev-parse','HEAD'],cwd=W,text=True,capture_output=True,timeout=15,check=True).stdout.strip()
 for f in [Path(__file__),base,basis,gold,oracle,D/'oracle/refusal-model.py',*[f for f in (D/'checks').iterdir()if f.is_file()]]:pins[str(f)]=sha(f)
 for role in ['source','js','native']:
  q=output/role;q.mkdir();p=copy.deepcopy(old);rolepins=dict(pins);p.pop('producer',None);p.pop('moduleInterpretation',None);p.pop('modelCorrection',None);prefix=[p['tools']['taskset'],'-c','11']

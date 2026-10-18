@@ -1,7 +1,9 @@
 """Freeze one source-bound JS/Native pair using the unchanged development runner."""
 from pathlib import Path
-import copy,gzip,hashlib,importlib.util,json,subprocess
+import copy,gzip,hashlib,importlib.util,json,sys
 W=Path(__file__).resolve().parents[3];D=Path(__file__).parent;R=Path('/workspace/formal-proofs/bendvy');sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+sys.path.insert(0,str(W/'scripts'))
+from task_runner import run
 base=Path('/tmp/bendvy21-current-dispatch-acceptance-actual02/normal/js/plan.json');old=json.loads(base.read_text());basis=D/'SOURCE-BASIS02.json';b=json.loads(basis.read_text());entry=D/'main.bend';inv=b['sourceInventory'];foreign=b['foreign'];collector=R/'experiments/public-inspect/ordinary-declaration-v1/canonical-full-consumer-v1/development-v2.py'
 spec=importlib.util.spec_from_file_location('collector',collector);c=importlib.util.module_from_spec(spec);spec.loader.exec_module(c);closure=c.validate_imports(entry.parent,inv,[str(entry)])
 output=Path('/tmp/bendvy73-captured-query-workshop-actual01');assert not output.exists();output.mkdir();oracle=output/'expected.stdout.gz';oracle.write_bytes(gzip.compress((D/'oracle/workshop.stdout').read_bytes(),mtime=0))
@@ -12,7 +14,7 @@ for p in old['pins']:
  if p.startswith('/usr/lib/')or p.startswith('/lib/'):pins[p]=old['pins'][p]
 pins.update(inv);pins.update(foreign)
 for f in [Path(__file__),base,basis,oracle,*[p for p in D.rglob('*')if p.is_file()and'__pycache__'not in p.parts]]:pins[str(f)]=sha(f)
-commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=W,text=True).strip()
+commit=run(['git','rev-parse','HEAD'],cwd=W,text=True,capture_output=True,timeout=15,check=True).stdout.strip()
 for role in ['js','native']:
  q=output/'normal'/role;q.mkdir(parents=True);p=copy.deepcopy(old);rolepins=dict(pins);generated=q/('scenario.js'if role=='js'else'scenario.c');native=q/'scenario.native';prefix=[p['tools']['taskset'],'-c','11']
  for key in ['metricArtifact','modelSourceCheckpoint','moduleInterpretation','producer','loweringPrecondition']:p.pop(key,None)

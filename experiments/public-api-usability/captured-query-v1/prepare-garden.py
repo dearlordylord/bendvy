@@ -1,7 +1,10 @@
 """Reuse qualified Workshop artifacts for the other nominal schema, no rebuild."""
 from pathlib import Path
-import copy,gzip,hashlib,json,subprocess
-W=Path(__file__).resolve().parents[3];D=Path(__file__).parent;sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();parent=Path('/tmp/bendvy73-captured-query-workshop-actual02/normal');output=Path('/tmp/bendvy73-captured-query-garden-actual01');assert not output.exists();output.mkdir();gold=D/'oracle/amendment01/garden.stdout';oracle=output/'expected.stdout.gz';oracle.write_bytes(gzip.compress(gold.read_bytes(),mtime=0));commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=W,text=True).strip();qualified={}
+import copy,gzip,hashlib,json,sys
+W=Path(__file__).resolve().parents[3];D=Path(__file__).parent;sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();parent=Path('/tmp/bendvy73-captured-query-workshop-actual02/normal');output=Path('/tmp/bendvy73-captured-query-garden-actual01');assert not output.exists();output.mkdir();gold=D/'oracle/amendment01/garden.stdout';oracle=output/'expected.stdout.gz';oracle.write_bytes(gzip.compress(gold.read_bytes(),mtime=0));qualified={}
+sys.path.insert(0,str(W/'scripts'))
+from task_runner import run
+commit=run(['git','rev-parse','HEAD'],cwd=W,text=True,capture_output=True,timeout=15,check=True).stdout.strip()
 for role in ['js','native']:
  q=parent/role;p=json.loads((q/'plan.json').read_text());r=json.loads((q/'receipt.json').read_text());assert r['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS'and r['planSHA256']==sha(q/'plan.json')and all(c['exit']==0 and c['failure']is None for c in r['commands']);assert(q/'consumer.stdout').read_bytes()==(D/'oracle/amendment01/workshop.stdout').read_bytes()and(q/'consumer.stderr').read_bytes()==b''
  for f,h in p['pins'].items():assert sha(f)==h,f

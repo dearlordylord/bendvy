@@ -1,7 +1,10 @@
 """Preserved oracle-order successor: same JS emission, first Native emission."""
 from pathlib import Path
-import copy,gzip,hashlib,json,subprocess
-W=Path(__file__).resolve().parents[3];D=Path(__file__).parent;sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();oldparent=Path('/tmp/bendvy73-captured-query-workshop-actual01/normal');output=Path('/tmp/bendvy73-captured-query-workshop-actual02');assert not output.exists();output.mkdir();gold=D/'oracle/amendment01/workshop.stdout';oracle=output/'expected.stdout.gz';oracle.write_bytes(gzip.compress(gold.read_bytes(),mtime=0));commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=W,text=True).strip()
+import copy,gzip,hashlib,json,sys
+W=Path(__file__).resolve().parents[3];D=Path(__file__).parent;sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();oldparent=Path('/tmp/bendvy73-captured-query-workshop-actual01/normal');output=Path('/tmp/bendvy73-captured-query-workshop-actual02');assert not output.exists();output.mkdir();gold=D/'oracle/amendment01/workshop.stdout';oracle=output/'expected.stdout.gz';oracle.write_bytes(gzip.compress(gold.read_bytes(),mtime=0))
+sys.path.insert(0,str(W/'scripts'))
+from task_runner import run
+commit=run(['git','rev-parse','HEAD'],cwd=W,text=True,capture_output=True,timeout=15,check=True).stdout.strip()
 for role in ['js','native']:
  base=oldparent/role/'plan.json';p=json.loads(base.read_text());q=output/'normal'/role;q.mkdir(parents=True);pins=dict(p['pins'])
  for f in [Path(__file__),base,gold,oracle,*[f for f in (D/'oracle/amendment01').iterdir()if f.is_file()]]:pins[str(f)]=sha(f)
