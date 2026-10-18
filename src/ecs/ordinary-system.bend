@@ -20,8 +20,11 @@ def access(~S:Data,clauses:List<&2,Query.Clause<S>>) -> List<&2,String>:
     case []:[]
     case Query.Clause{name,_} <> rest:name <> access(~S,rest)
 
+def plan_parts(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,declaration:Query.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>)>) -> Q.Plan<S,C,R,E,Ops>:
+  match declaration:
+    case Query.Declaration{grant,select,_}:Q.Plan{grant,select}
 def plan(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:Query.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out)) -> Q.Plan<S,C,R,E,Ops>:
-  Q.Plan{Query.grant(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),query),Query.selector(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),query)}
+  plan_parts(~S,~C,~R,~E,~Ops,query)
 def completed(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~Out:Data,result:Q.Executed<W.World<S,C,R,E>,Q.Error<U>,Out>) -> Sys.Outcome<W.World<S,C,R,E>,Q.Error<U>,List<&2,Out>>:
   match result:
     case Q.Executed{world,T.Success{},values}:Sys.Succeeded{world,values}
@@ -47,7 +50,7 @@ def run(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:D
 # its operational part. Registered inspection awaits the existing foreign-world
 # association/refusal decision; no debug refusal policy is selected here.
 def observable_plan(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out)) -> Q.Plan<S,C,R,E,Ops>:
-  Q.Plan{Query.grant(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),O.operational(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query)),Query.selector(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),O.operational(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query))}
+  plan_parts(~S,~C,~R,~E,~Ops,O.operational(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query))
 def observable_runner(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),world:W.World<S,C,R,E>,args:A & U32) -> Sys.Outcome<W.World<S,C,R,E>,Q.Error<U>,List<&2,Out>>:
   match args:
     case (args,cursor):completed(~S,~C,~R,~E,~U,~Out,Q.each_since(~S,~C,~R,~E,~Ops,~A,~U,~Out,~observable_plan(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body),~body,args,world,cursor))
