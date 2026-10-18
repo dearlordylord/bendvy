@@ -1,0 +1,11 @@
+# Dense Health64 B1 method pilot
+
+Method/correctness feasibility only. No speed ranking, ratios, batching protocol, uncertainty margin, RSS qualification, seven rotations or optimization campaign. Integer-millisecond Bend clocks may be resolution limited; the host is not exclusive.
+
+Each process creates a fresh warmup world then a distinct sample world. Seed, barrier, ordinary registration and initial canonical observation precede timing. Inside: all 64 unchanged Health steps and callback validation/Type work, actual logical rows, owner-preserving HealthLedger projection, complete common tuple, U32 fold and its print. The end clock follows that forcing print. Afterwards: raw clock sidecars, full tuples, complete original canonical world/registration/physical payload/stamps/allocator/audits/statuses and after-logical-read world. TS keeps original Update operations; semantic assertions execute after its end clock. Actor correspondence is actual Bend key index equal to actual TS raw ID; raw namespaces/generations stay in canonical records.
+
+The common tuple retains Vitals levels/reserve/class, Armor layers/grade, Tracked group, every Ledger cell/epoch, ordered IDs and access variants, all per-row audit values/sums/counts and statuses. Natural lengths use decimal scalar digits plus NUL, without narrowing. Fold is forcing only, never the equality oracle.
+
+Independent Health gold was committed before subject authoring. Namespace1 exactly reproduces the existing 88,801-byte Health oracle; namespace2 is separately derived. Both actual complete tuples and full role-specific streams must match. `model/controls.py` checks finite field/order/status/access-tag sensitivity and full-tuple rejection despite retaining the original fold; it does not execute the subject or establish a universal law.
+
+Current canonical workload and adopted core are imported coherently from this worktree, never historical Motion epoch paths. Workload definitions are untouched. Generic full-record/clock validator is byte-identical to the Motion pilot. Source codec passes; IO entry has only expected foreign WorldIO mathematical refusals. Actual launch requires the single frozen three-role batch review, fresh clock paths and unchanged collector. Product performance and memory gates remain separate.
