@@ -19,8 +19,13 @@ introduced. Foreign-world results remain role-specific observations.
 The adoption module exposes static function-valued factories. The consumer names
 fold/plan/dispatch aliases and composes them through the existing public pair and
 after-barrier functions. No binding record or runtime function cache is used.
-The pilot preserves its original millisecond clock sidecars for semantic
-qualification only; it makes no timing or performance claim.
+The pilot uses the approved connected-clock elapsed-nanosecond seam, preserving
+its original measured work and both FORCE writes inside the interval. The TS
+reference preserves its original business and synchronous writeAll transport,
+changing only performance.now to process.hrtime.bigint. Complete warmup output
+precedes fresh sample world creation. Existing TS RSS sidecars remain whole-process
+high-water observations including warmup. Semantic runs make no clock-accuracy,
+performance or per-world RSS-reset claim.
 
 The finite controls recover the independent four-case registration fixture from
 commit `728110b98dafad70e0ef077fce27012629949b9f` at
@@ -39,3 +44,10 @@ The unchanged delegate modules `ordinary-app-existing-execution`,
 that historical control epoch. This supports reuse of their established
 identity/routing behavior, without claiming that the entire historical core or
 all authority scenarios have been requalified.
+
+The Bend entry is `method/pilot.bend`, with arguments
+`64 64 warmup.ns sample.ns`. The Node 24 entry is `reference.mjs`, with arguments
+`64 64 warmup.ns sample.ns warmup.rss.json sample.rss.json`. Paths must be fresh
+and private. `model/EXPECTED.json` binds the complete shared and separate
+foreign-role streams. This fixture's semantic correspondence does not establish
+clock accuracy, performance ratios, full-matrix qualification or a new #28 result.

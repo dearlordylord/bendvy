@@ -1,4 +1,5 @@
 import Base
+import ../../../../benchmarks/connected-clock/clock.bend as Clock
 import json.bend as J
 import method.bend as M
 import codec.bend as Codec
@@ -12,12 +13,12 @@ import ../consumer/dense-runtime-v1/types.bend as T
 import ../../../../src/ecs/world-io.bend as WI
 
 type Completed is Type:
-  Completed{prefix:Rope.Rope,state:P.State,tuple:List<&2,U32>,foreign:List<&2,U32>,actors:J.Value,milliseconds:Nat}
+  Completed{prefix:Rope.Rope,state:P.State,tuple:List<&2,U32>,foreign:List<&2,U32>,actors:J.Value,nanoseconds:Nat}
 def force(start:Nat,prefix:Rope.Rope,state:P.State,+tuple:List<&2,U32>,+foreign:List<&2,U32>,actors:J.Value) -> IO(Completed):
   do IO<Completed>:
     IO.print("FORCE:" ++ U32.show(Codec.fold(tuple,0)))
     IO.print("FOREIGN-FORCE:" ++ U32.show(Codec.fold(foreign,0)))
-    end:Nat <- IO.now()
+    end:Nat <- Clock.end()
     IO.pure(Completed,Completed{prefix,state,tuple,foreign,actors,Nat.sub(end,start)})
 def captured(start:Nat,prefix:Rope.Rope,result:P.State & M.Carriers) -> IO(Completed):
   match result:
@@ -27,7 +28,7 @@ def setup_done(iterations:U32,prefix:Rope.Rope,result:P.State & M.Setup) -> IO(C
   match result:
     case (state,setup):
       do IO<Completed>:
-        start:Nat <- IO.now()
+        start:Nat <- Clock.begin()
         captured(start,prefix,M.collect(setup,P.loops(U32.to_nat(iterations),state)))
 def timed(value:Driver.Prepared) -> IO(Completed):
   match value:
@@ -52,9 +53,9 @@ def canonical(prefix:Rope.Rope,state:P.State) -> IO(Unit):
     formatted(Stream.state(state))
 def write(path:String,result:Completed) -> IO(Unit):
   match result:
-    case Completed{prefix,state,tuple,foreign,actors,milliseconds}:
+    case Completed{prefix,state,tuple,foreign,actors,nanoseconds}:
       do IO<Unit>:
-        clock(path,milliseconds)
+        clock(path,nanoseconds)
         IO.print("TUPLE:" ++ Codec.show(tuple))
         IO.print("FOREIGN-TUPLE:" ++ Codec.show(foreign))
         IO.print("ACTORS:" ++ J.render(actors))
