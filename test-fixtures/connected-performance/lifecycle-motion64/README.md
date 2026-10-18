@@ -68,3 +68,13 @@ or builds. Motion1024 and Health256/1024 (nine roles) remain unqualified at
 this checkpoint. The first Motion1024 independent-model process reached its
 120-second offline deadline; it produced no qualified gold or consumer result.
 That history is retained separately from the later authorized model budget.
+
+The following Health256 checkpoint also passes all three complete semantic
+roles: Bend 102,657,815 bytes
+(`4e7fbeeddd9661ddd198f09cc21aa6e2f8663947aac5a9005c012c0c82e5a700`)
+and TS 67,864,756 bytes
+(`68866f02f41cb35bcba294c7391d90e469f344e87393f446e2f7f50c21b3d5ba`),
+with two complete 8,204,399-cell shared tuples and full own-role foreign
+observations. Both schemas at 1024 remain unqualified (six roles). This
+updates the earlier nine-role pending checkpoint without changing its history.
+No emission, build, comparative timing or RSS qualification is added.
