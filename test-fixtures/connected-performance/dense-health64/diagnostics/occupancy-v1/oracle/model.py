@@ -132,8 +132,14 @@ def main():
     finally:
         S.IndexedColumn, Dense.World = old_column, old_world
     assert observed == normal and observed_phases == phases
-    assert len(WORLD_RESULTS) == 2
-    records = [w.result(phase) for w, phase in zip(WORLD_RESULTS, ['warmup', 'sample'])]
+    # expected_common validates its projection with one independent ns1 report;
+    # streams then emits the actual warmup ns1 and sample ns2 reports in order.
+    assert len(WORLD_RESULTS) == 3
+    assert [w.namespace for w in WORLD_RESULTS] == [1, 1, 2]
+    helper, warmup, sample = WORLD_RESULTS
+    assert helper.result('warmup') == warmup.result('warmup')
+    assert helper.state() == warmup.state()
+    records = [warmup.result('warmup'), sample.result('sample')]
     counter = copy.deepcopy(records)
     changed = 0
     for record in counter:

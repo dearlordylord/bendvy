@@ -41,5 +41,14 @@
     "test-fixtures/connected-performance/dense-health64/diagnostics/occupancy-v1/private/test-fixtures/connected-performance/dense-health64/method/pilot.bend": "54461cf2769aea74bbcf9fcc03fe4bcfdb2ba7528303b865b3d628e46ae85e04",
     "test-fixtures/connected-performance/dense-health64/diagnostics/occupancy-v1/report.bend": "33feca8ad94662eb1eba72f1eb8a7603938cd2358fa9c1ec7276dbb7c2bdb8af",
     "test-fixtures/connected-performance/dense-health64/diagnostics/occupancy-v1/metadata.bend": "920258c6804cf9236961540874be61af254d5b6129316c4274b0312625b958ed"
+  },
+  "helperApplicability": "Pinned dense-health64/model/pilot_oracle.expected_common invokes one independent namespace1 report; sharedstreams then emits namespace1/2. Assert3 collectedworlds [1,1,2], completehelperreport/history andfullstate equal emittedwarmup before selecting actualemittedpair.",
+  "priorFailure": {
+    "sourceCommit": "23052eaaeb1036a85cc5da4ba70d851c384525ef",
+    "planSHA256": "0ab2d885513903c4dc69f6911b1a1812a89a31b9d4fb7b8d59d4f2f86fc5adc1",
+    "exitCode": 1,
+    "stderr": "/tmp/bendvy21-dense-health-occupancy-independent-gold01.stderr",
+    "outputDirectoryAbsent": true,
+    "reason": "Collector expected2worlds butindependentcommonhelperaddsnonemittedns1 report; fullnormalchecks passedbeforeassertion"
   }
 }
