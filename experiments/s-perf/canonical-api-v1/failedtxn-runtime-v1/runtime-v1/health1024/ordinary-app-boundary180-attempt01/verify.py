@@ -1,0 +1,69 @@
+from pathlib import Path
+import json,gzip,hashlib,sys
+b=Path(sys.argv[1]) if len(sys.argv)>1 else Path('/tmp/bendvy-failedtxn-ordinary-health-chunked/experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/runtime-v1/health1024/ordinary-app-boundary180-attempt01');d=json.loads((b/'RETENTION.json').read_text());sha=lambda x:hashlib.sha256(x).hexdigest();members={r['actualPath']:r for r in d['members']};assert len(members)==len(d['members']);seen={}
+for r in members.values():
+ if 'object' not in r:assert r['hashOnly']=='Installed tool/shared library identity only; not redistributed';continue
+ p=b/r['object'];assert sha(p.read_bytes())==r['objectSHA256'];assert p.name==r['sha256']+'.gz'
+ if r['object'] not in seen:
+  h=hashlib.sha256();n=0
+  with gzip.open(p,'rb') as f:
+   while chunk:=f.read(1048576):h.update(chunk);n+=len(chunk)
+  seen[r['object']]=(h.hexdigest(),n)
+ assert seen[r['object']]==(r['sha256'],r['bytes'])
+def raw(path):r=members[str(path)];assert 'object'in r;return gzip.decompress((b/r['object']).read_bytes())
+def obj(path):return json.loads(raw(path))
+def pin(path,h):assert members[str(path)]['sha256']==h,(path,h)
+for dep in d['objectDependencies']:assert sha((b/dep['manifest']).read_bytes())==dep['sha256']
+assert len(d['current'])==2 and len(d['history'])==0;guards=0;tools=set();classified=[]
+for a in d['current']+d['history']:
+ q=Path(a['actualDirectory']);p=obj(q/'plan.json');assert sha(raw(q/'plan.json'))==a['planSHA256']
+ for path,h in p['pins'].items():pin(path,h)
+ for root,files in p['resourceRoots'].items():
+  for n,h in files.items():path=str(Path(root)/n);pin(path,h);tools.add(path)
+ tools.update(p['tools'].values());rp=str(q/'receipt.json')
+ if rp not in members:assert a['status']=='UNEXECUTED' and p['runtimeArguments']==['1024','64'];classified.append('UNEXECUTED_1024');continue
+ r=obj(rp);assert r['planSHA256']==a['planSHA256'] and sha(raw(rp))==a['receiptSHA256'];assert not r.get('guardFailures',[]);assert len(p['commands'])==len(r['commands'])
+ for g in r['guards']:
+  pin(g['path'],g['sha256']);v=obj(g['path']);assert v['unchanged']
+  for path,h in v['actualPins'].items():pin(path,h)
+  guards+=1
+ for c,e in zip(r['commands'],p['commands']):
+  for k in ['label','argv','capSeconds']:assert c[k]==e[k]
+  for k in ['stdout','stderr']:
+   v=c[k];pin(v['path'],v['sha256']);assert members[v['path']]['bytes']==v['bytes']
+ assert raw(q/'consumer.stderr')==b''
+ count=p['runtimeArguments'][0] if p['runtimeArguments'] else '64';expectedN,expectedHash={'64':(38400832,'a20f7dccdf2efd66b44cb4dde507b0f7256ea493c1d3d5935d12f97db0ef5a95'),'256':(118451494,'a3cf1a10bf1d4211bd04337f7a541a746e5d8c73a5645c8295475fd1b14e9557'),'1024':(444047554,'a97b57c6d4df37ecc96e2afe11eeb49770ef8530582046013bd75481afe22f75')}[count]
+ if 'fused-quad-control' in str(q):expectedN,expectedHash=18095,'b5a3c4e914c5435aef380dac96ed3ae05fc5661512cb315f9695db5390832aaf'
+ if 'maybe-affine-control' in str(q):expectedN,expectedHash=229,'1dd3c34822329c7f14f9934b679dd7a3c9810322906d9c411f12326b2841e75f'
+ assert p['oracleBytes']==expectedN and p['oracleSHA256']==expectedHash
+ # Compare every retained actual byte to the independently bound oracle, streaming.
+ import io
+ outputrow=members[str(q/'consumer.stdout')];n=0
+ with gzip.open(b/outputrow['object'],'rb') as actual, gzip.GzipFile(fileobj=io.BytesIO(raw(p['oracle']))) as expected:
+  while chunk:=actual.read(1048576):assert chunk==expected.read(len(chunk));n+=len(chunk)
+  if a in d['current']:assert expected.read(1)==b''
+ assert n==outputrow['bytes']
+ if a in d['current']:
+  assert r['status']=='COMPLETE_CONSUMER_DEVELOPMENT_PASS' and all(c['exit']==0 and c['failure'] is None for c in r['commands']);assert n==expectedN and outputrow['sha256']==expectedHash;classified.append('PASS')
+ else:
+  assert r['status']=='INCOMPLETE' and r['commands'][-1]['exit'] is None and r['commands'][-1]['failure']=='child deadline'
+  assert (count,p['role'],n,outputrow['sha256'])==('1024','native',222023680,'bf62bd35d7365d1aa38244927bb6f876ee5539c89155a8c0b5b0399db39048e6')
+  classified.append('INCOMPLETE_EXACT_PREFIX')
+for a in d['current']:
+ q=Path(a['actualDirectory']);p=obj(q/'plan.json');t=p['boundaryTrial'];c=p['commands'][0];m=obj(t['metrics']);old=obj(t['predecessorPlan'])
+ assert c['capSeconds']==180 and t['consumerCapSeconds']==180 and t['previousConsumerCapSeconds']==60
+ pin(t['wrapper'],t['wrapperSHA256']);assert t['wrapperSHA256']=='243f6e4e9f52764bf44312ede48e97a5a6c32f9bc756c024a318103618d3485e'
+ assert c['argv'][7:]==old['commands'][0]['argv']==t['childArgv']==m['argv']
+ assert m['returncode']==0 and m['childInheritsProcessGroup'] is True
+ assert m['elapsedSeconds']==(m['perfCounterEndNs']-m['perfCounterStartNs'])/1e9 and 0<m['elapsedSeconds']<180
+ assert m['userSeconds']>=0 and m['systemSeconds']>=0 and m['maxRssKiB']>0
+ assert p['producer']==old['producer'] and p['sourceCommit']==old['sourceCommit']=='d4abc44a3fe434efd3e5d9cf7cfc5425cc475ffd'
+ for field in ['plan','receipt','generated']:
+  pin(p['producer'][field],p['producer'][field+'SHA256'])
+ if p['role']=='native':pin(p['producer']['native'],p['producer']['nativeSHA256'])
+ assert t['authorizingUserPolicyCommit'].startswith('f75686317')
+ pin(t['policy'],t['policySHA256']);pin(t['policySnapshot'],t['policySnapshotSHA256'])
+ print(p['role'],{k:m[k] for k in ['elapsedSeconds','userSeconds','systemSeconds','maxRssKiB']})
+for r in members.values():
+ if 'hashOnly'in r:assert r['actualPath']in tools
+assert classified.count('PASS')==2 and classified.count('INCOMPLETE_EXACT_PREFIX')==0;assert len(list((b/'objects').iterdir()))==d['objects'];assert len(seen)==d['objects']+d['referencedObjects'];print('PASS',len(members),'members',len(seen),'objects',guards,'guards',classified,'manifest',sha((b/'RETENTION.json').read_bytes()))
