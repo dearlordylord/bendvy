@@ -2,7 +2,7 @@ import json,sys
 # Independent finite source model, not a rendering of candidate output.
 def report(kind,count):
  u=c=e=0;rows=[]
- operations=([('commands.spawn_reserved',0,1,0),('commands.track_pending',1,0,0)]*count if kind=='seed' else [('component.tx_written',1,0,0),('resource.replace_join',1,0,0)]*count)
+ operations=([('commands.spawn_reserved',0,1,0),('commands.track_pending',1,0,0)]*count if kind=='seed' else [('component.tx_written',1,0,0),('resource-field.journaled',1,0,0)]*count)
  for site,du,dc,de in operations:
   u+=du;c+=dc;e+=de;rows.append({'site':site,'delta':[du,dc,de],'current':[u,c,e],'peak':[u,c,e]})
  return {'kind':kind,'boundaries':rows,'terminal':[u,c,e],'consistent':True}
