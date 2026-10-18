@@ -1,0 +1,11 @@
+# Sparse Motion64 primary-entry correctness fixture
+
+The consumer registers once through `Driver.define` → `Component.add` and runs the generated executable through `EntryApp.run`. No caller-defined numeric dispatch, catalogue or schedule recipe remains. The actual invocation token, registration fields, arguments and outputs are returned through the typed observer. Successful results then execute the original three fresh postcommit queries and retain all ordered scans, included rows, scores, weighted scores, cumulative audits, statuses and physical observations.
+
+Business declarations, callback, seed, storage and query strategies come from immutable source `728110b98` (Motion driver predecessor `313a48e43`). Only the registration/execution carrier and observer adaptation change. Imports resolve to the current checkout's ECS; no historical core is copied. The two owner/allocator observer dependencies retain their existing finite physical projection.
+
+`method/pilot.bend` prepares fresh warmup and sample worlds. Setup precedes begin; the original64 steps, all three scans per step, common construction, encoding, fold and FORCE output precede end. Full tuple and canonical diagnostics follow. The accepted connected-clock seam replaces the historical millisecond clock without moving those boundaries. This fixture establishes correctness only, not comparative timing, RSS, wide-case or full #21 qualification.
+
+The independent Python model, full gold, scalar codec and pinned TS reference originate in `728110b98`'s Sparse matched-method fixture. The recovered model reproduces both413,934-byte namespace reports and all35,061 common values before subject execution. The recipe is finite64/64; wider common gold is not claimed. `reference.mjs` retains its historical reference/transport implementation and is not newly qualified by Bend execution.
+
+Bend retains three fresh full queries with postfilters; TS retains its original optional/present/absent strategies. The common TS full-row view reuses the actual optional snapshot with no intervening writes. Equal common values do not establish equal scan or timed-observer cost. The raw namespace-dependent scores remain in full canonical output.
