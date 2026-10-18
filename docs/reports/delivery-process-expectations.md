@@ -2139,3 +2139,27 @@ CI 39102381112 passed both jobs; successor 39104659229 is running on the pushed
 integration `6eeb0ba5b`. Overall delivery acceleration and final #21 performance
 qualification remain unproven. Two implementation directions remain active:
 Sparse and Lifecycle; Readers follows completion of Sparse.
+
+### 2026-10-18 — Lifecycle ordinary family accepted
+
+Lifecycle is integrated through `97bd16f9a`: both schemas at64/256/1024 on JS
+and Native match all twelve complete independent LC2 oracles. Independent final
+Spec/Standards review accepts the source and all retained plan/receipt/source/
+artifact joins and66 guards. Portable verification passes1001 members/735
+objects/66 guards. Four original Local registrations, all six named schedules,
+both barriers, domain phases, genuine IO foreign-world provenance and existing
+codec/chunk construction are preserved.
+
+The unchanged generic routing mutant is reused only for its identical core
+callsite and old microconsumer; no new Lifecycle-body mutation or universal
+proof is claimed. Deterministic decoder controls are reused for exactly equal
+complete LC2 streams. This avoids repeating matching evidence, not acceptance.
+The protected #28 receipt still matches all356 hashes and the full core inventory.
+Sparse integration CI39104843645 passed; full comparative timing remains open.
+
+Readers is the remaining ordinary workload migration. Source-only support found
+reusable historical Health source/models, plus a stale nested Motion oracle
+metadata record. The owner preserves historical packages and must bind exact
+framing and source provenance in the successor. Single-world correctness bytes
+cannot qualify a future separate warmup/sample comparison. No candidate Bend
+output is used to author oracle expectations; no new tracking layer was added.
