@@ -1,0 +1,50 @@
+{
+  "baselineCommit": "3433e78c57581328ba627b0bda78e70c329c9951",
+  "scope": "Actualseed terminal gaps only, expectedsealed before privateimplementation/execution; existing fullcallback/dispose beforefinish factobservations retained/reused. No allocation/RSS/lifecyclemark or universal claim.",
+  "sourcePins": {
+    "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/motion.bend": "f0e508a33c1105659732ca269c5884e215de946fb2e871c9e44c80831bfa0a3e",
+    "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/motion-driver.bend": "525ee12451b82e5cdefe2680bcea1d32375cb1c34c9da04e0dd0698a52ddbb14",
+    "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/motion-scenario.bend": "fb78ff480dd60f79ed2ee618b26cfc7fc8ed68b80b21db7d0dce3c72ed5c2980",
+    "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/motion-local.bend": "672154442032dbfe3a0c9b015bc41861b7c5ae601b4bda5aec419c71e4497228",
+    "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/motion-dispose.bend": "4ed297b16c294f6a19d80e4c46c6a6bf81533ee893ccc8265a7698bde7272bda",
+    "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/motion-tx-observe.bend": "42b325eaef2c19cfadae9d68b11ef0a94c0563604a60780ebf2acacea09f2cc6",
+    "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/health.bend": "39dbecba2030cba9726e92450923a8b8556300705ca3b8e7cdd1d8d2f1234091",
+    "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/health-driver.bend": "347ab1d50bac1f0ab395cc2bb16fbf4b029463d628f9eee1b555a7194eacca02",
+    "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/health-scenario.bend": "c9779f05544f1db27f10ed47c6d648f55defbb729f42d9d1cd09419c5689f989",
+    "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/health-local.bend": "d939a58dedbabc1413f74a63339124b91f4f7f7d0e9d0acb677b48aa0b463942",
+    "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/health-dispose.bend": "06b62089811c7828fc5c91df005c7a31730d3841c3548086fe4a7badca52691b",
+    "experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/health-tx-observe.bend": "4db61c92c39a54c2352c535e3ad0cc2af91f15c0e457be292964c1520cb0ec13"
+  },
+  "modelSHA256": "1928a546d9b5063dcae601fa9384a1dacac9e20b0bdfd49443c7ef5627aa5779",
+  "derivation": {
+    "seed": "Original seed_rows performsN successful Cmd.tx_spawn, each onependinginverse+onedeferredcommand; no emit. Original beforecreated observation stays beforeseed; original Cmd.tx_finish afteractual sampler.",
+    "worlds": "Driver warmup_created calls original Scenario.program thenStream.write, measured createsfreshWorld and repeats. Each actualseed produces detachedsample; two labels reflect realworldexecution, not duplicatedassumedcount.",
+    "existing": "Local callbacks and disposal already Inspect.observe actualTx beforefinish; completecanonicalwire retainsundo/commands/events facts. Offlinejoin will extractthese actualfacts and compute componentwisemax withthe2seedmetrics; repeatedrenderings do notincreasepeak."
+  },
+  "expected": {
+    "motion64.stats.json": {
+      "bytes": 132,
+      "sha256": "9b60f775a98e1ff96864f0512c2a0f478766692e36f9e5179937b188b135fa85"
+    },
+    "motion256.stats.json": {
+      "bytes": 136,
+      "sha256": "76a4b8f078087a0635bd9c1e90cce6208a23a7d1518277c5f03a634b1044960e"
+    },
+    "motion1024.stats.json": {
+      "bytes": 140,
+      "sha256": "0c861ff4f277f42c19544108c1e727bed3d1af3f272328be37b929ede6ec2506"
+    },
+    "health64.stats.json": {
+      "bytes": 132,
+      "sha256": "9b60f775a98e1ff96864f0512c2a0f478766692e36f9e5179937b188b135fa85"
+    },
+    "health256.stats.json": {
+      "bytes": 136,
+      "sha256": "76a4b8f078087a0635bd9c1e90cce6208a23a7d1518277c5f03a634b1044960e"
+    },
+    "health1024.stats.json": {
+      "bytes": 140,
+      "sha256": "0c861ff4f277f42c19544108c1e727bed3d1af3f272328be37b929ede6ec2506"
+    }
+  }
+}
