@@ -132,3 +132,14 @@ def loops(fuel:Nat,+iteration:U32,state:State) -> State:
   match fuel:
     case 0n:state
     case 1n+rest:loops(rest,U32.add(iteration,1),step(iteration,state))
+def method_status(value:Status) -> J.Value:
+  match value:
+    case Complete{}:J.object([J.Field{"kind",J.Text{"Complete"}}])
+    case Stopped{reason}:J.object([J.Field{"kind",J.Text{"Stopped"}},J.Field{"reason",J.Text{reason}}])
+def final_observer(world:F.World(),owners:S.Runtime(),status:J.Value) -> F.World() & (S.Runtime() & Method.State):CaptureState.final_runtime(world,owners,status)
+def final_returned(namespace:U32,boundaries:List<&2,Boundary.Boundary>,schedules:List<&2,String>,status:Status,value:EntryApp.Slot() & Method.State) -> State & Method.State:
+  match value:
+    case (app,method):(State{app,namespace,boundaries,schedules,status},method)
+def method_final(value:State) -> State & Method.State:
+  match value:
+    case State{app,namespace,boundaries,schedules,+status}:final_returned(namespace,boundaries,schedules,status,EntryApp.project(~J.Value,~Method.State,~final_observer,app,method_status(status)))

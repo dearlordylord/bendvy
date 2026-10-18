@@ -12,6 +12,7 @@ import subject/motion-dispose.bend as Dispose
 import subject/motion-resources.bend as R
 import subject/motion-logical.bend as Logical
 import subject/motion-boundary.bend as Boundary
+import subject/report-doc.bend as Doc
 import /tmp/bendvy-failedtxn-matched-method/experiments/s-perf/canonical-api-v1/dense-runtime-v1/types.bend as T
 import /tmp/bendvy-failedtxn-matched-method/experiments/s-perf/canonical-api-v1/dense-runtime-v1/payload.bend as P
 import /tmp/bendvy-failedtxn-matched-method/src/ecs/world.bend as W
@@ -65,3 +66,41 @@ def boundary_a(name:String,world:F.World(),b:L.Instance(),tail:subject_tail(),me
 def boundary_runtime(name:String,world:F.World(),runtime:S.Runtime()) -> F.World() & S.Runtime():
   match runtime:
     case (((a,b),tail),S.Shared{meta,tick,frame}):boundary_a(name,world,b,tail,meta,tick,frame,Call.instance_count(a))
+def reverse_text(values:List<&2,String>,out:List<&2,J.Value>) -> List<&2,J.Value>:
+  match values:
+    case []:out
+    case value <> rest:reverse_text(rest,J.Text{value} <> out)
+def effects(value:R.AuditView) -> J.Value:
+  match value:
+    case R.Missing{}:J.object([J.Field{"kind",J.Text{"MissingAudit"}}])
+    case R.RecordedView{values}:J.array(reverse_text(values,[]))
+def final_record(state:M.State,rows:Logical.Rows(),view:R.View,countA:U32,countB:U32,status:J.Value) -> J.Value:
+  match view:
+    case R.View{ledger,audit}:J.object([J.Field{"kind",J.Text{"Final"}},J.Field{"rows",J.array(M.rows(state,rows))},J.Field{"ledger",M.ledger(ledger)},J.Field{"captures",M.capture_counts(countA,countB)},J.Field{"effects",effects(audit)},J.Field{"status",status}])
+def final(world:F.World(),state:M.State,countA:U32,countB:U32,status:J.Value) -> F.World() & J.Value:
+  bind(~Logical.Rows(),~(F.World() & J.Value),world=>rows=>
+  bind(~R.View,~(F.World() & J.Value),world=>view=>
+  (world,final_record(state,rows,view,countA,countB,status)),resource(world)),Logical.rows(world))
+def frame_state(value:S.Frame) -> M.State:
+  match value:
+    case S.Frame{_,_,_,_,_,_,_,_,state}:state
+def final_frame_state(first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,i:U32,phase:U32,pending:Maybe<&2,W.Handle<T.MotionSchema>>,retry:Maybe<&2,W.Handle<T.MotionSchema>>,failed:List<&2,W.Handle<T.MotionSchema>>,calls:List<&2,Doc.Doc>,+state:M.State) -> S.Frame & M.State:
+  (S.Frame{first,second,i,phase,pending,retry,failed,calls,state},state)
+def final_frame(frame:S.Frame,record:J.Value) -> S.Frame & M.State:
+  match frame:
+    case S.Frame{first,second,i,phase,pending,retry,failed,calls,state}:final_frame_state(first,second,i,phase,pending,retry,failed,calls,M.append(state,record))
+def final_framed(world:F.World(),owners:S.Owned(),meta:L.Meta(),tick:Nat,value:S.Frame & M.State) -> F.World() & (S.Runtime() & M.State):
+  match value:
+    case (frame,state):(world,((owners,S.Shared{meta,tick,frame}),state))
+def final_recorded(owners:S.Owned(),meta:L.Meta(),tick:Nat,frame:S.Frame,observed:F.World() & J.Value) -> F.World() & (S.Runtime() & M.State):
+  match observed:
+    case (world,record):final_framed(world,owners,meta,tick,final_frame(frame,record))
+def final_b(status:J.Value,world:F.World(),a:L.Instance(),tail:subject_tail(),meta:L.Meta(),tick:Nat,+frame:S.Frame,countA:U32,observed:L.Instance() & U32) -> F.World() & (S.Runtime() & M.State):
+  match observed:
+    case (b,countB):final_recorded(((a,b),tail),meta,tick,frame,final(world,frame_state(frame),countA,countB,status))
+def final_a(status:J.Value,world:F.World(),b:L.Instance(),tail:subject_tail(),meta:L.Meta(),tick:Nat,frame:S.Frame,observed:L.Instance() & U32) -> F.World() & (S.Runtime() & M.State):
+  match observed:
+    case (a,countA):final_b(status,world,a,tail,meta,tick,frame,countA,Call.instance_count(b))
+def final_runtime(world:F.World(),runtime:S.Runtime(),status:J.Value) -> F.World() & (S.Runtime() & M.State):
+  match runtime:
+    case (((a,b),tail),S.Shared{meta,tick,frame}):final_a(status,world,b,tail,meta,tick,frame,Call.instance_count(a))
