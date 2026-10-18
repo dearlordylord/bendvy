@@ -1,0 +1,23 @@
+{
+  "artifact": "/tmp/bendvy21-readers-tx-peaks-motion64-actual01/normal/js/scenario.js",
+  "artifactSHA256": "32b26cb34894ebcbf592890ec49b126c7cb485953cf11a4b599c1e626a306bbb",
+  "scope": "Actual generated reach of private prefinish hook, not performance/physical allocation evidence. Existing diagnostic closure captures static observer only, never payload owner.",
+  "functions": {
+    "motion$045reader$058body$": {
+      "line": 20288,
+      "text": "function $motion$045reader$058body$1260$(_input_0, _owner_0) {\n  const _view_0 = _input_0[\"fst\"];\n  const _args_0 = _input_0[\"snd\"];\n  return $motion$045reader$058captured$1260$(_args_0, _view_0, run_loop($motion$045reader$058observed$1260$(($motion$045reader$058grant$()), _owner_0)));\n}"
+    },
+    "motion$045reader$058observed$": {
+      "line": 20376,
+      "text": "function $motion$045reader$058observed$1260$(_caps_0, _owner_0) {\n  const _observe_0 = _caps_0[\"observe\"];\n  return run_tail(_observe_0, _owner_0);\n}"
+    },
+    "motion$045reader$058grant$": {
+      "line": 20381,
+      "text": "function $motion$045reader$058grant$() {\n  return {$: \"motion-reader.Capture\", \"observe\": run_clo((_x_0) => {\n  return $tx$045metrics$058observe$1260$(\"reader\", _x_0);\n})};\n}"
+    },
+    "tx$045metrics$058observe$": {
+      "line": 20490,
+      "text": "function $tx$045metrics$058observe$1260$(_kind_0, _tx_0) {\n  const _world_0 = _tx_0[\"world\"];\n  const _undo_0 = _tx_0[\"undo\"];\n  const _commands_0 = _tx_0[\"commands\"];\n  const _events_0 = _tx_0[\"events\"];\n  const _trace_0 = _tx_0[\"trace\"];\n  return $tx$045metrics$058joined$1260$(_kind_0, _events_0, _trace_0, _world_0, ($tx$045metrics$058count$1260$(_undo_0)), ($tx$045metrics$058count$1261$(_commands_0)));\n}"
+    }
+  }
+}

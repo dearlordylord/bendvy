@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a motion-reader.Read pattern with 3 fields
+Location:
+108 |   match value:
+109>|     case Reader.Read{Reader.Args{who,phase,iteration},values}:Doc.join(Doc.text("who=" ++ U32.show(who) ++ ";phase=" ++ U32.show(phase) ++ ";iteration=" ++ U32.show(iteration) ++ ";"),doc_view(values))
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+110 | def read(value:Reader.Read) -> String:Doc.flatten(doc_read(value))
+bend 2.0.37 is available: run bend update

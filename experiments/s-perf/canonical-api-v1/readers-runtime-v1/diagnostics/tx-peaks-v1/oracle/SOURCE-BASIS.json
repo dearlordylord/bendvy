@@ -1,0 +1,58 @@
+{
+  "scope": "Sealed before diagnostic subject authoring. Finite ordinary success path only; terminal observations plus source-backed monotone append segments, not universal peak or full #21 acceptance. Samples grouped domain capture order then reader callback order; canonical full wire independently retains interleaving, values, owners and stored/running contexts. Actual reader counts must come from traversing its real returned Tx lists, not constants.",
+  "sourcePins": {
+    "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/model.py": "c5794ba77868e0e8b1dfba324ecbef3009ebd579efe37d9ff5475613504bb285",
+    "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/health-model.py": "3813586eaffa36aec3b40c27fcd5dbcfa9bb7f7c74a6a314429b1b3a66dbf7ba",
+    "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/physical.py": "2f47ee3685edf401a90bfd691ca972146a0c6cf486b9c82a3b7c895cd8eba130",
+    "/tmp/bendvy-canonical-readers-oracle/experiments/s-perf/canonical-api-oracle-v1/readers-runtime-v1/README.md": "8c3358cce1dd40b117d6c4ab5ee01cabcfb4b8e87b8da7feda3f25cf84fbccee",
+    "experiments/s-perf/canonical-api-v1/readers-runtime-v1/motion-domain.bend": "32b8caba56c91972c4b1d0c0dd2b33c82043039696278812871b64b32b6fff37",
+    "experiments/s-perf/canonical-api-v1/readers-runtime-v1/health-domain.bend": "4cf41cc72234ad6d625314877589f325e8000eb33c31a3151c3e15dd4174aba3",
+    "experiments/s-perf/canonical-api-v1/readers-runtime-v1/motion-reader.bend": "4d99428b1ece1a5d51ba878a1422a990efbc53f5033a26d5bf0834855bd18708",
+    "experiments/s-perf/canonical-api-v1/readers-runtime-v1/health-reader.bend": "ce78932c75c23c9d6d4936fed16a0a18159199b322127f518fce889df1a4321a",
+    "experiments/s-perf/canonical-api-v1/readers-runtime-v1/motion-stream-scenario.bend": "391fa81e6c35349dd81a2f6963e714d388a5c991803c637972460ed91598e506",
+    "experiments/s-perf/canonical-api-v1/readers-runtime-v1/health-stream-scenario.bend": "14c230ad6ed040f07279d95aafcb2b20ed45d9916bcb8384a02294e7b6b1c0a3"
+  },
+  "cases": [
+    {
+      "count": 64,
+      "iterations": 64,
+      "samples": 277,
+      "domainSamples": 193,
+      "readerCallbackSamples": 84,
+      "maxima": {
+        "undo": 64,
+        "commands": 64,
+        "events": 1
+      },
+      "nonzeroUndo": 129
+    },
+    {
+      "count": 256,
+      "iterations": 64,
+      "samples": 277,
+      "domainSamples": 193,
+      "readerCallbackSamples": 84,
+      "maxima": {
+        "undo": 256,
+        "commands": 256,
+        "events": 1
+      },
+      "nonzeroUndo": 129
+    },
+    {
+      "count": 1024,
+      "iterations": 64,
+      "samples": 277,
+      "domainSamples": 193,
+      "readerCallbackSamples": 84,
+      "maxima": {
+        "undo": 1024,
+        "commands": 1024,
+        "events": 1
+      },
+      "nonzeroUndo": 129
+    }
+  ],
+  "counter": "Reporter-only undo numeric substitution; actual sampled owner and full canonical observations unchanged.",
+  "paths": "seed\u2192finish(3), Local.spawn/update/dispose\u2192finish(0/1/2), reader callback\u2192actual Tx.begin/body/tx_finish. Mutation frames reset facts per invocation. Seed and spawn undo/commands append monotonically; update adds one inverse then one event; dispose appends two deferred commands. Actual read-only callback has no grant writes. Every owner is returned."
+}
