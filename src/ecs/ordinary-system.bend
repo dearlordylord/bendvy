@@ -50,7 +50,7 @@ def run(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:D
 # its operational part. Registered inspection awaits the existing foreign-world
 # association/refusal decision; no debug refusal policy is selected here.
 def observable_plan(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out)) -> Q.Plan<S,C,R,E,Ops>:
-  Q.Plan{Query.grant(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),O.operational(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query)),Query.selector(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),O.operational(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query))}
+  plan_parts(~S,~C,~R,~E,~Ops,O.operational(~S,~Q.Frame<S,C,R,E>,~Ops(Q.Frame<S,C,R,E>),~I.Frame<S,C,R,E>,~V,query))
 def observable_runner(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~V:Data,~query:O.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>),I.Frame<S,C,R,E>,V>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),world:W.World<S,C,R,E>,args:A & U32) -> Sys.Outcome<W.World<S,C,R,E>,Q.Error<U>,List<&2,Out>>:
   match args:
     case (args,cursor):completed(~S,~C,~R,~E,~U,~Out,Q.each_since(~S,~C,~R,~E,~Ops,~A,~U,~Out,~observable_plan(~S,~C,~R,~E,~Ops,~A,~U,~Out,~V,~query,~body),~body,args,world,cursor))
