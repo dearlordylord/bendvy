@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "scope": "Complete independent Health64 B1 gold only; no subject execution, ratios, timing precision, RSS or batching qualification",
+  "sourceBasisSHA256": "fe02099c6f642a1b2857a91624817617e26f118ae039ec8e536e85d17eb2e90e",
+  "canonicalControl": {
+    "path": "/tmp/bendvy21-failedtxn-health-independent-gold01/canonical-control/expected.stdout",
+    "gzip": "/tmp/bendvy21-failedtxn-health-independent-gold01/canonical-control/expected.stdout.gz",
+    "sha256": "a20f7dccdf2efd66b44cb4dde507b0f7256ea493c1d3d5935d12f97db0ef5a95",
+    "bytes": 38400832
+  },
+  "worlds": [
+    {
+      "namespace": 1,
+      "records": 965,
+      "tupleValues": 3608414,
+      "fold": 1350975224,
+      "actorCount": 256,
+      "counts": {
+        "callbacks": 193,
+        "publications": 129,
+        "boundaries": 256,
+        "phases": 385
+      }
+    },
+    {
+      "namespace": 2,
+      "records": 965,
+      "tupleValues": 3608414,
+      "fold": 1350975224,
+      "actorCount": 256,
+      "counts": {
+        "callbacks": 193,
+        "publications": 129,
+        "boundaries": 256,
+        "phases": 385
+      }
+    }
+  ],
+  "modelPins": {
+    "operation_model.py": "62dce81d79630514c5c44eef915b5eb6b39240acd0b5e6894eb775f74a41b134",
+    "common_model.py": "cc8bd9482007013df4c22f2d2b19cb57710beaf5b672ae09d07abf4d8cea425f",
+    "ts_model.py": "bd74b592bdc25adf9ed4e8a1630fa044151ea7ddcb4049992e07e6d9278e44db",
+    "seal_gold.py": "def8d65e095e72b7165748c0549e7534ca99d6b4037988194903b59b5448bcd7"
+  },
+  "oracles": {
+    "bend": {
+      "path": "/tmp/bendvy21-failedtxn-health-independent-gold01/bend-expected.stdout.gz",
+      "bytes": 70498700,
+      "sha256": "7ef460e3d312e862618c31a8f1ebebd894b23e260e45a439de4332f88e100ec2",
+      "gzipBytes": 2708299,
+      "gzipSHA256": "5d269b4b7a71e877890be46d8115784f5cefe9130c21fd515e4673de57cef8ce"
+    },
+    "ts": {
+      "path": "/tmp/bendvy21-failedtxn-health-independent-gold01/ts-expected.stdout.gz",
+      "bytes": 38129202,
+      "sha256": "568e9d354d789e4d65bdbd12f64b4fe12d650bec9eda903928cc9d7b32e820ac",
+      "gzipBytes": 1072404,
+      "gzipSHA256": "6f24b94483453b3b598c8a1cf5eb7aab15603d3e1dda0f9647fa037a2f9ea580"
+    }
+  }
+}

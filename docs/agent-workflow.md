@@ -7,8 +7,10 @@ then bevy-ts inventory govern implementation choices.
 ## Delivery
 
 1. Read the current consumer and evidence; identify the exact missing acceptance
-   gate. Before freezing backend plans, trace each operation to its changed state,
+   gate. Check affected-file history before repeating a performance candidate. Before freezing backend plans, trace each operation to its changed state,
    complete observation and independently derived oracle, including IO effects.
+   Reconcile physical indexing, retention boundaries and owner state with the
+   model before freezing plans; use the existing review, not a separate admission.
    Reuse qualified evidence. For automatic features, verify the ordinary user
    entry supplies the behavior before preparing large backend evidence. Reuse
    qualified scenarios and assigned worktrees/file ownership. Stabilize the ordinary entry with concrete independent
@@ -29,6 +31,8 @@ then bevy-ts inventory govern implementation choices.
 4. Deliver exact commit, owned files, source-bound receipts, complete outputs and
    remaining gates for one independent final Spec/Standards review. Coordinator
    integrates and updates the owning issue. A bounded slice is reported as such.
+   Fold routine status-only notes into the next suitable delivery commit; avoid
+   separate documentation/CI cycles when no immediate correction is needed.
 
 New observable contracts, laws, dependencies and numerical criteria follow SPEC
 approval requirements. New/changed runners, compiler experiments and comparative
@@ -47,11 +51,16 @@ traces count as observations only after actual execution.
 
 Keep one owner for shared `src/ecs`; preserve other workers' changes and running
 stages. Create new focused worktrees with `git worktree add --no-checkout`, then
-materialize owned files and required dependencies with sparse checkout. Reuse
+set sparse checkout and run `git read-tree -mu HEAD` inside the new worktree to
+materialize owned files and required dependencies. Reuse
 immutable absolute dependency paths where supported by the runner. Resume a
 completed agent with `followup_task`; use messages for agents already running.
 Execution budgets follow [execution limits](limits.md); record increases there.
-Parallelize authoring/research/review; serialize heavy checks and reserve
+Parallelize authoring/research/review. Serialize source checks pinned to the same
+CPU across all worktrees; `scripts/bend-check` acquires shared locks for its
+allowed CPUs before starting the selected compiler budget. Use
+disjoint CPU assignments for parallel checks; an unpinned check locks its full
+affinity set. Queue wait still counts toward any enclosing caller deadline. Serialize heavy checks and reserve
 performance cohorts exclusively under current resource limits. Ordinary runs use
 the runner’s internal lock; a terminal result and release from the preceding
 owner suffice to start the next admitted run. Follow the
