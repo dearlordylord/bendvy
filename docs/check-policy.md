@@ -2,6 +2,9 @@
 
 ## Development before acceptance
 
+Use [execution limits](limits.md) for new plans. Record budget increases there;
+preserve historical plans and apply shared comparison limits to all backends.
+
 Run the cheapest actual consumer against its complete oracle before preparing
 full delivery. Reuse an existing successful receipt only when source, inputs,
 tools, environment and checked scope still match. After a failed stage, repair

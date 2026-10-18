@@ -51,6 +51,7 @@ stages. Create new focused worktrees with `git worktree add --no-checkout`, then
 materialize owned files and required dependencies with sparse checkout. Reuse
 immutable absolute dependency paths where supported by the runner. Resume a
 completed agent with `followup_task`; use messages for agents already running.
+Execution budgets follow [execution limits](limits.md); record increases there.
 Parallelize authoring/research/review; serialize heavy checks and reserve
 performance cohorts exclusively under current resource limits. Ordinary runs use
 the runner’s internal lock; a terminal result and release from the preceding
