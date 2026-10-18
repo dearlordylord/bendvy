@@ -11,15 +11,15 @@ def score(rs,namespace=1):
  def value(r):return namespace+r['rawId']+sum(r['main']['levels'])+r['main']['reserve']+r['main']['class']+(0 if r['aux'] is None else 1+sum(r['aux']['layers'])+r['aux']['grade'])+(0 if r['flag'] is None else 1+r['flag']['group'])
  return (sum(i*value(r) for i,r in enumerate(rs,1))+len(rs)+1)&MASK
 
-def expected():
+def expected(count=64,iterations=64):
  audits=[];cumulative=0
- for t in range(64):
-  full=rows(t+1);sets=[full,[r for r in full if r['aux'] is not None],[r for r in full if r['aux'] is None]]
+ for t in range(iterations):
+  full=rows(t+1,count);sets=[full,[r for r in full if r['aux'] is not None],[r for r in full if r['aux'] is None]]
   scans=[{'rows':copy.deepcopy(full),'included':copy.deepcopy(rs),'score':score(rs)} for rs in sets]
   weighted=sum(k*s['score'] for k,s in zip([1,3,5],scans))&MASK
-  values=[4*j+6+t for j in range(0,64,8)];readsum=sum(values)&MASK;cumulative=(cumulative+readsum+weighted)&MASK
+  values=[4*j+6+t for j in range(0,count,8)];readsum=sum(values)&MASK;cumulative=(cumulative+readsum+weighted)&MASK
   audits.append({'values':values,'readsum':readsum,'updated':len(values),'scans':dict(zip(['all','present','absent'],scans),weighted=weighted),'cumulative':cumulative})
- final={'rows':rows(64),'ledger':{'totals':[512,101,102,103],'epoch':4}}
+ final={'rows':rows(iterations,count),'ledger':{'totals':[len(rows(0,count))*iterations,101,102,103],'epoch':4}}
  def scan(s):return sized(s['rows'],row)+sized(s['included'],row)+[s['score']]
  def audit(a):return sized(a['values'],lambda x:[x])+[a['readsum']]+natural(a['updated'])+sum((scan(a['scans'][n]) for n in ['all','present','absent']),[])+[a['scans']['weighted'],a['cumulative']]
  cells=sized(final['rows'],row)+[*final['ledger']['totals'],4]+sized(audits,audit)+sized(audits,lambda _:[0])+[cumulative]
