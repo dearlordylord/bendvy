@@ -1,0 +1,44 @@
+#!/bin/sh
+# Lightweight development check; acceptance retains its frozen runner.
+set -eu
+[ "$#" -eq 1 ] || { echo 'usage: scripts/bend-check source.bend' >&2; exit 2; }
+BENDVY_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+exec python3 - "$BENDVY_ROOT" "$1" <<'PYTHON'
+import ast
+import fcntl
+import os
+from pathlib import Path
+import sys
+
+root, source_path = sys.argv[1:]
+config = Path(root, 'experiments/public-simulation/delivery-v1/installed-config.py').read_text()
+compiler = None
+for node in ast.parse(config).body:
+    if isinstance(node, ast.Assign) and any(isinstance(t, ast.Name) and t.id == 'TOOL_PATHS' for t in node.targets):
+        for key, value in zip(node.value.keys, node.value.values):
+            if isinstance(key, ast.Constant) and key.value == 'bend':
+                compiler = ast.literal_eval(value)
+if compiler is None:
+    raise SystemExit('Missing pinned Bend compiler')
+if not os.access(compiler, os.X_OK):
+    print(f'Missing pinned compiler: {compiler}', file=sys.stderr)
+    raise SystemExit(127)
+
+# Shared across worktrees. Sorted acquisition prevents overlapping affinity sets
+# from deadlocking; disjoint CPU assignments can still check in parallel.
+locks = []
+for cpu in sorted(os.sched_getaffinity(0)):
+    path = f'/tmp/bendvy-source-check-{os.getuid()}-cpu-{cpu}.lock'
+    fd = os.open(path, os.O_CREAT | os.O_RDWR, 0o600)
+    try:
+        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        print(f'bend-check: waiting for source-check CPU {cpu}', file=sys.stderr, flush=True)
+        fcntl.flock(fd, fcntl.LOCK_EX)
+    os.set_inheritable(fd, True)
+    locks.append(fd)
+
+# Queue time is outside the compiler budget. An enclosing caller deadline still
+# applies to the entire invocation; this wrapper never increases that deadline.
+os.execvp('timeout', ['timeout', '--signal=KILL', '5s', compiler, source_path, '--check-only'])
+PYTHON

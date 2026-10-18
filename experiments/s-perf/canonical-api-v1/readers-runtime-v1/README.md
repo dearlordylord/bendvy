@@ -1,29 +1,21 @@
 # Canonical Readers consumer
 
-`motion-main.bend` accepts entity count and iteration count. It uses ordinary
-registered Local systems and composite query/event readers, including deferred
-spawn/disposal barriers, separate reader cursors and complete owner observations.
-The selected runs use 64 iterations with 64, 256 or 1024 initial entities.
+Motion and Health use the actual three Local and two composite Provider registrations through ordinary App. Library-owned catalogue/plan/dispatch replace manual schedule IDs and cursor plumbing. Shared meta/tick remain affine, and Fast/Slow retain distinct owners/cursors. Business invocations, Type outputs, both barriers and `Family.frame(Mixed.before_attempt(...))` order are preserved. Motion retains Doc captures; Health retains its original String captures and appended histories.
 
-The [selected packet](runtime-v1/indexed-optional-selected/actual-attempt01/RETENTION.json)
-retains six full oracle matches: Motion64, Motion256 and the affine returned-owner
-control, each on JS and Native. Both Motion1024 runs hit the existing five-second
-limit; their correct prefixes are incomplete results. The packet also preserves
-two failed control preparations. Run its `verify.py` to check retained evidence.
+The [ordinary family packet](runtime-v1/ordinary-family-attempt01/RETENTION.json) retains all twelve full independent oracle matches: both schemas, 64/256/1024 initial entities, JS and Native, with 64 iterations. All completed consumers exit zero with empty stderr. These correctness entries create one fresh namespace1 World, without warmup, and retain the original full observation construction and chunking.
 
-Indexed observation applies to canonically balanced arrays; size checks alone do
-not establish shape. Arbitrary affine `Type` payloads are projected once and the
-returned owners are restored before advancing. Raw columns retain structural
-observation. The separate control mutates an affine owner and re-observes it
-through the structural path.
+| Initial entities | Motion full bytes | Health full bytes | JS / Native |
+| --- | ---: | ---: | --- |
+| 64 | 10,810,200 | 8,077,591 | PASS / PASS |
+| 256 | 40,177,844 | 29,692,447 | PASS / PASS |
+| 1024 | 158,696,224 | 117,322,528 | PASS / PASS |
 
-This is a bounded correctness checkpoint, not a speedup or full #21 acceptance.
-The 1024 gates and equivalent-work TS/JS/Native timing qualification remain open.
+The first Motion Native emission reached its historical 30-second deadline before build/runtime. Its unchanged-source successor passed with the approved 60-second emission limit; both attempts are retained. Builds use 120 seconds and consumers 180 seconds. These are correctness completions, not a comparative timing cohort.
 
-## Ordinary App migration contract
+[Motion oracle basis](checks/ordinary-app-v1/ORACLE-BASIS.json) explicitly corrects stale historical nested metadata while preserving the old bytes. [Health basis](checks/ordinary-health-v1/ORACLE-BASIS.json) binds the genuine recovered domain and independent single-world model. Source-check failures and foreign IO refusals remain classified separately from pure source PASS.
 
-The candidate reuses the actual three Local and two composite Provider registrations. Library-owned catalogue/plan/dispatch replace manual schedule IDs and cursor plumbing. Shared meta/tick remain affine; Fast/Slow retain distinct actual owners/cursors. Business Local/Reader invocations, full Type outputs, before/after Doc captures, observation String/Doc/chunk construction and both barriers are preserved. Family.frame(Mixed.before_attempt(...)) keeps its exact position after Prime, each scheduled phase and Drain.
+[Control applicability](checks/ordinary-app-v1/CONTROL-APPLICABILITY.json) reuses the two passed affine returned-owner controls for their unchanged 63-source observer closure, executables, inputs, tools and resources. The old nonexecuted checker wrapper differs; its exact source and drift are retained. This is narrow semantic reuse, not a claim that all historical admission pins are current. Indexed observation still assumes canonically balanced arrays. Arbitrary affine payloads are projected and restored; the control mutates an owner and structurally re-observes its return.
 
-Initial registered observations precede seeding as before; persistent App attaches once after seed. This correctness entry creates one fresh World and has no warmup; comparative warmup/sample qualification is separate. Source stream scenario checks pass; IO entry has only existing foreign mathematical refusals. Diagnostics/unchanged operation hashes are in checks/ordinary-app-v1. No new contract/law/core dependency is introduced.
+[Model-control applicability](checks/ordinary-app-v1/MODEL-CONTROL-APPLICABILITY.json) records the existing complete textual grammar and historical reported-undo mutation evidence. Readers has no separate LC2 decoder. The historical mutant qualifies its original String representation; no current ordinary-App mutant execution is claimed.
 
-First gate is Motion64 JS/Native full selected10810200-byte stream, with corrected successor provenance for its exact oracle hash; the stale nested piece-direct basis remains historical. No backend pass is claimed at this source checkpoint. Existing returned-owner/decoder/mutation controls need exact applicability. Genuine Health ordinary execution and independently bound full oracle, both schemas256/1024, final independent review/integration and combined#28 remain; no comparative timing claim. Historical recovered Health code/oracles are references until current source-bound execution qualifies them.
+The [older selected packet](runtime-v1/indexed-optional-selected/actual-attempt01/RETENTION.json), including five-second incomplete prefixes and failed preparations, remains historical. Remaining delivery gates are independent final review/integration and combined #28 applicability. Equivalent-work TS/JS/Native timing, occupancy/peak joins and full #21 acceptance remain separate; no speedup is claimed here.
