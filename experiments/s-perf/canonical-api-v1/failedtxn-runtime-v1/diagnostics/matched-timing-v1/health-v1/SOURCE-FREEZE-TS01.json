@@ -1,0 +1,35 @@
+{
+  "sourceCommit": "7850df272dabdb000ad8664a1a63f0c7df01fb19",
+  "scope": "Changed TS role of finite FailedTxnHealth64 B1 method; first Bend pair frozen separately, no timing/RSS qualification",
+  "derivative": {
+    "path": "/tmp/bendvy-failedtxn-health-matched-method/experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/diagnostics/matched-timing-v1/health-v1/ts-pilot.mjs",
+    "sha256": "fe5cacfaf504eeaff6767bc92555b736bd8658b43d0e9cb4448f4916713b9535"
+  },
+  "builder": {
+    "path": "/tmp/bendvy-failedtxn-health-matched-method/experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/diagnostics/matched-timing-v1/health-v1/build-ts-pilot.py",
+    "sha256": "92ef439a632a986dade9be3cfd16747b98b60b6795c266114080851c4e85bd60"
+  },
+  "rssValidator": {
+    "path": "/tmp/bendvy-failedtxn-health-matched-method/experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/diagnostics/matched-timing-v1/health-v1/rss-validator.py",
+    "sha256": "3c33dd9d5e936a7e7cf71f0a0e685d1abc8f87ef4e91405a1e9a6c0cebb00398"
+  },
+  "basePairFreeze": {
+    "path": "/tmp/bendvy-failedtxn-health-matched-method/experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/diagnostics/matched-timing-v1/health-v1/SOURCE-FREEZE01.json",
+    "sha256": "ac17e6a1816d429742c7a5345438bacbe2817d93dc10acf1b9e359df431122d4"
+  },
+  "gold": {
+    "path": "/tmp/bendvy-failedtxn-health-matched-method/experiments/s-perf/canonical-api-v1/failedtxn-runtime-v1/diagnostics/matched-timing-v1/health-v1/model/ts-expected.stdout.gz",
+    "bytes": 38129202,
+    "sha256": "568e9d354d789e4d65bdbd12f64b4fe12d650bec9eda903928cc9d7b32e820ac",
+    "gzipBytes": 1072404,
+    "gzipSHA256": "6f24b94483453b3b598c8a1cf5eb7aab15603d3e1dda0f9647fa037a2f9ea580"
+  },
+  "clockPaths": [
+    "/tmp/bendvy21-failedtxn-health-b1-method-ts-actual01/warmup.clock",
+    "/tmp/bendvy21-failedtxn-health-b1-method-ts-actual01/sample.clock"
+  ],
+  "rssPaths": [
+    "/tmp/bendvy21-failedtxn-health-b1-method-ts-actual01/warmup.rss.json",
+    "/tmp/bendvy21-failedtxn-health-b1-method-ts-actual01/sample.rss.json"
+  ]
+}
