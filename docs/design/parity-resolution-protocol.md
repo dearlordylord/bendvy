@@ -15,6 +15,12 @@ identical algorithms, traversal counts or allocation costs. The unresolved
 observer issue is extra timed work on either role, not a requirement that Bend
 and TS implement an agreed observation at equal cost.
 
+Source audit of the retained Dense single-plan artifacts: JS `io_now` floors
+`performance.now()`; Native `io_now_run` divides `CLOCK_MONOTONIC` nanoseconds by
+1,000,000. The Dense TS adapter records the fractional `performance.now()`
+difference. This identifies the existing clock representations; it approves no
+new uncertainty rule or comparison protocol.
+
 ## Existing Dense/Sparse batch semantics
 
 The fourth Bend argument is the **number of fresh measured worlds**, after one fresh warmup. `measurement-samples-bend.bend:5–15` calls the complete `M.choose` once per world. Every call prints a full JSON record: all rows/payload fields, namespace/next/pending/Ledger/mode, read sum and dispatch counters (`candidate/measurement-bend.bend:353–355,373–375`). Native/JS stdout therefore retains **warmup plus every measured world**, not merely the last world or a checksum.
