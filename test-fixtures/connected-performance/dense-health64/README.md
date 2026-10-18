@@ -8,8 +8,9 @@ Warmup and measured worlds are fresh, in the same process. Full common construct
 
 The recovered domain source SHA256 is910f12ebf36f77918ba58305503778057cefc878e919be8e5dcbe1c0b268e613 at that commit. After removing import lines, the complete domain body, declaration and seed text remain byte-identical except the three `Col.empty` → `Col.empty_indexed` factory tokens. The original independent Plain Health64 canonical anchor is88,801 bytes/SHA256d897dc6238a59570f38af2d4a30e6d78117f50b238329754bc6557529b1db131; indexed physical expectations are independently derived, not normalized from subject output.
 
-The TS count guard now admits64/256/1024; the business body is unchanged. The shared Dense Motion `model/seal_gold.py --schema Health --count N --output FRESH` reproduces retained Health64 bytes before deriving wider common and complete physical/TS streams. Wider execution remains pending. A reached whole-String tuple formatter is not itself evidence that a transport repair is needed.
 
-`Codec.cat` uses the same local tail-recursive concatenation repair as Motion after its source-derived256 host-stack diagnosis. Health business operations, Indexed storage, fields and oracle remain unchanged; repaired-source execution is still required.
+Health64/256/1024 now has full JS/Native/TS semantic coverage with64 iterations and two fresh worlds per child. Current Bend artifacts retain every Health field and Indexed physical observation. Qualified HealthTS64 is reused only for its unchanged consumed reference/Node/Bevy closure and selected64 behavior; wider TS roles ran with guarded Git/manifest inputs.
 
-The post-clock TUPLE call uses the same accepted64-piece writer as Motion after its actual List.show stack failure. This changes transport only; complete bytes and timing boundaries remain unchanged.
+The shared Motion `model/seal_gold.py --schema Health --count N --output FRESH` reproduces retained Health64 bytes before deriving complete wider physical/common/TS streams. Independent result identities are in `model/COUNT-EXPECTED.json`. The exact18-role joined packet is `/tmp/bendvy21-dense-joined-final01.json`; the Motion README describes the two reached stack failures, local tail-concatenation/bounded-writer repairs and preserved predecessor evidence.
+
+No business, core, storage, timer-boundary, heap-limit or stack-limit change was made. Full comparative/occupancy/RSS/#28 qualification remains separate; these semantic results carry no speed or clock-accuracy claim.
