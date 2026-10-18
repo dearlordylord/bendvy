@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
+Location:
+18 |     case Driver.View{world,owner,audit,statuses}:
+19>|       (world,text)=Observe.rows(world)
+   |                    ^^^^^^^^^^^^^^^^^^^
+20 |       (world,physical)=Observe.world(world)
+bend 2.0.37 is available: run bend update
