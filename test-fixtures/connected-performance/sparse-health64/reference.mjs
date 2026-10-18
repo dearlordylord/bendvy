@@ -107,7 +107,7 @@ function encode(x){
  const statuses=sized(x.statuses,s=>s.ok?[0]:[3,...natural(JSON.stringify(s.error).length),...Array.from(JSON.stringify(s.error),c=>c.codePointAt(0))]);
  return rows.concat(x.ledger.totals,[x.ledger.epoch],audits,statuses,[x.cumulative]);
 }
-const schema='Health',workload='sparse',count=Number(process.argv[2]);assert.equal(count,64);assert.equal(iterations,64);
+const schema='Health',workload='sparse',count=Number(process.argv[2]);assert.ok(counts.includes(count));assert.equal(iterations,64);
 function one(path){const owner=execute(schema,workload,count);const start=process.hrtime.bigint();const tuple=owner.run();const end=process.hrtime.bigint();const full=owner.validate();writeFileSync(path,String(end-start)+'\n',{flag:'w'});writeAll('TUPLE:'+JSON.stringify(tuple)+'\n');writeAll('FULL:'+JSON.stringify(full)+'\n');}
 const [warmupClock,sampleClock]=process.argv.slice(4);assert(warmupClock&&sampleClock);
 writeAll('WARMUP'+'\n');one(warmupClock);writeAll('SAMPLE'+'\n');one(sampleClock);

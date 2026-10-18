@@ -114,12 +114,16 @@ def status(value:Driver.Status) -> List<&2,U32>:
 def encode(value:C.Common) -> List<&2,U32>:
   match value:
     case C.Common{rows,resource,+audits,statuses,cumulative}:cat(list(~IQ.ProjectedRow<T.HealthSchema,Logical.Value()>,~row,rows),cat(ledger(resource),cat(cat(natural(List.length(&2,Driver.Audit,audits)),audit_body(audits,0)),cat(list(~Driver.Status,~status,statuses),[U32.sub(cumulative,all_delta(audits))]))))
-def show_prepend(values:List<&2,U32>,suffix:String) -> String:
+def write_chunk(reversed:List<&2,String>) -> IO(Unit):IO.write(String.concat(List.reverse(&2,String,reversed)))
+def write_piece(value:U32,first:Bool) -> String:
+  match first:
+    case True{}:U32.show(value)
+    case False{}:", " ++ U32.show(value)
+def write_go(values:List<&2,U32>,first:Bool,remaining:Nat,reversed:List<&2,String>) -> IO(Unit):
   match values:
-    case []:"[" ++ suffix
-    case head <> rest:show_prepend(rest,U32.show(head) ++ ", " ++ suffix)
-def show_reversed(values:List<&2,U32>) -> String:
-  match values:
-    case []:"[]"
-    case head <> rest:show_prepend(rest,U32.show(head) ++ "]")
-def show(values:List<&2,U32>) -> String:show_reversed(List.reverse(&2,U32,values))
+    case []:IO.bind(Unit,Unit,write_chunk(reversed),_=>IO.write("]\n"))
+    case value <> rest:
+      match remaining:
+        case 0n:IO.bind(Unit,Unit,write_chunk(reversed),_=>write_go(rest,False{},63n,[write_piece(value,first)]))
+        case 1n+next:write_go(rest,False{},next,write_piece(value,first) <> reversed)
+def write(prefix:String,values:List<&2,U32>) -> IO(Unit):IO.bind(Unit,Unit,IO.write(prefix ++ "["),_=>write_go(values,True{},64n,[]))
