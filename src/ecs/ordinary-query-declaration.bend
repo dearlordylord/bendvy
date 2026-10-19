@@ -70,8 +70,17 @@ def selected_left(~H:Type,~right:H -> H & Bool,observed:H & Bool) -> H & Bool:
     case (owner,True{}):right(owner)
 def both(~H:Type,~left:H -> H & Bool,~right:H -> H & Bool,owner:H) -> H & Bool:
   selected_left(~H,~right,left(owner))
+def pair_selected(~H:Type,right:H -> H & Bool,observed:H & Bool) -> H & Bool:
+  match observed:
+    case (owner,False{}):(owner,False{})
+    case (owner,True{}):right(owner)
+def pair_select(~H:Type,left:H -> H & Bool,right:H -> H & Bool,owner:H) -> H & Bool:
+  pair_selected(~H,right,left(owner))
+def pair_parts(~S:Data,~H:Type,~L:Type,~R:Type,left:Declaration<S,H,L>,right:Declaration<S,H,R>) -> Declaration<S,H,L & R>:
+  match left right:
+    case Declaration{leftGrant,leftSelect,leftClauses} Declaration{rightGrant,rightSelect,rightClauses}:Declaration{(leftGrant,rightGrant),owner=>pair_select(~H,leftSelect,rightSelect,owner),List.append(&2,Clause<S>,leftClauses,rightClauses)}
 def pair(~S:Data,~H:Type,~L:Type,~R:Type,~left:Declaration<S,H,L>,~right:Declaration<S,H,R>) -> Declaration<S,H,L & R>:
-  Declaration{(grant(~S,~H,~L,left),grant(~S,~H,~R,right)),both(~H,~selector(~S,~H,~L,left),~selector(~S,~H,~R,right)),List.append(&2,Clause<S>,clauses(~S,~H,~L,left),clauses(~S,~H,~R,right))}
+  pair_parts(~S,~H,~L,~R,left,right)
 
 def read(~S:Data,~P:Type,~Store:Type,~R:Type,~E:Data,~Rest:Type,~V:Data,~Token:Data,~identity:Identity.Declaration<S,P>,~view:P -> P & V,~take:Store -> Rest & Col.Column<S,P>,~put:Rest -> Col.Column<S,P> -> Store) -> Declaration<S,Q.Frame<S,Store,R,E>,Cap.Read<Q.Frame<S,Store,R,E>,V>>:
   Declaration{Q.read_family(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)}),Q.family_match(~S,~Store,~R,~E,~Rest,~P,~V,~Token,~take,~put,~view,~Cmp.Family{Identity.key(~S,~P,identity)},~Q.Required{}),[Clause{Identity.key(~S,~P,identity),Read{}}]}
