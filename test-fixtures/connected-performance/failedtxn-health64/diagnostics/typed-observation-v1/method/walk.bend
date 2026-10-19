@@ -62,7 +62,7 @@ def run(fuel:Nat,state:State) -> Outcome:
   match fuel state:
     case _,State{[],acc}:Complete{acc}
     case 0n,_:Exhausted{}
-    case 1n+rest,state:run(rest,step(state))
+    case 1n+rest,State{head <> tasks,acc}:run(rest,task(tasks,acc,head))
 # Cache counts are renderer work budgets, never semantic array/object lengths.
 # Root scalars avoid J.work(Number), which formats a Nat only to count digits.
 def root_work(value:J.Value) -> Nat:
