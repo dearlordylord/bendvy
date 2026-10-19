@@ -55,7 +55,11 @@ The entry `test-fixtures/connected-performance/failedtxn-motion64/diagnostics/co
 
 All 965 common records and 3,504,864 cells per world remain exact. Complete own-role public snapshots additionally retain first and repeated public reads, actual schedule descriptions and Dispose results on Bend; TS retains public reads formerly embedded in assertions and the listener supplying actual outcomes. Both carriers are fully forced before end; complete transport follows. Private Facts capabilities/capture and verification-only expected-state generation are absent. Integration through `5aef0a2a4` matches the reviewed complete leaf.
 
-This establishes finite Motion64 semantic correspondence for the adapter. Health, wider sizes, the remaining families, seven rotations, numerical uncertainty/decision margins and clean child RSS still need qualification; no timing ratio, performance acceptance or #28 waiver follows.
+This establishes finite Motion64 semantic correspondence for the adapter. Wider sizes, the remaining families, seven rotations, numerical uncertainty/decision margins and clean child RSS still need qualification; no timing ratio, performance acceptance or #28 waiver follows.
+### Qualified Health64 comparative adapter
+
+The genuine Health adapter passes full independent gold on JS, Native and TS; integration `cb19ef65e` matches the final-reviewed leaf `d8a2cb9d8` exactly. Packet `961247cc…` binds the unchanged original business/error/owner/cursor sequence, common observations and complete public carriers forced before the clock ends. Full outputs match independently derived gold: Bend63,148,538 bytes and TS48,976,144 bytes. Production ECS and the original semantic consumers remain unchanged. This accepts finite Health64 correspondence only; wider inputs, other families, comparative cohorts, margins, child RSS and #28 remain open.
+
 
 ## Clean child-RSS launcher control — 2026-10-18
 
