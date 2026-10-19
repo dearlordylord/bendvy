@@ -49,6 +49,14 @@ Time the business execution and the agreed common observation/forcing on all thr
 
 The user endorsed this direction on 2026-10-18 and requested an Astra review, which agreed with the boundary above. This changes the comparison boundary, not ECS behavior. Existing diagnostic-heavy intervals remain semantic evidence; their raw timing ratios do not establish equivalent-work performance. Each comparative adapter still needs source-bound correspondence and complete independent-gold acceptance through the existing review. Numerical uncertainty and decision margins remain a separate unaccepted choice.
 
+### First qualified comparative adapter: FailedTxn Motion64
+
+The entry `test-fixtures/connected-performance/failedtxn-motion64/diagnostics/comparative-v1/` passes complete independent gold on JS, Native and TS. Packet `1a9cb33d…` binds subject `5bba172c4`, independent model `bce64e415`/`3bc69a40`/`db82a4ac6`, current source correspondence02 and separately preserved model-pinned historical correspondence01. Original callbacks, operations, registration/invocation sequence, error/continuation policy, transaction outcomes, owner and cursor behavior remain reached. The accepted semantic fixtures are unchanged.
+
+All 965 common records and 3,504,864 cells per world remain exact. Complete own-role public snapshots additionally retain first and repeated public reads, actual schedule descriptions and Dispose results on Bend; TS retains public reads formerly embedded in assertions and the listener supplying actual outcomes. Both carriers are fully forced before end; complete transport follows. Private Facts capabilities/capture and verification-only expected-state generation are absent. Integration through `5aef0a2a4` matches the reviewed complete leaf.
+
+This establishes finite Motion64 semantic correspondence for the adapter. Health, wider sizes, the remaining families, seven rotations, numerical uncertainty/decision margins and clean child RSS still need qualification; no timing ratio, performance acceptance or #28 waiver follows.
+
 ## Clean child-RSS launcher control — 2026-10-18
 
 Recovered the unchanged launcher from `871ace3bb:experiments/s-integrate/measurement-samples-rss-launcher.c` (SHA256 `eaef512a2c5e25c571f846fa5ddb5bf2075f2dda71c33ad29cb270639f05f977`) and built it with the existing Clang19.1.7. Its small exec image forks the measured child; exec alone does not clear the launcher's inherited highwater. Three controlled invocations validate this isolation, not ECS memory use:
