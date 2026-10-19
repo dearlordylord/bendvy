@@ -2994,3 +2994,42 @@ Focused successor `e90aa29b` executes the actual Cap.set wrapper with an earlier
 Independent audit confirms all 20+2 setter measurements (`9c39082a`, profiles `fa974d4b`): five alternating pairs per backend, full gold, 88 guards and 44 clocks pass. Against f257, JS median 62.909 ms [54.425, 74.415] becomes 50.466 [47.837, 50.876]; Native 23.732 [23.160, 30.713] becomes 19.164 [18.884, 22.213]. Paired after/before medians are 0.795023 and 0.805967; all five pairs are lower in each backend. Recorded external load is 3.56–5.80. These descriptive results exclude instrumented clocks and do not establish TS targets or #28/adoption.
 
 Reused profile analysis (`2490e36b`) estimates sampled allocations 709,853,712→495,173,120 bytes, not exact or peak memory. Former query/observable-plan factory groups disappear. The next concrete source candidate is owner-product.Lens: actual JS creates take/put siblings before selecting one; inspect its exact projection refusal before changing eligibility. CPU sample totals and whole-process profiles do not establish elapsed phase shares or a unique bottleneck.
+
+Setter checkpoint `db4d40e0c` is pushed; CI39237529059 passes. Isolated 08eta source `4cb5491` contracts only closed, typed eta-shaped selected fields to safe known partial references, retaining existing arity/binding/fallback guards and runtime Owner operations. The first complete ordinary Dense JS passes (`e2462fec`); reached audit `0f5e64d8` finds exactly four changed JS lines: Lens selection in replace/replacing/project/viewed becomes direct take/put. Every other line, including all four Main/Ledger get/set entries, matches07. Native and affected tiny checks remain pending; no performance or adoption claim.
+
+08 Native passes (`2206b682`) with C and binary exactly matching07; it does not remove the Native Lens chain. Seven-job packet `2f18eb6e` and first JS are independently data-audited; all six tiny artifact sets match07, retaining captured/dynamic/drop/unsafe/computed and caller-order evidence (`0581c60a`). Consequently prepare only five alternating JS pairs plus two profiles for08, reusing unchanged Native evidence without a new Native timing claim.
+
+Source inspection identifies Native ANF cutting a nested projection before its application is tested. Placement-only09 (`510474da`) invokes the unchanged guarded matcher before that cut, retaining use-count reconciliation and eligibility. Its independently reviewed single ordinary Dense Native consumer is queued first; no Native effect or speedup has yet been established.
+
+09 first Native completes full gold (`2396aec7`) with changed C `d41a6424` and binary `543061ba`; actual edge audit remains required. CPU lease is released before the independently reviewed08 JS-only 10+2 comparison starts (`f28c824b`/`8e835a45`). Native timing is not rerun on the byte-identical08/07 artifact.
+
+Independently audited08 JS-only 10+2 (`092f09d0`, profiles `9de1f9de`) preserves all full outputs, 48 guards and 24 clocks. Median 51.377 ms [44.555,55.107] becomes 46.305 [39.820,61.436]; paired after/before median0.891994, but only three of five pairs improve and ranges overlap under load4.60–7.95. Treat the timing effect as inconclusive, not a robust speedup; do not rerun to seek a pass. Exact Native07 artifact/measurement reuse remains separate.
+
+09 reached C audit (`eb5c4940`) confirms project/replace now call take directly; prior Lens-construction and indirect-call sequence is removed. Owner decomposition/replacement and all four Main/Ledger entries remain. Independent data audit also confirms the first Native receipt; remaining09 correctness plans (`df2e46d7`) are authorized first-DenseJS/fullgold/exact08-JS identity, then six existing controls, stopping on any difference or failure.
+
+08 profile analysis (`5703e2d6`) estimates sampled allocations 495,173,120→424,227,216 bytes; Lens named and sampled anonymous groups disappear. This agrees with the four changed calls but does not attribute the entire allocation delta or elapsed time to Lens. Remaining row/column/resource operations are observed separately; post-clock codec work is not a timed bottleneck.
+
+09 completes all eight correctness jobs (first Native plus remaining-seven packet `c2dbd536`), independently data-audited. Negative audit `cd316153` finds changed Native controls simplify only a closed pure computed_write(False); captured/dynamic/drop/unsafe and the earlier caller initialization order remain. Native-only five-pair comparison `619d0202` reuses exact09/08 JS identity. One existing-tool gprof experiment is prepared separately; instrumented timing is excluded and short whole-process sampling may be insufficient. Postprocessor review requests exact actual-build argv/cap/C joins; immutable successor03 supplies those bindings without changing the collector. No new dependency or repeat campaign.
+
+Native09 comparison (`42d89d57`) is independently audited: ten full-gold observations, 40 guards and 20 clocks pass. Median 19.709 ms [18.905,20.488] becomes 16.172 [15.993,17.152]; paired after/before median0.855440, all five pairs lower, load4.79–7.09. Unchanged JS evidence is reused by exact artifact identity. This is a descriptive Bend comparison, not fresh TS/#28/adoption qualification.
+
+The first gprof producer stops in preflight (`035a34a7`) because /usr/bin/gprof is a symlink; no build or instrumented child ran. Preserve that failure and completed Native10. Reviewed successor04 (`d6512854`) selects the same-byte regular aarch64-linux-gnu-gprof and fresh paths; one instrumented full consumer/report is authorized, with unchanged limits and no repeated Native measurements.
+
+
+Compiler09 seven-case correctness completes with independent audit (`98209ba5`): 12 fresh Bend roles, two matching Dense Bend reuses and seven current TS reuses. All21 semantic roles match their complete oracles. The reviewed portable compiler source is preserved in `patches/bend-2.0.35` through commits07ffffb5d and17069af1a. Neither patch changes installed tools or default compiler selection.
+
+The fixed final comparison completes147 observations without retries (`060fafe7`, summary `0825026e`). Independent audit checks all147 full outputs and commands,588 guards,294 clocks,147 clean-child RSS records,20,990 current pins and13 resource roots. Seven rotations retain the approved workload, backend order and limits. These are the paired median elapsed ratios against TS in the same rotation:
+
+| Case | JS/TS | Native/TS |
+| --- | ---: | ---: |
+| Dense Motion256 | 2.600 | 0.997 |
+| Sparse Motion256 | 6.009 | 2.623 |
+| Lifecycle Motion256 | 2.582 | 2.103 |
+| FailedTxn Motion64 | 2.618 | 2.049 |
+| Readers Motion64 | 3.583 | 2.016 |
+| Dense Health64 | 3.119 | 0.799 |
+| FailedTxn Health64 | 2.551 | 2.152 |
+
+Every observed rotation misses both approved targets. Ratios of medians differ and remain in the raw summary with all medians and ranges. Collection ran11:34:04–11:54:03 UTC on12 CPUs, with external load1 changing5.46→3.74. This does not establish isolation or a causal comparison with an older cohort. RSS covers the whole fresh child, including setup and output, rather than only the timed interval. The compiler remains unadopted, and its #28 gate is still open.
+
+Next source investigation targets Sparse. Each iteration performs three full query scans; current enumeration considers256 live handles although Main has32 members. The reached JS also reconstructs inspection declarations per target. TS selects and caches required-component membership. Source inspection cannot rank enumeration, factory construction, owner reconstruction and full observer work. Use the existing CPU/allocation profile path to choose an improvement. Preserve all three queries, full observations, ordering and affine ownership. No new workload, thresholds or storage contract is accepted by these observations.
