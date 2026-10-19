@@ -1,0 +1,5 @@
+# FailedTxn Motion1024 comparative input
+
+Use the unchanged qualified `../comparative-v1/method/pilot.bend` and `../comparative-v1/reference.mjs` with arguments `1024 64 warmup.ns sample.ns`. Their actual count path creates 1024 seed entities and retains all 64 business iterations, callbacks, transactions, errors, owners, cursors, barriers, public reads and timed complete common/public carriers. Compiled artifacts remain bound to their original qualified64 producer and identical current source closure.
+
+Independent gold must first reproduce full Motion64 comparative and original Motion1024 semantic/canonical controls, then derive every count-sized row, actor, handle and common/public scalar from actual state. It must not scale smaller wires. Existing execution policy permits source-only model generation up to900 s and requires `--max-old-space-size=8192` for both Bend JS and TS at1024; Native and default stack remain unchanged. These settings are completion allowances, not RSS or performance criteria. No runtime qualification or comparative result is established yet.
