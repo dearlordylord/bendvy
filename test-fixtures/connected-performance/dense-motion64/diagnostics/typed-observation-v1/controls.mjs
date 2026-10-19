@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {natural,mix,status,typedCommonFold,detachedCommon} from './observe.mjs';
+const nums=[0,4294967295,4294967296,281474976710655].map(x=>natural(x,0));
+const before={rows:[{rawId:1,main:{coordinates:[1,2,3,4],frame:7},aux:null,flag:null}],ledger:{totals:[0,101,102,103],epoch:4},audits:[{values:[10],readsum:10,updated:1}],statuses:[{ok:true,value:undefined}]};
+const copy=detachedCommon(before),token=typedCommonFold('Motion',copy);
+before.rows[0].main.coordinates[0]=99;before.ledger.totals[0]=42;before.audits[0].values[0]=88;
+assert.equal(copy.rows[0].main.coordinates[0],1);assert.equal(copy.ledger.totals[0],0);assert.equal(copy.audits[0].values[0],10);assert.equal(typedCommonFold('Motion',copy),token);assert.ok(Object.isFrozen(copy.rows[0].main.coordinates));
+const failure=status({ok:false,error:{kind:'SystemFailure',system:'Update',error:{code:7,details:[1,2]}}},0);
+const changed=status({ok:false,error:{kind:'SystemFailure',system:'Update',error:{code:8,details:[1,2]}}},0);assert.notEqual(failure,changed);
+assert.throws(()=>natural(-1,0),/Nat/);assert.throws(()=>natural(281474976710656,0),/Nat/);
+console.log(JSON.stringify({nat:nums,snapshot:token,error:[failure,changed]}));
