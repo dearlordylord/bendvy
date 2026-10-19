@@ -26,20 +26,44 @@ def main():
     root = Path(__file__).resolve().parents[6]
     for name, expected in source_basis['sourcePins'].items():
         assert sha((root / name).read_bytes()) == expected, name
-    subprocess.run([sys.executable, str(CONTROL256 / 'seal_gold.py'),
-                    '--output', str(target / 'preservation256')], check=True)
-    prior_expected = json.loads((CONTROL256 / 'EXPECTED.json').read_text())
-    for role in ['bend', 'ts']:
-        raw = gzip.decompress((target / f'preservation256/{role}-expected.stdout.gz').read_bytes())
-        expected = prior_expected['oracles'][role]
-        assert (len(raw), sha(raw)) == (expected['bytes'], expected['sha256'])
-    # This independent control reconstructs the old canonical, every common cell,
-    # and both old full role streams from the unchanged original operation model.
-    subprocess.run([sys.executable, str(P.SOURCE / 'seal_pilot_gold.py'),
-                    '--count', '1024', '--iterations', '64',
-                    '--output', str(target / 'preservation')], check=True)
+    reuse = source_basis['prerequisiteReuse']
+    semantic = Path(reuse['semantic1024']['directory'])
+    comparative = Path(reuse['comparative256']['directory'])
+    def verified_basis(item):
+        path = Path(item['directory']) / 'PILOT-ORACLE-BASIS.json'
+        assert sha(path.read_bytes()) == item['basisSHA256']
+        result = json.loads(path.read_text())
+        assert result['status'] == 'PASS'
+        for role, expected in result['oracles'].items():
+            digest = hashlib.sha256(); size = 0
+            with gzip.open(Path(item['directory']) / f'{role}-expected.stdout.gz', 'rb') as stream:
+                while data := stream.read(1024 * 1024):
+                    digest.update(data); size += len(data)
+            assert (size, digest.hexdigest()) == (expected['bytes'], expected['sha256'])
+        return result
+    semantic_basis = verified_basis(reuse['semantic1024'])
+    prior64_basis = verified_basis(reuse['comparative64'])
+    for role, expected in json.loads((PRIOR / 'EXPECTED.json').read_text())['oracles'].items():
+        assert prior64_basis['oracles'][role] == expected
+    for name, expected in prior64_basis['sourcePins'].items():
+        assert sha((PRIOR / name).read_bytes()) == expected
+    comparative_basis = verified_basis(reuse['comparative256'])
+    assert (semantic_basis['count'], semantic_basis['iterations']) == (1024, 64)
+    assert sha((P.SOURCE / 'SOURCE-BASIS.json').read_bytes()) == semantic_basis['sourceBasisSHA256']
+    for name, expected in semantic_basis['sourcePins'].items():
+        assert sha((P.SOURCE / name).read_bytes()) == expected
+    assert sha((CONTROL256 / 'seal_gold.py').read_bytes()) == comparative_basis['sourcePins']['seal_gold.py']
+    for role, expected in json.loads((CONTROL256 / 'EXPECTED.json').read_text())['oracles'].items():
+        assert comparative_basis['oracles'][role] == expected
+    digest = hashlib.sha256(); size = 0
+    for namespace in [1, 2]:
+        with gzip.open(semantic / f'canonical-ns{namespace}.stdout.gz', 'rb') as stream:
+            while data := stream.read(1024 * 1024):
+                digest.update(data); size += len(data)
+    assert (size, digest.hexdigest()) == (semantic_basis['canonicalBytes'], semantic_basis['canonicalSHA256'])
     C, M = P.C, P.C.M
-    fixtures = json.loads(gzip.decompress((target / 'preservation/observer-fixtures.json.gz').read_bytes()))
+    fixtures = json.loads(gzip.decompress((semantic / 'observer-fixtures.json.gz').read_bytes()))
+    target.mkdir(parents=True)
     outputs = {}
     chunks = {'bend': [], 'ts': []}
     world_results = []
@@ -90,8 +114,8 @@ def main():
         outputs[role] = {'bytes': len(raw), 'sha256': sha(raw), 'gzipSHA256': sha(packed)}
     receipt = {'status': 'PASS', 'count': 1024, 'iterations': 64, 'worlds': world_results, 'oracles': outputs,
                'sourcePins': {p.name: sha(p.read_bytes()) for p in Path(__file__).parent.glob('*.py')},
-               'preservation256': json.loads((target / 'preservation256/PILOT-ORACLE-BASIS.json').read_text()),
-               'preservation': json.loads((target / 'preservation/PILOT-ORACLE-BASIS.json').read_text()),
+               'preservation256': comparative_basis,
+               'preservation': semantic_basis,
                'scope': 'Independent source model only; role-specific public strategies stay distinct.'}
     (target / 'PILOT-ORACLE-BASIS.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps(receipt))

@@ -30,11 +30,37 @@
     "test-fixtures/connected-performance/failedtxn-motion64/diagnostics/comparative-v1/consumer/motion-systems.bend": "5b127145b19921142f1f31687e8990091e49f52fe712b2057f9fa345977fe9cd",
     "test-fixtures/connected-performance/failedtxn-motion64/diagnostics/comparative-v1/method/capture-call.bend": "eabb56c4c22f89bf688ab15da53b7c608f9e20dded29ff7c8e0d915fe55dd125",
     "test-fixtures/connected-performance/failedtxn-motion64/diagnostics/comparative-v1/method/capture-state.bend": "f8611ac5398986caa6c2d5dce3a256c145a5c89ee231d228e1ed4a1821b78328",
-    "test-fixtures/connected-performance/failedtxn-motion64/diagnostics/comparative-v1/method/pilot.bend": "6484e1a618fc65e8dae730002e6cd2d3e987201c071ec30d1d11fef7de3186d4"
+    "test-fixtures/connected-performance/failedtxn-motion64/diagnostics/comparative-v1/method/pilot.bend": "6484e1a618fc65e8dae730002e6cd2d3e987201c071ec30d1d11fef7de3186d4",
+    "/tmp/bendvy21-failedtxn-motion-count1024-independent-gold01/PILOT-ORACLE-BASIS.json": "083116c6151ec3452b31be3d55f255f6a3a9360fa4394b24e941813df3bf7000",
+    "/tmp/bendvy21-failedtxn-motion-count1024-independent-gold01/bend-expected.stdout.gz": "3f6c57a3f86f2fcdf2d6502b46ea5865ee3513398540a0043705f8f975883bed",
+    "/tmp/bendvy21-failedtxn-motion-count1024-independent-gold01/ts-expected.stdout.gz": "143f8a3f9e018b82548294c69d61ce8dab4aea7b7d1e4bdc20375721e0f5a885",
+    "/tmp/bendvy21-failedtxn-motion-count1024-independent-gold01/observer-fixtures.json.gz": "9dd25846bcf7e081002c922de0f2b7b85dfbd3974264edbd7c81c24451511c4a",
+    "/tmp/bendvy21-failedtxn-motion-count1024-independent-gold01/canonical-ns1.stdout.gz": "059c4d19c4e3610490eeff2ea6c9cbbc7c3845bf1e7e933cc84974b78e628323",
+    "/tmp/bendvy21-failedtxn-motion-count1024-independent-gold01/canonical-ns2.stdout.gz": "7b26f9076891e95c015ed8063f61a2480424ef54928b2ac3bf155c7578b8dc17",
+    "/tmp/bendvy21-failedtxn-motion256-comparative-independent-gold01/PILOT-ORACLE-BASIS.json": "67f43d192da01a3ef02e36fb02886bf94f0a74f15582fcb4a46aa4428e6c7a24",
+    "/tmp/bendvy21-failedtxn-motion256-comparative-independent-gold01/bend-expected.stdout.gz": "05998b0e9ba82bec9747b6368be7c451ed1fceabd284a6951e4a5c31b6070dd3",
+    "/tmp/bendvy21-failedtxn-motion256-comparative-independent-gold01/ts-expected.stdout.gz": "4b7467e2feed93547f1265ccfd92179140642db86d79d15f9a8ad89d1f7d3823",
+    "/tmp/bendvy21-failedtxn-motion256-comparative-independent-gold01/preservation64/PILOT-ORACLE-BASIS.json": "8075c2b76cfffb5d9dd36e388d7b55436abe3d6c4ec9186d8f769b989e803e16",
+    "/tmp/bendvy21-failedtxn-motion256-comparative-independent-gold01/preservation64/bend-expected.stdout.gz": "8f9995fbf90b1001f323e5fa48095d9b0f34db33c32d4d804b9b7ed2d1c24ad0",
+    "/tmp/bendvy21-failedtxn-motion256-comparative-independent-gold01/preservation64/ts-expected.stdout.gz": "f48545c91cbd063f30d5e5274b828da37f6b8a80c2e426f0c446b1c7a208d605"
   },
   "count": 1024,
   "iterations": 64,
   "reuse": "Exact immutable256 sealer reproduces full64 then256comparative; selected1024 original semantic sealer and actual state/common/public projection. No wire scaling, payload casts or subject-derived expectation.",
   "memoryScope": "Original1024 source-model recipe plus complete fixtures/cells and role output buffers are retained. No field drops, algorithm edits or measured memory bound; heavy execution remains separately admitted.",
-  "scope": "Independent source model only, no performance qualification."
+  "scope": "Independent source model only, no performance qualification.",
+  "prerequisiteReuse": {
+    "semantic1024": {
+      "directory": "/tmp/bendvy21-failedtxn-motion-count1024-independent-gold01",
+      "basisSHA256": "083116c6151ec3452b31be3d55f255f6a3a9360fa4394b24e941813df3bf7000"
+    },
+    "comparative256": {
+      "directory": "/tmp/bendvy21-failedtxn-motion256-comparative-independent-gold01",
+      "basisSHA256": "67f43d192da01a3ef02e36fb02886bf94f0a74f15582fcb4a46aa4428e6c7a24"
+    },
+    "comparative64": {
+      "directory": "/tmp/bendvy21-failedtxn-motion256-comparative-independent-gold01/preservation64",
+      "basisSHA256": "8075c2b76cfffb5d9dd36e388d7b55436abe3d6c4ec9186d8f769b989e803e16"
+    }
+  }
 }
