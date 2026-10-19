@@ -170,3 +170,7 @@ Integration `f0d4f54f4` matches independently reviewed leaf `c72fce237`. Packet 
 ## Readers Motion64 comparative adapter accepted — 2026-10-19
 
 Integration `6124fc131` matches reviewed leaf `962571792`; packet `065f063d` joins complete JS/Native17,466,414 bytes/877efd1b and TS6,680,400 bytes/38481f27. All280 common records, actual seed return,192 Local results,84 prepared reads and194 schedules remain; TS retains196 actual outcomes and64 prewrite lookup results. Original owners, cursors, rollback, continuations and complete forcing are preserved. The original semantic evidence is reused. All seven selected routes now have accepted correspondence; rotations, clock/decision qualification, clean-child RSS and unchanged #28 remain open.
+
+## Seven-case raw cohort completed — 2026-10-19
+
+Reviewed index03 `bbd062f5` completed147 observations, seven per selected case/backend, without rebuilds or retries. Receipt `25da1c76` joins full gold, fresh clocks and whole-child RSS; raw summary `df1e9d1b` retains every median/min/max. Observed median time ratios are JS/TS4.29–6.61 and Native/TS2.00–3.95. These are descriptive results of the current complete forcing route, not accepted ECS speedups; target acceptance and numerical decision remain open. Exact values and interpretation are in the existing delivery report. Diagnostic profiles follow outside this cohort. Failed #28 remains unchanged.

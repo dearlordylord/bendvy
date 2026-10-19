@@ -2851,4 +2851,26 @@ The existing runner qualifies LifecycleMotion256 on JS, Native and pinned TS; pa
 
 ### 2026-10-19 — Readers selected adapter delivered
 
-ReadersMotion64 passes the unchanged runner on JS, Native and TS against full independent gold (packet `065f063d`). One independent final Spec/Standards review accepts leaf `962571792`; integration `6124fc131` preserves its exact owned files, original consumer/core and all public operations/owners. Model01 manual interpreter typo failed before execution and remains recorded; model02 and all three subject runs pass. Original semantic matrices were reused. All seven selected routes now have qualified correspondence; actual rotations/RSS, the pending decision rule and unchanged failed #28 remain open. No general speed or delivery acceleration is claimed.
+ReadersMotion64 passes the unchanged runner on JS, Native and TS against full independent gold (packet `065f063d`). One independent final Spec/Standards review accepts leaf `962571792`; integration `6124fc131` preserves its exact owned files (checkpoint `7f627c8e1`, CI39190672390 SUCCESS), original consumer/core and all public operations/owners. Model01 manual interpreter typo failed before execution and remains recorded; model02 and all three subject runs pass. Original semantic matrices were reused. All seven selected routes now have qualified correspondence; actual rotations/RSS, the pending decision rule and unchanged failed #28 remain open. No general speed or delivery acceleration is claimed.
+
+### 2026-10-19 — reuse current regression profiles before another candidate
+
+Read-only audit confirms all358 source hashes in the existing adoption07 CPU/allocation packet still match. Passing06 and failed07 emitted identical JS/C; the verdict remains failed. The sampled `compose.outcome` path is business work, but one12,468-us sample interval dominates its17,526-us attributed total. Its source and emitted outcome/completed bodies are also identical to frozen327bec49; no regression-specific cost follows. Row-result fusion could remove at most one temporary outcome wrapper per returned row, but existing allocation samples do not establish material allocation or escape behavior there. No optimization or unchanged cohort rerun was justified by this audit.
+
+### 2026-10-19 — seven-case raw comparison completed
+
+The exact reviewed index03 `bbd062f5` completed147/147 consumer-only observations with full independent gold, fresh clocks and clean-child RSS. Receipt `25da1c76` and raw descriptive summary `df1e9d1b` are in `/tmp/bendvy21-seven-case-comparative-cohort01/`. No compilation, retry or semantic-matrix rebuild occurred. Draft02 remains unexecuted: its stale DenseHealth TS compiler-resource alias was rebound to the exact preserved35 inventory before launch.
+
+Times below are sample medians in milliseconds, seven observations per backend. Ratios are Bend time / TS time, descriptive only; the acceptance decision rule remains pending. They measure the current complete business/observation/forcing route, not isolated ECS execution. Full min/max and whole-child RSS remain in the source-bound summary.
+
+| Case | JS ms | Native ms | TS ms | JS/TS | Native/TS |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Dense-motion-256 | 94.945 | 36.668 | 18.061 | 5.257 | 2.030 |
+| Sparse-motion-256 | 152.191 | 70.006 | 31.130 | 4.889 | 2.249 |
+| Lifecycle-motion-256 | 6482.301 | 4189.695 | 1061.095 | 6.109 | 3.948 |
+| FailedTxn-motion-64 | 2193.990 | 1241.147 | 462.847 | 4.740 | 2.682 |
+| Readers-motion-64 | 639.156 | 396.050 | 115.412 | 5.538 | 3.432 |
+| Dense-health-64 | 29.786 | 9.011 | 4.506 | 6.611 | 2.000 |
+| FailedTxn-health-64 | 2510.232 | 1705.209 | 584.750 | 4.293 | 2.916 |
+
+The observed results do not establish the JS<=TS or Native<=0.5TS goals. Diagnostic Dense JS/TS CPU profiles use the same artifacts/full gold outside the timed cohort; their durations are excluded. Source audit distinguishes eager public snapshots from timed scalar-wire encoding/folding and post-clock textual transport. Astra confirms an exact fused streaming fold could preserve the existing boundary if every field/framing cell is consumed, complete raw snapshots remain inside, transport stays outside and both TS/Bend use that boundary. No optimization is adopted without profile evidence. The failed #28 verdict remains unchanged.
