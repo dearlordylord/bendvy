@@ -147,7 +147,7 @@ def derive(count, iterations):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--count', type=int, choices=[64, 256], default=64)
-    parser.add_argument('--iterations', type=int, choices=[64, 256], default=64)
+    parser.add_argument('--iterations', type=int, choices=[64], default=64)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     assert not args.output.exists(), 'fresh output required'
