@@ -20,7 +20,8 @@ function rowValues(schema,row){return [row.rawId,...cells(schema,row.main),...(s
 export const prototypeVersion='typed-observation-v1';
 const maxNat=281474976710655;
 function checkedNat(value){if(!Number.isSafeInteger(value)||value<0||value>maxNat)throw new TypeError('typed observation Nat outside pinned representation');return value;}
-export function detachedSnapshot(value){const copy=structuredClone(value);const freeze=value=>{if(value!==null&&typeof value==='object'){for(const child of Object.values(value))freeze(child);Object.freeze(value);}return value;};return freeze(copy);}
+export function freezeOwnedObservation(value){if(value!==null&&typeof value==='object'){for(const child of Object.values(value))freezeOwnedObservation(child);Object.freeze(value);}return value;}
+export function detachedSnapshot(value){return freezeOwnedObservation(structuredClone(value));}
 export function typedObservationFold(value,seed=0){
   if(!Number.isInteger(seed)||seed<0||seed>0xffffffff)throw new TypeError('typed observation seed must be U32');
   let acc=seed;const cell=value=>{acc=(Math.imul(acc,33)+value)>>>0;};
@@ -50,7 +51,7 @@ class Method{
  reserve(id){assert.ok(!this.ids.has(id.value),'duplicate actor');const actor=this.rawActorMap.length+1;this.ids.set(id.value,actor);this.rawActorMap.push({actor,rawId:id.value});}
  actor(raw){assert.ok(this.ids.has(raw),'unmapped actor');return this.ids.get(raw);}
  row(value){return projected(value,this.actor(value.rawId));}
- record(value){this.records.push(detachedSnapshot(value));}
+ record(value){this.records.push(freezeOwnedObservation(value));}
  stage(iteration,stage,result){this.record({kind:'Stage',iteration,stage,outcome:{kind:result.ok?'Success':'Failure'}});}
 }
 function encode(records){const out=[];const natural=value=>{for(const ch of String(value))out.push(ch.codePointAt(0));out.push(0);};natural(records.length);for(const record of records){const scalars=Array.from(record,ch=>ch.codePointAt(0));natural(scalars.length);for(const scalar of scalars)out.push(scalar);}return out;}
@@ -84,9 +85,9 @@ function lifecycle(schema,count,clockPath){
     const f=lookup.getHandle(G.Entity.handle(foreignId),Q);
     let foreignChecked;if(liveIds.has(foreignId.value)){assert.equal(f.ok,true);foreignChecked={kind:'Found',row:row(f.value)};}else{assert.equal(f.error._tag,'MissingEntity');foreignChecked={kind:f.error._tag};}
     const currentResult=lookup.getHandle(G.Entity.handle(current),Q),targetResult=lookup.getHandle(G.Entity.handle(selected),Q),staleResults=stale.map(id=>({rawId:id.value,result:lookupResult(lookup.getHandle(G.Entity.handle(id),Q),row)})),ledger=structuredClone(resources.ledger.get());
-    method.publicBoundaries.push(detachedSnapshot({iteration,phase,rows:structuredClone(rows),firstLedger,firstPending,firstStale,foreignChecked,ledger,current:{rawId:current.value,result:lookupResult(currentResult,row)},target:{rawId:selected.value,result:lookupResult(targetResult,row)},stale:staleResults,foreign:lookupResult(f,row)}));
+    method.publicBoundaries.push(freezeOwnedObservation({iteration,phase,rows:structuredClone(rows),firstLedger,firstPending,firstStale,foreignChecked,ledger,current:{rawId:current.value,result:lookupResult(currentResult,row)},target:{rawId:selected.value,result:lookupResult(targetResult,row)},stale:staleResults,foreign:lookupResult(f,row)}));
     method.record({kind:'Boundary',iteration,phase,target:method.actor(selected.value),current:method.actor(current.value),reservations:method.reservations.slice(),rows:rows.map(value=>method.row(value)),ledger,currentKind:lookupKind(currentResult),targetKind:lookupKind(targetResult),stale:staleResults.map(value=>({actor:method.actor(value.rawId),kind:resultKind(value.result)}))});
-    method.foreignRecords.push(detachedSnapshot({kind:'ForeignProbe',iteration,phase,foreign:{world:'foreign',actor:method.foreignActorMap.find(x=>x.rawId===foreignId.value).actor,rawId:foreignId.value},result:lookupResult(f,row)}));lastRows=structuredClone(rows);lastLedger=ledger;lastStale=staleResults;lastCurrent=current;lastTarget=selected;
+    method.foreignRecords.push(freezeOwnedObservation({kind:'ForeignProbe',iteration,phase,foreign:{world:'foreign',actor:method.foreignActorMap.find(x=>x.rawId===foreignId.value).actor,rawId:foreignId.value},result:lookupResult(f,row)}));lastRows=structuredClone(rows);lastLedger=ledger;lastStale=staleResults;lastCurrent=current;lastTarget=selected;
   });
   method.foreignSetup=foreignSetup;
   const start=process.hrtime.bigint();
@@ -102,7 +103,7 @@ function lifecycle(schema,count,clockPath){
     tick(Dispose,G.Schedule.applyDeferred());method.stage(i,4,lastResult);liveIds.delete(target.value);stale.push(target);phase=2;tick(Observe);method.stage(i,5,lastResult);
   }
   method.record({kind:'Final',rows:lastRows.map(value=>method.row(value)),ledger:lastLedger,current:method.actor(lastCurrent.value),target:method.actor(lastTarget.value),reservations:method.reservations.slice(),stale:lastStale.map(value=>({actor:method.actor(value.rawId),kind:resultKind(value.result)})),status:{kind:lastResult.ok?'Complete':'BodyFailed'}});
-  const commonRecords=Object.freeze(method.records),foreignRecords=Object.freeze(method.foreignRecords),publicRecords=Object.freeze([detachedSnapshot({boundaries:method.publicBoundaries})]);writeAll('FORCE:'+typedObservationFold(commonRecords)+'\n');writeAll('FOREIGN-FORCE:'+typedObservationFold(foreignRecords)+'\n');writeAll('PUBLIC-FORCE:'+typedObservationFold(publicRecords)+'\n');const end=process.hrtime.bigint();
+  const commonRecords=Object.freeze(method.records),foreignRecords=Object.freeze(method.foreignRecords),publicRecords=Object.freeze([freezeOwnedObservation({boundaries:method.publicBoundaries})]);writeAll('FORCE:'+typedObservationFold(commonRecords)+'\n');writeAll('FOREIGN-FORCE:'+typedObservationFold(foreignRecords)+'\n');writeAll('PUBLIC-FORCE:'+typedObservationFold(publicRecords)+'\n');const end=process.hrtime.bigint();
   writeFileSync(clockPath,String(end-start)+'\n',{flag:'wx'});
   const tuple=encode(commonRecords.map(value=>JSON.stringify(value))),foreignTuple=encode(foreignRecords.map(value=>JSON.stringify(value))),publicTuple=encode(publicRecords.map(value=>JSON.stringify(value)));
   writeAll('TUPLE:'+JSON.stringify(tuple)+'\nFOREIGN-TUPLE:'+JSON.stringify(foreignTuple)+'\nPUBLIC-TUPLE:'+JSON.stringify(publicTuple)+'\nACTORS:'+JSON.stringify(method.rawActorMap)+'\n');
