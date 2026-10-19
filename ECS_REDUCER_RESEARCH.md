@@ -2,7 +2,9 @@
 
 Subject revision: Bendvy `2e3be6904`. Reference revisions are the pinned checkouts in
 [`.references/sources.json`](.references/sources.json): Bevy `ad678262` (bevy_ecs
-0.20.0-dev), bevy-ts `3040a3b2`, Bend `a950fd68`.
+0.20.0-dev), bevy-ts `3040a3b2`, Bend `a950fd68`. Cross-checks against the current
+bevy-ts line use [Ritmo](https://github.com/typeonce-dev/ritmo) (`typeonce-dev/ritmo`,
+the repository that hosts bevy-ts) at `bec76226`.
 
 Evidence scope: source reading and the repository's recorded measurements. No code was
 executed or profiled for this document. Where the cause of a performance gap is
@@ -22,8 +24,13 @@ inferred from code structure rather than a profile, it is marked as a hypothesis
   specific to Rust (pointer-style access, opaque commands) or to TypeScript (undo journal,
   observable iteration order). In Bend these mechanisms cost allocation and
   sequentialization and give back none of the benefits ECS exists for.
-- One finding is a correctness defect: the change clock advances on every component
-  write and saturates, after which all writes are rejected (section 6.1).
+- Two findings are correctness defects: the change clock advances on every component
+  write and saturates, after which all writes are rejected (section 6.1); and save/restore
+  silently drops structural work queued after the last barrier (section 6.9).
+- Cross-checking Ritmo, the bevy-ts line: the clock, query and read-typing findings
+  (6.1, 6.2, 6.6) depart from Ritmo as well as from Bevy. The journal and ordered
+  iteration (6.5, 6.7) are TypeScript-motivated choices in Ritmo whose rationale does not
+  carry over to Bend. Ritmo shares the save/restore defect (6.9).
 - Recorded performance (section 6.0) misses the targets: Native/TS 2.00–3.95, JS/TS
   4.29–6.61, against a goal of Native ≤ 0.5 × TS and JS ≤ TS.
 
@@ -271,6 +278,10 @@ The goals are JS ≤ TS and Native ≤ 0.5 × TS.
 - Consequence: at 10,000 component writes per frame and 60 frames per second, the clock
   is exhausted in about two hours, after which the world rejects every component write.
   Bevy's scheme is plain arithmetic and ports directly.
+- Ritmo also advances the tick per system run and per command flush
+  ([internal/world.ts:179-182](https://github.com/typeonce-dev/ritmo/blob/bec762266bedbe9c04b4ce804d40d87f2ad442fa/packages/core/src/internal/world.ts#L179-L182),
+  [:724](https://github.com/typeonce-dev/ritmo/blob/bec762266bedbe9c04b4ce804d40d87f2ad442fa/packages/core/src/internal/world.ts#L724)).
+  Per-write advancement departs from both references.
 
 ### 6.2 Query is a full entity scan without matched-storage caching (C, performance)
 
@@ -283,6 +294,16 @@ The goals are JS ≤ TS and Native ≤ 0.5 × TS.
   [:42](src/ecs/lifecycle.bend#L42)). A system writing n rows is O(n²). The indexed variant
   uses arrays ([indexed-lifecycle.bend](src/ecs/indexed-lifecycle.bend)).
 - Bevy caches matched storages per query and stores ticks as column arrays.
+- Ritmo caches each query's ordered match set, refreshes it incrementally from
+  membership versions, recomputes from the smallest required component set, and bounds
+  `changed` candidates with per-component change logs
+  ([internal/queries.ts:406-500](https://github.com/typeonce-dev/ritmo/blob/bec762266bedbe9c04b4ce804d40d87f2ad442fa/packages/core/src/internal/queries.ts#L406-L500)).
+  Ticks are numeric slots in the entity record, not lists. The full scan departs from
+  both references.
+- Ritmo shows the cost of the ordered-iteration contract (6.7): incremental refresh copies
+  the match arrays and splices each affected record, and the sparse `changed` path re-sorts
+  candidates by id
+  ([queries.ts:505](https://github.com/typeonce-dev/ritmo/blob/bec762266bedbe9c04b4ce804d40d87f2ad442fa/packages/core/src/internal/queries.ts#L505)).
 
 ### 6.3 Component access emulates a pointer (A, performance and parallelism)
 
@@ -314,6 +335,13 @@ The goals are JS ≤ TS and Native ≤ 0.5 × TS.
 - Bevy has no rollback. bevy-ts journals original values in three flat arrays because JS
   mutates in place
   ([bevy-ts internal/world.ts:221-229](https://github.com/SandroMaglione/bevy-ts/blob/3040a3b2a3f28fa8554d856f9ccb6bf5433fa334/packages/core/src/internal/world.ts#L221-L229)).
+- Ritmo journals each (record, component) pair once per transaction, guarded by a
+  per-slot transaction mark
+  ([internal/world.ts:380-395](https://github.com/typeonce-dev/ritmo/blob/bec762266bedbe9c04b4ce804d40d87f2ad442fa/packages/core/src/internal/world.ts#L380-L395)).
+  The journal stores references to old values, so it is correct only while values are
+  never mutated in place; Ritmo enforces that through readonly types alone. In Bend,
+  values are immutable by construction, which removes the hazard the journal guards
+  against and leaves only its cost.
 - Bendvy records a `W -> W` inverse closure per write
   ([transaction.bend:20](src/ecs/transaction.bend#L20), rollback at
   [:39](src/ecs/transaction.bend#L39)): one allocation per write.
@@ -328,6 +356,9 @@ The goals are JS ≤ TS and Native ≤ 0.5 × TS.
   ([component.bend:16](src/ecs/component.bend#L16)) is returned even when the query
   requires the component. Bodies must handle unreachable branches, and the README example
   invents `D.Health{0.0}` to satisfy the result type.
+- Ritmo's `ReadCell<T>.get()` returns `ReadonlyValue<T>` with no absence variants
+  ([Query.ts:568-573](https://github.com/typeonce-dev/ritmo/blob/bec762266bedbe9c04b4ce804d40d87f2ad442fa/packages/core/src/Query.ts#L568-L573)).
+  The widened type departs from both references.
 - Bevy's `Query<&T>` yields `&T`; absence is expressed only through `Option<&T>`. The query
   proves presence, and the type should carry that narrowing.
 
@@ -355,7 +386,26 @@ The goals are JS ≤ TS and Native ≤ 0.5 × TS.
   connascence of value on the hot path. `namespace + id` suffices to reject a foreign
   registry.
 
-### 6.9 Relation to the formal models
+### 6.9 Save and restore drop pending structural work (A + B, correctness)
+
+- Without a final flush (6.7), commands queued after the last barrier persist across
+  schedule runs. Because commands are opaque closures (6.4), a save cannot serialize them.
+- Bendvy's snapshot export does not read `pending`
+  ([snapshot-data.bend:17](src/ecs/snapshot-data.bend#L17)), and restore discards it:
+  "Pending commands are discarded, never invoked"
+  ([restore-world.bend:6-10](src/ecs/restore-world.bend#L6-L10);
+  contract in [restore-basic.md:77](docs/parity/restore-basic.md#L77)). Save does not
+  refuse when `pending` is non-empty.
+- Scenario: a system queues a spawn, no barrier follows before the tick ends, the player
+  saves. After load the entity does not exist, and nothing reports the loss.
+- Ritmo has the same combination: `snapshot()` rejects only calls made during a tick and
+  omits `pendingCommands` and `pendingMachines`; restore clears them
+  ([Runtime.ts:2441-2467](https://github.com/typeonce-dev/ritmo/blob/bec762266bedbe9c04b4ce804d40d87f2ad442fa/packages/core/src/Runtime.ts#L2441-L2467),
+  [:2581-2583](https://github.com/typeonce-dev/ritmo/blob/bec762266bedbe9c04b4ce804d40d87f2ad442fa/packages/core/src/Runtime.ts#L2581-L2583),
+  [Snapshot.ts:27](https://github.com/typeonce-dev/ritmo/blob/bec762266bedbe9c04b4ce804d40d87f2ad442fa/packages/core/src/Snapshot.ts#L27)).
+- Bevy's default final flush means queued commands do not outlive a schedule run.
+
+### 6.10 Relation to the formal models
 
 The formal models are descriptive, so Bendvy does not violate them. Several choices take
 it outside the region where their theorems apply:
@@ -372,9 +422,12 @@ it outside the region where their theorems apply:
 
 ## 7. Recommendations (priority order)
 
-1. **Change clock (6.1).** Advance the tick per system run and adopt Bevy's
-   wraparound-safe comparison and periodic clamp. Correctness fix, independent of
-   everything else.
+1. **Correctness (6.1, 6.9).**
+   - Change clock: advance the tick per system run and adopt Bevy's wraparound-safe
+     comparison and periodic clamp.
+   - Pending work across save: refuse a save while `pending` is non-empty (an explicit
+     result, not silent omission), or serialize built-in commands as data (see 3), or
+     adopt Bevy's final flush (see 4).
 2. **Query and stamp storage (6.2).** Maintain per-query membership (the analogue of
    `matched_storage_ids`) instead of scanning all handles; replace list-backed stamps with
    arrays on every column variant.
@@ -397,6 +450,9 @@ it outside the region where their theorems apply:
 - 6.1: a test that starts the clock near `4294967295` and performs writes across several
   system runs; expected (Bevy semantics) is continued acceptance and correct
   `Added`/`Changed` observation.
+- 6.9: a save taken after a system queues a spawn with no following barrier, then a
+  restore; expected is either a refused save or the spawned entity after the next
+  barrier.
 - 6.2–6.5: Native CPU profiles of Dense-motion and Lifecycle-motion attributing time to
   `W.handles` plus the predicate, `L.get`/`L.set`, the `World` record rebuild and undo
   closures.
