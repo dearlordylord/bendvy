@@ -1,0 +1,110 @@
+{
+  "status": "INDEPENDENT_MODEL_PASS",
+  "modelCommit": "949ebbfecc0fcf6fb5e5371ad4ae1117c34cf598",
+  "planSHA256": "504987bd7922fee3a0c6b479d4311f1bc5a270c031b953f286db7bba74dff783",
+  "goldDirectory": "/tmp/bendvy21-failedtxn-motion1024-comparative-independent-gold02",
+  "basisSHA256": "5a5f8bbbe1a536fe16e5d631ac635956660c44cfe3811acc8ba89409ab46e891",
+  "exitCode": 0,
+  "stderrBytes": 0,
+  "oracles": {
+    "bend": {
+      "bytes": 847249087,
+      "sha256": "a4de2d7ea3ba5690ec0fb284954c75361a98a710078ef444415201d5994b3c73",
+      "gzipSHA256": "2b02083a1a5e069fdd0aaf2b2366545e963c9b4ba65c93d82737a7dab100845c"
+    },
+    "ts": {
+      "bytes": 655784762,
+      "sha256": "1c285953f4326f132ac6b9a04e247c49d69b44f357bae57e1d328b8587ceef3f",
+      "gzipSHA256": "92301cef0330e7fcd1759ec0c369e16a0ad4374125e8e3a4fea91d6a548e6952"
+    }
+  },
+  "worlds": [
+    {
+      "namespace": 1,
+      "tupleValues": 48001309,
+      "fold": 2117830386,
+      "records": 965,
+      "public": {
+        "bend": {
+          "cells": 47711277,
+          "fold": 320043646,
+          "publicTupleValues": 47711277,
+          "publicFold": 320043646,
+          "recordSHA256": "7dbef92799401bc960b62ee4c9a1bf05bc7ff640f03792ae183c4811331be856"
+        },
+        "ts": {
+          "cells": 47720144,
+          "fold": 4005834886,
+          "publicTupleValues": 47720144,
+          "publicFold": 4005834886,
+          "recordSHA256": "1b357eebaa67f1860e78da41022135a3c219ee56db951b80957f7c233f93539d"
+        }
+      }
+    },
+    {
+      "namespace": 2,
+      "tupleValues": 48001309,
+      "fold": 2117830386,
+      "records": 965,
+      "public": {
+        "bend": {
+          "cells": 47711277,
+          "fold": 4259185023,
+          "publicTupleValues": 47711277,
+          "publicFold": 4259185023,
+          "recordSHA256": "ae5d89014f0b097dbc63727f3b3716c478cf3ca61dcd0b8425d630bba5a71e16"
+        },
+        "ts": {
+          "cells": 47720144,
+          "fold": 4005834886,
+          "publicTupleValues": 47720144,
+          "publicFold": 4005834886,
+          "recordSHA256": "1b357eebaa67f1860e78da41022135a3c219ee56db951b80957f7c233f93539d"
+        }
+      }
+    }
+  ],
+  "preservation256": {
+    "bend": {
+      "bytes": 217931916,
+      "sha256": "022083d5b4c0503d5eeaef662dcdf7668fb898556362fd5a59b74fe5834a2a65",
+      "gzipSHA256": "05998b0e9ba82bec9747b6368be7c451ed1fceabd284a6951e4a5c31b6070dd3"
+    },
+    "ts": {
+      "bytes": 168782266,
+      "sha256": "8889d38df300fdae2318b4b67623d9631453e2ae3f36de2eb07835794a20052c",
+      "gzipSHA256": "4b7467e2feed93547f1265ccfd92179140642db86d79d15f9a8ad89d1f7d3823"
+    }
+  },
+  "preservation1024": {
+    "status": "PASS",
+    "count": 1024,
+    "iterations": 64,
+    "sourceBasisSHA256": "3181568ab4872676292808ff5a7cb1785fab7958bb39c328ce21f7c6337d8ca5",
+    "canonicalBytes": 444624902,
+    "canonicalSHA256": "b46c21923f303fc17c04c31b6af7fef16b45223883356d81c3e94a9c469ed0de",
+    "recordsPerWorld": 965,
+    "tupleValuesPerWorld": 48001309,
+    "fold": 2117830386,
+    "oracles": {
+      "bend": {
+        "bytes": 869591696,
+        "sha256": "b6f98933564b20826922f33f33122d3c74d8ed03dbf0907c0516df0e9110e919",
+        "gzipSHA256": "3f6c57a3f86f2fcdf2d6502b46ea5865ee3513398540a0043705f8f975883bed"
+      },
+      "ts": {
+        "bytes": 499758334,
+        "sha256": "ae8df69aa10e5669409d207632bba5ab6de6fb9c8267dccef8259d4cd12cd5e4",
+        "gzipSHA256": "143f8a3f9e018b82548294c69d61ce8dab4aea7b7d1e4bdc20375721e0f5a885"
+      }
+    },
+    "sourcePins": {
+      "common_model.py": "17d4fa74e7b0bbddb9523894849de4a6101748430a055701e582e2a03885723b",
+      "operation_model.py": "aa18cff4295fea9c94ff87d9c80518f7545021c3be5327270f108cb1443a96bb",
+      "seal_pilot_gold.py": "ba7a328fd63840ff8e1fe7a73759b5fb1da99138bab895c17ea792b3816ec4a1",
+      "ts_model.py": "d4047e1ea0bebdbf5d4bb09e024980f5a1396b9296cdd33ce58047827ae03e99"
+    },
+    "scope": "Independent complete source-state reproduction; no subject/compiler/timing or qualification run."
+  },
+  "scope": "Qualified full64/256comparative+original1024 semantic reused with immutable fullstream/source validation; SAMEfresh1024Observer records/map/common/public fully matched. Failed01 preserved. No subjects/performance qualification."
+}
