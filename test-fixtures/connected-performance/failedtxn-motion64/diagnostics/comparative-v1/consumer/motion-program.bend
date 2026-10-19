@@ -26,8 +26,8 @@ def status(phase:U32,failed:Bool) -> Status:
     case _, False{}:Complete{}
 def phase_frame(iteration:U32,phase:U32,frame:S.Frame) -> S.Frame:
   match phase frame:
-    case 1, S.Frame{first,second,_,_,_,_,failed,method}:S.Frame{first,second,iteration,1,None{},None{},failed,method}
-    case phase, S.Frame{first,second,_,_,pending,retry,failed,method}:S.Frame{first,second,iteration,phase,pending,retry,failed,method}
+    case 1, S.Frame{first,second,_,_,_,_,failed,publicCalls,method}:S.Frame{first,second,iteration,1,None{},None{},failed,publicCalls,method}
+    case phase, S.Frame{first,second,_,_,pending,retry,failed,publicCalls,method}:S.Frame{first,second,iteration,phase,pending,retry,failed,publicCalls,method}
 def update_frame(value:S.Runtime(),args:U32 & U32) -> S.Runtime():
   match value args:
     case (owners,S.Shared{meta,tick,frame}),(iteration,phase):(owners,S.Shared{meta,tick,phase_frame(iteration,phase,frame)})
@@ -45,7 +45,7 @@ def phase_outcome(failed:Bool) -> String:
     case False{}:"Success"
 def phase_record_frame(frame:S.Frame,failed:Bool) -> S.Frame:
   match frame:
-    case S.Frame{first,second,+i,+phase,pending,retry,allFailed,method}:S.Frame{first,second,i,phase,pending,retry,allFailed,Method.append(method,J.object([J.Field{"kind",J.Text{"Phase"}},J.Field{"phase",Method.number(phase)},J.Field{"iteration",Capture.iteration(phase,i)},J.Field{"outcome",J.object([J.Field{"kind",J.Text{phase_outcome(failed)}}])}]))}
+    case S.Frame{first,second,+i,+phase,pending,retry,allFailed,publicCalls,method}:S.Frame{first,second,i,phase,pending,retry,allFailed,publicCalls,Method.append(method,J.object([J.Field{"kind",J.Text{"Phase"}},J.Field{"phase",Method.number(phase)},J.Field{"iteration",Capture.iteration(phase,i)},J.Field{"outcome",J.object([J.Field{"kind",J.Text{phase_outcome(failed)}}])}]))}
 def phase_record(value:S.Runtime(),failed:Bool) -> S.Runtime():
   match value:
     case (owners,S.Shared{meta,tick,+frame}):(owners,S.Shared{meta,tick,phase_record_frame(frame,failed)})
@@ -128,6 +128,13 @@ def public_boundaries(values:List<&2,Boundary.Boundary>) -> List<&2,J.Value>:
   match values:
     case []:[]
     case Boundary.Boundary{_,_,record} <> rest:record <> public_boundaries(rest)
+def public_owned(world:F.World(),value:S.Runtime() & List<&2,J.Value>) -> F.World() & (S.Runtime() & List<&2,J.Value>):
+  match value:
+    case (owners,calls):(world,(owners,calls))
+def public_observed(world:F.World(),owners:S.Runtime(),_:Unit) -> F.World() & (S.Runtime() & List<&2,J.Value>):public_owned(world,S.public_calls(owners))
+def public_returned(namespace:U32,+boundaries:List<&2,Boundary.Boundary>,+schedules:List<&2,J.Value>,status:Status,observed:EntryApp.Slot() & List<&2,J.Value>) -> State & J.Value:
+  match observed:
+    case (app,calls):(State{app,namespace,boundaries,schedules,status},J.object([J.Field{"boundaries",J.array(public_boundaries(boundaries))},J.Field{"schedules",J.array(schedules)},J.Field{"calls",J.array(calls)}]))
 def public_state(value:State) -> State & J.Value:
   match value:
-    case State{app,namespace,+boundaries,+schedules,status}:(State{app,namespace,boundaries,schedules,status},J.object([J.Field{"boundaries",J.array(public_boundaries(boundaries))},J.Field{"schedules",J.array(schedules)}]))
+    case State{app,namespace,boundaries,schedules,status}:public_returned(namespace,boundaries,schedules,status,EntryApp.project(~Unit,~List<&2,J.Value>,~public_observed,app,Unit{}))

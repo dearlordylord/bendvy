@@ -42,7 +42,7 @@ def view_ledger(value:R.View) -> J.Value:
     case R.View{ledger,_}:M.ledger(ledger)
 def boundary(name:String,+frame:S.Frame,countA:U32,countB:U32,world:F.World()) -> F.World() & J.Value:
   match frame:
-    case S.Frame{_,_,+i,_,pending,retry,+handles,+state}:
+    case S.Frame{_,_,+i,_,pending,retry,+handles,publicCalls,+state}:
       bind(~Logical.Rows(),~(F.World() & J.Value),world=>rows=>
       bind(~R.View,~(F.World() & J.Value),world=>view=>
       bind(~J.Value,~(F.World() & J.Value),world=>pending=>
@@ -81,12 +81,12 @@ def final(world:F.World(),state:M.State,countA:U32,countB:U32,status:J.Value) ->
   (world,final_record(state,rows,view,countA,countB,status)),resource(world)),Logical.rows(world))
 def frame_state(value:S.Frame) -> M.State:
   match value:
-    case S.Frame{_,_,_,_,_,_,_,state}:state
-def final_frame_state(first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,i:U32,phase:U32,pending:Maybe<&2,W.Handle<T.MotionSchema>>,retry:Maybe<&2,W.Handle<T.MotionSchema>>,failed:List<&2,W.Handle<T.MotionSchema>>,+state:M.State) -> S.Frame & M.State:
-  (S.Frame{first,second,i,phase,pending,retry,failed,state},state)
+    case S.Frame{_,_,_,_,_,_,_,publicCalls,state}:state
+def final_frame_state(first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,i:U32,phase:U32,pending:Maybe<&2,W.Handle<T.MotionSchema>>,retry:Maybe<&2,W.Handle<T.MotionSchema>>,failed:List<&2,W.Handle<T.MotionSchema>>,publicCalls:List<&2,J.Value>,+state:M.State) -> S.Frame & M.State:
+  (S.Frame{first,second,i,phase,pending,retry,failed,publicCalls,state},state)
 def final_frame(frame:S.Frame,record:J.Value) -> S.Frame & M.State:
   match frame:
-    case S.Frame{first,second,i,phase,pending,retry,failed,state}:final_frame_state(first,second,i,phase,pending,retry,failed,M.append(state,record))
+    case S.Frame{first,second,i,phase,pending,retry,failed,publicCalls,state}:final_frame_state(first,second,i,phase,pending,retry,failed,publicCalls,M.append(state,record))
 def final_framed(world:F.World(),owners:S.Owned(),meta:L.Meta(),tick:Nat,value:S.Frame & M.State) -> F.World() & (S.Runtime() & M.State):
   match value:
     case (frame,state):(world,((owners,S.Shared{meta,tick,frame}),state))

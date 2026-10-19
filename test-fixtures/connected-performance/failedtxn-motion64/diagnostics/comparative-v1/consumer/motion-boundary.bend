@@ -47,5 +47,5 @@ def pending_seen(iteration:U32,phase:String,+state:M.State,rows:Logical.Rows(),r
     case (world,pending):failed_seen(iteration,phase,state,rows,pending,retry,handles,optional(state,world,recent_go(handles,None{})))
 def rows_seen(phase:String,frame:S.Frame,observed:F.World() & Logical.Rows()) -> F.World() & Boundary:
   match frame observed:
-    case S.Frame{_,_,iteration,_,pending,retry,+handles,+method},(world,rows):pending_seen(iteration,phase,method,rows,retry,handles,optional(method,world,pending))
+    case S.Frame{_,_,iteration,_,pending,retry,+handles,publicCalls,+method},(world,rows):pending_seen(iteration,phase,method,rows,retry,handles,optional(method,world,pending))
 def run(phase:String,frame:S.Frame,world:F.World()) -> F.World() & Boundary:rows_seen(phase,frame,Logical.rows(world))

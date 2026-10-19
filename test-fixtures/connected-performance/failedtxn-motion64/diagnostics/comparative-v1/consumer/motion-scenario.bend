@@ -15,7 +15,7 @@ type Prepared is Type:
   Prepared{state:Program.State}
   PreparationFailed{stage:U32}
 def primed(world:F.World(),owners:Reg.Owners,dispose:Dispose.Registry(),first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,method:Method.State,namespace:U32) -> Prepared:
-  Prepared{Program.run_phase(0,Program.start(world,S.Owners{owners,dispose,S.Frame{first,second,0,0,None{},None{},[],method}},namespace))}
+  Prepared{Program.run_phase(0,Program.start(world,S.Owners{owners,dispose,S.Frame{first,second,0,0,None{},None{},[],[],method}},namespace))}
 def named(method:Method.State,owners:Reg.Owners,dispose:Dispose.Registry(),first:W.Handle<T.MotionSchema>,second:W.Handle<T.MotionSchema>,observed:F.World() & U32) -> Prepared:
   match observed:
     case (world,ns):primed(world,owners,dispose,first,second,method,ns)

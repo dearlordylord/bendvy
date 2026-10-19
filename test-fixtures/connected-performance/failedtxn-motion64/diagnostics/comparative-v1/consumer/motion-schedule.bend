@@ -25,7 +25,7 @@ def Others() -> Type:Publications.Provider() & Dispose.Registry()
 def selected(shared:S.Shared,phase:U32) -> S.Shared & U32:(shared,phase)
 def phase(shared:S.Shared) -> S.Shared & U32:
   match shared:
-    case S.Shared{meta,tick,S.Frame{first,second,iteration,+phase,pending,retry,failed,method}}:selected(S.Shared{meta,tick,S.Frame{first,second,iteration,phase,pending,retry,failed,method}},phase)
+    case S.Shared{meta,tick,S.Frame{first,second,iteration,+phase,pending,retry,failed,publicCalls,method}}:selected(S.Shared{meta,tick,S.Frame{first,second,iteration,phase,pending,retry,failed,publicCalls,method}},phase)
 def selected_a(value:S.Shared & U32) -> S.Shared & Bool:
   match value:
     case (shared,+phase):(shared,U32.is_eq(phase,1))
