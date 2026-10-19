@@ -6,9 +6,9 @@ Subject revision: Bendvy `2e3be6904`. Reference revisions are the pinned checkou
 bevy-ts line use [Ritmo](https://github.com/typeonce-dev/ritmo) (`typeonce-dev/ritmo`,
 the repository that hosts bevy-ts) at `bec76226`.
 
-Evidence scope: source reading and the repository's recorded measurements. No code was
-executed or profiled for this document. Where the cause of a performance gap is
-inferred from code structure rather than a profile, it is marked as a hypothesis.
+Evidence scope: source reading and the repository's recorded measurements, plus the
+executed probes in section 6.9. Nothing was profiled. Where the cause of a performance
+gap is inferred from code structure rather than a profile, it is marked as a hypothesis.
 
 ## 1. Summary
 
@@ -405,6 +405,28 @@ The goals are JS ≤ TS and Native ≤ 0.5 × TS.
   [Snapshot.ts:27](https://github.com/typeonce-dev/ritmo/blob/bec762266bedbe9c04b4ce804d40d87f2ad442fa/packages/core/src/Snapshot.ts#L27)).
 - Bevy's default final flush means queued commands do not outlive a schedule run.
 
+Executed evidence:
+
+- **Bendvy** (`6aa06ad57`, JS backend, Bend 2.0.36). The probe reuses the
+  `public-restore/basic-world-statefree-v1` schema, save and restore modules from
+  `94fc35a96`. It spawns entity 1 with a barrier, queues a second spawn without one, saves,
+  restores the snapshot into the same world, then applies a barrier. Bend 2.0.36 rejects
+  constructors named `Ready`, so the probe copy renames them; the change is name-only.
+
+  ```text
+  queued-no-barrier: pending=1 snapshot{nextEntity=3;entities=[1:0,]}
+  restore=restored then barrier
+  after-restore-then-barrier: pending=0 snapshot{nextEntity=3;entities=[1:1,]}
+  ```
+
+  Control without save/restore: after the barrier, `entities=[1:0,2:0,]`. The save succeeds
+  with `pending=1`, the restore reports `Restored`, and the queued entity never appears.
+- **Ritmo** (`bec76226`, vitest). A system queues a spawn in a schedule with no
+  `applyDeferred()`. Control: the next `applyDeferred()` tick shows `["queued"]`. Probe:
+  `snapshot()` returns `entities: []` with `nextEntity: 2` and no error; after `restore` and
+  an `applyDeferred()` tick, the query returns `[]`, both in a fresh runtime and in the
+  source runtime.
+
 ### 6.10 Relation to the formal models
 
 The formal models are descriptive, so Bendvy does not violate them. Several choices take
@@ -450,9 +472,8 @@ it outside the region where their theorems apply:
 - 6.1: a test that starts the clock near `4294967295` and performs writes across several
   system runs; expected (Bevy semantics) is continued acceptance and correct
   `Added`/`Changed` observation.
-- 6.9: a save taken after a system queues a spawn with no following barrier, then a
-  restore; expected is either a refused save or the spawned entity after the next
-  barrier.
+- 6.9: the probe in section 6.9 is the regression scenario. After a fix, expected output is
+  either a refused save or the queued entity present after the restore and barrier.
 - 6.2–6.5: Native CPU profiles of Dense-motion and Lifecycle-motion attributing time to
   `W.handles` plus the predicate, `L.get`/`L.set`, the `World` record rebuild and undo
   closures.
