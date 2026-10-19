@@ -1,0 +1,5 @@
+# FailedTxn Health256 comparative input
+
+This input uses the unchanged qualified `../comparative-v1/method/pilot.bend` and `../comparative-v1/reference.mjs` with arguments `256 64 warmup.ns sample.ns`. The pilot passes the parsed count to the original Health preparation; TS seeds that count using genuine Vitals, Armor, Tracked and Ledger fields. The original callbacks, registration, owner tree, transactions, reader cursors, barriers, error guards, public reads and both timed complete carriers remain unchanged. Compiled artifact reuse requires exact original producer and current source bindings.
+
+The independent model must first reproduce the original full Health256 semantic controls and Health64 comparative controls, then derive full Health256 common and own-public carriers from actual count-sized state. Initial actors, rows, handles and encoded cell counts derive independently; 64-iteration callback/schedule chronology stays fixed. No runtime qualification or comparative performance, clock accuracy, RSS or numerical decision is established by this input declaration.
