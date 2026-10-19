@@ -4,6 +4,8 @@ Published [GitHub #22](https://github.com/dearlordylord/bendvy/issues/22). Child
 
 All six scope/return conditions and exclusions of parent #21 remain binding. These children partition the work without replacing or weakening those gates.
 
+Current parent scope follows the [2026-10-19 amendment](../design/parity-resolution-protocol.md#current-acceptance-scope--user-amendment-2026-10-19): reuse90 semantic roles; speed qualification has seven cases, not a full size/schema matrix; memory evidence is by distinct paths. Historical preparation text below does not reinstate superseded matrix or fixed-budget requirements.
+
 ## Outcome
 
 Deliver reviewed measurement/diagnostic repairs and a concrete experiment-contract proposal. Establish what can be evaluated reliably before changing the ECS layout for speed. Preparation is complete when artifacts and remaining approval/blocking fields are explicit; it never establishes product performance or authorizes an optimization loop.

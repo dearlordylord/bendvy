@@ -2,6 +2,28 @@
 
 No batching permission, numerical margin, timer change or evaluator transition is inferred. This is a source audit and minimal proposal; no benchmark was executed for it.
 
+## Current acceptance scope — user amendment, 2026-10-19
+
+Full functional parity is unchanged. Preserve and reuse the accepted90 semantic roles (five families, both schemas,64/256/1024, three backends); do not rebuild them for each subsequent run. This amendment supersedes broader comparative matrix and memory-replication requirements below and in inherited #21/#23/#24 contracts; historical evidence and failed verdicts remain unchanged.
+
+Speed acceptance requires exactly these seven cases:
+
+| Workload | Schema | Initial entities |
+| --- | --- | --- |
+| Dense | Motion | 256 |
+| Sparse | Motion | 256 |
+| Lifecycle | Motion | 256 |
+| FailedTxn | Motion | 64 |
+| Readers | Motion | 64 |
+| Dense | Health | 64 |
+| FailedTxn | Health | 64 |
+
+Each case retains JS, Native and pinned TS, seven rotations, equivalent complete work, full correctness and the final targets JS <= TS / Native <=0.5 * TS. Preserve fresh same-process warmup/sample ownership, complete forcing and source-bound review. Existing uncertainty/decision-protocol questions are not resolved by reducing the matrix. The combined #28 regression gate remains unchanged.
+
+Size1024 is only a targeted scaling or defect investigation. FailedTxn1024 no longer blocks delivery; do not raise its heap to finish a matrix. Its already accepted semantic/comparative results and prior failures remain reusable optional evidence, not additional required cases.
+
+Memory acceptance covers distinct storage and ownership paths, not every schema/size combination. Reuse accepted Dense evidence for shared Indexed hooks, token transport and histories. Qualify the distinct Plain path once and add only genuinely different transaction/event/reader retention or ownership paths, with their actual observations and correctness controls. Do not duplicate identical hooks across schemas/sizes, infer a global/unique bound from finite counts, or treat whole-process RSS as allocator bytes. Existing applicable correctness controls and the clean child-RSS requirement remain; collect new evidence only for an uncovered path/risk.
+
 ## Current status — 2026-10-18
 
 The source audit below describes the historical evaluator; its fixed deadlines and expired experiment budget are historical. New execution budgets follow [limits](../limits.md), including recorded increases. No renewed Autoresearch budget or numerical uncertainty margin is inferred.
@@ -55,23 +77,23 @@ The entry `test-fixtures/connected-performance/failedtxn-motion64/diagnostics/co
 
 All 965 common records and 3,504,864 cells per world remain exact. Complete own-role public snapshots additionally retain first and repeated public reads, actual schedule descriptions and Dispose results on Bend; TS retains public reads formerly embedded in assertions and the listener supplying actual outcomes. Both carriers are fully forced before end; complete transport follows. Private Facts capabilities/capture and verification-only expected-state generation are absent. Integration through `5aef0a2a4` matches the reviewed complete leaf.
 
-This establishes finite Motion64 semantic correspondence for the adapter. Wider sizes, the remaining families, seven rotations, numerical uncertainty/decision margins and clean child RSS still need qualification; no timing ratio, performance acceptance or #28 waiver follows.
+This establishes finite Motion64 semantic correspondence for the adapter. The remaining selected cases, seven rotations, numerical uncertainty/decision margins and clean child RSS still need qualification; no timing ratio, performance acceptance or #28 waiver follows.
 
 ### Qualified Health64 comparative adapter
 
-The genuine Health adapter passes full independent gold on JS, Native and TS; integration `cb19ef65e` matches the final-reviewed leaf `d8a2cb9d8` exactly. Packet `961247cc…` binds the unchanged original business/error/owner/cursor sequence, common observations and complete public carriers forced before the clock ends. Full outputs match independently derived gold: Bend63,148,538 bytes and TS48,976,144 bytes. Production ECS and the original semantic consumers remain unchanged. This accepts finite Health64 correspondence only; wider inputs, other families, comparative cohorts, margins, child RSS and #28 remain open.
+The genuine Health adapter passes full independent gold on JS, Native and TS; integration `cb19ef65e` matches the final-reviewed leaf `d8a2cb9d8` exactly. Packet `961247cc…` binds the unchanged original business/error/owner/cursor sequence, common observations and complete public carriers forced before the clock ends. Full outputs match independently derived gold: Bend63,148,538 bytes and TS48,976,144 bytes. Production ECS and the original semantic consumers remain unchanged. This accepts finite Health64 correspondence only; remaining selected cases, comparative cohorts, margins, child RSS and #28 remain open.
 
 ### Qualified Motion256 comparative input
 
-Integration `01d0ce60b` matches final-reviewed leaf `a2fd30c4f`. Packet `27e6f743…` binds three complete consumer-only passes using unchanged qualified64 artifacts with genuine `256 64` arguments. Independent generation first reproduces full comparative64 and original semantic256 streams, then derives complete common/public carriers. Bend217,931,916 bytes and TS168,782,266 bytes match full gold; original operations, guards, owners, cursors and forcing remain unchanged. This extends finite correspondence to Motion256; remaining schemas/sizes/families and final performance/memory gates remain open.
+Integration `01d0ce60b` matches final-reviewed leaf `a2fd30c4f`. Packet `27e6f743…` binds three complete consumer-only passes using unchanged qualified64 artifacts with genuine `256 64` arguments. Independent generation first reproduces full comparative64 and original semantic256 streams, then derives complete common/public carriers. Bend217,931,916 bytes and TS168,782,266 bytes match full gold; original operations, guards, owners, cursors and forcing remain unchanged. This extends finite correspondence to Motion256; remaining selected cases and final performance/memory gates remain open.
 
 ### Qualified Health256 comparative input
 
-Integration `af091a805` matches final-reviewed leaf `432e70ae3`. Packet `d16775f7…` joins JS/Native/TS full independent gold using unchanged genuine Health64 artifacts with256/64 input. Independent derivation reproduces complete Health64 comparative and original Health256 semantic streams before common/public carriers. Full Bend224,637,728 and TS173,912,144 bytes match; business operations, errors, owners, cursors, public reads and forcing remain unchanged. This is finite Health256 correspondence;1024/other families and final performance/memory gates remain open.
+Integration `af091a805` matches final-reviewed leaf `432e70ae3`. Packet `d16775f7…` joins JS/Native/TS full independent gold using unchanged genuine Health64 artifacts with256/64 input. Independent derivation reproduces complete Health64 comparative and original Health256 semantic streams before common/public carriers. Full Bend224,637,728 and TS173,912,144 bytes match; business operations, errors, owners, cursors, public reads and forcing remain unchanged. This is finite Health256 correspondence;remaining selected cases and final performance/memory gates remain open.
 
 ### Qualified Motion1024 comparative input
 
-Integration `8dccec2e0` matches reviewed leaf `959f19c0f`. Packet `6c37f771…` joins complete JS/Native/TS gold: Bend847,249,087 bytes and TS655,784,762 bytes, including48,001,309 common cells and complete public carriers per world. All original operations, errors, owners, cursors, public reads and forcing remain unchanged. Source-bound prerequisite reuse verifies accepted64/256 comparative and original1024 semantic gold before fresh1024 Observer derivation. Model01 timeout and actual02 JS8192-MiB pre-FORCE OOM remain failed. Fresh actual03 uses recorded16384 MiB equally for JS/TS; Native and stack stay unchanged. This accepts finite Motion1024 correspondence only; Health1024, other families and final timing/memory gates remain open.
+Integration `8dccec2e0` matches reviewed leaf `959f19c0f`. Packet `6c37f771…` joins complete JS/Native/TS gold: Bend847,249,087 bytes and TS655,784,762 bytes, including48,001,309 common cells and complete public carriers per world. All original operations, errors, owners, cursors, public reads and forcing remain unchanged. Source-bound prerequisite reuse verifies accepted64/256 comparative and original1024 semantic gold before fresh1024 Observer derivation. Model01 timeout and actual02 JS8192-MiB pre-FORCE OOM remain failed. Fresh actual03 uses recorded16384 MiB equally for JS/TS; Native and stack stay unchanged. This accepts finite Motion1024 correspondence only; remaining selected cases and final timing/memory gates remain open; Health1024 is not required.
 
 ## Clean child-RSS launcher control — 2026-10-18
 

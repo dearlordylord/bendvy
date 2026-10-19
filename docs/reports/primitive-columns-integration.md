@@ -37,7 +37,9 @@ The final #53 families and reader-query packets (`0a5475f3b`, `a4561ad39`) retai
 
 No additional semantic fixture is prescribed by this audit after the App73 channel evidence is joined. This does not certify every historical callback/mutation against the current closure: exact consumed-module/branch applicability remains required where the table reuses older evidence. The old detached `MetadataColumns` alignment warning is about that experimental constructor, not a newly imposed production representation contract.
 
-Full #21/#23/#24 performance qualification and the #73 combined gate remain **OPEN**. Equal timed work, approved precision/decision protocol, rotations and the required workload/schema/size/memory matrix are not supplied by these semantic traces. Historical five-second limits and exhausted experiment windows below do not govern new execution; use [current limits](../limits.md). No new law, contract, numerical criterion or execution allowance is introduced here.
+Full #21/#23/#24 performance qualification and the #73 combined gate remain **OPEN**. Equal timed work, approved precision/decision protocol, rotations and the current seven-case/distinct-memory-path scope are not supplied by these semantic traces. Historical five-second limits and exhausted experiment windows below do not govern new execution; use [current limits](../limits.md). No new law, contract, numerical criterion or execution allowance is introduced here.
+
+Current #24 acceptance follows the [2026-10-19 user amendment](../design/parity-resolution-protocol.md#current-acceptance-scope--user-amendment-2026-10-19): preserve90 semantic roles and full parity, qualify seven speed cases on three backends/seven rotations, use1024 only for targeted investigations, and reuse memory evidence by distinct storage/ownership path. FailedTxn1024 is nonblocking. Correctness, combined #28 and final speed targets remain unchanged.
 
 ## Historical primitive-column checkpoint — 2026-10-05
 
