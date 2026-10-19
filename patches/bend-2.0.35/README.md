@@ -1,6 +1,6 @@
 # Closed-provider compiler candidate
 
-These patches preserve the isolated compiler09 candidate; they do not select it as the project's default compiler. Qualification scope and remaining gates are recorded in the [existing delivery report](../../../docs/reports/delivery-process-expectations.md).
+These patches preserve the isolated compiler09 candidate; they do not select it as the project's default compiler. Qualification scope and remaining gates are recorded in the [existing delivery report](../../docs/reports/delivery-process-expectations.md).
 
 Apply to Bend commit `a950fd683c0d76f09794078e6174fe98a1492876` (2.0.35). Before applying, `bend2/comp.ts` must have SHA256 `32fb66e09f608ce9e4b173384bcfeec453db8c5bc96650e26ad861bef815a8d9`.
 
