@@ -1,0 +1,9 @@
+SOME PROOFS FAIL
+Error:
+- message  : a ../consumer/s-perf/canonical-api-v1/sparse-runtime-v1/motion-driver.Shared pattern with 4 fields
+Location:
+142 |   match state:
+143>|     case State{app,Shared{audit,statuses,+measurements}}:(State{app,Shared{audit,statuses,cumulative,measurements}},List.reverse(&2,Sys.Measurement,measurements))
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+144 | 
+bend 2.0.37 is available: run bend update
