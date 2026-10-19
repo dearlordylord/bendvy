@@ -44,10 +44,20 @@ def include_step(next:U32 -> U32 -> Logical.Rows() -> Logical.Rows() & U32,keep:
   match keep:
     case False{}:next(rank,total,reverseRows)
     case True{}:next(U32.add(rank,1),U32.add(total,U32.mul(rank,row_sum(row))),row <> reverseRows)
-def score_rows(rows:Logical.Rows(),+kind:U32,+rank:U32,total:U32,reverseRows:Logical.Rows()) -> Logical.Rows() & U32:
-  match rows:
-    case []:(List.reverse(&2,IQ.ProjectedRow<T.MotionSchema,Logical.Value()>,reverseRows),U32.add(total,rank))
-    case +row <> rest:include_step(r => t => xs => score_rows(rest,kind,r,t,xs),included(kind,row),row,rank,total,reverseRows)
+type ScoreState is Type:
+  ScoreState{kind:U32,rank:U32,total:U32,reverseRows:Logical.Rows()}
+def score_selected(keep:Bool,+row:IQ.ProjectedRow<T.MotionSchema,Logical.Value()>,kind:U32,+rank:U32,total:U32,reverseRows:Logical.Rows()) -> ScoreState:
+  match keep:
+    case False{}:ScoreState{kind,rank,total,reverseRows}
+    case True{}:ScoreState{kind,U32.add(rank,1),U32.add(total,U32.mul(rank,row_sum(row))),row <> reverseRows}
+def score_step(state:ScoreState,+row:IQ.ProjectedRow<T.MotionSchema,Logical.Value()>) -> ScoreState:
+  match state:
+    case ScoreState{+kind,rank,total,reverseRows}:score_selected(included(kind,row),row,kind,rank,total,reverseRows)
+def score_finished(state:ScoreState) -> Logical.Rows() & U32:
+  match state:
+    case ScoreState{_,rank,total,reverseRows}:(List.reverse(&2,IQ.ProjectedRow<T.MotionSchema,Logical.Value()>,reverseRows),U32.add(total,rank))
+def score_rows(rows:Logical.Rows(),kind:U32,rank:U32,total:U32,reverseRows:Logical.Rows()) -> Logical.Rows() & U32:
+  score_finished(List.foldl(~&2,~IQ.ProjectedRow<T.MotionSchema,Logical.Value()>,~ScoreState,~(state => row => score_step(state,row)),rows,ScoreState{kind,rank,total,reverseRows}))
 def scored(rows:Logical.Rows(),observed:Logical.Rows() & U32) -> Scan:
   match observed:
     case (included,total):Scan{rows,included,total}
