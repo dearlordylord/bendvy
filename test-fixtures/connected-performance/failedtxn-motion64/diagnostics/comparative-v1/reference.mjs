@@ -44,7 +44,7 @@ function transactions(schema,count,clockPath){
   const Q=G.Query({selection:{main:G.Query.read(Main),aux:G.Query.optional(Aux),flag:G.Query.optional(Flag)}}),Write=G.Query({selection:{main:G.Query.write(Main)}});
   const row=r=>({rawId:r.entity.id.value,main:structuredClone(r.data.main.get()),aux:r.data.aux.present?structuredClone(r.data.aux.get()):null,flag:r.data.flag.present?structuredClone(r.data.flag.get()):null});
   const ids=[],publicCallbacks=[],publications=[],publicBoundaries=[];let iteration=-1,mode='prime',stage='prime',aSpawn=null,bFail=null,bRetry=null;
-  const captures={A:0,B:0},tick=(...steps)=>{const result=runtime.tick(G.Schedule(...steps));lastTick=result;return result;},ok=(...steps)=>tick(...steps);
+  const captures={A:0,B:0},tick=(...steps)=>{const result=runtime.tick(G.Schedule(...steps));lastTick=result;return result;},ok=(...steps)=>assert.equal(tick(...steps).ok,true);
   const seed=G.System('Seed',{},({commands})=>{for(let j=0;j<count;j++){
     const entries=[[Main,main(schema,j)]];if(j%3===0)entries.push([Aux,aux(schema)]);if(j%3===1)entries.push([Flag,{group:8}]);
     const id=commands.spawn(G.Command.spawn(...entries));ids.push(id);method.reserve(id);
@@ -52,21 +52,21 @@ function transactions(schema,count,clockPath){
   const replaceFirst=(old,x)=>schema==='Motion'?{coordinates:[x,...old.coordinates.slice(1)],frame:old.frame}:{levels:[x,...old.levels.slice(1)],reserve:old.reserve,class:old.class};
   const spawnValue=(i,b)=>schema==='Motion'?{coordinates:[i,...(b?[200,300,400]:[20,30,40])],frame:7}:{levels:[i,...(b?[200,300,400]:[20,30,40])],reserve:9,class:2};
   const A=G.System('A',{queries:{write:Write},resources:{ledger:G.System.writeResource(Ledger)},events:{out:G.System.writeEvent(Ping)},services:{audit:G.System.service(Audit)}},({queries,resources,events,commands,services,lookup})=>{
-    captures.A++;callbackPending=method.callback("A",iteration,captures.A);const r=queries.write.get(ids[0]);const old=r.value.data.main.get();r.value.data.main.set(replaceFirst(old,cells(schema,old)[0]+1));callbackPending.writes.push(found(mainView(r.value.data.main.get())));
+    captures.A++;callbackPending=method.callback("A",iteration,captures.A);const r=queries.write.get(ids[0]);assert.equal(r.ok,true);const old=r.value.data.main.get();r.value.data.main.set(replaceFirst(old,cells(schema,old)[0]+1));callbackPending.writes.push(found(mainView(r.value.data.main.get())));
     const l=resources.ledger.get();resources.ledger.set({totals:[l.totals[0]+1,...l.totals.slice(1)],epoch:l.epoch});callbackPending.ledger=ledgerView(resources.ledger.get());events.out.emit({code:2*iteration});
     const spawned=spawnValue(iteration,false);aSpawn=commands.spawn(G.Command.spawn([Main,spawned]));method.reserve(aSpawn);callbackPending.reservation={kind:'Reserved',actor:method.actor(aSpawn.value)};callbackPending.payload=mainView(spawned);const pending=lookup.getHandle(G.Entity.handle(aSpawn),Q);callbackPending.pendingLookup=accessResult(pending);services.audit.log({who:'A',iteration,capture:captures.A});
   });
   const B=G.System('B',{queries:{write:Write},resources:{ledger:G.System.writeResource(Ledger)},events:{input:G.System.readEvent(Ping),out:G.System.writeEvent(Ping)},services:{audit:G.System.service(Audit)}},({queries,resources,events,commands,services,lookup})=>{
     captures.B++;callbackPending=method.callback("B",iteration,captures.B);const messages=events.input.all(),firstLagged=events.input.lagged();const publicCallback={kind:"CallbackPublic",who:"B",iteration:iteration===-1?null:iteration,firstLagged,writeReadbacks:[]};publicCallbacks.push(publicCallback);
     callbackPending.reading={messages:structuredClone(messages),lagged:events.input.lagged()};if(mode==='prime')return;
-    const r=queries.write.get(ids[1]);const old=r.value.data.main.get(),x=cells(schema,old)[0];
+    const r=queries.write.get(ids[1]);assert.equal(r.ok,true);const old=r.value.data.main.get(),x=cells(schema,old)[0];
     r.value.data.main.set(replaceFirst(old,x+10));callbackPending.writes.push(found(mainView(r.value.data.main.get())));publicCallback.writeReadbacks.push(mainView(r.value.data.main.get()));r.value.data.main.set(replaceFirst(old,x+30));callbackPending.writes.push(found(mainView(r.value.data.main.get())));publicCallback.writeReadbacks.push(mainView(r.value.data.main.get()));
     const l=resources.ledger.get();resources.ledger.set({totals:[l.totals[0]+100,...l.totals.slice(1)],epoch:l.epoch});callbackPending.ledger=ledgerView(resources.ledger.get());
     const spawned=spawnValue(iteration,true),id=commands.spawn(G.Command.spawn([Main,spawned]));method.reserve(id);callbackPending.reservation={kind:"Reserved",actor:method.actor(id.value)};callbackPending.payload=mainView(spawned);if(mode==='fail')bFail=id;else bRetry=id;
     const pending=lookup.getHandle(G.Entity.handle(id),Q);callbackPending.pendingLookup=accessResult(pending);events.out.emit({code:2*iteration+1});services.audit.log({who:'B',iteration,capture:captures.B});
     if(mode==='fail')return Fx.fail({code:7});
   });
-  runtime.debug.observe(event=>{if(event.type==='system'&&(event.system==='A'||event.system==='B')){callbackPending.mode=iteration===-1?'Prime':event.outcome==='failed'?'Fail':event.system==='A'?'Commit':'Retry';callbackPending.readerStatus=event.system==='A'?null:event.outcome==='failed'?1:0;callbackPending.readerError=event.system==='A'||event.outcome!=='failed'?null:event.error.code;callbackPending.outcome=event.outcome==='ok'?{kind:'Success'}:{kind:'Failure',code:event.error.code};method.record(callbackPending);callbackPending=null;}if(event.type==='system'&&event.system==='PublicationObserver'){publicationPending.status=event.outcome==='ok'?0:1;method.record(publicationPending);publicationPending=null;}});
+  runtime.debug.observe(event=>{if(event.type==='system'&&(event.system==='A'||event.system==='B')){assert.ok(callbackPending);callbackPending.mode=iteration===-1?'Prime':event.outcome==='failed'?'Fail':event.system==='A'?'Commit':'Retry';callbackPending.readerStatus=event.system==='A'?null:event.outcome==='failed'?1:0;callbackPending.readerError=event.system==='A'||event.outcome!=='failed'?null:event.error.code;callbackPending.outcome=event.outcome==='ok'?{kind:'Success'}:{kind:'Failure',code:event.error.code};method.record(callbackPending);callbackPending=null;}if(event.type==='system'&&event.system==='PublicationObserver'){assert.ok(publicationPending);publicationPending.status=event.outcome==='ok'?0:1;method.record(publicationPending);publicationPending=null;}});
   const Publications=G.System('PublicationObserver',{events:{input:G.System.readEvent(Ping)}},({events})=>{const messages=events.input.all(),lagged=events.input.lagged();publications.push({kind:"PublicationsPublic",iteration:iteration===-1?null:iteration,mode:iteration===-1?"Prime":mode==="fail"?"AfterFailure":"AfterRetry",messages:structuredClone(messages),lagged});publicationPending={kind:'Publications',mode:iteration===-1?'Prime':mode==='fail'?'AfterFailure':'AfterRetry',iteration:iteration===-1?null:iteration,status:null,messages:structuredClone(events.input.all()),lagged:events.input.lagged()};});
   ok(B,Publications);method.phase(0,iteration,lastTick); // Explicit same-instance registration before A's first publication.
   const Observe=G.System('Observe',{queries:{q:Q},resources:{ledger:G.System.readResource(Ledger)}},({queries,resources,lookup})=>{
@@ -80,7 +80,7 @@ function transactions(schema,count,clockPath){
   });
   const start=process.hrtime.bigint();
   for(iteration=0;iteration<iterations;iteration++){
-    bRetry=null;mode='fail';const failure=tick(A,B);method.phase(1,iteration,failure);
+    bRetry=null;mode='fail';const failure=tick(A,B);method.phase(1,iteration,failure);assert.deepEqual(failure,{ok:false,error:{kind:'SystemFailure',system:'B',error:{code:7}}});
     failedHandles.push(bFail);stage='failed-before-barrier';ok(Observe);ok(Publications);method.phase(2,iteration,lastTick);
     mode='retry';ok(B);method.phase(3,iteration,lastTick);
     stage='retry-before-barrier';ok(Observe);ok(Publications);method.phase(4,iteration,lastTick);
