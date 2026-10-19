@@ -146,8 +146,8 @@ def derive(count, iterations):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--count', type=int, choices=[64], default=64)
-    parser.add_argument('--iterations', type=int, choices=[64], default=64)
+    parser.add_argument('--count', type=int, choices=[64, 256], default=64)
+    parser.add_argument('--iterations', type=int, choices=[64, 256], default=64)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     assert not args.output.exists(), 'fresh output required'
@@ -163,6 +163,10 @@ def main():
     for name, raw in normal64.items():
         retained = (health / name).read_bytes()
         assert raw == (gzip.decompress(retained) if name.endswith('.gz') else retained)
+    prior = json.loads((HERE / 'EXPECTED.json').read_text())
+    for name, rows in [('expected.stats.json', records64), ('counter.stats.json', counter64)]:
+        raw = render_records(rows)
+        assert dict(bytes=len(raw), sha256=sha(raw)) == prior['outputs'][name]
     normal, records, counter, changed = preserved if args.count == 64 else derive(args.count, args.iterations)
     args.output.mkdir(parents=True)
     outputs = {}
@@ -172,7 +176,7 @@ def main():
         outputs[name] = dict(bytes=len(raw), sha256=sha(raw))
     receipt = dict(status='PASS', count=args.count, iterations=args.iterations,
                    sourceBasisSHA256=sha((HERE / 'SOURCE-BASIS.json').read_bytes()),
-                   fullNormalIdentical=True, preserved64='EXACT_INDEXED_NORMAL_BEFORE_ADDITIVE_OBSERVATION',
+                   fullNormalIdentical=True, preserved64='EXACT_INDEXED_NORMAL_AND_BOTH_SIDECARS',
                    normalOutputs={k: dict(bytes=len(v), sha256=sha(v)) for k, v in normal.items()},
                    reportsPerWorld=[len(r['reports']) for r in records],
                    appendRecordsPerWorld=[sum(len(r['sample']['tx']['boundaries']) for r in w['reports']) for w in records],
