@@ -139,9 +139,9 @@ def measurements(state:State) -> State & List<&2,Sys.Measurement>:
   match state:
     case State{app,Shared{audit,statuses,+measurements}}:(State{app,Shared{audit,statuses,measurements}},List.reverse(&2,Sys.Measurement,measurements))
 
-def history_returned(owner:Owner(),audit:List<&2,Audit>,statuses:List<&2,Status>,observed:F.World() & String) -> View & String:
+def history_returned(owner:Owner(),audit:List<&2,Audit>,statuses:List<&2,Status>,observed:F.World() & Metadata.WorldHistory) -> View & Metadata.WorldHistory:
   match observed:
     case (world,text):(View{world,owner,audit,statuses},text)
-def history_view(value:View) -> View & String:
+def history_view(value:View) -> View & Metadata.WorldHistory:
   match value:
     case View{world,owner,audit,statuses}:history_returned(owner,audit,statuses,Metadata.history_world(world))

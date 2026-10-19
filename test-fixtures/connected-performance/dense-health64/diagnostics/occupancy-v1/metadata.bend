@@ -46,24 +46,26 @@ def world(value:World()) -> World() & String:
 def sample(value:O.Sample) -> String:
   match value:
     case O.Sample{site,value}:"{\"site\":\"" ++ site ++ "\",\"snapshot\":" ++ snapshot(value) ++ "}"
-def tail(values:List<&2,O.Sample>) -> String:
-  match values:
-    case []:"]"
-    case head <> rest:"," ++ sample(head) ++ tail(rest)
-def samples(values:List<&2,O.Sample>) -> String:
-  match values:
-    case []:"[]"
-    case head <> rest:"[" ++ sample(head) ++ tail(rest)
-def history_column(~C:Type,value:Col.Column<T.HealthSchema,C>) -> Col.Column<T.HealthSchema,C> & String:
+type History is Data:
+  Unmonitored{}
+  Recorded{values:List<&2,O.Sample>}
+type ColumnHistories is Data:
+  ColumnHistories{main:History,aux:History,flag:History}
+type WorldHistory is Data:
+  WorldHistory{namespace:U32,tick:U32,columns:ColumnHistories}
+def history_column(~C:Type,value:Col.Column<T.HealthSchema,C>) -> Col.Column<T.HealthSchema,C> & History:
   match value:
-    case Col.Monitored{inner,+history}:(Col.Monitored{inner,history},samples(List.reverse(&2,O.Sample,history)))
-    case other:(other,"null")
-def history_join(main:Col.Column<T.HealthSchema,T.Vitals> & String,aux:Col.Column<T.HealthSchema,T.Armor> & String,flag:Col.Column<T.HealthSchema,T.Tracked> & String) -> Store() & String:
+    case Col.Monitored{inner,+history}:(Col.Monitored{inner,history},Recorded{List.reverse(&2,O.Sample,history)})
+    case other:(other,Unmonitored{})
+def history_join(main:Col.Column<T.HealthSchema,T.Vitals> & History,aux:Col.Column<T.HealthSchema,T.Armor> & History,flag:Col.Column<T.HealthSchema,T.Tracked> & History) -> Store() & ColumnHistories:
   match main aux flag:
-    case (main,a), (aux,b), (flag,c):(Product.Owner{main,Product.Owner{aux,flag}},"{\"main\":" ++ a ++ ",\"aux\":" ++ b ++ ",\"flag\":" ++ c ++ "}")
-def history_store(value:Store()) -> Store() & String:
+    case (main,a), (aux,b), (flag,c):(Product.Owner{main,Product.Owner{aux,flag}},ColumnHistories{a,b,c})
+def history_store(value:Store()) -> Store() & ColumnHistories:
   match value:
     case Product.Owner{main,Product.Owner{aux,flag}}:history_join(history_column(~T.Vitals,main),history_column(~T.Armor,aux),history_column(~T.Tracked,flag))
-def history_world(value:World()) -> World() & String:
+def history_world_join(+namespace:U32,allocator:A.Allocator,resource:Resources(),events:List<&2,Nat>,pending:List<Deferred.Command<World()>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,+clock:U32,result:Store() & ColumnHistories) -> World() & WorldHistory:
+  match result:
+    case (store,columns):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},WorldHistory{namespace,clock,columns})
+def history_world(value:World()) -> World() & WorldHistory:
   match value:
-    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:world_join(namespace,allocator,resource,events,pending,registrations,nextSystemId,clock,history_store(store))
+    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:history_world_join(namespace,allocator,resource,events,pending,registrations,nextSystemId,clock,history_store(store))

@@ -76,9 +76,9 @@ def stats_opened(text:String,result:Result<&1,&1,U32 & String,File>) -> IO(Unit)
   match result:
     case Done{file}:IO.bind(File & Result<&1,&1,U32 & String,Unit>,Unit,File.write(file,text),clock_written)
     case Fail{(code,message)}:IO.die(Unit,code,message)
-def write_observed(path:String,statsPath:String,suffix:String,prefix:String,tuple:List<&2,U32>,nanoseconds:Nat,observed:Driver.State & String) -> IO(Unit):
+def write_observed(path:String,statsPath:String,suffix:String,prefix:String,tuple:List<&2,U32>,nanoseconds:Nat,observed:Driver.State & Report.Text) -> IO(Unit):
   match observed:
-    case (state,stats):IO.bind(Unit,Unit,write_normal(path,Completed{state,prefix,tuple,nanoseconds}),_=>IO.bind(Result<&1,&1,U32 & String,File>,Unit,File.open(statsPath,"a"),stats_opened(stats ++ suffix)))
+    case (state,stats):IO.bind(Unit,Unit,write_normal(path,Completed{state,prefix,tuple,nanoseconds}),_=>Report.write(statsPath,suffix,stats))
 def write(label:String,count:U32,iterations:U32,path:String,statsPath:String,suffix:String,result:Completed) -> IO(Unit):
   match result:
     case Completed{state,prefix,tuple,nanoseconds}:write_observed(path,statsPath,suffix,prefix,tuple,nanoseconds,Report.observe(label,count,iterations,state))
