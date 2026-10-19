@@ -1,4 +1,6 @@
 import Base
+import ../../../../../../../src/ecs/recognized-query-declaration.bend as Recognized
+import ../../../../../../../src/ecs/ordinary-component-binding.bend as Binding
 import ../../../../../../../src/ecs/commands.bend as Cmd
 import types.bend as T
 import payload.bend as P
@@ -34,8 +36,11 @@ def main_cap(~H:Type,caps:Ops(H)) -> Cap.Write<H,T.Position,T.PositionView>:
 def ledger_cap(~H:Type,caps:Ops(H)) -> Cap.ValueWrite<H,T.MotionLedger,T.LedgerView>:
   match caps:
     case (_,ledger):ledger
+def main_binding() -> Binding.Binding<T.MotionSchema,Store(),Rest(),T.Position,T.PositionView,T.PositionToken,take_main,put_main,P.position_get>:Binding.bind(~T.MotionSchema,~Store(),~Rest(),~T.Position,~T.PositionView,~T.PositionToken,~take_main,~put_main,~P.position_get,main_identity())
+def recognized() -> Recognized.Declaration<T.MotionSchema,Store(),Resources(),Nat,Ops>:
+  Recognized.pair(~T.MotionSchema,~Store(),~Resources(),~Nat,~(H=>Cap.Write<H,T.Position,T.PositionView>),~(H=>Cap.ValueWrite<H,T.MotionLedger,T.LedgerView>),~Recognized.write(~T.MotionSchema,~Store(),~Resources(),~Nat,~Rest(),~T.Position,~T.PositionView,~T.PositionToken,~take_main,~put_main,~P.position_get,~main_binding()),~Recognized.resource_write(~T.MotionSchema,~Store(),~T.MotionLedger,~Unit,~Nat,~T.LedgerView,~ledger_identity(),~P.motion_ledger_get))
 def declaration() -> Decl.Declaration<T.MotionSchema,Q.Frame<T.MotionSchema,Store(),Resources(),Nat>,Ops(Q.Frame<T.MotionSchema,Store(),Resources(),Nat>)>:
-  Decl.pair(~T.MotionSchema,~Q.Frame<T.MotionSchema,Store(),Resources(),Nat>,~Cap.Write<Q.Frame<T.MotionSchema,Store(),Resources(),Nat>,T.Position,T.PositionView>,~Cap.ValueWrite<Q.Frame<T.MotionSchema,Store(),Resources(),Nat>,T.MotionLedger,T.LedgerView>,~Decl.write(~T.MotionSchema,~T.Position,~Store(),~Resources(),~Nat,~Rest(),~T.PositionView,~T.PositionToken,~main_identity(),~P.position_get,~take_main,~put_main),~Resource.write(~T.MotionSchema,~Store(),~T.MotionLedger,~Unit,~Nat,~T.LedgerView,~ledger_identity(),~P.motion_ledger_get))
+  Recognized.ordinary(~T.MotionSchema,~Store(),~Resources(),~Nat,~Ops,recognized())
 def quad(a:U32,b:U32,c:U32,d:U32) -> Array<U32>:ANode{ANode{ALeaf{a},ALeaf{b}},ANode{ALeaf{c},ALeaf{d}}}
 def first(value:T.Four) -> U32:
   match value:

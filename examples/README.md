@@ -37,6 +37,26 @@ operation indices require explicit types. The library may still derive storage
 projections, registration metadata and dispatch from declarations. The manual
 boilerplate in one example does not establish a language requirement.
 
+## Compact registered component systems
+
+For canonical component writes, owned resource writes and their pairs,
+[recognized-query-declaration](../src/ecs/recognized-query-declaration.bend)
+retains the capability owner type before registration. Build its declarations
+from the same component bindings, then register through
+[recognized-app-component](../src/ecs/recognized-app-component.bend). The generic
+system body, ordinary scheduling, cursor tracking and metadata stay unchanged.
+The [Sparse declaration](../test-fixtures/connected-performance/sparse-motion64/consumer/s-perf/canonical-api-v1/sparse-runtime-v1/motion.bend)
+and [App setup](../test-fixtures/connected-performance/sparse-motion64/consumer/s-perf/canonical-api-v1/sparse-runtime-v1/motion-driver.bend)
+show this supported path with affine component and resource payloads.
+
+The supplied observable query contributes inspection only; operational grants,
+selection and access metadata come from the recognized declaration. With tracing
+enabled, execution uses the existing ordinary runner with that same operational
+declaration. Raw/custom declarations, mixed unsupported forms, captures and the
+existing ordinary query builders retain their ordinary execution paths. This is
+an additive setup option for the listed forms, not automatic recognition of
+arbitrary grants. Manually constructed raw carriers remain trusted adapters.
+
 ## Keeping examples executable
 
 `bash examples/check.sh` discovers every runnable top-level example and requires
