@@ -12,14 +12,13 @@ def empty() -> Actors:Actors{[],1n,True{}}
 def equal(left:W.Handle<T.HealthSchema>,right:W.Handle<T.HealthSchema>) -> Bool:
   match left right:
     case W.Handle{ln,lk},W.Handle{rn,rk}:Bool.and(U32.is_eq(ln,rn),Key.equal(lk,rk))
-def found(yes:Bool,ordinal:Nat,next:Unit -> Maybe<&2,Nat>) -> Maybe<&2,Nat>:
-  match yes:
-    case True{}:Some{ordinal}
-    case False{}:next(Unit{})
-def find(entries:List<&2,Entry>,+raw:W.Handle<T.HealthSchema>) -> Maybe<&2,Nat>:
-  match entries:
-    case []:None{}
-    case Entry{key,ordinal} <> rest:found(equal(key,raw),ordinal,_ => find(rest,raw))
+def find_selected(entries:List<&2,Entry>,+raw:W.Handle<T.HealthSchema>,found:Bool,ordinal:Nat) -> Maybe<&2,Nat>:
+  match entries found:
+    case _ True{}:Some{ordinal}
+    case [] False{}:None{}
+    case Entry{key,current} <> rest False{}:find_selected(rest,raw,equal(key,raw),current)
+def find(entries:List<&2,Entry>,raw:W.Handle<T.HealthSchema>) -> Maybe<&2,Nat>:
+  find_selected(entries,raw,False{},0n)
 def recorded(raw:W.Handle<T.HealthSchema>,entries:List<&2,Entry>,+next:Nat,valid:Bool,prior:Maybe<&2,Nat>) -> Actors:
   match prior:
     case None{}:Actors{List.append(&2,Entry,entries,[Entry{raw,next}]),1n+next,valid}
