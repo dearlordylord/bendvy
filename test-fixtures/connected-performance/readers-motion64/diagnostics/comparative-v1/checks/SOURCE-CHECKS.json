@@ -1,0 +1,63 @@
+{
+  "scope": "Source checking only; no backend or comparative qualification",
+  "compiler": "/tmp/bendvy21-bend2035-lifecycle-pin/bin/bend-2.0.35",
+  "compilerSHA256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+  "wrapper": "/tmp/bendvy21-readers-source-check/scripts/bend-check",
+  "wrapperSHA256": "8e40a9f83c64ba8649bd81fca8846660063feb3ff7bd84b0fc1d67ef752ca2d1",
+  "wrapperBodyExactCurrentRoot": true,
+  "config": "/tmp/bendvy21-readers-source-check/scripts/installed-config.py",
+  "configSHA256": "0c4ed3ca7651754b521834b4f4f232f2c22da8711cd47061d64086ce4470f5ee",
+  "cpu": 8,
+  "capSeconds": 15,
+  "results": [
+    {
+      "name": "program02",
+      "status": "PURE_PASS",
+      "stdout": {
+        "path": "/tmp/bendvy21-readers-checks/program02.stdout",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+      },
+      "stderr": {
+        "path": "/tmp/bendvy21-readers-checks/program02.stderr",
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+      }
+    },
+    {
+      "name": "finish01",
+      "status": "PURE_PASS",
+      "stdout": {
+        "path": "/tmp/bendvy21-readers-checks/finish01.stdout",
+        "sha256": "931f1e664a679af1355a9ca547ac1daef9f7b14137bc7cc21b110b0cc504b5b1"
+      },
+      "stderr": {
+        "path": "/tmp/bendvy21-readers-checks/finish01.stderr",
+        "sha256": "2d205006cfa642fe50cc5f8671e587ff886908699d69db8717c487cfd8d2968d"
+      }
+    },
+    {
+      "name": "pilot07",
+      "status": "EXPECTED_FOREIGN_ONLY_13",
+      "stdout": {
+        "path": "/tmp/bendvy21-readers-checks/pilot07.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/bendvy21-readers-checks/pilot07.stderr",
+        "sha256": "ffa141322896129aca91e1beab0797d8127084218f77059de5b82e2994ac018a"
+      }
+    },
+    {
+      "name": "node01",
+      "status": "SYNTAX_PASS",
+      "stdout": {
+        "path": "/tmp/bendvy21-readers-checks/node01.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/tmp/bendvy21-readers-checks/node01.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "history": "program01/pilot01..06 retained under /tmp/bendvy21-readers-checks; missing import, alias, exhaustive variant and affine source repairs only; no runtime attempted"
+}

@@ -1,0 +1,201 @@
+{
+  "scope": "Source correspondence only; actual full independent consumer qualification pending",
+  "checks": [
+    {
+      "module": "motion-domain",
+      "originalSHA256": "32b8caba56c91972c4b1d0c0dd2b33c82043039696278812871b64b32b6fff37",
+      "adapterSHA256": "1be79470d00eae167ba9e5c3064b31e46ce6871d81ce2658034f4bce1359d04f",
+      "exactDefinitionsAfterDetachedFactFieldRemoval": [
+        "aux_cleared",
+        "aux_taken",
+        "bump",
+        "bump_read",
+        "clear_all",
+        "clear_all_copy",
+        "clear_aux",
+        "clear_flag",
+        "clear_main",
+        "completed",
+        "despawned_record",
+        "dispose",
+        "dispose_queued",
+        "dispose_removed",
+        "flag_cleared",
+        "flag_taken",
+        "increment",
+        "main_cleared",
+        "main_taken",
+        "populate",
+        "removed_record",
+        "spawn",
+        "spawn_finished",
+        "spawn_frame",
+        "spawn_reserved",
+        "spawn_returned",
+        "update",
+        "update_read",
+        "written"
+      ],
+      "excluded": [
+        "count_join",
+        "count_owned",
+        "finish",
+        "finish_observed",
+        "finish_parts",
+        "fresh_frame"
+      ]
+    },
+    {
+      "module": "motion-registration",
+      "originalSHA256": "672e735f3056bc7b86c7311d7248d4c1e4c1d76f9b8a685c2bdb71cbc16ce20f",
+      "adapterSHA256": "9cccc903d7d64c4547122cac6a6d27e036c650f49f2231fdd004923affe0ffc5",
+      "exactDefinitionsAfterDetachedFactFieldRemoval": [
+        "capture",
+        "completed",
+        "dispose_registered",
+        "fast_registered",
+        "local_register",
+        "run",
+        "slow_registered",
+        "spawn_registered",
+        "update_registered"
+      ],
+      "excluded": []
+    },
+    {
+      "module": "motion-reader",
+      "originalSHA256": "4d99428b1ece1a5d51ba878a1422a990efbc53f5033a26d5bf0834855bd18708",
+      "adapterSHA256": "fcdb0215097be36e881ef33b35b3623ef838121067ae3a3299c251ff70c0a841",
+      "exactDefinitionsAfterDetachedFactFieldRemoval": [
+        "Definition",
+        "Envelope",
+        "Invocation",
+        "Meta",
+        "Ops",
+        "Provider",
+        "Registry",
+        "Run",
+        "body",
+        "classify",
+        "define",
+        "grant",
+        "run",
+        "runner"
+      ],
+      "excluded": []
+    },
+    {
+      "module": "motion-schedule",
+      "originalSHA256": "2fc4835209d0dc4ddf1abd1bdb96d1443a68e14f86d613bae86828e4e77c9e0e",
+      "adapterSHA256": "a7c0c2926925614b14829740349444406ef9306aa6726c621acafd051aaa92c9",
+      "exactDefinitionsAfterDetachedFactFieldRemoval": [
+        "A",
+        "B",
+        "C",
+        "a_dispatch",
+        "a_fold",
+        "a_plan",
+        "b_dispatch",
+        "b_fold",
+        "b_plan",
+        "barrier_wanted",
+        "c_dispatch",
+        "c_fold",
+        "c_plan",
+        "dispatch",
+        "dispose_dispatch",
+        "dispose_plan",
+        "dispose_wanted",
+        "fast_dispatch",
+        "fast_plan",
+        "fast_wanted",
+        "fold",
+        "local_fold",
+        "plan",
+        "provision",
+        "reader_fold",
+        "root_dispatch",
+        "root_fold",
+        "root_plan",
+        "selected",
+        "slow_dispatch",
+        "slow_plan",
+        "slow_wanted",
+        "spawn_dispatch",
+        "spawn_plan",
+        "spawn_wanted",
+        "update_dispatch",
+        "update_plan",
+        "update_wanted"
+      ],
+      "excluded": []
+    },
+    {
+      "module": "motion-app",
+      "originalSHA256": "18a216f6cf9561c0c993953b96f6b70abd540e77d4d115e45241a10c5d09b5ea",
+      "adapterSHA256": "21777502a630258cce0a26aab3ca22ce8e4590e7416dce58974357bb9b150ee3",
+      "exactDefinitionsAfterDetachedFactFieldRemoval": [
+        "Application",
+        "Registered",
+        "Slot",
+        "create",
+        "describe",
+        "project",
+        "projected_invalid",
+        "projected_live",
+        "registered",
+        "replan",
+        "run",
+        "schema",
+        "update",
+        "with_resources"
+      ],
+      "excluded": []
+    }
+  ],
+  "commonReadProjection": "Exact original definition after PreparedView private diagnostic fields removed",
+  "removedPrivateWork": [
+    "TxFacts and Tx-list/world snapshot traversal",
+    "provider/context before/after rendering",
+    "PreparedView detached query/read-through cursor copies and runningContext rendering",
+    "final private World/owner rendering and verification row text"
+  ],
+  "preservedOperationalState": [
+    "actual Frame business count/iteration/transient/reservations",
+    "affine Local Array owners and actual returned Frame",
+    "reader owners/params/deltas/validate/prepare/commit/release/cursor state",
+    "original ordinary App registration/fold/dispatch/provision/phases/barriers",
+    "all public actual rows/Added/Changed/event/removal reads, outcomes and full payloads"
+  ],
+  "publicGrammar": {
+    "bend": [
+      "seedOutcome",
+      "locals{id,operation,status,frame{count,iteration,transient,reservations}}",
+      "reads[full actual prepared query/event views]",
+      "schedules{namespace,name,steps,requirements,status,observations}"
+    ],
+    "ts": [
+      "ticks[actual outcome including Undefined tag]",
+      "updates{iteration,access{kind,value:full original Main}}"
+    ]
+  },
+  "tsDelta": "Retain actual public input reads/continuation guards; remove generated expected maps/cursors/SHA/private dump+diagnostics; no extra empty reads or fake private cursors/lagged fields",
+  "sourcePins": {
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/README.md": "26ce1c734882d748ff8b708d82da0894128cc1a1b279a1fda1cda1fcb9496380",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-app.bend": "21777502a630258cce0a26aab3ca22ce8e4590e7416dce58974357bb9b150ee3",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-domain.bend": "1be79470d00eae167ba9e5c3064b31e46ce6871d81ce2658034f4bce1359d04f",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-parameters.bend": "d4cea213c6c5b0b0aa170afa7cf55f9a15ef006314b4b7a564311e5e67dd8be1",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-program.bend": "24dc0b38f5ed7547c56c3775a9782e0f2590cd3faee9ed8398acccbcdeeac9e5",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-reader.bend": "fcdb0215097be36e881ef33b35b3623ef838121067ae3a3299c251ff70c0a841",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-registration.bend": "9cccc903d7d64c4547122cac6a6d27e036c650f49f2231fdd004923affe0ffc5",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-schedule.bend": "a7c0c2926925614b14829740349444406ef9306aa6726c621acafd051aaa92c9",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-systems.bend": "56e51d4c7da18cea8c53fdde420557fbae044779d1e935c2123aa9c502c1c80e",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/actors.bend": "8db35b0934b8a1627bc6109e3acd0cb32d46e7302c4aaf7f2a104d9e9602eda9",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/finish.bend": "09e4ff5e2f2027f68b4a6181df31c99c774e1f5e06ba8de155aec5016ee3ac4f",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/method.bend": "412e0f0c0d597b174f6fafe9661cb78f4ed8cb65f8126bcec3c1e102cf4fad0a",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/pilot.bend": "9e333b906f198afde2fe2d925681ba18539e8018a7dfeb0f4ad212aa4a160bb2",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/scenario.bend": "a76b47b1648a689997466d4e2f0badd283b830e0109a9200a2b27598c7c23a8f",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/values.bend": "f3956332f53a70bb3dc31d2588a97ed3205999f644d46a23a087dbca920de2a7",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/reference.mjs": "fb2f57716c3d1f5244e051d7af743e20237900dbdcaf74d8d677f5a95204c323"
+  }
+}
