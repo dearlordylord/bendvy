@@ -61,7 +61,7 @@ class Column(S.Column):
 WORLD_RESULTS = []
 
 
-class World(S.World):
+class World(Sparse.World):
     def __init__(self, *args, **kwargs):
         self.active = None
         super().__init__(*args, **kwargs)
