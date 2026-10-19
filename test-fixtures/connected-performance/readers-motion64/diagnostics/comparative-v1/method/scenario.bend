@@ -10,20 +10,22 @@ import ../../../../../../src/ecs/world.bend as W
 import ../../../../../../src/ecs/transaction.bend as Tx
 import ../../../method/json.bend as J
 import values.bend as V
+import method.bend as M
+import actors.bend as A
 
 type Prepared is Type:
-  Ready{iterations:U32,state:P.State,seed:List<&2,W.Reservation<T.MotionSchema>>,seedOutcome:J.Value}
+  Ready{iterations:U32,state:P.State,seed:List<&2,W.Reservation<T.MotionSchema>>,seedCall:J.Value}
   Stopped{}
 def outcome(value:Tx.Outcome<Unit>) -> J.Value:
   match value:
     case Tx.Success{}:J.object([J.Field{"kind",J.Text{"Success"}}])
     case Tx.Failure{_}:J.object([J.Field{"kind",J.Text{"Failure"}}])
-def started(iterations:U32,seed:List<&2,W.Reservation<T.MotionSchema>>,seedOutcome:J.Value,owners:S.Owners,result:F.World() & U32) -> Prepared:
+def started(iterations:U32,seed:List<&2,W.Reservation<T.MotionSchema>>,seedCall:J.Value,owners:S.Owners,result:F.World() & U32) -> Prepared:
   match result:
-    case (world,namespace):Ready{iterations,P.phase(1,P.prime(P.start(world,owners,namespace))),seed,seedOutcome}
-def seeded(iterations:U32,seed:List<&2,W.Reservation<T.MotionSchema>>,owners:S.Owners,result:D.Frame & Tx.Returned<F.World(),Unit>) -> Prepared:
+    case (world,namespace):Ready{iterations,P.phase(1,P.prime(P.start(world,owners,namespace))),seed,seedCall}
+def seeded(iterations:U32,+seed:List<&2,W.Reservation<T.MotionSchema>>,owners:S.Owners,result:D.Frame & Tx.Returned<F.World(),Unit>) -> Prepared:
   match result:
-    case (_,Tx.Returned{world,result}):started(iterations,seed,outcome(result),owners,W.namespace(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),W.barrier(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),world)))
+    case (frame,Tx.Returned{world,result}):started(iterations,seed,J.object([J.Field{"frame",M.frame(A.from_seed(seed,A.empty()),frame)},J.Field{"outcome",outcome(result)}]),owners,W.namespace(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),W.barrier(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),world)))
 def reserved(iterations:U32,count:U32,owners:S.Owners,value:F.Reserved) -> Prepared:
   match value:
     case F.Reserved{tx,+seed}:seeded(iterations,seed,owners,D.finish(3,D.Frame{count,0,None{},seed},Tx.Success{},tx))

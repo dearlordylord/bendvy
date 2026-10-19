@@ -169,7 +169,7 @@
   ],
   "publicGrammar": {
     "bend": [
-      "seedOutcome",
+      "seedCall{frame,outcome}",
       "locals{id,operation,status,frame{count,iteration,transient,reservations}}",
       "reads[full actual prepared query/event views]",
       "schedules{namespace,name,steps,requirements,status,observations}"
@@ -181,7 +181,6 @@
   },
   "tsDelta": "Retain actual public input reads/continuation guards; remove generated expected maps/cursors/SHA/private dump+diagnostics; no extra empty reads or fake private cursors/lagged fields",
   "sourcePins": {
-    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/README.md": "26ce1c734882d748ff8b708d82da0894128cc1a1b279a1fda1cda1fcb9496380",
     "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-app.bend": "21777502a630258cce0a26aab3ca22ce8e4590e7416dce58974357bb9b150ee3",
     "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-domain.bend": "1be79470d00eae167ba9e5c3064b31e46ce6871d81ce2658034f4bce1359d04f",
     "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-parameters.bend": "d4cea213c6c5b0b0aa170afa7cf55f9a15ef006314b4b7a564311e5e67dd8be1",
@@ -191,10 +190,10 @@
     "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-schedule.bend": "a7c0c2926925614b14829740349444406ef9306aa6726c621acafd051aaa92c9",
     "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/consumer/motion-systems.bend": "56e51d4c7da18cea8c53fdde420557fbae044779d1e935c2123aa9c502c1c80e",
     "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/actors.bend": "8db35b0934b8a1627bc6109e3acd0cb32d46e7302c4aaf7f2a104d9e9602eda9",
-    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/finish.bend": "09e4ff5e2f2027f68b4a6181df31c99c774e1f5e06ba8de155aec5016ee3ac4f",
-    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/method.bend": "412e0f0c0d597b174f6fafe9661cb78f4ed8cb65f8126bcec3c1e102cf4fad0a",
-    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/pilot.bend": "9e333b906f198afde2fe2d925681ba18539e8018a7dfeb0f4ad212aa4a160bb2",
-    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/scenario.bend": "a76b47b1648a689997466d4e2f0badd283b830e0109a9200a2b27598c7c23a8f",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/finish.bend": "c4868b494e20d456fb4aab23ce442a6d1781f19d44f80ea6ca8e8f192e066ab3",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/method.bend": "cf578d2813736f062e85eba8423fae2bd314e462d54b4b67714d667505769347",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/pilot.bend": "18e0cea753aa3ec144f42a4c2b32bbfb8ce0fa4391743d04547b2b8a881852ea",
+    "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/scenario.bend": "df633206517fb7ab08c7eb3772721dc070b6d5a2c4343b1925e33d2534d31861",
     "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/method/values.bend": "f3956332f53a70bb3dc31d2588a97ed3205999f644d46a23a087dbca920de2a7",
     "test-fixtures/connected-performance/readers-motion64/diagnostics/comparative-v1/reference.mjs": "fb2f57716c3d1f5244e051d7af743e20237900dbdcaf74d8d677f5a95204c323"
   }

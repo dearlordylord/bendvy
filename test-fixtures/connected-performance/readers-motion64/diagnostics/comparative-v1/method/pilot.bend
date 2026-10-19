@@ -28,10 +28,10 @@ def captured(start:Nat,result:Finish.Captured) -> IO(Completed):
     case Finish.Captured{carriers,public}:checked(start,public,carriers)
 def timed(value:Scenario.Prepared) -> IO(Completed):
   match value:
-    case Scenario.Ready{iterations,state,seed,seedOutcome}:
+    case Scenario.Ready{iterations,state,seed,seedCall}:
       do IO<Completed>:
         start:Nat <- Clock.begin()
-        captured(start,Finish.run(seed,seedOutcome,P.drain(P.loops(U32.to_nat(iterations),state))))
+        captured(start,Finish.run(seed,seedCall,P.drain(P.loops(U32.to_nat(iterations),state))))
     case Scenario.Stopped{}:IO.die(Completed,3,"preparation refused")
 def clock_written(result:File & Result<&1,&1,U32 & String,Unit>) -> IO(Unit):
   match result:

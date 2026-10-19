@@ -203,8 +203,8 @@ def schedules(values:List<&2,P.Log>,out:List<&2,J.Value>) -> J.Value:
   match values:
     case []:J.array(List.reverse(&2,J.Value,out))
     case value <> rest:schedules(rest,schedule(value) <> out)
-def public(seed:List<&2,W.Reservation<T.MotionSchema>>,seedOutcome:J.Value,value:P.Capture) -> J.Value:
+def public(seed:List<&2,W.Reservation<T.MotionSchema>>,seedCall:J.Value,value:P.Capture) -> J.Value:
   match value:
     case P.Capture{_,_,D.Frame{_,_,_,reservations},localValues,readValues,logs}:
       +actors=A.from_seed(reservations,A.from_seed(seed,A.empty()))
-      J.object([J.Field{"seedOutcome",seedOutcome},J.Field{"locals",locals(actors,List.reverse(&2,S.LocalCall,localValues),[])},J.Field{"reads",public_reads(actors,List.reverse(&2,S.ReadCall,readValues),[])},J.Field{"schedules",schedules(List.reverse(&2,P.Log,logs),[])}])
+      J.object([J.Field{"seedCall",seedCall},J.Field{"locals",locals(actors,List.reverse(&2,S.LocalCall,localValues),[])},J.Field{"reads",public_reads(actors,List.reverse(&2,S.ReadCall,readValues),[])},J.Field{"schedules",schedules(List.reverse(&2,P.Log,logs),[])}])
