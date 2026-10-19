@@ -8,15 +8,15 @@ Full functional parity is unchanged. Preserve and reuse the accepted90 semantic 
 
 Speed acceptance requires exactly these seven cases:
 
-| Workload | Schema | Initial entities |
-| --- | --- | --- |
-| Dense | Motion | 256 |
-| Sparse | Motion | 256 |
-| Lifecycle | Motion | 256 |
-| FailedTxn | Motion | 64 |
-| Readers | Motion | 64 |
-| Dense | Health | 64 |
-| FailedTxn | Health | 64 |
+| Workload | Schema | Initial entities | Timed-route correctness / correspondence |
+| --- | --- | --- | --- |
+| Dense | Motion | 256 | Reuse accepted semantic route; clean boundary source audit a9971373 |
+| Sparse | Motion | 256 | Reuse accepted semantic route; clean boundary source audit a9971373 |
+| Lifecycle | Motion | 256 | Accepted comparative adapter f0d4f54f4; full three-backend oracle, original semantic evidence retained |
+| FailedTxn | Motion | 64 | Accepted comparative adapter a9e2fa163 |
+| Readers | Motion | 64 | Comparative adapter in progress; original semantic evidence retained |
+| Dense | Health | 64 | Reuse accepted semantic route; clean boundary source audit a9971373 |
+| FailedTxn | Health | 64 | Accepted comparative adapter 1a964d196 |
 
 Each case retains JS, Native and pinned TS, seven rotations, equivalent complete work, full correctness and the final targets JS <= TS / Native <=0.5 * TS. Preserve fresh same-process warmup/sample ownership, complete forcing and source-bound review. Existing uncertainty/decision-protocol questions are not resolved by reducing the matrix. The combined #28 regression gate remains unchanged.
 
@@ -95,6 +95,21 @@ Integration `af091a805` matches final-reviewed leaf `432e70ae3`. Packet `d16775f
 
 Integration `8dccec2e0` matches reviewed leaf `959f19c0f`. Packet `6c37f771…` joins complete JS/Native/TS gold: Bend847,249,087 bytes and TS655,784,762 bytes, including48,001,309 common cells and complete public carriers per world. All original operations, errors, owners, cursors, public reads and forcing remain unchanged. Source-bound prerequisite reuse verifies accepted64/256 comparative and original1024 semantic gold before fresh1024 Observer derivation. Model01 timeout and actual02 JS8192-MiB pre-FORCE OOM remain failed. Fresh actual03 uses recorded16384 MiB equally for JS/TS; Native and stack stay unchanged. This accepts finite Motion1024 correspondence only; remaining selected cases and final timing/memory gates remain open; Health1024 is not required.
 
+## Distinct memory-path reconciliation — 2026-10-19
+
+Reuse the accepted source-current evidence instead of repeating schemas/sizes:
+
+| Path | Applicable evidence and scope |
+| --- | --- |
+| Indexed columns / prepared owner wrappers | Accepted Dense append/prefinish vectors and chronological column histories; existing Prepared/PreparedIndexed fixtures retain arbitrary Type owners, exceptional IDs and zero stamps |
+| Plain columns | Accepted SparseMotion64 packet c3500264; original Plain owners/stamps, three scans and cumulative audit preserved |
+| Inverse / command / event staging and rollback | Accepted FailedTxn64:774 actual reports, after-append/prefinish traversal and returned-world rollback observations; current consumed core source bytes match |
+| Stored / running / returned readers and retained streams | Existing ReadersMotion64 full JS/Native canonical plus offline reconciliation da6378b7; all84 captures and252 stream reads/commits match actual registry/read-through positions and ordered retained values |
+
+The Readers reconciliation binds the complete10,810,200-byte canonical (18393674), accepted receipts/guards and exact current consumed source bodies. One actual simultaneous running snapshot retains4/4/4 values across the three streams;12 structural occurrences is neither a unique allocation count nor a sum of independent maxima. Trimming is observed, but lagged=true is not reached in this normal story; existing event-specific semantic controls retain that separate behavior. No missing sampler field was found for this observed ownership/retention path. Reproducible offline script e53f6e66 and result da6378b7 remain under the paths in the delivery report.
+
+Opaque callback/inverse/payload allocation bytes are unavailable without a new introspection contract. The Tx representation has no separate marks journal (N/A). These limitations do not require a same-hook matrix or justify claims about global/unique maxima. Clean whole-child RSS still belongs to the required speed qualification; no separate RSS matrix is introduced.
+
 ## Clean child-RSS launcher control — 2026-10-18
 
 Recovered the unchanged launcher from `871ace3bb:experiments/s-integrate/measurement-samples-rss-launcher.c` (SHA256 `eaef512a2c5e25c571f846fa5ddb5bf2075f2dda71c33ad29cb270639f05f977`) and built it with the existing Clang19.1.7. Its small exec image forks the measured child; exec alone does not clear the launcher's inherited highwater. Three controlled invocations validate this isolation, not ECS memory use:
@@ -147,3 +162,7 @@ An alternative high-resolution common clock or a longer operation sequence in on
 Checker/runtime limits stay 5 seconds, codegen 30 seconds and clang 120 seconds. Preparing retained worlds and transporting B full records can increase whole-process time/RSS even when setup and validation are outside the inner bracket. Preserve deadline failures; do not raise limits or drop observations. Existing large-case runtime and validation timeouts remain blockers.
 
 The historical full family matrix contains 5 families ×3 sizes ×2 schemas ×7 repetitions ×3 backends =630 children per cohort, before checks/warmup/paired cohorts. A two-hour global budget does not establish complete-matrix feasibility. A focused protocol can supply focused evidence only; it cannot close the parent matrix gates or establish full-product performance. The global deadline remains 2026-10-05 01:58:17 UTC without reset.
+
+## Lifecycle Motion256 comparative adapter accepted — 2026-10-19
+
+Integration `f0d4f54f4` matches independently reviewed leaf `c72fce237`. Packet `fe7a8bbb` joins JS/Native full161,772,113 bytes/f96f8ea8 and TS92,284,696 bytes/b848f368, including complete common, public and foreign carriers. Original operations, owners, continuations and public reads remain intact; all complete observations are forced before the clock ends. Existing semantic prerequisites were reused. This is finite adapter correctness, not speed, clock accuracy, RSS, rotations or a #28 waiver.
