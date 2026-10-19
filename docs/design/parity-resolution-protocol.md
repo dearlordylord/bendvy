@@ -14,7 +14,7 @@ Speed acceptance requires exactly these seven cases:
 | Sparse | Motion | 256 | Reuse accepted semantic route; clean boundary source audit a9971373 |
 | Lifecycle | Motion | 256 | Accepted comparative adapter f0d4f54f4; full three-backend oracle, original semantic evidence retained |
 | FailedTxn | Motion | 64 | Accepted comparative adapter a9e2fa163 |
-| Readers | Motion | 64 | Comparative adapter in progress; original semantic evidence retained |
+| Readers | Motion | 64 | Accepted comparative adapter 6124fc131; full three-backend oracle, original semantic evidence retained |
 | Dense | Health | 64 | Reuse accepted semantic route; clean boundary source audit a9971373 |
 | FailedTxn | Health | 64 | Accepted comparative adapter 1a964d196 |
 
@@ -166,3 +166,7 @@ The historical full family matrix contains 5 families ×3 sizes ×2 schemas ×7 
 ## Lifecycle Motion256 comparative adapter accepted — 2026-10-19
 
 Integration `f0d4f54f4` matches independently reviewed leaf `c72fce237`. Packet `fe7a8bbb` joins JS/Native full161,772,113 bytes/f96f8ea8 and TS92,284,696 bytes/b848f368, including complete common, public and foreign carriers. Original operations, owners, continuations and public reads remain intact; all complete observations are forced before the clock ends. Existing semantic prerequisites were reused. This is finite adapter correctness, not speed, clock accuracy, RSS, rotations or a #28 waiver.
+
+## Readers Motion64 comparative adapter accepted — 2026-10-19
+
+Integration `6124fc131` matches reviewed leaf `962571792`; packet `065f063d` joins complete JS/Native17,466,414 bytes/877efd1b and TS6,680,400 bytes/38481f27. All280 common records, actual seed return,192 Local results,84 prepared reads and194 schedules remain; TS retains196 actual outcomes and64 prewrite lookup results. Original owners, cursors, rollback, continuations and complete forcing are preserved. The original semantic evidence is reused. All seven selected routes now have accepted correspondence; rotations, clock/decision qualification, clean-child RSS and unchanged #28 remain open.
