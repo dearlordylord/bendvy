@@ -115,5 +115,62 @@
     "stderrBytes": 0,
     "receiptSHA256": "5e9ab0c9751b83052747c21896fd355d933d98cfe6261e8999543351eddc3d63",
     "counterParsedExactTransform": true
+  },
+  "1024": {
+    "status": "PASS",
+    "count": 1024,
+    "iterations": 64,
+    "sourceBasisSHA256": "fe068a6ecb1686d48060e234026de46778c925b0c86b931315da3419ebc96237",
+    "fullNormalIdentical": true,
+    "preserved64": "EXACT_NORMAL_AND_BOTH_SIDECARS",
+    "normalOutputs": {
+      "bend-expected.stdout.gz": {
+        "bytes": 4315238,
+        "sha256": "b125df990f776ee1370e782a710cccc311afa3a4332c928ee60e51b6be3a7fe7"
+      },
+      "ts-expected.stdout.gz": {
+        "bytes": 1566234,
+        "sha256": "314ccf30715427a87424543d9c03594d0bc762a35ea87778378cc7f8d3a2330d"
+      },
+      "expected-common.json": {
+        "bytes": 782694,
+        "sha256": "46146e3633cdc7be5d929d92d65662d7479d06d86432a3b1cb9196d0fe25b77b"
+      }
+    },
+    "reportsPerWorld": [
+      65,
+      65
+    ],
+    "appendRecordsPerWorld": [
+      133120,
+      133120
+    ],
+    "columnHistoryCounts": [
+      {
+        "main": 66561,
+        "aux": 343,
+        "flag": 342
+      },
+      {
+        "main": 66561,
+        "aux": 343,
+        "flag": 342
+      }
+    ],
+    "counterChangedFields": 130,
+    "outputs": {
+      "expected.stats.json": {
+        "bytes": 50396983,
+        "sha256": "fdd76ec6d45b32d8818b62e35828e1f34bab478dbdc106ba9409e16544fee699"
+      },
+      "counter.stats.json": {
+        "bytes": 50396983,
+        "sha256": "d3a0df097db53c3289e0358940490d9656eff5fc22b43c244020450ee2f2a08d"
+      }
+    },
+    "scope": "Actual finite prefinish simultaneous vectors and completed-column hook histories; structural references exclude payload/evacuated owners, allocator bytes and unique cells. No sampled-global-peak or timing claim.",
+    "generationExitCode": 0,
+    "stderrBytes": 0,
+    "receiptSHA256": "00852f3ed1c792acd5d100c27420f2384e7980c704bf8d80860f7b76ab3b950e"
   }
 }
