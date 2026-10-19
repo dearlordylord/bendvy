@@ -69,6 +69,10 @@ Integration `01d0ce60b` matches final-reviewed leaf `a2fd30c4f`. Packet `27e6f74
 
 Integration `af091a805` matches final-reviewed leaf `432e70ae3`. Packet `d16775f7…` joins JS/Native/TS full independent gold using unchanged genuine Health64 artifacts with256/64 input. Independent derivation reproduces complete Health64 comparative and original Health256 semantic streams before common/public carriers. Full Bend224,637,728 and TS173,912,144 bytes match; business operations, errors, owners, cursors, public reads and forcing remain unchanged. This is finite Health256 correspondence;1024/other families and final performance/memory gates remain open.
 
+### Qualified Motion1024 comparative input
+
+Integration `8dccec2e0` matches reviewed leaf `959f19c0f`. Packet `6c37f771…` joins complete JS/Native/TS gold: Bend847,249,087 bytes and TS655,784,762 bytes, including48,001,309 common cells and complete public carriers per world. All original operations, errors, owners, cursors, public reads and forcing remain unchanged. Source-bound prerequisite reuse verifies accepted64/256 comparative and original1024 semantic gold before fresh1024 Observer derivation. Model01 timeout and actual02 JS8192-MiB pre-FORCE OOM remain failed. Fresh actual03 uses recorded16384 MiB equally for JS/TS; Native and stack stay unchanged. This accepts finite Motion1024 correspondence only; Health1024, other families and final timing/memory gates remain open.
+
 ## Clean child-RSS launcher control — 2026-10-18
 
 Recovered the unchanged launcher from `871ace3bb:experiments/s-integrate/measurement-samples-rss-launcher.c` (SHA256 `eaef512a2c5e25c571f846fa5ddb5bf2075f2dda71c33ad29cb270639f05f977`) and built it with the existing Clang19.1.7. Its small exec image forks the measured child; exec alone does not clear the launcher's inherited highwater. Three controlled invocations validate this isolation, not ECS memory use:
