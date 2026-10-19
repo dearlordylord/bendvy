@@ -69,26 +69,26 @@ def empty_value(~H:Type,~S:Data,owner:H,target:W.Handle<S>) -> H & Unit:
   (owner,Unit{})
 def empty(~H:Type,~S:Data) -> DeclaredSelection<H,S,Unit>:
   DeclaredSelection{yes(~H,~S),empty_value(~H,~S)}
-def matched_right(~H:Type,~S:Data,right:H -> W.Handle<S> -> H & Bool,target:W.Handle<S>,observed:H & Bool) -> H & Bool:
+def matched_right(~H:Type,~S:Data,~right:H -> W.Handle<S> -> H & Bool,target:W.Handle<S>,observed:H & Bool) -> H & Bool:
   match observed:
     case (owner,False{}):(owner,False{})
     case (owner,True{}):right(owner,target)
-def pair_matches_target(~H:Type,~S:Data,left:H -> W.Handle<S> -> H & Bool,right:H -> W.Handle<S> -> H & Bool,owner:H,+target:W.Handle<S>) -> H & Bool:
-  matched_right(~H,~S,right,target,left(owner,target))
-def pair_matches(~H:Type,~S:Data,left:H -> W.Handle<S> -> H & Bool,right:H -> W.Handle<S> -> H & Bool,owner:H,target:W.Handle<S>) -> H & Bool:
-  pair_matches_target(~H,~S,left,right,owner,target)
+def pair_matches_target(~H:Type,~S:Data,~left:H -> W.Handle<S> -> H & Bool,~right:H -> W.Handle<S> -> H & Bool,owner:H,+target:W.Handle<S>) -> H & Bool:
+  matched_right(~H,~S,~right,target,left(owner,target))
+def pair_matches(~H:Type,~S:Data,~left:H -> W.Handle<S> -> H & Bool,~right:H -> W.Handle<S> -> H & Bool,owner:H,target:W.Handle<S>) -> H & Bool:
+  pair_matches_target(~H,~S,~left,~right,owner,target)
 def projected_right(~H:Type,~A:Data,~B:Data,left:A,observed:H & B) -> H & Product<A,B>:
   (owner,right)=observed
   (owner,Product{left,right})
-def projected_left(~H:Type,~S:Data,~A:Data,~B:Data,right:H -> W.Handle<S> -> H & B,target:W.Handle<S>,observed:H & A) -> H & Product<A,B>:
+def projected_left(~H:Type,~S:Data,~A:Data,~B:Data,~right:H -> W.Handle<S> -> H & B,target:W.Handle<S>,observed:H & A) -> H & Product<A,B>:
   (owner,left)=observed
   projected_right(~H,~A,~B,left,right(owner,target))
-def pair_project_target(~H:Type,~S:Data,~A:Data,~B:Data,left:H -> W.Handle<S> -> H & A,right:H -> W.Handle<S> -> H & B,owner:H,+target:W.Handle<S>) -> H & Product<A,B>:
-  projected_left(~H,~S,~A,~B,right,target,left(owner,target))
-def pair_project(~H:Type,~S:Data,~A:Data,~B:Data,left:H -> W.Handle<S> -> H & A,right:H -> W.Handle<S> -> H & B,owner:H,target:W.Handle<S>) -> H & Product<A,B>:
-  pair_project_target(~H,~S,~A,~B,left,right,owner,target)
+def pair_project_target(~H:Type,~S:Data,~A:Data,~B:Data,~left:H -> W.Handle<S> -> H & A,~right:H -> W.Handle<S> -> H & B,owner:H,+target:W.Handle<S>) -> H & Product<A,B>:
+  projected_left(~H,~S,~A,~B,~right,target,left(owner,target))
+def pair_project(~H:Type,~S:Data,~A:Data,~B:Data,~left:H -> W.Handle<S> -> H & A,~right:H -> W.Handle<S> -> H & B,owner:H,target:W.Handle<S>) -> H & Product<A,B>:
+  pair_project_target(~H,~S,~A,~B,~left,~right,owner,target)
 def pair(~H:Type,~S:Data,~A:Data,~B:Data,~left:DeclaredSelection<H,S,A>,~right:DeclaredSelection<H,S,B>) -> DeclaredSelection<H,S,Product<A,B>>:
-  DeclaredSelection{pair_matches(~H,~S,matches_field(~H,~S,~A,left),matches_field(~H,~S,~B,right)),pair_project(~H,~S,~A,~B,project_field(~H,~S,~A,left),project_field(~H,~S,~B,right))}
+  DeclaredSelection{pair_matches(~H,~S,~matches_field(~H,~S,~A,left),~matches_field(~H,~S,~B,right)),pair_project(~H,~S,~A,~B,~project_field(~H,~S,~A,left),~project_field(~H,~S,~B,right))}
 def true_predicate(~H:Type,~S:Data) -> Predicate<H,S>:
   Predicate{yes(~H,~S)}
 def predicate_right(~H:Type,~S:Data,right:H -> W.Handle<S> -> H & Bool,target:W.Handle<S>,observed:H & Bool) -> H & Bool:
