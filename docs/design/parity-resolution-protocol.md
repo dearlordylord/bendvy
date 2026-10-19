@@ -85,6 +85,22 @@ Checked Lifecycle adapter: `bbc8d3aa1`, integrated as `957992e19`. Its Motion256
 
 All seven typed routes are now integrated and qualify against complete independent output on JS, Native and pinned TS. Dense Motion256 (`f98d1a739`, packet `6d1c82a3`), FailedTxn Motion64 (`613b365eb`, `faf6d382`), FailedTxn Health64 and Readers Motion64 (`e1d8111ac`, `60b357d4`), and Dense Health64/Sparse Motion256 (`7fbf396d2`, `42b2383f`) each have independent final Spec/Standards GO. Their RESULT files bind actual source, full gold and generated timing order. This completes finite adapter correctness, not comparative performance. Reuse these artifacts for the same seven-case/seven-rotation collection; preserve the original90 semantic results and failed #28.
 
+### Typed cohort — 2026-10-19
+
+All 147 observations complete through the unchanged runner with exact full gold, saved guards, fresh integer-nanosecond clocks and clean-child RSS. Index `55874353`, summary `4ff5d80c` and independent final data audit bind seven samples per backend/case. Values below are median sample time divided by pinned bevy-ts median time. Targets remain JS/TS <= 1 and Native/TS <= 0.5; none is reached.
+
+| Case | JS/TS | Native/TS |
+| --- | ---: | ---: |
+| Dense-motion-256 | 3.9734 | 1.5615 |
+| Sparse-motion-256 | 6.6151 | 2.7960 |
+| Lifecycle-motion-256 | 2.7531 | 2.0885 |
+| FailedTxn-motion-64 | 2.7149 | 2.0621 |
+| Readers-motion-64 | 3.4203 | 1.8297 |
+| Dense-health-64 | 4.9651 | 1.5139 |
+| FailedTxn-health-64 | 2.5108 | 2.1439 |
+
+Complete median/range/sample/RSS data remain in `/tmp/bendvy21-seven-case-typed-cohort01/RAW-DESCRIPTIVE-SUMMARY03.json`; cohort receipt SHA256 `a60cc6bc668eac5774847d86e06aee241a0692e04e379c6482b5557e5c357b40`. Host load was 7.08/8.42/10.00 before and 9.07/7.48/7.84 after on 12 CPUs. Backends rotate cyclically; first-position counts are 3/2/2. These are descriptive observations under contention, not confidence bounds or a causal comparison with historical character-wire results. RSS covers the whole fresh child, not timed-phase allocations. The failed #28 remains separate and unchanged. Next, reuse the accepted artifacts for separate JS/TS CPU and collected-allocation diagnostics; their instrumented clocks are not speed evidence.
+
 ### First qualified comparative adapter: FailedTxn Motion64
 
 The entry `test-fixtures/connected-performance/failedtxn-motion64/diagnostics/comparative-v1/` passes complete independent gold on JS, Native and TS. Packet `1a9cb33d…` binds subject `5bba172c4`, independent model `bce64e415`/`3bc69a40`/`db82a4ac6`, current source correspondence02 and separately preserved model-pinned historical correspondence01. Original callbacks, operations, registration/invocation sequence, error/continuation policy, transaction outcomes, owner and cursor behavior remain reached. The accepted semantic fixtures are unchanged.
