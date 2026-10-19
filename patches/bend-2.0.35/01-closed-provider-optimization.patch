@@ -33,7 +33,7 @@
        if (b === null) {
          return null;
        }
-@@ -2326,6 +2336,453 @@
+@@ -2326,6 +2336,559 @@
  
  function emit_fold_args(fl: File, m: Spine): HTerm[] {
    return m.all.map((a) => m.args.includes(a) ? emit_fold(fl, a) ?? a : a);
@@ -129,7 +129,30 @@
 +    head = head.$ === "Ann" ? head.x : head.f;
 +  if (head.$ !== "Ref") return null;
 +  return /:main_cap(?:~|$)/.test(head.k) ? "main_cap"
-+    : /:ledger_cap(?:~|$)/.test(head.k) ? "ledger_cap" : null;
++    : /:ledger_cap(?:~|$)/.test(head.k) ? "ledger_cap"
++    : /sparse-runtime-v1\/motion-logical:declaration(?:~|$)/.test(head.k) ? "sparse-logical"
++    : factory_nested_sparse_prefix(tm, head.k);
++}
++
++// Diagnostic identity only: bounded raw spines, no forcing or argument visits.
++function factory_nested_sparse_prefix(tm: HTerm, outer: Name): string | null {
++  if (!/ordinary-query-observable:inspection(?:~|$)/.test(outer)) return null;
++  let spine = tm;
++  for (let fuel = 32; fuel > 0; fuel--) {
++    if (spine.$ === "Ann") { spine = spine.x; continue; }
++    if (spine.$ !== "App") return null;
++    let arg = spine.x;
++    for (let steps = 32; steps > 0; steps--) {
++      if (arg.$ === "Ann") { arg = arg.x; continue; }
++      if (arg.$ === "App") { arg = arg.f; continue; }
++      if (arg.$ === "Ref"
++        && /sparse-runtime-v1\/motion-logical:declaration(?:~|$)/.test(arg.k))
++        return "sparse-logical";
++      break;
++    }
++    spine = spine.f;
++  }
++  return null;
 +}
 +
 +// Private experiment: strict evaluation of a closed factory prefix only.
@@ -263,8 +286,13 @@
 +      if (m.t.b || d?.$ !== "Def" || d.u || def_foreign(d)
 +        || intr_of(fl, m.t.k) !== undefined || d.e === undefined) return reject("application-ref-ineligible", m.t);
 +      const args = [...m.all, v.term];
-+      if (args.length < d.n)
-+        return { term: Bend.App(f.term, v.term), type: resultType };
++      if (args.length < d.n) {
++        // A retained live function argument needs its established domain when
++        // emitted outside its original application. Erased terms stay raw.
++        const argument = quant_live(all.q) && v.type !== null
++          ? Bend.Ann(v.term, v.type) : v.term;
++        return { term: Bend.App(f.term, argument), type: resultType };
++      }
 +      if (args.length !== d.n) return reject("source-arity-mismatch", m.t);
 +      let body: HTerm = Bend.term_higher(d.e);
 +      for (const arg of args) {
@@ -326,13 +354,16 @@
 +
 +function emit_projection_apply(fl: File, m: Spine): HTerm | null {
 +  // Temporary trace selects only actual setter projections, never getters.
-+  if (m.t.$ !== "Ref" || !/:(?:write_field|value_write_field)(?:~|$)/.test(m.t.k))
++  if (m.t.$ !== "Ref" || !/:(?:write_field|value_write_field|project_field|matches_field)(?:~|$)/.test(m.t.k))
 +    return emit_projection_apply_impl(fl, m);
-+  if (m.tld?.$ !== "Def" || m.all.length <= m.tld.n)
++  if (m.tld?.$ !== "Def" || m.all.length < m.tld.n)
 +    return emit_projection_apply_impl(fl, m);
-+  const prefix = m.all.map(factory_prefix).find(p => p !== null);
-+  if (prefix === undefined || prefix === null || factoryDiagnostic !== null
-+    || FACTORY_DIAGNOSTICS_SEEN.has(prefix)) return emit_projection_apply_impl(fl, m);
++  const found = m.all.map(factory_prefix).find(p => p !== null);
++  if (found === undefined || found === null || factoryDiagnostic !== null)
++    return emit_projection_apply_impl(fl, m);
++  // Keep the two actual Sparse projection attempts independently bounded.
++  const prefix = found === "sparse-logical" ? `${found}:${m.t.k}` : found;
++  if (FACTORY_DIAGNOSTICS_SEEN.has(prefix)) return emit_projection_apply_impl(fl, m);
 +  FACTORY_DIAGNOSTICS_SEEN.add(prefix);
 +  const record: FactoryDiagnostic = { prefix, events: [] };
 +  factoryDiagnostic = record;
@@ -393,12 +424,52 @@
 +  return prefix.reduce((f, a) => Bend.term_apply(f, a), m.t);
 +}
 +
++// A selected strict-factory field may be a partial Ref carrying closed Fns.
++// This is not a general value predicate and never evaluates a provider body.
++function projection_factory_function(fl: File, term: HTerm, type: HTerm | null,
++  fuel = 16): boolean {
++  if (fuel === 0 || type === null || Bend.tele_open(fl.book, type) === null
++    || !projection_closed(fl, term)) return false;
++  let value = term;
++  if (term_strip(value).$ === "Lam") {
++    const eta = projection_eta_field(fl, Bend.Ann(value, type));
++    if (eta === null) return false;
++    value = eta;
++  }
++  const m = term_spine(fl, value);
++  const d = m.tld;
++  if (m.t.$ !== "Ref" || m.t.b || d?.$ !== "Def" || d.u
++    || def_foreign(d) || intr_of(fl, m.t.k) !== undefined
++    || d.e === undefined || fun_of(fl, m.t.k).n !== d.n
++    || m.all.length >= d.n) return false;
++  let T = d.T;
++  for (const a of m.all) {
++    const all = Bend.tele_open(fl.book, T);
++    if (all === null) return false;
++    if (quant_live(all.q)) {
++      if (term_const(a)) {
++        // Do not newly admit a captured owner hidden in a constant Ctr tree.
++        const x = term_strip(a);
++        if (x.$ !== "Lit" && !(x.$ === "Ctr" && x.x.length === 0)) return false;
++      } else if (!projection_factory_function(fl, a, all.A, fuel - 1)) {
++        return false;
++      }
++    }
++    // Erased arguments instantiate the original dependent telescope only.
++    T = all.B(a);
++  }
++  return Bend.tele_open(fl.book, T) !== null;
++}
++
 +function emit_projection_apply_impl(fl: File, m: Spine): HTerm | null {
 +  if (m.t.$ !== "Ref" || m.tld?.$ !== "Def" || m.tld.u
 +    || def_foreign(m.tld) || !flat_of(m.t.k)) return null;
 +  const { h, n } = fun_of(fl, m.t.k);
 +  // This small rule does not handle projections whose arity was raised.
-+  if (h === null || n !== m.tld.n || m.all.length <= n) return null;
++  if (h === null || n !== m.tld.n || m.all.length < n) {
++    factory_trace("outer-arity-or-body", m.t);
++    return null;
++  }
 +  const fs = m.all;
 +  let type = m.tld.T;
 +  const live: boolean[] = [];
@@ -409,8 +480,12 @@
 +    type = all.B(a);
 +  }
 +  const prefix = fs.slice(0, n);
-+  if (prefix.some((a, i) => live[i] && !projection_value(fl, a)
-+    && projection_ctor(fl, a) === null)) return null;
++  if (prefix.some((a, i) => {
++    const refused = live[i] && !projection_value(fl, a)
++      && projection_ctor(fl, a) === null;
++    if (refused) factory_trace("outer-prefix-not-closed-value", a);
++    return refused;
++  })) return null;
 +  let b = h;
 +  let field: HTerm | null = null;
 +  for (let i = 0; i < prefix.length; i++) {
@@ -419,18 +494,49 @@
 +      b = w.f(prefix[i]);
 +      continue;
 +    }
-+    if (w.$ !== "Mat" || i !== prefix.length - 1) return null;
++    if (w.$ !== "Mat" || i !== prefix.length - 1) {
++      factory_trace("outer-projection-body-shape", w);
++      return null;
++    }
 +    const c = projection_ctor(fl, prefix[i]);
-+    if (c === null) return null;
++    if (c === null) { factory_trace("outer-prefix-constructor-refused", prefix[i]); return null; }
 +    const arm = mat_arms(w).arms.find(([k]) => k === c.k);
 +    if (arm === undefined) return null;
 +    field = projection_field(fl, arm[1], c);
 +  }
-+  if (field === null || !projection_value(fl, field)) { factory_trace(field === null ? "outer-field-missing" : "outer-field-not-value", field ?? m.t); return null; }
++  if (field === null) { factory_trace("outer-field-missing", m.t); return null; }
++  if (!projection_value(fl, field)) {
++    // Such a field cannot come from projection_ctor_straight: that path
++    // requires every field to pass projection_value before returning a Ctr.
++    if (!projection_factory_function(fl, field, ty_ann(field))) {
++      factory_trace("outer-field-not-value", field);
++      return null;
++    }
++    factory_trace("outer-closed-function-environment", field);
++  }
 +  const selected = projection_eta_field(fl, field) ?? field;
 +  // Re-entry must not retain the projection head recognized by this rule.
 +  if (term_any(fl, selected, t => t.$ === "Ref" && t.k === m.t.k)) return null;
 +  const pending = fs.slice(n);
++  // Exact-arity extraction returns one already-established closed function.
++  // No suffix/body is evaluated and the original typed prefix binds remain.
++  const extraction = pending.length === 0;
++  if (extraction) {
++    const value = term_strip(selected);
++    const fn = term_spine(fl, selected);
++    const d = fn.tld;
++    const knownPartial = fn.t.$ === "Ref" && !fn.t.b && d?.$ === "Def"
++      && !d.u && !def_foreign(d) && intr_of(fl, fn.t.k) === undefined
++      && d.e !== undefined && fun_of(fl, fn.t.k).n === d.n
++      && fn.all.length < d.n;
++    if (!projection_closed(fl, selected)
++      || (value.$ !== "Lam" && !knownPartial)
++      || Bend.tele_open(fl.book, type) === null) {
++      factory_trace("outer-extraction-not-closed-function", selected);
++      return null;
++    }
++    factory_trace("outer-closed-function-extraction", selected);
++  }
 +  // This path does not unfold the provider: all suffix actuals are values.
 +  // Every other expression retains the original strict use/effect proof below.
 +  const target = term_spine(fl, selected);
@@ -455,7 +561,7 @@
 +      pendingKinds: pending.slice(0, 16).map(a => a.$),
 +      decision: !safePartial ? "target-not-safe-exact-partial-ref"
 +        : !simplePending ? "pending-expression-needs-strict-proof" : "already-evaluated-values" });
-+  if (!opaqueValues) {
++  if (!extraction && !opaqueValues) {
 +    const ps = pending.map(() => probe("projection_argument"));
 +    const uses = projection_application_uses(fl,
 +      ps.reduce((f, a) => Bend.term_apply(f, a), selected));
@@ -463,7 +569,7 @@
 +      && term_use(uses, ps[i]) !== 1)) { factory_trace(uses === null ? "outer-uses-unknown" : "outer-live-use-not-once", selected); return null; }
 +  }
 +  const applied = pending.reduce((f, a) => Bend.term_apply(f, a), selected);
-+  if (term_any(fl, applied, y => y.$ === "Lam" || mat_head(y))) { factory_trace("outer-applied-lambda-match", applied); return null; }
++  if (!extraction && term_any(fl, applied, y => y.$ === "Lam" || mat_head(y))) { factory_trace("outer-applied-lambda-match", applied); return null; }
 +  const bind = (i: number, T: HTerm, ys: HTerm[]): HTerm | null => {
 +    if (i === fs.length)
 +      return ys.slice(n).reduce((f, a) => Bend.term_apply(f, a), selected);
@@ -487,7 +593,7 @@
  }
  
  function emit_unfold(fl: File, m: Spine): HTerm | null {
-@@ -2452,6 +2909,16 @@
+@@ -2452,6 +3015,16 @@
    const [x, ty] = ty_peel(tm, ty0);
    if (args.length === 0 && fun_live(fl.book, x, ty)) {
      return emit_put(fl, dst, emit_clo(fl, x, ty));
@@ -504,7 +610,7 @@
    }
    const l = x.$ === "Let" || (args.length === 0 && x.$ !== "Lam")
      ? anf(fl, x, ty) : x;
-@@ -2944,6 +3411,8 @@
+@@ -2944,6 +3517,8 @@
      }
      case "Ref":
      case "App": {
@@ -513,7 +619,7 @@
        const m = term_spine(fl, x);
        if (m.k !== null) {
          return js_call(fl, m.k, m.xs, false);
-@@ -3022,6 +3491,10 @@
+@@ -3022,6 +3597,10 @@
    }
    if (args.length > 0) {
      return js_func(fl, term_eta(fl.book, x, ty!, 1), ty, args);
