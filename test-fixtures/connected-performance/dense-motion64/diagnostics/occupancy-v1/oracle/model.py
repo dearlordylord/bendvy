@@ -146,7 +146,7 @@ def derive(count, iterations):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--count', type=int, choices=[64, 256], default=64)
+    parser.add_argument('--count', type=int, choices=[64, 256, 1024], default=64)
     parser.add_argument('--iterations', type=int, choices=[64], default=64)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
@@ -167,6 +167,13 @@ def main():
     for name, rows in [('expected.stats.json', records64), ('counter.stats.json', counter64)]:
         raw = render_records(rows)
         assert dict(bytes=len(raw), sha256=sha(raw)) == prior['outputs'][name]
+    prior256 = json.loads((HERE / 'COUNT-EXPECTED.json').read_text())['256']
+    normal256, records256, counter256, _ = derive(256, 64)
+    for name, raw in normal256.items():
+        assert dict(bytes=len(raw), sha256=sha(raw)) == prior256['normalOutputs'][name]
+    for name, rows in [('expected.stats.json', records256), ('counter.stats.json', counter256)]:
+        raw = render_records(rows)
+        assert dict(bytes=len(raw), sha256=sha(raw)) == prior256['outputs'][name]
     normal, records, counter, changed = preserved if args.count == 64 else derive(args.count, args.iterations)
     args.output.mkdir(parents=True)
     outputs = {}
@@ -177,6 +184,7 @@ def main():
     receipt = dict(status='PASS', count=args.count, iterations=args.iterations,
                    sourceBasisSHA256=sha((HERE / 'SOURCE-BASIS.json').read_bytes()),
                    fullNormalIdentical=True, preserved64='EXACT_INDEXED_NORMAL_AND_BOTH_SIDECARS',
+                   preserved256='EXACT_INDEXED_NORMAL_AND_BOTH_SIDECARS',
                    normalOutputs={k: dict(bytes=len(v), sha256=sha(v)) for k, v in normal.items()},
                    reportsPerWorld=[len(r['reports']) for r in records],
                    appendRecordsPerWorld=[sum(len(r['sample']['tx']['boundaries']) for r in w['reports']) for w in records],
