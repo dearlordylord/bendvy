@@ -17,12 +17,15 @@ import ./capabilities.bend as Cap
 # Operational transaction authority never enters the detached read-only query.
 type Declaration<-S:Data,-H:Type,-G:Type,-IH:Type,-V:Data> is Type:
   Declaration{operational:Unit -> N.Declaration<S,H,G>,inspection:Unit -> P.DeclaredSelection<IH,S,V>}
+  PreparedDeclaration{operational:Unit -> N.Declaration<S,H,G>,inspection:Unit -> P.DeclaredSelection<IH,S,V>,enumerate:IH -> IH & List<&2,IQ.ProjectedRow<S,V>>}
 def operational(~S:Data,~H:Type,~G:Type,~IH:Type,~V:Data,declaration:Declaration<S,H,G,IH,V>) -> N.Declaration<S,H,G>:
   match declaration:
     case Declaration{operational,_}:operational(Unit{})
+    case PreparedDeclaration{operational,_,_}:operational(Unit{})
 def inspection(~S:Data,~H:Type,~G:Type,~IH:Type,~V:Data,declaration:Declaration<S,H,G,IH,V>) -> P.DeclaredSelection<IH,S,V>:
   match declaration:
     case Declaration{_,inspection}:inspection(Unit{})
+    case PreparedDeclaration{_,inspection,_}:inspection(Unit{})
 def clauses(~S:Data,~H:Type,~G:Type,~IH:Type,~V:Data,declaration:Declaration<S,H,G,IH,V>) -> List<&2,N.Clause<S>>:
   N.clauses(~S,~H,~G,operational(~S,~H,~G,~IH,~V,declaration))
 
@@ -49,8 +52,14 @@ def changed(~S:Data,~Store:Type,~Rest:Type,~Payload:Type,~V:Data,~Token:Data,~ta
 
 def pair(~S:Data,~H:Type,~L:Type,~R:Type,~IH:Type,~LV:Data,~RV:Data,~left:Declaration<S,H,L,IH,LV>,~right:Declaration<S,H,R,IH,RV>) -> Declaration<S,H,L & R,IH,P.Product<LV,RV>>:
   Declaration{_=>(N.pair(~S,~H,~L,~R,~operational(~S,~H,~L,~IH,~LV,left),~operational(~S,~H,~R,~IH,~RV,right))),_=>(P.pair(~IH,~S,~LV,~RV,~inspection(~S,~H,~L,~IH,~LV,left),~inspection(~S,~H,~R,~IH,~RV,right)))}
+def prepared_query(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,~selection:P.DeclaredSelection<I.Frame<S,Store,R,E>,S,V>,enumerate:I.Frame<S,Store,R,E> -> I.Frame<S,Store,R,E> & List<&2,IQ.ProjectedRow<S,V>>) -> IQ.ComposedReadQuery<I.Frame<S,Store,R,E>,S,V>:
+  IQ.ComposedReadQuery{enumerate,owner=>target=>IQ.get_composed(~I.Frame<S,Store,R,E>,~S,~V,~IQ.grant_composed(~I.Frame<S,Store,R,E>,~S,~V,~selection,~IW.inspect_world(~S,~Store,~R,~E)),owner,target)}
+def inspect_query_value(~S:Data,~Store:Type,~R:Type,~E:Data,~H:Type,~G:Type,~V:Data,~declaration:Declaration<S,H,G,I.Frame<S,Store,R,E>,V>,kind:Declaration<S,H,G,I.Frame<S,Store,R,E>,V>) -> IQ.ComposedReadQuery<I.Frame<S,Store,R,E>,S,V>:
+  match kind:
+    case Declaration{_,_}:IQ.grant_composed(~I.Frame<S,Store,R,E>,~S,~V,~inspection(~S,~H,~G,~I.Frame<S,Store,R,E>,~V,declaration),~IW.inspect_world(~S,~Store,~R,~E))
+    case PreparedDeclaration{_,_,enumerate}:prepared_query(~S,~Store,~R,~E,~V,~inspection(~S,~H,~G,~I.Frame<S,Store,R,E>,~V,declaration),enumerate)
 def inspect_query(~S:Data,~Store:Type,~R:Type,~E:Data,~H:Type,~G:Type,~V:Data,~declaration:Declaration<S,H,G,I.Frame<S,Store,R,E>,V>) -> IQ.ComposedReadQuery<I.Frame<S,Store,R,E>,S,V>:
-  IQ.grant_composed(~I.Frame<S,Store,R,E>,~S,~V,~inspection(~S,~H,~G,~I.Frame<S,Store,R,E>,~V,declaration),~IW.inspect_world(~S,~Store,~R,~E))
+  inspect_query_value(~S,~Store,~R,~E,~H,~G,~V,~declaration,declaration)
 
 def write_displayed(~S:Data,~Store:Type,~Rest:Type,~Payload:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,Payload>,~put:Rest -> Col.Column<S,Payload> -> Store,~view:Payload -> Payload & V,~R:Type,~E:Data,~display:V -> String,~binding:B.Binding<S,Store,Rest,Payload,V,Token,take,put,view>) -> Declaration<S,Q.Frame<S,Store,R,E>,Cap.Write<Q.Frame<S,Store,R,E>,Payload,V>,I.Frame<S,Store,R,E>,C.Access<V>>:
   Declaration{_=>(N.write_displayed(~S,~Payload,~Store,~R,~E,~Rest,~V,~Token,~B.identity(~S,~Store,~Rest,~Payload,~V,~Token,~take,~put,~view,binding),~view,~display,~take,~put)),_=>(F.inspect_slot(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~view,~binding,~Families.Required{}))}

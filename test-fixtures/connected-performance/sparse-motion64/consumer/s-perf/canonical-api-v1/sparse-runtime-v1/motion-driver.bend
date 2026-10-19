@@ -1,4 +1,5 @@
 import Base
+import ../../../../../../../src/ecs/ordinary-query-builder.bend as Builder
 import motion.bend as F
 import types.bend as T
 import motion-scans.bend as Scans
@@ -37,7 +38,7 @@ type Status is Data:
 type Shared is Type:
   Shared{audit:List<&2,Audit>,statuses:List<&2,Status>,cumulative:U32}
 def query() -> Observable.Declaration<T.MotionSchema,Q.Frame<T.MotionSchema,F.Store(),F.Resources(),Nat>,F.Ops(Q.Frame<T.MotionSchema,F.Store(),F.Resources(),Nat>),Inspector.Frame<T.MotionSchema,F.Store(),F.Resources(),Nat>,Logical.Value()>:
-  Observable.Declaration{_=>F.declaration(),_=>Observable.inspection(~T.MotionSchema,~Logical.Frame(),~Logical.Ops(Logical.Frame()),~Logical.InspectFrame(),~Logical.Value(),Logical.declaration())}
+  Builder.finish(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Logical.Frame(),~F.Ops(Logical.Frame()),~Logical.Value(),~Builder.replace_operational(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Logical.Frame(),~Logical.Ops(Logical.Frame()),~F.Ops(Logical.Frame()),~Logical.Value(),~F.declaration(),~Logical.builder()))
 def render(value:Logical.Value()) -> String:"Sparse row"
 def Registered() -> Type:Component.Application(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)
 def Runtime() -> Type:Component.execution_owners(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)

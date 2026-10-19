@@ -309,3 +309,18 @@ and rejects normal on both backends; focused attachment refusals preserve all
 32,103 independent bytes. Four positive/six intended authority refusals pass.
 Independent [Spec/Standards review](../../experiments/public-conditions/checked-reader-v1/FINAL-REVIEW.md)
 passes; integrated `77beba95a`, CI38914934433 PASS.
+
+### Ordinary query setup with a retained read recipe
+
+[ordinary-query-builder.bend](../../src/ecs/ordinary-query-builder.bend) is a supported
+setup entry for `read`, `optional` and `pair`. Import it as `Builder`, declare each
+component binding once, compose the builders, then call `Builder.finish` to obtain
+the existing ordinary `Declaration`. Registration and gameplay query methods stay
+the same. The [Sparse query example](../../test-fixtures/connected-performance/sparse-motion64/consumer/s-perf/canonical-api-v1/sparse-runtime-v1/motion-logical.bend)
+and its [registered entry](../../test-fixtures/connected-performance/sparse-motion64/consumer/s-perf/canonical-api-v1/sparse-runtime-v1/motion-driver.bend)
+show this setup, including retention of an existing operational declaration.
+
+The original two-field `Declaration` remains available for opaque declarations.
+For unsupported forms or mixed composition, finish the recognized builder and use
+ordinary `pair`; this preserves the generic evaluator. This slice does not claim
+that every query form uses compact sessions or that performance is qualified.

@@ -367,7 +367,7 @@ def view_taken(~S: Data, ~C: Type, ~V: Data, ~project: C -> C & V, id: U32, outc
 # is opt-in; unused prepared storage must not add temporary swap-owner transport.
 def plain_view_projected(~S:Data,~C:Type,~V:Data,values:Array<Maybe<&1,C>>,stamps:List<&2,L.Entry>,id:U32,result:C & V) -> Column<S,C> & Maybe<&2,V>:
   match result:
-    case (owner,projection): restored(~S,~C,~V,Array.swap(Maybe<&1,C>,values,U32.sub(id,1),Some{owner}),projection,stamps)
+    case (owner,projection): (Column{Array.set(Maybe<&1,C>,values,U32.sub(id,1),Some{owner}),stamps},Some{projection})
 def plain_view_taken(~S:Data,~C:Type,~V:Data,~project:C -> C & V,stamps:List<&2,L.Entry>,id:U32,result:Array<Maybe<&1,C>> & Maybe<&1,C>) -> Column<S,C> & Maybe<&2,V>:
   match result:
     case (values,None{}): (Column{values,stamps},None{})

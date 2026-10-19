@@ -1,4 +1,5 @@
 import Base
+import ../../../../../../../src/ecs/ordinary-query-builder.bend as Builder
 import motion.bend as F
 import types.bend as T
 import payload.bend as P
@@ -16,16 +17,18 @@ def Frame() -> Type:Q.Frame<T.MotionSchema,F.Store(),F.Resources(),Nat>
 def InspectFrame() -> Type:I.Frame<T.MotionSchema,F.Store(),F.Resources(),Nat>
 def Ops(H:Type) -> Type:Cap.Read<H,T.PositionView> & (Cap.Read<H,T.VelocityView> & Cap.Read<H,T.Selected>)
 def Value() -> Data:Projection.Product<Cmp.Access<T.PositionView>,Projection.Product<Cmp.Access<T.VelocityView>,Cmp.Access<T.Selected>>>
-def main() -> O.Declaration<T.MotionSchema,Frame(),Cap.Read<Frame(),T.PositionView>,InspectFrame(),Cmp.Access<T.PositionView>>:
-  O.read(~T.MotionSchema,~F.Store(),~F.Rest(),~T.Position,~T.PositionView,~T.PositionToken,~F.take_main,~F.put_main,~P.position_get,~F.Resources(),~Nat,~Binding.bind(~T.MotionSchema,~F.Store(),~F.Rest(),~T.Position,~T.PositionView,~T.PositionToken,~F.take_main,~F.put_main,~P.position_get,F.main_identity()))
-def aux() -> O.Declaration<T.MotionSchema,Frame(),Cap.Read<Frame(),T.VelocityView>,InspectFrame(),Cmp.Access<T.VelocityView>>:
-  O.optional(~T.MotionSchema,~F.Store(),~F.AuxRest(),~T.Velocity,~T.VelocityView,~T.VelocityToken,~F.take_aux,~F.put_aux,~P.velocity_get,~F.Resources(),~Nat,~Binding.bind(~T.MotionSchema,~F.Store(),~F.AuxRest(),~T.Velocity,~T.VelocityView,~T.VelocityToken,~F.take_aux,~F.put_aux,~P.velocity_get,F.aux_identity()))
-def flag() -> O.Declaration<T.MotionSchema,Frame(),Cap.Read<Frame(),T.Selected>,InspectFrame(),Cmp.Access<T.Selected>>:
-  O.optional(~T.MotionSchema,~F.Store(),~F.FlagRest(),~T.Selected,~T.Selected,~T.Selected,~F.take_flag,~F.put_flag,~F.flag_view,~F.Resources(),~Nat,~Binding.bind(~T.MotionSchema,~F.Store(),~F.FlagRest(),~T.Selected,~T.Selected,~T.Selected,~F.take_flag,~F.put_flag,~F.flag_view,F.flag_identity()))
-def tail() -> O.Declaration<T.MotionSchema,Frame(),Cap.Read<Frame(),T.VelocityView> & Cap.Read<Frame(),T.Selected>,InspectFrame(),Projection.Product<Cmp.Access<T.VelocityView>,Cmp.Access<T.Selected>>>:
-  O.pair(~T.MotionSchema,~Frame(),~Cap.Read<Frame(),T.VelocityView>,~Cap.Read<Frame(),T.Selected>,~InspectFrame(),~Cmp.Access<T.VelocityView>,~Cmp.Access<T.Selected>,~aux(),~flag())
+def main() -> Builder.Builder<T.MotionSchema,F.Store(),F.Resources(),Nat,Frame(),Cap.Read<Frame(),T.PositionView>,Cmp.Access<T.PositionView>>:
+  Builder.read(~T.MotionSchema,~F.Store(),~F.Rest(),~T.Position,~T.PositionView,~T.PositionToken,~F.take_main,~F.put_main,~P.position_get,~F.Resources(),~Nat,~Binding.bind(~T.MotionSchema,~F.Store(),~F.Rest(),~T.Position,~T.PositionView,~T.PositionToken,~F.take_main,~F.put_main,~P.position_get,F.main_identity()))
+def aux() -> Builder.Builder<T.MotionSchema,F.Store(),F.Resources(),Nat,Frame(),Cap.Read<Frame(),T.VelocityView>,Cmp.Access<T.VelocityView>>:
+  Builder.optional(~T.MotionSchema,~F.Store(),~F.AuxRest(),~T.Velocity,~T.VelocityView,~T.VelocityToken,~F.take_aux,~F.put_aux,~P.velocity_get,~F.Resources(),~Nat,~Binding.bind(~T.MotionSchema,~F.Store(),~F.AuxRest(),~T.Velocity,~T.VelocityView,~T.VelocityToken,~F.take_aux,~F.put_aux,~P.velocity_get,F.aux_identity()))
+def flag() -> Builder.Builder<T.MotionSchema,F.Store(),F.Resources(),Nat,Frame(),Cap.Read<Frame(),T.Selected>,Cmp.Access<T.Selected>>:
+  Builder.optional(~T.MotionSchema,~F.Store(),~F.FlagRest(),~T.Selected,~T.Selected,~T.Selected,~F.take_flag,~F.put_flag,~F.flag_view,~F.Resources(),~Nat,~Binding.bind(~T.MotionSchema,~F.Store(),~F.FlagRest(),~T.Selected,~T.Selected,~T.Selected,~F.take_flag,~F.put_flag,~F.flag_view,F.flag_identity()))
+def tail() -> Builder.Builder<T.MotionSchema,F.Store(),F.Resources(),Nat,Frame(),Cap.Read<Frame(),T.VelocityView> & Cap.Read<Frame(),T.Selected>,Projection.Product<Cmp.Access<T.VelocityView>,Cmp.Access<T.Selected>>>:
+  Builder.pair(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Frame(),~Cap.Read<Frame(),T.VelocityView>,~Cap.Read<Frame(),T.Selected>,~Cmp.Access<T.VelocityView>,~Cmp.Access<T.Selected>,~aux(),~flag())
+def builder() -> Builder.Builder<T.MotionSchema,F.Store(),F.Resources(),Nat,Frame(),Ops(Frame()),Value()>:
+  Builder.pair(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Frame(),~Cap.Read<Frame(),T.PositionView>,~(Cap.Read<Frame(),T.VelocityView> & Cap.Read<Frame(),T.Selected>),~Cmp.Access<T.PositionView>,~Projection.Product<Cmp.Access<T.VelocityView>,Cmp.Access<T.Selected>>,~main(),~tail())
 def declaration() -> O.Declaration<T.MotionSchema,Frame(),Ops(Frame()),InspectFrame(),Value()>:
-  O.pair(~T.MotionSchema,~Frame(),~Cap.Read<Frame(),T.PositionView>,~(Cap.Read<Frame(),T.VelocityView> & Cap.Read<Frame(),T.Selected>),~InspectFrame(),~Cmp.Access<T.PositionView>,~Projection.Product<Cmp.Access<T.VelocityView>,Cmp.Access<T.Selected>>,~main(),~tail())
+  Builder.finish(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Frame(),~Ops(Frame()),~Value(),~builder())
 def Rows() -> Data:List<&2,IQ.ProjectedRow<T.MotionSchema,Value()>>
 def unpack(observed:InspectFrame() & Rows()) -> F.World() & Rows():
   match observed:
