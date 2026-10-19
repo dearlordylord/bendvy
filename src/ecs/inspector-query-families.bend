@@ -19,9 +19,9 @@ def slot_mode(value:SlotMode) -> P.Selection:
 def inspect_joined(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,cursor:U32,observed:W.World<S,Store,R,E> & C.Access<V>) -> I.Frame<S,Store,R,E> & C.Access<V>:
   (world,value)=observed
   (I.Frame{world,cursor},value)
-def inspect_read(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~Payload:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,Payload>,~put:Rest -> Col.Column<S,Payload> -> Store,~project:Payload -> Payload & V,~family:C.Family<S,Store,Rest,Payload,V,Token,take,put,project>,frame:I.Frame<S,Store,R,E>,target:W.Handle<S>) -> I.Frame<S,Store,R,E> & C.Access<V>:
+def inspect_read(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~Payload:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,Payload>,~put:Rest -> Col.Column<S,Payload> -> Store,~project:Payload -> Payload & V,~family:C.Family<S,Store,Rest,Payload,V,Token,take,put,project>,frame:I.Frame<S,Store,R,E>,+target:W.Handle<S>) -> I.Frame<S,Store,R,E> & C.Access<V>:
   match frame:
-    case I.Frame{world,cursor}:inspect_joined(~S,~Store,~R,~E,~V,cursor,C.get(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~project,family,world,target))
+    case I.Frame{world,cursor}:inspect_joined(~S,~Store,~R,~E,~V,cursor,C.get_allowed(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~project,W.valid(~S,~Store,~R,~E,world,target),target))
 def inspect_matched(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,mode:P.Selection,observed:I.Frame<S,Store,R,E> & C.Access<V>) -> I.Frame<S,Store,R,E> & Bool:
   (frame,value)=observed
   (frame,P.selected_value(~V,mode,value))
