@@ -1,0 +1,5 @@
+# FailedTxn Motion256 comparative input
+
+This input uses the unchanged qualified `../comparative-v1/method/pilot.bend` and `../comparative-v1/reference.mjs` with arguments `256 64 warmup.ns sample.ns`. The Bend pilot passes the parsed count to `Scenario.prepare`; the TS reference seeds that count and retains 64 business iterations. The original callback bodies, declarations, owners, transactions, reader cursors, barriers, public reads and both complete timed carriers are unchanged. Reuse the qualified compiled artifacts only with their exact producer/source bindings.
+
+The independent model must first reproduce the original Motion256 canonical and full semantic controls, then derive the complete comparative common and own-role public carriers from actual count-sized state. The 64-iteration callback/schedule/boundary chronology stays fixed; rows, initial actors, handle indices and complete encoded cell counts must derive from 256 rather than scale a 64-case wire. This leaf has no runtime qualification yet. No comparative performance, clock accuracy, RSS or numerical decision is established.
