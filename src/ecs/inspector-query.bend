@@ -146,17 +146,21 @@ def composed_unwrap_scan(~H:Type,~S:Data,~V:Data,result:ScanResult<H,S,V>) -> H 
     case ScanResult{owner,rows}:(owner,rows)
     case ScanResultLink{next}:composed_unwrap_scan(~H,~S,~V,next)
 
-def composed_scan_projected(~H:Type,~S:Data,~V:Data,target:W.Handle<S>,rows:List<&2,ProjectedRow<S,V>>,continue:H -> List<&2,ProjectedRow<S,V>> -> ScanResult<H,S,V>,observed:H & V) -> ScanResult<H,S,V>:
+def composed_fold_projected(~H:Type,~S:Data,~V:Data,target:W.Handle<S>,rows:List<&2,ProjectedRow<S,V>>,observed:H & V) -> H & List<&2,ProjectedRow<S,V>>:
   (owner,value)=observed
-  continue(owner,ProjectedRow{target,value} <> rows)
-def composed_scan_matched(~H:Type,~S:Data,~V:Data,project:H -> W.Handle<S> -> H & V,+target:W.Handle<S>,rows:List<&2,ProjectedRow<S,V>>,continue:H -> List<&2,ProjectedRow<S,V>> -> ScanResult<H,S,V>,observed:H & Bool) -> ScanResult<H,S,V>:
+  (owner,ProjectedRow{target,value} <> rows)
+def composed_fold_matched(~H:Type,~S:Data,~V:Data,~project:H -> W.Handle<S> -> H & V,+target:W.Handle<S>,rows:List<&2,ProjectedRow<S,V>>,observed:H & Bool) -> H & List<&2,ProjectedRow<S,V>>:
   match observed:
-    case (owner,False{}):continue(owner,rows)
-    case (owner,True{}):composed_scan_projected(~H,~S,~V,target,rows,continue,project(owner,target))
+    case (owner,False{}):(owner,rows)
+    case (owner,True{}):composed_fold_projected(~H,~S,~V,target,rows,project(owner,target))
+def composed_fold_step(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,acc:H & List<&2,ProjectedRow<S,V>>,+target:W.Handle<S>) -> H & List<&2,ProjectedRow<S,V>>:
+  (owner,rows)=acc
+  composed_fold_matched(~H,~S,~V,~Q.project_field(~H,~S,~V,selection),target,rows,Q.matches_field(~H,~S,~V,selection)(owner,target))
+def composed_fold_done(~H:Type,~S:Data,~V:Data,observed:H & List<&2,ProjectedRow<S,V>>) -> ScanResult<H,S,V>:
+  (owner,rows)=observed
+  ScanResult{owner,List.reverse(&2,ProjectedRow<S,V>,rows)}
 def composed_scan(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,targets:List<&2,W.Handle<S>>,owner:H,rows:List<&2,ProjectedRow<S,V>>) -> ScanResult<H,S,V>:
-  match targets:
-    case []:ScanResult{owner,List.reverse(&2,ProjectedRow<S,V>,rows)}
-    case +target <> rest:composed_scan_matched(~H,~S,~V,Q.project_field(~H,~S,~V,selection),target,rows,(owner => rows => composed_scan(~H,~S,~V,~selection,rest,owner,rows)),Q.matches_field(~H,~S,~V,selection)(owner,target))
+  composed_fold_done(~H,~S,~V,List.foldl(~&2,~W.Handle<S>,~(H & List<&2,ProjectedRow<S,V>>),~(acc => target => composed_fold_step(~H,~S,~V,~selection,acc,target)),targets,(owner,rows)))
 def composed_scanned(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,observed:H & List<&2,W.Handle<S>>) -> H & List<&2,ProjectedRow<S,V>>:
   (owner,targets)=observed
   composed_unwrap_scan(~H,~S,~V,composed_scan(~H,~S,~V,~selection,targets,owner,[]))
