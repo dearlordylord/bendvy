@@ -6,6 +6,9 @@ import ./component.bend as F
 import ./world.bend as W
 import ./transaction.bend as T
 
+# Deferred structural admission result. Queued owns the updated transaction;
+# QueueRejected returns the transaction, incoming optional affine payload and
+# World error. Acceptance is not proof the command will apply at its barrier.
 type Queued<Tx: Type,C: Type> is Type:
   Queued{tx: Tx}
   QueueRejected{tx: Tx,incoming: Maybe<&1,C>,error: W.WorldError}
@@ -28,13 +31,26 @@ def queue_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: 
   (world,allowed) = checked
   queue_checked(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,allowed,family,world,undo,commands,events,trace,handle,incoming)
 
+# Stage a deferred optional replacement for a currently live checked handle.
+# Foreign/stale/not-live targets return QueueRejected with incoming owner and
+# unchanged queue. Accepted commands own incoming until commit/barrier or
+# discard; the transaction does not expose the replacement immediately.
+# Barrier application revalidates through component.replace. This lower-level
+# adapter drops displaced or later-rejected payload receipts; it does not
+# return them to the original caller or invoke a user finalizer.
 def tx_replace(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,+handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
   match tx:
     case T.Tx{world,undo,commands,events,trace}: queue_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,W.valid(~S,~Store,~R,~E,world,handle),undo,commands,events,trace,handle,incoming)
 
+# Stage Some incoming through tx_replace. Immediate refusal returns the
+# original payload in QueueRejected; acceptance consumes it into the deferred
+# command. Visibility and late refusal follow tx_replace/explicit barriers.
 def tx_insert(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,handle: W.Handle<S>,incoming: C) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
   tx_replace(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle,Some{incoming})
 
+# Stage None through tx_replace, without removing the component now.
+# Returns Queued or immediate QueueRejected. Ordinary removal here publishes
+# no removal notice; use tx_remove_observed for an explicit notice callback.
 def tx_remove(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,handle: W.Handle<S>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
   tx_replace(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle,None{})
 
@@ -57,6 +73,11 @@ def removed_queue_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: T
   (world,allowed) = checked
   removed_queue_checked(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~record,allowed,family,world,undo,commands,events,trace,handle,incoming)
 
+# Stage removal plus a Data notice callback. Immediate invalid-handle
+# refusal changes no queue. At the barrier a notice is published only when
+# replacement succeeds and a component owner was actually displaced. No
+# notice is emitted for absent/already-invalid targets; this does not return
+# the removed payload or invent finalization of user-owned resources.
 def tx_remove_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~record: W.Handle<S> -> E,family: F.Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,+handle: W.Handle<S>) -> Queued<T.Tx<W.World<S,Store,R,E>,E>,C>:
   match tx:
     case T.Tx{world,undo,commands,events,trace}: removed_queue_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~record,family,W.valid(~S,~Store,~R,~E,world,handle),undo,commands,events,trace,handle,None{})
