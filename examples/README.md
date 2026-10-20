@@ -82,6 +82,8 @@ not a list of every runtime helper or a claim that all capability APIs are cover
 | Compose owned event publication declarations | [ordinary-owned-event-declaration](../src/ecs/ordinary-owned-event-declaration.bend) |
 | Spawn or clean up scoped entities | [ordinary-lifetime-scope](../src/ecs/ordinary-lifetime-scope.bend), [ordinary-lifetime-scope-io](../src/ecs/ordinary-lifetime-scope-io.bend) |
 | Read machine state, queue transitions and run handlers | [ordinary-machine-declaration](../src/ecs/ordinary-machine-declaration.bend), [ordinary-machine-operations](../src/ecs/ordinary-machine-operations.bend), [ordinary-machine-handler-bundle](../src/ecs/ordinary-machine-handler-bundle.bend) |
+| Inspect values or evaluate cursor-free checks | [inspector](../src/ecs/inspector.bend), [check](../src/ecs/check.bend) |
+| Save eligible world data and validate/apply a restore | [snapshot.save](../src/ecs/snapshot.bend), [restore-public](../src/ecs/restore-public.bend), [restore-save](../src/ecs/restore-save.bend) |
 
 Raw storage lenses, constructors and arbitrary world-transforming callbacks are
 trusted setup/adapter APIs. Use the declared capabilities inside system bodies;

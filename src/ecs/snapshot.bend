@@ -17,5 +17,14 @@ def rows(~S:Data,~C:Type,~components:U32 -> C -> C & List<&2,D.Field>,handles:Li
     case W.Handle{_,+id} <> rest:stepped(~C,next => rows(~S,~C,~components,rest,next),id,components(Key.index(id),owner))
 # Public call requires the SAME complete ordinary schema to be save-eligible.
 # Plain leaves propagate False through product and cannot call this method.
+# Export version-1 detached entity/component/resource Data and allocator progress,
+# returning the live World owner through every projection. Live handles supply
+# saved keys; this is not a runtime checkpoint or an implicit structural barrier.
+# The complete schema must carry True eligibility: persisted leaves use declared
+# projections/codecs, while explicit transient leaves are omitted. Closed schema
+# projections and name bindings remain trusted setup, not arbitrary descriptor
+# validation inferred from this wrapper. The save contains no registration owners,
+# pending commands, reader positions or event-log checkpoint.
+# See docs/parity/snapshot-export.md and its ordinary constructor/save consumer.
 def save(~S:Data,~C:Type,~R:Type,~E:Data,~components:U32 -> C -> C & List<&2,D.Field>,~resources:R -> R & List<&2,D.Field>,schema:Schema.Schema<S,C,R,True{},components,resources>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & Export.Snapshot:
   Export.basic(~S,~C,~R,~E,~rows(~S,~C,~components),~resources,world)
