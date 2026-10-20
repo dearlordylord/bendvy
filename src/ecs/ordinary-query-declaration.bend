@@ -127,7 +127,7 @@ def pair_parts(~S:Data,~H:Type,~L:Type,~R:Type,left:Declaration<S,H,L>,right:Dec
 # Nest pair to combine more than two selections; it does not impose a row order.
 # Example: examples/scheduled-health/registration.bend defines query().
 def pair(~S:Data,~H:Type,~L:Type,~R:Type,~left:Declaration<S,H,L>,~right:Declaration<S,H,R>) -> Declaration<S,H,L & R>:
-  pair_parts(~S,~H,~L,~R,left,right)
+  Declaration{(grant(~S,~H,~L,left),grant(~S,~H,~R,right)),both(~H,~selector(~S,~H,~L,left),~selector(~S,~H,~R,right)),List.append(&2,Clause<S>,clauses(~S,~H,~L,left),clauses(~S,~H,~R,right))}
 
 # Require this component and grant read access to its detached Data view.
 # identity and the storage binding must describe the same schema component.
