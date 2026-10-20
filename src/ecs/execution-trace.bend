@@ -37,7 +37,7 @@ type TraceEvent<Error:Data> is Data:
 # keeping or dropping a copied batch does not acknowledge an ECS event reader.
 type Batch<Error:Data> is Data:
   Disabled{}
-  Ready{events:List<&2,TraceEvent<Error>>}
+  BendvyReady{events:List<&2,TraceEvent<Error>>}
 
 # Each subscription is its actual affine state owner, not a copied callback.
 # The erased reusable step is supplied as a top-level definition.
@@ -68,7 +68,7 @@ def delivered(~State:Type,~Error:Data,~step:State -> TraceEvent<Error> -> State,
 def deliver(~State:Type,~Error:Data,~step:State -> TraceEvent<Error> -> State,value:Subscriber<State,Error,step>,batch:Batch<Error>) -> Subscriber<State,Error,step>:
   match value batch:
     case subscriber Disabled{}:subscriber
-    case Subscriber{state} Ready{events}:Subscriber{delivered(~State,~Error,~step,events,state)}
+    case Subscriber{state} BendvyReady{events}:Subscriber{delivered(~State,~Error,~step,events,state)}
 
 # Generic owner composition has no arity or subscriber-count bound. Order is
 # left then right; each reusable delivery function can itself be another pair.

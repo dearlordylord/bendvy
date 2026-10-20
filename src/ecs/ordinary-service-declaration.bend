@@ -13,7 +13,7 @@ import ./schema-fragments.bend as Fragment
 # This is provisioned resource state, not proof that external host IO will succeed.
 type Slot<P:Type> is Type:
   Missing{}
-  Ready{owner:P}
+  BendvyReady{owner:P}
 # Trusted service binding joins id/key with one resource slot lens and P -> P call.
 # The same binding drives requirements, availability and invocation; strings alone
 # do not grant arbitrary host access. take/put/call must thread actual owners.
@@ -43,7 +43,7 @@ def key(~S:Data,~R:Type,~P:Type,~Rest:Type,~take:R -> Rest & Slot<P>,~put:Rest -
 def slot_observed(~S:Data,~R:Type,~P:Type,~Rest:Type,~take:R -> Rest & Slot<P>,~put:Rest -> Slot<P> -> R,~call:P -> P,declaration:Declaration<S,R,P,Rest,take,put,call>,value:Rest & Slot<P>) -> R & Status<S>:
   match declaration value:
     case Declaration{+id,+key}, (rest,Missing{}):(put(rest,Missing{}),Status{id,key,False{}})
-    case Declaration{+id,+key}, (rest,Ready{owner}):(put(rest,Ready{owner}),Status{id,key,True{}})
+    case Declaration{+id,+key}, (rest,BendvyReady{owner}):(put(rest,BendvyReady{owner}),Status{id,key,True{}})
 def world_restored(~S:Data,~C:Type,~R:Type,~E:Data,+ns:U32,allocator:Alloc.Allocator,store:C,+events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,value:R & Status<S>) -> W.World<S,C,R,E> & List<&2,Status<S>>:
   match value:
     case (resource,status):(W.World{ns,allocator,store,resource,events,pending,registrations,nextSystem,clock},[status])
@@ -94,7 +94,7 @@ def provision(~S:Data,~C:Type,~R:Type,~E:Data,~scan:W.World<S,C,R,E> -> W.World<
 def slot_called(~R:Type,~P:Type,~Rest:Type,~put:Rest -> Slot<P> -> R,~call:P -> P,value:Rest & Slot<P>) -> R:
   match value:
     case (rest,Missing{}):put(rest,Missing{})
-    case (rest,Ready{owner}):put(rest,Ready{call(owner)})
+    case (rest,BendvyReady{owner}):put(rest,BendvyReady{call(owner)})
 # Registered service runner: if Ready, call consumes/returns actual P once and is
 # put back; Missing is a successful no-op here. Schedule preflight is separate.
 # No Tx journal, host exception recovery or rollback of external effects is added.

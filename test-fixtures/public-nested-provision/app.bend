@@ -15,7 +15,7 @@ type Token is Data:
   Token{}
 type Slot is Type:
   Missing{}
-  Ready{owner:Array<U32>}
+  BendvyReady{owner:Array<U32>}
   Incompatible{owner:Array<U32>}
 type OtherStore is Type:
   OtherStore{column:Col.Column<Other,Array<U32>>}
@@ -65,7 +65,7 @@ def empty(_:Unit) -> Store:
 def slot(mode:U32,+value:U32) -> Slot:
   match mode:
     case 0: Missing{}
-    case 1: Ready{ANode{ALeaf{value},ALeaf{(value+100:U32)}}}
+    case 1: BendvyReady{ANode{ALeaf{value},ALeaf{(value+100:U32)}}}
     case _: Incompatible{ANode{ALeaf{value},ALeaf{(value+100:U32)}}}
 def resource_start(mode:U32) -> Resources:
   match mode:
@@ -77,13 +77,13 @@ def resource_start(mode:U32) -> Resources:
     case _: Resources{slot(1,20),slot(1,30),0,0,0,[],[]}
 def service(value:Slot,+calls:U32) -> Slot & U32:
   match value:
-    case Ready{owner}: (Ready{owner},U32.add(calls,1))
+    case BendvyReady{owner}: (BendvyReady{owner},U32.add(calls,1))
     case value: (value,calls)
 def resource_mutated(owner:Array<U32>,+count:U32,+id:U32) -> Slot & U32:
-  (Ready{Array.set(U32,owner,0,id)},U32.add(count,1))
+  (BendvyReady{Array.set(U32,owner,0,id)},U32.add(count,1))
 def resource_write(value:Slot,count:U32,id:U32) -> Slot & U32:
   match value:
-    case Ready{owner}: resource_mutated(owner,count,id)
+    case BendvyReady{owner}: resource_mutated(owner,count,id)
     case value: (value,count)
 def complete_side_effects(world:W.World<Schema,Store,Resources,U32>,+id:U32,r:Slot & U32,s:Slot & U32,conditions:U32,retired:List<Array<U32>>,+trace:List<&2,U32>) -> W.World<Schema,Store,Resources,U32>:
   match world r s:
@@ -126,9 +126,9 @@ def families(compatible:FamilyProvision) -> List<&2,P.Requirement<Schema>>:
     case _: []
 def available_slots(family:FamilyProvision,resource:Slot,host:Slot) -> (Slot & Slot) & List<&2,P.Requirement<Schema>>:
   match resource host:
-    case Ready{r} Ready{s}: ((Ready{r},Ready{s}),List.append(&2,P.Requirement<Schema>,[P.Resource{1},P.Service{1}],families(family)))
-    case Ready{r} host: ((Ready{r},host),List.append(&2,P.Requirement<Schema>,[P.Resource{1}],families(family)))
-    case resource Ready{s}: ((resource,Ready{s}),List.append(&2,P.Requirement<Schema>,[P.Service{1}],families(family)))
+    case BendvyReady{r} BendvyReady{s}: ((BendvyReady{r},BendvyReady{s}),List.append(&2,P.Requirement<Schema>,[P.Resource{1},P.Service{1}],families(family)))
+    case BendvyReady{r} host: ((BendvyReady{r},host),List.append(&2,P.Requirement<Schema>,[P.Resource{1}],families(family)))
+    case resource BendvyReady{s}: ((resource,BendvyReady{s}),List.append(&2,P.Requirement<Schema>,[P.Service{1}],families(family)))
     case resource host: ((resource,host),families(family))
 def provisioned(world:W.World<Schema,Store,Resources,U32>,observed:(Slot & Slot) & List<&2,P.Requirement<Schema>>) -> W.World<Schema,Store,Resources,U32> & List<&2,P.Requirement<Schema>>:
   match world observed:
@@ -170,7 +170,7 @@ def slot_projected(~wrap:Array<U32> -> Slot,result:Array<U32> & List<&2,U32>) ->
   (owner,values)=result
   (wrap(owner),List.show(&2,U32,U32.show,values))
 def ready(owner:Array<U32>) -> Slot:
-  Ready{owner}
+  BendvyReady{owner}
 def bad(owner:Array<U32>) -> Slot:
   Incompatible{owner}
 def incompatible_snapshot(observed:Slot & String) -> Slot & String:
@@ -179,7 +179,7 @@ def incompatible_snapshot(observed:Slot & String) -> Slot & String:
 def slot_snapshot(value:Slot) -> Slot & String:
   match value:
     case Missing{}: (Missing{},"missing")
-    case Ready{owner}: slot_projected(~ready,projected(owner))
+    case BendvyReady{owner}: slot_projected(~ready,projected(owner))
     case Incompatible{owner}: incompatible_snapshot(slot_projected(~bad,projected(owner)))
 def queue_join(head:W.World<Schema,Store,Resources,U32> -> W.World<Schema,Store,Resources,U32>,tail:List<(W.World<Schema,Store,Resources,U32> -> W.World<Schema,Store,Resources,U32>)> & U32) -> List<(W.World<Schema,Store,Resources,U32> -> W.World<Schema,Store,Resources,U32>)> & U32:
   (tail,n)=tail
@@ -207,9 +207,9 @@ def world_snapshot(world:W.World<Schema,Store,Resources,U32>) -> W.World<Schema,
     case W.World{+ns,+next,+high,live,+cap,+depth,Store{column,+family,+cwrites},Resources{resource,host,+rwrites,+calls,+conditions,retired,+trace},+events,pending,+registrations,+nextSystem,+clock}: world_snapshot_join(W.World{ns,next,high,live,cap,depth,Store{Col.Column{ALeaf{None{}},[]},family,cwrites},Resources{Missing{},Missing{},rwrites,calls,conditions,[],trace},events,[],registrations,nextSystem,clock},(slot_snapshot(resource),slot_snapshot(host)),Col.view(~Schema,~Array<U32>,~List<&2,U32>,~projected,column,1),"family=" ++ U32.show(family_code(family)),queue_count(pending),retired_snapshot(retired))
 def repaired_slot(value:Slot,+fresh:U32) -> Slot:
   match value:
-    case Missing{}: Ready{ANode{ALeaf{fresh},ALeaf{(fresh+100:U32)}}}
-    case Ready{owner}: Ready{owner}
-    case Incompatible{owner}: Ready{owner}
+    case Missing{}: BendvyReady{ANode{ALeaf{fresh},ALeaf{(fresh+100:U32)}}}
+    case BendvyReady{owner}: BendvyReady{owner}
+    case Incompatible{owner}: BendvyReady{owner}
 def repair(world:W.World<Schema,Store,Resources,U32>) -> W.World<Schema,Store,Resources,U32>:
   match world:
     case W.World{+ns,+next,+high,live,+cap,+depth,Store{column,_,writes},Resources{resource,host,rwrites,calls,conditions,retired,trace},+events,pending,+registrations,+nextSystem,+clock}: W.World{ns,next,high,live,cap,depth,Store{column,DeclaredFamily{family()},writes},Resources{repaired_slot(resource,20),repaired_slot(host,30),rwrites,calls,conditions,retired,trace},events,pending,registrations,nextSystem,clock}

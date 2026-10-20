@@ -43,7 +43,7 @@ def entities(~State:Type,~Custom:Data,~stage:State -> R.Position -> D.Field -> S
     case Snapshot.Entity{+key,components} <> rest:entity_checked(~State,~Custom,seen(key,previous),key,components,state,next => entities(~State,~Custom,~stage,rest,key <> previous,next),(next => values => fields(~State,~Custom,~stage,R.Component{key},values,next)))
 def finished(~State:Type,~Custom:Data,~release:State -> State,+input:Snapshot.Snapshot,result:Walk<State,Custom>) -> R.Prepared<State,Custom>:
   match result:
-    case Working{state}:R.Ready{state,input}
+    case Working{state}:R.BendvyReady{state,input}
     case Stopped{state,error}:R.Refused{release(state),input,error}
 def header(~State:Type,~Custom:Data,~stage:State -> R.Position -> D.Field -> State & R.Dispatch<Custom>,~release:State -> State,version:Bool,progress:Bool,state:State,+input:Snapshot.Snapshot) -> R.Prepared<State,Custom>:
   match version progress input:

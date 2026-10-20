@@ -12,7 +12,7 @@ type HandlerResult<State:Type,Entry:Type,Phase:Data> is Type:
   Stopped{owners:Owners<Entry>,world:State,phase:Phase,error:String}
 type Prepared<S:Data,K:Data,V:Data> is Data:
   Idle{slot:M.Slot<S,K,V>}
-  Ready{slot:M.Slot<S,K,V>,transition:M.Transition<V>,skipSame:Bool}
+  BendvyReady{slot:M.Slot<S,K,V>,transition:M.Transition<V>,skipSame:Bool}
 def prepend(~S:Data,~State:Type,~Entry:Type,~Phase:Data,~V:Data,~invoke:Entry -> State -> Phase -> V -> V -> Entry & Sys.Outcome<State,String,Unit>,~initial:Entry -> State -> V -> Entry & Sys.Outcome<State,String,Unit>,~exitPhase:Phase,~transitionPhase:Phase,~enterPhase:Phase,head:Entry,tail:PhaseResult<State,Entry>) -> PhaseResult<State,Entry>:
   match tail:
     case Complete{entries,world}: Complete{head <> entries,world}
@@ -40,7 +40,7 @@ def run_initial(~S:Data,~State:Type,~Entry:Type,~Phase:Data,~V:Data,~invoke:Entr
 def choose(~S:Data,~K:Data,~V:Data,skip:Bool,+current:V,+value:V,previous:Maybe<&2,V>,+skipSame:Bool) -> Prepared<S,K,V>:
   match skip:
     case True{}: Idle{M.Present{current,M.NoPending{},previous,False{}}}
-    case False{}: Ready{M.Present{current,M.NoPending{},Some{current},False{}},M.Transition{current,value},skipSame}
+    case False{}: BendvyReady{M.Present{current,M.NoPending{},Some{current},False{}},M.Transition{current,value},skipSame}
 
 def prepare(~S:Data,~K:Data,~V:Data,~same:V -> V -> Bool,slot:M.Slot<S,K,V>,captured:M.Snapshot<V>) -> Prepared<S,K,V>:
   match slot captured:
@@ -79,8 +79,8 @@ def after_exit(~S:Data,~State:Type,~Entry:Type,~Phase:Data,~V:Data,~invoke:Entry
 def prepared(~S:Data,~State:Type,~Entry:Type,~Phase:Data,~V:Data,~invoke:Entry -> State -> Phase -> V -> V -> Entry & Sys.Outcome<State,String,Unit>,~initial:Entry -> State -> V -> Entry & Sys.Outcome<State,String,Unit>,~exitPhase:Phase,~transitionPhase:Phase,~enterPhase:Phase,~K:Data,~take:State -> State & M.Slot<S,K,V>,~put:State -> M.Slot<S,K,V> -> State,~publish:State -> M.Transition<V> -> State,owners:Owners<Entry>,world:State,prepared:Prepared<S,K,V>) -> HandlerResult<State,Entry,Phase>:
   match owners prepared:
     case owners Idle{slot}: Completed{owners,put(world,slot)}
-    case Owners{exit,transition,enter} Ready{slot,M.Initial{to},_}:after_enter(~S,~State,~Entry,~Phase,~V,~invoke,~initial,~exitPhase,~transitionPhase,~enterPhase,exit,transition,run_initial(~S,~State,~Entry,~Phase,~V,~invoke,~initial,~exitPhase,~transitionPhase,~enterPhase,enter,put(world,slot),to,None{}))
-    case Owners{exit,transition,enter} Ready{slot,M.Transition{+from,+to},skipSame}: after_exit(~S,~State,~Entry,~Phase,~V,~invoke,~initial,~exitPhase,~transitionPhase,~enterPhase,~K,~take,~put,~publish,transition,enter,run_phase(~S,~State,~Entry,~Phase,~V,~invoke,~initial,~exitPhase,~transitionPhase,~enterPhase,exit,put(world,slot),exitPhase,from,to,None{}),from,to,skipSame)
+    case Owners{exit,transition,enter} BendvyReady{slot,M.Initial{to},_}:after_enter(~S,~State,~Entry,~Phase,~V,~invoke,~initial,~exitPhase,~transitionPhase,~enterPhase,exit,transition,run_initial(~S,~State,~Entry,~Phase,~V,~invoke,~initial,~exitPhase,~transitionPhase,~enterPhase,enter,put(world,slot),to,None{}))
+    case Owners{exit,transition,enter} BendvyReady{slot,M.Transition{+from,+to},skipSame}: after_exit(~S,~State,~Entry,~Phase,~V,~invoke,~initial,~exitPhase,~transitionPhase,~enterPhase,~K,~take,~put,~publish,transition,enter,run_phase(~S,~State,~Entry,~Phase,~V,~invoke,~initial,~exitPhase,~transitionPhase,~enterPhase,exit,put(world,slot),exitPhase,from,to,None{}),from,to,skipSame)
 
 def taken(~S:Data,~State:Type,~Entry:Type,~Phase:Data,~V:Data,~invoke:Entry -> State -> Phase -> V -> V -> Entry & Sys.Outcome<State,String,Unit>,~initial:Entry -> State -> V -> Entry & Sys.Outcome<State,String,Unit>,~exitPhase:Phase,~transitionPhase:Phase,~enterPhase:Phase,~K:Data,~take:State -> State & M.Slot<S,K,V>,~put:State -> M.Slot<S,K,V> -> State,~publish:State -> M.Transition<V> -> State,~same:V -> V -> Bool,owners:Owners<Entry>,observed:State & M.Slot<S,K,V>,captured:M.Snapshot<V>) -> HandlerResult<State,Entry,Phase>:
   (world,slot)=observed

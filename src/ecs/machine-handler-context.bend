@@ -9,7 +9,7 @@ import ./machine-handler-engine.bend as Engine
 
 def phase(value:H.Phase) -> Facts.HandlerPhase:
   match value:
-    case H.Exit{}:Facts.ExitPhase{}
+    case H.BendvyExit{}:Facts.ExitPhase{}
     case H.Transition{}:Facts.TransitionPhase{}
     case H.Enter{}:Facts.EnterPhase{}
 def record(state:Facts.State,namespace:U32,id:U32,name:String,ordinal:U32,phase:Facts.HandlerPhase,result:Facts.FactResult) -> Facts.State:
@@ -33,7 +33,7 @@ def invoke_kind(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E>
     case H.Entry{+ordinal,registry}:registered(~S,~C,~R,~E,~V,~runner,~observed,ordinal,tracePhase,registry,context,H.Invocation{value,ordinal,from,to})
 def invoke(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~observed:Facts.State -> W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit> & Facts.State,entry:H.Entry<S,C,R,E,V,runner>,context:Ctx.Context<W.World<S,C,R,E>>,value:H.Phase,from:V,to:V) -> H.Entry<S,C,R,E,V,runner> & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,String,Unit>:
   match value:
-    case H.Exit{}:invoke_kind(~S,~C,~R,~E,~V,~runner,~observed,entry,context,Facts.ExitPhase{},H.Exit{},from,to)
+    case H.BendvyExit{}:invoke_kind(~S,~C,~R,~E,~V,~runner,~observed,entry,context,Facts.ExitPhase{},H.BendvyExit{},from,to)
     case H.Transition{}:invoke_kind(~S,~C,~R,~E,~V,~runner,~observed,entry,context,Facts.TransitionPhase{},H.Transition{},from,to)
     case H.Enter{}:invoke_kind(~S,~C,~R,~E,~V,~runner,~observed,entry,context,Facts.EnterPhase{},H.Enter{},from,to)
 def initial(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~observed:Facts.State -> W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit> & Facts.State,entry:H.Entry<S,C,R,E,V,runner>,context:Ctx.Context<W.World<S,C,R,E>>,to:V) -> H.Entry<S,C,R,E,V,runner> & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,String,Unit>:
@@ -57,4 +57,4 @@ def context_publish(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,
     case Ctx.Context{world,trace}:Ctx.Context{publish(world,transition),transition_record(trace,name)}
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~observed:Facts.State -> W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit> & Facts.State,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,~name:String,owners:H.Owners<S,C,R,E,V,runner>,context:Ctx.Context<W.World<S,C,R,E>>,captured:M.Snapshot<V>) -> Engine.HandlerResult<Ctx.Context<W.World<S,C,R,E>>,H.Entry<S,C,R,E,V,runner>,H.Phase>:
   match owners:
-    case H.Owners{exit,transition,enter}:Engine.run(~S,~Ctx.Context<W.World<S,C,R,E>>,~H.Entry<S,C,R,E,V,runner>,~H.Phase,~V,~invoke(~S,~C,~R,~E,~V,~runner,~observed),~initial(~S,~C,~R,~E,~V,~runner,~observed),~H.Exit{},~H.Transition{},~H.Enter{},~K,~context_take(~S,~C,~R,~E,~V,~runner,~K,~take),~context_put(~S,~C,~R,~E,~V,~runner,~K,~put),~context_publish(~S,~C,~R,~E,~V,~runner,~publish,~name),~same,Engine.Owners{exit,transition,enter},context,captured)
+    case H.Owners{exit,transition,enter}:Engine.run(~S,~Ctx.Context<W.World<S,C,R,E>>,~H.Entry<S,C,R,E,V,runner>,~H.Phase,~V,~invoke(~S,~C,~R,~E,~V,~runner,~observed),~initial(~S,~C,~R,~E,~V,~runner,~observed),~H.BendvyExit{},~H.Transition{},~H.Enter{},~K,~context_take(~S,~C,~R,~E,~V,~runner,~K,~take),~context_put(~S,~C,~R,~E,~V,~runner,~K,~put),~context_publish(~S,~C,~R,~E,~V,~runner,~publish,~name),~same,Engine.Owners{exit,transition,enter},context,captured)

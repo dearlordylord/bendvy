@@ -62,4 +62,4 @@ def count_entities(values:List<&2,Snapshot.Entity>) -> Nat:
 def apply(~S:Data,~C:Type,~Resources:Type,~E:Data,~State:Type,~Custom:Data,~release:State -> State,~clear:C -> W.Handle<S> -> C & List<&2,R.Change<S>>,~insert:C -> Resources -> State -> List<&2,R.Binding<S>> -> Tick.Tick -> (C & Resources) & State,~emit:R.Change<S> -> E,world:W.World<S,C,Resources,E>,prepared:R.Prepared<State,Custom>) -> ApplyResult<S,C,Resources,E,State,Custom>:
   match prepared:
     case R.Refused{state,input,error}:Refused{world,state,input,error}
-    case R.Ready{state,Snapshot.Snapshot{+version,+floor,+entities,+resources}}:admitted(~S,~C,~Resources,~E,~State,~Custom,~release,~clear,~insert,~emit,state,Snapshot.Snapshot{version,floor,entities,resources},floor,Adapter.room(~S,~C,~Resources,~E,world,floor,count_entities(entities)))
+    case R.BendvyReady{state,Snapshot.Snapshot{+version,+floor,+entities,+resources}}:admitted(~S,~C,~Resources,~E,~State,~Custom,~release,~clear,~insert,~emit,state,Snapshot.Snapshot{version,floor,entities,resources},floor,Adapter.room(~S,~C,~Resources,~E,world,floor,count_entities(entities)))

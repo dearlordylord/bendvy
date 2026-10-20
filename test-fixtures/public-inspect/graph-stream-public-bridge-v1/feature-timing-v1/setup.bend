@@ -31,7 +31,7 @@ type SetupFailure<S:Data> is Type:
   ReaderMachineCommitRefused{factory:W.Factory,registry:MachineCalls.ReaderRegistry(~S),world:World(~S),handles:List<&2,W.Handle<S>>,error:W.WorldError}
 
 type Setup<S:Data> is Type:
-  Ready{world:World(~S),registry:MachineCalls.ReaderRegistry(~S),+first:W.Handle<S>,+middle:W.Handle<S>,+last:W.Handle<S>}
+  BendvyReady{world:World(~S),registry:MachineCalls.ReaderRegistry(~S),+first:W.Handle<S>,+middle:W.Handle<S>,+last:W.Handle<S>}
   BuildRefused{failure:SetupFailure<S>}
 
 def initial_components(~S:Data) -> State.Components<S>:
@@ -147,7 +147,7 @@ def apply_spawn(~S:Data,+handle:W.Handle<S>,world:World(~S)) -> World(~S):
 
 def pending_reserved(~S:Data,factory:W.Factory,registry:MachineCalls.ReaderRegistry(~S),+first:W.Handle<S>,+middle:W.Handle<S>,+last:W.Handle<S>,observed:World(~S) & W.Reservation<S>) -> Setup<S>:
   match observed:
-    case (world,W.Reserved{handle}):Ready{advance_world(~S,W.enqueue(~S,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,world,queued => apply_spawn(~S,handle,queued))),registry,first,middle,last}
+    case (world,W.Reserved{handle}):BendvyReady{advance_world(~S,W.enqueue(~S,~A.Store<S,State.Components<S>>,~State.Resources<S>,~A.Notice<S,U32>,world,queued => apply_spawn(~S,handle,queued))),registry,first,middle,last}
     case (world,W.ReservationRejected{error}):BuildRefused{ReaderReservationRefused{factory,registry,world,[first,middle,last],error}}
 def pending_complete(~S:Data,factory:W.Factory,registry:MachineCalls.ReaderRegistry(~S),+first:W.Handle<S>,+middle:W.Handle<S>,+last:W.Handle<S>,returned:Tx.Returned<World(~S),W.WorldError>) -> Setup<S>:
   match returned:

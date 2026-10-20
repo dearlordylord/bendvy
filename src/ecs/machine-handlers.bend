@@ -10,7 +10,7 @@ import machine.bend as M
 
 
 type Phase is Data:
-  Exit{}
+  BendvyExit{}
   Transition{}
   Enter{}
 
@@ -34,7 +34,7 @@ type HandlerResult<S:Data,C:Type,R:Type,E:Data,V:Data,-runner:W.World<S,C,R,E> -
 
 type Prepared<S:Data,K:Data,V:Data> is Data:
   Idle{slot:M.Slot<S,K,V>}
-  Ready{slot:M.Slot<S,K,V>,transition:M.Transition<V>,skipSame:Bool}
+  BendvyReady{slot:M.Slot<S,K,V>,transition:M.Transition<V>,skipSame:Bool}
 
 def invoked(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,ordinal:U32,result:Sys.RunResult<S,C,R,E,Invocation<V>,String,Unit,runner>) -> Entry<S,C,R,E,V,runner> & Sys.Outcome<W.World<S,C,R,E>,String,Unit>:
   match result:
@@ -57,11 +57,11 @@ def handler_result(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R
 def prepared_result(~S:Data,~K:Data,~V:Data,result:Engine.Prepared<S,K,V>) -> Prepared<S,K,V>:
   match result:
     case Engine.Idle{slot}:Idle{slot}
-    case Engine.Ready{slot,transition,skipSame}:Ready{slot,transition,skipSame}
+    case Engine.BendvyReady{slot,transition,skipSame}:BendvyReady{slot,transition,skipSame}
 def run_phase(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,entries:List<&1,Entry<S,C,R,E,V,runner>>,world:W.World<S,C,R,E>,+phase:Phase,+from:V,+to:V,error:Maybe<&2,String>) -> PhaseResult<S,C,R,E,V,runner>:
-  phase_result(~S,~C,~R,~E,~V,~runner,Engine.run_phase(~S,~W.World<S,C,R,E>,~Entry<S,C,R,E,V,runner>,~Phase,~V,~invoke_phase(~S,~C,~R,~E,~V,~runner),~invoke_initial(~S,~C,~R,~E,~V,~runner),~Exit{},~Transition{},~Enter{},entries,world,phase,from,to,error))
+  phase_result(~S,~C,~R,~E,~V,~runner,Engine.run_phase(~S,~W.World<S,C,R,E>,~Entry<S,C,R,E,V,runner>,~Phase,~V,~invoke_phase(~S,~C,~R,~E,~V,~runner),~invoke_initial(~S,~C,~R,~E,~V,~runner),~BendvyExit{},~Transition{},~Enter{},entries,world,phase,from,to,error))
 def run_initial(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,entries:List<&1,Entry<S,C,R,E,V,runner>>,world:W.World<S,C,R,E>,+to:V,error:Maybe<&2,String>) -> PhaseResult<S,C,R,E,V,runner>:
-  phase_result(~S,~C,~R,~E,~V,~runner,Engine.run_initial(~S,~W.World<S,C,R,E>,~Entry<S,C,R,E,V,runner>,~Phase,~V,~invoke_phase(~S,~C,~R,~E,~V,~runner),~invoke_initial(~S,~C,~R,~E,~V,~runner),~Exit{},~Transition{},~Enter{},entries,world,to,error))
+  phase_result(~S,~C,~R,~E,~V,~runner,Engine.run_initial(~S,~W.World<S,C,R,E>,~Entry<S,C,R,E,V,runner>,~Phase,~V,~invoke_phase(~S,~C,~R,~E,~V,~runner),~invoke_initial(~S,~C,~R,~E,~V,~runner),~BendvyExit{},~Transition{},~Enter{},entries,world,to,error))
 def choose(~S:Data,~K:Data,~V:Data,skip:Bool,+current:V,+value:V,previous:Maybe<&2,V>,+skipSame:Bool) -> Prepared<S,K,V>:
   prepared_result(~S,~K,~V,Engine.choose(~S,~K,~V,skip,current,value,previous,skipSame))
 def prepare(~S:Data,~K:Data,~V:Data,~same:V -> V -> Bool,slot:M.Slot<S,K,V>,captured:M.Snapshot<V>) -> Prepared<S,K,V>:
@@ -70,4 +70,4 @@ def committed(~S:Data,~K:Data,~V:Data,slot:M.Slot<S,K,V>,from:V,to:V) -> M.Slot<
   Engine.committed(~S,~K,~V,slot,from,to)
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~runner:W.World<S,C,R,E> -> Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,~K:Data,~take:W.World<S,C,R,E> -> W.World<S,C,R,E> & M.Slot<S,K,V>,~put:W.World<S,C,R,E> -> M.Slot<S,K,V> -> W.World<S,C,R,E>,~publish:W.World<S,C,R,E> -> M.Transition<V> -> W.World<S,C,R,E>,~same:V -> V -> Bool,owners:Owners<S,C,R,E,V,runner>,world:W.World<S,C,R,E>,captured:M.Snapshot<V>) -> HandlerResult<S,C,R,E,V,runner>:
   match owners:
-    case Owners{exit,transition,enter}:handler_result(~S,~C,~R,~E,~V,~runner,Engine.run(~S,~W.World<S,C,R,E>,~Entry<S,C,R,E,V,runner>,~Phase,~V,~invoke_phase(~S,~C,~R,~E,~V,~runner),~invoke_initial(~S,~C,~R,~E,~V,~runner),~Exit{},~Transition{},~Enter{},~K,~take,~put,~publish,~same,Engine.Owners{exit,transition,enter},world,captured))
+    case Owners{exit,transition,enter}:handler_result(~S,~C,~R,~E,~V,~runner,Engine.run(~S,~W.World<S,C,R,E>,~Entry<S,C,R,E,V,runner>,~Phase,~V,~invoke_phase(~S,~C,~R,~E,~V,~runner),~invoke_initial(~S,~C,~R,~E,~V,~runner),~BendvyExit{},~Transition{},~Enter{},~K,~take,~put,~publish,~same,Engine.Owners{exit,transition,enter},world,captured))

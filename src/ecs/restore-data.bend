@@ -29,7 +29,7 @@ type Dispatch<Custom:Data> is Data:
   Staged{}
   Rejected{error:Constructor.Error<Custom>}
 type Prepared<State:Type,Custom:Data> is Type:
-  Ready{state:State,snapshot:Snapshot.Snapshot}
+  BendvyReady{state:State,snapshot:Snapshot.Snapshot}
   Refused{state:State,input:Snapshot.Snapshot,error:Error<Custom>}
 def lookup_choose(~S:Data,equal:Bool,target:W.Handle<S>,next:Unit -> Maybe<&2,W.Handle<S>>) -> Maybe<&2,W.Handle<S>>:
   match equal:

@@ -70,7 +70,7 @@ def completed(~Schema:Data,value:Single.RunResult<A.Scheduled(~Schema),Schema,A.
 def executed(~Schema:Data,value:Exec.Run<A.Scheduled(~Schema),Schema,A.ErrorType()>) -> A.Scheduled(~Schema) & String:
   match value:
     case Exec.Run{result,Trace.Disabled{}}:completed(~Schema,result)
-    case Exec.Run{result,Trace.Ready{events}}:with_app(~Schema,~(A.Scheduled(~Schema) & String),app=>text=>(app,text ++ ":UNEXPECTED_TRACE:" ++ Nat.show(List.length(&2,Trace.TraceEvent<A.ErrorType()>,events))),completed(~Schema,result))
+    case Exec.Run{result,Trace.BendvyReady{events}}:with_app(~Schema,~(A.Scheduled(~Schema) & String),app=>text=>(app,text ++ ":UNEXPECTED_TRACE:" ++ Nat.show(List.length(&2,Trace.TraceEvent<A.ErrorType()>,events))),completed(~Schema,result))
 def step(~Schema:Data,label:String,old:String,app:A.Scheduled(~Schema)) -> A.Scheduled(~Schema) & String:
   with_app(~Schema,~(A.Scheduled(~Schema) & String),app=>result=>with_app(~Schema,~(A.Scheduled(~Schema) & String),app=>state=>(app,old ++ label ++ ":" ++ result ++ "|" ++ state ++ "\n"),snapshot(~Schema,app)),executed(~Schema,A.run(~Schema,app)))
 def final_text(~Schema:Data,result:A.Scheduled(~Schema) & String) -> String:

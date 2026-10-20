@@ -20,7 +20,7 @@ def damage(~H:Type,~caps:Ops(H),_:Unit,owner:H) -> H & (T.Outcome<Unit> & Unit):
 
 `damage_health` and `damage_decay` match the returned pairs before using the next capability. `changed` returns the actual updated owner. The body never receives a concrete World.
 
-3. `service`, `scan`, and `setup` derive provisioning from the same declaration. The resource is an actual `SD.Slot<U32>` initialized as `SD.Ready{0}` by the IO entry:
+3. `service`, `scan`, and `setup` derive provisioning from the same declaration. The resource is an actual `SD.Slot<U32>` initialized as `SD.BendvyReady{0}` by the IO entry:
 
 ```bend
 def scan() -> World -> World & List<&2,SD.Status<Game>>:

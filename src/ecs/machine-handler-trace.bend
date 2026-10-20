@@ -24,10 +24,10 @@ def events(items:List<&2,Facts.Fact>,+barrier:Bool,+identity:Maybe<&2,Trace.Iden
     case fact <> rest:observed(fact,barrier,identity) <> events(rest,barrier,identity)
 def named(~Q:Data,namespace:U32,name:String,status:B.Status<Q>,facts:List<&2,Facts.Fact>) -> Trace.Batch<String>:
   match status:
-    case B.ForeignBundle{}:Trace.Ready{[Trace.ScheduleAdmissionRefused{namespace,name,Trace.EndRejected{}}]}
-    case B.MissingRequirements{_}:Trace.Ready{[Trace.ScheduleAdmissionRefused{namespace,name,Trace.EndMissing{}}]}
-    case B.HandlerFailed{_,error}:Trace.Ready{Trace.ScheduleStarted{namespace,name} <> List.append(&2,Trace.TraceEvent<String>,events(facts,False{},None{}),[Trace.ScheduleEnded{Trace.EndFailed{error}}])}
-    case _:Trace.Ready{Trace.ScheduleStarted{namespace,name} <> List.append(&2,Trace.TraceEvent<String>,events(facts,False{},None{}),[Trace.ScheduleEnded{Trace.EndOk{}}])}
+    case B.ForeignBundle{}:Trace.BendvyReady{[Trace.ScheduleAdmissionRefused{namespace,name,Trace.EndRejected{}}]}
+    case B.MissingRequirements{_}:Trace.BendvyReady{[Trace.ScheduleAdmissionRefused{namespace,name,Trace.EndMissing{}}]}
+    case B.HandlerFailed{_,error}:Trace.BendvyReady{Trace.ScheduleStarted{namespace,name} <> List.append(&2,Trace.TraceEvent<String>,events(facts,False{},None{}),[Trace.ScheduleEnded{Trace.EndFailed{error}}])}
+    case _:Trace.BendvyReady{Trace.ScheduleStarted{namespace,name} <> List.append(&2,Trace.TraceEvent<String>,events(facts,False{},None{}),[Trace.ScheduleEnded{Trace.EndOk{}}])}
 def captured(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,name:String,value:Context.MarkerResult<S,K,V,Q,C,R,E,runner>) -> Classic.MarkerResult<S,K,V,Q,C,R,E,runner> & Trace.Batch<String>:
   match value:
     case Context.MarkerResult{result,steps,observations,Facts.Off{}}:(Classic.MarkerResult{result,steps,observations},Trace.Disabled{})

@@ -10,8 +10,7 @@ bash examples/scheduled-health/run.sh js
 bash examples/scheduled-health/run.sh native
 ```
 
-The script prefers the workspace Bend 2.0.35 if installed, otherwise `bend` on
-PATH. Node and Clang use PATH by default. Set `BEND`, `NODE` and `CLANG` to
+Use Bend 2.0.37 (`bend` on PATH by default). Node and Clang use PATH by default. Set `BEND`, `NODE` and `CLANG` to
 select other binaries. With the private workspace Clang wrapper, also export
 `BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root`.
 Generated files stay in ignored `build/`. If another backend check holds the

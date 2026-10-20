@@ -22,7 +22,7 @@ import ./ordinary-event-declaration.bend as Event
 import ./ordinary-system.bend as Ordinary
 
 type Projected<Args:Type,Observation:Type,U:Data> is Type:
-  Ready{args:Args,observation:Observation}
+  BendvyReady{args:Args,observation:Observation}
   ProjectionFailed{args:Args,error:U}
 type Error<U:Data> is Data:
   MissingPayload{}
@@ -52,7 +52,7 @@ def projected(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~E:Data,~path:Product.L
   match observed:
     case (world,Log.Missing{args}):(args,([],(T.Tx{world,undo,commands,events,trace},(T.Failure{MissingPayload{}},[]))))
     case (world,Log.Found{ProjectionFailed{args,error}}):(args,([],(T.Tx{world,undo,commands,events,trace},(T.Failure{ProjectError{error}},[]))))
-    case (world,Log.Found{Ready{args,observation}}):handles(~S,~C,~R,~P,~Rest,~E,~path,~Request,~Projection,~Args,~Observation,~U,~Out,~Ops,~at,~project,~query,~body,cursor,undo,commands,events,trace,observation,args,next,W.handles(~S,~C,~R,~E,world))
+    case (world,Log.Found{BendvyReady{args,observation}}):handles(~S,~C,~R,~P,~Rest,~E,~path,~Request,~Projection,~Args,~Observation,~U,~Out,~Ops,~at,~project,~query,~body,cursor,undo,commands,events,trace,observation,args,next,W.handles(~S,~C,~R,~E,world))
 def rows(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~E:Data,~path:Product.Lens<R,Log.Log<P>,Rest>,~Request:Type,~Projection:Data,~Args:Type,~Observation:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~at:P -> Request -> P & Projection,~project:@-H:Type -> @-read:Cap.Request<H,Request,Projection> -> H -> Args -> H & Projected<Args,Observation,U>,~query:Decl.Declaration<S,Q.Frame<S,C,R,E>,Ops(Q.Frame<S,C,R,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> Observation -> Args -> H -> H & (Observation & (Args & (T.Outcome<U> & Out))),keys:List<&2,Nat>,+cursor:Maybe<&2,Tick.Tick>,args:Args,tx:T.Tx<W.World<S,C,R,E>,E>) -> Args & (List<Observation> & (T.Tx<W.World<S,C,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>))):
   match keys tx:
     case [], tx:(args,([],(tx,(T.Success{},[]))))

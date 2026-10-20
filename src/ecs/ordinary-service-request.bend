@@ -32,11 +32,11 @@ def entry(~S:Data,~Input:Type,~Output:Type,identity:Identity<S,Input,Output>) ->
     case Identity{_,+key}:Fragment.Entry{Fragment.Service{},key,key}
 def called(~R:Type,~P:Type,~Rest:Type,~Input:Type,~Output:Type,~put:Rest -> Service.Slot<P> -> R,rest:Rest,value:P & Output) -> R & RequestResult<Input,Output>:
   match value:
-    case (owner,output):(put(rest,Service.Ready{owner}),Called{output})
+    case (owner,output):(put(rest,Service.BendvyReady{owner}),Called{output})
 def slot_called(~S:Data,~R:Type,~P:Type,~Rest:Type,~Input:Type,~Output:Type,~identity:Identity<S,Input,Output>,~take:R -> Rest & Service.Slot<P>,~put:Rest -> Service.Slot<P> -> R,~call:P -> Input -> P & Output,input:Input,value:Rest & Service.Slot<P>) -> R & RequestResult<Input,Output>:
   match value:
     case (rest,Service.Missing{}):(put(rest,Service.Missing{}),Unavailable{input})
-    case (rest,Service.Ready{owner}):called(~R,~P,~Rest,~Input,~Output,~put,rest,call(owner,input))
+    case (rest,Service.BendvyReady{owner}):called(~R,~P,~Rest,~Input,~Output,~put,rest,call(owner,input))
 def world_called(~S:Data,~C:Type,~R:Type,~E:Data,~Input:Type,~Output:Type,+namespace:U32,allocator:Alloc.Allocator,store:C,+events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,value:R & RequestResult<Input,Output>) -> W.World<S,C,R,E> & RequestResult<Input,Output>:
   match value:
     case (resource,result):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,clock},result)
@@ -69,7 +69,7 @@ def status(~S:Data,~Input:Type,~Output:Type,identity:Identity<S,Input,Output>,pr
 def slot_observed(~S:Data,~R:Type,~P:Type,~Rest:Type,~Input:Type,~Output:Type,~identity:Identity<S,Input,Output>,~take:R -> Rest & Service.Slot<P>,~put:Rest -> Service.Slot<P> -> R,~call:P -> Input -> P & Output,value:Rest & Service.Slot<P>) -> R & List<&2,Service.Status<S>>:
   match value:
     case (rest,Service.Missing{}):(put(rest,Service.Missing{}),[status(~S,~Input,~Output,identity,False{})])
-    case (rest,Service.Ready{owner}):(put(rest,Service.Ready{owner}),[status(~S,~Input,~Output,identity,True{})])
+    case (rest,Service.BendvyReady{owner}):(put(rest,Service.BendvyReady{owner}),[status(~S,~Input,~Output,identity,True{})])
 def world_observed_join(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,allocator:Alloc.Allocator,store:C,+events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,value:R & List<&2,Service.Status<S>>) -> W.World<S,C,R,E> & List<&2,Service.Status<S>>:
   match value:
     case (resource,statuses):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,clock},statuses)

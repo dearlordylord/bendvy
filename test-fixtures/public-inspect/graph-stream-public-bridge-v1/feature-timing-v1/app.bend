@@ -98,7 +98,7 @@ def schema_finished(~S:Data,observed:Owner(~S) & List<&2,Cases.Entry>) -> List<&
 
 def schema_run(~S:Data,~physical:Bool,+schema:String,setup:Setup.Setup<S>) -> List<&2,Cases.Entry>:
   match setup:
-    case Setup.Ready{world,registry,_,_,_}:schema_finished(~S,categories_done(~S,~physical,schema,Read.map_world(~S,~List<&2,Cases.Entry>,world => Cases.run(~S,~physical,schema,world),Read.attach(~S,world,registry))))
+    case Setup.BendvyReady{world,registry,_,_,_}:schema_finished(~S,categories_done(~S,~physical,schema,Read.map_world(~S,~List<&2,Cases.Entry>,world => Cases.run(~S,~physical,schema,world),Read.attach(~S,world,registry))))
     case Setup.BuildRefused{_}:[Cases.Entry{"{\"setupFailure\":true}","SetupRefused"}]
 def lifecycle(~physical:Bool) -> List<&2,Cases.Entry>:
   List.append(&2,Cases.Entry,schema_run(~State.Workshop,~physical,"Workshop",Setup.build(~State.Workshop)),schema_run(~State.Garden,~physical,"Garden",Setup.build(~State.Garden)))

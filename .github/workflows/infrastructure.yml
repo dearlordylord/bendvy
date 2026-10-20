@@ -53,14 +53,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24.20.0'
-      - name: Install pinned Bend 2.0.35
+      - name: Install pinned Bend 2.0.37
         shell: bash
         run: |
-          archive="$RUNNER_TEMP/bend-2.0.35-linux-x64.tar.gz"
+          archive="$RUNNER_TEMP/bend-2.0.37-linux-x64.tar.gz"
           curl --proto '=https' --tlsv1.2 -fsSL --retry 3 \
-            https://github.com/bendlang/bend/releases/download/v2.0.35/bend-2.0.35-linux-x64.tar.gz \
+            https://github.com/bendlang/bend/releases/download/v2.0.37/bend-2.0.37-linux-x64.tar.gz \
             -o "$archive"
-          echo "63039d1a119f716767ac5a7d8fe0717cfacf219c6c253c35192148e0dade722f  $archive" | sha256sum -c -
+          echo "84c32465a39bc9ac315eade23f470cb8db03153dc860f89564fcfec153c3e445  $archive" | sha256sum -c -
           tar -xzf "$archive" -C "$RUNNER_TEMP"
           echo "BEND=$RUNNER_TEMP/bend/bin/bend" >> "$GITHUB_ENV"
           echo 'BEND_NO_TELEMETRY=1' >> "$GITHUB_ENV"

@@ -1,8 +1,7 @@
-# Bendvy 0.1.0.0: typed ECS, events, schedules, inspection and persistence.
-# Source release from Bendvy 1037bab01; tested public usage starts in examples/.
-# Qualified compiler: Bend 2.0.35. Native consumer: Clang 19.1.7.
-# Bend 2.0.37 currently rejects duplicate constructor names in this import closure.
-# Import individual modules as bendvy-ecs-core@0.1.0.0/world_io.bend, etc.
+# Bendvy 0.1.0.1: typed ECS, events, schedules, inspection and persistence.
+# Tested public usage starts in examples/.
+# Qualified compiler: Bend 2.0.37. Native consumer: Clang 19.1.7.
+# Import individual modules as bendvy-ecs-core@0.1.0.1/world_io.bend, etc.
 # Publish the exported layout from scripts/package-bendhub.py; Hub file paths
 # use underscores while the source tree retains its original module filenames.
 # Imports below define the shipped source closure, not additional gameplay authority.
@@ -365,4 +364,4 @@ import ./world.bend as M354
 
 # Source package release version.
 def version() -> String:
-  "0.1.0.0"
+  "0.1.0.1"

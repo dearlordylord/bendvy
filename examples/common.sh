@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 # Shared example build commands; no installed configuration is changed.
 example_repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
-if [[ -z ${BEND:-} ]]; then
-  if [[ -x /home/node/.bend/bin/bend-2.0.35 ]]; then BEND=/home/node/.bend/bin/bend-2.0.35; else BEND=bend; fi
-fi
+BEND=${BEND:-bend}
 NODE=${NODE:-node}
 CLANG=${CLANG:-clang}
 example_cpu=()
