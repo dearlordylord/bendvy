@@ -29,5 +29,10 @@ def run_namespace_skip(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data
   (world,+actual) = named
   run_actual_skip(~S,~C,~R,~E,~H,~Error,~skip,~dispatch,~condition,schedule,world,actual)
 
+# Run ordered steps with fallible conditions and an explicit false-condition
+# skip callback. Foreign namespace rejects before callbacks; condition failure
+# stops with returned World/owners and prior observations. Explicit Barrier steps
+# apply World.barrier; completion adds no final flush or schedule-wide rollback.
+# Dispatch, condition and skip are trusted adapters with their own effect contracts.
 def run_with_skip(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~skip: H -> W.World<S,C,R,E> -> U32 -> H & W.World<S,C,R,E>,~dispatch: H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition: W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Result<Error,Bool>,schedule: Sch.Schedule<S,C,R,E,H>,world: W.World<S,C,R,E>) -> Sch.RunResult<S,C,R,E,H,Error>:
   run_namespace_skip(~S,~C,~R,~E,~H,~Error,~skip,~dispatch,~condition,schedule,W.namespace(~S,~C,~R,~E,world))

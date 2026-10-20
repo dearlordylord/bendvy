@@ -7,17 +7,21 @@ import ./ordinary-query-declaration.bend as Query
 # Sole ordinary registration fields; no detached debug Binding or cached description.
 # The private trusted token holds the actual registration's erased runner authority.
 # Mixed readers retain each operational source rather than inferring modes from access strings.
+# Detached classification of declared component, resource or event usage.
 type UseCategory is Data:
   ComponentUse{}
   ResourceUse{}
   EventUse{}
+# Detached origin of a read declaration, including distinct notice streams.
 type ReaderSource is Data:
   QuerySource{}
   MessageSource{}
   RemovalSource{}
   RelationFailureSource{}
+# Detached key/mode and source of one declared access; not runtime authority.
 type DeclaredUse is Data:
   DeclaredUse{category:UseCategory,source:ReaderSource,key:String,mode:Query.Mode}
+# Detached registration category; mixed registrations retain each declared use.
 type RegistrationKind is Data:
   ComponentKind{}
   ResourceKind{mode:Query.Mode}

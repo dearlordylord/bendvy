@@ -23,6 +23,9 @@ type Application<S:Data,K:Data,V:Data,Q:Data,C:Type,R:Type,E:Data,-runner:W.Worl
 def entries_returned(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,+selector:B.Selector<S,K,V>,+requirements:List<&2,Q>,+namespace:U32,+entryId:U32,+id:U32,+name:String,+access:List<&2,String>,+cursor:U32,result:List<&1,B.Scheduled<S,K,V,Q,C,R,E,runner>> & List<&2,EntryView<S,K,V,Q>>) -> List<&1,B.Scheduled<S,K,V,Q,C,R,E,runner>> & List<&2,EntryView<S,K,V,Q>>:
   (rest,views)=result
   (B.Scheduled{selector,requirements,H.Entry{entryId,Sys.Registry{namespace,id,name,access,cursor}}} <> rest,EntryView{selector,requirements,namespace,entryId,id,name,access,cursor} <> views)
+# Describe scheduled handlers in list order while returning all actual owners.
+# Detached selector/requirements/registry fields do not execute handlers or prove
+# that requirements are satisfied. This advanced helper has no debug bypass.
 def entries(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,items:List<&1,B.Scheduled<S,K,V,Q,C,R,E,runner>>) -> List<&1,B.Scheduled<S,K,V,Q,C,R,E,runner>> & List<&2,EntryView<S,K,V,Q>>:
   match items:
     case []:([],[])

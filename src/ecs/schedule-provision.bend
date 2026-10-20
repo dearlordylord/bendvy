@@ -10,15 +10,22 @@ type Requirement<S: Data> is Data:
   Component{id: U32}
   Resource{id: U32}
   Service{id: U32}
+# Authored left-to-right schedule tree with per-entry provisioning requirements.
+# Empty contributes no steps; Sequence preserves both child orders.
 type Plan<S: Data> is Data:
   Empty{}
   Entry{step: Sch.Step,requirements: List<&2,Requirement<S>>}
   Sequence{left: Plan<S>,right: Plan<S>}
+# Affine schedule owner paired with its deduplicated setup requirements.
 type Provisioned<S: Data,C: Type,R: Type,E: Data,H: Type> is Type:
   Provisioned{schedule: Sch.Schedule<S,C,R,E,H>,requirements: List<&2,Requirement<S>>}
+# Built retains the provisioned schedule; Invalid returns the supplied owners.
 type Build<S: Data,C: Type,R: Type,E: Data,H: Type> is Type:
   Built{schedule: Provisioned<S,C,R,E,H>}
   Invalid{owners: H}
+# Missing returns schedule and observed World before any schedule step runs.
+# Executed contains the underlying schedule result and original requirement list;
+# inspect that result for success, rejection or system failure.
 type ProvisionResult<S: Data,C: Type,R: Type,E: Data,H: Type,Error: Data> is Type:
   Executed{result: Sch.RunResult<S,C,R,E,H,Error>,requirements: List<&2,Requirement<S>>}
   Missing{schedule: Provisioned<S,C,R,E,H>,world: W.World<S,C,R,E>,missing: List<&2,Requirement<S>>}
@@ -54,6 +61,8 @@ def flatten(~S: Data,plan: Plan<S>) -> List<&2,Sch.Step>:
     case Entry{step,_}: [step]
     case Sequence{left,right}: List.append(&2,Sch.Step,flatten(~S,left),flatten(~S,right))
 
+# Collect authored requirements left before right, retaining duplicates.
+# build deduplicates this list for its provisioned schedule.
 def requirements(~S: Data,plan: Plan<S>) -> List<&2,Requirement<S>>:
   match plan:
     case Empty{}: []
@@ -65,6 +74,9 @@ def finish_build(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,built: Sch.Build<S
     case Sch.Invalid{owners}: Invalid{owners}
     case Sch.Built{schedule}: Built{Provisioned{schedule,needs}}
 
+# Flatten the authored plan and validate system ids against the trusted catalog,
+# rejecting duplicates/unknown systems with owners returned. Retain first-occurrence
+# requirement order; namespace/catalog provenance and condition slots are setup.
 def build(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,+namespace: U32,+name: String,+plan: Plan<S>,catalog: List<&2,U32>,owners: H) -> Build<S,C,R,E,H>:
   finish_build(~S,~C,~R,~E,~H,Sch.build(~S,~C,~R,~E,~H,namespace,name,flatten(~S,plan),catalog,owners),unique(~S,requirements(~S,plan)))
 
@@ -87,9 +99,16 @@ def run_available(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~dis
   (world,available) = observed
   run_checked(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,~barrier,missing_requirements(~S,needs,available),schedule,world,needs)
 
+# Observe availability once through trusted provision before executing any step.
+# Missing requirements return the observed World and owned schedule without
+# dispatch; provision itself is not promised pure. Otherwise use schedule.bend
+# execution semantics and the supplied explicit barrier action. No final flush
+# or whole-schedule rollback is added; all result branches retain their owners.
 def run_with_barrier(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~dispatch: H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition: W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~barrier:H -> W.World<S,C,R,E> -> H & W.World<S,C,R,E>,~provision: W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,Requirement<S>>,schedule: Provisioned<S,C,R,E,H>,world: W.World<S,C,R,E>) -> ProvisionResult<S,C,R,E,H,Error>:
   match schedule:
     case Provisioned{schedule,needs}: run_available(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,~barrier,provision(world),schedule,needs)
 
+# Run with provisioning admission and the normal World barrier at explicit
+# Barrier steps. As with run_with_barrier, completion does not imply a final flush.
 def run(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~dispatch: H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition: W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~provision: W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,Requirement<S>>,schedule: Provisioned<S,C,R,E,H>,world: W.World<S,C,R,E>) -> ProvisionResult<S,C,R,E,H,Error>:
   run_with_barrier(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,~Sch.default_barrier(~S,~C,~R,~E,~H),~provision,schedule,world)
