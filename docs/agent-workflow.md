@@ -4,6 +4,11 @@ The issue and linked spec define acceptance. Apply [SPEC decisions](SPEC.md#impl
 and [review criteria](../CODING_STANDARDS.md); Rust Bevy semantics, Bend constraints,
 then bevy-ts inventory govern implementation choices.
 
+Current priority: finish capabilities and public API documentation under the
+[SPEC priority amendment](SPEC.md#current-delivery-priority--user-amendment-2026-10-20-utc).
+Performance campaigns, profiling/compiler tuning and numerical #28 acceptance are
+deferred; resume only on explicit user request. Keep correctness and normal CI.
+
 ## Delivery
 
 1. Read the current consumer and evidence; identify the exact missing acceptance
@@ -26,8 +31,8 @@ then bevy-ts inventory govern implementation choices.
    is blocked, resolve that blocker within this capability; continue independent
    capabilities. Prepare additional scenarios only when needed to diagnose it.
    After all required backends pass, prepare the remaining affected
-   gates through an existing runner. Batch changes for the unchanged
-   [regression gate](../benchmarks/README.md) on the integrated result.
+   gates through an existing runner. Batch necessary correctness checks on the integrated result; numerical
+   [performance qualification](../benchmarks/README.md) follows the current SPEC priority.
 4. Deliver exact commit, owned files, source-bound receipts, complete outputs and
    remaining gates for one independent final Spec/Standards review. Coordinator
    integrates and updates the owning issue. A bounded slice is reported as such.

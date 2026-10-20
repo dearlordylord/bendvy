@@ -34,9 +34,11 @@ the existing approval without another review or admission report.
 
 Select reused TS references with the delivery-manifest binding. Check selected
 Python sources with `scripts/check-python-source.py` and run configured staged
-checks. Preserve historical attempts unchanged. Run required feature gates and
-the unchanged #28 regression on the combined executable integration; reuse
-matching evidence rather than rerunning planning/documentation commits.
+checks. Preserve historical attempts unchanged. Run required feature correctness gates and normal CI; reuse matching evidence
+rather than rerunning planning/documentation commits. Quantitative #28 and
+#21/#23/#24 campaigns are deferred under the current
+[SPEC priority](SPEC.md#current-delivery-priority--user-amendment-2026-10-20-utc);
+resume only on explicit user request. Frozen runner contracts remain unchanged.
 
 When authoring or changing a runner, reference binding, admission control or
 archive verifier, read the applicable [runner details](reference/evidence-runner-details.md).

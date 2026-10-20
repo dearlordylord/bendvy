@@ -91,13 +91,13 @@ The [browser arena](examples/arena/README.md) provides a larger interactive exam
 
 ## Parity and performance
 
-The goal is the full **Bevy ECS subset covered by bevy-ts**, with idiomatic Bend APIs. Remaining work includes debug tooling, snapshots/restore, hierarchy/scopes, broader ownership support and complete cross-feature coverage. See the [parity tracker](docs/parity/README.md) and [spec](docs/SPEC.md).
+The goal is the full **Bevy ECS subset covered by bevy-ts**, with idiomatic Bend APIs. The capability deliveries are accepted; current completion work covers public API source documentation. See the [parity tracker](docs/parity/README.md) and [spec](docs/SPEC.md).
 
-Performance targets: JS at least as fast as bevy-ts, native at least 2× faster on equivalent workloads. Current benchmark wins are workload-specific; full parity performance is still to be qualified.
+Performance optimization and numerical acceptance are deferred in [#21](https://github.com/dearlordylord/bendvy/issues/21). Approximately 3× bevy-ts time is acceptable interim guidance, not a release gate or a claim covering every workload. Correctness, ownership and normal CI remain required; performance work resumes only by explicit user request.
 
 ## How we're building it
 
 - [Rust Bevy](https://github.com/bevyengine/bevy) for ECS architecture and semantics; [bevy-ts](https://github.com/SandroMaglione/bevy-ts) for inspiration on feature scope and porting ECS to another language; Bend's source/compiler for types and runtime.
-- Autoresearch performance loops guided by JS CPU/allocation profiles, native measurements and regression benchmarks.
+- Feature correctness, ordinary public API examples and source documentation first; measured performance research is deferred.
 
 Optional TS tooling research is preserved in the [TS extension archive index](docs/archive/ts-extension-index.md), with recovery commits and reuse boundaries.

@@ -1,8 +1,8 @@
 # Full-core parity — current state
 
-Specification: [37](https://github.com/dearlordylord/bendvy/issues/37). Full parent #1 and performance parents #21/#23/#24 are unchanged. #34, #35, #36, #39, #40 and #47 are delivered for their accepted bounded scopes; full numeric performance remains under #21/#23/#24. Active slices are recorded below.
+Specification: [37](https://github.com/dearlordylord/bendvy/issues/37). Full parent #1 retains feature/documentation obligations; performance parents #21/#23/#24 are deferred by the current SPEC priority. #34, #35, #36, #39, #40 and #47 are delivered for their accepted bounded scopes; full numeric performance remains under #21/#23/#24. Active slices are recorded below.
 
-Publication is complete scope tracking, not capability acceptance. Every issue is labeled ready-for-agent; execute only when its genuine blockers and explicit decision gates are satisfied.
+Publication is scope tracking, not capability acceptance. Execute eligible current tasks only when their blockers and decision gates are satisfied; deferred performance issues are excluded from ready-for-agent.
 
 | Issue | Blocked by | Complete observable delivery |
 | --- | --- | --- |
@@ -39,12 +39,17 @@ Historical TS mechanisms and reusable tooling: [explicit archive index](../archi
 
 ## Immediate frontier
 
-Reuse the accepted90 semantic roles; current capability deliveries and their
-limitations are recorded below. The remaining performance frontier is
-#21/#23/#24: seven selected cases, three backends and seven rotations, distinct
-memory paths, and unchanged #28. Targets remain unproven. Size1024 is targeted
-and nonblocking. The typed-observation boundary and all seven adapters are checked;
-the current-master comparison below is complete, with all fourteen speed targets still unmet.
+Reuse the accepted90 semantic roles and accepted capability deliveries. Runtime
+feature issues #34–#64 (apart from parent #37), #70/#71 and #73 are closed.
+Reconcile #37 semantic completion; finish #1's existing application-facing source
+comments, ownership/failure documentation and standalone API examples/review.
+
+Performance #21/#23/#24 and quantitative #28 are deferred under the
+[SPEC priority amendment](../SPEC.md#current-delivery-priority--user-amendment-2026-10-20-utc).
+The seven-case results remain evidence, not feature blockers or a claim of3x
+compliance. Preserve unintegrated candidates; resume optimization only on explicit
+user request. #62 proposals remain unapproved, #64 is planning rather than copied
+game integration, and #74 recommendations retain their separate review scope.
 
 ## Current delivery coordination
 
@@ -86,9 +91,9 @@ Contracts and issue acceptance remain authoritative.
 | #60 graph and machine restore | `identity38_gate_audit` / `/tmp/bendvy-restore60-current-runtime`; oracle `relation_ts_oracle`; root integrates | #44/#49/#59 closed; current event Runtime and approved restore ownership | Full Runtime+Raw consumer24e0fbca8 passes19 checkpoints on stock JS/Native for both schemas: Workshop239,306 bytes, Garden239,304 bytes against source-derived oracle75484df52. Original header-model error/failed receipt preserved; existing JS run reused by explicit corrected-oracle comparison. | Closed after master81316652e, actual hooks, CI39010187646 and English acceptance report. Normal/refusal/mutation pairs, TS/basic applicability, combined #28 and independent review pass; no universal recovery claim. |
 | #64 defense preparation | `identity38_gate_audit` / current-defense-plan sparse worktree; root integrates | #63 semantic acceptance complete; #61 closed; canonical jev read-only | Commit `7268b7941` maps current per-event transport, complete identities, host seams and 26 working-tree source hashes. | Planning accepted and closed after a969f8c00, actual hooks/push, CI39010684455 PASS and English report. Copy/toolchain/adapters and combined qualification remain execution prerequisites; canonical jev unchanged. |
 | #62 exact law proposals | Root / `master`; original law-draft worktree preserved | #61 closed; exact #18 approvals retained | Four exact Data proposals pass JS/Native and four JS mutants; technical/source review and unchanged 13-file completion audit pass. | Closed after `0e48247c7`, CI 39114729049 PASS and [English completion report](https://github.com/dearlordylord/bendvy/issues/62#issuecomment-6248183531). Four subjects remain unapproved with no proofs; future proof/refinement stays under #1. Existing 7+2 approvals and 22+11 other drafts remain distinct. |
-| #21/#24 performance and dispatch acceptance | `recovered_delivery` / `/tmp/bendvy21-current-master-seven-source`; `recovered_audit` final review; root integrates | Accepted90 roles; fixed seven cases, three backends, seven rotations; default stock35 unchanged | Current7bb comparison completes147 full-oracle observations (`28d4e849`), with no repeats or exclusions. All seven JS and seven Native speed targets fail. [Ratios](../reports/delivery-process-expectations.md) | Sole next optimization: confirmed Dense Motion256 JS failure; retain Native≤0.5×TS and all contracts. Compiler14 remains experimental/unadopted; no parallel optimization branches. |
+| #21/#24 deferred performance | No active worker; preserved `/tmp/bendvy21-dense-static-pair` and existing Git checkpoints | Explicit user request before resumption; current SPEC priority | Source7bb full147 observations and a78 Dense21 retained. Old speed targets remain unmet; candidates unintegrated. V8 main_read04 never launched; queue free. | Backlog only. Reuse evidence and agree future targets/budget if resumed. Finish #1 public API documentation and #37 semantic reconciliation first. |
 | #73 ordinary App usability | Root; helper, blind audit, docs and primary Dense source integrated | Existing capture/error/cursor contracts; prior heterogeneous/two-schema acceptance | Helper, blind greenhouse, guide/example and full failure/retry/authority consumers pass. Automatic primary Dense uses one `Component.add` registration and complete retained owners. Independent final review GO; required combined #28 attempt06 passes `NO_CONFIRMED_REGRESSION`. | Closed after integration `ba85ff4ce`, report `f4870e1c4` and CI39149828014 PASS. Prior failed cohorts remain historical evidence; passing statistical gate does not establish equivalence or full #21 performance. |
-| Shared core/integration | `/root` / `master`; workers own isolated leaves | Accepted feature contracts and #73 ordinary entry | Ordinary query declarations evaluate once; five workload terminal matrices and finite current-boundary/metadata diagnostics are integrated. | CI39137421309 PASS. Complete #73 captured-query delivery and combined qualification. Four exact Data laws remain unapproved under #1; one shared-core owner and one heavy queue. |
+| Shared core/integration | Root / `master`; independent feature audit `recovered_audit` | Accepted ECS contracts and current SPEC priority | Runtime feature children and #61/#73 accepted. Parent #1 public-definition documentation has concrete uncommented application entries; four #62 proposals remain unapproved future scope. | Complete source documentation and semantic parent reconciliation, using affected checks and normal CI. Quantitative performance is deferred. |
 | #50 owned captures | Root integrates; source/oracle/authority evidence retained | #36 accepted; Bevy persistent capture lifecycle | Complete resource/query/schedule/lifecycle, automatic App/debug metadata and authority evidence accepted by independent joined review. Integrated `34d7712cd`. | Closed after CI38855954288 PASS and the English acceptance report. Heterogeneous composition continues in #51. |
 | #51 captured schedules | Root; qualified source/oracle/helper worktrees preserved | #34/#35/#50 accepted | Complete typed composition, stateful conditions, preflight/lifecycle, routing mutation, authority and shared TS evidence accepted by independent review. Integrated `1bcf107fa`; CI38859172838 PASS. | Closed after the English acceptance report; full performance remains #21/#23/#24. |
 | #52 recoverable affine operations | Source `scopes45_source_control` / `recovery52-owned-operations`; helper `missing_resource_direct_consumer`; oracle `debug56_reader_product_oracle`; root integrates | #50/#51 accepted; exact recovery, unrestricted Type payloads and host-IO boundary | [Joined semantic acceptance](recovery.md#semantic-acceptance-reconciliation--2026-10-16) PASS: canonical component/resource/capture declarations share one typed journal; full mixed 16,673-byte stock JS/Native oracle, unlike families, returned owners, authority refusals and reached owner-loss control. | Closed after integration `8b80a21ba`, CI38868650606 PASS and the English acceptance report. Fresh independently authored present-removal application passes both stock backends with its complete 2,276-byte oracle. Existing #28 applicability is reused; combined performance remains #21/#23/#24. |

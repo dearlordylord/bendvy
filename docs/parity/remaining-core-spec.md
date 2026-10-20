@@ -1,5 +1,11 @@
 ## Problem Statement
 
+Current priority (user amendment, 2026-10-20 UTC): numerical performance and #28
+are deferred under [SPEC](../SPEC.md#current-delivery-priority--user-amendment-2026-10-20-utc).
+They no longer block semantic feature acceptance. Resume performance only on
+explicit user request; retain historical protocols and failed verdicts below.
+
+
 The nearest eight-ticket frontier is not the full bevy-ts core. Remaining capabilities are documented, but many have no executable issue, and bounded Workshop speed can be mistaken for full parity. Developers need a complete dependency-aware route without dropping ownership, behavior or performance obligations.
 
 ## Solution

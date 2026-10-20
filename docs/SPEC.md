@@ -2,7 +2,30 @@
 
 We need a Bend-native entity-component-system runtime that retains the useful behavior of the current bevy-ts core without inheriting TypeScript's representation or ownership assumptions. Starting with a small ECS must not silently discard events, relations, states, transactions, composition or tooling from the eventual scope.
 
-The runtime must exploit Bend's type system and execution model correctly and offer measurable performance: low-level native builds must substantially outperform bevy-ts, while JavaScript builds must be at least comparable on equivalent workloads. At specification creation, no implementation or performance evidence existed. Current bounded experimental evidence and remaining production gates are recorded in [the next checkpoint draft](next-core-checkpoint.md); the full runtime and final performance acceptance remain incomplete.
+The runtime must exploit Bend's type system and execution model correctly. Feature completion is the current priority; quantitative performance work is deferred by the amendment below. At specification creation, no implementation or performance evidence existed. Current bounded experimental evidence and remaining production gates are recorded in [the next checkpoint draft](next-core-checkpoint.md); the full runtime and final performance acceptance remain incomplete.
+
+
+## Current delivery priority — user amendment, 2026-10-20 UTC
+
+Finish the agreed ECS capabilities and public API documentation first. Numerical
+performance qualification and optimization are deferred to existing #21/#23/#24;
+resume them only on an explicit user request. Earlier JS <= TS, Native <=0.5 * TS
+and combined #28 timing requirements no longer block feature delivery or semantic
+parent acceptance. The frozen benchmark contracts and historical verdicts remain
+unchanged; they are not routine delivery gates during this phase.
+
+Approximately 3x bevy-ts time is acceptable interim guidance, not a new mandatory
+benchmark, SLA or claim that every case meets it. The last complete seven-case
+comparison includes JS ratios3.522 (Sparse Motion256) and3.460 (Dense Health64).
+Retain that evidence rather than optimize those cases to a newly invented gate.
+
+Keep ordinary JS/Native correctness, complete observations, affine ownership and
+cleanup, refusal/rollback, access boundaries, approved proof obligations, independent
+review and normal CI. Investigate a concrete functional failure or resource-safety
+blocker when needed; do not start profiling, benchmark campaigns, compiler tuning
+or Autoresearch merely because feature work has finished. The prior numeric goals
+are deferred research history; a future campaign needs agreed targets and budget.
+
 
 ## Solution
 
@@ -97,7 +120,7 @@ Deliver a simple reproducible CPU console simulation first. Later, validate inte
 7. Implement and verify the simple simulation against the chosen contracts. Expand lifecycle/streams, relations/scopes, states, composition/provisioning and tooling by dependency, retaining the full parity matrix.
 8. Perform the copied canonical-defense integration when required capabilities exist. Optimize storage/cache and assess parallel compute using reproducible workloads and evidence.
 
-The immediate agent-ready work is preparation and technical probes through candidate laws. Proofs remain gated by approval of those particular laws. A failed probe triggers redesign or an explicit requirement discussion, not an automatic scope reduction. The full runtime is complete only when core contracts, agreed proof obligations, performance criteria and explicit divergence records are resolved.
+The immediate agent-ready work is preparation and technical probes through candidate laws. Proofs remain gated by approval of those particular laws. A failed probe triggers redesign or an explicit requirement discussion, not an automatic scope reduction. Feature acceptance requires core contracts, applicable agreed proof obligations, public API documentation and explicit divergence records; deferred quantitative performance is tracked separately.
 
 ## Testing Decisions
 

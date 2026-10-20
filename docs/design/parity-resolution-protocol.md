@@ -1,6 +1,15 @@
 # Parity measurement resolution
 
-The current seven-case scope and approved typed-observation boundary below govern qualification. Dated source audits and character-wire results retain their historical scope; they do not override the later approved boundary or add a numerical tolerance.
+## Deferred qualification — user amendment, 2026-10-20 UTC
+
+Performance campaigns and numerical #28 are deferred under the
+[current SPEC priority](../SPEC.md#current-delivery-priority--user-amendment-2026-10-20-utc).
+They do not block semantic feature acceptance. Approximately3x TS is interim
+guidance, not a fresh gate; existing slower results remain disclosed. Resume only
+on explicit user request with agreed targets and budget. The dated measurement
+protocols, source-bound evidence and verdicts below retain their historical scope.
+
+When comparative work is explicitly resumed, the seven-case scope and approved typed-observation boundary below provide the preserved measurement protocol. Dated source audits and character-wire results retain their historical scope; they do not override the later approved boundary or add a numerical tolerance.
 
 ## Current acceptance scope — user amendment, 2026-10-19
 
