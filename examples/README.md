@@ -86,6 +86,8 @@ not a list of every runtime helper or a claim that all capability APIs are cover
 | Save eligible world data and validate/apply a restore | [snapshot.save](../src/ecs/snapshot.bend), [restore-public](../src/ecs/restore-public.bend), [restore-save](../src/ecs/restore-save.bend) |
 | Create a runtime World or integrate a raw transaction | [world-io.create](../src/ecs/world-io.bend), [transaction](../src/ecs/transaction.bend) |
 | Consume detached traces or format a filtered dump | [execution-trace](../src/ecs/execution-trace.bend), [ordinary-app-dump](../src/ecs/ordinary-app-dump.bend) |
+| Integrate registered ECS systems below App | [ordinary-system](../src/ecs/ordinary-system.bend), [system](../src/ecs/system.bend) |
+| Use lower-level component operations or deferred commands | [component](../src/ecs/component.bend), [commands](../src/ecs/commands.bend) |
 
 Raw storage lenses, constructors and arbitrary world-transforming callbacks are
 trusted setup/adapter APIs. Use the declared capabilities inside system bodies;

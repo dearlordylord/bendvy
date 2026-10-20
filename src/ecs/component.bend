@@ -11,26 +11,44 @@ import entity-allocator.bend as A
 
 # Caller-authored schema lenses are trusted provisioning. The gameplay callback
 # receives only universally quantified provider handles, never these owners.
+# Trusted schema provisioning for one component column and detached Data view V.
+# take/put must return the actual affine storage owners; project returns C with V.
+# The nominal Token distinguishes families; the display name is not access proof.
 type Family<-S: Data,-Store: Type,-Rest: Type,-C: Type,-V: Data,-Token: Data,-take: Store -> Rest & Col.Column<S,C>,-put: Rest -> Col.Column<S,C> -> Store,-project: C -> C & V> is Data:
   Family{name: String}
+# Detached read result: Found holds V, ComponentAbsent means a valid entity lacks
+# this component, and MissingEntity covers invalid, stale or foreign handles.
 type Access<V: Data> is Data:
   Found{value: V}
   ComponentAbsent{}
   MissingEntity{}
+# Immediate replacement result retaining World in every branch. Replaced returns
+# the displaced actual payload owner; rejection returns the incoming optional owner
+# and error. Neither Type payload is copied into detached observation data.
 type Replacement<W: Type,C: Type> is Type:
   Replaced{world: W,previous: Maybe<&1,C>}
   ReplaceRejected{world: W,incoming: Maybe<&1,C>,error: W.WorldError}
+# Internal storage-adapter result carrying the displaced or rejected owner.
+# It is not a handle-validation result or a gameplay capability.
 type Swap<C: Type> is Type:
   Swapped{previous: Maybe<&1,C>}
   SwapRejected{incoming: Maybe<&1,C>}
+# Transactional write result. Written retains the Tx with its inverse journal;
+# WriteRejected additionally returns the actual incoming C. WriteFailure has no
+# incoming owner. These results do not themselves commit or finish the transaction.
 type SetResult<Tx: Type,C: Type> is Type:
   Written{tx: Tx}
   WriteRejected{tx: Tx,incoming: C,error: W.WorldError}
   WriteFailure{tx: Tx,error: W.WorldError}
+# Transactional removal result retaining Tx on success or refusal. The removed
+# payload remains in the inverse journal for rollback rather than being returned.
 type RemoveResult<Tx: Type> is Type:
   Removed{tx: Tx}
   RemoveRejected{tx: Tx,error: W.WorldError}
 
+# Define trusted column/projection plumbing for this family. This does not insert
+# a component, validate an entity or register a gameplay system. Ordinary declaration
+# providers expose only the appropriate opaque-owner capabilities to gameplay.
 def define(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,name: String) -> Family<S,Store,Rest,C,V,Token,take,put,project>:
   Family{name}
 
@@ -58,6 +76,10 @@ def get_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V:
     case (world,True{}) W.Handle{_,K.EntityKey{+id,_}}:
       get_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,world)
 
+# Read a detached view while returning World and the actual projected payload to
+# its column. Validate namespace, generation and live state before column access;
+# invalid/stale/foreign handles yield MissingEntity, not ComponentAbsent.
+# See examples/health-decay/schema.bend for family provisioning.
 def get(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,+handle: W.Handle<S>) -> W.World<S,Store,R,E> & Access<V>:
   get_allowed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.valid(~S,~Store,~R,~E,world,handle),handle)
 
@@ -71,6 +93,9 @@ def has_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Da
   (world,value) = observed
   (world,has_access(~V,value))
 
+# Return presence as Found(Bool), preserving MissingEntity for invalid handles.
+# This delegates to get, so the configured projection is evaluated on a present
+# payload; it is not a projection-free raw occupancy query.
 def has(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,handle: W.Handle<S>) -> W.World<S,Store,R,E> & Access<Bool>:
   has_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle))
 
@@ -123,11 +148,17 @@ def replace_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type
 
 # Ordinary writes require a live entity. Foreign handles are rejected before
 # any column access, size computation, allocation or owned replacement move.
+# Immediately insert/replace with Some(C), or remove with None, on a live handle.
+# Return displaced C on success and incoming C on rejection; clock/capacity errors
+# remain explicit. This operation is not deferred and has no automatic undo journal.
 def replace(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,+handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Replacement<W.World<S,Store,R,E>,C>:
   replace_allowed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.valid(~S,~Store,~R,~E,world,handle),handle,incoming)
 
 # Deferred creation may populate reserved entities before activation. This is
 # provisioning/structural command machinery, not a gameplay capability.
+# Trusted structural adapter permitting metadata-valid reserved entities as well
+# as live ones. Retains replacement owners/results like replace; this is not a
+# public gameplay bypass for accessing an arbitrary inactive entity.
 def structural_replace(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,+handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Replacement<W.World<S,Store,R,E>,C>:
   replace_allowed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.metadata_valid(~S,~Store,~R,~E,world,handle),handle,incoming)
 
@@ -182,6 +213,8 @@ def lifecycle_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Ty
     case (world,False{}) _: (world,L.Stamp{0,0})
     case (world,True{}) W.Handle{_,K.EntityKey{+id,_}}: lifecycle_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,world)
 
+# Read this component slot's lifecycle stamp while returning World. Invalid live
+# handle validation yields Stamp(0,0); no detached component payload is returned.
 def lifecycle(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,+handle: W.Handle<S>) -> W.World<S,Store,R,E> & L.Stamp:
   lifecycle_allowed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.valid(~S,~Store,~R,~E,world,handle),handle)
 
@@ -206,6 +239,8 @@ def tx_get_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V:
   (world,value) = observed
   (T.Tx{world,undo,commands,events,trace},value)
 
+# Read through the current Tx World, preserving its journal, commands, events and
+# trace. Returns the same Access distinctions as get; reads do not finish the Tx.
 def tx_get(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,handle: W.Handle<S>) -> T.Tx<W.World<S,Store,R,E>,E> & Access<V>:
   match tx:
     case T.Tx{world,undo,commands,events,trace}:
@@ -281,6 +316,11 @@ def tx_set_fused(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V
   match observed:
     case (result,stamp): tx_written(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,undo,commands,events,trace,stamp,result)
 
+# Write an actual possibly-affine Type payload into the current Tx World and
+# journal the old payload and stamp for rollback. Successful writes are visible
+# within this Tx immediately; finish decides commit versus inverse replay. Refusal
+# returns the incoming owner through WriteRejected. Ordinary rollback is not a
+# receipt returning every newly written payload; use explicit recovery APIs for that.
 def tx_set(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,+handle: W.Handle<S>,incoming: C) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
   match tx:
     case T.Tx{world,undo,commands,events,trace}:
@@ -297,6 +337,9 @@ def tx_remove_stamped(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Ty
   (world,stamp) = observed
   tx_removed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,handle,undo,commands,events,trace,stamp,replace(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle,None{}))
 
+# Remove from a live entity within Tx, journaling the previous owner/stamp for
+# rollback. Removing an already absent component can succeed; invalid handles or
+# capacity/clock refusal return RemoveRejected. Finish is still the caller's choice.
 def tx_remove(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,+handle: W.Handle<S>) -> RemoveResult<T.Tx<W.World<S,Store,R,E>,E>>:
   match tx:
     case T.Tx{world,undo,commands,events,trace}:
@@ -319,5 +362,9 @@ def displayed_enabled(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:
   match observed:
     case (tx,False{}):tx_set(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle,incoming)
     case (tx,True{}):displayed_viewed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~display,family,handle,project(incoming),tx_get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle))
+# Trace-aware tx_set: when tracing is enabled, project the current and incoming
+# values and render detached V strings to annotate the attempted write/refusal.
+# Disabled tracing delegates directly without these presentation reads. Ownership
+# and write results remain those of tx_set; project/display are trusted adapters.
 def tx_set_displayed(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,~display:V -> String,family:Family<S,Store,Rest,C,V,Token,take,put,project>,tx:T.Tx<W.World<S,Store,R,E>,E>,handle:W.Handle<S>,incoming:C) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
   displayed_enabled(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~display,family,handle,incoming,T.trace_enabled(~W.World<S,Store,R,E>,~E,tx))

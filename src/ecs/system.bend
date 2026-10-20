@@ -4,14 +4,25 @@ import ./world.bend as W
 import ./registration.bend as Reg
 
 # Closed runner index is erased; the runtime registration owner remains affine.
+# System completion retains World on both branches. Success also owns
+# Output; failure carries only Error, so affine body outputs are not returned
+# by this type. Rollback is performed by the chosen runner, not this constructor.
 type Outcome<World: Type,Error: Data,Output: Type> is Type:
   Succeeded{world: World,output: Output}
   Failed{world: World,error: Error}
+# Affine registration owner with runtime namespace, actual registration ID,
+# metadata and lifecycle cursor. The erased runner binds argument/result types;
+# raw construction is trusted administration, not a way to confer gameplay access.
 type Registry<S: Data,C: Type,R: Type,E: Data,Args: Type,Error: Data,Output: Type,-runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>> is Type:
   Registry{namespace: U32,id: U32,name: String,access: List<&2,String>,cursor: U32}
+# Registered returns World and the new Registry; RegistrationFailed returns
+# World without a registration owner. Registration does not invoke the runner.
 type RegistrationResult<S: Data,C: Type,R: Type,E: Data,Args: Type,Error: Data,Output: Type,-runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>> is Type:
   Registered{world: W.World<S,C,R,E>,registry: Registry<S,C,R,E,Args,Error,Output,runner>}
   RegistrationFailed{world: W.World<S,C,R,E>}
+# Completed retains Registry and a runner Outcome. RegistrationRejected
+# retains Registry, World and original Args without invoking the runner.
+# Rejection is distinct from a body failure that has consumed Args.
 type RunResult<S: Data,C: Type,R: Type,E: Data,Args: Type,Error: Data,Output: Type,-runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>> is Type:
   Completed{registry: Registry<S,C,R,E,Args,Error,Output,runner>,outcome: Outcome<W.World<S,C,R,E>,Error,Output>}
   RegistrationRejected{registry: Registry<S,C,R,E,Args,Error,Output,runner>,world: W.World<S,C,R,E>,args: Args}
@@ -29,6 +40,10 @@ def register_namespace(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: D
   (world,+namespace) = named
   register_join(~S,~C,~R,~E,~Args,~Error,~Output,~runner,W.register(~S,~C,~R,~E,world,name,access),namespace,name,access)
 
+# Register the closed runner in this World with name/access metadata.
+# Returns Registered or RegistrationFailed, retaining World on either path.
+# Raw access strings are metadata; actual body capabilities come from its
+# declared runner. Prefer ordinary-system or App registration for derived access.
 def register(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,world: W.World<S,C,R,E>,+name: String,+access: List<&2,String>) -> RegistrationResult<S,C,R,E,Args,Error,Output,runner>:
   register_namespace(~S,~C,~R,~E,~Args,~Error,~Output,~runner,W.namespace(~S,~C,~R,~E,world),name,access)
 
@@ -57,6 +72,11 @@ def run_namespace(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~
   (world,+actual) = named
   run_namespace_value(~S,~C,~R,~E,~Args,~Error,~Output,~runner,registry,world,actual,args)
 
+# Validate runtime namespace and live registration metadata, then invoke
+# the runner. Rejection returns original Args, World and Registry unchanged
+# in ownership; completed failure returns only the runner Error/World.
+# This raw entry leaves the lifecycle cursor unchanged; use run_tracked for
+# ordinary successful-run cursor advancement. Runner defines rollback behavior.
 def run(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>,world: W.World<S,C,R,E>,args: Args) -> RunResult<S,C,R,E,Args,Error,Output,runner>:
   run_namespace(~S,~C,~R,~E,~Args,~Error,~Output,~runner,registry,W.namespace(~S,~C,~R,~E,world),args)
 
@@ -70,6 +90,9 @@ def cursor_result(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~
     case RegistrationRejected{registry,world,args}: RegistrationRejected{registry,world,args}
     case Completed{registry,outcome}: cursor_outcome(~S,~C,~R,~E,~Args,~Error,~Output,~runner,outcome,registry,nextCursor)
 
+# Advanced execution assigning nextCursor only after runner success.
+# Failure/rejection retains the old cursor. Caller supplies the cursor value;
+# use run_tracked when deriving it from the resulting World clock.
 def run_to_cursor(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>,world: W.World<S,C,R,E>,args: Args,+nextCursor: U32) -> RunResult<S,C,R,E,Args,Error,Output,runner>:
   cursor_result(~S,~C,~R,~E,~Args,~Error,~Output,~runner,run(~S,~C,~R,~E,~Args,~Error,~Output,~runner,registry,world,args),nextCursor)
 
@@ -89,19 +112,30 @@ def tracked_result(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,
     case RegistrationRejected{registry,world,args}: RegistrationRejected{registry,world,args}
     case Completed{registry,outcome}: tracked_outcome(~S,~C,~R,~E,~Args,~Error,~Output,~runner,registry,outcome)
 
+# Validate registration and execute its runner; on success set the Registry
+# cursor to the returned World clock, including stamps committed by this run.
+# Failure/rejection preserves the prior cursor; registration rejection also
+# returns unconsumed Args. Does not itself supply a transaction or flush barrier.
 def run_tracked(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>,world: W.World<S,C,R,E>,args: Args) -> RunResult<S,C,R,E,Args,Error,Output,runner>:
   tracked_result(~S,~C,~R,~E,~Args,~Error,~Output,~runner,run(~S,~C,~R,~E,~Args,~Error,~Output,~runner,registry,world,args))
 
+# Return Registry and its current lifecycle cursor, without advancing it
+# or reading any component/event stream.
 def cursor(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>) -> Registry<S,C,R,E,Args,Error,Output,runner> & U32:
   match registry:
     case Registry{+namespace,+id,+name,+access,+cursor}: (Registry{namespace,id,name,access,cursor},cursor)
 
 # Instance identity is observed without consuming the registration owner.
+# Return Registry and its actual registration ID without consuming the owner.
+# IDs must still be validated with namespace/live metadata before execution.
 def identity(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>) -> Registry<S,C,R,E,Args,Error,Output,runner> & U32:
   match registry:
     case Registry{namespace,+id,name,access,cursor}: (Registry{namespace,id,name,access,cursor},id)
 
 # Rejected disposal returns the registration; accepted disposal consumes it.
+# Disposed returns World and consumes this registration owner.
+# DisposalRejected returns World and Registry for retry or explicit recovery.
+# This type introduces no user-payload finalizer or capture-disposal callback.
 type Disposal<S: Data,C: Type,R: Type,E: Data,Args: Type,Error: Data,Output: Type,-runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>> is Type:
   Disposed{world: W.World<S,C,R,E>}
   DisposalRejected{world: W.World<S,C,R,E>,registry: Registry<S,C,R,E,Args,Error,Output,runner>}
@@ -111,6 +145,9 @@ def dispose_returned(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Dat
     case (world,True{}): Disposed{world}
     case (world,False{}): DisposalRejected{world,registry}
 
+# Remove a registration only when its namespace/ID/name/access still match.
+# Success consumes Registry; refusal returns it with World. Does not dispose
+# unrelated retained Local/capture owners or invent implicit finalizers.
 def dispose(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~runner: W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,registry: Registry<S,C,R,E,Args,Error,Output,runner>,world: W.World<S,C,R,E>) -> Disposal<S,C,R,E,Args,Error,Output,runner>:
   match registry:
     case Registry{+namespace,+id,+name,+access,cursor}: dispose_returned(~S,~C,~R,~E,~Args,~Error,~Output,~runner,Registry{namespace,id,name,access,cursor},Reg.remove(~S,~C,~R,~E,world,namespace,id,name,access))
@@ -130,6 +167,10 @@ def observed_namespace_checked_with(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~
 def observed_named_with(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Output:Type,~runner:W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,~observed:TraceFacts.State -> W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output> & TraceFacts.State,~finish:Registry<S,C,R,E,Args,Error,Output,runner> -> Outcome<W.World<S,C,R,E>,Error,Output> -> RunResult<S,C,R,E,Args,Error,Output,runner>,registry:Registry<S,C,R,E,Args,Error,Output,runner>,trace:TraceFacts.State,named:W.World<S,C,R,E> & U32,args:Args) -> RunResult<S,C,R,E,Args,Error,Output,runner> & TraceFacts.State:
   match registry named:
     case Registry{+namespace,+id,+name,+access,+cursor}, (world,actual):observed_namespace_checked_with(~S,~C,~R,~E,~Args,~Error,~Output,~runner,~observed,~finish,Registry{namespace,id,name,access,cursor},trace,world,args,U32.is_eq(namespace,actual))
+# Trusted transport for an observed runner and custom completion policy.
+# Validates registration before invoking observed; refusal returns original
+# Args/owners and trace. finish decides cursor handling; raw callbacks must
+# preserve their relationship to runner and its transaction contract.
 def run_observed_with(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Output:Type,~runner:W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,~observed:TraceFacts.State -> W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output> & TraceFacts.State,~finish:Registry<S,C,R,E,Args,Error,Output,runner> -> Outcome<W.World<S,C,R,E>,Error,Output> -> RunResult<S,C,R,E,Args,Error,Output,runner>,registry:Registry<S,C,R,E,Args,Error,Output,runner>,trace:TraceFacts.State,world:W.World<S,C,R,E>,args:Args) -> RunResult<S,C,R,E,Args,Error,Output,runner> & TraceFacts.State:
   observed_named_with(~S,~C,~R,~E,~Args,~Error,~Output,~runner,~observed,~finish,registry,trace,W.namespace(~S,~C,~R,~E,world),args)
 
@@ -141,8 +182,14 @@ def observed_namespace_checked(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error
   observed_namespace_checked_with(~S,~C,~R,~E,~Args,~Error,~Output,~runner,~observed,~tracked_outcome(~S,~C,~R,~E,~Args,~Error,~Output,~runner),registry,trace,world,args,allowed)
 def observed_named(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Output:Type,~runner:W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,~observed:TraceFacts.State -> W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output> & TraceFacts.State,registry:Registry<S,C,R,E,Args,Error,Output,runner>,trace:TraceFacts.State,named:W.World<S,C,R,E> & U32,args:Args) -> RunResult<S,C,R,E,Args,Error,Output,runner> & TraceFacts.State:
   observed_named_with(~S,~C,~R,~E,~Args,~Error,~Output,~runner,~observed,~tracked_outcome(~S,~C,~R,~E,~Args,~Error,~Output,~runner),registry,trace,named,args)
+# Observed execution with the same success-clock cursor update as
+# run_tracked. Refusal preserves Args and trace; failed runner retains cursor.
+# Returned facts describe execution, not additional ECS work to apply.
 def run_observed(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Output:Type,~runner:W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,~observed:TraceFacts.State -> W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output> & TraceFacts.State,registry:Registry<S,C,R,E,Args,Error,Output,runner>,trace:TraceFacts.State,world:W.World<S,C,R,E>,args:Args) -> RunResult<S,C,R,E,Args,Error,Output,runner> & TraceFacts.State:
   run_observed_with(~S,~C,~R,~E,~Args,~Error,~Output,~runner,~observed,~tracked_outcome(~S,~C,~R,~E,~Args,~Error,~Output,~runner),registry,trace,world,args)
 
+# Observed execution preserving Registry cursor on success and failure.
+# Registration validation and refusal ownership are unchanged; callers needing
+# ordinary lifecycle advancement should use run_observed instead.
 def run_observed_untracked(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Output:Type,~runner:W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output>,~observed:TraceFacts.State -> W.World<S,C,R,E> -> Args -> Outcome<W.World<S,C,R,E>,Error,Output> & TraceFacts.State,registry:Registry<S,C,R,E,Args,Error,Output,runner>,trace:TraceFacts.State,world:W.World<S,C,R,E>,args:Args) -> RunResult<S,C,R,E,Args,Error,Output,runner> & TraceFacts.State:
   run_observed_with(~S,~C,~R,~E,~Args,~Error,~Output,~runner,~observed,~complete(~S,~C,~R,~E,~Args,~Error,~Output,~runner),registry,trace,world,args)
