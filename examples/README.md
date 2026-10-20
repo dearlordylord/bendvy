@@ -88,6 +88,8 @@ not a list of every runtime helper or a claim that all capability APIs are cover
 | Consume detached traces or format a filtered dump | [execution-trace](../src/ecs/execution-trace.bend), [ordinary-app-dump](../src/ecs/ordinary-app-dump.bend) |
 | Integrate registered ECS systems below App | [ordinary-system](../src/ecs/ordinary-system.bend), [system](../src/ecs/system.bend) |
 | Use lower-level component operations or deferred commands | [component](../src/ecs/component.bend), [commands](../src/ecs/commands.bend) |
+| Build or execute a lower-level schedule | [schedule](../src/ecs/schedule.bend), [world](../src/ecs/world.bend) |
+| Invoke declared grants or bounded direct queries | [capabilities](../src/ecs/capabilities.bend), [query](../src/ecs/query.bend) |
 
 Raw storage lenses, constructors and arbitrary world-transforming callbacks are
 trusted setup/adapter APIs. Use the declared capabilities inside system bodies;

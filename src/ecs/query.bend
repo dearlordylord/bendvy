@@ -9,6 +9,9 @@ import commands.bend as Cmd
 
 # Main membership is required; these modes apply to the independent aux family.
 # Bounded explicit two-family composition is not a general query planner.
+# Auxiliary-family membership in this bounded two-family query. Main
+# membership is always required. Use ordinary/Compose declarations for general
+# heterogeneous query shapes; this helper is not the full query planner.
 type Selection is Data:
   Required{}
   Present{}
@@ -77,6 +80,11 @@ def each_reserved(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~
   (world,handles) = observed
   finished(~S,~Store,~R,~E,~U,run_handles(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~AuxRest,~AuxC,~AuxV,~AuxToken,~aux_take,~aux_put,~aux_project,~RV,~resource_project,~Payload,~populate,~clear,~A,~U,~body,handles,mainFamily,auxFamily,mode,args,T.begin(~W.World<S,Store,R,E>,~E,world)))
 
+# Traverse a snapshot of live handles with required main and selected aux
+# membership, invoking the declared provider body within one transaction.
+# Failure rolls back that traversal's recorded writes/publications; commands
+# remain deferred until an explicit barrier. Families/lenses are trusted setup.
+# Prefer ordinary declarations for application-derived registration/access.
 def each_rw_read(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~AuxRest: Type,~AuxC: Type,~AuxV: Data,~AuxToken: Data,~aux_take: Store -> AuxRest & Col.Column<S,AuxC>,~aux_put: AuxRest -> Col.Column<S,AuxC> -> Store,~aux_project: AuxC -> AuxC & AuxV,~RV: Data,~resource_project: R -> R & RV,~Payload: Type,~populate: W.World<S,Store,R,E> -> W.Handle<S> -> Payload -> W.World<S,Store,R,E>,~clear: Store -> W.Handle<S> -> Store,~A: Data,~U: Data,~body: @-H: Type -> @-get: (H -> H & Cmp.Access<V>) -> @-set: (H -> C -> H) -> @-aux: (H -> H & Cmp.Access<AuxV>) -> @-resource_get: (H -> H & RV) -> @-resource_set: (H -> R -> H) -> @-emit: (H -> E -> H) -> @-despawn: (H -> H) -> @-spawn: (H -> Payload -> H & W.Reservation<S>) -> A -> W.Handle<S> -> H -> H & T.Outcome<U>,mainFamily: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,auxFamily: Cmp.Family<S,Store,AuxRest,AuxC,AuxV,AuxToken,aux_take,aux_put,aux_project>,mode: Selection,world: W.World<S,Store,R,E>,args: A) -> T.Returned<W.World<S,Store,R,E>,Pv.Error<U>>:
   each_reserved(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~AuxRest,~AuxC,~AuxV,~AuxToken,~aux_take,~aux_put,~aux_project,~RV,~resource_project,~Payload,~populate,~clear,~A,~U,~body,mainFamily,auxFamily,mode,args,W.handles(~S,~Store,~R,~E,world))
 
@@ -107,13 +115,24 @@ def read_reserved(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~
   (world,handles) = observed
   read_world(~S,~Store,~R,~E,~Out,read_handles(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~AuxRest,~AuxC,~AuxV,~AuxToken,~aux_take,~aux_put,~aux_project,~RV,~resource_project,~Payload,~populate,~clear,~A,~Out,~body,handles,mainFamily,auxFamily,mode,args,T.begin(~W.World<S,Store,R,E>,~E,world)))
 
+# Read-only bounded two-family traversal returning World and ordered Data
+# row outputs. Body receives no setter, publisher or structural command grant.
+# Main is required; mode controls auxiliary membership. Canonical projections
+# preserve affine payloads while exposing Data views; callbacks remain trusted.
 def each_read(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~AuxRest: Type,~AuxC: Type,~AuxV: Data,~AuxToken: Data,~aux_take: Store -> AuxRest & Col.Column<S,AuxC>,~aux_put: AuxRest -> Col.Column<S,AuxC> -> Store,~aux_project: AuxC -> AuxC & AuxV,~RV: Data,~resource_project: R -> R & RV,~Payload: Type,~populate: W.World<S,Store,R,E> -> W.Handle<S> -> Payload -> W.World<S,Store,R,E>,~clear: Store -> W.Handle<S> -> Store,~A: Data,~Out: Data,~body: @-H: Type -> @-get: (H -> H & Cmp.Access<V>) -> @-aux: (H -> H & Cmp.Access<AuxV>) -> @-resource_get: (H -> H & RV) -> A -> W.Handle<S> -> H -> H & Out,mainFamily: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,auxFamily: Cmp.Family<S,Store,AuxRest,AuxC,AuxV,AuxToken,aux_take,aux_put,aux_project>,mode: Selection,world: W.World<S,Store,R,E>,args: A) -> W.World<S,Store,R,E> & List<&2,Out>:
   read_reserved(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~AuxRest,~AuxC,~AuxV,~AuxToken,~aux_take,~aux_put,~aux_project,~RV,~resource_project,~Payload,~populate,~clear,~A,~Out,~body,mainFamily,auxFamily,mode,args,W.handles(~S,~Store,~R,~E,world))
 
 # Main RW + aux Read + resource Read, with no other user capability grant.
+# Bounded query granting main component read/write, aux component read and
+# resource read, without other gameplay operations. Uses the same transaction
+# and deferred-visibility rules as each_rw_read; raw setup stays trusted.
 def each_rw_read_resource(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~AuxRest: Type,~AuxC: Type,~AuxV: Data,~AuxToken: Data,~aux_take: Store -> AuxRest & Col.Column<S,AuxC>,~aux_put: AuxRest -> Col.Column<S,AuxC> -> Store,~aux_project: AuxC -> AuxC & AuxV,~RV: Data,~resource_project: R -> R & RV,~Payload: Type,~populate: W.World<S,Store,R,E> -> W.Handle<S> -> Payload -> W.World<S,Store,R,E>,~clear: Store -> W.Handle<S> -> Store,~A: Data,~U: Data,~body: @-H: Type -> @-get: (H -> H & Cmp.Access<V>) -> @-set: (H -> C -> H) -> @-aux: (H -> H & Cmp.Access<AuxV>) -> @-resource_get: (H -> H & RV) -> A -> W.Handle<S> -> H -> H & T.Outcome<U>,mainFamily: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,auxFamily: Cmp.Family<S,Store,AuxRest,AuxC,AuxV,AuxToken,aux_take,aux_put,aux_project>,mode: Selection,world: W.World<S,Store,R,E>,args: A) -> T.Returned<W.World<S,Store,R,E>,Pv.Error<U>>:
   each_rw_read(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~AuxRest,~AuxC,~AuxV,~AuxToken,~aux_take,~aux_put,~aux_project,~RV,~resource_project,~Payload,~populate,~clear,~A,~U,~Pv.component_body(~S,~C,~V,~AuxV,~RV,~R,~E,~Payload,~A,~U,~body),mainFamily,auxFamily,mode,world,args)
 
 # Resource capabilities and spawn are absent from this callback contract.
+# Bounded query granting component operations, declared event publication and
+# deferred despawn, without resource or spawn capabilities. Failure suppresses its
+# staged publications; no deferred command barrier is implied.
+# Broader compositions use ordinary-query-declaration/observable or Compose.
 def each_rw_read_events(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~AuxRest: Type,~AuxC: Type,~AuxV: Data,~AuxToken: Data,~aux_take: Store -> AuxRest & Col.Column<S,AuxC>,~aux_put: AuxRest -> Col.Column<S,AuxC> -> Store,~aux_project: AuxC -> AuxC & AuxV,~RV: Data,~resource_project: R -> R & RV,~Payload: Type,~populate: W.World<S,Store,R,E> -> W.Handle<S> -> Payload -> W.World<S,Store,R,E>,~clear: Store -> W.Handle<S> -> Store,~A: Data,~U: Data,~body: @-H: Type -> @-get: (H -> H & Cmp.Access<V>) -> @-set: (H -> C -> H) -> @-aux: (H -> H & Cmp.Access<AuxV>) -> @-emit: (H -> E -> H) -> @-despawn: (H -> H) -> A -> W.Handle<S> -> H -> H & T.Outcome<U>,mainFamily: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,auxFamily: Cmp.Family<S,Store,AuxRest,AuxC,AuxV,AuxToken,aux_take,aux_put,aux_project>,mode: Selection,world: W.World<S,Store,R,E>,args: A) -> T.Returned<W.World<S,Store,R,E>,Pv.Error<U>>:
   each_rw_read(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~AuxRest,~AuxC,~AuxV,~AuxToken,~aux_take,~aux_put,~aux_project,~RV,~resource_project,~Payload,~populate,~clear,~A,~U,~Pv.event_body(~S,~C,~V,~AuxV,~RV,~R,~E,~Payload,~A,~U,~body),mainFamily,auxFamily,mode,world,args)

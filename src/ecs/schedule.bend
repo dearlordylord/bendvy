@@ -4,20 +4,33 @@ import ./system.bend as Sys
 
 # Static plans contain no runtime closures. H holds heterogeneous affine
 # registered runner owners; closed templates thread that owner through each step.
+# Detached static sequence: System holds a registered id and condition slot;
+# Phase is an observation label and Barrier is an explicit pending-work boundary.
+# A phase label alone does not flush commands or execute a gameplay callback.
 type Step is Data:
   System{id: U32,condition: U32}
   Phase{name: String}
   Barrier{}
+# Ordered progress records for entered phases, dispatched/skipped systems and
+# applied barriers. Ran includes a system that failed; inspect RunResult as well.
 type Observation is Data:
   Entered{name: String}
   Ran{id: U32}
   Skipped{id: U32}
   Applied{}
+# Affine registered-owner bundle plus detached static steps and World namespace.
+# Raw construction is trusted setup; build validates ids against its supplied catalog.
 type Schedule<S: Data,C: Type,R: Type,E: Data,H: Type> is Type:
   Schedule{namespace: U32,name: String,steps: List<&2,Step>,owners: H}
+# Build result preserving the actual heterogeneous owners on invalid plans.
+# Built retains those owners inside Schedule, not copied reusable runtime closures.
 type Build<S: Data,C: Type,R: Type,E: Data,H: Type> is Type:
   Built{schedule: Schedule<S,C,R,E,H>}
   Invalid{owners: H}
+# Every result returns Schedule with actual runner owners and World. Failed stops
+# at the first failed dispatch and keeps observations through that system; earlier
+# successful systems are not rolled back as one schedule-wide transaction. Rejected
+# is namespace admission refusal and runs no steps.
 type RunResult<S: Data,C: Type,R: Type,E: Data,H: Type,Error: Data> is Type:
   Finished{schedule: Schedule<S,C,R,E,H>,world: W.World<S,C,R,E>,observations: List<&2,Observation>}
   Failed{schedule: Schedule<S,C,R,E,H>,world: W.World<S,C,R,E>,error: Error,observations: List<&2,Observation>}
@@ -40,6 +53,9 @@ def build_checked(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,allowed: Bool,+na
     case False{}: Invalid{owners}
     case True{}: Built{Schedule{namespace,name,steps,owners}}
 
+# Validate that each System id occurs in the supplied catalog and appears at most
+# once in steps. Return Invalid with owners otherwise. Condition slots and catalog
+# provenance are trusted setup here; this is not a scheduler conflict analysis.
 def build(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,+namespace: U32,+name: String,+steps: List<&2,Step>,catalog: List<&2,U32>,owners: H) -> Build<S,C,R,E,H>:
   build_checked(~S,~C,~R,~E,~H,valid(steps,catalog,[]),namespace,name,steps,owners)
 
@@ -93,6 +109,12 @@ def run_namespace(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~dis
   (world,+actual) = named
   run_actual(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,schedule,world,actual)
 
+# Run static steps in order after matching Schedule and World namespaces.
+# Evaluate condition by its slot; false records Skipped without dispatch. True
+# threads the actual H through dispatch, stopping on Sys.Failed. Barriers call
+# W.barrier; no implicit final barrier is added. Callbacks are trusted closed
+# providers, not arbitrary capabilities inferred from ids. See ordinary App
+# schedule setup in examples/scheduled-health/application.bend.
 def run(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~dispatch: H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition: W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,schedule: Schedule<S,C,R,E,H>,world: W.World<S,C,R,E>) -> RunResult<S,C,R,E,H,Error>:
   run_namespace(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,schedule,W.namespace(~S,~C,~R,~E,world))
 
@@ -127,6 +149,9 @@ def run_namespace_skip(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data
   (world,+actual) = named
   run_actual_skip(~S,~C,~R,~E,~H,~Error,~skip,~dispatch,~condition,schedule,world,actual)
 
+# As run, but a false condition invokes skip(owners,world,id) before continuing.
+# Use the provider-defined hook for skipped-reader lifecycle; the hook itself
+# returns both actual owners and World and is not assumed to be a pure no-op.
 def run_with_skip(~S: Data,~C: Type,~R: Type,~E: Data,~H: Type,~Error: Data,~skip: H -> W.World<S,C,R,E> -> U32 -> H & W.World<S,C,R,E>,~dispatch: H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition: W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,schedule: Schedule<S,C,R,E,H>,world: W.World<S,C,R,E>) -> RunResult<S,C,R,E,H,Error>:
   run_namespace_skip(~S,~C,~R,~E,~H,~Error,~skip,~dispatch,~condition,schedule,W.namespace(~S,~C,~R,~E,world))
 
@@ -140,5 +165,9 @@ def run_barrier_actual(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,~disp
 def run_barrier_named(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,~dispatch:H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~barrier:H -> W.World<S,C,R,E> -> H & W.World<S,C,R,E>,schedule:Schedule<S,C,R,E,H>,named:W.World<S,C,R,E> & U32) -> RunResult<S,C,R,E,H,Error>:
   match named:
     case (world,actual):run_barrier_actual(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,~barrier,schedule,world,actual)
+# As namespace-checked run, with a caller-supplied barrier threading H and World
+# at each explicit Barrier step. This supports owned runtime synchronization;
+# its effects are trusted and no automatic final barrier or schedule rollback
+# is added. Condition-false handling is the ordinary skip-without-dispatch path.
 def run_with_barrier(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,~dispatch:H -> W.World<S,C,R,E> -> U32 -> H & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>,~condition:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~barrier:H -> W.World<S,C,R,E> -> H & W.World<S,C,R,E>,schedule:Schedule<S,C,R,E,H>,world:W.World<S,C,R,E>) -> RunResult<S,C,R,E,H,Error>:
   run_barrier_named(~S,~C,~R,~E,~H,~Error,~dispatch,~condition,~barrier,schedule,W.namespace(~S,~C,~R,~E,world))
