@@ -1,33 +1,50 @@
 import Base
 
 # Metadata is kind-local, as in the pinned Schema merge. Declaration packs stay affine.
+# Descriptor namespace: component/resource/event/relation/service.
+# Keys and names collide within one kind, not across distinct kinds.
 type RegistryKind is Data:
   Component{}
   Resource{}
   Event{}
   Relation{}
   Service{}
+# Schema/token/payload-indexed descriptor metadata without a live payload.
+# Raw construction is trusted schema setup and grants no operational access.
 type Descriptor<S: Data,Token: Data,Payload: Type> is Data:
   Descriptor{kind: RegistryKind,key: String,name: String}
+# Authored persistence classification for descriptor metadata; does not
+# implement a codec, validate raw input or export a snapshot by itself.
 type PersistenceKind is Data:
   Plain{}
   Transient{}
   Constructed{}
+# Detached descriptor entry, optionally classified by persistence policy.
+# Both variants retain the same kind/key/name collision rules.
 type Entry<S: Data> is Data:
   Entry{kind: RegistryKind,key: String,name: String}
   Classified{kind: RegistryKind,key: String,name: String,persistence:PersistenceKind}
+# Descriptor entries and their actual affine declaration owners. Metadata
+# is Data; Owners may contain arbitrary Type payloads and are never duplicated.
 type Fragment<S: Data,Owners: Type> is Type:
   Fragment{entries: List<&2,Entry<S>>,owners: Owners}
+# Schema refusal identifies duplicate kind-local key/name or a descriptor
+# required by a declared initializer but absent from the fragment.
 type Error is Data:
   DuplicateKey{kind: RegistryKind,key: String}
   DuplicateName{kind: RegistryKind,name: String}
   UndeclaredDescriptor{kind: RegistryKind,key: String,name: String}
+# Pure metadata-validation result, without consuming declaration owners.
 type Validation is Data:
   Valid{}
   Invalid{error: Error}
+# Merged owns the combined fragment; Rejected returns both original affine
+# fragments with the conflict. Refusal does not execute an initializer.
 type Merge<S: Data,L: Type,R: Type> is Type:
   Merged{fragment: Fragment<S,L & R>}
   Rejected{error: Error,left: Fragment<S,L>,right: Fragment<S,R>}
+# Built owns the initializer output; BindRejected returns the original
+# fragment and metadata error, allowing caller recovery without copied owners.
 type Bound<S: Data,Owners: Type,Output: Type> is Type:
   Built{output: Output}
   BindRejected{error: Error,fragment: Fragment<S,Owners>}
@@ -49,11 +66,18 @@ def same_kind(a: RegistryKind,b: RegistryKind) -> Bool:
     case Relation{} Relation{}: True{}
     case Service{} Service{}: True{}
     case _ _: False{}
+# Project a typed descriptor to its kind/key/name metadata entry. Does not
+# read payloads or grant access to the descriptor's runtime storage.
 def entry(~S: Data,~Token: Data,~Payload: Type,descriptor: Descriptor<S,Token,Payload>) -> Entry<S>:
   match descriptor:
     case Descriptor{kind,key,name}: Entry{kind,key,name}
+# Create an empty fragment with a Unit owner and no metadata entries.
+# Use fragment when supplying arbitrary affine declaration owners.
 def empty(~S: Data,owners: Unit) -> Fragment<S,Unit>:
   Fragment{[],owners}
+# Trusted setup constructor pairing authored entries with actual owners.
+# Does not verify their semantic relationship or reject duplicate entries;
+# validate/merge/bind perform their stated metadata checks later.
 def fragment(~S: Data,~Owners: Type,entries: List<&2,Entry<S>>,owners: Owners) -> Fragment<S,Owners>:
   Fragment{entries,owners}
 def key_exists_bare(~S: Data,xs: List<&2,Entry<S>>,+kind: RegistryKind,+key: String) -> Bool:
@@ -99,12 +123,18 @@ def first_failure(first: Validation,second: Validation) -> Validation:
   match first:
     case Invalid{error}: Invalid{error}
     case Valid{}: second
+# Check descriptor key/name collisions within each registry kind.
+# Preserves kind-specific error order; this is metadata validation, not proof
+# of lens laws, actual payload values or correctness of arbitrary adapters.
 def validate(~S: Data,+entries: List<&2,Entry<S>>) -> Validation:
   first_failure(validate_loop(~S,filter_kind(~S,entries,Component{}),[]),first_failure(validate_loop(~S,filter_kind(~S,entries,Resource{}),[]),first_failure(validate_loop(~S,filter_kind(~S,entries,Event{}),[]),first_failure(validate_loop(~S,filter_kind(~S,entries,Relation{}),[]),validate_loop(~S,filter_kind(~S,entries,Service{}),[])))))
 def merge_checked(~S: Data,~L: Type,~R: Type,result: Validation,+entries: List<&2,Entry<S>>,left: Fragment<S,L>,right: Fragment<S,R>) -> Merge<S,L,R>:
   match result left right:
     case Invalid{error} left right: Rejected{error,left,right}
     case Valid{} Fragment{_,l} Fragment{_,r}: Merged{Fragment{entries,(l,r)}}
+# Validate both fragments and their combined entries before combining owners.
+# Success retains left-then-right entries and (L & R) owners; refusal returns
+# both original fragments. No initializer or gameplay callback is invoked.
 def merge(~S: Data,~L: Type,~R: Type,left: Fragment<S,L>,right: Fragment<S,R>) -> Merge<S,L,R>:
   match left right:
     case Fragment{+le,l} Fragment{+re,r}: merge_checked(~S,~L,~R,first_failure(validate(~S,le),first_failure(validate(~S,re),validate(~S,List.append(&2,Entry<S>,le,re)))),List.append(&2,Entry<S>,le,re),Fragment{le,l},Fragment{re,r})
@@ -112,6 +142,9 @@ def bind_checked(~S: Data,~Owners: Type,~Output: Type,~build: Owners -> Output,r
   match result fragment:
     case Invalid{error} fragment: BindRejected{error,fragment}
     case Valid{} Fragment{_,owners}: Built{build(owners)}
+# Validate fragment metadata before consuming Owners with a trusted builder.
+# BindRejected returns the original fragment; Built contains builder output.
+# For a builder with explicit descriptor prerequisites use bind_declared.
 def bind(~S: Data,~Owners: Type,~Output: Type,~build: Owners -> Output,fragment: Fragment<S,Owners>) -> Bound<S,Owners,Output>:
   match fragment:
     case Fragment{+entries,owners}: bind_checked(~S,~Owners,~Output,~build,validate(~S,entries),Fragment{entries,owners})
@@ -144,6 +177,11 @@ def bind_requirements(~S: Data,~Owners: Type,~Output: Type,~build: Owners -> Out
   match result fragment:
     case Invalid{error} fragment: BindRejected{error,fragment}
     case Valid{} Fragment{+entries,owners}: bind_checked(~S,~Owners,~Output,~build,requirements(~S,required,entries),Fragment{entries,owners})
+# Validate fragment collisions and every explicitly required descriptor
+# before invoking the closed builder. Missing kind/key/name yields
+# BindRejected with the original fragment, without executing build. Trusted
+# builders must still obey their declared requirements; arbitrary callbacks
+# are not runtime-confined by metadata alone.
 def bind_declared(~S: Data,~Owners: Type,~Output: Type,~build: Owners -> Output,fragment: Fragment<S,Owners>,required: List<&2,Entry<S>>) -> Bound<S,Owners,Output>:
   match fragment:
     case Fragment{+entries,owners}: bind_requirements(~S,~Owners,~Output,~build,validate(~S,entries),required,Fragment{entries,owners})
