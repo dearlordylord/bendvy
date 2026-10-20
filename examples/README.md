@@ -75,6 +75,13 @@ not a list of every runtime helper or a claim that all capability APIs are cover
 | Derive a schedule and execute the registered application | [ordinary-app-run.attach/run](../src/ecs/ordinary-app-run.bend) |
 | Supply explicit plans or retain typed condition bindings | [ordinary-app-schedule](../src/ecs/ordinary-app-schedule.bend) |
 | Handle execution results and detached trace batches | [ordinary-app-execution.Run](../src/ecs/ordinary-app-execution.bend), [ordinary-app-schedule.RunResult](../src/ecs/ordinary-app-schedule.bend) |
+| Declare whole-resource or selected-field access | [ordinary-app-resource-declaration](../src/ecs/ordinary-app-resource-declaration.bend), [ordinary-app-resource-field-declaration](../src/ecs/ordinary-app-resource-field-declaration.bend) |
+| Compose explicit recoverable operations | [ordinary-recovery-declaration](../src/ecs/ordinary-recovery-declaration.bend) |
+| Compose bundles, fragments and owned features | [ordinary-bundle](../src/ecs/ordinary-bundle.bend), [schema-fragments](../src/ecs/schema-fragments.bend), [feature](../src/ecs/feature.bend) |
+| Declare typed streams and retain readers | [ordinary-event-declaration](../src/ecs/ordinary-event-declaration.bend), [ordinary-event-family](../src/ecs/ordinary-event-family.bend), [ordinary-app-event-family-reader](../src/ecs/ordinary-app-event-family-reader.bend) |
+| Compose owned event publication declarations | [ordinary-owned-event-declaration](../src/ecs/ordinary-owned-event-declaration.bend) |
+| Spawn or clean up scoped entities | [ordinary-lifetime-scope](../src/ecs/ordinary-lifetime-scope.bend), [ordinary-lifetime-scope-io](../src/ecs/ordinary-lifetime-scope-io.bend) |
+| Read machine state, queue transitions and run handlers | [ordinary-machine-declaration](../src/ecs/ordinary-machine-declaration.bend), [ordinary-machine-operations](../src/ecs/ordinary-machine-operations.bend), [ordinary-machine-handler-bundle](../src/ecs/ordinary-machine-handler-bundle.bend) |
 
 Raw storage lenses, constructors and arbitrary world-transforming callbacks are
 trusted setup/adapter APIs. Use the declared capabilities inside system bodies;

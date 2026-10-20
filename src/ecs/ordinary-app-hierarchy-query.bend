@@ -41,6 +41,17 @@ def selected_path(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Arg:Data,~U
     case (world,None{}):(world,DTO.Product{None{},None{}})
     case (world,Some{Path.Incomplete{handles,pending}}):(world,DTO.Product{Some{Path.Incomplete{handles,pending}},None{}})
     case (world,Some{Path.Complete{+handles}}):complete_live(~S,~C,~R,~E,~Ops,~Arg,~U,~Out,~query,~body,Some{Path.Complete{handles}},args,cursor,live_handles(~S,~C,~R,~E,handles,world))
+# Run a declared query over a complete descendant traversal and return the App.
+# Invalid target yields (None, None); incomplete traversal retains its diagnostic
+# but returns no execution result and invokes no partial gameplay callbacks.
+# For a complete path, revalidate each handle, retain live members in traversal
+# order, then apply the declaration's selectors and opaque-owner body. Preserve
+# the original raw path separately from the execution outcome and output list.
+# Transaction failure rolls back through ordinary query semantics and clears row
+# outputs. args and cursor are supplied for this invocation; this does not register
+# or advance an App reader. Structural commands still require an explicit barrier.
+# Uses only declared capabilities; it does not widen authority to arbitrary graph
+# access. See docs/parity/hierarchy.md, ordinary App descendant-query scenarios.
 def visit_descendants_app(~S:Data,~C:Type,~R:Type,~E:Data,~hierarchy:G.HierarchyDescriptor<S>,~Owners:Type,~Rows:Data,~prior:Relation.World(~S,~C,~R,~E) -> Relation.World(~S,~C,~R,~E) & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Fields.Fields<S>>,~Ops:Type -> Type,~Arg:Data,~U:Data,~Out:Data,~query:Query.Declaration<S,Q.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,Ops(Q.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>)>,~body:@-H:Type -> @-caps:Ops(H) -> Arg -> H -> H & (Tx.Outcome<U> & Out),app:App.Application(~S,~C,~R,~E,~hierarchy,~Owners,~Rows,~prior,~fold),target:W.Handle<S>,order:Traversal.Order,args:Arg,cursor:U32) -> App.Application(~S,~C,~R,~E,~hierarchy,~Owners,~Rows,~prior,~fold) & DTO.Product<Maybe<&2,Path.Path<S>>,Maybe<&2,DTO.Product<Tx.Outcome<Q.Error<U>>,List<&2,Out>>>>:
   match app:
     case Build.Registered{world,owners,recipe,debug}:App.returned(~S,~C,~R,~E,~hierarchy,~Owners,~Rows,~prior,~fold,~DTO.Product<Maybe<&2,Path.Path<S>>,Maybe<&2,DTO.Product<Tx.Outcome<Q.Error<U>>,List<&2,Out>>>>,owners,recipe,debug,selected_path(~S,~C,~R,~E,~Ops,~Arg,~U,~Out,~query,~body,args,cursor,H.lookup_descendants(~S,~C,~R,~E,~hierarchy,world,H.Descendants{target,order})))
