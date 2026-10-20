@@ -17,12 +17,28 @@ import ./ordinary-app-recipe.bend as Tree
 import ./ordinary-schema.bend as Schema
 # One retained operational declaration and the actual returned reader/Registry.
 # Debug folds only registration fields and never reads or advances the Reader.
+# Registered App reader for one typed Data event stream E in family F.
+# Retain the actual declaration, reader and Registry returned after each run;
+# registration metadata alone cannot replace their runtime authority. Different
+# readers of the same stream keep independent positions. F may also contain
+# affine owners, but this reader's event payload E is Data, not an owned Type log.
 type Owner<S:Data,E:Data,Reader:Type,Registry:Type> is Type:
   Owner{declaration:Event.Declaration<S,E>,reader:Reader,registry:Registry}
+# Advanced App metadata projection: return this owner with its registration
+# fields and event-read clause. The reported Registry cursor is not a read of
+# the event stream's position. Debug collection does not deliver, advance or
+# trim events; the actual reader and Registry are returned inside the owner.
 def fields(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~Reader:Type,~A:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,Out>,owner:Owner<S,E,Reader,Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,Out,runner>>) -> Owner<S,E,Reader,Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,Out,runner>> & List<&2,Records.Fields<S>>:
   match owner:
     case Owner{Event.Declaration{Event.Domain{+key},+mode},reader,Sys.Registry{+namespace,+id,+name,+access,+cursor}}:(Owner{Event.Declaration{Event.Domain{key},mode},reader,Sys.Registry{namespace,id,name,access,cursor}},[Records.Fields{namespace,id,name,access,cursor,key,[Query.Clause{key,OrdinaryEvent.query_mode(mode)}],Records.EventKind{}}])
+# Advanced App observer returning the same World with an empty Unit observation.
+# Event inventory comes from registration metadata; this function does not read
+# payloads or advance a stream cursor merely to display the App.
 def observe(~S:Data,~C:Type,~R:Type,~P:Data,world:W.World<S,C,R,P>) -> W.World<S,C,R,P> & DTO.Observation<Unit>:(world,DTO.Observation{Unit{},[]})
+# Reader registration result. Registered returns the runtime plus its actual
+# reader/Registry owner; RegistrationFailed returns the runtime without a new
+# owner. Thread the returned runtime on either branch instead of retaining an
+# old World or copying the family owners.
 type Registration<S:Data,C:Type,R:Type,P:Data,E:Data,F:Type,A:Type,Error:Data,Out:Type,-take:F -> F & Stream.Stream<S,E>,-put:F -> Stream.Stream<S,E> -> F,-runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,Out>> is Type:
   Registered{runtime:Route.Runtime<S,C,R,P,F>,owner:Owner<S,E,Route.Reader<S,E,F,take,put>,Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,Out,runner>>}
   RegistrationFailed{runtime:Route.Runtime<S,C,R,P,F>}
@@ -35,11 +51,29 @@ def declared(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data
 def taken(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~Out:Type,~take:F -> F & Stream.Stream<S,E>,~put:F -> Stream.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,Out>,world:W.World<S,C,R,P>,tick:Nat,name:String,returned:F & Stream.Stream<S,E>) -> Registration<S,C,R,P,E,F,A,Error,Out,take,put,runner>:
   match returned:
     case (family,+stream):declared(~S,~C,~R,~P,~E,~F,~A,~Error,~Out,~take,~put,~runner,family,stream,tick,name,Stream.read_declaration(~S,~E,stream),W.namespace(~S,~C,~R,~P,world))
+# Register a reader against the stream selected by the closed take/put route.
+# Derives read authority from that stream's operational declaration and uses the
+# ordinary Registry registration rules. It allocates a reader identity without
+# delivering events. Refusal, including exhausted reader IDs or failed Registry
+# registration, returns RegistrationFailed with the returned runtime.
+# The runner receives event-runtime.Input{values, lagged, args}. This entry is
+# for Data streams; affine payload publication/reading uses the separate
+# ordinary-owned-event-* APIs. Qualified family setup and retention/refusal
+# scenarios are linked from docs/parity/typed-data-events.md.
 def register(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~Out:Type,~take:F -> F & Stream.Stream<S,E>,~put:F -> Stream.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,Out>,runtime:Route.Runtime<S,C,R,P,F>,name:String) -> Registration<S,C,R,P,E,F,A,Error,Out,take,put,runner>:
   match runtime:
     case Route.Runtime{world,family,tick}:taken(~S,~C,~R,~P,~E,~F,~A,~Error,~Out,~take,~put,~runner,world,tick,name,take(family))
+# Advanced type alias for the retained reader and Registry for this exact
+# stream route and runner. Use it in App owner aliases, not as a numeric ID token.
 def OwnerType(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~Out:Type,~take:F -> F & Stream.Stream<S,E>,~put:F -> Stream.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,Out>) -> Type:Owner<S,E,Route.Reader<S,E,F,take,put>,Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,Out,runner>>
+# App type after installing this family reader alongside prior owners.
+# Keeps the schema, runtime family and combined metadata observer; this leaf adds
+# Unit to observation rows rather than copying event payloads into debug output.
+# Use install to perform registration and construct the extended application.
 def Application(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~Out:Type,~take:F -> F & Stream.Stream<S,E>,~put:F -> Stream.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,Out>,~Owners:Type,~Rows:Data,~prior:W.World<S,C,R,P> -> W.World<S,C,R,P> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Records.Fields<S>>) -> Type:App.Application<S,C,R,P,F,Owners & Owner<S,E,Route.Reader<S,E,F,take,put>,Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,Out,runner>>,DTO.Product<Rows,Unit>,Tree.observe_pair(~W.World<S,C,R,P>,~Rows,~Unit,~prior,~observe(~S,~C,~R,~P)),Leaf.fold_pair(~S,~Owners,~Owner<S,E,Route.Reader<S,E,F,take,put>,Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,Out,runner>>,~fold,~fields(~S,~C,~R,~P,~E,~Route.Reader<S,E,F,take,put>,~A,~Error,~Out,~runner))>
+# Advanced composition entry for an already-registered reader owner.
+# Consumes the composer and owner, returning their combined owners/observer.
+# Does not register a second reader or deliver events. Ordinary setup uses install.
 def append(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~Out:Type,~take:F -> F & Stream.Stream<S,E>,~put:F -> Stream.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,Out>,~Owners:Type,~Rows:Data,~prior:W.World<S,C,R,P> -> W.World<S,C,R,P> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Records.Fields<S>>,owner:Owner<S,E,Route.Reader<S,E,F,take,put>,Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,Out,runner>>,value:Build.Registered<S,W.World<S,C,R,P>,Owners,Rows,prior,fold>) -> Build.Registered<S,W.World<S,C,R,P>,Owners & Owner<S,E,Route.Reader<S,E,F,take,put>,Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,Out,runner>>,DTO.Product<Rows,Unit>,Tree.observe_pair(~W.World<S,C,R,P>,~Rows,~Unit,~prior,~observe(~S,~C,~R,~P)),Leaf.fold_pair(~S,~Owners,~Owner<S,E,Route.Reader<S,E,F,take,put>,Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,Out,runner>>,~fold,~fields(~S,~C,~R,~P,~E,~Route.Reader<S,E,F,take,put>,~A,~Error,~Out,~runner))>:
   match value:
     case Build.Registered{world,owners,_,debug}:Build.appended(~S,~W.World<S,C,R,P>,~Owners,~Rows,~prior,~fold,~Owner<S,E,Route.Reader<S,E,F,take,put>,Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,Out,runner>>,~Unit,~observe(~S,~C,~R,~P),~fields(~S,~C,~R,~P,~E,~Route.Reader<S,E,F,take,put>,~A,~Error,~Out,~runner),world,owners,owner,debug)
@@ -49,14 +83,36 @@ def installed(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Dat
   match result:
     case RegistrationFailed{runtime}:failed(App.Application{schema,runtime,owners,recipe,debug})
     case Registered{Route.Runtime{world,family,tick},owner}:done(appended(~S,~C,~R,~P,~E,~F,~A,~Error,~Out,~take,~put,~runner,~Owners,~Rows,~prior,~fold,schema,family,tick,owner,Build.Registered{world,owners,recipe,debug}))
+# Register and append a typed Data-family reader to an existing family App.
+# Consumes value and calls done with the extended App on success, or failed
+# with the returned previous App on refusal. Schema, family, prior owners and
+# debug setting are threaded through both branches. name follows Registry rules.
+# This is setup only: it neither runs the reader nor advances its delivery cursor.
 def install(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~Out:Type,~take:F -> F & Stream.Stream<S,E>,~put:F -> Stream.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,Out>,~Owners:Type,~Rows:Data,~prior:W.World<S,C,R,P> -> W.World<S,C,R,P> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Records.Fields<S>>,~Output:Type,done:Application(~S,~C,~R,~P,~E,~F,~A,~Error,~Out,~take,~put,~runner,~Owners,~Rows,~prior,~fold) -> Output,failed:App.Application<S,C,R,P,F,Owners,Rows,prior,fold> -> Output,value:App.Application<S,C,R,P,F,Owners,Rows,prior,fold>,name:String) -> Output:
   match value:
     case App.Application{schema,runtime,owners,recipe,debug}:installed(~S,~C,~R,~P,~E,~F,~A,~Error,~Out,~take,~put,~runner,~Owners,~Rows,~prior,~fold,~Output,done,failed,schema,owners,recipe,debug,register(~S,~C,~R,~P,~E,~F,~A,~Error,~Out,~take,~put,~runner,runtime,name))
+# Returned runtime and reader owner together with event-runtime.Completion.
+# Succeeded carries Out, Failed carries the runner's error, and Rejected returns
+# Args when execution authority is refused. Always retain the returned runtime
+# and owner; failure does not mean the input owners can be reused separately.
 type RunResult<S:Data,C:Type,R:Type,P:Data,E:Data,F:Type,A:Type,Error:Data,Out:Type,-take:F -> F & Stream.Stream<S,E>,-put:F -> Stream.Stream<S,E> -> F,-runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,Out>> is Type:
   Ran{runtime:Route.Runtime<S,C,R,P,F>,owner:Owner<S,E,Route.Reader<S,E,F,take,put>,Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,Out,runner>>,completion:Ev.Completion<Error,Out,A>}
 def ran(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~Out:Type,~take:F -> F & Stream.Stream<S,E>,~put:F -> Stream.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,Out>,declaration:Event.Declaration<S,E>,result:Route.RunResult<S,C,R,P,E,F,A,Error,Out,take,put,runner>) -> RunResult<S,C,R,P,E,F,A,Error,Out,take,put,runner>:
   match result:
     case Route.Ran{runtime,reader,registry,completion}:Ran{runtime,Owner{declaration,reader,registry},completion}
+# Run this registered reader against its typed family stream.
+# The runner receives retained unread values in publication order, a lagged flag
+# and args. On Sys.Succeeded the reader advances and synchronize threads committed
+# World/family publication into the returned runtime. On Sys.Failed its stream
+# position does not advance; the runner's returned World is retained. This wrapper
+# does not itself undo arbitrary callback or host-IO effects.
+# A routing/registration rejection returns Rejected{args} without consuming the
+# read position. The completion and actual reader/Registry owners are returned
+# on every branch. Stream retention/capacity still bound later availability;
+# lagged reports dropped unread history, so failure is not an unlimited retry
+# retention promise. Supply the matching family synchronization route; merely
+# observing fields/metadata is not a run. See event-family-routing and the
+# qualified scenarios in docs/parity/typed-data-events.md.
 def run(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~Out:Type,~take:F -> F & Stream.Stream<S,E>,~put:F -> Stream.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,Out>,~synchronize:W.World<S,C,R,P> -> F -> Nat -> W.World<S,C,R,P> & F,owner:Owner<S,E,Route.Reader<S,E,F,take,put>,Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,Out,runner>>,runtime:Route.Runtime<S,C,R,P,F>,args:A) -> RunResult<S,C,R,P,E,F,A,Error,Out,take,put,runner>:
   match owner:
     case Owner{declaration,reader,registry}:ran(~S,~C,~R,~P,~E,~F,~A,~Error,~Out,~take,~put,~runner,declaration,Route.run(~S,~C,~R,~P,~E,~F,~A,~Error,~Out,~take,~put,~runner,~synchronize,runtime,reader,registry,args))

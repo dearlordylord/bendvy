@@ -6,7 +6,13 @@ import event-stream.bend as Leaf
 import event-publication.bend as Publication
 
 # Builder domains are operational declarations, not a second metadata list.
+# Detached left/right domain declarations for a heterogeneous event family.
+# Their nested shape matches the publication and storage product, not live readers.
 type Domains<A:Data,B:Data> is Data:Domains{first:A,second:B}
+# Typed family setup containing ordinary domains and closed storage/routing
+# operations. Runtime streams are constructed separately; this declaration
+# supplies no live cursor or affine payload. Raw constructors are trusted setup.
+# Family construction and reader lifecycle: docs/parity/typed-data-events.md.
 type Provision<S:Data,P:Data,D:Data,F:Type,-make:D -> Nat -> F,-sync:F -> Nat -> List<&2,P> -> F,-frame:F -> Nat -> F,-retain:F -> Nat -> List<&2,P> -> F & List<&2,P>,-inventory:F -> F & List<&2,String>> is Data:
   Provision{domains:D}
 def leaf_make(~S:Data,~E:Data,domain:Event.Domain<S,E>,capacity:Nat) -> Leaf.Stream<S,E>:Leaf.provision(~S,~E,domain,capacity)
@@ -22,6 +28,10 @@ def leaf_retain(~S:Data,~E:Data,stream:Leaf.Stream<S,E>,tick:Nat,values:List<&2,
 def leaf_inventory(~S:Data,~E:Data,stream:Leaf.Stream<S,E>) -> Leaf.Stream<S,E> & List<&2,String>:
   +retained=stream
   (retained,[Leaf.inventory(~S,~E,retained)])
+# Declare one Data event family leaf from its schema-scoped domain. The
+# resulting provision supplies stream creation, synchronization and retention
+# operations, but does not create a stream until runtime setup invokes make.
+# Example: Family.leaf(~S,~E,Event.domain(~S,~E,"hit")).
 def leaf(~S:Data,~E:Data,domain:Event.Domain<S,E>) -> Provision<S,E,Event.Domain<S,E>,Leaf.Stream<S,E>,leaf_make(~S,~E),leaf_sync(~S,~E),leaf_frame(~S,~E),leaf_retain(~S,~E),leaf_inventory(~S,~E)>:Provision{domain}
 def pair_make(~DA:Data,~DB:Data,~FA:Type,~FB:Type,~makeA:DA -> Nat -> FA,~makeB:DB -> Nat -> FB,domains:Domains<DA,DB>,+capacity:Nat) -> Product.Owner<FA,FB>:
   match domains:
@@ -74,15 +84,24 @@ def pair_retain(~A:Data,~B:Data,~FA:Type,~FB:Type,~retainA:FA -> Nat -> List<&2,
 def node_make(~DA:Data,~DB:Data,~FA:Type,~FB:Type,~makeA:DA -> Nat -> FA,~makeB:DB -> Nat -> FB,domains:Domains<DA,DB>,capacity:Nat) -> Product.Owner<FA,FB>:pair_make(~DA,~DB,~FA,~FB,~makeA,~makeB,domains,capacity)
 def node_sync(~A:Data,~B:Data,~FA:Type,~FB:Type,~syncA:FA -> Nat -> List<&2,A> -> FA,~syncB:FB -> Nat -> List<&2,B> -> FB,family:Product.Owner<FA,FB>,tick:Nat,records:List<&2,Publication.Publication<A,B>>) -> Product.Owner<FA,FB>:pair_sync(~A,~B,~FA,~FB,~syncA,~syncB,family,tick,records)
 def node_frame(~FA:Type,~FB:Type,~frameA:FA -> Nat -> FA,~frameB:FB -> Nat -> FB,family:Product.Owner<FA,FB>,tick:Nat) -> Product.Owner<FA,FB>:pair_frame(~FA,~FB,~frameA,~frameB,family,tick)
+# Compose two event provisions under the same schema in left/right order.
+# Publication wrappers and family storage become matching nested products;
+# each leaf retains its own typed stream. Composition neither publishes records
+# nor combines independent reader cursors into one. Nest branches for more types.
 def branch(~S:Data,~A:Data,~B:Data,~DA:Data,~DB:Data,~FA:Type,~FB:Type,~makeA:DA -> Nat -> FA,~makeB:DB -> Nat -> FB,~syncA:FA -> Nat -> List<&2,A> -> FA,~syncB:FB -> Nat -> List<&2,B> -> FB,~frameA:FA -> Nat -> FA,~frameB:FB -> Nat -> FB,~retainA:FA -> Nat -> List<&2,A> -> FA & List<&2,A>,~retainB:FB -> Nat -> List<&2,B> -> FB & List<&2,B>,~inventoryA:FA -> FA & List<&2,String>,~inventoryB:FB -> FB & List<&2,String>,first:Provision<S,A,DA,FA,makeA,syncA,frameA,retainA,inventoryA>,second:Provision<S,B,DB,FB,makeB,syncB,frameB,retainB,inventoryB>) -> Provision<S,Publication.Publication<A,B>,Domains<DA,DB>,Product.Owner<FA,FB>,node_make(~DA,~DB,~FA,~FB,~makeA,~makeB),node_sync(~A,~B,~FA,~FB,~syncA,~syncB),node_frame(~FA,~FB,~frameA,~frameB),pair_retain(~A,~B,~FA,~FB,~retainA,~retainB),pair_inventory(~FA,~FB,~inventoryA,~inventoryB)>:
   match first second:
     case Provision{first} Provision{second}:Provision{Domains{first,second}}
 
+# Typed path to one event stream in a family, with owner-threading take/put
+# operations. This Data path owns no stream or reader; raw indices are trusted
+# setup. Equal payload types do not justify substituting unrelated family paths.
 type Selection<S:Data,E:Data,F:Type,-take:F -> F & Leaf.Stream<S,E>,-put:F -> Leaf.Stream<S,E> -> F> is Data:Selection{}
 def selected_leaf(~S:Data,~E:Data,stream:Leaf.Stream<S,E>) -> Leaf.Stream<S,E> & Leaf.Stream<S,E>:
   +retained=stream
   (retained,retained)
 def replaced_leaf(~S:Data,~E:Data,_:Leaf.Stream<S,E>,stream:Leaf.Stream<S,E>) -> Leaf.Stream<S,E>:stream
+# Select a stream that is itself the complete family owner. The selection
+# records closed extraction/replacement operations and performs neither here.
 def select_leaf(~S:Data,~E:Data) -> Selection<S,E,Leaf.Stream<S,E>,selected_leaf(~S,~E),replaced_leaf(~S,~E)>:Selection{}
 def selected_left(~S:Data,~E:Data,~FA:Type,~FB:Type,second:FB,returned:FA & Leaf.Stream<S,E>) -> Product.Owner<FA,FB> & Leaf.Stream<S,E>:
   match returned:
@@ -102,8 +121,21 @@ def right_take(~S:Data,~E:Data,~FA:Type,~FB:Type,~take:FB -> FB & Leaf.Stream<S,
 def right_put(~S:Data,~E:Data,~FA:Type,~FB:Type,~put:FB -> Leaf.Stream<S,E> -> FB,family:Product.Owner<FA,FB>,stream:Leaf.Stream<S,E>) -> Product.Owner<FA,FB>:
   match family:
     case Product.Owner{first,second}:Product.Owner{first,put(second,stream)}
+# Lift a leaf selection through the left side of a family product.
+# The generated path preserves the right sibling when accessing/replacing
+# the selected stream; it does not allocate or advance a reader.
 def select_left(~S:Data,~E:Data,~FA:Type,~FB:Type,~take:FA -> FA & Leaf.Stream<S,E>,~put:FA -> Leaf.Stream<S,E> -> FA,_:Selection<S,E,FA,take,put>) -> Selection<S,E,Product.Owner<FA,FB>,left_take(~S,~E,~FA,~FB,~take),left_put(~S,~E,~FA,~FB,~put)>:Selection{}
+# Lift a leaf selection through the right side of a family product,
+# preserving the left sibling. Compose paths to address nested families.
 def select_right(~S:Data,~E:Data,~FA:Type,~FB:Type,~take:FB -> FB & Leaf.Stream<S,E>,~put:FB -> Leaf.Stream<S,E> -> FB,_:Selection<S,E,FB,take,put>) -> Selection<S,E,Product.Owner<FA,FB>,right_take(~S,~E,~FA,~FB,~take),right_put(~S,~E,~FA,~FB,~put)>:Selection{}
+# Identity injection for a Data event in a leaf publication. Does not send
+# it or establish a publication tick; runtime publication does that separately.
 def inject_leaf(~E:Data,event:E) -> E:event
+# Wrap one event on the left side of a heterogeneous publication with an
+# empty right list. The closed inject callback embeds nested leaf shapes;
+# this creates a Data publication value, without mutating any runtime stream.
 def inject_left(~E:Data,~A:Data,~B:Data,~inject:E -> A,event:E) -> Publication.Publication<A,B>:Publication.Publication{[inject(event)],[]}
+# Wrap one event on the right side of a heterogeneous publication with an
+# empty left list. Retains the nested injection shape; does not publish or
+# change a cursor until the runtime processes the resulting value.
 def inject_right(~E:Data,~A:Data,~B:Data,~inject:E -> B,event:E) -> Publication.Publication<A,B>:Publication.Publication{[],[inject(event)]}
