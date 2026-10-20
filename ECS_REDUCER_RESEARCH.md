@@ -1,5 +1,9 @@
 # ECS, reducers and Bendvy: research and audit
 
+**Current disposition:** see [the #74 review](#9-current-source-review-and-disposition-74).
+Sections 1–8 preserve the historical research; their performance figures and proposed
+contract changes are not current acceptance requirements or adopted implementations.
+
 Subject revision: Bendvy `2e3be6904`. Reference revisions are the pinned checkouts in
 [`.references/sources.json`](.references/sources.json): Bevy `ad678262` (bevy_ecs
 0.20.0-dev), bevy-ts `3040a3b2`, Bend `a950fd68`. Cross-checks against the current
@@ -480,3 +484,119 @@ it outside the region where their theorems apply:
 - 6.3–6.5: a prototype `each` in `conc` mode (rows read a snapshot and return data
   mutations; one apply) compared with the current `seq` route on Dense-motion, using the
   existing equivalent-work protocol.
+
+
+## 9. Current-source review and disposition (#74)
+
+Review subject: integrated Bendvy `a04837d68` (2026-10-20 UTC). The pinned
+Bevy `ad678262`, bevy-ts `3040a3b2` and Bend `a950fd68` checkout HEADs were
+verified against the manifest. Local Ritmo HEAD is `2ce89931`; the historical
+`bec76226` object is unavailable locally, so this review does not revalidate or
+repin those historical Ritmo claims. This is source review, not a new execution
+or profile. Existing §6.9 probe results remain bounded to their recorded source.
+
+### Dispositions
+
+| Recommendation | Review decision | Reason and next boundary |
+| --- | --- | --- |
+| §6.1 clock | Confirm the finite-clock limitation; recommend a dedicated Bevy-style migration, not a one-line wrap | Per-write advancement and saturation remain. Changing tick granularity, comparison and reader age is an observable contract change; no implementation approved here. |
+| §6.9 pending saves | Confirm the accepted committed-world export boundary; no current contract defect established | Saving returns the World with its queue intact; an admitted restore deliberately cancels pending work. For a future player-facing save API, prefer explicit refusal over a hidden flush, subject to approval. A durable runtime checkpoint is a separate API. |
+| §6.2 membership caching | Defer to existing #21/#24 | Real full-scan path, but cache invalidation must preserve generation, rollback, pending visibility and output order. No new prototype or speedup claim. |
+| §6.2 indexed stamps | Already available for indexed columns; defer broader adoption | Plain columns still use lists. The recommendation is partly implemented, not an entirely missing feature or proof that all workloads are quadratic. |
+| §6.3 column transforms | Retain as a restricted future optimization candidate | Whole-World source reconstruction is real; physical allocations and dominant cost require generated-code/profile evidence. Arbitrary row bodies also read/write shared resources. |
+| §6.4 command data | Do not replace the current queue wholesale | Typed built-in operations could improve inspectability, but a homogeneous enum does not automatically encode arbitrary affine schema payloads or custom callbacks. Preserve custom command support, FIFO and explicit visibility. |
+| §6.5 patch/overlay rollback | Reject the claim that purity makes rollback storage unnecessary; defer redesign | Old affine values still need an owner. An overlay must retain originals, support read-your-writes and ownership recovery, and preserve failure/cleanup semantics. It is not a free discard of the current World. |
+| §6.6 required-query typing | Accept ergonomic direction, not unchecked narrowing of component.get | Add a proved-by-construction selected-row capability in a separately specified API; keep fallible direct/optional lookup. No fabricated default value and no assumed theorem from a Bool predicate. |
+| §6.7 order/final flush | Keep the explicitly approved contracts | Bevy is the default authority, but SPEC explicitly preserves approved observable contracts. Reversing these requires a user decision and revised observations, not a precedence shortcut. |
+| §6.8 registration matching | Do not weaken to namespace+id as an isolated edit | That pair rejects foreign identity, but is not equivalent to current name/access consistency checks. A future opaque registration representation must account for stale/disposed and mismatched metadata and preserve authority controls. |
+
+### Clock and save: limits versus defects
+
+The clock limit is real: [World.advance_clock](src/ecs/world.bend) saturates U32;
+[Component.replace_clock](src/ecs/component.bend) and its fused stamped path refuse
+canonical replacement at exhaustion. [Lifecycle](src/ecs/lifecycle.bend) compares
+`stamp > cursor`, so changing addition to wrap alone would break change detection.
+This is a documented availability limit, not evidence that every ECS operation
+rejects: [resource-field replacement](src/ecs/resource-field.bend) can preserve the
+clock, and invalid handles can refuse before clock advancement. The two-hour
+example in §6.1 is hypothetical arithmetic at a specified write rate, not a
+measured application lifetime.
+
+Bevy's [Tick](.references/bevy/crates/bevy_ecs/src/change_detection/tick.rs) uses
+relative ages plus a stale-tick clamp; [World](.references/bevy/crates/bevy_ecs/src/world/mod.rs)
+also advances ticks outside normal system execution. A migration needs direct edits,
+deferred commands, independent/failed readers, old stamps, explicit cursors and
+rollback covered together. Current [System.run_tracked](src/ecs/system.bend) consumes
+its own writes by recording the post-success clock; failure/refusal retains its
+cursor. Bevy-style system stamping must preserve or explicitly revise this rule.
+Data-event positions are Nat; they are not interchangeable U32 component stamps.
+Pinned TS3040 increments a JS-number clock; it is not Rust's wrap/clamp algorithm.
+
+[Snapshot.save](src/ecs/snapshot.bend) explicitly exports persisted world data,
+not pending commands/readers/event-log state, and returns the live World. Saving
+alone does not lose the queue. The full admitted restore path runs through
+[restore-runtime](src/ecs/restore-runtime.bend), [restore-apply](src/ecs/restore-apply.bend),
+[restore-lifecycle](src/ecs/restore-lifecycle.bend) and
+[restore-world.cancel_pending](src/ecs/restore-world.bend). After preparation and
+capacity admission, it cancels pending closures without executing them and abandons
+pending allocator marks. Early refusal retains the runtime. These are explicit
+[accepted restore semantics](docs/parity/restore-basic.md), including preserved
+registration/Local/capture/reader owners; restore is not a checkpoint of those owners.
+
+Thus the §6.9 probe shows a potentially surprising application consequence, not a
+violation of the current save/restore contract. Bevy's default final schedule flush
+does not prove that every save follows a flush or that Bevy supplies a full-runtime
+checkpoint. Refusing saves needs a new result/queue policy; flushing changes side
+effects and visibility; serializing commands needs codecs, eligibility, handle
+rebinding and opaque-command policy. These alternatives are not equivalent fixes.
+
+### Source-backed corrections to the architectural argument
+
+- [Compose.each](src/ecs/compose.bend) snapshots `W.handles`, then executes a
+  sequential fold in one transaction. Later rows can observe earlier writes, and
+  results/failures are ordered. `conc` snapshot evaluation is a semantic change
+  for the general API, not simply an alternative backend for the same program.
+- [Column](src/ecs/column.bend) already includes `Indexed` and `PreparedIndexed`;
+  [indexed-lifecycle](src/ecs/indexed-lifecycle.bend) owns separate added/changed
+  arrays, with an exceptional-key list. The O(n) [Lifecycle](src/ecs/lifecycle.bend)
+  diagnosis applies to list-backed metadata, not every column representation.
+- [Transaction](src/ecs/transaction.bend) explicitly owns displaced values in
+  affine inverse closures. Bend's [affine kinds](.references/bend2/guide/GUIDE.md)
+  mean at most one use, not a duplicable persistent World. Native lowering of
+  array operations in [comp.ts, arr_op](.references/bend2/bend2/comp.ts) includes
+  `blk_write`; source-level functional syntax does not establish zero mutation,
+  zero allocation, or a free second owner for rollback.
+- [Required declarations](src/ecs/ordinary-query-declaration.bend) combine a Bool
+  membership selector with the general capability result type.
+  [Component.Access](src/ecs/component.bend) consequently remains fallible. A
+  narrowed selected-row interface needs an actual typed witness and supported
+  mutation boundary; raw/custom lenses and selectors remain trusted adapters.
+- [Registration matching](src/ecs/world.bend) and [System.run](src/ecs/system.bend)
+  validate namespace, then active registration metadata. This is a consistency
+  check, not a general security proof: raw constructors are trusted. Removing
+  checks changes which mismatched registrations are rejected.
+- [SPEC](docs/SPEC.md#implementation-decisions) explicitly binds existing approved
+  contracts, including deterministic query order, failed-system rollback and
+  queued work surviving schedule completion. Bevy itself permits disabling final
+  deferred application (`Schedule::set_apply_final_deferred`); its default final
+  flush is not a prohibition on explicit-barrier execution.
+- The Core ECS `conc` result has hypotheses about snapshots and influence. It
+  does not justify parallelizing arbitrary shared-resource/affine-payload bodies,
+  or claim that retaining a sequential ECS provides no authoring value.
+
+### Performance and verification scope
+
+§6.0 is historical. The latest accepted full comparison uses source `7bb4353b8`,
+compiler11 and seven paired rotations per case: JS/TS **1.952–3.522**, Native/TS
+**0.641–1.445**. See the exact seven-case table in the
+[existing delivery report](docs/reports/delivery-process-expectations.md). Subsequent
+integrated changes are source comments/status documentation, not performance
+adoptions. Neither historical table establishes which source construct dominates.
+Performance profiles, caching/patch/conc prototypes and timing acceptance are
+**deferred to #21/#23/#24**, not uncompleted execution promises of this review.
+
+The §8 near-exhaustion continued-acceptance test remains needed for a future clock change;
+this review did not run it. Reuse the recorded save/restore probe as a starting
+regression story for any separately approved save-policy change; qualify that change through the
+ordinary API on JS/Native, including refusal owner/queue preservation. No new laws,
+proofs, dependencies, numerical gates or runtime contracts are adopted by #74.
