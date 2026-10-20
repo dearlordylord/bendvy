@@ -11,6 +11,8 @@ import ./ordinary-app-access.bend as Access
 import ./schedule.bend as Sch
 import ./schedule-provision.bend as SP
 # Retained operational Plan selects actual registry identity; no parallel catalog.
+# Detached grouped declared accesses for the retained schedule's actual
+# namespace/name. This is a diagnostic index, not a runtime grant or payload view.
 type Index is Data:
   Index{namespace:U32,name:String,entries:List<&2,Access.Entry>}
 def selected(~S:Data,found:Bool,record:Fields.Fields<S>,rest:List<&2,Fields.Fields<S>>) -> List<&2,Fields.Fields<S>>:
@@ -28,6 +30,9 @@ def step(~S:Data,namespace:U32,records:List<&2,Fields.Fields<S>>,planned:Schedul
   match planned:
     case Schedule.PlannedStep{Sch.System{id,_},_}:matching(~S,namespace,id,records)
     case _ :[]
+# Advanced metadata selector: keep registration fields matching each System
+# placement's exact namespace/id in step order; phase/barrier entries add no fields.
+# No unmatched registration is invented and no capability is derived from strings.
 def placed(~S:Data,steps:List<&2,Schedule.PlannedStep<S>>,+namespace:U32,+records:List<&2,Fields.Fields<S>>) -> List<&2,Fields.Fields<S>>:
   match steps:
     case []:[]
@@ -35,6 +40,10 @@ def placed(~S:Data,steps:List<&2,Schedule.PlannedStep<S>>,+namespace:U32,+record
 def folded(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Fields.Fields<S>>,schema:Schema.Schema<S,C,R>,world:W.World<S,C,R,E>,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,+plan:SP.Plan<S>,+namespace:U32,+name:String,steps:List<&2,Sch.Step>,needs:List<&2,SP.Requirement<S>>,result:H & List<&2,Fields.Fields<S>>) -> Schedule.Application<S,C,R,E,H,Rows,observe,fold> & Maybe<&2,Index>:
   match result:
     case (owners,records):(Schedule.Application{SchemaApp.Application{schema,Build.Registered{world,owners,recipe,True{}}},plan,namespace,name,steps,needs},Some{Index{namespace,name,Access.grouped(Access.fields(~S,placed(~S,Schedule.planned(~S,plan),namespace,records)),[])}})
+# Return the same scheduled App and optional grouped declared-access index.
+# Disabled returns None before folding owners; enabled selects fields using the
+# retained operational plan. Does not run systems, inspect payloads, advance
+# readers or apply pending commands; arbitrary fold adapters remain trusted.
 def index(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Fields.Fields<S>>,value:Schedule.Application<S,C,R,E,H,Rows,observe,fold>) -> Schedule.Application<S,C,R,E,H,Rows,observe,fold> & Maybe<&2,Index>:
   match value:
     case Schedule.Application{SchemaApp.Application{schema,Build.Registered{world,owners,recipe,False{}}},plan,namespace,name,steps,needs}:(Schedule.Application{SchemaApp.Application{schema,Build.Registered{world,owners,recipe,False{}}},plan,namespace,name,steps,needs},None{})
