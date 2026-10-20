@@ -106,11 +106,12 @@ explicitly; schedule completion does not flush. Schema cleanup on public
 despawn releases all component owners. `Structural` queues independent family
 insert/remove operations with validation before queuing and at application.
 
-`System.cursor` reads the current cursor while returning its registry owner.
-Use `System.run_tracked` for lifecycle readers: success consumes the authoritative
-post-run clock, including the system's own writes; failure/refusal retains the
-old cursor. `System.run_to_cursor` remains an explicit caller-supplied cursor
-operation for existing consumers.
+`System.cursor` returns the registry owner and an optional full change timestamp.
+`None` means never run; tick zero is valid. `System.run` captures one execution
+tick and records it after success or an executed error, following Bevy lifecycle
+semantics. Admission refusal preserves the cursor and World clock. Component
+writes share the captured tick; independent event acknowledgements retain their
+own policy. There is no caller-supplied or cursor-preserving legacy run route.
 
 `Events.create/read` retains its legacy append-only interface. `EventRuntime`
 adds registered readers, bounded whole-batch retention and lag reporting against
