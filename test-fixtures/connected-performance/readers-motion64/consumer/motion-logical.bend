@@ -31,7 +31,7 @@ def Rows() -> Data:List<&2,IQ.ProjectedRow<T.MotionSchema,Value()>>
 def unpack(observed:InspectFrame() & Rows()) -> F.World() & Rows():
   match observed:
     case (I.Frame{world,_},rows):(world,rows)
-def rows(world:F.World()) -> F.World() & Rows():unpack(IQ.each_composed(~InspectFrame(),~T.MotionSchema,~Value(),~O.inspect_query(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),~Frame(),~Ops(Frame()),~Value(),~declaration()),I.Frame{world,0}))
+def rows(world:F.World()) -> F.World() & Rows():unpack(IQ.each_composed(~InspectFrame(),~T.MotionSchema,~Value(),~O.inspect_query(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),~Frame(),~Ops(Frame()),~Value(),~declaration()),I.Frame{world,None{}}))
 
 def main_binding() -> Binding.Binding<T.MotionSchema,F.Store(),F.Rest(),T.Position,T.PositionView,T.PositionToken,F.take_main,F.put_main,P.position_get>:
   Binding.bind(~T.MotionSchema,~F.Store(),~F.Rest(),~T.Position,~T.PositionView,~T.PositionToken,~F.take_main,~F.put_main,~P.position_get,F.main_identity())

@@ -1,4 +1,6 @@
 import Base
+import ./change-tick.bend as Tick
+import ./clock-state.bend as Clock
 import ./trace-facts.bend as TraceFacts
 import ./deferred-command.bend as Deferred
 import string-equality.bend as SE
@@ -31,7 +33,7 @@ type WorldError is Data:
 # Raw field construction/destructuring is trusted framework provisioning, not the
 # opaque gameplay interface. Schema branding alone does not validate forged fields.
 type World<Schema: Data,Store: Type,Resource: Type,Event: Data> is Type:
-  World{namespace: U32,allocator: A.Allocator,store: Store,resource: Resource,events: List<&2,Event>,pending:List<Deferred.Command<World<Schema,Store,Resource,Event>>>,registrations: List<&2,RegistrationMeta>,nextSystemId: U32,clock: U32}
+  World{namespace: U32,allocator: A.Allocator,store: Store,resource: Resource,events: List<&2,Event>,pending:List<Deferred.Command<World<Schema,Store,Resource,Event>>>,registrations: List<&2,RegistrationMeta>,nextSystemId: U32,clock: Clock.State}
 # Raw creation returns the advanced Factory and World on success; rejection
 # returns the actual Factory and incoming resource owner without constructing C.
 type Creation<Schema: Data,Store: Type,Resource: Type,Event: Data> is Type:
@@ -53,6 +55,51 @@ type Registration is Data:
   Registered{id: U32}
   RegistrationRejected{error: WorldError}
 
+# Return administrative time without advancing it. Full epoch is required by readers.
+def clock(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>) -> World<S,C,R,E> & Tick.Tick:
+  match world:
+    case World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,+clock}:(World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},Clock.now(clock))
+
+# Observe this execution's captured tick without advancing administrative time.
+def execution_clock(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>) -> World<S,C,R,E> & Tick.Tick:
+  match world:
+    case World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,+clock}:(World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},Clock.current(clock))
+
+def clock_returned(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,allocator:A.Allocator,store:C,resource:R,events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,registrations:List<&2,RegistrationMeta>,nextSystemId:U32,changed:Clock.State & Tick.Tick) -> World<S,C,R,E> & Tick.Tick:
+  (clock,tick)=changed
+  (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},tick)
+
+# Explicit direct/deferred time boundary; this is not system admission.
+def advance_clock(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>) -> World<S,C,R,E> & Tick.Tick:
+  match world:
+    case World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:clock_returned(~S,~C,~R,~E,namespace,allocator,store,resource,events,pending,registrations,nextSystemId,Clock.advance(clock))
+
+# Stamp a canonical write with its captured execution tick or a new direct-edit tick.
+def write_clock(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>) -> World<S,C,R,E> & Tick.Tick:
+  match world:
+    case World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:clock_returned(~S,~C,~R,~E,namespace,allocator,store,resource,events,pending,registrations,nextSystemId,Clock.write(clock))
+
+# Enter only after registration admission; capture one tick for all run writes.
+def enter_run(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>) -> World<S,C,R,E> & Tick.Tick:
+  match world:
+    case World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:clock_returned(~S,~C,~R,~E,namespace,allocator,store,resource,events,pending,registrations,nextSystemId,Clock.enter(clock))
+
+# Exit an executed run on success or failure, preserving administrative progress.
+def leave_run(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>) -> World<S,C,R,E>:
+  match world:
+    case World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,Clock.leave(clock)}
+
+def ensure_returned(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,allocator:A.Allocator,store:C,resource:R,events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,registrations:List<&2,RegistrationMeta>,nextSystemId:U32,result:Clock.State & Bool) -> World<S,C,R,E> & Bool:
+  (clock,owned)=result
+  (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},owned)
+# A direct query owns a new scope; a query inside a system reuses that scope.
+def ensure_run(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>) -> World<S,C,R,E> & Bool:
+  match world:
+    case World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:ensure_returned(~S,~C,~R,~E,namespace,allocator,store,resource,events,pending,registrations,nextSystemId,Clock.ensure(clock))
+def finish_run(~S:Data,~C:Type,~R:Type,~E:Data,owned:Bool,world:World<S,C,R,E>) -> World<S,C,R,E>:
+  match world:
+    case World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,Clock.finish(owned,clock)}
+
 # Extract only the slot index for trusted storage adapters. Generation and World
 # namespace are omitted; this projection must not replace handle validation.
 def handle_index(~S:Data,handle:Handle<S>) -> U32:
@@ -70,18 +117,18 @@ def factory() -> Factory:
 def create_checked(~S:Data,~C:Type,~R:Type,~E:Data,~empty:Unit -> C,available:Bool,+namespace:U32,resource:R) -> Creation<S,C,R,E>:
   match available:
     case False{}:CreateRejected{Factory{namespace},resource}
-    case True{}:Created{Factory{(namespace + 1 : U32)},World{namespace,A.empty(),empty(Unit{}),resource,[],[],[],1,0}}
+    case True{}:Created{Factory{(namespace + 1 : U32)},World{namespace,A.empty(),empty(Unit{}),resource,[],[],[],1,Clock.empty()}}
 # Consume the raw Factory and resource owner to construct an empty World, advancing
 # the namespace sequence on success. Namespace exhaustion returns both inputs via
 # CreateRejected. Trusted empty supplies C; use world-io for application creation.
 def create(~S:Data,~C:Type,~R:Type,~E:Data,~empty:Unit -> C,factory:Factory,resource:R) -> Creation<S,C,R,E>:
   match factory:
     case Factory{+namespace}:create_checked(~S,~C,~R,~E,~empty,U32.is_lt(namespace,4294967295),namespace,resource)
-def reserve_result(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource:R,+events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,+registrations:List<&2,RegistrationMeta>,+nextSystemId:U32,+clock:U32,allocator:A.Allocator,reservation:A.Reservation) -> World<S,C,R,E> & Reservation<S>:
+def reserve_result(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource:R,+events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,+registrations:List<&2,RegistrationMeta>,+nextSystemId:U32,+clock:Clock.State,allocator:A.Allocator,reservation:A.Reservation) -> World<S,C,R,E> & Reservation<S>:
   match reservation:
     case A.Exhausted{}:(World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},ReservationRejected{CapacityExceeded{}})
     case A.Reserved{key}:(World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},Reserved{Handle{namespace,key}})
-def reserve_join(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource:R,+events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,+registrations:List<&2,RegistrationMeta>,+nextSystemId:U32,+clock:U32,reserved:A.Allocator & A.Reservation) -> World<S,C,R,E> & Reservation<S>:
+def reserve_join(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource:R,+events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,+registrations:List<&2,RegistrationMeta>,+nextSystemId:U32,+clock:Clock.State,reserved:A.Allocator & A.Reservation) -> World<S,C,R,E> & Reservation<S>:
   (allocator,reservation) = reserved
   reserve_result(~S,~C,~R,~E,namespace,store,resource,events,pending,registrations,nextSystemId,clock,allocator,reservation)
 # Reserve a full allocator key, returning World in both success and refusal.
@@ -89,7 +136,7 @@ def reserve_join(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource
 def reserve_id(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>) -> World<S,C,R,E> & Reservation<S>:
   match world:
     case World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:reserve_join(~S,~C,~R,~E,namespace,store,resource,events,pending,registrations,nextSystemId,clock,A.reserve(allocator))
-def checked_join(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,store:C,resource:R,events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,registrations:List<&2,RegistrationMeta>,nextSystemId:U32,clock:U32,checked:A.Allocator & Bool) -> World<S,C,R,E> & Bool:
+def checked_join(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,store:C,resource:R,events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,registrations:List<&2,RegistrationMeta>,nextSystemId:U32,clock:Clock.State,checked:A.Allocator & Bool) -> World<S,C,R,E> & Bool:
   match checked:
     case (allocator,valid):(World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},valid)
 def checked_namespace(~S:Data,~C:Type,~R:Type,~E:Data,allowed:Bool,mode:U32,world:World<S,C,R,E>,key:K.Key) -> World<S,C,R,E> & Bool:
@@ -179,9 +226,15 @@ def drain_fifo_traced(~S:Data,~C:Type,~R:Type,~E:Data,commands:List<Deferred.Com
 # Detach the current pending batch, execute it in FIFO enqueue order, and return
 # World plus operation trace state. Commands enqueued during that drain remain
 # pending for a later barrier; arbitrary callback effects are not transactional.
+def barrier_completed(~S:Data,~C:Type,~R:Type,~E:Data,result:World<S,C,R,E> & TraceFacts.State) -> World<S,C,R,E> & TraceFacts.State:
+  (world,trace)=result
+  (leave_run(~S,~C,~R,~E,world),trace)
+def barrier_entered(~S:Data,~C:Type,~R:Type,~E:Data,trace:TraceFacts.State,entered:World<S,C,R,E> & Tick.Tick) -> World<S,C,R,E> & TraceFacts.State:
+  match entered:
+    case (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},_):barrier_completed(~S,~C,~R,~E,drain_fifo_traced(~S,~C,~R,~E,pending,World{namespace,allocator,store,resource,events,[],registrations,nextSystemId,clock},trace))
+# Explicit deferred-application boundary; all commands in this batch share its tick.
 def barrier_traced(~S:Data,~C:Type,~R:Type,~E:Data,world:World<S,C,R,E>,trace:TraceFacts.State) -> World<S,C,R,E> & TraceFacts.State:
-  match world:
-    case World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:drain_fifo_traced(~S,~C,~R,~E,pending,World{namespace,allocator,store,resource,events,[],registrations,nextSystemId,clock},trace)
+  barrier_entered(~S,~C,~R,~E,trace,enter_run(~S,~C,~R,~E,world))
 # Apply the current pending command batch in FIFO order with tracing disabled.
 # Returns World; it neither invents a transaction rollback nor recursively drains
 # new work queued by those commands. See commands.bend for lifecycle adapters.
@@ -220,7 +273,7 @@ def events_view(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>) -> Wo
   match world:
     case World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},events)
 
-def observe_resource_finish(~S: Data,~C: Type,~R: Type,~E: Data,~V: Type,observed: R & V,+namespace: U32,allocator: A.Allocator,store: C,+events: List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32) -> World<S,C,R,E> & V:
+def observe_resource_finish(~S: Data,~C: Type,~R: Type,~E: Data,~V: Type,observed: R & V,+namespace: U32,allocator: A.Allocator,store: C,+events: List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: Clock.State) -> World<S,C,R,E> & V:
   (resource,value) = observed
   (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},value)
 
@@ -286,7 +339,7 @@ def registration_matches(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,
   match world:
     case World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},registration_list_matches(registrations,id,name,access))
 
-def with_store_finish(~S: Data,~C: Type,~R: Type,~E: Data,~Out: Type,observed: C & Out,+namespace: U32,allocator: A.Allocator,resource: R,+events: List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32) -> World<S,C,R,E> & Out:
+def with_store_finish(~S: Data,~C: Type,~R: Type,~E: Data,~Out: Type,observed: C & Out,+namespace: U32,allocator: A.Allocator,resource: R,+events: List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: Clock.State) -> World<S,C,R,E> & Out:
   (store,value) = observed
   (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},value)
 
@@ -308,7 +361,7 @@ def pending_length_acc(~S: Data,~C: Type,~R: Type,~E: Data,commands:List<Deferre
 def pending_length(~S: Data,~C: Type,~R: Type,~E: Data,commands:List<Deferred.Command<World<S,C,R,E>>>) -> List<Deferred.Command<World<S,C,R,E>>> & U32:
   pending_length_acc(~S,~C,~R,~E,commands,[],0)
 
-def pending_count_join(~S: Data,~C: Type,~R: Type,~E: Data,+namespace: U32,allocator: A.Allocator,store: C,resource: R,+events: List<&2,E>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: U32,counted: List<Deferred.Command<World<S,C,R,E>>> & U32) -> World<S,C,R,E> & U32:
+def pending_count_join(~S: Data,~C: Type,~R: Type,~E: Data,+namespace: U32,allocator: A.Allocator,store: C,resource: R,+events: List<&2,E>,+registrations: List<&2,RegistrationMeta>,+nextSystemId: U32,+clock: Clock.State,counted: List<Deferred.Command<World<S,C,R,E>>> & U32) -> World<S,C,R,E> & U32:
   (pending,count) = counted
   (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},count)
 
@@ -317,25 +370,6 @@ def pending_count_join(~S: Data,~C: Type,~R: Type,~E: Data,+namespace: U32,alloc
 def pending_count(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>) -> World<S,C,R,E> & U32:
   match world:
     case World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: pending_count_join(~S,~C,~R,~E,namespace,allocator,store,resource,events,registrations,nextSystemId,clock,pending_length(~S,~C,~R,~E,pending))
-
-# Monotonic write clock. Failed transactions may leave unused clock positions;
-# their component stamps are restored by the owned inverse journal.
-# Return World and its current lifecycle tick; does not advance it.
-def clock(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>) -> World<S,C,R,E> & U32:
-  match world:
-    case World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},clock)
-
-def next_clock(available: Bool,+clock: U32) -> U32:
-  match available:
-    case False{}: clock
-    case True{}: (clock + 1 : U32)
-
-# Advance the administrative lifecycle tick unless already at U32 maximum, where
-# it saturates. Return World and actual tick; operation-level refusal is a caller
-# policy rather than a new error result from this accessor.
-def advance_clock(~S: Data,~C: Type,~R: Type,~E: Data,world: World<S,C,R,E>) -> World<S,C,R,E> & U32:
-  match world:
-    case World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: (World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,next_clock(U32.is_lt(clock,4294967295),clock)},next_clock(U32.is_lt(clock,4294967295),clock))
 
 # Event runtime retention replaces only its owned event domain.
 # Administrative replacement of the Data event domain only. It does not execute
@@ -348,7 +382,7 @@ def key_handles(~S:Data,+namespace:U32,keys:List<&2,K.Key>) -> List<&2,Handle<S>
   match keys:
     case []:[]
     case key <> rest:Handle{namespace,key} <> key_handles(~S,namespace,rest)
-def handles_join(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource:R,events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,registrations:List<&2,RegistrationMeta>,nextSystemId:U32,clock:U32,observed:A.Allocator & List<&2,K.Key>) -> World<S,C,R,E> & List<&2,Handle<S>>:
+def handles_join(~S:Data,~C:Type,~R:Type,~E:Data,+namespace:U32,store:C,resource:R,events:List<&2,E>,pending:List<Deferred.Command<World<S,C,R,E>>>,registrations:List<&2,RegistrationMeta>,nextSystemId:U32,clock:Clock.State,observed:A.Allocator & List<&2,K.Key>) -> World<S,C,R,E> & List<&2,Handle<S>>:
   match observed:
     case (allocator,keys):(World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},key_handles(~S,namespace,keys))
 # Return World and currently visible live full handles in allocator-visible order.

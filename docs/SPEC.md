@@ -27,6 +27,33 @@ or Autoresearch merely because feature work has finished. The prior numeric goal
 are deferred research history; a future campaign needs agreed targets and budget.
 
 
+## Clock and save corrections — authorized after #74
+
+Implement #75 and #76 without a legacy API or compatibility wrappers. Update
+current consumers and checks together; historical evidence is not a compatibility
+requirement. Use Rust Bevy semantics with explicit adaptations to Bend ownership.
+
+The clock must support continuing canonical writes across U32 wrap. Capture one
+change tick per admitted system execution; executed failures advance lifecycle
+last_run as in Bevy, admission refusal does not. Direct edits/deferred application
+need explicit tick boundaries. Preserve owner recovery/rollback while accounting
+for stale stamps, independent dormant cursors and legitimate tick zero. The chosen
+age representation is a full `Tick{epoch:Nat,low:U32}` in every stamp and cursor.
+The low word wraps; true elapsed ages are capped at Bevy MAX_CHANGE_AGE. This
+Bend adaptation ages dormant timestamps without sweeping an opaque generic Store.
+Absent component stamps and never-run cursors are explicit optional values; zero
+is a valid timestamp. Low-only cursor inputs and cursor-preserving legacy execution
+routes are removed rather than wrapped. This does not authorize changing independent
+event-stream acknowledgement contracts. Machine publication keeps its own monotone administrative boundary so publication after acknowledgement within one run remains visible.
+
+Basic and graph save return an explicit pending-work refusal before any save
+projection when structural World.pending is nonempty. Refusal returns the exact
+World and queue; no automatic flush or compatibility save path is added. Empty
+structural queues retain schema eligibility and committed-value snapshot meaning.
+Machine transitions, event logs and reader state are not runtime checkpoints.
+Performance remains deferred; correctness, applicable LDD and ordinary CI remain.
+
+
 ## Solution
 
 Build Bendvy toward the complete core of the pinned bevy-ts reference, using explicit typed world declarations initially, declared system access, observable ECS contracts, and law-driven development. Plan the immediate expressibility and architecture checks in detail; retain later capabilities with dependencies and conditions for returning to detailed planning.

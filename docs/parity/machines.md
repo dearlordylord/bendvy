@@ -150,7 +150,7 @@ outcomes. Root adoption matches all 35/38 source bodies. The [portable packet](.
 and independent bounded review pass. The first-use skip/retention observation below completes the remaining semantic gate.
 
 The stream cursor records the consumed transition boundary before the callback;
-the registry cursor records component freshness after successful execution.
+the registry lifecycle cursor records the captured component tick after any admitted execution, including an executed error (#75). Admission refusal leaves it unchanged. Machine stream acknowledgement remains independent; publication uses a monotone administrative boundary even inside a captured component run.
 They intentionally differ. Callback-created transitions are not covered by this
 fixture; these finite observations are not a universal proof.
 

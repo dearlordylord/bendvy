@@ -70,18 +70,13 @@ type Run<World:Type,Registry:Type,Args:Type,Error:Data,Out:Type,P:Type> is Type:
   Completed{world:World,registry:Registry,outcome:T.Outcome<Error>,output:Out,recovered:List<A.Record<P>>}
   RegistrationRejected{world:World,registry:Registry,args:Args}
   TransportFailed{world:World,registry:Registry}
-def cursor(~S:Data,~C:Type,~P:Type,~E:Data,~identity:Schema.Resource<S,Array<P>>,~Args:Type,~Error:Data,~Out:Type,~body:@-H:Type -> @-caps:Write<S,P,identity,H> -> Args -> H -> H & (T.Outcome<Error> & Out),success:Bool,world:W.World<S,C,Array<P>,E>,registry:Sys.Registry<S,C,Array<P>,E,Args,Unit,Reply<Error,Out,P>,runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body)>) -> W.World<S,C,Array<P>,E> & Sys.Registry<S,C,Array<P>,E,Args,Unit,Reply<Error,Out,P>,runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body)>:
-  match success world registry:
-    case False{} world registry:(world,registry)
-    case True{} W.World{ns,allocator,store,resource,events,pending,regs,sid,+clock} Sys.Registry{rns,id,name,access,_}:
-      (W.World{ns,allocator,store,resource,events,pending,regs,sid,clock},Sys.Registry{rns,id,name,access,clock})
 def done(~S:Data,~C:Type,~P:Type,~E:Data,~identity:Schema.Resource<S,Array<P>>,~Args:Type,~Error:Data,~Out:Type,~body:@-H:Type -> @-caps:Write<S,P,identity,H> -> Args -> H -> H & (T.Outcome<Error> & Out),outcome:T.Outcome<Error>,output:Out,recovered:List<A.Record<P>>,updated:W.World<S,C,Array<P>,E> & Sys.Registry<S,C,Array<P>,E,Args,Unit,Reply<Error,Out,P>,runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body)>) -> Run<W.World<S,C,Array<P>,E>,Sys.Registry<S,C,Array<P>,E,Args,Unit,Reply<Error,Out,P>,runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body)>,Args,Error,Out,P>:
   match updated:
     case (world,registry):Completed{world,registry,outcome,output,recovered}
 def completed(~S:Data,~C:Type,~P:Type,~E:Data,~identity:Schema.Resource<S,Array<P>>,~Args:Type,~Error:Data,~Out:Type,~body:@-H:Type -> @-caps:Write<S,P,identity,H> -> Args -> H -> H & (T.Outcome<Error> & Out),result:Sys.RunResult<S,C,Array<P>,E,Args,Unit,Reply<Error,Out,P>,runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body)>) -> Run<W.World<S,C,Array<P>,E>,Sys.Registry<S,C,Array<P>,E,Args,Unit,Reply<Error,Out,P>,runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body)>,Args,Error,Out,P>:
   match result:
     case Sys.RegistrationRejected{registry,world,args}:RegistrationRejected{world,registry,args}
-    case Sys.Completed{registry,Sys.Succeeded{world,Reply{+outcome,output,recovered}}}:done(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body,outcome,output,recovered,cursor(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body,succeeded(~Error,outcome),world,registry))
+    case Sys.Completed{registry,Sys.Succeeded{world,Reply{+outcome,output,recovered}}}:done(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body,outcome,output,recovered,(world,registry))
     case Sys.Completed{registry,Sys.Failed{world,_}}:TransportFailed{world,registry}
 def run(~S:Data,~C:Type,~P:Type,~E:Data,~identity:Schema.Resource<S,Array<P>>,~Args:Type,~Error:Data,~Out:Type,~body:@-H:Type -> @-caps:Write<S,P,identity,H> -> Args -> H -> H & (T.Outcome<Error> & Out),registry:Sys.Registry<S,C,Array<P>,E,Args,Unit,Reply<Error,Out,P>,runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body)>,world:W.World<S,C,Array<P>,E>,args:Args) -> Run<W.World<S,C,Array<P>,E>,Sys.Registry<S,C,Array<P>,E,Args,Unit,Reply<Error,Out,P>,runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body)>,Args,Error,Out,P>:
   completed(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body,Sys.run(~S,~C,~Array<P>,~E,~Args,~Unit,~Reply<Error,Out,P>,~runner(~S,~C,~P,~E,~identity,~Args,~Error,~Out,~body),registry,world,args))

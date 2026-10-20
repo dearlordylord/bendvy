@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import world.bend as W
 import compose.bend as Q
 import transaction.bend as T
@@ -13,5 +14,5 @@ def recovered(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,~recover:Sto
     case Q.Executed{world,outcome,values}: Q.Executed{map_store(~S,~Store,~R,~E,~recover,world),outcome,values}
 def each(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~plan:Q.Plan<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~prepare:Store -> Store,~recover:Store -> Store,args:A,world:W.World<S,Store,R,E>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
   recovered(~S,~Store,~R,~E,~U,~Out,~recover,Q.each(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,args,map_store(~S,~Store,~R,~E,~prepare,world)))
-def each_since(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~plan:Q.Plan<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~prepare:Store -> Store,~recover:Store -> Store,args:A,world:W.World<S,Store,R,E>,cursor:U32) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
+def each_since(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~plan:Q.Plan<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),~prepare:Store -> Store,~recover:Store -> Store,args:A,world:W.World<S,Store,R,E>,cursor:Maybe<&2,Tick.Tick>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
   recovered(~S,~Store,~R,~E,~U,~Out,~recover,Q.each_since(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,args,map_store(~S,~Store,~R,~E,~prepare,world),cursor))

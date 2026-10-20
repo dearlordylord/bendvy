@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import world.bend as W
 import transaction.bend as T
 import commands.bend as Cmd
@@ -44,7 +45,7 @@ def selected(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type
   match observed:
     case (Q.Frame{tx,_,_,_},False{}): next(tx)
     case (frame,True{}): body_returned(~S,~Store,~R,~E,~U,~Out,next,left(~S,~Store,~R,~E,~H,~U,~Out,~plan_leave(~S,~Store,~R,~E,~Ops,~H,plan),Cap.invoke(~Ops,~A,~(T.Outcome<U> & Out),~body,~H,~plan_caps(~S,~Store,~R,~E,~Ops,~H,plan),args,plan_enter(~S,~Store,~R,~E,~Ops,~H,plan)(frame))))
-def run_handles(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops,H>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),handles: List<&2,W.Handle<S>>,+args: A,+cursor: U32,tx: T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Q.Error<U>> & List<&2,Out>):
+def run_handles(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops,H>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),handles: List<&2,W.Handle<S>>,+args: A,+cursor:Maybe<&2,Tick.Tick>,tx: T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Q.Error<U>> & List<&2,Out>):
   match handles:
     case []: (tx,(T.Success{},[]))
     case handle <> rest: selected(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~plan,~body,args,(tx => run_handles(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~plan,~body,rest,args,cursor,tx)),plan_select(~S,~Store,~R,~E,~Ops,~H,plan)(Q.Frame{tx,handle,None{},cursor}))
@@ -55,16 +56,26 @@ def finish_returned(~S: Data,~Store: Type,~R: Type,~E: Data,~U: Data,~Out: Data,
 def finished(~S: Data,~Store: Type,~R: Type,~E: Data,~U: Data,~Out: Data,observed: T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Q.Error<U>> & List<&2,Out>)) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
   match observed:
     case (tx,(result,values)): finish_returned(~S,~Store,~R,~E,~U,~Out,values,Cmd.tx_finish(~S,~Store,~R,~E,~Q.Error<U>,tx,result))
-def reserved(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops,H>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,cursor: U32,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
+def scope_finished(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,owned:Bool,result:Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
+  match result:
+    case Q.Executed{world,outcome,values}:Q.Executed{W.finish_run(~S,~Store,~R,~E,owned,world),outcome,values}
+def reserved_inner(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops,H>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,cursor:Maybe<&2,Tick.Tick>,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
   (world,handles) = observed
   finished(~S,~Store,~R,~E,~U,~Out,run_handles(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~plan,~body,handles,args,cursor,T.begin(~W.World<S,Store,R,E>,~E,world)))
 # Snapshot live handles in ascending order; deferred commands stay invisible.
+def reserved_scoped(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops,H>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,cursor:Maybe<&2,Tick.Tick>,handles:List<&2,W.Handle<S>>,admitted:W.World<S,Store,R,E> & Bool) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
+  (world,owned)=admitted
+  scope_finished(~S,~Store,~R,~E,~U,~Out,owned,reserved_inner(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~plan,~body,args,cursor,(world,handles)))
+def reserved(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops,H>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,cursor:Maybe<&2,Tick.Tick>,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
+  (world,handles)=observed
+  reserved_scoped(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~plan,~body,args,cursor,handles,W.ensure_run(~S,~Store,~R,~E,world))
+
 def each(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops,H>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,world: W.World<S,Store,R,E>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
-  reserved(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~plan,~body,args,0,W.handles(~S,~Store,~R,~E,world))
+  reserved(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~plan,~body,args,None{},W.handles(~S,~Store,~R,~E,world))
 
 
 # Preserve explicit reader cursor in the accepted row frame.
-def each_since(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops,H>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,world: W.World<S,Store,R,E>,cursor: U32) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
+def each_since(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops,H>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,world: W.World<S,Store,R,E>,cursor:Maybe<&2,Tick.Tick>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
   reserved(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~plan,~body,args,cursor,W.handles(~S,~Store,~R,~E,world))
 
 # Separate closed template fields avoid constructing runtime Plan for projections.
@@ -72,18 +83,25 @@ def selected_fields(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~
   match observed:
     case (Q.Frame{tx,_,_,_},False{}): next(tx)
     case (frame,True{}): body_returned(~S,~Store,~R,~E,~U,~Out,next,left(~S,~Store,~R,~E,~H,~U,~Out,~leave,Cap.invoke(~Ops,~A,~(T.Outcome<U> & Out),~body,~H,~caps,args,enter(frame))))
-def run_handles_fields(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~caps:Ops(H),~select:Q.Frame<S,Store,R,E> -> Q.Frame<S,Store,R,E> & Bool,~enter:Q.Frame<S,Store,R,E> -> H,~leave:H -> Q.Frame<S,Store,R,E>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),handles: List<&2,W.Handle<S>>,+args: A,+cursor: U32,tx: T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Q.Error<U>> & List<&2,Out>):
+def run_handles_fields(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~caps:Ops(H),~select:Q.Frame<S,Store,R,E> -> Q.Frame<S,Store,R,E> & Bool,~enter:Q.Frame<S,Store,R,E> -> H,~leave:H -> Q.Frame<S,Store,R,E>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),handles: List<&2,W.Handle<S>>,+args: A,+cursor:Maybe<&2,Tick.Tick>,tx: T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Q.Error<U>> & List<&2,Out>):
   match handles:
     case []: (tx,(T.Success{},[]))
     case handle <> rest: selected_fields(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~caps,~select,~enter,~leave,~body,args,(tx => run_handles_fields(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~caps,~select,~enter,~leave,~body,rest,args,cursor,tx)),select(Q.Frame{tx,handle,None{},cursor}))
-def reserved_fields(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~caps:Ops(H),~select:Q.Frame<S,Store,R,E> -> Q.Frame<S,Store,R,E> & Bool,~enter:Q.Frame<S,Store,R,E> -> H,~leave:H -> Q.Frame<S,Store,R,E>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,cursor: U32,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
+def reserved_fields_inner(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~caps:Ops(H),~select:Q.Frame<S,Store,R,E> -> Q.Frame<S,Store,R,E> & Bool,~enter:Q.Frame<S,Store,R,E> -> H,~leave:H -> Q.Frame<S,Store,R,E>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,cursor:Maybe<&2,Tick.Tick>,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
   (world,handles) = observed
   finished(~S,~Store,~R,~E,~U,~Out,run_handles_fields(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~caps,~select,~enter,~leave,~body,handles,args,cursor,T.begin(~W.World<S,Store,R,E>,~E,world)))
 # Snapshot live handles in ascending order; deferred commands stay invisible.
+def reserved_fields_scoped(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~caps:Ops(H),~select:Q.Frame<S,Store,R,E> -> Q.Frame<S,Store,R,E> & Bool,~enter:Q.Frame<S,Store,R,E> -> H,~leave:H -> Q.Frame<S,Store,R,E>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,cursor:Maybe<&2,Tick.Tick>,handles:List<&2,W.Handle<S>>,admitted:W.World<S,Store,R,E> & Bool) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
+  (world,owned)=admitted
+  scope_finished(~S,~Store,~R,~E,~U,~Out,owned,reserved_fields_inner(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~caps,~select,~enter,~leave,~body,args,cursor,(world,handles)))
+def reserved_fields(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~caps:Ops(H),~select:Q.Frame<S,Store,R,E> -> Q.Frame<S,Store,R,E> & Bool,~enter:Q.Frame<S,Store,R,E> -> H,~leave:H -> Q.Frame<S,Store,R,E>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,cursor:Maybe<&2,Tick.Tick>,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
+  (world,handles)=observed
+  reserved_fields_scoped(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~caps,~select,~enter,~leave,~body,args,cursor,handles,W.ensure_run(~S,~Store,~R,~E,world))
+
 def each_fields(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~caps:Ops(H),~select:Q.Frame<S,Store,R,E> -> Q.Frame<S,Store,R,E> & Bool,~enter:Q.Frame<S,Store,R,E> -> H,~leave:H -> Q.Frame<S,Store,R,E>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,world: W.World<S,Store,R,E>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
-  reserved_fields(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~caps,~select,~enter,~leave,~body,args,0,W.handles(~S,~Store,~R,~E,world))
+  reserved_fields(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~caps,~select,~enter,~leave,~body,args,None{},W.handles(~S,~Store,~R,~E,world))
 
 
 # Preserve explicit reader cursor in the accepted row frame.
-def each_fields_since(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~caps:Ops(H),~select:Q.Frame<S,Store,R,E> -> Q.Frame<S,Store,R,E> & Bool,~enter:Q.Frame<S,Store,R,E> -> H,~leave:H -> Q.Frame<S,Store,R,E>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,world: W.World<S,Store,R,E>,cursor: U32) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
+def each_fields_since(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~H: Type,~A: Data,~U: Data,~Out: Data,~caps:Ops(H),~select:Q.Frame<S,Store,R,E> -> Q.Frame<S,Store,R,E> & Bool,~enter:Q.Frame<S,Store,R,E> -> H,~leave:H -> Q.Frame<S,Store,R,E>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,world: W.World<S,Store,R,E>,cursor:Maybe<&2,Tick.Tick>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
   reserved_fields(~S,~Store,~R,~E,~Ops,~H,~A,~U,~Out,~caps,~select,~enter,~leave,~body,args,cursor,W.handles(~S,~Store,~R,~E,world))

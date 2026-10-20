@@ -97,12 +97,12 @@ def registered(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,
 # validation. Higher-level ordinary App resource-field declarations expose this.
 def define(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Args:Type,~Error:Data,~Out:Type,~declaration:Declaration<S,T.Tx<W.World<S,C,R,E>,E>,Ops(T.Tx<W.World<S,C,R,E>,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> Args -> H -> H & (T.Outcome<Error> & Out),world:W.World<S,C,R,E>,name:String) -> Defined<S,W.World<S,C,R,E>,Sys.Registry<S,C,R,E,Args,Error,Out,runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~declaration,~body)>,clauses(~S,~T.Tx<W.World<S,C,R,E>,E>,~Ops(T.Tx<W.World<S,C,R,E>,E>),declaration)>:
   registered(~S,~C,~R,~E,~Args,~Error,~Out,~runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~declaration,~body),~clauses(~S,~T.Tx<W.World<S,C,R,E>,E>,~Ops(T.Tx<W.World<S,C,R,E>,E>),declaration),Sys.register(~S,~C,~R,~E,~Args,~Error,~Out,~runner(~S,~C,~R,~E,~Ops,~Args,~Error,~Out,~declaration,~body),world,name,access(~S,clauses(~S,~T.Tx<W.World<S,C,R,E>,E>,~Ops(T.Tx<W.World<S,C,R,E>,E>),declaration))))
-# Run the actual registry through Sys.run_tracked. Full refusal returns registry,
+# Run the actual registry through Sys.run. Full refusal returns registry,
 # World and unconsumed Args; normal completion retains the returned registry and
 # World. This wrapper does not execute the deferred command barrier.
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~run:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,~clauses:List<&2,Q.Clause<S>>,owner:Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,run>,clauses>,world:W.World<S,C,R,E>,args:Args) -> Sys.RunResult<S,C,R,E,Args,Error,Out,run>:
   match owner:
-    case Owner{registry}:Sys.run_tracked(~S,~C,~R,~E,~Args,~Error,~Out,~run,registry,world,args)
+    case Owner{registry}:Sys.run(~S,~C,~R,~E,~Args,~Error,~Out,~run,registry,world,args)
 
 # Trace-aware counterpart of runner with supplied/returned fact state. Same caps,
 # transaction decision and output disposal; observation adds no resource authority

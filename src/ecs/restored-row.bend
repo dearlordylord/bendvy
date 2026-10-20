@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import column.bend as Col
 import lifecycle.bend as L
 import captured-column.bend as K
@@ -33,7 +34,7 @@ def project(~S:Data,~C:Type,~V:Data,~project:C -> C & V,cell:Cell<S,C>) -> Proje
 type Replacement<-S:Data,-C:Type> is Type:
   Replaced{cell:Cell<S,C>,previous:Maybe<&1,C>,stamp:L.Stamp}
   Refused{cell:Cell<S,C>,incoming:C}
-def replacement_present(~S:Data,~C:Type,+id:U32,+stamp:L.Stamp,cold:K.Slot<C> -> Col.Column<S,C>,incoming:C,+tick:U32,observed:Maybe<&1,C> & Bool) -> Replacement<S,C>:
+def replacement_present(~S:Data,~C:Type,+id:U32,+stamp:L.Stamp,cold:K.Slot<C> -> Col.Column<S,C>,incoming:C,+tick:Tick.Tick,observed:Maybe<&1,C> & Bool) -> Replacement<S,C>:
   match observed:
     case (previous,present): Replaced{Taken{id,Some{incoming},L.after_write(True{},present,stamp,tick),True{},cold},previous,stamp}
 def owner_present(~C:Type,owner:Maybe<&1,C>) -> Maybe<&1,C> & Bool:
@@ -41,7 +42,7 @@ def owner_present(~C:Type,owner:Maybe<&1,C>) -> Maybe<&1,C> & Bool:
     case None{}: (None{},False{})
     case Some{owner}: (Some{owner},True{})
 # Caller validates entity/clock first and journals returned previous+stamp now.
-def replace(~S:Data,~C:Type,cell:Cell<S,C>,incoming:C,+tick:U32) -> Replacement<S,C>:
+def replace(~S:Data,~C:Type,cell:Cell<S,C>,incoming:C,+tick:Tick.Tick) -> Replacement<S,C>:
   match cell:
     case Taken{+id,owner,+stamp,_,cold}: replacement_present(~S,~C,id,stamp,cold,incoming,tick,owner_present(~C,owner))
     case Untaken{column}: Refused{Untaken{column},incoming}

@@ -89,7 +89,7 @@ def after(~S:Data,~O:Type,~Shared:Type,~plan:(O & Shared) -> (O & Shared) & SP.P
   after_planned(~S,~O,~Shared,~after,plan(value))
 def local_fields(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> L -> Args -> Local.Outcome<W.World<S,C,R,E>,L,Error,Out>,value:Local.Instance<S,C,R,E,L,Args,Error,Out,runner>) -> Local.Instance<S,C,R,E,L,Args,Error,Out,runner> & Fields.Fields<S>:
   match value:
-    case Local.Instance{+namespace,+id,+name,+access,local}:(Local.Instance{namespace,id,name,access,local},Fields.Fields{namespace,id,name,access,0,name,[],Fields.MixedKind{[]}})
+    case Local.Instance{+namespace,+id,+name,+access,local}:(Local.Instance{namespace,id,name,access,local},Fields.Fields{namespace,id,name,access,None{},name,[],Fields.MixedKind{[]}})
 def system_fields(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,value:Sys.Registry<S,C,R,E,Args,Error,Out,runner>) -> Sys.Registry<S,C,R,E,Args,Error,Out,runner> & Fields.Fields<S>:
   match value:
     case Sys.Registry{+namespace,+id,+name,+access,+cursor}:(Sys.Registry{namespace,id,name,access,cursor},Fields.Fields{namespace,id,name,access,cursor,name,[],Fields.MixedKind{[]}})

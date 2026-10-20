@@ -1,4 +1,6 @@
 import Base
+import ../../../../src/ecs/change-tick.bend as Tick
+import ../../../../src/ecs/clock-state.bend as Clock
 import report-doc.bend as Doc
 import motion.bend as F
 import motion-observe.bend as O
@@ -137,13 +139,14 @@ def optional_values(~P:Type,~project:P -> P & Doc.Doc,value:Array<Maybe<&1,P>>) 
 def plain(~P:Type,+stamps:List<&2,Life.Entry>,observed:Array<Maybe<&1,P>> & Doc.Doc) -> Col.Column<T.MotionSchema,P> & Doc.Doc:
   (values,text)=observed
   (Col.Column{values,stamps},Doc.wrap("Column{values=",text,";stamps=" ++ List.show(&2,Life.Entry,Dump.entry,stamps) ++ "}"))
-def metadata_join(+capacity:U32,+depth:Nat,+exceptional:List<&2,Life.Entry>,observedAdded:Array<U32> & Doc.Doc,observedChanged:Array<U32> & Doc.Doc) -> Metadata.Metadata & Doc.Doc:
+def tick_doc(value:Maybe<&2,Tick.Tick>) -> Doc.Doc:Doc.text(Tick.cursor_show(value))
+def metadata_join(+capacity:U32,+depth:Nat,+exceptional:List<&2,Life.Entry>,observedAdded:Array<Maybe<&2,Tick.Tick>> & Doc.Doc,observedChanged:Array<Maybe<&2,Tick.Tick>> & Doc.Doc) -> Metadata.Metadata & Doc.Doc:
   (added,sa)=observedAdded
   (changed,sc)=observedChanged
   (Metadata.Metadata{added,changed,capacity,depth,exceptional},Doc.concat([Doc.text("added="),sa,Doc.text(";changed="),sc,Doc.text(";capacity=" ++ U32.show(capacity) ++ ";depth=" ++ Nat.show(depth) ++ ";exceptional=" ++ List.show(&2,Life.Entry,Dump.entry,exceptional))]))
 def metadata(value:Metadata.Metadata) -> Metadata.Metadata & Doc.Doc:
   match value:
-    case Metadata.Metadata{added,changed,capacity,depth,exceptional}:metadata_join(capacity,depth,exceptional,data_array(~U32,~u32_doc,added),data_array(~U32,~u32_doc,changed))
+    case Metadata.Metadata{added,changed,capacity,depth,exceptional}:metadata_join(capacity,depth,exceptional,data_array(~Maybe<&2,Tick.Tick>,~tick_doc,added),data_array(~Maybe<&2,Tick.Tick>,~tick_doc,changed))
 def indexed_join(~P:Type,observedValues:Array<Maybe<&1,P>> & Doc.Doc,observedMetadata:Metadata.Metadata & Doc.Doc) -> Col.IndexedOrdinaryCarrier<T.MotionSchema,P> & Doc.Doc:
   (values,sv)=observedValues
   (stored,sm)=observedMetadata
@@ -173,12 +176,12 @@ def store(value:F.Store()) -> F.Store() & Doc.Doc:
     case Product.Owner{mc,Product.Owner{ac,fc}}:store_join(column(~T.Position,~main,~O.main,mc),column(~T.Velocity,~aux,~O.aux,ac),column(~T.Selected,~flag,~O.flag,fc))
 def resources(value:F.Resources()) -> F.Resources() & Doc.Doc:
   lift(~F.Resources(),O.resources(value))
-def world_join(+namespace:U32,+events:List<&2,E.event_type()>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:U32,observedAllocator:A.Allocator & Doc.Doc,observedStore:F.Store() & Doc.Doc,observedResource:F.Resources() & Doc.Doc,observedPending:List<Deferred.Command<F.World()>> & (Nat & String)) -> F.World() & Doc.Doc:
+def world_join(+namespace:U32,+events:List<&2,E.event_type()>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,observedAllocator:A.Allocator & Doc.Doc,observedStore:F.Store() & Doc.Doc,observedResource:F.Resources() & Doc.Doc,observedPending:List<Deferred.Command<F.World()>> & (Nat & String)) -> F.World() & Doc.Doc:
   (allocator,sa)=observedAllocator
   (stored,ss)=observedStore
   (resource,sr)=observedResource
   (pending,(count,kinds))=observedPending
-  (W.World{namespace,allocator,stored,resource,events,pending,registrations,nextSystem,clock},Doc.concat([Doc.text("namespace=" ++ U32.show(namespace) ++ "|allocator={"),sa,Doc.text("}|store={"),ss,Doc.text("}|resource={"),sr,Doc.text("}|events=" ++ List.show(&2,E.event_type(),O.event,events) ++ "|pending=" ++ Nat.show(count) ++ ":" ++ kinds ++ "|registrations=" ++ List.show(&2,W.RegistrationMeta,Dump.registration,registrations) ++ "|nextSystem=" ++ U32.show(nextSystem) ++ "|clock=" ++ U32.show(clock))]))
+  (W.World{namespace,allocator,stored,resource,events,pending,registrations,nextSystem,clock},Doc.concat([Doc.text("namespace=" ++ U32.show(namespace) ++ "|allocator={"),sa,Doc.text("}|store={"),ss,Doc.text("}|resource={"),sr,Doc.text("}|events=" ++ List.show(&2,E.event_type(),O.event,events) ++ "|pending=" ++ Nat.show(count) ++ ":" ++ kinds ++ "|registrations=" ++ List.show(&2,W.RegistrationMeta,Dump.registration,registrations) ++ "|nextSystem=" ++ U32.show(nextSystem) ++ "|clock=" ++ Tick.show(Clock.now(clock)))]))
 def world(value:F.World()) -> F.World() & Doc.Doc:
   match value:
     case W.World{namespace,allocated,stored,resource,events,pending,registrations,nextSystem,clock}:world_join(namespace,events,registrations,nextSystem,clock,allocator(allocated),store(stored),resources(resource),Dump.callbacks(~F.World(),~F.World(),pending))

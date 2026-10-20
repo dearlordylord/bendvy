@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./world.bend as W
 import ./registration.bend as Reg
 
@@ -23,7 +24,7 @@ type Registered<S: Data,C: Type,R: Type,E: Data,L: Type,Args: Type,Error: Data,O
 # Refused returns those owners and original Args before runner execution.
 # Runner failure retains its returned Local modifications, not an old copy.
 type Run<S: Data,C: Type,R: Type,E: Data,L: Type,Args: Type,Error: Data,Out: Type,-runner: W.World<S,C,R,E> -> L -> Args -> Outcome<W.World<S,C,R,E>,L,Error,Out>> is Type:
-  Completed{world: W.World<S,C,R,E>,instance: Instance<S,C,R,E,L,Args,Error,Out,runner>,result: Result<&2,&1,Error,Out>}
+  Completed{world: W.World<S,C,R,E>,instance: Instance<S,C,R,E,L,Args,Error,Out,runner>,result: Result<&2,&1,Error,Out>,tick:Tick.Tick}
   Refused{world: W.World<S,C,R,E>,instance: Instance<S,C,R,E,L,Args,Error,Out,runner>,args: Args}
 # Disposed returns World and output of the explicit disposeLocal callback.
 # DisposalRejected returns World and original instance without invoking that
@@ -84,14 +85,17 @@ def register_named(~S: Data,~C: Type,~R: Type,~E: Data,~L: Type,~Args: Type,~Err
 def register(~S: Data,~C: Type,~R: Type,~E: Data,~L: Type,~Args: Type,~Error: Data,~Out: Type,~runner: W.World<S,C,R,E> -> L -> Args -> Outcome<W.World<S,C,R,E>,L,Error,Out>,world: W.World<S,C,R,E>,name: String,access: List<&2,String>,local: L) -> Registered<S,C,R,E,L,Args,Error,Out,runner>:
   register_named(~S,~C,~R,~E,~L,~Args,~Error,~Out,~runner,W.namespace(~S,~C,~R,~E,world),name,access,local)
 
-def completed(~S: Data,~C: Type,~R: Type,~E: Data,~L: Type,~Args: Type,~Error: Data,~Out: Type,~runner: W.World<S,C,R,E> -> L -> Args -> Outcome<W.World<S,C,R,E>,L,Error,Out>,namespace: U32,id: U32,name: String,access: List<&2,String>,outcome: Outcome<W.World<S,C,R,E>,L,Error,Out>) -> Run<S,C,R,E,L,Args,Error,Out,runner>:
+def completed(~S: Data,~C: Type,~R: Type,~E: Data,~L: Type,~Args: Type,~Error: Data,~Out: Type,~runner: W.World<S,C,R,E> -> L -> Args -> Outcome<W.World<S,C,R,E>,L,Error,Out>,namespace: U32,id: U32,name: String,access: List<&2,String>,tick:Tick.Tick,outcome: Outcome<W.World<S,C,R,E>,L,Error,Out>) -> Run<S,C,R,E,L,Args,Error,Out,runner>:
   match outcome:
-    case Succeeded{world,local,out}: Completed{world,Instance{namespace,id,name,access,local},Done{out}}
-    case Failed{world,local,error}: Completed{world,Instance{namespace,id,name,access,local},Fail{error}}
+    case Succeeded{world,local,out}: Completed{W.leave_run(~S,~C,~R,~E,world),Instance{namespace,id,name,access,local},Done{out},tick}
+    case Failed{world,local,error}: Completed{W.leave_run(~S,~C,~R,~E,world),Instance{namespace,id,name,access,local},Fail{error},tick}
+def entered(~S: Data,~C: Type,~R: Type,~E: Data,~L: Type,~Args: Type,~Error: Data,~Out: Type,~runner: W.World<S,C,R,E> -> L -> Args -> Outcome<W.World<S,C,R,E>,L,Error,Out>,namespace: U32,id: U32,name: String,access: List<&2,String>,local:L,args:Args,observed:W.World<S,C,R,E> & Tick.Tick) -> Run<S,C,R,E,L,Args,Error,Out,runner>:
+  match observed:
+    case (world,tick):completed(~S,~C,~R,~E,~L,~Args,~Error,~Out,~runner,namespace,id,name,access,tick,runner(world,local,args))
 def checked(~S: Data,~C: Type,~R: Type,~E: Data,~L: Type,~Args: Type,~Error: Data,~Out: Type,~runner: W.World<S,C,R,E> -> L -> Args -> Outcome<W.World<S,C,R,E>,L,Error,Out>,allowed: Bool,instance: Instance<S,C,R,E,L,Args,Error,Out,runner>,world: W.World<S,C,R,E>,args: Args) -> Run<S,C,R,E,L,Args,Error,Out,runner>:
   match allowed instance:
     case False{} instance: Refused{world,instance,args}
-    case True{} Instance{namespace,id,name,access,local}: completed(~S,~C,~R,~E,~L,~Args,~Error,~Out,~runner,namespace,id,name,access,runner(world,local,args))
+    case True{} Instance{namespace,id,name,access,local}: entered(~S,~C,~R,~E,~L,~Args,~Error,~Out,~runner,namespace,id,name,access,local,args,W.enter_run(~S,~C,~R,~E,world))
 # Validate namespace and live registration metadata before invoking runner.
 # Refused returns original Args/instance/World. Completed retains the Local
 # returned by the runner even on error; World rollback is the runner's job.

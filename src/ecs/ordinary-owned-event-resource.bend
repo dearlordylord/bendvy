@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./world.bend as W
 import ./compose.bend as Q
 import ./capabilities.bend as Cap
@@ -17,7 +18,7 @@ def put(~R:Type,~P:Type,log:Log.Log<P>,resource:R) -> Storage.Resources<R,P>:
   Storage.Resources{resource,log}
 def lens(~R:Type,~P:Type) -> Product.Lens<Storage.Resources<R,P>,R,Log.Log<P>>:
   Product.Lens{take(~R,~P),put(~R,~P)}
-def read_returned(~S:Data,~C:Type,~R:Type,~P:Type,~V:Data,handle:W.Handle<S>,error:Maybe<&2,W.WorldError>,cursor:U32,result:T.Tx<W.World<S,C,Storage.Resources<R,P>,Nat>,Nat> & V) -> Q.Frame<S,C,Storage.Resources<R,P>,Nat> & V:
+def read_returned(~S:Data,~C:Type,~R:Type,~P:Type,~V:Data,handle:W.Handle<S>,error:Maybe<&2,W.WorldError>,cursor:Maybe<&2,Tick.Tick>,result:T.Tx<W.World<S,C,Storage.Resources<R,P>,Nat>,Nat> & V) -> Q.Frame<S,C,Storage.Resources<R,P>,Nat> & V:
   match result:
     case (tx,value):(Q.Frame{tx,handle,error,cursor},value)
 def read(~S:Data,~C:Type,~R:Type,~P:Type,~V:Data,~view:R -> R & V,owner:Q.Frame<S,C,Storage.Resources<R,P>,Nat>) -> Q.Frame<S,C,Storage.Resources<R,P>,Nat> & V:

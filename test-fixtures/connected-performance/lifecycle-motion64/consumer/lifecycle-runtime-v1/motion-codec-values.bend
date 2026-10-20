@@ -1,4 +1,5 @@
 import Base
+import ../../../../../src/ecs/clock-state.bend as Clock
 import ../dense-runtime-v1/motion.bend as F
 import ../dense-runtime-v1/motion-observe.bend as Old
 import ../dense-runtime-v1/types.bend as T
@@ -28,7 +29,7 @@ type Store is Data:
 type Allocator is Data:
   Allocator{next:U32,high:U32,capacity:U32,depth:Nat,slots:Tree<Alloc.Slot>,free:List<&2,U32>,order:List<&2,Key.Key>}
 type World is Data:
-  World{namespace:U32,allocator:Allocator,store:Store,resource:Ledger,sibling:Unit,events:List<&2,Nat>,pendingCount:Nat,pendingKinds:List<&2,U32>,registrations:List<&2,W.RegistrationMeta>,nextSystem:U32,clock:U32}
+  World{namespace:U32,allocator:Allocator,store:Store,resource:Ledger,sibling:Unit,events:List<&2,Nat>,pendingCount:Nat,pendingKinds:List<&2,U32>,registrations:List<&2,W.RegistrationMeta>,nextSystem:U32,clock:Clock.State}
 type Local is Data:
   Local{namespace:U32,id:U32,name:String,access:List<&2,String>,owner:Tree<U32>}
 def tree_leaf(~P:Type,~V:Data,observed:P & V) -> Array<P> & Tree<V>:
@@ -116,7 +117,7 @@ def pending_commands(~P:Type,values:List<Deferred.Command<P>>) -> List<Deferred.
   match values:
     case []:([],(0n,[]))
     case head <> rest:pending_head(~P,head,pending_commands(~P,rest))
-def world_done(+namespace:U32,+events:List<&2,Nat>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:U32,va:Alloc.Allocator & Allocator,vs:F.Store() & Store,vr:F.Resources() & (Ledger & Unit),vp:List<Deferred.Command<F.World()>> & (Nat & List<&2,U32>)) -> F.World() & World:
+def world_done(+namespace:U32,+events:List<&2,Nat>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,va:Alloc.Allocator & Allocator,vs:F.Store() & Store,vr:F.Resources() & (Ledger & Unit),vp:List<Deferred.Command<F.World()>> & (Nat & List<&2,U32>)) -> F.World() & World:
   (allocator,a)=va
   (store,s)=vs
   (resource,(r,sibling))=vr

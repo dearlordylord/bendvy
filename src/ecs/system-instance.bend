@@ -59,12 +59,7 @@ def ran(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Ty
     case Sys.Completed{registry,outcome}: Completed{bind(~S,~C,~R,~E,~Args,~Error,~Output,~run,~Ports,~validate,~remove,registry,ports),outcome}
     case Sys.RegistrationRejected{registry,world,args}: RegistrationRejected{bind(~S,~C,~R,~E,~Args,~Error,~Output,~run,~Ports,~validate,~remove,registry,ports),world,args}
 
-# Existing tracked execution returns its registry into the same managed instance.
-def run_tracked(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~run: W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Output>,~Ports: Type,~validate: Ports -> U32 -> U32 -> Ports & Bool,~remove: W.World<S,C,R,E> -> Ports -> W.World<S,C,R,E>,instance: Instance<S,C,R,E,Args,Error,Output,run,Ports,validate,remove>,world: W.World<S,C,R,E>,args: Args) -> RunResult<S,C,R,E,Args,Error,Output,run,Ports,validate,remove>:
-  match instance:
-    case Instance{Cleanup.Instance{registry,ports}}: ran(~S,~C,~R,~E,~Args,~Error,~Output,~run,~Ports,~validate,~remove,ports,Sys.run_tracked(~S,~C,~R,~E,~Args,~Error,~Output,~run,registry,world,args))
-
-# Existing untracked execution preserves callers with their own reader cursor handling.
+# Managed execution returns its advanced registry into the same instance.
 def run(~S: Data,~C: Type,~R: Type,~E: Data,~Args: Type,~Error: Data,~Output: Type,~run: W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Output>,~Ports: Type,~validate: Ports -> U32 -> U32 -> Ports & Bool,~remove: W.World<S,C,R,E> -> Ports -> W.World<S,C,R,E>,instance: Instance<S,C,R,E,Args,Error,Output,run,Ports,validate,remove>,world: W.World<S,C,R,E>,args: Args) -> RunResult<S,C,R,E,Args,Error,Output,run,Ports,validate,remove>:
   match instance:
     case Instance{Cleanup.Instance{registry,ports}}: ran(~S,~C,~R,~E,~Args,~Error,~Output,~run,~Ports,~validate,~remove,ports,Sys.run(~S,~C,~R,~E,~Args,~Error,~Output,~run,registry,world,args))

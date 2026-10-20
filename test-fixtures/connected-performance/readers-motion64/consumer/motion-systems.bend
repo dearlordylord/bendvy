@@ -51,8 +51,8 @@ type LocalReturned is Type:
   LocalReturned{world:F.World(),instance:Instance(),status:U32,frame:Maybe<&2,D.Frame>}
 def local_returned(result:Local.Run<T.MotionSchema,F.Store(),F.Resources(),E.event_type(),Array<U32>,Args,Unit,D.Frame,local_runner>) -> LocalReturned:
   match result:
-    case Local.Completed{world,owner,Done{frame}}:LocalReturned{world,owner,0,Some{frame}}
-    case Local.Completed{world,owner,Fail{_}}:LocalReturned{world,owner,1,None{}}
+    case Local.Completed{world,owner,Done{frame},_}:LocalReturned{world,owner,0,Some{frame}}
+    case Local.Completed{world,owner,Fail{_},_}:LocalReturned{world,owner,1,None{}}
     case Local.Refused{world,owner,_}:LocalReturned{world,owner,2,None{}}
 def invoked(instance:Instance(),world:F.World(),operation:U32,frame:D.Frame) -> LocalReturned:
   local_returned(Local.run(~T.MotionSchema,~F.Store(),~F.Resources(),~E.event_type(),~Array<U32>,~Args,~Unit,~D.Frame,~local_runner,instance,world,Args{operation,D.fresh_frame(frame)}))

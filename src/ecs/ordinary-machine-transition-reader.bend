@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./world.bend as W
 import ./system.bend as Sys
 import ./system-instance.bend as SI
@@ -88,13 +89,13 @@ def callback_result(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Err
 def opened(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~Out:Type,~take:R -> R & St.Stream<V>,~put:R -> St.Stream<V> -> R,~callback:W.World<S,C,R,E> -> Input<V,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,registry:Sys.Registry<S,C,R,E,Input<V,A>,Error,Out,callback>,world:W.World<S,C,R,E>,args:A,tick:Nat,result:St.OpenResult<S,K,V>) -> ReadResult<W.World<S,C,R,E>,instance_type(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback),A,Error,Out,V>:
   match result:
     case St.ReaderRefused{reader,stream}:ReadRejected{stream_set(~S,~V,~C,~R,~E,~put,world,stream),SI.Instance{Cleanup.Instance{registry,reader}},args}
-    case St.Opened{reader,stream,+reading}:callback_result(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback,reading,tick,SI.run_tracked(~S,~C,~R,~E,~Input<V,A>,~Error,~Out,~callback,~St.Reader<S,K>,~validate(~S,~K),~remove(~S,~K,~V,~C,~R,~E,~take,~put),SI.Instance{Cleanup.Instance{registry,reader}},stream_set(~S,~V,~C,~R,~E,~put,world,stream),Input{reading,args}))
+    case St.Opened{reader,stream,+reading}:callback_result(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback,reading,tick,SI.run(~S,~C,~R,~E,~Input<V,A>,~Error,~Out,~callback,~St.Reader<S,K>,~validate(~S,~K),~remove(~S,~K,~V,~C,~R,~E,~take,~put),SI.Instance{Cleanup.Instance{registry,reader}},stream_set(~S,~V,~C,~R,~E,~put,world,stream),Input{reading,args}))
 def opening(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~Out:Type,~take:R -> R & St.Stream<V>,~put:R -> St.Stream<V> -> R,~callback:W.World<S,C,R,E> -> Input<V,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,reader:instance_type(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback),args:A,+tick:Nat,result:W.World<S,C,R,E> & St.Stream<V>) -> ReadResult<W.World<S,C,R,E>,instance_type(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback),A,Error,Out,V>:
   match reader result:
     case SI.Instance{Cleanup.Instance{registry,St.Reader{+namespace,id}}}, (world,stream):opened(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback,registry,world,args,tick,St.open(~S,~K,~V,St.Reader{namespace,id},stream,namespace,tick))
-def clocked(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~Out:Type,~take:R -> R & St.Stream<V>,~put:R -> St.Stream<V> -> R,~callback:W.World<S,C,R,E> -> Input<V,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,reader:instance_type(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback),args:A,result:W.World<S,C,R,E> & U32) -> ReadResult<W.World<S,C,R,E>,instance_type(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback),A,Error,Out,V>:
+def clocked(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~Out:Type,~take:R -> R & St.Stream<V>,~put:R -> St.Stream<V> -> R,~callback:W.World<S,C,R,E> -> Input<V,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,reader:instance_type(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback),args:A,result:W.World<S,C,R,E> & Tick.Tick) -> ReadResult<W.World<S,C,R,E>,instance_type(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback),A,Error,Out,V>:
   match result:
-    case (world,tick):opening(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback,reader,args,U32.to_nat(tick),W.observe_resource(~S,~C,~R,~E,~St.Stream<V>,~take,world))
+    case (world,tick):opening(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback,reader,args,Tick.total(tick),W.observe_resource(~S,~C,~R,~E,~St.Stream<V>,~take,world))
 def checked(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~Out:Type,~take:R -> R & St.Stream<V>,~put:R -> St.Stream<V> -> R,~callback:W.World<S,C,R,E> -> Input<V,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,allowed:Bool,reader:instance_type(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback),args:A,result:W.World<S,C,R,E> & Bool) -> ReadResult<W.World<S,C,R,E>,instance_type(~S,~K,~V,~C,~R,~E,~A,~Error,~Out,~take,~put,~callback),A,Error,Out,V>:
   match allowed result:
     case False{}, (world,_):ReadRejected{world,reader,args}

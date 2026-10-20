@@ -1,4 +1,5 @@
 import Base
+import ../../../../src/ecs/clock-state.bend as Clock
 import ../consumer/health.bend as F
 import ../../dense-motion64/consumer/s-perf/canonical-api-v1/dense-runtime-v1/types.bend as T
 import ../../../../src/ecs/world.bend as W
@@ -13,7 +14,7 @@ import ../../../../src/ecs/owner-product.bend as Product
 
 type Common is Data:
   Common{rows:Logical.Rows(),ledger:T.LedgerView,audits:List<&2,Driver.Audit>,statuses:List<&2,Driver.Status>}
-def captured(owner:Driver.Owner(),+audits:List<&2,Driver.Audit>,+statuses:List<&2,Driver.Status>,+rows:Logical.Rows(),+namespace:U32,allocator:Allocator.Allocator,store:F.Store(),unit:Unit,+events:List<&2,Nat>,pending:List<Deferred.Command<F.World()>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:U32,observed:T.HealthLedger & T.LedgerView) -> Driver.View & Common:
+def captured(owner:Driver.Owner(),+audits:List<&2,Driver.Audit>,+statuses:List<&2,Driver.Status>,+rows:Logical.Rows(),+namespace:U32,allocator:Allocator.Allocator,store:F.Store(),unit:Unit,+events:List<&2,Nat>,pending:List<Deferred.Command<F.World()>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,observed:T.HealthLedger & T.LedgerView) -> Driver.View & Common:
   match observed:
     case (ledger,+view):(Driver.View{W.World{namespace,allocator,store,Product.Owner{ledger,unit},events,pending,registrations,nextSystem,clock},owner,audits,statuses},Common{rows,view,audits,statuses})
 def captured_world(owner:Driver.Owner(),audits:List<&2,Driver.Audit>,statuses:List<&2,Driver.Status>,rows:Logical.Rows(),world:F.World()) -> Driver.View & Common:

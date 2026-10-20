@@ -82,7 +82,7 @@ def presented(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~r
 # Uses a fresh inspector cursor; it does not advance a registered gameplay reader
 # or apply queued commands. The renderer consumes detached rows only.
 def observe(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~render:Row(~S) -> String,world:World(~S,~C,~R,~E)) -> World(~S,~C,~R,~E) & DTO.Observation<View<S>>:
-  presented(~S,~C,~R,~E,~declaration,~render,IQ.each_composed(~I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,~S,~Select.Product<Unit,List<&2,RQ.Cell<S>>>,~IR.grant(~S,~C,~R,~E,~Unit,~Select.empty(~I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,~S),~spec(~S,declaration)),I.Frame{world,0}))
+  presented(~S,~C,~R,~E,~declaration,~render,IQ.each_composed(~I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,~S,~Select.Product<Unit,List<&2,RQ.Cell<S>>>,~IR.grant(~S,~C,~R,~E,~Unit,~Select.empty(~I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>,~S),~spec(~S,declaration)),I.Frame{world,None{}}))
 # Advanced recipe adapter: retain the prior observation, then append this view.
 # The shared World owner is passed through both observers in that order.
 def observation(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~render:Row(~S) -> String,~Owners:Type,~Rows:Data,~prior:World(~S,~C,~R,~E) -> World(~S,~C,~R,~E) & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Fields.Fields<S>>) -> World(~S,~C,~R,~E) -> World(~S,~C,~R,~E) & DTO.Observation<ObservedRows(~S,~Rows)>:

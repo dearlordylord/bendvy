@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./reader-parameter.bend as RP
 import ./ordinary-query-observable.bend as Observable
 import ./ordinary-query-declaration.bend as Query
@@ -27,11 +28,11 @@ def with_query_rows(~S:Data,~Store:Type,~R:Type,~P:Data,~F:Type,~H:Type,~Ops:Typ
   match observed:
     case (world,(owner,(rows,delta))):(Route.Runtime{world,state,tick},(owner,(rows,delta)))
 
-def prepare_context(~S:Data,~Store:Type,~R:Type,~P:Data,~F:Type,~H:Type,~Ops:Type,~V:Data,~declaration:Observable.Declaration<S,FrameQuery.Frame<S,Store,R,Notice.Notice<S,P>>,Ops,Inspector.Frame<S,Store,R,Notice.Notice<S,P>>,V>,context:Route.Runtime<S,Store,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,+cursor:U32,owner:Unit) -> Route.Runtime<S,Store,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & (Unit & (Rows<S,V> & Unit)):
+def prepare_context(~S:Data,~Store:Type,~R:Type,~P:Data,~F:Type,~H:Type,~Ops:Type,~V:Data,~declaration:Observable.Declaration<S,FrameQuery.Frame<S,Store,R,Notice.Notice<S,P>>,Ops,Inspector.Frame<S,Store,R,Notice.Notice<S,P>>,V>,context:Route.Runtime<S,Store,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,+cursor:Maybe<&2,Tick.Tick>,owner:Unit) -> Route.Runtime<S,Store,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & (Unit & (Rows<S,V> & Unit)):
   match context:
     case Route.Runtime{world,state,tick}:with_query_rows(~S,~Store,~R,~P,~F,~H,~Ops,~V,state,tick,rows_observed(~S,~Store,~R,~P,~V,InspectQuery.each_composed(~Inspector.Frame<S,Store,R,Notice.Notice<S,P>>,~S,~V,Observable.inspect_query(~S,~Store,~R,~Notice.Notice<S,P>,~FrameQuery.Frame<S,Store,R,Notice.Notice<S,P>>,~Ops,~V,~declaration),Inspector.Frame{world,cursor})))
 
-def commit_context(~Context:Type,context:Context,owner:Unit,delta:Unit,+cursor:U32) -> Context & Unit:
+def commit_context(~Context:Type,context:Context,owner:Unit,delta:Unit,+cursor:Tick.Tick) -> Context & Unit:
   (context,owner)
 
 # Query projection retains no private cursor or shared-history membership.

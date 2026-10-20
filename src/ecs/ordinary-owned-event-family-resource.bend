@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./world.bend as W
 import ./compose.bend as Q
 import ./capabilities.bend as Cap
@@ -10,7 +11,7 @@ import ./transaction.bend as T
 # Only the user resource is writable; the affine event log is a retained sibling.
 def lens(~R:Type,~Logs:Type) -> Product.Lens<Product.Owner<R,Logs>,R,Logs>:
   Product.lens(~R,~Logs,~Product.Left{})
-def read_returned(~S:Data,~C:Type,~R:Type,~Logs:Type,~E:Data,~V:Data,handle:W.Handle<S>,error:Maybe<&2,W.WorldError>,cursor:U32,result:T.Tx<W.World<S,C,Product.Owner<R,Logs>,E>,E> & V) -> Q.Frame<S,C,Product.Owner<R,Logs>,E> & V:
+def read_returned(~S:Data,~C:Type,~R:Type,~Logs:Type,~E:Data,~V:Data,handle:W.Handle<S>,error:Maybe<&2,W.WorldError>,cursor:Maybe<&2,Tick.Tick>,result:T.Tx<W.World<S,C,Product.Owner<R,Logs>,E>,E> & V) -> Q.Frame<S,C,Product.Owner<R,Logs>,E> & V:
   match result:
     case (tx,value):(Q.Frame{tx,handle,error,cursor},value)
 # Advanced opaque-row read of the user resource R in Product.Owner<R,Logs>.

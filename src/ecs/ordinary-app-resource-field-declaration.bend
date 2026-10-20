@@ -98,7 +98,7 @@ def machine_presented(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,result:Ins
 # Returns (World, CurrentView), including Unavailable when the slot has no value;
 # uses a fresh inspector cursor and does not run queued transitions.
 def machine_observe(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~take:R -> R & Machine.Slot<S,K,V>,~machine:MachineDecl.Declaration<S,K,V,R,take>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & Machine.CurrentView<S,K,V>:
-  machine_presented(~S,~K,~V,~C,~R,~E,MachineDecl.get(~Inspect.Frame<S,C,R,E>,~S,~K,~V,~MachineDecl.inspect(~S,~K,~V,~C,~R,~E,~take,~machine),Inspect.Frame{world,0}))
+  machine_presented(~S,~K,~V,~C,~R,~E,MachineDecl.get(~Inspect.Frame<S,C,R,E>,~S,~K,~V,~MachineDecl.inspect(~S,~K,~V,~C,~R,~E,~take,~machine),Inspect.Frame{world,None{}}))
 def machine_render(~S:Data,~K:Data,~V:Data,~render:V -> String,view:Machine.CurrentView<S,K,V>) -> String:
   match view:
     case Machine.Unavailable{}:"Unavailable"

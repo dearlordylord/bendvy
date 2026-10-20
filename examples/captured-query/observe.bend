@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/change-tick.bend as Tick
 import ./schema.bend as S
 import ./body.bend as B
 import ./app.bend as A
@@ -25,7 +26,7 @@ def clause(~Schema:Data,value:Q.Clause<Schema>) -> String:
     case Q.Clause{key,kind}:key ++ ":" ++ mode(kind)
 def fields(~Schema:Data,value:Fields.Fields<Schema>) -> String:
   match value:
-    case Fields.Fields{ns,id,name,access,cursor,slot,clauses,Fields.ComponentKind{}}:"ns=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";access=" ++ List.show(&2,String,x=>x,access) ++ ";cursor=" ++ U32.show(cursor) ++ ";slot=" ++ slot ++ ";clauses=" ++ List.show(&2,Q.Clause<Schema>,clause(~Schema),clauses) ++ ";kind=Component"
+    case Fields.Fields{ns,id,name,access,cursor,slot,clauses,Fields.ComponentKind{}}:"ns=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";access=" ++ List.show(&2,String,x=>x,access) ++ ";cursor=" ++ Tick.cursor_show(cursor) ++ ";slot=" ++ slot ++ ";clauses=" ++ List.show(&2,Q.Clause<Schema>,clause(~Schema),clauses) ++ ";kind=Component"
     case _:"INVALID_FIELDS_KIND"
 def audit(~Schema:Data,value:A.FirstOwners(~Schema)) -> A.FirstOwners(~Schema) & String:
   match value:
@@ -36,9 +37,9 @@ def pack(value:P.Observation) -> String:
 def args_text(value:B.Args) -> String:
   match value:
     case B.Args{failAt}:"Args{" ++ U32.show(failAt) ++ "}"
-def packed(~Schema:Data,+ns:U32,+id:U32,+name:String,+access:List<&2,String>,+cursor:U32,+metadata:Fields.Fields<Schema>,+args:B.Args,retained:List<&2,B.Row>,outputs:List<&2,B.Row>,result:P.Pack & P.Observation) -> Captured.Invocation(~Schema,~S.Store(~Schema),~Unit,~Unit,~P.Pack,~B.Ops,~B.Args,~B.Error,~B.Row,~B.query(~Schema),~B.body) & String:
+def packed(~Schema:Data,+ns:U32,+id:U32,+name:String,+access:List<&2,String>,+cursor:Maybe<&2,Tick.Tick>,+metadata:Fields.Fields<Schema>,+args:B.Args,retained:List<&2,B.Row>,outputs:List<&2,B.Row>,result:P.Pack & P.Observation) -> Captured.Invocation(~Schema,~S.Store(~Schema),~Unit,~Unit,~P.Pack,~B.Ops,~B.Args,~B.Error,~B.Row,~B.query(~Schema),~B.body) & String:
   match result:
-    case (capture,view):(Exec.Invocation{Leaf.Record{O.Owner{L.Instance{ns,id,name,access,capture},cursor},metadata},args,retained},"fields={" ++ fields(~Schema,metadata) ++ "};actualOwner={ns=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";access=" ++ List.show(&2,String,x=>x,access) ++ ";cursor=" ++ U32.show(cursor) ++ ";capture=" ++ pack(view) ++ "};args=" ++ args_text(args) ++ ";outputs=" ++ List.show(&2,B.Row,B.row,outputs))
+    case (capture,view):(Exec.Invocation{Leaf.Record{O.Owner{L.Instance{ns,id,name,access,capture},cursor},metadata},args,retained},"fields={" ++ fields(~Schema,metadata) ++ "};actualOwner={ns=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";access=" ++ List.show(&2,String,x=>x,access) ++ ";cursor=" ++ Tick.cursor_show(cursor) ++ ";capture=" ++ pack(view) ++ "};args=" ++ args_text(args) ++ ";outputs=" ++ List.show(&2,B.Row,B.row,outputs))
 def captured_outputs(~Schema:Data,result:Captured.Invocation(~Schema,~S.Store(~Schema),~Unit,~Unit,~P.Pack,~B.Ops,~B.Args,~B.Error,~B.Row,~B.query(~Schema),~B.body) & List<&2,B.Row>) -> Captured.Invocation(~Schema,~S.Store(~Schema),~Unit,~Unit,~P.Pack,~B.Ops,~B.Args,~B.Error,~B.Row,~B.query(~Schema),~B.body) & String:
   match result:
     case (Exec.Invocation{Leaf.Record{O.Owner{L.Instance{ns,id,name,access,capture},cursor},metadata},args,retained},outputs):packed(~Schema,ns,id,name,access,cursor,metadata,args,retained,outputs,P.project(capture))

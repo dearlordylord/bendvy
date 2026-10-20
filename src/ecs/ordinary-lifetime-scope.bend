@@ -131,7 +131,7 @@ def register(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:W.World<S,A.Store
 # systems remain, and successful queued work requires a later explicit barrier.
 # Current consumer: test-fixtures/public-scopes/feature-timing-v1/main.bend.
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~populate:W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>> -> W.Handle<S> -> P -> W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>,~clear:C -> W.Handle<S> -> C & List<&2,A.Notice<S,E>>,~record:W.Handle<S> -> A.Notice<S,E>,~declarations:List<&2,Rel.Declaration<S>>,~Args:Type,~Error:Data,~Out:Type,~body:@-H:Type -> @-ops:Ops<H,S,P> -> Args -> H -> H & (T.Outcome<Error> & Out),owner:Sys.Registry<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>,Args,Error,Out,runner(~S,~C,~R,~E,~P,~populate,~clear,~record,~declarations,~Args,~Error,~Out,~body)>,world:W.World<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>>,args:Args) -> Sys.RunResult<S,A.Store<S,Sc.Store<S,C>>,R,A.Notice<S,E>,Args,Error,Out,runner(~S,~C,~R,~E,~P,~populate,~clear,~record,~declarations,~Args,~Error,~Out,~body)>:
-  Sys.run_tracked(~S,~A.Store<S,Sc.Store<S,C>>,~R,~A.Notice<S,E>,~Args,~Error,~Out,~runner(~S,~C,~R,~E,~P,~populate,~clear,~record,~declarations,~Args,~Error,~Out,~body),owner,world,args)
+  Sys.run(~S,~A.Store<S,Sc.Store<S,C>>,~R,~A.Notice<S,E>,~Args,~Error,~Out,~runner(~S,~C,~R,~E,~P,~populate,~clear,~record,~declarations,~Args,~Error,~Out,~body),owner,world,args)
 
 # Project ordinary families through the metadata wrapper without changing owners.
 # Trusted storage-adapter remainder for a projected component column.

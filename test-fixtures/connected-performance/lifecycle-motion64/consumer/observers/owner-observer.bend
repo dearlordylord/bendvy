@@ -1,4 +1,6 @@
 import Base
+import ../../../../../src/ecs/change-tick.bend as Tick
+import ../../../../../src/ecs/clock-state.bend as Clock
 import ../../../../../src/ecs/deferred-command.bend as Deferred
 import ../../../../../src/ecs/entity-allocator.bend as Alloc
 import allocator-observer.bend as Gen
@@ -39,17 +41,22 @@ def optional(~Payload:Type,~project:Payload -> Payload & String,value:Maybe<&1,P
     case Some{owner}:optional_done(~Payload,project(owner))
 def stamp(value:L.Stamp) -> String:
   match value:
-    case L.Stamp{added,changed}:U32.show(added) ++ ":" ++ U32.show(changed)
+    case L.Stamp{added,changed}:Tick.cursor_show(added) ++ ":" ++ Tick.cursor_show(changed)
 def entry(value:L.Entry) -> String:
   match value:
     case L.Entry{id,value}:U32.show(id) ++ ":" ++ stamp(value)
-def metadata_join(+capacity:U32,+depth:Nat,+exceptional:List<&2,L.Entry>,observedAdded:Array<U32> & String,observedChanged:Array<U32> & String) -> M.Metadata & String:
+def tick_value_data(+value:Maybe<&2,Tick.Tick>) -> Maybe<&2,Tick.Tick> & String:
+  (value,Tick.cursor_show(value))
+def tick_value(value:Maybe<&2,Tick.Tick>) -> Maybe<&2,Tick.Tick> & String:tick_value_data(value)
+def tick_array(value:Array<Maybe<&2,Tick.Tick>>) -> Array<Maybe<&2,Tick.Tick>> & String:
+  array(~Maybe<&2,Tick.Tick>,~tick_value,value)
+def metadata_join(+capacity:U32,+depth:Nat,+exceptional:List<&2,L.Entry>,observedAdded:Array<Maybe<&2,Tick.Tick>> & String,observedChanged:Array<Maybe<&2,Tick.Tick>> & String) -> M.Metadata & String:
   (added,sa)=observedAdded
   (changed,sc)=observedChanged
   (M.Metadata{added,changed,capacity,depth,exceptional},"added=" ++ sa ++ ";changed=" ++ sc ++ ";capacity=" ++ U32.show(capacity) ++ ";depth=" ++ Nat.show(depth) ++ ";exceptional=" ++ List.show(&2,L.Entry,entry,exceptional))
 def metadata(value:M.Metadata) -> M.Metadata & String:
   match value:
-    case M.Metadata{added,changed,capacity,depth,exceptional}:metadata_join(capacity,depth,exceptional,u32_array(added),u32_array(changed))
+    case M.Metadata{added,changed,capacity,depth,exceptional}:metadata_join(capacity,depth,exceptional,tick_array(added),tick_array(changed))
 def indexed_join(~S:Data,~P:Type,observedValues:Array<Maybe<&1,P>> & String,observedMeta:M.Metadata & String) -> Col.IndexedOrdinaryCarrier<S,P> & String:
   (values,sv)=observedValues
   (metadata,sm)=observedMeta
@@ -90,12 +97,12 @@ def callbacks(~A:Type,~B:Type,values:List<Deferred.Command<A>>) -> List<Deferred
 def registration(value:W.RegistrationMeta) -> String:
   match value:
     case W.RegistrationMeta{id,name,access}:U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,x => x,access)
-def world_join(~S:Data,~P:Type,~R:Type,~E:Data,~showE:E -> String,+namespace:U32,+events:List<&2,E>,+registrations:List<&2,W.RegistrationMeta>,+nextSystemId:U32,+clock:U32,observedAllocator:Alloc.Allocator & String,observedStore:Col.Column<S,P> & String,observedResource:R & String,observedPending:List<Deferred.Command<W.World<S,Col.Column<S,P>,R,E>>> & (Nat & String)) -> W.World<S,Col.Column<S,P>,R,E> & String:
+def world_join(~S:Data,~P:Type,~R:Type,~E:Data,~showE:E -> String,+namespace:U32,+events:List<&2,E>,+registrations:List<&2,W.RegistrationMeta>,+nextSystemId:U32,+clock:Clock.State,observedAllocator:Alloc.Allocator & String,observedStore:Col.Column<S,P> & String,observedResource:R & String,observedPending:List<Deferred.Command<W.World<S,Col.Column<S,P>,R,E>>> & (Nat & String)) -> W.World<S,Col.Column<S,P>,R,E> & String:
   (allocator,sa)=observedAllocator
   (store,ss)=observedStore
   (resource,sr)=observedResource
   (pending,(+count,kinds))=observedPending
-  (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},"namespace=" ++ U32.show(namespace) ++ "|allocator={" ++ sa ++ "}|store=" ++ ss ++ "|resource=" ++ sr ++ "|events=" ++ List.show(&2,E,showE,events) ++ "|pendingCount=" ++ Nat.show(count) ++ "|pendingEmpty=" ++ Bool.show(Nat.is_eq(count,0n)) ++ "|pendingKinds=" ++ kinds ++ "|registrations=" ++ List.show(&2,W.RegistrationMeta,registration,registrations) ++ "|nextSystemId=" ++ U32.show(nextSystemId) ++ "|clock=" ++ U32.show(clock))
+  (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},"namespace=" ++ U32.show(namespace) ++ "|allocator={" ++ sa ++ "}|store=" ++ ss ++ "|resource=" ++ sr ++ "|events=" ++ List.show(&2,E,showE,events) ++ "|pendingCount=" ++ Nat.show(count) ++ "|pendingEmpty=" ++ Bool.show(Nat.is_eq(count,0n)) ++ "|pendingKinds=" ++ kinds ++ "|registrations=" ++ List.show(&2,W.RegistrationMeta,registration,registrations) ++ "|nextSystemId=" ++ U32.show(nextSystemId) ++ "|clock=" ++ Tick.show(Clock.now(clock)))
 def world(~S:Data,~P:Type,~R:Type,~E:Data,~viewP:P -> P & String,~viewR:R -> R & String,~showE:E -> String,value:W.World<S,Col.Column<S,P>,R,E>) -> W.World<S,Col.Column<S,P>,R,E> & String:
   match value:
     case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:world_join(~S,~P,~R,~E,~showE,namespace,events,registrations,nextSystemId,clock,Gen.allocator(allocator),column(~S,~P,~viewP,store),viewR(resource),callbacks(~W.World<S,Col.Column<S,P>,R,E>,~W.World<S,Col.Column<S,P>,R,E>,pending))

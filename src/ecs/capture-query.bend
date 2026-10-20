@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./world.bend as W
 import ./compose.bend as Q
 import ./transaction.bend as T
@@ -22,7 +23,7 @@ def selected(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~U:Data,~Out:Data,~Ops:Type
   match observed:
     case (Q.Frame{tx,_,_,_},False{}):next(capture,tx)
     case (frame,True{}):body_returned(~S,~C,~R,~E,~L,~U,~Out,next,body(Q.Frame<S,C,R,E>,Q.plan_caps(~S,~C,~R,~E,~Ops,plan),capture,args,frame))
-def run_handles(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~A:Data,~plan:Q.Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> L -> A -> H -> H & (L & (T.Outcome<U> & Out)),handles:List<&2,W.Handle<S>>,+args:A,+cursor:U32,capture:L,tx:T.Tx<W.World<S,C,R,E>,E>) -> L & (T.Tx<W.World<S,C,R,E>,E> & (T.Outcome<Q.Error<U>> & List<&2,Out>)):
+def run_handles(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~A:Data,~plan:Q.Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> L -> A -> H -> H & (L & (T.Outcome<U> & Out)),handles:List<&2,W.Handle<S>>,+args:A,+cursor:Maybe<&2,Tick.Tick>,capture:L,tx:T.Tx<W.World<S,C,R,E>,E>) -> L & (T.Tx<W.World<S,C,R,E>,E> & (T.Outcome<Q.Error<U>> & List<&2,Out>)):
   match handles:
     case []:(capture,(tx,(T.Success{},[])))
     case handle <> rest:selected(~S,~C,~R,~E,~L,~U,~Out,~Ops,~A,~plan,~body,args,capture,local => transaction => run_handles(~S,~C,~R,~E,~L,~U,~Out,~Ops,~A,~plan,~body,rest,args,cursor,local,transaction),Q.plan_select(~S,~C,~R,~E,~Ops,plan)(Q.Frame{tx,handle,None{},cursor}))
@@ -33,8 +34,18 @@ def returned(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~U:Data,~Out:Data,capture:L
 def finished(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~U:Data,~Out:Data,observed:L & (T.Tx<W.World<S,C,R,E>,E> & (T.Outcome<Q.Error<U>> & List<&2,Out>))) -> Executed<W.World<S,C,R,E>,L,Q.Error<U>,Out>:
   match observed:
     case (capture,(tx,(status,values))):returned(~S,~C,~R,~E,~L,~U,~Out,capture,values,Cmd.tx_finish(~S,~C,~R,~E,~Q.Error<U>,tx,status))
-def reserved(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~A:Data,~plan:Q.Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> L -> A -> H -> H & (L & (T.Outcome<U> & Out)),args:A,cursor:U32,capture:L,result:W.World<S,C,R,E> & List<&2,W.Handle<S>>) -> Executed<W.World<S,C,R,E>,L,Q.Error<U>,Out>:
+def scope_finished(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~U:Data,~Out:Data,owned:Bool,result:Executed<W.World<S,C,R,E>,L,Q.Error<U>,Out>) -> Executed<W.World<S,C,R,E>,L,Q.Error<U>,Out>:
+  match result:
+    case Executed{world,capture,outcome,values}:Executed{W.finish_run(~S,~C,~R,~E,owned,world),capture,outcome,values}
+def reserved_inner(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~A:Data,~plan:Q.Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> L -> A -> H -> H & (L & (T.Outcome<U> & Out)),args:A,cursor:Maybe<&2,Tick.Tick>,capture:L,result:W.World<S,C,R,E> & List<&2,W.Handle<S>>) -> Executed<W.World<S,C,R,E>,L,Q.Error<U>,Out>:
   (world,handles) = result
   finished(~S,~C,~R,~E,~L,~U,~Out,run_handles(~S,~C,~R,~E,~L,~U,~Out,~Ops,~A,~plan,~body,handles,args,cursor,capture,T.begin(~W.World<S,C,R,E>,~E,world)))
-def each_since(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~A:Data,~plan:Q.Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> L -> A -> H -> H & (L & (T.Outcome<U> & Out)),args:A,cursor:U32,capture:L,world:W.World<S,C,R,E>) -> Executed<W.World<S,C,R,E>,L,Q.Error<U>,Out>:
+def reserved_scoped(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~A:Data,~plan:Q.Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> L -> A -> H -> H & (L & (T.Outcome<U> & Out)),args:A,cursor:Maybe<&2,Tick.Tick>,capture:L,handles:List<&2,W.Handle<S>>,admitted:W.World<S,C,R,E> & Bool) -> Executed<W.World<S,C,R,E>,L,Q.Error<U>,Out>:
+  (world,owned)=admitted
+  scope_finished(~S,~C,~R,~E,~L,~U,~Out,owned,reserved_inner(~S,~C,~R,~E,~L,~U,~Out,~Ops,~A,~plan,~body,args,cursor,capture,(world,handles)))
+def reserved(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~A:Data,~plan:Q.Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> L -> A -> H -> H & (L & (T.Outcome<U> & Out)),args:A,cursor:Maybe<&2,Tick.Tick>,capture:L,result:W.World<S,C,R,E> & List<&2,W.Handle<S>>) -> Executed<W.World<S,C,R,E>,L,Q.Error<U>,Out>:
+  (world,handles)=result
+  reserved_scoped(~S,~C,~R,~E,~L,~U,~Out,~Ops,~A,~plan,~body,args,cursor,capture,handles,W.ensure_run(~S,~C,~R,~E,world))
+
+def each_since(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~A:Data,~plan:Q.Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> L -> A -> H -> H & (L & (T.Outcome<U> & Out)),args:A,cursor:Maybe<&2,Tick.Tick>,capture:L,world:W.World<S,C,R,E>) -> Executed<W.World<S,C,R,E>,L,Q.Error<U>,Out>:
   reserved(~S,~C,~R,~E,~L,~U,~Out,~Ops,~A,~plan,~body,args,cursor,capture,W.handles(~S,~C,~R,~E,world))

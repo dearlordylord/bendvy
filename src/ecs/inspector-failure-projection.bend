@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./event-runtime.bend as Ev
 import ./relation-commands.bend as A
 import ./relation-types.bend as G
@@ -36,7 +37,7 @@ def failures(~S:Data,~E:Data,+relation:G.Descriptor<S>,notices:List<&2,A.Notice<
 def view(~S:Data,~E:Data,+relation:G.Descriptor<S>,snapshot:Ev.Snapshot<A.Notice<S,E>>) -> FailureView<S,E>:
   match snapshot:
     case Ev.Snapshot{visible,retained,_,tick,boundary}:FailureView{relation,failures(~S,~E,relation,visible),failures(~S,~E,relation,retained),tick,boundary}
-def joined(~S:Data,~C:Type,~R:Type,~E:Data,relation:G.Descriptor<S>,cursor:U32,observed:Ev.Runtime<S,C,R,A.Notice<S,E>> & Ev.Snapshot<A.Notice<S,E>>) -> F.Frame<S,C,R,E> & FailureView<S,E>:
+def joined(~S:Data,~C:Type,~R:Type,~E:Data,relation:G.Descriptor<S>,cursor:Maybe<&2,Tick.Tick>,observed:Ev.Runtime<S,C,R,A.Notice<S,E>> & Ev.Snapshot<A.Notice<S,E>>) -> F.Frame<S,C,R,E> & FailureView<S,E>:
   (runtime,snapshot)=observed
   (F.Frame{runtime,cursor},view(~S,~E,relation,snapshot))
 # Return the runtime frame with a detached failure view. Preserve the Inspector

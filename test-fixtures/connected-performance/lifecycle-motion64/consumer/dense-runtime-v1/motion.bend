@@ -1,4 +1,5 @@
 import Base
+import ../../../../../src/ecs/change-tick.bend as Tick
 import ../../../../../src/ecs/commands.bend as Cmd
 import types.bend as T
 import payload.bend as P
@@ -60,7 +61,7 @@ def main_read(~H:Type,~caps:Ops(H),observed:H & Cmp.Access<T.PositionView>) -> H
     case (owner,Cmp.Found{+view}):ledger_written(~H,~caps,sum_view(view),Cap.value_get(~H,~T.MotionLedger,~T.LedgerView,~ledger_cap(~H,caps),Cap.set(~H,~T.Position,~T.PositionView,~main_cap(~H,caps),owner,increment_main(view))))
     case (owner,_):(owner,(Tx.Failure{Unit{}},0))
 def body(~H:Type,~caps:Ops(H),_:Unit,owner:H) -> H & (Tx.Outcome<Unit> & U32):main_read(~H,~caps,Cap.get(~H,~T.Position,~T.PositionView,~main_cap(~H,caps),owner))
-def Registry() -> Type:Sys.Registry<T.MotionSchema,Store(),Resources(),Nat,Unit & U32,Q.Error<Unit>,List<&2,U32>,Ordinary.runner(~T.MotionSchema,~Store(),~Resources(),~Nat,~Ops,~Unit,~Unit,~U32,~declaration(),~body)>
+def Registry() -> Type:Sys.Registry<T.MotionSchema,Store(),Resources(),Nat,Unit & Maybe<&2,Tick.Tick>,Q.Error<Unit>,List<&2,U32>,Ordinary.runner(~T.MotionSchema,~Store(),~Resources(),~Nat,~Ops,~Unit,~Unit,~U32,~declaration(),~body)>
 def Owner() -> Type:Ordinary.Owner<T.MotionSchema,Registry()>
 def define(world:World()) -> Ordinary.Defined<T.MotionSchema,World(),Registry()>:Ordinary.define(~T.MotionSchema,~Store(),~Resources(),~Nat,~Ops,~Unit,~Unit,~U32,~declaration(),~body,world,"BenchUpdate","dense64")
 

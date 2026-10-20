@@ -1,4 +1,6 @@
 import Base
+import ./change-tick.bend as Tick
+import ./clock-state.bend as Clock
 import entity-allocator.bend as A
 import entity-key.bend as Key
 import restored-row.bend as R
@@ -8,7 +10,7 @@ import component.bend as C
 import compose.bend as Q
 
 type Header<-S:Data> is Type:
-  Header{namespace:U32,allocator:A.Allocator,handle:W.Handle<S>,clock:U32,error:Maybe<&2,W.WorldError>,cursor:U32}
+  Header{namespace:U32,allocator:A.Allocator,handle:W.Handle<S>,clock:Clock.State,error:Maybe<&2,W.WorldError>,cursor:Maybe<&2,Tick.Tick>}
 type WriteResult<-H:Type,-C:Type> is Type:
   Written{owner:H}
   Rejected{owner:H,incoming:C,error:W.WorldError}
@@ -17,10 +19,10 @@ def handle_key(-S:Data,handle:W.Handle<S>) -> Key.Key:
     case W.Handle{_,key}:key
 def handle_index(-S:Data,handle:W.Handle<S>) -> U32:
   Key.index(handle_key(S,handle))
-def checked_live(-S:Data,namespace:U32,handle:W.Handle<S>,clock:U32,error:Maybe<&2,W.WorldError>,cursor:U32,observed:A.Allocator & Bool) -> Header<S> & Bool:
+def checked_live(-S:Data,namespace:U32,handle:W.Handle<S>,clock:Clock.State,error:Maybe<&2,W.WorldError>,cursor:Maybe<&2,Tick.Tick>,observed:A.Allocator & Bool) -> Header<S> & Bool:
   match observed:
     case (allocator,valid):(Header{namespace,allocator,handle,clock,error,cursor},valid)
-def checked_namespace(-S:Data,same:Bool,namespace:U32,allocator:A.Allocator,+handle:W.Handle<S>,clock:U32,error:Maybe<&2,W.WorldError>,cursor:U32) -> Header<S> & Bool:
+def checked_namespace(-S:Data,same:Bool,namespace:U32,allocator:A.Allocator,+handle:W.Handle<S>,clock:Clock.State,error:Maybe<&2,W.WorldError>,cursor:Maybe<&2,Tick.Tick>) -> Header<S> & Bool:
   match same:
     case False{}:(Header{namespace,allocator,handle,clock,error,cursor},False{})
     case True{}:checked_live(S,namespace,handle,clock,error,cursor,A.checked(allocator,handle_key(S,handle),1))
@@ -66,13 +68,12 @@ def get(~S:Data,~H:Type,~Rest:Type,~MetaRest:Type,~C:Type,~V:Data,~take:H -> Res
 def reject_header(-S:Data,reason:W.WorldError,header:Header<S>) -> Header<S>:
   match header:
     case Header{namespace,allocator,handle,clock,error,cursor}: Header{namespace,allocator,handle,clock,Q.first_error(error,reason),cursor}
-def clock_checked(-S:Data,allowed:Bool,+namespace:U32,allocator:A.Allocator,+handle:W.Handle<S>,+clock:U32,+error:Maybe<&2,W.WorldError>,+cursor:U32) -> Header<S> & Maybe<&2,U32>:
-  match allowed:
-    case False{}: (Header{namespace,allocator,handle,clock,error,cursor},None{})
-    case True{}: (Header{namespace,allocator,handle,U32.add(clock,1),error,cursor},Some{U32.add(clock,1)})
-def clocked(-S:Data,header:Header<S>) -> Header<S> & Maybe<&2,U32>:
+def clock_advanced(-S:Data,namespace:U32,allocator:A.Allocator,handle:W.Handle<S>,error:Maybe<&2,W.WorldError>,cursor:Maybe<&2,Tick.Tick>,observed:Clock.State & Tick.Tick) -> Header<S> & Tick.Tick:
+  match observed:
+    case (clock,tick):(Header{namespace,allocator,handle,clock,error,cursor},tick)
+def clocked(-S:Data,header:Header<S>) -> Header<S> & Tick.Tick:
   match header:
-    case Header{+namespace,allocator,+handle,+clock,+error,+cursor}: clock_checked(S,U32.is_lt(clock,4294967295),namespace,allocator,handle,clock,error,cursor)
+    case Header{namespace,allocator,handle,clock,error,cursor}:clock_advanced(S,namespace,allocator,handle,error,cursor,Clock.write(clock))
 def rejected(~S:Data,~H:Type,~Rest:Type,~MetaRest:Type,~C:Type,~put:Rest -> R.Cell<S,C> -> H,~put_header:MetaRest -> Header<S> -> Rest,rest:MetaRest,cell:R.Cell<S,C>,incoming:C,+reason:W.WorldError,header:Header<S>) -> WriteResult<H,C>:
   Rejected{put(put_header(rest,reject_header(S,reason,header)),cell),incoming,reason}
 def replace_refused(~S:Data,~H:Type,~Rest:Type,~MetaRest:Type,~C:Type,~put:Rest -> R.Cell<S,C> -> H,~put_header:MetaRest -> Header<S> -> Rest,cell:R.Cell<S,C>,incoming:C,observed:MetaRest & Header<S>) -> WriteResult<H,C>:
@@ -82,10 +83,9 @@ def replaced(~S:Data,~H:Type,~Rest:Type,~MetaRest:Type,~C:Type,~put:Rest -> R.Ce
   match result:
     case R.Replaced{cell,previous,stamp}: Written{put(journal(rest,previous,stamp),cell)}
     case R.Refused{cell,incoming}: replace_refused(~S,~H,~Rest,~MetaRest,~C,~put,~put_header,cell,incoming,header(rest))
-def write_clocked(~S:Data,~H:Type,~Rest:Type,~MetaRest:Type,~C:Type,~put:Rest -> R.Cell<S,C> -> H,~header:Rest -> MetaRest & Header<S>,~put_header:MetaRest -> Header<S> -> Rest,~journal:Rest -> Maybe<&1,C> -> L.Stamp -> Rest,rest:MetaRest,cell:R.Cell<S,C>,incoming:C,observed:Header<S> & Maybe<&2,U32>) -> WriteResult<H,C>:
+def write_clocked(~S:Data,~H:Type,~Rest:Type,~MetaRest:Type,~C:Type,~put:Rest -> R.Cell<S,C> -> H,~header:Rest -> MetaRest & Header<S>,~put_header:MetaRest -> Header<S> -> Rest,~journal:Rest -> Maybe<&1,C> -> L.Stamp -> Rest,rest:MetaRest,cell:R.Cell<S,C>,incoming:C,observed:Header<S> & Tick.Tick) -> WriteResult<H,C>:
   match observed:
-    case (meta,None{}): rejected(~S,~H,~Rest,~MetaRest,~C,~put,~put_header,rest,cell,incoming,W.CapacityExceeded{},meta)
-    case (meta,Some{tick}): replaced(~S,~H,~Rest,~MetaRest,~C,~put,~header,~put_header,~journal,put_header(rest,meta),R.replace(~S,~C,cell,incoming,tick))
+    case (meta,tick): replaced(~S,~H,~Rest,~MetaRest,~C,~put,~header,~put_header,~journal,put_header(rest,meta),R.replace(~S,~C,cell,incoming,tick))
 def write_matching(~S:Data,~H:Type,~Rest:Type,~MetaRest:Type,~C:Type,~put:Rest -> R.Cell<S,C> -> H,~header:Rest -> MetaRest & Header<S>,~put_header:MetaRest -> Header<S> -> Rest,~journal:Rest -> Maybe<&1,C> -> L.Stamp -> Rest,~bridge:H -> C -> WriteResult<H,C>,rest:MetaRest,meta:Header<S>,incoming:C,observed:R.Cell<S,C> & Bool) -> WriteResult<H,C>:
   match observed:
     case (cell,False{}): bridge(put(put_header(rest,meta),cell),incoming)

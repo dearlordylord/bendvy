@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./event-runtime.bend as Ev
 import ./relation-commands.bend as A
 import ./capabilities.bend as Cap
@@ -22,7 +23,7 @@ def transition_name(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & St.Stream<V>,
 # cursor/debug flag. Transition/failure declarations index the available views;
 # raw projection adapters remain trusted. This is not a second stream registry.
 type Application<S:Data,K:Data,V:Data,C:Type,R:Type,E:Data,H:Type,-take:R -> R & St.Stream<V>,-transition:T.Declaration<S,K,V,R,take>,-failure:Fail.Declaration<S>> is Type:
-  Application{runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>,owners:H,cursor:U32,debug:Bool}
+  Application{runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>,owners:H,cursor:Maybe<&2,Tick.Tick>,debug:Bool}
 def failure_done(~S:Data,~K:Data,~V:Data,~E:Data,~H:Type,transitions:T.TransitionLog<S,K,V>,returned:H & Fail.FailureView<S,E>) -> H & Values<S,K,V,E>:
   (owner,failures)=returned
   (owner,Values{transitions,failures})
@@ -39,7 +40,7 @@ def selected(~S:Data,~K:Data,~V:Data,~E:Data,~H:Type,~grants:Cap.ValueRead<H,T.T
   transition_done(~S,~K,~V,~E,~H,~failure_grant(~S,~K,~V,~E,~H,grants),Cap.value_read(~H,~T.TransitionLog<S,K,V>,~transition_grant(~S,~K,~V,~E,~H,grants),owner))
 # Retain the actual runtime/owners and supplied observation cursor with debug off.
 # Does not register a reader, synchronize publications or advance the cursor.
-def bind(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~H:Type,~take:R -> R & St.Stream<V>,~transition:T.Declaration<S,K,V,R,take>,~failure:Fail.Declaration<S>,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>,owners:H,cursor:U32) -> Application<S,K,V,C,R,E,H,take,transition,failure>:
+def bind(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~H:Type,~take:R -> R & St.Stream<V>,~transition:T.Declaration<S,K,V,R,take>,~failure:Fail.Declaration<S>,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>,owners:H,cursor:Maybe<&2,Tick.Tick>) -> Application<S,K,V,C,R,E,H,take,transition,failure>:
   Application{runtime,owners,cursor,False{}}
 def read_finished(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~H:Type,~take:R -> R & St.Stream<V>,~transition:T.Declaration<S,K,V,R,take>,~failure:Fail.Declaration<S>,owners:H,debug:Bool,returned:F.Frame<S,C,R,E> & Values<S,K,V,E>) -> Application<S,K,V,C,R,E,H,take,transition,failure> & Values<S,K,V,E>:
   match returned:
@@ -67,7 +68,7 @@ def snapshot(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~H:Type,~take:R -> 
   match app:
     case Application{runtime,owners,cursor,False{}}:(Application{runtime,owners,cursor,False{}},None{})
     case Application{runtime,owners,cursor,True{}}:snapshot_read(~S,~K,~V,~C,~R,~E,~H,~take,~transition,~failure,read_app(~S,~K,~V,~C,~R,~E,~H,~take,~transition,~failure,Application{runtime,owners,cursor,True{}}))
-def with_runtime_finished(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~H:Type,~take:R -> R & St.Stream<V>,~transition:T.Declaration<S,K,V,R,take>,~failure:Fail.Declaration<S>,~O:Type,owners:H,cursor:U32,debug:Bool,returned:Ev.Runtime<S,C,R,A.Notice<S,E>> & O) -> Application<S,K,V,C,R,E,H,take,transition,failure> & O:
+def with_runtime_finished(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~H:Type,~take:R -> R & St.Stream<V>,~transition:T.Declaration<S,K,V,R,take>,~failure:Fail.Declaration<S>,~O:Type,owners:H,cursor:Maybe<&2,Tick.Tick>,debug:Bool,returned:Ev.Runtime<S,C,R,A.Notice<S,E>> & O) -> Application<S,K,V,C,R,E,H,take,transition,failure> & O:
   (runtime,out)=returned
   (Application{runtime,owners,cursor,debug},out)
 # Advanced effect adapter threading actual Runtime and returning Out while retaining

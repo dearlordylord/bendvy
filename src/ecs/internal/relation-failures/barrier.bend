@@ -1,4 +1,5 @@
 import Base
+import ../../change-tick.bend as Tick
 import ../../deferred-command.bend as Deferred
 import domains.bend as D
 import routing.bend as Route
@@ -15,17 +16,20 @@ def command_collected(~S: Data,~C: Type,~R: Type,~E: Data,~classify: E -> Maybe<
   match state:
     case BarrierState{world,domains,+tick}: collected(~S,~C,~R,~E,Route.collect(~S,~C,~R,~E,~classify,Deferred.run_disabled(~W.World<S,C,R,E>,command,world),tick,domains),tick)
 
+def closed(~S:Data,~C:Type,~R:Type,~E:Data,state:BarrierState<S,C,R,E>) -> BarrierState<S,C,R,E>:
+  match state:
+    case BarrierState{world,domains,tick}:BarrierState{W.leave_run(~S,~C,~R,~E,world),domains,tick}
 def drain(~S: Data,~C: Type,~R: Type,~E: Data,~classify: E -> Maybe<D.DescriptorKey<S>>,commands: List<Deferred.Command<W.World<S,C,R,E>>>,state: BarrierState<S,C,R,E>) -> BarrierState<S,C,R,E>:
   match commands:
-    case []: state
+    case []: closed(~S,~C,~R,~E,state)
     case command <> rest: drain(~S,~C,~R,~E,~classify,rest,command_collected(~S,~C,~R,~E,~classify,command,state))
 
 # The deferred barrier advances the actual World clock once. Every command
 # publishes a distinct batch stamped with that same barrier tick.
-def opened(~S: Data,~C: Type,~R: Type,~E: Data,~classify: E -> Maybe<D.DescriptorKey<S>>,advanced: W.World<S,C,R,E> & U32,domains: List<&2,D.Domain<S,E>>) -> BarrierState<S,C,R,E>:
+def opened(~S: Data,~C: Type,~R: Type,~E: Data,~classify: E -> Maybe<D.DescriptorKey<S>>,advanced: W.World<S,C,R,E> & Tick.Tick,domains: List<&2,D.Domain<S,E>>) -> BarrierState<S,C,R,E>:
   (world,+tick) = advanced
   match world:
-    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: drain(~S,~C,~R,~E,~classify,List.reverse(&1,Deferred.Command<W.World<S,C,R,E>>,pending),BarrierState{W.World{namespace,allocator,store,resource,events,[],registrations,nextSystemId,clock},domains,U32.to_nat(tick)})
+    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}: drain(~S,~C,~R,~E,~classify,List.reverse(&1,Deferred.Command<W.World<S,C,R,E>>,pending),BarrierState{W.World{namespace,allocator,store,resource,events,[],registrations,nextSystemId,clock},domains,Tick.total(tick)})
 
 def barrier(~S: Data,~C: Type,~R: Type,~E: Data,~classify: E -> Maybe<D.DescriptorKey<S>>,world: W.World<S,C,R,E>,domains: List<&2,D.Domain<S,E>>) -> BarrierState<S,C,R,E>:
-  opened(~S,~C,~R,~E,~classify,W.advance_clock(~S,~C,~R,~E,world),domains)
+  opened(~S,~C,~R,~E,~classify,W.enter_run(~S,~C,~R,~E,world),domains)

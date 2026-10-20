@@ -84,7 +84,7 @@ is current acceptance work, not a new stream policy. The earlier no-additional-
 implementation conclusion was limited to the previously exercised callsites.
 
 The sibling entry accepts the actual Runtime and existing Inspector instance;
-its body remains rank-polymorphic over opaque H. Fresh starts at cursor0 and
+its body remains rank-polymorphic over opaque H. Fresh starts with an explicit never-run cursor (`None`) and
 reads registeredAt from the actual World clock. Success advances that clock
 once; failure retains the prior Inspector cursor and does not advance it.
 Runtime batches, positions, retention, pending work and all affine owners are

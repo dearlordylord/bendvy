@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./recognized-query-declaration.bend as N
 import ./internal/compact-operational-frame.bend as F
 import ./ordinary-query-declaration.bend as Decl
@@ -38,16 +39,16 @@ def finish_frame(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,result:T.
 def finished(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,observed:F.Frame<S,Store,R,E> & (T.Outcome<Q.Error<U>> & List<&2,Out>)) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
   match observed:
     case (frame,result):finish_frame(~S,~Store,~R,~E,~U,~Out,result,F.restore(~S,~Store,~R,~E,frame))
-def reserved(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:N.Declaration<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),+args:A,cursor:U32,observed:W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
+def reserved(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:N.Declaration<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),+args:A,cursor:Maybe<&2,Tick.Tick>,observed:W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Q.Executed<W.World<S,Store,R,E>,Q.Error<U>,Out>:
   match observed:
     case (world,[]):Q.finished(~S,~Store,~R,~E,~U,~Out,(T.begin(~W.World<S,Store,R,E>,~E,world),(T.Success{},[])))
     case (world,+handle <> rest):finished(~S,~Store,~R,~E,~U,~Out,run_handles(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body,rest,args,[],selected(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body,args,N.selector(~S,~Store,~R,~E,~Ops,query)(F.extract(~S,~Store,~R,~E,Q.Frame{T.begin(~W.World<S,Store,R,E>,~E,world),handle,None{},cursor})))))
-def runner(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:N.Declaration<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),world:W.World<S,Store,R,E>,args:A & U32) -> Sys.Outcome<W.World<S,Store,R,E>,Q.Error<U>,List<&2,Out>>:
+def runner(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:N.Declaration<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),world:W.World<S,Store,R,E>,args:A & Maybe<&2,Tick.Tick>) -> Sys.Outcome<W.World<S,Store,R,E>,Q.Error<U>,List<&2,Out>>:
   match args:
     case (args,cursor):Ordinary.completed(~S,~Store,~R,~E,~U,~Out,reserved(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body,args,cursor,W.handles(~S,~Store,~R,~E,world)))
-def registered(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:N.Declaration<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),slot:String,clauses:List<&2,Decl.Clause<S>>,result:Sys.RegistrationResult<S,Store,R,E,A & U32,Q.Error<U>,List<&2,Out>,runner(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body)>) -> Ordinary.Defined<S,W.World<S,Store,R,E>,Sys.Registry<S,Store,R,E,A & U32,Q.Error<U>,List<&2,Out>,runner(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>:
+def registered(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:N.Declaration<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),slot:String,clauses:List<&2,Decl.Clause<S>>,result:Sys.RegistrationResult<S,Store,R,E,A & Maybe<&2,Tick.Tick>,Q.Error<U>,List<&2,Out>,runner(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body)>) -> Ordinary.Defined<S,W.World<S,Store,R,E>,Sys.Registry<S,Store,R,E,A & Maybe<&2,Tick.Tick>,Q.Error<U>,List<&2,Out>,runner(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>:
   match result:
     case Sys.RegistrationFailed{world}:Ordinary.Rejected{world}
     case Sys.Registered{world,registry}:Ordinary.Defined{world,Ordinary.Owner{registry,slot,clauses}}
-def define(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:N.Declaration<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),world:W.World<S,Store,R,E>,name:String,slot:String) -> Ordinary.Defined<S,W.World<S,Store,R,E>,Sys.Registry<S,Store,R,E,A & U32,Q.Error<U>,List<&2,Out>,runner(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>:
-  registered(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body,slot,Decl.clauses(~S,~Q.Frame<S,Store,R,E>,~Ops(Q.Frame<S,Store,R,E>),N.ordinary(~S,~Store,~R,~E,~Ops,query)),Sys.register(~S,~Store,~R,~E,~(A & U32),~Q.Error<U>,~List<&2,Out>,~runner(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body),world,name,Ordinary.access(~S,Decl.clauses(~S,~Q.Frame<S,Store,R,E>,~Ops(Q.Frame<S,Store,R,E>),N.ordinary(~S,~Store,~R,~E,~Ops,query)))))
+def define(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~query:N.Declaration<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),world:W.World<S,Store,R,E>,name:String,slot:String) -> Ordinary.Defined<S,W.World<S,Store,R,E>,Sys.Registry<S,Store,R,E,A & Maybe<&2,Tick.Tick>,Q.Error<U>,List<&2,Out>,runner(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body)>>:
+  registered(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body,slot,Decl.clauses(~S,~Q.Frame<S,Store,R,E>,~Ops(Q.Frame<S,Store,R,E>),N.ordinary(~S,~Store,~R,~E,~Ops,query)),Sys.register(~S,~Store,~R,~E,~(A & Maybe<&2,Tick.Tick>),~Q.Error<U>,~List<&2,Out>,~runner(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~query,~body),world,name,Ordinary.access(~S,Decl.clauses(~S,~Q.Frame<S,Store,R,E>,~Ops(Q.Frame<S,Store,R,E>),N.ordinary(~S,~Store,~R,~E,~Ops,query)))))

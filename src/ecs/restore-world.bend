@@ -1,5 +1,6 @@
 import ./deferred-command.bend as Deferred
 import Base
+import ./clock-state.bend as Clock
 import ./world.bend as W
 import ./entity-allocator.bend as Alloc
 
@@ -8,7 +9,7 @@ import ./entity-allocator.bend as Alloc
 def cancel_pending(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,C,R,E>) -> W.World<S,C,R,E>:
   match world:
     case W.World{namespace,allocator,store,resource,events,_,registrations,nextSystemId,clock}:W.World{namespace,Alloc.abandon_pending(allocator),store,resource,events,[],registrations,nextSystemId,clock}
-def progress_join(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,store:C,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32,observed:Alloc.Allocator & Bool) -> W.World<S,C,R,E> & Bool:
+def progress_join(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,store:C,resource:R,events:List<&2,E>,pending:List<Deferred.Command<W.World<S,C,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,observed:Alloc.Allocator & Bool) -> W.World<S,C,R,E> & Bool:
   match observed:
     case (allocator,accepted):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},accepted)
 def advance_floor(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,C,R,E>,floor:U32) -> W.World<S,C,R,E> & Bool:

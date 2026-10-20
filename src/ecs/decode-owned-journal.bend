@@ -38,6 +38,13 @@ def counted(~World:Type,~P:Type,~Q:Type,receipts:List<Receipt<World,P,Q>>,world:
   match result:
     case (undo,count):rollback(~World,~P,~Q,receipts,undo,count,world,[],[])
 
+def inverse_counted(~World:Type,inverse:World -> World,result:List<(World -> World)> & Nat) -> List<(World -> World)> & Nat:
+  match result:
+    case (undo,count):(inverse <> undo,1n+count)
+def count_inverses(~World:Type,undo:List<(World -> World)>) -> List<(World -> World)> & Nat:
+  match undo:
+    case []:([],0n)
+    case inverse <> rest:inverse_counted(~World,inverse,count_inverses(~World,rest))
 def abort(~World:Type,~E:Data,~P:Type,~Q:Type,receipts:List<Receipt<World,P,Q>>,tx:T.Tx<World,E>) -> Returned<World,P,Q>:
   match tx:
-    case T.Tx{world,undo,_,_,_}:counted(~World,~P,~Q,receipts,world,Batch.count_commands(~World,undo))
+    case T.Tx{world,undo,_,_,_}:counted(~World,~P,~Q,receipts,world,count_inverses(~World,undo))

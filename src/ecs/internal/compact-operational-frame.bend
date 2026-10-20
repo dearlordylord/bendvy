@@ -1,4 +1,6 @@
 import Base
+import ../change-tick.bend as Tick
+import ../clock-state.bend as Clock
 import ../world.bend as W
 import ../entity-allocator.bend as A
 import ../transaction.bend as T
@@ -11,9 +13,9 @@ import ./query-read-session.bend as Session
 
 # Read operations retain this affine shell without inspecting its fields.
 type Shell<-S:Data,-Store:Type,-R:Type,-E:Data> is Type:
-  Shell{resource:R,worldEvents:List<&2,E>,pending:List<Deferred.Command<W.World<S,Store,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events:List<&2,E>,trace:Facts.State}
+  Shell{resource:R,worldEvents:List<&2,E>,pending:List<Deferred.Command<W.World<S,Store,R,E>>>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events:List<&2,E>,trace:Facts.State}
 type Frame<-S:Data,-Store:Type,-R:Type,-E:Data> is Type:
-  Frame{namespace:U32,allocator:A.Allocator,store:Store,handle:W.Handle<S>,error:Maybe<&2,W.WorldError>,cursor:U32,shell:Shell<S,Store,R,E>}
+  Frame{namespace:U32,allocator:A.Allocator,store:Store,handle:W.Handle<S>,error:Maybe<&2,W.WorldError>,cursor:Maybe<&2,Tick.Tick>,shell:Shell<S,Store,R,E>}
 def extract(~S:Data,~Store:Type,~R:Type,~E:Data,frame:Q.Frame<S,Store,R,E>) -> Frame<S,Store,R,E>:
   match frame:
     case Q.Frame{T.Tx{W.World{namespace,allocator,store,resource,worldEvents,pending,registrations,nextSystemId,clock},undo,commands,events,trace},handle,error,cursor}:Frame{namespace,allocator,store,handle,error,cursor,Shell{resource,worldEvents,pending,registrations,nextSystemId,clock,undo,commands,events,trace}}

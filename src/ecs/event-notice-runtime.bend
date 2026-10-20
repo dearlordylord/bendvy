@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./deferred-command.bend as Deferred
 import ./event-stream.bend as Leaf
 import ./world.bend as W
@@ -139,19 +140,19 @@ def ingested_typed(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~classify:Not
 def ingest(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~sync:F -> Nat -> List<&2,P> -> F,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,+tick:Nat,runtime:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
   match runtime:
     case Route.Runtime{world,state,_}:ingested_typed(~S,~C,~R,~P,~F,~H,~classify,tick,synchronize(~S,~C,~R,~P,~F,~H,~sync,world,state,tick))
-def attempt_clocked(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,state:State<S,P,F,H>,tick:Nat,clocked:W.World<S,C,R,Notice.Notice<S,P>> & U32) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+def attempt_clocked(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,state:State<S,P,F,H>,tick:Nat,clocked:W.World<S,C,R,Notice.Notice<S,P>> & Tick.Tick) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
   match clocked:
     case (world,_):Route.Runtime{world,state,1n+tick}
 def attempt_ingested(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,runtime:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
   match runtime:
-    case Route.Runtime{world,state,tick}:attempt_clocked(~S,~C,~R,~P,~F,~H,state,tick,W.advance_clock(~S,~C,~R,~Notice.Notice<S,P>,world))
+    case Route.Runtime{world,state,tick}:attempt_clocked(~S,~C,~R,~P,~F,~H,state,tick,W.execution_clock(~S,~C,~R,~Notice.Notice<S,P>,world))
 # Standalone and composed operations share histories but may advance different
 # administrative clocks. Never publish below any already observed boundary.
-def before_state(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~sync:F -> Nat -> List<&2,P> -> F,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,state:State<S,P,F,H>,+tick:Nat,world:W.World<S,C,R,Notice.Notice<S,P>>,clock:U32) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+def before_state(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~sync:F -> Nat -> List<&2,P> -> F,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,state:State<S,P,F,H>,+tick:Nat,world:W.World<S,C,R,Notice.Notice<S,P>>,clock:Tick.Tick) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
   match state:
     case State{typed,Failures{domains,positions,+failureTick,start,boundary,capacity,nextReader}}:
-      attempt_ingested(~S,~C,~R,~P,~F,~H,ingest(~S,~C,~R,~P,~F,~H,~sync,~classify,Nat.max(1n,Nat.max(tick,Nat.max(failureTick,U32.to_nat(clock)))),Route.Runtime{world,State{typed,Failures{domains,positions,failureTick,start,boundary,capacity,nextReader}},tick}))
-def before_clocked(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~sync:F -> Nat -> List<&2,P> -> F,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,state:State<S,P,F,H>,tick:Nat,clocked:W.World<S,C,R,Notice.Notice<S,P>> & U32) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+      attempt_ingested(~S,~C,~R,~P,~F,~H,ingest(~S,~C,~R,~P,~F,~H,~sync,~classify,Nat.max(1n,Nat.max(tick,Nat.max(failureTick,Tick.total(clock)))),Route.Runtime{world,State{typed,Failures{domains,positions,failureTick,start,boundary,capacity,nextReader}},tick}))
+def before_clocked(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~sync:F -> Nat -> List<&2,P> -> F,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,state:State<S,P,F,H>,tick:Nat,clocked:W.World<S,C,R,Notice.Notice<S,P>> & Tick.Tick) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
   match clocked:
     case (world,clock):before_state(~S,~C,~R,~P,~F,~H,~sync,~classify,state,tick,world,clock)
 # Zero is the initial unread cursor, so startup publications need a positive epoch.
@@ -179,14 +180,14 @@ def barrier_drained(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,typed:Family
   match returned:
     case FailureBarrier.BarrierState{world,domains,+tick}:Route.Runtime{world,State{typed,Failures{domains,positions,tick,frameStart,boundary,capacity,nextReader}},tick}
 
-def barrier_advanced(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,typed:Family.State<P,F,H>,domains:List<&2,D.Domain<S,Notice.Notice<S,P>>>,positions:List<&2,Ev.Position>,previous:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,nextReader:U32,advanced:W.World<S,C,R,Notice.Notice<S,P>> & U32) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
+def barrier_advanced(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,typed:Family.State<P,F,H>,domains:List<&2,D.Domain<S,Notice.Notice<S,P>>>,positions:List<&2,Ev.Position>,previous:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,nextReader:U32,advanced:W.World<S,C,R,Notice.Notice<S,P>> & Tick.Tick) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
   match advanced:
     case (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},actual):
       barrier_drained(~S,~C,~R,~P,~F,~H,typed,positions,frameStart,boundary,capacity,nextReader,
         FailureBarrier.drain(~S,~C,~R,~Notice.Notice<S,P>,~classify,List.reverse(&1,Deferred.Command<W.World<S,C,R,Notice.Notice<S,P>>>,pending),
-          FailureBarrier.BarrierState{W.World{namespace,allocator,store,resource,events,[],registrations,nextSystemId,clock},domains,Nat.max(previous,U32.to_nat(actual))}))
+          FailureBarrier.BarrierState{W.World{namespace,allocator,store,resource,events,[],registrations,nextSystemId,clock},domains,Nat.max(previous,Tick.total(actual))}))
 
 def barrier(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,~classify:Notice.Notice<S,P> -> Maybe<D.DescriptorKey<S>>,context:Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,State<S,P,F,H>>:
   match context:
     case Route.Runtime{world,State{typed,Failures{domains,positions,failureTick,frameStart,boundary,capacity,nextReader}},tick}:
-      barrier_advanced(~S,~C,~R,~P,~F,~H,~classify,typed,domains,positions,Nat.max(tick,failureTick),frameStart,boundary,capacity,nextReader,W.advance_clock(~S,~C,~R,~Notice.Notice<S,P>,world))
+      barrier_advanced(~S,~C,~R,~P,~F,~H,~classify,typed,domains,positions,Nat.max(tick,failureTick),frameStart,boundary,capacity,nextReader,W.enter_run(~S,~C,~R,~Notice.Notice<S,P>,world))

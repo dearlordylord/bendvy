@@ -1,4 +1,5 @@
 import Base
+import ../../../../src/ecs/change-tick.bend as Tick
 import motion-access.bend as Access
 import ../../sparse-motion64/consumer/s-perf/canonical-api-v1/sparse-runtime-v1/types.bend as T
 import motion.bend as F
@@ -10,8 +11,8 @@ def ping_owner() -> Type:SP.EventOwner<T.MotionSchema,F.Store(),F.Resources(),Na
 def ping_view() -> Data:SP.EventView<T.MotionSchema,E.event_type()>
 def ping_delta() -> Type:Nat
 def ping_validate(context:Family.Context(),owner:ping_owner()) -> Family.Context() & (ping_owner() & Bool):SP.validate_event(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~E.event_type(),~Family.Family,~Unit,~Family.take_ping,~Family.put_ping,~Family.ping_declaration())(context,owner)
-def ping_prepare(context:Family.Context(),+cursor:U32,owner:ping_owner()) -> Family.Context() & (ping_owner() & (ping_view() & ping_delta())):SP.prepare_event(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~E.event_type(),~Family.Family,~Unit,~Family.take_ping,~Family.put_ping,~Family.ping_declaration())(context,cursor,owner)
-def ping_commit(context:Family.Context(),owner:ping_owner(),delta:ping_delta(),+cursor:U32) -> Family.Context() & ping_owner():SP.commit_event(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~E.event_type(),~Family.Family,~Unit,~Family.take_ping,~Family.put_ping)(context,owner,delta,cursor)
+def ping_prepare(context:Family.Context(),+cursor:Maybe<&2,Tick.Tick>,owner:ping_owner()) -> Family.Context() & (ping_owner() & (ping_view() & ping_delta())):SP.prepare_event(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~E.event_type(),~Family.Family,~Unit,~Family.take_ping,~Family.put_ping,~Family.ping_declaration())(context,cursor,owner)
+def ping_commit(context:Family.Context(),owner:ping_owner(),delta:ping_delta(),+cursor:Tick.Tick) -> Family.Context() & ping_owner():SP.commit_event(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~E.event_type(),~Family.Family,~Unit,~Family.take_ping,~Family.put_ping)(context,owner,delta,cursor)
 def ping_release(context:Family.Context(),owner:ping_owner()) -> Family.Context():SP.release_event(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~E.event_type(),~Family.Family,~Unit,~Family.take_ping,~Family.put_ping)(context,owner)
 def ping_parameter_type() -> Data:RP.Param<Family.Context(),ping_owner(),ping_view(),ping_delta(),ping_validate,ping_prepare,ping_commit,ping_release>
 def ping_converted(value:RP.Param<Family.Context(),ping_owner(),ping_view(),ping_delta(),SP.validate_event(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~E.event_type(),~Family.Family,~Unit,~Family.take_ping,~Family.put_ping,~Family.ping_declaration()),SP.prepare_event(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~E.event_type(),~Family.Family,~Unit,~Family.take_ping,~Family.put_ping,~Family.ping_declaration()),SP.commit_event(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~E.event_type(),~Family.Family,~Unit,~Family.take_ping,~Family.put_ping),SP.release_event(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~E.event_type(),~Family.Family,~Unit,~Family.take_ping,~Family.put_ping)>) -> ping_parameter_type():

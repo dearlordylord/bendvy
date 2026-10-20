@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./decode-frame.bend as F
 import ./decode-requests.bend as Request
 import ./compose.bend as Query
@@ -25,11 +26,11 @@ def selected(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~A:Type,~U:Data,~Ou
     case (frame,False{}):next(frame,state,values)
     case (frame,True{}):returned(~S,~C,~R,~E,~P,~Q,~A,~U,~Out,~Ops,~identity,~project,next,values,Cap.invoke_owned(~Ops,~A,~(A & (T.Outcome<U> & Out)),~body,~F.Frame<S,C,R,E,P,Q,identity,project>,~grants,state,frame))
 
-def at_handle(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,frame:F.Frame<S,C,R,E,P,Q,identity,project>,handle:World.Handle<S>,cursor:U32) -> F.Frame<S,C,R,E,P,Q,identity,project>:
+def at_handle(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,frame:F.Frame<S,C,R,E,P,Q,identity,project>,handle:World.Handle<S>,cursor:Maybe<&2,Tick.Tick>) -> F.Frame<S,C,R,E,P,Q,identity,project>:
   match frame:
     case F.Frame{owner,_,_,_,receipts,pending}:F.Frame{owner,handle,None{},cursor,receipts,pending}
 
-def run_rows(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~A:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~selector:F.Frame<S,C,R,E,P,Q,identity,project> -> F.Frame<S,C,R,E,P,Q,identity,project> & Bool,~grants:Ops(F.Frame<S,C,R,E,P,Q,identity,project>),~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (A & (T.Outcome<U> & Out)),handles:List<&2,World.Handle<S>>,+cursor:U32,frame:F.Frame<S,C,R,E,P,Q,identity,project>,state:A,values:List<&2,Out>) -> F.Frame<S,C,R,E,P,Q,identity,project> & (A & (T.Outcome<Query.Error<U>> & List<&2,Out>)):
+def run_rows(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~A:Type,~U:Data,~Out:Data,~Ops:Type -> Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~selector:F.Frame<S,C,R,E,P,Q,identity,project> -> F.Frame<S,C,R,E,P,Q,identity,project> & Bool,~grants:Ops(F.Frame<S,C,R,E,P,Q,identity,project>),~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & (A & (T.Outcome<U> & Out)),handles:List<&2,World.Handle<S>>,+cursor:Maybe<&2,Tick.Tick>,frame:F.Frame<S,C,R,E,P,Q,identity,project>,state:A,values:List<&2,Out>) -> F.Frame<S,C,R,E,P,Q,identity,project> & (A & (T.Outcome<Query.Error<U>> & List<&2,Out>)):
   match handles:
     case []:(frame,(state,(T.Success{},List.reverse(&2,Out,values))))
     case handle <> rest:selected(~S,~C,~R,~E,~P,~Q,~A,~U,~Out,~Ops,~identity,~project,~grants,~body,(frame => state => values => run_rows(~S,~C,~R,~E,~P,~Q,~A,~U,~Out,~Ops,~identity,~project,~selector,~grants,~body,rest,cursor,frame,state,values)),state,values,selector(at_handle(~S,~C,~R,~E,~P,~Q,~identity,~project,frame,handle,cursor)))

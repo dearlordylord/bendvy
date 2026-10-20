@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./reader-parameter.bend as RP
 import ./world.bend as W
 import ./event-runtime.bend as Ev
@@ -188,7 +189,7 @@ def prepare_event(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~H:Type,
   ~take:F -> F & Stream.Stream<S,E>,
   ~put:F -> Stream.Stream<S,E> -> F,
   ~declaration:Event.Declaration<S,E>,
-  context:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,+cursor:U32,
+  context:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,+cursor:Maybe<&2,Tick.Tick>,
   owner:EventOwner<S,C,R,P,E,F,H,take,put>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & (EventOwner<S,C,R,P,E,F,H,take,put> & (EventView<S,E> & Nat)):
   match context owner:
     case Route.Runtime{world,state,+tick} EventOwner{facts,reader}:
@@ -213,7 +214,7 @@ def commit_event(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~H:Type,
   ~take:F -> F & Stream.Stream<S,E>,
   ~put:F -> Stream.Stream<S,E> -> F,
   context:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,
-  owner:EventOwner<S,C,R,P,E,F,H,take,put>,readThrough:Nat,+cursor:U32) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & EventOwner<S,C,R,P,E,F,H,take,put>:
+  owner:EventOwner<S,C,R,P,E,F,H,take,put>,readThrough:Nat,+cursor:Tick.Tick) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & EventOwner<S,C,R,P,E,F,H,take,put>:
   match context owner:
     case Route.Runtime{world,state,tick} EventOwner{facts,reader}:
       match reader:
@@ -402,7 +403,7 @@ def removal_prepared(~S:Data,~C:Type,~R:Type,~P:Data,~Payload:Type,~F:Type,~H:Ty
 
 def prepare_removal(~S:Data,~C:Type,~R:Type,~P:Data,~Payload:Type,~F:Type,~H:Type,
   ~select:Notice.Notice<S,P> -> Maybe<&2,Rm.Record<S,Identity.Declaration<S,Payload>>>,
-  context:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,+cursor:U32,
+  context:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,+cursor:Maybe<&2,Tick.Tick>,
   owner:RemovalOwner<S,Payload,Notice.Notice<S,P>,select>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & (RemovalOwner<S,Payload,Notice.Notice<S,P>,select> & (RemovalView<S,Payload> & Nat)):
   match context:
     case Route.Runtime{world,state,tick}:
@@ -412,7 +413,7 @@ def prepare_removal(~S:Data,~C:Type,~R:Type,~P:Data,~Payload:Type,~F:Type,~H:Typ
 def commit_removal(~S:Data,~C:Type,~R:Type,~P:Data,~Payload:Type,~F:Type,~H:Type,
   ~select:Notice.Notice<S,P> -> Maybe<&2,Rm.Record<S,Identity.Declaration<S,Payload>>>,
   context:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,
-  owner:RemovalOwner<S,Payload,Notice.Notice<S,P>,select>,observedCount:Nat,+cursor:U32) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & RemovalOwner<S,Payload,Notice.Notice<S,P>,select>:
+  owner:RemovalOwner<S,Payload,Notice.Notice<S,P>,select>,observedCount:Nat,+cursor:Tick.Tick) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & RemovalOwner<S,Payload,Notice.Notice<S,P>,select>:
   match context owner:
     case context RemovalOwner{facts,reader}:
       match reader:
@@ -614,7 +615,7 @@ def relation_prepared(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,
 
 def prepare_relation(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,
   ~declarations:List<&2,KDecl.Declaration<S>>,
-  context:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,+cursor:U32,
+  context:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,+cursor:Maybe<&2,Tick.Tick>,
   owner:RelationOwner<S,P>) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & (RelationOwner<S,P> & (RelationView<S,P> & RelationDelta)):
   relation_prepared(~S,~C,~R,~P,~F,~H,context,owner)
 
@@ -674,7 +675,7 @@ def release_relation(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,
 
 def commit_relation(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,
   context:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,
-  owner:RelationOwner<S,P>,delta:RelationDelta,+cursor:U32) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & RelationOwner<S,P>:
+  owner:RelationOwner<S,P>,delta:RelationDelta,+cursor:Tick.Tick) -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & RelationOwner<S,P>:
   match context owner:
     case Route.Runtime{world,Mixed.State{typed,failures},routeTick} RelationOwner{facts,id,keys}:
       relation_commit_state(~S,~C,~R,~P,~F,~H,world,typed,failures,routeTick,facts,id,keys,delta)

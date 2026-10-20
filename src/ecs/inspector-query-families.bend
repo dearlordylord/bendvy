@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import inspector-query-projection.bend as Q
 import inspector.bend as I
 import check.bend as K
@@ -16,7 +17,7 @@ def slot_mode(value:SlotMode) -> P.Selection:
   match value:
     case Required{}:P.Required{}
     case Optional{}:P.Optional{}
-def inspect_joined(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,cursor:U32,observed:W.World<S,Store,R,E> & C.Access<V>) -> I.Frame<S,Store,R,E> & C.Access<V>:
+def inspect_joined(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,cursor:Maybe<&2,Tick.Tick>,observed:W.World<S,Store,R,E> & C.Access<V>) -> I.Frame<S,Store,R,E> & C.Access<V>:
   (world,value)=observed
   (I.Frame{world,cursor},value)
 def inspect_read(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~Payload:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,Payload>,~put:Rest -> Col.Column<S,Payload> -> Store,~project:Payload -> Payload & V,~family:C.Family<S,Store,Rest,Payload,V,Token,take,put,project>,frame:I.Frame<S,Store,R,E>,+target:W.Handle<S>) -> I.Frame<S,Store,R,E> & C.Access<V>:
@@ -58,9 +59,12 @@ def check_with(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~Payload:Type,~V:D
   Q.Predicate{frame => target => check_matches(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~project,~family,~P.Present{},frame,target)}
 def check_without(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~Payload:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,Payload>,~put:Rest -> Col.Column<S,Payload> -> Store,~project:Payload -> Payload & V,~family:C.Family<S,Store,Rest,Payload,V,Token,take,put,project>) -> Q.Predicate<K.Frame<S,Store,R,E>,S>:
   Q.Predicate{frame => target => check_matches(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~project,~family,~P.Absent{},frame,target)}
-def lifecycle_join(~S:Data,~Store:Type,~R:Type,~E:Data,~mode:P.LifecycleSelection,+cursor:U32,observed:W.World<S,Store,R,E> & L.Stamp) -> I.Frame<S,Store,R,E> & Bool:
+def lifecycle_clocked(~S:Data,~Store:Type,~R:Type,~E:Data,~mode:P.LifecycleSelection,+cursor:Maybe<&2,Tick.Tick>,stamp:L.Stamp,observed:W.World<S,Store,R,E> & Tick.Tick) -> I.Frame<S,Store,R,E> & Bool:
+  match observed:
+    case (world,this):(I.Frame{world,cursor},P.lifecycle_selected(mode,stamp,cursor,this))
+def lifecycle_join(~S:Data,~Store:Type,~R:Type,~E:Data,~mode:P.LifecycleSelection,+cursor:Maybe<&2,Tick.Tick>,observed:W.World<S,Store,R,E> & L.Stamp) -> I.Frame<S,Store,R,E> & Bool:
   (world,stamp)=observed
-  (I.Frame{world,cursor},P.lifecycle_selected(mode,stamp,cursor))
+  lifecycle_clocked(~S,~Store,~R,~E,~mode,cursor,stamp,W.execution_clock(~S,~Store,~R,~E,world))
 def inspect_lifecycle(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~Payload:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,Payload>,~put:Rest -> Col.Column<S,Payload> -> Store,~project:Payload -> Payload & V,~family:C.Family<S,Store,Rest,Payload,V,Token,take,put,project>,~mode:P.LifecycleSelection,frame:I.Frame<S,Store,R,E>,target:W.Handle<S>) -> I.Frame<S,Store,R,E> & Bool:
   match frame:
     case I.Frame{world,cursor}:lifecycle_join(~S,~Store,~R,~E,~mode,cursor,C.lifecycle(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~project,family,world,target))

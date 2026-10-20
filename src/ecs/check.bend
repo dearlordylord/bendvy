@@ -53,7 +53,7 @@ def query_done(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,result:I.Frame<S,Stor
     case (I.Frame{world,_},rows):(Frame{world},plain_rows(~S,~V,rows))
 def query_read(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~Payload:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,Payload>,~put:Rest -> Col.Column<S,Payload> -> Store,~project:Payload -> Payload & V,~family:C.Family<S,Store,Rest,Payload,V,Token,take,put,project>,~mode:PlainSelection,frame:Frame<S,Store,R,E>) -> Frame<S,Store,R,E> & List<&2,Row<S,V>>:
   match frame:
-    case Frame{world}:query_done(~S,~Store,~R,~E,~V,Q.scan(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~project,~family,~selection(mode),I.Frame{world,0}))
+    case Frame{world}:query_done(~S,~Store,~R,~E,~V,Q.scan(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~project,~family,~selection(mode),I.Frame{world,None{}}))
 # Build a read-only component query for Required or Optional membership.
 # Canonical scan returns detached Access rows in its live-handle traversal order,
 # without lifecycle flags or consuming registered system cursors. project must

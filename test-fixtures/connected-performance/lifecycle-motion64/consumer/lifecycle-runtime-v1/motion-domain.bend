@@ -71,7 +71,7 @@ def selected(owner:Array<U32>,frame:Frame,observed:Contract.Scanned<Types.Motion
   match frame observed:
     case Frame{+count,+iteration,phase,_,pending,foreign,stale,reservations}, Contract.Scanned{world,handles}:Local.Succeeded{world,owner,Output{Frame{count,iteration,phase,nth(handles,index(U32.mod(iteration,3),count)),pending,foreign,stale,reservations},None{}}}
 def select(world:World(),owner:Array<U32>,frame:Frame) -> Local.Outcome<World(),Array<U32>,Unit,Output>:
-  selected(owner,frame,Contract.scan(~Types.MotionSchema,~Store(),~Resources(),~Nat,~ReadOps,~select_plan(),world,0))
+  selected(owner,frame,Contract.scan(~Types.MotionSchema,~Store(),~Resources(),~Nat,~ReadOps,~select_plan(),world,None{}))
 def populate(world:World(),handle:W.Handle<Types.MotionSchema>,main:Types.Position) -> World():F.populate(world,handle,F.Payload{main,None{},None{}})
 def reserved_finished(owner:Array<U32>,frame:Frame,+reservation:W.Reservation<Types.MotionSchema>,result:Tx.Returned<World(),Unit>) -> Local.Outcome<World(),Array<U32>,Unit,Output>:
   match frame reservation result:

@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./world.bend as W
 import ./system.bend as Sys
 import ./ordinary-system.bend as System
@@ -34,7 +35,7 @@ type RegistrationKind is Data:
 # is observation metadata; it does not independently prove a live registration
 # or authorize execution without its matching typed token and World checks.
 type Fields<S:Data> is Data:
-  Fields{namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:U32,slot:String,clauses:List<&2,Query.Clause<S>>,kind:RegistrationKind}
+  Fields{namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:Maybe<&2,Tick.Tick>,slot:String,clauses:List<&2,Query.Clause<S>>,kind:RegistrationKind}
 type Token<-Registry:Type> is Type:
   Token{}
 def component_registry(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,slot:String,clauses:List<&2,Query.Clause<S>>,registry:Sys.Registry<S,C,R,E,Args,Error,Out,runner>) -> Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>> & Fields<S>:

@@ -40,8 +40,8 @@ def called_text(~run:D.World() -> Array<U32> -> D.Frame -> Local.Outcome<D.World
     case (Local.Instance{ns,+id,name,access,local},text):Called{Local.Instance{ns,id,name,access,local},world,status,output,id,text}
 def called(~run:D.World() -> Array<U32> -> D.Frame -> Local.Outcome<D.World(),Array<U32>,Unit,D.Output>,result:Local.Run<Types.MotionSchema,F.Store(),F.Resources(),Nat,Array<U32>,D.Frame,Unit,D.Output,run>) -> Called<run>:
   match result:
-    case Local.Completed{world,owner,Done{output}}:called_text(~run,world,Succeeded{},Some{output},instance(~run,owner))
-    case Local.Completed{world,owner,Fail{_}}:called_text(~run,world,Failed{},None{},instance(~run,owner))
+    case Local.Completed{world,owner,Done{output},_}:called_text(~run,world,Succeeded{},Some{output},instance(~run,owner))
+    case Local.Completed{world,owner,Fail{_},_}:called_text(~run,world,Failed{},None{},instance(~run,owner))
     case Local.Refused{world,owner,_}:called_text(~run,world,Refused{},None{},instance(~run,owner))
 def invoked(~run:D.World() -> Array<U32> -> D.Frame -> Local.Outcome<D.World(),Array<U32>,Unit,D.Output>,owner:Instance(~run),world:D.World(),frame:D.Frame) -> Called<run>:
   called(~run,Local.run(~Types.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Array<U32>,~D.Frame,~Unit,~D.Output,~run,owner,world,frame))

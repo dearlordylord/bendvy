@@ -1,15 +1,16 @@
 import Base
+import ./change-tick.bend as Tick
 import inspector-query.bend as Q
 import inspector.bend as I
 import check.bend as K
 import world.bend as W
-def inspect_handles_joined(~S:Data,~Store:Type,~R:Type,~E:Data,cursor:U32,observed:W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> I.Frame<S,Store,R,E> & List<&2,W.Handle<S>>:
+def inspect_handles_joined(~S:Data,~Store:Type,~R:Type,~E:Data,cursor:Maybe<&2,Tick.Tick>,observed:W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> I.Frame<S,Store,R,E> & List<&2,W.Handle<S>>:
   (world,value)=observed
   (I.Frame{world,cursor},value)
 def inspect_handles(~S:Data,~Store:Type,~R:Type,~E:Data,frame:I.Frame<S,Store,R,E>) -> I.Frame<S,Store,R,E> & List<&2,W.Handle<S>>:
   match frame:
     case I.Frame{world,cursor}:inspect_handles_joined(~S,~Store,~R,~E,cursor,W.handles(~S,~Store,~R,~E,world))
-def inspect_valid_joined(~S:Data,~Store:Type,~R:Type,~E:Data,cursor:U32,observed:W.World<S,Store,R,E> & Bool) -> I.Frame<S,Store,R,E> & Bool:
+def inspect_valid_joined(~S:Data,~Store:Type,~R:Type,~E:Data,cursor:Maybe<&2,Tick.Tick>,observed:W.World<S,Store,R,E> & Bool) -> I.Frame<S,Store,R,E> & Bool:
   (world,value)=observed
   (I.Frame{world,cursor},value)
 def inspect_valid(~S:Data,~Store:Type,~R:Type,~E:Data,frame:I.Frame<S,Store,R,E>,target:W.Handle<S>) -> I.Frame<S,Store,R,E> & Bool:

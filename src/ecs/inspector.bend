@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import world.bend as W
 import component.bend as C
 import column.bend as Col
@@ -10,14 +11,14 @@ import capabilities.bend as Cap
 # Bodies receive opaque H through grants, not this raw constructor. It is not
 # a registered system transaction or a snapshot that can restore World.
 type Frame<-S:Data,-Store:Type,-R:Type,-E:Data> is Type:
-  Frame{world:W.World<S,Store,R,E>,cursor:U32}
-# Standalone Inspector lifecycle cursor state. Fresh starts at cursor zero;
+  Frame{world:W.World<S,Store,R,E>,cursor:Maybe<&2,Tick.Tick>}
+# Standalone Inspector lifecycle cursor state. Fresh starts with no previous cursor;
 # Active retains its last successful observation cursor and initial clock.
 # Schema S is static: this raw value does not carry a runtime world namespace.
 # Reuse with its intended world; use runtime-bound wrappers for checked ownership.
 type Instance<-S:Data> is Type:
   Fresh{}
-  Active{cursor:U32,registeredAt:U32}
+  Active{cursor:Maybe<&2,Tick.Tick>,registeredAt:Tick.Tick}
 # Detached component lookup result plus added/changed flags relative to the
 # Inspector cursor. access is Found, ComponentAbsent or MissingEntity; the
 # original affine component remains in World, never in this Data observation.
@@ -49,11 +50,14 @@ def lookup_field(~H:Type,~S:Data,~V:Data,cap:Lookup<H,S,V>) -> H -> W.Handle<S> 
 def lookup(~H:Type,~S:Data,~V:Data,~cap:Lookup<H,S,V>,ctx:H,target:W.Handle<S>) -> H & Value<V>:
   lookup_field(~H,~S,~V,cap)(ctx,target)
 
-def family_join(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,+cursor:U32,+stamp:L.Stamp,observed:W.World<S,Store,R,E> & C.Access<V>) -> Frame<S,Store,R,E> & Value<V>:
+def family_clocked(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,+cursor:Maybe<&2,Tick.Tick>,+stamp:L.Stamp,value:C.Access<V>,observed:W.World<S,Store,R,E> & Tick.Tick) -> Frame<S,Store,R,E> & Value<V>:
+  (world,+this)=observed
+  (Frame{world,cursor},Value{value,L.added(stamp,cursor,this),L.changed(stamp,cursor,this)})
+def family_join(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,+cursor:Maybe<&2,Tick.Tick>,+stamp:L.Stamp,observed:W.World<S,Store,R,E> & C.Access<V>) -> Frame<S,Store,R,E> & Value<V>:
   (world,value)=observed
-  (Frame{world,cursor},Value{value,L.added(stamp,cursor),L.changed(stamp,cursor)})
+  family_clocked(~S,~Store,~R,~E,~V,cursor,stamp,value,W.execution_clock(~S,~Store,~R,~E,world))
 
-def family_stamped(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,~family:C.Family<S,Store,Rest,C,V,Token,take,put,project>,cursor:U32,target:W.Handle<S>,observed:W.World<S,Store,R,E> & L.Stamp) -> Frame<S,Store,R,E> & Value<V>:
+def family_stamped(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,~family:C.Family<S,Store,Rest,C,V,Token,take,put,project>,cursor:Maybe<&2,Tick.Tick>,target:W.Handle<S>,observed:W.World<S,Store,R,E> & L.Stamp) -> Frame<S,Store,R,E> & Value<V>:
   (world,stamp)=observed
   family_join(~S,~Store,~R,~E,~V,cursor,stamp,C.get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,target))
 
@@ -67,7 +71,7 @@ def family_get(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~T
 def read_family(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,~family:C.Family<S,Store,Rest,C,V,Token,take,put,project>) -> Lookup<Frame<S,Store,R,E>,S,V>:
   Lookup{frame => target => family_get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family,frame,target)}
 
-def resource_join(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,cursor:U32,observed:W.World<S,Store,R,E> & V) -> Frame<S,Store,R,E> & V:
+def resource_join(~S:Data,~Store:Type,~R:Type,~E:Data,~V:Data,cursor:Maybe<&2,Tick.Tick>,observed:W.World<S,Store,R,E> & V) -> Frame<S,Store,R,E> & V:
   (world,value)=observed
   (Frame{world,cursor},value)
 
@@ -87,25 +91,25 @@ def plan_caps(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,plan:Plan<S,
   match plan:
     case Plan{caps}:caps
 
-def succeeded(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,registeredAt:U32,value:Out,observed:W.World<S,Store,R,E> & U32) -> Observed<S,Store,R,E,U,Out>:
+def succeeded(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,registeredAt:Tick.Tick,value:Out,observed:W.World<S,Store,R,E> & Tick.Tick) -> Observed<S,Store,R,E,U,Out>:
   (world,cursor)=observed
-  Observed{world,Active{cursor,registeredAt},Done{value}}
+  Observed{world,Active{Some{cursor},registeredAt},Done{value}}
 
-def finished(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,cursor:U32,registeredAt:U32,frame:Frame<S,Store,R,E>,result:Result<&2,&2,U,Out>) -> Observed<S,Store,R,E,U,Out>:
+def finished(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,cursor:Maybe<&2,Tick.Tick>,registeredAt:Tick.Tick,frame:Frame<S,Store,R,E>,result:Result<&2,&2,U,Out>) -> Observed<S,Store,R,E,U,Out>:
   match frame result:
     case Frame{world,_} Fail{error}:Observed{world,Active{cursor,registeredAt},Fail{error}}
     case Frame{world,_} Done{value}:succeeded(~S,~Store,~R,~E,~U,~Out,registeredAt,value,W.advance_clock(~S,~Store,~R,~E,world))
 
-def invoked(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,cursor:U32,registeredAt:U32,result:Frame<S,Store,R,E> & Result<&2,&2,U,Out>) -> Observed<S,Store,R,E,U,Out>:
+def invoked(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,cursor:Maybe<&2,Tick.Tick>,registeredAt:Tick.Tick,result:Frame<S,Store,R,E> & Result<&2,&2,U,Out>) -> Observed<S,Store,R,E,U,Out>:
   (frame,result)=result
   finished(~S,~Store,~R,~E,~U,~Out,cursor,registeredAt,frame,result)
 
-def initialized(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~plan:Plan<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & Result<&2,&2,U,Out>,args:A,+cursor:U32,+registeredAt:U32,world:W.World<S,Store,R,E>) -> Observed<S,Store,R,E,U,Out>:
+def initialized(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~plan:Plan<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & Result<&2,&2,U,Out>,args:A,+cursor:Maybe<&2,Tick.Tick>,+registeredAt:Tick.Tick,world:W.World<S,Store,R,E>) -> Observed<S,Store,R,E,U,Out>:
   invoked(~S,~Store,~R,~E,~U,~Out,cursor,registeredAt,Cap.invoke(~Ops,~A,~Result<&2,&2,U,Out>,~body,~Frame<S,Store,R,E>,~plan_caps(~S,~Store,~R,~E,~Ops,plan),args,Frame{world,cursor}))
 
-def first(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~plan:Plan<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & Result<&2,&2,U,Out>,args:A,observed:W.World<S,Store,R,E> & U32) -> Observed<S,Store,R,E,U,Out>:
+def first(~S:Data,~Store:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A:Data,~U:Data,~Out:Data,~plan:Plan<S,Store,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A -> H -> H & Result<&2,&2,U,Out>,args:A,observed:W.World<S,Store,R,E> & Tick.Tick) -> Observed<S,Store,R,E,U,Out>:
   (world,registeredAt)=observed
-  initialized(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,args,0,registeredAt,world)
+  initialized(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,args,None{},registeredAt,world)
 
 # Run a standalone read-only Inspector body with its own Instance cursor.
 # Returns World and Instance on both body success and failure. Success advances

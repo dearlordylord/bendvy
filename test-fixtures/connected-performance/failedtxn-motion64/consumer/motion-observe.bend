@@ -1,4 +1,6 @@
 import Base
+import ../../../../src/ecs/change-tick.bend as Tick
+import ../../../../src/ecs/clock-state.bend as Clock
 import motion-logical.bend as Logical
 import ../../sparse-motion64/consumer/s-perf/canonical-api-v1/sparse-runtime-v1/render.bend as JSON
 import ../../../../src/ecs/inspector-query-projection.bend as Projection
@@ -119,12 +121,12 @@ def event(value:E.event_type()) -> String:
     case Notice.RelationFailed{value}:"RelationFailed{" ++ failure(~T.MotionSchema,value) ++ "}"
     case Notice.ComponentRemoved{value}:"ComponentRemoved{" ++ key(value) ++ "}"
     case Notice.CleanupPaused{values}:"CleanupPaused{" ++ List.show(&2,G.CleanupFrame<T.MotionSchema>,frame(~T.MotionSchema),values) ++ "}"
-def world_join(+namespace:U32,+events:List<&2,E.event_type()>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:U32,observedAllocator:Alloc.Allocator & String,observedStore:F.Store() & String,observedResource:F.Resources() & String,observedPending:List<Deferred.Command<F.World()>> & (Nat & String)) -> F.World() & String:
+def world_join(+namespace:U32,+events:List<&2,E.event_type()>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,observedAllocator:Alloc.Allocator & String,observedStore:F.Store() & String,observedResource:F.Resources() & String,observedPending:List<Deferred.Command<F.World()>> & (Nat & String)) -> F.World() & String:
   (allocator,sa)=observedAllocator
   (store,ss)=observedStore
   (resource,sr)=observedResource
   (pending,(count,kinds))=observedPending
-  (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,clock},"namespace=" ++ U32.show(namespace) ++ "|allocator={" ++ sa ++ "}|store={" ++ ss ++ "}|resource={" ++ sr ++ "}|events=" ++ List.show(&2,E.event_type(),event,events) ++ "|pending=" ++ Nat.show(count) ++ ":" ++ kinds ++ "|registrations=" ++ List.show(&2,W.RegistrationMeta,Dump.registration,registrations) ++ "|nextSystem=" ++ U32.show(nextSystem) ++ "|clock=" ++ U32.show(clock))
+  (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,clock},"namespace=" ++ U32.show(namespace) ++ "|allocator={" ++ sa ++ "}|store={" ++ ss ++ "}|resource={" ++ sr ++ "}|events=" ++ List.show(&2,E.event_type(),event,events) ++ "|pending=" ++ Nat.show(count) ++ ":" ++ kinds ++ "|registrations=" ++ List.show(&2,W.RegistrationMeta,Dump.registration,registrations) ++ "|nextSystem=" ++ U32.show(nextSystem) ++ "|clock=" ++ Tick.show(Clock.now(clock)))
 def world(owner:F.World()) -> F.World() & String:
   match owner:
     case W.World{namespace,allocator,stored,resource,events,pending,registrations,nextSystem,clock}:world_join(namespace,events,registrations,nextSystem,clock,Gen.allocator(allocator),store(stored),resources(resource),Dump.callbacks(~F.World(),~F.World(),pending))

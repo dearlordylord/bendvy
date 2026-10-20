@@ -1,4 +1,6 @@
 import Base
+import ./change-tick.bend as Tick
+import ./clock-state.bend as Clock
 import ./deferred-command.bend as Deferred
 import ./entity-key-render.bend as KeyRender
 import ./trace-facts.bend as TraceFacts
@@ -104,20 +106,20 @@ def owner_present(~C: Type,owner: Maybe<&1,C>) -> Maybe<&1,C> & Bool:
     case None{}: (None{},False{})
     case Some{owner}: (Some{owner},True{})
 
-def mark_swapped(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,rest: Rest,column: Col.Column<S,C>,+id: U32,incoming: Bool,tick: U32,observed: Maybe<&1,C> & Bool) -> Store & Swap<C>:
+def mark_swapped(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,rest: Rest,column: Col.Column<S,C>,+id: U32,incoming: Bool,tick: Tick.Tick,observed: Maybe<&1,C> & Bool) -> Store & Swap<C>:
   (previous,wasPresent) = observed
   (put(rest,Col.mark(~S,~C,column,id,incoming,wasPresent,tick)),Swapped{previous})
 
-def swap_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,rest: Rest,+id: U32,incoming: Bool,tick: U32,result: Col.SwapOutcome<S,C>) -> Store & Swap<C>:
+def swap_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,rest: Rest,+id: U32,incoming: Bool,tick: Tick.Tick,result: Col.SwapOutcome<S,C>) -> Store & Swap<C>:
   match result:
     case Col.Accepted{column,previous}: mark_swapped(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,rest,column,id,incoming,tick,owner_present(~C,previous))
     case Col.Rejected{column,incoming}: (put(rest,column),SwapRejected{incoming})
 
-def swap_store(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,incoming: Maybe<&1,C>,incomingPresent: Bool,tick: U32,split: Rest & Col.Column<S,C>) -> Store & Swap<C>:
+def swap_store(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,incoming: Maybe<&1,C>,incomingPresent: Bool,tick: Tick.Tick,split: Rest & Col.Column<S,C>) -> Store & Swap<C>:
   (rest,column) = split
   swap_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,rest,id,incomingPresent,tick,Col.swap(~S,~C,Col.ensure(~S,~C,column,id),id,incoming))
 
-def swap_world(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,incoming: Maybe<&1,C>,incomingPresent: Bool,tick: U32,world: W.World<S,Store,R,E>) -> W.World<S,Store,R,E> & Swap<C>:
+def swap_world(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,incoming: Maybe<&1,C>,incomingPresent: Bool,tick: Tick.Tick,world: W.World<S,Store,R,E>) -> W.World<S,Store,R,E> & Swap<C>:
   match world:
     case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
       W.with_store_finish(~S,~Store,~R,~E,~Swap<C>,swap_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,incomingPresent,tick,take(store)),namespace,allocator,resource,events,pending,registrations,nextSystemId,clock)
@@ -127,29 +129,24 @@ def replaced(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Da
     case (world,Swapped{previous}): Replaced{world,previous}
     case (world,SwapRejected{incoming}): ReplaceRejected{world,incoming,W.CapacityExceeded{}}
 
-def replace_clock_advanced(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,incomingPresent: Bool,incoming: Maybe<&1,C>,advanced: W.World<S,Store,R,E> & U32) -> Replacement<W.World<S,Store,R,E>,C>:
+def replace_clock_advanced(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,incomingPresent: Bool,incoming: Maybe<&1,C>,advanced: W.World<S,Store,R,E> & Tick.Tick) -> Replacement<W.World<S,Store,R,E>,C>:
   (world,+tick) = advanced
   replaced(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,swap_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,incomingPresent,tick,world))
 
-def replace_clock_checked(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,allowed: Bool,world: W.World<S,Store,R,E>,+id: U32,observed: Maybe<&1,C> & Bool) -> Replacement<W.World<S,Store,R,E>,C>:
-  match allowed observed:
-    case False{}, (incoming,_): ReplaceRejected{world,incoming,W.CapacityExceeded{}}
-    case True{}, (incoming,present): replace_clock_advanced(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,present,incoming,W.advance_clock(~S,~Store,~R,~E,world))
-
-def replace_clock(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id: U32,incoming: Maybe<&1,C>,clocked: W.World<S,Store,R,E> & U32) -> Replacement<W.World<S,Store,R,E>,C>:
-  (world,tick) = clocked
-  replace_clock_checked(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,U32.is_lt(tick,4294967295),world,id,owner_present(~C,incoming))
+def replace_present(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,world:W.World<S,Store,R,E>,id:U32,observed:Maybe<&1,C> & Bool) -> Replacement<W.World<S,Store,R,E>,C>:
+  match observed:
+    case (incoming,present):replace_clock_advanced(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,present,incoming,W.write_clock(~S,~Store,~R,~E,world))
 
 def replace_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,checked: W.World<S,Store,R,E> & Bool,+handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Replacement<W.World<S,Store,R,E>,C>:
   match checked handle:
     case (world,False{}) _: ReplaceRejected{world,incoming,W.MissingEntity{}}
     case (world,True{}) W.Handle{_,K.EntityKey{+id,_}}:
-      replace_clock(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,W.clock(~S,~Store,~R,~E,world))
+      replace_present(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,world,id,owner_present(~C,incoming))
 
 # Ordinary writes require a live entity. Foreign handles are rejected before
 # any column access, size computation, allocation or owned replacement move.
 # Immediately insert/replace with Some(C), or remove with None, on a live handle.
-# Return displaced C on success and incoming C on rejection; clock/capacity errors
+# Return displaced C on success and incoming C on rejection; capacity errors
 # remain explicit. This operation is not deferred and has no automatic undo journal.
 def replace(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,+handle: W.Handle<S>,incoming: Maybe<&1,C>) -> Replacement<W.World<S,Store,R,E>,C>:
   replace_allowed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.valid(~S,~Store,~R,~E,world,handle),handle,incoming)
@@ -210,11 +207,11 @@ def lifecycle_world(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type
 
 def lifecycle_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,checked: W.World<S,Store,R,E> & Bool,handle: W.Handle<S>) -> W.World<S,Store,R,E> & L.Stamp:
   match checked handle:
-    case (world,False{}) _: (world,L.Stamp{0,0})
+    case (world,False{}) _: (world,L.Stamp{None{},None{}})
     case (world,True{}) W.Handle{_,K.EntityKey{+id,_}}: lifecycle_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,world)
 
 # Read this component slot's lifecycle stamp while returning World. Invalid live
-# handle validation yields Stamp(0,0); no detached component payload is returned.
+# handle validation yields Stamp(None,None); no detached component payload is returned.
 def lifecycle(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,+handle: W.Handle<S>) -> W.World<S,Store,R,E> & L.Stamp:
   lifecycle_allowed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.valid(~S,~Store,~R,~E,world,handle),handle)
 
@@ -283,12 +280,12 @@ def stamped_store_join(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: T
   match result:
     case (store,outcome): (store,(outcome,stamp))
 
-def stamped_column(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,rest:Rest,+id:U32,incoming:C,+tick:U32,allowed:Bool,observed:Col.Column<S,C> & L.Stamp) -> Store & (Swap<C> & L.Stamp):
+def stamped_column(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,rest:Rest,+id:U32,incoming:C,+tick:Tick.Tick,allowed:Bool,observed:Col.Column<S,C> & L.Stamp) -> Store & (Swap<C> & L.Stamp):
   match allowed observed:
     case False{}, (column,stamp): (put(rest,column),(SwapRejected{Some{incoming}},stamp))
     case True{}, (column,stamp): stamped_store_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,stamp,swap_join(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,rest,id,True{},tick,Col.swap(~S,~C,Col.ensure(~S,~C,column,id),id,Some{incoming})))
 
-def stamped_store(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id:U32,incoming:C,+tick:U32,allowed:Bool,split:Rest & Col.Column<S,C>) -> Store & (Swap<C> & L.Stamp):
+def stamped_store(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id:U32,incoming:C,+tick:Tick.Tick,allowed:Bool,split:Rest & Col.Column<S,C>) -> Store & (Swap<C> & L.Stamp):
   match split:
     case (rest,column): stamped_column(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,rest,id,incoming,tick,allowed,Col.lifecycle(~S,~C,column,id))
 
@@ -297,19 +294,21 @@ def stamped_replaced(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Typ
     case (world,(Swapped{previous},stamp)): (Replaced{world,previous},stamp)
     case (world,(SwapRejected{incoming},stamp)): (ReplaceRejected{world,incoming,W.CapacityExceeded{}},stamp)
 
-def stamped_tick(+clock:U32,allowed:Bool) -> U32:
-  match allowed:
-    case False{}: clock
-    case True{}: U32.add(clock,1)
-
-def stamped_world(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+id:U32,incoming:C,world:W.World<S,Store,R,E>) -> Replacement<W.World<S,Store,R,E>,C> & L.Stamp:
+def stamped_clocked(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,world:W.World<S,Store,R,E>,id:U32,incoming:C,tick:Tick.Tick) -> Replacement<W.World<S,Store,R,E>,C> & L.Stamp:
   match world:
-    case W.World{+namespace,allocator,store,resource,+events,pending,+registrations,+nextSystemId,+clock}:
-      stamped_replaced(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.with_store_finish(~S,~Store,~R,~E,~(Swap<C> & L.Stamp),stamped_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,stamped_tick(clock,U32.is_lt(clock,4294967295)),U32.is_lt(clock,4294967295),take(store)),namespace,allocator,resource,events,pending,registrations,nextSystemId,stamped_tick(clock,U32.is_lt(clock,4294967295))))
+    case W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock}:
+      stamped_replaced(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.with_store_finish(~S,~Store,~R,~E,~(Swap<C> & L.Stamp),stamped_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,tick,True{},take(store)),namespace,allocator,resource,events,pending,registrations,nextSystemId,clock))
+
+def stamped_advanced(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,id:U32,incoming:C,advanced:W.World<S,Store,R,E> & Tick.Tick) -> Replacement<W.World<S,Store,R,E>,C> & L.Stamp:
+  (world,tick)=advanced
+  stamped_clocked(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,world,id,incoming,tick)
+
+def stamped_world(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,id:U32,incoming:C,world:W.World<S,Store,R,E>) -> Replacement<W.World<S,Store,R,E>,C> & L.Stamp:
+  stamped_advanced(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,W.write_clock(~S,~Store,~R,~E,world))
 
 def stamped_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,checked:W.World<S,Store,R,E> & Bool,handle:W.Handle<S>,incoming:C) -> Replacement<W.World<S,Store,R,E>,C> & L.Stamp:
   match checked handle:
-    case (world,False{}) _: (ReplaceRejected{world,Some{incoming},W.MissingEntity{}},L.Stamp{0,0})
+    case (world,False{}) _: (ReplaceRejected{world,Some{incoming},W.MissingEntity{}},L.Stamp{None{},None{}})
     case (world,True{}) W.Handle{_,K.EntityKey{+id,_}}: stamped_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,incoming,world)
 
 def tx_set_fused(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family:Family<S,Store,Rest,C,V,Token,take,put,project>,+handle:W.Handle<S>,undo:List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events:List<&2,E>,trace:TraceFacts.State,observed:Replacement<W.World<S,Store,R,E>,C> & L.Stamp) -> SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>:
@@ -339,7 +338,7 @@ def tx_remove_stamped(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Ty
 
 # Remove from a live entity within Tx, journaling the previous owner/stamp for
 # rollback. Removing an already absent component can succeed; invalid handles or
-# capacity/clock refusal return RemoveRejected. Finish is still the caller's choice.
+# capacity refusal return RemoveRejected. Finish is still the caller's choice.
 def tx_remove(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,+family: Family<S,Store,Rest,C,V,Token,take,put,project>,tx: T.Tx<W.World<S,Store,R,E>,E>,+handle: W.Handle<S>) -> RemoveResult<T.Tx<W.World<S,Store,R,E>,E>>:
   match tx:
     case T.Tx{world,undo,commands,events,trace}:

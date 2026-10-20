@@ -95,8 +95,8 @@ def local_logged(a:Bool,frame:Frame,meta:L.Meta(),tick:Nat,world:F.World(),befor
   local_capture_handle(a,frame,meta,tick,world,before,after,ok,call,handle,instance)
 def local_returned(a:Bool,frame:Frame,before:String,result:Local.Run<T.HealthSchema,F.Store(),F.Resources(),E.event_type(),L.State,L.Args,Empty,L.Returned,L.runner>) -> LocalResult():
   match result:
-    case Local.Completed{world,instance,Done{L.Returned{meta,tick,call}}}:local_logged(a,frame,meta,tick,world,before,Render.instance(instance),called(status(call)))
-    case Local.Completed{_,_,Fail{impossible}}:Empty.absurd(LocalResult(),impossible)
+    case Local.Completed{world,instance,Done{L.Returned{meta,tick,call}},_}:local_logged(a,frame,meta,tick,world,before,Render.instance(instance),called(status(call)))
+    case Local.Completed{_,_,Fail{impossible},_}:Empty.absurd(LocalResult(),impossible)
     case Local.Refused{world,instance,L.Args{meta,tick,_,_,_,_}}:(instance,(Shared{meta,tick,frame_call(frame,None{},("LocalRefused"))},Sys.Failed{world,Unit{}}))
 def local_observed(+a:Bool,+frame:Frame,meta:L.Meta(),tick:Nat,world:F.World(),observed:L.Instance() & String) -> LocalResult():
   match observed:

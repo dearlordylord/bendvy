@@ -37,3 +37,9 @@ def text(value:Tree) -> String:
   match value:
     case Leaf{n}:"leaf:" ++ U32.show(n)
     case Node{left,right}:"node(" ++ text(left) ++ "," ++ text(right) ++ ")"
+
+# Reconstruct an owned external-input payload from its detached observation.
+def array(value:Tree) -> Array<U32>:
+  match value:
+    case Leaf{n}:ALeaf{n}
+    case Node{left,right}:ANode{array(left),array(right)}

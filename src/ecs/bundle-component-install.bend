@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import entity-key.bend as Key
 import world.bend as W
 import component.bend as C
@@ -16,7 +17,7 @@ def undone(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token
     case (world,C.SwapRejected{old}): F.Pending{world,Recovery{Entry{handle,old},stamp},W.CapacityExceeded{}}
 def undo_present(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,+handle:W.Handle<S>,+id:U32,stamp:L.Stamp,world:W.World<S,Store,R,E>,observed:Maybe<&1,C> & Bool) -> F.Restore<W.World<S,Store,R,E>,Entry<S,C>,Recovery<S,C>>:
   (previous,present)=observed
-  undone(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,handle,stamp,C.swap_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,previous,present,0,world))
+  undone(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,handle,stamp,C.swap_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,previous,present,Tick.zero(),world))
 def undo_checked(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,+handle:W.Handle<S>,+id:U32,stamp:L.Stamp,previous:Maybe<&1,C>,observed:W.World<S,Store,R,E> & Bool) -> F.Restore<W.World<S,Store,R,E>,Entry<S,C>,Recovery<S,C>>:
   match observed:
     case (world,False{}): F.Pending{world,Recovery{Entry{handle,previous},stamp},W.MissingEntity{}}

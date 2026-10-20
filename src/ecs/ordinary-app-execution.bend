@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./machine-world.bend as MachineWorld
 import ./ordinary-app-execution-run.bend as ExecuteRun
 import ./machine-handler-engine.bend as HandlerEngine
@@ -45,22 +46,22 @@ def registration_name(items:List<&2,Trace.Identity>,+id:U32) -> Maybe<&2,String>
   match items:
     case []:None{}
     case Trace.Identity{_,candidate,name} <> rest:named(U32.is_eq(candidate,id),name,_ => registration_name(rest,id))
-def identity_clock(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,id:U32,name:Maybe<&2,String>,observed:W.World<S,C,R,E> & U32) -> W.World<S,C,R,E> & (Trace.Identity & U32):
+def identity_clock(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,id:U32,name:Maybe<&2,String>,observed:W.World<S,C,R,E> & Tick.Tick) -> W.World<S,C,R,E> & (Trace.Identity & Tick.Tick):
   match observed:
     case (world,clock):(world,(Trace.Identity{namespace,id,name},clock))
-def identity_namespace(~S:Data,~C:Type,~R:Type,~E:Data,id:U32,name:Maybe<&2,String>,observed:W.World<S,C,R,E> & U32) -> W.World<S,C,R,E> & (Trace.Identity & U32):
+def identity_namespace(~S:Data,~C:Type,~R:Type,~E:Data,id:U32,name:Maybe<&2,String>,observed:W.World<S,C,R,E> & U32) -> W.World<S,C,R,E> & (Trace.Identity & Tick.Tick):
   match observed:
     case (world,namespace):identity_clock(~S,~C,~R,~E,namespace,id,name,W.clock(~S,~C,~R,~E,world))
-def identity(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,journal:Journal<Error>,world:W.World<S,C,R,E>,+id:U32) -> W.World<S,C,R,E> & (Trace.Identity & U32):
+def identity(~S:Data,~C:Type,~R:Type,~E:Data,~Error:Data,journal:Journal<Error>,world:W.World<S,C,R,E>,+id:U32) -> W.World<S,C,R,E> & (Trace.Identity & Tick.Tick):
   match journal:
     case Journal{catalog,_}:identity_namespace(~S,~C,~R,~E,id,registration_name(catalog,id),W.namespace(~S,~C,~R,~E,world))
 def record(~Error:Data,event:Trace.TraceEvent<Error>,journal:Journal<Error>) -> Journal<Error>:
   match journal:
     case Journal{catalog,events}:Journal{catalog,event <> events}
-def succeeded(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,owners:H,fact:Trace.Identity,before:U32,journal:Journal<Error>,observed:W.World<S,C,R,E> & U32) -> (H & Journal<Error>) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:
+def succeeded(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,owners:H,fact:Trace.Identity,before:Tick.Tick,journal:Journal<Error>,observed:W.World<S,C,R,E> & Tick.Tick) -> (H & Journal<Error>) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:
   match observed:
     case (world,after):((owners,record(~Error,Trace.SystemCompleted{fact,before,after,Trace.SystemOk{}},journal)),Sys.Succeeded{world,Unit{}})
-def failed(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,owners:H,fact:Trace.Identity,before:U32,journal:Journal<Error>,+error:Error,observed:W.World<S,C,R,E> & U32) -> (H & Journal<Error>) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:
+def failed(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,owners:H,fact:Trace.Identity,before:Tick.Tick,journal:Journal<Error>,+error:Error,observed:W.World<S,C,R,E> & Tick.Tick) -> (H & Journal<Error>) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:
   match observed:
     case (world,after):((owners,record(~Error,Trace.SystemCompleted{fact,before,after,Trace.SystemError{error}},journal)),Sys.Failed{world,error})
 def record_operations(~Error:Data,facts:List<&2,Facts.Fact>,+identity:Trace.Identity,journal:Journal<Error>) -> Journal<Error>:
@@ -77,11 +78,11 @@ def barrier_returned(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,owners:
 def barrier_recorded(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,owners:H & Journal<Error>,world:W.World<S,C,R,E>) -> (H & Journal<Error>) & W.World<S,C,R,E>:
   match owners:
     case (owners,journal):barrier_returned(~S,~C,~R,~E,~H,~Error,owners,journal,W.barrier_traced(~S,~C,~R,~E,world,Facts.On{[]}))
-def dispatched(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,+fact:Trace.Identity,before:U32,journal:Journal<Error>,result:H & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>) -> (H & Journal<Error>) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:
+def dispatched(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,+fact:Trace.Identity,before:Tick.Tick,journal:Journal<Error>,result:H & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>) -> (H & Journal<Error>) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:
   match result:
     case (owners,Sys.Succeeded{Ctx.Context{world,trace},_}):succeeded(~S,~C,~R,~E,~H,~Error,owners,fact,before,record_operations(~Error,Facts.facts(trace),fact,journal),W.clock(~S,~C,~R,~E,world))
     case (owners,Sys.Failed{Ctx.Context{world,trace},error}):failed(~S,~C,~R,~E,~H,~Error,owners,fact,before,record_operations(~Error,Facts.facts(trace),fact,journal),error,W.clock(~S,~C,~R,~E,world))
-def identified(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,~dispatch:H -> Ctx.Context<W.World<S,C,R,E>> -> U32 -> H & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>,owners:H,journal:Journal<Error>,+id:U32,result:W.World<S,C,R,E> & (Trace.Identity & U32)) -> (H & Journal<Error>) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:
+def identified(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,~dispatch:H -> Ctx.Context<W.World<S,C,R,E>> -> U32 -> H & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>,owners:H,journal:Journal<Error>,+id:U32,result:W.World<S,C,R,E> & (Trace.Identity & Tick.Tick)) -> (H & Journal<Error>) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:
   match result:
     case (world,(fact,before)):dispatched(~S,~C,~R,~E,~H,~Error,fact,before,journal,dispatch(owners,Ctx.Context{world,Facts.On{[]}},id))
 def dispatch_id(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,~dispatch:H -> Ctx.Context<W.World<S,C,R,E>> -> U32 -> H & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>,owners:H & Journal<Error>,world:W.World<S,C,R,E>,+id:U32) -> (H & Journal<Error>) & Sys.Outcome<W.World<S,C,R,E>,Error,Unit>:

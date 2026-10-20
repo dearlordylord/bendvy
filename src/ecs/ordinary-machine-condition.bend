@@ -40,7 +40,7 @@ def completed(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~
     case Sys.RegistrationRejected{registry,world,_}:RegistrationRejected{world,Instance{registry,prior}}
 def run(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,instance:Instance<S,K,V,C,R,E,take,put>,world:W.World<S,C,R,E>) -> Observed<S,K,V,C,R,E,take,put>:
   match instance:
-    case Instance{registry,+prior}:completed(~S,~K,~V,~R,~take,~put,~C,~E,prior,Sys.run_tracked(~S,~C,~R,~E,~Nat,~Unit,~(Nat & Bool),~runner(~S,~K,~V,~R,~take,~put,~C,~E),registry,world,prior))
+    case Instance{registry,+prior}:completed(~S,~K,~V,~R,~take,~put,~C,~E,prior,Sys.run(~S,~C,~R,~E,~Nat,~Unit,~(Nat & Bool),~runner(~S,~K,~V,~R,~take,~put,~C,~E),registry,world,prior))
 def run_if(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,enabled:Bool,instance:Instance<S,K,V,C,R,E,take,put>,world:W.World<S,C,R,E>) -> Observed<S,K,V,C,R,E,take,put>:
   match enabled:
     case False{}:Observed{world,instance,None{}}

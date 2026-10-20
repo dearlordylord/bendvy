@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./decode-requests.bend as Request
 import ./decode-owned-journal.bend as Journal
 import ./decode-immediate.bend as Immediate
@@ -17,7 +18,7 @@ import ./persistence-declaration.bend as Declaration
 # Trusted provisioning frame. Gameplay receives only universal H and its grants.
 # Query and decode operate on the same Tx; prepared owners stay in this frame.
 type Frame<S:Data,C:Type,R:Type,E:Data,P:Type,Q:Type,-identity:Identity.Declaration<S,P>,-project:P -> P & D.Raw> is Type:
-  Frame{owner:Request.Owner<S,C,R,E,P,identity,project>,handle:World.Handle<S>,error:Maybe<&2,World.WorldError>,cursor:U32,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>}
+  Frame{owner:Request.Owner<S,C,R,E,P,identity,project>,handle:World.Handle<S>,error:Maybe<&2,World.WorldError>,cursor:Maybe<&2,Tick.Tick>,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>}
 
 def read_join(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Declaration.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Request.Packet<P>>>,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,observed:Query.Frame<S,C,R,E> & Component.Access<V>) -> Frame<S,C,R,E,P,Q,identity,project> & Component.Access<V>:
   match observed:
@@ -30,7 +31,7 @@ def read(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~identity:Ident
 def read_grant(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~V:Data,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~grant:Cap.Read<Query.Frame<S,C,R,E>,V>) -> Cap.Read<Frame<S,C,R,E,P,Q,identity,project>,V>:
   Cap.Read{read(~S,~C,~R,~E,~P,~Q,~V,~identity,~project,~Cap.read_field(~Query.Frame<S,C,R,E>,~V,grant))}
 
-def request_join(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,handle:World.Handle<S>,error:Maybe<&2,World.WorldError>,cursor:U32,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,result:Request.Owner<S,C,R,E,P,identity,project> & Request.Output<S,P>) -> Frame<S,C,R,E,P,Q,identity,project> & Request.Output<S,P>:
+def request_join(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,handle:World.Handle<S>,error:Maybe<&2,World.WorldError>,cursor:Maybe<&2,Tick.Tick>,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,result:Request.Owner<S,C,R,E,P,identity,project> & Request.Output<S,P>) -> Frame<S,C,R,E,P,Q,identity,project> & Request.Output<S,P>:
   match result:
     case (owner,output):(Frame{owner,handle,error,cursor,receipts,pending},output)
 
@@ -67,7 +68,7 @@ def spawn_output(~S:Data,~P:Type,canonical:D.Raw,result:Result<&2,&2,World.World
     case Fail{error} None{}:Request.Refused{None{},Request.Entity{error}}
     case Fail{error} Some{Request.Packet{owner,_,_}}:Request.Refused{owner,Request.Entity{error}}
 
-def spawned(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Declaration.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Request.Packet<P>>>,handle:World.Handle<S>,error:Maybe<&2,World.WorldError>,cursor:U32,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,canonical:D.Raw,result:T.Tx<World.World<S,C,R,E>,E> & (Result<&2,&2,World.WorldError,World.Handle<S>> & (Maybe<&1,Request.Packet<P>> & (Maybe<&1,Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>> & Maybe<&1,Journal.Pending<Q>>)))) -> Frame<S,C,R,E,P,Q,identity,project> & Request.Output<S,P>:
+def spawned(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Declaration.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Request.Packet<P>>>,handle:World.Handle<S>,error:Maybe<&2,World.WorldError>,cursor:Maybe<&2,Tick.Tick>,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,canonical:D.Raw,result:T.Tx<World.World<S,C,R,E>,E> & (Result<&2,&2,World.WorldError,World.Handle<S>> & (Maybe<&1,Request.Packet<P>> & (Maybe<&1,Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>> & Maybe<&1,Journal.Pending<Q>>)))) -> Frame<S,C,R,E,P,Q,identity,project> & Request.Output<S,P>:
   match result:
     case (tx,(result,(packet,(receipt,next)))):(Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipt_added(~World.World<S,C,R,E>,~Request.Packet<P>,~Q,receipts,receipt),pending_added(~Q,pending,next)},spawn_output(~S,~P,canonical,result,packet))
 
@@ -87,7 +88,7 @@ def spawn(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Dec
 def spawn_grant(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,~install:World.World<S,C,R,E> -> World.Handle<S> -> Request.Packet<P> -> Install.Attempt<World.World<S,C,R,E>,Request.Packet<P>,Q>) -> Cap.OwnedRequest<Frame<S,C,R,E,P,Q,identity,project>,P,Request.Output<S,P>>:
   Cap.OwnedRequest{frame => owner => spawn(~S,~C,~R,~E,~P,~Q,~identity,~project,~install,frame,owner)}
 
-def resource_join(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Declaration.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Request.Packet<P>>>,handle:World.Handle<S>,error:Maybe<&2,World.WorldError>,cursor:U32,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,tx:T.Tx<World.World<S,C,R,E>,E>) -> Frame<S,C,R,E,P,Q,identity,project> & Unit:
+def resource_join(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Declaration.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Request.Packet<P>>>,handle:World.Handle<S>,error:Maybe<&2,World.WorldError>,cursor:Maybe<&2,Tick.Tick>,receipts:List<Journal.Receipt<World.World<S,C,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,tx:T.Tx<World.World<S,C,R,E>,E>) -> Frame<S,C,R,E,P,Q,identity,project> & Unit:
   (Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending},Unit{})
 
 def resource_set(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,frame:Frame<S,C,R,E,P,Q,identity,project>,replacement:R) -> Frame<S,C,R,E,P,Q,identity,project> & Unit:

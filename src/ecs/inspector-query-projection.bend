@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import inspector.bend as I
 import world.bend as W
 import component.bend as C
@@ -41,7 +42,7 @@ def read_rows(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~To
     case []:(frame,List.reverse(&2,Row<S,V>,rows))
     case +target <> rest:read_row(~S,~Store,~R,~E,~V,~selection,target,rows,(frame => rows => read_rows(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family,~selection,rest,frame,rows)),I.family_get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family,frame,target))
 
-def scanned(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,~family:C.Family<S,Store,Rest,C,V,Token,take,put,project>,~selection:Selection,cursor:U32,observed:W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> I.Frame<S,Store,R,E> & List<&2,Row<S,V>>:
+def scanned(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,~family:C.Family<S,Store,Rest,C,V,Token,take,put,project>,~selection:Selection,cursor:Maybe<&2,Tick.Tick>,observed:W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> I.Frame<S,Store,R,E> & List<&2,Row<S,V>>:
   (world,handles)=observed
   read_rows(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family,~selection,handles,I.Frame{world,cursor},[])
 def scan(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~C:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,C>,~put:Rest -> Col.Column<S,C> -> Store,~project:C -> C & V,~family:C.Family<S,Store,Rest,C,V,Token,take,put,project>,~selection:Selection,frame:I.Frame<S,Store,R,E>) -> I.Frame<S,Store,R,E> & List<&2,Row<S,V>>:

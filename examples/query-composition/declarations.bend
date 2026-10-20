@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/change-tick.bend as Tick
 import schema.bend as S
 import gameplay.bend as G
 import observe.bend as O
@@ -129,5 +130,5 @@ def advanced_stock_read(~H: Type,~caps: AdvancedCaps<H>,observed: H & C.Access<S
   advanced_queue_read(~H,~caps,Cap.read(~H,~S.QueueView,~advanced_queue(~H,caps),ctx))
 def advanced_body(~H: Type,~caps: AdvancedCaps<H>,args: Unit,ctx: H) -> H & (T.Outcome<G.Error> & U32):
   advanced_stock_read(~H,~caps,Cap.read(~H,~S.StockView,~advanced_stock(~H,caps),ctx))
-def advanced(world: S.World(),+cursor: U32) -> Q.Executed<S.World(),Q.Error<G.Error>,U32>:
+def advanced(world: S.World(),+cursor: Maybe<&2,Tick.Tick>) -> Q.Executed<S.World(),Q.Error<G.Error>,U32>:
   Q.each_since(~S.Schema,~S.Store,~Unit,~Unit,~AdvancedOps,~Unit,~G.Error,~U32,~advanced_plan(),~advanced_body,Unit{},world,cursor)

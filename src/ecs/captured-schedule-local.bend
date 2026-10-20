@@ -14,8 +14,8 @@ def catalog(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~Args:Data,~Error:Data,~Out:
     case Leaf{Local.Instance{+ns,+id,+name,+access,local},args,enabled}:(Leaf{Local.Instance{ns,id,name,access,local},args,enabled},[Comp.Identity{ns,id,name,access}])
 def returned(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~Args:Data,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> L -> Args -> Local.Outcome<W.World<S,C,R,E>,L,Error,Out>,args:Args,enabled:Bool,result:Local.Run<S,C,R,E,L,Args,Error,Out,runner>) -> Comp.Outcome<W.World<S,C,R,E>,Leaf<S,C,R,E,L,Args,Error,Out,runner>,Error>:
   match result:
-    case Local.Completed{world,instance,Done{_}}:Comp.Completed{world,Leaf{instance,args,enabled}}
-    case Local.Completed{world,instance,Fail{error}}:Comp.Failed{world,Leaf{instance,args,enabled},error}
+    case Local.Completed{world,instance,Done{_},_}:Comp.Completed{world,Leaf{instance,args,enabled}}
+    case Local.Completed{world,instance,Fail{error},_}:Comp.Failed{world,Leaf{instance,args,enabled},error}
     case Local.Refused{world,instance,_}:Comp.Refused{world,Leaf{instance,args,enabled}}
 def selected(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~Args:Data,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> L -> Args -> Local.Outcome<W.World<S,C,R,E>,L,Error,Out>,allowed:Bool,leaf:Leaf<S,C,R,E,L,Args,Error,Out,runner>,world:W.World<S,C,R,E>) -> Comp.Outcome<W.World<S,C,R,E>,Leaf<S,C,R,E,L,Args,Error,Out,runner>,Error>:
   match allowed leaf:

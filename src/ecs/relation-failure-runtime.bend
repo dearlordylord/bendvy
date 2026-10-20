@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import internal/relation-failures/domains.bend as D
 import internal/relation-failures/readings.bend as Read
 import internal/relation-failures/routing.bend as Route
@@ -23,9 +24,9 @@ type Completion<Error: Data,O: Type,A: Type> is Type:
 type RunResult<S: Data,C: Type,R: Type,E: Data,A: Type,Error: Data,O: Type,-runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>> is Type:
   Ran{runtime: Runtime<S,C,R,E>,reader: Reader<S,C,R,E,A,Error,O,runner>,completion: Completion<Error,O,A>}
 
-def started_clocked(~S: Data,~C: Type,~R: Type,~E: Data,clocked: W.World<S,C,R,E> & U32) -> Runtime<S,C,R,E>:
+def started_clocked(~S: Data,~C: Type,~R: Type,~E: Data,clocked: W.World<S,C,R,E> & Tick.Tick) -> Runtime<S,C,R,E>:
   (world,clock) = clocked
-  Runtime{world,[],[],U32.to_nat(clock),0n,0n,65536n,1}
+  Runtime{world,[],[],Tick.total(clock),0n,0n,65536n,1}
 def start(~S: Data,~C: Type,~R: Type,~E: Data,world: W.World<S,C,R,E>) -> Runtime<S,C,R,E>:
   started_clocked(~S,~C,~R,~E,W.clock(~S,~C,~R,~E,world))
 
@@ -71,12 +72,12 @@ def succeeded_collected(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Dat
   (world,domains) = joined
   Ran{Runtime{world,domains,positions,tick,frameStart,boundary,capacity,nextReader},Reader{registry,keys,id},Succeeded{output}}
 
-def failed_clocked(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,~classify: E -> Maybe<D.DescriptorKey<S>>,clocked: W.World<S,C,R,E> & U32,registry: Sy.Registry<S,C,R,E,Input<S,E,A>,Error,O,runner>,+keys: List<&2,D.DescriptorKey<S>>,+domains: List<&2,D.Domain<S,E>>,+positions: List<&2,Ev.Position>,+id: U32,+previous: Nat,frameStart: Nat,boundary: Nat,capacity: Nat,+nextReader: U32,error: Error) -> RunResult<S,C,R,E,A,Error,O,runner>:
+def failed_clocked(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,~classify: E -> Maybe<D.DescriptorKey<S>>,clocked: W.World<S,C,R,E> & Tick.Tick,registry: Sy.Registry<S,C,R,E,Input<S,E,A>,Error,O,runner>,+keys: List<&2,D.DescriptorKey<S>>,+domains: List<&2,D.Domain<S,E>>,+positions: List<&2,Ev.Position>,+id: U32,+previous: Nat,frameStart: Nat,boundary: Nat,capacity: Nat,+nextReader: U32,error: Error) -> RunResult<S,C,R,E,A,Error,O,runner>:
   (world,clock) = clocked
-  Ran{Runtime{world,Read.activate(~S,~E,keys,domains,id),Ev.activate(positions,id,previous),U32.to_nat(clock),frameStart,boundary,capacity,nextReader},Reader{registry,keys,id},Failed{error}}
-def succeeded_clocked(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,~classify: E -> Maybe<D.DescriptorKey<S>>,clocked: W.World<S,C,R,E> & U32,registry: Sy.Registry<S,C,R,E,Input<S,E,A>,Error,O,runner>,+keys: List<&2,D.DescriptorKey<S>>,+domains: List<&2,D.Domain<S,E>>,+positions: List<&2,Ev.Position>,+id: U32,+previous: Nat,frameStart: Nat,boundary: Nat,capacity: Nat,+nextReader: U32,output: O) -> RunResult<S,C,R,E,A,Error,O,runner>:
+  Ran{Runtime{world,Read.activate(~S,~E,keys,domains,id),Ev.activate(positions,id,previous),Tick.total(clock),frameStart,boundary,capacity,nextReader},Reader{registry,keys,id},Failed{error}}
+def succeeded_clocked(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,~classify: E -> Maybe<D.DescriptorKey<S>>,clocked: W.World<S,C,R,E> & Tick.Tick,registry: Sy.Registry<S,C,R,E,Input<S,E,A>,Error,O,runner>,+keys: List<&2,D.DescriptorKey<S>>,+domains: List<&2,D.Domain<S,E>>,+positions: List<&2,Ev.Position>,+id: U32,+previous: Nat,frameStart: Nat,boundary: Nat,capacity: Nat,+nextReader: U32,output: O) -> RunResult<S,C,R,E,A,Error,O,runner>:
   (world,+clock) = clocked
-  succeeded_collected(~S,~C,~R,~E,~A,~Error,~O,~runner,id,Route.collect(~S,~C,~R,~E,~classify,world,U32.to_nat(clock),Read.activate(~S,~E,keys,domains,id)),registry,keys,Ev.update(Ev.activate(positions,id,previous),id,U32.to_nat(clock),False{}),U32.to_nat(clock),frameStart,boundary,capacity,nextReader,output)
+  succeeded_collected(~S,~C,~R,~E,~A,~Error,~O,~runner,id,Route.collect(~S,~C,~R,~E,~classify,world,Tick.total(clock),Read.activate(~S,~E,keys,domains,id)),registry,keys,Ev.update(Ev.activate(positions,id,previous),id,Tick.total(clock),False{}),Tick.total(clock),frameStart,boundary,capacity,nextReader,output)
 
 def outcome(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,~classify: E -> Maybe<D.DescriptorKey<S>>,outcome: Sy.Outcome<W.World<S,C,R,E>,Error,O>,registry: Sy.Registry<S,C,R,E,Input<S,E,A>,Error,O,runner>,+keys: List<&2,D.DescriptorKey<S>>,+domains: List<&2,D.Domain<S,E>>,+positions: List<&2,Ev.Position>,+id: U32,+tick: Nat,+frameStart: Nat,+boundary: Nat,+capacity: Nat,+nextReader: U32) -> RunResult<S,C,R,E,A,Error,O,runner>:
   match outcome:
@@ -88,11 +89,7 @@ def run_result(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Typ
     case Sy.RegistrationRejected{registry,world,Input{_,args}}: Ran{Runtime{world,domains,positions,tick,frameStart,boundary,capacity,nextReader},Reader{registry,keys,id},Rejected{args}}
     case Sy.Completed{registry,completed}: outcome(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,completed,registry,keys,domains,positions,id,tick,frameStart,boundary,capacity,nextReader)
 
-def run_clocked(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,registry: Sy.Registry<S,C,R,E,Input<S,E,A>,Error,O,runner>,advanced: W.World<S,C,R,E> & U32,input: Input<S,E,A>) -> Sy.RunResult<S,C,R,E,Input<S,E,A>,Error,O,runner>:
-  (world,_) = advanced
-  Sy.run_tracked(~S,~C,~R,~E,~Input<S,E,A>,~Error,~O,~runner,registry,world,input)
-
-def effect_clocked(~S: Data,~C: Type,~R: Type,~E: Data,~O: Type,effect: W.World<S,C,R,E> -> W.World<S,C,R,E> & O,advanced: W.World<S,C,R,E> & U32) -> W.World<S,C,R,E> & O:
+def effect_clocked(~S: Data,~C: Type,~R: Type,~E: Data,~O: Type,effect: W.World<S,C,R,E> -> W.World<S,C,R,E> & O,advanced: W.World<S,C,R,E> & Tick.Tick) -> W.World<S,C,R,E> & O:
   (world,_) = advanced
   effect(world)
 
@@ -101,7 +98,7 @@ def run_identified(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O:
   match runtime:
     case Runtime{world,+domains,+positions,+tick,+frameStart,+boundary,+capacity,+nextReader}:
       (registry,+id) = identified
-      run_result(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,run_clocked(~S,~C,~R,~E,~A,~Error,~O,~runner,registry,W.advance_clock(~S,~C,~R,~E,world),Input{Read.all(~S,~E,keys,domains,position_or(Ev.lookup(positions,id),id,tick)),args}),keys,domains,positions,id,tick,frameStart,boundary,capacity,nextReader)
+      run_result(~S,~C,~R,~E,~A,~Error,~O,~runner,~classify,Sy.run(~S,~C,~R,~E,~Input<S,E,A>,~Error,~O,~runner,registry,world,Input{Read.all(~S,~E,keys,domains,position_or(Ev.lookup(positions,id),id,tick)),args}),keys,domains,positions,id,tick,frameStart,boundary,capacity,nextReader)
 
 def run(~S: Data,~C: Type,~R: Type,~E: Data,~A: Type,~Error: Data,~O: Type,~runner: W.World<S,C,R,E> -> Input<S,E,A> -> Sy.Outcome<W.World<S,C,R,E>,Error,O>,~classify: E -> Maybe<D.DescriptorKey<S>>,runtime: Runtime<S,C,R,E>,reader: Reader<S,C,R,E,A,Error,O,runner>,args: A) -> RunResult<S,C,R,E,A,Error,O,runner>:
   match reader:
@@ -142,13 +139,13 @@ def with_world_collected(~S: Data,~C: Type,~R: Type,~E: Data,~O: Type,collected:
   (world,domains) = collected
   (Runtime{world,domains,positions,tick,frameStart,boundary,capacity,nextReader},output)
 
-def with_world_clocked(~S: Data,~C: Type,~R: Type,~E: Data,~O: Type,~classify: E -> Maybe<D.DescriptorKey<S>>,clocked: W.World<S,C,R,E> & U32,output: O,domains: List<&2,D.Domain<S,E>>,positions: List<&2,Ev.Position>,frameStart: Nat,boundary: Nat,capacity: Nat,+nextReader: U32) -> Runtime<S,C,R,E> & O:
+def with_world_clocked(~S: Data,~C: Type,~R: Type,~E: Data,~O: Type,~classify: E -> Maybe<D.DescriptorKey<S>>,clocked: W.World<S,C,R,E> & Tick.Tick,output: O,domains: List<&2,D.Domain<S,E>>,positions: List<&2,Ev.Position>,frameStart: Nat,boundary: Nat,capacity: Nat,+nextReader: U32) -> Runtime<S,C,R,E> & O:
   (world,+clock) = clocked
-  with_world_collected(~S,~C,~R,~E,~O,Route.collect(~S,~C,~R,~E,~classify,world,U32.to_nat(clock),domains),output,positions,U32.to_nat(clock),frameStart,boundary,capacity,nextReader)
+  with_world_collected(~S,~C,~R,~E,~O,Route.collect(~S,~C,~R,~E,~classify,world,Tick.total(clock),domains),output,positions,Tick.total(clock),frameStart,boundary,capacity,nextReader)
 def with_world_result(~S: Data,~C: Type,~R: Type,~E: Data,~O: Type,~classify: E -> Maybe<D.DescriptorKey<S>>,result: W.World<S,C,R,E> & O,domains: List<&2,D.Domain<S,E>>,positions: List<&2,Ev.Position>,_: Nat,frameStart: Nat,boundary: Nat,capacity: Nat,+nextReader: U32) -> Runtime<S,C,R,E> & O:
   (world,output) = result
   with_world_clocked(~S,~C,~R,~E,~O,~classify,W.clock(~S,~C,~R,~E,world),output,domains,positions,frameStart,boundary,capacity,nextReader)
 
 def with_world(~S: Data,~C: Type,~R: Type,~E: Data,~O: Type,~classify: E -> Maybe<D.DescriptorKey<S>>,effect: W.World<S,C,R,E> -> W.World<S,C,R,E> & O,runtime: Runtime<S,C,R,E>) -> Runtime<S,C,R,E> & O:
   match runtime:
-    case Runtime{world,domains,positions,tick,frameStart,boundary,capacity,nextReader}: with_world_result(~S,~C,~R,~E,~O,~classify,effect_clocked(~S,~C,~R,~E,~O,effect,W.advance_clock(~S,~C,~R,~E,world)),domains,positions,tick,frameStart,boundary,capacity,nextReader)
+    case Runtime{world,domains,positions,tick,frameStart,boundary,capacity,nextReader}: with_world_result(~S,~C,~R,~E,~O,~classify,effect_clocked(~S,~C,~R,~E,~O,effect,W.write_clock(~S,~C,~R,~E,world)),domains,positions,tick,frameStart,boundary,capacity,nextReader)

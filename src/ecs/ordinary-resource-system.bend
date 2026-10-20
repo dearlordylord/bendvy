@@ -83,7 +83,7 @@ def define(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~Args:Type,~Error:D
 # execution returns callback Out, while callback failure does not return Out.
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~kind:Query.Mode,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,owner:Owner<S,Sys.Registry<S,C,R,E,Args,Error,Out,runner>,kind>,world:W.World<S,C,R,E>,args:Args) -> Sys.RunResult<S,C,R,E,Args,Error,Out,runner> & String:
   match owner:
-    case Owner{registry,slot}:(Sys.run_tracked(~S,~C,~R,~E,~Args,~Error,~Out,~runner,registry,world,args),slot)
+    case Owner{registry,slot}:(Sys.run(~S,~C,~R,~E,~Args,~Error,~Out,~runner,registry,world,args),slot)
 
 # Called by an enabled debug bridge; actual Registry is borrowed and reconstructed.
 # Enabled-observation adapter returning actual Owner and detached access clauses.

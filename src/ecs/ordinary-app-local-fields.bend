@@ -62,11 +62,11 @@ def run(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~Args:Type,~Error:Data,~Out:Type
     case Owner{instance}:Local.run(~S,~C,~R,~E,~L,~Args,~Error,~Out,~runner(~S,~C,~R,~E,~L,~Args,~Error,~Out,~Ops,~declaration,~body),instance,world,args)
 def field_values(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~Args:Type,~Error:Data,~Out:Type,~Ops:Type -> Type,~declaration:P.Declaration<S,R,T.Tx<W.World<S,C,R,E>,E>,Ops(T.Tx<W.World<S,C,R,E>,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> L -> Args -> H -> H & (L & (T.Outcome<Error> & Out)),instance:Local.Instance<S,C,R,E,L,Args,Error,Out,runner(~S,~C,~R,~E,~L,~Args,~Error,~Out,~Ops,~declaration,~body)>,clause:Query.Clause<S>) -> Owner<S,C,R,E,L,Args,Error,Out,Ops,declaration,body> & Fields.Fields<S>:
   match instance clause:
-    case Local.Instance{+namespace,+id,+name,+access,local} Query.Clause{+slot,+mode}:(Owner{Local.Instance{namespace,id,name,access,local}},Fields.Fields{namespace,id,name,access,0,slot,[Query.Clause{slot,mode}],Fields.ResourceKind{mode}})
-# Local has no tracked reader cursor: 0 is a nonreader projection convention.
+    case Local.Instance{+namespace,+id,+name,+access,local} Query.Clause{+slot,+mode}:(Owner{Local.Instance{namespace,id,name,access,local}},Fields.Fields{namespace,id,name,access,None{},slot,[Query.Clause{slot,mode}],Fields.ResourceKind{mode}})
+# Local has no retained query reader cursor; None marks this nonreader metadata.
 # Project registration fields while returning Owner. Resource slot/mode/access
-# come from the operational declaration; Local payload remains opaque. Cursor zero
-# is metadata convention, not a live lifecycle/event reader position.
+# come from the operational declaration; Local payload remains opaque. The absent cursor
+# is metadata, not a live lifecycle/event reader position.
 def fields(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~Args:Type,~Error:Data,~Out:Type,~Ops:Type -> Type,~declaration:P.Declaration<S,R,T.Tx<W.World<S,C,R,E>,E>,Ops(T.Tx<W.World<S,C,R,E>,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> L -> Args -> H -> H & (L & (T.Outcome<Error> & Out)),value:Owner<S,C,R,E,L,Args,Error,Out,Ops,declaration,body>) -> Owner<S,C,R,E,L,Args,Error,Out,Ops,declaration,body> & Fields.Fields<S>:
   match value:
     case Owner{instance}:field_values(~S,~C,~R,~E,~L,~Args,~Error,~Out,~Ops,~declaration,~body,instance,P.clause(~S,~R,~T.Tx<W.World<S,C,R,E>,E>,~Ops(T.Tx<W.World<S,C,R,E>,E>),declaration))
@@ -121,8 +121,8 @@ def execution_plan(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~Args:Data,~Error:Dat
     case Invocation{owner,args}:execution_planned(~S,~C,~R,~E,~L,~Args,~Error,~Out,~Ops,~declaration,~body,args,fields(~S,~C,~R,~E,~L,~Args,~Error,~Out,~Ops,~declaration,~body,owner))
 def execution_returned(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~Args:Data,~Error:Data,~Out:Type,~Ops:Type -> Type,~declaration:P.Declaration<S,R,T.Tx<W.World<S,C,R,E>,E>,Ops(T.Tx<W.World<S,C,R,E>,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> L -> Args -> H -> H & (L & (T.Outcome<Error> & Out)),args:Args,trace:Facts.State,result:Local.Run<S,C,R,E,L,Args,Error,Out,runner(~S,~C,~R,~E,~L,~Args,~Error,~Out,~Ops,~declaration,~body)>) -> Invocation<S,C,R,E,L,Args,Error,Out,Ops,declaration,body> & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,ExecutionError<Error>,Unit>:
   match result:
-    case Local.Completed{world,instance,Done{_}}:(Invocation{Owner{instance},args},Sys.Succeeded{Ctx.Context{world,trace},Unit{}})
-    case Local.Completed{world,instance,Fail{error}}:(Invocation{Owner{instance},args},Sys.Failed{Ctx.Context{world,trace},CallbackFailure{error}})
+    case Local.Completed{world,instance,Done{_},_}:(Invocation{Owner{instance},args},Sys.Succeeded{Ctx.Context{world,trace},Unit{}})
+    case Local.Completed{world,instance,Fail{error},_}:(Invocation{Owner{instance},args},Sys.Failed{Ctx.Context{world,trace},CallbackFailure{error}})
     case Local.Refused{world,instance,_}:(Invocation{Owner{instance},args},Sys.Failed{Ctx.Context{world,trace},RegistrationRefused{}})
 def execution_allowed(~S:Data,~C:Type,~R:Type,~E:Data,~L:Type,~Args:Data,~Error:Data,~Out:Type,~Ops:Type -> Type,~declaration:P.Declaration<S,R,T.Tx<W.World<S,C,R,E>,E>,Ops(T.Tx<W.World<S,C,R,E>,E>)>,~body:@-H:Type -> @-caps:Ops(H) -> L -> Args -> H -> H & (L & (T.Outcome<Error> & Out)),valid:Bool,owner:Owner<S,C,R,E,L,Args,Error,Out,Ops,declaration,body>,args:Args,context:Ctx.Context<W.World<S,C,R,E>>) -> Invocation<S,C,R,E,L,Args,Error,Out,Ops,declaration,body> & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,ExecutionError<Error>,Unit>:
   match valid context:

@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./world.bend as W
 import ./event-runtime.bend as Ev
 import ./relation-commands.bend as A
@@ -21,39 +22,39 @@ def plan_caps(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,plan:Plan<S,C,R,
   match plan:
     case Plan{caps}:caps
 
-def fresh_join(~S:Data,~C:Type,~R:Type,~E:Data,clocked:W.World<S,C,R,A.Notice<S,E>> & U32,namespace:U32,batches:List<&2,Ev.Batch<A.Notice<S,E>>>,positions:List<&2,Ev.Position>,nextReader:U32,tick:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,dropped:Nat) -> Ev.Runtime<S,C,R,A.Notice<S,E>> & U32:
+def fresh_join(~S:Data,~C:Type,~R:Type,~E:Data,clocked:W.World<S,C,R,A.Notice<S,E>> & Tick.Tick,namespace:U32,batches:List<&2,Ev.Batch<A.Notice<S,E>>>,positions:List<&2,Ev.Position>,nextReader:U32,tick:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,dropped:Nat) -> Ev.Runtime<S,C,R,A.Notice<S,E>> & Tick.Tick:
   (world,registeredAt)=clocked
   (Ev.Runtime{world,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped},registeredAt)
 
-def fresh_runtime(~S:Data,~C:Type,~R:Type,~E:Data,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>) -> Ev.Runtime<S,C,R,A.Notice<S,E>> & U32:
+def fresh_runtime(~S:Data,~C:Type,~R:Type,~E:Data,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>) -> Ev.Runtime<S,C,R,A.Notice<S,E>> & Tick.Tick:
   match runtime:
     case Ev.Runtime{world,+namespace,+batches,+positions,+nextReader,+tick,+frameStart,+boundary,+capacity,+dropped}:
       fresh_join(~S,~C,~R,~E,W.clock(~S,~C,~R,~A.Notice<S,E>,world),namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
 
-def bumped_runtime(~S:Data,~C:Type,~R:Type,~E:Data,advanced:W.World<S,C,R,A.Notice<S,E>> & U32,namespace:U32,batches:List<&2,Ev.Batch<A.Notice<S,E>>>,positions:List<&2,Ev.Position>,nextReader:U32,tick:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,dropped:Nat) -> Ev.Runtime<S,C,R,A.Notice<S,E>> & U32:
+def bumped_runtime(~S:Data,~C:Type,~R:Type,~E:Data,advanced:W.World<S,C,R,A.Notice<S,E>> & Tick.Tick,namespace:U32,batches:List<&2,Ev.Batch<A.Notice<S,E>>>,positions:List<&2,Ev.Position>,nextReader:U32,tick:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,dropped:Nat) -> Ev.Runtime<S,C,R,A.Notice<S,E>> & Tick.Tick:
   (world,cursor)=advanced
   (Ev.Runtime{world,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped},cursor)
 
-def advance_runtime(~S:Data,~C:Type,~R:Type,~E:Data,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>) -> Ev.Runtime<S,C,R,A.Notice<S,E>> & U32:
+def advance_runtime(~S:Data,~C:Type,~R:Type,~E:Data,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>) -> Ev.Runtime<S,C,R,A.Notice<S,E>> & Tick.Tick:
   match runtime:
     case Ev.Runtime{world,+namespace,+batches,+positions,+nextReader,+tick,+frameStart,+boundary,+capacity,+dropped}:
       bumped_runtime(~S,~C,~R,~E,W.advance_clock(~S,~C,~R,~A.Notice<S,E>,world),namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
 
-def succeeded(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~Out:Data,registeredAt:U32,value:Out,observed:Ev.Runtime<S,C,R,A.Notice<S,E>> & U32) -> RunResult<S,C,R,E,U,Out>:
+def succeeded(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~Out:Data,registeredAt:Tick.Tick,value:Out,observed:Ev.Runtime<S,C,R,A.Notice<S,E>> & Tick.Tick) -> RunResult<S,C,R,E,U,Out>:
   (runtime,cursor)=observed
-  RunResult{runtime,I.Active{cursor,registeredAt},Done{value}}
+  RunResult{runtime,I.Active{Some{cursor},registeredAt},Done{value}}
 
-def finished(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~Out:Data,cursor:U32,registeredAt:U32,observed:F.Frame<S,C,R,E> & Result<&2,&2,U,Out>) -> RunResult<S,C,R,E,U,Out>:
+def finished(~S:Data,~C:Type,~R:Type,~E:Data,~U:Data,~Out:Data,cursor:Maybe<&2,Tick.Tick>,registeredAt:Tick.Tick,observed:F.Frame<S,C,R,E> & Result<&2,&2,U,Out>) -> RunResult<S,C,R,E,U,Out>:
   match observed:
     case (F.Frame{runtime,_},Fail{error}):RunResult{runtime,I.Active{cursor,registeredAt},Fail{error}}
     case (F.Frame{runtime,_},Done{value}):succeeded(~S,~C,~R,~E,~U,~Out,registeredAt,value,advance_runtime(~S,~C,~R,~E,runtime))
 
-def invoked(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A0:Data,~U:Data,~Out:Data,~plan:Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A0 -> H -> H & Result<&2,&2,U,Out>,args:A0,+cursor:U32,+registeredAt:U32,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>) -> RunResult<S,C,R,E,U,Out>:
+def invoked(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A0:Data,~U:Data,~Out:Data,~plan:Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A0 -> H -> H & Result<&2,&2,U,Out>,args:A0,+cursor:Maybe<&2,Tick.Tick>,+registeredAt:Tick.Tick,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>) -> RunResult<S,C,R,E,U,Out>:
   finished(~S,~C,~R,~E,~U,~Out,cursor,registeredAt,Cap.invoke(~Ops,~A0,~Result<&2,&2,U,Out>,~body,~F.Frame<S,C,R,E>,~plan_caps(~S,~C,~R,~E,~Ops,plan),args,F.Frame{runtime,cursor}))
 
-def begin_fresh(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A0:Data,~U:Data,~Out:Data,~plan:Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A0 -> H -> H & Result<&2,&2,U,Out>,args:A0,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>> & U32) -> RunResult<S,C,R,E,U,Out>:
+def begin_fresh(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A0:Data,~U:Data,~Out:Data,~plan:Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A0 -> H -> H & Result<&2,&2,U,Out>,args:A0,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>> & Tick.Tick) -> RunResult<S,C,R,E,U,Out>:
   (runtime,registeredAt)=runtime
-  invoked(~S,~C,~R,~E,~Ops,~A0,~U,~Out,~plan,~body,args,0,registeredAt,runtime)
+  invoked(~S,~C,~R,~E,~Ops,~A0,~U,~Out,~plan,~body,args,None{},registeredAt,runtime)
 
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~Ops:Type -> Type,~A0:Data,~U:Data,~Out:Data,~plan:Plan<S,C,R,E,Ops>,~body:@-H:Type -> @-caps:Ops(H) -> A0 -> H -> H & Result<&2,&2,U,Out>,instance:I.Instance<S>,args:A0,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>) -> RunResult<S,C,R,E,U,Out>:
   match instance:
@@ -69,7 +70,7 @@ def restored_read(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,observed:I.Frame<S,C,R
   match observed:
     case (I.Frame{world,cursor},value): (F.Frame{Ev.Runtime{world,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped},cursor},value)
 
-def read_runtime(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~cap:Cap.ValueRead<I.Frame<S,C,R,A.Notice<S,E>>,V>,cursor:U32,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>) -> F.Frame<S,C,R,E> & V:
+def read_runtime(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~cap:Cap.ValueRead<I.Frame<S,C,R,A.Notice<S,E>>,V>,cursor:Maybe<&2,Tick.Tick>,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>) -> F.Frame<S,C,R,E> & V:
   match runtime:
     case Ev.Runtime{world,+namespace,+batches,+positions,+nextReader,+tick,+frameStart,+boundary,+capacity,+dropped}:
       restored_read(~S,~C,~R,~E,~V,Cap.value_read(~I.Frame<S,C,R,A.Notice<S,E>>,~V,~cap,I.Frame{world,cursor}),namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)
@@ -89,7 +90,7 @@ def restored_lookup(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,observed:I.Frame<S,C
   match observed:
     case (I.Frame{world,cursor},value):(F.Frame{Ev.Runtime{world,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped},cursor},value)
 
-def lookup_runtime(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~cap:I.Lookup<I.Frame<S,C,R,A.Notice<S,E>>,S,V>,cursor:U32,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>,target:W.Handle<S>) -> F.Frame<S,C,R,E> & I.Value<V>:
+def lookup_runtime(~S:Data,~C:Type,~R:Type,~E:Data,~V:Data,~cap:I.Lookup<I.Frame<S,C,R,A.Notice<S,E>>,S,V>,cursor:Maybe<&2,Tick.Tick>,runtime:Ev.Runtime<S,C,R,A.Notice<S,E>>,target:W.Handle<S>) -> F.Frame<S,C,R,E> & I.Value<V>:
   match runtime:
     case Ev.Runtime{world,+namespace,+batches,+positions,+nextReader,+tick,+frameStart,+boundary,+capacity,+dropped}:
       restored_lookup(~S,~C,~R,~E,~V,I.lookup(~I.Frame<S,C,R,A.Notice<S,E>>,~S,~V,~cap,I.Frame{world,cursor},target),namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped)

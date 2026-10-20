@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./world.bend as W
 import ./world-resource-owner.bend as WR
 import ./owner-product.bend as Product
@@ -15,9 +16,9 @@ def classify(~S:Data,~P:Data,value:Notice.Notice<S,P>) -> Maybe<Domains.Descript
   match value:
     case Notice.RelationFailed{Graph.Failure{Graph.Descriptor{id,_,_,_},_,_,_,_}}:Some{Domains.DeclaredKey{id}}
     case _:None{}
-def publish_clocked(~S:Data,~C:Type,~Resources:Type,~P:Data,~F:Type,~Owners:Type,~sync:F -> Nat -> List<&2,P> -> F,metadata:Mixed.State<S,P,F,Owners> & Nat,result:W.World<S,C,Resources,Notice.Notice<S,P>> & U32) -> Route.Runtime<S,C,Resources,Notice.Notice<S,P>,Mixed.State<S,P,F,Owners>>:
+def publish_clocked(~S:Data,~C:Type,~Resources:Type,~P:Data,~F:Type,~Owners:Type,~sync:F -> Nat -> List<&2,P> -> F,metadata:Mixed.State<S,P,F,Owners> & Nat,result:W.World<S,C,Resources,Notice.Notice<S,P>> & Tick.Tick) -> Route.Runtime<S,C,Resources,Notice.Notice<S,P>,Mixed.State<S,P,F,Owners>>:
   match metadata result:
-    case (Mixed.State{typed,Mixed.Failures{domains,positions,+failureTick,start,boundary,capacity,nextReader}},+tick),(world,clock):Mixed.ingest(~S,~C,~Resources,~P,~F,~Owners,~sync,~classify(~S,~P),1n+Nat.max(1n,Nat.max(tick,Nat.max(failureTick,U32.to_nat(clock)))),Route.Runtime{world,Mixed.State{typed,Mixed.Failures{domains,positions,failureTick,start,boundary,capacity,nextReader}},tick})
+    case (Mixed.State{typed,Mixed.Failures{domains,positions,+failureTick,start,boundary,capacity,nextReader}},+tick),(world,clock):Mixed.ingest(~S,~C,~Resources,~P,~F,~Owners,~sync,~classify(~S,~P),1n+Nat.max(1n,Nat.max(tick,Nat.max(failureTick,Tick.total(clock)))),Route.Runtime{world,Mixed.State{typed,Mixed.Failures{domains,positions,failureTick,start,boundary,capacity,nextReader}},tick})
 def publish(~S:Data,~C:Type,~Resources:Type,~P:Data,~F:Type,~Owners:Type,~sync:F -> Nat -> List<&2,P> -> F,world:W.World<S,C,Resources,Notice.Notice<S,P>>,metadata:Mixed.State<S,P,F,Owners> & Nat) -> Route.Runtime<S,C,Resources,Notice.Notice<S,P>,Mixed.State<S,P,F,Owners>>:
   publish_clocked(~S,~C,~Resources,~P,~F,~Owners,~sync,metadata,W.clock(~S,~C,~Resources,~Notice.Notice<S,P>,world))
 

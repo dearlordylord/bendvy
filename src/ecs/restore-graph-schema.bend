@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./restore-schema.bend as Basic
 import ./snapshot-schema.bend as Save
 import ./restore-data.bend as R
@@ -17,10 +18,10 @@ def clear(~S:Data,~C:Type,~clearBase:C -> W.Handle<S> -> C & List<&2,R.Change<S>
 def inserted(~S:Data,~C:Type,~Resources:Type,~Machines:Type,~State:Type,graph:G.Graph<S>,machines:Machines,result:(C & Resources) & State) -> (Relation.Store<S,C> & Product.Owner<Resources,Machines>) & State:
   match result:
     case ((components,resources),state):((Relation.Store{components,graph},Product.Owner{resources,machines}),state)
-def insert(~S:Data,~C:Type,~Resources:Type,~Machines:Type,~State:Type,~Custom:Data,~stage:State -> R.Position -> D.Field -> State & R.Dispatch<Custom>,~release:State -> State,~clearBase:C -> W.Handle<S> -> C & List<&2,R.Change<S>>,~insertBase:C -> Resources -> State -> List<&2,R.Binding<S>> -> U32 -> (C & Resources) & State,store:Relation.Store<S,C>,resources:Product.Owner<Resources,Machines>,state:State,bindings:List<&2,R.Binding<S>>,tick:U32) -> (Relation.Store<S,C> & Product.Owner<Resources,Machines>) & State:
+def insert(~S:Data,~C:Type,~Resources:Type,~Machines:Type,~State:Type,~Custom:Data,~stage:State -> R.Position -> D.Field -> State & R.Dispatch<Custom>,~release:State -> State,~clearBase:C -> W.Handle<S> -> C & List<&2,R.Change<S>>,~insertBase:C -> Resources -> State -> List<&2,R.Binding<S>> -> Tick.Tick -> (C & Resources) & State,store:Relation.Store<S,C>,resources:Product.Owner<Resources,Machines>,state:State,bindings:List<&2,R.Binding<S>>,tick:Tick.Tick) -> (Relation.Store<S,C> & Product.Owner<Resources,Machines>) & State:
   match store resources:
     case Relation.Store{components,graph} Product.Owner{resource,machines}:inserted(~S,~C,~Resources,~Machines,~State,graph,machines,insertBase(components,resource,state,bindings,tick))
-def lift(~S:Data,~C:Type,~Resources:Type,~Machines:Type,~State:Type,~Custom:Data,~stage:State -> R.Position -> D.Field -> State & R.Dispatch<Custom>,~release:State -> State,~clearBase:C -> W.Handle<S> -> C & List<&2,R.Change<S>>,~insertBase:C -> Resources -> State -> List<&2,R.Binding<S>> -> U32 -> (C & Resources) & State,~Recovery:Type,~commit:State -> State,~takeRecovery:State -> State & Recovery,schema:Basic.Schema<S,C,Resources,State,Custom,stage,release,clearBase,insertBase,Recovery,commit,takeRecovery>) -> Basic.Schema<S,Relation.Store<S,C>,Product.Owner<Resources,Machines>,State,Custom,stage,release,clear(~S,~C,~clearBase),insert(~S,~C,~Resources,~Machines,~State,~Custom,~stage,~release,~clearBase,~insertBase),Recovery,commit,takeRecovery>:
+def lift(~S:Data,~C:Type,~Resources:Type,~Machines:Type,~State:Type,~Custom:Data,~stage:State -> R.Position -> D.Field -> State & R.Dispatch<Custom>,~release:State -> State,~clearBase:C -> W.Handle<S> -> C & List<&2,R.Change<S>>,~insertBase:C -> Resources -> State -> List<&2,R.Binding<S>> -> Tick.Tick -> (C & Resources) & State,~Recovery:Type,~commit:State -> State,~takeRecovery:State -> State & Recovery,schema:Basic.Schema<S,C,Resources,State,Custom,stage,release,clearBase,insertBase,Recovery,commit,takeRecovery>) -> Basic.Schema<S,Relation.Store<S,C>,Product.Owner<Resources,Machines>,State,Custom,stage,release,clear(~S,~C,~clearBase),insert(~S,~C,~Resources,~Machines,~State,~Custom,~stage,~release,~clearBase,~insertBase),Recovery,commit,takeRecovery>:
   match schema:
     case Basic.Schema{Ordinary.Schema{entries}}:Basic.Schema{Ordinary.Schema{entries}}
 def component_saved(~S:Data,~C:Type,graph:G.Graph<S>,result:C & List<&2,D.Field>) -> Relation.Store<S,C> & List<&2,D.Field>:

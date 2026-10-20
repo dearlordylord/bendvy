@@ -1,0 +1,16 @@
+first=success:cursor=0:2:value=[30, 31]:stamp=0:1/0:2:now=0:2:scopes=[]
+second=failure:planned:cursor=0:3:value=[30, 31]:stamp=0:1/0:2:now=0:3:scopes=[]
+fresh-failure
+failed=failure:planned:cursor=0:2:value=[10, 11]:stamp=0:1/0:1:now=0:2:scopes=[]
+observed
+observed=success:cursor=0:2:value=[30, 31]:stamp=0:1/0:2:now=0:2:scopes=[]
+custom-finish
+custom=failure:planned:cursor=0:2:value=[10, 11]:stamp=0:1/0:1:now=0:2:scopes=[]
+foreign-world
+foreign=rejected:argsFail=True:cursor=none:missing:now=0:0:scopes=[]
+trusted-wrap-seed
+wrapped=success:cursor=1:0:value=[30, 31]:stamp=0:1/1:0:now=1:0:scopes=[]
+readerA=success:cursor=0:2:value=[30, 31]:stamp=0:1/0:2:now=0:2:scopes=[]
+readerB=failure:planned:cursor=0:3:value=[30, 31]:stamp=0:1/0:2:now=0:3:scopes=[]
+direct-query:first:value=[40, 41]:stamp=0:1/0:3:now=0:3:scopes=[];second:value=[40, 41]:stamp=0:2/0:3:now=0:3:scopes=[]
+system-query:cursor=0:3:first:value=[40, 41]:stamp=0:1/0:3:now=0:3:scopes=[];second:value=[40, 41]:stamp=0:2/0:3:now=0:3:scopes=[]

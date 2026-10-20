@@ -1,4 +1,5 @@
 import Base
+import ../../../../src/ecs/change-tick.bend as Tick
 import ../../../../src/ecs/commands.bend as Cmd
 import ../../dense-motion64/consumer/s-perf/canonical-api-v1/dense-runtime-v1/types.bend as T
 import ../../dense-motion64/consumer/s-perf/canonical-api-v1/dense-runtime-v1/payload.bend as P
@@ -60,7 +61,7 @@ def main_read(~H:Type,~caps:Ops(H),observed:H & Cmp.Access<T.VitalsView>) -> H &
     case (owner,Cmp.Found{+view}):ledger_written(~H,~caps,sum_view(view),Cap.value_get(~H,~T.HealthLedger,~T.LedgerView,~ledger_cap(~H,caps),Cap.set(~H,~T.Vitals,~T.VitalsView,~main_cap(~H,caps),owner,increment_main(view))))
     case (owner,_):(owner,(Tx.Failure{Unit{}},0))
 def body(~H:Type,~caps:Ops(H),_:Unit,owner:H) -> H & (Tx.Outcome<Unit> & U32):main_read(~H,~caps,Cap.get(~H,~T.Vitals,~T.VitalsView,~main_cap(~H,caps),owner))
-def Registry() -> Type:Sys.Registry<T.HealthSchema,Store(),Resources(),Nat,Unit & U32,Q.Error<Unit>,List<&2,U32>,Ordinary.runner(~T.HealthSchema,~Store(),~Resources(),~Nat,~Ops,~Unit,~Unit,~U32,~declaration(),~body)>
+def Registry() -> Type:Sys.Registry<T.HealthSchema,Store(),Resources(),Nat,Unit & Maybe<&2,Tick.Tick>,Q.Error<Unit>,List<&2,U32>,Ordinary.runner(~T.HealthSchema,~Store(),~Resources(),~Nat,~Ops,~Unit,~Unit,~U32,~declaration(),~body)>
 def Owner() -> Type:Ordinary.Owner<T.HealthSchema,Registry()>
 def define(world:World()) -> Ordinary.Defined<T.HealthSchema,World(),Registry()>:Ordinary.define(~T.HealthSchema,~Store(),~Resources(),~Nat,~Ops,~Unit,~Unit,~U32,~declaration(),~body,world,"BenchUpdate","dense64")
 

@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./world.bend as W
 import ./system.bend as Sys
 import ./machine.bend as M
@@ -11,7 +12,7 @@ import ./schedule.bend as Sch
 # Detached handler selector/requirements and actual registry metadata for display.
 # Does not own a handler, grant capabilities or duplicate Local/capture state.
 type EntryView<S:Data,K:Data,V:Data,Q:Data> is Data:
-  EntryView{selector:B.Selector<S,K,V>,requirements:List<&2,Q>,namespace:U32,entryId:U32,id:U32,name:String,access:List<&2,String>,cursor:U32}
+  EntryView{selector:B.Selector<S,K,V>,requirements:List<&2,Q>,namespace:U32,entryId:U32,id:U32,name:String,access:List<&2,String>,cursor:Maybe<&2,Tick.Tick>}
 # Detached marker schedule phases and ordered handler entry views.
 type Description<S:Data,K:Data,V:Data,Q:Data> is Data:
   Description{namespace:U32,name:String,steps:List<&2,Sch.Step>,entries:List<&2,EntryView<S,K,V,Q>>}
@@ -20,7 +21,7 @@ type Description<S:Data,K:Data,V:Data,Q:Data> is Data:
 type Application<S:Data,K:Data,V:Data,Q:Data,C:Type,R:Type,E:Data,-runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,Extra:Type> is Type:
   Application{world:W.World<S,C,R,E>,bundle:B.Bundle<S,K,V,Q,C,R,E,runner>,declaration:Ordinary.Declaration<S>,extra:Extra,debug:Bool}
   Recovering{result:Operation.MarkerResult<S,K,V,Q,C,R,E,runner>,declaration:Ordinary.Declaration<S>,extra:Extra,debug:Bool}
-def entries_returned(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,+selector:B.Selector<S,K,V>,+requirements:List<&2,Q>,+namespace:U32,+entryId:U32,+id:U32,+name:String,+access:List<&2,String>,+cursor:U32,result:List<&1,B.Scheduled<S,K,V,Q,C,R,E,runner>> & List<&2,EntryView<S,K,V,Q>>) -> List<&1,B.Scheduled<S,K,V,Q,C,R,E,runner>> & List<&2,EntryView<S,K,V,Q>>:
+def entries_returned(~S:Data,~K:Data,~V:Data,~Q:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>,+selector:B.Selector<S,K,V>,+requirements:List<&2,Q>,+namespace:U32,+entryId:U32,+id:U32,+name:String,+access:List<&2,String>,+cursor:Maybe<&2,Tick.Tick>,result:List<&1,B.Scheduled<S,K,V,Q,C,R,E,runner>> & List<&2,EntryView<S,K,V,Q>>) -> List<&1,B.Scheduled<S,K,V,Q,C,R,E,runner>> & List<&2,EntryView<S,K,V,Q>>:
   (rest,views)=result
   (B.Scheduled{selector,requirements,H.Entry{entryId,Sys.Registry{namespace,id,name,access,cursor}}} <> rest,EntryView{selector,requirements,namespace,entryId,id,name,access,cursor} <> views)
 # Describe scheduled handlers in list order while returning all actual owners.

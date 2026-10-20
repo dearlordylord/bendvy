@@ -31,7 +31,7 @@ def Rows() -> Data:List<&2,IQ.ProjectedRow<T.HealthSchema,Value()>>
 def unpack(observed:InspectFrame() & Rows()) -> F.World() & Rows():
   match observed:
     case (I.Frame{world,_},rows):(world,rows)
-def rows(world:F.World()) -> F.World() & Rows():unpack(IQ.each_composed(~InspectFrame(),~T.HealthSchema,~Value(),~O.inspect_query(~T.HealthSchema,~F.Store(),~F.Resources(),~E.event_type(),~Frame(),~Ops(Frame()),~Value(),~declaration()),I.Frame{world,0}))
+def rows(world:F.World()) -> F.World() & Rows():unpack(IQ.each_composed(~InspectFrame(),~T.HealthSchema,~Value(),~O.inspect_query(~T.HealthSchema,~F.Store(),~F.Resources(),~E.event_type(),~Frame(),~Ops(Frame()),~Value(),~declaration()),I.Frame{world,None{}}))
 
 def main_binding() -> Binding.Binding<T.HealthSchema,F.Store(),F.Rest(),T.Vitals,T.VitalsView,T.VitalsToken,F.take_main,F.put_main,P.vitals_get>:
   Binding.bind(~T.HealthSchema,~F.Store(),~F.Rest(),~T.Vitals,~T.VitalsView,~T.VitalsToken,~F.take_main,~F.put_main,~P.vitals_get,F.main_identity())

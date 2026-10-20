@@ -1,4 +1,5 @@
 import Base
+import ./clock-state.bend as Clock
 import entity-key.bend as Key
 import entity-allocator.bend as Alloc
 import ./world.bend as W
@@ -21,7 +22,7 @@ def pending_ready(~World:Type,pending:List<Deferred.Command<World>>) -> List<Def
   match pending:
     case []:([],True{})
     case command <> rest:(command <> rest,False{})
-def ready_joined(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,allocator:Alloc.Allocator,store:C,resource:R,events:List<&2,E>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:U32,result:List<Deferred.Command<W.World<S,C,R,E>>> & Bool) -> W.World<S,C,R,E> & Bool:
+def ready_joined(~S:Data,~C:Type,~R:Type,~E:Data,namespace:U32,allocator:Alloc.Allocator,store:C,resource:R,events:List<&2,E>,registrations:List<&2,W.RegistrationMeta>,nextSystemId:U32,clock:Clock.State,result:List<Deferred.Command<W.World<S,C,R,E>>> & Bool) -> W.World<S,C,R,E> & Bool:
   match result:
     case (pending,ready):(W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},ready)
 # Internal constant-time structural admission, before any trusted projection.

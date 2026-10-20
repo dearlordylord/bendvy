@@ -27,7 +27,7 @@ def lookup_done(observed:Logical.InspectFrame() & Result<&2,&2,IQ.LookupError,IQ
 def lookup(world:D.World(),handle:Maybe<&2,W.Handle<Types.MotionSchema>>) -> D.World() & U32:
   match handle:
     case None{}:(world,0)
-    case Some{handle}:lookup_done(IQ.get_composed(~Logical.InspectFrame(),~Types.MotionSchema,~Logical.Value(),~query(),Inspect.Frame{world,0},handle))
+    case Some{handle}:lookup_done(IQ.get_composed(~Logical.InspectFrame(),~Types.MotionSchema,~Logical.Value(),~query(),Inspect.Frame{world,None{}},handle))
 def stale_added(+handle:W.Handle<Types.MotionSchema>,seen:List<&2,D.Seen>,observed:D.World() & U32) -> D.World() & List<&2,D.Seen>:
   match observed:
     case (world,kind):(world,D.Seen{handle,kind} <> seen)

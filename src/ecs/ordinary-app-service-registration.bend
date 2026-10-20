@@ -55,7 +55,7 @@ def dispatched(~S:Data,~C:Type,~R:Type,~E:Data,~Payload:Type,~Rest:Type,~take:R 
 # declaration runner is a successful no-op for Missing. No host-effect rollback.
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~Payload:Type,~Rest:Type,~take:R -> Rest & D.Slot<Payload>,~put:Rest -> D.Slot<Payload> -> R,~call:Payload -> Payload,~declaration:D.Declaration<S,R,Payload,Rest,take,put,call>,~scan:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,D.Status<S>>,owner:Owner<S,C,R,E,Payload,Rest,take,put,call,declaration,scan>,world:W.World<S,C,R,E>) -> Owner<S,C,R,E,Payload,Rest,take,put,call,declaration,scan> & Sys.Outcome<W.World<S,C,R,E>,Unit,Unit>:
   match owner:
-    case Owner{registry,setup}:dispatched(~S,~C,~R,~E,~Payload,~Rest,~take,~put,~call,~declaration,~scan,setup,Sys.run_tracked(~S,~C,~R,~E,~Unit,~Unit,~Unit,~D.runner(~S,~C,~R,~E,~Payload,~Rest,~take,~put,~call,~declaration),registry,world,Unit{}))
+    case Owner{registry,setup}:dispatched(~S,~C,~R,~E,~Payload,~Rest,~take,~put,~call,~declaration,~scan,setup,Sys.run(~S,~C,~R,~E,~Unit,~Unit,~Unit,~D.runner(~S,~C,~R,~E,~Payload,~Rest,~take,~put,~call,~declaration),registry,world,Unit{}))
 # Composer App type with this service owner and combined prior/service observations.
 # This type adds service registration metadata, not a fabricated component query.
 def Application(~S:Data,~C:Type,~R:Type,~E:Data,~Payload:Type,~Rest:Type,~take:R -> Rest & D.Slot<Payload>,~put:Rest -> D.Slot<Payload> -> R,~call:Payload -> Payload,~declaration:D.Declaration<S,R,Payload,Rest,take,put,call>,~scan:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,D.Status<S>>,~Owners:Type,~Rows:Data,~prior:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Records.Fields<S>>) -> Type:

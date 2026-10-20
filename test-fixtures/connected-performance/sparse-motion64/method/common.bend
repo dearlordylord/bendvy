@@ -1,4 +1,5 @@
 import Base
+import ../../../../src/ecs/clock-state.bend as Clock
 import ../consumer/s-perf/canonical-api-v1/sparse-runtime-v1/motion.bend as F
 import ../consumer/s-perf/canonical-api-v1/sparse-runtime-v1/types.bend as T
 import ../../../../src/ecs/ordinary-system.bend as Ordinary
@@ -39,7 +40,7 @@ import ../../../../src/ecs/entity-key.bend as Key
 
 type Common is Data:
   Common{rows:Logical.Rows(),ledger:T.LedgerView,audits:List<&2,Driver.Audit>,statuses:List<&2,Driver.Status>,cumulative:U32}
-def captured(owner:Driver.Owner(),+audits:List<&2,Driver.Audit>,+statuses:List<&2,Driver.Status>,+rows:Logical.Rows(),+cumulative:U32,+namespace:U32,allocator:Allocator.Allocator,store:F.Store(),unit:Unit,+events:List<&2,Nat>,pending:List<Deferred.Command<F.World()>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:U32,observed:T.MotionLedger & T.LedgerView) -> Driver.View & Common:
+def captured(owner:Driver.Owner(),+audits:List<&2,Driver.Audit>,+statuses:List<&2,Driver.Status>,+rows:Logical.Rows(),+cumulative:U32,+namespace:U32,allocator:Allocator.Allocator,store:F.Store(),unit:Unit,+events:List<&2,Nat>,pending:List<Deferred.Command<F.World()>>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,observed:T.MotionLedger & T.LedgerView) -> Driver.View & Common:
   match observed:
     case (ledger,+view):(Driver.View{W.World{namespace,allocator,store,Product.Owner{ledger,unit},events,pending,registrations,nextSystem,clock},owner,audits,statuses,cumulative},Common{rows,view,audits,statuses,cumulative})
 def captured_world(owner:Driver.Owner(),audits:List<&2,Driver.Audit>,statuses:List<&2,Driver.Status>,rows:Logical.Rows(),cumulative:U32,world:F.World()) -> Driver.View & Common:

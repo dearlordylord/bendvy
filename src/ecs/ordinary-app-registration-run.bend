@@ -4,7 +4,7 @@ import ./ordinary-app-registration-fields.bend as Records
 import ./world.bend as W
 import ./system.bend as Sys
 import ./ordinary-query-declaration.bend as Query
-# Representation-only transport of the existing Sys.run_tracked discriminants.
+# Representation-only transport of the existing Sys.run discriminants.
 # No output, rejected argument or affine owner is duplicated or finalized here.
 type TransportResult<S:Data,World:Type,Args:Type,Error:Data,Out:Type,Token:Type> is Type:
   Completed{token:Token,fields:Records.Fields<S>,outcome:Sys.Outcome<World,Error,Out>}
@@ -24,7 +24,7 @@ def captured(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~r
     case Sys.RegistrationRejected{registry,world,args}:rejected(~S,~C,~R,~E,~Args,~Error,~Out,~runner,world,args,returned(~S,~C,~R,~E,~Args,~Error,~Out,~runner,slot,clauses,kind,registry))
 def restored(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,fields:Records.Fields<S>,world:W.World<S,C,R,E>,args:Args) -> TransportResult<S,W.World<S,C,R,E>,Args,Error,Out,Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>>:
   match fields:
-    case Records.Fields{namespace,id,name,access,cursor,slot,clauses,kind}:captured(~S,~C,~R,~E,~Args,~Error,~Out,~runner,slot,clauses,kind,Sys.run_tracked(~S,~C,~R,~E,~Args,~Error,~Out,~runner,Sys.Registry{namespace,id,name,access,cursor},world,args))
+    case Records.Fields{namespace,id,name,access,cursor,slot,clauses,kind}:captured(~S,~C,~R,~E,~Args,~Error,~Out,~runner,slot,clauses,kind,Sys.run(~S,~C,~R,~E,~Args,~Error,~Out,~runner,Sys.Registry{namespace,id,name,access,cursor},world,args))
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~Args:Type,~Error:Data,~Out:Type,~runner:W.World<S,C,R,E> -> Args -> Sys.Outcome<W.World<S,C,R,E>,Error,Out>,token:Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>,fields:Records.Fields<S>,world:W.World<S,C,R,E>,args:Args) -> TransportResult<S,W.World<S,C,R,E>,Args,Error,Out,Records.Token<Sys.Registry<S,C,R,E,Args,Error,Out,runner>>>:
   match token:
     case Records.Token{}:restored(~S,~C,~R,~E,~Args,~Error,~Out,~runner,fields,world,args)

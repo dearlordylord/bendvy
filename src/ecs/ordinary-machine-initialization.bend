@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./machine.bend as M
 import ./machine-stream.bend as St
 import ./ordinary-machine-declaration.bend as OD
@@ -67,9 +68,10 @@ def insert_taken(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & State<S,K,V>,~pu
 def inserted_world(~S:Data,~C:Type,~R:Type,~E:Data,pair:W.World<S,C,R,E> & Unit) -> W.World<S,C,R,E>:
   match pair:
     case (world,_):world
-def insert_clocked(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & State<S,K,V>,~put:R -> State<S,K,V> -> R,~C:Type,~E:Data,value:V,pair:W.World<S,C,R,E> & U32) -> W.World<S,C,R,E>:
+def insert_clocked(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & State<S,K,V>,~put:R -> State<S,K,V> -> R,~C:Type,~E:Data,value:V,pair:W.World<S,C,R,E> & Tick.Tick) -> W.World<S,C,R,E>:
   match pair:
-    case (world,tick):inserted_world(~S,~C,~R,~E,with_resource(~S,~C,~R,~E,~Unit,(resource => insert_taken(~S,~K,~V,~R,~take,~put,value,U32.to_nat(tick),take(resource))),world))
+    case (world,tick):inserted_world(~S,~C,~R,~E,with_resource(~S,~C,~R,~E,~Unit,(resource => insert_taken(~S,~K,~V,~R,~take,~put,value,Tick.total(tick),take(resource))),world))
+# Stream publication advances administrative time independently of component run ticks.
 def insert_state(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & State<S,K,V>,~put:R -> State<S,K,V> -> R,~C:Type,~E:Data,~declaration:OD.Declaration<S,K,V,R,take_slot(~S,~K,~V,~R,~take,~put)>,world:W.World<S,C,R,E>,value:V) -> W.World<S,C,R,E>:
   insert_clocked(~S,~K,~V,~R,~take,~put,~C,~E,value,W.advance_clock(~S,~C,~R,~E,world))
 def defaulted(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & State<S,K,V>,~put:R -> State<S,K,V> -> R,~C:Type,~E:Data,~declaration:OD.Declaration<S,K,V,R,take_slot(~S,~K,~V,~R,~take,~put)>,pair:W.World<S,C,R,E> & V) -> W.World<S,C,R,E>:

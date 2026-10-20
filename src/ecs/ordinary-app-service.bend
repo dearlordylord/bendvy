@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./capabilities.bend as Cap
 import ./ordinary-service-declaration.bend as D
 import ./world.bend as W
@@ -18,7 +19,7 @@ type Installation<App:Type,World:Type,Setup:Data,Owner:Type> is Type:
 # Detached service/setup/registry/schedule observation, not a host capability or
 # confirmation that a later call will succeed.
 type Inventory<S:Data> is Data:
-  Inventory{entries:List<&2,Fragment.Entry<S>>,services:List<&2,D.Status<S>>,required:List<&2,SP.Requirement<S>>,namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:U32,steps:List<&2,Sch.Step>}
+  Inventory{entries:List<&2,Fragment.Entry<S>>,services:List<&2,D.Status<S>>,required:List<&2,SP.Requirement<S>>,namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:Maybe<&2,Tick.Tick>,steps:List<&2,Sch.Step>}
 # Every run result retains App. Missing reports unmet preflight requirements;
 # Rejected is schedule admission refusal. Failed carries runner failure and
 # observations; none of these add external IO rollback or payload recovery.
@@ -56,10 +57,10 @@ def dispatched(~S:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> Unit 
     case Sys.Completed{owner,outcome}:(owner,outcome)
     case Sys.RegistrationRejected{owner,world,_}:(owner,Sys.Failed{world,Unit{}})
 # Advanced single-registry adapter invoking tracked system execution. The supplied
-# id argument is unused here: registry validation comes from Sys.run_tracked, and
+# id argument is unused here: registry validation comes from Sys.run, and
 # registration rejection is represented as Sys.Failed(Unit).
 def dispatch(~S:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> Unit -> Sys.Outcome<W.World<S,C,R,E>,Unit,Unit>,owner:Sys.Registry<S,C,R,E,Unit,Unit,Unit,runner>,world:W.World<S,C,R,E>,_:U32) -> Sys.Registry<S,C,R,E,Unit,Unit,Unit,runner> & Sys.Outcome<W.World<S,C,R,E>,Unit,Unit>:
-  dispatched(~S,~C,~R,~E,~runner,Sys.run_tracked(~S,~C,~R,~E,~Unit,~Unit,~Unit,~runner,owner,world,Unit{}))
+  dispatched(~S,~C,~R,~E,~runner,Sys.run(~S,~C,~R,~E,~Unit,~Unit,~Unit,~runner,owner,world,Unit{}))
 # Standalone service schedule condition is always true and returns World unchanged.
 def condition(~S:Data,~C:Type,~R:Type,~E:Data,world:W.World<S,C,R,E>,_:U32) -> W.World<S,C,R,E> & Bool:
   (world,True{})
@@ -106,7 +107,7 @@ def step_text(value:Sch.Step) -> String:
 def text(~S:Data,value:Maybe<&2,Inventory<S>>) -> String:
   match value:
     case None{}:"debug=None"
-    case Some{Inventory{entries,statuses,required,ns,id,name,access,cursor,steps}}:"debug{entries=" ++ List.show(&2,Fragment.Entry<S>,entry_text(~S),entries) ++ ";services=" ++ List.show(&2,D.Status<S>,status_text(~S),statuses) ++ ";required=" ++ List.show(&2,SP.Requirement<S>,requirement_text(~S),required) ++ ";registry=" ++ U32.show(ns) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,s => s,access) ++ ":" ++ U32.show(cursor) ++ ";steps=" ++ List.show(&2,Sch.Step,step_text,steps) ++ "}"
+    case Some{Inventory{entries,statuses,required,ns,id,name,access,cursor,steps}}:"debug{entries=" ++ List.show(&2,Fragment.Entry<S>,entry_text(~S),entries) ++ ";services=" ++ List.show(&2,D.Status<S>,status_text(~S),statuses) ++ ";required=" ++ List.show(&2,SP.Requirement<S>,requirement_text(~S),required) ++ ";registry=" ++ U32.show(ns) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,s => s,access) ++ ":" ++ Tick.cursor_show(cursor) ++ ";steps=" ++ List.show(&2,Sch.Step,step_text,steps) ++ "}"
 # Build an App inventory read capability using snapshot and its debug bypass.
 # Does not grant service invocation or access to the actual payload owner.
 def read(~S:Data,~C:Type,~R:Type,~E:Data,~runner:W.World<S,C,R,E> -> Unit -> Sys.Outcome<W.World<S,C,R,E>,Unit,Unit>,~scan:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,D.Status<S>>) -> Cap.ValueRead<Application<S,C,R,E,runner,scan>,Maybe<&2,Inventory<S>>>:

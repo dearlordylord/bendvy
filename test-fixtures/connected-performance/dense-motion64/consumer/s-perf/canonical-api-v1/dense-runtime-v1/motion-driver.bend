@@ -1,4 +1,5 @@
 import Base
+import ../../../../../../../src/ecs/change-tick.bend as Tick
 import motion.bend as F
 import types.bend as T
 import ../../../../../../../src/ecs/ordinary-system.bend as Ordinary
@@ -32,7 +33,7 @@ type Audit is Data:
 type Status is Data:
   Succeeded{}
   Failed{error:Q.Error<Unit>}
-  Rejected{cursor:U32}
+  Rejected{cursor:Maybe<&2,Tick.Tick>}
 type Shared is Type:
   Shared{audit:List<&2,Audit>,statuses:List<&2,Status>}
 def query() -> Observable.Declaration<T.MotionSchema,Q.Frame<T.MotionSchema,F.Store(),F.Resources(),Nat>,F.Ops(Q.Frame<T.MotionSchema,F.Store(),F.Resources(),Nat>),Inspector.Frame<T.MotionSchema,F.Store(),F.Resources(),Nat>,Logical.Value()>:
@@ -47,7 +48,7 @@ def fold() -> Runtime() -> Runtime() & List<&2,Fields.Fields<T.MotionSchema>>:Co
 def plan() -> Runtime() -> Runtime() & SP.Plan<T.MotionSchema>:Component.execution_plan(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)
 def dispatch() -> Runtime() -> Ctx.Context<F.World()> -> U32 -> Runtime() & Sys.Outcome<Ctx.Context<F.World()>,ErrorType(),Unit>:Component.execution_dispatch(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)
 def provide() -> F.World() -> F.World() & List<&2,SP.Requirement<T.MotionSchema>>:Component.execution_provide(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~Unit,~Unit,~Build.empty_observe(~F.World()),~Leaf.empty(~T.MotionSchema),~Unit,~Exec.empty_plan(~T.MotionSchema),~Exec.empty_dispatch(~F.World()),~Exec.empty_provide(~T.MotionSchema,~F.World()),~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body,~render)
-def Registry() -> Type:Sys.Registry<T.MotionSchema,F.Store(),F.Resources(),Nat,Unit & U32,Q.Error<Unit>,List<&2,U32>,Ordinary.observable_runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body)>
+def Registry() -> Type:Sys.Registry<T.MotionSchema,F.Store(),F.Resources(),Nat,Unit & Maybe<&2,Tick.Tick>,Q.Error<Unit>,List<&2,U32>,Ordinary.observable_runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~Logical.Value(),~query(),~F.body)>
 def Owner() -> Type:Exec.Invocation<T.MotionSchema,Fields.Token<Registry()>,Unit,U32>
 def Application() -> Type:EntryApp.Application<T.MotionSchema,F.Store(),F.Resources(),Nat,Runtime(),Rows(),observe(),fold(),ErrorType(),plan(),dispatch(),provide()>
 def Slot() -> Type:Single.Attachment<Registered(),Application()>
@@ -85,7 +86,7 @@ def success_view(value:View) -> View & Unit:
 def failed_view(error:Q.Error<Unit>,value:View) -> View & Unit:
   match value:
     case View{world,owner,audit,statuses}:(View{world,owner,audit,List.append(&2,Status,statuses,[Failed{error}])},Unit{})
-def field_cursor(fields:Fields.Fields<T.MotionSchema>) -> U32:
+def field_cursor(fields:Fields.Fields<T.MotionSchema>) -> Maybe<&2,Tick.Tick>:
   match fields:
     case Fields.Fields{_,_,_,_,cursor,_,_,_}:cursor
 def rejected_view(value:View) -> View & Unit:

@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./decode-frame.bend as F
 import ./decode-owned-journal.bend as Journal
 import ./decode-requests.bend as Request
@@ -14,7 +15,7 @@ import ./ordinary-declaration.bend as Identity
 import ./persistence-declaration.bend as Declaration
 
 type Output<P:Type> is Type:Written{} Refused{owner:Maybe<&1,P>,error:W.WorldError}
-def written(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Declaration.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Request.Packet<P>>>,handle:W.Handle<S>,error:Maybe<&2,W.WorldError>,cursor:U32,receipts:List<Journal.Receipt<W.World<S,Store,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,result:Cmp.SetResult<T.Tx<W.World<S,Store,R,E>,E>,P>) -> F.Frame<S,Store,R,E,P,Q,identity,project> & Output<P>:
+def written(~S:Data,~Store:Type,~R:Type,~E:Data,~P:Type,~Q:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,declaration:Declaration.Constructed<S,P,identity,project>,prepared:List<Batch.Prepared<S,Request.Packet<P>>>,handle:W.Handle<S>,error:Maybe<&2,W.WorldError>,cursor:Maybe<&2,Tick.Tick>,receipts:List<Journal.Receipt<W.World<S,Store,R,E>,Request.Packet<P>,Q>>,pending:List<Journal.Pending<Q>>,result:Cmp.SetResult<T.Tx<W.World<S,Store,R,E>,E>,P>) -> F.Frame<S,Store,R,E,P,Q,identity,project> & Output<P>:
   match result:
     case Cmp.Written{tx}:(F.Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,error,cursor,receipts,pending},Written{})
     case Cmp.WriteRejected{tx,owner,+reason}:(F.Frame{Request.Owner{Batch.Batch{tx,prepared},declaration},handle,Query.first_error(error,reason),cursor,receipts,pending},Refused{Some{owner},reason})

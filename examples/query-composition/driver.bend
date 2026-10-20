@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/change-tick.bend as Tick
 import ../../src/ecs/entity-key.bend as Key
 import schema.bend as S
 import gameplay.bend as G
@@ -30,10 +31,10 @@ def advanced_outcome(result: Q.Executed<S.World(),Q.Error<G.Error>,U32>) -> Sys.
   match result:
     case Q.Executed{world,T.Success{},+values}: Sys.Succeeded{world,values}
     case Q.Executed{world,T.Failure{_},_}: Sys.Failed{world,"UnexpectedLifecycleFailure"}
-def run_advanced(world: S.World(),cursor: U32) -> Sys.Outcome<S.World(),String,List<&2,U32>>:
+def run_advanced(world: S.World(),cursor: Maybe<&2,Tick.Tick>) -> Sys.Outcome<S.World(),String,List<&2,U32>>:
   advanced_outcome(D.advanced(world,cursor))
 def AdvancedRegistry() -> Type:
-  Sys.Registry<S.Schema,S.Store,Unit,Unit,U32,String,List<&2,U32>,run_advanced>
+  Sys.Registry<S.Schema,S.Store,Unit,Unit,Maybe<&2,Tick.Tick>,String,List<&2,U32>,run_advanced>
 type State is Type:
   State{factory: W.Factory,world: S.World(),work: WorkRegistry(),retry: RetryRegistry(),advanced: AdvancedRegistry(),checkpoints: List<&2,String>}
 type Owners is Type:
@@ -89,24 +90,24 @@ def duplicate_result(owners: Owners,result: Q.Executed<S.World(),Q.Error<G.Error
 def step_duplicate(state: State) -> State:
   match state:
     case State{factory,world,work,retry,advanced,+checkpoints}: duplicate_result(Owners{factory,work,retry,advanced,checkpoints},D.duplicate(world))
-def advanced_result(factory: W.Factory,work: WorkRegistry(),retry: RetryRegistry(),+checkpoints: List<&2,String>,+label: String,result: Sys.RunResult<S.Schema,S.Store,Unit,Unit,U32,String,List<&2,U32>,run_advanced>) -> State:
+def advanced_result(factory: W.Factory,work: WorkRegistry(),retry: RetryRegistry(),+checkpoints: List<&2,String>,+label: String,result: Sys.RunResult<S.Schema,S.Store,Unit,Unit,Maybe<&2,Tick.Tick>,String,List<&2,U32>,run_advanced>) -> State:
   match result:
     case Sys.Completed{advanced,Sys.Succeeded{world,+ids}}: State{factory,world,work,retry,advanced,("{\"label\":" ++ J.quoted(label) ++ ",\"ids\":" ++ J.numbers(ids) ++ "}") <> checkpoints}
     case Sys.Completed{advanced,Sys.Failed{world,error}}: State{factory,world,work,retry,advanced,("{\"label\":" ++ J.quoted(label) ++ ",\"error\":" ++ J.quoted(error) ++ "}") <> checkpoints}
     case Sys.RegistrationRejected{advanced,world,_}: State{factory,world,work,retry,advanced,"{\"unexpectedAdvancedRefusal\":true}" <> checkpoints}
 def advanced_cursor(factory: W.Factory,work: WorkRegistry(),retry: RetryRegistry(),advanced: AdvancedRegistry(),+checkpoints: List<&2,String>,+label: String,world: S.World()) -> State:
   match advanced:
-    case Sys.Registry{+namespace,+id,+name,+access,+cursor}: advanced_result(factory,work,retry,checkpoints,label,Sys.run_tracked(~S.Schema,~S.Store,~Unit,~Unit,~U32,~String,~List<&2,U32>,~run_advanced,Sys.Registry{namespace,id,name,access,cursor},world,cursor))
+    case Sys.Registry{+namespace,+id,+name,+access,+cursor}: advanced_result(factory,work,retry,checkpoints,label,Sys.run(~S.Schema,~S.Store,~Unit,~Unit,~Maybe<&2,Tick.Tick>,~String,~List<&2,U32>,~run_advanced,Sys.Registry{namespace,id,name,access,cursor},world,cursor))
 def step_advanced(state: State,+label: String) -> State:
   match state:
     case State{factory,world,work,retry,advanced,+checkpoints}: advanced_cursor(factory,work,retry,advanced,checkpoints,label,world)
-def init_advanced(factory: W.Factory,work: WorkRegistry(),retry: RetryRegistry(),result: Sys.RegistrationResult<S.Schema,S.Store,Unit,Unit,U32,String,List<&2,U32>,run_advanced>) -> Maybe<&1,State>:
+def init_advanced(factory: W.Factory,work: WorkRegistry(),retry: RetryRegistry(),result: Sys.RegistrationResult<S.Schema,S.Store,Unit,Unit,Maybe<&2,Tick.Tick>,String,List<&2,U32>,run_advanced>) -> Maybe<&1,State>:
   match result:
     case Sys.Registered{world,advanced}: Some{State{factory,world,work,retry,advanced,[]}}
     case _: None{}
 def init_retry(factory: W.Factory,work: WorkRegistry(),result: Sys.RegistrationResult<S.Schema,S.Store,Unit,Unit,G.RetryArgs,String,Unit,run_retry>) -> Maybe<&1,State>:
   match result:
-    case Sys.Registered{world,retry}: init_advanced(factory,work,retry,Sys.register(~S.Schema,~S.Store,~Unit,~Unit,~U32,~String,~List<&2,U32>,~run_advanced,world,"advanced-reader",["Stock.read","Queue.optional","Enabled.present","Locked.absent","Recipe.added","Stock.changed"]))
+    case Sys.Registered{world,retry}: init_advanced(factory,work,retry,Sys.register(~S.Schema,~S.Store,~Unit,~Unit,~Maybe<&2,Tick.Tick>,~String,~List<&2,U32>,~run_advanced,world,"advanced-reader",["Stock.read","Queue.optional","Enabled.present","Locked.absent","Recipe.added","Stock.changed"]))
     case _: None{}
 def init_work(factory: W.Factory,result: Sys.RegistrationResult<S.Schema,S.Store,Unit,Unit,Unit,String,Unit,run_work>) -> Maybe<&1,State>:
   match result:

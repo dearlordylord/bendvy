@@ -1,4 +1,5 @@
 import Base
+import ./clock-state.bend as Clock
 import ./deferred-command.bend as Deferred
 import entity-allocator.bend as Alloc
 import machine.bend as M
@@ -9,7 +10,7 @@ import world.bend as W
 def take_join(~S: Data,~K: Data,~V: Data,~C: Type,~R: Type,~E: Data,
   +ns: U32,allocator:Alloc.Allocator,
   store: C,split: R & M.Slot<S,K,V>,+events: List<&2,E>,commands:List<&1,Deferred.Command<W.World<S,C,R,E>>>,
-  +registrations: List<&2,W.RegistrationMeta>,+nextSystem: U32,+clock: U32
+  +registrations: List<&2,W.RegistrationMeta>,+nextSystem: U32,+clock:Clock.State
 ) -> W.World<S,C,R,E> & M.Slot<S,K,V>:
   (resources,slot)=split
   (W.World{ns,allocator,store,resources,events,commands,registrations,nextSystem,clock},slot)

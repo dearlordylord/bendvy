@@ -1,4 +1,6 @@
 import Base
+import ../../../../../src/ecs/change-tick.bend as Tick
+import ../../../../../src/ecs/clock-state.bend as Clock
 import motion-varint.bend as Var
 import motion-registration.bend as Reg
 import motion-domain.bend as D
@@ -82,7 +84,7 @@ def slot(value:Alloc.Slot,buffer:B.Buffer) -> B.Buffer:
     case Alloc.Slot{generation,value}:phase(value,u(generation,text("z",buffer)))
 def entry(value:Lifecycle.Entry,buffer:B.Buffer) -> B.Buffer:
   match value:
-    case Lifecycle.Entry{id,Lifecycle.Stamp{added,changed}}:u(changed,u(added,u(id,text("e",buffer))))
+    case Lifecycle.Entry{id,Lifecycle.Stamp{added,changed}}:string(Tick.cursor_show(changed),string(Tick.cursor_show(added),u(id,text("e",buffer))))
 def column(~A:Data,~encode:A -> B.Buffer -> B.Buffer,value:V.Column<A>,buffer:B.Buffer) -> B.Buffer:
   match value:
     case V.Plain{values,stamps}:list(~Lifecycle.Entry,~entry,stamps,tree(~Maybe<&2,A>,~option(~A,~encode),values,u(0,text("C",buffer))))
@@ -98,7 +100,7 @@ def unit(value:Unit,buffer:B.Buffer) -> B.Buffer:
     case Unit{}:text("0",buffer)
 def world(value:V.World,buffer:B.Buffer) -> B.Buffer:
   match value:
-    case V.World{namespace,allocation,V.Store{main,aux,flag},resource,sibling,events,count,kinds,registrations,nextSystem,clock}:u(clock,u(nextSystem,list(~W.RegistrationMeta,~registration,registrations,list(~U32,~u,kinds,n(count,list(~Nat,~n,events,unit(sibling,ledger(resource,column(~T.Selected,~selected,flag,column(~V.Velocity,~velocity,aux,column(~V.Position,~position,main,allocator(allocation,u(namespace,text("W",buffer))))))))))))))
+    case V.World{namespace,allocation,V.Store{main,aux,flag},resource,sibling,events,count,kinds,registrations,nextSystem,clock}:string(Tick.show(Clock.now(clock)),u(nextSystem,list(~W.RegistrationMeta,~registration,registrations,list(~U32,~u,kinds,n(count,list(~Nat,~n,events,unit(sibling,ledger(resource,column(~T.Selected,~selected,flag,column(~V.Velocity,~velocity,aux,column(~V.Position,~position,main,allocator(allocation,u(namespace,text("W",buffer))))))))))))))
 def local(value:V.Local,buffer:B.Buffer) -> B.Buffer:
   match value:
     case V.Local{namespace,id,name,access,owner}:tree(~U32,~u,owner,list(~String,~string,access,string(name,u(id,u(namespace,text("L",buffer))))))

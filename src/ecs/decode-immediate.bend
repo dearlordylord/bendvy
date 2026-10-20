@@ -25,7 +25,7 @@ def receipt(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,+target:W.Handle<S>,
 
 def installed(~S:Data,~C:Type,~R:Type,~E:Data,~P:Type,~Q:Type,+target:W.Handle<S>,undo:List<(W.World<S,C,R,E> -> W.World<S,C,R,E>)>,commands:List<Deferred.Command<W.World<S,C,R,E>>>,events:List<&2,E>,trace:TraceFacts.State,result:Install.Attempt<W.World<S,C,R,E>,Request.Packet<P>,Q>) -> T.Tx<W.World<S,C,R,E>,E> & (Result<&2,&2,W.WorldError,W.Handle<S>> & (Maybe<&1,Request.Packet<P>> & (Maybe<&1,Journal.Receipt<W.World<S,C,R,E>,Request.Packet<P>,Q>> & Maybe<&1,Journal.Pending<Q>>))):
   match result:
-    case Install.Installed{world,inverse}:receipt(~S,~C,~R,~E,~P,~Q,target,world,inverse,commands,events,trace,Batch.count_commands(~W.World<S,C,R,E>,undo))
+    case Install.Installed{world,inverse}:receipt(~S,~C,~R,~E,~P,~Q,target,world,inverse,commands,events,trace,Journal.count_inverses(~W.World<S,C,R,E>,undo))
     case Install.Refused{world,payload,error}:(T.Tx{deactivated(~S,~C,~R,~E,W.deactivate(~S,~C,~R,~E,world,target)),undo,commands,events,trace},(Fail{error},(Some{payload},(None{},None{}))))
     case Install.Quarantined{world,recovery,+error}:(T.Tx{world,undo,commands,events,trace},(Fail{error},(None{},(None{},Some{Journal.Pending{recovery,error}}))))
 

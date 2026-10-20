@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./ordinary-machine-initialization.bend as Init
 import ./ordinary-machine-declaration.bend as OD
 import ./ordinary-machine-handler-bundle.bend as Classic
@@ -35,9 +36,10 @@ def stream_put(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,
 def published(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,tick:Nat,event:M.Transition<V>,pair:W.World<S,C,R,E> & St.Stream<V>) -> W.World<S,C,R,E>:
   match pair:
     case (world,stream):stream_put(~S,~K,~V,~R,~take,~put,~C,~E,world,St.publish(~V,stream,tick,event))
-def publish_clocked(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,event:M.Transition<V>,pair:W.World<S,C,R,E> & U32) -> W.World<S,C,R,E>:
+def publish_clocked(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,event:M.Transition<V>,pair:W.World<S,C,R,E> & Tick.Tick) -> W.World<S,C,R,E>:
   match pair:
-    case (world,tick):published(~S,~K,~V,~R,~take,~put,~C,~E,U32.to_nat(tick),event,W.observe_resource(~S,~C,~R,~E,~St.Stream<V>,~(resource => stream_taken(~S,~K,~V,~R,~take,~put,~C,~E,take(resource))),world))
+    case (world,tick):published(~S,~K,~V,~R,~take,~put,~C,~E,Tick.total(tick),event,W.observe_resource(~S,~C,~R,~E,~St.Stream<V>,~(resource => stream_taken(~S,~K,~V,~R,~take,~put,~C,~E,take(resource))),world))
+# Stream publication advances administrative time independently of component run ticks.
 def publish(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,world:W.World<S,C,R,E>,event:M.Transition<V>) -> W.World<S,C,R,E>:
   publish_clocked(~S,~K,~V,~R,~take,~put,~C,~E,event,W.advance_clock(~S,~C,~R,~E,world))
 def last(~V:Data,items:List<&2,M.Transition<V>>,prior:Maybe<&2,M.Transition<V>>) -> Maybe<&2,M.Transition<V>>:
@@ -57,9 +59,9 @@ def opened(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put
 def open_stream(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,reader:St.Reader<S,K>,namespace:U32,+tick:Nat,pair:W.World<S,C,R,E> & St.Stream<V>) -> Opening<S,K,V,C,R,E>:
   match pair:
     case (world,stream):opened(~S,~K,~V,~R,~take,~put,~C,~E,world,tick,St.open(~S,~K,~V,reader,stream,namespace,tick))
-def open_clocked(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,reader:St.Reader<S,K>,namespace:U32,pair:W.World<S,C,R,E> & U32) -> Opening<S,K,V,C,R,E>:
+def open_clocked(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,reader:St.Reader<S,K>,namespace:U32,pair:W.World<S,C,R,E> & Tick.Tick) -> Opening<S,K,V,C,R,E>:
   match pair:
-    case (world,tick):open_stream(~S,~K,~V,~R,~take,~put,~C,~E,reader,namespace,U32.to_nat(tick),W.observe_resource(~S,~C,~R,~E,~St.Stream<V>,~(resource => stream_taken(~S,~K,~V,~R,~take,~put,~C,~E,take(resource))),world))
+    case (world,tick):open_stream(~S,~K,~V,~R,~take,~put,~C,~E,reader,namespace,Tick.total(tick),W.observe_resource(~S,~C,~R,~E,~St.Stream<V>,~(resource => stream_taken(~S,~K,~V,~R,~take,~put,~C,~E,take(resource))),world))
 def open_namespaced(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,reader:St.Reader<S,K>,pair:W.World<S,C,R,E> & U32) -> Opening<S,K,V,C,R,E>:
   match pair:
     case (world,namespace):open_clocked(~S,~K,~V,~R,~take,~put,~C,~E,reader,namespace,W.clock(~S,~C,~R,~E,world))
@@ -76,9 +78,9 @@ def opened_traced(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,
 def open_stream_traced(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,~name:String,reader:St.Reader<S,K>,namespace:U32,+tick:Nat,pair:W.World<S,C,R,E> & St.Stream<V>,trace:Facts.State) -> Opening<S,K,V,C,R,E> & Facts.State:
   match pair:
     case (world,stream):opened_traced(~S,~K,~V,~R,~take,~put,~C,~E,~name,world,tick,St.open(~S,~K,~V,reader,stream,namespace,tick),trace)
-def open_clocked_traced(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,~name:String,reader:St.Reader<S,K>,namespace:U32,pair:W.World<S,C,R,E> & U32,trace:Facts.State) -> Opening<S,K,V,C,R,E> & Facts.State:
+def open_clocked_traced(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,~name:String,reader:St.Reader<S,K>,namespace:U32,pair:W.World<S,C,R,E> & Tick.Tick,trace:Facts.State) -> Opening<S,K,V,C,R,E> & Facts.State:
   match pair:
-    case (world,tick):open_stream_traced(~S,~K,~V,~R,~take,~put,~C,~E,~name,reader,namespace,U32.to_nat(tick),W.observe_resource(~S,~C,~R,~E,~St.Stream<V>,~(resource => stream_taken(~S,~K,~V,~R,~take,~put,~C,~E,take(resource))),world),trace)
+    case (world,tick):open_stream_traced(~S,~K,~V,~R,~take,~put,~C,~E,~name,reader,namespace,Tick.total(tick),W.observe_resource(~S,~C,~R,~E,~St.Stream<V>,~(resource => stream_taken(~S,~K,~V,~R,~take,~put,~C,~E,take(resource))),world),trace)
 def open_namespaced_traced(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,~name:String,reader:St.Reader<S,K>,pair:W.World<S,C,R,E> & U32,trace:Facts.State) -> Opening<S,K,V,C,R,E> & Facts.State:
   match pair:
     case (world,namespace):open_clocked_traced(~S,~K,~V,~R,~take,~put,~C,~E,~name,reader,namespace,W.clock(~S,~C,~R,~E,world),trace)
@@ -90,9 +92,9 @@ def completed_stream(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S
 def complete_taken(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,reader:St.Reader<S,K>,tick:Nat,success:Bool,pair:W.World<S,C,R,E> & St.Stream<V>) -> W.World<S,C,R,E> & St.Reader<S,K>:
   match pair:
     case (world,stream):completed_stream(~S,~K,~V,~R,~take,~put,~C,~E,world,St.finish(~S,~K,~V,reader,stream,tick,success))
-def complete_clocked(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,reader:St.Reader<S,K>,success:Bool,pair:W.World<S,C,R,E> & U32) -> W.World<S,C,R,E> & St.Reader<S,K>:
+def complete_clocked(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,reader:St.Reader<S,K>,success:Bool,pair:W.World<S,C,R,E> & Tick.Tick) -> W.World<S,C,R,E> & St.Reader<S,K>:
   match pair:
-    case (world,tick):complete_taken(~S,~K,~V,~R,~take,~put,~C,~E,reader,U32.to_nat(tick),success,W.observe_resource(~S,~C,~R,~E,~St.Stream<V>,~(resource => stream_taken(~S,~K,~V,~R,~take,~put,~C,~E,take(resource))),world))
+    case (world,tick):complete_taken(~S,~K,~V,~R,~take,~put,~C,~E,reader,Tick.total(tick),success,W.observe_resource(~S,~C,~R,~E,~St.Stream<V>,~(resource => stream_taken(~S,~K,~V,~R,~take,~put,~C,~E,take(resource))),world))
 def complete(~S:Data,~K:Data,~V:Data,~R:Type,~take:R -> R & Init.State<S,K,V>,~put:R -> Init.State<S,K,V> -> R,~C:Type,~E:Data,reader:St.Reader<S,K>,success:Bool,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & St.Reader<S,K>:
   complete_clocked(~S,~K,~V,~R,~take,~put,~C,~E,reader,success,W.clock(~S,~C,~R,~E,world))
 type Owners<S:Data,K:Data,V:Data,Q:Data,C:Type,R:Type,E:Data,-runner:W.World<S,C,R,E> -> H.Invocation<V> -> Sys.Outcome<W.World<S,C,R,E>,String,Unit>> is Type:

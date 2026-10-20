@@ -1,4 +1,5 @@
 import Base
+import ../../../../src/ecs/change-tick.bend as Tick
 import ../method/method.bend as Method
 import ../../../../src/ecs/world.bend as W
 import ../../sparse-motion64/consumer/s-perf/canonical-api-v1/sparse-runtime-v1/types.bend as T
@@ -26,7 +27,7 @@ def registered(owner:Reg.Owners) -> Reg.Owners & String:
     case Reg.Owners{a,b,pub,meta,tick}:registered_join(tick,R.instance(a),R.instance(b),RO.publications(pub),RT.meta(meta))
 def registry(owner:D.Registry()) -> D.Registry() & String:
   match owner:
-    case Sys.Registry{+ns,+id,+name,+access,+cursor}:(Sys.Registry{ns,id,name,access,cursor},"namespace=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ O.audit_effect(name) ++ ";access=" ++ List.show(&2,String,O.audit_effect,access) ++ ";cursor=" ++ U32.show(cursor))
+    case Sys.Registry{+ns,+id,+name,+access,+cursor}:(Sys.Registry{ns,id,name,access,cursor},"namespace=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ O.audit_effect(name) ++ ";access=" ++ List.show(&2,String,O.audit_effect,access) ++ ";cursor=" ++ Tick.cursor_show(cursor))
 def maybe_handle(value:Maybe<&2,W.Handle<T.HealthSchema>>) -> String:
   match value:
     case None{}:"None"

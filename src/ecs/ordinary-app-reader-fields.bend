@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./world.bend as W
 import ./system.bend as Sys
 import ./transaction.bend as Tx
@@ -23,8 +24,8 @@ import ./ordinary-app-observation-data.bend as DTO
 def define_mixed(~S:Data,~C:Type,~R:Type,~P:Data,~F:Type,~H:Type,
   ~Reader:Type,~View:Data,~Delta:Type,~Args:Type,~Failure:Data,~Output:Type,
   ~validateFn:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> -> Reader -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & (Reader & Bool),
-  ~prepareFn:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> -> @+cursor:U32 -> Reader -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & (Reader & (View & Delta)),
-  ~commitFn:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> -> Reader -> Delta -> @+cursor:U32 -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & Reader,~releaseFn:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> -> Reader -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,
+  ~prepareFn:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> -> @+cursor:Maybe<&2,Tick.Tick> -> Reader -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & (Reader & (View & Delta)),
+  ~commitFn:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> -> Reader -> Delta -> @+cursor:Tick.Tick -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> & Reader,~releaseFn:Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>> -> Reader -> Route.Runtime<S,C,R,Notice.Notice<S,P>,Mixed.State<S,P,F,H>>,
   ~Ops:Type -> Type,
   ~body:@-K:Type -> @-caps:Ops(K) -> (View & Args) -> K -> K & (Tx.Outcome<Failure> & Output),
   ~grant:Ops(Tx.Tx<W.World<S,C,R,Notice.Notice<S,P>>,Notice.Notice<S,P>>),

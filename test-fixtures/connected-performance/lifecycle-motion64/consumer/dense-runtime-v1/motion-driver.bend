@@ -1,4 +1,5 @@
 import Base
+import ../../../../../src/ecs/change-tick.bend as Tick
 import motion.bend as F
 import types.bend as T
 import ../../../../../src/ecs/ordinary-system.bend as Ordinary
@@ -29,7 +30,7 @@ type Audit is Data:
 type Status is Data:
   Succeeded{}
   Failed{error:Q.Error<Unit>}
-  Rejected{cursor:U32}
+  Rejected{cursor:Maybe<&2,Tick.Tick>}
 type Shared is Type:
   Shared{audit:List<&2,Audit>,statuses:List<&2,Status>}
 def Runtime() -> Type:F.Owner() & Shared
@@ -46,18 +47,18 @@ def total(values:List<&2,U32>) -> U32:
     case head <> tail:U32.add(head,total(tail))
 def catalogued(result:Fields.Token<F.Registry()> & Fields.Fields<T.MotionSchema>) -> F.Owner() & Fields.Fields<T.MotionSchema>:
   match result:
-    case (token,+fields):(Fields.restore_component(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~(Unit & U32),~Q.Error<Unit>,~List<&2,U32>,~Ordinary.runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body),token,fields),fields)
-def catalog(owner:F.Owner()) -> F.Owner() & Fields.Fields<T.MotionSchema>:catalogued(Fields.component(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~(Unit & U32),~Q.Error<Unit>,~List<&2,U32>,~Ordinary.runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body),owner))
+    case (token,+fields):(Fields.restore_component(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~(Unit & Maybe<&2,Tick.Tick>),~Q.Error<Unit>,~List<&2,U32>,~Ordinary.runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body),token,fields),fields)
+def catalog(owner:F.Owner()) -> F.Owner() & Fields.Fields<T.MotionSchema>:catalogued(Fields.component(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~(Unit & Maybe<&2,Tick.Tick>),~Q.Error<Unit>,~List<&2,U32>,~Ordinary.runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body),owner))
 def fold(value:Runtime()) -> Runtime() & List<&2,Fields.Fields<T.MotionSchema>>:Existing.fold(~T.MotionSchema,~F.Owner(),~Shared,~catalog,value)
 def enabled(shared:Shared) -> Shared & Bool:(shared,True{})
 def plan(value:Runtime()) -> Runtime() & SP.Plan<T.MotionSchema>:Existing.plan(~T.MotionSchema,~F.Owner(),~Shared,~catalog,~enabled,~[],value)
 def provide(world:F.World()) -> F.World() & List<&2,SP.Requirement<T.MotionSchema>>:(world,[])
-def completed(trace:Facts.State,shared:Shared,slot:String,clauses:List<&2,Decl.Clause<T.MotionSchema>>,result:Sys.RunResult<T.MotionSchema,F.Store(),F.Resources(),Nat,Unit & U32,Q.Error<Unit>,List<&2,U32>,Ordinary.runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body)>) -> F.Owner() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Q.Error<Unit>,Unit>):
+def completed(trace:Facts.State,shared:Shared,slot:String,clauses:List<&2,Decl.Clause<T.MotionSchema>>,result:Sys.RunResult<T.MotionSchema,F.Store(),F.Resources(),Nat,Unit & Maybe<&2,Tick.Tick>,Q.Error<Unit>,List<&2,U32>,Ordinary.runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body)>) -> F.Owner() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Q.Error<Unit>,Unit>):
   match shared result:
     case Shared{audit,statuses},Sys.Completed{registry,Sys.Succeeded{world,+values}}:(Ordinary.Owner{registry,slot,clauses},(Shared{List.append(&2,Audit,audit,[Audit{values,total(values),List.length(&2,U32,values)}]),List.append(&2,Status,statuses,[Succeeded{}])},Sys.Succeeded{Ctx.Context{world,trace},Unit{}}))
     case Shared{audit,statuses},Sys.Completed{registry,Sys.Failed{world,+error}}:(Ordinary.Owner{registry,slot,clauses},(Shared{audit,List.append(&2,Status,statuses,[Failed{error}])},Sys.Failed{Ctx.Context{world,trace},error}))
     case Shared{audit,statuses},Sys.RegistrationRejected{registry,world,(_,cursor)}:(Ordinary.Owner{registry,slot,clauses},(Shared{audit,List.append(&2,Status,statuses,[Rejected{cursor}])},Sys.Failed{Ctx.Context{world,trace},Q.UserError{Unit{}}}))
-def ran(trace:Facts.State,shared:Shared,observed:Sys.RunResult<T.MotionSchema,F.Store(),F.Resources(),Nat,Unit & U32,Q.Error<Unit>,List<&2,U32>,Ordinary.runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body)> & (String & List<&2,Decl.Clause<T.MotionSchema>>)) -> F.Owner() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Q.Error<Unit>,Unit>):
+def ran(trace:Facts.State,shared:Shared,observed:Sys.RunResult<T.MotionSchema,F.Store(),F.Resources(),Nat,Unit & Maybe<&2,Tick.Tick>,Q.Error<Unit>,List<&2,U32>,Ordinary.runner(~T.MotionSchema,~F.Store(),~F.Resources(),~Nat,~F.Ops,~Unit,~Unit,~U32,~F.declaration(),~F.body)> & (String & List<&2,Decl.Clause<T.MotionSchema>>)) -> F.Owner() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Q.Error<Unit>,Unit>):
   match observed:
     case (result,(slot,clauses)):completed(trace,shared,slot,clauses,result)
 def invoke(owner:F.Owner(),shared:Shared,context:Ctx.Context<F.World()>) -> F.Owner() & (Shared & Sys.Outcome<Ctx.Context<F.World()>,Q.Error<Unit>,Unit>):

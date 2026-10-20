@@ -1,4 +1,6 @@
 import Base
+import ../../../../../src/ecs/change-tick.bend as Tick
+import ../../../../../src/ecs/clock-state.bend as Clock
 import motion-logical.bend as Logical
 import render.bend as JSON
 import ../../../../../src/ecs/inspector-query-projection.bend as Projection
@@ -56,12 +58,12 @@ def resources_join(unit:Unit,observed:T.MotionLedger & String) -> F.Resources() 
 def resources(owner:F.Resources()) -> F.Resources() & String:
   match owner:
     case Product.Owner{value,unit}:resources_join(unit,ledger(value))
-def world_join(+namespace:U32,+events:List<&2,Nat>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:U32,observedAllocator:Alloc.Allocator & String,observedStore:F.Store() & String,observedResource:F.Resources() & String,observedPending:List<Deferred.Command<F.World()>> & (Nat & String)) -> F.World() & String:
+def world_join(+namespace:U32,+events:List<&2,Nat>,+registrations:List<&2,W.RegistrationMeta>,+nextSystem:U32,+clock:Clock.State,observedAllocator:Alloc.Allocator & String,observedStore:F.Store() & String,observedResource:F.Resources() & String,observedPending:List<Deferred.Command<F.World()>> & (Nat & String)) -> F.World() & String:
   (allocator,sa)=observedAllocator
   (store,ss)=observedStore
   (resource,sr)=observedResource
   (pending,(count,kinds))=observedPending
-  (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,clock},"namespace=" ++ U32.show(namespace) ++ "|allocator={" ++ sa ++ "}|store={" ++ ss ++ "}|resource={" ++ sr ++ "}|events=" ++ List.show(&2,Nat,Nat.show,events) ++ "|pending=" ++ Nat.show(count) ++ ":" ++ kinds ++ "|registrations=" ++ List.show(&2,W.RegistrationMeta,Dump.registration,registrations) ++ "|nextSystem=" ++ U32.show(nextSystem) ++ "|clock=" ++ U32.show(clock))
+  (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystem,clock},"namespace=" ++ U32.show(namespace) ++ "|allocator={" ++ sa ++ "}|store={" ++ ss ++ "}|resource={" ++ sr ++ "}|events=" ++ List.show(&2,Nat,Nat.show,events) ++ "|pending=" ++ Nat.show(count) ++ ":" ++ kinds ++ "|registrations=" ++ List.show(&2,W.RegistrationMeta,Dump.registration,registrations) ++ "|nextSystem=" ++ U32.show(nextSystem) ++ "|clock=" ++ Tick.show(Clock.now(clock)))
 def world(owner:F.World()) -> F.World() & String:
   match owner:
     case W.World{namespace,allocator,stored,resource,events,pending,registrations,nextSystem,clock}:world_join(namespace,events,registrations,nextSystem,clock,Gen.allocator(allocator),store(stored),resources(resource),Dump.callbacks(~F.World(),~F.World(),pending))
@@ -79,7 +81,7 @@ def clause(value:Decl.Clause<T.MotionSchema>) -> String:
     case Decl.Clause{key,value}:key ++ ":" ++ mode(value)
 def owner(value:F.Owner()) -> F.Owner() & String:
   match value:
-    case Ordinary.Owner{Sys.Registry{+ns,+id,+name,+access,+cursor},+slot,+clauses}:(Ordinary.Owner{Sys.Registry{ns,id,name,access,cursor},slot,clauses},"ns=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";access=" ++ List.show(&2,String,x=>x,access) ++ ";cursor=" ++ U32.show(cursor) ++ ";slot=" ++ slot ++ ";clauses=" ++ List.show(&2,Decl.Clause<T.MotionSchema>,clause,clauses))
+    case Ordinary.Owner{Sys.Registry{+ns,+id,+name,+access,+cursor},+slot,+clauses}:(Ordinary.Owner{Sys.Registry{ns,id,name,access,cursor},slot,clauses},"ns=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";access=" ++ List.show(&2,String,x=>x,access) ++ ";cursor=" ++ Tick.cursor_show(cursor) ++ ";slot=" ++ slot ++ ";clauses=" ++ List.show(&2,Decl.Clause<T.MotionSchema>,clause,clauses))
 def error(value:W.WorldError) -> String:
   match value:
     case W.MissingEntity{}:"MissingEntity"
@@ -91,7 +93,7 @@ def status(value:Driver.Status) -> String:
     case Driver.Succeeded{}:"Succeeded"
     case Driver.Failed{Q.UserError{_}}:"UserError(Unit)"
     case Driver.Failed{Q.AccessError{reason}}:"AccessError(" ++ error(reason) ++ ")"
-    case Driver.Rejected{cursor}:"RegistrationRejected(" ++ U32.show(cursor) ++ ")"
+    case Driver.Rejected{cursor}:"RegistrationRejected(" ++ Tick.cursor_show(cursor) ++ ")"
 def audit(value:Driver.Audit) -> String:
   match value:
     case Driver.Audit{values,total,count}:"values=" ++ List.show(&2,U32,U32.show,values) ++ ";readsum=" ++ U32.show(total) ++ ";updated=" ++ Nat.show(count)

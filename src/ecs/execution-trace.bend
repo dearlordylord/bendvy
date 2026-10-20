@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./trace-facts.bend as Facts
 
 # Detached copied facts. No World, registration, cursor or stream owner is held.
@@ -23,7 +24,7 @@ type Completion<Error:Data> is Data:
 type TraceEvent<Error:Data> is Data:
   ScheduleStarted{namespace:U32,name:String}
   PhaseEntered{name:String}
-  SystemCompleted{identity:Identity,before:U32,after:U32,status:Status<Error>}
+  SystemCompleted{identity:Identity,before:Tick.Tick,after:Tick.Tick,status:Status<Error>}
   OperationObserved{identity:Identity,fact:Facts.Fact}
   BarrierOperationObserved{fact:Facts.Fact}
   ExecutionOperationObserved{fact:Facts.Fact}

@@ -1,4 +1,5 @@
 import Base
+import ../../../../src/ecs/change-tick.bend as Tick
 import motion-report-doc.bend as Doc
 import motion-doc-world.bend as DocWorld
 import motion.bend as F
@@ -84,7 +85,7 @@ def owners(value:P.all_owner()) -> P.all_owner() & String:
     case (Unit{},(Unit{},(Unit{},(a,(b,c))))):owners_join(ping_owner(a),removed_owner(b),despawned_owner(c))
 def provider_registry(owner:P.all_owner(),text:String,+access:List<&2,String>,unit:Unit,registry:Reader.Registry()) -> Reader.Provider() & String:
   match registry:
-    case Sys.Registry{+ns,+id,+name,+uses,+cursor}:(Ordinary.Provider{Sys.Registry{ns,id,name,uses,cursor},owner,RP.Param{access},unit},"registry={ns=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";access=" ++ List.show(&2,String,x=>x,uses) ++ ";cursor=" ++ U32.show(cursor) ++ "};parameter=" ++ List.show(&2,String,x=>x,access) ++ ";declaration=Unit;owners={" ++ text ++ "}")
+    case Sys.Registry{+ns,+id,+name,+uses,+cursor}:(Ordinary.Provider{Sys.Registry{ns,id,name,uses,cursor},owner,RP.Param{access},unit},"registry={ns=" ++ U32.show(ns) ++ ";id=" ++ U32.show(id) ++ ";name=" ++ name ++ ";access=" ++ List.show(&2,String,x=>x,uses) ++ ";cursor=" ++ Tick.cursor_show(cursor) ++ "};parameter=" ++ List.show(&2,String,x=>x,access) ++ ";declaration=Unit;owners={" ++ text ++ "}")
 def provider_join(registry:Reader.Registry(),+access:List<&2,String>,unit:Unit,observed:P.all_owner() & String) -> Reader.Provider() & String:
   (owner,text)=observed
   provider_registry(owner,text,access,unit,registry)
@@ -102,7 +103,7 @@ def raw_view(value:P.all_raw_view()) -> String:
     case RP.ViewPair{QP.Rows{rows},RP.ViewPair{QP.Rows{added},RP.ViewPair{QP.Rows{changed},RP.ViewPair{ping,RP.ViewPair{removed,despawned}}}}}:"rows=" ++ List.show(&2,IQ.ProjectedRow<T.MotionSchema,Logical.Value()>,O.row,rows) ++ ";added=" ++ List.show(&2,IQ.ProjectedRow<T.MotionSchema,Projection.Product<Unit,Logical.Value()>>,added_row,added) ++ ";changed=" ++ List.show(&2,IQ.ProjectedRow<T.MotionSchema,Projection.Product<Unit,Logical.Value()>>,added_row,changed) ++ ";ping={" ++ event_view(ping) ++ "};removed={" ++ event_view(removed) ++ "};despawned={" ++ event_view(despawned) ++ "}"
 def doc_view(value:P.all_view()) -> Doc.Doc:
   match value:
-    case P.PreparedView{raw,cursor,ping,removed,despawned,running}:Doc.concat([Doc.text("queryCursor=" ++ U32.show(cursor) ++ ";readThroughPing=" ++ Nat.show(ping) ++ ";readThroughRemoved=" ++ Nat.show(removed) ++ ";readThroughDespawned=" ++ Nat.show(despawned) ++ ";runningContext={"),running,Doc.text("};" ++ raw_view(raw))])
+    case P.PreparedView{raw,cursor,ping,removed,despawned,running}:Doc.concat([Doc.text("queryCursor=" ++ Tick.cursor_show(cursor) ++ ";readThroughPing=" ++ Nat.show(ping) ++ ";readThroughRemoved=" ++ Nat.show(removed) ++ ";readThroughDespawned=" ++ Nat.show(despawned) ++ ";runningContext={"),running,Doc.text("};" ++ raw_view(raw))])
 def view(value:P.all_view()) -> String:Doc.flatten(doc_view(value))
 def doc_read(value:Reader.Read) -> Doc.Doc:
   match value:

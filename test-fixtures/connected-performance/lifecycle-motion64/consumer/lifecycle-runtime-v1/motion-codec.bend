@@ -1,4 +1,6 @@
 import Base
+import ../../../../../src/ecs/change-tick.bend as Tick
+import ../../../../../src/ecs/clock-state.bend as Clock
 import motion-app.bend as EntryApp
 import motion-varint.bend as Var
 import motion-registration.bend as Reg
@@ -88,7 +90,7 @@ def slot(value:Alloc.Slot) -> R.Rope:
     case Alloc.Slot{generation,value}:cat([text("z"),u(generation),phase(value)])
 def entry(value:Lifecycle.Entry) -> R.Rope:
   match value:
-    case Lifecycle.Entry{id,Lifecycle.Stamp{added,changed}}:cat([text("e"),u(id),u(added),u(changed)])
+    case Lifecycle.Entry{id,Lifecycle.Stamp{added,changed}}:cat([text("e"),u(id),string(Tick.cursor_show(added)),string(Tick.cursor_show(changed))])
 def column(~A:Data,~encode:A -> R.Rope,value:V.Column<A>) -> R.Rope:
   match value:
     case V.Plain{values,stamps}:cat([text("C"),u(0),tree(~Maybe<&2,A>,~option(~A,~encode),values),list(~Lifecycle.Entry,~entry,stamps)])
@@ -104,7 +106,7 @@ def unit(value:Unit) -> R.Rope:
     case Unit{}:text("0")
 def world(value:V.World) -> R.Rope:
   match value:
-    case V.World{namespace,allocation,V.Store{main,aux,flag},resource,sibling,events,count,kinds,registrations,nextSystem,clock}:cat([text("W"),u(namespace),allocator(allocation),column(~V.Position,~position,main),column(~V.Velocity,~velocity,aux),column(~T.Selected,~selected,flag),ledger(resource),unit(sibling),list(~Nat,~n,events),n(count),list(~U32,~u,kinds),list(~W.RegistrationMeta,~registration,registrations),u(nextSystem),u(clock)])
+    case V.World{namespace,allocation,V.Store{main,aux,flag},resource,sibling,events,count,kinds,registrations,nextSystem,clock}:cat([text("W"),u(namespace),allocator(allocation),column(~V.Position,~position,main),column(~V.Velocity,~velocity,aux),column(~T.Selected,~selected,flag),ledger(resource),unit(sibling),list(~Nat,~n,events),n(count),list(~U32,~u,kinds),list(~W.RegistrationMeta,~registration,registrations),u(nextSystem),string(Tick.show(Clock.now(clock)))])
 def local(value:V.Local) -> R.Rope:
   match value:
     case V.Local{namespace,id,name,access,owner}:cat([text("L"),u(namespace),u(id),string(name),list(~String,~string,access),tree(~U32,~u,owner)])

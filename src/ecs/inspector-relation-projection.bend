@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import inspector-query-projection.bend as Select
 import inspector-query.bend as Query
 import inspector-query-frame-world.bend as Traverse
@@ -10,7 +11,7 @@ import relation-query.bend as RQ
 
 # Real Inspector Frame, not a fabricated transaction. Graph is detached Data;
 # Store components/resources remain arbitrary affine Type owners.
-def graph_joined(~S:Data,~C:Type,~R:Type,~E:Data,cursor:U32,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & G.Graph<S>) -> I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>> & G.Graph<S>:
+def graph_joined(~S:Data,~C:Type,~R:Type,~E:Data,cursor:Maybe<&2,Tick.Tick>,observed:W.World<S,A.Store<S,C>,R,A.Notice<S,E>> & G.Graph<S>) -> I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>> & G.Graph<S>:
   (world,graph)=observed
   (I.Frame{world,cursor},graph)
 def graph(~S:Data,~C:Type,~R:Type,~E:Data,frame:I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>>) -> I.Frame<S,A.Store<S,C>,R,A.Notice<S,E>> & G.Graph<S>:

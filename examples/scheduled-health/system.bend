@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/change-tick.bend as Tick
 import components.bend as D
 import schema.bend as S
 import ../../src/ecs/column.bend as Col
@@ -48,11 +49,11 @@ def adapted(~H:Type,ops:PairOps(H)) -> Ops<H>:
     case (health,decay):Ops{health,decay}
 def decay_body(~H:Type,~ops:PairOps(H),args:Unit,ctx:H) -> H & (T.Outcome<Error> & D.Health):
   apply_decay(~H,~adapted(~H,ops),args,ctx)
-def Runner() -> S.World() -> (Unit & U32) -> Registry.Outcome<S.World(),Q.Error<Error>,List<&2,D.Health>>:
+def Runner() -> S.World() -> (Unit & Maybe<&2,Tick.Tick>) -> Registry.Outcome<S.World(),Q.Error<Error>,List<&2,D.Health>>:
   Ordinary.runner(~S.Schema,~S.Store,~Unit,~Unit,~PairOps,~Unit,~Error,~D.Health,~declaration(),~decay_body)
 def Owner() -> Type:
-  Ordinary.Owner<S.Schema,Registry.Registry<S.Schema,S.Store,Unit,Unit,Unit & U32,Q.Error<Error>,List<&2,D.Health>,Runner()>>
-def define(world:S.World()) -> Ordinary.Defined<S.Schema,S.World(),Registry.Registry<S.Schema,S.Store,Unit,Unit,Unit & U32,Q.Error<Error>,List<&2,D.Health>,Runner()>>:
+  Ordinary.Owner<S.Schema,Registry.Registry<S.Schema,S.Store,Unit,Unit,Unit & Maybe<&2,Tick.Tick>,Q.Error<Error>,List<&2,D.Health>,Runner()>>
+def define(world:S.World()) -> Ordinary.Defined<S.Schema,S.World(),Registry.Registry<S.Schema,S.Store,Unit,Unit,Unit & Maybe<&2,Tick.Tick>,Q.Error<Error>,List<&2,D.Health>,Runner()>>:
   Ordinary.define(~S.Schema,~S.Store,~Unit,~Unit,~PairOps,~Unit,~Error,~D.Health,~declaration(),~decay_body,world,"Health decay","decay")
-def tick(owner:Owner(),world:S.World()) -> Registry.RunResult<S.Schema,S.Store,Unit,Unit,Unit & U32,Q.Error<Error>,List<&2,D.Health>,Runner()> & (String & List<&2,Decl.Clause<S.Schema>>):
+def tick(owner:Owner(),world:S.World()) -> Registry.RunResult<S.Schema,S.Store,Unit,Unit,Unit & Maybe<&2,Tick.Tick>,Q.Error<Error>,List<&2,D.Health>,Runner()> & (String & List<&2,Decl.Clause<S.Schema>>):
   Ordinary.run(~S.Schema,~S.Store,~Unit,~Unit,~PairOps,~Unit,~Error,~D.Health,~declaration(),~decay_body,owner,world,Unit{})

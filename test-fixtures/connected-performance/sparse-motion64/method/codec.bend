@@ -1,4 +1,5 @@
 import Base
+import ../../../../src/ecs/change-tick.bend as Tick
 import common.bend as C
 import ../consumer/s-perf/canonical-api-v1/sparse-runtime-v1/motion-scans.bend as Scans
 import ../consumer/s-perf/canonical-api-v1/sparse-runtime-v1/types.bend as T
@@ -106,11 +107,15 @@ def error(value:Q.Error<Unit>) -> List<&2,U32>:
   match value:
     case Q.UserError{_}:[0]
     case Q.AccessError{reason}:[1,world_error(reason)]
+def cursor_words(value:String) -> List<&2,U32>:
+  match value:
+    case SNil{}:[]
+    case SCon{char,rest}:Char.to_u32(char) <> cursor_words(rest)
 def status(value:Driver.Status) -> List<&2,U32>:
   match value:
     case Driver.Succeeded{}:[0]
     case Driver.Failed{reason}:1 <> error(reason)
-    case Driver.Rejected{cursor}:[2,cursor]
+    case Driver.Rejected{cursor}:2 <> cursor_words(Tick.cursor_show(cursor))
 def encode(value:C.Common) -> List<&2,U32>:
   match value:
     case C.Common{rows,resource,+audits,statuses,cumulative}:cat(list(~IQ.ProjectedRow<T.MotionSchema,Logical.Value()>,~row,rows),cat(ledger(resource),cat(cat(natural(List.length(&2,Driver.Audit,audits)),audit_body(audits,0)),cat(list(~Driver.Status,~status,statuses),[U32.sub(cumulative,all_delta(audits))]))))

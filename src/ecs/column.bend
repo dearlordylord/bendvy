@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import lifecycle.bend as L
 import owner-handoff.bend as H
 import indexed-lifecycle.bend as M
@@ -131,10 +132,10 @@ def indexed_lifecycle_state(~S:Data,~C:Type,+id:U32,state:IndexedOrdinaryState<S
 def indexed_restore_state(~S:Data,~C:Type,+id:U32,stamp:L.Stamp,state:IndexedOrdinaryState<S,C>) -> Column<S,C>:
   match state:
     case IndexedOrdinaryState{values,metadata}: indexed_wrap(~S,~C,values,M.set(metadata,id,stamp))
-def indexed_mark_got(~S:Data,~C:Type,+id:U32,incoming:Bool,wasPresent:Bool,tick:U32,values:Array<Maybe<&1,C>>,result:M.Metadata & L.Stamp) -> Column<S,C>:
+def indexed_mark_got(~S:Data,~C:Type,+id:U32,incoming:Bool,wasPresent:Bool,tick:Tick.Tick,values:Array<Maybe<&1,C>>,result:M.Metadata & L.Stamp) -> Column<S,C>:
   match result:
     case (metadata,stamp): indexed_wrap(~S,~C,values,M.set(metadata,id,L.after_write(incoming,wasPresent,stamp,tick)))
-def indexed_mark_state(~S:Data,~C:Type,+id:U32,incoming:Bool,wasPresent:Bool,tick:U32,state:IndexedOrdinaryState<S,C>) -> Column<S,C>:
+def indexed_mark_state(~S:Data,~C:Type,+id:U32,incoming:Bool,wasPresent:Bool,tick:Tick.Tick,state:IndexedOrdinaryState<S,C>) -> Column<S,C>:
   match state:
     case IndexedOrdinaryState{values,metadata}: indexed_mark_got(~S,~C,id,incoming,wasPresent,tick,values,M.get(metadata,id))
 def indexed_clear_state(~S:Data,~C:Type,+id:U32,state:IndexedOrdinaryState<S,C>) -> Column<S,C>:
@@ -511,16 +512,16 @@ def restore_stamp(~S: Data,~C: Type,column: Column<S,C>,+id: U32,stamp: L.Stamp)
     case Indexed{carrier}: indexed_restore_state(~S,~C,id,stamp,indexed_unseal(~S,~C,carrier))
     case PreparedIndexed{carrier}: indexed_prepared_restore_state(~S,~C,id,stamp,indexed_prepared_unseal(~S,~C,carrier))
 
-def mark_state(~S:Data,~C:Type,+id:U32,incoming:Bool,wasPresent:Bool,tick:U32,state:State<S,C>) -> Column<S,C>:
+def mark_state(~S:Data,~C:Type,+id:U32,incoming:Bool,wasPresent:Bool,tick:Tick.Tick,state:State<S,C>) -> Column<S,C>:
   match state:
     case State{values,+stamps,capacity,current,owner,remaining,past}: Prepared{Owned{State{values,L.set(stamps,id,L.after_write(incoming,wasPresent,L.get(stamps,id),tick)),capacity,current,owner,remaining,past}}}
-def indexed_prepared_mark_got(~S:Data,~C:Type,+id:U32,incoming:Bool,wasPresent:Bool,tick:U32,values:Array<Maybe<&1,C>>,capacity:U32,current:U32,owner:Maybe<&1,C>,remaining:H.PrototypeHandoffRows<S,C>,past:History<S,C>,result:M.Metadata & L.Stamp) -> Column<S,C>:
+def indexed_prepared_mark_got(~S:Data,~C:Type,+id:U32,incoming:Bool,wasPresent:Bool,tick:Tick.Tick,values:Array<Maybe<&1,C>>,capacity:U32,current:U32,owner:Maybe<&1,C>,remaining:H.PrototypeHandoffRows<S,C>,past:History<S,C>,result:M.Metadata & L.Stamp) -> Column<S,C>:
   match result:
     case (metadata,stamp): PreparedIndexed{IndexedPreparedOwned{IndexedPreparedState{values,M.set(metadata,id,L.after_write(incoming,wasPresent,stamp,tick)),capacity,current,owner,remaining,past}}}
-def indexed_prepared_mark_state(~S:Data,~C:Type,+id:U32,incoming:Bool,wasPresent:Bool,tick:U32,state:IndexedPreparedState<S,C>) -> Column<S,C>:
+def indexed_prepared_mark_state(~S:Data,~C:Type,+id:U32,incoming:Bool,wasPresent:Bool,tick:Tick.Tick,state:IndexedPreparedState<S,C>) -> Column<S,C>:
   match state:
     case IndexedPreparedState{values,metadata,capacity,current,owner,remaining,past}: indexed_prepared_mark_got(~S,~C,id,incoming,wasPresent,tick,values,capacity,current,owner,remaining,past,M.get(metadata,id))
-def mark(~S: Data,~C: Type,column: Column<S,C>,+id: U32,incoming: Bool,wasPresent: Bool,tick: U32) -> Column<S,C>:
+def mark(~S: Data,~C: Type,column: Column<S,C>,+id: U32,incoming: Bool,wasPresent: Bool,tick: Tick.Tick) -> Column<S,C>:
   match column:
     case Column{values,+stamps}: Column{values,L.set(stamps,id,L.after_write(incoming,wasPresent,L.get(stamps,id),tick))}
     case Prepared{carrier}: mark_state(~S,~C,id,incoming,wasPresent,tick,unseal(~S,~C,carrier))

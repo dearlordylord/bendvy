@@ -35,7 +35,7 @@ def presented(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~take:R -> R & M.S
 # optional vocabulary. Returns World; the retained slot projector/render function
 # are trusted setup, not a newly validated arbitrary resource adapter.
 def observe(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~take:R -> R & M.Slot<S,K,V>,~declaration:OD.Declaration<S,K,V,R,take>,~render:V -> String,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & DTO.Observation<M.CurrentView<S,K,V>>:
-  presented(~S,~K,~V,~C,~R,~E,~take,~declaration,~render,OD.get(~I.Frame<S,C,R,E>,~S,~K,~V,~OD.inspect(~S,~K,~V,~C,~R,~E,~take,~declaration),I.Frame{world,0}))
+  presented(~S,~K,~V,~C,~R,~E,~take,~declaration,~render,OD.get(~I.Frame<S,C,R,E>,~S,~K,~V,~OD.inspect(~S,~K,~V,~C,~R,~E,~take,~declaration),I.Frame{world,None{}}))
 # Advanced observer attachment pairing prior rows with declared machine current
 # view. Retains World, registration owners and debug; does not create machine state.
 def attach(~S:Data,~K:Data,~V:Data,~C:Type,~R:Type,~E:Data,~take:R -> R & M.Slot<S,K,V>,~declaration:OD.Declaration<S,K,V,R,take>,~render:V -> String,~Owners:Type,~Rows:Data,~prior:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Fields.Fields<S>>,app:Build.Registered<S,W.World<S,C,R,E>,Owners,Rows,prior,fold>) -> Build.Registered<S,W.World<S,C,R,E>,Owners,DTO.Product<Rows,M.CurrentView<S,K,V>>,Tree.observe_pair(~W.World<S,C,R,E>,~Rows,~M.CurrentView<S,K,V>,~prior,~observe(~S,~K,~V,~C,~R,~E,~take,~declaration,~render)),fold>:

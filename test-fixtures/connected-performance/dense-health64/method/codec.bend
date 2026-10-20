@@ -1,4 +1,5 @@
 import Base
+import ../../../../src/ecs/change-tick.bend as Tick
 import common.bend as C
 import ../../dense-motion64/consumer/s-perf/canonical-api-v1/dense-runtime-v1/types.bend as T
 import ../consumer/health-driver.bend as Driver
@@ -70,11 +71,15 @@ def error(value:Q.Error<Unit>) -> List<&2,U32>:
   match value:
     case Q.UserError{_}:[0]
     case Q.AccessError{reason}:[1,world_error(reason)]
+def cursor_words(value:String) -> List<&2,U32>:
+  match value:
+    case SNil{}:[]
+    case SCon{char,rest}:Char.to_u32(char) <> cursor_words(rest)
 def status(value:Driver.Status) -> List<&2,U32>:
   match value:
     case Driver.Succeeded{}:[0]
     case Driver.Failed{reason}:1 <> error(reason)
-    case Driver.Rejected{cursor}:[2,cursor]
+    case Driver.Rejected{cursor}:2 <> cursor_words(Tick.cursor_show(cursor))
 def encode(value:C.Common) -> List<&2,U32>:
   match value:
     case C.Common{rows,resource,audits,statuses}:cat(list(~IQ.ProjectedRow<T.HealthSchema,Logical.Value()>,~row,rows),cat(ledger(resource),cat(list(~Driver.Audit,~audit,audits),list(~Driver.Status,~status,statuses))))

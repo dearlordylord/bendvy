@@ -1,4 +1,5 @@
 import Base
+import ../../src/ecs/ordinary-app-schema.bend as SchemaApp
 import ./schema.bend as S
 import ./body.bend as B
 import ./payload.bend as P
@@ -52,5 +53,10 @@ def run(~Schema:Data,app:Scheduled(~Schema)) -> Execution.Run<Scheduled(~Schema)
 def retry_owners(~Schema:Data,value:Owners(~Schema),args:B.Args) -> Owners(~Schema):
   match value:
     case (prior,invocation):(prior,Captured.with_arguments(~Schema,~S.Store(~Schema),~Unit,~Unit,~P.Pack,~B.Ops,~B.Args,~B.Error,~B.Row,~B.query(~Schema),~B.body,invocation,args))
+# A completed error consumes the lifecycle run tick as in Bevy. Retry therefore
+# supplies a new component-change input instead of rewinding the reader cursor.
+def requeue_for_retry(~Schema:Data,app:Scheduled(~Schema)) -> Scheduled(~Schema):
+  match app:
+    case Entry.Application{Schedule.Application{SchemaApp.Application{schema,Build.Registered{world,owners,recipe,debug}},selected,ns,name,steps,needs},execution}:Entry.Application{Schedule.Application{SchemaApp.Application{schema,Build.Registered{S.refresh(~Schema,world),owners,recipe,debug}},selected,ns,name,steps,needs},execution}
 def retry(~Schema:Data,app:Scheduled(~Schema)) -> Scheduled(~Schema):
-  Entry.update_owners(~Schema,~S.Store(~Schema),~Unit,~Unit,~Owners(~Schema),~Rows(~Schema),~observe(~Schema),~fold(~Schema),~ErrorType(),~plan(~Schema),~dispatch(~Schema),~provide(~Schema),~B.Args,~retry_owners(~Schema),app,B.Args{999})
+  requeue_for_retry(~Schema,Entry.update_owners(~Schema,~S.Store(~Schema),~Unit,~Unit,~Owners(~Schema),~Rows(~Schema),~observe(~Schema),~fold(~Schema),~ErrorType(),~plan(~Schema),~dispatch(~Schema),~provide(~Schema),~B.Args,~retry_owners(~Schema),app,B.Args{999}))

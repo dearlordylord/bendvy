@@ -56,3 +56,18 @@ def handles(~S:Data,result:World(~S) & List<&2,W.Handle<S>>) -> World(~S) & Stri
   match result:
     case (world,values):listed(~S,collect(~S,values,world,[]))
 def observe(~S:Data,world:World(~S)) -> World(~S) & String:handles(~S,W.handles(~S,~Store(~S),~Unit,~Unit,world))
+
+# Re-submit unchanged values as explicit new input after a failed Changed run.
+# The actual handles come from this World; no numeric identities are fabricated.
+def refresh_value(~S:Data,target:W.Handle<S>,observed:World(~S) & C.Access<P.Tree>) -> World(~S):
+  match observed:
+    case (world,C.Found{value}):populate(~S,world,target,P.array(value))
+    case (world,_):world
+def refresh_handles(~S:Data,handles:List<&2,W.Handle<S>>,world:World(~S)) -> World(~S):
+  match handles:
+    case []:world
+    case +target <> rest:refresh_handles(~S,rest,refresh_value(~S,target,C.get(~S,~Store(~S),~Unit,~Unit,~Unit,~Array<U32>,~P.Tree,~Token,~take(~S),~put(~S),~P.observe,family(~S),world,target)))
+def refresh_observed(~S:Data,observed:World(~S) & List<&2,W.Handle<S>>) -> World(~S):
+  (world,handles)=observed
+  refresh_handles(~S,handles,world)
+def refresh(~S:Data,world:World(~S)) -> World(~S):refresh_observed(~S,W.handles(~S,~Store(~S),~Unit,~Unit,world))

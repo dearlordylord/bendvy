@@ -1,4 +1,5 @@
 import Base
+import ./change-tick.bend as Tick
 import ./deferred-command.bend as Deferred
 import ./trace-facts.bend as TraceFacts
 import world.bend as W
@@ -14,7 +15,7 @@ import lifecycle.bend as L
 # error and invocation cursor. Ordinary gameplay receives opaque H instead of raw
 # Frame fields; constructing one does not establish handle validity or authority.
 type Frame<-S: Data,-Store: Type,-R: Type,-E: Data> is Type:
-  Frame{tx: T.Tx<W.World<S,Store,R,E>,E>,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: U32}
+  Frame{tx: T.Tx<W.World<S,Store,R,E>,E>,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: Maybe<&2,Tick.Tick>}
 # Execution error separates user-declared failure from a recorded World access
 # refusal. A recorded access error takes precedence over the returned user outcome.
 type Error<U: Data> is Data:
@@ -45,7 +46,7 @@ def first_error(previous: Maybe<&2,W.WorldError>,error: W.WorldError) -> Maybe<&
     case None{}: Some{error}
     case Some{previous}: Some{previous}
 
-def read_join(~S: Data,~Store: Type,~R: Type,~E: Data,~V: Data,+handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: U32,observed: T.Tx<W.World<S,Store,R,E>,E> & Cmp.Access<V>) -> Frame<S,Store,R,E> & Cmp.Access<V>:
+def read_join(~S: Data,~Store: Type,~R: Type,~E: Data,~V: Data,+handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: Maybe<&2,Tick.Tick>,observed: T.Tx<W.World<S,Store,R,E>,E> & Cmp.Access<V>) -> Frame<S,Store,R,E> & Cmp.Access<V>:
   (tx,value) = observed
   (Frame{tx,handle,error,cursor},value)
 # Advanced row operation: read the current handle through Cmp.tx_get, returning
@@ -54,7 +55,7 @@ def read_join(~S: Data,~Store: Type,~R: Type,~E: Data,~V: Data,+handle: W.Handle
 def get(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,frame: Frame<S,Store,R,E>) -> Frame<S,Store,R,E> & Cmp.Access<V>:
   match frame:
     case Frame{tx,+handle,error,cursor}: read_join(~S,~Store,~R,~E,~V,handle,error,cursor,Cmp.tx_get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,tx,handle))
-def written(~S: Data,~Store: Type,~R: Type,~E: Data,~C: Type,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: U32,result: Cmp.SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>) -> Frame<S,Store,R,E>:
+def written(~S: Data,~Store: Type,~R: Type,~E: Data,~C: Type,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: Maybe<&2,Tick.Tick>,result: Cmp.SetResult<T.Tx<W.World<S,Store,R,E>,E>,C>) -> Frame<S,Store,R,E>:
   match result:
     case Cmp.Written{tx}: Frame{tx,handle,error,cursor}
     case Cmp.WriteRejected{tx,_,reason}: Frame{tx,handle,first_error(error,reason),cursor}
@@ -75,7 +76,7 @@ def read_family(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V:
 def write_family(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>) -> Cap.Write<Frame<S,Store,R,E>,C,V>:
   Cap.Write{get(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family),set(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family)}
 
-def value_join(~S: Data,~Store: Type,~R: Type,~E: Data,~V: Data,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: U32,observed: T.Tx<W.World<S,Store,R,E>,E> & V) -> Frame<S,Store,R,E> & V:
+def value_join(~S: Data,~Store: Type,~R: Type,~E: Data,~V: Data,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: Maybe<&2,Tick.Tick>,observed: T.Tx<W.World<S,Store,R,E>,E> & V) -> Frame<S,Store,R,E> & V:
   (tx,value) = observed
   (Frame{tx,handle,error,cursor},value)
 # Advanced whole-resource read through its owner-returning detached projection.
@@ -111,7 +112,7 @@ def emit(~S: Data,~Store: Type,~R: Type,~E: Data,frame: Frame<S,Store,R,E>,event
 # Build a Data-event publication grant with transactional staging semantics.
 def event_write(~S: Data,~Store: Type,~R: Type,~E: Data) -> Cap.Send<Frame<S,Store,R,E>,E>:
   Cap.Send{emit(~S,~Store,~R,~E)}
-def despawn_join(~S: Data,~Store: Type,~R: Type,~E: Data,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: U32,observed: T.Tx<W.World<S,Store,R,E>,E> & W.Status) -> Frame<S,Store,R,E>:
+def despawn_join(~S: Data,~Store: Type,~R: Type,~E: Data,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: Maybe<&2,Tick.Tick>,observed: T.Tx<W.World<S,Store,R,E>,E> & W.Status) -> Frame<S,Store,R,E>:
   match observed:
     case (tx,W.Accepted{}): Frame{tx,handle,error,cursor}
     case (tx,W.Rejected{reason}): Frame{tx,handle,first_error(error,reason),cursor}
@@ -124,7 +125,7 @@ def despawn(~S: Data,~Store: Type,~R: Type,~E: Data,~clear: Store -> W.Handle<S>
 # Build a current-row deferred despawn grant using complete schema-owned cleanup.
 def command_despawn(~S: Data,~Store: Type,~R: Type,~E: Data,~clear: Store -> W.Handle<S> -> Store) -> Cap.Action<Frame<S,Store,R,E>>:
   Cap.Action{despawn(~S,~Store,~R,~E,~clear)}
-def spawn_join(~S: Data,~Store: Type,~R: Type,~E: Data,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: U32,observed: T.Tx<W.World<S,Store,R,E>,E> & W.Reservation<S>) -> Frame<S,Store,R,E> & W.Reservation<S>:
+def spawn_join(~S: Data,~Store: Type,~R: Type,~E: Data,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: Maybe<&2,Tick.Tick>,observed: T.Tx<W.World<S,Store,R,E>,E> & W.Reservation<S>) -> Frame<S,Store,R,E> & W.Reservation<S>:
   match observed:
     case (tx,W.Reserved{+reserved}): (Frame{tx,handle,error,cursor},W.Reserved{reserved})
     case (tx,W.ReservationRejected{+reason}): (Frame{tx,handle,first_error(error,reason),cursor},W.ReservationRejected{reason})
@@ -222,7 +223,7 @@ def selected_row(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: 
     case (Frame{tx,_,_,_},False{}): (tx,Skipped{})
     case (frame,True{}): row_body_returned(~S,~Store,~R,~E,~U,~Out,Cap.invoke(~Ops,~A,~(T.Outcome<U> & Out),~body,~Frame<S,Store,R,E>,~plan_caps(~S,~Store,~R,~E,~Ops,plan),args,frame))
 # Finish each row before the next; keep successful values in reverse order.
-def run_handles_acc(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),handles: List<&2,W.Handle<S>>,+args: A,+cursor: U32,values: List<&2,Out>,observed: T.Tx<W.World<S,Store,R,E>,E> & RowResult<U,Out>) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>):
+def run_handles_acc(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),handles: List<&2,W.Handle<S>>,+args: A,+cursor: Maybe<&2,Tick.Tick>,values: List<&2,Out>,observed: T.Tx<W.World<S,Store,R,E>,E> & RowResult<U,Out>) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>):
   match handles observed:
     case _ Tuple{tx,Failed{error}}: (tx,(T.Failure{error},List.reverse(&2,Out,values)))
     case Nil{} Tuple{tx,Skipped{}}: (tx,(T.Success{},List.reverse(&2,Out,values)))
@@ -232,7 +233,7 @@ def run_handles_acc(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~
 # Internal owned traversal adapter for an already-open transaction. Execute the
 # supplied list in order and return Tx plus outcome/outputs; unlike each, this does
 # not enumerate handles or finish/commit. Ordinary callers use each/each_since.
-def run_handles(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),handles: List<&2,W.Handle<S>>,args: A,cursor: U32,tx: T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>):
+def run_handles(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),handles: List<&2,W.Handle<S>>,args: A,cursor: Maybe<&2,Tick.Tick>,tx: T.Tx<W.World<S,Store,R,E>,E>) -> T.Tx<W.World<S,Store,R,E>,E> & (T.Outcome<Error<U>> & List<&2,Out>):
   run_handles_acc(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,handles,args,cursor,[],(tx,Skipped{}))
 def finish_returned(~S: Data,~Store: Type,~R: Type,~E: Data,~U: Data,~Out: Data,values: List<&2,Out>,returned: T.Returned<W.World<S,Store,R,E>,Error<U>>) -> Executed<W.World<S,Store,R,E>,Error<U>,Out>:
   match returned:
@@ -244,12 +245,18 @@ def finished(~S: Data,~Store: Type,~R: Type,~E: Data,~U: Data,~Out: Data,observe
 # Advanced engine adapter: execute a supplied handle list within one new Tx and
 # finish it, using cursor for every row. Preserves supplied order without itself
 # validating list provenance; hierarchy adapters perform their own live filtering.
-def reserved(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,cursor: U32,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Executed<W.World<S,Store,R,E>,Error<U>,Out>:
-  (world,handles) = observed
-  finished(~S,~Store,~R,~E,~U,~Out,run_handles(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,handles,args,cursor,T.begin(~W.World<S,Store,R,E>,~E,world)))
+def scope_finished(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,owned:Bool,result:Executed<W.World<S,Store,R,E>,Error<U>,Out>) -> Executed<W.World<S,Store,R,E>,Error<U>,Out>:
+  match result:
+    case Executed{world,outcome,values}:Executed{W.finish_run(~S,~Store,~R,~E,owned,world),outcome,values}
+def reserved_scoped(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,cursor: Maybe<&2,Tick.Tick>,handles:List<&2,W.Handle<S>>,admitted:W.World<S,Store,R,E> & Bool) -> Executed<W.World<S,Store,R,E>,Error<U>,Out>:
+  (world,owned)=admitted
+  scope_finished(~S,~Store,~R,~E,~U,~Out,owned,finished(~S,~Store,~R,~E,~U,~Out,run_handles(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,handles,args,cursor,T.begin(~W.World<S,Store,R,E>,~E,world))))
+def reserved(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,cursor: Maybe<&2,Tick.Tick>,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Executed<W.World<S,Store,R,E>,Error<U>,Out>:
+  (world,handles)=observed
+  reserved_scoped(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,args,cursor,handles,W.ensure_run(~S,~Store,~R,~E,world))
 # Snapshot live handles in allocator-visible order; deferred commands stay invisible.
 # Snapshot allocator-visible live handles, then select and execute rows in that
-# order within ONE enclosing transaction, with cursor zero. Later reads observe
+# order within ONE enclosing transaction, with no prior cursor. Later reads observe
 # earlier immediate writes; stop after the first selected-row failure, rollback
 # recorded writes and suppress all outputs/staged publications/commands on failure.
 # Success returns ordered Data outputs and enqueues commands without applying a
@@ -257,7 +264,7 @@ def reserved(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data
 # selectors/projectors or external effects are outside universal rollback claims.
 # See examples/query-composition/declarations.bend and gameplay.bend.
 def each(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,world: W.World<S,Store,R,E>) -> Executed<W.World<S,Store,R,E>,Error<U>,Out>:
-  reserved(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,args,0,W.handles(~S,~Store,~R,~E,world))
+  reserved(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,args,None{},W.handles(~S,~Store,~R,~E,world))
 
 # Explicit schema-typed target and owned payload for a deferred insert grant.
 # Owned explicit-target request for a deferred component insert. The detached
@@ -267,7 +274,7 @@ type Insert<-S: Data,-C: Type> is Type:
 
 def insert_apply(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,+target: W.Handle<S>,value: C,world: W.World<S,Store,R,E>) -> W.World<S,Store,R,E>:
   Cmp.restore_done(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,Cmp.replace(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,target,Some{value}))
-def insert_checked(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,current: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: U32,+target: W.Handle<S>,value: C,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,observed: W.World<S,Store,R,E> & Bool) -> Frame<S,Store,R,E>:
+def insert_checked(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,current: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: Maybe<&2,Tick.Tick>,+target: W.Handle<S>,value: C,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,observed: W.World<S,Store,R,E> & Bool) -> Frame<S,Store,R,E>:
   match observed:
     case (world,False{}): Frame{T.Tx{world,undo,commands,events,trace},current,first_error(error,W.MissingEntity{}),cursor}
     case (world,True{}): Frame{T.stage(~W.World<S,Store,R,E>,~E,T.Tx{world,undo,commands,events,trace},(world => insert_apply(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,~family,target,value,world))),current,error,cursor}
@@ -286,7 +293,7 @@ def command_insert(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,
 # As each, with an explicit invocation cursor used by lifecycle predicates.
 # This does not automatically advance a registered reader, and does not itself
 # filter rows unless Plan.select contains lifecycle_match or another predicate.
-def each_since(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,world: W.World<S,Store,R,E>,cursor: U32) -> Executed<W.World<S,Store,R,E>,Error<U>,Out>:
+def each_since(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),args: A,world: W.World<S,Store,R,E>,cursor: Maybe<&2,Tick.Tick>) -> Executed<W.World<S,Store,R,E>,Error<U>,Out>:
   reserved(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,args,cursor,W.handles(~S,~Store,~R,~E,world))
 
 # Since cursor is runtime reader state; it lives in the affine row frame.
@@ -295,29 +302,32 @@ def each_since(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Da
 type LifecycleSelection is Data:
   Added{}
   Changed{}
-def lifecycle_selected(mode: LifecycleSelection,stamp: L.Stamp,cursor: U32) -> Bool:
+def lifecycle_selected(mode: LifecycleSelection,stamp: L.Stamp,cursor: Maybe<&2,Tick.Tick>,this:Tick.Tick) -> Bool:
   match mode:
-    case Added{}: L.added(stamp,cursor)
-    case Changed{}: L.changed(stamp,cursor)
-def lifecycle_join(~S: Data,~Store: Type,~R: Type,~E: Data,~mode: LifecycleSelection,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,+cursor: U32,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,observed: W.World<S,Store,R,E> & L.Stamp) -> Frame<S,Store,R,E> & Bool:
-  (world,stamp) = observed
-  (Frame{T.Tx{world,undo,commands,events,trace},handle,error,cursor},lifecycle_selected(mode,stamp,cursor))
+    case Added{}: L.added(stamp,cursor,this)
+    case Changed{}: L.changed(stamp,cursor,this)
+def lifecycle_clocked(~S: Data,~Store: Type,~R: Type,~E: Data,~mode: LifecycleSelection,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,+cursor: Maybe<&2,Tick.Tick>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,stamp:L.Stamp,observed: W.World<S,Store,R,E> & Tick.Tick) -> Frame<S,Store,R,E> & Bool:
+  (world,this)=observed
+  (Frame{T.Tx{world,undo,commands,events,trace},handle,error,cursor},lifecycle_selected(mode,stamp,cursor,this))
+def lifecycle_join(~S: Data,~Store: Type,~R: Type,~E: Data,~mode: LifecycleSelection,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,+cursor: Maybe<&2,Tick.Tick>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,observed: W.World<S,Store,R,E> & L.Stamp) -> Frame<S,Store,R,E> & Bool:
+  (world,stamp)=observed
+  lifecycle_clocked(~S,~Store,~R,~E,~mode,handle,error,cursor,undo,commands,events,trace,stamp,W.execution_clock(~S,~Store,~R,~E,world))
 # Compare this family slot stamp against the supplied invocation cursor and
 # return Frame with Bool. Does not project the payload or create a gameplay grant;
 # combine with membership predicates when actual presence is required.
 def lifecycle_match(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,~family: Cmp.Family<S,Store,Rest,C,V,Token,take,put,project>,~mode: LifecycleSelection,frame: Frame<S,Store,R,E>) -> Frame<S,Store,R,E> & Bool:
   match frame:
     case Frame{T.Tx{world,undo,commands,events,trace},+handle,error,cursor}: lifecycle_join(~S,~Store,~R,~E,~mode,handle,error,cursor,undo,commands,events,trace,Cmp.lifecycle(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,family,world,handle))
-def clock_join(~S: Data,~Store: Type,~R: Type,~E: Data,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: U32,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,observed: W.World<S,Store,R,E> & U32) -> Frame<S,Store,R,E> & U32:
+def clock_join(~S: Data,~Store: Type,~R: Type,~E: Data,handle: W.Handle<S>,error: Maybe<&2,W.WorldError>,cursor: Maybe<&2,Tick.Tick>,undo: List<(W.World<S,Store,R,E> -> W.World<S,Store,R,E>)>,commands:List<Deferred.Command<W.World<S,Store,R,E>>>,events: List<&2,E>,trace:TraceFacts.State,observed: W.World<S,Store,R,E> & Tick.Tick) -> Frame<S,Store,R,E> & Tick.Tick:
   (world,clock) = observed
   (Frame{T.Tx{world,undo,commands,events,trace},handle,error,cursor},clock)
 # Advanced detached read of the current transaction World tick; does not advance
 # it or change Frame.cursor.
-def clock_get(~S: Data,~Store: Type,~R: Type,~E: Data,frame: Frame<S,Store,R,E>) -> Frame<S,Store,R,E> & U32:
+def clock_get(~S: Data,~Store: Type,~R: Type,~E: Data,frame: Frame<S,Store,R,E>) -> Frame<S,Store,R,E> & Tick.Tick:
   match frame:
     case Frame{T.Tx{world,undo,commands,events,trace},handle,error,cursor}: clock_join(~S,~Store,~R,~E,handle,error,cursor,undo,commands,events,trace,W.clock(~S,~Store,~R,~E,world))
 # Build a current-World tick read grant, not a clock-advance capability.
-def clock_read(~S: Data,~Store: Type,~R: Type,~E: Data) -> Cap.ValueRead<Frame<S,Store,R,E>,U32>:
+def clock_read(~S: Data,~Store: Type,~R: Type,~E: Data) -> Cap.ValueRead<Frame<S,Store,R,E>,Tick.Tick>:
   Cap.ValueRead{clock_get(~S,~Store,~R,~E)}
 
 # Trace-aware advanced setter with the same consumption/error behavior as set.
@@ -341,12 +351,18 @@ def finished_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~U: Data,~Out: Dat
 # Trace-aware advanced supplied-list execution adapter. Retains the same one-Tx
 # finish and output-clearing behavior as reserved, returning actual trace state
 # separately; operation facts do not assert that failed writes committed.
-def reserved_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),trace:TraceFacts.State,args: A,cursor: U32,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
-  (world,handles) = observed
-  finished_observed(~S,~Store,~R,~E,~U,~Out,run_handles(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,handles,args,cursor,T.begin_with_trace(~W.World<S,Store,R,E>,~E,world,trace)))
+def scope_observed(~S:Data,~Store:Type,~R:Type,~E:Data,~U:Data,~Out:Data,owned:Bool,result:Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State) -> Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  (executed,trace)=result
+  (scope_finished(~S,~Store,~R,~E,~U,~Out,owned,executed),trace)
+def reserved_observed_scoped(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),trace:TraceFacts.State,args: A,cursor: Maybe<&2,Tick.Tick>,handles:List<&2,W.Handle<S>>,admitted:W.World<S,Store,R,E> & Bool) -> Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  (world,owned)=admitted
+  scope_observed(~S,~Store,~R,~E,~U,~Out,owned,finished_observed(~S,~Store,~R,~E,~U,~Out,run_handles(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,handles,args,cursor,T.begin_with_trace(~W.World<S,Store,R,E>,~E,world,trace))))
+def reserved_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),trace:TraceFacts.State,args: A,cursor: Maybe<&2,Tick.Tick>,observed: W.World<S,Store,R,E> & List<&2,W.Handle<S>>) -> Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+  (world,handles)=observed
+  reserved_observed_scoped(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,trace,args,cursor,handles,W.ensure_run(~S,~Store,~R,~E,world))
 # Snapshot live handles in allocator-visible order; deferred commands stay invisible.
 # As each_since with supplied operation trace state returned alongside Executed.
 # Tracing does not change capability authority or apply pending commands. Facts
 # may include attempted/refused operations; inspect execution outcome separately.
-def each_since_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),trace:TraceFacts.State,args: A,world: W.World<S,Store,R,E>,cursor: U32) -> Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
+def each_since_observed(~S: Data,~Store: Type,~R: Type,~E: Data,~Ops: Type -> Type,~A: Data,~U: Data,~Out: Data,~plan: Plan<S,Store,R,E,Ops>,~body: @-H: Type -> @-caps: Ops(H) -> A -> H -> H & (T.Outcome<U> & Out),trace:TraceFacts.State,args: A,world: W.World<S,Store,R,E>,cursor: Maybe<&2,Tick.Tick>) -> Executed<W.World<S,Store,R,E>,Error<U>,Out> & TraceFacts.State:
   reserved_observed(~S,~Store,~R,~E,~Ops,~A,~U,~Out,~plan,~body,trace,args,cursor,W.handles(~S,~Store,~R,~E,world))
