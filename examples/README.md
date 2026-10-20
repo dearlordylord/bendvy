@@ -57,6 +57,31 @@ existing ordinary query builders retain their ordinary execution paths. This is
 an additive setup option for the listed forms, not automatic recognition of
 arbitrary grants. Manually constructed raw carriers remain trusted adapters.
 
+## Finding the application API
+
+These are the primary declaration and execution entry points. Their source comments
+state ownership, refusal and visibility contracts. This table is a navigation map,
+not a list of every runtime helper or a claim that all capability APIs are covered.
+
+| Application task | Entry points |
+| --- | --- |
+| Name components and compose a schema | [ordinary-declaration](../src/ecs/ordinary-declaration.bend), [ordinary-schema](../src/ecs/ordinary-schema.bend) |
+| Bind schema storage during trusted setup | [ordinary-component-binding](../src/ecs/ordinary-component-binding.bend) |
+| Declare component access, filters and inspection | [ordinary-query-declaration](../src/ecs/ordinary-query-declaration.bend), [ordinary-query-observable](../src/ecs/ordinary-query-observable.bend) |
+| Compose prepared read/optional queries | [ordinary-query-builder](../src/ecs/ordinary-query-builder.bend) |
+| Register a component system | [ordinary-app-component.add](../src/ecs/ordinary-app-component.bend) |
+| Register a system with retained affine capture state | [ordinary-app-capture-query.add](../src/ecs/ordinary-app-capture-query.bend) |
+| Register the supported recognized write forms | [recognized-query-declaration](../src/ecs/recognized-query-declaration.bend), [recognized-app-component.add](../src/ecs/recognized-app-component.bend) |
+| Derive a schedule and execute the registered application | [ordinary-app-run.attach/run](../src/ecs/ordinary-app-run.bend) |
+| Supply explicit plans or retain typed condition bindings | [ordinary-app-schedule](../src/ecs/ordinary-app-schedule.bend) |
+| Handle execution results and detached trace batches | [ordinary-app-execution.Run](../src/ecs/ordinary-app-execution.bend), [ordinary-app-schedule.RunResult](../src/ecs/ordinary-app-schedule.bend) |
+
+Raw storage lenses, constructors and arbitrary world-transforming callbacks are
+trusted setup/adapter APIs. Use the declared capabilities inside system bodies;
+they preserve the distinction between read and write access. `execution_*` type
+and callback projections are advanced application plumbing, not extra gameplay
+metadata to maintain. Mechanical callback continuations are implementation helpers.
+
 ## Keeping examples executable
 
 `bash examples/check.sh` discovers every runnable top-level example and requires

@@ -24,6 +24,11 @@ import ./schedule.bend as Sch
 import ./schedule-provision.bend as SP
 
 # A detached batch is returned only after its actual ECS run has completed.
+# Execution returns a retained application result and a detached trace batch.
+# Inspect result for Finished/Failed/Rejected/Missing; tracing is Disabled or
+# Ready according to the actual run. Subscribers process the copied batch
+# afterward; external printing/file IO is outside ECS rollback.
+# Example: examples/scheduled-health/application.bend, ran().
 type Run<A:Type,S:Data,Error:Data> is Type:
   Run{result:Single.RunResult<A,S,Error>,batch:Trace.Batch<Error>}
 type Journal<Error:Data> is Data:
@@ -122,8 +127,14 @@ def dispatch_disabled(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Error:Data,~dispa
   disabled_outcome(~S,~C,~R,~E,~H,~Error,dispatch(owners,Ctx.Context{world,Facts.Off{}},id))
 # Disabled runs use the old ordinary run directly: no identity/clock scan,
 # completion journal, trace-event construction or subscriber delivery occurs.
+# Transition-handler failure identifying its exit/transition/enter phase
+# and error text. Enter failure follows an already committed transition;
+# inspect the phase instead of assuming whole-transition rollback.
 type HandlerFailure is Data:
   HandlerFailure{phase:Handlers.Phase,error:String}
+# Transition-handler execution retains the App, all handler owners, the
+# captured machine snapshot, optional phase failure and detached trace batch.
+# The captured snapshot is not a rollback command or a copy of affine owners.
 type HandlerRun<App:Type,Owners:Type,Snapshot:Data> is Type:
   HandlerRun{app:App,owners:Owners,captured:Snapshot,failure:Maybe<&2,HandlerFailure>,batch:Trace.Batch<String>}
 def operation_events(facts:List<&2,Facts.Fact>) -> List<&2,Trace.TraceEvent<String>>:
@@ -187,6 +198,13 @@ def start(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,
 def prepared(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Error:Data,~dispatch:H -> Ctx.Context<W.World<S,C,R,E>> -> U32 -> H & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>,~condition:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~provision:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,SP.Requirement<S>>,schema:Schema.Schema<S,C,R>,world:W.World<S,C,R,E>,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,plan:SP.Plan<S>,namespace:U32,name:String,steps:List<&2,Sch.Step>,needs:List<&2,SP.Requirement<S>>,value:H & List<&2,Records.Fields<S>>) -> Run<Single.Application<S,C,R,E,H,Rows,observe,fold>,S,Error>:
   match value:
     case (owners,fields):start(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Error,~dispatch,~condition,~provision,schema,world,recipe,plan,namespace,name,steps,needs,owners,On{Journal{catalog(~S,fields),[]}})
+# Advanced traced schedule execution with supplied dispatch/condition/provision
+# callbacks. Returns Run on admission refusal, missing requirements, success
+# or system failure, retaining App ownership throughout. Disabled debug omits
+# trace collection; enabled debug derives identities and operations from actual
+# execution. Supplied callbacks are trusted world-transforming adapters;
+# arbitrary callback mutations/host IO are not automatically transactional.
+# Prefer ordinary-app-run.run for registration-derived dispatch.
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Error:Data,~dispatch:H -> Ctx.Context<W.World<S,C,R,E>> -> U32 -> H & Sys.Outcome<Ctx.Context<W.World<S,C,R,E>>,Error,Unit>,~condition:W.World<S,C,R,E> -> U32 -> W.World<S,C,R,E> & Bool,~provision:W.World<S,C,R,E> -> W.World<S,C,R,E> & List<&2,SP.Requirement<S>>,value:Single.Application<S,C,R,E,H,Rows,observe,fold>) -> Run<Single.Application<S,C,R,E,H,Rows,observe,fold>,S,Error>:
   match value:
     case Single.Application{App.Application{schema,Build.Registered{world,owners,recipe,False{}}},plan,namespace,name,steps,needs}:start(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Error,~dispatch,~condition,~provision,schema,world,recipe,plan,namespace,name,steps,needs,owners,Off{})
