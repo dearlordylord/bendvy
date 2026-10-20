@@ -4,12 +4,17 @@ import ./entity-key.bend as Key
 import ./snapshot-data.bend as Snapshot
 import ./restore-raw-number.bend as Number
 
+# Detached structural parsing failure or unsupported raw version. Schema-specific
+# name/value/construction errors are a later typed restore stage, not these errors.
 type Error is Data:
   Invalid{error:D.Error}
   UnsupportedVersion{version:D.Raw}
+# Accepted contains a structurally parsed typed Snapshot; it is not yet schema
+# validated or applied. Rejected retains complete original Raw and parsing error.
 type Parsed is Data:
   Accepted{snapshot:Snapshot.Snapshot}
   Rejected{original:D.Raw,error:Error}
+# Internal parser step result, not a second public restore/admission outcome.
 type Decoded<T:Data> is Data:
   Value{value:T}
   Failed{error:Error}
@@ -89,6 +94,13 @@ def finished(original:D.Raw,result:Decoded<Snapshot.Snapshot>) -> Parsed:
   match result:
     case Value{snapshot}:Accepted{snapshot}
     case Failed{error}:Rejected{original,error}
+# Parse the four-field snapshot object into typed detached Data without touching
+# World. Version must be 1; nextEntity is positive U32; saved index/generation
+# accept full U32 including zero as opaque tokens, not target allocator slots.
+# Exact numeric conversion rejects fractions/nonfinite/out-of-range input before
+# narrowing. Entities/components/resources shapes are checked in authored order;
+# D.field keeps existing first-match semantics, not a new duplicate-property rule.
+# Complete-key duplicates, schema dispatch and capacity are checked by typed restore.
 def parse(+raw:D.Raw) -> Parsed:finished(raw,object(raw))
 def saved_key(value:Key.Key) -> D.Raw:
   match value:
@@ -97,6 +109,9 @@ def saved_entities(values:List<&2,Snapshot.Entity>) -> List<&2,D.Raw>:
   match values:
     case []:[]
     case Snapshot.Entity{key,components} <> rest:D.Object{[D.Field{"id",saved_key(key)},D.Field{"components",D.Object{components}}]} <> saved_entities(rest)
+# Encode typed Snapshot to the four-field Raw representation preserving entity and
+# field order. This is not schema validation, JSON serialization or a Runtime
+# checkpoint; an arbitrary typed Snapshot may still be refused by restore.
 def encode(value:Snapshot.Snapshot) -> D.Raw:
   match value:
     case Snapshot.Snapshot{version,next,entities,resources}:D.Object{[D.Field{"version",D.Number{version}},D.Field{"nextEntity",D.Number{next}},D.Field{"entities",D.Array{saved_entities(entities)}},D.Field{"resources",D.Object{resources}}]}

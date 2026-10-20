@@ -34,6 +34,20 @@ def prepared(~S:Data,~C:Type,~User:Type,~Logs:Type,~E:Data,~F:Type,~EventOwners:
   match runtime result:
     case Route.Runtime{world,family,tick} R.Refused{state,input,error}:packed(~S,~C,~User,~Logs,~E,~F,~EventOwners,~Receipt,~State,~Custom,~stage,~release,~clear,~insert,~emit,~retain,~drain,~clearStreams,~catalog,~sync,~Recovery,~commit,~takeRecovery,False{},family,tick,None{},Public.run_returned(~S,~C,~Product.Owner<User,Logs>,~E,~State,~Custom,~stage,~release,~clear,~insert,~Recovery,~commit,~takeRecovery,schema,Apply.Refused{world,state,input,error}))
     case Route.Runtime{world,family,tick} R.Ready{state,Snapshot.Snapshot{+version,+floor,+entities,+resources}}:roomed(~S,~C,~User,~Logs,~E,~F,~EventOwners,~Receipt,~State,~Custom,~stage,~release,~clear,~insert,~emit,~retain,~drain,~clearStreams,~catalog,~sync,~Recovery,~commit,~takeRecovery,schema,state,Snapshot.Snapshot{version,floor,entities,resources},family,tick,floor,Adapter.room(~S,~C,~Product.Owner<User,Logs>,~E,world,floor,Apply.count_entities(entities)))
+# Restore typed snapshot through the retained schema Owner and actual family
+# runtime. Complete preparation and capacity admission precede log drain/World
+# cleanup. Early refusal retains runtime and returns no drain receipt; owned
+# constructor recovery and rejected input remain explicit in Public.Outcome.
+# After admission, drain actual affine logs via the complete typed catalog and
+# clear stream/publication state, then apply canonical cleanup/fresh spawning and
+# saved-key-to-handle bindings. Pending closures are dropped without execution and
+# Pending allocator marks abandoned; saved keys are not restored live identities.
+# Return actual restore Owner, constructor recovery and optional drain Receipt with
+# runtime. Success synchronizes restored publications at the next family tick;
+# this is not a full runtime reset: registration/Local/capture/reader owners remain
+# subject to the existing retained-runtime contract. No payload is copied into a
+# detached recovery value or silently disposed by a fabricated host destructor.
+# See docs/parity/restore-basic.md for the complete runtime omissions/boundary.
 def run(~S:Data,~C:Type,~User:Type,~Logs:Type,~E:Data,~F:Type,~EventOwners:Type,~Receipt:Type,~State:Type,~Custom:Data,~stage:State -> R.Position -> D.Field -> State & R.Dispatch<Custom>,~release:State -> State,~clear:C -> W.Handle<S> -> C & List<&2,R.Change<S>>,~insert:C -> Product.Owner<User,Logs> -> State -> List<&2,R.Binding<S>> -> U32 -> (C & Product.Owner<User,Logs>) & State,~emit:R.Change<S> -> E,~retain:Logs -> List<&2,E> -> Logs & Receipt,~drain:Logs -> Logs & Receipt,~clearStreams:F -> F,~catalog:Catalog.Catalog<E,Logs,F,Receipt,retain,drain,clearStreams>,~sync:F -> Nat -> List<&2,E> -> F,~Recovery:Type,~commit:State -> State,~takeRecovery:State -> State & Recovery,owner:Public.Owner<S,C,Product.Owner<User,Logs>,State,Custom,stage,release,clear,insert,Recovery,commit,takeRecovery>,runtime:Route.Runtime<S,C,Product.Owner<User,Logs>,E,Family.State<E,F,EventOwners>>,input:Snapshot.Snapshot) -> Route.Runtime<S,C,Product.Owner<User,Logs>,E,Family.State<E,F,EventOwners>> & (Public.Owner<S,C,Product.Owner<User,Logs>,State,Custom,stage,release,clear,insert,Recovery,commit,takeRecovery> & (Public.Outcome<S,Custom> & (Recovery & Maybe<&1,Receipt>))):
   match owner:
     case Public.Owner{schema,state}:prepared(~S,~C,~User,~Logs,~E,~F,~EventOwners,~Receipt,~State,~Custom,~stage,~release,~clear,~insert,~emit,~retain,~drain,~clearStreams,~catalog,~sync,~Recovery,~commit,~takeRecovery,schema,runtime,Prepare.prepare(~State,~Custom,~stage,~release,state,input))

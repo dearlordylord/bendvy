@@ -10,12 +10,20 @@ import capabilities.bend as Cap
 # Detached query results preserve the abstract owner and nominal entity schema.
 # This adapter adds the four methods of pinned System.QueryHandle. It does not
 # grant writes, construct a held mutable view, or choose foreign-instance policy.
+# Detached lookup refusal: MissingEntity includes dead/stale/foreign handles;
+# QueryMismatch means a live entity does not satisfy the declared selection.
+# entityId is a key for diagnostics, not a World authority.
 type LookupError is Data:
   MissingEntity{entityId:Key.Key}
   QueryMismatch{entityId:Key.Key}
+# Cardinality refusal: NoEntities for zero matches, MultipleEntities with
+# the actual Nat count for more than one. It carries no live payload owner.
 type SingleError is Data:
   NoEntities{}
   MultipleEntities{count:Nat}
+# Single-family read-only enumeration/lookup capability with one selection
+# mode. Rows are detached Data; raw construction must bind all operations to
+# the same family/mode. Runtime instance validation belongs to its outer wrapper.
 type ReadQuery<-H:Type,-S:Data,-V:Data> is Type:
   ReadQuery{rows:Cap.ValueRead<H,List<&2,Q.Row<S,V>>>,lookup:I.Lookup<H,S,V>,selection:Q.Selection}
 
@@ -28,6 +36,8 @@ def lookup_field(~H:Type,~S:Data,~V:Data,cap:ReadQuery<H,S,V>) -> I.Lookup<H,S,V
 def selection_field(~H:Type,~S:Data,~V:Data,cap:ReadQuery<H,S,V>) -> Q.Selection:
   match cap:
     case ReadQuery{_,_,selection}:selection
+# Enumerate selected detached rows while returning opaque owner H.
+# Canonical grants preserve live-handle traversal order and expose no setters.
 def each(~H:Type,~S:Data,~V:Data,~cap:ReadQuery<H,S,V>,owner:H) -> H & List<&2,Q.Row<S,V>>:
   Cap.value_read(~H,~List<&2,Q.Row<S,V>>,~rows_field(~H,~S,~V,cap),owner)
 
@@ -42,6 +52,9 @@ def resolved(~S:Data,~V:Data,selection:Q.Selection,+target:W.Handle<S>,value:I.V
 def got(~H:Type,~S:Data,~V:Data,selection:Q.Selection,target:W.Handle<S>,result:H & I.Value<V>) -> H & Result<&2,&2,LookupError,Q.Row<S,V>>:
   (owner,value)=result
   (owner,resolved(~S,~V,selection,target,value))
+# Look up a target through the same declared selection as enumeration.
+# Returns H with Done row, MissingEntity or QueryMismatch. Canonical lookup
+# rejects stale/foreign handles before treating absence as optional membership.
 def get(~H:Type,~S:Data,~V:Data,~cap:ReadQuery<H,S,V>,owner:H,+target:W.Handle<S>) -> H & Result<&2,&2,LookupError,Q.Row<S,V>>:
   got(~H,~S,~V,selection_field(~H,~S,~V,cap),target,I.lookup(~H,~S,~V,~lookup_field(~H,~S,~V,cap),owner,target))
 
@@ -53,6 +66,8 @@ def single_rows(~S:Data,~V:Data,rows:List<&2,Q.Row<S,V>>) -> Result<&2,&2,Single
 def single_observed(~H:Type,~S:Data,~V:Data,result:H & List<&2,Q.Row<S,V>>) -> H & Result<&2,&2,SingleError,Q.Row<S,V>>:
   (owner,rows)=result
   (owner,single_rows(~S,~V,rows))
+# Return H and exactly one detached row, or NoEntities/MultipleEntities.
+# Does not pick an arbitrary first row when the query matches multiple entities.
 def single(~H:Type,~S:Data,~V:Data,~cap:ReadQuery<H,S,V>,owner:H) -> H & Result<&2,&2,SingleError,Q.Row<S,V>>:
   single_observed(~H,~S,~V,each(~H,~S,~V,~cap,owner))
 def optional_rows(~S:Data,~V:Data,rows:List<&2,Q.Row<S,V>>) -> Result<&2,&2,SingleError,Maybe<&2,Q.Row<S,V>>>:
@@ -63,18 +78,31 @@ def optional_rows(~S:Data,~V:Data,rows:List<&2,Q.Row<S,V>>) -> Result<&2,&2,Sing
 def optional_observed(~H:Type,~S:Data,~V:Data,result:H & List<&2,Q.Row<S,V>>) -> H & Result<&2,&2,SingleError,Maybe<&2,Q.Row<S,V>>>:
   (owner,rows)=result
   (owner,optional_rows(~S,~V,rows))
+# Return H and None for zero matches, Some row for one, or MultipleEntities
+# for more than one. Empty is a successful result, unlike single.
 def single_optional(~H:Type,~S:Data,~V:Data,~cap:ReadQuery<H,S,V>,owner:H) -> H & Result<&2,&2,SingleError,Maybe<&2,Q.Row<S,V>>>:
   optional_observed(~H,~S,~V,each(~H,~S,~V,~cap,owner))
 
 # Trusted setup binds enumeration and exact lookup to the same family/mode.
+# Trusted setup binding enumeration and lookup to one component family/mode.
+# Projection must return the affine payload owner alongside Data V. Does not
+# execute a query or advance registered system cursors while constructing it.
 def grant(~S:Data,~Store:Type,~R:Type,~E:Data,~Rest:Type,~Payload:Type,~V:Data,~Token:Data,~take:Store -> Rest & Col.Column<S,Payload>,~put:Rest -> Col.Column<S,Payload> -> Store,~project:Payload -> Payload & V,~family:C.Family<S,Store,Rest,Payload,V,Token,take,put,project>,~mode:Q.Selection) -> ReadQuery<I.Frame<S,Store,R,E>,S,V>:
   ReadQuery{Q.read_query(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~project,~family,~mode),I.read_family(~S,~Store,~R,~E,~Rest,~Payload,~V,~Token,~take,~put,~project,~family),mode}
 
 # Generic declaration composition; existing single-family API stays compatible.
+# Detached heterogeneous projection paired with its schema-scoped entity
+# handle. Does not contain a mutable view or an affine component owner.
 type ProjectedRow<S:Data,V:Data> is Data:
   ProjectedRow{entity:W.Handle<S>,data:V}
+# Trusted closed live-handle enumeration/validity operations for composed
+# queries. Raw callbacks must correspond to the same runtime World and thread H;
+# metadata or schema type alone is not a runtime validation check.
 type WorldRead<-H:Type,-S:Data> is Type:
   WorldRead{handles:H -> H & List<&2,W.Handle<S>>,valid:H -> W.Handle<S> -> H & Bool}
+# Read-only query over arbitrary declared projection shapes, with matching
+# enumeration and target lookup. Owns operations, not a runtime World;
+# canonical grants provide checked targets and detached values.
 type ComposedReadQuery<-H:Type,-S:Data,-V:Data> is Type:
   ComposedReadQuery{each_composed:H -> H & List<&2,ProjectedRow<S,V>>,get_composed:H -> W.Handle<S> -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>}
 def composed_handles_field(~H:Type,~S:Data,value:WorldRead<H,S>) -> H -> H & List<&2,W.Handle<S>>:
@@ -89,8 +117,13 @@ def composed_each_field(~H:Type,~S:Data,~V:Data,value:ComposedReadQuery<H,S,V>) 
 def composed_get_field(~H:Type,~S:Data,~V:Data,value:ComposedReadQuery<H,S,V>) -> H -> W.Handle<S> -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:
   match value:
     case ComposedReadQuery{_,get_composed}:get_composed
+# Enumerate matching projected rows, returning the opaque owner.
+# Canonical enumeration preserves its World handle order and projection shape.
 def each_composed(~H:Type,~S:Data,~V:Data,~cap:ComposedReadQuery<H,S,V>,owner:H) -> H & List<&2,ProjectedRow<S,V>>:
   composed_each_field(~H,~S,~V,cap)(owner)
+# Return H with detached projection or MissingEntity/QueryMismatch.
+# The canonical grant checks live target validity before selection/projection;
+# no component write operation or payload owner is returned.
 def get_composed(~H:Type,~S:Data,~V:Data,~cap:ComposedReadQuery<H,S,V>,owner:H,target:W.Handle<S>) -> H & Result<&2,&2,LookupError,ProjectedRow<S,V>>:
   composed_get_field(~H,~S,~V,cap)(owner,target)
 def composed_single_rows(~S:Data,~V:Data,rows:List<&2,ProjectedRow<S,V>>) -> Result<&2,&2,SingleError,ProjectedRow<S,V>>:
@@ -101,6 +134,8 @@ def composed_single_rows(~S:Data,~V:Data,rows:List<&2,ProjectedRow<S,V>>) -> Res
 def composed_single_observed(~H:Type,~S:Data,~V:Data,observed:H & List<&2,ProjectedRow<S,V>>) -> H & Result<&2,&2,SingleError,ProjectedRow<S,V>>:
   (owner,rows)=observed
   (owner,composed_single_rows(~S,~V,rows))
+# Require exactly one composed row; zero yields NoEntities and multiple
+# yields MultipleEntities with full count. Retains owner H on every result.
 def single_composed(~H:Type,~S:Data,~V:Data,~cap:ComposedReadQuery<H,S,V>,owner:H) -> H & Result<&2,&2,SingleError,ProjectedRow<S,V>>:
   composed_single_observed(~H,~S,~V,each_composed(~H,~S,~V,~cap,owner))
 def composed_optional_rows(~S:Data,~V:Data,rows:List<&2,ProjectedRow<S,V>>) -> Result<&2,&2,SingleError,Maybe<&2,ProjectedRow<S,V>>>:
@@ -111,6 +146,8 @@ def composed_optional_rows(~S:Data,~V:Data,rows:List<&2,ProjectedRow<S,V>>) -> R
 def composed_optional_observed(~H:Type,~S:Data,~V:Data,observed:H & List<&2,ProjectedRow<S,V>>) -> H & Result<&2,&2,SingleError,Maybe<&2,ProjectedRow<S,V>>>:
   (owner,rows)=observed
   (owner,composed_optional_rows(~S,~V,rows))
+# Return None for zero composed rows or Some for exactly one; multiple
+# matches return MultipleEntities. Retains H and never selects an arbitrary row.
 def single_optional_composed(~H:Type,~S:Data,~V:Data,~cap:ComposedReadQuery<H,S,V>,owner:H) -> H & Result<&2,&2,SingleError,Maybe<&2,ProjectedRow<S,V>>>:
   composed_optional_observed(~H,~S,~V,each_composed(~H,~S,~V,~cap,owner))
 
@@ -138,6 +175,8 @@ def composed_lookup(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V
   composed_lookup_target(~H,~S,~V,~selection,~world,owner,target)
 
 # Private recursive result ABI; public query authority and result types unchanged.
+# Advanced scan accumulator result retaining H and detached projected rows.
+# This carrier adds no target validation beyond the chosen scan/selection route.
 type ScanResult<-H:Type,-S:Data,-V:Data> is Type:
   ScanResult{owner:H,rows:List<&2,ProjectedRow<S,V>>}
   ScanResultLink{next:ScanResult<H,S,V>}
@@ -159,6 +198,10 @@ def composed_fold_step(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,
 def composed_fold_done(~H:Type,~S:Data,~V:Data,observed:H & List<&2,ProjectedRow<S,V>>) -> ScanResult<H,S,V>:
   (owner,rows)=observed
   ScanResult{owner,List.reverse(&2,ProjectedRow<S,V>,rows)}
+# Engine scan adapter over supplied targets and a reversed row accumulator.
+# Canonical callers supply live targets and an empty initial accumulator.
+# This helper does not independently validate arbitrary handles; prefer
+# each_composed on a canonical composed grant for application inspection.
 def composed_scan(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,targets:List<&2,W.Handle<S>>,owner:H,rows:List<&2,ProjectedRow<S,V>>) -> ScanResult<H,S,V>:
   composed_fold_done(~H,~S,~V,List.foldl(~&2,~W.Handle<S>,~(H & List<&2,ProjectedRow<S,V>>),~(acc => target => composed_fold_step(~H,~S,~V,~selection,acc,target)),targets,(owner,rows)))
 def composed_scanned(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,observed:H & List<&2,W.Handle<S>>) -> H & List<&2,ProjectedRow<S,V>>:
@@ -166,6 +209,10 @@ def composed_scanned(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,
   composed_unwrap_scan(~H,~S,~V,composed_scan(~H,~S,~V,~selection,targets,owner,[]))
 def composed_enumerate(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,~world:WorldRead<H,S>,owner:H) -> H & List<&2,ProjectedRow<S,V>>:
   composed_scanned(~H,~S,~V,~selection,composed_handles_field(~H,~S,world)(owner))
+# Trusted constructor combining matching WorldRead and declared selection.
+# Target lookup validates before matching/projecting; enumeration uses the
+# supplied live-handle route. Callbacks must preserve owner correspondence.
+# Source-level composition: ordinary-query-observable.inspect_query.
 def grant_composed(~H:Type,~S:Data,~V:Data,~selection:Q.DeclaredSelection<H,S,V>,~world:WorldRead<H,S>) -> ComposedReadQuery<H,S,V>:
   ComposedReadQuery{owner => composed_enumerate(~H,~S,~V,~selection,~world,owner),owner => target => composed_lookup(~H,~S,~V,~selection,~world,owner,target)}
 
@@ -216,5 +263,9 @@ def composed_runtime_lookup_target(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~co
   composed_runtime_lookup_valid(~H,~S,~A,~B,~Arg,~component,~relation_matches,~relation_project,target,argument,composed_valid_field(~H,~S,world)(owner,target))
 def composed_runtime_lookup(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~relation_matches:Arg -> H -> W.Handle<S> -> H & Bool,~relation_project:Arg -> H -> W.Handle<S> -> H & B,~world:WorldRead<H,S>,owner:H,target:W.Handle<S>,argument:Arg) -> H & Result<&2,&2,LookupError,ProjectedRow<S,Q.Product<A,B>>>:
   composed_runtime_lookup_target(~H,~S,~A,~B,~Arg,~component,~relation_matches,~relation_project,~world,owner,target,argument)
+# Advanced composed query adding a runtime argument/relation selection to
+# the component projection. Retains H while combining detached results; trusted
+# World and selection callbacks must refer to the same runtime. Does not
+# register a reader, consume a system cursor or expose mutation authority.
 def grant_composed_runtime(~H:Type,~S:Data,~A:Data,~B:Data,~Arg:Data,~component:Q.DeclaredSelection<H,S,A>,~world:WorldRead<H,S>,~relation_matches:Arg -> H -> W.Handle<S> -> H & Bool,~relation_project:Arg -> H -> W.Handle<S> -> H & B,+argument:Arg) -> ComposedReadQuery<H,S,Q.Product<A,B>>:
   ComposedReadQuery{owner => composed_runtime_enumerate(~H,~S,~A,~B,~Arg,~component,~relation_matches,~relation_project,~world,argument,owner),owner => target => composed_runtime_lookup(~H,~S,~A,~B,~Arg,~component,~relation_matches,~relation_project,~world,owner,target,argument)}
