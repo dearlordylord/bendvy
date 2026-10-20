@@ -15,11 +15,16 @@ import ./ordinary-app-registration-fields.bend as Fields
 import ./relation-failure-reader.bend as Ord
 import ./ordinary-app-relation-system.bend as Registered
 
+# Advanced schema wrapper adapting storage/event types to the relation graph
+# World without changing entries. Raw schema/projection coherence is trusted setup.
 def graph_schema(~S:Data,~C:Type,~R:Type,schema:Schema.Schema<S,C,R>) -> Schema.Schema<S,A.Store<S,C>,R>:
   match schema:
     case Schema.Schema{entries}:Schema.Schema{entries}
+# Single-schedule relation App retaining actual graph World and relation registry.
+# Observation derives from the same operational relation declaration.
 def Application(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~target:W.Handle<S>) -> Type:
   Scheduled.Application<S,A.Store<S,C>,R,A.Notice<S,E>,Registered.Owner(~S,~C,~R,~E,~declaration,~target),Relation.View<S>,Relation.observe(~S,~C,~R,~E,~declaration,~Relation.builtin_row(~S)),Registered.empty_fold(~S,~C,~R,~E,~declaration,~target)>
+# Advanced relation-view observation recipe; it owns no second graph or registry.
 def Recipe(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~target:W.Handle<S>) -> Type:
   Tree.Recipe<Relation.World(~S,~C,~R,~E),Relation.View<S>,Relation.observe(~S,~C,~R,~E,~declaration,~Relation.builtin_row(~S))>
 def selected_phase(allowed:Bool,current:String,later:Unit -> String) -> String:
@@ -42,8 +47,13 @@ def snapshot_result(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration
   match result:
     case (app,None{}):(app,None{})
     case (Scheduled.Application{App.Application{schema,Build.Registered{world,Sys.Registry{+ns,+id,+label,+access,+cursor},recipe,debug}},plan,namespace,name,+steps,needs},Some{description}):described(~S,~C,~R,~E,~declaration,~target,plan,namespace,name,steps,needs,schema,world,recipe,debug,description,Registered.binding(~S,~C,~R,~E,~declaration,~target,Sys.Registry{ns,id,label,access,cursor},phase_for(steps,id,"")))
+# Set debug flag then derive the existing scheduled snapshot and declaration-bound
+# relation binding/phase label. Disabled bypasses observation; missing phase lookup
+# yields an empty label, not invented execution evidence. No graph commands apply.
 def snapshot(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~target:W.Handle<S>,app:Application(~S,~C,~R,~E,~declaration,~target),flag:Bool) -> Application(~S,~C,~R,~E,~declaration,~target) & Maybe<&2,Scheduled.Description<S,Relation.View<S>>>:
   snapshot_result(~S,~C,~R,~E,~declaration,~target,Scheduled.snapshot(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~Registered.Owner(~S,~C,~R,~E,~declaration,~target),~Relation.View<S>,~Relation.observe(~S,~C,~R,~E,~declaration,~Relation.builtin_row(~S)),~Registered.empty_fold(~S,~C,~R,~E,~declaration,~target),Scheduled.enabled(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~Registered.Owner(~S,~C,~R,~E,~declaration,~target),~Relation.View<S>,~Relation.observe(~S,~C,~R,~E,~declaration,~Relation.builtin_row(~S)),~Registered.empty_fold(~S,~C,~R,~E,~declaration,~target),app,flag)))
+# Register the declaration-bound relation system on the supplied graph World.
+# Return its actual registry/World registration result; does not attach/run a plan.
 def install(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~target:W.Handle<S>,schema:Schema.Schema<S,C,R>,world:Relation.World(~S,~C,~R,~E),name:String) -> Sys.RegistrationResult<S,A.Store<S,C>,R,A.Notice<S,E>,Unit,Unit,Unit,Registered.reader(~S,~C,~R,~E,~declaration,~target)>:
   Registered.register(~S,~C,~R,~E,~declaration,~target,world,name)
 def attach_allowed(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~target:W.Handle<S>,schema:Schema.Schema<S,C,R>,owner:Registered.Owner(~S,~C,~R,~E,~declaration,~target),name:String,plan:SP.Plan<S>,result:Relation.World(~S,~C,~R,~E) & Bool) -> Scheduled.Attachment<App.Application<S,A.Store<S,C>,R,A.Notice<S,E>,Registered.Owner(~S,~C,~R,~E,~declaration,~target),Relation.View<S>,Relation.observe(~S,~C,~R,~E,~declaration,~Relation.builtin_row(~S)),Registered.empty_fold(~S,~C,~R,~E,~declaration,~target)>,Application(~S,~C,~R,~E,~declaration,~target)>:
@@ -61,7 +71,14 @@ def attach_namespace(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaratio
     case Sys.Registry{+namespace,id,label,access,cursor}:
       match result:
         case (world,actual):attach_namespace_checked(~S,~C,~R,~E,~declaration,~target,schema,name,plan,U32.is_eq(namespace,actual),Sys.Registry{namespace,id,label,access,cursor},world)
+# Validate registry namespace and exact retained registration metadata before
+# attaching the supplied plan. Refusal returns the schema App with actual World
+# and owner; no system is executed. Plan/condition/provision coherence remains
+# ordinary trusted setup rather than authority inferred from a phase name.
 def attach(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~target:W.Handle<S>,schema:Schema.Schema<S,C,R>,owner:Registered.Owner(~S,~C,~R,~E,~declaration,~target),world:Relation.World(~S,~C,~R,~E),name:String,plan:SP.Plan<S>) -> Scheduled.Attachment<App.Application<S,A.Store<S,C>,R,A.Notice<S,E>,Registered.Owner(~S,~C,~R,~E,~declaration,~target),Relation.View<S>,Relation.observe(~S,~C,~R,~E,~declaration,~Relation.builtin_row(~S)),Registered.empty_fold(~S,~C,~R,~E,~declaration,~target)>,Application(~S,~C,~R,~E,~declaration,~target)>:
   attach_namespace(~S,~C,~R,~E,~declaration,~target,schema,name,plan,owner,W.namespace(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,world))
+# Run the attached relation schedule through its registered dispatcher and supplied
+# condition/provision adapters, retaining App in every result. Pending graph work
+# applies at explicit barriers; queue admission and structural application differ.
 def run(~S:Data,~C:Type,~R:Type,~E:Data,~declaration:Ord.Declaration<S>,~target:W.Handle<S>,~condition:Relation.World(~S,~C,~R,~E) -> U32 -> Relation.World(~S,~C,~R,~E) & Bool,~provision:Relation.World(~S,~C,~R,~E) -> Relation.World(~S,~C,~R,~E) & List<&2,SP.Requirement<S>>,app:Application(~S,~C,~R,~E,~declaration,~target)) -> Scheduled.RunResult<Application(~S,~C,~R,~E,~declaration,~target),S,Maybe<&2,Unit>>:
   Scheduled.run(~S,~A.Store<S,C>,~R,~A.Notice<S,E>,~Registered.Owner(~S,~C,~R,~E,~declaration,~target),~Relation.View<S>,~Relation.observe(~S,~C,~R,~E,~declaration,~Relation.builtin_row(~S)),~Registered.empty_fold(~S,~C,~R,~E,~declaration,~target),~Maybe<&2,Unit>,~Registered.dispatch(~S,~C,~R,~E,~declaration,~target),~condition,~provision,app)

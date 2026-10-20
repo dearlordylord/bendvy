@@ -11,13 +11,22 @@ import ./recovery-journal.bend as Journal
 import ./world-resource-owner.bend as WR
 import ./ordinary-schema.bend as Schema
 # Canonical World resource target and generated recovery path; no caller inverse.
+# Nominal recoverable Array<P> resource capability family with whole-array
+# replace and bounded element swap. P may be arbitrary affine Type; this does
+# not provide automatic inverses for unrelated resource mutations.
 def Ops(~S:Data,~P:Type,~identity:Schema.Resource<S,Array<P>>,H:Type) -> Type:F.Write<S,P,identity,H>
+# Advanced trusted lens selecting the Array<P> World resource while
+# retaining capture and the rest of World. No live owner is copied or exposed.
 def target(~S:Data,~C:Type,~E:Data,~Capture:Type,~P:Type) -> Product.Lens<Product.Owner<W.World<S,C,Array<P>,E>,Capture>,Array<P>,Capture & WR.Rest<S,C,Array<P>,E>>:
   Product.compose(~Product.Owner<W.World<S,C,Array<P>,E>,Capture>,~W.World<S,C,Array<P>,E>,~Capture,~Array<P>,~WR.Rest<S,C,Array<P>,E>,~Product.lens(~W.World<S,C,Array<P>,E>,~Capture,~Product.Left{}),~WR.lens(~S,~C,~Array<P>,~E))
 def empty(~Capture:Type,~P:Type,unit:Unit) -> List<A.Record<P>>:[]
 def replaced(~S:Data,~C:Type,~E:Data,~Capture:Type,~P:Type,~All:Type,~Rest:Type,~path:Product.Lens<All,List<A.Record<P>>,Rest>,result:Product.Owner<W.World<S,C,Array<P>,E>,Capture> & List<Journal.Action(~Product.Owner<W.World<S,C,Array<P>,E>,Capture>,~All)>) -> F.Frame<Product.Owner<W.World<S,C,Array<P>,E>,Capture>,All>:
   match result:
     case (state,journal):F.Frame{state,journal}
+# Replace the whole Array<P> resource in the shared recovery journal.
+# Consumes incoming array and returns frame; commit recovers the displaced
+# array, rollback restores it and recovers the replacement. Capture and other
+# World owners remain siblings, not independent copies.
 def replace(~S:Data,~C:Type,~E:Data,~Capture:Type,~P:Type,~All:Type,~Rest:Type,~path:Product.Lens<All,List<A.Record<P>>,Rest>,frame:F.Frame<Product.Owner<W.World<S,C,Array<P>,E>,Capture>,All>,incoming:Array<P>) -> F.Frame<Product.Owner<W.World<S,C,Array<P>,E>,Capture>,All>:
   match frame:
     case F.Frame{state,journal}:replaced(~S,~C,~E,~Capture,~P,~All,~Rest,~path,AO.replace(~Product.Owner<W.World<S,C,Array<P>,E>,Capture>,~P,~(Capture & WR.Rest<S,C,Array<P>,E>),~target(~S,~C,~E,~Capture,~P),~All,~Rest,~path,state,journal,incoming))
@@ -25,10 +34,19 @@ def swapped(~S:Data,~C:Type,~E:Data,~Capture:Type,~P:Type,~All:Type,~Rest:Type,~
   match result:
     case AO.Applied{state,journal}:F.Applied{F.Frame{state,journal}}
     case AO.Refused{state,journal,incoming}:F.Refused{F.Frame{state,journal},incoming}
+# Attempt one Array<P> resource element swap. Out-of-bounds returns Refused
+# with incoming P and unchanged journal; success records the displaced owner.
+# Receipt recovery follows the enclosing commit/rollback, not immediate copying.
 def swap(~S:Data,~C:Type,~E:Data,~Capture:Type,~P:Type,~All:Type,~Rest:Type,~path:Product.Lens<All,List<A.Record<P>>,Rest>,frame:F.Frame<Product.Owner<W.World<S,C,Array<P>,E>,Capture>,All>,index:U32,incoming:P) -> F.Attempt<F.Frame<Product.Owner<W.World<S,C,Array<P>,E>,Capture>,All>,P>:
   match frame:
     case F.Frame{state,journal}:swapped(~S,~C,~E,~Capture,~P,~All,~Rest,~path,AO.swap(~Product.Owner<W.World<S,C,Array<P>,E>,Capture>,~P,~(Capture & WR.Rest<S,C,Array<P>,E>),~target(~S,~C,~E,~Capture,~P),~All,~Rest,~path,state,journal,index,incoming))
+# Advanced closed grant builder for canonical resource and recovery paths.
+# Gameplay receives typed replace/swap; it does not author inverses or journals.
 def grant(~S:Data,~C:Type,~E:Data,~Capture:Type,~P:Type,~identity:Schema.Resource<S,Array<P>>,~All:Type,~Rest:Type,~path:Product.Lens<All,List<A.Record<P>>,Rest>,unit:Unit) -> F.Write<S,P,identity,F.Frame<Product.Owner<W.World<S,C,Array<P>,E>,Capture>,All>>:
   F.Write{replace(~S,~C,~E,~Capture,~P,~All,~Rest,~path),swap(~S,~C,~E,~Capture,~P,~All,~Rest,~path)}
+# Declare recoverable Array<P> resource operations using its ordinary
+# resource identity. Supplies complete access/use metadata and generated
+# recovery path; performs no resource mutation or allocation of payload values.
+# Supported domain and receipts: docs/parity/recovery.md.
 def declaration(~S:Data,~C:Type,~E:Data,~Capture:Type,~P:Type,~identity:Schema.Resource<S,Array<P>>) -> D.Declaration<S,Product.Owner<W.World<S,C,Array<P>,E>,Capture>,List<A.Record<P>>,Ops(~S,~P,~identity),grant(~S,~C,~E,~Capture,~P,~identity)>:
   D.Described{empty(~Capture,~P),[Schema.resource_key(~S,~Array<P>,identity)],Use.known([Use.Use{Use.Resource{Schema.resource_key(~S,~Array<P>,identity)},Use.Write{}}])}
