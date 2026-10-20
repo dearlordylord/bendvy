@@ -7,6 +7,9 @@ import ./owner-product.bend as Product
 import ./ordinary-schema-provision.bend as Ordinary
 import ./ordinary-dump-builtin.bend as Builtin
 # One retained ordinary Provision/Schema. Read indices contain no keys or owners.
+# Trusted ordinary schema provision plus matching component/resource
+# display routes. Contains no live owners. Display indices carry no independent
+# keys; raw construction must preserve schema/slot/owner consistency.
 type Provision<-S:Data,-C:Type,-R:Type,-empty:Unit -> C,-count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,-components:C -> U32 -> C & List<&2,Maybe<&2,String>>,-resources:R -> R & List<&2,Maybe<&2,String>>> is Data:
   Provision{ordinary:Ordinary.Provision<S,C,R,empty,count>}
 def component_returned(~S:Data,~P:Type,result:Col.Column<S,P> & Maybe<&2,String>) -> Col.Column<S,P> & List<&2,Maybe<&2,String>>:
@@ -22,16 +25,30 @@ def resource_returned(~P:Type,result:P & String) -> P & List<&2,Maybe<&2,String>
 def resource_read(~P:Type,~show:P -> P & String,value:P) -> P & List<&2,Maybe<&2,String>>:
   resource_returned(~P,show(value))
 # Opaque payload display is an explicit allowed extension; built-ins below need none.
+# Declare a component dump leaf with explicit owner-preserving presentation.
+# show must return P with text; opaque user values may supply this formatter.
+# Does not read a column or grant gameplay access during setup.
 def component(~S:Data,~P:Type,~show:P -> P & String,declaration:Identity.Declaration<S,P>) -> Provision<S,Col.Column<S,P>,Unit,Ordinary.component_empty(~S,~P),Ordinary.component_count(~S,~P),component_read(~S,~P,~show),component_resources>:
   Provision{Ordinary.component(~S,~P,declaration)}
+# Declare a resource dump leaf with owner-preserving presentation.
+# show returns the same owner type with text, without copying affine payloads.
+# Arbitrary caller callbacks remain trusted; no rollback is added.
 def resource(~S:Data,~P:Type,~show:P -> P & String,declaration:Schema.Resource<S,P>) -> Provision<S,Unit,P,Ordinary.resource_empty,Ordinary.resource_count(~S),resource_components,resource_read(~P,~show)>:
   Provision{Ordinary.resource(~S,~P,declaration)}
+# Component dump provision with built-in Array<U32> presentation.
+# Retains the array owner; no manual display adapter is required.
 def array_component(~S:Data,declaration:Identity.Declaration<S,Array<U32>>) -> Provision<S,Col.Column<S,Array<U32>>,Unit,Ordinary.component_empty(~S,~Array<U32>),Ordinary.component_count(~S,~Array<U32>),component_read(~S,~Array<U32>,~Builtin.array),component_resources>:
   component(~S,~Array<U32>,~Builtin.array,declaration)
+# Resource dump provision with built-in Array<U32> presentation.
+# Retains the array owner; does not inspect it until dump evaluation.
 def array_resource(~S:Data,declaration:Schema.Resource<S,Array<U32>>) -> Provision<S,Unit,Array<U32>,Ordinary.resource_empty,Ordinary.resource_count(~S),resource_components,resource_read(~Array<U32>,~Builtin.array)>:
   resource(~S,~Array<U32>,~Builtin.array,declaration)
+# Component provision with built-in U32 display and matching population
+# callbacks. Does not create a component instance or scan entities.
 def u32_component(~S:Data,declaration:Identity.Declaration<S,U32>) -> Provision<S,Col.Column<S,U32>,Unit,Ordinary.component_empty(~S,~U32),Ordinary.component_count(~S,~U32),component_read(~S,~U32,~Builtin.u32),component_resources>:
   component(~S,~U32,~Builtin.u32,declaration)
+# Component provision with built-in Bool display and matching population
+# callbacks. Metadata comes from the ordinary declaration, not a second key.
 def bool_component(~S:Data,declaration:Identity.Declaration<S,Bool>) -> Provision<S,Col.Column<S,Bool>,Unit,Ordinary.component_empty(~S,~Bool),Ordinary.component_count(~S,~Bool),component_read(~S,~Bool,~Builtin.bool),component_resources>:
   component(~S,~Bool,~Builtin.bool,declaration)
 def joined(~L:Type,~R:Type,left:L,before:List<&2,Maybe<&2,String>>,result:R & List<&2,Maybe<&2,String>>) -> Product.Owner<L,R> & List<&2,Maybe<&2,String>>:
@@ -51,13 +68,20 @@ def resources_left(~L:Type,~R:Type,~rightRead:R -> R & List<&2,Maybe<&2,String>>
 def product_resources(~L:Type,~R:Type,~leftRead:L -> L & List<&2,Maybe<&2,String>>,~rightRead:R -> R & List<&2,Maybe<&2,String>>,value:Product.Owner<L,R>) -> Product.Owner<L,R> & List<&2,Maybe<&2,String>>:
   match value:
     case Product.Owner{left,right}:resources_left(~L,~R,~rightRead,right,leftRead(left))
+# Compose dump provisions with matching left/right owner products and
+# entry/count/value order. Does not duplicate affine payloads or validate
+# arbitrary forged callback relationships; ordinary constructors keep them aligned.
 def product(~S:Data,~LC:Type,~LR:Type,~RC:Type,~RR:Type,~leftEmpty:Unit -> LC,~leftCount:LC -> List<&2,W.Handle<S>> -> LC & List<&2,Maybe<&2,U32>>,~leftComponents:LC -> U32 -> LC & List<&2,Maybe<&2,String>>,~leftResources:LR -> LR & List<&2,Maybe<&2,String>>,~rightEmpty:Unit -> RC,~rightCount:RC -> List<&2,W.Handle<S>> -> RC & List<&2,Maybe<&2,U32>>,~rightComponents:RC -> U32 -> RC & List<&2,Maybe<&2,String>>,~rightResources:RR -> RR & List<&2,Maybe<&2,String>>,left:Provision<S,LC,LR,leftEmpty,leftCount,leftComponents,leftResources>,right:Provision<S,RC,RR,rightEmpty,rightCount,rightComponents,rightResources>) -> Provision<S,Product.Owner<LC,RC>,Product.Owner<LR,RR>,Ordinary.product_empty(~LC,~RC,~leftEmpty,~rightEmpty),Ordinary.product_count(~S,~LC,~RC,~leftCount,~rightCount),product_components(~LC,~RC,~leftComponents,~rightComponents),product_resources(~LR,~RR,~leftResources,~rightResources)>:
   match left right:
     case Provision{left} Provision{right}:Provision{Ordinary.product(~S,~LC,~LR,~RC,~RR,~leftEmpty,~leftCount,~rightEmpty,~rightCount,left,right)}
 
 # Metadata-free token generated by the same operational provisioning constructor.
+# Detached advanced token indexing the schema-matched counting/display
+# routes. It carries no live World, payload or duplicated metadata list.
 type Recipe<-S:Data,-C:Type,-R:Type,-count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,-components:C -> U32 -> C & List<&2,Maybe<&2,String>>,-resources:R -> R & List<&2,Maybe<&2,String>>> is Data:
   Recipe{}
+# Consume dump provision and return its retained ordinary schema plus the
+# matching Recipe token. Performs no observation, counting or system execution.
 def prepared(~S:Data,~C:Type,~R:Type,~empty:Unit -> C,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,~components:C -> U32 -> C & List<&2,Maybe<&2,String>>,~resources:R -> R & List<&2,Maybe<&2,String>>,value:Provision<S,C,R,empty,count,components,resources>) -> Schema.Schema<S,C,R> & Recipe<S,C,R,count,components,resources>:
   match value:
     case Provision{Ordinary.Provision{schema}}:(schema,Recipe{})
