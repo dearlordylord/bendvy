@@ -2,7 +2,9 @@
 # Source release from Bendvy 1037bab01; tested public usage starts in examples/.
 # Qualified compiler: Bend 2.0.35. Native consumer: Clang 19.1.7.
 # Bend 2.0.37 currently rejects duplicate constructor names in this import closure.
-# Import individual modules as bendvy-ecs-core@0.1.0.0/world-io.bend, etc.
+# Import individual modules as bendvy-ecs-core@0.1.0.0/world_io.bend, etc.
+# Publish the exported layout from scripts/package-bendhub.py; Hub file paths
+# use underscores while the source tree retains its original module filenames.
 # Imports below define the shipped source closure, not additional gameplay authority.
 import Base
 import ./bundle-batch.bend as M000
