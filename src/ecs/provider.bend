@@ -11,6 +11,9 @@ import commands.bend as Cmd
 # affine operation applications, never duplicate a captured Type closure.
 type Frame<-S: Data,-Store: Type,-R: Type,-E: Data> is Type:
   Frame{tx: T.Tx<W.World<S,Store,R,E>,E>,handle: W.Handle<S>,mainName: String,auxName: String,error: Maybe<&2,W.WorldError>}
+# Direct-query body failure: UserError retains the authored Data error;
+# AccessError retains a World validation/access error. The enclosing query
+# runner applies its transaction rollback; this value alone performs no undo.
 type Error<U: Data> is Data:
   UserError{error: U}
   AccessError{error: W.WorldError}

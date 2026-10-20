@@ -8,6 +8,9 @@ import ./ordinary-app-observation-data.bend as DTO
 # Retain the ordinary schema itself, never an extra debug declaration.
 type Application<S:Data,C:Type,R:Type,E:Data,Owners:Type,Rows:Data,-observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,-fold:Owners -> Owners & List<&2,Records.Fields<S>>> is Type:
   Application{schema:Schema.Schema<S,C,R>,app:Build.Registered<S,W.World<S,C,R,E>,Owners,Rows,observe,fold>}
+# Detached ordinary schema entries and registered application observations.
+# This enabled-debug view contains no live owners and is not a restorable
+# runtime checkpoint or a replacement for typed registration authority.
 type Description<S:Data,Rows:Data> is Data:
   Description{schema:List<&2,Fragment.Entry<S>>,registered:DTO.Product<List<&2,DTO.Binding<S>>,DTO.Observation<Rows>>}
 def attached(~S:Data,~C:Type,~R:Type,~E:Data,~Owners:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:Owners -> Owners & List<&2,Records.Fields<S>>,schema:Schema.Schema<S,C,R>,app:Build.Registered<S,W.World<S,C,R,E>,Owners,Rows,observe,fold>) -> Application<S,C,R,E,Owners,Rows,observe,fold>:

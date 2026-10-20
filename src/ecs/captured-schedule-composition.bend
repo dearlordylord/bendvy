@@ -11,6 +11,9 @@ type Outcome<World:Type,Owner:Type,Error:Data> is Type:
   Skipped{world:World,owner:Owner}
   Failed{world:World,owner:Owner,error:Error}
   Refused{world:World,owner:Owner}
+# Detached heterogeneous error sum used when composing registered systems.
+# LeftError and RightError identify the originating error branch; it carries
+# neither the World nor affine system owners, which return separately.
 type Choice<L:Data,R:Data> is Data:
   LeftError{error:L}
   RightError{error:R}

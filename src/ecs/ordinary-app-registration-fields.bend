@@ -25,6 +25,10 @@ type RegistrationKind is Data:
   ServiceKind{}
   EventKind{}
   MixedKind{uses:List<&2,DeclaredUse>}
+# Detached advanced registration description: namespace/ID/name/access,
+# cursor, authored slot/query clauses and operation kind. This Data record
+# is observation metadata; it does not independently prove a live registration
+# or authorize execution without its matching typed token and World checks.
 type Fields<S:Data> is Data:
   Fields{namespace:U32,id:U32,name:String,access:List<&2,String>,cursor:U32,slot:String,clauses:List<&2,Query.Clause<S>>,kind:RegistrationKind}
 type Token<-Registry:Type> is Type:

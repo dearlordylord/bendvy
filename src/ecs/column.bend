@@ -29,6 +29,10 @@ type IndexedPreparedState<-S:Data,-C:Type> is Type:
 type IndexedPreparedCarrier<-S:Data,-C:Type> is Type:
   IndexedPreparedOwned{state:IndexedPreparedState<S,C>}
   IndexedPreparedWrapped{inner:IndexedPreparedCarrier<S,C>}
+# Trusted schema storage owning optional affine payloads and lifecycle data.
+# Representation variants are engine details, not additional gameplay APIs.
+# Raw column operations use slot indices and do not validate World handles;
+# applications normally use typed component/query capabilities.
 type Column<-S: Data, -C: Type> is Type:
   Column{values: Array<Maybe<&1,C>>,stamps: List<&2,L.Entry>}
   Prepared{state:Carrier<S,C>}
@@ -44,6 +48,9 @@ def indexed_unseal(~S:Data,~C:Type,carrier:IndexedOrdinaryCarrier<S,C>) -> Index
     case IndexedOrdinaryWrapped{inner}: indexed_unseal(~S,~C,inner)
 def indexed_wrap(~S:Data,~C:Type,values:Array<Maybe<&1,C>>,metadata:M.Metadata) -> Column<S,C>:
   Indexed{IndexedOrdinaryOwned{IndexedOrdinaryState{values,metadata}}}
+# Create an empty indexed column for trusted schema setup. Its layout is
+# not a component-kind restriction: C may be affine Type. No entity is spawned.
+# Example: examples/health-decay/schema.bend, empty().
 def empty_indexed(~S:Data,~C:Type) -> Column<S,C>:
   indexed_wrap(~S,~C,ALeaf{None{}},M.empty())
 def absent(~C: Type, +depth: Nat) -> Array<Maybe<&1,C>>:
@@ -72,6 +79,9 @@ def unseal(~S:Data,~C:Type,carrier:Carrier<S,C>) -> State<S,C>:
     case Owned{state}: state
     case Wrapped{inner}: unseal(~S,~C,inner)
 
+# Raw column replacement result. Accepted returns column and displaced
+# optional payload; Rejected returns column and incoming optional payload.
+# Neither branch provides runtime entity/world validation by itself.
 type SwapOutcome<-S: Data, -C: Type> is Type:
   Accepted{column: Column<S,C>, previous: Maybe<&1,C>}
   Rejected{column: Column<S,C>, incoming: Maybe<&1,C>}
@@ -131,6 +141,7 @@ def indexed_clear_state(~S:Data,~C:Type,+id:U32,state:IndexedOrdinaryState<S,C>)
   match state:
     case IndexedOrdinaryState{values,metadata}: indexed_wrap(~S,~C,values,M.clear(metadata,id))
 
+# Create an empty trusted schema column without component payloads.
 def empty(~S: Data, ~C: Type) -> Column<S,C>:
   Column{ALeaf{None{}},[]}
 
@@ -536,5 +547,9 @@ def cleared(~S: Data,~C: Type,+id: U32,outcome: SwapOutcome<S,C>) -> SwapOutcome
     case Accepted{column,previous}: Accepted{clear_stamp(~S,~C,column,id),previous}
     case Rejected{column,incoming}: Rejected{column,incoming}
 
+# Trusted slot-level removal returning column and its displaced optional
+# payload; successful removal also clears that slot's lifecycle stamp. Does
+# not validate namespace/generation or finalize the returned payload. Use the
+# matching schema cleanup adapter after runtime handle validation.
 def clear(~S: Data,~C: Type,column: Column<S,C>,+id: U32) -> SwapOutcome<S,C>:
   cleared(~S,~C,id,swap(~S,~C,column,id,None{}))

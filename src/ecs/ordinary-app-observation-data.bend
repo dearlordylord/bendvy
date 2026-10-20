@@ -6,8 +6,13 @@ import ./ordinary-query-observable.bend as O
 import ./ordinary-query-declaration.bend as N
 import ./inspector.bend as I
 import ./inspector-query.bend as IQ
+# Detached typed observation rows plus their presentation strings.
+# Contains no live World or payload owner; rendered text is not a stable save
+# or wire protocol and may omit information retained in rows.
 type Observation<Rows:Data> is Data:
   Observation{rows:Rows,rendered:List<&2,String>}
+# Detached heterogeneous pair preserving the left/right observation shape.
+# Nest for additional row types; it does not duplicate affine payload owners.
 type Product<L:Data,R:Data> is Data:
   Product{left:L,right:R}
 # Private typed DTO; text presentation is a fixture view, not a wire contract.
