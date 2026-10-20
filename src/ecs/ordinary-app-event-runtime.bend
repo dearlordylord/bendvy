@@ -16,18 +16,29 @@ import ./system.bend as Sys
 import ./ordinary-event-declaration.bend as Event
 import ./ordinary-app-event.bend as EventOwner
 # Sole World is inside Runtime; schema/operational owners/phantom recipe remain retained.
+# Schema App retaining one actual event Runtime, ordinary registration owners and
+# event-owner product. Events are detached Data here; affine payload logs require
+# the separate owned-event family APIs. Raw folds/adapters remain trusted setup.
 type Application<S:Data,C:Type,R:Type,E:Data,H:Type,Rows:Data,-observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,-fold:H -> H & List<&2,Records.Fields<S>>,Events:Type,-eventFold:Events -> Events & List<&2,Access.Entry>> is Type:
   Application{schema:Schema.Schema<S,C,R>,runtime:Ev.Runtime<S,C,R,E>,owners:H,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,events:Events,debug:Bool}
+# Advanced Unit event-owner fold with an empty access inventory.
 def empty_events(unit:Unit) -> Unit & List<&2,Access.Entry>:(unit,[])
+# Wrap the schema App World in an event Runtime with the supplied retention
+# capacity and no event owners. Preserve schema/owners/recipe/debug; no reader
+# or writer is automatically registered.
 def start(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,capacity:Nat,value:SchemaApp.Application<S,C,R,E,H,Rows,observe,fold>) -> Application<S,C,R,E,H,Rows,observe,fold,Unit,empty_events>:
   match value:
     case SchemaApp.Application{schema,Build.Registered{world,owners,recipe,debug}}:Application{schema,Ev.start(~S,~C,~R,~E,world,capacity),owners,recipe,Unit{},debug}
+# Set App observation enablement without dispatch or retention/cursor changes.
 def enabled(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,app:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>,flag:Bool) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>:
   match app:
     case Application{schema,runtime,owners,recipe,events,_}:Application{schema,runtime,owners,recipe,events,flag}
 def indexed(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,schema:Schema.Schema<S,C,R>,runtime:Ev.Runtime<S,C,R,E>,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,prior:H & List<&2,Records.Fields<S>>,eventResult:Events & List<&2,Access.Entry>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,List<&2,Access.Entry>>:
   match prior eventResult:
     case (owners,records),(events,entries):(Application{schema,runtime,owners,recipe,events,True{}},Some{Access.grouped(List.append(&2,Access.Entry,Access.fields(~S,records),entries),[])})
+# Return App and optional grouped registration/event access inventory. Disabled
+# bypasses both folds; enabled threads actual owners through generated folds.
+# Inventory metadata is not a gameplay grant or an event acknowledgement.
 def index(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,app:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,List<&2,Access.Entry>>:
   match app:
     case Application{schema,runtime,owners,recipe,events,False{}}:(Application{schema,runtime,owners,recipe,events,False{}},None{})
@@ -38,15 +49,21 @@ def pair_second(~L:Type,~R:Type,left:L,before:List<&2,Access.Entry>,right:R & Li
 def pair_first(~L:Type,~R:Type,~rightFold:R -> R & List<&2,Access.Entry>,right:R,left:L & List<&2,Access.Entry>) -> (L & R) & List<&2,Access.Entry>:
   match left:
     case (left,before):pair_second(~L,~R,left,before,rightFold(right))
+# Advanced left-before-right event-owner fold composition retaining both actual
+# owners and concatenating detached access entries in order.
 def pair(~L:Type,~R:Type,~leftFold:L -> L & List<&2,Access.Entry>,~rightFold:R -> R & List<&2,Access.Entry>,events:L & R) -> (L & R) & List<&2,Access.Entry>:
   match events:
     case (left,right):pair_first(~L,~R,~rightFold,right,leftFold(left))
+# Actual event reader token paired with its declaration/registry owner. Reader id
+# and system registry id are distinct identities; neither is copied to run a reader.
 type ReaderLeaf<S:Data,E:Data,Registry:Type> is Type:
   ReaderLeaf{reader:Ev.Reader<S>,owner:EventOwner.Owner<S,E,Registry>}
 def writer_entry_returned(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> A -> Sys.Outcome<W.World<S,C,R,E>,Error,O>,result:EventOwner.Owner<S,E,Sys.Registry<S,C,R,E,A,Error,O,runner>> & Maybe<&2,Access.Entry>) -> EventOwner.Owner<S,E,Sys.Registry<S,C,R,E,A,Error,O,runner>> & List<&2,Access.Entry>:
   match result:
     case (owner,None{}):(owner,[])
     case (owner,Some{entry}):(owner,[entry])
+# Advanced owner-returning event-writer access description using its declaration
+# and actual registry. The owner's debug flag controls whether an entry is emitted.
 def writer_entry(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> A -> Sys.Outcome<W.World<S,C,R,E>,Error,O>,leaf:EventOwner.Owner<S,E,Sys.Registry<S,C,R,E,A,Error,O,runner>>) -> EventOwner.Owner<S,E,Sys.Registry<S,C,R,E,A,Error,O,runner>> & List<&2,Access.Entry>:
   match leaf:
     case EventOwner.Owner{declaration,registry,debug}:writer_entry_returned(~S,~C,~R,~E,~A,~Error,~O,~runner,EventOwner.described(~S,~C,~R,~E,~A,~Error,~O,~runner,declaration,registry,debug))
@@ -54,6 +71,8 @@ def reader_entry_returned(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O
   match result:
     case (owner,None{}):(ReaderLeaf{reader,owner},[])
     case (owner,Some{entry}):(ReaderLeaf{reader,owner},[entry])
+# Advanced event-reader access description retaining the actual reader and registry.
+# Does not consume unread messages or advance stream positions.
 def reader_entry(~S:Data,~C:Type,~R:Type,~E:Data,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,O>,leaf:ReaderLeaf<S,E,Sys.Registry<S,C,R,E,Ev.Input<E,A>,Error,O,runner>>) -> ReaderLeaf<S,E,Sys.Registry<S,C,R,E,Ev.Input<E,A>,Error,O,runner>> & List<&2,Access.Entry>:
   match leaf:
     case ReaderLeaf{reader,EventOwner.Owner{declaration,registry,debug}}:reader_entry_returned(~S,~C,~R,~E,~A,~Error,~O,~runner,reader,EventOwner.described(~S,~C,~R,~E,~Ev.Input<E,A>,~Error,~O,~runner,declaration,registry,debug))
@@ -65,6 +84,9 @@ def writer_appended(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:
   match result:
     case (runtime,None{}):failed(Application{schema,runtime,owners,recipe,events,debug})
     case (runtime,Some{owner}):done(Application{schema,runtime,owners,recipe,(events,owner),debug})
+# Register a declared writer and append its actual owner on success. failed gets
+# the prior App shape with returned Runtime; done gets extended event owners.
+# No writer body runs. World registration adapter synchronizes through Ev.with_world.
 def register_writer(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> A -> Sys.Outcome<W.World<S,C,R,E>,Error,O>,~Result:Type,done:Application<S,C,R,E,H,Rows,observe,fold,Events & EventOwner.Owner<S,E,Sys.Registry<S,C,R,E,A,Error,O,runner>>,pair(~Events,~EventOwner.Owner<S,E,Sys.Registry<S,C,R,E,A,Error,O,runner>>,~eventFold,~writer_entry(~S,~C,~R,~E,~A,~Error,~O,~runner))> -> Result,failed:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> -> Result,app:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>,declaration:Event.Declaration<S,E>,name:String) -> Result:
   match app:
     case Application{schema,runtime,owners,recipe,events,debug}:writer_appended(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,~A,~Error,~O,~runner,~Result,done,failed,schema,owners,recipe,events,debug,Ev.with_world(~S,~C,~R,~E,~Maybe<EventOwner.Owner<S,E,Sys.Registry<S,C,R,E,A,Error,O,runner>>>,world => writer_registered_world(~S,~C,~R,~E,~A,~Error,~O,~runner,EventOwner.register_writer(~S,~C,~R,~E,~A,~Error,~O,~runner,world,declaration,name)),runtime))
@@ -72,10 +94,14 @@ def reader_appended(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:
   match result:
     case EventOwner.ReaderFailed{runtime}:failed(Application{schema,runtime,owners,recipe,events,debug})
     case EventOwner.ReaderRegistered{runtime,reader,owner}:done(Application{schema,runtime,owners,recipe,(events,ReaderLeaf{reader,owner}),debug})
+# Register a declared reader with its actual stream/registry ownership. done gets
+# the extended App; failed gets the prior App shape with returned Runtime. Does
+# not invoke the body or equate Reader id with Registry id.
 def register_reader(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,O>,~Result:Type,done:Application<S,C,R,E,H,Rows,observe,fold,Events & ReaderLeaf<S,E,Sys.Registry<S,C,R,E,Ev.Input<E,A>,Error,O,runner>>,pair(~Events,~ReaderLeaf<S,E,Sys.Registry<S,C,R,E,Ev.Input<E,A>,Error,O,runner>>,~eventFold,~reader_entry(~S,~C,~R,~E,~A,~Error,~O,~runner))> -> Result,failed:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> -> Result,app:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>,declaration:Event.Declaration<S,E>,name:String) -> Result:
   match app:
     case Application{schema,runtime,owners,recipe,events,debug}:reader_appended(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,~A,~Error,~O,~runner,~Result,done,failed,schema,owners,recipe,events,debug,EventOwner.register_reader(~S,~C,~R,~E,~A,~Error,~O,~runner,runtime,declaration,name))
 
+# Internal owner-returning action transport, not an additional public App owner.
 type Previous<S:Data,C:Type,R:Type,E:Data,H:Type,Rows:Data,-observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,Out:Type> is Type:
   Previous{schema:Schema.Schema<S,C,R>,owners:H,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,debug:Bool,output:Out}
 def previous_finished(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Out:Type,result:SchemaApp.Application<S,C,R,E,H,Rows,observe,fold> & Out) -> W.World<S,C,R,E> & Previous<S,C,R,E,H,Rows,observe,Out>:
@@ -84,10 +110,15 @@ def previous_finished(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observ
 def previous_returned(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~Out:Type,events:Events,result:Ev.Runtime<S,C,R,E> & Previous<S,C,R,E,H,Rows,observe,Out>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Out:
   match result:
     case (runtime,Previous{schema,owners,recipe,debug,output}):(Application{schema,runtime,owners,recipe,events,debug},output)
+# Advanced schema-App action bridge retaining event owners and threading Runtime
+# through Ev.with_world synchronization/tick semantics. Arbitrary action effects
+# are trusted; this is not the observation-only bypass used by population/dump.
 def with_previous(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~Out:Type,action:SchemaApp.Application<S,C,R,E,H,Rows,observe,fold> -> SchemaApp.Application<S,C,R,E,H,Rows,observe,fold> & Out,app:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Out:
   match app:
     case Application{schema,runtime,owners,recipe,events,debug}:previous_returned(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,~Out,events,Ev.with_world(~S,~C,~R,~E,~Previous<S,C,R,E,H,Rows,observe,Out>,world => previous_finished(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Out,action(SchemaApp.Application{schema,Build.Registered{world,owners,recipe,debug}})),runtime))
+# Advanced type projection of the App after appending one actual writer owner.
 def AfterWriter(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> A -> Sys.Outcome<W.World<S,C,R,E>,Error,O>) -> Type:Application<S,C,R,E,H,Rows,observe,fold,Events & EventOwner.Owner<S,E,Sys.Registry<S,C,R,E,A,Error,O,runner>>,pair(~Events,~EventOwner.Owner<S,E,Sys.Registry<S,C,R,E,A,Error,O,runner>>,~eventFold,~writer_entry(~S,~C,~R,~E,~A,~Error,~O,~runner))>
+# Advanced type projection after appending a ReaderLeaf with actual reader/owner.
 def AfterReader(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~A:Type,~Error:Data,~O:Type,~runner:W.World<S,C,R,E> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,E>,Error,O>) -> Type:Application<S,C,R,E,H,Rows,observe,fold,Events & ReaderLeaf<S,E,Sys.Registry<S,C,R,E,Ev.Input<E,A>,Error,O,runner>>,pair(~Events,~ReaderLeaf<S,E,Sys.Registry<S,C,R,E,Ev.Input<E,A>,Error,O,runner>>,~eventFold,~reader_entry(~S,~C,~R,~E,~A,~Error,~O,~runner))>
 
 # Trusted internal action bridge: its arbitrary callback type does not imply read-only behavior.
@@ -101,14 +132,22 @@ def internal_observation_runtime(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:D
 def internal_observation(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~Out:Type,action:SchemaApp.Application<S,C,R,E,H,Rows,observe,fold> -> SchemaApp.Application<S,C,R,E,H,Rows,observe,fold> & Out,app:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Out:
   match app:
     case Application{schema,runtime,owners,recipe,events,debug}:internal_observation_runtime(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,~Out,schema,owners,recipe,events,debug,action,runtime)
+# Observe generated ordinary component counts while preserving actual Runtime
+# fields, event owners and pending work. Disabled population bypasses counting.
+# No event synchronization/tick/frame/reader update is added by this observation.
 def population(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,~components:C -> U32 -> C & List<&2,Maybe<&2,String>>,~resources:R -> R & List<&2,Maybe<&2,String>>,presentation:Presentation.Recipe<S,C,R,count,components,resources>,app:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,Population.Population>:
   match presentation:
     case Presentation.Recipe{}:internal_observation(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,~Maybe<&2,Population.Population>,value => Population.schema_population(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~count,value),app)
+# Observe the generated filtered ordinary dump without advancing event Runtime.
+# Retain all actual owners; debug/filter/presenter behavior is that of App Dump,
+# with opaque presentation adapters trusted. Does not acknowledge event readers.
 def dump(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,~components:C -> U32 -> C & List<&2,Maybe<&2,String>>,~resources:R -> R & List<&2,Maybe<&2,String>>,presentation:Presentation.Recipe<S,C,R,count,components,resources>,criteria:Filter.Filter<S>,app:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,Dump.Dump<S>>:
   match presentation:
     case Presentation.Recipe{}:internal_observation(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,~Maybe<&2,Dump.Dump<S>>,value => Dump.schema_snapshot(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~count,~components,~resources,criteria,value),app)
 
 # Descriptive values only. Position.id is the actual Reader ID, not a Registry ID.
+# Detached debug view of Data batches, actual reader positions and World event
+# log. Reader position ids are not registry ids; this is not a restorable checkpoint.
 type RuntimeView<E:Data> is Data:
   RuntimeView{namespace:U32,batches:List<&2,Ev.Batch<E>>,positions:List<&2,Ev.Position>,nextReader:U32,tick:Nat,frameStart:Nat,boundary:Nat,capacity:Nat,droppedThrough:Nat,log:List<&2,E>}
 def runtime_view_returned(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,schema:Schema.Schema<S,C,R>,owners:H,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,events:Events,+namespace:U32,+batches:List<&2,Ev.Batch<E>>,+positions:List<&2,Ev.Position>,+nextReader:U32,+tick:Nat,+frameStart:Nat,+boundary:Nat,+capacity:Nat,+dropped:Nat,result:W.World<S,C,R,E> & List<&2,E>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,RuntimeView<E>>:
@@ -117,6 +156,8 @@ def runtime_view_returned(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~ob
 def runtime_view_enabled(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,schema:Schema.Schema<S,C,R>,owners:H,recipe:Tree.Recipe<W.World<S,C,R,E>,Rows,observe>,events:Events,runtime:Ev.Runtime<S,C,R,E>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,RuntimeView<E>>:
   match runtime:
     case Ev.Runtime{world,+namespace,+batches,+positions,+nextReader,+tick,+frameStart,+boundary,+capacity,+dropped}:runtime_view_returned(~S,~C,~R,~E,~H,~Rows,~observe,~fold,~Events,~eventFold,schema,owners,recipe,events,namespace,batches,positions,nextReader,tick,frameStart,boundary,capacity,dropped,W.events_view(~S,~C,~R,~E,world))
+# Return App and optional copied RuntimeView. Disabled bypasses log observation;
+# enabled preserves Runtime fields and owners, without sync/trim/frame or dispatch.
 def runtime_view(~S:Data,~C:Type,~R:Type,~E:Data,~H:Type,~Rows:Data,~observe:W.World<S,C,R,E> -> W.World<S,C,R,E> & DTO.Observation<Rows>,~fold:H -> H & List<&2,Records.Fields<S>>,~Events:Type,~eventFold:Events -> Events & List<&2,Access.Entry>,app:Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold>) -> Application<S,C,R,E,H,Rows,observe,fold,Events,eventFold> & Maybe<&2,RuntimeView<E>>:
   match app:
     case Application{schema,runtime,owners,recipe,events,False{}}:(Application{schema,runtime,owners,recipe,events,False{}},None{})
@@ -127,6 +168,7 @@ def runtime_batch_u32(batch:Ev.Batch<U32>) -> String:
 def runtime_position(position:Ev.Position) -> String:
   match position:
     case Ev.Position{id,cursor,registeredAt}:"Reader" ++ U32.show(id) ++ ":" ++ Nat.show(cursor) ++ ":" ++ Nat.show(registeredAt)
+# Format a detached U32 RuntimeView only; no runtime access, cursor movement or IO.
 def runtime_text_u32(view:Maybe<&2,RuntimeView<U32>>) -> String:
   match view:
     case None{}:"runtime=None"

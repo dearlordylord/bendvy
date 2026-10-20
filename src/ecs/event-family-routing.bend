@@ -8,10 +8,16 @@ import ./ordinary-event-declaration.bend as Event
 import ./event-stream.bend as Leaf
 
 # F is any finite generated product of typed stream leaves and affine owners.
+# Actual sole World with heterogeneous family state F and routing tick. Canonical
+# family builders couple selectors/streams; raw take/put/synchronize are trusted.
 type Runtime<S:Data,C:Type,R:Type,P:Data,F:Type> is Type:
   Runtime{world:W.World<S,C,R,P>,family:F,tick:Nat}
+# Affine reader token binding World namespace, stream-reader id and registry id
+# to its typed stream selection. Raw field fabrication does not establish authority.
 type Reader<S:Data,E:Data,F:Type,-take:F -> F & Leaf.Stream<S,E>,-put:F -> Leaf.Stream<S,E> -> F> is Type:
   Reader{namespace:U32,id:U32,registryId:U32}
+# Successful registration retains runtime, actual reader and actual registry;
+# failure returns runtime without dropping heterogeneous family owners.
 type Registration<S:Data,C:Type,R:Type,P:Data,E:Data,F:Type,A:Type,Error:Data,O:Type,-take:F -> F & Leaf.Stream<S,E>,-put:F -> Leaf.Stream<S,E> -> F,-runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>> is Type:
   Registered{runtime:Runtime<S,C,R,P,F>,reader:Reader<S,E,F,take,put>,registry:Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,O,runner>}
   RegistrationFailed{runtime:Runtime<S,C,R,P,F>}
@@ -37,10 +43,16 @@ def registration_named(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~
 def registration_leaf(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~O:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>,world:W.World<S,C,R,P>,tick:Nat,name:String,returned:F & Leaf.Stream<S,E>) -> Registration<S,C,R,P,E,F,A,Error,O,take,put,runner>:
   match returned:
     case (family,+stream):registration_named(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,family,stream,tick,Leaf.read_declaration(~S,~E,stream),name,W.namespace(~S,~C,~R,~P,world))
+# Register against the selected stream's read declaration and actual World.
+# Check stream/system id admission before returning reader/registry; does not run
+# a callback or activate unread position merely by registering.
 def register(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~O:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>,runtime:Runtime<S,C,R,P,F>,name:String) -> Registration<S,C,R,P,E,F,A,Error,O,take,put,runner>:
   match runtime:
     case Runtime{world,family,tick}:registration_leaf(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,world,tick,name,take(family))
 
+# Every route result retains runtime, reader and registry. Inspect completion:
+# Succeeded carries O, Failed carries callback error, Rejected returns actual Args.
+# Semantic failure may be encoded inside O by higher adapters; inspect that too.
 type RunResult<S:Data,C:Type,R:Type,P:Data,E:Data,F:Type,A:Type,Error:Data,O:Type,-take:F -> F & Leaf.Stream<S,E>,-put:F -> Leaf.Stream<S,E> -> F,-runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>> is Type:
   Ran{runtime:Runtime<S,C,R,P,F>,reader:Reader<S,E,F,take,put>,registry:Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,O,runner>,completion:Ev.Completion<Error,O,A>}
 def run_synchronized_traced(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~O:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>,~observed:Facts.State -> W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O> & Facts.State,reader:Reader<S,E,F,take,put>,registry:Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,O,runner>,tick:Nat,output:O,returned:W.World<S,C,R,P> & F,trace:Facts.State) -> RunResult<S,C,R,P,E,F,A,Error,O,take,put,runner> & Facts.State:
@@ -118,6 +130,14 @@ def run_identified_traced(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Typ
     case Runtime{world,family,tick}:
       (registry,actual)=identified
       run_identity_traced(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,~observed,~accepted,~synchronize,family,tick,args,reader,registry,actual,W.namespace(~S,~C,~R,~P,world),trace)
+# Validated reader/registry routing with trace-aware runner and semantic accepted
+# callback. Namespace/id mismatch rejects before invocation and returns Args;
+# actual registry metadata is also checked. Read unread values in stream order
+# with lag status. Success advances cursor and synchronizes returned publications;
+# Sys failure retains unread position. accepted(False) restores prior selected
+# positions despite transport success, preserving higher-level semantic retry.
+# Return actual owners and fact state; no payload copying, implicit barrier or
+# automatic rollback of arbitrary callback effects is supplied.
 def run_traced(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~O:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>,~observed:Facts.State -> W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O> & Facts.State,~accepted:O -> O & Bool,~synchronize:W.World<S,C,R,P> -> F -> Nat -> W.World<S,C,R,P> & F,runtime:Runtime<S,C,R,P,F>,reader:Reader<S,E,F,take,put>,registry:Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,O,runner>,args:A,trace:Facts.State) -> RunResult<S,C,R,P,E,F,A,Error,O,take,put,runner> & Facts.State:
   run_identified_traced(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,~observed,~accepted,~synchronize,runtime,reader,args,Sys.identity(~S,~C,~R,~P,~Ev.Input<E,A>,~Error,~O,~runner,registry),trace)
 def accept_all(~O:Type,value:O) -> O & Bool:(value,True{})
@@ -145,11 +165,20 @@ def run_identity(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:
   without_trace(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,run_identity_traced(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,~unobserved(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner),~accept_all(~O),~synchronize,family,tick,args,reader,registry,actual,named,Facts.Off{}))
 def run_identified(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~O:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>,~synchronize:W.World<S,C,R,P> -> F -> Nat -> W.World<S,C,R,P> & F,runtime:Runtime<S,C,R,P,F>,reader:Reader<S,E,F,take,put>,args:A,identified:Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,O,runner> & U32) -> RunResult<S,C,R,P,E,F,A,Error,O,take,put,runner>:
   without_trace(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,run_identified_traced(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,~unobserved(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner),~accept_all(~O),~synchronize,runtime,reader,args,identified,Facts.Off{}))
+# Untraced routing using the same identity/registry admission and ownership path.
+# Every Sys.Succeeded output is accepted here; adapters encoding semantic failure
+# in O must reconcile it or use run_traced with an acceptance callback.
+# Rejected returns Args, Failed does not promise consumed Args recovery. Tick
+# changes follow the routing branch, not an ordinary lifecycle-reader cursor.
 def run(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~O:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>,~synchronize:W.World<S,C,R,P> -> F -> Nat -> W.World<S,C,R,P> & F,runtime:Runtime<S,C,R,P,F>,reader:Reader<S,E,F,take,put>,registry:Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,O,runner>,args:A) -> RunResult<S,C,R,P,E,F,A,Error,O,take,put,runner>:
   without_trace(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,run_traced(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner,~unobserved(~S,~C,~R,~P,~E,~F,~A,~Error,~O,~take,~put,~runner),~accept_all(~O),~synchronize,runtime,reader,registry,args,Facts.Off{}))
 
+# Execution-context result retaining actual World/trace, family, routing tick,
+# reader, registry and completion separately. Not a copied runtime checkpoint.
 type ContextRunResult<S:Data,C:Type,R:Type,P:Data,E:Data,F:Type,A:Type,Error:Data,O:Type,-take:F -> F & Leaf.Stream<S,E>,-put:F -> Leaf.Stream<S,E> -> F,-runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>> is Type:
   ContextRan{context:Ctx.Context<W.World<S,C,R,P>>,family:F,tick:Nat,reader:Reader<S,E,F,take,put>,registry:Sys.Registry<S,C,R,P,Ev.Input<E,A>,Error,O,runner>,completion:Ev.Completion<Error,O,A>}
+# Advanced transport from traced route result to context form, preserving all
+# actual owners and completion; does not execute or acknowledge another reader.
 def context_returned(~S:Data,~C:Type,~R:Type,~P:Data,~E:Data,~F:Type,~A:Type,~Error:Data,~O:Type,~take:F -> F & Leaf.Stream<S,E>,~put:F -> Leaf.Stream<S,E> -> F,~runner:W.World<S,C,R,P> -> Ev.Input<E,A> -> Sys.Outcome<W.World<S,C,R,P>,Error,O>,result:RunResult<S,C,R,P,E,F,A,Error,O,take,put,runner> & Facts.State) -> ContextRunResult<S,C,R,P,E,F,A,Error,O,take,put,runner>:
   match result:
     case (Ran{Runtime{world,family,tick},reader,registry,completion},trace):ContextRan{Ctx.Context{world,trace},family,tick,reader,registry,completion}
