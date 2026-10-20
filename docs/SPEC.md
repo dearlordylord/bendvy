@@ -2,7 +2,7 @@
 
 We need a Bend-native entity-component-system runtime that retains the useful behavior of the current bevy-ts core without inheriting TypeScript's representation or ownership assumptions. Starting with a small ECS must not silently discard events, relations, states, transactions, composition or tooling from the eventual scope.
 
-The runtime must exploit Bend's type system and execution model correctly. Feature completion is the current priority; quantitative performance work is deferred by the amendment below. At specification creation, no implementation or performance evidence existed. Current bounded experimental evidence and remaining production gates are recorded in [the next checkpoint draft](next-core-checkpoint.md); the full runtime and final performance acceptance remain incomplete.
+The runtime must exploit Bend's type system and execution model correctly. Feature completion is the current priority; quantitative performance work is deferred by the amendment below. At specification creation, no implementation or performance evidence existed. Current capability acceptance and public API documentation are recorded in the [parity index](parity/README.md). The agreed semantic runtime scope and source-documentation review are accepted; final numerical performance qualification remains deferred below.
 
 
 ## Current delivery priority — user amendment, 2026-10-20 UTC
