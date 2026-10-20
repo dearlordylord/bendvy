@@ -38,3 +38,20 @@ The [ordinary Runtime consumer](../../experiments/public-restore/graph-runtime-v
 - Use before/after JS call and allocation profiles for a consequential performance change; report allocation sampling separately from physical/RSS memory. Optimize demonstrated bottlenecks while completing features. The scoped #30 amendment is not a global gate waiver; full performance remains under #21/#23/#24.
 - Specific new laws require drafting, falsification with planted defects and human approval before ECS proofs. New dependencies and unresolved contract changes require the existing SPEC approvals. Checker default remains five seconds; retain separately approved diagnostic scope without generalizing it.
 - Commit verified work directly on master, obtain independent Spec/Standards review, push and post an English governing-issue completion report before closing. Preserve unrelated edits/processes, read-only references and canonical jev. Document any remaining limitation with a concrete owning task; do not close on a feasibility report or silently narrow this acceptance.
+
+
+## Pending structural work — #76
+
+Ordinary basic and graph save now return `World & snapshot-data.Outcome<Snapshot>`:
+`Saved{snapshot}` or `RefusedPending{}`. A nonempty `World.pending` refuses before
+any entity/resource/basic/graph/machine projection. The returned World and queued
+affine command owners remain intact; saving never flushes commands. Apply an explicit
+barrier, then retry. There is no compatibility API with the old save result.
+
+Machine snapshots still contain committed values, not pending transitions; event
+logs/readers likewise are not runtime checkpoints. This guard concerns structural
+commands, not hidden queues in arbitrary resource payloads. The focused
+[test fixture](../../test-fixtures/public-save-pending/main.bend) covers refusal,
+noninvocation of projections, retained command owners/FIFO, barrier/retry, zero-live
+resource save and complete graph/current-machine export. Both matched-stock35 JS
+and Native consumers pass the full496-byte oracle; independent final review GO.

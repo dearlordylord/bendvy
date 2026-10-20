@@ -24,7 +24,9 @@ def rows(~S:Data,~C:Type,~components:U32 -> C -> C & List<&2,D.Field>,handles:Li
 # projections/codecs, while explicit transient leaves are omitted. Closed schema
 # projections and name bindings remain trusted setup, not arbitrary descriptor
 # validation inferred from this wrapper. The save contains no registration owners,
-# pending commands, reader positions or event-log checkpoint.
+# reader positions or event-log checkpoint. Pending structural commands refuse
+# BEFORE any projection, returning the same World/queue as RefusedPending. No
+# implicit barrier runs; apply an explicit barrier and retry when appropriate.
 # See docs/parity/snapshot-export.md and its ordinary constructor/save consumer.
-def save(~S:Data,~C:Type,~R:Type,~E:Data,~components:U32 -> C -> C & List<&2,D.Field>,~resources:R -> R & List<&2,D.Field>,schema:Schema.Schema<S,C,R,True{},components,resources>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & Export.Snapshot:
+def save(~S:Data,~C:Type,~R:Type,~E:Data,~components:U32 -> C -> C & List<&2,D.Field>,~resources:R -> R & List<&2,D.Field>,schema:Schema.Schema<S,C,R,True{},components,resources>,world:W.World<S,C,R,E>) -> W.World<S,C,R,E> & Export.Outcome<Export.Snapshot>:
   Export.basic(~S,~C,~R,~E,~rows(~S,~C,~components),~resources,world)

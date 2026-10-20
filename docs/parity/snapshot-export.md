@@ -49,3 +49,20 @@ pending-list path reached here. No new execution is inferred from this join.
 Integrated at `b8c7cde5b`; CI38835649996 passed and #58 closed.
 Combined #21/#23/#24 performance and
 separate #59/#60 restore/extended save obligations remain open.
+
+
+## Pending structural work — #76
+
+Ordinary basic and graph save now return `World & snapshot-data.Outcome<Snapshot>`:
+`Saved{snapshot}` or `RefusedPending{}`. A nonempty `World.pending` refuses before
+any entity/resource/basic/graph/machine projection. The returned World and queued
+affine command owners remain intact; saving never flushes commands. Apply an explicit
+barrier, then retry. There is no compatibility API with the old save result.
+
+Machine snapshots still contain committed values, not pending transitions; event
+logs/readers likewise are not runtime checkpoints. This guard concerns structural
+commands, not hidden queues in arbitrary resource payloads. The focused
+[test fixture](../../test-fixtures/public-save-pending/main.bend) covers refusal,
+noninvocation of projections, retained command owners/FIFO, barrier/retry, zero-live
+resource save and complete graph/current-machine export. Both matched-stock35 JS
+and Native consumers pass the full496-byte oracle; independent final review GO.
