@@ -9,6 +9,9 @@ import ./ordinary-declaration.bend as Identity
 import ./owner-product.bend as Product
 # The single ordinary Schema owns all keys. The erased traversal holds no keys,
 # presenters or payloads. Ordinary builders generate matching leaf slots/order.
+# Trusted ordinary schema setup indexed by matching storage construction
+# and population counting. Contains one schema, not live World/resource owners.
+# Raw construction must preserve entry/slot order; no lens laws are checked.
 type Provision<-S:Data,-C:Type,-R:Type,-empty:Unit -> C,-count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>> is Data:
   Provision{schema:Schema.Schema<S,C,R>}
 def counted(~S:Data,~P:Type,total:U32,result:Col.Column<S,P> & Bool,ih:Col.Column<S,P> -> U32 -> Col.Column<S,P> & U32) -> Col.Column<S,P> & U32:
@@ -27,8 +30,13 @@ def component_count(~S:Data,~P:Type,column:Col.Column<S,P>,handles:List<&2,W.Han
 def component_empty(~S:Data,~P:Type,unit:Unit) -> Col.Column<S,P>:Col.empty(~S,~P)
 def resource_count(~S:Data,value:Unit,handles:List<&2,W.Handle<S>>) -> Unit & List<&2,Maybe<&2,U32>>:(value,[None{}])
 def resource_empty(unit:Unit) -> Unit:unit
+# Declare a component with matching empty-column/counting operations.
+# Does not allocate a World or consume a component payload; combines with
+# product for heterogeneous affine schema storage.
 def component(~S:Data,~P:Type,declaration:Identity.Declaration<S,P>) -> Provision<S,Col.Column<S,P>,Unit,component_empty(~S,~P),component_count(~S,~P)>:
   Provision{Schema.component(~S,~P,declaration)}
+# Declare a resource schema leaf. Its component-storage contribution is
+# Unit and population slot is None; the caller supplies actual R on creation.
 def resource(~S:Data,~P:Type,declaration:Schema.Resource<S,P>) -> Provision<S,Unit,P,resource_empty,resource_count(~S)>:
   Provision{Schema.resource_schema(~S,~P,declaration)}
 def product_counted(~L:Type,~R:Type,left:L,before:List<&2,Maybe<&2,U32>>,right:R & List<&2,Maybe<&2,U32>>) -> Product.Owner<L,R> & List<&2,Maybe<&2,U32>>:
@@ -44,20 +52,45 @@ def product_count(~S:Data,~L:Type,~R:Type,~leftCount:L -> List<&2,W.Handle<S>> -
       product_left(~S,~L,~R,~rightCount,right,handles,leftCount(left,handles))
 def product_empty(~L:Type,~R:Type,~leftEmpty:Unit -> L,~rightEmpty:Unit -> R,unit:Unit) -> Product.Owner<L,R>:
   Product.Owner{leftEmpty(Unit{}),rightEmpty(Unit{})}
+# Compose trusted provisions in left/right schema/storage/count-slot order.
+# Payload types may be affine; this setup value contains no live payloads.
+# Does not validate duplicate keys or build a World.
 def product(~S:Data,~LC:Type,~LR:Type,~RC:Type,~RR:Type,~leftEmpty:Unit -> LC,~leftCount:LC -> List<&2,W.Handle<S>> -> LC & List<&2,Maybe<&2,U32>>,~rightEmpty:Unit -> RC,~rightCount:RC -> List<&2,W.Handle<S>> -> RC & List<&2,Maybe<&2,U32>>,left:Provision<S,LC,LR,leftEmpty,leftCount>,right:Provision<S,RC,RR,rightEmpty,rightCount>) -> Provision<S,Product.Owner<LC,RC>,Product.Owner<LR,RR>,product_empty(~LC,~RC,~leftEmpty,~rightEmpty),product_count(~S,~LC,~RC,~leftCount,~rightCount)>:
   match left right:
     case Provision{left} Provision{right}:Provision{Schema.product(~S,~LC,~LR,~RC,~RR,left,right)}
+# Trusted factory-based World creation returning provision and Creation.
+# Refusal preserves caller resources through the Creation result. This uses
+# the supplied pure Factory and does not allocate a process-unique namespace;
+# prefer checked IO creation for independently created ordinary Worlds.
 def create(~S:Data,~C:Type,~R:Type,~E:Data,~empty:Unit -> C,~count:C -> List<&2,W.Handle<S>> -> C & List<&2,Maybe<&2,U32>>,provision:Provision<S,C,R,empty,count>,factory:W.Factory,resource:R) -> Provision<S,C,R,empty,count> & W.Creation<S,C,R,E>:
   (provision,W.create(~S,~C,~R,~E,~empty,factory,resource))
 
+# Declare a component provision with plain persistence classification
+# from its identity-bound extension. Derives matching empty/count operations;
+# does not execute codecs, validate saved input or construct payload values.
 def component_plain(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,extension:Persist.Plain<S,P,identity>) -> Provision<S,Col.Column<S,P>,Unit,component_empty(~S,~P),component_count(~S,~P)>:Provision{Schema.component_plain(~S,~P,~identity,extension)}
 
+# Declare a component provision with transient persistence classification
+# from its identity-bound extension. Derives matching empty/count operations;
+# does not execute codecs, validate saved input or construct payload values.
 def component_transient(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,extension:Persist.Transient<S,P,identity>) -> Provision<S,Col.Column<S,P>,Unit,component_empty(~S,~P),component_count(~S,~P)>:Provision{Schema.component_transient(~S,~P,~identity,extension)}
 
+# Declare a component provision with constructed persistence classification
+# from its identity-bound extension. Derives matching empty/count operations;
+# does not execute codecs, validate saved input or construct payload values.
 def component_constructed(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,extension:Persist.Constructed<S,P,identity,project>) -> Provision<S,Col.Column<S,P>,Unit,component_empty(~S,~P),component_count(~S,~P)>:Provision{Schema.component_constructed(~S,~P,~identity,~project,extension)}
 
+# Declare a resource provision with plain persistence classification
+# from its identity-bound extension. Derives matching empty/count operations;
+# does not execute codecs, validate saved input or construct payload values.
 def resource_plain(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,extension:Persist.Plain<S,P,identity>) -> Provision<S,Unit,P,resource_empty,resource_count(~S)>:Provision{Schema.resource_plain(~S,~P,~identity,extension)}
 
+# Declare a resource provision with transient persistence classification
+# from its identity-bound extension. Derives matching empty/count operations;
+# does not execute codecs, validate saved input or construct payload values.
 def resource_transient(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,extension:Persist.Transient<S,P,identity>) -> Provision<S,Unit,P,resource_empty,resource_count(~S)>:Provision{Schema.resource_transient(~S,~P,~identity,extension)}
 
+# Declare a resource provision with constructed persistence classification
+# from its identity-bound extension. Derives matching empty/count operations;
+# does not execute codecs, validate saved input or construct payload values.
 def resource_constructed(~S:Data,~P:Type,~identity:Identity.Declaration<S,P>,~project:P -> P & D.Raw,extension:Persist.Constructed<S,P,identity,project>) -> Provision<S,Unit,P,resource_empty,resource_count(~S)>:Provision{Schema.resource_constructed(~S,~P,~identity,~project,extension)}
