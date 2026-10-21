@@ -292,8 +292,8 @@ original repository or read-only references.
 | [Internal E11 supplement](../../experiments/s-integrate-trace/internal-retention-README.md) | Five separate C3/C0 source-API diagnostics with exact batches/individual record trim and registration-aware lag | Explicitly internal APIs; not public capacity configuration or dispatcher acceptance |
 
 The coordinator replayed these artifacts; independent Spec/Standards review and
-focused diagnostic-fix review are in the [Spec](../reviews/integrate-trace-spec.md)
-and [Standards](../reviews/integrate-trace-standards.md) reports. Recorded source,
+focused diagnostic-fix review are in the [Spec](../archive/recovered/reviews/integrate-trace-spec.md)
+and [Standards](../archive/recovered/reviews/integrate-trace-standards.md) reports. Recorded source,
 adapter and trace hashes identify each executed revision; timing fields are
 execution-limit evidence only. Full E0–E11 acceptance still requires the integrated
 Bend owner/provider/transaction/reader/dispatcher, actual negative checker pairs,

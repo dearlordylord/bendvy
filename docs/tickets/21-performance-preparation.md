@@ -30,4 +30,4 @@ No reference or Canonical Tower Defense edits, dependency additions, production 
 
 ## Delivery
 
-Completed as the explicitly allowed blocked handoff: [acceptance ledger](../reports/s-prep-completion.md), [Spec/design review](../reviews/s-prep-final-spec.md), [Standards review](../reviews/s-prep-final-standards.md). Unavailable capabilities and unapproved protocol/contract fields are retained; evaluator/product readiness is not claimed. The user supplied3600 seconds for the future segment; [focused contract](../design/s-prep-contract.md) acceptance is pending.
+Completed as the explicitly allowed blocked handoff: [acceptance ledger](../reports/s-prep-completion.md), [Spec/design review](../archive/recovered/reviews/s-prep-final-spec.md), [Standards review](../archive/recovered/reviews/s-prep-final-standards.md). Unavailable capabilities and unapproved protocol/contract fields are retained; evaluator/product readiness is not claimed. The user supplied3600 seconds for the future segment; [focused contract](../archive/design/s-prep-contract.md) acceptance is pending.

@@ -46,3 +46,17 @@ exactly-once disposal. Read every array element after each boundary. Controls mu
 reject duplication/undeclared access and detect a compiling instance/retention
 mutant. Retain source-current JS/Native receipts and feature timings, then run
 #28 without changing its fixed workload or source baseline.
+
+## Provider and trusted-runner boundary
+
+Gameplay access uses a universally quantified owner and explicit read/replace
+operations. Callbacks cannot reconstruct the concrete Local cell or obtain
+another registration's Local. Registry/World transport and the closed runner
+remain trusted, as in the public System seam. Local.run validates registration
+and namespace before invocation; refused disposal returns the instance owner
+for retry. Raw runner mutations and host IO are not recovered automatically.
+
+The TS adapter's active-registration map and disposal are adapter behavior;
+upstream has no matching Local/disposal API. Actual TS resource failure rollback
+is observed separately. These boundaries are retained from the
+[earlier design note](../archive/design/public-local-owner.md).

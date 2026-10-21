@@ -2,12 +2,12 @@
 
 **[GitHub #19](https://github.com/dearlordylord/bendvy/issues/19). Completed as bounded research with negative results; production performance remains failed. [Completion report](../reports/s-integrate-completion.md).**
 Parent: [#1](https://github.com/dearlordylord/bendvy/issues/1).
-[Astra assessment](../reviews/approved-next-tranche.md).
+[Astra assessment](../archive/recovered/reviews/approved-next-tranche.md).
 Governing [SPEC](../SPEC.md), [checkpoint](../next-core-checkpoint.md),
 [R-A](../../experiments/ra-provider/README.md), [R-C1](../../experiments/rc1-query/README.md),
 [#16 storage evidence](../../experiments/s-layout/README.md),
 [#17 capture/restoration evidence](../../experiments/s-capture/README.md),
-[law audit](../reviews/laws-semantic-audit.md) and [P-OBS #18](17-approved-observation-proofs.md).
+[law audit](../archive/recovered/reviews/laws-semantic-audit.md) and [P-OBS #18](17-approved-observation-proofs.md).
 Build one operation-trace seam joining previously separate capabilities; do not
 count their old passing reports as this task's acceptance.
 
@@ -93,7 +93,7 @@ needed `/workspace/typescript/jev` sources; the original repository remains unto
 
 - [Current execution ledger](../design/s-integrate-capability-ledger.md) records delivered actual payload/storage/transaction/reader modules separately from open full-dispatch trace, confinement, retention and measurement gates. #19 remains open.
 
-- [Checked shared vocabulary](../../experiments/s-integrate/README.md) supplies nominal full Type payload/view records and opaque owner-return controls. Actual storage, commands/query, transactions and readers now have separately checked and compiled evidence in the execution ledger. Concrete Host composition, full dispatched observations and integrated access gates remain open. [Astra interface research](../reviews/s-integrate-interface-research.md) and [reader implementation contract](../design/s-integrate-reader-implementation.md) specify the joins.
+- [Checked shared vocabulary](../../experiments/s-integrate/README.md) supplies nominal full Type payload/view records and opaque owner-return controls. Actual storage, commands/query, transactions and readers now have separately checked and compiled evidence in the execution ledger. Concrete Host composition, full dispatched observations and integrated access gates remain open. [Astra interface research](../archive/recovered/reviews/s-integrate-interface-research.md) and [reader implementation contract](../design/s-integrate-reader-implementation.md) specify the joins.
 
 - [Astra-reviewed shared contracts](../design/s-integrate-contracts.md) distinguish exact trace requirements from proposed owner/transaction/publication/reader/provisioning interfaces. They clarify rejected versus staged Type payload ownership and complete preflight; actual Bend signature checks and runtime implementation remain open.
 - [Astra-reviewed execution split](../design/s-integrate-execution.md) records draft module ownership, interface dependencies and staged delivery after #18. It preserves conditional candidate evaluation and incremental controls/mutants; it is planning evidence, not implementation or a new approval gate.
@@ -133,8 +133,8 @@ final Spec/Standards disposition review. No production acceptance is proposed.
 
 ## Accepted final disposition
 
-Final [Spec](../reviews/s-integrate-final-spec.md) and
-[Standards](../reviews/s-integrate-runtime-standards.md) reviews support completion
+Final [Spec](../archive/recovered/reviews/s-integrate-final-spec.md) and
+[Standards](../archive/recovered/reviews/s-integrate-runtime-standards.md) reviews support completion
 through the explicitly permitted bounded-negative alternative. Checked items
 above mean their research evidence is delivered; failed execution/performance
 subgates remain failed. This final disposition supersedes historical “open” and

@@ -59,6 +59,6 @@ Primary evidence: [current main](../../experiments/s-integrate/host-source-curre
 [corrected memory](../../experiments/s-integrate/measurement-samples-memory-report.md),
 [current Lifecycle](../../experiments/s-integrate/measurement-lifecycle-timing-report.md),
 [dynamic FailedTxn](../../experiments/s-integrate/measurement-failure-README.md),
-[Spec](../reviews/s-integrate-final-spec.md),
-[Standards](../reviews/s-integrate-runtime-standards.md). Historical source
+[Spec](../archive/recovered/reviews/s-integrate-final-spec.md),
+[Standards](../archive/recovered/reviews/s-integrate-runtime-standards.md). Historical source
 closures, reference/checker/clang failures and withdrawn RSS remain separate.

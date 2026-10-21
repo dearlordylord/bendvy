@@ -40,7 +40,7 @@ clock made its own changed-selected writes appear again. The implementation was
 corrected in this ticket. Actual TS and Bend controls observe first/repeat counts
 1,0; failed write/retry/repeat counts 1,1,0 with restored owned payloads. A compiling
 post-clock-minus-one mutant is detected. Final independent Standards and Spec
-reviews are recorded in [the review](../reviews/query-composition-final.md).
+reviews are recorded in [the review](../archive/recovered/reviews/query-composition-final.md).
 
 ## Reproduction and exact evidence
 

@@ -31,7 +31,7 @@ bounded delivery; #21/#23/#24 retain the global targets and qualification work.
 The [unchanged #28 batch gate](feature-world-batch-regression.md) reports
 NO_CONFIRMED_REGRESSION on the exact 38-module core inventory (43 inputs),
 20 pairs per backend and 110 complete outputs. No executable core changed
-between that gate and this report. Independent [final Spec/Standards audit](../reviews/features-delivery-final.md)
+between that gate and this report. Independent [final Spec/Standards audit](../archive/recovered/reviews/features-delivery-final.md)
 verified the 103-file frozen delivery inventory and current evidence sources.
 
 Raw metadata, builders and closed providers remain trusted authoring operations;

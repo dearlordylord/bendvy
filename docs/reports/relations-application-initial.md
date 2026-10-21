@@ -21,7 +21,7 @@ Receipt SHA256:
 `a6046c464adad8bfc72396cc40495393717efb932a0872386962c22ea2e11940`.
 The integrator independently checked all 491 input hashes and 70 raw log hashes
 against the recorded bytes; this check does not replace semantic review.
-See [independent review](../reviews/relations-full-application-admission.md).
+See [independent review](../archive/recovered/reviews/relations-full-application-admission.md).
 
 V3's original physical oracle incorrectly expected clock zero after the actual
 component setter. Its failed JS attempt is retained separately. V4 changes the

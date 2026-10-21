@@ -24,7 +24,7 @@ Each cohort preserves 110 validated process outputs: 24,200 complete checkpoints
 The delay control keeps observations unchanged and adds real process latency;
 its Python launcher also adds startup overhead. It changes no project ECS code.
 Four decision tests cover significant slowdown, improvement/noise/ties, Holm
-correction and invalid/missing timings. [Independent review](../reviews/performance-regression.md)
+correction and invalid/missing timings. [Independent review](../archive/recovered/reviews/performance-regression.md)
 recomputes decisions and verifies every retained output and source/artifact pin.
 
 Evidence: [current](../../benchmarks/evidence/current/receipt.json),

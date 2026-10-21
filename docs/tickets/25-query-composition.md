@@ -21,10 +21,10 @@ overloads. Closed caller-defined `Ops(H)` records and one abstract affine contex
 support general composition and repeated aliases sharing current storage. The
 frozen Workshop reference also exercises AND-composed added/changed filters;
 authoritative tracking and reader cursors are part of this active implementation.
-See [design checkpoint](../reviews/query-composition-design.md) and
+See [design checkpoint](../archive/recovered/reviews/query-composition-design.md) and
 [reference contract](../reference/query-composition-contract.md).
 Delivery: [completion report](../reports/query-composition.md),
-[independent final review](../reviews/query-composition-final.md).
+[independent final review](../archive/recovered/reviews/query-composition-final.md).
 
 Return conditions: a third independently authored schema/application registers
 and repeatedly executes a query with at least three families and independent

@@ -100,4 +100,22 @@ Performance optimization and numerical acceptance are deferred in [#21](https://
 - [Rust Bevy](https://github.com/bevyengine/bevy) for ECS architecture and semantics; [bevy-ts](https://github.com/SandroMaglione/bevy-ts) for inspiration on feature scope and porting ECS to another language; Bend's source/compiler for types and runtime.
 - Feature correctness, ordinary public API examples and source documentation first; measured performance research is deferred.
 
+## License
+
+Bendvy is licensed under either of the following, at your option:
+
+- [MIT License](LICENSE-MIT)
+- [Apache License, Version 2.0](LICENSE-APACHE)
+
+SPDX license expression: `MIT OR Apache-2.0`.
+
+Third-party code and assets retain their respective licenses and notices.
+
+### Contributions
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in Bendvy by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.
+
+
 Optional TS tooling research is preserved in the [TS extension archive index](docs/archive/ts-extension-index.md), with recovery commits and reuse boundaries.

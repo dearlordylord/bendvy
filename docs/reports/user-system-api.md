@@ -23,7 +23,7 @@ independent interface review. Optimization remains paused.
 ## Acceptance evidence
 
 All bounded implementation/execution gates pass. Independent
-[Standards](../reviews/user-api-standards.md) and [Spec](../reviews/user-api-spec.md)
+[Standards](../archive/recovered/reviews/user-api-standards.md) and [Spec](../archive/recovered/reviews/user-api-spec.md)
 reviews have no unresolved blocking findings. The final suite is
 [suite.json](../../experiments/user-api/suite.json).
 

@@ -49,7 +49,7 @@ No timings were rerun merely to update documentation. Full numerical targets
 and connected qualification remain open in #21/#23/#24 as the ticket specifies.
 
 Independent final Spec/Standards inspection reconciles the fresh source,
-artifact and acceptance coverage; see [review](../reviews/schedule-readers-delivery-final.md).
+artifact and acceptance coverage; see [review](../archive/recovered/reviews/schedule-readers-delivery-final.md).
 The reviewer inspected evidence and source without claiming another backend run.
 Bend 2.0.35, Node 24.20.0 and the approved private Clang19 remain pinned; limits
 are checker/runtime 5 seconds, emission 30, compilation 120; Native one thread,

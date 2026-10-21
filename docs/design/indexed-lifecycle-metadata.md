@@ -33,7 +33,7 @@ Metadata absence and explicit zero have the same **stamp observation**, so no no
 
 All scalar Array operations thread the actual returned owner. Metadata is affine `Type`, not reusable `+Metadata`; reusable `+Stamp`/U32 results are fine. Never infer an owner's presence from a prepared evacuated array hole. Raw owner swap/project is metadata-neutral, and user projection can return a modified owner that must be reinstalled.
 
-Base get/swap mask indexes modulo capacity ([source](../../.references/bend2/bend2/base.bend:2279)). Check nonzero ID and capacity before subtraction/indexing; use explicit bounds checks even on paths that currently receive valid handles. Growth doubles with a bounded decreasing fuel and must reject neither an otherwise valid restore nor overwrite any unrelated tick. Query order, World validation and clock exhaustion rules do not change.
+Base get/swap mask indexes modulo capacity ([source](https://github.com/bendlang/bend/blob/a950fd683c0d76f09794078e6174fe98a1492876/bend2/base.bend#L2279)). Check nonzero ID and capacity before subtraction/indexing; use explicit bounds checks even on paths that currently receive valid handles. Growth doubles with a bounded decreasing fuel and must reject neither an otherwise valid restore nor overwrite any unrelated tick. Query order, World validation and clock exhaustion rules do not change.
 
 ## State transitions that must preserve the indexed route
 

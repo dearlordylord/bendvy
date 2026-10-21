@@ -1,6 +1,6 @@
 # S-LOOP — measured optimization of the connected ECS candidate
 
-Current status: **performance incomplete**. Physical attempts19/20 failed before timing (failed-change-stamp Motion checker5s, original Health Host Ccodegen30s). Global20/20 attempts are consumed:18 canonical logs plus two prior interruptions. Currentsegment16 is capped at its two consumed packets; no further measured execution without explicit allowance. Exact joined static-provider/private-mark source and unchanged full22 assertions remain delivered. [Results](../../experiments/s-prep/dispatch-results/README.md), [report](../reports/two-hour-dispatch-continuation.md), [control review](../reviews/static-dispatch-controls.md). No full22 aggregate, comparative metric, keep or JS/TS<=1 / Native/TS<=0.5 acceptance. Final direct metadata-column source preparation and delivery stay inside20:54:31Z. Historical windows below grant no allowance.
+Current status: **performance incomplete**. Physical attempts19/20 failed before timing (failed-change-stamp Motion checker5s, original Health Host Ccodegen30s). Global20/20 attempts are consumed:18 canonical logs plus two prior interruptions. Currentsegment16 is capped at its two consumed packets; no further measured execution without explicit allowance. Exact joined static-provider/private-mark source and unchanged full22 assertions remain delivered. [Results](../../experiments/s-prep/dispatch-results/README.md), [report](../archive/performance/two-hour-dispatch-continuation.md), [control review](../archive/recovered/reviews/static-dispatch-controls.md). No full22 aggregate, comparative metric, keep or JS/TS<=1 / Native/TS<=0.5 acceptance. Final direct metadata-column source preparation and delivery stay inside20:54:31Z. Historical windows below grant no allowance.
 
 ## Accepted protocol and seven-hour extension
 
@@ -11,7 +11,7 @@ The user explicitly accepted the concrete focused protocol on 2026-10-05 and gra
 
 The current user-authorized cumulative window is **2026-10-05T02:34:51Z to 2026-10-05T07:34:51Z**, including preparation, repairs, checks, measurements and delivery. Success is JavaScript/TS elapsed <=1.00 and Native/TS elapsed <=0.50 on equivalent complete work. These numerical targets are approved. Earlier one-/two-hour proposals, 10% improvement rules and unresolved Native threshold wording below are historical and superseded.
 
-The current concrete method proposal is [five-hour comparison contract](../design/fivehour-comparison-contract.md); progress and claim limits are in [five-hour report](../reports/fivehour-performance-work.md). The focused first segment covers both schemas at Dense256; it cannot close the full parent matrix or production acceptance. Final source-bound preflight and explicit complete-contract acceptance remain required before any Autoresearch setup/packet. No accepted session or selected comparative result exists as of 04:58 UTC.
+The current concrete method proposal is [five-hour comparison contract](../archive/design/fivehour-comparison-contract.md); progress and claim limits are in [five-hour report](../archive/performance/fivehour-performance-work.md). The focused first segment covers both schemas at Dense256; it cannot close the full parent matrix or production acceptance. Final source-bound preflight and explicit complete-contract acceptance remain required before any Autoresearch setup/packet. No accepted session or selected comparative result exists as of 04:58 UTC.
 
 
 Published [GitHub #23](https://github.com/dearlordylord/bendvy/issues/23). Child of S-PERF-NEXT #21. **Blocked on [S-PREP #22](21-performance-preparation.md) and an explicitly accepted Autoresearch contract.** This is a future execution ticket, not permission to launch packets now.
@@ -20,7 +20,7 @@ All six scope/return conditions and exclusions of parent #21 remain binding. The
 
 ## Latest two-hour work authorization
 
-The user grants two hours, superseding the earlier3600-second allowance. Cumulative window:2026-10-04T23:58:17Z to2026-10-05T01:58:17Z, including preparation and recovery. Stop early only when the real target is demonstrated. The former contract table below is historical and withdrawn; it cannot authorize an old-rule packet. Current success compares candidate JS and Native with pinned bevy-ts on equivalent full work: JS no slower; Native at least 2× faster, now explicitly approved. The recorded window has expired; it is not a renewed allowance. No accepted Autoresearch session exists. Ordinary implementation and semantic preparation proceed in isolated worktrees while the replacement evaluator/check/source manifest is prepared. See [current report](../reports/twohour-performance-preparation.md).
+The user grants two hours, superseding the earlier3600-second allowance. Cumulative window:2026-10-04T23:58:17Z to2026-10-05T01:58:17Z, including preparation and recovery. Stop early only when the real target is demonstrated. The former contract table below is historical and withdrawn; it cannot authorize an old-rule packet. Current success compares candidate JS and Native with pinned bevy-ts on equivalent full work: JS no slower; Native at least 2× faster, now explicitly approved. The recorded window has expired; it is not a renewed allowance. No accepted Autoresearch session exists. Ordinary implementation and semantic preparation proceed in isolated worktrees while the replacement evaluator/check/source manifest is prepared. See [current report](../archive/performance/twohour-performance-preparation.md).
 
 ## Goal and preserved requirements
 
@@ -60,7 +60,7 @@ Final independent Spec/Standards reviews and the skill's permitted finalization 
 
 ## Superseded first one-hour segment (withdrawn)
 
-The user approved3600 seconds followed by results. [Concrete focused proposal](../design/s-prep-contract.md): Health/Dense256, JS inner duration, Native regression/TS drift guards, existing declaration/type/layout-preserving storage/query body edits. Occupancy-tree representation is an explicit subsequent segment: integrated occupancy/order/shape/membership controls and an accepted protected-check transition first. This simplification preserves every parent/full-matrix gate; it does not approve thresholds or packet setup.
+The user approved3600 seconds followed by results. [Concrete focused proposal](../archive/design/s-prep-contract.md): Health/Dense256, JS inner duration, Native regression/TS drift guards, existing declaration/type/layout-preserving storage/query body edits. Occupancy-tree representation is an explicit subsequent segment: integrated occupancy/order/shape/membership controls and an accepted protected-check transition first. This simplification preserves every parent/full-matrix gate; it does not approve thresholds or packet setup.
 
 ## User correction of success criterion
 
@@ -68,7 +68,7 @@ The user rejected10% improvement against old Bend-JS and5% Native regression as 
 
 ## Latest joined writer comparison
 
-Attempt10 completed168 child timings and112 passing full-record comparisons; candidate and fixed baseline noise failed. Descriptive JS/TS2.842–4.098, Native/TS4.062–4.814. No metric, keep, target or product acceptance. Global10/20 attempts consumed. See [comparison report](../reports/three-hour-joined-comparison.md). Original22 gates remain valid; inventory projection is not new execution. Further full measurement requires sufficient remaining authorized time.
+Attempt10 completed168 child timings and112 passing full-record comparisons; candidate and fixed baseline noise failed. Descriptive JS/TS2.842–4.098, Native/TS4.062–4.814. No metric, keep, target or product acceptance. Global10/20 attempts consumed. See [comparison report](../archive/performance/three-hour-joined-comparison.md). Original22 gates remain valid; inventory projection is not new execution. Further full measurement requires sufficient remaining authorized time.
 
 
 ## File scope authorization — 2026-10-05

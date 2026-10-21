@@ -15,7 +15,7 @@ by this report; its receipt-bound bytes are preserved.
 [Portable live evidence](../../experiments/public-component-state/evidence-live-qualified-v1/receipt.json.gz)
 retains the 87-command PASS_FINITE_SLICE receipt, SHA256 after decompression
 `1219a8ef1bb3c0d5e3eaee56b1c8c577a695afbf3af00ed9f092973005bb4183`.
-All 61 consumed-source pins match. The [final independent audit](../reviews/component-state-delivery-final.md)
+All 61 consumed-source pins match. The [final independent audit](../archive/recovered/reviews/component-state-delivery-final.md)
 found no further executable Spec/Standards blocker.
 
 [Batch regression](feature-world-batch-regression.md) passes the unchanged #28

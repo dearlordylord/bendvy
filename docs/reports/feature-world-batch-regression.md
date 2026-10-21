@@ -42,5 +42,5 @@ not physical/RSS memory reductions or a causal timing guarantee.
 No new law, dependency, numerical tolerance or baseline approval is inferred.
 Finite controls and mutation witnesses are not universal executable refinement.
 
-Independent [Spec/Standards review](../reviews/feature-world-batch-final.md)
+Independent [Spec/Standards review](../archive/recovered/reviews/feature-world-batch-final.md)
 found no blocker for bounded incremental delivery; it did not rerun backends.

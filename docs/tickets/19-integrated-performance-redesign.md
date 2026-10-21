@@ -2,7 +2,7 @@
 
 **[GitHub #20](https://github.com/dearlordylord/bendvy/issues/20). Astra Spec-reviewed planned work.** Follow-up to S-INTEGRATE
 [#19](https://github.com/dearlordylord/bendvy/issues/19), full-core parent #1.
-[Review](../reviews/s-integrate-final-spec.md). This authorizes no production
+[Review](../archive/recovered/reviews/s-integrate-final-spec.md). This authorizes no production
 layout, numerical performance threshold, dependency or new universal proof.
 
 ## Problem and bounded outcome

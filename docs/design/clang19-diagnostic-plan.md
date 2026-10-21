@@ -7,13 +7,13 @@ The user approved extracting and using the four pinned Debian ARM64 archives bel
 is approved; the system compiler and dependency graph remain unchanged. Fresh
 ELF/resource/attribute/build/full-trace results are recorded separately. Approval
 does not imply numerical acceptance or authority to add further dependencies.
-[SPEC.md:77](/workspace/formal-proofs/bendvy/docs/SPEC.md:77) requires approval
+[SPEC.md:77](../SPEC.md?plain=1#L77) requires approval
 when a concrete new dependency is needed; this explicit response supplies it.
 
 
 ## Concrete need and primary evidence
 
-This host is Debian12/bookworm ARM64. Current Clang14.0.6 under `/home/node/.local/opt/dnd-clang14` reports `__has_attribute(preserve_none)=0` and `preserve_most=1` at `-O3`; [recorded existing-tool check](../../experiments/s-prep/clang19-plan/metadata/existing-attribute-check.json) includes command/input/output. Bend's existing [generated-C gate](/workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts:3337) requires **both attributes and optimization**; [compiler rationale](/workspace/formal-proofs/bendvy/.references/bend2/bend2/comp.ts:3296) selects Clang19+ for this ABI. The current tool therefore leaves that path disabled.
+This host is Debian12/bookworm ARM64. Current Clang14.0.6 under `/home/node/.local/opt/dnd-clang14` reports `__has_attribute(preserve_none)=0` and `preserve_most=1` at `-O3`; [recorded existing-tool check](../../experiments/s-prep/clang19-plan/metadata/existing-attribute-check.json) includes command/input/output. Bend's existing [generated-C gate](https://github.com/bendlang/bend/blob/a950fd683c0d76f09794078e6174fe98a1492876/bend2/comp.ts#L3337) requires **both attributes and optimization**; [compiler rationale](https://github.com/bendlang/bend/blob/a950fd683c0d76f09794078e6174fe98a1492876/bend2/comp.ts#L3296) selects Clang19+ for this ABI. The current tool therefore leaves that path disabled.
 
 [Official Clang19 attribute documentation](https://releases.llvm.org/19.1.0/tools/clang/docs/AttributeReference.html#preserve-none) supports `preserve_none` on AArch64 and notes its ABI is unstable. [The same documentation](https://releases.llvm.org/19.1.0/tools/clang/docs/AttributeReference.html#preserve-most) supports `preserve_most` on AArch64. This establishes a concrete tool candidate, not an observed successful build or speedup; both attributes must be checked on the actual approved binary before any workload runs. Keep every generated function in one consistently built ABI domain; do not mix Clang14/19 objects or infer compatibility across versions.
 

@@ -26,7 +26,7 @@ Allocator reuse/exhaustion, global root authority, arbitrary destructive Type re
 
 ## Execution breakdown
 
-User-authorized split, [independently reviewed by Astra](../reviews/s-perf-split.md). All six return conditions above remain binding.
+User-authorized split, [independently reviewed by Astra](../archive/recovered/reviews/s-perf-split.md). All six return conditions above remain binding.
 
 | Child | Responsibility | Launch state |
 | --- | --- | --- |

@@ -1,4 +1,7 @@
-# Current parity frontier regression
+# Parity regression — retained source-bound receipt
+
+This is a historical receipt for the source and workload pinned below, not a
+measurement of the current checkout or full-core parity.
 
 Command: `python3 benchmarks/run.py --output .artifacts/parity-current-default-regression --cpu 11`.
 Terminal status: NO_CONFIRMED_REGRESSION. Twenty balanced pairs per backend use

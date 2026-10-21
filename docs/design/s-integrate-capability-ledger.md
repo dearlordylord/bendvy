@@ -22,7 +22,7 @@ Primary evidence: [payload](../../experiments/s-integrate/PAYLOAD-README.md),
 [transaction](../../experiments/s-integrate/transaction-runtime-evidence.json),
 [A/B rollback trace](../../experiments/s-integrate/transaction-ab-report.md),
 [bulk commands](../../experiments/s-integrate/commands-bulk-report.md),
-[Spec](../reviews/s-integrate-runtime-spec.md), [Standards](../reviews/s-integrate-runtime-standards.md).
+[Spec](../archive/recovered/reviews/s-integrate-runtime-spec.md), [Standards](../archive/recovered/reviews/s-integrate-runtime-standards.md).
 Reviews identify the frozen slice they replayed; later commits are not implicitly
 reviewed. Ordinary interpreter timeouts remain failures; separately built backend
 runs use their explicit five-second runtime limits.

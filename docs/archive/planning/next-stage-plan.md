@@ -1,0 +1,60 @@
+> Historical record. Status, deadlines and next-step instructions below belong to the recorded source/window; they do not authorize current execution or renew acceptance. See the [archive index](../README.md).
+
+# Bendvy: ближайший этап
+
+**Черновик для финальной сверки интервью.** Это план подготовки и технических проверок, а не утверждение о проверенном API. Следующий этап — реализация простой симуляции; весь core остаётся общей целью.
+
+Решения: [рамка](planning-scope.md). Упрощения: [follow-ups](../../follow-ups.md). Процесс: bend-ldd. Оригинальный `/workspace/typescript/jev` не изменяем.
+
+Согласованное и опубликованное разбиение после review Астры: [ближайшие тикеты](ticket-breakdown.md). Первый пакет публикации ограничен подготовкой, probes, evidence и законами; отдельный обязательный checkpoint задаёт точные proof/refinement тикеты P09 и спецификацию симуляции. Он доступен и для подготовки redesign при отрицательном evidence; capability/proof gates реализации при этом не обходятся.
+
+## Задачи и результаты
+
+| ID | Работа | Проверяемый результат | Зависит от |
+|---|---|---|---|
+| P01 | Составить таблицу всего core по зафиксированным исходникам TS; включить следующий слой отдельно | Для каждого контракта — источник, сценарий, этап, статус и условие возврата; расхождения не скрыты | — |
+| P02 | Проверить и закрепить compiler/base, native backend и инструменты LDD | Версии/команды native и JS, минимальный checker canary, wrapper с лимитом 5 s; план зависимостей без автоматической установки | — |
+| P03 | Составить таблицы поведения identity, commands, commit/failure, visibility и readers по TS | Точные ожидания для reserve/live/stale/foreign handle, marker, skip/failure/lag; неоднозначности вынесены на обсуждение | P01 |
+| P04 | Проверить явные схемы и capabilities на двух маленьких разных мирах | Повторный запуск системы проходит; чужой компонент, незаявленный доступ и запись через read отвергаются по правильной причине | P02, P03 |
+| P05 | Проверить storage/query для Data и affine Type payload | Read/update/traversal сохраняют владение; понятно, что поддерживается и чего требует API; ограничения не утверждены молча | P04 |
+| P06 | Проверить минимальный write/rollback/visibility и composition/provisioning | Read-your-writes; failed system не меняет ECS и не публикует event/command; предыдущие commits сохраняются; reader cursor не продвигается; вложенный schedule переносит требования и failure | P03–P05 |
+| P07 | Измерить варианты в native CPU и JS против bevy-ts, отделив исполнение от checker/компиляции | Одинаковые входы TS/Bend, параметры запуска, время/память и масштабирование; оценены traversal/update/rollback; предложены численные критерии native-превосходства и JS-сравнимости | P05, P06 |
+| P08 | Подготовить конкретные законы и сверку для выбранного варианта | Falsification с граничными и допустимыми входами, контроль дефектом, эскиз доказательств; законы показаны человеку до proof | P03–P07 |
+| P09 | После согласования законов завершить proofs и mutant checks; выбрать интерфейсы по evidence | Proof gate с verdict, осмысленный mutant на закон, запись решения и follow-ups; план реализации симуляции уточнён | P08 и согласование законов |
+
+Пробы — минимальные экспериментальные модули, не готовое ядро. Если probe не проходит, пересматриваем форму; цель полного core не уменьшаем автоматически. Факты Base/mathlib переиспользуем; новые зависимости обсуждаем, когда определена потребность.
+
+## Условие перехода к реализации
+
+- Две схемы и отрицательные проверки подтверждают границы доступа.
+- Один согласованный вариант API/storage совместим с транзакцией, курсорами и повторным запуском.
+- Есть сравнение native/JS с bevy-ts; скрытые копирования и стоимость обхода исследованы. Обязательная цель: native существенно быстрее bevy-ts, JS как минимум сравним. Численные пороги ещё предстоит определить; без них итоговое performance acceptance не закрываем.
+- Законы ближайшего блока согласованы; proof/mutation gate работает. Пропуски инструментов и unsafe/foreign не считаем доказательством.
+- Ограничения и незавершённые проверки записаны; если они меняют обещанное поведение, решение возвращается к пользователю.
+
+## Следующие горизонты
+
+1. **Простая симуляция:** фиксированный шаг, появление/движение/урон/удаление, события попаданий и гибели; воспроизводимая консольная CPU-программа. Конкретные числа, сценарии и законы определим после P03–P08.
+2. **Расширение core:** lifecycle/streams, relations/scopes, states, полный composition/provisioning, validation/snapshots/inspectors/debug. Влияние этих контрактов учитывается в P01/P03, полное покрытие планируется по блокам.
+3. **Внешняя проверка:** отдельная копия canonical-defense с сохранением Canonical.step; порядок tick, связи, ресурсы и cleanup. Объём копии и адаптеров уточним перед интеграцией.
+4. **Дальнейшие улучшения:** удобство schema, storage/cache, adapters и parallel compute — по условиям follow-up задач и измерениям.
+
+Открыто до evidence: Data/Type support, конкретный layout, ID/reuse, delta/journal, способ специализации и численные performance budgets. Это технические задачи исследования; пользователь выбирает только выявленные компромиссы требований.
+
+## T12 checkpoint по отрицательному evidence (2026-10-03)
+
+[T12 redesign candidate](../../t12-redesign-decision.md): T03 constructor-authority gate
+FAILED. Следующий локальный пакет — safe provider expressibility, затем условная
+checked-action альтернатива с отдельным specification decision. Это кандидат для
+человеческого review до публикации, не новый approved API. Ordinary proof/simulation
+specification ждёт required capability reports и #10/#11/#12; implementation и
+proof gates не открываются наличием этого документа. [F07–F11](../../follow-ups.md)
+сохраняют зависимости позднего core и copied integration.
+
+## Current review draft
+
+[Next core checkpoint](../../next-core-checkpoint.md) supersedes the obsolete order of
+the early redesign branch for future planning. R-A/R-C1 and T04–T09 have bounded
+executable evidence; the ordered-list storage remains a performance redesign
+candidate. T11 laws and numerical thresholds await explicit review; no new proof
+or simulation implementation package is automatically ready.

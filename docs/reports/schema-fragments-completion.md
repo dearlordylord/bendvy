@@ -19,7 +19,7 @@ gameplay uses the existing abstract public capability boundary.
 | Invalid composition before application effects, retained owners | Literal refusal observations, full owner return and reached name/collision omission controls |
 | Cross-schema, undeclared access and affine misuse | Intended source-current compiler negatives; key/name/priority/barrier mutants compile and are detected |
 
-The [final independent Spec/Standards review](../reviews/public-schema-fragments-final.md)
+The [final independent Spec/Standards review](../archive/recovered/reviews/public-schema-fragments-final.md)
 reconciles both 69-command, 22-case receipts and all 31 current project source pins.
 Their complete portable artifacts and hashes are retained in
 `experiments/public-schema-fragments/evidence/archive-index.json`; the independent
