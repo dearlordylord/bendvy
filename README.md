@@ -20,7 +20,7 @@ These pieces have scoped tests and examples. They don't yet add up to complete p
 ## Code example
 
 See the [examples index](examples/README.md) for the purpose of each example.
-[Survivors ECS example](https://github.com/dearlordylord/bendvy-ecs-examples/tree/main/examples/survivors) · [Demo](https://nightfall-survivors-bendvy.leafyyew32.chatgpt.site)
+[Survivors ECS example](https://github.com/dearlordylord/bendvy-ecs-examples/tree/main/examples/survivors) (Vampire Survivors clone) · [Demo](https://nightfall-survivors-bendvy.leafyyew32.chatgpt.site)
 Start with [Scheduled health](examples/scheduled-health/README.md) for a complete
 CLI simulation using declaration-derived accesses, a registered system and a
 schedule. Its runner checks the full output on JS or Native.
