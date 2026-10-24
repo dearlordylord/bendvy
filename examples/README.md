@@ -1,5 +1,18 @@
 # Examples
 
+## Playable external example
+
+[Play Nightfall Survivors in your browser](https://nightfall-survivors-bendvy.leafyyew32.chatgpt.site) — no installation required.
+[Source and native launch instructions](https://github.com/dearlordylord/bendvy-ecs-examples/tree/main/examples/survivors).
+
+Nightfall Survivors is an original single-player
+survivors game maintained in the separate Bendvy examples repository. It uses
+the published BendHub distribution of Bendvy, without a local ECS checkout.
+Its native simulation, rendering, input, sound and saved profiles run in Bend;
+the same guide also covers the optional browser frontend and launch commands.
+
+## Examples in this repository
+
 Start with [Scheduled health](scheduled-health/README.md): world creation,
 declaration-derived query access, a registered system, an explicit schedule,
 deferred spawn and complete output checks on JS and Native.

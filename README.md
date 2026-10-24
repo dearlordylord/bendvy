@@ -6,6 +6,18 @@
 
 A Bevy-style ECS built for [Bend 2](https://github.com/bendlang/bend), including its type system, affine ownership and JS/native runtimes. Still a work in progress; the API is evolving.
 
+## Play Nightfall Survivors
+
+[Play Nightfall Survivors in your browser](https://nightfall-survivors-bendvy.leafyyew32.chatgpt.site) — no installation required.
+[Source and native launch instructions](https://github.com/dearlordylord/bendvy-ecs-examples/tree/main/examples/survivors).
+
+Nightfall Survivors is an original single-player
+survivors game in the separate Bendvy examples repository. It consumes Bendvy's
+published BendHub package, so no local Bendvy checkout is required. The native
+game uses Bend for simulation, rendering, input, sound and saved profiles; an
+optional browser frontend is also available. Follow its linked guide to launch
+and play.
+
 ## What works so far
 
 - World-scoped entities, typed components and resources.
