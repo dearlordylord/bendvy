@@ -17,10 +17,15 @@ A Bevy-style ECS built for [Bend 2](https://github.com/bendlang/bend), including
 
 These pieces have scoped tests and examples. They don't yet add up to complete parity. Try the [browser ECS example](examples/arena/README.md).
 
+## Playable example
+
+[Survivors](https://github.com/dearlordylord/bendvy-ecs-examples) is a Vampire Survivors clone demonstrating Bendvy ECS. Currently the examples repository contains this one game. [Play in your browser](https://survivors.dearlordylord.com/).
+
+<a href="https://github.com/dearlordylord/bendvy-ecs-examples"><img src="assets/survivors-example.png" alt="Survivors ECS example with enemies, projectiles and XP pickups" width="480"></a>
+
 ## Code example
 
 See the [examples index](examples/README.md) for the purpose of each example.
-[Survivors ECS example](https://github.com/dearlordylord/bendvy-ecs-examples/tree/main/examples/survivors) (Vampire Survivors clone) · [Demo](https://nightfall-survivors-bendvy.leafyyew32.chatgpt.site)
 Start with [Scheduled health](examples/scheduled-health/README.md) for a complete
 CLI simulation using declaration-derived accesses, a registered system and a
 schedule. Its runner checks the full output on JS or Native.
