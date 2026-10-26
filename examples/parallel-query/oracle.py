@@ -13,7 +13,7 @@ def column(values, changed):
     for index in range(32):
         if index in values:
             token, value = values[index]
-            payload = f"{token}:{value}"
+            payload = f"{token}:{value}@{value}"
             stamps = f"0:0/0:{changed.get(index, 0)}"
         else:
             payload, stamps = "-", "-/-"
@@ -42,12 +42,12 @@ def world(namespace, live_count, outputs, changed, registered, tick):
             f"nextSystem={2 if registered else 1};clock=0:{tick}:[]")
 
 
-def scenario():
+def scenario(runs=3):
     outputs = dict(INITIAL_OUTPUTS)
     changed = {}
     statuses = []
     live = set(range(1, 19))
-    for tick in range(1, 4):
+    for tick in range(1, runs + 1):
         errors = []
         for index in sorted(live & INPUTS.keys() & outputs.keys()):
             token, value = outputs[index]
@@ -58,8 +58,8 @@ def scenario():
                 errors.append(f"{index}:after-write")
         statuses.append("error/query-body/" + shown(errors) if errors else "success/[]")
     system = ("namespace=1,id=1,name=query,access=[input, output],"
-              "cursor=0:3,local=903:3")
-    original = world(1, 18, outputs, changed, True, 3)
+              f"cursor=0:{runs},local={900 + runs}:{runs}")
+    original = world(1, 18, outputs, changed, True, runs)
     foreign = world(2, 0, INITIAL_OUTPUTS, {}, False, 0)
     return ("statuses=[" + ",".join(statuses) + "];admission=refused;"
             f"system={{{system}}};original={{{original}}};foreign={{{foreign}}}")
@@ -68,3 +68,5 @@ def scenario():
 if __name__ == "__main__":
     for prefix in ("First/serial", "First/parallel", "Second/parallel"):
         print(prefix + "=" + scenario())
+
+    print("First/error=" + scenario(2))

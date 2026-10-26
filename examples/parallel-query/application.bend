@@ -61,3 +61,19 @@ def created(~S:Data,~mode:Q.Mode,result:W.Creation<S,D.Store(~S),D.Resources(~S)
     case W.CreateRejected{_,_}: "ERROR: creation"
 def run(~S:Data,~mode:Q.Mode) -> String:
   created(~S,~mode,W.create(~S,~D.Store(~S),~D.Resources(~S),~Unit,~D.empty(~S),W.factory(),D.resource(~S)))
+def error_final(~S:Data,~mode:Q.Mode,factory:W.Factory,a:String,result:QueryApp(~S,~mode) & Execute.Status<String,String>) -> String:
+  match result:
+    case (application,done): "statuses=[" ++ a ++ "," ++ status(done) ++ "];" ++ foreign(~S,~mode,application,W.create(~S,~D.Store(~S),~D.Resources(~S),~Unit,~D.empty(~S),factory,D.resource(~S)))
+def error_first(~S:Data,~mode:Q.Mode,factory:W.Factory,result:QueryApp(~S,~mode) & Execute.Status<String,String>) -> String:
+  match result:
+    case (application,done): error_final(~S,~mode,factory,status(done),run_once(~S,~mode,application))
+def error_registered(~S:Data,~mode:Q.Mode,factory:W.Factory,result:Execute.Built<QueryApp(~S,~mode),Runtime(~S),Body.Local>) -> String:
+  match result:
+    case Execute.Built{application}: error_first(~S,~mode,factory,run_once(~S,~mode,application))
+    case Execute.BuildRefused{_,_}: "ERROR: definition refused"
+def error_created(~S:Data,~mode:Q.Mode,result:W.Creation<S,D.Store(~S),D.Resources(~S),Unit>) -> String:
+  match result:
+    case W.Created{factory,world}: error_registered(~S,~mode,factory,Execute.define(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Q.Ops(~S,~String),~Body.Local,~String,~String,~D.declaration(~S,~mode),~Body.run(~S),spawn(~S,18n,world),"query",Body.Local{ALeaf{900},0}))
+    case W.CreateRejected{_,_}: "ERROR: creation"
+def run_error(~S:Data,~mode:Q.Mode) -> String:
+  error_created(~S,~mode,W.create(~S,~D.Store(~S),~D.Resources(~S),~Unit,~D.empty(~S),W.factory(),D.resource(~S)))

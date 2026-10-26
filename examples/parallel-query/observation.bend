@@ -46,9 +46,15 @@ def column_sized(~S:Data,~T:Type,~project:T -> T & String,result:Col.Column<S,T>
     case (column,+size): "capacity=" ++ U32.show(size) ++ "[" ++ column_result(~S,~T,slots(~S,~T,~project,U32.to_nat(size),0,(column,""))) ++ "]"
 def column(~S:Data,~T:Type,~project:T -> T & String,value:Col.Column<S,T>) -> String:
   column_sized(~S,~T,~project,Col.capacity(~S,~T,value))
+def cached_result(~T:Type,+cache:U32,result:T & String) -> Layout.Viewed<T,U32> & String:
+  match result:
+    case (owner,text):(Layout.Viewed{owner,cache},text ++ "@" ++ U32.show(cache))
+def cached(~T:Type,~project:T -> T & String,value:Layout.Viewed<T,U32>) -> Layout.Viewed<T,U32> & String:
+  match value:
+    case Layout.Viewed{owner,cache}:cached_result(~T,cache,project(owner))
 def store(~S:Data,value:D.Store(~S)) -> String:
   match value:
-    case Product.Owner{Product.Owner{Layout.ColumnSlot{input},Layout.ColumnSlot{output}},_}: "input=" ++ column(~S,~P.Input,~P.input,input) ++ ";output=" ++ column(~S,~P.Output,~P.output,output)
+    case Product.Owner{Product.Owner{Layout.ColumnSlot{input},Layout.ColumnSlot{output}},_}: "input=" ++ column(~S,~Layout.Viewed<P.Input,U32>,~cached(~P.Input,~P.input),input) ++ ";output=" ++ column(~S,~Layout.Viewed<P.Output,U32>,~cached(~P.Output,~P.output),output)
 def phase(value:Allocator.Phase) -> String:
   match value:
     case Allocator.Consumed{}: "consumed"
@@ -70,7 +76,7 @@ def resource_result(result:Array<U32> & U32) -> String:
     case (_,token): U32.show(token)
 def resource(~S:Data,value:D.Resources(~S)) -> String:
   match value:
-    case Layout.ResourceSlot{P.Resource{token}}: resource_result(Array.get(U32,token,0))
+    case Layout.ResourceSlot{Layout.Viewed{P.Resource{token},_}}: resource_result(Array.get(U32,token,0))
 def registration(value:W.RegistrationMeta) -> String:
   match value:
     case W.RegistrationMeta{id,name,access}: U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,value=>value,access)

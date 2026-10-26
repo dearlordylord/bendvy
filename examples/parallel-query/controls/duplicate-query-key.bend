@@ -4,10 +4,9 @@ import ../payloads.bend as Payload
 import ../../../src/ecs/execution-query.bend as Query
 import ../../../src/ecs/execution-builder.bend as Build
 import ../../../src/ecs/execution-composer-layout.bend as Layout
-import ../../../src/ecs/execution-projection.bend as Projection
 
 def layout() -> Layout.Layout:
-  Layout.LayoutPair{Layout.LayoutLeaf{Payload.Output,"public"},Layout.LayoutLeaf{Payload.Output,"public"}}
+  Layout.LayoutPair{Layout.LayoutLeaf{Payload.Output,U32,Payload.output_view,"public"},Layout.LayoutLeaf{Payload.Output,U32,Payload.output_view,"public"}}
 def Store() -> Type: Layout.columns(~Case.Schema,layout())
 def selection(~H:Type,~B:Type,~component_read:Build.ComponentRead(~Case.Schema,~Store(),~Unit,~H,~B),~component_write:Build.ComponentWrite(~Case.Schema,~Store(),~Unit,~H,~B),~resource_read:Build.ResourceRead(~Case.Schema,~Store(),~Unit,~H,~B),~resource_write:Build.ResourceWrite(~Case.Schema,~Store(),~Unit,~H,~B),~query:Build.Query(~Case.Schema,~Store(),~Unit,~H,~B),book:B) -> B & Query.Each<Case.Schema,H,String>:
-  query(layout(),Layout.AtLeaf{},{==},{==},{==},String,String,Payload.output,Case.body,Projection.trusted_affine(~Payload.Output,~String,~Payload.output),Query.Parallel{},book)
+  query(layout(),Layout.AtLeaf{},{==},{==},{==},String,Case.body,Query.Parallel{},book)

@@ -85,8 +85,7 @@ must fail the equality check against the actual keyed owner types. This refusal
 does not depend on differing component payload types.
 
 The remaining controls must fail for their intended authority boundaries.
-They test schema mismatch, an undeclared component capability, replacing a read
-projection with an affine input owner, copying the affine output owner, and
+They test schema mismatch, an undeclared component capability, replacing the schema cached view with an affine input owner or a different view type, copying the affine output owner, and
 escaping the abstract scope. They also reject selecting a single leaf as a query
 pair and reject a layout containing duplicate query keys.
 The source-current `examples/parallel-execution/controls/forged-declaration.bend`
@@ -97,3 +96,12 @@ Passing the finite oracle at four configured threads does not prove that the
 query used multiple workers. A source-bound semantic worker diagnostic remains
 required. This consumer does not establish universal ownership preservation,
 approved new laws, GPU execution, or numerical speedup.
+
+Canonical schema views are cached beside actual affine payloads. Query reads
+structurally copy only the cached Data value and preserve the input lifecycle
+stamp. Every selected output write rebuilds its cache from the resulting actual
+owner, including a body error. Occupied slot observations include `@cache` before
+the lifecycle stamps. A fourth scenario stops immediately after the second run's
+error and observes all owners, caches, and stamps before another write can mask
+a stale cache. The independent oracle derives both the two-run and three-run
+states. Untouched, absent, and nonlive rows keep their original caches and stamps.

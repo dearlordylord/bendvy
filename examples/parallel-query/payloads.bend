@@ -31,3 +31,8 @@ def output_projected(+value:U32,result:Array<U32> & U32) -> Output & String:
 def output(owner:Output) -> Output & String:
   match owner:
     case Output{token,value}: output_projected(value,Array.get(U32,token,0))
+def output_view(owner:Output) -> Output & U32:
+  match owner:
+    case Output{token,+value}:(Output{token,value},value)
+def resource_view(owner:Resource) -> Resource & Unit:
+  (owner,Unit{})
