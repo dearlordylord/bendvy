@@ -1,6 +1,7 @@
 import Base
 import ./world.bend as W
 import ./execution-system.bend as Sys
+import ./execution-parallel-system.bend as Task
 import ./execution-state.bend as State
 import ./execution-builder.bend as Build
 import ./execution-parallel-scope.bend as Scope
@@ -35,7 +36,7 @@ def pending_allowed(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~layout:Layout.Layo
 def pending_metadata(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Cmd.Body(~S,~layout,~route,~Ops,~User,~Error,~Out),ids:List<&2,U32>,result:Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Cmd.Metadata) -> Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Bool:
   match result:
     case (owner,Cmd.Metadata{id,_}):pending_allowed(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,owner,Scope.selected(id,ids))
-def pending(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Cmd.Body(~S,~layout,~route,~Ops,~User,~Error,~Out),ids:List<&2,U32>,owner:Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Bool:
+def pending_selected(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Cmd.Body(~S,~layout,~route,~Ops,~User,~Error,~Out),ids:List<&2,U32>,owner:Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Bool:
   pending_metadata(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,ids,Cmd.metadata(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,owner))
 def publish_selected(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Cmd.Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~WR:Type,~same:{WC == Layout.columns(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},tick:Tick.Tick,world:W.World<S,WC,WR,E>,owner:Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> W.World<S,WC,WR,E> & Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>:
   published(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,~same,Cmd.publish(~S,~C,~R,~E,~layout,~route,~valid,~Ops,~User,~Error,~Out,~declaration,~body,~WR,tick,command_world(~S,~WC,~WR,~E,~layout,~same,world),owner))
@@ -48,3 +49,14 @@ def publish_metadata(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~layout:Layout.Lay
     case (owner,Cmd.Metadata{id,_}):publish_allowed(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,~same,~valid,tick,world,owner,Scope.selected(id,ids))
 def publish(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Cmd.Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~WR:Type,~same:{WC == Layout.columns(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},ids:List<&2,U32>,tick:Tick.Tick,world:W.World<S,WC,WR,E>,owner:Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> W.World<S,WC,WR,E> & Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>:
   publish_metadata(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,~same,~valid,ids,tick,world,Cmd.metadata(~S,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,owner))
+
+# Applicability is checked before the barrier advances the World clock.
+def pending_wrapped(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Cmd.Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~WR:Type,world:W.World<S,WC,WR,E>,result:Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Bool) -> W.World<S,WC,WR,E> & (Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Bool):
+  (world,result)
+def pending_verified(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Cmd.Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~WR:Type,ids:List<&2,U32>,owner:Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>,result:W.World<S,WC,WR,E> & Bool) -> W.World<S,WC,WR,E> & (Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Bool):
+  match result:
+    case (world,False{}):(world,(owner,False{}))
+    case (world,True{}):pending_wrapped(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,world,pending_selected(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,ids,owner))
+def pending(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~layout:Layout.Layout,~route:Layout.Route,~Ops:Type -> Type,~User:Type,~Error:Data,~Out:Data,~declaration:Build.Program(~S,~C,~R,~Ops),~body:Cmd.Body(~S,~layout,~route,~Ops,~User,~Error,~Out),~WR:Type,ids:List<&2,U32>,world:W.World<S,WC,WR,E>,owner:Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body>) -> W.World<S,WC,WR,E> & (Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Bool):
+  match owner:
+    case Cmd.Owner{Sys.Owner{+namespace,+id,+name,+access,+cursor,local}}:pending_verified(~S,~WC,~C,~R,~E,~layout,~route,~Ops,~User,~Error,~Out,~declaration,~body,~WR,ids,Cmd.Owner{Sys.Owner{namespace,id,name,access,cursor,local}},Task.verify(~S,~WC,~WR,~E,Task.Meta{namespace,id,name,access,cursor},world))
