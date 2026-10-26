@@ -28,8 +28,35 @@ access derived from its closed declaration Program. It retains the original ID,
 cursor and Local and does not allocate another ID. Release returns the actual
 Local owner with detached identity observations. It does not run an IO finalizer.
 
+`lifecycle.bend` runs an actual ordinary system twice. Its body returns an error
+on the second invocation after advancing both affine arrays to four. Retirement
+removes its registration. A subsequent ordinary run refuses without invoking the
+callback. Restoration into a second World, created using the actual advanced
+Factory returned by the first creation, refuses. Restoration into the original
+World keeps namespace 1, ID 1, name `captured`, and cursor `0:2`; the next execution
+advances the cursor to `0:3` and both retained arrays to six. Final retirement and
+release return the actual Local and capture owners. An attempted restore while
+the original registration is still present also refuses. The final World has zero
+registrations and retains `nextSystemId = 2`.
+
+The expected output is derived from three actual invocations adding two, with no
+invocation on either registration refusal. The fixture observes the retained Local
+identity 101 and capture identity 201 separately. JS, native one-worker and native
+four-worker stdout match the complete expected line. These checks use the existing
+`examples/common.sh` emitter and qualified 2.0.35 lifecycle bundle; they do not
+establish native worker use. Source checks use the repository's pinned checker.
+
+```bash
+example_emit examples/parallel-captures/lifecycle.bend /tmp/capture-lifecycle.js
+example_node /tmp/capture-lifecycle.js > /tmp/capture-lifecycle.stdout
+cmp examples/parallel-captures/lifecycle.expected.stdout /tmp/capture-lifecycle.stdout
+```
+
 These modules are provisional. The ordinary parallel captured-system and condition
-consumer, error/skip/refusal/disposal observations, full backend oracle, concurrency
-evidence, migration, applicable laws, normal CI and independent review remain
-required for issue 83. This directory does not yet add a runnable `main.bend` to
-normal CI while those ordinary-entry gates are unfinished.
+consumer, condition false/error observations, declared resource conflicts, full
+scheduled backend oracle, concurrency evidence, migration, applicable laws, normal
+CI and independent review remain required for issue 83. The lifecycle consumer
+checks the source closure at this branch's integration baseline plus the two owned
+capture/lifecycle modules; it does not qualify later scheduler or composer changes.
+This directory does not yet add a runnable `main.bend` to normal CI while those
+ordinary-entry gates are unfinished.
