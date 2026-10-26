@@ -39,15 +39,15 @@ def PeerOps(~S:Data,H:Type) -> Type:Unit
 def author_declared(~S:Data,~H:Type,~O:Type,~B:Type,~K:Type,permission:K,result:B & Ops(~S,H,O)) -> B & (K & Ops(~S,H,O)):
   match result:
     case (book,ops):(book,(permission,ops))
-def author_declaration(~S:Data,~mode:Query.Mode,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~builder:Build.Builder(~S,~Left(~S),~D.Resources(~S),~H,~B),~K:Type,~entity:Permission.Grant(~S,~layout(~S),~O,~K),book:B,permission:K) -> B & (K & Ops(~S,H,O)):
-  author_declared(~S,~H,~O,~B,~K,permission,Decl.declaration(~S,~mode,~H,~O,~commands,~B,~builder,book))
-def peer_declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Unit,~H,~B),book:B) -> B & Unit:
+def author_declaration(~S:Data,~mode:Query.Mode,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Left(~S),~D.Resources(~S),~H,~B),~K:Type,~entity:Permission.Grant(~S,~layout(~S),~O,~K),book:B,permission:K) -> B & (K & Ops(~S,H,O)):
+  author_declared(~S,~H,~O,~B,~K,permission,Decl.declaration(~S,~Store(~S),~mode,~H,~O,~commands,~B,~builder,book))
+def peer_declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Store(~S),~Unit,~Unit,~H,~B),book:B) -> B & Unit:
   (book,Unit{})
 def peer_body(~S:Data,~H:Type,~caps:Unit,scope:H,token:Array<U32>) -> H & (Array<U32> & Sys.Completion<String,String>):
   (scope,(token,Sys.Success{"peer"}))
 def AuthorLocal(~S:Data) -> Type:Body.User
 def Author(~S:Data,~mode:Query.Mode) -> Type:Cmd.Owner<S,Left(~S),D.Resources(~S),Unit,layout(~S),path(~S),Ops(~S),AuthorLocal(~S),String,String,author_declaration(~S,~mode),Body.run(~S)>
-def Peer(~S:Data) -> Type:Sys.Owner<S,Unit,Unit,Unit,PeerOps(~S),Array<U32>,String,String,peer_declaration(~S),peer_body(~S)>
+def Peer(~S:Data) -> Type:Sys.Owner<S,Store(~S),Unit,Unit,Unit,PeerOps(~S),Array<U32>,String,String,peer_declaration(~S),peer_body(~S)>
 def left(~S:Data,~mode:Query.Mode,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~Store(~S),~Left(~S),~D.Resources(~S),~Unit,~String,~String,~F),~command:Tree.CommandLeaf(~S,~Store(~S),~Left(~S),~D.Resources(~S),~Unit,~String,~String,~F),~join:Tree.Join(~F),owner:Author(~S,~mode)) -> F(Author(~S,~mode)):
   command(layout(~S),path(~S),{==},{==},Ops(~S),AuthorLocal(~S),author_declaration(~S,~mode),Body.run(~S),owner)
 def right(~S:Data,~F:Tree.Family(),~leaf:Tree.Leaf(~S,~Store(~S),~Unit,~Unit,~Unit,~String,~String,~F),~command:Tree.CommandLeaf(~S,~Store(~S),~Unit,~Unit,~Unit,~String,~String,~F),~join:Tree.Join(~F),owner:Peer(~S)) -> F(Peer(~S)):
@@ -145,7 +145,7 @@ def peer_defined(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool
     case Sys.DefinitionRefused{_,_}:"ERROR: peer definition"
 def author_defined(~S:Data,~mode:Query.Mode,settings:Settings.Settings,native:Bool,result:Sys.Defined<W.World<S,Store(~S),Resources(~S),Unit>,Author(~S,~mode),Cmd.Captures(~S,~layout(~S),~path(~S),~AuthorLocal(~S))>) -> String:
   match result:
-    case Sys.Defined{world,author}:peer_defined(~S,~mode,settings,native,author,Task.define(~S,~Unit,~Unit,~Unit,~PeerOps(~S),~Array<U32>,~String,~String,~peer_declaration(~S),~peer_body(~S),~Store(~S),~Resources(~S),world,"peer",ALeaf{801}))
+    case Sys.Defined{world,author}:peer_defined(~S,~mode,settings,native,author,Task.define(~S,~Store(~S),~Unit,~Unit,~Unit,~PeerOps(~S),~Array<U32>,~String,~String,~peer_declaration(~S),~peer_body(~S),~Resources(~S),world,"peer",ALeaf{801}))
     case Sys.DefinitionRefused{_,_}:"ERROR: author definition"
 def activated(~S:Data,result:W.World<S,Store(~S),Resources(~S),Unit> & W.Status) -> W.World<S,Store(~S),Resources(~S),Unit>:
   match result:

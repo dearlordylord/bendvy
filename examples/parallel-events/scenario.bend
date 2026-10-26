@@ -22,18 +22,18 @@ def reader_granted(~S:Data,~P:Type,~H:Type,~B:Type,result:B & Access.ResourceRea
 def admin_granted(~S:Data,~P:Type,~H:Type,~B:Type,result:B & Access.ResourceWrite<H,Event.Family<S,P,"events">,View.View<S,P,"events",U32>>) -> B & Admins(~S,~P,H):
   match result:
     case (book,cap):(book,Ops.admin(~S,~H,~P,~"events",~View.View<S,P,"events",U32>,cap))
-def writer_selection(~S:Data,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~query:Build.Query(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~lifecycle:Build.Lifecycle(~S,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Writers(~P,H):
+def writer_selection(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~query:Build.Query(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~lifecycle:Build.Lifecycle(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Writers(~P,H):
   writer_granted(~S,~P,~H,~B,rw(layout(~S,~P,~project),Layout.AtLeaf{},{==},{==},book))
-def writer(~S:Data,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Writers(~P,H):
-  builder(Writers(~P),writer_selection(~S,~P,~project,~H,~B),book)
-def reader_selection(~S:Data,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~query:Build.Query(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~lifecycle:Build.Lifecycle(~S,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Readers(~S,~P,H):
+def writer(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~builder:Build.Builder(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Writers(~P,H):
+  builder(Writers(~P),writer_selection(~S,~WC,~P,~project,~H,~B),book)
+def reader_selection(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~query:Build.Query(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~lifecycle:Build.Lifecycle(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Readers(~S,~P,H):
   reader_granted(~S,~P,~H,~B,rr(layout(~S,~P,~project),Layout.AtLeaf{},{==},{==},book))
-def reader(~S:Data,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Readers(~S,~P,H):
-  builder(Readers(~S,~P),reader_selection(~S,~P,~project,~H,~B),book)
-def admin_selection(~S:Data,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~query:Build.Query(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~lifecycle:Build.Lifecycle(~S,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Admins(~S,~P,H):
+def reader(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~builder:Build.Builder(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Readers(~S,~P,H):
+  builder(Readers(~S,~P),reader_selection(~S,~WC,~P,~project,~H,~B),book)
+def admin_selection(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~cw:Build.ComponentWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rr:Build.ResourceRead(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~rw:Build.ResourceWrite(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~query:Build.Query(~S,~Unit,~Resources(~S,~P,~project),~H,~B),~lifecycle:Build.Lifecycle(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Admins(~S,~P,H):
   admin_granted(~S,~P,~H,~B,rw(layout(~S,~P,~project),Layout.AtLeaf{},{==},{==},book))
-def admin(~S:Data,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Admins(~S,~P,H):
-  builder(Admins(~S,~P),admin_selection(~S,~P,~project,~H,~B),book)
+def admin(~S:Data,~WC:Type,~P:Type,~project:P -> P & U32,~H:Type,~B:Type,~builder:Build.Builder(~S,~WC,~Unit,~Resources(~S,~P,~project),~H,~B),book:B) -> B & Admins(~S,~P,H):
+  builder(Admins(~S,~P),admin_selection(~S,~WC,~P,~project,~H,~B),book)
 type Sent<-P:Type> is Type:Sent{pending:List<P>,refused:List<P>,text:String}
 type WriterLocal<-P:Type> is Type:WriterLocal{pending:List<P>,refused:List<P>,runs:U32,history:List<&2,String>}
 type ReaderLocal<-S:Data,-P:Type> is Type:ReaderLocal{reader:Event.Reader<S,P,"events">,runs:U32,history:List<&2,String>}

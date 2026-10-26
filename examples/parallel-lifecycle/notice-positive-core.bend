@@ -19,9 +19,9 @@ def route() -> Layout.Route:Layout.InLeft{Layout.InRight{Layout.AtLeaf{}}}
 def origin() -> Layout.Layout:Layout.origin(D.layout(),route())
 def Reader(~S:Data) -> Type:Notice.Reader<S,origin(),Notice.Removed{"output"}>
 def Ops(~S:Data,H:Type) -> Type:Life.Next<S,H,origin(),Notice.Removed{"output"}>
-def selection(~S:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~query:Build.Query(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S,H):
-  Build.removed_lifecycle(~S,~D.Store(~S),~D.Resources(~S),~D.layout(),~route(),~{==},~{==},~H,~B,~lifecycle,book)
-def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S,H):
+def selection(~S:Data,~H:Type,~B:Type,~cr:Build.ComponentRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~cw:Build.ComponentWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~rr:Build.ResourceRead(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~rw:Build.ResourceWrite(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~query:Build.Query(~S,~D.Store(~S),~D.Resources(~S),~H,~B),~lifecycle:Build.Lifecycle(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S,H):
+  Build.removed_lifecycle(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~D.layout(),~route(),~{==},~{==},~H,~B,~lifecycle,book)
+def declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~D.Store(~S),~D.Store(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S,H):
   builder(Ops(~S),selection(~S,~H,~B),book)
 def read_returned(~S:Data,~H:Type,result:H & Notice.Reading<S,origin(),Notice.Removed{"output"}>) -> H & (Reader(~S) & Sys.Completion<String,String>):
   match result:

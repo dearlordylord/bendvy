@@ -12,8 +12,8 @@ type Collector<-Owners:Type> is Type:
 def Family(~Owners:Type) -> Type:Collector<Owners>
 def none(~Owners:Type,ids:List<&2,U32>,owners:Owners) -> Owners & List<&2,U32>:
   (owners,[])
-def plain(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Data,~Ops:Type -> Type,~Local:Type,~declaration:Build.Program(~S,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),owner:Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>) -> Collector<Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>>:
-  Collector{owner,none(~Sys.Owner<S,C,R,E,Ops,Local,Error,Out,declaration,body>)}
+def plain(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Data,~Ops:Type -> Type,~Local:Type,~declaration:Build.Program(~S,~WC,~C,~R,~Ops),~body:@-H:Type -> @-caps:Ops(H) -> H -> Local -> H & (Local & Sys.Completion<Error,Out>),owner:Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>) -> Collector<Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>>:
+  Collector{owner,none(~Sys.Owner<S,WC,C,R,E,Ops,Local,Error,Out,declaration,body>)}
 def command_pending(~S:Data,~WC:Type,~C:Type,~R:Type,~E:Data,~Error:Data,~Out:Data,~layout:Layout.Layout,~route:Layout.Route,~same:{WC == Layout.columns(~S,layout) : Type},~valid:{Layout.grant_valid(~layout,~route) == True{} : Bool},~Ops:Type -> Type -> Type,~User:Type,~declaration:Cmd.Program(~S,~C,~R,~layout,~route,~Ops),~body:Cmd.Body(~S,~layout,~route,~Ops,~User,~Error,~Out),id:U32,result:Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & Bool) -> Cmd.Owner<S,C,R,E,layout,route,Ops,User,Error,Out,declaration,body> & List<&2,U32>:
   match result:
     case (owner,pending):(owner,Bool.pick(List<&2,U32>,pending,[id],[]))

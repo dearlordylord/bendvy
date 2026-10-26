@@ -9,7 +9,7 @@ import ../../src/ecs/execution-system.bend as Sys
 import ../../src/ecs/execution-query.bend as Q
 
 def Runtime(~S:Data) -> Type: W.World<S,D.Store(~S),D.Resources(~S),Unit>
-def Owner(~S:Data,~mode:Q.Mode) -> Type: Sys.Owner<S,D.Store(~S),D.Resources(~S),Unit,Q.Ops(~S,~String),Body.Local,String,String,D.declaration(~S,~mode),Body.run(~S)>
+def Owner(~S:Data,~mode:Q.Mode) -> Type: Sys.Owner<S,D.Store(~S),D.Store(~S),D.Resources(~S),Unit,Q.Ops(~S,~String),Body.Local,String,String,D.declaration(~S,~mode),Body.run(~S)>
 def QueryApp(~S:Data,~mode:Q.Mode) -> Type: Execute.Application<S,D.Store(~S),D.Resources(~S),Unit,Q.Ops(~S,~String),Body.Local,String,String,D.declaration(~S,~mode),Body.run(~S)>
 def run_once(~S:Data,~mode:Q.Mode,application:QueryApp(~S,~mode)) -> QueryApp(~S,~mode) & Execute.Status<String,String>:
   Execute.run(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Q.Ops(~S,~String),~Body.Local,~String,~String,~D.declaration(~S,~mode),~Body.run(~S),application)

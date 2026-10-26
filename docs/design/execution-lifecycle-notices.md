@@ -234,3 +234,74 @@ unique registration-id/namespace/program validation. Ordinary prepare/invoke
 callers must migrate together; standalone raw Scope/Permit invocation needs an
 explicit qualified prepared carrier or a narrowly documented trusted internal
 boundary, rather than declaring all existing public helpers trusted.
+
+### Qualified invocation carrier
+
+The ordinary prepare/invoke boundary retains an affine
+`Prepared<ExactWorld,ExactOwner>`. It carries the actual owner, the permits
+produced by preparation and the namespace read from that preparing World.
+`ExactWorld` includes the full WC; `ExactOwner` includes WC, the closed Program,
+body and Local. A metadata-only observer therefore retains full schema authority
+while its physical C stays Unit.
+
+Tree Runtime already quantifies its exact World and Owners. Preparation returns
+`World & Prepared<World,Owners>`; invocation consumes that prepared carrier.
+Joining two leaves combines their carriers into
+`Prepared<World,Product.Owner<L,R>>`, retaining the same global World index.
+The invoke boundary compares the captured preparing namespace with the immutable
+Scope view before admission. A refused comparison preserves owners and emits
+admission refusals without running bodies or advancing their cursors.
+
+Permits remain heterogeneous over owners but carry S and WC. They are internal
+preparation records, not standalone ordinary invocation authority. Ordinary
+callers cannot reconstruct a qualified carrier from an unindexed detached Local
+and copied metadata; Task.Meta is indexed by the exact Owner. Raw constructors
+remain the documented trusted construction boundary. Bare Scope helpers that
+assume preparation must be internal adapters, with ordinary callers migrated to
+the qualified carrier in the same change.
+
+Implementation status: the indexed Builder, Owner, Task metadata, lifecycle and
+Tree compilation source entries have passed bounded source checks. The prepared
+carrier migration and all ordinary consumers are still pending; this section
+records the selected target, not evidence of completion.
+
+The carrier also retains a Data provenance tree. Each leaf records its actual
+preparing namespace and exact permit list; each pair preserves left/right
+association. A successful join keeps this tree and the exact product owner.
+A failed generic preparation returns a distinct unqualified Inventory containing
+the exact product owners and their provenance tree. Inventory has no promotion
+function to Prepared. Only the closed composition interpreter constructs these
+inventories, preserving the owner/tree association.
+
+Invocation success retains a carrier with the actually returned owner, its
+original namespace, permits and provenance, plus completion statuses. Refusal
+retains the unchanged carrier and supplied Scope. Thus a false condition, an
+admission refusal and an invoked body error remain distinct: only actual body
+invocation updates its owner cursor; a body error keeps the returned owner and
+its writes.
+
+### Private full-WC checkpoint evidence
+
+This checkpoint is private, unqualified work. It is not an integration handoff
+or completion of GH85. Current bounded source checks pass for Root application,
+Tree composition, command/system lifecycle, lifecycle filters, the scheduled
+query/command consumer, the original notice-positive core and the concrete
+Prepared foreign-Scope core. The WorldIO foreign driver stops check-only solely
+at its five reached foreign definitions. No backend has run for the new driver.
+
+The independent Prepared foreign oracle was generated before any capture:
+5911 bytes, SHA256
+`f25af260c1ff23770d83c20ec21da32149ca339fc7b07145c161193b74d3cb17`.
+It models refusal without invocation, retained affine Local/queue/cursor, then
+one invocation against the correct Scope, retained body-error writes and exact
+queue payload identities, both complete physical Worlds and their journals.
+Positive correct-World definition and exact-owner detached restoration pass;
+wrong-World definition and detached WC laundering fail at their intended WC and
+Meta-owner mismatches. Source logs remain under `/tmp/gh85-source-window`.
+
+Current caller migration remains incomplete. Historical connected-performance,
+feature-timing and public-scopes/ordinary-v1 archives remain frozen. Qualified
+ordinary Scope/command wrappers are wired through Tree and Root; the remaining
+lower-level standalone adapter audit, all current caller migrations, full notice
+reader scenarios, intended controls, backend capture and independent review gates
+remain open. Existing filter/history/scheduled and event-case oracles are intact.
