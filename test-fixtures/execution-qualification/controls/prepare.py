@@ -16,9 +16,15 @@ def write(path, value):
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + '\n')
 
 
-def prepare(root, destination, snapshots):
+def prepare(root, destination, snapshots, current_source_commit, worker_root):
     destination.mkdir(parents=True, exist_ok=False)
     source = root / 'test-fixtures/execution-qualification'
+    reference = worker_root / 'test-fixtures/execution-qualification/collect.py'
+    if (source / 'collect.py').read_bytes() != reference.read_bytes():
+        raise RuntimeError('control collector differs from paired worker collector')
+    for helper in ('task_runner.py', 'receipt-logs.py', 'evidence_boundary.py', 'owned-tool-pins.py'):
+        if (root / 'scripts' / helper).read_bytes() != (worker_root / 'scripts' / helper).read_bytes():
+            raise RuntimeError('paired worker helper differs: ' + helper)
     original = json.loads(snapshots.read_text())[0]
     cfg = copy.deepcopy(original['configuration'])
     cfg.update(tools={'python': '/usr/bin/python3.11'}, resource_roots=[], skip_ldd=[])
@@ -39,6 +45,12 @@ def prepare(root, destination, snapshots):
              'wrong-approval', 'nonzero', 'artifact-drift', 'input-drift',
              'oracle', 'cancel', 'receipt-failure']
     manifest = {'status': 'DRAFT_NOT_ADMITTED', 'sourceRoot': str(root),
+                'currentSourceCommit': current_source_commit,
+                'collectorSubject': {'path': str(source / 'collect.py'), 'sha256': sha(source / 'collect.py')},
+                'pairedWorkerCollector': {'path': str(reference), 'sha256': sha(reference),
+                    'workerSourceCommit': '99b51d4b20d47f5b525b8803f803586d796d8948'},
+                'pairedWorkerPlan': {'path': '/tmp/gh80-worker-admission-v1/plan.json',
+                    'sha256': sha('/tmp/gh80-worker-admission-v1/plan.json')},
                 'importedSnapshot': {'path': str(snapshots), 'sha256': sha(snapshots)},
                 'environment': cfg['env'], 'python': cfg['tools']['python'],
                 'output': str(destination / 'results'),
@@ -96,6 +108,9 @@ def prepare(root, destination, snapshots):
               root / 'scripts/task_runner.py', root / 'scripts/receipt-logs.py', root / 'scripts/evidence_boundary.py']:
         manifest['files'][str(p)] = sha(p)
     manifest['files'].update(selected['pins'])
+    for path in [source / 'collect.py', reference, Path('/tmp/gh80-worker-admission-v1/plan.json')] + [
+            worker_root / 'scripts' / n for n in ('task_runner.py', 'receipt-logs.py', 'evidence_boundary.py', 'owned-tool-pins.py')]:
+        manifest['files'][str(path)] = sha(path)
     manifest['directories'] = {k: v for k, v in host['directories'].items()
                                if k in ('/usr/lib/python3.11', '/usr/lib/aarch64-linux-gnu', '/etc/ld.so.conf.d')}
     write(destination / 'manifest.json', manifest)
@@ -106,5 +121,8 @@ if __name__ == '__main__':
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--destination', type=Path, required=True)
     parser.add_argument('--tool-snapshots', type=Path, required=True)
+    parser.add_argument('--current-source-commit', required=True)
+    parser.add_argument('--worker-root', type=Path, required=True)
     args = parser.parse_args()
-    prepare(args.root.resolve(), args.destination.resolve(), args.tool_snapshots.resolve())
+    prepare(args.root.resolve(), args.destination.resolve(), args.tool_snapshots.resolve(),
+            args.current_source_commit, args.worker_root.resolve())

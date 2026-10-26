@@ -5,7 +5,10 @@ DRAFT, NOT ADMITTED, NOT EXECUTED. These controls invoke the unchanged canonical
 actual collector orchestration, rather than calling ReceiptBoundary in isolation.
 The only workload is the frozen `child.py` under the existing Python 3.11 binary.
 No Bend, Node, native ECS consumer, instrumentation, dependency install or network
-request is included. The original c9b collector and helper sources stay unchanged.
+request is included. The collector is the exact GH80 optional-hook version from worker source
+`99b51d4b20d47f5b525b8803f803586d796d8948`; all four helpers match that
+worker tree byte-for-byte. Controls omit `workerDiagnostic`, exercising the same
+current orchestration without invoking instrumentation or the optional validator.
 
 The data shape is twelve fixed instances of nine refusal families. Source/helper
 and environment/interpreter-flags variants remain separate so bootstrap paths do
@@ -44,7 +47,9 @@ Preparation copies only disposable files and hashes inputs; it launches nothing:
 ```sh
 python3 test-fixtures/execution-qualification/controls/prepare.py \
   --root /tmp/bendvy-gh77-evidence \
-  --destination /tmp/gh77-collector-controls-v4 \
+  --destination /tmp/gh77-collector-controls-v5 \
+  --current-source-commit EXACT_CONTROLS_COMMIT \
+  --worker-root /tmp/bendvy-gh80-worker-evidence \
   --tool-snapshots /home/node/.claude/orchestrate/bendvy-gh78-94/evidence-plan/tool-snapshots.json
 ```
 
@@ -69,9 +74,9 @@ env -i HOME=/home/node PATH=/usr/bin:/bin LANG=C.UTF-8 LC_ALL=C.UTF-8 \
   BEND_NO_TELEMETRY=1 BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root \
   /usr/bin/python3.11 -I -S -B \
   /tmp/bendvy-gh77-evidence/test-fixtures/execution-qualification/controls/run.py \
-  --manifest /tmp/gh77-collector-controls-v4/manifest.json \
+  --manifest /tmp/gh77-collector-controls-v5/manifest.json \
   --admission /absolute/independent-gh80-control-admission.json \
-  --output /tmp/gh77-collector-controls-v4/results
+  --output /tmp/gh77-collector-controls-v5/results
 ```
 
 Per child cap5s, case cap40s, outer per-collector cap55s, twelve serial instances.
