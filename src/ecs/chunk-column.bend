@@ -151,3 +151,32 @@ def lifecycle(~S:Data,~C:Type,column:Column<S,C>,index:U32) -> Column<S,C> & May
 
 def modify_runtime(~S:Data,~C:Type,~V:Data,transform:C -> C & V,column:Column<S,C>,index:U32,tick:Tick.Tick) -> Column<S,C> & Maybe<&2,V>:
   edit_search(~S,~C,~V,transform,15n,Visit{column,index,Root{}},tick,True{})
+
+# Unlike the template-specialized write operations, this removal accepts an
+# ordinary irrelevant payload Type so a canonical heterogeneous schema fold can
+# return every actual owner. It never grows storage and clears the same stamps
+# as swap_at(..., None, ...), including an already absent in-range component.
+def take_leaf_done(-S:Data,-C:Type,stamps:Array<L.Stamp>,index:U32,result:Array<Maybe<&1,C>> & Maybe<&1,C>) -> Column<S,C> & Maybe<&1,C>:
+  match result:
+    case (values,previous):(Leaf{values,Array.set(L.Stamp,stamps,index,L.Stamp{None{},None{}})},previous)
+def take_leaf(-S:Data,-C:Type,values:Array<Maybe<&1,C>>,stamps:Array<L.Stamp>,+index:U32,allowed:Bool) -> Column<S,C> & Maybe<&1,C>:
+  match allowed:
+    case False{}:(Leaf{values,stamps},None{})
+    case True{}:take_leaf_done(S,C,stamps,index,Array.swap(Maybe<&1,C>,values,index,None{}))
+def take_left_done(-S:Data,-C:Type,half:U32,right:Column<S,C>,result:Column<S,C> & Maybe<&1,C>) -> Column<S,C> & Maybe<&1,C>:
+  match result:
+    case (left,previous):(Branch{half,left,right},previous)
+def take_right_done(-S:Data,-C:Type,half:U32,left:Column<S,C>,result:Column<S,C> & Maybe<&1,C>) -> Column<S,C> & Maybe<&1,C>:
+  match result:
+    case (right,previous):(Branch{half,left,right},previous)
+def take_branch(-S:Data,-C:Type,descend:Column<S,C> -> U32 -> Column<S,C> & Maybe<&1,C>,+half:U32,index:U32,left:Column<S,C>,right:Column<S,C>,first:Bool) -> Column<S,C> & Maybe<&1,C>:
+  match first:
+    case True{}:take_left_done(S,C,half,right,descend(left,index))
+    case False{}:take_right_done(S,C,half,left,descend(right,U32.sub(index,half)))
+def take_search(-S:Data,-C:Type,fuel:Nat,column:Column<S,C>,+index:U32) -> Column<S,C> & Maybe<&1,C>:
+  match fuel column:
+    case 0n column:(column,None{})
+    case 1n+_ Leaf{values,stamps}:take_leaf(S,C,values,stamps,index,U32.is_lt(index,8))
+    case 1n+rest Branch{+half,left,right}:take_branch(S,C,(column => index => take_search(S,C,rest,column,index)),half,index,left,right,U32.is_lt(index,half))
+def take(-S:Data,-C:Type,column:Column<S,C>,index:U32) -> Column<S,C> & Maybe<&1,C>:
+  take_search(S,C,15n,column,index)
