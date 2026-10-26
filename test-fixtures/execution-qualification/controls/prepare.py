@@ -1,0 +1,110 @@
+"""Hash-only preparation: create disposable canonical-collector control plans."""
+import argparse
+import copy
+import hashlib
+import json
+from pathlib import Path
+import re
+import shutil
+
+
+def sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def write(path, value):
+    path.write_text(json.dumps(value, indent=2, sort_keys=True) + '\n')
+
+
+def prepare(root, destination, snapshots):
+    destination.mkdir(parents=True, exist_ok=False)
+    source = root / 'test-fixtures/execution-qualification'
+    original = json.loads(snapshots.read_text())[0]
+    cfg = copy.deepcopy(original['configuration'])
+    cfg.update(tools={'python': '/usr/bin/python3.11'}, resource_roots=[], skip_ldd=[])
+    prior = original['snapshot']
+    selected = copy.deepcopy(prior)
+    selected.update(tools=cfg['tools'], resource_roots=[], skip_ldd=[],
+                    resolved_libraries={'python': prior['resolved_libraries']['python']})
+    probe = bytes.fromhex(selected['resolved_libraries']['python']['stdout'])
+    paths = {Path(p).resolve() for p in re.findall(r'(/[^\s()]+)', probe.decode())}
+    paths.update(Path(p).resolve() for p in [cfg['ldd'], cfg['taskset'], cfg['tools']['python']])
+    selected['pins'] = {str(p): prior['pins'][str(p)] for p in sorted(paths)}
+    # Imported discovery is evidence, not newly executed discovery. Runtime verify
+    # must reproduce it through the unchanged ToolPins implementation.
+    for path, digest in selected['pins'].items():
+        if sha(path) != digest:
+            raise RuntimeError('existing Python tool snapshot is stale: ' + path)
+    names = ['source-drift', 'helper-drift', 'environment', 'interpreter', 'interpreter-flags',
+             'wrong-approval', 'nonzero', 'artifact-drift', 'input-drift',
+             'oracle', 'cancel', 'receipt-failure']
+    manifest = {'status': 'DRAFT_NOT_ADMITTED', 'sourceRoot': str(root),
+                'importedSnapshot': {'path': str(snapshots), 'sha256': sha(snapshots)},
+                'environment': cfg['env'], 'python': cfg['tools']['python'],
+                'output': str(destination / 'results'),
+                'cases': [], 'files': {}, 'directories': {},
+                'prerequisites': ['Independent GH80 launch review of this exact control package',
+                                  'No overlapping heavy execution; root confirms prior owner terminal']}
+    for name in names:
+        case = destination / name
+        (case / 'scripts').mkdir(parents=True)
+        (case / 'resources').mkdir()
+        (case / 'resources/token').write_text('original\n')
+        (case / 'source.txt').write_text('frozen source\n')
+        (case / 'oracle.stdout').write_text('independent expected output\n')
+        shutil.copyfile(source / 'collect.py', case / 'collect.py')
+        shutil.copyfile(source / 'controls/child.py', case / 'child.py')
+        for helper in ('task_runner.py', 'receipt-logs.py', 'evidence_boundary.py', 'owned-tool-pins.py'):
+            shutil.copyfile(root / 'scripts' / helper, case / 'scripts' / helper)
+        files = {str(p): sha(p) for p in sorted(case.rglob('*')) if p.is_file()}
+        files.update(selected['pins'])
+        # Reuse the frozen host resolver and stdlib inventory from the original
+        # canonical plan; no Bend, Node or Clang resource directories are needed.
+        host = json.loads((snapshots.parent / 'draft-plan.json').read_text())
+        directories = {k: v for k, v in host['directories'].items()
+                       if k in ('/usr/lib/python3.11', '/usr/lib/aarch64-linux-gnu', '/etc/ld.so.conf.d')}
+        directories[str(case / 'resources')] = {'token': sha(case / 'resources/token')}
+        stages = []
+        modes = ['produce', 'artifact-drift', 'consume'] if name == 'artifact-drift' else [
+            name if name in ('nonzero', 'input-drift', 'oracle', 'cancel', 'receipt-failure') else 'oracle']
+        for index, mode in enumerate(modes):
+            stages.append({'label': 'child-' + str(index), 'argv': [cfg['tools']['python'], '-I', '-S', '-B',
+                           str(case / 'child.py'), mode, str(case)], 'timeoutSeconds': 5,
+                           'expectedExit': 0, 'consumes': ['value'] if mode == 'consume' else [],
+                           'produces': ['value'] if mode == 'produce' else [], 'serializesSource': False,
+                           **({'oracle': str(case / 'oracle.stdout')} if name == 'oracle' else {})})
+        prefixes = ['initial', 'final'] + [s['label'] + suffix for s in stages for suffix in ('-pre', '-post')]
+        plan = {'root': str(case), 'output': str(case / 'actual'), 'python': cfg['tools']['python'],
+                'environment': cfg['env'], 'files': files, 'aliases': {}, 'directories': directories,
+                'presence': {k: v for k, v in host['presence'].items()},
+                'toolSnapshots': [{'configuration': cfg, 'snapshot': selected}],
+                'labels': [s['label'] for s in stages] + [p + '-tools0-0' for p in prefixes],
+                'heavyLock': '/tmp/bendvy-parity-heavy.lock', 'sourceLock': str(case / 'source.lock'),
+                'prerequisites': ['Synthetic refusal control only; no ECS qualification claim'],
+                'cases': [{'name': name, 'wallSeconds': 40, 'stages': stages}]}
+        if name == 'interpreter':
+            plan['python'] = '/usr/bin/false'  # Deliberately mismatched interpreter fixture.
+            plan['files']['/usr/bin/false'] = sha('/usr/bin/false')
+        write(case / 'plan.json', plan)
+        write(case / 'control-approval.json', {'planSHA256': '0' * 64 if name == 'wrong-approval' else sha(case / 'plan.json'),
+              'verdict': 'APPROVED', 'prerequisitesSatisfied': plan['prerequisites'],
+              'scope': 'synthetic approval fixture; real outer admission remains mandatory'})
+        manifest['cases'].append({'name': name, 'directory': str(case), 'planSHA256': sha(case / 'plan.json')})
+    manifest['files'] = {str(p): sha(p) for p in sorted(destination.rglob('*')) if p.is_file()}
+    for p in [source / 'controls/run.py', source / 'controls/prepare.py', source / 'controls/child.py',
+              source / 'controls/README.md', source / 'README.md',
+              root / 'scripts/task_runner.py', root / 'scripts/receipt-logs.py', root / 'scripts/evidence_boundary.py']:
+        manifest['files'][str(p)] = sha(p)
+    manifest['files'].update(selected['pins'])
+    manifest['directories'] = {k: v for k, v in host['directories'].items()
+                               if k in ('/usr/lib/python3.11', '/usr/lib/aarch64-linux-gnu', '/etc/ld.so.conf.d')}
+    write(destination / 'manifest.json', manifest)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--root', type=Path, required=True)
+    parser.add_argument('--destination', type=Path, required=True)
+    parser.add_argument('--tool-snapshots', type=Path, required=True)
+    args = parser.parse_args()
+    prepare(args.root.resolve(), args.destination.resolve(), args.tool_snapshots.resolve())

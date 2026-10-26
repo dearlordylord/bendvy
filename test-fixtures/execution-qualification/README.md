@@ -88,3 +88,8 @@ collector receipt establishes only the selected finite oracle comparisons and
 source bindings. It does not establish complete issue acceptance, universal
 affine-owner preservation, IO cleanup, approved laws, runtime concurrency, or
 speedup.
+
+Concrete isolated control preparation and gated commands now live in
+[controls/README.md](controls/README.md). They remain unexecuted pending independent
+GH80 launch review. The normative cancellation control may expose the current
+partial-stream retention defect; it must fail rather than relax that oracle.
