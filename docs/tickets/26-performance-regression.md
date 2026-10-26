@@ -23,4 +23,4 @@ Scope covers this workload and `src/ecs`; it does not qualify the old optimized
 Dense workload, full five-by-three matrix or product performance. Existing
 JS<=TS and Native<=0.5TS targets remain separately labelled descriptive outputs.
 
-[Completion and actual detection control](../reports/performance-regression.md).
+[Completion and actual detection control](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/reports/performance-regression.md).

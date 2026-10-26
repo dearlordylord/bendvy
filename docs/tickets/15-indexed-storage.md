@@ -2,7 +2,7 @@
 
 **Status:** completed bounded research; production adoption and performance acceptance remain open. [GitHub #16](https://github.com/dearlordylord/bendvy/issues/16). Parent: [#1](https://github.com/dearlordylord/bendvy/issues/1).
 
-Review: [Astra assessment](../archive/recovered/reviews/next-research-tickets.md).
+Review: [Astra assessment](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/next-research-tickets.md).
 
 ## Goal and prerequisites
 
@@ -56,8 +56,8 @@ sizes across five backends with five samples each; a separate genuinely Type
 payload comparison against an owned-list counterpart and actual TS. The executor
 ran all three reproduction commands; the coordinator independently reran semantic
 verification and audited source hashes, pins, sample counts and medians/ranges.
-[Standards](../archive/recovered/reviews/implementation-standards.md) and
-[Spec/Astra](../archive/recovered/reviews/implementation-spec.md) reviews found no blockers.
+[Standards](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/implementation-standards.md) and
+[Spec/Astra](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/implementation-spec.md) reviews found no blockers.
 
 The result is partial/negative for product capability: dense traversal and some
 JS workloads regress against TS; indexed owned storage also loses to its owned-list

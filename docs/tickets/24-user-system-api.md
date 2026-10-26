@@ -4,7 +4,7 @@ GitHub #26; first step is interface design and independent review.
 
 Implementation was subsequently authorized by the user's `$implement` request
 after review. The bounded conditions below are delivered in
-[the completion report](../reports/user-system-api.md); production/full-core
+[the completion report](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/reports/user-system-api.md); production/full-core
 adoption and qualified performance remain open. The independent consumer's
 query-composition/ergonomics follow-up is [#27](25-query-composition.md).
 

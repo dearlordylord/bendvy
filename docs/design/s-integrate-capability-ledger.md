@@ -22,7 +22,7 @@ Primary evidence: [payload](../../experiments/s-integrate/PAYLOAD-README.md),
 [transaction](../../experiments/s-integrate/transaction-runtime-evidence.json),
 [A/B rollback trace](../../experiments/s-integrate/transaction-ab-report.md),
 [bulk commands](../../experiments/s-integrate/commands-bulk-report.md),
-[Spec](../archive/recovered/reviews/s-integrate-runtime-spec.md), [Standards](../archive/recovered/reviews/s-integrate-runtime-standards.md).
+[Spec](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/s-integrate-runtime-spec.md), [Standards](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/s-integrate-runtime-standards.md).
 Reviews identify the frozen slice they replayed; later commits are not implicitly
 reviewed. Ordinary interpreter timeouts remain failures; separately built backend
 runs use their explicit five-second runtime limits.
@@ -69,7 +69,7 @@ Latest bounded additions: [mark filter](../../experiments/s-integrate/host-mark-
 **#19 completed as bounded research with negative results.** Functional trace parity does not establish production
 performance, general capability confinement, arbitrary payload recovery or new
 universal proofs. The five workload outcomes and concrete #20 return conditions are recorded in
-the [completion report](../reports/s-integrate-completion.md). Final Spec and
+the [completion report](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/reports/s-integrate-completion.md). Final Spec and
 Standards reviews support the issue’s bounded-negative alternative.
 
 Concrete performance return path: [S-PERF #20](../tickets/19-integrated-performance-redesign.md) implements and evaluates one experimental indexed adapter against the unchanged baseline. It retains full trace/access/mutation gates, all five workloads, corrected memory scope and a separate production-adoption decision.

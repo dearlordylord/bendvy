@@ -1,13 +1,13 @@
 # P-OBS — approved bounded public-observation proofs
 
 **Delivered: all seven exact endpoints, mutation gates and both reviews pass. [GitHub #18](https://github.com/dearlordylord/bendvy/issues/18) closure is coordinator-owned.**
-[Astra review](../archive/recovered/reviews/approved-next-tranche.md). Parent: [#1](https://github.com/dearlordylord/bendvy/issues/1).
-Governing [SPEC](../SPEC.md), [semantic audit](../archive/recovered/reviews/laws-semantic-audit.md),
+[Astra review](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/approved-next-tranche.md). Parent: [#1](https://github.com/dearlordylord/bendvy/issues/1).
+Governing [SPEC](../SPEC.md), [semantic audit](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/laws-semantic-audit.md),
 [exact subjects](../../experiments/t11-replacement/LAWS.bend) and
 [finite evidence](../../experiments/t11-replacement/README.md).
 The user approved only the seven IDs below at SHA256
 `e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`.
-Astra subsequently approved the exact live affine owned binder revision and two arithmetic support subjects under explicit user delegation; see [decision](../archive/recovered/reviews/delegated-owned-law-approval.md). Twenty internal and two other infrastructure candidates remain unapproved.
+Astra subsequently approved the exact live affine owned binder revision and two arithmetic support subjects under explicit user delegation; see [decision](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/delegated-owned-law-approval.md). Twenty internal and two other infrastructure candidates remain unapproved.
 
 ## Exact scope and staged delivery
 
@@ -50,10 +50,10 @@ allocation/exhaustion policy or representation-neutral owner preservation.
 ## Execution and acceptance gates
 
 - [x] Exact seven IDs, original revision and sole separately approved affine binder amendment are mechanically verified by [aggregate verifier](https://github.com/dearlordylord/bendvy/blob/177c30466287548bf3c202aa642bc22463443789/experiments/p-observe/verify.py). Original/proposal files remain frozen. Dependency inventories and disclosed chronology deviations are retained in package reports.
-- [x] Version/guide and compiler/Base provenance are recorded. Six model endpoints use the existing five-second wrapper; the owned endpoint and aggregate use the [reviewed task-local repair](../archive/recovered/reviews/owned-checker-local-use.md), with identical Base, unchanged installed kernel and the same hard five-second checker/kernel limit. Installed checker stack failure remains a negative baseline; no tool/dependency was installed.
+- [x] Version/guide and compiler/Base provenance are recorded. Six model endpoints use the existing five-second wrapper; the owned endpoint and aggregate use the [reviewed task-local repair](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/owned-checker-local-use.md), with identical Base, unchanged installed kernel and the same hard five-second checker/kernel limit. Installed checker stack failure remains a negative baseline; no tool/dependency was installed.
 - [x] Separate exact-law proof packages contain complete general proofs, without unrelated catalogue TODOs. [Aggregate evidence](../../experiments/p-observe/evidence.json) records exit0, CHECK PASS and KERNEL PASS for all seven; package evidence records the six original ALL PROOFS CHECK results and full owned proof verdict.
 - [x] Each endpoint retains original true-domain controls and compiling actual decision-path mutants rejecting unchanged proofs at their endpoint/dedicated induction. Lookup/query/flush/schedule evidence and [owned candidate evidence](../../experiments/p-approved-owned-schedule/candidate-evidence.json) retain exact diagnostics; pending work/no implicit flush and FIFO survivor controls remain active.
-- [x] Exact hashes, commands, diagnostics and limits are recorded; independent [Spec](../archive/recovered/reviews/observation-proof-spec.md) and [Standards](../archive/recovered/reviews/observation-proof-standards.md) reviews pass. [Completion audit](../reports/p-observe-completion.md) distinguishes this bounded proof delivery from full ECS runtime/performance acceptance.
+- [x] Exact hashes, commands, diagnostics and limits are recorded; independent [Spec](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/observation-proof-spec.md) and [Standards](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/observation-proof-standards.md) reviews pass. [Completion audit](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/reports/p-observe-completion.md) distinguishes this bounded proof delivery from full ECS runtime/performance acceptance.
 
 Follow-ups remain explicit: root confinement; arbitrary Type/full-payload relations;
 representation-neutral owned reads; selected-reader transaction/retention/lag;
@@ -79,4 +79,4 @@ The original erased-owner diagnostics, partial checkpoints, stack failures and p
 
 ## Aggregate completion gate
 
-Run `python3 experiments/p-observe/verify.py --source-checker`: all seven exact endpoints pass the reviewed local source checker and unchanged kernel. Default installed mode still exits1 on its reproduced normalization bug. The [scoped decision](../archive/recovered/reviews/owned-checker-local-use.md) authorizes this reversible local repair, without global installation or production compiler adoption. Endpoint mutation/review gates and this acceptance audit are delivered; coordinator reporting/closure remains the final tracker action. Next work is #19's concrete integration prerequisites, not broader proof approval or runtime/performance acceptance.
+Run `python3 experiments/p-observe/verify.py --source-checker`: all seven exact endpoints pass the reviewed local source checker and unchanged kernel. Default installed mode still exits1 on its reproduced normalization bug. The [scoped decision](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/owned-checker-local-use.md) authorizes this reversible local repair, without global installation or production compiler adoption. Endpoint mutation/review gates and this acceptance audit are delivered; coordinator reporting/closure remains the final tracker action. Next work is #19's concrete integration prerequisites, not broader proof approval or runtime/performance acceptance.

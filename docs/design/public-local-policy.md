@@ -59,4 +59,4 @@ for retry. Raw runner mutations and host IO are not recovered automatically.
 The TS adapter's active-registration map and disposal are adapter behavior;
 upstream has no matching Local/disposal API. Actual TS resource failure rollback
 is observed separately. These boundaries are retained from the
-[earlier design note](../archive/design/public-local-owner.md).
+[earlier design note](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/design/public-local-owner.md).

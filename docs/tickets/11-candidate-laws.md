@@ -6,8 +6,8 @@
 
 [Full-core parent #1](https://github.com/dearlordylord/bendvy/issues/1),
 [SPEC](../SPEC.md), [next checkpoint](../next-core-checkpoint.md),
-[Luna source audit](../archive/recovered/reviews/laws-source-research.md) and
-[Astra decision](../archive/recovered/reviews/laws-decision.md).
+[Luna source audit](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/laws-source-research.md) and
+[Astra decision](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/laws-decision.md).
 
 The old fourteen-law public proposal is withdrawn. Preserve its exact historical
 statements and revision-specific results; they do not validate replacement laws.
@@ -53,7 +53,7 @@ performance thresholds, dependencies or changes to observable contracts.
 
 Implementation: [9fd904b](https://github.com/dearlordylord/bendvy/commit/9fd904b).
 [Package report](../../experiments/t11-replacement/README.md) maps all ten acceptance
-criteria and all fourteen historical decisions. [Exact approval proposal](../archive/recovered/reviews/laws-replacement-package.md)
+criteria and all fourteen historical decisions. [Exact approval proposal](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/laws-replacement-package.md)
 lists all 31 IDs and SHA256 `e0c607d723ad250a189c096d9fa3fd6a36913f4c72efd3a3be6dacd7fadb2cbc`.
 Every law remains open; no general ECS proof was written.
 
@@ -62,15 +62,15 @@ records 1411 active equality instances, 635 excluded-domain controls, 31 compili
 own-law mutants and 12 refreshed extra mutants. Execution is explicitly segmented:
 the complete law stage passed; its loaded old runner subsequently exited 1 in an
 obsolete extra stage. The refreshed standalone extra stage exited 0. No whole-command
-PASS is inferred. [Independent verification](../archive/recovered/reviews/laws-independent-verification.md)
+PASS is inferred. [Independent verification](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/laws-independent-verification.md)
 covers all 31 unchanged subjects and all 12 refreshed extras; all source hashes match.
 
 [Runtime evidence](../../experiments/t11-replacement/runtime-evidence.json) records
 72 actual TS/Native/JS observations, five U32 boundaries, four paired access controls,
 erased-owner live-leak rejection and twelve compiling backend mutants. The complete
 independent runtime run exited 0 and produced identical evidence. Final
-[Standards](../archive/recovered/reviews/implementation-standards.md) and
-[Spec/Astra](../archive/recovered/reviews/implementation-spec.md) reviews accompany the delivery.
+[Standards](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/implementation-standards.md) and
+[Spec/Astra](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/implementation-spec.md) reviews accompany the delivery.
 
 This completes proposal/falsification research, not law approval, universal
 refinement or product capability. Independent-root authority, broader Type payload
@@ -83,10 +83,10 @@ remain unapproved/unpublished; the full core scope is preserved.
 
 ## Subsequent semantic approval review
 
-[Fresh Astra medium audit](../archive/recovered/reviews/laws-semantic-audit.md) distinguishes seven
+[Fresh Astra medium audit](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/laws-semantic-audit.md) distinguishes seven
 bounded public-observation candidates, twenty internal lemmas and four infrastructure
 facts. The exact proposal no longer presents all 31 as a bulk public approval
-request. Research remains complete. On 2026-10-04 the user approved the seven public IDs at the exact SHA256 in the [approval record](../archive/recovered/reviews/laws-replacement-package.md); the other 24 remain unapproved. Pending-lookup caller
+request. Research remains complete. On 2026-10-04 the user approved the seven public IDs at the exact SHA256 in the [approval record](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/laws-replacement-package.md); the other 24 remain unapproved. Pending-lookup caller
 shape, representation-neutral read preservation and trace-relation adequacy need
 correction before broader guarantees. Root authority, full payload preservation
 and actual reader transactions remain open; see the audit and follow-ups.

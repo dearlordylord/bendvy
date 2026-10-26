@@ -1,7 +1,0 @@
-# Independent Readers comparator oracle
-
-This additive observer inherits the accepted Indexed Readers `common_model.Observer` and actual `operation_model.Program`; it does not substitute a generic Dense world. Original reader prepare/commit chronology and operation state remain unchanged. The seed Frame construction and first transaction finish flag are observed; local Frames, full prepared read events (including Bend lag flags) and schedule routing come from reached model transitions. TS observes the original evaluator's Main payload immediately before its write and preserves the complete original records/report.
-
-Before sealing any new wire, the recipe verifies immutable accepted full Bend/TS stream hashes and exact common tuples, actor maps, canonical chunks and TS full reports. It reads retained gold rather than invoking an old sealer. New full role streams retain all280 common records and role-specific public supplements: Bend seedCall/locals/reads/schedules, TS ticks/updates. There are no synthetic reads, unsupported TS lag fields, schema padding, backend outputs as expectations or performance conclusions.
-
-Run `seal_gold.py --output FRESH` only under the reviewed source-only execution plan. `SOURCE-BASIS.json` binds subject83161b756, actual source correspondence02, original models, core/TS semantic sources and accepted gold. Source preparation/import checks do not claim model generation or backend qualification.

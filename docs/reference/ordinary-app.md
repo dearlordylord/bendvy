@@ -6,7 +6,7 @@ World creation and component storage remain explicit. Create each World with [`w
 
 ## Start from the checked two-system example
 
-The [independently authored consumer](../../audits/blind-user-73/consumer.bend) is a complete component-query and service-counter example. Its [IO entry](../../audits/blind-user-73/main.bend) creates the World and prints four observations. Both backends produce the [retained expected output](../../audits/blind-user-73/FINDINGS.md#result).
+The [independently authored consumer](../../test-fixtures/ordinary-app/consumer.bend) is a complete component-query and service-counter example. Its [IO entry](../../test-fixtures/ordinary-app/main.bend) creates the World and prints four observations. The [fixture guide](../../test-fixtures/ordinary-app/README.md) gives its expected output.
 
 Read the consumer in this order:
 

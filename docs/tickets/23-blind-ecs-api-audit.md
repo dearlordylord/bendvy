@@ -1,7 +1,7 @@
 # S-API-AUDIT — blind ECS consumer evaluation
 
 GitHub #25; delivered bounded audit with a blocked application outcome.
-[Corrected report](../reports/blind-ecs-api-audit.md); follow-up #26.
+[Corrected report](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/reports/blind-ecs-api-audit.md); follow-up #26.
 
 User-authorized 2026-10-06. Full-core parent #1; interface integration connects
 to #24. This is an API usability/capability audit, not performance acceptance

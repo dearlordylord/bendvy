@@ -1,9 +1,0 @@
-SOME PROOFS FAIL
-Error:
-- message  : a parameter or field scrutinee (a match cannot scrutinize a computed value: give it its own def)
-Location:
-250 |     case T.Tx{world,undo,commands,events,trace,meter}:
-251>|       (world,metadata)=inspect(world)
-    |                        ^^^^^^^^^^^^^^
-252 |       (T.Tx{world,undo,commands,events,trace,meter},metadata)
-bend 2.0.37 is available: run bend update

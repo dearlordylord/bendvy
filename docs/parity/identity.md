@@ -59,7 +59,7 @@ approved namespace nonwrap policy.
 
 The [core README](../../src/ecs/README.md) calls the allocator bounded;
 [SPEC](../SPEC.md#implementation-decisions) leaves reuse/layout technical, and the
-[arithmetic approval scope](../archive/recovered/reviews/delegated-owned-law-approval.md)
+[arithmetic approval scope](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/delegated-owned-law-approval.md)
 does not freeze allocator policy. The implementation constant is not an approved
 production-capacity requirement. Preserve the qualified failed-reservation handle
 and query-order observations while reconciling raw-ID consumers with a concrete

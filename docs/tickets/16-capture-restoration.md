@@ -2,7 +2,7 @@
 
 **Status:** completed bounded research; general capability gates remain open. [GitHub #17](https://github.com/dearlordylord/bendvy/issues/17). Parent: [#1](https://github.com/dearlordylord/bendvy/issues/1).
 
-Review: [Astra assessment](../archive/recovered/reviews/next-research-tickets.md).
+Review: [Astra assessment](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/next-research-tickets.md).
 
 ## Goal and prerequisites
 
@@ -50,8 +50,8 @@ approvals; this ticket authorizes investigation and finite validation only.
 record 39 actual TS/Native/JS checkpoints for both explicit-owner and regenerated
 closure schedules, six paired checker controls and five compiling mutants.
 Implementation: `400f4dc`; integrated full-suite rerun: `00f4407`.
-[Standards review](../archive/recovered/reviews/implementation-standards.md) and
-[Astra Spec review](../archive/recovered/reviews/implementation-spec.md) found no blockers.
+[Standards review](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/implementation-standards.md) and
+[Astra Spec review](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/recovered/reviews/implementation-spec.md) found no blockers.
 
 Completion accepts this bounded investigation, not general Local policy,
 arbitrary destructive restoration, production System adoption, proofs or

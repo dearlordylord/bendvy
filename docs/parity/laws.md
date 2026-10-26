@@ -104,9 +104,9 @@ remain finite falsification evidence, not human approval or proofs.
 
 | Existing draft | Exact subjects and scope | Retained evidence and current applicability |
 | --- | --- | --- |
-| [Nested provision](../laws/nested-provision-draft/README.md) | `category_identity`, `stable_first_union`, `authored_flatten`, `authored_requirements`, `complete_ordered_missing`: pure schedule-provision metadata and ordered missing requirements. | [Existing receipt](../laws/nested-provision-draft/evidence-final/receipt.json) records JS/Native literals and five planted defects. Its governed whole-source hash differs from current `schedule-provision.bend`; this index does not requalify the current module. |
-| [Schedule readers](../laws/schedule-readers-draft/README.md) | `stable_partition`, `filtered_batch_order`, `retained_publication_ticks`: pure reader-domain partition, filtering and retained tick metadata. | [Existing receipt](../laws/schedule-readers-draft/evidence-final/receipt.json) records JS-only literals and three planted defects. It does not establish Native behavior, runtime reader ownership or current whole-source applicability; `reader-domains.bend` has changed. |
-| [Schema fragments](../laws/schema-fragments-draft/README.md) | `collision_classification`, `validation_priority`, `declaration_membership`: pure fragment classification, validation order and membership. | [Existing receipt](../laws/schema-fragments-draft/evidence/receipt.json) records245 JS literal instances and five planted defects. It does not establish Native behavior or a generic runtime guarantee; the documented governed `schema-fragments.bend` hash differs from current source. |
+| [Nested provision](../laws/nested-provision-draft/README.md) | `category_identity`, `stable_first_union`, `authored_flatten`, `authored_requirements`, `complete_ordered_missing`: pure schedule-provision metadata and ordered missing requirements. | [Existing receipt](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/laws/nested-provision-draft/evidence-final/receipt.json) records JS/Native literals and five planted defects. Its governed whole-source hash differs from current `schedule-provision.bend`; this index does not requalify the current module. |
+| [Schedule readers](../laws/schedule-readers-draft/README.md) | `stable_partition`, `filtered_batch_order`, `retained_publication_ticks`: pure reader-domain partition, filtering and retained tick metadata. | [Existing receipt](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/laws/schedule-readers-draft/evidence-final/receipt.json) records JS-only literals and three planted defects. It does not establish Native behavior, runtime reader ownership or current whole-source applicability; `reader-domains.bend` has changed. |
+| [Schema fragments](../laws/schema-fragments-draft/README.md) | `collision_classification`, `validation_priority`, `declaration_membership`: pure fragment classification, validation order and membership. | [Existing receipt](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/laws/schema-fragments-draft/evidence/receipt.json) records245 JS literal instances and five planted defects. It does not establish Native behavior or a generic runtime guarantee; the documented governed `schema-fragments.bend` hash differs from current source. |
 
 All eleven remain **unapproved and deferred**. Their original law text,
 specifications, receipts and source pins stay unchanged. A later exact proposal
@@ -116,8 +116,8 @@ these drafts or extends their historical evidence to current executable APIs.
 
 ## Four concrete current helper proposals
 
-The additive [law text](../laws/current-reader-key-draft/LAWS.bend) and
-[independent specification](../laws/current-reader-key-draft/spec.bend) are
+The additive [law text](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/laws/current-reader-key-draft/LAWS.bend) and
+[independent specification](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/laws/current-reader-key-draft/spec.bend) are
 **unapproved**. The exact specification functions are part of each subject.
 They characterize existing pure Data helpers, not an amended runtime policy.
 No definition fills a law and no ECS proof file is added.
@@ -163,10 +163,10 @@ omission, advancing an existing reader on failure, losing dropped metadata and
 advancing to zero. Their changed equality-row counts are respectively 1, 4, 4
 and 3. The same independent oracle/model was sealed before any subject execution.
 
-The [portable packet](../laws/current-reader-key-boundary-v2/falsification-evidence/actual-attempt01/manifest.json)
+The [portable packet](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/laws/current-reader-key-boundary-v2/falsification-evidence/actual-attempt01/manifest.json)
 retains all six roles, thirteen successful commands, full output and generated
 artifacts, frozen imports, tool/resource joins and independent model. Its
-[offline verification](../laws/current-reader-key-boundary-v2/falsification-evidence/actual-attempt01/FULL-JOIN-VERIFICATION.json)
+[offline verification](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/laws/current-reader-key-boundary-v2/falsification-evidence/actual-attempt01/FULL-JOIN-VERIFICATION.json)
 reconstructs the objects and reproduces all expected text without backend replay.
 This establishes meaningful finite falsification of these exact proposals; it is
 not a proof over all inputs or a Native execution of each mutant. All four

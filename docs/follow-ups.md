@@ -3,7 +3,7 @@
 This is a short index of retained obligations, not a second execution plan.
 Current status and dependencies belong to the governing issues and the
 [parity index](parity/README.md). The full early ledger and negative findings
-remain in the [historical follow-up record](archive/planning/follow-ups.md).
+remain in the [historical follow-up record](https://github.com/dearlordylord/bendvy/blob/b50440d867dbeafbcdd475ac8ee1dd73b48210bd/docs/archive/planning/follow-ups.md).
 
 | Obligation | Owner / return condition |
 | --- | --- |

@@ -4,7 +4,8 @@ Current policy (user amendment, 2026-10-20 UTC): performance work is deferred.
 This numerical gate does not block feature delivery and is not run routinely.
 Resume benchmarking only on explicit user request, following the
 [SPEC priority](../docs/SPEC.md#current-delivery-priority--user-amendment-2026-10-20-utc).
-The runner, baseline, statistics and historical failures below remain unchanged.
+The runner, baseline and statistics remain unchanged. Historical run receipts
+remain in Git history rather than in this checkout.
 
 ```sh
 python3 benchmarks/test-statistics.py
