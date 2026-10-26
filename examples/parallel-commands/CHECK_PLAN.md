@@ -6,11 +6,17 @@ command-program specialization `368471370`, with native checks enabled. Positive
 sources, all five intended authority refusals, independent oracle regeneration,
 and complete plan/ordinary/visibility output comparisons passed on JS and native
 one/four. This is normal example validation, not a qualification packet.
-The successor runner adds invalid-configuration, foreign retry, exact capacity
-boundary and heterogeneous removed-owner consumers to the same bounded checks.
-It also adds the intended family-only despawn authority refusal. That runner
-delta awaits independent launch review and has not run. Their direct existing-tool development runs are recorded
-separately.
+Independent changed-portion review round 2 approved the successor at
+`351df2f09`, covering invalid configuration, foreign retry, capacity boundaries,
+heterogeneous removal and family-only despawn refusal. The final Entity/lifecycle
+runner delta adds two independent models and their complete consumers. It awaits
+last review round 3 and has not run. No approval of the earlier runner authorizes
+this added behavior stage.
+
+The concrete source units are `b320f3a8a` (explicit structural grant, owned
+permission cache and whole-schema despawn) and `86d09af08` (typed lifecycle,
+canonical initialization and retained-queue observations). Development results
+are bound separately in `EVIDENCE.md`.
 
 The wrapper uses the existing common example lock and tool environment. It adds
 no collector, tool discovery, dependency installation or reference execution.
@@ -20,8 +26,8 @@ existing 120-second limit and each native run the existing five seconds.
 
 It checks the registered-command positive source and six intended authority
 refusals, requiring exit 1 and both expected/observed type diagnostics. It
-recomputes the four independent expected files without importing Bend source or
-observations, then compares complete JS output for all seven consumers. With
+recomputes the six independent expected files without importing Bend source or
+observations, then compares complete JS output for all nine consumers. With
 `BENDVY_EXAMPLE_NATIVE=1`, it compares complete native output at one/four workers.
 The Bevy Cargo development reference is retained separately and is not launched
 by this normal example check.
@@ -36,10 +42,17 @@ unknown, duplicate and conditioned explicit barriers before owner mutation, and
 foreign-World refusal retaining actual queue owners until one original-World
 retry. Native entry equality does not establish multiple-worker participation.
 
-The capacity and heterogeneous removal controls exercise trusted boundary
-provisioning, not ordinary reserve/spawn or an enabled despawn command.
+The capacity and heterogeneous removal controls use trusted boundary provisioning
+and do not establish reserve/spawn behavior. The ordinary despawn consumer uses
+an explicit closed structural grant with two unlike affine families, handled
+errors, final suppression and cache-mismatch admission refusal. The lifecycle
+consumer observes actual retained queues through retirement, restoration, rebind
+and registration-exhaustion refusal; a rebuilt schedule has empty admitted
+history while exact pending remains true. Both ordinary consumers initialize
+payloads and cached views through the canonical layout refresher.
 
-Remaining acceptance includes broader existing-entity commands, query worker
-integration,
-qualified canonical receipts and independent implementation review. No law
+Remaining acceptance includes the GH85 removal-notice publication hook, normal
+query-worker integration gates, actual worker evidence, qualified canonical
+receipts and final independent implementation review. The separate GH87
+reservation/materialization work is not established by these boundary controls. No law
 approval or proof follows from this package.
