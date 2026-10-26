@@ -76,3 +76,9 @@ def component_modify_field(~S:Data,~H:Type,~P:Type,~V:Data,cap:ComponentWrite<S,
 def resource_modify_field(~H:Type,~P:Type,~V:Data,cap:ResourceWrite<H,P,V>) -> (P -> P & V) -> H -> H & V:
   match cap:
     case ResourceWrite{_,modify}:modify
+def component_read_field(~S:Data,~H:Type,~V:Data,cap:ComponentRead<S,H,V>) -> H -> W.Handle<S> -> H & Maybe<&2,V>:
+  match cap:
+    case ComponentRead{get}:get
+def resource_read_field(~H:Type,~V:Data,cap:ResourceRead<H,V>) -> H -> H & V:
+  match cap:
+    case ResourceRead{get}:get
