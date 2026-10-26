@@ -1,0 +1,38 @@
+import Base
+import ./world.bend as W
+import ./execution-system.bend as Sys
+import ./execution-state.bend as State
+import ./execution-parallel.bend as Parallel
+import ./execution-parallel-system.bend as Task
+import ./owner-product.bend as Product
+import ./change-tick.bend as Tick
+
+type PairResult<-World:Type,-Left:Type,-Right:Type,EL:Data,ER:Data,OL:Data,OR:Data> is Type:
+  Finished{world:World,left:Left,right:Right,leftCompletion:Maybe<&2,Sys.Completion<EL,OL>>,rightCompletion:Maybe<&2,Sys.Completion<ER,OR>>}
+
+def finished(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,~Left:Type,~Right:Type,~restoreLeft:Task.Meta -> LL -> Left,~restoreRight:Task.Meta -> LR -> Right,admin:State.Administration<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,lm:Task.Meta,rm:Task.Meta,+allowLeft:Bool,+allowRight:Bool,leftTick:Tick.Tick,rightTick:Tick.Tick,result:State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>))) -> PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Left,Right,EL,ER,OL,OR>:
+  match result:
+    case (scope,((ll,lo),(lr,ro))):Finished{Task.leave(~S,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~E,allowLeft,Task.leave(~S,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~E,allowRight,State.reassemble(~S,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~E,admin,scope))),restoreLeft(Task.completed_meta(allowLeft,leftTick,lm),ll),restoreRight(Task.completed_meta(allowRight,rightTick,rm),lr),lo,ro}
+
+def separated(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,~Left:Type,~Right:Type,~restoreLeft:Task.Meta -> LL -> Left,~restoreRight:Task.Meta -> LR -> Right,~execute:Parallel.Mode -> Bool -> Bool -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> -> Tick.Tick -> LL -> LR -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)),mode:Parallel.Mode,lm:Task.Meta,rm:Task.Meta,ll:LL,lr:LR,+allowLeft:Bool,+allowRight:Bool,+leftTick:Tick.Tick,+rightTick:Tick.Tick,result:State.Administration<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E> & State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>>) -> PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Left,Right,EL,ER,OL,OR>:
+  match result:
+    case (admin,scope):finished(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~Left,~Right,~restoreLeft,~restoreRight,admin,lm,rm,allowLeft,allowRight,leftTick,rightTick,execute(mode,allowLeft,allowRight,scope,rightTick,ll,lr))
+
+def right_entered(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,~Left:Type,~Right:Type,~restoreLeft:Task.Meta -> LL -> Left,~restoreRight:Task.Meta -> LR -> Right,~execute:Parallel.Mode -> Bool -> Bool -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> -> Tick.Tick -> LL -> LR -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)),mode:Parallel.Mode,lm:Task.Meta,rm:Task.Meta,ll:LL,lr:LR,+allowLeft:Bool,+allowRight:Bool,+leftTick:Tick.Tick,result:W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E> & Tick.Tick) -> PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Left,Right,EL,ER,OL,OR>:
+  match result:
+    case (world,+rightTick):separated(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~Left,~Right,~restoreLeft,~restoreRight,~execute,mode,lm,rm,ll,lr,allowLeft,allowRight,leftTick,rightTick,State.separate(~S,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~E,world,leftTick))
+
+def left_entered(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,~Left:Type,~Right:Type,~restoreLeft:Task.Meta -> LL -> Left,~restoreRight:Task.Meta -> LR -> Right,~execute:Parallel.Mode -> Bool -> Bool -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> -> Tick.Tick -> LL -> LR -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)),mode:Parallel.Mode,lm:Task.Meta,rm:Task.Meta,ll:LL,lr:LR,+allowLeft:Bool,+allowRight:Bool,result:W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E> & Tick.Tick) -> PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Left,Right,EL,ER,OL,OR>:
+  match result:
+    case (world,leftTick):right_entered(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~Left,~Right,~restoreLeft,~restoreRight,~execute,mode,lm,rm,ll,lr,allowLeft,allowRight,leftTick,Task.enter(~S,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~E,allowRight,world))
+
+def right_verified(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,~Left:Type,~Right:Type,~restoreLeft:Task.Meta -> LL -> Left,~restoreRight:Task.Meta -> LR -> Right,~execute:Parallel.Mode -> Bool -> Bool -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> -> Tick.Tick -> LL -> LR -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)),mode:Parallel.Mode,lm:Task.Meta,rm:Task.Meta,ll:LL,lr:LR,+allowLeft:Bool,result:W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E> & Bool) -> PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Left,Right,EL,ER,OL,OR>:
+  match result:
+    case (world,allowRight):left_entered(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~Left,~Right,~restoreLeft,~restoreRight,~execute,mode,lm,rm,ll,lr,allowLeft,allowRight,Task.enter(~S,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~E,allowLeft,world))
+
+def left_verified(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,~Left:Type,~Right:Type,~restoreLeft:Task.Meta -> LL -> Left,~restoreRight:Task.Meta -> LR -> Right,~execute:Parallel.Mode -> Bool -> Bool -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> -> Tick.Tick -> LL -> LR -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)),mode:Parallel.Mode,lm:Task.Meta,+rm:Task.Meta,ll:LL,lr:LR,result:W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E> & Bool) -> PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Left,Right,EL,ER,OL,OR>:
+  match result:
+    case (world,allowLeft):right_verified(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~Left,~Right,~restoreLeft,~restoreRight,~execute,mode,lm,rm,ll,lr,allowLeft,Task.verify(~S,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~E,rm,world))
+
+def run(~S:Data,~CL:Type,~CR:Type,~RL:Type,~RR:Type,~E:Data,~LL:Type,~LR:Type,~EL:Data,~ER:Data,~OL:Data,~OR:Data,~Left:Type,~Right:Type,~restoreLeft:Task.Meta -> LL -> Left,~restoreRight:Task.Meta -> LR -> Right,~execute:Parallel.Mode -> Bool -> Bool -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> -> Tick.Tick -> LL -> LR -> State.Scope<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>> & ((LL & Maybe<&2,Sys.Completion<EL,OL>>) & (LR & Maybe<&2,Sys.Completion<ER,OR>>)),mode:Parallel.Mode,+lm:Task.Meta,rm:Task.Meta,ll:LL,lr:LR,world:W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>) -> PairResult<W.World<S,Product.Owner<CL,CR>,Product.Owner<RL,RR>,E>,Left,Right,EL,ER,OL,OR>:
+  left_verified(~S,~CL,~CR,~RL,~RR,~E,~LL,~LR,~EL,~ER,~OL,~OR,~Left,~Right,~restoreLeft,~restoreRight,~execute,mode,lm,rm,ll,lr,Task.verify(~S,~Product.Owner<CL,CR>,~Product.Owner<RL,RR>,~E,lm,world))
