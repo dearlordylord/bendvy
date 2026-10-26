@@ -14,4 +14,4 @@ if __name__ == '__main__':
     mode = sys.argv[1]
     if mode not in ('native', 'serial'):
         raise ValueError('expected native or serial query mode')
-    sys.stdout.write('root=serial/query=' + mode + '=' + model.scenario(True))
+    print('root=serial/query=' + mode + '=' + model.scenario(True))
