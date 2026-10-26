@@ -25,11 +25,11 @@ def increment(owner:Counter) -> Counter & U32:
     case Counter{token,value}:view(Counter{token,U32.add(value,1)})
 def Write() -> Type -> Type:Access.ResourceWrites(~Counter,~U32)
 def Read() -> Type -> Type:Access.ResourceReads(~U32)
-def write_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Unit,~Resources(),~H,~B),~component_write:Build.ComponentWrite(~S,~Unit,~Resources(),~H,~B),~resource_read:Build.ResourceRead(~S,~Unit,~Resources(),~H,~B),~resource_write:Build.ResourceWrite(~S,~Unit,~Resources(),~H,~B),book:B) -> B & Write()(H):
+def write_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Unit,~Resources(),~H,~B),~component_write:Build.ComponentWrite(~S,~Unit,~Resources(),~H,~B),~resource_read:Build.ResourceRead(~S,~Unit,~Resources(),~H,~B),~resource_write:Build.ResourceWrite(~S,~Unit,~Resources(),~H,~B),~query:Build.Query(~S,~Unit,~Resources(),~H,~B),book:B) -> B & Write()(H):
   resource_write(Counter,Sentinel,U32,CounterLens(),view,Projection.trusted_affine(~Counter,~U32,~view),Schema.resource(~S,~Counter,"counter"),book)
 def write(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Resources(),~H,~B),book:B) -> B & Write()(H):
   builder(Write(),write_selection(~S,~H,~B),book)
-def read_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Unit,~Resources(),~H,~B),~component_write:Build.ComponentWrite(~S,~Unit,~Resources(),~H,~B),~resource_read:Build.ResourceRead(~S,~Unit,~Resources(),~H,~B),~resource_write:Build.ResourceWrite(~S,~Unit,~Resources(),~H,~B),book:B) -> B & Read()(H):
+def read_selection(~S:Data,~H:Type,~B:Type,~component_read:Build.ComponentRead(~S,~Unit,~Resources(),~H,~B),~component_write:Build.ComponentWrite(~S,~Unit,~Resources(),~H,~B),~resource_read:Build.ResourceRead(~S,~Unit,~Resources(),~H,~B),~resource_write:Build.ResourceWrite(~S,~Unit,~Resources(),~H,~B),~query:Build.Query(~S,~Unit,~Resources(),~H,~B),book:B) -> B & Read()(H):
   resource_read(Counter,Sentinel,U32,CounterLens(),view,Projection.trusted_affine(~Counter,~U32,~view),Schema.resource(~S,~Counter,"counter"),book)
 def read(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Resources(),~H,~B),book:B) -> B & Read()(H):
   builder(Read(),read_selection(~S,~H,~B),book)
