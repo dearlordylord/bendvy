@@ -20,11 +20,71 @@ comparison includes JS ratios3.522 (Sparse Motion256) and3.460 (Dense Health64).
 Retain that evidence rather than optimize those cases to a newly invented gate.
 
 Keep ordinary JS/Native correctness, complete observations, affine ownership and
-cleanup, refusal/rollback, access boundaries, approved proof obligations, independent
+cleanup, admission refusal and error-path state, access boundaries, approved proof obligations, independent
 review and normal CI. Investigate a concrete functional failure or resource-safety
 blocker when needed; do not start profiling, benchmark campaigns, compiler tuning
 or Autoresearch merely because feature work has finished. The prior numeric goals
 are deferred research history; a future campaign needs agreed targets and budget.
+
+
+## Ordinary execution replacement, user amendment, 2026-10-26 UTC
+
+[Issue #77](https://github.com/dearlordylord/bendvy/issues/77) records the user's
+replacement direction. It governs the ordinary execution work in #78 through #94
+and supersedes conflicting rollback, stop-on-first-error, globally ordered
+traversal, and no-final-flush policies below and in earlier capability contracts.
+Earlier evidence retains its original source and contract. This amendment defines
+the target behavior; it does not establish implementation or qualification.
+
+The ordinary App entry must derive planning and capabilities from the same access
+declarations. It owns partition, execution, and reassembly of actual affine storage,
+resources, Local, and captures. Applications do not manually split their World or
+supply a separate access catalog. Support arbitrary affine `Type` payloads and
+unlike nominal schemas. Validate independently owned storage chunks, aligned
+families, sparse membership, and growth before freezing the representation.
+
+Provide native CPU parallelism between compatible systems in one World and within
+independent query items through Bend parallel calls. Keep sequential traversal and
+explicit ordering for dependent algorithms. Conflicting access must not overlap;
+access conflicts alone do not promise an application-specific order. JavaScript
+runs the same declared operations sequentially with an allowed observation.
+Gameplay algorithms, reductions, and required ordering remain application choices.
+No GPU delivery or numerical performance campaign is authorized by this amendment.
+
+Ordinary execution is nontransactional. Writes performed before a returned system
+error remain, without mandatory old-payload journals or generic inverses.
+Success, returned error, and admission refusal retain the actual owners needed to
+inspect or continue execution. Distinguish refusal before invocation, returned
+body errors, condition outcomes, and fatal runtime failures. An ordering dependency
+means completion and visibility, not predecessor success. Error handling must not
+retroactively cancel or undo independent work. Follow the pinned Bevy behavior
+for conditions, readers, Local, captures, ticks, and last-run updates with explicit
+Bend adaptations; a returned error does not imply rewinding their state.
+
+Apply deferred commands at Bevy-style dependency synchronization points and at
+ordinary final deferred application. Provide explicit suppression controls and
+barriers. Retain already-authored commands after an ordinary body error and apply
+them at the proper boundary. Task-local publications and commands do not acquire
+an invented global worker order. Preserve safe reservation and deferred spawning.
+Save remains a separate operation that refuses nonempty structural pending work
+before projection and returns the actual World and queue. A default completed
+schedule saves its applied state; intentional pending work does not trigger an
+implicit save flush. Saves do not serialize live callbacks or the full runtime.
+
+Each slice migrates its ordinary consumer, public documentation, and affected
+expectations. #94 owns residual combined applications and removal of unreachable
+legacy ordinary execution machinery. Do not add compatibility wrappers or require
+obsolete traces to match the replacement. An unrelated explicit recovery facility
+may remain only with an agreed live consumer; it does not define ordinary execution.
+
+Acceptance requires independently derived complete public observations on
+JavaScript and native execution, actual affine-owner preservation or cleanup,
+intended compile-time authority refusals, and affected normal CI. Native evidence
+must show the ordinary single-World path reaches fork/join and multiple runtime
+workers. An imported adapter or separate-World throughput is insufficient.
+Finite observations do not establish universal correctness. New laws still require
+drafting, falsification, approval of the specific laws, proof, and mutation checks.
+Independent Spec and Standards review remains required.
 
 
 ## Clock and save corrections — authorized after #74
@@ -36,7 +96,7 @@ requirement. Use Rust Bevy semantics with explicit adaptations to Bend ownership
 The clock must support continuing canonical writes across U32 wrap. Capture one
 change tick per admitted system execution; executed failures advance lifecycle
 last_run as in Bevy, admission refusal does not. Direct edits/deferred application
-need explicit tick boundaries. Preserve owner recovery/rollback while accounting
+need explicit tick boundaries. Preserve actual owner return while accounting
 for stale stamps, independent dormant cursors and legitimate tick zero. The chosen
 age representation is a full `Tick{epoch:Nat,low:U32}` in every stamp and cursor.
 The low word wraps; true elapsed ages are capped at Bevy MAX_CHANGE_AGE. This
@@ -73,19 +133,19 @@ Deliver a simple reproducible CPU console simulation first. Later, validate inte
 9. As an ECS application developer, I want resources and per-system local state, so that shared and private state have explicit ownership.
 10. As an ECS application developer, I want host services and checked provisioning, so that external capabilities are separated from ECS-owned state.
 11. As an ECS application developer, I want repeatedly executable systems, so that affine closures do not prevent schedules from running every tick.
-12. As an ECS application developer, I want deterministic schedules, phases, conditions and nested composition, so that execution order and dependencies are predictable.
+12. As an ECS application developer, I want dependency schedules, phases, conditions and nested composition, so that required order and visibility are explicit.
 13. As an ECS application developer, I want deferred structural commands with explicit application barriers, so that query membership changes at known boundaries.
-14. As an ECS application developer, I want queued commands to remain pending between schedule runs, so that schedule completion does not introduce an implicit flush.
+14. As an ECS application developer, I want Bevy-style deferred synchronization and explicit suppression controls, so that structural visibility follows the declared schedule.
 15. As an ECS application developer, I want reserved spawn handles distinguished from live entities, so that references to pending entities have defined behavior.
-16. As an ECS application developer, I want observable query order preserved across lifecycle operations, so that storage changes do not silently change gameplay.
+16. As an ECS application developer, I want ordered traversal for dependent algorithms and parallel traversal for independent items, so that gameplay chooses its ordering requirements.
 17. As an ECS application developer, I want added and changed detection per system, so that readers independently observe relevant updates.
 18. As an ECS application developer, I want removed and despawned observations, so that cleanup does not depend on querying already-deleted data.
 19. As an ECS application developer, I want buffered events with independent reader cursors, so that one reader cannot consume another reader's events.
 20. As an ECS application developer, I want defined event retention and lag reporting, so that schedules running at different rates do not silently lose messages.
 21. As an ECS application developer, I want explicit skip and failure cursor rules, so that retries and conditional schedules see predictable data.
-22. As an ECS application developer, I want typed system failures and read-your-writes, so that stateful decisions can fail without publishing partial ECS changes.
-23. As an ECS application developer, I want rollback limited to the failed system, so that earlier successful systems remain committed.
-24. As an ECS application developer, I want commands, events and machine queues published only according to their transaction contracts, so that failed systems cannot leave hidden work behind.
+22. As an ECS application developer, I want typed system failures and read-your-writes, so that I can inspect performed writes after an ordinary error.
+23. As an ECS application developer, I want independent work to continue under the selected error handler, so that one body error does not imply schedule-wide rollback.
+24. As an ECS application developer, I want authored commands, events and machine work observed at their documented boundaries, so that errors do not silently discard performed effects.
 25. As an ECS application developer, I want relations, inverse links and hierarchy rules, so that linked entities remain consistent through cleanup.
 26. As an ECS application developer, I want entity lifetime scopes, so that scene-owned entities can be cleaned up together.
 27. As an ECS application developer, I want state machines with explicit transitions and transition schedules, so that entering and leaving states has defined ordering and failure boundaries.
@@ -113,12 +173,12 @@ Deliver a simple reproducible CPU console simulation first. Later, validate inte
 - Preserve the agreed ECS model: entities, components, queries, resources, declared system capabilities and controlled structural changes. Design representations for Bend's types, affine ownership and runtime.
 - Begin with explicit typed world declarations, without a schema DSL or generator. Revisit declaration ergonomics after two schemas and a second application provide evidence.
 - Require check-time rejection of undeclared component access, cross-schema misuse and writes through read capabilities. Positive examples alone are insufficient evidence.
-- Data-only components have not been approved. Investigate Data and affine Type payloads, ownership-preserving access, update cost and rollback before choosing a restriction.
-- Initial systems execute on CPU through a simple schedule; preserve an explicit follow-up for parallel execution. Sequential orchestration does not justify ignoring efficient storage or traversal.
+- Data-only components have not been approved. Investigate Data and affine Type payloads, ownership-preserving access and direct update cost before choosing a restriction.
+- Ordinary execution now targets native single-World system and query parallelism under #77. JavaScript remains a sequential interpreter of the same declared operations.
 - Define identity, reservation, liveness, query order and exhaustion behavior before fixing allocator/storage interfaces. ID reuse and physical layout remain technical choices subject to the observable contract.
 - Approved identity divergence (2026-10-03): a handle originating in another runtime world must return `MissingEntity`, even when its schema and local entity ID match a live entity. The pinned bevy-ts reference can resolve that collision to the receiving world's entity; this behavior is intentionally not preserved. Cross-schema rejection alone does not establish same-schema runtime-world isolation. World identity must originate from world creation rather than caller-selected fixture constants. ID reuse, generation/exhaustion policy and the production representation remain unresolved; this decision does not approve candidate laws or pass T05.
-- Define system transaction boundaries and read-your-writes before fixing write APIs. Failure preserves earlier committed systems and discards the failed system's ECS-owned changes and publications. Host IO is outside ECS rollback.
-- Match explicit deferred barriers, independent reader visibility and the reference's skip/failure/lag semantics. Do not equate commit visibility with structural command application.
+- Define nontransactional owner return, read-your-writes, and error handling before fixing ordinary write APIs. Performed writes and authored commands survive returned body errors. Host IO is not automatically undone.
+- Match Bevy-style dependency and final deferred application, explicit suppression controls, independent reader visibility, and the selected skip/error/lag semantics. Direct writes and structural application have distinct visibility boundaries.
 - Check composition and provisioning early enough to constrain the System/Schedule interfaces; complete their coverage in later core blocks.
 - Investigate state-transition failure ordering and snapshot restoration boundaries before assuming whole-schedule rollback or full-runtime restore.
 - Follow bend-ldd: candidate laws and plain-language rationale, falsification with a planted-defect control, human approval of specific laws, proofs, and mutation checks. Choosing this workflow does not approve future laws.
@@ -139,10 +199,10 @@ Deliver a simple reproducible CPU console simulation first. Later, validate inte
 ### Execution sequence and acceptance
 
 1. Establish the full parity matrix and pin references, compiler/Base and native/JS environments. Include postponed core and separately tracked platform features.
-2. Specify observations for handles, commands, transaction boundaries, visibility, readers and failure; investigate upstream ambiguities instead of asking the user to supply discoverable facts.
+2. Specify observations for handles, commands, ordinary execution boundaries, visibility, readers and failure; investigate upstream ambiguities instead of asking the user to supply discoverable facts.
 3. Run small expressibility checks for two schemas, repeatable systems and negative access cases. Explore Data/Type storage access before choosing the supported interface.
-4. Validate a minimal transaction/composition path: an earlier system commits component/resource changes; a later system reads its own writes, emits an event, queues a command and fails; its changes/publications are absent, the earlier commit remains, and its reader cursor has not advanced. A successful retry observes the expected data; structural work remains governed by markers.
-5. Compare native and JS candidate storage/query/update paths with bevy-ts on equivalent workloads, including rollback and structural churn. Record scaling and memory, then propose concrete performance thresholds.
+4. Validate an ordinary composition path under #77: a system writes component/resource values, reads its writes, authors deferred work, and returns an error. Observe retained partial state, actual owners, handler-directed continuation, and deferred effects at their proper boundary. Test admission refusal and condition outcomes separately.
+5. Verify JavaScript and native ordinary storage/query/update paths against independent complete observations, including partial errors and structural churn. Reuse TS evidence only for unchanged shared contracts. Numerical comparison remains deferred.
 6. Present falsified candidate laws and proof sketches for approval. After approval, complete proofs and law-specific mutation checks; record the selected interfaces and any follow-ups.
 7. Implement and verify the simple simulation against the chosen contracts. Expand lifecycle/streams, relations/scopes, states, composition/provisioning and tooling by dependency, retaining the full parity matrix.
 8. Perform the copied canonical-defense integration when required capabilities exist. Optimize storage/cache and assess parallel compute using reproducible workloads and evidence.
@@ -152,14 +212,14 @@ The immediate agent-ready work is preparation and technical probes through candi
 ## Testing Decisions
 
 - Prefer one highest-level runtime seam: operation traces submitted through the public ECS API, with normalized observable results. Reuse it for equivalence, regression scenarios and performance workloads. At specification creation there was no Bendvy implementation seam; current probes remain separate until their integration gate passes.
-- Compare TS and Bend results for identical logical inputs and equivalent work. Exclude physical storage, allocation addresses and incidental ID encodings from observations; preserve liveness, membership, specified order, publications, state and failures.
+- Compare JavaScript and native results against independently derived complete observations. Reuse TS comparisons for unchanged shared contracts only. Exclude physical storage, allocation addresses and incidental ID encodings; preserve liveness, membership, declared dependencies, publications, state and outcomes.
 - Add compile-time fixtures as a distinct necessary boundary for schema identity and read/write capabilities. Require rejection for the intended reason rather than an unrelated parse/type error.
 - Good tests assert external behavior. Do not mirror storage algorithms or assert caches, journals, ordinals or particular layouts merely because the implementation uses them.
-- Cover spawn reservation and flush, stale/foreign lookup, optional queries, lifecycle order, independent readers, different-rate schedules, skip/failure/lag, rollback, relation cleanup, state-transition failure and provisioning. Borrow contract scenarios from the pinned bevy-ts runtime and type tests; its headless scripted simulations are additional prior art.
+- Cover spawn reservation and flush, stale/foreign lookup, optional queries, lifecycle order, independent readers, different-rate schedules, skip/error/lag, retained partial writes, relation cleanup, state-transition failure and provisioning. Borrow contract scenarios from the pinned bevy-ts runtime and type tests; its headless scripted simulations are additional prior art.
 - Falsify general laws using small inputs concentrated around valid premises and boundary cases. A passing finite test is evidence about those inputs, not a universal proof.
 - For every approved law, require a meaningful compilable mutant, an instance true on the original and false on the mutant, a checking control and proof failure in the intended section. Investigate equivalent survivors and report coverage gaps honestly.
 - Measure compiled execution, not checker normalization. Separate compilation/setup from steady-state runtime and report any included setup costs explicitly. Pin environment, inputs, compiler flags, worker counts and TS/JS runtime versions; warm up JS where appropriate, repeat measurements and report variability.
-- Evaluate representative spawn/despawn, sparse and dense query iteration, component/resource update, structural churn, event readers and rollback workloads as capabilities become available. Include both reference-compatible and Bend-appropriate traversal strategies without changing observed work.
+- Evaluate representative spawn/despawn, sparse and dense query iteration, component/resource update, structural churn, event readers and ordinary error workloads as capabilities become available. Include both reference-compatible and Bend-appropriate traversal strategies without changing observed work.
 - Native significant-speedup and JS-comparability thresholds must be made quantitative before final acceptance. Record per-workload ratios and regressions; performance cannot be declared complete from a single favorable scenario.
 - Memory measurements must state their method and limits; do not equate process peak memory with exact per-component allocation cost.
 - Test the simple simulation by deterministic input/result traces. Later verify copied canonical-defense behavior at its integration boundary while preserving its authoritative reducer and leaving the original source unchanged.

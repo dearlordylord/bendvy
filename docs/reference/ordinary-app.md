@@ -1,5 +1,48 @@
 # Register and run an ordinary App
 
+The ordinary execution contract is being replaced under
+[issue #77](https://github.com/dearlordylord/bendvy/issues/77) and
+[the SPEC amendment](../SPEC.md#ordinary-execution-replacement-user-amendment-2026-10-26-utc).
+The replacement capabilities remain pending acceptance in #78 through #94.
+The walkthrough below describes the pre-migration API and its transactional
+behavior. It is not a qualified replacement-executor example or a compatibility
+requirement. Each feature slice must update its consumer and API instructions
+when its replacement path is verified.
+
+## Target ordinary execution contract
+
+Declare component and resource access once. The ordinary entry must derive both
+capabilities and the reached execution plan from those declarations. It must
+partition and reassemble actual affine owners without gameplay receiving raw World
+storage or manually coordinating worker results. Native execution must support
+compatible systems within one World and independent query-item updates through
+Bend parallel calls. JavaScript executes the same declared operations sequentially.
+Use explicit dependencies or ordered traversal when an algorithm needs ordering.
+
+An ordinary returned system error retains performed writes and the actual World,
+system, Local, and capture owners. It does not restore a snapshot. Admission refusal
+is a separate outcome before invocation. Dependencies require predecessor
+completion and visibility, not success. Independent work follows the selected
+error-handler contract rather than an automatic stop-on-first-error policy.
+Reader and lifecycle behavior must follow the selected Bevy semantics and their
+explicit Bend adaptations; a returned error does not imply rewinding reader state.
+
+Deferred commands synchronize where dependency composition requires it and at
+ordinary final deferred application. Explicit controls may suppress automatic
+synchronization or add barriers. Commands authored before a returned body error
+remain available for their application boundary. Independent worker publications
+have no invented global order. A save with intentional pending structural work
+refuses before projection and retains the actual queue; saving does not flush it.
+A default completed schedule saves its applied state, not a full runtime checkpoint.
+
+These requirements do not establish a replacement API signature or delivery.
+Use the [replacement delivery table](../parity/README.md#replacement-execution-delivery)
+for slice ownership and dependencies. Source-bound consumer observations,
+authority controls, native concurrency evidence, and independent review are required
+before claiming the corresponding behavior is delivered.
+
+## Pre-migration API reference
+
 Use the ordinary App entry to run typed registrations together. The library derives dispatch, registration identities, cursors, and the schedule from the registrations you retain. The existing SchemaApp, Schedule, and execution tracing still perform the work.
 
 World creation and component storage remain explicit. Create each World with [`world-io.create`](../../src/ecs/world-io.bend). Obtain entity handles from actual reserve or spawn results and retain those handles. Define component bindings and resource or service declarations before registration.
@@ -151,6 +194,6 @@ A condition that skips a system continues to the next step under the existing Sc
 
 A component invocation retains its latest Data row-output list. A later run replaces that list. Scheduled Local execution uses the existing output-drop policy while retaining the actual Local capture on success, failure, and refusal. This entry adds no cleanup or host IO policy.
 
-For a complete runnable example, see [Scheduled health](../../examples/scheduled-health/README.md). The [ordinary App qualification](../../experiments/public-api-usability/health-v2/README.md) records the finite heterogeneous, ownership, authority, and retry checks.
+For a pre-migration runnable example, see [Scheduled health](../../examples/scheduled-health/README.md). The ordinary App qualification recorded finite heterogeneous, ownership, authority, and retry checks under the earlier transactional contract. Its historical receipts do not qualify the replacement executor.
 
 The standalone System and Schedule APIs remain lower layers for callers that intentionally supply their own execution composition.

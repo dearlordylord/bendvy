@@ -37,7 +37,45 @@ Publication is scope tracking, not capability acceptance. Execute eligible curre
 
 Historical TS mechanisms and reusable tooling: [explicit archive index](../archive/ts-extension-index.md). These records do not define ECS scope.
 
-## Immediate frontier
+## Replacement execution delivery
+
+[Issue #77](https://github.com/dearlordylord/bendvy/issues/77) governs the
+replacement ordinary executor under the
+[SPEC amendment](../SPEC.md#ordinary-execution-replacement-user-amendment-2026-10-26-utc).
+All slices below are pending acceptance. Earlier accepted capabilities and receipts
+retain their original source and contract; they do not establish replacement
+execution, native single-World concurrency, or compatibility requirements.
+Each slice owns its affected ordinary consumer and documentation migration.
+#94 owns residual combined applications and obsolete ordinary-core removal.
+
+| Issue | Required predecessors | Replacement delivery |
+| --- | --- | --- |
+| [#78](https://github.com/dearlordylord/bendvy/issues/78) | None | Ordinary affine System, nontransactional writes, actual owner return, and independent-storage consumer. |
+| [#79](https://github.com/dearlordylord/bendvy/issues/79) | #78 | Public dependency schedules, conditions, and error handlers. |
+| [#80](https://github.com/dearlordylord/bendvy/issues/80) | #79 | Compatible systems execute concurrently within one World. |
+| [#81](https://github.com/dearlordylord/bendvy/issues/81) | #78 | Independent query items update through native parallel traversal. |
+| [#82](https://github.com/dearlordylord/bendvy/issues/82) | #80, #81 | Filtered queries and application-defined cross-entity algorithms compose in parallel schedules. |
+| [#83](https://github.com/dearlordylord/bendvy/issues/83) | #80 | Local and affine captures persist across parallel schedule runs. |
+| [#84](https://github.com/dearlordylord/bendvy/issues/84) | #80 | Data and owned events publish and read through the executor. |
+| [#85](https://github.com/dearlordylord/bendvy/issues/85) | #80, #81 | Change ticks and lifecycle readers observe both forms of parallelism. |
+| [#86](https://github.com/dearlordylord/bendvy/issues/86) | #80, #81 | Commands apply at Bevy-style synchronization points. |
+| [#87](https://github.com/dearlordylord/bendvy/issues/87) | #86 | Parallel systems and query workers reserve and spawn entities safely. |
+| [#88](https://github.com/dearlordylord/bendvy/issues/88) | #79 | Fragments and features compose with checked provisioning. |
+| [#89](https://github.com/dearlordylord/bendvy/issues/89) | #85, #87 | Relations, hierarchy, and lifetime scopes work through parallel barriers. |
+| [#90](https://github.com/dearlordylord/bendvy/issues/90) | #83, #85, #86 | State and machine transition schedules use the executor. |
+| [#91](https://github.com/dearlordylord/bendvy/issues/91) | #85, #87 | Basic save/restore retains explicit pending-work refusal and resumes updates. |
+| [#92](https://github.com/dearlordylord/bendvy/issues/92) | #89, #90, #91 | Graph and machine restore resumes ordinary schedules. |
+| [#93](https://github.com/dearlordylord/bendvy/issues/93) | #82, #84, #88, #89, #90 | Inspection and tracing preserve executor behavior and owners. |
+| [#94](https://github.com/dearlordylord/bendvy/issues/94) | #92, #93 | Combined consumers migrate, obsolete ordinary execution is removed, and final review and normal CI pass. |
+
+Every slice requires complete ordinary-consumer observations on JavaScript and
+native execution, applicable affine ownership and authority controls, normal
+checks, and independent Spec and Standards review. Native parallel delivery also
+requires evidence that the ordinary single-World path reaches fork/join and uses
+multiple runtime workers. Finite observations do not establish universal correctness.
+Numerical performance campaigns and GPU delivery remain outside this work.
+
+## Earlier accepted frontier
 
 Reuse the accepted90 semantic roles and accepted capability deliveries. Runtime
 feature issues #34–#64 (apart from parent #37), #70/#71 and #73 are closed.
@@ -56,8 +94,9 @@ game integration, and #74 recommendations retain their separate review scope.
 
 ## Current delivery coordination
 
-This table records the current state of the existing #37 specification and issues.
-Issue acceptance and approved contracts remain unchanged. Each worker owns one branch/worktree;
+This table preserves coordination for the earlier #37 specification and issues.
+Its receipts remain scoped to their original contracts. The #77 amendment governs
+replacement ordinary execution where those contracts conflict. Each worker owns one branch/worktree;
 only the coordinator edits this table and shared contracts or integrates
 `src/ecs`, common runners, laws, specifications and issue status.
 
