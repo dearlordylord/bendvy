@@ -44,5 +44,5 @@ Existing unfiltered query declarations keep their signatures and behavior.
 entry, two nominal schemas and actual affine Array payloads. Its four cases run
 three times with serial/parallel Added/Changed filters, preserve legitimate
 zero seed ticks, then refuse an owner against a genuine second World. Its
-independent full-state oracle is frozen before backend capture. Backend results,
+independent full-state oracle is frozen before backend capture. The first four ordinary cases pass complete JS/native1/native4 observations;
 error/wrap/dormant scenarios and actual worker diagnostics remain pending.
