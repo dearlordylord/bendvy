@@ -108,7 +108,9 @@ rebuilds the same application from returned World and owners, and runs again.
 The right system refuses admission. Its Local stays at one, its capture stays
 `ax`, and its cursor stays ten. Both Counter writers and the condition continue
 from their actual owners. Restoration reuses the same right ID and cursor without
-allocating another ID. A fifth schedule run advances the right Local to two and
+allocating another ID. Immediate observations after retirement and restoration
+both retain `1:2:right:[score]:0:10`, before a subsequent execution can update the
+cursor. A fifth schedule run advances the right Local to two and
 its capture to `axx`. Counter reaches 100, Score reaches six, and the condition
 retains its fifth observation `301:100`. Cursors become 14, 17, 15 and 16 for left,
 right, other and guard. Final retirement removes right registration 2, and explicit

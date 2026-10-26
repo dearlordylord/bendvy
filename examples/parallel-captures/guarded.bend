@@ -56,16 +56,22 @@ type Remainder<-S:Data> is Type:
 def rebuild(~S:Data,remainder:Remainder<S>,world:World(~S),right:RightOwner(~S)) -> Application(~S):
   match remainder:
     case Remainder{left,guard,handler,stateBindings,plan,bindings,rules,deferred}:Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{left,right},guard,handler,stateBindings},plan,bindings},rules,deferred}
+def identity(~S:Data,right:RightOwner(~S)) -> RightOwner(~S) & String:
+  match right:
+    case Sys.Owner{+namespace,+id,+name,+access,+cursor,local}:(Sys.Owner{namespace,id,name,access,cursor,local},U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,text,access) ++ ":" ++ Tick.cursor_show(cursor))
+def identified_app(~S:Data,status:String,remainder:Remainder<S>,world:World(~S),result:RightOwner(~S) & String) -> Application(~S) & String:
+  match result:
+    case (right,identity):(rebuild(~S,remainder,world,right),status ++ "=" ++ identity)
 def retired_app(~S:Data,remainder:Remainder<S>,result:Life.Retirement<World(~S),RightOwner(~S)>) -> Application(~S) & String:
   match result:
-    case Life.Retired{world,Life.Detached{right}}:(rebuild(~S,remainder,world,right),"retired")
+    case Life.Retired{world,Life.Detached{right}}:identified_app(~S,"retired",remainder,world,identity(~S,right))
     case Life.RetirementRefused{world,right}:(rebuild(~S,remainder,world,right),"ERROR:retirement")
 def detach(~S:Data,app:Application(~S)) -> Application(~S) & String:
   match app:
     case Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{left,right},guard,handler,stateBindings},plan,bindings},rules,deferred}:retired_app(~S,Remainder{left,guard,handler,stateBindings,plan,bindings,rules,deferred},Life.retire(~S,~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),~D.Store(~S),~D.Resources(~S),~Unit,right,world))
 def restored_app(~S:Data,remainder:Remainder<S>,result:Life.Restoration<World(~S),RightOwner(~S)>) -> Application(~S) & String:
   match result:
-    case Life.Restored{world,right}:(rebuild(~S,remainder,world,right),"restored")
+    case Life.Restored{world,right}:identified_app(~S,"restored",remainder,world,identity(~S,right))
     case Life.RestorationRefused{world,Life.Detached{right}}:(rebuild(~S,remainder,world,right),"ERROR:restoration")
 def restore(~S:Data,app:Application(~S)) -> Application(~S) & String:
   match app:
