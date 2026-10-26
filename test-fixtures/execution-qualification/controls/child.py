@@ -29,13 +29,18 @@ elif mode == 'cancel':
         'start': Path('/proc/self/stat').read_text().rsplit(')', 1)[1].split()[19]}))
     parent = os.getppid()
     collector = str(root / 'collect.py').encode()
+    selected = None
     while parent > 1:
         proc = Path('/proc') / str(parent)
         if collector in (proc / 'cmdline').read_bytes().split(b'\0'):
-            os.kill(parent, signal.SIGTERM)
-            time.sleep(20)
-            raise RuntimeError('collector cancellation did not terminate child')
+            # Forked command owners inherit collector cmdline. Select the
+            # outermost exact matching ancestor, which owns collect().
+            selected = parent
         parent = int((proc / 'stat').read_text().rsplit(')', 1)[1].split()[1])
-    raise RuntimeError('owned collector ancestor unavailable')
+    if selected is None:
+        raise RuntimeError('owned collector ancestor unavailable')
+    os.kill(selected, signal.SIGTERM)
+    time.sleep(20)
+    raise RuntimeError('collector cancellation did not terminate child')
 elif mode != 'oracle':
     raise ValueError(mode)

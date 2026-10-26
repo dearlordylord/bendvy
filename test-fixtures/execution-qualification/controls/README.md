@@ -44,7 +44,7 @@ Preparation copies only disposable files and hashes inputs; it launches nothing:
 ```sh
 python3 test-fixtures/execution-qualification/controls/prepare.py \
   --root /tmp/bendvy-gh77-evidence \
-  --destination /tmp/gh77-collector-controls-v3 \
+  --destination /tmp/gh77-collector-controls-v4 \
   --tool-snapshots /home/node/.claude/orchestrate/bendvy-gh78-94/evidence-plan/tool-snapshots.json
 ```
 
@@ -69,9 +69,9 @@ env -i HOME=/home/node PATH=/usr/bin:/bin LANG=C.UTF-8 LC_ALL=C.UTF-8 \
   BEND_NO_TELEMETRY=1 BENDVY_CLANG19_ROOT=/tmp/bendvy-clang19-diagnostic/root \
   /usr/bin/python3.11 -I -S -B \
   /tmp/bendvy-gh77-evidence/test-fixtures/execution-qualification/controls/run.py \
-  --manifest /tmp/gh77-collector-controls-v3/manifest.json \
+  --manifest /tmp/gh77-collector-controls-v4/manifest.json \
   --admission /absolute/independent-gh80-control-admission.json \
-  --output /tmp/gh77-collector-controls-v3/results
+  --output /tmp/gh77-collector-controls-v4/results
 ```
 
 Per child cap5s, case cap40s, outer per-collector cap55s, twelve serial instances.
