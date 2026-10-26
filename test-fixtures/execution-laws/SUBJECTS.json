@@ -1,5 +1,5 @@
 {
-  "status": "APPROVED_EXACT_STATEMENTS_PROOFS_IN_PROGRESS",
+  "status": "APPROVED_FIVE_PROOFS_KERNEL_CHECKED_MUTATION_CONTROLS_PENDING",
   "source_commit": "552f90a23283ae879d3908e9f473ba82ad368eee",
   "laws": [
     "rejected_plan_state",
@@ -59,7 +59,6 @@
     "ready-blocked": "ready_blocked"
   },
   "pending": [
-    "general proofs in progress",
     "law-specific proof mutation checks",
     "remaining full execution/ownership/refinement laws"
   ],
@@ -70,5 +69,20 @@
     "approved_laws_file_sha256": "3e0de6a6cf22bad713f16eccaa13ea7630c2430daf64aad42b74a538712609df",
     "equations_and_imports_sha256": "89a87f132a621521696f6c21899407c348d8f9e9818e0689aa59ef22908013ea",
     "comment_update_authorization": "User asked candidate comments to cite Bevy code and behavior; equations and independent specification remain unchanged."
+  },
+  "proof": {
+    "source": "test-fixtures/execution-laws/PROOF.bend",
+    "sha256": "8966305dc57ce8fd01784a2e2e14aba56172331b5d61c9190e96699ff11218d3",
+    "verdict": "ALL PROOFS CHECK; exit 0",
+    "compiler": "/tmp/bendvy21-bend2035-lifecycle-pin/bin/bend-2.0.35",
+    "compiler_sha256": "f77417474ded314ad5d1a68fa3ebbe214c2124bf04d56a59b05bc17be6b0327a",
+    "base_sha256": "c742fae9c49b14f0cc9128429a2c6109364c8a933a142f2c90b9f2e5fd976661",
+    "kernel_source_sha256": "e15042434e73aab07ab05cea4b77b5619082c00a6d4924ea2d4a2cdec05facce",
+    "kernel_executable": "/home/node/.bend/bendtt/e15042434e73aab0/bendtt",
+    "kernel_executable_sha256": "02908579737daee32461f0c352caebb3c7606b96f648b6adbe88c4bc97b0d0cf",
+    "bundle_proof_sha256": "dae33361650f9072a37502b2ce14b6e46e17d8e8352bda7f4e9f581fb5856f6a",
+    "verified_resource_files": 70,
+    "kernel_negative_control": "BENDTT=/usr/bin/false produced kernel mismatch exit 1",
+    "first_attempt": "Installed newer resource kernel build exceeded 15-second limit; no verdict claimed. Matching preserved compiler/resource bundle used for final check."
   }
 }

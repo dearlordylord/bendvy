@@ -1,13 +1,16 @@
 # Candidate law checks
 
-These are finite source-checker instances of five unapproved laws.
-No proof fills a law in `LAWS.bend`.
+The exact five laws are user-approved. `PROOF.bend` fills all five and passes
+the matching pinned compiler and BendTT kernel. The literal instances below
+remain finite falsification checks; proof-level mutation controls are pending.
 The existing `/workspace/formal-proofs/bendvy/scripts/bend-check` selects the
 pinned compiler and serializes its CPU affinity locks.
 
 | Input | Observed result |
 | --- | --- |
 | `spec.bend` | Exit 0. |
+| `PROOF.bend --verdict` with the preserved matching compiler/resource bundle | Exit 0, `ALL PROOFS CHECK`. |
+| `BENDTT=/usr/bin/false ... PROOF.bend --verdict` | Exit 1, expected kernel mismatch. |
 | `LAWS.bend` | Exit 1, exactly five open TODOs. |
 | `falsify-transitions.bend` | Exit 0, 324 literal equalities. |
 | `falsify-ready.bend` | Exit 0, 374 literal equalities. |

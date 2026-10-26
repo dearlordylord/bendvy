@@ -1,7 +1,8 @@
 # Execution replacement law candidates
 
 These five approved subjects describe existing pure functions in the replacement
-executor. General proofs are in progress; no completed proof is claimed here.
+executor. All five exact equations pass the pinned compiler and matching BendTT
+kernel through `PROOF.bend --verdict`. Proof-level mutation checks remain pending.
 The source basis is integration commit `552f90a23283ae879d3908e9f473ba82ad368eee`.
 [Issue #77](https://github.com/dearlordylord/bendvy/issues/77) supplies the
 nontransactional execution decisions. [Issue #79](https://github.com/dearlordylord/bendvy/issues/79)
@@ -51,13 +52,12 @@ cover every subset of three node IDs against zero, one or two distinct directed
 edges, including self-edges. Additional cases cover reordered nodes, duplicate
 node IDs, duplicate edges and unknown predecessor IDs.
 
-After exact approval, the first four proofs can unfold the selected result
-constructor. The two handler laws split the returned `Handling` constructor.
-The ready-set proof needs structural induction over the pending list and a
-lemma equating production's pending-predecessor disjunction with the independent
-specification's incoming-edge conjunction. A second induction over edges proves
-that lemma. Its pending-ID membership relation also needs an exact helper lemma.
-No supporting lemma is assumed approved by this proposal.
+The first four proofs unfold the selected result constructor. The two handler
+laws use a directly proved constructor-split lemma. The ready-set proof uses
+structural list and edge induction, explicit membership equalities, and an
+eight-case Boolean identity. Every internal helper is proved rather than assumed.
+Their role is to discharge the exact approved equations; they add no behavioral
+premise or separate public contract.
 
 The coordinator obtained a blind back-translation at
 `/home/node/.claude/orchestrate/bendvy-gh78-94/reviews/laws-blind/translation.md`.
