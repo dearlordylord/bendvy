@@ -1,4 +1,6 @@
 import Base
+import ../../src/ecs/execution-command-permission.bend as Permission
+import ../../src/ecs/execution-command-removed.bend as Removed
 import ./payloads.bend as P
 import ./declarations.bend as D
 import ./output-declaration.bend as Decl
@@ -34,8 +36,11 @@ def Store(~S:Data) -> Type:Layout.columns(~S,layout(~S))
 def Resources(~S:Data) -> Type:Product.Owner<D.Resources(~S),Unit>
 def Ops(~S:Data,H:Type,O:Type) -> Type:Decl.Ops(~S,H,O)
 def PeerOps(~S:Data,H:Type) -> Type:Unit
-def author_declaration(~S:Data,~mode:Query.Mode,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~builder:Build.Builder(~S,~Left(~S),~D.Resources(~S),~H,~B),book:B) -> B & Ops(~S,H,O):
-  Decl.declaration(~S,~mode,~H,~O,~commands,~B,~builder,book)
+def author_declared(~S:Data,~H:Type,~O:Type,~B:Type,~K:Type,permission:K,result:B & Ops(~S,H,O)) -> B & (K & Ops(~S,H,O)):
+  match result:
+    case (book,ops):(book,(permission,ops))
+def author_declaration(~S:Data,~mode:Query.Mode,~H:Type,~O:Type,~commands:Local.Commands<O,S,P.Output>,~B:Type,~builder:Build.Builder(~S,~Left(~S),~D.Resources(~S),~H,~B),~K:Type,~entity:Permission.Grant(~S,~layout(~S),~O,~K),book:B,permission:K) -> B & (K & Ops(~S,H,O)):
+  author_declared(~S,~H,~O,~B,~K,permission,Decl.declaration(~S,~mode,~H,~O,~commands,~B,~builder,book))
 def peer_declaration(~S:Data,~H:Type,~B:Type,~builder:Build.Builder(~S,~Unit,~Unit,~H,~B),book:B) -> B & Unit:
   (book,Unit{})
 def peer_body(~S:Data,~H:Type,~caps:Unit,scope:H,token:Array<U32>) -> H & (Array<U32> & Sys.Completion<String,String>):
@@ -71,10 +76,13 @@ def payload_record(~S:Data,label:String,+handle:W.Handle<S>,owner:Maybe<&1,P.Out
 def entry(~S:Data,value:Buffer.Entry<S,P.Output>) -> Record:
   match value:
     case Buffer.Entry{handle,incoming}:payload_record(~S,"",handle,incoming)
-def receipt(~S:Data,value:Buffer.Receipt<S,P.Output>) -> Record:
+    case Buffer.Despawn{handle}:payload_record(~S,"despawn:",handle,None{})
+def receipt(~S:Data,value:Buffer.Receipt<S,P.Output,Removed.Removed(layout(~S))>) -> Record:
   match value:
     case Buffer.Applied{handle,previous}:payload_record(~S,"applied:",handle,previous)
     case Buffer.Refused{handle,incoming}:payload_record(~S,"refused:",handle,incoming)
+    case Buffer.Despawned{handle,_}:payload_record(~S,"despawned:",handle,None{})
+    case Buffer.DespawnRefused{handle}:payload_record(~S,"despawn-refused:",handle,None{})
 def record_before(~S:Data,left:Record,right:Record) -> Bool:
   match left right:
     case Record{+li,lt,_} Record{+ri,rt,_}:U32.is_lt(li,ri) || (U32.is_eq(li,ri) && U32.is_le(lt,rt))
@@ -90,7 +98,7 @@ def entries(~S:Data,values:List<Buffer.Entry<S,P.Output>>) -> List<&2,Record>:
   match values:
     case []:[]
     case value <> rest:record_insert(~S,entry(~S,value),entries(~S,rest))
-def receipt_records(~S:Data,values:List<Buffer.Receipt<S,P.Output>>) -> List<&2,Record>:
+def receipt_records(~S:Data,values:List<Buffer.Receipt<S,P.Output,Removed.Removed(layout(~S))>>) -> List<&2,Record>:
   match values:
     case []:[]
     case value <> rest:record_insert(~S,receipt(~S,value),receipt_records(~S,rest))
@@ -115,7 +123,7 @@ def report(~S:Data,value:DepApp.Report<String,String>) -> String:
     case DepApp.Invalid{_}:"invalid"
 def observed(~S:Data,~mode:Query.Mode,prefix:String,application:Application(~S,~mode)) -> String:
   match application:
-    case Schedule.Scheduled{DepApp.Application{DepApp.State{owner,Product.Owner{Cmd.Owner{Sys.Owner{_,_,_,_,cursor,Local.Local{Body.User{userToken,runs},Buffer.Buffer{pending,receipts}}}},Sys.Owner{_,_,_,_,peerCursor,peer}},_,Handler{handler,errors},_},_,_},_,Schedule.Deferred{_,_,unapplied}}:prefix ++ "|world=" ++ world(~S,owner) ++ "|queue=" ++ List.show(&2,Record,record_text(~S),entries(~S,pending)) ++ "|receipts=" ++ List.show(&2,Record,record_text(~S),receipt_records(~S,receipts)) ++ "|user=" ++ token_value(~S,Array.get(U32,userToken,0)) ++ ":" ++ U32.show(runs) ++ "|cursor=" ++ Tick.cursor_show(cursor) ++ "|peer=" ++ token_value(~S,Array.get(U32,peer,0)) ++ ":" ++ Tick.cursor_show(peerCursor) ++ "|handler=" ++ token_value(~S,Array.get(U32,handler,0)) ++ ":" ++ U32.show(errors) ++ "|unapplied=" ++ List.show(&2,U32,U32.show,unapplied)
+    case Schedule.Scheduled{DepApp.Application{DepApp.State{owner,Product.Owner{Cmd.Owner{Sys.Owner{_,_,_,_,cursor,Local.Local{Body.User{userToken,runs},Buffer.Buffer{pending,receipts},_}}},Sys.Owner{_,_,_,_,peerCursor,peer}},_,Handler{handler,errors},_},_,_},_,Schedule.Deferred{_,_,unapplied}}:prefix ++ "|world=" ++ world(~S,owner) ++ "|queue=" ++ List.show(&2,Record,record_text(~S),entries(~S,pending)) ++ "|receipts=" ++ List.show(&2,Record,record_text(~S),receipt_records(~S,receipts)) ++ "|user=" ++ token_value(~S,Array.get(U32,userToken,0)) ++ ":" ++ U32.show(runs) ++ "|cursor=" ++ Tick.cursor_show(cursor) ++ "|peer=" ++ token_value(~S,Array.get(U32,peer,0)) ++ ":" ++ Tick.cursor_show(peerCursor) ++ "|handler=" ++ token_value(~S,Array.get(U32,handler,0)) ++ ":" ++ U32.show(errors) ++ "|unapplied=" ++ List.show(&2,U32,U32.show,unapplied)
 def pending_observed(~S:Data,~mode:Query.Mode,prefix:String,result:Application(~S,~mode) & Bool) -> String:
   match result:
     case (application,pending):observed(~S,~mode,prefix ++ ";exact-pending=" ++ Bool.pick(String,pending,"true","false"),application)

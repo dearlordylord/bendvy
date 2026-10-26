@@ -1,4 +1,6 @@
 import Base
+import ../../src/ecs/execution-command-removed.bend as Removed
+import ../../src/ecs/execution-command-permission.bend as Permission
 import ./controls/positive.bend as P
 import ../../src/ecs/world.bend as W
 import ../../src/ecs/entity-allocator.bend as Allocator
@@ -34,10 +36,12 @@ def maybe(owner:Maybe<&1,P.Token>) -> String:
 def handle(value:W.Handle<Schema>) -> String:
   match value:
     case W.Handle{namespace,key}:U32.show(namespace) ++ ":" ++ Observe.key(key)
-def receipt(value:Buffer.Receipt<Schema,P.Token>) -> String:
+def receipt(value:Buffer.Receipt<Schema,P.Token,Removed.Removed(layout())>) -> String:
   match value:
     case Buffer.Applied{owner,previous}:"applied:" ++ handle(owner) ++ ":" ++ maybe(previous)
     case Buffer.Refused{owner,incoming}:"refused:" ++ handle(owner) ++ ":" ++ maybe(incoming)
+    case Buffer.Despawned{owner,removed}:"despawned:" ++ handle(owner) ++ ":" ++ maybe(removed)
+    case Buffer.DespawnRefused{owner}:"despawn-refused:" ++ handle(owner)
 def projected(+cached:U32,result:Array<U32> & U32) -> Layout.Viewed<P.Token,U32> & String:
   match result:
     case (values,+raw):(Layout.Viewed{P.Token{values},cached},U32.show(raw) ++ "/cache=" ++ U32.show(cached))
@@ -58,9 +62,9 @@ def first(result:Observe.Walk<Schema,Layout.Viewed<P.Token,U32>>) -> String:
 def column(result:Column.Column<Schema,Layout.Viewed<P.Token,U32>> & U32) -> String:
   match result:
     case (column,capacity):"capacity=" ++ U32.show(capacity) ++ "[" ++ first(at(1,"",column)) ++ "]"
-def observed(prefix:String,result:W.World<Schema,Store(),Unit,Unit> & Buffer.Buffer<Schema,P.Token>) -> String:
+def observed(prefix:String,result:W.World<Schema,Store(),Unit,Unit> & Buffer.Buffer<Schema,P.Token,Removed.Removed(layout())>) -> String:
   match result:
-    case (W.World{namespace,Allocator.Allocator{next,high,_,capacity,depth,free,order},Layout.ColumnSlot{store},_,events,pending,registrations,nextSystem,clock},Buffer.Buffer{queue,receipts}):prefix ++ "|namespace=" ++ U32.show(namespace) ++ ";allocator=" ++ U32.show(next) ++ ":" ++ U32.show(high) ++ ":" ++ U32.show(capacity) ++ ":" ++ Nat.show(depth) ++ ";free=" ++ List.show(&2,U32,U32.show,free) ++ ";order=" ++ List.show(&2,Key.Key,Observe.key,order) ++ "|" ++ column(Column.capacity(~Schema,~(Layout.Viewed<P.Token,U32>),store)) ++ "|events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";legacy-pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<Schema,Store(),Unit,Unit>>,pending)) ++ ";registrations=" ++ Nat.show(List.length(&2,W.RegistrationMeta,registrations)) ++ ";next=" ++ U32.show(nextSystem) ++ ";clock=" ++ Observe.clock(clock) ++ "|queued=" ++ Nat.show(List.length(&1,Buffer.Entry<Schema,P.Token>,queue)) ++ "|receipts=" ++ List.show(&1,Buffer.Receipt<Schema,P.Token>,receipt,receipts)
+    case (W.World{namespace,Allocator.Allocator{next,high,_,capacity,depth,free,order},Layout.ColumnSlot{store},_,events,pending,registrations,nextSystem,clock},Buffer.Buffer{queue,receipts}):prefix ++ "|namespace=" ++ U32.show(namespace) ++ ";allocator=" ++ U32.show(next) ++ ":" ++ U32.show(high) ++ ":" ++ U32.show(capacity) ++ ":" ++ Nat.show(depth) ++ ";free=" ++ List.show(&2,U32,U32.show,free) ++ ";order=" ++ List.show(&2,Key.Key,Observe.key,order) ++ "|" ++ column(Column.capacity(~Schema,~(Layout.Viewed<P.Token,U32>),store)) ++ "|events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ";legacy-pending=" ++ Nat.show(List.length(&1,Deferred.Command<W.World<Schema,Store(),Unit,Unit>>,pending)) ++ ";registrations=" ++ Nat.show(List.length(&2,W.RegistrationMeta,registrations)) ++ ";next=" ++ U32.show(nextSystem) ++ ";clock=" ++ Observe.clock(clock) ++ "|queued=" ++ Nat.show(List.length(&1,Buffer.Entry<Schema,P.Token>,queue)) ++ "|receipts=" ++ List.show(&1,Buffer.Receipt<Schema,P.Token,Removed.Removed(layout())>,receipt,receipts)
 # This boundary control provisions sparse live allocator slots directly. It does
 # not claim reserve/spawn success at either index. Publication still checks both
 # actual generation-bearing live slots before the component capacity preflight.
@@ -73,7 +77,7 @@ def initial() -> Column.Column<Schema,Layout.Viewed<P.Token,U32>>:
 def ready(allocator:Allocator.Allocator,low:Bool,high:Bool) -> String:
   +a:W.Handle<Schema> = W.Handle{1,Key.EntityKey{U32.sub(Column.maximum_capacity(),1),0}}
   +b:W.Handle<Schema> = W.Handle{1,Key.EntityKey{Column.maximum_capacity(),0}}
-  observed("live=" ++ Bool.pick(String,low,"true","false") ++ ":" ++ Bool.pick(String,high,"true","false"),Publication.apply_at(~Schema,~Unit,~Unit,~layout(),~(Layout.AtLeaf{}),~{==},W.World{1,allocator,Layout.ColumnSlot{initial()},Unit{},[],[],[],1,Clock.empty()},Buffer.insert(~Schema,~P.Token,Buffer.insert(~Schema,~P.Token,Buffer.empty(~Schema,~P.Token),a,P.Token{ALeaf{71}}),b,P.Token{ALeaf{81}}),Tick.Tick{0n,9}))
+  observed("live=" ++ Bool.pick(String,low,"true","false") ++ ":" ++ Bool.pick(String,high,"true","false"),Publication.apply_at(~Schema,~Unit,~Unit,~layout(),~(Layout.AtLeaf{}),~{==},Permission.FamilyOnly{},W.World{1,allocator,Layout.ColumnSlot{initial()},Unit{},[],[],[],1,Clock.empty()},Buffer.insert(~Schema,~P.Token,~(Removed.Removed(layout())),Buffer.insert(~Schema,~P.Token,~(Removed.Removed(layout())),Buffer.empty(~Schema,~P.Token,~(Removed.Removed(layout()))),a,P.Token{ALeaf{71}}),b,P.Token{ALeaf{81}}),Tick.Tick{0n,9}))
 def checked_high(low:Bool,result:Allocator.Allocator & Bool) -> String:
   match result:
     case (allocator,high):ready(allocator,low,high)

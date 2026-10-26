@@ -32,3 +32,11 @@ type Prepared<-Ops:Type> is Type:
 def prepared(~layout:Layout.Layout,-B:Type,-Ops:Type,result:B & (Book<layout> & Ops)) -> B & Prepared<Ops>:
   match result:
     case (book,(permission,ops)):(book,Prepared{kind(~layout,permission),ops})
+def agrees(left:Permission,right:Permission) -> Bool:
+  match left right:
+    case FamilyOnly{} FamilyOnly{}:True{}
+    case EntityStructural{} EntityStructural{}:True{}
+    case _ _:False{}
+def ops_field(-Ops:Type,value:Prepared<Ops>) -> Ops:
+  match value:
+    case Prepared{_,ops}:ops

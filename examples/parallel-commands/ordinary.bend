@@ -1,4 +1,6 @@
 import Base
+import ../../src/ecs/execution-command-permission.bend as Permission
+import ../../src/ecs/execution-command-removed.bend as Removed
 import ./controls/positive.bend as P
 import ./controls/registered.bend as Registered
 import ../../src/ecs/world.bend as W
@@ -32,8 +34,8 @@ def Store() -> Type:Layout.columns(~Schema,layout())
 def Resources() -> Type:Product.Owner<Unit,Unit>
 def Ops(H:Type) -> Type:Unit
 def CmdOps(H:Type,Q:Type) -> Type:Unit
-def author_declaration(~H:Type,~Q:Type,~commands:Local.Commands<Q,Schema,P.Token>,~B:Type,~builder:Build.Builder(~Schema,~Left(),~Unit,~H,~B),book:B) -> B & Unit:
-  (book,Unit{})
+def author_declaration(~H:Type,~Q:Type,~commands:Local.Commands<Q,Schema,P.Token>,~B:Type,~builder:Build.Builder(~Schema,~Left(),~Unit,~H,~B),~K:Type,~entity:Permission.Grant(~Schema,~layout(),~Q,~K),book:B,permission:K) -> B & (K & Unit):
+  (book,(permission,Unit{}))
 def peer_declaration(~H:Type,~B:Type,~builder:Build.Builder(~Schema,~Unit,~Unit,~H,~B),book:B) -> B & Unit:
   (book,Unit{})
 def peer_body(~H:Type,~caps:Unit,scope:H,token:Array<U32>) -> H & (Array<U32> & Sys.Completion<String,Unit>):
@@ -75,10 +77,13 @@ def handle_text(value:W.Handle<Schema>) -> String:
 def entry(value:Buffer.Entry<Schema,P.Token>) -> String:
   match value:
     case Buffer.Entry{handle,incoming}:handle_text(handle) ++ ":" ++ maybe_token(incoming)
-def receipt(value:Buffer.Receipt<Schema,P.Token>) -> String:
+    case Buffer.Despawn{handle}:"despawn:" ++ handle_text(handle)
+def receipt(value:Buffer.Receipt<Schema,P.Token,Removed.Removed(layout())>) -> String:
   match value:
     case Buffer.Applied{handle,previous}:"applied:" ++ handle_text(handle) ++ ":" ++ maybe_token(previous)
     case Buffer.Refused{handle,incoming}:"refused:" ++ handle_text(handle) ++ ":" ++ maybe_token(incoming)
+    case Buffer.Despawned{handle,Product.Owner{removed,_}}:"despawned:" ++ handle_text(handle) ++ ":" ++ maybe_token(removed)
+    case Buffer.DespawnRefused{handle}:"despawn-refused:" ++ handle_text(handle)
 def viewed_result(+cache:U32,result:Array<U32> & U32) -> Layout.Viewed<P.Token,U32> & String:
   match result:
     case (owner,+value):(Layout.Viewed{P.Token{owner},cache},U32.show(value) ++ "/cache=" ++ U32.show(cache))
@@ -103,7 +108,7 @@ def report(value:DepApp.Report<String,Unit>) -> String:
     case DepApp.Invalid{_}:"invalid"
 def observed(prefix:String,application:Application()) -> String:
   match application:
-    case Schedule.Scheduled{DepApp.Application{DepApp.State{owner,Product.Owner{Cmd.Owner{Sys.Owner{_,_,_,_,cursor,Local.Local{AuthorLocal{P.Capture{handle},_},Buffer.Buffer{pending,receipts}}}},Sys.Owner{_,_,_,_,peerCursor,peer}},_,Handler{handler,errors},_},_,_},_,Schedule.Deferred{_,_,unapplied}}:prefix ++ "|world=" ++ world(owner) ++ "|queue=" ++ List.show(&1,Buffer.Entry<Schema,P.Token>,entry,pending) ++ "|receipts=" ++ List.show(&1,Buffer.Receipt<Schema,P.Token>,receipt,receipts) ++ "|handle=" ++ handle_text(handle) ++ "|cursor=" ++ Tick.cursor_show(cursor) ++ "|peer=" ++ token_value(Array.get(U32,peer,0)) ++ ":" ++ Tick.cursor_show(peerCursor) ++ "|handler=" ++ token_value(Array.get(U32,handler,0)) ++ ":" ++ U32.show(errors) ++ "|unapplied=" ++ List.show(&2,U32,U32.show,unapplied)
+    case Schedule.Scheduled{DepApp.Application{DepApp.State{owner,Product.Owner{Cmd.Owner{Sys.Owner{_,_,_,_,cursor,Local.Local{AuthorLocal{P.Capture{handle},_},Buffer.Buffer{pending,receipts},_}}},Sys.Owner{_,_,_,_,peerCursor,peer}},_,Handler{handler,errors},_},_,_},_,Schedule.Deferred{_,_,unapplied}}:prefix ++ "|world=" ++ world(owner) ++ "|queue=" ++ List.show(&1,Buffer.Entry<Schema,P.Token>,entry,pending) ++ "|receipts=" ++ List.show(&1,Buffer.Receipt<Schema,P.Token,Removed.Removed(layout())>,receipt,receipts) ++ "|handle=" ++ handle_text(handle) ++ "|cursor=" ++ Tick.cursor_show(cursor) ++ "|peer=" ++ token_value(Array.get(U32,peer,0)) ++ ":" ++ Tick.cursor_show(peerCursor) ++ "|handler=" ++ token_value(Array.get(U32,handler,0)) ++ ":" ++ U32.show(errors) ++ "|unapplied=" ++ List.show(&2,U32,U32.show,unapplied)
 def pending_observed(prefix:String,result:Application() & Bool) -> String:
   match result:
     case (application,pending):observed(prefix ++ ";exact-pending=" ++ Bool.pick(String,pending,"true","false"),application)

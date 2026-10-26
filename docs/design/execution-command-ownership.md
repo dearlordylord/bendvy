@@ -3,11 +3,12 @@
 The GH86 modules retain actual affine command payloads separately from gameplay
 storage. Closed command-system registration and publication adapters are
 implemented, including ordinary scheduler barriers and final-application settings.
-Query worker publication, broader existing-entity commands and full issue
-acceptance remain pending.
+Explicit structural despawn and query command authoring are implemented. Removal
+notices, worker evidence and full issue acceptance remain pending.
 
 `execution-command-buffer.bend` owns one component family's pending inserts and
-removes. Enqueue transfers an incoming `Type` payload into the queue. It cannot
+removes, and explicitly granted entity despawns. Its removed-owner type is derived
+from the complete schema: optional raw owners at leaves and products at branches. Enqueue transfers an incoming `Type` payload into the queue. It cannot
 change storage. Publication checks the handle's namespace, generation and live
 allocator slot, then applies commands in that buffer's enqueue order. Successful
 commands return displaced or removed owners in receipts. Refused commands return
@@ -26,10 +27,26 @@ body still receives a hidden `Q` and returns its actual owner.
 the deferred system ID and composes the corresponding publisher. An ordinary
 `Tree.Leaf` rejects a command owner instead of dropping its deferred inventory.
 
+A declaration requests entity commands through a second abstract affine book `K`,
+separate from the physical scope Builder book `B`. The closed entity grant
+advances `K` and returns the typed despawn capability together. The adapter derives
+permission from that same returned book and persists it beside the actual queue
+and user local. Family-only command capabilities have no despawn method. This
+permission inventory does not claim physical ownership of unrelated scope data.
+Raw constructors remain trusted administrative provisioning; constructor secrecy
+is not an authority guarantee. Admission, invocation and publication validate
+the persisted permission against the owner's same closed program, without World
+projection. A mismatched cache refuses before the affected body or clock advance.
+
 The publisher initializes the schema's cached Data view only for an admitted
 insert. Removal unwraps a displaced owner without refreshing it. An absent
 component outside the column's capacity is removed successfully without growing
-storage. Capacity-refused insertions retain their raw incoming owners.
+storage. Capacity-refused insertions retain their raw incoming owners. A despawn requires
+the actual owner's entity permission and a current live handle. The whole-World
+publisher removes all component families without refreshing them, returns each
+raw affine owner in the receipt, then releases the cleared allocator slot. Repeated
+stale-handle commands produce refusal receipts. Removal notices remain a separate
+publication-boundary integration.
 
 The complete World must be reassembled before publication. Root cuts retain the
 allocator and administrative state outside gameplay scopes, so a branch cannot
