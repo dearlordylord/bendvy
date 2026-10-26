@@ -20,8 +20,8 @@ def prepare(root, destination, snapshots, current_source_commit, worker_root):
     destination.mkdir(parents=True, exist_ok=False)
     source = root / 'test-fixtures/execution-qualification'
     reference = worker_root / 'test-fixtures/execution-qualification/collect.py'
-    if (source / 'collect.py').read_bytes() != reference.read_bytes():
-        raise RuntimeError('control collector differs from paired worker collector')
+    if sha(reference) != '0686f61e81b6d563ee6f9128de3f90a74c62e2d9836017d5dda64f8eaff7380c':
+        raise RuntimeError('paired worker collector predecessor changed; coordinate new binding')
     for helper in ('task_runner.py', 'receipt-logs.py', 'evidence_boundary.py', 'owned-tool-pins.py'):
         if helper != 'task_runner.py' and (root / 'scripts' / helper).read_bytes() != (worker_root / 'scripts' / helper).read_bytes():
             raise RuntimeError('paired worker helper differs: ' + helper)
@@ -48,10 +48,11 @@ def prepare(root, destination, snapshots, current_source_commit, worker_root):
                 'currentSourceCommit': current_source_commit,
                 'collectorSubject': {'path': str(source / 'collect.py'), 'sha256': sha(source / 'collect.py')},
                 'pairedWorkerCollector': {'path': str(reference), 'sha256': sha(reference),
-                    'workerSourceCommit': '99b51d4b20d47f5b525b8803f803586d796d8948'},
+                    'workerSourceCommit': '99b51d4b20d47f5b525b8803f803586d796d8948',
+                    'status': 'COLLECTOR_AND_RUNNER_SUCCESSOR_REQUIRES_WORKER_REBIND'},
                 'pairedWorkerPlan': {'path': '/tmp/gh80-worker-admission-v1/plan.json',
                     'sha256': sha('/tmp/gh80-worker-admission-v1/plan.json'),
-                    'status': 'STALE_RUNNER_BINDING_REQUIRES_SUCCESSOR_AND_REVIEW'},
+                    'status': 'STALE_COLLECTOR_AND_RUNNER_BINDING_REQUIRES_SUCCESSOR_AND_REVIEW'},
                 'runnerRepair': {'path': str(root / 'scripts/task_runner.py'),
                     'sha256': sha(root / 'scripts/task_runner.py'),
                     'workerPredecessorSHA256': sha(worker_root / 'scripts/task_runner.py'),
@@ -60,8 +61,10 @@ def prepare(root, destination, snapshots, current_source_commit, worker_root):
                 'environment': cfg['env'], 'python': cfg['tools']['python'],
                 'output': str(destination / 'results'),
                 'cases': [], 'files': {}, 'directories': {},
-                'regression': {'timeoutSeconds': 120, 'argv': [cfg['tools']['python'], '-S', '-B',
-                    str(root / 'scripts/test-task-runner.py'),
+                'regression': {'timeoutSeconds': 120, 'argv': [cfg['tools']['python'], '-I', '-S', '-B',
+                    str(root / 'scripts/test-task-runner.py'), '--source-bindings', str(destination / 'manifest.json'),
+                    'Execution.test_frozen_loaders_ignore_matching_bytecode',
+                    'Evidence.test_control_regression_failures_keep_terminal_receipt',
                     'Execution.test_caller_cancellation_cleans_owned_command',
                     'Execution.test_runner_cancellation_retains_logs_and_primary_with_secondary_failure',
                     'Execution.test_timeout_keeps_partial_bytes',

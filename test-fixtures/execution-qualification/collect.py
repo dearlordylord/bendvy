@@ -16,10 +16,24 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def load(name, path):
+def load(name, path, expected):
+    path = Path(path).resolve()
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != expected:
+        raise RuntimeError('loaded source differs from frozen input: ' + str(path))
     spec = importlib.util.spec_from_file_location(name, path)
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    missing = object()
+    prior = sys.modules.get(name, missing)
+    sys.modules[name] = module
+    try:
+        exec(compile(raw, str(path), 'exec', dont_inherit=True), module.__dict__)
+    except BaseException:
+        if prior is missing:
+            sys.modules.pop(name, None)
+        else:
+            sys.modules[name] = prior
+        raise
     return module
 
 
@@ -54,7 +68,7 @@ def worker_diagnostic(plan, label, expected, stderr, receipt):
     check = {'label': label, 'status': 'FAIL'}
     receipt.setdefault('workerDiagnostics', []).append(check)
     try:
-        validator = load('qualified_worker_validator', path)
+        validator = load('qualified_worker_validator', path, plan['files'][str(path.resolve())])
         check['observed'] = validator.validate(stderr, expected)
     except BaseException as error:
         check['error'] = f'{type(error).__name__}: {error}'
@@ -89,10 +103,14 @@ def collect(plan_path, approval_path, output):
             raise RuntimeError('collector bytes differ from the plan')
         snapshot_guard(plan)
         root = Path(plan['root'])
-        runner_module = load('qualified_runner', root / 'scripts/task_runner.py')
-        logs_module = load('qualified_logs', root / 'scripts/receipt-logs.py')
-        boundary_module = load('qualified_boundary', root / 'scripts/evidence_boundary.py')
-        pins_module = load('qualified_pins', root / 'scripts/owned-tool-pins.py')
+        runner_module = load('qualified_runner', root / 'scripts/task_runner.py',
+                             plan['files'][str((root / 'scripts/task_runner.py').resolve())])
+        logs_module = load('qualified_logs', root / 'scripts/receipt-logs.py',
+                             plan['files'][str((root / 'scripts/receipt-logs.py').resolve())])
+        boundary_module = load('qualified_boundary', root / 'scripts/evidence_boundary.py',
+                             plan['files'][str((root / 'scripts/evidence_boundary.py').resolve())])
+        pins_module = load('qualified_pins', root / 'scripts/owned-tool-pins.py',
+                             plan['files'][str((root / 'scripts/owned-tool-pins.py').resolve())])
         logs_dir = output / 'logs'
         logs_dir.mkdir()
         artifacts_dir = output / 'artifacts'

@@ -12,10 +12,24 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def load(name, path):
+def load(name, path, expected):
+    path = Path(path).resolve()
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != expected:
+        raise RuntimeError('loaded source differs from frozen input: ' + str(path))
     spec = importlib.util.spec_from_file_location(name, path)
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+    missing = object()
+    prior = sys.modules.get(name, missing)
+    sys.modules[name] = module
+    try:
+        exec(compile(raw, str(path), 'exec', dont_inherit=True), module.__dict__)
+    except BaseException:
+        if prior is missing:
+            sys.modules.pop(name, None)
+        else:
+            sys.modules[name] = prior
+        raise
     return module
 
 
@@ -74,6 +88,20 @@ def check_case(name, case, result):
     return {'innerReceiptSHA256': sha(receipt_path), 'semanticVerdict': 'EXPECTED_REFUSAL'}
 
 
+def run_regression(runner, regression, receipt, logs):
+    try:
+        result = runner.run('runner-regressions', regression['argv'], regression['timeoutSeconds'])
+    except BaseException as error:
+        result = getattr(error, 'result', None)
+        if result is not None:
+            receipt['regression'] = {k: v for k, v in result.items() if k not in ('stdout', 'stderr')}
+        raise
+    else:
+        receipt['regression'] = {k: v for k, v in result.items() if k not in ('stdout', 'stderr')}
+    finally:
+        receipt['rawLogs'] = dict(logs.hashes)
+
+
 def run(manifest_path, admission_path, output):
     # This harness is itself new orchestration: do not invoke before independent
     # admission. Synthetic inner approval files never authorize this entry.
@@ -90,9 +118,12 @@ def run(manifest_path, admission_path, output):
     for path, digest in manifest['files'].items():
         require(sha(path) == digest, 'control package drift before entry: ' + path)
     root = Path(manifest['sourceRoot'])
-    runner_module = load('control_runner', root / 'scripts/task_runner.py')
-    logs_module = load('control_logs', root / 'scripts/receipt-logs.py')
-    boundary_module = load('control_boundary', root / 'scripts/evidence_boundary.py')
+    runner_module = load('control_runner', root / 'scripts/task_runner.py',
+                             manifest['files'][str((root / 'scripts/task_runner.py').resolve())])
+    logs_module = load('control_logs', root / 'scripts/receipt-logs.py',
+                             manifest['files'][str((root / 'scripts/receipt-logs.py').resolve())])
+    boundary_module = load('control_boundary', root / 'scripts/evidence_boundary.py',
+                             manifest['files'][str((root / 'scripts/evidence_boundary.py').resolve())])
     output.mkdir(parents=True, exist_ok=False)
     logs_dir = output / 'logs'
     logs_dir.mkdir()
@@ -106,11 +137,13 @@ def run(manifest_path, admission_path, output):
     runner = runner_module.Runner(logs, inputs=inputs, env=manifest['environment'], cwd=root)
     receipt = {'status': 'INCOMPLETE', 'manifestSHA256': sha(manifest_path), 'cases': [],
                'scope': 'canonical collector refusal controls; no qualification consumers'}
+    def log_guard():
+        receipt['rawLogs'] = dict(logs.hashes)
+        logs.guard()
+
     with boundary_module.ReceiptBoundary(receipt, output / 'receipt.json',
-                                         [('immutable-inputs', inputs.guard), ('outer-raw-logs', logs.guard)]):
-        regression = manifest['regression']
-        result = runner.run('runner-regressions', regression['argv'], regression['timeoutSeconds'])
-        receipt['regression'] = {k: v for k, v in result.items() if k not in ('stdout', 'stderr')}
+                                         [('immutable-inputs', inputs.guard), ('outer-raw-logs', log_guard)]):
+        run_regression(runner, manifest['regression'], receipt, logs)
         for control in manifest['cases']:
             name, case = control['name'], Path(control['directory'])
             argv = [manifest['python'], '-I', '-S', '-B', str(case / 'collect.py'),

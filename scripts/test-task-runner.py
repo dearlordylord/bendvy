@@ -1,8 +1,12 @@
 """Real-process controls for command ownership, capture and evidence refusal."""
 import concurrent.futures
 import importlib.util
+import hashlib
+import json
+import py_compile
 import os
 import signal
+import struct
 from pathlib import Path
 import subprocess
 import sys
@@ -10,22 +14,85 @@ import tempfile
 import time
 import unittest
 from unittest import mock
-import task_runner
 
-from task_runner import Inputs, Runner, execute, execute_result, execute_split
-spec = importlib.util.spec_from_file_location('logs', Path(__file__).with_name('receipt-logs.py'))
-logs = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(logs)
-source_spec = importlib.util.spec_from_file_location('python_source', Path(__file__).with_name('check-python-source.py'))
-python_source = importlib.util.module_from_spec(source_spec)
-source_spec.loader.exec_module(python_source)
+# Qualification supplies the frozen manifest; ordinary CI still executes source
+# directly. Neither route delegates local helpers to a cached-bytecode loader.
+source_bindings = {}
+if '--source-bindings' in sys.argv:
+    position = sys.argv.index('--source-bindings')
+    source_bindings = json.loads(Path(sys.argv[position + 1]).read_text())['files']
+    del sys.argv[position:position + 2]
+
+
+def load_source(name, path, expected=None):
+    path = Path(path).resolve()
+    raw = path.read_bytes()
+    if expected is None and source_bindings:
+        expected = source_bindings[str(path)]
+    if expected is not None and hashlib.sha256(raw).hexdigest() != expected:
+        raise RuntimeError('regression helper differs from frozen input: ' + str(path))
+    spec = importlib.util.spec_from_file_location(name, path)
+    module = importlib.util.module_from_spec(spec)
+    missing = object()
+    prior = sys.modules.get(name, missing)
+    sys.modules[name] = module
+    try:
+        exec(compile(raw, str(path), 'exec', dont_inherit=True), module.__dict__)
+    except BaseException:
+        if prior is missing:
+            sys.modules.pop(name, None)
+        else:
+            sys.modules[name] = prior
+        raise
+    return module
+
+
+task_runner = load_source('task_runner', Path(__file__).with_name('task_runner.py'))
+Inputs, Runner = task_runner.Inputs, task_runner.Runner
+execute, execute_result, execute_split = task_runner.execute, task_runner.execute_result, task_runner.execute_split
+logs = load_source('logs', Path(__file__).with_name('receipt-logs.py'))
+python_source = load_source('python_source', Path(__file__).with_name('check-python-source.py'))
 
 
 def command(code):
-    return [sys.executable, '-c', code]
+    return [sys.executable, '-I', '-S', '-B', '-c', code]
 
 
 class Execution(unittest.TestCase):
+    def test_frozen_loaders_ignore_matching_bytecode(self):
+        root = Path(__file__).resolve().parents[1]
+        fixture = root / 'test-fixtures/execution-qualification'
+        collector = load_source('source_collector_test', fixture / 'collect.py')
+        controls = load_source('source_controls_test', fixture / 'controls/run.py')
+        for index, loader in enumerate((load_source, collector.load, controls.load)):
+            with self.subTest(loader=index), tempfile.TemporaryDirectory() as directory:
+                path = Path(directory) / 'subject.py'
+                path.write_text("MARK = 'evil'\n")
+                before = path.stat()
+                cache = Path(py_compile.compile(str(path), doraise=True))
+                cache_hash = hashlib.sha256(cache.read_bytes()).hexdigest()
+                self.assertEqual(struct.unpack('<II', cache.read_bytes()[8:16]),
+                                 (int(before.st_mtime), before.st_size))
+                path.write_text("MARK = 'safe'\n")
+                os.utime(path, ns=(before.st_atime_ns, before.st_mtime_ns))
+                # Timestamp and size still match the hostile cached code.
+                self.assertEqual(path.stat().st_size, before.st_size)
+                expected = hashlib.sha256(path.read_bytes()).hexdigest()
+                name = 'source_cache_control_' + str(index)
+                module = loader(name, path, expected)
+                try:
+                    self.assertIs(sys.modules[name], module)
+                    self.assertEqual(module.MARK, 'safe')
+                    self.assertEqual(hashlib.sha256(cache.read_bytes()).hexdigest(), cache_hash)
+                    path.write_text("raise RuntimeError('initialization failure')\n")
+                    with self.assertRaisesRegex(RuntimeError, 'initialization failure'):
+                        loader(name, path, hashlib.sha256(path.read_bytes()).hexdigest())
+                    self.assertIs(sys.modules[name], module)
+                    with self.assertRaises(RuntimeError):
+                        loader(name + '_mismatch', path, '0' * 64)
+                finally:
+                    sys.modules.pop(name, None)
+
     def test_implementation_drift_refuses_execution(self):
         with mock.patch.object(task_runner, 'IMPLEMENTATION_SHA256', 'changed'):
             with self.assertRaises(RuntimeError): execute_result(command('pass'), 3)
@@ -353,7 +420,7 @@ class Execution(unittest.TestCase):
             if not hold_pipes:
                 child += 'os.close(1); os.close(2); '
             child += 'open('+repr(str(pidfile))+',"w").write(str(os.getpid())); time.sleep(60)'
-            parent = 'import subprocess,sys,time; subprocess.Popen([sys.executable,"-c",'+repr(child)+']); '
+            parent = 'import subprocess,sys,time; subprocess.Popen([sys.executable,"-I","-S","-B","-c",'+repr(child)+']); '
             parent += 'time.sleep(60)' if parent_waits else 'time.sleep(.15)'
             result = execute_result(command(parent), .4 if parent_waits else 3)
             self.assertIsNotNone(result['failure'])
@@ -389,6 +456,40 @@ class Execution(unittest.TestCase):
 
 
 class Evidence(unittest.TestCase):
+    def test_control_regression_failures_keep_terminal_receipt(self):
+        root = Path(__file__).resolve().parents[1]
+        controls = load_source('receipt_controls_test', root / 'test-fixtures/execution-qualification/controls/run.py')
+        boundary = load_source('receipt_boundary_test', root / 'scripts/evidence_boundary.py')
+        for failure in (RuntimeError('exit7'), TimeoutError('deadline'), KeyboardInterrupt('cancel'),
+                        OSError('publication'), RuntimeError('postguard'), RuntimeError('no result')):
+            with self.subTest(failure=str(failure)), tempfile.TemporaryDirectory() as directory:
+                command_logs = logs.CommandLogs(directory, ['runner-regressions'])
+                receipt = {'status': 'INCOMPLETE'}
+                if str(failure) != 'no result':
+                    command_logs.record('runner-regressions', b'actual stdout', b'actual stderr')
+                    failure.result = dict(exit=7 if str(failure) == 'exit7' else -9,
+                        failure=str(failure), stdout=b'actual stdout', stderr=b'actual stderr',
+                        capture='split', runnerSHA256=task_runner.IMPLEMENTATION_SHA256)
+                runner = mock.Mock()
+                runner.run.side_effect = failure
+                path = Path(directory) / 'receipt.json'
+                with self.assertRaises(type(failure)) as caught:
+                    with boundary.ReceiptBoundary(receipt, path, [('logs', command_logs.guard)]):
+                        controls.run_regression(runner, {'argv': ['no child'], 'timeoutSeconds': 1},
+                                                receipt, command_logs)
+                self.assertIs(caught.exception, failure)
+                saved = json.loads(path.read_text())
+                self.assertEqual(saved['status'], 'INCOMPLETE')
+                self.assertEqual(saved['rawLogs'], command_logs.hashes)
+                if hasattr(failure, 'result'):
+                    self.assertEqual(saved['regression'], {k: v for k, v in failure.result.items()
+                                                         if k not in ('stdout', 'stderr')})
+                    self.assertEqual((Path(directory) / 'runner-regressions.stdout').read_bytes(), b'actual stdout')
+                    self.assertEqual((Path(directory) / 'runner-regressions.stderr').read_bytes(), b'actual stderr')
+                else:
+                    self.assertNotIn('regression', saved)
+                    self.assertEqual(saved['rawLogs'], {})
+
     def test_inputs_bytes_membership_and_missing(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
