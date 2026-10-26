@@ -4,8 +4,10 @@ source "$(dirname -- "$0")/../common.sh"
 cd "$example_repo"
 example_output=$(mktemp -d)
 trap 'rm -rf "$example_output"' EXIT
+control_cpu=$("${example_cpu[@]}" python3 -c 'import os; print(min(os.sched_getaffinity(0)))')
+control_lock="/tmp/bendvy-source-check-$(id -u)-cpu-$control_cpu.lock"
 check_source() {
-  scripts/bend-check "examples/parallel-captures/$1"
+  flock "$control_lock" timeout --signal=KILL 15s taskset -c "$control_cpu" "$BEND" "examples/parallel-captures/$1" --check-only
 }
 check_source main.bend
 check_source lifecycle.bend
