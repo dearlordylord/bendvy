@@ -36,3 +36,18 @@ calls the System error handler without entering the body. The default
 `Single<&Missing>` case is skippable and does not call that handler. Both cases
 retain the writer's partial mutation and Local and execute later dependencies.
 These returned-error cases do not specify fatal runtime exits.
+
+The ordinary application now accepts actual system and condition owners plus
+closed `dependency-registry-program.Selection` definitions. A selection receives
+an abstract registry family and closed leaf, pair and empty builders. Each leaf
+compiles the actual owner's declaration Program; conditions additionally require
+read-only permissions. The default entry cannot accept detached registry nodes,
+a cached validation flag, or a custom World dispatcher. The explicitly named
+`trusted_build_checked` entry remains a low-level interpreter boundary.
+
+The `negative` controls must fail source checking: `raw-system-registry` rejects
+a detached body registry, `forged-condition-cache` rejects the reported cleared
+cache bypass, `forged-family` cannot construct the hidden family, and
+`custom-dispatch` cannot substitute a dispatcher for the canonical leaf provider.
+These are compile-time controls; the positive `ordinary/admission-controls.bend`
+observes writable guard refusal while retaining all actual owners.

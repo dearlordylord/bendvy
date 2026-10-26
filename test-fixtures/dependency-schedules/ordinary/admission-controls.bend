@@ -9,6 +9,7 @@ import ../../../src/ecs/dependency-executor.bend as Exec
 import ../../../src/ecs/dependency-plan.bend as Plan
 import ../../../src/ecs/dependency-registration.bend as Reg
 import ../../../src/ecs/dependency-application.bend as Schedule
+import ../../../src/ecs/dependency-registry-program.bend as Cond
 
 def writable_returned(~H:Type,local:Schema.Local,result:H & U32) -> H & (Schema.Local & Sys.Completion<String,Bool>):
   match local result:
@@ -28,7 +29,7 @@ def observed(~S:Data,result:Schedule.Application<Schema.World(~S),Reader(~S),Gua
     case (Schedule.Application{Schedule.State{world,Sys.Owner{_,_,_,_,readerCursor,reader},Sys.Owner{_,_,_,_,guardCursor,guard},handler,_},_,_},Schedule.Invalid{Plan.InvalidCondition{id}}):"invalid-condition/" ++ U32.show(id) ++ "|" ++ Observe.world(~S,world) ++ "|reader=" ++ Observe.local(reader) ++ ":cursor=" ++ Observe.cursor(readerCursor) ++ "|guard=" ++ Observe.local(guard) ++ ":cursor=" ++ Observe.cursor(guardCursor) ++ "|handler=" ++ Observe.handler(handler)
     case _ :"ERROR: writable condition was not refused"
 def built(~S:Data,world:Schema.World(~S),reader:Reader(~S),guard:Guard(~S)) -> String:
-  observed(~S,Schedule.run(~Schema.World(~S),~Reader(~S),~Guard(~S),~Schema.Handler,~String,~U32,~ReaderDispatch(~S),~GuardDispatch(~S),~Body.handle,Schedule.build(~Schema.World(~S),~Reader(~S),~Guard(~S),~Schema.Handler,~String,~U32,~ReaderDispatch(~S),~GuardDispatch(~S),~Body.handle,~Schema.available,world,Reg.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader,reader),Reg.condition_leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Write(),~Schema.Local,~String,~Schema.write(~S),~writable,guard),Schema.Handler{ALeaf{701},[]},[],[Schedule.Binding{1,2}])))
+  observed(~S,Schedule.run(~Schema.World(~S),~Reader(~S),~Guard(~S),~Schema.Handler,~String,~U32,~ReaderDispatch(~S),~GuardDispatch(~S),~Body.handle,Schedule.build(~Schema.World(~S),~Reader(~S),~Guard(~S),~Schema.Handler,~String,~U32,~ReaderDispatch(~S),~GuardDispatch(~S),~Cond.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader),~Cond.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Write(),~Schema.Local,~String,~Bool,~Schema.write(~S),~writable),~Body.handle,~Schema.available,world,reader,guard,Schema.Handler{ALeaf{701},[]},[],[Schedule.Binding{1,2}])))
 def registered_guard(~S:Data,reader:Reader(~S),result:Sys.Defined<Schema.World(~S),Guard(~S),Schema.Local>) -> String:
   match result:
     case Sys.Defined{world,guard}:built(~S,world,reader,guard)

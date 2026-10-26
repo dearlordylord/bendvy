@@ -7,6 +7,7 @@ import ../../../src/ecs/dependency-executor.bend as Exec
 import ../../../src/ecs/dependency-plan.bend as Plan
 import ../../../src/ecs/dependency-registration.bend as Reg
 import ../../../src/ecs/dependency-application.bend as App
+import ../../../src/ecs/dependency-registry-program.bend as Cond
 
 def Writer(~S:Data) -> Type:Sys.Owner<S,Unit,Schema.Resources(),Unit,Schema.Write(),Schema.Local,String,U32,Schema.write(~S),Body.writer>
 def WriterDispatch(~S:Data) -> Writer(~S) -> Schema.World(~S) -> U32 -> Writer(~S) & (Schema.World(~S) & Exec.Invocation<String,U32>):
@@ -36,6 +37,14 @@ def OwnersDispatch(~S:Data) -> Owners(~S) -> Schema.World(~S) -> U32 -> Owners(~
   Reg.paired_dispatch(~Schema.World(~S),~Left(~S),~Right(~S),~String,~U32,~LeftDispatch(~S),~RightDispatch(~S))
 def GuardsDispatch(~S:Data) -> Guards(~S) -> Schema.World(~S) -> U32 -> Guards(~S) & (Schema.World(~S) & Exec.Invocation<String,Bool>):
   Reg.paired_dispatch(~Schema.World(~S),~Positive(~S),~Changing(~S),~String,~Bool,~PositiveDispatch(~S),~ChangingDispatch(~S))
+def LeftSelection(~S:Data,~F:Cond.Family(~String,~U32),~leaf:Cond.Leaf(~String,~U32,~F),~pair:Cond.Join(~String,~U32,~F),~empty:Cond.Vacant(~String,~U32,~F),owners:Left(~S)) -> F(Schema.World(~S),Left(~S),LeftDispatch(~S)):
+  Cond.paired(~Schema.World(~S),~Writer(~S),~Reader(~S),~String,~U32,~WriterDispatch(~S),~ReaderDispatch(~S),~Cond.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Write(),~Schema.Local,~String,~U32,~Schema.write(~S),~Body.writer),~Cond.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader),~F,~leaf,~pair,~empty,owners)
+def RightSelection(~S:Data,~F:Cond.Family(~String,~U32),~leaf:Cond.Leaf(~String,~U32,~F),~pair:Cond.Join(~String,~U32,~F),~empty:Cond.Vacant(~String,~U32,~F),owners:Right(~S)) -> F(Schema.World(~S),Right(~S),RightDispatch(~S)):
+  Cond.paired(~Schema.World(~S),~Reader(~S),~Reader(~S),~String,~U32,~ReaderDispatch(~S),~ReaderDispatch(~S),~Cond.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader),~Cond.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader),~F,~leaf,~pair,~empty,owners)
+def OwnersSelection(~S:Data,~F:Cond.Family(~String,~U32),~leaf:Cond.Leaf(~String,~U32,~F),~pair:Cond.Join(~String,~U32,~F),~empty:Cond.Vacant(~String,~U32,~F),owners:Owners(~S)) -> F(Schema.World(~S),Owners(~S),OwnersDispatch(~S)):
+  Cond.paired(~Schema.World(~S),~Left(~S),~Right(~S),~String,~U32,~LeftDispatch(~S),~RightDispatch(~S),~LeftSelection(~S),~RightSelection(~S),~F,~leaf,~pair,~empty,owners)
+def GuardSelection(~S:Data,~F:Cond.Family(~String,~Bool),~leaf:Cond.Leaf(~String,~Bool,~F),~pair:Cond.Join(~String,~Bool,~F),~empty:Cond.Vacant(~String,~Bool,~F),owners:Guards(~S)) -> F(Schema.World(~S),Guards(~S),GuardsDispatch(~S)):
+  Cond.paired(~Schema.World(~S),~Positive(~S),~Changing(~S),~String,~Bool,~PositiveDispatch(~S),~ChangingDispatch(~S),~Cond.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~Bool,~Schema.read(~S),~Body.positive),~Cond.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~Bool,~Schema.read(~S),~Body.changing),~F,~leaf,~pair,~empty,owners)
 def Application(~S:Data) -> Type:App.Application<Schema.World(~S),Owners(~S),Guards(~S),Schema.Handler,String,U32,OwnersDispatch(~S),GuardsDispatch(~S),Body.handle>
 def id_at(ids:List<&2,U32>,index:Nat) -> U32:
   match ids index:
@@ -46,7 +55,7 @@ def bindings(+systems:List<&2,U32>,+guards:List<&2,U32>) -> List<&2,App.Binding>
   [App.Binding{id_at(systems,1n),id_at(guards,0n)},App.Binding{id_at(systems,2n),id_at(guards,1n)}]
 def build_registries(~S:Data,world:Schema.World(~S),systems:Reg.Registry<Schema.World(~S),Owners(~S),String,U32,OwnersDispatch(~S)>,guards:Reg.ConditionRegistry<Schema.World(~S),Guards(~S),String,GuardsDispatch(~S)>) -> Application(~S):
   match systems guards:
-    case Reg.Registry{owners,+nodes} Reg.ConditionRegistry{Reg.Registry{guardOwners,+guardNodes},invalid}:App.build(~Schema.World(~S),~Owners(~S),~Guards(~S),~Schema.Handler,~String,~U32,~OwnersDispatch(~S),~GuardsDispatch(~S),~Body.handle,~Schema.available,world,Reg.Registry{owners,nodes},Reg.ConditionRegistry{Reg.Registry{guardOwners,guardNodes},invalid},Schema.Handler{ALeaf{701},[]},Plan.chain(Reg.ids(nodes)),bindings(Reg.ids(nodes),Reg.ids(guardNodes)))
+    case Reg.Registry{owners,+nodes} Reg.ConditionRegistry{Reg.Registry{guardOwners,+guardNodes},invalid}:App.build(~Schema.World(~S),~Owners(~S),~Guards(~S),~Schema.Handler,~String,~U32,~OwnersDispatch(~S),~GuardsDispatch(~S),~OwnersSelection(~S),~GuardSelection(~S),~Body.handle,~Schema.available,world,owners,guardOwners,Schema.Handler{ALeaf{701},[]},Plan.chain(Reg.ids(nodes)),bindings(Reg.ids(nodes),Reg.ids(guardNodes)))
 def assemble(~S:Data,world:Schema.World(~S),writer:Writer(~S),a:Reader(~S),b:Reader(~S),c:Reader(~S),positive:Positive(~S),changing:Changing(~S)) -> Application(~S):
   build_registries(~S,world,Reg.paired(~Schema.World(~S),~Left(~S),~Right(~S),~String,~U32,~LeftDispatch(~S),~RightDispatch(~S),Reg.paired(~Schema.World(~S),~Writer(~S),~Reader(~S),~String,~U32,~WriterDispatch(~S),~ReaderDispatch(~S),Reg.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Write(),~Schema.Local,~String,~U32,~Schema.write(~S),~Body.writer,writer),Reg.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader,a)),Reg.paired(~Schema.World(~S),~Reader(~S),~Reader(~S),~String,~U32,~ReaderDispatch(~S),~ReaderDispatch(~S),Reg.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader,b),Reg.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader,c))),Reg.paired_conditions(~Schema.World(~S),~Positive(~S),~Changing(~S),~String,~PositiveDispatch(~S),~ChangingDispatch(~S),Reg.condition_leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~Schema.read(~S),~Body.positive,positive),Reg.condition_leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~Schema.read(~S),~Body.changing,changing)))
 type Built<-A:Type> is Type:
