@@ -8,11 +8,26 @@ import ./ordinary-declaration.bend as Identity
 import ./owner-product.bend as Product
 import ./world.bend as W
 import ./change-tick.bend as Tick
+import ./lifecycle.bend as Life
 import ./execution-composer-layout.bend as Layout
 
 type Mode is Data:
   Serial{}
   Parallel{}
+  SerialWhere{filter:Life.Filter}
+  ParallelWhere{filter:Life.Filter}
+def mode_parallel(mode:Mode) -> Bool:
+  match mode:
+    case Serial{}:False{}
+    case Parallel{}:True{}
+    case SerialWhere{_}:False{}
+    case ParallelWhere{_}:True{}
+def selection(mode:Mode,indices:List<&2,U32>,prior:Maybe<&2,Tick.Tick>) -> Q.Selection:
+  match mode:
+    case Serial{}:Q.Selected{indices}
+    case Parallel{}:Q.Selected{indices}
+    case SerialWhere{filter}:Q.Filtered{indices,filter,prior}
+    case ParallelWhere{filter}:Q.Filtered{indices,filter,prior}
 type Report<-E:Data> is Data:
   Completed{errors:List<&2,Q.Error<E>>}
   LayoutRefused{}
@@ -30,10 +45,9 @@ def report(~E:Data,errors:List<&2,Q.Error<E>>,aligned:Bool) -> Report<E>:
 def returned(~S:Data,~C:Type,~R:Type,~A:Type,~B:Type,~Rest:Type,~E:Data,~lens:Product.Lens<C,Product.Owner<Col.Column<S,A>,Col.Column<S,B>>,Rest>,rest:Rest,resource:R,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,result:Q.Run<S,A,B,E>) -> State.Scope<S,C,R> & Report<E>:
   match result:
     case Q.Run{read,write,errors,aligned}: (State.Scope{Product.put_field(~C,~Product.Owner<Col.Column<S,A>,Col.Column<S,B>>,~Rest,lens)(rest,Product.Owner{read,write}),resource,handles,tick,prior},report(~E,errors,aligned))
-def taken(~S:Data,~C:Type,~R:Type,~A:Type,~B:Type,~Rest:Type,~V:Data,~E:Data,~lens:Product.Lens<C,Product.Owner<Col.Column<S,A>,Col.Column<S,B>>,Rest>,~project:A -> A & V,~body:U32 -> V -> B -> B & Maybe<&2,E>,mode:Mode,resource:R,+handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,result:Rest & Product.Owner<Col.Column<S,A>,Col.Column<S,B>>) -> State.Scope<S,C,R> & Report<E>:
-  match mode result:
-    case Serial{} Tuple{rest,Product.Owner{read,write}}: returned(~S,~C,~R,~A,~B,~Rest,~E,~lens,rest,resource,handles,tick,prior,Q.serial_selected(~S,~A,~B,~V,~E,~project,~body,read,write,0,tick,Q.Selected{indices(~S,handles)}))
-    case Parallel{} Tuple{rest,Product.Owner{read,write}}: returned(~S,~C,~R,~A,~B,~Rest,~E,~lens,rest,resource,handles,tick,prior,Q.parallel_selected(~S,~A,~B,~V,~E,~project,~body,read,write,0,tick,Q.Selected{indices(~S,handles)}))
+def taken(~S:Data,~C:Type,~R:Type,~A:Type,~B:Type,~Rest:Type,~V:Data,~E:Data,~lens:Product.Lens<C,Product.Owner<Col.Column<S,A>,Col.Column<S,B>>,Rest>,~project:A -> A & V,~body:U32 -> V -> B -> B & Maybe<&2,E>,+mode:Mode,resource:R,+handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,+prior:Maybe<&2,Tick.Tick>,result:Rest & Product.Owner<Col.Column<S,A>,Col.Column<S,B>>) -> State.Scope<S,C,R> & Report<E>:
+  match result:
+    case Tuple{rest,Product.Owner{read,write}}:returned(~S,~C,~R,~A,~B,~Rest,~E,~lens,rest,resource,handles,tick,prior,Q.selected(~S,~A,~B,~V,~E,~project,~body,read,write,0,tick,selection(mode,indices(~S,handles),prior),mode_parallel(mode)))
 def invoke(~S:Data,~C:Type,~R:Type,~A:Type,~B:Type,~Rest:Type,~V:Data,~E:Data,~lens:Product.Lens<C,Product.Owner<Col.Column<S,A>,Col.Column<S,B>>,Rest>,~project:A -> A & V,~body:U32 -> V -> B -> B & Maybe<&2,E>,mode:Mode,scope:State.Scope<S,C,R>) -> State.Scope<S,C,R> & Report<E>:
   match scope:
     case State.Scope{store,resource,handles,tick,prior}: taken(~S,~C,~R,~A,~B,~Rest,~V,~E,~lens,~project,~body,mode,resource,handles,tick,prior,Product.get_field(~C,~Product.Owner<Col.Column<S,A>,Col.Column<S,B>>,~Rest,lens)(store))
@@ -85,16 +99,12 @@ def output_body(~S:Data,~layout:Layout.Layout,~route:Layout.Route,~O:Type,~E:Dat
 def output_returned(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~O:Type,~E:Data,rest:Layout.subtree_rest(~S,layout,route),resource:R,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,result:Q.OutputRun<S,Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}}),Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),O,E>) -> State.Scope<S,C,R> & (O & Report<E>):
   match result:
     case Q.OutputRun{read,write,output,errors,aligned}:(State.Scope{layout_put(~S,~C,~layout,~route,~same,~shape,rest,Product.Owner{read,write}),resource,handles,tick,prior},(output,report(~E,errors,aligned)))
-def output_taken(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:OutputBody(~S,~layout,~route,~O,~E),output:O,resource:R,+handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,prior:Maybe<&2,Tick.Tick>,parallel:Bool,result:Layout.subtree_rest(~S,layout,route) & Product.Owner<Col.Column<S,Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}})>,Col.Column<S,Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}})>>) -> State.Scope<S,C,R> & (O & Report<E>):
+def output_taken(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:OutputBody(~S,~layout,~route,~O,~E),output:O,resource:R,+handles:List<&2,W.Handle<S>>,+tick:Tick.Tick,+prior:Maybe<&2,Tick.Tick>,+mode:Mode,result:Layout.subtree_rest(~S,layout,route) & Product.Owner<Col.Column<S,Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}})>,Col.Column<S,Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}})>>) -> State.Scope<S,C,R> & (O & Report<E>):
   match result:
-    case (rest,Product.Owner{read,write}):output_returned(~S,~C,~R,~layout,~route,~same,~shape,~O,~E,rest,resource,handles,tick,prior,Q.with_output(~S,~Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}}),~Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),~O,~Layout.query_view(layout,route),~List<&2,W.Handle<S>>,~E,~Layout.read(~Layout.query_input(layout,route),~Layout.query_view(layout,route)),~output_body(~S,~layout,~route,~O,~E,~body),~split,~merge,handles,read,write,output,0,tick,Q.Selected{indices(~S,handles)},parallel))
-def mode_parallel(mode:Mode) -> Bool:
-  match mode:
-    case Serial{}:False{}
-    case Parallel{}:True{}
+    case (rest,Product.Owner{read,write}):output_returned(~S,~C,~R,~layout,~route,~same,~shape,~O,~E,rest,resource,handles,tick,prior,Q.with_output(~S,~Layout.stored(Layout.subtree(layout,route),Layout.InLeft{Layout.AtLeaf{}}),~Layout.stored(Layout.subtree(layout,route),Layout.InRight{Layout.AtLeaf{}}),~O,~Layout.query_view(layout,route),~List<&2,W.Handle<S>>,~E,~Layout.read(~Layout.query_input(layout,route),~Layout.query_view(layout,route)),~output_body(~S,~layout,~route,~O,~E,~body),~split,~merge,handles,read,write,output,0,tick,selection(mode,indices(~S,handles),prior),mode_parallel(mode)))
 def output_invoke(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:OutputBody(~S,~layout,~route,~O,~E),mode:Mode,scope:State.Scope<S,C,R>,output:O) -> State.Scope<S,C,R> & (O & Report<E>):
   match scope:
-    case State.Scope{store,resource,handles,tick,prior}:output_taken(~S,~C,~R,~layout,~route,~same,~shape,~O,~E,~split,~merge,~body,output,resource,handles,tick,prior,mode_parallel(mode),layout_take(~S,~C,~layout,~route,~same,~shape,store))
+    case State.Scope{store,resource,handles,tick,prior}:output_taken(~S,~C,~R,~layout,~route,~same,~shape,~O,~E,~split,~merge,~body,output,resource,handles,tick,prior,mode,layout_take(~S,~C,~layout,~route,~same,~shape,store))
 def output_declaration(~S:Data,~C:Type,~R:Type,~layout:Layout.Layout,~route:Layout.Route,~same:{C == Layout.columns(~S,layout) : Type},~shape:{Layout.columns(~S,Layout.subtree(layout,route)) == Layout.query_pair(~S,~layout,~route) : Type},~valid:{Layout.query_valid(~layout,~route) == True{} : Bool},~O:Type,~E:Data,~split:O -> O & O,~merge:O -> O -> O,~body:OutputBody(~S,~layout,~route,~O,~E),mode:Mode) -> D.Declaration<S,C,R,OutputOps(~S,~O,~E)>:
   D.Declaration{OutputEach{output_invoke(~S,~C,~R,~layout,~route,~same,~shape,~O,~E,~split,~merge,~body,mode)},[D.Access{Layout.query_read_key(layout,route),D.ComponentAccess{},D.Exclusive{},D.ReadOnly{}},D.Access{Layout.query_write_key(layout,route),D.ComponentAccess{},D.Exclusive{},D.Writable{}}]}
 def each_output(~S:Data,~H:Type,~O:Type,~E:Data,cap:OutputEach<S,H,O,E>) -> H -> O -> H & (O & Report<E>):

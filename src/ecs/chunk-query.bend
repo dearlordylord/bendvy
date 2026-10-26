@@ -11,14 +11,16 @@ type Run<-S:Data,-A:Type,-B:Type,-E:Data> is Type:
 type Selection is Data:
   All{}
   Selected{indices:List<&2,U32>}
+  Filtered{indices:List<&2,U32>,filter:L.Filter,cursor:Maybe<&2,Tick.Tick>}
 def contains(+index:U32,indices:List<&2,U32>) -> Bool:
   match indices:
     case []: False{}
     case current <> rest: U32.is_eq(index,current) || contains(index,rest)
-def eligible(index:U32,selection:Selection) -> Bool:
+def eligible(index:U32,stamp:L.Stamp,tick:Tick.Tick,selection:Selection) -> Bool:
   match selection:
     case All{}: True{}
     case Selected{indices}: contains(index,indices)
+    case Filtered{indices,filter,cursor}:Bool.and(contains(index,indices),L.matches(filter,stamp,cursor,tick))
 type Layout is Data:
   LayoutLeaf{}
   LayoutBranch{half:U32,left:Layout,right:Layout}
@@ -53,11 +55,11 @@ def output_allowed(~A:Type,~B:Type,~O:Type,~V:Data,~K:Data,~E:Data,~project:A ->
   match allowed:
     case False{}:OutputRow{Some{read},Some{write},stamp,output,[]}
     case True{}:output_projected(~A,~B,~O,~V,~K,~E,~body,context,write,output,index,stamp,tick,project(read))
-def output_row(~A:Type,~B:Type,~O:Type,~V:Data,~K:Data,~E:Data,~project:A -> A & V,~body:K -> U32 -> V -> B -> O -> B & (O & Maybe<&2,E>),context:K,read:Maybe<&1,A>,write:Maybe<&1,B>,output:O,+index:U32,stamp:L.Stamp,tick:Tick.Tick,selection:Selection) -> OutputRow<A,B,O,E>:
+def output_row(~A:Type,~B:Type,~O:Type,~V:Data,~K:Data,~E:Data,~project:A -> A & V,~body:K -> U32 -> V -> B -> O -> B & (O & Maybe<&2,E>),context:K,read:Maybe<&1,A>,write:Maybe<&1,B>,output:O,+index:U32,+stamp:L.Stamp,+tick:Tick.Tick,selection:Selection) -> OutputRow<A,B,O,E>:
   match read write:
     case None{} write:OutputRow{None{},write,stamp,output,[]}
     case Some{read} None{}:OutputRow{Some{read},None{},stamp,output,[]}
-    case Some{read} Some{write}:output_allowed(~A,~B,~O,~V,~K,~E,~project,~body,context,read,write,output,index,stamp,tick,eligible(index,selection))
+    case Some{read} Some{write}:output_allowed(~A,~B,~O,~V,~K,~E,~project,~body,context,read,write,output,index,stamp,tick,eligible(index,stamp,tick,selection))
 def output_values(~A:Type,~B:Type,~O:Type,~E:Data,result:OutputRow<A,B,O,E>) -> OutputValues<A,B,O,E>:
   match result:
     case OutputRow{read,write,stamp,output,errors}:OutputValues{ALeaf{read},ALeaf{write},ALeaf{stamp},output,errors,True{}}

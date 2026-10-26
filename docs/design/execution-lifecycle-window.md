@@ -24,3 +24,25 @@ GH85 also requires ordinary two-schema observations, retained-error and refusal
 cases, zero/wrap/dormant cases, intended authority controls, JS/native execution,
 reached parallel metadata paths, normal checks and independent review. No new
 law or universal affine-owner preservation claim is introduced here.
+
+## Query filters
+
+`Query.SerialWhere{Life.Added{}}` and `Query.ParallelWhere{Life.Changed{}}`
+select rows by the written family of the closed query pair. Both filters use the
+actual system cursor and captured execution tick. The filter runs against the
+row's stamp before its callback writes; refused rows keep their payload, cached
+view, stamps and output channel. This adds no raw lens, metadata callback or
+caller-supplied cursor to gameplay. Read-family and compound filters are not
+provided by this entry.
+
+The eligibility check runs in the same physical leaf traversal that owns the
+component payload and stamp arrays. The coarse query branch splits both owners
+and its affine output channel, then merges them through the existing path.
+Existing unfiltered query declarations keep their signatures and behavior.
+
+`examples/parallel-lifecycle/filters.bend` uses the ordinary public QueryApp
+entry, two nominal schemas and actual affine Array payloads. Its four cases run
+three times with serial/parallel Added/Changed filters, preserve legitimate
+zero seed ticks, then refuse an owner against a genuine second World. Its
+independent full-state oracle is frozen before backend capture. Backend results,
+error/wrap/dormant scenarios and actual worker diagnostics remain pending.
