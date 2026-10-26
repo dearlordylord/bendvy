@@ -39,7 +39,10 @@ These returned-error cases do not specify fatal runtime exits.
 
 The ordinary application now accepts actual system and condition owners plus
 closed `dependency-registry-program.Selection` definitions. A selection receives
-an abstract registry family and closed leaf, pair and empty builders. Each leaf
+an abstract registry family and closed leaf, pair, partition, rootcut and empty
+builders. A rootcut retains the actual owner products and interprets both closed
+scope selections; its condition compiler derives read-only checks from those
+same scope trees. Each leaf
 compiles the actual owner's declaration Program; conditions additionally require
 read-only permissions. The default entry cannot accept detached registry nodes,
 a cached validation flag, or a custom World dispatcher. The explicitly named
