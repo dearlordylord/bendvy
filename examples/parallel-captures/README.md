@@ -53,13 +53,12 @@ cmp examples/parallel-captures/lifecycle.expected.stdout /tmp/capture-lifecycle.
 ```
 
 These modules are provisional. The ordinary parallel captured-system and condition
-consumer, condition false/error observations, declared resource conflicts, full
-scheduled backend oracle, concurrency evidence, migration, applicable laws, normal
-CI and independent review remain required for issue 83. The lifecycle consumer
+concurrency evidence, applicable laws, normal CI execution and independent review
+remain required for issue 83. The lifecycle consumer
 checks the source closure at this branch's integration baseline plus the two owned
 capture/lifecycle modules; it does not qualify later scheduler or composer changes.
-This directory does not yet add a runnable `main.bend` to normal CI while those
-ordinary-entry gates are unfinished.
+`main.bend` and `check.sh` now provide the normal CI entry. The new wrapper awaits
+independent launch review before execution.
 
 ## Ordinary RootSchedule consumers
 
@@ -95,12 +94,38 @@ value. Calls return false, an ordinary error, then true. Each call first advance
 both its Local and capture state. Consequently the Score writer runs once, its
 capture becomes `ax`, both left captures reach six, and the condition retains
 `901:3/902:3/seen=301:60`. The handler records three errors, including the two left
-body errors. Final cursors are left 7, other 8, guard 9 and right 10, with clock 10
-and `nextSystemId = 5`. These values define the full guarded oracle independently
-of the backend observations.
+body errors. At the three-run prefix, cursors are left 7, other 8, guard 9 and right 10, with
+clock 10 and `nextSystemId = 5`.
 
 Both complete four-line oracles pass on JavaScript using Node 24.20 and native
 execution with one and four configured workers. Native output contains calls to
 the ordinary `run_native` entry. Configured workers and matching output do not
 establish participation by multiple native workers. The source-current generic
 column observation helper is reused for complete administrative observations.
+
+The guarded consumer then retires the actual right owner returned by the schedule,
+rebuilds the same application from returned World and owners, and runs again.
+The right system refuses admission. Its Local stays at one, its capture stays
+`ax`, and its cursor stays ten. Both Counter writers and the condition continue
+from their actual owners. Restoration reuses the same right ID and cursor without
+allocating another ID. A fifth schedule run advances the right Local to two and
+its capture to `axx`. Counter reaches 100, Score reaches six, and the condition
+retains its fifth observation `301:100`. Cursors become 14, 17, 15 and 16 for left,
+right, other and guard. Final retirement removes right registration 2, and explicit
+release returns its actual Local and identity `1:2:right:[score]` for observation.
+The World still has `nextSystemId = 5`. No IO finalizer is run or claimed.
+
+The five-run oracle was written before backend capture. Exact source checks and
+intended refusal diagnostics pass. Its backend comparison and the normal wrapper
+are pending the coordinated execution window and launch review. The earlier
+three-run guarded and independent consumers passed all three backends before this
+lifecycle extension. `main.bend` selects ordinary native RootSchedule entries for
+both consumers under both nominal schemas and compares one complete four-line
+observation. Separate lifecycle checks retain genuine foreign-World provenance
+from the actual advanced Factory.
+
+The negative controls reject duplicate capture and Local owners, a system owner
+from another nominal schema, escape from abstract scope, a Score operation through
+a Counter capability, and writes through a shared resource read. The resource
+payloads and captured contexts contain actual affine Arrays. These are intended
+affinity and authority errors, not parser or missing-symbol failures.

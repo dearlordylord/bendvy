@@ -1,4 +1,6 @@
 import Base
+import ../../src/ecs/execution-system-lifecycle.bend as Life
+import ../../src/ecs/execution-parallel-registration.bend as Part
 import ./conditions.bend as Cond
 import ../../src/ecs/dependency-plan.bend as Plan
 import ./declarations.bend as D
@@ -34,19 +36,58 @@ def report(value:DepApp.Report<String,String>) -> String:
     case DepApp.Finished{+events}:"[" ++ Common.event_for(1,events) ++ ", " ++ Common.event_for(2,events) ++ ", " ++ Common.event_for(3,events) ++ "]"
     case DepApp.Stopped{_,events}:"stopped" ++ List.show(&2,Exec.Observation<String,String>,Common.event,events)
     case DepApp.Invalid{_}:"invalid"
+def text(value:String) -> String:value
+def released(~S:Data,trace:String,ll:Body.LeftLocal(),ol:Body.LeftLocal(),lc:Maybe<&2,Tick.Tick>,oc:Maybe<&2,Tick.Tick>,gl:Cond.Local(),gc:Maybe<&2,Tick.Tick>,handler:Common.Handler,world:World(~S),result:Life.Released<Body.RightLocal()>) -> String:
+  match result:
+    case Life.Released{Life.Identity{namespace,id,name,access,rc},rl}:trace ++ "|world=" ++ Observe.world(~S,world) ++ "|locals=" ++ Body.observe_left(ll) ++ "," ++ Body.observe_right(rl) ++ "," ++ Body.observe_left(ol) ++ "|cursors=" ++ Tick.cursor_show(lc) ++ "," ++ Tick.cursor_show(rc) ++ "," ++ Tick.cursor_show(oc) ++ "|handler=" ++ Common.handler(handler) ++ "|guard=" ++ Cond.observed(gl) ++ "|guard-cursor=" ++ Tick.cursor_show(gc) ++ "|released=" ++ U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ List.show(&2,String,text,access)
+def cleaned(~S:Data,trace:String,ll:Body.LeftLocal(),ol:Body.LeftLocal(),lc:Maybe<&2,Tick.Tick>,oc:Maybe<&2,Tick.Tick>,gl:Cond.Local(),gc:Maybe<&2,Tick.Tick>,handler:Common.Handler,result:Life.Retirement<World(~S),RightOwner(~S)>) -> String:
+  match result:
+    case Life.Retired{world,detached}:released(~S,trace,ll,ol,lc,oc,gl,gc,handler,world,Life.release(~S,~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),detached))
+    case Life.RetirementRefused{_,_}:"ERROR:cleanup"
 def observed(~S:Data,trace:String,app:Application(~S)) -> String:
   match app:
-    case Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{Product.Owner{Sys.Owner{_,_,_,_,lc,ll},Sys.Owner{_,_,_,_,oc,ol}},Sys.Owner{_,_,_,_,rc,rl}},Sys.Owner{_,_,_,_,gc,gl},handler,_},_,_},_,_}:trace ++ "|world=" ++ Observe.world(~S,world) ++ "|locals=" ++ Body.observe_left(ll) ++ "," ++ Body.observe_right(rl) ++ "," ++ Body.observe_left(ol) ++ "|cursors=" ++ Tick.cursor_show(lc) ++ "," ++ Tick.cursor_show(rc) ++ "," ++ Tick.cursor_show(oc) ++ "|handler=" ++ Common.handler(handler) ++ "|guard=" ++ Cond.observed(gl) ++ "|guard-cursor=" ++ Tick.cursor_show(gc)
+    case Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{Product.Owner{Sys.Owner{_,_,_,_,lc,ll},Sys.Owner{_,_,_,_,oc,ol}},right},Sys.Owner{_,_,_,_,gc,gl},handler,_},_,_},_,_}:cleaned(~S,trace,ll,ol,lc,oc,gl,gc,handler,Life.retire(~S,~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),~D.Store(~S),~D.Resources(~S),~Unit,right,world))
 def run_selected(~S:Data,native:Bool,app:Application(~S)) -> Application(~S) & DepApp.Report<String,String>:
   match native:
     case False{}:Schedule.run_serial(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.LeftResource(~S),~D.RightResource(~S),~Unit,~String,~String,~LeftTree(~S),~RightOwner(~S),~left_tree(~S),~right_tree(~S),~GuardOwner(~S),~Common.Handler,~Reg.leaf_dispatch(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~Bool,~Cond.declaration(~S),~Cond.body(~S)),~Prog.leaf(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~Bool,~Cond.declaration(~S),~Cond.body(~S)),~Common.handle,app)
     case True{}:Schedule.run_native(~S,~D.LeftStore(~S),~D.RightStore(~S),~D.LeftResource(~S),~D.RightResource(~S),~Unit,~String,~String,~LeftTree(~S),~RightOwner(~S),~left_tree(~S),~right_tree(~S),~GuardOwner(~S),~Common.Handler,~Reg.leaf_dispatch(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~Bool,~Cond.declaration(~S),~Cond.body(~S)),~Prog.leaf(~S,~D.Store(~S),~D.Resources(~S),~Unit,~Cond.Ops(~S),~Cond.Local(),~String,~Bool,~Cond.declaration(~S),~Cond.body(~S)),~Common.handle,app)
-def third(~S:Data,trace:String,result:Application(~S) & DepApp.Report<String,String>) -> String:
+type Remainder<-S:Data> is Type:
+  Remainder{left:LeftTree(S),guard:GuardOwner(S),handler:Common.Handler,stateBindings:List<&2,DepApp.Binding>,plan:Plan.Build<String>,bindings:List<&2,DepApp.Binding>,rules:Part.Rules,deferred:Schedule.Deferred}
+def rebuild(~S:Data,remainder:Remainder<S>,world:World(~S),right:RightOwner(~S)) -> Application(~S):
+  match remainder:
+    case Remainder{left,guard,handler,stateBindings,plan,bindings,rules,deferred}:Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{left,right},guard,handler,stateBindings},plan,bindings},rules,deferred}
+def retired_app(~S:Data,remainder:Remainder<S>,result:Life.Retirement<World(~S),RightOwner(~S)>) -> Application(~S) & String:
+  match result:
+    case Life.Retired{world,Life.Detached{right}}:(rebuild(~S,remainder,world,right),"retired")
+    case Life.RetirementRefused{world,right}:(rebuild(~S,remainder,world,right),"ERROR:retirement")
+def detach(~S:Data,app:Application(~S)) -> Application(~S) & String:
+  match app:
+    case Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{left,right},guard,handler,stateBindings},plan,bindings},rules,deferred}:retired_app(~S,Remainder{left,guard,handler,stateBindings,plan,bindings,rules,deferred},Life.retire(~S,~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),~D.Store(~S),~D.Resources(~S),~Unit,right,world))
+def restored_app(~S:Data,remainder:Remainder<S>,result:Life.Restoration<World(~S),RightOwner(~S)>) -> Application(~S) & String:
+  match result:
+    case Life.Restored{world,right}:(rebuild(~S,remainder,world,right),"restored")
+    case Life.RestorationRefused{world,Life.Detached{right}}:(rebuild(~S,remainder,world,right),"ERROR:restoration")
+def restore(~S:Data,app:Application(~S)) -> Application(~S) & String:
+  match app:
+    case Schedule.Scheduled{DepApp.Application{DepApp.State{world,Product.Owner{left,right},guard,handler,stateBindings},plan,bindings},rules,deferred}:restored_app(~S,Remainder{left,guard,handler,stateBindings,plan,bindings,rules,deferred},Life.restore(~S,~D.RightStore(~S),~D.RightResource(~S),~Unit,~D.RightOps(~S),~Body.RightLocal(),~String,~String,~D.right(~S),~Body.right(~S),~D.Store(~S),~D.Resources(~S),~Unit,Life.Detached{right},world))
+def fifth(~S:Data,trace:String,result:Application(~S) & DepApp.Report<String,String>) -> String:
   match result:
     case (app,status):observed(~S,trace ++ "|" ++ report(status),app)
-def second(~S:Data,native:Bool,trace:String,result:Application(~S) & DepApp.Report<String,String>) -> String:
+def reregistered(~S:Data,native:Bool,trace:String,result:Application(~S) & String) -> String:
   match result:
-    case (app,status):third(~S,trace ++ "|" ++ report(status),run_selected(~S,native,app))
+    case (app,status):fifth(~S,trace ++ "|" ++ status,run_selected(~S,native,app))
+def fourth(~S:Data,native:Bool,trace:String,result:Application(~S) & DepApp.Report<String,String>) -> String:
+  match result:
+    case (app,status):reregistered(~S,native,trace ++ "|" ++ report(status),restore(~S,app))
+def detached(~S:Data,+native:Bool,trace:String,result:Application(~S) & String) -> String:
+  match result:
+    case (app,status):fourth(~S,native,trace ++ "|" ++ status,run_selected(~S,native,app))
+def third(~S:Data,native:Bool,trace:String,result:Application(~S) & DepApp.Report<String,String>) -> String:
+  match result:
+    case (app,status):detached(~S,native,trace ++ "|" ++ report(status),detach(~S,app))
+def second(~S:Data,+native:Bool,trace:String,result:Application(~S) & DepApp.Report<String,String>) -> String:
+  match result:
+    case (app,status):third(~S,native,trace ++ "|" ++ report(status),run_selected(~S,native,app))
 def first(~S:Data,+native:Bool,result:Application(~S) & DepApp.Report<String,String>) -> String:
   match result:
     case (app,status):second(~S,native,report(status),run_selected(~S,native,app))
