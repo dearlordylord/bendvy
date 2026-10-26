@@ -60,3 +60,47 @@ checks the source closure at this branch's integration baseline plus the two own
 capture/lifecycle modules; it does not qualify later scheduler or composer changes.
 This directory does not yet add a runnable `main.bend` to normal CI while those
 ordinary-entry gates are unfinished.
+
+## Ordinary RootSchedule consumers
+
+`scheduled.bend` registers two left systems sharing the same Counter resource and
+one right system using an independent Score resource. Closed Builder declarations
+supply both grants and conflict metadata. The RootSchedule partitions the actual
+World. It serializes the two Counter writers and may execute the independent Score
+writer alongside a Counter writer. Both serial and native entries run three times
+under two nominal schemas. No custom World dispatcher is provided.
+
+Each left Local owns a mutable identity/count Array and a separate captured
+identity/count Array. The right Local owns its own mutable Array and a capture
+context containing separate identity and String Arrays. The closed body template
+invokes each actual capture owner and retains the returned owner. Local identities
+are 501, 601 and 801. Capture identities are 201, 202 and 203.
+
+The full expected observations were written before backend capture. For each of
+three runs, both Counter writers add ten and the Score writer adds three. Each
+left capture adds two, while each right capture appends `x` to `a`. Thus the final
+resources are 60 and 9, left captures are six, and the right capture is `axxx`.
+Both left bodies return an ordinary error on their second run after their writes
+and capture updates. The handler continues and records two errors. Admission order
+assigns final cursors 7, 8 and 9 to left, right and other. Three registrations leave
+`nextSystemId = 4`. There are no entity operations, events or deferred commands.
+The complete oracle includes allocator state, resource identities and canonical
+cached views, registrations, namespace, clock, cursors, Local and capture owners.
+
+`guarded.bend` uses the same systems with a captured condition bound to the right
+system. Dependency edges from both Counter writers to the right system ensure the
+condition observes values 20, 40 and 60. Its own Local Array identity is 901. Its
+capture owns counter Array identity 902 and a String Array retaining the observed
+value. Calls return false, an ordinary error, then true. Each call first advances
+both its Local and capture state. Consequently the Score writer runs once, its
+capture becomes `ax`, both left captures reach six, and the condition retains
+`901:3/902:3/seen=301:60`. The handler records three errors, including the two left
+body errors. Final cursors are left 7, other 8, guard 9 and right 10, with clock 10
+and `nextSystemId = 5`. These values define the full guarded oracle independently
+of the backend observations.
+
+Both complete four-line oracles pass on JavaScript using Node 24.20 and native
+execution with one and four configured workers. Native output contains calls to
+the ordinary `run_native` entry. Configured workers and matching output do not
+establish participation by multiple native workers. The source-current generic
+column observation helper is reused for complete administrative observations.
