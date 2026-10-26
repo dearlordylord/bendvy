@@ -2,6 +2,7 @@ import Base
 import ./payloads.bend as P
 import ../../src/ecs/chunk-column.bend as Col
 import ../../src/ecs/owner-product.bend as Product
+import ../../src/ecs/execution-projection.bend as Projection
 import ../../src/ecs/execution-access.bend as A
 import ../../src/ecs/execution-declaration.bend as D
 import ../../src/ecs/ordinary-declaration.bend as Identity
@@ -16,7 +17,7 @@ def positions(~S:Data) -> Product.Lens<Store(~S),Col.Column<S,P.Position>,Col.Co
 def counter() -> Product.Lens<Resources(),P.Counter,P.Secret>:
   Product.lens(~P.Counter,~P.Secret,~Product.Left{})
 def declaration(~S:Data) -> D.Declaration<S,Store(~S),Resources(),Ops(~S)>:
-  D.paired(~S,~Store(~S),~Resources(),~A.ComponentWrites(~S,~P.Position,~String),~A.ResourceWrites(~P.Counter,~String),A.component_write(~S,~Store(~S),~Resources(),~P.Position,~Col.Column<S,P.Label>,~String,~positions(~S),~P.position,Identity.component(~S,~P.Position,"position")),A.resource_write(~S,~Store(~S),~Resources(),~P.Counter,~P.Secret,~String,~counter(),~P.counter,Schema.resource(~S,~P.Counter,"counter")))
+  D.paired(~S,~Store(~S),~Resources(),~A.ComponentWrites(~S,~P.Position,~String),~A.ResourceWrites(~P.Counter,~String),A.component_write(~S,~Store(~S),~Resources(),~P.Position,~Col.Column<S,P.Label>,~String,~positions(~S),~P.position,Projection.trusted_affine(~P.Position,~String,~P.position),Identity.component(~S,~P.Position,"position")),A.resource_write(~S,~Store(~S),~Resources(),~P.Counter,~P.Secret,~String,~counter(),~P.counter,Projection.trusted_affine(~P.Counter,~String,~P.counter),Schema.resource(~S,~P.Counter,"counter")))
 def inserted(~S:Data,~T:Type,result:Col.SwapOutcome<S,T>) -> Col.Column<S,T>:
   match result:
     case Col.Accepted{column,_}:column
