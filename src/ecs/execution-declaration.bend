@@ -8,12 +8,16 @@ type Mode is Data:
 type Permission is Data:
   ReadOnly{}
   Writable{}
+type AccessKind is Data:
+  ComponentAccess{}
+  ResourceAccess{}
+  ServiceAccess{}
 type Access is Data:
-  Access{key:String,mode:Mode,permission:Permission}
+  Access{key:String,kind:AccessKind,mode:Mode,permission:Permission}
 def keys(accesses:List<&2,Access>) -> List<&2,String>:
   match accesses:
     case []:[]
-    case Access{key,_,_} <> rest:key <> keys(rest)
+    case Access{key,_,_,_} <> rest:key <> keys(rest)
 
 type Declaration<-S:Data,-C:Type,-R:Type,-Ops:Type -> Type> is Type:
   Declaration{caps:Ops(State.Scope<S,C,R>),access:List<&2,Access>}
@@ -32,3 +36,15 @@ def paired(~S:Data,~C:Type,~R:Type,~L:Type -> Type,~Right:Type -> Type,left:Decl
 def requirements(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,value:Declaration<S,C,R,Ops>) -> List<&2,Access>:
   match value:
     case Declaration{_,access}:access
+
+def requirement_key(kind:AccessKind,key:String) -> String:
+  match kind:
+    case ComponentAccess{}:"component/" ++ key
+    case ResourceAccess{}:"resource/" ++ key
+    case ServiceAccess{}:"service/" ++ key
+def qualified(accesses:List<&2,Access>) -> List<&2,String>:
+  match accesses:
+    case []:[]
+    case Access{key,kind,_,_} <> rest:requirement_key(kind,key) <> qualified(rest)
+def requirement_keys(~S:Data,~C:Type,~R:Type,~Ops:Type -> Type,value:Declaration<S,C,R,Ops>) -> List<&2,String>:
+  qualified(requirements(~S,~C,~R,~Ops,value))

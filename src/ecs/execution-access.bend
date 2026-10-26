@@ -48,9 +48,9 @@ def component_modify(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Pr
 def component_modify_once(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,transform:P -> P & V,scope:State.Scope<S,C,R>,handle:W.Handle<S>) -> State.Scope<S,C,R> & Maybe<&2,V>:
   component_modify(~S,~C,~R,~P,~Rest,~V,~lens,transform,scope,handle)
 def component_read(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Identity.Declaration<S,P>) -> D.Declaration<S,C,R,ComponentReads(~S,~V)>:
-  D.Declaration{ComponentRead{scope=>handle=>component_get(~S,~C,~R,~P,~Rest,~V,~lens,~project,scope,handle)},[D.Access{Identity.key(~S,~P,identity),D.Exclusive{},D.ReadOnly{}}]}
+  D.Declaration{ComponentRead{scope=>handle=>component_get(~S,~C,~R,~P,~Rest,~V,~lens,~project,scope,handle)},[D.Access{Identity.key(~S,~P,identity),D.ComponentAccess{},D.Exclusive{},D.ReadOnly{}}]}
 def component_write(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<C,Col.Column<S,P>,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Identity.Declaration<S,P>) -> D.Declaration<S,C,R,ComponentWrites(~S,~P,~V)>:
-  D.Declaration{ComponentWrite{scope=>handle=>component_get(~S,~C,~R,~P,~Rest,~V,~lens,~project,scope,handle),component_modify_once(~S,~C,~R,~P,~Rest,~V,~lens)},[D.Access{Identity.key(~S,~P,identity),D.Exclusive{},D.Writable{}}]}
+  D.Declaration{ComponentWrite{scope=>handle=>component_get(~S,~C,~R,~P,~Rest,~V,~lens,~project,scope,handle),component_modify_once(~S,~C,~R,~P,~Rest,~V,~lens)},[D.Access{Identity.key(~S,~P,identity),D.ComponentAccess{},D.Exclusive{},D.Writable{}}]}
 def resource_returned(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,store:C,handles:List<&2,W.Handle<S>>,tick:Tick.Tick,rest:Rest,result:P & V) -> State.Scope<S,C,R> & V:
   match result:
     case (payload,value):(State.Scope{store,Product.put_field(~R,~P,~Rest,lens)(rest,payload),handles,tick},value)
@@ -67,9 +67,9 @@ def resource_modify(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Pro
   match scope:
     case State.Scope{store,resource,handles,tick}:resource_transform_taken(~S,~C,~R,~P,~Rest,~V,~lens,transform,store,handles,tick,Product.get_field(~R,~P,~Rest,lens)(resource))
 def resource_read(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Schema.Resource<S,P>) -> D.Declaration<S,C,R,ResourceReads(~V)>:
-  D.Declaration{ResourceRead{resource_get(~S,~C,~R,~P,~Rest,~V,~lens,~project)},[D.Access{Schema.resource_key(~S,~P,identity),D.Exclusive{},D.ReadOnly{}}]}
+  D.Declaration{ResourceRead{resource_get(~S,~C,~R,~P,~Rest,~V,~lens,~project)},[D.Access{Schema.resource_key(~S,~P,identity),D.ResourceAccess{},D.Exclusive{},D.ReadOnly{}}]}
 def resource_write(~S:Data,~C:Type,~R:Type,~P:Type,~Rest:Type,~V:Data,~lens:Product.Lens<R,P,Rest>,~project:P -> P & V,projection:Projection.Affine<P,V,project>,identity:Schema.Resource<S,P>) -> D.Declaration<S,C,R,ResourceWrites(~P,~V)>:
-  D.Declaration{ResourceWrite{resource_get(~S,~C,~R,~P,~Rest,~V,~lens,~project),resource_modify(~S,~C,~R,~P,~Rest,~V,~lens)},[D.Access{Schema.resource_key(~S,~P,identity),D.Exclusive{},D.Writable{}}]}
+  D.Declaration{ResourceWrite{resource_get(~S,~C,~R,~P,~Rest,~V,~lens,~project),resource_modify(~S,~C,~R,~P,~Rest,~V,~lens)},[D.Access{Schema.resource_key(~S,~P,identity),D.ResourceAccess{},D.Exclusive{},D.Writable{}}]}
 def component_modify_field(~S:Data,~H:Type,~P:Type,~V:Data,cap:ComponentWrite<S,H,P,V>) -> (P -> P & V) -> H -> W.Handle<S> -> H & Maybe<&2,V>:
   match cap:
     case ComponentWrite{_,modify}:modify
