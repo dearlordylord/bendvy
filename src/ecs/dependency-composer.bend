@@ -48,4 +48,3 @@ def missing(~S:Data,nodes:List<&2,Plan.Node<String>>,+entries:List<&2,Fragment.E
     case []:None{}
     case Plan.Node{id,needs} <> rest:Plan.first_error(~String,missing_needs(~S,needs,entries,id),missing(~S,rest,entries))
 def available(key:String) -> Bool:True{}
-
