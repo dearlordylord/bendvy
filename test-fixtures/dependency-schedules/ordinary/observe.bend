@@ -13,6 +13,7 @@ import ../../../src/ecs/dependency-plan.bend as Plan
 import ../../../src/ecs/dependency-executor.bend as Exec
 import ../../../src/ecs/dependency-registration.bend as Reg
 import ../../../src/ecs/dependency-application.bend as App
+import ../../../src/ecs/execution-composer-layout.bend as Layout
 
 def strings(items:List<&2,String>) -> String:
   match items:
@@ -33,9 +34,9 @@ def sentinel(owner:Schema.Sentinel) -> String:
 def handler(owner:Schema.Handler) -> String:
   match owner:
     case Schema.Handler{token,errors}:token_value(Array.get(U32,token,0)) ++ ":" ++ strings(errors)
-def resources(value:Schema.Resources()) -> String:
+def resources(~S:Data,value:Schema.Resources(~S)) -> String:
   match value:
-    case Product.Owner{count,secret}:counter(count) ++ "/" ++ sentinel(secret)
+    case Product.Owner{Layout.ResourceSlot{count},Layout.ResourceSlot{secret}}:counter(count) ++ "/" ++ sentinel(secret)
 def ticks(values:List<&2,Tick.Tick>) -> String:
   match values:
     case []:""
@@ -66,7 +67,7 @@ def allocator(value:Alloc.Allocator) -> String:
     case Alloc.Allocator{next,high,slots,capacity,depth,free,order}:U32.show(next) ++ ":" ++ U32.show(high) ++ ":" ++ U32.show(capacity) ++ ":" ++ Nat.show(depth) ++ ":" ++ Nat.show(List.length(&2,U32,free)) ++ ":" ++ Nat.show(List.length(&2,Key.Key,order)) ++ ":" ++ slot(Array.get(Alloc.Slot,slots,0))
 def world(~S:Data,value:Schema.World(~S)) -> String:
   match value:
-    case W.World{namespace,entities,_,resource,events,pending,registered,nextSystemId,time}:"world=" ++ U32.show(namespace) ++ ":" ++ resources(resource) ++ ":events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ":pending=" ++ Nat.show(List.length(&1,Deferred.Command<Schema.World(~S)>,pending)) ++ ":registered=" ++ registrations(registered) ++ ":next=" ++ U32.show(nextSystemId) ++ ":clock=" ++ clock(time) ++ ":allocator=" ++ allocator(entities)
+    case W.World{namespace,entities,_,resource,events,pending,registered,nextSystemId,time}:"world=" ++ U32.show(namespace) ++ ":" ++ resources(~S,resource) ++ ":events=" ++ Nat.show(List.length(&2,Unit,events)) ++ ":pending=" ++ Nat.show(List.length(&1,Deferred.Command<Schema.World(~S)>,pending)) ++ ":registered=" ++ registrations(registered) ++ ":next=" ++ U32.show(nextSystemId) ++ ":clock=" ++ clock(time) ++ ":allocator=" ++ allocator(entities)
 def writer(~S:Data,owner:Setup.Writer(~S)) -> String:
   match owner:
     case Sys.Owner{namespace,id,name,access,last,owned}:U32.show(namespace) ++ ":" ++ U32.show(id) ++ ":" ++ name ++ ":" ++ local(owned) ++ ":access=" ++ strings(access) ++ ":cursor=" ++ cursor(last)

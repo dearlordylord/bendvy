@@ -17,33 +17,33 @@ def writable_returned(~H:Type,local:Schema.Local,result:H & U32) -> H & (Schema.
 def writable(~H:Type,~caps:Schema.Write()(H),scope:H,local:Schema.Local) -> H & (Schema.Local & Sys.Completion<String,Bool>):
   writable_returned(~H,local,Access.resource_modify_field(~H,~Schema.Counter,~U32,caps)(Schema.increment,scope))
 
-def Reader(~S:Data) -> Type:Sys.Owner<S,Unit,Schema.Resources(),Unit,Schema.Read(),Schema.Local,String,U32,Schema.read(~S),Body.reader>
+def Reader(~S:Data) -> Type:Sys.Owner<S,Unit,Schema.Resources(~S),Unit,Schema.Read(),Schema.Local,String,U32,Schema.read(~S),Body.reader>
 def ReaderDispatch(~S:Data) -> Reader(~S) -> Schema.World(~S) -> U32 -> Reader(~S) & (Schema.World(~S) & Exec.Invocation<String,U32>):
-  Reg.leaf_dispatch(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader)
+  Reg.leaf_dispatch(~S,~Unit,~Schema.Resources(~S),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader)
 
-def Guard(~S:Data) -> Type:Sys.Owner<S,Unit,Schema.Resources(),Unit,Schema.Write(),Schema.Local,String,Bool,Schema.write(~S),writable>
+def Guard(~S:Data) -> Type:Sys.Owner<S,Unit,Schema.Resources(~S),Unit,Schema.Write(),Schema.Local,String,Bool,Schema.write(~S),writable>
 def GuardDispatch(~S:Data) -> Guard(~S) -> Schema.World(~S) -> U32 -> Guard(~S) & (Schema.World(~S) & Exec.Invocation<String,Bool>):
-  Reg.leaf_dispatch(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Write(),~Schema.Local,~String,~Bool,~Schema.write(~S),~writable)
+  Reg.leaf_dispatch(~S,~Unit,~Schema.Resources(~S),~Unit,~Schema.Write(),~Schema.Local,~String,~Bool,~Schema.write(~S),~writable)
 def observed(~S:Data,result:Schedule.Application<Schema.World(~S),Reader(~S),Guard(~S),Schema.Handler,String,U32,ReaderDispatch(~S),GuardDispatch(~S),Body.handle> & Schedule.Report<String,U32>) -> String:
   match result:
     case (Schedule.Application{Schedule.State{world,Sys.Owner{_,_,_,_,readerCursor,reader},Sys.Owner{_,_,_,_,guardCursor,guard},handler,_},_,_},Schedule.Invalid{Plan.InvalidCondition{id}}):"invalid-condition/" ++ U32.show(id) ++ "|" ++ Observe.world(~S,world) ++ "|reader=" ++ Observe.local(reader) ++ ":cursor=" ++ Observe.cursor(readerCursor) ++ "|guard=" ++ Observe.local(guard) ++ ":cursor=" ++ Observe.cursor(guardCursor) ++ "|handler=" ++ Observe.handler(handler)
     case _ :"ERROR: writable condition was not refused"
 def built(~S:Data,world:Schema.World(~S),reader:Reader(~S),guard:Guard(~S)) -> String:
-  observed(~S,Schedule.run(~Schema.World(~S),~Reader(~S),~Guard(~S),~Schema.Handler,~String,~U32,~ReaderDispatch(~S),~GuardDispatch(~S),~Body.handle,Schedule.build(~Schema.World(~S),~Reader(~S),~Guard(~S),~Schema.Handler,~String,~U32,~ReaderDispatch(~S),~GuardDispatch(~S),~Cond.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader),~Cond.leaf(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Write(),~Schema.Local,~String,~Bool,~Schema.write(~S),~writable),~Body.handle,~Schema.available,world,reader,guard,Schema.Handler{ALeaf{701},[]},[],[Schedule.Binding{1,2}])))
+  observed(~S,Schedule.run(~Schema.World(~S),~Reader(~S),~Guard(~S),~Schema.Handler,~String,~U32,~ReaderDispatch(~S),~GuardDispatch(~S),~Body.handle,Schedule.build(~Schema.World(~S),~Reader(~S),~Guard(~S),~Schema.Handler,~String,~U32,~ReaderDispatch(~S),~GuardDispatch(~S),~Cond.leaf(~S,~Unit,~Schema.Resources(~S),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader),~Cond.leaf(~S,~Unit,~Schema.Resources(~S),~Unit,~Schema.Write(),~Schema.Local,~String,~Bool,~Schema.write(~S),~writable),~Body.handle,~Schema.available,world,reader,guard,Schema.Handler{ALeaf{701},[]},[],[Schedule.Binding{1,2}])))
 def registered_guard(~S:Data,reader:Reader(~S),result:Sys.Defined<Schema.World(~S),Guard(~S),Schema.Local>) -> String:
   match result:
     case Sys.Defined{world,guard}:built(~S,world,reader,guard)
     case _ :"ERROR: guard registration"
 def registered_reader(~S:Data,result:Sys.Defined<Schema.World(~S),Reader(~S),Schema.Local>) -> String:
   match result:
-    case Sys.Defined{world,reader}:registered_guard(~S,reader,Sys.define(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Write(),~Schema.Local,~String,~Bool,~Schema.write(~S),~writable,world,"writable-guard",Schema.Local{ALeaf{902},0}))
+    case Sys.Defined{world,reader}:registered_guard(~S,reader,Sys.define(~S,~Unit,~Schema.Resources(~S),~Unit,~Schema.Write(),~Schema.Local,~String,~Bool,~Schema.write(~S),~writable,world,"writable-guard",Schema.Local{ALeaf{902},0}))
     case _ :"ERROR: reader registration"
-def created(~S:Data,result:W.Creation<S,Unit,Schema.Resources(),Unit>) -> String:
+def created(~S:Data,result:W.Creation<S,Unit,Schema.Resources(~S),Unit>) -> String:
   match result:
-    case W.Created{_,world}:registered_reader(~S,Sys.define(~S,~Unit,~Schema.Resources(),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader,world,"reader",Schema.Local{ALeaf{901},0}))
+    case W.Created{_,world}:registered_reader(~S,Sys.define(~S,~Unit,~Schema.Resources(~S),~Unit,~Schema.Read(),~Schema.Local,~String,~U32,~Schema.read(~S),~Body.reader,world,"reader",Schema.Local{ALeaf{901},0}))
     case _ :"ERROR: creation"
 def scenario(~S:Data) -> String:
-  created(~S,W.create(~S,~Unit,~Schema.Resources(),~Unit,~Schema.empty,W.factory(),Schema.resources()))
+  created(~S,W.create(~S,~Unit,~Schema.Resources(~S),~Unit,~Schema.empty,W.factory(),Schema.resources(~S)))
 def main() -> IO(Unit):
   do IO<Unit>:
     IO.print("alpha=" ++ scenario(~Schema.Alpha))
