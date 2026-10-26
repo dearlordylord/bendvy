@@ -10,7 +10,7 @@ type Raw is Data:
   SignedInteger{negative:Bool,magnitude:Nat}
   Float{value:F32}
   Binary64{high:U32,low:U32}
-  Text{value:String}
+  BendvyText{value:String}
   Utf16Text{units:List<&2,U32>}
   Boolean{value:Bool}
   Handle{namespace:U32,key:Key.Key}
@@ -109,10 +109,10 @@ def same_numeric(a:Numeric,b:Numeric) -> Bool:
 def equal(+a:Raw,+b:Raw) -> Bool:
   match a b:
     case Null{} Null{}: True{}
-    case Text{a} Text{b}: String.eq(a,b)
+    case BendvyText{a} BendvyText{b}: String.eq(a,b)
     case Utf16Text{a} Utf16Text{b}: Utf16.checked(a,b)
-    case Utf16Text{a} Text{b}: Utf16.checked(a,Utf16.text(b))
-    case Text{a} Utf16Text{b}: Utf16.checked(Utf16.text(a),b)
+    case Utf16Text{a} BendvyText{b}: Utf16.checked(a,Utf16.text(b))
+    case BendvyText{a} Utf16Text{b}: Utf16.checked(Utf16.text(a),b)
     case Boolean{a} Boolean{b}: same_bool(a,b)
     case _ _: same_numeric(numeric(a),numeric(b))
 def alternatives(values:List<&2,Raw>,+raw:Raw) -> Bool:
@@ -151,7 +151,7 @@ def expand(codec:Codec,+raw:Raw,+path:String,rest:List<&2,Work>) -> Step:
     case FiniteNumber{} SignedInteger{_,_}: Continue{rest}
     case FiniteNumber{} Float{value}: choose_checked(F32.is_le(F32.abs(value),3.4028234e38),path,"finite number",raw,rest)
     case FiniteNumber{} Binary64{high,_}: choose_checked(U32.is_lt(binary64_exponent(high),2047),path,"finite number",raw,rest)
-    case StringValue{} Text{_}: Continue{rest}
+    case StringValue{} BendvyText{_}: Continue{rest}
     case StringValue{} Utf16Text{units}: choose_checked(Utf16.valid(units),path,"string",raw,rest)
     case BoolValue{} Boolean{_}: Continue{rest}
     case Literal{value} _: choose_checked(equal(value,raw),path,"literal",raw,rest)

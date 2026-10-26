@@ -78,12 +78,25 @@ def get_allowed(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V:
     case (world,True{}) W.Handle{_,K.EntityKey{+id,_}}:
       get_world(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,world)
 
+def get_checked_fields(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,checked: A.Allocator & Bool,key: K.Key,namespace: U32,store: Store,resource: R,events: List<&2,E>,pending: List<Deferred.Command<W.World<S,Store,R,E>>>,registrations: List<&2,W.RegistrationMeta>,nextSystemId: U32,clock: Clock.State) -> W.World<S,Store,R,E> & Access<V>:
+  match checked key:
+    case (allocator,False{}) _: (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},MissingEntity{})
+    case (allocator,True{}) K.EntityKey{+id,_}:
+      W.with_store_finish(~S,~Store,~R,~E,~Access<V>,get_store(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,id,take(store)),namespace,allocator,resource,events,pending,registrations,nextSystemId,clock)
+
+def get_namespace_fields(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,allowed: Bool,+key: K.Key,allocator: A.Allocator,namespace: U32,store: Store,resource: R,events: List<&2,E>,pending: List<Deferred.Command<W.World<S,Store,R,E>>>,registrations: List<&2,W.RegistrationMeta>,nextSystemId: U32,clock: Clock.State) -> W.World<S,Store,R,E> & Access<V>:
+  match allowed:
+    case False{}: (W.World{namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock},MissingEntity{})
+    case True{}: get_checked_fields(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,A.checked(allocator,key,1),key,namespace,store,resource,events,pending,registrations,nextSystemId,clock)
+
 # Read a detached view while returning World and the actual projected payload to
 # its column. Validate namespace, generation and live state before column access;
 # invalid/stale/foreign handles yield MissingEntity, not ComponentAbsent.
 # See examples/health-decay/schema.bend for family provisioning.
 def get(~S: Data,~Store: Type,~R: Type,~E: Data,~Rest: Type,~C: Type,~V: Data,~Token: Data,~take: Store -> Rest & Col.Column<S,C>,~put: Rest -> Col.Column<S,C> -> Store,~project: C -> C & V,family: Family<S,Store,Rest,C,V,Token,take,put,project>,world: W.World<S,Store,R,E>,+handle: W.Handle<S>) -> W.World<S,Store,R,E> & Access<V>:
-  get_allowed(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,W.valid(~S,~Store,~R,~E,world,handle),handle)
+  match world handle:
+    case W.World{+namespace,allocator,store,resource,events,pending,registrations,nextSystemId,clock} W.Handle{ns,key}:
+      get_namespace_fields(~S,~Store,~R,~E,~Rest,~C,~V,~Token,~take,~put,~project,U32.is_eq(namespace,ns),key,allocator,namespace,store,resource,events,pending,registrations,nextSystemId,clock)
 
 def has_access(~V: Data,value: Access<V>) -> Access<Bool>:
   match value:
