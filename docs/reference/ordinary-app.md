@@ -58,11 +58,19 @@ payload and refreshes the view in that same operation. `ResourceWrite.own` also
 returns an independent affine result; read-only capabilities have no such method.
 
 Composition validates namespace-local schema collisions, declared needs and local
-nested endpoints before affected invocation. A required host service uses the same
-closed resource route for invocation and its guard. Missing service is an explicit
-condition error, not a disabled-condition skip. The selected handler may continue
-unrelated work; the affected body and host call remain suppressed. Closed-route
-service provisioning returns the actual incoming owner on refusal.
+nested endpoints before affected invocation. The selected application explicitly
+wires the same closed resource route for host invocation and its required-service
+guard. ResourceWrite alone does not intrinsically enforce service presence or
+install this binding. Missing service under that selected policy is an explicit
+condition error, not a disabled skip. The handler may continue unrelated work;
+the affected body and host call remain suppressed. Closed-route provisioning
+returns the actual incoming owner on refusal.
+
+Raw Composed, dependency Application and World constructors remain trusted
+administrative boundaries. Ordinary build checks its inputs; run expects the
+retained carrier. Manually reconstructing validation flags, plans or bindings
+bypasses that checked construction. No constructor secrecy or hostile raw-carrier
+integrity is promised; gameplay capabilities still come from closed declarations.
 
 Run returns the composed application and report, including every actual system,
 guard, handler, resource and provision owner. Reuse that owner for repeated work.

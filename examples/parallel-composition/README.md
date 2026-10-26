@@ -27,6 +27,19 @@ index the selection tree, independently of resource layout routes. Local edges
 are validated before flattening: scope[0] cannot depend on the other feature's
 system even when that system exists in the final application.
 
+The application explicitly wires required-service guards and bindings. A
+`ResourceWrite` grant permits ownership operations on its slot; it does not
+intrinsically require presence or install a guard. Calling the service slot while
+Missing returns Unavailable. The selected guard policy supplies the explicit
+missing-service diagnostic before either affected labels body runs.
+
+Composed, dependency Application and World record constructors are trusted
+administrative boundaries. Ordinary build derives and checks its inputs; run
+expects the retained carrier from that construction. Deliberately reconstructing
+a carrier, clearing its validation result, or replacing its plan/bindings bypasses
+that construction contract. These records have no hostile-constructor secrecy or
+integrity guarantee. Gameplay scope/grant authority remains declaration-bound.
+
 `run` returns the same composed owner with a report. `CompositionRejected`
 retains the application and provisions before invocation. Otherwise the report
 uses the ordinary dependency executor's success/error/refusal observations.
