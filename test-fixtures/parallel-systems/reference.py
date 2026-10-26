@@ -13,6 +13,21 @@ def column(values, changed):
     return 'capacity=32[' + ''.join(items) + ']'
 
 
+def array_text(values):
+    return '[' + ', '.join(values) + ']'
+
+
+def allocator(live):
+    capacity = 1 << live.bit_length()
+    phases = ['0:live' if 1 <= index <= live else '0:consumed'
+              for index in range(capacity)]
+    return (
+        f'next={live + 1},high={live},capacity={capacity},depth={capacity.bit_length() - 1}'
+        + ',slots=' + array_text(phases)
+        + ',free=[],order=' + array_text([f'{index}:0' for index in range(1, live + 1)])
+    )
+
+
 def observation():
     position, health, counter, score = 10, 10, 0, 0
     statuses = []
@@ -26,14 +41,18 @@ def observation():
     world = (
         column({1: (101, position), 17: (118, 70)}, {1: 5})
         + ';' + column({1: (201, health), 9: (210, 80)}, {1: 6})
-        + f';301:{counter};401:{score};live=17;systems=2;tick=0:6'
-        + ';scopes=0;namespace=1;next-system=3;events=0;pending=0'
+        + f';301:{counter};401:{score};live='
+        + array_text([f'1:{index}:0' for index in range(1, 18)])
+        + ';systems=[2:right:[health, score], 1:left:[position, counter]];tick=0:6:[]'
+        + ';allocator=' + allocator(17)
+        + ';namespace=1;next-system=3;events=0;pending=0'
     )
     foreign = (
         column({1: (101, 10), 17: (118, 70)}, {})
         + ';' + column({1: (201, 10), 9: (210, 80)}, {})
-        + ';301:0;401:0;live=0;systems=0;tick=0:0'
-        + ';scopes=0;namespace=2;next-system=1;events=0;pending=0'
+        + ';301:0;401:0;live=[];systems=[];tick=0:0:[]'
+        + ';allocator=' + allocator(0)
+        + ';namespace=2;next-system=1;events=0;pending=0'
     )
     return (
         '|'.join(statuses)
